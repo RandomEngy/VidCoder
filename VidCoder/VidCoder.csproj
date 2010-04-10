@@ -320,9 +320,6 @@
     <Resource Include="Icons\folder.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="handbrakepineapple.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icons\warning.png" />
   </ItemGroup>
   <ItemGroup>
