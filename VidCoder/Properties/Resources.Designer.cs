@@ -72,5 +72,77 @@ namespace VidCoder.Properties {
                 return ResourceManager.GetString("AboutLicense", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Burn the subtitles onto the picture. With burned subtitles, you cannot disable them during playback..
+        /// </summary>
+        public static string BurnedSubtitleToolTip {
+            get {
+                return ResourceManager.GetString("BurnedSubtitleToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark this subtitle track as the default. This will show up during playback until another track is picked..
+        /// </summary>
+        public static string DefaultSubtitleToolTip {
+            get {
+                return ResourceManager.GetString("DefaultSubtitleToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only display forced subtitles from the given track. Usually this means small bits of foreign dialogue..
+        /// </summary>
+        public static string ForcedSubtitleToolTip {
+            get {
+                return ResourceManager.GetString("ForcedSubtitleToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include chapter markers from the input video in the encoded video..
+        /// </summary>
+        public static string IncludeChapterMarkersToolTip {
+            get {
+                return ResourceManager.GetString("IncludeChapterMarkersToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applies a marker to the file that older iPods require before they&apos;ll allow H.264 video to sync..
+        /// </summary>
+        public static string IPod5GSupportToolTip {
+            get {
+                return ResourceManager.GetString("IPod5GSupportToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allows files over 4GB. When enabled, uses 64-bit numbers in encoding. Some devices such as the iPod and PS3 are incompatible with this option..
+        /// </summary>
+        public static string LargeFileSizeToolTip {
+            get {
+                return ResourceManager.GetString("LargeFileSizeToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The amount of time to push forward or delay the appearance of the given subtitles..
+        /// </summary>
+        public static string OffsetSubtitleToolTip {
+            get {
+                return ResourceManager.GetString("OffsetSubtitleToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arrange file to play better as a progressive download..
+        /// </summary>
+        public static string WebOptimizedToolTip {
+            get {
+                return ResourceManager.GetString("WebOptimizedToolTip", resourceCulture);
+            }
+        }
     }
 }

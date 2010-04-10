@@ -5,6 +5,7 @@
     xmlns:HandBrakeControls="clr-namespace:VidCoder.Controls"
     xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
     xmlns:converters="clr-namespace:VidCoder.Converters"
+    xmlns:resx="clr-namespace:VidCoder.Properties"
     Title="{Binding WindowTitle}" Width="671" Height="467" MinWidth="588" MinHeight="467"
     Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner"
     Closing="Window_Closing"
@@ -173,18 +174,26 @@
         <RadioButton Height="16" Margin="221.422,56,0,0" Name="radioButton4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
             IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=M4v}"
             Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">.m4v</RadioButton>
-        <CheckBox Margin="277.093,41,0,0" Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
-            IsChecked="{Binding LargeFile}" HorizontalAlignment="Left" Width="98.907" Height="16" VerticalAlignment="Top">Large file size</CheckBox>
-        <CheckBox Height="16" Margin="277,59,0,0" VerticalAlignment="Top" Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
-            IsChecked="{Binding Optimize}" HorizontalAlignment="Left" Width="111">Web optimized</CheckBox>
+        <CheckBox
+            Content="Large file size" ToolTip="{x:Static resx:Resources.LargeFileSizeToolTip}"
+            Margin="277.093,41,0,0" HorizontalAlignment="Left" Width="98.907" Height="16" VerticalAlignment="Top"
+            Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
+            IsChecked="{Binding LargeFile}" />
+        <CheckBox
+            Content="Web optimized" ToolTip="{x:Static resx:Resources.WebOptimizedToolTip}"
+            Height="16" Margin="277,59,0,0" VerticalAlignment="Top" Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
+            IsChecked="{Binding Optimize}" HorizontalAlignment="Left" Width="111" />
         <Grid Height="35" HorizontalAlignment="Left" Margin="385.995,41,0,0" VerticalAlignment="Top" Width="150">
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                <CheckBox Height="18" VerticalAlignment="Center"
-                    Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
-                    IsChecked="{Binding IPod5GSupport}">iPod 5G support</CheckBox>
                 <CheckBox
+                    Content="iPod 5G support" ToolTip="{x:Static resx:Resources.IPod5GSupportToolTip}"
+                    Height="18" VerticalAlignment="Center"
+                    Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
+                    IsChecked="{Binding IPod5GSupport}" />
+                <CheckBox
+                    Content="Include chapter markers" ToolTip="{x:Static resx:Resources.IncludeChapterMarkersToolTip}"
                     VerticalAlignment="Center"
-                    IsChecked="{Binding IncludeChapterMarkers}">Include chapter markers</CheckBox>
+                    IsChecked="{Binding IncludeChapterMarkers}" />
             </StackPanel>
         </Grid>
 
@@ -473,8 +482,6 @@
                         Text="{Binding QualitySliderLeftText}"/>
                     <TextBlock Height="21" HorizontalAlignment="Right" Margin="0,149,6,0" VerticalAlignment="Top" Width="93" TextAlignment="Right"
                         Text="{Binding QualitySliderRightText}"/>
-                    <!--<Label Margin="280.2,149,0,0" Name="label14" Height="28.04" VerticalAlignment="Top" HorizontalAlignment="Left" Width="89">High Quality</Label>
-                    <Label HorizontalAlignment="Right" Margin="0,149,6,0" Name="label15" Width="90" Height="28.04" VerticalAlignment="Top" HorizontalContentAlignment="Right">Low Quality</Label>-->
                 </Grid>
             </TabItem>
             <TabItem Header="Audio">

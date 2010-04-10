@@ -76,7 +76,6 @@ namespace VidCoder.ViewModel
         private ICommand addTrackCommand;
         private ICommand openEncodingWindowCommand;
         private ICommand openPreviewWindowCommand;
-        private ICommand deletePresetCommand;
         private ICommand pickOutputFolderCommand;
         private ICommand pickOutputPathCommand;
         private ICommand encodeCommand;

@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:HandBrakeControls="clr-namespace:VidCoder.Controls"
     xmlns:HandBrakeDragDrop="clr-namespace:VidCoder.DragDropUtils"
+    xmlns:resx="clr-namespace:VidCoder.Properties"
     Title="Subtitles" Height="352" Width="572" MinWidth="430" MinHeight="250"
     Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner"
     DataContextChanged="OnDataContextChanged"
@@ -35,12 +36,14 @@
                 SelectedIndex="{Binding TrackNumber}" />
         </DataTemplate>
         <DataTemplate x:Key="ForcedTemplate">
-            <CheckBox IsChecked="{Binding Forced}" />
+            <CheckBox IsChecked="{Binding Forced}" ToolTip="{x:Static resx:Resources.ForcedSubtitleToolTip}" />
         </DataTemplate>
         <DataTemplate x:Key="BurnedInTemplate">
             <CheckBox
                 IsChecked="{Binding BurnedIn}"
-                IsEnabled="{Binding BurnedInEnabled}"/>
+                IsEnabled="{Binding BurnedInEnabled}"
+                ToolTip="{x:Static resx:Resources.BurnedSubtitleToolTip}"
+                ToolTipService.ShowOnDisabled="True"/>
         </DataTemplate>
         <DataTemplate x:Key="SrtDragTemplate">
             <TextBox Text="{Binding FileName, Mode=OneWay}" />
@@ -51,7 +54,9 @@
         <DataTemplate x:Key="DefaultTemplate">
             <CheckBox
                 IsChecked="{Binding Default}"
-                IsEnabled="{Binding SubtitleDialogViewModel.DefaultsEnabled}"/>
+                IsEnabled="{Binding SubtitleDialogViewModel.DefaultsEnabled}"
+                ToolTip="{x:Static resx:Resources.DefaultSubtitleToolTip}"
+                ToolTipService.ShowOnDisabled="True"/>
         </DataTemplate>
         <DataTemplate x:Key="LanguageTemplate">
             <ComboBox
@@ -65,8 +70,10 @@
                 Style="{StaticResource SubtitleControl}" />
         </DataTemplate>
         <DataTemplate x:Key="OffsetTemplate">
-            <HandBrakeControls:NumberBox Width="40" Height="22"
-                Number="{Binding Offset, Mode=TwoWay}" AllowNegative="True" AllowEmpty="False" />
+            <HandBrakeControls:NumberBox
+                Width="40" Height="22"
+                Number="{Binding Offset, Mode=TwoWay}" AllowNegative="True" AllowEmpty="False"
+                ToolTip="{x:Static resx:Resources.OffsetSubtitleToolTip}"/>
         </DataTemplate>
         <DataTemplate x:Key="RemoveTemplate">
             <Button Command="{Binding RemoveSubtitle}" VerticalAlignment="Center" Style="{StaticResource RemoveButtonStyle}">Remove subtitle track</Button>
@@ -94,7 +101,7 @@
                                 <GridView.Columns>
                                     <GridViewColumn Header="Track" CellTemplate="{StaticResource TrackTemplate}" x:Name="sourceTrackColumn" />
                                     <GridViewColumn Header="Default" CellTemplate="{StaticResource DefaultTemplate}" />
-                                    <GridViewColumn Header="Forced" CellTemplate="{StaticResource ForcedTemplate}" />
+                                    <GridViewColumn Header="Forced Only" CellTemplate="{StaticResource ForcedTemplate}" />
                                     <GridViewColumn Header="Burned In" CellTemplate="{StaticResource BurnedInTemplate}" />
                                     <GridViewColumn CellTemplate="{StaticResource RemoveTemplate}" />
                                 </GridView.Columns>

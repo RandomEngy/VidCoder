@@ -124,4 +124,28 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 A full copy of the GNU General Public License has been included along with this program.</value>
   </data>
+  <data name="BurnedSubtitleToolTip" xml:space="preserve">
+    <value>Burn the subtitles onto the picture. With burned subtitles, you cannot disable them during playback.</value>
+  </data>
+  <data name="DefaultSubtitleToolTip" xml:space="preserve">
+    <value>Mark this subtitle track as the default. This will show up during playback until another track is picked.</value>
+  </data>
+  <data name="ForcedSubtitleToolTip" xml:space="preserve">
+    <value>Only display forced subtitles from the given track. Usually this means small bits of foreign dialogue.</value>
+  </data>
+  <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
+    <value>Include chapter markers from the input video in the encoded video.</value>
+  </data>
+  <data name="IPod5GSupportToolTip" xml:space="preserve">
+    <value>Applies a marker to the file that older iPods require before they'll allow H.264 video to sync.</value>
+  </data>
+  <data name="LargeFileSizeToolTip" xml:space="preserve">
+    <value>Allows files over 4GB. When enabled, uses 64-bit numbers in encoding. Some devices such as the iPod and PS3 are incompatible with this option.</value>
+  </data>
+  <data name="OffsetSubtitleToolTip" xml:space="preserve">
+    <value>The amount of time to push forward or delay the appearance of the given subtitles.</value>
+  </data>
+  <data name="WebOptimizedToolTip" xml:space="preserve">
+    <value>Arrange file to play better as a progressive download.</value>
+  </data>
 </root>
