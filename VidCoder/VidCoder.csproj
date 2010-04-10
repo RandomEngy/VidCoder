@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F912FA33-DC57-4272-915A-EEDB212BB860}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VidCoder</RootNamespace>
+    <AssemblyName>VidCoder</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <ApplicationIcon>VidCoder_icon.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HandBrakeInterop, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\HandBrakeInterop.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Controls\DoubleNumberBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\InlineWarning.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\NumberBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ApplyUpdateConfirmation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ChapterMarkersDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ChoosePresetName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\EncodingWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ExceptionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\OptionsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\PreviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\SubtitleDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\Logger.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="ViewModel\AboutDialogViewModel.cs" />
+    <Compile Include="View\AboutDialog.xaml.cs">
+      <DependentUpon>AboutDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WpfSystemIcons.cs" />
+    <Compile Include="View\ExceptionDialog.xaml.cs">
+      <DependentUpon>ExceptionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="View\AboutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Controls\DoubleNumberBox.xaml.cs">
+      <DependentUpon>DoubleNumberBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\InlineWarning.xaml.cs">
+      <DependentUpon>InlineWarning.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NumberBox.xaml.cs">
+      <DependentUpon>NumberBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\EnumBoolConverter.cs" />
+    <Compile Include="Converters\EnumBoolInverseConverter.cs" />
+    <Compile Include="Converters\FramerateDisplayConverter.cs" />
+    <Compile Include="Converters\InverseBoolConverter.cs" />
+    <Compile Include="Converters\VisibilityConverter.cs" />
+    <Compile Include="DisplayConversions.cs" />
+    <Compile Include="DragDrop\DragDropHelper.cs" />
+    <Compile Include="DragDrop\DraggedAdorner.cs" />
+    <Compile Include="DragDrop\IDragItem.cs" />
+    <Compile Include="DragDrop\InsertionAdorner.cs" />
+    <Compile Include="DragDrop\Utilities.cs" />
+    <Compile Include="EnumDisplayer.cs" />
+    <Compile Include="EventArgs.cs" />
+    <Compile Include="Model\DriveInformation.cs" />
+    <Compile Include="Model\EncodeJobs.cs" />
+    <Compile Include="Model\Preset.cs" />
+    <Compile Include="Model\Presets.cs" />
+    <Compile Include="Services\DispatchService.cs" />
+    <Compile Include="Services\DriveService.cs" />
+    <Compile Include="Services\Interfaces\IMessageBoxService.cs" />
+    <Compile Include="Services\Interfaces\IUpdateService.cs" />
+    <Compile Include="Services\Interfaces\IWindowLauncher.cs" />
+    <Compile Include="Services\MessageBoxService.cs" />
+    <Compile Include="Services\ServiceFactory.cs" />
+    <Compile Include="Services\Interfaces\IDriveService.cs" />
+    <Compile Include="Services\Interfaces\IFileService.cs" />
+    <Compile Include="Services\FileService.cs" />
+    <Compile Include="Services\UpdateService.cs" />
+    <Compile Include="Services\WindowLauncher.cs" />
+    <Compile Include="Services\WindowManager.cs" />
+    <Compile Include="Utilities.cs" />
+    <Compile Include="ViewModel\ChapterMarkersDialogViewModel.cs" />
+    <Compile Include="ViewModel\CharCode.cs" />
+    <Compile Include="ViewModel\ChoosePresetNameViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\AudioEncoderViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\AudioEncodingViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\AudioOutputPreview.cs" />
+    <Compile Include="ViewModel\DataModels\ChapterNameViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\EncodeJobViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\MixdownViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\PresetViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\TargetStreamViewModel.cs" />
+    <Compile Include="ViewModel\EncodingViewModel.cs" />
+    <Compile Include="ViewModel\Language.cs" />
+    <Compile Include="Model\SourceOption.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Model\VideoSource.cs" />
+    <Compile Include="IDialog.cs" />
+    <Compile Include="ViewModel\DataModels\AudioChoiceViewModel.cs" />
+    <Compile Include="ViewModel\IDialogViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\OkCancelDialogViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\SourceOptionViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\SourceSubtitleViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\SrtSubtitleViewModel.cs" />
+    <Compile Include="ViewModel\OptionsDialogViewModel.cs" />
+    <Compile Include="ViewModel\PreviewViewModel.cs" />
+    <Compile Include="ViewModel\SubtitleDialogViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="View\ApplyUpdateConfirmation.xaml.cs">
+      <DependentUpon>ApplyUpdateConfirmation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ChapterMarkersDialog.xaml.cs">
+      <DependentUpon>ChapterMarkersDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ChoosePresetName.xaml.cs">
+      <DependentUpon>ChoosePresetName.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EncodingWindow.xaml.cs">
+      <DependentUpon>EncodingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\OptionsDialog.xaml.cs">
+      <DependentUpon>OptionsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PreviewWindow.xaml.cs">
+      <DependentUpon>PreviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SubtitleDialog.xaml.cs">
+      <DependentUpon>SubtitleDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowPlacement.cs" />
+    <Compile Include="WindowPlacementWpf.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\avi.png" />
+    <Resource Include="Icons\disc.png" />
+    <Resource Include="Icons\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="handbrakepineapple.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\tools.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\play_60.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\downarrow_shadow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\pause2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\stop_shadow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Lib\HandBrakeInterop.pdb">
+      <Link>HandBrakeInterop.pdb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Lib\hb.dll">
+      <Link>hb.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Lib\libgcc_s_sjlj-1.dll">
+      <Link>libgcc_s_sjlj-1.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BuiltInPresets.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Icons\VidCoder.png" />
+    <Resource Include="Icons\error.png" />
+    <Resource Include="Icons\copy.png" />
+    <Resource Include="Icons\save.png" />
+    <Resource Include="VidCoder_icon.ico" />
+    <Resource Include="Icons\win7foldericon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SourceData\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

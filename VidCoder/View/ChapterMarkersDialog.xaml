@@ -1,0 +1,46 @@
+﻿<Window x:Class="VidCoder.View.ChapterMarkersDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Chapter Markers" Height="326" Width="444" WindowStartupLocation="CenterOwner" Closing="Window_Closing"
+        Style="{StaticResource NormalWindow}">
+    <Window.Resources>
+        <DataTemplate x:Key="NumberTemplate">
+            <TextBlock Text="{Binding Number}" />
+        </DataTemplate>
+        <DataTemplate x:Key="TitleTemplate">
+            <TextBox Width="200" Text="{Binding Title}" />
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <RadioButton
+            Height="16" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top" Width="172"
+            GroupName="UseDefault"
+            IsChecked="{Binding UseDefaultNames}">Use default chapter names</RadioButton>
+        <RadioButton
+            Height="16" HorizontalAlignment="Left" Margin="12,34,0,0" VerticalAlignment="Top" Width="172"
+            GroupName="UseDefault"
+            IsChecked="{Binding UseDefaultNames, Converter={StaticResource InverseBoolConverter}}">Use custom chapter names:</RadioButton>
+        <Button
+            Height="23" HorizontalAlignment="Right" Margin="0,27,12,0" VerticalAlignment="Top" Width="108"
+            Command="{Binding ImportCsvFileCommand}">Import from .csv...</Button>
+        <ListView
+            Margin="12,56,12,35"
+            IsEnabled="{Binding UseDefaultNames, Converter={StaticResource InverseBoolConverter}}"
+            ItemsSource="{Binding ChapterNames}">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="Number" Width="54" CellTemplate="{StaticResource NumberTemplate}" />
+                        <GridViewColumn Header="Title" CellTemplate="{StaticResource TitleTemplate}" />
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button
+            Height="23" HorizontalAlignment="Right" Margin="0,0,91,6" VerticalAlignment="Bottom" Width="75"
+            Command="{Binding AcceptCommand}">OK</Button>
+        <Button
+            Height="23" HorizontalAlignment="Right" Margin="0,0,10,6" VerticalAlignment="Bottom" Width="75"
+            Command="{Binding CancelCommand}">Cancel</Button>
+    </Grid>
+</Window>

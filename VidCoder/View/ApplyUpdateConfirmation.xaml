@@ -1,0 +1,15 @@
+﻿<Window x:Class="VidCoder.ApplyUpdateConfirmation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Style="{StaticResource NormalWindow}"
+    Title="Apply Update?" Height="165" Width="335" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <Grid>
+        <TextBlock Margin="12,12,12,0" Name="textBlock1" FontSize="14" Text="An update has been downloaded. Do you want to apply it now?" TextWrapping="Wrap" Height="50" VerticalAlignment="Top" />
+        <TextBlock Margin="12,57,20,49" Name="textBlock2" HorizontalAlignment="Center">
+            <Hyperlink Name="changelogLink" Click="changelogLink_Click">View full Changelog</Hyperlink>
+        </TextBlock>
+        <Button Margin="0,0,206,12" Name="yesButton" HorizontalAlignment="Right" Width="76" Height="23" VerticalAlignment="Bottom" IsDefault="True" Click="yesButton_Click">Yes</Button>
+        <Button Margin="0,0,125,12" Name="noButton" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" IsCancel="True">No</Button>
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="disableUpdatesButton" VerticalAlignment="Bottom" Width="93" Click="disableUpdatesButton_Click">Disable Updates</Button>
+    </Grid>
+</Window>

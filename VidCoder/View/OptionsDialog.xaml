@@ -1,0 +1,94 @@
+﻿<Window x:Class="VidCoder.View.OptionsDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Options" Height="415" Width="571"
+    Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Closing="Window_Closing">
+    <Window.Resources>
+        <Style x:Key="EmphasizedTitle" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="4,2,4,2" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <TabControl Margin="12,12,12,41" Name="tabControl">
+            <TabItem Header="General">
+                <Grid>
+                    <TextBlock
+                        Height="21" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Width="82"
+                        Text="Output Files:"
+                        Style="{StaticResource EmphasizedTitle}"/>
+                    <CheckBox
+                        Height="16" Margin="94,11,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="296"
+                        IsChecked="{Binding AutoNameOutputFiles}">Automatically name output files</CheckBox>
+                    <Label Height="26.8" HorizontalAlignment="Left" Margin="90,29.2,0,0" Name="label1" VerticalAlignment="Top" Width="89">Default folder:</Label>
+                    <TextBox
+                        Height="23" Margin="179.154,33,92,0" VerticalAlignment="Top"
+                        Text="{Binding DefaultPath}"
+                        IsEnabled="{Binding AutoNameOutputFiles}"/>
+                    <Button
+                        Height="23" HorizontalAlignment="Right" Margin="0,32.48,11,0" VerticalAlignment="Top" Width="75"
+                        Command="{Binding BrowsePathCommand}"
+                        IsEnabled="{Binding AutoNameOutputFiles}">Browse...</Button>
+                    <Label Height="28" HorizontalAlignment="Left" Margin="90,56.943,0,0" VerticalAlignment="Top" Width="76.8">File format:</Label>
+                    <RadioButton
+                        Height="16" Margin="179.154,66.267,179.82,0" VerticalAlignment="Top" GroupName="format"
+                        IsChecked="{Binding CustomFormat, Converter={StaticResource InverseBoolConverter}}"
+                        IsEnabled="{Binding AutoNameOutputFiles}">Default format</RadioButton>
+                    <RadioButton
+                        Height="16" Margin="179.154,88.245,180.153,0" VerticalAlignment="Top" GroupName="format"
+                        IsChecked="{Binding CustomFormat}"
+                        IsEnabled="{Binding AutoNameOutputFiles}">Custom format:</RadioButton>
+                    <TextBox
+                        Margin="195.236,110.223,11,0" Height="22.959" VerticalAlignment="Top"
+                        Text="{Binding CustomFormatString}"
+                        IsEnabled="{Binding CustomFormatStringEnabled}"/>
+                    <Label Margin="195.236,133.866,0.246,130.203" Name="label3">Available options: {source} {title} {chapters}</Label>
+                    <TextBlock
+                        Height="21" HorizontalAlignment="Left" Margin="6,168.04,0,0" VerticalAlignment="Top" Width="82"
+                        Style="{StaticResource EmphasizedTitle}"
+                        Text="Updates:" />
+                    <CheckBox
+                        Height="16" Margin="94,168.04,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="182"
+                        IsChecked="{Binding UpdatesEnabled}">Enable automatic updates</CheckBox>
+                    <Grid
+                        Height="31" Margin="111,190.04,11,0" VerticalAlignment="Top"
+                        Visibility="{Binding UpdatesEnabled, Converter={StaticResource VisibilityConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding UpdateStatus}" Grid.Column="0" VerticalAlignment="Center" />
+                        <ProgressBar
+                            Grid.Column="1" Height="20" Margin="10,0,0,0"
+                            Value="{Binding UpdateProgress}"
+                            Visibility="{Binding UpdateDownloading, Converter={StaticResource VisibilityConverter}}" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Audio / Subtitles">
+                <Grid>
+                    <Label Height="28" HorizontalAlignment="Left" Margin="6,8.75,0,0" VerticalAlignment="Top" Width="127">Preferred Language:</Label>
+                    <ComboBox
+                        Height="23" Margin="130,11,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120"
+                        ItemsSource="{Binding Languages}" SelectedValue="{Binding NativeLanguageCode}"
+                        DisplayMemberPath="Name" SelectedValuePath="Code" />
+                    <RadioButton
+                        Height="16" Margin="59,43,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="327"
+                        IsChecked="{Binding DubAudio}"
+                        IsEnabled="{Binding DubAudioEnabled}">Use Preferred Language for audio track (dubbing)</RadioButton>
+                    <RadioButton
+                        Height="16" Margin="59,65,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="402"
+                        IsChecked="{Binding DubAudio, Converter={StaticResource InverseBoolConverter}}"
+                        IsEnabled="{Binding DubAudioEnabled}">Use foreign language for audio track and Preferred Language subtitles</RadioButton>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button
+            Height="23" HorizontalAlignment="Right" Margin="0,0,93,12" VerticalAlignment="Bottom" Width="75"
+            Command="{Binding SaveSettingsCommand}">OK</Button>
+        <Button
+            Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" VerticalAlignment="Bottom" Width="75"
+            Command="{Binding CancelCommand}">Cancel</Button>
+    </Grid>
+</Window>

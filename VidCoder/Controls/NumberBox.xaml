@@ -1,0 +1,5 @@
+﻿<UserControl x:Class="VidCoder.Controls.NumberBox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <TextBox Name="numberBox" GotFocus="numberBox_GotFocus" LostFocus="numberBox_LostFocus" PreviewTextInput="numberBox_PreviewTextInput" PreviewKeyDown="numberBox_PreviewKeyDown" TextChanged="numberBox_TextChanged" />
+</UserControl>

@@ -1,0 +1,76 @@
+﻿<Application x:Class="VidCoder.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:VidCoder.Converters">
+    <Application.Resources>
+        <converters:VisibilityConverter x:Key="VisibilityConverter" />
+        <converters:EnumBoolConverter x:Key="EnumBoolConverter" />
+        <converters:EnumBoolInverseConverter x:Key="EnumBoolInverseConverter" />
+        <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+        <Style x:Key="RowButton" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="23" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10,0,0,0" />
+        </Style>
+        <Style x:Key="NormalWindow" TargetType="{x:Type Window}">
+            <Setter Property="Background" Value="WhiteSmoke" />
+        </Style>
+        <SolidColorBrush x:Key="AlternateBackground" Color="#FEFEFE" />
+        <Style x:Key="DescriptiveText" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="Gray" />
+        </Style>
+        <SolidColorBrush x:Key="InputBrush" Color="#C1E6FF" />
+        <SolidColorBrush x:Key="OutputBrush" Color="#CCFFC9" />
+        <RadialGradientBrush x:Key="RedFill" GradientOrigin="7,1.5" Center="7,1.5" RadiusX="10" RadiusY="10" MappingMode="Absolute">
+            <GradientStop Color="#DD0008" Offset="0" />
+            <GradientStop Color="#A30008" Offset="1" />
+        </RadialGradientBrush>
+        <RadialGradientBrush x:Key="RedPressFill" GradientOrigin="7,1.5" Center="7,1.5" RadiusX="10" RadiusY="10" MappingMode="Absolute">
+            <GradientStop Color="Red" Offset="0" />
+            <GradientStop Color="#DD0008" Offset="1" />
+        </RadialGradientBrush>
+        <Style x:Key="PlusSign" TargetType="Polygon">
+            <Setter Property="Points" Value="4,0 6,0 6,4 10,4 10,6 6,6 6,10 4,10 4,6 0,6 0,4 4,4" />
+            <Setter Property="Fill" Value="Green" />
+            <Setter Property="Margin" Value="0,0,4,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="RemoveButtonStyle">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="Transparent" Name="removeButtonGrid">
+                            <Grid.ToolTip>
+                                <ContentPresenter />
+                            </Grid.ToolTip>
+                            <Rectangle Name="rect2" Width="14" Height="3" Fill="{StaticResource RedFill}">
+                                <Rectangle.LayoutTransform>
+                                    <RotateTransform Angle="-45" />
+                                </Rectangle.LayoutTransform>
+                            </Rectangle>
+                            <Rectangle Name="rect1" Width="14" Height="3" Fill="{StaticResource RedFill}">
+                                <Rectangle.LayoutTransform>
+                                    <RotateTransform Angle="45" />
+                                </Rectangle.LayoutTransform>
+                            </Rectangle>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="removeButtonGrid" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="Red" BlurRadius="7" ShadowDepth="0" Opacity="0.5" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="rect1" Property="Fill" Value="{StaticResource RedPressFill}" />
+                                <Setter TargetName="rect2" Property="Fill" Value="{StaticResource RedPressFill}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Application.Resources>
+</Application>

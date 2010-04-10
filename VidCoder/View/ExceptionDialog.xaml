@@ -1,0 +1,22 @@
+﻿<Window x:Class="VidCoder.View.ExceptionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Exception" Height="381" Width="505"
+        Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Image Height="32" HorizontalAlignment="Left" Margin="19,16,0,0" Name="errorIcon" Stretch="Fill" VerticalAlignment="Top" Width="32" />
+        <TextBlock
+            Height="23" Margin="65,12,0,0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Left" FontSize="14"
+            Text="VidCoder has experienced an unexpected error. " HorizontalAlignment="Left" Width="322" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="78,41,0,0" Name="textBlock1" Text="Please report this so it can be fixed in the future." VerticalAlignment="Top" Width="293" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="19,63,0,0" Name="textBlock2" Text="Details:" VerticalAlignment="Top" />
+        <TextBox Margin="12,84,12,42" Name="exceptionTextBox" IsReadOnly="True" Background="#EAEAEA" />
+        <Button Content="OK" HorizontalAlignment="Right" Margin="0,0,12,8" Width="75" Height="23" VerticalAlignment="Bottom" IsDefault="True" IsCancel="True" />
+        <Button Height="24" HorizontalAlignment="Right" Margin="0,0,127,8" Name="copyButton" VerticalAlignment="Bottom" Width="68" Click="copyButton_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Icons/copy.png" Width="16" Height="16" />
+                <TextBlock Text="Copy" Margin="4,0,0,0" />
+            </StackPanel>
+        </Button>
+    </Grid>
+</Window>
