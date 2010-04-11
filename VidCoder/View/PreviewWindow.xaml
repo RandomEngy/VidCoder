@@ -17,7 +17,7 @@
     <Grid>
         <Grid Margin="0" Name="previewImageHolder" SizeChanged="previewImageHolder_SizeChanged" Background="Black">
             <Image
-                Name="previewImage" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Name="previewImage" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Top"
                 Source="{Binding PreviewSource}"
                 Visibility="{Binding HasPreview, Converter={StaticResource VisibilityConverter}}"/>
             <Grid

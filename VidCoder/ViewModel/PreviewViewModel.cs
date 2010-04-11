@@ -149,7 +149,14 @@ namespace VidCoder.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets or sets the width of the preview image in pixels.
+        /// </summary>
         public double PreviewWidth { get; set; }
+
+        /// <summary>
+        /// Gets or sets the height of the preview image in pixels.
+        /// </summary>
         public double PreviewHeight { get; set; }
 
         public int SliderMax

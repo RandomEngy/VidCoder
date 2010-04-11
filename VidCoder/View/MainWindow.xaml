@@ -357,8 +357,13 @@
                 </StackPanel>
             </Button>
             <Button
-                Height="23" HorizontalAlignment="Right" Margin="0,50,12,0" VerticalAlignment="Top" Width="75"
-                Command="{Binding OpenPreviewWindowCommand}">Preview</Button>
+                Height="26" HorizontalAlignment="Right" Margin="0,50,12,0" VerticalAlignment="Top" Width="77"
+                Command="{Binding OpenPreviewWindowCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Icons/preview.png" />
+                    <TextBlock Text="Preview" Margin="5,0,0,0" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
             
             <Button Height="37" HorizontalAlignment="Left" Margin="6,90,0,0" VerticalAlignment="Top" Width="114"
                 Command="{Binding AddToQueueCommand}">

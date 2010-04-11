@@ -139,8 +139,13 @@
                 Content="{Binding DeleteButtonText}"
                 Command="{Binding DeletePresetCommand}" />
         </StackPanel>
-        <Button Height="24" Margin="0,12,12,0" VerticalAlignment="Top" IsEnabled="{Binding HasSourceData}"
-            Command="{Binding PreviewCommand}" HorizontalAlignment="Right" Width="75">Preview</Button>
+        <Button Height="26" Margin="0,12,12,0" VerticalAlignment="Top" IsEnabled="{Binding HasSourceData}"
+            Command="{Binding PreviewCommand}" HorizontalAlignment="Right" Width="77">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Icons/preview.png" />
+                <TextBlock Text="Preview" Margin="5,0,0,0" VerticalAlignment="Center" />
+            </StackPanel>
+        </Button>
         <!--<Label Height="23" Margin="476.523,12,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="16.434" VerticalContentAlignment="Center">#</Label>
         <ComboBox SelectedValue="{Binding SelectedPreview}" SelectedValuePath="Content" Height="23" Margin="490.75,12,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="36.5"
             IsEnabled="{Binding PreviewEnabled}">
