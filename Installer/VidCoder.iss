@@ -53,7 +53,7 @@ Filename: "{app}\VidCoder.exe"; Description: "Run VidCoder"; Flags: postinstall 
 Type: filesandordirs; Name: "{userappdata}\VidCoder\Updates"
 
 [CustomMessages]
-dotnetmissing=VidCoder requires Microsoft .NET Framework 3.5 which is not yet installed. Would you like to download it now?
+dotnetmissing=VidCoder requires Microsoft .NET Framework 4, which is not installed. Would you like to download it now?
 
 [Code]
 
