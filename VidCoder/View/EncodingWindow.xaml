@@ -347,10 +347,8 @@
                         Style="{StaticResource SectionHeader}" />
 
                     <RadioButton Height="16" Grid.Column="1" Grid.RowSpan="3"  HorizontalAlignment="Left" Margin="50,34,0,0" Name="radioButton1" VerticalAlignment="Top" Width="120"
-                        GroupName="Cropping"
                         IsChecked="{Binding CustomCropping, Converter={StaticResource InverseBoolConverter}}">Automatic</RadioButton>
                     <RadioButton Height="16" Grid.Column="1" Grid.RowSpan="3"  HorizontalAlignment="Left" Margin="50,56,0,0" Name="radioButton2" VerticalAlignment="Top" Width="120"
-                        GroupName="Cropping"
                         IsChecked="{Binding CustomCropping}">Custom</RadioButton>
                     <Grid Margin="45.434,70,0,0" Name="grid4" Grid.Column="1" Height="139.04" VerticalAlignment="Top" Grid.RowSpan="3" HorizontalAlignment="Left" Width="210">
                         <HandBrakeControls:NumberBox Height="23" Margin="78,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="36"

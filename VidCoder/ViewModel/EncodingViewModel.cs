@@ -215,7 +215,6 @@ namespace VidCoder.ViewModel
                         if (value)
                         {
                             this.mainViewModel.ModifyPreset(this.profile);
-                            //this.mainViewModel.AddModifiedPreset(this.profile);
                         }
                     }
 
