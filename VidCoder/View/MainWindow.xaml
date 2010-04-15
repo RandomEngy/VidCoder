@@ -85,7 +85,7 @@
         <DataTemplate x:Key="QueueSourceTemplate">
             <TextBlock
                 Text="{Binding Job.SourcePath}" TextTrimming="CharacterEllipsis"
-                ToolTip="{Binding Job.SourcePath}" ToolTipService.InitialShowDelay="0"
+                ToolTip="{Binding Job.SourcePath}" ToolTipService.InitialShowDelay="0" ToolTipService.Placement="Relative" ToolTipService.VerticalOffset="-2" ToolTipService.HorizontalOffset="-6"
                 Style="{StaticResource QueueText}" />
         </DataTemplate>
         <DataTemplate x:Key="QueueTitleTemplate">
@@ -99,7 +99,7 @@
         <DataTemplate x:Key="QueueDestinationTemplate">
             <TextBlock
                 Text="{Binding Job.OutputPath}" TextTrimming="CharacterEllipsis"
-                ToolTip="{Binding Job.OutputPath}" ToolTipService.InitialShowDelay="0"
+                ToolTip="{Binding Job.OutputPath}" ToolTipService.InitialShowDelay="0" ToolTipService.Placement="Relative" ToolTipService.VerticalOffset="-2" ToolTipService.HorizontalOffset="-6"
                 Style="{StaticResource QueueText}" />
         </DataTemplate>
         <DataTemplate x:Key="QueueRemoveTemplate">
