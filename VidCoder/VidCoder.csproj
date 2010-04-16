@@ -178,6 +178,7 @@
     <Compile Include="Model\Logger.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\AboutDialogViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="View\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>
@@ -361,9 +362,7 @@
     <Resource Include="VidCoder_icon.ico" />
     <Resource Include="Icons\win7foldericon.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SourceData\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>

@@ -6,6 +6,7 @@
     xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
     xmlns:converters="clr-namespace:VidCoder.Converters"
     xmlns:resx="clr-namespace:VidCoder.Properties"
+    xmlns:vm="clr-namespace:VidCoder.ViewModel"
     Title="{Binding WindowTitle}" Width="671" Height="467" MinWidth="588" MinHeight="467"
     Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner"
     Closing="Window_Closing"
@@ -545,6 +546,209 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
+            <TabItem Header="Advanced">
+                <Grid>
+                <TextBlock Height="21" Width="162" HorizontalAlignment="Left" Margin="6,3,0,0" VerticalAlignment="Top" Text="Advanced H.264 Options" Style="{StaticResource SectionHeader}" />
+                    <Grid Height="58" HorizontalAlignment="Left" Margin="6,29,0,0" Name="grid3" VerticalAlignment="Top" Width="226">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Reference Frames:" Grid.Row="0" Grid.Column="0" />
+                        <ComboBox
+                            Grid.Row="0" Grid.Column="1" Height="22"
+                            ItemsSource="{x:Static vm:AdvancedChoices.ReferenceFrames}"
+                            DisplayMemberPath="Label"
+                            SelectedItem="{Binding ReferenceFrames}"/>
+
+                        <Label
+                            Content="Mixed References:" Grid.Row="1" Grid.Column="0"
+                            Visibility="{Binding MixedReferencesVisible, Converter={StaticResource VisibilityConverter}}"/>
+                        <CheckBox
+                            Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"
+                            Visibility="{Binding MixedReferencesVisible, Converter={StaticResource VisibilityConverter}}"
+                            IsChecked="{Binding MixedReferences}"/>
+                    </Grid>
+                    <Grid Height="79" HorizontalAlignment="Left" Margin="240,4,0,0" Name="grid6" VerticalAlignment="Top" Width="310">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Motion Estimation Method:" Grid.Row="0" Grid.Column="0" />
+                        <ComboBox
+                            Grid.Row="0" Grid.Column="1" Height="22"
+                            ItemsSource="{x:Static vm:AdvancedChoices.MotionEstimationMethod}"
+                            DisplayMemberPath="Label"
+                            SelectedItem="{Binding MotionEstimationMethod}"/>
+
+                        <Label Content="Subpixel Motion Estimation:" Grid.Row="1" Grid.Column="0" />
+                        <ComboBox
+                            Grid.Row="1" Grid.Column="1" Height="22"
+                            ItemsSource="{x:Static vm:AdvancedChoices.SubpixelMotionEstimation}"
+                            DisplayMemberPath="Label"
+                            SelectedItem="{Binding SubpixelMotionEstimation}" />
+
+                        <Label
+                            Content="Motion Estimation Range:" Grid.Row="2" Grid.Column="0"
+                            Visibility="{Binding MotionEstimationRangeVisible, Converter={StaticResource VisibilityConverter}}"/>
+                        <ComboBox
+                            Grid.Row="2" Grid.Column="1" Height="22"
+                            ItemsSource="{x:Static vm:AdvancedChoices.MotionEstimationRange}"
+                            DisplayMemberPath="Label"
+                            SelectedItem="{Binding MotionEstimationRange}"
+                            Visibility="{Binding MotionEstimationRangeVisible, Converter={StaticResource VisibilityConverter}}"/>
+                    </Grid>
+                    <Grid Height="137" HorizontalAlignment="Left" Margin="6,93,0,0" Name="grid7" VerticalAlignment="Top" Width="226">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label Content="B-Frames:" Grid.Row="0" Grid.Column="0" />
+                        <ComboBox
+                            Grid.Row="0" Grid.Column="1" Height="22"
+                            ItemsSource="{x:Static vm:AdvancedChoices.BFrames}"
+                            DisplayMemberPath="Label"
+                            SelectedItem="{Binding BFrames}" />
+
+                        <Label
+                            Content="Adaptive B-Frames:" Grid.Row="1" Grid.Column="0"
+                            Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"  />
+                        <ComboBox
+                            Grid.Row="1" Grid.Column="1" Height="22"
+                            ItemsSource="{x:Static vm:AdvancedChoices.AdaptiveBFrames}"
+                            DisplayMemberPath="Label"
+                            SelectedItem="{Binding AdaptiveBFrames}"
+                            Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"/>
+
+                        <Label
+                            Content="Direct Prediction:" Grid.Row="2" Grid.Column="0"
+                            Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"/>
+                        <ComboBox
+                            Grid.Row="2" Grid.Column="1" Height="22"
+                            ItemsSource="{x:Static vm:AdvancedChoices.DirectPrediction}"
+                            DisplayMemberPath="Label"
+                            SelectedItem="{Binding DirectPrediction}"
+                            Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"/>
+
+                        <Label
+                            Content="Weighted B-Frames:" Grid.Row="3" Grid.Column="0"
+                            Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"/>
+                        <CheckBox
+                            Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"
+                            IsChecked="{Binding WeightedBFrames}"
+                            Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"/>
+
+                        <Label
+                            Content="Pyramidal B-Frames:" Grid.Row="4" Grid.Column="0"
+                            Visibility="{Binding PyramidalBFramesVisible, Converter={StaticResource VisibilityConverter}}"/>
+                        <CheckBox
+                            Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"
+                            IsChecked="{Binding PyramidalBFrames}"
+                            Visibility="{Binding PyramidalBFramesVisible, Converter={StaticResource VisibilityConverter}}"/>
+                    </Grid>
+                    <Label Content="Analysis:" Height="28" HorizontalAlignment="Left" Margin="295,89,0,0" Name="label14" VerticalAlignment="Top" />
+                    <ComboBox
+                        Height="23" HorizontalAlignment="Left" Margin="356,90,0,0" VerticalAlignment="Top" Width="106"
+                        ItemsSource="{x:Static vm:AdvancedChoices.Analysis}"
+                        DisplayMemberPath="Label"
+                        SelectedItem="{Binding Analysis}"/>
+                    <Label
+                        Content="8x8 DCT:" Height="28" HorizontalAlignment="Left" Margin="469,89,0,0" Name="label15" VerticalAlignment="Top"
+                        Visibility="{Binding EightByEightDctVisible, Converter={StaticResource VisibilityConverter}}"/>
+                    <CheckBox
+                        Height="16" HorizontalAlignment="Left" Margin="531,96,0,0" VerticalAlignment="Top"
+                        IsChecked="{Binding EightByEightDct}"
+                        Visibility="{Binding EightByEightDctVisible, Converter={StaticResource VisibilityConverter}}"/>
+                    <Label Content="CABAC Entropy Coding:" Height="28" HorizontalAlignment="Left" Margin="244,115,0,0" Name="label16" VerticalAlignment="Top" />
+                    <CheckBox
+                        Height="16" HorizontalAlignment="Left" Margin="386,122,0,0" VerticalAlignment="Top"
+                        IsChecked="{Binding CabacEntropyCoding}"/>
+                    <Label
+                        Content="Trellis:" Height="28" HorizontalAlignment="Left" Margin="410,115,0,0" Name="label17" VerticalAlignment="Top"
+                        Visibility="{Binding CabacEntropyCoding, Converter={StaticResource VisibilityConverter}}"/>
+                    <ComboBox
+                        Height="23" HorizontalAlignment="Left" Margin="459,116,0,0" VerticalAlignment="Top" Width="85"
+                        ItemsSource="{x:Static vm:AdvancedChoices.Trellis}"
+                        DisplayMemberPath="Label"
+                        SelectedItem="{Binding Trellis}"
+                        Visibility="{Binding CabacEntropyCoding, Converter={StaticResource VisibilityConverter}}"/>
+                    <Grid Height="61" HorizontalAlignment="Left" Margin="242,144,0,0" VerticalAlignment="Top" Width="308">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Psychovisual Rate Distortion:" Grid.Row="0" Grid.Column="0" />
+                        <Slider
+                            Grid.Row="0" Grid.Column="1"
+                            Minimum="0.0" Maximum="1.0" TickPlacement="BottomRight" TickFrequency="0.1" IsSnapToTickEnabled="True"
+                            Value="{Binding PsychovisualRateDistortion}"/>
+
+                        <Label
+                            Content="Psychovisual Trellis:" Grid.Row="1" Grid.Column="0"
+                            Visibility="{Binding PsychovisualTrellisVisible, Converter={StaticResource VisibilityConverter}}"/>
+                        <Slider
+                            Grid.Row="1" Grid.Column="1"
+                            Minimum="0.0" Maximum="1.0" TickPlacement="BottomRight" TickFrequency="0.1" IsSnapToTickEnabled="True"
+                            Value="{Binding PsychovisualTrellis}"
+                            Visibility="{Binding PsychovisualTrellisVisible, Converter={StaticResource VisibilityConverter}}"/>
+                    </Grid>
+                    <Label Content="Deblocking:" Height="28" HorizontalAlignment="Left" Margin="246,209,0,0" VerticalAlignment="Top" />
+                    <ComboBox
+                        Height="23" HorizontalAlignment="Left" Margin="321,212,0,0" VerticalAlignment="Top" Width="87"
+                        ItemsSource="{x:Static vm:AdvancedChoices.DeblockingStrength}"
+                        DisplayMemberPath="Label"
+                        SelectedItem="{Binding DeblockingStrength}"/>
+                    <ComboBox
+                        Height="23" HorizontalAlignment="Left" Margin="321,239,0,0" VerticalAlignment="Top" Width="87"
+                        ItemsSource="{x:Static vm:AdvancedChoices.DeblockingThreshold}"
+                        DisplayMemberPath="Label"
+                        SelectedItem="{Binding DeblockingThreshold}"/>
+                    <Grid Height="52" HorizontalAlignment="Left" Margin="419,209,0,0" Name="grid8" VerticalAlignment="Top" Width="131">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label Content="No Fast-P-Skip:" Grid.Row="0" Grid.Column="0" />
+                        <CheckBox
+                            Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"
+                            IsChecked="{Binding NoFastPSkip}"/>
+
+                        <Label Content="No DCT-Decimate:" Grid.Row="1" Grid.Column="0" />
+                        <CheckBox
+                            Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"
+                            IsChecked="{Binding NoDctDecimate}"/>
+                    </Grid>
+                    <TextBox
+                        Margin="4,278,4,4" Height="41"
+                        Text="{Binding AdvancedOptionsString}" TextWrapping="Wrap"/>
+                    <Label Content="Options String" Height="28" HorizontalAlignment="Left" Margin="7,252,0,0" Name="label18" VerticalAlignment="Top" />
+                </Grid>
+            </TabItem>
         </TabControl>
+
     </Grid>
 </Window>
