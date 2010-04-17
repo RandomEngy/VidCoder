@@ -26,7 +26,7 @@ namespace VidCoder.ViewModel
 
                 foreach (PresetViewModel presetVM in this.existingPresets)
                 {
-                    if (!presetVM.IsModified && presetVM.PresetName == this.PresetName)
+                    if ((!presetVM.IsModified || presetVM.IsBuiltIn) && presetVM.PresetName == this.PresetName)
                     {
                         return false;
                     }

@@ -46,6 +46,36 @@ namespace VidCoder.ViewModel
         private ObservableCollection<AudioEncodingViewModel> audioEncodings;
         private ObservableCollection<AudioOutputPreview> audioOutputPreviews;
 
+        private AdvancedChoice referenceFrames;
+        private bool mixedReferences;
+        private AdvancedChoice bFrames;
+        private AdvancedChoice adaptiveBFrames;
+        private AdvancedChoice directPrediction;
+        private bool weightedBFrames;
+        private bool pyramidalBFrames;
+        private AdvancedChoice motionEstimationMethod;
+        private AdvancedChoice subpixelMotionEstimation;
+        private AdvancedChoice motionEstimationRange;
+        private AdvancedChoice analysis;
+        private bool eightByEightDct;
+        private bool cabacEntropyCoding;
+        private AdvancedChoice trellis;
+        private double psychovisualRateDistortion;
+        private double psychovisualTrellis;
+        private AdvancedChoice deblockingStrength;
+        private AdvancedChoice deblockingThreshold;
+        private bool noFastPSkip;
+        private bool noDctDecimate;
+
+        /// <summary>
+        /// Options that have UI elements that correspond to them.
+        /// </summary>
+        private HashSet<string> uiOptions = new HashSet<string>
+        {
+            "ref", "mixed-refs", "bframes", "b-adapt", "direct", "weightb", "b-pyramid", "me", "subq", "merange",
+            "analyse", "8x8dct", "cabac", "trellis", "psy-rd", "no-fast-pskip", "no-dct-decimate", "deblocK"
+        };
+
         private ICommand saveCommand;
         private ICommand saveAsCommand;
         private ICommand renameCommand;
@@ -127,6 +157,7 @@ namespace VidCoder.ViewModel
                 this.RefreshAudioPreview();
                 this.RefreshOutputSize();
                 this.UpdateAudioEncodings();
+                this.UpdateUIFromAdvancedOptions();
 
                 this.NotifyAllChanged();
             }
@@ -1681,6 +1712,630 @@ namespace VidCoder.ViewModel
 
         #endregion
 
+        #region Advanced
+        public AdvancedChoice ReferenceFrames
+        {
+            get
+            {
+                return this.referenceFrames;
+            }
+
+            set
+            {
+                this.referenceFrames = value;
+                this.NotifyPropertyChanged("ReferenceFrames");
+                this.NotifyPropertyChanged("MixedReferencesVisible");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public bool MixedReferences
+        {
+            get
+            {
+                return this.mixedReferences;
+            }
+
+            set
+            {
+                this.mixedReferences = value;
+                this.NotifyPropertyChanged("MixedReferences");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public bool MixedReferencesVisible
+        {
+            get
+            {
+                return int.Parse(this.ReferenceFrames.Value) > 1;
+            }
+        }
+
+        public AdvancedChoice BFrames
+        {
+            get
+            {
+                return this.bFrames;
+            }
+
+            set
+            {
+                this.bFrames = value;
+                this.NotifyPropertyChanged("BFrames");
+                this.NotifyPropertyChanged("BFramesOptionsVisible");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public bool BFramesOptionsVisible
+        {
+            get
+            {
+                return this.BFrames.Value != "0";
+            }
+        }
+
+        public AdvancedChoice AdaptiveBFrames
+        {
+            get
+            {
+                return this.adaptiveBFrames;
+            }
+
+            set
+            {
+                this.adaptiveBFrames = value;
+                this.NotifyPropertyChanged("AdaptiveBFrames");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public AdvancedChoice DirectPrediction
+        {
+            get
+            {
+                return this.directPrediction;
+            }
+
+            set
+            {
+                this.directPrediction = value;
+                this.NotifyPropertyChanged("DirectPrediction");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public bool WeightedBFrames
+        {
+            get
+            {
+                return this.weightedBFrames;
+            }
+
+            set
+            {
+                this.weightedBFrames = value;
+                this.NotifyPropertyChanged("WeightedBFrames");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public bool PyramidalBFrames
+        {
+            get
+            {
+                return this.pyramidalBFrames;
+            }
+
+            set
+            {
+                this.pyramidalBFrames = value;
+                this.NotifyPropertyChanged("PyramidalBFrames");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public bool PyramidalBFramesVisible
+        {
+            get
+            {
+                return int.Parse(this.BFrames.Value) > 1;
+            }
+        }
+
+        public AdvancedChoice MotionEstimationMethod
+        {
+            get
+            {
+                return this.motionEstimationMethod;
+            }
+
+            set
+            {
+                this.motionEstimationMethod = value;
+                this.NotifyPropertyChanged("MotionEstimationMethod");
+                this.NotifyPropertyChanged("MotionEstimationRangeVisible");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public AdvancedChoice SubpixelMotionEstimation
+        {
+            get
+            {
+                return this.subpixelMotionEstimation;
+            }
+
+            set
+            {
+                this.subpixelMotionEstimation = value;
+                this.NotifyPropertyChanged("SubpixelMotionEstimation");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public AdvancedChoice MotionEstimationRange
+        {
+            get
+            {
+                return this.motionEstimationRange;
+            }
+
+            set
+            {
+                this.motionEstimationRange = value;
+                this.NotifyPropertyChanged("MotionEstimationRange");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public bool MotionEstimationRangeVisible
+        {
+            get
+            {
+                string motionMethod = this.MotionEstimationMethod.Value;
+                return motionMethod == "umh" || motionMethod == "esa" || motionMethod == "tesa";
+            }
+        }
+
+        public AdvancedChoice Analysis
+        {
+            get
+            {
+                return this.analysis;
+            }
+
+            set
+            {
+                this.analysis = value;
+                this.NotifyPropertyChanged("Analysis");
+                this.NotifyPropertyChanged("EightByEightDctVisible");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public bool EightByEightDct
+        {
+            get
+            {
+                return this.eightByEightDct;
+            }
+
+            set
+            {
+                this.eightByEightDct = value;
+                this.NotifyPropertyChanged("EightByEightDct");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public bool EightByEightDctVisible
+        {
+            get
+            {
+                return this.Analysis.Value != "none";
+            }
+        }
+
+        public bool CabacEntropyCoding
+        {
+            get
+            {
+                return this.cabacEntropyCoding;
+            }
+
+            set
+            {
+                this.cabacEntropyCoding = value;
+                this.NotifyPropertyChanged("CabacEntropyCoding");
+                this.NotifyPropertyChanged("PsychovisualTrellisVisible");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public AdvancedChoice Trellis
+        {
+            get
+            {
+                return this.trellis;
+            }
+
+            set
+            {
+                this.trellis = value;
+                this.NotifyPropertyChanged("Trellis");
+                this.NotifyPropertyChanged("PsychovisualTrellisVisible");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public double PsychovisualRateDistortion
+        {
+            get
+            {
+                return this.psychovisualRateDistortion;
+            }
+
+            set
+            {
+                this.psychovisualRateDistortion = value;
+                this.NotifyPropertyChanged("PsychovisualRateDistortion");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public double PsychovisualTrellis
+        {
+            get
+            {
+                return this.psychovisualTrellis;
+            }
+
+            set
+            {
+                this.psychovisualTrellis = value;
+                this.NotifyPropertyChanged("PsychovisualTrellis");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public bool PsychovisualTrellisVisible
+        {
+            get
+            {
+                return this.CabacEntropyCoding && this.Trellis.Value != "0";
+            }
+        }
+
+        public AdvancedChoice DeblockingStrength
+        {
+            get
+            {
+                return this.deblockingStrength;
+            }
+
+            set
+            {
+                this.deblockingStrength = value;
+                this.NotifyPropertyChanged("DeblockingStrength");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public AdvancedChoice DeblockingThreshold
+        {
+            get
+            {
+                return this.deblockingThreshold;
+            }
+
+            set
+            {
+                this.deblockingThreshold = value;
+                this.NotifyPropertyChanged("DeblockingThreshold");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public bool NoFastPSkip
+        {
+            get
+            {
+                return this.noFastPSkip;
+            }
+
+            set
+            {
+                this.noFastPSkip = value;
+                this.NotifyPropertyChanged("NoFastPSkip");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public bool NoDctDecimate
+        {
+            get
+            {
+                return this.noDctDecimate;
+            }
+
+            set
+            {
+                this.noDctDecimate = value;
+                this.NotifyPropertyChanged("NoDctDecimate");
+                this.UpdateOptionsString();
+            }
+        }
+
+        public string AdvancedOptionsString
+        {
+            get
+            {
+                return this.profile.X264Options;
+            }
+
+            set
+            {
+                this.profile.X264Options = value;
+                this.UpdateUIFromAdvancedOptions();
+                this.NotifyPropertyChanged("AdvancedOptionsString");
+                this.IsModified = true;
+            }
+        }
+
+        private void UpdateUIFromAdvancedOptions()
+        {
+            this.automaticChange = true;
+
+            // Reset UI to defaults, and re-apply options.
+            this.SetAdvancedToDefaults();
+
+            if (this.profile.X264Options == null)
+            {
+                this.automaticChange = false;
+                return;
+            }
+
+            // Check the updated options string. Update UI for any recognized options.
+            string[] newOptionsSegments = this.profile.X264Options.Split(':');
+            foreach (string newOptionsSegment in newOptionsSegments)
+            {
+                int equalsIndex = newOptionsSegment.IndexOf('=');
+                if (equalsIndex >= 0)
+                {
+                    string optionName = newOptionsSegment.Substring(0, equalsIndex);
+                    string optionValue = newOptionsSegment.Substring(equalsIndex + 1);
+
+                    if (optionName != string.Empty && optionValue != string.Empty)
+                    {
+                        AdvancedChoice newChoice;
+                        int parseInt;
+                        string[] subParts;
+
+                        switch (optionName)
+                        {
+                            case "ref":
+                                if (int.TryParse(optionValue, out parseInt))
+                                {
+                                    newChoice = AdvancedChoices.ReferenceFrames.SingleOrDefault(choice => choice.Value == parseInt.ToString());
+                                    if (newChoice != null)
+                                    {
+                                        this.ReferenceFrames = newChoice;
+                                    }
+                                }
+                                break;
+                            case "mixed-refs":
+                                if (optionValue == "0")
+                                {
+                                    this.MixedReferences = false;
+                                }
+                                else if (optionValue == "1")
+                                {
+                                    this.MixedReferences = true;
+                                }
+                                break;
+                            case "bframes":
+                                if (int.TryParse(optionValue, out parseInt))
+                                {
+                                    newChoice = AdvancedChoices.BFrames.SingleOrDefault(choice => choice.Value == parseInt.ToString());
+                                    if (newChoice != null)
+                                    {
+                                        this.BFrames = newChoice;
+                                    }
+                                }
+                                break;
+                            case "b-adapt":
+                                newChoice = AdvancedChoices.AdaptiveBFrames.SingleOrDefault(choice => choice.Value == optionValue);
+                                if (newChoice != null)
+                                {
+                                    this.AdaptiveBFrames = newChoice;
+                                }
+                                break;
+                            case "direct":
+                                newChoice = AdvancedChoices.DirectPrediction.SingleOrDefault(choice => choice.Value == optionValue);
+                                if (newChoice != null)
+                                {
+                                    this.DirectPrediction = newChoice;
+                                }
+                                break;
+                            case "weightb":
+                                if (optionValue == "0")
+                                {
+                                    this.WeightedBFrames = false;
+                                }
+                                else if (optionValue == "1")
+                                {
+                                    this.WeightedBFrames = true;
+                                }
+                                break;
+                            case "b-pyramid":
+                                if (optionValue == "0")
+                                {
+                                    this.PyramidalBFrames = false;
+                                }
+                                else if (optionValue == "1")
+                                {
+                                    this.PyramidalBFrames = true;
+                                }
+                                break;
+                            case "me":
+                                newChoice = AdvancedChoices.MotionEstimationMethod.SingleOrDefault(choice => choice.Value == optionValue);
+                                if (newChoice != null)
+                                {
+                                    this.MotionEstimationMethod = newChoice;
+                                }
+                                break;
+                            case "subq":
+                                if (int.TryParse(optionValue, out parseInt))
+                                {
+                                    newChoice = AdvancedChoices.SubpixelMotionEstimation.SingleOrDefault(choice => choice.Value == parseInt.ToString());
+                                    if (newChoice != null)
+                                    {
+                                        this.SubpixelMotionEstimation = newChoice;
+                                    }
+                                }
+                                break;
+                            case "merange":
+                                if (int.TryParse(optionValue, out parseInt))
+                                {
+                                    newChoice = AdvancedChoices.MotionEstimationRange.SingleOrDefault(choice => choice.Value == parseInt.ToString());
+                                    if (newChoice != null)
+                                    {
+                                        this.MotionEstimationRange = newChoice;
+                                    }
+                                }
+                                break;
+                            case "analyse":
+                                newChoice = AdvancedChoices.Analysis.SingleOrDefault(choice => choice.Value == optionValue);
+                                if (newChoice != null)
+                                {
+                                    this.Analysis = newChoice;
+                                }
+                                break;
+                            case "8x8dct":
+                                if (optionValue == "0")
+                                {
+                                    this.EightByEightDct = false;
+                                }
+                                else if (optionValue == "1")
+                                {
+                                    this.EightByEightDct = true;
+                                }
+                                break;
+                            case "cabac":
+                                if (optionValue == "0")
+                                {
+                                    this.CabacEntropyCoding = false;
+                                }
+                                else if (optionValue == "1")
+                                {
+                                    this.CabacEntropyCoding = true;
+                                }
+                                break;
+                            case "trellis":
+                                if (int.TryParse(optionValue, out parseInt))
+                                {
+                                    newChoice = AdvancedChoices.Trellis.SingleOrDefault(choice => choice.Value == parseInt.ToString());
+                                    if (newChoice != null)
+                                    {
+                                        this.Trellis = newChoice;
+                                    }
+                                }
+                                break;
+                            case "psy-rd":
+                                subParts = optionValue.Split(',');
+                                if (subParts.Length == 2)
+                                {
+                                    double psyRD, psyTrellis;
+                                    if (double.TryParse(subParts[0], out psyRD) && double.TryParse(subParts[1], out psyTrellis))
+                                    {
+                                        if (psyRD >= 0.0 && psyRD <= 1.0 && psyTrellis >= 0.0 && psyTrellis <= 1.0)
+                                        {
+                                            this.PsychovisualRateDistortion = Math.Round(psyRD, 1);
+                                            this.PsychovisualTrellis = Math.Round(psyTrellis, 1);
+                                        }
+                                    }
+                                }
+                                break;
+                            case "no-fast-pskip":
+                                if (optionValue == "0")
+                                {
+                                    this.NoFastPSkip = false;
+                                }
+                                else if (optionValue == "1")
+                                {
+                                    this.NoFastPSkip = true;
+                                }
+                                break;
+                            case "no-dct-decimate":
+                                if (optionValue == "0")
+                                {
+                                    this.NoDctDecimate = false;
+                                }
+                                else if (optionValue == "1")
+                                {
+                                    this.NoDctDecimate = true;
+                                }
+                                break;
+                            case "deblock":
+                                subParts = optionValue.Split(',');
+                                if (subParts.Length == 2)
+                                {
+                                    int dbStrength, dbThreshold;
+                                    if (int.TryParse(subParts[0], out dbStrength) && int.TryParse(subParts[1], out dbThreshold))
+                                    {
+                                        newChoice = AdvancedChoices.DeblockingStrength.SingleOrDefault(choice => choice.Value == subParts[0]);
+                                        if (newChoice != null)
+                                        {
+                                            this.DeblockingStrength = newChoice;
+                                        }
+
+                                        newChoice = AdvancedChoices.DeblockingThreshold.SingleOrDefault(choice => choice.Value == subParts[1]);
+                                        if (newChoice != null)
+                                        {
+                                            this.DeblockingThreshold = newChoice;
+                                        }
+                                    }
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+
+            this.automaticChange = false;
+        }
+
+        private void SetAdvancedToDefaults()
+        {
+            this.ReferenceFrames = AdvancedChoices.ReferenceFrames.SingleOrDefault(choice => choice.IsDefault);
+            this.MixedReferences = true;
+            this.BFrames = AdvancedChoices.BFrames.SingleOrDefault(choice => choice.IsDefault);
+            this.AdaptiveBFrames = AdvancedChoices.AdaptiveBFrames.SingleOrDefault(choice => choice.IsDefault);
+            this.DirectPrediction = AdvancedChoices.DirectPrediction.SingleOrDefault(choice => choice.IsDefault);
+            this.WeightedBFrames = true;
+            this.PyramidalBFrames = false;
+            this.MotionEstimationMethod = AdvancedChoices.MotionEstimationMethod.SingleOrDefault(choice => choice.IsDefault);
+            this.SubpixelMotionEstimation = AdvancedChoices.SubpixelMotionEstimation.SingleOrDefault(choice => choice.IsDefault);
+            this.MotionEstimationRange = AdvancedChoices.MotionEstimationRange.SingleOrDefault(choice => choice.IsDefault);
+            this.Analysis = AdvancedChoices.Analysis.SingleOrDefault(choice => choice.IsDefault);
+            this.EightByEightDct = true;
+            this.CabacEntropyCoding = true;
+            this.Trellis = AdvancedChoices.Trellis.SingleOrDefault(choice => choice.IsDefault);
+            this.PsychovisualRateDistortion = 1.0;
+            this.PsychovisualTrellis = 0.0;
+            this.DeblockingStrength = AdvancedChoices.DeblockingStrength.SingleOrDefault(choice => choice.IsDefault);
+            this.DeblockingThreshold = AdvancedChoices.DeblockingThreshold.SingleOrDefault(choice => choice.IsDefault);
+            this.NoFastPSkip = false;
+            this.NoDctDecimate = false;
+        }
+
+
+        #endregion
+
         private int GetNearestValue(int number, int modulus)
         {
             int remainder = number % modulus;
@@ -1813,6 +2468,7 @@ namespace VidCoder.ViewModel
             this.NotifyPropertyChanged("QualitySliderLeftText");
             this.NotifyPropertyChanged("QualitySliderRightText");
             this.NotifyPropertyChanged("HasAudioTracks");
+            this.NotifyPropertyChanged("AdvancedOptionsString");
 
             this.automaticChange = false;
         }
@@ -1887,6 +2543,144 @@ namespace VidCoder.ViewModel
             {
                 previewVM.RefreshPreviews();
             }
+        }
+
+        /// <summary>
+        /// Update the x264 options string from a UI change.
+        /// </summary>
+        private void UpdateOptionsString()
+        {
+            if (this.automaticChange)
+            {
+                return;
+            }
+
+            List<string> newOptions = new List<string>();
+
+            // First add any parts of the options string that don't correspond to the UI
+            if (this.AdvancedOptionsString != null)
+            {
+                string[] existingSegments = this.AdvancedOptionsString.Split(':');
+                foreach (string existingSegment in existingSegments)
+                {
+                    string optionName = existingSegment;
+                    int equalsIndex = existingSegment.IndexOf('=');
+                    if (equalsIndex >= 0)
+                    {
+                        optionName = existingSegment.Substring(0, existingSegment.IndexOf("="));
+                    }
+
+                    if (!this.uiOptions.Contains(optionName) && optionName != string.Empty)
+                    {
+                        newOptions.Add(existingSegment);
+                    }
+                }
+            }
+
+            // Now add everything from the UI
+            if (!this.ReferenceFrames.IsDefault)
+            {
+                newOptions.Add("ref=" + this.ReferenceFrames.Value);
+            }
+
+            if (int.Parse(this.ReferenceFrames.Value) < 2 || !this.MixedReferences)
+            {
+                newOptions.Add("mixed-refs=0");
+            }
+
+            if (!this.BFrames.IsDefault)
+            {
+                newOptions.Add("bframes=" + this.BFrames.Value);
+            }
+
+            if (this.BFrames.Value != "0")
+            {
+                if (!this.AdaptiveBFrames.IsDefault)
+                {
+                    newOptions.Add("b-adapt=" + this.AdaptiveBFrames.Value);
+                }
+
+                if (!this.DirectPrediction.IsDefault)
+                {
+                    newOptions.Add("direct=" + this.DirectPrediction.Value);
+                }
+
+                if (!this.WeightedBFrames)
+                {
+                    newOptions.Add("weightb=0");
+                }
+
+                if (this.BFrames.Value != "1" && this.PyramidalBFrames)
+                {
+                    newOptions.Add("b-pyramid=1");
+                }
+            }
+
+            if (!this.MotionEstimationMethod.IsDefault)
+            {
+                newOptions.Add("me=" + this.MotionEstimationMethod.Value);
+            }
+
+            if (!this.SubpixelMotionEstimation.IsDefault)
+            {
+                newOptions.Add("subq=" + this.SubpixelMotionEstimation.Value);
+            }
+
+            string motionEstimation = this.MotionEstimationMethod.Value;
+            if ((motionEstimation == "umh" || motionEstimation == "esa" || motionEstimation == "tesa") && !this.MotionEstimationRange.IsDefault)
+            {
+                newOptions.Add("merange=" + this.MotionEstimationRange.Value);
+            }
+
+            if (!this.Analysis.IsDefault)
+            {
+                newOptions.Add("analyse=" + this.Analysis.Value);
+            }
+
+            if (this.Analysis.Value != "none" && !this.EightByEightDct)
+            {
+                newOptions.Add("8x8dct=0");
+            }
+
+            if (!this.CabacEntropyCoding)
+            {
+                newOptions.Add("cabac=0");
+            }
+
+            if (this.CabacEntropyCoding && !this.Trellis.IsDefault)
+            {
+                newOptions.Add("trellis=" + this.Trellis.Value);
+            }
+
+            double psTrellis = 0.0;
+            if (this.CabacEntropyCoding && this.Trellis.Value != "0")
+            {
+                psTrellis = this.PsychovisualTrellis;
+            }
+
+            if (this.PsychovisualRateDistortion < 1.0 || psTrellis > 0.0)
+            {
+                newOptions.Add("psy-rd=" + this.PsychovisualRateDistortion.ToString("F1") + "," + psTrellis.ToString("F1"));
+            }
+
+            if (this.NoFastPSkip)
+            {
+                newOptions.Add("no-fast-pskip=1");
+            }
+
+            if (this.NoDctDecimate)
+            {
+                newOptions.Add("no-dct-decimate=1");
+            }
+
+            if (!this.DeblockingStrength.IsDefault || !this.DeblockingThreshold.IsDefault)
+            {
+                newOptions.Add("deblock=" + this.DeblockingStrength.Value + "," + this.DeblockingThreshold.Value);
+            }
+
+            this.profile.X264Options = string.Join(":", newOptions);
+            this.NotifyPropertyChanged("AdvancedOptionsString");
+            this.IsModified = true;
         }
     }
 }
