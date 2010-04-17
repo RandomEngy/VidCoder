@@ -2,8 +2,8 @@
 <ArrayOfPreset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Preset>
     <Name>Normal</Name>
-    <IsModified>false</IsModified>
     <IsBuiltIn>true</IsBuiltIn>
+    <IsModified>false</IsModified>
     <EncodingProfile>
       <OutputFormat>Mp4</OutputFormat>
       <PreferredExtension>Mp4</PreferredExtension>
@@ -30,6 +30,7 @@
       <Deblock>0</Deblock>
       <Grayscale>false</Grayscale>
       <VideoEncoder>X264</VideoEncoder>
+      <X264Options>ref=2:mixed-refs=0:bframes=2:weightb=0:subq=6:8x8dct=0:trellis=0</X264Options>
       <VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
       <Quality>20</Quality>
       <TargetSize>0</TargetSize>
@@ -44,6 +45,69 @@
           <Bitrate>160</Bitrate>
           <Mixdown>DolbyProLogicII</Mixdown>
           <SampleRate>48</SampleRate>
+          <Drc>0</Drc>
+        </AudioEncoding>
+      </AudioEncodings>
+    </EncodingProfile>
+  </Preset>
+  <Preset>
+    <Name>High Profile</Name>
+    <IsBuiltIn>true</IsBuiltIn>
+    <IsModified>false</IsModified>
+    <EncodingProfile>
+      <OutputFormat>Mp4</OutputFormat>
+      <PreferredExtension>Mp4</PreferredExtension>
+      <IncludeChapterMarkers>false</IncludeChapterMarkers>
+      <LargeFile>false</LargeFile>
+      <Optimize>false</Optimize>
+      <IPod5GSupport>false</IPod5GSupport>
+      <Width>0</Width>
+      <Height>0</Height>
+      <MaxWidth>0</MaxWidth>
+      <MaxHeight>0</MaxHeight>
+      <CustomCropping>false</CustomCropping>
+      <Cropping>
+        <Top>0</Top>
+        <Bottom>0</Bottom>
+        <Left>0</Left>
+        <Right>0</Right>
+      </Cropping>
+      <Anamorphic>Loose</Anamorphic>
+      <UseDisplayWidth>false</UseDisplayWidth>
+      <DisplayWidth>0</DisplayWidth>
+      <KeepDisplayAspect>true</KeepDisplayAspect>
+      <PixelAspectX>0</PixelAspectX>
+      <PixelAspectY>0</PixelAspectY>
+      <Modulus>16</Modulus>
+      <Deinterlace>Off</Deinterlace>
+      <Decomb>Default</Decomb>
+      <Detelecine>Default</Detelecine>
+      <Denoise>Off</Denoise>
+      <Deblock>0</Deblock>
+      <Grayscale>false</Grayscale>
+      <VideoEncoder>X264</VideoEncoder>
+      <X264Options>rc-lookahead=50:b-adapt=2</X264Options>
+      <VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
+      <Quality>20</Quality>
+      <TargetSize>0</TargetSize>
+      <VideoBitrate>0</VideoBitrate>
+      <TwoPass>false</TwoPass>
+      <TurboFirstPass>false</TurboFirstPass>
+      <Framerate>0</Framerate>
+      <AudioEncodings>
+        <AudioEncoding>
+          <InputNumber>0</InputNumber>
+          <Encoder>Faac</Encoder>
+          <Bitrate>160</Bitrate>
+          <Mixdown>DolbyProLogicII</Mixdown>
+          <SampleRate>48</SampleRate>
+          <Drc>0</Drc>
+        </AudioEncoding>
+        <AudioEncoding>
+          <InputNumber>0</InputNumber>
+          <Encoder>Ac3Passthrough</Encoder>
+          <Bitrate>0</Bitrate>
+          <Mixdown>DolbyProLogicII</Mixdown>
           <Drc>0</Drc>
         </AudioEncoding>
       </AudioEncodings>

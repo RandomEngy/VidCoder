@@ -171,25 +171,25 @@
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="85,44,0,0" VerticalAlignment="Top" Width="58"
             ItemsSource="{Binding DisplayNames, Source={StaticResource OutputFormatChoices}}"
             SelectedValue="{Binding OutputFormat, Converter={StaticResource OutputFormatChoices}}"/>
-        <Label Height="28" Margin="155.422,41,0,0" Name="label12" VerticalAlignment="Top" HorizontalAlignment="Left" Width="64"
+        <Label Height="28" Margin="155.422,39,0,0" Name="label12" VerticalAlignment="Top" HorizontalAlignment="Left" Width="64"
             Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">Extension:</Label>
-        <RadioButton Margin="221.422,41,0,0" Name="radioButton3" Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
+        <RadioButton Margin="221.422,39,0,0" Name="radioButton3" Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
             IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Mp4}"
             Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
             IsEnabled="{Binding Mp4ExtensionEnabled}">.mp4</RadioButton>
-        <RadioButton Height="16" Margin="221.422,56,0,0" Name="radioButton4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
+        <RadioButton Height="16" Margin="221.422,54,0,0" Name="radioButton4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
             IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=M4v}"
             Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">.m4v</RadioButton>
         <CheckBox
             Content="Large file size" ToolTip="{x:Static resx:Resources.LargeFileSizeToolTip}"
-            Margin="277.093,41,0,0" HorizontalAlignment="Left" Width="98.907" Height="16" VerticalAlignment="Top"
+            Margin="277.093,39,0,0" HorizontalAlignment="Left" Width="98.907" Height="16" VerticalAlignment="Top"
             Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
             IsChecked="{Binding LargeFile}" />
         <CheckBox
             Content="Web optimized" ToolTip="{x:Static resx:Resources.WebOptimizedToolTip}"
-            Height="16" Margin="277,59,0,0" VerticalAlignment="Top" Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
+            Height="16" Margin="277,57,0,0" VerticalAlignment="Top" Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
             IsChecked="{Binding Optimize}" HorizontalAlignment="Left" Width="111" />
-        <Grid Height="35" HorizontalAlignment="Left" Margin="385.995,41,0,0" VerticalAlignment="Top" Width="150">
+        <Grid Height="35" HorizontalAlignment="Left" Margin="385.995,39,0,0" VerticalAlignment="Top" Width="150">
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                 <CheckBox
                     Content="iPod 5G support" ToolTip="{x:Static resx:Resources.IPod5GSupportToolTip}"
@@ -744,8 +744,8 @@
                     </Grid>
                     <TextBox
                         Margin="4,278,4,4" Height="41"
-                        Text="{Binding AdvancedOptionsString}" TextWrapping="Wrap"/>
-                    <Label Content="Options String" Height="28" HorizontalAlignment="Left" Margin="7,252,0,0" Name="label18" VerticalAlignment="Top" />
+                        Text="{Binding AdvancedOptionsString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
+                    <Label Content="Options String" Height="28" HorizontalAlignment="Left" Margin="7,252,0,0" VerticalAlignment="Top" />
                 </Grid>
             </TabItem>
         </TabControl>
