@@ -271,7 +271,7 @@ namespace VidCoder.ViewModel
 
             this.HasPreview = true;
             this.NotifyPropertyChanged("PreviewSource");
-            this.Title = "Preview: " + width + "x" + height + " (Display " + Math.Round(this.PreviewWidth) + "x" + Math.Round(this.PreviewHeight) + ")";
+            this.Title = "Preview: Display " + Math.Round(this.PreviewWidth) + "x" + Math.Round(this.PreviewHeight) + " - Storage " + width + "x" + height;
         }
 
         private void OnPreviewScanCompleted(object sender, EventArgs eventArgs)
