@@ -102,6 +102,7 @@ namespace VidCoder.ViewModel
 
             this.logger = new Logger();
 
+            this.updateService.HandlePendingUpdate();
             this.updateService = ServiceFactory.UpdateService;
             this.updateService.CheckUpdates();
 

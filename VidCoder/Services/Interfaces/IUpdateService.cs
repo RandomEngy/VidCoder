@@ -11,6 +11,7 @@ namespace VidCoder.Services
         event EventHandler<EventArgs> UpdateDownloadCompleted;
 
         void CheckUpdates();
+        void HandlePendingUpdate();
         void PromptToApplyUpdate();
         void HandleUpdatedSettings(bool updatesEnabled);
 
