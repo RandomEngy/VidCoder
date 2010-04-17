@@ -358,5 +358,29 @@ namespace VidCoder.Properties {
                 this["ApplicationVersion"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LogWindowPlacement {
+            get {
+                return ((string)(this["LogWindowPlacement"]));
+            }
+            set {
+                this["LogWindowPlacement"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LogWindowOpen {
+            get {
+                return ((bool)(this["LogWindowOpen"]));
+            }
+            set {
+                this["LogWindowOpen"] = value;
+            }
+        }
     }
 }

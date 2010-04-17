@@ -125,6 +125,20 @@
             <MenuItem Header="Tools">
                 <MenuItem Header="Options" Command="{Binding OpenOptionsCommand}" />
             </MenuItem>
+            <MenuItem Header="Windows">
+                <MenuItem
+                    Header="Encoding Settings"
+                    Command="{Binding OpenEncodingWindowCommand}"
+                    IsCheckable="True" IsChecked="{Binding EncodingWindowOpen}" />
+                <MenuItem
+                    Header="Preview"
+                    Command="{Binding OpenPreviewWindowCommand}"
+                    IsCheckable="True" IsChecked="{Binding PreviewWindowOpen}" />
+                <MenuItem
+                    Header="Log"
+                    Command="{Binding OpenLogWindowCommand}"
+                    IsCheckable="True" IsChecked="{Binding LogWindowOpen}" />
+            </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="About..." Command="{Binding OpenAboutDialogCommand}" />
             </MenuItem>
@@ -362,7 +376,8 @@
             </Button>
             <Button
                 Height="26" HorizontalAlignment="Right" Margin="0,50,12,0" VerticalAlignment="Top" Width="77"
-                Command="{Binding OpenPreviewWindowCommand}">
+                Command="{Binding OpenPreviewWindowCommand}"
+                IsEnabled="{Binding HasVideoSource}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Icons/preview.png" />
                     <TextBlock Text="Preview" Margin="5,0,0,0" VerticalAlignment="Center" />

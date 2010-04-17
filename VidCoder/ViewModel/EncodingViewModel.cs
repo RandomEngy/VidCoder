@@ -14,7 +14,7 @@ using System.Windows;
 
 namespace VidCoder.ViewModel
 {
-    public class EncodingViewModel : ViewModelBase
+    public class EncodingViewModel : OkCancelDialogViewModel
     {
         private const int DimensionsAutoSetModulus = 16;
 

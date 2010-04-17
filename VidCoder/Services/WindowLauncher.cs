@@ -83,6 +83,10 @@ namespace VidCoder.Services
             {
                 windowToOpen = new AboutDialog();
             }
+            else if (viewModel is LogViewModel)
+            {
+                windowToOpen = new LogWindow();
+            }
 
             if (owner != null)
             {

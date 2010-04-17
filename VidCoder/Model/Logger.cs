@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using HandBrake.Interop;
 using System.IO;
+using VidCoder.ViewModel;
 
 namespace VidCoder.Model
 {
@@ -11,6 +12,8 @@ namespace VidCoder.Model
     {
         private StreamWriter logFile;
         private bool disposed;
+        private StringBuilder logBuilder;
+        private object logLock = new object();
 
         public Logger()
         {
@@ -25,12 +28,26 @@ namespace VidCoder.Model
 
             string logFilePath = Path.Combine(logFolder, DateTime.UtcNow.ToString("yyyy-MM-dd HH-mm-ss") + ".txt");
             this.logFile = new StreamWriter(logFilePath);
+
+            this.logBuilder = new StringBuilder();
+        }
+
+        public string LogText
+        {
+            get
+            {
+                return logBuilder.ToString();
+            }
         }
 
         public void Log(string message)
         {
-            this.logFile.WriteLine(message);
-            this.logFile.Flush();
+            this.RecordMessage(message);
+        }
+
+        public void ClearLog()
+        {
+            this.logBuilder.Clear();
         }
 
         /// <summary>
@@ -47,13 +64,29 @@ namespace VidCoder.Model
 
         private void OnMessageLogged(object sender, MessageLoggedEventArgs e)
         {
-            this.logFile.WriteLine(e.Message);
-            this.logFile.Flush();
+            this.RecordMessage(e.Message);
         }
 
         private void OnErrorLogged(object sender, MessageLoggedEventArgs e)
         {
-            this.logFile.WriteLine("ERROR: " + e.Message);
+            this.RecordMessage("ERROR: " + e.Message);
+        }
+
+        private void RecordMessage(string message)
+        {
+            lock (this.logLock)
+            {
+                this.logBuilder.Append(message);
+                this.logBuilder.Append(Environment.NewLine);
+            }
+
+            var logWindow = WindowManager.FindWindow(typeof(LogViewModel)) as LogViewModel;
+            if (logWindow != null)
+            {
+                logWindow.RefreshLogs();
+            }
+
+            this.logFile.WriteLine(message);
             this.logFile.Flush();
         }
     }

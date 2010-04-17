@@ -12,12 +12,13 @@ using System.IO;
 
 namespace VidCoder.ViewModel
 {
-    public class PreviewViewModel : ViewModelBase
+    public class PreviewViewModel : OkCancelDialogViewModel
     {
         private const string NoSourceTitle = "Preview: No video source";
 
         private EncodeJob job;
         private HandBrakeInstance previewInstance;
+        private Logger logger;
         private string title;
         private int selectedPreview;
         private bool hasPreview;
@@ -32,6 +33,7 @@ namespace VidCoder.ViewModel
         public PreviewViewModel(MainViewModel mainViewModel)
         {
             this.mainViewModel = mainViewModel;
+            this.logger = mainViewModel.Logger;
             this.previewSeconds = Settings.Default.PreviewSeconds;
             this.Title = NoSourceTitle;
 
@@ -184,6 +186,10 @@ namespace VidCoder.ViewModel
                     this.generatePreviewCommand = new RelayCommand(param =>
                     {
                         this.job = this.mainViewModel.EncodeJob;
+                        this.logger.Log("## Generating preview clip");
+                        this.logger.Log("## Scanning title");
+
+
                         this.previewInstance = new HandBrakeInstance();
                         this.previewInstance.Initialize(2);
                         this.previewInstance.ScanCompleted += this.OnPreviewScanCompleted;
@@ -303,8 +309,15 @@ namespace VidCoder.ViewModel
             this.previewInstance.EncodeCompleted += (o, e) =>
             {
                 this.GeneratingPreview = false;
+                this.logger.Log("# Finished preview clip generation");
+
                 FileService.Instance.LaunchFile(this.job.OutputPath);
             };
+
+            this.logger.Log("## Encoding clip");
+            this.logger.Log("##   Path: " + this.job.OutputPath);
+            this.logger.Log("##   Title: " + this.job.Title);
+            this.logger.Log("##   Preview #: " + this.SelectedPreview);
 
             this.previewInstance.StartEncode(this.job, true, this.SelectedPreview, this.PreviewSeconds);
         }

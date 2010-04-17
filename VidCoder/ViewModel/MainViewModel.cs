@@ -70,12 +70,17 @@ namespace VidCoder.ViewModel
         private double overallEncodeProgressFraction;
         private TaskbarItemProgressState encodeProgressState;
 
+        private bool encodingWindowOpen;
+        private bool previewWindowOpen;
+        private bool logWindowOpen;
+
         private ICommand openSubtitlesDialogCommand;
         private ICommand openChaptersDialogCommand;
         private ICommand openAboutDialogCommand;
         private ICommand addTrackCommand;
         private ICommand openEncodingWindowCommand;
         private ICommand openPreviewWindowCommand;
+        private ICommand openLogWindowCommand;
         private ICommand pickOutputFolderCommand;
         private ICommand pickOutputPathCommand;
         private ICommand encodeCommand;
@@ -175,6 +180,14 @@ namespace VidCoder.ViewModel
             get
             {
                 return this.scanInstance;
+            }
+        }
+
+        public Logger Logger
+        {
+            get
+            {
+                return this.logger;
             }
         }
 
@@ -306,6 +319,11 @@ namespace VidCoder.ViewModel
             {
                 this.OpenPreviewWindow();
             }
+
+            if (Settings.Default.LogWindowOpen)
+            {
+                this.OpenLogWindow();
+            }
         }
 
         /// <summary>
@@ -348,8 +366,15 @@ namespace VidCoder.ViewModel
                 WindowManager.Close(previewWindow);
             }
 
+            ViewModelBase logWindow = WindowManager.FindWindow(typeof(LogViewModel));
+            if (logWindow != null)
+            {
+                WindowManager.Close(logWindow);
+            }
+
             Settings.Default.EncodingWindowOpen = encodingWindow != null;
             Settings.Default.PreviewWindowOpen = previewWindow != null;
+            Settings.Default.LogWindowOpen = logWindow != null;
             Settings.Default.Save();
 
             this.driveService.Close();
@@ -1228,6 +1253,48 @@ namespace VidCoder.ViewModel
             }
         }
 
+        public bool EncodingWindowOpen
+        {
+            get
+            {
+                return this.encodingWindowOpen;
+            }
+
+            set
+            {
+                this.encodingWindowOpen = value;
+                this.NotifyPropertyChanged("EncodingWindowOpen");
+            }
+        }
+
+        public bool PreviewWindowOpen
+        {
+            get
+            {
+                return this.previewWindowOpen;
+            }
+
+            set
+            {
+                this.previewWindowOpen = value;
+                this.NotifyPropertyChanged("PreviewWindowOpen");
+            }
+        }
+
+        public bool LogWindowOpen
+        {
+            get
+            {
+                return this.logWindowOpen;
+            }
+
+            set
+            {
+                this.logWindowOpen = value;
+                this.NotifyPropertyChanged("LogWindowOpen");
+            }
+        }
+
         public ICommand OpenSubtitlesDialogCommand
         {
             get
@@ -1307,14 +1374,26 @@ namespace VidCoder.ViewModel
                     this.openPreviewWindowCommand = new RelayCommand(param =>
                     {
                         this.OpenPreviewWindow();
-                    },
-                    param =>
-                    {
-                        return this.HasVideoSource;
                     });
                 }
 
                 return this.openPreviewWindowCommand;
+            }
+        }
+
+        public ICommand OpenLogWindowCommand
+        {
+            get
+            {
+                if (this.openLogWindowCommand == null)
+                {
+                    this.openLogWindowCommand = new RelayCommand(param =>
+                    {
+                        this.OpenLogWindow();
+                    });
+                }
+
+                return this.openLogWindowCommand;
             }
         }
 
@@ -1995,10 +2074,16 @@ namespace VidCoder.ViewModel
 
         private void OpenEncodingWindow()
         {
-            ViewModelBase encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel));
+            var encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel)) as EncodingViewModel;
+            this.EncodingWindowOpen = true;
+
             if (encodingWindow == null)
             {
                 encodingWindow = new EncodingViewModel(this.SelectedPreset.Preset, this);
+                encodingWindow.Closing = () =>
+                {
+                    this.EncodingWindowOpen = false;
+                };
                 WindowManager.OpenWindow(encodingWindow, this);
             }
             else
@@ -2009,15 +2094,41 @@ namespace VidCoder.ViewModel
 
         private void OpenPreviewWindow()
         {
-            ViewModelBase previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel));
+            var previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
+            this.PreviewWindowOpen = true;
+
             if (previewWindow == null)
             {
                 previewWindow = new PreviewViewModel(this);
+                previewWindow.Closing = () =>
+                {
+                    this.PreviewWindowOpen = false;
+                };
                 WindowManager.OpenWindow(previewWindow, this);
             }
             else
             {
                 WindowManager.FocusWindow(previewWindow);
+            }
+        }
+
+        private void OpenLogWindow()
+        {
+            var logWindow = WindowManager.FindWindow(typeof(LogViewModel)) as LogViewModel;
+            this.LogWindowOpen = true;
+
+            if (logWindow == null)
+            {
+                logWindow = new LogViewModel(this.logger);
+                logWindow.Closing = () =>
+                {
+                    this.LogWindowOpen = false;
+                };
+                WindowManager.OpenWindow(logWindow, this);
+            }
+            else
+            {
+                WindowManager.FocusWindow(logWindow);
             }
         }
 
