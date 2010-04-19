@@ -1417,6 +1417,59 @@ namespace VidCoder.ViewModel
             }
         }
 
+        public bool TwoPassEncoding
+        {
+            get
+            {
+                return this.profile.TwoPass;
+            }
+
+            set
+            {
+                this.profile.TwoPass = value;
+                this.NotifyPropertyChanged("TwoPassEncoding");
+                this.NotifyPropertyChanged("TurboFirstPass");
+                this.NotifyPropertyChanged("TurboFirstPassEnabled");
+                this.IsModified = true;
+            }
+        }
+
+        public bool TwoPassEncodingEnabled
+        {
+            get
+            {
+                return this.VideoEncodeRateType != VideoEncodeRateType.ConstantQuality;
+            }
+        }
+
+        public bool TurboFirstPass
+        {
+            get
+            {
+                if (!this.TwoPassEncoding)
+                {
+                    return false;
+                }
+
+                return profile.TurboFirstPass;
+            }
+
+            set
+            {
+                this.profile.TurboFirstPass = value;
+                this.NotifyPropertyChanged("TurboFirstPass");
+                this.IsModified = true;
+            }
+        }
+
+        public bool TurboFirstPassEnabled
+        {
+            get
+            {
+                return this.VideoEncodeRateType != VideoEncodeRateType.ConstantQuality && this.TwoPassEncoding;
+            }
+        }
+
         public VideoEncodeRateType VideoEncodeRateType
         {
             get
@@ -1447,7 +1500,17 @@ namespace VidCoder.ViewModel
                         default:
                             break;
                     }
+
+                    // Disable two-pass options
+
+                    this.profile.TwoPass = false;
+                    this.profile.TurboFirstPass = false;
+                    this.NotifyPropertyChanged("TwoPassEncoding");
+                    this.NotifyPropertyChanged("TurboFirstPass");
                 }
+
+                this.NotifyPropertyChanged("TwoPassEncodingEnabled");
+                this.NotifyPropertyChanged("TurboFirstPassEnabled");
 
                 if (value == VideoEncodeRateType.AverageBitrate)
                 {
@@ -2459,6 +2522,10 @@ namespace VidCoder.ViewModel
             this.NotifyPropertyChanged("DeblockText");
             this.NotifyPropertyChanged("Grayscale");
             this.NotifyPropertyChanged("SelectedFramerate");
+            this.NotifyPropertyChanged("TwoPassEncoding");
+            this.NotifyPropertyChanged("TurboFirstPass");
+            this.NotifyPropertyChanged("TwoPassEncodingEnabled");
+            this.NotifyPropertyChanged("TurboFirstPassEnabled");
             this.NotifyPropertyChanged("VideoEncodeRateType");
             this.NotifyPropertyChanged("TargetSize");
             this.NotifyPropertyChanged("VideoBitrate");

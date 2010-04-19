@@ -102,8 +102,8 @@ namespace VidCoder.ViewModel
 
             this.logger = new Logger();
 
-            this.updateService.HandlePendingUpdate();
             this.updateService = ServiceFactory.UpdateService;
+            this.updateService.HandlePendingUpdate();
             this.updateService.CheckUpdates();
 
             List<Preset> presets = new List<Preset>();
@@ -1661,6 +1661,12 @@ namespace VidCoder.ViewModel
             foreach (EncodeJobViewModel jobVM in this.EncodeQueue)
             {
                 this.totalQueueTime += jobVM.Job.Length;
+
+                // Add the job length twice for two-pass encoding.
+                if (jobVM.Job.EncodingProfile.TwoPass)
+                {
+                    this.totalQueueTime += jobVM.Job.Length;
+                }
             }
 
             this.OverallEncodeProgressFraction = 0;
@@ -1715,7 +1721,14 @@ namespace VidCoder.ViewModel
                 return;
             }
 
-            double completedSeconds = this.completedQueueTime.TotalSeconds + this.EncodeQueue[0].Job.Length.TotalSeconds * e.FractionComplete;
+            double currentJobLengthSeconds = this.EncodeQueue[0].Job.Length.TotalSeconds;
+
+            double completedSeconds = this.completedQueueTime.TotalSeconds + currentJobLengthSeconds * e.FractionComplete;
+            if (e.Pass == 2)
+            {
+                completedSeconds += currentJobLengthSeconds;
+            }
+
             this.OverallEncodeProgressFraction = completedSeconds / this.totalQueueTime.TotalSeconds;
 
             this.EncodeQueue[0].PercentComplete = (int)(e.FractionComplete * 100);
@@ -1756,6 +1769,11 @@ namespace VidCoder.ViewModel
                 {
                     // If the encode completed successfully
                     this.completedQueueTime += this.EncodeQueue[0].Job.Length;
+                    if (this.EncodeQueue[0].Job.EncodingProfile.TwoPass)
+                    {
+                        this.completedQueueTime += this.EncodeQueue[0].Job.Length;
+                    }
+                    
                     HandBrakeInstance finishedInstance = this.EncodeQueue[0].HandBrakeInstance;
                     this.EncodeQueue.RemoveAt(0);
 

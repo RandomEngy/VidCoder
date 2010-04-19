@@ -486,6 +486,16 @@
                         Text="{Binding QualitySliderLeftText}"/>
                     <TextBlock Height="21" HorizontalAlignment="Right" Margin="0,149,6,0" VerticalAlignment="Top" Width="93" TextAlignment="Right"
                         Text="{Binding QualitySliderRightText}"/>
+                    <CheckBox
+                        Content="2-pass Encoding"
+                        Height="16" HorizontalAlignment="Left" Margin="124,112,0,0" VerticalAlignment="Top"
+                        IsChecked="{Binding TwoPassEncoding}"
+                        IsEnabled="{Binding TwoPassEncodingEnabled}"/>
+                    <CheckBox
+                        Content="Turbo first Pass"
+                        Height="16" HorizontalAlignment="Left" Margin="145,135,0,0" VerticalAlignment="Top"
+                        IsChecked="{Binding TurboFirstPass}"
+                        IsEnabled="{Binding TurboFirstPassEnabled}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Audio">

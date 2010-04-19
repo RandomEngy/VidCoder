@@ -36,7 +36,10 @@ namespace VidCoder.Model
         {
             get
             {
-                return logBuilder.ToString();
+                lock (this.logLock)
+                {
+                    return logBuilder.ToString();
+                }
             }
         }
 
