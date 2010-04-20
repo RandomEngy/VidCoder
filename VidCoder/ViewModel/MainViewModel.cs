@@ -2176,6 +2176,38 @@ namespace VidCoder.ViewModel
             }
             else
             {
+                // Change casing on DVD titles to be a little more friendly
+                string translatedSourceName = this.sourceName;
+                if ((this.SelectedSource.Type == SourceType.Dvd || this.SelectedSource.Type == SourceType.VideoFolder) && !string.IsNullOrWhiteSpace(this.sourceName))
+                {
+                    string[] titleWords = this.sourceName.Split('_');
+                    var translatedTitleWords = new List<string>();
+                    bool reachedModifiers = false;
+
+                    foreach (string titleWord in titleWords)
+                    {
+                        // After the disc designator, stop changing capitalization.
+                        if (!reachedModifiers && titleWord.Length == 2 && titleWord[0] == 'D' && char.IsDigit(titleWord[1]))
+                        {
+                            reachedModifiers = true;
+                        }
+
+                        if (reachedModifiers)
+                        {
+                            translatedTitleWords.Add(titleWord);
+                        }
+                        else
+                        {
+                            if (titleWord.Length > 0)
+                            {
+                                translatedTitleWords.Add(titleWord[0] + titleWord.Substring(1).ToLower());
+                            }
+                        }
+                    }
+
+                    translatedSourceName = string.Join(" ", translatedTitleWords);
+                }
+
                 if (Properties.Settings.Default.AutoNameCustomFormat)
                 {
                     string chapterString;
@@ -2192,7 +2224,7 @@ namespace VidCoder.ViewModel
 
                     fileName = Properties.Settings.Default.AutoNameCustomFormatString;
 
-                    fileName = fileName.Replace("{source}", this.sourceName);
+                    fileName = fileName.Replace("{source}", translatedSourceName);
                     fileName = fileName.Replace("{title}", this.SelectedTitle.TitleNumber.ToString());
                     fileName = fileName.Replace("{chapters}", chapterString);
                 }
@@ -2220,7 +2252,7 @@ namespace VidCoder.ViewModel
                         }
                     }
 
-                    fileName = this.sourceName + titleSection + chaptersSection;
+                    fileName = translatedSourceName + titleSection + chaptersSection;
                 }
             }
 
