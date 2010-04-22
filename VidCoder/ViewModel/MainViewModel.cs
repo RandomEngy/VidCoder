@@ -85,9 +85,12 @@ namespace VidCoder.ViewModel
         private ICommand pickOutputPathCommand;
         private ICommand encodeCommand;
         private ICommand addToQueueCommand;
+        private ICommand customizeQueueColumnsCommand;
         private ICommand pauseCommand;
         private ICommand stopEncodeCommand;
         private ICommand openOptionsCommand;
+        private ICommand openHomepageCommand;
+        private ICommand reportBugCommand;
 
         public event EventHandler<EventArgs<string>> AnimationStarted;
 
@@ -1560,6 +1563,31 @@ namespace VidCoder.ViewModel
             }
         }
 
+        public ICommand CustomizeQueueColumnsCommand
+        {
+            get
+            {
+                if (this.customizeQueueColumnsCommand == null)
+                {
+                    this.customizeQueueColumnsCommand = new RelayCommand(param =>
+                    {
+                        var queueDialog = new QueueColumnsViewModel();
+                        WindowManager.OpenDialog(queueDialog, this);
+
+                        if (queueDialog.DialogResult)
+                        {
+                            // Apply new columns
+                            Settings.Default.QueueColumns = queueDialog.NewColumns;
+                            Settings.Default.Save();
+                            this.NotifyPropertyChanged("QueueColumns");
+                        }
+                    });
+                }
+
+                return this.customizeQueueColumnsCommand;
+            }
+        }
+
         public ICommand PauseCommand
         {
             get
@@ -1616,6 +1644,38 @@ namespace VidCoder.ViewModel
                 }
 
                 return this.openOptionsCommand;
+            }
+        }
+
+        public ICommand OpenHomepageCommand
+        {
+            get
+            {
+                if (this.openHomepageCommand == null)
+                {
+                    this.openHomepageCommand = new RelayCommand(param =>
+                    {
+                        Process.Start("http://vidcoder.codeplex.com/");
+                    });
+                }
+
+                return this.openHomepageCommand;
+            }
+        }
+
+        public ICommand ReportBugCommand
+        {
+            get
+            {
+                if (this.reportBugCommand == null)
+                {
+                    this.reportBugCommand = new RelayCommand(param =>
+                    {
+                        Process.Start("http://vidcoder.codeplex.com/WorkItem/Create.aspx");
+                    });
+                }
+
+                return this.reportBugCommand;
             }
         }
 

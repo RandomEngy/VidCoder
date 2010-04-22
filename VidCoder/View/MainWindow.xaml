@@ -82,21 +82,21 @@
         <DataTemplate x:Key="QueueDragTemplate">
             <TextBlock Text="" />
         </DataTemplate>
-        <DataTemplate x:Key="QueueSourceTemplate">
+        <DataTemplate x:Key="QueueTemplateSource">
             <TextBlock
                 Text="{Binding Job.SourcePath}" TextTrimming="CharacterEllipsis"
                 ToolTip="{Binding Job.SourcePath}" ToolTipService.InitialShowDelay="0" ToolTipService.Placement="Relative" ToolTipService.VerticalOffset="-2" ToolTipService.HorizontalOffset="-6"
                 Style="{StaticResource QueueText}" />
         </DataTemplate>
-        <DataTemplate x:Key="QueueTitleTemplate">
+        <DataTemplate x:Key="QueueTemplateTitle">
             <TextBlock Text="{Binding Job.Title}"
                 Style="{StaticResource QueueText}" />
         </DataTemplate>
-        <DataTemplate x:Key="QueueChaptersTemplate">
+        <DataTemplate x:Key="QueueTemplateChapters">
             <TextBlock Text="{Binding ChaptersDisplay}"
                 Style="{StaticResource QueueText}" />
         </DataTemplate>
-        <DataTemplate x:Key="QueueDestinationTemplate">
+        <DataTemplate x:Key="QueueTemplateDestination">
             <TextBlock
                 Text="{Binding Job.OutputPath}" TextTrimming="CharacterEllipsis"
                 ToolTip="{Binding Job.OutputPath}" ToolTipService.InitialShowDelay="0" ToolTipService.Placement="Relative" ToolTipService.VerticalOffset="-2" ToolTipService.HorizontalOffset="-6"
@@ -140,7 +140,10 @@
                     IsCheckable="True" IsChecked="{Binding LogWindowOpen}" />
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem Header="About..." Command="{Binding OpenAboutDialogCommand}" />
+                <MenuItem Header="VidCoder Homepage" Command="{Binding OpenHomepageCommand}" />
+                <MenuItem Header="Report a Bug" Command="{Binding ReportBugCommand}" />
+                <Separator/>
+                <MenuItem Header="About VidCoder..." Command="{Binding OpenAboutDialogCommand}" />
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1" MinHeight="144">
@@ -459,16 +462,21 @@
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.View>
-                    <GridView>
+                    <GridView x:Name="queueGridView">
                         <GridView.Columns>
-                            <GridViewColumn Width="200" Header="Source" CellTemplate="{StaticResource QueueSourceTemplate}" />
-                            <GridViewColumn Width="35" Header="Title" CellTemplate="{StaticResource QueueTitleTemplate}" />
-                            <GridViewColumn Width="60" Header="Chapters" CellTemplate="{StaticResource QueueChaptersTemplate}" />
-                            <GridViewColumn Width="200" Header="Destination" CellTemplate="{StaticResource QueueDestinationTemplate}" />
+                            <!--<GridViewColumn Width="200" Header="Source" CellTemplate="{StaticResource SourceQueueTemplate}" />
+                            <GridViewColumn Width="35" Header="Title" CellTemplate="{StaticResource TitleQueueTemplate}" />
+                            <GridViewColumn Width="60" Header="Chapters" CellTemplate="{StaticResource ChaptersQueueTemplate}" />
+                            <GridViewColumn Width="200" Header="Destination" CellTemplate="{StaticResource DestinationQueueTemplate}" />-->
                             <GridViewColumn Width="75" CellTemplate="{StaticResource QueueRemoveTemplate}" />
                         </GridView.Columns>
                     </GridView>
                 </ListView.View>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Customize columns..." Command="{Binding CustomizeQueueColumnsCommand}" />
+                    </ContextMenu>
+                </ListView.ContextMenu>
             </ListView>
             <Label Height="28" Margin="220,49,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="47">Preset:</Label>
         </Grid>

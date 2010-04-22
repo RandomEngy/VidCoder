@@ -13,6 +13,14 @@ namespace VidCoder
         public const string UpdateInfoUrl = "http://engy.us/VidCoder/latest.xml";
         public const string AppDataFolderName = "VidCoder";
 
+        private static Dictionary<string, double> defaultQueueColumnSizes = new Dictionary<string, double>
+        {
+            {"Source", 200},
+            {"Title", 35},
+            {"Chapters", 60},
+            {"Destination", 200}
+        };
+
         public static string CurrentVersion
         {
             get
@@ -110,6 +118,49 @@ namespace VidCoder
 
                 return updatesFolder;
             }
+        }
+
+        public static Dictionary<string, double> DefaultQueueColumnSizes
+        {
+            get
+            {
+                return defaultQueueColumnSizes;
+            }
+        }
+
+        public static bool IsValidQueueColumn(string columnId)
+        {
+            return defaultQueueColumnSizes.ContainsKey(columnId);
+        }
+
+        /// <summary>
+        /// Parse a size list in the format {column id 1}:{width 1}|{column id 2}:{width 2}|...
+        /// </summary>
+        /// <param name="listString">The string to parse.</param>
+        /// <returns>The parsed list of sizes.</returns>
+        public static List<Tuple<string, double>> ParseSizeList(string listString)
+        {
+            var resultList = new List<Tuple<string, double>>();
+
+            string[] columnSettings = listString.Split('|');
+            foreach (string columnSetting in columnSettings)
+            {
+                if (!string.IsNullOrWhiteSpace(columnSetting))
+                {
+                    string[] settingParts = columnSetting.Split(':');
+                    if (settingParts.Length == 2)
+                    {
+                        double columnWidth;
+                        string columnId = settingParts[0];
+                        if (!string.IsNullOrWhiteSpace(columnId) && double.TryParse(settingParts[1], out columnWidth))
+                        {
+                            resultList.Add(new Tuple<string, double>(columnId, columnWidth));
+                        }
+                    }
+                }
+            }
+
+            return resultList;
         }
     }
 }

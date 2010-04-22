@@ -20,6 +20,7 @@ using VidCoder.Properties;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using HandBrake.Interop;
+using System.Resources;
 
 namespace VidCoder.View
 {
@@ -40,6 +41,8 @@ namespace VidCoder.View
         public MainWindow()
         {
             InitializeComponent();
+
+            this.RefreshQueueColumns();
 
             this.DataContextChanged += OnDataContextChanged;
             DispatchService.DispatchObject = this.Dispatcher;
@@ -108,6 +111,10 @@ namespace VidCoder.View
             if (e.PropertyName == "DriveCollection")
             {
                 this.UpdateDrives();
+            }
+            else if (e.PropertyName == "QueueColumns")
+            {
+                this.RefreshQueueColumns();
             }
         }
 
@@ -257,6 +264,35 @@ namespace VidCoder.View
             }
         }
 
+        private void RefreshQueueColumns()
+        {
+            this.queueGridView.Columns.Clear();
+            ResourceManager resources = new ResourceManager("VidCoder.Properties.Resources", typeof(Resources).Assembly);
+
+            List<Tuple<string, double>> columns = Utilities.ParseSizeList(Settings.Default.QueueColumns);
+            foreach (Tuple<string, double> column in columns)
+            {
+                if (Utilities.IsValidQueueColumn(column.Item1))
+                {
+                    GridViewColumn queueColumn = new GridViewColumn
+                    {
+                        Header = resources.GetString("QueueColumnName" + column.Item1),
+                        CellTemplate = this.Resources["QueueTemplate" + column.Item1] as DataTemplate,
+                        Width = column.Item2
+                    };
+
+                    this.queueGridView.Columns.Add(queueColumn);
+                }
+            }
+
+            GridViewColumn lastColumn = new GridViewColumn
+            {
+                CellTemplate = this.Resources["QueueRemoveTemplate"] as DataTemplate,
+                Width = Settings.Default.QueueLastColumnWidth
+            };
+            this.queueGridView.Columns.Add(lastColumn);
+        }
+
         // Handle clicks that don't result in a selection change.
         private void OnSourceItemMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -279,6 +315,24 @@ namespace VidCoder.View
             }
             else
             {
+                ResourceManager resources = new ResourceManager("VidCoder.Properties.Resources", typeof(Resources).Assembly);
+
+                StringBuilder queueColumnsBuilder = new StringBuilder();
+                List<Tuple<string, double>> columns = Utilities.ParseSizeList(Settings.Default.QueueColumns);
+                for (int i = 0; i < columns.Count; i++)
+                {
+                    queueColumnsBuilder.Append(columns[i].Item1);
+                    queueColumnsBuilder.Append(":");
+                    queueColumnsBuilder.Append(this.queueGridView.Columns[i].ActualWidth);
+
+                    if (i != columns.Count - 1)
+                    {
+                        queueColumnsBuilder.Append("|");
+                    }
+                }
+
+                Settings.Default.QueueColumns = queueColumnsBuilder.ToString();
+
                 Settings.Default.MainWindowPlacement = this.GetPlacement();
                 Settings.Default.Save();
             }

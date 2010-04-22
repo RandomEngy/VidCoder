@@ -137,6 +137,42 @@ namespace VidCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chapters.
+        /// </summary>
+        public static string QueueColumnNameChapters {
+            get {
+                return ResourceManager.GetString("QueueColumnNameChapters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination.
+        /// </summary>
+        public static string QueueColumnNameDestination {
+            get {
+                return ResourceManager.GetString("QueueColumnNameDestination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source.
+        /// </summary>
+        public static string QueueColumnNameSource {
+            get {
+                return ResourceManager.GetString("QueueColumnNameSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string QueueColumnNameTitle {
+            get {
+                return ResourceManager.GetString("QueueColumnNameTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arrange file to play better as a progressive download..
         /// </summary>
         public static string WebOptimizedToolTip {

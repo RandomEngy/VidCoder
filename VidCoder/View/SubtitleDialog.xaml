@@ -150,7 +150,7 @@
             </Grid>
         </ScrollViewer>
 
-        <Button Height="23" Command="{Binding AcceptCommand}" Grid.Row="1" Margin="0,0,93,7.714" HorizontalAlignment="Right" Width="74" VerticalAlignment="Bottom">OK</Button>
+        <Button Height="23" Command="{Binding AcceptCommand}" Grid.Row="1" Margin="0,0,93,7.714" HorizontalAlignment="Right" Width="74" VerticalAlignment="Bottom" IsDefault="True">OK</Button>
         <Button Height="23" Command="{Binding CancelCommand}" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,12,7.714" Width="75" VerticalAlignment="Bottom">Cancel</Button>
     </Grid>
 </Window>

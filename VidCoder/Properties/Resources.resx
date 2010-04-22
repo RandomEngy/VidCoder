@@ -148,4 +148,16 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="WebOptimizedToolTip" xml:space="preserve">
     <value>Arrange file to play better as a progressive download.</value>
   </data>
+  <data name="QueueColumnNameChapters" xml:space="preserve">
+    <value>Chapters</value>
+  </data>
+  <data name="QueueColumnNameDestination" xml:space="preserve">
+    <value>Destination</value>
+  </data>
+  <data name="QueueColumnNameSource" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="QueueColumnNameTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
 </root>

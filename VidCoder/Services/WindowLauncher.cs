@@ -87,6 +87,10 @@ namespace VidCoder.Services
             {
                 windowToOpen = new LogWindow();
             }
+            else if (viewModel is QueueColumnsViewModel)
+            {
+                windowToOpen = new QueueColumnsDialog();
+            }
 
             if (owner != null)
             {

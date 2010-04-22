@@ -382,5 +382,29 @@ namespace VidCoder.Properties {
                 this["LogWindowOpen"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Source:200|Title:35|Chapters:60|Destination:200")]
+        public string QueueColumns {
+            get {
+                return ((string)(this["QueueColumns"]));
+            }
+            set {
+                this["QueueColumns"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("75")]
+        public double QueueLastColumnWidth {
+            get {
+                return ((double)(this["QueueLastColumnWidth"]));
+            }
+            set {
+                this["QueueLastColumnWidth"] = value;
+            }
+        }
     }
 }

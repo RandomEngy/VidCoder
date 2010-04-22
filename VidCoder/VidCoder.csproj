@@ -169,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\QueueColumnsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SubtitleDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -184,11 +188,15 @@
     <Compile Include="ViewModel\AboutDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
+    <Compile Include="ViewModel\QueueColumnsViewModel.cs" />
     <Compile Include="View\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LogWindow.xaml.cs">
       <DependentUpon>LogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QueueColumnsDialog.xaml.cs">
+      <DependentUpon>QueueColumnsDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="WpfSystemIcons.cs" />
     <Compile Include="View\ExceptionDialog.xaml.cs">
