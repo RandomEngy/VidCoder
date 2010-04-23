@@ -183,10 +183,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="EnumStringConverter.cs" />
     <Compile Include="Model\Logger.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\AboutDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
+    <Compile Include="ViewModel\DataModels\ColumnViewModel.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
     <Compile Include="ViewModel\QueueColumnsViewModel.cs" />
     <Compile Include="View\AboutDialog.xaml.cs">

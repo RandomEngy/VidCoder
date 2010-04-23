@@ -269,20 +269,17 @@ namespace VidCoder.View
             this.queueGridView.Columns.Clear();
             ResourceManager resources = new ResourceManager("VidCoder.Properties.Resources", typeof(Resources).Assembly);
 
-            List<Tuple<string, double>> columns = Utilities.ParseSizeList(Settings.Default.QueueColumns);
+            List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Settings.Default.QueueColumns);
             foreach (Tuple<string, double> column in columns)
             {
-                if (Utilities.IsValidQueueColumn(column.Item1))
+                GridViewColumn queueColumn = new GridViewColumn
                 {
-                    GridViewColumn queueColumn = new GridViewColumn
-                    {
-                        Header = resources.GetString("QueueColumnName" + column.Item1),
-                        CellTemplate = this.Resources["QueueTemplate" + column.Item1] as DataTemplate,
-                        Width = column.Item2
-                    };
+                    Header = resources.GetString("QueueColumnName" + column.Item1),
+                    CellTemplate = this.Resources["QueueTemplate" + column.Item1] as DataTemplate,
+                    Width = column.Item2
+                };
 
-                    this.queueGridView.Columns.Add(queueColumn);
-                }
+                this.queueGridView.Columns.Add(queueColumn);
             }
 
             GridViewColumn lastColumn = new GridViewColumn
@@ -318,7 +315,7 @@ namespace VidCoder.View
                 ResourceManager resources = new ResourceManager("VidCoder.Properties.Resources", typeof(Resources).Assembly);
 
                 StringBuilder queueColumnsBuilder = new StringBuilder();
-                List<Tuple<string, double>> columns = Utilities.ParseSizeList(Settings.Default.QueueColumns);
+                List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Settings.Default.QueueColumns);
                 for (int i = 0; i < columns.Count; i++)
                 {
                     queueColumnsBuilder.Append(columns[i].Item1);

@@ -42,13 +42,7 @@ namespace VidCoder
                 }
 
                 this.type = value;
-            }
-        }
 
-        public ReadOnlyCollection<string> DisplayNames
-        {
-            get
-            {
                 Type displayValuesType = typeof(Dictionary<,>)
                     .GetGenericTypeDefinition().MakeGenericType(type, typeof(string));
                 this.displayValues = (IDictionary)Activator.CreateInstance(displayValuesType);
@@ -76,6 +70,13 @@ namespace VidCoder
                         reverseValues.Add(displayString, enumValue);
                     }
                 }
+            }
+        }
+
+        public ReadOnlyCollection<string> DisplayNames
+        {
+            get
+            {
                 return new List<string>((IEnumerable<string>)displayValues.Values).AsReadOnly();
             }
         }

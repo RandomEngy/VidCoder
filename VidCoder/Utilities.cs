@@ -18,7 +18,9 @@ namespace VidCoder
             {"Source", 200},
             {"Title", 35},
             {"Chapters", 60},
-            {"Destination", 200}
+            {"Destination", 200},
+            {"VideoEncoder", 100},
+            {"AudioEncoder", 100}
         };
 
         public static string CurrentVersion
@@ -138,7 +140,7 @@ namespace VidCoder
         /// </summary>
         /// <param name="listString">The string to parse.</param>
         /// <returns>The parsed list of sizes.</returns>
-        public static List<Tuple<string, double>> ParseSizeList(string listString)
+        public static List<Tuple<string, double>> ParseQueueColumnList(string listString)
         {
             var resultList = new List<Tuple<string, double>>();
 
@@ -152,7 +154,7 @@ namespace VidCoder
                     {
                         double columnWidth;
                         string columnId = settingParts[0];
-                        if (!string.IsNullOrWhiteSpace(columnId) && double.TryParse(settingParts[1], out columnWidth))
+                        if (IsValidQueueColumn(columnId) && double.TryParse(settingParts[1], out columnWidth))
                         {
                             resultList.Add(new Tuple<string, double>(columnId, columnWidth));
                         }

@@ -160,4 +160,10 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="QueueColumnNameTitle" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
+    <value>Audio Encoder</value>
+  </data>
+  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
+    <value>Video Encoder</value>
+  </data>
 </root>

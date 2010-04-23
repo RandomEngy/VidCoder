@@ -9,30 +9,36 @@ namespace VidCoder.ViewModel
 {
     public class QueueColumnsViewModel : OkCancelDialogViewModel
     {
-        private ObservableCollection<string> unusedColumns;
-        private ObservableCollection<string> usedColumns;
+        private ObservableCollection<ColumnViewModel> unusedColumns;
+        private ObservableCollection<ColumnViewModel> usedColumns;
 
         private List<Tuple<string, double>> oldColumns;
 
         public QueueColumnsViewModel()
         {
-            this.unusedColumns = new ObservableCollection<string>();
+            var unusedColumnKeys = new List<string>();
             foreach (string columnId in Utilities.DefaultQueueColumnSizes.Keys)
             {
-                this.unusedColumns.Add(columnId);
+                unusedColumnKeys.Add(columnId);
             }
 
-            this.usedColumns = new ObservableCollection<string>();
+            this.usedColumns = new ObservableCollection<ColumnViewModel>();
 
-            this.oldColumns = Utilities.ParseSizeList(Settings.Default.QueueColumns);
+            this.oldColumns = Utilities.ParseQueueColumnList(Settings.Default.QueueColumns);
             foreach (Tuple<string, double> column in oldColumns)
             {
-                this.usedColumns.Add(column.Item1);
-                this.unusedColumns.Remove(column.Item1);
+                this.usedColumns.Add(new ColumnViewModel(column.Item1));
+                unusedColumnKeys.Remove(column.Item1);
+            }
+
+            this.unusedColumns = new ObservableCollection<ColumnViewModel>();
+            foreach (string unusedColumnKey in unusedColumnKeys)
+            {
+                this.unusedColumns.Add(new ColumnViewModel(unusedColumnKey));
             }
         }
 
-        public ObservableCollection<string> UnusedColumns
+        public ObservableCollection<ColumnViewModel> UnusedColumns
         {
             get
             {
@@ -40,7 +46,7 @@ namespace VidCoder.ViewModel
             }
         }
 
-        public ObservableCollection<string> UsedColumns
+        public ObservableCollection<ColumnViewModel> UsedColumns
         {
             get
             {
@@ -60,19 +66,19 @@ namespace VidCoder.ViewModel
                 }
 
                 var columnPairs = new List<string>();
-                foreach (string newColumn in this.UsedColumns)
+                foreach (ColumnViewModel newColumn in this.UsedColumns)
                 {
                     double columnSize;
-                    if (oldColumnSizeDict.ContainsKey(newColumn))
+                    if (oldColumnSizeDict.ContainsKey(newColumn.Id))
                     {
-                        columnSize = oldColumnSizeDict[newColumn];
+                        columnSize = oldColumnSizeDict[newColumn.Id];
                     }
                     else
                     {
-                        columnSize = Utilities.DefaultQueueColumnSizes[newColumn];
+                        columnSize = Utilities.DefaultQueueColumnSizes[newColumn.Id];
                     }
 
-                    columnPairs.Add(newColumn + ":" + columnSize);
+                    columnPairs.Add(newColumn.Id + ":" + columnSize);
                 }
 
                 return string.Join("|", columnPairs);

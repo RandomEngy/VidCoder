@@ -137,6 +137,15 @@ namespace VidCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Audio Encoder.
+        /// </summary>
+        public static string QueueColumnNameAudioEncoder {
+            get {
+                return ResourceManager.GetString("QueueColumnNameAudioEncoder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chapters.
         /// </summary>
         public static string QueueColumnNameChapters {
@@ -169,6 +178,15 @@ namespace VidCoder.Properties {
         public static string QueueColumnNameTitle {
             get {
                 return ResourceManager.GetString("QueueColumnNameTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video Encoder.
+        /// </summary>
+        public static string QueueColumnNameVideoEncoder {
+            get {
+                return ResourceManager.GetString("QueueColumnNameVideoEncoder", resourceCulture);
             }
         }
         

@@ -34,6 +34,14 @@ namespace VidCoder.ViewModel
             }
         }
 
+        public EncodingProfile Profile
+        {
+            get
+            {
+                return this.Job.EncodingProfile;
+            }
+        }
+
         public HandBrakeInstance HandBrakeInstance { get; set; }
 
         public bool Encoding
@@ -106,6 +114,20 @@ namespace VidCoder.ViewModel
                 {
                     return this.job.ChapterStart + " - " + this.job.ChapterEnd;
                 }
+            }
+        }
+
+        public string AudioEncodersDisplay
+        {
+            get
+            {
+                var encodingParts = new List<string>();
+                foreach (AudioEncoding audioEncoding in this.Job.EncodingProfile.AudioEncodings)
+                {
+                    encodingParts.Add(DisplayConversions.DisplayAudioEncoder(audioEncoding.Encoder));
+                }
+
+                return string.Join(", ", encodingParts);
             }
         }
 
