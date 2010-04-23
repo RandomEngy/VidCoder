@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:VidCoderDragDrop="clr-namespace:VidCoder.DragDropUtils"
         Title="Queue Columns" Height="411" Width="436"
-        Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+        Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False">
     <Window.Resources>
         <DataTemplate x:Key="ColumnDragTemplate">
             <TextBlock Text="{Binding Title}" />

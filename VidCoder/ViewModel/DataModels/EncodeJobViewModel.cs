@@ -122,12 +122,49 @@ namespace VidCoder.ViewModel
             get
             {
                 var encodingParts = new List<string>();
-                foreach (AudioEncoding audioEncoding in this.Job.EncodingProfile.AudioEncodings)
+                foreach (AudioEncoding audioEncoding in this.Profile.AudioEncodings)
                 {
                     encodingParts.Add(DisplayConversions.DisplayAudioEncoder(audioEncoding.Encoder));
                 }
 
                 return string.Join(", ", encodingParts);
+            }
+        }
+
+        public string VideoQualityDisplay
+        {
+            get
+            {
+                switch (this.Profile.VideoEncodeRateType)
+                {
+                    case VideoEncodeRateType.AverageBitrate:
+                        return this.Profile.VideoBitrate + " kbps";
+                    case VideoEncodeRateType.TargetSize:
+                        return this.Profile.TargetSize + " MB";
+                    case VideoEncodeRateType.ConstantQuality:
+                        return "CQ " + this.Profile.Quality;
+                    default:
+                        break;
+                }
+
+                return string.Empty;
+            }
+        }
+
+        public string AudioBitrateDisplay
+        {
+            get
+            {
+                var bitrateParts = new List<string>();
+                foreach (AudioEncoding audioEncoding in this.Profile.AudioEncodings)
+                {
+                    if (audioEncoding.Encoder != AudioEncoder.Ac3Passthrough && audioEncoding.Encoder != AudioEncoder.DtsPassthrough)
+                    {
+                        bitrateParts.Add(audioEncoding.Bitrate.ToString());
+                    }
+                }
+
+                return string.Join(", ", bitrateParts);
             }
         }
 

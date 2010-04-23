@@ -116,6 +116,10 @@ namespace VidCoder.View
             {
                 this.RefreshQueueColumns();
             }
+            else if (e.PropertyName == "QueueColumnsSaveRequest")
+            {
+                this.SaveQueueColumns();
+            }
         }
 
         // Updates UI with new drive options
@@ -290,6 +294,27 @@ namespace VidCoder.View
             this.queueGridView.Columns.Add(lastColumn);
         }
 
+        private void SaveQueueColumns()
+        {
+            ResourceManager resources = new ResourceManager("VidCoder.Properties.Resources", typeof(Resources).Assembly);
+
+            StringBuilder queueColumnsBuilder = new StringBuilder();
+            List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Settings.Default.QueueColumns);
+            for (int i = 0; i < columns.Count; i++)
+            {
+                queueColumnsBuilder.Append(columns[i].Item1);
+                queueColumnsBuilder.Append(":");
+                queueColumnsBuilder.Append(this.queueGridView.Columns[i].ActualWidth);
+
+                if (i != columns.Count - 1)
+                {
+                    queueColumnsBuilder.Append("|");
+                }
+            }
+
+            Settings.Default.QueueColumns = queueColumnsBuilder.ToString();
+        }
+
         // Handle clicks that don't result in a selection change.
         private void OnSourceItemMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -312,23 +337,7 @@ namespace VidCoder.View
             }
             else
             {
-                ResourceManager resources = new ResourceManager("VidCoder.Properties.Resources", typeof(Resources).Assembly);
-
-                StringBuilder queueColumnsBuilder = new StringBuilder();
-                List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Settings.Default.QueueColumns);
-                for (int i = 0; i < columns.Count; i++)
-                {
-                    queueColumnsBuilder.Append(columns[i].Item1);
-                    queueColumnsBuilder.Append(":");
-                    queueColumnsBuilder.Append(this.queueGridView.Columns[i].ActualWidth);
-
-                    if (i != columns.Count - 1)
-                    {
-                        queueColumnsBuilder.Append("|");
-                    }
-                }
-
-                Settings.Default.QueueColumns = queueColumnsBuilder.ToString();
+                this.SaveQueueColumns();
 
                 Settings.Default.MainWindowPlacement = this.GetPlacement();
                 Settings.Default.Save();

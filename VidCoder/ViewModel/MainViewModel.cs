@@ -1571,6 +1571,10 @@ namespace VidCoder.ViewModel
                 {
                     this.customizeQueueColumnsCommand = new RelayCommand(param =>
                     {
+                        // Send a request that the view save the column sizes
+                        this.NotifyPropertyChanged("QueueColumnsSaveRequest");
+
+                        // Show the queue columns dialog
                         var queueDialog = new QueueColumnsViewModel();
                         WindowManager.OpenDialog(queueDialog, this);
 

@@ -20,7 +20,9 @@ namespace VidCoder
             {"Chapters", 60},
             {"Destination", 200},
             {"VideoEncoder", 100},
-            {"AudioEncoder", 100}
+            {"AudioEncoder", 100},
+            {"VideoQuality", 80},
+            {"AudioBitrate", 80}
         };
 
         public static string CurrentVersion

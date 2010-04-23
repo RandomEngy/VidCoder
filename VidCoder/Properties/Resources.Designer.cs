@@ -137,6 +137,15 @@ namespace VidCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Audio Bitrate.
+        /// </summary>
+        public static string QueueColumnNameAudioBitrate {
+            get {
+                return ResourceManager.GetString("QueueColumnNameAudioBitrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Audio Encoder.
         /// </summary>
         public static string QueueColumnNameAudioEncoder {
@@ -187,6 +196,15 @@ namespace VidCoder.Properties {
         public static string QueueColumnNameVideoEncoder {
             get {
                 return ResourceManager.GetString("QueueColumnNameVideoEncoder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video Quality.
+        /// </summary>
+        public static string QueueColumnNameVideoQuality {
+            get {
+                return ResourceManager.GetString("QueueColumnNameVideoQuality", resourceCulture);
             }
         }
         

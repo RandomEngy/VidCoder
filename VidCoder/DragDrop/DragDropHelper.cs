@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Collections;
 using System.Windows.Documents;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace VidCoder.DragDropUtils
 {
@@ -282,6 +283,7 @@ namespace VidCoder.DragDropUtils
 		{
 			int targetItemsControlCount = this.targetItemsControl.Items.Count;
 			object draggedItem = e.Data.GetData(this.format.Name);
+            this.targetItemContainer = null;
 
 			if (IsDropDataTypeAllowed(draggedItem))
 			{
@@ -311,18 +313,18 @@ namespace VidCoder.DragDropUtils
 
 					if (this.targetItemContainer != null)
 					{
-						Point positionRelativeToItemContainer = e.GetPosition(this.targetItemContainer);
+                        Point positionRelativeToItemContainer = e.GetPosition(this.targetItemContainer);
 						this.isInFirstHalf = Utilities.IsInFirstHalf(this.targetItemContainer, positionRelativeToItemContainer, this.hasVerticalOrientation);
 						this.insertionIndex = this.targetItemsControl.ItemContainerGenerator.IndexFromContainer(this.targetItemContainer);
 
 						if (!this.isInFirstHalf)
 						{
-							this.insertionIndex++;
+                            this.insertionIndex++;
 						}
 					}
 					else
 					{
-						this.targetItemContainer = this.targetItemsControl.ItemContainerGenerator.ContainerFromIndex(targetItemsControlCount - 1) as FrameworkElement;
+                        this.targetItemContainer = this.targetItemsControl.ItemContainerGenerator.ContainerFromIndex(targetItemsControlCount - 1) as FrameworkElement;
 						this.isInFirstHalf = false;
 						this.insertionIndex = targetItemsControlCount;
 					}
@@ -336,13 +338,11 @@ namespace VidCoder.DragDropUtils
 				}
 				else
 				{
-					this.targetItemContainer = null;
 					this.insertionIndex = 0;
 				}
 			}
 			else
 			{
-				this.targetItemContainer = null;
 				this.insertionIndex = -1;
 				e.Effects = DragDropEffects.None;
 			}

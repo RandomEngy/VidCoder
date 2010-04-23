@@ -112,6 +112,14 @@
             <TextBlock Text="{Binding AudioEncodersDisplay}"
                 Style="{StaticResource QueueText}" />
         </DataTemplate>
+        <DataTemplate x:Key="QueueTemplateVideoQuality">
+            <TextBlock Text="{Binding VideoQualityDisplay}"
+                Style="{StaticResource QueueText}" />
+        </DataTemplate>
+        <DataTemplate x:Key="QueueTemplateAudioBitrate">
+            <TextBlock Text="{Binding AudioBitrateDisplay}"
+                Style="{StaticResource QueueText}" />
+        </DataTemplate>
         <DataTemplate x:Key="QueueRemoveTemplate">
             <Grid>
                 <Button Command="{Binding RemoveQueueJobCommand}" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource RemoveButtonStyle}"
