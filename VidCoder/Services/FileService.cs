@@ -79,7 +79,16 @@ namespace VidCoder
 
         public string GetFolderName(string initialDirectory)
         {
+            return this.GetFolderName(initialDirectory, description: null);
+        }
+
+        public string GetFolderName(string initialDirectory, string description)
+        {
             System.Windows.Forms.FolderBrowserDialog folderDialog = new System.Windows.Forms.FolderBrowserDialog();
+            if (description != null)
+            {
+                folderDialog.Description = description;
+            }
 
             if (!string.IsNullOrEmpty(initialDirectory) && Directory.Exists(initialDirectory))
             {
@@ -93,20 +102,6 @@ namespace VidCoder
 
             return null;
         }
-
-        //public string FolderName
-        //{
-        //    get
-        //    {
-        //        System.Windows.Forms.FolderBrowserDialog folderDialog = new System.Windows.Forms.FolderBrowserDialog();
-        //        if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-        //        {
-        //            return folderDialog.SelectedPath;
-        //        }
-
-        //        return null;
-        //    }
-        //}
 
         public void LaunchFile(string fileName)
         {

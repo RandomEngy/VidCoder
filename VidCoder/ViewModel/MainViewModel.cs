@@ -273,7 +273,7 @@ namespace VidCoder.ViewModel
         public bool SetSourceFromFolder()
         {
             this.ScanError = false;
-            string folderPath = FileService.Instance.GetFolderName(Properties.Settings.Default.LastVideoTSFolder);
+            string folderPath = FileService.Instance.GetFolderName(Properties.Settings.Default.LastVideoTSFolder, "Pick the DVD's VIDEO_TS folder.");
 
             if (folderPath != null)
             {
@@ -1425,7 +1425,7 @@ namespace VidCoder.ViewModel
                 {
                     this.pickOutputFolderCommand = new RelayCommand(param =>
                     {
-                        string newOutputFolder = FileService.Instance.GetFolderName(null);
+                        string newOutputFolder = FileService.Instance.GetFolderName(null, "Choose the output directory for encoded video files.");
 
                         if (newOutputFolder != null)
                         {

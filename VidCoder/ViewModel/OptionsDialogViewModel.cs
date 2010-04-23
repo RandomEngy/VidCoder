@@ -276,7 +276,7 @@ namespace VidCoder.ViewModel
                             initialDirectory = this.DefaultPath;
                         }
 
-                        string newFolder = FileService.Instance.GetFolderName(initialDirectory);
+                        string newFolder = FileService.Instance.GetFolderName(initialDirectory, "Choose the default output directory for encoded video files.");
                         if (newFolder != null)
                         {
                             this.DefaultPath = newFolder;
