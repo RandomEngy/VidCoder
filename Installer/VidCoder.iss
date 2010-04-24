@@ -3,7 +3,7 @@
 
 [Setup]
 AppName=VidCoder
-AppVerName=VidCoder 0.2.1
+AppVerName=VidCoder 0.3.0
 
 DefaultDirName={pf}\VidCoder
 DisableProgramGroupPage=yes
@@ -13,7 +13,7 @@ Compression=lzma
 SolidCompression=yes
 
 OutputDir=BuiltInstallers
-OutputBaseFilename=VidCoder-0.2.1
+OutputBaseFilename=VidCoder-0.3.0
 
 AppId=VidCoder
 UsePreviousAppDir=yes
@@ -34,10 +34,10 @@ Name: "en"; MessagesFile: "compiler:Default.isl"
 Source: "..\VidCoder\bin\Release\VidCoder.exe"; DestDir: "{app}"
 Source: "..\VidCoder\bin\Release\VidCoder.pdb"; DestDir: "{app}"
 Source: "..\VidCoder\BuiltInPresets.xml"; DestDir: "{app}"
-Source: "..\VidCoder\bin\Release\hb.dll"; DestDir: "{app}"
-Source: "..\VidCoder\bin\Release\libgcc_s_sjlj-1.dll"; DestDir: "{app}"
-Source: "..\VidCoder\bin\Release\HandBrakeInterop.dll"; DestDir: "{app}"
-Source: "..\VidCoder\bin\Release\HandBrakeInterop.pdb"; DestDir: "{app}"
+Source: "..\Lib\hb.dll"; DestDir: "{app}"
+Source: "..\Lib\libgcc_s_sjlj-1.dll"; DestDir: "{app}"
+Source: "..\Lib\HandBrakeInterop.dll"; DestDir: "{app}"
+Source: "..\Lib\HandBrakeInterop.pdb"; DestDir: "{app}"
 Source: "..\License.txt"; DestDir: "{app}"
 
 [Messages]
@@ -90,6 +90,7 @@ begin
     result := false;
   end;
 end;
+
 
 
 
