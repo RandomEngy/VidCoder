@@ -695,7 +695,6 @@ namespace VidCoder.ViewModel
         {
             get
             {
-                return true;
                 return this.SelectedTitle != null && this.SelectedTitle.AngleCount > 1;
             }
         }

@@ -1661,7 +1661,6 @@ namespace VidCoder.ViewModel
             get
             {
                 return this.AudioOutputPreviews.Count > 0;
-                //return this.AudioEncodings.Count > 0;
             }
         }
 
@@ -2538,16 +2537,6 @@ namespace VidCoder.ViewModel
             this.NotifyPropertyChanged("AdvancedOptionsString");
 
             this.automaticChange = false;
-        }
-
-        private int CalculateWidth(int height, double displayAspectRatio, int cropping)
-        {
-            return this.GetNearestValue((int)(height * displayAspectRatio) - cropping, 16);
-        }
-
-        private int CalculateHeight(int width, double displayAspectRatio, int cropping)
-        {
-            return this.GetNearestValue((int)(width / displayAspectRatio) - cropping, 16);
         }
 
         private void PopulatePixelAspect()
