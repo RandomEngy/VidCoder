@@ -2578,6 +2578,10 @@ namespace VidCoder.ViewModel
                 this.RefreshOutputSize();
                 this.RefreshAudioInput();
                 this.NotifyPropertyChanged("HasSourceData");
+                this.NotifyPropertyChanged("CropTop");
+                this.NotifyPropertyChanged("CropBottom");
+                this.NotifyPropertyChanged("CropLeft");
+                this.NotifyPropertyChanged("CropRight");
                 this.NotifyPropertyChanged("InputSourceResolution");
                 this.NotifyPropertyChanged("InputPixelAspectRatio");
                 this.NotifyPropertyChanged("InputDisplayResolution");

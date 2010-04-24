@@ -15,7 +15,7 @@
         </Storyboard>
     </Window.Resources>
     <Grid>
-        <Grid Margin="0" Name="previewImageHolder" SizeChanged="previewImageHolder_SizeChanged" Background="Black">
+        <Grid Margin="0" Name="previewImageHolder" SizeChanged="previewImageHolder_SizeChanged" Background="#222222">
             <Image
                 Name="previewImage" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Top"
                 Source="{Binding PreviewSource}"
