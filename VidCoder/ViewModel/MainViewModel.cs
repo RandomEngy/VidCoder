@@ -27,6 +27,8 @@ namespace VidCoder.ViewModel
         private string sourceDescription;
         private Title selectedTitle;
         private Title oldTitle;
+        private List<int> angles;
+        private int angle;
 
         private Chapter selectedStartChapter;
         private Chapter selectedEndChapter;
@@ -539,17 +541,9 @@ namespace VidCoder.ViewModel
 
             set
             {
-                PreviewViewModel previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
-
                 if (value == null)
                 {
                     this.selectedTitle = null;
-
-                    if (previewWindow != null)
-                    {
-                        previewWindow.RefreshPreviews();
-                        //previewWindow.Job = null;
-                    }
                 }
                 else
                 {
@@ -659,12 +653,25 @@ namespace VidCoder.ViewModel
                     this.SelectedStartChapter = this.selectedTitle.Chapters[0];
                     this.SelectedEndChapter = this.selectedTitle.Chapters[this.selectedTitle.Chapters.Count - 1];
 
-                    if (previewWindow != null)
+                    this.angles = new List<int>();
+                    for (int i = 1; i <= this.selectedTitle.AngleCount; i++)
                     {
-                        previewWindow.RefreshPreviews();
+                        this.angles.Add(i);
                     }
 
+                    this.angle = 1;
+
+                    this.NotifyPropertyChanged("Angles");
+                    this.NotifyPropertyChanged("Angle");
+                    this.NotifyPropertyChanged("AngleVisible");
+
                     this.oldTitle = value;
+                }
+
+                PreviewViewModel previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
+                if (previewWindow != null)
+                {
+                    previewWindow.RefreshPreviews();
                 }
 
                 this.NotifyPropertyChanged("SubtitlesSummary");
@@ -673,6 +680,44 @@ namespace VidCoder.ViewModel
 
                 this.NotifyPropertyChanged("Chapters");
                 this.NotifyPropertyChanged("SelectedTitle");
+            }
+        }
+
+        public List<int> Angles
+        {
+            get
+            {
+                return this.angles;
+            }
+        }
+
+        public bool AngleVisible
+        {
+            get
+            {
+                return true;
+                return this.SelectedTitle != null && this.SelectedTitle.AngleCount > 1;
+            }
+        }
+
+        public int Angle
+        {
+            get
+            {
+                return this.angle;
+            }
+
+            set
+            {
+                this.angle = value;
+
+                PreviewViewModel previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
+                if (previewWindow != null)
+                {
+                    previewWindow.RefreshPreviews();
+                }
+
+                this.NotifyPropertyChanged("Angle");
             }
         }
 
@@ -1701,6 +1746,7 @@ namespace VidCoder.ViewModel
                     OutputPath = this.OutputPath,
                     EncodingProfile = this.SelectedPreset.Preset.EncodingProfile,
                     Title = this.SelectedTitle.TitleNumber,
+                    Angle = this.Angle,
                     ChapterStart = this.SelectedStartChapter.ChapterNumber,
                     ChapterEnd = this.SelectedEndChapter.ChapterNumber,
                     ChosenAudioTracks = this.GetChosenAudioTracks(),

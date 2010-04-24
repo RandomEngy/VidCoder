@@ -7,7 +7,7 @@
     Title="VidCoder"
     Width="671"
     Height="445"
-    MinWidth="639"
+    MinWidth="617"
     MinHeight="445"
     Style="{StaticResource NormalWindow}"
     Closing="Window_Closing" AllowDrop="True" PreviewDrop="Window_Drop" PreviewDragOver="Window_PreviewDragOver">
@@ -217,7 +217,7 @@
                     Grid.Row="1" Height="20" Margin="6,0,0,0"
                     Value="{Binding ScanProgress}"/>
             </Grid>
-            <StackPanel Margin="52,39,12,7" VerticalAlignment="Top">
+            <StackPanel Margin="30,39,12,7" VerticalAlignment="Top">
                 <TextBlock
                     Text="An error occurred while scanning."
                     Style="{StaticResource ScanStatus}"
@@ -265,6 +265,11 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
+                            <Polygon Style="{StaticResource ArrowSeparator}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Visibility="{Binding AngleVisible, Converter={StaticResource VisibilityConverter}}">
+                            <TextBlock Text="Angle:" Style="{StaticResource PlainTitle}" />
+                            <ComboBox ItemsSource="{Binding Angles}" SelectedItem="{Binding Angle}" Width="32" Height="23" VerticalAlignment="Center" />
                             <Polygon Style="{StaticResource ArrowSeparator}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Visibility="{Binding ChaptersVisible, Converter={StaticResource VisibilityConverter}}">
