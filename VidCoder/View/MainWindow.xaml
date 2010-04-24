@@ -158,10 +158,18 @@
                     IsCheckable="True" IsChecked="{Binding LogWindowOpen}" />
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem Header="VidCoder Homepage" Command="{Binding OpenHomepageCommand}" />
+                <MenuItem Header="VidCoder Homepage" Command="{Binding OpenHomepageCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Icons/help_16.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Header="Report a Bug" Command="{Binding ReportBugCommand}" />
                 <Separator/>
-                <MenuItem Header="About VidCoder..." Command="{Binding OpenAboutDialogCommand}" />
+                <MenuItem Header="About VidCoder..." Command="{Binding OpenAboutDialogCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Icons/VidCoder_small.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1" MinHeight="144">
