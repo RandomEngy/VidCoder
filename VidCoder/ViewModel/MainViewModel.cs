@@ -103,6 +103,7 @@ namespace VidCoder.ViewModel
             {
                 Settings.Default.Upgrade();
                 Settings.Default.ApplicationVersion = Utilities.CurrentVersion;
+                Settings.Default.Save();
             }
 
             this.logger = new Logger();
