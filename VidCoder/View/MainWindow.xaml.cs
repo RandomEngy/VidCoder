@@ -376,11 +376,23 @@ namespace VidCoder.View
                 System.Collections.Specialized.StringCollection fileList = data.GetFileDropList();
                 if (fileList.Count > 0)
                 {
-                    this.manualSelectionChange = true;
-                    this.sourceBox.SelectedItem = this.sourceOptions.Single(item => item.SourceOption.Type == SourceType.File);
-                    this.RemoveDeadOptions();
-                    this.viewModel.SetSourceFromFile(fileList[0]);
-                    System.Diagnostics.Debug.WriteLine(fileList[0]);
+                    if (fileList.Count == 1)
+                    {
+                        this.manualSelectionChange = true;
+                        this.sourceBox.SelectedItem = this.sourceOptions.Single(item => item.SourceOption.Type == SourceType.File);
+                        this.RemoveDeadOptions();
+                        this.viewModel.SetSourceFromFile(fileList[0]);
+                    }
+                    else
+                    {
+                        var convertedFileList = new List<string>();
+                        foreach (string file in fileList)
+                        {
+                            convertedFileList.Add(file);
+                        }
+
+                        this.viewModel.QueueMultiple(convertedFileList);
+                    }
                 }
             }
         }

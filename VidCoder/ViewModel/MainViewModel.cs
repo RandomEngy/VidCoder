@@ -87,6 +87,7 @@ namespace VidCoder.ViewModel
         private ICommand pickOutputPathCommand;
         private ICommand encodeCommand;
         private ICommand addToQueueCommand;
+        private ICommand queueMultipleCommand;
         private ICommand customizeQueueColumnsCommand;
         private ICommand pauseCommand;
         private ICommand stopEncodeCommand;
@@ -1583,19 +1584,7 @@ namespace VidCoder.ViewModel
                         var newEncodeJobVM = new EncodeJobViewModel(this.EncodeJob, this);
                         newEncodeJobVM.HandBrakeInstance = this.scanInstance;
 
-                        if (this.Encoding)
-                        {
-                            if (this.totalTasks == 1)
-                            {
-                                this.EncodeQueue[0].IsOnlyItem = false;
-                            }
-
-                            this.totalTasks++;
-                            this.totalQueueTime += newEncodeJobVM.Job.Length;
-                            this.NotifyPropertyChanged("TaskDetails");
-                        }
-
-                        this.EncodeQueue.Add(newEncodeJobVM);
+                        this.Queue(newEncodeJobVM);
 
                     },
                     param =>
@@ -1605,6 +1594,29 @@ namespace VidCoder.ViewModel
                 }
 
                 return this.addToQueueCommand;
+            }
+        }
+
+        public ICommand QueueMultipleCommand
+        {
+            get
+            {
+                if (this.queueMultipleCommand == null)
+                {
+                    this.queueMultipleCommand = new RelayCommand(param =>
+                    {
+                        IList<string> fileNames = FileService.Instance.GetFileNames(Settings.Default.LastInputFileFolder);
+                        if (fileNames != null && fileNames.Count > 0)
+                        {
+                            Settings.Default.LastInputFileFolder = Path.GetDirectoryName(fileNames[0]);
+                            Settings.Default.Save();
+
+                            this.QueueMultiple(fileNames);
+                        }
+                    });
+                }
+
+                return this.queueMultipleCommand;
             }
         }
 
@@ -1744,7 +1756,7 @@ namespace VidCoder.ViewModel
                 {
                     SourcePath = this.sourcePath,
                     OutputPath = this.OutputPath,
-                    EncodingProfile = this.SelectedPreset.Preset.EncodingProfile,
+                    EncodingProfile = this.SelectedPreset.Preset.EncodingProfile.Clone(),
                     Title = this.SelectedTitle.TitleNumber,
                     Angle = this.Angle,
                     ChapterStart = this.SelectedStartChapter.ChapterNumber,
@@ -1934,6 +1946,85 @@ namespace VidCoder.ViewModel
             this.SaveEncodeQueue();
         }
 
+        public void QueueMultiple(IEnumerable<string> filesToQueue)
+        {
+            HashSet<string> queuedFiles = new HashSet<string>();
+            foreach (EncodeJobViewModel encodeJobVM in this.EncodeQueue)
+            {
+                queuedFiles.Add(encodeJobVM.Job.OutputPath.ToLowerInvariant());
+            }
+
+            List<EncodeJobViewModel> itemsToQueue = new List<EncodeJobViewModel>();
+            foreach (string fileToQueue in filesToQueue)
+            {
+                string queueOutputPath = Utilities.CreateUniqueFileName(Path.GetFileName(fileToQueue), Settings.Default.AutoNameOutputFolder, queuedFiles);
+
+                var job = new EncodeJob
+                {
+                    SourcePath = fileToQueue,
+                    OutputPath = queueOutputPath,
+                    EncodingProfile = this.SelectedPreset.Preset.EncodingProfile.Clone(),
+                    Title = 1,
+                    ChapterStart = 0,
+                    ChapterEnd = 0,
+                    ChosenAudioTracks = new List<int> { 1 },
+                    Subtitles = new Subtitles(),
+                    UseDefaultChapterNames = true
+                };
+
+                var jobVM = new EncodeJobViewModel(job, this);
+                itemsToQueue.Add(jobVM);
+            }
+
+            // This dialog will scan the items in the list, calculating length.
+            var scanMultipleDialog = new ScanMultipleDialogViewModel(itemsToQueue);
+            WindowManager.OpenDialog(scanMultipleDialog, this);
+
+            List<string> failedFiles = new List<string>();
+            foreach (EncodeJobViewModel jobVM in itemsToQueue)
+            {
+                // Only queue items with a successful scan
+                if (jobVM.HandBrakeInstance.Titles.Count > 0)
+                {
+                    this.Queue(jobVM);
+                }
+                else
+                {
+                    failedFiles.Add(jobVM.Job.SourcePath);
+                }
+            }
+
+            if (failedFiles.Count > 0)
+            {
+                ServiceFactory.MessageBoxService.Show(
+                    "The following file(s) could not be recognized and were not added to the queue:" + Environment.NewLine + Environment.NewLine + string.Join(Environment.NewLine, failedFiles),
+                    "Error scanning video file(s)",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
+        }
+
+        /// <summary>
+        /// Queues the given Job. Assumed that the job has an associated HandBrake instance and populated Length.
+        /// </summary>
+        /// <param name="encodeJobVM">The job to add.</param>
+        public void Queue(EncodeJobViewModel encodeJobVM)
+        {
+            if (this.Encoding)
+            {
+                if (this.totalTasks == 1)
+                {
+                    this.EncodeQueue[0].IsOnlyItem = false;
+                }
+
+                this.totalTasks++;
+                this.totalQueueTime += encodeJobVM.Job.Length;
+                this.NotifyPropertyChanged("TaskDetails");
+            }
+
+            this.EncodeQueue.Add(encodeJobVM);
+        }
+
         public void RemoveAudioChoice(AudioChoiceViewModel choice)
         {
             this.AudioChoices.Remove(choice);
@@ -2083,15 +2174,13 @@ namespace VidCoder.ViewModel
                 }
             }
 
-            //List<PresetViewModel> userPresetVMs = this.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).ToList();
-            //foreach (PresetViewModel userPresetVM in userPresetVMs)
-            //{
-            //    userPresets.Add(userPresetVM.Preset);
-            //}
-
             Presets.UserPresets = userPresets;
         }
 
+        /// <summary>
+        /// Get a list of audio tracks chosen by the user (1-based).
+        /// </summary>
+        /// <returns>List of audio tracks chosen by the user (1-based).</returns>
         public List<int> GetChosenAudioTracks()
         {
             var tracks = new List<int>();

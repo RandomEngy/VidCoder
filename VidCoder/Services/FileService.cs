@@ -24,6 +24,25 @@ namespace VidCoder
             }
         }
 
+        public IList<string> GetFileNames(string initialDirectory)
+        {
+            Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+            dialog.Multiselect = true;
+
+            if (!string.IsNullOrEmpty(initialDirectory) && Directory.Exists(initialDirectory))
+            {
+                dialog.InitialDirectory = initialDirectory;
+            }
+
+            bool? result = dialog.ShowDialog();
+            if (result == false)
+            {
+                return null;
+            }
+
+            return new List<string>(dialog.FileNames);
+        }
+
         public string GetFileNameLoad()
         {
             return this.GetFileNameLoad(null, null, null);

@@ -140,6 +140,11 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Menu Height="22">
+            <MenuItem Header="File">
+                <MenuItem
+                    Header="Add Multiple Files to Queue..."
+                    Command="{Binding QueueMultipleCommand}" />
+            </MenuItem>
             <MenuItem Header="Tools">
                 <MenuItem Header="Options" Command="{Binding OpenOptionsCommand}" />
             </MenuItem>

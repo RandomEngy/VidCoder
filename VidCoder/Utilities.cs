@@ -137,6 +137,34 @@ namespace VidCoder
             return defaultQueueColumnSizes.ContainsKey(columnId);
         }
 
+        public static string CreateUniqueFileName(string baseName, string outputDirectory, HashSet<string> excludedNames)
+        {
+            string fileName = Path.GetFileName(baseName);
+            string candidateFilePath = Path.Combine(outputDirectory, fileName);
+            if (!File.Exists(candidateFilePath) && !IsExcluded(fileName, excludedNames))
+            {
+                return candidateFilePath;
+            }
+
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(baseName);
+            string extension = Path.GetExtension(baseName);
+
+            for (int i = 1; i < 1000; i++)
+            {
+                string candidateFileName = fileNameWithoutExtension + "-" + i + extension;
+                if (!IsExcluded(candidateFileName, excludedNames))
+                {
+                    candidateFilePath = Path.Combine(outputDirectory, candidateFileName);
+                    if (!File.Exists(candidateFilePath))
+                    {
+                        return candidateFilePath;
+                    }
+                }
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Parse a size list in the format {column id 1}:{width 1}|{column id 2}:{width 2}|...
         /// </summary>
@@ -165,6 +193,11 @@ namespace VidCoder
             }
 
             return resultList;
+        }
+
+        private static bool IsExcluded(string candidate, HashSet<string> exclusionList)
+        {
+            return exclusionList.Contains(candidate.ToLowerInvariant());
         }
     }
 }

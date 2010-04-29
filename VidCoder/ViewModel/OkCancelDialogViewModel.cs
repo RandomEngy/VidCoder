@@ -11,7 +11,6 @@ namespace VidCoder.ViewModel
     {
         private RelayCommand cancelCommand;
         private RelayCommand acceptCommand;
-        private bool closedByCommand;
 
         public virtual bool CanClose
         {

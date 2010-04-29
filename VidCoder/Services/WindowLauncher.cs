@@ -91,6 +91,10 @@ namespace VidCoder.Services
             {
                 windowToOpen = new QueueColumnsDialog();
             }
+            else if (viewModel is ScanMultipleDialogViewModel)
+            {
+                windowToOpen = new ScanMultipleDialog();
+            }
 
             if (owner != null)
             {

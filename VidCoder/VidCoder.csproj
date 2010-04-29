@@ -173,6 +173,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ScanMultipleDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SubtitleDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -191,6 +195,7 @@
     <Compile Include="ViewModel\DataModels\ColumnViewModel.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
     <Compile Include="ViewModel\QueueColumnsViewModel.cs" />
+    <Compile Include="ViewModel\ScanMultipleDialogViewModel.cs" />
     <Compile Include="View\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>
@@ -199,6 +204,9 @@
     </Compile>
     <Compile Include="View\QueueColumnsDialog.xaml.cs">
       <DependentUpon>QueueColumnsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ScanMultipleDialog.xaml.cs">
+      <DependentUpon>ScanMultipleDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="WpfSystemIcons.cs" />
     <Compile Include="View\ExceptionDialog.xaml.cs">
