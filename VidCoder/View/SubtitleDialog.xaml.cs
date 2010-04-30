@@ -30,33 +30,6 @@ namespace VidCoder.View
             InitializeComponent();
         }
 
-        //private void offsetBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        //{
-        //    foreach (char c in e.Text)
-        //    {
-        //        if (!char.IsNumber(c) && c != '-')
-        //        {
-        //            e.Handled = true;
-        //            return;
-        //        }
-        //    }
-        //}
-
-        //private void offsetBox_PreviewKeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (e.Key == Key.Space)
-        //    {
-        //        e.Handled = true;
-        //    }
-        //}
-
-        //private void offsetBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    TextBox sendingBox = sender as TextBox;
-
-        //    this.Dispatcher.BeginInvoke(new Action(() => sendingBox.SelectAll()));
-        //}
-
         private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             var subtitleDialogVM = e.NewValue as SubtitleDialogViewModel;
@@ -151,12 +124,7 @@ namespace VidCoder.View
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
-
-            try
-            {
-                this.SetPlacement(Properties.Settings.Default.SubtitlesDialogPlacement);
-            }
-            catch { }
+            this.SetPlacement(Properties.Settings.Default.SubtitlesDialogPlacement);
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

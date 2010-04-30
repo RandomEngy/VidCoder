@@ -430,5 +430,29 @@ namespace VidCoder.Properties {
                 this["QueueTitlesEndTime"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool QueueTitlesUseRange {
+            get {
+                return ((bool)(this["QueueTitlesUseRange"]));
+            }
+            set {
+                this["QueueTitlesUseRange"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string QueueTitlesDialogPlacement {
+            get {
+                return ((string)(this["QueueTitlesDialogPlacement"]));
+            }
+            set {
+                this["QueueTitlesDialogPlacement"] = value;
+            }
+        }
     }
 }

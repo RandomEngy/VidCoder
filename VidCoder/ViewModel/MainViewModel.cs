@@ -1650,7 +1650,39 @@ namespace VidCoder.ViewModel
                             List<Title> titlesToQueue = queueTitlesDialog.CheckedTitles;
                             foreach (Title title in titlesToQueue)
                             {
+                                // Use current subtitle and audio track choices for each queued title.
                                 Subtitles subtitles = new Subtitles();
+                                subtitles.SrtSubtitles = new List<SrtSubtitle>();
+                                subtitles.SourceSubtitles = new List<SourceSubtitle>();
+
+                                foreach (SourceSubtitle sourceSubtitle in this.CurrentSubtitles.SourceSubtitles)
+                                {
+                                    if (sourceSubtitle.TrackNumber == 0)
+                                    {
+                                        subtitles.SourceSubtitles.Add(sourceSubtitle.Clone());
+                                    }
+                                    else if (this.SelectedTitle.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode == title.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode)
+                                    {
+                                        subtitles.SourceSubtitles.Add(sourceSubtitle.Clone());
+                                    }
+                                }
+
+                                List<int> currentAudioChoices = new List<int>();
+                                foreach (AudioChoiceViewModel audioVM in this.AudioChoices)
+                                {
+                                    int audioIndex = audioVM.SelectedIndex;
+
+                                    if (this.SelectedTitle.AudioTracks[audioIndex].LanguageCode == title.AudioTracks[audioIndex].LanguageCode)
+                                    {
+                                        currentAudioChoices.Add(audioIndex + 1);
+                                    }
+                                }
+
+                                // If we didn't manage to match any existing audio tracks, use the first audio track.
+                                if (this.AudioChoices.Count > 0 && currentAudioChoices.Count == 0)
+                                {
+                                    currentAudioChoices.Add(1);
+                                }
 
                                 string queueOutputFileName = this.BuildOutputFileName(
                                     this.TranslateDvdSourceName(this.sourcePath),
@@ -1661,17 +1693,17 @@ namespace VidCoder.ViewModel
 
                                 string extension = this.GetOutputExtension(subtitles, title);
                                 string queueOutputPath = this.BuildOutputPath(queueOutputFileName, extension);
-                                string uniqueQueueOutputPath =  Utilities.CreateUniqueFileName(queueOutputPath, Settings.Default.AutoNameOutputFolder, this.GetQueuedFiles());
+                                //string uniqueQueueOutputPath =  Utilities.CreateUniqueFileName(queueOutputPath, Settings.Default.AutoNameOutputFolder, this.GetQueuedFiles());
 
                                 var job = new EncodeJob
                                 {
                                     SourcePath = this.sourcePath,
-                                    OutputPath = uniqueQueueOutputPath,
+                                    OutputPath = queueOutputPath,
                                     EncodingProfile = this.SelectedPreset.Preset.EncodingProfile.Clone(),
                                     Title = title.TitleNumber,
                                     ChapterStart = 1,
                                     ChapterEnd = title.Chapters.Count,
-                                    ChosenAudioTracks = new List<int> { 1 },
+                                    ChosenAudioTracks = currentAudioChoices,
                                     Subtitles = subtitles,
                                     UseDefaultChapterNames = true,
                                     Length = title.Duration
@@ -2474,36 +2506,6 @@ namespace VidCoder.ViewModel
             }
 
             string extension = this.GetOutputExtension(this.CurrentSubtitles, this.SelectedTitle);
-
-            //// If we have a text source subtitle, force .m4v extension.
-            //bool allowMp4Extension = true;
-            //if (this.CurrentSubtitles != null)
-            //{
-            //    foreach (SourceSubtitle sourceSubtitle in this.CurrentSubtitles.SourceSubtitles)
-            //    {
-            //        if (sourceSubtitle.TrackNumber > 0)
-            //        {
-            //            if (this.SelectedTitle.Subtitles[sourceSubtitle.TrackNumber - 1].SubtitleType == SubtitleType.Text)
-            //            {
-            //                allowMp4Extension = false;
-            //            }
-            //        }
-            //    }
-            //}
-
-            //EncodingProfile profile = this.SelectedPreset.Preset.EncodingProfile;
-            //if (profile.OutputFormat == OutputFormat.Mkv)
-            //{
-            //    extension = ".mkv";
-            //}
-            //else if (profile.PreferredExtension == OutputExtension.Mp4 && allowMp4Extension)
-            //{
-            //    extension = ".mp4";
-            //}
-            //else
-            //{
-            //    extension = ".m4v";
-            //}
 
             this.OutputPath = this.BuildOutputPath(fileName, extension);
         }

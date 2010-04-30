@@ -19,6 +19,7 @@ namespace VidCoder.ViewModel
         public QueueTitlesDialogViewModel(List<Title> allTitles)
         {
             this.selectedTitles = new ObservableCollection<TitleSelectionViewModel>();
+            this.selectRange = Settings.Default.QueueTitlesUseRange;
             this.startRange = Settings.Default.QueueTitlesStartTime;
             this.endRange = Settings.Default.QueueTitlesEndTime;
 
@@ -27,6 +28,12 @@ namespace VidCoder.ViewModel
             {
                 var titleVM = new TitleSelectionViewModel(title, this);
                 this.titles.Add(titleVM);
+            }
+
+            // Perform range selection if enabled.
+            if (this.selectRange)
+            {
+                this.SetSelectedFromRange();
             }
         }
 
@@ -122,6 +129,7 @@ namespace VidCoder.ViewModel
 
         public override void OnClosing()
         {
+            Settings.Default.QueueTitlesUseRange = this.SelectRange;
             Settings.Default.QueueTitlesStartTime = this.StartRange;
             Settings.Default.QueueTitlesEndTime = this.EndRange;
             Settings.Default.Save();

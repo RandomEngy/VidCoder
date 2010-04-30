@@ -22,5 +22,17 @@ namespace VidCoder.View
         {
             InitializeComponent();
         }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            this.SetPlacement(Properties.Settings.Default.QueueTitlesDialogPlacement);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Properties.Settings.Default.QueueTitlesDialogPlacement = this.GetPlacement();
+            Properties.Settings.Default.Save();
+        }
     }
 }

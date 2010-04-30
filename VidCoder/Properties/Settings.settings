@@ -104,5 +104,11 @@
     <Setting Name="QueueTitlesEndTime" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">45</Value>
     </Setting>
+    <Setting Name="QueueTitlesUseRange" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="QueueTitlesDialogPlacement" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

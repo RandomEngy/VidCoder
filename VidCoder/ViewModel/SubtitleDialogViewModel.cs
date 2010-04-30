@@ -41,12 +41,12 @@ namespace VidCoder.ViewModel
             {
                 foreach (SourceSubtitle subtitle in currentSubtitles.SourceSubtitles)
                 {
-                    this.sourceSubtitles.Add(new SourceSubtitleViewModel(this, subtitle.Copy()));
+                    this.sourceSubtitles.Add(new SourceSubtitleViewModel(this, subtitle.Clone()));
                 }
                 
                 foreach (SrtSubtitle subtitle in currentSubtitles.SrtSubtitles)
                 {
-                    this.srtSubtitles.Add(new SrtSubtitleViewModel(this, subtitle.Copy()));
+                    this.srtSubtitles.Add(new SrtSubtitleViewModel(this, subtitle.Clone()));
                 }
             }
 
