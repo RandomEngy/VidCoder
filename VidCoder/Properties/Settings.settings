@@ -98,5 +98,11 @@
     <Setting Name="QueueLastColumnWidth" Type="System.Double" Scope="User">
       <Value Profile="(Default)">75</Value>
     </Setting>
+    <Setting Name="QueueTitlesStartTime" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">40</Value>
+    </Setting>
+    <Setting Name="QueueTitlesEndTime" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">45</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

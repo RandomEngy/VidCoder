@@ -95,6 +95,10 @@ namespace VidCoder.Services
             {
                 windowToOpen = new ScanMultipleDialog();
             }
+            else if (viewModel is QueueTitlesDialogViewModel)
+            {
+                windowToOpen = new QueueTitlesDialog();
+            }
 
             if (owner != null)
             {

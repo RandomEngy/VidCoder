@@ -142,11 +142,15 @@
         <Menu Height="22">
             <MenuItem Header="File">
                 <MenuItem
-                    Header="Add Multiple Files to Queue..."
-                    Command="{Binding QueueMultipleCommand}" />
+                    Header="Enqueue Multiple Files..."
+                    Command="{Binding QueueFilesCommand}" />
+                <MenuItem
+                    Header="Enqueue Multiple Titles..."
+                    Command="{Binding QueueTitlesCommand}"
+                    Visibility="{Binding CanEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}}"/>
             </MenuItem>
             <MenuItem Header="Tools">
-                <MenuItem Header="Options" Command="{Binding OpenOptionsCommand}" />
+                <MenuItem Header="Options..." Command="{Binding OpenOptionsCommand}" />
             </MenuItem>
             <MenuItem Header="Windows">
                 <MenuItem

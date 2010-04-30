@@ -1,0 +1,49 @@
+﻿<Window x:Class="VidCoder.View.QueueTitlesDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:VidCoder"
+        xmlns:controls="clr-namespace:VidCoder.Controls"
+        Title="Queue Multiple Titles" Height="383" Width="416"
+        Style="{StaticResource NormalWindow}" ShowInTaskbar="False" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="textBlock1" Text="Pick multiple titles to add to the queue." VerticalAlignment="Top" Width="244" />
+        <ListView
+            Margin="12,41,12,76" Name="listView1"
+            SelectionMode="Extended"
+            ItemsSource="{Binding Titles}"
+            local:MultiSelectorBehaviors.SynchronizedSelectedItems="{Binding SelectedTitles}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding Selected}" />
+                        <TextBlock Text="{Binding Text}" Margin="8,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackPanel Orientation="Horizontal" Margin="23,0,0,46" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <CheckBox Height="16" Name="checkBox1" VerticalAlignment="Center" IsChecked="{Binding SelectRange}" />
+            <TextBlock Text="All titles from" Margin="8,0,4,0" VerticalAlignment="Center" />
+            <controls:NumberBox
+                Width="30"
+                Number="{Binding StartRange, Mode=TwoWay}"
+                Minimum="0"
+                AllowEmpty="False" />
+            <TextBlock Text="to" Margin="4,0,4,0" VerticalAlignment="Center" />
+            <controls:NumberBox
+                Width="30"
+                Number="{Binding EndRange, Mode=TwoWay}"
+                Minimum="0"
+                AllowEmpty="False" />
+            <TextBlock Text="minutes" Margin="4,0,0,0" VerticalAlignment="Center" />
+        </StackPanel>
+        <Button
+            Content="OK"
+            Command="{Binding AcceptCommand}"
+            Height="23" HorizontalAlignment="Right" Margin="0,0,93,12" Name="button1" VerticalAlignment="Bottom" Width="75" IsDefault="True" />
+        <Button
+            Content="Cancel"
+            Command="{Binding CancelCommand}"
+            Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="button2" VerticalAlignment="Bottom" Width="75" IsCancel="True" />
+    </Grid>
+</Window>

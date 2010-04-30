@@ -87,7 +87,8 @@ namespace VidCoder.ViewModel
         private ICommand pickOutputPathCommand;
         private ICommand encodeCommand;
         private ICommand addToQueueCommand;
-        private ICommand queueMultipleCommand;
+        private ICommand queueFilesCommand;
+        private ICommand queueTitlesCommand;
         private ICommand customizeQueueColumnsCommand;
         private ICommand pauseCommand;
         private ICommand stopEncodeCommand;
@@ -1187,6 +1188,14 @@ namespace VidCoder.ViewModel
             }
         }
 
+        public bool CanEnqueueMultipleTitles
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder) && this.HasVideoSource && this.SourceData.Titles.Count > 1;
+            }
+        }
+
         public string TaskDetails
         {
             get
@@ -1597,13 +1606,13 @@ namespace VidCoder.ViewModel
             }
         }
 
-        public ICommand QueueMultipleCommand
+        public ICommand QueueFilesCommand
         {
             get
             {
-                if (this.queueMultipleCommand == null)
+                if (this.queueFilesCommand == null)
                 {
-                    this.queueMultipleCommand = new RelayCommand(param =>
+                    this.queueFilesCommand = new RelayCommand(param =>
                     {
                         IList<string> fileNames = FileService.Instance.GetFileNames(Settings.Default.LastInputFileFolder);
                         if (fileNames != null && fileNames.Count > 0)
@@ -1613,10 +1622,71 @@ namespace VidCoder.ViewModel
 
                             this.QueueMultiple(fileNames);
                         }
+                    },
+                    param =>
+                    {
+                        return !string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder);
                     });
                 }
 
-                return this.queueMultipleCommand;
+                return this.queueFilesCommand;
+            }
+        }
+
+        public ICommand QueueTitlesCommand
+        {
+            get
+            {
+                if (this.queueTitlesCommand == null)
+                {
+                    this.queueTitlesCommand = new RelayCommand(param =>
+                    {
+                        var queueTitlesDialog = new QueueTitlesDialogViewModel(this.SourceData.Titles);
+                        WindowManager.OpenDialog(queueTitlesDialog, this);
+
+                        if (queueTitlesDialog.DialogResult)
+                        {
+                            // Queue the selected titles
+                            List<Title> titlesToQueue = queueTitlesDialog.CheckedTitles;
+                            foreach (Title title in titlesToQueue)
+                            {
+                                Subtitles subtitles = new Subtitles();
+
+                                string queueOutputFileName = this.BuildOutputFileName(
+                                    this.TranslateDvdSourceName(this.sourcePath),
+                                    title.TitleNumber,
+                                    startChapter: 1,
+                                    endChapter: title.Chapters.Count,
+                                    totalChapters: title.Chapters.Count);
+
+                                string extension = this.GetOutputExtension(subtitles, title);
+                                string queueOutputPath = this.BuildOutputPath(queueOutputFileName, extension);
+                                string uniqueQueueOutputPath =  Utilities.CreateUniqueFileName(queueOutputPath, Settings.Default.AutoNameOutputFolder, this.GetQueuedFiles());
+
+                                var job = new EncodeJob
+                                {
+                                    SourcePath = this.sourcePath,
+                                    OutputPath = uniqueQueueOutputPath,
+                                    EncodingProfile = this.SelectedPreset.Preset.EncodingProfile.Clone(),
+                                    Title = title.TitleNumber,
+                                    ChapterStart = 1,
+                                    ChapterEnd = title.Chapters.Count,
+                                    ChosenAudioTracks = new List<int> { 1 },
+                                    Subtitles = subtitles,
+                                    UseDefaultChapterNames = true,
+                                    Length = title.Duration
+                                };
+
+                                var jobVM = new EncodeJobViewModel(job, this);
+                                jobVM.HandBrakeInstance = this.ScanInstance;
+
+                                this.Queue(jobVM);
+                            }
+                        }
+                    });
+                }
+
+                return this.queueTitlesCommand;
             }
         }
 
@@ -1948,16 +2018,16 @@ namespace VidCoder.ViewModel
 
         public void QueueMultiple(IEnumerable<string> filesToQueue)
         {
-            HashSet<string> queuedFiles = new HashSet<string>();
-            foreach (EncodeJobViewModel encodeJobVM in this.EncodeQueue)
+            // Don't queue anything if we don't know where the output files will go.
+            if (string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder))
             {
-                queuedFiles.Add(encodeJobVM.Job.OutputPath.ToLowerInvariant());
+                return;
             }
 
             List<EncodeJobViewModel> itemsToQueue = new List<EncodeJobViewModel>();
             foreach (string fileToQueue in filesToQueue)
             {
-                string queueOutputPath = Utilities.CreateUniqueFileName(Path.GetFileName(fileToQueue), Settings.Default.AutoNameOutputFolder, queuedFiles);
+                string queueOutputPath = Utilities.CreateUniqueFileName(Path.GetFileName(fileToQueue), Settings.Default.AutoNameOutputFolder, this.GetQueuedFiles());
 
                 var job = new EncodeJob
                 {
@@ -2002,6 +2072,17 @@ namespace VidCoder.ViewModel
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);
             }
+        }
+
+        private HashSet<string> GetQueuedFiles()
+        {
+            HashSet<string> queuedFiles = new HashSet<string>();
+            foreach (EncodeJobViewModel encodeJobVM in this.EncodeQueue)
+            {
+                queuedFiles.Add(encodeJobVM.Job.OutputPath.ToLowerInvariant());
+            }
+
+            return queuedFiles;
         }
 
         /// <summary>
@@ -2277,6 +2358,8 @@ namespace VidCoder.ViewModel
             {
                 this.ScanError = true;
             }
+
+            this.NotifyPropertyChanged("CanEnqueueMultipleTitles");
         }
 
         private void SaveEncodeQueue()
@@ -2362,7 +2445,7 @@ namespace VidCoder.ViewModel
                 return;
             }
 
-            if (!Properties.Settings.Default.AutoNameOutputFiles)
+            if (!Settings.Default.AutoNameOutputFiles)
             {
                 return;
             }
@@ -2379,93 +2462,65 @@ namespace VidCoder.ViewModel
                 string translatedSourceName = this.sourceName;
                 if ((this.SelectedSource.Type == SourceType.Dvd || this.SelectedSource.Type == SourceType.VideoFolder) && !string.IsNullOrWhiteSpace(this.sourceName))
                 {
-                    string[] titleWords = this.sourceName.Split('_');
-                    var translatedTitleWords = new List<string>();
-                    bool reachedModifiers = false;
-
-                    foreach (string titleWord in titleWords)
-                    {
-                        // After the disc designator, stop changing capitalization.
-                        if (!reachedModifiers && titleWord.Length == 2 && titleWord[0] == 'D' && char.IsDigit(titleWord[1]))
-                        {
-                            reachedModifiers = true;
-                        }
-
-                        if (reachedModifiers)
-                        {
-                            translatedTitleWords.Add(titleWord);
-                        }
-                        else
-                        {
-                            if (titleWord.Length > 0)
-                            {
-                                translatedTitleWords.Add(titleWord[0] + titleWord.Substring(1).ToLower());
-                            }
-                        }
-                    }
-
-                    translatedSourceName = string.Join(" ", translatedTitleWords);
+                    translatedSourceName = this.TranslateDvdSourceName(this.sourceName);
                 }
 
-                if (Properties.Settings.Default.AutoNameCustomFormat)
-                {
-                    string chapterString;
-                    int startChapter = this.SelectedStartChapter.ChapterNumber;
-                    int endChapter = this.SelectedEndChapter.ChapterNumber;
-                    if (startChapter == endChapter)
-                    {
-                        chapterString = startChapter.ToString();
-                    }
-                    else
-                    {
-                        chapterString = startChapter + "-" + endChapter;
-                    }
-
-                    fileName = Properties.Settings.Default.AutoNameCustomFormatString;
-
-                    fileName = fileName.Replace("{source}", translatedSourceName);
-                    fileName = fileName.Replace("{title}", this.SelectedTitle.TitleNumber.ToString());
-                    fileName = fileName.Replace("{chapters}", chapterString);
-                }
-                else
-                {
-                    //this.OutputPath = OutputSaveFolder;
-                    string titleSection = string.Empty;
-                    if (this.SelectedSource.Type != SourceType.File)
-                    {
-                        titleSection = " - Title " + this.SelectedTitle.TitleNumber;
-                    }
-
-                    string chaptersSection = string.Empty;
-                    int startChapter = this.SelectedStartChapter.ChapterNumber;
-                    int endChapter = this.SelectedEndChapter.ChapterNumber;
-                    if (startChapter > 1 || endChapter < this.SelectedTitle.Chapters.Count)
-                    {
-                        if (startChapter == endChapter)
-                        {
-                            chaptersSection = " - Chapter " + startChapter;
-                        }
-                        else
-                        {
-                            chaptersSection = " - Chapters " + startChapter + "-" + endChapter;
-                        }
-                    }
-
-                    fileName = translatedSourceName + titleSection + chaptersSection;
-                }
+                fileName = this.BuildOutputFileName(
+                    translatedSourceName,
+                    this.SelectedTitle.TitleNumber,
+                    this.SelectedStartChapter.ChapterNumber,
+                    this.SelectedEndChapter.ChapterNumber,
+                    this.SelectedTitle.Chapters.Count);
             }
 
+            string extension = this.GetOutputExtension(this.CurrentSubtitles, this.SelectedTitle);
+
+            //// If we have a text source subtitle, force .m4v extension.
+            //bool allowMp4Extension = true;
+            //if (this.CurrentSubtitles != null)
+            //{
+            //    foreach (SourceSubtitle sourceSubtitle in this.CurrentSubtitles.SourceSubtitles)
+            //    {
+            //        if (sourceSubtitle.TrackNumber > 0)
+            //        {
+            //            if (this.SelectedTitle.Subtitles[sourceSubtitle.TrackNumber - 1].SubtitleType == SubtitleType.Text)
+            //            {
+            //                allowMp4Extension = false;
+            //            }
+            //        }
+            //    }
+            //}
+
+            //EncodingProfile profile = this.SelectedPreset.Preset.EncodingProfile;
+            //if (profile.OutputFormat == OutputFormat.Mkv)
+            //{
+            //    extension = ".mkv";
+            //}
+            //else if (profile.PreferredExtension == OutputExtension.Mp4 && allowMp4Extension)
+            //{
+            //    extension = ".mp4";
+            //}
+            //else
+            //{
+            //    extension = ".m4v";
+            //}
+
+            this.OutputPath = this.BuildOutputPath(fileName, extension);
+        }
+
+        private string GetOutputExtension(Subtitles givenSubtitles, Title givenTitle)
+        {
             string extension;
 
             // If we have a text source subtitle, force .m4v extension.
             bool allowMp4Extension = true;
-            if (this.CurrentSubtitles != null)
+            if (givenSubtitles != null && givenSubtitles.SourceSubtitles != null)
             {
-                foreach (SourceSubtitle sourceSubtitle in this.CurrentSubtitles.SourceSubtitles)
+                foreach (SourceSubtitle sourceSubtitle in givenSubtitles.SourceSubtitles)
                 {
                     if (sourceSubtitle.TrackNumber > 0)
                     {
-                        if (this.SelectedTitle.Subtitles[sourceSubtitle.TrackNumber - 1].SubtitleType == SubtitleType.Text)
+                        if (givenTitle.Subtitles[sourceSubtitle.TrackNumber - 1].SubtitleType == SubtitleType.Text)
                         {
                             allowMp4Extension = false;
                         }
@@ -2487,11 +2542,101 @@ namespace VidCoder.ViewModel
                 extension = ".m4v";
             }
 
-            string outputFolder = Properties.Settings.Default.AutoNameOutputFolder;
+            return extension;
+        }
+
+        /// <summary>
+        /// Changes casing on DVD titles to be a little more friendly.
+        /// </summary>
+        /// <param name="dvdSourceName">The input DVD source name.</param>
+        /// <returns>Cleaned up version of the source name.</returns>
+        private string TranslateDvdSourceName(string dvdSourceName)
+        {
+            string[] titleWords = this.sourceName.Split('_');
+            var translatedTitleWords = new List<string>();
+            bool reachedModifiers = false;
+
+            foreach (string titleWord in titleWords)
+            {
+                // After the disc designator, stop changing capitalization.
+                if (!reachedModifiers && titleWord.Length == 2 && titleWord[0] == 'D' && char.IsDigit(titleWord[1]))
+                {
+                    reachedModifiers = true;
+                }
+
+                if (reachedModifiers)
+                {
+                    translatedTitleWords.Add(titleWord);
+                }
+                else
+                {
+                    if (titleWord.Length > 0)
+                    {
+                        translatedTitleWords.Add(titleWord[0] + titleWord.Substring(1).ToLower());
+                    }
+                }
+            }
+
+            return string.Join(" ", translatedTitleWords);
+        }
+
+        private string BuildOutputPath(string fileName, string extension)
+        {
+            string outputFolder = Settings.Default.AutoNameOutputFolder;
             if (!string.IsNullOrEmpty(outputFolder))
             {
-                this.OutputPath = Path.Combine(outputFolder, fileName + extension);
+                return Path.Combine(outputFolder, fileName + extension);
             }
+
+            return null;
+        }
+
+        private string BuildOutputFileName(string sourceName, int title, int startChapter, int endChapter, int totalChapters)
+        {
+            string fileName;
+            if (Settings.Default.AutoNameCustomFormat)
+            {
+                string chapterString;
+                if (startChapter == endChapter)
+                {
+                    chapterString = startChapter.ToString();
+                }
+                else
+                {
+                    chapterString = startChapter + "-" + endChapter;
+                }
+
+                fileName = Settings.Default.AutoNameCustomFormatString;
+
+                fileName = fileName.Replace("{source}", sourceName);
+                fileName = fileName.Replace("{title}", title.ToString());
+                fileName = fileName.Replace("{chapters}", chapterString);
+            }
+            else
+            {
+                string titleSection = string.Empty;
+                if (this.SelectedSource.Type != SourceType.File)
+                {
+                    titleSection = " - Title " + title;
+                }
+
+                string chaptersSection = string.Empty;
+                if (startChapter > 1 || endChapter < totalChapters)
+                {
+                    if (startChapter == endChapter)
+                    {
+                        chaptersSection = " - Chapter " + startChapter;
+                    }
+                    else
+                    {
+                        chaptersSection = " - Chapters " + startChapter + "-" + endChapter;
+                    }
+                }
+
+                fileName = sourceName + titleSection + chaptersSection;
+            }
+
+            return fileName;
         }
 
         private int GetFirstUnusedAudioTrack()

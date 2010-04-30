@@ -157,6 +157,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\QueueTitlesDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\OptionsDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -188,12 +192,17 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="EnumStringConverter.cs" />
+    <Compile Include="IListItemConverter.cs" />
     <Compile Include="Model\Logger.cs" />
+    <Compile Include="MultiSelectorBehaviors.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="TwoListSynchronizer.cs" />
     <Compile Include="ViewModel\AboutDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\DataModels\ColumnViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\TitleSelectionViewModel.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
+    <Compile Include="ViewModel\QueueTitlesDialogViewModel.cs" />
     <Compile Include="ViewModel\QueueColumnsViewModel.cs" />
     <Compile Include="ViewModel\ScanMultipleDialogViewModel.cs" />
     <Compile Include="View\AboutDialog.xaml.cs">
@@ -201,6 +210,9 @@
     </Compile>
     <Compile Include="View\LogWindow.xaml.cs">
       <DependentUpon>LogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QueueTitlesDialog.xaml.cs">
+      <DependentUpon>QueueTitlesDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\QueueColumnsDialog.xaml.cs">
       <DependentUpon>QueueColumnsDialog.xaml</DependentUpon>
