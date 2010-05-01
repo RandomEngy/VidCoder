@@ -863,7 +863,7 @@ namespace VidCoder.ViewModel
         {
             get
             {
-                return this.SelectedSource.Type == SourceType.Dvd || this.SelectedSource.Type == SourceType.VideoFolder;
+                return this.HasVideoSource && this.SourceData.Titles.Count > 1;
             }
         }
 
