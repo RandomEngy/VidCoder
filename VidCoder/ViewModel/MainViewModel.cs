@@ -83,7 +83,7 @@ namespace VidCoder.ViewModel
         private ICommand openEncodingWindowCommand;
         private ICommand openPreviewWindowCommand;
         private ICommand openLogWindowCommand;
-        private ICommand pickOutputFolderCommand;
+        private ICommand pickDefaultOutputFolderCommand;
         private ICommand pickOutputPathCommand;
         private ICommand encodeCommand;
         private ICommand addToQueueCommand;
@@ -1487,13 +1487,13 @@ namespace VidCoder.ViewModel
             }
         }
 
-        public ICommand PickOutputFolderCommand
+        public ICommand PickDefaultOutputFolderCommand
         {
             get
             {
-                if (this.pickOutputFolderCommand == null)
+                if (this.pickDefaultOutputFolderCommand == null)
                 {
-                    this.pickOutputFolderCommand = new RelayCommand(param =>
+                    this.pickDefaultOutputFolderCommand = new RelayCommand(param =>
                     {
                         string newOutputFolder = FileService.Instance.GetFolderName(null, "Choose the output directory for encoded video files.");
 
@@ -1511,7 +1511,7 @@ namespace VidCoder.ViewModel
                     });
                 }
 
-                return this.pickOutputFolderCommand;
+                return this.pickDefaultOutputFolderCommand;
             }
         }
 
@@ -1527,10 +1527,24 @@ namespace VidCoder.ViewModel
 
                         if (newOutputPath != null)
                         {
-                            Properties.Settings.Default.LastOutputFolder = Path.GetDirectoryName(newOutputPath);
+                            string outputDirectory = Path.GetDirectoryName(newOutputPath);
+                            Properties.Settings.Default.LastOutputFolder = outputDirectory;
                             Properties.Settings.Default.Save();
+
+                            string fileName = Path.GetFileNameWithoutExtension(newOutputPath);
+                            string extension;
+
+                            if (this.HasVideoSource)
+                            {
+                                extension = this.GetOutputExtension(this.CurrentSubtitles, this.SelectedTitle);
+                            }
+                            else
+                            {
+                                extension = this.GetOutputExtension();
+                            }
+
                             this.manualOutputPath = true;
-                            this.OutputPath = newOutputPath;
+                            this.OutputPath = Path.Combine(outputDirectory, fileName + extension);
                         }
                     },
                     param =>
@@ -2242,6 +2256,9 @@ namespace VidCoder.ViewModel
             }
 
             this.SaveUserPresets();
+
+            // Refresh file name.
+            this.GenerateOutputFileName();
         }
 
         /// <summary>
@@ -2494,6 +2511,16 @@ namespace VidCoder.ViewModel
 
         private void GenerateOutputFileName()
         {
+            string fileName;
+
+            if (this.manualOutputPath)
+            {
+                // When a manual path has been specified, keep the directory and base file name.
+                fileName = Path.GetFileNameWithoutExtension(this.OutputPath);
+                this.OutputPath = Path.Combine(Path.GetDirectoryName(this.OutputPath), fileName + this.GetOutputExtension());
+                return;
+            }
+
             if (!this.HasVideoSource)
             {
                 return;
@@ -2509,38 +2536,23 @@ namespace VidCoder.ViewModel
                 return;
             }
 
-            string fileName;
-            string extension = this.GetOutputExtension(this.CurrentSubtitles, this.SelectedTitle);
-            string newOutputPath;
-
-            if (this.manualOutputPath)
+            // Change casing on DVD titles to be a little more friendly
+            string translatedSourceName = this.sourceName;
+            if ((this.SelectedSource.Type == SourceType.Dvd || this.SelectedSource.Type == SourceType.VideoFolder) && !string.IsNullOrWhiteSpace(this.sourceName))
             {
-                // When a manual path has been specified, keep the directory and base file name.
-                fileName = Path.GetFileNameWithoutExtension(this.OutputPath);
-                string currentDirectory = this.OutputPath.Substring(0, this.OutputPath.Length - Path.GetFileName(this.OutputPath).Length);
-
-                newOutputPath = Path.Combine(currentDirectory, fileName + extension);
-            }
-            else
-            {
-                // Change casing on DVD titles to be a little more friendly
-                string translatedSourceName = this.sourceName;
-                if ((this.SelectedSource.Type == SourceType.Dvd || this.SelectedSource.Type == SourceType.VideoFolder) && !string.IsNullOrWhiteSpace(this.sourceName))
-                {
-                    translatedSourceName = this.TranslateDvdSourceName(this.sourceName);
-                }
-
-                fileName = this.BuildOutputFileName(
-                    translatedSourceName,
-                    this.SelectedTitle.TitleNumber,
-                    this.SelectedStartChapter.ChapterNumber,
-                    this.SelectedEndChapter.ChapterNumber,
-                    this.SelectedTitle.Chapters.Count);
-
-                newOutputPath = this.BuildOutputPath(fileName, extension);
+                translatedSourceName = this.TranslateDvdSourceName(this.sourceName);
             }
 
-            this.OutputPath = newOutputPath;
+            fileName = this.BuildOutputFileName(
+                translatedSourceName,
+                this.SelectedTitle.TitleNumber,
+                this.SelectedStartChapter.ChapterNumber,
+                this.SelectedEndChapter.ChapterNumber,
+                this.SelectedTitle.Chapters.Count);
+
+            string extension = this.GetOutputExtension();
+
+            this.OutputPath = this.BuildOutputPath(fileName, extension);
         }
 
         private string GetOutputExtension(Subtitles givenSubtitles, Title givenTitle)
@@ -2578,6 +2590,28 @@ namespace VidCoder.ViewModel
             }
 
             return extension;
+        }
+
+        private string GetOutputExtension()
+        {
+            if (!this.manualOutputPath)
+            {
+                return this.GetOutputExtension(this.CurrentSubtitles, this.SelectedTitle);
+            }
+
+            EncodingProfile profile = this.SelectedPreset.Preset.EncodingProfile;
+            if (profile.OutputFormat == OutputFormat.Mkv)
+            {
+                return ".mkv";
+            }
+            else if (profile.PreferredExtension == OutputExtension.Mp4)
+            {
+                return ".mp4";
+            }
+            else
+            {
+                return ".m4v";
+            }
         }
 
         /// <summary>

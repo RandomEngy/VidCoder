@@ -386,7 +386,7 @@
                 Visibility="{Binding OutputFolderChosen, Converter={StaticResource VisibilityConverter}}">Browse...</Button>
             <Button Height="22" Width="141.044" Margin="112,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
                 Visibility="{Binding OutputFolderChosen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
-                Command="{Binding PickOutputFolderCommand}">
+                Command="{Binding PickDefaultOutputFolderCommand}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Icons/win7foldericon.png" />
                     <TextBlock Text="Select output path..." Margin="7,0,0,0" />
