@@ -389,6 +389,8 @@ namespace VidCoder.ViewModel
             this.driveService.Close();
             HandBrakeInstance.DisposeGlobal();
 
+            this.CleanOldLogs();
+
             this.updateService.PromptToApplyUpdate();
 
             this.logger.Dispose();
@@ -2664,6 +2666,25 @@ namespace VidCoder.ViewModel
             }
 
             return 0;
+        }
+
+        private void CleanOldLogs()
+        {
+            string logsFolder = Path.Combine(Utilities.AppFolder, "Logs");
+            string[] logFiles = Directory.GetFiles(logsFolder);
+
+            // Files are named by date so are in chronological order. Keep the most recent 10 files.
+            for (int i = 0; i < logFiles.Length - 10; i++)
+            {
+                try
+                {
+                    File.Delete(logFiles[i]);
+                }
+                catch (IOException)
+                {
+                    // Just ignore failed deletes. They'll get cleaned up some other time.
+                }
+            }
         }
     }
 }
