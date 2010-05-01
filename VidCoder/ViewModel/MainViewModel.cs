@@ -2510,10 +2510,16 @@ namespace VidCoder.ViewModel
             }
 
             string fileName;
+            string extension = this.GetOutputExtension(this.CurrentSubtitles, this.SelectedTitle);
+            string newOutputPath;
 
             if (this.manualOutputPath)
             {
+                // When a manual path has been specified, keep the directory and base file name.
                 fileName = Path.GetFileNameWithoutExtension(this.OutputPath);
+                string currentDirectory = this.OutputPath.Substring(0, this.OutputPath.Length - Path.GetFileName(this.OutputPath).Length);
+
+                newOutputPath = Path.Combine(currentDirectory, fileName + extension);
             }
             else
             {
@@ -2530,11 +2536,11 @@ namespace VidCoder.ViewModel
                     this.SelectedStartChapter.ChapterNumber,
                     this.SelectedEndChapter.ChapterNumber,
                     this.SelectedTitle.Chapters.Count);
+
+                newOutputPath = this.BuildOutputPath(fileName, extension);
             }
 
-            string extension = this.GetOutputExtension(this.CurrentSubtitles, this.SelectedTitle);
-
-            this.OutputPath = this.BuildOutputPath(fileName, extension);
+            this.OutputPath = newOutputPath;
         }
 
         private string GetOutputExtension(Subtitles givenSubtitles, Title givenTitle)

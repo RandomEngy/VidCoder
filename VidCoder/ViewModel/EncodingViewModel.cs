@@ -290,8 +290,8 @@ namespace VidCoder.ViewModel
                 this.profile.OutputFormat = value;
                 this.NotifyPropertyChanged("OutputFormat");
                 this.NotifyPropertyChanged("ShowMp4Choices");
-                this.mainViewModel.RefreshDestination();
                 this.IsModified = true;
+                this.mainViewModel.RefreshDestination();
 
                 // Report output format change to audio encodings.
                 foreach (AudioEncodingViewModel audioEncoding in this.AudioEncodings)
@@ -332,8 +332,8 @@ namespace VidCoder.ViewModel
             {
                 this.profile.PreferredExtension = value;
                 this.NotifyPropertyChanged("PreferredExtension");
-                this.mainViewModel.RefreshDestination();
                 this.IsModified = true;
+                this.mainViewModel.RefreshDestination();
             }
         }
 
