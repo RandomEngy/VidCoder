@@ -1971,6 +1971,19 @@ namespace VidCoder.ViewModel
             this.CurrentJob.HandBrakeInstance.EncodeProgress += this.OnEncodeProgress;
             this.CurrentJob.HandBrakeInstance.EncodeCompleted += this.OnEncodeCompleted;
 
+            string destinationDirectory = Path.GetDirectoryName(this.CurrentJob.Job.OutputPath);
+            if (!Directory.Exists(destinationDirectory))
+            {
+                try
+                {
+                    Directory.CreateDirectory(destinationDirectory);
+                }
+                catch (IOException exception)
+                {
+                    ServiceFactory.MessageBoxService.Show("Could not create output directory. Error details: " + Environment.NewLine + Environment.NewLine + exception.ToString(), "Error creating directory", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
             this.EncodeQueue[0].ReportEncodeStart(this.totalTasks == 1);
             this.CurrentJob.HandBrakeInstance.StartEncode(this.CurrentJob.Job);
         }
