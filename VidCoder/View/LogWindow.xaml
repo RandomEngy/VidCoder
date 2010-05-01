@@ -4,6 +4,10 @@
         Title="Log" Height="393" Width="459"
         Style="{StaticResource NormalWindow}"
         WindowStyle="ToolWindow" ShowInTaskbar="False" Closing="Window_Closing">
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Control" Command="{Binding MainViewModel.OpenEncodingWindowCommand}" />
+        <KeyBinding Key="P" Modifiers="Control" Command="{Binding MainViewModel.OpenPreviewWindowCommand}" />
+    </Window.InputBindings>
     <Grid>
         <TextBox
             Name="logTextBox"

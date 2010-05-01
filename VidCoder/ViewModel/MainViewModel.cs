@@ -280,6 +280,9 @@ namespace VidCoder.ViewModel
             this.ScanError = false;
             string folderPath = FileService.Instance.GetFolderName(Properties.Settings.Default.LastVideoTSFolder, "Pick the DVD's VIDEO_TS folder.");
 
+            // Make sure we get focus back after displaying the dialog.
+            WindowManager.FocusWindow(this);
+
             if (folderPath != null)
             {
                 Properties.Settings.Default.LastVideoTSFolder = folderPath;
@@ -319,19 +322,29 @@ namespace VidCoder.ViewModel
 
         public void OnLoaded()
         {
+            bool windowOpened = false;
+
             if (Settings.Default.EncodingWindowOpen)
             {
                 this.OpenEncodingWindow();
+                windowOpened = true;
             }
 
             if (Settings.Default.PreviewWindowOpen)
             {
                 this.OpenPreviewWindow();
+                windowOpened = true;
             }
 
             if (Settings.Default.LogWindowOpen)
             {
                 this.OpenLogWindow();
+                windowOpened = true;
+            }
+
+            if (windowOpened)
+            {
+                WindowManager.FocusWindow(this);
             }
         }
 
@@ -1519,6 +1532,10 @@ namespace VidCoder.ViewModel
                             this.manualOutputPath = true;
                             this.OutputPath = newOutputPath;
                         }
+                    },
+                    param =>
+                    {
+                        return this.OutputFolderChosen;
                     });
                 }
 
@@ -1717,6 +1734,10 @@ namespace VidCoder.ViewModel
                                 this.Queue(jobVM);
                             }
                         }
+                    },
+                    param =>
+                    {
+                        return this.CanEnqueueMultipleTitles;
                     });
                 }
 
@@ -2418,6 +2439,10 @@ namespace VidCoder.ViewModel
                 encodingWindow.Closing = () =>
                 {
                     this.EncodingWindowOpen = false;
+
+                    // Focus the main window after closing. If they used a keyboard shortcut to close it might otherwise give up
+                    // focus on the app altogether.
+                    WindowManager.FocusWindow(this);
                 };
                 WindowManager.OpenWindow(encodingWindow, this);
             }
@@ -2454,7 +2479,7 @@ namespace VidCoder.ViewModel
 
             if (logWindow == null)
             {
-                logWindow = new LogViewModel(this.logger);
+                logWindow = new LogViewModel(this, this.logger);
                 logWindow.Closing = () =>
                 {
                     this.LogWindowOpen = false;

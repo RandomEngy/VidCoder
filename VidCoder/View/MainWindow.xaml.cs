@@ -76,6 +76,8 @@ namespace VidCoder.View
             Storyboard.SetTargetProperty(presetGlowFadeUp, new PropertyPath("Opacity"));
             Storyboard.SetTargetName(presetGlowFadeDown, "PresetGlowEffect");
             Storyboard.SetTargetProperty(presetGlowFadeDown, new PropertyPath("Opacity"));
+
+            this.KeyDown += this.MainWindow_KeyDown;
         }
 
         private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -268,6 +270,49 @@ namespace VidCoder.View
             }
         }
 
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            bool control = Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
+            bool alt = Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt);
+
+            if (control)
+            {
+                switch (e.Key)
+                {
+                    case Key.O:
+                        this.OpenFile();
+                        break;
+                    case Key.F:
+                        this.OpenFolder();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void OpenFile()
+        {
+            if (this.viewModel.SetSourceFromFile())
+            {
+                this.manualSelectionChange = true;
+                this.sourceBox.SelectedItem = this.sourceOptions.Single(item => item.SourceOption.Type == SourceType.File);
+                this.RemoveDeadOptions();
+                this.manualSelectionChange = false;
+            }
+        }
+
+        private void OpenFolder()
+        {
+            if (this.viewModel.SetSourceFromFolder())
+            {
+                this.manualSelectionChange = true;
+                this.sourceBox.SelectedItem = this.sourceOptions.Single(item => item.SourceOption.Type == SourceType.VideoFolder);
+                this.RemoveDeadOptions();
+                this.manualSelectionChange = false;
+            }
+        }
+
         private void RefreshQueueColumns()
         {
             this.queueGridView.Columns.Clear();
@@ -382,6 +427,7 @@ namespace VidCoder.View
                         this.sourceBox.SelectedItem = this.sourceOptions.Single(item => item.SourceOption.Type == SourceType.File);
                         this.RemoveDeadOptions();
                         this.viewModel.SetSourceFromFile(fileList[0]);
+                        this.manualSelectionChange = false;
                     }
                     else
                     {

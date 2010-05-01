@@ -9,13 +9,23 @@ namespace VidCoder.ViewModel
 {
     public class LogViewModel : OkCancelDialogViewModel
     {
+        private MainViewModel mainViewModel;
         private Logger logger;
 
         private ICommand clearLogCommand;
 
-        public LogViewModel(Logger logger)
+        public LogViewModel(MainViewModel mainViewModel, Logger logger)
         {
+            this.mainViewModel = mainViewModel;
             this.logger = logger;
+        }
+
+        public MainViewModel MainViewModel
+        {
+            get
+            {
+                return this.mainViewModel;
+            }
         }
 
         public string LogText

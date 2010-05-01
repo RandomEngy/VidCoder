@@ -111,6 +111,13 @@
             <Button Style="{StaticResource RemoveButtonStyle}" Command="{Binding RemoveAudioEncodingCommand}" VerticalAlignment="Center">Remove audio encoding</Button>
         </DataTemplate>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
+        <KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveCommand}" />
+        <KeyBinding Key="S" Modifiers="Control+Shift" Command="{Binding SaveAsCommand}" />
+        <KeyBinding Key="L" Modifiers="Control" Command="{Binding MainViewModel.OpenLogWindowCommand}" />
+        <KeyBinding Key="P" Modifiers="Control" Command="{Binding MainViewModel.OpenPreviewWindowCommand}" />
+    </Window.InputBindings>
     <Grid>
         <TextBlock
             Text="{Binding ProfileName}"

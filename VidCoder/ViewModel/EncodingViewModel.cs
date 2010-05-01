@@ -98,6 +98,14 @@ namespace VidCoder.ViewModel
             this.mainViewModel.AudioChoices.CollectionChanged += this.AudioChoicesCollectionChanged;
         }
 
+        public MainViewModel MainViewModel
+        {
+            get
+            {
+                return this.mainViewModel;
+            }
+        }
+
         public Preset EditingPreset
         {
             get
@@ -450,6 +458,9 @@ namespace VidCoder.ViewModel
 
                         // Clone the profile so that on modifications, we're working on a new copy.
                         this.profile = this.profile.Clone();
+                    }, param =>
+                    {
+                        return !this.IsBuiltIn;
                     });
                 }
 
