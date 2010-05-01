@@ -117,86 +117,80 @@
         <KeyBinding Key="S" Modifiers="Control+Shift" Command="{Binding SaveAsCommand}" />
         <KeyBinding Key="L" Modifiers="Control" Command="{Binding MainViewModel.OpenLogWindowCommand}" />
         <KeyBinding Key="P" Modifiers="Control" Command="{Binding MainViewModel.OpenPreviewWindowCommand}" />
+        <KeyBinding Key="F2" Command="{Binding RenameCommand}" />
     </Window.InputBindings>
     <Grid>
-        <TextBlock
-            Text="{Binding ProfileName}"
-            Height="24" HorizontalAlignment="Left" Margin="5,12,0,0" VerticalAlignment="Top" Width="138" FontWeight="Bold" FontSize="14" TextAlignment="Center" TextTrimming="CharacterEllipsis" />
-        <!--<TextBlock Height="21" HorizontalAlignment="Left" Margin="12,12,0,0" Text="Preset:" VerticalAlignment="Top" Width="52" FontWeight="Bold" FontSize="14" />-->
-        <!--<TextBox Height="23" HorizontalAlignment="Left" Margin="70,12,0,0" VerticalAlignment="Top" Width="123" Name="presetBox"
-            Style="{StaticResource ReadOnlyBox}"
-            Text="{Binding ProfileName}" IsReadOnly="{Binding IsBuiltIn}" />-->
-        <StackPanel Orientation="Horizontal" Margin="150,12,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
-            <Button Height="24" Width="70" Margin="0,0,10,0"
-                Visibility="{Binding IsBuiltIn, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
-                Command="{Binding SaveCommand}">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Icons/save.png" Width="16" Height="16" />
-                    <TextBlock Text="Save" Margin="5,0,0,0" />
-                </StackPanel>
-            </Button>
-            <Button Height="24" Width="73" Margin="0,0,10,0"
-                Command="{Binding SaveAsCommand}">Save As...</Button>
-            <Button
-                Content="Rename"
-                Visibility="{Binding IsBuiltIn, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
-                Height="24" Width="65" Margin="0,0,10,0"
-                Command="{Binding RenameCommand}" />
-            <Button
-                Height="24" Width="70"
-                Content="{Binding DeleteButtonText}"
-                Command="{Binding DeletePresetCommand}" />
-        </StackPanel>
-        <Button Height="26" Margin="0,12,12,0" VerticalAlignment="Top" IsEnabled="{Binding HasSourceData}"
+        <ToolBarPanel Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+                <TextBlock
+                    Text="{Binding ProfileName}" Margin="0,4,0,0"
+                    Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" FontWeight="Bold" FontSize="14" TextAlignment="Center" TextTrimming="CharacterEllipsis" />
+                <Button Height="24" Width="70"
+                    Visibility="{Binding IsBuiltIn, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
+                    Command="{Binding SaveCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/save.png" Width="16" Height="16" />
+                        <TextBlock Text="Save" Margin="5,0,0,0" />
+                    </StackPanel>
+                </Button>
+                <Button Height="24" Width="73"
+                    Command="{Binding SaveAsCommand}">Save As...</Button>
+                <Button
+                    Content="Rename"
+                    Visibility="{Binding IsBuiltIn, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
+                    Height="24" Width="65"
+                    Command="{Binding RenameCommand}" />
+                <Button
+                    Height="24" Width="70"
+                    Visibility="{Binding IsModified, Converter={StaticResource VisibilityConverter}}"
+                    Command="{Binding DeletePresetCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/undo_16x16.png" Width="16" Height="16" />
+                        <TextBlock Text="Revert" Margin="4,0,0,0" />
+                    </StackPanel>
+                </Button>
+                <Button
+                    Height="24" Width="70"
+                    Visibility="{Binding DeleteButtonVisible, Converter={StaticResource VisibilityConverter}}"
+                    Command="{Binding DeletePresetCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <StaticResource ResourceKey="RedX" />
+                        <TextBlock Text="Delete" Margin="4,0,0,0" />
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+        </ToolBarPanel>
+        <Button Height="26" Margin="0,4,12,0" VerticalAlignment="Top" IsEnabled="{Binding HasSourceData}"
             Command="{Binding PreviewCommand}" HorizontalAlignment="Right" Width="77">
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Icons/preview.png" />
                 <TextBlock Text="Preview" Margin="5,0,0,0" VerticalAlignment="Center" />
             </StackPanel>
         </Button>
-        <!--<Label Height="23" Margin="476.523,12,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="16.434" VerticalContentAlignment="Center">#</Label>
-        <ComboBox SelectedValue="{Binding SelectedPreview}" SelectedValuePath="Content" Height="23" Margin="490.75,12,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="36.5"
-            IsEnabled="{Binding PreviewEnabled}">
-            <ComboBoxItem>1</ComboBoxItem>
-            <ComboBoxItem>2</ComboBoxItem>
-            <ComboBoxItem>3</ComboBoxItem>
-            <ComboBoxItem>4</ComboBoxItem>
-            <ComboBoxItem>5</ComboBoxItem>
-            <ComboBoxItem>6</ComboBoxItem>
-            <ComboBoxItem>7</ComboBoxItem>
-            <ComboBoxItem>8</ComboBoxItem>
-            <ComboBoxItem>9</ComboBoxItem>
-            <ComboBoxItem>10</ComboBoxItem>
-        </ComboBox>
-        
-        <ProgressBar Height="21" Margin="531.005,14,4.995,0" VerticalAlignment="Top"
-            Value="{Binding PreviewProgress}"
-            Visibility="{Binding CreatingPreview, Converter={StaticResource VisibilityConverter}}"
-            ToolTip="Generating preview..."/>-->
 
-        <Label Height="28" HorizontalAlignment="Left" Margin="20,41,0,0" Name="label11" VerticalAlignment="Top" Width="69">Container:</Label>
-        <ComboBox Height="23" HorizontalAlignment="Left" Margin="85,44,0,0" VerticalAlignment="Top" Width="58"
+        <Label Height="28" HorizontalAlignment="Left" Margin="20,36,0,0" Name="label11" VerticalAlignment="Top" Width="69">Container:</Label>
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="85,39,0,0" VerticalAlignment="Top" Width="58"
             ItemsSource="{Binding DisplayNames, Source={StaticResource OutputFormatChoices}}"
             SelectedValue="{Binding OutputFormat, Converter={StaticResource OutputFormatChoices}}"/>
-        <Label Height="28" Margin="155.422,39,0,0" Name="label12" VerticalAlignment="Top" HorizontalAlignment="Left" Width="64"
+        <Label Height="28" Margin="155.422,34,0,0" Name="label12" VerticalAlignment="Top" HorizontalAlignment="Left" Width="64"
             Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">Extension:</Label>
-        <RadioButton Margin="221.422,39,0,0" Name="radioButton3" Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
+        <RadioButton Margin="221.422,34,0,0" Name="radioButton3" Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
             IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Mp4}"
             Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
             IsEnabled="{Binding Mp4ExtensionEnabled}">.mp4</RadioButton>
-        <RadioButton Height="16" Margin="221.422,54,0,0" Name="radioButton4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
+        <RadioButton Height="16" Margin="221.422,49,0,0" Name="radioButton4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
             IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=M4v}"
             Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">.m4v</RadioButton>
         <CheckBox
             Content="Large file size" ToolTip="{x:Static resx:Resources.LargeFileSizeToolTip}"
-            Margin="277.093,39,0,0" HorizontalAlignment="Left" Width="98.907" Height="16" VerticalAlignment="Top"
+            Margin="277.093,34,0,0" HorizontalAlignment="Left" Width="98.907" Height="16" VerticalAlignment="Top"
             Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
             IsChecked="{Binding LargeFile}" />
         <CheckBox
             Content="Web optimized" ToolTip="{x:Static resx:Resources.WebOptimizedToolTip}"
-            Height="16" Margin="277,57,0,0" VerticalAlignment="Top" Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
+            Height="16" Margin="277,52,0,0" VerticalAlignment="Top" Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
             IsChecked="{Binding Optimize}" HorizontalAlignment="Left" Width="111" />
-        <Grid Height="35" HorizontalAlignment="Left" Margin="385.995,39,0,0" VerticalAlignment="Top" Width="150">
+        <Grid Height="35" HorizontalAlignment="Left" Margin="385.995,34,0,0" VerticalAlignment="Top" Width="150">
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                 <CheckBox
                     Content="iPod 5G support" ToolTip="{x:Static resx:Resources.IPod5GSupportToolTip}"

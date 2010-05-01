@@ -123,5 +123,15 @@ namespace VidCoder.View
             Settings.Default.EncodingDialogLastTab = this.tabControl.SelectedIndex;
             Settings.Default.Save();
         }
+
+        private void ToolBar_Loaded(object sender, RoutedEventArgs e)
+        {
+            ToolBar toolBar = sender as ToolBar;
+            var overflowGrid = toolBar.Template.FindName("OverflowGrid", toolBar) as FrameworkElement;
+            if (overflowGrid != null)
+            {
+                overflowGrid.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }

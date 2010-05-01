@@ -392,6 +392,7 @@
     <Content Include="BuiltInPresets.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\undo_16x16.png" />
     <Resource Include="Icons\help_16.png" />
     <Resource Include="Icons\VidCoder_small.png" />
     <Resource Include="Icons\preview.png" />

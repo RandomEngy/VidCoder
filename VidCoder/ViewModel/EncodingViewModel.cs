@@ -220,20 +220,15 @@ namespace VidCoder.ViewModel
             {
                 this.isBuiltIn = value;
                 this.NotifyPropertyChanged("IsBuiltIn");
-                this.NotifyPropertyChanged("DeleteButtonText");
+                this.NotifyPropertyChanged("DeleteButtonVisible");
             }
         }
 
-        public string DeleteButtonText
+        public bool DeleteButtonVisible
         {
             get
             {
-                if (this.IsBuiltIn || this.IsModified)
-                {
-                    return "Revert";
-                }
-
-                return "Delete";
+                return !this.IsBuiltIn && !this.IsModified;
             }
         }
 
@@ -259,7 +254,7 @@ namespace VidCoder.ViewModel
 
                     this.NotifyPropertyChanged("IsModified");
                     this.NotifyPropertyChanged("WindowTitle");
-                    this.NotifyPropertyChanged("DeleteButtonText");
+                    this.NotifyPropertyChanged("DeleteButtonVisible");
 
                     // If we've made a modification, we need to save the user presets.
                     if (value)
@@ -523,6 +518,10 @@ namespace VidCoder.ViewModel
 
                             this.IsModified = false;
                         }
+                    },
+                    param =>
+                    {
+                        return !this.IsBuiltIn;
                     });
                 }
 
@@ -2487,7 +2486,7 @@ namespace VidCoder.ViewModel
             this.NotifyPropertyChanged("WindowTitle");
             this.NotifyPropertyChanged("ProfileName");
             this.NotifyPropertyChanged("IsBuiltIn");
-            this.NotifyPropertyChanged("DeleteButtonText");
+            this.NotifyPropertyChanged("DeleteButtonVisible");
             this.NotifyPropertyChanged("IsModified");
             this.NotifyPropertyChanged("OutputFormat");
             this.NotifyPropertyChanged("PreferredExtension");

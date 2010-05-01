@@ -30,6 +30,18 @@
             <GradientStop Color="Red" Offset="0" />
             <GradientStop Color="#DD0008" Offset="1" />
         </RadialGradientBrush>
+        <Grid x:Key="RedX" Background="Transparent">
+            <Rectangle Name="rect2" Width="14" Height="3" Fill="{StaticResource RedFill}">
+                <Rectangle.LayoutTransform>
+                    <RotateTransform Angle="-45" />
+                </Rectangle.LayoutTransform>
+            </Rectangle>
+            <Rectangle Name="rect1" Width="14" Height="3" Fill="{StaticResource RedFill}">
+                <Rectangle.LayoutTransform>
+                    <RotateTransform Angle="45" />
+                </Rectangle.LayoutTransform>
+            </Rectangle>
+        </Grid>
         <Style x:Key="PlusSign" TargetType="Polygon">
             <Setter Property="Points" Value="4,0 6,0 6,4 10,4 10,6 6,6 6,10 4,10 4,6 0,6 0,4 4,4" />
             <Setter Property="Fill" Value="Green" />
