@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using System.IO;
+using System.ComponentModel;
+using System.Windows;
 
 namespace VidCoder
 {
@@ -125,6 +127,18 @@ namespace VidCoder
         public void LaunchFile(string fileName)
         {
             Process.Start(fileName);
+        }
+
+        public void LaunchUrl(string url)
+        {
+            try
+            {
+                Process.Start(url);
+            }
+            catch (Win32Exception)
+            {
+                MessageBox.Show("Error launching URL: " + url);
+            }
         }
     }
 }

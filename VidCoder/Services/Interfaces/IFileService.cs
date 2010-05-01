@@ -13,5 +13,6 @@ namespace VidCoder
         string GetFolderName(string initialDirectory);
         string GetFolderName(string initialDirectory, string description);
         void LaunchFile(string fileName);
+        void LaunchUrl(string url);
     }
 }

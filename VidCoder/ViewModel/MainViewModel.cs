@@ -1855,7 +1855,7 @@ namespace VidCoder.ViewModel
                 {
                     this.openHomepageCommand = new RelayCommand(param =>
                     {
-                        Process.Start("http://vidcoder.codeplex.com/");
+                        FileService.Instance.LaunchUrl("http://vidcoder.codeplex.com/");
                     });
                 }
 
@@ -1871,7 +1871,7 @@ namespace VidCoder.ViewModel
                 {
                     this.reportBugCommand = new RelayCommand(param =>
                     {
-                        Process.Start("http://vidcoder.codeplex.com/WorkItem/Create.aspx");
+                        FileService.Instance.LaunchUrl("http://vidcoder.codeplex.com/WorkItem/Create.aspx");
                     });
                 }
 
