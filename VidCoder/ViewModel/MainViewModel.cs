@@ -1153,9 +1153,15 @@ namespace VidCoder.ViewModel
             set
             {
                 this.encoding = value;
-                if (!value)
+
+                if (value)
+                {
+                    SystemSleepManagement.PreventSleep();
+                }
+                else
                 {
                     this.EncodeSpeedDetailsAvailable = false;
+                    SystemSleepManagement.AllowSleep();
                 }
 
                 this.NotifyPropertyChanged("PauseVisible");
