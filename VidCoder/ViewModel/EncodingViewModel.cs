@@ -2530,6 +2530,7 @@ namespace VidCoder.ViewModel
             this.NotifyPropertyChanged("Deblock");
             this.NotifyPropertyChanged("DeblockText");
             this.NotifyPropertyChanged("Grayscale");
+            this.NotifyPropertyChanged("SelectedEncoder");
             this.NotifyPropertyChanged("SelectedFramerate");
             this.NotifyPropertyChanged("TwoPassEncoding");
             this.NotifyPropertyChanged("TurboFirstPass");
