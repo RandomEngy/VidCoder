@@ -1156,10 +1156,12 @@ namespace VidCoder.ViewModel
 
                 if (value)
                 {
+                    Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.BelowNormal;
                     SystemSleepManagement.PreventSleep();
                 }
                 else
                 {
+                    Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.Normal;
                     this.EncodeSpeedDetailsAvailable = false;
                     SystemSleepManagement.AllowSleep();
                 }
