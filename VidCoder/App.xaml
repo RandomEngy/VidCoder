@@ -8,6 +8,7 @@
         <converters:EnumBoolInverseConverter x:Key="EnumBoolInverseConverter" />
         <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
         <converters:PercentDisplayConverter x:Key="PercentDisplayConverter" />
+        <converters:DoubleDisplayConverter x:Key="DoubleDisplayConverter" />
         <Style x:Key="RowButton" TargetType="{x:Type Button}">
             <Setter Property="Height" Value="23" />
             <Setter Property="VerticalAlignment" Value="Center" />

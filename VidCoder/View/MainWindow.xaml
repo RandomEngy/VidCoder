@@ -463,14 +463,14 @@
                 TextAlignment="Right"
                 Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
             <TextBlock
-                Text="{Binding CurrentFps}" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="286,94,0,0"
+                Text="{Binding CurrentFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="286,94,0,0"
                 Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
             <TextBlock
                 Text="Average FPS:" Width="70" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="213,111,0,0"
                 TextAlignment="Right"
                 Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
             <TextBlock
-                Text="{Binding AverageFps}" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="286,111,0,0"
+                Text="{Binding AverageFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="286,111,0,0"
                 Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
             <Grid
                 Margin="317,100,179,0" VerticalAlignment="Top" Height="20.44"
