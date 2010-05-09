@@ -472,10 +472,18 @@
             <TextBlock
                 Text="{Binding AverageFps}" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="286,111,0,0"
                 Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
-            <ProgressBar
-                Margin="317,100,179,0" Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"
-                Value="{Binding OverallEncodeProgressPercent, Mode=OneWay}" Height="20.44" VerticalAlignment="Top"
-                Foreground="{Binding ProgressBarColor}"/>
+            <Grid
+                Margin="317,100,179,0" VerticalAlignment="Top" Height="20.44"
+                Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}">
+                <ProgressBar
+                    Value="{Binding OverallEncodeProgressPercent, Mode=OneWay}" Height="20.44" VerticalAlignment="Top"
+                    Foreground="{Binding ProgressBarColor}"/>
+                <TextBlock
+                    Text="{Binding OverallEncodeProgressPercent, Mode=OneWay, Converter={StaticResource PercentDisplayConverter}}"
+                    VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Grid>
+
+            
 
             <Button Height="37" HorizontalAlignment="Right" Margin="0,90,94,0" VerticalAlignment="Top" Width="78"
                 Command="{Binding StopEncodeCommand}"

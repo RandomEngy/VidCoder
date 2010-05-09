@@ -14,7 +14,6 @@ namespace VidCoder.Converters
             if (targetType.IsAssignableFrom(typeof(bool)) && targetType.IsAssignableFrom(typeof(string)))
             {
                 throw new ArgumentException("EnumBoolConverter can only convert to boolean or string.");
-
             }
 
             if (targetType == typeof(string))
@@ -49,6 +48,5 @@ namespace VidCoder.Converters
 
             return null;
         }
-
     }
 }

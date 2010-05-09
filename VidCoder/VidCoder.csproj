@@ -191,6 +191,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\PercentDisplayConverter.cs" />
     <Compile Include="EnumStringConverter.cs" />
     <Compile Include="IListItemConverter.cs" />
     <Compile Include="Model\Logger.cs" />
