@@ -1,9 +1,9 @@
-; Setup for Keyboard Image Viewer. NOTE: To build this installer you must first build
-;  KeyboardImageViewer.sln in Release mode.
+; Setup for VidCoder. NOTE: To build this installer you must first build
+;  VidCoder.sln in Release mode.
 
 [Setup]
 AppName=VidCoder
-AppVerName=VidCoder 0.4.0
+AppVerName=VidCoder 0.4.1
 
 DefaultDirName={pf}\VidCoder
 DisableProgramGroupPage=yes
@@ -13,7 +13,7 @@ Compression=lzma
 SolidCompression=yes
 
 OutputDir=BuiltInstallers
-OutputBaseFilename=VidCoder-0.4.0
+OutputBaseFilename=VidCoder-0.4.1
 
 AppId=VidCoder
 UsePreviousAppDir=yes
@@ -90,6 +90,7 @@ begin
     result := false;
   end;
 end;
+
 
 
 
