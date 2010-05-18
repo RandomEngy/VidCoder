@@ -12,15 +12,11 @@ namespace VidCoder.Model
 {
     public static class Presets
     {
-        //private static readonly string PresetsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"VidCoder\Prototype");
         private static readonly string UserPresetsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"VidCoder\UserPresets");
         private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
-        //private static readonly string UserPresetsPath = Path.Combine(PresetsFolder, @"UserPresets.xml");
-        //private static XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Preset>));
         private static XmlSerializer presetListSerializer = new XmlSerializer(typeof(List<Preset>));
         private static XmlSerializer presetSerializer = new XmlSerializer(typeof(Preset));
         private static object userPresetSync = new object();
-        private static List<string> disallowedCharacters = new List<string> { "\\", "/", "\"", ":", "*", "?", "<", ">", "|" };
 
         public static List<Preset> BuiltInPresets
         {
@@ -102,47 +98,6 @@ namespace VidCoder.Model
             }
         }
 
-        //public static List<Preset> UserPresets1
-        //{
-        //    get
-        //    {
-        //        EnsureFolderCreated();
-
-        //        try
-        //        {
-        //            lock (userPresetSync)
-        //            {
-        //                XDocument doc = XDocument.Load(UserPresetsPath);
-        //                XElement presetArray = doc.Element("Presets").Element("ArrayOfPreset");
-
-        //                using (XmlReader reader = presetArray.CreateReader())
-        //                {
-        //                    var presetList = presetListSerializer.Deserialize(reader) as List<Preset>;
-        //                    return presetList;
-        //                }
-        //            }
-        //        }
-        //        catch (FileNotFoundException)
-        //        {
-        //        }
-
-        //        return new List<Preset>();
-        //    }
-
-        //    set
-        //    {
-        //        EnsureFolderCreated();
-        //        StringBuilder xmlBuilder = new StringBuilder();
-        //        using (XmlWriter writer = XmlWriter.Create(xmlBuilder))
-        //        {
-        //            presetListSerializer.Serialize(writer, value);
-        //        }
-
-        //        // Do the actual save asynchronously.
-        //        ThreadPool.QueueUserWorkItem(SaveUserPresetsBackground, xmlBuilder);
-        //    }
-        //}
-
         private static void SaveUserPresetsBackground(object presetXmlListObject)
         {
             lock (userPresetSync)
@@ -169,11 +124,7 @@ namespace VidCoder.Model
 
         private static string FindUserPresetPath(string baseName)
         {
-            string cleanName = baseName;
-            foreach (string disallowedChar in disallowedCharacters)
-            {
-                cleanName = cleanName.Replace(disallowedChar, "_");
-            }
+            string cleanName = Utilities.CleanFileName(baseName);
 
             string proposedPresetPath = Path.Combine(UserPresetsFolder, baseName + ".xml");
 
@@ -191,22 +142,6 @@ namespace VidCoder.Model
 
             return proposedPresetPath;
         }
-
-        //private static void SaveUserPresetsBackground1(object xmlBuilderObject)
-        //{
-        //    lock (userPresetSync)
-        //    {
-        //        var xmlBuilder = xmlBuilderObject as StringBuilder;
-
-        //        XElement element = XElement.Parse(xmlBuilder.ToString());
-        //        XDocument doc = new XDocument(
-        //            new XElement("UserPreset",
-        //                new XAttribute("Version", "1"),
-        //                element));
-
-        //        doc.Save(UserPresetsPath);
-        //    }
-        //}
 
         private static void EnsureFolderCreated()
         {

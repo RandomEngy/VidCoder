@@ -13,6 +13,7 @@ using VidCoder.Model;
 using VidCoder.Properties;
 using VidCoder.Services;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace VidCoder.ViewModel
 {
@@ -1722,6 +1723,8 @@ namespace VidCoder.ViewModel
                                     currentAudioChoices.Add(1);
                                 }
 
+                                EncodingProfile profile = this.SelectedPreset.Preset.EncodingProfile;
+
                                 string queueOutputFileName = this.BuildOutputFileName(
                                     this.TranslateDvdSourceName(this.sourcePath),
                                     title.TitleNumber,
@@ -1731,13 +1734,12 @@ namespace VidCoder.ViewModel
 
                                 string extension = this.GetOutputExtension(subtitles, title);
                                 string queueOutputPath = this.BuildOutputPath(queueOutputFileName, extension);
-                                //string uniqueQueueOutputPath =  Utilities.CreateUniqueFileName(queueOutputPath, Settings.Default.AutoNameOutputFolder, this.GetQueuedFiles());
 
                                 var job = new EncodeJob
                                 {
                                     SourcePath = this.sourcePath,
                                     OutputPath = queueOutputPath,
-                                    EncodingProfile = this.SelectedPreset.Preset.EncodingProfile.Clone(),
+                                    EncodingProfile = profile.Clone(),
                                     Title = title.TitleNumber,
                                     ChapterStart = 1,
                                     ChapterEnd = title.Chapters.Count,
@@ -2702,6 +2704,40 @@ namespace VidCoder.ViewModel
                 fileName = fileName.Replace("{source}", sourceName);
                 fileName = fileName.Replace("{title}", title.ToString());
                 fileName = fileName.Replace("{chapters}", chapterString);
+                fileName = fileName.Replace("{preset}", this.SelectedPreset.Preset.Name);
+
+                DateTime now = DateTime.Now;
+                if (fileName.Contains("{date}"))
+                {
+                    fileName = fileName.Replace("{date}", now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
+                }
+
+                if (fileName.Contains("{time}"))
+                {
+                    fileName = fileName.Replace("{time}", now.Hour + "." + now.Minute + "." + now.Second);
+                }
+
+                if (fileName.Contains("{quality}"))
+                {
+                    EncodingProfile profile = this.SelectedPreset.Preset.EncodingProfile;
+                    double quality = 0;
+                    switch (profile.VideoEncodeRateType)
+                    {
+                        case VideoEncodeRateType.ConstantQuality:
+                            quality = profile.Quality;
+                            break;
+                        case VideoEncodeRateType.AverageBitrate:
+                            quality = profile.VideoBitrate;
+                            break;
+                        case VideoEncodeRateType.TargetSize:
+                            quality = profile.TargetSize;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    fileName = fileName.Replace("{quality}", quality.ToString());
+                }
             }
             else
             {
@@ -2727,7 +2763,7 @@ namespace VidCoder.ViewModel
                 fileName = sourceName + titleSection + chaptersSection;
             }
 
-            return fileName;
+            return Utilities.CleanFileName(fileName);
         }
 
         private int GetFirstUnusedAudioTrack()

@@ -13,6 +13,8 @@ namespace VidCoder
         public const string UpdateInfoUrl = "http://engy.us/VidCoder/latest.xml";
         public const string AppDataFolderName = "VidCoder";
 
+        private static List<string> disallowedCharacters = new List<string> { "\\", "/", "\"", ":", "*", "?", "<", ">", "|" };
+
         private static Dictionary<string, double> defaultQueueColumnSizes = new Dictionary<string, double>
         {
             {"Source", 200},
@@ -135,6 +137,17 @@ namespace VidCoder
         public static bool IsValidQueueColumn(string columnId)
         {
             return defaultQueueColumnSizes.ContainsKey(columnId);
+        }
+
+        public static string CleanFileName(string fileName)
+        {
+            string cleanName = fileName;
+            foreach (string disallowedChar in disallowedCharacters)
+            {
+                cleanName = cleanName.Replace(disallowedChar, "_");
+            }
+
+            return cleanName;
         }
 
         public static string CreateUniqueFileName(string baseName, string outputDirectory, HashSet<string> excludedNames)

@@ -1527,6 +1527,7 @@ namespace VidCoder.ViewModel
                     this.VideoBitrate = 1200;
                 }
 
+                this.mainViewModel.RefreshDestination();
                 this.IsModified = true;
             }
         }
@@ -1542,6 +1543,7 @@ namespace VidCoder.ViewModel
             {
                 this.profile.TargetSize = value;
                 this.NotifyPropertyChanged("TargetSize");
+                this.mainViewModel.RefreshDestination();
                 this.IsModified = true;
             }
         }
@@ -1557,6 +1559,7 @@ namespace VidCoder.ViewModel
             {
                 this.profile.VideoBitrate = value;
                 this.NotifyPropertyChanged("VideoBitrate");
+                this.mainViewModel.RefreshDestination();
                 this.IsModified = true;
             }
         }
@@ -1572,6 +1575,7 @@ namespace VidCoder.ViewModel
             {
                 this.profile.Quality = value;
                 this.NotifyPropertyChanged("Quality");
+                this.mainViewModel.RefreshDestination();
                 this.IsModified = true;
             }
         }
