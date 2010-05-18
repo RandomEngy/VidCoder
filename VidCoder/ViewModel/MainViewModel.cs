@@ -116,11 +116,8 @@ namespace VidCoder.ViewModel
 
             List<Preset> presets = new List<Preset>();
 
-            System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
             this.builtInPresets = Presets.BuiltInPresets;
             List<Preset> userPresets = Presets.UserPresets;
-            watch.Stop();
-            System.Diagnostics.Debug.WriteLine("Loading presets took: " + watch.Elapsed);
 
             this.allPresets = new ObservableCollection<PresetViewModel>();
             var unmodifiedPresets = userPresets.Where(preset => !preset.IsModified);

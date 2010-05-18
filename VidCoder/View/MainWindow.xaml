@@ -525,10 +525,6 @@
                 <ListView.View>
                     <GridView x:Name="queueGridView">
                         <GridView.Columns>
-                            <!--<GridViewColumn Width="200" Header="Source" CellTemplate="{StaticResource SourceQueueTemplate}" />
-                            <GridViewColumn Width="35" Header="Title" CellTemplate="{StaticResource TitleQueueTemplate}" />
-                            <GridViewColumn Width="60" Header="Chapters" CellTemplate="{StaticResource ChaptersQueueTemplate}" />
-                            <GridViewColumn Width="200" Header="Destination" CellTemplate="{StaticResource DestinationQueueTemplate}" />-->
                             <GridViewColumn Width="75" CellTemplate="{StaticResource QueueRemoveTemplate}" />
                         </GridView.Columns>
                     </GridView>
