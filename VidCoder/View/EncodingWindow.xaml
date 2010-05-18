@@ -154,7 +154,18 @@
                     Visibility="{Binding DeleteButtonVisible, Converter={StaticResource VisibilityConverter}}"
                     Command="{Binding DeletePresetCommand}">
                     <StackPanel Orientation="Horizontal">
-                        <StaticResource ResourceKey="RedX" />
+                        <Grid Background="Transparent">
+                            <Rectangle Width="14" Height="3" Fill="{StaticResource RedFill}">
+                                <Rectangle.LayoutTransform>
+                                    <RotateTransform Angle="-45" />
+                                </Rectangle.LayoutTransform>
+                            </Rectangle>
+                            <Rectangle Width="14" Height="3" Fill="{StaticResource RedFill}">
+                                <Rectangle.LayoutTransform>
+                                    <RotateTransform Angle="45" />
+                                </Rectangle.LayoutTransform>
+                            </Rectangle>
+                        </Grid>
                         <TextBlock Text="Delete" Margin="4,0,0,0" />
                     </StackPanel>
                 </Button>
