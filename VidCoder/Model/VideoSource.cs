@@ -29,5 +29,10 @@ namespace VidCoder.Model
         /// Collection of Titles associated with this DVD
         /// </summary>
         public List<Title> Titles { get; set; }
+
+        /// <summary>
+        /// The feature title.
+        /// </summary>
+        public int FeatureTitle { get; set; }
     }
 }

@@ -58,6 +58,11 @@
         private List<Title> titles;
 
         /// <summary>
+        /// The index of the default title.
+        /// </summary>
+        private int featureTitle;
+
+        /// <summary>
         /// A list of native memory locations allocated by this instance.
         /// </summary>
         private List<IntPtr> encodeAllocatedMemory;
@@ -118,6 +123,17 @@
             get
             {
                 return this.titles;
+            }
+        }
+
+        /// <summary>
+        /// Gets the index of the default title.
+        /// </summary>
+        public int FeatureTitle
+        {
+            get
+            {
+                return this.featureTitle;
             }
         }
 
@@ -469,6 +485,16 @@
                 {
                     var newTitle = this.ConvertTitle(title);
                     this.titles.Add(newTitle);
+                }
+
+                if (this.originalTitles.Count > 0)
+                {
+                    hb_job_s nativeJob = InteropUtilities.ReadStructure<hb_job_s>(this.originalTitles[0].job);
+                    this.featureTitle = nativeJob.feature;
+                }
+                else
+                {
+                    this.featureTitle = 0;
                 }
 
                 this.scanPollTimer.Stop();

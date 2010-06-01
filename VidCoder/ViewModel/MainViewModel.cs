@@ -2410,7 +2410,7 @@ namespace VidCoder.ViewModel
                 DispatchService.Invoke(() =>
                 {
                     this.ScanningSource = false;
-                    this.SourceData = new VideoSource { Titles = this.scanInstance.Titles };
+                    this.SourceData = new VideoSource { Titles = this.scanInstance.Titles, FeatureTitle = this.scanInstance.FeatureTitle };
 
                     this.logger.Log("## Scan completed");
                     this.logger.Log("");
@@ -2426,22 +2426,24 @@ namespace VidCoder.ViewModel
             {
                 this.ScanError = false;
 
-                // Select the first title within 80% of the duration of the longest title.
-                double maxSeconds = this.sourceData.Titles.Max(title => title.Duration.TotalSeconds);
-                Title selectTitle = null;
-                foreach (Title title in this.sourceData.Titles)
-                {
-                    if (title.Duration.TotalSeconds >= maxSeconds * .8)
-                    {
-                        selectTitle = title;
-                        break;
-                    }
-                }
+                Title selectTitle = this.sourceData.Titles.FirstOrDefault(title => title.TitleNumber == this.sourceData.FeatureTitle);
 
-                if (selectTitle == null)
-                {
-                    selectTitle = this.sourceData.Titles[0];
-                }
+                //// Select the first title within 80% of the duration of the longest title.
+                //double maxSeconds = this.sourceData.Titles.Max(title => title.Duration.TotalSeconds);
+                //Title selectTitle = null;
+                //foreach (Title title in this.sourceData.Titles)
+                //{
+                //    if (title.Duration.TotalSeconds >= maxSeconds * .8)
+                //    {
+                //        selectTitle = title;
+                //        break;
+                //    }
+                //}
+
+                //if (selectTitle == null)
+                //{
+                //    selectTitle = this.sourceData.Titles[0];
+                //}
 
                 this.SelectedTitle = selectTitle;
                 this.NotifyPropertyChanged("Titles");
