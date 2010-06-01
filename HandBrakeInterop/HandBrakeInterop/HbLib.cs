@@ -111,6 +111,8 @@ namespace HandBrake.Interop
         /// hb_title_t*
         public IntPtr title;
 
+        public int feature;
+
         /// int
         public int chapter_start;
 
@@ -406,6 +408,10 @@ namespace HandBrake.Interop
         CC608SUB,
 
         CC708SUB,
+
+        UTF8SUB,
+
+        TX3GSUB
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
@@ -436,6 +442,13 @@ namespace HandBrake.Interop
 
         /// uint8_t->unsigned char
         public byte type;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16, ArraySubType = UnmanagedType.U4)]
+        public uint[] palette;
+
+        public int width;
+
+        public int height;
 
         /// int
         public int hits;
@@ -627,11 +640,6 @@ namespace HandBrake.Interop
 
         /// int
         public int data_rate;
-
-        /// uint32_t[16]
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16, ArraySubType = UnmanagedType.U4)]
-        public uint[] palette;
-        //public fixed uint palette[16];
 
         /// hb_metadata_t*
         public IntPtr metadata;
