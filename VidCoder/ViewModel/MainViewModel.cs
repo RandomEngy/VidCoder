@@ -1646,6 +1646,8 @@ namespace VidCoder.ViewModel
                                 this.EncodeQueue[0].HandBrakeInstance = this.scanInstance;
                             }
 
+                            this.SelectedTabIndex = QueuedTabIndex;
+
                             this.StartEncodeQueue();
                         }
                     },
