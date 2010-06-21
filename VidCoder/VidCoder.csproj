@@ -65,13 +65,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\HandBrakeInterop.dll</HintPath>
     </Reference>
+    <Reference Include="Ookii.Dialogs.Wpf">
+      <HintPath>..\Lib\Ookii.Dialogs.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -194,6 +196,7 @@
     <Compile Include="Converters\DoubleDisplayConverter.cs" />
     <Compile Include="Converters\PercentDisplayConverter.cs" />
     <Compile Include="EnumStringConverter.cs" />
+    <Compile Include="Model\EncodeResult.cs" />
     <Compile Include="Utilities\ListSynchronizer\IListItemConverter.cs" />
     <Compile Include="Model\Logger.cs" />
     <Compile Include="Utilities\ListSynchronizer\MultiSelectorBehaviors.cs" />
@@ -203,6 +206,7 @@
     <Compile Include="ViewModel\AboutDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\DataModels\ColumnViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\EncodeResultViewModel.cs" />
     <Compile Include="ViewModel\DataModels\TitleSelectionViewModel.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
     <Compile Include="ViewModel\QueueTitlesDialogViewModel.cs" />
@@ -395,6 +399,10 @@
     <Content Include="BuiltInPresets.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\delete.png" />
+    <Resource Include="Icons\play_small.png" />
+    <Resource Include="Icons\failed.png" />
+    <Resource Include="Icons\succeeded.png" />
     <Resource Include="Icons\undo_16x16.png" />
     <Resource Include="Icons\help_16.png" />
     <Resource Include="Icons\VidCoder_small.png" />

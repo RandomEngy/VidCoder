@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DisplayStringAttribute.cs" />
+    <Compile Include="EncodeCompletedEventArgs.cs" />
     <Compile Include="EncodeProgressEventArgs.cs" />
     <Compile Include="HandBrakeInstance.cs" />
     <Compile Include="HbLib.cs" />

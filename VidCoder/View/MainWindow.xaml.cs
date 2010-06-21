@@ -34,6 +34,8 @@ namespace VidCoder.View
         private int lastSelectedIndex;
         private ObservableCollection<SourceOptionViewModel> sourceOptions;
 
+        private bool tabsVisible = false;
+
         private Storyboard presetGlowStoryboard;
 
         public static MainWindow TheWindow;
@@ -43,6 +45,7 @@ namespace VidCoder.View
             InitializeComponent();
 
             this.RefreshQueueColumns();
+            this.LoadCompletedColumnWidths();
 
             this.DataContextChanged += OnDataContextChanged;
             DispatchService.DispatchObject = this.Dispatcher;
@@ -121,6 +124,10 @@ namespace VidCoder.View
             else if (e.PropertyName == "QueueColumnsSaveRequest")
             {
                 this.SaveQueueColumns();
+            }
+            else if (e.PropertyName == "CompletedItemsCount")
+            {
+                this.RefreshQueueTabs();
             }
         }
 
@@ -360,6 +367,83 @@ namespace VidCoder.View
             Settings.Default.QueueColumns = queueColumnsBuilder.ToString();
         }
 
+        private void LoadCompletedColumnWidths()
+        {
+            string columnWidthsString = Settings.Default.CompletedColumnWidths;
+
+            if (string.IsNullOrEmpty(columnWidthsString))
+            {
+                return;
+            }
+
+            string[] columnWidths = columnWidthsString.Split('|');
+            for (int i = 0; i < this.completedGridView.Columns.Count; i++)
+            {
+                if (i < columnWidths.Length)
+                {
+                    double width = 0;
+                    double.TryParse(columnWidths[i], out width);
+
+                    if (width > 0)
+                    {
+                        this.completedGridView.Columns[i].Width = width;
+                    }
+                }
+            }
+        }
+
+        private void SaveCompletedColumnWidths()
+        {
+            StringBuilder completedColumnsBuilder = new StringBuilder();
+            for (int i = 0; i < this.completedGridView.Columns.Count; i++)
+            {
+                completedColumnsBuilder.Append(this.completedGridView.Columns[i].ActualWidth);
+
+                if (i != this.completedGridView.Columns.Count - 1)
+                {
+                    completedColumnsBuilder.Append("|");
+                }
+            }
+
+            Settings.Default.CompletedColumnWidths = completedColumnsBuilder.ToString();
+        }
+
+        private void RefreshQueueTabs()
+        {
+            if (this.viewModel.CompletedItemsCount > 0 && !this.tabsVisible)
+            {
+                this.queueTab.Visibility = Visibility.Visible;
+                this.completedTab.Visibility = Visibility.Visible;
+                this.queueItemsTabControl.BorderThickness = new Thickness(1);
+                this.tabsArea.Margin = new Thickness(6, 132, 6, 6);
+
+                this.tabsVisible = true;
+                return;
+            }
+
+            if (this.viewModel.CompletedItemsCount == 0 && this.tabsVisible)
+            {
+                this.queueTab.Visibility = Visibility.Collapsed;
+                this.completedTab.Visibility = Visibility.Collapsed;
+                this.queueItemsTabControl.BorderThickness = new Thickness(0);
+                this.tabsArea.Margin = new Thickness(2, 128, 2, 2);
+
+                this.viewModel.SelectedTabIndex = MainViewModel.QueuedTabIndex;
+
+                this.tabsVisible = false;
+                return;
+            }
+        }
+
+        protected void HandleCompletedItemDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var encodeResultVM = ((ListViewItem)sender).Content as EncodeResultViewModel;
+            if (encodeResultVM.EncodeResult.Succeeded)
+            {
+                FileService.Instance.LaunchFile(encodeResultVM.EncodeResult.Destination);
+            }
+        }
+
         // Handle clicks that don't result in a selection change.
         private void OnSourceItemMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -383,6 +467,7 @@ namespace VidCoder.View
             else
             {
                 this.SaveQueueColumns();
+                this.SaveCompletedColumnWidths();
 
                 Settings.Default.MainWindowPlacement = this.GetPlacement();
                 Settings.Default.Save();

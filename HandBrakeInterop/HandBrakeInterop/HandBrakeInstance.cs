@@ -95,7 +95,7 @@
         /// <summary>
         /// Fires when an encode has completed.
         /// </summary>
-        public event EventHandler<EventArgs> EncodeCompleted;
+        public event EventHandler<EncodeCompletedEventArgs> EncodeCompleted;
 
         /// <summary>
         /// Fires when HandBrake has logged a message.
@@ -541,7 +541,7 @@
 
                 if (this.EncodeCompleted != null)
                 {
-                    this.EncodeCompleted(this, new EventArgs());
+                    this.EncodeCompleted(this, new EncodeCompletedEventArgs { Error = state.param.workdone.error > 0 });
                 }
             }
         }

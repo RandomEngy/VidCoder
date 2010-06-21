@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.ComponentModel;
 using System.Windows;
+using Ookii.Dialogs.Wpf;
 
 namespace VidCoder
 {
@@ -105,7 +106,7 @@ namespace VidCoder
 
         public string GetFolderName(string initialDirectory, string description)
         {
-            System.Windows.Forms.FolderBrowserDialog folderDialog = new System.Windows.Forms.FolderBrowserDialog();
+            VistaFolderBrowserDialog folderDialog = new VistaFolderBrowserDialog();
             if (description != null)
             {
                 folderDialog.Description = description;
@@ -116,7 +117,7 @@ namespace VidCoder
                 folderDialog.SelectedPath = initialDirectory;
             }
 
-            if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (folderDialog.ShowDialog() == true)
             {
                 return folderDialog.SelectedPath;
             }

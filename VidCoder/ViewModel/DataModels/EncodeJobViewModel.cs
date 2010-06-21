@@ -6,6 +6,7 @@ using VidCoder.Model;
 using System.Windows.Input;
 using VidCoder.DragDropUtils;
 using HandBrake.Interop;
+using System.Diagnostics;
 
 namespace VidCoder.ViewModel
 {
@@ -17,6 +18,7 @@ namespace VidCoder.ViewModel
         private bool encoding;
         private int percentComplete;
         private bool isOnlyItem;
+        private Stopwatch encodeTimeStopwatch;
 
         private ICommand removeQueueJobCommand;
 
@@ -69,6 +71,19 @@ namespace VidCoder.ViewModel
             {
                 this.isOnlyItem = value;
                 this.NotifyPropertyChanged("ShowProgressBar");
+            }
+        }
+
+        public TimeSpan EncodeTime
+        {
+            get
+            {
+                if (this.encodeTimeStopwatch == null)
+                {
+                    return TimeSpan.Zero;
+                }
+
+                return this.encodeTimeStopwatch.Elapsed;
             }
         }
 
@@ -200,13 +215,25 @@ namespace VidCoder.ViewModel
         {
             this.Encoding = true;
             this.IsOnlyItem = isOnlyItem;
+            this.encodeTimeStopwatch = Stopwatch.StartNew();
             this.NotifyPropertyChanged("ShowRemoveButton");
             this.NotifyPropertyChanged("ShowProgressBar");
+        }
+
+        public void ReportEncodePause()
+        {
+            this.encodeTimeStopwatch.Stop();
+        }
+
+        public void ReportEncodeResume()
+        {
+            this.encodeTimeStopwatch.Start();
         }
 
         public void ReportEncodeEnd()
         {
             this.Encoding = false;
+            this.encodeTimeStopwatch.Stop();
             this.NotifyPropertyChanged("ShowRemoveButton");
             this.NotifyPropertyChanged("ShowProgressBar");
         }

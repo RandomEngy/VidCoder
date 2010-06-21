@@ -129,6 +129,46 @@
                     Visibility="{Binding ShowProgressBar, Converter={StaticResource VisibilityConverter}}" ToolTip="Encoding..."  />
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="CompletedDestinationTemplate">
+            <TextBlock
+                Text="{Binding EncodeResult.Destination}" TextTrimming="CharacterEllipsis"
+                ToolTip="{Binding EncodeResult.Destination}" ToolTipService.InitialShowDelay="0" ToolTipService.Placement="Relative" ToolTipService.VerticalOffset="-2" ToolTipService.HorizontalOffset="-6"
+                Style="{StaticResource QueueText}" />
+        </DataTemplate>
+        <DataTemplate x:Key="CompletedStatusTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{Binding StatusImage}" Width="16" Height="16" />
+                <TextBlock
+                    Text="{Binding StatusText}"
+                    Style="{StaticResource QueueText}"
+                    Margin="4,0,0,0"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="CompletedTimeTemplate">
+            <TextBlock Text="{Binding TimeDisplay}"
+                Style="{StaticResource QueueText}" />
+        </DataTemplate>
+        <ContextMenu x:Key="CompletedItemContextMenu">
+            <MenuItem Header="Play" Command="{Binding PlayCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Icons/play_small.png" Width="16" Height="16"  />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Open Containing Folder" Command="{Binding OpenContainingFolderCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Icons/folder.png" Width="16" Height="16"  />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Clear Completed" Command="{Binding MainViewModel.ClearCompletedCommand}">
+                <MenuItem.Icon>
+                    <Image Source="/Icons/delete.png" Width="16" Height="16"  />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <Style x:Key="CompletedItemStyle" TargetType="{x:Type ListViewItem}">
+            <EventSetter Event="MouseDoubleClick" Handler="HandleCompletedItemDoubleClick" />
+            <Setter Property="ContextMenu" Value="{StaticResource CompletedItemContextMenu}" />
+        </Style>
     </Window.Resources>
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo ProgressValue="{Binding OverallEncodeProgressFraction}" ProgressState="{Binding EncodeProgressState}" />
@@ -510,31 +550,76 @@
                     <TextBlock Margin="7,0,0,0" Text="Pause" VerticalAlignment="Center" />
                 </StackPanel>
             </Button>
+
+            <Grid Margin="2,128,2,2" Name="tabsArea">
+                <TabControl Name="queueItemsTabControl" BorderThickness="0" SelectedIndex="{Binding SelectedTabIndex}">
+                    <TabItem Header="{Binding QueuedTabHeader}" Name="queueTab" Visibility="Collapsed">
+                        <ListView
+                            Name="queueView"
+                            ItemsSource="{Binding EncodeQueue}"
+                            VidCoderDragDrop:DragDropHelper.IsDragSource="True"
+                            VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
+                            VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource QueueDragTemplate}"
+                            VidCoderDragDrop:DragDropHelper.AllowDropAtTop="{Binding Encoding, Converter={StaticResource InverseBoolConverter}}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.View>
+                                <GridView x:Name="queueGridView">
+                                    <GridView.Columns>
+                                        <GridViewColumn Width="75" CellTemplate="{StaticResource QueueRemoveTemplate}" />
+                                    </GridView.Columns>
+                                </GridView>
+                            </ListView.View>
+                            <ListView.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Customize columns..." Command="{Binding CustomizeQueueColumnsCommand}" />
+                                </ContextMenu>
+                            </ListView.ContextMenu>
+                        </ListView>
+                    </TabItem>
+                    <TabItem Name="completedTab" Visibility="Collapsed">
+                        <TabItem.Header>
+                            <TextBlock Text="{Binding CompletedTabHeader}">
+                                <TextBlock.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Clear Completed" Command="{Binding ClearCompletedCommand}">
+                                            <MenuItem.Icon>
+                                                <Image Source="/Icons/delete.png" Width="16" Height="16" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </ContextMenu>
+                                </TextBlock.ContextMenu>
+                            </TextBlock>
+                        </TabItem.Header>
+                        <ListView
+                            ItemsSource="{Binding CompletedJobs}"
+                            ItemContainerStyle="{StaticResource CompletedItemStyle}">
+                            <ListView.View>
+                                <GridView x:Name="completedGridView">
+                                    <GridView.Columns>
+                                        <GridViewColumn Width="300" Header="Destination" CellTemplate="{StaticResource CompletedDestinationTemplate}" />
+                                        <GridViewColumn Width="95" Header="Status" CellTemplate="{StaticResource CompletedStatusTemplate}" />
+                                        <GridViewColumn Width="90" Header="Elapsed Time" CellTemplate="{StaticResource CompletedTimeTemplate}" />
+                                    </GridView.Columns>
+                                </GridView>
+                            </ListView.View>
+                            <ListView.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Clear Completed" Command="{Binding ClearCompletedCommand}">
+                                        <MenuItem.Icon>
+                                            <Image Source="/Icons/delete.png" Width="16" Height="16" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </ListView.ContextMenu>
+                        </ListView>
+                    </TabItem>
+                </TabControl>
+            </Grid>
             
-            <ListView Margin="6,132,6,6"
-                ItemsSource="{Binding EncodeQueue}"
-                VidCoderDragDrop:DragDropHelper.IsDragSource="True"
-                VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
-                VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource QueueDragTemplate}"
-                VidCoderDragDrop:DragDropHelper.AllowDropAtTop="{Binding Encoding, Converter={StaticResource InverseBoolConverter}}">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.View>
-                    <GridView x:Name="queueGridView">
-                        <GridView.Columns>
-                            <GridViewColumn Width="75" CellTemplate="{StaticResource QueueRemoveTemplate}" />
-                        </GridView.Columns>
-                    </GridView>
-                </ListView.View>
-                <ListView.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Customize columns..." Command="{Binding CustomizeQueueColumnsCommand}" />
-                    </ContextMenu>
-                </ListView.ContextMenu>
-            </ListView>
             <Label Height="28" Margin="220,49,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="47">Preset:</Label>
         </Grid>
     </Grid>

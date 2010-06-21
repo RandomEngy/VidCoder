@@ -19,6 +19,9 @@ namespace VidCoder.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
+        public const int QueuedTabIndex = 0;
+        public const int CompletedTabIndex = 1;
+
         private HandBrakeInstance scanInstance;
 
         private IUpdateService updateService;
@@ -58,6 +61,7 @@ namespace VidCoder.ViewModel
         private ObservableCollection<PresetViewModel> allPresets;
         private PresetViewModel selectedPreset;
 
+        private int selectedTabIndex;
         private ObservableCollection<EncodeJobViewModel> encodeQueue;
         private bool encoding;
         private bool paused;
@@ -72,6 +76,7 @@ namespace VidCoder.ViewModel
         private TimeSpan totalQueueTime;
         private double overallEncodeProgressFraction;
         private TaskbarItemProgressState encodeProgressState;
+        private ObservableCollection<EncodeResultViewModel> completedJobs;
 
         private bool encodingWindowOpen;
         private bool previewWindowOpen;
@@ -91,6 +96,7 @@ namespace VidCoder.ViewModel
         private ICommand queueFilesCommand;
         private ICommand queueTitlesCommand;
         private ICommand customizeQueueColumnsCommand;
+        private ICommand clearCompletedCommand;
         private ICommand pauseCommand;
         private ICommand stopEncodeCommand;
         private ICommand openOptionsCommand;
@@ -171,6 +177,8 @@ namespace VidCoder.ViewModel
             {
                 presetIndex = 0;
             }
+
+            this.completedJobs = new ObservableCollection<EncodeResultViewModel>();
 
             this.SelectedPreset = this.allPresets[presetIndex];
 
@@ -1117,11 +1125,62 @@ namespace VidCoder.ViewModel
             }
         }
 
+        public int SelectedTabIndex
+        {
+            get
+            {
+                return this.selectedTabIndex;
+            }
+
+            set
+            {
+                this.selectedTabIndex = value;
+                this.NotifyPropertyChanged("SelectedTabIndex");
+            }
+        }
+
+        public string QueuedTabHeader
+        {
+            get
+            {
+                if (this.EncodeQueue.Count == 0)
+                {
+                    return "Queued";
+                }
+
+                return "Queued (" + this.EncodeQueue.Count + ")";
+            }
+        }
+
+        public string CompletedTabHeader
+        {
+            get
+            {
+                return "Completed (" + this.CompletedJobs.Count + ")";
+            }
+        }
+
         public ObservableCollection<EncodeJobViewModel> EncodeQueue
         {
             get
             {
                 return this.encodeQueue;
+            }
+        }
+
+        public ObservableCollection<EncodeResultViewModel> CompletedJobs
+        {
+            get
+            {
+                return this.completedJobs;
+            }
+        }
+
+        public int CompletedItemsCount
+        {
+            get
+            {
+                return this.completedJobs.Count();
             }
         }
 
@@ -1575,6 +1634,7 @@ namespace VidCoder.ViewModel
                         {
                             this.CurrentJob.HandBrakeInstance.ResumeEncode();
                             this.EncodeProgressState = TaskbarItemProgressState.Normal;
+                            this.CurrentJob.ReportEncodeResume();
 
                             this.Paused = false;
                         }
@@ -1795,6 +1855,24 @@ namespace VidCoder.ViewModel
             }
         }
 
+        public ICommand ClearCompletedCommand
+        {
+            get
+            {
+                if (this.clearCompletedCommand == null)
+                {
+                    this.clearCompletedCommand = new RelayCommand(param =>
+                    {
+                        this.CompletedJobs.Clear();
+                        this.NotifyPropertyChanged("CompletedItemsCount");
+                        this.NotifyPropertyChanged("CompletedTabHeader");
+                    });
+                }
+
+                return this.clearCompletedCommand;
+            }
+        }
+
         public ICommand PauseCommand
         {
             get
@@ -1805,6 +1883,7 @@ namespace VidCoder.ViewModel
                     {
                         this.CurrentJob.HandBrakeInstance.PauseEncode();
                         this.EncodeProgressState = TaskbarItemProgressState.Paused;
+                        this.CurrentJob.ReportEncodePause();
 
                         this.Paused = true;
                     });
@@ -1956,7 +2035,16 @@ namespace VidCoder.ViewModel
                 onDemandInstance.ScanCompleted += (o, e) =>
                 {
                     this.CurrentJob.HandBrakeInstance = onDemandInstance;
-                    this.StartEncode();
+                    Title encodeTitle = onDemandInstance.Titles.FirstOrDefault(title => title.TitleNumber == this.CurrentJob.Job.Title);
+
+                    if (encodeTitle != null)
+                    {
+                        this.StartEncode();
+                    }
+                    else
+                    {
+                        this.OnEncodeCompleted(this, new EncodeCompletedEventArgs { Error = true });
+                    }
                 };
 
                 onDemandInstance.StartScan(this.CurrentJob.Job.SourcePath, 10, this.CurrentJob.Job.Title);
@@ -2027,7 +2115,7 @@ namespace VidCoder.ViewModel
             }
         }
 
-        private void OnEncodeCompleted(object sender, EventArgs e)
+        private void OnEncodeCompleted(object sender, EncodeCompletedEventArgs e)
         {
             DispatchService.Invoke(() =>
             {
@@ -2058,9 +2146,21 @@ namespace VidCoder.ViewModel
                     {
                         this.completedQueueTime += this.EncodeQueue[0].Job.Length;
                     }
-                    
+
+                    this.CompletedJobs.Add(new EncodeResultViewModel(
+                        new EncodeResult
+                        {
+                            Destination = this.CurrentJob.Job.OutputPath,
+                            Succeeded = !e.Error,
+                            EncodeTime = this.CurrentJob.EncodeTime
+                        },
+                        this));
+                    this.NotifyPropertyChanged("CompletedItemsCount");
+                    this.NotifyPropertyChanged("CompletedTabHeader");
+
                     HandBrakeInstance finishedInstance = this.EncodeQueue[0].HandBrakeInstance;
                     this.EncodeQueue.RemoveAt(0);
+                    this.NotifyPropertyChanged("QueuedTabHeader");
 
                     this.CleanupHandBrakeInstance(finishedInstance);
 
@@ -2069,6 +2169,8 @@ namespace VidCoder.ViewModel
                     if (this.EncodeQueue.Count == 0)
                     {
                         this.EncodeProgressState = TaskbarItemProgressState.None;
+
+                        this.SelectedTabIndex = CompletedTabIndex;
 
                         this.logger.Log("## Queue completed");
                         this.logger.Log("");
@@ -2197,6 +2299,14 @@ namespace VidCoder.ViewModel
             }
 
             this.EncodeQueue.Add(encodeJobVM);
+
+            this.NotifyPropertyChanged("QueuedTabHeader");
+
+            // Select the Queued tab.
+            if (this.SelectedTabIndex != QueuedTabIndex)
+            {
+                this.SelectedTabIndex = QueuedTabIndex;
+            }
         }
 
         public void RemoveAudioChoice(AudioChoiceViewModel choice)
@@ -2219,6 +2329,8 @@ namespace VidCoder.ViewModel
                     this.EncodeQueue[0].IsOnlyItem = true;
                 }
             }
+
+            this.NotifyPropertyChanged("QueuedTabHeader");
         }
 
         public void SavePreset()
@@ -2426,24 +2538,30 @@ namespace VidCoder.ViewModel
             {
                 this.ScanError = false;
 
-                Title selectTitle = this.sourceData.Titles.FirstOrDefault(title => title.TitleNumber == this.sourceData.FeatureTitle);
+                Title selectTitle = null;
+                if (this.sourceData.FeatureTitle > 0)
+                {
+                    selectTitle = this.sourceData.Titles.FirstOrDefault(title => title.TitleNumber == this.sourceData.FeatureTitle);
 
-                //// Select the first title within 80% of the duration of the longest title.
-                //double maxSeconds = this.sourceData.Titles.Max(title => title.Duration.TotalSeconds);
-                //Title selectTitle = null;
-                //foreach (Title title in this.sourceData.Titles)
-                //{
-                //    if (title.Duration.TotalSeconds >= maxSeconds * .8)
-                //    {
-                //        selectTitle = title;
-                //        break;
-                //    }
-                //}
+                }
+                else
+                {
+                    // Select the first title within 80% of the duration of the longest title.
+                    double maxSeconds = this.sourceData.Titles.Max(title => title.Duration.TotalSeconds);
+                    foreach (Title title in this.sourceData.Titles)
+                    {
+                        if (title.Duration.TotalSeconds >= maxSeconds * .8)
+                        {
+                            selectTitle = title;
+                            break;
+                        }
+                    }
 
-                //if (selectTitle == null)
-                //{
-                //    selectTitle = this.sourceData.Titles[0];
-                //}
+                    if (selectTitle == null)
+                    {
+                        selectTitle = this.sourceData.Titles[0];
+                    }
+                }
 
                 this.SelectedTitle = selectTitle;
                 this.NotifyPropertyChanged("Titles");

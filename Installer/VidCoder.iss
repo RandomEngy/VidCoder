@@ -33,6 +33,8 @@ Name: "en"; MessagesFile: "compiler:Default.isl"
 [Files]
 Source: "..\VidCoder\bin\Release\VidCoder.exe"; DestDir: "{app}"
 Source: "..\VidCoder\bin\Release\VidCoder.pdb"; DestDir: "{app}"
+Source: "..\VidCoder\bin\Release\Ookii.Dialogs.Wpf.dll"; DestDir: "{app}"
+Source: "..\VidCoder\bin\Release\Ookii.Dialogs.Wpf.pdb"; DestDir: "{app}"
 Source: "..\VidCoder\BuiltInPresets.xml"; DestDir: "{app}"
 Source: "..\Lib\hb.dll"; DestDir: "{app}"
 Source: "..\Lib\libgcc_s_sjlj-1.dll"; DestDir: "{app}"
@@ -90,6 +92,7 @@ begin
     result := false;
   end;
 end;
+
 
 
 
