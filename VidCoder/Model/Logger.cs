@@ -30,6 +30,7 @@ namespace VidCoder.Model
             this.logFile = new StreamWriter(logFilePath);
 
             this.logBuilder = new StringBuilder();
+            this.RecordMessage("## VidCoder " + Utilities.CurrentVersion);
         }
 
         public string LogText
