@@ -126,13 +126,13 @@ namespace VidCoder.Model
         {
             string cleanName = Utilities.CleanFileName(baseName);
 
-            string proposedPresetPath = Path.Combine(UserPresetsFolder, baseName + ".xml");
+            string proposedPresetPath = Path.Combine(UserPresetsFolder, cleanName + ".xml");
 
             if (File.Exists(proposedPresetPath))
             {
                 for (int i = 1; i < 100; i++)
                 {
-                    proposedPresetPath = Path.Combine(UserPresetsFolder, baseName + "_" + i + ".xml");
+                    proposedPresetPath = Path.Combine(UserPresetsFolder, cleanName + "_" + i + ".xml");
                     if (!File.Exists(proposedPresetPath))
                     {
                         break;
