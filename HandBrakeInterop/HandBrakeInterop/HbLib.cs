@@ -411,7 +411,9 @@ namespace HandBrake.Interop
 
         UTF8SUB,
 
-        TX3GSUB
+        TX3GSUB,
+
+        SSASUB
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
