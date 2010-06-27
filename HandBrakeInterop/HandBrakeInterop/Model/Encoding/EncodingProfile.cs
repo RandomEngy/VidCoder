@@ -53,6 +53,7 @@ namespace HandBrake.Interop
         public bool TwoPass { get; set; }
         public bool TurboFirstPass { get; set; }
         public double Framerate { get; set; }
+        public bool PeakFramerate { get; set; }
 
         public List<AudioEncoding> AudioEncodings { get; set; }
 
@@ -101,6 +102,7 @@ namespace HandBrake.Interop
                 TwoPass = this.TwoPass,
                 TurboFirstPass = this.TurboFirstPass,
                 Framerate = this.Framerate,
+                PeakFramerate = this.PeakFramerate,
 
                 AudioEncodings = new List<AudioEncoding>(this.AudioEncodings)
             };

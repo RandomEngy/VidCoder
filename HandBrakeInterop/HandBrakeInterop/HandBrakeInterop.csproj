@@ -78,6 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters.cs" />
     <Compile Include="DisplayStringAttribute.cs" />
     <Compile Include="EncodeCompletedEventArgs.cs" />
     <Compile Include="EncodeProgressEventArgs.cs" />

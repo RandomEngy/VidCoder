@@ -1423,7 +1423,31 @@ namespace VidCoder.ViewModel
             {
                 this.profile.Framerate = value;
                 this.NotifyPropertyChanged("SelectedFramerate");
+                this.NotifyPropertyChanged("PeakFramerateVisible");
                 this.IsModified = true;
+            }
+        }
+
+        public bool PeakFramerate
+        {
+            get
+            {
+                return this.profile.PeakFramerate;
+            }
+
+            set
+            {
+                this.profile.PeakFramerate = value;
+                this.NotifyPropertyChanged("PeakFramerate");
+                this.IsModified = true;
+            }
+        }
+
+        public bool PeakFramerateVisible
+        {
+            get
+            {
+                return this.SelectedFramerate != 0;
             }
         }
 
@@ -2537,6 +2561,8 @@ namespace VidCoder.ViewModel
             this.NotifyPropertyChanged("Grayscale");
             this.NotifyPropertyChanged("SelectedEncoder");
             this.NotifyPropertyChanged("SelectedFramerate");
+            this.NotifyPropertyChanged("PeakFramerate");
+            this.NotifyPropertyChanged("PeakFramerateVisible");
             this.NotifyPropertyChanged("TwoPassEncoding");
             this.NotifyPropertyChanged("TurboFirstPass");
             this.NotifyPropertyChanged("TwoPassEncodingEnabled");

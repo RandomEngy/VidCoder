@@ -801,10 +801,26 @@
                 nativeJob.vbitrate = profile.VideoBitrate;
             }
 
-            // vrate
-            // vrate_base
+            if (profile.Framerate == 0)
+            {
+                nativeJob.cfr = 0;
+            }
+            else
+            {
+                if (profile.PeakFramerate)
+                {
+                    nativeJob.cfr = 2;
+                }
+                else
+                {
+                    nativeJob.cfr = 1;
+                }
+
+                nativeJob.vrate = 27000000;
+                nativeJob.vrate_base = Converters.FramerateToVrate(profile.Framerate);
+            }
+
             // vfr
-            // cfr
             // areBframes
             // color_matrix
             List<hb_audio_s> titleAudio = InteropUtilities.ConvertList<hb_audio_s>(originalTitle.list_audio);
