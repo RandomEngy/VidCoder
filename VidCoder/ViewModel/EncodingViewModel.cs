@@ -72,8 +72,8 @@ namespace VidCoder.ViewModel
         /// </summary>
         private HashSet<string> uiOptions = new HashSet<string>
         {
-            "ref", "mixed-refs", "bframes", "b-adapt", "direct", "weightb", "b-pyramid", "me", "subq", "merange",
-            "analyse", "8x8dct", "cabac", "trellis", "psy-rd", "no-fast-pskip", "no-dct-decimate", "deblocK"
+            "ref", "mixed-refs", "bframes", "b-adapt", "direct", "weightb", "b-pyramid", "me", "subme", "subq", "merange",
+            "analyse", "8x8dct", "cabac", "trellis", "psy-rd", "no-fast-pskip", "no-dct-decimate", "deblock"
         };
 
         private ICommand saveCommand;
@@ -2262,6 +2262,7 @@ namespace VidCoder.ViewModel
                                     this.MotionEstimationMethod = newChoice;
                                 }
                                 break;
+                            case "subme":
                             case "subq":
                                 if (int.TryParse(optionValue, out parseInt))
                                 {
@@ -2698,7 +2699,7 @@ namespace VidCoder.ViewModel
 
             if (!this.SubpixelMotionEstimation.IsDefault)
             {
-                newOptions.Add("subq=" + this.SubpixelMotionEstimation.Value);
+                newOptions.Add("subme=" + this.SubpixelMotionEstimation.Value);
             }
 
             string motionEstimation = this.MotionEstimationMethod.Value;
