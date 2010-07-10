@@ -626,7 +626,6 @@
                 }
 
                 this.AddFilter(filterList, NativeConstants.HB_FILTER_DEINTERLACE, settings, allocatedMemory);
-                //filterList.Add(HbLib.hb_get_filter_object(NativeConstants.HB_FILTER_DEINTERLACE, settings));
             }
             else
             {
@@ -642,7 +641,6 @@
                 }
 
                 this.AddFilter(filterList, NativeConstants.HB_FILTER_DETELECINE, settings, allocatedMemory);
-                //filterList.Add(HbLib.hb_get_filter_object(NativeConstants.HB_FILTER_DETELECINE, settings));
             }
 
             if (profile.Decomb != Decomb.Off)
@@ -654,13 +652,11 @@
                 }
 
                 this.AddFilter(filterList, NativeConstants.HB_FILTER_DECOMB, settings, allocatedMemory);
-                //filterList.Add(HbLib.hb_get_filter_object(NativeConstants.HB_FILTER_DECOMB, settings));
             }
 
             if (profile.Deblock > 0)
             {
                 this.AddFilter(filterList, NativeConstants.HB_FILTER_DEBLOCK, profile.Deblock.ToString(), allocatedMemory);
-                //filterList.Add(HbLib.hb_get_filter_object(NativeConstants.HB_FILTER_DEBLOCK, profile.Deblock.ToString()));
             }
 
             if (profile.Denoise != Denoise.Off)
@@ -685,7 +681,6 @@
                 }
 
                 this.AddFilter(filterList, NativeConstants.HB_FILTER_DENOISE, settings, allocatedMemory);
-                //filterList.Add(HbLib.hb_get_filter_object(NativeConstants.HB_FILTER_DENOISE, settings));
             }
 
             NativeList filterListNative = InteropUtilities.CreateIntPtrList(filterList);
@@ -788,17 +783,6 @@
                     break;
                 default:
                     break;
-            }
-
-            if (profile.VideoEncodeRateType == VideoEncodeRateType.ConstantQuality)
-            {
-                nativeJob.vquality = (float)profile.Quality;
-                nativeJob.vbitrate = 0;
-            }
-            else if (profile.VideoEncodeRateType == VideoEncodeRateType.AverageBitrate)
-            {
-                nativeJob.vquality = -1;
-                nativeJob.vbitrate = profile.VideoBitrate;
             }
 
             if (profile.Framerate == 0)
@@ -959,6 +943,24 @@
             if (title.AngleCount > 1)
             {
                 nativeJob.angle = job.Angle;
+            }
+
+            switch (profile.VideoEncodeRateType)
+            {
+                case VideoEncodeRateType.ConstantQuality:
+                    nativeJob.vquality = (float)profile.Quality;
+                    nativeJob.vbitrate = 0;
+                    break;
+                case VideoEncodeRateType.AverageBitrate:
+                    nativeJob.vquality = -1;
+                    nativeJob.vbitrate = profile.VideoBitrate;
+                    break;
+                case VideoEncodeRateType.TargetSize:
+                    nativeJob.vquality = -1;
+                    nativeJob.vbitrate = HbLib.hb_calc_bitrate(ref nativeJob, profile.TargetSize);
+                    break;
+                default:
+                    break;
             }
 
             // frames_to_skip

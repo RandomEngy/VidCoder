@@ -1078,6 +1078,9 @@ namespace HandBrake.Interop
 
     public partial class HbLib
     {
+        [DllImport("hb.dll", EntryPoint = "hb_calc_bitrate", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int hb_calc_bitrate(ref hb_job_s job, int size);
+
         [DllImport("hb.dll", EntryPoint = "hb_register_logger", CallingConvention = CallingConvention.Cdecl)]
         public static extern void hb_register_logger(LoggingCallback callback);
 
