@@ -128,13 +128,15 @@ namespace VidCoder.ViewModel
 
             this.allPresets = new ObservableCollection<PresetViewModel>();
             var unmodifiedPresets = userPresets.Where(preset => !preset.IsModified);
-            Preset modifiedPreset = userPresets.SingleOrDefault(preset => preset.IsModified);
+            Preset modifiedPreset = userPresets.FirstOrDefault(preset => preset.IsModified);
+            int modifiedPresetIndex = -1;
 
             foreach (Preset userPreset in unmodifiedPresets)
             {
                 PresetViewModel presetVM;
                 if (modifiedPreset != null && modifiedPreset.Name == userPreset.Name)
                 {
+                    modifiedPresetIndex = this.allPresets.Count;
                     presetVM = new PresetViewModel(modifiedPreset);
                     presetVM.OriginalProfile = userPreset.EncodingProfile;
                 }
@@ -172,15 +174,26 @@ namespace VidCoder.ViewModel
                 this.encodeQueue.Add(new EncodeJobViewModel(job, this));
             }
 
-            int presetIndex = Properties.Settings.Default.LastPresetIndex;
+            // Always select the modified preset if it exists.
+            // Otherwise, choose the last selected preset.
+            int presetIndex;
+            if (modifiedPresetIndex >= 0)
+            {
+                presetIndex = modifiedPresetIndex;
+            }
+            else
+            {
+                presetIndex = Properties.Settings.Default.LastPresetIndex;
+            }
+
             if (presetIndex >= this.allPresets.Count)
             {
                 presetIndex = 0;
             }
 
-            this.completedJobs = new ObservableCollection<EncodeResultViewModel>();
-
             this.SelectedPreset = this.allPresets[presetIndex];
+
+            this.completedJobs = new ObservableCollection<EncodeResultViewModel>();
 
             this.driveService = ServiceFactory.CreateDriveService(this);
 

@@ -398,6 +398,7 @@
     </Content>
     <Content Include="BuiltInPresets.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Resource Include="Icons\delete.png" />
     <Resource Include="Icons\play_small.png" />
