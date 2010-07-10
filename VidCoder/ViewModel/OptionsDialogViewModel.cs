@@ -20,6 +20,9 @@ namespace VidCoder.ViewModel
         private string customFormatString;
         private string nativeLanguageCode;
         private bool dubAudio;
+        private int logVerbosity;
+
+        private int initialLogVerbosity;
 
         private ICommand saveSettingsCommand;
         private ICommand browsePathCommand;
@@ -40,6 +43,9 @@ namespace VidCoder.ViewModel
             this.CustomFormatString = Settings.Default.AutoNameCustomFormatString;
             this.NativeLanguageCode = Settings.Default.NativeLanguageCode;
             this.DubAudio = Settings.Default.DubAudio;
+            this.LogVerbosity = Settings.Default.LogVerbosity;
+
+            this.initialLogVerbosity = this.LogVerbosity;
         }
 
         public override void OnClosing()
@@ -226,6 +232,29 @@ namespace VidCoder.ViewModel
             }
         }
 
+        public int LogVerbosity
+        {
+            get
+            {
+                return this.logVerbosity;
+            }
+
+            set
+            {
+                this.logVerbosity = value;
+                this.NotifyPropertyChanged("LogVerbosity");
+                this.NotifyPropertyChanged("LogVerbosityWarningVisible");
+            }
+        }
+
+        public bool LogVerbosityWarningVisible
+        {
+            get
+            {
+                return this.LogVerbosity != this.initialLogVerbosity;
+            }
+        }
+
         public ICommand SaveSettingsCommand
         {
             get
@@ -252,6 +281,7 @@ namespace VidCoder.ViewModel
                         Settings.Default.AutoNameCustomFormatString = this.CustomFormatString;
                         Settings.Default.NativeLanguageCode = this.NativeLanguageCode;
                         Settings.Default.DubAudio = this.DubAudio;
+                        Settings.Default.LogVerbosity = this.LogVerbosity;
                         Settings.Default.Save();
 
                         this.AcceptCommand.Execute(null);

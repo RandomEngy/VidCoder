@@ -2046,7 +2046,7 @@ namespace VidCoder.ViewModel
             if (this.CurrentJob.HandBrakeInstance == null)
             {
                 HandBrakeInstance onDemandInstance = new HandBrakeInstance();
-                onDemandInstance.Initialize(2);
+                onDemandInstance.Initialize(Settings.Default.LogVerbosity);
                 onDemandInstance.ScanCompleted += (o, e) =>
                 {
                     this.CurrentJob.HandBrakeInstance = onDemandInstance;
@@ -2527,7 +2527,7 @@ namespace VidCoder.ViewModel
             this.logger.Log("## Starting scan: " + path);
 
             this.scanInstance = new HandBrakeInstance();
-            this.scanInstance.Initialize(2);
+            this.scanInstance.Initialize(Settings.Default.LogVerbosity);
             this.scanInstance.ScanProgress += (o, e) =>
             {
                 this.ScanProgress = (e.CurrentTitle * 100) / e.Titles;

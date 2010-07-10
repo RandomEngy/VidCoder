@@ -199,7 +199,7 @@ namespace VidCoder.ViewModel
 
 
                         this.previewInstance = new HandBrakeInstance();
-                        this.previewInstance.Initialize(2);
+                        this.previewInstance.Initialize(Settings.Default.LogVerbosity);
                         this.previewInstance.ScanCompleted += this.OnPreviewScanCompleted;
                         this.previewInstance.StartScan(this.job.SourcePath, 10, this.job.Title);
 
