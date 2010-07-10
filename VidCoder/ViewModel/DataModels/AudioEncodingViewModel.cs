@@ -187,8 +187,12 @@ namespace VidCoder.ViewModel
             {
                 this.selectedMixdown = value;
                 this.NotifyPropertyChanged("SelectedMixdown");
-                this.encodingDialogVM.UpdateAudioEncodings();
-                this.MarkModified();
+
+                if (value != null)
+                {
+                    this.encodingDialogVM.UpdateAudioEncodings();
+                    this.MarkModified();
+                }
             }
         }
 
@@ -337,6 +341,7 @@ namespace VidCoder.ViewModel
             else
             {
                 this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Faac });
+                this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Lame });
                 this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Ac3Passthrough });
             }
 
