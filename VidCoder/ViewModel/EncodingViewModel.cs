@@ -1716,7 +1716,7 @@ namespace VidCoder.ViewModel
 							Encoder = AudioEncoder.Faac,
 							Mixdown = Mixdown.DolbyProLogicII,
 							Bitrate = 160,
-							SampleRate = "48",
+							SampleRateRaw = 48000,
 							Drc = 0.0
 						};
 

@@ -23,7 +23,7 @@ namespace VidCoder.ViewModel
 		private AudioEncoderViewModel selectedAudioEncoder;
 		private ObservableCollection<MixdownViewModel> mixdownChoices;
 		private MixdownViewModel selectedMixdown;
-		private string sampleRate;
+		private int sampleRate;
 		private List<int> bitrateChoices;
 		private int bitrate;
 		private double drc;
@@ -31,6 +31,16 @@ namespace VidCoder.ViewModel
 		private ICommand removeAudioEncodingCommand;
 
 		private OutputFormat outputFormat;
+
+		private static List<int> sampleRateChoices = new List<int>
+		{
+			0,
+			22050,
+			24000,
+			32000,
+			44100,
+			48000
+		};
 
 		public AudioEncodingViewModel(AudioEncoding audioEncoding, Title selectedTitle, List<int> chosenAudioTracks, OutputFormat outputFormat, EncodingViewModel encodingDialogVM)
 		{
@@ -49,7 +59,7 @@ namespace VidCoder.ViewModel
 			this.OutputFormat = outputFormat;
 			this.SetAudioEncoder(audioEncoding.Encoder);
 			this.SetMixdown(audioEncoding.Mixdown);
-			this.sampleRate = audioEncoding.SampleRate;
+			this.sampleRate = audioEncoding.SampleRateRaw;
 			this.bitrate = audioEncoding.Bitrate;
 			this.drc = audioEncoding.Drc;
 
@@ -70,7 +80,7 @@ namespace VidCoder.ViewModel
 				{
 					newAudioEncoding.Mixdown = this.SelectedMixdown.Mixdown;
 					newAudioEncoding.Bitrate = this.Bitrate;
-					newAudioEncoding.SampleRate = this.SampleRate;
+					newAudioEncoding.SampleRateRaw = this.SampleRate;
 					newAudioEncoding.Drc = this.Drc;
 				}
 
@@ -144,7 +154,7 @@ namespace VidCoder.ViewModel
 
 						if (this.SampleRate == null)
 						{
-							this.SampleRate = "48";
+							this.SampleRate = 48000;
 						}
 					}
 
@@ -196,7 +206,18 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public string SampleRate
+		public List<int> SampleRateChoices
+		{
+			get
+			{
+				return sampleRateChoices;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the sample rate in Hz for this audio encoding.
+		/// </summary>
+		public int SampleRate
 		{
 			get
 			{

@@ -19,6 +19,7 @@
 		<local:EnumDisplayer Type="{x:Type model:Deinterlace}" x:Key="DeinterlaceChoices" />
 		<local:EnumDisplayer Type="{x:Type model:Denoise}" x:Key="DenoiseChoices" />
 		<converters:FramerateDisplayConverter x:Key="FramerateDisplayConverter" />
+		<converters:SampleRateDisplayConverter x:Key="SampleRateDisplayConverter" />
 		<Style x:Key="TestNumberBox" TargetType="TextBox">
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding IsFocused, ElementName=widthBox}" Value="True">
@@ -88,14 +89,16 @@
 				Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
 		</DataTemplate>
 		<DataTemplate x:Key="SampleRateTemplate">
-			<ComboBox Width="55"
-				SelectedValue="{Binding SampleRate}" SelectedValuePath="Content"
+			<ComboBox
+				Width="107"
+				ItemsSource="{Binding SampleRateChoices}"
+				SelectedValue="{Binding SampleRate}"
 				Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}">
-				<ComboBoxItem>48</ComboBoxItem>
-				<ComboBoxItem>44.1</ComboBoxItem>
-				<ComboBoxItem>32</ComboBoxItem>
-				<ComboBoxItem>24</ComboBoxItem>
-				<ComboBoxItem>22.05</ComboBoxItem>
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding Converter={StaticResource SampleRateDisplayConverter}}" />
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
 			</ComboBox>
 		</DataTemplate>
 		<DataTemplate x:Key="BitrateTemplate">
@@ -526,7 +529,7 @@
 										<GridViewColumn Header="Target Stream" CellTemplate="{StaticResource TargetStreamTemplate}" x:Name="targetStreamColumn" />
 										<GridViewColumn Header="Codec" CellTemplate="{StaticResource AudioCodecTemplate}" x:Name="codecColumn" />
 										<GridViewColumn Width="137" Header="Mixdown" CellTemplate="{StaticResource MixdownTemplate}" x:Name="mixdownColumn" />
-										<GridViewColumn Width="70" Header="Sample Rate" CellTemplate="{StaticResource SampleRateTemplate}" />
+										<GridViewColumn Width="120" Header="Sample Rate (kHz)" CellTemplate="{StaticResource SampleRateTemplate}" />
 										<GridViewColumn Width="62" Header="Bitrate" CellTemplate="{StaticResource BitrateTemplate}" />
 										<GridViewColumn Header="DRC" CellTemplate="{StaticResource DrcTemplate}" />
 										<GridViewColumn CellTemplate="{StaticResource RemoveAudioTemplate}" />

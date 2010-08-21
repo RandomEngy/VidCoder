@@ -12,6 +12,7 @@ namespace HandBrake.Interop
 		public int Bitrate { get; set; }
 		public Mixdown Mixdown { get; set; }
 		public string SampleRate { get; set; }
+		public int SampleRateRaw { get; set; }
 		public double Drc { get; set; }
 	}
 }

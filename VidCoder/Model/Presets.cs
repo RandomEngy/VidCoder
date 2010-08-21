@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.Xml.Linq;
 using System.Threading;
+using HandBrake.Interop;
 
 namespace VidCoder.Model
 {
@@ -58,10 +59,16 @@ namespace VidCoder.Model
 						{
 							XDocument doc = XDocument.Load(presetFile);
 							XElement presetElement = doc.Element("UserPreset").Element("Preset");
+							int version = int.Parse(doc.Element("UserPreset").Attribute("Version").Value);
 
 							using (XmlReader reader = presetElement.CreateReader())
 							{
 								var preset = presetSerializer.Deserialize(reader) as Preset;
+								if (version == 1)
+								{
+									UpgradePreset(preset);
+								}
+
 								result.Add(preset);
 							}
 						}
@@ -98,6 +105,19 @@ namespace VidCoder.Model
 			}
 		}
 
+		private static void UpgradePreset(Preset preset)
+		{
+			foreach (AudioEncoding audioEncoding in preset.EncodingProfile.AudioEncodings)
+			{
+				if (!string.IsNullOrEmpty(audioEncoding.SampleRate))
+				{
+					double sampleRate = double.Parse(audioEncoding.SampleRate);
+					audioEncoding.SampleRateRaw = (int)(sampleRate * 1000);
+					audioEncoding.SampleRate = null;
+				}
+			}
+		}
+
 		private static void SaveUserPresetsBackground(object presetXmlListObject)
 		{
 			lock (userPresetSync)
@@ -114,7 +134,7 @@ namespace VidCoder.Model
 					XElement element = XElement.Parse(listItem.Item2);
 					XDocument doc = new XDocument(
 						new XElement("UserPreset",
-							new XAttribute("Version", "1"),
+							new XAttribute("Version", "2"),
 							element));
 
 					doc.Save(FindUserPresetPath(listItem.Item1));

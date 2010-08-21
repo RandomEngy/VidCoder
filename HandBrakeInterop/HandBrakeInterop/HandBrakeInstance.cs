@@ -1074,9 +1074,13 @@
 					break;
 			}
 
-			if (encoding.SampleRate != null)
+			if (encoding.SampleRateRaw == 0)
 			{
-				nativeAudio.config.output.samplerate = (int)(double.Parse(encoding.SampleRate) * 1000);
+				nativeAudio.config.output.samplerate = nativeAudio.config.input.samplerate;
+			}
+			else
+			{
+				nativeAudio.config.output.samplerate = encoding.SampleRateRaw;
 			}
 
 			nativeAudio.padding = new byte[24600];
