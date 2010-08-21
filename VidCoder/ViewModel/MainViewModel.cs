@@ -716,6 +716,7 @@ namespace VidCoder.ViewModel
 				this.GenerateOutputFileName();
 
 				this.NotifyPropertyChanged("Chapters");
+				this.NotifyPropertyChanged("MultipleChapters");
 				this.NotifyPropertyChanged("SelectedTitle");
 			}
 		}
@@ -870,27 +871,11 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool VideoVisible
-		{
-			get
-			{
-				return this.SelectedSource.Type != SourceType.None;
-			}
-		}
-
 		public bool TitleVisible
 		{
 			get
 			{
 				return this.HasVideoSource && this.SourceData.Titles.Count > 1;
-			}
-		}
-
-		public bool ChaptersVisible
-		{
-			get
-			{
-				return this.SelectedSource.Type != SourceType.None;
 			}
 		}
 
@@ -904,6 +889,14 @@ namespace VidCoder.ViewModel
 				}
 
 				return null;
+			}
+		}
+
+		public bool MultipleChapters
+		{
+			get
+			{
+				return this.HasVideoSource && this.SelectedTitle.Chapters.Count > 1;
 			}
 		}
 
@@ -2580,9 +2573,7 @@ namespace VidCoder.ViewModel
 
 				this.SelectedTitle = selectTitle;
 				this.NotifyPropertyChanged("Titles");
-				this.NotifyPropertyChanged("VideoVisible");
 				this.NotifyPropertyChanged("TitleVisible");
-				this.NotifyPropertyChanged("ChaptersVisible");
 				this.NotifyPropertyChanged("HasVideoSource");
 			}
 			else

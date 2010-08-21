@@ -316,8 +316,8 @@
 						HorizontalAlignment="Right" Margin="0,0,10,0"
 						Text="Video:"
 						Style="{StaticResource EmphasizedTitle}"
-						Visibility="{Binding VideoVisible, Converter={StaticResource VisibilityConverter}}" Grid.Row="0" Grid.Column="0" />
-					<StackPanel Orientation="Horizontal" Visibility="{Binding VideoVisible, Converter={StaticResource VisibilityConverter}}" Grid.Row="0" Grid.Column="1" >
+						Grid.Row="0" Grid.Column="0" />
+					<StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" >
 						<StackPanel Orientation="Horizontal" Visibility="{Binding TitleVisible, Converter={StaticResource VisibilityConverter}}">
 							<TextBlock Text="Title:" Style="{StaticResource PlainTitle}" />
 							<ComboBox ItemsSource="{Binding Titles}" SelectedItem="{Binding SelectedTitle}" Height="23" VerticalAlignment="Center" MinWidth="102">
@@ -334,14 +334,22 @@
 							<ComboBox ItemsSource="{Binding Angles}" SelectedItem="{Binding Angle}" Width="32" Height="23" VerticalAlignment="Center" />
 							<Polygon Style="{StaticResource ArrowSeparator}" />
 						</StackPanel>
-						<StackPanel Orientation="Horizontal" Visibility="{Binding ChaptersVisible, Converter={StaticResource VisibilityConverter}}">
-							<TextBlock Text="Chapters:" Style="{StaticResource PlainTitle}" />
-							<ComboBox MinWidth="38"
+						<StackPanel Orientation="Horizontal">
+							<TextBlock
+								Visibility="{Binding MultipleChapters, Converter={StaticResource VisibilityConverter}, ConverterParameter=true}"
+								Text="(No chapters found)"
+								Style="{StaticResource DescriptiveText}" />
+							<StackPanel
+								Orientation="Horizontal"
+								Visibility="{Binding MultipleChapters, Converter={StaticResource VisibilityConverter}}">
+								<TextBlock Text="Chapters:" Style="{StaticResource PlainTitle}" />
+								<ComboBox MinWidth="38"
 								ItemsSource="{Binding Chapters}" SelectedItem="{Binding SelectedStartChapter}" Style="{StaticResource ChapterComboBox}" />
-							<TextBlock Text="-" Style="{StaticResource PlainTitle}" />
-							<ComboBox MinWidth="38"
+								<TextBlock Text="-" Style="{StaticResource PlainTitle}" />
+								<ComboBox MinWidth="38"
 								ItemsSource="{Binding Chapters}" SelectedItem="{Binding SelectedEndChapter}" Style="{StaticResource ChapterComboBox}" />
-							<TextBlock Text="{Binding ChaptersSummary}" Style="{StaticResource PlainTitle}" />
+								<TextBlock Text="{Binding ChaptersSummary}" Style="{StaticResource PlainTitle}" />
+							</StackPanel>
 						</StackPanel>
 					</StackPanel>
 
