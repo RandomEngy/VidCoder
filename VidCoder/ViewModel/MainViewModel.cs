@@ -2587,6 +2587,9 @@ namespace VidCoder.ViewModel
 			}
 			else
 			{
+				this.sourceData = null;
+				this.NotifyPropertyChanged("HasVideoSource");
+				this.NotifyPropertyChanged("CanEnqueue");
 				this.ScanError = true;
 			}
 
