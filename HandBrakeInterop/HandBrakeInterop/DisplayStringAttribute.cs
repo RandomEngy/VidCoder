@@ -5,25 +5,25 @@ using System.Text;
 
 namespace HandBrake.Interop
 {
-    [AttributeUsage(AttributeTargets.Field)]
-    public sealed class DisplayStringAttribute : Attribute
-    {
-        private readonly string value;
+	[AttributeUsage(AttributeTargets.Field)]
+	public sealed class DisplayStringAttribute : Attribute
+	{
+		private readonly string value;
 
-        public string Value
-        {
-            get { return value; }
-        }
+		public string Value
+		{
+			get { return value; }
+		}
 
-        public string ResourceKey { get; set; }
+		public string ResourceKey { get; set; }
 
-        public DisplayStringAttribute(string v)
-        {
-            this.value = v;
-        }
+		public DisplayStringAttribute(string v)
+		{
+			this.value = v;
+		}
 
-        public DisplayStringAttribute()
-        {
-        }
-    }
+		public DisplayStringAttribute()
+		{
+		}
+	}
 }

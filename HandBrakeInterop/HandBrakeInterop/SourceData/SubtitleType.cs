@@ -5,9 +5,9 @@ using System.Text;
 
 namespace HandBrake.SourceData
 {
-    public enum SubtitleType
-    {
-        Picture,
-        Text
-    }
+	public enum SubtitleType
+	{
+		Picture,
+		Text
+	}
 }

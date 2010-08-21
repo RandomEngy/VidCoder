@@ -5,21 +5,21 @@ using System.Text;
 
 namespace HandBrake.Interop
 {
-    public enum Mixdown
-    {
-        [DisplayString("Dolby Pro Logic II")]
-        DolbyProLogicII = 0,
+	public enum Mixdown
+	{
+		[DisplayString("Dolby Pro Logic II")]
+		DolbyProLogicII = 0,
 
-        [DisplayString("Mono")]
-        Mono,
+		[DisplayString("Mono")]
+		Mono,
 
-        [DisplayString("Stereo")]
-        Stereo,
+		[DisplayString("Stereo")]
+		Stereo,
 
-        [DisplayString("Dolby Surround")]
-        DolbySurround,
+		[DisplayString("Dolby Surround")]
+		DolbySurround,
 
-        [DisplayString("6 Channel Discrete")]
-        SixChannelDiscrete
-    }
+		[DisplayString("6 Channel Discrete")]
+		SixChannelDiscrete
+	}
 }

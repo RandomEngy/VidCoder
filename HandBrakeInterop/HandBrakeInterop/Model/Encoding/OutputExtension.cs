@@ -5,9 +5,9 @@ using System.Text;
 
 namespace HandBrake.Interop
 {
-    public enum OutputExtension
-    {
-        Mp4,
-        M4v
-    }
+	public enum OutputExtension
+	{
+		Mp4,
+		M4v
+	}
 }

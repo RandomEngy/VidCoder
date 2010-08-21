@@ -6,11 +6,11 @@ using System.ComponentModel;
 
 namespace HandBrake.Interop
 {
-    public enum OutputFormat
-    {
-        [DisplayString("MP4")]
-        Mp4,
-        [DisplayString("MKV")]
-        Mkv
-    }
+	public enum OutputFormat
+	{
+		[DisplayString("MP4")]
+		Mp4,
+		[DisplayString("MKV")]
+		Mkv
+	}
 }

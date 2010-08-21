@@ -5,12 +5,12 @@ using System.Text;
 
 namespace HandBrake.Interop
 {
-    public enum Deinterlace
-    {
-        Off = 0,
-        Fast,
-        Slow,
-        Slower,
-        Custom
-    }
+	public enum Deinterlace
+	{
+		Off = 0,
+		Fast,
+		Slow,
+		Slower,
+		Custom
+	}
 }

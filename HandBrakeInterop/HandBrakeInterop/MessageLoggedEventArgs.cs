@@ -5,8 +5,8 @@ using System.Text;
 
 namespace HandBrake.Interop
 {
-    public class MessageLoggedEventArgs : EventArgs
-    {
-        public string Message { get; set; }
-    }
+	public class MessageLoggedEventArgs : EventArgs
+	{
+		public string Message { get; set; }
+	}
 }
