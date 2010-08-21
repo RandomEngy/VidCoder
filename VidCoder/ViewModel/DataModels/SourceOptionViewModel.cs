@@ -8,83 +8,83 @@ using HandBrake.Interop;
 
 namespace VidCoder.ViewModel
 {
-    public class SourceOptionViewModel : ViewModelBase
-    {
-        private SourceOption sourceOption;
+	public class SourceOptionViewModel : ViewModelBase
+	{
+		private SourceOption sourceOption;
 
-        public SourceOptionViewModel(SourceOption sourceOption)
-        {
-            this.sourceOption = sourceOption;
-        }
+		public SourceOptionViewModel(SourceOption sourceOption)
+		{
+			this.sourceOption = sourceOption;
+		}
 
-        public string Image
-        {
-            get
-            {
-                return this.sourceOption.Image;
-            }
+		public string Image
+		{
+			get
+			{
+				return this.sourceOption.Image;
+			}
 
-            set
-            {
-                this.sourceOption.Image = value;
-                this.NotifyPropertyChanged("Image");
-            }
-        }
+			set
+			{
+				this.sourceOption.Image = value;
+				this.NotifyPropertyChanged("Image");
+			}
+		}
 
-        public string Text
-        {
-            get
-            {
-                return this.sourceOption.Text;
-            }
+		public string Text
+		{
+			get
+			{
+				return this.sourceOption.Text;
+			}
 
-            set
-            {
-                this.sourceOption.Text = value;
-                this.NotifyPropertyChanged("Text");
-                this.NotifyPropertyChanged("Display");
-            }
-        }
+			set
+			{
+				this.sourceOption.Text = value;
+				this.NotifyPropertyChanged("Text");
+				this.NotifyPropertyChanged("Display");
+			}
+		}
 
-        public string VolumeLabel
-        {
-            get
-            {
-                return this.sourceOption.DriveInfo.VolumeLabel;
-            }
+		public string VolumeLabel
+		{
+			get
+			{
+				return this.sourceOption.DriveInfo.VolumeLabel;
+			}
 
-            set
-            {
-                this.sourceOption.DriveInfo.VolumeLabel = value;
-                this.NotifyPropertyChanged("VolumeLabel");
-                this.NotifyPropertyChanged("Display");
-            }
-        }
+			set
+			{
+				this.sourceOption.DriveInfo.VolumeLabel = value;
+				this.NotifyPropertyChanged("VolumeLabel");
+				this.NotifyPropertyChanged("Display");
+			}
+		}
 
-        public string Display
-        {
-            get
-            {
-                if (this.sourceOption.Type == SourceType.Dvd)
-                {
-                    return this.sourceOption.DriveInfo.RootDirectory + " - " + this.sourceOption.DriveInfo.VolumeLabel;
-                }
+		public string Display
+		{
+			get
+			{
+				if (this.sourceOption.Type == SourceType.Dvd)
+				{
+					return this.sourceOption.DriveInfo.RootDirectory + " - " + this.sourceOption.DriveInfo.VolumeLabel;
+				}
 
-                return this.Text;
-            }
-        }
+				return this.Text;
+			}
+		}
 
-        public SourceOption SourceOption
-        {
-            get { return this.sourceOption; }
-        }
+		public SourceOption SourceOption
+		{
+			get { return this.sourceOption; }
+		}
 
-        public bool ImageVisible
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(this.sourceOption.Image);
-            }
-        }
-    }
+		public bool ImageVisible
+		{
+			get
+			{
+				return !string.IsNullOrEmpty(this.sourceOption.Image);
+			}
+		}
+	}
 }

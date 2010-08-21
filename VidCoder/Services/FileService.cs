@@ -10,136 +10,136 @@ using Ookii.Dialogs.Wpf;
 
 namespace VidCoder
 {
-    public class FileService : IFileService
-    {
-        private static IFileService instance;
+	public class FileService : IFileService
+	{
+		private static IFileService instance;
 
-        public static IFileService Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new FileService();
-                }
+		public static IFileService Instance
+		{
+			get
+			{
+				if (instance == null)
+				{
+					instance = new FileService();
+				}
 
-                return instance;
-            }
-        }
+				return instance;
+			}
+		}
 
-        public IList<string> GetFileNames(string initialDirectory)
-        {
-            Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
-            dialog.Multiselect = true;
+		public IList<string> GetFileNames(string initialDirectory)
+		{
+			Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+			dialog.Multiselect = true;
 
-            if (!string.IsNullOrEmpty(initialDirectory) && Directory.Exists(initialDirectory))
-            {
-                dialog.InitialDirectory = initialDirectory;
-            }
+			if (!string.IsNullOrEmpty(initialDirectory) && Directory.Exists(initialDirectory))
+			{
+				dialog.InitialDirectory = initialDirectory;
+			}
 
-            bool? result = dialog.ShowDialog();
-            if (result == false)
-            {
-                return null;
-            }
+			bool? result = dialog.ShowDialog();
+			if (result == false)
+			{
+				return null;
+			}
 
-            return new List<string>(dialog.FileNames);
-        }
+			return new List<string>(dialog.FileNames);
+		}
 
-        public string GetFileNameLoad()
-        {
-            return this.GetFileNameLoad(null, null, null);
-        }
+		public string GetFileNameLoad()
+		{
+			return this.GetFileNameLoad(null, null, null);
+		}
 
-        public string GetFileNameLoad(string defaultExt, string filter, string initialDirectory)
-        {
-            Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+		public string GetFileNameLoad(string defaultExt, string filter, string initialDirectory)
+		{
+			Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
 
-            if (defaultExt != null)
-            {
-                dialog.DefaultExt = defaultExt;
-            }
+			if (defaultExt != null)
+			{
+				dialog.DefaultExt = defaultExt;
+			}
 
-            if (filter != null)
-            {
-                dialog.Filter = filter;
-            }
+			if (filter != null)
+			{
+				dialog.Filter = filter;
+			}
 
-            if (!string.IsNullOrEmpty(initialDirectory) && Directory.Exists(initialDirectory))
-            {
-                dialog.InitialDirectory = initialDirectory;
-            }
+			if (!string.IsNullOrEmpty(initialDirectory) && Directory.Exists(initialDirectory))
+			{
+				dialog.InitialDirectory = initialDirectory;
+			}
 
-            bool? result = dialog.ShowDialog();
+			bool? result = dialog.ShowDialog();
 
-            if (result == false)
-            {
-                return null;
-            }
+			if (result == false)
+			{
+				return null;
+			}
 
-            return dialog.FileName;
-        }
+			return dialog.FileName;
+		}
 
-        public string GetFileNameSave(string initialDirectory)
-        {
-            Microsoft.Win32.SaveFileDialog dialog = new Microsoft.Win32.SaveFileDialog();
+		public string GetFileNameSave(string initialDirectory)
+		{
+			Microsoft.Win32.SaveFileDialog dialog = new Microsoft.Win32.SaveFileDialog();
 
-            if (!string.IsNullOrEmpty(initialDirectory) && Directory.Exists(initialDirectory))
-            {
-                dialog.InitialDirectory = initialDirectory;
-            }
+			if (!string.IsNullOrEmpty(initialDirectory) && Directory.Exists(initialDirectory))
+			{
+				dialog.InitialDirectory = initialDirectory;
+			}
 
-            bool? result = dialog.ShowDialog();
+			bool? result = dialog.ShowDialog();
 
-            if (result == false)
-            {
-                return null;
-            }
+			if (result == false)
+			{
+				return null;
+			}
 
-            return dialog.FileName;
-        }
+			return dialog.FileName;
+		}
 
-        public string GetFolderName(string initialDirectory)
-        {
-            return this.GetFolderName(initialDirectory, description: null);
-        }
+		public string GetFolderName(string initialDirectory)
+		{
+			return this.GetFolderName(initialDirectory, description: null);
+		}
 
-        public string GetFolderName(string initialDirectory, string description)
-        {
-            VistaFolderBrowserDialog folderDialog = new VistaFolderBrowserDialog();
-            if (description != null)
-            {
-                folderDialog.Description = description;
-            }
+		public string GetFolderName(string initialDirectory, string description)
+		{
+			VistaFolderBrowserDialog folderDialog = new VistaFolderBrowserDialog();
+			if (description != null)
+			{
+				folderDialog.Description = description;
+			}
 
-            if (!string.IsNullOrEmpty(initialDirectory) && Directory.Exists(initialDirectory))
-            {
-                folderDialog.SelectedPath = initialDirectory;
-            }
+			if (!string.IsNullOrEmpty(initialDirectory) && Directory.Exists(initialDirectory))
+			{
+				folderDialog.SelectedPath = initialDirectory;
+			}
 
-            if (folderDialog.ShowDialog() == true)
-            {
-                return folderDialog.SelectedPath;
-            }
+			if (folderDialog.ShowDialog() == true)
+			{
+				return folderDialog.SelectedPath;
+			}
 
-            return null;
-        }
+			return null;
+		}
 
-        public void LaunchFile(string fileName)
-        {
-            Process.Start(fileName);
-        }
+		public void LaunchFile(string fileName)
+		{
+			Process.Start(fileName);
+		}
 
-        public void LaunchUrl(string url)
-        {
-            try
-            {
-                Process.Start(url);
-            }
-            catch (Win32Exception)
-            {
-                MessageBox.Show("Error launching URL: " + url);
-            }
-        }
-    }
+		public void LaunchUrl(string url)
+		{
+			try
+			{
+				Process.Start(url);
+			}
+			catch (Win32Exception)
+			{
+				MessageBox.Show("Error launching URL: " + url);
+			}
+		}
+	}
 }

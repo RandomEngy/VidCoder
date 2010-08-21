@@ -7,9 +7,9 @@ using HandBrake.Interop;
 
 namespace VidCoder.ViewModel
 {
-    public class VideoEncoderViewModel : ViewModelBase
-    {
-        public VideoEncoder Encoder { get; set; }
-        public string Display { get; set; }
-    }
+	public class VideoEncoderViewModel : ViewModelBase
+	{
+		public VideoEncoder Encoder { get; set; }
+		public string Display { get; set; }
+	}
 }

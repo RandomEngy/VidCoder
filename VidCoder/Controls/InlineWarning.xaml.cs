@@ -14,40 +14,40 @@ using System.Windows.Shapes;
 
 namespace VidCoder.Controls
 {
-    /// <summary>
-    /// Interaction logic for InlineWarning.xaml
-    /// </summary>
-    public partial class InlineWarning : UserControl
-    {
-        public InlineWarning()
-        {
-            InitializeComponent();
-        }
+	/// <summary>
+	/// Interaction logic for InlineWarning.xaml
+	/// </summary>
+	public partial class InlineWarning : UserControl
+	{
+		public InlineWarning()
+		{
+			InitializeComponent();
+		}
 
-        public static readonly DependencyProperty WarningTextProperty = DependencyProperty.Register(
-            "Number",
-            typeof(string),
-            typeof(InlineWarning),
-            new PropertyMetadata(new PropertyChangedCallback(OnWarningTextChanged)));
-        public string WarningText
-        {
-            get
-            {
-                return (string)GetValue(WarningTextProperty);
-            }
+		public static readonly DependencyProperty WarningTextProperty = DependencyProperty.Register(
+			"Number",
+			typeof(string),
+			typeof(InlineWarning),
+			new PropertyMetadata(new PropertyChangedCallback(OnWarningTextChanged)));
+		public string WarningText
+		{
+			get
+			{
+				return (string)GetValue(WarningTextProperty);
+			}
 
-            set
-            {
-                SetValue(WarningTextProperty, value);
-            }
-        }
+			set
+			{
+				SetValue(WarningTextProperty, value);
+			}
+		}
 
-        private static void OnWarningTextChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
-        {
-            var inlineWarning = dependencyObject as InlineWarning;
-            string newText = (string)eventArgs.NewValue;
+		private static void OnWarningTextChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+		{
+			var inlineWarning = dependencyObject as InlineWarning;
+			string newText = (string)eventArgs.NewValue;
 
-            inlineWarning.warningText.Text = newText;
-        }
-    }
+			inlineWarning.warningText.Text = newText;
+		}
+	}
 }

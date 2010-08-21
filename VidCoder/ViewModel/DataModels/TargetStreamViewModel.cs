@@ -5,17 +5,17 @@ using System.Text;
 
 namespace VidCoder.ViewModel
 {
-    public class TargetStreamViewModel : ViewModelBase
-    {
-        public string Text { get; set; }
-        public string TrackDetails { get; set; }
+	public class TargetStreamViewModel : ViewModelBase
+	{
+		public string Text { get; set; }
+		public string TrackDetails { get; set; }
 
-        public bool HasTrackDetails
-        {
-            get
-            {
-                return this.TrackDetails != null;
-            }
-        }
-    }
+		public bool HasTrackDetails
+		{
+			get
+			{
+				return this.TrackDetails != null;
+			}
+		}
+	}
 }

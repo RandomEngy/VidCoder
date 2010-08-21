@@ -7,11 +7,11 @@ using HandBrake.Interop;
 
 namespace VidCoder.Model
 {
-    public class SourceOption : DependencyObject
-    {
-        public SourceType Type { get; set; }
-        public string Image { get; set; }
-        public string Text { get; set; }
-        public DriveInformation DriveInfo { get; set; }
-    }
+	public class SourceOption : DependencyObject
+	{
+		public SourceType Type { get; set; }
+		public string Image { get; set; }
+		public string Text { get; set; }
+		public DriveInformation DriveInfo { get; set; }
+	}
 }

@@ -5,8 +5,8 @@ using System.Text;
 
 namespace VidCoder.DragDropUtils
 {
-    public interface IDragItem
-    {
-        bool CanDrag { get; }
-    }
+	public interface IDragItem
+	{
+		bool CanDrag { get; }
+	}
 }

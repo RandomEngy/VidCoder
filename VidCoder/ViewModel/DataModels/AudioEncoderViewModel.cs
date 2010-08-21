@@ -7,16 +7,16 @@ using HandBrake.Interop;
 
 namespace VidCoder.ViewModel
 {
-    public class AudioEncoderViewModel : ViewModelBase
-    {
-        public AudioEncoder Encoder { get; set; }
+	public class AudioEncoderViewModel : ViewModelBase
+	{
+		public AudioEncoder Encoder { get; set; }
 
-        public string Display
-        {
-            get
-            {
-                return DisplayConversions.DisplayAudioEncoder(this.Encoder);
-            }
-        }
-    }
+		public string Display
+		{
+			get
+			{
+				return DisplayConversions.DisplayAudioEncoder(this.Encoder);
+			}
+		}
+	}
 }

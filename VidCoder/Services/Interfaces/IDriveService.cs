@@ -6,9 +6,9 @@ using VidCoder.Model;
 
 namespace VidCoder.Services
 {
-    public interface IDriveService
-    {
-        IList<DriveInformation> GetDriveInformation();
-        void Close();
-    }
+	public interface IDriveService
+	{
+		IList<DriveInformation> GetDriveInformation();
+		void Close();
+	}
 }

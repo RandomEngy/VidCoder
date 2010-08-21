@@ -85,18 +85,18 @@ namespace VidCoder.DragDropUtils
 		public static readonly DependencyProperty DragDropTemplateProperty =
 			DependencyProperty.RegisterAttached("DragDropTemplate", typeof(DataTemplate), typeof(DragDropHelper), new UIPropertyMetadata(null));
 
-        public static bool GetAllowDropAtTop(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(AllowDropAtTopProperty);
-        }
+		public static bool GetAllowDropAtTop(DependencyObject obj)
+		{
+			return (bool)obj.GetValue(AllowDropAtTopProperty);
+		}
 
-        public static void SetAllowDropAtTop(DependencyObject obj, DataTemplate value)
-        {
-            obj.SetValue(AllowDropAtTopProperty, value);
-        }
+		public static void SetAllowDropAtTop(DependencyObject obj, DataTemplate value)
+		{
+			obj.SetValue(AllowDropAtTopProperty, value);
+		}
 
-        public static readonly DependencyProperty AllowDropAtTopProperty =
-            DependencyProperty.RegisterAttached("AllowDropAtTop", typeof(bool), typeof(DragDropHelper), new UIPropertyMetadata(true));
+		public static readonly DependencyProperty AllowDropAtTopProperty =
+			DependencyProperty.RegisterAttached("AllowDropAtTop", typeof(bool), typeof(DragDropHelper), new UIPropertyMetadata(true));
 
 		private static void IsDragSourceChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
 		{
@@ -155,11 +155,11 @@ namespace VidCoder.DragDropUtils
 			this.sourceItemContainer = Utilities.GetItemContainer(this.sourceItemsControl, visual);
 			if (this.sourceItemContainer != null)
 			{
-                IDragItem dragData = this.sourceItemContainer.DataContext as IDragItem;
-                if (dragData == null || dragData.CanDrag)
-                {
-                    this.draggedData = this.sourceItemContainer.DataContext;
-                }
+				IDragItem dragData = this.sourceItemContainer.DataContext as IDragItem;
+				if (dragData == null || dragData.CanDrag)
+				{
+					this.draggedData = this.sourceItemContainer.DataContext;
+				}
 			}
 		}
 
@@ -283,7 +283,7 @@ namespace VidCoder.DragDropUtils
 		{
 			int targetItemsControlCount = this.targetItemsControl.Items.Count;
 			object draggedItem = e.Data.GetData(this.format.Name);
-            this.targetItemContainer = null;
+			this.targetItemContainer = null;
 
 			if (IsDropDataTypeAllowed(draggedItem))
 			{
@@ -291,50 +291,50 @@ namespace VidCoder.DragDropUtils
 				{
 					this.hasVerticalOrientation = Utilities.HasVerticalOrientation(this.targetItemsControl.ItemContainerGenerator.ContainerFromIndex(0) as FrameworkElement);
 
-                    // Hack, only works with vertical orientation lists. Original code assumed dragging to end of list if no
-                    //  item is hovered over; this is incorrect.
-                    for (int i = 0; i < targetItemsControlCount; i++)
-                    {
-                        FrameworkElement currentItemContainer = this.targetItemsControl.ItemContainerGenerator.ContainerFromIndex(i) as FrameworkElement;
-                        Point relativeDistanceFromItem = e.GetPosition(currentItemContainer);
+					// Hack, only works with vertical orientation lists. Original code assumed dragging to end of list if no
+					//  item is hovered over; this is incorrect.
+					for (int i = 0; i < targetItemsControlCount; i++)
+					{
+						FrameworkElement currentItemContainer = this.targetItemsControl.ItemContainerGenerator.ContainerFromIndex(i) as FrameworkElement;
+						Point relativeDistanceFromItem = e.GetPosition(currentItemContainer);
 
-                        if (relativeDistanceFromItem.Y < 0)
-                        {
-                            this.targetItemContainer = currentItemContainer;
-                            break;
-                        }
+						if (relativeDistanceFromItem.Y < 0)
+						{
+							this.targetItemContainer = currentItemContainer;
+							break;
+						}
 
-                        if (relativeDistanceFromItem.Y < currentItemContainer.ActualHeight)
-                        {
-                            this.targetItemContainer = currentItemContainer;
-                            break;
-                        }
-                    }
+						if (relativeDistanceFromItem.Y < currentItemContainer.ActualHeight)
+						{
+							this.targetItemContainer = currentItemContainer;
+							break;
+						}
+					}
 
 					if (this.targetItemContainer != null)
 					{
-                        Point positionRelativeToItemContainer = e.GetPosition(this.targetItemContainer);
+						Point positionRelativeToItemContainer = e.GetPosition(this.targetItemContainer);
 						this.isInFirstHalf = Utilities.IsInFirstHalf(this.targetItemContainer, positionRelativeToItemContainer, this.hasVerticalOrientation);
 						this.insertionIndex = this.targetItemsControl.ItemContainerGenerator.IndexFromContainer(this.targetItemContainer);
 
 						if (!this.isInFirstHalf)
 						{
-                            this.insertionIndex++;
+							this.insertionIndex++;
 						}
 					}
 					else
 					{
-                        this.targetItemContainer = this.targetItemsControl.ItemContainerGenerator.ContainerFromIndex(targetItemsControlCount - 1) as FrameworkElement;
+						this.targetItemContainer = this.targetItemsControl.ItemContainerGenerator.ContainerFromIndex(targetItemsControlCount - 1) as FrameworkElement;
 						this.isInFirstHalf = false;
 						this.insertionIndex = targetItemsControlCount;
 					}
 
-                    if (this.insertionIndex == 0 && !GetAllowDropAtTop(this.sourceItemsControl))
-                    {
-                        this.targetItemContainer = null;
-                        this.insertionIndex = -1;
-                        e.Effects = DragDropEffects.None;
-                    }
+					if (this.insertionIndex == 0 && !GetAllowDropAtTop(this.sourceItemsControl))
+					{
+						this.targetItemContainer = null;
+						this.insertionIndex = -1;
+						e.Effects = DragDropEffects.None;
+					}
 				}
 				else
 				{
@@ -436,9 +436,9 @@ namespace VidCoder.DragDropUtils
 		{
 			if (this.targetItemContainer != null)
 			{
-                // Here, I need to get adorner layer from targetItemContainer and not targetItemsControl. 
+				// Here, I need to get adorner layer from targetItemContainer and not targetItemsControl. 
 				// This way I get the AdornerLayer within ScrollContentPresenter, and not the one under AdornerDecorator (Snoop is awesome).
-                // If I used targetItemsControl, the adorner would hang out of ItemsControl when there's a horizontal scroll bar.
+				// If I used targetItemsControl, the adorner would hang out of ItemsControl when there's a horizontal scroll bar.
 				var adornerLayer = AdornerLayer.GetAdornerLayer(this.targetItemContainer);
 				this.insertionAdorner = new InsertionAdorner(this.hasVerticalOrientation, this.isInFirstHalf, this.targetItemContainer, adornerLayer);
 			}

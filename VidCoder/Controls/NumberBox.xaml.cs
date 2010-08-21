@@ -14,217 +14,217 @@ using System.Windows.Shapes;
 
 namespace VidCoder.Controls
 {
-    /// <summary>
-    /// Interaction logic for NumberBox.xaml
-    /// </summary>
-    public partial class NumberBox : UserControl
-    {
-        private bool allowEmpty;
-        private bool allowNegative;
-        private string noneCaption;
+	/// <summary>
+	/// Interaction logic for NumberBox.xaml
+	/// </summary>
+	public partial class NumberBox : UserControl
+	{
+		private bool allowEmpty;
+		private bool allowNegative;
+		private string noneCaption;
 
-        private bool haveFocus = false;
+		private bool haveFocus = false;
 
-        public NumberBox()
-        {
-            this.noneCaption = "(none)";
-            this.allowEmpty = true;
-            this.Minimum = int.MinValue;
-            this.Maximum = int.MaxValue;
+		public NumberBox()
+		{
+			this.noneCaption = "(none)";
+			this.allowEmpty = true;
+			this.Minimum = int.MinValue;
+			this.Maximum = int.MaxValue;
 
-            InitializeComponent();
+			InitializeComponent();
 
-            this.RefreshNumberBox();
-        }
+			this.RefreshNumberBox();
+		}
 
-        public static readonly DependencyProperty NumberProperty = DependencyProperty.Register(
-            "Number",
-            typeof(int),
-            typeof(NumberBox),
-            new PropertyMetadata(new PropertyChangedCallback(OnNumberChanged)));
-        public int Number
-        {
-            get
-            {
-                return (int)GetValue(NumberProperty);
-            }
+		public static readonly DependencyProperty NumberProperty = DependencyProperty.Register(
+			"Number",
+			typeof(int),
+			typeof(NumberBox),
+			new PropertyMetadata(new PropertyChangedCallback(OnNumberChanged)));
+		public int Number
+		{
+			get
+			{
+				return (int)GetValue(NumberProperty);
+			}
 
-            set
-            {
-                SetValue(NumberProperty, value);
-            }
-        }
+			set
+			{
+				SetValue(NumberProperty, value);
+			}
+		}
 
-        public int Modulus { get; set; }
+		public int Modulus { get; set; }
 
-        public int Minimum { get; set; }
+		public int Minimum { get; set; }
 
-        public int Maximum { get; set; }
+		public int Maximum { get; set; }
 
-        public string NoneCaption
-        {
-            get
-            {
-                return this.noneCaption;
-            }
+		public string NoneCaption
+		{
+			get
+			{
+				return this.noneCaption;
+			}
 
-            set
-            {
-                this.noneCaption = value;
-                this.RefreshNumberBox();
-            }
-        }
+			set
+			{
+				this.noneCaption = value;
+				this.RefreshNumberBox();
+			}
+		}
 
-        public bool AllowEmpty
-        {
-            get
-            {
-                return this.allowEmpty;
-            }
+		public bool AllowEmpty
+		{
+			get
+			{
+				return this.allowEmpty;
+			}
 
-            set
-            {
-                this.allowEmpty = value;
-                this.RefreshNumberBox();
-            }
-        }
+			set
+			{
+				this.allowEmpty = value;
+				this.RefreshNumberBox();
+			}
+		}
 
-        public bool AllowNegative
-        {
-            get
-            {
-                return this.allowNegative;
-            }
+		public bool AllowNegative
+		{
+			get
+			{
+				return this.allowNegative;
+			}
 
-            set
-            {
-                this.allowNegative = value;
-                this.RefreshNumberBox();
-            }
-        }
+			set
+			{
+				this.allowNegative = value;
+				this.RefreshNumberBox();
+			}
+		}
 
-        private static void OnNumberChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
-        {
-            var numBox = dependencyObject as NumberBox;
-            int newNumber = (int)eventArgs.NewValue;
+		private static void OnNumberChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+		{
+			var numBox = dependencyObject as NumberBox;
+			int newNumber = (int)eventArgs.NewValue;
 
-            if (!numBox.haveFocus)
-            {
-                numBox.RefreshNumberBox();
-            }
-        }
+			if (!numBox.haveFocus)
+			{
+				numBox.RefreshNumberBox();
+			}
+		}
 
-        private void numberBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            this.haveFocus = true;
+		private void numberBox_GotFocus(object sender, RoutedEventArgs e)
+		{
+			this.haveFocus = true;
 
-            if (this.AllowEmpty)
-            {
-                if (this.Number == 0)
-                {
-                    this.numberBox.Text = string.Empty;
-                }
+			if (this.AllowEmpty)
+			{
+				if (this.Number == 0)
+				{
+					this.numberBox.Text = string.Empty;
+				}
 
-                this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
-            }
-        }
+				this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
+			}
+		}
 
-        private void numberBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            this.haveFocus = false;
-            int newNumber;
+		private void numberBox_LostFocus(object sender, RoutedEventArgs e)
+		{
+			this.haveFocus = false;
+			int newNumber;
 
-            if (this.AllowEmpty && this.numberBox.Text == string.Empty)
-            {
-                this.Number = 0;
-                this.RefreshNumberBox();
-                return;
-            }
+			if (this.AllowEmpty && this.numberBox.Text == string.Empty)
+			{
+				this.Number = 0;
+				this.RefreshNumberBox();
+				return;
+			}
 
-            if (int.TryParse(this.numberBox.Text, out newNumber))
-            {
-                if (this.AllowNegative || newNumber >= 0)
-                {
-                    if (this.Modulus != 0)
-                    {
-                        newNumber = this.GetNearestValue(newNumber, this.Modulus);
-                    }
+			if (int.TryParse(this.numberBox.Text, out newNumber))
+			{
+				if (this.AllowNegative || newNumber >= 0)
+				{
+					if (this.Modulus != 0)
+					{
+						newNumber = this.GetNearestValue(newNumber, this.Modulus);
+					}
 
-                    this.Number = newNumber;
-                }
-            }
+					this.Number = newNumber;
+				}
+			}
 
-            this.RefreshNumberBox();
-        }
+			this.RefreshNumberBox();
+		}
 
-        private void RefreshNumberBox()
-        {
-            if (this.AllowEmpty && this.Number == 0)
-            {
-                this.numberBox.Text = this.NoneCaption;
-                this.numberBox.Foreground = new SolidColorBrush(Colors.Gray);
-            }
-            else
-            {
-                this.numberBox.Text = this.Number.ToString();
-                this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
-            }
-        }
+		private void RefreshNumberBox()
+		{
+			if (this.AllowEmpty && this.Number == 0)
+			{
+				this.numberBox.Text = this.NoneCaption;
+				this.numberBox.Foreground = new SolidColorBrush(Colors.Gray);
+			}
+			else
+			{
+				this.numberBox.Text = this.Number.ToString();
+				this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
+			}
+		}
 
-        private void numberBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            foreach (char c in e.Text)
-            {
-                if (!char.IsNumber(c) && (!this.AllowNegative || c != '-'))
-                {
-                    e.Handled = true;
-                    return;
-                }
-            }
-        }
+		private void numberBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		{
+			foreach (char c in e.Text)
+			{
+				if (!char.IsNumber(c) && (!this.AllowNegative || c != '-'))
+				{
+					e.Handled = true;
+					return;
+				}
+			}
+		}
 
-        private void numberBox_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Space)
-            {
-                e.Handled = true;
-            }
-        }
+		private void numberBox_PreviewKeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Space)
+			{
+				e.Handled = true;
+			}
+		}
 
-        private void numberBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            int newNumber;
+		private void numberBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			int newNumber;
 
-            if (this.AllowEmpty && this.numberBox.Text == string.Empty)
-            {
-                this.Number = 0;
-                return;
-            }
+			if (this.AllowEmpty && this.numberBox.Text == string.Empty)
+			{
+				this.Number = 0;
+				return;
+			}
 
-            if (int.TryParse(this.numberBox.Text, out newNumber))
-            {
-                if ((this.AllowNegative || newNumber >= 0) && (newNumber >= this.Minimum) && (newNumber <= this.Maximum))
-                {
-                    if (this.Modulus != 0)
-                    {
-                        newNumber = this.GetNearestValue(newNumber, this.Modulus);
-                    }
+			if (int.TryParse(this.numberBox.Text, out newNumber))
+			{
+				if ((this.AllowNegative || newNumber >= 0) && (newNumber >= this.Minimum) && (newNumber <= this.Maximum))
+				{
+					if (this.Modulus != 0)
+					{
+						newNumber = this.GetNearestValue(newNumber, this.Modulus);
+					}
 
-                    this.Number = newNumber;
-                }
-            }
-        }
+					this.Number = newNumber;
+				}
+			}
+		}
 
-        private int GetNearestValue(int number, int modulus)
-        {
-            int remainder = number % modulus;
+		private int GetNearestValue(int number, int modulus)
+		{
+			int remainder = number % modulus;
 
-            if (remainder == 0)
-            {
-                return number;
-            }
+			if (remainder == 0)
+			{
+				return number;
+			}
 
-            return remainder >= (modulus / 2) ? number + (modulus - remainder) : number - remainder;
-        }
-    }
+			return remainder >= (modulus / 2) ? number + (modulus - remainder) : number - remainder;
+		}
+	}
 }

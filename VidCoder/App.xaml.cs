@@ -13,27 +13,27 @@ using VidCoder.View;
 
 namespace VidCoder
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
-    {
-        protected override void OnStartup(StartupEventArgs e)
-        {
+	/// <summary>
+	/// Interaction logic for App.xaml
+	/// </summary>
+	public partial class App : Application
+	{
+		protected override void OnStartup(StartupEventArgs e)
+		{
 #if !DEBUG
-            this.DispatcherUnhandledException += this.OnDispatcherUnhandledException;
+			this.DispatcherUnhandledException += this.OnDispatcherUnhandledException;
 #endif
-            base.OnStartup(e);
+			base.OnStartup(e);
 
-            MainViewModel mainVM = new MainViewModel();
-            WindowManager.OpenWindow(mainVM);
-            mainVM.OnLoaded();
-        }
+			MainViewModel mainVM = new MainViewModel();
+			WindowManager.OpenWindow(mainVM);
+			mainVM.OnLoaded();
+		}
 
-        private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
-        {
-            var exceptionDialog = new ExceptionDialog(e.Exception);
-            exceptionDialog.ShowDialog();
-        }
-    }
+		private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+		{
+			var exceptionDialog = new ExceptionDialog(e.Exception);
+			exceptionDialog.ShowDialog();
+		}
+	}
 }

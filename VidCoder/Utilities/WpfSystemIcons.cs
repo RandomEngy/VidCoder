@@ -11,24 +11,24 @@ using System.Runtime.InteropServices;
 
 namespace VidCoder
 {
-    public static class WpfSystemIcons
-    {
-        private static ImageSource error;
+	public static class WpfSystemIcons
+	{
+		private static ImageSource error;
 
-        public static ImageSource Error
-        {
-            get
-            {
-                if (error == null)
-                {
-                    error = Imaging.CreateBitmapSourceFromHIcon(
-                        SystemIcons.Error.Handle,
-                        Int32Rect.Empty,
-                        BitmapSizeOptions.FromEmptyOptions());
-                }
+		public static ImageSource Error
+		{
+			get
+			{
+				if (error == null)
+				{
+					error = Imaging.CreateBitmapSourceFromHIcon(
+						SystemIcons.Error.Handle,
+						Int32Rect.Empty,
+						BitmapSizeOptions.FromEmptyOptions());
+				}
 
-                return error;
-            }
-        }
-    }
+				return error;
+			}
+		}
+	}
 }

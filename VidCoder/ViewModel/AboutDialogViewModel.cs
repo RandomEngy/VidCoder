@@ -5,14 +5,14 @@ using System.Text;
 
 namespace VidCoder.ViewModel
 {
-    public class AboutDialogViewModel : OkCancelDialogViewModel
-    {
-        public string Version
-        {
-            get
-            {
-                return Utilities.CurrentVersion;
-            }
-        }
-    }
+	public class AboutDialogViewModel : OkCancelDialogViewModel
+	{
+		public string Version
+		{
+			get
+			{
+				return Utilities.CurrentVersion;
+			}
+		}
+	}
 }

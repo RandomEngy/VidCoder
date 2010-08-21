@@ -1,28 +1,28 @@
 ﻿<Window x:Class="VidCoder.View.AboutDialog"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:resx="clr-namespace:VidCoder.Properties"
-        Title="About VidCoder" Height="425" Width="474"
-        Style="{StaticResource NormalWindow}" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
-    <Grid>
-        <Image
-            Height="120" HorizontalAlignment="Left" Margin="12,12,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="120"
-            Source="/Icons/VidCoder.png" />
-        <TextBlock HorizontalAlignment="Left" Margin="153,13,0,0" Name="textBlock1" Width="161"
-            Text="VidCoder" FontSize="34" Height="46" VerticalAlignment="Top" />
-        <StackPanel Orientation="Horizontal" Height="20" HorizontalAlignment="Left" Margin="171,57,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="156">
-            <TextBlock HorizontalAlignment="Left" Name="versionLabel" Text="Version" VerticalAlignment="Top"  />
-            <TextBlock Text="{Binding Version}" Margin="5,0,0,0" Name="versionText" />
-        </StackPanel>
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="171,79,0,0" Name="textBlock3" Text="Based on HandBrake (svn3347)" VerticalAlignment="Top" />
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="171,108,0,0" Name="textBlock2" Text="© 2010 VidCoder Developers" VerticalAlignment="Top" />
-        <Label Content="License:" Height="28" HorizontalAlignment="Left" Margin="12,138,0,0" Name="label1" VerticalAlignment="Top" />
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:resx="clr-namespace:VidCoder.Properties"
+		Title="About VidCoder" Height="425" Width="474"
+		Style="{StaticResource NormalWindow}" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+	<Grid>
+		<Image
+			Height="120" HorizontalAlignment="Left" Margin="12,12,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="120"
+			Source="/Icons/VidCoder.png" />
+		<TextBlock HorizontalAlignment="Left" Margin="153,13,0,0" Name="textBlock1" Width="161"
+			Text="VidCoder" FontSize="34" Height="46" VerticalAlignment="Top" />
+		<StackPanel Orientation="Horizontal" Height="20" HorizontalAlignment="Left" Margin="171,57,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="156">
+			<TextBlock HorizontalAlignment="Left" Name="versionLabel" Text="Version" VerticalAlignment="Top"  />
+			<TextBlock Text="{Binding Version}" Margin="5,0,0,0" Name="versionText" />
+		</StackPanel>
+		<TextBlock Height="23" HorizontalAlignment="Left" Margin="171,79,0,0" Name="textBlock3" Text="Based on HandBrake (svn3347)" VerticalAlignment="Top" />
+		<TextBlock Height="23" HorizontalAlignment="Left" Margin="171,108,0,0" Name="textBlock2" Text="© 2010 VidCoder Developers" VerticalAlignment="Top" />
+		<Label Content="License:" Height="28" HorizontalAlignment="Left" Margin="12,138,0,0" Name="label1" VerticalAlignment="Top" />
 
-        <TextBlock
-            Margin="13,162,12,41" TextWrapping="Wrap"
-            Text="{x:Static resx:Resources.AboutLicense}" />
-        <Button
-            Content="OK" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="button1" VerticalAlignment="Bottom" Width="75" IsDefault="True" IsCancel="True"
-            Command="{Binding AcceptCommand}"/>
-    </Grid>
+		<TextBlock
+			Margin="13,162,12,41" TextWrapping="Wrap"
+			Text="{x:Static resx:Resources.AboutLicense}" />
+		<Button
+			Content="OK" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="button1" VerticalAlignment="Bottom" Width="75" IsDefault="True" IsCancel="True"
+			Command="{Binding AcceptCommand}"/>
+	</Grid>
 </Window>

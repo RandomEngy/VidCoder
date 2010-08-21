@@ -7,23 +7,23 @@ using VidCoder.Properties;
 
 namespace VidCoder.ViewModel
 {
-    public class ColumnViewModel : ViewModelBase
-    {
-        private static ResourceManager resources = new ResourceManager("VidCoder.Properties.Resources", typeof(Resources).Assembly);
+	public class ColumnViewModel : ViewModelBase
+	{
+		private static ResourceManager resources = new ResourceManager("VidCoder.Properties.Resources", typeof(Resources).Assembly);
 
-        public ColumnViewModel(string id)
-        {
-            this.Id = id;
-        }
+		public ColumnViewModel(string id)
+		{
+			this.Id = id;
+		}
 
-        public string Id { get; set; }
+		public string Id { get; set; }
 
-        public string Title
-        {
-            get
-            {
-                return resources.GetString("QueueColumnName" + this.Id);
-            }
-        }
-    }
+		public string Title
+		{
+			get
+			{
+				return resources.GetString("QueueColumnName" + this.Id);
+			}
+		}
+	}
 }

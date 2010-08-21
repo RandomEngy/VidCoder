@@ -7,54 +7,54 @@ using HandBrake.Interop;
 
 namespace VidCoder.ViewModel
 {
-    public class PresetViewModel : ViewModelBase
-    {
-        private Preset preset;
+	public class PresetViewModel : ViewModelBase
+	{
+		private Preset preset;
 
-        public PresetViewModel(Preset preset)
-        {
-            this.preset = preset;
-        }
+		public PresetViewModel(Preset preset)
+		{
+			this.preset = preset;
+		}
 
-        public Preset Preset
-        {
-            get
-            {
-                return this.preset;
-            }
-        }
+		public Preset Preset
+		{
+			get
+			{
+				return this.preset;
+			}
+		}
 
-        public EncodingProfile OriginalProfile { get; set; }
+		public EncodingProfile OriginalProfile { get; set; }
 
-        public bool IsModified
-        {
-            get
-            {
-                return this.preset.IsModified;
-            }
-        }
+		public bool IsModified
+		{
+			get
+			{
+				return this.preset.IsModified;
+			}
+		}
 
-        public string PresetName
-        {
-            get
-            {
-                return this.preset.Name;
-            }
-        }
+		public string PresetName
+		{
+			get
+			{
+				return this.preset.Name;
+			}
+		}
 
-        public bool IsBuiltIn
-        {
-            get
-            {
-                return this.preset.IsBuiltIn;
-            }
-        }
+		public bool IsBuiltIn
+		{
+			get
+			{
+				return this.preset.IsBuiltIn;
+			}
+		}
 
-        public void RefreshView()
-        {
-            this.NotifyPropertyChanged("IsModified");
-            this.NotifyPropertyChanged("PresetName");
-            this.NotifyPropertyChanged("IsBuiltIn");
-        }
-    }
+		public void RefreshView()
+		{
+			this.NotifyPropertyChanged("IsModified");
+			this.NotifyPropertyChanged("PresetName");
+			this.NotifyPropertyChanged("IsBuiltIn");
+		}
+	}
 }

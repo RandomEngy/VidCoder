@@ -1,781 +1,781 @@
 ﻿<Window x:Class="VidCoder.View.EncodingWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:VidCoder"
-    xmlns:controls="clr-namespace:VidCoder.Controls"
-    xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
-    xmlns:converters="clr-namespace:VidCoder.Converters"
-    xmlns:resx="clr-namespace:VidCoder.Properties"
-    xmlns:vm="clr-namespace:VidCoder.ViewModel"
-    Title="{Binding WindowTitle}" Width="671" Height="467" MinWidth="588" MinHeight="467"
-    Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner"
-    Closing="Window_Closing"
-    DataContextChanged="OnDataContextChanged" ShowInTaskbar="False" WindowStyle="ToolWindow">
-    <Window.Resources>
-        <local:EnumDisplayer Type="{x:Type model:OutputFormat}" x:Key="OutputFormatChoices" />
-        <local:EnumDisplayer Type="{x:Type model:Anamorphic}" x:Key="AnamorphicChoices" />
-        <local:EnumDisplayer Type="{x:Type model:Detelecine}" x:Key="DetelecineChoices" />
-        <local:EnumDisplayer Type="{x:Type model:Decomb}" x:Key="DecombChoices" />
-        <local:EnumDisplayer Type="{x:Type model:Deinterlace}" x:Key="DeinterlaceChoices" />
-        <local:EnumDisplayer Type="{x:Type model:Denoise}" x:Key="DenoiseChoices" />
-        <converters:FramerateDisplayConverter x:Key="FramerateDisplayConverter" />
-        <Style x:Key="TestNumberBox" TargetType="TextBox">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding IsFocused, ElementName=widthBox}" Value="True">
-                    <Setter Property="Background" Value="Blue" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="SectionHeader" TargetType="TextBlock">
-            <Setter Property="FontWeight" Value="Bold" />
-        </Style>
-        <Style x:Key="AudioOutputPreview" TargetType="TextBlock">
-            <Setter Property="Margin" Value="5,0,5,0" />
-        </Style>
-        <Style x:Key="InputOutputInfoSection" TargetType="Border">
-            <Setter Property="Padding" Value="3" />
-            <Setter Property="CornerRadius" Value="10" />
-        </Style>
-        <Style x:Key="NormalComboBox" TargetType="ComboBox">
-            <Setter Property="Height" Value="22" />
-            <Setter Property="Width" Value="80" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
-        </Style>
-        <Style x:Key="CustomFilterBox" TargetType="TextBox">
-            <Setter Property="Width" Value="120" />
-            <Setter Property="Height" Value="23" />
-            <Setter Property="Margin" Value="6,0,0,0" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
-        </Style>
-        <Style x:Key="ReadOnlyBox" TargetType="TextBox">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
-                    <Setter Property="Background" Value="#EEEEEE" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <DataTemplate x:Key="AudioDragTemplate">
-            <TextBox Text="{Binding FileName, Mode=OneWay}" />
-        </DataTemplate>
-        <DataTemplate x:Key="TargetStreamTemplate">
-            <ComboBox
-                ItemsSource="{Binding TargetStreams}"
-                SelectedIndex="{Binding TargetStreamIndex}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Text}" VerticalAlignment="Center" />
-                            <Border Margin="10,1,1,1" CornerRadius="3" Padding="3,1,3,1"
-                                Background="{StaticResource InputBrush}" Visibility="{Binding HasTrackDetails, Converter={StaticResource VisibilityConverter}}">
-                                <TextBlock Text="{Binding TrackDetails}" Foreground="Black" FontSize="11" />
-                            </Border>
-                        </StackPanel>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-        </DataTemplate>
-        <DataTemplate x:Key="AudioCodecTemplate">
-            <ComboBox Width="120"
-                ItemsSource="{Binding AudioEncoders}"
-                SelectedItem="{Binding SelectedAudioEncoder}"
-                DisplayMemberPath="Display"/>
-        </DataTemplate>
-        <DataTemplate x:Key="MixdownTemplate">
-            <ComboBox Width="125"
-                ItemsSource="{Binding MixdownChoices}"
-                SelectedItem="{Binding SelectedMixdown}"
-                DisplayMemberPath="Display"
-                Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
-        </DataTemplate>
-        <DataTemplate x:Key="SampleRateTemplate">
-            <ComboBox Width="55"
-                SelectedValue="{Binding SampleRate}" SelectedValuePath="Content"
-                Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}">
-                <ComboBoxItem>48</ComboBoxItem>
-                <ComboBoxItem>44.1</ComboBoxItem>
-                <ComboBoxItem>32</ComboBoxItem>
-                <ComboBoxItem>24</ComboBoxItem>
-                <ComboBoxItem>22.05</ComboBoxItem>
-            </ComboBox>
-        </DataTemplate>
-        <DataTemplate x:Key="BitrateTemplate">
-            <ComboBox Width="50"
-                ItemsSource="{Binding BitrateChoices}"
-                SelectedValue="{Binding Bitrate}"
-                Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
-        </DataTemplate>
-        <DataTemplate x:Key="DrcTemplate">
-            
-        </DataTemplate>
-        <DataTemplate x:Key="RemoveAudioTemplate">
-            <Button Style="{StaticResource RemoveButtonStyle}" Command="{Binding RemoveAudioEncodingCommand}" VerticalAlignment="Center">Remove audio encoding</Button>
-        </DataTemplate>
-    </Window.Resources>
-    <Window.InputBindings>
-        <KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
-        <KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveCommand}" />
-        <KeyBinding Key="S" Modifiers="Control+Shift" Command="{Binding SaveAsCommand}" />
-        <KeyBinding Key="L" Modifiers="Control" Command="{Binding MainViewModel.OpenLogWindowCommand}" />
-        <KeyBinding Key="P" Modifiers="Control" Command="{Binding MainViewModel.OpenPreviewWindowCommand}" />
-        <KeyBinding Key="F2" Command="{Binding RenameCommand}" />
-    </Window.InputBindings>
-    <Grid>
-        <ToolBarPanel Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
-            <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
-                <TextBlock
-                    Text="{Binding ProfileName}" Margin="0,4,0,0"
-                    Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" FontWeight="Bold" FontSize="14" TextAlignment="Center" TextTrimming="CharacterEllipsis" />
-                <Button Height="24" Width="70"
-                    Visibility="{Binding IsBuiltIn, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
-                    Command="{Binding SaveCommand}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Icons/save.png" Width="16" Height="16" />
-                        <TextBlock Text="Save" Margin="5,0,0,0" />
-                    </StackPanel>
-                </Button>
-                <Button Height="24" Width="73"
-                    Command="{Binding SaveAsCommand}">Save As...</Button>
-                <Button
-                    Content="Rename"
-                    Visibility="{Binding IsBuiltIn, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
-                    Height="24" Width="65"
-                    Command="{Binding RenameCommand}" />
-                <Button
-                    Height="24" Width="70"
-                    Visibility="{Binding IsModified, Converter={StaticResource VisibilityConverter}}"
-                    Command="{Binding DeletePresetCommand}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Icons/undo_16x16.png" Width="16" Height="16" />
-                        <TextBlock Text="Revert" Margin="4,0,0,0" />
-                    </StackPanel>
-                </Button>
-                <Button
-                    Height="24" Width="70"
-                    Visibility="{Binding DeleteButtonVisible, Converter={StaticResource VisibilityConverter}}"
-                    Command="{Binding DeletePresetCommand}">
-                    <StackPanel Orientation="Horizontal">
-                        <Grid Background="Transparent">
-                            <Rectangle Width="14" Height="3" Fill="{StaticResource RedFill}">
-                                <Rectangle.LayoutTransform>
-                                    <RotateTransform Angle="-45" />
-                                </Rectangle.LayoutTransform>
-                            </Rectangle>
-                            <Rectangle Width="14" Height="3" Fill="{StaticResource RedFill}">
-                                <Rectangle.LayoutTransform>
-                                    <RotateTransform Angle="45" />
-                                </Rectangle.LayoutTransform>
-                            </Rectangle>
-                        </Grid>
-                        <TextBlock Text="Delete" Margin="4,0,0,0" />
-                    </StackPanel>
-                </Button>
-            </ToolBar>
-        </ToolBarPanel>
-        <Button Height="26" Margin="0,4,12,0" VerticalAlignment="Top" IsEnabled="{Binding HasSourceData}"
-            Command="{Binding PreviewCommand}" HorizontalAlignment="Right" Width="77">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="/Icons/preview.png" />
-                <TextBlock Text="Preview" Margin="5,0,0,0" VerticalAlignment="Center" />
-            </StackPanel>
-        </Button>
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="clr-namespace:VidCoder"
+	xmlns:controls="clr-namespace:VidCoder.Controls"
+	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
+	xmlns:converters="clr-namespace:VidCoder.Converters"
+	xmlns:resx="clr-namespace:VidCoder.Properties"
+	xmlns:vm="clr-namespace:VidCoder.ViewModel"
+	Title="{Binding WindowTitle}" Width="671" Height="467" MinWidth="588" MinHeight="467"
+	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner"
+	Closing="Window_Closing"
+	DataContextChanged="OnDataContextChanged" ShowInTaskbar="False" WindowStyle="ToolWindow">
+	<Window.Resources>
+		<local:EnumDisplayer Type="{x:Type model:OutputFormat}" x:Key="OutputFormatChoices" />
+		<local:EnumDisplayer Type="{x:Type model:Anamorphic}" x:Key="AnamorphicChoices" />
+		<local:EnumDisplayer Type="{x:Type model:Detelecine}" x:Key="DetelecineChoices" />
+		<local:EnumDisplayer Type="{x:Type model:Decomb}" x:Key="DecombChoices" />
+		<local:EnumDisplayer Type="{x:Type model:Deinterlace}" x:Key="DeinterlaceChoices" />
+		<local:EnumDisplayer Type="{x:Type model:Denoise}" x:Key="DenoiseChoices" />
+		<converters:FramerateDisplayConverter x:Key="FramerateDisplayConverter" />
+		<Style x:Key="TestNumberBox" TargetType="TextBox">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding IsFocused, ElementName=widthBox}" Value="True">
+					<Setter Property="Background" Value="Blue" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+		<Style x:Key="SectionHeader" TargetType="TextBlock">
+			<Setter Property="FontWeight" Value="Bold" />
+		</Style>
+		<Style x:Key="AudioOutputPreview" TargetType="TextBlock">
+			<Setter Property="Margin" Value="5,0,5,0" />
+		</Style>
+		<Style x:Key="InputOutputInfoSection" TargetType="Border">
+			<Setter Property="Padding" Value="3" />
+			<Setter Property="CornerRadius" Value="10" />
+		</Style>
+		<Style x:Key="NormalComboBox" TargetType="ComboBox">
+			<Setter Property="Height" Value="22" />
+			<Setter Property="Width" Value="80" />
+			<Setter Property="HorizontalAlignment" Value="Left" />
+		</Style>
+		<Style x:Key="CustomFilterBox" TargetType="TextBox">
+			<Setter Property="Width" Value="120" />
+			<Setter Property="Height" Value="23" />
+			<Setter Property="Margin" Value="6,0,0,0" />
+			<Setter Property="HorizontalAlignment" Value="Left" />
+		</Style>
+		<Style x:Key="ReadOnlyBox" TargetType="TextBox">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
+					<Setter Property="Background" Value="#EEEEEE" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+		<DataTemplate x:Key="AudioDragTemplate">
+			<TextBox Text="{Binding FileName, Mode=OneWay}" />
+		</DataTemplate>
+		<DataTemplate x:Key="TargetStreamTemplate">
+			<ComboBox
+				ItemsSource="{Binding TargetStreams}"
+				SelectedIndex="{Binding TargetStreamIndex}">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="{Binding Text}" VerticalAlignment="Center" />
+							<Border Margin="10,1,1,1" CornerRadius="3" Padding="3,1,3,1"
+								Background="{StaticResource InputBrush}" Visibility="{Binding HasTrackDetails, Converter={StaticResource VisibilityConverter}}">
+								<TextBlock Text="{Binding TrackDetails}" Foreground="Black" FontSize="11" />
+							</Border>
+						</StackPanel>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+		</DataTemplate>
+		<DataTemplate x:Key="AudioCodecTemplate">
+			<ComboBox Width="120"
+				ItemsSource="{Binding AudioEncoders}"
+				SelectedItem="{Binding SelectedAudioEncoder}"
+				DisplayMemberPath="Display"/>
+		</DataTemplate>
+		<DataTemplate x:Key="MixdownTemplate">
+			<ComboBox Width="125"
+				ItemsSource="{Binding MixdownChoices}"
+				SelectedItem="{Binding SelectedMixdown}"
+				DisplayMemberPath="Display"
+				Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
+		</DataTemplate>
+		<DataTemplate x:Key="SampleRateTemplate">
+			<ComboBox Width="55"
+				SelectedValue="{Binding SampleRate}" SelectedValuePath="Content"
+				Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}">
+				<ComboBoxItem>48</ComboBoxItem>
+				<ComboBoxItem>44.1</ComboBoxItem>
+				<ComboBoxItem>32</ComboBoxItem>
+				<ComboBoxItem>24</ComboBoxItem>
+				<ComboBoxItem>22.05</ComboBoxItem>
+			</ComboBox>
+		</DataTemplate>
+		<DataTemplate x:Key="BitrateTemplate">
+			<ComboBox Width="50"
+				ItemsSource="{Binding BitrateChoices}"
+				SelectedValue="{Binding Bitrate}"
+				Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
+		</DataTemplate>
+		<DataTemplate x:Key="DrcTemplate">
+			
+		</DataTemplate>
+		<DataTemplate x:Key="RemoveAudioTemplate">
+			<Button Style="{StaticResource RemoveButtonStyle}" Command="{Binding RemoveAudioEncodingCommand}" VerticalAlignment="Center">Remove audio encoding</Button>
+		</DataTemplate>
+	</Window.Resources>
+	<Window.InputBindings>
+		<KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
+		<KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveCommand}" />
+		<KeyBinding Key="S" Modifiers="Control+Shift" Command="{Binding SaveAsCommand}" />
+		<KeyBinding Key="L" Modifiers="Control" Command="{Binding MainViewModel.OpenLogWindowCommand}" />
+		<KeyBinding Key="P" Modifiers="Control" Command="{Binding MainViewModel.OpenPreviewWindowCommand}" />
+		<KeyBinding Key="F2" Command="{Binding RenameCommand}" />
+	</Window.InputBindings>
+	<Grid>
+		<ToolBarPanel Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+			<ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+				<TextBlock
+					Text="{Binding ProfileName}" Margin="0,4,0,0"
+					Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" FontWeight="Bold" FontSize="14" TextAlignment="Center" TextTrimming="CharacterEllipsis" />
+				<Button Height="24" Width="70"
+					Visibility="{Binding IsBuiltIn, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
+					Command="{Binding SaveCommand}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/Icons/save.png" Width="16" Height="16" />
+						<TextBlock Text="Save" Margin="5,0,0,0" />
+					</StackPanel>
+				</Button>
+				<Button Height="24" Width="73"
+					Command="{Binding SaveAsCommand}">Save As...</Button>
+				<Button
+					Content="Rename"
+					Visibility="{Binding IsBuiltIn, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
+					Height="24" Width="65"
+					Command="{Binding RenameCommand}" />
+				<Button
+					Height="24" Width="70"
+					Visibility="{Binding IsModified, Converter={StaticResource VisibilityConverter}}"
+					Command="{Binding DeletePresetCommand}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/Icons/undo_16x16.png" Width="16" Height="16" />
+						<TextBlock Text="Revert" Margin="4,0,0,0" />
+					</StackPanel>
+				</Button>
+				<Button
+					Height="24" Width="70"
+					Visibility="{Binding DeleteButtonVisible, Converter={StaticResource VisibilityConverter}}"
+					Command="{Binding DeletePresetCommand}">
+					<StackPanel Orientation="Horizontal">
+						<Grid Background="Transparent">
+							<Rectangle Width="14" Height="3" Fill="{StaticResource RedFill}">
+								<Rectangle.LayoutTransform>
+									<RotateTransform Angle="-45" />
+								</Rectangle.LayoutTransform>
+							</Rectangle>
+							<Rectangle Width="14" Height="3" Fill="{StaticResource RedFill}">
+								<Rectangle.LayoutTransform>
+									<RotateTransform Angle="45" />
+								</Rectangle.LayoutTransform>
+							</Rectangle>
+						</Grid>
+						<TextBlock Text="Delete" Margin="4,0,0,0" />
+					</StackPanel>
+				</Button>
+			</ToolBar>
+		</ToolBarPanel>
+		<Button Height="26" Margin="0,4,12,0" VerticalAlignment="Top" IsEnabled="{Binding HasSourceData}"
+			Command="{Binding PreviewCommand}" HorizontalAlignment="Right" Width="77">
+			<StackPanel Orientation="Horizontal">
+				<Image Source="/Icons/preview.png" />
+				<TextBlock Text="Preview" Margin="5,0,0,0" VerticalAlignment="Center" />
+			</StackPanel>
+		</Button>
 
-        <Label Height="28" HorizontalAlignment="Left" Margin="20,36,0,0" Name="label11" VerticalAlignment="Top" Width="69">Container:</Label>
-        <ComboBox Height="23" HorizontalAlignment="Left" Margin="85,39,0,0" VerticalAlignment="Top" Width="58"
-            ItemsSource="{Binding DisplayNames, Source={StaticResource OutputFormatChoices}}"
-            SelectedValue="{Binding OutputFormat, Converter={StaticResource OutputFormatChoices}}"/>
-        <Label Height="28" Margin="155.422,34,0,0" Name="label12" VerticalAlignment="Top" HorizontalAlignment="Left" Width="64"
-            Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">Extension:</Label>
-        <RadioButton Margin="221.422,34,0,0" Name="radioButton3" Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
-            IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Mp4}"
-            Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
-            IsEnabled="{Binding Mp4ExtensionEnabled}">.mp4</RadioButton>
-        <RadioButton Height="16" Margin="221.422,49,0,0" Name="radioButton4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
-            IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=M4v}"
-            Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">.m4v</RadioButton>
-        <CheckBox
-            Content="Large file size" ToolTip="{x:Static resx:Resources.LargeFileSizeToolTip}"
-            Margin="277.093,34,0,0" HorizontalAlignment="Left" Width="98.907" Height="16" VerticalAlignment="Top"
-            Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
-            IsChecked="{Binding LargeFile}" />
-        <CheckBox
-            Content="Web optimized" ToolTip="{x:Static resx:Resources.WebOptimizedToolTip}"
-            Height="16" Margin="277,52,0,0" VerticalAlignment="Top" Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
-            IsChecked="{Binding Optimize}" HorizontalAlignment="Left" Width="111" />
-        <Grid Height="35" HorizontalAlignment="Left" Margin="385.995,34,0,0" VerticalAlignment="Top" Width="150">
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                <CheckBox
-                    Content="iPod 5G support" ToolTip="{x:Static resx:Resources.IPod5GSupportToolTip}"
-                    Height="18" VerticalAlignment="Center"
-                    Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
-                    IsChecked="{Binding IPod5GSupport}" />
-                <CheckBox
-                    Content="Include chapter markers" ToolTip="{x:Static resx:Resources.IncludeChapterMarkersToolTip}"
-                    VerticalAlignment="Center"
-                    IsChecked="{Binding IncludeChapterMarkers}" />
-            </StackPanel>
-        </Grid>
+		<Label Height="28" HorizontalAlignment="Left" Margin="20,36,0,0" Name="label11" VerticalAlignment="Top" Width="69">Container:</Label>
+		<ComboBox Height="23" HorizontalAlignment="Left" Margin="85,39,0,0" VerticalAlignment="Top" Width="58"
+			ItemsSource="{Binding DisplayNames, Source={StaticResource OutputFormatChoices}}"
+			SelectedValue="{Binding OutputFormat, Converter={StaticResource OutputFormatChoices}}"/>
+		<Label Height="28" Margin="155.422,34,0,0" Name="label12" VerticalAlignment="Top" HorizontalAlignment="Left" Width="64"
+			Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">Extension:</Label>
+		<RadioButton Margin="221.422,34,0,0" Name="radioButton3" Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
+			IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Mp4}"
+			Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
+			IsEnabled="{Binding Mp4ExtensionEnabled}">.mp4</RadioButton>
+		<RadioButton Height="16" Margin="221.422,49,0,0" Name="radioButton4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
+			IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=M4v}"
+			Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">.m4v</RadioButton>
+		<CheckBox
+			Content="Large file size" ToolTip="{x:Static resx:Resources.LargeFileSizeToolTip}"
+			Margin="277.093,34,0,0" HorizontalAlignment="Left" Width="98.907" Height="16" VerticalAlignment="Top"
+			Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
+			IsChecked="{Binding LargeFile}" />
+		<CheckBox
+			Content="Web optimized" ToolTip="{x:Static resx:Resources.WebOptimizedToolTip}"
+			Height="16" Margin="277,52,0,0" VerticalAlignment="Top" Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
+			IsChecked="{Binding Optimize}" HorizontalAlignment="Left" Width="111" />
+		<Grid Height="35" HorizontalAlignment="Left" Margin="385.995,34,0,0" VerticalAlignment="Top" Width="150">
+			<StackPanel Orientation="Vertical" VerticalAlignment="Center">
+				<CheckBox
+					Content="iPod 5G support" ToolTip="{x:Static resx:Resources.IPod5GSupportToolTip}"
+					Height="18" VerticalAlignment="Center"
+					Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
+					IsChecked="{Binding IPod5GSupport}" />
+				<CheckBox
+					Content="Include chapter markers" ToolTip="{x:Static resx:Resources.IncludeChapterMarkersToolTip}"
+					VerticalAlignment="Center"
+					IsChecked="{Binding IncludeChapterMarkers}" />
+			</StackPanel>
+		</Grid>
 
 
 
-        <TabControl Margin="0,73,0,0" Name="tabControl">
-            <TabItem Header="Picture">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Row="0" Grid.Column="0" Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">
-                        <TextBlock Height="21" Width="38" HorizontalAlignment="Left" Margin="6,3,0,0" VerticalAlignment="Top" Text="Input" Style="{StaticResource SectionHeader}" />
-                        <Border Margin="46,3,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="{StaticResource InputBrush}" Style="{StaticResource InputOutputInfoSection}">
-                            <Grid Name="grid1" VerticalAlignment="Top" HorizontalAlignment="Left" Width="227">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="105" />
-                                    <ColumnDefinition Width="173*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="Storage Resolution:" Grid.Row="0" Grid.Column="0" />
-                                <TextBlock Text="Pixel Aspect Ratio:" Grid.Row="1" Grid.Column="0" />
-                                <TextBlock Text="Display Resolution:" Grid.Row="2" Grid.Column="0" />
+		<TabControl Margin="0,73,0,0" Name="tabControl">
+			<TabItem Header="Picture">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Grid Grid.Row="0" Grid.Column="0" Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">
+						<TextBlock Height="21" Width="38" HorizontalAlignment="Left" Margin="6,3,0,0" VerticalAlignment="Top" Text="Input" Style="{StaticResource SectionHeader}" />
+						<Border Margin="46,3,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="{StaticResource InputBrush}" Style="{StaticResource InputOutputInfoSection}">
+							<Grid Name="grid1" VerticalAlignment="Top" HorizontalAlignment="Left" Width="227">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="105" />
+									<ColumnDefinition Width="173*" />
+								</Grid.ColumnDefinitions>
+								<TextBlock Text="Storage Resolution:" Grid.Row="0" Grid.Column="0" />
+								<TextBlock Text="Pixel Aspect Ratio:" Grid.Row="1" Grid.Column="0" />
+								<TextBlock Text="Display Resolution:" Grid.Row="2" Grid.Column="0" />
 
-                                <TextBlock Text="{Binding InputSourceResolution}" Grid.Row="0" Grid.Column="1" />
-                                <TextBlock Text="{Binding InputPixelAspectRatio}" Grid.Row="1" Grid.Column="1" />
-                                <TextBlock Text="{Binding InputDisplayResolution}" Grid.Row="2" Grid.Column="1" />
-                            </Grid>
-                        </Border>
-                    </Grid>
-                    
-                    <!-- Sizing block -->
-                    <Grid Grid.Row="1">
-                        <TextBlock Height="21" HorizontalAlignment="Left" Margin="6,2,0,0" VerticalAlignment="Top" Width="64"
-                            Text="Sizing"
-                            Style="{StaticResource SectionHeader}" />
-                        <Label HorizontalAlignment="Left" Margin="45,22,0,0" Name="label1" Width="47" Height="27.04" VerticalAlignment="Top">Width:</Label>
-                        <controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="90,25,0,0" VerticalAlignment="Top" Width="55"
-                            Number="{Binding Width, Mode=TwoWay}" NoneCaption="(not set)" Modulus="16" Minimum="32" Maximum="3712"
-                            IsEnabled="{Binding WidthEnabled}"/>
-                        <Label HorizontalAlignment="Left" Margin="176,22,0,0" Name="label2" Width="49.2" Height="27.04" VerticalAlignment="Top">Height:</Label>
-                        <controls:NumberBox Height="23" Margin="226,25,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="55"
-                            Number="{Binding Height, Mode=TwoWay}" NoneCaption="(not set)" Modulus="16" Minimum="32" Maximum="3712"
-                            IsEnabled="{Binding HeightEnabled}"/>
-                        <Label HorizontalAlignment="Left" Margin="20,49,0,0" Name="label3" Width="77" Height="26" VerticalAlignment="Top">Max Width:</Label>
-                        <controls:NumberBox HorizontalAlignment="Left" Margin="90,54,0,0" Width="55" Height="23" VerticalAlignment="Top"
-                            Number="{Binding MaxWidth, Mode=TwoWay}" Modulus="16" Minimum="32"
-                            IsEnabled="{Binding WidthEnabled}"/>
-                        <Label Margin="151,49,0,0" Name="label4" Height="28.04" VerticalAlignment="Top" HorizontalAlignment="Left" Width="74.2">Max Height:</Label>
-                        <controls:NumberBox Margin="226,54,0,0" Height="23.04" VerticalAlignment="Top" HorizontalAlignment="Left" Width="55"
-                            Number="{Binding MaxHeight, Mode=TwoWay}" Modulus="16" Minimum="32"
-                            IsEnabled="{Binding HeightEnabled}"/>
+								<TextBlock Text="{Binding InputSourceResolution}" Grid.Row="0" Grid.Column="1" />
+								<TextBlock Text="{Binding InputPixelAspectRatio}" Grid.Row="1" Grid.Column="1" />
+								<TextBlock Text="{Binding InputDisplayResolution}" Grid.Row="2" Grid.Column="1" />
+							</Grid>
+						</Border>
+					</Grid>
+					
+					<!-- Sizing block -->
+					<Grid Grid.Row="1">
+						<TextBlock Height="21" HorizontalAlignment="Left" Margin="6,2,0,0" VerticalAlignment="Top" Width="64"
+							Text="Sizing"
+							Style="{StaticResource SectionHeader}" />
+						<Label HorizontalAlignment="Left" Margin="45,22,0,0" Name="label1" Width="47" Height="27.04" VerticalAlignment="Top">Width:</Label>
+						<controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="90,25,0,0" VerticalAlignment="Top" Width="55"
+							Number="{Binding Width, Mode=TwoWay}" NoneCaption="(not set)" Modulus="16" Minimum="32" Maximum="3712"
+							IsEnabled="{Binding WidthEnabled}"/>
+						<Label HorizontalAlignment="Left" Margin="176,22,0,0" Name="label2" Width="49.2" Height="27.04" VerticalAlignment="Top">Height:</Label>
+						<controls:NumberBox Height="23" Margin="226,25,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="55"
+							Number="{Binding Height, Mode=TwoWay}" NoneCaption="(not set)" Modulus="16" Minimum="32" Maximum="3712"
+							IsEnabled="{Binding HeightEnabled}"/>
+						<Label HorizontalAlignment="Left" Margin="20,49,0,0" Name="label3" Width="77" Height="26" VerticalAlignment="Top">Max Width:</Label>
+						<controls:NumberBox HorizontalAlignment="Left" Margin="90,54,0,0" Width="55" Height="23" VerticalAlignment="Top"
+							Number="{Binding MaxWidth, Mode=TwoWay}" Modulus="16" Minimum="32"
+							IsEnabled="{Binding WidthEnabled}"/>
+						<Label Margin="151,49,0,0" Name="label4" Height="28.04" VerticalAlignment="Top" HorizontalAlignment="Left" Width="74.2">Max Height:</Label>
+						<controls:NumberBox Margin="226,54,0,0" Height="23.04" VerticalAlignment="Top" HorizontalAlignment="Left" Width="55"
+							Number="{Binding MaxHeight, Mode=TwoWay}" Modulus="16" Minimum="32"
+							IsEnabled="{Binding HeightEnabled}"/>
 
-                        <CheckBox HorizontalAlignment="Left" Margin="48,81,0,0" Name="checkBox1" Width="120" Height="17" VerticalAlignment="Top"
-                            IsChecked="{Binding KeepDisplayAspect}"
-                            IsEnabled="{Binding KeepDisplayAspectEnabled}">Keep Aspect Ratio</CheckBox>
+						<CheckBox HorizontalAlignment="Left" Margin="48,81,0,0" Name="checkBox1" Width="120" Height="17" VerticalAlignment="Top"
+							IsChecked="{Binding KeepDisplayAspect}"
+							IsEnabled="{Binding KeepDisplayAspectEnabled}">Keep Aspect Ratio</CheckBox>
 
-                        
-                        <Grid HorizontalAlignment="Left" Margin="20,103,0,0" Name="grid2" Width="234" VerticalAlignment="Top">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="110" />
-                                <ColumnDefinition Width="139*" />
-                            </Grid.ColumnDefinitions>
+						
+						<Grid HorizontalAlignment="Left" Margin="20,103,0,0" Name="grid2" Width="234" VerticalAlignment="Top">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="110" />
+								<ColumnDefinition Width="139*" />
+							</Grid.ColumnDefinitions>
 
-                            <Label Grid.Row="0" Grid.Column="0" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Width="81">Anamorphic:</Label>
-                            <ComboBox Grid.Column="1" Height="22" VerticalAlignment="Top" Margin="0,1,0,0" HorizontalAlignment="Left" Width="65"
-                                ItemsSource="{Binding DisplayNames, Source={StaticResource AnamorphicChoices}}"
-                                SelectedValue="{Binding Anamorphic, Converter={StaticResource AnamorphicChoices}}" />
+							<Label Grid.Row="0" Grid.Column="0" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Width="81">Anamorphic:</Label>
+							<ComboBox Grid.Column="1" Height="22" VerticalAlignment="Top" Margin="0,1,0,0" HorizontalAlignment="Left" Width="65"
+								ItemsSource="{Binding DisplayNames, Source={StaticResource AnamorphicChoices}}"
+								SelectedValue="{Binding Anamorphic, Converter={StaticResource AnamorphicChoices}}" />
 
-                            <Label Grid.Row="1" Grid.Column="0" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Width="81"
-                                Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}">Modulus:</Label>
-                            <ComboBox Grid.Row="1" Grid.Column="1" Height="22" VerticalAlignment="Top" Margin="0,1,0,0" HorizontalAlignment="Left" Width="65"
-                                SelectedValue="{Binding Modulus}"
-                                SelectedValuePath="Content"
-                                Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}">
-                                <ComboBoxItem>16</ComboBoxItem>
-                                <ComboBoxItem>8</ComboBoxItem>
-                                <ComboBoxItem>4</ComboBoxItem>
-                                <ComboBoxItem>2</ComboBoxItem>
-                            </ComboBox>
-                        </Grid>
+							<Label Grid.Row="1" Grid.Column="0" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Width="81"
+								Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}">Modulus:</Label>
+							<ComboBox Grid.Row="1" Grid.Column="1" Height="22" VerticalAlignment="Top" Margin="0,1,0,0" HorizontalAlignment="Left" Width="65"
+								SelectedValue="{Binding Modulus}"
+								SelectedValuePath="Content"
+								Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}">
+								<ComboBoxItem>16</ComboBoxItem>
+								<ComboBoxItem>8</ComboBoxItem>
+								<ComboBoxItem>4</ComboBoxItem>
+								<ComboBoxItem>2</ComboBoxItem>
+							</ComboBox>
+						</Grid>
 
-                        <RadioButton Margin="37,160,0,0" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top"
-                            Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
-                            IsChecked="{Binding UseDisplayWidth}">Display Width:</RadioButton>
-                        <controls:NumberBox
-                            Height="23" HorizontalAlignment="Left" Margin="155,156,0,0" VerticalAlignment="Top" Width="55"
-                            Number="{Binding DisplayWidth, Mode=TwoWay}" AllowEmpty="False" Minimum="16"
-                            Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
-                            IsEnabled="{Binding UseDisplayWidth}" />
+						<RadioButton Margin="37,160,0,0" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top"
+							Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
+							IsChecked="{Binding UseDisplayWidth}">Display Width:</RadioButton>
+						<controls:NumberBox
+							Height="23" HorizontalAlignment="Left" Margin="155,156,0,0" VerticalAlignment="Top" Width="55"
+							Number="{Binding DisplayWidth, Mode=TwoWay}" AllowEmpty="False" Minimum="16"
+							Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
+							IsEnabled="{Binding UseDisplayWidth}" />
 
-                        <RadioButton Margin="37,185,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="119"
-                            Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
-                            IsChecked="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}">Pixel Aspect Ratio:</RadioButton>
-                        <controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="155,183,0,0" VerticalAlignment="Top" Width="40.698"
-                            Number="{Binding PixelAspectX, Mode=TwoWay}" AllowEmpty="False"
-                            Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
-                            IsEnabled="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}"/>
-                        <Label Height="23.562" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="198,181.356,0,0" Name="label5" VerticalAlignment="Top" Width="16.422"
-                            Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}">/</Label>
-                        <controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="215,183,0,0" VerticalAlignment="Top" Width="40.698"
-                            Number="{Binding PixelAspectY, Mode=TwoWay}" AllowEmpty="False"
-                            Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
-                            IsEnabled="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}"/>
-                    </Grid>
+						<RadioButton Margin="37,185,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="119"
+							Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
+							IsChecked="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}">Pixel Aspect Ratio:</RadioButton>
+						<controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="155,183,0,0" VerticalAlignment="Top" Width="40.698"
+							Number="{Binding PixelAspectX, Mode=TwoWay}" AllowEmpty="False"
+							Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
+							IsEnabled="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}"/>
+						<Label Height="23.562" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="198,181.356,0,0" Name="label5" VerticalAlignment="Top" Width="16.422"
+							Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}">/</Label>
+						<controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="215,183,0,0" VerticalAlignment="Top" Width="40.698"
+							Number="{Binding PixelAspectY, Mode=TwoWay}" AllowEmpty="False"
+							Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
+							IsEnabled="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}"/>
+					</Grid>
 
-                    <Grid Grid.Row="2" Grid.Column="0" Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">
-                        <TextBlock Text="Output" Height="21" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Top" Width="54" Style="{StaticResource SectionHeader}" />
-                        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="53,5,0,0" Background="{StaticResource OutputBrush}" Style="{StaticResource InputOutputInfoSection}" Height="55.88" Width="228">
-                            <Grid Width="220">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="105" />
-                                    <ColumnDefinition Width="173*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="Storage Resolution:" Grid.Row="0" Grid.Column="0" />
-                                <TextBlock Text="Pixel Aspect Ratio:" Grid.Row="1" Grid.Column="0" />
-                                <TextBlock Text="Display Resolution:" Grid.Row="2" Grid.Column="0" />
+					<Grid Grid.Row="2" Grid.Column="0" Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">
+						<TextBlock Text="Output" Height="21" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Top" Width="54" Style="{StaticResource SectionHeader}" />
+						<Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="53,5,0,0" Background="{StaticResource OutputBrush}" Style="{StaticResource InputOutputInfoSection}" Height="55.88" Width="228">
+							<Grid Width="220">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="105" />
+									<ColumnDefinition Width="173*" />
+								</Grid.ColumnDefinitions>
+								<TextBlock Text="Storage Resolution:" Grid.Row="0" Grid.Column="0" />
+								<TextBlock Text="Pixel Aspect Ratio:" Grid.Row="1" Grid.Column="0" />
+								<TextBlock Text="Display Resolution:" Grid.Row="2" Grid.Column="0" />
 
-                                <TextBlock Text="{Binding OutputSourceResolution}" Grid.Row="0" Grid.Column="1" />
-                                <TextBlock Text="{Binding OutputPixelAspectRatio}" Grid.Row="1" Grid.Column="1" />
-                                <TextBlock Text="{Binding OutputDisplayResolution}" Grid.Row="2" Grid.Column="1" />
-                            </Grid>
-                        </Border>
-                    </Grid>
-                    <TextBlock Grid.Column="1" Grid.RowSpan="3" Height="21" Margin="50,6.96,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="83"
-                        Text="Cropping"
-                        Style="{StaticResource SectionHeader}" />
+								<TextBlock Text="{Binding OutputSourceResolution}" Grid.Row="0" Grid.Column="1" />
+								<TextBlock Text="{Binding OutputPixelAspectRatio}" Grid.Row="1" Grid.Column="1" />
+								<TextBlock Text="{Binding OutputDisplayResolution}" Grid.Row="2" Grid.Column="1" />
+							</Grid>
+						</Border>
+					</Grid>
+					<TextBlock Grid.Column="1" Grid.RowSpan="3" Height="21" Margin="50,6.96,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="83"
+						Text="Cropping"
+						Style="{StaticResource SectionHeader}" />
 
-                    <RadioButton Height="16" Grid.Column="1" Grid.RowSpan="3"  HorizontalAlignment="Left" Margin="50,34,0,0" Name="radioButton1" VerticalAlignment="Top" Width="120"
-                        IsChecked="{Binding CustomCropping, Converter={StaticResource InverseBoolConverter}}">Automatic</RadioButton>
-                    <RadioButton Height="16" Grid.Column="1" Grid.RowSpan="3"  HorizontalAlignment="Left" Margin="50,56,0,0" Name="radioButton2" VerticalAlignment="Top" Width="120"
-                        IsChecked="{Binding CustomCropping}">Custom</RadioButton>
-                    <Grid Margin="45.434,70,0,0" Name="grid4" Grid.Column="1" Height="139.04" VerticalAlignment="Top" Grid.RowSpan="3" HorizontalAlignment="Left" Width="210">
-                        <controls:NumberBox Height="23" Margin="78,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="36"
-                            Number="{Binding CropTop, Mode=TwoWay}" AllowEmpty="False"
-                            IsEnabled="{Binding CustomCropping}"/>
-                        <controls:NumberBox Margin="120,56,0,0" Height="22.96" VerticalAlignment="Top" HorizontalAlignment="Left" Width="36"
-                            Number="{Binding CropRight, Mode=TwoWay}" AllowEmpty="False"
-                            IsEnabled="{Binding CustomCropping}"/>
-                        <controls:NumberBox Margin="37,56,0,0" HorizontalAlignment="Left" Width="36" Height="23" VerticalAlignment="Top"
-                            Number="{Binding CropLeft, Mode=TwoWay}" AllowEmpty="False"
-                            IsEnabled="{Binding CustomCropping}"/>
-                        <controls:NumberBox Height="23" Margin="78,80,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="36"
-                            Number="{Binding CropBottom, Mode=TwoWay}" AllowEmpty="False"
-                            IsEnabled="{Binding CustomCropping}"/>
-                        <Label Height="28" Margin="81,6,0,0" Name="label7" VerticalAlignment="Top" HorizontalAlignment="Left" Width="38.019">Top</Label>
-                        <Label Margin="7,54,0,0" Name="label8" HorizontalAlignment="Left" Width="33" Height="28" VerticalAlignment="Top">Left</Label>
-                        <Label Height="28" Margin="71,98.96,0,0" Name="label9" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.566">Bottom</Label>
-                        <Label HorizontalAlignment="Left" Margin="155.64,54,0,0" Name="label10" Width="53.36" Height="28.225" VerticalAlignment="Top">Right</Label>
-                    </Grid>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Video Filters">
-                <Grid>
-                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,16,0,121" Name="grid5" Width="290">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        
-                        <Label Grid.Row="0" Grid.Column="0">Detelecine:</Label>
-                        <ComboBox Grid.Row="0" Grid.Column="1"
-                            Style="{StaticResource NormalComboBox}"
-                            ItemsSource="{Binding DisplayNames, Source={StaticResource DetelecineChoices}}"
-                            SelectedValue="{Binding Detelecine, Converter={StaticResource DetelecineChoices}}"/>
-                        <TextBox Grid.Row="0" Grid.Column="2"
-                            Text="{Binding CustomDetelecine}"
-                            Visibility="{Binding CustomDetelecineVisible, Converter={StaticResource VisibilityConverter}}"
-                            Style="{StaticResource CustomFilterBox}" />
+					<RadioButton Height="16" Grid.Column="1" Grid.RowSpan="3"  HorizontalAlignment="Left" Margin="50,34,0,0" Name="radioButton1" VerticalAlignment="Top" Width="120"
+						IsChecked="{Binding CustomCropping, Converter={StaticResource InverseBoolConverter}}">Automatic</RadioButton>
+					<RadioButton Height="16" Grid.Column="1" Grid.RowSpan="3"  HorizontalAlignment="Left" Margin="50,56,0,0" Name="radioButton2" VerticalAlignment="Top" Width="120"
+						IsChecked="{Binding CustomCropping}">Custom</RadioButton>
+					<Grid Margin="45.434,70,0,0" Name="grid4" Grid.Column="1" Height="139.04" VerticalAlignment="Top" Grid.RowSpan="3" HorizontalAlignment="Left" Width="210">
+						<controls:NumberBox Height="23" Margin="78,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="36"
+							Number="{Binding CropTop, Mode=TwoWay}" AllowEmpty="False"
+							IsEnabled="{Binding CustomCropping}"/>
+						<controls:NumberBox Margin="120,56,0,0" Height="22.96" VerticalAlignment="Top" HorizontalAlignment="Left" Width="36"
+							Number="{Binding CropRight, Mode=TwoWay}" AllowEmpty="False"
+							IsEnabled="{Binding CustomCropping}"/>
+						<controls:NumberBox Margin="37,56,0,0" HorizontalAlignment="Left" Width="36" Height="23" VerticalAlignment="Top"
+							Number="{Binding CropLeft, Mode=TwoWay}" AllowEmpty="False"
+							IsEnabled="{Binding CustomCropping}"/>
+						<controls:NumberBox Height="23" Margin="78,80,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="36"
+							Number="{Binding CropBottom, Mode=TwoWay}" AllowEmpty="False"
+							IsEnabled="{Binding CustomCropping}"/>
+						<Label Height="28" Margin="81,6,0,0" Name="label7" VerticalAlignment="Top" HorizontalAlignment="Left" Width="38.019">Top</Label>
+						<Label Margin="7,54,0,0" Name="label8" HorizontalAlignment="Left" Width="33" Height="28" VerticalAlignment="Top">Left</Label>
+						<Label Height="28" Margin="71,98.96,0,0" Name="label9" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.566">Bottom</Label>
+						<Label HorizontalAlignment="Left" Margin="155.64,54,0,0" Name="label10" Width="53.36" Height="28.225" VerticalAlignment="Top">Right</Label>
+					</Grid>
+				</Grid>
+			</TabItem>
+			<TabItem Header="Video Filters">
+				<Grid>
+					<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,16,0,121" Name="grid5" Width="290">
+						<Grid.RowDefinitions>
+							<RowDefinition />
+							<RowDefinition />
+							<RowDefinition />
+							<RowDefinition />
+							<RowDefinition />
+							<RowDefinition />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						
+						<Label Grid.Row="0" Grid.Column="0">Detelecine:</Label>
+						<ComboBox Grid.Row="0" Grid.Column="1"
+							Style="{StaticResource NormalComboBox}"
+							ItemsSource="{Binding DisplayNames, Source={StaticResource DetelecineChoices}}"
+							SelectedValue="{Binding Detelecine, Converter={StaticResource DetelecineChoices}}"/>
+						<TextBox Grid.Row="0" Grid.Column="2"
+							Text="{Binding CustomDetelecine}"
+							Visibility="{Binding CustomDetelecineVisible, Converter={StaticResource VisibilityConverter}}"
+							Style="{StaticResource CustomFilterBox}" />
 
-                        <Label Grid.Row="1" Grid.Column="0">Decomb:</Label>
-                        <ComboBox Grid.Row="1" Grid.Column="1"
-                            Style="{StaticResource NormalComboBox}"
-                            ItemsSource="{Binding DisplayNames, Source={StaticResource DecombChoices}}"
-                            SelectedValue="{Binding Decomb, Converter={StaticResource DecombChoices}}"/>
-                        <TextBox Grid.Row="1" Grid.Column="2"
-                            Text="{Binding CustomDecomb}"
-                            Visibility="{Binding CustomDecombVisible, Converter={StaticResource VisibilityConverter}}"
-                            Style="{StaticResource CustomFilterBox}" />
+						<Label Grid.Row="1" Grid.Column="0">Decomb:</Label>
+						<ComboBox Grid.Row="1" Grid.Column="1"
+							Style="{StaticResource NormalComboBox}"
+							ItemsSource="{Binding DisplayNames, Source={StaticResource DecombChoices}}"
+							SelectedValue="{Binding Decomb, Converter={StaticResource DecombChoices}}"/>
+						<TextBox Grid.Row="1" Grid.Column="2"
+							Text="{Binding CustomDecomb}"
+							Visibility="{Binding CustomDecombVisible, Converter={StaticResource VisibilityConverter}}"
+							Style="{StaticResource CustomFilterBox}" />
 
-                        <Label Grid.Row="2" Grid.Column="0">Deinterlace:</Label>
-                        <ComboBox Grid.Row="2" Grid.Column="1"
-                            Style="{StaticResource NormalComboBox}"
-                            ItemsSource="{Binding DisplayNames, Source={StaticResource DeinterlaceChoices}}"
-                            SelectedValue="{Binding Deinterlace, Converter={StaticResource DeinterlaceChoices}}"/>
-                        <TextBox Grid.Row="2" Grid.Column="2"
-                            Text="{Binding CustomDeinterlace}"
-                            Visibility="{Binding CustomDeinterlaceVisible, Converter={StaticResource VisibilityConverter}}"
-                            Style="{StaticResource CustomFilterBox}" />
+						<Label Grid.Row="2" Grid.Column="0">Deinterlace:</Label>
+						<ComboBox Grid.Row="2" Grid.Column="1"
+							Style="{StaticResource NormalComboBox}"
+							ItemsSource="{Binding DisplayNames, Source={StaticResource DeinterlaceChoices}}"
+							SelectedValue="{Binding Deinterlace, Converter={StaticResource DeinterlaceChoices}}"/>
+						<TextBox Grid.Row="2" Grid.Column="2"
+							Text="{Binding CustomDeinterlace}"
+							Visibility="{Binding CustomDeinterlaceVisible, Converter={StaticResource VisibilityConverter}}"
+							Style="{StaticResource CustomFilterBox}" />
 
-                        <Label Grid.Row="3" Grid.Column="0">Denoise:</Label>
-                        <ComboBox Grid.Row="3" Grid.Column="1"
-                            Style="{StaticResource NormalComboBox}"
-                            ItemsSource="{Binding DisplayNames, Source={StaticResource DenoiseChoices}}"
-                            SelectedValue="{Binding Denoise, Converter={StaticResource DenoiseChoices}}"/>
-                        <TextBox Grid.Row="3" Grid.Column="2"
-                            Text="{Binding CustomDenoise}"
-                            Visibility="{Binding CustomDenoiseVisible, Converter={StaticResource VisibilityConverter}}"
-                            Style="{StaticResource CustomFilterBox}" />
+						<Label Grid.Row="3" Grid.Column="0">Denoise:</Label>
+						<ComboBox Grid.Row="3" Grid.Column="1"
+							Style="{StaticResource NormalComboBox}"
+							ItemsSource="{Binding DisplayNames, Source={StaticResource DenoiseChoices}}"
+							SelectedValue="{Binding Denoise, Converter={StaticResource DenoiseChoices}}"/>
+						<TextBox Grid.Row="3" Grid.Column="2"
+							Text="{Binding CustomDenoise}"
+							Visibility="{Binding CustomDenoiseVisible, Converter={StaticResource VisibilityConverter}}"
+							Style="{StaticResource CustomFilterBox}" />
 
-                        <Label Grid.Row="4" Grid.Column="0">Deblock:</Label>
-                        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
-                            <TextBlock Width="28" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding DeblockText}" />
-                            <Slider Value="{Binding Deblock}" Width="155" Minimum="4" Maximum="15" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" />
-                        </StackPanel>
+						<Label Grid.Row="4" Grid.Column="0">Deblock:</Label>
+						<StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
+							<TextBlock Width="28" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding DeblockText}" />
+							<Slider Value="{Binding Deblock}" Width="155" Minimum="4" Maximum="15" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" />
+						</StackPanel>
 
-                        <CheckBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="3" Content="Grayscale encoding" IsChecked="{Binding Grayscale}" />
-                    </Grid>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Video">
-                <Grid>
-                    <TextBlock Height="21" HorizontalAlignment="Left" Margin="21,12,0,0" Name="textBlock1" VerticalAlignment="Top" Width="63"
-                        Text="Video"
-                        Style="{StaticResource SectionHeader}"/>
-                    <TextBlock Height="21" Margin="275,12,0,0" Name="textBlock3" VerticalAlignment="Top"
-                        Text="Quality"
-                        Style="{StaticResource SectionHeader}" HorizontalAlignment="Left" Width="66" />
-                    <Label Height="28" HorizontalAlignment="Left" Margin="21,38.961,0,0" Name="label6" VerticalAlignment="Top" Width="102">Video Codec:</Label>
-                    <Label Height="28" HorizontalAlignment="Left" Margin="21,73,0,0" Name="label13" VerticalAlignment="Top" Width="102">Framerate (FPS):</Label>
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="123.876,43.956,0,0" VerticalAlignment="Top" Width="122"
-                        ItemsSource="{Binding EncoderChoices}"
-                        SelectedItem="{Binding SelectedEncoder}"
-                        DisplayMemberPath="Display" />
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="123.876,78,0,0" VerticalAlignment="Top" Width="122"
-                        ItemsSource="{Binding FramerateChoices}"
-                        SelectedItem="{Binding SelectedFramerate}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Converter={StaticResource FramerateDisplayConverter}}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <RadioButton Height="16" Margin="280,39,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" GroupName="VideoQuality"
-                        IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=TargetSize}">Target Size (MB):</RadioButton>
-                    <controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="406,36,0,0" VerticalAlignment="Top" Width="62"
-                        Number="{Binding TargetSize, Mode=TwoWay}"
-                        AllowEmpty="False" IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=TargetSize}" />
-                    
-                    <RadioButton Height="16" Margin="280.2,66.6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" GroupName="VideoQuality"
-                        IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=AverageBitrate}">Avg Bitrate (kbps):</RadioButton>
-                    <controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="406,65,0,0" VerticalAlignment="Top" Width="62"
-                        Number="{Binding VideoBitrate, Mode=TwoWay}"
-                        AllowEmpty="False" IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=AverageBitrate}" />
-                    
-                    <RadioButton Height="16" Margin="280,99,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" GroupName="VideoQuality"
-                        IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}">Constant Quality:</RadioButton>
-                    <controls:DoubleNumberBox Height="23" HorizontalAlignment="Left" Margin="406,94,0,0" VerticalAlignment="Top" Width="49"
-                        Number="{Binding Quality, Mode=TwoWay}" Minimum="0" Maximum="51"
-                        IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}"/>
-                    <Slider Height="22" Margin="280,121,6,0" VerticalAlignment="Top"
-                        TickPlacement="BottomRight" Minimum="{Binding QualitySliderMin}" Maximum="{Binding QualitySliderMax}" TickFrequency="1" IsSnapToTickEnabled="True"
-                        Value="{Binding Quality}"
-                        IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}"/>
-                    <TextBlock Height="21" Margin="280.2,149,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90.8" TextAlignment="Left"
-                        Text="{Binding QualitySliderLeftText}"/>
-                    <TextBlock Height="21" HorizontalAlignment="Right" Margin="0,149,6,0" VerticalAlignment="Top" Width="93" TextAlignment="Right"
-                        Text="{Binding QualitySliderRightText}"/>
-                    <CheckBox
-                        Content="2-pass Encoding"
-                        Height="16" HorizontalAlignment="Left" Margin="124,143,0,0" VerticalAlignment="Top"
-                        IsChecked="{Binding TwoPassEncoding}"
-                        IsEnabled="{Binding TwoPassEncodingEnabled}"/>
-                    <CheckBox
-                        Content="Turbo first Pass"
-                        Height="16" HorizontalAlignment="Left" Margin="145,166,0,0" VerticalAlignment="Top"
-                        IsChecked="{Binding TurboFirstPass}"
-                        IsEnabled="{Binding TurboFirstPassEnabled}"/>
-                    <CheckBox
-                        Content="Peak Framerate (VFR)"
-                        Height="16" HorizontalAlignment="Left" Margin="124,109,0,0" VerticalAlignment="Top"
-                        IsChecked="{Binding PeakFramerate}"
-                        Visibility="{Binding PeakFramerateVisible, Converter={StaticResource VisibilityConverter}}"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Audio">
-                <Grid>
-                    <StackPanel Orientation="Vertical" Margin="6,15,0,0" VerticalAlignment="Top">
-                        <ListView
-                            ItemsSource="{Binding AudioEncodings}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridView.Columns>
-                                        <GridViewColumn Header="Target Stream" CellTemplate="{StaticResource TargetStreamTemplate}" x:Name="targetStreamColumn" />
-                                        <GridViewColumn Header="Codec" CellTemplate="{StaticResource AudioCodecTemplate}" x:Name="codecColumn" />
-                                        <GridViewColumn Width="137" Header="Mixdown" CellTemplate="{StaticResource MixdownTemplate}" x:Name="mixdownColumn" />
-                                        <GridViewColumn Width="70" Header="Sample Rate" CellTemplate="{StaticResource SampleRateTemplate}" />
-                                        <GridViewColumn Width="62" Header="Bitrate" CellTemplate="{StaticResource BitrateTemplate}" />
-                                        <GridViewColumn Header="DRC" CellTemplate="{StaticResource DrcTemplate}" />
-                                        <GridViewColumn CellTemplate="{StaticResource RemoveAudioTemplate}" />
-                                    </GridView.Columns>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                        <Button HorizontalAlignment="Left" Margin="0,6,0,0" Height="23" Width="121"
-                            Command="{Binding AddAudioEncodingCommand}">Add audio encoding</Button>
-                        <Grid HorizontalAlignment="Left" Margin="0,10,0,0"
-                            Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">
-                            <TextBlock
-                                Style="{StaticResource SectionHeader}"
-                                Text="Output" />
-                            <Border Margin="0,20,0,0" Background="{StaticResource OutputBrush}" Style="{StaticResource InputOutputInfoSection}">
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock
-                                    Text="(No tracks)"
-                                    Style="{StaticResource DescriptiveText}"
-                                    Visibility="{Binding HasAudioTracks, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"/>
-                                    <ItemsControl ItemsSource="{Binding AudioOutputPreviews}" Grid.IsSharedSizeScope="True"
-                                    Visibility="{Binding HasAudioTracks, Converter={StaticResource VisibilityConverter}}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*" SharedSizeGroup="TrackNumber"/>
-                                                        <ColumnDefinition Width="*" SharedSizeGroup="TrackName"/>
-                                                        <ColumnDefinition Width="*" SharedSizeGroup="Encoder"/>
-                                                        <ColumnDefinition Width="*" SharedSizeGroup="Bitrate"/>
-                                                    </Grid.ColumnDefinitions>
+						<CheckBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="3" Content="Grayscale encoding" IsChecked="{Binding Grayscale}" />
+					</Grid>
+				</Grid>
+			</TabItem>
+			<TabItem Header="Video">
+				<Grid>
+					<TextBlock Height="21" HorizontalAlignment="Left" Margin="21,12,0,0" Name="textBlock1" VerticalAlignment="Top" Width="63"
+						Text="Video"
+						Style="{StaticResource SectionHeader}"/>
+					<TextBlock Height="21" Margin="275,12,0,0" Name="textBlock3" VerticalAlignment="Top"
+						Text="Quality"
+						Style="{StaticResource SectionHeader}" HorizontalAlignment="Left" Width="66" />
+					<Label Height="28" HorizontalAlignment="Left" Margin="21,38.961,0,0" Name="label6" VerticalAlignment="Top" Width="102">Video Codec:</Label>
+					<Label Height="28" HorizontalAlignment="Left" Margin="21,73,0,0" Name="label13" VerticalAlignment="Top" Width="102">Framerate (FPS):</Label>
+					<ComboBox Height="23" HorizontalAlignment="Left" Margin="123.876,43.956,0,0" VerticalAlignment="Top" Width="122"
+						ItemsSource="{Binding EncoderChoices}"
+						SelectedItem="{Binding SelectedEncoder}"
+						DisplayMemberPath="Display" />
+					<ComboBox Height="23" HorizontalAlignment="Left" Margin="123.876,78,0,0" VerticalAlignment="Top" Width="122"
+						ItemsSource="{Binding FramerateChoices}"
+						SelectedItem="{Binding SelectedFramerate}">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Converter={StaticResource FramerateDisplayConverter}}" />
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+					<RadioButton Height="16" Margin="280,39,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" GroupName="VideoQuality"
+						IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=TargetSize}">Target Size (MB):</RadioButton>
+					<controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="406,36,0,0" VerticalAlignment="Top" Width="62"
+						Number="{Binding TargetSize, Mode=TwoWay}"
+						AllowEmpty="False" IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=TargetSize}" />
+					
+					<RadioButton Height="16" Margin="280.2,66.6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" GroupName="VideoQuality"
+						IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=AverageBitrate}">Avg Bitrate (kbps):</RadioButton>
+					<controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="406,65,0,0" VerticalAlignment="Top" Width="62"
+						Number="{Binding VideoBitrate, Mode=TwoWay}"
+						AllowEmpty="False" IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=AverageBitrate}" />
+					
+					<RadioButton Height="16" Margin="280,99,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" GroupName="VideoQuality"
+						IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}">Constant Quality:</RadioButton>
+					<controls:DoubleNumberBox Height="23" HorizontalAlignment="Left" Margin="406,94,0,0" VerticalAlignment="Top" Width="49"
+						Number="{Binding Quality, Mode=TwoWay}" Minimum="0" Maximum="51"
+						IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}"/>
+					<Slider Height="22" Margin="280,121,6,0" VerticalAlignment="Top"
+						TickPlacement="BottomRight" Minimum="{Binding QualitySliderMin}" Maximum="{Binding QualitySliderMax}" TickFrequency="1" IsSnapToTickEnabled="True"
+						Value="{Binding Quality}"
+						IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}"/>
+					<TextBlock Height="21" Margin="280.2,149,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90.8" TextAlignment="Left"
+						Text="{Binding QualitySliderLeftText}"/>
+					<TextBlock Height="21" HorizontalAlignment="Right" Margin="0,149,6,0" VerticalAlignment="Top" Width="93" TextAlignment="Right"
+						Text="{Binding QualitySliderRightText}"/>
+					<CheckBox
+						Content="2-pass Encoding"
+						Height="16" HorizontalAlignment="Left" Margin="124,143,0,0" VerticalAlignment="Top"
+						IsChecked="{Binding TwoPassEncoding}"
+						IsEnabled="{Binding TwoPassEncodingEnabled}"/>
+					<CheckBox
+						Content="Turbo first Pass"
+						Height="16" HorizontalAlignment="Left" Margin="145,166,0,0" VerticalAlignment="Top"
+						IsChecked="{Binding TurboFirstPass}"
+						IsEnabled="{Binding TurboFirstPassEnabled}"/>
+					<CheckBox
+						Content="Peak Framerate (VFR)"
+						Height="16" HorizontalAlignment="Left" Margin="124,109,0,0" VerticalAlignment="Top"
+						IsChecked="{Binding PeakFramerate}"
+						Visibility="{Binding PeakFramerateVisible, Converter={StaticResource VisibilityConverter}}"/>
+				</Grid>
+			</TabItem>
+			<TabItem Header="Audio">
+				<Grid>
+					<StackPanel Orientation="Vertical" Margin="6,15,0,0" VerticalAlignment="Top">
+						<ListView
+							ItemsSource="{Binding AudioEncodings}">
+							<ListView.View>
+								<GridView>
+									<GridView.Columns>
+										<GridViewColumn Header="Target Stream" CellTemplate="{StaticResource TargetStreamTemplate}" x:Name="targetStreamColumn" />
+										<GridViewColumn Header="Codec" CellTemplate="{StaticResource AudioCodecTemplate}" x:Name="codecColumn" />
+										<GridViewColumn Width="137" Header="Mixdown" CellTemplate="{StaticResource MixdownTemplate}" x:Name="mixdownColumn" />
+										<GridViewColumn Width="70" Header="Sample Rate" CellTemplate="{StaticResource SampleRateTemplate}" />
+										<GridViewColumn Width="62" Header="Bitrate" CellTemplate="{StaticResource BitrateTemplate}" />
+										<GridViewColumn Header="DRC" CellTemplate="{StaticResource DrcTemplate}" />
+										<GridViewColumn CellTemplate="{StaticResource RemoveAudioTemplate}" />
+									</GridView.Columns>
+								</GridView>
+							</ListView.View>
+						</ListView>
+						<Button HorizontalAlignment="Left" Margin="0,6,0,0" Height="23" Width="121"
+							Command="{Binding AddAudioEncodingCommand}">Add audio encoding</Button>
+						<Grid HorizontalAlignment="Left" Margin="0,10,0,0"
+							Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">
+							<TextBlock
+								Style="{StaticResource SectionHeader}"
+								Text="Output" />
+							<Border Margin="0,20,0,0" Background="{StaticResource OutputBrush}" Style="{StaticResource InputOutputInfoSection}">
+								<StackPanel Orientation="Vertical">
+									<TextBlock
+									Text="(No tracks)"
+									Style="{StaticResource DescriptiveText}"
+									Visibility="{Binding HasAudioTracks, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"/>
+									<ItemsControl ItemsSource="{Binding AudioOutputPreviews}" Grid.IsSharedSizeScope="True"
+									Visibility="{Binding HasAudioTracks, Converter={StaticResource VisibilityConverter}}">
+										<ItemsControl.ItemTemplate>
+											<DataTemplate>
+												<Grid>
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition Width="*" SharedSizeGroup="TrackNumber"/>
+														<ColumnDefinition Width="*" SharedSizeGroup="TrackName"/>
+														<ColumnDefinition Width="*" SharedSizeGroup="Encoder"/>
+														<ColumnDefinition Width="*" SharedSizeGroup="Bitrate"/>
+													</Grid.ColumnDefinitions>
 
-                                                    <TextBlock Grid.Column="0" Text="{Binding TrackNumber}" Style="{StaticResource AudioOutputPreview}"/>
-                                                    <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource AudioOutputPreview}"/>
-                                                    <TextBlock Grid.Column="2" Text="{Binding Encoder}" Style="{StaticResource AudioOutputPreview}"/>
-                                                    <TextBlock Grid.Column="3" Text="{Binding Bitrate}" Style="{StaticResource AudioOutputPreview}"/>
-                                                </Grid>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </StackPanel>
-                            </Border>
-                        </Grid>
-                    </StackPanel>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Advanced">
-                <Grid>
-                <TextBlock Height="21" Width="162" HorizontalAlignment="Left" Margin="6,3,0,0" VerticalAlignment="Top" Text="Advanced H.264 Options" Style="{StaticResource SectionHeader}" />
-                    <Grid Height="58" HorizontalAlignment="Left" Margin="6,29,0,0" Name="grid3" VerticalAlignment="Top" Width="226">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Label Content="Reference Frames:" Grid.Row="0" Grid.Column="0" />
-                        <ComboBox
-                            Grid.Row="0" Grid.Column="1" Height="22"
-                            ItemsSource="{x:Static vm:AdvancedChoices.ReferenceFrames}"
-                            DisplayMemberPath="Label"
-                            SelectedItem="{Binding ReferenceFrames}"/>
+													<TextBlock Grid.Column="0" Text="{Binding TrackNumber}" Style="{StaticResource AudioOutputPreview}"/>
+													<TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource AudioOutputPreview}"/>
+													<TextBlock Grid.Column="2" Text="{Binding Encoder}" Style="{StaticResource AudioOutputPreview}"/>
+													<TextBlock Grid.Column="3" Text="{Binding Bitrate}" Style="{StaticResource AudioOutputPreview}"/>
+												</Grid>
+											</DataTemplate>
+										</ItemsControl.ItemTemplate>
+									</ItemsControl>
+								</StackPanel>
+							</Border>
+						</Grid>
+					</StackPanel>
+				</Grid>
+			</TabItem>
+			<TabItem Header="Advanced">
+				<Grid>
+				<TextBlock Height="21" Width="162" HorizontalAlignment="Left" Margin="6,3,0,0" VerticalAlignment="Top" Text="Advanced H.264 Options" Style="{StaticResource SectionHeader}" />
+					<Grid Height="58" HorizontalAlignment="Left" Margin="6,29,0,0" Name="grid3" VerticalAlignment="Top" Width="226">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Label Content="Reference Frames:" Grid.Row="0" Grid.Column="0" />
+						<ComboBox
+							Grid.Row="0" Grid.Column="1" Height="22"
+							ItemsSource="{x:Static vm:AdvancedChoices.ReferenceFrames}"
+							DisplayMemberPath="Label"
+							SelectedItem="{Binding ReferenceFrames}"/>
 
-                        <Label
-                            Content="Mixed References:" Grid.Row="1" Grid.Column="0"
-                            Visibility="{Binding MixedReferencesVisible, Converter={StaticResource VisibilityConverter}}"/>
-                        <CheckBox
-                            Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"
-                            Visibility="{Binding MixedReferencesVisible, Converter={StaticResource VisibilityConverter}}"
-                            IsChecked="{Binding MixedReferences}"/>
-                    </Grid>
-                    <Grid Height="79" HorizontalAlignment="Left" Margin="240,4,0,0" Name="grid6" VerticalAlignment="Top" Width="310">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Label Content="Motion Estimation Method:" Grid.Row="0" Grid.Column="0" />
-                        <ComboBox
-                            Grid.Row="0" Grid.Column="1" Height="22"
-                            ItemsSource="{x:Static vm:AdvancedChoices.MotionEstimationMethod}"
-                            DisplayMemberPath="Label"
-                            SelectedItem="{Binding MotionEstimationMethod}"/>
+						<Label
+							Content="Mixed References:" Grid.Row="1" Grid.Column="0"
+							Visibility="{Binding MixedReferencesVisible, Converter={StaticResource VisibilityConverter}}"/>
+						<CheckBox
+							Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"
+							Visibility="{Binding MixedReferencesVisible, Converter={StaticResource VisibilityConverter}}"
+							IsChecked="{Binding MixedReferences}"/>
+					</Grid>
+					<Grid Height="79" HorizontalAlignment="Left" Margin="240,4,0,0" Name="grid6" VerticalAlignment="Top" Width="310">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Label Content="Motion Estimation Method:" Grid.Row="0" Grid.Column="0" />
+						<ComboBox
+							Grid.Row="0" Grid.Column="1" Height="22"
+							ItemsSource="{x:Static vm:AdvancedChoices.MotionEstimationMethod}"
+							DisplayMemberPath="Label"
+							SelectedItem="{Binding MotionEstimationMethod}"/>
 
-                        <Label Content="Subpixel Motion Estimation:" Grid.Row="1" Grid.Column="0" />
-                        <ComboBox
-                            Grid.Row="1" Grid.Column="1" Height="22"
-                            ItemsSource="{x:Static vm:AdvancedChoices.SubpixelMotionEstimation}"
-                            DisplayMemberPath="Label"
-                            SelectedItem="{Binding SubpixelMotionEstimation}" />
+						<Label Content="Subpixel Motion Estimation:" Grid.Row="1" Grid.Column="0" />
+						<ComboBox
+							Grid.Row="1" Grid.Column="1" Height="22"
+							ItemsSource="{x:Static vm:AdvancedChoices.SubpixelMotionEstimation}"
+							DisplayMemberPath="Label"
+							SelectedItem="{Binding SubpixelMotionEstimation}" />
 
-                        <Label
-                            Content="Motion Estimation Range:" Grid.Row="2" Grid.Column="0"
-                            Visibility="{Binding MotionEstimationRangeVisible, Converter={StaticResource VisibilityConverter}}"/>
-                        <ComboBox
-                            Grid.Row="2" Grid.Column="1" Height="22"
-                            ItemsSource="{x:Static vm:AdvancedChoices.MotionEstimationRange}"
-                            DisplayMemberPath="Label"
-                            SelectedItem="{Binding MotionEstimationRange}"
-                            Visibility="{Binding MotionEstimationRangeVisible, Converter={StaticResource VisibilityConverter}}"/>
-                    </Grid>
-                    <Grid Height="137" HorizontalAlignment="Left" Margin="6,93,0,0" Name="grid7" VerticalAlignment="Top" Width="226">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Label Content="B-Frames:" Grid.Row="0" Grid.Column="0" />
-                        <ComboBox
-                            Grid.Row="0" Grid.Column="1" Height="22"
-                            ItemsSource="{x:Static vm:AdvancedChoices.BFrames}"
-                            DisplayMemberPath="Label"
-                            SelectedItem="{Binding BFrames}" />
+						<Label
+							Content="Motion Estimation Range:" Grid.Row="2" Grid.Column="0"
+							Visibility="{Binding MotionEstimationRangeVisible, Converter={StaticResource VisibilityConverter}}"/>
+						<ComboBox
+							Grid.Row="2" Grid.Column="1" Height="22"
+							ItemsSource="{x:Static vm:AdvancedChoices.MotionEstimationRange}"
+							DisplayMemberPath="Label"
+							SelectedItem="{Binding MotionEstimationRange}"
+							Visibility="{Binding MotionEstimationRangeVisible, Converter={StaticResource VisibilityConverter}}"/>
+					</Grid>
+					<Grid Height="137" HorizontalAlignment="Left" Margin="6,93,0,0" Name="grid7" VerticalAlignment="Top" Width="226">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Label Content="B-Frames:" Grid.Row="0" Grid.Column="0" />
+						<ComboBox
+							Grid.Row="0" Grid.Column="1" Height="22"
+							ItemsSource="{x:Static vm:AdvancedChoices.BFrames}"
+							DisplayMemberPath="Label"
+							SelectedItem="{Binding BFrames}" />
 
-                        <Label
-                            Content="Adaptive B-Frames:" Grid.Row="1" Grid.Column="0"
-                            Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"  />
-                        <ComboBox
-                            Grid.Row="1" Grid.Column="1" Height="22"
-                            ItemsSource="{x:Static vm:AdvancedChoices.AdaptiveBFrames}"
-                            DisplayMemberPath="Label"
-                            SelectedItem="{Binding AdaptiveBFrames}"
-                            Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"/>
+						<Label
+							Content="Adaptive B-Frames:" Grid.Row="1" Grid.Column="0"
+							Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"  />
+						<ComboBox
+							Grid.Row="1" Grid.Column="1" Height="22"
+							ItemsSource="{x:Static vm:AdvancedChoices.AdaptiveBFrames}"
+							DisplayMemberPath="Label"
+							SelectedItem="{Binding AdaptiveBFrames}"
+							Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"/>
 
-                        <Label
-                            Content="Direct Prediction:" Grid.Row="2" Grid.Column="0"
-                            Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"/>
-                        <ComboBox
-                            Grid.Row="2" Grid.Column="1" Height="22"
-                            ItemsSource="{x:Static vm:AdvancedChoices.DirectPrediction}"
-                            DisplayMemberPath="Label"
-                            SelectedItem="{Binding DirectPrediction}"
-                            Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"/>
+						<Label
+							Content="Direct Prediction:" Grid.Row="2" Grid.Column="0"
+							Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"/>
+						<ComboBox
+							Grid.Row="2" Grid.Column="1" Height="22"
+							ItemsSource="{x:Static vm:AdvancedChoices.DirectPrediction}"
+							DisplayMemberPath="Label"
+							SelectedItem="{Binding DirectPrediction}"
+							Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"/>
 
-                        <Label
-                            Content="Weighted B-Frames:" Grid.Row="3" Grid.Column="0"
-                            Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"/>
-                        <CheckBox
-                            Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"
-                            IsChecked="{Binding WeightedBFrames}"
-                            Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"/>
+						<Label
+							Content="Weighted B-Frames:" Grid.Row="3" Grid.Column="0"
+							Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"/>
+						<CheckBox
+							Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"
+							IsChecked="{Binding WeightedBFrames}"
+							Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"/>
 
-                        <Label
-                            Content="Pyramidal B-Frames:" Grid.Row="4" Grid.Column="0"
-                            Visibility="{Binding PyramidalBFramesVisible, Converter={StaticResource VisibilityConverter}}"/>
-                        <CheckBox
-                            Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"
-                            IsChecked="{Binding PyramidalBFrames}"
-                            Visibility="{Binding PyramidalBFramesVisible, Converter={StaticResource VisibilityConverter}}"/>
-                    </Grid>
-                    <Label Content="Analysis:" Height="28" HorizontalAlignment="Left" Margin="295,89,0,0" Name="label14" VerticalAlignment="Top" />
-                    <ComboBox
-                        Height="23" HorizontalAlignment="Left" Margin="356,90,0,0" VerticalAlignment="Top" Width="106"
-                        ItemsSource="{x:Static vm:AdvancedChoices.Analysis}"
-                        DisplayMemberPath="Label"
-                        SelectedItem="{Binding Analysis}"/>
-                    <Label
-                        Content="8x8 DCT:" Height="28" HorizontalAlignment="Left" Margin="469,89,0,0" Name="label15" VerticalAlignment="Top"
-                        Visibility="{Binding EightByEightDctVisible, Converter={StaticResource VisibilityConverter}}"/>
-                    <CheckBox
-                        Height="16" HorizontalAlignment="Left" Margin="531,96,0,0" VerticalAlignment="Top"
-                        IsChecked="{Binding EightByEightDct}"
-                        Visibility="{Binding EightByEightDctVisible, Converter={StaticResource VisibilityConverter}}"/>
-                    <Label Content="CABAC Entropy Coding:" Height="28" HorizontalAlignment="Left" Margin="244,115,0,0" Name="label16" VerticalAlignment="Top" />
-                    <CheckBox
-                        Height="16" HorizontalAlignment="Left" Margin="386,122,0,0" VerticalAlignment="Top"
-                        IsChecked="{Binding CabacEntropyCoding}"/>
-                    <Label
-                        Content="Trellis:" Height="28" HorizontalAlignment="Left" Margin="410,115,0,0" Name="label17" VerticalAlignment="Top"
-                        Visibility="{Binding CabacEntropyCoding, Converter={StaticResource VisibilityConverter}}"/>
-                    <ComboBox
-                        Height="23" HorizontalAlignment="Left" Margin="459,116,0,0" VerticalAlignment="Top" Width="85"
-                        ItemsSource="{x:Static vm:AdvancedChoices.Trellis}"
-                        DisplayMemberPath="Label"
-                        SelectedItem="{Binding Trellis}"
-                        Visibility="{Binding CabacEntropyCoding, Converter={StaticResource VisibilityConverter}}"/>
-                    <Grid Height="61" HorizontalAlignment="Left" Margin="242,144,0,0" VerticalAlignment="Top" Width="308">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Label Content="Psychovisual Rate Distortion:" Grid.Row="0" Grid.Column="0" />
-                        <Slider
-                            Grid.Row="0" Grid.Column="1"
-                            Minimum="0.0" Maximum="1.0" TickPlacement="BottomRight" TickFrequency="0.1" IsSnapToTickEnabled="True"
-                            Value="{Binding PsychovisualRateDistortion}"/>
+						<Label
+							Content="Pyramidal B-Frames:" Grid.Row="4" Grid.Column="0"
+							Visibility="{Binding PyramidalBFramesVisible, Converter={StaticResource VisibilityConverter}}"/>
+						<CheckBox
+							Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"
+							IsChecked="{Binding PyramidalBFrames}"
+							Visibility="{Binding PyramidalBFramesVisible, Converter={StaticResource VisibilityConverter}}"/>
+					</Grid>
+					<Label Content="Analysis:" Height="28" HorizontalAlignment="Left" Margin="295,89,0,0" Name="label14" VerticalAlignment="Top" />
+					<ComboBox
+						Height="23" HorizontalAlignment="Left" Margin="356,90,0,0" VerticalAlignment="Top" Width="106"
+						ItemsSource="{x:Static vm:AdvancedChoices.Analysis}"
+						DisplayMemberPath="Label"
+						SelectedItem="{Binding Analysis}"/>
+					<Label
+						Content="8x8 DCT:" Height="28" HorizontalAlignment="Left" Margin="469,89,0,0" Name="label15" VerticalAlignment="Top"
+						Visibility="{Binding EightByEightDctVisible, Converter={StaticResource VisibilityConverter}}"/>
+					<CheckBox
+						Height="16" HorizontalAlignment="Left" Margin="531,96,0,0" VerticalAlignment="Top"
+						IsChecked="{Binding EightByEightDct}"
+						Visibility="{Binding EightByEightDctVisible, Converter={StaticResource VisibilityConverter}}"/>
+					<Label Content="CABAC Entropy Coding:" Height="28" HorizontalAlignment="Left" Margin="244,115,0,0" Name="label16" VerticalAlignment="Top" />
+					<CheckBox
+						Height="16" HorizontalAlignment="Left" Margin="386,122,0,0" VerticalAlignment="Top"
+						IsChecked="{Binding CabacEntropyCoding}"/>
+					<Label
+						Content="Trellis:" Height="28" HorizontalAlignment="Left" Margin="410,115,0,0" Name="label17" VerticalAlignment="Top"
+						Visibility="{Binding CabacEntropyCoding, Converter={StaticResource VisibilityConverter}}"/>
+					<ComboBox
+						Height="23" HorizontalAlignment="Left" Margin="459,116,0,0" VerticalAlignment="Top" Width="85"
+						ItemsSource="{x:Static vm:AdvancedChoices.Trellis}"
+						DisplayMemberPath="Label"
+						SelectedItem="{Binding Trellis}"
+						Visibility="{Binding CabacEntropyCoding, Converter={StaticResource VisibilityConverter}}"/>
+					<Grid Height="61" HorizontalAlignment="Left" Margin="242,144,0,0" VerticalAlignment="Top" Width="308">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Label Content="Psychovisual Rate Distortion:" Grid.Row="0" Grid.Column="0" />
+						<Slider
+							Grid.Row="0" Grid.Column="1"
+							Minimum="0.0" Maximum="1.0" TickPlacement="BottomRight" TickFrequency="0.1" IsSnapToTickEnabled="True"
+							Value="{Binding PsychovisualRateDistortion}"/>
 
-                        <Label
-                            Content="Psychovisual Trellis:" Grid.Row="1" Grid.Column="0"
-                            Visibility="{Binding PsychovisualTrellisVisible, Converter={StaticResource VisibilityConverter}}"/>
-                        <Slider
-                            Grid.Row="1" Grid.Column="1"
-                            Minimum="0.0" Maximum="1.0" TickPlacement="BottomRight" TickFrequency="0.1" IsSnapToTickEnabled="True"
-                            Value="{Binding PsychovisualTrellis}"
-                            Visibility="{Binding PsychovisualTrellisVisible, Converter={StaticResource VisibilityConverter}}"/>
-                    </Grid>
-                    <Label Content="Deblocking:" Height="28" HorizontalAlignment="Left" Margin="246,209,0,0" VerticalAlignment="Top" />
-                    <ComboBox
-                        Height="23" HorizontalAlignment="Left" Margin="321,212,0,0" VerticalAlignment="Top" Width="87"
-                        ItemsSource="{x:Static vm:AdvancedChoices.DeblockingStrength}"
-                        DisplayMemberPath="Label"
-                        SelectedItem="{Binding DeblockingStrength}"/>
-                    <ComboBox
-                        Height="23" HorizontalAlignment="Left" Margin="321,239,0,0" VerticalAlignment="Top" Width="87"
-                        ItemsSource="{x:Static vm:AdvancedChoices.DeblockingThreshold}"
-                        DisplayMemberPath="Label"
-                        SelectedItem="{Binding DeblockingThreshold}"/>
-                    <Grid Height="52" HorizontalAlignment="Left" Margin="419,209,0,0" Name="grid8" VerticalAlignment="Top" Width="131">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Label Content="No Fast-P-Skip:" Grid.Row="0" Grid.Column="0" />
-                        <CheckBox
-                            Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"
-                            IsChecked="{Binding NoFastPSkip}"/>
+						<Label
+							Content="Psychovisual Trellis:" Grid.Row="1" Grid.Column="0"
+							Visibility="{Binding PsychovisualTrellisVisible, Converter={StaticResource VisibilityConverter}}"/>
+						<Slider
+							Grid.Row="1" Grid.Column="1"
+							Minimum="0.0" Maximum="1.0" TickPlacement="BottomRight" TickFrequency="0.1" IsSnapToTickEnabled="True"
+							Value="{Binding PsychovisualTrellis}"
+							Visibility="{Binding PsychovisualTrellisVisible, Converter={StaticResource VisibilityConverter}}"/>
+					</Grid>
+					<Label Content="Deblocking:" Height="28" HorizontalAlignment="Left" Margin="246,209,0,0" VerticalAlignment="Top" />
+					<ComboBox
+						Height="23" HorizontalAlignment="Left" Margin="321,212,0,0" VerticalAlignment="Top" Width="87"
+						ItemsSource="{x:Static vm:AdvancedChoices.DeblockingStrength}"
+						DisplayMemberPath="Label"
+						SelectedItem="{Binding DeblockingStrength}"/>
+					<ComboBox
+						Height="23" HorizontalAlignment="Left" Margin="321,239,0,0" VerticalAlignment="Top" Width="87"
+						ItemsSource="{x:Static vm:AdvancedChoices.DeblockingThreshold}"
+						DisplayMemberPath="Label"
+						SelectedItem="{Binding DeblockingThreshold}"/>
+					<Grid Height="52" HorizontalAlignment="Left" Margin="419,209,0,0" Name="grid8" VerticalAlignment="Top" Width="131">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<Label Content="No Fast-P-Skip:" Grid.Row="0" Grid.Column="0" />
+						<CheckBox
+							Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"
+							IsChecked="{Binding NoFastPSkip}"/>
 
-                        <Label Content="No DCT-Decimate:" Grid.Row="1" Grid.Column="0" />
-                        <CheckBox
-                            Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"
-                            IsChecked="{Binding NoDctDecimate}"/>
-                    </Grid>
-                    <TextBox
-                        Margin="4,278,4,4" Height="41"
-                        Text="{Binding AdvancedOptionsString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
-                    <Label Content="Options String" Height="28" HorizontalAlignment="Left" Margin="7,252,0,0" VerticalAlignment="Top" />
-                </Grid>
-            </TabItem>
-        </TabControl>
+						<Label Content="No DCT-Decimate:" Grid.Row="1" Grid.Column="0" />
+						<CheckBox
+							Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"
+							IsChecked="{Binding NoDctDecimate}"/>
+					</Grid>
+					<TextBox
+						Margin="4,278,4,4" Height="41"
+						Text="{Binding AdvancedOptionsString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
+					<Label Content="Options String" Height="28" HorizontalAlignment="Left" Margin="7,252,0,0" VerticalAlignment="Top" />
+				</Grid>
+			</TabItem>
+		</TabControl>
 
-    </Grid>
+	</Grid>
 </Window>

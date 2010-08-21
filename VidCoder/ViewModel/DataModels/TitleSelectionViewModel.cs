@@ -6,50 +6,50 @@ using HandBrake.SourceData;
 
 namespace VidCoder.ViewModel
 {
-    public class TitleSelectionViewModel : ViewModelBase
-    {
-        private QueueTitlesDialogViewModel titlesDialogVM;
-        private bool selected;
+	public class TitleSelectionViewModel : ViewModelBase
+	{
+		private QueueTitlesDialogViewModel titlesDialogVM;
+		private bool selected;
 
-        public TitleSelectionViewModel(Title title, QueueTitlesDialogViewModel titlesDialogVM)
-        {
-            this.Title = title;
-            this.titlesDialogVM = titlesDialogVM;
-        }
+		public TitleSelectionViewModel(Title title, QueueTitlesDialogViewModel titlesDialogVM)
+		{
+			this.Title = title;
+			this.titlesDialogVM = titlesDialogVM;
+		}
 
-        public bool Selected
-        {
-            get
-            {
-                return this.selected;
-            }
+		public bool Selected
+		{
+			get
+			{
+				return this.selected;
+			}
 
-            set
-            {
-                this.selected = value;
-                this.NotifyPropertyChanged("Selected");
-                this.titlesDialogVM.HandleCheckChanged(this, value);
-            }
-        }
+			set
+			{
+				this.selected = value;
+				this.NotifyPropertyChanged("Selected");
+				this.titlesDialogVM.HandleCheckChanged(this, value);
+			}
+		}
 
-        public Title Title { get; set; }
+		public Title Title { get; set; }
 
-        public string Text
-        {
-            get
-            {
-                return this.Title.Display;
-            }
-        }
+		public string Text
+		{
+			get
+			{
+				return this.Title.Display;
+			}
+		}
 
-        /// <summary>
-        /// Set the selected value for this item.
-        /// </summary>
-        /// <param name="newValue"></param>
-        public void SetSelected(bool newValue)
-        {
-            this.selected = newValue;
-            this.NotifyPropertyChanged("Selected");
-        }
-    }
+		/// <summary>
+		/// Set the selected value for this item.
+		/// </summary>
+		/// <param name="newValue"></param>
+		public void SetSelected(bool newValue)
+		{
+			this.selected = newValue;
+			this.NotifyPropertyChanged("Selected");
+		}
+	}
 }

@@ -7,28 +7,28 @@ using System.Globalization;
 
 namespace VidCoder.Converters
 {
-    public class FramerateDisplayConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-            {
-                return string.Empty;
-            }
+	public class FramerateDisplayConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			if (value == null)
+			{
+				return string.Empty;
+			}
 
-            double framerate = (double)value;
+			double framerate = (double)value;
 
-            if (framerate == 0)
-            {
-                return "Same as source";
-            }
+			if (framerate == 0)
+			{
+				return "Same as source";
+			}
 
-            return framerate.ToString();
-        }
+			return framerate.ToString();
+		}
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

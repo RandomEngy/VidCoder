@@ -6,9 +6,9 @@ using System.Windows.Input;
 
 namespace VidCoder.ViewModel
 {
-    public interface IDialogViewModel
-    {
-        bool CanClose { get; }
-        void OnClosing();
-    }
+	public interface IDialogViewModel
+	{
+		bool CanClose { get; }
+		void OnClosing();
+	}
 }

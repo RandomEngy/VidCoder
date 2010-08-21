@@ -7,12 +7,12 @@ using System.Windows;
 
 namespace VidCoder.Services
 {
-    public interface IWindowLauncher
-    {
-        void OpenDialog(ViewModelBase viewModel, ViewModelBase owner);
-        void OpenWindow(ViewModelBase viewModel, ViewModelBase owner);
-        void CloseWindow(ViewModelBase viewModel);
-        void FocusWindow(ViewModelBase viewModel);
-        Window GetView(ViewModelBase viewModel);
-    }
+	public interface IWindowLauncher
+	{
+		void OpenDialog(ViewModelBase viewModel, ViewModelBase owner);
+		void OpenWindow(ViewModelBase viewModel, ViewModelBase owner);
+		void CloseWindow(ViewModelBase viewModel);
+		void FocusWindow(ViewModelBase viewModel);
+		Window GetView(ViewModelBase viewModel);
+	}
 }

@@ -6,11 +6,11 @@ using HandBrake.Interop;
 
 namespace VidCoder.Model
 {
-    public class Preset
-    {
-        public string Name { get; set; }
-        public bool IsBuiltIn { get; set; }
-        public bool IsModified { get; set; }
-        public EncodingProfile EncodingProfile { get; set; }
-    }
+	public class Preset
+	{
+		public string Name { get; set; }
+		public bool IsBuiltIn { get; set; }
+		public bool IsModified { get; set; }
+		public EncodingProfile EncodingProfile { get; set; }
+	}
 }

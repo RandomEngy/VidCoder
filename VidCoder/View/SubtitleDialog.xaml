@@ -1,156 +1,156 @@
 ﻿<Window x:Class="VidCoder.View.SubtitleDialog"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:HandBrakeControls="clr-namespace:VidCoder.Controls"
-    xmlns:HandBrakeDragDrop="clr-namespace:VidCoder.DragDropUtils"
-    xmlns:resx="clr-namespace:VidCoder.Properties"
-    Title="Subtitles" Height="352" Width="572" MinWidth="430" MinHeight="250"
-    Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner"
-    DataContextChanged="OnDataContextChanged"
-    Closing="Window_Closing" ShowInTaskbar="False">
-    <Window.Resources>
-        <Style x:Key="SubtitleLabel" TargetType="{x:Type TextBlock}">
-            <Setter Property="Margin" Value="4,2,4,0" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-        </Style>
-        <Style x:Key="SubtitleControl" TargetType="{x:Type FrameworkElement}">
-            <Setter Property="Margin" Value="4,0,4,2" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-        </Style>
-        <Style x:Key="AutoSizingListBox" TargetType="{x:Type ListBox}">
-            <Setter Property="ItemsPanel">
-                <Setter.Value>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical" />
-                    </ItemsPanelTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        
-        <DataTemplate x:Key="SourceDragTemplate">
-            <TextBox Text="{Binding SubtitleName, Mode=OneWay}" />
-        </DataTemplate>
-        <DataTemplate x:Key="TrackTemplate">
-            <ComboBox
-                ItemsSource="{Binding SubtitleDialogViewModel.InputTrackChoices}"
-                SelectedIndex="{Binding TrackNumber}" />
-        </DataTemplate>
-        <DataTemplate x:Key="ForcedTemplate">
-            <CheckBox IsChecked="{Binding Forced}" ToolTip="{x:Static resx:Resources.ForcedSubtitleToolTip}" />
-        </DataTemplate>
-        <DataTemplate x:Key="BurnedInTemplate">
-            <CheckBox
-                IsChecked="{Binding BurnedIn}"
-                IsEnabled="{Binding BurnedInEnabled}"
-                ToolTip="{x:Static resx:Resources.BurnedSubtitleToolTip}"
-                ToolTipService.ShowOnDisabled="True"/>
-        </DataTemplate>
-        <DataTemplate x:Key="SrtDragTemplate">
-            <TextBox Text="{Binding FileName, Mode=OneWay}" />
-        </DataTemplate>
-        <DataTemplate x:Key="FileNameTemplate">
-            <TextBlock Text="{Binding FileName}" TextTrimming="CharacterEllipsis" ToolTipService.ToolTip="{Binding FileName}" MaxWidth="350" />
-        </DataTemplate>
-        <DataTemplate x:Key="DefaultTemplate">
-            <CheckBox
-                IsChecked="{Binding Default}"
-                IsEnabled="{Binding SubtitleDialogViewModel.DefaultsEnabled}"
-                ToolTip="{x:Static resx:Resources.DefaultSubtitleToolTip}"
-                ToolTipService.ShowOnDisabled="True"/>
-        </DataTemplate>
-        <DataTemplate x:Key="LanguageTemplate">
-            <ComboBox
-                Width="80"
-                ItemsSource="{Binding Languages}" SelectedValue="{Binding LanguageCode}"
-                DisplayMemberPath="Name" SelectedValuePath="Code" />
-        </DataTemplate>
-        <DataTemplate x:Key="CharCodeTemplate">
-            <ComboBox
-                ItemsSource="{Binding CharCodes}" SelectedItem="{Binding CharacterCode}"
-                Style="{StaticResource SubtitleControl}" />
-        </DataTemplate>
-        <DataTemplate x:Key="OffsetTemplate">
-            <HandBrakeControls:NumberBox
-                Width="40" Height="22"
-                Number="{Binding Offset, Mode=TwoWay}" AllowNegative="True" AllowEmpty="False"
-                ToolTip="{x:Static resx:Resources.OffsetSubtitleToolTip}"/>
-        </DataTemplate>
-        <DataTemplate x:Key="RemoveTemplate">
-            <Button Command="{Binding RemoveSubtitle}" VerticalAlignment="Center" Style="{StaticResource RemoveButtonStyle}">Remove subtitle track</Button>
-        </DataTemplate>
-    </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="35" />
-        </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" MinHeight="70" />
-                    <RowDefinition Height="Auto" MinHeight="71" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Label Height="28" HorizontalAlignment="Left" Name="label1" VerticalAlignment="Top" Width="129">Subtitles from source:</Label>
-                <StackPanel Orientation="Vertical" Margin="12,24,12,4">
-                    <ListView VerticalAlignment="Top" Margin="0,0,0,5"
-                        ItemsSource="{Binding SourceSubtitles}" Visibility="{Binding HasSourceSubtitles, Converter={StaticResource VisibilityConverter}}"
-                        HandBrakeDragDrop:DragDropHelper.IsDragSource="True" HandBrakeDragDrop:DragDropHelper.IsDropTarget="True" HandBrakeDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SourceDragTemplate}">
-                        <ListView.View>
-                            <GridView>
-                                <GridView.Columns>
-                                    <GridViewColumn Header="Track" CellTemplate="{StaticResource TrackTemplate}" x:Name="sourceTrackColumn" />
-                                    <GridViewColumn Header="Default" CellTemplate="{StaticResource DefaultTemplate}" />
-                                    <GridViewColumn Header="Forced Only" CellTemplate="{StaticResource ForcedTemplate}" />
-                                    <GridViewColumn Header="Burned In" CellTemplate="{StaticResource BurnedInTemplate}" />
-                                    <GridViewColumn CellTemplate="{StaticResource RemoveTemplate}" />
-                                </GridView.Columns>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <Button Command="{Binding AddSourceSubtitle}" HorizontalAlignment="Left" Margin="0,0,0,0" Width="97" Height="23" VerticalAlignment="Bottom">
-                        <StackPanel Orientation="Horizontal">
-                            <Polygon Style="{StaticResource PlusSign}" />
-                            <TextBlock Text="Add Subtitle" />
-                        </StackPanel>
-                    </Button>
-                    <HandBrakeControls:InlineWarning
-                        Margin="0,6,0,0"
-                        WarningText="Text subtitles may not show up for Quicktime unless the .m4v extension is used."
-                        Visibility="{Binding TextSubtitleWarningVisibile, Converter={StaticResource VisibilityConverter}}"/>
-                </StackPanel>
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:HandBrakeControls="clr-namespace:VidCoder.Controls"
+	xmlns:HandBrakeDragDrop="clr-namespace:VidCoder.DragDropUtils"
+	xmlns:resx="clr-namespace:VidCoder.Properties"
+	Title="Subtitles" Height="352" Width="572" MinWidth="430" MinHeight="250"
+	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner"
+	DataContextChanged="OnDataContextChanged"
+	Closing="Window_Closing" ShowInTaskbar="False">
+	<Window.Resources>
+		<Style x:Key="SubtitleLabel" TargetType="{x:Type TextBlock}">
+			<Setter Property="Margin" Value="4,2,4,0" />
+			<Setter Property="HorizontalAlignment" Value="Center" />
+		</Style>
+		<Style x:Key="SubtitleControl" TargetType="{x:Type FrameworkElement}">
+			<Setter Property="Margin" Value="4,0,4,2" />
+			<Setter Property="HorizontalAlignment" Value="Center" />
+		</Style>
+		<Style x:Key="AutoSizingListBox" TargetType="{x:Type ListBox}">
+			<Setter Property="ItemsPanel">
+				<Setter.Value>
+					<ItemsPanelTemplate>
+						<StackPanel Orientation="Vertical" />
+					</ItemsPanelTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		
+		<DataTemplate x:Key="SourceDragTemplate">
+			<TextBox Text="{Binding SubtitleName, Mode=OneWay}" />
+		</DataTemplate>
+		<DataTemplate x:Key="TrackTemplate">
+			<ComboBox
+				ItemsSource="{Binding SubtitleDialogViewModel.InputTrackChoices}"
+				SelectedIndex="{Binding TrackNumber}" />
+		</DataTemplate>
+		<DataTemplate x:Key="ForcedTemplate">
+			<CheckBox IsChecked="{Binding Forced}" ToolTip="{x:Static resx:Resources.ForcedSubtitleToolTip}" />
+		</DataTemplate>
+		<DataTemplate x:Key="BurnedInTemplate">
+			<CheckBox
+				IsChecked="{Binding BurnedIn}"
+				IsEnabled="{Binding BurnedInEnabled}"
+				ToolTip="{x:Static resx:Resources.BurnedSubtitleToolTip}"
+				ToolTipService.ShowOnDisabled="True"/>
+		</DataTemplate>
+		<DataTemplate x:Key="SrtDragTemplate">
+			<TextBox Text="{Binding FileName, Mode=OneWay}" />
+		</DataTemplate>
+		<DataTemplate x:Key="FileNameTemplate">
+			<TextBlock Text="{Binding FileName}" TextTrimming="CharacterEllipsis" ToolTipService.ToolTip="{Binding FileName}" MaxWidth="350" />
+		</DataTemplate>
+		<DataTemplate x:Key="DefaultTemplate">
+			<CheckBox
+				IsChecked="{Binding Default}"
+				IsEnabled="{Binding SubtitleDialogViewModel.DefaultsEnabled}"
+				ToolTip="{x:Static resx:Resources.DefaultSubtitleToolTip}"
+				ToolTipService.ShowOnDisabled="True"/>
+		</DataTemplate>
+		<DataTemplate x:Key="LanguageTemplate">
+			<ComboBox
+				Width="80"
+				ItemsSource="{Binding Languages}" SelectedValue="{Binding LanguageCode}"
+				DisplayMemberPath="Name" SelectedValuePath="Code" />
+		</DataTemplate>
+		<DataTemplate x:Key="CharCodeTemplate">
+			<ComboBox
+				ItemsSource="{Binding CharCodes}" SelectedItem="{Binding CharacterCode}"
+				Style="{StaticResource SubtitleControl}" />
+		</DataTemplate>
+		<DataTemplate x:Key="OffsetTemplate">
+			<HandBrakeControls:NumberBox
+				Width="40" Height="22"
+				Number="{Binding Offset, Mode=TwoWay}" AllowNegative="True" AllowEmpty="False"
+				ToolTip="{x:Static resx:Resources.OffsetSubtitleToolTip}"/>
+		</DataTemplate>
+		<DataTemplate x:Key="RemoveTemplate">
+			<Button Command="{Binding RemoveSubtitle}" VerticalAlignment="Center" Style="{StaticResource RemoveButtonStyle}">Remove subtitle track</Button>
+		</DataTemplate>
+	</Window.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="35" />
+		</Grid.RowDefinitions>
+		<ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" MinHeight="70" />
+					<RowDefinition Height="Auto" MinHeight="71" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+				<Label Height="28" HorizontalAlignment="Left" Name="label1" VerticalAlignment="Top" Width="129">Subtitles from source:</Label>
+				<StackPanel Orientation="Vertical" Margin="12,24,12,4">
+					<ListView VerticalAlignment="Top" Margin="0,0,0,5"
+						ItemsSource="{Binding SourceSubtitles}" Visibility="{Binding HasSourceSubtitles, Converter={StaticResource VisibilityConverter}}"
+						HandBrakeDragDrop:DragDropHelper.IsDragSource="True" HandBrakeDragDrop:DragDropHelper.IsDropTarget="True" HandBrakeDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SourceDragTemplate}">
+						<ListView.View>
+							<GridView>
+								<GridView.Columns>
+									<GridViewColumn Header="Track" CellTemplate="{StaticResource TrackTemplate}" x:Name="sourceTrackColumn" />
+									<GridViewColumn Header="Default" CellTemplate="{StaticResource DefaultTemplate}" />
+									<GridViewColumn Header="Forced Only" CellTemplate="{StaticResource ForcedTemplate}" />
+									<GridViewColumn Header="Burned In" CellTemplate="{StaticResource BurnedInTemplate}" />
+									<GridViewColumn CellTemplate="{StaticResource RemoveTemplate}" />
+								</GridView.Columns>
+							</GridView>
+						</ListView.View>
+					</ListView>
+					<Button Command="{Binding AddSourceSubtitle}" HorizontalAlignment="Left" Margin="0,0,0,0" Width="97" Height="23" VerticalAlignment="Bottom">
+						<StackPanel Orientation="Horizontal">
+							<Polygon Style="{StaticResource PlusSign}" />
+							<TextBlock Text="Add Subtitle" />
+						</StackPanel>
+					</Button>
+					<HandBrakeControls:InlineWarning
+						Margin="0,6,0,0"
+						WarningText="Text subtitles may not show up for Quicktime unless the .m4v extension is used."
+						Visibility="{Binding TextSubtitleWarningVisibile, Converter={StaticResource VisibilityConverter}}"/>
+				</StackPanel>
 
 
-                <Label Grid.Row="1" Height="28" HorizontalAlignment="Left" Name="label2" VerticalAlignment="Top" Width="143">External subtitles:</Label>
+				<Label Grid.Row="1" Height="28" HorizontalAlignment="Left" Name="label2" VerticalAlignment="Top" Width="143">External subtitles:</Label>
 
-                <StackPanel Orientation="Vertical" Margin="12,24,12,4" Grid.Row="1">
-                    <ListView VerticalAlignment="Top" Margin="0,0,0,5"
-                        ItemsSource="{Binding SrtSubtitles}" Visibility="{Binding HasSrtSubtitles, Converter={StaticResource VisibilityConverter}}"
-                        HandBrakeDragDrop:DragDropHelper.IsDragSource="True" HandBrakeDragDrop:DragDropHelper.IsDropTarget="True" HandBrakeDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SrtDragTemplate}">
-                        <ListView.View>
-                            <GridView>
-                                <GridView.Columns>
-                                    <GridViewColumn Header="File" CellTemplate="{StaticResource FileNameTemplate}" />
-                                    <GridViewColumn Header="Default" CellTemplate="{StaticResource DefaultTemplate}" />
-                                    <GridViewColumn Header="Language" CellTemplate="{StaticResource LanguageTemplate}" x:Name="srtLanguageColumn"  />
-                                    <GridViewColumn Header="Char Code" CellTemplate="{StaticResource CharCodeTemplate}" x:Name="srtCharCodeColumn" />
-                                    <GridViewColumn Header="Offset (ms)" CellTemplate="{StaticResource OffsetTemplate}" />
-                                    <GridViewColumn CellTemplate="{StaticResource RemoveTemplate}" />
-                                </GridView.Columns>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <Button Grid.Row="1" Command="{Binding AddSrtSubtitle}" Height="23" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" Width="107">Import .srt File...</Button>
-                    <HandBrakeControls:InlineWarning
-                        Margin="0,6,0,0"
-                        WarningText="Other subtitle tracks will overlap burned subtitles."
-                        Visibility="{Binding BurnedOverlapWarningVisible, Converter={StaticResource VisibilityConverter}}"/>
-                </StackPanel>
+				<StackPanel Orientation="Vertical" Margin="12,24,12,4" Grid.Row="1">
+					<ListView VerticalAlignment="Top" Margin="0,0,0,5"
+						ItemsSource="{Binding SrtSubtitles}" Visibility="{Binding HasSrtSubtitles, Converter={StaticResource VisibilityConverter}}"
+						HandBrakeDragDrop:DragDropHelper.IsDragSource="True" HandBrakeDragDrop:DragDropHelper.IsDropTarget="True" HandBrakeDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SrtDragTemplate}">
+						<ListView.View>
+							<GridView>
+								<GridView.Columns>
+									<GridViewColumn Header="File" CellTemplate="{StaticResource FileNameTemplate}" />
+									<GridViewColumn Header="Default" CellTemplate="{StaticResource DefaultTemplate}" />
+									<GridViewColumn Header="Language" CellTemplate="{StaticResource LanguageTemplate}" x:Name="srtLanguageColumn"  />
+									<GridViewColumn Header="Char Code" CellTemplate="{StaticResource CharCodeTemplate}" x:Name="srtCharCodeColumn" />
+									<GridViewColumn Header="Offset (ms)" CellTemplate="{StaticResource OffsetTemplate}" />
+									<GridViewColumn CellTemplate="{StaticResource RemoveTemplate}" />
+								</GridView.Columns>
+							</GridView>
+						</ListView.View>
+					</ListView>
+					<Button Grid.Row="1" Command="{Binding AddSrtSubtitle}" Height="23" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" Width="107">Import .srt File...</Button>
+					<HandBrakeControls:InlineWarning
+						Margin="0,6,0,0"
+						WarningText="Other subtitle tracks will overlap burned subtitles."
+						Visibility="{Binding BurnedOverlapWarningVisible, Converter={StaticResource VisibilityConverter}}"/>
+				</StackPanel>
 
-            </Grid>
-        </ScrollViewer>
+			</Grid>
+		</ScrollViewer>
 
-        <Button Height="23" Command="{Binding AcceptCommand}" Grid.Row="1" Margin="0,0,93,7.714" HorizontalAlignment="Right" Width="74" VerticalAlignment="Bottom" IsDefault="True">OK</Button>
-        <Button Height="23" Command="{Binding CancelCommand}" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,12,7.714" Width="75" VerticalAlignment="Bottom">Cancel</Button>
-    </Grid>
+		<Button Height="23" Command="{Binding AcceptCommand}" Grid.Row="1" Margin="0,0,93,7.714" HorizontalAlignment="Right" Width="74" VerticalAlignment="Bottom" IsDefault="True">OK</Button>
+		<Button Height="23" Command="{Binding CancelCommand}" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,12,7.714" Width="75" VerticalAlignment="Bottom">Cancel</Button>
+	</Grid>
 </Window>

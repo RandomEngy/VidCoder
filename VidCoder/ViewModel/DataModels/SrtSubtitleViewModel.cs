@@ -8,134 +8,134 @@ using HandBrake.Interop;
 
 namespace VidCoder.ViewModel
 {
-    public class SrtSubtitleViewModel : ViewModelBase
-    {
-        private SrtSubtitle subtitle;
-        private ICommand removeSubtitle;
+	public class SrtSubtitleViewModel : ViewModelBase
+	{
+		private SrtSubtitle subtitle;
+		private ICommand removeSubtitle;
 
-        public SrtSubtitleViewModel(SubtitleDialogViewModel subtitleDialogViewModel, SrtSubtitle subtitle)
-        {
-            this.SubtitleDialogViewModel = subtitleDialogViewModel;
-            this.subtitle = subtitle;
-        }
+		public SrtSubtitleViewModel(SubtitleDialogViewModel subtitleDialogViewModel, SrtSubtitle subtitle)
+		{
+			this.SubtitleDialogViewModel = subtitleDialogViewModel;
+			this.subtitle = subtitle;
+		}
 
-        public SubtitleDialogViewModel SubtitleDialogViewModel { get; set; }
+		public SubtitleDialogViewModel SubtitleDialogViewModel { get; set; }
 
-        public SrtSubtitle Subtitle
-        {
-            get
-            {
-                return this.subtitle;
-            }
-        }
+		public SrtSubtitle Subtitle
+		{
+			get
+			{
+				return this.subtitle;
+			}
+		}
 
-        public bool Default
-        {
-            get
-            {
-                return this.subtitle.Default;
-            }
+		public bool Default
+		{
+			get
+			{
+				return this.subtitle.Default;
+			}
 
-            set
-            {
-                this.subtitle.Default = value;
-                this.NotifyPropertyChanged("Default");
+			set
+			{
+				this.subtitle.Default = value;
+				this.NotifyPropertyChanged("Default");
 
-                this.SubtitleDialogViewModel.ReportDefault(this);
-            }
-        }
+				this.SubtitleDialogViewModel.ReportDefault(this);
+			}
+		}
 
-        public string FileName
-        {
-            get
-            {
-                return this.subtitle.FileName;
-            }
+		public string FileName
+		{
+			get
+			{
+				return this.subtitle.FileName;
+			}
 
-            set
-            {
-                this.subtitle.FileName = value;
-                this.NotifyPropertyChanged("FileName");
-            }
-        }
+			set
+			{
+				this.subtitle.FileName = value;
+				this.NotifyPropertyChanged("FileName");
+			}
+		}
 
-        public string LanguageCode
-        {
-            get
-            {
-                return this.subtitle.LanguageCode;
-            }
+		public string LanguageCode
+		{
+			get
+			{
+				return this.subtitle.LanguageCode;
+			}
 
-            set
-            {
-                this.subtitle.LanguageCode = value;
-                this.NotifyPropertyChanged("LanguageCode");
-            }
-        }
+			set
+			{
+				this.subtitle.LanguageCode = value;
+				this.NotifyPropertyChanged("LanguageCode");
+			}
+		}
 
-        public string CharacterCode
-        {
-            get
-            {
-                return this.subtitle.CharacterCode;
-            }
+		public string CharacterCode
+		{
+			get
+			{
+				return this.subtitle.CharacterCode;
+			}
 
-            set
-            {
-                this.subtitle.CharacterCode = value;
-                this.NotifyPropertyChanged("CharacterCode");
-            }
-        }
+			set
+			{
+				this.subtitle.CharacterCode = value;
+				this.NotifyPropertyChanged("CharacterCode");
+			}
+		}
 
-        public int Offset
-        {
-            get
-            {
-                return this.subtitle.Offset;
-            }
+		public int Offset
+		{
+			get
+			{
+				return this.subtitle.Offset;
+			}
 
-            set
-            {
-                this.subtitle.Offset = value;
-                this.NotifyPropertyChanged("Offset");
-            }
-        }
+			set
+			{
+				this.subtitle.Offset = value;
+				this.NotifyPropertyChanged("Offset");
+			}
+		}
 
-        public IList<Language> Languages
-        {
-            get
-            {
-                return Language.Languages;
-            }
-        }
+		public IList<Language> Languages
+		{
+			get
+			{
+				return Language.Languages;
+			}
+		}
 
-        public IList<string> CharCodes
-        {
-            get
-            {
-                return CharCode.Codes;
-            }
-        }
+		public IList<string> CharCodes
+		{
+			get
+			{
+				return CharCode.Codes;
+			}
+		}
 
-        public ICommand RemoveSubtitle
-        {
-            get
-            {
-                if (this.removeSubtitle == null)
-                {
-                    this.removeSubtitle = new RelayCommand(
-                        param =>
-                        {
-                            this.SubtitleDialogViewModel.RemoveSrtSubtitle(this);
-                        },
-                        param =>
-                        {
-                            return true;
-                        });
-                }
+		public ICommand RemoveSubtitle
+		{
+			get
+			{
+				if (this.removeSubtitle == null)
+				{
+					this.removeSubtitle = new RelayCommand(
+						param =>
+						{
+							this.SubtitleDialogViewModel.RemoveSrtSubtitle(this);
+						},
+						param =>
+						{
+							return true;
+						});
+				}
 
-                return this.removeSubtitle;
-            }
-        }
-    }
+				return this.removeSubtitle;
+			}
+		}
+	}
 }

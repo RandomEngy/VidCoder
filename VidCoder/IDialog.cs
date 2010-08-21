@@ -5,8 +5,8 @@ using System.Text;
 
 namespace VidCoder
 {
-    public interface IDialog
-    {
-        bool? ShowDialog();
-    }
+	public interface IDialog
+	{
+		bool? ShowDialog();
+	}
 }
