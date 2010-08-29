@@ -1389,7 +1389,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.Paused)
 				{
-					return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0xCC, 0xCC, 0));
+					return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 230, 0));
 				}
 				else
 				{
