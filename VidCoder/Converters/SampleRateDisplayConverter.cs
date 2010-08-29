@@ -12,11 +12,11 @@ namespace VidCoder.Converters
 		private static Dictionary<int, string> rateDisplayTable = new Dictionary<int, string>
 		{
 			{0, "Same as source"},
-			{22050, "22.05"},
-			{24000, "24"},
-			{32000, "32"},
-			{44100, "44.1"},
-			{48000, "48"}
+			{22050, "22.05 kHz"},
+			{24000, "24 kHz"},
+			{32000, "32 kHz"},
+			{44100, "44.1 kHz"},
+			{48000, "48 kHz"}
 		};
 
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

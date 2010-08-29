@@ -47,12 +47,11 @@ namespace VidCoder.ViewModel
 		private ObservableCollection<AudioOutputPreview> audioOutputPreviews;
 
 		private AdvancedChoice referenceFrames;
-		private bool mixedReferences;
 		private AdvancedChoice bFrames;
 		private AdvancedChoice adaptiveBFrames;
 		private AdvancedChoice directPrediction;
-		private bool weightedBFrames;
-		private bool pyramidalBFrames;
+		private bool weightedPFrames;
+		private AdvancedChoice pyramidalBFrames;
 		private AdvancedChoice motionEstimationMethod;
 		private AdvancedChoice subpixelMotionEstimation;
 		private AdvancedChoice motionEstimationRange;
@@ -60,20 +59,20 @@ namespace VidCoder.ViewModel
 		private bool eightByEightDct;
 		private bool cabacEntropyCoding;
 		private AdvancedChoice trellis;
+		private double adaptiveQuantizationStrength;
 		private double psychovisualRateDistortion;
 		private double psychovisualTrellis;
 		private AdvancedChoice deblockingStrength;
 		private AdvancedChoice deblockingThreshold;
-		private bool noFastPSkip;
 		private bool noDctDecimate;
 
 		/// <summary>
-		/// Options that have UI elements that correspond to them.
+		/// X264 options that have UI elements that correspond to them.
 		/// </summary>
 		private HashSet<string> uiOptions = new HashSet<string>
 		{
-			"ref", "mixed-refs", "bframes", "b-adapt", "direct", "weightb", "b-pyramid", "me", "subme", "subq", "merange",
-			"analyse", "8x8dct", "cabac", "trellis", "psy-rd", "no-fast-pskip", "no-dct-decimate", "deblock"
+			"ref", "bframes", "b-adapt", "direct", "weightp", "b-pyramid", "me", "subme", "subq", "merange",
+			"analyse", "8x8dct", "cabac", "trellis", "aq-strength", "psy-rd", "no-dct-decimate", "deblock"
 		};
 
 		private ICommand saveCommand;
@@ -1824,31 +1823,7 @@ namespace VidCoder.ViewModel
 			{
 				this.referenceFrames = value;
 				this.NotifyPropertyChanged("ReferenceFrames");
-				this.NotifyPropertyChanged("MixedReferencesVisible");
 				this.UpdateOptionsString();
-			}
-		}
-
-		public bool MixedReferences
-		{
-			get
-			{
-				return this.mixedReferences;
-			}
-
-			set
-			{
-				this.mixedReferences = value;
-				this.NotifyPropertyChanged("MixedReferences");
-				this.UpdateOptionsString();
-			}
-		}
-
-		public bool MixedReferencesVisible
-		{
-			get
-			{
-				return int.Parse(this.ReferenceFrames.Value) > 1;
 			}
 		}
 
@@ -1864,6 +1839,7 @@ namespace VidCoder.ViewModel
 				this.bFrames = value;
 				this.NotifyPropertyChanged("BFrames");
 				this.NotifyPropertyChanged("BFramesOptionsVisible");
+				this.NotifyPropertyChanged("PyramidalBFramesVisible");
 				this.UpdateOptionsString();
 			}
 		}
@@ -1906,22 +1882,22 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool WeightedBFrames
+		public bool WeightedPFrames
 		{
 			get
 			{
-				return this.weightedBFrames;
+				return this.weightedPFrames;
 			}
 
 			set
 			{
-				this.weightedBFrames = value;
-				this.NotifyPropertyChanged("WeightedBFrames");
+				this.weightedPFrames = value;
+				this.NotifyPropertyChanged("WeightedPFrames");
 				this.UpdateOptionsString();
 			}
 		}
 
-		public bool PyramidalBFrames
+		public AdvancedChoice PyramidalBFrames
 		{
 			get
 			{
@@ -2070,6 +2046,20 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public double AdaptiveQuantizationStrength
+		{
+			get
+			{
+				return this.adaptiveQuantizationStrength;
+			}
+			set
+			{
+				this.adaptiveQuantizationStrength = value;
+				this.NotifyPropertyChanged("AdaptiveQuantizationStrength");
+				this.UpdateOptionsString();
+			}
+		}
+
 		public double PsychovisualRateDistortion
 		{
 			get
@@ -2138,21 +2128,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool NoFastPSkip
-		{
-			get
-			{
-				return this.noFastPSkip;
-			}
-
-			set
-			{
-				this.noFastPSkip = value;
-				this.NotifyPropertyChanged("NoFastPSkip");
-				this.UpdateOptionsString();
-			}
-		}
-
 		public bool NoDctDecimate
 		{
 			get
@@ -2211,6 +2186,7 @@ namespace VidCoder.ViewModel
 					{
 						AdvancedChoice newChoice;
 						int parseInt;
+						double parseDouble;
 						string[] subParts;
 
 						switch (optionName)
@@ -2223,16 +2199,6 @@ namespace VidCoder.ViewModel
 									{
 										this.ReferenceFrames = newChoice;
 									}
-								}
-								break;
-							case "mixed-refs":
-								if (optionValue == "0")
-								{
-									this.MixedReferences = false;
-								}
-								else if (optionValue == "1")
-								{
-									this.MixedReferences = true;
 								}
 								break;
 							case "bframes":
@@ -2259,24 +2225,21 @@ namespace VidCoder.ViewModel
 									this.DirectPrediction = newChoice;
 								}
 								break;
-							case "weightb":
+							case "weightp":
 								if (optionValue == "0")
 								{
-									this.WeightedBFrames = false;
+									this.WeightedPFrames = false;
 								}
 								else if (optionValue == "1")
 								{
-									this.WeightedBFrames = true;
+									this.WeightedPFrames = true;
 								}
 								break;
 							case "b-pyramid":
-								if (optionValue == "0")
+								newChoice = AdvancedChoices.PyramidalBFrames.SingleOrDefault(choice => choice.Value == optionValue);
+								if (newChoice != null)
 								{
-									this.PyramidalBFrames = false;
-								}
-								else if (optionValue == "1")
-								{
-									this.PyramidalBFrames = true;
+									this.PyramidalBFrames = newChoice;
 								}
 								break;
 							case "me":
@@ -2344,6 +2307,12 @@ namespace VidCoder.ViewModel
 									}
 								}
 								break;
+							case "aq-strength":
+								if (double.TryParse(optionValue, out parseDouble) && parseDouble >= 0.0 && parseDouble <= 2.0)
+								{
+									this.AdaptiveQuantizationStrength = Math.Round(parseDouble, 1);
+								}
+								break;
 							case "psy-rd":
 								subParts = optionValue.Split(',');
 								if (subParts.Length == 2)
@@ -2354,19 +2323,9 @@ namespace VidCoder.ViewModel
 										if (psyRD >= 0.0 && psyRD <= 1.0 && psyTrellis >= 0.0 && psyTrellis <= 1.0)
 										{
 											this.PsychovisualRateDistortion = Math.Round(psyRD, 1);
-											this.PsychovisualTrellis = Math.Round(psyTrellis, 1);
+											this.PsychovisualTrellis = Math.Round(psyTrellis, 2);
 										}
 									}
-								}
-								break;
-							case "no-fast-pskip":
-								if (optionValue == "0")
-								{
-									this.NoFastPSkip = false;
-								}
-								else if (optionValue == "1")
-								{
-									this.NoFastPSkip = true;
 								}
 								break;
 							case "no-dct-decimate":
@@ -2413,12 +2372,11 @@ namespace VidCoder.ViewModel
 		private void SetAdvancedToDefaults()
 		{
 			this.ReferenceFrames = AdvancedChoices.ReferenceFrames.SingleOrDefault(choice => choice.IsDefault);
-			this.MixedReferences = true;
 			this.BFrames = AdvancedChoices.BFrames.SingleOrDefault(choice => choice.IsDefault);
 			this.AdaptiveBFrames = AdvancedChoices.AdaptiveBFrames.SingleOrDefault(choice => choice.IsDefault);
 			this.DirectPrediction = AdvancedChoices.DirectPrediction.SingleOrDefault(choice => choice.IsDefault);
-			this.WeightedBFrames = true;
-			this.PyramidalBFrames = false;
+			this.WeightedPFrames = true;
+			this.PyramidalBFrames = AdvancedChoices.PyramidalBFrames.SingleOrDefault(choice => choice.IsDefault);
 			this.MotionEstimationMethod = AdvancedChoices.MotionEstimationMethod.SingleOrDefault(choice => choice.IsDefault);
 			this.SubpixelMotionEstimation = AdvancedChoices.SubpixelMotionEstimation.SingleOrDefault(choice => choice.IsDefault);
 			this.MotionEstimationRange = AdvancedChoices.MotionEstimationRange.SingleOrDefault(choice => choice.IsDefault);
@@ -2426,11 +2384,11 @@ namespace VidCoder.ViewModel
 			this.EightByEightDct = true;
 			this.CabacEntropyCoding = true;
 			this.Trellis = AdvancedChoices.Trellis.SingleOrDefault(choice => choice.IsDefault);
+			this.AdaptiveQuantizationStrength = 1.0;
 			this.PsychovisualRateDistortion = 1.0;
 			this.PsychovisualTrellis = 0.0;
 			this.DeblockingStrength = AdvancedChoices.DeblockingStrength.SingleOrDefault(choice => choice.IsDefault);
 			this.DeblockingThreshold = AdvancedChoices.DeblockingThreshold.SingleOrDefault(choice => choice.IsDefault);
-			this.NoFastPSkip = false;
 			this.NoDctDecimate = false;
 		}
 
@@ -2685,11 +2643,6 @@ namespace VidCoder.ViewModel
 				newOptions.Add("ref=" + this.ReferenceFrames.Value);
 			}
 
-			if (int.Parse(this.ReferenceFrames.Value) < 2 || !this.MixedReferences)
-			{
-				newOptions.Add("mixed-refs=0");
-			}
-
 			if (!this.BFrames.IsDefault)
 			{
 				newOptions.Add("bframes=" + this.BFrames.Value);
@@ -2707,14 +2660,14 @@ namespace VidCoder.ViewModel
 					newOptions.Add("direct=" + this.DirectPrediction.Value);
 				}
 
-				if (!this.WeightedBFrames)
+				if (!this.WeightedPFrames)
 				{
-					newOptions.Add("weightb=0");
+					newOptions.Add("weightp=0");
 				}
 
-				if (this.BFrames.Value != "1" && this.PyramidalBFrames)
+				if (this.BFrames.Value != "1" && !this.PyramidalBFrames.IsDefault)
 				{
-					newOptions.Add("b-pyramid=1");
+					newOptions.Add("b-pyramid=" + this.PyramidalBFrames.Value);
 				}
 			}
 
@@ -2760,14 +2713,14 @@ namespace VidCoder.ViewModel
 				psTrellis = this.PsychovisualTrellis;
 			}
 
-			if (this.PsychovisualRateDistortion < 1.0 || psTrellis > 0.0)
+			if (this.AdaptiveQuantizationStrength != 1.0)
 			{
-				newOptions.Add("psy-rd=" + this.PsychovisualRateDistortion.ToString("F1") + "," + psTrellis.ToString("F1"));
+				newOptions.Add("aq-strength=" + this.AdaptiveQuantizationStrength.ToString("F1"));
 			}
 
-			if (this.NoFastPSkip)
+			if (this.PsychovisualRateDistortion < 1.0 || psTrellis > 0.0)
 			{
-				newOptions.Add("no-fast-pskip=1");
+				newOptions.Add("psy-rd=" + this.PsychovisualRateDistortion.ToString("F1") + "," + psTrellis.ToString("F2"));
 			}
 
 			if (this.NoDctDecimate)

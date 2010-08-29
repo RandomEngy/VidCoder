@@ -27,6 +27,7 @@ namespace VidCoder.ViewModel
 	{
 		private static List<AdvancedChoice> referenceFrames;
 		private static List<AdvancedChoice> bFrames;
+		private static List<AdvancedChoice> pyramidalBFrames;
 		private static List<AdvancedChoice> adaptiveBFrames;
 		private static List<AdvancedChoice> directPrediction;
 		private static List<AdvancedChoice> motionEstimationMethod;
@@ -41,6 +42,13 @@ namespace VidCoder.ViewModel
 		{
 			referenceFrames = CreateNumberList(0, 16, defaultNumber: 3);
 			bFrames = CreateNumberList(0, 16, defaultNumber: 3);
+
+			pyramidalBFrames = new List<AdvancedChoice>
+			{
+				new AdvancedChoice { Label = "Off", Value = "none"},
+				new AdvancedChoice { Label = "Normal (Default)", IsDefault = true },
+				new AdvancedChoice { Label = "Strict", Value = "strict"}
+			};
 
 			adaptiveBFrames = new List<AdvancedChoice>
 			{
@@ -66,7 +74,22 @@ namespace VidCoder.ViewModel
 				new AdvancedChoice { Label = "Transformed Exhaustive", Value = "tesa" },
 			};
 
-			subpixelMotionEstimation = CreateNumberList(0, 9, defaultNumber: 7);
+			subpixelMotionEstimation = new List<AdvancedChoice>
+			{
+				new AdvancedChoice { Label = "0: SAD, no subpel (super fast!)", Value = "0" },
+				new AdvancedChoice { Label = "1: SAD, qpel", Value = "1" },
+				new AdvancedChoice { Label = "2: SATD, qpel", Value = "2" },
+				new AdvancedChoice { Label = "3: SATD, multi-qpel", Value = "3" },
+				new AdvancedChoice { Label = "4: SATD, qpel on all", Value = "4" },
+				new AdvancedChoice { Label = "5: SATD, multi-qpel on all", Value = "5" },
+				new AdvancedChoice { Label = "6: RD in I/P-frames", Value = "6" },
+				new AdvancedChoice { Label = "7: RD in all frames (Default)", Value = "7", IsDefault = true },
+				new AdvancedChoice { Label = "8: RD refine in I/P-frames", Value = "8" },
+				new AdvancedChoice { Label = "9: RD refine in all frames", Value = "9" },
+				new AdvancedChoice { Label = "10: QPRD in all frames", Value = "10" },
+			};
+
+			//subpixelMotionEstimation = CreateNumberList(0, 9, defaultNumber: 7);
 			motionEstimationRange = CreateNumberList(4, 64, defaultNumber: 16);
 
 			analysis = new List<AdvancedChoice>
@@ -76,7 +99,13 @@ namespace VidCoder.ViewModel
 				new AdvancedChoice { Label = "All", Value = "all" }
 			};
 
-			trellis = CreateNumberList(0, 2, defaultNumber: 1);
+			trellis = new List<AdvancedChoice>
+			{
+				new AdvancedChoice { Label = "Off", Value = "0"},
+				new AdvancedChoice { Label = "Encode Only (Default)", Value = "1", IsDefault = true},
+				new AdvancedChoice { Label = "Always", Value = "2"}
+			};
+
 			deblockingStrength = CreateNumberList(-6, 6, defaultNumber: 0);
 			deblockingThreshold = CreateNumberList(-6, 6, defaultNumber: 0);
 		}
@@ -95,6 +124,14 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return bFrames;
+			}
+		}
+
+		public static List<AdvancedChoice> PyramidalBFrames
+		{
+			get
+			{
+				return pyramidalBFrames;
 			}
 		}
 

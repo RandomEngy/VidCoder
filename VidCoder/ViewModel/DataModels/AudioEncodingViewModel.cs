@@ -151,11 +151,6 @@ namespace VidCoder.ViewModel
 						{
 							this.Bitrate = 160;
 						}
-
-						if (this.SampleRate == null)
-						{
-							this.SampleRate = 48000;
-						}
 					}
 
 					this.encodingDialogVM.RefreshExtensionChoice();
