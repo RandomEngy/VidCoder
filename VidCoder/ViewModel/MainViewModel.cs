@@ -711,6 +711,9 @@ namespace VidCoder.ViewModel
 					previewWindow.RefreshPreviews();
 				}
 
+				// Custom chapter names are thrown out when switching titles.
+				this.CustomChapterNames = null;
+
 				this.NotifyPropertyChanged("SubtitlesSummary");
 				CommandManager.InvalidateRequerySuggested();
 				this.GenerateOutputFileName();

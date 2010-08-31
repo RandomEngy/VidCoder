@@ -26,13 +26,13 @@ namespace VidCoder.ViewModel
 			this.chapterNames = new ObservableCollection<ChapterNameViewModel>();
 			for (int i = 0; i < chapters; i++)
 			{
-				if (currentNames == null)
+				if (currentNames != null && i < currentNames.Count)
 				{
-					this.chapterNames.Add(new ChapterNameViewModel { Number = i + 1, Title = "Chapter " + (i + 1) });
+					this.chapterNames.Add(new ChapterNameViewModel { Number = i + 1, Title = currentNames[i] });
 				}
 				else
 				{
-					this.chapterNames.Add(new ChapterNameViewModel { Number = i + 1, Title = currentNames[i] });
+					this.chapterNames.Add(new ChapterNameViewModel { Number = i + 1, Title = "Chapter " + (i + 1) });
 				}
 			}
 
