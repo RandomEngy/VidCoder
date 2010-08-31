@@ -434,8 +434,8 @@ namespace VidCoder.ViewModel
 			{
 				this.profile.IncludeChapterMarkers = value;
 				this.NotifyPropertyChanged("IncludeChapterMarkers");
-				this.mainViewModel.RefreshChapterMarkerUI();
 				this.IsModified = true;
+				this.mainViewModel.RefreshChapterMarkerUI();
 			}
 		}
 
