@@ -537,5 +537,15 @@ namespace VidCoder.View
                 e.Handled = true;
             }
         }
+
+		private void ProgressMouseEnter(object sender, MouseEventArgs e)
+		{
+			this.encodeProgressDetailsPopup.IsOpen = true;
+		}
+
+		private void ProgressMouseLeave(object sender, MouseEventArgs e)
+		{
+			this.encodeProgressDetailsPopup.IsOpen = false;
+		}
     }
 }

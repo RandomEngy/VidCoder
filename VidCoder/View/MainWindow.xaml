@@ -81,6 +81,13 @@
 				</DataTrigger>
 			</Style.Triggers>
 		</Style>
+		<Style x:Key="EncodeDetailsHeader" TargetType="TextBlock">
+			<Setter Property="Height" Value="18" />
+			<Setter Property="TextAlignment" Value="Right" />
+		</Style>
+		<Style x:Key="EncodeDetailsText" TargetType="TextBlock">
+			<Setter Property="Margin" Value="5,0,0,0" />
+		</Style>
 		<DataTemplate x:Key="QueueDragTemplate">
 			<TextBlock Text="" />
 		</DataTemplate>
@@ -506,32 +513,74 @@
 			<TextBlock
 				Text="{Binding EstimatedTimeRemaining}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="163,111,0,0"
 				Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
-			<TextBlock
-				Text="Current FPS:" Width="70" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="213,94,0,0"
-				TextAlignment="Right"
-				Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
-			<TextBlock
-				Text="{Binding CurrentFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="286,94,0,0"
-				Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
-			<TextBlock
-				Text="Average FPS:" Width="70" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="213,111,0,0"
-				TextAlignment="Right"
-				Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
-			<TextBlock
-				Text="{Binding AverageFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="286,111,0,0"
-				Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
+
+
 			<Grid
-				Margin="317,100,179,0" VerticalAlignment="Top" Height="20.44"
-				Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}">
+				Margin="220,100,179,0" VerticalAlignment="Top" Height="20.44"
+				Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}" MouseEnter="ProgressMouseEnter" MouseLeave="ProgressMouseLeave">
 				<ProgressBar
+					Name="overallEncodeProgressBar"
 					Value="{Binding OverallEncodeProgressPercent, Mode=OneWay}" Height="20.44" VerticalAlignment="Top"
-					Foreground="{Binding ProgressBarColor}"/>
+					Foreground="{Binding ProgressBarColor}" />
 				<TextBlock
 					Text="{Binding OverallEncodeProgressPercent, Mode=OneWay, Converter={StaticResource PercentDisplayConverter}}"
 					VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+				<Popup
+					Name="encodeProgressDetailsPopup" IsOpen="False"
+					PlacementTarget="{Binding ElementName=overallEncodeProgressBar}"
+					Placement="Bottom"
+					HorizontalOffset="50"
+					VerticalOffset="10"
+					AllowsTransparency="True">
+					<Border
+						BorderBrush="Gray"
+						BorderThickness="1"
+						CornerRadius="4"
+						Margin="10"
+						Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}">
+						<Border.Effect>
+							<DropShadowEffect ShadowDepth="6" BlurRadius="3" Direction="315" Opacity="0.3" />
+						</Border.Effect>
+						<Border.Background>
+							<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+								<GradientStop Color="White" Offset="0.0" />
+								<GradientStop Color="LightGray" Offset="1.0" />
+							</LinearGradientBrush>
+						</Border.Background>
+						<Grid Margin="7,2,7,2">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="40" />
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<TextBlock
+								Text="Current FPS:" Grid.Row="0" Grid.Column="0"
+								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
+								Style="{StaticResource EncodeDetailsHeader}"/>
+							<TextBlock
+								Text="{Binding CurrentFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}"
+								Grid.Row="0" Grid.Column="1" TextAlignment="Center"
+								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
+								Style="{StaticResource EncodeDetailsText}"/>
+							<TextBlock
+								Text="Average FPS:" Grid.Row="1" Grid.Column="0"
+								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
+								Style="{StaticResource EncodeDetailsHeader}"/>
+							<TextBlock
+								Text="{Binding AverageFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}"
+								Grid.Row="1" Grid.Column="1" TextAlignment="Center"
+								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
+								Style="{StaticResource EncodeDetailsText}"/>
+						</Grid>
+					</Border>
+				</Popup>
 			</Grid>
 
-			
+
 
 			<Button Height="37" HorizontalAlignment="Right" Margin="0,90,94,0" VerticalAlignment="Top" Width="78"
 				Command="{Binding StopEncodeCommand}"

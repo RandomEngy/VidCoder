@@ -42,24 +42,6 @@
 									<BeginStoryboard Storyboard="{StaticResource FadePreviewControlsIn}" x:Name="FadePreviewControlsIn_BeginStoryboard" />
 								</MultiDataTrigger.ExitActions>
 							</MultiDataTrigger>
-							<!--<DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=previewImageHolder}" Value="True">
-								<Setter Property="Opacity" Value="1.0" />
-							</DataTrigger>
-							<DataTrigger Binding="{Binding GeneratingPreview}" Value="True">
-								<Setter Property="Opacity" Value="1.0" />
-							</DataTrigger>-->
-							<!--<DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=previewImageHolder}" Value="False">
-								<DataTrigger.EnterActions>
-									<BeginStoryboard Storyboard="{StaticResource FadePreviewControlsOut}" x:Name="FadePreviewControlsOut_BeginStoryboard" />
-								</DataTrigger.EnterActions>
-								<DataTrigger.ExitActions>
-									<RemoveStoryboard BeginStoryboardName="FadePreviewControlsOut_BeginStoryboard" />
-								</DataTrigger.ExitActions>
-								<Setter Property="Visibility" Value="Collapsed" />
-							</DataTrigger>-->
-							<!--<DataTrigger Binding="{Binding GeneratingPreview}" Value="True">
-								<Setter Property="Visibility" Value="Visible" />
-							</DataTrigger>-->
 						</Style.Triggers>
 					</Style>
 				</Grid.Style>
