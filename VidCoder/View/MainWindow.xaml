@@ -433,12 +433,42 @@
 			<!--<Grid Margin="0,35,0,0" Height="36" VerticalAlignment="Top" Background="{StaticResource AlternateBackground}" />-->
 			
 			<TextBlock Text="Destination:" Style="{StaticResource SectionHeader}" HorizontalAlignment="Left" Width="80" Height="19" Margin="16,6,0,0" VerticalAlignment="Top" />
-			<TextBox Height="22" Margin="102,6,88,0" VerticalAlignment="Top"
+			<Grid
+				Height="22" Margin="102,5,88,0" VerticalAlignment="Top"
+				Visibility="{Binding OutputFolderChosen, Converter={StaticResource VisibilityConverter}}">
+				<TextBox
+					Name="destinationEditBox"
+					Text="{Binding OutputPath, UpdateSourceTrigger=PropertyChanged}"
+					Visibility="{Binding EditingDestination, Converter={StaticResource VisibilityConverter}}" LostFocus="DestinationEditBoxLostFocus"
+					PreviewKeyDown="destinationEditBox_PreviewKeyDown"/>
+				<Grid
+					Name="destinationReadArea"
+					Background="Transparent"
+					Visibility="{Binding EditingDestination, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
+					MouseLeftButtonDown="DestinationReadAreaMouseLeftButtonDown"
+					ToolTip="Click to edit the encode destination.">
+					<Border
+						CornerRadius="3"
+						BorderBrush="#7DA2CE" BorderThickness="1"
+						Visibility="{Binding IsMouseOver, ElementName=destinationReadArea, Converter={StaticResource VisibilityConverter}}">
+						<Border.Background>
+							<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+								<GradientStop Color="#DBEAFC" Offset="0.0" />
+								<GradientStop Color="#C1DBFC" Offset="1.0" />
+							</LinearGradientBrush>
+						</Border.Background>
+					</Border>
+					<TextBlock
+						HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,3,0,0"
+						Text="{Binding OutputPath}" />
+					<Image 
+						Source="/Icons/edit_2.png" Height="20" HorizontalAlignment="Right" Margin="0,0,4,0"
+						Visibility="{Binding IsMouseOver, ElementName=destinationReadArea, Converter={StaticResource VisibilityConverter}}"/>
+				</Grid>
+			</Grid>
+			<!--<TextBox Height="22" Margin="102,6,88,0" VerticalAlignment="Top"
 				Text="{Binding OutputPath}"
-				Visibility="{Binding OutputFolderChosen, Converter={StaticResource VisibilityConverter}}"/>
-			<Button Width="64" HorizontalAlignment="Right" Height="22" Margin="0,6,12,0" VerticalAlignment="Top"
-				Command="{Binding PickOutputPathCommand}"
-				Visibility="{Binding OutputFolderChosen, Converter={StaticResource VisibilityConverter}}">Browse...</Button>
+				Visibility="{Binding OutputFolderChosen, Converter={StaticResource VisibilityConverter}}"/>-->
 			<Button Height="22" Width="141.044" Margin="112,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
 				Visibility="{Binding OutputFolderChosen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
 				Command="{Binding PickDefaultOutputFolderCommand}">
@@ -447,6 +477,9 @@
 					<TextBlock Text="Select output path..." Margin="7,0,0,0" />
 				</StackPanel>
 			</Button>
+			<Button Width="64" HorizontalAlignment="Right" Height="22" Margin="0,6,12,0" VerticalAlignment="Top"
+				Command="{Binding PickOutputPathCommand}"
+				Visibility="{Binding OutputFolderChosen, Converter={StaticResource VisibilityConverter}}">Browse...</Button>
 			
 			<TextBlock HorizontalAlignment="Left" Margin="16,50,0,0" Width="77.534"
 				Text="Encoding:"

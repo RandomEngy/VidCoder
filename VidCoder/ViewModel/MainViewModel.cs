@@ -56,6 +56,7 @@ namespace VidCoder.ViewModel
 
 		private string outputPath;
 		private bool manualOutputPath;
+		private bool editingDestination;
 
 		private List<Preset> builtInPresets;
 		private ObservableCollection<PresetViewModel> allPresets;
@@ -1044,6 +1045,20 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool EditingDestination
+		{
+			get
+			{
+				return this.editingDestination;
+			}
+
+			set
+			{
+				this.editingDestination = value;
+				this.NotifyPropertyChanged("EditingDestination");
+			}
+		}
+
 		public VideoSource SourceData
 		{
 			get
@@ -1197,7 +1212,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.HasVideoSource && !string.IsNullOrEmpty(this.OutputPath);
+				return this.HasVideoSource && Utilities.IsValidFullPath(this.OutputPath);
 			}
 		}
 
@@ -1577,10 +1592,7 @@ namespace VidCoder.ViewModel
 							Properties.Settings.Default.Save();
 							this.NotifyPropertyChanged("OutputFolderChosen");
 
-							if (this.HasVideoSource)
-							{
-								this.GenerateOutputFileName();
-							}
+							this.GenerateOutputFileName();
 						}
 					});
 				}
@@ -1598,28 +1610,7 @@ namespace VidCoder.ViewModel
 					this.pickOutputPathCommand = new RelayCommand(param =>
 					{
 						string newOutputPath = FileService.Instance.GetFileNameSave(Properties.Settings.Default.LastOutputFolder);
-
-						if (newOutputPath != null)
-						{
-							string outputDirectory = Path.GetDirectoryName(newOutputPath);
-							Properties.Settings.Default.LastOutputFolder = outputDirectory;
-							Properties.Settings.Default.Save();
-
-							string fileName = Path.GetFileNameWithoutExtension(newOutputPath);
-							string extension;
-
-							if (this.HasVideoSource)
-							{
-								extension = this.GetOutputExtension(this.CurrentSubtitles, this.SelectedTitle);
-							}
-							else
-							{
-								extension = this.GetOutputExtension();
-							}
-
-							this.manualOutputPath = true;
-							this.OutputPath = Path.Combine(outputDirectory, fileName + extension);
-						}
+						this.SetManualOutputPath(newOutputPath, this.OutputPath);
 					},
 					param =>
 					{
@@ -1804,7 +1795,7 @@ namespace VidCoder.ViewModel
 									totalChapters: title.Chapters.Count);
 
 								string extension = this.GetOutputExtension(subtitles, title);
-								string queueOutputPath = this.BuildOutputPath(queueOutputFileName, extension);
+								string queueOutputPath = this.BuildOutputPath(queueOutputFileName, extension, sourcePath: null);
 
 								var job = new EncodeJob
 								{
@@ -2233,7 +2224,10 @@ namespace VidCoder.ViewModel
 			List<EncodeJobViewModel> itemsToQueue = new List<EncodeJobViewModel>();
 			foreach (string fileToQueue in filesToQueue)
 			{
-				string queueOutputPath = Utilities.CreateUniqueFileName(Path.GetFileName(fileToQueue), Settings.Default.AutoNameOutputFolder, this.GetQueuedFiles());
+				// Exclude all current queued files and the source file from the possible destinations.
+				HashSet<string> excludedPaths = this.GetQueuedFiles();
+				excludedPaths.Add(fileToQueue);
+				string queueOutputPath = Utilities.CreateUniqueFileName(Path.GetFileName(fileToQueue), Settings.Default.AutoNameOutputFolder, excludedPaths);
 
 				var job = new EncodeJob
 				{
@@ -2444,6 +2438,48 @@ namespace VidCoder.ViewModel
 		public void RefreshDestination()
 		{
 			this.GenerateOutputFileName();
+		}
+
+		/// <summary>
+		/// Processes and sets a user-provided output path.
+		/// </summary>
+		/// <param name="newOutputPath">The user provided output path.</param>
+		public void SetManualOutputPath(string newOutputPath, string oldOutputPath)
+		{
+			if (newOutputPath == oldOutputPath)
+			{
+				return;
+			}
+
+			if (Utilities.IsValidFullPath(newOutputPath))
+			{
+				string outputDirectory = Path.GetDirectoryName(newOutputPath);
+				Properties.Settings.Default.LastOutputFolder = outputDirectory;
+				Properties.Settings.Default.Save();
+
+				string fileName = Path.GetFileNameWithoutExtension(newOutputPath);
+				string extension;
+
+				if (this.HasVideoSource)
+				{
+					extension = this.GetOutputExtension(this.CurrentSubtitles, this.SelectedTitle);
+				}
+				else
+				{
+					extension = this.GetOutputExtension();
+				}
+
+				this.manualOutputPath = true;
+				this.OutputPath = Path.Combine(outputDirectory, fileName + extension);
+			}
+			else 
+			{
+				// Revert the change if it's not a valid path.
+				if (this.OutputPath != oldOutputPath)
+				{
+					this.OutputPath = oldOutputPath;
+				}
+			}
 		}
 
 		public void SaveUserPresets()
@@ -2679,6 +2715,12 @@ namespace VidCoder.ViewModel
 
 			if (!this.HasVideoSource)
 			{
+				string outputFolder = Settings.Default.AutoNameOutputFolder;
+				if (outputFolder != null)
+				{
+					this.OutputPath = outputFolder + (outputFolder.EndsWith(@"\") ? string.Empty : @"\");
+				}
+
 				return;
 			}
 
@@ -2708,7 +2750,7 @@ namespace VidCoder.ViewModel
 
 			string extension = this.GetOutputExtension();
 
-			this.OutputPath = this.BuildOutputPath(fileName, extension);
+			this.OutputPath = this.BuildOutputPath(fileName, extension, sourcePath: this.sourcePath);
 		}
 
 		private string GetOutputExtension(Subtitles givenSubtitles, Title givenTitle)
@@ -2805,12 +2847,18 @@ namespace VidCoder.ViewModel
 			return string.Join(" ", translatedTitleWords);
 		}
 
-		private string BuildOutputPath(string fileName, string extension)
+		private string BuildOutputPath(string fileName, string extension, string sourcePath)
 		{
 			string outputFolder = Settings.Default.AutoNameOutputFolder;
 			if (!string.IsNullOrEmpty(outputFolder))
 			{
-				return Path.Combine(outputFolder, fileName + extension);
+				string result = Path.Combine(outputFolder, fileName + extension);
+				if (result == sourcePath)
+				{
+					result = Path.Combine(outputFolder, fileName + " (Encoded)" + extension);
+				}
+
+				return result;
 			}
 
 			return null;

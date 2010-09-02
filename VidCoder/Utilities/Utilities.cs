@@ -150,11 +150,11 @@ namespace VidCoder
 			return cleanName;
 		}
 
-		public static string CreateUniqueFileName(string baseName, string outputDirectory, HashSet<string> excludedNames)
+		public static string CreateUniqueFileName(string baseName, string outputDirectory, HashSet<string> excludedPaths)
 		{
 			string fileName = Path.GetFileName(baseName);
 			string candidateFilePath = Path.Combine(outputDirectory, fileName);
-			if (!File.Exists(candidateFilePath) && !IsExcluded(fileName, excludedNames))
+			if (!File.Exists(candidateFilePath) && !IsExcluded(fileName, excludedPaths))
 			{
 				return candidateFilePath;
 			}
@@ -165,7 +165,7 @@ namespace VidCoder
 			for (int i = 1; i < 1000; i++)
 			{
 				string candidateFileName = fileNameWithoutExtension + "-" + i + extension;
-				if (!IsExcluded(candidateFileName, excludedNames))
+				if (!IsExcluded(candidateFileName, excludedPaths))
 				{
 					candidateFilePath = Path.Combine(outputDirectory, candidateFileName);
 					if (!File.Exists(candidateFilePath))
@@ -206,6 +206,31 @@ namespace VidCoder
 			}
 
 			return resultList;
+		}
+
+		public static bool IsValidFullPath(string path)
+		{
+			if (string.IsNullOrWhiteSpace(path))
+			{
+				return false;
+			}
+
+			char[] invalidChars = Path.GetInvalidPathChars();
+
+			foreach (char c in path)
+			{
+				if (invalidChars.Contains(c))
+				{
+					return false;
+				}
+			}
+
+			if (!Path.IsPathRooted(path))
+			{
+				return false;
+			}
+
+			return true;
 		}
 
 		private static bool IsExcluded(string candidate, HashSet<string> exclusionList)
