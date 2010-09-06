@@ -36,6 +36,8 @@
 		<Style x:Key="InputOutputInfoSection" TargetType="Border">
 			<Setter Property="Padding" Value="3" />
 			<Setter Property="CornerRadius" Value="10" />
+			<Setter Property="BorderThickness" Value="1" />
+			<Setter Property="BorderBrush" Value="#999999" />
 		</Style>
 		<Style x:Key="NormalComboBox" TargetType="ComboBox">
 			<Setter Property="Height" Value="22" />
@@ -245,8 +247,11 @@
 					</Grid.ColumnDefinitions>
 					<Grid Grid.Row="0" Grid.Column="0" Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">
 						<TextBlock Height="21" Width="38" HorizontalAlignment="Left" Margin="6,3,0,0" VerticalAlignment="Top" Text="Input" Style="{StaticResource SectionHeader}" />
-						<Border Margin="46,3,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="{StaticResource InputBrush}" Style="{StaticResource InputOutputInfoSection}">
-							<Grid Name="grid1" VerticalAlignment="Top" HorizontalAlignment="Left" Width="227">
+						<Border
+							Margin="46,3,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="228"
+							Style="{StaticResource InputOutputInfoSection}"
+							Background="{StaticResource InputBrush}" Effect="{StaticResource InfoBoxShadow}">
+							<Grid Margin="3,0,0,0">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto" />
 									<RowDefinition Height="Auto" />
@@ -254,15 +259,16 @@
 								</Grid.RowDefinitions>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="105" />
+									<ColumnDefinition Width="4" />
 									<ColumnDefinition Width="173*" />
 								</Grid.ColumnDefinitions>
 								<TextBlock Text="Storage Resolution:" Grid.Row="0" Grid.Column="0" />
 								<TextBlock Text="Pixel Aspect Ratio:" Grid.Row="1" Grid.Column="0" />
 								<TextBlock Text="Display Resolution:" Grid.Row="2" Grid.Column="0" />
 
-								<TextBlock Text="{Binding InputSourceResolution}" Grid.Row="0" Grid.Column="1" />
-								<TextBlock Text="{Binding InputPixelAspectRatio}" Grid.Row="1" Grid.Column="1" />
-								<TextBlock Text="{Binding InputDisplayResolution}" Grid.Row="2" Grid.Column="1" />
+								<TextBlock Text="{Binding InputSourceResolution}" Grid.Row="0" Grid.Column="2" />
+								<TextBlock Text="{Binding InputPixelAspectRatio}" Grid.Row="1" Grid.Column="2" />
+								<TextBlock Text="{Binding InputDisplayResolution}" Grid.Row="2" Grid.Column="2" />
 							</Grid>
 						</Border>
 					</Grid>
@@ -348,8 +354,11 @@
 
 					<Grid Grid.Row="2" Grid.Column="0" Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">
 						<TextBlock Text="Output" Height="21" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Top" Width="54" Style="{StaticResource SectionHeader}" />
-						<Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="53,5,0,0" Background="{StaticResource OutputBrush}" Style="{StaticResource InputOutputInfoSection}" Height="55.88" Width="228">
-							<Grid Width="220">
+						<Border
+							HorizontalAlignment="Left" VerticalAlignment="Top" Margin="53,5,0,0"
+							Style="{StaticResource InputOutputInfoSection}" Height="55.88" Width="228"
+							Background="{StaticResource OutputBrush}" Effect="{StaticResource InfoBoxShadow}">
+							<Grid Width="220" Margin="3,0,0,0">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto" />
 									<RowDefinition Height="Auto" />
@@ -357,15 +366,16 @@
 								</Grid.RowDefinitions>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="105" />
+									<ColumnDefinition Width="4" />
 									<ColumnDefinition Width="173*" />
 								</Grid.ColumnDefinitions>
 								<TextBlock Text="Storage Resolution:" Grid.Row="0" Grid.Column="0" />
 								<TextBlock Text="Pixel Aspect Ratio:" Grid.Row="1" Grid.Column="0" />
 								<TextBlock Text="Display Resolution:" Grid.Row="2" Grid.Column="0" />
 
-								<TextBlock Text="{Binding OutputSourceResolution}" Grid.Row="0" Grid.Column="1" />
-								<TextBlock Text="{Binding OutputPixelAspectRatio}" Grid.Row="1" Grid.Column="1" />
-								<TextBlock Text="{Binding OutputDisplayResolution}" Grid.Row="2" Grid.Column="1" />
+								<TextBlock Text="{Binding OutputSourceResolution}" Grid.Row="0" Grid.Column="2" />
+								<TextBlock Text="{Binding OutputPixelAspectRatio}" Grid.Row="1" Grid.Column="2" />
+								<TextBlock Text="{Binding OutputDisplayResolution}" Grid.Row="2" Grid.Column="2" />
 							</Grid>
 						</Border>
 					</Grid>
@@ -555,7 +565,11 @@
 							<TextBlock
 								Style="{StaticResource SectionHeader}"
 								Text="Output" />
-							<Border Margin="0,20,0,0" Background="{StaticResource OutputBrush}" Style="{StaticResource InputOutputInfoSection}">
+							<Border
+								Margin="0,20,0,0"
+								Background="{StaticResource OutputBrush}"
+								Style="{StaticResource InputOutputInfoSection}"
+								Effect="{StaticResource InfoBoxShadow}">
 								<StackPanel Orientation="Vertical">
 									<TextBlock
 									Text="(No tracks)"

@@ -22,8 +22,15 @@
 			<Setter Property="VerticalAlignment" Value="Center" />
 			<Setter Property="Foreground" Value="Gray" />
 		</Style>
-		<SolidColorBrush x:Key="InputBrush" Color="#C1E6FF" />
-		<SolidColorBrush x:Key="OutputBrush" Color="#CCFFC9" />
+		<LinearGradientBrush x:Key="InputBrush" StartPoint="0,0" EndPoint="0,1">
+			<GradientStop Color="#C1E6FF" Offset="0.0" />
+			<GradientStop Color="#ABC6D8" Offset="1.0" />
+		</LinearGradientBrush>
+		<LinearGradientBrush x:Key="OutputBrush" StartPoint="0,0" EndPoint="0,1">
+			<GradientStop Color="#CCFFC9" Offset="0.0" />
+			<GradientStop Color="#B7E0B3" Offset="1.0" />
+		</LinearGradientBrush>
+		<DropShadowEffect x:Key="InfoBoxShadow" ShadowDepth="4" BlurRadius="3" Direction="315" Opacity="0.3" />
 		<RadialGradientBrush x:Key="RedFill" GradientOrigin="7,1.5" Center="7,1.5" RadiusX="10" RadiusY="10" MappingMode="Absolute">
 			<GradientStop Color="#DD0008" Offset="0" />
 			<GradientStop Color="#A30008" Offset="1" />
