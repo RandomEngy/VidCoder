@@ -2227,7 +2227,7 @@ namespace VidCoder.ViewModel
 				// Exclude all current queued files and the source file from the possible destinations.
 				HashSet<string> excludedPaths = this.GetQueuedFiles();
 				excludedPaths.Add(fileToQueue);
-				string queueOutputPath = Utilities.CreateUniqueFileName(Path.GetFileName(fileToQueue), Settings.Default.AutoNameOutputFolder, excludedPaths);
+				string queueOutputPath = Utilities.CreateUniqueFileName(Path.GetFileNameWithoutExtension(fileToQueue) + this.GetOutputExtensionForCurrentEncodingProfile(), Settings.Default.AutoNameOutputFolder, excludedPaths);
 
 				var job = new EncodeJob
 				{
@@ -2458,16 +2458,7 @@ namespace VidCoder.ViewModel
 				Properties.Settings.Default.Save();
 
 				string fileName = Path.GetFileNameWithoutExtension(newOutputPath);
-				string extension;
-
-				if (this.HasVideoSource)
-				{
-					extension = this.GetOutputExtension(this.CurrentSubtitles, this.SelectedTitle);
-				}
-				else
-				{
-					extension = this.GetOutputExtension();
-				}
+				string extension = this.GetOutputExtension();
 
 				this.manualOutputPath = true;
 				this.OutputPath = Path.Combine(outputDirectory, fileName + extension);
@@ -2753,6 +2744,14 @@ namespace VidCoder.ViewModel
 			this.OutputPath = this.BuildOutputPath(fileName, extension, sourcePath: this.sourcePath);
 		}
 
+		/// <summary>
+		/// Gets the output extension for the given subtitles and title, and with the
+		/// current encoding settings.
+		/// </summary>
+		/// <param name="givenSubtitles">The subtitles to determine the extension for.</param>
+		/// <param name="givenTitle">The title to determine the extension for.</param>
+		/// <returns>The output extension (with dot) for the given subtitles and title,
+		/// and with the current encoding settings.</returns>
 		private string GetOutputExtension(Subtitles givenSubtitles, Title givenTitle)
 		{
 			string extension;
@@ -2790,13 +2789,24 @@ namespace VidCoder.ViewModel
 			return extension;
 		}
 
+		/// <summary>
+		/// Gets the extension that should be used for the current encoding settings, subtitles
+		/// and title.
+		/// </summary>
+		/// <returns>The extension (with dot) that should be used for current encoding settings, subtitles
+		/// and title. If no video source is present, this is determined from the encoding settings.</returns>
 		private string GetOutputExtension()
 		{
-			if (!this.manualOutputPath)
+			if (this.HasVideoSource)
 			{
 				return this.GetOutputExtension(this.CurrentSubtitles, this.SelectedTitle);
 			}
 
+			return this.GetOutputExtensionForCurrentEncodingProfile();
+		}
+
+		private string GetOutputExtensionForCurrentEncodingProfile()
+		{
 			EncodingProfile profile = this.SelectedPreset.Preset.EncodingProfile;
 			if (profile.OutputFormat == OutputFormat.Mkv)
 			{

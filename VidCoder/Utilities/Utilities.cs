@@ -230,6 +230,11 @@ namespace VidCoder
 				return false;
 			}
 
+			if (string.IsNullOrEmpty(Path.GetFileName(path)))
+			{
+				return false;
+			}
+
 			return true;
 		}
 
