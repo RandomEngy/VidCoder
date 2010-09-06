@@ -2568,6 +2568,9 @@ namespace VidCoder.ViewModel
 				this.profile.PixelAspectX = this.SelectedTitle.ParVal.Width;
 				this.profile.PixelAspectY = this.SelectedTitle.ParVal.Height;
 			}
+
+			this.NotifyPropertyChanged("PixelAspectX");
+			this.NotifyPropertyChanged("PixelAspectY");
 		}
 
 		private string CreateParDisplayString(int parWidth, int parHeight)
