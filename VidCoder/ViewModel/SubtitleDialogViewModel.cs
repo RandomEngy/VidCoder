@@ -77,6 +77,7 @@ namespace VidCoder.ViewModel
 		private void SourceCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
 			this.NotifyPropertyChanged("HasSourceSubtitles");
+			this.NotifyPropertyChanged("AddSourceSubtitleToolTip");
 		}
 
 		private void SrtCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -196,7 +197,14 @@ namespace VidCoder.ViewModel
 					this.addSourceSubtitle = new RelayCommand(
 						param =>
 						{
-							SourceSubtitle newSubtitle = new SourceSubtitle { TrackNumber = this.GetFirstUnusedTrack(), Default = false, Forced = false, BurnedIn = this.OutputFormat == OutputFormat.Mp4 };
+							SourceSubtitle newSubtitle = new SourceSubtitle
+							{
+								TrackNumber = this.GetFirstUnusedTrack(),
+								Default = false,
+								Forced = false,
+								BurnedIn = this.OutputFormat == OutputFormat.Mp4
+							};
+
 							this.sourceSubtitles.Add(new SourceSubtitleViewModel(this, newSubtitle));
 							this.UpdateBoxes();
 							this.UpdateWarningVisibility();
@@ -215,6 +223,24 @@ namespace VidCoder.ViewModel
 				}
 
 				return this.addSourceSubtitle;
+			}
+		}
+
+		public string AddSourceSubtitleToolTip
+		{
+			get
+			{
+				if (this.MainViewModel.SelectedTitle == null || this.MainViewModel.SelectedTitle.Subtitles.Count == 0)
+				{
+					return "No subtitles on the source video.";
+				}
+
+				if (this.SourceSubtitles.Count > 0 && this.OutputFormat == OutputFormat.Mp4)
+				{
+					return "MP4 only supports one source subtitle, since they must be burned onto the video.";
+				}
+
+				return null;
 			}
 		}
 

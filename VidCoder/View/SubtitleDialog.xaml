@@ -108,7 +108,10 @@
 							</GridView>
 						</ListView.View>
 					</ListView>
-					<Button Command="{Binding AddSourceSubtitle}" HorizontalAlignment="Left" Margin="0,0,0,0" Width="97" Height="23" VerticalAlignment="Bottom">
+					<Button
+						Command="{Binding AddSourceSubtitle}"
+						HorizontalAlignment="Left" Margin="0,0,0,0" Width="97" Height="23" VerticalAlignment="Bottom"
+						ToolTip="{Binding AddSourceSubtitleToolTip}" ToolTipService.ShowOnDisabled="True">
 						<StackPanel Orientation="Horizontal">
 							<Polygon Style="{StaticResource PlusSign}" />
 							<TextBlock Text="Add Subtitle" />

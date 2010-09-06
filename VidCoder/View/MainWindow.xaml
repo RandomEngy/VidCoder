@@ -446,7 +446,7 @@
 					Background="Transparent"
 					Visibility="{Binding EditingDestination, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
 					MouseLeftButtonDown="DestinationReadAreaMouseLeftButtonDown"
-					ToolTip="Click to edit the encode destination.">
+					ToolTip="Click to change the encode destination.">
 					<Border
 						CornerRadius="3"
 						BorderBrush="#7DA2CE" BorderThickness="1"

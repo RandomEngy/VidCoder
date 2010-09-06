@@ -365,8 +365,25 @@ namespace VidCoder.ViewModel
 
 			set
 			{
-				this.mp4ExtensionEnabled = value;
-				this.NotifyPropertyChanged("Mp4ExtensionEnabled");
+				if (this.mp4ExtensionEnabled != value)
+				{
+					this.mp4ExtensionEnabled = value;
+					this.NotifyPropertyChanged("Mp4ExtensionEnabled");
+					this.NotifyPropertyChanged("Mp4ExtensionToolTip");
+				}
+			}
+		}
+
+		public string Mp4ExtensionToolTip
+		{
+			get
+			{
+				if (!this.Mp4ExtensionEnabled)
+				{
+					return "The .mp4 extension is disabled for compatibility with AC3 Passthrough.";
+				}
+
+				return null;
 			}
 		}
 
