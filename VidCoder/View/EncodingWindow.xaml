@@ -246,29 +246,31 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 					<Grid Grid.Row="0" Grid.Column="0" Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">
-						<TextBlock Height="21" Width="38" HorizontalAlignment="Left" Margin="6,3,0,0" VerticalAlignment="Top" Text="Input" Style="{StaticResource SectionHeader}" />
 						<Border
-							Margin="46,3,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="228"
+							Margin="3,3,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="274"
 							Style="{StaticResource InputOutputInfoSection}"
 							Background="{StaticResource InputBrush}" Effect="{StaticResource InfoBoxShadow}">
-							<Grid Margin="3,0,0,0">
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-								</Grid.RowDefinitions>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="105" />
-									<ColumnDefinition Width="4" />
-									<ColumnDefinition Width="173*" />
-								</Grid.ColumnDefinitions>
-								<TextBlock Text="Storage Resolution:" Grid.Row="0" Grid.Column="0" />
-								<TextBlock Text="Pixel Aspect Ratio:" Grid.Row="1" Grid.Column="0" />
-								<TextBlock Text="Display Resolution:" Grid.Row="2" Grid.Column="0" />
+							<Grid>
+								<TextBlock Height="21" Width="38" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Top" Text="Input" Style="{StaticResource SectionHeader}" />
+								<Grid Margin="50,0,0,0">
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="105" />
+										<ColumnDefinition Width="4" />
+										<ColumnDefinition Width="173*" />
+									</Grid.ColumnDefinitions>
+									<TextBlock Text="Storage Resolution:" Grid.Row="0" Grid.Column="0" />
+									<TextBlock Text="Pixel Aspect Ratio:" Grid.Row="1" Grid.Column="0" />
+									<TextBlock Text="Display Resolution:" Grid.Row="2" Grid.Column="0" />
 
-								<TextBlock Text="{Binding InputSourceResolution}" Grid.Row="0" Grid.Column="2" />
-								<TextBlock Text="{Binding InputPixelAspectRatio}" Grid.Row="1" Grid.Column="2" />
-								<TextBlock Text="{Binding InputDisplayResolution}" Grid.Row="2" Grid.Column="2" />
+									<TextBlock Text="{Binding InputSourceResolution}" Grid.Row="0" Grid.Column="2" />
+									<TextBlock Text="{Binding InputPixelAspectRatio}" Grid.Row="1" Grid.Column="2" />
+									<TextBlock Text="{Binding InputDisplayResolution}" Grid.Row="2" Grid.Column="2" />
+								</Grid>
 							</Grid>
 						</Border>
 					</Grid>
@@ -353,29 +355,31 @@
 					</Grid>
 
 					<Grid Grid.Row="2" Grid.Column="0" Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">
-						<TextBlock Text="Output" Height="21" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Top" Width="54" Style="{StaticResource SectionHeader}" />
 						<Border
-							HorizontalAlignment="Left" VerticalAlignment="Top" Margin="53,5,0,0"
-							Style="{StaticResource InputOutputInfoSection}" Height="55.88" Width="228"
+							HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,5,0,0"
+							Style="{StaticResource InputOutputInfoSection}" Height="55.88" Width="270"
 							Background="{StaticResource OutputBrush}" Effect="{StaticResource InfoBoxShadow}">
-							<Grid Width="220" Margin="3,0,0,0">
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-								</Grid.RowDefinitions>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="105" />
-									<ColumnDefinition Width="4" />
-									<ColumnDefinition Width="173*" />
-								</Grid.ColumnDefinitions>
-								<TextBlock Text="Storage Resolution:" Grid.Row="0" Grid.Column="0" />
-								<TextBlock Text="Pixel Aspect Ratio:" Grid.Row="1" Grid.Column="0" />
-								<TextBlock Text="Display Resolution:" Grid.Row="2" Grid.Column="0" />
+							<Grid>
+								<TextBlock Text="Output" Height="21" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Top" Width="54" Style="{StaticResource SectionHeader}" />
+								<Grid Margin="50,0,0,0">
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="105" />
+										<ColumnDefinition Width="4" />
+										<ColumnDefinition Width="173*" />
+									</Grid.ColumnDefinitions>
+									<TextBlock Text="Storage Resolution:" Grid.Row="0" Grid.Column="0" />
+									<TextBlock Text="Pixel Aspect Ratio:" Grid.Row="1" Grid.Column="0" />
+									<TextBlock Text="Display Resolution:" Grid.Row="2" Grid.Column="0" />
 
-								<TextBlock Text="{Binding OutputSourceResolution}" Grid.Row="0" Grid.Column="2" />
-								<TextBlock Text="{Binding OutputPixelAspectRatio}" Grid.Row="1" Grid.Column="2" />
-								<TextBlock Text="{Binding OutputDisplayResolution}" Grid.Row="2" Grid.Column="2" />
+									<TextBlock Text="{Binding OutputSourceResolution}" Grid.Row="0" Grid.Column="2" />
+									<TextBlock Text="{Binding OutputPixelAspectRatio}" Grid.Row="1" Grid.Column="2" />
+									<TextBlock Text="{Binding OutputDisplayResolution}" Grid.Row="2" Grid.Column="2" />
+								</Grid>
 							</Grid>
 						</Border>
 					</Grid>
@@ -562,40 +566,43 @@
 							Command="{Binding AddAudioEncodingCommand}">Add audio encoding</Button>
 						<Grid HorizontalAlignment="Left" Margin="0,10,0,0"
 							Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">
-							<TextBlock
-								Style="{StaticResource SectionHeader}"
-								Text="Output" />
 							<Border
-								Margin="0,20,0,0"
+								Margin="0,0,0,0"
 								Background="{StaticResource OutputBrush}"
 								Style="{StaticResource InputOutputInfoSection}"
 								Effect="{StaticResource InfoBoxShadow}">
-								<StackPanel Orientation="Vertical">
+								<Grid>
 									<TextBlock
-									Text="(No tracks)"
-									Style="{StaticResource DescriptiveText}"
-									Visibility="{Binding HasAudioTracks, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"/>
-									<ItemsControl ItemsSource="{Binding AudioOutputPreviews}" Grid.IsSharedSizeScope="True"
-									Visibility="{Binding HasAudioTracks, Converter={StaticResource VisibilityConverter}}">
-										<ItemsControl.ItemTemplate>
-											<DataTemplate>
-												<Grid>
-													<Grid.ColumnDefinitions>
-														<ColumnDefinition Width="*" SharedSizeGroup="TrackNumber"/>
-														<ColumnDefinition Width="*" SharedSizeGroup="TrackName"/>
-														<ColumnDefinition Width="*" SharedSizeGroup="Encoder"/>
-														<ColumnDefinition Width="*" SharedSizeGroup="Bitrate"/>
-													</Grid.ColumnDefinitions>
+										HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,0,0,0"
+										Style="{StaticResource SectionHeader}"
+										Text="Output" />
+									<StackPanel Orientation="Vertical" Margin="0,20,0,0">
+										<TextBlock
+										Text="(No tracks)"
+										Style="{StaticResource DescriptiveText}"
+										Visibility="{Binding HasAudioTracks, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"/>
+										<ItemsControl ItemsSource="{Binding AudioOutputPreviews}" Grid.IsSharedSizeScope="True"
+										Visibility="{Binding HasAudioTracks, Converter={StaticResource VisibilityConverter}}">
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="*" SharedSizeGroup="TrackNumber"/>
+															<ColumnDefinition Width="*" SharedSizeGroup="TrackName"/>
+															<ColumnDefinition Width="*" SharedSizeGroup="Encoder"/>
+															<ColumnDefinition Width="*" SharedSizeGroup="Bitrate"/>
+														</Grid.ColumnDefinitions>
 
-													<TextBlock Grid.Column="0" Text="{Binding TrackNumber}" Style="{StaticResource AudioOutputPreview}"/>
-													<TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource AudioOutputPreview}"/>
-													<TextBlock Grid.Column="2" Text="{Binding Encoder}" Style="{StaticResource AudioOutputPreview}"/>
-													<TextBlock Grid.Column="3" Text="{Binding Bitrate}" Style="{StaticResource AudioOutputPreview}"/>
-												</Grid>
-											</DataTemplate>
-										</ItemsControl.ItemTemplate>
-									</ItemsControl>
-								</StackPanel>
+														<TextBlock Grid.Column="0" Text="{Binding TrackNumber}" Style="{StaticResource AudioOutputPreview}"/>
+														<TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource AudioOutputPreview}"/>
+														<TextBlock Grid.Column="2" Text="{Binding Encoder}" Style="{StaticResource AudioOutputPreview}"/>
+														<TextBlock Grid.Column="3" Text="{Binding Bitrate}" Style="{StaticResource AudioOutputPreview}"/>
+													</Grid>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+									</StackPanel>
+								</Grid>
 							</Border>
 						</Grid>
 					</StackPanel>

@@ -30,7 +30,7 @@
 			<GradientStop Color="#CCFFC9" Offset="0.0" />
 			<GradientStop Color="#B7E0B3" Offset="1.0" />
 		</LinearGradientBrush>
-		<DropShadowEffect x:Key="InfoBoxShadow" ShadowDepth="4" BlurRadius="3" Direction="315" Opacity="0.3" />
+		<DropShadowEffect x:Key="InfoBoxShadow" ShadowDepth="3" BlurRadius="3" Direction="315" Opacity="0.3" />
 		<RadialGradientBrush x:Key="RedFill" GradientOrigin="7,1.5" Center="7,1.5" RadiusX="10" RadiusY="10" MappingMode="Absolute">
 			<GradientStop Color="#DD0008" Offset="0" />
 			<GradientStop Color="#A30008" Offset="1" />
