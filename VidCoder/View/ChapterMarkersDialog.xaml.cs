@@ -15,31 +15,37 @@ using System.ComponentModel;
 
 namespace VidCoder.View
 {
-    /// <summary>
-    /// Interaction logic for ChapterMarkersDialog.xaml
-    /// </summary>
-    public partial class ChapterMarkersDialog : Window
-    {
-        public ChapterMarkersDialog()
-        {
-            InitializeComponent();
-        }
+	/// <summary>
+	/// Interaction logic for ChapterMarkersDialog.xaml
+	/// </summary>
+	public partial class ChapterMarkersDialog : Window
+	{
+		public ChapterMarkersDialog()
+		{
+			InitializeComponent();
+		}
 
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            base.OnSourceInitialized(e);
+		protected override void OnSourceInitialized(EventArgs e)
+		{
+			base.OnSourceInitialized(e);
 
-            try
-            {
-                this.SetPlacement(Settings.Default.ChapterMarkersDialogPlacement);
-            }
-            catch { }
-        }
+			try
+			{
+				this.SetPlacement(Settings.Default.ChapterMarkersDialogPlacement);
+			}
+			catch { }
+		}
 
-        private void Window_Closing(object sender, CancelEventArgs e)
-        {
-            Settings.Default.ChapterMarkersDialogPlacement = this.GetPlacement();
-            Settings.Default.Save();
-        }
-    }
+		private void Window_Closing(object sender, CancelEventArgs e)
+		{
+			Settings.Default.ChapterMarkersDialogPlacement = this.GetPlacement();
+			Settings.Default.Save();
+		}
+
+		private void TitleBoxGotFocus(object sender, RoutedEventArgs e)
+		{
+			TextBox titleBox = sender as TextBox;
+			titleBox.SelectAll();
+		}
+	}
 }
