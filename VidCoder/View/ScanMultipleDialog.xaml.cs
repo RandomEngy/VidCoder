@@ -14,23 +14,23 @@ using VidCoder.ViewModel;
 
 namespace VidCoder.View
 {
-    /// <summary>
-    /// Interaction logic for ScanMultipleDialog.xaml
-    /// </summary>
-    public partial class ScanMultipleDialog : Window
-    {
-        public ScanMultipleDialog()
-        {
-            InitializeComponent();
-        }
+	/// <summary>
+	/// Interaction logic for ScanMultipleDialog.xaml
+	/// </summary>
+	public partial class ScanMultipleDialog : Window
+	{
+		public ScanMultipleDialog()
+		{
+			InitializeComponent();
+		}
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            ScanMultipleDialogViewModel viewModel = this.DataContext as ScanMultipleDialogViewModel;
-            if (!viewModel.CanClose)
-            {
-                e.Cancel = true;
-            }
-        }
-    }
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			ScanMultipleDialogViewModel viewModel = this.DataContext as ScanMultipleDialogViewModel;
+			if (!viewModel.CanClose)
+			{
+				e.Cancel = true;
+			}
+		}
+	}
 }

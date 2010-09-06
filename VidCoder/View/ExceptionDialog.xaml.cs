@@ -16,26 +16,26 @@ using System.Runtime.InteropServices;
 
 namespace VidCoder.View
 {
-    /// <summary>
-    /// Interaction logic for ExceptionDialog.xaml
-    /// </summary>
-    public partial class ExceptionDialog : Window
-    {
-        private Exception exception;
+	/// <summary>
+	/// Interaction logic for ExceptionDialog.xaml
+	/// </summary>
+	public partial class ExceptionDialog : Window
+	{
+		private Exception exception;
 
-        public ExceptionDialog(Exception exception)
-        {
-            this.exception = exception;
+		public ExceptionDialog(Exception exception)
+		{
+			this.exception = exception;
 
-            InitializeComponent();
+			InitializeComponent();
 
-            this.errorIcon.Source = WpfSystemIcons.Error;
-            this.exceptionTextBox.Text = exception.ToString() + Environment.NewLine;
-        }
+			this.errorIcon.Source = WpfSystemIcons.Error;
+			this.exceptionTextBox.Text = exception.ToString() + Environment.NewLine;
+		}
 
-        private void copyButton_Click(object sender, RoutedEventArgs e)
-        {
-            Clipboard.SetText(this.exception.ToString());
-        }
-    }
+		private void copyButton_Click(object sender, RoutedEventArgs e)
+		{
+			Clipboard.SetText(this.exception.ToString());
+		}
+	}
 }

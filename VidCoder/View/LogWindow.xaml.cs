@@ -14,31 +14,31 @@ using VidCoder.Properties;
 
 namespace VidCoder.View
 {
-    /// <summary>
-    /// Interaction logic for LogWindow.xaml
-    /// </summary>
-    public partial class LogWindow : Window
-    {
-        public LogWindow()
-        {
-            InitializeComponent();
-        }
+	/// <summary>
+	/// Interaction logic for LogWindow.xaml
+	/// </summary>
+	public partial class LogWindow : Window
+	{
+		public LogWindow()
+		{
+			InitializeComponent();
+		}
 
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            base.OnSourceInitialized(e);
-            this.SetPlacement(Properties.Settings.Default.LogWindowPlacement);
-        }
+		protected override void OnSourceInitialized(EventArgs e)
+		{
+			base.OnSourceInitialized(e);
+			this.SetPlacement(Properties.Settings.Default.LogWindowPlacement);
+		}
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Settings.Default.LogWindowPlacement = this.GetPlacement();
-            Settings.Default.Save();
-        }
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			Settings.Default.LogWindowPlacement = this.GetPlacement();
+			Settings.Default.Save();
+		}
 
-        private void logTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            this.logTextBox.ScrollToEnd();
-        }
-    }
+		private void logTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			this.logTextBox.ScrollToEnd();
+		}
+	}
 }

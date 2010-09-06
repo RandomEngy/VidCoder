@@ -14,22 +14,22 @@ using VidCoder.Properties;
 
 namespace VidCoder.View
 {
-    /// <summary>
-    /// Interaction logic for OptionsDialog.xaml
-    /// </summary>
-    public partial class OptionsDialog : Window
-    {
-        public OptionsDialog()
-        {
-            InitializeComponent();
+	/// <summary>
+	/// Interaction logic for OptionsDialog.xaml
+	/// </summary>
+	public partial class OptionsDialog : Window
+	{
+		public OptionsDialog()
+		{
+			InitializeComponent();
 
-            this.tabControl.SelectedIndex = Settings.Default.OptionsDialogLastTab;
-        }
+			this.tabControl.SelectedIndex = Settings.Default.OptionsDialogLastTab;
+		}
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Settings.Default.OptionsDialogLastTab = this.tabControl.SelectedIndex;
-            Settings.Default.Save();
-        }
-    }
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			Settings.Default.OptionsDialogLastTab = this.tabControl.SelectedIndex;
+			Settings.Default.Save();
+		}
+	}
 }

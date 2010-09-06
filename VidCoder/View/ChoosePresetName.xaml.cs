@@ -13,20 +13,20 @@ using System.Windows.Shapes;
 
 namespace VidCoder.View
 {
-    /// <summary>
-    /// Interaction logic for ChoosePresetName.xaml
-    /// </summary>
-    public partial class ChoosePresetName : Window
-    {
-        public ChoosePresetName()
-        {
-            InitializeComponent();
-        }
+	/// <summary>
+	/// Interaction logic for ChoosePresetName.xaml
+	/// </summary>
+	public partial class ChoosePresetName : Window
+	{
+		public ChoosePresetName()
+		{
+			InitializeComponent();
+		}
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.presetNameText.Focus();
-            this.presetNameText.SelectAll();
-        }
-    }
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+			this.presetNameText.Focus();
+			this.presetNameText.SelectAll();
+		}
+	}
 }

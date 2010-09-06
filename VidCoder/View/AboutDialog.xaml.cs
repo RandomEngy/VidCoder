@@ -13,14 +13,14 @@ using System.Windows.Shapes;
 
 namespace VidCoder.View
 {
-    /// <summary>
-    /// Interaction logic for Window1.xaml
-    /// </summary>
-    public partial class AboutDialog : Window
-    {
-        public AboutDialog()
-        {
-            InitializeComponent();
-        }
-    }
+	/// <summary>
+	/// Interaction logic for Window1.xaml
+	/// </summary>
+	public partial class AboutDialog : Window
+	{
+		public AboutDialog()
+		{
+			InitializeComponent();
+		}
+	}
 }
