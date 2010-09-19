@@ -1762,7 +1762,9 @@ namespace VidCoder.ViewModel
 									{
 										subtitles.SourceSubtitles.Add(sourceSubtitle.Clone());
 									}
-									else if (this.SelectedTitle.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode == title.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode)
+									else if (
+										title.Subtitles.Count > sourceSubtitle.TrackNumber - 1 &&
+										this.SelectedTitle.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode == title.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode)
 									{
 										subtitles.SourceSubtitles.Add(sourceSubtitle.Clone());
 									}
@@ -1773,7 +1775,7 @@ namespace VidCoder.ViewModel
 								{
 									int audioIndex = audioVM.SelectedIndex;
 
-									if (this.SelectedTitle.AudioTracks[audioIndex].LanguageCode == title.AudioTracks[audioIndex].LanguageCode)
+									if (title.AudioTracks.Count > audioIndex && this.SelectedTitle.AudioTracks[audioIndex].LanguageCode == title.AudioTracks[audioIndex].LanguageCode)
 									{
 										currentAudioChoices.Add(audioIndex + 1);
 									}
