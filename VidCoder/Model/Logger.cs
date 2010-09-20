@@ -14,6 +14,7 @@ namespace VidCoder.Model
 		private bool disposed;
 		private StringBuilder logBuilder;
 		private object logLock = new object();
+		private object disposeLock = new object();
 
 		public Logger()
 		{
@@ -59,10 +60,13 @@ namespace VidCoder.Model
 		/// </summary>
 		public void Dispose()
 		{
-			if (!disposed)
+			lock (this.disposeLock)
 			{
-				this.disposed = true;
-				this.logFile.Close();
+				if (!this.disposed)
+				{
+					this.disposed = true;
+					this.logFile.Close();
+				}
 			}
 		}
 
@@ -78,6 +82,14 @@ namespace VidCoder.Model
 
 		private void RecordMessage(string message)
 		{
+			lock (this.disposeLock)
+			{
+				if (this.disposed)
+				{
+					return;
+				}
+			}
+
 			lock (this.logLock)
 			{
 				this.logBuilder.Append(message);
