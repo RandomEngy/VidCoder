@@ -2393,6 +2393,8 @@ namespace VidCoder.ViewModel
 
 			// Refresh file name.
 			this.GenerateOutputFileName();
+
+			this.RefreshChapterMarkerUI();
 		}
 
 		/// <summary>
@@ -2406,6 +2408,8 @@ namespace VidCoder.ViewModel
 
 			this.StartAnimation("PresetGlowHighlight");
 			this.SaveUserPresets();
+
+			this.RefreshChapterMarkerUI();
 		}
 
 		/// <summary>
