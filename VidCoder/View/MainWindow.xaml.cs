@@ -21,6 +21,7 @@ using System.Windows.Media.Effects;
 using HandBrake.Interop;
 using System.Resources;
 using System.IO;
+using Microsoft.Practices.Unity;
 
 namespace VidCoder.View
 {
@@ -50,7 +51,8 @@ namespace VidCoder.View
 			this.LoadCompletedColumnWidths();
 
 			this.DataContextChanged += OnDataContextChanged;
-			DispatchService.DispatchObject = this.Dispatcher;
+			Unity.Container.RegisterInstance(this.Dispatcher);
+			//DispatchService.DispatchObject = this.Dispatcher;
 			TheWindow = this;
 
 			this.presetGlowEffect.Opacity = 0.0;

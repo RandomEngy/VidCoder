@@ -113,7 +113,7 @@ namespace VidCoder.ViewModel
 							}
 							catch (IOException)
 							{
-								ServiceFactory.MessageBoxService.Show("Could not read file.");
+								Utilities.MessageBox.Show("Could not read file.");
 							}
 
 							if (success)

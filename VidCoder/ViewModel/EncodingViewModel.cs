@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.ComponentModel;
 using HandBrake.Interop;
 using System.Windows;
+using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
@@ -18,7 +19,7 @@ namespace VidCoder.ViewModel
 	{
 		private const int DimensionsAutoSetModulus = 16;
 
-		private MainViewModel mainViewModel;
+		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 
 		private EncodingProfile profile;
 
@@ -82,10 +83,8 @@ namespace VidCoder.ViewModel
 		private ICommand previewCommand;
 		private ICommand addAudioEncodingCommand;
 
-		public EncodingViewModel(Preset preset, MainViewModel mainViewModel)
+		public EncodingViewModel(Preset preset)
 		{
-			this.mainViewModel = mainViewModel;
-			
 			this.encoderChoices = new ObservableCollection<VideoEncoderViewModel>();
 			this.encoderChoices.Add(new VideoEncoderViewModel { Encoder = VideoEncoder.FFMpeg, Display = "MPEG-4 (FFMpeg)" });
 			this.encoderChoices.Add(new VideoEncoderViewModel { Encoder = VideoEncoder.X264, Display = "H.264 (x264)" });
@@ -95,14 +94,6 @@ namespace VidCoder.ViewModel
 			this.EditingPreset = preset;
 			this.mainViewModel.PropertyChanged += this.OnMainPropertyChanged;
 			this.mainViewModel.AudioChoices.CollectionChanged += this.AudioChoicesCollectionChanged;
-		}
-
-		public MainViewModel MainViewModel
-		{
-			get
-			{
-				return this.mainViewModel;
-			}
 		}
 
 		public Preset EditingPreset
@@ -555,7 +546,7 @@ namespace VidCoder.ViewModel
 					{
 						if (this.IsModified)
 						{
-							MessageBoxResult dialogResult = ServiceFactory.MessageBoxService.Show(this, "Are you sure you want to revert all unsaved changes to this preset?", "Revert Preset", MessageBoxButton.YesNo);
+							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, "Are you sure you want to revert all unsaved changes to this preset?", "Revert Preset", MessageBoxButton.YesNo);
 							if (dialogResult == MessageBoxResult.Yes)
 							{
 								this.mainViewModel.RevertPreset(true);
@@ -566,7 +557,7 @@ namespace VidCoder.ViewModel
 						}
 						else
 						{
-							MessageBoxResult dialogResult = ServiceFactory.MessageBoxService.Show(this, "Are you sure you want to remove this preset?", "Remove Preset", MessageBoxButton.YesNo);
+							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, "Are you sure you want to remove this preset?", "Remove Preset", MessageBoxButton.YesNo);
 							if (dialogResult == MessageBoxResult.Yes)
 							{
 								this.mainViewModel.DeletePreset();

@@ -7,12 +7,13 @@ using System.Windows.Input;
 using VidCoder.DragDropUtils;
 using HandBrake.Interop;
 using System.Diagnostics;
+using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
 	public class EncodeJobViewModel : ViewModelBase, IDragItem
 	{
-		private MainViewModel mainViewModel;
+		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 
 		private EncodeJob job;
 		private bool encoding;
@@ -22,9 +23,8 @@ namespace VidCoder.ViewModel
 
 		private ICommand removeQueueJobCommand;
 
-		public EncodeJobViewModel(EncodeJob job, MainViewModel mainViewModel)
+		public EncodeJobViewModel(EncodeJob job)
 		{
-			this.mainViewModel = mainViewModel;
 			this.job = job;
 		}
 

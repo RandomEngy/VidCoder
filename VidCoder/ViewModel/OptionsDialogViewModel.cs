@@ -27,9 +27,9 @@ namespace VidCoder.ViewModel
 		private ICommand saveSettingsCommand;
 		private ICommand browsePathCommand;
 
-		private IUpdateService updateService;
+		private IUpdater updateService;
 
-		public OptionsDialogViewModel(IUpdateService updateService)
+		public OptionsDialogViewModel(IUpdater updateService)
 		{
 			this.updateService = updateService;
 			this.updateDownloading = updateService.UpdateDownloading;

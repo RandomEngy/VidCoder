@@ -4,19 +4,15 @@ using System.Linq;
 using System.Text;
 using HandBrake.SourceData;
 using System.Windows.Input;
+using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
 	public class AudioChoiceViewModel : ViewModelBase
 	{
-		private MainViewModel mainViewModel;
+		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 		private int selectedTrack;
 		private ICommand removeChoice;
-
-		public AudioChoiceViewModel(MainViewModel mainWindowViewModel)
-		{
-			this.mainViewModel = mainWindowViewModel;
-		}
 
 		public MainViewModel MainViewModel
 		{
@@ -52,7 +48,7 @@ namespace VidCoder.ViewModel
 					this.removeChoice = new RelayCommand(
 						param =>
 						{
-							this.MainViewModel.RemoveAudioChoice(this);
+							this.mainViewModel.RemoveAudioChoice(this);
 						},
 						param =>
 						{

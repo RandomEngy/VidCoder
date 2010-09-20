@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using VidCoder.Model;
 using HandBrake.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Input;
 using VidCoder.Properties;
 using System.IO;
+using Microsoft.Practices.Unity;
+using VidCoder.Services;
 
 namespace VidCoder.ViewModel
 {
@@ -18,7 +19,7 @@ namespace VidCoder.ViewModel
 
 		private EncodeJob job;
 		private HandBrakeInstance previewInstance;
-		private Logger logger;
+		private ILogger logger = Unity.Container.Resolve<ILogger>();
 		private string title;
 		private int selectedPreview;
 		private bool hasPreview;
@@ -28,24 +29,14 @@ namespace VidCoder.ViewModel
 
 		private ICommand generatePreviewCommand;
 
-		private MainViewModel mainViewModel;
+		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 
-		public PreviewViewModel(MainViewModel mainViewModel)
+		public PreviewViewModel()
 		{
-			this.mainViewModel = mainViewModel;
-			this.logger = mainViewModel.Logger;
 			this.previewSeconds = Settings.Default.PreviewSeconds;
 			this.Title = NoSourceTitle;
 
 			this.RefreshPreviews();
-		}
-
-		public MainViewModel MainViewModel
-		{
-			get
-			{
-				return this.mainViewModel;
-			}
 		}
 
 		public string Title

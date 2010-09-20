@@ -6,18 +6,17 @@ using VidCoder.Model;
 using VidCoder.ViewModel;
 using System.IO;
 using System.Management;
+using Microsoft.Practices.Unity;
 
 namespace VidCoder.Services
 {
 	public class DriveService : IDriveService
 	{
-		private MainViewModel mainViewModel;
+		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 		private ManagementEventWatcher watcher;
 
-		public DriveService(MainViewModel mainViewModel)
+		public DriveService()
 		{
-			this.mainViewModel = mainViewModel;
-
 			WqlEventQuery query;
 			ManagementOperationObserver observer = new ManagementOperationObserver();
 

@@ -6,21 +6,22 @@ using VidCoder.Model;
 using System.Globalization;
 using System.Windows.Input;
 using System.IO;
+using Microsoft.Practices.Unity;
+using VidCoder.Services;
 
 namespace VidCoder.ViewModel
 {
 	public class EncodeResultViewModel
 	{
-		private MainViewModel mainViewModel;
+		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 
 		private EncodeResult encodeResult;
 
 		private ICommand playCommand;
 		private ICommand openContainingFolderCommand;
 
-		public EncodeResultViewModel(EncodeResult result, MainViewModel mainViewModel)
+		public EncodeResultViewModel(EncodeResult result)
 		{
-			this.mainViewModel = mainViewModel;
 			this.encodeResult = result;
 		}
 

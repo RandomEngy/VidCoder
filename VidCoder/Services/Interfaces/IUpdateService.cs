@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VidCoder.Services
 {
-	public interface IUpdateService
+	public interface IUpdater
 	{
 		event EventHandler<EventArgs<double>> UpdateDownloadProgress;
 		event EventHandler<EventArgs> UpdateDownloadCompleted;

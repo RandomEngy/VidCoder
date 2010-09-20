@@ -8,6 +8,8 @@ using VidCoder.Model;
 using HandBrake.SourceData;
 using System.IO;
 using HandBrake.Interop;
+using Microsoft.Practices.Unity;
+using VidCoder.Services;
 
 namespace VidCoder.ViewModel
 {
@@ -24,14 +26,13 @@ namespace VidCoder.ViewModel
 		private bool textSubtitleWarningVisible;
 		private bool burnedOverlapWarningVisible;
 
-		private MainViewModel mainViewModel;
+		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 
 		private ICommand addSourceSubtitle;
 		private ICommand addSrtSubtitle;
 
-		public SubtitleDialogViewModel(MainViewModel mainViewModel, Subtitles currentSubtitles)
+		public SubtitleDialogViewModel(Subtitles currentSubtitles)
 		{
-			this.mainViewModel = mainViewModel;
 			this.outputFormat = mainViewModel.SelectedPreset.Preset.EncodingProfile.OutputFormat;
 
 			this.sourceSubtitles = new ObservableCollection<SourceSubtitleViewModel>();
@@ -66,7 +67,7 @@ namespace VidCoder.ViewModel
 			this.inputTrackChoices = new List<string>();
 			this.inputTrackChoices.Add("Foriegn Audio Search (Bitmap)");
 
-			foreach (Subtitle subtitle in this.MainViewModel.SelectedTitle.Subtitles)
+			foreach (Subtitle subtitle in this.mainViewModel.SelectedTitle.Subtitles)
 			{
 				this.inputTrackChoices.Add(subtitle.ToString());
 			}
@@ -83,11 +84,6 @@ namespace VidCoder.ViewModel
 		private void SrtCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
 			this.NotifyPropertyChanged("HasSrtSubtitles");
-		}
-
-		public MainViewModel MainViewModel
-		{
-			get { return this.mainViewModel; }
 		}
 
 		public List<string> InputTrackChoices
@@ -212,7 +208,7 @@ namespace VidCoder.ViewModel
 						param =>
 						{
 							// Disallow adding if there are no subtitles on the current title.
-							if (this.MainViewModel.SelectedTitle == null || this.MainViewModel.SelectedTitle.Subtitles.Count == 0)
+							if (this.mainViewModel.SelectedTitle == null || this.mainViewModel.SelectedTitle.Subtitles.Count == 0)
 							{
 								return false;
 							}
@@ -230,7 +226,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.MainViewModel.SelectedTitle == null || this.MainViewModel.SelectedTitle.Subtitles.Count == 0)
+				if (this.mainViewModel.SelectedTitle == null || this.mainViewModel.SelectedTitle.Subtitles.Count == 0)
 				{
 					return "No subtitles on the source video.";
 				}

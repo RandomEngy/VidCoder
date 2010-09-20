@@ -6,9 +6,9 @@ using HandBrake.Interop;
 using System.IO;
 using VidCoder.ViewModel;
 
-namespace VidCoder.Model
+namespace VidCoder.Services
 {
-	public class Logger : IDisposable
+	public class Logger : IDisposable, ILogger
 	{
 		private StreamWriter logFile;
 		private bool disposed;

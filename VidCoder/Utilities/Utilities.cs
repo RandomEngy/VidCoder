@@ -5,6 +5,8 @@ using System.Text;
 using System.Reflection;
 using System.Diagnostics;
 using System.IO;
+using VidCoder.Services;
+using Microsoft.Practices.Unity;
 
 namespace VidCoder
 {
@@ -206,6 +208,14 @@ namespace VidCoder
 			}
 
 			return resultList;
+		}
+
+		public static IMessageBoxService MessageBox
+		{
+			get
+			{
+				return Unity.Container.Resolve<IMessageBoxService>();
+			}
 		}
 
 		public static bool IsValidFullPath(string path)

@@ -12,7 +12,7 @@ using System.Diagnostics;
 
 namespace VidCoder.Services
 {
-	public class UpdateService : IUpdateService
+	public class Updater : IUpdater
 	{
 		public event EventHandler<EventArgs<double>> UpdateDownloadProgress;
 		public event EventHandler<EventArgs> UpdateDownloadCompleted;

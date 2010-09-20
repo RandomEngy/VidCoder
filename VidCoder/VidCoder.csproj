@@ -65,10 +65,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\HandBrakeInterop.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Ookii.Dialogs.Wpf">
       <HintPath>..\Lib\Ookii.Dialogs.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -198,12 +201,14 @@
     <Compile Include="Converters\SampleRateDisplayConverter.cs" />
     <Compile Include="EnumStringConverter.cs" />
     <Compile Include="Model\EncodeResult.cs" />
+    <Compile Include="Services\Interfaces\ILogger.cs" />
     <Compile Include="Utilities\ListSynchronizer\IListItemConverter.cs" />
-    <Compile Include="Model\Logger.cs" />
+    <Compile Include="Services\Logger.cs" />
     <Compile Include="Utilities\ListSynchronizer\MultiSelectorBehaviors.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Utilities\ListSynchronizer\TwoListSynchronizer.cs" />
     <Compile Include="Utilities\SystemSleepManagement.cs" />
+    <Compile Include="Utilities\Unity.cs" />
     <Compile Include="ViewModel\AboutDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\DataModels\ColumnViewModel.cs" />
@@ -275,11 +280,10 @@
     <Compile Include="Services\Interfaces\IUpdateService.cs" />
     <Compile Include="Services\Interfaces\IWindowLauncher.cs" />
     <Compile Include="Services\MessageBoxService.cs" />
-    <Compile Include="Services\ServiceFactory.cs" />
     <Compile Include="Services\Interfaces\IDriveService.cs" />
     <Compile Include="Services\Interfaces\IFileService.cs" />
     <Compile Include="Services\FileService.cs" />
-    <Compile Include="Services\UpdateService.cs" />
+    <Compile Include="Services\Updater.cs" />
     <Compile Include="Services\WindowLauncher.cs" />
     <Compile Include="Services\WindowManager.cs" />
     <Compile Include="Utilities\Utilities.cs" />
@@ -353,7 +357,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="app.config">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">

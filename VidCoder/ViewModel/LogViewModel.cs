@@ -2,37 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using VidCoder.Model;
 using System.Windows.Input;
+using Microsoft.Practices.Unity;
+using VidCoder.Services;
 
 namespace VidCoder.ViewModel
 {
 	public class LogViewModel : OkCancelDialogViewModel
 	{
-		private MainViewModel mainViewModel;
-		private Logger logger;
+		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
+		private ILogger logger = Unity.Container.Resolve<ILogger>();
 
 		private ICommand clearLogCommand;
-
-		public LogViewModel(MainViewModel mainViewModel, Logger logger)
-		{
-			this.mainViewModel = mainViewModel;
-			this.logger = logger;
-		}
-
-		public MainViewModel MainViewModel
-		{
-			get
-			{
-				return this.mainViewModel;
-			}
-		}
 
 		public string LogText
 		{
 			get
 			{
-				return logger.LogText;
+				return this.logger.LogText;
 			}
 		}
 

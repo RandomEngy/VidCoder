@@ -14,6 +14,7 @@ using VidCoder.Properties;
 using VidCoder.Services;
 using System.Diagnostics;
 using System.Globalization;
+using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
@@ -24,8 +25,8 @@ namespace VidCoder.ViewModel
 
 		private HandBrakeInstance scanInstance;
 
-		private IUpdateService updateService;
-		private Logger logger;
+		private IUpdater updater = Unity.Container.Resolve<IUpdater>();
+		private ILogger logger = Unity.Container.Resolve<ILogger>();
 
 		private SourceOption selectedSource;
 		private string sourceDescription;
@@ -108,6 +109,8 @@ namespace VidCoder.ViewModel
 
 		public MainViewModel()
 		{
+			Unity.Container.RegisterInstance(this);
+
 			// Upgrade from previous user settings.
 			if (Settings.Default.ApplicationVersion != Utilities.CurrentVersion)
 			{
@@ -116,11 +119,8 @@ namespace VidCoder.ViewModel
 				Settings.Default.Save();
 			}
 
-			this.logger = new Logger();
-
-			this.updateService = ServiceFactory.UpdateService;
-			this.updateService.HandlePendingUpdate();
-			this.updateService.CheckUpdates();
+			this.updater.HandlePendingUpdate();
+			this.updater.CheckUpdates();
 
 			List<Preset> presets = new List<Preset>();
 
@@ -172,7 +172,7 @@ namespace VidCoder.ViewModel
 			List<EncodeJob> encodeJobs = EncodeJobsPersist.EncodeJobs;
 			foreach (EncodeJob job in encodeJobs)
 			{
-				this.encodeQueue.Add(new EncodeJobViewModel(job, this));
+				this.encodeQueue.Add(new EncodeJobViewModel(job));
 			}
 
 			// Always select the modified preset if it exists.
@@ -196,7 +196,7 @@ namespace VidCoder.ViewModel
 
 			this.completedJobs = new ObservableCollection<EncodeResultViewModel>();
 
-			this.driveService = ServiceFactory.CreateDriveService(this);
+			this.driveService = Unity.Container.Resolve<IDriveService>();
 
 			IList<DriveInformation> driveCollection = this.driveService.GetDriveInformation();
 			this.DriveCollection = driveCollection;
@@ -209,14 +209,6 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return this.scanInstance;
-			}
-		}
-
-		public Logger Logger
-		{
-			get
-			{
-				return this.logger;
 			}
 		}
 
@@ -376,7 +368,7 @@ namespace VidCoder.ViewModel
 		{
 			if (this.Encoding)
 			{
-				MessageBoxResult result = ServiceFactory.MessageBoxService.Show(
+				MessageBoxResult result = Utilities.MessageBox.Show(
 					this,
 					"There are encodes in progress. Are you sure you want to quit?",
 					"Encodes in progress",
@@ -424,7 +416,7 @@ namespace VidCoder.ViewModel
 
 			this.CleanOldLogs();
 
-			this.updateService.PromptToApplyUpdate();
+			this.updater.PromptToApplyUpdate();
 
 			this.logger.Dispose();
 
@@ -657,7 +649,7 @@ namespace VidCoder.ViewModel
 							if (nativeTracks.Count > 0)
 							{
 								this.AudioChoices.Clear();
-								AudioChoiceViewModel newVM = new AudioChoiceViewModel(this);
+								AudioChoiceViewModel newVM = new AudioChoiceViewModel();
 								newVM.SelectedIndex = nativeTracks[0].TrackNumber - 1;
 								this.AudioChoices.Add(newVM);
 							}
@@ -682,7 +674,7 @@ namespace VidCoder.ViewModel
 
 					if (this.selectedTitle.AudioTracks.Count > 0 && this.AudioChoices.Count == 0)
 					{
-						AudioChoiceViewModel newVM = new AudioChoiceViewModel(this);
+						AudioChoiceViewModel newVM = new AudioChoiceViewModel();
 						newVM.SelectedIndex = 0;
 						this.AudioChoices.Add(newVM);
 					}
@@ -990,7 +982,7 @@ namespace VidCoder.ViewModel
 					this.addTrackCommand = new RelayCommand(
 						param =>
 						{
-							AudioChoiceViewModel newAudioChoice = new AudioChoiceViewModel(this);
+							AudioChoiceViewModel newAudioChoice = new AudioChoiceViewModel();
 							newAudioChoice.SelectedIndex = this.GetFirstUnusedAudioTrack();
 							this.AudioChoices.Add(newAudioChoice);
 						},
@@ -1100,7 +1092,7 @@ namespace VidCoder.ViewModel
 
 				if (this.selectedPreset != null && this.selectedPreset.Preset.IsModified)
 				{
-					MessageBoxResult dialogResult = ServiceFactory.MessageBoxService.Show(this, "Do you want to save changes to your current preset?", "Save current preset?", MessageBoxButton.YesNoCancel);
+					MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, "Do you want to save changes to your current preset?", "Save current preset?", MessageBoxButton.YesNoCancel);
 					if (dialogResult == MessageBoxResult.Yes)
 					{
 						this.SavePreset();
@@ -1466,7 +1458,7 @@ namespace VidCoder.ViewModel
 				{
 					this.openSubtitlesDialogCommand = new RelayCommand(param =>
 					{
-						SubtitleDialogViewModel subtitleViewModel = new SubtitleDialogViewModel(this, this.CurrentSubtitles);
+						SubtitleDialogViewModel subtitleViewModel = new SubtitleDialogViewModel(this.CurrentSubtitles);
 						subtitleViewModel.Closing = () =>
 						{
 							if (subtitleViewModel.DialogResult)
@@ -1642,7 +1634,7 @@ namespace VidCoder.ViewModel
 						{
 							if (this.EncodeQueue.Count == 0)
 							{
-								this.EncodeQueue.Add(new EncodeJobViewModel(this.EncodeJob, this));
+								this.EncodeQueue.Add(new EncodeJobViewModel(this.EncodeJob));
 								this.EncodeQueue[0].HandBrakeInstance = this.scanInstance;
 							}
 
@@ -1682,7 +1674,7 @@ namespace VidCoder.ViewModel
 
 						if (foundExisting)
 						{
-							MessageBoxResult result = ServiceFactory.MessageBoxService.Show(this, "There is already a queue item for this destination path." + Environment.NewLine + Environment.NewLine +
+							MessageBoxResult result = Utilities.MessageBox.Show(this, "There is already a queue item for this destination path." + Environment.NewLine + Environment.NewLine +
 								"If you continue, the encode will be overwritten. Do you wish to continue?", "Warning", MessageBoxButton.YesNo);
 
 							if (result == MessageBoxResult.No)
@@ -1691,7 +1683,7 @@ namespace VidCoder.ViewModel
 							}
 						}
 
-						var newEncodeJobVM = new EncodeJobViewModel(this.EncodeJob, this);
+						var newEncodeJobVM = new EncodeJobViewModel(this.EncodeJob);
 						newEncodeJobVM.HandBrakeInstance = this.scanInstance;
 
 						this.Queue(newEncodeJobVM);
@@ -1813,7 +1805,7 @@ namespace VidCoder.ViewModel
 									Length = title.Duration
 								};
 
-								var jobVM = new EncodeJobViewModel(job, this);
+								var jobVM = new EncodeJobViewModel(job);
 								jobVM.HandBrakeInstance = this.ScanInstance;
 
 								this.Queue(jobVM);
@@ -1924,7 +1916,7 @@ namespace VidCoder.ViewModel
 				{
 					this.openOptionsCommand = new RelayCommand(param =>
 					{
-						var optionsVM = new OptionsDialogViewModel(this.updateService);
+						var optionsVM = new OptionsDialogViewModel(this.updater);
 						WindowManager.OpenDialog(optionsVM, this);
 						if (optionsVM.DialogResult)
 						{
@@ -2079,7 +2071,7 @@ namespace VidCoder.ViewModel
 				}
 				catch (IOException exception)
 				{
-					ServiceFactory.MessageBoxService.Show(
+					Utilities.MessageBox.Show(
 						"Could not create output directory. Error details: " + Environment.NewLine + Environment.NewLine + exception.ToString(),
 						"Error creating directory",
 						MessageBoxButton.OK,
@@ -2157,8 +2149,7 @@ namespace VidCoder.ViewModel
 							Destination = this.CurrentJob.Job.OutputPath,
 							Succeeded = !e.Error,
 							EncodeTime = this.CurrentJob.EncodeTime
-						},
-						this));
+						}));
 					this.NotifyPropertyChanged("CompletedItemsCount");
 					this.NotifyPropertyChanged("CompletedTabHeader");
 
@@ -2244,7 +2235,7 @@ namespace VidCoder.ViewModel
 					UseDefaultChapterNames = true
 				};
 
-				var jobVM = new EncodeJobViewModel(job, this);
+				var jobVM = new EncodeJobViewModel(job);
 				itemsToQueue.Add(jobVM);
 			}
 
@@ -2268,7 +2259,7 @@ namespace VidCoder.ViewModel
 
 			if (failedFiles.Count > 0)
 			{
-				ServiceFactory.MessageBoxService.Show(
+				Utilities.MessageBox.Show(
 					"The following file(s) could not be recognized and were not added to the queue:" + Environment.NewLine + Environment.NewLine + string.Join(Environment.NewLine, failedFiles),
 					"Error scanning video file(s)",
 					MessageBoxButton.OK,
@@ -2637,7 +2628,7 @@ namespace VidCoder.ViewModel
 
 			if (encodingWindow == null)
 			{
-				encodingWindow = new EncodingViewModel(this.SelectedPreset.Preset, this);
+				encodingWindow = new EncodingViewModel(this.SelectedPreset.Preset);
 				encodingWindow.Closing = () =>
 				{
 					this.EncodingWindowOpen = false;
@@ -2661,7 +2652,7 @@ namespace VidCoder.ViewModel
 
 			if (previewWindow == null)
 			{
-				previewWindow = new PreviewViewModel(this);
+				previewWindow = new PreviewViewModel();
 				previewWindow.Closing = () =>
 				{
 					this.PreviewWindowOpen = false;
@@ -2681,7 +2672,7 @@ namespace VidCoder.ViewModel
 
 			if (logWindow == null)
 			{
-				logWindow = new LogViewModel(this, this.logger);
+				logWindow = new LogViewModel();
 				logWindow.Closing = () =>
 				{
 					this.LogWindowOpen = false;

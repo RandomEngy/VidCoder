@@ -7,8 +7,9 @@ using System.IO;
 using System.ComponentModel;
 using System.Windows;
 using Ookii.Dialogs.Wpf;
+using Microsoft.Practices.Unity;
 
-namespace VidCoder
+namespace VidCoder.Services
 {
 	public class FileService : IFileService
 	{
@@ -18,12 +19,7 @@ namespace VidCoder
 		{
 			get
 			{
-				if (instance == null)
-				{
-					instance = new FileService();
-				}
-
-				return instance;
+				return Unity.Container.Resolve<IFileService>();
 			}
 		}
 

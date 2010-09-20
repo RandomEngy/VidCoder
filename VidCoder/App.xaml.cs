@@ -10,6 +10,8 @@ using System.IO;
 using System.ComponentModel;
 using HandBrake.Interop;
 using VidCoder.View;
+using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity.Configuration;
 
 namespace VidCoder
 {
@@ -20,6 +22,7 @@ namespace VidCoder
 	{
 		protected override void OnStartup(StartupEventArgs e)
 		{
+			Unity.Container = new UnityContainer().LoadConfiguration();
 #if !DEBUG
 			this.DispatcherUnhandledException += this.OnDispatcherUnhandledException;
 #endif

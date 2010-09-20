@@ -6,6 +6,7 @@ using VidCoder.Model;
 using System.Windows.Input;
 using HandBrake.SourceData;
 using HandBrake.Interop;
+using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
@@ -13,6 +14,8 @@ namespace VidCoder.ViewModel
 	{
 		private SourceSubtitle subtitle;
 		private ICommand removeSubtitle;
+
+		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 
 		public SourceSubtitleViewModel(SubtitleDialogViewModel subtitleDialogViewModel, SourceSubtitle subtitle)
 		{
@@ -24,7 +27,7 @@ namespace VidCoder.ViewModel
 
 		public List<Subtitle> InputSubtitles
 		{
-			get { return this.SubtitleDialogViewModel.MainViewModel.SelectedTitle.Subtitles; }
+			get { return this.mainViewModel.SelectedTitle.Subtitles; }
 		}
 
 		public SourceSubtitle Subtitle
