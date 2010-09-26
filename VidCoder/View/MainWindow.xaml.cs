@@ -95,7 +95,7 @@ namespace VidCoder.View
 
 			this.sourceOptions = new ObservableCollection<SourceOptionViewModel>
 			{
-				new SourceOptionViewModel(new SourceOption { Type = SourceType.None, Image = "", Text = "Choose a video source." }),
+				new SourceOptionViewModel(new SourceOption { Type = SourceType.None, Image = null, Text = "Choose a video source." }),
 				new SourceOptionViewModel(new SourceOption { Type = SourceType.File, Image = "/Icons/avi.png", Text = "Video File" }),
 				new SourceOptionViewModel(new SourceOption { Type = SourceType.VideoFolder, Image = "/Icons/folder.png", Text = "DVD/VIDEO_TS Folder" })
 			};

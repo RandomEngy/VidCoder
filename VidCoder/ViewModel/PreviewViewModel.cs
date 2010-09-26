@@ -39,6 +39,14 @@ namespace VidCoder.ViewModel
 			this.RefreshPreviews();
 		}
 
+		public MainViewModel MainViewModel
+		{
+			get
+			{
+				return this.mainViewModel;
+			}
+		}
+
 		public string Title
 		{
 			get

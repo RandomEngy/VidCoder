@@ -96,6 +96,14 @@ namespace VidCoder.ViewModel
 			this.mainViewModel.AudioChoices.CollectionChanged += this.AudioChoicesCollectionChanged;
 		}
 
+		public MainViewModel MainViewModel
+		{
+			get
+			{
+				return this.mainViewModel;
+			}
+		}
+
 		public Preset EditingPreset
 		{
 			get

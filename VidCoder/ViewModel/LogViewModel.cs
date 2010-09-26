@@ -15,6 +15,14 @@ namespace VidCoder.ViewModel
 
 		private ICommand clearLogCommand;
 
+		public MainViewModel MainViewModel
+		{
+			get
+			{
+				return this.mainViewModel;
+			}
+		}
+
 		public string LogText
 		{
 			get
