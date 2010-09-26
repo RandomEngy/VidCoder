@@ -221,52 +221,10 @@ namespace VidCoder.ViewModel
 			EncodingProfile profile = this.job.EncodingProfile;
 			int width, height;
 
-			if (profile.Anamorphic == Anamorphic.None)
-			{
-				width = profile.Width;
-				if (width == 0)
-				{
-					width = this.mainViewModel.SelectedTitle.Resolution.Width;
-				}
-
-				if (profile.MaxWidth > 0 && width > profile.MaxWidth)
-				{
-					width = profile.MaxWidth;
-				}
-
-				height = profile.Height;
-				if (height == 0)
-				{
-					height = this.mainViewModel.SelectedTitle.Resolution.Height;
-				}
-
-				if (profile.MaxHeight > 0 && height > profile.MaxHeight)
-				{
-					height = profile.MaxHeight;
-				}
-
-				if (profile.KeepDisplayAspect)
-				{
-					if (profile.Width == 0 && profile.Height == 0 || profile.Width == 0)
-					{
-						width = (int)((double)height * this.mainViewModel.SelectedTitle.AspectRatio);
-					}
-					else if (profile.Height == 0)
-					{
-						height = (int)((double)width / this.mainViewModel.SelectedTitle.AspectRatio);
-					}
-				}
-
-				this.PreviewWidth = width;
-				this.PreviewHeight = height;
-			}
-			else
-			{
-				int parWidth, parHeight;
-				this.ScanInstance.GetAnamorphicSize(this.job, out width, out height, out parWidth, out parHeight);
-				this.PreviewHeight = height;
-				this.PreviewWidth = width * ((double)parWidth / parHeight);
-			}
+			int parWidth, parHeight;
+			this.ScanInstance.GetSize(this.job, out width, out height, out parWidth, out parHeight);
+			this.PreviewHeight = height;
+			this.PreviewWidth = width * ((double)parWidth / parHeight);
 
 			this.HasPreview = true;
 			this.NotifyPropertyChanged("PreviewSource");

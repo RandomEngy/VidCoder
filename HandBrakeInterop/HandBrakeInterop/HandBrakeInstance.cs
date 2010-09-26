@@ -18,6 +18,11 @@
 	public class HandBrakeInstance : IDisposable
 	{
 		/// <summary>
+		/// The modulus for picture size when auto-sizing dimensions.
+		/// </summary>
+		private const int PictureAutoSizeModulus = 2;
+
+		/// <summary>
 		/// The number of MS between status polls when scanning.
 		/// </summary>
 		private const double ScanPollIntervalMs = 200;
@@ -395,15 +400,29 @@
 		}
 
 		/// <summary>
-		/// Gets the final size when using Anamorphic for a given encode job.
+		/// Gets the final size for a given encode job.
 		/// </summary>
 		/// <param name="job">The encode job to use.</param>
 		/// <param name="width">The storage width.</param>
 		/// <param name="height">The storage height.</param>
 		/// <param name="parWidth">The pixel aspect X number.</param>
 		/// <param name="parHeight">The pixel aspect Y number.</param>
-		public void GetAnamorphicSize(EncodeJob job, out int width, out int height, out int parWidth, out int parHeight)
+		public void GetSize(EncodeJob job, out int width, out int height, out int parWidth, out int parHeight)
 		{
+			if (job.EncodingProfile.Anamorphic == Anamorphic.None)
+			{
+				Title title = this.GetTitle(job.Title);
+				Size storageDimensions = this.CalculateNonAnamorphicOutput(job.EncodingProfile, title, job.EncodingProfile.Width, job.EncodingProfile.Height);
+
+				width = storageDimensions.Width;
+				height = storageDimensions.Height;
+
+				parWidth = 1;
+				parHeight = 1;
+
+				return;
+			}
+
 			hb_job_s nativeJob = InteropUtilities.ReadStructure<hb_job_s>(this.GetOriginalTitle(job.Title).job);
 			List<IntPtr> allocatedMemory = this.ApplyJob(ref nativeJob, job, false, 0, 0);
 
@@ -413,7 +432,6 @@
 			int refParHeight = 0;
 			HbLib.hb_set_job(this.hbHandle, job.Title, ref nativeJob);
 			HbLib.hb_set_anamorphic_size_by_index(this.hbHandle, job.Title, ref refWidth, ref refHeight, ref refParWidth, ref refParHeight);
-			//HbLib.hb_set_anamorphic_size(ref nativeJob, ref refWidth, ref refHeight, ref refParWidth, ref refParHeight);
 			InteropUtilities.FreeMemory(allocatedMemory);
 
 			width = refWidth;
@@ -722,10 +740,12 @@
 						if (profile.Width == 0 && profile.Height == 0 || profile.Width == 0)
 						{
 							width = (int)((double)height * this.GetTitle(job.Title).AspectRatio);
+							width = width - width % PictureAutoSizeModulus;
 						}
 						else if (profile.Height == 0)
 						{
 							height = (int)((double)width / this.GetTitle(job.Title).AspectRatio);
+							height = height - height % PictureAutoSizeModulus;
 						}
 					}
 
@@ -1167,6 +1187,53 @@
 			}
 
 			return newTitle;
+		}
+
+		/// <summary>
+		/// Calculates the output size for a non-anamorphic job.
+		/// </summary>
+		/// <param name="profile">The encoding profile for the job.</param>
+		/// <param name="title">The title being encoded.</param>
+		/// <param name="width">The user-input width.</param>
+		/// <param name="height">The user-input height.</param>
+		/// <returns>The dimensions of the final encode.</returns>
+		private Size CalculateNonAnamorphicOutput(EncodingProfile profile, Title title, int width, int height)
+		{
+			if (width == 0)
+			{
+				width = title.Resolution.Width;
+			}
+
+			if (profile.MaxWidth > 0 && width > profile.MaxWidth)
+			{
+				width = profile.MaxWidth;
+			}
+
+			if (height == 0)
+			{
+				height = title.Resolution.Height;
+			}
+
+			if (profile.MaxHeight > 0 && height > profile.MaxHeight)
+			{
+				height = profile.MaxHeight;
+			}
+
+			if (profile.KeepDisplayAspect)
+			{
+				if (profile.Width == 0 && profile.Height == 0 || profile.Width == 0)
+				{
+					width = (int)((double)height * title.AspectRatio);
+					width = width - width % PictureAutoSizeModulus;
+				}
+				else if (profile.Height == 0)
+				{
+					height = (int)((double)width / title.AspectRatio);
+					height = height - height % PictureAutoSizeModulus;
+				}
+			}
+
+			return new Size(width, height);
 		}
 	}
 }

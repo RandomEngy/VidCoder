@@ -2419,58 +2419,15 @@ namespace VidCoder.ViewModel
 		{
 			if (this.HasSourceData)
 			{
-				if (this.profile.Anamorphic == Anamorphic.None)
-				{
-					int width = this.profile.Width;
-					if (width == 0)
-					{
-						width = this.mainViewModel.SelectedTitle.Resolution.Width;
-					}
+				EncodeJob job = this.mainViewModel.EncodeJob;
+				job.EncodingProfile = this.profile;
 
-					if (this.profile.MaxWidth > 0 && width > profile.MaxWidth)
-					{
-						width = profile.MaxWidth;
-					}
+				int width, height, parWidth, parHeight;
+				this.mainViewModel.ScanInstance.GetSize(job, out width, out height, out parWidth, out parHeight);
 
-					int height = this.profile.Height;
-					if (height == 0)
-					{
-						height = this.mainViewModel.SelectedTitle.Resolution.Height;
-					}
-
-					if (profile.MaxHeight > 0 && height > this.profile.MaxHeight)
-					{
-						height = this.profile.MaxHeight;
-					}
-
-					if (this.profile.KeepDisplayAspect)
-					{
-						if (this.profile.Width == 0 && this.profile.Height == 0 || this.profile.Width == 0)
-						{
-							width = (int)((double)height * this.SelectedTitle.AspectRatio);
-						}
-						else if (this.profile.Height == 0)
-						{
-							height = (int)((double)width / this.SelectedTitle.AspectRatio);
-						}
-					}
-
-					this.OutputSourceResolution = width + " x " + height;
-					this.OutputPixelAspectRatio = "1/1";
-					this.OutputDisplayResolution = width + " x " + height;
-				}
-				else
-				{
-					EncodeJob job = this.mainViewModel.EncodeJob;
-					job.EncodingProfile = this.profile;
-
-					int width, height, parWidth, parHeight;
-					this.mainViewModel.ScanInstance.GetAnamorphicSize(job, out width, out height, out parWidth, out parHeight);
-
-					this.OutputSourceResolution = width + " x " + height;
-					this.OutputPixelAspectRatio = parWidth + "/" + parHeight;
-					this.OutputDisplayResolution = Math.Round(width * (((double)parWidth) / parHeight)) + " x " + height;
-				}
+				this.OutputSourceResolution = width + " x " + height;
+				this.OutputPixelAspectRatio = parWidth + "/" + parHeight;
+				this.OutputDisplayResolution = Math.Round(width * (((double)parWidth) / parHeight)) + " x " + height;
 			}
 		}
 

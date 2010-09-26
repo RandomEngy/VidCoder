@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.IO;
 using VidCoder.Services;
 using Microsoft.Practices.Unity;
+using HandBrake.Interop;
+using HandBrake.SourceData;
 
 namespace VidCoder
 {
