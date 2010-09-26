@@ -1120,7 +1120,7 @@
 				TitleNumber = title.index,
 				Resolution = new Size(title.width, title.height),
 				ParVal = new Size(title.pixel_aspect_width, title.pixel_aspect_height),
-				Duration = TimeSpan.FromSeconds(((double)title.duration) / 90000),
+				Duration = TimeSpan.FromSeconds(title.duration / 90000),
 				AutoCropDimensions = new Cropping
 				{
 					Top = title.crop[0],

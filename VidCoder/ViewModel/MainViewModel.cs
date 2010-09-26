@@ -15,6 +15,7 @@ using VidCoder.Services;
 using System.Diagnostics;
 using System.Globalization;
 using Microsoft.Practices.Unity;
+using System.Threading;
 
 namespace VidCoder.ViewModel
 {
@@ -71,6 +72,8 @@ namespace VidCoder.ViewModel
 		private int totalTasks;
 		private int taskNumber;
 		private bool encodeSpeedDetailsAvailable;
+		private Stopwatch elapsedQueueEncodeTime;
+		private long pollCount = 0;
 		private string estimatedTimeRemaining;
 		private double currentFps;
 		private double averageFps;
@@ -1231,12 +1234,14 @@ namespace VidCoder.ViewModel
 				{
 					Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.BelowNormal;
 					SystemSleepManagement.PreventSleep();
+					this.elapsedQueueEncodeTime = Stopwatch.StartNew();
 				}
 				else
 				{
 					Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.Normal;
 					this.EncodeSpeedDetailsAvailable = false;
 					SystemSleepManagement.AllowSleep();
+					this.elapsedQueueEncodeTime.Stop();
 				}
 
 				this.NotifyPropertyChanged("PauseVisible");
@@ -1255,6 +1260,19 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.paused = value;
+
+				if (this.elapsedQueueEncodeTime != null)
+				{
+					if (value)
+					{
+						this.elapsedQueueEncodeTime.Stop();
+					}
+					else
+					{
+						this.elapsedQueueEncodeTime.Start();
+					}
+				}
+
 				this.NotifyPropertyChanged("PauseVisible");
 				this.NotifyPropertyChanged("ProgressBarColor");
 				this.NotifyPropertyChanged("Paused");
@@ -2013,9 +2031,11 @@ namespace VidCoder.ViewModel
 			}
 
 			this.OverallEncodeProgressFraction = 0;
+			this.pollCount = 0;
 			this.Encoding = true;
 			this.Paused = false;
 			this.encodeStopped = false;
+
 			this.EncodeNextJob();
 		}
 
@@ -2100,13 +2120,29 @@ namespace VidCoder.ViewModel
 
 			this.OverallEncodeProgressFraction = completedSeconds / this.totalQueueTime.TotalSeconds;
 
+			// Only update encode time every 5th update.
+			if (Interlocked.Increment(ref this.pollCount) % 5 == 1)
+			{
+				if (this.elapsedQueueEncodeTime != null && this.elapsedQueueEncodeTime.Elapsed.TotalSeconds > 0.5 && this.OverallEncodeProgressFraction != 0.0)
+				{
+					if (this.OverallEncodeProgressFraction == 1.0)
+					{
+						this.EstimatedTimeRemaining = Utilities.FormatTimeSpan(TimeSpan.Zero);
+					}
+					else
+					{
+						TimeSpan eta = TimeSpan.FromTicks((long)(((1.0 - this.OverallEncodeProgressFraction) * this.elapsedQueueEncodeTime.ElapsedTicks) / this.OverallEncodeProgressFraction));
+						this.EstimatedTimeRemaining = Utilities.FormatTimeSpan(eta);
+					}
+				}
+			}
+
 			this.EncodeQueue[0].PercentComplete = (int)(e.FractionComplete * 100);
 
 			if (e.EstimatedTimeLeft >= TimeSpan.Zero)
 			{
 				this.CurrentFps = Math.Round(e.CurrentFrameRate, 1);
 				this.AverageFps = Math.Round(e.AverageFrameRate, 1);
-				this.EstimatedTimeRemaining = e.EstimatedTimeLeft.ToString();
 				this.EncodeSpeedDetailsAvailable = true;
 			}
 		}
@@ -2126,7 +2162,6 @@ namespace VidCoder.ViewModel
 					this.EncodeQueue[0].ReportEncodeEnd();
 
 					this.EncodeProgressState = TaskbarItemProgressState.None;
-
 					if (this.totalTasks == 1)
 					{
 						this.EncodeQueue.Clear();
