@@ -13,8 +13,6 @@ namespace VidCoder.Services
 {
 	public class FileService : IFileService
 	{
-		private static IFileService instance;
-
 		public static IFileService Instance
 		{
 			get

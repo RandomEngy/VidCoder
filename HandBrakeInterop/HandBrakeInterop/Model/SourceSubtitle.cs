@@ -8,7 +8,7 @@ namespace HandBrake.Interop
 	public class SourceSubtitle
 	{
 		/// <summary>
-		/// Gets or sets the 1-based subtitle track number. 0 means foriegn audio search.
+		/// Gets or sets the 1-based subtitle track number. 0 means foreign audio search.
 		/// </summary>
 		public int TrackNumber { get; set; }
 		public bool Default { get; set; }

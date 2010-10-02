@@ -77,8 +77,8 @@ namespace VidCoder.ViewModel
 		private string estimatedTimeRemaining;
 		private double currentFps;
 		private double averageFps;
-		private TimeSpan completedQueueTime;
-		private TimeSpan totalQueueTime;
+		private double completedQueueWork;
+		private double totalQueueCost;
 		private double overallEncodeProgressFraction;
 		private TaskbarItemProgressState encodeProgressState;
 		private ObservableCollection<EncodeResultViewModel> completedJobs;
@@ -2017,17 +2017,11 @@ namespace VidCoder.ViewModel
 			this.totalTasks = this.EncodeQueue.Count;
 			this.taskNumber = 0;
 
-			this.completedQueueTime = TimeSpan.Zero;
-			this.totalQueueTime = TimeSpan.Zero;
+			this.completedQueueWork = 0.0;
+			this.totalQueueCost = 0.0;
 			foreach (EncodeJobViewModel jobVM in this.EncodeQueue)
 			{
-				this.totalQueueTime += jobVM.Job.Length;
-
-				// Add the job length twice for two-pass encoding.
-				if (jobVM.Job.EncodingProfile.TwoPass)
-				{
-					this.totalQueueTime += jobVM.Job.Length;
-				}
+				this.totalQueueCost += jobVM.Cost;
 			}
 
 			this.OverallEncodeProgressFraction = 0;
@@ -2110,15 +2104,51 @@ namespace VidCoder.ViewModel
 				return;
 			}
 
-			double currentJobLengthSeconds = this.EncodeQueue[0].Job.Length.TotalSeconds;
+			EncodeJob currentJob = this.EncodeQueue[0].Job;
+			double passCost = currentJob.Length.TotalSeconds;
+			double scanPassCost = passCost / EncodeJobViewModel.SubtitleScanCostFactor;
 
-			double completedSeconds = this.completedQueueTime.TotalSeconds + currentJobLengthSeconds * e.FractionComplete;
-			if (e.Pass == 2)
+			double currentJobCompletedWork = 0.0;
+
+			if (this.EncodeQueue[0].SubtitleScan)
 			{
-				completedSeconds += currentJobLengthSeconds;
+				switch (e.Pass)
+				{
+					case -1:
+						currentJobCompletedWork += scanPassCost * e.FractionComplete;
+						break;
+					case 1:
+						currentJobCompletedWork += scanPassCost;
+						currentJobCompletedWork += passCost * e.FractionComplete;
+						break;
+					case 2:
+						currentJobCompletedWork += scanPassCost;
+						currentJobCompletedWork += passCost;
+						currentJobCompletedWork += passCost * e.FractionComplete;
+						break;
+					default:
+						break;
+				}
+			}
+			else
+			{
+				switch (e.Pass)
+				{
+					case 1:
+						currentJobCompletedWork += passCost * e.FractionComplete;
+						break;
+					case 2:
+						currentJobCompletedWork += passCost;
+						currentJobCompletedWork += passCost * e.FractionComplete;
+						break;
+					default:
+						break;
+				}
 			}
 
-			this.OverallEncodeProgressFraction = completedSeconds / this.totalQueueTime.TotalSeconds;
+			double totalCompletedWork = this.completedQueueWork + currentJobCompletedWork;
+
+			this.OverallEncodeProgressFraction = totalCompletedWork / this.totalQueueCost;
 
 			// Only update encode time every 5th update.
 			if (Interlocked.Increment(ref this.pollCount) % 5 == 1)
@@ -2131,13 +2161,13 @@ namespace VidCoder.ViewModel
 					}
 					else
 					{
-						TimeSpan eta = TimeSpan.FromTicks((long)(((1.0 - this.OverallEncodeProgressFraction) * this.elapsedQueueEncodeTime.ElapsedTicks) / this.OverallEncodeProgressFraction));
+						TimeSpan eta = TimeSpan.FromSeconds((long)(((1.0 - this.OverallEncodeProgressFraction) * this.elapsedQueueEncodeTime.Elapsed.TotalSeconds) / this.OverallEncodeProgressFraction));
 						this.EstimatedTimeRemaining = Utilities.FormatTimeSpan(eta);
 					}
 				}
 			}
 
-			this.EncodeQueue[0].PercentComplete = (int)(e.FractionComplete * 100);
+			this.EncodeQueue[0].PercentComplete = (int)(currentJobCompletedWork / this.EncodeQueue[0].Cost * 100.0);
 
 			if (e.EstimatedTimeLeft >= TimeSpan.Zero)
 			{
@@ -2172,11 +2202,7 @@ namespace VidCoder.ViewModel
 				else
 				{
 					// If the encode completed successfully
-					this.completedQueueTime += this.EncodeQueue[0].Job.Length;
-					if (this.EncodeQueue[0].Job.EncodingProfile.TwoPass)
-					{
-						this.completedQueueTime += this.EncodeQueue[0].Job.Length;
-					}
+					this.completedQueueWork += this.EncodeQueue[0].Cost;
 
 					this.CompletedJobs.Add(new EncodeResultViewModel(
 						new EncodeResult
@@ -2327,7 +2353,7 @@ namespace VidCoder.ViewModel
 				}
 
 				this.totalTasks++;
-				this.totalQueueTime += encodeJobVM.Job.Length;
+				this.totalQueueCost += encodeJobVM.Cost;
 				this.NotifyPropertyChanged("TaskDetails");
 			}
 
@@ -2354,7 +2380,8 @@ namespace VidCoder.ViewModel
 			if (this.Encoding)
 			{
 				this.totalTasks--;
-				this.totalQueueTime -= job.Job.Length;
+				this.totalQueueCost -= job.Cost;
+
 				this.NotifyPropertyChanged("TaskDetails");
 
 				if (this.totalTasks == 1)

@@ -13,6 +13,8 @@ namespace VidCoder.ViewModel
 {
 	public class EncodeJobViewModel : ViewModelBase, IDragItem
 	{
+		public const double SubtitleScanCostFactor = 80.0;
+
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 
 		private EncodeJob job;
@@ -71,6 +73,41 @@ namespace VidCoder.ViewModel
 			{
 				this.isOnlyItem = value;
 				this.NotifyPropertyChanged("ShowProgressBar");
+			}
+		}
+
+		/// <summary>
+		/// Returns true if a subtitle scan will be performed on this job.
+		/// </summary>
+		public bool SubtitleScan
+		{
+			get
+			{
+				return this.Job.Subtitles.SourceSubtitles.Count(item => item.TrackNumber == 0) > 0;
+			}
+		}
+
+		/// <summary>
+		/// Gets the job cost. Cost is roughly proportional to the amount of time it takes to encode 1 second
+		/// of video.
+		/// </summary>
+		public double Cost
+		{
+			get
+			{
+				double cost = this.Job.Length.TotalSeconds;
+
+				if (this.Job.EncodingProfile.TwoPass)
+				{
+					cost += this.Job.Length.TotalSeconds;
+				}
+
+				if (this.SubtitleScan)
+				{
+					cost += this.Job.Length.TotalSeconds / SubtitleScanCostFactor;
+				}
+
+				return cost;
 			}
 		}
 

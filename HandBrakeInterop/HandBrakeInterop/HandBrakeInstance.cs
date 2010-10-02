@@ -63,6 +63,16 @@
 		private List<Title> titles;
 
 		/// <summary>
+		/// The current encode job for this instance.
+		/// </summary>
+		private EncodeJob job;
+
+		/// <summary>
+		/// True if the current job is scanning for subtitles.
+		/// </summary>
+		private bool subtitleScan;
+
+		/// <summary>
 		/// The index of the default title.
 		/// </summary>
 		private int featureTitle;
@@ -312,6 +322,7 @@
 		/// <param name="previewSeconds">The number of seconds in the preview.</param>
 		public void StartEncode(EncodeJob job, bool preview, int previewNumber, int previewSeconds)
 		{
+			this.job = job;
 			hb_job_s nativeJob = InteropUtilities.ReadStructure<hb_job_s>(this.GetOriginalTitle(job.Title).job);
 			this.encodeAllocatedMemory = this.ApplyJob(ref nativeJob, job, preview, previewNumber, previewSeconds);
 
@@ -336,15 +347,66 @@
 				}
 			}
 
-			HbLib.hb_add(this.hbHandle, ref nativeJob);
+			this.subtitleScan = false;
+			foreach (SourceSubtitle subtitle in job.Subtitles.SourceSubtitles)
+			{
+				if (subtitle.TrackNumber == 0)
+				{
+					this.subtitleScan = true;
+					break;
+				}
+			}
+
+			string x264Options = job.EncodingProfile.X264Options ?? string.Empty;
+			IntPtr originalX264Options = Marshal.StringToHGlobalAnsi(x264Options);
+			this.encodeAllocatedMemory.Add(originalX264Options);
+
+			if (this.subtitleScan)
+			{
+				// If we need to scan subtitles, enqueue a pre-processing job to do that.
+				nativeJob.pass = -1;
+				nativeJob.indepth_scan = 1;
+
+				nativeJob.x264opts = IntPtr.Zero;
+
+				HbLib.hb_add(this.hbHandle, ref nativeJob);
+			}
+
+			nativeJob.indepth_scan = 0;
 
 			if (job.EncodingProfile.TwoPass)
 			{
-				nativeJob.pass = 2;
+				// First pass. Apply turbo options if needed.
+				nativeJob.pass = 1;
+				string secondPassx264Options = x264Options;
+				if (job.EncodingProfile.TurboFirstPass)
+				{
+					if (x264Options == string.Empty)
+					{
+						x264Options = TurboX264Opts;
+					}
+					else
+					{
+						x264Options += ":" + TurboX264Opts;
+					}
+				}
 
-				string x264Opts = job.EncodingProfile.X264Options ?? string.Empty;
-				nativeJob.x264opts = Marshal.StringToHGlobalAnsi(x264Opts);
+				nativeJob.x264opts = Marshal.StringToHGlobalAnsi(secondPassx264Options);
 				this.encodeAllocatedMemory.Add(nativeJob.x264opts);
+
+				HbLib.hb_add(this.hbHandle, ref nativeJob);
+
+				// Second pass. Apply normal options.
+				nativeJob.pass = 2;
+				nativeJob.x264opts = originalX264Options;
+
+				HbLib.hb_add(this.hbHandle, ref nativeJob);
+			}
+			else
+			{
+				// One pass job.
+				nativeJob.pass = 0;
+				nativeJob.x264opts = originalX264Options;
 
 				HbLib.hb_add(this.hbHandle, ref nativeJob);
 			}
@@ -536,13 +598,72 @@
 			{
 				if (this.EncodeProgress != null)
 				{
+					int pass = 1;
+					int rawJobNumber = state.param.working.job_cur;
+
+					if (this.job.EncodingProfile.TwoPass)
+					{
+						if (this.subtitleScan)
+						{
+							switch (rawJobNumber)
+							{
+								case 1:
+									pass = -1;
+									break;
+								case 2:
+									pass = 1;
+									break;
+								case 3:
+									pass = 2;
+									break;
+								default:
+									break;
+							}
+						}
+						else
+						{
+							switch (rawJobNumber)
+							{
+								case 1:
+									pass = 1;
+									break;
+								case 2:
+									pass = 2;
+									break;
+								default:
+									break;
+							}
+						}
+					}
+					else
+					{
+						if (this.subtitleScan)
+						{
+							switch (rawJobNumber)
+							{
+								case 1:
+									pass = -1;
+									break;
+								case 2:
+									pass = 1;
+									break;
+								default:
+									break;
+							}
+						}
+						else
+						{
+							pass = 1;
+						}
+					}
+
 					var progressEventArgs = new EncodeProgressEventArgs
 					{
 						FractionComplete = state.param.working.progress,
 						CurrentFrameRate = state.param.working.rate_cur,
 						AverageFrameRate = state.param.working.rate_avg,
 						EstimatedTimeLeft = new TimeSpan(state.param.working.hours, state.param.working.minutes, state.param.working.seconds),
-						Pass = state.param.working.job_cur
+						Pass = pass
 					};
 
 					this.EncodeProgress(this, progressEventArgs);
@@ -936,29 +1057,6 @@
 			nativeJob.largeFileSize = profile.LargeFile ? 1 : 0;
 			nativeJob.mp4_optimize = profile.Optimize ? 1 : 0;
 			nativeJob.ipod_atom = profile.IPod5GSupport ? 1 : 0;
-
-			string x264Options = profile.X264Options ?? string.Empty;
-			if (profile.TwoPass)
-			{
-				nativeJob.pass = 1;
-
-				if (profile.TurboFirstPass)
-				{
-					if (x264Options == string.Empty)
-					{
-						x264Options = TurboX264Opts;
-					}
-					else
-					{
-						x264Options += ":" + TurboX264Opts;
-					}
-				}
-			}
-
-			nativeJob.x264opts = Marshal.StringToHGlobalAnsi(x264Options);
-			allocatedMemory.Add(nativeJob.x264opts);
-
-			// indepth_scan
 
 			if (title.AngleCount > 1)
 			{
