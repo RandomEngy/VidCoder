@@ -2430,6 +2430,7 @@ namespace VidCoder.ViewModel
 			this.GenerateOutputFileName();
 
 			this.RefreshChapterMarkerUI();
+			PreviewViewModel.FindAndRefreshPreviews();
 		}
 
 		/// <summary>
@@ -2445,6 +2446,7 @@ namespace VidCoder.ViewModel
 			this.SaveUserPresets();
 
 			this.RefreshChapterMarkerUI();
+			PreviewViewModel.FindAndRefreshPreviews();
 		}
 
 		/// <summary>

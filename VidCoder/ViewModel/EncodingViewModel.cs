@@ -2573,12 +2573,7 @@ namespace VidCoder.ViewModel
 
 		private void UpdatePreviewWindow()
 		{
-			PreviewViewModel previewVM = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
-
-			if (previewVM != null)
-			{
-				previewVM.RefreshPreviews();
-			}
+			PreviewViewModel.FindAndRefreshPreviews();
 		}
 
 		/// <summary>

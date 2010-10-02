@@ -215,6 +215,15 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public static void FindAndRefreshPreviews()
+		{
+			PreviewViewModel previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
+			if (previewWindow != null)
+			{
+				previewWindow.RefreshPreviews();
+			}
+		}
+
 		public void RefreshPreviews()
 		{
 			if (!this.mainViewModel.HasVideoSource)
