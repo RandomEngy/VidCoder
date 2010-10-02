@@ -230,7 +230,12 @@ namespace VidCoder
 				return string.Format("{0}h {1:d2}m", span.Hours, span.Minutes);
 			}
 
-			return string.Format("{0}m {1:d2}s", span.Minutes, span.Seconds);
+			if (span.TotalMinutes >= 1.0)
+			{
+				return string.Format("{0}m {1:d2}s", span.Minutes, span.Seconds);
+			}
+
+			return string.Format("{0}s", span.Seconds);
 		}
 
 		public static IMessageBoxService MessageBox
