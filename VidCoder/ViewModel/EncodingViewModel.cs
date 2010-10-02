@@ -17,7 +17,7 @@ namespace VidCoder.ViewModel
 {
 	public class EncodingViewModel : OkCancelDialogViewModel
 	{
-		private const int DimensionsAutoSetModulus = 16;
+		private const int DimensionsAutoSetModulus = 2;
 
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 
