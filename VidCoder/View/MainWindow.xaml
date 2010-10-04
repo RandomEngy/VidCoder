@@ -208,6 +208,7 @@
 					Visibility="{Binding CanEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}}"/>
 			</MenuItem>
 			<MenuItem Header="Tools">
+				<MenuItem Header="Import Preset..." Command="{Binding ImportPresetCommand}" />
 				<MenuItem Header="Options..." Command="{Binding OpenOptionsCommand}" />
 			</MenuItem>
 			<MenuItem Header="Windows">

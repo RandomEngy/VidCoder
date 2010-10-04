@@ -104,6 +104,7 @@ namespace VidCoder.ViewModel
 		private ICommand clearCompletedCommand;
 		private ICommand pauseCommand;
 		private ICommand stopEncodeCommand;
+		private ICommand importPresetCommand;
 		private ICommand openOptionsCommand;
 		private ICommand openHomepageCommand;
 		private ICommand reportBugCommand;
@@ -1926,6 +1927,23 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public ICommand ImportPresetCommand
+		{
+			get
+			{
+				if (this.importPresetCommand == null)
+				{
+					this.importPresetCommand = new RelayCommand(param =>
+					{
+						string presetFileName = FileService.Instance.GetFileNameLoad("xml", "XML Files|*.xml", null);
+						Unity.Container.Resolve<IPresetImport>().ImportPreset(presetFileName);
+					});
+				}
+
+				return this.importPresetCommand;
+			}
+		}
+
 		public ICommand OpenOptionsCommand
 		{
 			get
@@ -2418,7 +2436,9 @@ namespace VidCoder.ViewModel
 				EncodingProfile = this.SelectedPreset.Preset.EncodingProfile.Clone()
 			};
 
-			this.AllPresets.Insert(0, new PresetViewModel(newPreset));
+			var newPresetVM = new PresetViewModel(newPreset);
+
+			this.InsertNewPreset(newPresetVM);
 
 			if (this.SelectedPreset.IsModified)
 			{
@@ -2427,9 +2447,27 @@ namespace VidCoder.ViewModel
 			}
 
 			this.selectedPreset = null;
-			this.SelectedPreset = this.AllPresets[0];
+			this.SelectedPreset = newPresetVM;
 
 			this.StartAnimation("PresetGlowHighlight");
+			this.SaveUserPresets();
+		}
+
+		public void AddPreset(Preset newPreset)
+		{
+			var newPresetVM = new PresetViewModel(newPreset);
+
+			this.InsertNewPreset(newPresetVM);
+
+			// Switch to the new preset if we can do it cleanly.
+			if (!this.SelectedPreset.IsModified)
+			{
+				this.selectedPreset = null;
+				this.SelectedPreset = newPresetVM;
+
+				this.StartAnimation("PresetGlowHighlight");
+			}
+
 			this.SaveUserPresets();
 		}
 
@@ -3015,6 +3053,26 @@ namespace VidCoder.ViewModel
 			}
 
 			return Utilities.CleanFileName(fileName);
+		}
+
+		private void InsertNewPreset(PresetViewModel presetVM)
+		{
+			for (int i = 0; i < this.AllPresets.Count; i++)
+			{
+				if (this.AllPresets[i].IsBuiltIn)
+				{
+					this.AllPresets.Insert(i, presetVM);
+					return;
+				}
+
+				if (string.CompareOrdinal(presetVM.PresetName, this.AllPresets[i].PresetName) < 0)
+				{
+					this.AllPresets.Insert(i, presetVM);
+					return;
+				}
+			}
+
+			Debug.Assert(true, "Did not find place to insert new preset.");
 		}
 
 		private int GetFirstUnusedAudioTrack()

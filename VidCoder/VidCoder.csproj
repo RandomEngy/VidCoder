@@ -202,6 +202,8 @@
     <Compile Include="EnumStringConverter.cs" />
     <Compile Include="Model\EncodeResult.cs" />
     <Compile Include="Services\Interfaces\ILogger.cs" />
+    <Compile Include="Services\Interfaces\IPresetImport.cs" />
+    <Compile Include="Services\PresetImport.cs" />
     <Compile Include="Utilities\ListSynchronizer\IListItemConverter.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Utilities\ListSynchronizer\MultiSelectorBehaviors.cs" />

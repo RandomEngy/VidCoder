@@ -512,11 +512,18 @@ namespace VidCoder.View
 				{
 					if (fileList.Count == 1)
 					{
-						this.manualSelectionChange = true;
-						this.sourceBox.SelectedItem = this.sourceOptions.Single(item => item.SourceOption.Type == SourceType.File);
-						this.RemoveDeadOptions();
-						this.viewModel.SetSourceFromFile(fileList[0]);
-						this.manualSelectionChange = false;
+						if (Path.GetExtension(fileList[0]).ToLowerInvariant() == ".xml")
+						{
+							Unity.Container.Resolve<IPresetImport>().ImportPreset(fileList[0]);
+						}
+						else
+						{
+							this.manualSelectionChange = true;
+							this.sourceBox.SelectedItem = this.sourceOptions.Single(item => item.SourceOption.Type == SourceType.File);
+							this.RemoveDeadOptions();
+							this.viewModel.SetSourceFromFile(fileList[0]);
+							this.manualSelectionChange = false;
+						}
 					}
 					else
 					{

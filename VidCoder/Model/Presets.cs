@@ -55,22 +55,11 @@ namespace VidCoder.Model
 
 					foreach (string presetFile in presetFiles)
 					{
-						if (Path.GetExtension(presetFile).ToLowerInvariant() == ".xml")
+						Preset preset = LoadPreset(presetFile);
+
+						if (preset != null)
 						{
-							XDocument doc = XDocument.Load(presetFile);
-							XElement presetElement = doc.Element("UserPreset").Element("Preset");
-							int version = int.Parse(doc.Element("UserPreset").Attribute("Version").Value);
-
-							using (XmlReader reader = presetElement.CreateReader())
-							{
-								var preset = presetSerializer.Deserialize(reader) as Preset;
-								if (version == 1)
-								{
-									UpgradePreset(preset);
-								}
-
-								result.Add(preset);
-							}
+							result.Add(preset);
 						}
 					}
 
@@ -105,6 +94,34 @@ namespace VidCoder.Model
 			}
 		}
 
+		/// <summary>
+		/// Loads in a preset from a file.
+		/// </summary>
+		/// <param name="presetFile">The file to load the preset from.</param>
+		/// <returns>The parsed preset from the file, or null if the preset is invalid.</returns>
+		public static Preset LoadPreset(string presetFile)
+		{
+			if (Path.GetExtension(presetFile).ToLowerInvariant() != ".xml")
+			{
+				return null;
+			}
+
+			XDocument doc = XDocument.Load(presetFile);
+			XElement presetElement = doc.Element("UserPreset").Element("Preset");
+			int version = int.Parse(doc.Element("UserPreset").Attribute("Version").Value);
+
+			using (XmlReader reader = presetElement.CreateReader())
+			{
+				var preset = presetSerializer.Deserialize(reader) as Preset;
+				if (version == 1)
+				{
+					UpgradePreset(preset);
+				}
+
+				return preset;
+			}
+		}
+
 		private static void UpgradePreset(Preset preset)
 		{
 			foreach (AudioEncoding audioEncoding in preset.EncodingProfile.AudioEncodings)
@@ -118,6 +135,10 @@ namespace VidCoder.Model
 			}
 		}
 
+		/// <summary>
+		/// Saves the given preset data.
+		/// </summary>
+		/// <param name="presetXmlListObject">List&lt;Tuple&lt;string, string&gt;&gt; with the file name and XML string to save.</param>
 		private static void SaveUserPresetsBackground(object presetXmlListObject)
 		{
 			lock (userPresetSync)
