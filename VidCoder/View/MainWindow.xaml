@@ -254,7 +254,7 @@
 						<DataTemplate>
 							<StackPanel Orientation="Horizontal">
 								<Image Source="{Binding Image}" Visibility="{Binding ImageVisible, Converter={StaticResource VisibilityConverter}}" Width="16" Height="16" Margin="4,2,0,2" />
-								<TextBlock Text="{Binding Display}" Style="{StaticResource PlainTitle}" Margin="4" />
+								<TextBlock Text="{Binding Text}" Style="{StaticResource PlainTitle}" Margin="4" />
 							</StackPanel>
 						</DataTemplate>
 					</ComboBox.ItemTemplate>

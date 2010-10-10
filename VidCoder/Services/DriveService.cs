@@ -77,9 +77,26 @@ namespace VidCoder.Services
 
 			foreach (DriveInfo driveInfo in driveCollection)
 			{
-				if (driveInfo.DriveType == DriveType.CDRom && driveInfo.IsReady && File.Exists(driveInfo.RootDirectory + @"VIDEO_TS\VIDEO_TS.IFO"))
+				if (driveInfo.DriveType == DriveType.CDRom && driveInfo.IsReady)
 				{
-					driveList.Add(new DriveInformation { RootDirectory = driveInfo.RootDirectory.FullName, VolumeLabel = driveInfo.VolumeLabel });
+					if (File.Exists(driveInfo.RootDirectory + @"VIDEO_TS\VIDEO_TS.IFO"))
+					{
+						driveList.Add(new DriveInformation
+						{
+							RootDirectory = driveInfo.RootDirectory.FullName,
+							VolumeLabel = driveInfo.VolumeLabel,
+							DiscType = DiscType.Dvd
+						});
+					}
+					else if (Directory.Exists(driveInfo.RootDirectory + "BDMV"))
+					{
+						driveList.Add(new DriveInformation
+						{
+							RootDirectory = driveInfo.RootDirectory.FullName,
+							VolumeLabel = driveInfo.VolumeLabel,
+							DiscType = DiscType.BluRay
+						});
+					}
 				}
 			}
 

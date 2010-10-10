@@ -38,6 +38,11 @@
 		private const string TurboX264Opts = "ref=1:subme=2:me=dia:analyse=none:trellis=0:no-fast-pskip=0:8x8dct=0:weightb=0";
 
 		/// <summary>
+		/// Default value to give as a minimum duration when scanning.
+		/// </summary>
+		private const ulong DefaultMinDuration = 900000;
+
+		/// <summary>
 		/// The native handle to the HandBrake instance.
 		/// </summary>
 		private IntPtr hbHandle;
@@ -228,7 +233,7 @@
 		/// <param name="titleIndex">The title index to scan (1-based, 0 for all titles).</param>
 		public void StartScan(string path, int previewCount, int titleIndex)
 		{
-			HbLib.hb_scan(hbHandle, path, titleIndex, previewCount, 1);
+			HbLib.hb_scan(hbHandle, path, titleIndex, previewCount, 1, DefaultMinDuration);
 			this.scanPollTimer = new System.Timers.Timer();
 			this.scanPollTimer.Interval = ScanPollIntervalMs;
 

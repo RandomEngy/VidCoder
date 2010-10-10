@@ -95,9 +95,9 @@ namespace VidCoder.View
 
 			this.sourceOptions = new ObservableCollection<SourceOptionViewModel>
 			{
-				new SourceOptionViewModel(new SourceOption { Type = SourceType.None, Image = null, Text = "Choose a video source." }),
-				new SourceOptionViewModel(new SourceOption { Type = SourceType.File, Image = "/Icons/avi.png", Text = "Video File" }),
-				new SourceOptionViewModel(new SourceOption { Type = SourceType.VideoFolder, Image = "/Icons/folder.png", Text = "DVD/VIDEO_TS Folder" })
+				new SourceOptionViewModel(new SourceOption { Type = SourceType.None }),
+				new SourceOptionViewModel(new SourceOption { Type = SourceType.File }),
+				new SourceOptionViewModel(new SourceOption { Type = SourceType.VideoFolder })
 			};
 
 			this.UpdateDrives();
@@ -167,7 +167,7 @@ namespace VidCoder.View
 					if (currentOption == null)
 					{
 						// The device is new, add it
-						SourceOptionViewModel newSourceOptionVM = new SourceOptionViewModel(new SourceOption { Type = SourceType.Dvd, Image = "/Icons/disc.png", DriveInfo = drive });
+						SourceOptionViewModel newSourceOptionVM = new SourceOptionViewModel(new SourceOption { Type = SourceType.Dvd, DriveInfo = drive });
 
 						bool added = false;
 						for (int i = 0; i < this.sourceOptions.Count; i++)

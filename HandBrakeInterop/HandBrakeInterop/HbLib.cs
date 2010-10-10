@@ -9,16 +9,21 @@ namespace HandBrake.Interop
 
 	public partial class NativeConstants
 	{
-		public const int HB_ACODEC_MASK =   0x00FF00;
-		public const int HB_ACODEC_FAAC =   0x000100;
-		public const int HB_ACODEC_LAME =   0x000200;
-		public const int HB_ACODEC_VORBIS = 0x000400;
-		public const int HB_ACODEC_AC3 =    0x000800;
-		public const int HB_ACODEC_MPGA =   0x001000;
-		public const int HB_ACODEC_LPCM =   0x002000;
-		public const int HB_ACODEC_DCA =    0x004000;
-		public const int HB_ACODEC_FFMPEG = 0x008000;
-		public const int HB_ACODEC_CA_AAC = 0x010000;
+		public const int HB_ACODEC_MASK =		0x0000FF00;
+		public const int HB_ACODEC_FAAC =		0x00000100;
+		public const int HB_ACODEC_LAME =		0x00000200;
+		public const int HB_ACODEC_VORBIS =		0x00000400;
+		public const int HB_ACODEC_AC3 =		0x00000800;
+		public const int HB_ACODEC_MPGA =		0x00001000;
+		public const int HB_ACODEC_LPCM =		0x00002000;
+		public const int HB_ACODEC_DCA =		0x00004000;
+		public const int HB_ACODEC_FFMPEG =		0x00008000;
+		public const int HB_ACODEC_CA_AAC =		0x00010000;
+		public const int HB_ACODEC_PASS_FLAG =	0x40000000;
+		public const int HB_ACODEC_PASS_MASK =	HB_ACODEC_AC3 | HB_ACODEC_DCA;
+		public const int HB_ACODEC_AC3_PASS =	HB_ACODEC_AC3 | HB_ACODEC_PASS_FLAG;
+		public const int HB_ACODEC_DCA_PASS =	HB_ACODEC_DCA | HB_ACODEC_PASS_FLAG;
+		public const int HB_ACODEC_ANY =		HB_ACODEC_MASK | HB_ACODEC_PASS_FLAG;
 
 		public const int HB_AMIXDOWN_DCA_FORMAT_MASK =              0x00FFF000;
 		public const int HB_AMIXDOWN_A52_FORMAT_MASK =              0x00000FF0;
@@ -367,13 +372,13 @@ namespace HandBrake.Interop
 		public int cell_end;
 
 		/// int
-		public int block_start;
+		public ulong block_start;
 
 		/// int
-		public int block_end;
+		public ulong block_end;
 
 		/// int
-		public int block_count;
+		public ulong block_count;
 
 		/// int
 		public int hours;
@@ -452,6 +457,10 @@ namespace HandBrake.Interop
 
 		public int height;
 
+		public IntPtr extradata;
+
+		public int extradata_size;
+
 		/// int
 		public int hits;
 
@@ -512,9 +521,11 @@ namespace HandBrake.Interop
 		public IntPtr coverart;
 	}
 
-	public enum Anonymous_990d28ea_6cf3_4fbc_8143_4df9513e9550
+	public enum hb_title_type_anon
 	{
 		HB_DVD_TYPE,
+
+		HB_BD_TYPE,
 
 		HB_STREAM_TYPE,
 	}
@@ -533,7 +544,9 @@ namespace HandBrake.Interop
 	public struct hb_title_s
 	{
 		/// Anonymous_990d28ea_6cf3_4fbc_8143_4df9513e9550
-		public Anonymous_990d28ea_6cf3_4fbc_8143_4df9513e9550 type;
+		public hb_title_type_anon type;
+
+		uint reg_desc;
 
 		/// char[1024]
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 1024)]
@@ -563,13 +576,13 @@ namespace HandBrake.Interop
 		public int cell_end;
 
 		/// int
-		public int block_start;
+		public ulong block_start;
 
 		/// int
-		public int block_end;
+		public ulong block_end;
 
 		/// int
-		public int block_count;
+		public ulong block_count;
 
 		/// int
 		public int angle_count;
@@ -622,11 +635,15 @@ namespace HandBrake.Interop
 		/// int
 		public int detected_interlacing;
 
+		int pcr_pid;
+
 		/// int
 		public int video_id;
 
 		/// int
 		public int video_codec;
+
+		uint video_stream_type;
 
 		/// int
 		public int video_codec_param;
@@ -654,6 +671,9 @@ namespace HandBrake.Interop
 
 		/// hb_list_t*
 		public IntPtr list_subtitle;
+
+		/// hb_list_t*
+		public IntPtr list_attachment;
 
 		/// hb_job_t*
 		public IntPtr job;
@@ -805,6 +825,8 @@ namespace HandBrake.Interop
 
 		/// uint32_t->unsigned int
 		public uint codec;
+
+		public uint stream_type;
 
 		/// uint32_t->unsigned int
 		public uint codec_param;
@@ -1146,7 +1168,7 @@ namespace HandBrake.Interop
 		///preview_count: int
 		///store_previews: int
 		[DllImport("hb.dll", EntryPoint = "hb_scan", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void hb_scan(IntPtr hbHandle, [In] [MarshalAs(UnmanagedType.LPStr)] string path, int title_index, int preview_count, int store_previews);
+		public static extern void hb_scan(IntPtr hbHandle, [In] [MarshalAs(UnmanagedType.LPStr)] string path, int title_index, int preview_count, int store_previews, ulong min_duration);
 
 
 		/// Return Type: hb_list_t*

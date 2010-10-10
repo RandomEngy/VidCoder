@@ -408,6 +408,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Icons\bludisc.png" />
     <Resource Include="Icons\edit_2.png" />
     <Resource Include="Icons\play_clip.png" />
     <Resource Include="Icons\delete.png" />

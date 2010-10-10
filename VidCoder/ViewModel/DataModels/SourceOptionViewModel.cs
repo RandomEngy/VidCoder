@@ -21,13 +21,28 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.sourceOption.Image;
-			}
+				switch (this.sourceOption.Type)
+				{
+					case SourceType.None:
+						return null;
+					case SourceType.File:
+						return "/Icons/avi.png";
+					case SourceType.VideoFolder:
+						return "/Icons/folder.png";
+					case SourceType.Dvd:
+						if (this.sourceOption.DriveInfo.DiscType == DiscType.Dvd)
+						{
+							return "/Icons/disc.png";
+						}
+						else
+						{
+							return "/Icons/bludisc.png";
+						}
+					default:
+						break;
+				}
 
-			set
-			{
-				this.sourceOption.Image = value;
-				this.NotifyPropertyChanged("Image");
+				return null;
 			}
 		}
 
@@ -35,14 +50,21 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.sourceOption.Text;
-			}
+				switch (this.sourceOption.Type)
+				{
+					case SourceType.None:
+						return "Choose a video source.";
+					case SourceType.File:
+						return "Video File";
+					case SourceType.VideoFolder:
+						return "DVD/VIDEO_TS Folder";
+					case SourceType.Dvd:
+						return this.sourceOption.DriveInfo.RootDirectory + " - " + this.sourceOption.DriveInfo.VolumeLabel;
+					default:
+						break;
+				}
 
-			set
-			{
-				this.sourceOption.Text = value;
-				this.NotifyPropertyChanged("Text");
-				this.NotifyPropertyChanged("Display");
+				return string.Empty;
 			}
 		}
 
@@ -57,20 +79,7 @@ namespace VidCoder.ViewModel
 			{
 				this.sourceOption.DriveInfo.VolumeLabel = value;
 				this.NotifyPropertyChanged("VolumeLabel");
-				this.NotifyPropertyChanged("Display");
-			}
-		}
-
-		public string Display
-		{
-			get
-			{
-				if (this.sourceOption.Type == SourceType.Dvd)
-				{
-					return this.sourceOption.DriveInfo.RootDirectory + " - " + this.sourceOption.DriveInfo.VolumeLabel;
-				}
-
-				return this.Text;
+				this.NotifyPropertyChanged("Text");
 			}
 		}
 
@@ -83,7 +92,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return !string.IsNullOrEmpty(this.sourceOption.Image);
+				return this.sourceOption.Type != SourceType.None;
 			}
 		}
 	}

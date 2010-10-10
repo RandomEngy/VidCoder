@@ -329,7 +329,16 @@ namespace VidCoder.ViewModel
 			this.ScanError = false;
 			this.sourceName = driveInfo.VolumeLabel;
 			this.ScanningSource = true;
-			this.sourcePath = Path.Combine(driveInfo.RootDirectory, "VIDEO_TS");
+
+			if (driveInfo.DiscType == DiscType.Dvd)
+			{
+				this.sourcePath = Path.Combine(driveInfo.RootDirectory, "VIDEO_TS");
+			}
+			else
+			{
+				this.sourcePath = driveInfo.RootDirectory;
+			}
+
 			this.StartScan(this.sourcePath);
 
 			this.SourceDescription = string.Empty;
