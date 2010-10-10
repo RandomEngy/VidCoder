@@ -2675,6 +2675,7 @@ namespace VidCoder.ViewModel
 				});
 			};
 
+			this.ScanError = false;
 			this.scanInstance.StartScan(path, 10);
 		}
 
