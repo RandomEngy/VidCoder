@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -7,19 +8,22 @@ namespace HandBrake.Interop
 {
 	public enum AudioEncoder
 	{
-		[DisplayString("AAC (faac)")]
+		[Display(Name = "AAC (faac)")]
 		Faac = 0,
 
-		[DisplayString("MP3 (lame)")]
+		[Display(Name = "MP3 (lame)")]
 		Lame,
 
-		[DisplayString("AC3 Passthrough")]
+		[Display(Name = "AC3 (ffmpeg)")]
+		Ac3,
+
+		[Display(Name = "AC3 Passthrough")]
 		Ac3Passthrough,
 
-		[DisplayString("DTS Passthrough")]
+		[Display(Name = "DTS Passthrough")]
 		DtsPassthrough,
 
-		[DisplayString("Vorbis (vorbis)")]
+		[Display(Name = "Vorbis (vorbis)")]
 		Vorbis
 	}
 }

@@ -1155,16 +1155,19 @@
 			switch (encoding.Encoder)
 			{
 				case AudioEncoder.Ac3Passthrough:
-					nativeAudio.config.output.codec = NativeConstants.HB_ACODEC_AC3;
+					nativeAudio.config.output.codec = NativeConstants.HB_ACODEC_AC3_PASS;
 					break;
 				case AudioEncoder.DtsPassthrough:
-					nativeAudio.config.output.codec = NativeConstants.HB_ACODEC_DCA;
+					nativeAudio.config.output.codec = NativeConstants.HB_ACODEC_DCA_PASS;
 					break;
 				case AudioEncoder.Faac:
 					nativeAudio.config.output.codec = NativeConstants.HB_ACODEC_FAAC;
 					break;
 				case AudioEncoder.Lame:
 					nativeAudio.config.output.codec = NativeConstants.HB_ACODEC_LAME;
+					break;
+				case AudioEncoder.Ac3:
+					nativeAudio.config.output.codec = NativeConstants.HB_ACODEC_AC3;
 					break;
 				case AudioEncoder.Vorbis:
 					nativeAudio.config.output.codec = NativeConstants.HB_ACODEC_VORBIS;

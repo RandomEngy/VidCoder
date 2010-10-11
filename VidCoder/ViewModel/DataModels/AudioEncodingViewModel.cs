@@ -350,6 +350,7 @@ namespace VidCoder.ViewModel
 			{
 				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Faac });
 				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Lame });
+				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Ac3 });
 				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Ac3Passthrough });
 				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.DtsPassthrough });
 				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Vorbis });
@@ -358,6 +359,7 @@ namespace VidCoder.ViewModel
 			{
 				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Faac });
 				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Lame });
+				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Ac3 });
 				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Ac3Passthrough });
 			}
 
@@ -382,14 +384,16 @@ namespace VidCoder.ViewModel
 			switch (this.SelectedAudioEncoder.Encoder)
 			{
 				case AudioEncoder.Faac:
+				case AudioEncoder.Ac3:
+				case AudioEncoder.Lame:
 					this.MixdownChoices.Add(new MixdownViewModel { Mixdown = Mixdown.Mono });
 					this.MixdownChoices.Add(new MixdownViewModel { Mixdown = Mixdown.Stereo });
 					this.MixdownChoices.Add(new MixdownViewModel { Mixdown = Mixdown.DolbySurround });
 					this.MixdownChoices.Add(new MixdownViewModel { Mixdown = Mixdown.DolbyProLogicII });
 					this.MixdownChoices.Add(new MixdownViewModel { Mixdown = Mixdown.SixChannelDiscrete });
 					break;
-				case AudioEncoder.Lame:
 				case AudioEncoder.Vorbis:
+					this.MixdownChoices.Add(new MixdownViewModel { Mixdown = Mixdown.Mono });
 					this.MixdownChoices.Add(new MixdownViewModel { Mixdown = Mixdown.Stereo });
 					this.MixdownChoices.Add(new MixdownViewModel { Mixdown = Mixdown.DolbySurround });
 					this.MixdownChoices.Add(new MixdownViewModel { Mixdown = Mixdown.DolbyProLogicII });
@@ -417,16 +421,24 @@ namespace VidCoder.ViewModel
 			switch (this.SelectedAudioEncoder.Encoder)
 			{
 				case AudioEncoder.Faac:
-					this.BitrateChoices = new List<int> { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160 };
+				case AudioEncoder.Lame:
+					this.BitrateChoices = new List<int> { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320 };
 					if (this.Bitrate > 160)
 					{
 						this.Bitrate = 160;
 					}
 
 					break;
-				case AudioEncoder.Lame:
 				case AudioEncoder.Vorbis:
-					this.BitrateChoices = new List<int> { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320 };
+					this.BitrateChoices = new List<int> { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384 };
+					if (this.Bitrate > 384)
+					{
+						this.Bitrate = 384;
+					}
+
+					break;
+				case AudioEncoder.Ac3:
+					this.BitrateChoices = new List<int> { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384, 448, 640 };
 					break;
 				default:
 					break;

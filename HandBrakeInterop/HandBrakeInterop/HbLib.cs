@@ -683,7 +683,7 @@ namespace HandBrake.Interop
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public struct hb_state_scanning_s
+	public struct hb_state_scanning_anon
 	{
 		/// int
 		public int title_cur;
@@ -693,7 +693,7 @@ namespace HandBrake.Interop
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public struct hb_state_working_s
+	public struct hb_state_working_anon
 	{
 		/// float
 		public float progress;
@@ -724,14 +724,14 @@ namespace HandBrake.Interop
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public struct hb_state_workdone_s
+	public struct hb_state_workdone_anon
 	{
 		/// int
 		public int error;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
-	public struct hb_state_muxing_s
+	public struct hb_state_muxing_anon
 	{
 		/// float
 		public float progress;
@@ -741,16 +741,16 @@ namespace HandBrake.Interop
 	public struct hb_state_param_u
 	{
 		[FieldOffset(0)]
-		public hb_state_scanning_s scanning;
+		public hb_state_scanning_anon scanning;
 
 		[FieldOffset(0)]
-		public hb_state_working_s working;
+		public hb_state_working_anon working;
 
 		[FieldOffset(0)]
-		public hb_state_workdone_s workdone;
+		public hb_state_workdone_anon workdone;
 
 		[FieldOffset(0)]
-		public hb_state_muxing_s muxing;
+		public hb_state_muxing_anon muxing;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
@@ -974,6 +974,8 @@ namespace HandBrake.Interop
 		/// int64_t->int
 		public long sequence;
 
+		public hb_buffer_type_anon type;
+
 		/// int
 		public int id;
 
@@ -1007,11 +1009,24 @@ namespace HandBrake.Interop
 		/// int
 		public int height;
 
+		public IntPtr next_subpicture;
+
 		/// hb_buffer_t*
 		public IntPtr sub;
 
 		/// hb_buffer_t*
 		public IntPtr next;
+	}
+
+	public enum hb_buffer_type_anon
+	{
+		AUDIO_BUF,
+
+		VIDEO_BUF,
+
+		SUBTITLE_BUF,
+
+		OTHER_BUF
 	}
 
 	[StructLayout(LayoutKind.Sequential)]

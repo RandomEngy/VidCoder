@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -7,13 +8,13 @@ namespace HandBrake.Interop
 {
 	public enum Anamorphic
 	{
-		[DisplayString("None")]
+		[Display(Name = "None")]
 		None = 0,
-		[DisplayString("Strict")]
+		[Display(Name = "Strict")]
 		Strict,
-		[DisplayString("Loose")]
+		[Display(Name = "Loose")]
 		Loose,
-		[DisplayString("Custom")]
+		[Display(Name = "Custom")]
 		Custom
 	}
 }

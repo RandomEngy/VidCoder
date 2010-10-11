@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -7,19 +8,19 @@ namespace HandBrake.Interop
 {
 	public enum Mixdown
 	{
-		[DisplayString("Dolby Pro Logic II")]
+		[Display(Name = "Dolby Pro Logic II")]
 		DolbyProLogicII = 0,
 
-		[DisplayString("Mono")]
+		[Display(Name = "Mono")]
 		Mono,
 
-		[DisplayString("Stereo")]
+		[Display(Name = "Stereo")]
 		Stereo,
 
-		[DisplayString("Dolby Surround")]
+		[Display(Name = "Dolby Surround")]
 		DolbySurround,
 
-		[DisplayString("6 Channel Discrete")]
+		[Display(Name = "6 Channel Discrete")]
 		SixChannelDiscrete
 	}
 }

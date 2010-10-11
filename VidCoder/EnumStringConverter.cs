@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Reflection;
@@ -21,7 +22,7 @@ namespace VidCoder
 			var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static);
 			foreach (var field in fields)
 			{
-				DisplayStringAttribute[] a = (DisplayStringAttribute[])field.GetCustomAttributes(typeof(DisplayStringAttribute), false);
+				DisplayAttribute[] a = (DisplayAttribute[])field.GetCustomAttributes(typeof(DisplayAttribute), false);
 
 				string displayString = GetDisplayStringValue(a);
 				T enumValue = (T)field.GetValue(null);
@@ -35,16 +36,18 @@ namespace VidCoder
 			return displayValues[enumValue];
 		}
 
-		private string GetDisplayStringValue(DisplayStringAttribute[] a)
+		private string GetDisplayStringValue(DisplayAttribute[] a)
 		{
 			if (a == null || a.Length == 0) return null;
-			DisplayStringAttribute dsa = a[0];
-			if (!string.IsNullOrEmpty(dsa.ResourceKey))
+			DisplayAttribute displayAttribute = a[0];
+
+			if (displayAttribute.ResourceType != null)
 			{
-				ResourceManager rm = new ResourceManager(typeof(T));
-				return rm.GetString(dsa.ResourceKey);
+				ResourceManager resourceManager = new ResourceManager(displayAttribute.ResourceType);
+				return resourceManager.GetString(displayAttribute.Name);
 			}
-			return dsa.Value;
+
+			return displayAttribute.Name;
 		}
 	}
 }

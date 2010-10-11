@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -7,13 +8,13 @@ namespace HandBrake.Interop
 {
 	public enum VideoEncoder
 	{
-		[DisplayString("H.264 (x264)")]
+		[Display(Name = "H.264 (x264)")]
 		X264 = 0,
 
-		[DisplayString("MPEG-4 (FFMpeg)")]
+		[Display(Name = "MPEG-4 (FFMpeg)")]
 		FFMpeg,
 
-		[DisplayString("VP3 (Theora)")]
+		[Display(Name = "VP3 (Theora)")]
 		Theora
 	}
 }
