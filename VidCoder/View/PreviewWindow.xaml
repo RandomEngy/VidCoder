@@ -84,9 +84,14 @@
 					Text="Generating preview..."
 					Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}}" />
 				<ProgressBar
-					HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="135,0,12,9" Height="20"
+					HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="135,0,80,9" Height="20"
 					Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}}"
 					Value="{Binding PreviewPercentComplete}"/>
+				<Button
+					Content="Cancel"
+					HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,12,8" Height="23" Width="55"
+					Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}}"
+					Command="{Binding CancelPreviewCommand}"/>
 			</Grid>
 		</Grid>
 	</Grid>

@@ -55,6 +55,7 @@ namespace VidCoder.ViewModel
 		private bool scanningSource;
 		private bool scanError;
 		private double scanProgress;
+		private bool scanCancelledFlag;
 
 		private string outputPath;
 		private bool manualOutputPath;
@@ -97,6 +98,7 @@ namespace VidCoder.ViewModel
 		private ICommand pickDefaultOutputFolderCommand;
 		private ICommand pickOutputPathCommand;
 		private ICommand encodeCommand;
+		private ICommand cancelScanCommand;
 		private ICommand addToQueueCommand;
 		private ICommand queueFilesCommand;
 		private ICommand queueTitlesCommand;
@@ -110,6 +112,7 @@ namespace VidCoder.ViewModel
 		private ICommand reportBugCommand;
 
 		public event EventHandler<EventArgs<string>> AnimationStarted;
+		public event EventHandler ScanCancelled;
 
 		public MainViewModel()
 		{
@@ -266,7 +269,6 @@ namespace VidCoder.ViewModel
 
 		public bool SetSourceFromFile()
 		{
-			this.ScanError = false;
 			string videoFile = FileService.Instance.GetFileNameLoad(null, null, Properties.Settings.Default.LastInputFileFolder);
 
 			if (videoFile != null)
@@ -284,7 +286,6 @@ namespace VidCoder.ViewModel
 			Properties.Settings.Default.Save();
 
 			this.sourceName = Path.GetFileNameWithoutExtension(videoFile);
-			this.ScanningSource = true;
 			this.StartScan(videoFile);
 
 			this.SourceDescription = videoFile;
@@ -293,7 +294,6 @@ namespace VidCoder.ViewModel
 
 		public bool SetSourceFromFolder()
 		{
-			this.ScanError = false;
 			string folderPath = FileService.Instance.GetFolderName(Properties.Settings.Default.LastVideoTSFolder, "Pick the DVD's VIDEO_TS folder.");
 
 			// Make sure we get focus back after displaying the dialog.
@@ -313,7 +313,6 @@ namespace VidCoder.ViewModel
 					this.sourceName = parentDirectory.Name;
 				}
 
-				this.ScanningSource = true;
 				this.StartScan(folderPath);
 
 				this.SourceDescription = folderPath;
@@ -326,9 +325,7 @@ namespace VidCoder.ViewModel
 
 		public bool SetSourceFromDvd(DriveInformation driveInfo)
 		{
-			this.ScanError = false;
 			this.sourceName = driveInfo.VolumeLabel;
-			this.ScanningSource = true;
 
 			if (driveInfo.DiscType == DiscType.Dvd)
 			{
@@ -1681,6 +1678,23 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public ICommand CancelScanCommand
+		{
+			get
+			{
+				if (this.cancelScanCommand == null)
+				{
+					this.cancelScanCommand = new RelayCommand(param =>
+					{
+						this.scanCancelledFlag = true;
+						this.ScanInstance.StopScan();
+					});
+				}
+
+				return this.cancelScanCommand;
+			}
+		}
+
 		public ICommand AddToQueueCommand
 		{
 			get
@@ -2648,6 +2662,8 @@ namespace VidCoder.ViewModel
 
 		private void StartScan(string path)
 		{
+			this.ClearVideoSource();
+
 			this.ScanProgress = 0;
 			HandBrakeInstance oldInstance = this.scanInstance;
 			if (oldInstance != null)
@@ -2668,14 +2684,29 @@ namespace VidCoder.ViewModel
 				DispatchService.Invoke(() =>
 				{
 					this.ScanningSource = false;
-					this.SourceData = new VideoSource { Titles = this.scanInstance.Titles, FeatureTitle = this.scanInstance.FeatureTitle };
 
-					this.logger.Log("## Scan completed");
+					if (this.scanCancelledFlag)
+					{
+						if (this.ScanCancelled != null)
+						{
+							this.ScanCancelled(this, new EventArgs());
+						}
+
+						this.logger.Log("## Scan cancelled");
+					}
+					else
+					{
+						this.SourceData = new VideoSource { Titles = this.scanInstance.Titles, FeatureTitle = this.scanInstance.FeatureTitle };
+						this.logger.Log("## Scan completed");
+					}
+
 					this.logger.Log("");
 				});
 			};
 
 			this.ScanError = false;
+			this.ScanningSource = true;
+			this.scanCancelledFlag = false;
 			this.scanInstance.StartScan(path, 10);
 		}
 
@@ -2724,6 +2755,14 @@ namespace VidCoder.ViewModel
 			}
 
 			this.NotifyPropertyChanged("CanEnqueueMultipleTitles");
+		}
+
+		private void ClearVideoSource()
+		{
+			this.sourceData = null;
+			this.NotifyPropertyChanged("HasVideoSource");
+			this.NotifyPropertyChanged("CanEnqueue");
+			PreviewViewModel.FindAndRefreshPreviews();
 		}
 
 		private void SaveEncodeQueue()

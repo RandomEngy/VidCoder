@@ -233,7 +233,7 @@
 		/// <param name="titleIndex">The title index to scan (1-based, 0 for all titles).</param>
 		public void StartScan(string path, int previewCount, int titleIndex)
 		{
-			HbLib.hb_scan(hbHandle, path, titleIndex, previewCount, 1, DefaultMinDuration);
+			HbLib.hb_scan(this.hbHandle, path, titleIndex, previewCount, 1, DefaultMinDuration);
 			this.scanPollTimer = new System.Timers.Timer();
 			this.scanPollTimer.Interval = ScanPollIntervalMs;
 
@@ -243,6 +243,14 @@
 				this.PollScanProgress();
 			};
 			this.scanPollTimer.Start();
+		}
+
+		/// <summary>
+		/// Stops an ongoing scan.
+		/// </summary>
+		public void StopScan()
+		{
+			HbLib.hb_scan_stop(this.hbHandle);
 		}
 
 		/// <summary>

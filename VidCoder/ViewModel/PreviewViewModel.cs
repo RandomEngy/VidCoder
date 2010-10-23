@@ -24,10 +24,12 @@ namespace VidCoder.ViewModel
 		private int selectedPreview;
 		private bool hasPreview;
 		private bool generatingPreview;
+		private bool encodeCancelled;
 		private double previewPercentComplete;
 		private int previewSeconds;
 
 		private ICommand generatePreviewCommand;
+		private ICommand cancelPreviewCommand;
 
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 
@@ -215,6 +217,23 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public ICommand CancelPreviewCommand
+		{
+			get
+			{
+				if (this.cancelPreviewCommand == null)
+				{
+					this.cancelPreviewCommand = new RelayCommand(param =>
+					{
+						this.encodeCancelled = true;
+						this.previewInstance.StopEncode();
+					});
+				}
+
+				return this.cancelPreviewCommand;
+			}
+		}
+
 		public static void FindAndRefreshPreviews()
 		{
 			PreviewViewModel previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
@@ -291,9 +310,24 @@ namespace VidCoder.ViewModel
 			this.previewInstance.EncodeCompleted += (o, e) =>
 			{
 				this.GeneratingPreview = false;
-				this.logger.Log("# Finished preview clip generation");
 
-				FileService.Instance.LaunchFile(this.job.OutputPath);
+				if (this.encodeCancelled)
+				{
+					this.logger.Log("# Cancelled preview clip generation");
+				}
+				else
+				{
+					if (e.Error)
+					{
+						this.logger.Log("# Preview clip generation failed");
+						Utilities.MessageBox.Show("Preview clip generation failed. See the Log window for details.");
+					}
+					else
+					{
+						this.logger.Log("# Finished preview clip generation");
+						FileService.Instance.LaunchFile(this.job.OutputPath);
+					}
+				}
 			};
 
 			this.logger.Log("## Encoding clip");
@@ -301,6 +335,7 @@ namespace VidCoder.ViewModel
 			this.logger.Log("##   Title: " + this.job.Title);
 			this.logger.Log("##   Preview #: " + this.SelectedPreview);
 
+			this.encodeCancelled = false;
 			this.previewInstance.StartEncode(this.job, true, this.SelectedPreview, this.PreviewSeconds);
 		}
 	}

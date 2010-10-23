@@ -92,6 +92,7 @@ namespace VidCoder.View
 			this.viewModel = this.DataContext as MainViewModel;
 			this.viewModel.PropertyChanged += this.ViewModelPropertyChanged;
 			this.viewModel.AnimationStarted += this.ViewModelAnimationStarted;
+			this.viewModel.ScanCancelled += this.ViewModelScanCancelled;
 
 			this.sourceOptions = new ObservableCollection<SourceOptionViewModel>
 			{
@@ -133,6 +134,12 @@ namespace VidCoder.View
 			{
 				this.RefreshQueueTabs();
 			}
+		}
+
+		private void ViewModelScanCancelled(object sender, EventArgs e)
+		{
+			this.sourceOptions.Insert(0, new SourceOptionViewModel(new SourceOption { Type = SourceType.None }));
+			this.sourceBox.SelectedIndex = 0;
 		}
 
 		// Updates UI with new drive options

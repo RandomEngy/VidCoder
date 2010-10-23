@@ -248,7 +248,7 @@
 				<TextBlock Text="Source:" Style="{StaticResource SectionHeader}" />
 				<ComboBox
 					Margin="4,0,0,0"
-					Name="sourceBox" ItemsSource="{Binding SourceOptions}" SelectionChanged="sourceBox_SelectionChanged"
+					Name="sourceBox" SelectionChanged="sourceBox_SelectionChanged"
 					IsEnabled="{Binding ScanningSource, Converter={StaticResource InverseBoolConverter}}">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
@@ -278,34 +278,30 @@
 					<RowDefinition Height="Auto" />
 					<RowDefinition />
 				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
 				<TextBlock
 					HorizontalAlignment="Center"
 					Grid.Row="0"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
 					Text="Scanning source..."
 					Style="{StaticResource ScanStatus}"/>
 				<ProgressBar
-					Grid.Row="1" Height="20" Margin="6,0,0,0"
+					Grid.Row="1" Height="22" Margin="6,0,0,0" VerticalAlignment="Center"
 					Value="{Binding ScanProgress}"/>
+				<Button
+					Height="25" Width="55" Margin="10,0,0,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"
+					Content="Cancel"
+					Command="{Binding CancelScanCommand}"/>
 			</Grid>
 			<StackPanel Margin="30,39,12,7" VerticalAlignment="Top">
 				<TextBlock
 					Text="An error occurred while scanning."
 					Style="{StaticResource ScanStatus}"
 					Visibility="{Binding ScanError, Converter={StaticResource VisibilityConverter}}"/>
-				<!--<Grid
-					Visibility="{Binding ScanningSource, Converter={StaticResource VisibilityConverter}}">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-					<TextBlock
-						Grid.Column="0"
-						Text="Scanning source..."
-						Style="{StaticResource ScanStatus}"/>
-					<ProgressBar
-						Grid.Column="1" Height="20" Margin="6,0,0,0"
-						Value="{Binding ScanProgress}"/>
-				</Grid>-->
  
 				<Grid Visibility="{Binding HasVideoSource, Converter={StaticResource VisibilityConverter}}">
 					<Grid.ColumnDefinitions>

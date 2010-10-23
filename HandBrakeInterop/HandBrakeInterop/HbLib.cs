@@ -1185,6 +1185,8 @@ namespace HandBrake.Interop
 		[DllImport("hb.dll", EntryPoint = "hb_scan", CallingConvention = CallingConvention.Cdecl)]
 		public static extern void hb_scan(IntPtr hbHandle, [In] [MarshalAs(UnmanagedType.LPStr)] string path, int title_index, int preview_count, int store_previews, ulong min_duration);
 
+		[DllImport("hb.dll", EntryPoint = "hb_scan_stop", CallingConvention = CallingConvention.Cdecl)]
+		public static extern void hb_scan_stop(IntPtr hbHandle);
 
 		/// Return Type: hb_list_t*
 		///param0: hb_handle_t*
