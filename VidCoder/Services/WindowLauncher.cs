@@ -99,6 +99,10 @@ namespace VidCoder.Services
 			{
 				windowToOpen = new QueueTitlesDialog();
 			}
+			else if (viewModel is AddAutoPauseProcessDialogViewModel)
+			{
+				windowToOpen = new AddAutoPauseProcessDialog();
+			}
 
 			if (owner != null)
 			{

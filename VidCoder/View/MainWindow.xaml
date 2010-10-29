@@ -301,6 +301,7 @@
 				<TextBlock
 					Text="An error occurred while scanning."
 					Style="{StaticResource ScanStatus}"
+					Foreground="Red"
 					Visibility="{Binding ScanError, Converter={StaticResource VisibilityConverter}}"/>
  
 				<Grid Visibility="{Binding HasVideoSource, Converter={StaticResource VisibilityConverter}}">

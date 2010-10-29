@@ -6,6 +6,8 @@ using System.Windows.Input;
 using VidCoder.Services;
 using System.IO;
 using VidCoder.Properties;
+using System.Collections.Specialized;
+using System.Collections.ObjectModel;
 
 namespace VidCoder.ViewModel
 {
@@ -21,11 +23,15 @@ namespace VidCoder.ViewModel
 		private string nativeLanguageCode;
 		private bool dubAudio;
 		private int logVerbosity;
+		private ObservableCollection<string> autoPauseProcesses;
+		private string selectedProcess;
 
 		private int initialLogVerbosity;
 
 		private ICommand saveSettingsCommand;
 		private ICommand browsePathCommand;
+		private ICommand openAddProcessDialogCommand;
+		private ICommand removeProcessCommand;
 
 		private IUpdater updateService;
 
@@ -44,6 +50,16 @@ namespace VidCoder.ViewModel
 			this.NativeLanguageCode = Settings.Default.NativeLanguageCode;
 			this.DubAudio = Settings.Default.DubAudio;
 			this.LogVerbosity = Settings.Default.LogVerbosity;
+			this.autoPauseProcesses = new ObservableCollection<string>();
+			StringCollection autoPauseStringCollection = Settings.Default.AutoPauseProcesses;
+
+			if (autoPauseStringCollection != null)
+			{
+				foreach (string process in autoPauseStringCollection)
+				{
+					this.autoPauseProcesses.Add(process);
+				}
+			}
 
 			this.initialLogVerbosity = this.LogVerbosity;
 		}
@@ -247,6 +263,37 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public ObservableCollection<string> AutoPauseProcesses
+		{
+			get
+			{
+				return this.autoPauseProcesses;
+			}
+		}
+
+		public string SelectedProcess
+		{
+			get
+			{
+				return this.selectedProcess;
+			}
+
+			set
+			{
+				this.selectedProcess = value;
+				this.NotifyPropertyChanged("SelectedProcess");
+				this.NotifyPropertyChanged("ProcessSelected");
+			}
+		}
+
+		//public bool ProcessSelected
+		//{
+		//    get
+		//    {
+		//        return this.SelectedProcess != null;
+		//    }
+		//}
+
 		public bool LogVerbosityWarningVisible
 		{
 			get
@@ -282,6 +329,13 @@ namespace VidCoder.ViewModel
 						Settings.Default.NativeLanguageCode = this.NativeLanguageCode;
 						Settings.Default.DubAudio = this.DubAudio;
 						Settings.Default.LogVerbosity = this.LogVerbosity;
+						var autoPauseStringCollection = new StringCollection();
+						foreach (string process in this.AutoPauseProcesses)
+						{
+							autoPauseStringCollection.Add(process);
+						}
+
+						Settings.Default.AutoPauseProcesses = autoPauseStringCollection;
 						Settings.Default.Save();
 
 						this.AcceptCommand.Execute(null);
@@ -315,6 +369,48 @@ namespace VidCoder.ViewModel
 				}
 
 				return this.browsePathCommand;
+			}
+		}
+
+		public ICommand OpenAddProcessDialogCommand
+		{
+			get
+			{
+				if (this.openAddProcessDialogCommand == null)
+				{
+					this.openAddProcessDialogCommand = new RelayCommand(param =>
+					{
+						var addProcessVM = new AddAutoPauseProcessDialogViewModel();
+						WindowManager.OpenDialog(addProcessVM, this);
+
+						if (addProcessVM.DialogResult)
+						{
+							this.AutoPauseProcesses.Add(addProcessVM.ProcessName);
+						}
+					});
+				}
+
+				return this.openAddProcessDialogCommand;
+			}
+		}
+
+		public ICommand RemoveProcessCommand
+		{
+			get
+			{
+				if (this.removeProcessCommand == null)
+				{
+					this.removeProcessCommand = new RelayCommand(param =>
+					{
+						this.AutoPauseProcesses.Remove(this.SelectedProcess);
+					},
+					param =>
+					{
+						return this.SelectedProcess != null;
+					});
+				}
+
+				return this.removeProcessCommand;
 			}
 		}
 

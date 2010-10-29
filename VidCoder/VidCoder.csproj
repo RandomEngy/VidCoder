@@ -125,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\AddAutoPauseProcessDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ApplyUpdateConfirmation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -204,7 +208,11 @@
     <Compile Include="Model\EncodeResult.cs" />
     <Compile Include="Services\Interfaces\ILogger.cs" />
     <Compile Include="Services\Interfaces\IPresetImport.cs" />
+    <Compile Include="Services\Interfaces\IProcesses.cs" />
+    <Compile Include="Services\Interfaces\IProcessAutoPause.cs" />
     <Compile Include="Services\PresetImport.cs" />
+    <Compile Include="Services\ProcessAutoPause.cs" />
+    <Compile Include="Services\Processes.cs" />
     <Compile Include="Utilities\ListSynchronizer\IListItemConverter.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Utilities\ListSynchronizer\MultiSelectorBehaviors.cs" />
@@ -213,6 +221,7 @@
     <Compile Include="Utilities\SystemSleepManagement.cs" />
     <Compile Include="Utilities\Unity.cs" />
     <Compile Include="ViewModel\AboutDialogViewModel.cs" />
+    <Compile Include="ViewModel\AddAutoPauseProcessDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\DataModels\ColumnViewModel.cs" />
     <Compile Include="ViewModel\DataModels\EncodeResultViewModel.cs" />
@@ -223,6 +232,9 @@
     <Compile Include="ViewModel\ScanMultipleDialogViewModel.cs" />
     <Compile Include="View\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddAutoPauseProcessDialog.xaml.cs">
+      <DependentUpon>AddAutoPauseProcessDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LogWindow.xaml.cs">
       <DependentUpon>LogWindow.xaml</DependentUpon>

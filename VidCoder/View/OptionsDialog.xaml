@@ -104,6 +104,21 @@
 						IsEnabled="{Binding DubAudioEnabled}">Use foreign language for audio track and Preferred Language subtitles</RadioButton>
 				</Grid>
 			</TabItem>
+			<TabItem Header="Processes">
+				<Grid>
+					<Label Content="Automatically pause encoding when any of these processes are running:" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="label2" VerticalAlignment="Top" />
+					<ListBox
+						Height="120" Margin="6,31,87,0" Name="listBox1" VerticalAlignment="Top" Width="422"
+						ItemsSource="{Binding AutoPauseProcesses}"
+						SelectedItem="{Binding SelectedProcess}"/>
+					<Button
+						Content="Add..." Height="23" HorizontalAlignment="Right" Margin="0,31,6,0" Name="button1" VerticalAlignment="Top" Width="75"
+						Command="{Binding OpenAddProcessDialogCommand}"/>
+					<Button
+						Content="Remove" Height="23" HorizontalAlignment="Right" Margin="0,60,6,0" Name="button2" VerticalAlignment="Top" Width="75"
+						Command="{Binding RemoveProcessCommand}"/>
+				</Grid>
+			</TabItem>
 		</TabControl>
 		<Button
 			Height="23" HorizontalAlignment="Right" Margin="0,0,93,12" VerticalAlignment="Bottom" Width="75"

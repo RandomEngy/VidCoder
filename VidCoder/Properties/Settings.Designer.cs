@@ -478,5 +478,28 @@ namespace VidCoder.Properties {
                 this["LogVerbosity"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection AutoPauseProcesses {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["AutoPauseProcesses"]));
+            }
+            set {
+                this["AutoPauseProcesses"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AddAutoPauseProcessDialogPlacement {
+            get {
+                return ((string)(this["AddAutoPauseProcessDialogPlacement"]));
+            }
+            set {
+                this["AddAutoPauseProcessDialogPlacement"] = value;
+            }
+        }
     }
 }

@@ -28,6 +28,7 @@ namespace VidCoder.ViewModel
 
 		private IUpdater updater = Unity.Container.Resolve<IUpdater>();
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
+		private IProcessAutoPause autoPause = Unity.Container.Resolve<IProcessAutoPause>();
 
 		private SourceOption selectedSource;
 		private string sourceDescription;
@@ -181,6 +182,9 @@ namespace VidCoder.ViewModel
 			{
 				this.encodeQueue.Add(new EncodeJobViewModel(job));
 			}
+
+			this.autoPause.PauseEncoding += new EventHandler(this.AutoPauseEncoding);
+			this.autoPause.ResumeEncoding += new EventHandler(this.AutoResumeEncoding);
 
 			// Always select the modified preset if it exists.
 			// Otherwise, choose the last selected preset.
@@ -1649,11 +1653,8 @@ namespace VidCoder.ViewModel
 					{
 						if (this.Encoding)
 						{
-							this.CurrentJob.HandBrakeInstance.ResumeEncode();
-							this.EncodeProgressState = TaskbarItemProgressState.Normal;
-							this.CurrentJob.ReportEncodeResume();
-
-							this.Paused = false;
+							this.ResumeEncoding();
+							this.autoPause.ReportResume();
 						}
 						else
 						{
@@ -1919,11 +1920,8 @@ namespace VidCoder.ViewModel
 				{
 					this.pauseCommand = new RelayCommand(param =>
 					{
-						this.CurrentJob.HandBrakeInstance.PauseEncode();
-						this.EncodeProgressState = TaskbarItemProgressState.Paused;
-						this.CurrentJob.ReportEncodePause();
-
-						this.Paused = true;
+						this.PauseEncoding();
+						this.autoPause.ReportPause();
 					});
 				}
 
@@ -2070,6 +2068,7 @@ namespace VidCoder.ViewModel
 			this.Encoding = true;
 			this.Paused = false;
 			this.encodeStopped = false;
+			this.autoPause.ReportStart();
 
 			this.EncodeNextJob();
 		}
@@ -2229,10 +2228,9 @@ namespace VidCoder.ViewModel
 				if (this.encodeStopped)
 				{
 					// If the encode was stopped manually
-					this.Encoding = false;
+					this.StopEncodingAndReport();
 					this.EncodeQueue[0].ReportEncodeEnd();
 
-					this.EncodeProgressState = TaskbarItemProgressState.None;
 					if (this.totalTasks == 1)
 					{
 						this.EncodeQueue.Clear();
@@ -2265,18 +2263,63 @@ namespace VidCoder.ViewModel
 
 					if (this.EncodeQueue.Count == 0)
 					{
-						this.EncodeProgressState = TaskbarItemProgressState.None;
-
 						this.SelectedTabIndex = CompletedTabIndex;
+						this.StopEncodingAndReport();
 
 						this.logger.Log("## Queue completed");
 						this.logger.Log("");
-						this.Encoding = false;
 					}
 					else
 					{
 						this.EncodeNextJob();
 					}
+				}
+			});
+		}
+
+		private void PauseEncoding()
+		{
+			this.CurrentJob.HandBrakeInstance.PauseEncode();
+			this.EncodeProgressState = TaskbarItemProgressState.Paused;
+			this.CurrentJob.ReportEncodePause();
+
+			this.Paused = true;
+		}
+
+		private void ResumeEncoding()
+		{
+			this.CurrentJob.HandBrakeInstance.ResumeEncode();
+			this.EncodeProgressState = TaskbarItemProgressState.Normal;
+			this.CurrentJob.ReportEncodeResume();
+
+			this.Paused = false;
+		}
+
+		private void StopEncodingAndReport()
+		{
+			this.EncodeProgressState = TaskbarItemProgressState.None;
+			this.Encoding = false;
+			this.autoPause.ReportStop();
+		}
+
+		private void AutoPauseEncoding(object sender, EventArgs e)
+		{
+			DispatchService.Invoke(() =>
+			{
+				if (this.Encoding && !this.Paused)
+				{
+					this.PauseEncoding();
+				}
+			});
+		}
+
+		private void AutoResumeEncoding(object sender, EventArgs e)
+		{
+			DispatchService.Invoke(() =>
+			{
+				if (this.Encoding && this.Paused)
+				{
+					this.ResumeEncoding();
 				}
 			});
 		}
