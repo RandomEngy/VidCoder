@@ -286,14 +286,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		//public bool ProcessSelected
-		//{
-		//    get
-		//    {
-		//        return this.SelectedProcess != null;
-		//    }
-		//}
-
 		public bool LogVerbosityWarningVisible
 		{
 			get
@@ -385,7 +377,11 @@ namespace VidCoder.ViewModel
 
 						if (addProcessVM.DialogResult)
 						{
-							this.AutoPauseProcesses.Add(addProcessVM.ProcessName);
+							string newProcessName = addProcessVM.ProcessName; ;
+							if (!string.IsNullOrWhiteSpace(newProcessName) && !this.AutoPauseProcesses.Contains(newProcessName))
+							{
+								this.AutoPauseProcesses.Add(addProcessVM.ProcessName);
+							}
 						}
 					});
 				}
