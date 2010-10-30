@@ -32,23 +32,7 @@ namespace HandBrake.SourceData
 
 		public SubtitleType SubtitleType { get; set; }
 
-		/// <summary>
-		/// Subtitle Type
-		/// </summary>
-		public string TypeString
-		{
-			get
-			{
-				if (this.SubtitleType == SubtitleType.Picture)
-				{
-					return "Bitmap";
-				}
-				else
-				{
-					return "Text";
-				}
-			}
-		}
+		public SubtitleSource SubtitleSource { get; set; }
 
 		/// <summary>
 		/// Override of the ToString method to make this object easier to use in the UI
@@ -56,7 +40,7 @@ namespace HandBrake.SourceData
 		/// <returns>A string formatted as: {track #} {language}</returns>
 		public override string ToString()
 		{
-			return string.Format("{0} {1} ({2})", this.TrackNumber, this.Language, this.TypeString);
+			return string.Format("{0} {1} ({2})", this.TrackNumber, this.Language, this.SubtitleSource);
 		}
 
 		public string Display
