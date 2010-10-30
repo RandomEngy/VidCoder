@@ -41,7 +41,6 @@
 		<DataTemplate x:Key="BurnedInTemplate">
 			<CheckBox
 				IsChecked="{Binding BurnedIn}"
-				IsEnabled="{Binding BurnedInEnabled}"
 				ToolTip="{x:Static resx:Resources.BurnedSubtitleToolTip}"
 				ToolTipService.ShowOnDisabled="True"/>
 		</DataTemplate>

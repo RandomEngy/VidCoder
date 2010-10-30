@@ -113,14 +113,7 @@ namespace VidCoder.ViewModel
 				}
 
 				this.SubtitleDialogViewModel.UpdateBoxes();
-			}
-		}
-
-		public bool BurnedInEnabled
-		{
-			get
-			{
-				return this.SubtitleDialogViewModel.OutputFormat == OutputFormat.Mkv;
+				this.SubtitleDialogViewModel.UpdateWarningVisibility();
 			}
 		}
 

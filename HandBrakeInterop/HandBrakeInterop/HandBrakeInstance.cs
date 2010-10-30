@@ -990,8 +990,6 @@
 			nativeJob.list_audio = nativeAudioList.ListPtr;
 			allocatedMemory.AddRange(nativeAudioList.AllocatedMemory);
 
-			List<hb_subtitle_s> subtitleList = new List<hb_subtitle_s>();
-
 			if (job.Subtitles != null)
 			{
 				if (job.Subtitles.SourceSubtitles != null && job.Subtitles.SourceSubtitles.Count > 0)
@@ -1006,7 +1004,7 @@
 							nativeJob.select_subtitle_config.force = sourceSubtitle.Forced ? 1 : 0;
 							nativeJob.select_subtitle_config.default_track = sourceSubtitle.Default ? 1 : 0;
 
-							if (!sourceSubtitle.BurnedIn && profile.OutputFormat == OutputFormat.Mkv)
+							if (!sourceSubtitle.BurnedIn)
 							{
 								nativeJob.select_subtitle_config.dest = hb_subtitle_config_s_subdest.PASSTHRUSUB;
 							}
@@ -1017,15 +1015,22 @@
 						{
 							// Use specified subtitle.
 							hb_subtitle_s nativeSubtitle = titleSubtitles[sourceSubtitle.TrackNumber - 1];
-							nativeSubtitle.config.force = sourceSubtitle.Forced ? 1 : 0;
-							nativeSubtitle.config.default_track = sourceSubtitle.Default ? 1 : 0;
+							hb_subtitle_config_s subtitleConfig = new hb_subtitle_config_s();
 
-							if (!sourceSubtitle.BurnedIn && profile.OutputFormat == OutputFormat.Mkv && nativeSubtitle.format == hb_subtitle_s_subtype.PICTURESUB)
+							subtitleConfig.force = sourceSubtitle.Forced ? 1 : 0;
+							subtitleConfig.default_track = sourceSubtitle.Default ? 1 : 0;
+
+							bool supportsBurn = nativeSubtitle.source == hb_subtitle_s_subsource.VOBSUB || nativeSubtitle.source == hb_subtitle_s_subsource.SSASUB;
+							if (supportsBurn && sourceSubtitle.BurnedIn)
 							{
-								nativeSubtitle.config.dest = hb_subtitle_config_s_subdest.PASSTHRUSUB;
+								subtitleConfig.dest = hb_subtitle_config_s_subdest.RENDERSUB;
+							}
+							else
+							{
+								subtitleConfig.dest = hb_subtitle_config_s_subdest.PASSTHRUSUB;
 							}
 
-							subtitleList.Add(nativeSubtitle);
+							HbLib.hb_subtitle_add(ref nativeJob, ref subtitleConfig, sourceSubtitle.TrackNumber - 1);
 						}
 					}
 				}
@@ -1034,27 +1039,18 @@
 				{
 					foreach (SrtSubtitle srtSubtitle in job.Subtitles.SrtSubtitles)
 					{
-						hb_subtitle_s nativeSubtitle = new hb_subtitle_s();
-						nativeSubtitle.id = subtitleList.Count << 8 | 0xFF;
-						nativeSubtitle.iso639_2 = srtSubtitle.LanguageCode;
-						nativeSubtitle.lang = LanguageCodes.Decode(srtSubtitle.LanguageCode);
-						nativeSubtitle.source = hb_subtitle_s_subsource.SRTSUB;
-						nativeSubtitle.format = hb_subtitle_s_subtype.TEXTSUB;
+						hb_subtitle_config_s subtitleConfig = new hb_subtitle_config_s();
 
-						nativeSubtitle.config.src_codeset = srtSubtitle.CharacterCode;
-						nativeSubtitle.config.src_filename = srtSubtitle.FileName;
-						nativeSubtitle.config.offset = srtSubtitle.Offset;
-						nativeSubtitle.config.dest = hb_subtitle_config_s_subdest.PASSTHRUSUB;
-						nativeSubtitle.config.default_track = srtSubtitle.Default ? 1 : 0;
+						subtitleConfig.src_codeset = srtSubtitle.CharacterCode;
+						subtitleConfig.src_filename = srtSubtitle.FileName;
+						subtitleConfig.offset = srtSubtitle.Offset;
+						subtitleConfig.dest = hb_subtitle_config_s_subdest.PASSTHRUSUB;
+						subtitleConfig.default_track = srtSubtitle.Default ? 1 : 0;
 
-						subtitleList.Add(nativeSubtitle);
+						HbLib.hb_srt_add(ref nativeJob, ref subtitleConfig, srtSubtitle.LanguageCode);
 					}
 				}
 			}
-
-			NativeList nativeSubtitleList = InteropUtilities.ConvertListBack<hb_subtitle_s>(subtitleList);
-			nativeJob.list_subtitle = nativeSubtitleList.ListPtr;
-			allocatedMemory.AddRange(nativeSubtitleList.AllocatedMemory);
 
 			if (profile.OutputFormat == OutputFormat.Mp4)
 			{

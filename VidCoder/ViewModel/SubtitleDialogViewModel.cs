@@ -51,16 +51,6 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			// MP4 currently burns all Vobsub (source) subtitles. Mark them all as "burned" in
-			// this case.
-			if (this.outputFormat == OutputFormat.Mp4)
-			{
-				foreach (SourceSubtitleViewModel subtitleVM in this.SourceSubtitles)
-				{
-					subtitleVM.BurnedIn = true;
-				}
-			}
-
 			this.sourceSubtitles.CollectionChanged += this.SourceCollectionChanged;
 			this.srtSubtitles.CollectionChanged += this.SrtCollectionChanged;
 
@@ -198,7 +188,7 @@ namespace VidCoder.ViewModel
 								TrackNumber = this.GetFirstUnusedTrack(),
 								Default = false,
 								Forced = false,
-								BurnedIn = this.OutputFormat == OutputFormat.Mp4
+								BurnedIn = false
 							};
 
 							this.sourceSubtitles.Add(new SourceSubtitleViewModel(this, newSubtitle));
@@ -213,8 +203,7 @@ namespace VidCoder.ViewModel
 								return false;
 							}
 
-							// MP4 only supports one source subtitle. Only allow an add if we're using MKV or we don't have any.
-							return this.SourceSubtitles.Count == 0 || this.OutputFormat == OutputFormat.Mkv;
+							return true;
 						});
 				}
 
@@ -229,11 +218,6 @@ namespace VidCoder.ViewModel
 				if (this.mainViewModel.SelectedTitle == null || this.mainViewModel.SelectedTitle.Subtitles.Count == 0)
 				{
 					return "No subtitles on the source video.";
-				}
-
-				if (this.SourceSubtitles.Count > 0 && this.OutputFormat == OutputFormat.Mp4)
-				{
-					return "MP4 only supports one source subtitle, since they must be burned onto the video.";
 				}
 
 				return null;
