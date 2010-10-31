@@ -1957,7 +1957,10 @@ namespace VidCoder.ViewModel
 					this.importPresetCommand = new RelayCommand(param =>
 					{
 						string presetFileName = FileService.Instance.GetFileNameLoad("xml", "XML Files|*.xml", null);
-						Unity.Container.Resolve<IPresetImport>().ImportPreset(presetFileName);
+						if (presetFileName != null)
+						{
+							Unity.Container.Resolve<IPresetImport>().ImportPreset(presetFileName);
+						}
 					});
 				}
 
