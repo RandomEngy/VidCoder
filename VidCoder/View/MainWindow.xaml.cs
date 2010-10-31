@@ -614,5 +614,22 @@ namespace VidCoder.View
 			this.viewModel.EditingDestination = false;
 			this.viewModel.SetManualOutputPath(this.viewModel.OutputPath, this.oldOutputPath);
 		}
+
+		private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			if (this.viewModel.EditingDestination && !this.HitElement(this.destinationEditBox,  e.GetPosition(this)))
+			{
+				this.viewModel.EditingDestination = false;
+			}
+		}
+
+		private bool HitElement(FrameworkElement element, Point clickedPoint)
+		{
+			Point relativePoint = this.destinationEditBox.TransformToAncestor(this).Transform(new Point(0, 0));
+
+			return
+				clickedPoint.X >= relativePoint.X && clickedPoint.X <= relativePoint.X + element.ActualWidth &&
+				clickedPoint.Y >= relativePoint.Y && clickedPoint.Y <= relativePoint.Y + element.ActualHeight;
+		}
 	}
 }

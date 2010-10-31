@@ -10,7 +10,7 @@
 	MinWidth="617"
 	MinHeight="445"
 	Style="{StaticResource NormalWindow}"
-	Closing="Window_Closing" AllowDrop="True" PreviewDrop="Window_Drop" PreviewDragOver="Window_PreviewDragOver">
+	Closing="Window_Closing" AllowDrop="True" PreviewDrop="Window_Drop" PreviewDragOver="Window_PreviewDragOver" MouseDown="Window_MouseDown">
 	<Window.Resources>
 		<local:EnumDisplayer Type="{x:Type model:VideoEncoder}" x:Key="VideoEncoderChoices" />
 		<Style x:Key="SectionHeader" TargetType="TextBlock">
