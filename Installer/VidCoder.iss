@@ -3,7 +3,7 @@
 
 [Setup]
 AppName=VidCoder
-AppVerName=VidCoder 0.6.0
+AppVerName=VidCoder 0.6.1
 
 DefaultDirName={pf}\VidCoder
 DisableProgramGroupPage=yes
@@ -13,7 +13,7 @@ Compression=lzma
 SolidCompression=yes
 
 OutputDir=BuiltInstallers
-OutputBaseFilename=VidCoder-0.6.0
+OutputBaseFilename=VidCoder-0.6.1
 
 AppId=VidCoder
 UsePreviousAppDir=yes
@@ -33,6 +33,7 @@ Name: "en"; MessagesFile: "compiler:Default.isl"
 [Files]
 Source: "..\VidCoder\bin\Release\VidCoder.exe"; DestDir: "{app}"
 Source: "..\VidCoder\bin\Release\VidCoder.pdb"; DestDir: "{app}"
+Source: "..\VidCoder\bin\Release\VidCoder.exe.config"; DestDir: "{app}"
 Source: "..\VidCoder\bin\Release\Ookii.Dialogs.Wpf.dll"; DestDir: "{app}"
 Source: "..\VidCoder\bin\Release\Ookii.Dialogs.Wpf.pdb"; DestDir: "{app}"
 Source: "..\Lib\Microsoft.Practices.Unity.dll"; DestDir: "{app}"
@@ -94,6 +95,7 @@ begin
     result := false;
   end;
 end;
+
 
 
 

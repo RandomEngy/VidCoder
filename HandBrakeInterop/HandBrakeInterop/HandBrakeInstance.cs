@@ -1030,7 +1030,11 @@
 								subtitleConfig.dest = hb_subtitle_config_s_subdest.PASSTHRUSUB;
 							}
 
-							HbLib.hb_subtitle_add(ref nativeJob, ref subtitleConfig, sourceSubtitle.TrackNumber - 1);
+							int subtitleAddSucceded = HbLib.hb_subtitle_add(ref nativeJob, ref subtitleConfig, sourceSubtitle.TrackNumber - 1);
+							if (subtitleAddSucceded == 0)
+							{
+								System.Diagnostics.Debug.WriteLine("Subtitle add failed");
+							}
 						}
 					}
 				}
@@ -1044,10 +1048,14 @@
 						subtitleConfig.src_codeset = srtSubtitle.CharacterCode;
 						subtitleConfig.src_filename = srtSubtitle.FileName;
 						subtitleConfig.offset = srtSubtitle.Offset;
-						subtitleConfig.dest = hb_subtitle_config_s_subdest.PASSTHRUSUB;
+						//subtitleConfig.dest = hb_subtitle_config_s_subdest.PASSTHRUSUB;
 						subtitleConfig.default_track = srtSubtitle.Default ? 1 : 0;
 
-						HbLib.hb_srt_add(ref nativeJob, ref subtitleConfig, srtSubtitle.LanguageCode);
+						int srtAddSucceded = HbLib.hb_srt_add(ref nativeJob, ref subtitleConfig, srtSubtitle.LanguageCode);
+						if (srtAddSucceded == 0)
+						{
+							System.Diagnostics.Debug.WriteLine("SRT add failed");
+						}
 					}
 				}
 			}

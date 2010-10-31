@@ -1327,9 +1327,9 @@ namespace HandBrake.Interop
 		public static extern void hb_global_close();
 
 		[DllImport("hb.dll", EntryPoint = "hb_subtitle_add", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void hb_subtitle_add(ref hb_job_s job, ref hb_subtitle_config_s subtitleConfig, int track);
+		public static extern int hb_subtitle_add(ref hb_job_s job, ref hb_subtitle_config_s subtitleConfig, int track);
 
 		[DllImport("hb.dll", EntryPoint = "hb_srt_add", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void hb_srt_add(ref hb_job_s job, ref hb_subtitle_config_s subtitleConfig, string lang);
+		public static extern int hb_srt_add(ref hb_job_s job, ref hb_subtitle_config_s subtitleConfig, string lang);
 	}
 }
