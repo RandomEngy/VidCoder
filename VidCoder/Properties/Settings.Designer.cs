@@ -501,5 +501,17 @@ namespace VidCoder.Properties {
                 this["AddAutoPauseProcessDialogPlacement"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int PreviewCount {
+            get {
+                return ((int)(this["PreviewCount"]));
+            }
+            set {
+                this["PreviewCount"] = value;
+            }
+        }
     }
 }

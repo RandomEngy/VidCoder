@@ -17,7 +17,7 @@ namespace VidCoder.ViewModel
 {
 	public class PreviewViewModel : OkCancelDialogViewModel
 	{
-		public const int PreviewImageCount = 10;
+		private const int PreviewImageCacheDistance = 3;
 		private const string NoSourceTitle = "Preview: No video source";
 
 		private EncodeJob job;
@@ -30,9 +30,12 @@ namespace VidCoder.ViewModel
 		private bool encodeCancelled;
 		private double previewPercentComplete;
 		private int previewSeconds;
+		private int previewCount;
 
 		private ImageSource previewImage;
 		private ImageSource[] previewImageCache;
+		private Queue<PreviewImageJob> previewImageWorkQueue = new Queue<PreviewImageJob>();
+		private bool previewImageQueueProcessing;
 		private int updateVersion;
 		private object imageSync = new object();
 
@@ -169,6 +172,8 @@ namespace VidCoder.ViewModel
 				lock (this.imageSync)
 				{
 					this.PreviewImage = this.previewImageCache[value];
+					this.ClearOutOfRangeItems();
+					this.BeginBackgroundImageLoad();
 				}
 			}
 		}
@@ -187,7 +192,12 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return PreviewImageCount - 1;
+				if (this.previewCount > 0)
+				{
+					return this.previewCount - 1;
+				}
+
+				return Settings.Default.PreviewCount - 1;
 			}
 		}
 
@@ -211,11 +221,10 @@ namespace VidCoder.ViewModel
 						this.logger.Log("## Generating preview clip");
 						this.logger.Log("## Scanning title");
 
-
 						this.previewInstance = new HandBrakeInstance();
 						this.previewInstance.Initialize(Settings.Default.LogVerbosity);
 						this.previewInstance.ScanCompleted += this.OnPreviewScanCompleted;
-						this.previewInstance.StartScan(this.job.SourcePath, 10, this.job.Title);
+						this.previewInstance.StartScan(this.job.SourcePath, Settings.Default.PreviewCount, this.job.Title);
 
 						this.PreviewPercentComplete = 0;
 						this.GeneratingPreview = true;
@@ -275,21 +284,24 @@ namespace VidCoder.ViewModel
 			this.PreviewHeight = height;
 			this.PreviewWidth = width * ((double)parWidth / parHeight);
 
+			// Update the number of previews.
+			this.previewCount = this.ScanInstance.PreviewCount;
+			if (this.selectedPreview >= this.previewCount)
+			{
+				this.selectedPreview = this.previewCount - 1;
+				this.NotifyPropertyChanged("SelectedPreview");
+			}
+
+			this.NotifyPropertyChanged("SliderMax");
+
 			this.HasPreview = true;
 
-			this.previewImageCache = new ImageSource[PreviewImageCount];
 			lock (this.imageSync)
 			{
+				this.previewImageCache = new ImageSource[this.previewCount];
 				this.updateVersion++;
-				ThreadPool.QueueUserWorkItem(
-					this.UpdatePreviewImageBackground,
-					new PreviewImageJob
-					{
-						UpdateVersion = this.updateVersion,
-						ScanInstance = this.ScanInstance,
-						StartPreviewNumber = this.SelectedPreview,
-						EncodeJob = this.job
-					});
+				this.previewImageWorkQueue.Clear();
+				this.BeginBackgroundImageLoad();
 			}
 
 			if (parWidth == parHeight)
@@ -302,56 +314,121 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private void UpdatePreviewImageBackground(object state)
+		private void ClearOutOfRangeItems()
 		{
-			var imageJob = state as PreviewImageJob;
-			ImageSource startImage = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob, imageJob.StartPreviewNumber);
-			if (!this.HandleImageLoadCompleted(startImage, imageJob.StartPreviewNumber, imageJob.UpdateVersion))
+			// Remove out of range items from work queue
+			var newWorkQueue = new Queue<PreviewImageJob>();
+			while (this.previewImageWorkQueue.Count > 0)
 			{
-				return;
+				PreviewImageJob job = this.previewImageWorkQueue.Dequeue();
+				if (Math.Abs(job.PreviewNumber - this.SelectedPreview) <= PreviewImageCacheDistance)
+				{
+					newWorkQueue.Enqueue(job);
+				}
 			}
 
-			for (int i = 0; i < PreviewImageCount; i++)
+			// Remove out of range cache entries
+			for (int i = 0; i < this.previewCount; i++)
 			{
-				if (i != imageJob.StartPreviewNumber)
+				if (Math.Abs(i - this.SelectedPreview) > PreviewImageCacheDistance)
 				{
-					ImageSource image = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob, i);
-					if (!this.HandleImageLoadCompleted(image, i, imageJob.UpdateVersion))
-					{
-						return;
-					}
+					this.previewImageCache[i] = null;
 				}
 			}
 		}
 
-		/// <summary>
-		/// Handles a preview image load completion event.
-		/// </summary>
-		/// <param name="image">The loaded image.</param>
-		/// <param name="previewNumber">The number of the loaded image.</param>
-		/// <param name="jobUpdateVersion">The version of the current image refresh.</param>
-		/// <returns>True if the image was updated. False if another refresh has been triggered
-		/// and the results were discarded.</returns>
-		private bool HandleImageLoadCompleted(ImageSource image, int previewNumber, int jobUpdateVersion)
+		private void BeginBackgroundImageLoad()
 		{
-			lock (this.imageSync)
+			int initialQueueSize = this.previewImageWorkQueue.Count;
+			int currentPreview = this.SelectedPreview;
+
+			if (!ImageLoadedOrLoading(currentPreview))
 			{
-				if (jobUpdateVersion != this.updateVersion)
+				this.EnqueueWork(currentPreview);
+			}
+
+			for (int i = 1; i <= PreviewImageCacheDistance; i++)
+			{
+				if (currentPreview - i >= 0 && !ImageLoadedOrLoading(currentPreview - i))
 				{
-					return false;
+					EnqueueWork(currentPreview - i);
 				}
 
-				this.previewImageCache[previewNumber] = image;
-				if (this.SelectedPreview == previewNumber)
+				if (currentPreview + i < this.previewCount && !ImageLoadedOrLoading(currentPreview + i))
 				{
-					DispatchService.Invoke(() =>
-					{
-						this.PreviewImage = image;
-					});
+					EnqueueWork(currentPreview + i);
 				}
 			}
 
-			return true;
+			// Start a queue processing thread if one is not going already.
+			if (!this.previewImageQueueProcessing && this.previewImageWorkQueue.Count > 0)
+			{
+				ThreadPool.QueueUserWorkItem(this.ProcessPreviewImageWork);
+				this.previewImageQueueProcessing = true;
+			}
+		}
+
+		private bool ImageLoadedOrLoading(int previewNumber)
+		{
+			if (this.previewImageCache[previewNumber] != null)
+			{
+				return true;
+			}
+
+			if (this.previewImageWorkQueue.Count(j => j.PreviewNumber == previewNumber) > 0)
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+		private void EnqueueWork(int previewNumber)
+		{
+			this.previewImageWorkQueue.Enqueue(
+				new PreviewImageJob
+				{
+					UpdateVersion = this.updateVersion,
+					ScanInstance = this.ScanInstance,
+					PreviewNumber = previewNumber,
+					EncodeJob = this.job
+				});
+		}
+
+		private void ProcessPreviewImageWork(object state)
+		{
+			PreviewImageJob imageJob;
+			bool workLeft = true;
+
+			while (workLeft)
+			{
+				lock (this.imageSync)
+				{
+					imageJob = this.previewImageWorkQueue.Dequeue();
+				}
+
+				ImageSource image = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob, imageJob.PreviewNumber);
+				lock (this.imageSync)
+				{
+					if (imageJob.UpdateVersion == this.updateVersion)
+					{
+						this.previewImageCache[imageJob.PreviewNumber] = image;
+						if (this.SelectedPreview == imageJob.PreviewNumber)
+						{
+							DispatchService.Invoke(() =>
+							{
+								this.PreviewImage = image;
+							});
+						}
+					}
+
+					if (this.previewImageWorkQueue.Count == 0)
+					{
+						workLeft = false;
+						this.previewImageQueueProcessing = false;
+					}
+				}
+			}
 		}
 
 		private void OnPreviewScanCompleted(object sender, EventArgs eventArgs)

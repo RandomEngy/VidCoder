@@ -12,7 +12,7 @@ namespace VidCoder.Model
 
 		public int UpdateVersion { get; set; }
 
-		public int StartPreviewNumber { get; set; }
+		public int PreviewNumber { get; set; }
 
 		public EncodeJob EncodeJob { get; set; }
 	}

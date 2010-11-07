@@ -2100,7 +2100,7 @@ namespace VidCoder.ViewModel
 					}
 				};
 
-				onDemandInstance.StartScan(this.CurrentJob.Job.SourcePath, 10, this.CurrentJob.Job.Title);
+				onDemandInstance.StartScan(this.CurrentJob.Job.SourcePath, Settings.Default.PreviewCount, this.CurrentJob.Job.Title);
 			}
 			else
 			{
@@ -2753,7 +2753,7 @@ namespace VidCoder.ViewModel
 			this.ScanError = false;
 			this.ScanningSource = true;
 			this.scanCancelledFlag = false;
-			this.scanInstance.StartScan(path, 10);
+			this.scanInstance.StartScan(path, Settings.Default.PreviewCount);
 		}
 
 		private void UpdateFromNewVideoSource()

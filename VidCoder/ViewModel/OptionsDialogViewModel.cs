@@ -25,6 +25,7 @@ namespace VidCoder.ViewModel
 		private int logVerbosity;
 		private ObservableCollection<string> autoPauseProcesses;
 		private string selectedProcess;
+		private int previewCount;
 
 		private int initialLogVerbosity;
 
@@ -50,9 +51,9 @@ namespace VidCoder.ViewModel
 			this.NativeLanguageCode = Settings.Default.NativeLanguageCode;
 			this.DubAudio = Settings.Default.DubAudio;
 			this.LogVerbosity = Settings.Default.LogVerbosity;
+			this.PreviewCount = Settings.Default.PreviewCount;
 			this.autoPauseProcesses = new ObservableCollection<string>();
 			StringCollection autoPauseStringCollection = Settings.Default.AutoPauseProcesses;
-
 			if (autoPauseStringCollection != null)
 			{
 				foreach (string process in autoPauseStringCollection)
@@ -286,6 +287,20 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public int PreviewCount
+		{
+			get
+			{
+				return this.previewCount;
+			}
+
+			set
+			{
+				this.previewCount = value;
+				this.NotifyPropertyChanged("PreviewCount");
+			}
+		}
+
 		public bool LogVerbosityWarningVisible
 		{
 			get
@@ -328,6 +343,7 @@ namespace VidCoder.ViewModel
 						}
 
 						Settings.Default.AutoPauseProcesses = autoPauseStringCollection;
+						Settings.Default.PreviewCount = this.PreviewCount;
 						Settings.Default.Save();
 
 						this.AcceptCommand.Execute(null);

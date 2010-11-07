@@ -119,6 +119,21 @@
 						Command="{Binding RemoveProcessCommand}"/>
 				</Grid>
 			</TabItem>
+			<TabItem Header="Advanced">
+				<Grid>
+					<Label Content="Number of picture previews to scan:" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="label3" VerticalAlignment="Top" />
+					<ComboBox
+						Height="23" HorizontalAlignment="Left" Margin="211,8,0,0" Name="comboBox1" VerticalAlignment="Top" Width="61"
+						SelectedValue="{Binding PreviewCount}"
+						SelectedValuePath="Content">
+						<ComboBoxItem>10</ComboBoxItem>
+						<ComboBoxItem>15</ComboBoxItem>
+						<ComboBoxItem>20</ComboBoxItem>
+						<ComboBoxItem>25</ComboBoxItem>
+						<ComboBoxItem>30</ComboBoxItem>
+					</ComboBox>
+				</Grid>
+			</TabItem>
 		</TabControl>
 		<Button
 			Height="23" HorizontalAlignment="Right" Margin="0,0,93,12" VerticalAlignment="Bottom" Width="75"

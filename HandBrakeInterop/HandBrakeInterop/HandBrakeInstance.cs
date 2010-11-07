@@ -48,6 +48,11 @@
 		private IntPtr hbHandle;
 
 		/// <summary>
+		/// The number of previews created during scan.
+		/// </summary>
+		private int previewCount;
+
+		/// <summary>
 		/// The timer to poll for scan status.
 		/// </summary>
 		private System.Timers.Timer scanPollTimer;
@@ -147,6 +152,17 @@
 		}
 
 		/// <summary>
+		/// The number of previews created during scan.
+		/// </summary>
+		public int PreviewCount
+		{
+			get
+			{
+				return this.previewCount;
+			}
+		}
+
+		/// <summary>
 		/// Gets the index of the default title.
 		/// </summary>
 		public int FeatureTitle
@@ -233,6 +249,7 @@
 		/// <param name="titleIndex">The title index to scan (1-based, 0 for all titles).</param>
 		public void StartScan(string path, int previewCount, int titleIndex)
 		{
+			this.previewCount = previewCount;
 			HbLib.hb_scan(this.hbHandle, path, titleIndex, previewCount, 1, DefaultMinDuration);
 			this.scanPollTimer = new System.Timers.Timer();
 			this.scanPollTimer.Interval = ScanPollIntervalMs;
@@ -304,8 +321,23 @@
 
 			using (MemoryStream memoryStream = new MemoryStream())
 			{
-				bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
-				bitmap.Dispose();
+				try
+				{
+					bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+				}
+				catch (ExternalException)
+				{
+					if (ErrorLogged != null)
+					{
+						ErrorLogged(this, new MessageLoggedEventArgs { Message = "## ERROR: Could not load bitmap." });
+					}
+
+					return null;
+				}
+				finally
+				{
+					bitmap.Dispose();
+				}
 
 				BitmapImage wpfBitmap = new BitmapImage();
 				wpfBitmap.BeginInit();
@@ -720,7 +752,7 @@
 			if (preview)
 			{
 				nativeJob.start_at_preview = previewNumber + 1;
-				nativeJob.seek_points = 10;
+				nativeJob.seek_points = this.previewCount;
 
 				// There are 90,000 PTS per second.
 				nativeJob.pts_to_stop = previewSeconds * 90000;
