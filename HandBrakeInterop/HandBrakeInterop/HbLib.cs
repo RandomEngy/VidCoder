@@ -41,10 +41,6 @@ namespace HandBrake.Interop
 
 		public const int HB_MUX_MASK =  0xFF0000;
 		public const int HB_MUX_MP4 =   0x010000;
-		public const int HB_MUX_PSP =   0x020000;
-		public const int HB_MUX_AVI =   0x040000;
-		public const int HB_MUX_OGM =   0x080000;
-		public const int HB_MUX_IPOD =  0x100000;
 		public const int HB_MUX_MKV =   0x200000;
 
 		public const int HBTF_NO_IDR = 1 << 0;
@@ -182,12 +178,6 @@ namespace HandBrake.Interop
 
 		/// int
 		public int pass;
-
-		/// int
-		public int h264_13;
-
-		/// int
-		public int h264_level;
 
 		/// char*
 		//[MarshalAs(UnmanagedType.LPStr)]

@@ -312,6 +312,7 @@
 				wpfBitmap.CacheOption = BitmapCacheOption.OnLoad;
 				wpfBitmap.StreamSource = memoryStream;
 				wpfBitmap.EndInit();
+				wpfBitmap.Freeze();
 
 				return wpfBitmap;
 			}

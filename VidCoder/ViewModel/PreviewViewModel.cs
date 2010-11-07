@@ -10,11 +10,14 @@ using VidCoder.Properties;
 using System.IO;
 using Microsoft.Practices.Unity;
 using VidCoder.Services;
+using System.Threading;
+using VidCoder.Model;
 
 namespace VidCoder.ViewModel
 {
 	public class PreviewViewModel : OkCancelDialogViewModel
 	{
+		public const int PreviewImageCount = 10;
 		private const string NoSourceTitle = "Preview: No video source";
 
 		private EncodeJob job;
@@ -27,6 +30,11 @@ namespace VidCoder.ViewModel
 		private bool encodeCancelled;
 		private double previewPercentComplete;
 		private int previewSeconds;
+
+		private ImageSource previewImage;
+		private ImageSource[] previewImageCache;
+		private int updateVersion;
+		private object imageSync = new object();
 
 		private ICommand generatePreviewCommand;
 		private ICommand cancelPreviewCommand;
@@ -63,16 +71,17 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ImageSource PreviewSource
+		public ImageSource PreviewImage
 		{
 			get
 			{
-				if (this.HasPreview)
-				{
-					return this.ScanInstance.GetPreview(this.job, this.SelectedPreview);
-				}
+				return this.previewImage;
+			}
 
-				return null;
+			set
+			{
+				this.previewImage = value;
+				this.NotifyPropertyChanged("PreviewImage");
 			}
 		}
 
@@ -156,7 +165,11 @@ namespace VidCoder.ViewModel
 			{
 				this.selectedPreview = value;
 				this.NotifyPropertyChanged("SelectedPreview");
-				this.NotifyPropertyChanged("PreviewSource");
+
+				lock (this.imageSync)
+				{
+					this.PreviewImage = this.previewImageCache[value];
+				}
 			}
 		}
 
@@ -174,7 +187,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return 9;
+				return PreviewImageCount - 1;
 			}
 		}
 
@@ -263,7 +276,21 @@ namespace VidCoder.ViewModel
 			this.PreviewWidth = width * ((double)parWidth / parHeight);
 
 			this.HasPreview = true;
-			this.NotifyPropertyChanged("PreviewSource");
+
+			this.previewImageCache = new ImageSource[PreviewImageCount];
+			lock (this.imageSync)
+			{
+				this.updateVersion++;
+				ThreadPool.QueueUserWorkItem(
+					this.UpdatePreviewImageBackground,
+					new PreviewImageJob
+					{
+						UpdateVersion = this.updateVersion,
+						ScanInstance = this.ScanInstance,
+						StartPreviewNumber = this.SelectedPreview,
+						EncodeJob = this.job
+					});
+			}
 
 			if (parWidth == parHeight)
 			{
@@ -273,6 +300,58 @@ namespace VidCoder.ViewModel
 			{
 				this.Title = "Preview: Display " + Math.Round(this.PreviewWidth) + "x" + Math.Round(this.PreviewHeight) + " - Storage " + width + "x" + height;
 			}
+		}
+
+		private void UpdatePreviewImageBackground(object state)
+		{
+			var imageJob = state as PreviewImageJob;
+			ImageSource startImage = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob, imageJob.StartPreviewNumber);
+			if (!this.HandleImageLoadCompleted(startImage, imageJob.StartPreviewNumber, imageJob.UpdateVersion))
+			{
+				return;
+			}
+
+			for (int i = 0; i < PreviewImageCount; i++)
+			{
+				if (i != imageJob.StartPreviewNumber)
+				{
+					ImageSource image = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob, i);
+					if (!this.HandleImageLoadCompleted(image, i, imageJob.UpdateVersion))
+					{
+						return;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Handles a preview image load completion event.
+		/// </summary>
+		/// <param name="image">The loaded image.</param>
+		/// <param name="previewNumber">The number of the loaded image.</param>
+		/// <param name="jobUpdateVersion">The version of the current image refresh.</param>
+		/// <returns>True if the image was updated. False if another refresh has been triggered
+		/// and the results were discarded.</returns>
+		private bool HandleImageLoadCompleted(ImageSource image, int previewNumber, int jobUpdateVersion)
+		{
+			lock (this.imageSync)
+			{
+				if (jobUpdateVersion != this.updateVersion)
+				{
+					return false;
+				}
+
+				this.previewImageCache[previewNumber] = image;
+				if (this.SelectedPreview == previewNumber)
+				{
+					DispatchService.Invoke(() =>
+					{
+						this.PreviewImage = image;
+					});
+				}
+			}
+
+			return true;
 		}
 
 		private void OnPreviewScanCompleted(object sender, EventArgs eventArgs)

@@ -49,7 +49,7 @@ namespace VidCoder.View
 
 		private void viewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName == "PreviewSource")
+			if (e.PropertyName == "PreviewImage")
 			{
 				this.RefreshImageSize();
 			}

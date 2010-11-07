@@ -88,16 +88,15 @@ namespace VidCoder.Services
 							DiscType = DiscType.Dvd
 						});
 					}
-					//// Don't detect blu-ray for now... crashes a lot on scan. Can re-enable after getting that resolved.
-					//else if (Directory.Exists(driveInfo.RootDirectory + "BDMV"))
-					//{
-					//    driveList.Add(new DriveInformation
-					//    {
-					//        RootDirectory = driveInfo.RootDirectory.FullName,
-					//        VolumeLabel = driveInfo.VolumeLabel,
-					//        DiscType = DiscType.BluRay
-					//    });
-					//}
+					else if (Directory.Exists(driveInfo.RootDirectory + "BDMV"))
+					{
+						driveList.Add(new DriveInformation
+						{
+							RootDirectory = driveInfo.RootDirectory.FullName,
+							VolumeLabel = driveInfo.VolumeLabel,
+							DiscType = DiscType.BluRay
+						});
+					}
 				}
 			}
 
