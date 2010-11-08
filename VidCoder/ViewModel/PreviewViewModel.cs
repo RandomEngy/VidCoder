@@ -21,11 +21,13 @@ namespace VidCoder.ViewModel
 		private const string NoSourceTitle = "Preview: No video source";
 
 		private EncodeJob job;
+		private HandBrakeInstance originalScanInstance;
 		private HandBrakeInstance previewInstance;
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
 		private string title;
 		private int selectedPreview;
 		private bool hasPreview;
+		private bool scanningPreview;
 		private bool generatingPreview;
 		private bool encodeCancelled;
 		private double previewPercentComplete;
@@ -227,7 +229,9 @@ namespace VidCoder.ViewModel
 						this.previewInstance.StartScan(this.job.SourcePath, Settings.Default.PreviewCount, this.job.Title);
 
 						this.PreviewPercentComplete = 0;
+						this.scanningPreview = true;
 						this.GeneratingPreview = true;
+						this.encodeCancelled = false;
 					},
 					param =>
 					{
@@ -247,8 +251,7 @@ namespace VidCoder.ViewModel
 				{
 					this.cancelPreviewCommand = new RelayCommand(param =>
 					{
-						this.encodeCancelled = true;
-						this.previewInstance.StopEncode();
+						this.CancelPreviewEncode();
 					});
 				}
 
@@ -271,8 +274,16 @@ namespace VidCoder.ViewModel
 			{
 				this.HasPreview = false;
 				this.Title = NoSourceTitle;
+				this.CancelPreviewEncode();
 				return;
 			}
+
+			if (this.originalScanInstance != this.ScanInstance || (this.job != null && this.job.Title != this.mainViewModel.EncodeJob.Title))
+			{
+				this.CancelPreviewEncode();
+			}
+
+			this.originalScanInstance = this.ScanInstance;
 
 			this.job = this.mainViewModel.EncodeJob;
 
@@ -311,6 +322,22 @@ namespace VidCoder.ViewModel
 			else
 			{
 				this.Title = "Preview: Display " + Math.Round(this.PreviewWidth) + "x" + Math.Round(this.PreviewHeight) + " - Storage " + width + "x" + height;
+			}
+		}
+
+		private void CancelPreviewEncode()
+		{
+			if (this.GeneratingPreview)
+			{
+				this.encodeCancelled = true;
+				if (this.scanningPreview)
+				{
+					this.previewInstance.StopScan();
+				}
+				else
+				{
+					this.previewInstance.StopEncode();
+				}
 			}
 		}
 
@@ -433,6 +460,15 @@ namespace VidCoder.ViewModel
 
 		private void OnPreviewScanCompleted(object sender, EventArgs eventArgs)
 		{
+			this.scanningPreview = false;
+
+			if (this.encodeCancelled)
+			{
+				this.GeneratingPreview = false;
+				this.logger.Log("# Cancelled preview clip generation");
+				return;
+			}
+
 			string extension = null;
 
 			if (this.job.EncodingProfile.OutputFormat == OutputFormat.Mkv)
@@ -491,7 +527,6 @@ namespace VidCoder.ViewModel
 			this.logger.Log("##   Title: " + this.job.Title);
 			this.logger.Log("##   Preview #: " + this.SelectedPreview);
 
-			this.encodeCancelled = false;
 			this.previewInstance.StartEncode(this.job, true, this.SelectedPreview, this.PreviewSeconds);
 		}
 	}

@@ -317,7 +317,6 @@
 			}
 
 			bitmap.UnlockBits(bitmapData);
-			//bitmap.Save(@"d:\docs\test_" + previewNumber + ".png", System.Drawing.Imaging.ImageFormat.Png);
 
 			using (MemoryStream memoryStream = new MemoryStream())
 			{
@@ -329,7 +328,7 @@
 				{
 					if (ErrorLogged != null)
 					{
-						ErrorLogged(this, new MessageLoggedEventArgs { Message = "## ERROR: Could not load bitmap." });
+						ErrorLogged(this, new MessageLoggedEventArgs { Message = "# ERROR: Could not load bitmap." });
 					}
 
 					return null;
