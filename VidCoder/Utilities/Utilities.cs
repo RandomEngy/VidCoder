@@ -117,16 +117,27 @@ namespace VidCoder
 		{
 			get
 			{
-				string updatesFolder;
-
-				updatesFolder = Path.Combine(AppFolder, "Updates");
-
+				string updatesFolder = Path.Combine(AppFolder, "Updates");
 				if (!Directory.Exists(updatesFolder))
 				{
 					Directory.CreateDirectory(updatesFolder);
 				}
 
 				return updatesFolder;
+			}
+		}
+
+		public static string ImageCacheFolder
+		{
+			get
+			{
+				string imageCacheFolder = Path.Combine(AppFolder, "ImageCache");
+				if (!Directory.Exists(imageCacheFolder))
+				{
+					Directory.CreateDirectory(imageCacheFolder);
+				}
+
+				return imageCacheFolder;
 			}
 		}
 

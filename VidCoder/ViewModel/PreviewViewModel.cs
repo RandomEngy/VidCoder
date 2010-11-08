@@ -17,7 +17,7 @@ namespace VidCoder.ViewModel
 {
 	public class PreviewViewModel : OkCancelDialogViewModel
 	{
-		private const int PreviewImageCacheDistance = 3;
+		private const int PreviewImageCacheDistance = 2;
 		private const string NoSourceTitle = "Preview: No video source";
 
 		private EncodeJob job;
@@ -40,6 +40,7 @@ namespace VidCoder.ViewModel
 		private bool previewImageQueueProcessing;
 		private int updateVersion;
 		private object imageSync = new object();
+		private object imageFileSync = new object();
 
 		private ICommand generatePreviewCommand;
 		private ICommand cancelPreviewCommand;
@@ -312,6 +313,7 @@ namespace VidCoder.ViewModel
 				this.previewImageCache = new ImageSource[this.previewCount];
 				this.updateVersion++;
 				this.previewImageWorkQueue.Clear();
+				this.clearImageFileCache();
 				this.BeginBackgroundImageLoad();
 			}
 
@@ -322,6 +324,21 @@ namespace VidCoder.ViewModel
 			else
 			{
 				this.Title = "Preview: Display " + Math.Round(this.PreviewWidth) + "x" + Math.Round(this.PreviewHeight) + " - Storage " + width + "x" + height;
+			}
+		}
+
+		private void clearImageFileCache()
+		{
+			lock (this.imageFileSync)
+			{
+				string imageFolder = Path.Combine(Utilities.AppFolder, Utilities.ImageCacheFolder);
+				DirectoryInfo directory = new DirectoryInfo(imageFolder);
+				FileInfo[] files = directory.GetFiles();
+
+				foreach (FileInfo file in files)
+				{
+					File.Delete(file.FullName);
+				}
 			}
 		}
 
@@ -431,10 +448,40 @@ namespace VidCoder.ViewModel
 			{
 				lock (this.imageSync)
 				{
+					if (this.previewImageWorkQueue.Count == 0)
+					{
+						this.previewImageQueueProcessing = false;
+						return;
+					}
+
 					imageJob = this.previewImageWorkQueue.Dequeue();
 				}
 
-				ImageSource image = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob, imageJob.PreviewNumber);
+				string imagePath = Path.Combine(Utilities.ImageCacheFolder, imageJob.PreviewNumber + ".png");
+				bool fileCacheImage = false;
+				BitmapImage image = null;
+				lock (this.imageFileSync)
+				{
+					// Check the disc cache for the image
+					if (File.Exists(imagePath))
+					{
+						image = new BitmapImage();
+						image.BeginInit();
+						image.CacheOption = BitmapCacheOption.OnLoad;
+						image.UriSource = new Uri(imagePath);
+						image.EndInit();
+						image.Freeze();
+					}
+				}
+
+				if (image == null)
+				{
+					// Make a HandBrake call to get the image
+					image = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob, imageJob.PreviewNumber);
+
+					fileCacheImage = true;
+				}
+
 				lock (this.imageSync)
 				{
 					if (imageJob.UpdateVersion == this.updateVersion)
@@ -453,6 +500,23 @@ namespace VidCoder.ViewModel
 					{
 						workLeft = false;
 						this.previewImageQueueProcessing = false;
+					}
+				}
+
+				if (fileCacheImage)
+				{
+					// Cache the image
+					lock (this.imageFileSync)
+					{
+						System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
+						using (FileStream stream = new FileStream(imagePath, FileMode.Create))
+						{
+							var encoder = new PngBitmapEncoder();
+							encoder.Frames.Add(BitmapFrame.Create((BitmapImage)image));
+							encoder.Save(stream);
+						}
+						sw.Stop();
+						this.logger.Log("Saved preview " + imageJob.PreviewNumber + ", took " + sw.Elapsed);
 					}
 				}
 			}
