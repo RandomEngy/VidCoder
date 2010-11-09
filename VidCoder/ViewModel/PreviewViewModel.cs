@@ -457,7 +457,7 @@ namespace VidCoder.ViewModel
 					imageJob = this.previewImageWorkQueue.Dequeue();
 				}
 
-				string imagePath = Path.Combine(Utilities.ImageCacheFolder, imageJob.PreviewNumber + ".png");
+				string imagePath = Path.Combine(Utilities.ImageCacheFolder, imageJob.PreviewNumber + ".bmp");
 				bool fileCacheImage = false;
 				BitmapImage image = null;
 				lock (this.imageFileSync)
@@ -510,7 +510,7 @@ namespace VidCoder.ViewModel
 					{
 						using (FileStream stream = new FileStream(imagePath, FileMode.Create))
 						{
-							var encoder = new PngBitmapEncoder();
+							var encoder = new BmpBitmapEncoder();
 							encoder.Frames.Add(BitmapFrame.Create((BitmapImage)image));
 							encoder.Save(stream);
 						}
