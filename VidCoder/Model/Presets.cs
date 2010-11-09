@@ -107,6 +107,11 @@ namespace VidCoder.Model
 			}
 
 			XDocument doc = XDocument.Load(presetFile);
+			if (doc.Element("UserPreset") == null)
+			{
+				return null;
+			}
+
 			XElement presetElement = doc.Element("UserPreset").Element("Preset");
 			int version = int.Parse(doc.Element("UserPreset").Attribute("Version").Value);
 

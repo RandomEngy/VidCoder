@@ -508,15 +508,12 @@ namespace VidCoder.ViewModel
 					// Cache the image
 					lock (this.imageFileSync)
 					{
-						System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
 						using (FileStream stream = new FileStream(imagePath, FileMode.Create))
 						{
 							var encoder = new PngBitmapEncoder();
 							encoder.Frames.Add(BitmapFrame.Create((BitmapImage)image));
 							encoder.Save(stream);
 						}
-						sw.Stop();
-						this.logger.Log("Saved preview " + imageJob.PreviewNumber + ", took " + sw.Elapsed);
 					}
 				}
 			}
