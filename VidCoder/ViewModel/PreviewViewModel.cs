@@ -12,13 +12,16 @@ using Microsoft.Practices.Unity;
 using VidCoder.Services;
 using System.Threading;
 using VidCoder.Model;
+using System.Diagnostics;
 
 namespace VidCoder.ViewModel
 {
 	public class PreviewViewModel : OkCancelDialogViewModel
 	{
-		private const int PreviewImageCacheDistance = 2;
+		private const int PreviewImageCacheDistance = 1;
 		private const string NoSourceTitle = "Preview: No video source";
+
+		private static int updateVersion;
 
 		private EncodeJob job;
 		private HandBrakeInstance originalScanInstance;
@@ -38,13 +41,13 @@ namespace VidCoder.ViewModel
 		private ImageSource[] previewImageCache;
 		private Queue<PreviewImageJob> previewImageWorkQueue = new Queue<PreviewImageJob>();
 		private bool previewImageQueueProcessing;
-		private int updateVersion;
 		private object imageSync = new object();
-		private object imageFileSync = new object();
+		private List<object> imageFileSync;
+		private string imageFileCacheFolder;
 
 		private ICommand generatePreviewCommand;
 		private ICommand cancelPreviewCommand;
-		
+
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 
 		public PreviewViewModel()
@@ -271,6 +274,7 @@ namespace VidCoder.ViewModel
 
 		public void RefreshPreviews()
 		{
+			Stopwatch sw = Stopwatch.StartNew();
 			if (!this.mainViewModel.HasVideoSource)
 			{
 				this.HasPreview = false;
@@ -311,9 +315,26 @@ namespace VidCoder.ViewModel
 			lock (this.imageSync)
 			{
 				this.previewImageCache = new ImageSource[this.previewCount];
-				this.updateVersion++;
+				updateVersion++;
+
+				// Clear main work queue.
 				this.previewImageWorkQueue.Clear();
+
+				this.imageFileCacheFolder = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString(), updateVersion.ToString());
+				if (!Directory.Exists(this.imageFileCacheFolder))
+				{
+					Directory.CreateDirectory(this.imageFileCacheFolder);
+				}
+
+				// Clear old images out of the file cache.
 				this.clearImageFileCache();
+
+				this.imageFileSync = new List<object>(this.previewCount);
+				for (int i = 0; i < this.previewCount; i++)
+				{
+					this.imageFileSync.Add(new object());
+				}
+
 				this.BeginBackgroundImageLoad();
 			}
 
@@ -325,23 +346,47 @@ namespace VidCoder.ViewModel
 			{
 				this.Title = "Preview: Display " + Math.Round(this.PreviewWidth) + "x" + Math.Round(this.PreviewHeight) + " - Storage " + width + "x" + height;
 			}
+
+			sw.Stop();
+			Debug.WriteLine("Refreshing previews took: " + sw.Elapsed);
 		}
 
 		private void clearImageFileCache()
 		{
-			lock (this.imageFileSync)
+			try
 			{
-				string imageFolder = Path.Combine(Utilities.AppFolder, Utilities.ImageCacheFolder);
-				DirectoryInfo directory = new DirectoryInfo(imageFolder);
-				FileInfo[] files = directory.GetFiles();
+				string processCacheFolder = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString());
 
-				foreach (FileInfo file in files)
+				DirectoryInfo directory = new DirectoryInfo(processCacheFolder);
+				int lowestUpdate = -1;
+				for (int i = updateVersion - 1; i >= 1; i--)
 				{
-					File.Delete(file.FullName);
+					if (Directory.Exists(Path.Combine(processCacheFolder, i.ToString())))
+					{
+						lowestUpdate = i;
+					}
+					else
+					{
+						break;
+					}
+				}
+
+				if (lowestUpdate == -1)
+				{
+					return;
+				}
+
+				for (int i = lowestUpdate; i <= updateVersion - 1; i++)
+				{
+					Utilities.DeleteDirectory(Path.Combine(processCacheFolder, i.ToString()));
 				}
 			}
+			catch (IOException)
+			{
+				// Ignore. Later checks will clear the cache.
+			}
 		}
-	
+
 		private void CancelPreviewEncode()
 		{
 			if (this.GeneratingPreview)
@@ -432,10 +477,11 @@ namespace VidCoder.ViewModel
 			this.previewImageWorkQueue.Enqueue(
 				new PreviewImageJob
 				{
-					UpdateVersion = this.updateVersion,
+					UpdateVersion = updateVersion,
 					ScanInstance = this.ScanInstance,
 					PreviewNumber = previewNumber,
-					EncodeJob = this.job
+					EncodeJob = this.job,
+					ImageFileSync = this.imageFileSync[previewNumber]
 				});
 		}
 
@@ -457,12 +503,16 @@ namespace VidCoder.ViewModel
 					imageJob = this.previewImageWorkQueue.Dequeue();
 				}
 
-				string imagePath = Path.Combine(Utilities.ImageCacheFolder, imageJob.PreviewNumber + ".bmp");
-				bool fileCacheImage = false;
+				string imagePath = Path.Combine(
+					Utilities.ImageCacheFolder,
+					Process.GetCurrentProcess().Id.ToString(),
+					imageJob.UpdateVersion.ToString(),
+					imageJob.PreviewNumber + ".bmp");
 				BitmapImage image = null;
-				lock (this.imageFileSync)
+
+				// Check the disc cache for the image
+				lock (imageJob.ImageFileSync)
 				{
-					// Check the disc cache for the image
 					if (File.Exists(imagePath))
 					{
 						image = new BitmapImage();
@@ -479,17 +529,27 @@ namespace VidCoder.ViewModel
 					// Make a HandBrake call to get the image
 					image = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob, imageJob.PreviewNumber);
 
-					fileCacheImage = true;
+					// Start saving the image file in the background and continue to process the queue.
+					ThreadPool.QueueUserWorkItem(
+						this.BackgroundFileSave,
+						new SaveImageJob
+						{
+							PreviewNumber = imageJob.PreviewNumber,
+							UpdateVersion = imageJob.UpdateVersion,
+							FilePath = imagePath,
+							Image = image,
+							ImageFileSync = imageJob.ImageFileSync
+						});
 				}
 
 				lock (this.imageSync)
 				{
-					if (imageJob.UpdateVersion == this.updateVersion)
+					if (imageJob.UpdateVersion == updateVersion)
 					{
 						this.previewImageCache[imageJob.PreviewNumber] = image;
 						if (this.SelectedPreview == imageJob.PreviewNumber)
 						{
-							DispatchService.Invoke(() =>
+							DispatchService.BeginInvoke(() =>
 							{
 								this.PreviewImage = image;
 							});
@@ -502,20 +562,49 @@ namespace VidCoder.ViewModel
 						this.previewImageQueueProcessing = false;
 					}
 				}
+			}
+		}
 
-				if (fileCacheImage)
+		private void BackgroundFileSave(object state)
+		{
+			var job = state as SaveImageJob;
+
+			lock (this.imageSync)
+			{
+				if (job.UpdateVersion < updateVersion)
 				{
-					// Cache the image
-					lock (this.imageFileSync)
+					return;
+				}
+			}
+
+			lock (job.ImageFileSync)
+			{
+				try
+				{
+					using (MemoryStream memoryStream = new MemoryStream())
 					{
-						using (FileStream stream = new FileStream(imagePath, FileMode.Create))
+						Stopwatch sw = Stopwatch.StartNew();
+						var encoder = new BmpBitmapEncoder();
+						encoder.Frames.Add(BitmapFrame.Create(job.Image));
+						encoder.Save(memoryStream);
+						Debug.WriteLine("Writing to memory stream took: " + sw.Elapsed);
+
+						using (FileStream fileStream = new FileStream(job.FilePath, FileMode.Create))
 						{
-							var encoder = new BmpBitmapEncoder();
-							encoder.Frames.Add(BitmapFrame.Create((BitmapImage)image));
-							encoder.Save(stream);
+							byte[] data = memoryStream.ToArray();
+							fileStream.Write(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
 						}
+
+						sw.Stop();
+						Debug.WriteLine("Overall took: " + sw.Elapsed);
 					}
 				}
+				catch (IOException)
+				{
+					// Directory may have been deleted. Ignore.
+				}
+
+				Debug.WriteLine("Finished save of " + job.FilePath);
 			}
 		}
 

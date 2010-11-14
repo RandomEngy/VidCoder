@@ -207,6 +207,7 @@
     <Compile Include="EnumStringConverter.cs" />
     <Compile Include="Model\EncodeResult.cs" />
     <Compile Include="Model\PreviewImageJob.cs" />
+    <Compile Include="Model\SaveImageJob.cs" />
     <Compile Include="Services\Interfaces\ILogger.cs" />
     <Compile Include="Services\Interfaces\IPresetImport.cs" />
     <Compile Include="Services\Interfaces\IProcesses.cs" />

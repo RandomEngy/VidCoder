@@ -154,6 +154,24 @@ namespace VidCoder
 			return defaultQueueColumnSizes.ContainsKey(columnId);
 		}
 
+		public static void DeleteDirectory(string path)
+		{
+			DirectoryInfo directory = new DirectoryInfo(path);
+			FileInfo[] files = directory.GetFiles();
+			foreach (FileInfo file in files)
+			{
+				File.Delete(file.FullName);
+			}
+
+			DirectoryInfo[] subdirectories = directory.GetDirectories();
+			foreach (DirectoryInfo subdirectory in subdirectories)
+			{
+				DeleteDirectory(subdirectory.FullName);
+			}
+
+			Directory.Delete(path);
+		}
+
 		public static string CleanFileName(string fileName)
 		{
 			string cleanName = fileName;

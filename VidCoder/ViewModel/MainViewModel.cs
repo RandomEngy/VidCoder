@@ -429,6 +429,7 @@ namespace VidCoder.ViewModel
 			HandBrakeInstance.DisposeGlobal();
 
 			this.CleanOldLogs();
+			this.CleanPreviewFileCache();
 
 			this.updater.PromptToApplyUpdate();
 
@@ -3211,6 +3212,37 @@ namespace VidCoder.ViewModel
 				{
 					// Just ignore failed deletes. They'll get cleaned up some other time.
 				}
+			}
+		}
+
+		private void CleanPreviewFileCache()
+		{
+			try
+			{
+				DirectoryInfo cacheFolder = new DirectoryInfo(Utilities.ImageCacheFolder);
+				DirectoryInfo[] processDirectories = cacheFolder.GetDirectories();
+
+				int ourPid = Process.GetCurrentProcess().Id;
+
+				Process[] processes = Process.GetProcesses();
+				var pidList = processes.Select(p => p.Id);
+				HashSet<int> pidSet = new HashSet<int>(pidList);
+
+				foreach (DirectoryInfo processDirectory in processDirectories)
+				{
+					int directoryPid;
+					if (int.TryParse(processDirectory.Name, out directoryPid))
+					{
+						if (directoryPid == ourPid || !pidSet.Contains(directoryPid))
+						{
+							Utilities.DeleteDirectory(processDirectory.FullName);
+						}
+					}
+				}
+			}
+			catch (IOException)
+			{
+				// Ignore failed cleanup. Will get done some other time.
 			}
 		}
 	}
