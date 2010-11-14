@@ -2632,7 +2632,7 @@ namespace VidCoder.ViewModel
 				this.manualOutputPath = true;
 				this.OutputPath = Path.Combine(outputDirectory, fileName + extension);
 			}
-			else 
+			else
 			{
 				// Revert the change if it's not a valid path.
 				if (this.OutputPath != oldOutputPath)
@@ -3235,9 +3235,17 @@ namespace VidCoder.ViewModel
 					{
 						if (directoryPid == ourPid || !pidSet.Contains(directoryPid))
 						{
-							Utilities.DeleteDirectory(processDirectory.FullName);
+							try
+							{
+								Utilities.DeleteDirectory(processDirectory.FullName);
+							}
+							catch (IOException)
+							{
+								// Ignore failed cleanup. Move on to the next folder.
+							}
 						}
 					}
+
 				}
 			}
 			catch (IOException)

@@ -39,6 +39,18 @@
 			<GradientStop Color="Red" Offset="0" />
 			<GradientStop Color="#DD0008" Offset="1" />
 		</RadialGradientBrush>
+		<RadialGradientBrush x:Key="BlueFill" GradientOrigin="7,1.5" Center="7,1.5" RadiusX="10" RadiusY="10" MappingMode="Absolute">
+			<GradientStop Color="#176DC4" Offset="0" /> <!-- Center -->
+			<GradientStop Color="#176DC4" Offset="1" /> <!-- Edges -->
+		</RadialGradientBrush>
+		<RadialGradientBrush x:Key="BlueHoverFill" GradientOrigin="7,1.5" Center="7,1.5" RadiusX="10" RadiusY="10" MappingMode="Absolute">
+			<GradientStop Color="#3D9EFF" Offset="0" />
+			<GradientStop Color="#3D9EFF" Offset="1" />
+		</RadialGradientBrush>
+		<RadialGradientBrush x:Key="BluePressFill" GradientOrigin="7,1.5" Center="7,1.5" RadiusX="10" RadiusY="10" MappingMode="Absolute">
+			<GradientStop Color="#125599" Offset="0" />
+			<GradientStop Color="#125599" Offset="1" />
+		</RadialGradientBrush>
 		<Grid x:Key="RedX" Background="Transparent">
 			<Rectangle Name="rect2" Width="14" Height="3" Fill="{StaticResource RedFill}">
 				<Rectangle.LayoutTransform>
@@ -61,16 +73,16 @@
 			<Setter Property="Control.Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="Button">
-						<Grid Background="Transparent" Name="removeButtonGrid">
+						<Grid Background="Transparent" Name="removeButtonGrid" Width="15" Height="15">
 							<Grid.ToolTip>
 								<ContentPresenter />
 							</Grid.ToolTip>
-							<Rectangle Name="rect2" Width="14" Height="3" Fill="{StaticResource RedFill}">
+							<Rectangle Name="rect2" Width="12" Height="2" Fill="{StaticResource BlueFill}">
 								<Rectangle.LayoutTransform>
 									<RotateTransform Angle="-45" />
 								</Rectangle.LayoutTransform>
 							</Rectangle>
-							<Rectangle Name="rect1" Width="14" Height="3" Fill="{StaticResource RedFill}">
+							<Rectangle Name="rect1" Width="12" Height="2" Fill="{StaticResource BlueFill}">
 								<Rectangle.LayoutTransform>
 									<RotateTransform Angle="45" />
 								</Rectangle.LayoutTransform>
@@ -78,15 +90,12 @@
 						</Grid>
 						<ControlTemplate.Triggers>
 							<Trigger Property="IsMouseOver" Value="True">
-								<Setter TargetName="removeButtonGrid" Property="Effect">
-									<Setter.Value>
-										<DropShadowEffect Color="Red" BlurRadius="7" ShadowDepth="0" Opacity="0.5" />
-									</Setter.Value>
-								</Setter>
+								<Setter TargetName="rect1" Property="Fill" Value="{StaticResource BlueHoverFill}" />
+								<Setter TargetName="rect2" Property="Fill" Value="{StaticResource BlueHoverFill}" />
 							</Trigger>
 							<Trigger Property="IsPressed" Value="True">
-								<Setter TargetName="rect1" Property="Fill" Value="{StaticResource RedPressFill}" />
-								<Setter TargetName="rect2" Property="Fill" Value="{StaticResource RedPressFill}" />
+								<Setter TargetName="rect1" Property="Fill" Value="{StaticResource BluePressFill}" />
+								<Setter TargetName="rect2" Property="Fill" Value="{StaticResource BluePressFill}" />
 							</Trigger>
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
