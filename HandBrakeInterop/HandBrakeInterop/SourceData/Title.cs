@@ -34,6 +34,11 @@ namespace HandBrake.SourceData
 		}
 
 		/// <summary>
+		/// Gets or sets the input type of this title.
+		/// </summary>
+		public InputType InputType { get; set; }
+
+		/// <summary>
 		/// Collection of chapters in this Title
 		/// </summary>
 		public List<Chapter> Chapters
@@ -77,6 +82,9 @@ namespace HandBrake.SourceData
 		/// </summary>
 		public double AspectRatio { get; set; }
 
+		/// <summary>
+		/// Gets or sets the number of angles on the title.
+		/// </summary>
 		public int AngleCount { get; set; }
 
 		/// <summary>
@@ -93,7 +101,17 @@ namespace HandBrake.SourceData
 		/// 3: 
 		/// </summary>
 		public Cropping AutoCropDimensions { get; set; }
-  
+
+		/// <summary>
+		/// Gets or sets the name of the video codec for this title.
+		/// </summary>
+		public string VideoCodecName { get; set; }
+
+		/// <summary>
+		/// Gets or sets the video frame rate for this title.
+		/// </summary>
+		public double Framerate { get; set; }
+
 		/// <summary>
 		/// Override of the ToString method to provide an easy way to use this object in the UI
 		/// </summary>

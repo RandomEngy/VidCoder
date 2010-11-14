@@ -639,13 +639,15 @@ namespace HandBrake.Interop
 		public int video_codec_param;
 
 		/// char*
-		public IntPtr video_codec_name;
+		[MarshalAs(UnmanagedType.LPStr)]
+		public string video_codec_name;
 
 		/// int
 		public int video_bitrate;
 
 		/// char*
-		public IntPtr container_name;
+		[MarshalAs(UnmanagedType.LPStr)]
+		public string container_name;
 
 		/// int
 		public int data_rate;

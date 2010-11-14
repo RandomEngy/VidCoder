@@ -267,7 +267,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.mainViewModel.SelectedTitle != null;
+				return this.mainViewModel.HasVideoSource;
 			}
 		}
 
@@ -1349,6 +1349,45 @@ namespace VidCoder.ViewModel
 		#endregion
 
 		#region Video
+
+		public string InputType
+		{
+			get
+			{
+				if (this.HasSourceData)
+				{
+					return DisplayConversions.DisplayInputType(this.SelectedTitle.InputType);
+				}
+
+				return string.Empty;
+			}
+		}
+
+		public string InputVideoCodec
+		{
+			get
+			{
+				if (this.HasSourceData)
+				{
+					return DisplayConversions.DisplayVideoCodecName(this.SelectedTitle.VideoCodecName);
+				}
+
+				return string.Empty;
+			}
+		}
+
+		public string InputFramerate
+		{
+			get
+			{
+				if (this.HasSourceData)
+				{
+					return string.Format("{0:0.###} FPS", this.SelectedTitle.Framerate);
+				}
+
+				return string.Empty;
+			}
+		}
 
 		public ObservableCollection<VideoEncoderViewModel> EncoderChoices
 		{
@@ -2550,6 +2589,9 @@ namespace VidCoder.ViewModel
 				this.NotifyPropertyChanged("InputSourceResolution");
 				this.NotifyPropertyChanged("InputPixelAspectRatio");
 				this.NotifyPropertyChanged("InputDisplayResolution");
+				this.NotifyPropertyChanged("InputType");
+				this.NotifyPropertyChanged("InputVideoCodec");
+				this.NotifyPropertyChanged("InputFramerate");
 			}
 		}
 

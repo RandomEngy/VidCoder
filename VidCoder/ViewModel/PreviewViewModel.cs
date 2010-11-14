@@ -274,7 +274,6 @@ namespace VidCoder.ViewModel
 
 		public void RefreshPreviews()
 		{
-			Stopwatch sw = Stopwatch.StartNew();
 			if (!this.mainViewModel.HasVideoSource)
 			{
 				this.HasPreview = false;
@@ -346,9 +345,6 @@ namespace VidCoder.ViewModel
 			{
 				this.Title = "Preview: Display " + Math.Round(this.PreviewWidth) + "x" + Math.Round(this.PreviewHeight) + " - Storage " + width + "x" + height;
 			}
-
-			sw.Stop();
-			Debug.WriteLine("Refreshing previews took: " + sw.Elapsed);
 		}
 
 		private void clearImageFileCache()
@@ -583,28 +579,23 @@ namespace VidCoder.ViewModel
 				{
 					using (MemoryStream memoryStream = new MemoryStream())
 					{
-						Stopwatch sw = Stopwatch.StartNew();
+						// Write the bitmap out to a memory stream before saving so that we won't be holding
+						// a write lock on the BitmapImage for very long; it's used in the UI.
 						var encoder = new BmpBitmapEncoder();
 						encoder.Frames.Add(BitmapFrame.Create(job.Image));
 						encoder.Save(memoryStream);
-						Debug.WriteLine("Writing to memory stream took: " + sw.Elapsed);
 
 						using (FileStream fileStream = new FileStream(job.FilePath, FileMode.Create))
 						{
 							byte[] data = memoryStream.ToArray();
 							fileStream.Write(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
 						}
-
-						sw.Stop();
-						Debug.WriteLine("Overall took: " + sw.Elapsed);
 					}
 				}
 				catch (IOException)
 				{
 					// Directory may have been deleted. Ignore.
 				}
-
-				Debug.WriteLine("Finished save of " + job.FilePath);
 			}
 		}
 

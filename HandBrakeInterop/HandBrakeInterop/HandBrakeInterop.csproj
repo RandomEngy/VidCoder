@@ -113,6 +113,7 @@
     <Compile Include="ScanProgressEventArgs.cs" />
     <Compile Include="SourceData\AudioTrack.cs" />
     <Compile Include="SourceData\Chapter.cs" />
+    <Compile Include="SourceData\InputType.cs" />
     <Compile Include="SourceData\Subtitle.cs" />
     <Compile Include="SourceData\SubtitleSource.cs" />
     <Compile Include="SourceData\SubtitleType.cs" />

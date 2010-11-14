@@ -1279,8 +1279,23 @@
 					Right = title.crop[3]
 				},
 				AspectRatio = title.aspect,
-				AngleCount = title.angle_count
+				AngleCount = title.angle_count,
+				VideoCodecName = title.video_codec_name,
+				Framerate = ((double)title.rate) / title.rate_base
 			};
+
+			switch (title.type)
+			{
+				case hb_title_type_anon.HB_STREAM_TYPE:
+					newTitle.InputType = InputType.Stream;
+					break;
+				case hb_title_type_anon.HB_DVD_TYPE:
+					newTitle.InputType = InputType.Dvd;
+					break;
+				case hb_title_type_anon.HB_BD_TYPE:
+					newTitle.InputType = InputType.Bluray;
+					break;
+			}
 
 			int currentSubtitleTrack = 1;
 			List<hb_subtitle_s> subtitleList = InteropUtilities.ConvertList<hb_subtitle_s>(title.list_subtitle);
