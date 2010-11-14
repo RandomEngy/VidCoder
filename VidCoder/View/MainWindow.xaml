@@ -247,7 +247,7 @@
 			<StackPanel Orientation="Horizontal" Height="27" Margin="12,6,12,0" VerticalAlignment="Top">
 				<TextBlock Text="Source:" Style="{StaticResource SectionHeader}" />
 				<ComboBox
-					Margin="4,0,0,0"
+					Margin="4.5,0.5,0,0"
 					Name="sourceBox" SelectionChanged="sourceBox_SelectionChanged"
 					IsEnabled="{Binding ScanningSource, Converter={StaticResource InverseBoolConverter}}">
 					<ComboBox.ItemTemplate>

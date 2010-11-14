@@ -44,7 +44,7 @@ namespace VidCoder.ViewModel
 
 		private ICommand generatePreviewCommand;
 		private ICommand cancelPreviewCommand;
-
+		
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 
 		public PreviewViewModel()
@@ -341,7 +341,7 @@ namespace VidCoder.ViewModel
 				}
 			}
 		}
-
+	
 		private void CancelPreviewEncode()
 		{
 			if (this.GeneratingPreview)

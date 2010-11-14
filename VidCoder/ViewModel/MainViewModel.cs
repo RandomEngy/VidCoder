@@ -298,7 +298,7 @@ namespace VidCoder.ViewModel
 
 		public bool SetSourceFromFolder()
 		{
-			string folderPath = FileService.Instance.GetFolderName(Properties.Settings.Default.LastVideoTSFolder, "Pick the DVD's VIDEO_TS folder.");
+			string folderPath = FileService.Instance.GetFolderName(Properties.Settings.Default.LastVideoTSFolder, "Pick the DVD's VIDEO_TS folder or the Blu-ray's root folder.");
 
 			// Make sure we get focus back after displaying the dialog.
 			WindowManager.FocusWindow(this);
@@ -310,7 +310,7 @@ namespace VidCoder.ViewModel
 				DirectoryInfo parentDirectory = Directory.GetParent(folderPath);
 				if (parentDirectory == null || parentDirectory.Root.FullName == parentDirectory.FullName)
 				{
-					this.sourceName = "VIDEO_TS";
+					this.sourceName = "VideoFolder";
 				}
 				else
 				{

@@ -57,7 +57,7 @@ namespace VidCoder.ViewModel
 					case SourceType.File:
 						return "Video File";
 					case SourceType.VideoFolder:
-						return "DVD/VIDEO_TS Folder";
+						return "DVD/Blu-ray Folder";
 					case SourceType.Dvd:
 						return this.sourceOption.DriveInfo.RootDirectory + " - " + this.sourceOption.DriveInfo.VolumeLabel;
 					default:
