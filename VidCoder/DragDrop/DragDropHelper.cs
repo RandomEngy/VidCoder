@@ -211,6 +211,18 @@ namespace VidCoder.DragDropUtils
 			this.targetItemsControl = (ItemsControl)sender;
 			object draggedItem = e.Data.GetData(this.format.Name);
 
+			// Sometimes we can't get our item container for some reason (like when dragging from a button)
+			// In this case we abort the drag.
+			int targetItemsControlCount = this.targetItemsControl.Items.Count;
+			for (int i = 0; i < targetItemsControlCount; i++)
+			{
+				FrameworkElement currentItemContainer = this.targetItemsControl.ItemContainerGenerator.ContainerFromIndex(i) as FrameworkElement;
+				if (currentItemContainer == null)
+				{
+					return;
+				}
+			}
+
 			DecideDropTarget(e);
 			if (draggedItem != null)
 			{

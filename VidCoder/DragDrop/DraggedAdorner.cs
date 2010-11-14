@@ -35,7 +35,13 @@ namespace VidCoder.DragDropUtils
 			this.top = top;
 			if (this.adornerLayer != null)
 			{
-				this.adornerLayer.Update(this.AdornedElement);
+				try
+				{
+					this.adornerLayer.Update(this.AdornedElement);
+				}
+				catch (InvalidOperationException)
+				{
+				}
 			}
 		}
 
