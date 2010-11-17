@@ -1022,6 +1022,25 @@
 			nativeJob.list_audio = nativeAudioList.ListPtr;
 			allocatedMemory.AddRange(nativeAudioList.AllocatedMemory);
 
+			// Create a new empty list
+			int totalSubtitles = 0;
+			if (job.Subtitles != null)
+			{
+				if (job.Subtitles.SourceSubtitles != null)
+				{
+					totalSubtitles += job.Subtitles.SourceSubtitles.Count;
+				}
+
+				if (job.Subtitles.SrtSubtitles != null)
+				{
+					totalSubtitles += job.Subtitles.SrtSubtitles.Count;
+				}
+			}
+
+			NativeList nativeSubtitleList = InteropUtilities.CreateNativeList(totalSubtitles + 2);
+			nativeJob.list_subtitle = nativeSubtitleList.ListPtr;
+			allocatedMemory.AddRange(nativeSubtitleList.AllocatedMemory);
+
 			if (job.Subtitles != null)
 			{
 				if (job.Subtitles.SourceSubtitles != null && job.Subtitles.SourceSubtitles.Count > 0)

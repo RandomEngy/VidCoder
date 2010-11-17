@@ -21,7 +21,6 @@ namespace VidCoder.Services
 		private Timer pollTimer;
 		private bool polling;
 		private bool encoding;
-		private bool paused;
 		private bool autoPaused;
 
 		private object syncLock = new object();
@@ -61,8 +60,6 @@ namespace VidCoder.Services
 		{
 			lock (this.syncLock)
 			{
-				this.paused = true;
-
 				// When manually pausing, we never resume automatically so we don't need to poll.
 				this.StopPolling();
 			}
@@ -72,7 +69,6 @@ namespace VidCoder.Services
 		{
 			lock (this.syncLock)
 			{
-				this.paused = false;
 				if (this.autoPaused)
 				{
 					// If forced to resume, disable auto-pausing
@@ -142,13 +138,17 @@ namespace VidCoder.Services
 		{
 			Process[] processes = this.processes.GetProcesses();
 			StringCollection autoPauseStringCollection = Settings.Default.AutoPauseProcesses;
-			foreach (string autoPauseProcessName in autoPauseStringCollection)
+
+			if (autoPauseStringCollection != null)
 			{
-				// If the process is present now but not when we started, pause it.
-				if (processes.Count(p => p.ProcessName == autoPauseProcessName) > 0 &&
-					!this.startingProcesses.Contains(autoPauseProcessName))
+				foreach (string autoPauseProcessName in autoPauseStringCollection)
 				{
-					return autoPauseProcessName;
+					// If the process is present now but not when we started, pause it.
+					if (processes.Count(p => p.ProcessName == autoPauseProcessName) > 0 &&
+						!this.startingProcesses.Contains(autoPauseProcessName))
+					{
+						return autoPauseProcessName;
+					}
 				}
 			}
 

@@ -43,6 +43,30 @@
 		}
 
 		/// <summary>
+		/// Creats a new, empty native HandBrake list.
+		/// </summary>
+		/// <returns>The new native list.</returns>
+		public static NativeList CreateNativeList(int capacity)
+		{
+			NativeList returnList = new NativeList();
+			int intSize = Marshal.SizeOf(typeof(IntPtr));
+
+			IntPtr nativeListInternal = Marshal.AllocHGlobal(capacity * intSize);
+			returnList.AllocatedMemory.Add(nativeListInternal);
+
+			hb_list_s nativeListStruct = new hb_list_s();
+			nativeListStruct.items = nativeListInternal;
+			nativeListStruct.items_alloc = capacity;
+			nativeListStruct.items_count = 0;
+
+			IntPtr nativeListStructPtr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(hb_list_s)));
+			Marshal.StructureToPtr(nativeListStruct, nativeListStructPtr, false);
+
+			returnList.ListPtr = nativeListStructPtr;
+			return returnList;
+		}
+
+		/// <summary>
 		/// Creates a native HandBrake list from the given managed list of pointers.
 		/// </summary>
 		/// <param name="list">The managed list to convert.</param>
