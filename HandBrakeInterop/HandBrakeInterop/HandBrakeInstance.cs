@@ -23,6 +23,11 @@
 		private const int PictureAutoSizeModulus = 2;
 
 		/// <summary>
+		/// Modulus used for picture size when using non-anamorphic.
+		/// </summary>
+		private const int NonAnamorphicAutoSizeModulus = 16;
+
+		/// <summary>
 		/// The number of MS between status polls when scanning.
 		/// </summary>
 		private const double ScanPollIntervalMs = 200;
@@ -519,7 +524,7 @@
 			if (job.EncodingProfile.Anamorphic == Anamorphic.None)
 			{
 				Title title = this.GetTitle(job.Title);
-				Size storageDimensions = this.CalculateNonAnamorphicOutput(job.EncodingProfile, title, job.EncodingProfile.Width, job.EncodingProfile.Height);
+				Size storageDimensions = CalculateNonAnamorphicOutput(job.EncodingProfile, title);
 
 				width = storageDimensions.Width;
 				height = storageDimensions.Height;
@@ -901,19 +906,9 @@
 				case Anamorphic.None:
 					nativeJob.anamorphic.mode = 0;
 
-					if (profile.KeepDisplayAspect)
-					{
-						if (profile.Width == 0 && profile.Height == 0 || profile.Width == 0)
-						{
-							width = (int)((double)height * this.GetTitle(job.Title).AspectRatio);
-							width = width - width % PictureAutoSizeModulus;
-						}
-						else if (profile.Height == 0)
-						{
-							height = (int)((double)width / this.GetTitle(job.Title).AspectRatio);
-							height = height - height % PictureAutoSizeModulus;
-						}
-					}
+					Size outputSize = CalculateNonAnamorphicOutput(profile, title);
+					width = outputSize.Width;
+					height = outputSize.Height;
 
 					nativeJob.anamorphic.keep_display_aspect = profile.KeepDisplayAspect ? 1 : 0;
 					break;
@@ -1405,14 +1400,36 @@
 		/// </summary>
 		/// <param name="profile">The encoding profile for the job.</param>
 		/// <param name="title">The title being encoded.</param>
-		/// <param name="width">The user-input width.</param>
-		/// <param name="height">The user-input height.</param>
 		/// <returns>The dimensions of the final encode.</returns>
-		private Size CalculateNonAnamorphicOutput(EncodingProfile profile, Title title, int width, int height)
+		private static Size CalculateNonAnamorphicOutput(EncodingProfile profile, Title title)
 		{
+			int sourceWidth = title.Resolution.Width;
+			int sourceHeight = title.Resolution.Height;
+
+			int width = profile.Width;
+			int height = profile.Height;
+
+			Cropping crop;
+			if (profile.CustomCropping)
+			{
+				crop = profile.Cropping;
+			}
+			else
+			{
+				crop = title.AutoCropDimensions;
+			}
+
+			sourceWidth -= crop.Left;
+			sourceWidth -= crop.Right;
+
+			sourceHeight -= crop.Top;
+			sourceHeight -= crop.Bottom;
+
+			double croppedAspectRatio = ((double)sourceWidth * title.ParVal.Width) / (sourceHeight * title.ParVal.Height);
+
 			if (width == 0)
 			{
-				width = title.Resolution.Width;
+				width = sourceWidth;
 			}
 
 			if (profile.MaxWidth > 0 && width > profile.MaxWidth)
@@ -1422,7 +1439,7 @@
 
 			if (height == 0)
 			{
-				height = title.Resolution.Height;
+				height = sourceHeight;
 			}
 
 			if (profile.MaxHeight > 0 && height > profile.MaxHeight)
@@ -1434,17 +1451,42 @@
 			{
 				if (profile.Width == 0 && profile.Height == 0 || profile.Width == 0)
 				{
-					width = (int)((double)height * title.AspectRatio);
-					width = width - width % PictureAutoSizeModulus;
+					width = (int)((double)height * croppedAspectRatio);
+					if (profile.MaxWidth > 0 && width > profile.MaxWidth)
+					{
+						width = profile.MaxWidth;
+						height = (int)((double)width / croppedAspectRatio);
+						height = GetNearestValue(height, PictureAutoSizeModulus);
+					}
+
+					width = GetNearestValue(width, PictureAutoSizeModulus);
 				}
 				else if (profile.Height == 0)
 				{
-					height = (int)((double)width / title.AspectRatio);
-					height = height - height % PictureAutoSizeModulus;
+					height = (int)((double)width / croppedAspectRatio);
+					if (profile.MaxHeight > 0 && height > profile.MaxHeight)
+					{
+						height = profile.MaxHeight;
+						width = (int)((double)height * croppedAspectRatio);
+						width = GetNearestValue(width, PictureAutoSizeModulus);
+					}
+
+					height = GetNearestValue(height, PictureAutoSizeModulus);
 				}
 			}
 
 			return new Size(width, height);
+		}
+
+		/// <summary>
+		/// Gets the closest value to the given number divisible by the given modulus.
+		/// </summary>
+		/// <param name="number">The number to approximate.</param>
+		/// <param name="modulus">The modulus.</param>
+		/// <returns>The closest value to the given number divisible by the given modulus.</returns>
+		private static int GetNearestValue(int number, int modulus)
+		{
+			return modulus * ((number + modulus / 2) / modulus);
 		}
 	}
 }
