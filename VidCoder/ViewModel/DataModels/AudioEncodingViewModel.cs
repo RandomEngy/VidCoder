@@ -196,6 +196,7 @@ namespace VidCoder.ViewModel
 				if (value != null)
 				{
 					this.encodingDialogVM.UpdateAudioEncodings();
+					this.RefreshBitrateChoices();
 					this.MarkModified();
 				}
 			}
@@ -421,27 +422,51 @@ namespace VidCoder.ViewModel
 			switch (this.SelectedAudioEncoder.Encoder)
 			{
 				case AudioEncoder.Faac:
-				case AudioEncoder.Lame:
-					this.BitrateChoices = new List<int> { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320 };
-					if (this.Bitrate > 160)
+					if (this.SelectedMixdown.Mixdown == Mixdown.SixChannelDiscrete)
 					{
-						this.Bitrate = 160;
+						this.SetMaxBitrate(768);
+					}
+					else
+					{
+						this.SetMaxBitrate(320);
 					}
 
+					break;
+				case AudioEncoder.Lame:
+					this.SetMaxBitrate(320);
 					break;
 				case AudioEncoder.Vorbis:
-					this.BitrateChoices = new List<int> { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384 };
-					if (this.Bitrate > 384)
-					{
-						this.Bitrate = 384;
-					}
-
+					this.SetMaxBitrate(384);
 					break;
 				case AudioEncoder.Ac3:
-					this.BitrateChoices = new List<int> { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384, 448, 640 };
+					this.SetMaxBitrate(640);
 					break;
 				default:
 					break;
+			}
+		}
+
+		private void SetMaxBitrate(int maxBitrate)
+		{
+			switch (maxBitrate)
+			{
+				case 320:
+					this.BitrateChoices = new List<int> { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320 };
+					break;
+				case 384:
+					this.BitrateChoices = new List<int> { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384 };
+					break;
+				case 640:
+					this.BitrateChoices = new List<int> { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384, 448, 640 };
+					break;
+				case 768:
+					this.BitrateChoices = new List<int> { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384, 448, 640, 768 };
+					break;
+			}
+
+			if (this.Bitrate > maxBitrate)
+			{
+				this.Bitrate = maxBitrate;
 			}
 		}
 
