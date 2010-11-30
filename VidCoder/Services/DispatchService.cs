@@ -10,22 +10,24 @@ namespace VidCoder.Services
 {
 	public static class DispatchService
 	{
-		private static Dispatcher dispatchObject = Unity.Container.Resolve<Dispatcher>();
-
 		public static void Invoke(Action action)
 		{
+			Dispatcher dispatchObject = VidCoder.View.MainWindow.TheWindow.Dispatcher;
+
 			if (dispatchObject == null || dispatchObject.CheckAccess())
-			{
-				action();
-			}
-			else
-			{
-				dispatchObject.Invoke(action);
-			}
+		    {
+		        action();
+		    }
+		    else
+		    {
+		        dispatchObject.Invoke(action);
+		    }
 		}
 
 		public static void BeginInvoke(Action action)
 		{
+			Dispatcher dispatchObject = VidCoder.View.MainWindow.TheWindow.Dispatcher;
+
 			dispatchObject.BeginInvoke(action);
 		}
 	}

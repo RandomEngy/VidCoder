@@ -39,6 +39,19 @@ namespace VidCoder
 			}
 		}
 
+		public static string Architecture
+		{
+			get
+			{
+				if (IntPtr.Size == 4)
+				{
+					return "x86";
+				}
+
+				return "x64";
+			}
+		}
+
 		public static int CompareVersions(string versionA, string versionB)
 		{
 			string[] stringPartsA = versionA.Split('.');

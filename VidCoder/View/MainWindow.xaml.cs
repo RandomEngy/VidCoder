@@ -43,6 +43,8 @@ namespace VidCoder.View
 
 		public static MainWindow TheWindow;
 
+		public static System.Windows.Threading.Dispatcher TheDispatcher;
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -51,8 +53,9 @@ namespace VidCoder.View
 			this.LoadCompletedColumnWidths();
 
 			this.DataContextChanged += OnDataContextChanged;
-			Unity.Container.RegisterInstance(this.Dispatcher);
-			//DispatchService.DispatchObject = this.Dispatcher;
+			TheDispatcher = this.Dispatcher;
+			//Unity.Container.RegisterInstance(this.Dispatcher);
+			
 			TheWindow = this;
 
 			this.presetGlowEffect.Opacity = 0.0;

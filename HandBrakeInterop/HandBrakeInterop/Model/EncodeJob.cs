@@ -53,6 +53,7 @@ namespace HandBrake.Interop
 				SourceType = this.SourceType,
 				SourcePath = this.SourcePath,
 				Title = this.Title,
+				Angle = this.Angle,
 				ChapterStart = this.ChapterStart,
 				ChapterEnd = this.ChapterEnd,
 				ChosenAudioTracks = new List<int>(this.ChosenAudioTracks),

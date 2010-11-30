@@ -242,8 +242,13 @@ namespace HandBrake.Interop
 		public uint frames_to_skip;
 
 		// Padding for the part of the struct we don't care about marshaling.
+#if X64
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 24692, ArraySubType = UnmanagedType.U1)]
+		public byte[] padding;
+#else
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 24644, ArraySubType = UnmanagedType.U1)]
 		public byte[] padding;
+#endif
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
@@ -909,7 +914,7 @@ namespace HandBrake.Interop
 		public int default_track;
 
 		/// char[128]
-		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
 		public string src_filename;
 
 		/// char[40]

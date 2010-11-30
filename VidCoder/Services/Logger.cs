@@ -31,7 +31,7 @@ namespace VidCoder.Services
 			this.logFile = new StreamWriter(logFilePath);
 
 			this.logBuilder = new StringBuilder();
-			this.RecordMessage("## VidCoder " + Utilities.CurrentVersion);
+			this.RecordMessage("## VidCoder " + Utilities.CurrentVersion + " (" + Utilities.Architecture + ")");
 		}
 
 		public string LogText

@@ -210,15 +210,25 @@ namespace VidCoder.Services
 				XDocument document = XDocument.Load(Utilities.UpdateInfoUrl);
 				XElement root = document.Root;
 
-				XElement releaseElement = root.Element("Release");
-				if (releaseElement == null)
+				string configurationElementName;
+				if (IntPtr.Size == 4)
+				{
+					configurationElementName = "Release";
+				}
+				else
+				{
+					configurationElementName = "Release-x64";
+				}
+
+				XElement configurationElement = root.Element(configurationElementName);
+				if (configurationElement == null)
 				{
 					return;
 				}
 
-				XElement latestElement = releaseElement.Element("Latest");
-				XElement downloadElement = releaseElement.Element("DownloadLocation");
-				XElement changelogLinkElement = releaseElement.Element("ChangelogLocation");
+				XElement latestElement = configurationElement.Element("Latest");
+				XElement downloadElement = configurationElement.Element("DownloadLocation");
+				XElement changelogLinkElement = configurationElement.Element("ChangelogLocation");
 
 				if (latestElement == null || downloadElement == null || changelogLinkElement == null)
 				{
