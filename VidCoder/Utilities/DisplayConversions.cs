@@ -36,6 +36,7 @@ namespace VidCoder
 				case "h264":
 					return "H.264";
 				case "mpeg2":
+				case "mpeg2video":
 					return "MPEG-2";
 			}
 

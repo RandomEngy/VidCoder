@@ -1328,5 +1328,14 @@ namespace HandBrake.Interop
 
 		[DllImport("hb.dll", EntryPoint = "hb_srt_add", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int hb_srt_add(ref hb_job_s job, ref hb_subtitle_config_s subtitleConfig, string lang);
+
+		[DllImport("hb.dll", EntryPoint = "hb_get_default_mixdown", CallingConvention = CallingConvention.Cdecl)]
+		public static extern int hb_get_default_mixdown(uint codec, int layout);
+
+		[DllImport("hb.dll", EntryPoint = "hb_get_best_mixdown", CallingConvention = CallingConvention.Cdecl)]
+		public static extern int hb_get_best_mixdown(uint codec, int layout, int mixdown);
+
+		[DllImport("hb.dll", EntryPoint = "hb_get_audio_bitrate_limits", CallingConvention = CallingConvention.Cdecl)]
+		public static extern int hb_get_audio_bitrate_limits(uint codec, int samplerate, int mixdown, ref int low, ref int high);
 	}
 }

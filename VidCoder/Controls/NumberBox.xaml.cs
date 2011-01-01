@@ -19,7 +19,6 @@ namespace VidCoder.Controls
 	/// </summary>
 	public partial class NumberBox : UserControl
 	{
-		private bool allowEmpty;
 		private bool allowNegative;
 		private string noneCaption;
 
@@ -28,7 +27,6 @@ namespace VidCoder.Controls
 		public NumberBox()
 		{
 			this.noneCaption = "(none)";
-			this.allowEmpty = true;
 			this.Minimum = int.MinValue;
 			this.Maximum = int.MaxValue;
 
@@ -75,17 +73,21 @@ namespace VidCoder.Controls
 			}
 		}
 
+		public static readonly DependencyProperty AllowEmptyProperty = DependencyProperty.Register(
+			"AllowEmpty",
+			typeof(bool),
+			typeof(NumberBox),
+			new PropertyMetadata(true, new PropertyChangedCallback(OnAllowEmptyChanged)));
 		public bool AllowEmpty
 		{
 			get
 			{
-				return this.allowEmpty;
+				return (bool)GetValue(AllowEmptyProperty);
 			}
 
 			set
 			{
-				this.allowEmpty = value;
-				this.RefreshNumberBox();
+				SetValue(AllowEmptyProperty, value);
 			}
 		}
 
@@ -112,6 +114,12 @@ namespace VidCoder.Controls
 			{
 				numBox.RefreshNumberBox();
 			}
+		}
+
+		private static void OnAllowEmptyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+		{
+			var numBox = dependencyObject as NumberBox;
+			numBox.RefreshNumberBox();
 		}
 
 		private void numberBox_GotFocus(object sender, RoutedEventArgs e)
@@ -143,7 +151,7 @@ namespace VidCoder.Controls
 
 			if (int.TryParse(this.numberBox.Text, out newNumber))
 			{
-				if (this.AllowNegative || newNumber >= 0)
+				if (this.NumberIsValid(newNumber))
 				{
 					if (this.Modulus != 0)
 					{
@@ -203,7 +211,7 @@ namespace VidCoder.Controls
 
 			if (int.TryParse(this.numberBox.Text, out newNumber))
 			{
-				if ((this.AllowNegative || newNumber >= 0) && (newNumber >= this.Minimum) && (newNumber <= this.Maximum))
+				if (this.NumberIsValid(newNumber))
 				{
 					if (this.Modulus != 0)
 					{
@@ -213,6 +221,11 @@ namespace VidCoder.Controls
 					this.Number = newNumber;
 				}
 			}
+		}
+
+		private bool NumberIsValid(int number)
+		{
+			return (this.AllowNegative || number >= 0) && (number >= this.Minimum) && (number <= this.Maximum);
 		}
 
 		private int GetNearestValue(int number, int modulus)

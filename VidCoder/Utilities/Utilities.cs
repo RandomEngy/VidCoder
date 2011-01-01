@@ -318,6 +318,11 @@ namespace VidCoder
 			return true;
 		}
 
+		public static bool IsPassthrough(AudioEncoder encoder)
+		{
+			return encoder == AudioEncoder.Passthrough || encoder == AudioEncoder.Ac3Passthrough || encoder == AudioEncoder.DtsPassthrough;
+		}
+
 		private static bool IsExcluded(string candidate, HashSet<string> exclusionList)
 		{
 			return exclusionList.Contains(candidate.ToLowerInvariant());

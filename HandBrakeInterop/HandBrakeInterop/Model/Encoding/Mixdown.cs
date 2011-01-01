@@ -11,6 +11,9 @@ namespace HandBrake.Interop
 		[Display(Name = "Dolby Pro Logic II")]
 		DolbyProLogicII = 0,
 
+		[Display(Name = "Auto")]
+		Auto,
+
 		[Display(Name = "Mono")]
 		Mono,
 

@@ -98,16 +98,6 @@
 		private List<IntPtr> encodeAllocatedMemory;
 
 		/// <summary>
-		/// The callback for log messages from HandBrake.
-		/// </summary>
-		private static LoggingCallback loggingCallback;
-
-		/// <summary>
-		/// The callback for error messages from HandBrake.
-		/// </summary>
-		private static LoggingCallback errorCallback;
-
-		/// <summary>
 		/// Fires for progress updates when scanning.
 		/// </summary>
 		public event EventHandler<ScanProgressEventArgs> ScanProgress;
@@ -126,16 +116,6 @@
 		/// Fires when an encode has completed.
 		/// </summary>
 		public event EventHandler<EncodeCompletedEventArgs> EncodeCompleted;
-
-		/// <summary>
-		/// Fires when HandBrake has logged a message.
-		/// </summary>
-		public static event EventHandler<MessageLoggedEventArgs> MessageLogged;
-
-		/// <summary>
-		/// Fires when HandBrake has logged an error.
-		/// </summary>
-		public static event EventHandler<MessageLoggedEventArgs> ErrorLogged;
 
 		/// <summary>
 		/// Destructor.
@@ -184,56 +164,8 @@
 		/// <param name="verbosity"></param>
 		public void Initialize(int verbosity)
 		{
-			// Register the logger if we have not already
-			if (loggingCallback == null)
-			{
-				// Keep the callback as a member to prevent it from being garbage collected.
-				loggingCallback = new LoggingCallback(HandBrakeInstance.LoggingHandler);
-				errorCallback = new LoggingCallback(HandBrakeInstance.ErrorHandler);
-				HbLib.hb_register_logger(loggingCallback);
-				HbLib.hb_register_error_handler(errorCallback);
-			}
-
+			HandBrakeUtils.RegisterLogger();
 			this.hbHandle = HbLib.hb_init(verbosity, update_check: 0);
-		}
-
-		/// <summary>
-		/// Handles log messages from HandBrake.
-		/// </summary>
-		/// <param name="message">The log message (including newline).</param>
-		public static void LoggingHandler(string message)
-		{
-			if (!string.IsNullOrEmpty(message))
-			{
-				string[] messageParts = message.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
-
-				if (messageParts.Length > 0)
-				{
-					if (MessageLogged != null)
-					{
-						MessageLogged(null, new MessageLoggedEventArgs { Message = messageParts[0] });
-					}
-
-					System.Diagnostics.Debug.WriteLine(messageParts[0]);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Handles errors from HandBrake.
-		/// </summary>
-		/// <param name="message">The error message.</param>
-		public static void ErrorHandler(string message)
-		{
-			if (!string.IsNullOrEmpty(message))
-			{
-				if (ErrorLogged != null)
-				{
-					ErrorLogged(null, new MessageLoggedEventArgs { Message = message });
-				}
-
-				System.Diagnostics.Debug.WriteLine("ERROR: " + message);
-			}
 		}
 
 		/// <summary>
@@ -328,15 +260,6 @@
 				try
 				{
 					bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
-				}
-				catch (ExternalException)
-				{
-					if (ErrorLogged != null)
-					{
-						ErrorLogged(this, new MessageLoggedEventArgs { Message = "# ERROR: Could not load bitmap." });
-					}
-
-					return null;
 				}
 				finally
 				{
@@ -879,9 +802,12 @@
 			int width = profile.Width;
 			int height = profile.Height;
 
+			int cropHorizontal = crop.Left + crop.Right;
+			int cropVertical = crop.Top + crop.Bottom;
+
 			if (width == 0)
 			{
-				width = title.Resolution.Width;
+				width = title.Resolution.Width - cropHorizontal;
 			}
 
 			if (profile.MaxWidth > 0 && width > profile.MaxWidth)
@@ -891,7 +817,7 @@
 
 			if (height == 0)
 			{
-				height = title.Resolution.Height;
+				height = title.Resolution.Height - cropVertical;
 			}
 
 			if (profile.MaxHeight > 0 && height > profile.MaxHeight)
@@ -927,7 +853,28 @@
 					{
 						if (profile.KeepDisplayAspect)
 						{
-							height = (int)((double)profile.DisplayWidth / this.GetTitle(job.Title).AspectRatio);
+							int cropWidth = title.Resolution.Width - cropHorizontal;
+							int cropHeight = title.Resolution.Height - cropVertical;
+
+							double displayAspect = ((double)(cropWidth * title.ParVal.Width)) / (cropHeight * title.ParVal.Height);
+							int displayWidth = profile.DisplayWidth;
+
+							if (profile.Height > 0)
+							{
+								displayWidth = (int)((double)profile.Height * displayAspect);
+							}
+							else if (displayWidth > 0)
+							{
+								height = (int)((double)displayWidth / displayAspect);
+							}
+							else
+							{
+								displayWidth = (int)((double)cropHeight * displayAspect);
+							}
+
+							nativeJob.anamorphic.dar_width = profile.DisplayWidth;
+							nativeJob.anamorphic.dar_height = height;
+							nativeJob.anamorphic.keep_display_aspect = 1;
 						}
 
 						nativeJob.anamorphic.dar_width = profile.DisplayWidth;
@@ -1210,61 +1157,47 @@
 			//nativeAudio.config.input.track = track;
 			nativeAudio.config.output.track = outputTrack;
 
-			switch (encoding.Encoder)
+			if (encoding.Encoder == AudioEncoder.Passthrough)
 			{
-				case AudioEncoder.Ac3Passthrough:
-					nativeAudio.config.output.codec = NativeConstants.HB_ACODEC_AC3_PASS;
-					break;
-				case AudioEncoder.DtsPassthrough:
+				// If we've been given a general "Passthrough" codec, see if it's valid for this input track.
+				if ((baseStruct.config.input.codec & NativeConstants.HB_ACODEC_PASS_MASK) > 0)
+				{
+					// We can do passthrough for this input.
+					nativeAudio.config.output.codec = nativeAudio.config.input.codec | NativeConstants.HB_ACODEC_PASS_FLAG;
+				}
+				else
+				{
+					// We can't do passthrough for this input. Set it to a DTS passthrough, which will cause the track to be dropped.
 					nativeAudio.config.output.codec = NativeConstants.HB_ACODEC_DCA_PASS;
-					break;
-				case AudioEncoder.Faac:
-					nativeAudio.config.output.codec = NativeConstants.HB_ACODEC_FAAC;
-					break;
-				case AudioEncoder.Lame:
-					nativeAudio.config.output.codec = NativeConstants.HB_ACODEC_LAME;
-					break;
-				case AudioEncoder.Ac3:
-					nativeAudio.config.output.codec = NativeConstants.HB_ACODEC_AC3;
-					break;
-				case AudioEncoder.Vorbis:
-					nativeAudio.config.output.codec = NativeConstants.HB_ACODEC_VORBIS;
-					break;
-				default:
-					break;
-			}
-
-			nativeAudio.config.output.bitrate = encoding.Bitrate;
-			nativeAudio.config.output.dynamic_range_compression = 0.0;
-
-			switch (encoding.Mixdown)
-			{
-				case Mixdown.DolbyProLogicII:
-					nativeAudio.config.output.mixdown = NativeConstants.HB_AMIXDOWN_DOLBYPLII;
-					break;
-				case Mixdown.DolbySurround:
-					nativeAudio.config.output.mixdown = NativeConstants.HB_AMIXDOWN_DOLBY;
-					break;
-				case Mixdown.Mono:
-					nativeAudio.config.output.mixdown = NativeConstants.HB_AMIXDOWN_MONO;
-					break;
-				case Mixdown.SixChannelDiscrete:
-					nativeAudio.config.output.mixdown = NativeConstants.HB_AMIXDOWN_6CH;
-					break;
-				case Mixdown.Stereo:
-					nativeAudio.config.output.mixdown = NativeConstants.HB_AMIXDOWN_STEREO;
-					break;
-				default:
-					break;
-			}
-
-			if (encoding.SampleRateRaw == 0)
-			{
-				nativeAudio.config.output.samplerate = nativeAudio.config.input.samplerate;
+				}
 			}
 			else
 			{
-				nativeAudio.config.output.samplerate = encoding.SampleRateRaw;
+				nativeAudio.config.output.codec = Converters.AudioCodecToNative(encoding.Encoder);
+			}
+
+			if (encoding.Encoder != AudioEncoder.Passthrough && encoding.Encoder != AudioEncoder.Ac3Passthrough && encoding.Encoder != AudioEncoder.DtsPassthrough)
+			{
+				nativeAudio.config.output.bitrate = encoding.Bitrate;
+				nativeAudio.config.output.dynamic_range_compression = 0.0;
+
+				if (encoding.Mixdown == Mixdown.Auto)
+				{
+					nativeAudio.config.output.mixdown = HbLib.hb_get_default_mixdown(nativeAudio.config.output.codec, nativeAudio.config.input.channel_layout);
+				}
+				else
+				{
+					nativeAudio.config.output.mixdown = Converters.MixdownToNative(encoding.Mixdown);
+				}
+
+				if (encoding.SampleRateRaw == 0)
+				{
+					nativeAudio.config.output.samplerate = nativeAudio.config.input.samplerate;
+				}
+				else
+				{
+					nativeAudio.config.output.samplerate = encoding.SampleRateRaw;
+				}
 			}
 
 			nativeAudio.padding = new byte[24600];

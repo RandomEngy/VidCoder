@@ -8,11 +8,14 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Threading;
 using HandBrake.Interop;
+using System.Globalization;
 
 namespace VidCoder.Model
 {
 	public static class Presets
 	{
+		private const int CurrentPresetVersion = 3;
+
 		private static readonly string UserPresetsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"VidCoder\UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
 		private static XmlSerializer presetListSerializer = new XmlSerializer(typeof(List<Preset>));
@@ -106,24 +109,31 @@ namespace VidCoder.Model
 				return null;
 			}
 
-			XDocument doc = XDocument.Load(presetFile);
-			if (doc.Element("UserPreset") == null)
+			try
 			{
-				return null;
-			}
-
-			XElement presetElement = doc.Element("UserPreset").Element("Preset");
-			int version = int.Parse(doc.Element("UserPreset").Attribute("Version").Value);
-
-			using (XmlReader reader = presetElement.CreateReader())
-			{
-				var preset = presetSerializer.Deserialize(reader) as Preset;
-				if (version == 1)
+				XDocument doc = XDocument.Load(presetFile);
+				if (doc.Element("UserPreset") == null)
 				{
-					UpgradePreset(preset);
+					return null;
 				}
 
-				return preset;
+				XElement presetElement = doc.Element("UserPreset").Element("Preset");
+				int version = int.Parse(doc.Element("UserPreset").Attribute("Version").Value);
+
+				using (XmlReader reader = presetElement.CreateReader())
+				{
+					var preset = presetSerializer.Deserialize(reader) as Preset;
+					if (version < CurrentPresetVersion)
+					{
+						UpgradePreset(preset);
+					}
+
+					return preset;
+				}
+			}
+			catch (XmlException)
+			{
+				return null;
 			}
 		}
 
@@ -136,6 +146,14 @@ namespace VidCoder.Model
 					double sampleRate = double.Parse(audioEncoding.SampleRate);
 					audioEncoding.SampleRateRaw = (int)(sampleRate * 1000);
 					audioEncoding.SampleRate = null;
+				}
+
+				if (preset.EncodingProfile.OutputFormat == OutputFormat.Mkv)
+				{
+					if (audioEncoding.Encoder == AudioEncoder.Ac3Passthrough || audioEncoding.Encoder == AudioEncoder.DtsPassthrough)
+					{
+						audioEncoding.Encoder = AudioEncoder.Passthrough;
+					}
 				}
 			}
 		}
@@ -160,7 +178,7 @@ namespace VidCoder.Model
 					XElement element = XElement.Parse(listItem.Item2);
 					XDocument doc = new XDocument(
 						new XElement("UserPreset",
-							new XAttribute("Version", "2"),
+							new XAttribute("Version", CurrentPresetVersion.ToString(CultureInfo.InvariantCulture)),
 							element));
 
 					doc.Save(FindUserPresetPath(listItem.Item1));

@@ -17,10 +17,13 @@ namespace HandBrake.Interop
 		[Display(Name = "AC3 (ffmpeg)")]
 		Ac3,
 
-		[Display(Name = "AC3 Passthrough")]
+		[Display(Name = "Passthrough (AC3/DTS)")]
+		Passthrough,
+
+		[Display(Name = "Passthrough (AC3)")]
 		Ac3Passthrough,
 
-		[Display(Name = "DTS Passthrough")]
+		[Display(Name = "Passthrough (DTS)")]
 		DtsPassthrough,
 
 		[Display(Name = "Vorbis (vorbis)")]

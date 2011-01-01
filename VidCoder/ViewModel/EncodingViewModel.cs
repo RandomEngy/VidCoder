@@ -839,11 +839,6 @@ namespace VidCoder.ViewModel
 					return true;
 				}
 
-				if (this.Anamorphic == Anamorphic.Custom && !this.UseDisplayWidth)
-				{
-					return false;
-				}
-
 				return this.profile.KeepDisplayAspect;
 			}
 
@@ -851,8 +846,22 @@ namespace VidCoder.ViewModel
 			{
 				this.profile.KeepDisplayAspect = value;
 				this.NotifyPropertyChanged("KeepDisplayAspect");
+				this.NotifyPropertyChanged("PixelAspectVisibile");
 				this.RefreshOutputSize();
 				this.UpdatePreviewWindow();
+				if (this.Anamorphic == Anamorphic.Custom)
+				{
+					if (value && !this.UseDisplayWidth)
+					{
+						this.UseDisplayWidth = true;
+					}
+
+					if (this.UseDisplayWidth && this.DisplayWidth == 0)
+					{
+						this.PopulateDisplayWidth();
+					}
+				}
+
 				this.IsModified = true;
 			}
 		}
@@ -861,7 +870,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.Anamorphic == Anamorphic.Strict || this.Anamorphic == Anamorphic.Loose || this.Anamorphic == Anamorphic.Custom && !this.UseDisplayWidth)
+				if (this.Anamorphic == Anamorphic.Strict || this.Anamorphic == Anamorphic.Loose)
 				{
 					return false;
 				}
@@ -886,13 +895,24 @@ namespace VidCoder.ViewModel
 					this.KeepDisplayAspect = true;
 				}
 
-				if (this.profile.Anamorphic == Anamorphic.Custom && !this.profile.UseDisplayWidth)
+				if (this.profile.Anamorphic == Anamorphic.Custom)
 				{
-					this.PopulatePixelAspect();
+					this.KeepDisplayAspect = true;
+					this.UseDisplayWidth = true;
+
+					//if (this.profile.UseDisplayWidth)
+					//{
+					//    this.PopulateDisplayWidth();
+					//}
+					//else
+					//{
+					//    this.PopulatePixelAspect();
+					//}
 				}
 
 				this.NotifyPropertyChanged("Anamorphic");
 				this.NotifyPropertyChanged("CustomAnamorphicFieldsVisible");
+				this.NotifyPropertyChanged("PixelAspectVisibile");
 				this.NotifyPropertyChanged("KeepDisplayAspect");
 				this.NotifyPropertyChanged("KeepDisplayAspectEnabled");
 				this.NotifyPropertyChanged("WidthEnabled");
@@ -936,7 +956,11 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.profile.UseDisplayWidth = value;
-				if (!value)
+				if (value)
+				{
+					this.PopulateDisplayWidth();
+				}
+				else
 				{
 					this.PopulatePixelAspect();
 				}
@@ -967,6 +991,19 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool PixelAspectVisibile
+		{
+			get
+			{
+				if (!this.CustomAnamorphicFieldsVisible)
+				{
+					return false;
+				}
+
+				return !this.KeepDisplayAspect;
+			}
+		}
+
 		public int PixelAspectX
 		{
 			get
@@ -976,11 +1013,14 @@ namespace VidCoder.ViewModel
 
 			set
 			{
-				this.profile.PixelAspectX = value;
-				this.NotifyPropertyChanged("PixelAspectX");
-				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
-				this.IsModified = true;
+				if (this.profile.PixelAspectX != value)
+				{
+					this.profile.PixelAspectX = value;
+					this.NotifyPropertyChanged("PixelAspectX");
+					this.RefreshOutputSize();
+					this.UpdatePreviewWindow();
+					this.IsModified = true;
+				}
 			}
 		}
 
@@ -993,11 +1033,14 @@ namespace VidCoder.ViewModel
 
 			set
 			{
-				this.profile.PixelAspectY = value;
-				this.NotifyPropertyChanged("PixelAspectY");
-				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
-				this.IsModified = true;
+				if (this.profile.PixelAspectY != value)
+				{
+					this.profile.PixelAspectY = value;
+					this.NotifyPropertyChanged("PixelAspectY");
+					this.RefreshOutputSize();
+					this.UpdatePreviewWindow();
+					this.IsModified = true;
+				}
 			}
 		}
 
@@ -1821,7 +1864,7 @@ namespace VidCoder.ViewModel
 								Encoder = DisplayConversions.DisplayAudioEncoder(encoder)
 							};
 
-							if (encoder != AudioEncoder.Ac3Passthrough && encoder != AudioEncoder.DtsPassthrough)
+							if (!Utilities.IsPassthrough(encoder))
 							{
 								outputPreviewTrack.Bitrate = audioVM.Bitrate + " kbps";
 							}
@@ -1841,7 +1884,7 @@ namespace VidCoder.ViewModel
 							Encoder = DisplayConversions.DisplayAudioEncoder(encoder)
 						};
 
-						if (encoder != AudioEncoder.Ac3Passthrough && encoder != AudioEncoder.DtsPassthrough)
+						if (!Utilities.IsPassthrough(encoder))
 						{
 							outputPreviewTrack.Bitrate = audioVM.Bitrate + " kbps";
 						}
@@ -2509,6 +2552,7 @@ namespace VidCoder.ViewModel
 			this.NotifyPropertyChanged("DisplayWidth");
 			this.NotifyPropertyChanged("PixelAspectX");
 			this.NotifyPropertyChanged("PixelAspectY");
+			this.NotifyPropertyChanged("PixelAspectVisibile");
 			this.NotifyPropertyChanged("CustomCropping");
 			this.NotifyPropertyChanged("CropLeft");
 			this.NotifyPropertyChanged("CropTop");
@@ -2566,6 +2610,29 @@ namespace VidCoder.ViewModel
 
 			this.NotifyPropertyChanged("PixelAspectX");
 			this.NotifyPropertyChanged("PixelAspectY");
+		}
+
+		private void PopulateDisplayWidth()
+		{
+			if (this.KeepDisplayAspect)
+			{
+				// Let display width be "auto" if we're set to keep the aspect ratio
+				this.profile.DisplayWidth = 0;
+			}
+			else
+			{
+				// Populate it with something sensible if the set display width must be used
+				if (this.SelectedTitle == null)
+				{
+					this.profile.DisplayWidth = 853;
+				}
+				else
+				{
+					this.profile.DisplayWidth = (int)Math.Round(((double)((this.SelectedTitle.Resolution.Width - this.CropLeft - this.CropRight) * this.SelectedTitle.ParVal.Width)) / this.SelectedTitle.ParVal.Height);
+				}
+			}
+
+			this.NotifyPropertyChanged("DisplayWidth");
 		}
 
 		private string CreateParDisplayString(int parWidth, int parHeight)

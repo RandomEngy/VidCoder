@@ -44,7 +44,7 @@
 					<Encoder>Faac</Encoder>
 					<Bitrate>160</Bitrate>
 					<Mixdown>DolbyProLogicII</Mixdown>
-					<SampleRateRaw>48000</SampleRateRaw>
+					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
 			</AudioEncodings>
@@ -100,7 +100,7 @@
 					<Encoder>Faac</Encoder>
 					<Bitrate>160</Bitrate>
 					<Mixdown>DolbyProLogicII</Mixdown>
-					<SampleRateRaw>48000</SampleRateRaw>
+					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
 				<AudioEncoding>
@@ -164,7 +164,7 @@
 					<Encoder>Faac</Encoder>
 					<Bitrate>160</Bitrate>
 					<Mixdown>DolbyProLogicII</Mixdown>
-					<SampleRateRaw>48000</SampleRateRaw>
+					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
 				<AudioEncoding>
@@ -228,7 +228,7 @@
 					<Encoder>Faac</Encoder>
 					<Bitrate>160</Bitrate>
 					<Mixdown>DolbyProLogicII</Mixdown>
-					<SampleRateRaw>48000</SampleRateRaw>
+					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
 			</AudioEncodings>
@@ -285,7 +285,7 @@
 					<Encoder>Faac</Encoder>
 					<Bitrate>128</Bitrate>
 					<Mixdown>DolbyProLogicII</Mixdown>
-					<SampleRateRaw>48000</SampleRateRaw>
+					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
 			</AudioEncodings>
@@ -342,7 +342,7 @@
 					<Encoder>Faac</Encoder>
 					<Bitrate>128</Bitrate>
 					<Mixdown>DolbyProLogicII</Mixdown>
-					<SampleRateRaw>48000</SampleRateRaw>
+					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
 			</AudioEncodings>
@@ -399,7 +399,7 @@
 					<Encoder>Faac</Encoder>
 					<Bitrate>160</Bitrate>
 					<Mixdown>DolbyProLogicII</Mixdown>
-					<SampleRateRaw>48000</SampleRateRaw>
+					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
 				<AudioEncoding>

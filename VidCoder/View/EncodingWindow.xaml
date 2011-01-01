@@ -88,7 +88,7 @@
 			</ComboBox>
 		</DataTemplate>
 		<DataTemplate x:Key="AudioCodecTemplate">
-			<ComboBox Width="120"
+			<ComboBox Width="150"
 				ItemsSource="{Binding AudioEncoders}"
 				SelectedItem="{Binding SelectedAudioEncoder}"
 				DisplayMemberPath="Display"/>
@@ -282,11 +282,11 @@
 							Style="{StaticResource SectionHeader}" />
 						<Label HorizontalAlignment="Left" Margin="45,22,0,0" Name="label1" Width="47" Height="27.04" VerticalAlignment="Top">Width:</Label>
 						<controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="90,25,0,0" VerticalAlignment="Top" Width="55"
-							Number="{Binding Width, Mode=TwoWay}" NoneCaption="(not set)" Modulus="2" Minimum="32" Maximum="3712"
+							Number="{Binding Width, Mode=TwoWay}" NoneCaption="(auto)" Modulus="2" Minimum="32" Maximum="3712"
 							IsEnabled="{Binding WidthEnabled}"/>
 						<Label HorizontalAlignment="Left" Margin="176,22,0,0" Name="label2" Width="49.2" Height="27.04" VerticalAlignment="Top">Height:</Label>
 						<controls:NumberBox Height="23" Margin="226,25,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="55"
-							Number="{Binding Height, Mode=TwoWay}" NoneCaption="(not set)" Modulus="2" Minimum="32" Maximum="3712"
+							Number="{Binding Height, Mode=TwoWay}" NoneCaption="(auto)" Modulus="2" Minimum="32" Maximum="3712"
 							IsEnabled="{Binding HeightEnabled}"/>
 						<Label HorizontalAlignment="Left" Margin="20,49,0,0" Name="label3" Width="77" Height="26" VerticalAlignment="Top">Max Width:</Label>
 						<controls:NumberBox HorizontalAlignment="Left" Margin="90,54,0,0" Width="55" Height="23" VerticalAlignment="Top"
@@ -334,23 +334,23 @@
 							Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
 							IsChecked="{Binding UseDisplayWidth}">Display Width:</RadioButton>
 						<controls:NumberBox
-							Height="23" HorizontalAlignment="Left" Margin="155,156,0,0" VerticalAlignment="Top" Width="55"
-							Number="{Binding DisplayWidth, Mode=TwoWay}" AllowEmpty="False" Minimum="16"
+							Height="23" HorizontalAlignment="Left" Margin="155,156,0,0" VerticalAlignment="Top" Width="55" NoneCaption="(auto)"
+							Number="{Binding DisplayWidth, Mode=TwoWay}" AllowEmpty="{Binding KeepDisplayAspect}" Minimum="32"
 							Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
 							IsEnabled="{Binding UseDisplayWidth}" />
 
 						<RadioButton Margin="37,185,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="119"
-							Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
+							Visibility="{Binding PixelAspectVisibile, Converter={StaticResource VisibilityConverter}}"
 							IsChecked="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}">Pixel Aspect Ratio:</RadioButton>
 						<controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="155,183,0,0" VerticalAlignment="Top" Width="40.698"
 							Number="{Binding PixelAspectX, Mode=TwoWay}" AllowEmpty="False"
-							Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
+							Visibility="{Binding PixelAspectVisibile, Converter={StaticResource VisibilityConverter}}"
 							IsEnabled="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}"/>
 						<Label Height="23.562" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="198,181.356,0,0" Name="label5" VerticalAlignment="Top" Width="16.422"
-							Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}">/</Label>
+							Visibility="{Binding PixelAspectVisibile, Converter={StaticResource VisibilityConverter}}">/</Label>
 						<controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="215,183,0,0" VerticalAlignment="Top" Width="40.698"
 							Number="{Binding PixelAspectY, Mode=TwoWay}" AllowEmpty="False"
-							Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
+							Visibility="{Binding PixelAspectVisibile, Converter={StaticResource VisibilityConverter}}"
 							IsEnabled="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}"/>
 					</Grid>
 

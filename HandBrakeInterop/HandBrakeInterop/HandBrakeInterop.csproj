@@ -127,6 +127,7 @@
     <Compile Include="Converters.cs" />
     <Compile Include="EncodeCompletedEventArgs.cs" />
     <Compile Include="EncodeProgressEventArgs.cs" />
+    <Compile Include="HandBrakeUtils.cs" />
     <Compile Include="HandBrakeInstance.cs" />
     <Compile Include="HbLib.cs" />
     <Compile Include="InteropUtilities.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Model\Encoding\OutputFormat.cs" />
     <Compile Include="Model\Encoding\VideoEncoder.cs" />
     <Compile Include="Model\Encoding\VideoEncodeRateType.cs" />
+    <Compile Include="Model\Limits.cs" />
     <Compile Include="Model\Size.cs" />
     <Compile Include="Model\SourceSubtitle.cs" />
     <Compile Include="Model\SourceType.cs" />
@@ -163,6 +165,7 @@
     <Compile Include="SourceData\SubtitleSource.cs" />
     <Compile Include="SourceData\SubtitleType.cs" />
     <Compile Include="SourceData\Title.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

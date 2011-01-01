@@ -76,7 +76,7 @@ namespace VidCoder.ViewModel
 				AudioEncoder encoder = this.SelectedAudioEncoder.Encoder;
 				newAudioEncoding.Encoder = encoder;
 
-				if (encoder != AudioEncoder.Ac3Passthrough && encoder != AudioEncoder.DtsPassthrough)
+				if (!IsPassthrough(encoder))
 				{
 					newAudioEncoding.Mixdown = this.SelectedMixdown.Mixdown;
 					newAudioEncoding.Bitrate = this.Bitrate;
@@ -145,7 +145,7 @@ namespace VidCoder.ViewModel
 				{
 					this.RefreshMixdownChoices();
 					this.RefreshBitrateChoices();
-					if (value.Encoder != AudioEncoder.Ac3Passthrough && value.Encoder != AudioEncoder.DtsPassthrough)
+					if (!IsPassthrough(value.Encoder))
 					{
 						if (this.Bitrate == 0)
 						{
@@ -169,7 +169,7 @@ namespace VidCoder.ViewModel
 					return false;
 				}
 
-				return this.SelectedAudioEncoder.Encoder != AudioEncoder.Ac3Passthrough && this.SelectedAudioEncoder.Encoder != AudioEncoder.DtsPassthrough;
+				return !IsPassthrough(this.SelectedAudioEncoder.Encoder);
 			}
 		}
 
@@ -352,9 +352,8 @@ namespace VidCoder.ViewModel
 				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Faac });
 				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Lame });
 				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Ac3 });
-				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Ac3Passthrough });
-				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.DtsPassthrough });
 				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Vorbis });
+				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Passthrough });
 			}
 			else
 			{
@@ -382,6 +381,8 @@ namespace VidCoder.ViewModel
 		{
 			MixdownViewModel lastSelectedMixdown = this.SelectedMixdown;
 			this.MixdownChoices.Clear();
+			this.MixdownChoices.Add(new MixdownViewModel { Mixdown = Mixdown.Auto });
+
 			switch (this.SelectedAudioEncoder.Encoder)
 			{
 				case AudioEncoder.Faac:
@@ -422,7 +423,7 @@ namespace VidCoder.ViewModel
 			switch (this.SelectedAudioEncoder.Encoder)
 			{
 				case AudioEncoder.Faac:
-					if (this.SelectedMixdown.Mixdown == Mixdown.SixChannelDiscrete)
+					if (this.SelectedMixdown.Mixdown == Mixdown.SixChannelDiscrete || this.SelectedMixdown.Mixdown == Mixdown.Auto)
 					{
 						this.SetMaxBitrate(768);
 					}
@@ -502,6 +503,11 @@ namespace VidCoder.ViewModel
 			{
 				this.encodingDialogVM.IsModified = true;
 			}
+		}
+
+		private static bool IsPassthrough(AudioEncoder encoder)
+		{
+			return encoder == AudioEncoder.Passthrough || encoder == AudioEncoder.Ac3Passthrough || encoder == AudioEncoder.DtsPassthrough;
 		}
 	}
 }

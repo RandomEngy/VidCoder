@@ -18,8 +18,8 @@ namespace VidCoder.Services
 
 		public Logger()
 		{
-			HandBrakeInstance.MessageLogged += this.OnMessageLogged;
-			HandBrakeInstance.ErrorLogged += this.OnErrorLogged;
+			HandBrakeUtils.MessageLogged += this.OnMessageLogged;
+			HandBrakeUtils.ErrorLogged += this.OnErrorLogged;
 
 			string logFolder = Path.Combine(Utilities.AppFolder, "Logs");
 			if (!Directory.Exists(logFolder))
