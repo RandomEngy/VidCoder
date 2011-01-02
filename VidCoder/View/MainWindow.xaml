@@ -625,7 +625,7 @@
 				Command="{Binding EncodeCommand}"
 				Visibility="{Binding PauseVisible, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
 				<StackPanel Orientation="Horizontal">
-					<Image Source="/Icons/play_60.png" Height="26" />
+					<Image Source="/Icons/encode_160.png" Height="26" />
 					<TextBlock Margin="7,0,0,0" Text="{Binding EncodeButtonText}" VerticalAlignment="Center" />
 				</StackPanel>
 			</Button>
