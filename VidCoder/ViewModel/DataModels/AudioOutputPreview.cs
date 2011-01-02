@@ -17,5 +17,9 @@ namespace VidCoder.ViewModel
 		public string Encoder { get; set; }
 
 		public string Bitrate { get; set; }
+
+		public string Mixdown { get; set; }
+
+		public string SampleRate { get; set; }
 	}
 }

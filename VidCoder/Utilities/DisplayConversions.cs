@@ -42,5 +42,24 @@ namespace VidCoder
 
 			return videoCodecName;
 		}
+
+		public static string DisplaySampleRate(int sampleRate)
+		{
+			switch (sampleRate)
+			{
+				case 48000:
+					return "48 kHz";
+				case 44100:
+					return "44.1 kHz";
+				case 32000:
+					return "32 kHz";
+				case 24000:
+					return "24 kHz";
+				case 22050:
+					return "22.05 kHz";
+			}
+
+			return sampleRate.ToString();
+		}
 	}
 }

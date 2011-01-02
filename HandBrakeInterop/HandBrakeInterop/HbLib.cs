@@ -34,6 +34,24 @@ namespace HandBrake.Interop
 		public const int HB_AMIXDOWN_DOLBYPLII =                    0x084094A2;
 		public const int HB_AMIXDOWN_6CH =                          0x10089176;
 
+		public const int HB_INPUT_CH_LAYOUT_MONO =					0x0110010;
+		public const int HB_INPUT_CH_LAYOUT_STEREO =				0x0220020;
+		public const int HB_INPUT_CH_LAYOUT_DOLBY =					0x0320031;
+		public const int HB_INPUT_CH_LAYOUT_3F =					0x0430030;
+		public const int HB_INPUT_CH_LAYOUT_2F1R =					0x0521021;
+		public const int HB_INPUT_CH_LAYOUT_3F1R =					0x0631031;
+		public const int HB_INPUT_CH_LAYOUT_2F2R =					0x0722022;
+		public const int HB_INPUT_CH_LAYOUT_3F2R =					0x0832032;
+		public const int HB_INPUT_CH_LAYOUT_4F2R =					0x0942042;
+		public const int HB_INPUT_CH_LAYOUT_3F4R =					0x0a34034;
+		public const int HB_INPUT_CH_LAYOUT_HAS_LFE =				0x0000100;
+		public const int HB_INPUT_CH_LAYOUT_DISCRETE_FRONT_MASK =	0x00F0000;
+		public const int HB_INPUT_CH_LAYOUT_DISCRETE_REAR_MASK =	0x000F000;
+		public const int HB_INPUT_CH_LAYOUT_DISCRETE_LFE_MASK =		0x0000F00;
+		public const int HB_INPUT_CH_LAYOUT_DISCRETE_NO_LFE_MASK =	0xFFFF0FF;
+		public const int HB_INPUT_CH_LAYOUT_ENCODED_FRONT_MASK =	0x00000F0;
+		public const int HB_INPUT_CH_LAYOUT_ENCODED_REAR_MASK =		0x000000F;
+
 		public const int HB_VCODEC_MASK =   0x0000FF;
 		public const int HB_VCODEC_FFMPEG = 0x000001;
 		public const int HB_VCODEC_X264 =   0x000002;
@@ -1334,6 +1352,9 @@ namespace HandBrake.Interop
 
 		[DllImport("hb.dll", EntryPoint = "hb_get_best_mixdown", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int hb_get_best_mixdown(uint codec, int layout, int mixdown);
+
+		[DllImport("hb.dll", EntryPoint = "hb_get_best_audio_bitrate", CallingConvention = CallingConvention.Cdecl)]
+		public static extern int hb_get_best_audio_bitrate(uint codec, int bitrate, int samplerate, int mixdown);
 
 		[DllImport("hb.dll", EntryPoint = "hb_get_audio_bitrate_limits", CallingConvention = CallingConvention.Cdecl)]
 		public static extern int hb_get_audio_bitrate_limits(uint codec, int samplerate, int mixdown, ref int low, ref int high);

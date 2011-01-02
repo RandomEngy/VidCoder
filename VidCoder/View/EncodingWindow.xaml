@@ -626,7 +626,7 @@
 										Style="{StaticResource DescriptiveText}"
 										Visibility="{Binding HasAudioTracks, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"/>
 										<ItemsControl ItemsSource="{Binding AudioOutputPreviews}" Grid.IsSharedSizeScope="True"
-										Visibility="{Binding HasAudioTracks, Converter={StaticResource VisibilityConverter}}">
+											Visibility="{Binding HasAudioTracks, Converter={StaticResource VisibilityConverter}}">
 											<ItemsControl.ItemTemplate>
 												<DataTemplate>
 													<Grid>
@@ -634,13 +634,17 @@
 															<ColumnDefinition Width="*" SharedSizeGroup="TrackNumber"/>
 															<ColumnDefinition Width="*" SharedSizeGroup="TrackName"/>
 															<ColumnDefinition Width="*" SharedSizeGroup="Encoder"/>
+															<ColumnDefinition Width="*" SharedSizeGroup="Mixdown"/>
+															<ColumnDefinition Width="*" SharedSizeGroup="SampleRate"/>
 															<ColumnDefinition Width="*" SharedSizeGroup="Bitrate"/>
 														</Grid.ColumnDefinitions>
 
 														<TextBlock Grid.Column="0" Text="{Binding TrackNumber}" Style="{StaticResource AudioOutputPreview}"/>
 														<TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource AudioOutputPreview}"/>
 														<TextBlock Grid.Column="2" Text="{Binding Encoder}" Style="{StaticResource AudioOutputPreview}"/>
-														<TextBlock Grid.Column="3" Text="{Binding Bitrate}" Style="{StaticResource AudioOutputPreview}"/>
+														<TextBlock Grid.Column="3" Text="{Binding Mixdown}" Style="{StaticResource AudioOutputPreview}"/>
+														<TextBlock Grid.Column="4" Text="{Binding SampleRate}" Style="{StaticResource AudioOutputPreview}"/>
+														<TextBlock Grid.Column="5" Text="{Binding Bitrate}" Style="{StaticResource AudioOutputPreview}"/>
 													</Grid>
 												</DataTemplate>
 											</ItemsControl.ItemTemplate>

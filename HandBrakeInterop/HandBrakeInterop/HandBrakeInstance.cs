@@ -1173,7 +1173,7 @@
 			}
 			else
 			{
-				nativeAudio.config.output.codec = Converters.AudioCodecToNative(encoding.Encoder);
+				nativeAudio.config.output.codec = Converters.AudioEncoderToNative(encoding.Encoder);
 			}
 
 			if (encoding.Encoder != AudioEncoder.Passthrough && encoding.Encoder != AudioEncoder.Ac3Passthrough && encoding.Encoder != AudioEncoder.DtsPassthrough)
@@ -1303,9 +1303,12 @@
 				var newAudio = new AudioTrack
 				{
 					TrackNumber = currentAudioTrack,
+					Codec = Converters.NativeToAudioCodec(audio.config.input.codec),
 					Language = audio.config.lang.simple,
 					LanguageCode = audio.config.lang.iso639_2,
-					Description = audio.config.lang.description
+					Description = audio.config.lang.description,
+					ChannelLayout = audio.config.input.channel_layout,
+					SampleRate = audio.config.input.samplerate
 				};
 
 				newTitle.AudioTracks.Add(newAudio);

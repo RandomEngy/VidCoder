@@ -22,6 +22,11 @@ namespace HandBrake.SourceData
 		public int TrackNumber { get; set; }
 
 		/// <summary>
+		/// Gets or sets the audio codec of this Track.
+		/// </summary>
+		public AudioCodec Codec { get; set; }
+
+		/// <summary>
 		/// The language (if detected) of this Audio Track
 		/// </summary>
 		public string Language { get; set; }
@@ -31,7 +36,12 @@ namespace HandBrake.SourceData
 		public string Description { get; set; }
 
 		/// <summary>
-		/// The frequency (in MHz) of this Audio Track
+		/// Gets or sets the channel layout of this Audio Track.
+		/// </summary>
+		public int ChannelLayout { get; set; }
+
+		/// <summary>
+		/// The frequency (in Hz) of this Audio Track
 		/// </summary>
 		public int SampleRate { get; set; }
 

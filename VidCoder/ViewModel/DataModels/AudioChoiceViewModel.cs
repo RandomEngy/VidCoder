@@ -36,6 +36,12 @@ namespace VidCoder.ViewModel
 			{
 				this.selectedTrack = value;
 				this.NotifyPropertyChanged("SelectedIndex");
+
+				EncodingViewModel encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel)) as EncodingViewModel;
+				if (encodingWindow != null)
+				{
+					encodingWindow.RefreshAudioPreview();
+				}
 			}
 		}
 

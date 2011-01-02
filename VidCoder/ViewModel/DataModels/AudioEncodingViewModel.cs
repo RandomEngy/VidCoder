@@ -76,7 +76,7 @@ namespace VidCoder.ViewModel
 				AudioEncoder encoder = this.SelectedAudioEncoder.Encoder;
 				newAudioEncoding.Encoder = encoder;
 
-				if (!IsPassthrough(encoder))
+				if (!Utilities.IsPassthrough(encoder))
 				{
 					newAudioEncoding.Mixdown = this.SelectedMixdown.Mixdown;
 					newAudioEncoding.Bitrate = this.Bitrate;
@@ -145,7 +145,7 @@ namespace VidCoder.ViewModel
 				{
 					this.RefreshMixdownChoices();
 					this.RefreshBitrateChoices();
-					if (!IsPassthrough(value.Encoder))
+					if (!Utilities.IsPassthrough(value.Encoder))
 					{
 						if (this.Bitrate == 0)
 						{
@@ -169,7 +169,7 @@ namespace VidCoder.ViewModel
 					return false;
 				}
 
-				return !IsPassthrough(this.SelectedAudioEncoder.Encoder);
+				return !Utilities.IsPassthrough(this.SelectedAudioEncoder.Encoder);
 			}
 		}
 
@@ -195,6 +195,7 @@ namespace VidCoder.ViewModel
 
 				if (value != null)
 				{
+					this.encodingDialogVM.RefreshAudioPreview();
 					this.encodingDialogVM.UpdateAudioEncodings();
 					this.RefreshBitrateChoices();
 					this.MarkModified();
@@ -224,6 +225,7 @@ namespace VidCoder.ViewModel
 			{
 				this.sampleRate = value;
 				this.NotifyPropertyChanged("SampleRate");
+				this.encodingDialogVM.RefreshAudioPreview();
 				this.encodingDialogVM.UpdateAudioEncodings();
 				this.MarkModified();
 			}
@@ -503,11 +505,6 @@ namespace VidCoder.ViewModel
 			{
 				this.encodingDialogVM.IsModified = true;
 			}
-		}
-
-		private static bool IsPassthrough(AudioEncoder encoder)
-		{
-			return encoder == AudioEncoder.Passthrough || encoder == AudioEncoder.Ac3Passthrough || encoder == AudioEncoder.DtsPassthrough;
 		}
 	}
 }

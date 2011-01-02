@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HandBrake.SourceData;
 
 namespace HandBrake.Interop
 {
@@ -53,9 +54,28 @@ namespace HandBrake.Interop
 			return 0;
 		}
 
-		public static uint AudioCodecToNative(AudioEncoder codec)
+		public static Mixdown NativeToMixdown(int mixdown)
 		{
-			switch (codec)
+			switch (mixdown)
+			{
+				case NativeConstants.HB_AMIXDOWN_MONO:
+					return Mixdown.Mono;
+				case NativeConstants.HB_AMIXDOWN_STEREO:
+					return Mixdown.Stereo;
+				case NativeConstants.HB_AMIXDOWN_DOLBY:
+					return Mixdown.DolbySurround;
+				case NativeConstants.HB_AMIXDOWN_DOLBYPLII:
+					return Mixdown.DolbyProLogicII;
+				case NativeConstants.HB_AMIXDOWN_6CH:
+					return Mixdown.SixChannelDiscrete;
+			}
+
+			throw new ArgumentException("Unrecognized mixdown: " + mixdown, "mixdown");
+		}
+
+		public static uint AudioEncoderToNative(AudioEncoder encoder)
+		{
+			switch (encoder)
 			{
 				case AudioEncoder.Ac3Passthrough:
 					return NativeConstants.HB_ACODEC_AC3_PASS;
@@ -72,6 +92,19 @@ namespace HandBrake.Interop
 			}
 
 			return 0;
+		}
+
+		public static AudioCodec NativeToAudioCodec(uint codec)
+		{
+			switch (codec)
+			{
+				case NativeConstants.HB_ACODEC_AC3:
+					return AudioCodec.Ac3;
+				case NativeConstants.HB_ACODEC_DCA:
+					return AudioCodec.Dts;
+				default:
+					return AudioCodec.Other;
+			}
 		}
 	}
 }
