@@ -32,6 +32,7 @@ namespace VidCoder.ViewModel
 		private bool hasPreview;
 		private bool scanningPreview;
 		private bool generatingPreview;
+		private string previewFilePath;
 		private bool encodeCancelled;
 		private double previewPercentComplete;
 		private int previewSeconds;
@@ -635,7 +636,8 @@ namespace VidCoder.ViewModel
 				Directory.CreateDirectory(previewDirectory);
 			}
 
-			this.job.OutputPath = Path.Combine(previewDirectory, @"preview" + extension);
+			this.previewFilePath = Path.Combine(previewDirectory, @"preview" + extension);
+			this.job.OutputPath = previewFilePath;
 			this.previewInstance.EncodeProgress += (o, e) =>
 			{
 				this.PreviewPercentComplete = e.FractionComplete * 100;
@@ -658,7 +660,7 @@ namespace VidCoder.ViewModel
 					else
 					{
 						this.logger.Log("# Finished preview clip generation");
-						FileService.Instance.LaunchFile(this.job.OutputPath);
+						FileService.Instance.LaunchFile(previewFilePath);
 					}
 				}
 			};
