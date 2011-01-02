@@ -332,26 +332,31 @@
 
 						<RadioButton Margin="37,160,0,0" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top"
 							Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
-							IsChecked="{Binding UseDisplayWidth}">Display Width:</RadioButton>
+							IsChecked="{Binding UseDisplayWidth}"
+							ToolTip="{x:Static resx:Resources.DisplayWidthToolTip}">Display Width:</RadioButton>
 						<controls:NumberBox
 							Height="23" HorizontalAlignment="Left" Margin="155,156,0,0" VerticalAlignment="Top" Width="55" NoneCaption="(auto)"
 							Number="{Binding DisplayWidth, Mode=TwoWay}" AllowEmpty="{Binding KeepDisplayAspect}" Minimum="32"
 							Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
-							IsEnabled="{Binding UseDisplayWidth}" />
+							IsEnabled="{Binding UseDisplayWidth}"
+							ToolTip="{x:Static resx:Resources.DisplayWidthToolTip}"/>
 
 						<RadioButton Margin="37,185,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="119"
 							Visibility="{Binding PixelAspectVisibile, Converter={StaticResource VisibilityConverter}}"
-							IsChecked="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}">Pixel Aspect Ratio:</RadioButton>
+							IsChecked="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}"
+							ToolTip="{x:Static resx:Resources.PixelAspectRatioToolTip}">Pixel Aspect Ratio:</RadioButton>
 						<controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="155,183,0,0" VerticalAlignment="Top" Width="40.698"
 							Number="{Binding PixelAspectX, Mode=TwoWay}" AllowEmpty="False"
 							Visibility="{Binding PixelAspectVisibile, Converter={StaticResource VisibilityConverter}}"
-							IsEnabled="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}"/>
+							IsEnabled="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}"
+							ToolTip="{x:Static resx:Resources.PixelAspectRatioToolTip}"/>
 						<Label Height="23.562" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="198,181.356,0,0" Name="label5" VerticalAlignment="Top" Width="16.422"
 							Visibility="{Binding PixelAspectVisibile, Converter={StaticResource VisibilityConverter}}">/</Label>
 						<controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="215,183,0,0" VerticalAlignment="Top" Width="40.698"
 							Number="{Binding PixelAspectY, Mode=TwoWay}" AllowEmpty="False"
 							Visibility="{Binding PixelAspectVisibile, Converter={StaticResource VisibilityConverter}}"
-							IsEnabled="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}"/>
+							IsEnabled="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}"
+							ToolTip="{x:Static resx:Resources.PixelAspectRatioToolTip}"/>
 					</Grid>
 
 					<Grid Grid.Row="2" Grid.Column="0" Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">

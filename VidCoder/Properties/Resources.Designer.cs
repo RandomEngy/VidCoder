@@ -311,6 +311,15 @@ namespace VidCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The desired display width of the video. Other parameters such as the Pixel Aspect Ratio will be changed to acheive this..
+        /// </summary>
+        public static string DisplayWidthToolTip {
+            get {
+                return ResourceManager.GetString("DisplayWidthToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only display forced subtitles from the given track. Usually this means small bits of foreign dialogue..
         /// </summary>
         public static string ForcedSubtitleToolTip {
@@ -352,6 +361,15 @@ namespace VidCoder.Properties {
         public static string OffsetSubtitleToolTip {
             get {
                 return ResourceManager.GetString("OffsetSubtitleToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manually specify a Pixel Aspect Ratio..
+        /// </summary>
+        public static string PixelAspectRatioToolTip {
+            get {
+                return ResourceManager.GetString("PixelAspectRatioToolTip", resourceCulture);
             }
         }
         

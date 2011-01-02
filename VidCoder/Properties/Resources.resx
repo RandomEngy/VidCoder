@@ -288,4 +288,10 @@ may have problems with Weighted P-frame prediction: the Apple TV is completely i
     <value>Adaptive quantization controls how the encoder distributes bits across the frame.
 Higher values take more bits away from edges and complex areas to improve areas with finer detail.</value>
   </data>
+  <data name="DisplayWidthToolTip" xml:space="preserve">
+    <value>The desired display width of the video. Other parameters such as the Pixel Aspect Ratio will be changed to acheive this.</value>
+  </data>
+  <data name="PixelAspectRatioToolTip" xml:space="preserve">
+    <value>Manually specify a Pixel Aspect Ratio.</value>
+  </data>
 </root>
