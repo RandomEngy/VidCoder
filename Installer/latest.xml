@@ -5,8 +5,8 @@
 		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/55865</ChangelogLocation>
 	</Release>
 	<Release-x64>
-		<Latest>0.7.2</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-0.7.2-x64.exe</DownloadLocation>
+		<Latest>0.8.0</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-0.8.0-x64.exe</DownloadLocation>
 		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/55865</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>

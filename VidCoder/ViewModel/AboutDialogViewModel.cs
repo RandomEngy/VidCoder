@@ -11,7 +11,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return Utilities.CurrentVersion;
+				return Utilities.CurrentVersion + " (" + Utilities.Architecture + ")";
 			}
 		}
 	}

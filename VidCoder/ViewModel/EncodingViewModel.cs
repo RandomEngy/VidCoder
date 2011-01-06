@@ -1888,7 +1888,7 @@ namespace VidCoder.ViewModel
 					this.AudioOutputPreviews.Insert(0, new AudioOutputPreview
 					{
 						TrackNumber = "Track",
-						Name = "Input",
+						Name = "Source",
 						Encoder = "Encoder",
 						Mixdown = "Mixdown",
 						SampleRate = "Sample Rate",
