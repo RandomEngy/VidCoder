@@ -223,6 +223,9 @@
 			hb_job_s nativeJob = InteropUtilities.ReadStructure<hb_job_s>(title.job);
 			List<IntPtr> allocatedMemory = this.ApplyJob(ref nativeJob, job, false, 0, 0);
 			
+			// There are some problems with getting previews with deinterlacing. Disabling for now.
+			nativeJob.deinterlace = 0;
+
 			// Create a new job pointer from our modified job object
 			IntPtr newJob = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(hb_job_s)));
 			Marshal.StructureToPtr(nativeJob, newJob, false);

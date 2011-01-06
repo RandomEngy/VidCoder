@@ -496,7 +496,7 @@
 									<Style TargetType="TextBlock">
 										<Style.Triggers>
 											<DataTrigger Binding="{Binding IsBuiltIn}" Value="False">
-												<Setter Property="Foreground" Value="DarkBlue" />
+												<Setter Property="Foreground" Value="#0B4BC2" />
 												<Setter Property="FontWeight" Value="Bold" />
 											</DataTrigger>
 										</Style.Triggers>
