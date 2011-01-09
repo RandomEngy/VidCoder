@@ -83,6 +83,16 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
+				if (this.Job.Subtitles == null)
+				{
+					return false;
+				}
+
+				if (this.Job.Subtitles.SourceSubtitles == null)
+				{
+					return false;
+				}
+
 				return this.Job.Subtitles.SourceSubtitles.Count(item => item.TrackNumber == 0) > 0;
 			}
 		}

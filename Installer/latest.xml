@@ -1,12 +1,12 @@
 <UpdateInfo>
 	<Release>
-		<Latest>0.7.2</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-0.7.2.exe</DownloadLocation>
-		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/55865</ChangelogLocation>
+		<Latest>0.8.0</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-0.8.0-x86.exe</DownloadLocation>
+		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/58650</ChangelogLocation>
 	</Release>
 	<Release-x64>
 		<Latest>0.8.0</Latest>
 		<DownloadLocation>http://engy.us/VidCoder/VidCoder-0.8.0-x64.exe</DownloadLocation>
-		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/55865</ChangelogLocation>
+		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/58650</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>
