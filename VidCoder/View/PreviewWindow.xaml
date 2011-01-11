@@ -1,7 +1,10 @@
 ﻿<Window x:Class="VidCoder.View.PreviewWindow"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	Title="{Binding Title}" Height="514" Width="864" Closing="Window_Closing" ShowInTaskbar="False" WindowStyle="ToolWindow">
+	Title="{Binding Title}"
+	Width="864" Height="514"
+	MinWidth="300" MinHeight="200"
+	Closing="Window_Closing" ShowInTaskbar="False" WindowStyle="ToolWindow">
 	<Window.Resources>
 		<Storyboard x:Key="FadePreviewControlsOut">
 			<DoubleAnimation
