@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Threading;
 using System.Collections;
 using Microsoft.Practices.Unity;
+using System.Windows;
 
 namespace VidCoder.Services
 {
@@ -12,7 +13,7 @@ namespace VidCoder.Services
 	{
 		public static void Invoke(Action action)
 		{
-			Dispatcher dispatchObject = VidCoder.View.MainWindow.TheWindow.Dispatcher;
+			Dispatcher dispatchObject = Application.Current.Dispatcher;
 
 			if (dispatchObject == null || dispatchObject.CheckAccess())
 		    {
@@ -26,7 +27,7 @@ namespace VidCoder.Services
 
 		public static void BeginInvoke(Action action)
 		{
-			Dispatcher dispatchObject = VidCoder.View.MainWindow.TheWindow.Dispatcher;
+			Dispatcher dispatchObject = Application.Current.Dispatcher;
 
 			dispatchObject.BeginInvoke(action);
 		}
