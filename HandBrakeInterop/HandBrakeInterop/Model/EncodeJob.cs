@@ -20,8 +20,16 @@ namespace HandBrake.Interop
 		/// Gets or sets the angle to encode. 0 for default, 1+ for specified angle.
 		/// </summary>
 		public int Angle { get; set; }
+
+		public VideoRangeType RangeType { get; set; }
 		public int ChapterStart { get; set; }
 		public int ChapterEnd { get; set; }
+
+		public double SecondsStart { get; set; }
+		public double SecondsEnd { get; set; }
+
+		public int FramesStart { get; set; }
+		public int FramesEnd { get; set; }
 
 		/// <summary>
 		/// Gets or sets the list of chosen audio tracks (1-based)
@@ -54,8 +62,13 @@ namespace HandBrake.Interop
 				SourcePath = this.SourcePath,
 				Title = this.Title,
 				Angle = this.Angle,
+				RangeType = this.RangeType,
 				ChapterStart = this.ChapterStart,
 				ChapterEnd = this.ChapterEnd,
+				SecondsStart = this.SecondsStart,
+				SecondsEnd = this.SecondsEnd,
+				FramesStart = this.FramesStart,
+				FramesEnd = this.FramesEnd,
 				ChosenAudioTracks = new List<int>(this.ChosenAudioTracks),
 				Subtitles = this.Subtitles,
 				UseDefaultChapterNames = this.UseDefaultChapterNames,

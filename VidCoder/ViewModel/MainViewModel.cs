@@ -24,6 +24,8 @@ namespace VidCoder.ViewModel
 		public const int QueuedTabIndex = 0;
 		public const int CompletedTabIndex = 1;
 
+		private const double SecondsRangeBuffer = 0.25;
+
 		private HandBrakeInstance scanInstance;
 
 		private IUpdater updater = Unity.Container.Resolve<IUpdater>();
@@ -37,6 +39,11 @@ namespace VidCoder.ViewModel
 		private List<int> angles;
 		private int angle;
 
+		private VideoRangeType videoRangeType;
+		private double secondsRangeStart;
+		private double secondsRangeEnd;
+		private int framesRangeStart;
+		private int framesRangeEnd;
 		private Chapter selectedStartChapter;
 		private Chapter selectedEndChapter;
 
@@ -698,6 +705,12 @@ namespace VidCoder.ViewModel
 					this.SelectedStartChapter = this.selectedTitle.Chapters[0];
 					this.SelectedEndChapter = this.selectedTitle.Chapters[this.selectedTitle.Chapters.Count - 1];
 
+					this.SecondsRangeStart = 0;
+					this.SecondsRangeEnd = this.selectedTitle.Duration.TotalSeconds;
+
+					this.FramesRangeStart = 0;
+					this.FramesRangeEnd = this.selectedTitle.Frames;
+
 					this.angles = new List<int>();
 					for (int i = 1; i <= this.selectedTitle.AngleCount; i++)
 					{
@@ -890,6 +903,24 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public VideoRangeType VideoRangeType
+		{
+			get
+			{
+				return this.videoRangeType;
+			}
+
+			set
+			{
+				this.videoRangeType = value;
+				this.NotifyPropertyChanged("VideoRangeType");
+				this.NotifyPropertyChanged("ChaptersRangeVisible");
+				this.NotifyPropertyChanged("SecondsRangeVisible");
+				this.NotifyPropertyChanged("FramesRangeVisible");
+				this.NotifyPropertyChanged("VideoRangeSummary");
+			}
+		}
+
 		public List<Chapter> Chapters
 		{
 			get
@@ -903,11 +934,139 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool MultipleChapters
+		public bool ChaptersRangeVisible
 		{
 			get
 			{
-				return this.HasVideoSource && this.SelectedTitle.Chapters.Count > 1;
+				return this.VideoRangeType == VideoRangeType.Chapters;
+			}
+		}
+
+		public double SecondsRangeStart
+		{
+			get
+			{
+				return this.secondsRangeStart;
+			}
+
+			set
+			{
+				double maxSeconds = this.SelectedTitle.Duration.TotalSeconds;
+
+				this.secondsRangeStart = value;
+				if (this.secondsRangeStart > maxSeconds - SecondsRangeBuffer)
+				{
+					this.secondsRangeStart = maxSeconds - SecondsRangeBuffer;
+				}
+
+				if (this.secondsRangeEnd < this.secondsRangeStart + SecondsRangeBuffer)
+				{
+					this.secondsRangeEnd = this.secondsRangeStart + SecondsRangeBuffer;
+					this.NotifyPropertyChanged("SecondsRangeEnd");
+				}
+
+				this.NotifyPropertyChanged("SecondsRangeStart");
+				this.NotifyPropertyChanged("VideoRangeSummary");
+			}
+		}
+
+		public double SecondsRangeEnd
+		{
+			get
+			{
+				return this.secondsRangeEnd;
+			}
+
+			set
+			{
+				double maxSeconds = this.SelectedTitle.Duration.TotalSeconds;
+
+				this.secondsRangeEnd = value;
+				if (this.secondsRangeEnd > maxSeconds)
+				{
+					this.secondsRangeEnd = maxSeconds;
+				}
+
+				if (this.secondsRangeStart > this.secondsRangeEnd - SecondsRangeBuffer)
+				{
+					this.secondsRangeStart = this.secondsRangeEnd - SecondsRangeBuffer;
+					this.NotifyPropertyChanged("SecondsRangeStart");
+				}
+
+				this.NotifyPropertyChanged("SecondsRangeEnd");
+				this.NotifyPropertyChanged("VideoRangeSummary");
+			}
+		}
+
+		public bool SecondsRangeVisible
+		{
+			get
+			{
+				return this.VideoRangeType == VideoRangeType.Seconds;
+			}
+		}
+
+		public int FramesRangeStart
+		{
+			get
+			{
+				return this.framesRangeStart;
+			}
+
+			set
+			{
+				int maxFrame = this.SelectedTitle.Frames;
+
+				this.framesRangeStart = value;
+				if (this.framesRangeStart >= maxFrame)
+				{
+					this.framesRangeStart = maxFrame - 1;
+				}
+
+				if (this.framesRangeEnd <= this.framesRangeStart)
+				{
+					this.framesRangeEnd = this.framesRangeStart + 1;
+					this.NotifyPropertyChanged("FramesRangeEnd");
+				}
+
+				this.NotifyPropertyChanged("FramesRangeStart");
+				this.NotifyPropertyChanged("VideoRangeSummary");
+			}
+		}
+
+		public int FramesRangeEnd
+		{
+			get
+			{
+				return this.framesRangeEnd;
+			}
+
+			set
+			{
+				int maxFrame = this.SelectedTitle.Frames;
+
+				this.framesRangeEnd = value;
+				if (this.framesRangeEnd > maxFrame)
+				{
+					this.framesRangeEnd = maxFrame;
+				}
+
+				if (this.framesRangeStart >= this.framesRangeEnd)
+				{
+					this.framesRangeStart = this.framesRangeEnd - 1;
+					this.NotifyPropertyChanged("FramesRangeStart");
+				}
+
+				this.NotifyPropertyChanged("FramesRangeEnd");
+				this.NotifyPropertyChanged("VideoRangeSummary");
+			}
+		}
+
+		public bool FramesRangeVisible
+		{
+			get
+			{
+				return this.VideoRangeType == VideoRangeType.Frames;
 			}
 		}
 
@@ -935,7 +1094,7 @@ namespace VidCoder.ViewModel
 				this.GenerateOutputFileName();
 
 				this.NotifyPropertyChanged("SelectedStartChapter");
-				this.NotifyPropertyChanged("ChaptersSummary");
+				this.NotifyPropertyChanged("VideoRangeSummary");
 			}
 		}
 
@@ -963,7 +1122,30 @@ namespace VidCoder.ViewModel
 				this.GenerateOutputFileName();
 
 				this.NotifyPropertyChanged("SelectedEndChapter");
-				this.NotifyPropertyChanged("ChaptersSummary");
+				this.NotifyPropertyChanged("VideoRangeSummary");
+			}
+		}
+
+		public string VideoRangeSummary
+		{
+			get
+			{
+				if (this.HasVideoSource)
+				{
+					TimeSpan selectedTime = this.SelectedTime;
+					string timeString = string.Format("{0:00}:{1:00}:{2:00}", selectedTime.Hours, selectedTime.Minutes, selectedTime.Seconds);
+
+					switch (this.VideoRangeType)
+					{
+						case VideoRangeType.Chapters:
+							return "of " + this.SelectedTitle.Chapters.Count + " (" + timeString + ")";
+						case VideoRangeType.Seconds:
+						case VideoRangeType.Frames:
+							return "(" + timeString + ")";
+					}
+				}
+
+				return string.Empty;
 			}
 		}
 
@@ -1013,20 +1195,6 @@ namespace VidCoder.ViewModel
 				}
 
 				return this.addTrackCommand;
-			}
-		}
-
-		public string ChaptersSummary
-		{
-			get
-			{
-				if (this.SelectedStartChapter != null && this.SelectedEndChapter != null)
-				{
-					string timeString = string.Format("{0:00}:{1:00}:{2:00}", this.SelectedTime.Hours, this.SelectedTime.Minutes, this.SelectedTime.Seconds);
-					return "of " + this.SelectedTitle.Chapters.Count + " (" + timeString + ")";
-				}
-
-				return string.Empty;
 			}
 		}
 
@@ -2041,8 +2209,13 @@ namespace VidCoder.ViewModel
 					EncodingProfile = this.SelectedPreset.Preset.EncodingProfile.Clone(),
 					Title = this.SelectedTitle.TitleNumber,
 					Angle = this.Angle,
+					RangeType = this.VideoRangeType,
 					ChapterStart = this.SelectedStartChapter.ChapterNumber,
 					ChapterEnd = this.SelectedEndChapter.ChapterNumber,
+					SecondsStart = this.SecondsRangeStart,
+					SecondsEnd = this.SecondsRangeEnd,
+					FramesStart = this.FramesRangeStart,
+					FramesEnd = this.FramesRangeEnd,
 					ChosenAudioTracks = this.GetChosenAudioTracks(),
 					Subtitles = this.CurrentSubtitles,
 					UseDefaultChapterNames = this.UseDefaultChapterNames,
@@ -2695,12 +2868,32 @@ namespace VidCoder.ViewModel
 			{
 				TimeSpan selectedTime = TimeSpan.Zero;
 
-				int selectionStart = this.SelectedTitle.Chapters.IndexOf(this.SelectedStartChapter);
-				int selectionEnd = this.SelectedTitle.Chapters.IndexOf(this.SelectedEndChapter);
-
-				for (int i = selectionStart; i <= selectionEnd; i++)
+				switch (this.VideoRangeType)
 				{
-					selectedTime += this.SelectedTitle.Chapters[i].Duration;
+					case VideoRangeType.Chapters:
+						int selectionStart = this.SelectedTitle.Chapters.IndexOf(this.SelectedStartChapter);
+						int selectionEnd = this.SelectedTitle.Chapters.IndexOf(this.SelectedEndChapter);
+
+						for (int i = selectionStart; i <= selectionEnd; i++)
+						{
+							selectedTime += this.SelectedTitle.Chapters[i].Duration;
+						}
+
+						break;
+					case VideoRangeType.Seconds:
+						if (this.SecondsRangeEnd >= this.SecondsRangeStart)
+						{
+							selectedTime = TimeSpan.FromSeconds(this.SecondsRangeEnd - this.SecondsRangeStart);
+						}
+
+						break;
+					case VideoRangeType.Frames:
+						if (this.FramesRangeEnd >= this.FramesRangeStart)
+						{
+							selectedTime = TimeSpan.FromSeconds(((double)(this.FramesRangeEnd - this.FramesRangeStart)) / this.SelectedTitle.Framerate);
+						}
+
+						break;
 				}
 
 				return selectedTime;

@@ -155,6 +155,7 @@
     <Compile Include="Model\SourceType.cs" />
     <Compile Include="Model\SrtSubtitle.cs" />
     <Compile Include="Model\Subtitles.cs" />
+    <Compile Include="Model\VideoRangeType.cs" />
     <Compile Include="NativeList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScanProgressEventArgs.cs" />

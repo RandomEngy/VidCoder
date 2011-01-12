@@ -29,6 +29,7 @@ namespace VidCoder.Controls
 			this.noneCaption = "(none)";
 			this.Minimum = int.MinValue;
 			this.Maximum = int.MaxValue;
+			this.UpdateBindingOnTextChange = true;
 
 			InitializeComponent();
 
@@ -56,8 +57,9 @@ namespace VidCoder.Controls
 		public int Modulus { get; set; }
 
 		public int Minimum { get; set; }
-
 		public int Maximum { get; set; }
+
+		public bool UpdateBindingOnTextChange { get; set; }
 
 		public string NoneCaption
 		{
@@ -140,7 +142,6 @@ namespace VidCoder.Controls
 		private void numberBox_LostFocus(object sender, RoutedEventArgs e)
 		{
 			this.haveFocus = false;
-			int newNumber;
 
 			if (this.AllowEmpty && this.numberBox.Text == string.Empty)
 			{
@@ -149,19 +150,7 @@ namespace VidCoder.Controls
 				return;
 			}
 
-			if (int.TryParse(this.numberBox.Text, out newNumber))
-			{
-				if (this.NumberIsValid(newNumber))
-				{
-					if (this.Modulus != 0)
-					{
-						newNumber = this.GetNearestValue(newNumber, this.Modulus);
-					}
-
-					this.Number = newNumber;
-				}
-			}
-
+			this.UpdateNumberBindingFromBox();
 			this.RefreshNumberBox();
 		}
 
@@ -201,14 +190,21 @@ namespace VidCoder.Controls
 
 		private void numberBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			int newNumber;
-
-			if (this.AllowEmpty && this.numberBox.Text == string.Empty)
+			if (this.UpdateBindingOnTextChange)
 			{
-				this.Number = 0;
-				return;
-			}
+				if (this.AllowEmpty && this.numberBox.Text == string.Empty)
+				{
+					this.Number = 0;
+					return;
+				}
 
+				this.UpdateNumberBindingFromBox();
+			}
+		}
+
+		private void UpdateNumberBindingFromBox()
+		{
+			int newNumber;
 			if (int.TryParse(this.numberBox.Text, out newNumber))
 			{
 				if (this.NumberIsValid(newNumber))

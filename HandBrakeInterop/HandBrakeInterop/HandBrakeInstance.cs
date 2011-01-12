@@ -690,15 +690,43 @@
 				// There are 90,000 PTS per second.
 				nativeJob.pts_to_stop = previewSeconds * 90000;
 			}
-			else if (job.ChapterStart > 0 && job.ChapterEnd > 0)
-			{
-				nativeJob.chapter_start = job.ChapterStart;
-				nativeJob.chapter_end = job.ChapterEnd;
-			}
 			else
 			{
-				nativeJob.chapter_start = 1;
-				nativeJob.chapter_end = title.Chapters.Count;
+				switch (job.RangeType)
+				{
+					case VideoRangeType.Chapters:
+
+						if (job.ChapterStart > 0 && job.ChapterEnd > 0)
+						{
+							nativeJob.chapter_start = job.ChapterStart;
+							nativeJob.chapter_end = job.ChapterEnd;
+						}
+						else
+						{
+							nativeJob.chapter_start = 1;
+							nativeJob.chapter_end = title.Chapters.Count;
+						}
+
+						break;
+					case VideoRangeType.Seconds:
+						if (job.SecondsStart < 0 || job.SecondsEnd < 0)
+						{
+							throw new ArgumentException("Seconds range " + job.SecondsStart + "-" + job.SecondsEnd + " is invalid.", "job");
+						}
+
+						nativeJob.pts_to_start = (int)(job.SecondsStart * 90000);
+						nativeJob.pts_to_stop = (int)(job.SecondsEnd * 90000);
+						break;
+					case VideoRangeType.Frames:
+						if (job.FramesStart < 0 || job.FramesEnd < 0)
+						{
+							throw new ArgumentException("Frames range " + job.FramesStart + "-" + job.FramesEnd + " is invalid.", "job");
+						}
+
+						nativeJob.frame_to_start = job.FramesStart;
+						nativeJob.frame_to_stop = job.FramesEnd;
+						break;
+				}
 			}
 
 			nativeJob.chapter_markers = profile.IncludeChapterMarkers ? 1 : 0;

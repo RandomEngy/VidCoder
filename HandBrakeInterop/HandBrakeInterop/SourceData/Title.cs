@@ -113,6 +113,17 @@ namespace HandBrake.SourceData
 		public double Framerate { get; set; }
 
 		/// <summary>
+		/// The total number of frames in this title.
+		/// </summary>
+		public int Frames
+		{
+			get
+			{
+				return (int)Math.Ceiling(((double)this.Duration.TotalSeconds) * this.Framerate);
+			}
+		}
+
+		/// <summary>
 		/// Override of the ToString method to provide an easy way to use this object in the UI
 		/// </summary>
 		/// <returns>A string representing this track in the format: {title #} (00:00:00)</returns>

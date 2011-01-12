@@ -23,7 +23,15 @@ namespace VidCoder.Controls
 
 		public DoubleNumberBox()
 		{
+			this.Minimum = double.MinValue;
+			this.Maximum = double.MaxValue;
+
+			this.AllowEmpty = true;
+			this.UpdateBindingOnTextChange = true;
+
 			InitializeComponent();
+
+			this.RefreshNumberBox();
 		}
 
 		public static readonly DependencyProperty NumberProperty = DependencyProperty.Register(
@@ -47,6 +55,9 @@ namespace VidCoder.Controls
 		public double Minimum { get; set; }
 		public double Maximum { get; set; }
 
+		public bool UpdateBindingOnTextChange { get; set; }
+		public bool AllowEmpty { get; set; }
+
 		private static void OnNumberChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
 		{
 			var numBox = dependencyObject as DoubleNumberBox;
@@ -62,7 +73,7 @@ namespace VidCoder.Controls
 		{
 			this.haveFocus = true;
 
-			if (this.Number == 0)
+			if (this.AllowEmpty && this.Number == 0)
 			{
 				this.numberBox.Text = string.Empty;
 			}
@@ -72,16 +83,7 @@ namespace VidCoder.Controls
 		{
 			this.haveFocus = false;
 
-			double newNumber;
-
-			if (double.TryParse(this.numberBox.Text, out newNumber))
-			{
-				if (newNumber >= this.Minimum && newNumber <= this.Maximum)
-				{
-					this.Number = newNumber;
-				}
-			}
-
+			this.UpdateNumberBindingFromBox();
 			this.RefreshNumberBox();
 		}
 
@@ -112,8 +114,15 @@ namespace VidCoder.Controls
 
 		private void numberBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			double newNumber;
+			if (this.UpdateBindingOnTextChange)
+			{
+				this.UpdateNumberBindingFromBox();
+			}
+		}
 
+		private void UpdateNumberBindingFromBox()
+		{
+			double newNumber;
 			if (double.TryParse(this.numberBox.Text, out newNumber))
 			{
 				if (newNumber >= this.Minimum && newNumber <= this.Maximum)
