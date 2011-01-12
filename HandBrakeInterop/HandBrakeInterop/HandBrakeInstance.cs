@@ -324,12 +324,15 @@
 			}
 
 			this.subtitleScan = false;
-			foreach (SourceSubtitle subtitle in job.Subtitles.SourceSubtitles)
+			if (job.Subtitles.SourceSubtitles != null)
 			{
-				if (subtitle.TrackNumber == 0)
+				foreach (SourceSubtitle subtitle in job.Subtitles.SourceSubtitles)
 				{
-					this.subtitleScan = true;
-					break;
+					if (subtitle.TrackNumber == 0)
+					{
+						this.subtitleScan = true;
+						break;
+					}
 				}
 			}
 
