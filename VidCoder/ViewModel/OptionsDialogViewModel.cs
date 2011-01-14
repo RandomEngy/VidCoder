@@ -43,15 +43,15 @@ namespace VidCoder.ViewModel
 			this.updateService.UpdateDownloadProgress += this.OnUpdateDownloadProgress;
 			this.updateService.UpdateDownloadCompleted += this.OnUpdateDownloadCompleted;
 
-			this.UpdatesEnabled = Settings.Default.UpdatesEnabled;
-			this.AutoNameOutputFiles = Settings.Default.AutoNameOutputFiles;
-			this.DefaultPath = Settings.Default.AutoNameOutputFolder;
-			this.CustomFormat = Settings.Default.AutoNameCustomFormat;
-			this.CustomFormatString = Settings.Default.AutoNameCustomFormatString;
-			this.NativeLanguageCode = Settings.Default.NativeLanguageCode;
-			this.DubAudio = Settings.Default.DubAudio;
-			this.LogVerbosity = Settings.Default.LogVerbosity;
-			this.PreviewCount = Settings.Default.PreviewCount;
+			this.updatesEnabled = Settings.Default.UpdatesEnabled;
+			this.autoNameOutputFiles = Settings.Default.AutoNameOutputFiles;
+			this.defaultPath = Settings.Default.AutoNameOutputFolder;
+			this.customFormat = Settings.Default.AutoNameCustomFormat;
+			this.customFormatString = Settings.Default.AutoNameCustomFormatString;
+			this.nativeLanguageCode = Settings.Default.NativeLanguageCode;
+			this.dubAudio = Settings.Default.DubAudio;
+			this.logVerbosity = Settings.Default.LogVerbosity;
+			this.previewCount = Settings.Default.PreviewCount;
 			this.autoPauseProcesses = new ObservableCollection<string>();
 			StringCollection autoPauseStringCollection = Settings.Default.AutoPauseProcesses;
 			if (autoPauseStringCollection != null)

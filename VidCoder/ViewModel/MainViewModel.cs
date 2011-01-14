@@ -16,6 +16,7 @@ using System.Diagnostics;
 using System.Globalization;
 using Microsoft.Practices.Unity;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace VidCoder.ViewModel
 {
@@ -1992,9 +1993,15 @@ namespace VidCoder.ViewModel
 								}
 
 								EncodingProfile profile = this.SelectedPreset.Preset.EncodingProfile;
+								string queueSourceName = this.sourceName;
+								if (this.SelectedSource.Type == SourceType.Dvd)
+								{
+									queueSourceName = this.TranslateDvdSourceName(queueSourceName);
+								}
 
 								string queueOutputFileName = this.BuildOutputFileName(
-									this.TranslateDvdSourceName(this.sourcePath),
+									this.sourcePath,
+									queueSourceName,
 									title.TitleNumber,
 									startChapter: 1,
 									endChapter: title.Chapters.Count,
@@ -3121,6 +3128,7 @@ namespace VidCoder.ViewModel
 			}
 
 			fileName = this.BuildOutputFileName(
+				this.sourcePath,
 				translatedSourceName,
 				this.SelectedTitle.TitleNumber,
 				this.SelectedStartChapter.ChapterNumber,
@@ -3262,7 +3270,7 @@ namespace VidCoder.ViewModel
 			return null;
 		}
 
-		private string BuildOutputFileName(string sourceName, int title, int startChapter, int endChapter, int totalChapters)
+		private string BuildOutputFileName(string sourcePath, string sourceName, int title, int startChapter, int endChapter, int totalChapters)
 		{
 			string fileName;
 			if (Settings.Default.AutoNameCustomFormat)
@@ -3283,6 +3291,7 @@ namespace VidCoder.ViewModel
 				fileName = fileName.Replace("{title}", title.ToString());
 				fileName = fileName.Replace("{chapters}", chapterString);
 				fileName = fileName.Replace("{preset}", this.SelectedPreset.Preset.Name);
+				fileName = ReplaceParents(fileName, sourcePath);
 
 				DateTime now = DateTime.Now;
 				if (fileName.Contains("{date}"))
@@ -3342,6 +3351,73 @@ namespace VidCoder.ViewModel
 			}
 
 			return Utilities.CleanFileName(fileName);
+		}
+
+		/// <summary>
+		/// Takes a string and replaces instances of {parent} or {parent:x} with the appropriate parent.
+		/// </summary>
+		/// <param name="inputString">The input string to perform replacements in.</param>
+		/// <param name="path">The path to take the parents from.</param>
+		/// <returns>The string with instances replaced.</returns>
+		private static string ReplaceParents(string inputString, string path)
+		{
+			string directParentName = Path.GetDirectoryName(path);
+			if (directParentName == null)
+			{
+				return string.Empty;
+			}
+
+			DirectoryInfo directParent = new DirectoryInfo(directParentName);
+
+			if (directParent.Root.FullName == directParent.FullName)
+			{
+				return string.Empty;
+			}
+
+			inputString = inputString.Replace("{parent}", directParent.Name);
+
+			Regex regex = new Regex("{parent:(?<number>[0-9]+)}");
+			Match match;
+			while ((match = Regex.Match(inputString, "{parent:(?<number>[0-9]+)}")).Success)
+			{
+				Capture capture = match.Groups["number"].Captures[0];
+				int replaceIndex = capture.Index - 8;
+				int replaceLength = capture.Length + 9;
+
+				inputString = inputString.Substring(0, replaceIndex) + FindParent(path, int.Parse(capture.Value)) + inputString.Substring(replaceIndex + replaceLength);
+			}
+
+			return inputString;
+		}
+
+		private static string FindParent(string path, int parentNumber)
+		{
+			string directParentName = Path.GetDirectoryName(path);
+			if (directParentName == null)
+			{
+				return string.Empty;
+			}
+
+			DirectoryInfo directParent = new DirectoryInfo(directParentName);
+			string rootName = directParent.Root.FullName;
+
+			DirectoryInfo currentDirectory = directParent;
+			for (int i = 1; i < parentNumber; i++)
+			{
+				currentDirectory = currentDirectory.Parent;
+
+				if (currentDirectory.FullName == rootName)
+				{
+					return string.Empty;
+				}
+			}
+
+			if (currentDirectory.FullName == rootName)
+			{
+				return string.Empty;
+			}
+
+			return currentDirectory.Name;
 		}
 
 		private void InsertNewPreset(PresetViewModel presetVM)

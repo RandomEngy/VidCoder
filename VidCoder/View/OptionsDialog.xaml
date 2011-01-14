@@ -32,18 +32,18 @@
 						IsEnabled="{Binding AutoNameOutputFiles}">Browse...</Button>
 					<Label Height="28" HorizontalAlignment="Left" Margin="90,56.943,0,0" VerticalAlignment="Top" Width="76.8">File format:</Label>
 					<RadioButton
-						Height="16" Margin="179.154,66.267,179.82,0" VerticalAlignment="Top" GroupName="format"
+						Height="16" Margin="179.154,66.267,179.82,0" VerticalAlignment="Top"
 						IsChecked="{Binding CustomFormat, Converter={StaticResource InverseBoolConverter}}"
 						IsEnabled="{Binding AutoNameOutputFiles}">Default format</RadioButton>
 					<RadioButton
-						Height="16" Margin="179.154,88.245,180.153,0" VerticalAlignment="Top" GroupName="format"
+						Height="16" Margin="179.154,88.245,180.153,0" VerticalAlignment="Top"
 						IsChecked="{Binding CustomFormat}"
 						IsEnabled="{Binding AutoNameOutputFiles}">Custom format:</RadioButton>
 					<TextBox
 						Margin="195.236,110.223,11,0" Height="22.959" VerticalAlignment="Top"
 						Text="{Binding CustomFormatString}"
 						IsEnabled="{Binding CustomFormatStringEnabled}"/>
-					<TextBlock Margin="195.236,133.866,0.246,121" TextWrapping="Wrap" Height="36">Available options: {source} {title} {chapters} {preset} {date} {time} {quality}</TextBlock>
+					<TextBlock Margin="195.236,133.866,0.246,121" TextWrapping="Wrap" Height="36">Available options: {source} {title} {chapters} {preset} {date} {time} {quality} {parent}</TextBlock>
 					
 					<TextBlock
 						Height="21" HorizontalAlignment="Left" Margin="6,184,0,0" VerticalAlignment="Top" Width="82"
