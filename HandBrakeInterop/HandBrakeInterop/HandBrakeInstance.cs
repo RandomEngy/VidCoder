@@ -982,7 +982,7 @@
 					{
 						if (titleAudio.Count >= chosenTrack)
 						{
-							audioList.Add(ConvertAudioBack(encoding, titleAudio[chosenTrack - 1], chosenTrack, numTracks++));
+							audioList.Add(ConvertAudioBack(encoding, titleAudio[chosenTrack - 1], chosenTrack, numTracks++, allocatedMemory));
 						}
 					}
 				}
@@ -990,7 +990,7 @@
 				{
 					// Add this encoding for the specified track, if it exists
 					int trackNumber = job.ChosenAudioTracks[encoding.InputNumber - 1];
-					audioList.Add(ConvertAudioBack(encoding, titleAudio[trackNumber - 1], trackNumber, numTracks++));
+					audioList.Add(ConvertAudioBack(encoding, titleAudio[trackNumber - 1], trackNumber, numTracks++, allocatedMemory));
 				}
 			}
 
@@ -1183,8 +1183,9 @@
 		/// <param name="baseStruct">The base native structure.</param>
 		/// <param name="track"></param>
 		/// <param name="outputTrack"></param>
+		/// <param name="allocatedMemory">The collection of allocated memory.</param>
 		/// <returns>The resulting native audio structure.</returns>
-		private hb_audio_s ConvertAudioBack(AudioEncoding encoding, hb_audio_s baseStruct, int track, int outputTrack)
+		private hb_audio_s ConvertAudioBack(AudioEncoding encoding, hb_audio_s baseStruct, int track, int outputTrack, List<IntPtr> allocatedMemory)
 		{
 			hb_audio_s nativeAudio = baseStruct;
 
@@ -1232,6 +1233,13 @@
 				{
 					nativeAudio.config.output.samplerate = encoding.SampleRateRaw;
 				}
+			}
+
+			if (!string.IsNullOrEmpty(encoding.Name))
+			{
+				IntPtr encodingNamePtr = Marshal.StringToHGlobalAnsi(encoding.Name);
+				nativeAudio.config.output.name = encodingNamePtr;
+				allocatedMemory.Add(encodingNamePtr);
 			}
 
 			nativeAudio.padding = new byte[24600];

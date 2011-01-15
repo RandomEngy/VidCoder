@@ -23,5 +23,6 @@ namespace HandBrake.Interop
 		/// </summary>
 		public int SampleRateRaw { get; set; }
 		public double Drc { get; set; }
+		public string Name { get; set; }
 	}
 }

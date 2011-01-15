@@ -40,7 +40,7 @@ namespace VidCoder.ViewModel
 				EncodingViewModel encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel)) as EncodingViewModel;
 				if (encodingWindow != null)
 				{
-					encodingWindow.RefreshAudioPreview();
+					encodingWindow.RefreshAudioInput();
 				}
 			}
 		}

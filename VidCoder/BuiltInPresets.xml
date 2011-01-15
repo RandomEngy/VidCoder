@@ -149,7 +149,7 @@
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
 			<VideoEncoder>X264</VideoEncoder>
-			<X264Options>cabac=0:ref=2:me=umh:bframes=0:8x8dct=0:trellis=0:subme=6</X264Options>
+			<X264Options>ref=2:bframes=0:weightp=0:me=umh:subme=6:8x8dct=0:cabac=0</X264Options>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
 			<TargetSize>0</TargetSize>
@@ -213,7 +213,7 @@
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
 			<VideoEncoder>X264</VideoEncoder>
-			<X264Options>level=30:bframes=0:cabac=0:ref=1:vbv-maxrate=768:vbv-bufsize=2000:analyse=all:me=umh:no-fast-pskip=1:subme=6:8x8dct=0:trellis=0</X264Options>
+			<X264Options>level=30:vbv-maxrate=768:vbv-bufsize=2000:no-fast-pskip=1:ref=1:bframes=0:weightp=0:me=umh:subme=6:analyse=all:8x8dct=0:cabac=0:trellis=0</X264Options>
 			<VideoEncodeRateType>AverageBitrate</VideoEncodeRateType>
 			<Quality>20</Quality>
 			<TargetSize>0</TargetSize>
@@ -270,7 +270,7 @@
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
 			<VideoEncoder>X264</VideoEncoder>
-			<X264Options>cabac=0:ref=2:me=umh:bframes=0:subme=6:8x8dct=0:trellis=0</X264Options>
+			<X264Options>ref=2:bframes=0:weightp=0:me=umh:subme=6:8x8dct=0:cabac=0:trellis=0</X264Options>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
 			<TargetSize>0</TargetSize>
@@ -284,6 +284,63 @@
 					<InputNumber>0</InputNumber>
 					<Encoder>Faac</Encoder>
 					<Bitrate>128</Bitrate>
+					<Mixdown>DolbyProLogicII</Mixdown>
+					<SampleRateRaw>0</SampleRateRaw>
+					<Drc>0</Drc>
+				</AudioEncoding>
+			</AudioEncodings>
+		</EncodingProfile>
+	</Preset>
+	<Preset>
+		<Name>Apple iPhone 4</Name>
+		<IsBuiltIn>true</IsBuiltIn>
+		<IsModified>false</IsModified>
+		<EncodingProfile>
+			<OutputFormat>Mp4</OutputFormat>
+			<PreferredExtension>Mp4</PreferredExtension>
+			<IncludeChapterMarkers>true</IncludeChapterMarkers>
+			<LargeFile>true</LargeFile>
+			<Optimize>false</Optimize>
+			<IPod5GSupport>false</IPod5GSupport>
+			<Width>0</Width>
+			<Height>0</Height>
+			<MaxWidth>960</MaxWidth>
+			<MaxHeight>0</MaxHeight>
+			<CustomCropping>false</CustomCropping>
+			<Cropping>
+				<Top>0</Top>
+				<Bottom>0</Bottom>
+				<Left>0</Left>
+				<Right>0</Right>
+			</Cropping>
+			<Anamorphic>Loose</Anamorphic>
+			<UseDisplayWidth>false</UseDisplayWidth>
+			<DisplayWidth>0</DisplayWidth>
+			<KeepDisplayAspect>true</KeepDisplayAspect>
+			<PixelAspectX>0</PixelAspectX>
+			<PixelAspectY>0</PixelAspectY>
+			<Modulus>16</Modulus>
+			<Deinterlace>Off</Deinterlace>
+			<Decomb>Off</Decomb>
+			<Detelecine>Off</Detelecine>
+			<Denoise>Off</Denoise>
+			<Deblock>0</Deblock>
+			<Grayscale>false</Grayscale>
+			<VideoEncoder>X264</VideoEncoder>
+			<X264Options />
+			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
+			<Quality>20</Quality>
+			<TargetSize>0</TargetSize>
+			<VideoBitrate>0</VideoBitrate>
+			<TwoPass>false</TwoPass>
+			<TurboFirstPass>false</TurboFirstPass>
+			<Framerate>29.97</Framerate>
+			<PeakFramerate>true</PeakFramerate>
+			<AudioEncodings>
+				<AudioEncoding>
+					<InputNumber>0</InputNumber>
+					<Encoder>Faac</Encoder>
+					<Bitrate>160</Bitrate>
 					<Mixdown>DolbyProLogicII</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
@@ -340,7 +397,7 @@
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
 					<Encoder>Faac</Encoder>
-					<Bitrate>128</Bitrate>
+					<Bitrate>160</Bitrate>
 					<Mixdown>DolbyProLogicII</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
@@ -384,7 +441,7 @@
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
 			<VideoEncoder>X264</VideoEncoder>
-			<X264Options>cabac=0:ref=2:me=umh:b-adapt=2:weightb=0:trellis=0:weightp=0:vbv-maxrate=9500:vbv-bufsize=9500</X264Options>
+			<X264Options>weightb=0:vbv-maxrate=9500:vbv-bufsize=9500:ref=2:b-adapt=2:b-pyramid=none:weightp=0:me=umh:cabac=0:trellis=0</X264Options>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
 			<TargetSize>0</TargetSize>
@@ -407,6 +464,71 @@
 					<Encoder>Ac3Passthrough</Encoder>
 					<Bitrate>0</Bitrate>
 					<Mixdown>DolbyProLogicII</Mixdown>
+					<Drc>0</Drc>
+				</AudioEncoding>
+			</AudioEncodings>
+		</EncodingProfile>
+	</Preset>
+	<Preset>
+		<Name>Apple TV 2</Name>
+		<IsBuiltIn>true</IsBuiltIn>
+		<IsModified>false</IsModified>
+		<EncodingProfile>
+			<OutputFormat>Mp4</OutputFormat>
+			<PreferredExtension>M4v</PreferredExtension>
+			<IncludeChapterMarkers>true</IncludeChapterMarkers>
+			<LargeFile>true</LargeFile>
+			<Optimize>false</Optimize>
+			<IPod5GSupport>false</IPod5GSupport>
+			<Width>0</Width>
+			<Height>0</Height>
+			<MaxWidth>1280</MaxWidth>
+			<MaxHeight>0</MaxHeight>
+			<CustomCropping>false</CustomCropping>
+			<Cropping>
+				<Top>0</Top>
+				<Bottom>0</Bottom>
+				<Left>0</Left>
+				<Right>0</Right>
+			</Cropping>
+			<Anamorphic>Loose</Anamorphic>
+			<UseDisplayWidth>false</UseDisplayWidth>
+			<DisplayWidth>0</DisplayWidth>
+			<KeepDisplayAspect>true</KeepDisplayAspect>
+			<PixelAspectX>0</PixelAspectX>
+			<PixelAspectY>0</PixelAspectY>
+			<Modulus>16</Modulus>
+			<Deinterlace>Off</Deinterlace>
+			<Decomb>Off</Decomb>
+			<Detelecine>Off</Detelecine>
+			<Denoise>Off</Denoise>
+			<Deblock>0</Deblock>
+			<Grayscale>false</Grayscale>
+			<VideoEncoder>X264</VideoEncoder>
+			<X264Options />
+			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
+			<Quality>20</Quality>
+			<TargetSize>0</TargetSize>
+			<VideoBitrate>700</VideoBitrate>
+			<TwoPass>false</TwoPass>
+			<TurboFirstPass>false</TurboFirstPass>
+			<Framerate>29.97</Framerate>
+			<PeakFramerate>true</PeakFramerate>
+			<AudioEncodings>
+				<AudioEncoding>
+					<InputNumber>0</InputNumber>
+					<Encoder>Faac</Encoder>
+					<Bitrate>160</Bitrate>
+					<Mixdown>DolbyProLogicII</Mixdown>
+					<SampleRateRaw>0</SampleRateRaw>
+					<Drc>0</Drc>
+				</AudioEncoding>
+				<AudioEncoding>
+					<InputNumber>0</InputNumber>
+					<Encoder>Ac3Passthrough</Encoder>
+					<Bitrate>0</Bitrate>
+					<Mixdown>DolbyProLogicII</Mixdown>
+					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
 			</AudioEncodings>

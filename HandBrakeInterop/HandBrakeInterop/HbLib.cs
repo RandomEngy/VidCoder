@@ -569,10 +569,6 @@ namespace HandBrake.Interop
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 1024)]
 		public string name;
 
-		//public fixed byte dvd[1024];
-
-		//public fixed byte name[1024];
-
 		/// int
 		public int index;
 
@@ -828,8 +824,10 @@ namespace HandBrake.Interop
 		public double dynamic_range_compression;
 
 		/// char*
-		[MarshalAs(UnmanagedType.LPStr)]
-		public string name;
+		//[MarshalAs(UnmanagedType.LPStr)]
+		//public string name;
+
+		public IntPtr name;
 	}
 
 	[StructLayout(LayoutKind.Sequential)]

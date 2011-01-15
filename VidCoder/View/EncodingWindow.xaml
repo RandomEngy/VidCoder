@@ -88,7 +88,7 @@
 			</ComboBox>
 		</DataTemplate>
 		<DataTemplate x:Key="AudioCodecTemplate">
-			<ComboBox Width="150"
+			<ComboBox MinWidth="95"
 				ItemsSource="{Binding AudioEncoders}"
 				SelectedItem="{Binding SelectedAudioEncoder}"
 				DisplayMemberPath="Display"/>
@@ -121,6 +121,11 @@
 		</DataTemplate>
 		<DataTemplate x:Key="DrcTemplate">
 			
+		</DataTemplate>
+		<DataTemplate x:Key="NameTemplate">
+			<TextBox
+				Width="85"
+				Text="{Binding Name}"/>
 		</DataTemplate>
 		<DataTemplate x:Key="RemoveAudioTemplate">
 			<Button Style="{StaticResource RemoveButtonStyle}" Command="{Binding RemoveAudioEncodingCommand}" VerticalAlignment="Center">Remove audio encoding</Button>
@@ -605,7 +610,8 @@
 										<GridViewColumn Width="137" Header="Mixdown" CellTemplate="{StaticResource MixdownTemplate}" x:Name="mixdownColumn" />
 										<GridViewColumn Width="120" Header="Sample Rate" CellTemplate="{StaticResource SampleRateTemplate}" />
 										<GridViewColumn Width="62" Header="Bitrate" CellTemplate="{StaticResource BitrateTemplate}" />
-										<GridViewColumn Header="DRC" CellTemplate="{StaticResource DrcTemplate}" />
+										<!--<GridViewColumn Header="DRC" CellTemplate="{StaticResource DrcTemplate}" />-->
+										<GridViewColumn Header="Name" Width="90" CellTemplate="{StaticResource NameTemplate}" />
 										<GridViewColumn CellTemplate="{StaticResource RemoveAudioTemplate}" />
 									</GridView.Columns>
 								</GridView>
@@ -738,12 +744,10 @@
 
 						<Label
 							Content="Weighted P-Frames:" Grid.Row="6" Grid.Column="0"
-							Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"
 							Style="{StaticResource AdvancedLabel}"/>
 						<CheckBox
 							Grid.Row="6" Grid.Column="1" VerticalAlignment="Center"
 							IsChecked="{Binding WeightedPFrames}"
-							Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"
 							Style="{StaticResource AdvancedToolTipHolder}">
 							<CheckBox.ToolTip>
 								<TextBlock Text="{x:Static resx:Resources.Advanced_WeightPToolTip}" Style="{StaticResource AdvancedToolTip}" />
@@ -884,14 +888,12 @@
 					</ComboBox>
 
 					<Label
-						Content="Trellis:" Height="28" HorizontalAlignment="Right" Margin="0,259,152,0" Name="label17" VerticalAlignment="Top"
-						Visibility="{Binding CabacEntropyCoding, Converter={StaticResource VisibilityConverter}}"/>
+						Content="Trellis:" Height="28" HorizontalAlignment="Right" Margin="0,259,152,0" Name="label17" VerticalAlignment="Top" />
 					<ComboBox
 						Height="23" HorizontalAlignment="Right" Margin="0,260,5,0" VerticalAlignment="Top" Width="141"
 						ItemsSource="{x:Static vm:AdvancedChoices.Trellis}"
 						DisplayMemberPath="Label"
 						SelectedItem="{Binding Trellis}"
-						Visibility="{Binding CabacEntropyCoding, Converter={StaticResource VisibilityConverter}}"
 						Style="{StaticResource AdvancedToolTipHolder}">
 						<ComboBox.ToolTip>
 							<TextBlock Text="{x:Static resx:Resources.Advanced_TrellisToolTip}" Style="{StaticResource AdvancedToolTip}" />

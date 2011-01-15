@@ -38,8 +38,6 @@ namespace VidCoder.ViewModel
 		private bool isModified;
 		private bool isBuiltIn;
 
-		private List<int> chosenAudioTracks;
-
 		private ObservableCollection<VideoEncoderViewModel> encoderChoices;
 		private VideoEncoderViewModel selectedEncoder;
 		private List<double> framerateChoices;
@@ -152,11 +150,10 @@ namespace VidCoder.ViewModel
 					29.97
 				};
 
-				this.chosenAudioTracks = this.mainViewModel.GetChosenAudioTracks();
 				this.audioEncodings.Clear();
 				foreach (AudioEncoding audioEncoding in this.profile.AudioEncodings)
 				{
-					this.audioEncodings.Add(new AudioEncodingViewModel(audioEncoding, this.mainViewModel.SelectedTitle, this.chosenAudioTracks, this.profile.OutputFormat, this));
+					this.audioEncodings.Add(new AudioEncodingViewModel(audioEncoding, this.mainViewModel.SelectedTitle, this.mainViewModel.GetChosenAudioTracks(), this.profile.OutputFormat, this));
 				}
 
 				this.audioOutputPreviews.Clear();
@@ -1813,11 +1810,11 @@ namespace VidCoder.ViewModel
 							Encoder = AudioEncoder.Faac,
 							Mixdown = Mixdown.DolbyProLogicII,
 							Bitrate = 160,
-							SampleRateRaw = 48000,
+							SampleRateRaw = 0,
 							Drc = 0.0
 						};
 
-						this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.mainViewModel.SelectedTitle, this.chosenAudioTracks, this.OutputFormat, this));
+						this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.mainViewModel.SelectedTitle, this.mainViewModel.GetChosenAudioTracks(), this.OutputFormat, this));
 						this.NotifyPropertyChanged("HasAudioTracks");
 						this.RefreshExtensionChoice();
 						this.RefreshAudioPreview();
@@ -1890,7 +1887,7 @@ namespace VidCoder.ViewModel
 						TrackNumber = "Track",
 						Name = "Source",
 						Encoder = "Encoder",
-						Mixdown = "Mixdown",
+						Mixdown = "Channel Layout",
 						SampleRate = "Sample Rate",
 						Bitrate = "Bitrate"
 					});
@@ -2803,15 +2800,15 @@ namespace VidCoder.ViewModel
 					newOptions.Add("direct=" + this.DirectPrediction.Value);
 				}
 
-				if (!this.WeightedPFrames)
-				{
-					newOptions.Add("weightp=0");
-				}
-
 				if (this.BFrames.Value != "1" && !this.PyramidalBFrames.IsDefault)
 				{
 					newOptions.Add("b-pyramid=" + this.PyramidalBFrames.Value);
 				}
+			}
+
+			if (!this.WeightedPFrames)
+			{
+				newOptions.Add("weightp=0");
 			}
 
 			if (!this.MotionEstimationMethod.IsDefault)
@@ -2845,7 +2842,7 @@ namespace VidCoder.ViewModel
 				newOptions.Add("cabac=0");
 			}
 
-			if (this.CabacEntropyCoding && !this.Trellis.IsDefault)
+			if (!this.Trellis.IsDefault)
 			{
 				newOptions.Add("trellis=" + this.Trellis.Value);
 			}

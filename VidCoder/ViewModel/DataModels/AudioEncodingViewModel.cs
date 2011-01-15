@@ -27,6 +27,7 @@ namespace VidCoder.ViewModel
 		private List<int> bitrateChoices;
 		private int bitrate;
 		private double drc;
+		private string name;
 
 		private ICommand removeAudioEncodingCommand;
 
@@ -62,6 +63,7 @@ namespace VidCoder.ViewModel
 			this.sampleRate = audioEncoding.SampleRateRaw;
 			this.bitrate = audioEncoding.Bitrate;
 			this.drc = audioEncoding.Drc;
+			this.name = audioEncoding.Name;
 
 			this.initializing = false;
 		}
@@ -82,6 +84,7 @@ namespace VidCoder.ViewModel
 					newAudioEncoding.Bitrate = this.Bitrate;
 					newAudioEncoding.SampleRateRaw = this.SampleRate;
 					newAudioEncoding.Drc = this.Drc;
+					newAudioEncoding.Name = this.Name;
 				}
 
 				return newAudioEncoding;
@@ -278,6 +281,23 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public string Name
+		{
+			get
+			{
+				return this.name;
+			}
+
+			set
+			{
+				this.name = value;
+				this.NotifyPropertyChanged("Name");
+				this.encodingDialogVM.RefreshAudioPreview();
+				this.encodingDialogVM.UpdateAudioEncodings();
+				this.MarkModified();
+			}
+		}
+
 		public OutputFormat OutputFormat
 		{
 			get
@@ -316,11 +336,6 @@ namespace VidCoder.ViewModel
 
 				this.targetStreams.Clear();
 				this.targetStreams.Add(new TargetStreamViewModel { Text = "All" });
-
-				//for (int i = this.targetStreams.Count - 1; i > 0; i--)
-				//{
-				//    this.targetStreams.RemoveAt(i);
-				//}
 
 				int shownStreams = Math.Max(previousIndex, chosenAudioTracks.Count);
 
