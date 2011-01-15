@@ -611,7 +611,7 @@
 										<GridViewColumn Width="120" Header="Sample Rate" CellTemplate="{StaticResource SampleRateTemplate}" />
 										<GridViewColumn Width="62" Header="Bitrate" CellTemplate="{StaticResource BitrateTemplate}" />
 										<!--<GridViewColumn Header="DRC" CellTemplate="{StaticResource DrcTemplate}" />-->
-										<GridViewColumn Header="Name" Width="90" CellTemplate="{StaticResource NameTemplate}" />
+										<!--<GridViewColumn Header="Name" Width="90" CellTemplate="{StaticResource NameTemplate}" />-->
 										<GridViewColumn CellTemplate="{StaticResource RemoveAudioTemplate}" />
 									</GridView.Columns>
 								</GridView>
