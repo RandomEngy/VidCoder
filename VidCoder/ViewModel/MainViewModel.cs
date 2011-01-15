@@ -1782,6 +1782,7 @@ namespace VidCoder.ViewModel
 							Properties.Settings.Default.AutoNameOutputFolder = newOutputFolder;
 							Properties.Settings.Default.Save();
 							this.NotifyPropertyChanged("OutputFolderChosen");
+							this.NotifyPropertyChanged("CanEnqueueMultipleTitles");
 
 							this.GenerateOutputFileName();
 						}
