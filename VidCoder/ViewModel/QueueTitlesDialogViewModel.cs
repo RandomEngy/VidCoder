@@ -15,6 +15,8 @@ namespace VidCoder.ViewModel
 		private bool selectRange;
 		private int startRange;
 		private int endRange;
+		private bool titleStartOverrideEnabled;
+		private int titleStartOverride;
 
 		public QueueTitlesDialogViewModel(List<Title> allTitles)
 		{
@@ -22,6 +24,8 @@ namespace VidCoder.ViewModel
 			this.selectRange = Settings.Default.QueueTitlesUseRange;
 			this.startRange = Settings.Default.QueueTitlesStartTime;
 			this.endRange = Settings.Default.QueueTitlesEndTime;
+			this.titleStartOverrideEnabled = Settings.Default.QueueTitlesUseTitleOverride;
+			this.titleStartOverride = Settings.Default.QueueTitlesTitleOverride;
 
 			this.titles = new List<TitleSelectionViewModel>();
 			foreach (Title title in allTitles)
@@ -110,6 +114,34 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool TitleStartOverrideEnabled
+		{
+			get
+			{
+				return this.titleStartOverrideEnabled;
+			}
+
+			set
+			{
+				this.titleStartOverrideEnabled = value;
+				this.NotifyPropertyChanged("TitleStartOverrideEnabled");
+			}
+		}
+
+		public int TitleStartOverride
+		{
+			get
+			{
+				return this.titleStartOverride;
+			}
+
+			set
+			{
+				this.titleStartOverride = value;
+				this.NotifyPropertyChanged("TitleStartOverride");
+			}
+		}
+
 		public List<Title> CheckedTitles
 		{
 			get
@@ -132,6 +164,8 @@ namespace VidCoder.ViewModel
 			Settings.Default.QueueTitlesUseRange = this.SelectRange;
 			Settings.Default.QueueTitlesStartTime = this.StartRange;
 			Settings.Default.QueueTitlesEndTime = this.EndRange;
+			Settings.Default.QueueTitlesUseTitleOverride = this.TitleStartOverrideEnabled;
+			Settings.Default.QueueTitlesTitleOverride = this.TitleStartOverride;
 			Settings.Default.Save();
 			base.OnClosing();
 		}

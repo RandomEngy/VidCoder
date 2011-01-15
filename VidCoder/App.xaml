@@ -9,6 +9,13 @@
 		<converters:InverseBoolConverter x:Key="InverseBoolConverter" />
 		<converters:PercentDisplayConverter x:Key="PercentDisplayConverter" />
 		<converters:DoubleDisplayConverter x:Key="DoubleDisplayConverter" />
+		<Style x:Key="LongToolTip" TargetType="TextBlock">
+			<Setter Property="Width" Value="400" />
+			<Setter Property="TextWrapping" Value="Wrap" />
+		</Style>
+		<Style x:Key="LongToolTipHolder" TargetType="FrameworkElement">
+			<Setter Property="ToolTipService.ShowDuration" Value="20000" />
+		</Style>
 		<Style x:Key="RowButton" TargetType="{x:Type Button}">
 			<Setter Property="Height" Value="23" />
 			<Setter Property="VerticalAlignment" Value="Center" />

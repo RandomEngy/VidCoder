@@ -1952,6 +1952,8 @@ namespace VidCoder.ViewModel
 
 						if (queueTitlesDialog.DialogResult)
 						{
+							int currentTitleNumber = queueTitlesDialog.TitleStartOverride;
+
 							// Queue the selected titles
 							List<Title> titlesToQueue = queueTitlesDialog.CheckedTitles;
 							foreach (Title title in titlesToQueue)
@@ -1999,10 +2001,17 @@ namespace VidCoder.ViewModel
 									queueSourceName = this.TranslateDvdSourceName(queueSourceName);
 								}
 
+								int titleNumber = title.TitleNumber;
+								if (queueTitlesDialog.TitleStartOverrideEnabled)
+								{
+									titleNumber = currentTitleNumber;
+									currentTitleNumber++;
+								}
+
 								string queueOutputFileName = this.BuildOutputFileName(
 									this.sourcePath,
 									queueSourceName,
-									title.TitleNumber,
+									titleNumber,
 									startChapter: 1,
 									endChapter: title.Chapters.Count,
 									totalChapters: title.Chapters.Count);
@@ -3288,7 +3297,7 @@ namespace VidCoder.ViewModel
 				fileName = Settings.Default.AutoNameCustomFormatString;
 
 				fileName = fileName.Replace("{source}", sourceName);
-				fileName = fileName.Replace("{title}", title.ToString());
+				fileName = ReplaceTitles(fileName, title);
 				fileName = fileName.Replace("{chapters}", chapterString);
 				fileName = fileName.Replace("{preset}", this.SelectedPreset.Preset.Name);
 				fileName = ReplaceParents(fileName, sourcePath);
@@ -3353,6 +3362,29 @@ namespace VidCoder.ViewModel
 			return Utilities.CleanFileName(fileName);
 		}
 
+		private static string ReplaceTitles(string inputString, int title)
+		{
+			inputString = inputString.Replace("{title}", title.ToString());
+
+			Regex regex = new Regex("{title:(?<number>[0-9]+)}");
+			Match match;
+			while ((match = regex.Match(inputString)).Success)
+			{
+				Capture capture = match.Groups["number"].Captures[0];
+				int replaceIndex = capture.Index - 7;
+				int replaceLength = capture.Length + 8;
+
+				int digits = int.Parse(capture.Value);
+
+				if (digits > 0 && digits <= 10)
+				{
+					inputString = inputString.Substring(0, replaceIndex) + string.Format("{0:D" + digits + "}", title) + inputString.Substring(replaceIndex + replaceLength);
+				}
+			}
+
+			return inputString;
+		}
+
 		/// <summary>
 		/// Takes a string and replaces instances of {parent} or {parent:x} with the appropriate parent.
 		/// </summary>
@@ -3364,21 +3396,21 @@ namespace VidCoder.ViewModel
 			string directParentName = Path.GetDirectoryName(path);
 			if (directParentName == null)
 			{
-				return string.Empty;
+				return inputString;
 			}
 
 			DirectoryInfo directParent = new DirectoryInfo(directParentName);
 
 			if (directParent.Root.FullName == directParent.FullName)
 			{
-				return string.Empty;
+				return inputString;
 			}
 
 			inputString = inputString.Replace("{parent}", directParent.Name);
 
 			Regex regex = new Regex("{parent:(?<number>[0-9]+)}");
 			Match match;
-			while ((match = Regex.Match(inputString, "{parent:(?<number>[0-9]+)}")).Success)
+			while ((match = regex.Match(inputString)).Success)
 			{
 				Capture capture = match.Groups["number"].Captures[0];
 				int replaceIndex = capture.Index - 8;

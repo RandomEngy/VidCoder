@@ -513,5 +513,29 @@ namespace VidCoder.Properties {
                 this["PreviewCount"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool QueueTitlesUseTitleOverride {
+            get {
+                return ((bool)(this["QueueTitlesUseTitleOverride"]));
+            }
+            set {
+                this["QueueTitlesUseTitleOverride"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int QueueTitlesTitleOverride {
+            get {
+                return ((int)(this["QueueTitlesTitleOverride"]));
+            }
+            set {
+                this["QueueTitlesTitleOverride"] = value;
+            }
+        }
     }
 }
