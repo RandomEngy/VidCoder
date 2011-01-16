@@ -1392,11 +1392,37 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public string EnqueueToolTip
+		{
+			get
+			{
+				if (string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder))
+				{
+					return "Please choose a destination directory before adding items to the queue.";
+				}
+
+				return null;
+			}
+		}
+
 		public bool CanEncode
 		{
 			get
 			{
 				return this.EncodeQueue.Count > 0 || this.CanEnqueue;
+			}
+		}
+
+		public string EncodeToolTip
+		{
+			get
+			{
+				if (string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder))
+				{
+					return "Please choose a destination directory before encoding.";
+				}
+
+				return null;
 			}
 		}
 
@@ -1783,6 +1809,8 @@ namespace VidCoder.ViewModel
 							Properties.Settings.Default.Save();
 							this.NotifyPropertyChanged("OutputFolderChosen");
 							this.NotifyPropertyChanged("CanEnqueueMultipleTitles");
+							this.NotifyPropertyChanged("EnqueueToolTip");
+							this.NotifyPropertyChanged("EncodeToolTip");
 
 							this.GenerateOutputFileName();
 						}

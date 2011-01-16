@@ -562,7 +562,8 @@
 			</Button>
 			
 			<Button Height="37" HorizontalAlignment="Left" Margin="6,90,0,0" VerticalAlignment="Top" Width="114"
-				Command="{Binding AddToQueueCommand}">
+				Command="{Binding AddToQueueCommand}"
+				ToolTip="{Binding EnqueueToolTip}" ToolTipService.ShowOnDisabled="True">
 				<StackPanel Orientation="Horizontal">
 					<Image Source="/Icons/downarrow_shadow.png" Height="26" />
 					<TextBlock Text="Add to Queue" VerticalAlignment="Center" Margin="5,0,0,0" />
@@ -658,7 +659,8 @@
 			</Button>
 			<Button Height="37" HorizontalAlignment="Right" Margin="0,90,6,0" VerticalAlignment="Top" Width="82"
 				Command="{Binding EncodeCommand}"
-				Visibility="{Binding PauseVisible, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
+				Visibility="{Binding PauseVisible, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
+				ToolTip="{Binding EncodeToolTip}" ToolTipService.ShowOnDisabled="True">
 				<StackPanel Orientation="Horizontal">
 					<Image Source="/Icons/encode_160.png" Height="26" />
 					<TextBlock Margin="7,0,0,0" Text="{Binding EncodeButtonText}" VerticalAlignment="Center" />
