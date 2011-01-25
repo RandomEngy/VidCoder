@@ -149,7 +149,7 @@
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
 			<VideoEncoder>X264</VideoEncoder>
-			<X264Options>ref=2:bframes=0:weightp=0:me=umh:subme=6:8x8dct=0:cabac=0</X264Options>
+			<X264Options>ref=2:bframes=0:weightp=0:me=umh:subme=6:8x8dct=0:cabac=0:trellis=0</X264Options>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
 			<TargetSize>0</TargetSize>
