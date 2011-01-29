@@ -73,7 +73,7 @@ namespace HandBrake.Interop
 				MaxWidth = this.MaxWidth,
 				MaxHeight = this.MaxHeight,
 				CustomCropping = this.CustomCropping,
-				Cropping = this.Cropping,
+				Cropping = this.Cropping.Clone(),
 				Anamorphic = this.Anamorphic,
 				UseDisplayWidth = this.UseDisplayWidth,
 				DisplayWidth = this.DisplayWidth,
