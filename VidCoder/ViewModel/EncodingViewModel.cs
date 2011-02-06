@@ -705,8 +705,9 @@ namespace VidCoder.ViewModel
 						var parWidth = this.SelectedTitle.ParVal.Width;
 						var parHeight = this.SelectedTitle.ParVal.Height;
 
-						int newHeight = (sourceHeight * parHeight * (value + cropWidthAmount) - cropHeightAmount * sourceWidth * parWidth) /
-									  (sourceWidth * parWidth);
+						double finalDisplayAspect = ((double)(sourceWidth - cropWidthAmount) * parWidth) / ((sourceHeight - cropHeightAmount) * parHeight);
+
+						int newHeight = (int)(value / finalDisplayAspect);
 						newHeight = this.GetNearestValue(newHeight, DimensionsAutoSetModulus);
 						if (newHeight > 0)
 						{
@@ -757,8 +758,9 @@ namespace VidCoder.ViewModel
 						var parWidth = this.SelectedTitle.ParVal.Width;
 						var parHeight = this.SelectedTitle.ParVal.Height;
 
-						int newWidth = (sourceWidth * parWidth * (value + cropHeightAmount) - cropWidthAmount * sourceHeight * parHeight) /
-									 (sourceHeight * parHeight);
+						double finalDisplayAspect = ((double)(sourceWidth - cropWidthAmount) * parWidth) / ((sourceHeight - cropHeightAmount) * parHeight);
+
+						int newWidth = (int)(value * finalDisplayAspect);
 						newWidth = this.GetNearestValue(newWidth, DimensionsAutoSetModulus);
 						if (newWidth > 0)
 						{
