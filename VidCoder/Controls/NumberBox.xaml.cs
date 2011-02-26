@@ -22,7 +22,7 @@ namespace VidCoder.Controls
 		private bool allowNegative;
 		private string noneCaption;
 
-		private bool haveFocus = false;
+	    private bool haveFocus = false;
 
 		public NumberBox()
 		{
@@ -107,10 +107,11 @@ namespace VidCoder.Controls
 			}
 		}
 
-		private static void OnNumberChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+	    public bool SelectAllOnClick { get; set; }
+
+	    private static void OnNumberChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
 		{
 			var numBox = dependencyObject as NumberBox;
-			int newNumber = (int)eventArgs.NewValue;
 
 			if (!numBox.haveFocus)
 			{
@@ -139,21 +140,6 @@ namespace VidCoder.Controls
 			}
 		}
 
-		private void numberBox_LostFocus(object sender, RoutedEventArgs e)
-		{
-			this.haveFocus = false;
-
-			if (this.AllowEmpty && this.numberBox.Text == string.Empty)
-			{
-				this.Number = 0;
-				this.RefreshNumberBox();
-				return;
-			}
-
-			this.UpdateNumberBindingFromBox();
-			this.RefreshNumberBox();
-		}
-
 		private void RefreshNumberBox()
 		{
 			if (this.AllowEmpty && this.Number == 0)
@@ -168,7 +154,22 @@ namespace VidCoder.Controls
 			}
 		}
 
-		private void numberBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void NumberBoxLostFocus(object sender, RoutedEventArgs e)
+        {
+            this.haveFocus = false;
+
+            if (this.AllowEmpty && this.numberBox.Text == string.Empty)
+            {
+                this.Number = 0;
+                this.RefreshNumberBox();
+                return;
+            }
+
+            this.UpdateNumberBindingFromBox();
+            this.RefreshNumberBox();
+        }
+
+		private void NumberBoxPreviewTextInput(object sender, TextCompositionEventArgs e)
 		{
 			foreach (char c in e.Text)
 			{
@@ -180,7 +181,7 @@ namespace VidCoder.Controls
 			}
 		}
 
-		private void numberBox_PreviewKeyDown(object sender, KeyEventArgs e)
+		private void NumberBoxPreviewKeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.Key == Key.Space)
 			{
@@ -188,7 +189,15 @@ namespace VidCoder.Controls
 			}
 		}
 
-		private void numberBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void NumberBoxPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (this.SelectAllOnClick)
+            {
+                this.Dispatcher.BeginInvoke(new Action(() => this.numberBox.SelectAll()));
+            }
+        }
+
+		private void NumberBoxTextChanged(object sender, TextChangedEventArgs e)
 		{
 			if (this.UpdateBindingOnTextChange)
 			{

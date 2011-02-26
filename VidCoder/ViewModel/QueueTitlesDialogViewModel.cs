@@ -96,6 +96,12 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.startRange = value;
+
+                if (this.SelectRange)
+                {
+                    this.SetSelectedFromRange();
+                }
+
 				this.NotifyPropertyChanged("StartRange");
 			}
 		}
@@ -110,6 +116,12 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.endRange = value;
+
+                if (this.SelectRange)
+                {
+                    this.SetSelectedFromRange();
+                }
+
 				this.NotifyPropertyChanged("EndRange");
 			}
 		}
