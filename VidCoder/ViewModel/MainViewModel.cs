@@ -914,6 +914,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.videoRangeType = value;
+
+				this.GenerateOutputFileName();
 				this.NotifyPropertyChanged("VideoRangeType");
 				this.NotifyPropertyChanged("ChaptersRangeVisible");
 				this.NotifyPropertyChanged("SecondsRangeVisible");
@@ -966,6 +968,8 @@ namespace VidCoder.ViewModel
 					this.NotifyPropertyChanged("SecondsRangeEnd");
 				}
 
+				this.GenerateOutputFileName();
+
 				this.NotifyPropertyChanged("SecondsRangeStart");
 				this.NotifyPropertyChanged("VideoRangeSummary");
 			}
@@ -993,6 +997,8 @@ namespace VidCoder.ViewModel
 					this.secondsRangeStart = this.secondsRangeEnd - SecondsRangeBuffer;
 					this.NotifyPropertyChanged("SecondsRangeStart");
 				}
+
+				this.GenerateOutputFileName();
 
 				this.NotifyPropertyChanged("SecondsRangeEnd");
 				this.NotifyPropertyChanged("VideoRangeSummary");
@@ -1030,6 +1036,8 @@ namespace VidCoder.ViewModel
 					this.NotifyPropertyChanged("FramesRangeEnd");
 				}
 
+				this.GenerateOutputFileName();
+
 				this.NotifyPropertyChanged("FramesRangeStart");
 				this.NotifyPropertyChanged("VideoRangeSummary");
 			}
@@ -1057,6 +1065,8 @@ namespace VidCoder.ViewModel
 					this.framesRangeStart = this.framesRangeEnd - 1;
 					this.NotifyPropertyChanged("FramesRangeStart");
 				}
+
+				this.GenerateOutputFileName();
 
 				this.NotifyPropertyChanged("FramesRangeEnd");
 				this.NotifyPropertyChanged("VideoRangeSummary");
@@ -2041,9 +2051,7 @@ namespace VidCoder.ViewModel
 									this.sourcePath,
 									queueSourceName,
 									titleNumber,
-									startChapter: 1,
-									endChapter: title.Chapters.Count,
-									totalChapters: title.Chapters.Count);
+									title.Chapters.Count);
 
 								string extension = this.GetOutputExtension(subtitles, title);
 								string queueOutputPath = this.BuildOutputPath(queueOutputFileName, extension, sourcePath: null);
@@ -3169,9 +3177,14 @@ namespace VidCoder.ViewModel
 				this.sourcePath,
 				translatedSourceName,
 				this.SelectedTitle.TitleNumber,
+				this.VideoRangeType,
 				this.SelectedStartChapter.ChapterNumber,
 				this.SelectedEndChapter.ChapterNumber,
-				this.SelectedTitle.Chapters.Count);
+				this.SelectedTitle.Chapters.Count,
+				this.SecondsRangeStart,
+				this.SecondsRangeEnd,
+				this.FramesRangeStart,
+				this.FramesRangeEnd);
 
 			string extension = this.GetOutputExtension();
 
@@ -3308,26 +3321,58 @@ namespace VidCoder.ViewModel
 			return null;
 		}
 
-		private string BuildOutputFileName(string sourcePath, string sourceName, int title, int startChapter, int endChapter, int totalChapters)
+		private string BuildOutputFileName(string sourcePath, string sourceName, int title, int totalChapters)
+		{
+			return this.BuildOutputFileName(
+				sourcePath,
+				sourceName,
+				title,
+				VideoRangeType.Chapters,
+				1,
+				totalChapters,
+				totalChapters,
+				0,
+				0,
+				0,
+				0);
+		}
+
+		private string BuildOutputFileName(string sourcePath, string sourceName, int title, VideoRangeType rangeType, int startChapter, int endChapter, int totalChapters, double startSecond, double endSecond, int startFrame, int endFrame)
 		{
 			string fileName;
 			if (Settings.Default.AutoNameCustomFormat)
 			{
-				string chapterString;
-				if (startChapter == endChapter)
+				string rangeString = string.Empty;
+				switch (rangeType)
 				{
-					chapterString = startChapter.ToString();
-				}
-				else
-				{
-					chapterString = startChapter + "-" + endChapter;
+					case VideoRangeType.Chapters:
+						if (startChapter == endChapter)
+						{
+							rangeString = startChapter.ToString();
+						}
+						else
+						{
+							rangeString = startChapter + "-" + endChapter;
+						}
+
+						break;
+					case VideoRangeType.Seconds:
+						rangeString = startSecond + "-" + endSecond;
+						break;
+					case VideoRangeType.Frames:
+						rangeString = startFrame + "-" + endFrame;
+						break;
 				}
 
 				fileName = Settings.Default.AutoNameCustomFormatString;
 
 				fileName = fileName.Replace("{source}", sourceName);
 				fileName = ReplaceTitles(fileName, title);
-				fileName = fileName.Replace("{chapters}", chapterString);
+				fileName = fileName.Replace("{range}", rangeString);
+
+				// {chapters} is deprecated in favor of {range} but we replace here for backwards compatibility.
+				fileName = fileName.Replace("{chapters}", rangeString);
+
 				fileName = fileName.Replace("{preset}", this.SelectedPreset.Preset.Name);
 				fileName = ReplaceParents(fileName, sourcePath);
 
@@ -3372,20 +3417,32 @@ namespace VidCoder.ViewModel
 					titleSection = " - Title " + title;
 				}
 
-				string chaptersSection = string.Empty;
-				if (startChapter > 1 || endChapter < totalChapters)
+				string rangeSection = string.Empty;
+				switch (rangeType)
 				{
-					if (startChapter == endChapter)
-					{
-						chaptersSection = " - Chapter " + startChapter;
-					}
-					else
-					{
-						chaptersSection = " - Chapters " + startChapter + "-" + endChapter;
-					}
+					case VideoRangeType.Chapters:
+						if (startChapter > 1 || endChapter < totalChapters)
+						{
+							if (startChapter == endChapter)
+							{
+								rangeSection = " - Chapter " + startChapter;
+							}
+							else
+							{
+								rangeSection = " - Chapters " + startChapter + "-" + endChapter;
+							}
+						}
+
+						break;
+					case VideoRangeType.Seconds:
+						rangeSection = " - Seconds " + startSecond + "-" + endSecond;
+						break;
+					case VideoRangeType.Frames:
+						rangeSection = " - Frames " + startFrame + "-" + endFrame;
+						break;
 				}
 
-				fileName = sourceName + titleSection + chaptersSection;
+				fileName = sourceName + titleSection + rangeSection;
 			}
 
 			return Utilities.CleanFileName(fileName);

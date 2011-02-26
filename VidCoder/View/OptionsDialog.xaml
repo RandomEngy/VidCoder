@@ -43,7 +43,7 @@
 						Margin="195.236,110.223,11,0" Height="22.959" VerticalAlignment="Top"
 						Text="{Binding CustomFormatString}"
 						IsEnabled="{Binding CustomFormatStringEnabled}"/>
-					<TextBlock Margin="195.236,133.866,0.246,121" TextWrapping="Wrap" Height="36">Available options: {source} {title} {chapters} {preset} {date} {time} {quality} {parent}</TextBlock>
+					<TextBlock Margin="195.236,133.866,0.246,121" TextWrapping="Wrap" Height="36">Available options: {source} {title} {range} {preset} {date} {time} {quality} {parent}</TextBlock>
 					
 					<TextBlock
 						Height="21" HorizontalAlignment="Left" Margin="6,184,0,0" VerticalAlignment="Top" Width="82"
