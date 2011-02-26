@@ -22,7 +22,7 @@ namespace VidCoder.Controls
 		private bool allowNegative;
 		private string noneCaption;
 
-	    private bool haveFocus = false;
+		private bool haveFocus = false;
 
 		public NumberBox()
 		{
@@ -107,9 +107,9 @@ namespace VidCoder.Controls
 			}
 		}
 
-	    public bool SelectAllOnClick { get; set; }
+		public bool SelectAllOnClick { get; set; }
 
-	    private static void OnNumberChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+		private static void OnNumberChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
 		{
 			var numBox = dependencyObject as NumberBox;
 
@@ -154,20 +154,20 @@ namespace VidCoder.Controls
 			}
 		}
 
-        private void NumberBoxLostFocus(object sender, RoutedEventArgs e)
-        {
-            this.haveFocus = false;
+		private void NumberBoxLostFocus(object sender, RoutedEventArgs e)
+		{
+			this.haveFocus = false;
 
-            if (this.AllowEmpty && this.numberBox.Text == string.Empty)
-            {
-                this.Number = 0;
-                this.RefreshNumberBox();
-                return;
-            }
+			if (this.AllowEmpty && this.numberBox.Text == string.Empty)
+			{
+				this.Number = 0;
+				this.RefreshNumberBox();
+				return;
+			}
 
-            this.UpdateNumberBindingFromBox();
-            this.RefreshNumberBox();
-        }
+			this.UpdateNumberBindingFromBox();
+			this.RefreshNumberBox();
+		}
 
 		private void NumberBoxPreviewTextInput(object sender, TextCompositionEventArgs e)
 		{
@@ -189,13 +189,13 @@ namespace VidCoder.Controls
 			}
 		}
 
-        private void NumberBoxPreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (this.SelectAllOnClick)
-            {
-                this.Dispatcher.BeginInvoke(new Action(() => this.numberBox.SelectAll()));
-            }
-        }
+		private void NumberBoxPreviewMouseDown(object sender, MouseButtonEventArgs e)
+		{
+			if (this.SelectAllOnClick)
+			{
+				this.Dispatcher.BeginInvoke(new Action(() => this.numberBox.SelectAll()));
+			}
+		}
 
 		private void NumberBoxTextChanged(object sender, TextChangedEventArgs e)
 		{

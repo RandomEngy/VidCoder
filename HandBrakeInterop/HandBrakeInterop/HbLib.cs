@@ -344,7 +344,7 @@ namespace HandBrake.Interop
 		/// hb_thread_t*
 		public IntPtr work_thread;
 
-		/// int
+		// This is REMOVED in the latest HB SVN
 		public int cpu_count;
 
 		/// hb_lock_t*

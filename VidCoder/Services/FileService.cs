@@ -23,7 +23,7 @@ namespace VidCoder.Services
 
 		public IList<string> GetFileNames(string initialDirectory)
 		{
-			Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+			var dialog = new Microsoft.Win32.OpenFileDialog();
 			dialog.Multiselect = true;
 
 			if (!string.IsNullOrEmpty(initialDirectory) && Directory.Exists(initialDirectory))
@@ -47,7 +47,7 @@ namespace VidCoder.Services
 
 		public string GetFileNameLoad(string defaultExt, string filter, string initialDirectory)
 		{
-			Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+			var dialog = new Microsoft.Win32.OpenFileDialog();
 
 			if (defaultExt != null)
 			{
@@ -76,7 +76,7 @@ namespace VidCoder.Services
 
 		public string GetFileNameSave(string initialDirectory)
 		{
-			Microsoft.Win32.SaveFileDialog dialog = new Microsoft.Win32.SaveFileDialog();
+			var dialog = new Microsoft.Win32.SaveFileDialog();
 
 			if (!string.IsNullOrEmpty(initialDirectory) && Directory.Exists(initialDirectory))
 			{
@@ -100,7 +100,7 @@ namespace VidCoder.Services
 
 		public string GetFolderName(string initialDirectory, string description)
 		{
-			VistaFolderBrowserDialog folderDialog = new VistaFolderBrowserDialog();
+			var folderDialog = new VistaFolderBrowserDialog();
 			if (description != null)
 			{
 				folderDialog.Description = description;
