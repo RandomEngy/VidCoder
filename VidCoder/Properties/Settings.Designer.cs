@@ -537,5 +537,17 @@ namespace VidCoder.Properties {
                 this["QueueTitlesTitleOverride"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowAudioTrackNameField {
+            get {
+                return ((bool)(this["ShowAudioTrackNameField"]));
+            }
+            set {
+                this["ShowAudioTrackNameField"] = value;
+            }
+        }
     }
 }

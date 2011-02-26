@@ -601,6 +601,7 @@
 				<Grid>
 					<StackPanel Orientation="Vertical" Margin="6,15,0,0" VerticalAlignment="Top">
 						<ListView
+							Name="audioList"
 							ItemsSource="{Binding AudioEncodings}">
 							<ListView.View>
 								<GridView>

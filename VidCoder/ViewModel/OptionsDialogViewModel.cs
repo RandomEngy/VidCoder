@@ -26,6 +26,7 @@ namespace VidCoder.ViewModel
 		private ObservableCollection<string> autoPauseProcesses;
 		private string selectedProcess;
 		private int previewCount;
+		private bool showAudioTrackNameField;
 
 		private int initialLogVerbosity;
 
@@ -52,6 +53,7 @@ namespace VidCoder.ViewModel
 			this.dubAudio = Settings.Default.DubAudio;
 			this.logVerbosity = Settings.Default.LogVerbosity;
 			this.previewCount = Settings.Default.PreviewCount;
+			this.showAudioTrackNameField = Settings.Default.ShowAudioTrackNameField;
 			this.autoPauseProcesses = new ObservableCollection<string>();
 			StringCollection autoPauseStringCollection = Settings.Default.AutoPauseProcesses;
 			if (autoPauseStringCollection != null)
@@ -301,6 +303,20 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool ShowAudioTrackNameField
+		{
+			get
+			{
+				return this.showAudioTrackNameField;
+			}
+
+			set
+			{
+				this.showAudioTrackNameField = value;
+				this.NotifyPropertyChanged("ShowAudioTrackNameField");
+			}
+		}
+
 		public bool LogVerbosityWarningVisible
 		{
 			get
@@ -344,6 +360,7 @@ namespace VidCoder.ViewModel
 
 						Settings.Default.AutoPauseProcesses = autoPauseStringCollection;
 						Settings.Default.PreviewCount = this.PreviewCount;
+						Settings.Default.ShowAudioTrackNameField = this.ShowAudioTrackNameField;
 						Settings.Default.Save();
 
 						this.AcceptCommand.Execute(null);

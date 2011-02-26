@@ -72,7 +72,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				AudioEncoding newAudioEncoding = new AudioEncoding();
+				var newAudioEncoding = new AudioEncoding();
 				newAudioEncoding.InputNumber = this.TargetStreamIndex;
 
 				AudioEncoder encoder = this.SelectedAudioEncoder.Encoder;

@@ -132,6 +132,10 @@
 						<ComboBoxItem>25</ComboBoxItem>
 						<ComboBoxItem>30</ComboBoxItem>
 					</ComboBox>
+					<CheckBox
+						Content="Allow setting custom name on audio tracks (limited player support)"
+						IsChecked="{Binding ShowAudioTrackNameField}"
+						Height="16" HorizontalAlignment="Left" Margin="15,40,0,0" VerticalAlignment="Top" />
 				</Grid>
 			</TabItem>
 		</TabControl>

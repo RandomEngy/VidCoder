@@ -30,6 +30,19 @@ namespace VidCoder.View
 			InitializeComponent();
 
 			this.tabControl.SelectedIndex = Settings.Default.EncodingDialogLastTab;
+
+			if (Settings.Default.ShowAudioTrackNameField)
+			{
+				var gridView = this.audioList.View as GridView;
+				gridView.Columns.Insert(
+					gridView.Columns.Count - 1,
+					new GridViewColumn
+					{
+						Header = "Name",
+						Width = 98,
+						CellTemplate = this.Resources["NameTemplate"] as DataTemplate
+					});
+			}
 		}
 
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -73,12 +86,6 @@ namespace VidCoder.View
 				case "TargetStreamIndex":
 					ResizeGridViewColumn(this.targetStreamColumn);
 					break;
-				//case "SelectedAudioEncoder":
-				//    ResizeGridViewColumn(this.codecColumn);
-				//    break;
-				//case "SelectedMixdown":
-				//    ResizeGridViewColumn(this.mixdownColumn);
-				//    break;
 				default:
 					break;
 			}
@@ -97,7 +104,7 @@ namespace VidCoder.View
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			string placement = Properties.Settings.Default.EncodingDialogPlacement;
+			string placement = Settings.Default.EncodingDialogPlacement;
 			if (string.IsNullOrEmpty(placement))
 			{
 				Rect workArea = SystemParameters.WorkArea;
@@ -126,7 +133,7 @@ namespace VidCoder.View
 
 		private void ToolBar_Loaded(object sender, RoutedEventArgs e)
 		{
-			ToolBar toolBar = sender as ToolBar;
+			var toolBar = sender as ToolBar;
 			var overflowGrid = toolBar.Template.FindName("OverflowGrid", toolBar) as FrameworkElement;
 			if (overflowGrid != null)
 			{
