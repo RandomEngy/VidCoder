@@ -26,9 +26,14 @@ namespace VidCoder.Services
 			var dialog = new Microsoft.Win32.OpenFileDialog();
 			dialog.Multiselect = true;
 
-			if (!string.IsNullOrEmpty(initialDirectory) && Directory.Exists(initialDirectory))
+			if (!string.IsNullOrEmpty(initialDirectory))
 			{
-				dialog.InitialDirectory = initialDirectory;
+				string fullDirectory = Path.GetFullPath(initialDirectory);
+
+				if (Directory.Exists(fullDirectory))
+				{
+					dialog.InitialDirectory = fullDirectory;
+				}
 			}
 
 			bool? result = dialog.ShowDialog();
@@ -59,9 +64,15 @@ namespace VidCoder.Services
 				dialog.Filter = filter;
 			}
 
-			if (!string.IsNullOrEmpty(initialDirectory) && Directory.Exists(initialDirectory))
+
+			if (!string.IsNullOrEmpty(initialDirectory))
 			{
-				dialog.InitialDirectory = initialDirectory;
+				string fullDirectory = Path.GetFullPath(initialDirectory);
+
+				if (Directory.Exists(fullDirectory))
+				{
+					dialog.InitialDirectory = fullDirectory;
+				}
 			}
 
 			bool? result = dialog.ShowDialog();
@@ -78,9 +89,14 @@ namespace VidCoder.Services
 		{
 			var dialog = new Microsoft.Win32.SaveFileDialog();
 
-			if (!string.IsNullOrEmpty(initialDirectory) && Directory.Exists(initialDirectory))
+			if (!string.IsNullOrEmpty(initialDirectory))
 			{
-				dialog.InitialDirectory = initialDirectory;
+				string fullDirectory = Path.GetFullPath(initialDirectory);
+
+				if (Directory.Exists(fullDirectory))
+				{
+					dialog.InitialDirectory = fullDirectory;
+				}
 			}
 
 			bool? result = dialog.ShowDialog();
