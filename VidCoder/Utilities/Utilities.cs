@@ -5,6 +5,7 @@ using System.Text;
 using System.Reflection;
 using System.Diagnostics;
 using System.IO;
+using System.Windows;
 using VidCoder.Services;
 using Microsoft.Practices.Unity;
 using HandBrake.Interop;
@@ -321,6 +322,16 @@ namespace VidCoder
 		public static bool IsPassthrough(AudioEncoder encoder)
 		{
 			return encoder == AudioEncoder.Passthrough || encoder == AudioEncoder.Ac3Passthrough || encoder == AudioEncoder.DtsPassthrough;
+		}
+
+		public static void SetDragIcon(DragEventArgs e)
+		{
+			var data = e.Data as DataObject;
+			if (data != null && data.ContainsFileDropList())
+			{
+				e.Effects = DragDropEffects.Copy;
+				e.Handled = true;
+			}
 		}
 
 		private static bool IsExcluded(string candidate, HashSet<string> exclusionList)

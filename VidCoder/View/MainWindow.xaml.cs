@@ -41,12 +41,12 @@ namespace VidCoder.View
 
 		private Storyboard presetGlowStoryboard;
 
-		public static MainWindow TheWindow;
-
 		public static System.Windows.Threading.Dispatcher TheDispatcher;
 
 		public MainWindow()
 		{
+			Unity.Container.RegisterInstance(this);
+
 			InitializeComponent();
 
 			this.RefreshQueueColumns();
@@ -54,23 +54,20 @@ namespace VidCoder.View
 
 			this.DataContextChanged += OnDataContextChanged;
 			TheDispatcher = this.Dispatcher;
-			//Unity.Container.RegisterInstance(this.Dispatcher);
-			
-			TheWindow = this;
 
 			this.presetGlowEffect.Opacity = 0.0;
 
 			NameScope.SetNameScope(this, new NameScope());
 			this.RegisterName("PresetGlowEffect", this.presetGlowEffect);
 
-			DoubleAnimation presetGlowFadeUp = new DoubleAnimation
+			var presetGlowFadeUp = new DoubleAnimation
 			{
 				From = 0.0,
 				To = 1.0,
 				Duration = new Duration(TimeSpan.FromSeconds(0.1))
 			};
 
-			DoubleAnimation presetGlowFadeDown = new DoubleAnimation
+			var presetGlowFadeDown = new DoubleAnimation
 			{
 				From = 1.0,
 				To = 0.0,
@@ -88,6 +85,39 @@ namespace VidCoder.View
 			Storyboard.SetTargetProperty(presetGlowFadeDown, new PropertyPath("Opacity"));
 
 			this.KeyDown += this.MainWindow_KeyDown;
+		}
+
+		public void HandleDrop(object sender, DragEventArgs e)
+		{
+			var data = e.Data as DataObject;
+			if (data != null && data.ContainsFileDropList())
+			{
+				System.Collections.Specialized.StringCollection fileList = data.GetFileDropList();
+				if (fileList.Count > 0)
+				{
+					if (fileList.Count == 1)
+					{
+						if (Path.GetExtension(fileList[0]).ToLowerInvariant() == ".xml")
+						{
+							Unity.Container.Resolve<IPresetImport>().ImportPreset(fileList[0]);
+						}
+						else
+						{
+							this.manualSelectionChange = true;
+							this.sourceBox.SelectedItem = this.sourceOptions.Single(item => item.SourceOption.Type == SourceType.File);
+							this.RemoveDeadOptions();
+							this.viewModel.SetSourceFromFile(fileList[0]);
+							this.manualSelectionChange = false;
+						}
+					}
+					else
+					{
+						var convertedFileList = fileList.Cast<string>().ToList();
+
+						this.viewModel.QueueMultiple(convertedFileList);
+					}
+				}
+			}
 		}
 
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -119,7 +149,7 @@ namespace VidCoder.View
 			}
 		}
 
-		private void ViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == "DriveCollection")
 			{
@@ -177,7 +207,7 @@ namespace VidCoder.View
 					if (currentOption == null)
 					{
 						// The device is new, add it
-						SourceOptionViewModel newSourceOptionVM = new SourceOptionViewModel(new SourceOption { Type = SourceType.Dvd, DriveInfo = drive });
+						var newSourceOptionVM = new SourceOptionViewModel(new SourceOption { Type = SourceType.Dvd, DriveInfo = drive });
 
 						bool added = false;
 						for (int i = 0; i < this.sourceOptions.Count; i++)
@@ -214,8 +244,8 @@ namespace VidCoder.View
 		private void sourceBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			bool reverted = false;
-			ComboBox sendingBox = sender as ComboBox;
-			SourceOptionViewModel selectedItem = sendingBox.SelectedItem as SourceOptionViewModel;
+			var sendingBox = sender as ComboBox;
+			var selectedItem = sendingBox.SelectedItem as SourceOptionViewModel;
 
 			if (!this.manualSelectionChange)
 			{
@@ -512,51 +542,9 @@ namespace VidCoder.View
 			}
 		}
 
-		private void Window_Drop(object sender, DragEventArgs e)
-		{
-			DataObject data = e.Data as DataObject;
-			if (data != null && data.ContainsFileDropList())
-			{
-				System.Collections.Specialized.StringCollection fileList = data.GetFileDropList();
-				if (fileList.Count > 0)
-				{
-					if (fileList.Count == 1)
-					{
-						if (Path.GetExtension(fileList[0]).ToLowerInvariant() == ".xml")
-						{
-							Unity.Container.Resolve<IPresetImport>().ImportPreset(fileList[0]);
-						}
-						else
-						{
-							this.manualSelectionChange = true;
-							this.sourceBox.SelectedItem = this.sourceOptions.Single(item => item.SourceOption.Type == SourceType.File);
-							this.RemoveDeadOptions();
-							this.viewModel.SetSourceFromFile(fileList[0]);
-							this.manualSelectionChange = false;
-						}
-					}
-					else
-					{
-						var convertedFileList = new List<string>();
-						foreach (string file in fileList)
-						{
-							convertedFileList.Add(file);
-						}
-
-						this.viewModel.QueueMultiple(convertedFileList);
-					}
-				}
-			}
-		}
-
 		private void Window_PreviewDragOver(object sender, DragEventArgs e)
 		{
-			DataObject data = e.Data as DataObject;
-			if (data != null && data.ContainsFileDropList())
-			{
-				e.Effects = DragDropEffects.Copy;
-				e.Handled = true;
-			}
+			Utilities.SetDragIcon(e);
 		}
 
 		private void ProgressMouseEnter(object sender, MouseEventArgs e)

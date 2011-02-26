@@ -9,6 +9,7 @@ using System.Net;
 using System.Windows;
 using VidCoder.Properties;
 using System.Diagnostics;
+using Microsoft.Practices.Unity;
 
 namespace VidCoder.Services
 {
@@ -48,8 +49,8 @@ namespace VidCoder.Services
 					if (installerPath != string.Empty)
 					{
 						// An update is ready, to give a prompt to apply it.
-						ApplyUpdateConfirmation updateConfirmation = new ApplyUpdateConfirmation();
-						updateConfirmation.Owner = VidCoder.View.MainWindow.TheWindow;
+						var updateConfirmation = new ApplyUpdateConfirmation();
+						updateConfirmation.Owner = Unity.Container.Resolve<View.MainWindow>();
 						updateConfirmation.ShowDialog();
 
 						if (updateConfirmation.Result == "Yes")

@@ -132,11 +132,16 @@
 		</DataTemplate>
 	</Window.Resources>
 	<Window.InputBindings>
+		<KeyBinding Key="Q" Modifiers="Control" Command="{Binding MainViewModel.AddToQueueCommand}" />
+		<KeyBinding Key="L" Modifiers="Control" Command="{Binding MainViewModel.OpenLogWindowCommand}" />
+		<KeyBinding Key="P" Modifiers="Control" Command="{Binding MainViewModel.OpenPreviewWindowCommand}" />
+		<KeyBinding Key="O" Modifiers="Control+Shift" Command="{Binding MainViewModel.QueueFilesCommand}" />
+		<KeyBinding Key="T" Modifiers="Control" Command="{Binding MainViewModel.QueueTitlesCommand}" />
+		<KeyBinding Key="D" Modifiers="Control" Command="{Binding MainViewModel.PickOutputPathCommand}" />
+
 		<KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
 		<KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveCommand}" />
 		<KeyBinding Key="S" Modifiers="Control+Shift" Command="{Binding SaveAsCommand}" />
-		<KeyBinding Key="L" Modifiers="Control" Command="{Binding MainViewModel.OpenLogWindowCommand}" />
-		<KeyBinding Key="P" Modifiers="Control" Command="{Binding MainViewModel.OpenPreviewWindowCommand}" />
 		<KeyBinding Key="F2" Command="{Binding RenameCommand}" />
 	</Window.InputBindings>
 	<Grid>

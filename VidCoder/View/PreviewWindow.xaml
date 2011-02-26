@@ -4,7 +4,11 @@
 	Title="{Binding Title}"
 	Width="864" Height="514"
 	MinWidth="300" MinHeight="200"
-	Closing="Window_Closing" ShowInTaskbar="False" WindowStyle="ToolWindow">
+	Closing="Window_Closing"
+	AllowDrop="True"
+	PreviewDrop="Window_PreviewDrop"
+	PreviewDragOver="Window_PreviewDragOver"
+	ShowInTaskbar="False" WindowStyle="ToolWindow">
 	<Window.Resources>
 		<Storyboard x:Key="FadePreviewControlsOut">
 			<DoubleAnimation
@@ -18,8 +22,12 @@
 		</Storyboard>
 	</Window.Resources>
 	<Window.InputBindings>
+		<KeyBinding Key="Q" Modifiers="Control" Command="{Binding MainViewModel.AddToQueueCommand}" />
 		<KeyBinding Key="L" Modifiers="Control" Command="{Binding MainViewModel.OpenLogWindowCommand}" />
 		<KeyBinding Key="N" Modifiers="Control" Command="{Binding MainViewModel.OpenEncodingWindowCommand}" />
+		<KeyBinding Key="O" Modifiers="Control+Shift" Command="{Binding MainViewModel.QueueFilesCommand}" />
+		<KeyBinding Key="T" Modifiers="Control" Command="{Binding MainViewModel.QueueTitlesCommand}" />
+		<KeyBinding Key="D" Modifiers="Control" Command="{Binding MainViewModel.PickOutputPathCommand}" />
 	</Window.InputBindings>
 	<Grid>
 		<Grid Margin="0" Name="previewImageHolder" SizeChanged="previewImageHolder_SizeChanged" Background="#222222">

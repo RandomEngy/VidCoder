@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using VidCoder.Properties;
 using VidCoder.ViewModel;
+using Microsoft.Practices.Unity;
 
 namespace VidCoder.View
 {
@@ -94,7 +95,7 @@ namespace VidCoder.View
 
 		private void RefreshImageSize()
 		{
-			PreviewViewModel previewVM = this.DataContext as PreviewViewModel;
+			var previewVM = this.DataContext as PreviewViewModel;
 			double widthPixels = previewVM.PreviewWidth;
 			double heightPixels = previewVM.PreviewHeight;
 
@@ -159,6 +160,16 @@ namespace VidCoder.View
 		private void previewImageHolder_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			this.RefreshImageSize();
+		}
+
+		private void Window_PreviewDrop(object sender, DragEventArgs e)
+		{
+			Unity.Container.Resolve<MainWindow>().HandleDrop(sender, e);
+		}
+
+		private void Window_PreviewDragOver(object sender, DragEventArgs e)
+		{
+			Utilities.SetDragIcon(e);
 		}
 	}
 }
