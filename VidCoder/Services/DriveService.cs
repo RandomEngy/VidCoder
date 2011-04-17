@@ -17,22 +17,19 @@ namespace VidCoder.Services
 
 		public DriveService()
 		{
-			WqlEventQuery query;
-			ManagementOperationObserver observer = new ManagementOperationObserver();
-
 			// Bind to local machine
-			ConnectionOptions options = new ConnectionOptions();
-			options.EnablePrivileges = true; //sets required privilege
-			ManagementScope scope = new ManagementScope(@"root\CIMV2", options);
+			var options = new ConnectionOptions { EnablePrivileges = true };
+			var scope = new ManagementScope(@"root\CIMV2", options);
 
 			try
 			{
-				query = new WqlEventQuery();
-				query.EventClassName = "__InstanceModificationEvent";
-				query.WithinInterval = TimeSpan.FromSeconds(1);
+				var query = new WqlEventQuery
+				{
+					EventClassName = "__InstanceModificationEvent",
+					WithinInterval = TimeSpan.FromSeconds(1),
+					Condition = @"TargetInstance ISA 'Win32_LogicalDisk' and TargetInstance.DriveType = 5" // DriveType - 5: CDROM
+				};
 
-				// DriveType - 5: CDROM
-				query.Condition = @"TargetInstance ISA 'Win32_LogicalDisk' and TargetInstance.DriveType = 5";
 				this.watcher = new ManagementEventWatcher(scope, query);
 
 				// register async. event handler
@@ -45,35 +42,15 @@ namespace VidCoder.Services
 			}
 		}
 
-		// Dump all properties
 		private void HandleDiscEvent(object sender, EventArrivedEventArgs e)
 		{
 			this.mainViewModel.UpdateDriveCollection();
-
-			// Get the Event object and display it
-			PropertyData pd = e.NewEvent.Properties["TargetInstance"];
-
-			if (pd != null)
-			{
-				ManagementBaseObject mbo = pd.Value as ManagementBaseObject;
-
-				// if CD removed VolumeName == null
-				if (mbo.Properties["VolumeName"].Value != null)
-				{
-					System.Diagnostics.Debug.WriteLine("CD has been inserted");
-				}
-				else
-				{
-					System.Diagnostics.Debug.WriteLine("CD has been ejected");
-				}
-			}
 		}
-
 
 		public IList<DriveInformation> GetDriveInformation()
 		{
 			DriveInfo[] driveCollection = DriveInfo.GetDrives();
-			List<DriveInformation> driveList = new List<DriveInformation>();
+			var driveList = new List<DriveInformation>();
 
 			foreach (DriveInfo driveInfo in driveCollection)
 			{
