@@ -245,7 +245,7 @@
 
 			InteropUtilities.FreeMemory(allocatedMemory);
 
-			System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(outputWidth, outputHeight);
+			var bitmap = new System.Drawing.Bitmap(outputWidth, outputHeight);
 			System.Drawing.Imaging.BitmapData bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, outputWidth, outputHeight), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
 
 			IntPtr ptr = bitmapData.Scan0;
@@ -258,7 +258,7 @@
 
 			bitmap.UnlockBits(bitmapData);
 
-			using (MemoryStream memoryStream = new MemoryStream())
+			using (var memoryStream = new MemoryStream())
 			{
 				try
 				{
@@ -269,7 +269,7 @@
 					bitmap.Dispose();
 				}
 
-				BitmapImage wpfBitmap = new BitmapImage();
+				var wpfBitmap = new BitmapImage();
 				wpfBitmap.BeginInit();
 				wpfBitmap.CacheOption = BitmapCacheOption.OnLoad;
 				wpfBitmap.StreamSource = memoryStream;
@@ -283,10 +283,10 @@
 		/// <summary>
 		/// Starts an encode with the given job.
 		/// </summary>
-		/// <param name="job">The job to start.</param>
-		public void StartEncode(EncodeJob job)
+		/// <param name="jobToStart">The job to start.</param>
+		public void StartEncode(EncodeJob jobToStart)
 		{
-			this.StartEncode(job, false, 0, 0);
+			this.StartEncode(jobToStart, false, 0, 0);
 		}
 
 		/// <summary>
@@ -346,7 +346,7 @@
 				nativeJob.pass = -1;
 				nativeJob.indepth_scan = 1;
 
-				nativeJob.x264opts = IntPtr.Zero;
+				nativeJob.advanced_opts = IntPtr.Zero;
 
 				HbLib.hb_add(this.hbHandle, ref nativeJob);
 			}
@@ -357,27 +357,27 @@
 			{
 				// First pass. Apply turbo options if needed.
 				nativeJob.pass = 1;
-				string secondPassx264Options = x264Options;
+				string firstPassAdvancedOptions = x264Options;
 				if (job.EncodingProfile.TurboFirstPass)
 				{
-					if (x264Options == string.Empty)
+					if (firstPassAdvancedOptions == string.Empty)
 					{
-						x264Options = TurboX264Opts;
+						firstPassAdvancedOptions = TurboX264Opts;
 					}
 					else
 					{
-						x264Options += ":" + TurboX264Opts;
+						firstPassAdvancedOptions += ":" + TurboX264Opts;
 					}
 				}
 
-				nativeJob.x264opts = Marshal.StringToHGlobalAnsi(secondPassx264Options);
-				this.encodeAllocatedMemory.Add(nativeJob.x264opts);
+				nativeJob.advanced_opts = Marshal.StringToHGlobalAnsi(firstPassAdvancedOptions);
+				this.encodeAllocatedMemory.Add(nativeJob.advanced_opts);
 
 				HbLib.hb_add(this.hbHandle, ref nativeJob);
 
 				// Second pass. Apply normal options.
 				nativeJob.pass = 2;
-				nativeJob.x264opts = originalX264Options;
+				nativeJob.advanced_opts = originalX264Options;
 
 				HbLib.hb_add(this.hbHandle, ref nativeJob);
 			}
@@ -385,7 +385,7 @@
 			{
 				// One pass job.
 				nativeJob.pass = 0;
-				nativeJob.x264opts = originalX264Options;
+				nativeJob.advanced_opts = originalX264Options;
 
 				HbLib.hb_add(this.hbHandle, ref nativeJob);
 			}
@@ -747,7 +747,7 @@
 			nativeJob.crop[2] = crop.Left;
 			nativeJob.crop[3] = crop.Right;
 
-			List<IntPtr> filterList = new List<IntPtr>();
+			var filterList = new List<IntPtr>();
 			if (profile.Deinterlace != Deinterlace.Off)
 			{
 				nativeJob.deinterlace = 1;
@@ -1242,7 +1242,7 @@
 				allocatedMemory.Add(encodingNamePtr);
 			}
 
-			nativeAudio.padding = new byte[24600];
+			nativeAudio.padding = new byte[MarshalingConstants.AudioPaddingBytes];
 
 			return nativeAudio;
 		}

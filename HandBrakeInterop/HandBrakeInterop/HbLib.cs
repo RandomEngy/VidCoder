@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 
 namespace HandBrake.Interop
 {
-
 	public partial class NativeConstants
 	{
 		public const int HB_ACODEC_MASK =		0x0000FF00;
@@ -52,10 +51,13 @@ namespace HandBrake.Interop
 		public const int HB_INPUT_CH_LAYOUT_ENCODED_FRONT_MASK =	0x00000F0;
 		public const int HB_INPUT_CH_LAYOUT_ENCODED_REAR_MASK =		0x000000F;
 
-		public const int HB_VCODEC_MASK =   0x0000FF;
-		public const int HB_VCODEC_FFMPEG = 0x000001;
-		public const int HB_VCODEC_X264 =   0x000002;
-		public const int HB_VCODEC_THEORA = 0x000004;
+		public const int HB_VCODEC_MASK =			0x0000FF;
+		public const int HB_VCODEC_X264 =			0x000001;
+		public const int HB_VCODEC_THEORA =			0x000002;
+		public const int HB_VCODEC_FFMPEG_MPEG4 =	0x000010;
+		public const int HB_VCODEC_FFMPEG =			HB_VCODEC_FFMPEG_MPEG4;
+		public const int HB_VCODEC_FFMPEG_MPEG2 =	0x000020;
+		public const int HB_VCODEC_FFMPEG_MASK =	0x0000F0;
 
 		public const int HB_MUX_MASK =  0xFF0000;
 		public const int HB_MUX_MP4 =   0x010000;
@@ -182,6 +184,10 @@ namespace HandBrake.Interop
 		/// int
 		public int vbitrate;
 
+		public int pfr_vrate;
+
+		public int pfr_vrate_base;
+
 		/// int
 		public int vrate;
 
@@ -201,7 +207,7 @@ namespace HandBrake.Interop
 		//[MarshalAs(UnmanagedType.LPStr)]
 		//public string x264opts;
 
-		public IntPtr x264opts;
+		public IntPtr advanced_opts;
 
 		/// int
 		public int areBframes;
@@ -260,13 +266,8 @@ namespace HandBrake.Interop
 		public uint frames_to_skip;
 
 		// Padding for the part of the struct we don't care about marshaling.
-#if X64
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 24692, ArraySubType = UnmanagedType.U1)]
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = MarshalingConstants.JobPaddingBytes, ArraySubType = UnmanagedType.U1)]
 		public byte[] padding;
-#else
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 24644, ArraySubType = UnmanagedType.U1)]
-		public byte[] padding;
-#endif
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
@@ -541,6 +542,8 @@ namespace HandBrake.Interop
 		HB_BD_TYPE,
 
 		HB_STREAM_TYPE,
+
+		HB_FF_STREAM_TYPE,
 	}
 
 	public enum Anonymous_618ebeca_0ad9_4a71_9a49_18e50ac2e9db
@@ -783,7 +786,7 @@ namespace HandBrake.Interop
 		public hb_audio_config_s config;
 
 		// Padding for the part of the struct we don't care about marshaling.
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 24600, ArraySubType = UnmanagedType.U1)]
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = MarshalingConstants.AudioPaddingBytes, ArraySubType = UnmanagedType.U1)]
 		public byte[] padding;
 
 		/// Anonymous_e6c7b779_b5a3_4e80_9fa8_13619d14f545
@@ -822,6 +825,8 @@ namespace HandBrake.Interop
 
 		/// double
 		public double dynamic_range_compression;
+
+		public double gain;
 
 		/// char*
 		//[MarshalAs(UnmanagedType.LPStr)]
@@ -968,6 +973,7 @@ namespace HandBrake.Interop
 	{
 	}
 
+	// Only called by detect_comb at the moment
 	[StructLayout(LayoutKind.Sequential)]
 	public struct hb_buffer_s
 	{
@@ -998,12 +1004,15 @@ namespace HandBrake.Interop
 		/// int64_t->int
 		public long stop;
 
+		public byte discontinuity;
+
 		/// int
 		public int new_chap;
 
 		/// uint8_t->unsigned char
 		public byte frametype;
 
+		// Given uint by default, probably should be ushort?
 		/// uint16_t->unsigned int
 		public uint flags;
 
@@ -1021,8 +1030,6 @@ namespace HandBrake.Interop
 
 		/// int
 		public int height;
-
-		public IntPtr next_subpicture;
 
 		/// hb_buffer_t*
 		public IntPtr sub;
@@ -1058,6 +1065,7 @@ namespace HandBrake.Interop
 		public ulong sum_dur;
 	}
 
+	// Not referred to anywhere
 	[StructLayout(LayoutKind.Sequential)]
 	public struct hb_interjob_s
 	{
@@ -1067,11 +1075,10 @@ namespace HandBrake.Interop
 		/// int
 		public int frame_count;
 
+		public int out_frame_count;
+
 		/// uint64_t->unsigned int
 		public ulong total_time;
-
-		/// int
-		public int render_dropped;
 
 		/// int
 		public int vrate;

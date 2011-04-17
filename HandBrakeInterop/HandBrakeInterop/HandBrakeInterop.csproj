@@ -133,6 +133,7 @@
     <Compile Include="InteropUtilities.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="LanguageCodes.cs" />
+    <Compile Include="MarshalingConstants.cs" />
     <Compile Include="MessageLoggedEventArgs.cs" />
     <Compile Include="Model\Cropping.cs" />
     <Compile Include="Model\EncodeJob.cs" />
