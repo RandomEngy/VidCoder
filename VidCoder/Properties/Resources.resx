@@ -297,4 +297,7 @@ Higher values take more bits away from edges and complex areas to improve areas 
   <data name="OverrideTitleNumberToolTip" xml:space="preserve">
     <value>When chosen, this will override the normal title for the purposes of creating the output file name. For example with titles 2, 3 and 4 and an override of 7, they will be labeled as 7, 8 and 9. Can be useful for ripping a disc of a TV series.</value>
   </data>
+  <data name="Audio_GainToolTip" xml:space="preserve">
+    <value>Amplify or attenuate audio before encoding. Valid values are -20 to +20 dB.</value>
+  </data>
 </root>

@@ -119,6 +119,14 @@
 				SelectedValue="{Binding Bitrate}"
 				Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
 		</DataTemplate>
+		<DataTemplate x:Key="GainTemplate">
+			<controls:NumberBox
+				Width="30"
+				Number="{Binding Gain, Mode=TwoWay}"
+				AllowEmpty="False" AllowNegative="True" Minimum="-20" Maximum="20"
+				Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"
+				ToolTip="{x:Static resx:Resources.Audio_GainToolTip}"/>
+		</DataTemplate>
 		<DataTemplate x:Key="DrcTemplate">
 			
 		</DataTemplate>
@@ -616,6 +624,7 @@
 										<GridViewColumn Width="137" Header="Mixdown" CellTemplate="{StaticResource MixdownTemplate}" x:Name="mixdownColumn" />
 										<GridViewColumn Width="120" Header="Sample Rate" CellTemplate="{StaticResource SampleRateTemplate}" />
 										<GridViewColumn Width="62" Header="Bitrate" CellTemplate="{StaticResource BitrateTemplate}" />
+										<GridViewColumn Width="55" Header="Gain (dB)" CellTemplate="{StaticResource GainTemplate}" />
 										<!--<GridViewColumn Header="DRC" CellTemplate="{StaticResource DrcTemplate}" />-->
 										<!--<GridViewColumn Header="Name" Width="90" CellTemplate="{StaticResource NameTemplate}" />-->
 										<GridViewColumn CellTemplate="{StaticResource RemoveAudioTemplate}" />
@@ -654,6 +663,7 @@
 															<ColumnDefinition Width="*" SharedSizeGroup="Mixdown"/>
 															<ColumnDefinition Width="*" SharedSizeGroup="SampleRate"/>
 															<ColumnDefinition Width="*" SharedSizeGroup="Bitrate"/>
+															<ColumnDefinition Width="*" SharedSizeGroup="Gain"/>
 														</Grid.ColumnDefinitions>
 
 														<TextBlock Grid.Column="0" Text="{Binding TrackNumber}" Style="{StaticResource AudioOutputPreview}"/>
@@ -662,6 +672,7 @@
 														<TextBlock Grid.Column="3" Text="{Binding Mixdown}" Style="{StaticResource AudioOutputPreview}"/>
 														<TextBlock Grid.Column="4" Text="{Binding SampleRate}" Style="{StaticResource AudioOutputPreview}"/>
 														<TextBlock Grid.Column="5" Text="{Binding Bitrate}" Style="{StaticResource AudioOutputPreview}"/>
+														<TextBlock Grid.Column="6" Text="{Binding Gain}" Style="{StaticResource AudioOutputPreview}"/>
 													</Grid>
 												</DataTemplate>
 											</ItemsControl.ItemTemplate>

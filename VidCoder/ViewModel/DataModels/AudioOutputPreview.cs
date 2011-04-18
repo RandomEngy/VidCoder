@@ -21,5 +21,7 @@ namespace VidCoder.ViewModel
 		public string Mixdown { get; set; }
 
 		public string SampleRate { get; set; }
+
+		public string Gain { get; set; }
 	}
 }

@@ -22,6 +22,8 @@ namespace HandBrake.Interop
 		/// Gets or sets the sample rate in Hz.
 		/// </summary>
 		public int SampleRateRaw { get; set; }
+
+		public int Gain { get; set; }
 		public double Drc { get; set; }
 		public string Name { get; set; }
 	}

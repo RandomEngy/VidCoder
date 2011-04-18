@@ -1813,6 +1813,7 @@ namespace VidCoder.ViewModel
 							Mixdown = Mixdown.DolbyProLogicII,
 							Bitrate = 160,
 							SampleRateRaw = 0,
+							Gain = 0,
 							Drc = 0.0
 						};
 
@@ -1846,7 +1847,7 @@ namespace VidCoder.ViewModel
 				this.AudioOutputPreviews.Clear();
 
 				List<int> chosenAudioTracks = this.mainViewModel.GetChosenAudioTracks();
-				List<AudioOutputPreview> outputPreviews = new List<AudioOutputPreview>();
+				var outputPreviews = new List<AudioOutputPreview>();
 
 				foreach (AudioEncodingViewModel audioVM in this.AudioEncodings)
 				{
@@ -1891,7 +1892,8 @@ namespace VidCoder.ViewModel
 						Encoder = "Encoder",
 						Mixdown = "Channel Layout",
 						SampleRate = "Sample Rate",
-						Bitrate = "Bitrate"
+						Bitrate = "Bitrate",
+						Gain = "Gain"
 					});
 				}
 
@@ -1956,6 +1958,8 @@ namespace VidCoder.ViewModel
 			outputPreviewTrack.Mixdown = DisplayConversions.DisplayMixdown(previewMixdown);
 			outputPreviewTrack.SampleRate = DisplayConversions.DisplaySampleRate(previewSampleRate);
 			outputPreviewTrack.Bitrate = previewBitrate + " kbps";
+
+			outputPreviewTrack.Gain = string.Format("{0}{1} dB", audioVM.Gain > 0 ? "+" : string.Empty, audioVM.Gain);
 
 			return outputPreviewTrack;
 		}

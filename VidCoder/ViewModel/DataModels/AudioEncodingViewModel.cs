@@ -26,6 +26,7 @@ namespace VidCoder.ViewModel
 		private int sampleRate;
 		private List<int> bitrateChoices;
 		private int bitrate;
+		private int gain;
 		private double drc;
 		private string name;
 
@@ -62,6 +63,7 @@ namespace VidCoder.ViewModel
 			this.SetMixdown(audioEncoding.Mixdown);
 			this.sampleRate = audioEncoding.SampleRateRaw;
 			this.bitrate = audioEncoding.Bitrate;
+			this.gain = audioEncoding.Gain;
 			this.drc = audioEncoding.Drc;
 			this.name = audioEncoding.Name;
 
@@ -83,6 +85,7 @@ namespace VidCoder.ViewModel
 					newAudioEncoding.Mixdown = this.SelectedMixdown.Mixdown;
 					newAudioEncoding.Bitrate = this.Bitrate;
 					newAudioEncoding.SampleRateRaw = this.SampleRate;
+					newAudioEncoding.Gain = this.Gain;
 					newAudioEncoding.Drc = this.Drc;
 					newAudioEncoding.Name = this.Name;
 				}
@@ -259,6 +262,23 @@ namespace VidCoder.ViewModel
 			{
 				this.bitrate = value;
 				this.NotifyPropertyChanged("Bitrate");
+				this.encodingDialogVM.RefreshAudioPreview();
+				this.encodingDialogVM.UpdateAudioEncodings();
+				this.MarkModified();
+			}
+		}
+
+		public int Gain
+		{
+			get
+			{
+				return this.gain;
+			}
+
+			set
+			{
+				this.gain = value;
+				this.NotifyPropertyChanged("Gain");
 				this.encodingDialogVM.RefreshAudioPreview();
 				this.encodingDialogVM.UpdateAudioEncodings();
 				this.MarkModified();

@@ -1215,6 +1215,7 @@
 			{
 				nativeAudio.config.output.bitrate = encoding.Bitrate;
 				nativeAudio.config.output.dynamic_range_compression = 0.0;
+				nativeAudio.config.output.gain = encoding.Gain;
 
 				if (encoding.Mixdown == Mixdown.Auto)
 				{
