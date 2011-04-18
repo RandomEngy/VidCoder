@@ -121,9 +121,9 @@
 		</DataTemplate>
 		<DataTemplate x:Key="GainTemplate">
 			<controls:NumberBox
-				Width="30"
+				Width="42"
 				Number="{Binding Gain, Mode=TwoWay}"
-				AllowEmpty="False" AllowNegative="True" Minimum="-20" Maximum="20"
+				AllowEmpty="False" Minimum="-20" Maximum="20"
 				Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"
 				ToolTip="{x:Static resx:Resources.Audio_GainToolTip}"/>
 		</DataTemplate>
@@ -299,19 +299,19 @@
 							Text="Sizing"
 							Style="{StaticResource SectionHeader}" />
 						<Label HorizontalAlignment="Left" Margin="45,22,0,0" Name="label1" Width="47" Height="27.04" VerticalAlignment="Top">Width:</Label>
-						<controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="90,25,0,0" VerticalAlignment="Top" Width="55"
+						<controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="90,25,0,0" VerticalAlignment="Top" Width="60"
 							Number="{Binding Width, Mode=TwoWay}" NoneCaption="(auto)" Modulus="2" Minimum="32" Maximum="3712"
 							IsEnabled="{Binding WidthEnabled}"/>
-						<Label HorizontalAlignment="Left" Margin="176,22,0,0" Name="label2" Width="49.2" Height="27.04" VerticalAlignment="Top">Height:</Label>
-						<controls:NumberBox Height="23" Margin="226,25,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="55"
+						<Label HorizontalAlignment="Left" Margin="181,22,0,0" Name="label2" Width="49.2" Height="27.04" VerticalAlignment="Top">Height:</Label>
+						<controls:NumberBox Height="23" Margin="231,25,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60"
 							Number="{Binding Height, Mode=TwoWay}" NoneCaption="(auto)" Modulus="2" Minimum="32" Maximum="3712"
 							IsEnabled="{Binding HeightEnabled}"/>
 						<Label HorizontalAlignment="Left" Margin="20,49,0,0" Name="label3" Width="77" Height="26" VerticalAlignment="Top">Max Width:</Label>
-						<controls:NumberBox HorizontalAlignment="Left" Margin="90,54,0,0" Width="55" Height="23" VerticalAlignment="Top"
+						<controls:NumberBox HorizontalAlignment="Left" Margin="90,54,0,0" Width="60" Height="23" VerticalAlignment="Top"
 							Number="{Binding MaxWidth, Mode=TwoWay}" Modulus="2" Minimum="32"
 							IsEnabled="{Binding WidthEnabled}"/>
-						<Label Margin="151,49,0,0" Name="label4" Height="28.04" VerticalAlignment="Top" HorizontalAlignment="Left" Width="74.2">Max Height:</Label>
-						<controls:NumberBox Margin="226,54,0,0" Height="23.04" VerticalAlignment="Top" HorizontalAlignment="Left" Width="55"
+						<Label Margin="156,49,0,0" Name="label4" Height="28.04" VerticalAlignment="Top" HorizontalAlignment="Left" Width="74.2">Max Height:</Label>
+						<controls:NumberBox Margin="231,54,0,0" Height="23.04" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60"
 							Number="{Binding MaxHeight, Mode=TwoWay}" Modulus="2" Minimum="32"
 							IsEnabled="{Binding HeightEnabled}"/>
 
@@ -353,7 +353,7 @@
 							IsChecked="{Binding UseDisplayWidth}"
 							ToolTip="{x:Static resx:Resources.DisplayWidthToolTip}">Display Width:</RadioButton>
 						<controls:NumberBox
-							Height="23" HorizontalAlignment="Left" Margin="155,156,0,0" VerticalAlignment="Top" Width="55" NoneCaption="(auto)"
+							Height="23" HorizontalAlignment="Left" Margin="155,156,0,0" VerticalAlignment="Top" Width="60" NoneCaption="(auto)"
 							Number="{Binding DisplayWidth, Mode=TwoWay}" AllowEmpty="{Binding KeepDisplayAspect}" Minimum="32"
 							Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
 							IsEnabled="{Binding UseDisplayWidth}"
@@ -363,15 +363,17 @@
 							Visibility="{Binding PixelAspectVisibile, Converter={StaticResource VisibilityConverter}}"
 							IsChecked="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}"
 							ToolTip="{x:Static resx:Resources.PixelAspectRatioToolTip}">Pixel Aspect Ratio:</RadioButton>
-						<controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="155,183,0,0" VerticalAlignment="Top" Width="40.698"
-							Number="{Binding PixelAspectX, Mode=TwoWay}" AllowEmpty="False"
+						<controls:NumberBox
+							Height="23" HorizontalAlignment="Left" Margin="155,183,0,0" VerticalAlignment="Top" Width="45"
+							Number="{Binding PixelAspectX, Mode=TwoWay}" AllowEmpty="False" Minimum="1"
 							Visibility="{Binding PixelAspectVisibile, Converter={StaticResource VisibilityConverter}}"
 							IsEnabled="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}"
 							ToolTip="{x:Static resx:Resources.PixelAspectRatioToolTip}"/>
-						<Label Height="23.562" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="198,181.356,0,0" Name="label5" VerticalAlignment="Top" Width="16.422"
+						<Label Height="23.562" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="203,181.356,0,0" Name="label5" VerticalAlignment="Top" Width="16.422"
 							Visibility="{Binding PixelAspectVisibile, Converter={StaticResource VisibilityConverter}}">/</Label>
-						<controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="215,183,0,0" VerticalAlignment="Top" Width="40.698"
-							Number="{Binding PixelAspectY, Mode=TwoWay}" AllowEmpty="False"
+						<controls:NumberBox
+							Height="23" HorizontalAlignment="Left" Margin="220,183,0,0" VerticalAlignment="Top" Width="45"
+							Number="{Binding PixelAspectY, Mode=TwoWay}" AllowEmpty="False" Minimum="1"
 							Visibility="{Binding PixelAspectVisibile, Converter={StaticResource VisibilityConverter}}"
 							IsEnabled="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}"
 							ToolTip="{x:Static resx:Resources.PixelAspectRatioToolTip}"/>
@@ -415,21 +417,25 @@
 					<RadioButton Height="16" Grid.Column="1" Grid.RowSpan="3"  HorizontalAlignment="Left" Margin="50,56,0,0" Name="radioButton2" VerticalAlignment="Top" Width="120"
 						IsChecked="{Binding CustomCropping}">Custom</RadioButton>
 					<Grid Margin="45.434,70,0,0" Name="grid4" Grid.Column="1" Height="139.04" VerticalAlignment="Top" Grid.RowSpan="3" HorizontalAlignment="Left" Width="210">
-						<controls:NumberBox Height="23" Margin="78,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="36"
-							Number="{Binding CropTop, Mode=TwoWay}" AllowEmpty="False"
+						<controls:NumberBox
+							Height="23" Margin="74,28,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="45"
+							Number="{Binding CropTop, Mode=TwoWay}" AllowEmpty="False" Minimum="0"
 							IsEnabled="{Binding CustomCropping}"/>
-						<controls:NumberBox Margin="120,56,0,0" Height="22.96" VerticalAlignment="Top" HorizontalAlignment="Left" Width="36"
-							Number="{Binding CropRight, Mode=TwoWay}" AllowEmpty="False"
+						<controls:NumberBox
+							Margin="111,56,0,0" Height="22.96" VerticalAlignment="Top" HorizontalAlignment="Left" Width="45"
+							Number="{Binding CropRight, Mode=TwoWay}" AllowEmpty="False" Minimum="0"
 							IsEnabled="{Binding CustomCropping}"/>
-						<controls:NumberBox Margin="37,56,0,0" HorizontalAlignment="Left" Width="36" Height="23" VerticalAlignment="Top"
-							Number="{Binding CropLeft, Mode=TwoWay}" AllowEmpty="False"
+						<controls:NumberBox
+							Margin="37,56,0,0" HorizontalAlignment="Left" Width="45" Height="23" VerticalAlignment="Top"
+							Number="{Binding CropLeft, Mode=TwoWay}" AllowEmpty="False" Minimum="0"
 							IsEnabled="{Binding CustomCropping}"/>
-						<controls:NumberBox Height="23" Margin="78,80,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="36"
-							Number="{Binding CropBottom, Mode=TwoWay}" AllowEmpty="False"
+						<controls:NumberBox
+							Height="23" Margin="74,82,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="45"
+							Number="{Binding CropBottom, Mode=TwoWay}" AllowEmpty="False" Minimum="0"
 							IsEnabled="{Binding CustomCropping}"/>
-						<Label Height="28" Margin="81,6,0,0" Name="label7" VerticalAlignment="Top" HorizontalAlignment="Left" Width="38.019">Top</Label>
+						<Label Height="28" Margin="81,4,0,0" Name="label7" VerticalAlignment="Top" HorizontalAlignment="Left" Width="38.019">Top</Label>
 						<Label Margin="7,54,0,0" Name="label8" HorizontalAlignment="Left" Width="33" Height="28" VerticalAlignment="Top">Left</Label>
-						<Label Height="28" Margin="71,98.96,0,0" Name="label9" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.566">Bottom</Label>
+						<Label Height="28" Margin="72,101,0,0" Name="label9" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.566">Bottom</Label>
 						<Label HorizontalAlignment="Left" Margin="155.64,54,0,0" Name="label10" Width="53.36" Height="28.225" VerticalAlignment="Top">Right</Label>
 					</Grid>
 				</Grid>
@@ -584,19 +590,22 @@
 
 						<RadioButton Height="16" Margin="20,39,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" GroupName="VideoQuality"
 							IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=TargetSize}">Target Size (MB):</RadioButton>
-						<controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="146,36,0,0" VerticalAlignment="Top" Width="62"
-							Number="{Binding TargetSize, Mode=TwoWay}"
+						<controls:NumberBox
+							Height="23" HorizontalAlignment="Left" Margin="146,36,0,0" VerticalAlignment="Top" Width="62"
+							Number="{Binding TargetSize, Mode=TwoWay}" Minimum="0"
 							AllowEmpty="False" IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=TargetSize}" />
 
 						<RadioButton Height="16" Margin="20,66.6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" GroupName="VideoQuality"
 							IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=AverageBitrate}">Avg Bitrate (kbps):</RadioButton>
-						<controls:NumberBox Height="23" HorizontalAlignment="Left" Margin="146,65,0,0" VerticalAlignment="Top" Width="62"
-							Number="{Binding VideoBitrate, Mode=TwoWay}"
+						<controls:NumberBox
+							Height="23" HorizontalAlignment="Left" Margin="146,65,0,0" VerticalAlignment="Top" Width="62"
+							Number="{Binding VideoBitrate, Mode=TwoWay}" Minimum="100" ShowIncrementButtons="False"
 							AllowEmpty="False" IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=AverageBitrate}" />
 
 						<RadioButton Height="16" Margin="20,99,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" GroupName="VideoQuality"
 							IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}">Constant Quality:</RadioButton>
-						<controls:DoubleNumberBox Height="23" HorizontalAlignment="Left" Margin="146,94,0,0" VerticalAlignment="Top" Width="49"
+						<controls:DoubleNumberBox
+							Height="23" HorizontalAlignment="Left" Margin="146,94,0,0" VerticalAlignment="Top" Width="49"
 							Number="{Binding Quality, Mode=TwoWay}" Minimum="0" Maximum="51"
 							IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}"/>
 						<Slider Height="22" Margin="20,121,6,0" VerticalAlignment="Top"

@@ -21,6 +21,7 @@ namespace VidCoder.ViewModel
 		private const int PreviewImageCacheDistance = 1;
 		private const string NoSourceTitle = "Preview: No video source";
 
+		private static readonly TimeSpan MinPreviewImageRefreshInterval = TimeSpan.FromSeconds(1);
 		private static int updateVersion;
 
 		private EncodeJob job;
@@ -38,6 +39,9 @@ namespace VidCoder.ViewModel
 		private int previewSeconds;
 		private int previewCount;
 
+		private DateTime lastImageRefreshTime;
+		private System.Timers.Timer previewImageRefreshTimer;
+		private bool waitingOnRefresh;
 		private ImageSource previewImage;
 		private ImageSource[] previewImageCache;
 		private Queue<PreviewImageJob> previewImageWorkQueue = new Queue<PreviewImageJob>();
@@ -56,7 +60,7 @@ namespace VidCoder.ViewModel
 			this.previewSeconds = Settings.Default.PreviewSeconds;
 			this.Title = NoSourceTitle;
 
-			this.RefreshPreviews();
+			this.RequestRefreshPreviews();
 		}
 
 		public MainViewModel MainViewModel
@@ -269,11 +273,11 @@ namespace VidCoder.ViewModel
 			PreviewViewModel previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
 			if (previewWindow != null)
 			{
-				previewWindow.RefreshPreviews();
+				previewWindow.RequestRefreshPreviews();
 			}
 		}
 
-		public void RefreshPreviews()
+		public void RequestRefreshPreviews()
 		{
 			if (!this.mainViewModel.HasVideoSource)
 			{
@@ -288,11 +292,44 @@ namespace VidCoder.ViewModel
 				this.CancelPreviewEncode();
 			}
 
+			if (this.waitingOnRefresh)
+			{
+				return;
+			}
+
+			DateTime now = DateTime.Now;
+			TimeSpan timeSinceLastRefresh = now - this.lastImageRefreshTime;
+			if (timeSinceLastRefresh < MinPreviewImageRefreshInterval)
+			{
+				this.waitingOnRefresh = true;
+				TimeSpan timeUntilNextRefresh = MinPreviewImageRefreshInterval - timeSinceLastRefresh;
+				this.previewImageRefreshTimer = new System.Timers.Timer(timeUntilNextRefresh.TotalMilliseconds);
+				this.previewImageRefreshTimer.Elapsed += this.previewImageRefreshTimer_Elapsed;
+				this.previewImageRefreshTimer.AutoReset = false;
+				this.previewImageRefreshTimer.Start();
+
+				return;
+			}
+
+			this.lastImageRefreshTime = now;
+
+			this.RefreshPreviews();
+		}
+
+		private void previewImageRefreshTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+		{
+			this.waitingOnRefresh = false;
+			this.lastImageRefreshTime = DateTime.MinValue;
+			this.RefreshPreviews();
+		}
+
+		private void RefreshPreviews()
+		{
 			this.originalScanInstance = this.ScanInstance;
 
 			this.job = this.mainViewModel.EncodeJob;
 
-			EncodingProfile profile = this.job.EncodingProfile;
+			//EncodingProfile profile = this.job.EncodingProfile;
 			int width, height;
 
 			int parWidth, parHeight;

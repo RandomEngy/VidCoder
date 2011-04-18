@@ -29,15 +29,13 @@
 					Width="30"
 					Number="{Binding StartRange, Mode=TwoWay}"
 					Minimum="0"
-					AllowEmpty="False"
-					SelectAllOnClick="True" />
+					AllowEmpty="False" />
 				<TextBlock Text="to" Margin="4,0,4,0" VerticalAlignment="Center" />
 				<controls:NumberBox
 					Width="30"
 					Number="{Binding EndRange, Mode=TwoWay}"
 					Minimum="0"
-					AllowEmpty="False"
-					SelectAllOnClick="True" />
+					AllowEmpty="False" />
 				<TextBlock Text="minutes" Margin="4,0,0,0" VerticalAlignment="Center" />
 			</StackPanel>
 		</CheckBox>
@@ -54,8 +52,7 @@
 					Width="30"
 					Number="{Binding TitleStartOverride, Mode=TwoWay}"
 					Minimum="1"
-					AllowEmpty="False"
-					SelectAllOnClick="True"/>
+					AllowEmpty="False" />
 			</StackPanel>
 		</CheckBox>
 		<Button

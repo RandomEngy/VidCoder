@@ -730,7 +730,7 @@ namespace VidCoder.ViewModel
 				PreviewViewModel previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
 				if (previewWindow != null)
 				{
-					previewWindow.RefreshPreviews();
+					previewWindow.RequestRefreshPreviews();
 				}
 
 				// Custom chapter names are thrown out when switching titles.
@@ -776,7 +776,7 @@ namespace VidCoder.ViewModel
 				PreviewViewModel previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
 				if (previewWindow != null)
 				{
-					previewWindow.RefreshPreviews();
+					previewWindow.RequestRefreshPreviews();
 				}
 
 				this.NotifyPropertyChanged("Angle");
@@ -1324,7 +1324,7 @@ namespace VidCoder.ViewModel
 					PreviewViewModel previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
 					if (previewWindow != null)
 					{
-						previewWindow.RefreshPreviews();
+						previewWindow.RequestRefreshPreviews();
 					}
 
 					this.NotifyPropertyChanged("SelectedPreset");

@@ -71,7 +71,7 @@
 		<DataTemplate x:Key="OffsetTemplate">
 			<HandBrakeControls:NumberBox
 				Width="40" Height="22"
-				Number="{Binding Offset, Mode=TwoWay}" AllowNegative="True" AllowEmpty="False"
+				Number="{Binding Offset, Mode=TwoWay}" AllowEmpty="False"
 				ToolTip="{x:Static resx:Resources.OffsetSubtitleToolTip}"/>
 		</DataTemplate>
 		<DataTemplate x:Key="RemoveTemplate">

@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace VidCoder.Controls
 {
@@ -19,7 +12,13 @@ namespace VidCoder.Controls
 	/// </summary>
 	public partial class NumberBox : UserControl
 	{
-		private bool allowNegative;
+		private const int RefireInitialDelayMsec = 800;
+		private const int MinimumRefireDelayMsec = 50;
+		private const int RefireAccelerationMsec = 250;
+
+		private int currentRefireDelayMsec;
+		private Timer refireTimer;
+
 		private string noneCaption;
 
 		private bool haveFocus = false;
@@ -30,10 +29,20 @@ namespace VidCoder.Controls
 			this.Minimum = int.MinValue;
 			this.Maximum = int.MaxValue;
 			this.UpdateBindingOnTextChange = true;
+			this.ShowIncrementButtons = true;
+			this.SelectAllOnClick = true;
 
 			InitializeComponent();
 
 			this.RefreshNumberBox();
+		}
+
+		private void UserControl_Loaded(object sender, RoutedEventArgs e)
+		{
+			if (!this.ShowIncrementButtons)
+			{
+				this.incrementButtonsGrid.Visibility = Visibility.Collapsed;
+			}
 		}
 
 		public static readonly DependencyProperty NumberProperty = DependencyProperty.Register(
@@ -60,6 +69,8 @@ namespace VidCoder.Controls
 		public int Maximum { get; set; }
 
 		public bool UpdateBindingOnTextChange { get; set; }
+
+		public bool ShowIncrementButtons { get; set; }
 
 		public string NoneCaption
 		{
@@ -93,20 +104,6 @@ namespace VidCoder.Controls
 			}
 		}
 
-		public bool AllowNegative
-		{
-			get
-			{
-				return this.allowNegative;
-			}
-
-			set
-			{
-				this.allowNegative = value;
-				this.RefreshNumberBox();
-			}
-		}
-
 		public bool SelectAllOnClick { get; set; }
 
 		private static void OnNumberChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
@@ -123,6 +120,14 @@ namespace VidCoder.Controls
 		{
 			var numBox = dependencyObject as NumberBox;
 			numBox.RefreshNumberBox();
+		}
+
+		private int Increment
+		{
+			get
+			{
+				return this.Modulus > 0 ? this.Modulus : 1;
+			}
 		}
 
 		private void numberBox_GotFocus(object sender, RoutedEventArgs e)
@@ -154,6 +159,104 @@ namespace VidCoder.Controls
 			}
 		}
 
+		private void UpButtonMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			this.BeginRefire(this.IncrementNumber);
+		}
+
+		private void UpButtonMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		{
+			this.StopRefire();
+		}
+
+		private void DownButtonMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			this.BeginRefire(this.DecrementNumber);
+		}
+
+		private void DownButtonMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		{
+			this.StopRefire();
+		}
+
+		private void BeginRefire(Action refireAction)
+		{
+			refireAction();
+
+			this.currentRefireDelayMsec = RefireInitialDelayMsec;
+			this.refireTimer = new Timer(
+				obj =>
+				{
+					this.Dispatcher.BeginInvoke(refireAction);
+
+					if (this.currentRefireDelayMsec > MinimumRefireDelayMsec)
+					{
+						this.currentRefireDelayMsec -= RefireAccelerationMsec;
+					}
+
+					this.currentRefireDelayMsec = Math.Max(this.currentRefireDelayMsec, MinimumRefireDelayMsec);
+
+					this.refireTimer.Change(this.currentRefireDelayMsec, this.currentRefireDelayMsec);
+				},
+				null,
+				RefireInitialDelayMsec,
+				this.currentRefireDelayMsec);
+		}
+
+		private void StopRefire()
+		{
+			if (this.refireTimer != null)
+			{
+				this.refireTimer.Dispose();
+			}
+		}
+
+		private void IncrementNumber()
+		{
+			int newNumber;
+			if (this.AllowEmpty && this.Number == 0)
+			{
+				newNumber = Math.Max(this.Minimum, this.Increment);
+			}
+			else
+			{
+				newNumber = this.Number + this.Increment;
+			}
+
+			if (newNumber > this.Maximum)
+			{
+				newNumber = this.Maximum;
+			}
+
+			if (newNumber != this.Number)
+			{
+				this.Number = newNumber;
+			}
+		}
+
+		private void DecrementNumber()
+		{
+			int newNumber;
+			if (this.AllowEmpty && this.Number == 0)
+			{
+				newNumber = Math.Min(this.Maximum, -this.Increment);
+			}
+			else
+			{
+				newNumber = this.Number - this.Increment;
+			}
+
+			if (newNumber < this.Minimum)
+			{
+				newNumber = this.Minimum;
+			}
+
+			if (newNumber != this.Number)
+			{
+				this.Number = newNumber;
+			}
+		}
+
 		private void NumberBoxLostFocus(object sender, RoutedEventArgs e)
 		{
 			this.haveFocus = false;
@@ -173,7 +276,7 @@ namespace VidCoder.Controls
 		{
 			foreach (char c in e.Text)
 			{
-				if (!char.IsNumber(c) && (!this.AllowNegative || c != '-'))
+				if (!char.IsNumber(c) && (this.Minimum >= 0 || c != '-'))
 				{
 					e.Handled = true;
 					return;
@@ -189,7 +292,7 @@ namespace VidCoder.Controls
 			}
 		}
 
-		private void NumberBoxPreviewMouseDown(object sender, MouseButtonEventArgs e)
+		private void NumberBoxPreviewMouseUp(object sender, MouseButtonEventArgs e)
 		{
 			if (this.SelectAllOnClick)
 			{
@@ -230,7 +333,7 @@ namespace VidCoder.Controls
 
 		private bool NumberIsValid(int number)
 		{
-			return (this.AllowNegative || number >= 0) && (number >= this.Minimum) && (number <= this.Maximum);
+			return number >= this.Minimum && number <= this.Maximum;
 		}
 
 		private int GetNearestValue(int number, int modulus)
