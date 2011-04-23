@@ -114,7 +114,7 @@
       <HintPath>..\Lib\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\Lib\Microsoft.Practices.Unity.Configuration.dll</HintPath>	
+      <HintPath>..\Lib\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Ookii.Dialogs.Wpf">
       <HintPath>..\Lib\Ookii.Dialogs.Wpf.dll</HintPath>
@@ -457,6 +457,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Icons\video-file.png" />
     <Resource Include="Icons\encode_160.png" />
     <Resource Include="Icons\bludisc.png" />
     <Resource Include="Icons\edit_2.png" />

@@ -26,7 +26,7 @@ namespace VidCoder.ViewModel
 					case SourceType.None:
 						return null;
 					case SourceType.File:
-						return "/Icons/avi.png";
+						return "/Icons/video-file.png";
 					case SourceType.VideoFolder:
 						return "/Icons/folder.png";
 					case SourceType.Dvd:

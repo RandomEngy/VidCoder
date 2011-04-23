@@ -633,7 +633,11 @@
 										<GridViewColumn Width="137" Header="Mixdown" CellTemplate="{StaticResource MixdownTemplate}" x:Name="mixdownColumn" />
 										<GridViewColumn Width="120" Header="Sample Rate" CellTemplate="{StaticResource SampleRateTemplate}" />
 										<GridViewColumn Width="62" Header="Bitrate" CellTemplate="{StaticResource BitrateTemplate}" />
-										<GridViewColumn Width="55" Header="Gain (dB)" CellTemplate="{StaticResource GainTemplate}" />
+										<GridViewColumn Width="55" CellTemplate="{StaticResource GainTemplate}">
+											<GridViewColumn.Header>
+												<TextBlock ToolTip="{x:Static resx:Resources.Audio_GainToolTip}">Gain (dB)</TextBlock>
+											</GridViewColumn.Header>
+										</GridViewColumn>
 										<!--<GridViewColumn Header="DRC" CellTemplate="{StaticResource DrcTemplate}" />-->
 										<!--<GridViewColumn Header="Name" Width="90" CellTemplate="{StaticResource NameTemplate}" />-->
 										<GridViewColumn CellTemplate="{StaticResource RemoveAudioTemplate}" />
