@@ -108,11 +108,14 @@ namespace VidCoder.Controls
 
 		private static void OnNumberChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
 		{
-			var numBox = dependencyObject as NumberBox;
-
-			if (!numBox.haveFocus)
+			if (eventArgs.NewValue != eventArgs.OldValue)
 			{
-				numBox.RefreshNumberBox();
+				var numBox = dependencyObject as NumberBox;
+
+				if (!numBox.haveFocus)
+				{
+					numBox.RefreshNumberBox();
+				}
 			}
 		}
 
@@ -326,7 +329,10 @@ namespace VidCoder.Controls
 						newNumber = this.GetNearestValue(newNumber, this.Modulus);
 					}
 
-					this.Number = newNumber;
+					if (newNumber != this.Number)
+					{
+						this.Number = newNumber;
+					}
 				}
 			}
 		}
