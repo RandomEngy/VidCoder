@@ -12,12 +12,7 @@ namespace VidCoder.Controls
 	/// </summary>
 	public partial class NumberBox : UserControl
 	{
-		private const int RefireInitialDelayMsec = 800;
-		private const int MinimumRefireDelayMsec = 50;
-		private const int RefireAccelerationMsec = 250;
-
-		private int currentRefireDelayMsec;
-		private Timer refireTimer;
+		private RefireControl refireControl;
 
 		private string noneCaption;
 
@@ -164,54 +159,24 @@ namespace VidCoder.Controls
 
 		private void UpButtonMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			this.BeginRefire(this.IncrementNumber);
+			this.refireControl = new RefireControl(this.IncrementNumber);
+			this.refireControl.Begin();
 		}
 
 		private void UpButtonMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
-			this.StopRefire();
+			this.refireControl.Stop();
 		}
 
 		private void DownButtonMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			this.BeginRefire(this.DecrementNumber);
+			this.refireControl = new RefireControl(this.DecrementNumber);
+			this.refireControl.Begin();
 		}
 
 		private void DownButtonMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
-			this.StopRefire();
-		}
-
-		private void BeginRefire(Action refireAction)
-		{
-			refireAction();
-
-			this.currentRefireDelayMsec = RefireInitialDelayMsec;
-			this.refireTimer = new Timer(
-				obj =>
-				{
-					this.Dispatcher.BeginInvoke(refireAction);
-
-					if (this.currentRefireDelayMsec > MinimumRefireDelayMsec)
-					{
-						this.currentRefireDelayMsec -= RefireAccelerationMsec;
-					}
-
-					this.currentRefireDelayMsec = Math.Max(this.currentRefireDelayMsec, MinimumRefireDelayMsec);
-
-					this.refireTimer.Change(this.currentRefireDelayMsec, this.currentRefireDelayMsec);
-				},
-				null,
-				RefireInitialDelayMsec,
-				this.currentRefireDelayMsec);
-		}
-
-		private void StopRefire()
-		{
-			if (this.refireTimer != null)
-			{
-				this.refireTimer.Dispose();
-			}
+			this.refireControl.Stop();
 		}
 
 		private void IncrementNumber()

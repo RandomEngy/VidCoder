@@ -6,8 +6,7 @@
 		<Style x:Key="Arrow" TargetType="Polygon">
 			<Setter Property="Fill" Value="#333" />
 		</Style>
-		<Style x:Key="OrangeButton" TargetType="Button">
-			<!--<Setter Property="OverridesDefaultStyle" Value="True"/>-->
+		<Style x:Key="UpDownButton" TargetType="Button">
 			<Setter Property="Margin" Value="0"/>
 			<Setter Property="Background" >
 				<Setter.Value>
@@ -90,7 +89,7 @@
 				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
 			<Button
-				Style="{StaticResource OrangeButton}"
+				Style="{StaticResource UpDownButton}"
 				Grid.Row="0"
 				FontSize="4"
 				PreviewMouseLeftButtonDown="UpButtonMouseLeftButtonDown"
@@ -100,7 +99,7 @@
 					Points="4,0 0,4 8,4" />
 			</Button>
 			<Button
-				Style="{StaticResource OrangeButton}"
+				Style="{StaticResource UpDownButton}"
 				Grid.Row="1"
 				FontSize="4"
 				PreviewMouseLeftButtonDown="DownButtonMouseLeftButtonDown"
