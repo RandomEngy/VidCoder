@@ -269,26 +269,5 @@ namespace VidCoder.Model
 				}
 			}
 		}
-
-		private static string FindUserPresetPath(string baseName)
-		{
-			string cleanName = Utilities.CleanFileName(baseName);
-
-			string proposedPresetPath = Path.Combine(UserPresetsFolder, cleanName + ".xml");
-
-			if (File.Exists(proposedPresetPath))
-			{
-				for (int i = 1; i < 100; i++)
-				{
-					proposedPresetPath = Path.Combine(UserPresetsFolder, cleanName + "_" + i + ".xml");
-					if (!File.Exists(proposedPresetPath))
-					{
-						break;
-					}
-				}
-			}
-
-			return proposedPresetPath;
-		}
 	}
 }

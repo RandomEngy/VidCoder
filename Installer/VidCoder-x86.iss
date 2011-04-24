@@ -3,7 +3,7 @@
 
 [Setup]
 AppName=VidCoder
-AppVerName=VidCoder 0.8.2 (x86)
+AppVerName=VidCoder 0.8.3 (x86)
 
 DefaultDirName={pf}\VidCoder
 DisableProgramGroupPage=yes
@@ -13,7 +13,7 @@ Compression=lzma
 SolidCompression=yes
 
 OutputDir=BuiltInstallers
-OutputBaseFilename=VidCoder-0.8.2-x86
+OutputBaseFilename=VidCoder-0.8.3-x86
 
 AppId=VidCoder
 UsePreviousAppDir=yes
@@ -38,10 +38,9 @@ Source: "..\Lib\Ookii.Dialogs.Wpf.dll"; DestDir: "{app}"
 Source: "..\Lib\Ookii.Dialogs.Wpf.pdb"; DestDir: "{app}"
 Source: "..\Lib\Microsoft.Practices.Unity.dll"; DestDir: "{app}"
 Source: "..\Lib\Microsoft.Practices.Unity.Configuration.dll"; DestDir: "{app}"
-Source: "..\Lib\System.Data.SQLite.dll"; DestDir: "{app}"
 Source: "..\VidCoder\BuiltInPresets.xml"; DestDir: "{app}"
 Source: "..\Lib\x86\hb.dll"; DestDir: "{app}"
-Source: "..\Lib\x86\SQLite.Interop.dll"; DestDir: "{app}"
+Source: "..\Lib\x86\System.Data.SQLite.dll"; DestDir: "{app}"
 Source: "..\HandBrakeInterop\HandBrakeInterop\bin\x86\Release\HandBrakeInterop.dll"; DestDir: "{app}"
 Source: "..\HandBrakeInterop\HandBrakeInterop\bin\x86\Release\HandBrakeInterop.pdb"; DestDir: "{app}"
 Source: "..\License.txt"; DestDir: "{app}"

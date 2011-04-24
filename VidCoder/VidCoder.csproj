@@ -127,7 +127,7 @@
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.SQLite">
-      <HintPath>..\Lib\System.Data.SQLite.dll</HintPath>
+      <HintPath>..\Lib\$(Platform)\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
@@ -262,6 +262,7 @@
     <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="EnumStringConverter.cs" />
     <Compile Include="Model\Database.cs" />
+    <Compile Include="Model\DatabaseConfig.cs" />
     <Compile Include="Model\EncodeResult.cs" />
     <Compile Include="Model\PreviewImageJob.cs" />
     <Compile Include="Model\SaveImageJob.cs" />
@@ -511,6 +512,5 @@
   <Target Name="AfterBuild">
     <Copy SourceFiles="..\Lib\$(Platform)\hb.dll" DestinationFolder="$(OutDir)" />
     <Copy SourceFiles="..\HandBrakeInterop\HandBrakeInterop\bin\$(Platform)\Release\HandBrakeInterop.pdb" DestinationFolder="$(OutDir)" />
-    <Copy SourceFiles="..\Lib\$(Platform)\SQLite.Interop.dll" DestinationFolder="$(OutDir)" />
   </Target>
 </Project>

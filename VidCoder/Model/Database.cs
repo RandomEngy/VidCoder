@@ -65,7 +65,7 @@ namespace VidCoder.Model
 			{
 				CreateTables(newConnection);
 
-				var settingsList = new Dictionary<string, string> {{"Version", "1"}};
+				var settingsList = new Dictionary<string, string> {{"Version", Utilities.CurrentDatabaseVersion.ToString()}};
 				AddSettingsList(newConnection, settingsList);
 			}
 

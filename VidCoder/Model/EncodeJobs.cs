@@ -12,17 +12,14 @@ namespace VidCoder.Model
 {
 	public static class EncodeJobsPersist
 	{
-		private static readonly string DataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"VidCoder");
-		private static readonly string EncodeJobsPath = Path.Combine(DataFolder, @"EncodeJobs.xml");
+		private static readonly string EncodeJobsPath = Path.Combine(Utilities.AppFolder, "EncodeJobs.xml");
 		private static XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<EncodeJob>));
 
 		public static List<EncodeJob> EncodeJobs
 		{
 			get
 			{
-				EnsureFolderCreated();
-
-				try
+				if (File.Exists(EncodeJobsPath))
 				{
 					XDocument doc = XDocument.Load(EncodeJobsPath);
 					XElement presetArray = doc.Element("EncodeJobs").Element("ArrayOfEncodeJob");
@@ -30,40 +27,55 @@ namespace VidCoder.Model
 					using (XmlReader reader = presetArray.CreateReader())
 					{
 						var presetList = xmlSerializer.Deserialize(reader) as List<EncodeJob>;
+						File.Delete(EncodeJobsPath);
+
 						return presetList;
 					}
 				}
-				catch (FileNotFoundException)
-				{
-					return new List<EncodeJob>();
-				}
+
+				return LoadJobsXmlString(DatabaseConfig.GetConfigString("EncodeJobs", Database.Connection));
 			}
 
 			set
 			{
-				EnsureFolderCreated();
-				StringBuilder xmlBuilder = new StringBuilder();
-				using (XmlWriter writer = XmlWriter.Create(xmlBuilder))
-				{
-					xmlSerializer.Serialize(writer, value);
-				}
-
-				XElement element = XElement.Parse(xmlBuilder.ToString());
-				XDocument doc = new XDocument(
-					new XElement("EncodeJobs",
-						new XAttribute("Version", "1"),
-						element));
-
-				doc.Save(EncodeJobsPath);
+				DatabaseConfig.SetConfigValue("EncodeJobs", SerializeJobs(value), Database.Connection);
 			}
 		}
 
-		private static void EnsureFolderCreated()
+		private static string SerializeJobs(List<EncodeJob> jobs)
 		{
-			if (!Directory.Exists(DataFolder))
+			var xmlBuilder = new StringBuilder();
+			using (XmlWriter writer = XmlWriter.Create(xmlBuilder))
 			{
-				Directory.CreateDirectory(DataFolder);
+				xmlSerializer.Serialize(writer, jobs);
 			}
+
+			return xmlBuilder.ToString();
+		}
+
+		private static List<EncodeJob> LoadJobsXmlString(string jobsXml)
+		{
+			try
+			{
+				using (var stringReader = new StringReader(jobsXml))
+				{
+					using (var xmlReader = new XmlTextReader(stringReader))
+					{
+						return xmlSerializer.Deserialize(xmlReader) as List<EncodeJob>;
+					}
+				}
+			}
+			catch (XmlException exception)
+			{
+				System.Windows.MessageBox.Show(
+					"Could not load encode queue: " +
+					exception +
+					Environment.NewLine +
+					Environment.NewLine +
+					jobsXml);
+			}
+
+			return new List<EncodeJob>();
 		}
 	}
 }
