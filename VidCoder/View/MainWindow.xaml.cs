@@ -484,7 +484,16 @@ namespace VidCoder.View
 			var encodeResultVM = ((ListViewItem)sender).Content as EncodeResultViewModel;
 			if (encodeResultVM.EncodeResult.Succeeded)
 			{
-				FileService.Instance.LaunchFile(encodeResultVM.EncodeResult.Destination);
+				string resultFile = encodeResultVM.EncodeResult.Destination;
+
+				if (File.Exists(resultFile))
+				{
+					FileService.Instance.LaunchFile(encodeResultVM.EncodeResult.Destination);
+				}
+				else
+				{
+					MessageBox.Show(resultFile + " does not exist.");
+				}
 			}
 		}
 
