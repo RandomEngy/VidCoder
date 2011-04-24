@@ -2436,6 +2436,7 @@ namespace VidCoder.ViewModel
 			double totalCompletedWork = this.completedQueueWork + currentJobCompletedWork;
 
 			this.OverallEncodeProgressFraction = totalCompletedWork / this.totalQueueCost;
+			double overallWorkCompletionRate = totalCompletedWork / this.elapsedQueueEncodeTime.Elapsed.TotalSeconds;
 
 			// Only update encode time every 5th update.
 			if (Interlocked.Increment(ref this.pollCount) % 5 == 1)
@@ -2451,10 +2452,16 @@ namespace VidCoder.ViewModel
 						TimeSpan eta = TimeSpan.FromSeconds((long)(((1.0 - this.OverallEncodeProgressFraction) * this.elapsedQueueEncodeTime.Elapsed.TotalSeconds) / this.OverallEncodeProgressFraction));
 						this.EstimatedTimeRemaining = Utilities.FormatTimeSpan(eta);
 					}
+
+					double currentJobRemainingWork = this.EncodeQueue[0].Cost - currentJobCompletedWork;
+
+					TimeSpan currentJobEta =
+						TimeSpan.FromSeconds(currentJobRemainingWork / overallWorkCompletionRate);
+					this.EncodeQueue[0].Eta = currentJobEta;
 				}
 			}
 
-			this.EncodeQueue[0].PercentComplete = (int)(currentJobCompletedWork / this.EncodeQueue[0].Cost * 100.0);
+			this.EncodeQueue[0].PercentComplete = (int)((currentJobCompletedWork / this.EncodeQueue[0].Cost) * 100.0);
 
 			if (e.EstimatedTimeLeft >= TimeSpan.Zero)
 			{

@@ -300,4 +300,7 @@ Higher values take more bits away from edges and complex areas to improve areas 
   <data name="Audio_GainToolTip" xml:space="preserve">
     <value>Amplify or attenuate audio before encoding. Valid values are -20 to +20 dB.</value>
   </data>
+  <data name="QueueEtaToolTip" xml:space="preserve">
+    <value>Estimated time remaining for all jobs in the queue to complete.</value>
+  </data>
 </root>

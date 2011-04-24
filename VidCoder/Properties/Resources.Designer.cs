@@ -464,6 +464,15 @@ namespace VidCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Estimated time remaining for all jobs in the queue to complete..
+        /// </summary>
+        public static string QueueEtaToolTip {
+            get {
+                return ResourceManager.GetString("QueueEtaToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arrange file to play better as a progressive download..
         /// </summary>
         public static string WebOptimizedToolTip {

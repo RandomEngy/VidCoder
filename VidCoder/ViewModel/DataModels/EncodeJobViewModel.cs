@@ -22,6 +22,7 @@ namespace VidCoder.ViewModel
 		private int percentComplete;
 		private bool isOnlyItem;
 		private Stopwatch encodeTimeStopwatch;
+		private TimeSpan eta;
 
 		private ICommand removeQueueJobCommand;
 
@@ -147,6 +148,34 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return this.encoding && !this.IsOnlyItem;
+			}
+		}
+
+		public TimeSpan Eta
+		{
+			get
+			{
+				return this.eta;
+			}
+
+			set
+			{
+				this.eta = value;
+				this.NotifyPropertyChanged("Eta");
+				this.NotifyPropertyChanged("ProgressToolTip");
+			}
+		}
+
+		public string ProgressToolTip
+		{
+			get
+			{
+				if (this.Eta == TimeSpan.Zero)
+				{
+					return null;
+				}
+
+				return "Job ETA: " + Utilities.FormatTimeSpan(this.Eta);
 			}
 		}
 

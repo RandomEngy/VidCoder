@@ -5,6 +5,7 @@
 	xmlns:localmodel="clr-namespace:VidCoder.Model"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
+	xmlns:resx="clr-namespace:VidCoder.Properties"
 	xmlns:VidCoderDragDrop="clr-namespace:VidCoder.DragDropUtils"
 	Title="VidCoder"
 	Width="671"
@@ -140,7 +141,8 @@
 					Visibility="{Binding ShowRemoveButton, Converter={StaticResource VisibilityConverter}}">Remove from queue</Button>
 				<ProgressBar VerticalAlignment="Center" Height="12"
 					Value="{Binding PercentComplete}"
-					Visibility="{Binding ShowProgressBar, Converter={StaticResource VisibilityConverter}}" ToolTip="Encoding..."  />
+					Visibility="{Binding ShowProgressBar, Converter={StaticResource VisibilityConverter}}"
+					ToolTip="{Binding ProgressToolTip}" ToolTipService.ShowDuration="120000" />
 			</Grid>
 		</DataTemplate>
 		<DataTemplate x:Key="CompletedDestinationTemplate">
@@ -577,9 +579,11 @@
 				Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"/>
 			<TextBlock
 				Text="ETA:" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="135,111,0,0"
+				ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
 				Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}" />
 			<TextBlock
 				Text="{Binding EstimatedTimeRemaining}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="163,111,0,0"
+				ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
 				Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
 
 
