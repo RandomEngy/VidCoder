@@ -33,7 +33,13 @@ namespace VidCoder.Model
 					}
 				}
 
-				return LoadJobsXmlString(DatabaseConfig.GetConfigString("EncodeJobs", Database.Connection));
+				string jobsXml = DatabaseConfig.GetConfigString("EncodeJobs", Database.Connection);
+				if (string.IsNullOrEmpty(jobsXml))
+				{
+					return new List<EncodeJob>();
+				}
+
+				return LoadJobsXmlString(jobsXml);
 			}
 
 			set
