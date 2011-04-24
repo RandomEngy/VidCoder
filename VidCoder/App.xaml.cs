@@ -28,7 +28,7 @@ namespace VidCoder
 #endif
 			base.OnStartup(e);
 
-			MainViewModel mainVM = new MainViewModel();
+			var mainVM = new MainViewModel();
 			WindowManager.OpenWindow(mainVM);
 			mainVM.OnLoaded();
 		}

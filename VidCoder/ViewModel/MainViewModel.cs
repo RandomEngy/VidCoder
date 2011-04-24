@@ -116,6 +116,7 @@ namespace VidCoder.ViewModel
 		private ICommand pauseCommand;
 		private ICommand stopEncodeCommand;
 		private ICommand importPresetCommand;
+		private ICommand exportPresetCommand;
 		private ICommand openOptionsCommand;
 		private ICommand openHomepageCommand;
 		private ICommand reportBugCommand;
@@ -281,7 +282,7 @@ namespace VidCoder.ViewModel
 
 		public bool SetSourceFromFile()
 		{
-			string videoFile = FileService.Instance.GetFileNameLoad(null, null, Properties.Settings.Default.LastInputFileFolder);
+			string videoFile = FileService.Instance.GetFileNameLoad(Properties.Settings.Default.LastInputFileFolder, null, null);
 
 			if (videoFile != null)
 			{
@@ -1839,7 +1840,7 @@ namespace VidCoder.ViewModel
 				{
 					this.pickOutputPathCommand = new RelayCommand(param =>
 					{
-						string newOutputPath = FileService.Instance.GetFileNameSave(Properties.Settings.Default.LastOutputFolder);
+						string newOutputPath = FileService.Instance.GetFileNameSave(Settings.Default.LastOutputFolder);
 						this.SetManualOutputPath(newOutputPath, this.OutputPath);
 					},
 					param =>
@@ -2178,15 +2179,31 @@ namespace VidCoder.ViewModel
 				{
 					this.importPresetCommand = new RelayCommand(param =>
 					{
-						string presetFileName = FileService.Instance.GetFileNameLoad("xml", "XML Files|*.xml", null);
+						string presetFileName = FileService.Instance.GetFileNameLoad(null, "xml", "XML Files|*.xml");
 						if (presetFileName != null)
 						{
-							Unity.Container.Resolve<IPresetImport>().ImportPreset(presetFileName);
+							Unity.Container.Resolve<IPresetImportExport>().ImportPreset(presetFileName);
 						}
 					});
 				}
 
 				return this.importPresetCommand;
+			}
+		}
+
+		public ICommand ExportPresetCommand
+		{
+			get
+			{
+				if (this.exportPresetCommand == null)
+				{
+					this.exportPresetCommand = new RelayCommand(param =>
+					{
+						Unity.Container.Resolve<IPresetImportExport>().ExportPreset(this.SelectedPreset.Preset);
+					});
+				}
+
+				return this.exportPresetCommand;
 			}
 		}
 

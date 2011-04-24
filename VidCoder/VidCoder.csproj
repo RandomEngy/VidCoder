@@ -125,8 +125,14 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\Lib\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -253,15 +259,17 @@
     <Compile Include="Converters\DoubleDisplayConverter.cs" />
     <Compile Include="Converters\PercentDisplayConverter.cs" />
     <Compile Include="Converters\SampleRateDisplayConverter.cs" />
+    <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="EnumStringConverter.cs" />
+    <Compile Include="Model\Database.cs" />
     <Compile Include="Model\EncodeResult.cs" />
     <Compile Include="Model\PreviewImageJob.cs" />
     <Compile Include="Model\SaveImageJob.cs" />
     <Compile Include="Services\Interfaces\ILogger.cs" />
-    <Compile Include="Services\Interfaces\IPresetImport.cs" />
+    <Compile Include="Services\Interfaces\IPresetImportExport.cs" />
     <Compile Include="Services\Interfaces\IProcesses.cs" />
     <Compile Include="Services\Interfaces\IProcessAutoPause.cs" />
-    <Compile Include="Services\PresetImport.cs" />
+    <Compile Include="Services\PresetImportExport.cs" />
     <Compile Include="Services\ProcessAutoPause.cs" />
     <Compile Include="Services\Processes.cs" />
     <Compile Include="Utilities\ListSynchronizer\IListItemConverter.cs" />
@@ -433,7 +441,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\avi.png" />
     <Resource Include="Icons\disc.png" />
     <Resource Include="Icons\folder.png" />
   </ItemGroup>
@@ -503,5 +510,6 @@
   <Target Name="AfterBuild">
     <Copy SourceFiles="..\Lib\$(Platform)\hb.dll" DestinationFolder="$(OutDir)" />
     <Copy SourceFiles="..\HandBrakeInterop\HandBrakeInterop\bin\$(Platform)\Release\HandBrakeInterop.pdb" DestinationFolder="$(OutDir)" />
+    <Copy SourceFiles="..\Lib\$(Platform)\SQLite.Interop.dll" DestinationFolder="$(OutDir)" />
   </Target>
 </Project>

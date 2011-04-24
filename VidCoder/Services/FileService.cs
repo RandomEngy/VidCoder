@@ -50,7 +50,7 @@ namespace VidCoder.Services
 			return this.GetFileNameLoad(null, null, null);
 		}
 
-		public string GetFileNameLoad(string defaultExt, string filter, string initialDirectory)
+		public string GetFileNameLoad(string initialDirectory, string defaultExt, string filter)
 		{
 			var dialog = new Microsoft.Win32.OpenFileDialog();
 
@@ -87,6 +87,11 @@ namespace VidCoder.Services
 
 		public string GetFileNameSave(string initialDirectory)
 		{
+			return this.GetFileNameSave(initialDirectory, initialFileName: null, defaultExt: null, filter: null);
+		}
+
+		public string GetFileNameSave(string initialDirectory, string initialFileName, string defaultExt, string filter)
+		{
 			var dialog = new Microsoft.Win32.SaveFileDialog();
 
 			if (!string.IsNullOrEmpty(initialDirectory))
@@ -97,6 +102,21 @@ namespace VidCoder.Services
 				{
 					dialog.InitialDirectory = fullDirectory;
 				}
+			}
+
+			if (initialFileName != null)
+			{
+				dialog.FileName = initialFileName;
+			}
+
+			if (defaultExt != null)
+			{
+				dialog.DefaultExt = defaultExt;
+			}
+
+			if (filter != null)
+			{
+				dialog.Filter = filter;
 			}
 
 			bool? result = dialog.ShowDialog();

@@ -99,7 +99,7 @@ namespace VidCoder.View
 					{
 						if (Path.GetExtension(fileList[0]).ToLowerInvariant() == ".xml")
 						{
-							Unity.Container.Resolve<IPresetImport>().ImportPreset(fileList[0]);
+							Unity.Container.Resolve<IPresetImportExport>().ImportPreset(fileList[0]);
 						}
 						else
 						{

@@ -216,6 +216,7 @@
 			</MenuItem>
 			<MenuItem Header="Tools">
 				<MenuItem Header="Import Preset..." Command="{Binding ImportPresetCommand}" />
+				<MenuItem Header="Export Preset..." Command="{Binding ExportPresetCommand}" />
 				<MenuItem Header="Options..." Command="{Binding OpenOptionsCommand}" />
 			</MenuItem>
 			<MenuItem Header="Windows">

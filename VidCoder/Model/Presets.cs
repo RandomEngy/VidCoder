@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.IO;
@@ -7,8 +9,8 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.Xml.Linq;
 using System.Threading;
-using HandBrake.Interop;
 using System.Globalization;
+using HandBrake.Interop;
 
 namespace VidCoder.Model
 {
@@ -16,7 +18,7 @@ namespace VidCoder.Model
 	{
 		private const int CurrentPresetVersion = 3;
 
-		private static readonly string UserPresetsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"VidCoder\UserPresets");
+		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
 		private static XmlSerializer presetListSerializer = new XmlSerializer(typeof(List<Preset>));
 		private static XmlSerializer presetSerializer = new XmlSerializer(typeof(Preset));
@@ -26,8 +28,7 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				EnsureFolderCreated();
-				using (FileStream stream = new FileStream(BuiltInPresetsPath, FileMode.Open, FileAccess.Read))
+				using (var stream = new FileStream(BuiltInPresetsPath, FileMode.Open, FileAccess.Read))
 				{
 					var presetList = presetListSerializer.Deserialize(stream) as List<Preset>;
 					return presetList;
@@ -36,8 +37,7 @@ namespace VidCoder.Model
 
 			set
 			{
-				EnsureFolderCreated();
-				using (FileStream stream = new FileStream(BuiltInPresetsPath, FileMode.Create, FileAccess.Write))
+				using (var stream = new FileStream(BuiltInPresetsPath, FileMode.Create, FileAccess.Write))
 				{
 					presetListSerializer.Serialize(stream, value);
 				}
@@ -48,21 +48,31 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				EnsureFolderCreated();
-
 				lock (userPresetSync)
 				{
 					var result = new List<Preset>();
 
-					string[] presetFiles = Directory.GetFiles(UserPresetsFolder);
-
-					foreach (string presetFile in presetFiles)
+					var selectPresetsCommand = new SQLiteCommand("SELECT * FROM presetsXml", Database.Connection);
+					using (SQLiteDataReader reader = selectPresetsCommand.ExecuteReader())
 					{
-						Preset preset = LoadPreset(presetFile);
-
-						if (preset != null)
+						while (reader.Read())
 						{
-							result.Add(preset);
+							string presetXml = reader.GetString("xml");
+							result.Add(LoadPresetXmlString(presetXml));
+						}
+					}
+
+					if (result.Count == 0 && Directory.Exists(UserPresetsFolder))
+					{
+						// If we have no DB presets, check for old .xml files in the UserPresets folder
+						string[] presetFiles = Directory.GetFiles(UserPresetsFolder);
+						foreach (string presetFile in presetFiles)
+						{
+							Preset preset = LoadPresetFile(presetFile);
+							if (preset != null)
+							{
+								result.Add(preset);
+							}
 						}
 					}
 
@@ -72,24 +82,11 @@ namespace VidCoder.Model
 
 			set
 			{
-				EnsureFolderCreated();
-				var presetXmlList = new List<Tuple<string, string>>();
+				var presetXmlList = new List<string>();
 
 				foreach (Preset preset in value)
 				{
-					StringBuilder xmlBuilder = new StringBuilder();
-					using (XmlWriter writer = XmlWriter.Create(xmlBuilder))
-					{
-						presetSerializer.Serialize(writer, preset);
-					}
-
-					string fileName = preset.Name;
-					if (preset.IsModified)
-					{
-						fileName += "_Modified";
-					}
-
-					presetXmlList.Add(Tuple.Create<string, string>(fileName, xmlBuilder.ToString()));
+					presetXmlList.Add(SerializePreset(preset));
 				}
 
 				// Do the actual save asynchronously.
@@ -98,11 +95,27 @@ namespace VidCoder.Model
 		}
 
 		/// <summary>
+		/// Serializes a preset to XML. Does not include wrapper.
+		/// </summary>
+		/// <param name="preset">The preset to serialize.</param>
+		/// <returns>The serialized XML of the preset.</returns>
+		public static string SerializePreset(Preset preset)
+		{
+			var xmlBuilder = new StringBuilder();
+			using (XmlWriter writer = XmlWriter.Create(xmlBuilder))
+			{
+				presetSerializer.Serialize(writer, preset);
+			}
+
+			return xmlBuilder.ToString();
+		}
+
+		/// <summary>
 		/// Loads in a preset from a file.
 		/// </summary>
 		/// <param name="presetFile">The file to load the preset from.</param>
 		/// <returns>The parsed preset from the file, or null if the preset is invalid.</returns>
-		public static Preset LoadPreset(string presetFile)
+		public static Preset LoadPresetFile(string presetFile)
 		{
 			if (Path.GetExtension(presetFile).ToLowerInvariant() != ".xml")
 			{
@@ -137,6 +150,65 @@ namespace VidCoder.Model
 			}
 		}
 
+		/// <summary>
+		/// Load in a preset from an XML string.
+		/// </summary>
+		/// <param name="presetXml">The XML of the preset to load in (without wrapper XML).</param>
+		/// <returns>The loaded Preset.</returns>
+		public static Preset LoadPresetXmlString(string presetXml)
+		{
+			try
+			{
+				using (var stringReader = new StringReader(presetXml))
+				{
+					using (var xmlReader = new XmlTextReader(stringReader))
+					{
+						return presetSerializer.Deserialize(xmlReader) as Preset;
+					}
+				}
+			}
+			catch (XmlException exception)
+			{
+				System.Windows.MessageBox.Show(
+					"Could not load preset: " +
+					exception +
+					Environment.NewLine +
+					Environment.NewLine +
+					presetXml);
+			}
+
+			return null;
+		}
+
+		/// <summary>
+		/// Saves a user preset to a file. Includes wrapper XML.
+		/// </summary>
+		/// <param name="preset">The preset to save.</param>
+		/// <param name="filePath">The path to save the preset to.</param>
+		/// <returns>True if the save succeeded.</returns>
+		public static bool SavePresetToFile(Preset preset, string filePath)
+		{
+			try
+			{
+				string presetXml = SerializePreset(preset);
+
+				XElement element = XElement.Parse(presetXml);
+				var doc = new XDocument(
+					new XElement("UserPreset",
+					             new XAttribute("Version", CurrentPresetVersion.ToString(CultureInfo.InvariantCulture)),
+					             element));
+
+				doc.Save(filePath);
+				return true;
+			}
+			catch (XmlException exception)
+			{
+				System.Windows.MessageBox.Show(string.Format("Could not save preset '{0}':{1}{2}", preset.Name, Environment.NewLine, exception));
+			}
+
+			return false;
+		}
+
 		private static void UpgradePreset(Preset preset)
 		{
 			foreach (AudioEncoding audioEncoding in preset.EncodingProfile.AudioEncodings)
@@ -166,22 +238,34 @@ namespace VidCoder.Model
 		{
 			lock (userPresetSync)
 			{
-				string[] existingFiles = Directory.GetFiles(UserPresetsFolder);
-				foreach (string existingFile in existingFiles)
+				if (Directory.Exists(UserPresetsFolder))
 				{
-					File.Delete(existingFile);
+					string[] existingFiles = Directory.GetFiles(UserPresetsFolder);
+					foreach (string existingFile in existingFiles)
+					{
+						File.Delete(existingFile);
+					}
+
+					Directory.Delete(UserPresetsFolder);
 				}
 
-				var presetXmlList = presetXmlListObject as List<Tuple<string, string>>;
-				foreach (Tuple<string, string> listItem in presetXmlList)
-				{
-					XElement element = XElement.Parse(listItem.Item2);
-					XDocument doc = new XDocument(
-						new XElement("UserPreset",
-							new XAttribute("Version", CurrentPresetVersion.ToString(CultureInfo.InvariantCulture)),
-							element));
+				SQLiteConnection connection = Database.CreateConnection();
 
-					doc.Save(FindUserPresetPath(listItem.Item1));
+				using (SQLiteTransaction transaction = connection.BeginTransaction())
+				{
+					Database.ExecuteNonQuery("DELETE FROM presetsXml", connection);
+
+					var insertCommand = new SQLiteCommand("INSERT INTO presetsXml (xml) VALUES (?)", connection);
+					SQLiteParameter insertXmlParam = insertCommand.Parameters.Add("xml", DbType.String);
+
+					var presetXmlList = presetXmlListObject as List<string>;
+					foreach (string presetXml in presetXmlList)
+					{
+						insertXmlParam.Value = presetXml;
+						insertCommand.ExecuteNonQuery();
+					}
+
+					transaction.Commit();
 				}
 			}
 		}
@@ -205,14 +289,6 @@ namespace VidCoder.Model
 			}
 
 			return proposedPresetPath;
-		}
-
-		private static void EnsureFolderCreated()
-		{
-			if (!Directory.Exists(UserPresetsFolder))
-			{
-				Directory.CreateDirectory(UserPresetsFolder);
-			}
 		}
 	}
 }
