@@ -280,6 +280,7 @@
     <Compile Include="Utilities\ListSynchronizer\TwoListSynchronizer.cs" />
     <Compile Include="Utilities\RefireControl.cs" />
     <Compile Include="Utilities\SystemSleepManagement.cs" />
+    <Compile Include="Utilities\UIUtilities.cs" />
     <Compile Include="Utilities\Unity.cs" />
     <Compile Include="ViewModel\AboutDialogViewModel.cs" />
     <Compile Include="ViewModel\AddAutoPauseProcessDialogViewModel.cs" />

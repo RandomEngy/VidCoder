@@ -458,6 +458,7 @@ namespace VidCoder.View
 			{
 				this.queueTab.Visibility = Visibility.Visible;
 				this.completedTab.Visibility = Visibility.Visible;
+				this.clearCompletedQueueItemsButton.Visibility = Visibility.Visible;
 				this.queueItemsTabControl.BorderThickness = new Thickness(1);
 				this.tabsArea.Margin = new Thickness(6, 132, 6, 6);
 
@@ -469,6 +470,7 @@ namespace VidCoder.View
 			{
 				this.queueTab.Visibility = Visibility.Collapsed;
 				this.completedTab.Visibility = Visibility.Collapsed;
+				this.clearCompletedQueueItemsButton.Visibility = Visibility.Collapsed;
 				this.queueItemsTabControl.BorderThickness = new Thickness(0);
 				this.tabsArea.Margin = new Thickness(2, 128, 2, 2);
 
@@ -630,6 +632,11 @@ namespace VidCoder.View
 			return
 				clickedPoint.X >= relativePoint.X && clickedPoint.X <= relativePoint.X + element.ActualWidth &&
 				clickedPoint.Y >= relativePoint.Y && clickedPoint.Y <= relativePoint.Y + element.ActualHeight;
+		}
+
+		private void ToolBar_Loaded(object sender, RoutedEventArgs e)
+		{
+			UIUtilities.HideOverflowGrid(sender as ToolBar);
 		}
 	}
 }

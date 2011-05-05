@@ -133,12 +133,7 @@ namespace VidCoder.View
 
 		private void ToolBar_Loaded(object sender, RoutedEventArgs e)
 		{
-			var toolBar = sender as ToolBar;
-			var overflowGrid = toolBar.Template.FindName("OverflowGrid", toolBar) as FrameworkElement;
-			if (overflowGrid != null)
-			{
-				overflowGrid.Visibility = Visibility.Collapsed;
-			}
+			UIUtilities.HideOverflowGrid(sender as ToolBar);
 		}
 	}
 }

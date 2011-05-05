@@ -683,7 +683,10 @@
 
 			<Grid Margin="2,128,2,2" Name="tabsArea">
 				<TabControl Name="queueItemsTabControl" BorderThickness="0" SelectedIndex="{Binding SelectedTabIndex}">
-					<TabItem Header="{Binding QueuedTabHeader}" Name="queueTab" Visibility="Collapsed">
+					<TabItem Name="queueTab" Visibility="Collapsed">
+						<TabItem.Header>
+							<TextBlock Text="{Binding QueuedTabHeader}" />
+						</TabItem.Header>
 						<ListView
 							Name="queueView"
 							ItemsSource="{Binding EncodeQueue}"
@@ -748,6 +751,14 @@
 						</ListView>
 					</TabItem>
 				</TabControl>
+
+				<Button
+					Name="clearCompletedQueueItemsButton"
+					Margin="0,2,0,0" VerticalAlignment="Top" HorizontalAlignment="Right"
+					Command="{Binding ClearCompletedCommand}" Style="{StaticResource RemoveButtonStyle}"
+					Visibility="Collapsed">Clear completed queue items</Button>
+
+				<!--<Button Content="Test" Width="90" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="140,0,0,0" />-->
 			</Grid>
 			
 			<Label Height="28" Margin="220,49,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="47">Preset:</Label>

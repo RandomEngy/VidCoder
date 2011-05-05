@@ -709,22 +709,24 @@
 
 						break;
 					case VideoRangeType.Seconds:
-						if (job.SecondsStart < 0 || job.SecondsEnd < 0)
+						if (job.SecondsStart < 0 || job.SecondsEnd < 0 || job.SecondsStart >= job.SecondsEnd)
 						{
 							throw new ArgumentException("Seconds range " + job.SecondsStart + "-" + job.SecondsEnd + " is invalid.", "job");
 						}
 
+						// For some reason "pts_to_stop" actually means the number of pts to stop AFTER the start point.
 						nativeJob.pts_to_start = (int)(job.SecondsStart * 90000);
-						nativeJob.pts_to_stop = (int)(job.SecondsEnd * 90000);
+						nativeJob.pts_to_stop = (int)((job.SecondsEnd - job.SecondsStart) * 90000);
 						break;
 					case VideoRangeType.Frames:
-						if (job.FramesStart < 0 || job.FramesEnd < 0)
+						if (job.FramesStart < 0 || job.FramesEnd < 0 || job.FramesStart >= job.FramesEnd)
 						{
 							throw new ArgumentException("Frames range " + job.FramesStart + "-" + job.FramesEnd + " is invalid.", "job");
 						}
 
+						// "frame_to_stop" actually means the number of frames total to encode AFTER the start point.
 						nativeJob.frame_to_start = job.FramesStart;
-						nativeJob.frame_to_stop = job.FramesEnd;
+						nativeJob.frame_to_stop = job.FramesEnd - job.FramesStart;
 						break;
 				}
 			}
