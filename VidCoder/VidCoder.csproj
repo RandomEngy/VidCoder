@@ -184,6 +184,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Panels\AudioPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Panels\AdvancedPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ApplyUpdateConfirmation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -221,6 +229,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Panels\PicturePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\QueueTitlesDialog.xaml">
       <SubType>Designer</SubType>
@@ -298,8 +310,17 @@
     <Compile Include="View\AddAutoPauseProcessDialog.xaml.cs">
       <DependentUpon>AddAutoPauseProcessDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Panels\AudioPanel.xaml.cs">
+      <DependentUpon>AudioPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Panels\AdvancedPanel.xaml.cs">
+      <DependentUpon>AdvancedPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LogWindow.xaml.cs">
       <DependentUpon>LogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Panels\PicturePanel.xaml.cs">
+      <DependentUpon>PicturePanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\QueueTitlesDialog.xaml.cs">
       <DependentUpon>QueueTitlesDialog.xaml</DependentUpon>
@@ -319,6 +340,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\AboutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Panels\VideoFiltersPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Panels\VideoPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -426,6 +455,12 @@
     </Compile>
     <Compile Include="View\SubtitleDialog.xaml.cs">
       <DependentUpon>SubtitleDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Panels\VideoFiltersPanel.xaml.cs">
+      <DependentUpon>VideoFiltersPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Panels\VideoPanel.xaml.cs">
+      <DependentUpon>VideoPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowPlacement.cs" />
     <Compile Include="WindowPlacementWpf.cs" />

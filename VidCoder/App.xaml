@@ -9,6 +9,17 @@
 		<converters:InverseBoolConverter x:Key="InverseBoolConverter" />
 		<converters:PercentDisplayConverter x:Key="PercentDisplayConverter" />
 		<converters:DoubleDisplayConverter x:Key="DoubleDisplayConverter" />
+		
+		<Style x:Key="SectionHeader" TargetType="TextBlock">
+			<Setter Property="FontWeight" Value="Bold" />
+		</Style>
+		<Style x:Key="InputOutputInfoSection" TargetType="Border">
+			<Setter Property="Padding" Value="3" />
+			<Setter Property="CornerRadius" Value="10" />
+			<Setter Property="BorderThickness" Value="1" />
+			<Setter Property="BorderBrush" Value="#999999" />
+		</Style>
+
 		<Style x:Key="LongToolTip" TargetType="TextBlock">
 			<Setter Property="Width" Value="400" />
 			<Setter Property="TextWrapping" Value="Wrap" />
