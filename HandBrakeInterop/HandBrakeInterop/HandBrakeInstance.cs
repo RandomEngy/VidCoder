@@ -281,6 +281,26 @@
 		}
 
 		/// <summary>
+		/// Calculates the video bitrate for the given job and target size.
+		/// </summary>
+		/// <param name="job">The encode job.</param>
+		/// <param name="sizeMB">The target size in MB.</param>
+		/// <returns>The video bitrate in kbps.</returns>
+		public int CalculateBitrate(EncodeJob job, int sizeMB)
+		{
+			hb_title_s title = this.GetOriginalTitle(job.Title);
+
+			hb_job_s nativeJob = InteropUtilities.ReadStructure<hb_job_s>(title.job);
+			List<IntPtr> allocatedMemory = this.ApplyJob(ref nativeJob, job);
+
+			int calculatedBitrate = HbLib.hb_calc_bitrate(ref nativeJob, sizeMB);
+
+			InteropUtilities.FreeMemory(allocatedMemory);
+
+			return calculatedBitrate;
+		}
+
+		/// <summary>
 		/// Starts an encode with the given job.
 		/// </summary>
 		/// <param name="jobToStart">The job to start.</param>
@@ -674,7 +694,7 @@
 		/// <param name="previewNumber">The preview number (0-based) to encode.</param>
 		/// <param name="previewSeconds">The number of seconds in the preview.</param>
 		/// <returns>The list of memory locations allocated for the job.</returns>
-		private List<IntPtr> ApplyJob(ref hb_job_s nativeJob, EncodeJob job, bool preview, int previewNumber, int previewSeconds)
+		private List<IntPtr> ApplyJob(ref hb_job_s nativeJob, EncodeJob job, bool preview = false, int previewNumber = 0, int previewSeconds = 0)
 		{
 			var allocatedMemory = new List<IntPtr>();
 			Title title = this.GetTitle(job.Title);
@@ -908,7 +928,7 @@
 								displayWidth = (int)((double)cropHeight * displayAspect);
 							}
 
-							nativeJob.anamorphic.dar_width = profile.DisplayWidth;
+							nativeJob.anamorphic.dar_width = displayWidth;
 							nativeJob.anamorphic.dar_height = height;
 							nativeJob.anamorphic.keep_display_aspect = 1;
 						}
@@ -973,7 +993,7 @@
 			// color_matrix
 			List<hb_audio_s> titleAudio = InteropUtilities.ConvertList<hb_audio_s>(originalTitle.list_audio);
 			
-			List<hb_audio_s> audioList = new List<hb_audio_s>();
+			var audioList = new List<hb_audio_s>();
 			int numTracks = 0;
 			foreach (AudioEncoding encoding in profile.AudioEncodings)
 			{
@@ -1044,7 +1064,7 @@
 						{
 							// Use specified subtitle.
 							hb_subtitle_s nativeSubtitle = titleSubtitles[sourceSubtitle.TrackNumber - 1];
-							hb_subtitle_config_s subtitleConfig = new hb_subtitle_config_s();
+							var subtitleConfig = new hb_subtitle_config_s();
 
 							subtitleConfig.force = sourceSubtitle.Forced ? 1 : 0;
 							subtitleConfig.default_track = sourceSubtitle.Default ? 1 : 0;
@@ -1072,7 +1092,7 @@
 				{
 					foreach (SrtSubtitle srtSubtitle in job.Subtitles.SrtSubtitles)
 					{
-						hb_subtitle_config_s subtitleConfig = new hb_subtitle_config_s();
+						var subtitleConfig = new hb_subtitle_config_s();
 
 						subtitleConfig.src_codeset = srtSubtitle.CharacterCode;
 						subtitleConfig.src_filename = srtSubtitle.FileName;

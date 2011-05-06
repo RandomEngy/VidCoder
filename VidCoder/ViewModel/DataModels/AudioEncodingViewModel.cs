@@ -118,8 +118,7 @@ namespace VidCoder.ViewModel
 				{
 					this.targetStreamIndex = value;
 					this.NotifyPropertyChanged("TargetStreamIndex");
-					this.encodingDialogVM.RefreshAudioPreview();
-					this.encodingDialogVM.UpdateAudioEncodings();
+					this.encodingDialogVM.NotifyAudioEncodingChanged();
 					this.MarkModified();
 				}
 			}
@@ -160,8 +159,7 @@ namespace VidCoder.ViewModel
 					}
 
 					this.encodingDialogVM.RefreshExtensionChoice();
-					this.encodingDialogVM.RefreshAudioPreview();
-					this.encodingDialogVM.UpdateAudioEncodings();
+					this.encodingDialogVM.NotifyAudioEncodingChanged();
 				}
 			}
 		}
@@ -201,8 +199,7 @@ namespace VidCoder.ViewModel
 
 				if (value != null)
 				{
-					this.encodingDialogVM.RefreshAudioPreview();
-					this.encodingDialogVM.UpdateAudioEncodings();
+					this.encodingDialogVM.NotifyAudioEncodingChanged();
 					this.RefreshBitrateChoices();
 					this.MarkModified();
 				}
@@ -231,8 +228,7 @@ namespace VidCoder.ViewModel
 			{
 				this.sampleRate = value;
 				this.NotifyPropertyChanged("SampleRate");
-				this.encodingDialogVM.RefreshAudioPreview();
-				this.encodingDialogVM.UpdateAudioEncodings();
+				this.encodingDialogVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
 		}
@@ -262,8 +258,7 @@ namespace VidCoder.ViewModel
 			{
 				this.bitrate = value;
 				this.NotifyPropertyChanged("Bitrate");
-				this.encodingDialogVM.RefreshAudioPreview();
-				this.encodingDialogVM.UpdateAudioEncodings();
+				this.encodingDialogVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
 		}
@@ -279,8 +274,7 @@ namespace VidCoder.ViewModel
 			{
 				this.gain = value;
 				this.NotifyPropertyChanged("Gain");
-				this.encodingDialogVM.RefreshAudioPreview();
-				this.encodingDialogVM.UpdateAudioEncodings();
+				this.encodingDialogVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
 		}
@@ -296,7 +290,7 @@ namespace VidCoder.ViewModel
 			{
 				this.drc = value;
 				this.NotifyPropertyChanged("Drc");
-				this.encodingDialogVM.UpdateAudioEncodings();
+				this.encodingDialogVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
 		}
@@ -312,8 +306,7 @@ namespace VidCoder.ViewModel
 			{
 				this.name = value;
 				this.NotifyPropertyChanged("Name");
-				this.encodingDialogVM.RefreshAudioPreview();
-				this.encodingDialogVM.UpdateAudioEncodings();
+				this.encodingDialogVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
 		}

@@ -18,6 +18,7 @@ namespace VidCoder.ViewModel
 	public class EncodingViewModel : OkCancelDialogViewModel
 	{
 		private const int DimensionsAutoSetModulus = 2;
+		private const int DefaultVideoBitrateKbps = 900;
 
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 
@@ -41,6 +42,7 @@ namespace VidCoder.ViewModel
 		private ObservableCollection<VideoEncoderViewModel> encoderChoices;
 		private VideoEncoderViewModel selectedEncoder;
 		private List<double> framerateChoices;
+		private int displayVideoBitrate;
 
 		private ObservableCollection<AudioEncodingViewModel> audioEncodings;
 		private ObservableCollection<AudioOutputPreview> audioOutputPreviews;
@@ -83,9 +85,11 @@ namespace VidCoder.ViewModel
 
 		public EncodingViewModel(Preset preset)
 		{
-			this.encoderChoices = new ObservableCollection<VideoEncoderViewModel>();
-			this.encoderChoices.Add(new VideoEncoderViewModel { Encoder = VideoEncoder.FFMpeg, Display = "MPEG-4 (FFMpeg)" });
-			this.encoderChoices.Add(new VideoEncoderViewModel { Encoder = VideoEncoder.X264, Display = "H.264 (x264)" });
+			this.encoderChoices = new ObservableCollection<VideoEncoderViewModel>
+			{
+			    new VideoEncoderViewModel {Encoder = VideoEncoder.FFMpeg, Display = "MPEG-4 (FFMpeg)"},
+			    new VideoEncoderViewModel {Encoder = VideoEncoder.X264, Display = "H.264 (x264)"}
+			};
 			this.audioOutputPreviews = new ObservableCollection<AudioOutputPreview>();
 			this.audioEncodings = new ObservableCollection<AudioEncodingViewModel>();
 
@@ -1609,6 +1613,8 @@ namespace VidCoder.ViewModel
 
 			set
 			{
+				VideoEncodeRateType oldRateType = this.profile.VideoEncodeRateType;
+
 				this.profile.VideoEncodeRateType = value;
 				this.NotifyPropertyChanged("VideoEncodeRateType");
 
@@ -1644,9 +1650,24 @@ namespace VidCoder.ViewModel
 
 				if (value == VideoEncodeRateType.AverageBitrate)
 				{
-					this.VideoBitrate = 1200;
+					if (oldRateType == VideoEncodeRateType.ConstantQuality)
+					{
+						this.VideoBitrate = DefaultVideoBitrateKbps;
+					}
+					else if (oldRateType == VideoEncodeRateType.TargetSize)
+					{
+						if (this.displayVideoBitrate == 0)
+						{
+							this.VideoBitrate = DefaultVideoBitrateKbps;
+						}
+						else
+						{
+							this.VideoBitrate = this.displayVideoBitrate;
+						}
+					}
 				}
 
+				this.NotifyPropertyChanged("VideoBitrate");
 				this.mainViewModel.RefreshDestination();
 				this.IsModified = true;
 			}
@@ -1663,6 +1684,7 @@ namespace VidCoder.ViewModel
 			{
 				this.profile.TargetSize = value;
 				this.NotifyPropertyChanged("TargetSize");
+				this.NotifyPropertyChanged("VideoBitrate");
 				this.mainViewModel.RefreshDestination();
 				this.IsModified = true;
 			}
@@ -1672,6 +1694,25 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
+				if (this.VideoEncodeRateType == VideoEncodeRateType.ConstantQuality)
+				{
+					return DefaultVideoBitrateKbps;
+				}
+
+				if (this.VideoEncodeRateType == VideoEncodeRateType.TargetSize)
+				{
+					if (this.mainViewModel.HasVideoSource && this.mainViewModel.JobCreationAvailable && this.TargetSize > 0)
+					{
+						this.displayVideoBitrate = this.mainViewModel.ScanInstance.CalculateBitrate(this.mainViewModel.EncodeJob, this.TargetSize);
+					}
+					else
+					{
+						this.displayVideoBitrate = 0;
+					}
+
+					return this.displayVideoBitrate;
+				}
+
 				return this.profile.VideoBitrate;
 			}
 
@@ -2713,7 +2754,7 @@ namespace VidCoder.ViewModel
 			if (e.PropertyName == "SelectedTitle")
 			{
 				this.RefreshOutputSize();
-				this.RefreshAudioInput();
+				this.NotifyAudioInputChanged();
 				this.NotifyPropertyChanged("HasSourceData");
 				this.NotifyPropertyChanged("CropTop");
 				this.NotifyPropertyChanged("CropBottom");
@@ -2729,9 +2770,28 @@ namespace VidCoder.ViewModel
 		}
 
 		/// <summary>
-		/// Responds to changed audio input.
+		/// Notify the encoding window that the length of the selected video changes.
 		/// </summary>
-		public void RefreshAudioInput()
+		public void NotifyLengthChanged()
+		{
+			this.UpdateVideoBitrate();
+		}
+
+		/// <summary>
+		/// Notify the encoding window of changed audio encoding options.
+		/// </summary>
+		public void NotifyAudioEncodingChanged()
+		{
+			this.RefreshAudioPreview();
+			this.UpdateAudioEncodings();
+
+			this.UpdateVideoBitrate();
+		}
+
+		/// <summary>
+		/// Responds to changed audio input (selected tracks on main UI).
+		/// </summary>
+		public void NotifyAudioInputChanged()
 		{
 			this.RefreshAudioPreview();
 
@@ -2739,11 +2799,25 @@ namespace VidCoder.ViewModel
 			{
 				encodingVM.SetChosenTracks(this.mainViewModel.GetChosenAudioTracks(), this.mainViewModel.SelectedTitle);
 			}
+
+			// When audio encoding changes, we need to recalculate the estimated video bitrate if we have chosen target size.
+			this.UpdateVideoBitrate();
 		}
 
 		private void AudioChoicesCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
-			this.RefreshAudioInput();
+			this.NotifyAudioInputChanged();
+		}
+
+		/// <summary>
+		/// Re-calculates video bitrate if needed.
+		/// </summary>
+		private void UpdateVideoBitrate()
+		{
+			if (this.VideoEncodeRateType == VideoEncodeRateType.TargetSize)
+			{
+				this.NotifyPropertyChanged("VideoBitrate");
+			}
 		}
 
 		private void UpdatePreviewWindow()

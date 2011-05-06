@@ -136,6 +136,7 @@ namespace VidCoder.ViewModel
 				Settings.Default.Save();
 			}
 
+			this.JobCreationAvailable = false;
 			this.updater.HandlePendingUpdate();
 			this.updater.CheckUpdates();
 
@@ -573,6 +574,11 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// If true, EncodeJob objects can be safely obtained from this class.
+		/// </summary>
+		public bool JobCreationAvailable { get; set; }
+
 		public List<Title> Titles
 		{
 			get
@@ -601,6 +607,8 @@ namespace VidCoder.ViewModel
 				}
 				else
 				{
+					this.JobCreationAvailable = false;
+
 					// Save old title, transfer from it when disc returns.
 					this.selectedTitle = value;
 
@@ -726,6 +734,8 @@ namespace VidCoder.ViewModel
 					this.NotifyPropertyChanged("AngleVisible");
 
 					this.oldTitle = value;
+
+					this.JobCreationAvailable = true;
 				}
 
 				PreviewViewModel previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
@@ -922,6 +932,7 @@ namespace VidCoder.ViewModel
 				this.NotifyPropertyChanged("SecondsRangeVisible");
 				this.NotifyPropertyChanged("FramesRangeVisible");
 				this.NotifyPropertyChanged("VideoRangeSummary");
+				this.ReportLengthChanged();
 			}
 		}
 
@@ -973,6 +984,7 @@ namespace VidCoder.ViewModel
 
 				this.NotifyPropertyChanged("SecondsRangeStart");
 				this.NotifyPropertyChanged("VideoRangeSummary");
+				this.ReportLengthChanged();
 			}
 		}
 
@@ -1003,6 +1015,7 @@ namespace VidCoder.ViewModel
 
 				this.NotifyPropertyChanged("SecondsRangeEnd");
 				this.NotifyPropertyChanged("VideoRangeSummary");
+				this.ReportLengthChanged();
 			}
 		}
 
@@ -1041,6 +1054,7 @@ namespace VidCoder.ViewModel
 
 				this.NotifyPropertyChanged("FramesRangeStart");
 				this.NotifyPropertyChanged("VideoRangeSummary");
+				this.ReportLengthChanged();
 			}
 		}
 
@@ -1071,6 +1085,7 @@ namespace VidCoder.ViewModel
 
 				this.NotifyPropertyChanged("FramesRangeEnd");
 				this.NotifyPropertyChanged("VideoRangeSummary");
+				this.ReportLengthChanged();
 			}
 		}
 
@@ -1107,6 +1122,7 @@ namespace VidCoder.ViewModel
 
 				this.NotifyPropertyChanged("SelectedStartChapter");
 				this.NotifyPropertyChanged("VideoRangeSummary");
+				this.ReportLengthChanged();
 			}
 		}
 
@@ -1135,6 +1151,7 @@ namespace VidCoder.ViewModel
 
 				this.NotifyPropertyChanged("SelectedEndChapter");
 				this.NotifyPropertyChanged("VideoRangeSummary");
+				this.ReportLengthChanged();
 			}
 		}
 
@@ -1316,13 +1333,13 @@ namespace VidCoder.ViewModel
 				{
 					this.GenerateOutputFileName();
 
-					EncodingViewModel encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel)) as EncodingViewModel;
+					var encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel)) as EncodingViewModel;
 					if (encodingWindow != null)
 					{
 						encodingWindow.EditingPreset = this.selectedPreset.Preset;
 					}
 
-					PreviewViewModel previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
+					var previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
 					if (previewWindow != null)
 					{
 						previewWindow.RequestRefreshPreviews();
@@ -3213,6 +3230,15 @@ namespace VidCoder.ViewModel
 			string extension = this.GetOutputExtension();
 
 			this.OutputPath = this.BuildOutputPath(fileName, extension, sourcePath: this.sourcePath);
+		}
+
+		private void ReportLengthChanged()
+		{
+			var encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel)) as EncodingViewModel;
+			if (encodingWindow != null)
+			{
+				encodingWindow.NotifyLengthChanged();
+			}
 		}
 
 		/// <summary>
