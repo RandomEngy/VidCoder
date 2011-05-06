@@ -22,7 +22,7 @@
 		</Grid.RowDefinitions>
 		<Grid Grid.Row="0" Grid.Column="0" Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">
 			<Border
-				Margin="30,3,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200"
+				Margin="14,3,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="230"
 				Style="{StaticResource InputOutputInfoSection}"
 				Background="{StaticResource InputBrush}" Effect="{StaticResource InfoBoxShadow}">
 				<Grid>
