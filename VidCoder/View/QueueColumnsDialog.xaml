@@ -15,32 +15,25 @@
 				<ColumnDefinition />
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
-
 			<TextBlock Height="23" HorizontalAlignment="Left" Margin="15,10,0,0" Name="textBlock3" Text="Drag and drop to add, remove or reorder columns." VerticalAlignment="Top" Grid.ColumnSpan="2" />
-
-
-
-			<TextBlock
-				Height="23" HorizontalAlignment="Center" Margin="0,39,0,0" VerticalAlignment="Top"
-				Name="textBlock2" Text="Used columns" />
+			
+			<TextBlock Height="23" HorizontalAlignment="Center" Margin="0,39,0,0" Name="textBlock1" Text="Unused columns" VerticalAlignment="Top" />
 			<ListView
 				Margin="6,59,10,9" Name="listView1"
 				VidCoderDragDrop:DragDropHelper.IsDragSource="True"
 				VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
 				VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource ColumnDragTemplate}"
-				ItemsSource="{Binding UsedColumns}"
+				Foreground="DarkGray"
+				ItemsSource="{Binding UnusedColumns}"
 				DisplayMemberPath="Title"/>
 
-			<TextBlock
-				Grid.Column="1" Height="23" HorizontalAlignment="Center" Margin="0,39,0,0" VerticalAlignment="Top"
-				Name="textBlock1" Text="Unused columns" />
+			<TextBlock Grid.Column="1" Height="23" HorizontalAlignment="Center" Margin="0,39,0,0" Name="textBlock2" Text="Used columns" VerticalAlignment="Top" />
 			<ListView
 				Grid.Column="1" Margin="10,59,12,9" Name="listView2"
 				VidCoderDragDrop:DragDropHelper.IsDragSource="True"
 				VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
 				VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource ColumnDragTemplate}"
-				Foreground="DarkGray"
-				ItemsSource="{Binding UnusedColumns}"
+				ItemsSource="{Binding UsedColumns}"
 				DisplayMemberPath="Title"/>
 		</Grid>
 		<Button Content="OK" Command="{Binding AcceptCommand}" Height="23" HorizontalAlignment="Right" Margin="0,0,93,12" Name="button1" VerticalAlignment="Bottom" Width="75" IsDefault="True" />
