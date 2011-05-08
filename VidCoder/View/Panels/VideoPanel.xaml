@@ -97,38 +97,42 @@
 
 			<RadioButton
 				Height="16" Margin="20,39,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" GroupName="VideoQuality"
-				IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=TargetSize}">Target Size (MB):</RadioButton>
+				IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=TargetSize}">Target Size (MB)</RadioButton>
 			<controls:NumberBox
 				Height="23" HorizontalAlignment="Left" Margin="146,36,0,0" VerticalAlignment="Top" Width="62"
 				Number="{Binding TargetSize, Mode=TwoWay}" Minimum="0"
-				AllowEmpty="False" IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=TargetSize}" />
+				AllowEmpty="False" IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=TargetSize}"
+				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter=ConstantQuality}"/>
 
 			<RadioButton
 				Height="16" Margin="20,66.6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" GroupName="VideoQuality"
-				IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=AverageBitrate}">Avg Bitrate (kbps):</RadioButton>
+				IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=AverageBitrate}">Avg Bitrate (kbps)</RadioButton>
 			<controls:NumberBox
 				Height="23" HorizontalAlignment="Left" Margin="146,65,0,0" VerticalAlignment="Top" Width="62"
 				Number="{Binding VideoBitrate, Mode=TwoWay}" Minimum="100" ShowIncrementButtons="False"
-				AllowEmpty="False" IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=AverageBitrate}" />
+				AllowEmpty="False" IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=AverageBitrate}"
+				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter=ConstantQuality}"/>
 
 			<RadioButton
 				Height="16" Margin="20,99,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" GroupName="VideoQuality"
-				IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}">Constant Quality:</RadioButton>
+				IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}">Constant Quality</RadioButton>
 			<controls:DoubleNumberBox
 				Height="23" HorizontalAlignment="Left" Margin="146,94,0,0" VerticalAlignment="Top" Width="49"
 				Number="{Binding Quality, Mode=TwoWay}" Minimum="0" Maximum="51"
-				IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}"/>
+				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}"/>
 			<Slider
 				Height="22" Margin="20,121,6,0" VerticalAlignment="Top"
 				TickPlacement="BottomRight" Minimum="{Binding QualitySliderMin}" Maximum="{Binding QualitySliderMax}" TickFrequency="1" IsSnapToTickEnabled="True"
 				Value="{Binding Quality}"
-				IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}"/>
+				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}"/>
 			<TextBlock
 				Height="21" Margin="20.2,149,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90.8" TextAlignment="Left"
-				Text="{Binding QualitySliderLeftText}"/>
+				Text="{Binding QualitySliderLeftText}"
+				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}"/>
 			<TextBlock
 				Height="21" HorizontalAlignment="Right" Margin="0,149,6,0" VerticalAlignment="Top" Width="93" TextAlignment="Right"
-				Text="{Binding QualitySliderRightText}"/>
+				Text="{Binding QualitySliderRightText}"
+				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}"/>
 		</Grid>
 	</Grid>
 </UserControl>

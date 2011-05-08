@@ -80,7 +80,7 @@
 		/// <summary>
 		/// The current encode job for this instance.
 		/// </summary>
-		private EncodeJob job;
+		private EncodeJob currentJob;
 
 		/// <summary>
 		/// True if the current job is scanning for subtitles.
@@ -288,16 +288,80 @@
 		/// <returns>The video bitrate in kbps.</returns>
 		public int CalculateBitrate(EncodeJob job, int sizeMB)
 		{
-			hb_title_s title = this.GetOriginalTitle(job.Title);
+			long availableBytes = sizeMB * 1024 * 1024;
 
-			hb_job_s nativeJob = InteropUtilities.ReadStructure<hb_job_s>(title.job);
-			List<IntPtr> allocatedMemory = this.ApplyJob(ref nativeJob, job);
+			EncodingProfile profile = job.EncodingProfile;
+			Title title = this.GetTitle(job.Title);
 
-			int calculatedBitrate = HbLib.hb_calc_bitrate(ref nativeJob, sizeMB);
+			double lengthSeconds = HandBrakeUtils.GetJobLengthSeconds(job, title);
+			lengthSeconds += 1.5;
 
-			InteropUtilities.FreeMemory(allocatedMemory);
+			double outputFramerate;
+			if (profile.Framerate == 0)
+			{
+				outputFramerate = title.Framerate;
+			}
+			else
+			{
+				// Not sure what to do for VFR here hb_calc_bitrate never handled it...
+				//   just use the peak for now.
+				outputFramerate = profile.Framerate;
+			}
 
-			return calculatedBitrate;
+			long frames = (long)(lengthSeconds * outputFramerate);
+
+			availableBytes -= frames * HandBrakeUtils.ContainerOverheadPerFrame;
+
+			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job);
+			availableBytes -= HandBrakeUtils.GetAudioSize(job, lengthSeconds, title, outputTrackList);
+
+			if (availableBytes < 0)
+			{
+				return 0;
+			}
+
+			// Video bitrate is in kilobits per second, or where 1 kbps is 1000 bits per second.
+			// So 1 kbps is 125 bytes per second.
+			return (int)(availableBytes / (125 * lengthSeconds));
+		}
+
+		/// <summary>
+		/// Gives estimated file size (in MB) of the given job and video bitrate.
+		/// </summary>
+		/// <param name="job">The encode job.</param>
+		/// <param name="videoBitrate">The video bitrate to be used (kbps).</param>
+		/// <returns>The estimated file size (in MB) of the given job and video bitrate.</returns>
+		public double CalculateFileSize(EncodeJob job, int videoBitrate)
+		{
+			long totalBytes = 0;
+
+			EncodingProfile profile = job.EncodingProfile;
+			Title title = this.GetTitle(job.Title);
+
+			double lengthSeconds = HandBrakeUtils.GetJobLengthSeconds(job, title);
+			lengthSeconds += 1.5;
+
+			double outputFramerate;
+			if (profile.Framerate == 0)
+			{
+				outputFramerate = title.Framerate;
+			}
+			else
+			{
+				// Not sure what to do for VFR here hb_calc_bitrate never handled it...
+				//   just use the peak for now.
+				outputFramerate = profile.Framerate;
+			}
+
+			long frames = (long)(lengthSeconds * outputFramerate);
+
+			totalBytes += (long)(lengthSeconds * videoBitrate * 125);
+			totalBytes += frames * HandBrakeUtils.ContainerOverheadPerFrame;
+
+			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job);
+			totalBytes += HandBrakeUtils.GetAudioSize(job, lengthSeconds, title, outputTrackList);
+
+			return (double)totalBytes / 1024 / 1024;
 		}
 
 		/// <summary>
@@ -318,7 +382,7 @@
 		/// <param name="previewSeconds">The number of seconds in the preview.</param>
 		public void StartEncode(EncodeJob job, bool preview, int previewNumber, int previewSeconds)
 		{
-			this.job = job;
+			this.currentJob = job;
 			hb_job_s nativeJob = InteropUtilities.ReadStructure<hb_job_s>(this.GetOriginalTitle(job.Title).job);
 			this.encodeAllocatedMemory = this.ApplyJob(ref nativeJob, job, preview, previewNumber, previewSeconds);
 
@@ -484,7 +548,7 @@
 				return;
 			}
 
-			hb_job_s nativeJob = InteropUtilities.ReadStructure<hb_job_s>(this.GetOriginalTitle(job.Title).job);
+			var nativeJob = InteropUtilities.ReadStructure<hb_job_s>(this.GetOriginalTitle(job.Title).job);
 			List<IntPtr> allocatedMemory = this.ApplyJob(ref nativeJob, job, false, 0, 0);
 
 			int refWidth = 0;
@@ -541,7 +605,7 @@
 		/// </summary>
 		private void PollScanProgress()
 		{
-			hb_state_s state = new hb_state_s();
+			var state = new hb_state_s();
 			HbLib.hb_get_state(this.hbHandle, ref state);
 
 			if (state.state == NativeConstants.HB_STATE_SCANNING)
@@ -568,7 +632,7 @@
 
 				if (this.originalTitles.Count > 0)
 				{
-					hb_job_s nativeJob = InteropUtilities.ReadStructure<hb_job_s>(this.originalTitles[0].job);
+					var nativeJob = InteropUtilities.ReadStructure<hb_job_s>(this.originalTitles[0].job);
 					this.featureTitle = nativeJob.feature;
 				}
 				else
@@ -600,7 +664,7 @@
 					int pass = 1;
 					int rawJobNumber = state.param.working.job_cur;
 
-					if (this.job.EncodingProfile.TwoPass)
+					if (this.currentJob.EncodingProfile.TwoPass)
 					{
 						if (this.subtitleScan)
 						{
@@ -995,25 +1059,12 @@
 			
 			var audioList = new List<hb_audio_s>();
 			int numTracks = 0;
-			foreach (AudioEncoding encoding in profile.AudioEncodings)
+
+			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job);
+
+			foreach (Tuple<AudioEncoding, int> outputTrack in outputTrackList)
 			{
-				if (encoding.InputNumber == 0)
-				{
-					// Add this encoding for all chosen tracks
-					foreach (int chosenTrack in job.ChosenAudioTracks)
-					{
-						if (titleAudio.Count >= chosenTrack)
-						{
-							audioList.Add(ConvertAudioBack(encoding, titleAudio[chosenTrack - 1], chosenTrack, numTracks++, allocatedMemory));
-						}
-					}
-				}
-				else if (encoding.InputNumber <= job.ChosenAudioTracks.Count)
-				{
-					// Add this encoding for the specified track, if it exists
-					int trackNumber = job.ChosenAudioTracks[encoding.InputNumber - 1];
-					audioList.Add(ConvertAudioBack(encoding, titleAudio[trackNumber - 1], trackNumber, numTracks++, allocatedMemory));
-				}
+				audioList.Add(ConvertAudioBack(outputTrack.Item1, titleAudio[outputTrack.Item2 -1], outputTrack.Item2, numTracks++, allocatedMemory));
 			}
 
 			NativeList nativeAudioList = InteropUtilities.ConvertListBack<hb_audio_s>(audioList);
@@ -1150,6 +1201,36 @@
 			// frames_to_skip
 
 			return allocatedMemory;
+		}
+
+		/// <summary>
+		/// Gets a list of encodings and target track indices (1-based).
+		/// </summary>
+		/// <param name="job">The encode job</param>
+		/// <returns>A list of encodings and target track indices (1-based).</returns>
+		private List<Tuple<AudioEncoding, int>> GetOutputTracks(EncodeJob job)
+		{
+			var list = new List<Tuple<AudioEncoding, int>>();
+
+			foreach (AudioEncoding encoding in job.EncodingProfile.AudioEncodings)
+			{
+				if (encoding.InputNumber == 0)
+				{
+					// Add this encoding for all chosen tracks
+					foreach (int chosenTrack in job.ChosenAudioTracks)
+					{
+						list.Add(new Tuple<AudioEncoding, int>(encoding, chosenTrack));
+					}
+				}
+				else if (encoding.InputNumber <= job.ChosenAudioTracks.Count)
+				{
+					// Add this encoding for the specified track, if it exists
+					int trackNumber = job.ChosenAudioTracks[encoding.InputNumber - 1];
+					list.Add(new Tuple<AudioEncoding, int>(encoding, trackNumber));
+				}
+			}
+
+			return list;
 		}
 
 		/// <summary>
@@ -1373,7 +1454,8 @@
 					LanguageCode = audio.config.lang.iso639_2,
 					Description = audio.config.lang.description,
 					ChannelLayout = audio.config.input.channel_layout,
-					SampleRate = audio.config.input.samplerate
+					SampleRate = audio.config.input.samplerate,
+					Bitrate = audio.config.input.bitrate
 				};
 
 				newTitle.AudioTracks.Add(newAudio);

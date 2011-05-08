@@ -6,6 +6,8 @@
 		<converters:VisibilityConverter x:Key="VisibilityConverter" />
 		<converters:EnumBoolConverter x:Key="EnumBoolConverter" />
 		<converters:EnumBoolInverseConverter x:Key="EnumBoolInverseConverter" />
+		<converters:EnumVisibilityConverter x:Key="EnumVisibilityConverter" />
+		<converters:EnumVisibilityInverseConverter x:Key="EnumVisibilityInverseConverter" />
 		<converters:InverseBoolConverter x:Key="InverseBoolConverter" />
 		<converters:PercentDisplayConverter x:Key="PercentDisplayConverter" />
 		<converters:DoubleDisplayConverter x:Key="DoubleDisplayConverter" />

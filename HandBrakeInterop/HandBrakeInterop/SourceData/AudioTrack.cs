@@ -46,7 +46,7 @@ namespace HandBrake.SourceData
 		public int SampleRate { get; set; }
 
 		/// <summary>
-		/// The bitrate (in kbps) of this Audio Track
+		/// The bitrate (in bits/sec) of this Audio Track.
 		/// </summary>
 		public int Bitrate { get; set; }
 

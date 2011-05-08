@@ -269,6 +269,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\DoubleDisplayConverter.cs" />
+    <Compile Include="Converters\EnumVisibilityConverter.cs" />
+    <Compile Include="Converters\EnumVisibilityInverseConverter.cs" />
     <Compile Include="Converters\PercentDisplayConverter.cs" />
     <Compile Include="Converters\SampleRateDisplayConverter.cs" />
     <Compile Include="DataReaderExtensions.cs" />

@@ -9,6 +9,10 @@ namespace HandBrake.Interop
 	{
 		public int InputNumber { get; set; }
 		public AudioEncoder Encoder { get; set; }
+
+		/// <summary>
+		/// Gets or sets the bitrate (in kbps) of this track.
+		/// </summary>
 		public int Bitrate { get; set; }
 		public Mixdown Mixdown { get; set; }
 

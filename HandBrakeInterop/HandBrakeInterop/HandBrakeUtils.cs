@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HandBrake.SourceData;
 
 namespace HandBrake.Interop
 {
 	public static class HandBrakeUtils
 	{
+		/// <summary>
+		/// Estimated overhead in bytes for each frame in output container.
+		/// </summary>
+		internal const int ContainerOverheadPerFrame = 6;
+
 		/// <summary>
 		/// The callback for log messages from HandBrake.
 		/// </summary>
@@ -137,6 +143,101 @@ namespace HandBrake.Interop
 		public static int SanitizeAudioBitrate(int audioBitrate, AudioEncoder encoder, int sampleRate, Mixdown mixdown)
 		{
 			return HbLib.hb_get_best_audio_bitrate(Converters.AudioEncoderToNative(encoder), audioBitrate, sampleRate, Converters.MixdownToNative(mixdown));
+		}
+
+		/// <summary>
+		/// Gets the total number of seconds on the given encode job.
+		/// </summary>
+		/// <param name="job">The encode job to query.</param>
+		/// <param name="title">The title being encoded.</param>
+		/// <returns>The total number of seconds of video to encode.</returns>
+		internal static double GetJobLengthSeconds(EncodeJob job, Title title)
+		{
+			switch (job.RangeType)
+			{
+				case VideoRangeType.Chapters:
+					TimeSpan duration = TimeSpan.Zero;
+					for (int i = job.ChapterStart; i <= job.ChapterEnd; i++)
+					{
+						duration += title.Chapters[i - 1].Duration;
+					}
+
+					return duration.TotalSeconds;
+				case VideoRangeType.Seconds:
+					return job.SecondsEnd - job.SecondsStart;
+				case VideoRangeType.Frames:
+					return (job.FramesEnd - job.FramesStart) / title.Framerate;
+			}
+
+			return 0;
+		}
+
+		/// <summary>
+		/// Gets the number of audio samples used per frame for the given audio encoder.
+		/// </summary>
+		/// <param name="encoder">The encoder to query.</param>
+		/// <returns>The number of audio samples used per frame for the given
+		/// audio encoder.</returns>
+		internal static int GetAudioSamplesPerFrame(AudioEncoder encoder)
+		{
+			switch (encoder)
+			{
+				case AudioEncoder.Faac:
+				case AudioEncoder.Vorbis:
+					return 1024;
+				case AudioEncoder.Lame:
+					return 1152;
+				case AudioEncoder.Ac3:
+				case AudioEncoder.Passthrough:
+				case AudioEncoder.Ac3Passthrough:
+				case AudioEncoder.DtsPassthrough:
+					return 1536;
+			}
+
+			System.Diagnostics.Debug.Assert(true, "Audio encoder unrecognized.");
+			return 0;
+		}
+
+		/// <summary>
+		/// Gets the size in bytes for the audio with the given parameters.
+		/// </summary>
+		/// <param name="job">The encode job.</param>
+		/// <param name="lengthSeconds">The length of the encode in seconds.</param>
+		/// <param name="title">The title to encode.</param>
+		/// <param name="outputTrackList">The list of tracks to encode.</param>
+		/// <returns>The size in bytes for the audio with the given parameters.</returns>
+		internal static long GetAudioSize(EncodeJob job, double lengthSeconds, Title title, List<Tuple<AudioEncoding, int>> outputTrackList)
+		{
+			long audioBytes = 0;
+
+			foreach (Tuple<AudioEncoding, int> outputTrack in outputTrackList)
+			{
+				AudioEncoding encoding = outputTrack.Item1;
+				AudioTrack track = title.AudioTracks[outputTrack.Item2 - 1];
+
+				int samplesPerFrame = HandBrakeUtils.GetAudioSamplesPerFrame(encoding.Encoder);
+				int audioBitrate;
+
+				if (encoding.Encoder == AudioEncoder.Passthrough ||
+					encoding.Encoder == AudioEncoder.Ac3Passthrough ||
+					encoding.Encoder == AudioEncoder.DtsPassthrough)
+				{
+					// Input bitrate is in bits/second.
+					audioBitrate = track.Bitrate / 8;
+				}
+				else
+				{
+					// Output bitrate is in kbps.
+					audioBitrate = encoding.Bitrate * 1000 / 8;
+				}
+
+				audioBytes += (long)(lengthSeconds * audioBitrate);
+
+				// Audio overhead
+				audioBytes += encoding.SampleRateRaw * ContainerOverheadPerFrame / samplesPerFrame;
+			}
+
+			return audioBytes;
 		}
 	}
 }

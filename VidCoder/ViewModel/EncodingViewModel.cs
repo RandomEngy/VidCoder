@@ -19,6 +19,7 @@ namespace VidCoder.ViewModel
 	{
 		private const int DimensionsAutoSetModulus = 2;
 		private const int DefaultVideoBitrateKbps = 900;
+		private const int DefaultTargetSizeMB = 700;
 
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 
@@ -42,6 +43,7 @@ namespace VidCoder.ViewModel
 		private ObservableCollection<VideoEncoderViewModel> encoderChoices;
 		private VideoEncoderViewModel selectedEncoder;
 		private List<double> framerateChoices;
+		private int displayTargetSize;
 		private int displayVideoBitrate;
 
 		private ObservableCollection<AudioEncodingViewModel> audioEncodings;
@@ -1621,7 +1623,6 @@ namespace VidCoder.ViewModel
 				if (value == VideoEncodeRateType.ConstantQuality)
 				{
 					// Set up a default quality.
-
 					switch (this.SelectedEncoder.Encoder)
 					{
 						case VideoEncoder.X264:
@@ -1638,7 +1639,6 @@ namespace VidCoder.ViewModel
 					}
 
 					// Disable two-pass options
-
 					this.profile.TwoPass = false;
 					this.profile.TurboFirstPass = false;
 					this.NotifyPropertyChanged("TwoPassEncoding");
@@ -1652,7 +1652,10 @@ namespace VidCoder.ViewModel
 				{
 					if (oldRateType == VideoEncodeRateType.ConstantQuality)
 					{
-						this.VideoBitrate = DefaultVideoBitrateKbps;
+						if (this.profile.VideoBitrate == 0)
+						{
+							this.VideoBitrate = DefaultVideoBitrateKbps;
+						}
 					}
 					else if (oldRateType == VideoEncodeRateType.TargetSize)
 					{
@@ -1665,9 +1668,34 @@ namespace VidCoder.ViewModel
 							this.VideoBitrate = this.displayVideoBitrate;
 						}
 					}
+
+					this.NotifyPropertyChanged("VideoBitrate");
 				}
 
-				this.NotifyPropertyChanged("VideoBitrate");
+				if (value == VideoEncodeRateType.TargetSize)
+				{
+					if (oldRateType == VideoEncodeRateType.ConstantQuality)
+					{
+						if (this.profile.TargetSize == 0)
+						{
+							this.TargetSize = DefaultTargetSizeMB;
+						}
+					}
+					else if (oldRateType == VideoEncodeRateType.AverageBitrate)
+					{
+						if (this.displayTargetSize == 0)
+						{
+							this.TargetSize = DefaultTargetSizeMB;
+						}
+						else
+						{
+							this.TargetSize = this.displayTargetSize;
+						}
+					}
+
+					this.NotifyPropertyChanged("TargetSize");
+				}
+
 				this.mainViewModel.RefreshDestination();
 				this.IsModified = true;
 			}
@@ -1677,6 +1705,20 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
+				if (this.VideoEncodeRateType == VideoEncodeRateType.AverageBitrate)
+				{
+					if (this.mainViewModel.HasVideoSource && this.mainViewModel.JobCreationAvailable && this.VideoBitrate > 0)
+					{
+						this.displayTargetSize = (int)Math.Round(this.mainViewModel.ScanInstance.CalculateFileSize(this.mainViewModel.EncodeJob, this.VideoBitrate));
+					}
+					else
+					{
+						this.displayTargetSize = 0;
+					}
+
+					return this.displayTargetSize;
+				}
+
 				return this.profile.TargetSize;
 			}
 
@@ -1720,6 +1762,7 @@ namespace VidCoder.ViewModel
 			{
 				this.profile.VideoBitrate = value;
 				this.NotifyPropertyChanged("VideoBitrate");
+				this.NotifyPropertyChanged("TargetSize");
 				this.mainViewModel.RefreshDestination();
 				this.IsModified = true;
 			}
@@ -2775,6 +2818,7 @@ namespace VidCoder.ViewModel
 		public void NotifyLengthChanged()
 		{
 			this.UpdateVideoBitrate();
+			this.UpdateTargetSize();
 		}
 
 		/// <summary>
@@ -2786,6 +2830,7 @@ namespace VidCoder.ViewModel
 			this.UpdateAudioEncodings();
 
 			this.UpdateVideoBitrate();
+			this.UpdateTargetSize();
 		}
 
 		/// <summary>
@@ -2800,8 +2845,9 @@ namespace VidCoder.ViewModel
 				encodingVM.SetChosenTracks(this.mainViewModel.GetChosenAudioTracks(), this.mainViewModel.SelectedTitle);
 			}
 
-			// When audio encoding changes, we need to recalculate the estimated video bitrate if we have chosen target size.
+			// When audio encoding changes, we need to recalculate the estimated video bitrate or target size.
 			this.UpdateVideoBitrate();
+			this.UpdateTargetSize();
 		}
 
 		private void AudioChoicesCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -2817,6 +2863,17 @@ namespace VidCoder.ViewModel
 			if (this.VideoEncodeRateType == VideoEncodeRateType.TargetSize)
 			{
 				this.NotifyPropertyChanged("VideoBitrate");
+			}
+		}
+
+		/// <summary>
+		/// Re-calculates target size if needed.
+		/// </summary>
+		private void UpdateTargetSize()
+		{
+			if (this.VideoEncodeRateType == VideoEncodeRateType.AverageBitrate)
+			{
+				this.NotifyPropertyChanged("TargetSize");
 			}
 		}
 
