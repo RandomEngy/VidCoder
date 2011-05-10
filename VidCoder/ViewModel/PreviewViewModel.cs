@@ -707,7 +707,7 @@ namespace VidCoder.ViewModel
 			this.logger.Log("  Title: " + this.job.Title);
 			this.logger.Log("  Preview #: " + this.SelectedPreview);
 
-			this.previewInstance.StartEncode(this.job, true, this.SelectedPreview, this.PreviewSeconds);
+			this.previewInstance.StartEncode(this.job, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
 		}
 	}
 }

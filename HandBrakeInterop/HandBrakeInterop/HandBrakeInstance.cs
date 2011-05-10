@@ -221,7 +221,7 @@
 			hb_title_s title = this.GetOriginalTitle(job.Title);
 
 			hb_job_s nativeJob = InteropUtilities.ReadStructure<hb_job_s>(title.job);
-			List<IntPtr> allocatedMemory = this.ApplyJob(ref nativeJob, job, false, 0, 0);
+			List<IntPtr> allocatedMemory = this.ApplyJob(ref nativeJob, job);
 			
 			// There are some problems with getting previews with deinterlacing. Disabling for now.
 			nativeJob.deinterlace = 0;
@@ -285,15 +285,17 @@
 		/// </summary>
 		/// <param name="job">The encode job.</param>
 		/// <param name="sizeMB">The target size in MB.</param>
+		/// <param name="overallSelectedLengthSeconds">The currently selected encode length. Used in preview
+		/// for calculating bitrate when the target size would be wrong.</param>
 		/// <returns>The video bitrate in kbps.</returns>
-		public int CalculateBitrate(EncodeJob job, int sizeMB)
+		public int CalculateBitrate(EncodeJob job, int sizeMB, double overallSelectedLengthSeconds = 0)
 		{
 			long availableBytes = sizeMB * 1024 * 1024;
 
 			EncodingProfile profile = job.EncodingProfile;
 			Title title = this.GetTitle(job.Title);
 
-			double lengthSeconds = HandBrakeUtils.GetJobLengthSeconds(job, title);
+			double lengthSeconds = overallSelectedLengthSeconds > 0 ? overallSelectedLengthSeconds : HandBrakeUtils.GetJobLengthSeconds(job, title);
 			lengthSeconds += 1.5;
 
 			double outputFramerate;
@@ -370,7 +372,7 @@
 		/// <param name="jobToStart">The job to start.</param>
 		public void StartEncode(EncodeJob jobToStart)
 		{
-			this.StartEncode(jobToStart, false, 0, 0);
+			this.StartEncode(jobToStart, false, 0, 0, 0);
 		}
 
 		/// <summary>
@@ -380,11 +382,13 @@
 		/// <param name="preview">True if this is a preview encode.</param>
 		/// <param name="previewNumber">The preview number to start the encode at (0-based).</param>
 		/// <param name="previewSeconds">The number of seconds in the preview.</param>
-		public void StartEncode(EncodeJob job, bool preview, int previewNumber, int previewSeconds)
+		/// <param name="overallSelectedLengthSeconds">The currently selected encode length. Used in preview
+		/// for calculating bitrate when the target size would be wrong.</param>
+		public void StartEncode(EncodeJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
 		{
 			this.currentJob = job;
 			hb_job_s nativeJob = InteropUtilities.ReadStructure<hb_job_s>(this.GetOriginalTitle(job.Title).job);
-			this.encodeAllocatedMemory = this.ApplyJob(ref nativeJob, job, preview, previewNumber, previewSeconds);
+			this.encodeAllocatedMemory = this.ApplyJob(ref nativeJob, job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds);
 
 			if (!preview && job.EncodingProfile.IncludeChapterMarkers)
 			{
@@ -549,7 +553,7 @@
 			}
 
 			var nativeJob = InteropUtilities.ReadStructure<hb_job_s>(this.GetOriginalTitle(job.Title).job);
-			List<IntPtr> allocatedMemory = this.ApplyJob(ref nativeJob, job, false, 0, 0);
+			List<IntPtr> allocatedMemory = this.ApplyJob(ref nativeJob, job);
 
 			int refWidth = 0;
 			int refHeight = 0;
@@ -754,11 +758,25 @@
 		/// </summary>
 		/// <param name="nativeJob">The native structure to apply to job info to.</param>
 		/// <param name="job">The job info to apply.</param>
+		/// <returns>The list of memory locations allocated for the job.</returns>
+		private List<IntPtr> ApplyJob(ref hb_job_s nativeJob, EncodeJob job)
+		{
+			return this.ApplyJob(ref nativeJob, job, false, 0, 0, 0);
+		}
+
+		/// <summary>
+		/// Applies the encoding job to the native memory structure and returns a list of memory
+		/// locations allocated during this.
+		/// </summary>
+		/// <param name="nativeJob">The native structure to apply to job info to.</param>
+		/// <param name="job">The job info to apply.</param>
 		/// <param name="preview">True if this is a preview encode.</param>
 		/// <param name="previewNumber">The preview number (0-based) to encode.</param>
 		/// <param name="previewSeconds">The number of seconds in the preview.</param>
+		/// <param name="overallSelectedLengthSeconds">The currently selected encode length. Used in preview
+		/// for calculating bitrate when the target size would be wrong.</param>
 		/// <returns>The list of memory locations allocated for the job.</returns>
-		private List<IntPtr> ApplyJob(ref hb_job_s nativeJob, EncodeJob job, bool preview = false, int previewNumber = 0, int previewSeconds = 0)
+		private List<IntPtr> ApplyJob(ref hb_job_s nativeJob, EncodeJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
 		{
 			var allocatedMemory = new List<IntPtr>();
 			Title title = this.GetTitle(job.Title);
@@ -1192,7 +1210,7 @@
 					break;
 				case VideoEncodeRateType.TargetSize:
 					nativeJob.vquality = -1;
-					nativeJob.vbitrate = HbLib.hb_calc_bitrate(ref nativeJob, profile.TargetSize);
+					nativeJob.vbitrate = this.CalculateBitrate(job, profile.TargetSize, overallSelectedLengthSeconds);
 					break;
 				default:
 					break;

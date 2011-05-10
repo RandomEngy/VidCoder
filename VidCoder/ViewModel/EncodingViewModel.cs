@@ -1670,6 +1670,7 @@ namespace VidCoder.ViewModel
 					}
 
 					this.NotifyPropertyChanged("VideoBitrate");
+					this.NotifyPropertyChanged("TargetSize");
 				}
 
 				if (value == VideoEncodeRateType.TargetSize)
@@ -1694,6 +1695,7 @@ namespace VidCoder.ViewModel
 					}
 
 					this.NotifyPropertyChanged("TargetSize");
+					this.NotifyPropertyChanged("VideoBitrate");
 				}
 
 				this.mainViewModel.RefreshDestination();
