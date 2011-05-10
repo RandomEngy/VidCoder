@@ -1,9 +1,9 @@
 ; Setup for VidCoder. NOTE: To build this installer you must first build
-;  VidCoder.sln in Release mode.
+;  VidCoder.sln and HandBrakeInterop.sln in Release|x64 mode.
 
 [Setup]
 AppName=VidCoder
-AppVerName=VidCoder 0.8.3 (x64)
+AppVerName=VidCoder 0.8.4 (x64)
 
 DefaultDirName={pf}\VidCoder
 DisableProgramGroupPage=yes
@@ -13,7 +13,7 @@ Compression=lzma
 SolidCompression=yes
 
 OutputDir=BuiltInstallers
-OutputBaseFilename=VidCoder-0.8.3-x64
+OutputBaseFilename=VidCoder-0.8.4-x64
 
 AppId=VidCoder-x64
 UsePreviousAppDir=yes

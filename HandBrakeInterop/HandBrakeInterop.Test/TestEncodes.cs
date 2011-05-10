@@ -21,6 +21,12 @@ namespace HandBrakeInterop.Test
 		public static void Init(TestContext context)
 		{
 			EnsureOutputVideoDirectoryExists();
+
+			FileInfo[] files = new DirectoryInfo(OutputVideoDirectory).GetFiles();
+			foreach (FileInfo file in files)
+			{
+				file.Delete();
+			}
 		}
 
 		[TestMethod]

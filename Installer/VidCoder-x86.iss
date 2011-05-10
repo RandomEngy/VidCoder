@@ -1,9 +1,9 @@
 ; Setup for VidCoder. NOTE: To build this installer you must first build
-;  VidCoder.sln in Release mode.
+;  VidCoder.sln and HandBrakeInterop.sln in Release|x86 mode.
 
 [Setup]
 AppName=VidCoder
-AppVerName=VidCoder 0.8.3 (x86)
+AppVerName=VidCoder 0.8.4 (x86)
 
 DefaultDirName={pf}\VidCoder
 DisableProgramGroupPage=yes
@@ -13,19 +13,10 @@ Compression=lzma
 SolidCompression=yes
 
 OutputDir=BuiltInstallers
-OutputBaseFilename=VidCoder-0.8.3-x86
+OutputBaseFilename=VidCoder-0.8.4-x86
 
 AppId=VidCoder
 UsePreviousAppDir=yes
-
-; "ArchitecturesInstallIn64BitMode=x64" requests that the install be
-; done in "64-bit mode" on x64, meaning it should use the native
-; 64-bit Program Files directory and the 64-bit view of the registry.
-; On all other architectures it will install in "32-bit mode".
-;ArchitecturesInstallIn64BitMode=x64
-; Note: We don't set ProcessorsAllowed because we want this
-; installation to run on all architectures (including Itanium,
-; since it's capable of running 32-bit code too).
 
 [Languages]
 Name: "en"; MessagesFile: "compiler:Default.isl"
