@@ -2315,7 +2315,7 @@ namespace VidCoder.ViewModel
 		public void StartEncodeQueue()
 		{
 			this.EncodeProgressState = TaskbarItemProgressState.Normal;
-			this.logger.Log("## Starting queue");
+			this.logger.Log("Starting queue");
 
 			this.totalTasks = this.EncodeQueue.Count;
 			this.taskNumber = 0;
@@ -2373,10 +2373,10 @@ namespace VidCoder.ViewModel
 		{
 			EncodeJob job = this.CurrentJob.Job;
 
-			this.logger.Log("## Starting job " + this.taskNumber + "/" + this.totalTasks);
-			this.logger.Log("##   Path: " + job.SourcePath);
-			this.logger.Log("##   Title: " + job.Title);
-			this.logger.Log("##   Chapters: " + job.ChapterStart + "-" + job.ChapterEnd);
+			this.logger.Log("Starting job " + this.taskNumber + "/" + this.totalTasks);
+			this.logger.Log("  Path: " + job.SourcePath);
+			this.logger.Log("  Title: " + job.Title);
+			this.logger.Log("  Chapters: " + job.ChapterStart + "-" + job.ChapterEnd);
 			this.CurrentJob.HandBrakeInstance.EncodeProgress += this.OnEncodeProgress;
 			this.CurrentJob.HandBrakeInstance.EncodeCompleted += this.OnEncodeCompleted;
 
@@ -2507,18 +2507,36 @@ namespace VidCoder.ViewModel
 						this.EncodeQueue.Clear();
 					}
 
-					this.logger.Log("## Encoding stopped");
+					this.logger.Log("Encoding stopped");
 				}
 				else
 				{
 					// If the encode completed successfully
 					this.completedQueueWork += this.EncodeQueue[0].Cost;
 
+					var outputFileInfo = new FileInfo(this.CurrentJob.Job.OutputPath);
+					bool succeeded = true;
+					if (e.Error)
+					{
+						succeeded = false;
+						this.logger.Log("Encode failed. HandBrake reported an error.");
+					}
+					else if (!outputFileInfo.Exists)
+					{
+						succeeded = false;
+						this.logger.Log("Encode failed. HandBrake reported no error but the expected output file was not found.");
+					}
+					else if (outputFileInfo.Length == 0)
+					{
+						succeeded = false;
+						this.logger.Log("Encode failed. HandBrake reported no error but the output file was empty.");
+					}
+
 					this.CompletedJobs.Add(new EncodeResultViewModel(
 						new EncodeResult
 						{
 							Destination = this.CurrentJob.Job.OutputPath,
-							Succeeded = !e.Error,
+							Succeeded = succeeded,
 							EncodeTime = this.CurrentJob.EncodeTime
 						}));
 					this.NotifyPropertyChanged("CompletedItemsCount");
@@ -2530,14 +2548,14 @@ namespace VidCoder.ViewModel
 
 					this.CleanupHandBrakeInstance(finishedInstance);
 
-					this.logger.Log("## Job completed");
+					this.logger.Log("Job completed");
 
 					if (this.EncodeQueue.Count == 0)
 					{
 						this.SelectedTabIndex = CompletedTabIndex;
 						this.StopEncodingAndReport();
 
-						this.logger.Log("## Queue completed");
+						this.logger.Log("Queue completed");
 						this.logger.Log("");
 					}
 					else
@@ -3005,7 +3023,7 @@ namespace VidCoder.ViewModel
 				this.CleanupHandBrakeInstance(oldInstance);
 			}
 
-			this.logger.Log("## Starting scan: " + path);
+			this.logger.Log("Starting scan: " + path);
 
 			this.scanInstance = new HandBrakeInstance();
 			this.scanInstance.Initialize(Settings.Default.LogVerbosity);
@@ -3026,12 +3044,12 @@ namespace VidCoder.ViewModel
 							this.ScanCancelled(this, new EventArgs());
 						}
 
-						this.logger.Log("## Scan cancelled");
+						this.logger.Log("Scan cancelled");
 					}
 					else
 					{
 						this.SourceData = new VideoSource { Titles = this.scanInstance.Titles, FeatureTitle = this.scanInstance.FeatureTitle };
-						this.logger.Log("## Scan completed");
+						this.logger.Log("Scan completed");
 					}
 
 					this.logger.Log("");

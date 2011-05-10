@@ -47,7 +47,9 @@ namespace VidCoder.Services
 
 		public void Log(string message)
 		{
-			this.RecordMessage(message);
+			string prefix = string.IsNullOrEmpty(message) ? string.Empty : "# ";
+
+			this.RecordMessage(prefix + message);
 		}
 
 		public void ClearLog()

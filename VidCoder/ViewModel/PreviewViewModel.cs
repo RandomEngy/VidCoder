@@ -229,8 +229,8 @@ namespace VidCoder.ViewModel
 					this.generatePreviewCommand = new RelayCommand(param =>
 					{
 						this.job = this.mainViewModel.EncodeJob;
-						this.logger.Log("## Generating preview clip");
-						this.logger.Log("## Scanning title");
+						this.logger.Log("Generating preview clip");
+						this.logger.Log("Scanning title");
 
 						this.previewInstance = new HandBrakeInstance();
 						this.previewInstance.Initialize(Settings.Default.LogVerbosity);
@@ -644,7 +644,7 @@ namespace VidCoder.ViewModel
 			if (this.encodeCancelled)
 			{
 				this.GeneratingPreview = false;
-				this.logger.Log("# Cancelled preview clip generation");
+				this.logger.Log("Cancelled preview clip generation");
 				return;
 			}
 
@@ -685,27 +685,27 @@ namespace VidCoder.ViewModel
 
 				if (this.encodeCancelled)
 				{
-					this.logger.Log("# Cancelled preview clip generation");
+					this.logger.Log("Cancelled preview clip generation");
 				}
 				else
 				{
 					if (e.Error)
 					{
-						this.logger.Log("# Preview clip generation failed");
+						this.logger.Log("Preview clip generation failed");
 						Utilities.MessageBox.Show("Preview clip generation failed. See the Log window for details.");
 					}
 					else
 					{
-						this.logger.Log("# Finished preview clip generation");
+						this.logger.Log("Finished preview clip generation");
 						FileService.Instance.LaunchFile(previewFilePath);
 					}
 				}
 			};
 
-			this.logger.Log("## Encoding clip");
-			this.logger.Log("##   Path: " + this.job.OutputPath);
-			this.logger.Log("##   Title: " + this.job.Title);
-			this.logger.Log("##   Preview #: " + this.SelectedPreview);
+			this.logger.Log("Encoding clip");
+			this.logger.Log("  Path: " + this.job.OutputPath);
+			this.logger.Log("  Title: " + this.job.Title);
+			this.logger.Log("  Preview #: " + this.SelectedPreview);
 
 			this.previewInstance.StartEncode(this.job, true, this.SelectedPreview, this.PreviewSeconds);
 		}

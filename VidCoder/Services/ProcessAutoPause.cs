@@ -110,7 +110,7 @@ namespace VidCoder.Services
 						if (autoPauseProcess == null)
 						{
 							this.autoPaused = false;
-							this.logger.Log("# Automatically resuming, processes are gone.");
+							this.logger.Log("Automatically resuming, processes are gone.");
 
 							if (this.ResumeEncoding != null)
 							{
@@ -123,7 +123,7 @@ namespace VidCoder.Services
 						if (autoPauseProcess != null)
 						{
 							this.autoPaused = true;
-							this.logger.Log("# Automatically pausing, process detected: " + autoPauseProcess);
+							this.logger.Log("Automatically pausing, process detected: " + autoPauseProcess);
 							if (this.PauseEncoding != null)
 							{
 								this.PauseEncoding(this, new EventArgs());
