@@ -333,19 +333,13 @@ namespace VidCoder.ViewModel
 				{
 					this.saveSettingsCommand = new RelayCommand(param =>
 					{
-						bool autoName = this.AutoNameOutputFiles;
-						if (autoName && string.IsNullOrEmpty(this.DefaultPath))
-						{
-							autoName = false;
-						}
-
 						if (Settings.Default.UpdatesEnabled != this.UpdatesEnabled)
 						{
 							Settings.Default.UpdatesEnabled = this.UpdatesEnabled;
 							this.updateService.HandleUpdatedSettings(this.UpdatesEnabled);
 						}
 
-						Settings.Default.AutoNameOutputFiles = autoName;
+						Settings.Default.AutoNameOutputFiles = this.AutoNameOutputFiles;
 						Settings.Default.AutoNameOutputFolder = this.DefaultPath;
 						Settings.Default.AutoNameCustomFormat = this.CustomFormat;
 						Settings.Default.AutoNameCustomFormatString = this.CustomFormatString;

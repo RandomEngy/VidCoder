@@ -1231,7 +1231,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return !Properties.Settings.Default.AutoNameOutputFiles || !string.IsNullOrEmpty(Properties.Settings.Default.AutoNameOutputFolder);
+				return !Settings.Default.AutoNameOutputFiles || !string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder);
 			}
 		}
 
@@ -3220,7 +3220,7 @@ namespace VidCoder.ViewModel
 				return;
 			}
 
-			if (!Settings.Default.AutoNameOutputFiles)
+			if (!Settings.Default.AutoNameOutputFiles || string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder))
 			{
 				return;
 			}
