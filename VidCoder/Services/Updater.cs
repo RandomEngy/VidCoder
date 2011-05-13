@@ -124,10 +124,21 @@ namespace VidCoder.Services
 				Settings.Default.Save();
 
 				// This flag signifies VidCoder is being run by the installer after an update.
-				// In this case we just report success and exit.
+				// In this case we report success, delete the installer, clean up the update flags and exit.
 				if (Utilities.CompareVersions(targetUpdateVersion, Utilities.CurrentVersion) == 0)
 				{
 					MessageBox.Show("VidCoder has been successfully updated.");
+
+					if (Directory.Exists(Utilities.UpdatesFolder))
+					{
+						Directory.Delete(Utilities.UpdatesFolder, true);
+					}
+
+					Settings.Default.UpdateVersion = string.Empty;
+					Settings.Default.UpdateInstallerLocation = string.Empty;
+					Settings.Default.UpdateChangelogLocation = string.Empty;
+					Settings.Default.Save();
+
 					Environment.Exit(0);
 				}
 
@@ -164,22 +175,6 @@ namespace VidCoder.Services
 					return;
 				}
 
-				string targetUpdateVersion = Settings.Default.UpdateVersion;
-
-				if (targetUpdateVersion != string.Empty && Utilities.CompareVersions(targetUpdateVersion, Utilities.CurrentVersion) <= 0)
-				{
-					// We've installed the update, so clean up the installer and reset the update flags.
-					if (Directory.Exists(Utilities.UpdatesFolder))
-					{
-						Directory.Delete(Utilities.UpdatesFolder, true);
-					}
-
-					Settings.Default.UpdateVersion = string.Empty;
-					Settings.Default.UpdateInstallerLocation = string.Empty;
-					Settings.Default.UpdateChangelogLocation = string.Empty;
-					Settings.Default.Save();
-				}
-
 				this.StartBackgroundUpdate();
 			}
 		}
@@ -204,7 +199,7 @@ namespace VidCoder.Services
 
 		private void CheckAndDownloadUpdate(object sender, DoWorkEventArgs e)
 		{
-			BackgroundWorker updateDownloader = sender as BackgroundWorker;
+			var updateDownloader = sender as BackgroundWorker;
 
 			try
 			{
@@ -253,12 +248,12 @@ namespace VidCoder.Services
 
 						try
 						{
-							HttpWebRequest request = (HttpWebRequest)WebRequest.Create(downloadLocation);
+							var request = (HttpWebRequest)WebRequest.Create(downloadLocation);
 							int bytesProgressTotal = 0;
 
 							if (File.Exists(installerFilePath))
 							{
-								FileInfo fileInfo = new FileInfo(installerFilePath);
+								var fileInfo = new FileInfo(installerFilePath);
 
 								request.AddRange((int)fileInfo.Length);
 								bytesProgressTotal = (int)fileInfo.Length;
@@ -270,7 +265,7 @@ namespace VidCoder.Services
 								fileStream = new FileStream(installerFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
 							}
 
-							HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+							var response = (HttpWebResponse)request.GetResponse();
 							responseStream = response.GetResponseStream();
 
 							byte[] downloadBuffer = new byte[2048];

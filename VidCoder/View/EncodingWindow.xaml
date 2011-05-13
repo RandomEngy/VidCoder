@@ -128,19 +128,19 @@
 
 		<TabControl Margin="0,73,0,0" Name="tabControl">
 			<TabItem Header="Picture">
-				<view:PicturePanel />
+				<view:PicturePanel DataContext="{Binding PicturePanelViewModel}"/>
 			</TabItem>
 			<TabItem Header="Video Filters">
-				<view:VideoFiltersPanel />
+				<view:VideoFiltersPanel DataContext="{Binding VideoFiltersPanelViewModel}" />
 			</TabItem>
 			<TabItem Header="Video">
-				<view:VideoPanel />
+				<view:VideoPanel DataContext="{Binding VideoPanelViewModel}" />
 			</TabItem>
 			<TabItem Header="Audio">
-				<view:AudioPanel />
+				<view:AudioPanel DataContext="{Binding AudioPanelViewModel}" />
 			</TabItem>
 			<TabItem Header="Advanced">
-				<view:AdvancedPanel />
+				<view:AdvancedPanel DataContext="{Binding AdvancedPanelViewModel}" />
 			</TabItem>
 		</TabControl>
 

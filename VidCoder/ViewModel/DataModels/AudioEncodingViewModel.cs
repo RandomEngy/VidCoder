@@ -13,7 +13,7 @@ namespace VidCoder.ViewModel
 {
 	public class AudioEncodingViewModel : ViewModelBase
 	{
-		private EncodingViewModel encodingDialogVM;
+		private AudioPanelViewModel audioPanelVM;
 		private bool initializing;
 
 		private AudioEncoding audioEncoding;
@@ -44,10 +44,10 @@ namespace VidCoder.ViewModel
 			48000
 		};
 
-		public AudioEncodingViewModel(AudioEncoding audioEncoding, Title selectedTitle, List<int> chosenAudioTracks, OutputFormat outputFormat, EncodingViewModel encodingDialogVM)
+		public AudioEncodingViewModel(AudioEncoding audioEncoding, Title selectedTitle, List<int> chosenAudioTracks, OutputFormat outputFormat, AudioPanelViewModel audioPanelVM)
 		{
 			this.initializing = true;
-			this.encodingDialogVM = encodingDialogVM;
+			this.audioPanelVM = audioPanelVM;
 
 			this.audioEncoding = audioEncoding;
 			this.targetStreams = new ObservableCollection<TargetStreamViewModel>();
@@ -118,7 +118,7 @@ namespace VidCoder.ViewModel
 				{
 					this.targetStreamIndex = value;
 					this.NotifyPropertyChanged("TargetStreamIndex");
-					this.encodingDialogVM.NotifyAudioEncodingChanged();
+					this.audioPanelVM.NotifyAudioEncodingChanged();
 					this.MarkModified();
 				}
 			}
@@ -158,8 +158,8 @@ namespace VidCoder.ViewModel
 						}
 					}
 
-					this.encodingDialogVM.RefreshExtensionChoice();
-					this.encodingDialogVM.NotifyAudioEncodingChanged();
+					this.audioPanelVM.RefreshExtensionChoice();
+					this.audioPanelVM.NotifyAudioEncodingChanged();
 				}
 			}
 		}
@@ -199,7 +199,7 @@ namespace VidCoder.ViewModel
 
 				if (value != null)
 				{
-					this.encodingDialogVM.NotifyAudioEncodingChanged();
+					this.audioPanelVM.NotifyAudioEncodingChanged();
 					this.RefreshBitrateChoices();
 					this.MarkModified();
 				}
@@ -228,7 +228,7 @@ namespace VidCoder.ViewModel
 			{
 				this.sampleRate = value;
 				this.NotifyPropertyChanged("SampleRate");
-				this.encodingDialogVM.NotifyAudioEncodingChanged();
+				this.audioPanelVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
 		}
@@ -258,7 +258,7 @@ namespace VidCoder.ViewModel
 			{
 				this.bitrate = value;
 				this.NotifyPropertyChanged("Bitrate");
-				this.encodingDialogVM.NotifyAudioEncodingChanged();
+				this.audioPanelVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
 		}
@@ -274,7 +274,7 @@ namespace VidCoder.ViewModel
 			{
 				this.gain = value;
 				this.NotifyPropertyChanged("Gain");
-				this.encodingDialogVM.NotifyAudioEncodingChanged();
+				this.audioPanelVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
 		}
@@ -290,7 +290,7 @@ namespace VidCoder.ViewModel
 			{
 				this.drc = value;
 				this.NotifyPropertyChanged("Drc");
-				this.encodingDialogVM.NotifyAudioEncodingChanged();
+				this.audioPanelVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
 		}
@@ -306,7 +306,7 @@ namespace VidCoder.ViewModel
 			{
 				this.name = value;
 				this.NotifyPropertyChanged("Name");
-				this.encodingDialogVM.NotifyAudioEncodingChanged();
+				this.audioPanelVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
 		}
@@ -333,7 +333,7 @@ namespace VidCoder.ViewModel
 				{
 					this.removeAudioEncodingCommand = new RelayCommand(param =>
 					{
-						this.encodingDialogVM.RemoveAudioEncoding(this);
+						this.audioPanelVM.RemoveAudioEncoding(this);
 					});
 				}
 
@@ -531,7 +531,7 @@ namespace VidCoder.ViewModel
 		{
 			if (!this.initializing)
 			{
-				this.encodingDialogVM.IsModified = true;
+				this.audioPanelVM.IsModified = true;
 			}
 		}
 	}

@@ -298,14 +298,20 @@
     <Compile Include="Utilities\Unity.cs" />
     <Compile Include="ViewModel\AboutDialogViewModel.cs" />
     <Compile Include="ViewModel\AddAutoPauseProcessDialogViewModel.cs" />
+    <Compile Include="ViewModel\Panels\AudioPanelViewModel.cs" />
+    <Compile Include="ViewModel\Panels\AdvancedPanelViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\DataModels\ColumnViewModel.cs" />
     <Compile Include="ViewModel\DataModels\EncodeResultViewModel.cs" />
     <Compile Include="ViewModel\DataModels\TitleSelectionViewModel.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
+    <Compile Include="ViewModel\Panels\PanelViewModel.cs" />
+    <Compile Include="ViewModel\Panels\PicturePanelViewModel.cs" />
     <Compile Include="ViewModel\QueueTitlesDialogViewModel.cs" />
     <Compile Include="ViewModel\QueueColumnsViewModel.cs" />
     <Compile Include="ViewModel\ScanMultipleDialogViewModel.cs" />
+    <Compile Include="ViewModel\Panels\VideoFiltersPanelViewModel.cs" />
+    <Compile Include="ViewModel\Panels\VideoPanelViewModel.cs" />
     <Compile Include="View\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>
