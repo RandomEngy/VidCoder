@@ -99,9 +99,24 @@
 							<GridView>
 								<GridView.Columns>
 									<GridViewColumn Header="Track" CellTemplate="{StaticResource TrackTemplate}" x:Name="sourceTrackColumn" />
-									<GridViewColumn Header="Default" CellTemplate="{StaticResource DefaultTemplate}" />
-									<GridViewColumn Header="Forced Only" CellTemplate="{StaticResource ForcedTemplate}" />
-									<GridViewColumn Header="Burned In" CellTemplate="{StaticResource BurnedInTemplate}" />
+									<GridViewColumn CellTemplate="{StaticResource DefaultTemplate}">
+										<GridViewColumn.Header>
+											<TextBlock Text="Default" ToolTip="{x:Static resx:Resources.DefaultSubtitleToolTip}" />
+										</GridViewColumn.Header>
+									</GridViewColumn>
+									<GridViewColumn CellTemplate="{StaticResource ForcedTemplate}">
+										<GridViewColumn.Header>
+											<TextBlock Text="Forced Only" ToolTip="{x:Static resx:Resources.ForcedSubtitleToolTip}" />
+										</GridViewColumn.Header>
+									</GridViewColumn>
+									<GridViewColumn CellTemplate="{StaticResource BurnedInTemplate}">
+										<GridViewColumn.Header>
+											<TextBlock
+												Text="Burned In"
+												ToolTip="{x:Static resx:Resources.BurnedSubtitleToolTip}"
+												ToolTipService.ShowOnDisabled="True" />
+										</GridViewColumn.Header>
+									</GridViewColumn>
 									<GridViewColumn CellTemplate="{StaticResource RemoveTemplate}" />
 								</GridView.Columns>
 							</GridView>

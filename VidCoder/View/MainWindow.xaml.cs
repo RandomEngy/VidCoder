@@ -31,9 +31,6 @@ namespace VidCoder.View
 	public partial class MainWindow : Window
 	{
 		private MainViewModel viewModel;
-		private bool manualSelectionChange;
-		private int lastSelectedIndex;
-		private ObservableCollection<SourceOptionViewModel> sourceOptions;
 
 		private bool tabsVisible = false;
 
@@ -83,8 +80,6 @@ namespace VidCoder.View
 			Storyboard.SetTargetProperty(presetGlowFadeUp, new PropertyPath("Opacity"));
 			Storyboard.SetTargetName(presetGlowFadeDown, "PresetGlowEffect");
 			Storyboard.SetTargetProperty(presetGlowFadeDown, new PropertyPath("Opacity"));
-
-			this.KeyDown += this.MainWindow_KeyDown;
 		}
 
 		public void HandleDrop(object sender, DragEventArgs e)
@@ -103,11 +98,7 @@ namespace VidCoder.View
 						}
 						else
 						{
-							this.manualSelectionChange = true;
-							this.sourceBox.SelectedItem = this.sourceOptions.Single(item => item.SourceOption.Type == SourceType.File);
-							this.RemoveDeadOptions();
 							this.viewModel.SetSourceFromFile(fileList[0]);
-							this.manualSelectionChange = false;
 						}
 					}
 					else
@@ -125,20 +116,6 @@ namespace VidCoder.View
 			this.viewModel = this.DataContext as MainViewModel;
 			this.viewModel.PropertyChanged += this.ViewModelPropertyChanged;
 			this.viewModel.AnimationStarted += this.ViewModelAnimationStarted;
-			this.viewModel.ScanCancelled += this.ViewModelScanCancelled;
-
-			this.sourceOptions = new ObservableCollection<SourceOptionViewModel>
-			{
-				new SourceOptionViewModel(new SourceOption { Type = SourceType.None }),
-				new SourceOptionViewModel(new SourceOption { Type = SourceType.File }),
-				new SourceOptionViewModel(new SourceOption { Type = SourceType.VideoFolder })
-			};
-
-			this.UpdateDrives();
-
-			this.lastSelectedIndex = 0;
-			this.sourceBox.ItemsSource = this.sourceOptions;
-			this.sourceBox.SelectedIndex = 0;
 		}
 
 		private void ViewModelAnimationStarted(object sender, EventArgs<string> e)
@@ -151,11 +128,7 @@ namespace VidCoder.View
 
 		private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName == "DriveCollection")
-			{
-				this.UpdateDrives();
-			}
-			else if (e.PropertyName == "QueueColumns")
+			if (e.PropertyName == "QueueColumns")
 			{
 				this.RefreshQueueColumns();
 			}
@@ -169,210 +142,15 @@ namespace VidCoder.View
 			}
 		}
 
-		private void ViewModelScanCancelled(object sender, EventArgs e)
-		{
-			this.sourceOptions.Insert(0, new SourceOptionViewModel(new SourceOption { Type = SourceType.None }));
-			this.sourceBox.SelectedIndex = 0;
-		}
-
-		// Updates UI with new drive options
-		private void UpdateDrives()
-		{
-			if (!this.Dispatcher.CheckAccess())
-			{
-				this.Dispatcher.BeginInvoke(new Action(this.UpdateDrives));
-			}
-			else
-			{
-				// Remove all source options which do not exist in the new collection
-				for (int i = this.sourceOptions.Count - 1; i >= 0; i--)
-				{
-					if (this.sourceOptions[i].SourceOption.Type == SourceType.Dvd)
-					{
-						if (!this.viewModel.DriveCollection.Any(driveInfo => driveInfo.RootDirectory == this.sourceOptions[i].SourceOption.DriveInfo.RootDirectory))
-						{
-							if (this.sourceBox.SelectedIndex != i)
-							{
-								this.sourceOptions.RemoveAt(i);
-							}
-						}
-					}
-				}
-
-				// Update or add new options
-				foreach (DriveInformation drive in this.viewModel.DriveCollection)
-				{
-					SourceOptionViewModel currentOption = this.sourceOptions.SingleOrDefault(sourceOptionVM => sourceOptionVM.SourceOption.Type == SourceType.Dvd && sourceOptionVM.SourceOption.DriveInfo.RootDirectory == drive.RootDirectory);
-
-					if (currentOption == null)
-					{
-						// The device is new, add it
-						var newSourceOptionVM = new SourceOptionViewModel(new SourceOption { Type = SourceType.Dvd, DriveInfo = drive });
-
-						bool added = false;
-						for (int i = 0; i < this.sourceOptions.Count; i++)
-						{
-							if (this.sourceOptions[i].SourceOption.Type == SourceType.Dvd && string.CompareOrdinal(drive.RootDirectory, this.sourceOptions[i].SourceOption.DriveInfo.RootDirectory) < 0)
-							{
-								this.sourceOptions.Insert(i, newSourceOptionVM);
-								added = true;
-								break;
-							}
-						}
-
-						if (!added)
-						{
-							this.sourceOptions.Add(newSourceOptionVM);
-						}
-					}
-					else
-					{
-						// The device existed already, update it
-						if (drive.Empty)
-						{
-							currentOption.VolumeLabel = "(Empty)";
-						}
-						else
-						{
-							currentOption.VolumeLabel = drive.VolumeLabel;
-						}
-					}
-				}
-			}
-		}
-
-		private void sourceBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			bool reverted = false;
-			var sendingBox = sender as ComboBox;
-			var selectedItem = sendingBox.SelectedItem as SourceOptionViewModel;
-
-			if (!this.manualSelectionChange)
-			{
-				reverted = !this.ExecuteSelectedItem();
-			}
-
-			if (!reverted)
-			{
-				this.viewModel.SelectedSource = selectedItem.SourceOption;
-			}
-
-			this.lastSelectedIndex = this.sourceBox.SelectedIndex;
-			this.manualSelectionChange = false;
-		}
-
-		private bool ExecuteSelectedItem()
-		{
-			var selectedItem = this.sourceBox.SelectedItem as SourceOptionViewModel;
-			bool executed = true;
-
-			switch (selectedItem.SourceOption.Type)
-			{
-				case SourceType.File:
-					if (!this.viewModel.SetSourceFromFile())
-					{
-						executed = false;
-						this.RevertSelection();
-					}
-					else
-					{
-						this.RemoveDeadOptions();
-					}
-					break;
-				case SourceType.VideoFolder:
-					if (!this.viewModel.SetSourceFromFolder())
-					{
-						executed = false;
-						this.RevertSelection();
-					}
-					else
-					{
-						this.RemoveDeadOptions();
-					}
-					break;
-				case SourceType.Dvd:
-					this.viewModel.SetSourceFromDvd(selectedItem.SourceOption.DriveInfo);
-					this.RemoveDeadOptions();
-					break;
-				default:
-					break;
-			}
-
-			return executed;
-		}
-
-		private void RevertSelection()
-		{
-			this.manualSelectionChange = true;
-			this.sourceBox.SelectedIndex = this.lastSelectedIndex;
-		}
-
-		private void RemoveDeadOptions()
-		{
-			if (this.sourceOptions[0].SourceOption.Type == SourceType.None)
-			{
-				this.sourceOptions.RemoveAt(0);
-			}
-
-			SourceOptionViewModel emptyOption = this.sourceOptions.SingleOrDefault(sourceOptionVM => sourceOptionVM.SourceOption.Type == SourceType.Dvd && sourceOptionVM.SourceOption.DriveInfo.Empty);
-			if (emptyOption != null)
-			{
-				this.sourceOptions.Remove(emptyOption);
-			}
-		}
-
-		private void MainWindow_KeyDown(object sender, KeyEventArgs e)
-		{
-			bool control = Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
-			bool alt = Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt);
-
-			if (control)
-			{
-				switch (e.Key)
-				{
-					case Key.O:
-						this.OpenFile();
-						break;
-					case Key.F:
-						this.OpenFolder();
-						break;
-					default:
-						break;
-				}
-			}
-		}
-
-		private void OpenFile()
-		{
-			if (this.viewModel.SetSourceFromFile())
-			{
-				this.manualSelectionChange = true;
-				this.sourceBox.SelectedItem = this.sourceOptions.Single(item => item.SourceOption.Type == SourceType.File);
-				this.RemoveDeadOptions();
-				this.manualSelectionChange = false;
-			}
-		}
-
-		private void OpenFolder()
-		{
-			if (this.viewModel.SetSourceFromFolder())
-			{
-				this.manualSelectionChange = true;
-				this.sourceBox.SelectedItem = this.sourceOptions.Single(item => item.SourceOption.Type == SourceType.VideoFolder);
-				this.RemoveDeadOptions();
-				this.manualSelectionChange = false;
-			}
-		}
-
 		private void RefreshQueueColumns()
 		{
 			this.queueGridView.Columns.Clear();
-			ResourceManager resources = new ResourceManager("VidCoder.Properties.Resources", typeof(Resources).Assembly);
+			var resources = new ResourceManager("VidCoder.Properties.Resources", typeof(Resources).Assembly);
 
 			List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Settings.Default.QueueColumns);
 			foreach (Tuple<string, double> column in columns)
 			{
-				GridViewColumn queueColumn = new GridViewColumn
+				var queueColumn = new GridViewColumn
 				{
 					Header = resources.GetString("QueueColumnName" + column.Item1),
 					CellTemplate = this.Resources["QueueTemplate" + column.Item1] as DataTemplate,
@@ -382,7 +160,7 @@ namespace VidCoder.View
 				this.queueGridView.Columns.Add(queueColumn);
 			}
 
-			GridViewColumn lastColumn = new GridViewColumn
+			var lastColumn = new GridViewColumn
 			{
 				CellTemplate = this.Resources["QueueRemoveTemplate"] as DataTemplate,
 				Width = Settings.Default.QueueLastColumnWidth
@@ -392,9 +170,7 @@ namespace VidCoder.View
 
 		private void SaveQueueColumns()
 		{
-			ResourceManager resources = new ResourceManager("VidCoder.Properties.Resources", typeof(Resources).Assembly);
-
-			StringBuilder queueColumnsBuilder = new StringBuilder();
+			var queueColumnsBuilder = new StringBuilder();
 			List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Settings.Default.QueueColumns);
 			for (int i = 0; i < columns.Count; i++)
 			{
@@ -438,7 +214,7 @@ namespace VidCoder.View
 
 		private void SaveCompletedColumnWidths()
 		{
-			StringBuilder completedColumnsBuilder = new StringBuilder();
+			var completedColumnsBuilder = new StringBuilder();
 			for (int i = 0; i < this.completedGridView.Columns.Count; i++)
 			{
 				completedColumnsBuilder.Append(this.completedGridView.Columns[i].ActualWidth);
@@ -496,20 +272,6 @@ namespace VidCoder.View
 				{
 					MessageBox.Show(resultFile + " does not exist.");
 				}
-			}
-		}
-
-		// Handle clicks that don't result in a selection change.
-		private void OnSourceItemMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-		{
-			var sendingItem = sender as ComboBoxItem;
-			var clickedOption = sendingItem.DataContext as SourceOptionViewModel;
-
-			SourceOption selectedOption = this.viewModel.SelectedSource;
-
-			if (clickedOption == this.sourceBox.SelectedItem && (selectedOption.Type == SourceType.File || selectedOption.Type == SourceType.VideoFolder))
-			{
-				this.ExecuteSelectedItem();
 			}
 		}
 
@@ -619,9 +381,14 @@ namespace VidCoder.View
 
 		private void Window_MouseDown(object sender, MouseButtonEventArgs e)
 		{
-			if (this.viewModel.EditingDestination && !this.HitElement(this.destinationEditBox,  e.GetPosition(this)))
+			if (this.viewModel.EditingDestination && !this.HitElement(this.destinationEditBox, e.GetPosition(this)))
 			{
 				this.viewModel.EditingDestination = false;
+			}
+
+			if (this.viewModel.SourceSelectionExpanded && !this.HitElement(this.sourceSelectionMenu, e.GetPosition(this)))
+			{
+				this.viewModel.SourceSelectionExpanded = false;
 			}
 		}
 

@@ -9,7 +9,7 @@
 	xmlns:VidCoderDragDrop="clr-namespace:VidCoder.DragDropUtils"
 	Title="VidCoder"
 	Width="671"
-	Height="445"
+	Height="510"
 	MinWidth="617"
 	MinHeight="445"
 	Style="{StaticResource NormalWindow}"
@@ -30,6 +30,28 @@
 			<Setter Property="VerticalAlignment" Value="Center" />
 			<Setter Property="Margin" Value="4,2,4,2" />
 			<Setter Property="FontWeight" Value="Bold" />
+		</Style>
+		<Style x:Key="SourceDescription" TargetType="TextBlock" BasedOn="{StaticResource PlainTitle}">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding ScanningSource}" Value="True">
+					<Setter Property="Foreground" Value="{StaticResource DisabledBrush}" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+		<Style x:Key="DropDownContainer" TargetType="Grid">
+			<Setter Property="Background" Value="Transparent" />
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True">
+					<Setter Property="Background" Value="#3399FF" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+		<Style x:Key="DropDownText" BasedOn="{StaticResource PlainTitle}" TargetType="TextBlock">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=IsMouseOver}" Value="True">
+					<Setter Property="Foreground" Value="White" />
+				</DataTrigger>
+			</Style.Triggers>
 		</Style>
 		<Style x:Key="ArrowSeparator" TargetType="Polygon">
 			<Setter Property="Points" Value="0,0 0,10 10,5" />
@@ -190,6 +212,8 @@
 		<TaskbarItemInfo ProgressValue="{Binding OverallEncodeProgressFraction}" ProgressState="{Binding EncodeProgressState}" />
 	</Window.TaskbarItemInfo>
 	<Window.InputBindings>
+		<KeyBinding Key="O" Modifiers="Control" Command="{Binding OpenFileCommand}" />
+		<KeyBinding Key="F" Modifiers="Control" Command="{Binding OpenFolderCommand}" />
 		<KeyBinding Key="Q" Modifiers="Control" Command="{Binding AddToQueueCommand}" />
 		<KeyBinding Key="L" Modifiers="Control" Command="{Binding OpenLogWindowCommand}" />
 		<KeyBinding Key="N" Modifiers="Control" Command="{Binding OpenEncodingWindowCommand}" />
@@ -255,31 +279,58 @@
 		</Menu>
 		<Grid Grid.Row="1" MinHeight="144">
 			<StackPanel Orientation="Horizontal" Height="27" Margin="12,6,12,0" VerticalAlignment="Top">
-				<TextBlock Text="Source:" Style="{StaticResource SectionHeader}" />
-				<ComboBox
-					Margin="4.5,0.5,0,0"
-					Name="sourceBox" SelectionChanged="sourceBox_SelectionChanged"
-					IsEnabled="{Binding ScanningSource, Converter={StaticResource InverseBoolConverter}}">
-					<ComboBox.ItemTemplate>
-						<DataTemplate>
-							<StackPanel Orientation="Horizontal">
-								<Image Source="{Binding Image}" Visibility="{Binding ImageVisible, Converter={StaticResource VisibilityConverter}}" Width="16" Height="16" Margin="4,2,0,2" />
-								<TextBlock Text="{Binding Text}" Style="{StaticResource PlainTitle}" Margin="4" />
-							</StackPanel>
-						</DataTemplate>
-					</ComboBox.ItemTemplate>
-					<ComboBox.ItemContainerStyle>
-						<Style TargetType="ComboBoxItem">
-							<EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnSourceItemMouseLeftButtonDown" />
-						</Style>
-					</ComboBox.ItemContainerStyle>
-				</ComboBox>
-				<StackPanel Orientation="Horizontal" Visibility="{Binding SourceDescriptionVisible, Converter={StaticResource VisibilityConverter}}">
-					<Polygon Style="{StaticResource ArrowSeparator}" />
-					<TextBlock
-					Text="{Binding SourceDescription}"
-					Style="{StaticResource EmphasizedTitle}" />
-				</StackPanel>
+				<TextBlock
+					Text="Choose a video source:" Style="{StaticResource SectionHeader}"
+					Visibility="{Binding SourcePicked, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"/>
+				<Grid
+					Name="sourceLabelArea"
+					Background="Transparent">
+					<Grid.InputBindings>
+						<MouseBinding
+							Gesture="LeftClick"
+							Command="{Binding ToggleSourceMenuCommand}" />
+						<MouseBinding
+							Gesture="LeftDoubleClick"
+							Command="{Binding ToggleSourceMenuCommand}" />
+					</Grid.InputBindings>
+					<Grid
+						Visibility="{Binding ScanningSource, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
+						<Border
+							BorderBrush="#7DA2CE" CornerRadius="3"
+							BorderThickness="1"
+							Visibility="{Binding IsMouseOver, ElementName=sourceLabelArea, Converter={StaticResource VisibilityConverter}}">
+							<Border.Background>
+								<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+									<GradientStop Color="#DBEAFC" Offset="0.0" />
+									<GradientStop Color="#C1DBFC" Offset="1.0" />
+								</LinearGradientBrush>
+							</Border.Background>
+						</Border>
+					</Grid>
+					<Border
+						BorderBrush="DarkBlue" CornerRadius="3"
+						BorderThickness="1"
+						Visibility="{Binding SourceSelectionExpanded, Converter={StaticResource VisibilityConverter}}">
+						<Border.Background>
+							<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+								<GradientStop Color="#A1C8F4" Offset="0.0" />
+								<GradientStop Color="#7DB4F2" Offset="1.0" />
+							</LinearGradientBrush>
+						</Border.Background>
+					</Border>
+					<StackPanel
+						Orientation="Horizontal"
+						Visibility="{Binding SourcePicked, Converter={StaticResource VisibilityConverter}}">
+						<TextBlock Text="Source:" Style="{StaticResource SectionHeader}" />
+						<Image Source="{Binding SourceIcon}" Width="16" Height="16" Margin="4,2,0,2" />
+						<TextBlock Text="{Binding SourceText}" Style="{StaticResource SourceDescription}" Margin="4,4,4,3" />
+						<Polygon
+							VerticalAlignment="Center"
+							Fill="#333"
+							Points="0,0 8,0 4,4"
+							Margin="2,0,4,0"/>
+					</StackPanel>
+				</Grid>
 			</StackPanel>
 			<Grid
 				VerticalAlignment="Top" Margin="40,65,40,0"
@@ -307,13 +358,71 @@
 					Content="Cancel"
 					Command="{Binding CancelScanCommand}"/>
 			</Grid>
-			<StackPanel Margin="30,39,12,7" VerticalAlignment="Top">
+			<Border
+				Name="sourceSelectionMenu"
+				MinWidth="220" HorizontalAlignment="Left"
+				Margin="30,32,0,0" VerticalAlignment="Top" Canvas.ZIndex="20"
+				Background="White" BorderBrush="Black" BorderThickness="1"
+				Visibility="{Binding SourceSelectionExpanded, Converter={StaticResource VisibilityConverter}}">
+				<Border.Effect>
+					<DropShadowEffect ShadowDepth="3" BlurRadius="3" Direction="310" Opacity="0.4" />
+				</Border.Effect>
+				<ItemsControl
+					ItemsSource="{Binding SourceOptions}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Grid Style="{StaticResource DropDownContainer}">
+								<Grid.InputBindings>
+									<MouseBinding
+										MouseAction="LeftClick"
+										Command="{Binding ChooseSourceCommand}" />
+								</Grid.InputBindings>
+								<StackPanel Orientation="Horizontal" Margin="2">
+									<Image Source="{Binding Image}" Visibility="{Binding ImageVisible, Converter={StaticResource VisibilityConverter}}" Width="16" Height="16" Margin="4,2,0,2" />
+									<TextBlock Text="{Binding Text}" Margin="4" Style="{StaticResource DropDownText}" />
+								</StackPanel>
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+					<ItemsControl.Template>
+						<ControlTemplate>
+							<StackPanel Orientation="Vertical" IsItemsHost="True" />
+						</ControlTemplate>
+					</ItemsControl.Template>
+				</ItemsControl>
+			</Border>
+
+			<StackPanel Margin="30,37,12,7" VerticalAlignment="Top">
 				<TextBlock
 					Text="An error occurred while scanning."
 					Style="{StaticResource ScanStatus}"
 					Foreground="Red"
 					Visibility="{Binding ScanError, Converter={StaticResource VisibilityConverter}}"/>
- 
+				<ItemsControl
+					Height="98" MinWidth="220" HorizontalAlignment="Left"
+					ItemsSource="{Binding SourceOptions}"
+					Visibility="{Binding SourceOptionsVisible, Converter={StaticResource VisibilityConverter}}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Button
+								HorizontalContentAlignment="Left"
+								Command="{Binding ChooseSourceCommand}">
+								<StackPanel Orientation="Horizontal">
+									<Image Source="{Binding Image}" Visibility="{Binding ImageVisible, Converter={StaticResource VisibilityConverter}}" Width="16" Height="16" Margin="4,2,0,2" />
+									<TextBlock Text="{Binding Text}" Style="{StaticResource PlainTitle}" Margin="4" />
+								</StackPanel>
+							</Button>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+					<ItemsControl.Template>
+						<ControlTemplate>
+							<ScrollViewer Margin="0" Focusable="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+								<StackPanel Orientation="Vertical" Margin="2" IsItemsHost="True" />
+							</ScrollViewer>
+						</ControlTemplate>
+					</ItemsControl.Template>
+				</ItemsControl>
+				
 				<Grid Visibility="{Binding HasVideoSource, Converter={StaticResource VisibilityConverter}}">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="66" />
@@ -458,16 +567,11 @@
 							Style="{StaticResource RightGridItem}"
 							Visibility="{Binding ShowChapterMarkerUI, Converter={StaticResource VisibilityConverter}}">Edit...</Button>
 					</StackPanel>
-
-
-					<!--<TextBlock Text="Chapter Markers:" Style="{StaticResource EmphasizedTitle}" Grid.Row="3" Grid.Column="0" TextWrapping="Wrap" />-->
 				</Grid>
 			</StackPanel>
 
 		</Grid>
 		<Grid Grid.Row="2">
-			<!--<Grid Margin="0,35,0,0" Height="36" VerticalAlignment="Top" Background="{StaticResource AlternateBackground}" />-->
-			
 			<TextBlock Text="Destination:" Style="{StaticResource SectionHeader}" HorizontalAlignment="Left" Width="80" Height="19" Margin="16,6,0,0" VerticalAlignment="Top" />
 			<Grid
 				Height="22" Margin="102,5,88,0" VerticalAlignment="Top"
@@ -502,9 +606,6 @@
 						Visibility="{Binding IsMouseOver, ElementName=destinationReadArea, Converter={StaticResource VisibilityConverter}}"/>
 				</Grid>
 			</Grid>
-			<!--<TextBox Height="22" Margin="102,6,88,0" VerticalAlignment="Top"
-				Text="{Binding OutputPath}"
-				Visibility="{Binding OutputFolderChosen, Converter={StaticResource VisibilityConverter}}"/>-->
 			<Button Height="22" Width="141.044" Margin="112,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
 				Visibility="{Binding OutputFolderChosen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
 				Command="{Binding PickDefaultOutputFolderCommand}">

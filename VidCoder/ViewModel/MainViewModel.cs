@@ -33,8 +33,10 @@ namespace VidCoder.ViewModel
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
 		private IProcessAutoPause autoPause = Unity.Container.Resolve<IProcessAutoPause>();
 
+		private ObservableCollection<SourceOptionViewModel> sourceOptions;
+		private bool sourceSelectionExpanded;
 		private SourceOption selectedSource;
-		private string sourceDescription;
+
 		private Title selectedTitle;
 		private Title oldTitle;
 		private List<int> angles;
@@ -55,6 +57,7 @@ namespace VidCoder.ViewModel
 		private bool useDefaultChapterNames;
 		private List<string> customChapterNames;
 
+		// sourceData is populated when a scan has finished and cleared out when a new scan starts.
 		private VideoSource sourceData;
 		private string sourcePath;
 		private string sourceName;
@@ -97,6 +100,7 @@ namespace VidCoder.ViewModel
 		private bool previewWindowOpen;
 		private bool logWindowOpen;
 
+		private ICommand toggleSourceMenuCommand;
 		private ICommand openSubtitlesDialogCommand;
 		private ICommand openChaptersDialogCommand;
 		private ICommand openAboutDialogCommand;
@@ -108,6 +112,8 @@ namespace VidCoder.ViewModel
 		private ICommand pickOutputPathCommand;
 		private ICommand encodeCommand;
 		private ICommand cancelScanCommand;
+		private ICommand openFileCommand;
+		private ICommand openFolderCommand;
 		private ICommand addToQueueCommand;
 		private ICommand queueFilesCommand;
 		private ICommand queueTitlesCommand;
@@ -140,7 +146,11 @@ namespace VidCoder.ViewModel
 			this.updater.HandlePendingUpdate();
 			this.updater.CheckUpdates();
 
-			List<Preset> presets = new List<Preset>();
+			this.sourceOptions = new ObservableCollection<SourceOptionViewModel>
+			{
+				new SourceOptionViewModel(new SourceOption { Type = SourceType.File }),
+				new SourceOptionViewModel(new SourceOption { Type = SourceType.VideoFolder })
+			};
 
 			this.builtInPresets = Presets.BuiltInPresets;
 			List<Preset> userPresets = Presets.UserPresets;
@@ -205,7 +215,7 @@ namespace VidCoder.ViewModel
 			}
 			else
 			{
-				presetIndex = Properties.Settings.Default.LastPresetIndex;
+				presetIndex = Settings.Default.LastPresetIndex;
 			}
 
 			if (presetIndex >= this.allPresets.Count)
@@ -219,8 +229,7 @@ namespace VidCoder.ViewModel
 
 			this.driveService = Unity.Container.Resolve<IDriveService>();
 
-			IList<DriveInformation> driveCollection = this.driveService.GetDriveInformation();
-			this.DriveCollection = driveCollection;
+			this.DriveCollection = this.driveService.GetDriveInformation();
 
 			this.audioChoices = new ObservableCollection<AudioChoiceViewModel>();
 		}
@@ -283,7 +292,12 @@ namespace VidCoder.ViewModel
 
 		public bool SetSourceFromFile()
 		{
-			string videoFile = FileService.Instance.GetFileNameLoad(Properties.Settings.Default.LastInputFileFolder, null, null);
+			if (this.SourceSelectionExpanded)
+			{
+				this.SourceSelectionExpanded = false;
+			}
+
+			string videoFile = FileService.Instance.GetFileNameLoad(Settings.Default.LastInputFileFolder, null, null);
 
 			if (videoFile != null)
 			{
@@ -296,27 +310,32 @@ namespace VidCoder.ViewModel
 
 		public void SetSourceFromFile(string videoFile)
 		{
-			Properties.Settings.Default.LastInputFileFolder = Path.GetDirectoryName(videoFile);
-			Properties.Settings.Default.Save();
+			Settings.Default.LastInputFileFolder = Path.GetDirectoryName(videoFile);
+			Settings.Default.Save();
 
 			this.sourceName = Path.GetFileNameWithoutExtension(videoFile);
 			this.StartScan(videoFile);
 
-			this.SourceDescription = videoFile;
 			this.sourcePath = videoFile;
+			this.SelectedSource = new SourceOption { Type = SourceType.File };
 		}
 
 		public bool SetSourceFromFolder()
 		{
-			string folderPath = FileService.Instance.GetFolderName(Properties.Settings.Default.LastVideoTSFolder, "Pick the DVD's VIDEO_TS folder or the Blu-ray's root folder.");
+			if (this.SourceSelectionExpanded)
+			{
+				this.SourceSelectionExpanded = false;
+			}
+
+			string folderPath = FileService.Instance.GetFolderName(Settings.Default.LastVideoTSFolder, "Pick the DVD's VIDEO_TS folder or the Blu-ray's root folder.");
 
 			// Make sure we get focus back after displaying the dialog.
 			WindowManager.FocusWindow(this);
 
 			if (folderPath != null)
 			{
-				Properties.Settings.Default.LastVideoTSFolder = folderPath;
-				Properties.Settings.Default.Save();
+				Settings.Default.LastVideoTSFolder = folderPath;
+				Settings.Default.Save();
 				DirectoryInfo parentDirectory = Directory.GetParent(folderPath);
 				if (parentDirectory == null || parentDirectory.Root.FullName == parentDirectory.FullName)
 				{
@@ -329,8 +348,9 @@ namespace VidCoder.ViewModel
 
 				this.StartScan(folderPath);
 
-				this.SourceDescription = folderPath;
 				this.sourcePath = folderPath;
+				this.SelectedSource = new SourceOption { Type = SourceType.VideoFolder };
+
 				return true;
 			}
 
@@ -339,6 +359,11 @@ namespace VidCoder.ViewModel
 
 		public bool SetSourceFromDvd(DriveInformation driveInfo)
 		{
+			if (this.SourceSelectionExpanded)
+			{
+				this.SourceSelectionExpanded = false;
+			}
+
 			this.sourceName = driveInfo.VolumeLabel;
 
 			if (driveInfo.DiscType == DiscType.Dvd)
@@ -350,9 +375,9 @@ namespace VidCoder.ViewModel
 				this.sourcePath = driveInfo.RootDirectory;
 			}
 
+			this.SelectedSource = new SourceOption { Type = SourceType.Dvd, DriveInfo = driveInfo };
 			this.StartScan(this.sourcePath);
 
-			this.SourceDescription = string.Empty;
 			return true;
 		}
 
@@ -458,7 +483,113 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.driveCollection = value;
-				this.NotifyPropertyChanged("DriveCollection");
+				this.UpdateDrives();
+			}
+		}
+
+		public ObservableCollection<SourceOptionViewModel> SourceOptions
+		{
+			get
+			{
+				return this.sourceOptions;
+			}
+		}
+
+		public bool SourceSelectionExpanded
+		{
+			get
+			{
+				return this.sourceSelectionExpanded;
+			}
+
+			set
+			{
+				this.sourceSelectionExpanded = value;
+				this.NotifyPropertyChanged("SourceSelectionExpanded");
+				this.NotifyPropertyChanged("SourceOptionsVisible");
+			}
+		}
+
+		public bool SourceOptionsVisible
+		{
+			get
+			{
+				if (this.ScanningSource)
+				{
+					return false;
+				}
+
+				if (this.ScanError)
+				{
+					return false;
+				}
+
+				return this.sourceData == null;
+			}
+		}
+
+		public bool SourcePicked
+		{
+			get
+			{
+				return this.sourceData != null || this.SelectedSource != null;
+			}
+		}
+
+		public string SourceIcon
+		{
+			get
+			{
+				if (this.SelectedSource == null)
+				{
+					return null;
+				}
+
+				switch (this.SelectedSource.Type)
+				{
+					case SourceType.File:
+						return "/Icons/video-file.png";
+					case SourceType.VideoFolder:
+						return "/Icons/folder.png";
+					case SourceType.Dvd:
+						if (this.SelectedSource.DriveInfo.DiscType == DiscType.Dvd)
+						{
+							return "/Icons/disc.png";
+						}
+						else
+						{
+							return "/Icons/bludisc.png";
+						}
+					default:
+						break;
+				}
+
+				return null;
+			}
+		}
+
+		public string SourceText
+		{
+			get
+			{
+				if (this.SelectedSource == null)
+				{
+					return string.Empty;
+				}
+
+				switch (this.SelectedSource.Type)
+				{
+					case SourceType.File:
+						return this.sourcePath;
+					case SourceType.VideoFolder:
+						return this.sourcePath;
+					case SourceType.Dvd:
+						return this.SelectedSource.DriveInfo.RootDirectory + " - " + this.SelectedSource.DriveInfo.VolumeLabel;
+					default:
+						break;
+				}
+
+				return string.Empty;
 			}
 		}
 
@@ -472,29 +603,9 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedSource = value;
-			}
-		}
-
-		public string SourceDescription
-		{
-			get
-			{
-				return this.sourceDescription;
-			}
-
-			set
-			{
-				this.sourceDescription = value;
-				this.NotifyPropertyChanged("SourceDescription");
-				this.NotifyPropertyChanged("SourceDescriptionVisible");
-			}
-		}
-
-		public bool SourceDescriptionVisible
-		{
-			get
-			{
-				return !string.IsNullOrEmpty(this.SourceDescription);
+				this.NotifyPropertyChanged("SourcePicked");
+				this.NotifyPropertyChanged("SourceIcon");
+				this.NotifyPropertyChanged("SourceText");
 			}
 		}
 
@@ -508,6 +619,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.scanningSource = value;
+				this.NotifyPropertyChanged("SourceOptionsVisible");
 				this.NotifyPropertyChanged("HasVideoSource");
 				this.NotifyPropertyChanged("ScanningSource");
 			}
@@ -524,6 +636,7 @@ namespace VidCoder.ViewModel
 			{
 				this.scanError = value;
 				this.NotifyPropertyChanged("ScanError");
+				this.NotifyPropertyChanged("SourceOptionsVisible");
 			}
 		}
 
@@ -546,11 +659,6 @@ namespace VidCoder.ViewModel
 			get
 			{
 				if (this.SelectedSource == null)
-				{
-					return false;
-				}
-
-				if (this.SelectedSource.Type == SourceType.None)
 				{
 					return false;
 				}
@@ -1703,6 +1811,26 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public ICommand ToggleSourceMenuCommand
+		{
+			get
+			{
+				if (this.toggleSourceMenuCommand == null)
+				{
+					this.toggleSourceMenuCommand = new RelayCommand(param =>
+					{
+						this.SourceSelectionExpanded = !this.SourceSelectionExpanded;
+					},
+					param =>
+					{
+						return !this.ScanningSource;
+					});
+				}
+
+				return this.toggleSourceMenuCommand;
+			}
+		}
+
 		public ICommand OpenSubtitlesDialogCommand
 		{
 			get
@@ -1920,6 +2048,38 @@ namespace VidCoder.ViewModel
 				}
 
 				return this.cancelScanCommand;
+			}
+		}
+
+		public ICommand OpenFileCommand
+		{
+			get
+			{
+				if (this.openFileCommand == null)
+				{
+					this.openFileCommand = new RelayCommand(param =>
+					{
+						this.SetSourceFromFile();
+					});
+				}
+
+				return this.openFileCommand;
+			}
+		}
+
+		public ICommand OpenFolderCommand
+		{
+			get
+			{
+				if (this.openFolderCommand == null)
+				{
+					this.openFolderCommand = new RelayCommand(param =>
+					{
+						this.SetSourceFromFolder();
+					});
+				}
+
+				return this.openFolderCommand;
 			}
 		}
 
@@ -3097,12 +3257,15 @@ namespace VidCoder.ViewModel
 				this.NotifyPropertyChanged("Titles");
 				this.NotifyPropertyChanged("TitleVisible");
 				this.NotifyPropertyChanged("HasVideoSource");
+				this.NotifyPropertyChanged("SourceOptionsVisible");
 			}
 			else
 			{
 				this.sourceData = null;
 				this.NotifyPropertyChanged("HasVideoSource");
+				this.NotifyPropertyChanged("SourceOptionsVisible");
 				this.NotifyPropertyChanged("CanEnqueue");
+				this.NotifyPropertyChanged("SourcePicked");
 				this.ScanError = true;
 			}
 
@@ -3112,8 +3275,11 @@ namespace VidCoder.ViewModel
 		private void ClearVideoSource()
 		{
 			this.sourceData = null;
+			this.SourceSelectionExpanded = false;
 			this.NotifyPropertyChanged("HasVideoSource");
+			this.NotifyPropertyChanged("SourceOptionsVisible");
 			this.NotifyPropertyChanged("CanEnqueue");
+			this.NotifyPropertyChanged("SourcePicked");
 			PreviewViewModel.FindAndRefreshPreviews();
 		}
 
@@ -3335,6 +3501,64 @@ namespace VidCoder.ViewModel
 			{
 				return ".m4v";
 			}
+		}
+
+		private void UpdateDrives()
+		{
+			DispatchService.BeginInvoke(() =>
+			{
+				// Remove all source options which do not exist in the new collection
+				for (int i = this.sourceOptions.Count - 1; i >= 0; i--)
+				{
+					if (this.sourceOptions[i].SourceOption.Type == SourceType.Dvd)
+					{
+						if (!this.DriveCollection.Any(driveInfo => driveInfo.RootDirectory == this.sourceOptions[i].SourceOption.DriveInfo.RootDirectory))
+						{
+							this.sourceOptions.RemoveAt(i);
+						}
+					}
+				}
+
+				// Update or add new options
+				foreach (DriveInformation drive in this.DriveCollection)
+				{
+					SourceOptionViewModel currentOption = this.sourceOptions.SingleOrDefault(sourceOptionVM => sourceOptionVM.SourceOption.Type == SourceType.Dvd && sourceOptionVM.SourceOption.DriveInfo.RootDirectory == drive.RootDirectory);
+
+					if (currentOption == null)
+					{
+						// The device is new, add it
+						var newSourceOptionVM = new SourceOptionViewModel(new SourceOption { Type = SourceType.Dvd, DriveInfo = drive });
+
+						bool added = false;
+						for (int i = 0; i < this.sourceOptions.Count; i++)
+						{
+							if (this.sourceOptions[i].SourceOption.Type == SourceType.Dvd && string.CompareOrdinal(drive.RootDirectory, this.sourceOptions[i].SourceOption.DriveInfo.RootDirectory) < 0)
+							{
+								this.sourceOptions.Insert(i, newSourceOptionVM);
+								added = true;
+								break;
+							}
+						}
+
+						if (!added)
+						{
+							this.sourceOptions.Add(newSourceOptionVM);
+						}
+					}
+					else
+					{
+						// The device existed already, update it
+						if (drive.Empty)
+						{
+							currentOption.VolumeLabel = "(Empty)";
+						}
+						else
+						{
+							currentOption.VolumeLabel = drive.VolumeLabel;
+						}
+					}
+				}
+			});
 		}
 
 		/// <summary>

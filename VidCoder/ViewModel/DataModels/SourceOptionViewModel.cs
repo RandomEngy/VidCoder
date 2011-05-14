@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Input;
 using VidCoder.Model;
 using HandBrake.Interop;
+using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
 	public class SourceOptionViewModel : ViewModelBase
 	{
 		private SourceOption sourceOption;
+		private ICommand chooseSourceCommand;
 
 		public SourceOptionViewModel(SourceOption sourceOption)
 		{
@@ -23,8 +26,6 @@ namespace VidCoder.ViewModel
 			{
 				switch (this.sourceOption.Type)
 				{
-					case SourceType.None:
-						return null;
 					case SourceType.File:
 						return "/Icons/video-file.png";
 					case SourceType.VideoFolder:
@@ -52,12 +53,10 @@ namespace VidCoder.ViewModel
 			{
 				switch (this.sourceOption.Type)
 				{
-					case SourceType.None:
-						return "Choose a video source.";
 					case SourceType.File:
-						return "Video File";
+						return "Video File...";
 					case SourceType.VideoFolder:
-						return "DVD/Blu-ray Folder";
+						return "DVD/Blu-ray Folder...";
 					case SourceType.Dvd:
 						return this.sourceOption.DriveInfo.RootDirectory + " - " + this.sourceOption.DriveInfo.VolumeLabel;
 					default:
@@ -88,11 +87,34 @@ namespace VidCoder.ViewModel
 			get { return this.sourceOption; }
 		}
 
-		public bool ImageVisible
+		public ICommand ChooseSourceCommand
 		{
 			get
 			{
-				return this.sourceOption.Type != SourceType.None;
+				if (this.chooseSourceCommand == null)
+				{
+					this.chooseSourceCommand = new RelayCommand(param =>
+					{
+						var mainVM = Unity.Container.Resolve<MainViewModel>();
+
+						switch (this.SourceOption.Type)
+						{
+							case SourceType.File:
+								mainVM.SetSourceFromFile();
+								break;
+							case SourceType.VideoFolder:
+								mainVM.SetSourceFromFolder();
+								break;
+							case SourceType.Dvd:
+								mainVM.SetSourceFromDvd(this.SourceOption.DriveInfo);
+								break;
+							default:
+								break;
+						}
+					});
+				}
+
+				return this.chooseSourceCommand;
 			}
 		}
 	}

@@ -258,6 +258,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\SourceSelectionPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SubtitleDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -460,6 +464,9 @@
     </Compile>
     <Compile Include="View\PreviewWindow.xaml.cs">
       <DependentUpon>PreviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SourceSelectionPanel.xaml.cs">
+      <DependentUpon>SourceSelectionPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SubtitleDialog.xaml.cs">
       <DependentUpon>SubtitleDialog.xaml</DependentUpon>
