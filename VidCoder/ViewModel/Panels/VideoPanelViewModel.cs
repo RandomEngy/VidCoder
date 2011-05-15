@@ -512,9 +512,11 @@ namespace VidCoder.ViewModel
 			{
 				if (this.EncoderChoices.Count == 3)
 				{
+					VideoEncoder oldEncoder = this.SelectedEncoder.Encoder;
+
 					this.EncoderChoices.RemoveAt(2);
 
-					if (this.SelectedEncoder == null)
+					if (oldEncoder == VideoEncoder.Theora)
 					{
 						this.SelectedEncoder = this.EncoderChoices[1];
 					}

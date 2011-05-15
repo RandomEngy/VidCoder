@@ -213,8 +213,6 @@ namespace VidCoder.ViewModel
 				this.IsModified = true;
 				this.mainViewModel.RefreshDestination();
 
-
-
 				this.VideoPanelViewModel.NotifyOutputFormatChanged(value);
 				this.AudioPanelViewModel.NotifyOutputFormatChanged(value);
 			}
