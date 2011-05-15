@@ -14,7 +14,7 @@
 			<TextBlock HorizontalAlignment="Left" Name="versionLabel" Text="Version" VerticalAlignment="Top"  />
 			<TextBlock Text="{Binding Version}" Margin="5,0,0,0" Name="versionText" />
 		</StackPanel>
-		<TextBlock Height="23" HorizontalAlignment="Left" Margin="171,79,0,0" Name="textBlock3" Text="Based on HandBrake (3935svn)" VerticalAlignment="Top" />
+		<TextBlock Height="23" HorizontalAlignment="Left" Margin="171,79,0,0" Name="textBlock3" Text="Based on HandBrake (3978svn)" VerticalAlignment="Top" />
 		<TextBlock Height="23" HorizontalAlignment="Left" Margin="171,108,0,0" Name="textBlock2" Text="© 2010 VidCoder Developers" VerticalAlignment="Top" />
 		<Label Content="License:" Height="28" HorizontalAlignment="Left" Margin="12,138,0,0" Name="label1" VerticalAlignment="Top" />
 

@@ -3199,6 +3199,9 @@ namespace VidCoder.ViewModel
 
 					if (this.scanCancelledFlag)
 					{
+						this.SelectedSource = null;
+						this.NotifyPropertyChanged("SourcePicked");
+
 						if (this.ScanCancelled != null)
 						{
 							this.ScanCancelled(this, new EventArgs());

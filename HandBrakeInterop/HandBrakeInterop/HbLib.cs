@@ -24,6 +24,11 @@ namespace HandBrake.Interop
 		public const int HB_ACODEC_DCA_PASS =	HB_ACODEC_DCA | HB_ACODEC_PASS_FLAG;
 		public const int HB_ACODEC_ANY =		HB_ACODEC_MASK | HB_ACODEC_PASS_FLAG;
 
+		public const int HB_SUBSTREAM_BD_TRUEHD =	0x72;
+		public const int HB_SUBSTREAM_BD_AC3 =		0x76;
+		public const int HB_SUBSTREAM_BD_DTSHD =	0x72;
+		public const int HB_SUBSTREAM_BD_DTS =		0x71;
+
 		public const int HB_AMIXDOWN_DCA_FORMAT_MASK =              0x00FFF000;
 		public const int HB_AMIXDOWN_A52_FORMAT_MASK =              0x00000FF0;
 		public const int HB_AMIXDOWN_DISCRETE_CHANNEL_COUNT_MASK =  0x0000000F;
@@ -193,9 +198,6 @@ namespace HandBrake.Interop
 
 		/// int
 		public int vrate_base;
-
-		/// int
-		public int vfr;
 
 		/// int
 		public int cfr;
@@ -844,7 +846,11 @@ namespace HandBrake.Interop
 		/// uint32_t->unsigned int
 		public uint codec;
 
+		public uint reg_desc;
+
 		public uint stream_type;
+
+		public uint substream_type;
 
 		/// uint32_t->unsigned int
 		public uint codec_param;
@@ -1003,6 +1009,8 @@ namespace HandBrake.Interop
 
 		/// int64_t->int
 		public long stop;
+
+		public long pcr;
 
 		public byte discontinuity;
 
