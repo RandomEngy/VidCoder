@@ -58,6 +58,7 @@ namespace VidCoder.ViewModel
 		public PreviewViewModel()
 		{
 			this.previewSeconds = Settings.Default.PreviewSeconds;
+			this.selectedPreview = 1;
 			this.Title = NoSourceTitle;
 
 			this.RequestRefreshPreviews();

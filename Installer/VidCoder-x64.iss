@@ -3,7 +3,7 @@
 
 [Setup]
 AppName=VidCoder
-AppVerName=VidCoder 0.8.4 (x64)
+AppVerName=VidCoder 0.9.0 (x64)
 
 DefaultDirName={pf}\VidCoder
 DisableProgramGroupPage=yes
@@ -13,7 +13,7 @@ Compression=lzma
 SolidCompression=yes
 
 OutputDir=BuiltInstallers
-OutputBaseFilename=VidCoder-0.8.4-x64
+OutputBaseFilename=VidCoder-0.9.0-x64
 
 AppId=VidCoder-x64
 UsePreviousAppDir=yes

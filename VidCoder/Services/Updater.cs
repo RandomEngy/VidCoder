@@ -84,7 +84,7 @@ namespace VidCoder.Services
 				Settings.Default.UpdateInProgress = true;
 				Settings.Default.Save();
 
-				Process installerProcess = new Process();
+				var installerProcess = new Process();
 				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons" };
 				installerProcess.Start();
 

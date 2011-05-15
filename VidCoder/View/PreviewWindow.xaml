@@ -10,6 +10,9 @@
 	PreviewDragOver="Window_PreviewDragOver"
 	ShowInTaskbar="False" WindowStyle="ToolWindow">
 	<Window.Resources>
+		<Style x:Key="PreviewText" TargetType="TextBlock">
+			<Setter Property="Foreground" Value="White" />
+		</Style>
 		<Storyboard x:Key="FadePreviewControlsOut">
 			<DoubleAnimation
 				Storyboard.TargetProperty="Opacity"
@@ -56,7 +59,7 @@
 						</Style.Triggers>
 					</Style>
 				</Grid.Style>
-				<Border CornerRadius="10" Background="WhiteSmoke" Opacity="0.9" />
+				<Border CornerRadius="10" Background="#111" Opacity="0.9" />
 				<Slider
 					Height="22" Margin="10,8,10,0" VerticalAlignment="Top"
 					TickPlacement="BottomRight"
@@ -88,10 +91,13 @@
 						<ComboBoxItem>30</ComboBoxItem>
 						<ComboBoxItem>60</ComboBoxItem>
 					</ComboBox>
-					<TextBlock Text="seconds" VerticalAlignment="Center" Margin="7,0,0,0" />
+					<TextBlock
+						Text="seconds" VerticalAlignment="Center" Margin="7,0,0,0"
+						Style="{StaticResource PreviewText}" />
 				</StackPanel>
 				<TextBlock
 					HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="12,0,0,12"
+					Style="{StaticResource PreviewText}"
 					Text="Generating preview..."
 					Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}}" />
 				<ProgressBar
