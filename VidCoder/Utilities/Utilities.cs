@@ -213,9 +213,10 @@ namespace VidCoder
 			for (int i = 1; i < 1000; i++)
 			{
 				string candidateFileName = fileNameWithoutExtension + "-" + i + extension;
-				if (!IsExcluded(candidateFileName, excludedPaths))
+				candidateFilePath = Path.Combine(outputDirectory, candidateFileName);
+
+				if (!IsExcluded(candidateFilePath, excludedPaths))
 				{
-					candidateFilePath = Path.Combine(outputDirectory, candidateFileName);
 					if (!File.Exists(candidateFilePath))
 					{
 						return candidateFilePath;

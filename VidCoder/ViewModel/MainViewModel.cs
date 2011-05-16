@@ -2808,13 +2808,15 @@ namespace VidCoder.ViewModel
 				return;
 			}
 
+			// Exclude all current queued files and the source file from the possible destinations.
+			HashSet<string> excludedPaths = this.GetQueuedFiles();
+
 			var itemsToQueue = new List<EncodeJobViewModel>();
 			foreach (string fileToQueue in filesToQueue)
 			{
-				// Exclude all current queued files and the source file from the possible destinations.
-				HashSet<string> excludedPaths = this.GetQueuedFiles();
-				excludedPaths.Add(fileToQueue);
+				excludedPaths.Add(fileToQueue.ToLowerInvariant());
 				string queueOutputPath = Utilities.CreateUniqueFileName(Path.GetFileNameWithoutExtension(fileToQueue) + this.GetOutputExtensionForCurrentEncodingProfile(), Settings.Default.AutoNameOutputFolder, excludedPaths);
+				excludedPaths.Add(queueOutputPath.ToLowerInvariant());
 
 				// When ChapterStart is 0, this means the whole title is encoded.
 				var job = new EncodeJob
