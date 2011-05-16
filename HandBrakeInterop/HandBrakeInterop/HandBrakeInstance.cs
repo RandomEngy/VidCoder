@@ -314,7 +314,7 @@
 
 			availableBytes -= frames * HandBrakeUtils.ContainerOverheadPerFrame;
 
-			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job);
+			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job, title);
 			availableBytes -= HandBrakeUtils.GetAudioSize(job, lengthSeconds, title, outputTrackList);
 
 			if (availableBytes < 0)
@@ -360,7 +360,7 @@
 			totalBytes += (long)(lengthSeconds * videoBitrate * 125);
 			totalBytes += frames * HandBrakeUtils.ContainerOverheadPerFrame;
 
-			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job);
+			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job, title);
 			totalBytes += HandBrakeUtils.GetAudioSize(job, lengthSeconds, title, outputTrackList);
 
 			return (double)totalBytes / 1024 / 1024;
@@ -1078,11 +1078,11 @@
 			var audioList = new List<hb_audio_s>();
 			int numTracks = 0;
 
-			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job);
+			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job, title);
 
 			foreach (Tuple<AudioEncoding, int> outputTrack in outputTrackList)
 			{
-				audioList.Add(ConvertAudioBack(outputTrack.Item1, titleAudio[outputTrack.Item2 -1], outputTrack.Item2, numTracks++, allocatedMemory));
+				audioList.Add(ConvertAudioBack(outputTrack.Item1, titleAudio[outputTrack.Item2 - 1], outputTrack.Item2, numTracks++, allocatedMemory));
 			}
 
 			NativeList nativeAudioList = InteropUtilities.ConvertListBack<hb_audio_s>(audioList);
@@ -1225,8 +1225,9 @@
 		/// Gets a list of encodings and target track indices (1-based).
 		/// </summary>
 		/// <param name="job">The encode job</param>
+		/// <param name="title">The title the job is meant to encode.</param>
 		/// <returns>A list of encodings and target track indices (1-based).</returns>
-		private List<Tuple<AudioEncoding, int>> GetOutputTracks(EncodeJob job)
+		private List<Tuple<AudioEncoding, int>> GetOutputTracks(EncodeJob job, Title title)
 		{
 			var list = new List<Tuple<AudioEncoding, int>>();
 
@@ -1244,7 +1245,13 @@
 				{
 					// Add this encoding for the specified track, if it exists
 					int trackNumber = job.ChosenAudioTracks[encoding.InputNumber - 1];
-					list.Add(new Tuple<AudioEncoding, int>(encoding, trackNumber));
+
+					// In normal cases we'll never have a chosen audio track that doesn't exist but when batch encoding
+					// we just choose the first audio track without checking if it exists.
+					if (trackNumber <= title.AudioTracks.Count)
+					{
+						list.Add(new Tuple<AudioEncoding, int>(encoding, trackNumber));
+					}
 				}
 			}
 

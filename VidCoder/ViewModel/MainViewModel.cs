@@ -2808,7 +2808,7 @@ namespace VidCoder.ViewModel
 				return;
 			}
 
-			List<EncodeJobViewModel> itemsToQueue = new List<EncodeJobViewModel>();
+			var itemsToQueue = new List<EncodeJobViewModel>();
 			foreach (string fileToQueue in filesToQueue)
 			{
 				// Exclude all current queued files and the source file from the possible destinations.
@@ -2816,12 +2816,14 @@ namespace VidCoder.ViewModel
 				excludedPaths.Add(fileToQueue);
 				string queueOutputPath = Utilities.CreateUniqueFileName(Path.GetFileNameWithoutExtension(fileToQueue) + this.GetOutputExtensionForCurrentEncodingProfile(), Settings.Default.AutoNameOutputFolder, excludedPaths);
 
+				// When ChapterStart is 0, this means the whole title is encoded.
 				var job = new EncodeJob
 				{
 					SourcePath = fileToQueue,
 					OutputPath = queueOutputPath,
 					EncodingProfile = this.SelectedPreset.Preset.EncodingProfile.Clone(),
 					Title = 1,
+					RangeType = VideoRangeType.Chapters,
 					ChapterStart = 0,
 					ChapterEnd = 0,
 					ChosenAudioTracks = new List<int> { 1 },
@@ -2837,7 +2839,7 @@ namespace VidCoder.ViewModel
 			var scanMultipleDialog = new ScanMultipleDialogViewModel(itemsToQueue);
 			WindowManager.OpenDialog(scanMultipleDialog, this);
 
-			List<string> failedFiles = new List<string>();
+			var failedFiles = new List<string>();
 			foreach (EncodeJobViewModel jobVM in itemsToQueue)
 			{
 				// Only queue items with a successful scan
