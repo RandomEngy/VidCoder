@@ -180,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\SeekBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddAutoPauseProcessDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -271,6 +275,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\SeekBar.xaml.cs">
+      <DependentUpon>SeekBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\DoubleDisplayConverter.cs" />
     <Compile Include="Converters\EnumVisibilityConverter.cs" />

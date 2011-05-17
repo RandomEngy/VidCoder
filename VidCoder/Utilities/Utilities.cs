@@ -198,6 +198,13 @@ namespace VidCoder
 			return cleanName;
 		}
 
+		/// <summary>
+		/// Creates a unique file name with the given constraints.
+		/// </summary>
+		/// <param name="baseName">The base file name to work with.</param>
+		/// <param name="outputDirectory">The directory the file should be written to.</param>
+		/// <param name="excludedPaths">Any paths to be excluded (expected to be normalized with ToLowerInvariant).</param>
+		/// <returns>A file name that does not exist and does not match any of the given paths.</returns>
 		public static string CreateUniqueFileName(string baseName, string outputDirectory, HashSet<string> excludedPaths)
 		{
 			string fileName = Path.GetFileName(baseName);

@@ -293,6 +293,8 @@
 							Gesture="LeftDoubleClick"
 							Command="{Binding ToggleSourceMenuCommand}" />
 					</Grid.InputBindings>
+					
+					<!-- Hover effect -->
 					<Grid
 						Visibility="{Binding ScanningSource, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
 						<Border
@@ -307,6 +309,8 @@
 							</Border.Background>
 						</Border>
 					</Grid>
+					
+					<!-- Selected effect -->
 					<Border
 						BorderBrush="DarkBlue" CornerRadius="3"
 						BorderThickness="1"

@@ -262,7 +262,7 @@ namespace VidCoder.ViewModel
 			IList<DriveInformation> newDriveCollection = this.driveService.GetDriveInformation();
 
 			// If our current drive is not present
-			if (this.SelectedSource.Type == SourceType.Dvd)
+			if (this.SelectedSource != null && this.SelectedSource.Type == SourceType.Dvd)
 			{
 				string currentRootDirectory = this.SelectedSource.DriveInfo.RootDirectory;
 				bool currentDrivePresent = newDriveCollection.Any(driveInfo => driveInfo.RootDirectory == currentRootDirectory);

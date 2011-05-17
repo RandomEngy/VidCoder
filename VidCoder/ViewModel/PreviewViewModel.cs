@@ -111,11 +111,11 @@ namespace VidCoder.ViewModel
 			{
 				this.generatingPreview = value;
 				this.NotifyPropertyChanged("GeneratingPreview");
-				this.NotifyPropertyChanged("SliderEnabled");
+				this.NotifyPropertyChanged("SeekBarEnabled");
 			}
 		}
 
-		public bool SliderEnabled
+		public bool SeekBarEnabled
 		{
 			get
 			{
@@ -164,7 +164,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.hasPreview = value;
-				this.NotifyPropertyChanged("SliderEnabled");
+				this.NotifyPropertyChanged("SeekBarEnabled");
 				this.NotifyPropertyChanged("HasPreview");
 			}
 		}
@@ -210,6 +210,19 @@ namespace VidCoder.ViewModel
 				}
 
 				return Settings.Default.PreviewCount - 1;
+			}
+		}
+
+		public int PreviewCount
+		{
+			get
+			{
+				if (this.previewCount > 0)
+				{
+					return this.previewCount;
+				}
+
+				return Settings.Default.PreviewCount;
 			}
 		}
 
@@ -346,7 +359,7 @@ namespace VidCoder.ViewModel
 				this.NotifyPropertyChanged("SelectedPreview");
 			}
 
-			this.NotifyPropertyChanged("SliderMax");
+			this.NotifyPropertyChanged("PreviewCount");
 
 			this.HasPreview = true;
 
