@@ -297,7 +297,7 @@ namespace VidCoder.ViewModel
 				this.SourceSelectionExpanded = false;
 			}
 
-			string videoFile = FileService.Instance.GetFileNameLoad(Settings.Default.LastInputFileFolder, null, null);
+			string videoFile = FileService.Instance.GetFileNameLoad(Settings.Default.LastInputFileFolder, "Load video file");
 
 			if (videoFile != null)
 			{
@@ -1985,7 +1985,7 @@ namespace VidCoder.ViewModel
 				{
 					this.pickOutputPathCommand = new RelayCommand(param =>
 					{
-						string newOutputPath = FileService.Instance.GetFileNameSave(Settings.Default.LastOutputFolder);
+						string newOutputPath = FileService.Instance.GetFileNameSave(Settings.Default.LastOutputFolder, "Encode output location");
 						this.SetManualOutputPath(newOutputPath, this.OutputPath);
 					},
 					param =>
@@ -2356,7 +2356,7 @@ namespace VidCoder.ViewModel
 				{
 					this.importPresetCommand = new RelayCommand(param =>
 					{
-						string presetFileName = FileService.Instance.GetFileNameLoad(null, "xml", "XML Files|*.xml");
+						string presetFileName = FileService.Instance.GetFileNameLoad(null, "Import preset file", "xml", "XML Files|*.xml");
 						if (presetFileName != null)
 						{
 							Unity.Container.Resolve<IPresetImportExport>().ImportPreset(presetFileName);

@@ -8,9 +8,8 @@ namespace VidCoder.Services
 	public interface IFileService
 	{
 		IList<string> GetFileNames(string initialDirectory);
-		string GetFileNameLoad(string initialDirectory, string defaultExt, string filter);
-		string GetFileNameSave(string initialDirectory);
-		string GetFileNameSave(string initialDirectory, string initialFileName, string defaultExt, string filter);
+		string GetFileNameLoad(string initialDirectory = null, string title = null, string defaultExt = null, string filter = null);
+		string GetFileNameSave(string initialDirectory = null, string title = null, string initialFileName = null, string defaultExt = null, string filter = null);
 		string GetFolderName(string initialDirectory);
 		string GetFolderName(string initialDirectory, string description);
 		void LaunchFile(string fileName);

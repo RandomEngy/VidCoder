@@ -66,6 +66,7 @@ namespace VidCoder.Services
 
 			string exportFileName = this.fileService.GetFileNameSave(
 				Settings.Default.LastPresetExportFolder,
+				"Export preset",
 				Utilities.CleanFileName(initialFileName + ".xml"),
 				"xml",
 				"XML Files|*.xml");

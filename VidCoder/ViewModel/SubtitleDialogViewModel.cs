@@ -233,7 +233,7 @@ namespace VidCoder.ViewModel
 					this.addSrtSubtitle = new RelayCommand(
 						param =>
 						{
-							string srtFile = FileService.Instance.GetFileNameLoad(Properties.Settings.Default.LastSrtFolder, "srt", "SRT Files |*.srt");
+							string srtFile = FileService.Instance.GetFileNameLoad(Properties.Settings.Default.LastSrtFolder, "Add subtitles file", "srt", "SRT Files |*.srt");
 
 							if (srtFile != null)
 							{

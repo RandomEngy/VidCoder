@@ -83,7 +83,7 @@ namespace VidCoder.ViewModel
 				{
 					this.importCsvFileCommand = new RelayCommand(param =>
 					{
-						string csvFile = FileService.Instance.GetFileNameLoad(Settings.Default.LastCsvFolder, "csv", "CSV Files|*.csv");
+						string csvFile = FileService.Instance.GetFileNameLoad(Settings.Default.LastCsvFolder, "Import chapters file", "csv", "CSV Files|*.csv");
 						if (csvFile != null)
 						{
 							Settings.Default.LastCsvFolder = Path.GetDirectoryName(csvFile);
