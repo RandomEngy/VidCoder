@@ -231,6 +231,22 @@
 		<Menu Height="22">
 			<MenuItem Header="File">
 				<MenuItem
+					Header="Open Video File..."
+					Command="{Binding OpenFileCommand}"
+					InputGestureText="Ctrl+O">
+					<MenuItem.Icon>
+						<Image Source="/Icons/video-file.png" Width="16" Height="16" />
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem
+					Header="Open DVD/Blu-ray Folder..."
+					Command="{Binding OpenFolderCommand}"
+					InputGestureText="Ctrl+F">
+					<MenuItem.Icon>
+						<Image Source="/Icons/folder.png" Width="16" Height="16" />
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem
 					Header="Enqueue Multiple Files..."
 					Command="{Binding QueueFilesCommand}"
 					InputGestureText="Ctrl+Shift+O"/>
@@ -277,6 +293,42 @@
 				</MenuItem>
 			</MenuItem>
 		</Menu>
+		<Border
+			Grid.Row="1"
+			Grid.RowSpan="2"
+			Name="sourceSelectionMenu"
+			MinWidth="220" HorizontalAlignment="Left"
+			Margin="30,32,0,0" VerticalAlignment="Top" Canvas.ZIndex="20"
+			Background="White" BorderBrush="Black" BorderThickness="1"
+			Visibility="{Binding SourceSelectionExpanded, Converter={StaticResource VisibilityConverter}}">
+			<Border.Effect>
+				<DropShadowEffect ShadowDepth="3" BlurRadius="3" Direction="310" Opacity="0.4" />
+			</Border.Effect>
+			<ItemsControl
+					ItemsSource="{Binding SourceOptions}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Grid Style="{StaticResource DropDownContainer}">
+							<Grid.InputBindings>
+								<MouseBinding
+										MouseAction="LeftClick"
+										Command="{Binding ChooseSourceCommand}" />
+							</Grid.InputBindings>
+							<StackPanel Orientation="Horizontal" Margin="2">
+								<Image Source="{Binding Image}" Visibility="{Binding ImageVisible, Converter={StaticResource VisibilityConverter}}" Width="16" Height="16" Margin="4,2,0,2" />
+								<TextBlock Text="{Binding Text}" Margin="4" Style="{StaticResource DropDownText}" />
+							</StackPanel>
+						</Grid>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+				<ItemsControl.Template>
+					<ControlTemplate>
+						<StackPanel Orientation="Vertical" IsItemsHost="True" />
+					</ControlTemplate>
+				</ItemsControl.Template>
+			</ItemsControl>
+		</Border>
+
 		<Grid Grid.Row="1" MinHeight="144">
 			<StackPanel Orientation="Horizontal" Height="27" Margin="12,6,12,0" VerticalAlignment="Top">
 				<TextBlock
@@ -362,39 +414,7 @@
 					Content="Cancel"
 					Command="{Binding CancelScanCommand}"/>
 			</Grid>
-			<Border
-				Name="sourceSelectionMenu"
-				MinWidth="220" HorizontalAlignment="Left"
-				Margin="30,32,0,0" VerticalAlignment="Top" Canvas.ZIndex="20"
-				Background="White" BorderBrush="Black" BorderThickness="1"
-				Visibility="{Binding SourceSelectionExpanded, Converter={StaticResource VisibilityConverter}}">
-				<Border.Effect>
-					<DropShadowEffect ShadowDepth="3" BlurRadius="3" Direction="310" Opacity="0.4" />
-				</Border.Effect>
-				<ItemsControl
-					ItemsSource="{Binding SourceOptions}">
-					<ItemsControl.ItemTemplate>
-						<DataTemplate>
-							<Grid Style="{StaticResource DropDownContainer}">
-								<Grid.InputBindings>
-									<MouseBinding
-										MouseAction="LeftClick"
-										Command="{Binding ChooseSourceCommand}" />
-								</Grid.InputBindings>
-								<StackPanel Orientation="Horizontal" Margin="2">
-									<Image Source="{Binding Image}" Visibility="{Binding ImageVisible, Converter={StaticResource VisibilityConverter}}" Width="16" Height="16" Margin="4,2,0,2" />
-									<TextBlock Text="{Binding Text}" Margin="4" Style="{StaticResource DropDownText}" />
-								</StackPanel>
-							</Grid>
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
-					<ItemsControl.Template>
-						<ControlTemplate>
-							<StackPanel Orientation="Vertical" IsItemsHost="True" />
-						</ControlTemplate>
-					</ItemsControl.Template>
-				</ItemsControl>
-			</Border>
+
 
 			<ItemsControl
 					Margin="30,32,12,7" VerticalAlignment="Top"
