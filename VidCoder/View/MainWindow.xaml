@@ -396,36 +396,39 @@
 				</ItemsControl>
 			</Border>
 
+			<ItemsControl
+					Margin="30,32,12,7" VerticalAlignment="Top"
+					MinHeight="105" MinWidth="220" HorizontalAlignment="Left"
+					ItemsSource="{Binding SourceOptions}"
+					Visibility="{Binding SourceOptionsVisible, Converter={StaticResource VisibilityConverter}}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Button
+								HorizontalContentAlignment="Left"
+								Command="{Binding ChooseSourceCommand}">
+							<StackPanel Orientation="Horizontal">
+								<Image Source="{Binding Image}" Visibility="{Binding ImageVisible, Converter={StaticResource VisibilityConverter}}" Width="16" Height="16" Margin="4,2,0,2" />
+								<TextBlock Text="{Binding Text}" Style="{StaticResource PlainTitle}" Margin="4" />
+							</StackPanel>
+						</Button>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+				<ItemsControl.Template>
+					<ControlTemplate>
+						<!--<ScrollViewer Margin="0" Focusable="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">-->
+							<StackPanel Orientation="Vertical" Margin="2" IsItemsHost="True" />
+						<!--</ScrollViewer>-->
+					</ControlTemplate>
+				</ItemsControl.Template>
+			</ItemsControl>
+
 			<StackPanel Margin="30,37,12,7" VerticalAlignment="Top">
 				<TextBlock
 					Text="An error occurred while scanning."
 					Style="{StaticResource ScanStatus}"
 					Foreground="Red"
 					Visibility="{Binding ScanError, Converter={StaticResource VisibilityConverter}}"/>
-				<ItemsControl
-					Height="98" MinWidth="220" HorizontalAlignment="Left"
-					ItemsSource="{Binding SourceOptions}"
-					Visibility="{Binding SourceOptionsVisible, Converter={StaticResource VisibilityConverter}}">
-					<ItemsControl.ItemTemplate>
-						<DataTemplate>
-							<Button
-								HorizontalContentAlignment="Left"
-								Command="{Binding ChooseSourceCommand}">
-								<StackPanel Orientation="Horizontal">
-									<Image Source="{Binding Image}" Visibility="{Binding ImageVisible, Converter={StaticResource VisibilityConverter}}" Width="16" Height="16" Margin="4,2,0,2" />
-									<TextBlock Text="{Binding Text}" Style="{StaticResource PlainTitle}" Margin="4" />
-								</StackPanel>
-							</Button>
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
-					<ItemsControl.Template>
-						<ControlTemplate>
-							<ScrollViewer Margin="0" Focusable="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-								<StackPanel Orientation="Vertical" Margin="2" IsItemsHost="True" />
-							</ScrollViewer>
-						</ControlTemplate>
-					</ItemsControl.Template>
-				</ItemsControl>
+
 				
 				<Grid Visibility="{Binding HasVideoSource, Converter={StaticResource VisibilityConverter}}">
 					<Grid.ColumnDefinitions>
