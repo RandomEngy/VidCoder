@@ -1985,7 +1985,16 @@ namespace VidCoder.ViewModel
 				{
 					this.pickOutputPathCommand = new RelayCommand(param =>
 					{
-						string newOutputPath = FileService.Instance.GetFileNameSave(Settings.Default.LastOutputFolder, "Encode output location");
+						string extensionDot = this.GetOutputExtensionForCurrentEncodingProfile();
+						string extension = this.GetOutputExtensionForCurrentEncodingProfile(includeDot: false);
+						string extensionLabel = extension.ToUpperInvariant();
+
+						string newOutputPath = FileService.Instance.GetFileNameSave(
+							Settings.Default.LastOutputFolder,
+							"Encode output location",
+							null,
+							extension,
+							string.Format("{0} Files|*{1}", extensionLabel, extensionDot));
 						this.SetManualOutputPath(newOutputPath, this.OutputPath);
 					},
 					param =>
@@ -3493,21 +3502,25 @@ namespace VidCoder.ViewModel
 			return this.GetOutputExtensionForCurrentEncodingProfile();
 		}
 
-		private string GetOutputExtensionForCurrentEncodingProfile()
+		private string GetOutputExtensionForCurrentEncodingProfile(bool includeDot = true)
 		{
 			EncodingProfile profile = this.SelectedPreset.Preset.EncodingProfile;
+			string extension;
+
 			if (profile.OutputFormat == OutputFormat.Mkv)
 			{
-				return ".mkv";
+				extension = "mkv";
 			}
 			else if (profile.PreferredExtension == OutputExtension.Mp4)
 			{
-				return ".mp4";
+				extension = "mp4";
 			}
 			else
 			{
-				return ".m4v";
+				extension = "m4v";
 			}
+
+			return includeDot ? "." + extension : extension;
 		}
 
 		private void UpdateDrives()
