@@ -79,8 +79,10 @@
 				</Button>
 			</ToolBar>
 		</ToolBarPanel>
-		<Button Height="26" Margin="0,4,12,0" VerticalAlignment="Top" IsEnabled="{Binding HasSourceData}"
-			Command="{Binding PreviewCommand}" HorizontalAlignment="Right" Width="77">
+		<Button
+			Height="26" Margin="0,4,12,0" VerticalAlignment="Top" IsEnabled="{Binding HasSourceData}"
+			Command="{Binding PreviewCommand}" HorizontalAlignment="Right" Width="77"
+			Visibility="{Binding MainViewModel.PreviewWindowOpen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
 			<StackPanel Orientation="Horizontal">
 				<Image Source="/Icons/preview.png" />
 				<TextBlock Text="Preview" Margin="5,0,0,0" VerticalAlignment="Center" />

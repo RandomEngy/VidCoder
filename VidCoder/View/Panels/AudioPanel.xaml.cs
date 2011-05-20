@@ -47,6 +47,11 @@ namespace VidCoder.View
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
 			var audioPanelVM = e.NewValue as AudioPanelViewModel;
+			if (audioPanelVM == null)
+			{
+				return;
+			}
+
 			this.audioEncodings = audioPanelVM.AudioEncodings;
 
 			foreach (AudioEncodingViewModel encodingVM in this.audioEncodings)

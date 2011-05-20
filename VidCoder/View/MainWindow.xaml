@@ -430,7 +430,7 @@
 
 			<!-- Video choices on load -->
 			<Grid
-				Margin="26,30,12,7" VerticalAlignment="Top"
+				Margin="26,30,12,12" VerticalAlignment="Top"
 				MinHeight="105" MinWidth="220"
 				Visibility="{Binding SourceOptionsVisible, Converter={StaticResource VisibilityConverter}}">
 				<Grid.ColumnDefinitions>
@@ -627,7 +627,7 @@
 		<Grid Grid.Row="2" Background="{StaticResource SectionBackground}">
 			<TextBlock Text="Destination:" Style="{StaticResource SectionHeader}" HorizontalAlignment="Left" Width="80" Height="19" Margin="12,9,0,0" VerticalAlignment="Top" />
 			<Grid
-				Height="22" Margin="98,7,88,0" VerticalAlignment="Top"
+				Height="22" Margin="98,8,88,0" VerticalAlignment="Top"
 				Visibility="{Binding OutputFolderChosen, Converter={StaticResource VisibilityConverter}}">
 				<TextBox
 					Name="destinationEditBox"
@@ -639,7 +639,7 @@
 					Background="Transparent"
 					Visibility="{Binding EditingDestination, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
 					MouseLeftButtonDown="DestinationReadAreaMouseLeftButtonDown"
-					ToolTip="Click to change the encode destination." Margin="0,1,0,-1">
+					ToolTip="Click to change the encode destination." Margin="0">
 					<Border
 						CornerRadius="3"
 						BorderBrush="#7DA2CE" BorderThickness="1"
@@ -679,6 +679,15 @@
 			<TextBlock HorizontalAlignment="Left" Margin="12,16,0,0" Width="77.534"
 				Text="Encoding:"
 				Style="{StaticResource SectionHeader}" Height="21" VerticalAlignment="Top" />
+
+			<Button Margin="94,13,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90"
+				Command="{Binding OpenEncodingWindowCommand}">
+				<StackPanel Orientation="Horizontal">
+					<Image Source="/Icons/tools.png" Width="22" Height="22" />
+					<TextBlock Text="Settings" VerticalAlignment="Center" Margin="7,0,0,0" />
+				</StackPanel>
+			</Button>
+
 			<ComboBox HorizontalAlignment="Left" Margin="263,18,0,0" Name="presetComboBox" Width="140" Height="22.76" VerticalAlignment="Top"
 				ItemsSource="{Binding AllPresets}" SelectedItem="{Binding SelectedPreset}"
 				ItemContainerStyle="{StaticResource EncodingContainerStyle}">
@@ -706,139 +715,153 @@
 					</DataTemplate>
 				</ComboBox.ItemTemplate>
 			</ComboBox>
-			<Button Margin="94,13,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90"
-				Command="{Binding OpenEncodingWindowCommand}">
-				<StackPanel Orientation="Horizontal">
-					<Image Source="/Icons/tools.png" Width="22" Height="22" />
-					<TextBlock Text="Settings" VerticalAlignment="Center" Margin="7,0,0,0" />
-				</StackPanel>
-			</Button>
-			<Button
-				Height="26" HorizontalAlignment="Right" Margin="0,16,12,0" VerticalAlignment="Top" Width="77"
-				Command="{Binding OpenPreviewWindowCommand}"
-				IsEnabled="{Binding HasVideoSource}">
-				<StackPanel Orientation="Horizontal">
-					<Image Source="/Icons/preview.png" />
-					<TextBlock Text="Preview" Margin="5,0,0,0" VerticalAlignment="Center" />
-				</StackPanel>
-			</Button>
-			
-			<Button Height="37" HorizontalAlignment="Left" Margin="6,56,0,0" VerticalAlignment="Top" Width="114"
-				Command="{Binding AddToQueueCommand}"
-				ToolTip="{Binding EnqueueToolTip}" ToolTipService.ShowOnDisabled="True">
-				<StackPanel Orientation="Horizontal">
-					<Image Source="/Icons/downarrow_shadow.png" Height="26" />
-					<TextBlock Text="Add to Queue" VerticalAlignment="Center" Margin="5,0,0,0" />
-				</StackPanel>
-			</Button>
-			<TextBlock Text="Task" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15.96" Margin="135,60,0,0" Width="26.25"
-				Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"/>
-			<TextBlock HorizontalAlignment="Left" Margin="163,60,0,0" VerticalAlignment="Top" Width="33"
-				Text="{Binding TaskDetails}"
-				Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"/>
-			<TextBlock
-				Text="ETA:" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="135,77,0,0"
-				ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
-				Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}" />
-			<TextBlock
-				Text="{Binding EstimatedTimeRemaining}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="163,77,0,0"
-				ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
-				Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
-
 
 			<Grid
-				Margin="220,66,179,0" VerticalAlignment="Top" Height="20.44"
-				Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}" MouseEnter="ProgressMouseEnter" MouseLeave="ProgressMouseLeave">
-				<ProgressBar
-					Name="overallEncodeProgressBar"
-					Value="{Binding OverallEncodeProgressPercent, Mode=OneWay}" Height="20.44" VerticalAlignment="Top"
-					Foreground="{Binding ProgressBarColor}" />
-				<TextBlock
-					Text="{Binding OverallEncodeProgressPercent, Mode=OneWay, Converter={StaticResource PercentDisplayConverter}}"
-					VerticalAlignment="Center" HorizontalAlignment="Center" />
+				Margin="0,54,0,0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
 
-				<Popup
-					Name="encodeProgressDetailsPopup" IsOpen="False"
-					PlacementTarget="{Binding ElementName=overallEncodeProgressBar}"
-					Placement="Bottom"
-					HorizontalOffset="50"
-					VerticalOffset="10"
-					AllowsTransparency="True">
-					<Border
+				<Button Height="37" HorizontalAlignment="Left" Margin="6,2,0,0" VerticalAlignment="Top" Width="114"
+					Command="{Binding AddToQueueCommand}"
+					ToolTip="{Binding EnqueueToolTip}" ToolTipService.ShowOnDisabled="True">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/Icons/downarrow_shadow.png" Height="26" />
+						<TextBlock Text="Add to Queue" VerticalAlignment="Center" Margin="5,0,0,0" />
+					</StackPanel>
+				</Button>
+				<TextBlock Text="Task" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15.96" Margin="135,6,0,0" Width="26.25"
+					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"/>
+				<TextBlock HorizontalAlignment="Left" Margin="163,6,0,0" VerticalAlignment="Top" Width="33"
+					Text="{Binding TaskDetails}"
+					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"/>
+				<TextBlock
+					Text="ETA:" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="135,23,0,0"
+					ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
+					Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}" />
+				<TextBlock
+					Text="{Binding EstimatedTimeRemaining}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="163,23,0,0"
+					ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
+					Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
+
+				<!-- Progress bar -->
+				<Grid
+					Margin="220,12,5,0" VerticalAlignment="Top" Height="20.44"
+					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}" MouseEnter="ProgressMouseEnter" MouseLeave="ProgressMouseLeave">
+					<ProgressBar
+						Name="overallEncodeProgressBar"
+						Value="{Binding OverallEncodeProgressPercent, Mode=OneWay}" Height="20.44" VerticalAlignment="Top"
+						Foreground="{Binding ProgressBarColor}" />
+					<TextBlock
+						Text="{Binding OverallEncodeProgressPercent, Mode=OneWay, Converter={StaticResource PercentDisplayConverter}}"
+						VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+					<Popup
+						Name="encodeProgressDetailsPopup" IsOpen="False"
+						PlacementTarget="{Binding ElementName=overallEncodeProgressBar}"
+						Placement="Bottom"
+						HorizontalOffset="50"
+						VerticalOffset="10"
+						AllowsTransparency="True">
+						<Border
 						BorderBrush="Gray"
 						BorderThickness="1"
 						CornerRadius="4"
 						Margin="10"
 						Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}">
-						<Border.Effect>
-							<DropShadowEffect ShadowDepth="6" BlurRadius="3" Direction="315" Opacity="0.3" />
-						</Border.Effect>
-						<Border.Background>
-							<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-								<GradientStop Color="White" Offset="0.0" />
-								<GradientStop Color="LightGray" Offset="1.0" />
-							</LinearGradientBrush>
-						</Border.Background>
-						<Grid Margin="7,2,7,2">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition Width="40" />
-							</Grid.ColumnDefinitions>
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
-							<TextBlock
+							<Border.Effect>
+								<DropShadowEffect ShadowDepth="6" BlurRadius="3" Direction="315" Opacity="0.3" />
+							</Border.Effect>
+							<Border.Background>
+								<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+									<GradientStop Color="White" Offset="0.0" />
+									<GradientStop Color="LightGray" Offset="1.0" />
+								</LinearGradientBrush>
+							</Border.Background>
+							<Grid Margin="7,2,7,2">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="40" />
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
+								<TextBlock
 								Text="Current FPS:" Grid.Row="0" Grid.Column="0"
 								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
 								Style="{StaticResource EncodeDetailsHeader}"/>
-							<TextBlock
+								<TextBlock
 								Text="{Binding CurrentFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}"
 								Grid.Row="0" Grid.Column="1" TextAlignment="Center"
 								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
 								Style="{StaticResource EncodeDetailsText}"/>
-							<TextBlock
+								<TextBlock
 								Text="Average FPS:" Grid.Row="1" Grid.Column="0"
 								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
 								Style="{StaticResource EncodeDetailsHeader}"/>
-							<TextBlock
+								<TextBlock
 								Text="{Binding AverageFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}"
 								Grid.Row="1" Grid.Column="1" TextAlignment="Center"
 								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
 								Style="{StaticResource EncodeDetailsText}"/>
-						</Grid>
-					</Border>
-				</Popup>
+							</Grid>
+						</Border>
+					</Popup>
+				</Grid>
+
+				<Button
+					Grid.Column="1"
+					Height="37" HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Bottom" Width="86"
+					Command="{Binding OpenPreviewWindowCommand}"
+					IsEnabled="{Binding HasVideoSource}"
+					Visibility="{Binding PreviewWindowOpen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/Icons/preview.png" Height="26" />
+						<TextBlock Text="Preview" Margin="5,0,0,0" VerticalAlignment="Center" />
+					</StackPanel>
+				</Button>
+
+				<Button
+					Grid.Column="2" Height="37" HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Bottom" Width="78"
+					Command="{Binding StopEncodeCommand}"
+					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/Icons/stop_shadow.png" />
+						<TextBlock Text="Stop" VerticalAlignment="Center" Margin="4,0,0,0" />
+					</StackPanel>
+				</Button>
+
+				<Button
+					Grid.Column="3" Height="37" HorizontalAlignment="Right" Margin="0,0,6,0" VerticalAlignment="Bottom" Width="82"
+					Command="{Binding EncodeCommand}"
+					Visibility="{Binding PauseVisible, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
+					ToolTip="{Binding EncodeToolTip}" ToolTipService.ShowOnDisabled="True">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/Icons/encode_160.png" Height="26" />
+						<TextBlock Margin="7,0,0,0" Text="{Binding EncodeButtonText}" VerticalAlignment="Center" />
+					</StackPanel>
+				</Button>
+				<Button
+					Grid.Column="3" Height="37" HorizontalAlignment="Right" Margin="0,0,6,0" VerticalAlignment="Bottom" Width="82"
+					Command="{Binding PauseCommand}"
+					Visibility="{Binding PauseVisible, Converter={StaticResource VisibilityConverter}}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/Icons/pause2.png" Height="28" />
+						<TextBlock Margin="7,0,0,0" Text="Pause" VerticalAlignment="Center" />
+					</StackPanel>
+				</Button>
 			</Grid>
 
 
 
-			<Button Height="37" HorizontalAlignment="Right" Margin="0,56,94,0" VerticalAlignment="Top" Width="78"
-				Command="{Binding StopEncodeCommand}"
-				Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}">
-				<StackPanel Orientation="Horizontal">
-					<Image Source="/Icons/stop_shadow.png" />
-					<TextBlock Text="Stop" VerticalAlignment="Center" Margin="4,0,0,0" />
-				</StackPanel>
-			</Button>
-			<Button Height="37" HorizontalAlignment="Right" Margin="0,56,6,0" VerticalAlignment="Top" Width="82"
-				Command="{Binding EncodeCommand}"
-				Visibility="{Binding PauseVisible, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
-				ToolTip="{Binding EncodeToolTip}" ToolTipService.ShowOnDisabled="True">
-				<StackPanel Orientation="Horizontal">
-					<Image Source="/Icons/encode_160.png" Height="26" />
-					<TextBlock Margin="7,0,0,0" Text="{Binding EncodeButtonText}" VerticalAlignment="Center" />
-				</StackPanel>
-			</Button>
-			<Button
-				Height="37" HorizontalAlignment="Right" Margin="0,56,6,0" VerticalAlignment="Top" Width="82"
-				Command="{Binding PauseCommand}"
-				Visibility="{Binding PauseVisible, Converter={StaticResource VisibilityConverter}}">
-				<StackPanel Orientation="Horizontal">
-					<Image Source="/Icons/pause2.png" Height="28" />
-					<TextBlock Margin="7,0,0,0" Text="Pause" VerticalAlignment="Center" />
-				</StackPanel>
-			</Button>
+
+
+
+
 			
 			<Label Height="28" Margin="215,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="47">Preset:</Label>
 		</Grid>
