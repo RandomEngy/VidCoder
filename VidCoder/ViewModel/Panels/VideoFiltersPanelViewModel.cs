@@ -69,8 +69,9 @@ namespace VidCoder.ViewModel
 
 				this.NotifyPropertyChanged("Deinterlace");
 				this.NotifyPropertyChanged("CustomDeinterlaceVisible");
-				this.UpdatePreviewWindow();
+
 				this.IsModified = true;
+				this.UpdatePreviewWindow();
 			}
 		}
 

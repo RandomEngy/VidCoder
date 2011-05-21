@@ -1,17 +1,22 @@
 ﻿<UserControl
 	x:Class="VidCoder.View.VideoPanel"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:converters="clr-namespace:VidCoder.Converters"
-    mc:Ignorable="d" 
-    d:DesignHeight="330" d:DesignWidth="622">
+	xmlns:resx="clr-namespace:VidCoder.Properties"
+	mc:Ignorable="d" 
+	d:DesignHeight="330" d:DesignWidth="622">
 	<UserControl.Resources>
 		<converters:FramerateDisplayConverter x:Key="FramerateDisplayConverter" />
+		<Style x:Key="LargeToolTip" TargetType="TextBlock">
+			<Setter Property="Width" Value="400" />
+			<Setter Property="TextWrapping" Value="Wrap" />
+		</Style>
 	</UserControl.Resources>
-    <Grid>
+	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="270" />
 			<ColumnDefinition />
@@ -115,16 +120,29 @@
 
 			<RadioButton
 				Height="16" Margin="20,99,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" GroupName="VideoQuality"
-				IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}">Constant Quality</RadioButton>
+				IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}">
+				<RadioButton.ToolTip>
+					<TextBlock Text="{x:Static resx:Resources.Video_QualityTargetToolTip}" Style="{StaticResource LargeToolTip}" />
+				</RadioButton.ToolTip>
+				Constant Quality
+			</RadioButton>
 			<controls:DoubleNumberBox
 				Height="23" HorizontalAlignment="Left" Margin="146,94,0,0" VerticalAlignment="Top" Width="49"
 				Number="{Binding Quality, Mode=TwoWay}" Minimum="0" Maximum="51"
-				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}"/>
+				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}">
+				<controls:DoubleNumberBox.ToolTip>
+					<TextBlock Text="{x:Static resx:Resources.Video_QualityTargetToolTip}" Style="{StaticResource LargeToolTip}" />
+				</controls:DoubleNumberBox.ToolTip>
+			</controls:DoubleNumberBox>
 			<Slider
 				Height="22" Margin="20,121,6,0" VerticalAlignment="Top"
 				TickPlacement="BottomRight" Minimum="{Binding QualitySliderMin}" Maximum="{Binding QualitySliderMax}" TickFrequency="1" IsSnapToTickEnabled="True"
 				Value="{Binding Quality}"
-				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}"/>
+				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}">
+				<Slider.ToolTip>
+					<TextBlock Text="{x:Static resx:Resources.Video_QualityTargetToolTip}" Style="{StaticResource LargeToolTip}" />
+				</Slider.ToolTip>
+			</Slider>
 			<TextBlock
 				Height="21" Margin="20.2,149,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90.8" TextAlignment="Left"
 				Text="{Binding QualitySliderLeftText}"

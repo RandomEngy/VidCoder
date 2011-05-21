@@ -137,9 +137,9 @@ namespace VidCoder.ViewModel
 						}
 					}
 
-					this.UpdatePreviewWindow();
 					this.RefreshOutputSize();
 					this.IsModified = true;
+					this.UpdatePreviewWindow();
 				}
 			}
 		}
@@ -190,9 +190,9 @@ namespace VidCoder.ViewModel
 						}
 					}
 
-					this.UpdatePreviewWindow();
 					this.RefreshOutputSize();
 					this.IsModified = true;
+					this.UpdatePreviewWindow();
 				}
 			}
 		}
@@ -223,9 +223,10 @@ namespace VidCoder.ViewModel
 				{
 					this.Profile.MaxWidth = value;
 					this.NotifyPropertyChanged("MaxWidth");
-					this.UpdatePreviewWindow();
 					this.RefreshOutputSize();
+
 					this.IsModified = true;
+					this.UpdatePreviewWindow();
 				}
 			}
 		}
@@ -243,9 +244,10 @@ namespace VidCoder.ViewModel
 				{
 					this.Profile.MaxHeight = value;
 					this.NotifyPropertyChanged("MaxHeight");
-					this.UpdatePreviewWindow();
 					this.RefreshOutputSize();
+
 					this.IsModified = true;
+					this.UpdatePreviewWindow();
 				}
 			}
 		}
@@ -268,7 +270,6 @@ namespace VidCoder.ViewModel
 				this.NotifyPropertyChanged("KeepDisplayAspect");
 				this.NotifyPropertyChanged("PixelAspectVisibile");
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
 				if (this.Anamorphic == Anamorphic.Custom)
 				{
 					if (value && !this.UseDisplayWidth)
@@ -283,6 +284,7 @@ namespace VidCoder.ViewModel
 				}
 
 				this.IsModified = true;
+				this.UpdatePreviewWindow();
 			}
 		}
 
@@ -328,9 +330,10 @@ namespace VidCoder.ViewModel
 				this.NotifyPropertyChanged("KeepDisplayAspectEnabled");
 				this.NotifyPropertyChanged("WidthEnabled");
 				this.NotifyPropertyChanged("HeightEnabled");
-				this.UpdatePreviewWindow();
 				this.RefreshOutputSize();
+
 				this.IsModified = true;
+				this.UpdatePreviewWindow();
 			}
 		}
 
@@ -352,8 +355,10 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.Modulus = value;
-				this.UpdatePreviewWindow();
 				this.NotifyPropertyChanged("Modulus");
+
+				this.IsModified = true;
+				this.UpdatePreviewWindow();
 			}
 		}
 
@@ -379,9 +384,10 @@ namespace VidCoder.ViewModel
 				this.NotifyPropertyChanged("UseDisplayWidth");
 				this.NotifyPropertyChanged("KeepDisplayAspect");
 				this.NotifyPropertyChanged("KeepDisplayAspectEnabled");
-				this.UpdatePreviewWindow();
 				this.RefreshOutputSize();
+
 				this.IsModified = true;
+				this.UpdatePreviewWindow();
 			}
 		}
 
@@ -397,8 +403,9 @@ namespace VidCoder.ViewModel
 				this.Profile.DisplayWidth = value;
 				this.NotifyPropertyChanged("DisplayWidth");
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
+
 				this.IsModified = true;
+				this.UpdatePreviewWindow();
 			}
 		}
 
@@ -429,8 +436,9 @@ namespace VidCoder.ViewModel
 					this.Profile.PixelAspectX = value;
 					this.NotifyPropertyChanged("PixelAspectX");
 					this.RefreshOutputSize();
-					this.UpdatePreviewWindow();
+
 					this.IsModified = true;
+					this.UpdatePreviewWindow();
 				}
 			}
 		}
@@ -449,8 +457,9 @@ namespace VidCoder.ViewModel
 					this.Profile.PixelAspectY = value;
 					this.NotifyPropertyChanged("PixelAspectY");
 					this.RefreshOutputSize();
-					this.UpdatePreviewWindow();
+
 					this.IsModified = true;
+					this.UpdatePreviewWindow();
 				}
 			}
 		}
@@ -471,9 +480,10 @@ namespace VidCoder.ViewModel
 				this.NotifyPropertyChanged("CropTop");
 				this.NotifyPropertyChanged("CropRight");
 				this.NotifyPropertyChanged("CropBottom");
-				this.UpdatePreviewWindow();
 				this.RefreshOutputSize();
+
 				this.IsModified = true;
+				this.UpdatePreviewWindow();
 			}
 		}
 
@@ -498,9 +508,10 @@ namespace VidCoder.ViewModel
 			{
 				this.Profile.Cropping.Left = value;
 				this.NotifyPropertyChanged("CropLeft");
-				this.UpdatePreviewWindow();
 				this.RefreshOutputSize();
+
 				this.IsModified = true;
+				this.UpdatePreviewWindow();
 			}
 		}
 
@@ -525,9 +536,10 @@ namespace VidCoder.ViewModel
 			{
 				this.Profile.Cropping.Top = value;
 				this.NotifyPropertyChanged("CropTop");
-				this.UpdatePreviewWindow();
 				this.RefreshOutputSize();
+
 				this.IsModified = true;
+				this.UpdatePreviewWindow();
 			}
 		}
 
@@ -552,9 +564,10 @@ namespace VidCoder.ViewModel
 			{
 				this.Profile.Cropping.Right = value;
 				this.NotifyPropertyChanged("CropRight");
-				this.UpdatePreviewWindow();
 				this.RefreshOutputSize();
+
 				this.IsModified = true;
+				this.UpdatePreviewWindow();
 			}
 		}
 
@@ -579,9 +592,10 @@ namespace VidCoder.ViewModel
 			{
 				this.Profile.Cropping.Bottom = value;
 				this.NotifyPropertyChanged("CropBottom");
-				this.UpdatePreviewWindow();
 				this.RefreshOutputSize();
+
 				this.IsModified = true;
+				this.UpdatePreviewWindow();
 			}
 		}
 

@@ -473,6 +473,15 @@ namespace VidCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set the desired quality factor. The scale used by each video encoder is different..
+        /// </summary>
+        public static string Video_QualityTargetToolTip {
+            get {
+                return ResourceManager.GetString("Video_QualityTargetToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arrange file to play better as a progressive download..
         /// </summary>
         public static string WebOptimizedToolTip {

@@ -303,4 +303,7 @@ Higher values take more bits away from edges and complex areas to improve areas 
   <data name="QueueEtaToolTip" xml:space="preserve">
     <value>Estimated time remaining for all jobs in the queue to complete.</value>
   </data>
+  <data name="Video_QualityTargetToolTip" xml:space="preserve">
+    <value>Set the desired quality factor. The scale used by each video encoder is different.</value>
+  </data>
 </root>
