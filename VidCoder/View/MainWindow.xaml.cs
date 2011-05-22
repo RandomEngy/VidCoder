@@ -236,7 +236,7 @@ namespace VidCoder.View
 				this.completedTab.Visibility = Visibility.Visible;
 				this.clearCompletedQueueItemsButton.Visibility = Visibility.Visible;
 				this.queueItemsTabControl.BorderThickness = new Thickness(1);
-				this.tabsArea.Margin = new Thickness(6, 132, 6, 6);
+				this.tabsArea.Margin = new Thickness(6);
 
 				this.tabsVisible = true;
 				return;
@@ -248,7 +248,7 @@ namespace VidCoder.View
 				this.completedTab.Visibility = Visibility.Collapsed;
 				this.clearCompletedQueueItemsButton.Visibility = Visibility.Collapsed;
 				this.queueItemsTabControl.BorderThickness = new Thickness(0);
-				this.tabsArea.Margin = new Thickness(2, 128, 2, 2);
+				this.tabsArea.Margin = new Thickness(2);
 
 				this.viewModel.SelectedTabIndex = MainViewModel.QueuedTabIndex;
 

@@ -855,60 +855,59 @@
 					</StackPanel>
 				</Button>
 			</Grid>
-
-
-
-
-
-
-
 			
 			<Label Height="28" Margin="215,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="47">Preset:</Label>
 		</Grid>
 
 		<!-- Queue section -->
 		<Grid
-			Grid.Row="4" Name="tabsArea">
+			Grid.Row="4">
 			<Grid.Background>
 				<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
 			</Grid.Background>
-			<TabControl Name="queueItemsTabControl" BorderThickness="0" SelectedIndex="{Binding SelectedTabIndex}">
-				<TabControl.Background>
+
+			<Grid
+				Name="tabsArea">
+				<Grid.Background>
 					<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
-				</TabControl.Background>
-				<TabItem Name="queueTab" Visibility="Collapsed">
-					<TabItem.Header>
-						<TextBlock Text="{Binding QueuedTabHeader}" />
-					</TabItem.Header>
-					<ListView
+				</Grid.Background>
+				<TabControl Name="queueItemsTabControl" BorderThickness="0" SelectedIndex="{Binding SelectedTabIndex}">
+					<TabControl.Background>
+						<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
+					</TabControl.Background>
+					<TabItem Name="queueTab" Visibility="Collapsed">
+						<TabItem.Header>
+							<TextBlock Text="{Binding QueuedTabHeader}" />
+						</TabItem.Header>
+						<ListView
 							Name="queueView"
 							ItemsSource="{Binding EncodeQueue}"
 							VidCoderDragDrop:DragDropHelper.IsDragSource="True"
 							VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
 							VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource QueueDragTemplate}"
 							VidCoderDragDrop:DragDropHelper.AllowDropAtTop="{Binding Encoding, Converter={StaticResource InverseBoolConverter}}">
-						<ListView.ItemContainerStyle>
-							<Style TargetType="ListViewItem">
-								<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-							</Style>
-						</ListView.ItemContainerStyle>
-						<ListView.View>
-							<GridView x:Name="queueGridView">
-								<GridView.Columns>
-									<GridViewColumn Width="75" CellTemplate="{StaticResource QueueRemoveTemplate}" />
-								</GridView.Columns>
-							</GridView>
-						</ListView.View>
-						<ListView.ContextMenu>
-							<ContextMenu>
-								<MenuItem Header="Customize columns..." Command="{Binding CustomizeQueueColumnsCommand}" />
-							</ContextMenu>
-						</ListView.ContextMenu>
-					</ListView>
-				</TabItem>
-				<TabItem Name="completedTab" Visibility="Collapsed">
-					<TabItem.Header>
-						<TextBlock Text="{Binding CompletedTabHeader}">
+							<ListView.ItemContainerStyle>
+								<Style TargetType="ListViewItem">
+									<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+								</Style>
+							</ListView.ItemContainerStyle>
+							<ListView.View>
+								<GridView x:Name="queueGridView">
+									<GridView.Columns>
+										<GridViewColumn Width="75" CellTemplate="{StaticResource QueueRemoveTemplate}" />
+									</GridView.Columns>
+								</GridView>
+							</ListView.View>
+							<ListView.ContextMenu>
+								<ContextMenu>
+									<MenuItem Header="Customize columns..." Command="{Binding CustomizeQueueColumnsCommand}" />
+								</ContextMenu>
+							</ListView.ContextMenu>
+						</ListView>
+					</TabItem>
+					<TabItem Name="completedTab" Visibility="Collapsed">
+						<TabItem.Header>
+							<TextBlock Text="{Binding CompletedTabHeader}">
 								<TextBlock.ContextMenu>
 									<ContextMenu>
 										<MenuItem Header="Clear Completed" Command="{Binding ClearCompletedCommand}">
@@ -918,38 +917,40 @@
 										</MenuItem>
 									</ContextMenu>
 								</TextBlock.ContextMenu>
-						</TextBlock>
-					</TabItem.Header>
-					<ListView
+							</TextBlock>
+						</TabItem.Header>
+						<ListView
 							ItemsSource="{Binding CompletedJobs}"
 							ItemContainerStyle="{StaticResource CompletedItemStyle}">
-						<ListView.View>
-							<GridView x:Name="completedGridView">
-								<GridView.Columns>
-									<GridViewColumn Width="300" Header="Destination" CellTemplate="{StaticResource CompletedDestinationTemplate}" />
-									<GridViewColumn Width="95" Header="Status" CellTemplate="{StaticResource CompletedStatusTemplate}" />
-									<GridViewColumn Width="90" Header="Elapsed Time" CellTemplate="{StaticResource CompletedTimeTemplate}" />
-								</GridView.Columns>
-							</GridView>
-						</ListView.View>
-						<ListView.ContextMenu>
-							<ContextMenu>
-								<MenuItem Header="Clear Completed" Command="{Binding ClearCompletedCommand}">
-									<MenuItem.Icon>
-										<Image Source="/Icons/delete.png" Width="16" Height="16" />
-									</MenuItem.Icon>
-								</MenuItem>
-							</ContextMenu>
-						</ListView.ContextMenu>
-					</ListView>
-				</TabItem>
-			</TabControl>
+							<ListView.View>
+								<GridView x:Name="completedGridView">
+									<GridView.Columns>
+										<GridViewColumn Width="300" Header="Destination" CellTemplate="{StaticResource CompletedDestinationTemplate}" />
+										<GridViewColumn Width="95" Header="Status" CellTemplate="{StaticResource CompletedStatusTemplate}" />
+										<GridViewColumn Width="90" Header="Elapsed Time" CellTemplate="{StaticResource CompletedTimeTemplate}" />
+									</GridView.Columns>
+								</GridView>
+							</ListView.View>
+							<ListView.ContextMenu>
+								<ContextMenu>
+									<MenuItem Header="Clear Completed" Command="{Binding ClearCompletedCommand}">
+										<MenuItem.Icon>
+											<Image Source="/Icons/delete.png" Width="16" Height="16" />
+										</MenuItem.Icon>
+									</MenuItem>
+								</ContextMenu>
+							</ListView.ContextMenu>
+						</ListView>
+					</TabItem>
+				</TabControl>
 
-			<Button
+				<Button
 					Name="clearCompletedQueueItemsButton"
 					Margin="0,2,0,0" VerticalAlignment="Top" HorizontalAlignment="Right"
 					Command="{Binding ClearCompletedCommand}" Style="{StaticResource RemoveButtonStyle}"
 					Visibility="Collapsed">Clear completed queue items</Button>
+			</Grid>
 		</Grid>
+
 	</Grid>
 </Window>
