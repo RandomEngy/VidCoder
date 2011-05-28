@@ -75,51 +75,22 @@ namespace VidCoder.DragDropUtils
 			return hasVerticalOrientation;
 		}
 
-		public static void InsertItemInItemsControl(ItemsControl itemsControl, object itemToInsert, int insertionIndex)
+		public static void InsertItemsInItemsControl(ItemsControl itemsControl, List<object> itemsToInsert, int insertionIndex)
 		{
-			if (itemToInsert != null)
+			if (itemsToInsert != null)
 			{
 				IEnumerable itemsSource = itemsControl.ItemsSource;
 
-				if (itemsSource == null)
+				for (int i = itemsToInsert.Count - 1; i >= 0; i--)
 				{
-					itemsControl.Items.Insert(insertionIndex, itemToInsert);
-				}
-				// Is the ItemsSource IList or IList<T>? If so, insert the dragged item in the list.
-				else if (itemsSource is IList)
-				{
-					((IList)itemsSource).Insert(insertionIndex, itemToInsert);
-				}
-				else
-				{
-					Type type = itemsSource.GetType();
-					Type genericIListType = type.GetInterface("IList`1");
-					if (genericIListType != null)
-					{
-						type.GetMethod("Insert").Invoke(itemsSource, new object[] { insertionIndex, itemToInsert });
-					}
-				}
-			}
-		}
-
-		public static int RemoveItemFromItemsControl(ItemsControl itemsControl, object itemToRemove)
-		{
-			int indexToBeRemoved = -1;
-			if (itemToRemove != null)
-			{
-				indexToBeRemoved = itemsControl.Items.IndexOf(itemToRemove);
-				
-				if (indexToBeRemoved != -1)
-				{
-					IEnumerable itemsSource = itemsControl.ItemsSource;
 					if (itemsSource == null)
 					{
-						itemsControl.Items.RemoveAt(indexToBeRemoved);
+						itemsControl.Items.Insert(insertionIndex, itemsToInsert[i]);
 					}
-					// Is the ItemsSource IList or IList<T>? If so, remove the item from the list.
+					// Is the ItemsSource IList or IList<T>? If so, insert the dragged item in the list.
 					else if (itemsSource is IList)
 					{
-						((IList)itemsSource).RemoveAt(indexToBeRemoved);
+						((IList)itemsSource).Insert(insertionIndex, itemsToInsert[i]);
 					}
 					else
 					{
@@ -127,12 +98,46 @@ namespace VidCoder.DragDropUtils
 						Type genericIListType = type.GetInterface("IList`1");
 						if (genericIListType != null)
 						{
-							type.GetMethod("RemoveAt").Invoke(itemsSource, new object[] { indexToBeRemoved });
+							type.GetMethod("Insert").Invoke(itemsSource, new object[] { insertionIndex, itemsToInsert[i] });
 						}
 					}
 				}
 			}
-			return indexToBeRemoved;
+		}
+
+		public static List<int> RemoveItemsFromItemsControl(ItemsControl itemsControl, List<object> itemsToRemove)
+		{
+			var indiciesToBeRemoved = new List<int>();
+			if (itemsToRemove != null)
+			{
+				indiciesToBeRemoved.AddRange(itemsToRemove.Select(t => itemsControl.Items.IndexOf(t)).Where(t2 => t2 >= 0));
+				indiciesToBeRemoved.Sort();
+
+				for (int i = indiciesToBeRemoved.Count - 1; i >= 0; i--)
+				{
+					IEnumerable itemsSource = itemsControl.ItemsSource;
+					if (itemsSource == null)
+					{
+						itemsControl.Items.RemoveAt(indiciesToBeRemoved[i]);
+					}
+						// Is the ItemsSource IList or IList<T>? If so, remove the item from the list.
+					else if (itemsSource is IList)
+					{
+						((IList)itemsSource).RemoveAt(indiciesToBeRemoved[i]);
+					}
+					else
+					{
+						Type type = itemsSource.GetType();
+						Type genericIListType = type.GetInterface("IList`1");
+						if (genericIListType != null)
+						{
+							type.GetMethod("RemoveAt").Invoke(itemsSource, new object[] { indiciesToBeRemoved[i] });
+						}
+					}
+				}
+			}
+
+			return indiciesToBeRemoved;
 		}
 
 		public static bool IsInFirstHalf(FrameworkElement container, Point clickedPoint, bool hasVerticalOrientation)

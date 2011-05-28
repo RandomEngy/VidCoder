@@ -267,7 +267,7 @@
 							Style="{StaticResource AdvancedLabel}"/>
 			<Slider
 							Grid.Row="0" Grid.Column="1"
-							Minimum="0.0" Maximum="2.0" TickPlacement="BottomRight" TickFrequency="0.1" IsSnapToTickEnabled="True"
+							Minimum="0.0" Maximum="2.0" TickPlacement="BottomRight" TickFrequency="0.1" SmallChange="0.1" LargeChange="0.2" IsSnapToTickEnabled="True"
 							Value="{Binding AdaptiveQuantizationStrength}"
 							Style="{StaticResource AdvancedToolTipHolder}">
 				<Slider.ToolTip>
@@ -280,7 +280,7 @@
 							Style="{StaticResource AdvancedLabel}"/>
 			<Slider
 							Grid.Row="1" Grid.Column="1"
-							Minimum="0.0" Maximum="2.0" TickPlacement="BottomRight" TickFrequency="0.1" IsSnapToTickEnabled="True"
+							Minimum="0.0" Maximum="2.0" TickPlacement="BottomRight" TickFrequency="0.1" SmallChange="0.1" LargeChange="0.2" IsSnapToTickEnabled="True"
 							Value="{Binding PsychovisualRateDistortion}"
 							Style="{StaticResource AdvancedToolTipHolder}">
 				<Slider.ToolTip>
@@ -289,15 +289,15 @@
 			</Slider>
 
 			<Label
-							Content="Psychovisual Trellis:" Grid.Row="2" Grid.Column="0"
-							Visibility="{Binding PsychovisualTrellisVisible, Converter={StaticResource VisibilityConverter}}"
-							Style="{StaticResource AdvancedLabel}"/>
+				Content="Psychovisual Trellis:" Grid.Row="2" Grid.Column="0"
+				Visibility="{Binding PsychovisualTrellisVisible, Converter={StaticResource VisibilityConverter}}"
+				Style="{StaticResource AdvancedLabel}"/>
 			<Slider
-							Grid.Row="2" Grid.Column="1"
-							Minimum="0.0" Maximum="1.0" TickPlacement="BottomRight" TickFrequency="0.05" IsSnapToTickEnabled="True"
-							Value="{Binding PsychovisualTrellis}"
-							Visibility="{Binding PsychovisualTrellisVisible, Converter={StaticResource VisibilityConverter}}"
-							Style="{StaticResource AdvancedToolTipHolder}">
+				Grid.Row="2" Grid.Column="1"
+				Minimum="0.0" Maximum="1.0" TickPlacement="BottomRight" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.2" IsSnapToTickEnabled="True"
+				Value="{Binding PsychovisualTrellis}"
+				Visibility="{Binding PsychovisualTrellisVisible, Converter={StaticResource VisibilityConverter}}"
+				Style="{StaticResource AdvancedToolTipHolder}">
 				<Slider.ToolTip>
 					<TextBlock Text="{x:Static resx:Resources.Advanced_PsychovisualTrellisToolTip}" Style="{StaticResource AdvancedToolTip}" />
 				</Slider.ToolTip>
@@ -305,21 +305,21 @@
 		</Grid>
 		<Label Content="Deblocking:" Height="28" HorizontalAlignment="Right" Margin="0,230,292,0" VerticalAlignment="Top" />
 		<ComboBox
-						Height="23" HorizontalAlignment="Right" Margin="0,233,207,0" VerticalAlignment="Top" Width="83"
-						ItemsSource="{x:Static vm:AdvancedChoices.DeblockingStrength}"
-						DisplayMemberPath="Label"
-						SelectedItem="{Binding DeblockingStrength}"
-						Style="{StaticResource AdvancedToolTipHolder}">
+			Height="23" HorizontalAlignment="Right" Margin="0,233,207,0" VerticalAlignment="Top" Width="83"
+			ItemsSource="{x:Static vm:AdvancedChoices.DeblockingStrength}"
+			DisplayMemberPath="Label"
+			SelectedItem="{Binding DeblockingStrength}"
+			Style="{StaticResource AdvancedToolTipHolder}">
 			<ComboBox.ToolTip>
 				<TextBlock Text="{x:Static resx:Resources.Advanced_DeblockingToolTip}" Style="{StaticResource AdvancedToolTip}" />
 			</ComboBox.ToolTip>
 		</ComboBox>
 		<ComboBox
-						Height="23" HorizontalAlignment="Right" Margin="0,260,207,0" VerticalAlignment="Top" Width="83"
-						ItemsSource="{x:Static vm:AdvancedChoices.DeblockingThreshold}"
-						DisplayMemberPath="Label"
-						SelectedItem="{Binding DeblockingThreshold}"
-						Style="{StaticResource AdvancedToolTipHolder}">
+			Height="23" HorizontalAlignment="Right" Margin="0,260,207,0" VerticalAlignment="Top" Width="83"
+			ItemsSource="{x:Static vm:AdvancedChoices.DeblockingThreshold}"
+			DisplayMemberPath="Label"
+			SelectedItem="{Binding DeblockingThreshold}"
+			Style="{StaticResource AdvancedToolTipHolder}">
 			<ComboBox.ToolTip>
 				<TextBlock Text="{x:Static resx:Resources.Advanced_DeblockingToolTip}" Style="{StaticResource AdvancedToolTip}" />
 			</ComboBox.ToolTip>
@@ -327,7 +327,7 @@
 
 		<Label Content="Options String" Height="28" HorizontalAlignment="Left" Margin="7,262,0,0" VerticalAlignment="Top" />
 		<TextBox
-						Margin="0,288,0,0"
-						Text="{Binding AdvancedOptionsString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
+			Margin="0,288,0,0"
+			Text="{Binding AdvancedOptionsString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
 	</Grid>
 </UserControl>

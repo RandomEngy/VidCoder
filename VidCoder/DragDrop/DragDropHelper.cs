@@ -147,7 +147,7 @@ namespace VidCoder.DragDropUtils
 		private void DragSource_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			this.sourceItemsControl = (ItemsControl)sender;
-			Visual visual = e.OriginalSource as Visual;
+			var visual = e.OriginalSource as Visual;
 
 			this.topWindow = (Window)Utilities.FindAncestor(typeof(Window), this.sourceItemsControl);			
 			this.initialMousePosition = e.GetPosition(this.topWindow);
@@ -155,10 +155,40 @@ namespace VidCoder.DragDropUtils
 			this.sourceItemContainer = Utilities.GetItemContainer(this.sourceItemsControl, visual);
 			if (this.sourceItemContainer != null)
 			{
-				IDragItem dragData = this.sourceItemContainer.DataContext as IDragItem;
-				if (dragData == null || dragData.CanDrag)
+				object clickedItem = this.sourceItemContainer.DataContext;
+
+				var itemsToDrag = new List<object>();
+
+				var listView = this.sourceItemsControl as ListView;
+				if (listView != null && listView.SelectedItems.Contains(clickedItem))
 				{
-					this.draggedData = this.sourceItemContainer.DataContext;
+					// If we clicked on a selected item, do a multi-drag
+
+					// The selected items aren't always in order so we need to sort by index first.
+					var itemIndices = (from object selectedItem in listView.SelectedItems select this.sourceItemsControl.Items.IndexOf(selectedItem)).ToList();
+					itemIndices.Sort();
+
+					itemsToDrag.AddRange(itemIndices.Select(index => this.sourceItemsControl.Items[index]));
+				}
+				else
+				{
+					// If we clicked on an unselected item, do a single drag
+					itemsToDrag.Add(clickedItem);
+				}
+
+				// Cull items that can't be dragged
+				for (int i = itemsToDrag.Count - 1; i >= 0; i--)
+				{
+					var dragData = itemsToDrag[i] as IDragItem;
+					if (dragData != null && !dragData.CanDrag)
+					{
+						itemsToDrag.RemoveAt(i);
+					}
+				}
+
+				if (itemsToDrag.Count > 0)
+				{
+					this.draggedData = itemsToDrag;
 				}
 			}
 		}
@@ -216,7 +246,7 @@ namespace VidCoder.DragDropUtils
 			int targetItemsControlCount = this.targetItemsControl.Items.Count;
 			for (int i = 0; i < targetItemsControlCount; i++)
 			{
-				FrameworkElement currentItemContainer = this.targetItemsControl.ItemContainerGenerator.ContainerFromIndex(i) as FrameworkElement;
+				var currentItemContainer = this.targetItemsControl.ItemContainerGenerator.ContainerFromIndex(i) as FrameworkElement;
 				if (currentItemContainer == null)
 				{
 					return;
@@ -249,21 +279,24 @@ namespace VidCoder.DragDropUtils
 
 		private void DropTarget_PreviewDrop(object sender, DragEventArgs e)
 		{
-			object draggedItem = e.Data.GetData(this.format.Name);
-			int indexRemoved = -1;
+			var draggedItems = e.Data.GetData(this.format.Name) as List<object>;
+			var indiciesRemoved = new List<int>();
 
-			if (draggedItem != null)
+			if (draggedItems != null)
 			{
 				if ((e.Effects & DragDropEffects.Move) != 0)
 				{
-					indexRemoved = Utilities.RemoveItemFromItemsControl(this.sourceItemsControl, draggedItem);
+					indiciesRemoved = Utilities.RemoveItemsFromItemsControl(this.sourceItemsControl, draggedItems);
 				}
-				// This happens when we drag an item to a later position within the same ItemsControl.
-				if (indexRemoved != -1 && this.sourceItemsControl == this.targetItemsControl && indexRemoved < this.insertionIndex)
+
+				// If we're dragging to the same list, adjust the insertion point to account for removed items.
+				if (this.sourceItemsControl == this.targetItemsControl)
 				{
-					this.insertionIndex--;
+					int itemCountBeforeInsertionPoint = indiciesRemoved.Where(t => t < this.insertionIndex).Count();
+					this.insertionIndex -= itemCountBeforeInsertionPoint;
 				}
-				Utilities.InsertItemInItemsControl(this.targetItemsControl, draggedItem, this.insertionIndex);
+
+				Utilities.InsertItemsInItemsControl(this.targetItemsControl, draggedItems, this.insertionIndex);
 
 				RemoveDraggedAdorner();
 				RemoveInsertionAdorner();
@@ -294,10 +327,10 @@ namespace VidCoder.DragDropUtils
 		private void DecideDropTarget(DragEventArgs e)
 		{
 			int targetItemsControlCount = this.targetItemsControl.Items.Count;
-			object draggedItem = e.Data.GetData(this.format.Name);
+			var draggedItems = e.Data.GetData(this.format.Name) as List<object>;
 			this.targetItemContainer = null;
 
-			if (IsDropDataTypeAllowed(draggedItem))
+			if (draggedItems != null && IsDropDataTypeAllowed(draggedItems[0]))
 			{
 				if (targetItemsControlCount > 0)
 				{

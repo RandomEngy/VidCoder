@@ -564,7 +564,7 @@ namespace HandBrake.Interop
 		/// Anonymous_990d28ea_6cf3_4fbc_8143_4df9513e9550
 		public hb_title_type_anon type;
 
-		uint reg_desc;
+		public uint reg_desc;
 
 		/// char[1024]
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 1024)]
@@ -649,7 +649,7 @@ namespace HandBrake.Interop
 		/// int
 		public int detected_interlacing;
 
-		int pcr_pid;
+		public int pcr_pid;
 
 		/// int
 		public int video_id;
@@ -657,7 +657,7 @@ namespace HandBrake.Interop
 		/// int
 		public int video_codec;
 
-		uint video_stream_type;
+		public uint video_stream_type;
 
 		/// int
 		public int video_codec_param;

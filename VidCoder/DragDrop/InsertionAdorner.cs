@@ -22,12 +22,12 @@ namespace VidCoder.DragDropUtils
 			pen = new Pen { Brush = Brushes.Gray, Thickness = 2 };
 			pen.Freeze();
 
-			LineSegment firstLine = new LineSegment(new Point(0, -5), false);
+			var firstLine = new LineSegment(new Point(0, -5), false);
 			firstLine.Freeze();
-			LineSegment secondLine = new LineSegment(new Point(0, 5), false);
+			var secondLine = new LineSegment(new Point(0, 5), false);
 			secondLine.Freeze();
 
-			PathFigure figure = new PathFigure { StartPoint = new Point(5, 0) };
+			var figure = new PathFigure { StartPoint = new Point(5, 0) };
 			figure.Segments.Add(firstLine);
 			figure.Segments.Add(secondLine);
 			figure.Freeze();

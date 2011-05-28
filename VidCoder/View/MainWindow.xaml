@@ -306,7 +306,7 @@
 			Grid.RowSpan="2"
 			Name="sourceSelectionMenu"
 			MinWidth="220" HorizontalAlignment="Left"
-			Margin="26,32,0,0" VerticalAlignment="Top" Canvas.ZIndex="20"
+			Margin="26,30,0,0" VerticalAlignment="Top" Canvas.ZIndex="20"
 			Background="White" BorderBrush="Black" BorderThickness="1"
 			Visibility="{Binding SourceSelectionExpanded, Converter={StaticResource VisibilityConverter}}">
 			<Border.Effect>
