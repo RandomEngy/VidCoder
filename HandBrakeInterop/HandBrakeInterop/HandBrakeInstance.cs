@@ -165,7 +165,7 @@
 		public void Initialize(int verbosity)
 		{
 			HandBrakeUtils.RegisterLogger();
-			this.hbHandle = HbLib.hb_init(verbosity, update_check: 0);
+			this.hbHandle = HBFunctions.hb_init(verbosity, update_check: 0);
 		}
 
 		/// <summary>
@@ -187,7 +187,7 @@
 		public void StartScan(string path, int previewCount, int titleIndex)
 		{
 			this.previewCount = previewCount;
-			HbLib.hb_scan(this.hbHandle, path, titleIndex, previewCount, 1, DefaultMinDuration);
+			HBFunctions.hb_scan(this.hbHandle, path, titleIndex, previewCount, 1, DefaultMinDuration);
 			this.scanPollTimer = new System.Timers.Timer();
 			this.scanPollTimer.Interval = ScanPollIntervalMs;
 
@@ -204,7 +204,7 @@
 		/// </summary>
 		public void StopScan()
 		{
-			HbLib.hb_scan_stop(this.hbHandle);
+			HBFunctions.hb_scan_stop(this.hbHandle);
 		}
 
 		/// <summary>
@@ -236,8 +236,8 @@
 			int imageBufferSize = outputWidth * outputHeight * 4;
 			IntPtr nativeBuffer = Marshal.AllocHGlobal(imageBufferSize);
 			allocatedMemory.Add(nativeBuffer);
-			HbLib.hb_set_job(this.hbHandle, job.Title, ref nativeJob);
-			HbLib.hb_get_preview_by_index(this.hbHandle, job.Title, previewNumber, nativeBuffer);
+			HBFunctions.hb_set_job(this.hbHandle, job.Title, ref nativeJob);
+			HBFunctions.hb_get_preview_by_index(this.hbHandle, job.Title, previewNumber, nativeBuffer);
 
 			// Copy the filled image buffer to a managed array.
 			byte[] managedBuffer = new byte[imageBufferSize];
@@ -399,14 +399,14 @@
 				{
 					for (int i = 0; i < numChapters; i++)
 					{
-						HbLib.hb_set_chapter_name(this.hbHandle, job.Title, i + 1, "Chapter " + (i + 1));
+						HBFunctions.hb_set_chapter_name(this.hbHandle, job.Title, i + 1, "Chapter " + (i + 1));
 					}
 				}
 				else
 				{
 					for (int i = 0; i < numChapters; i++)
 					{
-						HbLib.hb_set_chapter_name(this.hbHandle, job.Title, i + 1, job.CustomChapterNames[i]);
+						HBFunctions.hb_set_chapter_name(this.hbHandle, job.Title, i + 1, job.CustomChapterNames[i]);
 					}
 				}
 			}
@@ -436,7 +436,7 @@
 
 				nativeJob.advanced_opts = IntPtr.Zero;
 
-				HbLib.hb_add(this.hbHandle, ref nativeJob);
+				HBFunctions.hb_add(this.hbHandle, ref nativeJob);
 			}
 
 			nativeJob.indepth_scan = 0;
@@ -461,13 +461,13 @@
 				nativeJob.advanced_opts = Marshal.StringToHGlobalAnsi(firstPassAdvancedOptions);
 				this.encodeAllocatedMemory.Add(nativeJob.advanced_opts);
 
-				HbLib.hb_add(this.hbHandle, ref nativeJob);
+				HBFunctions.hb_add(this.hbHandle, ref nativeJob);
 
 				// Second pass. Apply normal options.
 				nativeJob.pass = 2;
 				nativeJob.advanced_opts = originalX264Options;
 
-				HbLib.hb_add(this.hbHandle, ref nativeJob);
+				HBFunctions.hb_add(this.hbHandle, ref nativeJob);
 			}
 			else
 			{
@@ -475,10 +475,10 @@
 				nativeJob.pass = 0;
 				nativeJob.advanced_opts = originalX264Options;
 
-				HbLib.hb_add(this.hbHandle, ref nativeJob);
+				HBFunctions.hb_add(this.hbHandle, ref nativeJob);
 			}
 
-			HbLib.hb_start(this.hbHandle);
+			HBFunctions.hb_start(this.hbHandle);
 
 			this.encodePollTimer = new System.Timers.Timer();
 			this.encodePollTimer.Interval = EncodePollIntervalMs;
@@ -495,7 +495,7 @@
 		/// </summary>
 		public void PauseEncode()
 		{
-			HbLib.hb_pause(this.hbHandle);
+			HBFunctions.hb_pause(this.hbHandle);
 		}
 
 		/// <summary>
@@ -503,7 +503,7 @@
 		/// </summary>
 		public void ResumeEncode()
 		{
-			HbLib.hb_resume(this.hbHandle);
+			HBFunctions.hb_resume(this.hbHandle);
 		}
 
 		/// <summary>
@@ -511,20 +511,20 @@
 		/// </summary>
 		public void StopEncode()
 		{
-			HbLib.hb_stop(this.hbHandle);
+			HBFunctions.hb_stop(this.hbHandle);
 
 			// Also remove all jobs from the queue (in case we stopped a 2-pass encode)
 			var currentJobs = new List<IntPtr>();
 
-			int jobs = HbLib.hb_count(this.hbHandle);
+			int jobs = HBFunctions.hb_count(this.hbHandle);
 			for (int i = 0; i < jobs; i++)
 			{
-				currentJobs.Add(HbLib.hb_job(this.hbHandle, 0));
+				currentJobs.Add(HBFunctions.hb_job(this.hbHandle, 0));
 			}
 
 			foreach (IntPtr job in currentJobs)
 			{
-				HbLib.hb_rem(this.hbHandle, job);
+				HBFunctions.hb_rem(this.hbHandle, job);
 			}
 		}
 
@@ -559,8 +559,8 @@
 			int refHeight = 0;
 			int refParWidth = 0;
 			int refParHeight = 0;
-			HbLib.hb_set_job(this.hbHandle, job.Title, ref nativeJob);
-			HbLib.hb_set_anamorphic_size_by_index(this.hbHandle, job.Title, ref refWidth, ref refHeight, ref refParWidth, ref refParHeight);
+			HBFunctions.hb_set_job(this.hbHandle, job.Title, ref nativeJob);
+			HBFunctions.hb_set_anamorphic_size_by_index(this.hbHandle, job.Title, ref refWidth, ref refHeight, ref refParWidth, ref refParHeight);
 			InteropUtilities.FreeMemory(allocatedMemory);
 
 			width = refWidth;
@@ -583,7 +583,7 @@
 		/// </summary>
 		public static void DisposeGlobal()
 		{
-			HbLib.hb_global_close();
+			HBFunctions.hb_global_close();
 		}
 
 		/// <summary>
@@ -600,7 +600,7 @@
 			// Free unmanaged objects.
 			IntPtr handlePtr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(IntPtr)));
 			Marshal.WriteIntPtr(handlePtr, this.hbHandle);
-			HbLib.hb_close(handlePtr);
+			HBFunctions.hb_close(handlePtr);
 			Marshal.FreeHGlobal(handlePtr);
 		}
 
@@ -610,7 +610,7 @@
 		private void PollScanProgress()
 		{
 			var state = new hb_state_s();
-			HbLib.hb_get_state(this.hbHandle, ref state);
+			HBFunctions.hb_get_state(this.hbHandle, ref state);
 
 			if (state.state == NativeConstants.HB_STATE_SCANNING)
 			{
@@ -625,7 +625,7 @@
 			{
 				this.titles = new List<Title>();
 
-				IntPtr listPtr = HbLib.hb_get_titles(this.hbHandle);
+				IntPtr listPtr = HBFunctions.hb_get_titles(this.hbHandle);
 				this.originalTitles = InteropUtilities.ConvertList<hb_title_s>(listPtr);
 
 				foreach (hb_title_s title in this.originalTitles)
@@ -659,7 +659,7 @@
 		private void PollEncodeProgress()
 		{
 			hb_state_s state = new hb_state_s();
-			HbLib.hb_get_state(this.hbHandle, ref state);
+			HBFunctions.hb_get_state(this.hbHandle, ref state);
 
 			if (state.state == NativeConstants.HB_STATE_WORKING)
 			{
@@ -1148,7 +1148,7 @@
 								subtitleConfig.dest = hb_subtitle_config_s_subdest.PASSTHRUSUB;
 							}
 
-							int subtitleAddSucceded = HbLib.hb_subtitle_add(ref nativeJob, ref subtitleConfig, sourceSubtitle.TrackNumber - 1);
+							int subtitleAddSucceded = HBFunctions.hb_subtitle_add(ref nativeJob, ref subtitleConfig, sourceSubtitle.TrackNumber - 1);
 							if (subtitleAddSucceded == 0)
 							{
 								System.Diagnostics.Debug.WriteLine("Subtitle add failed");
@@ -1169,7 +1169,7 @@
 						//subtitleConfig.dest = hb_subtitle_config_s_subdest.PASSTHRUSUB;
 						subtitleConfig.default_track = srtSubtitle.Default ? 1 : 0;
 
-						int srtAddSucceded = HbLib.hb_srt_add(ref nativeJob, ref subtitleConfig, srtSubtitle.LanguageCode);
+						int srtAddSucceded = HBFunctions.hb_srt_add(ref nativeJob, ref subtitleConfig, srtSubtitle.LanguageCode);
 						if (srtAddSucceded == 0)
 						{
 							System.Diagnostics.Debug.WriteLine("SRT add failed");
@@ -1268,7 +1268,7 @@
 		private void AddFilter(List<IntPtr> filterList, int filterType, string settings, List<IntPtr> allocatedMemory)
 		{
 			IntPtr settingsNativeString = Marshal.StringToHGlobalAnsi(settings);
-			filterList.Add(HbLib.hb_get_filter_object(filterType, settingsNativeString));
+			filterList.Add(HBFunctions.hb_get_filter_object(filterType, settingsNativeString));
 
 			allocatedMemory.Add(settingsNativeString);
 		}
@@ -1347,7 +1347,7 @@
 
 				if (encoding.Mixdown == Mixdown.Auto)
 				{
-					nativeAudio.config.output.mixdown = HbLib.hb_get_default_mixdown(nativeAudio.config.output.codec, nativeAudio.config.input.channel_layout);
+					nativeAudio.config.output.mixdown = HBFunctions.hb_get_default_mixdown(nativeAudio.config.output.codec, nativeAudio.config.input.channel_layout);
 				}
 				else
 				{

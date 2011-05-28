@@ -129,7 +129,15 @@
     <Compile Include="EncodeProgressEventArgs.cs" />
     <Compile Include="HandBrakeUtils.cs" />
     <Compile Include="HandBrakeInstance.cs" />
-    <Compile Include="HbLib.cs" />
+    <Compile Include="HbLib\HBFunctions.cs" />
+    <Compile Include="HbLib\hb_audio.cs" />
+    <Compile Include="HbLib\hb_chapter_s.cs" />
+    <Compile Include="HbLib\hb_handle_s.cs" />
+    <Compile Include="HbLib\hb_subtitle.cs" />
+    <Compile Include="HbLib\Misc.cs" />
+    <Compile Include="HbLib\hb_job_s.cs" />
+    <Compile Include="HbLib\hb_title_s.cs" />
+    <Compile Include="HbLib\NativeConstants.cs" />
     <Compile Include="InteropUtilities.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="LanguageCodes.cs" />

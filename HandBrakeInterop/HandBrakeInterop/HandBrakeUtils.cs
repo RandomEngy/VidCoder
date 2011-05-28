@@ -41,8 +41,8 @@ namespace HandBrake.Interop
 				// Keep the callback as a member to prevent it from being garbage collected.
 				loggingCallback = new LoggingCallback(LoggingHandler);
 				errorCallback = new LoggingCallback(ErrorHandler);
-				HbLib.hb_register_logger(loggingCallback);
-				HbLib.hb_register_error_handler(errorCallback);
+				HBFunctions.hb_register_logger(loggingCallback);
+				HBFunctions.hb_register_error_handler(errorCallback);
 			}
 		}
 
@@ -93,7 +93,7 @@ namespace HandBrake.Interop
 		/// <returns>The default mixdown for the given codec and channel layout.</returns>
 		public static Mixdown GetDefaultMixdown(AudioEncoder encoder, int layout)
 		{
-			int defaultMixdown = HbLib.hb_get_default_mixdown(Converters.AudioEncoderToNative(encoder), layout);
+			int defaultMixdown = HBFunctions.hb_get_default_mixdown(Converters.AudioEncoderToNative(encoder), layout);
 			return Converters.NativeToMixdown(defaultMixdown);
 		}
 
@@ -114,7 +114,7 @@ namespace HandBrake.Interop
 			int low = 0;
 			int high = 0;
 
-			HbLib.hb_get_audio_bitrate_limits(Converters.AudioEncoderToNative(encoder), sampleRate, Converters.MixdownToNative(mixdown), ref low, ref high);
+			HBFunctions.hb_get_audio_bitrate_limits(Converters.AudioEncoderToNative(encoder), sampleRate, Converters.MixdownToNative(mixdown), ref low, ref high);
 
 			return new Limits { Low = low, High = high };
 		}
@@ -128,7 +128,7 @@ namespace HandBrake.Interop
 		/// <returns>A sanitized mixdown value.</returns>
 		public static Mixdown SanitizeMixdown(Mixdown mixdown, AudioEncoder encoder, int layout)
 		{
-			int sanitizedMixdown = HbLib.hb_get_best_mixdown(Converters.AudioEncoderToNative(encoder), layout, Converters.MixdownToNative(mixdown));
+			int sanitizedMixdown = HBFunctions.hb_get_best_mixdown(Converters.AudioEncoderToNative(encoder), layout, Converters.MixdownToNative(mixdown));
 			return Converters.NativeToMixdown(sanitizedMixdown);
 		}
 
@@ -142,7 +142,7 @@ namespace HandBrake.Interop
 		/// <returns>A sanitized audio bitrate.</returns>
 		public static int SanitizeAudioBitrate(int audioBitrate, AudioEncoder encoder, int sampleRate, Mixdown mixdown)
 		{
-			return HbLib.hb_get_best_audio_bitrate(Converters.AudioEncoderToNative(encoder), audioBitrate, sampleRate, Converters.MixdownToNative(mixdown));
+			return HBFunctions.hb_get_best_audio_bitrate(Converters.AudioEncoderToNative(encoder), audioBitrate, sampleRate, Converters.MixdownToNative(mixdown));
 		}
 
 		/// <summary>
