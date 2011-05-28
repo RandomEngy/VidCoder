@@ -17,6 +17,7 @@ namespace VidCoder.ViewModel
 
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 
+		private bool isPaused;
 		private EncodeJob job;
 		private bool encoding;
 		private int percentComplete;
@@ -60,6 +61,21 @@ namespace VidCoder.ViewModel
 			{
 				this.encoding = value;
 				this.NotifyPropertyChanged("Encoding");
+			}
+		}
+
+		public System.Windows.Media.Brush ProgressBarColor
+		{
+			get
+			{
+				if (this.isPaused)
+				{
+					return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 230, 0));
+				}
+				else
+				{
+					return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 200, 0));
+				}
 			}
 		}
 
@@ -298,12 +314,16 @@ namespace VidCoder.ViewModel
 
 		public void ReportEncodePause()
 		{
+			this.isPaused = true;
 			this.encodeTimeStopwatch.Stop();
+			this.NotifyPropertyChanged("ProgressBarColor");
 		}
 
 		public void ReportEncodeResume()
 		{
+			this.isPaused = false;
 			this.encodeTimeStopwatch.Start();
+			this.NotifyPropertyChanged("ProgressBarColor");
 		}
 
 		public void ReportEncodeEnd()

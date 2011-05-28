@@ -170,7 +170,8 @@
 				<ProgressBar VerticalAlignment="Center" Height="12"
 					Value="{Binding PercentComplete}"
 					Visibility="{Binding ShowProgressBar, Converter={StaticResource VisibilityConverter}}"
-					ToolTip="{Binding ProgressToolTip}" ToolTipService.ShowDuration="120000" />
+					ToolTip="{Binding ProgressToolTip}" ToolTipService.ShowDuration="120000"
+					Foreground="{Binding ProgressBarColor}" />
 			</Grid>
 		</DataTemplate>
 		<DataTemplate x:Key="CompletedDestinationTemplate">
@@ -767,11 +768,11 @@
 						VerticalOffset="10"
 						AllowsTransparency="True">
 						<Border
-						BorderBrush="Gray"
-						BorderThickness="1"
-						CornerRadius="4"
-						Margin="10"
-						Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}">
+							BorderBrush="Gray"
+							BorderThickness="1"
+							CornerRadius="4"
+							Margin="10"
+							Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}">
 							<Border.Effect>
 								<DropShadowEffect ShadowDepth="6" BlurRadius="3" Direction="315" Opacity="0.3" />
 							</Border.Effect>
