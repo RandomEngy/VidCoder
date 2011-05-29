@@ -724,33 +724,27 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
 
-				<Button Height="37" HorizontalAlignment="Left" Margin="6,2,0,0" VerticalAlignment="Top" Width="114"
-					Command="{Binding AddToQueueCommand}"
-					ToolTip="{Binding EnqueueToolTip}" ToolTipService.ShowOnDisabled="True">
-					<StackPanel Orientation="Horizontal">
-						<Image Source="/Icons/downarrow_shadow.png" Height="26" />
-						<TextBlock Text="Add to Queue" VerticalAlignment="Center" Margin="5,0,0,0" />
-					</StackPanel>
-				</Button>
-				<TextBlock Text="Task" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15.96" Margin="135,6,0,0" Width="26.25"
+
+				<TextBlock Text="Task" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15.96" Margin="10,6,0,0" Width="26.25"
 					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"/>
-				<TextBlock HorizontalAlignment="Left" Margin="163,6,0,0" VerticalAlignment="Top" Width="33"
+				<TextBlock HorizontalAlignment="Left" Margin="38,6,0,0" VerticalAlignment="Top" Width="33"
 					Text="{Binding TaskDetails}"
 					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"/>
 				<TextBlock
-					Text="ETA:" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="135,23,0,0"
+					Text="ETA:" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,23,0,0"
 					ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
 					Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}" />
 				<TextBlock
-					Text="{Binding EstimatedTimeRemaining}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="163,23,0,0"
+					Text="{Binding EstimatedTimeRemaining}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38,23,0,0"
 					ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
 					Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
 
 				<!-- Progress bar -->
 				<Grid
-					Margin="220,12,5,0" VerticalAlignment="Top" Height="20.44"
+					Margin="95,12,5,0" VerticalAlignment="Top" Height="20.44"
 					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}" MouseEnter="ProgressMouseEnter" MouseLeave="ProgressMouseLeave">
 					<ProgressBar
 						Name="overallEncodeProgressBar"
@@ -827,7 +821,17 @@
 				</Button>
 
 				<Button
-					Grid.Column="2" Height="37" HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Bottom" Width="78"
+					Grid.Column="2" Height="37" HorizontalAlignment="Left" Margin="0,0,5,0" VerticalAlignment="Bottom" Width="114"
+					Command="{Binding AddToQueueCommand}"
+					ToolTip="{Binding EnqueueToolTip}" ToolTipService.ShowOnDisabled="True">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/Icons/downarrow_shadow.png" Height="26" />
+						<TextBlock Text="Add to Queue" VerticalAlignment="Center" Margin="5,0,0,0" />
+					</StackPanel>
+				</Button>
+
+				<Button
+					Grid.Column="3" Height="37" HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Bottom" Width="78"
 					Command="{Binding StopEncodeCommand}"
 					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}">
 					<StackPanel Orientation="Horizontal">
@@ -837,7 +841,7 @@
 				</Button>
 
 				<Button
-					Grid.Column="3" Height="37" HorizontalAlignment="Right" Margin="0,0,6,0" VerticalAlignment="Bottom" Width="82"
+					Grid.Column="4" Height="37" HorizontalAlignment="Right" Margin="0,0,6,0" VerticalAlignment="Bottom" Width="82"
 					Command="{Binding EncodeCommand}"
 					Visibility="{Binding PauseVisible, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
 					ToolTip="{Binding EncodeToolTip}" ToolTipService.ShowOnDisabled="True">
@@ -847,7 +851,7 @@
 					</StackPanel>
 				</Button>
 				<Button
-					Grid.Column="3" Height="37" HorizontalAlignment="Right" Margin="0,0,6,0" VerticalAlignment="Bottom" Width="82"
+					Grid.Column="4" Height="37" HorizontalAlignment="Right" Margin="0,0,6,0" VerticalAlignment="Bottom" Width="82"
 					Command="{Binding PauseCommand}"
 					Visibility="{Binding PauseVisible, Converter={StaticResource VisibilityConverter}}">
 					<StackPanel Orientation="Horizontal">
