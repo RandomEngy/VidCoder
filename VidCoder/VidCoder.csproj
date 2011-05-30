@@ -289,6 +289,9 @@
     <Compile Include="Model\Database.cs" />
     <Compile Include="Model\DatabaseConfig.cs" />
     <Compile Include="Model\EncodeResult.cs" />
+    <Compile Include="Model\LogEntry.cs" />
+    <Compile Include="Model\LogSource.cs" />
+    <Compile Include="Model\LogType.cs" />
     <Compile Include="Model\PreviewImageJob.cs" />
     <Compile Include="Model\SaveImageJob.cs" />
     <Compile Include="Services\Interfaces\ILogger.cs" />

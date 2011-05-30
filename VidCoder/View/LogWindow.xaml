@@ -9,13 +9,20 @@
 		<KeyBinding Key="P" Modifiers="Control" Command="{Binding MainViewModel.OpenPreviewWindowCommand}" />
 	</Window.InputBindings>
 	<Grid>
-		<TextBox
+		<RichTextBox
 			Name="logTextBox"
 			Margin="0,0,0,36"
 			IsReadOnly="True"
-			Text="{Binding LogText, Mode=OneWay}"
-			TextWrapping="WrapWithOverflow" TextChanged="logTextBox_TextChanged"
-			VerticalScrollBarVisibility="Auto"/>
+			VerticalScrollBarVisibility="Auto">
+			<FlowDocument Name="logDocument">
+				<FlowDocument.Resources>
+					<!-- Eliminate blank line between paragraphs -->
+					<Style TargetType="{x:Type Paragraph}">
+						<Setter Property="Margin" Value="0"/>
+					</Style>
+				</FlowDocument.Resources>
+			</FlowDocument>
+		</RichTextBox>
 		<Button
 			Content="Clear"
 			Command="{Binding ClearLogCommand}"

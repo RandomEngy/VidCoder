@@ -4,17 +4,21 @@ using System.Linq;
 using System.Text;
 using HandBrake.Interop;
 using System.IO;
+using VidCoder.Model;
 using VidCoder.ViewModel;
 
 namespace VidCoder.Services
 {
 	public class Logger : IDisposable, ILogger
 	{
+		private List<LogEntry> logEntries = new List<LogEntry>();
 		private StreamWriter logFile;
 		private bool disposed;
-		private StringBuilder logBuilder;
 		private object logLock = new object();
 		private object disposeLock = new object();
+
+		public event EventHandler<EventArgs<LogEntry>> EntryLogged;
+		public event EventHandler Cleared;
 
 		public Logger()
 		{
@@ -30,18 +34,21 @@ namespace VidCoder.Services
 			string logFilePath = Path.Combine(logFolder, DateTime.UtcNow.ToString("yyyy-MM-dd HH-mm-ss") + ".txt");
 			this.logFile = new StreamWriter(logFilePath);
 
-			this.logBuilder = new StringBuilder();
-			this.RecordMessage("## VidCoder " + Utilities.CurrentVersion + " (" + Utilities.Architecture + ")");
+			var initialEntry = new LogEntry
+			{
+				LogType = LogType.Message,
+				Source = LogSource.VidCoder,
+				Text = "## VidCoder " + Utilities.CurrentVersion + " (" + Utilities.Architecture + ")"
+			};
+
+			this.AddEntry(initialEntry);
 		}
 
-		public string LogText
+		public List<LogEntry> LogEntries
 		{
 			get
 			{
-				lock (this.logLock)
-				{
-					return logBuilder.ToString();
-				}
+				return this.logEntries;
 			}
 		}
 
@@ -49,12 +56,24 @@ namespace VidCoder.Services
 		{
 			string prefix = string.IsNullOrEmpty(message) ? string.Empty : "# ";
 
-			this.RecordMessage(prefix + message);
+			var entry = new LogEntry
+			{
+			    LogType = LogType.Message,
+				Source = LogSource.VidCoder,
+				Text = prefix + message
+			};
+
+			this.AddEntry(entry);
 		}
 
 		public void ClearLog()
 		{
-			this.logBuilder.Clear();
+			this.LogEntries.Clear();
+
+			if (this.Cleared != null)
+			{
+				this.Cleared(this, new EventArgs());
+			}
 		}
 
 		/// <summary>
@@ -72,17 +91,7 @@ namespace VidCoder.Services
 			}
 		}
 
-		private void OnMessageLogged(object sender, MessageLoggedEventArgs e)
-		{
-			this.RecordMessage(e.Message);
-		}
-
-		private void OnErrorLogged(object sender, MessageLoggedEventArgs e)
-		{
-			this.RecordMessage("ERROR: " + e.Message);
-		}
-
-		private void RecordMessage(string message)
+		private void AddEntry(LogEntry entry)
 		{
 			lock (this.disposeLock)
 			{
@@ -94,18 +103,40 @@ namespace VidCoder.Services
 
 			lock (this.logLock)
 			{
-				this.logBuilder.Append(message);
-				this.logBuilder.Append(Environment.NewLine);
+				this.LogEntries.Add(entry);
 			}
 
-			var logWindow = WindowManager.FindWindow(typeof(LogViewModel)) as LogViewModel;
-			if (logWindow != null)
+			if (this.EntryLogged != null)
 			{
-				logWindow.RefreshLogs();
+				this.EntryLogged(this, new EventArgs<LogEntry>(entry));
 			}
 
-			this.logFile.WriteLine(message);
+			this.logFile.WriteLine(entry.Text);
 			this.logFile.Flush();
+		}
+
+		private void OnMessageLogged(object sender, MessageLoggedEventArgs e)
+		{
+			var entry = new LogEntry
+			{
+				LogType = LogType.Message,
+				Source = LogSource.HandBrake,
+				Text = e.Message
+			};
+
+			this.AddEntry(entry);
+		}
+
+		private void OnErrorLogged(object sender, MessageLoggedEventArgs e)
+		{
+			var entry = new LogEntry
+			{
+				LogType = LogType.Error,
+				Source = LogSource.HandBrake,
+				Text = "ERROR: " + e.Message
+			};
+
+			this.AddEntry(entry);
 		}
 	}
 }

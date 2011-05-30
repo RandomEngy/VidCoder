@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Microsoft.Practices.Unity;
+using VidCoder.Model;
 using VidCoder.Services;
 
 namespace VidCoder.ViewModel
@@ -23,14 +24,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public string LogText
-		{
-			get
-			{
-				return this.logger.LogText;
-			}
-		}
-
 		public ICommand ClearLogCommand
 		{
 			get
@@ -46,11 +39,6 @@ namespace VidCoder.ViewModel
 
 				return this.clearLogCommand;
 			}
-		}
-
-		public void RefreshLogs()
-		{
-			this.NotifyPropertyChanged("LogText");
 		}
 	}
 }

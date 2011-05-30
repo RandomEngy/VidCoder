@@ -390,7 +390,7 @@
 						Orientation="Horizontal"
 						Visibility="{Binding SourcePicked, Converter={StaticResource VisibilityConverter}}">
 						<TextBlock Text="Source:" Style="{StaticResource SectionHeader}" />
-						<Image Source="{Binding SourceIcon}" Width="16" Height="16" Margin="4,2,0,2" />
+						<Image Source="{Binding SourceIcon}" Width="16" Height="16" Margin="4,2,0,2" VerticalAlignment="Top" HorizontalAlignment="Left" />
 						<TextBlock Text="{Binding SourceText}" Style="{StaticResource SourceDescription}" Margin="4,4,4,3" />
 						<Polygon
 							VerticalAlignment="Center"
@@ -563,7 +563,7 @@
 						Grid.Row="1" Grid.Column="0"
 						HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,9,10,0" />
 					<StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-						<ItemsControl Grid.Row="1" Grid.Column="1" ItemsSource="{Binding AudioChoices}" MinHeight="31" MaxHeight="58" HorizontalAlignment="Left" Style="{StaticResource RightGridItem}">
+						<ItemsControl Grid.Row="1" Grid.Column="1" ItemsSource="{Binding AudioChoices}" MinWidth="210" MinHeight="31" MaxHeight="58" HorizontalAlignment="Left" Style="{StaticResource RightGridItem}">
 							<ItemsControl.ItemTemplate>
 								<DataTemplate>
 									<StackPanel Orientation="Horizontal">

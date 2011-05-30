@@ -76,6 +76,17 @@ namespace HandBrake.Interop
 		{
 			if (!string.IsNullOrEmpty(message))
 			{
+				// This error happens in normal operations. Log it as a message.
+				if (message == "dvd: ifoOpen failed")
+				{
+					if (MessageLogged != null)
+					{
+						MessageLogged(null, new MessageLoggedEventArgs { Message = message });
+					}
+
+					return;
+				}
+
 				if (ErrorLogged != null)
 				{
 					ErrorLogged(null, new MessageLoggedEventArgs { Message = message });

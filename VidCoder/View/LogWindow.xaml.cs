@@ -10,7 +10,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Practices.Unity;
+using VidCoder.Model;
 using VidCoder.Properties;
+using VidCoder.Services;
 
 namespace VidCoder.View
 {
@@ -19,15 +22,32 @@ namespace VidCoder.View
 	/// </summary>
 	public partial class LogWindow : Window
 	{
+		private ILogger logger = Unity.Container.Resolve<ILogger>();
+
 		public LogWindow()
 		{
 			InitializeComponent();
+
+			// Add all existing log entries
+			foreach (LogEntry entry in this.logger.LogEntries)
+			{
+				this.AddEntry(entry);
+			}
+
+			this.Loaded += (sender, e) =>
+			{
+				this.logTextBox.ScrollToEnd();
+			};
+
+			// Subscribe to events
+			this.logger.EntryLogged += OnEntryLogged;
+			this.logger.Cleared += OnCleared;
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			this.SetPlacement(Properties.Settings.Default.LogWindowPlacement);
+			this.SetPlacement(Settings.Default.LogWindowPlacement);
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -36,9 +56,37 @@ namespace VidCoder.View
 			Settings.Default.Save();
 		}
 
-		private void logTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		private void OnEntryLogged(object sender, EventArgs<LogEntry> e)
 		{
-			this.logTextBox.ScrollToEnd();
+			this.Dispatcher.BeginInvoke(new Action(() =>
+			{
+				this.AddEntry(e.Value);
+				this.logTextBox.ScrollToEnd();
+			}));
+		}
+
+		private void OnCleared(object sender, EventArgs e)
+		{
+			this.Dispatcher.BeginInvoke(new Action(() =>
+			{
+				this.logDocument.Blocks.Clear();
+			}));
+		}
+
+		private void AddEntry(LogEntry entry)
+		{
+			var run = new Run(entry.Text);
+
+			if (entry.LogType == LogType.Error)
+			{
+				run.Foreground = new SolidColorBrush(Colors.Red);
+			}
+			else if (entry.Source == LogSource.VidCoder)
+			{
+				run.Foreground = new SolidColorBrush(Colors.DarkBlue);
+			}
+
+			this.logDocument.Blocks.Add(new Paragraph(run));
 		}
 	}
 }
