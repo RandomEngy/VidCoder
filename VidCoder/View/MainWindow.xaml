@@ -562,29 +562,32 @@
 						Style="{StaticResource EmphasizedTitle}"
 						Grid.Row="1" Grid.Column="0"
 						HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,9,10,0" />
-					<ItemsControl Grid.Row="1" Grid.Column="1" ItemsSource="{Binding AudioChoices}" Width="220" MinHeight="31" MaxHeight="58" HorizontalAlignment="Left" Style="{StaticResource RightGridItem}">
-						<ItemsControl.ItemTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Horizontal">
-									<ComboBox ItemsSource="{Binding MainViewModel.InputTracks}" SelectedIndex="{Binding SelectedIndex}" Width="180" Margin="2" />
-									<Button Command="{Binding RemoveChoice}" Height="23" Margin="2" Style="{StaticResource RemoveButtonStyle}">Remove audio track</Button>
-								</StackPanel>
-							</DataTemplate>
-						</ItemsControl.ItemTemplate>
-						<ItemsControl.Template>
-							<ControlTemplate>
-								<ScrollViewer Margin="0" Focusable="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-									<StackPanel Orientation="Vertical" Margin="2" IsItemsHost="True" />
-								</ScrollViewer>
-							</ControlTemplate>
-						</ItemsControl.Template>
-					</ItemsControl>
-					<Button Command="{Binding AddTrackCommand}" Grid.Column="1" Grid.Row="1"  Margin="230.433,7,0,0" Name="button1" HorizontalAlignment="Left" Width="74.92" Height="23" VerticalAlignment="Top">
-						<StackPanel Orientation="Horizontal">
-							<Polygon Style="{StaticResource PlusSign}" />
-							<TextBlock Text="Add Track" />
-						</StackPanel>
-					</Button>
+					<StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+						<ItemsControl Grid.Row="1" Grid.Column="1" ItemsSource="{Binding AudioChoices}" MinHeight="31" MaxHeight="58" HorizontalAlignment="Left" Style="{StaticResource RightGridItem}">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<StackPanel Orientation="Horizontal">
+										<ComboBox ItemsSource="{Binding MainViewModel.InputTracks}" SelectedIndex="{Binding SelectedIndex}" MinWidth="180" Margin="2" />
+										<Button Command="{Binding RemoveChoice}" Height="23" Margin="2" Style="{StaticResource RemoveButtonStyle}">Remove audio track</Button>
+									</StackPanel>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+							<ItemsControl.Template>
+								<ControlTemplate>
+									<ScrollViewer Margin="0" Focusable="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+										<StackPanel Orientation="Vertical" Margin="2" IsItemsHost="True" />
+									</ScrollViewer>
+								</ControlTemplate>
+							</ItemsControl.Template>
+						</ItemsControl>
+						<Button Command="{Binding AddTrackCommand}" Grid.Column="1" Grid.Row="1"  Margin="5,7,0,0" Name="button1" HorizontalAlignment="Left" Width="74.92" Height="23" VerticalAlignment="Top">
+							<StackPanel Orientation="Horizontal">
+								<Polygon Style="{StaticResource PlusSign}" />
+								<TextBlock Text="Add Track" />
+							</StackPanel>
+						</Button>
+					</StackPanel>
+
 
 					<TextBlock
 						HorizontalAlignment="Right" Margin="0,0,10,0"
