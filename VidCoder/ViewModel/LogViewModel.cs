@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Unity;
 using VidCoder.Model;
@@ -15,6 +16,7 @@ namespace VidCoder.ViewModel
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
 
 		private ICommand clearLogCommand;
+		private ICommand copyCommand;
 
 		public MainViewModel MainViewModel
 		{
@@ -38,6 +40,32 @@ namespace VidCoder.ViewModel
 				}
 
 				return this.clearLogCommand;
+			}
+		}
+
+		public ICommand CopyCommand
+		{
+			get
+			{
+				if (this.copyCommand == null)
+				{
+					this.copyCommand = new RelayCommand(param =>
+					{
+						lock (this.logger.LogLock)
+						{
+							var logTextBuilder = new StringBuilder();
+
+							foreach (LogEntry entry in this.logger.LogEntries)
+							{
+								logTextBuilder.AppendLine(entry.Text);
+							}
+
+							Clipboard.SetText(logTextBuilder.ToString());
+						}
+					});
+				}
+
+				return this.copyCommand;
 			}
 		}
 	}

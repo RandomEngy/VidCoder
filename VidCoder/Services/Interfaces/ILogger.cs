@@ -8,6 +8,8 @@ namespace VidCoder.Services
 	{
 		void ClearLog();
 		void Log(string message);
+		void LogError(string message);
+		object LogLock { get; }
 		List<LogEntry> LogEntries { get; }
 
 		event EventHandler<EventArgs<LogEntry>> EntryLogged;

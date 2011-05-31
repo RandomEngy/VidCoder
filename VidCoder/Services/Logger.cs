@@ -44,6 +44,14 @@ namespace VidCoder.Services
 			this.AddEntry(initialEntry);
 		}
 
+		public object LogLock
+		{
+			get
+			{
+				return logLock;
+			}
+		}
+
 		public List<LogEntry> LogEntries
 		{
 			get
@@ -66,9 +74,24 @@ namespace VidCoder.Services
 			this.AddEntry(entry);
 		}
 
+		public void LogError(string message)
+		{
+			var entry = new LogEntry
+			{
+				LogType = LogType.Error,
+				Source = LogSource.VidCoder,
+				Text = "# " + message
+			};
+
+			this.AddEntry(entry);
+		}
+
 		public void ClearLog()
 		{
-			this.LogEntries.Clear();
+			lock (this.LogLock)
+			{
+				this.LogEntries.Clear();
+			}
 
 			if (this.Cleared != null)
 			{
@@ -101,7 +124,7 @@ namespace VidCoder.Services
 				}
 			}
 
-			lock (this.logLock)
+			lock (this.LogLock)
 			{
 				this.LogEntries.Add(entry);
 			}

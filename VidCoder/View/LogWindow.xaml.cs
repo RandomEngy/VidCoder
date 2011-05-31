@@ -28,10 +28,13 @@ namespace VidCoder.View
 		{
 			InitializeComponent();
 
-			// Add all existing log entries
-			foreach (LogEntry entry in this.logger.LogEntries)
+			lock (this.logger.LogLock)
 			{
-				this.AddEntry(entry);
+				// Add all existing log entries
+				foreach (LogEntry entry in this.logger.LogEntries)
+				{
+					this.AddEntry(entry);
+				}
 			}
 
 			this.Loaded += (sender, e) =>
@@ -40,8 +43,8 @@ namespace VidCoder.View
 			};
 
 			// Subscribe to events
-			this.logger.EntryLogged += OnEntryLogged;
-			this.logger.Cleared += OnCleared;
+			this.logger.EntryLogged += this.OnEntryLogged;
+			this.logger.Cleared += this.OnCleared;
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)
@@ -52,6 +55,9 @@ namespace VidCoder.View
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
+			this.logger.EntryLogged -= this.OnEntryLogged;
+			this.logger.Cleared -= this.OnCleared;
+
 			Settings.Default.LogWindowPlacement = this.GetPlacement();
 			Settings.Default.Save();
 		}

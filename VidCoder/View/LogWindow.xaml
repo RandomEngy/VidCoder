@@ -3,7 +3,8 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		Title="Log" Height="393" Width="459"
 		Style="{StaticResource NormalWindow}"
-		WindowStyle="ToolWindow" ShowInTaskbar="False" Closing="Window_Closing">
+		WindowStyle="ToolWindow" ShowInTaskbar="False" Closing="Window_Closing"
+		MinWidth="220" MinHeight="95">
 	<Window.InputBindings>
 		<KeyBinding Key="N" Modifiers="Control" Command="{Binding MainViewModel.OpenEncodingWindowCommand}" />
 		<KeyBinding Key="P" Modifiers="Control" Command="{Binding MainViewModel.OpenPreviewWindowCommand}" />
@@ -23,6 +24,15 @@
 				</FlowDocument.Resources>
 			</FlowDocument>
 		</RichTextBox>
+		<Button
+			Height="24" HorizontalAlignment="Right" Margin="0,0,127,7" Name="copyButton" VerticalAlignment="Bottom" Width="68"
+			Command="{Binding CopyCommand}">
+			<StackPanel Orientation="Horizontal">
+				<Image Source="/Icons/copy.png" Width="16" Height="16" />
+				<TextBlock Text="Copy" Margin="4,0,0,0" />
+			</StackPanel>
+		</Button>
+
 		<Button
 			Content="Clear"
 			Command="{Binding ClearLogCommand}"

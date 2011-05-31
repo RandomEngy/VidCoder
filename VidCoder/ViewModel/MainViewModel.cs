@@ -82,6 +82,7 @@ namespace VidCoder.ViewModel
 		private bool encoding;
 		private bool paused;
 		private bool encodeStopped;
+		private bool errorLoggedDuringJob; // True if an error was logged during an encode (and no scan was going on at the time)
 		private int totalTasks;
 		private int taskNumber;
 		private bool encodeSpeedDetailsAvailable;
@@ -93,6 +94,7 @@ namespace VidCoder.ViewModel
 		private double completedQueueWork;
 		private double totalQueueCost;
 		private double overallEncodeProgressFraction;
+		private TimeSpan currentJobEta; // Kept around to check if the job finished early
 		private TaskbarItemProgressState encodeProgressState;
 		private ObservableCollection<EncodeResultViewModel> completedJobs;
 
@@ -203,8 +205,8 @@ namespace VidCoder.ViewModel
 				this.encodeQueue.Add(new EncodeJobViewModel(job));
 			}
 
-			this.autoPause.PauseEncoding += new EventHandler(this.AutoPauseEncoding);
-			this.autoPause.ResumeEncoding += new EventHandler(this.AutoResumeEncoding);
+			this.autoPause.PauseEncoding += this.AutoPauseEncoding;
+			this.autoPause.ResumeEncoding += this.AutoResumeEncoding;
 
 			// Always select the modified preset if it exists.
 			// Otherwise, choose the last selected preset.
@@ -222,6 +224,15 @@ namespace VidCoder.ViewModel
 			{
 				presetIndex = 0;
 			}
+
+			// Keep track of errors logged. HandBrake doesn't reliably report errors on job completion.
+			this.logger.EntryLogged += (sender, e) =>
+			{
+				if (e.Value.LogType == LogType.Error && this.Encoding && !this.ScanningSource)
+				{
+					this.errorLoggedDuringJob = true;
+				}
+			};
 
 			this.SelectedPreset = this.allPresets[presetIndex];
 
@@ -2566,6 +2577,8 @@ namespace VidCoder.ViewModel
 				}
 			}
 
+			this.currentJobEta = TimeSpan.Zero;
+			this.errorLoggedDuringJob = false;
 			this.EncodeQueue[0].ReportEncodeStart(this.totalTasks == 1);
 			this.CurrentJob.HandBrakeInstance.StartEncode(this.CurrentJob.Job);
 		}
@@ -2641,9 +2654,9 @@ namespace VidCoder.ViewModel
 
 					double currentJobRemainingWork = this.EncodeQueue[0].Cost - currentJobCompletedWork;
 
-					TimeSpan currentJobEta =
+					this.currentJobEta =
 						TimeSpan.FromSeconds(currentJobRemainingWork / overallWorkCompletionRate);
-					this.EncodeQueue[0].Eta = currentJobEta;
+					this.EncodeQueue[0].Eta = this.currentJobEta;
 				}
 			}
 
@@ -2688,17 +2701,27 @@ namespace VidCoder.ViewModel
 					if (e.Error)
 					{
 						succeeded = false;
-						this.logger.Log("Encode failed. HandBrake reported an error.");
+						this.logger.LogError("Encode failed. HandBrake reported an error.");
+					}
+					else if (this.errorLoggedDuringJob)
+					{
+						succeeded = false;
+						this.logger.LogError("Encode failed. Error(s) were reported during the encode.");
 					}
 					else if (!outputFileInfo.Exists)
 					{
 						succeeded = false;
-						this.logger.Log("Encode failed. HandBrake reported no error but the expected output file was not found.");
+						this.logger.LogError("Encode failed. HandBrake reported no error but the expected output file was not found.");
 					}
 					else if (outputFileInfo.Length == 0)
 					{
 						succeeded = false;
-						this.logger.Log("Encode failed. HandBrake reported no error but the output file was empty.");
+						this.logger.LogError("Encode failed. HandBrake reported no error but the output file was empty.");
+					}
+					else if (this.currentJobEta > TimeSpan.FromMinutes(1))
+					{
+						succeeded = false;
+						this.logger.LogError("Encode failed. HandBrake reported no error but the encode finished prematurely.");
 					}
 
 					this.CompletedJobs.Add(new EncodeResultViewModel(

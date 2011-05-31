@@ -390,7 +390,7 @@
 						Orientation="Horizontal"
 						Visibility="{Binding SourcePicked, Converter={StaticResource VisibilityConverter}}">
 						<TextBlock Text="Source:" Style="{StaticResource SectionHeader}" />
-						<Image Source="{Binding SourceIcon}" Width="16" Height="16" Margin="4,2,0,2" VerticalAlignment="Top" HorizontalAlignment="Left" />
+						<Image Source="{Binding SourceIcon}" Width="16" Height="16" Margin="3.5,1,0,0" VerticalAlignment="Center" />
 						<TextBlock Text="{Binding SourceText}" Style="{StaticResource SourceDescription}" Margin="4,4,4,3" />
 						<Polygon
 							VerticalAlignment="Center"
