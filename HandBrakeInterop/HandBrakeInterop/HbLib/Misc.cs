@@ -188,7 +188,6 @@ namespace HandBrake.Interop
 	[StructLayout(LayoutKind.Sequential)]
 	public struct hb_state_s
 	{
-
 		/// int
 		public int state;
 		public hb_state_param_u param;

@@ -731,17 +731,17 @@
 				</Grid.ColumnDefinitions>
 
 
-				<TextBlock Text="Task" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15.96" Margin="10,6,0,0" Width="26.25"
+				<TextBlock Text="Task" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15.96" Margin="10,4,0,0" Width="26.25"
 					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"/>
-				<TextBlock HorizontalAlignment="Left" Margin="38,6,0,0" VerticalAlignment="Top" Width="33"
+				<TextBlock HorizontalAlignment="Left" Margin="38,4,0,0" VerticalAlignment="Top" Width="33"
 					Text="{Binding TaskDetails}"
 					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"/>
 				<TextBlock
-					Text="ETA:" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,23,0,0"
+					Text="ETA:" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,21,0,0"
 					ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
 					Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}" />
 				<TextBlock
-					Text="{Binding EstimatedTimeRemaining}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38,23,0,0"
+					Text="{Binding EstimatedTimeRemaining}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38,21,0,0"
 					ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
 					Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
 

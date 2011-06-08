@@ -290,7 +290,7 @@
 		/// <returns>The video bitrate in kbps.</returns>
 		public int CalculateBitrate(EncodeJob job, int sizeMB, double overallSelectedLengthSeconds = 0)
 		{
-			long availableBytes = sizeMB * 1024 * 1024;
+			long availableBytes = ((long) sizeMB) * 1024 * 1024;
 
 			EncodingProfile profile = job.EncodingProfile;
 			Title title = this.GetTitle(job.Title);
