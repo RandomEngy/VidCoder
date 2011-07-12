@@ -399,7 +399,7 @@
     <Compile Include="EnumDisplayer.cs" />
     <Compile Include="EventArgs.cs" />
     <Compile Include="Model\DriveInformation.cs" />
-    <Compile Include="Model\EncodeJobs.cs" />
+    <Compile Include="Model\EncodeJobsPersist.cs" />
     <Compile Include="Model\Preset.cs" />
     <Compile Include="Model\Presets.cs" />
     <Compile Include="Services\DispatchService.cs" />

@@ -62,22 +62,22 @@
 			<Label HorizontalAlignment="Left" Margin="45,22,0,0" Name="label1" Width="47" Height="27.04" VerticalAlignment="Top">Width:</Label>
 			<controls:NumberBox
 				Height="23" HorizontalAlignment="Left" Margin="90,25,0,0" VerticalAlignment="Top" Width="60"
-				Number="{Binding Width, Mode=TwoWay}" NoneCaption="(auto)" Modulus="2" Minimum="32" Maximum="3712"
+				Number="{Binding Width, Mode=TwoWay}" NoneCaption="(auto)" Modulus="2" Minimum="46" Maximum="3712"
 				IsEnabled="{Binding WidthEnabled}"/>
 			<Label HorizontalAlignment="Left" Margin="181,22,0,0" Name="label2" Width="49.2" Height="27.04" VerticalAlignment="Top">Height:</Label>
 			<controls:NumberBox
 				Height="23" Margin="231,25,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60"
-				Number="{Binding Height, Mode=TwoWay}" NoneCaption="(auto)" Modulus="2" Minimum="32" Maximum="3712"
+				Number="{Binding Height, Mode=TwoWay}" NoneCaption="(auto)" Modulus="2" Minimum="46" Maximum="3712"
 				IsEnabled="{Binding HeightEnabled}"/>
 			<Label HorizontalAlignment="Left" Margin="20,49,0,0" Name="label3" Width="77" Height="26" VerticalAlignment="Top">Max Width:</Label>
 			<controls:NumberBox
 				HorizontalAlignment="Left" Margin="90,54,0,0" Width="60" Height="23" VerticalAlignment="Top"
-				Number="{Binding MaxWidth, Mode=TwoWay}" Modulus="2" Minimum="32"
+				Number="{Binding MaxWidth, Mode=TwoWay}" Modulus="2" Minimum="46"
 				IsEnabled="{Binding WidthEnabled}"/>
 			<Label Margin="156,49,0,0" Name="label4" Height="28.04" VerticalAlignment="Top" HorizontalAlignment="Left" Width="74.2">Max Height:</Label>
 			<controls:NumberBox
 				Margin="231,54,0,0" Height="23.04" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60"
-				Number="{Binding MaxHeight, Mode=TwoWay}" Modulus="2" Minimum="32"
+				Number="{Binding MaxHeight, Mode=TwoWay}" Modulus="2" Minimum="46"
 				IsEnabled="{Binding HeightEnabled}"/>
 
 			<CheckBox
@@ -124,7 +124,7 @@
 				ToolTip="{x:Static resx:Resources.DisplayWidthToolTip}">Display Width:</RadioButton>
 			<controls:NumberBox
 				Height="23" HorizontalAlignment="Left" Margin="155,156,0,0" VerticalAlignment="Top" Width="60" NoneCaption="(auto)"
-				Number="{Binding DisplayWidth, Mode=TwoWay}" AllowEmpty="{Binding KeepDisplayAspect}" Minimum="32"
+				Number="{Binding DisplayWidth, Mode=TwoWay}" AllowEmpty="{Binding KeepDisplayAspect}" Minimum="46"
 				Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
 				IsEnabled="{Binding UseDisplayWidth}"
 				ToolTip="{x:Static resx:Resources.DisplayWidthToolTip}"/>
