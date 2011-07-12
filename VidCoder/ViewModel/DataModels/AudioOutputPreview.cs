@@ -23,5 +23,7 @@ namespace VidCoder.ViewModel
 		public string SampleRate { get; set; }
 
 		public string Gain { get; set; }
+
+		public string Drc { get; set; }
 	}
 }

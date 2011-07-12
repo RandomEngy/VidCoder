@@ -7,7 +7,7 @@
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:resx="clr-namespace:VidCoder.Properties"
 	mc:Ignorable="d" 
-	d:DesignHeight="300" d:DesignWidth="300"
+	d:DesignHeight="300" d:DesignWidth="800"
 	DataContextChanged="OnDataContextChanged">
 	<UserControl.Resources>
 		<converters:SampleRateDisplayConverter x:Key="SampleRateDisplayConverter" />
@@ -72,7 +72,18 @@
 				ToolTip="{x:Static resx:Resources.Audio_GainToolTip}"/>
 		</DataTemplate>
 		<DataTemplate x:Key="DrcTemplate">
-
+			<controls:NumberBox
+				Width="42"
+				Number="{Binding Drc, Mode=TwoWay}"
+				AllowEmpty="False" Minimum="0" Maximum="4" Modulus="0.1"
+				Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"
+				ToolTip="{x:Static resx:Resources.Audio_DrcToolTip}"/>
+			<!--<controls:DoubleNumberBox
+				Width="32"
+				Number="{Binding Drc, Mode=TwoWay}"
+				AllowEmpty="False" Minimum="0" Maximum="4"
+				Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"
+				ToolTip="{x:Static resx:Resources.Audio_DrcToolTip}" />-->
 		</DataTemplate>
 		<DataTemplate x:Key="NameTemplate">
 			<TextBox
@@ -99,6 +110,11 @@
 							<GridViewColumn Width="55" CellTemplate="{StaticResource GainTemplate}">
 								<GridViewColumn.Header>
 									<TextBlock ToolTip="{x:Static resx:Resources.Audio_GainToolTip}">Gain (dB)</TextBlock>
+								</GridViewColumn.Header>
+							</GridViewColumn>
+							<GridViewColumn Width="35" CellTemplate="{StaticResource DrcTemplate}">
+								<GridViewColumn.Header>
+									<TextBlock ToolTip="{x:Static resx:Resources.Audio_DrcToolTip}">DRC</TextBlock>
 								</GridViewColumn.Header>
 							</GridViewColumn>
 							<!--<GridViewColumn Header="DRC" CellTemplate="{StaticResource DrcTemplate}" />-->
@@ -142,6 +158,7 @@
 												<ColumnDefinition Width="*" SharedSizeGroup="SampleRate"/>
 												<ColumnDefinition Width="*" SharedSizeGroup="Bitrate"/>
 												<ColumnDefinition Width="*" SharedSizeGroup="Gain"/>
+												<ColumnDefinition Width="*" SharedSizeGroup="Drc" />
 											</Grid.ColumnDefinitions>
 
 											<TextBlock Grid.Column="0" Text="{Binding TrackNumber}" Style="{StaticResource AudioOutputPreview}"/>
@@ -151,6 +168,7 @@
 											<TextBlock Grid.Column="4" Text="{Binding SampleRate}" Style="{StaticResource AudioOutputPreview}"/>
 											<TextBlock Grid.Column="5" Text="{Binding Bitrate}" Style="{StaticResource AudioOutputPreview}"/>
 											<TextBlock Grid.Column="6" Text="{Binding Gain}" Style="{StaticResource AudioOutputPreview}"/>
+											<TextBlock Grid.Column="7" Text="{Binding Drc}" Style="{StaticResource AudioOutputPreview}"/>
 										</Grid>
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>

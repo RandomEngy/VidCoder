@@ -21,8 +21,8 @@ namespace VidCoder.Controls
 		public NumberBox()
 		{
 			this.noneCaption = "(none)";
-			this.Minimum = int.MinValue;
-			this.Maximum = int.MaxValue;
+			this.Minimum = double.MinValue;
+			this.Maximum = double.MaxValue;
 			this.UpdateBindingOnTextChange = true;
 			this.ShowIncrementButtons = true;
 			this.SelectAllOnClick = true;
@@ -42,14 +42,14 @@ namespace VidCoder.Controls
 
 		public static readonly DependencyProperty NumberProperty = DependencyProperty.Register(
 			"Number",
-			typeof(int),
+			typeof(double),
 			typeof(NumberBox),
-			new PropertyMetadata(new PropertyChangedCallback(OnNumberChanged)));
-		public int Number
+			new PropertyMetadata(OnNumberChanged));
+		public double Number
 		{
 			get
 			{
-				return (int)GetValue(NumberProperty);
+				return (double)GetValue(NumberProperty);
 			}
 
 			set
@@ -58,10 +58,10 @@ namespace VidCoder.Controls
 			}
 		}
 
-		public int Modulus { get; set; }
+		public double Modulus { get; set; }
 
-		public int Minimum { get; set; }
-		public int Maximum { get; set; }
+		public double Minimum { get; set; }
+		public double Maximum { get; set; }
 
 		public bool UpdateBindingOnTextChange { get; set; }
 
@@ -120,7 +120,7 @@ namespace VidCoder.Controls
 			numBox.RefreshNumberBox();
 		}
 
-		private int Increment
+		private double Increment
 		{
 			get
 			{
@@ -181,7 +181,7 @@ namespace VidCoder.Controls
 
 		private void IncrementNumber()
 		{
-			int newNumber;
+			double newNumber;
 			if (this.AllowEmpty && this.Number == 0)
 			{
 				newNumber = Math.Max(this.Minimum, this.Increment);
@@ -204,7 +204,7 @@ namespace VidCoder.Controls
 
 		private void DecrementNumber()
 		{
-			int newNumber;
+			double newNumber;
 			if (this.AllowEmpty && this.Number == 0)
 			{
 				newNumber = Math.Min(this.Maximum, -this.Increment);
@@ -244,7 +244,7 @@ namespace VidCoder.Controls
 		{
 			foreach (char c in e.Text)
 			{
-				if (!char.IsNumber(c) && (this.Minimum >= 0 || c != '-'))
+				if (!char.IsNumber(c) && c != '.' && (this.Minimum >= 0 || c != '-'))
 				{
 					e.Handled = true;
 					return;
@@ -284,8 +284,8 @@ namespace VidCoder.Controls
 
 		private void UpdateNumberBindingFromBox()
 		{
-			int newNumber;
-			if (int.TryParse(this.numberBox.Text, out newNumber))
+			double newNumber;
+			if (double.TryParse(this.numberBox.Text, out newNumber))
 			{
 				if (this.NumberIsValid(newNumber))
 				{
@@ -302,14 +302,14 @@ namespace VidCoder.Controls
 			}
 		}
 
-		private bool NumberIsValid(int number)
+		private bool NumberIsValid(double number)
 		{
 			return number >= this.Minimum && number <= this.Maximum;
 		}
 
-		private int GetNearestValue(int number, int modulus)
+		private double GetNearestValue(double number, double modulus)
 		{
-			int remainder = number % modulus;
+			double remainder = number % modulus;
 
 			if (remainder == 0)
 			{

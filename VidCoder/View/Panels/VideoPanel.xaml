@@ -126,14 +126,14 @@
 				</RadioButton.ToolTip>
 				Constant Quality
 			</RadioButton>
-			<controls:DoubleNumberBox
+			<controls:NumberBox
 				Height="23" HorizontalAlignment="Left" Margin="146,94,0,0" VerticalAlignment="Top" Width="49"
-				Number="{Binding Quality, Mode=TwoWay}" Minimum="0" Maximum="51"
+				Number="{Binding Quality, Mode=TwoWay}" Minimum="0" Maximum="51" Modulus="0.1"
 				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}">
-				<controls:DoubleNumberBox.ToolTip>
+				<controls:NumberBox.ToolTip>
 					<TextBlock Text="{x:Static resx:Resources.Video_QualityTargetToolTip}" Style="{StaticResource LargeToolTip}" />
-				</controls:DoubleNumberBox.ToolTip>
-			</controls:DoubleNumberBox>
+				</controls:NumberBox.ToolTip>
+			</controls:NumberBox>
 			<Slider
 				Height="22" Margin="20,121,6,0" VerticalAlignment="Top"
 				TickPlacement="BottomRight" Minimum="{Binding QualitySliderMin}" Maximum="{Binding QualitySliderMax}" TickFrequency="1" IsSnapToTickEnabled="True"

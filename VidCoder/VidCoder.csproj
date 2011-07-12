@@ -162,12 +162,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Controls\DoubleNumberBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Controls\InlineWarning.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -376,9 +370,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="Controls\DoubleNumberBox.xaml.cs">
-      <DependentUpon>DoubleNumberBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\InlineWarning.xaml.cs">
       <DependentUpon>InlineWarning.xaml</DependentUpon>
     </Compile>

@@ -141,7 +141,8 @@ namespace VidCoder.ViewModel
 						Mixdown = "Channel Layout",
 						SampleRate = "Sample Rate",
 						Bitrate = "Bitrate",
-						Gain = "Gain"
+						Gain = "Gain",
+						Drc = "DRC"
 					});
 				}
 
@@ -208,6 +209,7 @@ namespace VidCoder.ViewModel
 			outputPreviewTrack.Bitrate = previewBitrate + " kbps";
 
 			outputPreviewTrack.Gain = string.Format("{0}{1} dB", audioVM.Gain > 0 ? "+" : string.Empty, audioVM.Gain);
+			outputPreviewTrack.Drc = audioVM.Drc.ToString();
 
 			return outputPreviewTrack;
 		}

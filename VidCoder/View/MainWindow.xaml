@@ -526,16 +526,18 @@
 							<StackPanel
 								Orientation="Horizontal"
 								Visibility="{Binding SecondsRangeVisible, Converter={StaticResource VisibilityConverter}}">
-								<controls:DoubleNumberBox
+								<controls:NumberBox
 									Width="55"
 									Style="{StaticResource RangeNumberBox}"
-									AllowEmpty="False" UpdateBindingOnTextChange="False" Minimum="0"
+									AllowEmpty="False" UpdateBindingOnTextChange="False" Minimum="0" Modulus="0.001"
+									ShowIncrementButtons="False" SelectAllOnClick="False"
 									Number="{Binding SecondsRangeStart, Mode=TwoWay}"/>
 								<TextBlock Text="-" Style="{StaticResource PlainTitle}" />
-								<controls:DoubleNumberBox
+								<controls:NumberBox
 									Width="55"
 									Style="{StaticResource RangeNumberBox}"
-									AllowEmpty="False" UpdateBindingOnTextChange="False" Minimum="0.25"
+									AllowEmpty="False" UpdateBindingOnTextChange="False" Minimum="0.25" Modulus="0.001"
+									ShowIncrementButtons="False" SelectAllOnClick="False"
 									Number="{Binding SecondsRangeEnd, Mode=TwoWay}"/>
 							</StackPanel>
 							<StackPanel
