@@ -2718,11 +2718,6 @@ namespace VidCoder.ViewModel
 						succeeded = false;
 						this.logger.LogError("Encode failed. HandBrake reported no error but the output file was empty.");
 					}
-					else if (this.currentJobEta > TimeSpan.FromMinutes(1))
-					{
-						succeeded = false;
-						this.logger.LogError("Encode failed. HandBrake reported no error but the encode finished prematurely.");
-					}
 
 					this.CompletedJobs.Add(new EncodeResultViewModel(
 						new EncodeResult
