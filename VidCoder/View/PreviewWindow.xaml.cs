@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using VidCoder.Properties;
+using VidCoder.Services;
 using VidCoder.ViewModel;
 using Microsoft.Practices.Unity;
 
@@ -35,8 +36,18 @@ namespace VidCoder.View
 
 			// Get system DPI
 			Matrix m = PresentationSource.FromVisual(Application.Current.MainWindow).CompositionTarget.TransformToDevice;
-			this.dpiXFactor = m.M11;
-			this.dpiYFactor = m.M22;
+			if (m.M11 > 0 && m.M22 > 0)
+			{
+				this.dpiXFactor = m.M11;
+				this.dpiYFactor = m.M22;
+			}
+			else
+			{
+				// Sometimes this can return a matrix with 0s. Fall back to assuming normal DPI in this case.
+				Unity.Container.Resolve<ILogger>().Log("Could not read DPI. Assuming default DPI.");
+				this.dpiXFactor = 1;
+				this.dpiYFactor = 1;
+			}
 
 			this.previewControls.Opacity = 0.0;
 			this.DataContextChanged += new DependencyPropertyChangedEventHandler(PreviewWindow_DataContextChanged);
