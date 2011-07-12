@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using HandBrake.SourceData;
+using HandBrake.Interop.SourceData;
 using System.Collections.ObjectModel;
 using VidCoder.Properties;
 

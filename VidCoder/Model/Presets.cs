@@ -11,6 +11,7 @@ using System.Xml.Linq;
 using System.Threading;
 using System.Globalization;
 using HandBrake.Interop;
+using HandBrake.Interop.Model.Encoding;
 
 namespace VidCoder.Model
 {

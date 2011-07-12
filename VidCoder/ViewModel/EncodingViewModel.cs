@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HandBrake.Interop.Model.Encoding;
+using HandBrake.Interop.SourceData;
 using VidCoder.Model;
-using HandBrake.SourceData;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using VidCoder.Services;

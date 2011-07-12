@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
-using VidCoder.Model;
-using HandBrake.SourceData;
+using HandBrake.Interop.Model;
+using HandBrake.Interop.Model.Encoding;
+using HandBrake.Interop.SourceData;
 using System.IO;
-using HandBrake.Interop;
 using Microsoft.Practices.Unity;
 using VidCoder.Services;
 

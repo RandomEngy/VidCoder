@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using HandBrake.Interop;
-using HandBrake.SourceData;
+using HandBrake.Interop.Model.Encoding;
+using HandBrake.Interop.SourceData;
 
 namespace VidCoder.ViewModel
 {

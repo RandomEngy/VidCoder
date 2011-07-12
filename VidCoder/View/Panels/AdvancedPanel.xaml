@@ -12,13 +12,6 @@
 		<Style x:Key="AdvancedLabel" TargetType="Label">
 			<Setter Property="HorizontalAlignment" Value="Right" />
 		</Style>
-		<Style x:Key="AdvancedToolTip" TargetType="TextBlock">
-			<Setter Property="Width" Value="400" />
-			<Setter Property="TextWrapping" Value="Wrap" />
-		</Style>
-		<Style x:Key="AdvancedToolTipHolder" TargetType="FrameworkElement">
-			<Setter Property="ToolTipService.ShowDuration" Value="20000" />
-		</Style>
 	</UserControl.Resources>
     <Grid>
 		<TextBlock Height="21" Width="162" HorizontalAlignment="Left" Margin="6,3,0,0" VerticalAlignment="Top" Text="Encoding" Style="{StaticResource SectionHeader}" />
@@ -46,9 +39,9 @@
 				ItemsSource="{x:Static vm:AdvancedChoices.ReferenceFrames}"
 				DisplayMemberPath="Label"
 				SelectedItem="{Binding ReferenceFrames}"
-				Style="{StaticResource AdvancedToolTipHolder}">
+				Style="{StaticResource LongToolTipHolder}">
 				<ComboBox.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Advanced_ReferenceFramesToolTip}" Style="{StaticResource AdvancedToolTip}" />
+					<TextBlock Text="{x:Static resx:Resources.Advanced_ReferenceFramesToolTip}" Style="{StaticResource LongToolTip}" />
 				</ComboBox.ToolTip>
 			</ComboBox>
 
@@ -60,9 +53,9 @@
 							ItemsSource="{x:Static vm:AdvancedChoices.BFrames}"
 							DisplayMemberPath="Label"
 							SelectedItem="{Binding BFrames}"
-							Style="{StaticResource AdvancedToolTipHolder}">
+							Style="{StaticResource LongToolTipHolder}">
 				<ComboBox.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Advanced_BFramesToolTip}" Style="{StaticResource AdvancedToolTip}" />
+					<TextBlock Text="{x:Static resx:Resources.Advanced_BFramesToolTip}" Style="{StaticResource LongToolTip}" />
 				</ComboBox.ToolTip>
 			</ComboBox>
 
@@ -74,9 +67,9 @@
 			<CheckBox
 							Height="16" Grid.Row="4" Grid.Column="1"
 							IsChecked="{Binding CabacEntropyCoding}"
-							Style="{StaticResource AdvancedToolTipHolder}">
+							Style="{StaticResource LongToolTipHolder}">
 				<CheckBox.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Advanced_CabacToolTip}" Style="{StaticResource AdvancedToolTip}" />
+					<TextBlock Text="{x:Static resx:Resources.Advanced_CabacToolTip}" Style="{StaticResource LongToolTip}" />
 				</CheckBox.ToolTip>
 			</CheckBox>
 
@@ -88,9 +81,9 @@
 							Height="16" Grid.Row="5" Grid.Column="1"
 							IsChecked="{Binding EightByEightDct}"
 							Visibility="{Binding EightByEightDctVisible, Converter={StaticResource VisibilityConverter}}"
-							Style="{StaticResource AdvancedToolTipHolder}">
+							Style="{StaticResource LongToolTipHolder}">
 				<CheckBox.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Advanced_EightByEightDctToolTip}" Style="{StaticResource AdvancedToolTip}" />
+					<TextBlock Text="{x:Static resx:Resources.Advanced_EightByEightDctToolTip}" Style="{StaticResource LongToolTip}" />
 				</CheckBox.ToolTip>
 			</CheckBox>
 
@@ -100,9 +93,9 @@
 			<CheckBox
 							Grid.Row="6" Grid.Column="1" VerticalAlignment="Center"
 							IsChecked="{Binding WeightedPFrames}"
-							Style="{StaticResource AdvancedToolTipHolder}">
+							Style="{StaticResource LongToolTipHolder}">
 				<CheckBox.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Advanced_WeightPToolTip}" Style="{StaticResource AdvancedToolTip}" />
+					<TextBlock Text="{x:Static resx:Resources.Advanced_WeightPToolTip}" Style="{StaticResource LongToolTip}" />
 				</CheckBox.ToolTip>
 			</CheckBox>
 
@@ -116,9 +109,9 @@
 							DisplayMemberPath="Label"
 							SelectedItem="{Binding PyramidalBFrames}"
 							Visibility="{Binding PyramidalBFramesVisible, Converter={StaticResource VisibilityConverter}}"
-							Style="{StaticResource AdvancedToolTipHolder}">
+							Style="{StaticResource LongToolTipHolder}">
 				<ComboBox.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Advanced_PyramidalBFramesToolTip}" Style="{StaticResource AdvancedToolTip}" />
+					<TextBlock Text="{x:Static resx:Resources.Advanced_PyramidalBFramesToolTip}" Style="{StaticResource LongToolTip}" />
 				</ComboBox.ToolTip>
 			</ComboBox>
 		</Grid>
@@ -130,9 +123,9 @@
 		<CheckBox
 						VerticalAlignment="Top" Margin="142,216,0,0" HorizontalAlignment="Left"
 						IsChecked="{Binding NoDctDecimate}"
-						Style="{StaticResource AdvancedToolTipHolder}">
+						Style="{StaticResource LongToolTipHolder}">
 			<CheckBox.ToolTip>
-				<TextBlock Text="{x:Static resx:Resources.Advanced_NoDctDecimateToolTip}" Style="{StaticResource AdvancedToolTip}" />
+				<TextBlock Text="{x:Static resx:Resources.Advanced_NoDctDecimateToolTip}" Style="{StaticResource LongToolTip}" />
 			</CheckBox.ToolTip>
 		</CheckBox>
 
@@ -160,9 +153,9 @@
 							DisplayMemberPath="Label"
 							SelectedItem="{Binding AdaptiveBFrames}"
 							Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"
-							Style="{StaticResource AdvancedToolTipHolder}">
+							Style="{StaticResource LongToolTipHolder}">
 				<ComboBox.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Advanced_AdaptiveBFramesToolTip}" Style="{StaticResource AdvancedToolTip}" />
+					<TextBlock Text="{x:Static resx:Resources.Advanced_AdaptiveBFramesToolTip}" Style="{StaticResource LongToolTip}" />
 				</ComboBox.ToolTip>
 			</ComboBox>
 
@@ -176,9 +169,9 @@
 							DisplayMemberPath="Label"
 							SelectedItem="{Binding DirectPrediction}"
 							Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"
-							Style="{StaticResource AdvancedToolTipHolder}">
+							Style="{StaticResource LongToolTipHolder}">
 				<ComboBox.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Advanced_AdaptiveDirectModeToolTip}" Style="{StaticResource AdvancedToolTip}" />
+					<TextBlock Text="{x:Static resx:Resources.Advanced_AdaptiveDirectModeToolTip}" Style="{StaticResource LongToolTip}" />
 				</ComboBox.ToolTip>
 			</ComboBox>
 
@@ -190,9 +183,9 @@
 							ItemsSource="{x:Static vm:AdvancedChoices.MotionEstimationMethod}"
 							DisplayMemberPath="Label"
 							SelectedItem="{Binding MotionEstimationMethod}"
-							Style="{StaticResource AdvancedToolTipHolder}">
+							Style="{StaticResource LongToolTipHolder}">
 				<ComboBox.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Advanced_MotionEstimationMethodToolTip}" Style="{StaticResource AdvancedToolTip}" />
+					<TextBlock Text="{x:Static resx:Resources.Advanced_MotionEstimationMethodToolTip}" Style="{StaticResource LongToolTip}" />
 				</ComboBox.ToolTip>
 			</ComboBox>
 
@@ -204,9 +197,9 @@
 				ItemsSource="{x:Static vm:AdvancedChoices.SubpixelMotionEstimation}"
 				DisplayMemberPath="Label"
 				SelectedItem="{Binding SubpixelMotionEstimation}"
-				Style="{StaticResource AdvancedToolTipHolder}">
+				Style="{StaticResource LongToolTipHolder}">
 				<ComboBox.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Advanced_SubpixelMotionEstimationToolTip}" Style="{StaticResource AdvancedToolTip}" />
+					<TextBlock Text="{x:Static resx:Resources.Advanced_SubpixelMotionEstimationToolTip}" Style="{StaticResource LongToolTip}" />
 				</ComboBox.ToolTip>
 			</ComboBox>
 
@@ -220,9 +213,9 @@
 				DisplayMemberPath="Label"
 				SelectedItem="{Binding MotionEstimationRange}"
 				Visibility="{Binding MotionEstimationRangeVisible, Converter={StaticResource VisibilityConverter}}"
-				Style="{StaticResource AdvancedToolTipHolder}">
+				Style="{StaticResource LongToolTipHolder}">
 				<ComboBox.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Advanced_MotionEstimationRangeToolTip}" Style="{StaticResource AdvancedToolTip}" />
+					<TextBlock Text="{x:Static resx:Resources.Advanced_MotionEstimationRangeToolTip}" Style="{StaticResource LongToolTip}" />
 				</ComboBox.ToolTip>
 			</ComboBox>
 		</Grid>
@@ -233,9 +226,9 @@
 						ItemsSource="{x:Static vm:AdvancedChoices.Analysis}"
 						DisplayMemberPath="Label"
 						SelectedItem="{Binding Analysis}"
-						Style="{StaticResource AdvancedToolTipHolder}">
+						Style="{StaticResource LongToolTipHolder}">
 			<ComboBox.ToolTip>
-				<TextBlock Text="{x:Static resx:Resources.Advanced_AnalysisToolTip}" Style="{StaticResource AdvancedToolTip}" />
+				<TextBlock Text="{x:Static resx:Resources.Advanced_AnalysisToolTip}" Style="{StaticResource LongToolTip}" />
 			</ComboBox.ToolTip>
 		</ComboBox>
 
@@ -246,9 +239,9 @@
 						ItemsSource="{x:Static vm:AdvancedChoices.Trellis}"
 						DisplayMemberPath="Label"
 						SelectedItem="{Binding Trellis}"
-						Style="{StaticResource AdvancedToolTipHolder}">
+						Style="{StaticResource LongToolTipHolder}">
 			<ComboBox.ToolTip>
-				<TextBlock Text="{x:Static resx:Resources.Advanced_TrellisToolTip}" Style="{StaticResource AdvancedToolTip}" />
+				<TextBlock Text="{x:Static resx:Resources.Advanced_TrellisToolTip}" Style="{StaticResource LongToolTip}" />
 			</ComboBox.ToolTip>
 		</ComboBox>
 
@@ -269,9 +262,9 @@
 							Grid.Row="0" Grid.Column="1"
 							Minimum="0.0" Maximum="2.0" TickPlacement="BottomRight" TickFrequency="0.1" SmallChange="0.1" LargeChange="0.2" IsSnapToTickEnabled="True"
 							Value="{Binding AdaptiveQuantizationStrength}"
-							Style="{StaticResource AdvancedToolTipHolder}">
+							Style="{StaticResource LongToolTipHolder}">
 				<Slider.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Advanced_AdaptiveQuantizationStrengthToolTip}" Style="{StaticResource AdvancedToolTip}" />
+					<TextBlock Text="{x:Static resx:Resources.Advanced_AdaptiveQuantizationStrengthToolTip}" Style="{StaticResource LongToolTip}" />
 				</Slider.ToolTip>
 			</Slider>
 
@@ -282,9 +275,9 @@
 							Grid.Row="1" Grid.Column="1"
 							Minimum="0.0" Maximum="2.0" TickPlacement="BottomRight" TickFrequency="0.1" SmallChange="0.1" LargeChange="0.2" IsSnapToTickEnabled="True"
 							Value="{Binding PsychovisualRateDistortion}"
-							Style="{StaticResource AdvancedToolTipHolder}">
+							Style="{StaticResource LongToolTipHolder}">
 				<Slider.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Advanced_PsychovisualRateDistortionToolTip}" Style="{StaticResource AdvancedToolTip}" />
+					<TextBlock Text="{x:Static resx:Resources.Advanced_PsychovisualRateDistortionToolTip}" Style="{StaticResource LongToolTip}" />
 				</Slider.ToolTip>
 			</Slider>
 
@@ -297,9 +290,9 @@
 				Minimum="0.0" Maximum="1.0" TickPlacement="BottomRight" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.2" IsSnapToTickEnabled="True"
 				Value="{Binding PsychovisualTrellis}"
 				Visibility="{Binding PsychovisualTrellisVisible, Converter={StaticResource VisibilityConverter}}"
-				Style="{StaticResource AdvancedToolTipHolder}">
+				Style="{StaticResource LongToolTipHolder}">
 				<Slider.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Advanced_PsychovisualTrellisToolTip}" Style="{StaticResource AdvancedToolTip}" />
+					<TextBlock Text="{x:Static resx:Resources.Advanced_PsychovisualTrellisToolTip}" Style="{StaticResource LongToolTip}" />
 				</Slider.ToolTip>
 			</Slider>
 		</Grid>
@@ -309,9 +302,9 @@
 			ItemsSource="{x:Static vm:AdvancedChoices.DeblockingStrength}"
 			DisplayMemberPath="Label"
 			SelectedItem="{Binding DeblockingStrength}"
-			Style="{StaticResource AdvancedToolTipHolder}">
+			Style="{StaticResource LongToolTipHolder}">
 			<ComboBox.ToolTip>
-				<TextBlock Text="{x:Static resx:Resources.Advanced_DeblockingToolTip}" Style="{StaticResource AdvancedToolTip}" />
+				<TextBlock Text="{x:Static resx:Resources.Advanced_DeblockingToolTip}" Style="{StaticResource LongToolTip}" />
 			</ComboBox.ToolTip>
 		</ComboBox>
 		<ComboBox
@@ -319,9 +312,9 @@
 			ItemsSource="{x:Static vm:AdvancedChoices.DeblockingThreshold}"
 			DisplayMemberPath="Label"
 			SelectedItem="{Binding DeblockingThreshold}"
-			Style="{StaticResource AdvancedToolTipHolder}">
+			Style="{StaticResource LongToolTipHolder}">
 			<ComboBox.ToolTip>
-				<TextBlock Text="{x:Static resx:Resources.Advanced_DeblockingToolTip}" Style="{StaticResource AdvancedToolTip}" />
+				<TextBlock Text="{x:Static resx:Resources.Advanced_DeblockingToolTip}" Style="{StaticResource LongToolTip}" />
 			</ComboBox.ToolTip>
 		</ComboBox>
 

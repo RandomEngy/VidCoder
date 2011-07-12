@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using HandBrake.Interop;
+using HandBrake.Interop.Model.Encoding;
 
 namespace VidCoder.ViewModel
 {

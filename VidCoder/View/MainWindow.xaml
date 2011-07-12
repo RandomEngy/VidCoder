@@ -7,7 +7,8 @@
 	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
 	xmlns:resx="clr-namespace:VidCoder.Properties"
 	xmlns:VidCoderDragDrop="clr-namespace:VidCoder.DragDropUtils"
-	Title="VidCoder"
+        xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop"
+        xmlns:Model="clr-namespace:HandBrake.Interop.Model;assembly=HandBrakeInterop" Title="VidCoder"
 	Width="671"
 	Height="445"
 	MinWidth="617"
@@ -15,8 +16,8 @@
 	Style="{StaticResource NormalWindow}"
 	Closing="Window_Closing" AllowDrop="True" PreviewDrop="HandleDrop" PreviewDragOver="Window_PreviewDragOver" MouseDown="Window_MouseDown">
 	<Window.Resources>
-		<local:EnumDisplayer Type="{x:Type model:VideoEncoder}" x:Key="VideoEncoderChoices" />
-		<local:EnumDisplayer Type="{x:Type model:VideoRangeType}" x:Key="VideoRangeTypeChoices" />
+		<local:EnumDisplayer Type="{x:Type Encoding:VideoEncoder}" x:Key="VideoEncoderChoices" />
+		<local:EnumDisplayer Type="{x:Type Model:VideoRangeType}" x:Key="VideoRangeTypeChoices" />
 		<Color x:Key="SectionBackgroundTopColor">#F5F5F5</Color>
 		<Color x:Key="SectionBackgroundBottomColor">#EAEAEA</Color>
 		<LinearGradientBrush x:Key="SectionBackground" StartPoint="0,0" EndPoint="0,1">

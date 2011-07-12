@@ -6,10 +6,9 @@ using System.Reflection;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using HandBrake.Interop.Model.Encoding;
 using VidCoder.Services;
 using Microsoft.Practices.Unity;
-using HandBrake.Interop;
-using HandBrake.SourceData;
 
 namespace VidCoder
 {

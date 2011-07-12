@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using VidCoder.Model;
+using HandBrake.Interop.Model;
 using System.Windows.Input;
-using HandBrake.Interop;
 
 namespace VidCoder.ViewModel
 {

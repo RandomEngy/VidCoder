@@ -6,13 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
-    mc:Ignorable="d" 
+	xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop" mc:Ignorable="d" 
     d:DesignHeight="330" d:DesignWidth="622">
 	<UserControl.Resources>
-		<local:EnumDisplayer Type="{x:Type model:Detelecine}" x:Key="DetelecineChoices" />
-		<local:EnumDisplayer Type="{x:Type model:Decomb}" x:Key="DecombChoices" />
-		<local:EnumDisplayer Type="{x:Type model:Deinterlace}" x:Key="DeinterlaceChoices" />
-		<local:EnumDisplayer Type="{x:Type model:Denoise}" x:Key="DenoiseChoices" />
+		<local:EnumDisplayer Type="{x:Type Encoding:Detelecine}" x:Key="DetelecineChoices" />
+		<local:EnumDisplayer Type="{x:Type Encoding:Decomb}" x:Key="DecombChoices" />
+		<local:EnumDisplayer Type="{x:Type Encoding:Deinterlace}" x:Key="DeinterlaceChoices" />
+		<local:EnumDisplayer Type="{x:Type Encoding:Denoise}" x:Key="DenoiseChoices" />
 		<Style x:Key="NormalComboBox" TargetType="ComboBox">
 			<Setter Property="Height" Value="22" />
 			<Setter Property="Width" Value="80" />

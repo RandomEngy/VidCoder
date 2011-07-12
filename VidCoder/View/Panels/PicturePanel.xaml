@@ -8,10 +8,10 @@
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
 	xmlns:resx="clr-namespace:VidCoder.Properties"
-    mc:Ignorable="d" 
+	xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop" mc:Ignorable="d" 
     d:DesignHeight="330" d:DesignWidth="622">
 	<UserControl.Resources>
-		<local:EnumDisplayer Type="{x:Type model:Anamorphic}" x:Key="AnamorphicChoices" />
+		<local:EnumDisplayer Type="{x:Type Encoding:Anamorphic}" x:Key="AnamorphicChoices" />
 	</UserControl.Resources>
     <Grid>
 		<Grid.RowDefinitions>

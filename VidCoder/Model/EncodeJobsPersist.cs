@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Xml.Linq;
 using HandBrake.Interop;
+using HandBrake.Interop.Model;
 
 namespace VidCoder.Model
 {

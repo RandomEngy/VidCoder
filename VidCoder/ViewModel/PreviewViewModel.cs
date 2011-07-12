@@ -6,6 +6,8 @@ using HandBrake.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Input;
+using HandBrake.Interop.Model;
+using HandBrake.Interop.Model.Encoding;
 using VidCoder.Properties;
 using System.IO;
 using Microsoft.Practices.Unity;

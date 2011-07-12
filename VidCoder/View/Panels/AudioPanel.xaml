@@ -77,13 +77,11 @@
 				Number="{Binding Drc, Mode=TwoWay}"
 				AllowEmpty="False" Minimum="0" Maximum="4" Modulus="0.1"
 				Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"
-				ToolTip="{x:Static resx:Resources.Audio_DrcToolTip}"/>
-			<!--<controls:DoubleNumberBox
-				Width="32"
-				Number="{Binding Drc, Mode=TwoWay}"
-				AllowEmpty="False" Minimum="0" Maximum="4"
-				Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"
-				ToolTip="{x:Static resx:Resources.Audio_DrcToolTip}" />-->
+				Style="{StaticResource LongToolTipHolder}">
+				<controls:NumberBox.ToolTip>
+					<TextBlock Text="{x:Static resx:Resources.Audio_DrcToolTip}" Style="{StaticResource LongToolTip}" />
+				</controls:NumberBox.ToolTip>
+			</controls:NumberBox>
 		</DataTemplate>
 		<DataTemplate x:Key="NameTemplate">
 			<TextBox
@@ -114,7 +112,13 @@
 							</GridViewColumn>
 							<GridViewColumn Width="35" CellTemplate="{StaticResource DrcTemplate}">
 								<GridViewColumn.Header>
-									<TextBlock ToolTip="{x:Static resx:Resources.Audio_DrcToolTip}">DRC</TextBlock>
+									<TextBlock
+										Style="{StaticResource LongToolTipHolder}">
+										<TextBlock.ToolTip>
+											<TextBlock Text="{x:Static resx:Resources.Audio_DrcToolTip}" Style="{StaticResource LongToolTip}" />
+										</TextBlock.ToolTip>
+										DRC
+									</TextBlock>
 								</GridViewColumn.Header>
 							</GridViewColumn>
 							<!--<GridViewColumn Header="DRC" CellTemplate="{StaticResource DrcTemplate}" />-->

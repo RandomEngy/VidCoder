@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using HandBrake.Interop.Model;
 using VidCoder.Model;
-using HandBrake.Interop;
 using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel

@@ -7,8 +7,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using HandBrake.Interop.SourceData;
 using VidCoder.Services;
-using HandBrake.SourceData;
 
 namespace VidCoder.Model
 {

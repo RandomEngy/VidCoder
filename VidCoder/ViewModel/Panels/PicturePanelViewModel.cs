@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HandBrake.Interop;
+using HandBrake.Interop.Model;
+using HandBrake.Interop.Model.Encoding;
 
 namespace VidCoder.ViewModel
 {
