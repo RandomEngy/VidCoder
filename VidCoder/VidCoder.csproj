@@ -563,6 +563,6 @@
   </Target> -->
   <Target Name="AfterBuild">
     <Copy SourceFiles="..\Lib\$(Platform)\hb.dll" DestinationFolder="$(OutDir)" />
-    <Copy SourceFiles="..\HandBrakeInterop\HandBrakeInterop\bin\$(Platform)\Release\HandBrakeInterop.pdb" DestinationFolder="$(OutDir)" />
+    <Copy SourceFiles="..\Lib\$(Platform)\HandBrakeInterop.pdb" DestinationFolder="$(OutDir)" />
   </Target>
 </Project>

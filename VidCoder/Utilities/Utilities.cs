@@ -329,7 +329,7 @@ namespace VidCoder
 
 		public static bool IsPassthrough(AudioEncoder encoder)
 		{
-			return encoder == AudioEncoder.Passthrough || encoder == AudioEncoder.Ac3Passthrough || encoder == AudioEncoder.DtsPassthrough;
+			return encoder == AudioEncoder.Passthrough || encoder == AudioEncoder.Ac3Passthrough;
 		}
 
 		public static void SetDragIcon(DragEventArgs e)

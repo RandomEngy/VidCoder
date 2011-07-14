@@ -266,7 +266,7 @@ namespace VidCoder.ViewModel
 				var bitrateParts = new List<string>();
 				foreach (AudioEncoding audioEncoding in this.Profile.AudioEncodings)
 				{
-					if (audioEncoding.Encoder != AudioEncoder.Ac3Passthrough && audioEncoding.Encoder != AudioEncoder.DtsPassthrough)
+					if (!Utilities.IsPassthrough(audioEncoding.Encoder))
 					{
 						bitrateParts.Add(audioEncoding.Bitrate.ToString());
 					}

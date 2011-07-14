@@ -169,12 +169,12 @@ namespace VidCoder.ViewModel
 					return null;
 				}
 
-				if (encoder == AudioEncoder.DtsPassthrough && inputTrack.Codec != AudioCodec.Dts)
-				{
-					return null;
-				}
+				//if (encoder == AudioEncoder.DtsPassthrough && inputTrack.Codec != AudioCodec.Dts)
+				//{
+				//    return null;
+				//}
 
-				if (encoder == AudioEncoder.Passthrough && (inputTrack.Codec != AudioCodec.Ac3 && inputTrack.Codec != AudioCodec.Dts))
+				if (encoder == AudioEncoder.Passthrough && (inputTrack.Codec != AudioCodec.Ac3 && inputTrack.Codec != AudioCodec.Dts && inputTrack.Codec != AudioCodec.DtsHD))
 				{
 					return null;
 				}

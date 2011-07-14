@@ -223,7 +223,7 @@ namespace VidCoder.Model
 
 				if (preset.EncodingProfile.OutputFormat == OutputFormat.Mkv)
 				{
-					if (audioEncoding.Encoder == AudioEncoder.Ac3Passthrough || audioEncoding.Encoder == AudioEncoder.DtsPassthrough)
+					if (audioEncoding.Encoder == AudioEncoder.Ac3Passthrough)
 					{
 						audioEncoding.Encoder = AudioEncoder.Passthrough;
 					}
