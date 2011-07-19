@@ -13,7 +13,7 @@ namespace VidCoder.Model
 {
 	public static class EncodeJobsPersist
 	{
-		private static XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<EncodeJob>));
+		private static XmlSerializer xmlSerializer = new XmlSerializer(typeof(EncodeJobCollection));
 
 		public static List<EncodeJob> EncodeJobs
 		{
@@ -39,7 +39,7 @@ namespace VidCoder.Model
 			var xmlBuilder = new StringBuilder();
 			using (XmlWriter writer = XmlWriter.Create(xmlBuilder))
 			{
-				xmlSerializer.Serialize(writer, jobs);
+				xmlSerializer.Serialize(writer, new EncodeJobCollection {EncodeJobs = jobs});
 			}
 
 			return xmlBuilder.ToString();
@@ -53,7 +53,13 @@ namespace VidCoder.Model
 				{
 					using (var xmlReader = new XmlTextReader(stringReader))
 					{
-						return xmlSerializer.Deserialize(xmlReader) as List<EncodeJob>;
+						var jobCollection = xmlSerializer.Deserialize(xmlReader) as EncodeJobCollection;
+						if (jobCollection == null)
+						{
+							return new List<EncodeJob>();
+						}
+
+						return jobCollection.EncodeJobs;
 					}
 				}
 			}

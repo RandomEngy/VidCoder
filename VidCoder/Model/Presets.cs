@@ -21,7 +21,7 @@ namespace VidCoder.Model
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
-		private static XmlSerializer presetListSerializer = new XmlSerializer(typeof(List<Preset>));
+		private static XmlSerializer presetListSerializer = new XmlSerializer(typeof(PresetCollection));
 		private static XmlSerializer presetSerializer = new XmlSerializer(typeof(Preset));
 		private static object userPresetSync = new object();
 
@@ -31,16 +31,8 @@ namespace VidCoder.Model
 			{
 				using (var stream = new FileStream(BuiltInPresetsPath, FileMode.Open, FileAccess.Read))
 				{
-					var presetList = presetListSerializer.Deserialize(stream) as List<Preset>;
-					return presetList;
-				}
-			}
-
-			set
-			{
-				using (var stream = new FileStream(BuiltInPresetsPath, FileMode.Create, FileAccess.Write))
-				{
-					presetListSerializer.Serialize(stream, value);
+					var presetCollection = presetListSerializer.Deserialize(stream) as PresetCollection;
+					return presetCollection.Presets;
 				}
 			}
 		}

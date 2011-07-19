@@ -1,9 +1,14 @@
-:: This script is for convenience: quickly building HandBrakeInterop from the HandBrake source tree and copying the DLLs
+:: Builds HandBrakeInterop from the HandBrake source tree and copying the DLLs
 :: to the VidCoder lib folder.
 
-"C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\devenv.com" ..\HandBrakeSVN\win\CS\HandBrake.Interop\HandBrakeInterop.sln /Rebuild "Release|x86"
-"C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\devenv.com" ..\HandBrakeSVN\win\CS\HandBrake.Interop\HandBrakeInterop.sln /Rebuild "Release|x64"
-xcopy ..\HandBrakeSVN\win\CS\HandBrake.Interop\HandBrakeInterop\bin\x86\Release\HandBrakeInterop.dll Lib\x86 /y
-xcopy ..\HandBrakeSVN\win\CS\HandBrake.Interop\HandBrakeInterop\bin\x86\Release\HandBrakeInterop.pdb Lib\x86 /y
-xcopy ..\HandBrakeSVN\win\CS\HandBrake.Interop\HandBrakeInterop\bin\x64\Release\HandBrakeInterop.dll Lib\x64 /y
-xcopy ..\HandBrakeSVN\win\CS\HandBrake.Interop\HandBrakeInterop\bin\x64\Release\HandBrakeInterop.pdb Lib\x64 /y
+call build_common.cmd
+
+:: Change this to the folder containing HandBrakeInterop.sln
+set HandBrakeInteropFolder=..\HandBrakeSVN\win\CS\HandBrake.Interop
+
+"%DevEnvExe%" %HandBrakeInteropFolder%\HandBrakeInterop.sln /Rebuild "Release|x86"
+"%DevEnvExe%" %HandBrakeInteropFolder%\HandBrakeInterop.sln /Rebuild "Release|x64"
+xcopy %HandBrakeInteropFolder%\HandBrakeInterop\bin\x86\Release\HandBrakeInterop.dll Lib\x86 /y
+xcopy %HandBrakeInteropFolder%\HandBrakeInterop\bin\x86\Release\HandBrakeInterop.pdb Lib\x86 /y
+xcopy %HandBrakeInteropFolder%\HandBrakeInterop\bin\x64\Release\HandBrakeInterop.dll Lib\x64 /y
+xcopy %HandBrakeInteropFolder%\HandBrakeInterop\bin\x64\Release\HandBrakeInterop.pdb Lib\x64 /y

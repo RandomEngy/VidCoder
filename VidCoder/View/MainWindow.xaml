@@ -237,6 +237,7 @@
 			<RowDefinition Height="40" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 		<Menu Height="22">
 			<MenuItem Header="File">
@@ -695,7 +696,7 @@
 				</StackPanel>
 			</Button>
 
-			<ComboBox HorizontalAlignment="Left" Margin="263,18,0,0" Name="presetComboBox" Width="140" Height="22.76" VerticalAlignment="Top"
+			<ComboBox HorizontalAlignment="Left" Margin="60,49,0,0" Name="presetComboBox" Width="140" Height="22.76" VerticalAlignment="Top"
 				ItemsSource="{Binding AllPresets}" SelectedItem="{Binding SelectedPreset}"
 				ItemContainerStyle="{StaticResource EncodingContainerStyle}">
 				<ComboBox.Effect>
@@ -724,7 +725,7 @@
 			</ComboBox>
 
 			<Grid
-				Margin="0,54,0,0">
+				Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition />
 					<ColumnDefinition Width="Auto" />
@@ -732,87 +733,6 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
-
-
-				<TextBlock Text="Task" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15.96" Margin="10,4,0,0" Width="26.25"
-					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"/>
-				<TextBlock HorizontalAlignment="Left" Margin="38,4,0,0" VerticalAlignment="Top" Width="33"
-					Text="{Binding TaskDetails}"
-					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"/>
-				<TextBlock
-					Text="ETA:" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,21,0,0"
-					ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
-					Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}" />
-				<TextBlock
-					Text="{Binding EstimatedTimeRemaining}" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38,21,0,0"
-					ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
-					Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
-
-				<!-- Progress bar -->
-				<Grid
-					Margin="95,12,5,0" VerticalAlignment="Top" Height="20.44"
-					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}" MouseEnter="ProgressMouseEnter" MouseLeave="ProgressMouseLeave">
-					<ProgressBar
-						Name="overallEncodeProgressBar"
-						Value="{Binding OverallEncodeProgressPercent, Mode=OneWay}" Height="20.44" VerticalAlignment="Top"
-						Foreground="{Binding ProgressBarColor}" />
-					<TextBlock
-						Text="{Binding OverallEncodeProgressPercent, Mode=OneWay, Converter={StaticResource PercentDisplayConverter}}"
-						VerticalAlignment="Center" HorizontalAlignment="Center" />
-
-					<Popup
-						Name="encodeProgressDetailsPopup" IsOpen="False"
-						PlacementTarget="{Binding ElementName=overallEncodeProgressBar}"
-						Placement="Bottom"
-						HorizontalOffset="50"
-						VerticalOffset="10"
-						AllowsTransparency="True">
-						<Border
-							BorderBrush="Gray"
-							BorderThickness="1"
-							CornerRadius="4"
-							Margin="10"
-							Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}">
-							<Border.Effect>
-								<DropShadowEffect ShadowDepth="6" BlurRadius="3" Direction="315" Opacity="0.3" />
-							</Border.Effect>
-							<Border.Background>
-								<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-									<GradientStop Color="White" Offset="0.0" />
-									<GradientStop Color="LightGray" Offset="1.0" />
-								</LinearGradientBrush>
-							</Border.Background>
-							<Grid Margin="7,2,7,2">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition Width="40" />
-								</Grid.ColumnDefinitions>
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-								</Grid.RowDefinitions>
-								<TextBlock
-								Text="Current FPS:" Grid.Row="0" Grid.Column="0"
-								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
-								Style="{StaticResource EncodeDetailsHeader}"/>
-								<TextBlock
-								Text="{Binding CurrentFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}"
-								Grid.Row="0" Grid.Column="1" TextAlignment="Center"
-								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
-								Style="{StaticResource EncodeDetailsText}"/>
-								<TextBlock
-								Text="Average FPS:" Grid.Row="1" Grid.Column="0"
-								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
-								Style="{StaticResource EncodeDetailsHeader}"/>
-								<TextBlock
-								Text="{Binding AverageFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}"
-								Grid.Row="1" Grid.Column="1" TextAlignment="Center"
-								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
-								Style="{StaticResource EncodeDetailsText}"/>
-							</Grid>
-						</Border>
-					</Popup>
-				</Grid>
 
 				<Button
 					Grid.Column="1"
@@ -867,7 +787,7 @@
 				</Button>
 			</Grid>
 			
-			<Label Height="28" Margin="215,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="47">Preset:</Label>
+			<Label Height="28" Margin="12,46,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="47">Preset:</Label>
 		</Grid>
 
 		<!-- Queue section -->
@@ -878,11 +798,12 @@
 			</Grid.Background>
 
 			<Grid
-				Name="tabsArea">
+				Name="tabsArea"
+				Margin="0,6,0,0">
 				<Grid.Background>
 					<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
 				</Grid.Background>
-				<TabControl Name="queueItemsTabControl" BorderThickness="0" SelectedIndex="{Binding SelectedTabIndex}">
+				<TabControl Name="queueItemsTabControl" BorderThickness="0" Padding="0,0,0,0" SelectedIndex="{Binding SelectedTabIndex}">
 					<TabControl.Background>
 						<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
 					</TabControl.Background>
@@ -891,6 +812,8 @@
 							<TextBlock Text="{Binding QueuedTabHeader}" />
 						</TabItem.Header>
 						<ListView
+							BorderThickness="0"
+							BorderBrush="#F5F5F5"
 							Name="queueView"
 							ItemsSource="{Binding EncodeQueue}"
 							VidCoderDragDrop:DragDropHelper.IsDragSource="True"
@@ -932,6 +855,8 @@
 						</TabItem.Header>
 						<ListView
 							ItemsSource="{Binding CompletedJobs}"
+							BorderThickness="0"
+							BorderBrush="#F5F5F5"
 							ItemContainerStyle="{StaticResource CompletedItemStyle}">
 							<ListView.View>
 								<GridView x:Name="completedGridView">
@@ -957,11 +882,108 @@
 
 				<Button
 					Name="clearCompletedQueueItemsButton"
-					Margin="0,2,0,0" VerticalAlignment="Top" HorizontalAlignment="Right"
+					Margin="0,2,4,0" VerticalAlignment="Top" HorizontalAlignment="Right"
 					Command="{Binding ClearCompletedCommand}" Style="{StaticResource RemoveButtonStyle}"
 					Visibility="Collapsed">Clear completed queue items</Button>
 			</Grid>
 		</Grid>
 
+		<!-- Encode progress section -->
+		<Grid
+			Grid.Row="5"
+			Height="28"
+			Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}">
+			<Grid.Background>
+				<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
+			</Grid.Background>
+
+			<!-- Progress bar -->
+			<Grid
+					Margin="5,0,245,0" VerticalAlignment="Center" Height="24"
+					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}" MouseEnter="ProgressMouseEnter" MouseLeave="ProgressMouseLeave">
+				<ProgressBar
+						Name="overallEncodeProgressBar"
+						Value="{Binding OverallEncodeProgressPercent, Mode=OneWay}" Height="24" VerticalAlignment="Top"
+						Foreground="{Binding ProgressBarColor}" />
+				<TextBlock
+						Text="{Binding OverallEncodeProgressPercent, Mode=OneWay, Converter={StaticResource PercentDisplayConverter}}"
+						VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+				<Popup
+						Name="encodeProgressDetailsPopup" IsOpen="False"
+						PlacementTarget="{Binding ElementName=overallEncodeProgressBar}"
+						Placement="Bottom"
+						HorizontalOffset="50"
+						VerticalOffset="10"
+						AllowsTransparency="True">
+					<Border
+							BorderBrush="Gray"
+							BorderThickness="1"
+							CornerRadius="4"
+							Margin="10"
+							Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}">
+						<Border.Effect>
+							<DropShadowEffect ShadowDepth="6" BlurRadius="3" Direction="315" Opacity="0.3" />
+						</Border.Effect>
+						<Border.Background>
+							<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+								<GradientStop Color="White" Offset="0.0" />
+								<GradientStop Color="LightGray" Offset="1.0" />
+							</LinearGradientBrush>
+						</Border.Background>
+						<Grid Margin="7,2,7,2">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="40" />
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<TextBlock
+								Text="Current FPS:" Grid.Row="0" Grid.Column="0"
+								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
+								Style="{StaticResource EncodeDetailsHeader}"/>
+							<TextBlock
+								Text="{Binding CurrentFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}"
+								Grid.Row="0" Grid.Column="1" TextAlignment="Center"
+								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
+								Style="{StaticResource EncodeDetailsText}"/>
+							<TextBlock
+								Text="Average FPS:" Grid.Row="1" Grid.Column="0"
+								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
+								Style="{StaticResource EncodeDetailsHeader}"/>
+							<TextBlock
+								Text="{Binding AverageFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}"
+								Grid.Row="1" Grid.Column="1" TextAlignment="Center"
+								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
+								Style="{StaticResource EncodeDetailsText}"/>
+						</Grid>
+					</Border>
+				</Popup>
+			</Grid>
+
+			<!--<TextBlock Text="Task" HorizontalAlignment="Right" VerticalAlignment="Top" Height="15.96" Margin="0,0,214,0" Width="26.25"
+					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"/>
+			<TextBlock HorizontalAlignment="Right" Margin="0,0,179,0" VerticalAlignment="Top" Width="33"
+					Text="{Binding TaskDetails}"
+					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"/>-->
+			<TextBlock
+					Text="ETA:" Width="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,215,0"
+					ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
+					Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}" />
+			<TextBlock
+					Text="{Binding EstimatedTimeRemaining}" Width="50" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,162,0"
+					ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
+					Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
+			
+			<TextBlock
+				Text="When done:"
+				HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,93,0" />
+			<ComboBox
+				HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0">
+				<ComboBoxItem IsSelected="True">Do nothing</ComboBoxItem>
+			</ComboBox>
+		</Grid>
 	</Grid>
 </Window>
