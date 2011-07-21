@@ -1,5 +1,5 @@
 ; Setup for VidCoder. NOTE: To build this installer you must first build
-;  VidCoder.sln and HandBrakeInterop.sln in Release|x86 mode.
+;  VidCoder.sln in Release|x86 mode.
 
 [Setup]
 AppName=VidCoder

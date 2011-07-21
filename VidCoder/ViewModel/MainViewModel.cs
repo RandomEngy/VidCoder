@@ -34,6 +34,7 @@ namespace VidCoder.ViewModel
 		private IUpdater updater = Unity.Container.Resolve<IUpdater>();
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
 		private IProcessAutoPause autoPause = Unity.Container.Resolve<IProcessAutoPause>();
+		private ISystemOperations systemOperations = Unity.Container.Resolve<ISystemOperations>();
 
 		private ObservableCollection<SourceOptionViewModel> sourceOptions;
 		private bool sourceSelectionExpanded;
@@ -99,6 +100,7 @@ namespace VidCoder.ViewModel
 		private TimeSpan currentJobEta; // Kept around to check if the job finished early
 		private TaskbarItemProgressState encodeProgressState;
 		private ObservableCollection<EncodeResultViewModel> completedJobs;
+		private EncodeCompleteAction encodeCompleteAction;
 
 		private bool encodingWindowOpen;
 		private bool previewWindowOpen;
@@ -372,6 +374,11 @@ namespace VidCoder.ViewModel
 
 		public bool SetSourceFromDvd(DriveInformation driveInfo)
 		{
+			if (driveInfo.Empty)
+			{
+				return false;
+			}
+
 			if (this.SourceSelectionExpanded)
 			{
 				this.SourceSelectionExpanded = false;
@@ -1702,6 +1709,20 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public EncodeCompleteAction EncodeCompleteAction
+		{
+			get
+			{
+				return this.encodeCompleteAction;
+			}
+
+			set
+			{
+				this.encodeCompleteAction = value;
+				this.NotifyPropertyChanged("EncodeCompleteAction");
+			}
+		}
+
 		public double CurrentFps
 		{
 			get
@@ -2746,6 +2767,23 @@ namespace VidCoder.ViewModel
 
 						this.logger.Log("Queue completed");
 						this.logger.Log("");
+
+						switch (this.EncodeCompleteAction)
+						{
+							case EncodeCompleteAction.DoNothing:
+								break;
+							case EncodeCompleteAction.Sleep:
+								this.systemOperations.Sleep();
+								break;
+							case EncodeCompleteAction.LogOff:
+								this.systemOperations.LogOff();
+								break;
+							case EncodeCompleteAction.Shutdown:
+								this.systemOperations.ShutDown();
+								break;
+							default:
+								throw new ArgumentOutOfRangeException();
+						}
 					}
 					else
 					{

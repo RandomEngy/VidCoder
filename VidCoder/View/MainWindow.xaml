@@ -18,6 +18,7 @@
 	<Window.Resources>
 		<local:EnumDisplayer Type="{x:Type Encoding:VideoEncoder}" x:Key="VideoEncoderChoices" />
 		<local:EnumDisplayer Type="{x:Type Model:VideoRangeType}" x:Key="VideoRangeTypeChoices" />
+		<local:EnumDisplayer Type="{x:Type localmodel:EncodeCompleteAction}" x:Key="EncodeCompleteActionChoices" />
 		<Color x:Key="SectionBackgroundTopColor">#F5F5F5</Color>
 		<Color x:Key="SectionBackgroundBottomColor">#EAEAEA</Color>
 		<LinearGradientBrush x:Key="SectionBackground" StartPoint="0,0" EndPoint="0,1">
@@ -767,7 +768,7 @@
 				</Button>
 
 				<Button
-					Grid.Column="4" Height="37" HorizontalAlignment="Right" Margin="0,0,6,0" VerticalAlignment="Bottom" Width="82"
+					Grid.Column="4" Height="37" HorizontalAlignment="Right" Margin="0,0,8,0" VerticalAlignment="Bottom" Width="82"
 					Command="{Binding EncodeCommand}"
 					Visibility="{Binding PauseVisible, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
 					ToolTip="{Binding EncodeToolTip}" ToolTipService.ShowOnDisabled="True">
@@ -777,7 +778,7 @@
 					</StackPanel>
 				</Button>
 				<Button
-					Grid.Column="4" Height="37" HorizontalAlignment="Right" Margin="0,0,6,0" VerticalAlignment="Bottom" Width="82"
+					Grid.Column="4" Height="37" HorizontalAlignment="Right" Margin="0,0,8,0" VerticalAlignment="Bottom" Width="82"
 					Command="{Binding PauseCommand}"
 					Visibility="{Binding PauseVisible, Converter={StaticResource VisibilityConverter}}">
 					<StackPanel Orientation="Horizontal">
@@ -799,7 +800,7 @@
 
 			<Grid
 				Name="tabsArea"
-				Margin="0,6,0,0">
+				Margin="0,8,0,0">
 				<Grid.Background>
 					<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
 				</Grid.Background>
@@ -896,11 +897,16 @@
 			<Grid.Background>
 				<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
 			</Grid.Background>
-
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			
 			<!-- Progress bar -->
 			<Grid
-					Margin="5,0,245,0" VerticalAlignment="Center" Height="24"
-					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}" MouseEnter="ProgressMouseEnter" MouseLeave="ProgressMouseLeave">
+				Grid.Column="0"
+				Margin="3,0,0,0" VerticalAlignment="Center" Height="24"
+				Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}" MouseEnter="ProgressMouseEnter" MouseLeave="ProgressMouseLeave">
 				<ProgressBar
 						Name="overallEncodeProgressBar"
 						Value="{Binding OverallEncodeProgressPercent, Mode=OneWay}" Height="24" VerticalAlignment="Top"
@@ -908,7 +914,16 @@
 				<TextBlock
 						Text="{Binding OverallEncodeProgressPercent, Mode=OneWay, Converter={StaticResource PercentDisplayConverter}}"
 						VerticalAlignment="Center" HorizontalAlignment="Center" />
-
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+					<TextBlock
+						Text="ETA:" Width="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,0,0"
+						ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
+						Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}" />
+					<TextBlock
+						Text="{Binding EstimatedTimeRemaining}"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,6,0"
+						ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
+						Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
+				</StackPanel>
 				<Popup
 						Name="encodeProgressDetailsPopup" IsOpen="False"
 						PlacementTarget="{Binding ElementName=overallEncodeProgressBar}"
@@ -968,22 +983,19 @@
 			<TextBlock HorizontalAlignment="Right" Margin="0,0,179,0" VerticalAlignment="Top" Width="33"
 					Text="{Binding TaskDetails}"
 					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"/>-->
-			<TextBlock
-					Text="ETA:" Width="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,215,0"
-					ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
-					Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}" />
-			<TextBlock
-					Text="{Binding EstimatedTimeRemaining}" Width="50" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,162,0"
-					ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
-					Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
+				<TextBlock
+					Text="When done:"
+					HorizontalAlignment="Right" VerticalAlignment="Center" Margin="6,0,3,0" />
+
+				<ComboBox
+					HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,3,0"
+					ItemsSource="{Binding DisplayNames, Source={StaticResource EncodeCompleteActionChoices}}"
+					SelectedValue="{Binding EncodeCompleteAction, Converter={StaticResource EncodeCompleteActionChoices}}" />
+			</StackPanel>
+
 			
-			<TextBlock
-				Text="When done:"
-				HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,93,0" />
-			<ComboBox
-				HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0">
-				<ComboBoxItem IsSelected="True">Do nothing</ComboBoxItem>
-			</ComboBox>
+
 		</Grid>
 	</Grid>
 </Window>
