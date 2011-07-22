@@ -2372,6 +2372,10 @@ namespace VidCoder.ViewModel
 					{
 						this.PauseEncoding();
 						this.autoPause.ReportPause();
+					},
+					param =>
+					{
+						return this.Encoding && this.CurrentJob.HandBrakeInstance != null;
 					});
 				}
 
@@ -2554,7 +2558,7 @@ namespace VidCoder.ViewModel
 
 			if (this.CurrentJob.HandBrakeInstance == null)
 			{
-				HandBrakeInstance onDemandInstance = new HandBrakeInstance();
+				var onDemandInstance = new HandBrakeInstance();
 				onDemandInstance.Initialize(Settings.Default.LogVerbosity);
 				onDemandInstance.ScanCompleted += (o, e) =>
 				{
@@ -2564,6 +2568,7 @@ namespace VidCoder.ViewModel
 					if (encodeTitle != null)
 					{
 						this.StartEncode();
+						DispatchService.BeginInvoke(CommandManager.InvalidateRequerySuggested);
 					}
 					else
 					{
