@@ -17,5 +17,20 @@ namespace VidCoder.Model
 		public string RootDirectory { get; set; }
 		public string VolumeLabel { get; set; }
 		public DiscType DiscType { get; set; }
+
+		public string DisplayText
+		{
+			get
+			{
+				string prefix = this.RootDirectory + " - ";
+
+				if (this.Empty)
+				{
+					return prefix + "(Empty)";
+				}
+
+				return prefix + this.VolumeLabel;
+			}
+		}
 	}
 }

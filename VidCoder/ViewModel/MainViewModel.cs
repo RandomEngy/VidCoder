@@ -276,7 +276,7 @@ namespace VidCoder.ViewModel
 			// Get new set of drives
 			IList<DriveInformation> newDriveCollection = this.driveService.GetDriveInformation();
 
-			// If our current drive is not present
+			// If our currently selected source is a DVD drive, see if it needs to be updated
 			if (this.SelectedSource != null && this.SelectedSource.Type == SourceType.Dvd)
 			{
 				string currentRootDirectory = this.SelectedSource.DriveInfo.RootDirectory;
@@ -284,21 +284,23 @@ namespace VidCoder.ViewModel
 
 				if (this.SelectedSource.DriveInfo.Empty && currentDrivePresent)
 				{
+					// If we were empty and the drive is now here, update and scan it
 					this.SelectedSource.DriveInfo.Empty = false;
 					this.SelectedSource.DriveInfo.VolumeLabel = newDriveCollection.Single(driveInfo => driveInfo.RootDirectory == currentRootDirectory).VolumeLabel;
 					this.SetSourceFromDvd(this.SelectedSource.DriveInfo);
 					this.NotifyPropertyChanged("HasVideoSource");
+					this.NotifyPropertyChanged("SourceText");
 				}
 				else if (!this.SelectedSource.DriveInfo.Empty && !currentDrivePresent)
 				{
+					// If we had an item and the drive is now gone, update and remove the video source.
 					DriveInformation emptyDrive = this.SelectedSource.DriveInfo;
 					emptyDrive.Empty = true;
-
-					newDriveCollection.Add(emptyDrive);
 
 					this.sourceData = null;
 					this.SelectedTitle = null;
 					this.NotifyPropertyChanged("HasVideoSource");
+					this.NotifyPropertyChanged("SourceText");
 				}
 			}
 
@@ -544,6 +546,11 @@ namespace VidCoder.ViewModel
 					return false;
 				}
 
+				if (this.SelectedSource != null && this.SelectedSource.Type == SourceType.Dvd && this.SelectedSource.DriveInfo.Empty)
+				{
+					return false;
+				}
+
 				return this.sourceData == null;
 			}
 		}
@@ -604,7 +611,7 @@ namespace VidCoder.ViewModel
 					case SourceType.VideoFolder:
 						return this.sourcePath;
 					case SourceType.Dvd:
-						return this.SelectedSource.DriveInfo.RootDirectory + " - " + this.SelectedSource.DriveInfo.VolumeLabel;
+						return this.SelectedSource.DriveInfo.DisplayText;
 					default:
 						break;
 				}
@@ -3626,14 +3633,7 @@ namespace VidCoder.ViewModel
 					else
 					{
 						// The device existed already, update it
-						if (drive.Empty)
-						{
-							currentOption.VolumeLabel = "(Empty)";
-						}
-						else
-						{
-							currentOption.VolumeLabel = drive.VolumeLabel;
-						}
+						currentOption.VolumeLabel = drive.VolumeLabel;
 					}
 				}
 			});
