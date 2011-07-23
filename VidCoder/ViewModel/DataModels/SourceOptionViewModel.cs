@@ -15,9 +15,10 @@ namespace VidCoder.ViewModel
 		private SourceOption sourceOption;
 		private ICommand chooseSourceCommand;
 
-		public SourceOptionViewModel(SourceOption sourceOption)
+		public SourceOptionViewModel(SourceOption sourceOption, string sourcePath = null)
 		{
 			this.sourceOption = sourceOption;
+			this.SourcePath = sourcePath;
 		}
 
 		public string Image
@@ -54,9 +55,19 @@ namespace VidCoder.ViewModel
 				switch (this.sourceOption.Type)
 				{
 					case SourceType.File:
-						return "Video File...";
+						if (this.SourcePath == null)
+						{
+							return "Video File...";
+						}
+
+						return this.SourcePath;
 					case SourceType.VideoFolder:
-						return "DVD/Blu-ray Folder...";
+						if (this.SourcePath == null)
+						{
+							return "DVD/Blu-ray Folder...";
+						}
+
+						return this.SourcePath;
 					case SourceType.Dvd:
 						return this.sourceOption.DriveInfo.RootDirectory + " - " + this.sourceOption.DriveInfo.VolumeLabel;
 					default:
@@ -66,6 +77,8 @@ namespace VidCoder.ViewModel
 				return string.Empty;
 			}
 		}
+
+		public string SourcePath { get; set; }
 
 		public string VolumeLabel
 		{
@@ -100,10 +113,24 @@ namespace VidCoder.ViewModel
 						switch (this.SourceOption.Type)
 						{
 							case SourceType.File:
-								mainVM.SetSourceFromFile();
+								if (this.SourcePath == null)
+								{
+									mainVM.SetSourceFromFile();
+								}
+								else
+								{
+									mainVM.SetSourceFromFile(this.SourcePath);
+								}
 								break;
 							case SourceType.VideoFolder:
-								mainVM.SetSourceFromFolder();
+								if (this.SourcePath == null)
+								{
+									mainVM.SetSourceFromFolder();
+								}
+								else
+								{
+									mainVM.SetSourceFromFolder(this.SourcePath);
+								}
 								break;
 							case SourceType.Dvd:
 								mainVM.SetSourceFromDvd(this.SourceOption.DriveInfo);

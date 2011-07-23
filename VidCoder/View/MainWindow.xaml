@@ -462,12 +462,54 @@
 						</ControlTemplate>
 					</ItemsControl.Template>
 				</ItemsControl>
-				<TextBlock
-					Grid.Column="1"
-					VerticalAlignment="Center"
-					HorizontalAlignment="Center"
-					Style="{StaticResource DescriptiveText}"
-					Text="(Or drag video files or folders here)" />
+				<Grid Grid.Column="1">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					
+					<!-- Recently opened sources -->
+					<Grid
+						HorizontalAlignment="Center" Margin="0,-16,0,0"
+						Visibility="{Binding RecentSourcesVisible, Converter={StaticResource VisibilityConverter}}">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition />
+						</Grid.RowDefinitions>
+						<TextBlock Text="Recent" Style="{StaticResource DescriptiveText}" Margin="10,0,0,0" />
+						
+						<ItemsControl
+							MinWidth="220" Grid.Row="1"
+							ItemsSource="{Binding RecentSourceOptions}">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Button
+									HorizontalContentAlignment="Left"
+									Command="{Binding ChooseSourceCommand}">
+										<StackPanel Orientation="Horizontal">
+											<Image Source="{Binding Image}" Visibility="{Binding ImageVisible, Converter={StaticResource VisibilityConverter}}" Width="16" Height="16" Margin="4,2,0,2" />
+											<controls:PathTextBlock Text="{Binding Text, Mode=OneWay}" Margin="4" MaxTextWidth="301" />
+											<!--<TextBlock Text="{Binding Text}" Style="{StaticResource PlainTitle}" Margin="4" MaxWidth="300" TextTrimming="CharacterEllipsis" />-->
+										</StackPanel>
+									</Button>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+							<ItemsControl.Template>
+								<ControlTemplate>
+									<StackPanel Orientation="Vertical" Margin="2" IsItemsHost="True" />
+								</ControlTemplate>
+							</ItemsControl.Template>
+						</ItemsControl>
+					</Grid>
+
+					<TextBlock
+						Grid.Row="1"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						Style="{StaticResource DescriptiveText}"
+						Text="(Or drag video files or folders here)" />
+				</Grid>
+
 			</Grid>
 
 			<StackPanel Margin="26,35,12,9" VerticalAlignment="Top">

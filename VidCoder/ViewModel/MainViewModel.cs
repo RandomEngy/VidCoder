@@ -37,6 +37,7 @@ namespace VidCoder.ViewModel
 		private ISystemOperations systemOperations = Unity.Container.Resolve<ISystemOperations>();
 
 		private ObservableCollection<SourceOptionViewModel> sourceOptions;
+		private ObservableCollection<SourceOptionViewModel> recentSourceOptions; 
 		private bool sourceSelectionExpanded;
 		private SourceOption selectedSource;
 
@@ -157,6 +158,21 @@ namespace VidCoder.ViewModel
 				new SourceOptionViewModel(new SourceOption { Type = SourceType.File }),
 				new SourceOptionViewModel(new SourceOption { Type = SourceType.VideoFolder })
 			};
+
+			this.recentSourceOptions = new ObservableCollection<SourceOptionViewModel>();
+
+			List<string> sourceHistory = SourceHistory.GetHistory();
+			foreach (string recentSourcePath in sourceHistory)
+			{
+				if (File.Exists(recentSourcePath))
+				{
+					this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.File }, recentSourcePath));
+				}
+				else if (Directory.Exists(recentSourcePath))
+				{
+					this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.VideoFolder }, recentSourcePath));
+				}
+			}
 
 			this.builtInPresets = Presets.BuiltInPresets;
 			List<Preset> userPresets = Presets.UserPresets;
@@ -351,27 +367,31 @@ namespace VidCoder.ViewModel
 
 			if (folderPath != null)
 			{
-				Settings.Default.LastVideoTSFolder = folderPath;
-				Settings.Default.Save();
-				DirectoryInfo parentDirectory = Directory.GetParent(folderPath);
-				if (parentDirectory == null || parentDirectory.Root.FullName == parentDirectory.FullName)
-				{
-					this.sourceName = "VideoFolder";
-				}
-				else
-				{
-					this.sourceName = parentDirectory.Name;
-				}
-
-				this.StartScan(folderPath);
-
-				this.sourcePath = folderPath;
-				this.SelectedSource = new SourceOption { Type = SourceType.VideoFolder };
-
+				this.SetSourceFromFolder(folderPath);
 				return true;
 			}
 
 			return false;
+		}
+
+		public void SetSourceFromFolder(string videoFolder)
+		{
+			Settings.Default.LastVideoTSFolder = videoFolder;
+			Settings.Default.Save();
+			DirectoryInfo parentDirectory = Directory.GetParent(videoFolder);
+			if (parentDirectory == null || parentDirectory.Root.FullName == parentDirectory.FullName)
+			{
+				this.sourceName = "VideoFolder";
+			}
+			else
+			{
+				this.sourceName = parentDirectory.Name;
+			}
+
+			this.StartScan(videoFolder);
+
+			this.sourcePath = videoFolder;
+			this.SelectedSource = new SourceOption { Type = SourceType.VideoFolder };
 		}
 
 		public bool SetSourceFromDvd(DriveInformation driveInfo)
@@ -514,6 +534,22 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return this.sourceOptions;
+			}
+		}
+
+		public ObservableCollection<SourceOptionViewModel> RecentSourceOptions
+		{
+			get
+			{
+				return this.recentSourceOptions;
+			}
+		} 
+
+		public bool RecentSourcesVisible
+		{
+			get
+			{
+				return this.RecentSourceOptions.Count > 0;
 			}
 		}
 
@@ -3295,6 +3331,8 @@ namespace VidCoder.ViewModel
 					else
 					{
 						this.SourceData = new VideoSource { Titles = this.scanInstance.Titles, FeatureTitle = this.scanInstance.FeatureTitle };
+						SourceHistory.AddToHistory(this.sourcePath);
+
 						this.logger.Log("Scan completed");
 					}
 

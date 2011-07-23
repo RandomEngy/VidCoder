@@ -179,6 +179,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\PathTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\SeekBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -271,6 +275,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\PathSegmentSet.cs" />
+    <Compile Include="Controls\PathTextBlock.xaml.cs">
+      <DependentUpon>PathTextBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SeekBar.xaml.cs">
       <DependentUpon>SeekBar.xaml</DependentUpon>
     </Compile>
@@ -307,6 +315,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Utilities\ListSynchronizer\TwoListSynchronizer.cs" />
     <Compile Include="Utilities\RefireControl.cs" />
+    <Compile Include="Utilities\SourceHistory.cs" />
     <Compile Include="Utilities\SystemSleepManagement.cs" />
     <Compile Include="Utilities\UIUtilities.cs" />
     <Compile Include="Utilities\Unity.cs" />
