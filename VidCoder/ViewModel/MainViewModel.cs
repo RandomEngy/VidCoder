@@ -3331,7 +3331,11 @@ namespace VidCoder.ViewModel
 					else
 					{
 						this.SourceData = new VideoSource { Titles = this.scanInstance.Titles, FeatureTitle = this.scanInstance.FeatureTitle };
-						SourceHistory.AddToHistory(this.sourcePath);
+
+						if (this.SelectedSource != null && (this.SelectedSource.Type == SourceType.File || this.SelectedSource.Type == SourceType.VideoFolder))
+						{
+							SourceHistory.AddToHistory(this.sourcePath);
+						}
 
 						this.logger.Log("Scan completed");
 					}
