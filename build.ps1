@@ -10,8 +10,8 @@ function UpdateIssFile($fileName, $version)
     Set-Content $fileName $fileContent
 }
 
-& $DevEnvExe VidCoder.sln /Rebuild "Release|x86"
-& $DevEnvExe VidCoder.sln /Rebuild "Release|x64"
+& $DevEnvExe VidCoder.sln /Rebuild "Release|x86"; ExitIfFailed
+& $DevEnvExe VidCoder.sln /Rebuild "Release|x64"; ExitIfFailed
 
 & ($NetToolsFolder + "\sgen.exe") /f /a:"Lib\x86\HandBrakeInterop.dll"
 & ($NetToolsFolder + "\x64\sgen.exe") /f /a:"Lib\x64\HandBrakeInterop.dll"
@@ -24,8 +24,10 @@ $fileVersion = $fileVersion.Substring(0, $fileVersion.LastIndexOf("."))
 UpdateIssFile "Installer\VidCoder-x86.iss" $fileVersion
 UpdateIssFile "Installer\VidCoder-x64.iss" $fileVersion
 
-& $InnoSetupExe Installer\VidCoder-x86.iss
-& $InnoSetupExe Installer\VidCoder-x64.iss
+& $InnoSetupExe Installer\VidCoder-x86.iss; ExitIfFailed
+& $InnoSetupExe Installer\VidCoder-x64.iss; ExitIfFailed
+
+WriteSuccess
 
 Write-Host
-powershell.exe -noexit 
+powershell.exe -noexit -nologo
