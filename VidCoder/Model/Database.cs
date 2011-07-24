@@ -17,14 +17,14 @@ namespace VidCoder.Model
 		{
 			get
 			{
-                string appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Utilities.AppDataFolderName);
+				string appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Utilities.AppDataFolderName);
 
-                if (!Directory.Exists(appDataFolder))
-                {
-                    Directory.CreateDirectory(appDataFolder);
-                }
+				if (!Directory.Exists(appDataFolder))
+				{
+					Directory.CreateDirectory(appDataFolder);
+				}
 
-                return Path.Combine(appDataFolder, ConfigDatabaseFile);
+				return Path.Combine(appDataFolder, ConfigDatabaseFile);
 			}
 		}
 

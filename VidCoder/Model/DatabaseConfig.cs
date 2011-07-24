@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
+using VidCoder.Services;
 
 namespace VidCoder.Model
 {
@@ -12,13 +13,22 @@ namespace VidCoder.Model
 		private static Dictionary<string, string> configDefaults;
 
 		static DatabaseConfig()
-        {
-            configDefaults = new Dictionary<string, string>
+		{
+			configDefaults = new Dictionary<string, string>
 			{
 				{"Version", Utilities.CurrentDatabaseVersion.ToString()},
-				{"EncodeJobs", string.Empty}
+				{"EncodeJobs", string.Empty},
+				{Updater.UpdateInProgress, "false"},
+				{Updater.UpdateVersion, string.Empty},
+				{Updater.UpdateInstallerLocation, string.Empty},
+				{Updater.UpdateChangelogLocation, string.Empty}
 			};
-        }
+		}
+
+		public static bool GetConfigBool(string configName, SQLiteConnection connection)
+		{
+			return bool.Parse(GetConfigString(configName, connection));
+		}
 
 		public static string GetConfigString(string configName, SQLiteConnection connection)
 		{
@@ -55,6 +65,11 @@ namespace VidCoder.Model
 
 				settingsInsert.ExecuteNonQuery();
 			}
+		}
+
+		public static void SetConfigValue(string configName, bool value, SQLiteConnection connection)
+		{
+			SetConfigValue(configName, value.ToString(), connection);
 		}
 
 		public static void SetConfigValue(string configName, string configValue, SQLiteConnection connection)

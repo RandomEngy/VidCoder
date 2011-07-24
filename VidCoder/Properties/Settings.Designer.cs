@@ -289,54 +289,6 @@ namespace VidCoder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UpdateInstallerLocation {
-            get {
-                return ((string)(this["UpdateInstallerLocation"]));
-            }
-            set {
-                this["UpdateInstallerLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool UpdateInProgress {
-            get {
-                return ((bool)(this["UpdateInProgress"]));
-            }
-            set {
-                this["UpdateInProgress"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UpdateVersion {
-            get {
-                return ((string)(this["UpdateVersion"]));
-            }
-            set {
-                this["UpdateVersion"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UpdateChangelogLocation {
-            get {
-                return ((string)(this["UpdateChangelogLocation"]));
-            }
-            set {
-                this["UpdateChangelogLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool UpdatesEnabled {
             get {

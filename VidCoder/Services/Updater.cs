@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
@@ -7,6 +8,7 @@ using System.Xml.Linq;
 using System.IO;
 using System.Net;
 using System.Windows;
+using VidCoder.Model;
 using VidCoder.Properties;
 using System.Diagnostics;
 using Microsoft.Practices.Unity;
@@ -15,6 +17,11 @@ namespace VidCoder.Services
 {
 	public class Updater : IUpdater
 	{
+		public const string UpdateInProgress = "UpdateInProgress";
+		public const string UpdateVersion = "UpdateVersion";
+		public const string UpdateInstallerLocation = "UpdateInstallerLocation";
+		public const string UpdateChangelogLocation = "UpdateChangelogLocation";
+
 		public event EventHandler<EventArgs<double>> UpdateDownloadProgress;
 		public event EventHandler<EventArgs> UpdateDownloadCompleted;
 
@@ -30,6 +37,7 @@ namespace VidCoder.Services
 			}
 		}
 
+		private ILogger logger = Unity.Container.Resolve<ILogger>();
 		private BackgroundWorker updateDownloader;
 		private bool processDownloadsUpdates = true;
 
@@ -44,9 +52,9 @@ namespace VidCoder.Services
 				// If updates are enabled, and we are the last process instance, prompt to apply the update.
 				if (Settings.Default.UpdatesEnabled && Utilities.CurrentProcessInstances == 1)
 				{
-					string installerPath = Settings.Default.UpdateInstallerLocation;
+					string installerPath = DatabaseConfig.GetConfigString(UpdateInstallerLocation, Database.Connection);
 
-					if (installerPath != string.Empty)
+					if (installerPath != string.Empty && File.Exists(installerPath))
 					{
 						// An update is ready, to give a prompt to apply it.
 						var updateConfirmation = new ApplyUpdateConfirmation();
@@ -79,10 +87,9 @@ namespace VidCoder.Services
 			// Re-check the process count in case another one was opened while the prompt was active.
 			if (Utilities.CurrentProcessInstances == 1)
 			{
-				string installerPath = Settings.Default.UpdateInstallerLocation;
+				string installerPath = DatabaseConfig.GetConfigString(UpdateInstallerLocation, Database.Connection);
 
-				Settings.Default.UpdateInProgress = true;
-				Settings.Default.Save();
+				DatabaseConfig.SetConfigValue(UpdateInProgress, true, Database.Connection);
 
 				var installerProcess = new Process();
 				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons" };
@@ -100,7 +107,7 @@ namespace VidCoder.Services
 				if (updatesEnabled)
 				{
 					// If we don't already have an update waiting to install, check for updates.
-					if (processDownloadsUpdates && Settings.Default.UpdateInstallerLocation == string.Empty)
+					if (processDownloadsUpdates && DatabaseConfig.GetConfigString(UpdateInstallerLocation, Database.Connection) == string.Empty)
 					{
 						this.StartBackgroundUpdate();
 					}
@@ -115,17 +122,29 @@ namespace VidCoder.Services
 
 		public void HandlePendingUpdate()
 		{
-			bool updateInProgress = Settings.Default.UpdateInProgress;
-			string targetUpdateVersion = Settings.Default.UpdateVersion;
-
+			// This flag signifies VidCoder is being run by the installer after an update.
+			// In this case we report success, delete the installer, clean up the update flags and exit.
+			bool updateInProgress = DatabaseConfig.GetConfigBool(UpdateInProgress, Database.Connection);
 			if (updateInProgress)
 			{
-				Settings.Default.UpdateInProgress = false;
-				Settings.Default.Save();
+				string targetUpdateVersion = DatabaseConfig.GetConfigString(UpdateVersion, Database.Connection);
+				bool updateSucceeded = Utilities.CompareVersions(targetUpdateVersion, Utilities.CurrentVersion) == 0;
 
-				// This flag signifies VidCoder is being run by the installer after an update.
-				// In this case we report success, delete the installer, clean up the update flags and exit.
-				if (Utilities.CompareVersions(targetUpdateVersion, Utilities.CurrentVersion) == 0)
+				using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
+				{
+					DatabaseConfig.SetConfigValue(UpdateInProgress, false, Database.Connection);
+
+					if (updateSucceeded)
+					{
+						DatabaseConfig.SetConfigValue(UpdateVersion, string.Empty, Database.Connection);
+						DatabaseConfig.SetConfigValue(UpdateInstallerLocation, string.Empty, Database.Connection);
+						DatabaseConfig.SetConfigValue(UpdateChangelogLocation, string.Empty, Database.Connection);
+					}
+
+					transaction.Commit();
+				}
+
+				if (updateSucceeded)
 				{
 					MessageBox.Show("VidCoder has been successfully updated.");
 
@@ -134,18 +153,15 @@ namespace VidCoder.Services
 						Directory.Delete(Utilities.UpdatesFolder, true);
 					}
 
-					Settings.Default.UpdateVersion = string.Empty;
-					Settings.Default.UpdateInstallerLocation = string.Empty;
-					Settings.Default.UpdateChangelogLocation = string.Empty;
-					Settings.Default.Save();
-
 					Environment.Exit(0);
 				}
-
-				// If the target version is different from the currently running version,
-				// this means the attempted upgrade failed. We give an error message but
-				// continue with the program.
-				MessageBox.Show("The update was not applied. If you did not cancel it, try installing it manually.");
+				else
+				{
+					// If the target version is different from the currently running version,
+					// this means the attempted upgrade failed. We give an error message but
+					// continue with the program.
+					MessageBox.Show("The update was not applied. If you did not cancel it, try installing it manually.");
+				}
 			}
 		}
 
@@ -164,8 +180,7 @@ namespace VidCoder.Services
 				if (!Settings.Default.UpdatesEnabled)
 				{
 					// On a program restart, if updates are disabled, clean any pending installers.
-					Settings.Default.UpdateInstallerLocation = string.Empty;
-					Settings.Default.Save();
+					DatabaseConfig.SetConfigValue(UpdateInstallerLocation, string.Empty, Database.Connection);
 
 					if (Directory.Exists(Utilities.UpdatesFolder))
 					{
@@ -200,6 +215,7 @@ namespace VidCoder.Services
 		private void CheckAndDownloadUpdate(object sender, DoWorkEventArgs e)
 		{
 			var updateDownloader = sender as BackgroundWorker;
+			SQLiteConnection connection = Database.CreateConnection();
 
 			try
 			{
@@ -235,9 +251,28 @@ namespace VidCoder.Services
 
 				if (Utilities.CompareVersions(updateVersion, Utilities.CurrentVersion) > 0)
 				{
-					// If we have not finished the download update yet, start/resume the download.
-					if (Settings.Default.UpdateInstallerLocation == string.Empty)
+					// If an update is reported to be ready but the installer doesn't exist, clear out all the
+					// installer info and redownload.
+					string updateInstallerLocation = DatabaseConfig.GetConfigString(UpdateInstallerLocation, connection);
+					if (updateInstallerLocation != string.Empty && !File.Exists(updateInstallerLocation))
 					{
+						using (SQLiteTransaction transaction = connection.BeginTransaction())
+						{
+							DatabaseConfig.SetConfigValue(UpdateVersion, string.Empty, Database.Connection);
+							DatabaseConfig.SetConfigValue(UpdateInstallerLocation, string.Empty, Database.Connection);
+							DatabaseConfig.SetConfigValue(UpdateChangelogLocation, string.Empty, Database.Connection);
+							
+							transaction.Commit();
+						}
+
+						this.logger.Log("Downloaded update (" + updateInstallerLocation + ") could not be found. Re-downloading it.");
+					}
+
+					// If we have not finished the download update yet, start/resume the download.
+					if (DatabaseConfig.GetConfigString(UpdateInstallerLocation, connection) == string.Empty)
+					{
+						this.logger.Log("Started downloading update " + updateVersion);
+
 						string downloadLocation = downloadElement.Value;
 						string changelogLink = changelogLinkElement.Value;
 						string installerFileName = Path.GetFileName(downloadLocation);
@@ -269,7 +304,7 @@ namespace VidCoder.Services
 							responseStream = response.GetResponseStream();
 
 							byte[] downloadBuffer = new byte[2048];
-							int bytesRead = 0;
+							int bytesRead;
 
 							while ((bytesRead = responseStream.Read(downloadBuffer, 0, downloadBuffer.Length)) > 0 && !updateDownloader.CancellationPending)
 							{
@@ -285,12 +320,18 @@ namespace VidCoder.Services
 
 							if (bytesRead == 0)
 							{
-								Settings.Default.UpdateVersion = updateVersion;
-								Settings.Default.UpdateInstallerLocation = installerFilePath;
-								Settings.Default.UpdateChangelogLocation = changelogLink;
-								Settings.Default.Save();
+								using (SQLiteTransaction transaction = connection.BeginTransaction())
+								{
+									DatabaseConfig.SetConfigValue(UpdateVersion, updateVersion, connection);
+									DatabaseConfig.SetConfigValue(UpdateInstallerLocation, installerFilePath, connection);
+									DatabaseConfig.SetConfigValue(UpdateChangelogLocation, changelogLink, connection);
+									
+									transaction.Commit();
+								}
 
 								this.UpdateReady = true;
+
+								this.logger.Log("Update " + updateVersion + " has finished downloading and will install on exit.");
 							}
 						}
 						finally

@@ -11,7 +11,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using VidCoder.Model;
 using VidCoder.Properties;
+using VidCoder.Services;
 
 namespace VidCoder
 {
@@ -26,7 +28,7 @@ namespace VidCoder
 		{
 			InitializeComponent();
 
-			this.changelogLinkString = Settings.Default.UpdateChangelogLocation;
+			this.changelogLinkString = DatabaseConfig.GetConfigString(Updater.UpdateChangelogLocation, Database.Connection);
 		}
 
 		public string Result
