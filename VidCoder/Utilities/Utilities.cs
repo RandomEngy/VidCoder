@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using HandBrake.Interop.Model.Encoding;
+using HandBrake.Interop.SourceData;
 using VidCoder.Services;
 using Microsoft.Practices.Unity;
 
@@ -330,6 +331,16 @@ namespace VidCoder
 		public static bool IsPassthrough(AudioEncoder encoder)
 		{
 			return encoder == AudioEncoder.Passthrough || encoder == AudioEncoder.Ac3Passthrough;
+		}
+
+		public static bool CanPassthrough(AudioCodec codec)
+		{
+			return
+				codec == AudioCodec.Ac3 ||
+				codec == AudioCodec.Dts || 
+				codec == AudioCodec.DtsHD ||
+				codec == AudioCodec.Aac ||
+				codec == AudioCodec.Mp3;
 		}
 
 		public static void SetDragIcon(DragEventArgs e)

@@ -7,8 +7,8 @@
 	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
 	xmlns:resx="clr-namespace:VidCoder.Properties"
 	xmlns:VidCoderDragDrop="clr-namespace:VidCoder.DragDropUtils"
-        xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop"
-        xmlns:Model="clr-namespace:HandBrake.Interop.Model;assembly=HandBrakeInterop" Title="VidCoder"
+		xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop"
+		xmlns:Model="clr-namespace:HandBrake.Interop.Model;assembly=HandBrakeInterop" Title="VidCoder"
 	Width="671"
 	Height="445"
 	MinWidth="617"
@@ -487,9 +487,8 @@
 									HorizontalContentAlignment="Left"
 									Command="{Binding ChooseSourceCommand}">
 										<StackPanel Orientation="Horizontal">
-											<Image Source="{Binding Image}" Visibility="{Binding ImageVisible, Converter={StaticResource VisibilityConverter}}" Width="16" Height="16" Margin="4,2,0,2" />
-											<controls:PathTextBlock Text="{Binding Text, Mode=OneWay}" Margin="4" MaxTextWidth="301" />
-											<!--<TextBlock Text="{Binding Text}" Style="{StaticResource PlainTitle}" Margin="4" MaxWidth="300" TextTrimming="CharacterEllipsis" />-->
+											<Image Source="{Binding Image}" Visibility="{Binding ImageVisible, Converter={StaticResource VisibilityConverter}}" Width="16" Height="16" Margin="4,2,0,2" UseLayoutRounding="True" />
+											<controls:PathTextBlock Text="{Binding Text, Mode=OneWay}" Margin="4" MaxTextWidth="300" />
 										</StackPanel>
 									</Button>
 								</DataTemplate>

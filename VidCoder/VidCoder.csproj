@@ -530,6 +530,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <SplashScreen Include="splash.png" />
     <Resource Include="Icons\video-file.png" />
     <Resource Include="Icons\encode_160.png" />
     <Resource Include="Icons\bludisc.png" />

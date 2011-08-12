@@ -93,7 +93,7 @@
 		</DataTemplate>
 	</UserControl.Resources>
 	<Grid>
-		<StackPanel Orientation="Vertical" Margin="6,15,0,0" VerticalAlignment="Top">
+		<StackPanel Orientation="Vertical" Margin="3,6,3,0" VerticalAlignment="Top" Name="audioPanelStack">
 			<ListView
 				Name="audioList"
 				ItemsSource="{Binding AudioEncodings}">
@@ -129,8 +129,13 @@
 				</ListView.View>
 			</ListView>
 			<Button
-				HorizontalAlignment="Left" Margin="0,6,0,0" Height="23" Width="121"
-				Command="{Binding AddAudioEncodingCommand}">Add audio encoding</Button>
+				HorizontalAlignment="Left" Margin="0,6,0,0"
+				Command="{Binding AddAudioEncodingCommand}">
+				<StackPanel Orientation="Horizontal" Margin="2">
+					<Polygon Style="{StaticResource PlusSign}" />
+					<TextBlock Text="Add audio encoding" />
+				</StackPanel>
+			</Button>
 			<Grid
 				HorizontalAlignment="Left" Margin="0,10,0,0"
 				Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">
@@ -181,6 +186,10 @@
 					</Grid>
 				</Border>
 			</Grid>
+			<controls:InlineWarning
+				Visibility="{Binding PassthroughWarningVisible, Converter={StaticResource VisibilityConverter}}"
+				Margin="0,10,0,0" HorizontalAlignment="Left"
+				WarningText="Passthrough only works for AAC, AC3, MP3, DTS and DTS-HD sources. One or more audio tracks were dropped." />
 		</StackPanel>
 	</Grid>
 </UserControl>

@@ -12,6 +12,8 @@ namespace VidCoder.ViewModel
 {
 	public class AudioPanelViewModel : PanelViewModel
 	{
+		private bool passthroughWarningVisible;
+
 		private ObservableCollection<AudioEncodingViewModel> audioEncodings;
 		private ObservableCollection<AudioOutputPreview> audioOutputPreviews;
 
@@ -46,6 +48,20 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return this.AudioOutputPreviews.Count > 0;
+			}
+		}
+
+		public bool PassthroughWarningVisible
+		{
+			get
+			{
+				return this.passthroughWarningVisible;
+			}
+
+			set
+			{
+				this.passthroughWarningVisible = value;
+				this.NotifyPropertyChanged("PassthroughWarningVisible");
 			}
 		}
 
@@ -93,6 +109,8 @@ namespace VidCoder.ViewModel
 
 		public void RefreshAudioPreview()
 		{
+			this.PassthroughWarningVisible = false;
+
 			if (this.SelectedTitle != null && this.AudioOutputPreviews != null)
 			{
 				this.AudioOutputPreviews.Clear();
@@ -169,13 +187,10 @@ namespace VidCoder.ViewModel
 					return null;
 				}
 
-				//if (encoder == AudioEncoder.DtsPassthrough && inputTrack.Codec != AudioCodec.Dts)
-				//{
-				//    return null;
-				//}
-
-				if (encoder == AudioEncoder.Passthrough && (inputTrack.Codec != AudioCodec.Ac3 && inputTrack.Codec != AudioCodec.Dts && inputTrack.Codec != AudioCodec.DtsHD))
+				if (encoder == AudioEncoder.Passthrough && !Utilities.CanPassthrough(inputTrack.Codec))
 				{
+					this.PassthroughWarningVisible = true;
+
 					return null;
 				}
 

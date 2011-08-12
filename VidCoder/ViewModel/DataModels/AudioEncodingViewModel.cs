@@ -391,6 +391,7 @@ namespace VidCoder.ViewModel
 				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Lame });
 				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Ac3 });
 				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Ac3Passthrough });
+				this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = AudioEncoder.Passthrough });
 			}
 
 			AudioEncoderViewModel newSelectedVM = null;
