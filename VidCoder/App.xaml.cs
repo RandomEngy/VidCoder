@@ -4,6 +4,8 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
+using VidCoder.Properties;
+using VidCoder.Services;
 using VidCoder.ViewModel;
 using System.IO.Pipes;
 using System.IO;
@@ -28,9 +30,30 @@ namespace VidCoder
 #endif
 			base.OnStartup(e);
 
-			var mainVM = new MainViewModel();
-			WindowManager.OpenWindow(mainVM);
-			mainVM.OnLoaded();
+			Unity.Container.RegisterInstance(this);
+
+			// Upgrade from previous user settings.
+			if (Settings.Default.ApplicationVersion != Utilities.CurrentVersion)
+			{
+				Settings.Default.Upgrade();
+				Settings.Default.ApplicationVersion = Utilities.CurrentVersion;
+				Settings.Default.Save();
+			}
+
+			var updater = Unity.Container.Resolve<IUpdater>();
+			bool updateSucceeded = updater.HandlePendingUpdate();
+
+			if (updateSucceeded)
+			{
+				var updateSuccess = new UpdateSuccess();
+				updateSuccess.Show();
+			}
+			else
+			{
+				var mainVM = new MainViewModel();
+				WindowManager.OpenWindow(mainVM);
+				mainVM.OnLoaded();
+			}
 		}
 
 		private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

@@ -120,7 +120,7 @@ namespace VidCoder.Services
 			}
 		}
 
-		public void HandlePendingUpdate()
+		public bool HandlePendingUpdate()
 		{
 			// This flag signifies VidCoder is being run by the installer after an update.
 			// In this case we report success, delete the installer, clean up the update flags and exit.
@@ -146,14 +146,12 @@ namespace VidCoder.Services
 
 				if (updateSucceeded)
 				{
-					MessageBox.Show("VidCoder has been successfully updated.");
-
 					if (Directory.Exists(Utilities.UpdatesFolder))
 					{
 						Directory.Delete(Utilities.UpdatesFolder, true);
 					}
 
-					Environment.Exit(0);
+					return true;
 				}
 				else
 				{
@@ -163,6 +161,8 @@ namespace VidCoder.Services
 					MessageBox.Show("The update was not applied. If you did not cancel it, try installing it manually.");
 				}
 			}
+
+			return false;
 		}
 
 		public void CheckUpdates()

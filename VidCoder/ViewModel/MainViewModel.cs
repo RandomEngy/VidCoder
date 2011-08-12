@@ -141,17 +141,9 @@ namespace VidCoder.ViewModel
 		{
 			Unity.Container.RegisterInstance(this);
 
-			// Upgrade from previous user settings.
-			if (Settings.Default.ApplicationVersion != Utilities.CurrentVersion)
-			{
-				Settings.Default.Upgrade();
-				Settings.Default.ApplicationVersion = Utilities.CurrentVersion;
-				Settings.Default.Save();
-			}
+			updater.CheckUpdates();
 
 			this.JobCreationAvailable = false;
-			this.updater.HandlePendingUpdate();
-			this.updater.CheckUpdates();
 
 			this.sourceOptions = new ObservableCollection<SourceOptionViewModel>
 			{
