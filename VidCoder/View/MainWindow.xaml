@@ -7,14 +7,15 @@
 	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
 	xmlns:resx="clr-namespace:VidCoder.Properties"
 	xmlns:VidCoderDragDrop="clr-namespace:VidCoder.DragDropUtils"
-		xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop"
-		xmlns:Model="clr-namespace:HandBrake.Interop.Model;assembly=HandBrakeInterop" Title="VidCoder"
+	xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop"
+	xmlns:Model="clr-namespace:HandBrake.Interop.Model;assembly=HandBrakeInterop" Title="VidCoder"
+	xmlns:tb="http://www.hardcodet.net/taskbar"
 	Width="671"
 	Height="445"
 	MinWidth="617"
 	MinHeight="445"
 	Style="{StaticResource NormalWindow}"
-	Closing="Window_Closing" AllowDrop="True" PreviewDrop="HandleDrop" PreviewDragOver="Window_PreviewDragOver" MouseDown="Window_MouseDown">
+	Closing="Window_Closing" AllowDrop="True" PreviewDrop="HandleDrop" PreviewDragOver="Window_PreviewDragOver" MouseDown="Window_MouseDown" StateChanged="Window_StateChanged">
 	<Window.Resources>
 		<local:EnumDisplayer Type="{x:Type Encoding:VideoEncoder}" x:Key="VideoEncoderChoices" />
 		<local:EnumDisplayer Type="{x:Type Model:VideoRangeType}" x:Key="VideoRangeTypeChoices" />
@@ -216,6 +217,7 @@
 			<EventSetter Event="MouseDoubleClick" Handler="HandleCompletedItemDoubleClick" />
 			<Setter Property="ContextMenu" Value="{StaticResource CompletedItemContextMenu}" />
 		</Style>
+		<local:RestoreWindowCommand x:Key="RestoreWindowCommand" />
 	</Window.Resources>
 	<Window.TaskbarItemInfo>
 		<TaskbarItemInfo ProgressValue="{Binding OverallEncodeProgressFraction}" ProgressState="{Binding EncodeProgressState}" />
@@ -231,6 +233,7 @@
 		<KeyBinding Key="T" Modifiers="Control" Command="{Binding QueueTitlesCommand}" />
 		<KeyBinding Key="D" Modifiers="Control" Command="{Binding PickOutputPathCommand}" />
 	</Window.InputBindings>
+	
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
@@ -240,6 +243,13 @@
 			<RowDefinition Height="*" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
+		<tb:TaskbarIcon
+			Name="trayIcon"
+			Visibility="{Binding ShowTrayIcon, Converter={StaticResource VisibilityConverter}}"
+			IconSource="/VidCoder_icon.ico"
+			LeftClickCommand="{StaticResource RestoreWindowCommand}"
+			DoubleClickCommand="{StaticResource RestoreWindowCommand}"
+			ToolTipText="{Binding TrayIconToolTip}"/>
 		<Menu Height="22">
 			<MenuItem Header="File">
 				<MenuItem

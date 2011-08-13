@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using Hardcodet.Wpf.TaskbarNotification;
 using VidCoder.ViewModel;
 using VidCoder.Model;
 using System.Collections.ObjectModel;
@@ -80,7 +81,14 @@ namespace VidCoder.View
 			Storyboard.SetTargetProperty(presetGlowFadeUp, new PropertyPath("Opacity"));
 			Storyboard.SetTargetName(presetGlowFadeDown, "PresetGlowEffect");
 			Storyboard.SetTargetProperty(presetGlowFadeDown, new PropertyPath("Opacity"));
+
+			this.Loaded += (e, o) =>
+			{
+				this.RestoredWindowState = this.WindowState;
+			};
 		}
+
+		public WindowState RestoredWindowState { get; set; }
 
 		public void HandleDrop(object sender, DragEventArgs e)
 		{
@@ -108,6 +116,14 @@ namespace VidCoder.View
 						this.viewModel.QueueMultiple(convertedFileList);
 					}
 				}
+			}
+		}
+
+		public void ShowBalloonMessage(string title, string message)
+		{
+			if (this.trayIcon.Visibility == Visibility.Visible)
+			{
+				this.trayIcon.ShowBalloonTip(title, message, BalloonIcon.Info);
 			}
 		}
 
@@ -396,6 +412,23 @@ namespace VidCoder.View
 			if (this.viewModel.SourceSelectionExpanded && !this.HitElement(this.sourceSelectionMenu, e.GetPosition(this)))
 			{
 				this.viewModel.SourceSelectionExpanded = false;
+			}
+		}
+
+		private void Window_StateChanged(object sender, EventArgs e)
+		{
+			if (this.WindowState == WindowState.Maximized || this.WindowState == WindowState.Normal)
+			{
+				this.RestoredWindowState = this.WindowState;
+			}
+
+			if (this.viewModel != null)
+			{
+				this.viewModel.RefreshTrayIcon(this.WindowState == WindowState.Minimized);
+				if (this.viewModel.ShowTrayIcon)
+				{
+					this.Hide();
+				}
 			}
 		}
 

@@ -34,11 +34,13 @@
 					<RadioButton
 						Height="16" Margin="179.154,66.267,179.82,0" VerticalAlignment="Top"
 						IsChecked="{Binding CustomFormat, Converter={StaticResource InverseBoolConverter}}"
-						IsEnabled="{Binding AutoNameOutputFiles}">Default format</RadioButton>
+						IsEnabled="{Binding AutoNameOutputFiles}"
+						GroupName="format">Default format</RadioButton>
 					<RadioButton
 						Height="16" Margin="179.154,88.245,180.153,0" VerticalAlignment="Top"
 						IsChecked="{Binding CustomFormat}"
-						IsEnabled="{Binding AutoNameOutputFiles}">Custom format:</RadioButton>
+						IsEnabled="{Binding AutoNameOutputFiles}"
+						GroupName="format">Custom format:</RadioButton>
 					<TextBox
 						Margin="195.236,110.223,11,0" Height="22.959" VerticalAlignment="Top"
 						Text="{Binding CustomFormatString}"
@@ -46,34 +48,27 @@
 					<TextBlock Margin="195.236,133.866,0.246,121" TextWrapping="Wrap" Height="36">Available options: {source} {title} {range} {preset} {date} {time} {quality} {parent}</TextBlock>
 					
 					<TextBlock
-						Height="21" HorizontalAlignment="Left" Margin="6,184,0,0" VerticalAlignment="Top" Width="82"
+						Height="21" HorizontalAlignment="Left" Margin="6,179,0,0" VerticalAlignment="Top" Width="82"
 						Style="{StaticResource EmphasizedTitle}"
-						Text="Logging:" />
-					<Label
-						Content="Verbosity:"
-						Height="28" HorizontalAlignment="Left" Margin="90,181,0,0" VerticalAlignment="Top" />
-					<ComboBox
-						Height="23" HorizontalAlignment="Left" Margin="156,184,0,0" VerticalAlignment="Top" Width="42"
-						SelectedValue="{Binding LogVerbosity}"
-						SelectedValuePath="Content">
-						<ComboBoxItem>0</ComboBoxItem>
-						<ComboBoxItem>1</ComboBoxItem>
-						<ComboBoxItem>2</ComboBoxItem>
-					</ComboBox>
-					<TextBlock
-						Height="40" HorizontalAlignment="Left" Margin="220,181,0,0" VerticalAlignment="Top" TextWrapping="Wrap"
-						Text="Log verbosity will take effect on next scan or program restart."
-						Visibility="{Binding LogVerbosityWarningVisible, Converter={StaticResource VisibilityConverter}}"/>
+						Text="System Tray:" />
+					<RadioButton
+						Content="Minimize to task bar" Height="16" HorizontalAlignment="Left" Margin="94,180,0,0" Name="radioButton1" VerticalAlignment="Top"
+						IsChecked="{Binding MinimizeToTray, Converter={StaticResource InverseBoolConverter}}"
+						GroupName="minimize"/>
+					<RadioButton
+						Content="Minimize to system tray" Height="16" HorizontalAlignment="Left" Margin="94,202,0,0" Name="radioButton2" VerticalAlignment="Top"
+						IsChecked="{Binding MinimizeToTray}"
+						GroupName="minimize"/>
 
 					<TextBlock
-						Height="21" HorizontalAlignment="Left" Margin="6,223,0,0" VerticalAlignment="Top" Width="82"
+						Height="21" HorizontalAlignment="Left" Margin="6,230,0,0" VerticalAlignment="Top" Width="82"
 						Style="{StaticResource EmphasizedTitle}"
 						Text="Updates:" />
 					<CheckBox
-						Height="16" Margin="94,223,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="182"
+						Height="16" Margin="94,230,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="182"
 						IsChecked="{Binding UpdatesEnabled}">Enable automatic updates</CheckBox>
 					<Grid
-						Height="31" Margin="111,245,11,0" VerticalAlignment="Top"
+						Height="31" Margin="111,252,11,0" VerticalAlignment="Top"
 						Visibility="{Binding UpdatesEnabled, Converter={StaticResource VisibilityConverter}}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto" />
@@ -85,6 +80,7 @@
 							Value="{Binding UpdateProgress}"
 							Visibility="{Binding UpdateDownloading, Converter={StaticResource VisibilityConverter}}" />
 					</Grid>
+
 				</Grid>
 			</TabItem>
 			<TabItem Header="Audio / Subtitles">
@@ -107,8 +103,7 @@
 			<TabItem Header="Processes">
 				<Grid>
 					<Label Content="Automatically pause encoding when any of these processes are running:" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="label2" VerticalAlignment="Top" />
-					<ListBox
-						Height="120" Margin="6,31,87,0" Name="listBox1" VerticalAlignment="Top" Width="422"
+					<ListBox Margin="6,31,87,6" Name="listBox1" Width="422"
 						ItemsSource="{Binding AutoPauseProcesses}"
 						SelectedItem="{Binding SelectedProcess}"/>
 					<Button
@@ -136,6 +131,13 @@
 						Content="Allow setting custom name on audio tracks (limited player support)"
 						IsChecked="{Binding ShowAudioTrackNameField}"
 						Height="16" HorizontalAlignment="Left" Margin="15,40,0,0" VerticalAlignment="Top" />
+					<Label Content="Logging Verbosity:" Height="28" HorizontalAlignment="Left" Margin="6,71,0,0" VerticalAlignment="Top" />
+					<ComboBox Height="23" HorizontalAlignment="Left" Margin="121,74,0,0" SelectedValue="{Binding LogVerbosity}" SelectedValuePath="Content" VerticalAlignment="Top" Width="42">
+						<ComboBoxItem Content="0" />
+						<ComboBoxItem Content="1" />
+						<ComboBoxItem Content="2" />
+					</ComboBox>
+					<TextBlock Height="40" HorizontalAlignment="Left" Margin="182,76,0,0" Text="Log verbosity will take effect on next scan or program restart." TextWrapping="Wrap" VerticalAlignment="Top" Visibility="{Binding LogVerbosityWarningVisible, Converter={StaticResource VisibilityConverter}}" />
 				</Grid>
 			</TabItem>
 		</TabControl>

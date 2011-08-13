@@ -20,6 +20,7 @@ namespace VidCoder.ViewModel
 		private string defaultPath;
 		private bool customFormat;
 		private string customFormatString;
+		private bool minimizeToTray;
 		private string nativeLanguageCode;
 		private bool dubAudio;
 		private int logVerbosity;
@@ -49,6 +50,7 @@ namespace VidCoder.ViewModel
 			this.defaultPath = Settings.Default.AutoNameOutputFolder;
 			this.customFormat = Settings.Default.AutoNameCustomFormat;
 			this.customFormatString = Settings.Default.AutoNameCustomFormatString;
+			this.minimizeToTray = Settings.Default.MinimizeToTray;
 			this.nativeLanguageCode = Settings.Default.NativeLanguageCode;
 			this.dubAudio = Settings.Default.DubAudio;
 			this.logVerbosity = Settings.Default.LogVerbosity;
@@ -206,6 +208,20 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool MinimizeToTray
+		{
+			get
+			{
+				return this.minimizeToTray;
+			}
+
+			set
+			{
+				this.minimizeToTray = value;
+				this.NotifyPropertyChanged("MinimizeToTray");
+			}
+		}
+
 		public string NativeLanguageCode
 		{
 			get
@@ -343,6 +359,7 @@ namespace VidCoder.ViewModel
 						Settings.Default.AutoNameOutputFolder = this.DefaultPath;
 						Settings.Default.AutoNameCustomFormat = this.CustomFormat;
 						Settings.Default.AutoNameCustomFormatString = this.CustomFormatString;
+						Settings.Default.MinimizeToTray = this.MinimizeToTray;
 						Settings.Default.NativeLanguageCode = this.NativeLanguageCode;
 						Settings.Default.DubAudio = this.DubAudio;
 						Settings.Default.LogVerbosity = this.LogVerbosity;

@@ -114,6 +114,9 @@
     <Reference Include="HandBrakeInterop">
       <HintPath>..\Lib\$(Platform)\HandBrakeInterop.dll</HintPath>
     </Reference>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification">
+      <HintPath>..\Lib\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\Lib\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
@@ -309,12 +312,14 @@
     <Compile Include="Services\ProcessAutoPause.cs" />
     <Compile Include="Services\Processes.cs" />
     <Compile Include="Services\SystemOperations.cs" />
+    <Compile Include="Services\TrayService.cs" />
     <Compile Include="Utilities\ListSynchronizer\IListItemConverter.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Utilities\ListSynchronizer\MultiSelectorBehaviors.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Utilities\ListSynchronizer\TwoListSynchronizer.cs" />
     <Compile Include="Utilities\RefireControl.cs" />
+    <Compile Include="View\RestoreWindowCommand.cs" />
     <Compile Include="Utilities\SourceHistory.cs" />
     <Compile Include="Utilities\SystemSleepManagement.cs" />
     <Compile Include="Utilities\UIUtilities.cs" />

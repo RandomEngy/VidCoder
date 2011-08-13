@@ -19,6 +19,7 @@ using System.Globalization;
 using Microsoft.Practices.Unity;
 using System.Threading;
 using System.Text.RegularExpressions;
+using VidCoder.View;
 
 namespace VidCoder.ViewModel
 {
@@ -106,6 +107,8 @@ namespace VidCoder.ViewModel
 		private bool encodingWindowOpen;
 		private bool previewWindowOpen;
 		private bool logWindowOpen;
+
+		private bool showTrayIcon;
 
 		private ICommand toggleSourceMenuCommand;
 		private ICommand openSubtitlesDialogCommand;
@@ -1880,6 +1883,28 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool ShowTrayIcon
+		{
+			get
+			{
+				return this.showTrayIcon;
+			}
+
+			set
+			{
+				this.showTrayIcon = value;
+				this.NotifyPropertyChanged("ShowTrayIcon");
+			}
+		}
+
+		public string TrayIconToolTip
+		{
+			get
+			{
+				return "VidCoder " + Utilities.CurrentVersion;
+			}
+		}
+
 		public ICommand ToggleSourceMenuCommand
 		{
 			get
@@ -2808,6 +2833,8 @@ namespace VidCoder.ViewModel
 						this.logger.Log("Queue completed");
 						this.logger.Log("");
 
+						Unity.Container.Resolve<TrayService>().ShowBalloonMessage("Encoding completed", "VidCoder has finished all encode jobs in the queue.");
+
 						switch (this.EncodeCompleteAction)
 						{
 							case EncodeCompleteAction.DoNothing:
@@ -3163,6 +3190,11 @@ namespace VidCoder.ViewModel
 		public void RefreshDestination()
 		{
 			this.GenerateOutputFileName();
+		}
+
+		public void RefreshTrayIcon(bool minimized)
+		{
+			this.ShowTrayIcon = Settings.Default.MinimizeToTray && minimized;
 		}
 
 		/// <summary>
