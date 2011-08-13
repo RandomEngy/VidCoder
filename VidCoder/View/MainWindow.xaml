@@ -682,31 +682,19 @@
 				<TextBox
 					Name="destinationEditBox"
 					Text="{Binding OutputPath, UpdateSourceTrigger=PropertyChanged}"
-					Visibility="{Binding EditingDestination, Converter={StaticResource VisibilityConverter}}" LostFocus="DestinationEditBoxLostFocus"
+					
+					LostFocus="DestinationEditBoxLostFocus"
 					PreviewKeyDown="destinationEditBox_PreviewKeyDown"/>
 				<Grid
-					Name="destinationReadArea"
+					Name="destinationReadCover"
 					Background="Transparent"
 					Visibility="{Binding EditingDestination, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
-					MouseLeftButtonDown="DestinationReadAreaMouseLeftButtonDown"
-					ToolTip="Click to change the encode destination." Margin="0">
-					<Border
-						CornerRadius="3"
-						BorderBrush="#7DA2CE" BorderThickness="1"
-						Visibility="{Binding IsMouseOver, ElementName=destinationReadArea, Converter={StaticResource VisibilityConverter}}">
-						<Border.Background>
-							<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-								<GradientStop Color="#DBEAFC" Offset="0.0" />
-								<GradientStop Color="#C1DBFC" Offset="1.0" />
-							</LinearGradientBrush>
-						</Border.Background>
-					</Border>
-					<TextBlock
-						HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,3,0,0"
-						Text="{Binding OutputPath}" />
+					MouseLeftButtonDown="DestinationReadCoverMouseLeftButtonDown"
+					ToolTip="Click to change the encode destination." Margin="0"
+					Cursor="Hand">
 					<Image 
 						Source="/Icons/edit_2.png" Height="20" HorizontalAlignment="Right" Margin="0,0,4,0"
-						Visibility="{Binding IsMouseOver, ElementName=destinationReadArea, Converter={StaticResource VisibilityConverter}}"/>
+						Visibility="{Binding IsMouseOver, ElementName=destinationReadCover, Converter={StaticResource VisibilityConverter}}"/>
 				</Grid>
 			</Grid>
 
@@ -719,7 +707,9 @@
 				</StackPanel>
 			</Button>
 
-			<Button Width="64" HorizontalAlignment="Right" Height="22" Margin="0,8,12,0" VerticalAlignment="Top"
+			<Button
+				Name="outputPathBrowseButton"
+				Width="64" HorizontalAlignment="Right" Height="22" Margin="0,8,12,0" VerticalAlignment="Top"
 				Command="{Binding PickOutputPathCommand}"
 				Visibility="{Binding OutputFolderChosen, Converter={StaticResource VisibilityConverter}}">Browse...</Button>
 		</Grid>

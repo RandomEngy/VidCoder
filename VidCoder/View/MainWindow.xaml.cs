@@ -330,7 +330,7 @@ namespace VidCoder.View
 			this.encodeProgressDetailsPopup.IsOpen = false;
 		}
 
-		private void DestinationReadAreaMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		private void DestinationReadCoverMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			this.viewModel.EditingDestination = true;
 			this.destinationEditBox.Focus();
@@ -375,6 +375,13 @@ namespace VidCoder.View
 
 		private void StopEditing()
 		{
+			this.destinationEditBox.SelectionStart = 0;
+			this.destinationEditBox.SelectionLength = 0;
+			this.Dispatcher.BeginInvoke(new Action(() =>
+			    {
+					this.outputPathBrowseButton.Focus();
+			    }));
+
 			this.viewModel.EditingDestination = false;
 			this.viewModel.SetManualOutputPath(this.viewModel.OutputPath, this.oldOutputPath);
 		}
@@ -383,7 +390,7 @@ namespace VidCoder.View
 		{
 			if (this.viewModel.EditingDestination && !this.HitElement(this.destinationEditBox, e.GetPosition(this)))
 			{
-				this.viewModel.EditingDestination = false;
+				this.StopEditing();
 			}
 
 			if (this.viewModel.SourceSelectionExpanded && !this.HitElement(this.sourceSelectionMenu, e.GetPosition(this)))
