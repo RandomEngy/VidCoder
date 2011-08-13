@@ -87,6 +87,7 @@ namespace VidCoder.ViewModel
 				new AdvancedChoice { Label = "8: RD refine in I/P-frames", Value = "8" },
 				new AdvancedChoice { Label = "9: RD refine in all frames", Value = "9" },
 				new AdvancedChoice { Label = "10: QPRD in all frames", Value = "10" },
+				new AdvancedChoice { Label = "11: No early terminations in analysis", Value = "11" },
 			};
 
 			//subpixelMotionEstimation = CreateNumberList(0, 9, defaultNumber: 7);
