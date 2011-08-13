@@ -201,6 +201,19 @@ namespace VidCoder.DragDropUtils
 				// Only drag when user moved the mouse by a reasonable amount.
 				if (Utilities.IsMovementBigEnough(this.initialMousePosition, e.GetPosition(this.topWindow)))
 				{
+					var draggedItems = this.draggedData as List<object>;
+					var listView = this.sourceItemsControl as ListView;
+					if (listView != null)
+					{
+						// Once the drag has started, we must re-select the originally dragged items. The initial click may have de-selected them.
+						listView.SelectedItems.Clear();
+
+						foreach (object item in draggedItems)
+						{
+							listView.SelectedItems.Add(item);
+						}
+					}
+
 					DataObject data = new DataObject(this.format.Name, this.draggedData);
 
 					// Adding events to the window to make sure dragged adorner comes up when mouse is not over a drop target.
