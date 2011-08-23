@@ -18,6 +18,7 @@ namespace VidCoder.Model
 			{
 				{"Version", Utilities.CurrentDatabaseVersion.ToString()},
 				{"EncodeJobs", string.Empty},
+				{"EncodeJobs2", string.Empty},
 				{Updater.UpdateInProgress, "false"},
 				{Updater.UpdateVersion, string.Empty},
 				{Updater.UpdateInstallerLocation, string.Empty},

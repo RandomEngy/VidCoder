@@ -343,6 +343,24 @@ namespace VidCoder
 				codec == AudioCodec.Mp3;
 		}
 
+		public static string GetSourceNameFile(string videoFile)
+		{
+			return Path.GetFileNameWithoutExtension(videoFile);
+		}
+
+		public static string GetSourceNameFolder(string videoFolder)
+		{
+			DirectoryInfo parentDirectory = Directory.GetParent(videoFolder);
+			if (parentDirectory == null || parentDirectory.Root.FullName == parentDirectory.FullName)
+			{
+				return "VideoFolder";
+			}
+			else
+			{
+				return parentDirectory.Name;
+			}
+		}
+
 		public static void SetDragIcon(DragEventArgs e)
 		{
 			var data = e.Data as DataObject;

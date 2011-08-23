@@ -9,6 +9,7 @@ using VidCoder.DragDropUtils;
 using HandBrake.Interop;
 using System.Diagnostics;
 using Microsoft.Practices.Unity;
+using VidCoder.Model;
 
 namespace VidCoder.ViewModel
 {
@@ -18,6 +19,7 @@ namespace VidCoder.ViewModel
 
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 
+		private bool isSelected;
 		private bool isPaused;
 		private EncodeJob job;
 		private bool encoding;
@@ -26,6 +28,7 @@ namespace VidCoder.ViewModel
 		private Stopwatch encodeTimeStopwatch;
 		private TimeSpan eta;
 
+		private ICommand editQueueJobCommand;
 		private ICommand removeQueueJobCommand;
 
 		public EncodeJobViewModel(EncodeJob job)
@@ -49,7 +52,36 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public MainViewModel MainViewModel
+		{
+			get
+			{
+				return this.mainViewModel;
+			}
+		}
+
 		public HandBrakeInstance HandBrakeInstance { get; set; }
+
+		public VideoSource VideoSource { get; set; }
+
+		public VideoSourceMetadata VideoSourceMetadata { get; set; }
+
+		// True if the output path was picked manually rather than auto-generated
+		public bool ManualOutputPath { get; set; }
+
+		public bool IsSelected
+		{
+			get
+			{
+				return this.isSelected;
+			}
+
+			set
+			{
+				this.isSelected = value;
+				this.NotifyPropertyChanged("IsSelected");
+			}
+		}
 
 		public bool Encoding
 		{
@@ -152,7 +184,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool ShowRemoveButton
+		public bool ShowQueueEditButtons
 		{
 			get
 			{
@@ -276,6 +308,26 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public ICommand EditQueueJobCommand
+		{
+			get
+			{
+				if (this.editQueueJobCommand == null)
+				{
+					this.editQueueJobCommand = new RelayCommand(param =>
+					{
+						this.mainViewModel.EditQueueJob(this);
+					},
+					param =>
+					{
+						return !this.Encoding && !this.mainViewModel.ScanningSource;
+					});
+				}
+
+				return this.editQueueJobCommand;
+			}
+		}
+
 		public ICommand RemoveQueueJobCommand
 		{
 			get
@@ -309,7 +361,7 @@ namespace VidCoder.ViewModel
 			this.Encoding = true;
 			this.IsOnlyItem = isOnlyItem;
 			this.encodeTimeStopwatch = Stopwatch.StartNew();
-			this.NotifyPropertyChanged("ShowRemoveButton");
+			this.NotifyPropertyChanged("ShowQueueEditButtons");
 			this.NotifyPropertyChanged("ShowProgressBar");
 		}
 
@@ -331,7 +383,7 @@ namespace VidCoder.ViewModel
 		{
 			this.Encoding = false;
 			this.encodeTimeStopwatch.Stop();
-			this.NotifyPropertyChanged("ShowRemoveButton");
+			this.NotifyPropertyChanged("ShowQueueEditButtons");
 			this.NotifyPropertyChanged("ShowProgressBar");
 		}
 	}

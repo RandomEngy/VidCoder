@@ -9,6 +9,8 @@ namespace VidCoder.ViewModel
 {
 	public class VideoFiltersPanelViewModel : PanelViewModel
 	{
+		private const int MinDeblock = 5;
+
 		public VideoFiltersPanelViewModel(EncodingViewModel encodingViewModel)
 			: base(encodingViewModel)
 		{
@@ -186,12 +188,25 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.Profile.Deblock;
+				if (this.Profile.Deblock >= MinDeblock)
+				{
+					return this.Profile.Deblock;
+				}
+
+				return MinDeblock - 1;
 			}
 
 			set
 			{
-				this.Profile.Deblock = value;
+				if (value < MinDeblock)
+				{
+					this.Profile.Deblock = 0;
+				}
+				else
+				{
+					this.Profile.Deblock = value;
+				}
+
 				this.NotifyPropertyChanged("Deblock");
 				this.NotifyPropertyChanged("DeblockText");
 				this.IsModified = true;
@@ -202,7 +217,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.Deblock >= 5)
+				if (this.Deblock >= MinDeblock)
 				{
 					return this.Deblock.ToString();
 				}

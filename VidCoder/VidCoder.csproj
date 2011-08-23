@@ -296,6 +296,8 @@
     <Compile Include="Model\DatabaseConfig.cs" />
     <Compile Include="Model\EncodeCompleteAction.cs" />
     <Compile Include="Model\EncodeJobCollection.cs" />
+    <Compile Include="Model\EncodeJobPersistGroup.cs" />
+    <Compile Include="Model\EncodeJobWithMetadata.cs" />
     <Compile Include="Model\EncodeResult.cs" />
     <Compile Include="Model\LogEntry.cs" />
     <Compile Include="Model\LogSource.cs" />
@@ -303,6 +305,7 @@
     <Compile Include="Model\PresetCollection.cs" />
     <Compile Include="Model\PreviewImageJob.cs" />
     <Compile Include="Model\SaveImageJob.cs" />
+    <Compile Include="Model\VideoSourceMetadata.cs" />
     <Compile Include="Services\Interfaces\ILogger.cs" />
     <Compile Include="Services\Interfaces\IPresetImportExport.cs" />
     <Compile Include="Services\Interfaces\IProcesses.cs" />
@@ -542,6 +545,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Icons\edit_16x16.png" />
     <SplashScreen Include="splash.png" />
     <Resource Include="Icons\video-file.png" />
     <Resource Include="Icons\encode_160.png" />

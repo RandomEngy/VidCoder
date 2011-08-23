@@ -168,8 +168,12 @@
 		</DataTemplate>
 		<DataTemplate x:Key="QueueRemoveTemplate">
 			<Grid>
-				<Button Command="{Binding RemoveQueueJobCommand}" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource RemoveButtonStyle}"
-					Visibility="{Binding ShowRemoveButton, Converter={StaticResource VisibilityConverter}}">Remove from queue</Button>
+				<StackPanel
+					Orientation="Horizontal"
+					Visibility="{Binding ShowQueueEditButtons, Converter={StaticResource VisibilityConverter}}">
+					<!--<Button Command="{Binding EditQueueJobCommand}" Content="Edit" />-->
+					<Button Command="{Binding RemoveQueueJobCommand}" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource RemoveButtonStyle}">Remove from queue</Button>
+				</StackPanel>
 				<ProgressBar VerticalAlignment="Center" Height="12"
 					Value="{Binding PercentComplete}"
 					Visibility="{Binding ShowProgressBar, Converter={StaticResource VisibilityConverter}}"
@@ -864,7 +868,35 @@
 							VidCoderDragDrop:DragDropHelper.AllowDropAtTop="{Binding Encoding, Converter={StaticResource InverseBoolConverter}}">
 							<ListView.ItemContainerStyle>
 								<Style TargetType="ListViewItem">
+									<Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}" />
 									<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+									<Setter Property="ContextMenu">
+										<Setter.Value>
+											<ContextMenu>
+												<MenuItem
+													Header="Move to Top" Command="{Binding MainViewModel.MoveSelectedJobsToTopCommand}"
+													IsEnabled="{Binding Encoding, Converter={StaticResource InverseBoolConverter}}" />
+												<MenuItem
+													Header="Move to Bottom" Command="{Binding MainViewModel.MoveSelectedJobsToBottomCommand}"
+													IsEnabled="{Binding Encoding, Converter={StaticResource InverseBoolConverter}}" />
+												<Separator />
+												<MenuItem
+													Header="Edit" Command="{Binding EditQueueJobCommand}"
+													IsEnabled="{Binding Encoding, Converter={StaticResource InverseBoolConverter}}">
+													<MenuItem.Icon>
+														<Image Source="/Icons/edit_16x16.png" Width="16" Height="16" />
+													</MenuItem.Icon>
+												</MenuItem>
+												<MenuItem
+													Header="Delete" Command="{Binding MainViewModel.RemoveSelectedJobsCommand}"
+													IsEnabled="{Binding Encoding, Converter={StaticResource InverseBoolConverter}}">
+													<MenuItem.Icon>
+														<Image Source="/Icons/delete.png" Width="16" Height="16" />
+													</MenuItem.Icon>
+												</MenuItem>
+											</ContextMenu>
+										</Setter.Value>
+									</Setter>
 								</Style>
 							</ListView.ItemContainerStyle>
 							<ListView.View>
