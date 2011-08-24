@@ -187,12 +187,15 @@ namespace VidCoder
 			Directory.Delete(path);
 		}
 
-		public static string CleanFileName(string fileName)
+		public static string CleanFileName(string fileName, bool allowBackslashes = false)
 		{
 			string cleanName = fileName;
 			foreach (string disallowedChar in disallowedCharacters)
 			{
-				cleanName = cleanName.Replace(disallowedChar, "_");
+				if (disallowedChar != @"\" || !allowBackslashes)
+				{
+					cleanName = cleanName.Replace(disallowedChar, "_");
+				}
 			}
 
 			return cleanName;

@@ -133,6 +133,14 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool SaveRenameButtonsVisible
+		{
+			get
+			{
+				return !this.IsBuiltIn && !this.originalPreset.IsQueue;
+			}
+		}
+
 		public bool IsBuiltIn
 		{
 			get
@@ -152,7 +160,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return !this.IsBuiltIn && !this.IsModified;
+				return !this.IsBuiltIn && !this.IsModified && !this.originalPreset.IsQueue;
 			}
 		}
 
@@ -167,8 +175,8 @@ namespace VidCoder.ViewModel
 
 			set
 			{
-				// Don't mark as modified if this is an automatic change.
-				if (!this.AutomaticChange)
+				// Don't mark as modified if this is an automatic change or if it's a temporary queue preset.
+				if (!this.AutomaticChange && !this.originalPreset.IsQueue)
 				{
 					if (this.originalPreset.IsModified != value)
 					{
@@ -181,12 +189,12 @@ namespace VidCoder.ViewModel
 					this.NotifyPropertyChanged("IsModified");
 					this.NotifyPropertyChanged("WindowTitle");
 					this.NotifyPropertyChanged("DeleteButtonVisible");
+				}
 
-					// If we've made a modification, we need to save the user presets.
-					if (value)
-					{
-						this.mainViewModel.SaveUserPresets();
-					}
+				// If we've made a modification, we need to save the user presets.
+				if (value)
+				{
+					this.mainViewModel.SaveUserPresets();
 				}
 			}
 		}
@@ -515,6 +523,7 @@ namespace VidCoder.ViewModel
 			this.NotifyPropertyChanged("WindowTitle");
 			this.NotifyPropertyChanged("ProfileName");
 			this.NotifyPropertyChanged("IsBuiltIn");
+			this.NotifyPropertyChanged("SaveRenameButtonsVisible");
 			this.NotifyPropertyChanged("DeleteButtonVisible");
 			this.NotifyPropertyChanged("IsModified");
 			this.NotifyPropertyChanged("OutputFormat");

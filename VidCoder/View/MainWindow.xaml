@@ -759,6 +759,10 @@
 												<Setter Property="Foreground" Value="#0B4BC2" />
 												<Setter Property="FontWeight" Value="Bold" />
 											</DataTrigger>
+											<DataTrigger Binding="{Binding IsQueue}" Value="True">
+												<Setter Property="Foreground" Value="#222222" />
+												<Setter Property="FontWeight" Value="Normal" />
+											</DataTrigger>
 										</Style.Triggers>
 									</Style>
 								</TextBlock.Style>

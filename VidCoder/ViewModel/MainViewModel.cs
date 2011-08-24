@@ -1501,26 +1501,37 @@ namespace VidCoder.ViewModel
 
 				if (changeSelectedPreset)
 				{
-					this.GenerateOutputFileName();
+					NotifySelectedPresetChanged();
 
-					var encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel)) as EncodingViewModel;
-					if (encodingWindow != null)
+					// If we're switching away from a temporary queue preset, remove it.
+					if (previouslySelectedPreset != null && previouslySelectedPreset.IsQueue && previouslySelectedPreset != value)
 					{
-						encodingWindow.EditingPreset = this.selectedPreset.Preset;
+						this.AllPresets.Remove(previouslySelectedPreset);
 					}
-
-					var previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
-					if (previewWindow != null)
-					{
-						previewWindow.RequestRefreshPreviews();
-					}
-
-					this.NotifyPropertyChanged("SelectedPreset");
 				}
-
-				this.NotifyPropertyChanged("ShowChapterMarkerUI");
-				Properties.Settings.Default.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
 			}
+		}
+
+		private void NotifySelectedPresetChanged()
+		{
+			this.GenerateOutputFileName();
+
+			var encodingWindow = WindowManager.FindWindow(typeof (EncodingViewModel)) as EncodingViewModel;
+			if (encodingWindow != null)
+			{
+				encodingWindow.EditingPreset = this.selectedPreset.Preset;
+			}
+
+			var previewWindow = WindowManager.FindWindow(typeof (PreviewViewModel)) as PreviewViewModel;
+			if (previewWindow != null)
+			{
+				previewWindow.RequestRefreshPreviews();
+			}
+
+			this.NotifyPropertyChanged("SelectedPreset");
+			this.NotifyPropertyChanged("ShowChapterMarkerUI");
+
+			Settings.Default.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
 		}
 
 		public int SelectedTabIndex
@@ -3165,6 +3176,23 @@ namespace VidCoder.ViewModel
 		{
 			EncodeJob job = jobVM.Job;
 
+			if (this.SelectedPreset.IsModified)
+			{
+				MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, "Do you want to save changes to your current preset?", "Save current preset?", MessageBoxButton.YesNoCancel);
+				if (dialogResult == MessageBoxResult.Yes)
+				{
+					this.SavePreset();
+				}
+				else if (dialogResult == MessageBoxResult.No)
+				{
+					this.RevertPreset(userInitiated: false);
+				}
+				else if (dialogResult == MessageBoxResult.Cancel)
+				{
+					return;
+				}
+			}
+
 			if (jobVM.HandBrakeInstance != null && jobVM.HandBrakeInstance == this.ScanInstance)
 			{
 				this.ApplyEncodeJobChoices(jobVM);
@@ -3218,8 +3246,31 @@ namespace VidCoder.ViewModel
 				this.StartScan(job.SourcePath, jobVM);
 			}
 
+			// Bring in encoding profile and put in a placeholder preset.
+			if (this.AllPresets[0].IsQueue)
+			{
+				this.AllPresets.RemoveAt(0);
+			}
+
+			var queuePreset = new PresetViewModel(
+				new Preset
+			    {
+					IsBuiltIn = false,
+					IsModified = false,
+					IsQueue = true,
+					Name = "Restored from Queue",
+					EncodingProfile = jobVM.Job.EncodingProfile
+			    });
+
+			this.AllPresets.Insert(0, queuePreset);
+
+			this.selectedPreset = queuePreset;
+			this.NotifySelectedPresetChanged();
+
 			// Since it's been sent back for editing, remove the queue item
 			this.EncodeQueue.Remove(jobVM);
+
+			this.SaveUserPresets();
 		}
 
 		public void RemoveQueueJob(EncodeJobViewModel job)
@@ -3427,7 +3478,7 @@ namespace VidCoder.ViewModel
 
 			foreach (PresetViewModel presetVM in this.AllPresets)
 			{
-				if (!presetVM.Preset.IsBuiltIn || presetVM.Preset.IsModified)
+				if ((!presetVM.Preset.IsBuiltIn || presetVM.Preset.IsModified) && !presetVM.IsQueue)
 				{
 					userPresets.Add(presetVM.Preset);
 				}
@@ -4246,7 +4297,7 @@ namespace VidCoder.ViewModel
 				fileName = sourceName + titleSection + rangeSection;
 			}
 
-			return Utilities.CleanFileName(fileName);
+			return Utilities.CleanFileName(fileName, allowBackslashes: true);
 		}
 
 		private static string ReplaceTitles(string inputString, int title)

@@ -34,6 +34,14 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool IsQueue
+		{
+			get
+			{
+				return this.preset.IsQueue;
+			}
+		}
+
 		public string PresetName
 		{
 			get
