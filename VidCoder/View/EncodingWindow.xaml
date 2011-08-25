@@ -35,7 +35,7 @@
 					Text="{Binding ProfileName}" Margin="0,4,0,0"
 					Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" FontWeight="Bold" FontSize="14" TextAlignment="Center" TextTrimming="CharacterEllipsis" />
 				<Button Height="24" Width="70"
-					Visibility="{Binding IsBuiltIn, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
+					Visibility="{Binding SaveRenameButtonsVisible, Converter={StaticResource VisibilityConverter}}"
 					Command="{Binding SaveCommand}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/save.png" Width="16" Height="16" />
@@ -46,7 +46,7 @@
 					Command="{Binding SaveAsCommand}">Save As...</Button>
 				<Button
 					Content="Rename"
-					Visibility="{Binding IsBuiltIn, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
+					Visibility="{Binding SaveRenameButtonsVisible, Converter={StaticResource VisibilityConverter}}"
 					Height="24" Width="65"
 					Command="{Binding RenameCommand}" />
 				<Button

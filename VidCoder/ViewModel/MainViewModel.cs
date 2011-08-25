@@ -3259,7 +3259,7 @@ namespace VidCoder.ViewModel
 					IsModified = false,
 					IsQueue = true,
 					Name = "Restored from Queue",
-					EncodingProfile = jobVM.Job.EncodingProfile
+					EncodingProfile = jobVM.Job.EncodingProfile.Clone()
 			    });
 
 			this.AllPresets.Insert(0, queuePreset);

@@ -69,14 +69,14 @@ namespace VidCoder.ViewModel
 
 			set
 			{
-				if (value.IsModified)
+				if (value.IsModified || value.IsQueue)
 				{
-					// If already modified, use the existing profile.
+					// If already modified or this is the scrap queue preset, use existing profile.
 					this.profile = value.EncodingProfile;
 				}
 				else
 				{
-					// If not modified, clone the profile
+					// If not modified regular preset, clone the profile
 					this.profile = value.EncodingProfile.Clone();
 				}
 
@@ -189,12 +189,13 @@ namespace VidCoder.ViewModel
 					this.NotifyPropertyChanged("IsModified");
 					this.NotifyPropertyChanged("WindowTitle");
 					this.NotifyPropertyChanged("DeleteButtonVisible");
-				}
 
-				// If we've made a modification, we need to save the user presets.
-				if (value)
-				{
-					this.mainViewModel.SaveUserPresets();
+					// If we've made a modification, we need to save the user presets. The temporary queue preset will
+					// not be persisted so we don't need to save user presets when it changes.
+					if (value)
+					{
+						this.mainViewModel.SaveUserPresets();
+					}
 				}
 			}
 		}
