@@ -704,7 +704,7 @@
 					Background="Transparent"
 					Visibility="{Binding EditingDestination, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
 					MouseLeftButtonDown="DestinationReadCoverMouseLeftButtonDown"
-					ToolTip="Click to change the encode destination." Margin="0"
+					ToolTip="Click to edit the encode destination." Margin="0"
 					Cursor="Hand">
 					<Image 
 						Source="/Icons/edit_2.png" Height="20" HorizontalAlignment="Right" Margin="0,0,4,0"
