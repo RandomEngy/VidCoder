@@ -258,7 +258,7 @@ namespace VidCoder.ViewModel
 
 			this.driveService = Unity.Container.Resolve<IDriveService>();
 
-			this.DriveCollection = this.driveService.GetDriveInformation();
+			this.DriveCollection = this.driveService.GetDiscInformation();
 
 			this.audioChoices = new ObservableCollection<AudioChoiceViewModel>();
 		}
@@ -288,7 +288,7 @@ namespace VidCoder.ViewModel
 			}
 
 			// Get new set of drives
-			IList<DriveInformation> newDriveCollection = this.driveService.GetDriveInformation();
+			IList<DriveInformation> newDriveCollection = this.driveService.GetDiscInformation();
 
 			// If our currently selected source is a DVD drive, see if it needs to be updated
 			if (this.SelectedSource != null && this.SelectedSource.Type == SourceType.Dvd)
@@ -1401,7 +1401,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return !Settings.Default.AutoNameOutputFiles || !string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder);
+				return !string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder);
 			}
 		}
 
@@ -3949,7 +3949,7 @@ namespace VidCoder.ViewModel
 				return;
 			}
 
-			if (!Settings.Default.AutoNameOutputFiles || string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder))
+			if (string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder))
 			{
 				return;
 			}
@@ -4158,7 +4158,23 @@ namespace VidCoder.ViewModel
 
 		private string BuildOutputPath(string fileName, string extension, string sourcePath)
 		{
+			// Use our default output folder by default
 			string outputFolder = Settings.Default.AutoNameOutputFolder;
+			if (Settings.Default.OutputToSourceDirectory)
+			{
+				string sourceRoot = Path.GetPathRoot(sourcePath);
+				IList<DriveInfo> driveInfo = this.driveService.GetDriveInformation();
+				DriveInfo matchingDrive = driveInfo.FirstOrDefault(d => string.Compare(d.RootDirectory.FullName, sourceRoot, StringComparison.OrdinalIgnoreCase) == 0);
+
+				string sourceDirectory = Path.GetDirectoryName(sourcePath);
+
+				// Use the source directory if it exists and not on an optical drive
+				if (!string.IsNullOrEmpty(sourceDirectory) && (matchingDrive == null || matchingDrive.DriveType != DriveType.CDRom))
+				{
+					outputFolder = sourceDirectory;
+				}
+			}
+
 			if (!string.IsNullOrEmpty(outputFolder))
 			{
 				string result = Path.Combine(outputFolder, fileName + extension);

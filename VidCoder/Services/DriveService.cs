@@ -47,7 +47,7 @@ namespace VidCoder.Services
 			this.mainViewModel.UpdateDriveCollection();
 		}
 
-		public IList<DriveInformation> GetDriveInformation()
+		public IList<DriveInformation> GetDiscInformation()
 		{
 			DriveInfo[] driveCollection = DriveInfo.GetDrives();
 			var driveList = new List<DriveInformation>();
@@ -79,6 +79,11 @@ namespace VidCoder.Services
 
 			return driveList;
 		}
+
+		public IList<DriveInfo> GetDriveInformation()
+		{
+			return new List<DriveInfo>(DriveInfo.GetDrives());
+		} 
 
 		public void Close()
 		{

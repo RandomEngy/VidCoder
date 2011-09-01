@@ -18,34 +18,27 @@
 						Height="21" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Width="82"
 						Text="Output Files:"
 						Style="{StaticResource EmphasizedTitle}"/>
-					<CheckBox
-						Height="16" Margin="94,11,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="296"
-						IsChecked="{Binding AutoNameOutputFiles}">Automatically name output files</CheckBox>
-					<Label Height="26.8" HorizontalAlignment="Left" Margin="90,29.2,0,0" Name="label1" VerticalAlignment="Top" Width="89">Default folder:</Label>
+					<Label Height="26.8" HorizontalAlignment="Left" Margin="90,4,0,0" Name="label1" VerticalAlignment="Top" Width="89">Default folder:</Label>
 					<TextBox
-						Height="23" Margin="179.154,33,92,0" VerticalAlignment="Top"
-						Text="{Binding DefaultPath}"
-						IsEnabled="{Binding AutoNameOutputFiles}"/>
+						Height="23" Margin="179.154,8,92,0" VerticalAlignment="Top"
+						Text="{Binding DefaultPath}" />
 					<Button
-						Height="23" HorizontalAlignment="Right" Margin="0,32.48,11,0" VerticalAlignment="Top" Width="75"
-						Command="{Binding BrowsePathCommand}"
-						IsEnabled="{Binding AutoNameOutputFiles}">Browse...</Button>
-					<Label Height="28" HorizontalAlignment="Left" Margin="90,56.943,0,0" VerticalAlignment="Top" Width="76.8">File format:</Label>
+						Height="23" HorizontalAlignment="Right" Margin="0,7,11,0" VerticalAlignment="Top" Width="75"
+						Command="{Binding BrowsePathCommand}">Browse...</Button>
+					<Label Height="28" HorizontalAlignment="Left" Margin="90,32,0,0" VerticalAlignment="Top" Width="76.8">File format:</Label>
 					<RadioButton
-						Height="16" Margin="179.154,66.267,179.82,0" VerticalAlignment="Top"
+						Height="16" Margin="179.154,41,179.82,0" VerticalAlignment="Top"
 						IsChecked="{Binding CustomFormat, Converter={StaticResource InverseBoolConverter}}"
-						IsEnabled="{Binding AutoNameOutputFiles}"
 						GroupName="format">Default format</RadioButton>
 					<RadioButton
-						Height="16" Margin="179.154,88.245,180.153,0" VerticalAlignment="Top"
+						Height="16" Margin="179.154,63,180.153,0" VerticalAlignment="Top"
 						IsChecked="{Binding CustomFormat}"
-						IsEnabled="{Binding AutoNameOutputFiles}"
 						GroupName="format">Custom format:</RadioButton>
 					<TextBox
-						Margin="195.236,110.223,11,0" Height="22.959" VerticalAlignment="Top"
+						Margin="195.236,85,11,0" Height="22.959" VerticalAlignment="Top"
 						Text="{Binding CustomFormatString}"
 						IsEnabled="{Binding CustomFormatStringEnabled}"/>
-					<TextBlock Margin="195.236,133.866,0.246,121" TextWrapping="Wrap" Height="36">Available options: {source} {title} {range} {preset} {date} {time} {quality} {parent}</TextBlock>
+					<TextBlock Margin="195.236,109,0.246,146" TextWrapping="Wrap" Height="36">Available options: {source} {title} {range} {preset} {date} {time} {quality} {parent}</TextBlock>
 					
 					<TextBlock
 						Height="21" HorizontalAlignment="Left" Margin="6,179,0,0" VerticalAlignment="Top" Width="82"
@@ -80,7 +73,10 @@
 							Value="{Binding UpdateProgress}"
 							Visibility="{Binding UpdateDownloading, Converter={StaticResource VisibilityConverter}}" />
 					</Grid>
-
+					<CheckBox
+						Content="Output to the source directory if possible"
+						Height="16" HorizontalAlignment="Left" Margin="94,150,0,0" Name="checkBox1" VerticalAlignment="Top"
+						IsChecked="{Binding OutputToSourceDirectory}"/>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Audio / Subtitles">

@@ -20,9 +20,6 @@
     <Setting Name="LastPresetIndex" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="AutoNameOutputFiles" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="AutoNameOutputFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
@@ -129,6 +126,9 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="MinimizeToTray" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="OutputToSourceDirectory" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

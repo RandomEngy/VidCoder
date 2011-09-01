@@ -13,13 +13,13 @@ namespace VidCoder.ViewModel
 {
 	public class OptionsDialogViewModel : OkCancelDialogViewModel
 	{
-		private bool autoNameOutputFiles;
 		private bool updatesEnabled;
 		private bool updateDownloading;
 		private double updateProgress;
 		private string defaultPath;
 		private bool customFormat;
 		private string customFormatString;
+		private bool outputToSourceDirectory;
 		private bool minimizeToTray;
 		private string nativeLanguageCode;
 		private bool dubAudio;
@@ -46,10 +46,10 @@ namespace VidCoder.ViewModel
 			this.updateService.UpdateDownloadCompleted += this.OnUpdateDownloadCompleted;
 
 			this.updatesEnabled = Settings.Default.UpdatesEnabled;
-			this.autoNameOutputFiles = Settings.Default.AutoNameOutputFiles;
 			this.defaultPath = Settings.Default.AutoNameOutputFolder;
 			this.customFormat = Settings.Default.AutoNameCustomFormat;
 			this.customFormatString = Settings.Default.AutoNameCustomFormatString;
+			this.outputToSourceDirectory = Settings.Default.OutputToSourceDirectory;
 			this.minimizeToTray = Settings.Default.MinimizeToTray;
 			this.nativeLanguageCode = Settings.Default.NativeLanguageCode;
 			this.dubAudio = Settings.Default.DubAudio;
@@ -142,21 +142,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool AutoNameOutputFiles
-		{
-			get
-			{
-				return this.autoNameOutputFiles;
-			}
-
-			set
-			{
-				this.autoNameOutputFiles = value;
-				this.NotifyPropertyChanged("AutoNameOutputFiles");
-				this.NotifyPropertyChanged("CustomFormatStringEnabled");
-			}
-		}
-
 		public string DefaultPath
 		{
 			get
@@ -204,7 +189,21 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.AutoNameOutputFiles && this.CustomFormat;
+				return this.CustomFormat;
+			}
+		}
+
+		public bool OutputToSourceDirectory
+		{
+			get
+			{
+				return this.outputToSourceDirectory;
+			}
+
+			set
+			{
+				this.outputToSourceDirectory = value;
+				this.NotifyPropertyChanged("OutputToSourceDirectory");
 			}
 		}
 
@@ -355,10 +354,10 @@ namespace VidCoder.ViewModel
 							this.updateService.HandleUpdatedSettings(this.UpdatesEnabled);
 						}
 
-						Settings.Default.AutoNameOutputFiles = this.AutoNameOutputFiles;
 						Settings.Default.AutoNameOutputFolder = this.DefaultPath;
 						Settings.Default.AutoNameCustomFormat = this.CustomFormat;
 						Settings.Default.AutoNameCustomFormatString = this.CustomFormatString;
+						Settings.Default.OutputToSourceDirectory = this.OutputToSourceDirectory;
 						Settings.Default.MinimizeToTray = this.MinimizeToTray;
 						Settings.Default.NativeLanguageCode = this.NativeLanguageCode;
 						Settings.Default.DubAudio = this.DubAudio;

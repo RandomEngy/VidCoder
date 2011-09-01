@@ -97,18 +97,6 @@ namespace VidCoder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool AutoNameOutputFiles {
-            get {
-                return ((bool)(this["AutoNameOutputFiles"]));
-            }
-            set {
-                this["AutoNameOutputFiles"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string AutoNameOutputFolder {
             get {
@@ -535,6 +523,18 @@ namespace VidCoder.Properties {
             }
             set {
                 this["MinimizeToTray"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OutputToSourceDirectory {
+            get {
+                return ((bool)(this["OutputToSourceDirectory"]));
+            }
+            set {
+                this["OutputToSourceDirectory"] = value;
             }
         }
     }
