@@ -146,9 +146,16 @@ namespace VidCoder.Services
 
 				if (updateSucceeded)
 				{
-					if (Directory.Exists(Utilities.UpdatesFolder))
+					try
 					{
-						Directory.Delete(Utilities.UpdatesFolder, true);
+						if (Directory.Exists(Utilities.UpdatesFolder))
+						{
+							Directory.Delete(Utilities.UpdatesFolder, true);
+						}
+					}
+					catch (IOException)
+					{
+						// Ignore this. Not critical that we delete the updates folder.
 					}
 
 					return true;

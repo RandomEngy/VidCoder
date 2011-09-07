@@ -206,13 +206,13 @@ namespace VidCoder
 		/// </summary>
 		/// <param name="baseName">The base file name to work with.</param>
 		/// <param name="outputDirectory">The directory the file should be written to.</param>
-		/// <param name="excludedPaths">Any paths to be excluded (expected to be normalized with ToLowerInvariant).</param>
+		/// <param name="excludedPaths">Any paths to be excluded. Collection is expected to have StringComparer.OrdinalIgnoreCase.</param>
 		/// <returns>A file name that does not exist and does not match any of the given paths.</returns>
 		public static string CreateUniqueFileName(string baseName, string outputDirectory, HashSet<string> excludedPaths)
 		{
-			string fileName = Path.GetFileName(baseName);
-			string candidateFilePath = Path.Combine(outputDirectory, fileName);
-			if (!File.Exists(candidateFilePath) && !IsExcluded(fileName, excludedPaths))
+			//string fileName = Path.GetFileName(baseName);
+			string candidateFilePath = Path.Combine(outputDirectory, baseName);
+			if (!File.Exists(candidateFilePath) && !IsExcluded(candidateFilePath, excludedPaths))
 			{
 				return candidateFilePath;
 			}
@@ -235,6 +235,11 @@ namespace VidCoder
 			}
 
 			return null;
+		}
+
+		public static string CreateUniqueFileName(string filePath, HashSet<string> excludedPaths)
+		{
+			return CreateUniqueFileName(Path.GetFileName(filePath), Path.GetDirectoryName(filePath), excludedPaths);
 		}
 
 		/// <summary>
@@ -346,6 +351,22 @@ namespace VidCoder
 				codec == AudioCodec.Mp3;
 		}
 
+		// Assumes the hashset has a comparer of StringComparer.OrdinalIgnoreCase
+		public static bool? FileExists(string path, HashSet<string> queuedPaths)
+		{
+			if (File.Exists(path))
+			{
+				return true;
+			}
+
+			if (queuedPaths.Contains(path))
+			{
+				return false;
+			}
+
+			return null;
+		}
+
 		public static string GetSourceNameFile(string videoFile)
 		{
 			return Path.GetFileNameWithoutExtension(videoFile);
@@ -376,7 +397,7 @@ namespace VidCoder
 
 		private static bool IsExcluded(string candidate, HashSet<string> exclusionList)
 		{
-			return exclusionList.Contains(candidate.ToLowerInvariant());
+			return exclusionList.Contains(candidate);
 		}
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using VidCoder.Model;
 using VidCoder.Services;
 using System.IO;
 using VidCoder.Properties;
@@ -20,6 +21,8 @@ namespace VidCoder.ViewModel
 		private bool customFormat;
 		private string customFormatString;
 		private bool outputToSourceDirectory;
+		private WhenFileExists whenFileExists;
+		private WhenFileExists whenFileExistsBatch;
 		private bool minimizeToTray;
 		private string nativeLanguageCode;
 		private bool dubAudio;
@@ -50,6 +53,8 @@ namespace VidCoder.ViewModel
 			this.customFormat = Settings.Default.AutoNameCustomFormat;
 			this.customFormatString = Settings.Default.AutoNameCustomFormatString;
 			this.outputToSourceDirectory = Settings.Default.OutputToSourceDirectory;
+			this.whenFileExists = Settings.Default.WhenFileExists;
+			this.whenFileExistsBatch = Settings.Default.WhenFileExistsBatch;
 			this.minimizeToTray = Settings.Default.MinimizeToTray;
 			this.nativeLanguageCode = Settings.Default.NativeLanguageCode;
 			this.dubAudio = Settings.Default.DubAudio;
@@ -207,6 +212,34 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public WhenFileExists WhenFileExists
+		{
+			get
+			{
+				return this.whenFileExists;
+			}
+
+			set
+			{
+				this.whenFileExists = value;
+				this.NotifyPropertyChanged("WhenFileExists");
+			}
+		}
+
+		public WhenFileExists WhenFileExistsBatch
+		{
+			get
+			{
+				return this.whenFileExistsBatch;
+			}
+
+			set
+			{
+				this.whenFileExistsBatch = value;
+				this.NotifyPropertyChanged("WhenFileExistsBatch");
+			}
+		}
+
 		public bool MinimizeToTray
 		{
 			get
@@ -358,6 +391,8 @@ namespace VidCoder.ViewModel
 						Settings.Default.AutoNameCustomFormat = this.CustomFormat;
 						Settings.Default.AutoNameCustomFormatString = this.CustomFormatString;
 						Settings.Default.OutputToSourceDirectory = this.OutputToSourceDirectory;
+						Settings.Default.WhenFileExists = this.WhenFileExists;
+						Settings.Default.WhenFileExistsBatch = this.WhenFileExistsBatch;
 						Settings.Default.MinimizeToTray = this.MinimizeToTray;
 						Settings.Default.NativeLanguageCode = this.NativeLanguageCode;
 						Settings.Default.DubAudio = this.DubAudio;

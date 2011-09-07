@@ -103,6 +103,10 @@ namespace VidCoder.Services
 			{
 				windowToOpen = new AddAutoPauseProcessDialog();
 			}
+			else if (viewModel is FileConflictDialogViewModel)
+			{
+				windowToOpen = new FileConflictDialog();
+			}
 
 			if (owner != null)
 			{

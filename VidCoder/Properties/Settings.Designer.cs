@@ -537,5 +537,29 @@ namespace VidCoder.Properties {
                 this["OutputToSourceDirectory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Prompt")]
+        public global::VidCoder.Model.WhenFileExists WhenFileExists {
+            get {
+                return ((global::VidCoder.Model.WhenFileExists)(this["WhenFileExists"]));
+            }
+            set {
+                this["WhenFileExists"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("AutoRename")]
+        public global::VidCoder.Model.WhenFileExists WhenFileExistsBatch {
+            get {
+                return ((global::VidCoder.Model.WhenFileExists)(this["WhenFileExistsBatch"]));
+            }
+            set {
+                this["WhenFileExistsBatch"] = value;
+            }
+        }
     }
 }

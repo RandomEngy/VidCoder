@@ -1,0 +1,23 @@
+﻿<Window x:Class="VidCoder.View.FileConflictDialog"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		Title="File conflict" Height="186" Width="377" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+	<Grid>
+		<TextBlock
+			Height="71" Margin="12,12,12,0" Name="textBlock1" VerticalAlignment="Top"
+			Text="{Binding WarningText}" 
+			TextWrapping="Wrap" />
+		<Button
+			Content="Overwrite" IsDefault="True"
+			Command="{Binding OverwriteCommand}"
+			Height="23" HorizontalAlignment="Right" Margin="0,0,189,11" Name="button1" VerticalAlignment="Bottom" Width="81" />
+		<Button
+			Content="Auto-rename"
+			Command="{Binding RenameCommand}"
+			Height="23" HorizontalAlignment="Right" Margin="0,0,93,12" Name="button2" VerticalAlignment="Bottom" Width="90" />
+		<Button
+			Content="Cancel"
+			Command="{Binding CancelCommand}"
+			Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="button3" VerticalAlignment="Bottom" Width="75" IsCancel="True" />
+	</Grid>
+</Window>

@@ -2133,10 +2133,21 @@ namespace VidCoder.ViewModel
 						{
 							if (this.EncodeQueue.Count == 0)
 							{
-								this.EncodeQueue.Add(new EncodeJobViewModel(this.EncodeJob));
-								this.EncodeQueue[0].HandBrakeInstance = this.scanInstance;
-								this.EncodeQueue[0].VideoSource = this.SourceData;
-								this.EncodeQueue[0].VideoSourceMetadata = this.GetVideoSourceMetadata();
+								var newEncodeJobVM = new EncodeJobViewModel(this.EncodeJob);
+
+								string resolvedOutputPath = this.ResolveOutputPathConflicts(newEncodeJobVM.Job.OutputPath, isBatch: false);
+								if (resolvedOutputPath == null)
+								{
+									// There was a conflict and the user canceled out of the operation.
+									return;
+								}
+
+								newEncodeJobVM.Job.OutputPath = resolvedOutputPath;
+								newEncodeJobVM.HandBrakeInstance = this.scanInstance;
+								newEncodeJobVM.VideoSource = this.SourceData;
+								newEncodeJobVM.VideoSourceMetadata = this.GetVideoSourceMetadata();
+
+								this.EncodeQueue.Add(newEncodeJobVM);
 							}
 
 							this.SelectedTabIndex = QueuedTabIndex;
@@ -2211,33 +2222,20 @@ namespace VidCoder.ViewModel
 				{
 					this.addToQueueCommand = new RelayCommand(param =>
 					{
-						// Check for previous items in queue with this name.
-						bool foundExisting = false;
-						foreach (EncodeJobViewModel job in this.EncodeQueue)
-						{
-							if (job.Job.OutputPath.ToLowerInvariant() == this.OutputPath.ToLowerInvariant())
-							{
-								foundExisting = true;
-								break;
-							}
-						}
-
-						if (foundExisting)
-						{
-							MessageBoxResult result = Utilities.MessageBox.Show(this, "There is already a queue item for this destination path." + Environment.NewLine + Environment.NewLine +
-								"If you continue, the encode will be overwritten. Do you wish to continue?", "Warning", MessageBoxButton.YesNo);
-
-							if (result == MessageBoxResult.No)
-							{
-								return;
-							}
-						}
-
 						var newEncodeJobVM = new EncodeJobViewModel(this.EncodeJob);
 						newEncodeJobVM.HandBrakeInstance = this.scanInstance;
 						newEncodeJobVM.VideoSource = this.SourceData;
 						newEncodeJobVM.VideoSourceMetadata = this.GetVideoSourceMetadata();
 						newEncodeJobVM.ManualOutputPath = this.manualOutputPath;
+
+						string resolvedOutputPath = this.ResolveOutputPathConflicts(newEncodeJobVM.Job.OutputPath, isBatch: false);
+						if (resolvedOutputPath == null)
+						{
+							// There was a conflict and the user canceled out of the operation.
+							return;
+						}
+
+						newEncodeJobVM.Job.OutputPath = resolvedOutputPath;
 
 						this.Queue(newEncodeJobVM);
 
@@ -2361,7 +2359,7 @@ namespace VidCoder.ViewModel
 								{
 									SourceType = this.SelectedSource.Type,
 									SourcePath = this.sourcePath,
-									OutputPath = queueOutputPath,
+									OutputPath = this.ResolveOutputPathConflicts(queueOutputPath, isBatch: true),
 									EncodingProfile = profile.Clone(),
 									Title = title.TitleNumber,
 									ChapterStart = 1,
@@ -3041,15 +3039,31 @@ namespace VidCoder.ViewModel
 				return;
 			}
 
-			// Exclude all current queued files and the source file from the possible destinations.
-			HashSet<string> excludedPaths = this.GetQueuedFiles();
+			// Exclude all current queued files if overwrite is disabled
+			HashSet<string> excludedPaths;
+			if (Settings.Default.WhenFileExistsBatch == WhenFileExists.AutoRename)
+			{
+				excludedPaths = this.GetQueuedFiles();
+			}
+			else
+			{
+				excludedPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+			}
 
 			var itemsToQueue = new List<EncodeJobViewModel>();
 			foreach (string fileToQueue in filesToQueue)
 			{
-				excludedPaths.Add(fileToQueue.ToLowerInvariant());
-				string queueOutputPath = Utilities.CreateUniqueFileName(Path.GetFileNameWithoutExtension(fileToQueue) + this.GetOutputExtensionForCurrentEncodingProfile(), Settings.Default.AutoNameOutputFolder, excludedPaths);
-				excludedPaths.Add(queueOutputPath.ToLowerInvariant());
+				excludedPaths.Add(fileToQueue);
+				string queueOutputPath = Path.Combine(Settings.Default.AutoNameOutputFolder, Path.GetFileNameWithoutExtension(fileToQueue) + this.GetOutputExtensionForCurrentEncodingProfile());
+				queueOutputPath = this.ResolveOutputPathConflicts(queueOutputPath, excludedPaths, isBatch: true);
+
+				// Even if you're doing overwrite don't try to stomp on the source file.
+				if (string.Compare(queueOutputPath, fileToQueue, StringComparison.OrdinalIgnoreCase) == 0)
+				{
+					queueOutputPath = Utilities.CreateUniqueFileName(Path.GetFileNameWithoutExtension(fileToQueue) + this.GetOutputExtensionForCurrentEncodingProfile(), Settings.Default.AutoNameOutputFolder, excludedPaths);
+				}
+
+				excludedPaths.Add(queueOutputPath);
 
 				// When ChapterStart is 0, this means the whole title is encoded.
 				var job = new EncodeJob
@@ -3128,13 +3142,7 @@ namespace VidCoder.ViewModel
 
 		private HashSet<string> GetQueuedFiles()
 		{
-			HashSet<string> queuedFiles = new HashSet<string>();
-			foreach (EncodeJobViewModel encodeJobVM in this.EncodeQueue)
-			{
-				queuedFiles.Add(encodeJobVM.Job.OutputPath.ToLowerInvariant());
-			}
-
-			return queuedFiles;
+			return new HashSet<string>(this.EncodeQueue.Select(j => j.Job.OutputPath), StringComparer.OrdinalIgnoreCase);
 		}
 
 		/// <summary>
@@ -3986,6 +3994,65 @@ namespace VidCoder.ViewModel
 			{
 				encodingWindow.NotifyLengthChanged();
 			}
+		}
+
+		// Resolves any conflicts for the given output path.
+		// Returns a non-conflicting output path.
+		// May return the same value if there are no conflicts.
+		// null means cancel.
+		private string ResolveOutputPathConflicts(string initialOutputPath, HashSet<string> excludedPaths, bool isBatch)
+		{
+			HashSet<string> queuedFiles = excludedPaths;
+			bool? conflict = Utilities.FileExists(initialOutputPath, queuedFiles);
+
+			if (conflict == null)
+			{
+				return initialOutputPath;
+			}
+
+			WhenFileExists preference;
+			if (isBatch)
+			{
+				preference = Settings.Default.WhenFileExistsBatch;
+			}
+			else
+			{
+				preference = Settings.Default.WhenFileExists;
+			}
+
+			switch (preference)
+			{
+				case WhenFileExists.Prompt:
+					break;
+				case WhenFileExists.Overwrite:
+					return initialOutputPath;
+				case WhenFileExists.AutoRename:
+					return Utilities.CreateUniqueFileName(initialOutputPath, queuedFiles);
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
+			// Continue and prompt user for resolution
+
+			var conflictDialog = new FileConflictDialogViewModel(initialOutputPath, (bool) conflict);
+			WindowManager.OpenDialog(conflictDialog, this);
+
+			switch (conflictDialog.FileConflictResolution)
+			{
+				case FileConflictResolution.Cancel:
+					return null;
+				case FileConflictResolution.Overwrite:
+					return initialOutputPath;
+				case FileConflictResolution.AutoRename:
+					return Utilities.CreateUniqueFileName(initialOutputPath, queuedFiles);
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		private string ResolveOutputPathConflicts(string initialOutputPath, bool isBatch)
+		{
+			return ResolveOutputPathConflicts(initialOutputPath, this.GetQueuedFiles(), isBatch);
 		}
 
 		/// <summary>

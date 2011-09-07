@@ -194,6 +194,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\FileConflictDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Panels\AudioPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -299,6 +303,7 @@
     <Compile Include="Model\EncodeJobPersistGroup.cs" />
     <Compile Include="Model\EncodeJobWithMetadata.cs" />
     <Compile Include="Model\EncodeResult.cs" />
+    <Compile Include="Model\FileConflictResolution.cs" />
     <Compile Include="Model\LogEntry.cs" />
     <Compile Include="Model\LogSource.cs" />
     <Compile Include="Model\LogType.cs" />
@@ -306,6 +311,7 @@
     <Compile Include="Model\PreviewImageJob.cs" />
     <Compile Include="Model\SaveImageJob.cs" />
     <Compile Include="Model\VideoSourceMetadata.cs" />
+    <Compile Include="Model\WhenFileExists.cs" />
     <Compile Include="Services\Interfaces\ILogger.cs" />
     <Compile Include="Services\Interfaces\IPresetImportExport.cs" />
     <Compile Include="Services\Interfaces\IProcesses.cs" />
@@ -322,6 +328,10 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Utilities\ListSynchronizer\TwoListSynchronizer.cs" />
     <Compile Include="Utilities\RefireControl.cs" />
+    <Compile Include="ViewModel\FileConflictDialogViewModel.cs" />
+    <Compile Include="View\FileConflictDialog.xaml.cs">
+      <DependentUpon>FileConflictDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\RestoreWindowCommand.cs" />
     <Compile Include="Utilities\SourceHistory.cs" />
     <Compile Include="Utilities\SystemSleepManagement.cs" />

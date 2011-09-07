@@ -1,7 +1,6 @@
 ﻿<Window x:Class="VidCoder.View.OptionsDialog"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	Title="Options" Height="415" Width="571"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Model="clr-namespace:VidCoder.Model" Title="Options" Height="415" Width="571"
 	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Closing="Window_Closing">
 	<Window.Resources>
 		<Style x:Key="EmphasizedTitle" TargetType="TextBlock">
@@ -15,53 +14,27 @@
 			<TabItem Header="General">
 				<Grid>
 					<TextBlock
-						Height="21" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Width="82"
-						Text="Output Files:"
-						Style="{StaticResource EmphasizedTitle}"/>
-					<Label Height="26.8" HorizontalAlignment="Left" Margin="90,4,0,0" Name="label1" VerticalAlignment="Top" Width="89">Default folder:</Label>
-					<TextBox
-						Height="23" Margin="179.154,8,92,0" VerticalAlignment="Top"
-						Text="{Binding DefaultPath}" />
-					<Button
-						Height="23" HorizontalAlignment="Right" Margin="0,7,11,0" VerticalAlignment="Top" Width="75"
-						Command="{Binding BrowsePathCommand}">Browse...</Button>
-					<Label Height="28" HorizontalAlignment="Left" Margin="90,32,0,0" VerticalAlignment="Top" Width="76.8">File format:</Label>
-					<RadioButton
-						Height="16" Margin="179.154,41,179.82,0" VerticalAlignment="Top"
-						IsChecked="{Binding CustomFormat, Converter={StaticResource InverseBoolConverter}}"
-						GroupName="format">Default format</RadioButton>
-					<RadioButton
-						Height="16" Margin="179.154,63,180.153,0" VerticalAlignment="Top"
-						IsChecked="{Binding CustomFormat}"
-						GroupName="format">Custom format:</RadioButton>
-					<TextBox
-						Margin="195.236,85,11,0" Height="22.959" VerticalAlignment="Top"
-						Text="{Binding CustomFormatString}"
-						IsEnabled="{Binding CustomFormatStringEnabled}"/>
-					<TextBlock Margin="195.236,109,0.246,146" TextWrapping="Wrap" Height="36">Available options: {source} {title} {range} {preset} {date} {time} {quality} {parent}</TextBlock>
-					
-					<TextBlock
-						Height="21" HorizontalAlignment="Left" Margin="6,179,0,0" VerticalAlignment="Top" Width="82"
+						Height="21" HorizontalAlignment="Left" Margin="6,13,0,0" VerticalAlignment="Top" Width="82"
 						Style="{StaticResource EmphasizedTitle}"
 						Text="System Tray:" />
 					<RadioButton
-						Content="Minimize to task bar" Height="16" HorizontalAlignment="Left" Margin="94,180,0,0" Name="radioButton1" VerticalAlignment="Top"
+						Content="Minimize to task bar" Height="16" HorizontalAlignment="Left" Margin="94,14,0,0" Name="radioButton1" VerticalAlignment="Top"
 						IsChecked="{Binding MinimizeToTray, Converter={StaticResource InverseBoolConverter}}"
 						GroupName="minimize"/>
 					<RadioButton
-						Content="Minimize to system tray" Height="16" HorizontalAlignment="Left" Margin="94,202,0,0" Name="radioButton2" VerticalAlignment="Top"
+						Content="Minimize to system tray" Height="16" HorizontalAlignment="Left" Margin="94,36,0,0" Name="radioButton2" VerticalAlignment="Top"
 						IsChecked="{Binding MinimizeToTray}"
 						GroupName="minimize"/>
 
 					<TextBlock
-						Height="21" HorizontalAlignment="Left" Margin="6,230,0,0" VerticalAlignment="Top" Width="82"
+						Height="21" HorizontalAlignment="Left" Margin="6,68,0,0" VerticalAlignment="Top" Width="82"
 						Style="{StaticResource EmphasizedTitle}"
 						Text="Updates:" />
 					<CheckBox
-						Height="16" Margin="94,230,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="182"
+						Height="16" Margin="94,68,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="182"
 						IsChecked="{Binding UpdatesEnabled}">Enable automatic updates</CheckBox>
 					<Grid
-						Height="31" Margin="111,252,11,0" VerticalAlignment="Top"
+						Height="31" Margin="111,90,11,0" VerticalAlignment="Top"
 						Visibility="{Binding UpdatesEnabled, Converter={StaticResource VisibilityConverter}}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto" />
@@ -73,10 +46,64 @@
 							Value="{Binding UpdateProgress}"
 							Visibility="{Binding UpdateDownloading, Converter={StaticResource VisibilityConverter}}" />
 					</Grid>
+				</Grid>
+			</TabItem>
+			<TabItem Header="File Naming">
+				<Grid>
+					<Label Height="26.8" HorizontalAlignment="Left" Margin="5,4,0,0" Name="label1" VerticalAlignment="Top" Width="89">Default folder:</Label>
+					<TextBox
+						Height="23" Margin="94,8,89,0" VerticalAlignment="Top"
+						Text="{Binding DefaultPath}" Width="332" />
+					<Button
+						Height="23" HorizontalAlignment="Right" Margin="0,7,8,0" VerticalAlignment="Top" Width="75"
+						Command="{Binding BrowsePathCommand}">Browse...</Button>
+					<Label Height="28" HorizontalAlignment="Left" Margin="5,63,0,0" VerticalAlignment="Top" Width="76.8">File format:</Label>
+					<RadioButton
+						Height="16" Margin="94,70,265,0" VerticalAlignment="Top"
+						IsChecked="{Binding CustomFormat, Converter={StaticResource InverseBoolConverter}}"
+						GroupName="format">Default format</RadioButton>
+					<RadioButton
+						Height="16" Margin="94,92,265,0" VerticalAlignment="Top"
+						IsChecked="{Binding CustomFormat}"
+						GroupName="format">Custom format:</RadioButton>
+					<TextBox
+						Margin="110,114,6,0" Height="22.959" VerticalAlignment="Top"
+						Text="{Binding CustomFormatString}"
+						IsEnabled="{Binding CustomFormatStringEnabled}" Width="399" />
+					<TextBlock Margin="110,138,6,117" TextWrapping="Wrap" Height="36" Width="399">Available options: {source} {title} {range} {preset} {date} {time} {quality} {parent}</TextBlock>
+
 					<CheckBox
 						Content="Output to the source directory if possible"
-						Height="16" HorizontalAlignment="Left" Margin="94,150,0,0" Name="checkBox1" VerticalAlignment="Top"
+						Height="16" HorizontalAlignment="Left" Margin="9,38,0,0" Name="checkBox1" VerticalAlignment="Top"
 						IsChecked="{Binding OutputToSourceDirectory}"/>
+
+					<TextBlock
+						Height="23" HorizontalAlignment="Left" Margin="9,184,0,0" Name="textBlock1" VerticalAlignment="Top"
+						Text="When a file already exists..."/>
+					
+					<TextBlock HorizontalAlignment="Left" Margin="32,204,0,0" Name="textBlock3" Text="Encoding single file:" VerticalAlignment="Top" />
+					<RadioButton
+						Content="Ask if you want to overwrite it"
+						Height="16" HorizontalAlignment="Left" Margin="35,225,0,0" VerticalAlignment="Top"
+						GroupName="fileExists1" IsChecked="{Binding WhenFileExists, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Prompt}"/>
+					<RadioButton
+						Content="Overwrite the file without prompting"
+						Height="16" HorizontalAlignment="Left" Margin="35,247,0,0" VerticalAlignment="Top"
+						GroupName="fileExists2" IsChecked="{Binding WhenFileExists, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Overwrite}"/>
+					<RadioButton
+						Content="Automatically switch to a different name" 
+						Height="16" HorizontalAlignment="Left" Margin="35,269,0,0" VerticalAlignment="Top"
+						GroupName="fileExists3" IsChecked="{Binding WhenFileExists, Converter={StaticResource EnumBoolConverter}, ConverterParameter=AutoRename}"/>
+					
+					<TextBlock HorizontalAlignment="Left" Margin="295,204,0,0" Name="textBlock2" Text="Encoding batch of files:" VerticalAlignment="Top" />
+					<RadioButton
+						Content="Overwrite"
+						Height="16" HorizontalAlignment="Left" Margin="295,225,0,0" VerticalAlignment="Top"
+						GroupName="fileExistsBatch1" IsChecked="{Binding WhenFileExistsBatch, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Overwrite}" />
+					<RadioButton
+						Content="Automatically rename"
+						Height="16" HorizontalAlignment="Left" Margin="295,247,0,0" VerticalAlignment="Top"
+						GroupName="fileExistsBatch2"  IsChecked="{Binding WhenFileExistsBatch, Converter={StaticResource EnumBoolConverter}, ConverterParameter=AutoRename}"/>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Audio / Subtitles">
