@@ -15,7 +15,12 @@
 	MinWidth="617"
 	MinHeight="445"
 	Style="{StaticResource NormalWindow}"
-	Closing="Window_Closing" AllowDrop="True" PreviewDrop="HandleDrop" PreviewDragOver="Window_PreviewDragOver" MouseDown="Window_MouseDown" StateChanged="Window_StateChanged">
+	Closing="Window_Closing"
+	AllowDrop="True"
+	PreviewDrop="HandleDrop"
+	PreviewDragOver="Window_PreviewDragOver"
+	MouseDown="Window_MouseDown"
+	StateChanged="Window_StateChanged">
 	<Window.Resources>
 		<local:EnumDisplayer Type="{x:Type Encoding:VideoEncoder}" x:Key="VideoEncoderChoices" />
 		<local:EnumDisplayer Type="{x:Type Model:VideoRangeType}" x:Key="VideoRangeTypeChoices" />

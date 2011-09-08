@@ -395,7 +395,10 @@ namespace VidCoder.View
 			this.destinationEditBox.SelectionLength = 0;
 			this.Dispatcher.BeginInvoke(new Action(() =>
 			    {
-					this.outputPathBrowseButton.Focus();
+					if (this.destinationEditBox.IsFocused)
+					{
+						this.outputPathBrowseButton.Focus();
+					}
 			    }));
 
 			this.viewModel.EditingDestination = false;
