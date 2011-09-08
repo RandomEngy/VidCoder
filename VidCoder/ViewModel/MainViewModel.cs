@@ -4191,11 +4191,11 @@ namespace VidCoder.ViewModel
 		/// <summary>
 		/// Changes casing on DVD titles to be a little more friendly.
 		/// </summary>
-		/// <param name="dvdSourceName">The input DVD source name.</param>
+		/// <param name="dvdSourceName">The source name of the DVD.</param>
 		/// <returns>Cleaned up version of the source name.</returns>
 		private string TranslateDvdSourceName(string dvdSourceName)
 		{
-			string[] titleWords = this.sourceName.Split('_');
+			string[] titleWords = dvdSourceName.Split('_');
 			var translatedTitleWords = new List<string>();
 			bool reachedModifiers = false;
 
@@ -4319,7 +4319,7 @@ namespace VidCoder.ViewModel
 
 				if (fileName.Contains("{time}"))
 				{
-					fileName = fileName.Replace("{time}", now.Hour + "." + now.Minute + "." + now.Second);
+					fileName = fileName.Replace("{time}", string.Format("{0:d2}.{1:d2}.{2:d2}", now.Hour, now.Minute, now.Second));
 				}
 
 				if (fileName.Contains("{quality}"))
