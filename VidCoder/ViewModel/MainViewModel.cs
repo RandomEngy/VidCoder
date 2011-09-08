@@ -139,6 +139,7 @@ namespace VidCoder.ViewModel
 		private ICommand openOptionsCommand;
 		private ICommand openHomepageCommand;
 		private ICommand reportBugCommand;
+		private ICommand exitCommand;
 
 		public event EventHandler<EventArgs<string>> AnimationStarted;
 		public event EventHandler ScanCancelled;
@@ -2638,6 +2639,22 @@ namespace VidCoder.ViewModel
 				}
 
 				return this.reportBugCommand;
+			}
+		}
+
+		public ICommand ExitCommand
+		{
+			get
+			{
+				if (this.exitCommand == null)
+				{
+					this.exitCommand = new RelayCommand(param =>
+					{
+						WindowManager.Close(this);
+					});
+				}
+
+				return this.exitCommand;
 			}
 		}
 

@@ -286,6 +286,11 @@
 					Command="{Binding QueueTitlesCommand}"
 					InputGestureText="Ctrl+T"
 					Visibility="{Binding CanEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}}"/>
+				<Separator />
+				<MenuItem
+					Header="Exit"
+					Command="{Binding ExitCommand}"
+					InputGestureText="Alt+F4" />
 			</MenuItem>
 			<MenuItem Header="Tools">
 				<MenuItem Header="Import Preset..." Command="{Binding ImportPresetCommand}" />
