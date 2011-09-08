@@ -696,12 +696,12 @@
 		<Grid Grid.Row="2" Background="{StaticResource SectionBackground}">
 			<TextBlock Text="Destination:" Style="{StaticResource SectionHeader}" HorizontalAlignment="Left" Width="80" Height="19" Margin="12,9,0,0" VerticalAlignment="Top" />
 			<Grid
-				Height="22" Margin="98,8,88,0" VerticalAlignment="Top"
+				Height="22" Margin="98,8,82,0" VerticalAlignment="Top"
 				Visibility="{Binding OutputFolderChosen, Converter={StaticResource VisibilityConverter}}">
 				<TextBox
 					Name="destinationEditBox"
 					Text="{Binding OutputPath, UpdateSourceTrigger=PropertyChanged}"
-					
+					GotFocus="DestinationEditBoxGotFocus"
 					LostFocus="DestinationEditBoxLostFocus"
 					PreviewKeyDown="destinationEditBox_PreviewKeyDown"/>
 				<Grid

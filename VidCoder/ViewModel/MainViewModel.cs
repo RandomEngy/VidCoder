@@ -919,6 +919,7 @@ namespace VidCoder.ViewModel
 
 				this.NotifyPropertyChanged("SubtitlesSummary");
 				CommandManager.InvalidateRequerySuggested();
+
 				this.GenerateOutputFileName();
 
 				this.NotifyPropertyChanged("Chapters");
@@ -3451,6 +3452,7 @@ namespace VidCoder.ViewModel
 		/// Processes and sets a user-provided output path.
 		/// </summary>
 		/// <param name="newOutputPath">The user provided output path.</param>
+		/// <param name="oldOutputPath">The previous output path.</param>
 		public void SetManualOutputPath(string newOutputPath, string oldOutputPath)
 		{
 			if (newOutputPath == oldOutputPath)
@@ -3461,8 +3463,8 @@ namespace VidCoder.ViewModel
 			if (Utilities.IsValidFullPath(newOutputPath))
 			{
 				string outputDirectory = Path.GetDirectoryName(newOutputPath);
-				Properties.Settings.Default.LastOutputFolder = outputDirectory;
-				Properties.Settings.Default.Save();
+				Settings.Default.LastOutputFolder = outputDirectory;
+				Settings.Default.Save();
 
 				string fileName = Path.GetFileNameWithoutExtension(newOutputPath);
 				string extension = this.GetOutputExtension();
@@ -3472,9 +3474,15 @@ namespace VidCoder.ViewModel
 			}
 			else
 			{
-				// Revert the change if it's not a valid path.
-				if (this.OutputPath != oldOutputPath)
+				// If it's not a valid path, revert the change.
+				if (this.HasVideoSource && string.IsNullOrEmpty(Path.GetFileName(oldOutputPath)))
 				{
+					// If we've got a video source now and the old path was blank, generate a file name
+					this.GenerateOutputFileName();
+				}
+				else
+				{
+					// Else just fall back to whatever the old path was
 					this.OutputPath = oldOutputPath;
 				}
 			}
@@ -3929,9 +3937,18 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public string OldOutputPath { get; set; }
+
 		private void GenerateOutputFileName()
 		{
 			string fileName;
+
+			// If our original path was empty and we're editing it at the moment, don't clobber
+			// whatever the user is typing.
+			if (string.IsNullOrEmpty(Path.GetFileName(this.OldOutputPath)) && this.EditingDestination)
+			{
+				return;
+			}
 
 			if (this.manualOutputPath)
 			{
@@ -3985,6 +4002,13 @@ namespace VidCoder.ViewModel
 			string extension = this.GetOutputExtension();
 
 			this.OutputPath = this.BuildOutputPath(fileName, extension, sourcePath: this.sourcePath);
+
+			// If we've pushed a new name into the destination text box, we need to update the "baseline" name so the
+			// auto-generated name doesn't get mistakenly labeled as manual when focus leaves it
+			if (this.EditingDestination)
+			{
+				this.OldOutputPath = this.OutputPath;
+			}
 		}
 
 		private void ReportLengthChanged()

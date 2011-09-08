@@ -35,8 +35,6 @@ namespace VidCoder.View
 
 		private bool tabsVisible = false;
 
-		private string oldOutputPath;
-
 		private Storyboard presetGlowStoryboard;
 
 		public static System.Windows.Threading.Dispatcher TheDispatcher;
@@ -348,8 +346,12 @@ namespace VidCoder.View
 
 		private void DestinationReadCoverMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			this.viewModel.EditingDestination = true;
 			this.destinationEditBox.Focus();
+		}
+
+		private void DestinationEditBoxGotFocus(object sender, RoutedEventArgs e)
+		{
+			this.viewModel.EditingDestination = true;
 
 			string path = this.viewModel.OutputPath;
 			string fileName = Path.GetFileName(path);
@@ -373,7 +375,7 @@ namespace VidCoder.View
 				}
 			}
 
-			this.oldOutputPath = this.viewModel.OutputPath;
+			this.viewModel.OldOutputPath = this.viewModel.OutputPath;
 		}
 
 		private void DestinationEditBoxLostFocus(object sender, RoutedEventArgs e)
@@ -402,7 +404,7 @@ namespace VidCoder.View
 			    }));
 
 			this.viewModel.EditingDestination = false;
-			this.viewModel.SetManualOutputPath(this.viewModel.OutputPath, this.oldOutputPath);
+			this.viewModel.SetManualOutputPath(this.viewModel.OutputPath, this.viewModel.OldOutputPath);
 		}
 
 		private void Window_MouseDown(object sender, MouseButtonEventArgs e)
