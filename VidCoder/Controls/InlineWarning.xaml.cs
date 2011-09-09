@@ -25,7 +25,7 @@ namespace VidCoder.Controls
 		}
 
 		public static readonly DependencyProperty WarningTextProperty = DependencyProperty.Register(
-			"Number",
+			"WarningText",
 			typeof(string),
 			typeof(InlineWarning),
 			new PropertyMetadata(new PropertyChangedCallback(OnWarningTextChanged)));

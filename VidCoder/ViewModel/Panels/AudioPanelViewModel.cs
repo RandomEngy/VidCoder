@@ -12,6 +12,7 @@ namespace VidCoder.ViewModel
 {
 	public class AudioPanelViewModel : PanelViewModel
 	{
+		private string passthroughWarningText;
 		private bool passthroughWarningVisible;
 
 		private ObservableCollection<AudioEncodingViewModel> audioEncodings;
@@ -48,6 +49,20 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return this.AudioOutputPreviews.Count > 0;
+			}
+		}
+
+		public string PassthroughWarningText
+		{
+			get
+			{
+				return this.passthroughWarningText;
+			}
+
+			set
+			{
+				this.passthroughWarningText = value;
+				this.NotifyPropertyChanged("PassthroughWarningText");
 			}
 		}
 
@@ -189,9 +204,16 @@ namespace VidCoder.ViewModel
 
 				if (encoder == AudioEncoder.Passthrough && !Utilities.CanPassthrough(inputTrack.Codec))
 				{
+					this.PassthroughWarningText = "Passthrough only works for AAC, AC3, MP3, DTS and DTS-HD sources. One or more audio tracks were dropped.";
 					this.PassthroughWarningVisible = true;
 
 					return null;
+				}
+
+				if (encoder == AudioEncoder.Passthrough && (inputTrack.Codec == AudioCodec.Dts || inputTrack.Codec == AudioCodec.DtsHD) && this.Profile.OutputFormat == OutputFormat.Mp4)
+				{
+					this.PassthroughWarningText = "Few players support playback of DTS audio in MP4 containers. MKV is recommended for DTS audio.";
+					this.PassthroughWarningVisible = true;
 				}
 
 				return outputPreviewTrack;
