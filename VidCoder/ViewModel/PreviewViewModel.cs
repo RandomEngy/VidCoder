@@ -15,6 +15,7 @@ using VidCoder.Services;
 using System.Threading;
 using VidCoder.Model;
 using System.Diagnostics;
+using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
@@ -56,6 +57,9 @@ namespace VidCoder.ViewModel
 		private ICommand cancelPreviewCommand;
 
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
+		private OutputPathViewModel outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
+		private WindowManagerViewModel windowManagerVM = Unity.Container.Resolve<WindowManagerViewModel>();
+		private ProcessingViewModel processingVM = Unity.Container.Resolve<ProcessingViewModel>();
 
 		public PreviewViewModel()
 		{
@@ -71,6 +75,30 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return this.mainViewModel;
+			}
+		}
+
+		public WindowManagerViewModel WindowManagerVM
+		{
+			get
+			{
+				return this.windowManagerVM;
+			}
+		}
+
+		public ProcessingViewModel ProcessingVM
+		{
+			get
+			{
+				return this.processingVM;
+			}
+		}
+
+		public OutputPathViewModel OutputPathVM
+		{
+			get
+			{
+				return this.outputPathVM;
 			}
 		}
 

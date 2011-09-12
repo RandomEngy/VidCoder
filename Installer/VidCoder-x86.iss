@@ -29,7 +29,6 @@ Source: "..\VidCoder\bin\x86\Release\VidCoder.XmlSerializers.dll"; DestDir: "{ap
 Source: "..\Lib\Ookii.Dialogs.Wpf.dll"; DestDir: "{app}"
 Source: "..\Lib\Ookii.Dialogs.Wpf.pdb"; DestDir: "{app}"
 Source: "..\Lib\Microsoft.Practices.Unity.dll"; DestDir: "{app}"
-Source: "..\Lib\Microsoft.Practices.Unity.Configuration.dll"; DestDir: "{app}"
 Source: "..\Lib\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"
 Source: "..\VidCoder\BuiltInPresets.xml"; DestDir: "{app}"
 Source: "..\Lib\x86\hb.dll"; DestDir: "{app}"

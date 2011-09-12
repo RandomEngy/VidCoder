@@ -16,12 +16,12 @@
 		<local:EnumDisplayer Type="{x:Type Encoding:OutputFormat}" x:Key="OutputFormatChoices" />
 	</Window.Resources>
 	<Window.InputBindings>
-		<KeyBinding Key="Q" Modifiers="Control" Command="{Binding MainViewModel.AddToQueueCommand}" />
-		<KeyBinding Key="L" Modifiers="Control" Command="{Binding MainViewModel.OpenLogWindowCommand}" />
-		<KeyBinding Key="P" Modifiers="Control" Command="{Binding MainViewModel.OpenPreviewWindowCommand}" />
-		<KeyBinding Key="O" Modifiers="Control+Shift" Command="{Binding MainViewModel.QueueFilesCommand}" />
-		<KeyBinding Key="T" Modifiers="Control" Command="{Binding MainViewModel.QueueTitlesCommand}" />
-		<KeyBinding Key="D" Modifiers="Control" Command="{Binding MainViewModel.PickOutputPathCommand}" />
+		<KeyBinding Key="Q" Modifiers="Control" Command="{Binding ProcessingVM.AddToQueueCommand}" />
+		<KeyBinding Key="L" Modifiers="Control" Command="{Binding WindowManagerVM.OpenLogWindowCommand}" />
+		<KeyBinding Key="P" Modifiers="Control" Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}" />
+		<KeyBinding Key="O" Modifiers="Control+Shift" Command="{Binding ProcessingVM.QueueFilesCommand}" />
+		<KeyBinding Key="T" Modifiers="Control" Command="{Binding ProcessingVM.QueueTitlesCommand}" />
+		<KeyBinding Key="D" Modifiers="Control" Command="{Binding OutputPathVM.PickOutputPathCommand}" />
 
 		<KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
 		<KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveCommand}" />
@@ -82,8 +82,8 @@
 		</ToolBarPanel>
 		<Button
 			Height="26" Margin="0,4,12,0" VerticalAlignment="Top" IsEnabled="{Binding HasSourceData}"
-			Command="{Binding PreviewCommand}" HorizontalAlignment="Right" Width="77"
-			Visibility="{Binding MainViewModel.PreviewWindowOpen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
+			Command="{Binding WindowManagerVM.PreviewWindowOpen}" HorizontalAlignment="Right" Width="77"
+			Visibility="{Binding WindowManagerVM.PreviewWindowOpen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
 			<StackPanel Orientation="Horizontal">
 				<Image Source="/Icons/preview.png" />
 				<TextBlock Text="Preview" Margin="5,0,0,0" VerticalAlignment="Center" />

@@ -26,12 +26,12 @@
 		</Storyboard>
 	</Window.Resources>
 	<Window.InputBindings>
-		<KeyBinding Key="Q" Modifiers="Control" Command="{Binding MainViewModel.AddToQueueCommand}" />
-		<KeyBinding Key="L" Modifiers="Control" Command="{Binding MainViewModel.OpenLogWindowCommand}" />
-		<KeyBinding Key="N" Modifiers="Control" Command="{Binding MainViewModel.OpenEncodingWindowCommand}" />
-		<KeyBinding Key="O" Modifiers="Control+Shift" Command="{Binding MainViewModel.QueueFilesCommand}" />
-		<KeyBinding Key="T" Modifiers="Control" Command="{Binding MainViewModel.QueueTitlesCommand}" />
-		<KeyBinding Key="D" Modifiers="Control" Command="{Binding MainViewModel.PickOutputPathCommand}" />
+		<KeyBinding Key="Q" Modifiers="Control" Command="{Binding ProcessingVM.AddToQueueCommand}" />
+		<KeyBinding Key="L" Modifiers="Control" Command="{Binding WindowManagerVM.OpenLogWindowCommand}" />
+		<KeyBinding Key="N" Modifiers="Control" Command="{Binding WindowManagerVM.OpenEncodingWindowCommand}" />
+		<KeyBinding Key="O" Modifiers="Control+Shift" Command="{Binding ProcessingVM.QueueFilesCommand}" />
+		<KeyBinding Key="T" Modifiers="Control" Command="{Binding ProcessingVM.QueueTitlesCommand}" />
+		<KeyBinding Key="D" Modifiers="Control" Command="{Binding OutputPathVM.PickOutputPathCommand}" />
 	</Window.InputBindings>
 	<Grid>
 		<Grid Margin="0" Name="previewImageHolder" SizeChanged="previewImageHolder_SizeChanged" Background="#222222">

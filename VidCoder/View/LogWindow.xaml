@@ -6,8 +6,8 @@
 		WindowStyle="ToolWindow" ShowInTaskbar="False" Closing="Window_Closing"
 		MinWidth="220" MinHeight="95">
 	<Window.InputBindings>
-		<KeyBinding Key="N" Modifiers="Control" Command="{Binding MainViewModel.OpenEncodingWindowCommand}" />
-		<KeyBinding Key="P" Modifiers="Control" Command="{Binding MainViewModel.OpenPreviewWindowCommand}" />
+		<KeyBinding Key="N" Modifiers="Control" Command="{Binding WindowManagerVM.OpenEncodingWindowCommand}" />
+		<KeyBinding Key="P" Modifiers="Control" Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}" />
 	</Window.InputBindings>
 	<Grid>
 		<RichTextBox

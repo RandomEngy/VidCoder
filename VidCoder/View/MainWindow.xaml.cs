@@ -23,6 +23,7 @@ using HandBrake.Interop;
 using System.Resources;
 using System.IO;
 using Microsoft.Practices.Unity;
+using VidCoder.ViewModel.Components;
 
 namespace VidCoder.View
 {
@@ -32,6 +33,8 @@ namespace VidCoder.View
 	public partial class MainWindow : Window
 	{
 		private MainViewModel viewModel;
+		private ProcessingViewModel processingVM = Unity.Container.Resolve<ProcessingViewModel>();
+		private OutputPathViewModel outputVM = Unity.Container.Resolve<OutputPathViewModel>();
 
 		private bool tabsVisible = false;
 
@@ -111,7 +114,7 @@ namespace VidCoder.View
 					{
 						var convertedFileList = fileList.Cast<string>().ToList();
 
-						this.viewModel.QueueMultiple(convertedFileList);
+						this.processingVM.QueueMultiple(convertedFileList);
 					}
 				}
 			}
@@ -130,6 +133,15 @@ namespace VidCoder.View
 			this.viewModel = this.DataContext as MainViewModel;
 			this.viewModel.PropertyChanged += this.ViewModelPropertyChanged;
 			this.viewModel.AnimationStarted += this.ViewModelAnimationStarted;
+			this.processingVM.PropertyChanged += (sender2, e2) =>
+			    {
+					if (e2.PropertyName == "CompletedItemsCount")
+					{
+						this.RefreshQueueTabs();
+					}
+			    };
+
+			this.RefreshQueueTabs();
 		}
 
 		private void ViewModelAnimationStarted(object sender, EventArgs<string> e)
@@ -149,10 +161,6 @@ namespace VidCoder.View
 			else if (e.PropertyName == "QueueColumnsSaveRequest")
 			{
 				this.SaveQueueColumns();
-			}
-			else if (e.PropertyName == "CompletedItemsCount")
-			{
-				this.RefreshQueueTabs();
 			}
 		}
 
@@ -244,7 +252,7 @@ namespace VidCoder.View
 
 		private void RefreshQueueTabs()
 		{
-			if (this.viewModel.CompletedItemsCount > 0 && !this.tabsVisible)
+			if (this.processingVM.CompletedItemsCount > 0 && !this.tabsVisible)
 			{
 				this.queueTab.Visibility = Visibility.Visible;
 				this.completedTab.Visibility = Visibility.Visible;
@@ -256,7 +264,7 @@ namespace VidCoder.View
 				return;
 			}
 
-			if (this.viewModel.CompletedItemsCount == 0 && this.tabsVisible)
+			if (this.processingVM.CompletedItemsCount == 0 && this.tabsVisible)
 			{
 				this.queueTab.Visibility = Visibility.Collapsed;
 				this.completedTab.Visibility = Visibility.Collapsed;
@@ -264,7 +272,7 @@ namespace VidCoder.View
 				this.queueItemsTabControl.BorderThickness = new Thickness(0);
 				//this.tabsArea.Margin = new Thickness(0,6,0,0);
 
-				this.viewModel.SelectedTabIndex = MainViewModel.QueuedTabIndex;
+				this.processingVM.SelectedTabIndex = ProcessingViewModel.QueuedTabIndex;
 
 				this.tabsVisible = false;
 				return;
@@ -351,9 +359,9 @@ namespace VidCoder.View
 
 		private void DestinationEditBoxGotFocus(object sender, RoutedEventArgs e)
 		{
-			this.viewModel.EditingDestination = true;
+			this.outputVM.EditingDestination = true;
 
-			string path = this.viewModel.OutputPath;
+			string path = this.outputVM.OutputPath;
 			string fileName = Path.GetFileName(path);
 
 			if (fileName == string.Empty)
@@ -375,7 +383,7 @@ namespace VidCoder.View
 				}
 			}
 
-			this.viewModel.OldOutputPath = this.viewModel.OutputPath;
+			this.outputVM.OldOutputPath = this.outputVM.OutputPath;
 		}
 
 		private void DestinationEditBoxLostFocus(object sender, RoutedEventArgs e)
@@ -403,13 +411,13 @@ namespace VidCoder.View
 					}
 			    }));
 
-			this.viewModel.EditingDestination = false;
-			this.viewModel.SetManualOutputPath(this.viewModel.OutputPath, this.viewModel.OldOutputPath);
+			this.outputVM.EditingDestination = false;
+			this.outputVM.SetManualOutputPath(this.outputVM.OutputPath, this.outputVM.OldOutputPath);
 		}
 
 		private void Window_MouseDown(object sender, MouseButtonEventArgs e)
 		{
-			if (this.viewModel.EditingDestination && !this.HitElement(this.destinationEditBox, e.GetPosition(this)))
+			if (this.outputVM.EditingDestination && !this.HitElement(this.destinationEditBox, e.GetPosition(this)))
 			{
 				this.StopEditing();
 			}

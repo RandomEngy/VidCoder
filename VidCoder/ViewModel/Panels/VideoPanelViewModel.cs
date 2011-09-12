@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using HandBrake.Interop;
 using HandBrake.Interop.Model.Encoding;
+using Microsoft.Practices.Unity;
+using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
@@ -12,6 +14,8 @@ namespace VidCoder.ViewModel
 	{
 		private const int DefaultVideoBitrateKbps = 900;
 		private const int DefaultTargetSizeMB = 700;
+
+		private OutputPathViewModel outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
 
 		private ObservableCollection<VideoEncoderViewModel> encoderChoices;
 
@@ -342,7 +346,7 @@ namespace VidCoder.ViewModel
 					this.NotifyPropertyChanged("VideoBitrate");
 				}
 
-				this.MainViewModel.RefreshDestination();
+				this.outputPathVM.GenerateOutputFileName();
 				this.IsModified = true;
 			}
 		}
@@ -373,7 +377,7 @@ namespace VidCoder.ViewModel
 				this.Profile.TargetSize = value;
 				this.NotifyPropertyChanged("TargetSize");
 				this.NotifyPropertyChanged("VideoBitrate");
-				this.MainViewModel.RefreshDestination();
+				this.outputPathVM.GenerateOutputFileName();
 				this.IsModified = true;
 			}
 		}
@@ -409,7 +413,7 @@ namespace VidCoder.ViewModel
 				this.Profile.VideoBitrate = value;
 				this.NotifyPropertyChanged("VideoBitrate");
 				this.NotifyPropertyChanged("TargetSize");
-				this.MainViewModel.RefreshDestination();
+				this.outputPathVM.GenerateOutputFileName();
 				this.IsModified = true;
 			}
 		}
@@ -425,7 +429,7 @@ namespace VidCoder.ViewModel
 			{
 				this.Profile.Quality = value;
 				this.NotifyPropertyChanged("Quality");
-				this.MainViewModel.RefreshDestination();
+				this.outputPathVM.GenerateOutputFileName();
 				this.IsModified = true;
 			}
 		}

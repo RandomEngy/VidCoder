@@ -10,6 +10,7 @@ using HandBrake.Interop.SourceData;
 using System.IO;
 using Microsoft.Practices.Unity;
 using VidCoder.Services;
+using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
@@ -27,13 +28,14 @@ namespace VidCoder.ViewModel
 		private bool burnedOverlapWarningVisible;
 
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
+		private PresetsViewModel presetsViewModel = Unity.Container.Resolve<PresetsViewModel>();
 
 		private ICommand addSourceSubtitle;
 		private ICommand addSrtSubtitle;
 
 		public SubtitleDialogViewModel(Subtitles currentSubtitles)
 		{
-			this.outputFormat = mainViewModel.SelectedPreset.Preset.EncodingProfile.OutputFormat;
+			this.outputFormat = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.OutputFormat;
 
 			this.sourceSubtitles = new ObservableCollection<SourceSubtitleViewModel>();
 			this.srtSubtitles = new ObservableCollection<SrtSubtitleViewModel>();
@@ -329,7 +331,7 @@ namespace VidCoder.ViewModel
 		public void UpdateWarningVisibility()
 		{
 			bool textSubtitleVisible = false;
-			EncodingProfile profile = this.mainViewModel.SelectedPreset.Preset.EncodingProfile;
+			EncodingProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
 			if (profile.OutputFormat == OutputFormat.Mp4 && profile.PreferredExtension == OutputExtension.Mp4)
 			{
 				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)

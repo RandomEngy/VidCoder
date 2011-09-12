@@ -385,6 +385,8 @@ namespace VidCoder
 			}
 		}
 
+
+
 		public static void SetDragIcon(DragEventArgs e)
 		{
 			var data = e.Data as DataObject;

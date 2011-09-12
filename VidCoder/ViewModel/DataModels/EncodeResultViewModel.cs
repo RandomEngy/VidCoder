@@ -8,12 +8,14 @@ using System.Windows.Input;
 using System.IO;
 using Microsoft.Practices.Unity;
 using VidCoder.Services;
+using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
 	public class EncodeResultViewModel
 	{
-		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
+		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
+		private ProcessingViewModel processingVM = Unity.Container.Resolve<ProcessingViewModel>();
 
 		private EncodeResult encodeResult;
 
@@ -29,7 +31,15 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.mainViewModel;
+				return this.main;
+			}
+		}
+
+		public ProcessingViewModel ProcessingVM
+		{
+			get
+			{
+				return this.processingVM;
 			}
 		}
 

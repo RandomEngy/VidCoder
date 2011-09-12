@@ -10,6 +10,7 @@ using HandBrake.Interop;
 using System.Diagnostics;
 using Microsoft.Practices.Unity;
 using VidCoder.Model;
+using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
@@ -18,6 +19,7 @@ namespace VidCoder.ViewModel
 		public const double SubtitleScanCostFactor = 80.0;
 
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
+		private ProcessingViewModel processingVM = Unity.Container.Resolve<ProcessingViewModel>();
 
 		private bool isSelected;
 		private bool isPaused;
@@ -57,6 +59,14 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return this.mainViewModel;
+			}
+		}
+
+		public ProcessingViewModel ProcessingVM
+		{
+			get
+			{
+				return this.processingVM;
 			}
 		}
 
@@ -336,7 +346,7 @@ namespace VidCoder.ViewModel
 				{
 					this.removeQueueJobCommand = new RelayCommand(param =>
 					{
-						this.mainViewModel.RemoveQueueJob(this);
+						this.processingVM.RemoveQueueJob(this);
 					},
 					param =>
 					{

@@ -9,33 +9,27 @@ using System.Windows.Input;
 using System.Windows.Shell;
 using HandBrake.Interop;
 using HandBrake.Interop.Model;
-using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using VidCoder.Model;
 using VidCoder.Properties;
 using VidCoder.Services;
-using System.Diagnostics;
-using System.Globalization;
 using Microsoft.Practices.Unity;
-using System.Threading;
-using System.Text.RegularExpressions;
-using VidCoder.View;
+using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
 	public class MainViewModel : ViewModelBase
 	{
-		public const int QueuedTabIndex = 0;
-		public const int CompletedTabIndex = 1;
-
 		private const double SecondsRangeBuffer = 0.25;
 
 		private HandBrakeInstance scanInstance;
 
 		private IUpdater updater = Unity.Container.Resolve<IUpdater>();
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
-		private IProcessAutoPause autoPause = Unity.Container.Resolve<IProcessAutoPause>();
-		private ISystemOperations systemOperations = Unity.Container.Resolve<ISystemOperations>();
+		private OutputPathViewModel outputPathVM;
+		private PresetsViewModel presetsVM;
+		private ProcessingViewModel processingVM;
+		private WindowManagerViewModel windowManagerVM;
 
 		private ObservableCollection<SourceOptionViewModel> sourceOptions;
 		private ObservableCollection<SourceOptionViewModel> recentSourceOptions; 
@@ -64,8 +58,6 @@ namespace VidCoder.ViewModel
 
 		// sourceData is populated when a scan has finished and cleared out when a new scan starts.
 		private VideoSource sourceData;
-		private string sourcePath;
-		private string sourceName;
 
 		private IDriveService driveService;
 		private IList<DriveInformation> driveCollection;
@@ -74,40 +66,6 @@ namespace VidCoder.ViewModel
 		private double scanProgress;
 		private bool scanCancelledFlag;
 
-		private string outputPath;
-		private bool manualOutputPath;
-		private bool editingDestination;
-
-		private List<Preset> builtInPresets;
-		private ObservableCollection<PresetViewModel> allPresets;
-		private PresetViewModel selectedPreset;
-
-		private int selectedTabIndex;
-		private ObservableCollection<EncodeJobViewModel> encodeQueue;
-		private bool encoding;
-		private bool paused;
-		private bool encodeStopped;
-		private bool errorLoggedDuringJob; // True if an error was logged during an encode (and no scan was going on at the time)
-		private int totalTasks;
-		private int taskNumber;
-		private bool encodeSpeedDetailsAvailable;
-		private Stopwatch elapsedQueueEncodeTime;
-		private long pollCount = 0;
-		private string estimatedTimeRemaining;
-		private double currentFps;
-		private double averageFps;
-		private double completedQueueWork;
-		private double totalQueueCost;
-		private double overallEncodeProgressFraction;
-		private TimeSpan currentJobEta; // Kept around to check if the job finished early
-		private TaskbarItemProgressState encodeProgressState;
-		private ObservableCollection<EncodeResultViewModel> completedJobs;
-		private EncodeCompleteAction encodeCompleteAction;
-
-		private bool encodingWindowOpen;
-		private bool previewWindowOpen;
-		private bool logWindowOpen;
-
 		private bool showTrayIcon;
 
 		private ICommand toggleSourceMenuCommand;
@@ -115,25 +73,10 @@ namespace VidCoder.ViewModel
 		private ICommand openChaptersDialogCommand;
 		private ICommand openAboutDialogCommand;
 		private ICommand addTrackCommand;
-		private ICommand openEncodingWindowCommand;
-		private ICommand openPreviewWindowCommand;
-		private ICommand openLogWindowCommand;
-		private ICommand pickDefaultOutputFolderCommand;
-		private ICommand pickOutputPathCommand;
-		private ICommand encodeCommand;
 		private ICommand cancelScanCommand;
 		private ICommand openFileCommand;
 		private ICommand openFolderCommand;
-		private ICommand addToQueueCommand;
-		private ICommand queueFilesCommand;
-		private ICommand queueTitlesCommand;
 		private ICommand customizeQueueColumnsCommand;
-		private ICommand moveSelectedJobsToTopCommand;
-		private ICommand moveSelectedJobsToBottomCommand;
-		private ICommand removeSelectedJobsCommand;
-		private ICommand clearCompletedCommand;
-		private ICommand pauseCommand;
-		private ICommand stopEncodeCommand;
 		private ICommand importPresetCommand;
 		private ICommand exportPresetCommand;
 		private ICommand openOptionsCommand;
@@ -147,6 +90,11 @@ namespace VidCoder.ViewModel
 		public MainViewModel()
 		{
 			Unity.Container.RegisterInstance(this);
+
+			this.outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
+			this.processingVM = Unity.Container.Resolve<ProcessingViewModel>();
+			this.presetsVM = Unity.Container.Resolve<PresetsViewModel>();
+			this.windowManagerVM = Unity.Container.Resolve<WindowManagerViewModel>();
 
 			updater.CheckUpdates();
 
@@ -173,89 +121,7 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			this.builtInPresets = Presets.BuiltInPresets;
-			List<Preset> userPresets = Presets.UserPresets;
-
-			this.allPresets = new ObservableCollection<PresetViewModel>();
-			var unmodifiedPresets = userPresets.Where(preset => !preset.IsModified);
-			Preset modifiedPreset = userPresets.FirstOrDefault(preset => preset.IsModified);
-			int modifiedPresetIndex = -1;
-
-			foreach (Preset userPreset in unmodifiedPresets)
-			{
-				PresetViewModel presetVM;
-				if (modifiedPreset != null && modifiedPreset.Name == userPreset.Name)
-				{
-					modifiedPresetIndex = this.allPresets.Count;
-					presetVM = new PresetViewModel(modifiedPreset);
-					presetVM.OriginalProfile = userPreset.EncodingProfile;
-				}
-				else
-				{
-					presetVM = new PresetViewModel(userPreset);
-				}
-
-				this.allPresets.Add(presetVM);
-			}
-
-			foreach (Preset builtInPreset in this.builtInPresets)
-			{
-				PresetViewModel presetVM;
-				if (modifiedPreset != null && modifiedPreset.Name == builtInPreset.Name)
-				{
-					presetVM = new PresetViewModel(modifiedPreset);
-					presetVM.OriginalProfile = builtInPreset.EncodingProfile;
-				}
-				else
-				{
-					presetVM = new PresetViewModel(builtInPreset);
-				}
-
-				this.allPresets.Add(presetVM);
-			}
-
 			this.useDefaultChapterNames = true;
-
-			this.encodeQueue = new ObservableCollection<EncodeJobViewModel>();
-			this.encodeQueue.CollectionChanged += this.OnEncodeQueueChanged;
-			EncodeJobPersistGroup jobPersistGroup = EncodeJobsPersist.EncodeJobs;
-			foreach (EncodeJobWithMetadata job in jobPersistGroup.EncodeJobs)
-			{
-				this.encodeQueue.Add(new EncodeJobViewModel(job.Job) { ManualOutputPath = job.ManualOutputPath});
-			}
-
-			this.autoPause.PauseEncoding += this.AutoPauseEncoding;
-			this.autoPause.ResumeEncoding += this.AutoResumeEncoding;
-
-			// Always select the modified preset if it exists.
-			// Otherwise, choose the last selected preset.
-			int presetIndex;
-			if (modifiedPresetIndex >= 0)
-			{
-				presetIndex = modifiedPresetIndex;
-			}
-			else
-			{
-				presetIndex = Settings.Default.LastPresetIndex;
-			}
-
-			if (presetIndex >= this.allPresets.Count)
-			{
-				presetIndex = 0;
-			}
-
-			// Keep track of errors logged. HandBrake doesn't reliably report errors on job completion.
-			this.logger.EntryLogged += (sender, e) =>
-			{
-				if (e.Value.LogType == LogType.Error && this.Encoding && !this.ScanningSource)
-				{
-					this.errorLoggedDuringJob = true;
-				}
-			};
-
-			this.SelectedPreset = this.allPresets[presetIndex];
-
-			this.completedJobs = new ObservableCollection<EncodeResultViewModel>();
 
 			this.driveService = Unity.Container.Resolve<IDriveService>();
 
@@ -269,14 +135,6 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return this.scanInstance;
-			}
-		}
-
-		public EncodeJobViewModel CurrentJob
-		{
-			get
-			{
-				return this.EncodeQueue[0];
 			}
 		}
 
@@ -345,10 +203,10 @@ namespace VidCoder.ViewModel
 			Settings.Default.LastInputFileFolder = Path.GetDirectoryName(videoFile);
 			Settings.Default.Save();
 
-			this.sourceName = Utilities.GetSourceNameFile(videoFile);
+			this.SourceName = Utilities.GetSourceNameFile(videoFile);
 			this.StartScan(videoFile);
 
-			this.sourcePath = videoFile;
+			this.SourcePath = videoFile;
 			this.SelectedSource = new SourceOption { Type = SourceType.File };
 		}
 
@@ -377,7 +235,7 @@ namespace VidCoder.ViewModel
 		{
 			Settings.Default.LastVideoTSFolder = videoFolder;
 			Settings.Default.Save();
-			this.sourceName = Utilities.GetSourceNameFolder(videoFolder);
+			this.SourceName = Utilities.GetSourceNameFolder(videoFolder);
 			//DirectoryInfo parentDirectory = Directory.GetParent(videoFolder);
 			//if (parentDirectory == null || parentDirectory.Root.FullName == parentDirectory.FullName)
 			//{
@@ -390,7 +248,7 @@ namespace VidCoder.ViewModel
 
 			this.StartScan(videoFolder);
 
-			this.sourcePath = videoFolder;
+			this.SourcePath = videoFolder;
 			this.SelectedSource = new SourceOption { Type = SourceType.VideoFolder };
 		}
 
@@ -406,19 +264,19 @@ namespace VidCoder.ViewModel
 				this.SourceSelectionExpanded = false;
 			}
 
-			this.sourceName = driveInfo.VolumeLabel;
+			this.SourceName = driveInfo.VolumeLabel;
 
 			if (driveInfo.DiscType == DiscType.Dvd)
 			{
-				this.sourcePath = Path.Combine(driveInfo.RootDirectory, "VIDEO_TS");
+				this.SourcePath = Path.Combine(driveInfo.RootDirectory, "VIDEO_TS");
 			}
 			else
 			{
-				this.sourcePath = driveInfo.RootDirectory;
+				this.SourcePath = driveInfo.RootDirectory;
 			}
 
 			this.SelectedSource = new SourceOption { Type = SourceType.Dvd, DriveInfo = driveInfo };
-			this.StartScan(this.sourcePath);
+			this.StartScan(this.SourcePath);
 
 			return true;
 		}
@@ -429,19 +287,19 @@ namespace VidCoder.ViewModel
 
 			if (Settings.Default.EncodingWindowOpen)
 			{
-				this.OpenEncodingWindow();
+				this.WindowManagerVM.OpenEncodingWindow();
 				windowOpened = true;
 			}
 
 			if (Settings.Default.PreviewWindowOpen)
 			{
-				this.OpenPreviewWindow();
+				this.WindowManagerVM.OpenPreviewWindow();
 				windowOpened = true;
 			}
 
 			if (Settings.Default.LogWindowOpen)
 			{
-				this.OpenLogWindow();
+				this.WindowManagerVM.OpenLogWindow();
 				windowOpened = true;
 			}
 
@@ -457,7 +315,7 @@ namespace VidCoder.ViewModel
 		/// <returns>True if the form can close.</returns>
 		public bool OnClosing()
 		{
-			if (this.Encoding)
+			if (this.processingVM.Encoding)
 			{
 				MessageBoxResult result = Utilities.MessageBox.Show(
 					this,
@@ -473,10 +331,10 @@ namespace VidCoder.ViewModel
 			}
 
 			// If we're quitting, see if the encode is still going.
-			if (this.Encoding)
+			if (this.processingVM.Encoding)
 			{
 				// If so, stop it.
-				this.CurrentJob.HandBrakeInstance.StopEncode();
+				this.processingVM.CurrentJob.HandBrakeInstance.StopEncode();
 			}
 
 			ViewModelBase encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel));
@@ -505,14 +363,50 @@ namespace VidCoder.ViewModel
 			this.driveService.Close();
 			HandBrakeInstance.DisposeGlobal();
 
-			this.CleanOldLogs();
-			this.CleanPreviewFileCache();
+			FileCleanup.CleanOldLogs();
+			FileCleanup.CleanPreviewFileCache();
 
 			this.updater.PromptToApplyUpdate();
 
 			this.logger.Dispose();
 
 			return true;
+		}
+
+		public string SourcePath { get; private set; }
+
+		public string SourceName { get; private set; }
+
+		public OutputPathViewModel OutputPathVM
+		{
+			get
+			{
+				return this.outputPathVM;
+			}
+		}
+
+		public PresetsViewModel PresetsVM
+		{
+			get
+			{
+				return this.presetsVM;
+			}
+		}
+
+		public ProcessingViewModel ProcessingVM
+		{
+			get
+			{
+				return this.processingVM;
+			}
+		}
+
+		public WindowManagerViewModel WindowManagerVM
+		{
+			get
+			{
+				return this.windowManagerVM;
+			}
 		}
 
 		public IList<DriveInformation> DriveCollection
@@ -643,9 +537,9 @@ namespace VidCoder.ViewModel
 				switch (this.SelectedSource.Type)
 				{
 					case SourceType.File:
-						return this.sourcePath;
+						return this.SourcePath;
 					case SourceType.VideoFolder:
-						return this.sourcePath;
+						return this.SourcePath;
 					case SourceType.Dvd:
 						return this.SelectedSource.DriveInfo.DisplayText;
 					default:
@@ -786,7 +680,7 @@ namespace VidCoder.ViewModel
 					// Re-enable auto-naming when switching titles.
 					if (this.oldTitle != null)
 					{
-						this.manualOutputPath = false;
+						this.OutputPathVM.ManualOutputPath = false;
 					}
 
 					// Keep audio/subtitle choices if they match up in index and language.
@@ -921,7 +815,7 @@ namespace VidCoder.ViewModel
 				this.NotifyPropertyChanged("SubtitlesSummary");
 				CommandManager.InvalidateRequerySuggested();
 
-				this.GenerateOutputFileName();
+				this.OutputPathVM.GenerateOutputFileName();
 
 				this.NotifyPropertyChanged("Chapters");
 				this.NotifyPropertyChanged("MultipleChapters");
@@ -1075,7 +969,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.SelectedPreset != null && this.SelectedPreset.Preset.EncodingProfile.IncludeChapterMarkers;
+				return this.presetsVM.SelectedPreset != null && this.presetsVM.SelectedPreset.Preset.EncodingProfile.IncludeChapterMarkers;
 			}
 		}
 
@@ -1098,7 +992,7 @@ namespace VidCoder.ViewModel
 			{
 				this.videoRangeType = value;
 
-				this.GenerateOutputFileName();
+				this.OutputPathVM.GenerateOutputFileName();
 				this.NotifyPropertyChanged("VideoRangeType");
 				this.NotifyPropertyChanged("ChaptersRangeVisible");
 				this.NotifyPropertyChanged("SecondsRangeVisible");
@@ -1152,7 +1046,7 @@ namespace VidCoder.ViewModel
 					this.NotifyPropertyChanged("SecondsRangeEnd");
 				}
 
-				this.GenerateOutputFileName();
+				this.OutputPathVM.GenerateOutputFileName();
 
 				this.NotifyPropertyChanged("SecondsRangeStart");
 				this.NotifyPropertyChanged("VideoRangeSummary");
@@ -1183,7 +1077,7 @@ namespace VidCoder.ViewModel
 					this.NotifyPropertyChanged("SecondsRangeStart");
 				}
 
-				this.GenerateOutputFileName();
+				this.OutputPathVM.GenerateOutputFileName();
 
 				this.NotifyPropertyChanged("SecondsRangeEnd");
 				this.NotifyPropertyChanged("VideoRangeSummary");
@@ -1222,7 +1116,7 @@ namespace VidCoder.ViewModel
 					this.NotifyPropertyChanged("FramesRangeEnd");
 				}
 
-				this.GenerateOutputFileName();
+				this.OutputPathVM.GenerateOutputFileName();
 
 				this.NotifyPropertyChanged("FramesRangeStart");
 				this.NotifyPropertyChanged("VideoRangeSummary");
@@ -1253,7 +1147,7 @@ namespace VidCoder.ViewModel
 					this.NotifyPropertyChanged("FramesRangeStart");
 				}
 
-				this.GenerateOutputFileName();
+				this.OutputPathVM.GenerateOutputFileName();
 
 				this.NotifyPropertyChanged("FramesRangeEnd");
 				this.NotifyPropertyChanged("VideoRangeSummary");
@@ -1290,7 +1184,7 @@ namespace VidCoder.ViewModel
 					this.SelectedEndChapter = this.selectedStartChapter;
 				}
 
-				this.GenerateOutputFileName();
+				this.OutputPathVM.GenerateOutputFileName();
 
 				this.NotifyPropertyChanged("SelectedStartChapter");
 				this.NotifyPropertyChanged("VideoRangeSummary");
@@ -1319,7 +1213,7 @@ namespace VidCoder.ViewModel
 					this.SelectedStartChapter = this.selectedEndChapter;
 				}
 
-				this.GenerateOutputFileName();
+				this.OutputPathVM.GenerateOutputFileName();
 
 				this.NotifyPropertyChanged("SelectedEndChapter");
 				this.NotifyPropertyChanged("VideoRangeSummary");
@@ -1399,42 +1293,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool OutputFolderChosen
-		{
-			get
-			{
-				return !string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder);
-			}
-		}
-
-		public string OutputPath
-		{
-			get
-			{
-				return this.outputPath;
-			}
-
-			set
-			{
-				this.outputPath = value;
-				this.NotifyPropertyChanged("OutputPath");
-			}
-		}
-
-		public bool EditingDestination
-		{
-			get
-			{
-				return this.editingDestination;
-			}
-
-			set
-			{
-				this.editingDestination = value;
-				this.NotifyPropertyChanged("EditingDestination");
-			}
-		}
-
 		public VideoSource SourceData
 		{
 			get
@@ -1449,117 +1307,16 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ObservableCollection<PresetViewModel> AllPresets
-		{
-			get
-			{
-				return this.allPresets;
-			}
-		}
-
-		public PresetViewModel SelectedPreset
-		{
-			get
-			{
-				return this.selectedPreset;
-			}
-
-			set
-			{
-				if (value == null)
-				{
-					return;
-				}
-
-				PresetViewModel previouslySelectedPreset = this.selectedPreset;
-				bool changeSelectedPreset = true;
-
-				if (this.selectedPreset != null && this.selectedPreset.Preset.IsModified)
-				{
-					MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, "Do you want to save changes to your current preset?", "Save current preset?", MessageBoxButton.YesNoCancel);
-					if (dialogResult == MessageBoxResult.Yes)
-					{
-						this.SavePreset();
-					}
-					else if (dialogResult == MessageBoxResult.No)
-					{
-						this.RevertPreset(userInitiated: false);
-					}
-					else if (dialogResult == MessageBoxResult.Cancel)
-					{
-						// Queue up an action to switch back to this preset.
-						int currentPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
-
-						DispatchService.BeginInvoke(() =>
-						{
-							this.SelectedPreset = this.AllPresets[currentPresetIndex];
-						});
-
-						changeSelectedPreset = false;
-					}
-				}
-
-				this.selectedPreset = value;
-
-				if (changeSelectedPreset)
-				{
-					NotifySelectedPresetChanged();
-
-					// If we're switching away from a temporary queue preset, remove it.
-					if (previouslySelectedPreset != null && previouslySelectedPreset.IsQueue && previouslySelectedPreset != value)
-					{
-						this.AllPresets.Remove(previouslySelectedPreset);
-					}
-				}
-			}
-		}
-
-		private void NotifySelectedPresetChanged()
-		{
-			this.GenerateOutputFileName();
-
-			var encodingWindow = WindowManager.FindWindow(typeof (EncodingViewModel)) as EncodingViewModel;
-			if (encodingWindow != null)
-			{
-				encodingWindow.EditingPreset = this.selectedPreset.Preset;
-			}
-
-			var previewWindow = WindowManager.FindWindow(typeof (PreviewViewModel)) as PreviewViewModel;
-			if (previewWindow != null)
-			{
-				previewWindow.RequestRefreshPreviews();
-			}
-
-			this.NotifyPropertyChanged("SelectedPreset");
-			this.NotifyPropertyChanged("ShowChapterMarkerUI");
-
-			Settings.Default.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
-		}
-
-		public int SelectedTabIndex
-		{
-			get
-			{
-				return this.selectedTabIndex;
-			}
-
-			set
-			{
-				this.selectedTabIndex = value;
-				this.NotifyPropertyChanged("SelectedTabIndex");
-			}
-		}
-
 		public string QueuedTabHeader
 		{
 			get
 			{
-				if (this.EncodeQueue.Count == 0)
+				if (this.ProcessingVM.EncodeQueue.Count == 0)
 				{
 					return "Queued";
 				}
 
-				return "Queued (" + this.EncodeQueue.Count + ")";
+				return "Queued (" + this.ProcessingVM.EncodeQueue.Count + ")";
 			}
 		}
 
@@ -1567,336 +1324,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return "Completed (" + this.CompletedJobs.Count + ")";
-			}
-		}
-
-		public ObservableCollection<EncodeJobViewModel> EncodeQueue
-		{
-			get
-			{
-				return this.encodeQueue;
-			}
-		}
-
-		public ObservableCollection<EncodeResultViewModel> CompletedJobs
-		{
-			get
-			{
-				return this.completedJobs;
-			}
-		}
-
-		public int CompletedItemsCount
-		{
-			get
-			{
-				return this.completedJobs.Count();
-			}
-		}
-
-		public bool CanEnqueue
-		{
-			get
-			{
-				return this.HasVideoSource && Utilities.IsValidFullPath(this.OutputPath);
-			}
-		}
-
-		public string EnqueueToolTip
-		{
-			get
-			{
-				if (string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder))
-				{
-					return "Please choose a destination directory before adding items to the queue.";
-				}
-
-				return null;
-			}
-		}
-
-		public bool CanEncode
-		{
-			get
-			{
-				return this.EncodeQueue.Count > 0 || this.CanEnqueue;
-			}
-		}
-
-		public string EncodeToolTip
-		{
-			get
-			{
-				if (string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder))
-				{
-					return "Please choose a destination directory before encoding.";
-				}
-
-				return null;
-			}
-		}
-
-		public bool Encoding
-		{
-			get
-			{
-				return this.encoding;
-			}
-
-			set
-			{
-				this.encoding = value;
-
-				if (value)
-				{
-					Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.BelowNormal;
-					SystemSleepManagement.PreventSleep();
-					this.elapsedQueueEncodeTime = Stopwatch.StartNew();
-				}
-				else
-				{
-					Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.Normal;
-					this.EncodeSpeedDetailsAvailable = false;
-					SystemSleepManagement.AllowSleep();
-					this.elapsedQueueEncodeTime.Stop();
-				}
-
-				this.NotifyPropertyChanged("PauseVisible");
-				this.NotifyPropertyChanged("Encoding");
-				this.NotifyPropertyChanged("EncodeButtonText");
-			}
-		}
-
-		public bool Paused
-		{
-			get
-			{
-				return this.paused;
-			}
-
-			set
-			{
-				this.paused = value;
-
-				if (this.elapsedQueueEncodeTime != null)
-				{
-					if (value)
-					{
-						this.elapsedQueueEncodeTime.Stop();
-					}
-					else
-					{
-						this.elapsedQueueEncodeTime.Start();
-					}
-				}
-
-				this.NotifyPropertyChanged("PauseVisible");
-				this.NotifyPropertyChanged("ProgressBarColor");
-				this.NotifyPropertyChanged("Paused");
-			}
-		}
-
-		public string EncodeButtonText
-		{
-			get
-			{
-				if (this.Encoding)
-				{
-					return "Resume";
-				}
-				else
-				{
-					return "Encode";
-				}
-			}
-		}
-
-		public bool PauseVisible
-		{
-			get
-			{
-				return this.Encoding && !this.Paused;
-			}
-		}
-
-		public bool CanEnqueueMultipleTitles
-		{
-			get
-			{
-				return !string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder) && this.HasVideoSource && this.SourceData.Titles.Count > 1;
-			}
-		}
-
-		public string TaskDetails
-		{
-			get
-			{
-				return this.taskNumber + "/" + this.totalTasks;
-			}
-		}
-
-		public bool EncodeSpeedDetailsAvailable
-		{
-			get
-			{
-				return this.encodeSpeedDetailsAvailable;
-			}
-
-			set
-			{
-				this.encodeSpeedDetailsAvailable = value;
-				this.NotifyPropertyChanged("EncodeSpeedDetailsAvailable");
-			}
-		}
-
-		public string EstimatedTimeRemaining
-		{
-			get
-			{
-				return this.estimatedTimeRemaining;
-			}
-
-			set
-			{
-				this.estimatedTimeRemaining = value;
-				this.NotifyPropertyChanged("EstimatedTimeRemaining");
-			}
-		}
-
-		public EncodeCompleteAction EncodeCompleteAction
-		{
-			get
-			{
-				return this.encodeCompleteAction;
-			}
-
-			set
-			{
-				this.encodeCompleteAction = value;
-				this.NotifyPropertyChanged("EncodeCompleteAction");
-			}
-		}
-
-		public double CurrentFps
-		{
-			get
-			{
-				return this.currentFps;
-			}
-
-			set
-			{
-				this.currentFps = value;
-				this.NotifyPropertyChanged("CurrentFps");
-			}
-		}
-
-		public double AverageFps
-		{
-			get
-			{
-				return this.averageFps;
-			}
-
-			set
-			{
-				this.averageFps = value;
-				this.NotifyPropertyChanged("AverageFps");
-			}
-		}
-
-		public double OverallEncodeProgressFraction
-		{
-			get
-			{
-				return this.overallEncodeProgressFraction;
-			}
-
-			set
-			{
-				this.overallEncodeProgressFraction = value;
-				this.NotifyPropertyChanged("OverallEncodeProgressPercent");
-				this.NotifyPropertyChanged("OverallEncodeProgressFraction");
-			}
-		}
-
-		public double OverallEncodeProgressPercent
-		{
-			get
-			{
-				return this.overallEncodeProgressFraction * 100;
-			}
-		}
-
-		public TaskbarItemProgressState EncodeProgressState
-		{
-			get
-			{
-				return this.encodeProgressState;
-			}
-
-			set
-			{
-				this.encodeProgressState = value;
-				this.NotifyPropertyChanged("EncodeProgressState");
-			}
-		}
-
-		public System.Windows.Media.Brush ProgressBarColor
-		{
-			get
-			{
-				if (this.Paused)
-				{
-					return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 230, 0));
-				}
-				else
-				{
-					return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 200, 0));
-				}
-			}
-		}
-
-		public bool EncodingWindowOpen
-		{
-			get
-			{
-				return this.encodingWindowOpen;
-			}
-
-			set
-			{
-				this.encodingWindowOpen = value;
-				this.NotifyPropertyChanged("EncodingWindowOpen");
-			}
-		}
-
-		public bool PreviewWindowOpen
-		{
-			get
-			{
-				return this.previewWindowOpen;
-			}
-
-			set
-			{
-				this.previewWindowOpen = value;
-				this.NotifyPropertyChanged("PreviewWindowOpen");
-			}
-		}
-
-		public bool LogWindowOpen
-		{
-			get
-			{
-				return this.logWindowOpen;
-			}
-
-			set
-			{
-				this.logWindowOpen = value;
-				this.NotifyPropertyChanged("LogWindowOpen");
+				return "Completed (" + this.ProcessingVM.CompletedJobs.Count + ")";
 			}
 		}
 
@@ -1996,54 +1424,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ICommand OpenEncodingWindowCommand
-		{
-			get
-			{
-				if (this.openEncodingWindowCommand == null)
-				{
-					this.openEncodingWindowCommand = new RelayCommand(param =>
-					{
-						this.OpenEncodingWindow();
-					});
-				}
-
-				return this.openEncodingWindowCommand;
-			}
-		}
-
-		public ICommand OpenPreviewWindowCommand
-		{
-			get
-			{
-				if (this.openPreviewWindowCommand == null)
-				{
-					this.openPreviewWindowCommand = new RelayCommand(param =>
-					{
-						this.OpenPreviewWindow();
-					});
-				}
-
-				return this.openPreviewWindowCommand;
-			}
-		}
-
-		public ICommand OpenLogWindowCommand
-		{
-			get
-			{
-				if (this.openLogWindowCommand == null)
-				{
-					this.openLogWindowCommand = new RelayCommand(param =>
-					{
-						this.OpenLogWindow();
-					});
-				}
-
-				return this.openLogWindowCommand;
-			}
-		}
-
 		public ICommand OpenAboutDialogCommand
 		{
 			get
@@ -2057,113 +1437,6 @@ namespace VidCoder.ViewModel
 				}
 
 				return this.openAboutDialogCommand;
-			}
-		}
-
-		public ICommand PickDefaultOutputFolderCommand
-		{
-			get
-			{
-				if (this.pickDefaultOutputFolderCommand == null)
-				{
-					this.pickDefaultOutputFolderCommand = new RelayCommand(param =>
-					{
-						string newOutputFolder = FileService.Instance.GetFolderName(null, "Choose the output directory for encoded video files.");
-
-						if (newOutputFolder != null)
-						{
-							Properties.Settings.Default.AutoNameOutputFolder = newOutputFolder;
-							Properties.Settings.Default.Save();
-							this.NotifyPropertyChanged("OutputFolderChosen");
-							this.NotifyPropertyChanged("CanEnqueueMultipleTitles");
-							this.NotifyPropertyChanged("EnqueueToolTip");
-							this.NotifyPropertyChanged("EncodeToolTip");
-
-							this.GenerateOutputFileName();
-						}
-					});
-				}
-
-				return this.pickDefaultOutputFolderCommand;
-			}
-		}
-
-		public ICommand PickOutputPathCommand
-		{
-			get
-			{
-				if (this.pickOutputPathCommand == null)
-				{
-					this.pickOutputPathCommand = new RelayCommand(param =>
-					{
-						string extensionDot = this.GetOutputExtensionForCurrentEncodingProfile();
-						string extension = this.GetOutputExtensionForCurrentEncodingProfile(includeDot: false);
-						string extensionLabel = extension.ToUpperInvariant();
-
-						string newOutputPath = FileService.Instance.GetFileNameSave(
-							Settings.Default.LastOutputFolder,
-							"Encode output location",
-							null,
-							extension,
-							string.Format("{0} Files|*{1}", extensionLabel, extensionDot));
-						this.SetManualOutputPath(newOutputPath, this.OutputPath);
-					},
-					param =>
-					{
-						return this.OutputFolderChosen;
-					});
-				}
-
-				return this.pickOutputPathCommand;
-			}
-		}
-
-		public ICommand EncodeCommand
-		{
-			get
-			{
-				if (this.encodeCommand == null)
-				{
-					this.encodeCommand = new RelayCommand(param =>
-					{
-						if (this.Encoding)
-						{
-							this.ResumeEncoding();
-							this.autoPause.ReportResume();
-						}
-						else
-						{
-							if (this.EncodeQueue.Count == 0)
-							{
-								var newEncodeJobVM = new EncodeJobViewModel(this.EncodeJob);
-
-								string resolvedOutputPath = this.ResolveOutputPathConflicts(newEncodeJobVM.Job.OutputPath, isBatch: false);
-								if (resolvedOutputPath == null)
-								{
-									// There was a conflict and the user canceled out of the operation.
-									return;
-								}
-
-								newEncodeJobVM.Job.OutputPath = resolvedOutputPath;
-								newEncodeJobVM.HandBrakeInstance = this.scanInstance;
-								newEncodeJobVM.VideoSource = this.SourceData;
-								newEncodeJobVM.VideoSourceMetadata = this.GetVideoSourceMetadata();
-
-								this.EncodeQueue.Add(newEncodeJobVM);
-							}
-
-							this.SelectedTabIndex = QueuedTabIndex;
-
-							this.StartEncodeQueue();
-						}
-					},
-					param =>
-					{
-						return this.CanEncode;
-					});
-				}
-
-				return this.encodeCommand;
 			}
 		}
 
@@ -2216,182 +1489,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ICommand AddToQueueCommand
-		{
-			get
-			{
-				if (this.addToQueueCommand == null)
-				{
-					this.addToQueueCommand = new RelayCommand(param =>
-					{
-						var newEncodeJobVM = new EncodeJobViewModel(this.EncodeJob);
-						newEncodeJobVM.HandBrakeInstance = this.scanInstance;
-						newEncodeJobVM.VideoSource = this.SourceData;
-						newEncodeJobVM.VideoSourceMetadata = this.GetVideoSourceMetadata();
-						newEncodeJobVM.ManualOutputPath = this.manualOutputPath;
-
-						string resolvedOutputPath = this.ResolveOutputPathConflicts(newEncodeJobVM.Job.OutputPath, isBatch: false);
-						if (resolvedOutputPath == null)
-						{
-							// There was a conflict and the user canceled out of the operation.
-							return;
-						}
-
-						newEncodeJobVM.Job.OutputPath = resolvedOutputPath;
-
-						this.Queue(newEncodeJobVM);
-
-					},
-					param =>
-					{
-						return this.CanEnqueue;
-					});
-				}
-
-				return this.addToQueueCommand;
-			}
-		}
-
-		public ICommand QueueFilesCommand
-		{
-			get
-			{
-				if (this.queueFilesCommand == null)
-				{
-					this.queueFilesCommand = new RelayCommand(param =>
-					{
-						IList<string> fileNames = FileService.Instance.GetFileNames(Settings.Default.LastInputFileFolder);
-						if (fileNames != null && fileNames.Count > 0)
-						{
-							Settings.Default.LastInputFileFolder = Path.GetDirectoryName(fileNames[0]);
-							Settings.Default.Save();
-
-							this.QueueMultiple(fileNames);
-						}
-					},
-					param =>
-					{
-						return !string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder);
-					});
-				}
-
-				return this.queueFilesCommand;
-			}
-		}
-
-		public ICommand QueueTitlesCommand
-		{
-			get
-			{
-				if (this.queueTitlesCommand == null)
-				{
-					this.queueTitlesCommand = new RelayCommand(param =>
-					{
-						var queueTitlesDialog = new QueueTitlesDialogViewModel(this.SourceData.Titles);
-						WindowManager.OpenDialog(queueTitlesDialog, this);
-
-						if (queueTitlesDialog.DialogResult)
-						{
-							int currentTitleNumber = queueTitlesDialog.TitleStartOverride;
-
-							// Queue the selected titles
-							List<Title> titlesToQueue = queueTitlesDialog.CheckedTitles;
-							foreach (Title title in titlesToQueue)
-							{
-								// Use current subtitle and audio track choices for each queued title.
-								Subtitles subtitles = new Subtitles();
-								subtitles.SrtSubtitles = new List<SrtSubtitle>();
-								subtitles.SourceSubtitles = new List<SourceSubtitle>();
-
-								foreach (SourceSubtitle sourceSubtitle in this.CurrentSubtitles.SourceSubtitles)
-								{
-									if (sourceSubtitle.TrackNumber == 0)
-									{
-										subtitles.SourceSubtitles.Add(sourceSubtitle.Clone());
-									}
-									else if (
-										title.Subtitles.Count > sourceSubtitle.TrackNumber - 1 &&
-										this.SelectedTitle.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode == title.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode)
-									{
-										subtitles.SourceSubtitles.Add(sourceSubtitle.Clone());
-									}
-								}
-
-								List<int> currentAudioChoices = new List<int>();
-								foreach (AudioChoiceViewModel audioVM in this.AudioChoices)
-								{
-									int audioIndex = audioVM.SelectedIndex;
-
-									if (title.AudioTracks.Count > audioIndex && this.SelectedTitle.AudioTracks[audioIndex].LanguageCode == title.AudioTracks[audioIndex].LanguageCode)
-									{
-										currentAudioChoices.Add(audioIndex + 1);
-									}
-								}
-
-								// If we didn't manage to match any existing audio tracks, use the first audio track.
-								if (this.AudioChoices.Count > 0 && currentAudioChoices.Count == 0)
-								{
-									currentAudioChoices.Add(1);
-								}
-
-								EncodingProfile profile = this.SelectedPreset.Preset.EncodingProfile;
-								string queueSourceName = this.sourceName;
-								if (this.SelectedSource.Type == SourceType.Dvd)
-								{
-									queueSourceName = this.TranslateDvdSourceName(queueSourceName);
-								}
-
-								int titleNumber = title.TitleNumber;
-								if (queueTitlesDialog.TitleStartOverrideEnabled)
-								{
-									titleNumber = currentTitleNumber;
-									currentTitleNumber++;
-								}
-
-								string queueOutputFileName = this.BuildOutputFileName(
-									this.sourcePath,
-									queueSourceName,
-									titleNumber,
-									title.Chapters.Count);
-
-								string extension = this.GetOutputExtension(subtitles, title);
-								string queueOutputPath = this.BuildOutputPath(queueOutputFileName, extension, sourcePath: null);
-
-								var job = new EncodeJob
-								{
-									SourceType = this.SelectedSource.Type,
-									SourcePath = this.sourcePath,
-									OutputPath = this.ResolveOutputPathConflicts(queueOutputPath, isBatch: true),
-									EncodingProfile = profile.Clone(),
-									Title = title.TitleNumber,
-									ChapterStart = 1,
-									ChapterEnd = title.Chapters.Count,
-									ChosenAudioTracks = currentAudioChoices,
-									Subtitles = subtitles,
-									UseDefaultChapterNames = true,
-									Length = title.Duration
-								};
-
-								var jobVM = new EncodeJobViewModel(job);
-								jobVM.HandBrakeInstance = this.ScanInstance;
-								jobVM.VideoSource = this.SourceData;
-								jobVM.VideoSourceMetadata = this.GetVideoSourceMetadata();
-								jobVM.ManualOutputPath = false;
-
-								this.Queue(jobVM);
-							}
-						}
-					},
-					param =>
-					{
-						return this.CanEnqueueMultipleTitles;
-					});
-				}
-
-				return this.queueTitlesCommand;
-			}
-		}
-
 		public ICommand CustomizeQueueColumnsCommand
 		{
 			get
@@ -2418,138 +1515,6 @@ namespace VidCoder.ViewModel
 				}
 
 				return this.customizeQueueColumnsCommand;
-			}
-		}
-
-		public ICommand MoveSelectedJobsToTopCommand
-		{
-			get
-			{
-				if (this.moveSelectedJobsToTopCommand == null)
-				{
-					this.moveSelectedJobsToTopCommand = new RelayCommand(param =>
-					{
-						List<EncodeJobViewModel> jobsToMove = this.EncodeQueue.Where(j => j.IsSelected && !j.Encoding).ToList();
-						if (jobsToMove.Count > 0)
-						{
-							foreach (EncodeJobViewModel jobToMove in jobsToMove)
-							{
-								this.EncodeQueue.Remove(jobToMove);
-							}
-
-							int insertPosition = this.Encoding ? 1 : 0;
-
-							for (int i = jobsToMove.Count - 1; i >= 0; i--)
-							{
-								this.EncodeQueue.Insert(insertPosition, jobsToMove[i]);
-							}
-						}
-					});
-				}
-
-				return this.moveSelectedJobsToTopCommand;
-			}
-		}
-
-		public ICommand MoveSelectedJobsToBottomCommand
-		{
-			get
-			{
-				if (this.moveSelectedJobsToBottomCommand == null)
-				{
-					this.moveSelectedJobsToBottomCommand = new RelayCommand(param =>
-					{
-						List<EncodeJobViewModel> jobsToMove = this.EncodeQueue.Where(j => j.IsSelected && !j.Encoding).ToList();
-						if (jobsToMove.Count > 0)
-						{
-							foreach (EncodeJobViewModel jobToMove in jobsToMove)
-							{
-								this.EncodeQueue.Remove(jobToMove);
-							}
-
-							foreach (EncodeJobViewModel jobToMove in jobsToMove)
-							{
-								this.EncodeQueue.Add(jobToMove);
-							}
-						}
-					});
-				}
-
-				return this.moveSelectedJobsToBottomCommand;
-			}
-		}
-
-		public ICommand RemoveSelectedJobsCommand
-		{
-			get
-			{
-				if (this.removeSelectedJobsCommand == null)
-				{
-					this.removeSelectedJobsCommand = new RelayCommand(param =>
-					{
-						this.RemoveSelectedQueueJobs();
-					});
-				}
-
-				return this.removeSelectedJobsCommand;
-			}
-		}
-
-		public ICommand ClearCompletedCommand
-		{
-			get
-			{
-				if (this.clearCompletedCommand == null)
-				{
-					this.clearCompletedCommand = new RelayCommand(param =>
-					{
-						this.CompletedJobs.Clear();
-						this.NotifyPropertyChanged("CompletedItemsCount");
-						this.NotifyPropertyChanged("CompletedTabHeader");
-					});
-				}
-
-				return this.clearCompletedCommand;
-			}
-		}
-
-		public ICommand PauseCommand
-		{
-			get
-			{
-				if (this.pauseCommand == null)
-				{
-					this.pauseCommand = new RelayCommand(param =>
-					{
-						this.PauseEncoding();
-						this.autoPause.ReportPause();
-					},
-					param =>
-					{
-						return this.Encoding && this.CurrentJob.HandBrakeInstance != null;
-					});
-				}
-
-				return this.pauseCommand;
-			}
-		}
-
-		public ICommand StopEncodeCommand
-		{
-			get
-			{
-				if (this.stopEncodeCommand == null)
-				{
-					this.stopEncodeCommand = new RelayCommand(param =>
-					{
-						// Signify that we stopped the encode manually rather than it completing.
-						this.encodeStopped = true;
-						this.CurrentJob.HandBrakeInstance.StopEncode();
-
-					});
-				}
-
-				return this.stopEncodeCommand;
 			}
 		}
 
@@ -2581,7 +1546,7 @@ namespace VidCoder.ViewModel
 				{
 					this.exportPresetCommand = new RelayCommand(param =>
 					{
-						Unity.Container.Resolve<IPresetImportExport>().ExportPreset(this.SelectedPreset.Preset);
+						Unity.Container.Resolve<IPresetImportExport>().ExportPreset(this.presetsVM.SelectedPreset.Preset);
 					});
 				}
 
@@ -2601,7 +1566,7 @@ namespace VidCoder.ViewModel
 						WindowManager.OpenDialog(optionsVM, this);
 						if (optionsVM.DialogResult)
 						{
-							this.GenerateOutputFileName();
+							this.OutputPathVM.GenerateOutputFileName();
 						}
 					});
 				}
@@ -2673,9 +1638,9 @@ namespace VidCoder.ViewModel
 				return new EncodeJob
 				{
 					SourceType = this.SelectedSource.Type,
-					SourcePath = this.sourcePath,
-					OutputPath = this.OutputPath,
-					EncodingProfile = this.SelectedPreset.Preset.EncodingProfile.Clone(),
+					SourcePath = this.SourcePath,
+					OutputPath = this.OutputPathVM.OutputPath,
+					EncodingProfile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile.Clone(),
 					Title = this.SelectedTitle.TitleNumber,
 					Angle = this.Angle,
 					RangeType = this.VideoRangeType,
@@ -2694,341 +1659,13 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public void StartEncodeQueue()
-		{
-			this.EncodeProgressState = TaskbarItemProgressState.Normal;
-			this.logger.Log("Starting queue");
-
-			this.totalTasks = this.EncodeQueue.Count;
-			this.taskNumber = 0;
-
-			this.completedQueueWork = 0.0;
-			this.totalQueueCost = 0.0;
-			foreach (EncodeJobViewModel jobVM in this.EncodeQueue)
-			{
-				this.totalQueueCost += jobVM.Cost;
-			}
-
-			this.OverallEncodeProgressFraction = 0;
-			this.pollCount = 0;
-			this.Encoding = true;
-			this.Paused = false;
-			this.encodeStopped = false;
-			this.autoPause.ReportStart();
-
-			this.EncodeNextJob();
-		}
-
-		private void EncodeNextJob()
-		{
-			this.taskNumber++;
-			this.NotifyPropertyChanged("TaskDetails");
-
-			if (this.CurrentJob.HandBrakeInstance == null)
-			{
-				var onDemandInstance = new HandBrakeInstance();
-				onDemandInstance.Initialize(Settings.Default.LogVerbosity);
-				onDemandInstance.ScanCompleted += (o, e) =>
-				{
-					this.CurrentJob.HandBrakeInstance = onDemandInstance;
-					Title encodeTitle = onDemandInstance.Titles.FirstOrDefault(title => title.TitleNumber == this.CurrentJob.Job.Title);
-
-					if (encodeTitle != null)
-					{
-						this.StartEncode();
-						DispatchService.BeginInvoke(CommandManager.InvalidateRequerySuggested);
-					}
-					else
-					{
-						this.OnEncodeCompleted(this, new EncodeCompletedEventArgs { Error = true });
-					}
-				};
-
-				onDemandInstance.StartScan(this.CurrentJob.Job.SourcePath, Settings.Default.PreviewCount, this.CurrentJob.Job.Title);
-			}
-			else
-			{
-				this.StartEncode();
-			}
-		}
-
-		private void StartEncode()
-		{
-			EncodeJob job = this.CurrentJob.Job;
-
-			this.logger.Log("Starting job " + this.taskNumber + "/" + this.totalTasks);
-			this.logger.Log("  Path: " + job.SourcePath);
-			this.logger.Log("  Title: " + job.Title);
-			this.logger.Log("  Chapters: " + job.ChapterStart + "-" + job.ChapterEnd);
-			this.CurrentJob.HandBrakeInstance.EncodeProgress += this.OnEncodeProgress;
-			this.CurrentJob.HandBrakeInstance.EncodeCompleted += this.OnEncodeCompleted;
-
-			string destinationDirectory = Path.GetDirectoryName(this.CurrentJob.Job.OutputPath);
-			if (!Directory.Exists(destinationDirectory))
-			{
-				try
-				{
-					Directory.CreateDirectory(destinationDirectory);
-				}
-				catch (IOException exception)
-				{
-					Utilities.MessageBox.Show(
-						"Could not create output directory. Error details: " + Environment.NewLine + Environment.NewLine + exception.ToString(),
-						"Error creating directory",
-						MessageBoxButton.OK,
-						MessageBoxImage.Error);
-				}
-			}
-
-			this.currentJobEta = TimeSpan.Zero;
-			this.errorLoggedDuringJob = false;
-			this.EncodeQueue[0].ReportEncodeStart(this.totalTasks == 1);
-			this.CurrentJob.HandBrakeInstance.StartEncode(this.CurrentJob.Job);
-		}
-
-		private void OnEncodeProgress(object sender, EncodeProgressEventArgs e)
-		{
-			if (this.EncodeQueue.Count == 0)
-			{
-				return;
-			}
-
-			EncodeJob currentJob = this.EncodeQueue[0].Job;
-			double passCost = currentJob.Length.TotalSeconds;
-			double scanPassCost = passCost / EncodeJobViewModel.SubtitleScanCostFactor;
-
-			double currentJobCompletedWork = 0.0;
-
-			if (this.EncodeQueue[0].SubtitleScan)
-			{
-				switch (e.Pass)
-				{
-					case -1:
-						currentJobCompletedWork += scanPassCost * e.FractionComplete;
-						break;
-					case 1:
-						currentJobCompletedWork += scanPassCost;
-						currentJobCompletedWork += passCost * e.FractionComplete;
-						break;
-					case 2:
-						currentJobCompletedWork += scanPassCost;
-						currentJobCompletedWork += passCost;
-						currentJobCompletedWork += passCost * e.FractionComplete;
-						break;
-					default:
-						break;
-				}
-			}
-			else
-			{
-				switch (e.Pass)
-				{
-					case 1:
-						currentJobCompletedWork += passCost * e.FractionComplete;
-						break;
-					case 2:
-						currentJobCompletedWork += passCost;
-						currentJobCompletedWork += passCost * e.FractionComplete;
-						break;
-					default:
-						break;
-				}
-			}
-
-			double totalCompletedWork = this.completedQueueWork + currentJobCompletedWork;
-
-			this.OverallEncodeProgressFraction = totalCompletedWork / this.totalQueueCost;
-			double overallWorkCompletionRate = totalCompletedWork / this.elapsedQueueEncodeTime.Elapsed.TotalSeconds;
-
-			// Only update encode time every 5th update.
-			if (Interlocked.Increment(ref this.pollCount) % 5 == 1)
-			{
-				if (this.elapsedQueueEncodeTime != null && this.elapsedQueueEncodeTime.Elapsed.TotalSeconds > 0.5 && this.OverallEncodeProgressFraction != 0.0)
-				{
-					if (this.OverallEncodeProgressFraction == 1.0)
-					{
-						this.EstimatedTimeRemaining = Utilities.FormatTimeSpan(TimeSpan.Zero);
-					}
-					else
-					{
-						TimeSpan eta = TimeSpan.FromSeconds((long)(((1.0 - this.OverallEncodeProgressFraction) * this.elapsedQueueEncodeTime.Elapsed.TotalSeconds) / this.OverallEncodeProgressFraction));
-						this.EstimatedTimeRemaining = Utilities.FormatTimeSpan(eta);
-					}
-
-					double currentJobRemainingWork = this.EncodeQueue[0].Cost - currentJobCompletedWork;
-
-					this.currentJobEta =
-						TimeSpan.FromSeconds(currentJobRemainingWork / overallWorkCompletionRate);
-					this.EncodeQueue[0].Eta = this.currentJobEta;
-				}
-			}
-
-			this.EncodeQueue[0].PercentComplete = (int)((currentJobCompletedWork / this.EncodeQueue[0].Cost) * 100.0);
-
-			if (e.EstimatedTimeLeft >= TimeSpan.Zero)
-			{
-				this.CurrentFps = Math.Round(e.CurrentFrameRate, 1);
-				this.AverageFps = Math.Round(e.AverageFrameRate, 1);
-				this.EncodeSpeedDetailsAvailable = true;
-			}
-		}
-
-		private void OnEncodeCompleted(object sender, EncodeCompletedEventArgs e)
-		{
-			DispatchService.Invoke(() =>
-			{
-				// Unregister from events. This instance may be used again.
-				this.EncodeQueue[0].HandBrakeInstance.EncodeProgress -= this.OnEncodeProgress;
-				this.EncodeQueue[0].HandBrakeInstance.EncodeCompleted -= this.OnEncodeCompleted;
-
-				if (this.encodeStopped)
-				{
-					// If the encode was stopped manually
-					this.StopEncodingAndReport();
-					this.EncodeQueue[0].ReportEncodeEnd();
-
-					if (this.totalTasks == 1)
-					{
-						this.EncodeQueue.Clear();
-					}
-
-					this.logger.Log("Encoding stopped");
-				}
-				else
-				{
-					// If the encode completed successfully
-					this.completedQueueWork += this.EncodeQueue[0].Cost;
-
-					var outputFileInfo = new FileInfo(this.CurrentJob.Job.OutputPath);
-					bool succeeded = true;
-					if (e.Error)
-					{
-						succeeded = false;
-						this.logger.LogError("Encode failed. HandBrake reported an error.");
-					}
-					else if (this.errorLoggedDuringJob)
-					{
-						succeeded = false;
-						this.logger.LogError("Encode failed. Error(s) were reported during the encode.");
-					}
-					else if (!outputFileInfo.Exists)
-					{
-						succeeded = false;
-						this.logger.LogError("Encode failed. HandBrake reported no error but the expected output file was not found.");
-					}
-					else if (outputFileInfo.Length == 0)
-					{
-						succeeded = false;
-						this.logger.LogError("Encode failed. HandBrake reported no error but the output file was empty.");
-					}
-
-					this.CompletedJobs.Add(new EncodeResultViewModel(
-						new EncodeResult
-						{
-							Destination = this.CurrentJob.Job.OutputPath,
-							Succeeded = succeeded,
-							EncodeTime = this.CurrentJob.EncodeTime
-						}));
-					this.NotifyPropertyChanged("CompletedItemsCount");
-					this.NotifyPropertyChanged("CompletedTabHeader");
-
-					HandBrakeInstance finishedInstance = this.EncodeQueue[0].HandBrakeInstance;
-					this.EncodeQueue.RemoveAt(0);
-					this.NotifyPropertyChanged("QueuedTabHeader");
-
-					this.CleanupHandBrakeInstance(finishedInstance);
-
-					this.logger.Log("Job completed");
-
-					if (this.EncodeQueue.Count == 0)
-					{
-						this.SelectedTabIndex = CompletedTabIndex;
-						this.StopEncodingAndReport();
-
-						this.logger.Log("Queue completed");
-						this.logger.Log("");
-
-						Unity.Container.Resolve<TrayService>().ShowBalloonMessage("Encoding completed", "VidCoder has finished all encode jobs in the queue.");
-
-						switch (this.EncodeCompleteAction)
-						{
-							case EncodeCompleteAction.DoNothing:
-								break;
-							case EncodeCompleteAction.Sleep:
-								this.systemOperations.Sleep();
-								break;
-							case EncodeCompleteAction.LogOff:
-								this.systemOperations.LogOff();
-								break;
-							case EncodeCompleteAction.Shutdown:
-								this.systemOperations.ShutDown();
-								break;
-							default:
-								throw new ArgumentOutOfRangeException();
-						}
-					}
-					else
-					{
-						this.EncodeNextJob();
-					}
-				}
-			});
-		}
-
-		private void PauseEncoding()
-		{
-			this.CurrentJob.HandBrakeInstance.PauseEncode();
-			this.EncodeProgressState = TaskbarItemProgressState.Paused;
-			this.CurrentJob.ReportEncodePause();
-
-			this.Paused = true;
-		}
-
-		private void ResumeEncoding()
-		{
-			this.CurrentJob.HandBrakeInstance.ResumeEncode();
-			this.EncodeProgressState = TaskbarItemProgressState.Normal;
-			this.CurrentJob.ReportEncodeResume();
-
-			this.Paused = false;
-		}
-
-		private void StopEncodingAndReport()
-		{
-			this.EncodeProgressState = TaskbarItemProgressState.None;
-			this.Encoding = false;
-			this.autoPause.ReportStop();
-		}
-
-		private void AutoPauseEncoding(object sender, EventArgs e)
-		{
-			DispatchService.Invoke(() =>
-			{
-				if (this.Encoding && !this.Paused)
-				{
-					this.PauseEncoding();
-				}
-			});
-		}
-
-		private void AutoResumeEncoding(object sender, EventArgs e)
-		{
-			DispatchService.Invoke(() =>
-			{
-				if (this.Encoding && this.Paused)
-				{
-					this.ResumeEncoding();
-				}
-			});
-		}
-
 		/// <summary>
 		/// Cleans up the given HandBrake instance if it's not being used anymore.
 		/// </summary>
 		/// <param name="instance">The instance to clean up.</param>
-		private void CleanupHandBrakeInstance(HandBrakeInstance instance)
+		public void CleanupHandBrakeInstance(HandBrakeInstance instance)
 		{
-			foreach (EncodeJobViewModel encodeJobVM in this.EncodeQueue)
+			foreach (EncodeJobViewModel encodeJobVM in this.ProcessingVM.EncodeQueue)
 			{
 				if (instance == encodeJobVM.HandBrakeInstance)
 				{
@@ -3044,110 +1681,11 @@ namespace VidCoder.ViewModel
 			instance.Dispose();
 		}
 
-		private void OnEncodeQueueChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-		{
-			this.SaveEncodeQueue();
-		}
-
-		public void QueueMultiple(IEnumerable<string> filesToQueue)
-		{
-			// Don't queue anything if we don't know where the output files will go.
-			if (string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder))
-			{
-				return;
-			}
-
-			// Exclude all current queued files if overwrite is disabled
-			HashSet<string> excludedPaths;
-			if (Settings.Default.WhenFileExistsBatch == WhenFileExists.AutoRename)
-			{
-				excludedPaths = this.GetQueuedFiles();
-			}
-			else
-			{
-				excludedPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-			}
-
-			var itemsToQueue = new List<EncodeJobViewModel>();
-			foreach (string fileToQueue in filesToQueue)
-			{
-				excludedPaths.Add(fileToQueue);
-				string queueOutputPath = Path.Combine(Settings.Default.AutoNameOutputFolder, Path.GetFileNameWithoutExtension(fileToQueue) + this.GetOutputExtensionForCurrentEncodingProfile());
-				queueOutputPath = this.ResolveOutputPathConflicts(queueOutputPath, excludedPaths, isBatch: true);
-
-				// Even if you're doing overwrite don't try to stomp on the source file.
-				if (string.Compare(queueOutputPath, fileToQueue, StringComparison.OrdinalIgnoreCase) == 0)
-				{
-					queueOutputPath = Utilities.CreateUniqueFileName(Path.GetFileNameWithoutExtension(fileToQueue) + this.GetOutputExtensionForCurrentEncodingProfile(), Settings.Default.AutoNameOutputFolder, excludedPaths);
-				}
-
-				excludedPaths.Add(queueOutputPath);
-
-				// When ChapterStart is 0, this means the whole title is encoded.
-				var job = new EncodeJob
-				{
-					SourcePath = fileToQueue,
-					OutputPath = queueOutputPath,
-					EncodingProfile = this.SelectedPreset.Preset.EncodingProfile.Clone(),
-					Title = 1,
-					RangeType = VideoRangeType.Chapters,
-					ChapterStart = 0,
-					ChapterEnd = 0,
-					ChosenAudioTracks = new List<int> { 1 },
-					Subtitles = new Subtitles(),
-					UseDefaultChapterNames = true
-				};
-
-				if (Directory.Exists(fileToQueue))
-				{
-					job.SourceType = SourceType.VideoFolder;
-				}
-				else if (File.Exists(fileToQueue))
-				{
-					job.SourceType = SourceType.File;
-				}
-
-				if (job.SourceType != SourceType.None)
-				{
-					var jobVM = new EncodeJobViewModel(job);
-					jobVM.ManualOutputPath = false;
-					itemsToQueue.Add(jobVM);
-				}
-			}
-
-			// This dialog will scan the items in the list, calculating length.
-			var scanMultipleDialog = new ScanMultipleDialogViewModel(itemsToQueue);
-			WindowManager.OpenDialog(scanMultipleDialog, this);
-
-			var failedFiles = new List<string>();
-			foreach (EncodeJobViewModel jobVM in itemsToQueue)
-			{
-				// Only queue items with a successful scan
-				if (jobVM.HandBrakeInstance.Titles.Count > 0)
-				{
-					this.Queue(jobVM);
-				}
-				else
-				{
-					failedFiles.Add(jobVM.Job.SourcePath);
-				}
-			}
-
-			if (failedFiles.Count > 0)
-			{
-				Utilities.MessageBox.Show(
-					"The following file(s) could not be recognized and were not added to the queue:" + Environment.NewLine + Environment.NewLine + string.Join(Environment.NewLine, failedFiles),
-					"Error scanning video file(s)",
-					MessageBoxButton.OK,
-					MessageBoxImage.Warning);
-			}
-		}
-
-		private VideoSourceMetadata GetVideoSourceMetadata()
+		public VideoSourceMetadata GetVideoSourceMetadata()
 		{
 			var metadata = new VideoSourceMetadata
 			{
-				Name = this.sourceName
+				Name = this.SourceName
 			};
 
 			if (this.SelectedSource.Type == SourceType.Dvd)
@@ -3158,38 +1696,15 @@ namespace VidCoder.ViewModel
 			return metadata;
 		}
 
-		private HashSet<string> GetQueuedFiles()
+		public EncodeJobViewModel CreateEncodeJobVM()
 		{
-			return new HashSet<string>(this.EncodeQueue.Select(j => j.Job.OutputPath), StringComparer.OrdinalIgnoreCase);
-		}
+			var newEncodeJobVM = new EncodeJobViewModel(this.EncodeJob);
+			newEncodeJobVM.HandBrakeInstance = this.scanInstance;
+			newEncodeJobVM.VideoSource = this.SourceData;
+			newEncodeJobVM.VideoSourceMetadata = this.GetVideoSourceMetadata();
+			newEncodeJobVM.ManualOutputPath = this.OutputPathVM.ManualOutputPath;
 
-		/// <summary>
-		/// Queues the given Job. Assumed that the job has an associated HandBrake instance and populated Length.
-		/// </summary>
-		/// <param name="encodeJobVM">The job to add.</param>
-		public void Queue(EncodeJobViewModel encodeJobVM)
-		{
-			if (this.Encoding)
-			{
-				if (this.totalTasks == 1)
-				{
-					this.EncodeQueue[0].IsOnlyItem = false;
-				}
-
-				this.totalTasks++;
-				this.totalQueueCost += encodeJobVM.Cost;
-				this.NotifyPropertyChanged("TaskDetails");
-			}
-
-			this.EncodeQueue.Add(encodeJobVM);
-
-			this.NotifyPropertyChanged("QueuedTabHeader");
-
-			// Select the Queued tab.
-			if (this.SelectedTabIndex != QueuedTabIndex)
-			{
-				this.SelectedTabIndex = QueuedTabIndex;
-			}
+			return newEncodeJobVM;
 		}
 
 		public void RemoveAudioChoice(AudioChoiceViewModel choice)
@@ -3202,16 +1717,16 @@ namespace VidCoder.ViewModel
 		{
 			EncodeJob job = jobVM.Job;
 
-			if (this.SelectedPreset.IsModified)
+			if (this.PresetsVM.SelectedPreset.IsModified)
 			{
 				MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, "Do you want to save changes to your current preset?", "Save current preset?", MessageBoxButton.YesNoCancel);
 				if (dialogResult == MessageBoxResult.Yes)
 				{
-					this.SavePreset();
+					this.PresetsVM.SavePreset();
 				}
 				else if (dialogResult == MessageBoxResult.No)
 				{
-					this.RevertPreset(userInitiated: false);
+					this.PresetsVM.RevertPreset(userInitiated: false);
 				}
 				else if (dialogResult == MessageBoxResult.Cancel)
 				{
@@ -3272,182 +1787,22 @@ namespace VidCoder.ViewModel
 				this.StartScan(job.SourcePath, jobVM);
 			}
 
-			// Bring in encoding profile and put in a placeholder preset.
-			if (this.AllPresets[0].IsQueue)
-			{
-				this.AllPresets.RemoveAt(0);
-			}
-
 			var queuePreset = new PresetViewModel(
 				new Preset
-			    {
+				{
 					IsBuiltIn = false,
 					IsModified = false,
 					IsQueue = true,
 					Name = "Restored from Queue",
 					EncodingProfile = jobVM.Job.EncodingProfile.Clone()
-			    });
+				});
 
-			this.AllPresets.Insert(0, queuePreset);
-
-			this.selectedPreset = queuePreset;
-			this.NotifySelectedPresetChanged();
+			this.PresetsVM.InsertQueuePreset(queuePreset);
 
 			// Since it's been sent back for editing, remove the queue item
-			this.EncodeQueue.Remove(jobVM);
+			this.ProcessingVM.EncodeQueue.Remove(jobVM);
 
-			this.SaveUserPresets();
-		}
-
-		public void RemoveQueueJob(EncodeJobViewModel job)
-		{
-			this.EncodeQueue.Remove(job);
-
-			if (this.Encoding)
-			{
-				this.totalTasks--;
-				this.totalQueueCost -= job.Cost;
-
-				this.NotifyPropertyChanged("TaskDetails");
-
-				if (this.totalTasks == 1)
-				{
-					this.EncodeQueue[0].IsOnlyItem = true;
-				}
-			}
-
-			this.NotifyPropertyChanged("QueuedTabHeader");
-		}
-
-		public void RemoveSelectedQueueJobs()
-		{
-			for (int i = this.EncodeQueue.Count - 1; i >= 0; i--)
-			{
-				EncodeJobViewModel jobVM = this.EncodeQueue[i];
-
-				if (jobVM.IsSelected && !jobVM.Encoding)
-				{
-					this.EncodeQueue.RemoveAt(i);
-				}
-			}
-		}
-
-		public void SavePreset()
-		{
-			if (this.SelectedPreset.IsModified)
-			{
-				this.SelectedPreset.OriginalProfile = null;
-				this.SelectedPreset.Preset.IsModified = false;
-			}
-
-			// Refresh view and save in case of rename.
-			this.SelectedPreset.RefreshView();
-			this.SaveUserPresets();
-
-			this.StartAnimation("PresetGlowHighlight");
-		}
-
-		public void SavePresetAs(string newPresetName)
-		{
-			var newPreset = new Preset
-			{
-				IsBuiltIn = false,
-				IsModified = false,
-				Name = newPresetName,
-				EncodingProfile = this.SelectedPreset.Preset.EncodingProfile.Clone()
-			};
-
-			var newPresetVM = new PresetViewModel(newPreset);
-
-			this.InsertNewPreset(newPresetVM);
-
-			if (this.SelectedPreset.IsModified)
-			{
-				this.RevertPreset(userInitiated: false);
-				this.SelectedPreset.RefreshView();
-			}
-
-			this.selectedPreset = null;
-			this.SelectedPreset = newPresetVM;
-
-			this.StartAnimation("PresetGlowHighlight");
-			this.SaveUserPresets();
-		}
-
-		public void AddPreset(Preset newPreset)
-		{
-			var newPresetVM = new PresetViewModel(newPreset);
-
-			this.InsertNewPreset(newPresetVM);
-
-			// Switch to the new preset if we can do it cleanly.
-			if (!this.SelectedPreset.IsModified)
-			{
-				this.selectedPreset = null;
-				this.SelectedPreset = newPresetVM;
-
-				this.StartAnimation("PresetGlowHighlight");
-			}
-
-			this.SaveUserPresets();
-		}
-
-		/// <summary>
-		/// Reverts changes to the current preset back to last saved.
-		/// </summary>
-		public void RevertPreset(bool userInitiated)
-		{
-			Debug.Assert(this.SelectedPreset.OriginalProfile != null, "Error reverting preset: Original profile cannot be null.");
-			Debug.Assert(this.SelectedPreset.OriginalProfile != this.SelectedPreset.Preset.EncodingProfile, "Error reverting preset: Original profile must be different from current profile.");
-
-			this.SelectedPreset.Preset.EncodingProfile = this.SelectedPreset.OriginalProfile;
-			this.SelectedPreset.OriginalProfile = null;
-			this.SelectedPreset.Preset.IsModified = false;
-			this.SelectedPreset.RefreshView();
-
-			if (userInitiated)
-			{
-				this.StartAnimation("PresetGlowHighlight");
-			}
-
-			this.SaveUserPresets();
-
-			// Refresh file name.
-			this.GenerateOutputFileName();
-
-			this.RefreshChapterMarkerUI();
-			PreviewViewModel.FindAndRefreshPreviews();
-		}
-
-		/// <summary>
-		/// Deletes the current preset.
-		/// </summary>
-		public void DeletePreset()
-		{
-			this.AllPresets.Remove(this.SelectedPreset);
-			this.selectedPreset = null;
-			this.SelectedPreset = this.AllPresets[0];
-
-			this.StartAnimation("PresetGlowHighlight");
-			this.SaveUserPresets();
-
-			this.RefreshChapterMarkerUI();
-			PreviewViewModel.FindAndRefreshPreviews();
-		}
-
-		/// <summary>
-		/// Modify the current preset. Called when first making a change to a preset.
-		/// </summary>
-		/// <param name="newProfile">The new encoding profile to use.</param>
-		public void ModifyPreset(EncodingProfile newProfile)
-		{
-			Debug.Assert(this.SelectedPreset.IsModified == false, "Cannot start modification on already modified preset.");
-			Debug.Assert(this.SelectedPreset.OriginalProfile == null, "Preset already has OriginalProfile.");
-
-			this.SelectedPreset.OriginalProfile = this.SelectedPreset.Preset.EncodingProfile;
-			this.SelectedPreset.Preset.EncodingProfile = newProfile;
-			this.SelectedPreset.Preset.IsModified = true;
-			this.SelectedPreset.RefreshView();
+			this.PresetsVM.SaveUserPresets();
 		}
 
 		public void RefreshChapterMarkerUI()
@@ -3455,85 +1810,9 @@ namespace VidCoder.ViewModel
 			this.NotifyPropertyChanged("ShowChapterMarkerUI");
 		}
 
-		public void RefreshDestination()
-		{
-			this.GenerateOutputFileName();
-		}
-
 		public void RefreshTrayIcon(bool minimized)
 		{
 			this.ShowTrayIcon = Settings.Default.MinimizeToTray && minimized;
-		}
-
-		/// <summary>
-		/// Processes and sets a user-provided output path.
-		/// </summary>
-		/// <param name="newOutputPath">The user provided output path.</param>
-		/// <param name="oldOutputPath">The previous output path.</param>
-		public void SetManualOutputPath(string newOutputPath, string oldOutputPath)
-		{
-			if (newOutputPath == oldOutputPath)
-			{
-				return;
-			}
-
-			if (Utilities.IsValidFullPath(newOutputPath))
-			{
-				string outputDirectory = Path.GetDirectoryName(newOutputPath);
-				Settings.Default.LastOutputFolder = outputDirectory;
-				Settings.Default.Save();
-
-				string fileName = Path.GetFileNameWithoutExtension(newOutputPath);
-				string extension = this.GetOutputExtension();
-
-				this.manualOutputPath = true;
-				this.OutputPath = Path.Combine(outputDirectory, fileName + extension);
-			}
-			else
-			{
-				// If it's not a valid path, revert the change.
-				if (this.HasVideoSource && string.IsNullOrEmpty(Path.GetFileName(oldOutputPath)))
-				{
-					// If we've got a video source now and the old path was blank, generate a file name
-					this.GenerateOutputFileName();
-				}
-				else
-				{
-					// Else just fall back to whatever the old path was
-					this.OutputPath = oldOutputPath;
-				}
-			}
-		}
-
-		public void SaveUserPresets()
-		{
-			List<Preset> userPresets = new List<Preset>();
-
-			foreach (PresetViewModel presetVM in this.AllPresets)
-			{
-				if ((!presetVM.Preset.IsBuiltIn || presetVM.Preset.IsModified) && !presetVM.IsQueue)
-				{
-					userPresets.Add(presetVM.Preset);
-				}
-
-				// Add the original version of the preset, if we're working with a more recent version.
-				if (!presetVM.Preset.IsBuiltIn && presetVM.Preset.IsModified)
-				{
-					Debug.Assert(presetVM.OriginalProfile != null, "Error saving user presets: Preset marked as modified but no OriginalProfile could be found.");
-
-					var originalPreset = new Preset
-					{
-						Name = presetVM.Preset.Name,
-						IsBuiltIn = presetVM.Preset.IsBuiltIn,
-						IsModified = false,
-						EncodingProfile = presetVM.OriginalProfile
-					};
-
-					userPresets.Add(originalPreset);
-				}
-			}
-
-			Presets.UserPresets = userPresets;
 		}
 
 		/// <summary>
@@ -3643,7 +1922,7 @@ namespace VidCoder.ViewModel
 
 						if (jobVM == null && this.SelectedSource != null && (this.SelectedSource.Type == SourceType.File || this.SelectedSource.Type == SourceType.VideoFolder))
 						{
-							SourceHistory.AddToHistory(this.sourcePath);
+							SourceHistory.AddToHistory(this.SourcePath);
 						}
 
 						this.logger.Log("Scan completed");
@@ -3722,8 +2001,8 @@ namespace VidCoder.ViewModel
 
 		private void LoadVideoSourceMetadata(EncodeJob job, VideoSourceMetadata metadata)
 		{
-			this.sourceName = metadata.Name;
-			this.sourcePath = job.SourcePath;
+			this.SourceName = metadata.Name;
+			this.SourcePath = job.SourcePath;
 
 			if (job.SourceType == SourceType.Dvd)
 			{
@@ -3858,8 +2137,8 @@ namespace VidCoder.ViewModel
 			}
 
 			// Output path
-			this.OutputPath = job.OutputPath;
-			this.manualOutputPath = jobVM.ManualOutputPath;
+			this.OutputPathVM.OutputPath = job.OutputPath;
+			this.OutputPathVM.ManualOutputPath = jobVM.ManualOutputPath;
 
 			// Encoding profile?!
 
@@ -3879,155 +2158,6 @@ namespace VidCoder.ViewModel
 			this.NotifyPropertyChanged("Angle");
 		}
 
-		private void SaveEncodeQueue()
-		{
-			var jobPersistGroup = new EncodeJobPersistGroup();
-			foreach (EncodeJobViewModel jobVM in this.EncodeQueue)
-			{
-				jobPersistGroup.EncodeJobs.Add(new EncodeJobWithMetadata { Job = jobVM.Job, ManualOutputPath = jobVM.ManualOutputPath });
-			}
-
-			EncodeJobsPersist.EncodeJobs = jobPersistGroup;
-		}
-
-		private void OpenEncodingWindow()
-		{
-			var encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel)) as EncodingViewModel;
-			this.EncodingWindowOpen = true;
-
-			if (encodingWindow == null)
-			{
-				encodingWindow = new EncodingViewModel(this.SelectedPreset.Preset);
-				encodingWindow.Closing = () =>
-				{
-					this.EncodingWindowOpen = false;
-
-					// Focus the main window after closing. If they used a keyboard shortcut to close it might otherwise give up
-					// focus on the app altogether.
-					WindowManager.FocusWindow(this);
-				};
-				WindowManager.OpenWindow(encodingWindow, this);
-			}
-			else
-			{
-				WindowManager.FocusWindow(encodingWindow);
-			}
-		}
-
-		private void OpenPreviewWindow()
-		{
-			var previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
-			this.PreviewWindowOpen = true;
-
-			if (previewWindow == null)
-			{
-				previewWindow = new PreviewViewModel();
-				previewWindow.Closing = () =>
-				{
-					this.PreviewWindowOpen = false;
-				};
-				WindowManager.OpenWindow(previewWindow, this);
-			}
-			else
-			{
-				WindowManager.FocusWindow(previewWindow);
-			}
-		}
-
-		private void OpenLogWindow()
-		{
-			var logWindow = WindowManager.FindWindow(typeof(LogViewModel)) as LogViewModel;
-			this.LogWindowOpen = true;
-
-			if (logWindow == null)
-			{
-				logWindow = new LogViewModel();
-				logWindow.Closing = () =>
-				{
-					this.LogWindowOpen = false;
-				};
-				WindowManager.OpenWindow(logWindow, this);
-			}
-			else
-			{
-				WindowManager.FocusWindow(logWindow);
-			}
-		}
-
-		public string OldOutputPath { get; set; }
-
-		private void GenerateOutputFileName()
-		{
-			string fileName;
-
-			// If our original path was empty and we're editing it at the moment, don't clobber
-			// whatever the user is typing.
-			if (string.IsNullOrEmpty(Path.GetFileName(this.OldOutputPath)) && this.EditingDestination)
-			{
-				return;
-			}
-
-			if (this.manualOutputPath)
-			{
-				// When a manual path has been specified, keep the directory and base file name.
-				fileName = Path.GetFileNameWithoutExtension(this.OutputPath);
-				this.OutputPath = Path.Combine(Path.GetDirectoryName(this.OutputPath), fileName + this.GetOutputExtension());
-				return;
-			}
-
-			if (!this.HasVideoSource)
-			{
-				string outputFolder = Settings.Default.AutoNameOutputFolder;
-				if (outputFolder != null)
-				{
-					this.OutputPath = outputFolder + (outputFolder.EndsWith(@"\") ? string.Empty : @"\");
-				}
-
-				return;
-			}
-
-			if (this.sourceName == null || this.SelectedStartChapter == null || this.SelectedEndChapter == null)
-			{
-				return;
-			}
-
-			if (string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder))
-			{
-				return;
-			}
-
-			// Change casing on DVD titles to be a little more friendly
-			string translatedSourceName = this.sourceName;
-			if ((this.SelectedSource.Type == SourceType.Dvd || this.SelectedSource.Type == SourceType.VideoFolder) && !string.IsNullOrWhiteSpace(this.sourceName))
-			{
-				translatedSourceName = this.TranslateDvdSourceName(this.sourceName);
-			}
-
-			fileName = this.BuildOutputFileName(
-				this.sourcePath,
-				translatedSourceName,
-				this.SelectedTitle.TitleNumber,
-				this.VideoRangeType,
-				this.SelectedStartChapter.ChapterNumber,
-				this.SelectedEndChapter.ChapterNumber,
-				this.SelectedTitle.Chapters.Count,
-				this.SecondsRangeStart,
-				this.SecondsRangeEnd,
-				this.FramesRangeStart,
-				this.FramesRangeEnd);
-
-			string extension = this.GetOutputExtension();
-
-			this.OutputPath = this.BuildOutputPath(fileName, extension, sourcePath: this.sourcePath);
-
-			// If we've pushed a new name into the destination text box, we need to update the "baseline" name so the
-			// auto-generated name doesn't get mistakenly labeled as manual when focus leaves it
-			if (this.EditingDestination)
-			{
-				this.OldOutputPath = this.OutputPath;
-			}
-		}
-
 		private void ReportLengthChanged()
 		{
 			var encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel)) as EncodingViewModel;
@@ -4035,147 +2165,6 @@ namespace VidCoder.ViewModel
 			{
 				encodingWindow.NotifyLengthChanged();
 			}
-		}
-
-		// Resolves any conflicts for the given output path.
-		// Returns a non-conflicting output path.
-		// May return the same value if there are no conflicts.
-		// null means cancel.
-		private string ResolveOutputPathConflicts(string initialOutputPath, HashSet<string> excludedPaths, bool isBatch)
-		{
-			HashSet<string> queuedFiles = excludedPaths;
-			bool? conflict = Utilities.FileExists(initialOutputPath, queuedFiles);
-
-			if (conflict == null)
-			{
-				return initialOutputPath;
-			}
-
-			WhenFileExists preference;
-			if (isBatch)
-			{
-				preference = Settings.Default.WhenFileExistsBatch;
-			}
-			else
-			{
-				preference = Settings.Default.WhenFileExists;
-			}
-
-			switch (preference)
-			{
-				case WhenFileExists.Prompt:
-					break;
-				case WhenFileExists.Overwrite:
-					return initialOutputPath;
-				case WhenFileExists.AutoRename:
-					return Utilities.CreateUniqueFileName(initialOutputPath, queuedFiles);
-				default:
-					throw new ArgumentOutOfRangeException();
-			}
-
-			// Continue and prompt user for resolution
-
-			var conflictDialog = new FileConflictDialogViewModel(initialOutputPath, (bool) conflict);
-			WindowManager.OpenDialog(conflictDialog, this);
-
-			switch (conflictDialog.FileConflictResolution)
-			{
-				case FileConflictResolution.Cancel:
-					return null;
-				case FileConflictResolution.Overwrite:
-					return initialOutputPath;
-				case FileConflictResolution.AutoRename:
-					return Utilities.CreateUniqueFileName(initialOutputPath, queuedFiles);
-				default:
-					throw new ArgumentOutOfRangeException();
-			}
-		}
-
-		private string ResolveOutputPathConflicts(string initialOutputPath, bool isBatch)
-		{
-			return ResolveOutputPathConflicts(initialOutputPath, this.GetQueuedFiles(), isBatch);
-		}
-
-		/// <summary>
-		/// Gets the output extension for the given subtitles and title, and with the
-		/// current encoding settings.
-		/// </summary>
-		/// <param name="givenSubtitles">The subtitles to determine the extension for.</param>
-		/// <param name="givenTitle">The title to determine the extension for.</param>
-		/// <returns>The output extension (with dot) for the given subtitles and title,
-		/// and with the current encoding settings.</returns>
-		private string GetOutputExtension(Subtitles givenSubtitles, Title givenTitle)
-		{
-			string extension;
-
-			// If we have a text source subtitle, force .m4v extension.
-			bool allowMp4Extension = true;
-			if (givenSubtitles != null && givenSubtitles.SourceSubtitles != null)
-			{
-				foreach (SourceSubtitle sourceSubtitle in givenSubtitles.SourceSubtitles)
-				{
-					if (sourceSubtitle.TrackNumber > 0)
-					{
-						if (givenTitle.Subtitles[sourceSubtitle.TrackNumber - 1].SubtitleType == SubtitleType.Text)
-						{
-							allowMp4Extension = false;
-						}
-					}
-				}
-			}
-
-			EncodingProfile profile = this.SelectedPreset.Preset.EncodingProfile;
-			if (profile.OutputFormat == OutputFormat.Mkv)
-			{
-				extension = ".mkv";
-			}
-			else if (profile.PreferredExtension == OutputExtension.Mp4 && allowMp4Extension)
-			{
-				extension = ".mp4";
-			}
-			else
-			{
-				extension = ".m4v";
-			}
-
-			return extension;
-		}
-
-		/// <summary>
-		/// Gets the extension that should be used for the current encoding settings, subtitles
-		/// and title.
-		/// </summary>
-		/// <returns>The extension (with dot) that should be used for current encoding settings, subtitles
-		/// and title. If no video source is present, this is determined from the encoding settings.</returns>
-		private string GetOutputExtension()
-		{
-			if (this.HasVideoSource)
-			{
-				return this.GetOutputExtension(this.CurrentSubtitles, this.SelectedTitle);
-			}
-
-			return this.GetOutputExtensionForCurrentEncodingProfile();
-		}
-
-		private string GetOutputExtensionForCurrentEncodingProfile(bool includeDot = true)
-		{
-			EncodingProfile profile = this.SelectedPreset.Preset.EncodingProfile;
-			string extension;
-
-			if (profile.OutputFormat == OutputFormat.Mkv)
-			{
-				extension = "mkv";
-			}
-			else if (profile.PreferredExtension == OutputExtension.Mp4)
-			{
-				extension = "mp4";
-			}
-			else
-			{
-				extension = "m4v";
-			}
-
-			return includeDot ? "." + extension : extension;
 		}
 
 		private void UpdateDrives()
@@ -4229,311 +2218,6 @@ namespace VidCoder.ViewModel
 			});
 		}
 
-		/// <summary>
-		/// Changes casing on DVD titles to be a little more friendly.
-		/// </summary>
-		/// <param name="dvdSourceName">The source name of the DVD.</param>
-		/// <returns>Cleaned up version of the source name.</returns>
-		private string TranslateDvdSourceName(string dvdSourceName)
-		{
-			string[] titleWords = dvdSourceName.Split('_');
-			var translatedTitleWords = new List<string>();
-			bool reachedModifiers = false;
-
-			foreach (string titleWord in titleWords)
-			{
-				// After the disc designator, stop changing capitalization.
-				if (!reachedModifiers && titleWord.Length == 2 && titleWord[0] == 'D' && char.IsDigit(titleWord[1]))
-				{
-					reachedModifiers = true;
-				}
-
-				if (reachedModifiers)
-				{
-					translatedTitleWords.Add(titleWord);
-				}
-				else
-				{
-					if (titleWord.Length > 0)
-					{
-						translatedTitleWords.Add(titleWord[0] + titleWord.Substring(1).ToLower());
-					}
-				}
-			}
-
-			return string.Join(" ", translatedTitleWords);
-		}
-
-		private string BuildOutputPath(string fileName, string extension, string sourcePath)
-		{
-			// Use our default output folder by default
-			string outputFolder = Settings.Default.AutoNameOutputFolder;
-			if (Settings.Default.OutputToSourceDirectory)
-			{
-				string sourceRoot = Path.GetPathRoot(sourcePath);
-				IList<DriveInfo> driveInfo = this.driveService.GetDriveInformation();
-				DriveInfo matchingDrive = driveInfo.FirstOrDefault(d => string.Compare(d.RootDirectory.FullName, sourceRoot, StringComparison.OrdinalIgnoreCase) == 0);
-
-				string sourceDirectory = Path.GetDirectoryName(sourcePath);
-
-				// Use the source directory if it exists and not on an optical drive
-				if (!string.IsNullOrEmpty(sourceDirectory) && (matchingDrive == null || matchingDrive.DriveType != DriveType.CDRom))
-				{
-					outputFolder = sourceDirectory;
-				}
-			}
-
-			if (!string.IsNullOrEmpty(outputFolder))
-			{
-				string result = Path.Combine(outputFolder, fileName + extension);
-				if (result == sourcePath)
-				{
-					result = Path.Combine(outputFolder, fileName + " (Encoded)" + extension);
-				}
-
-				return result;
-			}
-
-			return null;
-		}
-
-		private string BuildOutputFileName(string sourcePath, string sourceName, int title, int totalChapters)
-		{
-			return this.BuildOutputFileName(
-				sourcePath,
-				sourceName,
-				title,
-				VideoRangeType.Chapters,
-				1,
-				totalChapters,
-				totalChapters,
-				0,
-				0,
-				0,
-				0);
-		}
-
-		private string BuildOutputFileName(string sourcePath, string sourceName, int title, VideoRangeType rangeType, int startChapter, int endChapter, int totalChapters, double startSecond, double endSecond, int startFrame, int endFrame)
-		{
-			string fileName;
-			if (Settings.Default.AutoNameCustomFormat)
-			{
-				string rangeString = string.Empty;
-				switch (rangeType)
-				{
-					case VideoRangeType.Chapters:
-						if (startChapter == endChapter)
-						{
-							rangeString = startChapter.ToString();
-						}
-						else
-						{
-							rangeString = startChapter + "-" + endChapter;
-						}
-
-						break;
-					case VideoRangeType.Seconds:
-						rangeString = startSecond + "-" + endSecond;
-						break;
-					case VideoRangeType.Frames:
-						rangeString = startFrame + "-" + endFrame;
-						break;
-				}
-
-				fileName = Settings.Default.AutoNameCustomFormatString;
-
-				fileName = fileName.Replace("{source}", sourceName);
-				fileName = ReplaceTitles(fileName, title);
-				fileName = fileName.Replace("{range}", rangeString);
-
-				// {chapters} is deprecated in favor of {range} but we replace here for backwards compatibility.
-				fileName = fileName.Replace("{chapters}", rangeString);
-
-				fileName = fileName.Replace("{preset}", this.SelectedPreset.Preset.Name);
-				fileName = ReplaceParents(fileName, sourcePath);
-
-				DateTime now = DateTime.Now;
-				if (fileName.Contains("{date}"))
-				{
-					fileName = fileName.Replace("{date}", now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
-				}
-
-				if (fileName.Contains("{time}"))
-				{
-					fileName = fileName.Replace("{time}", string.Format("{0:d2}.{1:d2}.{2:d2}", now.Hour, now.Minute, now.Second));
-				}
-
-				if (fileName.Contains("{quality}"))
-				{
-					EncodingProfile profile = this.SelectedPreset.Preset.EncodingProfile;
-					double quality = 0;
-					switch (profile.VideoEncodeRateType)
-					{
-						case VideoEncodeRateType.ConstantQuality:
-							quality = profile.Quality;
-							break;
-						case VideoEncodeRateType.AverageBitrate:
-							quality = profile.VideoBitrate;
-							break;
-						case VideoEncodeRateType.TargetSize:
-							quality = profile.TargetSize;
-							break;
-						default:
-							break;
-					}
-
-					fileName = fileName.Replace("{quality}", quality.ToString());
-				}
-			}
-			else
-			{
-				string titleSection = string.Empty;
-				if (this.SelectedSource.Type != SourceType.File)
-				{
-					titleSection = " - Title " + title;
-				}
-
-				string rangeSection = string.Empty;
-				switch (rangeType)
-				{
-					case VideoRangeType.Chapters:
-						if (startChapter > 1 || endChapter < totalChapters)
-						{
-							if (startChapter == endChapter)
-							{
-								rangeSection = " - Chapter " + startChapter;
-							}
-							else
-							{
-								rangeSection = " - Chapters " + startChapter + "-" + endChapter;
-							}
-						}
-
-						break;
-					case VideoRangeType.Seconds:
-						rangeSection = " - Seconds " + startSecond + "-" + endSecond;
-						break;
-					case VideoRangeType.Frames:
-						rangeSection = " - Frames " + startFrame + "-" + endFrame;
-						break;
-				}
-
-				fileName = sourceName + titleSection + rangeSection;
-			}
-
-			return Utilities.CleanFileName(fileName, allowBackslashes: true);
-		}
-
-		private static string ReplaceTitles(string inputString, int title)
-		{
-			inputString = inputString.Replace("{title}", title.ToString());
-
-			Regex regex = new Regex("{title:(?<number>[0-9]+)}");
-			Match match;
-			while ((match = regex.Match(inputString)).Success)
-			{
-				Capture capture = match.Groups["number"].Captures[0];
-				int replaceIndex = capture.Index - 7;
-				int replaceLength = capture.Length + 8;
-
-				int digits = int.Parse(capture.Value);
-
-				if (digits > 0 && digits <= 10)
-				{
-					inputString = inputString.Substring(0, replaceIndex) + string.Format("{0:D" + digits + "}", title) + inputString.Substring(replaceIndex + replaceLength);
-				}
-			}
-
-			return inputString;
-		}
-
-		/// <summary>
-		/// Takes a string and replaces instances of {parent} or {parent:x} with the appropriate parent.
-		/// </summary>
-		/// <param name="inputString">The input string to perform replacements in.</param>
-		/// <param name="path">The path to take the parents from.</param>
-		/// <returns>The string with instances replaced.</returns>
-		private static string ReplaceParents(string inputString, string path)
-		{
-			string directParentName = Path.GetDirectoryName(path);
-			if (directParentName == null)
-			{
-				return inputString;
-			}
-
-			DirectoryInfo directParent = new DirectoryInfo(directParentName);
-
-			if (directParent.Root.FullName == directParent.FullName)
-			{
-				return inputString;
-			}
-
-			inputString = inputString.Replace("{parent}", directParent.Name);
-
-			Regex regex = new Regex("{parent:(?<number>[0-9]+)}");
-			Match match;
-			while ((match = regex.Match(inputString)).Success)
-			{
-				Capture capture = match.Groups["number"].Captures[0];
-				int replaceIndex = capture.Index - 8;
-				int replaceLength = capture.Length + 9;
-
-				inputString = inputString.Substring(0, replaceIndex) + FindParent(path, int.Parse(capture.Value)) + inputString.Substring(replaceIndex + replaceLength);
-			}
-
-			return inputString;
-		}
-
-		private static string FindParent(string path, int parentNumber)
-		{
-			string directParentName = Path.GetDirectoryName(path);
-			if (directParentName == null)
-			{
-				return string.Empty;
-			}
-
-			DirectoryInfo directParent = new DirectoryInfo(directParentName);
-			string rootName = directParent.Root.FullName;
-
-			DirectoryInfo currentDirectory = directParent;
-			for (int i = 1; i < parentNumber; i++)
-			{
-				currentDirectory = currentDirectory.Parent;
-
-				if (currentDirectory.FullName == rootName)
-				{
-					return string.Empty;
-				}
-			}
-
-			if (currentDirectory.FullName == rootName)
-			{
-				return string.Empty;
-			}
-
-			return currentDirectory.Name;
-		}
-
-		private void InsertNewPreset(PresetViewModel presetVM)
-		{
-			for (int i = 0; i < this.AllPresets.Count; i++)
-			{
-				if (this.AllPresets[i].IsBuiltIn)
-				{
-					this.AllPresets.Insert(i, presetVM);
-					return;
-				}
-
-				if (string.CompareOrdinal(presetVM.PresetName, this.AllPresets[i].PresetName) < 0)
-				{
-					this.AllPresets.Insert(i, presetVM);
-					return;
-				}
-			}
-
-			Debug.Assert(true, "Did not find place to insert new preset.");
-		}
-
 		private int GetFirstUnusedAudioTrack()
 		{
 			List<int> unusedTracks = new List<int>();
@@ -4557,64 +2241,6 @@ namespace VidCoder.ViewModel
 			}
 
 			return 0;
-		}
-
-		private void CleanOldLogs()
-		{
-			string logsFolder = Path.Combine(Utilities.AppFolder, "Logs");
-			string[] logFiles = Directory.GetFiles(logsFolder);
-
-			// Files are named by date so are in chronological order. Keep the most recent 10 files.
-			for (int i = 0; i < logFiles.Length - 10; i++)
-			{
-				try
-				{
-					File.Delete(logFiles[i]);
-				}
-				catch (IOException)
-				{
-					// Just ignore failed deletes. They'll get cleaned up some other time.
-				}
-			}
-		}
-
-		private void CleanPreviewFileCache()
-		{
-			try
-			{
-				DirectoryInfo cacheFolder = new DirectoryInfo(Utilities.ImageCacheFolder);
-				DirectoryInfo[] processDirectories = cacheFolder.GetDirectories();
-
-				int ourPid = Process.GetCurrentProcess().Id;
-
-				Process[] processes = Process.GetProcesses();
-				var pidList = processes.Select(p => p.Id);
-				HashSet<int> pidSet = new HashSet<int>(pidList);
-
-				foreach (DirectoryInfo processDirectory in processDirectories)
-				{
-					int directoryPid;
-					if (int.TryParse(processDirectory.Name, out directoryPid))
-					{
-						if (directoryPid == ourPid || !pidSet.Contains(directoryPid))
-						{
-							try
-							{
-								Utilities.DeleteDirectory(processDirectory.FullName);
-							}
-							catch (IOException)
-							{
-								// Ignore failed cleanup. Move on to the next folder.
-							}
-						}
-					}
-
-				}
-			}
-			catch (IOException)
-			{
-				// Ignore failed cleanup. Will get done some other time.
-			}
 		}
 	}
 }

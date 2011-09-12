@@ -13,12 +13,17 @@ using System.ComponentModel;
 using HandBrake.Interop;
 using System.Windows;
 using Microsoft.Practices.Unity;
+using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
 	public class EncodingViewModel : OkCancelDialogViewModel
 	{
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
+		private OutputPathViewModel outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
+		private PresetsViewModel presetsViewModel = Unity.Container.Resolve<PresetsViewModel>();
+		private WindowManagerViewModel windowManagerVM = Unity.Container.Resolve<WindowManagerViewModel>();
+		private ProcessingViewModel processingVM = Unity.Container.Resolve<ProcessingViewModel>();
 
 		private EncodingProfile profile;
 
@@ -31,7 +36,6 @@ namespace VidCoder.ViewModel
 		private ICommand saveAsCommand;
 		private ICommand renameCommand;
 		private ICommand deletePresetCommand;
-		private ICommand previewCommand;
 
 		public EncodingViewModel(Preset preset)
 		{
@@ -51,6 +55,30 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return this.mainViewModel;
+			}
+		}
+
+		public WindowManagerViewModel WindowManagerVM
+		{
+			get
+			{
+				return this.windowManagerVM;
+			}
+		}
+
+		public ProcessingViewModel ProcessingVM
+		{
+			get
+			{
+				return this.processingVM;
+			}
+		}
+
+		public OutputPathViewModel OutputPathVM
+		{
+			get
+			{
+				return this.outputPathVM;
 			}
 		}
 
@@ -182,7 +210,7 @@ namespace VidCoder.ViewModel
 					{
 						if (value)
 						{
-							this.mainViewModel.ModifyPreset(this.profile);
+							this.presetsViewModel.ModifyPreset(this.profile);
 						}
 					}
 
@@ -194,7 +222,7 @@ namespace VidCoder.ViewModel
 					// not be persisted so we don't need to save user presets when it changes.
 					if (value)
 					{
-						this.mainViewModel.SaveUserPresets();
+						this.presetsViewModel.SaveUserPresets();
 					}
 				}
 			}
@@ -221,7 +249,7 @@ namespace VidCoder.ViewModel
 				this.NotifyPropertyChanged("OutputFormat");
 				this.NotifyPropertyChanged("ShowMp4Choices");
 				this.IsModified = true;
-				this.mainViewModel.RefreshDestination();
+				this.outputPathVM.GenerateOutputFileName();
 
 				this.VideoPanelViewModel.NotifyOutputFormatChanged(value);
 				this.AudioPanelViewModel.NotifyOutputFormatChanged(value);
@@ -240,7 +268,7 @@ namespace VidCoder.ViewModel
 				this.profile.PreferredExtension = value;
 				this.NotifyPropertyChanged("PreferredExtension");
 				this.IsModified = true;
-				this.mainViewModel.RefreshDestination();
+				this.outputPathVM.GenerateOutputFileName();
 			}
 		}
 
@@ -377,7 +405,7 @@ namespace VidCoder.ViewModel
 				{
 					this.saveCommand = new RelayCommand(param =>
 					{
-						this.mainViewModel.SavePreset();
+						this.presetsViewModel.SavePreset();
 						this.IsModified = false;
 
 						// Clone the profile so that on modifications, we're working on a new copy.
@@ -400,7 +428,7 @@ namespace VidCoder.ViewModel
 				{
 					this.saveAsCommand = new RelayCommand(param =>
 					{
-						var dialogVM = new ChoosePresetNameViewModel(this.mainViewModel.AllPresets);
+						var dialogVM = new ChoosePresetNameViewModel(this.presetsViewModel.AllPresets);
 						dialogVM.PresetName = this.originalPreset.Name;
 						WindowManager.OpenDialog(dialogVM, this);
 
@@ -408,7 +436,7 @@ namespace VidCoder.ViewModel
 						{
 							string newPresetName = dialogVM.PresetName;
 
-							this.mainViewModel.SavePresetAs(newPresetName);
+							this.presetsViewModel.SavePresetAs(newPresetName);
 
 							this.NotifyPropertyChanged("ProfileName");
 							this.NotifyPropertyChanged("WindowTitle");
@@ -431,7 +459,7 @@ namespace VidCoder.ViewModel
 				{
 					this.renameCommand = new RelayCommand(param =>
 					{
-						var dialogVM = new ChoosePresetNameViewModel(this.mainViewModel.AllPresets);
+						var dialogVM = new ChoosePresetNameViewModel(this.presetsViewModel.AllPresets);
 						dialogVM.PresetName = this.originalPreset.Name;
 						WindowManager.OpenDialog(dialogVM, this);
 
@@ -440,7 +468,7 @@ namespace VidCoder.ViewModel
 							string newPresetName = dialogVM.PresetName;
 							this.originalPreset.Name = newPresetName;
 
-							this.mainViewModel.SavePreset();
+							this.presetsViewModel.SavePreset();
 
 							this.NotifyPropertyChanged("ProfileName");
 							this.NotifyPropertyChanged("WindowTitle");
@@ -471,7 +499,7 @@ namespace VidCoder.ViewModel
 							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, "Are you sure you want to revert all unsaved changes to this preset?", "Revert Preset", MessageBoxButton.YesNo);
 							if (dialogResult == MessageBoxResult.Yes)
 							{
-								this.mainViewModel.RevertPreset(true);
+								this.presetsViewModel.RevertPreset(true);
 							}
 
 							//this.IsModified = false;
@@ -482,7 +510,7 @@ namespace VidCoder.ViewModel
 							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, "Are you sure you want to remove this preset?", "Remove Preset", MessageBoxButton.YesNo);
 							if (dialogResult == MessageBoxResult.Yes)
 							{
-								this.mainViewModel.DeletePreset();
+								this.presetsViewModel.DeletePreset();
 							}
 						}
 					},
@@ -494,22 +522,6 @@ namespace VidCoder.ViewModel
 				}
 
 				return this.deletePresetCommand;
-			}
-		}
-
-		public ICommand PreviewCommand
-		{
-			get
-			{
-				if (this.previewCommand == null)
-				{
-					this.previewCommand = new RelayCommand(param =>
-					{
-						this.mainViewModel.OpenPreviewWindowCommand.Execute(null);
-					});
-				}
-
-				return this.previewCommand;
 			}
 		}
 

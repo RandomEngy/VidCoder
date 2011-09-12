@@ -7,12 +7,14 @@ using System.Windows.Input;
 using Microsoft.Practices.Unity;
 using VidCoder.Model;
 using VidCoder.Services;
+using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
 	public class LogViewModel : OkCancelDialogViewModel
 	{
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
+		private WindowManagerViewModel windowManagerVM = Unity.Container.Resolve<WindowManagerViewModel>();
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
 
 		private ICommand clearLogCommand;
@@ -23,6 +25,14 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return this.mainViewModel;
+			}
+		}
+
+		public WindowManagerViewModel WindowManagerVM
+		{
+			get
+			{
+				return this.windowManagerVM;
 			}
 		}
 

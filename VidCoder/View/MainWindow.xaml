@@ -4,6 +4,7 @@
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:localmodel="clr-namespace:VidCoder.Model"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
+	xmlns:viewmodel="clr-namespace:VidCoder.ViewModel"
 	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
 	xmlns:resx="clr-namespace:VidCoder.Properties"
 	xmlns:VidCoderDragDrop="clr-namespace:VidCoder.DragDropUtils"
@@ -20,7 +21,7 @@
 	PreviewDrop="HandleDrop"
 	PreviewDragOver="Window_PreviewDragOver"
 	MouseDown="Window_MouseDown"
-	StateChanged="Window_StateChanged">
+	StateChanged="Window_StateChanged" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
 	<Window.Resources>
 		<local:EnumDisplayer Type="{x:Type Encoding:VideoEncoder}" x:Key="VideoEncoderChoices" />
 		<local:EnumDisplayer Type="{x:Type Model:VideoRangeType}" x:Key="VideoRangeTypeChoices" />
@@ -119,7 +120,7 @@
 		
 		<Style x:Key="QueueText" TargetType="TextBlock">
 			<Style.Triggers>
-				<DataTrigger Binding="{Binding Encoding}" Value="True">
+				<DataTrigger Binding="{Binding ProcessingVM.Encoding}" Value="True">
 					<Setter Property="Foreground" Value="DarkGreen" />
 					<Setter Property="FontWeight" Value="Bold" />
 				</DataTrigger>
@@ -216,7 +217,7 @@
 					<Image Source="/Icons/folder.png" Width="16" Height="16"  />
 				</MenuItem.Icon>
 			</MenuItem>
-			<MenuItem Header="Clear Completed" Command="{Binding MainViewModel.ClearCompletedCommand}">
+			<MenuItem Header="Clear Completed" Command="{Binding ProcessingVM.ClearCompletedCommand}">
 				<MenuItem.Icon>
 					<Image Source="/Icons/delete.png" Width="16" Height="16"  />
 				</MenuItem.Icon>
@@ -229,18 +230,18 @@
 		<local:RestoreWindowCommand x:Key="RestoreWindowCommand" />
 	</Window.Resources>
 	<Window.TaskbarItemInfo>
-		<TaskbarItemInfo ProgressValue="{Binding OverallEncodeProgressFraction}" ProgressState="{Binding EncodeProgressState}" />
+		<TaskbarItemInfo ProgressValue="{Binding ProcessingVM.OverallEncodeProgressFraction}" ProgressState="{Binding ProcessingVM.EncodeProgressState}" />
 	</Window.TaskbarItemInfo>
 	<Window.InputBindings>
 		<KeyBinding Key="O" Modifiers="Control" Command="{Binding OpenFileCommand}" />
 		<KeyBinding Key="F" Modifiers="Control" Command="{Binding OpenFolderCommand}" />
-		<KeyBinding Key="Q" Modifiers="Control" Command="{Binding AddToQueueCommand}" />
-		<KeyBinding Key="L" Modifiers="Control" Command="{Binding OpenLogWindowCommand}" />
-		<KeyBinding Key="N" Modifiers="Control" Command="{Binding OpenEncodingWindowCommand}" />
-		<KeyBinding Key="P" Modifiers="Control" Command="{Binding OpenPreviewWindowCommand}" />
-		<KeyBinding Key="O" Modifiers="Control+Shift" Command="{Binding QueueFilesCommand}" />
-		<KeyBinding Key="T" Modifiers="Control" Command="{Binding QueueTitlesCommand}" />
-		<KeyBinding Key="D" Modifiers="Control" Command="{Binding PickOutputPathCommand}" />
+		<KeyBinding Key="Q" Modifiers="Control" Command="{Binding ProcessingVM.AddToQueueCommand}" />
+		<KeyBinding Key="L" Modifiers="Control" Command="{Binding WindowManagerVM.OpenLogWindowCommand}" />
+		<KeyBinding Key="N" Modifiers="Control" Command="{Binding WindowManagerVM.OpenEncodingWindowCommand}" />
+		<KeyBinding Key="P" Modifiers="Control" Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}" />
+		<KeyBinding Key="O" Modifiers="Control+Shift" Command="{Binding ProcessingVM.QueueFilesCommand}" />
+		<KeyBinding Key="T" Modifiers="Control" Command="{Binding ProcessingVM.QueueTitlesCommand}" />
+		<KeyBinding Key="D" Modifiers="Control" Command="{Binding OutputPathVM.PickOutputPathCommand}" />
 	</Window.InputBindings>
 	
 	<Grid>
@@ -279,13 +280,13 @@
 				</MenuItem>
 				<MenuItem
 					Header="Enqueue Multiple Files..."
-					Command="{Binding QueueFilesCommand}"
+					Command="{Binding ProcessingVM.QueueFilesCommand}"
 					InputGestureText="Ctrl+Shift+O"/>
 				<MenuItem
 					Header="Enqueue Multiple Titles..."
-					Command="{Binding QueueTitlesCommand}"
+					Command="{Binding ProcessingVM.QueueTitlesCommand}"
 					InputGestureText="Ctrl+T"
-					Visibility="{Binding CanEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}}"/>
+					Visibility="{Binding ProcessingVM.CanEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}}"/>
 				<Separator />
 				<MenuItem
 					Header="Exit"
@@ -300,18 +301,18 @@
 			<MenuItem Header="Windows">
 				<MenuItem
 					Header="Encoding Settings"
-					Command="{Binding OpenEncodingWindowCommand}"
-					IsCheckable="True" IsChecked="{Binding EncodingWindowOpen}"
+					Command="{Binding WindowManagerVM.OpenEncodingWindowCommand}"
+					IsCheckable="True" IsChecked="{Binding WindowManagerVM.EncodingWindowOpen}"
 					InputGestureText="Ctrl+N"/>
 				<MenuItem
 					Header="Preview"
-					Command="{Binding OpenPreviewWindowCommand}"
-					IsCheckable="True" IsChecked="{Binding PreviewWindowOpen}"
+					Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}"
+					IsCheckable="True" IsChecked="{Binding WindowManagerVM.PreviewWindowOpen}"
 					InputGestureText="Ctrl+P"/>
 				<MenuItem
 					Header="Log"
-					Command="{Binding OpenLogWindowCommand}"
-					IsCheckable="True" IsChecked="{Binding LogWindowOpen}"
+					Command="{Binding WindowManagerVM.OpenLogWindowCommand}"
+					IsCheckable="True" IsChecked="{Binding WindowManagerVM.LogWindowOpen}"
 					InputGestureText="Ctrl+L"/>
 			</MenuItem>
 			<MenuItem Header="Help">
@@ -702,17 +703,17 @@
 			<TextBlock Text="Destination:" Style="{StaticResource SectionHeader}" HorizontalAlignment="Left" Width="80" Height="19" Margin="12,9,0,0" VerticalAlignment="Top" />
 			<Grid
 				Height="22" Margin="98,8,82,0" VerticalAlignment="Top"
-				Visibility="{Binding OutputFolderChosen, Converter={StaticResource VisibilityConverter}}">
+				Visibility="{Binding OutputPathVM.OutputFolderChosen, Converter={StaticResource VisibilityConverter}}">
 				<TextBox
 					Name="destinationEditBox"
-					Text="{Binding OutputPath, UpdateSourceTrigger=PropertyChanged}"
+					Text="{Binding OutputPathVM.OutputPath, UpdateSourceTrigger=PropertyChanged}"
 					GotFocus="DestinationEditBoxGotFocus"
 					LostFocus="DestinationEditBoxLostFocus"
 					PreviewKeyDown="destinationEditBox_PreviewKeyDown"/>
 				<Grid
 					Name="destinationReadCover"
 					Background="Transparent"
-					Visibility="{Binding EditingDestination, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
+					Visibility="{Binding OutputPathVM.EditingDestination, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
 					MouseLeftButtonDown="DestinationReadCoverMouseLeftButtonDown"
 					ToolTip="Click to edit the encode destination." Margin="0"
 					Cursor="Hand">
@@ -723,8 +724,8 @@
 			</Grid>
 
 			<Button Height="22" Width="141.044" Margin="108,9,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
-				Visibility="{Binding OutputFolderChosen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
-				Command="{Binding PickDefaultOutputFolderCommand}">
+				Visibility="{Binding OutputPathVM.OutputFolderChosen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
+				Command="{Binding OutputPathVM.PickDefaultOutputFolderCommand}">
 				<StackPanel Orientation="Horizontal">
 					<Image Source="/Icons/win7foldericon.png" />
 					<TextBlock Text="Select output path..." Margin="7,0,0,0" />
@@ -734,8 +735,8 @@
 			<Button
 				Name="outputPathBrowseButton"
 				Width="64" HorizontalAlignment="Right" Height="22" Margin="0,8,12,0" VerticalAlignment="Top"
-				Command="{Binding PickOutputPathCommand}"
-				Visibility="{Binding OutputFolderChosen, Converter={StaticResource VisibilityConverter}}">Browse...</Button>
+				Command="{Binding OutputPathVM.PickOutputPathCommand}"
+				Visibility="{Binding OutputPathVM.OutputFolderChosen, Converter={StaticResource VisibilityConverter}}">Browse...</Button>
 		</Grid>
 		
 		<!-- Encoding section -->
@@ -745,7 +746,7 @@
 				Style="{StaticResource SectionHeader}" Height="21" VerticalAlignment="Top" />
 
 			<Button Margin="94,13,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90"
-				Command="{Binding OpenEncodingWindowCommand}">
+				Command="{Binding WindowManagerVM.OpenEncodingWindowCommand}">
 				<StackPanel Orientation="Horizontal">
 					<Image Source="/Icons/tools.png" Width="22" Height="22" />
 					<TextBlock Text="Settings" VerticalAlignment="Center" Margin="7,0,0,0" />
@@ -753,7 +754,7 @@
 			</Button>
 
 			<ComboBox HorizontalAlignment="Left" Margin="60,49,0,0" Name="presetComboBox" Width="140" Height="22.76" VerticalAlignment="Top"
-				ItemsSource="{Binding AllPresets}" SelectedItem="{Binding SelectedPreset}"
+				ItemsSource="{Binding PresetsVM.AllPresets}" SelectedItem="{Binding PresetsVM.SelectedPreset}"
 				ItemContainerStyle="{StaticResource EncodingContainerStyle}">
 				<ComboBox.Effect>
 					<DropShadowEffect x:Name="presetGlowEffect" BlurRadius="10" ShadowDepth="0" Color="#1696FF" />
@@ -797,9 +798,9 @@
 				<Button
 					Grid.Column="1"
 					Height="37" HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Bottom" Width="86"
-					Command="{Binding OpenPreviewWindowCommand}"
+					Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}"
 					IsEnabled="{Binding HasVideoSource}"
-					Visibility="{Binding PreviewWindowOpen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
+					Visibility="{Binding WindowManagerVM.PreviewWindowOpen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/preview.png" Height="26" />
 						<TextBlock Text="Preview" Margin="5,0,0,0" VerticalAlignment="Center" />
@@ -808,8 +809,8 @@
 
 				<Button
 					Grid.Column="2" Height="37" HorizontalAlignment="Left" Margin="0,0,5,0" VerticalAlignment="Bottom" Width="114"
-					Command="{Binding AddToQueueCommand}"
-					ToolTip="{Binding EnqueueToolTip}" ToolTipService.ShowOnDisabled="True">
+					Command="{Binding ProcessingVM.AddToQueueCommand}"
+					ToolTip="{Binding ProcessingVM.EnqueueToolTip}" ToolTipService.ShowOnDisabled="True">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/downarrow_shadow.png" Height="26" />
 						<TextBlock Text="Add to Queue" VerticalAlignment="Center" Margin="5,0,0,0" />
@@ -818,8 +819,8 @@
 
 				<Button
 					Grid.Column="3" Height="37" HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Bottom" Width="78"
-					Command="{Binding StopEncodeCommand}"
-					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}">
+					Command="{Binding ProcessingVM.StopEncodeCommand}"
+					Visibility="{Binding ProcessingVM.Encoding, Converter={StaticResource VisibilityConverter}}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/stop_shadow.png" />
 						<TextBlock Text="Stop" VerticalAlignment="Center" Margin="4,0,0,0" />
@@ -828,18 +829,18 @@
 
 				<Button
 					Grid.Column="4" Height="37" HorizontalAlignment="Right" Margin="0,0,8,0" VerticalAlignment="Bottom" Width="82"
-					Command="{Binding EncodeCommand}"
-					Visibility="{Binding PauseVisible, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
-					ToolTip="{Binding EncodeToolTip}" ToolTipService.ShowOnDisabled="True">
+					Command="{Binding ProcessingVM.EncodeCommand}"
+					Visibility="{Binding ProcessingVM.PauseVisible, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
+					ToolTip="{Binding ProcessingVM.EncodeToolTip}" ToolTipService.ShowOnDisabled="True">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/encode_160.png" Height="26" />
-						<TextBlock Margin="7,0,0,0" Text="{Binding EncodeButtonText}" VerticalAlignment="Center" />
+						<TextBlock Margin="7,0,0,0" Text="{Binding ProcessingVM.EncodeButtonText}" VerticalAlignment="Center" />
 					</StackPanel>
 				</Button>
 				<Button
 					Grid.Column="4" Height="37" HorizontalAlignment="Right" Margin="0,0,8,0" VerticalAlignment="Bottom" Width="82"
-					Command="{Binding PauseCommand}"
-					Visibility="{Binding PauseVisible, Converter={StaticResource VisibilityConverter}}">
+					Command="{Binding ProcessingVM.PauseCommand}"
+					Visibility="{Binding ProcessingVM.PauseVisible, Converter={StaticResource VisibilityConverter}}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/pause2.png" Height="28" />
 						<TextBlock Margin="7,0,0,0" Text="Pause" VerticalAlignment="Center" />
@@ -863,7 +864,7 @@
 				<Grid.Background>
 					<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
 				</Grid.Background>
-				<TabControl Name="queueItemsTabControl" BorderThickness="0" Padding="0,0,0,0" SelectedIndex="{Binding SelectedTabIndex}">
+				<TabControl Name="queueItemsTabControl" BorderThickness="0" Padding="0,0,0,0" SelectedIndex="{Binding ProcessingVM.SelectedTabIndex}">
 					<TabControl.Background>
 						<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
 					</TabControl.Background>
@@ -875,11 +876,11 @@
 							BorderThickness="0"
 							BorderBrush="#F5F5F5"
 							Name="queueView"
-							ItemsSource="{Binding EncodeQueue}"
+							ItemsSource="{Binding ProcessingVM.EncodeQueue}"
 							VidCoderDragDrop:DragDropHelper.IsDragSource="True"
 							VidCoderDragDrop:DragDropHelper.IsDropTarget="True"
 							VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource QueueDragTemplate}"
-							VidCoderDragDrop:DragDropHelper.AllowDropAtTop="{Binding Encoding, Converter={StaticResource InverseBoolConverter}}">
+							VidCoderDragDrop:DragDropHelper.AllowDropAtTop="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}">
 							<ListView.ItemContainerStyle>
 								<Style TargetType="ListViewItem">
 									<Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}" />
@@ -889,21 +890,21 @@
 											<ContextMenu>
 												<MenuItem
 													Header="Move to Top" Command="{Binding MainViewModel.MoveSelectedJobsToTopCommand}"
-													IsEnabled="{Binding Encoding, Converter={StaticResource InverseBoolConverter}}" />
+													IsEnabled="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}" />
 												<MenuItem
 													Header="Move to Bottom" Command="{Binding MainViewModel.MoveSelectedJobsToBottomCommand}"
-													IsEnabled="{Binding Encoding, Converter={StaticResource InverseBoolConverter}}" />
+													IsEnabled="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}" />
 												<Separator />
 												<MenuItem
 													Header="Edit" Command="{Binding EditQueueJobCommand}"
-													IsEnabled="{Binding Encoding, Converter={StaticResource InverseBoolConverter}}">
+													IsEnabled="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}">
 													<MenuItem.Icon>
 														<Image Source="/Icons/edit_16x16.png" Width="16" Height="16" />
 													</MenuItem.Icon>
 												</MenuItem>
 												<MenuItem
 													Header="Delete" Command="{Binding MainViewModel.RemoveSelectedJobsCommand}"
-													IsEnabled="{Binding Encoding, Converter={StaticResource InverseBoolConverter}}">
+													IsEnabled="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}">
 													<MenuItem.Icon>
 														<Image Source="/Icons/delete.png" Width="16" Height="16" />
 													</MenuItem.Icon>
@@ -932,7 +933,7 @@
 							<TextBlock Text="{Binding CompletedTabHeader}">
 								<TextBlock.ContextMenu>
 									<ContextMenu>
-										<MenuItem Header="Clear Completed" Command="{Binding ClearCompletedCommand}">
+										<MenuItem Header="Clear Completed" Command="{Binding ProcessingVM.ClearCompletedCommand}">
 											<MenuItem.Icon>
 												<Image Source="/Icons/delete.png" Width="16" Height="16" />
 											</MenuItem.Icon>
@@ -942,7 +943,7 @@
 							</TextBlock>
 						</TabItem.Header>
 						<ListView
-							ItemsSource="{Binding CompletedJobs}"
+							ItemsSource="{Binding ProcessingVM.CompletedJobs}"
 							BorderThickness="0"
 							BorderBrush="#F5F5F5"
 							ItemContainerStyle="{StaticResource CompletedItemStyle}">
@@ -957,7 +958,7 @@
 							</ListView.View>
 							<ListView.ContextMenu>
 								<ContextMenu>
-									<MenuItem Header="Clear Completed" Command="{Binding ClearCompletedCommand}">
+									<MenuItem Header="Clear Completed" Command="{Binding ProcessingVM.ClearCompletedCommand}">
 										<MenuItem.Icon>
 											<Image Source="/Icons/delete.png" Width="16" Height="16" />
 										</MenuItem.Icon>
@@ -971,7 +972,7 @@
 				<Button
 					Name="clearCompletedQueueItemsButton"
 					Margin="0,2,4,0" VerticalAlignment="Top" HorizontalAlignment="Right"
-					Command="{Binding ClearCompletedCommand}" Style="{StaticResource RemoveButtonStyle}"
+					Command="{Binding ProcessingVM.ClearCompletedCommand}" Style="{StaticResource RemoveButtonStyle}"
 					Visibility="Collapsed">Clear completed queue items</Button>
 			</Grid>
 		</Grid>
@@ -980,7 +981,7 @@
 		<Grid
 			Grid.Row="5"
 			Height="28"
-			Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}">
+			Visibility="{Binding ProcessingVM.Encoding, Converter={StaticResource VisibilityConverter}}">
 			<Grid.Background>
 				<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
 			</Grid.Background>
@@ -993,13 +994,13 @@
 			<Grid
 				Grid.Column="0"
 				Margin="3,0,0,0" VerticalAlignment="Center" Height="24"
-				Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}" MouseEnter="ProgressMouseEnter" MouseLeave="ProgressMouseLeave">
+				Visibility="{Binding ProcessingVM.Encoding, Converter={StaticResource VisibilityConverter}}" MouseEnter="ProgressMouseEnter" MouseLeave="ProgressMouseLeave">
 				<ProgressBar
 						Name="overallEncodeProgressBar"
-						Value="{Binding OverallEncodeProgressPercent, Mode=OneWay}" Height="24" VerticalAlignment="Top"
-						Foreground="{Binding ProgressBarColor}" />
+						Value="{Binding ProcessingVM.OverallEncodeProgressPercent, Mode=OneWay}" Height="24" VerticalAlignment="Top"
+						Foreground="{Binding ProcessingVM.ProgressBarColor}" />
 				<TextBlock
-						Text="{Binding OverallEncodeProgressPercent, Mode=OneWay, Converter={StaticResource PercentDisplayConverter}}"
+						Text="{Binding ProcessingVM.OverallEncodeProgressPercent, Mode=OneWay, Converter={StaticResource PercentDisplayConverter}}"
 						VerticalAlignment="Center" HorizontalAlignment="Center" />
 				<Popup
 						Name="encodeProgressDetailsPopup" IsOpen="False"
@@ -1013,7 +1014,7 @@
 							BorderThickness="1"
 							CornerRadius="4"
 							Margin="10"
-							Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}">
+							Visibility="{Binding ProcessingVM.EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}">
 						<Border.Effect>
 							<DropShadowEffect ShadowDepth="6" BlurRadius="3" Direction="315" Opacity="0.3" />
 						</Border.Effect>
@@ -1034,41 +1035,32 @@
 							</Grid.RowDefinitions>
 							<TextBlock
 								Text="Current FPS:" Grid.Row="0" Grid.Column="0"
-								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
 								Style="{StaticResource EncodeDetailsHeader}"/>
 							<TextBlock
-								Text="{Binding CurrentFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}"
+								Text="{Binding ProcessingVM.CurrentFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}"
 								Grid.Row="0" Grid.Column="1" TextAlignment="Center"
-								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
 								Style="{StaticResource EncodeDetailsText}"/>
 							<TextBlock
 								Text="Average FPS:" Grid.Row="1" Grid.Column="0"
-								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
 								Style="{StaticResource EncodeDetailsHeader}"/>
 							<TextBlock
-								Text="{Binding AverageFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}"
+								Text="{Binding ProcessingVM.AverageFps, Mode=OneWay, Converter={StaticResource DoubleDisplayConverter}}"
 								Grid.Row="1" Grid.Column="1" TextAlignment="Center"
-								Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"
 								Style="{StaticResource EncodeDetailsText}"/>
 						</Grid>
 					</Border>
 				</Popup>
 			</Grid>
 
-			<!--<TextBlock Text="Task" HorizontalAlignment="Right" VerticalAlignment="Top" Height="15.96" Margin="0,0,214,0" Width="26.25"
-					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"/>
-			<TextBlock HorizontalAlignment="Right" Margin="0,0,179,0" VerticalAlignment="Top" Width="33"
-					Text="{Binding TaskDetails}"
-					Visibility="{Binding Encoding, Converter={StaticResource VisibilityConverter}}"/>-->
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
 				<TextBlock
 						Text="ETA:" Width="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="6,0,0,0"
 						ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
-						Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}" />
+						Visibility="{Binding ProcessingVM.EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}" />
 				<TextBlock
-						Text="{Binding EstimatedTimeRemaining}"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2,0,0,0"
+						Text="{Binding ProcessingVM.EstimatedTimeRemaining}"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2,0,0,0"
 						ToolTip="{x:Static resx:Resources.QueueEtaToolTip}"
-						Visibility="{Binding EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
+						Visibility="{Binding ProcessingVM.EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
 				<TextBlock
 					Text="When done:"
 					HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8,0,3,0" />
@@ -1076,7 +1068,7 @@
 				<ComboBox
 					HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,3,0"
 					ItemsSource="{Binding DisplayNames, Source={StaticResource EncodeCompleteActionChoices}}"
-					SelectedValue="{Binding EncodeCompleteAction, Converter={StaticResource EncodeCompleteActionChoices}}" />
+					SelectedValue="{Binding ProcessingVM.EncodeCompleteAction, Converter={StaticResource EncodeCompleteActionChoices}}" />
 			</StackPanel>
 
 			

@@ -48,6 +48,14 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool ImageVisible
+		{
+			get
+			{
+				return this.sourceOption.Type != SourceType.None;
+			}
+		}
+
 		public string Text
 		{
 			get

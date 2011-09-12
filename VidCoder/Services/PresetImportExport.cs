@@ -4,9 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using Microsoft.Practices.Unity;
 using VidCoder.Model;
 using VidCoder.Properties;
 using VidCoder.ViewModel;
+using VidCoder.ViewModel.Components;
 
 namespace VidCoder.Services
 {
@@ -14,13 +16,12 @@ namespace VidCoder.Services
 	{
 		private IFileService fileService;
 		private IMessageBoxService messageBoxService;
-		private MainViewModel mainViewModel;
+		private PresetsViewModel presetsViewModel = Unity.Container.Resolve<PresetsViewModel>();
 
-		public PresetImportExport(IFileService fileService, IMessageBoxService messageBoxService, MainViewModel mainViewModel)
+		public PresetImportExport(IFileService fileService, IMessageBoxService messageBoxService)
 		{
 			this.fileService = fileService;
 			this.messageBoxService = messageBoxService;
-			this.mainViewModel = mainViewModel;
 		}
 
 		public void ImportPreset(string presetFile)
@@ -53,7 +54,7 @@ namespace VidCoder.Services
 
 			this.messageBoxService.Show("Successfully imported preset " + preset.Name + ".", "Success", System.Windows.MessageBoxButton.OK);
 
-			this.mainViewModel.AddPreset(preset);
+			this.presetsViewModel.AddPreset(preset);
 		}
 
 		public void ExportPreset(Preset preset)
