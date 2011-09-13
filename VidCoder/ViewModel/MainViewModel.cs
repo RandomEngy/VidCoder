@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Shell;
 using HandBrake.Interop;
 using HandBrake.Interop.Model;
+using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using VidCoder.Model;
 using VidCoder.Properties;
@@ -1466,6 +1467,10 @@ namespace VidCoder.ViewModel
 					this.openFileCommand = new RelayCommand(param =>
 					{
 						this.SetSourceFromFile();
+					},
+					param =>
+					{
+						return !this.ScanningSource;
 					});
 				}
 
@@ -1482,6 +1487,10 @@ namespace VidCoder.ViewModel
 					this.openFolderCommand = new RelayCommand(param =>
 					{
 						this.SetSourceFromFolder();
+					},
+					param =>
+					{
+						return !this.ScanningSource;
 					});
 				}
 
@@ -1635,17 +1644,30 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
+				// Break out values to find where the reported null reference crashes are coming from.
+				SourceType type = this.SelectedSource.Type;
+
+				string outputPath = this.OutputPathVM.OutputPath;
+
+				EncodingProfile encodingProfile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile.Clone();
+
+				int title = this.SelectedTitle.TitleNumber;
+
+				int startChapter = this.SelectedStartChapter.ChapterNumber;
+
+				int endChapter = this.SelectedEndChapter.ChapterNumber;
+
 				return new EncodeJob
 				{
-					SourceType = this.SelectedSource.Type,
+					SourceType = type,
 					SourcePath = this.SourcePath,
-					OutputPath = this.OutputPathVM.OutputPath,
-					EncodingProfile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile.Clone(),
-					Title = this.SelectedTitle.TitleNumber,
+					OutputPath = outputPath,
+					EncodingProfile = encodingProfile,
+					Title = title,
 					Angle = this.Angle,
 					RangeType = this.VideoRangeType,
-					ChapterStart = this.SelectedStartChapter.ChapterNumber,
-					ChapterEnd = this.SelectedEndChapter.ChapterNumber,
+					ChapterStart = startChapter,
+					ChapterEnd = endChapter,
 					SecondsStart = this.SecondsRangeStart,
 					SecondsEnd = this.SecondsRangeEnd,
 					FramesStart = this.FramesRangeStart,
