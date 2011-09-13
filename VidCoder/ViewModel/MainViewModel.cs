@@ -237,15 +237,6 @@ namespace VidCoder.ViewModel
 			Settings.Default.LastVideoTSFolder = videoFolder;
 			Settings.Default.Save();
 			this.SourceName = Utilities.GetSourceNameFolder(videoFolder);
-			//DirectoryInfo parentDirectory = Directory.GetParent(videoFolder);
-			//if (parentDirectory == null || parentDirectory.Root.FullName == parentDirectory.FullName)
-			//{
-			//    this.sourceName = "VideoFolder";
-			//}
-			//else
-			//{
-			//    this.sourceName = parentDirectory.Name;
-			//}
 
 			this.StartScan(videoFolder);
 
