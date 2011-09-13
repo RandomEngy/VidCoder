@@ -1299,26 +1299,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public string QueuedTabHeader
-		{
-			get
-			{
-				if (this.ProcessingVM.EncodeQueue.Count == 0)
-				{
-					return "Queued";
-				}
 
-				return "Queued (" + this.ProcessingVM.EncodeQueue.Count + ")";
-			}
-		}
-
-		public string CompletedTabHeader
-		{
-			get
-			{
-				return "Completed (" + this.ProcessingVM.CompletedJobs.Count + ")";
-			}
-		}
 
 		public bool ShowTrayIcon
 		{

@@ -870,7 +870,7 @@
 					</TabControl.Background>
 					<TabItem Name="queueTab" Visibility="Collapsed">
 						<TabItem.Header>
-							<TextBlock Text="{Binding QueuedTabHeader}" />
+							<TextBlock Text="{Binding ProcessingVM.QueuedTabHeader}" />
 						</TabItem.Header>
 						<ListView
 							BorderThickness="0"
@@ -930,7 +930,7 @@
 					</TabItem>
 					<TabItem Name="completedTab" Visibility="Collapsed">
 						<TabItem.Header>
-							<TextBlock Text="{Binding CompletedTabHeader}">
+							<TextBlock Text="{Binding ProcessingVM.CompletedTabHeader}">
 								<TextBlock.ContextMenu>
 									<ContextMenu>
 										<MenuItem Header="Clear Completed" Command="{Binding ProcessingVM.ClearCompletedCommand}">

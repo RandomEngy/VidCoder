@@ -253,6 +253,27 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
+		public string QueuedTabHeader
+		{
+			get
+			{
+				if (this.EncodeQueue.Count == 0)
+				{
+					return "Queued";
+				}
+
+				return "Queued (" + this.EncodeQueue.Count + ")";
+			}
+		}
+
+		public string CompletedTabHeader
+		{
+			get
+			{
+				return "Completed (" + this.CompletedJobs.Count + ")";
+			}
+		}
+
 		public bool CanEnqueueMultipleTitles
 		{
 			get
@@ -511,7 +532,7 @@ namespace VidCoder.ViewModel.Components
 					this.queueTitlesCommand = new RelayCommand(param =>
 					{
 						var queueTitlesDialog = new QueueTitlesDialogViewModel(this.main.SourceData.Titles);
-						WindowManager.OpenDialog(queueTitlesDialog, this);
+						WindowManager.OpenDialog(queueTitlesDialog, this.main);
 
 						if (queueTitlesDialog.DialogResult)
 						{
@@ -847,7 +868,7 @@ namespace VidCoder.ViewModel.Components
 
 			// This dialog will scan the items in the list, calculating length.
 			var scanMultipleDialog = new ScanMultipleDialogViewModel(itemsToQueue);
-			WindowManager.OpenDialog(scanMultipleDialog, this);
+			WindowManager.OpenDialog(scanMultipleDialog, this.main);
 
 			var failedFiles = new List<string>();
 			foreach (EncodeJobViewModel jobVM in itemsToQueue)

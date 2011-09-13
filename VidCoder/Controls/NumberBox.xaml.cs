@@ -107,10 +107,7 @@ namespace VidCoder.Controls
 			{
 				var numBox = dependencyObject as NumberBox;
 
-				if (!numBox.haveFocus)
-				{
-					numBox.RefreshNumberBox();
-				}
+				numBox.RefreshNumberBox();
 			}
 		}
 

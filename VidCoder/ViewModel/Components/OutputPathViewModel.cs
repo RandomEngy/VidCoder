@@ -196,7 +196,7 @@ namespace VidCoder.ViewModel.Components
 			// Continue and prompt user for resolution
 
 			var conflictDialog = new FileConflictDialogViewModel(initialOutputPath, (bool)conflict);
-			WindowManager.OpenDialog(conflictDialog, this);
+			WindowManager.OpenDialog(conflictDialog, this.main);
 
 			switch (conflictDialog.FileConflictResolution)
 			{

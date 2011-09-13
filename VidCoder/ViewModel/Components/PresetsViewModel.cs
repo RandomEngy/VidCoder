@@ -129,7 +129,7 @@ namespace VidCoder.ViewModel.Components
 
 				if (this.selectedPreset != null && this.selectedPreset.Preset.IsModified)
 				{
-					MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, "Do you want to save changes to your current preset?", "Save current preset?", MessageBoxButton.YesNoCancel);
+					MessageBoxResult dialogResult = Utilities.MessageBox.Show(this.main, "Do you want to save changes to your current preset?", "Save current preset?", MessageBoxButton.YesNoCancel);
 					if (dialogResult == MessageBoxResult.Yes)
 					{
 						this.SavePreset();

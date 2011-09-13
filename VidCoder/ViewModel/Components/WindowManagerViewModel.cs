@@ -128,7 +128,7 @@ namespace VidCoder.ViewModel.Components
 					// focus on the app altogether.
 					WindowManager.FocusWindow(this.main);
 				};
-				WindowManager.OpenWindow(encodingWindow);
+				WindowManager.OpenWindow(encodingWindow, this.main);
 			}
 			else
 			{
