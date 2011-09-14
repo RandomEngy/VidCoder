@@ -131,7 +131,8 @@ namespace VidCoder.Model
 					var preset = presetSerializer.Deserialize(reader) as Preset;
 					if (version < CurrentPresetVersion)
 					{
-						UpgradePreset(preset);
+						// Remove the preset if it hasn't been upgraded by now.
+						return null;
 					}
 
 					return preset;
@@ -200,27 +201,6 @@ namespace VidCoder.Model
 			}
 
 			return false;
-		}
-
-		private static void UpgradePreset(Preset preset)
-		{
-			foreach (AudioEncoding audioEncoding in preset.EncodingProfile.AudioEncodings)
-			{
-				if (!string.IsNullOrEmpty(audioEncoding.SampleRate))
-				{
-					double sampleRate = double.Parse(audioEncoding.SampleRate);
-					audioEncoding.SampleRateRaw = (int)(sampleRate * 1000);
-					audioEncoding.SampleRate = null;
-				}
-
-				if (preset.EncodingProfile.OutputFormat == OutputFormat.Mkv)
-				{
-					if (audioEncoding.Encoder == AudioEncoder.Ac3Passthrough)
-					{
-						audioEncoding.Encoder = AudioEncoder.Passthrough;
-					}
-				}
-			}
 		}
 
 		/// <summary>

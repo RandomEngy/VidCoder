@@ -16,8 +16,6 @@ namespace VidCoder.Controls
 
 		private string noneCaption;
 
-		private bool haveFocus = false;
-
 		public NumberBox()
 		{
 			this.noneCaption = "(none)";
@@ -127,8 +125,6 @@ namespace VidCoder.Controls
 
 		private void numberBox_GotFocus(object sender, RoutedEventArgs e)
 		{
-			this.haveFocus = true;
-
 			if (this.AllowEmpty)
 			{
 				if (this.Number == 0)
@@ -224,8 +220,6 @@ namespace VidCoder.Controls
 
 		private void NumberBoxLostFocus(object sender, RoutedEventArgs e)
 		{
-			this.haveFocus = false;
-
 			if (this.AllowEmpty && this.numberBox.Text == string.Empty)
 			{
 				this.Number = 0;
