@@ -7,8 +7,8 @@
 	xmlns:converters="clr-namespace:VidCoder.Converters"
 	xmlns:resx="clr-namespace:VidCoder.Properties"
 	xmlns:view="clr-namespace:VidCoder.View"
-        xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop"
-        Title="{Binding WindowTitle}" Width="671" Height="467" MinWidth="588" MinHeight="467"
+		xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop"
+		Title="{Binding WindowTitle}" Width="671" Height="467" MinWidth="588" MinHeight="467"
 	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner"
 	Closing="Window_Closing"
 	ShowInTaskbar="False" WindowStyle="ToolWindow">
@@ -82,7 +82,7 @@
 		</ToolBarPanel>
 		<Button
 			Height="26" Margin="0,4,12,0" VerticalAlignment="Top" IsEnabled="{Binding HasSourceData}"
-			Command="{Binding WindowManagerVM.PreviewWindowOpen}" HorizontalAlignment="Right" Width="77"
+			Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}" HorizontalAlignment="Right" Width="77"
 			Visibility="{Binding WindowManagerVM.PreviewWindowOpen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
 			<StackPanel Orientation="Horizontal">
 				<Image Source="/Icons/preview.png" />
