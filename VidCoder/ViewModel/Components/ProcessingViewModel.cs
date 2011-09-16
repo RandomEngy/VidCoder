@@ -823,13 +823,14 @@ namespace VidCoder.ViewModel.Components
 			foreach (string fileToQueue in filesToQueue)
 			{
 				excludedPaths.Add(fileToQueue);
-				string queueOutputPath = Path.Combine(Settings.Default.AutoNameOutputFolder, Path.GetFileNameWithoutExtension(fileToQueue) + this.outputVM.GetOutputExtensionForCurrentEncodingProfile());
+				string outputFolder = this.outputVM.GetOutputFolder(fileToQueue);
+				string queueOutputPath = Path.Combine(outputFolder, Path.GetFileNameWithoutExtension(fileToQueue) + this.outputVM.GetOutputExtensionForCurrentEncodingProfile());
 				queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, excludedPaths, isBatch: true);
 
 				// Even if you're doing overwrite don't try to stomp on the source file.
 				if (string.Compare(queueOutputPath, fileToQueue, StringComparison.OrdinalIgnoreCase) == 0)
 				{
-					queueOutputPath = Utilities.CreateUniqueFileName(Path.GetFileNameWithoutExtension(fileToQueue) + this.outputVM.GetOutputExtensionForCurrentEncodingProfile(), Settings.Default.AutoNameOutputFolder, excludedPaths);
+					queueOutputPath = Utilities.CreateUniqueFileName(Path.GetFileNameWithoutExtension(fileToQueue) + this.outputVM.GetOutputExtensionForCurrentEncodingProfile(), outputFolder, excludedPaths);
 				}
 
 				excludedPaths.Add(queueOutputPath);

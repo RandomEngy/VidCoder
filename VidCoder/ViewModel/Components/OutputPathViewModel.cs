@@ -445,7 +445,7 @@ namespace VidCoder.ViewModel.Components
 			return string.Join(" ", translatedTitleWords);
 		}
 
-		public string BuildOutputPath(string fileName, string extension, string sourcePath)
+		public string GetOutputFolder(string sourcePath)
 		{
 			// Use our default output folder by default
 			string outputFolder = Settings.Default.AutoNameOutputFolder;
@@ -463,6 +463,13 @@ namespace VidCoder.ViewModel.Components
 					outputFolder = sourceDirectory;
 				}
 			}
+
+			return outputFolder;
+		}
+
+		public string BuildOutputPath(string fileName, string extension, string sourcePath)
+		{
+			string outputFolder = GetOutputFolder(sourcePath);
 
 			if (!string.IsNullOrEmpty(outputFolder))
 			{
