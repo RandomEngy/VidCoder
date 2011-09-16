@@ -19,7 +19,7 @@ namespace VidCoder.ViewModel
 		public const double SubtitleScanCostFactor = 80.0;
 
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
-		private ProcessingViewModel processingVM = Unity.Container.Resolve<ProcessingViewModel>();
+		private ProcessingViewModel processingVM;
 
 		private bool isSelected;
 		private bool isPaused;
@@ -66,6 +66,11 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
+				if (this.processingVM == null)
+				{
+					this.processingVM = Unity.Container.Resolve<ProcessingViewModel>();
+				}
+
 				return this.processingVM;
 			}
 		}
