@@ -1979,7 +1979,7 @@ namespace VidCoder.ViewModel
 				this.ScanError = true;
 			}
 
-			this.NotifyPropertyChanged("CanEnqueueMultipleTitles");
+			this.ProcessingVM.NotifyPropertyChanged("CanEnqueueMultipleTitles");
 		}
 
 		private void ClearVideoSource()

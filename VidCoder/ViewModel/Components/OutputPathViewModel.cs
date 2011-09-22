@@ -114,9 +114,9 @@ namespace VidCoder.ViewModel.Components
 							Settings.Default.AutoNameOutputFolder = newOutputFolder;
 							Settings.Default.Save();
 							this.NotifyPropertyChanged("OutputFolderChosen");
-							this.NotifyPropertyChanged("CanEnqueueMultipleTitles");
 							this.NotifyPropertyChanged("EnqueueToolTip");
 							this.NotifyPropertyChanged("EncodeToolTip");
+							this.ProcessingVM.NotifyPropertyChanged("CanEnqueueMultipleTitles");
 
 							this.GenerateOutputFileName();
 						}

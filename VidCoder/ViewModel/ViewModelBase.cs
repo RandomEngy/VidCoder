@@ -12,7 +12,7 @@ namespace VidCoder.ViewModel
 		protected virtual bool ThrowOnInvalidPropertyName { get; private set; }
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		protected virtual void NotifyPropertyChanged(string propertyName)
+		public virtual void NotifyPropertyChanged(string propertyName)
 		{
 			this.VerifyPropertyName(propertyName);
 
