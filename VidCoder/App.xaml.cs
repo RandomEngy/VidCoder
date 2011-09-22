@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using VidCoder.Properties;
@@ -28,12 +29,37 @@ namespace VidCoder
 #endif
 			base.OnStartup(e);
 
-			// Upgrade from previous user settings.
-			if (Settings.Default.ApplicationVersion != Utilities.CurrentVersion)
+			try
 			{
-				Settings.Default.Upgrade();
-				Settings.Default.ApplicationVersion = Utilities.CurrentVersion;
-				Settings.Default.Save();
+				// Upgrade from previous user settings.
+				if (Settings.Default.ApplicationVersion != Utilities.CurrentVersion)
+				{
+					Settings.Default.Upgrade();
+					Settings.Default.ApplicationVersion = Utilities.CurrentVersion;
+					Settings.Default.Save();
+				}
+			}
+			catch (ConfigurationErrorsException)
+			{
+				// This exception will happen if the user.config Settings file becomes corrupt.
+
+				// Need to show two message boxes since the first is dismissed by the splash screen due to a bug
+				MessageBox.Show(string.Empty);
+				MessageBoxResult result = MessageBox.Show(
+					"Could not load a required user settings file; it may have become corrupt. Do you want to delete it? This will not affect your saved presets.",
+					"Error loading settings",
+					MessageBoxButton.YesNo,
+					MessageBoxImage.Error);
+
+				if (result == MessageBoxResult.Yes)
+				{
+					// Clear out any user.config files
+					Utilities.ClearFiles(Utilities.LocalAppFolder);
+
+					// Need to relaunch the process to get the configuration system working again
+					Process.Start(System.Reflection.Assembly.GetExecutingAssembly().Location);
+					Environment.Exit(0);
+				}
 			}
 
 			var updater = Unity.Container.Resolve<IUpdater>();

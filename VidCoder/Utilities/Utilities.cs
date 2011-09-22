@@ -17,6 +17,7 @@ namespace VidCoder
 	{
 		public const string UpdateInfoUrl = "http://engy.us/VidCoder/latest.xml";
 		public const string AppDataFolderName = "VidCoder";
+		public const string LocalAppDataFolderName = "VidCoder";
 		public const int CurrentDatabaseVersion = 11;
 
 		private static List<string> disallowedCharacters = new List<string> { "\\", "/", "\"", ":", "*", "?", "<", ">", "|" };
@@ -128,6 +129,16 @@ namespace VidCoder
 			}
 		}
 
+		public static string LocalAppFolder
+		{
+			get
+			{
+				return Path.Combine(
+					Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+					LocalAppDataFolderName);
+			}
+		}
+
 		public static string UpdatesFolder
 		{
 			get
@@ -171,7 +182,7 @@ namespace VidCoder
 
 		public static void DeleteDirectory(string path)
 		{
-			DirectoryInfo directory = new DirectoryInfo(path);
+			var directory = new DirectoryInfo(path);
 			FileInfo[] files = directory.GetFiles();
 			foreach (FileInfo file in files)
 			{
@@ -185,6 +196,22 @@ namespace VidCoder
 			}
 
 			Directory.Delete(path);
+		}
+
+		public static void ClearFiles(string path)
+		{
+			var directory = new DirectoryInfo(path);
+			FileInfo[] files = directory.GetFiles();
+			foreach (FileInfo file in files)
+			{
+				File.Delete(file.FullName);
+			}
+
+			DirectoryInfo[] subdirectories = directory.GetDirectories();
+			foreach (DirectoryInfo subdirectory in subdirectories)
+			{
+				ClearFiles(subdirectory.FullName);
+			}
 		}
 
 		public static string CleanFileName(string fileName, bool allowBackslashes = false)
