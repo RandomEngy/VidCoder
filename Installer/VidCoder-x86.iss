@@ -3,7 +3,7 @@
 
 [Setup]
 AppName=VidCoder
-AppVerName=VidCoder 1.0.3 (x86)
+AppVerName=VidCoder 1.0.4 (x86)
 
 DefaultDirName={pf}\VidCoder
 DisableProgramGroupPage=yes
@@ -13,7 +13,7 @@ Compression=lzma
 SolidCompression=yes
 
 OutputDir=BuiltInstallers
-OutputBaseFilename=VidCoder-1.0.3-x86
+OutputBaseFilename=VidCoder-1.0.4-x86
 
 AppId=VidCoder
 UsePreviousAppDir=yes
@@ -89,8 +89,31 @@ begin
   end;
 end;
 
+// Delete app data
+procedure DeleteUserFiles();
+var
+  iAns: Integer;
+begin
+  DelTree(ExpandConstant('{userappdata}') + '\VidCoder\Updates', True, True, True);
 
+  iAns := MsgBox('Do you want to delete your settings and presets as well?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2);
 
+  if iAns = IDYES then
+  begin
+    DelTree(ExpandConstant('{userappdata}') + '\VidCoder', True, True, True);
+    DelTree(ExpandConstant('{localappdata}') + '\VidCoder', True, True, True);
+  end; 
+end;
+
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+begin
+  case CurUninstallStep of
+    usUninstall:
+      begin
+        DeleteUserFiles;
+      end;
+  end;
+end;
 
 
 
