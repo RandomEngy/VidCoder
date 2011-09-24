@@ -417,6 +417,13 @@ namespace VidCoder.ViewModel.Components
 		/// <returns>Cleaned up version of the source name.</returns>
 		public string TranslateDvdSourceName(string dvdSourceName)
 		{
+			if (dvdSourceName.Any(char.IsLower))
+			{
+				// If we find any lowercase letters, this is not a DVD/Blu-ray disc name and
+				// does not need any cleanup
+				return dvdSourceName;
+			}
+
 			string[] titleWords = dvdSourceName.Split('_');
 			var translatedTitleWords = new List<string>();
 			bool reachedModifiers = false;
