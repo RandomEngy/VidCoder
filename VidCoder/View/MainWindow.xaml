@@ -191,20 +191,19 @@
 			<TextBlock
 				Text="{Binding EncodeResult.Destination}" TextTrimming="CharacterEllipsis"
 				ToolTip="{Binding EncodeResult.Destination}" ToolTipService.InitialShowDelay="0" ToolTipService.Placement="Relative" ToolTipService.VerticalOffset="-2" ToolTipService.HorizontalOffset="-6"
-				Style="{StaticResource QueueText}" />
+				/>
 		</DataTemplate>
 		<DataTemplate x:Key="CompletedStatusTemplate">
 			<StackPanel Orientation="Horizontal">
 				<Image Source="{Binding StatusImage}" Width="16" Height="16" />
 				<TextBlock
 					Text="{Binding StatusText}"
-					Style="{StaticResource QueueText}"
 					Margin="4,0,0,0"/>
 			</StackPanel>
 		</DataTemplate>
 		<DataTemplate x:Key="CompletedTimeTemplate">
 			<TextBlock Text="{Binding TimeDisplay}"
-				Style="{StaticResource QueueText}" />
+				/>
 		</DataTemplate>
 		<ContextMenu x:Key="CompletedItemContextMenu">
 			<MenuItem Header="Play" Command="{Binding PlayCommand}">
