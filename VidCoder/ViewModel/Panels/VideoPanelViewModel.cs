@@ -6,6 +6,7 @@ using System.Text;
 using HandBrake.Interop;
 using HandBrake.Interop.Model.Encoding;
 using Microsoft.Practices.Unity;
+using VidCoder.Model;
 using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
@@ -24,6 +25,10 @@ namespace VidCoder.ViewModel
 		private int displayTargetSize;
 		private int displayVideoBitrate;
 
+		private List<ComboChoice> x264ProfileChoices;
+		private List<ComboChoice> x264PresetChoices;
+		private List<ComboChoice> x264TuneChoices;
+
 		public VideoPanelViewModel(EncodingViewModel encodingViewModel)
 			: base(encodingViewModel)
 		{
@@ -31,6 +36,42 @@ namespace VidCoder.ViewModel
 			{
 			    new VideoEncoderViewModel {Encoder = VideoEncoder.FFMpeg, Display = "MPEG-4 (FFMpeg)"},
 			    new VideoEncoderViewModel {Encoder = VideoEncoder.X264, Display = "H.264 (x264)"}
+			};
+
+			this.x264ProfileChoices = new List<ComboChoice>
+			{
+				new ComboChoice(null, "-None-"),
+				new ComboChoice("baseline", "Baseline"),
+				new ComboChoice("main", "Main"),
+				new ComboChoice("high", "High"),
+			};
+
+			this.x264PresetChoices = new List<ComboChoice>
+			{
+				new ComboChoice(null, "-None-"),
+				new ComboChoice("ultrafast", "Ultra Fast"),
+				new ComboChoice("superfast", "Super Fast"),
+				new ComboChoice("veryfast", "Very Fast"),
+				new ComboChoice("faster", "Faster"),
+				new ComboChoice("fast", "Fast"),
+				new ComboChoice("medium", "Medium"),
+				new ComboChoice("slow", "Slow"),
+				new ComboChoice("slower", "Slower"),
+				new ComboChoice("veryslow", "Very Slow"),
+				new ComboChoice("placebo", "Placebo"),
+			};
+
+			this.x264TuneChoices = new List<ComboChoice>
+			{
+				new ComboChoice(null, "-None-"),
+				new ComboChoice("film", "Film"),
+				new ComboChoice("animation", "Animation"),
+				new ComboChoice("grain", "Grain"),
+				new ComboChoice("stillimage", "Still Image"),
+				new ComboChoice("psnr", "PSNR"),
+				new ComboChoice("ssim", "SSIM"),
+				new ComboChoice("fastdecode", "Fast Decode"),
+				new ComboChoice("zerolatency", "Baseline"),
 			};
 
 			this.framerateChoices = new List<double>
@@ -504,6 +545,75 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public List<ComboChoice> X264ProfileChoices
+		{
+			get
+			{
+				return this.x264ProfileChoices;
+			}
+		}
+
+		public List<ComboChoice> X264PresetChoices
+		{
+			get
+			{
+				return this.x264PresetChoices;
+			}
+		} 
+
+		public List<ComboChoice> X264TuneChoices
+		{
+			get
+			{
+				return this.x264TuneChoices;
+			}
+		} 
+
+		public string X264Profile
+		{
+			get
+			{
+				return this.Profile.X264Profile;
+			}
+
+			set
+			{
+				this.Profile.X264Profile = value;
+				this.NotifyPropertyChanged("X264Profile");
+				this.IsModified = true;
+			}
+		}
+
+		public string X264Preset
+		{
+			get
+			{
+				return this.Profile.X264Preset;
+			}
+
+			set
+			{
+				this.Profile.X264Preset = value;
+				this.NotifyPropertyChanged("X264Preset");
+				this.IsModified = true;
+			}
+		}
+
+		public string X264Tune
+		{
+			get
+			{
+				return this.Profile.X264Tune;
+			}
+
+			set
+			{
+				this.Profile.X264Tune = value;
+				this.NotifyPropertyChanged("X264Tune");
+				this.IsModified = true;
+			}
+		}
+
 		public void NotifyOutputFormatChanged(OutputFormat outputFormat)
 		{
 			if (outputFormat == OutputFormat.Mkv)
@@ -562,6 +672,9 @@ namespace VidCoder.ViewModel
 			this.NotifyPropertyChanged("QualitySliderMax");
 			this.NotifyPropertyChanged("QualitySliderLeftText");
 			this.NotifyPropertyChanged("QualitySliderRightText");
+			this.NotifyPropertyChanged("X264Profile");
+			this.NotifyPropertyChanged("X264Preset");
+			this.NotifyPropertyChanged("X264Tune");
 		}
 
 		/// <summary>
@@ -584,6 +697,15 @@ namespace VidCoder.ViewModel
 			{
 				this.NotifyPropertyChanged("TargetSize");
 			}
+		}
+
+		public override void NotifySelectedTitleChanged()
+		{
+			this.NotifyPropertyChanged("InputType");
+			this.NotifyPropertyChanged("InputVideoCodec");
+			this.NotifyPropertyChanged("InputFramerate");
+
+			base.NotifySelectedTitleChanged();
 		}
 	}
 }

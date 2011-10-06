@@ -412,6 +412,7 @@ namespace VidCoder.ViewModel
 		{
 			MixdownViewModel lastSelectedMixdown = this.SelectedMixdown;
 			this.MixdownChoices.Clear();
+			this.MixdownChoices.Add(new MixdownViewModel { Mixdown = Mixdown.None });
 			this.MixdownChoices.Add(new MixdownViewModel { Mixdown = Mixdown.Auto });
 
 			switch (this.SelectedAudioEncoder.Encoder)

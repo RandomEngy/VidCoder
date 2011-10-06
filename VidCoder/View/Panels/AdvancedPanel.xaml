@@ -1,19 +1,19 @@
 ﻿<UserControl
 	x:Class="VidCoder.View.AdvancedPanel"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:vm="clr-namespace:VidCoder.ViewModel"
 	xmlns:resx="clr-namespace:VidCoder.Properties"
 	mc:Ignorable="d" 
-    d:DesignHeight="330" d:DesignWidth="622">
+	d:DesignHeight="330" d:DesignWidth="622">
 	<UserControl.Resources>
 		<Style x:Key="AdvancedLabel" TargetType="Label">
 			<Setter Property="HorizontalAlignment" Value="Right" />
 		</Style>
 	</UserControl.Resources>
-    <Grid>
+	<Grid>
 		<TextBlock Height="21" Width="162" HorizontalAlignment="Left" Margin="6,3,0,0" VerticalAlignment="Top" Text="Encoding" Style="{StaticResource SectionHeader}" />
 		<Grid HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Top" Width="232">
 			<Grid.RowDefinitions>

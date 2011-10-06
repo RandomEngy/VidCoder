@@ -293,6 +293,7 @@
     <Compile Include="Converters\SampleRateDisplayConverter.cs" />
     <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="EnumStringConverter.cs" />
+    <Compile Include="Model\ComboChoice.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="Model\DatabaseConfig.cs" />
     <Compile Include="Model\EncodeCompleteAction.cs" />

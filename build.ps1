@@ -7,6 +7,7 @@ function UpdateIssFile($fileName, $version)
     $fileContent = Get-Content $fileName
     $fileContent = $fileContent -replace "(VidCoder )[\d.]+( \(x\d{2}\))", $newString
     $fileContent = $fileContent -replace "(VidCoder-)[\d.]+(-x\d{2})", $newString
+    $fileContent = $fileContent -replace "AppVersion=[\d.]+", ("AppVersion=" + $version)
     Set-Content $fileName $fileContent
 }
 

@@ -563,13 +563,12 @@ namespace VidCoder.ViewModel
 			{
 				this.PicturePanelViewModel.NotifySelectedTitleChanged();
 				this.AudioPanelViewModel.NotifySelectedTitleChanged();
+				this.VideoPanelViewModel.NotifySelectedTitleChanged();
 
 				this.NotifyAudioInputChanged();
 				this.NotifyPropertyChanged("HasSourceData");
 
-				this.NotifyPropertyChanged("InputType");
-				this.NotifyPropertyChanged("InputVideoCodec");
-				this.NotifyPropertyChanged("InputFramerate");
+
 			}
 		}
 

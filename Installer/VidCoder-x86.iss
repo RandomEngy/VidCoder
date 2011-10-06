@@ -4,6 +4,9 @@
 [Setup]
 AppName=VidCoder
 AppVerName=VidCoder 1.0.4 (x86)
+AppVersion=1.0.4
+AppPublisher=RandomEngy
+AppPublisherURL=http://vidcoder.codeplex.com/
 
 DefaultDirName={pf}\VidCoder
 DisableProgramGroupPage=yes
@@ -94,8 +97,6 @@ procedure DeleteUserFiles();
 var
   iAns: Integer;
 begin
-  DelTree(ExpandConstant('{userappdata}') + '\VidCoder\Updates', True, True, True);
-
   iAns := MsgBox('Do you want to delete your settings and presets as well?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2);
 
   if iAns = IDYES then

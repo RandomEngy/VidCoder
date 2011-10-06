@@ -151,6 +151,61 @@
 				Height="21" HorizontalAlignment="Right" Margin="0,149,6,0" VerticalAlignment="Top" Width="93" TextAlignment="Right"
 				Text="{Binding QualitySliderRightText}"
 				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}"/>
+			<Grid Height="135" Margin="6,179,15,0" Name="grid1" VerticalAlignment="Top">
+				<TextBlock
+					Height="21" HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource SectionHeader}" Text="x264 Basic Settings" VerticalAlignment="Top" Width="119" />
+				
+
+				<Grid Height="100" HorizontalAlignment="Left" Margin="14,30,0,0" Name="grid2" VerticalAlignment="Top" Width="175">
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<Label
+						Content="Profile:" Height="28"
+						Grid.Row="0" Grid.Column="0"  />
+					<ComboBox
+						Height="23" Width="120"
+						Grid.Row="0" Grid.Column="1"
+						Style="{StaticResource LongToolTipHolder}"
+						ItemsSource="{Binding X264ProfileChoices}" SelectedValue="{Binding X264Profile}" SelectedValuePath="Value" DisplayMemberPath="Display">
+						<ComboBox.ToolTip>
+							<TextBlock Text="{x:Static resx:Resources.X264ProfileToolTip}" Style="{StaticResource LongToolTip}" />
+						</ComboBox.ToolTip>
+					</ComboBox>
+
+					<Label
+						Content="Preset:" Height="28"
+						Grid.Row="1" Grid.Column="0" />
+					<ComboBox
+						Height="23" Width="120"
+						Grid.Row="1" Grid.Column="1"
+						Style="{StaticResource LongToolTipHolder}"
+						ItemsSource="{Binding X264PresetChoices}" SelectedValue="{Binding X264Preset}" SelectedValuePath="Value" DisplayMemberPath="Display">
+						<ComboBox.ToolTip>
+							<TextBlock Text="{x:Static resx:Resources.X264PresetToolTip}" Style="{StaticResource LongToolTip}" />
+						</ComboBox.ToolTip>
+					</ComboBox>
+
+					<Label
+						Content="Tune:" Height="28"
+						Grid.Row="2" Grid.Column="0"/>
+					<ComboBox
+						Height="23" Width="120"
+						Grid.Row="2" Grid.Column="1"
+						Style="{StaticResource LongToolTipHolder}"
+						ItemsSource="{Binding X264TuneChoices}" SelectedValue="{Binding X264Tune}" SelectedValuePath="Value" DisplayMemberPath="Display">
+						<ComboBox.ToolTip>
+							<TextBlock Text="{x:Static resx:Resources.X264TuneToolTip}" Style="{StaticResource LongToolTip}" />
+						</ComboBox.ToolTip>
+					</ComboBox>
+				</Grid>
+			</Grid>
 		</Grid>
 	</Grid>
 </UserControl>
