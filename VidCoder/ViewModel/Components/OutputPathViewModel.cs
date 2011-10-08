@@ -6,10 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using Microsoft.Practices.Unity;
+using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Properties;
 using VidCoder.Services;
@@ -29,9 +33,6 @@ namespace VidCoder.ViewModel.Components
 		private string outputPath;
 
 		private bool editingDestination;
-
-		private ICommand pickDefaultOutputFolderCommand;
-		private ICommand pickOutputPathCommand;
 
 		public ProcessingViewModel ProcessingVM
 		{
@@ -69,7 +70,9 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.outputPath = value;
-				this.NotifyPropertyChanged("OutputPath");
+				this.RaisePropertyChanged("OutputPath");
+
+				Messenger.Default.Send(new OutputPathChangedMessage());
 			}
 		}
 
@@ -87,7 +90,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.editingDestination = value;
-				this.NotifyPropertyChanged("EditingDestination");
+				this.RaisePropertyChanged("EditingDestination");
 			}
 		}
 
@@ -99,13 +102,12 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
-		public ICommand PickDefaultOutputFolderCommand
+		private RelayCommand pickDefaultOutputFolderCommand;
+		public RelayCommand PickDefaultOutputFolderCommand
 		{
 			get
 			{
-				if (this.pickDefaultOutputFolderCommand == null)
-				{
-					this.pickDefaultOutputFolderCommand = new RelayCommand(param =>
+				return this.pickDefaultOutputFolderCommand ?? (this.pickDefaultOutputFolderCommand = new RelayCommand(() =>
 					{
 						string newOutputFolder = FileService.Instance.GetFolderName(null, "Choose the output directory for encoded video files.");
 
@@ -113,27 +115,24 @@ namespace VidCoder.ViewModel.Components
 						{
 							Settings.Default.AutoNameOutputFolder = newOutputFolder;
 							Settings.Default.Save();
-							this.NotifyPropertyChanged("OutputFolderChosen");
-							this.NotifyPropertyChanged("EnqueueToolTip");
-							this.NotifyPropertyChanged("EncodeToolTip");
-							this.ProcessingVM.NotifyPropertyChanged("CanEnqueueMultipleTitles");
+							this.RaisePropertyChanged("OutputFolderChosen");
+							this.RaisePropertyChanged("EnqueueToolTip");
+							this.RaisePropertyChanged("EncodeToolTip");
+							Messenger.Default.Send(new OutputFolderChangedMessage());
+							this.PickOutputPathCommand.RaiseCanExecuteChanged();
 
 							this.GenerateOutputFileName();
 						}
-					});
-				}
-
-				return this.pickDefaultOutputFolderCommand;
+					}));
 			}
 		}
 
-		public ICommand PickOutputPathCommand
+		private RelayCommand pickOutputPathCommand;
+		public RelayCommand PickOutputPathCommand
 		{
 			get
 			{
-				if (this.pickOutputPathCommand == null)
-				{
-					this.pickOutputPathCommand = new RelayCommand(param =>
+				return this.pickOutputPathCommand ?? (this.pickOutputPathCommand = new RelayCommand(() =>
 					{
 						string extensionDot = this.GetOutputExtensionForCurrentEncodingProfile();
 						string extension = this.GetOutputExtensionForCurrentEncodingProfile(includeDot: false);
@@ -147,13 +146,10 @@ namespace VidCoder.ViewModel.Components
 							string.Format("{0} Files|*{1}", extensionLabel, extensionDot));
 						this.SetManualOutputPath(newOutputPath, this.OutputPath);
 					},
-					param =>
+					() =>
 					{
 						return this.OutputFolderChosen;
-					});
-				}
-
-				return this.pickOutputPathCommand;
+					}));
 			}
 		}
 

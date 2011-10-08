@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop.Model;
 using System.Windows.Input;
 using HandBrake.Interop.Model.Encoding;
@@ -9,6 +12,7 @@ using VidCoder.DragDropUtils;
 using HandBrake.Interop;
 using System.Diagnostics;
 using Microsoft.Practices.Unity;
+using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.ViewModel.Components;
 
@@ -30,12 +34,16 @@ namespace VidCoder.ViewModel
 		private Stopwatch encodeTimeStopwatch;
 		private TimeSpan eta;
 
-		private ICommand editQueueJobCommand;
-		private ICommand removeQueueJobCommand;
-
 		public EncodeJobViewModel(EncodeJob job)
 		{
 			this.job = job;
+
+			Messenger.Default.Register<ScanningChangedMessage>(
+				this,
+				message =>
+					{
+						this.EditQueueJobCommand.RaiseCanExecuteChanged();
+					});
 		}
 
 		public EncodeJob Job
@@ -94,7 +102,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.isSelected = value;
-				this.NotifyPropertyChanged("IsSelected");
+				this.RaisePropertyChanged("IsSelected");
 			}
 		}
 
@@ -108,7 +116,9 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.encoding = value;
-				this.NotifyPropertyChanged("Encoding");
+				this.EditQueueJobCommand.RaiseCanExecuteChanged();
+				this.RemoveQueueJobCommand.RaiseCanExecuteChanged();
+				this.RaisePropertyChanged("Encoding");
 			}
 		}
 
@@ -137,7 +147,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.isOnlyItem = value;
-				this.NotifyPropertyChanged("ShowProgressBar");
+				this.RaisePropertyChanged("ShowProgressBar");
 			}
 		}
 
@@ -225,8 +235,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.eta = value;
-				this.NotifyPropertyChanged("Eta");
-				this.NotifyPropertyChanged("ProgressToolTip");
+				this.RaisePropertyChanged("Eta");
+				this.RaisePropertyChanged("ProgressToolTip");
 			}
 		}
 
@@ -253,7 +263,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.percentComplete = value;
-				this.NotifyPropertyChanged("PercentComplete");
+				this.RaisePropertyChanged("PercentComplete");
 			}
 		}
 
@@ -323,43 +333,35 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ICommand EditQueueJobCommand
+		private RelayCommand editQueueJobCommand;
+		public RelayCommand EditQueueJobCommand
 		{
 			get
 			{
-				if (this.editQueueJobCommand == null)
-				{
-					this.editQueueJobCommand = new RelayCommand(param =>
+				return this.editQueueJobCommand ?? (this.editQueueJobCommand = new RelayCommand(() =>
 					{
 						this.mainViewModel.EditQueueJob(this);
 					},
-					param =>
+					() =>
 					{
 						return !this.Encoding && !this.mainViewModel.ScanningSource;
-					});
-				}
-
-				return this.editQueueJobCommand;
+					}));
 			}
 		}
 
-		public ICommand RemoveQueueJobCommand
+		private RelayCommand removeQueueJobCommand;
+		public RelayCommand RemoveQueueJobCommand
 		{
 			get
 			{
-				if (this.removeQueueJobCommand == null)
-				{
-					this.removeQueueJobCommand = new RelayCommand(param =>
+				return this.removeQueueJobCommand ?? (this.removeQueueJobCommand = new RelayCommand(() =>
 					{
 						this.processingVM.RemoveQueueJob(this);
 					},
-					param =>
+					() =>
 					{
 						return !this.Encoding;
-					});
-				}
-
-				return this.removeQueueJobCommand;
+					}));
 			}
 		}
 
@@ -376,30 +378,30 @@ namespace VidCoder.ViewModel
 			this.Encoding = true;
 			this.IsOnlyItem = isOnlyItem;
 			this.encodeTimeStopwatch = Stopwatch.StartNew();
-			this.NotifyPropertyChanged("ShowQueueEditButtons");
-			this.NotifyPropertyChanged("ShowProgressBar");
+			this.RaisePropertyChanged("ShowQueueEditButtons");
+			this.RaisePropertyChanged("ShowProgressBar");
 		}
 
 		public void ReportEncodePause()
 		{
 			this.isPaused = true;
 			this.encodeTimeStopwatch.Stop();
-			this.NotifyPropertyChanged("ProgressBarColor");
+			this.RaisePropertyChanged("ProgressBarColor");
 		}
 
 		public void ReportEncodeResume()
 		{
 			this.isPaused = false;
 			this.encodeTimeStopwatch.Start();
-			this.NotifyPropertyChanged("ProgressBarColor");
+			this.RaisePropertyChanged("ProgressBarColor");
 		}
 
 		public void ReportEncodeEnd()
 		{
 			this.Encoding = false;
 			this.encodeTimeStopwatch.Stop();
-			this.NotifyPropertyChanged("ShowQueueEditButtons");
-			this.NotifyPropertyChanged("ShowProgressBar");
+			this.RaisePropertyChanged("ShowQueueEditButtons");
+			this.RaisePropertyChanged("ShowProgressBar");
 		}
 	}
 }

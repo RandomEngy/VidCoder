@@ -71,7 +71,7 @@ namespace VidCoder.ViewModel
 				new ComboChoice("psnr", "PSNR"),
 				new ComboChoice("ssim", "SSIM"),
 				new ComboChoice("fastdecode", "Fast Decode"),
-				new ComboChoice("zerolatency", "Baseline"),
+				new ComboChoice("zerolatency", "Zero Latency"),
 			};
 
 			this.framerateChoices = new List<double>
@@ -149,11 +149,11 @@ namespace VidCoder.ViewModel
 
 					this.selectedEncoder = value;
 					this.Profile.VideoEncoder = this.selectedEncoder.Encoder;
-					this.NotifyPropertyChanged("SelectedEncoder");
-					this.NotifyPropertyChanged("QualitySliderMin");
-					this.NotifyPropertyChanged("QualitySliderMax");
-					this.NotifyPropertyChanged("QualitySliderLeftText");
-					this.NotifyPropertyChanged("QualitySliderRightText");
+					this.RaisePropertyChanged("SelectedEncoder");
+					this.RaisePropertyChanged("QualitySliderMin");
+					this.RaisePropertyChanged("QualitySliderMax");
+					this.RaisePropertyChanged("QualitySliderLeftText");
+					this.RaisePropertyChanged("QualitySliderRightText");
 					this.IsModified = true;
 
 					// Move the quality number to something equivalent for the new encoder.
@@ -213,8 +213,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.Framerate = value;
-				this.NotifyPropertyChanged("SelectedFramerate");
-				this.NotifyPropertyChanged("PeakFramerateVisible");
+				this.RaisePropertyChanged("SelectedFramerate");
+				this.RaisePropertyChanged("PeakFramerateVisible");
 				this.IsModified = true;
 			}
 		}
@@ -229,7 +229,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.PeakFramerate = value;
-				this.NotifyPropertyChanged("PeakFramerate");
+				this.RaisePropertyChanged("PeakFramerate");
 				this.IsModified = true;
 			}
 		}
@@ -252,9 +252,9 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.TwoPass = value;
-				this.NotifyPropertyChanged("TwoPassEncoding");
-				this.NotifyPropertyChanged("TurboFirstPass");
-				this.NotifyPropertyChanged("TurboFirstPassEnabled");
+				this.RaisePropertyChanged("TwoPassEncoding");
+				this.RaisePropertyChanged("TurboFirstPass");
+				this.RaisePropertyChanged("TurboFirstPassEnabled");
 				this.IsModified = true;
 			}
 		}
@@ -282,7 +282,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.TurboFirstPass = value;
-				this.NotifyPropertyChanged("TurboFirstPass");
+				this.RaisePropertyChanged("TurboFirstPass");
 				this.IsModified = true;
 			}
 		}
@@ -307,7 +307,7 @@ namespace VidCoder.ViewModel
 				VideoEncodeRateType oldRateType = this.Profile.VideoEncodeRateType;
 
 				this.Profile.VideoEncodeRateType = value;
-				this.NotifyPropertyChanged("VideoEncodeRateType");
+				this.RaisePropertyChanged("VideoEncodeRateType");
 
 				if (value == VideoEncodeRateType.ConstantQuality)
 				{
@@ -330,12 +330,12 @@ namespace VidCoder.ViewModel
 					// Disable two-pass options
 					this.Profile.TwoPass = false;
 					this.Profile.TurboFirstPass = false;
-					this.NotifyPropertyChanged("TwoPassEncoding");
-					this.NotifyPropertyChanged("TurboFirstPass");
+					this.RaisePropertyChanged("TwoPassEncoding");
+					this.RaisePropertyChanged("TurboFirstPass");
 				}
 
-				this.NotifyPropertyChanged("TwoPassEncodingEnabled");
-				this.NotifyPropertyChanged("TurboFirstPassEnabled");
+				this.RaisePropertyChanged("TwoPassEncodingEnabled");
+				this.RaisePropertyChanged("TurboFirstPassEnabled");
 
 				if (value == VideoEncodeRateType.AverageBitrate)
 				{
@@ -358,8 +358,8 @@ namespace VidCoder.ViewModel
 						}
 					}
 
-					this.NotifyPropertyChanged("VideoBitrate");
-					this.NotifyPropertyChanged("TargetSize");
+					this.RaisePropertyChanged("VideoBitrate");
+					this.RaisePropertyChanged("TargetSize");
 				}
 
 				if (value == VideoEncodeRateType.TargetSize)
@@ -383,8 +383,8 @@ namespace VidCoder.ViewModel
 						}
 					}
 
-					this.NotifyPropertyChanged("TargetSize");
-					this.NotifyPropertyChanged("VideoBitrate");
+					this.RaisePropertyChanged("TargetSize");
+					this.RaisePropertyChanged("VideoBitrate");
 				}
 
 				this.outputPathVM.GenerateOutputFileName();
@@ -416,8 +416,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.TargetSize = value;
-				this.NotifyPropertyChanged("TargetSize");
-				this.NotifyPropertyChanged("VideoBitrate");
+				this.RaisePropertyChanged("TargetSize");
+				this.RaisePropertyChanged("VideoBitrate");
 				this.outputPathVM.GenerateOutputFileName();
 				this.IsModified = true;
 			}
@@ -452,8 +452,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.VideoBitrate = value;
-				this.NotifyPropertyChanged("VideoBitrate");
-				this.NotifyPropertyChanged("TargetSize");
+				this.RaisePropertyChanged("VideoBitrate");
+				this.RaisePropertyChanged("TargetSize");
 				this.outputPathVM.GenerateOutputFileName();
 				this.IsModified = true;
 			}
@@ -469,7 +469,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.Quality = value;
-				this.NotifyPropertyChanged("Quality");
+				this.RaisePropertyChanged("Quality");
 				this.outputPathVM.GenerateOutputFileName();
 				this.IsModified = true;
 			}
@@ -579,7 +579,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.X264Profile = value;
-				this.NotifyPropertyChanged("X264Profile");
+				this.RaisePropertyChanged("X264Profile");
 				this.IsModified = true;
 			}
 		}
@@ -594,7 +594,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.X264Preset = value;
-				this.NotifyPropertyChanged("X264Preset");
+				this.RaisePropertyChanged("X264Preset");
 				this.IsModified = true;
 			}
 		}
@@ -609,7 +609,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.X264Tune = value;
-				this.NotifyPropertyChanged("X264Tune");
+				this.RaisePropertyChanged("X264Tune");
 				this.IsModified = true;
 			}
 		}
@@ -656,25 +656,25 @@ namespace VidCoder.ViewModel
 
 		public void NotifyAllChanged()
 		{
-			this.NotifyPropertyChanged("SelectedEncoder");
-			this.NotifyPropertyChanged("SelectedFramerate");
-			this.NotifyPropertyChanged("PeakFramerate");
-			this.NotifyPropertyChanged("PeakFramerateVisible");
-			this.NotifyPropertyChanged("TwoPassEncoding");
-			this.NotifyPropertyChanged("TurboFirstPass");
-			this.NotifyPropertyChanged("TwoPassEncodingEnabled");
-			this.NotifyPropertyChanged("TurboFirstPassEnabled");
-			this.NotifyPropertyChanged("VideoEncodeRateType");
-			this.NotifyPropertyChanged("TargetSize");
-			this.NotifyPropertyChanged("VideoBitrate");
-			this.NotifyPropertyChanged("Quality");
-			this.NotifyPropertyChanged("QualitySliderMin");
-			this.NotifyPropertyChanged("QualitySliderMax");
-			this.NotifyPropertyChanged("QualitySliderLeftText");
-			this.NotifyPropertyChanged("QualitySliderRightText");
-			this.NotifyPropertyChanged("X264Profile");
-			this.NotifyPropertyChanged("X264Preset");
-			this.NotifyPropertyChanged("X264Tune");
+			this.RaisePropertyChanged("SelectedEncoder");
+			this.RaisePropertyChanged("SelectedFramerate");
+			this.RaisePropertyChanged("PeakFramerate");
+			this.RaisePropertyChanged("PeakFramerateVisible");
+			this.RaisePropertyChanged("TwoPassEncoding");
+			this.RaisePropertyChanged("TurboFirstPass");
+			this.RaisePropertyChanged("TwoPassEncodingEnabled");
+			this.RaisePropertyChanged("TurboFirstPassEnabled");
+			this.RaisePropertyChanged("VideoEncodeRateType");
+			this.RaisePropertyChanged("TargetSize");
+			this.RaisePropertyChanged("VideoBitrate");
+			this.RaisePropertyChanged("Quality");
+			this.RaisePropertyChanged("QualitySliderMin");
+			this.RaisePropertyChanged("QualitySliderMax");
+			this.RaisePropertyChanged("QualitySliderLeftText");
+			this.RaisePropertyChanged("QualitySliderRightText");
+			this.RaisePropertyChanged("X264Profile");
+			this.RaisePropertyChanged("X264Preset");
+			this.RaisePropertyChanged("X264Tune");
 		}
 
 		/// <summary>
@@ -684,7 +684,7 @@ namespace VidCoder.ViewModel
 		{
 			if (this.VideoEncodeRateType == VideoEncodeRateType.TargetSize)
 			{
-				this.NotifyPropertyChanged("VideoBitrate");
+				this.RaisePropertyChanged("VideoBitrate");
 			}
 		}
 
@@ -695,15 +695,15 @@ namespace VidCoder.ViewModel
 		{
 			if (this.VideoEncodeRateType == VideoEncodeRateType.AverageBitrate)
 			{
-				this.NotifyPropertyChanged("TargetSize");
+				this.RaisePropertyChanged("TargetSize");
 			}
 		}
 
 		public override void NotifySelectedTitleChanged()
 		{
-			this.NotifyPropertyChanged("InputType");
-			this.NotifyPropertyChanged("InputVideoCodec");
-			this.NotifyPropertyChanged("InputFramerate");
+			this.RaisePropertyChanged("InputType");
+			this.RaisePropertyChanged("InputVideoCodec");
+			this.RaisePropertyChanged("InputFramerate");
 
 			base.NotifySelectedTitleChanged();
 		}

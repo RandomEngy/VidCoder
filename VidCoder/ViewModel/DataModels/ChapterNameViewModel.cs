@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GalaSoft.MvvmLight;
 
 namespace VidCoder.ViewModel
 {
@@ -20,7 +21,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.number = value;
-				this.NotifyPropertyChanged("Number");
+				this.RaisePropertyChanged("Number");
 			}
 		}
 
@@ -34,7 +35,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.title = value;
-				this.NotifyPropertyChanged("Title");
+				this.RaisePropertyChanged("Title");
 			}
 		}
 	}

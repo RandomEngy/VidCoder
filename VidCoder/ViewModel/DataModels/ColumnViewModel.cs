@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Resources;
+using GalaSoft.MvvmLight;
 using VidCoder.Properties;
 
 namespace VidCoder.ViewModel

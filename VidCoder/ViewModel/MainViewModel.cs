@@ -7,10 +7,14 @@ using System.Windows;
 using System.IO;
 using System.Windows.Input;
 using System.Windows.Shell;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
+using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Properties;
 using VidCoder.Services;
@@ -69,22 +73,6 @@ namespace VidCoder.ViewModel
 
 		private bool showTrayIcon;
 
-		private ICommand toggleSourceMenuCommand;
-		private ICommand openSubtitlesDialogCommand;
-		private ICommand openChaptersDialogCommand;
-		private ICommand openAboutDialogCommand;
-		private ICommand addTrackCommand;
-		private ICommand cancelScanCommand;
-		private ICommand openFileCommand;
-		private ICommand openFolderCommand;
-		private ICommand customizeQueueColumnsCommand;
-		private ICommand importPresetCommand;
-		private ICommand exportPresetCommand;
-		private ICommand openOptionsCommand;
-		private ICommand openHomepageCommand;
-		private ICommand reportBugCommand;
-		private ICommand exitCommand;
-
 		public event EventHandler<EventArgs<string>> AnimationStarted;
 		public event EventHandler ScanCancelled;
 
@@ -129,6 +117,13 @@ namespace VidCoder.ViewModel
 			this.DriveCollection = this.driveService.GetDiscInformation();
 
 			this.audioChoices = new ObservableCollection<AudioChoiceViewModel>();
+
+			Messenger.Default.Register<SelectedTitleChangedMessage>(
+				this,
+				message =>
+					{
+						this.AddTrackCommand.RaiseCanExecuteChanged();
+					});
 		}
 
 		public HandBrakeInstance ScanInstance
@@ -162,8 +157,8 @@ namespace VidCoder.ViewModel
 					this.SelectedSource.DriveInfo.Empty = false;
 					this.SelectedSource.DriveInfo.VolumeLabel = newDriveCollection.Single(driveInfo => driveInfo.RootDirectory == currentRootDirectory).VolumeLabel;
 					this.SetSourceFromDvd(this.SelectedSource.DriveInfo);
-					this.NotifyPropertyChanged("HasVideoSource");
-					this.NotifyPropertyChanged("SourceText");
+					this.RaisePropertyChanged("HasVideoSource");
+					this.RaisePropertyChanged("SourceText");
 				}
 				else if (!this.SelectedSource.DriveInfo.Empty && !currentDrivePresent)
 				{
@@ -173,8 +168,8 @@ namespace VidCoder.ViewModel
 
 					this.sourceData = null;
 					this.SelectedTitle = null;
-					this.NotifyPropertyChanged("HasVideoSource");
-					this.NotifyPropertyChanged("SourceText");
+					this.RaisePropertyChanged("HasVideoSource");
+					this.RaisePropertyChanged("SourceText");
 				}
 			}
 
@@ -449,8 +444,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.sourceSelectionExpanded = value;
-				this.NotifyPropertyChanged("SourceSelectionExpanded");
-				this.NotifyPropertyChanged("SourceOptionsVisible");
+				this.RaisePropertyChanged("SourceSelectionExpanded");
+				this.RaisePropertyChanged("SourceOptionsVisible");
 			}
 		}
 
@@ -552,9 +547,9 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedSource = value;
-				this.NotifyPropertyChanged("SourcePicked");
-				this.NotifyPropertyChanged("SourceIcon");
-				this.NotifyPropertyChanged("SourceText");
+				this.RaisePropertyChanged("SourcePicked");
+				this.RaisePropertyChanged("SourceIcon");
+				this.RaisePropertyChanged("SourceText");
 			}
 		}
 
@@ -568,9 +563,15 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.scanningSource = value;
-				this.NotifyPropertyChanged("SourceOptionsVisible");
-				this.NotifyPropertyChanged("HasVideoSource");
-				this.NotifyPropertyChanged("ScanningSource");
+				this.RaisePropertyChanged("SourceOptionsVisible");
+				this.RaisePropertyChanged("HasVideoSource");
+				this.RaisePropertyChanged("ScanningSource");
+
+				this.ToggleSourceMenuCommand.RaiseCanExecuteChanged();
+				this.OpenFileCommand.RaiseCanExecuteChanged();
+				this.OpenFolderCommand.RaiseCanExecuteChanged();
+
+				Messenger.Default.Send(new ScanningChangedMessage());
 			}
 		}
 
@@ -584,8 +585,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.scanError = value;
-				this.NotifyPropertyChanged("ScanError");
-				this.NotifyPropertyChanged("SourceOptionsVisible");
+				this.RaisePropertyChanged("ScanError");
+				this.RaisePropertyChanged("SourceOptionsVisible");
 			}
 		}
 
@@ -599,7 +600,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.scanProgress = value;
-				this.NotifyPropertyChanged("ScanProgress");
+				this.RaisePropertyChanged("ScanProgress");
 			}
 		}
 
@@ -786,9 +787,9 @@ namespace VidCoder.ViewModel
 
 					this.angle = 1;
 
-					this.NotifyPropertyChanged("Angles");
-					this.NotifyPropertyChanged("Angle");
-					this.NotifyPropertyChanged("AngleVisible");
+					this.RaisePropertyChanged("Angles");
+					this.RaisePropertyChanged("Angle");
+					this.RaisePropertyChanged("AngleVisible");
 
 					this.oldTitle = value;
 
@@ -804,14 +805,15 @@ namespace VidCoder.ViewModel
 				// Custom chapter names are thrown out when switching titles.
 				this.CustomChapterNames = null;
 
-				this.NotifyPropertyChanged("SubtitlesSummary");
+				this.RaisePropertyChanged("SubtitlesSummary");
 				CommandManager.InvalidateRequerySuggested();
+				Messenger.Default.Send(new SelectedTitleChangedMessage());
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.NotifyPropertyChanged("Chapters");
-				this.NotifyPropertyChanged("MultipleChapters");
-				this.NotifyPropertyChanged("SelectedTitle");
+				this.RaisePropertyChanged("Chapters");
+				this.RaisePropertyChanged("MultipleChapters");
+				this.RaisePropertyChanged("SelectedTitle");
 			}
 		}
 
@@ -848,7 +850,7 @@ namespace VidCoder.ViewModel
 					previewWindow.RequestRefreshPreviews();
 				}
 
-				this.NotifyPropertyChanged("Angle");
+				this.RaisePropertyChanged("Angle");
 			}
 		}
 
@@ -862,8 +864,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.currentSubtitles = value;
-				this.NotifyPropertyChanged("CurrentSubtitles");
-				this.NotifyPropertyChanged("SubtitlesSummary");
+				this.RaisePropertyChanged("CurrentSubtitles");
+				this.RaisePropertyChanged("SubtitlesSummary");
 			}
 		}
 
@@ -925,8 +927,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.useDefaultChapterNames = value;
-				this.NotifyPropertyChanged("UseDefaultChapterNames");
-				this.NotifyPropertyChanged("ChapterMarkersSummary");
+				this.RaisePropertyChanged("UseDefaultChapterNames");
+				this.RaisePropertyChanged("ChapterMarkersSummary");
 			}
 		}
 
@@ -940,7 +942,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.customChapterNames = value;
-				this.NotifyPropertyChanged("CustomChapterNames");
+				this.RaisePropertyChanged("CustomChapterNames");
 			}
 		}
 
@@ -985,11 +987,11 @@ namespace VidCoder.ViewModel
 				this.videoRangeType = value;
 
 				this.OutputPathVM.GenerateOutputFileName();
-				this.NotifyPropertyChanged("VideoRangeType");
-				this.NotifyPropertyChanged("ChaptersRangeVisible");
-				this.NotifyPropertyChanged("SecondsRangeVisible");
-				this.NotifyPropertyChanged("FramesRangeVisible");
-				this.NotifyPropertyChanged("VideoRangeSummary");
+				this.RaisePropertyChanged("VideoRangeType");
+				this.RaisePropertyChanged("ChaptersRangeVisible");
+				this.RaisePropertyChanged("SecondsRangeVisible");
+				this.RaisePropertyChanged("FramesRangeVisible");
+				this.RaisePropertyChanged("VideoRangeSummary");
 				this.ReportLengthChanged();
 			}
 		}
@@ -1035,13 +1037,13 @@ namespace VidCoder.ViewModel
 				if (this.secondsRangeEnd < this.secondsRangeStart + SecondsRangeBuffer)
 				{
 					this.secondsRangeEnd = this.secondsRangeStart + SecondsRangeBuffer;
-					this.NotifyPropertyChanged("SecondsRangeEnd");
+					this.RaisePropertyChanged("SecondsRangeEnd");
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.NotifyPropertyChanged("SecondsRangeStart");
-				this.NotifyPropertyChanged("VideoRangeSummary");
+				this.RaisePropertyChanged("SecondsRangeStart");
+				this.RaisePropertyChanged("VideoRangeSummary");
 				this.ReportLengthChanged();
 			}
 		}
@@ -1066,13 +1068,13 @@ namespace VidCoder.ViewModel
 				if (this.secondsRangeStart > this.secondsRangeEnd - SecondsRangeBuffer)
 				{
 					this.secondsRangeStart = this.secondsRangeEnd - SecondsRangeBuffer;
-					this.NotifyPropertyChanged("SecondsRangeStart");
+					this.RaisePropertyChanged("SecondsRangeStart");
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.NotifyPropertyChanged("SecondsRangeEnd");
-				this.NotifyPropertyChanged("VideoRangeSummary");
+				this.RaisePropertyChanged("SecondsRangeEnd");
+				this.RaisePropertyChanged("VideoRangeSummary");
 				this.ReportLengthChanged();
 			}
 		}
@@ -1105,13 +1107,13 @@ namespace VidCoder.ViewModel
 				if (this.framesRangeEnd <= this.framesRangeStart)
 				{
 					this.framesRangeEnd = this.framesRangeStart + 1;
-					this.NotifyPropertyChanged("FramesRangeEnd");
+					this.RaisePropertyChanged("FramesRangeEnd");
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.NotifyPropertyChanged("FramesRangeStart");
-				this.NotifyPropertyChanged("VideoRangeSummary");
+				this.RaisePropertyChanged("FramesRangeStart");
+				this.RaisePropertyChanged("VideoRangeSummary");
 				this.ReportLengthChanged();
 			}
 		}
@@ -1136,13 +1138,13 @@ namespace VidCoder.ViewModel
 				if (this.framesRangeStart >= this.framesRangeEnd)
 				{
 					this.framesRangeStart = this.framesRangeEnd - 1;
-					this.NotifyPropertyChanged("FramesRangeStart");
+					this.RaisePropertyChanged("FramesRangeStart");
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.NotifyPropertyChanged("FramesRangeEnd");
-				this.NotifyPropertyChanged("VideoRangeSummary");
+				this.RaisePropertyChanged("FramesRangeEnd");
+				this.RaisePropertyChanged("VideoRangeSummary");
 				this.ReportLengthChanged();
 			}
 		}
@@ -1178,8 +1180,8 @@ namespace VidCoder.ViewModel
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.NotifyPropertyChanged("SelectedStartChapter");
-				this.NotifyPropertyChanged("VideoRangeSummary");
+				this.RaisePropertyChanged("SelectedStartChapter");
+				this.RaisePropertyChanged("VideoRangeSummary");
 				this.ReportLengthChanged();
 			}
 		}
@@ -1207,8 +1209,8 @@ namespace VidCoder.ViewModel
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.NotifyPropertyChanged("SelectedEndChapter");
-				this.NotifyPropertyChanged("VideoRangeSummary");
+				this.RaisePropertyChanged("SelectedEndChapter");
+				this.RaisePropertyChanged("VideoRangeSummary");
 				this.ReportLengthChanged();
 			}
 		}
@@ -1257,34 +1259,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ICommand AddTrackCommand
-		{
-			get
-			{
-				if (this.addTrackCommand == null)
-				{
-					this.addTrackCommand = new RelayCommand(
-						param =>
-						{
-							AudioChoiceViewModel newAudioChoice = new AudioChoiceViewModel();
-							newAudioChoice.SelectedIndex = this.GetFirstUnusedAudioTrack();
-							this.AudioChoices.Add(newAudioChoice);
-						},
-						param =>
-						{
-							if (this.SelectedTitle == null)
-							{
-								return true;
-							}
-
-							return this.SelectedTitle.AudioTracks.Count > 0;
-						});
-				}
-
-				return this.addTrackCommand;
-			}
-		}
-
 		public VideoSource SourceData
 		{
 			get
@@ -1299,8 +1273,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-
-
 		public bool ShowTrayIcon
 		{
 			get
@@ -1311,7 +1283,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.showTrayIcon = value;
-				this.NotifyPropertyChanged("ShowTrayIcon");
+				this.RaisePropertyChanged("ShowTrayIcon");
 			}
 		}
 
@@ -1323,35 +1295,53 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ICommand ToggleSourceMenuCommand
+		private RelayCommand addTrackCommand;
+		public RelayCommand AddTrackCommand
 		{
 			get
 			{
-				if (this.toggleSourceMenuCommand == null)
-				{
-					this.toggleSourceMenuCommand = new RelayCommand(param =>
+				return this.addTrackCommand ?? (this.addTrackCommand = new RelayCommand(() =>
 					{
-						this.SourceSelectionExpanded = !this.SourceSelectionExpanded;
+						var newAudioChoice = new AudioChoiceViewModel();
+						newAudioChoice.SelectedIndex = this.GetFirstUnusedAudioTrack();
+						this.AudioChoices.Add(newAudioChoice);
 					},
-					param =>
+					() =>
 					{
-						return !this.ScanningSource;
-					});
-				}
+						if (this.SelectedTitle == null)
+						{
+							return true;
+						}
 
-				return this.toggleSourceMenuCommand;
+						return this.SelectedTitle.AudioTracks.Count > 0;
+					}));
 			}
 		}
 
-		public ICommand OpenSubtitlesDialogCommand
+		private RelayCommand toggleSourceMenuCommand;
+		public RelayCommand ToggleSourceMenuCommand
 		{
 			get
 			{
-				if (this.openSubtitlesDialogCommand == null)
-				{
-					this.openSubtitlesDialogCommand = new RelayCommand(param =>
+				return this.toggleSourceMenuCommand ?? (this.toggleSourceMenuCommand = new RelayCommand(() =>
 					{
-						SubtitleDialogViewModel subtitleViewModel = new SubtitleDialogViewModel(this.CurrentSubtitles);
+						this.SourceSelectionExpanded = !this.SourceSelectionExpanded;
+					},
+					() =>
+					{
+						return !this.ScanningSource;
+					}));
+			}
+		}
+
+		private RelayCommand openSubtitlesDialogCommand;
+		public RelayCommand OpenSubtitlesDialogCommand
+		{
+			get
+			{
+				return this.openSubtitlesDialogCommand ?? (this.openSubtitlesDialogCommand = new RelayCommand(() =>
+					{
+						var subtitleViewModel = new SubtitleDialogViewModel(this.CurrentSubtitles);
 						subtitleViewModel.Closing = () =>
 						{
 							if (subtitleViewModel.DialogResult)
@@ -1361,20 +1351,16 @@ namespace VidCoder.ViewModel
 						};
 
 						WindowManager.OpenDialog(subtitleViewModel, this);
-					});
-				}
-
-				return this.openSubtitlesDialogCommand;
+					}));
 			}
 		}
 
-		public ICommand OpenChaptersDialogCommand
+		private RelayCommand openChaptersDialogCommand;
+		public RelayCommand OpenChaptersDialogCommand
 		{
 			get
 			{
-				if (this.openChaptersDialogCommand == null)
-				{
-					this.openChaptersDialogCommand = new RelayCommand(param =>
+				return this.openChaptersDialogCommand ?? (this.openChaptersDialogCommand = new RelayCommand(() =>
 					{
 						var chaptersVM = new ChapterMarkersDialogViewModel(this.SelectedTitle.Chapters.Count, this.CustomChapterNames, this.UseDefaultChapterNames);
 						chaptersVM.Closing = () =>
@@ -1390,96 +1376,76 @@ namespace VidCoder.ViewModel
 						};
 
 						WindowManager.OpenDialog(chaptersVM, this);
-					});
-				}
-
-				return this.openChaptersDialogCommand;
+					}));
 			}
 		}
 
-		public ICommand OpenAboutDialogCommand
+		private RelayCommand openAboutDialogCommand;
+		public RelayCommand OpenAboutDialogCommand
 		{
 			get
 			{
-				if (this.openAboutDialogCommand == null)
-				{
-					this.openAboutDialogCommand = new RelayCommand(param =>
+				return this.openAboutDialogCommand ?? (this.openAboutDialogCommand = new RelayCommand(() =>
 					{
 						WindowManager.OpenDialog(new AboutDialogViewModel(), this);
-					});
-				}
-
-				return this.openAboutDialogCommand;
+					}));
 			}
 		}
 
-		public ICommand CancelScanCommand
+		private RelayCommand cancelScanCommand;
+		public RelayCommand CancelScanCommand
 		{
 			get
 			{
-				if (this.cancelScanCommand == null)
-				{
-					this.cancelScanCommand = new RelayCommand(param =>
+				return this.cancelScanCommand ?? (this.cancelScanCommand = new RelayCommand(() =>
 					{
 						this.scanCancelledFlag = true;
 						this.ScanInstance.StopScan();
-					});
-				}
-
-				return this.cancelScanCommand;
+					}));
 			}
 		}
 
-		public ICommand OpenFileCommand
+		private RelayCommand openFileCommand;
+		public RelayCommand OpenFileCommand
 		{
 			get
 			{
-				if (this.openFileCommand == null)
-				{
-					this.openFileCommand = new RelayCommand(param =>
+				return this.openFileCommand ?? (this.openFileCommand = new RelayCommand(() =>
 					{
 						this.SetSourceFromFile();
 					},
-					param =>
+					() =>
 					{
 						return !this.ScanningSource;
-					});
-				}
-
-				return this.openFileCommand;
+					}));
 			}
 		}
 
-		public ICommand OpenFolderCommand
+		private RelayCommand openFolderCommand;
+		public RelayCommand OpenFolderCommand
 		{
 			get
 			{
-				if (this.openFolderCommand == null)
-				{
-					this.openFolderCommand = new RelayCommand(param =>
+				return this.openFolderCommand ?? (this.openFolderCommand = new RelayCommand(() =>
 					{
 						this.SetSourceFromFolder();
 					},
-					param =>
+					() =>
 					{
 						return !this.ScanningSource;
-					});
-				}
-
-				return this.openFolderCommand;
+					}));
 			}
 		}
 
-		public ICommand CustomizeQueueColumnsCommand
+		private RelayCommand customizeQueueColumnsCommand;
+		public RelayCommand CustomizeQueueColumnsCommand
 		{
 			get
 			{
-				if (this.customizeQueueColumnsCommand == null)
-				{
-					this.customizeQueueColumnsCommand = new RelayCommand(param =>
+				return this.customizeQueueColumnsCommand ?? (this.customizeQueueColumnsCommand = new RelayCommand(() =>
 					{
 						// Send a request that the view save the column sizes
-						this.NotifyPropertyChanged("QueueColumnsSaveRequest");
+						this.RaisePropertyChanged("QueueColumnsSaveRequest");
 
 						// Show the queue columns dialog
 						var queueDialog = new QueueColumnsViewModel();
@@ -1490,117 +1456,91 @@ namespace VidCoder.ViewModel
 							// Apply new columns
 							Settings.Default.QueueColumns = queueDialog.NewColumns;
 							Settings.Default.Save();
-							this.NotifyPropertyChanged("QueueColumns");
+							this.RaisePropertyChanged("QueueColumns");
 						}
-					});
-				}
-
-				return this.customizeQueueColumnsCommand;
+					}));
 			}
 		}
 
-		public ICommand ImportPresetCommand
+		private RelayCommand importPresetCommand;
+		public RelayCommand ImportPresetCommand
 		{
 			get
 			{
-				if (this.importPresetCommand == null)
-				{
-					this.importPresetCommand = new RelayCommand(param =>
+				return this.importPresetCommand ?? (this.importPresetCommand = new RelayCommand(() =>
 					{
 						string presetFileName = FileService.Instance.GetFileNameLoad(null, "Import preset file", "xml", "XML Files|*.xml");
 						if (presetFileName != null)
 						{
 							Unity.Container.Resolve<IPresetImportExport>().ImportPreset(presetFileName);
 						}
-					});
-				}
-
-				return this.importPresetCommand;
+					}));
 			}
 		}
 
-		public ICommand ExportPresetCommand
+		private RelayCommand exportPresetCommand;
+		public RelayCommand ExportPresetCommand
 		{
 			get
 			{
-				if (this.exportPresetCommand == null)
-				{
-					this.exportPresetCommand = new RelayCommand(param =>
+				return this.exportPresetCommand ?? (this.exportPresetCommand = new RelayCommand(() =>
 					{
 						Unity.Container.Resolve<IPresetImportExport>().ExportPreset(this.presetsVM.SelectedPreset.Preset);
-					});
-				}
-
-				return this.exportPresetCommand;
+					}));
 			}
 		}
 
-		public ICommand OpenOptionsCommand
+		private RelayCommand openOptionsCommand;
+		public RelayCommand OpenOptionsCommand
 		{
 			get
 			{
-				if (this.openOptionsCommand == null)
-				{
-					this.openOptionsCommand = new RelayCommand(param =>
+				return this.openOptionsCommand ?? (this.openOptionsCommand = new RelayCommand(() =>
 					{
 						var optionsVM = new OptionsDialogViewModel(this.updater);
 						WindowManager.OpenDialog(optionsVM, this);
 						if (optionsVM.DialogResult)
 						{
+							Messenger.Default.Send(new OutputFolderChangedMessage());
 							this.OutputPathVM.GenerateOutputFileName();
 						}
-					});
-				}
-
-				return this.openOptionsCommand;
+					}));
 			}
 		}
 
-		public ICommand OpenHomepageCommand
+		private RelayCommand openHomepageCommand;
+		public RelayCommand OpenHomepageCommand
 		{
 			get
 			{
-				if (this.openHomepageCommand == null)
-				{
-					this.openHomepageCommand = new RelayCommand(param =>
+				return this.openHomepageCommand ?? (this.openHomepageCommand = new RelayCommand(() =>
 					{
 						FileService.Instance.LaunchUrl("http://vidcoder.codeplex.com/");
-					});
-				}
-
-				return this.openHomepageCommand;
+					}));
 			}
 		}
 
-		public ICommand ReportBugCommand
+		private RelayCommand reportBugCommand;
+		public RelayCommand ReportBugCommand
 		{
 			get
 			{
-				if (this.reportBugCommand == null)
-				{
-					this.reportBugCommand = new RelayCommand(param =>
+				return this.reportBugCommand ?? (this.reportBugCommand = new RelayCommand(() =>
 					{
 						FileService.Instance.LaunchUrl("http://vidcoder.codeplex.com/WorkItem/Create.aspx");
-					});
-				}
-
-				return this.reportBugCommand;
+					}));
 			}
 		}
 
-		public ICommand ExitCommand
+		private RelayCommand exitCommand;
+		public RelayCommand ExitCommand
 		{
 			get
 			{
-				if (this.exitCommand == null)
-				{
-					this.exitCommand = new RelayCommand(param =>
+				return this.exitCommand ?? (this.exitCommand = new RelayCommand(() =>
 					{
 						WindowManager.Close(this);
-					});
-				}
-
-				return this.exitCommand;
+					}));
 			}
 		}
 
@@ -1801,7 +1741,7 @@ namespace VidCoder.ViewModel
 
 		public void RefreshChapterMarkerUI()
 		{
-			this.NotifyPropertyChanged("ShowChapterMarkerUI");
+			this.RaisePropertyChanged("ShowChapterMarkerUI");
 		}
 
 		public void RefreshTrayIcon(bool minimized)
@@ -1896,7 +1836,7 @@ namespace VidCoder.ViewModel
 					if (this.scanCancelledFlag)
 					{
 						this.SelectedSource = null;
-						this.NotifyPropertyChanged("SourcePicked");
+						this.RaisePropertyChanged("SourcePicked");
 
 						if (this.ScanCancelled != null)
 						{
@@ -1964,33 +1904,33 @@ namespace VidCoder.ViewModel
 				}
 
 				this.SelectedTitle = selectTitle;
-				this.NotifyPropertyChanged("Titles");
-				this.NotifyPropertyChanged("TitleVisible");
-				this.NotifyPropertyChanged("HasVideoSource");
-				this.NotifyPropertyChanged("SourceOptionsVisible");
+				this.RaisePropertyChanged("Titles");
+				this.RaisePropertyChanged("TitleVisible");
+				this.RaisePropertyChanged("HasVideoSource");
+				this.RaisePropertyChanged("SourceOptionsVisible");
 			}
 			else
 			{
 				this.sourceData = null;
-				this.NotifyPropertyChanged("HasVideoSource");
-				this.NotifyPropertyChanged("SourceOptionsVisible");
-				this.NotifyPropertyChanged("CanEnqueue");
-				this.NotifyPropertyChanged("SourcePicked");
+				this.RaisePropertyChanged("HasVideoSource");
+				this.RaisePropertyChanged("SourceOptionsVisible");
+				this.RaisePropertyChanged("SourcePicked");
 				this.ScanError = true;
 			}
 
-			this.ProcessingVM.NotifyPropertyChanged("CanEnqueueMultipleTitles");
+			Messenger.Default.Send(new VideoSourceChangedMessage());
 		}
 
 		private void ClearVideoSource()
 		{
 			this.sourceData = null;
 			this.SourceSelectionExpanded = false;
-			this.NotifyPropertyChanged("HasVideoSource");
-			this.NotifyPropertyChanged("SourceOptionsVisible");
-			this.NotifyPropertyChanged("CanEnqueue");
-			this.NotifyPropertyChanged("SourcePicked");
-			PreviewViewModel.FindAndRefreshPreviews();
+			this.RaisePropertyChanged("HasVideoSource");
+			this.RaisePropertyChanged("SourceOptionsVisible");
+			this.RaisePropertyChanged("SourcePicked");
+
+			Messenger.Default.Send(new VideoSourceChangedMessage());
+			Messenger.Default.Send(new RefreshPreviewMessage());
 		}
 
 		private void LoadVideoSourceMetadata(EncodeJob job, VideoSourceMetadata metadata)
@@ -2136,20 +2076,20 @@ namespace VidCoder.ViewModel
 
 			// Encoding profile?!
 
-			this.NotifyPropertyChanged("SourceIcon");
-			this.NotifyPropertyChanged("SourceText");
-			this.NotifyPropertyChanged("SelectedTitle");
-			this.NotifyPropertyChanged("SelectedStartChapter");
-			this.NotifyPropertyChanged("SelectedEndChapter");
-			this.NotifyPropertyChanged("SecondsRangeStart");
-			this.NotifyPropertyChanged("SecondsRangeEnd");
-			this.NotifyPropertyChanged("FramesRangeStart");
-			this.NotifyPropertyChanged("FramesRangeEnd");
-			this.NotifyPropertyChanged("VideoRangeType");
-			this.NotifyPropertyChanged("SubtitlesSummary");
-			this.NotifyPropertyChanged("ChapterMarkersSummary");
-			this.NotifyPropertyChanged("ShowChapterMarkerUI");
-			this.NotifyPropertyChanged("Angle");
+			this.RaisePropertyChanged("SourceIcon");
+			this.RaisePropertyChanged("SourceText");
+			this.RaisePropertyChanged("SelectedTitle");
+			this.RaisePropertyChanged("SelectedStartChapter");
+			this.RaisePropertyChanged("SelectedEndChapter");
+			this.RaisePropertyChanged("SecondsRangeStart");
+			this.RaisePropertyChanged("SecondsRangeEnd");
+			this.RaisePropertyChanged("FramesRangeStart");
+			this.RaisePropertyChanged("FramesRangeEnd");
+			this.RaisePropertyChanged("VideoRangeType");
+			this.RaisePropertyChanged("SubtitlesSummary");
+			this.RaisePropertyChanged("ChapterMarkersSummary");
+			this.RaisePropertyChanged("ShowChapterMarkerUI");
+			this.RaisePropertyChanged("Angle");
 		}
 
 		private void ReportLengthChanged()

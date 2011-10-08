@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.SourceData;
-using VidCoder.Model;
-using System.Windows.Input;
 using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
@@ -13,7 +13,6 @@ namespace VidCoder.ViewModel
 	public class SourceSubtitleViewModel : ViewModelBase
 	{
 		private SourceSubtitle subtitle;
-		private ICommand removeSubtitle;
 
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 
@@ -56,8 +55,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.TrackNumber = value;
-				this.NotifyPropertyChanged("SubtitleName");
-				this.NotifyPropertyChanged("TrackNumber");
+				this.RaisePropertyChanged("SubtitleName");
+				this.RaisePropertyChanged("TrackNumber");
 				this.SubtitleDialogViewModel.UpdateWarningVisibility();
 			}
 		}
@@ -72,7 +71,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.Default = value;
-				this.NotifyPropertyChanged("Default");
+				this.RaisePropertyChanged("Default");
 
 				if (value)
 				{
@@ -91,7 +90,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.Forced = value;
-				this.NotifyPropertyChanged("Forced");
+				this.RaisePropertyChanged("Forced");
 			}
 		}
 
@@ -105,7 +104,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.BurnedIn = value;
-				this.NotifyPropertyChanged("BurnedIn");
+				this.RaisePropertyChanged("BurnedIn");
 
 				if (value)
 				{
@@ -117,24 +116,16 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ICommand RemoveSubtitle
+		private RelayCommand removeSubtitleCommand;
+		public RelayCommand RemoveSubtitleCommand
 		{
 			get
 			{
-				if (this.removeSubtitle == null)
-				{
-					this.removeSubtitle = new RelayCommand(
-						param =>
-						{
-							this.SubtitleDialogViewModel.RemoveSourceSubtitle(this);
-						},
-						param =>
-						{
-							return true;
-						});
-				}
-
-				return this.removeSubtitle;
+				return this.removeSubtitleCommand ?? (this.removeSubtitleCommand = new RelayCommand(
+					() =>
+					{
+						this.SubtitleDialogViewModel.RemoveSourceSubtitle(this);
+					}));
 			}
 		}
 	}

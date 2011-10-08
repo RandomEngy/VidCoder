@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 using HandBrake.Interop;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
@@ -62,7 +63,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.passthroughWarningText = value;
-				this.NotifyPropertyChanged("PassthroughWarningText");
+				this.RaisePropertyChanged("PassthroughWarningText");
 			}
 		}
 
@@ -76,7 +77,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.passthroughWarningVisible = value;
-				this.NotifyPropertyChanged("PassthroughWarningVisible");
+				this.RaisePropertyChanged("PassthroughWarningVisible");
 			}
 		}
 
@@ -86,7 +87,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.addAudioEncodingCommand == null)
 				{
-					this.addAudioEncodingCommand = new RelayCommand(param =>
+					this.addAudioEncodingCommand = new RelayCommand(() =>
 					{
 						var newAudioEncoding = new AudioEncoding
 						{
@@ -100,7 +101,7 @@ namespace VidCoder.ViewModel
 						};
 
 						this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this.EncodingViewModel.OutputFormat, this));
-						this.NotifyPropertyChanged("HasAudioTracks");
+						this.RaisePropertyChanged("HasAudioTracks");
 						this.RefreshExtensionChoice();
 						this.RefreshAudioPreview();
 						this.UpdateAudioEncodings();
@@ -115,7 +116,7 @@ namespace VidCoder.ViewModel
 		public void RemoveAudioEncoding(AudioEncodingViewModel audioEncodingVM)
 		{
 			this.AudioEncodings.Remove(audioEncodingVM);
-			this.NotifyPropertyChanged("HasAudioTracks");
+			this.RaisePropertyChanged("HasAudioTracks");
 			this.RefreshExtensionChoice();
 			this.RefreshAudioPreview();
 			this.UpdateAudioEncodings();
@@ -180,7 +181,7 @@ namespace VidCoder.ViewModel
 					});
 				}
 
-				this.NotifyPropertyChanged("HasAudioTracks");
+				this.RaisePropertyChanged("HasAudioTracks");
 			}
 		}
 
@@ -263,7 +264,7 @@ namespace VidCoder.ViewModel
 
 		public void NotifyAllChanged()
 		{
-			this.NotifyPropertyChanged("HasAudioTracks");
+			this.RaisePropertyChanged("HasAudioTracks");
 		}
 
 		public void NotifyProfileChanged()

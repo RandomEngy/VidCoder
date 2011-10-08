@@ -75,7 +75,7 @@
 				ToolTip="{x:Static resx:Resources.OffsetSubtitleToolTip}"/>
 		</DataTemplate>
 		<DataTemplate x:Key="RemoveTemplate">
-			<Button Command="{Binding RemoveSubtitle}" VerticalAlignment="Center" Style="{StaticResource RemoveButtonStyle}">Remove subtitle track</Button>
+			<Button Command="{Binding RemoveSubtitleCommand}" VerticalAlignment="Center" Style="{StaticResource RemoveButtonStyle}">Remove subtitle track</Button>
 		</DataTemplate>
 	</Window.Resources>
 	<Grid>
@@ -123,7 +123,7 @@
 						</ListView.View>
 					</ListView>
 					<Button
-						Command="{Binding AddSourceSubtitle}"
+						Command="{Binding AddSourceSubtitleCommand}"
 						HorizontalAlignment="Left" Margin="0,0,0,0" Width="97" Height="23" VerticalAlignment="Bottom"
 						ToolTip="{Binding AddSourceSubtitleToolTip}" ToolTipService.ShowOnDisabled="True">
 						<StackPanel Orientation="Horizontal">
@@ -157,7 +157,7 @@
 							</GridView>
 						</ListView.View>
 					</ListView>
-					<Button Grid.Row="1" Command="{Binding AddSrtSubtitle}" Height="23" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" Width="107">Import .srt File...</Button>
+					<Button Grid.Row="1" Command="{Binding AddSrtSubtitleCommand}" Height="23" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" Width="107">Import .srt File...</Button>
 					<HandBrakeControls:InlineWarning
 						Margin="0,6,0,0"
 						WarningText="Other subtitle tracks will overlap burned subtitles."

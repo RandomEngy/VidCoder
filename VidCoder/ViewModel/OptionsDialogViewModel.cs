@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 using VidCoder.Model;
 using VidCoder.Services;
 using System.IO;
@@ -33,11 +34,6 @@ namespace VidCoder.ViewModel
 		private bool showAudioTrackNameField;
 
 		private int initialLogVerbosity;
-
-		private ICommand saveSettingsCommand;
-		private ICommand browsePathCommand;
-		private ICommand openAddProcessDialogCommand;
-		private ICommand removeProcessCommand;
 
 		private IUpdater updateService;
 
@@ -92,7 +88,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.updatesEnabled = value;
-				this.NotifyPropertyChanged("UpdatesEnabled");
+				this.RaisePropertyChanged("UpdatesEnabled");
 			}
 		}
 
@@ -129,7 +125,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.updateDownloading = value;
-				this.NotifyPropertyChanged("UpdateDownloading");
+				this.RaisePropertyChanged("UpdateDownloading");
 			}
 		}
 
@@ -143,7 +139,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.updateProgress = value;
-				this.NotifyPropertyChanged("UpdateProgress");
+				this.RaisePropertyChanged("UpdateProgress");
 			}
 		}
 
@@ -157,7 +153,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.defaultPath = value;
-				this.NotifyPropertyChanged("DefaultPath");
+				this.RaisePropertyChanged("DefaultPath");
 			}
 		}
 
@@ -171,8 +167,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.customFormat = value;
-				this.NotifyPropertyChanged("CustomFormat");
-				this.NotifyPropertyChanged("CustomFormatStringEnabled");
+				this.RaisePropertyChanged("CustomFormat");
+				this.RaisePropertyChanged("CustomFormatStringEnabled");
 			}
 		}
 
@@ -186,7 +182,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.customFormatString = value;
-				this.NotifyPropertyChanged("CustomFormatString");
+				this.RaisePropertyChanged("CustomFormatString");
 			}
 		}
 
@@ -208,7 +204,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.outputToSourceDirectory = value;
-				this.NotifyPropertyChanged("OutputToSourceDirectory");
+				this.RaisePropertyChanged("OutputToSourceDirectory");
 			}
 		}
 
@@ -222,7 +218,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.whenFileExists = value;
-				this.NotifyPropertyChanged("WhenFileExists");
+				this.RaisePropertyChanged("WhenFileExists");
 			}
 		}
 
@@ -236,7 +232,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.whenFileExistsBatch = value;
-				this.NotifyPropertyChanged("WhenFileExistsBatch");
+				this.RaisePropertyChanged("WhenFileExistsBatch");
 			}
 		}
 
@@ -250,7 +246,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.minimizeToTray = value;
-				this.NotifyPropertyChanged("MinimizeToTray");
+				this.RaisePropertyChanged("MinimizeToTray");
 			}
 		}
 
@@ -264,8 +260,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.nativeLanguageCode = value;
-				this.NotifyPropertyChanged("NativeLanguageCode");
-				this.NotifyPropertyChanged("DubAudioEnabled");
+				this.RaisePropertyChanged("NativeLanguageCode");
+				this.RaisePropertyChanged("DubAudioEnabled");
 			}
 		}
 
@@ -279,7 +275,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.dubAudio = value;
-				this.NotifyPropertyChanged("DubAudio");
+				this.RaisePropertyChanged("DubAudio");
 			}
 		}
 
@@ -309,8 +305,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.logVerbosity = value;
-				this.NotifyPropertyChanged("LogVerbosity");
-				this.NotifyPropertyChanged("LogVerbosityWarningVisible");
+				this.RaisePropertyChanged("LogVerbosity");
+				this.RaisePropertyChanged("LogVerbosityWarningVisible");
 			}
 		}
 
@@ -332,8 +328,9 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedProcess = value;
-				this.NotifyPropertyChanged("SelectedProcess");
-				this.NotifyPropertyChanged("ProcessSelected");
+				this.RemoveProcessCommand.RaiseCanExecuteChanged();
+				this.RaisePropertyChanged("SelectedProcess");
+				this.RaisePropertyChanged("ProcessSelected");
 			}
 		}
 
@@ -347,7 +344,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.previewCount = value;
-				this.NotifyPropertyChanged("PreviewCount");
+				this.RaisePropertyChanged("PreviewCount");
 			}
 		}
 
@@ -361,7 +358,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.showAudioTrackNameField = value;
-				this.NotifyPropertyChanged("ShowAudioTrackNameField");
+				this.RaisePropertyChanged("ShowAudioTrackNameField");
 			}
 		}
 
@@ -373,13 +370,12 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ICommand SaveSettingsCommand
+		private RelayCommand saveSettingsCommand;
+		public RelayCommand SaveSettingsCommand
 		{
 			get
 			{
-				if (this.saveSettingsCommand == null)
-				{
-					this.saveSettingsCommand = new RelayCommand(param =>
+				return this.saveSettingsCommand ?? (this.saveSettingsCommand = new RelayCommand(() =>
 					{
 						if (Settings.Default.UpdatesEnabled != this.UpdatesEnabled)
 						{
@@ -409,20 +405,16 @@ namespace VidCoder.ViewModel
 						Settings.Default.Save();
 
 						this.AcceptCommand.Execute(null);
-					});
-				}
-
-				return this.saveSettingsCommand;
+					}));
 			}
 		}
 
-		public ICommand BrowsePathCommand
+		private RelayCommand browsePathCommand;
+		public RelayCommand BrowsePathCommand
 		{
 			get
 			{
-				if (this.browsePathCommand == null)
-				{
-					this.browsePathCommand = new RelayCommand(param =>
+				return this.browsePathCommand ?? (this.browsePathCommand = new RelayCommand(() =>
 					{
 						string initialDirectory = null;
 						if (Directory.Exists(this.DefaultPath))
@@ -435,20 +427,16 @@ namespace VidCoder.ViewModel
 						{
 							this.DefaultPath = newFolder;
 						}
-					});
-				}
-
-				return this.browsePathCommand;
+					}));
 			}
 		}
 
-		public ICommand OpenAddProcessDialogCommand
+		private RelayCommand openAddProcessDialogCommand;
+		public RelayCommand OpenAddProcessDialogCommand
 		{
 			get
 			{
-				if (this.openAddProcessDialogCommand == null)
-				{
-					this.openAddProcessDialogCommand = new RelayCommand(param =>
+				return this.openAddProcessDialogCommand ?? (this.openAddProcessDialogCommand = new RelayCommand(() =>
 					{
 						var addProcessVM = new AddAutoPauseProcessDialogViewModel();
 						WindowManager.OpenDialog(addProcessVM, this);
@@ -461,37 +449,29 @@ namespace VidCoder.ViewModel
 								this.AutoPauseProcesses.Add(addProcessVM.ProcessName);
 							}
 						}
-					});
-				}
-
-				return this.openAddProcessDialogCommand;
+					}));
 			}
 		}
 
-		public ICommand RemoveProcessCommand
+		private RelayCommand removeProcessCommand;
+		public RelayCommand RemoveProcessCommand
 		{
 			get
 			{
-				if (this.removeProcessCommand == null)
-				{
-					this.removeProcessCommand = new RelayCommand(param =>
+				return this.removeProcessCommand ?? (this.removeProcessCommand = new RelayCommand(() =>
 					{
 						this.AutoPauseProcesses.Remove(this.SelectedProcess);
-					},
-					param =>
+					}, () =>
 					{
 						return this.SelectedProcess != null;
-					});
-				}
-
-				return this.removeProcessCommand;
+					}));
 			}
 		}
 
 		private void OnUpdateDownloadCompleted(object sender, EventArgs e)
 		{
 			this.UpdateDownloading = false;
-			this.NotifyPropertyChanged("UpdateStatus");
+			this.RaisePropertyChanged("UpdateStatus");
 		}
 
 		private void OnUpdateDownloadProgress(object sender, EventArgs<double> e)

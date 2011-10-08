@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GalaSoft.MvvmLight;
 using HandBrake.Interop.Model.Encoding;
 using VidCoder.Model;
 
@@ -60,9 +61,9 @@ namespace VidCoder.ViewModel
 
 		public void RefreshView()
 		{
-			this.NotifyPropertyChanged("IsModified");
-			this.NotifyPropertyChanged("PresetName");
-			this.NotifyPropertyChanged("IsBuiltIn");
+			this.RaisePropertyChanged("IsModified");
+			this.RaisePropertyChanged("PresetName");
+			this.RaisePropertyChanged("IsBuiltIn");
 		}
 	}
 }

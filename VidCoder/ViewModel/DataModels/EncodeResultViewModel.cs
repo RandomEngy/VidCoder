@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GalaSoft.MvvmLight.Command;
 using VidCoder.Model;
 using System.Globalization;
 using System.Windows.Input;
@@ -91,7 +92,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.playCommand == null)
 				{
-					this.playCommand = new RelayCommand(param =>
+					this.playCommand = new RelayCommand(() =>
 					{
 						FileService.Instance.LaunchFile(this.encodeResult.Destination);
 					});
@@ -107,7 +108,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.openContainingFolderCommand == null)
 				{
-					this.openContainingFolderCommand = new RelayCommand(param =>
+					this.openContainingFolderCommand = new RelayCommand(() =>
 					{
 						FileService.Instance.LaunchFile(Path.GetDirectoryName(this.encodeResult.Destination));
 					});

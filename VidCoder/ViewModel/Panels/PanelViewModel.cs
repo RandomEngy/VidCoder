@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
+using VidCoder.Messages;
 
 namespace VidCoder.ViewModel
 {
@@ -88,12 +91,12 @@ namespace VidCoder.ViewModel
 
 		public void UpdatePreviewWindow()
 		{
-			PreviewViewModel.FindAndRefreshPreviews();
+			Messenger.Default.Send(new RefreshPreviewMessage());
 		}
 
 		public virtual void NotifySelectedTitleChanged()
 		{
-			this.NotifyPropertyChanged("HasSourceData");
+			this.RaisePropertyChanged("HasSourceData");
 		}
 	}
 }

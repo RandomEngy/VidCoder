@@ -10,11 +10,15 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shell;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using Microsoft.Practices.Unity;
+using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Properties;
 using VidCoder.Services;
@@ -57,18 +61,6 @@ namespace VidCoder.ViewModel.Components
 		private ObservableCollection<EncodeResultViewModel> completedJobs;
 		private EncodeCompleteAction encodeCompleteAction;
 
-		private ICommand encodeCommand;
-		private ICommand addToQueueCommand;
-		private ICommand queueFilesCommand;
-		private ICommand queueTitlesCommand;
-		private ICommand pauseCommand;
-		private ICommand stopEncodeCommand;
-
-		private ICommand moveSelectedJobsToTopCommand;
-		private ICommand moveSelectedJobsToBottomCommand;
-		private ICommand removeSelectedJobsCommand;
-		private ICommand clearCompletedCommand;
-
 		private int selectedTabIndex;
 
 		public ProcessingViewModel()
@@ -92,6 +84,43 @@ namespace VidCoder.ViewModel.Components
 					this.errorLoggedDuringJob = true;
 				}
 			};
+
+			this.encodeQueue.CollectionChanged +=
+				(o, e) =>
+					{
+						this.EncodeCommand.RaiseCanExecuteChanged();
+					};
+
+			Messenger.Default.Register<VideoSourceChangedMessage>(
+				this,
+				message =>
+					{
+						RefreshCanEnqueue();
+						this.EncodeCommand.RaiseCanExecuteChanged();
+					});
+
+			Messenger.Default.Register<OutputPathChangedMessage>(
+				this,
+				message =>
+					{
+						RefreshCanEnqueue();
+						this.EncodeCommand.RaiseCanExecuteChanged();
+					});
+
+			Messenger.Default.Register<OutputFolderChangedMessage>(
+				this,
+				message =>
+					{
+						this.QueueFilesCommand.RaiseCanExecuteChanged();
+						this.QueueTitlesCommand.RaiseCanExecuteChanged();
+					});
+
+			Messenger.Default.Register<SelectedTitleChangedMessage>(
+				this,
+				message =>
+					{
+						this.QueueTitlesCommand.RaiseCanExecuteChanged();
+					});
 
 			this.completedJobs = new ObservableCollection<EncodeResultViewModel>();
 		}
@@ -149,14 +178,6 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
-		public bool CanEncode
-		{
-			get
-			{
-				return this.EncodeQueue.Count > 0 || this.CanEnqueue;
-			}
-		}
-
 		public string EncodeToolTip
 		{
 			get
@@ -195,9 +216,10 @@ namespace VidCoder.ViewModel.Components
 					this.elapsedQueueEncodeTime.Stop();
 				}
 
-				this.NotifyPropertyChanged("PauseVisible");
-				this.NotifyPropertyChanged("Encoding");
-				this.NotifyPropertyChanged("EncodeButtonText");
+				this.PauseCommand.RaiseCanExecuteChanged();
+				this.RaisePropertyChanged("PauseVisible");
+				this.RaisePropertyChanged("Encoding");
+				this.RaisePropertyChanged("EncodeButtonText");
 			}
 		}
 
@@ -224,9 +246,9 @@ namespace VidCoder.ViewModel.Components
 					}
 				}
 
-				this.NotifyPropertyChanged("PauseVisible");
-				this.NotifyPropertyChanged("ProgressBarColor");
-				this.NotifyPropertyChanged("Paused");
+				this.RaisePropertyChanged("PauseVisible");
+				this.RaisePropertyChanged("ProgressBarColor");
+				this.RaisePropertyChanged("Paused");
 			}
 		}
 
@@ -278,7 +300,7 @@ namespace VidCoder.ViewModel.Components
 		{
 			get
 			{
-				return !String.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder) && this.main.HasVideoSource && this.main.SourceData.Titles.Count > 1;
+				return !string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder) && this.main.HasVideoSource && this.main.SourceData.Titles.Count > 1;
 			}
 		}
 
@@ -292,7 +314,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.encodeSpeedDetailsAvailable = value;
-				this.NotifyPropertyChanged("EncodeSpeedDetailsAvailable");
+				this.RaisePropertyChanged("EncodeSpeedDetailsAvailable");
 			}
 		}
 
@@ -306,7 +328,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.estimatedTimeRemaining = value;
-				this.NotifyPropertyChanged("EstimatedTimeRemaining");
+				this.RaisePropertyChanged("EstimatedTimeRemaining");
 			}
 		}
 
@@ -320,7 +342,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.encodeCompleteAction = value;
-				this.NotifyPropertyChanged("EncodeCompleteAction");
+				this.RaisePropertyChanged("EncodeCompleteAction");
 			}
 		}
 
@@ -334,7 +356,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.currentFps = value;
-				this.NotifyPropertyChanged("CurrentFps");
+				this.RaisePropertyChanged("CurrentFps");
 			}
 		}
 
@@ -348,7 +370,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.averageFps = value;
-				this.NotifyPropertyChanged("AverageFps");
+				this.RaisePropertyChanged("AverageFps");
 			}
 		}
 
@@ -362,8 +384,8 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.overallEncodeProgressFraction = value;
-				this.NotifyPropertyChanged("OverallEncodeProgressPercent");
-				this.NotifyPropertyChanged("OverallEncodeProgressFraction");
+				this.RaisePropertyChanged("OverallEncodeProgressPercent");
+				this.RaisePropertyChanged("OverallEncodeProgressFraction");
 			}
 		}
 
@@ -385,7 +407,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.encodeProgressState = value;
-				this.NotifyPropertyChanged("EncodeProgressState");
+				this.RaisePropertyChanged("EncodeProgressState");
 			}
 		}
 
@@ -414,17 +436,16 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.selectedTabIndex = value;
-				this.NotifyPropertyChanged("SelectedTabIndex");
+				this.RaisePropertyChanged("SelectedTabIndex");
 			}
 		}
 
-		public ICommand EncodeCommand
+		private RelayCommand encodeCommand;
+		public RelayCommand EncodeCommand
 		{
 			get
 			{
-				if (this.encodeCommand == null)
-				{
-					this.encodeCommand = new RelayCommand(param =>
+				return this.encodeCommand ?? (this.encodeCommand = new RelayCommand(() =>
 					{
 						if (this.Encoding)
 						{
@@ -454,23 +475,19 @@ namespace VidCoder.ViewModel.Components
 							this.StartEncodeQueue();
 						}
 					},
-					param =>
+					() =>
 					{
-						return this.CanEncode;
-					});
-				}
-
-				return this.encodeCommand;
+						return this.EncodeQueue.Count > 0 || this.CanEnqueue;
+					}));
 			}
 		}
 
-		public ICommand AddToQueueCommand
+		private RelayCommand addToQueueCommand;
+		public RelayCommand AddToQueueCommand
 		{
 			get
 			{
-				if (this.addToQueueCommand == null)
-				{
-					this.addToQueueCommand = new RelayCommand(param =>
+				return this.addToQueueCommand ?? (this.addToQueueCommand = new RelayCommand(() =>
 					{
 						var newEncodeJobVM = this.main.CreateEncodeJobVM();
 
@@ -484,25 +501,20 @@ namespace VidCoder.ViewModel.Components
 						newEncodeJobVM.Job.OutputPath = resolvedOutputPath;
 
 						this.Queue(newEncodeJobVM);
-
 					},
-					param =>
+					() =>
 					{
 						return this.CanEnqueue;
-					});
-				}
-
-				return this.addToQueueCommand;
+					}));
 			}
 		}
 
-		public ICommand QueueFilesCommand
+		private RelayCommand queueFilesCommand;
+		public RelayCommand QueueFilesCommand
 		{
 			get
 			{
-				if (this.queueFilesCommand == null)
-				{
-					this.queueFilesCommand = new RelayCommand(param =>
+				return this.queueFilesCommand ?? (this.queueFilesCommand = new RelayCommand(() =>
 					{
 						IList<string> fileNames = FileService.Instance.GetFileNames(Settings.Default.LastInputFileFolder);
 						if (fileNames != null && fileNames.Count > 0)
@@ -513,23 +525,19 @@ namespace VidCoder.ViewModel.Components
 							this.QueueMultiple(fileNames);
 						}
 					},
-					param =>
+					() =>
 					{
 						return !string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder);
-					});
-				}
-
-				return this.queueFilesCommand;
+					}));
 			}
 		}
 
-		public ICommand QueueTitlesCommand
+		private RelayCommand queueTitlesCommand;
+		public RelayCommand QueueTitlesCommand
 		{
 			get
 			{
-				if (this.queueTitlesCommand == null)
-				{
-					this.queueTitlesCommand = new RelayCommand(param =>
+				return this.queueTitlesCommand ?? (this.queueTitlesCommand = new RelayCommand(() =>
 					{
 						var queueTitlesDialog = new QueueTitlesDialogViewModel(this.main.SourceData.Titles);
 						WindowManager.OpenDialog(queueTitlesDialog, this.main);
@@ -629,63 +637,50 @@ namespace VidCoder.ViewModel.Components
 							}
 						}
 					},
-					param =>
+					() =>
 					{
 						return this.CanEnqueueMultipleTitles;
-					});
-				}
-
-				return this.queueTitlesCommand;
+					}));
 			}
 		}
 
-		public ICommand PauseCommand
+		private RelayCommand pauseCommand;
+		public RelayCommand PauseCommand
 		{
 			get
 			{
-				if (this.pauseCommand == null)
-				{
-					this.pauseCommand = new RelayCommand(param =>
+				return this.pauseCommand ?? (this.pauseCommand = new RelayCommand(() =>
 					{
 						this.PauseEncoding();
 						this.autoPause.ReportPause();
 					},
-					param =>
+					() =>
 					{
 						return this.Encoding && this.CurrentJob.HandBrakeInstance != null;
-					});
-				}
-
-				return this.pauseCommand;
+					}));
 			}
 		}
 
-		public ICommand StopEncodeCommand
+		private RelayCommand stopEncodeCommand;
+		public RelayCommand StopEncodeCommand
 		{
 			get
 			{
-				if (this.stopEncodeCommand == null)
-				{
-					this.stopEncodeCommand = new RelayCommand(param =>
+				return this.stopEncodeCommand ?? (this.stopEncodeCommand = new RelayCommand(() =>
 					{
 						// Signify that we stopped the encode manually rather than it completing.
 						this.encodeStopped = true;
 						this.CurrentJob.HandBrakeInstance.StopEncode();
-
-					});
-				}
-
-				return this.stopEncodeCommand;
+					}));
 			}
 		}
 
-		public ICommand MoveSelectedJobsToTopCommand
+		private RelayCommand moveSelectedJobsToTopCommand;
+		public RelayCommand MoveSelectedJobsToTopCommand
 		{
 			get
 			{
-				if (this.moveSelectedJobsToTopCommand == null)
-				{
-					this.moveSelectedJobsToTopCommand = new RelayCommand(param =>
+				return this.moveSelectedJobsToTopCommand ?? (this.moveSelectedJobsToTopCommand = new RelayCommand(() =>
 					{
 						List<EncodeJobViewModel> jobsToMove = this.EncodeQueue.Where(j => j.IsSelected && !j.Encoding).ToList();
 						if (jobsToMove.Count > 0)
@@ -702,20 +697,16 @@ namespace VidCoder.ViewModel.Components
 								this.EncodeQueue.Insert(insertPosition, jobsToMove[i]);
 							}
 						}
-					});
-				}
-
-				return this.moveSelectedJobsToTopCommand;
+					}));
 			}
 		}
 
-		public ICommand MoveSelectedJobsToBottomCommand
+		private RelayCommand moveSelectedJobsToBottomCommand;
+		public RelayCommand MoveSelectedJobsToBottomCommand
 		{
 			get
 			{
-				if (this.moveSelectedJobsToBottomCommand == null)
-				{
-					this.moveSelectedJobsToBottomCommand = new RelayCommand(param =>
+				return this.moveSelectedJobsToBottomCommand ?? (this.moveSelectedJobsToBottomCommand = new RelayCommand(() =>
 					{
 						List<EncodeJobViewModel> jobsToMove = this.EncodeQueue.Where(j => j.IsSelected && !j.Encoding).ToList();
 						if (jobsToMove.Count > 0)
@@ -730,44 +721,33 @@ namespace VidCoder.ViewModel.Components
 								this.EncodeQueue.Add(jobToMove);
 							}
 						}
-					});
-				}
-
-				return this.moveSelectedJobsToBottomCommand;
+					}));
 			}
 		}
 
-		public ICommand RemoveSelectedJobsCommand
+		private RelayCommand removeSelectedJobsCommand;
+		public RelayCommand RemoveSelectedJobsCommand
 		{
 			get
 			{
-				if (this.removeSelectedJobsCommand == null)
-				{
-					this.removeSelectedJobsCommand = new RelayCommand(param =>
+				return this.removeSelectedJobsCommand ?? (this.removeSelectedJobsCommand = new RelayCommand(() =>
 					{
 						this.RemoveSelectedQueueJobs();
-					});
-				}
-
-				return this.removeSelectedJobsCommand;
+					}));
 			}
 		}
 
-		public ICommand ClearCompletedCommand
+		private RelayCommand clearCompletedCommand;
+		public RelayCommand ClearCompletedCommand
 		{
 			get
 			{
-				if (this.clearCompletedCommand == null)
-				{
-					this.clearCompletedCommand = new RelayCommand(param =>
+				return this.clearCompletedCommand ?? (this.clearCompletedCommand = new RelayCommand(() =>
 					{
 						this.CompletedJobs.Clear();
-						this.NotifyPropertyChanged("CompletedItemsCount");
-						this.NotifyPropertyChanged("CompletedTabHeader");
-					});
-				}
-
-				return this.clearCompletedCommand;
+						this.RaisePropertyChanged("CompletedItemsCount");
+						this.RaisePropertyChanged("CompletedTabHeader");
+					}));
 			}
 		}
 
@@ -786,12 +766,12 @@ namespace VidCoder.ViewModel.Components
 
 				this.totalTasks++;
 				this.totalQueueCost += encodeJobVM.Cost;
-				this.NotifyPropertyChanged("TaskDetails");
+				this.RaisePropertyChanged("TaskDetails");
 			}
 
 			this.EncodeQueue.Add(encodeJobVM);
 
-			this.NotifyPropertyChanged("QueuedTabHeader");
+			this.RaisePropertyChanged("QueuedTabHeader");
 
 			// Select the Queued tab.
 			if (this.SelectedTabIndex != QueuedTabIndex)
@@ -904,7 +884,7 @@ namespace VidCoder.ViewModel.Components
 				this.totalTasks--;
 				this.totalQueueCost -= job.Cost;
 
-				this.NotifyPropertyChanged("TaskDetails");
+				this.RaisePropertyChanged("TaskDetails");
 
 				if (this.totalTasks == 1)
 				{
@@ -912,7 +892,7 @@ namespace VidCoder.ViewModel.Components
 				}
 			}
 
-			this.NotifyPropertyChanged("QueuedTabHeader");
+			this.RaisePropertyChanged("QueuedTabHeader");
 		}
 
 		public void RemoveSelectedQueueJobs()
@@ -961,7 +941,7 @@ namespace VidCoder.ViewModel.Components
 		private void EncodeNextJob()
 		{
 			this.taskNumber++;
-			this.NotifyPropertyChanged("TaskDetails");
+			this.RaisePropertyChanged("TaskDetails");
 
 			if (this.CurrentJob.HandBrakeInstance == null)
 			{
@@ -975,7 +955,7 @@ namespace VidCoder.ViewModel.Components
 					if (encodeTitle != null)
 					{
 						this.StartEncode();
-						DispatchService.BeginInvoke(CommandManager.InvalidateRequerySuggested);
+						DispatchService.BeginInvoke(this.PauseCommand.RaiseCanExecuteChanged);
 					}
 					else
 					{
@@ -1168,12 +1148,12 @@ namespace VidCoder.ViewModel.Components
 							Succeeded = succeeded,
 							EncodeTime = this.CurrentJob.EncodeTime
 						}));
-					this.NotifyPropertyChanged("CompletedItemsCount");
-					this.NotifyPropertyChanged("CompletedTabHeader");
+					this.RaisePropertyChanged("CompletedItemsCount");
+					this.RaisePropertyChanged("CompletedTabHeader");
 
 					HandBrakeInstance finishedInstance = this.EncodeQueue[0].HandBrakeInstance;
 					this.EncodeQueue.RemoveAt(0);
-					this.NotifyPropertyChanged("QueuedTabHeader");
+					this.RaisePropertyChanged("QueuedTabHeader");
 
 					this.main.CleanupHandBrakeInstance(finishedInstance);
 
@@ -1248,6 +1228,15 @@ namespace VidCoder.ViewModel.Components
 			}
 
 			EncodeJobsPersist.EncodeJobs = jobPersistGroup;
+		}
+
+		private void RefreshCanEnqueue()
+		{
+			this.RaisePropertyChanged("CanEnqueueMultipleTitles");
+			this.RaisePropertyChanged("CanEnqueue");
+
+			this.AddToQueueCommand.RaiseCanExecuteChanged();
+			this.QueueTitlesCommand.RaiseCanExecuteChanged();
 		}
 
 		private void AutoPauseEncoding(object sender, EventArgs e)

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
-using VidCoder.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using VidCoder.Services;
@@ -117,7 +118,7 @@ namespace VidCoder.ViewModel
 				if (value >= 0)
 				{
 					this.targetStreamIndex = value;
-					this.NotifyPropertyChanged("TargetStreamIndex");
+					this.RaisePropertyChanged("TargetStreamIndex");
 					this.audioPanelVM.NotifyAudioEncodingChanged();
 					this.MarkModified();
 				}
@@ -142,8 +143,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedAudioEncoder = value;
-				this.NotifyPropertyChanged("SelectedAudioEncoder");
-				this.NotifyPropertyChanged("EncoderSettingsVisible");
+				this.RaisePropertyChanged("SelectedAudioEncoder");
+				this.RaisePropertyChanged("EncoderSettingsVisible");
 				this.MarkModified();
 
 				if (value != null)
@@ -195,7 +196,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedMixdown = value;
-				this.NotifyPropertyChanged("SelectedMixdown");
+				this.RaisePropertyChanged("SelectedMixdown");
 
 				if (value != null)
 				{
@@ -227,7 +228,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.sampleRate = value;
-				this.NotifyPropertyChanged("SampleRate");
+				this.RaisePropertyChanged("SampleRate");
 				this.audioPanelVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
@@ -243,7 +244,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.bitrateChoices = value;
-				this.NotifyPropertyChanged("BitrateChoices");
+				this.RaisePropertyChanged("BitrateChoices");
 			}
 		}
 
@@ -257,7 +258,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.bitrate = value;
-				this.NotifyPropertyChanged("Bitrate");
+				this.RaisePropertyChanged("Bitrate");
 				this.audioPanelVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
@@ -273,7 +274,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.gain = value;
-				this.NotifyPropertyChanged("Gain");
+				this.RaisePropertyChanged("Gain");
 				this.audioPanelVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
@@ -289,7 +290,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.drc = value;
-				this.NotifyPropertyChanged("Drc");
+				this.RaisePropertyChanged("Drc");
 				this.audioPanelVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
@@ -305,7 +306,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.name = value;
-				this.NotifyPropertyChanged("Name");
+				this.RaisePropertyChanged("Name");
 				this.audioPanelVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
@@ -331,7 +332,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.removeAudioEncodingCommand == null)
 				{
-					this.removeAudioEncodingCommand = new RelayCommand(param =>
+					this.removeAudioEncodingCommand = new RelayCommand(() =>
 					{
 						this.audioPanelVM.RemoveAudioEncoding(this);
 					});
@@ -365,10 +366,10 @@ namespace VidCoder.ViewModel
 
 				// Set to -1, then back to real index in order to force a refresh on the ComboBox
 				this.targetStreamIndex = -1;
-				this.NotifyPropertyChanged("TargetStreamIndex");
+				this.RaisePropertyChanged("TargetStreamIndex");
 
 				this.targetStreamIndex = previousIndex;
-				this.NotifyPropertyChanged("TargetStreamIndex");
+				this.RaisePropertyChanged("TargetStreamIndex");
 			});
 		}
 

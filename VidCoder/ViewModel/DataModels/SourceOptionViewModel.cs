@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using HandBrake.Interop.Model;
 using VidCoder.Model;
 using Microsoft.Practices.Unity;
@@ -13,7 +15,6 @@ namespace VidCoder.ViewModel
 	public class SourceOptionViewModel : ViewModelBase
 	{
 		private SourceOption sourceOption;
-		private ICommand chooseSourceCommand;
 
 		public SourceOptionViewModel(SourceOption sourceOption, string sourcePath = null)
 		{
@@ -98,8 +99,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.sourceOption.DriveInfo.VolumeLabel = value;
-				this.NotifyPropertyChanged("VolumeLabel");
-				this.NotifyPropertyChanged("Text");
+				this.RaisePropertyChanged("VolumeLabel");
+				this.RaisePropertyChanged("Text");
 			}
 		}
 
@@ -108,13 +109,12 @@ namespace VidCoder.ViewModel
 			get { return this.sourceOption; }
 		}
 
-		public ICommand ChooseSourceCommand
+		private RelayCommand chooseSourceCommand;
+		public RelayCommand ChooseSourceCommand
 		{
 			get
 			{
-				if (this.chooseSourceCommand == null)
-				{
-					this.chooseSourceCommand = new RelayCommand(param =>
+				return this.chooseSourceCommand ?? (this.chooseSourceCommand = new RelayCommand(() =>
 					{
 						var mainVM = Unity.Container.Resolve<MainViewModel>();
 
@@ -146,10 +146,7 @@ namespace VidCoder.ViewModel
 							default:
 								break;
 						}
-					});
-				}
-
-				return this.chooseSourceCommand;
+					}));
 			}
 		}
 	}

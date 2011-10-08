@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GalaSoft.MvvmLight;
 using HandBrake.Interop.SourceData;
 
 namespace VidCoder.ViewModel
@@ -27,7 +28,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selected = value;
-				this.NotifyPropertyChanged("Selected");
+				this.RaisePropertyChanged("Selected");
 				this.titlesDialogVM.HandleCheckChanged(this, value);
 			}
 		}
@@ -49,7 +50,7 @@ namespace VidCoder.ViewModel
 		public void SetSelected(bool newValue)
 		{
 			this.selected = newValue;
-			this.NotifyPropertyChanged("Selected");
+			this.RaisePropertyChanged("Selected");
 		}
 	}
 }

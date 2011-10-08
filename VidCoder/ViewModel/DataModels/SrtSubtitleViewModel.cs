@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using HandBrake.Interop.Model;
 using System.Windows.Input;
 
@@ -10,7 +12,6 @@ namespace VidCoder.ViewModel
 	public class SrtSubtitleViewModel : ViewModelBase
 	{
 		private SrtSubtitle subtitle;
-		private ICommand removeSubtitle;
 
 		public SrtSubtitleViewModel(SubtitleDialogViewModel subtitleDialogViewModel, SrtSubtitle subtitle)
 		{
@@ -38,7 +39,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.Default = value;
-				this.NotifyPropertyChanged("Default");
+				this.RaisePropertyChanged("Default");
 
 				this.SubtitleDialogViewModel.ReportDefault(this);
 			}
@@ -54,7 +55,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.FileName = value;
-				this.NotifyPropertyChanged("FileName");
+				this.RaisePropertyChanged("FileName");
 			}
 		}
 
@@ -68,7 +69,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.LanguageCode = value;
-				this.NotifyPropertyChanged("LanguageCode");
+				this.RaisePropertyChanged("LanguageCode");
 			}
 		}
 
@@ -82,7 +83,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.CharacterCode = value;
-				this.NotifyPropertyChanged("CharacterCode");
+				this.RaisePropertyChanged("CharacterCode");
 			}
 		}
 
@@ -96,7 +97,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.Offset = value;
-				this.NotifyPropertyChanged("Offset");
+				this.RaisePropertyChanged("Offset");
 			}
 		}
 
@@ -116,24 +117,16 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ICommand RemoveSubtitle
+		private RelayCommand removeSubtitleCommand;
+		public RelayCommand RemoveSubtitleCommand
 		{
 			get
 			{
-				if (this.removeSubtitle == null)
-				{
-					this.removeSubtitle = new RelayCommand(
-						param =>
-						{
-							this.SubtitleDialogViewModel.RemoveSrtSubtitle(this);
-						},
-						param =>
-						{
-							return true;
-						});
-				}
-
-				return this.removeSubtitle;
+				return this.removeSubtitleCommand ?? (this.removeSubtitleCommand = new RelayCommand(
+					() =>
+					{
+						this.SubtitleDialogViewModel.RemoveSrtSubtitle(this);
+					}));
 			}
 		}
 	}

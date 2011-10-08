@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Input;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
+using VidCoder.Messages;
 using VidCoder.Properties;
 using System.IO;
 using Microsoft.Practices.Unity;
@@ -53,9 +56,6 @@ namespace VidCoder.ViewModel
 		private List<object> imageFileSync;
 		private string imageFileCacheFolder;
 
-		private ICommand generatePreviewCommand;
-		private ICommand cancelPreviewCommand;
-
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 		private OutputPathViewModel outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
 		private WindowManagerViewModel windowManagerVM = Unity.Container.Resolve<WindowManagerViewModel>();
@@ -63,6 +63,13 @@ namespace VidCoder.ViewModel
 
 		public PreviewViewModel()
 		{
+			Messenger.Default.Register<RefreshPreviewMessage>(
+				this,
+				message =>
+				{
+					this.RequestRefreshPreviews();
+				});
+
 			this.previewSeconds = Settings.Default.PreviewSeconds;
 			this.selectedPreview = 1;
 			this.Title = NoSourceTitle;
@@ -112,7 +119,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.title = value;
-				this.NotifyPropertyChanged("Title");
+				this.RaisePropertyChanged("Title");
 			}
 		}
 
@@ -126,7 +133,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.previewImage = value;
-				this.NotifyPropertyChanged("PreviewImage");
+				this.RaisePropertyChanged("PreviewImage");
 			}
 		}
 
@@ -140,8 +147,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.generatingPreview = value;
-				this.NotifyPropertyChanged("GeneratingPreview");
-				this.NotifyPropertyChanged("SeekBarEnabled");
+				this.RaisePropertyChanged("GeneratingPreview");
+				this.RaisePropertyChanged("SeekBarEnabled");
 			}
 		}
 
@@ -163,7 +170,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.previewPercentComplete = value;
-				this.NotifyPropertyChanged("PreviewPercentComplete");
+				this.RaisePropertyChanged("PreviewPercentComplete");
 			}
 		}
 
@@ -177,7 +184,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.previewSeconds = value;
-				this.NotifyPropertyChanged("PreviewSeconds");
+				this.RaisePropertyChanged("PreviewSeconds");
 
 				Settings.Default.PreviewSeconds = value;
 				Settings.Default.Save();
@@ -194,8 +201,9 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.hasPreview = value;
-				this.NotifyPropertyChanged("SeekBarEnabled");
-				this.NotifyPropertyChanged("HasPreview");
+				this.GeneratePreviewCommand.RaiseCanExecuteChanged();
+				this.RaisePropertyChanged("SeekBarEnabled");
+				this.RaisePropertyChanged("HasPreview");
 			}
 		}
 
@@ -209,7 +217,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedPreview = value;
-				this.NotifyPropertyChanged("SelectedPreview");
+				this.RaisePropertyChanged("SelectedPreview");
 
 				lock (this.imageSync)
 				{
@@ -264,13 +272,12 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ICommand GeneratePreviewCommand
+		private RelayCommand generatePreviewCommand;
+		public RelayCommand GeneratePreviewCommand
 		{
 			get
 			{
-				if (this.generatePreviewCommand == null)
-				{
-					this.generatePreviewCommand = new RelayCommand(param =>
+				return this.generatePreviewCommand ?? (this.generatePreviewCommand = new RelayCommand(() =>
 					{
 						this.job = this.mainViewModel.EncodeJob;
 						this.logger.Log("Generating preview clip");
@@ -285,39 +292,22 @@ namespace VidCoder.ViewModel
 						this.scanningPreview = true;
 						this.GeneratingPreview = true;
 						this.encodeCancelled = false;
-					},
-					param =>
+					}, () =>
 					{
 						return this.HasPreview;
-					});
-				}
-
-				return this.generatePreviewCommand;
+					}));
 			}
 		}
 
-		public ICommand CancelPreviewCommand
+		private RelayCommand cancelPreviewCommand;
+		public RelayCommand CancelPreviewCommand
 		{
 			get
 			{
-				if (this.cancelPreviewCommand == null)
-				{
-					this.cancelPreviewCommand = new RelayCommand(param =>
+				return this.cancelPreviewCommand ?? (this.cancelPreviewCommand = new RelayCommand(() =>
 					{
 						this.CancelPreviewEncode();
-					});
-				}
-
-				return this.cancelPreviewCommand;
-			}
-		}
-
-		public static void FindAndRefreshPreviews()
-		{
-			PreviewViewModel previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
-			if (previewWindow != null)
-			{
-				previewWindow.RequestRefreshPreviews();
+					}));
 			}
 		}
 
@@ -386,10 +376,10 @@ namespace VidCoder.ViewModel
 			if (this.selectedPreview >= this.previewCount)
 			{
 				this.selectedPreview = this.previewCount - 1;
-				this.NotifyPropertyChanged("SelectedPreview");
+				this.RaisePropertyChanged("SelectedPreview");
 			}
 
-			this.NotifyPropertyChanged("PreviewCount");
+			this.RaisePropertyChanged("PreviewCount");
 
 			this.HasPreview = true;
 
@@ -435,7 +425,6 @@ namespace VidCoder.ViewModel
 			{
 				string processCacheFolder = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString());
 
-				DirectoryInfo directory = new DirectoryInfo(processCacheFolder);
 				int lowestUpdate = -1;
 				for (int i = updateVersion - 1; i >= 1; i--)
 				{
@@ -659,7 +648,7 @@ namespace VidCoder.ViewModel
 			{
 				try
 				{
-					using (MemoryStream memoryStream = new MemoryStream())
+					using (var memoryStream = new MemoryStream())
 					{
 						// Write the bitmap out to a memory stream before saving so that we won't be holding
 						// a write lock on the BitmapImage for very long; it's used in the UI.
@@ -667,9 +656,8 @@ namespace VidCoder.ViewModel
 						encoder.Frames.Add(BitmapFrame.Create(job.Image));
 						encoder.Save(memoryStream);
 
-						using (FileStream fileStream = new FileStream(job.FilePath, FileMode.Create))
+						using (var fileStream = new FileStream(job.FilePath, FileMode.Create))
 						{
-							byte[] data = memoryStream.ToArray();
 							fileStream.Write(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
 						}
 					}

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
@@ -11,7 +13,6 @@ namespace VidCoder.ViewModel
 	{
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 		private int selectedTrack;
-		private ICommand removeChoice;
 
 		public MainViewModel MainViewModel
 		{
@@ -34,7 +35,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedTrack = value;
-				this.NotifyPropertyChanged("SelectedIndex");
+				this.RaisePropertyChanged("SelectedIndex");
 
 				EncodingViewModel encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel)) as EncodingViewModel;
 				if (encodingWindow != null)
@@ -44,24 +45,15 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ICommand RemoveChoice
+		private RelayCommand removeCommand;
+		public RelayCommand RemoveCommand
 		{
 			get
 			{
-				if (this.removeChoice == null)
-				{
-					this.removeChoice = new RelayCommand(
-						param =>
-						{
-							this.mainViewModel.RemoveAudioChoice(this);
-						},
-						param =>
-						{
-							return true;
-						});
-				}
-
-				return this.removeChoice;
+				return this.removeCommand ?? (this.removeCommand = new RelayCommand(() =>
+					{
+						this.mainViewModel.RemoveAudioChoice(this);
+					}));
 			}
 		}
 	}

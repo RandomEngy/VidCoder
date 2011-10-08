@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using GalaSoft.MvvmLight.Command;
 using VidCoder.Services;
 using Microsoft.Practices.Unity;
 using System.Windows.Input;
@@ -36,7 +37,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.processName = value;
-				this.NotifyPropertyChanged("ProcessName");
+				this.RaisePropertyChanged("ProcessName");
 			}
 		}
 
@@ -59,7 +60,7 @@ namespace VidCoder.ViewModel
 			{
 				this.selectedProcess = value;
 				this.ProcessName = value;
-				this.NotifyPropertyChanged("SelectedProcess");
+				this.RaisePropertyChanged("SelectedProcess");
 			}
 		}
 
@@ -69,7 +70,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.refreshCurrentProcessesCommand == null)
 				{
-					this.refreshCurrentProcessesCommand = new RelayCommand(param =>
+					this.refreshCurrentProcessesCommand = new RelayCommand(() =>
 					{
 						this.RefreshCurrentProcesses();
 					});

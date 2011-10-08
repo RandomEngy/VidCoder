@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel.Components
@@ -32,7 +34,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.encodingWindowOpen = value;
-				this.NotifyPropertyChanged("EncodingWindowOpen");
+				this.RaisePropertyChanged("EncodingWindowOpen");
 			}
 		}
 
@@ -46,7 +48,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.previewWindowOpen = value;
-				this.NotifyPropertyChanged("PreviewWindowOpen");
+				this.RaisePropertyChanged("PreviewWindowOpen");
 			}
 		}
 
@@ -60,7 +62,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.logWindowOpen = value;
-				this.NotifyPropertyChanged("LogWindowOpen");
+				this.RaisePropertyChanged("LogWindowOpen");
 			}
 		}
 
@@ -70,7 +72,7 @@ namespace VidCoder.ViewModel.Components
 			{
 				if (this.openEncodingWindowCommand == null)
 				{
-					this.openEncodingWindowCommand = new RelayCommand(param =>
+					this.openEncodingWindowCommand = new RelayCommand(() =>
 					{
 						this.OpenEncodingWindow();
 					});
@@ -86,7 +88,7 @@ namespace VidCoder.ViewModel.Components
 			{
 				if (this.openPreviewWindowCommand == null)
 				{
-					this.openPreviewWindowCommand = new RelayCommand(param =>
+					this.openPreviewWindowCommand = new RelayCommand(() =>
 					{
 						this.OpenPreviewWindow();
 					});
@@ -102,7 +104,7 @@ namespace VidCoder.ViewModel.Components
 			{
 				if (this.openLogWindowCommand == null)
 				{
-					this.openLogWindowCommand = new RelayCommand(param =>
+					this.openLogWindowCommand = new RelayCommand(() =>
 					{
 						this.OpenLogWindow();
 					});

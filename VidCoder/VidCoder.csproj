@@ -111,6 +111,9 @@
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight.WPF4, Version=0.0.0.0, Culture=neutral, PublicKeyToken=63eb5c012e0b3c1c, processorArchitecture=MSIL">
+      <HintPath>..\Lib\GalaSoft.MvvmLight.WPF4.dll</HintPath>
+    </Reference>
     <Reference Include="HandBrakeInterop">
       <HintPath>..\Lib\$(Platform)\HandBrakeInterop.dll</HintPath>
     </Reference>
@@ -293,6 +296,12 @@
     <Compile Include="Converters\SampleRateDisplayConverter.cs" />
     <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="EnumStringConverter.cs" />
+    <Compile Include="Messages\OutputFolderChangedMessage.cs" />
+    <Compile Include="Messages\OutputPathChangedMessage.cs" />
+    <Compile Include="Messages\RefreshPreviewMessage.cs" />
+    <Compile Include="Messages\ScanningChangedMessage.cs" />
+    <Compile Include="Messages\SelectedTitleChangedMessage.cs" />
+    <Compile Include="Messages\VideoSourceChangedMessage.cs" />
     <Compile Include="Model\ComboChoice.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="Model\DatabaseConfig.cs" />
@@ -473,7 +482,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="RelayCommand.cs" />
     <Compile Include="Model\VideoSource.cs" />
     <Compile Include="IDialog.cs" />
     <Compile Include="ViewModel\DataModels\AudioChoiceViewModel.cs" />
@@ -487,7 +495,6 @@
     <Compile Include="ViewModel\PreviewViewModel.cs" />
     <Compile Include="ViewModel\SubtitleDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\ApplyUpdateConfirmation.xaml.cs">
       <DependentUpon>ApplyUpdateConfirmation.xaml</DependentUpon>
     </Compile>

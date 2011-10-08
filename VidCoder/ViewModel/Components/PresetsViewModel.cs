@@ -5,8 +5,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop.Model.Encoding;
 using Microsoft.Practices.Unity;
+using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Properties;
 using VidCoder.Services;
@@ -251,7 +254,7 @@ namespace VidCoder.ViewModel.Components
 			this.OutputPathVM.GenerateOutputFileName();
 
 			this.main.RefreshChapterMarkerUI();
-			PreviewViewModel.FindAndRefreshPreviews();
+			Messenger.Default.Send(new RefreshPreviewMessage());
 		}
 
 		/// <summary>
@@ -267,7 +270,7 @@ namespace VidCoder.ViewModel.Components
 			this.SaveUserPresets();
 
 			this.main.RefreshChapterMarkerUI();
-			PreviewViewModel.FindAndRefreshPreviews();
+			Messenger.Default.Send(new RefreshPreviewMessage());
 		}
 
 		/// <summary>
@@ -366,8 +369,8 @@ namespace VidCoder.ViewModel.Components
 				previewWindow.RequestRefreshPreviews();
 			}
 
-			this.NotifyPropertyChanged("SelectedPreset");
-			this.NotifyPropertyChanged("ShowChapterMarkerUI");
+			this.RaisePropertyChanged("SelectedPreset");
+			this.RaisePropertyChanged("ShowChapterMarkerUI");
 
 			Settings.Default.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
 		}

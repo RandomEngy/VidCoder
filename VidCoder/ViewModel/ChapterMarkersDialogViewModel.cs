@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 using VidCoder.Properties;
 using System.IO;
 using VidCoder.Services;
@@ -49,7 +50,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.useDefaultNames = value;
-				this.NotifyPropertyChanged("UseDefaultNames");
+				this.RaisePropertyChanged("UseDefaultNames");
 			}
 		}
 
@@ -81,7 +82,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.importCsvFileCommand == null)
 				{
-					this.importCsvFileCommand = new RelayCommand(param =>
+					this.importCsvFileCommand = new RelayCommand(() =>
 					{
 						string csvFile = FileService.Instance.GetFileNameLoad(Settings.Default.LastCsvFolder, "Import chapters file", "csv", "CSV Files|*.csv");
 						if (csvFile != null)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 using Microsoft.Practices.Unity;
 using VidCoder.Model;
 using VidCoder.Services;
@@ -42,10 +43,10 @@ namespace VidCoder.ViewModel
 			{
 				if (this.clearLogCommand == null)
 				{
-					this.clearLogCommand = new RelayCommand(param =>
+					this.clearLogCommand = new RelayCommand(() =>
 					{
 						this.logger.ClearLog();
-						this.NotifyPropertyChanged("LogText");
+						this.RaisePropertyChanged("LogText");
 					});
 				}
 
@@ -59,7 +60,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.copyCommand == null)
 				{
-					this.copyCommand = new RelayCommand(param =>
+					this.copyCommand = new RelayCommand(() =>
 					{
 						lock (this.logger.LogLock)
 						{

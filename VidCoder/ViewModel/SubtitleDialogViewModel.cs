@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using System.IO;
 using Microsoft.Practices.Unity;
+using VidCoder.Messages;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;
 
@@ -29,9 +33,6 @@ namespace VidCoder.ViewModel
 
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 		private PresetsViewModel presetsViewModel = Unity.Container.Resolve<PresetsViewModel>();
-
-		private ICommand addSourceSubtitle;
-		private ICommand addSrtSubtitle;
 
 		public SubtitleDialogViewModel(Subtitles currentSubtitles)
 		{
@@ -69,13 +70,13 @@ namespace VidCoder.ViewModel
 
 		private void SourceCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
-			this.NotifyPropertyChanged("HasSourceSubtitles");
-			this.NotifyPropertyChanged("AddSourceSubtitleToolTip");
+			this.RaisePropertyChanged("HasSourceSubtitles");
+			this.RaisePropertyChanged("AddSourceSubtitleToolTip");
 		}
 
 		private void SrtCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
-			this.NotifyPropertyChanged("HasSrtSubtitles");
+			this.RaisePropertyChanged("HasSrtSubtitles");
 		}
 
 		public List<string> InputTrackChoices
@@ -144,7 +145,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.textSubtitleWarningVisible = value;
-				this.NotifyPropertyChanged("TextSubtitleWarningVisibile");
+				this.RaisePropertyChanged("TextSubtitleWarningVisibile");
 			}
 		}
 
@@ -158,7 +159,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.burnedOverlapWarningVisible = value;
-				this.NotifyPropertyChanged("BurnedOverlapWarningVisible");
+				this.RaisePropertyChanged("BurnedOverlapWarningVisible");
 			}
 		}
 
@@ -172,44 +173,60 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.defaultsEnabled = value;
-				this.NotifyPropertyChanged("DefaultsEnabled");
+				this.RaisePropertyChanged("DefaultsEnabled");
 			}
 		}
 
-		public ICommand AddSourceSubtitle
+		private RelayCommand addSourceSubtitleCommand;
+		public RelayCommand AddSourceSubtitleCommand
 		{
 			get
 			{
-				if (this.addSourceSubtitle == null)
-				{
-					this.addSourceSubtitle = new RelayCommand(
-						param =>
+				return this.addSourceSubtitleCommand ?? (this.addSourceSubtitleCommand = new RelayCommand(() =>
+					{
+						var newSubtitle = new SourceSubtitle
 						{
-							SourceSubtitle newSubtitle = new SourceSubtitle
-							{
-								TrackNumber = this.GetFirstUnusedTrack(),
-								Default = false,
-								Forced = false,
-								BurnedIn = false
-							};
+							TrackNumber = this.GetFirstUnusedTrack(),
+							Default = false,
+							Forced = false,
+							BurnedIn = false
+						};
 
-							this.sourceSubtitles.Add(new SourceSubtitleViewModel(this, newSubtitle));
-							this.UpdateBoxes();
-							this.UpdateWarningVisibility();
-						},
-						param =>
+						this.sourceSubtitles.Add(new SourceSubtitleViewModel(this, newSubtitle));
+						this.UpdateBoxes();
+						this.UpdateWarningVisibility();
+					}, () =>
+					{
+						// Disallow adding if there are no subtitles on the current title.
+						if (this.mainViewModel.SelectedTitle == null || this.mainViewModel.SelectedTitle.Subtitles.Count == 0)
 						{
-							// Disallow adding if there are no subtitles on the current title.
-							if (this.mainViewModel.SelectedTitle == null || this.mainViewModel.SelectedTitle.Subtitles.Count == 0)
-							{
-								return false;
-							}
+							return false;
+						}
 
-							return true;
-						});
-				}
+						return true;
+					}));
+			}
+		}
 
-				return this.addSourceSubtitle;
+		private RelayCommand addSrtSubtitleCommand;
+		public RelayCommand AddSrtSubtitleCommand
+		{
+			get
+			{
+				return this.addSrtSubtitleCommand ?? (this.addSrtSubtitleCommand = new RelayCommand(() =>
+					{
+						string srtFile = FileService.Instance.GetFileNameLoad(Properties.Settings.Default.LastSrtFolder, "Add subtitles file", "srt", "SRT Files |*.srt");
+
+						if (srtFile != null)
+						{
+							Properties.Settings.Default.LastSrtFolder = Path.GetDirectoryName(srtFile);
+							Properties.Settings.Default.Save();
+							SrtSubtitle newSubtitle = new SrtSubtitle { FileName = srtFile, Default = false, CharacterCode = "UTF-8", LanguageCode = "eng", Offset = 0 };
+							this.srtSubtitles.Add(new SrtSubtitleViewModel(this, newSubtitle));
+						}
+
+						this.UpdateWarningVisibility();
+					}));
 			}
 		}
 
@@ -223,37 +240,6 @@ namespace VidCoder.ViewModel
 				}
 
 				return null;
-			}
-		}
-
-		public ICommand AddSrtSubtitle
-		{
-			get
-			{
-				if (this.addSrtSubtitle == null)
-				{
-					this.addSrtSubtitle = new RelayCommand(
-						param =>
-						{
-							string srtFile = FileService.Instance.GetFileNameLoad(Properties.Settings.Default.LastSrtFolder, "Add subtitles file", "srt", "SRT Files |*.srt");
-
-							if (srtFile != null)
-							{
-								Properties.Settings.Default.LastSrtFolder = Path.GetDirectoryName(srtFile);
-								Properties.Settings.Default.Save();
-								SrtSubtitle newSubtitle = new SrtSubtitle { FileName = srtFile, Default = false, CharacterCode = "UTF-8", LanguageCode = "eng", Offset = 0 };
-								this.srtSubtitles.Add(new SrtSubtitleViewModel(this, newSubtitle));
-							}
-
-							this.UpdateWarningVisibility();
-						},
-						param =>
-						{
-							return true;
-						});
-				}
-
-				return this.addSrtSubtitle;
 			}
 		}
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using VidCoder.Model;
 
 namespace VidCoder.ViewModel
@@ -62,7 +64,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.fileConflictResolution = value;
-				this.NotifyPropertyChanged("WhenFileExists");
+				this.RaisePropertyChanged("WhenFileExists");
 			}
 		}
 
@@ -72,7 +74,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.overwriteCommand == null)
 				{
-					this.overwriteCommand = new RelayCommand(param =>
+					this.overwriteCommand = new RelayCommand(() =>
 					{
 						this.FileConflictResolution = FileConflictResolution.Overwrite;
 						WindowManager.Close(this);
@@ -89,7 +91,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.renameCommand == null)
 				{
-					this.renameCommand = new RelayCommand(param =>
+					this.renameCommand = new RelayCommand(() =>
 					{
 						this.FileConflictResolution = FileConflictResolution.AutoRename;
 						WindowManager.Close(this);
@@ -106,7 +108,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.cancelCommand == null)
 				{
-					this.cancelCommand = new RelayCommand(param =>
+					this.cancelCommand = new RelayCommand(() =>
 					{
 						this.FileConflictResolution = FileConflictResolution.Cancel;
 						WindowManager.Close(this);
