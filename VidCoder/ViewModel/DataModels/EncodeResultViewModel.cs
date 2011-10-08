@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using VidCoder.Messages;
 using VidCoder.Model;
 using System.Globalization;
 using System.Windows.Input;
@@ -19,13 +21,19 @@ namespace VidCoder.ViewModel
 		private ProcessingViewModel processingVM = Unity.Container.Resolve<ProcessingViewModel>();
 
 		private EncodeResult encodeResult;
+		private EncodeJobViewModel job;
 
-		private ICommand playCommand;
-		private ICommand openContainingFolderCommand;
-
-		public EncodeResultViewModel(EncodeResult result)
+		public EncodeResultViewModel(EncodeResult result, EncodeJobViewModel job)
 		{
 			this.encodeResult = result;
+			this.job = job;
+
+			Messenger.Default.Register<ScanningChangedMessage>(
+				this,
+				message =>
+					{
+						this.EditCommand.RaiseCanExecuteChanged();
+					});
 		}
 
 		public MainViewModel MainViewModel
@@ -86,35 +94,42 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ICommand PlayCommand
+		private RelayCommand playCommand;
+		public RelayCommand PlayCommand
 		{
 			get
 			{
-				if (this.playCommand == null)
-				{
-					this.playCommand = new RelayCommand(() =>
+				return this.playCommand ?? (this.playCommand = new RelayCommand(() =>
 					{
 						FileService.Instance.LaunchFile(this.encodeResult.Destination);
-					});
-				}
-
-				return this.playCommand;
+					}));
 			}
 		}
 
-		public ICommand OpenContainingFolderCommand
+		private RelayCommand openContainingFolderCommand;
+		public RelayCommand OpenContainingFolderCommand
 		{
 			get
 			{
-				if (this.openContainingFolderCommand == null)
-				{
-					this.openContainingFolderCommand = new RelayCommand(() =>
+				return this.openContainingFolderCommand ?? (this.openContainingFolderCommand = new RelayCommand(() =>
 					{
 						FileService.Instance.LaunchFile(Path.GetDirectoryName(this.encodeResult.Destination));
-					});
-				}
+					}));
+			}
+		}
 
-				return this.openContainingFolderCommand;
+		private RelayCommand editCommand;
+		public RelayCommand EditCommand
+		{
+			get
+			{
+				return this.editCommand ?? (this.editCommand = new RelayCommand(() =>
+					{
+						this.main.EditJob(this.job, isQueueItem: false);
+					}, () =>
+					{
+						return !this.main.ScanningSource;
+					}));
 			}
 		}
 	}

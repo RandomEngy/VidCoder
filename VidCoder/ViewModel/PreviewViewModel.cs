@@ -354,7 +354,7 @@ namespace VidCoder.ViewModel
 		{
 			this.waitingOnRefresh = false;
 			this.lastImageRefreshTime = DateTime.MinValue;
-			this.RefreshPreviews();
+			DispatchService.BeginInvoke(this.RefreshPreviews);
 		}
 
 		private void RefreshPreviews()

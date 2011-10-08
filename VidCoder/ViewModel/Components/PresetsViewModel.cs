@@ -363,11 +363,7 @@ namespace VidCoder.ViewModel.Components
 				encodingWindow.EditingPreset = this.selectedPreset.Preset;
 			}
 
-			var previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
-			if (previewWindow != null)
-			{
-				previewWindow.RequestRefreshPreviews();
-			}
+			Messenger.Default.Send(new RefreshPreviewMessage());
 
 			this.RaisePropertyChanged("SelectedPreset");
 			this.RaisePropertyChanged("ShowChapterMarkerUI");

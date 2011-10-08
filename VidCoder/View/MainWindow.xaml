@@ -212,6 +212,11 @@
 					<Image Source="/Icons/play_small.png" Width="16" Height="16"  />
 				</MenuItem.Icon>
 			</MenuItem>
+			<MenuItem Header="Edit" Command="{Binding EditCommand}">
+				<MenuItem.Icon>
+					<Image Source="/Icons/edit_16x16.png" Width="16" Height="16"  />
+				</MenuItem.Icon>
+			</MenuItem>
 			<MenuItem Header="Open Containing Folder" Command="{Binding OpenContainingFolderCommand}">
 				<MenuItem.Icon>
 					<Image Source="/Icons/folder.png" Width="16" Height="16"  />

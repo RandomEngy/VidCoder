@@ -22,7 +22,7 @@ namespace VidCoder.ViewModel
 	{
 		public const double SubtitleScanCostFactor = 80.0;
 
-		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
+		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
 		private ProcessingViewModel processingVM;
 
 		private bool isSelected;
@@ -66,7 +66,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.mainViewModel;
+				return this.main;
 			}
 		}
 
@@ -340,11 +340,11 @@ namespace VidCoder.ViewModel
 			{
 				return this.editQueueJobCommand ?? (this.editQueueJobCommand = new RelayCommand(() =>
 					{
-						this.mainViewModel.EditQueueJob(this);
+						this.main.EditJob(this);
 					},
 					() =>
 					{
-						return !this.Encoding && !this.mainViewModel.ScanningSource;
+						return !this.Encoding && !this.main.ScanningSource;
 					}));
 			}
 		}

@@ -796,17 +796,12 @@ namespace VidCoder.ViewModel
 					this.JobCreationAvailable = true;
 				}
 
-				var previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
-				if (previewWindow != null)
-				{
-					previewWindow.RequestRefreshPreviews();
-				}
+				Messenger.Default.Send(new RefreshPreviewMessage());
 
 				// Custom chapter names are thrown out when switching titles.
 				this.CustomChapterNames = null;
 
 				this.RaisePropertyChanged("SubtitlesSummary");
-				CommandManager.InvalidateRequerySuggested();
 				Messenger.Default.Send(new SelectedTitleChangedMessage());
 
 				this.OutputPathVM.GenerateOutputFileName();
@@ -844,12 +839,7 @@ namespace VidCoder.ViewModel
 			{
 				this.angle = value;
 
-				PreviewViewModel previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
-				if (previewWindow != null)
-				{
-					previewWindow.RequestRefreshPreviews();
-				}
-
+				Messenger.Default.Send(new RefreshPreviewMessage());
 				this.RaisePropertyChanged("Angle");
 			}
 		}
@@ -1646,8 +1636,8 @@ namespace VidCoder.ViewModel
 			this.AudioChoices.Remove(choice);
 		}
 
-		// Brings up specified queue item for editing, doing a scan if necessary.
-		public void EditQueueJob(EncodeJobViewModel jobVM)
+		// Brings up specified job for editing, doing a scan if necessary.
+		public void EditJob(EncodeJobViewModel jobVM, bool isQueueItem = true)
 		{
 			EncodeJob job = jobVM.Job;
 
@@ -1671,12 +1661,7 @@ namespace VidCoder.ViewModel
 			if (jobVM.HandBrakeInstance != null && jobVM.HandBrakeInstance == this.ScanInstance)
 			{
 				this.ApplyEncodeJobChoices(jobVM);
-
-				var previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
-				if (previewWindow != null)
-				{
-					previewWindow.RequestRefreshPreviews();
-				}
+				Messenger.Default.Send(new RefreshPreviewMessage());
 			}
 			else if (jobVM.VideoSource != null)
 			{
@@ -1721,20 +1706,25 @@ namespace VidCoder.ViewModel
 				this.StartScan(job.SourcePath, jobVM);
 			}
 
+			string presetName = isQueueItem ? "Restored from Queue" : "Restored from Completed";
+
 			var queuePreset = new PresetViewModel(
 				new Preset
 				{
 					IsBuiltIn = false,
 					IsModified = false,
 					IsQueue = true,
-					Name = "Restored from Queue",
+					Name = presetName,
 					EncodingProfile = jobVM.Job.EncodingProfile.Clone()
 				});
 
 			this.PresetsVM.InsertQueuePreset(queuePreset);
 
-			// Since it's been sent back for editing, remove the queue item
-			this.ProcessingVM.EncodeQueue.Remove(jobVM);
+			if (isQueueItem)
+			{
+				// Since it's been sent back for editing, remove the queue item
+				this.ProcessingVM.EncodeQueue.Remove(jobVM);
+			}
 
 			this.PresetsVM.SaveUserPresets();
 		}

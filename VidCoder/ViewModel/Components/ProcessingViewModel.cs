@@ -1147,7 +1147,8 @@ namespace VidCoder.ViewModel.Components
 							Destination = this.CurrentJob.Job.OutputPath,
 							Succeeded = succeeded,
 							EncodeTime = this.CurrentJob.EncodeTime
-						}));
+						},
+						this.CurrentJob));
 					this.RaisePropertyChanged("CompletedItemsCount");
 					this.RaisePropertyChanged("CompletedTabHeader");
 
