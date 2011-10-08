@@ -15,6 +15,7 @@ namespace VidCoder.Controls
 		private RefireControl refireControl;
 
 		private string noneCaption;
+		private bool hasFocus;
 
 		public NumberBox()
 		{
@@ -123,24 +124,11 @@ namespace VidCoder.Controls
 			}
 		}
 
-		private void numberBox_GotFocus(object sender, RoutedEventArgs e)
-		{
-			if (this.AllowEmpty)
-			{
-				if (this.Number == 0)
-				{
-					this.numberBox.Text = string.Empty;
-				}
-
-				this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
-			}
-		}
-
 		private void RefreshNumberBox()
 		{
 			if (this.AllowEmpty && this.Number == 0)
 			{
-				this.numberBox.Text = this.NoneCaption;
+				this.numberBox.Text = this.hasFocus ? string.Empty : this.NoneCaption;
 				this.numberBox.Foreground = new SolidColorBrush(Colors.Gray);
 			}
 			else
@@ -218,8 +206,25 @@ namespace VidCoder.Controls
 			}
 		}
 
+		private void NumberBoxGotFocus(object sender, RoutedEventArgs e)
+		{
+			this.hasFocus = true;
+
+			if (this.AllowEmpty)
+			{
+				if (this.Number == 0)
+				{
+					this.numberBox.Text = string.Empty;
+				}
+
+				this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
+			}
+		}
+
 		private void NumberBoxLostFocus(object sender, RoutedEventArgs e)
 		{
+			this.hasFocus = false;
+
 			if (this.AllowEmpty && this.numberBox.Text == string.Empty)
 			{
 				this.Number = 0;

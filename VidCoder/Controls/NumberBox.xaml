@@ -134,7 +134,7 @@
 		<TextBox
 			Name="numberBox"
 			Grid.Column="0"
-			GotFocus="numberBox_GotFocus"
+			GotFocus="NumberBoxGotFocus"
 			LostFocus="NumberBoxLostFocus"
 			PreviewTextInput="NumberBoxPreviewTextInput"
 			PreviewKeyDown="NumberBoxPreviewKeyDown"
