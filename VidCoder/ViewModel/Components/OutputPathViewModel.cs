@@ -385,7 +385,7 @@ namespace VidCoder.ViewModel.Components
 				this.main.SourcePath,
 				translatedSourceName,
 				this.main.SelectedTitle.TitleNumber,
-				this.main.VideoRangeType,
+				this.main.RangeType,
 				this.main.SelectedStartChapter.ChapterNumber,
 				this.main.SelectedEndChapter.ChapterNumber,
 				this.main.SelectedTitle.Chapters.Count,

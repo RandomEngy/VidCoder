@@ -46,13 +46,15 @@ namespace VidCoder.ViewModel
 		private List<int> angles;
 		private int angle;
 
-		private VideoRangeType videoRangeType;
+		private VideoRangeType rangeType;
 		private double secondsRangeStart;
 		private double secondsRangeEnd;
 		private int framesRangeStart;
 		private int framesRangeEnd;
-		private Chapter selectedStartChapter;
-		private Chapter selectedEndChapter;
+		private List<ChapterViewModel> startChapters;
+		private List<ChapterViewModel> endChapters;
+		private ChapterViewModel selectedStartChapter;
+		private ChapterViewModel selectedEndChapter;
 
 		private ObservableCollection<AudioChoiceViewModel> audioChoices;
 
@@ -123,6 +125,13 @@ namespace VidCoder.ViewModel
 				message =>
 					{
 						this.AddTrackCommand.RaiseCanExecuteChanged();
+					});
+
+			Messenger.Default.Register<HighlightedChapterChangedMessage>(
+				this,
+				message =>
+					{
+						this.RefreshRangePreview();
 					});
 		}
 
@@ -571,7 +580,7 @@ namespace VidCoder.ViewModel
 				this.OpenFileCommand.RaiseCanExecuteChanged();
 				this.OpenFolderCommand.RaiseCanExecuteChanged();
 
-				Messenger.Default.Send(new ScanningChangedMessage());
+				Messenger.Default.Send(new ScanningChangedMessage { Scanning = value });
 			}
 		}
 
@@ -739,7 +748,7 @@ namespace VidCoder.ViewModel
 							if (nativeTracks.Count > 0)
 							{
 								this.AudioChoices.Clear();
-								AudioChoiceViewModel newVM = new AudioChoiceViewModel();
+								var newVM = new AudioChoiceViewModel();
 								newVM.SelectedIndex = nativeTracks[0].TrackNumber - 1;
 								this.AudioChoices.Add(newVM);
 							}
@@ -764,14 +773,23 @@ namespace VidCoder.ViewModel
 
 					if (this.selectedTitle.AudioTracks.Count > 0 && this.AudioChoices.Count == 0)
 					{
-						AudioChoiceViewModel newVM = new AudioChoiceViewModel();
+						var newVM = new AudioChoiceViewModel();
 						newVM.SelectedIndex = 0;
 						this.AudioChoices.Add(newVM);
 					}
 
 					this.UseDefaultChapterNames = true;
-					this.SelectedStartChapter = this.selectedTitle.Chapters[0];
-					this.SelectedEndChapter = this.selectedTitle.Chapters[this.selectedTitle.Chapters.Count - 1];
+					this.startChapters = new List<ChapterViewModel>();
+					this.endChapters = new List<ChapterViewModel>();
+
+					foreach (Chapter chapter in this.selectedTitle.Chapters)
+					{
+						this.startChapters.Add(new ChapterViewModel(chapter));
+						this.endChapters.Add(new ChapterViewModel(chapter));
+					}
+
+					this.SelectedStartChapter = this.StartChapters[0];
+					this.SelectedEndChapter = this.EndChapters[this.EndChapters.Count - 1];
 
 					this.SecondsRangeStart = 0;
 					this.SecondsRangeEnd = this.selectedTitle.Duration.TotalSeconds;
@@ -790,6 +808,7 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged("Angles");
 					this.RaisePropertyChanged("Angle");
 					this.RaisePropertyChanged("AngleVisible");
+					this.RaisePropertyChanged("TotalChaptersText");
 
 					this.oldTitle = value;
 
@@ -806,7 +825,9 @@ namespace VidCoder.ViewModel
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.RaisePropertyChanged("Chapters");
+				this.RaisePropertyChanged("SelectTitleDuration");
+				this.RaisePropertyChanged("StartChapters");
+				this.RaisePropertyChanged("EndChapters");
 				this.RaisePropertyChanged("MultipleChapters");
 				this.RaisePropertyChanged("SelectedTitle");
 			}
@@ -965,45 +986,50 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public VideoRangeType VideoRangeType
+		public VideoRangeType RangeType
 		{
 			get
 			{
-				return this.videoRangeType;
+				return this.rangeType;
 			}
 
 			set
 			{
-				this.videoRangeType = value;
+				this.rangeType = value;
 
 				this.OutputPathVM.GenerateOutputFileName();
-				this.RaisePropertyChanged("VideoRangeType");
+				this.RaisePropertyChanged("RangeType");
 				this.RaisePropertyChanged("ChaptersRangeVisible");
 				this.RaisePropertyChanged("SecondsRangeVisible");
 				this.RaisePropertyChanged("FramesRangeVisible");
-				this.RaisePropertyChanged("VideoRangeSummary");
+				//this.RaisePropertyChanged("RangeSummary");
+				this.RaisePropertyChanged("TotalChaptersText");
+				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
 		}
 
-		public List<Chapter> Chapters
+		public List<ChapterViewModel> StartChapters
 		{
 			get
 			{
-				if (this.SourceData != null)
-				{
-					return this.selectedTitle.Chapters;
-				}
-
-				return null;
+				return this.startChapters;
 			}
-		}
+		} 
+
+		public List<ChapterViewModel> EndChapters
+		{
+			get
+			{
+				return this.endChapters;
+			}
+		} 
 
 		public bool ChaptersRangeVisible
 		{
 			get
 			{
-				return this.VideoRangeType == VideoRangeType.Chapters;
+				return this.RangeType == VideoRangeType.Chapters;
 			}
 		}
 
@@ -1033,7 +1059,8 @@ namespace VidCoder.ViewModel
 				this.OutputPathVM.GenerateOutputFileName();
 
 				this.RaisePropertyChanged("SecondsRangeStart");
-				this.RaisePropertyChanged("VideoRangeSummary");
+				//this.RaisePropertyChanged("RangeSummary");
+				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
 		}
@@ -1064,7 +1091,8 @@ namespace VidCoder.ViewModel
 				this.OutputPathVM.GenerateOutputFileName();
 
 				this.RaisePropertyChanged("SecondsRangeEnd");
-				this.RaisePropertyChanged("VideoRangeSummary");
+				//this.RaisePropertyChanged("RangeSummary");
+				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
 		}
@@ -1073,7 +1101,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.VideoRangeType == VideoRangeType.Seconds;
+				return this.RangeType == VideoRangeType.Seconds;
 			}
 		}
 
@@ -1103,7 +1131,8 @@ namespace VidCoder.ViewModel
 				this.OutputPathVM.GenerateOutputFileName();
 
 				this.RaisePropertyChanged("FramesRangeStart");
-				this.RaisePropertyChanged("VideoRangeSummary");
+				//this.RaisePropertyChanged("RangeSummary");
+				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
 		}
@@ -1134,7 +1163,8 @@ namespace VidCoder.ViewModel
 				this.OutputPathVM.GenerateOutputFileName();
 
 				this.RaisePropertyChanged("FramesRangeEnd");
-				this.RaisePropertyChanged("VideoRangeSummary");
+				//this.RaisePropertyChanged("RangeSummary");
+				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
 		}
@@ -1143,11 +1173,11 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.VideoRangeType == VideoRangeType.Frames;
+				return this.RangeType == VideoRangeType.Frames;
 			}
 		}
 
-		public Chapter SelectedStartChapter
+		public ChapterViewModel SelectedStartChapter
 		{
 			get
 			{
@@ -1165,18 +1195,19 @@ namespace VidCoder.ViewModel
 
 				if (this.SelectedEndChapter != null && this.SelectedEndChapter.ChapterNumber < this.selectedStartChapter.ChapterNumber)
 				{
-					this.SelectedEndChapter = this.selectedStartChapter;
+					this.SelectedEndChapter = this.EndChapters.FirstOrDefault(c => c.ChapterNumber == this.selectedStartChapter.ChapterNumber);
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
 				this.RaisePropertyChanged("SelectedStartChapter");
-				this.RaisePropertyChanged("VideoRangeSummary");
+				//this.RaisePropertyChanged("RangeSummary");
+				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
 		}
 
-		public Chapter SelectedEndChapter
+		public ChapterViewModel SelectedEndChapter
 		{
 			get
 			{
@@ -1194,37 +1225,164 @@ namespace VidCoder.ViewModel
 
 				if (this.SelectedStartChapter != null && this.selectedEndChapter.ChapterNumber < this.SelectedStartChapter.ChapterNumber)
 				{
-					this.SelectedStartChapter = this.selectedEndChapter;
+					this.SelectedStartChapter = this.StartChapters.FirstOrDefault(c => c.ChapterNumber == this.selectedEndChapter.ChapterNumber);
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
 				this.RaisePropertyChanged("SelectedEndChapter");
-				this.RaisePropertyChanged("VideoRangeSummary");
+				//this.RaisePropertyChanged("RangeSummary");
+				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
 		}
 
-		public string VideoRangeSummary
+		public string TotalChaptersText
 		{
 			get
 			{
-				if (this.HasVideoSource)
+				if (this.SelectedTitle != null && this.RangeType == VideoRangeType.Chapters)
 				{
-					TimeSpan selectedTime = this.SelectedTime;
-					string timeString = string.Format("{0:00}:{1:00}:{2:00}", selectedTime.Hours, selectedTime.Minutes, selectedTime.Seconds);
-
-					switch (this.VideoRangeType)
-					{
-						case VideoRangeType.Chapters:
-							return "of " + this.SelectedTitle.Chapters.Count + " (" + timeString + ")";
-						case VideoRangeType.Seconds:
-						case VideoRangeType.Frames:
-							return "(" + timeString + ")";
-					}
+					return "of " + this.SelectedTitle.Chapters.Count;
 				}
 
 				return string.Empty;
+			}
+		}
+
+		//public string RangeSummary
+		//{
+		//    get
+		//    {
+		//        if (this.HasVideoSource)
+		//        {
+		//            return "(" + this.SelectedTime.ToString(Utilities.TimeFormat) + ")";
+		//        }
+
+		//        return string.Empty;
+		//    }
+		//}
+
+		public TimeSpan RangePreviewStart
+		{
+			get
+			{
+				if (this.SelectedTitle == null)
+				{
+					return TimeSpan.Zero;
+				}
+
+				switch (this.RangeType)
+				{
+					case VideoRangeType.Chapters:
+						if (this.SelectedStartChapter == null || this.SelectedEndChapter == null)
+						{
+							return TimeSpan.Zero;
+						}
+
+						int startChapter;
+						ChapterViewModel highlightedStartChapter = this.StartChapters.FirstOrDefault(c => c.IsHighlighted);
+						ChapterViewModel highlightedEndChapter = this.EndChapters.FirstOrDefault(c => c.IsHighlighted);
+
+						if (highlightedStartChapter != null)
+						{
+							startChapter = highlightedStartChapter.ChapterNumber;
+						}
+						else
+						{
+							startChapter = this.SelectedStartChapter.ChapterNumber;
+						}
+
+						// If an end chapter is highlighted, automatically do adjustment of start chapter.
+						if (highlightedEndChapter != null && highlightedEndChapter.ChapterNumber < startChapter)
+						{
+							startChapter = highlightedEndChapter.ChapterNumber;
+						}
+
+						if (startChapter == 1)
+						{
+							return TimeSpan.Zero;
+						}
+
+						return this.GetChapterRangeDuration(1, startChapter - 1);
+					case VideoRangeType.Seconds:
+						return TimeSpan.FromSeconds(this.SecondsRangeStart);
+					case VideoRangeType.Frames:
+						return TimeSpan.FromSeconds(this.FramesRangeStart / this.SelectedTitle.Framerate);
+				}
+
+				return TimeSpan.Zero;
+			}
+		}
+
+		public TimeSpan RangePreviewEnd
+		{
+			get
+			{
+				if (this.SelectedTitle == null)
+				{
+					return TimeSpan.Zero;
+				}
+
+				switch (this.RangeType)
+				{
+					case VideoRangeType.Chapters:
+						if (this.SelectedStartChapter == null || this.SelectedEndChapter == null)
+						{
+							return TimeSpan.Zero;
+						}
+
+						int endChapter;
+						ChapterViewModel highlightedStartChapter = this.StartChapters.FirstOrDefault(c => c.IsHighlighted);
+						ChapterViewModel highlightedEndChapter = this.EndChapters.FirstOrDefault(c => c.IsHighlighted);
+						if (highlightedEndChapter != null)
+						{
+							endChapter = highlightedEndChapter.ChapterNumber;
+						}
+						else
+						{
+							endChapter = this.SelectedEndChapter.ChapterNumber;
+						}
+
+						// If a start chapter is highlighted, automatically do adjustment of end chapter
+						if (highlightedStartChapter != null && highlightedStartChapter.ChapterNumber > endChapter)
+						{
+							endChapter = highlightedStartChapter.ChapterNumber;
+						}
+
+						return this.GetChapterRangeDuration(1, endChapter);
+					case VideoRangeType.Seconds:
+						return TimeSpan.FromSeconds(this.SecondsRangeEnd);
+					case VideoRangeType.Frames:
+						return TimeSpan.FromSeconds(this.FramesRangeEnd / this.SelectedTitle.Framerate);
+				}
+
+				return TimeSpan.Zero;
+			}
+		}
+
+		public string RangePreviewText
+		{
+			get
+			{
+				return this.RangePreviewStart.ToString(Utilities.TimeFormat) + " - " + this.RangePreviewEnd.ToString(Utilities.TimeFormat);
+			}
+		}
+
+		public string RangePreviewLengthText
+		{
+			get
+			{
+				TimeSpan duration = TimeSpan.Zero;
+				TimeSpan start = this.RangePreviewStart;
+				TimeSpan end = this.RangePreviewEnd;
+
+				if (start < end)
+				{
+					duration = end - start;
+				}
+
+				return "Length: " + duration.ToString(Utilities.TimeFormat);
 			}
 		}
 
@@ -1567,7 +1725,7 @@ namespace VidCoder.ViewModel
 					EncodingProfile = encodingProfile,
 					Title = title,
 					Angle = this.Angle,
-					RangeType = this.VideoRangeType,
+					RangeType = this.RangeType,
 					ChapterStart = startChapter,
 					ChapterEnd = endChapter,
 					SecondsStart = this.SecondsRangeStart,
@@ -1761,16 +1919,23 @@ namespace VidCoder.ViewModel
 			{
 				TimeSpan selectedTime = TimeSpan.Zero;
 
-				switch (this.VideoRangeType)
+				switch (this.RangeType)
 				{
 					case VideoRangeType.Chapters:
-						int selectionStart = this.SelectedTitle.Chapters.IndexOf(this.SelectedStartChapter);
-						int selectionEnd = this.SelectedTitle.Chapters.IndexOf(this.SelectedEndChapter);
-
-						for (int i = selectionStart; i <= selectionEnd; i++)
+						if (this.SelectedStartChapter == null || this.SelectedEndChapter == null)
 						{
-							selectedTime += this.SelectedTitle.Chapters[i].Duration;
+							return TimeSpan.Zero;
 						}
+
+						selectedTime = this.GetChapterRangeDuration(this.SelectedStartChapter.ChapterNumber, this.SelectedEndChapter.ChapterNumber);
+
+						//int selectionStart = this.SelectedStartChapter.ChapterNumber;
+						//int selectionEnd = this.SelectedEndChapter.ChapterNumber;
+
+						//for (int i = selectionStart; i <= selectionEnd; i++)
+						//{
+						//    selectedTime += this.SelectedTitle.Chapters[i].Duration;
+						//}
 
 						break;
 					case VideoRangeType.Seconds:
@@ -1964,20 +2129,20 @@ namespace VidCoder.ViewModel
 			}
 
 			// Range
-			this.videoRangeType = job.RangeType;
+			this.rangeType = job.RangeType;
 			switch (job.RangeType)
 			{
 				case VideoRangeType.Chapters:
 					if (job.ChapterStart > this.selectedTitle.Chapters.Count ||
 						job.ChapterEnd > this.selectedTitle.Chapters.Count)
 					{
-						this.selectedStartChapter = this.selectedTitle.Chapters[0];
-						this.selectedEndChapter = this.selectedTitle.Chapters[this.selectedTitle.Chapters.Count - 1];
+						this.selectedStartChapter = this.StartChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.Chapters[0]);
+						this.selectedEndChapter = this.EndChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.Chapters[this.selectedTitle.Chapters.Count - 1]);
 					}
 					else
 					{
-						this.selectedStartChapter = this.selectedTitle.Chapters[job.ChapterStart - 1];
-						this.selectedEndChapter = this.selectedTitle.Chapters[job.ChapterEnd - 1];
+						this.selectedStartChapter = this.StartChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.Chapters[job.ChapterStart - 1]);
+						this.selectedEndChapter = this.EndChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.Chapters[job.ChapterEnd - 1]);
 					}
 
 					break;
@@ -2075,7 +2240,7 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged("SecondsRangeEnd");
 			this.RaisePropertyChanged("FramesRangeStart");
 			this.RaisePropertyChanged("FramesRangeEnd");
-			this.RaisePropertyChanged("VideoRangeType");
+			this.RaisePropertyChanged("RangeType");
 			this.RaisePropertyChanged("SubtitlesSummary");
 			this.RaisePropertyChanged("ChapterMarkersSummary");
 			this.RaisePropertyChanged("ShowChapterMarkerUI");
@@ -2165,6 +2330,33 @@ namespace VidCoder.ViewModel
 			}
 
 			return 0;
+		}
+
+		private void RefreshRangePreview()
+		{
+			this.RaisePropertyChanged("RangePreviewStart");
+			this.RaisePropertyChanged("RangePreviewEnd");
+			this.RaisePropertyChanged("RangePreviewText");
+			this.RaisePropertyChanged("RangePreviewLengthText");
+		}
+
+		private TimeSpan GetChapterRangeDuration(int startChapter, int endChapter)
+		{
+			if (startChapter > endChapter ||
+				endChapter > this.SelectedTitle.Chapters.Count ||
+				startChapter < 1)
+			{
+				return TimeSpan.Zero;
+			}
+
+			TimeSpan rangeTime = TimeSpan.Zero;
+
+			for (int i = startChapter; i <= endChapter; i++)
+			{
+				rangeTime += this.SelectedTitle.Chapters[i - 1].Duration;
+			}
+
+			return rangeTime;
 		}
 	}
 }

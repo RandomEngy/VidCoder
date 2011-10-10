@@ -1,13 +1,13 @@
 ﻿<UserControl x:Class="VidCoder.Controls.SeekBar"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 MouseLeftButtonDown="UserControl_MouseLeftButtonDown"
 			 MouseLeftButtonUp="UserControl_MouseLeftButtonUp"
 			 MouseMove="UserControl_MouseMove"
-             mc:Ignorable="d" 
-             d:DesignHeight="41" d:DesignWidth="748">
+			 mc:Ignorable="d" 
+			 d:DesignHeight="41" d:DesignWidth="748">
 	<UserControl.Resources>
 		<Style x:Key="SeekBarMarker" TargetType="Polygon">
 			<Setter Property="Points" Value="2,0 0,3 4,3" />
@@ -16,7 +16,7 @@
 			<Setter Property="VerticalAlignment" Value="Bottom" />
 		</Style>
 	</UserControl.Resources>
-    <Grid>
+	<Grid>
 		<Border
 			Background="Black"
 			CornerRadius="5"
@@ -62,5 +62,5 @@
 		<Grid
 			Name="markersGrid">
 		</Grid>
-    </Grid>
+	</Grid>
 </UserControl>

@@ -954,8 +954,11 @@ namespace VidCoder.ViewModel.Components
 
 					if (encodeTitle != null)
 					{
-						this.StartEncode();
-						DispatchService.BeginInvoke(this.PauseCommand.RaiseCanExecuteChanged);
+						DispatchService.BeginInvoke(() =>
+							{
+								this.StartEncode();
+								this.PauseCommand.RaiseCanExecuteChanged();
+							});
 					}
 					else
 					{

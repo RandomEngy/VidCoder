@@ -5,8 +5,7 @@ using System.Text;
 
 namespace VidCoder.Messages
 {
-	public class ScanningChangedMessage
+	public class HighlightedChapterChangedMessage
 	{
-		public bool Scanning { get; set; }
 	}
 }

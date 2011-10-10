@@ -186,6 +186,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\RangeBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\SeekBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -286,6 +290,9 @@
     <Compile Include="Controls\PathTextBlock.xaml.cs">
       <DependentUpon>PathTextBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\RangeBar.xaml.cs">
+      <DependentUpon>RangeBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SeekBar.xaml.cs">
       <DependentUpon>SeekBar.xaml</DependentUpon>
     </Compile>
@@ -294,8 +301,10 @@
     <Compile Include="Converters\EnumVisibilityInverseConverter.cs" />
     <Compile Include="Converters\PercentDisplayConverter.cs" />
     <Compile Include="Converters\SampleRateDisplayConverter.cs" />
+    <Compile Include="Converters\ChapterVMConverter.cs" />
     <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="EnumStringConverter.cs" />
+    <Compile Include="Messages\HighlightedChapterChangedMessage.cs" />
     <Compile Include="Messages\OutputFolderChangedMessage.cs" />
     <Compile Include="Messages\OutputPathChangedMessage.cs" />
     <Compile Include="Messages\RefreshPreviewMessage.cs" />
@@ -340,6 +349,7 @@
     <Compile Include="ViewModel\Components\PresetsViewModel.cs" />
     <Compile Include="ViewModel\Components\ProcessingViewModel.cs" />
     <Compile Include="ViewModel\Components\WindowManagerViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\ChapterViewModel.cs" />
     <Compile Include="ViewModel\FileConflictDialogViewModel.cs" />
     <Compile Include="View\FileConflictDialog.xaml.cs">
       <DependentUpon>FileConflictDialog.xaml</DependentUpon>

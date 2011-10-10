@@ -10,7 +10,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using System.Windows.Threading;
+using GalaSoft.MvvmLight.Messaging;
 using Hardcodet.Wpf.TaskbarNotification;
+using VidCoder.Messages;
 using VidCoder.ViewModel;
 using VidCoder.Model;
 using System.Collections.ObjectModel;
@@ -37,6 +40,9 @@ namespace VidCoder.View
 		private OutputPathViewModel outputVM = Unity.Container.Resolve<OutputPathViewModel>();
 
 		private bool tabsVisible = false;
+
+		private bool rangeUIMouseOver;
+		private bool rangeUIFocus;
 
 		private Storyboard presetGlowStoryboard;
 
@@ -87,6 +93,13 @@ namespace VidCoder.View
 			{
 				this.RestoredWindowState = this.WindowState;
 			};
+
+			Messenger.Default.Register<ScanningChangedMessage>(
+				this,
+				message =>
+					{
+						this.CloseRangeDetailsPopup();
+					});
 		}
 
 		public WindowState RestoredWindowState { get; set; }
@@ -161,6 +174,10 @@ namespace VidCoder.View
 			else if (e.PropertyName == "QueueColumnsSaveRequest")
 			{
 				this.SaveQueueColumns();
+			}
+			else if (e.PropertyName == "RangeType")
+			{
+				DispatchService.BeginInvoke(() => this.rangeDetailsPopup.IsOpen = false);
 			}
 		}
 
@@ -352,6 +369,45 @@ namespace VidCoder.View
 			this.encodeProgressDetailsPopup.IsOpen = false;
 		}
 
+		private void RangeMouseEnter(object sender, MouseEventArgs e)
+		{
+			this.rangeUIMouseOver = true;
+			this.RefreshRangeDetailsPopupIsOpen();
+		}
+
+		private void RangeMouseLeave(object sender, MouseEventArgs e)
+		{
+			this.rangeUIMouseOver = false;
+			this.RefreshRangeDetailsPopupIsOpen();
+		}
+
+		private void RangeControlGotFocus(object sender, RoutedEventArgs e)
+		{
+			this.rangeUIFocus = true;
+			this.RefreshRangeDetailsPopupIsOpen();
+		}
+
+		private void RangeControlLostFocus(object sender, RoutedEventArgs e)
+		{
+			this.rangeUIFocus = false;
+			this.RefreshRangeDetailsPopupIsOpen();
+		}
+
+		private void RefreshRangeDetailsPopupIsOpen()
+		{
+			bool shouldBeOpen = this.rangeUIMouseOver || this.rangeUIFocus;
+			if (shouldBeOpen != this.rangeDetailsPopup.IsOpen)
+			{
+				this.rangeDetailsPopup.IsOpen = shouldBeOpen;
+			}
+		}
+
+		private void CloseRangeDetailsPopup()
+		{
+			this.rangeUIFocus = false;
+			this.rangeDetailsPopup.IsOpen = false;
+		}
+
 		private void DestinationReadCoverMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			this.destinationEditBox.Focus();
@@ -391,7 +447,7 @@ namespace VidCoder.View
 			this.StopEditing();
 		}
 
-		private void destinationEditBox_PreviewKeyDown(object sender, KeyEventArgs e)
+		private void DestinationEditBoxPreviewKeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.Key == Key.Enter)
 			{
@@ -417,14 +473,22 @@ namespace VidCoder.View
 
 		private void Window_MouseDown(object sender, MouseButtonEventArgs e)
 		{
-			if (this.outputVM.EditingDestination && !this.HitElement(this.destinationEditBox, e.GetPosition(this)))
+			Point hitPoint = e.GetPosition(this);
+
+			if (this.outputVM.EditingDestination && !this.HitElement(this.destinationEditBox, hitPoint))
 			{
 				this.StopEditing();
 			}
 
-			if (this.viewModel.SourceSelectionExpanded && !this.HitElement(this.sourceSelectionMenu, e.GetPosition(this)))
+			if (this.viewModel.SourceSelectionExpanded && !this.HitElement(this.sourceSelectionMenu, hitPoint))
 			{
 				this.viewModel.SourceSelectionExpanded = false;
+			}
+
+			if (this.rangeDetailsPopup.IsOpen && !this.HitElement(this.rangeUI, hitPoint))
+			{
+				this.rangeUIFocus = false;
+				this.RefreshRangeDetailsPopupIsOpen();
 			}
 		}
 
@@ -445,6 +509,16 @@ namespace VidCoder.View
 			}
 		}
 
+		private void Window_Activated(object sender, EventArgs e)
+		{
+			this.RefreshRangeDetailsPopupIsOpen();
+		}
+
+		private void Window_Deactivated(object sender, EventArgs e)
+		{
+			this.rangeDetailsPopup.IsOpen = false;
+		}
+
 		private bool HitElement(FrameworkElement element, Point clickedPoint)
 		{
 			Point relativePoint = this.destinationEditBox.TransformToAncestor(this).Transform(new Point(0, 0));
@@ -452,11 +526,6 @@ namespace VidCoder.View
 			return
 				clickedPoint.X >= relativePoint.X && clickedPoint.X <= relativePoint.X + element.ActualWidth &&
 				clickedPoint.Y >= relativePoint.Y && clickedPoint.Y <= relativePoint.Y + element.ActualHeight;
-		}
-
-		private void ToolBar_Loaded(object sender, RoutedEventArgs e)
-		{
-			UIUtilities.HideOverflowGrid(sender as ToolBar);
 		}
 	}
 }

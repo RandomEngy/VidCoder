@@ -5,6 +5,7 @@
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:localmodel="clr-namespace:VidCoder.Model"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
+	xmlns:converters="clr-namespace:VidCoder.Converters"
 	xmlns:viewmodel="clr-namespace:VidCoder.ViewModel"
 	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
 	xmlns:resx="clr-namespace:VidCoder.Properties"
@@ -22,8 +23,9 @@
 	PreviewDrop="HandleDrop"
 	PreviewDragOver="Window_PreviewDragOver"
 	MouseDown="Window_MouseDown"
-	StateChanged="Window_StateChanged" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+	StateChanged="Window_StateChanged" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Deactivated="Window_Deactivated" Activated="Window_Activated">
 	<Window.Resources>
+		<converters:ChapterVMConverter x:Key="ChapterVMConverter" />
 		<local:EnumDisplayer Type="{x:Type Encoding:VideoEncoder}" x:Key="VideoEncoderChoices" />
 		<local:EnumDisplayer Type="{x:Type Model:VideoRangeType}" x:Key="VideoRangeTypeChoices" />
 		<local:EnumDisplayer Type="{x:Type localmodel:EncodeCompleteAction}" x:Key="EncodeCompleteActionChoices" />
@@ -133,6 +135,16 @@
 		</Style>
 		<Style x:Key="EncodeDetailsText" TargetType="TextBlock">
 			<Setter Property="Margin" Value="5,0,0,0" />
+		</Style>
+		<Style x:Key="ChapterComboBoxItem" TargetType="ComboBoxItem">
+			<Setter Property="Tag">
+				<Setter.Value>
+					<MultiBinding Converter="{StaticResource ChapterVMConverter}">
+						<Binding RelativeSource="{RelativeSource Self}" Path="IsHighlighted" />
+						<Binding />
+					</MultiBinding>
+				</Setter.Value>
+			</Setter>
 		</Style>
 		<DataTemplate x:Key="QueueDragTemplate">
 			<TextBlock Text="" />
@@ -584,18 +596,31 @@
 							<ComboBox ItemsSource="{Binding Angles}" SelectedItem="{Binding Angle}" Width="32" Height="23" VerticalAlignment="Center" />
 							<Polygon Style="{StaticResource ArrowSeparator}" />
 						</StackPanel>
-						<StackPanel Orientation="Horizontal">
-							<ComboBox Height="23" VerticalAlignment="Center" Margin="4,0,10,0" HorizontalAlignment="Left" Width="75"
+						<StackPanel
+							Name="rangeUI"
+							Orientation="Horizontal"
+							MouseEnter="RangeMouseEnter" MouseLeave="RangeMouseLeave"
+							Background="Transparent">
+							<ComboBox
+								Height="23" VerticalAlignment="Center" Margin="4,0,10,0" HorizontalAlignment="Left" Width="75"
 								ItemsSource="{Binding DisplayNames, Source={StaticResource VideoRangeTypeChoices}}"
-								SelectedValue="{Binding VideoRangeType, Converter={StaticResource VideoRangeTypeChoices}}" />
+								SelectedValue="{Binding RangeType, Converter={StaticResource VideoRangeTypeChoices}}"
+								GotFocus="RangeControlGotFocus" LostFocus="RangeControlLostFocus"	/>
 							<StackPanel
 								Orientation="Horizontal"
 								Visibility="{Binding ChaptersRangeVisible, Converter={StaticResource VisibilityConverter}}">
-								<ComboBox MinWidth="38" Height="23"
-								ItemsSource="{Binding Chapters}" SelectedItem="{Binding SelectedStartChapter}" Style="{StaticResource ChapterComboBox}" />
+								<ComboBox
+									MinWidth="38" Height="23"
+									ItemsSource="{Binding StartChapters}" SelectedItem="{Binding SelectedStartChapter}" Style="{StaticResource ChapterComboBox}"
+									GotFocus="RangeControlGotFocus" LostFocus="RangeControlLostFocus"
+									ItemContainerStyle="{StaticResource ChapterComboBoxItem}">
+								</ComboBox>
 								<TextBlock Text="-" Style="{StaticResource PlainTitle}" />
-								<ComboBox MinWidth="38" Height="23"
-								ItemsSource="{Binding Chapters}" SelectedItem="{Binding SelectedEndChapter}" Style="{StaticResource ChapterComboBox}" />
+								<ComboBox
+									MinWidth="38" Height="23"
+									ItemsSource="{Binding EndChapters}" SelectedItem="{Binding SelectedEndChapter}" Style="{StaticResource ChapterComboBox}"
+									GotFocus="RangeControlGotFocus" LostFocus="RangeControlLostFocus"
+									ItemContainerStyle="{StaticResource ChapterComboBoxItem}"/>
 							</StackPanel>
 							<StackPanel
 								Orientation="Horizontal"
@@ -604,33 +629,64 @@
 									Width="55"
 									Style="{StaticResource RangeNumberBox}"
 									AllowEmpty="False" UpdateBindingOnTextChange="False" Minimum="0" Modulus="0.001"
-									ShowIncrementButtons="False" SelectAllOnClick="False"
-									Number="{Binding SecondsRangeStart, Mode=TwoWay}"/>
+									ShowIncrementButtons="False"
+									Number="{Binding SecondsRangeStart, Mode=TwoWay}"
+									GotFocus="RangeControlGotFocus" LostFocus="RangeControlLostFocus"/>
 								<TextBlock Text="-" Style="{StaticResource PlainTitle}" />
 								<controls:NumberBox
 									Width="55"
 									Style="{StaticResource RangeNumberBox}"
 									AllowEmpty="False" UpdateBindingOnTextChange="False" Minimum="0.25" Modulus="0.001"
-									ShowIncrementButtons="False" SelectAllOnClick="False"
-									Number="{Binding SecondsRangeEnd, Mode=TwoWay}"/>
+									ShowIncrementButtons="False"
+									Number="{Binding SecondsRangeEnd, Mode=TwoWay}"
+									GotFocus="RangeControlGotFocus" LostFocus="RangeControlLostFocus"/>
 							</StackPanel>
 							<StackPanel
 								Orientation="Horizontal"
 								Visibility="{Binding FramesRangeVisible, Converter={StaticResource VisibilityConverter}}">
 								<controls:NumberBox
-									Width="55"
+									Width="65"
 									Style="{StaticResource RangeNumberBox}"
 									AllowEmpty="False" UpdateBindingOnTextChange="False" Minimum="0"
-									Number="{Binding FramesRangeStart, Mode=TwoWay}"/>
+									Number="{Binding FramesRangeStart, Mode=TwoWay}"
+									GotFocus="RangeControlGotFocus" LostFocus="RangeControlLostFocus"/>
 								<TextBlock Text="-" Style="{StaticResource PlainTitle}" />
 								<controls:NumberBox
-									Width="55"
+									Width="65"
 									Style="{StaticResource RangeNumberBox}"
 									AllowEmpty="False" UpdateBindingOnTextChange="False" Minimum="1"
-									Number="{Binding FramesRangeEnd, Mode=TwoWay}"/>
+									Number="{Binding FramesRangeEnd, Mode=TwoWay}"
+									GotFocus="RangeControlGotFocus" LostFocus="RangeControlLostFocus"/>
 							</StackPanel>
-							<TextBlock Text="{Binding VideoRangeSummary}" Style="{StaticResource PlainTitle}" />
+							<TextBlock Text="{Binding TotalChaptersText}" Style="{StaticResource PlainTitle}" />
 						</StackPanel>
+						<Popup
+							Name="rangeDetailsPopup" IsOpen="False"
+							PlacementTarget="{Binding ElementName=rangeUI}"
+							Placement="Right"
+							HorizontalOffset="4"
+							VerticalOffset="-16"
+							AllowsTransparency="True">
+							<ContentControl Template="{StaticResource PopupInfoTemplate}">
+								<StackPanel
+									Orientation="Vertical"
+									Margin="4">
+									<TextBlock
+										Text="{Binding RangePreviewText}"
+										HorizontalAlignment="Center"/>
+									<controls:RangeBar
+										Duration="{Binding SelectedTitle.Duration}"
+										StartTime="{Binding RangePreviewStart}" EndTime="{Binding RangePreviewEnd}"
+										Width="300" Height="15" HorizontalAlignment="Center"
+										Margin="2"
+										/>
+									<TextBlock
+										Text="{Binding RangePreviewLengthText}"
+										HorizontalAlignment="Center"/>
+								</StackPanel>
+							</ContentControl>
+						</Popup>
+						<!--<TextBlock Text="{Binding RangeSummary}" Style="{StaticResource PlainTitle}" />-->
 					</StackPanel>
 
 					<TextBlock
@@ -644,7 +700,7 @@
 								<DataTemplate>
 									<StackPanel Orientation="Horizontal">
 										<ComboBox ItemsSource="{Binding MainViewModel.InputTracks}" SelectedIndex="{Binding SelectedIndex}" MinWidth="180" Margin="2" />
-										<Button Command="{Binding RemoveChoice}" Height="23" Margin="2" Style="{StaticResource RemoveButtonStyle}">Remove audio track</Button>
+										<Button Command="{Binding RemoveCommand}" Height="23" Margin="2" Style="{StaticResource RemoveButtonStyle}">Remove audio track</Button>
 									</StackPanel>
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>
@@ -714,7 +770,7 @@
 					Text="{Binding OutputPathVM.OutputPath, UpdateSourceTrigger=PropertyChanged}"
 					GotFocus="DestinationEditBoxGotFocus"
 					LostFocus="DestinationEditBoxLostFocus"
-					PreviewKeyDown="destinationEditBox_PreviewKeyDown"/>
+					PreviewKeyDown="DestinationEditBoxPreviewKeyDown"/>
 				<Grid
 					Name="destinationReadCover"
 					Background="Transparent"
@@ -1005,30 +1061,15 @@
 						Value="{Binding ProcessingVM.OverallEncodeProgressPercent, Mode=OneWay}" Height="24" VerticalAlignment="Top"
 						Foreground="{Binding ProcessingVM.ProgressBarColor}" />
 				<TextBlock
-						Text="{Binding ProcessingVM.OverallEncodeProgressPercent, Mode=OneWay, Converter={StaticResource PercentDisplayConverter}}"
-						VerticalAlignment="Center" HorizontalAlignment="Center" />
+					Text="{Binding ProcessingVM.OverallEncodeProgressPercent, Mode=OneWay, Converter={StaticResource PercentDisplayConverter}}"
+					VerticalAlignment="Center" HorizontalAlignment="Center" />
 				<Popup
-						Name="encodeProgressDetailsPopup" IsOpen="False"
-						PlacementTarget="{Binding ElementName=overallEncodeProgressBar}"
-						Placement="Bottom"
-						HorizontalOffset="50"
-						VerticalOffset="10"
-						AllowsTransparency="True">
-					<Border
-							BorderBrush="Gray"
-							BorderThickness="1"
-							CornerRadius="4"
-							Margin="10"
-							Visibility="{Binding ProcessingVM.EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}">
-						<Border.Effect>
-							<DropShadowEffect ShadowDepth="6" BlurRadius="3" Direction="315" Opacity="0.3" />
-						</Border.Effect>
-						<Border.Background>
-							<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-								<GradientStop Color="White" Offset="0.0" />
-								<GradientStop Color="LightGray" Offset="1.0" />
-							</LinearGradientBrush>
-						</Border.Background>
+					Name="encodeProgressDetailsPopup" IsOpen="False"
+					PlacementTarget="{Binding ElementName=overallEncodeProgressBar}"
+					Placement="Center"
+					VerticalOffset="36"
+					AllowsTransparency="True">
+					<ContentControl Template="{StaticResource PopupInfoTemplate}">
 						<Grid Margin="7,2,7,2">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto" />
@@ -1053,7 +1094,7 @@
 								Grid.Row="1" Grid.Column="1" TextAlignment="Center"
 								Style="{StaticResource EncodeDetailsText}"/>
 						</Grid>
-					</Border>
+					</ContentControl>
 				</Popup>
 			</Grid>
 

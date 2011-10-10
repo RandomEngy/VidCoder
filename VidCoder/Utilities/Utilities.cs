@@ -18,6 +18,7 @@ namespace VidCoder
 		public const string UpdateInfoUrl = "http://engy.us/VidCoder/latest.xml";
 		public const string AppDataFolderName = "VidCoder";
 		public const string LocalAppDataFolderName = "VidCoder";
+		public const string TimeFormat = @"h\:mm\:ss";
 		public const int CurrentDatabaseVersion = 11;
 
 		private static List<string> disallowedCharacters = new List<string> { "\\", "/", "\"", ":", "*", "?", "<", ">", "|" };
