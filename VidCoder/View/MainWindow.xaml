@@ -677,7 +677,7 @@
 									<controls:RangeBar
 										Duration="{Binding SelectedTitle.Duration}"
 										StartTime="{Binding RangePreviewStart}" EndTime="{Binding RangePreviewEnd}"
-										Width="300" Height="15" HorizontalAlignment="Center"
+										Width="200" Height="15" HorizontalAlignment="Center"
 										Margin="2"
 										/>
 									<TextBlock

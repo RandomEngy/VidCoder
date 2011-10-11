@@ -44,6 +44,14 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public EncodeJobViewModel Job
+		{
+			get
+			{
+				return this.job;
+			}
+		}
+
 		public ProcessingViewModel ProcessingVM
 		{
 			get

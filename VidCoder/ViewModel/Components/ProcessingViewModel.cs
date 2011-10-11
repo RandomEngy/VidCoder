@@ -744,7 +744,14 @@ namespace VidCoder.ViewModel.Components
 			{
 				return this.clearCompletedCommand ?? (this.clearCompletedCommand = new RelayCommand(() =>
 					{
+						var removedItems = new List<EncodeResultViewModel>(this.CompletedJobs);
 						this.CompletedJobs.Clear();
+
+						foreach (var removedItem in removedItems)
+						{
+							this.CleanupHandBrakeInstance(removedItem.Job.HandBrakeInstance);
+						}
+
 						this.RaisePropertyChanged("CompletedItemsCount");
 						this.RaisePropertyChanged("CompletedTabHeader");
 					}));
@@ -936,6 +943,36 @@ namespace VidCoder.ViewModel.Components
 		public HashSet<string> GetQueuedFiles()
 		{
 			return new HashSet<string>(this.EncodeQueue.Select(j => j.Job.OutputPath), StringComparer.OrdinalIgnoreCase);
+		}
+
+		/// <summary>
+		/// Cleans up the given HandBrake instance if it's not being used anymore.
+		/// </summary>
+		/// <param name="instance">The instance to clean up.</param>
+		public void CleanupHandBrakeInstance(HandBrakeInstance instance)
+		{
+			foreach (EncodeJobViewModel encodeJobVM in this.EncodeQueue)
+			{
+				if (instance == encodeJobVM.HandBrakeInstance)
+				{
+					return;
+				}
+			}
+
+			foreach (EncodeResultViewModel resultVM in this.CompletedJobs)
+			{
+				if (instance == resultVM.Job.HandBrakeInstance)
+				{
+					return;
+				}
+			}
+
+			if (instance == this.main.ScanInstance)
+			{
+				return;
+			}
+
+			instance.Dispose();
 		}
 
 		private void EncodeNextJob()
@@ -1158,8 +1195,6 @@ namespace VidCoder.ViewModel.Components
 					HandBrakeInstance finishedInstance = this.EncodeQueue[0].HandBrakeInstance;
 					this.EncodeQueue.RemoveAt(0);
 					this.RaisePropertyChanged("QueuedTabHeader");
-
-					this.main.CleanupHandBrakeInstance(finishedInstance);
 
 					this.logger.Log("Job completed");
 

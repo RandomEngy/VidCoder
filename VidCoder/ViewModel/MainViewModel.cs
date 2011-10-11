@@ -1741,28 +1741,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		/// <summary>
-		/// Cleans up the given HandBrake instance if it's not being used anymore.
-		/// </summary>
-		/// <param name="instance">The instance to clean up.</param>
-		public void CleanupHandBrakeInstance(HandBrakeInstance instance)
-		{
-			foreach (EncodeJobViewModel encodeJobVM in this.ProcessingVM.EncodeQueue)
-			{
-				if (instance == encodeJobVM.HandBrakeInstance)
-				{
-					return;
-				}
-			}
-
-			if (instance == this.scanInstance)
-			{
-				return;
-			}
-
-			instance.Dispose();
-		}
-
 		public VideoSourceMetadata GetVideoSourceMetadata()
 		{
 			var metadata = new VideoSourceMetadata
@@ -1971,7 +1949,7 @@ namespace VidCoder.ViewModel
 			HandBrakeInstance oldInstance = this.scanInstance;
 			if (oldInstance != null)
 			{
-				this.CleanupHandBrakeInstance(oldInstance);
+				this.ProcessingVM.CleanupHandBrakeInstance(oldInstance);
 			}
 
 			this.logger.Log("Starting scan: " + path);
