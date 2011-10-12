@@ -36,6 +36,20 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public string PresetName { get; set; }
+		private string presetName;
+		public string PresetName
+		{
+			get
+			{
+				return this.presetName;
+			}
+
+			set
+			{
+				this.presetName = value;
+				this.RaisePropertyChanged("PresetName");
+				this.AcceptCommand.RaiseCanExecuteChanged();
+			}
+		}
 	}
 }
