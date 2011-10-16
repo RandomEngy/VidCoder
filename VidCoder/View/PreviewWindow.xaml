@@ -34,7 +34,7 @@
 		<KeyBinding Key="D" Modifiers="Control" Command="{Binding OutputPathVM.PickOutputPathCommand}" />
 	</Window.InputBindings>
 	<Grid>
-		<Grid Margin="0" Name="previewImageHolder" SizeChanged="previewImageHolder_SizeChanged" Background="#222222">
+		<Grid Margin="0" Name="previewImageHolder" SizeChanged="previewImageHolder_SizeChanged" Background="#666666">
 			<Image
 				Name="previewImage" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Top"
 				Source="{Binding PreviewImage}"
