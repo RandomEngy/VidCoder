@@ -385,6 +385,7 @@ namespace VidCoder.ViewModel.Components
 				this.main.SourcePath,
 				translatedSourceName,
 				this.main.SelectedTitle.TitleNumber,
+				this.main.SelectedTitle.Duration,
 				this.main.RangeType,
 				this.main.SelectedStartChapter.ChapterNumber,
 				this.main.SelectedEndChapter.ChapterNumber,
@@ -488,12 +489,13 @@ namespace VidCoder.ViewModel.Components
 			return null;
 		}
 
-		public string BuildOutputFileName(string sourcePath, string sourceName, int title, int totalChapters)
+		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, int totalChapters)
 		{
 			return this.BuildOutputFileName(
 				sourcePath,
 				sourceName,
 				title,
+				titleDuration,
 				VideoRangeType.Chapters,
 				1,
 				totalChapters,
@@ -504,7 +506,7 @@ namespace VidCoder.ViewModel.Components
 				0);
 		}
 
-		public string BuildOutputFileName(string sourcePath, string sourceName, int title, VideoRangeType rangeType, int startChapter, int endChapter, int totalChapters, double startSecond, double endSecond, int startFrame, int endFrame)
+		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, VideoRangeType rangeType, int startChapter, int endChapter, int totalChapters, double startSecond, double endSecond, int startFrame, int endFrame)
 		{
 			string fileName;
 			if (Settings.Default.AutoNameCustomFormat)
@@ -536,6 +538,8 @@ namespace VidCoder.ViewModel.Components
 				fileName = fileName.Replace("{source}", sourceName);
 				fileName = ReplaceTitles(fileName, title);
 				fileName = fileName.Replace("{range}", rangeString);
+
+				fileName = fileName.Replace("{titleduration}", titleDuration.ToString(@"h\.mm\.ss", CultureInfo.InvariantCulture));
 
 				// {chapters} is deprecated in favor of {range} but we replace here for backwards compatibility.
 				fileName = fileName.Replace("{chapters}", rangeString);

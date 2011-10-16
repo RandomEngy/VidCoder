@@ -70,7 +70,7 @@
 						Margin="110,114,6,0" Height="22.959" VerticalAlignment="Top"
 						Text="{Binding CustomFormatString}"
 						IsEnabled="{Binding CustomFormatStringEnabled}" Width="399" />
-					<TextBlock Margin="110,138,6,117" TextWrapping="Wrap" Height="36" Width="399">Available options: {source} {title} {range} {preset} {date} {time} {quality} {parent}</TextBlock>
+					<TextBlock Margin="110,138,6,117" TextWrapping="Wrap" Height="36" Width="399">Available options: {source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}</TextBlock>
 
 					<CheckBox
 						Content="Output to the source directory if possible"

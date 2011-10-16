@@ -607,6 +607,7 @@ namespace VidCoder.ViewModel.Components
 									this.main.SourcePath,
 									queueSourceName,
 									titleNumber,
+									title.Duration,
 									title.Chapters.Count);
 
 								string extension = this.outputVM.GetOutputExtension(subtitles, title);
