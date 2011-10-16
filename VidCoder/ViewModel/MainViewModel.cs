@@ -124,7 +124,7 @@ namespace VidCoder.ViewModel
 				this,
 				message =>
 					{
-						this.AddTrackCommand.RaiseCanExecuteChanged();
+						DispatchService.BeginInvoke(() => { this.AddTrackCommand.RaiseCanExecuteChanged(); });
 					});
 
 			Messenger.Default.Register<HighlightedChapterChangedMessage>(
@@ -145,12 +145,6 @@ namespace VidCoder.ViewModel
 
 		public void UpdateDriveCollection()
 		{
-			if (!System.Windows.Threading.Dispatcher.CurrentDispatcher.CheckAccess())
-			{
-				System.Windows.Threading.Dispatcher.CurrentDispatcher.Invoke(new Action(this.UpdateDriveCollection));
-				return;
-			}
-
 			// Get new set of drives
 			IList<DriveInformation> newDriveCollection = this.driveService.GetDiscInformation();
 
@@ -2051,7 +2045,7 @@ namespace VidCoder.ViewModel
 				this.ScanError = true;
 			}
 
-			Messenger.Default.Send(new VideoSourceChangedMessage());
+			DispatchService.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
 		}
 
 		private void ClearVideoSource()
@@ -2062,7 +2056,7 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged("SourceOptionsVisible");
 			this.RaisePropertyChanged("SourcePicked");
 
-			Messenger.Default.Send(new VideoSourceChangedMessage());
+			DispatchService.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
 			Messenger.Default.Send(new RefreshPreviewMessage());
 		}
 
