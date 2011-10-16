@@ -39,9 +39,10 @@ namespace VidCoder
 					Settings.Default.Save();
 				}
 			}
-			catch (ConfigurationErrorsException)
+			catch (ConfigurationErrorsException exception)
 			{
 				// This exception will happen if the user.config Settings file becomes corrupt.
+				string userConfigFileName = ((ConfigurationErrorsException)exception.InnerException).Filename;
 
 				// Need to show two message boxes since the first is dismissed by the splash screen due to a bug
 				MessageBox.Show(string.Empty);
@@ -54,7 +55,14 @@ namespace VidCoder
 				if (result == MessageBoxResult.Yes)
 				{
 					// Clear out any user.config files
-					Utilities.ClearFiles(Utilities.LocalAppFolder);
+					try
+					{
+						File.Delete(userConfigFileName);
+					}
+					catch (IOException)
+					{
+						MessageBox.Show("Unable to delete " + userConfigFileName);
+					}
 
 					// Need to relaunch the process to get the configuration system working again
 					Process.Start(System.Reflection.Assembly.GetExecutingAssembly().Location);
