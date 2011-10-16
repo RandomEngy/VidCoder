@@ -21,6 +21,7 @@ namespace VidCoder
 
 		private Stopwatch stopwatch;
 		private object refireSync = new object();
+		private bool running = false;
 
 		public RefireControl(Action refireAction)
 		{
@@ -29,36 +30,43 @@ namespace VidCoder
 
 		public void Begin()
 		{
-			this.stopwatch = Stopwatch.StartNew();
+			lock (this.refireSync)
+			{
+				this.stopwatch = Stopwatch.StartNew();
+				this.running = true;
 
-			// Fire once immediately.
-			refireAction();
+				// Fire once immediately.
+				refireAction();
 
-			this.refireTimer = new Timer(
-				obj =>
-				{
-					lock (this.refireSync)
-					{
-						int stage = (int)(this.stopwatch.ElapsedMilliseconds / StageDurationMsec);
-						int newDelay;
-
-						if (stage >= Delays.Count)
+				this.refireTimer = new Timer(
+					obj =>
 						{
-							newDelay = Delays[Delays.Count - 1];
-						}
-						else
-						{
-							newDelay = Delays[stage];
-						}
+							lock (this.refireSync)
+							{
+								if (this.running)
+								{
+									int stage = (int) (this.stopwatch.ElapsedMilliseconds / StageDurationMsec);
+									int newDelay;
 
-						Application.Current.Dispatcher.BeginInvoke(refireAction);
+									if (stage >= Delays.Count)
+									{
+										newDelay = Delays[Delays.Count - 1];
+									}
+									else
+									{
+										newDelay = Delays[stage];
+									}
 
-						this.refireTimer.Change(newDelay, newDelay);
-					}
-				},
-				null,
-				Delays[0],
-				Delays[0]);
+									Application.Current.Dispatcher.BeginInvoke(refireAction);
+
+									this.refireTimer.Change(newDelay, newDelay);
+								}
+							}
+						},
+					null,
+					Delays[0],
+					Delays[0]);
+			}
 		}
 
 		public void Stop()
@@ -66,6 +74,7 @@ namespace VidCoder
 			lock (this.refireSync)
 			{
 				this.stopwatch.Stop();
+				this.running = false;
 
 				if (this.refireTimer != null)
 				{
