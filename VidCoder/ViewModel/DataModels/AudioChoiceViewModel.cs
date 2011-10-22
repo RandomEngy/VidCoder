@@ -5,7 +5,9 @@ using System.Text;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Practices.Unity;
+using VidCoder.Messages;
 
 namespace VidCoder.ViewModel
 {
@@ -37,11 +39,7 @@ namespace VidCoder.ViewModel
 				this.selectedTrack = value;
 				this.RaisePropertyChanged("SelectedIndex");
 
-				EncodingViewModel encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel)) as EncodingViewModel;
-				if (encodingWindow != null)
-				{
-					encodingWindow.NotifyAudioInputChanged();
-				}
+				Messenger.Default.Send(new AudioInputChangedMessage());
 			}
 		}
 

@@ -119,6 +119,7 @@ namespace VidCoder.ViewModel
 			this.DriveCollection = this.driveService.GetDiscInformation();
 
 			this.audioChoices = new ObservableCollection<AudioChoiceViewModel>();
+			this.audioChoices.CollectionChanged += (o, e) => { Messenger.Default.Send(new AudioInputChangedMessage()); };
 
 			Messenger.Default.Register<SelectedTitleChangedMessage>(
 				this,

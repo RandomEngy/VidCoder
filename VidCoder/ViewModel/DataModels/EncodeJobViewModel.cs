@@ -289,7 +289,7 @@ namespace VidCoder.ViewModel
 				var encodingParts = new List<string>();
 				foreach (AudioEncoding audioEncoding in this.Profile.AudioEncodings)
 				{
-					encodingParts.Add(DisplayConversions.DisplayAudioEncoder(audioEncoding.Encoder));
+					encodingParts.Add(Encoders.GetAudioEncoder(audioEncoding.Encoder).DisplayName);
 				}
 
 				return string.Join(", ", encodingParts);
@@ -323,7 +323,7 @@ namespace VidCoder.ViewModel
 				var bitrateParts = new List<string>();
 				foreach (AudioEncoding audioEncoding in this.Profile.AudioEncodings)
 				{
-					if (!Utilities.IsPassthrough(audioEncoding.Encoder))
+					if (!Encoders.GetAudioEncoder(audioEncoding.Encoder).IsPassthrough)
 					{
 						bitrateParts.Add(audioEncoding.Bitrate.ToString());
 					}

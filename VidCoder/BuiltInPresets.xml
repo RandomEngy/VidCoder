@@ -29,7 +29,7 @@
 			<Denoise>Off</Denoise>
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
-			<VideoEncoder>X264</VideoEncoder>
+			<VideoEncoder>x264</VideoEncoder>
 			<X264Options>ref=1:weightp=1:subq=2:rc-lookahead=10:trellis=0:8x8dct=0</X264Options>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
@@ -41,9 +41,9 @@
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
-					<Encoder>Faac</Encoder>
-					<Bitrate>160</Bitrate>
-					<Mixdown>DolbyProLogicII</Mixdown>
+					<Encoder>faac</Encoder>
+					<Bitrate>0</Bitrate>
+					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
@@ -85,7 +85,7 @@
 			<Denoise>Off</Denoise>
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
-			<VideoEncoder>X264</VideoEncoder>
+			<VideoEncoder>x264</VideoEncoder>
 			<X264Options>rc-lookahead=50:b-adapt=2</X264Options>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
@@ -97,17 +97,17 @@
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
-					<Encoder>Faac</Encoder>
-					<Bitrate>160</Bitrate>
+					<Encoder>faac</Encoder>
+					<Bitrate>0</Bitrate>
 					<Mixdown>DolbyProLogicII</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
-					<Encoder>Ac3Passthrough</Encoder>
+					<Encoder>copy:ac3</Encoder>
 					<Bitrate>0</Bitrate>
-					<Mixdown>DolbyProLogicII</Mixdown>
+					<Mixdown>dpl2</Mixdown>
 					<Drc>0</Drc>
 				</AudioEncoding>
 			</AudioEncodings>
@@ -148,7 +148,7 @@
 			<Denoise>Off</Denoise>
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
-			<VideoEncoder>X264</VideoEncoder>
+			<VideoEncoder>x264</VideoEncoder>
 			<X264Options>ref=2:bframes=0:weightp=0:me=umh:subme=6:8x8dct=0:cabac=0:trellis=0</X264Options>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
@@ -161,17 +161,17 @@
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
-					<Encoder>Faac</Encoder>
-					<Bitrate>160</Bitrate>
-					<Mixdown>DolbyProLogicII</Mixdown>
+					<Encoder>faac</Encoder>
+					<Bitrate>0</Bitrate>
+					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
-					<Encoder>Ac3Passthrough</Encoder>
+					<Encoder>copy:ac3</Encoder>
 					<Bitrate>0</Bitrate>
-					<Mixdown>DolbyProLogicII</Mixdown>
+					<Mixdown>dpl2</Mixdown>
 					<Drc>0</Drc>
 				</AudioEncoding>
 			</AudioEncodings>
@@ -212,7 +212,7 @@
 			<Denoise>Off</Denoise>
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
-			<VideoEncoder>X264</VideoEncoder>
+			<VideoEncoder>x264</VideoEncoder>
 			<X264Options>level=30:vbv-maxrate=768:vbv-bufsize=2000:no-fast-pskip=1:ref=1:bframes=0:weightp=0:me=umh:subme=6:analyse=all:8x8dct=0:cabac=0:trellis=0</X264Options>
 			<VideoEncodeRateType>AverageBitrate</VideoEncodeRateType>
 			<Quality>20</Quality>
@@ -225,9 +225,9 @@
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
-					<Encoder>Faac</Encoder>
-					<Bitrate>160</Bitrate>
-					<Mixdown>DolbyProLogicII</Mixdown>
+					<Encoder>faac</Encoder>
+					<Bitrate>0</Bitrate>
+					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
@@ -269,7 +269,7 @@
 			<Denoise>Off</Denoise>
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
-			<VideoEncoder>X264</VideoEncoder>
+			<VideoEncoder>x264</VideoEncoder>
 			<X264Options>ref=2:bframes=0:weightp=0:me=umh:subme=6:8x8dct=0:cabac=0:trellis=0</X264Options>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
@@ -282,9 +282,9 @@
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
-					<Encoder>Faac</Encoder>
+					<Encoder>faac</Encoder>
 					<Bitrate>128</Bitrate>
-					<Mixdown>DolbyProLogicII</Mixdown>
+					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
@@ -326,7 +326,7 @@
 			<Denoise>Off</Denoise>
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
-			<VideoEncoder>X264</VideoEncoder>
+			<VideoEncoder>x264</VideoEncoder>
 			<X264Options />
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
@@ -339,9 +339,9 @@
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
-					<Encoder>Faac</Encoder>
-					<Bitrate>160</Bitrate>
-					<Mixdown>DolbyProLogicII</Mixdown>
+					<Encoder>faac</Encoder>
+					<Bitrate>0</Bitrate>
+					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
@@ -383,7 +383,7 @@
 			<Denoise>Off</Denoise>
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
-			<VideoEncoder>X264</VideoEncoder>
+			<VideoEncoder>x264</VideoEncoder>
 			<X264Options />
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
@@ -396,9 +396,9 @@
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
-					<Encoder>Faac</Encoder>
-					<Bitrate>160</Bitrate>
-					<Mixdown>DolbyProLogicII</Mixdown>
+					<Encoder>faac</Encoder>
+					<Bitrate>0</Bitrate>
+					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
@@ -440,7 +440,7 @@
 			<Denoise>Off</Denoise>
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
-			<VideoEncoder>X264</VideoEncoder>
+			<VideoEncoder>x264</VideoEncoder>
 			<X264Options>weightb=0:vbv-maxrate=9500:vbv-bufsize=9500:ref=2:b-adapt=2:b-pyramid=none:weightp=0:me=umh:cabac=0:trellis=0</X264Options>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
@@ -453,17 +453,17 @@
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
-					<Encoder>Faac</Encoder>
-					<Bitrate>160</Bitrate>
-					<Mixdown>DolbyProLogicII</Mixdown>
+					<Encoder>faac</Encoder>
+					<Bitrate>0</Bitrate>
+					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
-					<Encoder>Ac3Passthrough</Encoder>
+					<Encoder>copy:ac3</Encoder>
 					<Bitrate>0</Bitrate>
-					<Mixdown>DolbyProLogicII</Mixdown>
+					<Mixdown>dpl2</Mixdown>
 					<Drc>0</Drc>
 				</AudioEncoding>
 			</AudioEncodings>
@@ -504,7 +504,7 @@
 			<Denoise>Off</Denoise>
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
-			<VideoEncoder>X264</VideoEncoder>
+			<VideoEncoder>x264</VideoEncoder>
 			<X264Options />
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
@@ -517,17 +517,17 @@
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
-					<Encoder>Faac</Encoder>
-					<Bitrate>160</Bitrate>
-					<Mixdown>DolbyProLogicII</Mixdown>
+					<Encoder>faac</Encoder>
+					<Bitrate>0</Bitrate>
+					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
-					<Encoder>Ac3Passthrough</Encoder>
+					<Encoder>copy:ac3</Encoder>
 					<Bitrate>0</Bitrate>
-					<Mixdown>DolbyProLogicII</Mixdown>
+					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>
@@ -570,7 +570,7 @@
 			<Denoise>Off</Denoise>
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
-			<VideoEncoder>X264</VideoEncoder>
+			<VideoEncoder>x264</VideoEncoder>
 			<X264Options>cabac=0:ref=2:me=umh:bframes=0:weightp=0:subq=6:8x8dct=0:trellis=0</X264Options>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>22</Quality>
@@ -583,9 +583,9 @@
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
-					<Encoder>Faac</Encoder>
+					<Encoder>faac</Encoder>
 					<Bitrate>128</Bitrate>
-					<Mixdown>DolbyProLogicII</Mixdown>
+					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
 					<Gain>0</Gain>
 					<Drc>0</Drc>
@@ -629,7 +629,7 @@
 			<Denoise>Off</Denoise>
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
-			<VideoEncoder>X264</VideoEncoder>
+			<VideoEncoder>x264</VideoEncoder>
 			<X264Options>weightp=0:cabac=0</X264Options>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>22</Quality>
@@ -642,9 +642,9 @@
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
-					<Encoder>Faac</Encoder>
+					<Encoder>faac</Encoder>
 					<Bitrate>128</Bitrate>
-					<Mixdown>DolbyProLogicII</Mixdown>
+					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
 					<Gain>0</Gain>
 					<Drc>0</Drc>

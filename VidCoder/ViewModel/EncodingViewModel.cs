@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
+using VidCoder.Messages;
 using VidCoder.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -15,6 +17,7 @@ using HandBrake.Interop;
 using System.Windows;
 using Microsoft.Practices.Unity;
 using VidCoder.ViewModel.Components;
+using Container = HandBrake.Interop.Model.Encoding.Container;
 
 namespace VidCoder.ViewModel
 {
@@ -43,7 +46,6 @@ namespace VidCoder.ViewModel
 
 			this.EditingPreset = preset;
 			this.mainViewModel.PropertyChanged += this.OnMainPropertyChanged;
-			this.mainViewModel.AudioChoices.CollectionChanged += this.AudioChoicesCollectionChanged;
 		}
 
 		public MainViewModel MainViewModel
@@ -236,7 +238,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public OutputFormat OutputFormat
+		public Container OutputFormat
 		{
 			get
 			{
@@ -274,7 +276,7 @@ namespace VidCoder.ViewModel
 
 		public void RefreshExtensionChoice()
 		{
-			if (this.OutputFormat != OutputFormat.Mp4)
+			if (this.OutputFormat != Container.Mp4)
 			{
 				return;
 			}
@@ -282,7 +284,7 @@ namespace VidCoder.ViewModel
 			bool enableMp4 = true;
 			foreach (AudioEncodingViewModel audioVM in this.AudioPanelViewModel.AudioEncodings)
 			{
-				if (audioVM.SelectedAudioEncoder.Encoder == AudioEncoder.Ac3Passthrough)
+				if (audioVM.SelectedAudioEncoder.ShortName == "copy:ac3")
 				{
 					enableMp4 = false;
 					break;
@@ -377,7 +379,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.OutputFormat == OutputFormat.Mp4;
+				return this.OutputFormat == Container.Mp4;
 			}
 		}
 
@@ -547,10 +549,7 @@ namespace VidCoder.ViewModel
 				this.AudioPanelViewModel.NotifySelectedTitleChanged();
 				this.VideoPanelViewModel.NotifySelectedTitleChanged();
 
-				this.NotifyAudioInputChanged();
 				this.RaisePropertyChanged("HasSourceData");
-
-
 			}
 		}
 
@@ -570,23 +569,6 @@ namespace VidCoder.ViewModel
 		{
 			this.VideoPanelViewModel.UpdateVideoBitrate();
 			this.VideoPanelViewModel.UpdateTargetSize();
-		}
-
-		/// <summary>
-		/// Responds to changed audio input (selected tracks on main UI).
-		/// </summary>
-		public void NotifyAudioInputChanged()
-		{
-			this.AudioPanelViewModel.NotifyAudioInputChanged();
-
-			// When audio encoding changes, we need to recalculate the estimated video bitrate or target size.
-			this.VideoPanelViewModel.UpdateVideoBitrate();
-			this.VideoPanelViewModel.UpdateTargetSize();
-		}
-
-		private void AudioChoicesCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-		{
-			this.NotifyAudioInputChanged();
 		}
 	}
 }

@@ -23,7 +23,7 @@ namespace VidCoder.ViewModel
 		private ObservableCollection<SourceSubtitleViewModel> sourceSubtitles;
 		private ObservableCollection<SrtSubtitleViewModel> srtSubtitles;
 
-		private OutputFormat outputFormat;
+		private Container outputFormat;
 		private bool defaultsEnabled;
 
 		private List<string> inputTrackChoices;
@@ -243,7 +243,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public OutputFormat OutputFormat
+		public Container OutputFormat
 		{
 			get
 			{
@@ -318,7 +318,7 @@ namespace VidCoder.ViewModel
 		{
 			bool textSubtitleVisible = false;
 			EncodingProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
-			if (profile.OutputFormat == OutputFormat.Mp4 && profile.PreferredExtension == OutputExtension.Mp4)
+			if (profile.OutputFormat == Container.Mp4 && profile.PreferredExtension == OutputExtension.Mp4)
 			{
 				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
 				{

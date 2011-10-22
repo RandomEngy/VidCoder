@@ -25,5 +25,7 @@ namespace VidCoder.ViewModel
 		public string Gain { get; set; }
 
 		public string Drc { get; set; }
+
+		public string Modifiers { get; set; }
 	}
 }

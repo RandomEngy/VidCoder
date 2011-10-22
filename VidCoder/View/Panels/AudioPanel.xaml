@@ -35,13 +35,13 @@
 			<ComboBox MinWidth="95"
 				ItemsSource="{Binding AudioEncoders}"
 				SelectedItem="{Binding SelectedAudioEncoder}"
-				DisplayMemberPath="Display"/>
+				DisplayMemberPath="DisplayName"/>
 		</DataTemplate>
 		<DataTemplate x:Key="MixdownTemplate">
 			<ComboBox Width="125"
 				ItemsSource="{Binding MixdownChoices}"
 				SelectedItem="{Binding SelectedMixdown}"
-				DisplayMemberPath="Display"
+				DisplayMemberPath="DisplayName"
 				Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
 		</DataTemplate>
 		<DataTemplate x:Key="SampleRateTemplate">
@@ -60,8 +60,30 @@
 		<DataTemplate x:Key="BitrateTemplate">
 			<ComboBox Width="50"
 				ItemsSource="{Binding BitrateChoices}"
-				SelectedValue="{Binding Bitrate}"
-				Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
+				SelectedValue="{Binding SelectedBitrate}"
+				DisplayMemberPath="Display"
+				Visibility="{Binding BitrateVisible, Converter={StaticResource VisibilityConverter}}">
+				<ComboBox.ItemContainerStyle>
+					<Style TargetType="ComboBoxItem">
+						<Style.Triggers>
+							<MultiDataTrigger>
+								<MultiDataTrigger.Conditions>
+									<Condition Binding="{Binding IsCompatible}" Value="False" />
+									<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="False" />
+								</MultiDataTrigger.Conditions>
+								<Setter Property="Foreground" Value="Gray" />
+							</MultiDataTrigger>
+							<MultiDataTrigger>
+								<MultiDataTrigger.Conditions>
+									<Condition Binding="{Binding IsCompatible}" Value="False" />
+									<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="True" />
+								</MultiDataTrigger.Conditions>
+								<Setter Property="Foreground" Value="#DDDDDD" />
+							</MultiDataTrigger>
+						</Style.Triggers>
+					</Style>
+				</ComboBox.ItemContainerStyle>
+			</ComboBox>
 		</DataTemplate>
 		<DataTemplate x:Key="GainTemplate">
 			<controls:NumberBox
@@ -166,8 +188,9 @@
 												<ColumnDefinition Width="*" SharedSizeGroup="Mixdown"/>
 												<ColumnDefinition Width="*" SharedSizeGroup="SampleRate"/>
 												<ColumnDefinition Width="*" SharedSizeGroup="Bitrate"/>
-												<ColumnDefinition Width="*" SharedSizeGroup="Gain"/>
-												<ColumnDefinition Width="*" SharedSizeGroup="Drc" />
+												<!--<ColumnDefinition Width="*" SharedSizeGroup="Gain"/>
+												<ColumnDefinition Width="*" SharedSizeGroup="Drc" />-->
+												<ColumnDefinition Width="*" SharedSizeGroup="Modifiers" />
 											</Grid.ColumnDefinitions>
 
 											<TextBlock Grid.Column="0" Text="{Binding TrackNumber}" Style="{StaticResource AudioOutputPreview}"/>
@@ -176,8 +199,9 @@
 											<TextBlock Grid.Column="3" Text="{Binding Mixdown}" Style="{StaticResource AudioOutputPreview}"/>
 											<TextBlock Grid.Column="4" Text="{Binding SampleRate}" Style="{StaticResource AudioOutputPreview}"/>
 											<TextBlock Grid.Column="5" Text="{Binding Bitrate}" Style="{StaticResource AudioOutputPreview}"/>
-											<TextBlock Grid.Column="6" Text="{Binding Gain}" Style="{StaticResource AudioOutputPreview}"/>
-											<TextBlock Grid.Column="7" Text="{Binding Drc}" Style="{StaticResource AudioOutputPreview}"/>
+											<TextBlock Grid.Column="6" Text="{Binding Modifiers}" Style="{StaticResource AudioOutputPreview}"/>
+											<!--<TextBlock Grid.Column="6" Text="{Binding Gain}" Style="{StaticResource AudioOutputPreview}"/>
+											<TextBlock Grid.Column="7" Text="{Binding Drc}" Style="{StaticResource AudioOutputPreview}"/>-->
 										</Grid>
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>

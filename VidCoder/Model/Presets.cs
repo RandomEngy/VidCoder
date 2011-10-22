@@ -11,19 +11,43 @@ using System.Xml.Linq;
 using System.Threading;
 using System.Globalization;
 using HandBrake.Interop;
+using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 
 namespace VidCoder.Model
 {
 	public static class Presets
 	{
-		private const int CurrentPresetVersion = 3;
+		private const int CurrentPresetVersion = 4;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
 		private static XmlSerializer presetListSerializer = new XmlSerializer(typeof(PresetCollection));
 		private static XmlSerializer presetSerializer = new XmlSerializer(typeof(Preset));
 		private static object userPresetSync = new object();
+
+		static Presets()
+		{
+			int databaseVersion = DatabaseConfig.GetConfigInt("Version", Database.Connection);
+			if (databaseVersion < Utilities.CurrentDatabaseVersion)
+			{
+				var presets = GetPresetListFromDb();
+
+				foreach (Preset preset in presets)
+				{
+					UpgradePreset(preset);
+				}
+
+				var presetXmlList = presets.Select(SerializePreset).ToList();
+
+				using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
+				{
+					SavePresets(presetXmlList, Database.Connection);
+					DatabaseConfig.SetConfigValue("Version", Utilities.CurrentDatabaseVersion, Database.Connection);
+					transaction.Commit();
+				}
+			}
+		}
 
 		public static List<Preset> BuiltInPresets
 		{
@@ -43,17 +67,7 @@ namespace VidCoder.Model
 			{
 				lock (userPresetSync)
 				{
-					var result = new List<Preset>();
-
-					var selectPresetsCommand = new SQLiteCommand("SELECT * FROM presetsXml", Database.Connection);
-					using (SQLiteDataReader reader = selectPresetsCommand.ExecuteReader())
-					{
-						while (reader.Read())
-						{
-							string presetXml = reader.GetString("xml");
-							result.Add(LoadPresetXmlString(presetXml));
-						}
-					}
+					var result = GetPresetListFromDb();
 
 					if (result.Count == 0 && Directory.Exists(UserPresetsFolder))
 					{
@@ -75,17 +89,14 @@ namespace VidCoder.Model
 
 			set
 			{
-				var presetXmlList = new List<string>();
-
-				foreach (Preset preset in value)
-				{
-					presetXmlList.Add(SerializePreset(preset));
-				}
+				var presetXmlList = value.Select(SerializePreset).ToList();
 
 				// Do the actual save asynchronously.
 				ThreadPool.QueueUserWorkItem(SaveUserPresetsBackground, presetXmlList);
 			}
 		}
+
+
 
 		/// <summary>
 		/// Serializes a preset to XML. Does not include wrapper.
@@ -131,8 +142,7 @@ namespace VidCoder.Model
 					var preset = presetSerializer.Deserialize(reader) as Preset;
 					if (version < CurrentPresetVersion)
 					{
-						// Remove the preset if it hasn't been upgraded by now.
-						return null;
+						UpgradePreset(preset);
 					}
 
 					return preset;
@@ -157,7 +167,9 @@ namespace VidCoder.Model
 				{
 					using (var xmlReader = new XmlTextReader(stringReader))
 					{
-						return presetSerializer.Deserialize(xmlReader) as Preset;
+						var preset = presetSerializer.Deserialize(xmlReader) as Preset;
+
+						return preset;
 					}
 				}
 			}
@@ -222,23 +234,135 @@ namespace VidCoder.Model
 					Directory.Delete(UserPresetsFolder);
 				}
 
+				var presetXmlList = presetXmlListObject as List<string>;
+
 				SQLiteConnection connection = Database.CreateConnection();
 
 				using (SQLiteTransaction transaction = connection.BeginTransaction())
 				{
-					Database.ExecuteNonQuery("DELETE FROM presetsXml", connection);
+					SavePresets(presetXmlList, connection);
+					transaction.Commit();
+				}
+			}
+		}
 
-					var insertCommand = new SQLiteCommand("INSERT INTO presetsXml (xml) VALUES (?)", connection);
-					SQLiteParameter insertXmlParam = insertCommand.Parameters.Add("xml", DbType.String);
+		private static void SavePresets(List<string> presetXmlList, SQLiteConnection connection)
+		{
+			Database.ExecuteNonQuery("DELETE FROM presetsXml", connection);
 
-					var presetXmlList = presetXmlListObject as List<string>;
-					foreach (string presetXml in presetXmlList)
+			var insertCommand = new SQLiteCommand("INSERT INTO presetsXml (xml) VALUES (?)", connection);
+			SQLiteParameter insertXmlParam = insertCommand.Parameters.Add("xml", DbType.String);
+
+			foreach (string presetXml in presetXmlList)
+			{
+				insertXmlParam.Value = presetXml;
+				insertCommand.ExecuteNonQuery();
+			}
+		}
+
+		private static List<Preset> GetPresetListFromDb()
+		{
+			var result = new List<Preset>();
+
+			var selectPresetsCommand = new SQLiteCommand("SELECT * FROM presetsXml", Database.Connection);
+			using (SQLiteDataReader reader = selectPresetsCommand.ExecuteReader())
+			{
+				while (reader.Read())
+				{
+					string presetXml = reader.GetString("xml");
+					result.Add(LoadPresetXmlString(presetXml));
+				}
+			}
+			return result;
+		}
+
+		private static void UpgradePreset(Preset preset)
+		{
+			// Upgrade preset: translate old Enum-based values to short name strings
+			if (!Encoders.VideoEncoders.Any(e => e.ShortName == preset.EncodingProfile.VideoEncoder))
+			{
+				string newVideoEncoder = "x264";
+				switch (preset.EncodingProfile.VideoEncoder)
+				{
+					case "X264":
+						newVideoEncoder = "x264";
+						break;
+					case "FFMpeg":
+						newVideoEncoder = "ffmpeg4";
+						break;
+					case "FFMpeg2":
+						newVideoEncoder = "ffmpeg2";
+						break;
+					case "Theora":
+						newVideoEncoder = "theora";
+						break;
+				}
+
+				preset.EncodingProfile.VideoEncoder = newVideoEncoder;
+			}
+
+			foreach (AudioEncoding encoding in preset.EncodingProfile.AudioEncodings)
+			{
+				if (!Encoders.AudioEncoders.Any(e => e.ShortName == encoding.Encoder))
+				{
+					string newAudioEncoder = "faac";
+					switch (encoding.Encoder)
 					{
-						insertXmlParam.Value = presetXml;
-						insertCommand.ExecuteNonQuery();
+						case "Faac":
+							newAudioEncoder = "faac";
+							break;
+						case "Lame":
+							newAudioEncoder = "lame";
+							break;
+						case "Ac3":
+							newAudioEncoder = "ffac3";
+							break;
+						case "Passthrough":
+							newAudioEncoder = "copy";
+							break;
+						case "Ac3Passthrough":
+							newAudioEncoder = "copy:ac3";
+							break;
+						case "DtsPassthrough":
+							newAudioEncoder = "copy:dts";
+							break;
+						case "Vorbis":
+							newAudioEncoder = "vorbis";
+							break;
 					}
 
-					transaction.Commit();
+					encoding.Encoder = newAudioEncoder;
+				}
+
+				if (!Encoders.Mixdowns.Any(m => m.ShortName == encoding.Mixdown))
+				{
+					string newMixdown = "dpl2";
+					switch (encoding.Mixdown)
+					{
+						case "Auto":
+							newMixdown = "none";
+							break;
+						case "None":
+							newMixdown = "none";
+							break;
+						case "Mono":
+							newMixdown = "mono";
+							break;
+						case "Stereo":
+							newMixdown = "stereo";
+							break;
+						case "DolbySurround":
+							newMixdown = "dpl1";
+							break;
+						case "DolbyProLogicII":
+							newMixdown = "dpl2";
+							break;
+						case "SixChannelDiscrete":
+							newMixdown = "6ch";
+							break;
+					}
+
+					encoding.Mixdown = newMixdown;
 				}
 			}
 		}

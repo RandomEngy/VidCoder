@@ -66,7 +66,7 @@
 				Height="23" HorizontalAlignment="Left" Margin="123.876,43.956,0,0" VerticalAlignment="Top" Width="122"
 				ItemsSource="{Binding EncoderChoices}"
 				SelectedItem="{Binding SelectedEncoder}"
-				DisplayMemberPath="Display" />
+				DisplayMemberPath="DisplayName" />
 			<ComboBox
 				Height="23" HorizontalAlignment="Left" Margin="123.876,78,0,0" VerticalAlignment="Top" Width="122"
 				ItemsSource="{Binding FramerateChoices}"
@@ -151,7 +151,9 @@
 				Height="21" HorizontalAlignment="Right" Margin="0,149,6,0" VerticalAlignment="Top" Width="93" TextAlignment="Right"
 				Text="{Binding QualitySliderRightText}"
 				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}"/>
-			<Grid Height="135" Margin="6,179,15,0" Name="grid1" VerticalAlignment="Top">
+			<Grid
+				Height="135" Margin="6,179,15,0" Name="grid1" VerticalAlignment="Top"
+				Visibility="{Binding X264SettingsVisible, Converter={StaticResource VisibilityConverter}}">
 				<TextBlock
 					Height="21" HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource SectionHeader}" Text="x264 Basic Settings" VerticalAlignment="Top" Width="119" />
 				

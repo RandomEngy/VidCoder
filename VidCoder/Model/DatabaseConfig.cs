@@ -31,6 +31,11 @@ namespace VidCoder.Model
 			return bool.Parse(GetConfigString(configName, connection));
 		}
 
+		public static int GetConfigInt(string configName, SQLiteConnection connection)
+		{
+			return int.Parse(GetConfigString(configName, connection));
+		}
+
 		public static string GetConfigString(string configName, SQLiteConnection connection)
 		{
 			using (var command = new SQLiteCommand("SELECT value FROM settings WHERE name = '" + configName + "'", connection))
@@ -69,6 +74,11 @@ namespace VidCoder.Model
 		}
 
 		public static void SetConfigValue(string configName, bool value, SQLiteConnection connection)
+		{
+			SetConfigValue(configName, value.ToString(), connection);
+		}
+
+		public static void SetConfigValue(string configName, int value, SQLiteConnection connection)
 		{
 			SetConfigValue(configName, value.ToString(), connection);
 		}

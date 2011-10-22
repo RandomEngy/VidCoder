@@ -304,6 +304,7 @@
     <Compile Include="Converters\ChapterVMConverter.cs" />
     <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="EnumStringConverter.cs" />
+    <Compile Include="Messages\AudioInputChangedMessage.cs" />
     <Compile Include="Messages\HighlightedChapterChangedMessage.cs" />
     <Compile Include="Messages\OutputFolderChangedMessage.cs" />
     <Compile Include="Messages\OutputPathChangedMessage.cs" />
@@ -349,6 +350,7 @@
     <Compile Include="ViewModel\Components\PresetsViewModel.cs" />
     <Compile Include="ViewModel\Components\ProcessingViewModel.cs" />
     <Compile Include="ViewModel\Components\WindowManagerViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\BitrateChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\ChapterViewModel.cs" />
     <Compile Include="ViewModel\FileConflictDialogViewModel.cs" />
     <Compile Include="View\FileConflictDialog.xaml.cs">

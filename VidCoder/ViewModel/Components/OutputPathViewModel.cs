@@ -241,7 +241,7 @@ namespace VidCoder.ViewModel.Components
 			}
 
 			EncodingProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
-			if (profile.OutputFormat == OutputFormat.Mkv)
+			if (profile.OutputFormat == Container.Mkv)
 			{
 				extension = ".mkv";
 			}
@@ -278,7 +278,7 @@ namespace VidCoder.ViewModel.Components
 			EncodingProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
 			string extension;
 
-			if (profile.OutputFormat == OutputFormat.Mkv)
+			if (profile.OutputFormat == Container.Mkv)
 			{
 				extension = "mkv";
 			}

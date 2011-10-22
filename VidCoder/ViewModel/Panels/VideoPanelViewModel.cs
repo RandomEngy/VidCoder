@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop;
+using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using Microsoft.Practices.Unity;
+using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.ViewModel.Components;
 
@@ -18,9 +21,9 @@ namespace VidCoder.ViewModel
 
 		private OutputPathViewModel outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
 
-		private ObservableCollection<VideoEncoderViewModel> encoderChoices;
+		private List<HBEncoder> encoderChoices;
 
-		private VideoEncoderViewModel selectedEncoder;
+		private HBEncoder selectedEncoder;
 		private List<double> framerateChoices;
 		private int displayTargetSize;
 		private int displayVideoBitrate;
@@ -32,11 +35,7 @@ namespace VidCoder.ViewModel
 		public VideoPanelViewModel(EncodingViewModel encodingViewModel)
 			: base(encodingViewModel)
 		{
-			this.encoderChoices = new ObservableCollection<VideoEncoderViewModel>
-			{
-			    new VideoEncoderViewModel {Encoder = VideoEncoder.FFMpeg, Display = "MPEG-4 (FFMpeg)"},
-			    new VideoEncoderViewModel {Encoder = VideoEncoder.X264, Display = "H.264 (x264)"}
-			};
+			this.encoderChoices = new List<HBEncoder>();
 
 			this.x264ProfileChoices = new List<ComboChoice>
 			{
@@ -85,6 +84,20 @@ namespace VidCoder.ViewModel
 				25,
 				29.97
 			};
+
+			Messenger.Default.Register<AudioInputChangedMessage>(
+				this,
+				message =>
+					{
+						this.NotifyAudioInputChanged();
+					});
+
+			Messenger.Default.Register<SelectedTitleChangedMessage>(
+				this,
+				message =>
+					{
+						this.NotifyAudioInputChanged();
+					});
 		}
 
 		public string InputType
@@ -126,7 +139,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ObservableCollection<VideoEncoderViewModel> EncoderChoices
+		public List<HBEncoder> EncoderChoices
 		{
 			get
 			{
@@ -134,7 +147,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public VideoEncoderViewModel SelectedEncoder
+		public HBEncoder SelectedEncoder
 		{
 			get
 			{
@@ -145,11 +158,12 @@ namespace VidCoder.ViewModel
 			{
 				if (value != null && value != this.selectedEncoder)
 				{
-					VideoEncoderViewModel oldEncoder = this.selectedEncoder;
+					HBEncoder oldEncoder = this.selectedEncoder;
 
 					this.selectedEncoder = value;
-					this.Profile.VideoEncoder = this.selectedEncoder.Encoder;
+					this.Profile.VideoEncoder = this.selectedEncoder.ShortName;
 					this.RaisePropertyChanged("SelectedEncoder");
+					this.RaisePropertyChanged("X264SettingsVisible");
 					this.RaisePropertyChanged("QualitySliderMin");
 					this.RaisePropertyChanged("QualitySliderMax");
 					this.RaisePropertyChanged("QualitySliderLeftText");
@@ -161,30 +175,32 @@ namespace VidCoder.ViewModel
 					{
 						double oldQualityFraction = 0.0;
 
-						switch (oldEncoder.Encoder)
+						switch (oldEncoder.ShortName)
 						{
-							case VideoEncoder.X264:
+							case "x264":
 								oldQualityFraction = 1.0 - this.Quality / 51.0;
 								break;
-							case VideoEncoder.FFMpeg:
+							case "ffmpeg4":
+							case "ffmpeg2":
 								oldQualityFraction = 1.0 - this.Quality / 31.0;
 								break;
-							case VideoEncoder.Theora:
+							case "theora":
 								oldQualityFraction = this.Quality / 63.0;
 								break;
 							default:
 								throw new InvalidOperationException("Unrecognized encoder.");
 						}
 
-						switch (value.Encoder)
+						switch (value.ShortName)
 						{
-							case VideoEncoder.X264:
+							case "x264":
 								this.Quality = Math.Round((1.0 - oldQualityFraction) * 51.0);
 								break;
-							case VideoEncoder.FFMpeg:
+							case "ffmpeg4":
+							case "ffmpeg2":
 								this.Quality = Math.Max(1.0, Math.Round((1.0 - oldQualityFraction) * 31.0));
 								break;
-							case VideoEncoder.Theora:
+							case "theora":
 								this.Quality = Math.Round(oldQualityFraction * 63);
 								break;
 							default:
@@ -192,6 +208,14 @@ namespace VidCoder.ViewModel
 						}
 					}
 				}
+			}
+		}
+
+		public bool X264SettingsVisible
+		{
+			get
+			{
+				return this.SelectedEncoder.ShortName == "x264";
 			}
 		}
 
@@ -312,15 +336,16 @@ namespace VidCoder.ViewModel
 				if (value == VideoEncodeRateType.ConstantQuality)
 				{
 					// Set up a default quality.
-					switch (this.SelectedEncoder.Encoder)
+					switch (this.SelectedEncoder.ShortName)
 					{
-						case VideoEncoder.X264:
+						case "x264":
 							this.Quality = 20;
 							break;
-						case VideoEncoder.FFMpeg:
+						case "ffmpeg4":
+						case "ffmpeg2":
 							this.Quality = 12;
 							break;
-						case VideoEncoder.Theora:
+						case "theora":
 							this.Quality = 38;
 							break;
 						default:
@@ -479,13 +504,14 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				switch (this.SelectedEncoder.Encoder)
+				switch (this.SelectedEncoder.ShortName)
 				{
-					case VideoEncoder.X264:
+					case "x264":
 						return 0;
-					case VideoEncoder.FFMpeg:
+					case "ffmpeg4":
+					case "ffmpeg2":
 						return 1;
-					case VideoEncoder.Theora:
+					case "theora":
 						return 0;
 					default:
 						return 0;
@@ -497,13 +523,14 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				switch (this.SelectedEncoder.Encoder)
+				switch (this.SelectedEncoder.ShortName)
 				{
-					case VideoEncoder.X264:
+					case "x264":
 						return 51;
-					case VideoEncoder.FFMpeg:
+					case "ffmpeg4":
+					case "ffmpeg2":
 						return 31;
-					case VideoEncoder.Theora:
+					case "theora":
 						return 63;
 					default:
 						return 0;
@@ -515,12 +542,13 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				switch (this.SelectedEncoder.Encoder)
+				switch (this.SelectedEncoder.ShortName)
 				{
-					case VideoEncoder.X264:
-					case VideoEncoder.FFMpeg:
+					case "x264":
+					case "ffmpeg4":
+					case "ffmpeg2":
 						return "High quality";
-					case VideoEncoder.Theora:
+					case "theora":
 						return "Low quality";
 					default:
 						return string.Empty;
@@ -532,12 +560,13 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				switch (this.SelectedEncoder.Encoder)
+				switch (this.SelectedEncoder.ShortName)
 				{
-					case VideoEncoder.X264:
-					case VideoEncoder.FFMpeg:
+					case "x264":
+					case "ffmpeg4":
+					case "ffmpeg2":
 						return "Low quality";
-					case VideoEncoder.Theora:
+					case "theora":
 						return "High quality";
 					default:
 						return string.Empty;
@@ -614,44 +643,44 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public void NotifyOutputFormatChanged(OutputFormat outputFormat)
+		public void NotifyOutputFormatChanged(Container outputFormat)
 		{
-			if (outputFormat == OutputFormat.Mkv)
+			// Refresh encoder choices based on output format change
+			HBEncoder oldEncoder = this.selectedEncoder;
+
+			this.RefreshEncoderChoices(outputFormat);
+
+			if (this.EncoderChoices.Contains(oldEncoder))
 			{
-				if (this.EncoderChoices.Count < 3)
-				{
-					this.EncoderChoices.Add(new VideoEncoderViewModel { Encoder = VideoEncoder.Theora, Display = "VP3 (Theora)" });
-				}
+				// Review: is this needed to set this?
+				this.SelectedEncoder = oldEncoder;
 			}
 			else
 			{
-				if (this.EncoderChoices.Count == 3)
+				this.SelectedEncoder = this.EncoderChoices[0];
+			}
+		}
+
+		private void RefreshEncoderChoices(Container outputFormat)
+		{
+			this.encoderChoices = new List<HBEncoder>();
+
+			foreach (HBEncoder encoder in Encoders.VideoEncoders)
+			{
+				if ((encoder.CompatibleContainers & outputFormat) > 0)
 				{
-					VideoEncoder oldEncoder = this.SelectedEncoder.Encoder;
-
-					this.EncoderChoices.RemoveAt(2);
-
-					if (oldEncoder == VideoEncoder.Theora)
-					{
-						this.SelectedEncoder = this.EncoderChoices[1];
-					}
+					this.EncoderChoices.Add(encoder);
 				}
 			}
+
+			this.RaisePropertyChanged("EncoderChoices");
 		}
 
 		public void NotifyProfileChanged()
 		{
-			if (this.encoderChoices.Count > 2)
-			{
-				this.encoderChoices.RemoveAt(2);
-			}
+			this.RefreshEncoderChoices(this.Profile.OutputFormat);
 
-			if (this.Profile.OutputFormat == OutputFormat.Mkv)
-			{
-				this.encoderChoices.Add(new VideoEncoderViewModel { Encoder = VideoEncoder.Theora, Display = "VP3 (Theora)" });
-			}
-
-			this.selectedEncoder = this.encoderChoices.Single(encoderChoice => encoderChoice.Encoder == this.Profile.VideoEncoder);
+			this.selectedEncoder = this.EncoderChoices.Single(e => e.ShortName == this.Profile.VideoEncoder);
 		}
 
 		public void NotifyAllChanged()
@@ -675,6 +704,7 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged("X264Profile");
 			this.RaisePropertyChanged("X264Preset");
 			this.RaisePropertyChanged("X264Tune");
+			this.RaisePropertyChanged("X264SettingsVisible");
 		}
 
 		/// <summary>
@@ -706,6 +736,12 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged("InputFramerate");
 
 			base.NotifySelectedTitleChanged();
+		}
+
+		private void NotifyAudioInputChanged()
+		{
+			this.UpdateVideoBitrate();
+			this.UpdateTargetSize();
 		}
 	}
 }

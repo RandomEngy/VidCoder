@@ -682,7 +682,7 @@ namespace VidCoder.ViewModel
 
 			string extension = null;
 
-			if (this.job.EncodingProfile.OutputFormat == OutputFormat.Mkv)
+			if (this.job.EncodingProfile.OutputFormat == Container.Mkv)
 			{
 				extension = ".mkv";
 			}

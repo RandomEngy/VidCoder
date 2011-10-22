@@ -13,7 +13,7 @@
 	Closing="Window_Closing"
 	ShowInTaskbar="False" WindowStyle="ToolWindow">
 	<Window.Resources>
-		<local:EnumDisplayer Type="{x:Type Encoding:OutputFormat}" x:Key="OutputFormatChoices" />
+		<local:EnumDisplayer Type="{x:Type Encoding:Container}" x:Key="OutputFormatChoices" />
 	</Window.Resources>
 	<Window.InputBindings>
 		<KeyBinding Key="Q" Modifiers="Control" Command="{Binding ProcessingVM.AddToQueueCommand}" />
