@@ -16,15 +16,11 @@ namespace VidCoder.ViewModel
 
 		public string Encoder { get; set; }
 
-		public string Bitrate { get; set; }
+		public string Quality { get; set; }
 
 		public string Mixdown { get; set; }
 
 		public string SampleRate { get; set; }
-
-		public string Gain { get; set; }
-
-		public string Drc { get; set; }
 
 		public string Modifiers { get; set; }
 	}

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Services;
 using System.IO;
@@ -403,6 +405,8 @@ namespace VidCoder.ViewModel
 						Settings.Default.PreviewCount = this.PreviewCount;
 						Settings.Default.ShowAudioTrackNameField = this.ShowAudioTrackNameField;
 						Settings.Default.Save();
+
+						Messenger.Default.Send(new OptionsChangedMessage());
 
 						this.AcceptCommand.Execute(null);
 					}));

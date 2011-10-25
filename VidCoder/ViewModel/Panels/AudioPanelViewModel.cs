@@ -197,10 +197,8 @@ namespace VidCoder.ViewModel
 						Encoder = "Encoder",
 						Mixdown = "Channel Layout",
 						SampleRate = "Sample Rate",
-						Bitrate = "Bitrate",
-						Modifiers = "Modifiers",
-						Gain = "Gain",
-						Drc = "DRC"
+						Quality = "Quality",
+						Modifiers = "Modifiers"
 					});
 				}
 
@@ -210,7 +208,7 @@ namespace VidCoder.ViewModel
 
 		public AudioOutputPreview GetAudioPreview(AudioTrack inputTrack, AudioEncodingViewModel audioVM)
 		{
-			HBEncoder encoder = audioVM.SelectedAudioEncoder;
+			HBAudioEncoder encoder = audioVM.SelectedAudioEncoder;
 
 			var outputPreviewTrack = new AudioOutputPreview
 			{
@@ -268,13 +266,20 @@ namespace VidCoder.ViewModel
 			outputPreviewTrack.Mixdown = previewMixdown.DisplayName;
 			outputPreviewTrack.SampleRate = DisplayConversions.DisplaySampleRate(previewSampleRate);
 
-			if (previewBitrate > 0)
+			if (audioVM.EncodeRateType == AudioEncodeRateType.Bitrate)
 			{
-				outputPreviewTrack.Bitrate = previewBitrate + " kbps";
+				if (previewBitrate >= 0)
+				{
+					outputPreviewTrack.Quality = previewBitrate + " kbps";
+				}
+				else
+				{
+					outputPreviewTrack.Quality = string.Empty;
+				}
 			}
 			else
 			{
-				outputPreviewTrack.Bitrate = string.Empty;
+				outputPreviewTrack.Quality = "CQ " + audioVM.AudioQuality;
 			}
 
 			var modifiers = new List<string>();
@@ -289,9 +294,6 @@ namespace VidCoder.ViewModel
 			}
 
 			outputPreviewTrack.Modifiers = string.Join(", ", modifiers);
-
-			//outputPreviewTrack.Gain = string.Format("{0}{1} dB", audioVM.Gain > 0 ? "+" : string.Empty, audioVM.Gain);
-			//outputPreviewTrack.Drc = audioVM.Drc.ToString();
 
 			return outputPreviewTrack;
 		}

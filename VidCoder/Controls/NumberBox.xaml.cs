@@ -20,8 +20,8 @@ namespace VidCoder.Controls
 		public NumberBox()
 		{
 			this.noneCaption = "(none)";
-			this.Minimum = double.MinValue;
-			this.Maximum = double.MaxValue;
+			//this.Minimum = double.MinValue;
+			//this.Maximum = double.MaxValue;
 			this.UpdateBindingOnTextChange = true;
 			this.ShowIncrementButtons = true;
 			this.SelectAllOnClick = true;
@@ -57,10 +57,64 @@ namespace VidCoder.Controls
 			}
 		}
 
-		public double Modulus { get; set; }
 
-		public double Minimum { get; set; }
-		public double Maximum { get; set; }
+		public const string MinimumPropertyName = "Minimum";
+		public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register(
+			MinimumPropertyName,
+			typeof(double),
+			typeof(NumberBox),
+			new UIPropertyMetadata(double.MinValue));
+		public double Minimum
+		{
+			get
+			{
+				return (double)GetValue(MinimumProperty);
+			}
+			set
+			{
+				SetValue(MinimumProperty, value);
+			}
+		}
+
+		public const string MaximumPropertyName = "Maximum";
+		public static readonly DependencyProperty MaximumProperty = DependencyProperty.Register(
+			MaximumPropertyName,
+			typeof(double),
+			typeof(NumberBox),
+			new UIPropertyMetadata(double.MaxValue));
+		public double Maximum
+		{
+			get
+			{
+				return (double)GetValue(MaximumProperty);
+			}
+			set
+			{
+				SetValue(MaximumProperty, value);
+			}
+		}
+		//public double Minimum { get; set; }
+		//public double Maximum { get; set; }
+
+		public const string ModulusPropertyName = "Modulus";
+		public static readonly DependencyProperty ModulusProperty = DependencyProperty.Register(
+			ModulusPropertyName,
+			typeof(double),
+			typeof(NumberBox),
+			new UIPropertyMetadata(0.0));
+		public double Modulus
+		{
+			get
+			{
+				return (double)GetValue(ModulusProperty);
+			}
+			set
+			{
+				SetValue(ModulusProperty, value);
+			}
+		}
+
+		//public double Modulus { get; set; }
 
 		public bool UpdateBindingOnTextChange { get; set; }
 

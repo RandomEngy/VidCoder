@@ -42,6 +42,7 @@
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
 					<Encoder>faac</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
 					<Bitrate>0</Bitrate>
 					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
@@ -98,6 +99,7 @@
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
 					<Encoder>faac</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
 					<Bitrate>0</Bitrate>
 					<Mixdown>DolbyProLogicII</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
@@ -106,6 +108,7 @@
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
 					<Encoder>copy:ac3</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
 					<Bitrate>0</Bitrate>
 					<Mixdown>dpl2</Mixdown>
 					<Drc>0</Drc>
@@ -162,6 +165,7 @@
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
 					<Encoder>faac</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
 					<Bitrate>0</Bitrate>
 					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
@@ -170,6 +174,7 @@
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
 					<Encoder>copy:ac3</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
 					<Bitrate>0</Bitrate>
 					<Mixdown>dpl2</Mixdown>
 					<Drc>0</Drc>
@@ -226,6 +231,7 @@
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
 					<Encoder>faac</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
 					<Bitrate>0</Bitrate>
 					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
@@ -283,6 +289,7 @@
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
 					<Encoder>faac</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
 					<Bitrate>128</Bitrate>
 					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
@@ -340,6 +347,7 @@
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
 					<Encoder>faac</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
 					<Bitrate>0</Bitrate>
 					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
@@ -397,6 +405,7 @@
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
 					<Encoder>faac</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
 					<Bitrate>0</Bitrate>
 					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
@@ -454,6 +463,7 @@
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
 					<Encoder>faac</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
 					<Bitrate>0</Bitrate>
 					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
@@ -462,6 +472,7 @@
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
 					<Encoder>copy:ac3</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
 					<Bitrate>0</Bitrate>
 					<Mixdown>dpl2</Mixdown>
 					<Drc>0</Drc>
@@ -518,6 +529,7 @@
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
 					<Encoder>faac</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
 					<Bitrate>0</Bitrate>
 					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
@@ -526,6 +538,7 @@
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
 					<Encoder>copy:ac3</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
 					<Bitrate>0</Bitrate>
 					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
@@ -584,6 +597,7 @@
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
 					<Encoder>faac</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
 					<Bitrate>128</Bitrate>
 					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
@@ -643,6 +657,7 @@
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
 					<Encoder>faac</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
 					<Bitrate>128</Bitrate>
 					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>

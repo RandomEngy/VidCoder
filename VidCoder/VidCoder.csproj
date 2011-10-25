@@ -311,6 +311,7 @@
     <Compile Include="Messages\RefreshPreviewMessage.cs" />
     <Compile Include="Messages\ScanningChangedMessage.cs" />
     <Compile Include="Messages\SelectedTitleChangedMessage.cs" />
+    <Compile Include="Messages\OptionsChangedMessage.cs" />
     <Compile Include="Messages\VideoSourceChangedMessage.cs" />
     <Compile Include="Model\ComboChoice.cs" />
     <Compile Include="Model\Database.cs" />

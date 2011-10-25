@@ -21,9 +21,9 @@ namespace VidCoder.ViewModel
 
 		private OutputPathViewModel outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
 
-		private List<HBEncoder> encoderChoices;
+		private List<HBVideoEncoder> encoderChoices;
 
-		private HBEncoder selectedEncoder;
+		private HBVideoEncoder selectedEncoder;
 		private List<double> framerateChoices;
 		private int displayTargetSize;
 		private int displayVideoBitrate;
@@ -35,7 +35,7 @@ namespace VidCoder.ViewModel
 		public VideoPanelViewModel(EncodingViewModel encodingViewModel)
 			: base(encodingViewModel)
 		{
-			this.encoderChoices = new List<HBEncoder>();
+			this.encoderChoices = new List<HBVideoEncoder>();
 
 			this.x264ProfileChoices = new List<ComboChoice>
 			{
@@ -139,7 +139,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public List<HBEncoder> EncoderChoices
+		public List<HBVideoEncoder> EncoderChoices
 		{
 			get
 			{
@@ -147,7 +147,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public HBEncoder SelectedEncoder
+		public HBVideoEncoder SelectedEncoder
 		{
 			get
 			{
@@ -158,7 +158,7 @@ namespace VidCoder.ViewModel
 			{
 				if (value != null && value != this.selectedEncoder)
 				{
-					HBEncoder oldEncoder = this.selectedEncoder;
+					HBVideoEncoder oldEncoder = this.selectedEncoder;
 
 					this.selectedEncoder = value;
 					this.Profile.VideoEncoder = this.selectedEncoder.ShortName;
@@ -646,7 +646,7 @@ namespace VidCoder.ViewModel
 		public void NotifyOutputFormatChanged(Container outputFormat)
 		{
 			// Refresh encoder choices based on output format change
-			HBEncoder oldEncoder = this.selectedEncoder;
+			HBVideoEncoder oldEncoder = this.selectedEncoder;
 
 			this.RefreshEncoderChoices(outputFormat);
 
@@ -663,9 +663,9 @@ namespace VidCoder.ViewModel
 
 		private void RefreshEncoderChoices(Container outputFormat)
 		{
-			this.encoderChoices = new List<HBEncoder>();
+			this.encoderChoices = new List<HBVideoEncoder>();
 
-			foreach (HBEncoder encoder in Encoders.VideoEncoders)
+			foreach (HBVideoEncoder encoder in Encoders.VideoEncoders)
 			{
 				if ((encoder.CompatibleContainers & outputFormat) > 0)
 				{

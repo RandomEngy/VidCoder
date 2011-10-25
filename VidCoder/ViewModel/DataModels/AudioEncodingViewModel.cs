@@ -12,6 +12,7 @@ using HandBrake.Interop.SourceData;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using VidCoder.Messages;
+using VidCoder.Properties;
 using VidCoder.Services;
 using Microsoft.Practices.Unity;
 
@@ -19,6 +20,8 @@ namespace VidCoder.ViewModel
 {
 	public class AudioEncodingViewModel : ViewModelBase
 	{
+		private const int RangeRoundDigits = 5;
+
 		private AudioPanelViewModel audioPanelVM;
 		private bool initializing;
 
@@ -26,8 +29,8 @@ namespace VidCoder.ViewModel
 
 		private ObservableCollection<TargetStreamViewModel> targetStreams;
 		private int targetStreamIndex;
-		private List<HBEncoder> audioEncoders;
-		private HBEncoder selectedAudioEncoder;
+		private List<HBAudioEncoder> audioEncoders;
+		private HBAudioEncoder selectedAudioEncoder;
 		private List<HBMixdown> mixdownChoices;
 		private HBMixdown selectedMixdown;
 		private int sampleRate;
@@ -62,8 +65,7 @@ namespace VidCoder.ViewModel
 
 			this.SetChosenTracks(chosenAudioTracks, selectedTitle);
 
-			this.audioEncoders = new List<HBEncoder>();
-			//this.audioEncoders = new ObservableCollection<AudioEncoderViewModel>();
+			this.audioEncoders = new List<HBAudioEncoder>();
 			this.mixdownChoices = new List<HBMixdown>();
 
 			this.outputFormat = outputFormat;
@@ -72,10 +74,20 @@ namespace VidCoder.ViewModel
 			this.RefreshBitrateChoices();
 
 			this.SelectedAudioEncoder = Encoders.GetAudioEncoder(audioEncoding.Encoder);
-			//this.SetAudioEncoder(audioEncoding.Encoder);
 			this.SelectedMixdown = Encoders.GetMixdown(audioEncoding.Mixdown);
-			//this.SetMixdown(audioEncoding.Mixdown);
 			this.sampleRate = audioEncoding.SampleRateRaw;
+			this.encodeRateType = audioEncoding.EncodeRateType;
+			this.audioQuality = audioEncoding.Quality;
+
+			if (audioEncoding.Compression >= 0)
+			{
+				this.audioCompression = audioEncoding.Compression;
+			}
+			else
+			{
+				this.audioCompression = this.SelectedAudioEncoder.DefaultCompression;
+			}
+
 			this.selectedBitrate = this.BitrateChoices.Single(b => b.Bitrate == audioEncoding.Bitrate);
 			this.gain = audioEncoding.Gain;
 			this.drc = audioEncoding.Drc;
@@ -95,6 +107,13 @@ namespace VidCoder.ViewModel
 						this.RefreshBitrateChoices();
 					});
 
+			Messenger.Default.Register<OptionsChangedMessage>(
+				this,
+				message =>
+					{
+						this.RaisePropertyChanged("NameVisible");
+					});
+
 			this.initializing = false;
 		}
 
@@ -110,8 +129,23 @@ namespace VidCoder.ViewModel
 				if (!this.SelectedAudioEncoder.IsPassthrough)
 				{
 					newAudioEncoding.Mixdown = this.SelectedMixdown.ShortName;
-					newAudioEncoding.Bitrate = this.SelectedBitrate.Bitrate;
 					newAudioEncoding.SampleRateRaw = this.SampleRate;
+
+					newAudioEncoding.EncodeRateType = this.EncodeRateType;
+					if (this.EncodeRateType == AudioEncodeRateType.Bitrate)
+					{
+						newAudioEncoding.Bitrate = this.SelectedBitrate.Bitrate;
+					}
+					else if (this.EncodeRateType == AudioEncodeRateType.Quality)
+					{
+						newAudioEncoding.Quality = this.AudioQuality;
+					}
+
+					if (this.SelectedAudioEncoder.SupportsCompression)
+					{
+						newAudioEncoding.Compression = this.AudioCompression;
+					}
+
 					newAudioEncoding.Gain = this.Gain;
 					newAudioEncoding.Drc = this.Drc;
 					newAudioEncoding.Name = this.Name;
@@ -151,7 +185,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public List<HBEncoder> AudioEncoders
+		public List<HBAudioEncoder> AudioEncoders
 		{
 			get
 			{
@@ -159,7 +193,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public HBEncoder SelectedAudioEncoder
+		public HBAudioEncoder SelectedAudioEncoder
 		{
 			get
 			{
@@ -172,6 +206,19 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged("SelectedAudioEncoder");
 				this.RaisePropertyChanged("EncoderSettingsVisible");
 				this.RaisePropertyChanged("BitrateVisible");
+				this.RaisePropertyChanged("AudioQualityVisible");
+				this.RaisePropertyChanged("AudioQualityRadioVisible");
+				this.RaisePropertyChanged("AudioCompressionVisible");
+				this.RaisePropertyChanged("BitrateRadioButtonVisible");
+				this.RaisePropertyChanged("BitrateLabelVisible");
+				this.RaisePropertyChanged("AudioQualityMinimum");
+				this.RaisePropertyChanged("AudioQualityMaximum");
+				this.RaisePropertyChanged("AudioQualityGranularity");
+				this.RaisePropertyChanged("AudioQualityToolTip");
+				this.RaisePropertyChanged("AudioCompressionMinimum");
+				this.RaisePropertyChanged("AudioCompressionMaximum");
+				this.RaisePropertyChanged("AudioCompressionGranularity");
+				this.RaisePropertyChanged("AudioCompressionToolTip");
 				this.MarkModified();
 
 				if (value != null)
@@ -187,6 +234,27 @@ namespace VidCoder.ViewModel
 					}
 
 					this.audioPanelVM.RefreshExtensionChoice();
+
+					// Set encode rate type to Bitrate if quality is not supported.
+					if (!value.IsPassthrough && !value.SupportsQuality)
+					{
+						this.encodeRateType = AudioEncodeRateType.Bitrate;
+						this.RaisePropertyChanged("EncodeRateType");
+					}
+
+					// On encoder switch set default quality/compression if supported.
+					if (value.SupportsQuality)
+					{
+						this.audioQuality = value.DefaultQuality;
+						this.RaisePropertyChanged("AudioQuality");
+					}
+
+					if (value.SupportsCompression)
+					{
+						this.audioCompression = value.DefaultCompression;
+						this.RaisePropertyChanged("AudioCompression");
+					}
+
 					this.RaiseAudioEncodingChanged();
 				}
 			}
@@ -205,17 +273,207 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private AudioEncodeRateType encodeRateType;
+		public AudioEncodeRateType EncodeRateType
+		{
+			get
+			{
+				return this.encodeRateType;
+			}
+
+			set
+			{
+				this.encodeRateType = value;
+				this.RaisePropertyChanged("EncodeRateType");
+				this.RaisePropertyChanged("BitrateVisible");
+				this.RaisePropertyChanged("AudioQualityVisible");
+
+				// Set default quality when switching to quality
+				if (value == AudioEncodeRateType.Quality)
+				{
+					this.audioQuality = this.SelectedAudioEncoder.DefaultQuality;
+					this.RaisePropertyChanged("AudioQuality");
+				}
+
+				this.RaiseAudioEncodingChanged();
+			}
+		}
+
 		public bool BitrateVisible
 		{
 			get
 			{
-				if (this.EncoderSettingsVisible && this.SelectedMixdown != null)
+				if (this.EncoderSettingsVisible && this.SelectedMixdown != null && this.EncodeRateType == AudioEncodeRateType.Bitrate)
 				{
 					BitrateLimits bitrateLimits = Encoders.GetBitrateLimits(this.SelectedAudioEncoder, this.SampleRate, this.SelectedMixdown);
 					return bitrateLimits.High > 0;
 				}
 
 				return false;
+			}
+		}
+
+		public bool BitrateLabelVisible
+		{
+			get
+			{
+				return this.BitrateVisible && !this.SelectedAudioEncoder.SupportsQuality;
+			}
+		}
+
+		private float audioQuality;
+		public float AudioQuality
+		{
+			get
+			{
+				return this.audioQuality;
+			}
+
+			set
+			{
+				this.audioQuality = value;
+				this.RaisePropertyChanged("AudioQuality");
+				this.RaiseAudioEncodingChanged();
+			}
+		}
+
+		public bool AudioQualityVisible
+		{
+			get
+			{
+				return this.SelectedAudioEncoder.SupportsQuality && this.EncodeRateType == AudioEncodeRateType.Quality;
+			}
+		}
+
+		public bool AudioQualityRadioVisible
+		{
+			get
+			{
+				return this.SelectedAudioEncoder.SupportsQuality;
+			}
+		}
+
+		public double AudioQualityMinimum
+		{
+			get
+			{
+				return Math.Round(this.SelectedAudioEncoder.QualityLimits.Low, RangeRoundDigits);
+			}
+		}
+
+		public double AudioQualityMaximum
+		{
+			get
+			{
+				return Math.Round(this.SelectedAudioEncoder.QualityLimits.High, RangeRoundDigits);
+			}
+		}
+
+		public double AudioQualityGranularity
+		{
+			get
+			{
+				return Math.Round(this.SelectedAudioEncoder.QualityLimits.Granularity, RangeRoundDigits);
+			}
+		}
+
+		public string AudioQualityToolTip
+		{
+			get
+			{
+				string directionSentence;
+				if (this.SelectedAudioEncoder.QualityLimits.Ascending)
+				{
+					directionSentence = "High values mean high quality.";
+				}
+				else
+				{
+					directionSentence = "Low values mean high quality.";
+				}
+
+				return string.Format(
+					"The audio quality target. {0} Valid values are from {1} to {2}.",
+					directionSentence,
+					this.AudioQualityMinimum,
+					this.AudioQualityMaximum);
+			}
+		}
+
+		private float audioCompression;
+		public float AudioCompression
+		{
+			get
+			{
+				return this.audioCompression;
+			}
+
+			set
+			{
+				this.audioCompression = value;
+				this.RaisePropertyChanged("AudioCompression");
+				this.RaiseAudioEncodingChanged();
+			}
+		}
+
+		public bool AudioCompressionVisible
+		{
+			get
+			{
+				return this.SelectedAudioEncoder.SupportsCompression;
+			}
+		}
+
+		public double AudioCompressionMinimum
+		{
+			get
+			{
+				return Math.Round(this.SelectedAudioEncoder.CompressionLimits.Low, RangeRoundDigits);
+			}
+		}
+
+		public double AudioCompressionMaximum
+		{
+			get
+			{
+				return Math.Round(this.SelectedAudioEncoder.CompressionLimits.High, RangeRoundDigits);
+			}
+		}
+
+		public double AudioCompressionGranularity
+		{
+			get
+			{
+				return Math.Round(this.SelectedAudioEncoder.CompressionLimits.Granularity, RangeRoundDigits);
+			}
+		}
+
+		public string AudioCompressionToolTip
+		{
+			get
+			{
+				string directionSentence;
+				if (this.SelectedAudioEncoder.QualityLimits.Ascending)
+				{
+					directionSentence = "High values mean high compression: better quality/smaller size but longer encode times.";
+				}
+				else
+				{
+					directionSentence = "Low values mean high compression: better quality/smaller size but longer encode times.";
+				}
+
+				return string.Format(
+					"The amount of compression to apply. {0} Valid values are from {1} to {2}.",
+					directionSentence,
+					this.AudioCompressionMinimum,
+					this.AudioCompressionMaximum);
+			}
+		}
+
+		public bool NameVisible
+		{
+			get
+			{
+				return Settings.Default.ShowAudioTrackNameField;
 			}
 		}
 
@@ -270,7 +528,6 @@ namespace VidCoder.ViewModel
 				this.sampleRate = value;
 				this.RaisePropertyChanged("SampleRate");
 				this.RaiseAudioEncodingChanged();
-
 			}
 		}
 
@@ -425,11 +682,11 @@ namespace VidCoder.ViewModel
 
 		private void RefreshEncoderChoices()
 		{
-			HBEncoder oldEncoder = this.selectedAudioEncoder;
+			HBAudioEncoder oldEncoder = this.selectedAudioEncoder;
 
-			this.audioEncoders = new List<HBEncoder>();
+			this.audioEncoders = new List<HBAudioEncoder>();
 
-			foreach (HBEncoder encoder in Encoders.AudioEncoders)
+			foreach (HBAudioEncoder encoder in Encoders.AudioEncoders)
 			{
 				if ((encoder.CompatibleContainers & this.OutputFormat) > 0)
 				{
@@ -474,6 +731,11 @@ namespace VidCoder.ViewModel
 
 		private void RefreshBitrateChoices()
 		{
+			if (this.SelectedAudioEncoder == null || this.SelectedMixdown == null)
+			{
+				return;
+			}
+
 			int oldBitrate = 0;
 			if (this.SelectedBitrate != null)
 			{
