@@ -76,7 +76,16 @@ namespace VidCoder.ViewModel
 			this.SelectedAudioEncoder = Encoders.GetAudioEncoder(audioEncoding.Encoder);
 			this.SelectedMixdown = Encoders.GetMixdown(audioEncoding.Mixdown);
 			this.sampleRate = audioEncoding.SampleRateRaw;
-			this.encodeRateType = audioEncoding.EncodeRateType;
+
+			if (!this.SelectedAudioEncoder.SupportsQuality)
+			{
+				this.encodeRateType = AudioEncodeRateType.Bitrate;
+			}
+			else
+			{
+				this.encodeRateType = audioEncoding.EncodeRateType;
+			}
+
 			this.audioQuality = audioEncoding.Quality;
 
 			if (audioEncoding.Compression >= 0)
@@ -305,7 +314,8 @@ namespace VidCoder.ViewModel
 			{
 				if (this.EncoderSettingsVisible && this.SelectedMixdown != null && this.EncodeRateType == AudioEncodeRateType.Bitrate)
 				{
-					BitrateLimits bitrateLimits = Encoders.GetBitrateLimits(this.SelectedAudioEncoder, this.SampleRate, this.SelectedMixdown);
+					// We only need to find out if the bitrate limits exist, so pass in some normal values for sample rate and mixdown.
+					BitrateLimits bitrateLimits = Encoders.GetBitrateLimits(this.SelectedAudioEncoder, 48000, Encoders.GetMixdown("dpl2"));
 					return bitrateLimits.High > 0;
 				}
 
@@ -809,7 +819,8 @@ namespace VidCoder.ViewModel
 
 			this.RaisePropertyChanged("BitrateChoices");
 
-			this.SelectedBitrate = this.BitrateChoices.Single(b => b.Bitrate == oldBitrate);
+			this.selectedBitrate = this.BitrateChoices.Single(b => b.Bitrate == oldBitrate);
+			this.RaisePropertyChanged("SelectedBitrate");
 		}
 
 		private void MarkModified()

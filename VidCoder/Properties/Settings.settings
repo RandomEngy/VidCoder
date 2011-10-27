@@ -137,5 +137,8 @@
     <Setting Name="WhenFileExistsBatch" Type="VidCoder.Model.WhenFileExists" Scope="User">
       <Value Profile="(Default)">AutoRename</Value>
     </Setting>
+    <Setting Name="KeepScansAfterCompletion" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

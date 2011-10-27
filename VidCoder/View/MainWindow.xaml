@@ -224,7 +224,7 @@
 					<Image Source="/Icons/play_small.png" Width="16" Height="16"  />
 				</MenuItem.Icon>
 			</MenuItem>
-			<MenuItem Header="Edit" Command="{Binding EditCommand}">
+			<MenuItem Header="Edit" Command="{Binding EditCommand}" Visibility="{Binding EditVisible, Converter={StaticResource VisibilityConverter}}">
 				<MenuItem.Icon>
 					<Image Source="/Icons/edit_16x16.png" Width="16" Height="16"  />
 				</MenuItem.Icon>

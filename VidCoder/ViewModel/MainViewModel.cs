@@ -352,6 +352,7 @@ namespace VidCoder.ViewModel
 			Settings.Default.Save();
 
 			this.driveService.Close();
+			this.ProcessingVM.CleanupHandBrakeInstances();
 			HandBrakeInstance.DisposeGlobal();
 
 			FileCleanup.CleanOldLogs();
@@ -1944,7 +1945,7 @@ namespace VidCoder.ViewModel
 			HandBrakeInstance oldInstance = this.scanInstance;
 			if (oldInstance != null)
 			{
-				this.ProcessingVM.CleanupHandBrakeInstance(oldInstance);
+				this.ProcessingVM.CleanupHandBrakeInstanceIfUnused(oldInstance);
 			}
 
 			this.logger.Log("Starting scan: " + path);

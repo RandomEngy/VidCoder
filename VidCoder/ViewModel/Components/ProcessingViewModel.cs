@@ -750,7 +750,10 @@ namespace VidCoder.ViewModel.Components
 
 						foreach (var removedItem in removedItems)
 						{
-							this.CleanupHandBrakeInstance(removedItem.Job.HandBrakeInstance);
+							if (removedItem.Job != null)
+							{
+								this.CleanupHandBrakeInstanceIfUnused(removedItem.Job.HandBrakeInstance);
+							}
 						}
 
 						this.RaisePropertyChanged("CompletedItemsCount");
@@ -950,7 +953,7 @@ namespace VidCoder.ViewModel.Components
 		/// Cleans up the given HandBrake instance if it's not being used anymore.
 		/// </summary>
 		/// <param name="instance">The instance to clean up.</param>
-		public void CleanupHandBrakeInstance(HandBrakeInstance instance)
+		public void CleanupHandBrakeInstanceIfUnused(HandBrakeInstance instance)
 		{
 			foreach (EncodeJobViewModel encodeJobVM in this.EncodeQueue)
 			{
@@ -962,7 +965,7 @@ namespace VidCoder.ViewModel.Components
 
 			foreach (EncodeResultViewModel resultVM in this.CompletedJobs)
 			{
-				if (instance == resultVM.Job.HandBrakeInstance)
+				if (resultVM.Job != null && instance == resultVM.Job.HandBrakeInstance)
 				{
 					return;
 				}
@@ -974,6 +977,40 @@ namespace VidCoder.ViewModel.Components
 			}
 
 			instance.Dispose();
+		}
+
+		/// <summary>
+		/// Cleans up all HandBrakeInstance objects it can find around the app.
+		/// </summary>
+		public void CleanupHandBrakeInstances()
+		{
+			var instances = new List<HandBrakeInstance>();
+
+			foreach (EncodeJobViewModel encodeJobVM in this.EncodeQueue)
+			{
+				if (encodeJobVM.HandBrakeInstance != null)
+				{
+					instances.Add(encodeJobVM.HandBrakeInstance);
+				}
+			}
+
+			foreach (EncodeResultViewModel resultVM in this.CompletedJobs)
+			{
+				if (resultVM.Job != null)
+				{
+					instances.Add(resultVM.Job.HandBrakeInstance);
+				}
+			}
+
+			if (this.main.ScanInstance != null)
+			{
+				instances.Add(this.main.ScanInstance);
+			}
+
+			foreach (HandBrakeInstance instance in instances.Distinct())
+			{
+				instance.Dispose();
+			}
 		}
 
 		private void EncodeNextJob()
@@ -1182,6 +1219,12 @@ namespace VidCoder.ViewModel.Components
 						this.logger.LogError("Encode failed. HandBrake reported no error but the output file was empty.");
 					}
 
+					EncodeJobViewModel resultJob = null;
+					if (Settings.Default.KeepScansAfterCompletion)
+					{
+						resultJob = this.CurrentJob;
+					}
+
 					this.CompletedJobs.Add(new EncodeResultViewModel(
 						new EncodeResult
 						{
@@ -1189,13 +1232,18 @@ namespace VidCoder.ViewModel.Components
 							Succeeded = succeeded,
 							EncodeTime = this.CurrentJob.EncodeTime
 						},
-						this.CurrentJob));
+						resultJob));
 					this.RaisePropertyChanged("CompletedItemsCount");
 					this.RaisePropertyChanged("CompletedTabHeader");
 
 					HandBrakeInstance finishedInstance = this.EncodeQueue[0].HandBrakeInstance;
 					this.EncodeQueue.RemoveAt(0);
 					this.RaisePropertyChanged("QueuedTabHeader");
+
+					if (!Settings.Default.KeepScansAfterCompletion)
+					{
+						this.CleanupHandBrakeInstanceIfUnused(finishedInstance);
+					}
 
 					this.logger.Log("Job completed");
 

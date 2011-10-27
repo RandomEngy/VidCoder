@@ -154,13 +154,17 @@
 						Content="Allow setting custom name on audio tracks (limited player support)"
 						IsChecked="{Binding ShowAudioTrackNameField}"
 						Height="16" HorizontalAlignment="Left" Margin="15,40,0,0" VerticalAlignment="Top" />
-					<Label Content="Logging Verbosity:" Height="28" HorizontalAlignment="Left" Margin="6,71,0,0" VerticalAlignment="Top" />
-					<ComboBox Height="23" HorizontalAlignment="Left" Margin="121,74,0,0" SelectedValue="{Binding LogVerbosity}" SelectedValuePath="Content" VerticalAlignment="Top" Width="42">
+					<CheckBox
+						Content="Keep scans after completion (allows editing completed items)"
+						IsChecked="{Binding KeepScansAfterCompletion}"
+						Height="16" HorizontalAlignment="Left" Margin="15,62,0,0" VerticalAlignment="Top" />
+					<Label Content="Logging Verbosity:" Height="28" HorizontalAlignment="Left" Margin="6,86,0,0" VerticalAlignment="Top" />
+					<ComboBox Height="23" HorizontalAlignment="Left" Margin="121,89,0,0" SelectedValue="{Binding LogVerbosity}" SelectedValuePath="Content" VerticalAlignment="Top" Width="42">
 						<ComboBoxItem Content="0" />
 						<ComboBoxItem Content="1" />
 						<ComboBoxItem Content="2" />
 					</ComboBox>
-					<TextBlock Height="40" HorizontalAlignment="Left" Margin="182,76,0,0" Text="Log verbosity will take effect on next scan or program restart." TextWrapping="Wrap" VerticalAlignment="Top" Visibility="{Binding LogVerbosityWarningVisible, Converter={StaticResource VisibilityConverter}}" />
+					<TextBlock Height="40" HorizontalAlignment="Left" Margin="182,91,0,0" Text="Log verbosity will take effect on next scan or program restart." TextWrapping="Wrap" VerticalAlignment="Top" Visibility="{Binding LogVerbosityWarningVisible, Converter={StaticResource VisibilityConverter}}" />
 				</Grid>
 			</TabItem>
 		</TabControl>

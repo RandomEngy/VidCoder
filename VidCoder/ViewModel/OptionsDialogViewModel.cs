@@ -59,6 +59,7 @@ namespace VidCoder.ViewModel
 			this.logVerbosity = Settings.Default.LogVerbosity;
 			this.previewCount = Settings.Default.PreviewCount;
 			this.showAudioTrackNameField = Settings.Default.ShowAudioTrackNameField;
+			this.keepScansAfterCompletion = Settings.Default.KeepScansAfterCompletion;
 			this.autoPauseProcesses = new ObservableCollection<string>();
 			StringCollection autoPauseStringCollection = Settings.Default.AutoPauseProcesses;
 			if (autoPauseStringCollection != null)
@@ -364,6 +365,21 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool keepScansAfterCompletion;
+		public bool KeepScansAfterCompletion
+		{
+			get
+			{
+				return this.keepScansAfterCompletion;
+			}
+
+			set
+			{
+				this.keepScansAfterCompletion = value;
+				this.RaisePropertyChanged("KeepScansAfterCompletion");
+			}
+		}
+
 		public bool LogVerbosityWarningVisible
 		{
 			get
@@ -404,6 +420,7 @@ namespace VidCoder.ViewModel
 						Settings.Default.AutoPauseProcesses = autoPauseStringCollection;
 						Settings.Default.PreviewCount = this.PreviewCount;
 						Settings.Default.ShowAudioTrackNameField = this.ShowAudioTrackNameField;
+						Settings.Default.KeepScansAfterCompletion = this.KeepScansAfterCompletion;
 						Settings.Default.Save();
 
 						Messenger.Default.Send(new OptionsChangedMessage());
