@@ -59,7 +59,16 @@ namespace VidCoder.Services
 
 		public void ExportPreset(Preset preset)
 		{
-			string initialFileName = preset.Name;
+			var exportPreset = new Preset
+			    {
+					EncodingProfile = preset.EncodingProfile.Clone(),
+					IsBuiltIn = false,
+					IsModified = false,
+					IsQueue = false,
+					Name = preset.Name
+			    };
+
+			string initialFileName = exportPreset.Name;
 			if (preset.IsModified)
 			{
 				initialFileName += "_Modified";
@@ -76,7 +85,7 @@ namespace VidCoder.Services
 				Settings.Default.LastPresetExportFolder = Path.GetDirectoryName(exportFileName);
 				Settings.Default.Save();
 
-				if(Presets.SavePresetToFile(preset, exportFileName))
+				if (Presets.SavePresetToFile(exportPreset, exportFileName))
 				{
 					this.messageBoxService.Show(
 						"Successfully exported preset to " + exportFileName,
