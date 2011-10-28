@@ -129,6 +129,14 @@
 				</DataTrigger>
 			</Style.Triggers>
 		</Style>
+		<Style x:Key="QueuePathText" TargetType="{x:Type controls:PathTextBlock}">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding ProcessingVM.Encoding}" Value="True">
+					<Setter Property="Foreground" Value="DarkGreen" />
+					<Setter Property="FontWeight" Value="Bold" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
 		<Style x:Key="EncodeDetailsHeader" TargetType="TextBlock">
 			<Setter Property="Height" Value="18" />
 			<Setter Property="TextAlignment" Value="Right" />
@@ -150,10 +158,9 @@
 			<TextBlock Text="" />
 		</DataTemplate>
 		<DataTemplate x:Key="QueueTemplateSource">
-			<TextBlock
-				Text="{Binding Job.SourcePath}" TextTrimming="CharacterEllipsis"
-				ToolTip="{Binding Job.SourcePath}" ToolTipService.InitialShowDelay="0" ToolTipService.Placement="Relative" ToolTipService.VerticalOffset="-2" ToolTipService.HorizontalOffset="-6"
-				Style="{StaticResource QueueText}" />
+			<controls:PathTextBlock
+				Text="{Binding Job.SourcePath}"
+				Style="{StaticResource QueuePathText}" />
 		</DataTemplate>
 		<DataTemplate x:Key="QueueTemplateTitle">
 			<TextBlock Text="{Binding Job.Title}"
@@ -164,10 +171,9 @@
 				Style="{StaticResource QueueText}" />
 		</DataTemplate>
 		<DataTemplate x:Key="QueueTemplateDestination">
-			<TextBlock
-				Text="{Binding Job.OutputPath}" TextTrimming="CharacterEllipsis"
-				ToolTip="{Binding Job.OutputPath}" ToolTipService.InitialShowDelay="0" ToolTipService.Placement="Relative" ToolTipService.VerticalOffset="-2" ToolTipService.HorizontalOffset="-6"
-				Style="{StaticResource QueueText}" />
+			<controls:PathTextBlock
+				Text="{Binding Job.OutputPath}"
+				Style="{StaticResource QueuePathText}" />
 		</DataTemplate>
 		<DataTemplate x:Key="QueueTemplateVideoEncoder">
 			<TextBlock Text="{Binding Profile.VideoEncoder, Converter={StaticResource VideoEncoderChoices}}"
@@ -201,10 +207,8 @@
 			</Grid>
 		</DataTemplate>
 		<DataTemplate x:Key="CompletedDestinationTemplate">
-			<TextBlock
-				Text="{Binding EncodeResult.Destination}" TextTrimming="CharacterEllipsis"
-				ToolTip="{Binding EncodeResult.Destination}" ToolTipService.InitialShowDelay="0" ToolTipService.Placement="Relative" ToolTipService.VerticalOffset="-2" ToolTipService.HorizontalOffset="-6"
-				/>
+			<controls:PathTextBlock
+				Text="{Binding EncodeResult.Destination}" />
 		</DataTemplate>
 		<DataTemplate x:Key="CompletedStatusTemplate">
 			<StackPanel Orientation="Horizontal">
@@ -528,10 +532,21 @@
 									<Button
 									HorizontalContentAlignment="Left"
 									Command="{Binding ChooseSourceCommand}">
-										<StackPanel Orientation="Horizontal">
-											<Image Source="{Binding Image}" Visibility="{Binding ImageVisible, Converter={StaticResource VisibilityConverter}}" Width="16" Height="16" Margin="4,2,0,2" UseLayoutRounding="True" />
-											<controls:PathTextBlock Text="{Binding Text, Mode=OneWay}" Margin="4" MaxTextWidth="300" />
-										</StackPanel>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="Auto" />
+												<ColumnDefinition />
+											</Grid.ColumnDefinitions>
+											<Image
+												Grid.Column="0"
+												Source="{Binding Image}" Visibility="{Binding ImageVisible, Converter={StaticResource VisibilityConverter}}" Width="16" Height="16" Margin="4,2,0,2" UseLayoutRounding="True" />
+											<controls:PathTextBlock
+												Grid.Column="1"
+												Text="{Binding Text, Mode=OneWay}" Margin="4" />
+										</Grid>
+										<!--<StackPanel Orientation="Horizontal">
+	
+										</StackPanel>-->
 									</Button>
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>

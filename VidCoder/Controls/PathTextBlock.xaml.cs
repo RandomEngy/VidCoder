@@ -27,13 +27,29 @@ namespace VidCoder.Controls
 			InitializeComponent();
 		}
 
+		protected override Size MeasureOverride(Size constraint)
+		{
+			string shortenedText = this.GetShortText(constraint.Width);
+			this.textBlock.Text = shortenedText;
+			if (shortenedText == this.Text)
+			{
+				this.textBlock.ToolTip = null;
+			}
+			else
+			{
+				this.textBlock.ToolTip = this.Text;
+			}
 
+			Size textSize = this.MeasureString(shortenedText);
+
+			return new Size(Math.Min(constraint.Width, textSize.Width), Math.Min(constraint.Height, textSize.Height));
+		}
 
 		public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
 			"Text",
 			typeof(string),
 			typeof(PathTextBlock),
-			new PropertyMetadata(OnTextChanged));
+			new PropertyMetadata(string.Empty));
 		public string Text
 		{
 			get
@@ -47,38 +63,13 @@ namespace VidCoder.Controls
 			}
 		}
 
-		private static void OnTextChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
-		{
-			if (eventArgs.NewValue != eventArgs.OldValue)
-			{
-				var pathBlock = dependencyObject as PathTextBlock;
-				pathBlock.RefreshTextBlock();
-			}
-		}
-
-		public double MaxTextWidth
-		{
-			get
-			{
-				return this.maxTextWidth;
-			}
-
-			set
-			{
-				this.maxTextWidth = value;
-				this.RefreshTextBlock();
-			}
-		}
-
 		// Refreshes the TextBlock text based on the current text and maximum text width.
-		private void RefreshTextBlock()
+		private string GetShortText(double maxWidth)
 		{
 			string fullPath = this.Text;
-			if (this.MeasureStringWidth(fullPath) <= this.MaxTextWidth)
+			if (this.MeasureStringWidth(fullPath) <= maxWidth)
 			{
-				this.textBlock.Text = fullPath;
-				this.textBlock.ToolTip = null;
-				return;
+				return fullPath;
 			}
 
 			this.textBlock.ToolTip = fullPath;
@@ -101,7 +92,7 @@ namespace VidCoder.Controls
 				}
 
 				double stringWidth = this.MeasureStringWidth(ConstructShortenedPath(pathSegments, GetSegmentSet(pathSegments.Count, mid), "..."));
-				if (stringWidth > this.MaxTextWidth)
+				if (stringWidth > maxWidth)
 				{
 					// Midpoint is too large. Restrict search range to less than it.
 					high = mid - 1;
@@ -116,8 +107,7 @@ namespace VidCoder.Controls
 
 			if (numSegments > 0)
 			{
-				this.textBlock.Text = ConstructShortenedPath(pathSegments, GetSegmentSet(pathSegments.Count, numSegments), "...");
-				return;
+				return ConstructShortenedPath(pathSegments, GetSegmentSet(pathSegments.Count, numSegments), "...");
 			}
 
 			// Settle for a subset of the file name.
@@ -131,7 +121,7 @@ namespace VidCoder.Controls
 				int mid = (low + high) / 2;
 
 				double stringWidth = this.MeasureStringWidth("..." + lastSegment.Substring(mid));
-				if (stringWidth > this.MaxTextWidth)
+				if (stringWidth > maxWidth)
 				{
 					// We are too far to the left (string is too big).
 					// Move the search area to the right.
@@ -144,7 +134,7 @@ namespace VidCoder.Controls
 			}
 
 			int cutoffIndex = low;
-			this.textBlock.Text = "..." + lastSegment.Substring(cutoffIndex);
+			return "..." + lastSegment.Substring(cutoffIndex);
 		}
 
 		private static List<string> GetPathSegments(string path)
@@ -240,6 +230,11 @@ namespace VidCoder.Controls
 
 		private double MeasureStringWidth(string candidate)
 		{
+			return this.MeasureString(candidate).Width;
+		}
+
+		private Size MeasureString(string candidate)
+		{
 			var formattedText = new FormattedText(
 				candidate,
 				CultureInfo.CurrentCulture,
@@ -248,7 +243,7 @@ namespace VidCoder.Controls
 				this.textBlock.FontSize,
 				Brushes.Black);
 
-			return formattedText.Width;
+			return new Size(formattedText.Width, formattedText.Height);
 		}
 	}
 }
