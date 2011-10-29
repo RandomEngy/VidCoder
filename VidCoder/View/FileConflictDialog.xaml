@@ -1,6 +1,7 @@
 ﻿<Window x:Class="VidCoder.View.FileConflictDialog"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		Background="WhiteSmoke"
 		Title="File conflict" Height="186" Width="377" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
 	<Grid>
 		<TextBlock

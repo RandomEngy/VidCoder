@@ -14,5 +14,6 @@ namespace VidCoder.Services
 
 		event EventHandler<EventArgs<LogEntry>> EntryLogged;
 		event EventHandler Cleared;
+		void ShowStatus(string message);
 	}
 }

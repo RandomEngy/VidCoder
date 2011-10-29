@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop;
 using System.IO;
+using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.ViewModel;
 
@@ -97,6 +99,11 @@ namespace VidCoder.Services
 			{
 				this.Cleared(this, new EventArgs());
 			}
+		}
+
+		public void ShowStatus(string message)
+		{
+			Messenger.Default.Send(new StatusMessage {Message = message});
 		}
 
 		/// <summary>

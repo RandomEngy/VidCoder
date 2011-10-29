@@ -248,6 +248,21 @@
 			<EventSetter Event="MouseDoubleClick" Handler="HandleCompletedItemDoubleClick" />
 			<Setter Property="ContextMenu" Value="{StaticResource CompletedItemContextMenu}" />
 		</Style>
+		<Storyboard x:Key="statusTextStoryboard">
+			<DoubleAnimation
+				Storyboard.TargetName="StatusText"
+				Storyboard.TargetProperty="Opacity"
+				From="0"
+				To="1"
+				Duration="0:0:0.5" />
+			<DoubleAnimation
+				Storyboard.TargetName="StatusText"
+				Storyboard.TargetProperty="Opacity"
+				From="1"
+				To="0"
+				BeginTime="0:0:3.5"
+				Duration="0:0:4" />
+		</Storyboard>
 		<local:RestoreWindowCommand x:Key="RestoreWindowCommand" />
 	</Window.Resources>
 	<Window.TaskbarItemInfo>
@@ -1050,6 +1065,21 @@
 					Margin="0,2,4,0" VerticalAlignment="Top" HorizontalAlignment="Right"
 					Command="{Binding ProcessingVM.ClearCompletedCommand}" Style="{StaticResource RemoveButtonStyle}"
 					Visibility="Collapsed">Clear completed queue items</Button>
+				
+				<Border
+					VerticalAlignment="Bottom" HorizontalAlignment="Right" BorderThickness="1,1,0,0" BorderBrush="DarkGray" CornerRadius="4,0,0,0"
+					Name="statusText">
+					<Border.Background>
+						<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+							<GradientStop Color="White" Offset="0.0" />
+							<GradientStop Color="LightGray" Offset="1.0" />
+						</LinearGradientBrush>
+					</Border.Background>
+					<TextBlock
+						Name="statusTextBlock"
+						Text="Status message" FontSize="14"
+						Margin="3,1,5,3"/>
+				</Border>
 			</Grid>
 		</Grid>
 

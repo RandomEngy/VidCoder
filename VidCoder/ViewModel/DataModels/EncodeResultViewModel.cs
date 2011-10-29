@@ -119,6 +119,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.playCommand ?? (this.playCommand = new RelayCommand(() =>
 					{
+						Messenger.Default.Send(new StatusMessage { Message = "Playing video..." });
 						FileService.Instance.LaunchFile(this.encodeResult.Destination);
 					}));
 			}
@@ -131,6 +132,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.openContainingFolderCommand ?? (this.openContainingFolderCommand = new RelayCommand(() =>
 					{
+						Messenger.Default.Send(new StatusMessage { Message = "Opening folder..." });
 						FileService.Instance.LaunchFile(Path.GetDirectoryName(this.encodeResult.Destination));
 					}));
 			}

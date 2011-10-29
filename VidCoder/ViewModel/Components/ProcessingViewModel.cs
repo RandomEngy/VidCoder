@@ -672,6 +672,7 @@ namespace VidCoder.ViewModel.Components
 						// Signify that we stopped the encode manually rather than it completing.
 						this.encodeStopped = true;
 						this.CurrentJob.HandBrakeInstance.StopEncode();
+						this.logger.ShowStatus("Stopped encoding.");
 					}));
 			}
 		}
@@ -923,6 +924,7 @@ namespace VidCoder.ViewModel.Components
 		{
 			this.EncodeProgressState = TaskbarItemProgressState.Normal;
 			this.logger.Log("Starting queue");
+			this.logger.ShowStatus("Started encoding.");
 
 			this.totalTasks = this.EncodeQueue.Count;
 			this.taskNumber = 0;
@@ -1253,6 +1255,7 @@ namespace VidCoder.ViewModel.Components
 						this.StopEncodingAndReport();
 
 						this.logger.Log("Queue completed");
+						this.logger.ShowStatus("Encode completed.");
 						this.logger.Log("");
 
 						Unity.Container.Resolve<TrayService>().ShowBalloonMessage("Encoding completed", "VidCoder has finished all encode jobs in the queue.");

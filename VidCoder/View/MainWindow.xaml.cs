@@ -46,6 +46,7 @@ namespace VidCoder.View
 		private bool rangeUIFocus;
 
 		private Storyboard presetGlowStoryboard;
+		private Storyboard statusTextStoryboard;
 
 		public static System.Windows.Threading.Dispatcher TheDispatcher;
 
@@ -62,9 +63,11 @@ namespace VidCoder.View
 			TheDispatcher = this.Dispatcher;
 
 			this.presetGlowEffect.Opacity = 0.0;
+			this.statusText.Opacity = 0.0;
 
 			NameScope.SetNameScope(this, new NameScope());
 			this.RegisterName("PresetGlowEffect", this.presetGlowEffect);
+			this.RegisterName("StatusText", this.statusText);
 
 			var presetGlowFadeUp = new DoubleAnimation
 			{
@@ -101,6 +104,8 @@ namespace VidCoder.View
 					{
 						this.CloseRangeDetailsPopup();
 					});
+
+			Messenger.Default.Register<StatusMessage>(this, this.ShowStatusMessage);
 		}
 
 		public WindowState RestoredWindowState { get; set; }
@@ -306,6 +311,7 @@ namespace VidCoder.View
 
 				if (File.Exists(resultFile))
 				{
+					this.ShowStatusMessage(new StatusMessage { Message = "Playing video..." });
 					FileService.Instance.LaunchFile(encodeResultVM.EncodeResult.Destination);
 				}
 				else
@@ -494,6 +500,13 @@ namespace VidCoder.View
 
 			this.outputVM.EditingDestination = false;
 			this.outputVM.SetManualOutputPath(this.outputVM.OutputPath, this.outputVM.OldOutputPath);
+		}
+
+		private void ShowStatusMessage(StatusMessage message)
+		{
+			this.statusTextBlock.Text = message.Message;
+			var storyboard = (Storyboard) this.FindResource("statusTextStoryboard");
+			storyboard.Begin();
 		}
 
 		private void Window_MouseDown(object sender, MouseButtonEventArgs e)

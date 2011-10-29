@@ -278,7 +278,9 @@ namespace VidCoder.Services
 					// If we have not finished the download update yet, start/resume the download.
 					if (DatabaseConfig.GetConfigString(UpdateInstallerLocation, connection) == string.Empty)
 					{
-						this.logger.Log("Started downloading update " + updateVersion);
+						string message = "Version " + updateVersion + " is available. Update download has started.";
+						this.logger.Log(message);
+						this.logger.ShowStatus(message);
 
 						string downloadLocation = downloadElement.Value;
 						string changelogLink = changelogLinkElement.Value;
@@ -338,7 +340,9 @@ namespace VidCoder.Services
 
 								this.UpdateReady = true;
 
-								this.logger.Log("Update " + updateVersion + " has finished downloading and will install on exit.");
+								message = "Version " + updateVersion + " has finished downloading and will install on exit.";
+								this.logger.Log(message);
+								this.logger.ShowStatus(message);
 							}
 						}
 						finally
