@@ -308,6 +308,7 @@
     <Compile Include="Messages\HighlightedChapterChangedMessage.cs" />
     <Compile Include="Messages\OutputFolderChangedMessage.cs" />
     <Compile Include="Messages\OutputPathChangedMessage.cs" />
+    <Compile Include="Messages\RangeFocusMessage.cs" />
     <Compile Include="Messages\RefreshPreviewMessage.cs" />
     <Compile Include="Messages\ScanningChangedMessage.cs" />
     <Compile Include="Messages\SelectedTitleChangedMessage.cs" />

@@ -49,8 +49,10 @@ namespace VidCoder.ViewModel
 		private VideoRangeType rangeType;
 		private double secondsRangeStart;
 		private double secondsRangeEnd;
+		private double secondsBaseline;
 		private int framesRangeStart;
 		private int framesRangeEnd;
+		private int framesBaseline;
 		private List<ChapterViewModel> startChapters;
 		private List<ChapterViewModel> endChapters;
 		private ChapterViewModel selectedStartChapter;
@@ -134,6 +136,8 @@ namespace VidCoder.ViewModel
 					{
 						this.RefreshRangePreview();
 					});
+
+			Messenger.Default.Register<RangeFocusMessage>(this, this.OnRangeControlGotFocus);
 		}
 
 		public HandBrakeInstance ScanInstance
@@ -1046,16 +1050,22 @@ namespace VidCoder.ViewModel
 					this.secondsRangeStart = maxSeconds - SecondsRangeBuffer;
 				}
 
-				if (this.secondsRangeEnd < this.secondsRangeStart + SecondsRangeBuffer)
+				// Constrain from the baseline: what the other end was when we got focus
+				double idealSecondsEnd = this.secondsBaseline;
+				if (idealSecondsEnd < this.secondsRangeStart + SecondsRangeBuffer)
 				{
-					this.secondsRangeEnd = this.secondsRangeStart + SecondsRangeBuffer;
+					idealSecondsEnd = this.secondsRangeStart + SecondsRangeBuffer;
+				}
+
+				if (idealSecondsEnd != this.secondsRangeEnd)
+				{
+					this.secondsRangeEnd = idealSecondsEnd;
 					this.RaisePropertyChanged("SecondsRangeEnd");
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
 				this.RaisePropertyChanged("SecondsRangeStart");
-				//this.RaisePropertyChanged("RangeSummary");
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1078,16 +1088,22 @@ namespace VidCoder.ViewModel
 					this.secondsRangeEnd = maxSeconds;
 				}
 
-				if (this.secondsRangeStart > this.secondsRangeEnd - SecondsRangeBuffer)
+				// Constrain from the baseline: what the other end was when we got focus
+				double idealSecondsStart = this.secondsBaseline;
+				if (idealSecondsStart > this.secondsRangeEnd - SecondsRangeBuffer)
 				{
-					this.secondsRangeStart = this.secondsRangeEnd - SecondsRangeBuffer;
+					idealSecondsStart = this.secondsRangeEnd - SecondsRangeBuffer;
+				}
+
+				if (idealSecondsStart != this.secondsRangeStart)
+				{
+					this.secondsRangeStart = idealSecondsStart;
 					this.RaisePropertyChanged("SecondsRangeStart");
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
 				this.RaisePropertyChanged("SecondsRangeEnd");
-				//this.RaisePropertyChanged("RangeSummary");
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1118,16 +1134,22 @@ namespace VidCoder.ViewModel
 					this.framesRangeStart = maxFrame - 1;
 				}
 
-				if (this.framesRangeEnd <= this.framesRangeStart)
+				// Constrain from the baseline: what the other end was when we got focus
+				int idealFramesEnd = this.framesBaseline;
+				if (idealFramesEnd <= this.framesRangeStart)
 				{
-					this.framesRangeEnd = this.framesRangeStart + 1;
+					idealFramesEnd = this.framesRangeStart + 1;
+				}
+
+				if (idealFramesEnd != this.framesRangeEnd)
+				{
+					this.framesRangeEnd = idealFramesEnd;
 					this.RaisePropertyChanged("FramesRangeEnd");
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
 				this.RaisePropertyChanged("FramesRangeStart");
-				//this.RaisePropertyChanged("RangeSummary");
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1150,16 +1172,22 @@ namespace VidCoder.ViewModel
 					this.framesRangeEnd = maxFrame;
 				}
 
-				if (this.framesRangeStart >= this.framesRangeEnd)
+				// Constrain from the baseline: what the other end was when we got focus
+				int idealFramesStart = this.framesBaseline;
+				if (idealFramesStart >= this.framesRangeEnd)
 				{
-					this.framesRangeStart = this.framesRangeEnd - 1;
+					idealFramesStart = this.framesRangeEnd - 1;
+				}
+
+				if (idealFramesStart != this.framesRangeStart)
+				{
+					this.framesRangeStart = idealFramesStart;
 					this.RaisePropertyChanged("FramesRangeStart");
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
 				this.RaisePropertyChanged("FramesRangeEnd");
-				//this.RaisePropertyChanged("RangeSummary");
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -2304,6 +2332,37 @@ namespace VidCoder.ViewModel
 			}
 
 			return 0;
+		}
+
+		private void OnRangeControlGotFocus(RangeFocusMessage message)
+		{
+			if (!message.GotFocus)
+			{
+				return;
+			}
+
+			if (message.RangeType == VideoRangeType.Seconds)
+			{
+				if (message.Start)
+				{
+					this.secondsBaseline = this.SecondsRangeEnd;
+				}
+				else
+				{
+					this.secondsBaseline = this.SecondsRangeStart;
+				}
+			}
+			else if (message.RangeType == VideoRangeType.Frames)
+			{
+				if (message.Start)
+				{
+					this.framesBaseline = this.FramesRangeEnd;
+				}
+				else
+				{
+					this.framesBaseline = this.FramesRangeStart;
+				}
+			}
 		}
 
 		private void RefreshRangePreview()

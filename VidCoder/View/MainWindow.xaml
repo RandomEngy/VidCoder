@@ -643,18 +643,18 @@
 								<controls:NumberBox
 									Width="55"
 									Style="{StaticResource RangeNumberBox}"
-									AllowEmpty="False" UpdateBindingOnTextChange="False" Minimum="0" Modulus="0.001"
+									AllowEmpty="False" Minimum="0" Modulus="0.001"
 									ShowIncrementButtons="False"
 									Number="{Binding SecondsRangeStart, Mode=TwoWay}"
-									GotFocus="RangeControlGotFocus" LostFocus="RangeControlLostFocus"/>
+									GotFocus="SecondsStartGotFocus" LostFocus="RangeControlLostFocus"/>
 								<TextBlock Text="-" Style="{StaticResource PlainTitle}" />
 								<controls:NumberBox
 									Width="55"
 									Style="{StaticResource RangeNumberBox}"
-									AllowEmpty="False" UpdateBindingOnTextChange="False" Minimum="0.25" Modulus="0.001"
+									AllowEmpty="False" Minimum="0.25" Modulus="0.001"
 									ShowIncrementButtons="False"
 									Number="{Binding SecondsRangeEnd, Mode=TwoWay}"
-									GotFocus="RangeControlGotFocus" LostFocus="RangeControlLostFocus"/>
+									GotFocus="SecondsEndGotFocus" LostFocus="RangeControlLostFocus"/>
 							</StackPanel>
 							<StackPanel
 								Orientation="Horizontal"
@@ -662,16 +662,16 @@
 								<controls:NumberBox
 									Width="65"
 									Style="{StaticResource RangeNumberBox}"
-									AllowEmpty="False" UpdateBindingOnTextChange="False" Minimum="0"
+									AllowEmpty="False" Minimum="0"
 									Number="{Binding FramesRangeStart, Mode=TwoWay}"
-									GotFocus="RangeControlGotFocus" LostFocus="RangeControlLostFocus"/>
+									GotFocus="FramesStartGotFocus" LostFocus="RangeControlLostFocus"/>
 								<TextBlock Text="-" Style="{StaticResource PlainTitle}" />
 								<controls:NumberBox
 									Width="65"
 									Style="{StaticResource RangeNumberBox}"
-									AllowEmpty="False" UpdateBindingOnTextChange="False" Minimum="1"
+									AllowEmpty="False" Minimum="1"
 									Number="{Binding FramesRangeEnd, Mode=TwoWay}"
-									GotFocus="RangeControlGotFocus" LostFocus="RangeControlLostFocus"/>
+									GotFocus="FramesEndGotFocus" LostFocus="RangeControlLostFocus"/>
 							</StackPanel>
 							<TextBlock Text="{Binding TotalChaptersText}" Style="{StaticResource PlainTitle}" />
 						</StackPanel>

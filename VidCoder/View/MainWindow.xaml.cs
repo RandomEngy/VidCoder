@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Threading;
 using GalaSoft.MvvmLight.Messaging;
+using HandBrake.Interop.Model;
 using Hardcodet.Wpf.TaskbarNotification;
 using VidCoder.Messages;
 using VidCoder.ViewModel;
@@ -379,6 +380,30 @@ namespace VidCoder.View
 		{
 			this.rangeUIMouseOver = false;
 			this.RefreshRangeDetailsPopupIsOpen();
+		}
+
+		private void SecondsStartGotFocus(object sender, RoutedEventArgs e)
+		{
+			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = true });
+			this.RangeControlGotFocus(sender, e);
+		}
+
+		private void SecondsEndGotFocus(object sender, RoutedEventArgs e)
+		{
+			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = false });
+			this.RangeControlGotFocus(sender, e);
+		}
+
+		private void FramesStartGotFocus(object sender, RoutedEventArgs e)
+		{
+			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = true });
+			this.RangeControlGotFocus(sender, e);
+		}
+
+		private void FramesEndGotFocus(object sender, RoutedEventArgs e)
+		{
+			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = false });
+			this.RangeControlGotFocus(sender, e);
 		}
 
 		private void RangeControlGotFocus(object sender, RoutedEventArgs e)
