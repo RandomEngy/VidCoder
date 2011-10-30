@@ -20,8 +20,6 @@ namespace VidCoder.Controls
 	/// </summary>
 	public partial class PathTextBlock : UserControl
 	{
-		private double maxTextWidth;
-
 		public PathTextBlock()
 		{
 			InitializeComponent();

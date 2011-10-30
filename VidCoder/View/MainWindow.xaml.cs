@@ -46,7 +46,6 @@ namespace VidCoder.View
 		private bool rangeUIFocus;
 
 		private Storyboard presetGlowStoryboard;
-		private Storyboard statusTextStoryboard;
 
 		public static System.Windows.Threading.Dispatcher TheDispatcher;
 
