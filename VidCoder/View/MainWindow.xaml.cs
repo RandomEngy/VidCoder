@@ -503,9 +503,12 @@ namespace VidCoder.View
 
 		private void ShowStatusMessage(StatusMessage message)
 		{
-			this.statusTextBlock.Text = message.Message;
-			var storyboard = (Storyboard) this.FindResource("statusTextStoryboard");
-			storyboard.Begin();
+			DispatchService.BeginInvoke(() =>
+			    {
+			        this.statusTextBlock.Text = message.Message;
+			        var storyboard = (Storyboard) this.FindResource("statusTextStoryboard");
+			        storyboard.Begin();
+			    });
 		}
 
 		private void Window_MouseDown(object sender, MouseButtonEventArgs e)
