@@ -31,8 +31,6 @@ namespace VidCoder.ViewModel
 
 		private EncodingProfile profile;
 
-		private bool mp4ExtensionEnabled;
-
 		private Preset originalPreset;
 		private bool isBuiltIn;
 
@@ -291,42 +289,9 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			this.Mp4ExtensionEnabled = enableMp4;
-
 			if (!enableMp4 && this.PreferredExtension == OutputExtension.Mp4)
 			{
 				this.PreferredExtension = OutputExtension.M4v;
-			}
-		}
-
-		public bool Mp4ExtensionEnabled
-		{
-			get
-			{
-				return this.mp4ExtensionEnabled;
-			}
-
-			set
-			{
-				if (this.mp4ExtensionEnabled != value)
-				{
-					this.mp4ExtensionEnabled = value;
-					this.RaisePropertyChanged("Mp4ExtensionEnabled");
-					this.RaisePropertyChanged("Mp4ExtensionToolTip");
-				}
-			}
-		}
-
-		public string Mp4ExtensionToolTip
-		{
-			get
-			{
-				if (!this.Mp4ExtensionEnabled)
-				{
-					return "The .mp4 extension is disabled for compatibility with AC3 Passthrough.";
-				}
-
-				return null;
 			}
 		}
 

@@ -101,7 +101,7 @@
 					<Encoder>faac</Encoder>
 					<EncodeRateType>Bitrate</EncodeRateType>
 					<Bitrate>0</Bitrate>
-					<Mixdown>DolbyProLogicII</Mixdown>
+					<Mixdown>dpl2</Mixdown>
 					<SampleRateRaw>0</SampleRateRaw>
 					<Drc>0</Drc>
 				</AudioEncoding>

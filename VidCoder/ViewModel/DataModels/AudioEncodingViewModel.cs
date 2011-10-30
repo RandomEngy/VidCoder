@@ -73,8 +73,8 @@ namespace VidCoder.ViewModel
 			this.RefreshMixdownChoices();
 			this.RefreshBitrateChoices();
 
-			this.SelectedAudioEncoder = Encoders.GetAudioEncoder(audioEncoding.Encoder);
-			this.SelectedMixdown = Encoders.GetMixdown(audioEncoding.Mixdown);
+			this.selectedAudioEncoder = Encoders.GetAudioEncoder(audioEncoding.Encoder);
+			this.selectedMixdown = Encoders.GetMixdown(audioEncoding.Mixdown);
 			this.sampleRate = audioEncoding.SampleRateRaw;
 
 			if (!this.SelectedAudioEncoder.SupportsQuality)
@@ -690,7 +690,7 @@ namespace VidCoder.ViewModel
 			});
 		}
 
-		private void RefreshEncoderChoices()
+		private void RefreshEncoderChoices(bool signalRefresh = true)
 		{
 			HBAudioEncoder oldEncoder = this.selectedAudioEncoder;
 
@@ -708,12 +708,14 @@ namespace VidCoder.ViewModel
 
 			if (this.AudioEncoders.Contains(oldEncoder))
 			{
-				this.SelectedAudioEncoder = oldEncoder;
+				this.selectedAudioEncoder = oldEncoder;
 			}
 			else
 			{
-				this.SelectedAudioEncoder = this.AudioEncoders[0];
+				this.selectedAudioEncoder = this.AudioEncoders[0];
 			}
+
+			this.RaisePropertyChanged("SelectedAudioEncoder");
 		}
 
 		private void RefreshMixdownChoices()
@@ -731,12 +733,14 @@ namespace VidCoder.ViewModel
 
 			if (this.MixdownChoices.Contains(oldMixdown))
 			{
-				this.SelectedMixdown = oldMixdown;
+				this.selectedMixdown = oldMixdown;
 			}
 			else
 			{
-				this.SelectedMixdown = this.MixdownChoices[0];
+				this.selectedMixdown = this.MixdownChoices[0];
 			}
+
+			this.RaisePropertyChanged("SelectedMixdown");
 		}
 
 		private void RefreshBitrateChoices()

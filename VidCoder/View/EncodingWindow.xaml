@@ -98,9 +98,7 @@
 			Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">Extension:</Label>
 		<RadioButton Margin="221.422,34,0,0" Name="radioButton3" Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
 			IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Mp4}"
-			Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
-			IsEnabled="{Binding Mp4ExtensionEnabled}"
-			ToolTip="{Binding Mp4ExtensionToolTip}" ToolTipService.ShowOnDisabled="True">.mp4</RadioButton>
+			Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">.mp4</RadioButton>
 		<RadioButton Height="16" Margin="221.422,49,0,0" Name="radioButton4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
 			IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=M4v}"
 			Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">.m4v</RadioButton>
