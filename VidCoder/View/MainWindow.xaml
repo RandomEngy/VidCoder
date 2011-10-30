@@ -176,7 +176,7 @@
 				Style="{StaticResource QueuePathText}" />
 		</DataTemplate>
 		<DataTemplate x:Key="QueueTemplateVideoEncoder">
-			<TextBlock Text="{Binding Profile.VideoEncoder, Converter={StaticResource VideoEncoderChoices}}"
+			<TextBlock Text="{Binding VideoEncoderDisplay}"
 				Style="{StaticResource QueueText}" />
 		</DataTemplate>
 		<DataTemplate x:Key="QueueTemplateAudioEncoder">

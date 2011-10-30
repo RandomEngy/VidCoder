@@ -282,6 +282,14 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public string VideoEncoderDisplay
+		{
+			get
+			{
+				return Encoders.GetVideoEncoder(this.Profile.VideoEncoder).DisplayName;
+			}
+		}
+
 		public string AudioEncodersDisplay
 		{
 			get
