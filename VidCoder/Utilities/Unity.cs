@@ -25,6 +25,7 @@ namespace VidCoder
 			Container.RegisterType<IProcessAutoPause, ProcessAutoPause>();
 			Container.RegisterType<ISystemOperations, SystemOperations>();
 			Container.RegisterType<TrayService>();
+			Container.RegisterType<ClipboardService>();
 
 			//Container.RegisterType<MainViewModel>(new ContainerControlledLifetimeManager());
 			Container.RegisterType<OutputPathViewModel>(new ContainerControlledLifetimeManager());

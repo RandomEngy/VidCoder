@@ -2,11 +2,11 @@
 	<Release>
 		<Latest>1.2.1</Latest>
 		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.2.1-x86.exe</DownloadLocation>
-		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/75937</ChangelogLocation>
+		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/75980</ChangelogLocation>
 	</Release>
 	<Release-x64>
 		<Latest>1.2.1</Latest>
 		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.2.1-x64.exe</DownloadLocation>
-		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/75937</ChangelogLocation>
+		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/75980</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>

@@ -71,7 +71,7 @@ namespace VidCoder.ViewModel
 								logTextBuilder.AppendLine(entry.Text);
 							}
 
-							Clipboard.SetText(logTextBuilder.ToString());
+							Unity.Container.Resolve<ClipboardService>().SetText(logTextBuilder.ToString());
 						}
 					});
 				}

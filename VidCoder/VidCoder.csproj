@@ -332,6 +332,7 @@
     <Compile Include="Model\SaveImageJob.cs" />
     <Compile Include="Model\VideoSourceMetadata.cs" />
     <Compile Include="Model\WhenFileExists.cs" />
+    <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="Services\Interfaces\ILogger.cs" />
     <Compile Include="Services\Interfaces\IPresetImportExport.cs" />
     <Compile Include="Services\Interfaces\IProcesses.cs" />

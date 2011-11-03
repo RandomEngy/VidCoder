@@ -13,6 +13,8 @@ using System.Windows.Shapes;
 using System.Drawing;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
+using VidCoder.Services;
+using Microsoft.Practices.Unity;
 
 namespace VidCoder.View
 {
@@ -30,12 +32,12 @@ namespace VidCoder.View
 			InitializeComponent();
 
 			this.errorIcon.Source = WpfSystemIcons.Error;
-			this.exceptionTextBox.Text = exception.ToString() + Environment.NewLine;
+			this.exceptionTextBox.Text = exception + Environment.NewLine;
 		}
 
 		private void copyButton_Click(object sender, RoutedEventArgs e)
 		{
-			Clipboard.SetText(this.exception.ToString());
+			Unity.Container.Resolve<ClipboardService>().SetText(this.exception.ToString());
 		}
 	}
 }
