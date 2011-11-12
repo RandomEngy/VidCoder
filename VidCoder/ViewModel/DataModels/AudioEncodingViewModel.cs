@@ -248,7 +248,7 @@ namespace VidCoder.ViewModel
 					if (!value.IsPassthrough && !value.SupportsQuality)
 					{
 						this.encodeRateType = AudioEncodeRateType.Bitrate;
-						this.RaisePropertyChanged("EncodeRateType");
+						this.RaiseEncodeRateTypeChanged();
 					}
 
 					// On encoder switch set default quality/compression if supported.
@@ -293,9 +293,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.encodeRateType = value;
-				this.RaisePropertyChanged("EncodeRateType");
-				this.RaisePropertyChanged("BitrateVisible");
-				this.RaisePropertyChanged("AudioQualityVisible");
+				this.RaiseEncodeRateTypeChanged();
 
 				// Set default quality when switching to quality
 				if (value == AudioEncodeRateType.Quality)
@@ -842,6 +840,14 @@ namespace VidCoder.ViewModel
 				this.audioPanelVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
+		}
+
+		private void RaiseEncodeRateTypeChanged()
+		{
+			this.RaisePropertyChanged("EncodeRateType");
+			this.RaisePropertyChanged("BitrateVisible");
+			this.RaisePropertyChanged("BitrateLabelVisible");
+			this.RaisePropertyChanged("AudioQualityVisible");
 		}
 	}
 }
