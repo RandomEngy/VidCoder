@@ -47,6 +47,11 @@ namespace VidCoder.Model
 							}
 						}
 
+						foreach (EncodeJob job in oldJobs)
+						{
+							Presets.UpgradeEncodingProfile(job.EncodingProfile);
+						}
+
 						var persistGroup = new EncodeJobPersistGroup();
 						persistGroup.EncodeJobs.AddRange(oldJobs.Select(j => new EncodeJobWithMetadata { Job = j, ManualOutputPath = true }));
 
@@ -81,7 +86,7 @@ namespace VidCoder.Model
 			}
 		}
 
-		private static string SerializeJobs(EncodeJobPersistGroup jobPersistGroup)
+		internal static string SerializeJobs(EncodeJobPersistGroup jobPersistGroup)
 		{
 			var xmlBuilder = new StringBuilder();
 			using (XmlWriter writer = XmlWriter.Create(xmlBuilder))
@@ -92,7 +97,7 @@ namespace VidCoder.Model
 			return xmlBuilder.ToString();
 		}
 
-		private static EncodeJobPersistGroup LoadJobsXmlString(string jobsXml)
+		internal static EncodeJobPersistGroup LoadJobsXmlString(string jobsXml)
 		{
 			try
 			{

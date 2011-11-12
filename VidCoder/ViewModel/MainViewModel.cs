@@ -1728,7 +1728,27 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				// Break out values to find where the reported null reference crashes are coming from.
+				// Debugging code... annoying exception happens here.
+				if (this.SelectedSource == null)
+				{
+					throw new InvalidOperationException("Source must be selected.");
+				}
+
+				if (this.SelectedTitle == null)
+				{
+					throw new InvalidOperationException("Title must be selected.");
+				}
+
+				if (this.SelectedStartChapter == null)
+				{
+					throw new InvalidOperationException("Start chapter must be selected.");
+				}
+
+				if (this.SelectedEndChapter == null)
+				{
+					throw new InvalidOperationException("End chapter must be selected.");
+				}
+
 				SourceType type = this.SelectedSource.Type;
 
 				string outputPath = this.OutputPathVM.OutputPath;
@@ -2006,14 +2026,19 @@ namespace VidCoder.ViewModel
 					{
 						this.SourceData = new VideoSource { Titles = this.scanInstance.Titles, FeatureTitle = this.scanInstance.FeatureTitle };
 
-						if (jobVM != null)
+						// If scan failed source data will be null.
+						if (this.sourceData != null)
 						{
-							this.ApplyEncodeJobChoices(jobVM);
-						}
+							if (jobVM != null)
+							{
+								this.ApplyEncodeJobChoices(jobVM);
+							}
 
-						if (jobVM == null && this.SelectedSource != null && (this.SelectedSource.Type == SourceType.File || this.SelectedSource.Type == SourceType.VideoFolder))
-						{
-							SourceHistory.AddToHistory(this.SourcePath);
+							if (jobVM == null && this.SelectedSource != null &&
+							    (this.SelectedSource.Type == SourceType.File || this.SelectedSource.Type == SourceType.VideoFolder))
+							{
+								SourceHistory.AddToHistory(this.SourcePath);
+							}
 						}
 
 						this.logger.Log("Scan completed");
@@ -2109,6 +2134,11 @@ namespace VidCoder.ViewModel
 		// assumes a scan has been done first with the data available.
 		private void ApplyEncodeJobChoices(EncodeJobViewModel jobVM)
 		{
+			if (this.sourceData == null || this.sourceData.Titles.Count == 0)
+			{
+				return;
+			}
+
 			EncodeJob job = jobVM.Job;
 
 			// Title
@@ -2243,10 +2273,15 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged("FramesRangeStart");
 			this.RaisePropertyChanged("FramesRangeEnd");
 			this.RaisePropertyChanged("RangeType");
+			this.RaisePropertyChanged("ChaptersRangeVisible");
+			this.RaisePropertyChanged("SecondsRangeVisible");
+			this.RaisePropertyChanged("FramesRangeVisible");
 			this.RaisePropertyChanged("SubtitlesSummary");
 			this.RaisePropertyChanged("ChapterMarkersSummary");
 			this.RaisePropertyChanged("ShowChapterMarkerUI");
 			this.RaisePropertyChanged("Angle");
+
+			this.RefreshRangePreview();
 		}
 
 		private void ReportLengthChanged()

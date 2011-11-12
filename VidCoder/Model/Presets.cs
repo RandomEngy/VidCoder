@@ -28,25 +28,7 @@ namespace VidCoder.Model
 
 		static Presets()
 		{
-			int databaseVersion = DatabaseConfig.GetConfigInt("Version", Database.Connection);
-			if (databaseVersion < Utilities.CurrentDatabaseVersion)
-			{
-				var presets = GetPresetListFromDb();
 
-				foreach (Preset preset in presets)
-				{
-					UpgradePreset(preset);
-				}
-
-				var presetXmlList = presets.Select(SerializePreset).ToList();
-
-				using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
-				{
-					SavePresets(presetXmlList, Database.Connection);
-					DatabaseConfig.SetConfigValue("Version", Utilities.CurrentDatabaseVersion, Database.Connection);
-					transaction.Commit();
-				}
-			}
 		}
 
 		public static List<Preset> BuiltInPresets
@@ -142,7 +124,7 @@ namespace VidCoder.Model
 					var preset = presetSerializer.Deserialize(reader) as Preset;
 					if (version < CurrentPresetVersion)
 					{
-						UpgradePreset(preset);
+						UpgradeEncodingProfile(preset.EncodingProfile);
 					}
 
 					return preset;
@@ -215,74 +197,13 @@ namespace VidCoder.Model
 			return false;
 		}
 
-		/// <summary>
-		/// Saves the given preset data.
-		/// </summary>
-		/// <param name="presetXmlListObject">List&lt;Tuple&lt;string, string&gt;&gt; with the file name and XML string to save.</param>
-		private static void SaveUserPresetsBackground(object presetXmlListObject)
-		{
-			lock (userPresetSync)
-			{
-				if (Directory.Exists(UserPresetsFolder))
-				{
-					string[] existingFiles = Directory.GetFiles(UserPresetsFolder);
-					foreach (string existingFile in existingFiles)
-					{
-						File.Delete(existingFile);
-					}
-
-					Directory.Delete(UserPresetsFolder);
-				}
-
-				var presetXmlList = presetXmlListObject as List<string>;
-
-				SQLiteConnection connection = Database.CreateConnection();
-
-				using (SQLiteTransaction transaction = connection.BeginTransaction())
-				{
-					SavePresets(presetXmlList, connection);
-					transaction.Commit();
-				}
-			}
-		}
-
-		private static void SavePresets(List<string> presetXmlList, SQLiteConnection connection)
-		{
-			Database.ExecuteNonQuery("DELETE FROM presetsXml", connection);
-
-			var insertCommand = new SQLiteCommand("INSERT INTO presetsXml (xml) VALUES (?)", connection);
-			SQLiteParameter insertXmlParam = insertCommand.Parameters.Add("xml", DbType.String);
-
-			foreach (string presetXml in presetXmlList)
-			{
-				insertXmlParam.Value = presetXml;
-				insertCommand.ExecuteNonQuery();
-			}
-		}
-
-		private static List<Preset> GetPresetListFromDb()
-		{
-			var result = new List<Preset>();
-
-			var selectPresetsCommand = new SQLiteCommand("SELECT * FROM presetsXml", Database.Connection);
-			using (SQLiteDataReader reader = selectPresetsCommand.ExecuteReader())
-			{
-				while (reader.Read())
-				{
-					string presetXml = reader.GetString("xml");
-					result.Add(LoadPresetXmlString(presetXml));
-				}
-			}
-			return result;
-		}
-
-		private static void UpgradePreset(Preset preset)
+		public static void UpgradeEncodingProfile(EncodingProfile profile)
 		{
 			// Upgrade preset: translate old Enum-based values to short name strings
-			if (!Encoders.VideoEncoders.Any(e => e.ShortName == preset.EncodingProfile.VideoEncoder))
+			if (!Encoders.VideoEncoders.Any(e => e.ShortName == profile.VideoEncoder))
 			{
 				string newVideoEncoder = "x264";
-				switch (preset.EncodingProfile.VideoEncoder)
+				switch (profile.VideoEncoder)
 				{
 					case "X264":
 						newVideoEncoder = "x264";
@@ -298,10 +219,10 @@ namespace VidCoder.Model
 						break;
 				}
 
-				preset.EncodingProfile.VideoEncoder = newVideoEncoder;
+				profile.VideoEncoder = newVideoEncoder;
 			}
 
-			foreach (AudioEncoding encoding in preset.EncodingProfile.AudioEncodings)
+			foreach (AudioEncoding encoding in profile.AudioEncodings)
 			{
 				if (!Encoders.AudioEncoders.Any(e => e.ShortName == encoding.Encoder))
 				{
@@ -365,6 +286,67 @@ namespace VidCoder.Model
 					encoding.Mixdown = newMixdown;
 				}
 			}
+		}
+
+		/// <summary>
+		/// Saves the given preset data.
+		/// </summary>
+		/// <param name="presetXmlListObject">List&lt;Tuple&lt;string, string&gt;&gt; with the file name and XML string to save.</param>
+		private static void SaveUserPresetsBackground(object presetXmlListObject)
+		{
+			lock (userPresetSync)
+			{
+				if (Directory.Exists(UserPresetsFolder))
+				{
+					string[] existingFiles = Directory.GetFiles(UserPresetsFolder);
+					foreach (string existingFile in existingFiles)
+					{
+						File.Delete(existingFile);
+					}
+
+					Directory.Delete(UserPresetsFolder);
+				}
+
+				var presetXmlList = presetXmlListObject as List<string>;
+
+				SQLiteConnection connection = Database.CreateConnection();
+
+				using (SQLiteTransaction transaction = connection.BeginTransaction())
+				{
+					SavePresets(presetXmlList, connection);
+					transaction.Commit();
+				}
+			}
+		}
+
+		public static void SavePresets(List<string> presetXmlList, SQLiteConnection connection)
+		{
+			Database.ExecuteNonQuery("DELETE FROM presetsXml", connection);
+
+			var insertCommand = new SQLiteCommand("INSERT INTO presetsXml (xml) VALUES (?)", connection);
+			SQLiteParameter insertXmlParam = insertCommand.Parameters.Add("xml", DbType.String);
+
+			foreach (string presetXml in presetXmlList)
+			{
+				insertXmlParam.Value = presetXml;
+				insertCommand.ExecuteNonQuery();
+			}
+		}
+
+		public static List<Preset> GetPresetListFromDb()
+		{
+			var result = new List<Preset>();
+
+			var selectPresetsCommand = new SQLiteCommand("SELECT * FROM presetsXml", Database.Connection);
+			using (SQLiteDataReader reader = selectPresetsCommand.ExecuteReader())
+			{
+				while (reader.Read())
+				{
+					string presetXml = reader.GetString("xml");
+					result.Add(LoadPresetXmlString(presetXml));
+				}
+			}
+			return result;
 		}
 	}
 }

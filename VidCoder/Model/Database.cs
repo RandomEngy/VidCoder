@@ -13,6 +13,57 @@ namespace VidCoder.Model
 
 		private static SQLiteConnection connection;
 
+		static Database()
+		{
+			int databaseVersion = DatabaseConfig.GetConfigInt("Version", Database.Connection);
+			if (databaseVersion >= Utilities.CurrentDatabaseVersion)
+			{
+				return;
+			}
+
+			using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
+			{
+				// Upgrade encoding profiles on presets (encoder/mixdown changes)
+				if (databaseVersion < 12)
+				{
+					var presets = Presets.GetPresetListFromDb();
+
+					foreach (Preset preset in presets)
+					{
+						Presets.UpgradeEncodingProfile(preset.EncodingProfile);
+					}
+
+					var presetXmlList = presets.Select(Presets.SerializePreset).ToList();
+
+					Presets.SavePresets(presetXmlList, Database.Connection);
+				}
+
+				// Upgrade encoding profiles on old queue items.
+				if (databaseVersion < 13)
+				{
+					string jobsXml = DatabaseConfig.GetConfigString("EncodeJobs2", Database.Connection);
+					if (!string.IsNullOrEmpty(jobsXml))
+					{
+						EncodeJobPersistGroup persistGroup = EncodeJobsPersist.LoadJobsXmlString(jobsXml);
+						foreach (EncodeJobWithMetadata job in persistGroup.EncodeJobs)
+						{
+							Presets.UpgradeEncodingProfile(job.Job.EncodingProfile);
+						}
+
+						DatabaseConfig.SetConfigValue("EncodeJobs2", EncodeJobsPersist.SerializeJobs(persistGroup), Database.Connection);
+					}
+				}
+
+				SetDatabaseVersionToLatest();
+				transaction.Commit();
+			}
+		}
+
+		private static void SetDatabaseVersionToLatest()
+		{
+			DatabaseConfig.SetConfigValue("Version", Utilities.CurrentDatabaseVersion, Database.Connection);
+		}
+
 		public static string DatabaseFile
 		{
 			get
