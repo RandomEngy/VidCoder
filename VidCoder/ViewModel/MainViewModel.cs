@@ -788,14 +788,21 @@ namespace VidCoder.ViewModel
 						this.endChapters.Add(new ChapterViewModel(chapter));
 					}
 
-					this.SelectedStartChapter = this.StartChapters[0];
-					this.SelectedEndChapter = this.EndChapters[this.EndChapters.Count - 1];
+					// Soft update so as not to trigger range checking logic.
+					this.selectedStartChapter = this.StartChapters[0];
+					this.selectedEndChapter = this.EndChapters[this.EndChapters.Count - 1];
+					this.RaisePropertyChanged("SelectedStartChapter");
+					this.RaisePropertyChanged("SelectedEndChapter");
 
-					this.SecondsRangeStart = 0;
-					this.SecondsRangeEnd = this.selectedTitle.Duration.TotalSeconds;
+					this.secondsRangeStart = 0;
+					this.secondsRangeEnd = this.selectedTitle.Duration.TotalSeconds;
+					this.RaisePropertyChanged("SecondsRangeStart");
+					this.RaisePropertyChanged("SecondsRangeEnd");
 
-					this.FramesRangeStart = 0;
-					this.FramesRangeEnd = this.selectedTitle.Frames;
+					this.framesRangeStart = 0;
+					this.framesRangeEnd = this.selectedTitle.Frames;
+					this.RaisePropertyChanged("FramesRangeStart");
+					this.RaisePropertyChanged("FramesRangeEnd");
 
 					this.angles = new List<int>();
 					for (int i = 1; i <= this.selectedTitle.AngleCount; i++)
@@ -1739,16 +1746,6 @@ namespace VidCoder.ViewModel
 					throw new InvalidOperationException("Title must be selected.");
 				}
 
-				if (this.SelectedStartChapter == null)
-				{
-					throw new InvalidOperationException("Start chapter must be selected.");
-				}
-
-				if (this.SelectedEndChapter == null)
-				{
-					throw new InvalidOperationException("End chapter must be selected.");
-				}
-
 				SourceType type = this.SelectedSource.Type;
 
 				string outputPath = this.OutputPathVM.OutputPath;
@@ -1757,11 +1754,7 @@ namespace VidCoder.ViewModel
 
 				int title = this.SelectedTitle.TitleNumber;
 
-				int startChapter = this.SelectedStartChapter.ChapterNumber;
-
-				int endChapter = this.SelectedEndChapter.ChapterNumber;
-
-				return new EncodeJob
+				var job = new EncodeJob
 				{
 					SourceType = type,
 					SourcePath = this.SourcePath,
@@ -1770,18 +1763,47 @@ namespace VidCoder.ViewModel
 					Title = title,
 					Angle = this.Angle,
 					RangeType = this.RangeType,
-					ChapterStart = startChapter,
-					ChapterEnd = endChapter,
-					SecondsStart = this.SecondsRangeStart,
-					SecondsEnd = this.SecondsRangeEnd,
-					FramesStart = this.FramesRangeStart,
-					FramesEnd = this.FramesRangeEnd,
 					ChosenAudioTracks = this.GetChosenAudioTracks(),
 					Subtitles = this.CurrentSubtitles,
 					UseDefaultChapterNames = this.UseDefaultChapterNames,
 					CustomChapterNames = this.CustomChapterNames,
 					Length = this.SelectedTime
 				};
+
+				switch (this.RangeType)
+				{
+					case VideoRangeType.Chapters:
+						int chapterStart, chapterEnd;
+
+						if (this.SelectedStartChapter == null || this.SelectedEndChapter == null)
+						{
+							chapterStart = 1;
+							chapterEnd = this.SelectedTitle.Chapters.Count;
+
+							this.logger.LogError("Chapter range not selected. Using all chapters.");
+						}
+						else
+						{
+							chapterStart = this.SelectedStartChapter.ChapterNumber;
+							chapterEnd = this.SelectedEndChapter.ChapterNumber;
+						}
+
+						job.ChapterStart = chapterStart;
+						job.ChapterEnd = chapterEnd;
+						break;
+					case VideoRangeType.Seconds:
+						job.SecondsStart = this.SecondsRangeStart;
+						job.SecondsEnd = this.SecondsRangeEnd;
+						break;
+					case VideoRangeType.Frames:
+						job.FramesStart = this.FramesRangeStart;
+						job.FramesEnd = this.FramesRangeEnd;
+						break;
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
+
+				return job;
 			}
 		}
 
