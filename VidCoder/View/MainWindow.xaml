@@ -980,10 +980,10 @@
 										<Setter.Value>
 											<ContextMenu>
 												<MenuItem
-													Header="Move to Top" Command="{Binding MainViewModel.MoveSelectedJobsToTopCommand}"
+													Header="Move to Top" Command="{Binding ProcessingVM.MoveSelectedJobsToTopCommand}"
 													IsEnabled="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}" />
 												<MenuItem
-													Header="Move to Bottom" Command="{Binding MainViewModel.MoveSelectedJobsToBottomCommand}"
+													Header="Move to Bottom" Command="{Binding ProcessingVM.MoveSelectedJobsToBottomCommand}"
 													IsEnabled="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}" />
 												<Separator />
 												<MenuItem
@@ -994,7 +994,7 @@
 													</MenuItem.Icon>
 												</MenuItem>
 												<MenuItem
-													Header="Delete" Command="{Binding MainViewModel.RemoveSelectedJobsCommand}"
+													Header="Delete" Command="{Binding ProcessingVM.RemoveSelectedJobsCommand}"
 													IsEnabled="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}">
 													<MenuItem.Icon>
 														<Image Source="/Icons/delete.png" Width="16" Height="16" />
