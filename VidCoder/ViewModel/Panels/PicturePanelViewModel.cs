@@ -475,6 +475,15 @@ namespace VidCoder.ViewModel
 
 			set
 			{
+				if (value)
+				{
+					// Set initial custom cropping values to previous automatic values to make tweaking easier
+					this.Profile.Cropping.Left = this.CropLeft;
+					this.Profile.Cropping.Top = this.CropTop;
+					this.Profile.Cropping.Right = this.CropRight;
+					this.Profile.Cropping.Bottom = this.CropBottom;
+				}
+
 				this.Profile.CustomCropping = value;
 
 				this.RaisePropertyChanged(() => this.CustomCropping);
