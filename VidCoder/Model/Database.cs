@@ -23,31 +23,29 @@ namespace VidCoder.Model
 
 			using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
 			{
-				// Upgrade encoding profiles on presets (encoder/mixdown changes)
-				if (databaseVersion < 12)
+				// Update encoding profiles if we need to.
+				if (databaseVersion < Utilities.LastUpdatedEncodingProfileDatabaseVersion)
 				{
+					// Upgrade encoding profiles on presets (encoder/mixdown changes)
 					var presets = Presets.GetPresetListFromDb();
 
 					foreach (Preset preset in presets)
 					{
-						Presets.UpgradeEncodingProfile(preset.EncodingProfile);
+						Presets.UpgradeEncodingProfile(preset.EncodingProfile, databaseVersion);
 					}
 
 					var presetXmlList = presets.Select(Presets.SerializePreset).ToList();
 
 					Presets.SavePresets(presetXmlList, Database.Connection);
-				}
 
-				// Upgrade encoding profiles on old queue items.
-				if (databaseVersion < 13)
-				{
+					// Upgrade encoding profiles on old queue items.
 					string jobsXml = DatabaseConfig.GetConfigString("EncodeJobs2", Database.Connection);
 					if (!string.IsNullOrEmpty(jobsXml))
 					{
 						EncodeJobPersistGroup persistGroup = EncodeJobsPersist.LoadJobsXmlString(jobsXml);
 						foreach (EncodeJobWithMetadata job in persistGroup.EncodeJobs)
 						{
-							Presets.UpgradeEncodingProfile(job.Job.EncodingProfile);
+							Presets.UpgradeEncodingProfile(job.Job.EncodingProfile, databaseVersion);
 						}
 
 						DatabaseConfig.SetConfigValue("EncodeJobs2", EncodeJobsPersist.SerializeJobs(persistGroup), Database.Connection);

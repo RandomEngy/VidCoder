@@ -18,7 +18,7 @@ namespace VidCoder.Model
 {
 	public static class Presets
 	{
-		private const int CurrentPresetVersion = 4;
+		private const int CurrentPresetVersion = 5;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
@@ -122,10 +122,7 @@ namespace VidCoder.Model
 				using (XmlReader reader = presetElement.CreateReader())
 				{
 					var preset = presetSerializer.Deserialize(reader) as Preset;
-					if (version < CurrentPresetVersion)
-					{
-						UpgradeEncodingProfile(preset.EncodingProfile);
-					}
+					UpgradeEncodingProfile(preset.EncodingProfile, PresetToDbVersion(version));
 
 					return preset;
 				}
@@ -197,7 +194,25 @@ namespace VidCoder.Model
 			return false;
 		}
 
-		public static void UpgradeEncodingProfile(EncodingProfile profile)
+		public static void UpgradeEncodingProfile(EncodingProfile profile, int databaseVersion)
+		{
+			if (databaseVersion >= Utilities.CurrentDatabaseVersion)
+			{
+				return;
+			}
+
+			if (databaseVersion < 13)
+			{
+				UpgradeEncodingProfileTo13(profile);
+			}
+
+			if (databaseVersion < 14)
+			{
+				UpgradeEncodingProfileTo14(profile);
+			}
+		}
+
+		public static void UpgradeEncodingProfileTo13(EncodingProfile profile)
 		{
 			// Upgrade preset: translate old Enum-based values to short name strings
 			if (!Encoders.VideoEncoders.Any(e => e.ShortName == profile.VideoEncoder))
@@ -226,30 +241,10 @@ namespace VidCoder.Model
 			{
 				if (!Encoders.AudioEncoders.Any(e => e.ShortName == encoding.Encoder))
 				{
-					string newAudioEncoder = "faac";
-					switch (encoding.Encoder)
+					string newAudioEncoder = UpgradeAudioEncoder(encoding.Encoder);
+					if (newAudioEncoder == null)
 					{
-						case "Faac":
-							newAudioEncoder = "faac";
-							break;
-						case "Lame":
-							newAudioEncoder = "lame";
-							break;
-						case "Ac3":
-							newAudioEncoder = "ffac3";
-							break;
-						case "Passthrough":
-							newAudioEncoder = "copy";
-							break;
-						case "Ac3Passthrough":
-							newAudioEncoder = "copy:ac3";
-							break;
-						case "DtsPassthrough":
-							newAudioEncoder = "copy:dts";
-							break;
-						case "Vorbis":
-							newAudioEncoder = "vorbis";
-							break;
+						newAudioEncoder = "faac";
 					}
 
 					encoding.Encoder = newAudioEncoder;
@@ -286,6 +281,54 @@ namespace VidCoder.Model
 					encoding.Mixdown = newMixdown;
 				}
 			}
+		}
+
+		public static void UpgradeEncodingProfileTo14(EncodingProfile profile)
+		{
+			profile.AudioEncoderFallback = UpgradeAudioEncoder(profile.AudioEncoderFallback);
+		}
+
+		private static string UpgradeAudioEncoder(string oldEncoder)
+		{
+			switch (oldEncoder)
+			{
+				case "Faac":
+					return "faac";
+				case "Lame":
+					return "lame";
+				case "Ac3":
+					return "ffac3";
+				case "Passthrough":
+					return "copy";
+				case "Ac3Passthrough":
+					return "copy:ac3";
+				case "DtsPassthrough":
+					return "copy:dts";
+				case "Vorbis":
+					return "vorbis";
+			}
+
+			return oldEncoder;
+		}
+
+		private static int PresetToDbVersion(int presetVersion)
+		{
+			if (presetVersion >= CurrentPresetVersion)
+			{
+				return Utilities.CurrentDatabaseVersion;
+			}
+
+			if (presetVersion < 4)
+			{
+				return 12;
+			}
+
+			if (presetVersion == 4)
+			{
+				return 13;
+			}
+
+			return Utilities.CurrentDatabaseVersion;
 		}
 
 		/// <summary>

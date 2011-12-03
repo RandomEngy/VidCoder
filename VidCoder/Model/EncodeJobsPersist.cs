@@ -49,7 +49,7 @@ namespace VidCoder.Model
 
 						foreach (EncodeJob job in oldJobs)
 						{
-							Presets.UpgradeEncodingProfile(job.EncodingProfile);
+							Presets.UpgradeEncodingProfile(job.EncodingProfile, 12);
 						}
 
 						var persistGroup = new EncodeJobPersistGroup();
