@@ -322,4 +322,7 @@ You should set this if you know your playback device only supports a certain pro
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>Tune options to further optimize them for your input content. If you specify a tuning, the changes will be applied after the Preset but before all other parameters.</value>
   </data>
+  <data name="QueueColumnNameDuration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
 </root>

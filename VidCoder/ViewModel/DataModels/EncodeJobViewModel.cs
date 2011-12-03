@@ -324,6 +324,16 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public string DurationDisplay
+		{
+			get
+			{
+				TimeSpan length = this.Job.Length;
+
+				return string.Format("{0}:{1:00}:{2:00}", Math.Floor(length.TotalHours), length.Minutes, length.Seconds);
+			}
+		}
+
 		public string AudioBitrateDisplay
 		{
 			get

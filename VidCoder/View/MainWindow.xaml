@@ -187,6 +187,10 @@
 			<TextBlock Text="{Binding VideoQualityDisplay}"
 				Style="{StaticResource QueueText}" />
 		</DataTemplate>
+		<DataTemplate x:Key="QueueTemplateDuration">
+			<TextBlock Text="{Binding DurationDisplay}"
+				Style="{StaticResource QueueText}" />
+		</DataTemplate>
 		<DataTemplate x:Key="QueueTemplateAudioBitrate">
 			<TextBlock Text="{Binding AudioBitrateDisplay}"
 				Style="{StaticResource QueueText}" />
@@ -196,7 +200,6 @@
 				<StackPanel
 					Orientation="Horizontal"
 					Visibility="{Binding ShowQueueEditButtons, Converter={StaticResource VisibilityConverter}}">
-					<!--<Button Command="{Binding EditQueueJobCommand}" Content="Edit" />-->
 					<Button Command="{Binding RemoveQueueJobCommand}" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource RemoveButtonStyle}">Remove from queue</Button>
 				</StackPanel>
 				<ProgressBar VerticalAlignment="Center" Height="12"

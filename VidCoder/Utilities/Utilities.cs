@@ -33,6 +33,7 @@ namespace VidCoder
 			{"VideoEncoder", 100},
 			{"AudioEncoder", 100},
 			{"VideoQuality", 80},
+			{"Duration", 60},
 			{"AudioBitrate", 80}
 		};
 
