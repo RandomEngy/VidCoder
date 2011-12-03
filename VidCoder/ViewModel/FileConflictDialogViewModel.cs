@@ -64,7 +64,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.fileConflictResolution = value;
-				this.RaisePropertyChanged("WhenFileExists");
+				this.RaisePropertyChanged(() => this.FileConflictResolution);
 			}
 		}
 

@@ -55,8 +55,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.TrackNumber = value;
-				this.RaisePropertyChanged("SubtitleName");
-				this.RaisePropertyChanged("TrackNumber");
+				this.RaisePropertyChanged(() => this.SubtitleName);
+				this.RaisePropertyChanged(() => this.TrackNumber);
 				this.SubtitleDialogViewModel.UpdateWarningVisibility();
 			}
 		}
@@ -71,7 +71,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.Default = value;
-				this.RaisePropertyChanged("Default");
+				this.RaisePropertyChanged(() => this.Default);
 
 				if (value)
 				{
@@ -90,7 +90,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.Forced = value;
-				this.RaisePropertyChanged("Forced");
+				this.RaisePropertyChanged(() => this.Forced);
 			}
 		}
 
@@ -104,7 +104,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.BurnedIn = value;
-				this.RaisePropertyChanged("BurnedIn");
+				this.RaisePropertyChanged(() => this.BurnedIn);
 
 				if (value)
 				{

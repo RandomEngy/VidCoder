@@ -178,8 +178,8 @@ namespace VidCoder.ViewModel
 				this.SaveCommand.RaiseCanExecuteChanged();
 				this.RenameCommand.RaiseCanExecuteChanged();
 				this.DeletePresetCommand.RaiseCanExecuteChanged();
-				this.RaisePropertyChanged("IsBuiltIn");
-				this.RaisePropertyChanged("DeleteButtonVisible");
+				this.RaisePropertyChanged(() => this.IsBuiltIn);
+				this.RaisePropertyChanged(() => this.DeleteButtonVisible);
 			}
 		}
 
@@ -214,9 +214,9 @@ namespace VidCoder.ViewModel
 					}
 
 					this.DeletePresetCommand.RaiseCanExecuteChanged();
-					this.RaisePropertyChanged("IsModified");
-					this.RaisePropertyChanged("WindowTitle");
-					this.RaisePropertyChanged("DeleteButtonVisible");
+					this.RaisePropertyChanged(() => this.IsModified);
+					this.RaisePropertyChanged(() => this.WindowTitle);
+					this.RaisePropertyChanged(() => this.DeleteButtonVisible);
 
 					// If we've made a modification, we need to save the user presets. The temporary queue preset will
 					// not be persisted so we don't need to save user presets when it changes.
@@ -246,8 +246,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.profile.OutputFormat = value;
-				this.RaisePropertyChanged("OutputFormat");
-				this.RaisePropertyChanged("ShowMp4Choices");
+				this.RaisePropertyChanged(() => this.OutputFormat);
+				this.RaisePropertyChanged(() => this.ShowMp4Choices);
 				this.IsModified = true;
 				this.outputPathVM.GenerateOutputFileName();
 
@@ -266,7 +266,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.profile.PreferredExtension = value;
-				this.RaisePropertyChanged("PreferredExtension");
+				this.RaisePropertyChanged(() => this.PreferredExtension);
 				this.IsModified = true;
 				this.outputPathVM.GenerateOutputFileName();
 			}
@@ -305,7 +305,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.profile.LargeFile = value;
-				this.RaisePropertyChanged("LargeFile");
+				this.RaisePropertyChanged(() => this.LargeFile);
 				this.IsModified = true;
 			}
 		}
@@ -320,7 +320,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.profile.Optimize = value;
-				this.RaisePropertyChanged("Optimize");
+				this.RaisePropertyChanged(() => this.Optimize);
 				this.IsModified = true;
 			}
 		}
@@ -335,7 +335,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.profile.IPod5GSupport = value;
-				this.RaisePropertyChanged("IPod5GSupport");
+				this.RaisePropertyChanged(() => this.IPod5GSupport);
 				this.IsModified = true;
 			}
 		}
@@ -358,7 +358,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.profile.IncludeChapterMarkers = value;
-				this.RaisePropertyChanged("IncludeChapterMarkers");
+				this.RaisePropertyChanged(() => this.IncludeChapterMarkers);
 				this.IsModified = true;
 				this.mainViewModel.RefreshChapterMarkerUI();
 			}
@@ -400,8 +400,8 @@ namespace VidCoder.ViewModel
 
 							this.presetsViewModel.SavePresetAs(newPresetName);
 
-							this.RaisePropertyChanged("ProfileName");
-							this.RaisePropertyChanged("WindowTitle");
+							this.RaisePropertyChanged(() => this.ProfileName);
+							this.RaisePropertyChanged(() => this.WindowTitle);
 
 							this.IsModified = false;
 							this.IsBuiltIn = false;
@@ -428,8 +428,8 @@ namespace VidCoder.ViewModel
 
 							this.presetsViewModel.SavePreset();
 
-							this.RaisePropertyChanged("ProfileName");
-							this.RaisePropertyChanged("WindowTitle");
+							this.RaisePropertyChanged(() => this.ProfileName);
+							this.RaisePropertyChanged(() => this.WindowTitle);
 
 							this.IsModified = false;
 						}
@@ -482,19 +482,19 @@ namespace VidCoder.ViewModel
 		{
 			this.AutomaticChange = true;
 
-			this.RaisePropertyChanged("WindowTitle");
-			this.RaisePropertyChanged("ProfileName");
-			this.RaisePropertyChanged("IsBuiltIn");
-			this.RaisePropertyChanged("SaveRenameButtonsVisible");
-			this.RaisePropertyChanged("DeleteButtonVisible");
-			this.RaisePropertyChanged("IsModified");
-			this.RaisePropertyChanged("OutputFormat");
-			this.RaisePropertyChanged("PreferredExtension");
-			this.RaisePropertyChanged("LargeFile");
-			this.RaisePropertyChanged("Optimize");
-			this.RaisePropertyChanged("IPod5GSupport");
-			this.RaisePropertyChanged("ShowMp4Choices");
-			this.RaisePropertyChanged("IncludeChapterMarkers");
+			this.RaisePropertyChanged(() => this.WindowTitle);
+			this.RaisePropertyChanged(() => this.ProfileName);
+			this.RaisePropertyChanged(() => this.IsBuiltIn);
+			this.RaisePropertyChanged(() => this.SaveRenameButtonsVisible);
+			this.RaisePropertyChanged(() => this.DeleteButtonVisible);
+			this.RaisePropertyChanged(() => this.IsModified);
+			this.RaisePropertyChanged(() => this.OutputFormat);
+			this.RaisePropertyChanged(() => this.PreferredExtension);
+			this.RaisePropertyChanged(() => this.LargeFile);
+			this.RaisePropertyChanged(() => this.Optimize);
+			this.RaisePropertyChanged(() => this.IPod5GSupport);
+			this.RaisePropertyChanged(() => this.ShowMp4Choices);
+			this.RaisePropertyChanged(() => this.IncludeChapterMarkers);
 			
 			this.PicturePanelViewModel.NotifyAllChanged();
 			this.VideoFiltersPanelViewModel.NotifyAllChanged();
@@ -514,7 +514,7 @@ namespace VidCoder.ViewModel
 				this.AudioPanelViewModel.NotifySelectedTitleChanged();
 				this.VideoPanelViewModel.NotifySelectedTitleChanged();
 
-				this.RaisePropertyChanged("HasSourceData");
+				this.RaisePropertyChanged(() => this.HasSourceData);
 			}
 		}
 

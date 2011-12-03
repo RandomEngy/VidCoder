@@ -63,7 +63,7 @@ namespace VidCoder.ViewModel
 				lock (this.currentJobIndexLock)
 				{
 					this.currentJobIndex++;
-					this.RaisePropertyChanged("Progress");
+					this.RaisePropertyChanged(() => this.Progress);
 
 					if (this.currentJobIndex >= this.itemsToScan.Count)
 					{

@@ -111,6 +111,8 @@ namespace VidCoder.ViewModel.Components
 				this,
 				message =>
 					{
+						this.RaisePropertyChanged(() => this.EnqueueToolTip);
+						this.RaisePropertyChanged(() => this.EncodeToolTip);
 						this.QueueFilesCommand.RaiseCanExecuteChanged();
 						this.QueueTitlesCommand.RaiseCanExecuteChanged();
 					});
@@ -217,9 +219,9 @@ namespace VidCoder.ViewModel.Components
 				}
 
 				this.PauseCommand.RaiseCanExecuteChanged();
-				this.RaisePropertyChanged("PauseVisible");
-				this.RaisePropertyChanged("Encoding");
-				this.RaisePropertyChanged("EncodeButtonText");
+				this.RaisePropertyChanged(() => this.PauseVisible);
+				this.RaisePropertyChanged(() => this.Encoding);
+				this.RaisePropertyChanged(() => this.EncodeButtonText);
 			}
 		}
 
@@ -246,9 +248,9 @@ namespace VidCoder.ViewModel.Components
 					}
 				}
 
-				this.RaisePropertyChanged("PauseVisible");
-				this.RaisePropertyChanged("ProgressBarColor");
-				this.RaisePropertyChanged("Paused");
+				this.RaisePropertyChanged(() => this.PauseVisible);
+				this.RaisePropertyChanged(() => this.ProgressBarColor);
+				this.RaisePropertyChanged(() => this.Paused);
 			}
 		}
 
@@ -314,7 +316,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.encodeSpeedDetailsAvailable = value;
-				this.RaisePropertyChanged("EncodeSpeedDetailsAvailable");
+				this.RaisePropertyChanged(() => this.EncodeSpeedDetailsAvailable);
 			}
 		}
 
@@ -328,7 +330,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.estimatedTimeRemaining = value;
-				this.RaisePropertyChanged("EstimatedTimeRemaining");
+				this.RaisePropertyChanged(() => this.EstimatedTimeRemaining);
 			}
 		}
 
@@ -342,7 +344,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.encodeCompleteAction = value;
-				this.RaisePropertyChanged("EncodeCompleteAction");
+				this.RaisePropertyChanged(() => this.EncodeCompleteAction);
 			}
 		}
 
@@ -356,7 +358,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.currentFps = value;
-				this.RaisePropertyChanged("CurrentFps");
+				this.RaisePropertyChanged(() => this.CurrentFps);
 			}
 		}
 
@@ -370,7 +372,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.averageFps = value;
-				this.RaisePropertyChanged("AverageFps");
+				this.RaisePropertyChanged(() => this.AverageFps);
 			}
 		}
 
@@ -384,8 +386,8 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.overallEncodeProgressFraction = value;
-				this.RaisePropertyChanged("OverallEncodeProgressPercent");
-				this.RaisePropertyChanged("OverallEncodeProgressFraction");
+				this.RaisePropertyChanged(() => this.OverallEncodeProgressPercent);
+				this.RaisePropertyChanged(() => this.OverallEncodeProgressFraction);
 			}
 		}
 
@@ -407,7 +409,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.encodeProgressState = value;
-				this.RaisePropertyChanged("EncodeProgressState");
+				this.RaisePropertyChanged(() => this.EncodeProgressState);
 			}
 		}
 
@@ -436,7 +438,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.selectedTabIndex = value;
-				this.RaisePropertyChanged("SelectedTabIndex");
+				this.RaisePropertyChanged(() => this.SelectedTabIndex);
 			}
 		}
 
@@ -757,8 +759,8 @@ namespace VidCoder.ViewModel.Components
 							}
 						}
 
-						this.RaisePropertyChanged("CompletedItemsCount");
-						this.RaisePropertyChanged("CompletedTabHeader");
+						this.RaisePropertyChanged(() => this.CompletedItemsCount);
+						this.RaisePropertyChanged(() => this.CompletedTabHeader);
 					}));
 			}
 		}
@@ -778,12 +780,11 @@ namespace VidCoder.ViewModel.Components
 
 				this.totalTasks++;
 				this.totalQueueCost += encodeJobVM.Cost;
-				this.RaisePropertyChanged("TaskDetails");
 			}
 
 			this.EncodeQueue.Add(encodeJobVM);
 
-			this.RaisePropertyChanged("QueuedTabHeader");
+			this.RaisePropertyChanged(() => this.QueuedTabHeader);
 
 			// Select the Queued tab.
 			if (this.SelectedTabIndex != QueuedTabIndex)
@@ -896,15 +897,13 @@ namespace VidCoder.ViewModel.Components
 				this.totalTasks--;
 				this.totalQueueCost -= job.Cost;
 
-				this.RaisePropertyChanged("TaskDetails");
-
 				if (this.totalTasks == 1)
 				{
 					this.EncodeQueue[0].IsOnlyItem = true;
 				}
 			}
 
-			this.RaisePropertyChanged("QueuedTabHeader");
+			this.RaisePropertyChanged(() => this.QueuedTabHeader);
 		}
 
 		public void RemoveSelectedQueueJobs()
@@ -1018,7 +1017,6 @@ namespace VidCoder.ViewModel.Components
 		private void EncodeNextJob()
 		{
 			this.taskNumber++;
-			this.RaisePropertyChanged("TaskDetails");
 
 			if (this.CurrentJob.HandBrakeInstance == null)
 			{
@@ -1235,12 +1233,12 @@ namespace VidCoder.ViewModel.Components
 							EncodeTime = this.CurrentJob.EncodeTime
 						},
 						resultJob));
-					this.RaisePropertyChanged("CompletedItemsCount");
-					this.RaisePropertyChanged("CompletedTabHeader");
+					this.RaisePropertyChanged(() => this.CompletedItemsCount);
+					this.RaisePropertyChanged(() => this.CompletedTabHeader);
 
 					HandBrakeInstance finishedInstance = this.EncodeQueue[0].HandBrakeInstance;
 					this.EncodeQueue.RemoveAt(0);
-					this.RaisePropertyChanged("QueuedTabHeader");
+					this.RaisePropertyChanged(() => this.QueuedTabHeader);
 
 					if (!Settings.Default.KeepScansAfterCompletion)
 					{
@@ -1323,8 +1321,8 @@ namespace VidCoder.ViewModel.Components
 
 		private void RefreshCanEnqueue()
 		{
-			this.RaisePropertyChanged("CanEnqueueMultipleTitles");
-			this.RaisePropertyChanged("CanEnqueue");
+			this.RaisePropertyChanged(() => this.CanEnqueueMultipleTitles);
+			this.RaisePropertyChanged(() => this.CanEnqueue);
 
 			this.AddToQueueCommand.RaiseCanExecuteChanged();
 			this.QueueTitlesCommand.RaiseCanExecuteChanged();

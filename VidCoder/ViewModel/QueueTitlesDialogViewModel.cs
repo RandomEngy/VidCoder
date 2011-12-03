@@ -82,7 +82,7 @@ namespace VidCoder.ViewModel
 					}
 				}
 
-				this.RaisePropertyChanged("SelectRange");
+				this.RaisePropertyChanged(() => this.SelectRange);
 			}
 		}
 
@@ -102,7 +102,7 @@ namespace VidCoder.ViewModel
 					this.SetSelectedFromRange();
 				}
 
-				this.RaisePropertyChanged("StartRange");
+				this.RaisePropertyChanged(() => this.StartRange);
 			}
 		}
 
@@ -122,7 +122,7 @@ namespace VidCoder.ViewModel
 					this.SetSelectedFromRange();
 				}
 
-				this.RaisePropertyChanged("EndRange");
+				this.RaisePropertyChanged(() => this.EndRange);
 			}
 		}
 
@@ -136,7 +136,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.titleStartOverrideEnabled = value;
-				this.RaisePropertyChanged("TitleStartOverrideEnabled");
+				this.RaisePropertyChanged(() => this.TitleStartOverrideEnabled);
 			}
 		}
 
@@ -150,7 +150,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.titleStartOverride = value;
-				this.RaisePropertyChanged("TitleStartOverride");
+				this.RaisePropertyChanged(() => this.TitleStartOverride);
 			}
 		}
 

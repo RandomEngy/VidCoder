@@ -47,7 +47,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.presetName = value;
-				this.RaisePropertyChanged("PresetName");
+				this.RaisePropertyChanged(() => this.PresetName);
 				this.AcceptCommand.RaiseCanExecuteChanged();
 			}
 		}

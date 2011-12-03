@@ -70,13 +70,13 @@ namespace VidCoder.ViewModel
 
 		private void SourceCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
-			this.RaisePropertyChanged("HasSourceSubtitles");
-			this.RaisePropertyChanged("AddSourceSubtitleToolTip");
+			this.RaisePropertyChanged(() => this.HasSourceSubtitles);
+			this.RaisePropertyChanged(() => this.AddSourceSubtitleToolTip);
 		}
 
 		private void SrtCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
-			this.RaisePropertyChanged("HasSrtSubtitles");
+			this.RaisePropertyChanged(() => this.HasSrtSubtitles);
 		}
 
 		public List<string> InputTrackChoices
@@ -145,7 +145,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.textSubtitleWarningVisible = value;
-				this.RaisePropertyChanged("TextSubtitleWarningVisibile");
+				this.RaisePropertyChanged(() => this.TextSubtitleWarningVisibile);
 			}
 		}
 
@@ -159,7 +159,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.burnedOverlapWarningVisible = value;
-				this.RaisePropertyChanged("BurnedOverlapWarningVisible");
+				this.RaisePropertyChanged(() => this.BurnedOverlapWarningVisible);
 			}
 		}
 
@@ -173,7 +173,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.defaultsEnabled = value;
-				this.RaisePropertyChanged("DefaultsEnabled");
+				this.RaisePropertyChanged(() => this.DefaultsEnabled);
 			}
 		}
 

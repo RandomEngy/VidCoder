@@ -46,7 +46,6 @@ namespace VidCoder.ViewModel
 					this.clearLogCommand = new RelayCommand(() =>
 					{
 						this.logger.ClearLog();
-						this.RaisePropertyChanged("LogText");
 					});
 				}
 

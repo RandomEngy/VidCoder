@@ -80,7 +80,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.passthroughWarningText = value;
-				this.RaisePropertyChanged("PassthroughWarningText");
+				this.RaisePropertyChanged(() => this.PassthroughWarningText);
 			}
 		}
 
@@ -94,7 +94,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.passthroughWarningVisible = value;
-				this.RaisePropertyChanged("PassthroughWarningVisible");
+				this.RaisePropertyChanged(() => this.PassthroughWarningVisible);
 			}
 		}
 
@@ -118,7 +118,7 @@ namespace VidCoder.ViewModel
 						};
 
 						this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this.EncodingViewModel.OutputFormat, this));
-						this.RaisePropertyChanged("HasAudioTracks");
+						this.RaisePropertyChanged(() => this.HasAudioTracks);
 						this.RefreshExtensionChoice();
 						this.RefreshAudioPreview();
 						this.UpdateAudioEncodings();
@@ -133,7 +133,7 @@ namespace VidCoder.ViewModel
 		public void RemoveAudioEncoding(AudioEncodingViewModel audioEncodingVM)
 		{
 			this.AudioEncodings.Remove(audioEncodingVM);
-			this.RaisePropertyChanged("HasAudioTracks");
+			this.RaisePropertyChanged(() => this.HasAudioTracks);
 			this.RefreshExtensionChoice();
 			this.RefreshAudioPreview();
 			this.UpdateAudioEncodings();
@@ -202,7 +202,7 @@ namespace VidCoder.ViewModel
 					});
 				}
 
-				this.RaisePropertyChanged("HasAudioTracks");
+				this.RaisePropertyChanged(() => this.HasAudioTracks);
 			}
 		}
 
@@ -309,7 +309,7 @@ namespace VidCoder.ViewModel
 
 		public void NotifyAllChanged()
 		{
-			this.RaisePropertyChanged("HasAudioTracks");
+			this.RaisePropertyChanged(() => this.HasAudioTracks);
 		}
 
 		public void NotifyProfileChanged()

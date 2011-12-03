@@ -119,7 +119,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.title = value;
-				this.RaisePropertyChanged("Title");
+				this.RaisePropertyChanged(() => this.Title);
 			}
 		}
 
@@ -133,7 +133,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.previewImage = value;
-				this.RaisePropertyChanged("PreviewImage");
+				this.RaisePropertyChanged(() => this.PreviewImage);
 			}
 		}
 
@@ -147,8 +147,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.generatingPreview = value;
-				this.RaisePropertyChanged("GeneratingPreview");
-				this.RaisePropertyChanged("SeekBarEnabled");
+				this.RaisePropertyChanged(() => this.GeneratingPreview);
+				this.RaisePropertyChanged(() => this.SeekBarEnabled);
 			}
 		}
 
@@ -170,7 +170,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.previewPercentComplete = value;
-				this.RaisePropertyChanged("PreviewPercentComplete");
+				this.RaisePropertyChanged(() => this.PreviewPercentComplete);
 			}
 		}
 
@@ -184,7 +184,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.previewSeconds = value;
-				this.RaisePropertyChanged("PreviewSeconds");
+				this.RaisePropertyChanged(() => this.PreviewSeconds);
 
 				Settings.Default.PreviewSeconds = value;
 				Settings.Default.Save();
@@ -202,8 +202,8 @@ namespace VidCoder.ViewModel
 			{
 				this.hasPreview = value;
 				this.GeneratePreviewCommand.RaiseCanExecuteChanged();
-				this.RaisePropertyChanged("SeekBarEnabled");
-				this.RaisePropertyChanged("HasPreview");
+				this.RaisePropertyChanged(() => this.SeekBarEnabled);
+				this.RaisePropertyChanged(() => this.HasPreview);
 			}
 		}
 
@@ -217,7 +217,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedPreview = value;
-				this.RaisePropertyChanged("SelectedPreview");
+				this.RaisePropertyChanged(() => this.SelectedPreview);
 
 				lock (this.imageSync)
 				{
@@ -376,10 +376,10 @@ namespace VidCoder.ViewModel
 			if (this.selectedPreview >= this.previewCount)
 			{
 				this.selectedPreview = this.previewCount - 1;
-				this.RaisePropertyChanged("SelectedPreview");
+				this.RaisePropertyChanged(() => this.SelectedPreview);
 			}
 
-			this.RaisePropertyChanged("PreviewCount");
+			this.RaisePropertyChanged(() => this.PreviewCount);
 
 			this.HasPreview = true;
 

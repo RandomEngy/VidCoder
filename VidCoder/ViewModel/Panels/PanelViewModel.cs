@@ -96,7 +96,7 @@ namespace VidCoder.ViewModel
 
 		public virtual void NotifySelectedTitleChanged()
 		{
-			this.RaisePropertyChanged("HasSourceData");
+			this.RaisePropertyChanged(() => this.HasSourceData);
 		}
 	}
 }

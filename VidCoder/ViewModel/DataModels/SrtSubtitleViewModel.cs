@@ -39,7 +39,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.Default = value;
-				this.RaisePropertyChanged("Default");
+				this.RaisePropertyChanged(() => this.Default);
 
 				this.SubtitleDialogViewModel.ReportDefault(this);
 			}
@@ -55,7 +55,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.FileName = value;
-				this.RaisePropertyChanged("FileName");
+				this.RaisePropertyChanged(() => this.FileName);
 			}
 		}
 
@@ -69,7 +69,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.LanguageCode = value;
-				this.RaisePropertyChanged("LanguageCode");
+				this.RaisePropertyChanged(() => this.LanguageCode);
 			}
 		}
 
@@ -83,7 +83,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.CharacterCode = value;
-				this.RaisePropertyChanged("CharacterCode");
+				this.RaisePropertyChanged(() => this.CharacterCode);
 			}
 		}
 
@@ -97,7 +97,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.Offset = value;
-				this.RaisePropertyChanged("Offset");
+				this.RaisePropertyChanged(() => this.Offset);
 			}
 		}
 

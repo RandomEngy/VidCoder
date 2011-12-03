@@ -37,7 +37,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.processName = value;
-				this.RaisePropertyChanged("ProcessName");
+				this.RaisePropertyChanged(() => this.ProcessName);
 			}
 		}
 
@@ -60,7 +60,7 @@ namespace VidCoder.ViewModel
 			{
 				this.selectedProcess = value;
 				this.ProcessName = value;
-				this.RaisePropertyChanged("SelectedProcess");
+				this.RaisePropertyChanged(() => this.SelectedProcess);
 			}
 		}
 

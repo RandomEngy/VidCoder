@@ -34,7 +34,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.encodingWindowOpen = value;
-				this.RaisePropertyChanged("EncodingWindowOpen");
+				this.RaisePropertyChanged(() => this.EncodingWindowOpen);
 			}
 		}
 
@@ -48,7 +48,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.previewWindowOpen = value;
-				this.RaisePropertyChanged("PreviewWindowOpen");
+				this.RaisePropertyChanged(() => this.PreviewWindowOpen);
 			}
 		}
 
@@ -62,7 +62,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.logWindowOpen = value;
-				this.RaisePropertyChanged("LogWindowOpen");
+				this.RaisePropertyChanged(() => this.LogWindowOpen);
 			}
 		}
 

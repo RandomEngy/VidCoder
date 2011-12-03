@@ -50,7 +50,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.useDefaultNames = value;
-				this.RaisePropertyChanged("UseDefaultNames");
+				this.RaisePropertyChanged(() => this.UseDefaultNames);
 			}
 		}
 

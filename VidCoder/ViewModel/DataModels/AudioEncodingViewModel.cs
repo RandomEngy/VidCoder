@@ -120,7 +120,7 @@ namespace VidCoder.ViewModel
 				this,
 				message =>
 					{
-						this.RaisePropertyChanged("NameVisible");
+						this.RaisePropertyChanged(() => this.NameVisible);
 					});
 
 			this.initializing = false;
@@ -187,7 +187,7 @@ namespace VidCoder.ViewModel
 				if (value >= 0)
 				{
 					this.targetStreamIndex = value;
-					this.RaisePropertyChanged("TargetStreamIndex");
+					this.RaisePropertyChanged(() => this.TargetStreamIndex);
 					this.audioPanelVM.NotifyAudioEncodingChanged();
 					this.MarkModified();
 				}
@@ -212,22 +212,21 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedAudioEncoder = value;
-				this.RaisePropertyChanged("SelectedAudioEncoder");
-				this.RaisePropertyChanged("EncoderSettingsVisible");
-				this.RaisePropertyChanged("BitrateVisible");
-				this.RaisePropertyChanged("AudioQualityVisible");
-				this.RaisePropertyChanged("AudioQualityRadioVisible");
-				this.RaisePropertyChanged("AudioCompressionVisible");
-				this.RaisePropertyChanged("BitrateRadioButtonVisible");
-				this.RaisePropertyChanged("BitrateLabelVisible");
-				this.RaisePropertyChanged("AudioQualityMinimum");
-				this.RaisePropertyChanged("AudioQualityMaximum");
-				this.RaisePropertyChanged("AudioQualityGranularity");
-				this.RaisePropertyChanged("AudioQualityToolTip");
-				this.RaisePropertyChanged("AudioCompressionMinimum");
-				this.RaisePropertyChanged("AudioCompressionMaximum");
-				this.RaisePropertyChanged("AudioCompressionGranularity");
-				this.RaisePropertyChanged("AudioCompressionToolTip");
+				this.RaisePropertyChanged(() => this.SelectedAudioEncoder);
+				this.RaisePropertyChanged(() => this.EncoderSettingsVisible);
+				this.RaisePropertyChanged(() => this.BitrateVisible);
+				this.RaisePropertyChanged(() => this.AudioQualityVisible);
+				this.RaisePropertyChanged(() => this.AudioQualityRadioVisible);
+				this.RaisePropertyChanged(() => this.AudioCompressionVisible);
+				this.RaisePropertyChanged(() => this.BitrateLabelVisible);
+				this.RaisePropertyChanged(() => this.AudioQualityMinimum);
+				this.RaisePropertyChanged(() => this.AudioQualityMaximum);
+				this.RaisePropertyChanged(() => this.AudioQualityGranularity);
+				this.RaisePropertyChanged(() => this.AudioQualityToolTip);
+				this.RaisePropertyChanged(() => this.AudioCompressionMinimum);
+				this.RaisePropertyChanged(() => this.AudioCompressionMaximum);
+				this.RaisePropertyChanged(() => this.AudioCompressionGranularity);
+				this.RaisePropertyChanged(() => this.AudioCompressionToolTip);
 				this.MarkModified();
 
 				if (value != null)
@@ -255,13 +254,13 @@ namespace VidCoder.ViewModel
 					if (value.SupportsQuality)
 					{
 						this.audioQuality = value.DefaultQuality;
-						this.RaisePropertyChanged("AudioQuality");
+						this.RaisePropertyChanged(() => this.AudioQuality);
 					}
 
 					if (value.SupportsCompression)
 					{
 						this.audioCompression = value.DefaultCompression;
-						this.RaisePropertyChanged("AudioCompression");
+						this.RaisePropertyChanged(() => this.AudioCompression);
 					}
 
 					this.RaiseAudioEncodingChanged();
@@ -299,7 +298,7 @@ namespace VidCoder.ViewModel
 				if (value == AudioEncodeRateType.Quality)
 				{
 					this.audioQuality = this.SelectedAudioEncoder.DefaultQuality;
-					this.RaisePropertyChanged("AudioQuality");
+					this.RaisePropertyChanged(() => this.AudioQuality);
 				}
 
 				this.RaiseAudioEncodingChanged();
@@ -340,7 +339,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.audioQuality = value;
-				this.RaisePropertyChanged("AudioQuality");
+				this.RaisePropertyChanged(() => this.AudioQuality);
 				this.RaiseAudioEncodingChanged();
 			}
 		}
@@ -418,7 +417,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.audioCompression = value;
-				this.RaisePropertyChanged("AudioCompression");
+				this.RaisePropertyChanged(() => this.AudioCompression);
 				this.RaiseAudioEncodingChanged();
 			}
 		}
@@ -503,7 +502,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedMixdown = value;
-				this.RaisePropertyChanged("SelectedMixdown");
+				this.RaisePropertyChanged(() => this.SelectedMixdown);
 
 				if (value != null)
 				{
@@ -534,7 +533,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.sampleRate = value;
-				this.RaisePropertyChanged("SampleRate");
+				this.RaisePropertyChanged(() => this.SampleRate);
 				this.RaiseAudioEncodingChanged();
 			}
 		}
@@ -549,7 +548,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.bitrateChoices = value;
-				this.RaisePropertyChanged("BitrateChoices");
+				this.RaisePropertyChanged(() => this.BitrateChoices);
 			}
 		}
 
@@ -563,7 +562,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedBitrate = value;
-				this.RaisePropertyChanged("SelectedBitrate");
+				this.RaisePropertyChanged(() => this.SelectedBitrate);
 
 				if (value != null)
 				{
@@ -582,7 +581,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.gain = value;
-				this.RaisePropertyChanged("Gain");
+				this.RaisePropertyChanged(() => this.Gain);
 				this.RaiseAudioEncodingChanged();
 			}
 		}
@@ -597,7 +596,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.drc = value;
-				this.RaisePropertyChanged("Drc");
+				this.RaisePropertyChanged(() => this.Drc);
 				this.audioPanelVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
@@ -613,7 +612,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.name = value;
-				this.RaisePropertyChanged("Name");
+				this.RaisePropertyChanged(() => this.Name);
 				this.audioPanelVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
 			}
@@ -681,10 +680,10 @@ namespace VidCoder.ViewModel
 
 				// Set to -1, then back to real index in order to force a refresh on the ComboBox
 				this.targetStreamIndex = -1;
-				this.RaisePropertyChanged("TargetStreamIndex");
+				this.RaisePropertyChanged(() => this.TargetStreamIndex);
 
 				this.targetStreamIndex = previousIndex;
-				this.RaisePropertyChanged("TargetStreamIndex");
+				this.RaisePropertyChanged(() => this.TargetStreamIndex);
 			});
 		}
 
@@ -702,7 +701,7 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			this.RaisePropertyChanged("AudioEncoders");
+			this.RaisePropertyChanged(() => this.AudioEncoders);
 
 			if (this.AudioEncoders.Contains(oldEncoder))
 			{
@@ -713,7 +712,7 @@ namespace VidCoder.ViewModel
 				this.selectedAudioEncoder = this.AudioEncoders[0];
 			}
 
-			this.RaisePropertyChanged("SelectedAudioEncoder");
+			this.RaisePropertyChanged(() => this.SelectedAudioEncoder);
 		}
 
 		private void RefreshMixdownChoices()
@@ -727,7 +726,7 @@ namespace VidCoder.ViewModel
 				this.MixdownChoices.Add(Encoders.Mixdowns[i]);
 			}
 
-			this.RaisePropertyChanged("MixdownChoices");
+			this.RaisePropertyChanged(() => this.MixdownChoices);
 
 			if (this.MixdownChoices.Contains(oldMixdown))
 			{
@@ -738,7 +737,7 @@ namespace VidCoder.ViewModel
 				this.selectedMixdown = this.MixdownChoices[0];
 			}
 
-			this.RaisePropertyChanged("SelectedMixdown");
+			this.RaisePropertyChanged(() => this.SelectedMixdown);
 		}
 
 		private void RefreshBitrateChoices()
@@ -819,10 +818,10 @@ namespace VidCoder.ViewModel
 				    });
 			}
 
-			this.RaisePropertyChanged("BitrateChoices");
+			this.RaisePropertyChanged(() => this.BitrateChoices);
 
 			this.selectedBitrate = this.BitrateChoices.Single(b => b.Bitrate == oldBitrate);
-			this.RaisePropertyChanged("SelectedBitrate");
+			this.RaisePropertyChanged(() => this.SelectedBitrate);
 		}
 
 		private void MarkModified()
@@ -844,10 +843,10 @@ namespace VidCoder.ViewModel
 
 		private void RaiseEncodeRateTypeChanged()
 		{
-			this.RaisePropertyChanged("EncodeRateType");
-			this.RaisePropertyChanged("BitrateVisible");
-			this.RaisePropertyChanged("BitrateLabelVisible");
-			this.RaisePropertyChanged("AudioQualityVisible");
+			this.RaisePropertyChanged(() => this.EncodeRateType);
+			this.RaisePropertyChanged(() => this.BitrateVisible);
+			this.RaisePropertyChanged(() => this.BitrateLabelVisible);
+			this.RaisePropertyChanged(() => this.AudioQualityVisible);
 		}
 	}
 }

@@ -61,9 +61,9 @@ namespace VidCoder.ViewModel
 
 		public void RefreshView()
 		{
-			this.RaisePropertyChanged("IsModified");
-			this.RaisePropertyChanged("PresetName");
-			this.RaisePropertyChanged("IsBuiltIn");
+			this.RaisePropertyChanged(() => this.IsModified);
+			this.RaisePropertyChanged(() => this.PresetName);
+			this.RaisePropertyChanged(() => this.IsBuiltIn);
 		}
 	}
 }

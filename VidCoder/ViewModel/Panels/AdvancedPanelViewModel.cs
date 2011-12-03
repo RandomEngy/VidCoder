@@ -51,7 +51,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.referenceFrames = value;
-				this.RaisePropertyChanged("ReferenceFrames");
+				this.RaisePropertyChanged(() => this.ReferenceFrames);
 				this.UpdateOptionsString();
 			}
 		}
@@ -66,9 +66,9 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.bFrames = value;
-				this.RaisePropertyChanged("BFrames");
-				this.RaisePropertyChanged("BFramesOptionsVisible");
-				this.RaisePropertyChanged("PyramidalBFramesVisible");
+				this.RaisePropertyChanged(() => this.BFrames);
+				this.RaisePropertyChanged(() => this.BFramesOptionsVisible);
+				this.RaisePropertyChanged(() => this.PyramidalBFramesVisible);
 				this.UpdateOptionsString();
 			}
 		}
@@ -91,7 +91,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.adaptiveBFrames = value;
-				this.RaisePropertyChanged("AdaptiveBFrames");
+				this.RaisePropertyChanged(() => this.AdaptiveBFrames);
 				this.UpdateOptionsString();
 			}
 		}
@@ -106,7 +106,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.directPrediction = value;
-				this.RaisePropertyChanged("DirectPrediction");
+				this.RaisePropertyChanged(() => this.DirectPrediction);
 				this.UpdateOptionsString();
 			}
 		}
@@ -121,7 +121,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.weightedPFrames = value;
-				this.RaisePropertyChanged("WeightedPFrames");
+				this.RaisePropertyChanged(() => this.WeightedPFrames);
 				this.UpdateOptionsString();
 			}
 		}
@@ -136,7 +136,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.pyramidalBFrames = value;
-				this.RaisePropertyChanged("PyramidalBFrames");
+				this.RaisePropertyChanged(() => this.PyramidalBFrames);
 				this.UpdateOptionsString();
 			}
 		}
@@ -159,8 +159,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.motionEstimationMethod = value;
-				this.RaisePropertyChanged("MotionEstimationMethod");
-				this.RaisePropertyChanged("MotionEstimationRangeVisible");
+				this.RaisePropertyChanged(() => this.MotionEstimationMethod);
+				this.RaisePropertyChanged(() => this.MotionEstimationRangeVisible);
 				this.UpdateOptionsString();
 			}
 		}
@@ -175,7 +175,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subpixelMotionEstimation = value;
-				this.RaisePropertyChanged("SubpixelMotionEstimation");
+				this.RaisePropertyChanged(() => this.SubpixelMotionEstimation);
 				this.UpdateOptionsString();
 			}
 		}
@@ -190,7 +190,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.motionEstimationRange = value;
-				this.RaisePropertyChanged("MotionEstimationRange");
+				this.RaisePropertyChanged(() => this.MotionEstimationRange);
 				this.UpdateOptionsString();
 			}
 		}
@@ -214,8 +214,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.analysis = value;
-				this.RaisePropertyChanged("Analysis");
-				this.RaisePropertyChanged("EightByEightDctVisible");
+				this.RaisePropertyChanged(() => this.Analysis);
+				this.RaisePropertyChanged(() => this.EightByEightDctVisible);
 				this.UpdateOptionsString();
 			}
 		}
@@ -230,7 +230,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.eightByEightDct = value;
-				this.RaisePropertyChanged("EightByEightDct");
+				this.RaisePropertyChanged(() => this.EightByEightDct);
 				this.UpdateOptionsString();
 			}
 		}
@@ -253,8 +253,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.cabacEntropyCoding = value;
-				this.RaisePropertyChanged("CabacEntropyCoding");
-				this.RaisePropertyChanged("PsychovisualTrellisVisible");
+				this.RaisePropertyChanged(() => this.CabacEntropyCoding);
+				this.RaisePropertyChanged(() => this.PsychovisualTrellisVisible);
 				this.UpdateOptionsString();
 			}
 		}
@@ -269,8 +269,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.trellis = value;
-				this.RaisePropertyChanged("Trellis");
-				this.RaisePropertyChanged("PsychovisualTrellisVisible");
+				this.RaisePropertyChanged(() => this.Trellis);
+				this.RaisePropertyChanged(() => this.PsychovisualTrellisVisible);
 				this.UpdateOptionsString();
 			}
 		}
@@ -284,7 +284,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.adaptiveQuantizationStrength = value;
-				this.RaisePropertyChanged("AdaptiveQuantizationStrength");
+				this.RaisePropertyChanged(() => this.AdaptiveQuantizationStrength);
 				this.UpdateOptionsString();
 			}
 		}
@@ -299,7 +299,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.psychovisualRateDistortion = value;
-				this.RaisePropertyChanged("PsychovisualRateDistortion");
+				this.RaisePropertyChanged(() => this.PsychovisualRateDistortion);
 				this.UpdateOptionsString();
 			}
 		}
@@ -314,7 +314,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.psychovisualTrellis = value;
-				this.RaisePropertyChanged("PsychovisualTrellis");
+				this.RaisePropertyChanged(() => this.PsychovisualTrellis);
 				this.UpdateOptionsString();
 			}
 		}
@@ -337,7 +337,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.deblockingStrength = value;
-				this.RaisePropertyChanged("DeblockingStrength");
+				this.RaisePropertyChanged(() => this.DeblockingStrength);
 				this.UpdateOptionsString();
 			}
 		}
@@ -352,7 +352,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.deblockingThreshold = value;
-				this.RaisePropertyChanged("DeblockingThreshold");
+				this.RaisePropertyChanged(() => this.DeblockingThreshold);
 				this.UpdateOptionsString();
 			}
 		}
@@ -367,7 +367,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.noDctDecimate = value;
-				this.RaisePropertyChanged("NoDctDecimate");
+				this.RaisePropertyChanged(() => this.NoDctDecimate);
 				this.UpdateOptionsString();
 			}
 		}
@@ -383,7 +383,7 @@ namespace VidCoder.ViewModel
 			{
 				this.Profile.X264Options = value;
 				this.UpdateUIFromAdvancedOptions();
-				this.RaisePropertyChanged("AdvancedOptionsString");
+				this.RaisePropertyChanged(() => this.AdvancedOptionsString);
 				this.IsModified = true;
 			}
 		}
@@ -750,13 +750,13 @@ namespace VidCoder.ViewModel
 			}
 
 			this.Profile.X264Options = string.Join(":", newOptions);
-			this.RaisePropertyChanged("AdvancedOptionsString");
+			this.RaisePropertyChanged(() => this.AdvancedOptionsString);
 			this.IsModified = true;
 		}
 
 		public void NotifyAllChanged()
 		{
-			this.RaisePropertyChanged("AdvancedOptionsString");
+			this.RaisePropertyChanged(() => this.AdvancedOptionsString);
 		}
 	}
 }

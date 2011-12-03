@@ -74,7 +74,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.outputSourceResolution = value;
-				this.RaisePropertyChanged("OutputSourceResolution");
+				this.RaisePropertyChanged(() => this.OutputSourceResolution);
 			}
 		}
 
@@ -88,7 +88,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.outputPixelAspectRatio = value;
-				this.RaisePropertyChanged("OutputPixelAspectRatio");
+				this.RaisePropertyChanged(() => this.OutputPixelAspectRatio);
 			}
 		}
 
@@ -102,7 +102,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.outputDisplayResolution = value;
-				this.RaisePropertyChanged("OutputDisplayResolution");
+				this.RaisePropertyChanged(() => this.OutputDisplayResolution);
 			}
 		}
 
@@ -118,7 +118,7 @@ namespace VidCoder.ViewModel
 				if (this.Profile.Width != value)
 				{
 					this.Profile.Width = value;
-					this.RaisePropertyChanged("Width");
+					this.RaisePropertyChanged(() => this.Width);
 					if (this.Anamorphic == Anamorphic.None && this.KeepDisplayAspect && this.HasSourceData && this.Height > 0 && value > 0)
 					{
 						var cropWidthAmount = this.CropLeft + this.CropRight;
@@ -135,7 +135,7 @@ namespace VidCoder.ViewModel
 						if (newHeight > 0)
 						{
 							this.Profile.Height = newHeight;
-							this.RaisePropertyChanged("Height");
+							this.RaisePropertyChanged(() => this.Height);
 						}
 					}
 
@@ -171,7 +171,7 @@ namespace VidCoder.ViewModel
 				if (this.Profile.Height != value)
 				{
 					this.Profile.Height = value;
-					this.RaisePropertyChanged("Height");
+					this.RaisePropertyChanged(() => this.Height);
 					if (this.Anamorphic == Anamorphic.None && this.KeepDisplayAspect && this.HasSourceData && this.Width > 0 && value > 0)
 					{
 						var cropWidthAmount = this.CropLeft + this.CropRight;
@@ -188,7 +188,7 @@ namespace VidCoder.ViewModel
 						if (newWidth > 0)
 						{
 							this.Profile.Width = newWidth;
-							this.RaisePropertyChanged("Width");
+							this.RaisePropertyChanged(() => this.Width);
 						}
 					}
 
@@ -224,7 +224,7 @@ namespace VidCoder.ViewModel
 				if (this.Profile.MaxWidth != value)
 				{
 					this.Profile.MaxWidth = value;
-					this.RaisePropertyChanged("MaxWidth");
+					this.RaisePropertyChanged(() => this.MaxWidth);
 					this.RefreshOutputSize();
 
 					this.IsModified = true;
@@ -245,7 +245,7 @@ namespace VidCoder.ViewModel
 				if (this.Profile.MaxHeight != value)
 				{
 					this.Profile.MaxHeight = value;
-					this.RaisePropertyChanged("MaxHeight");
+					this.RaisePropertyChanged(() => this.MaxHeight);
 					this.RefreshOutputSize();
 
 					this.IsModified = true;
@@ -269,8 +269,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.KeepDisplayAspect = value;
-				this.RaisePropertyChanged("KeepDisplayAspect");
-				this.RaisePropertyChanged("PixelAspectVisibile");
+				this.RaisePropertyChanged(() => this.KeepDisplayAspect);
+				this.RaisePropertyChanged(() => this.PixelAspectVisibile);
 				this.RefreshOutputSize();
 				if (this.Anamorphic == Anamorphic.Custom)
 				{
@@ -325,13 +325,13 @@ namespace VidCoder.ViewModel
 					this.UseDisplayWidth = true;
 				}
 
-				this.RaisePropertyChanged("Anamorphic");
-				this.RaisePropertyChanged("CustomAnamorphicFieldsVisible");
-				this.RaisePropertyChanged("PixelAspectVisibile");
-				this.RaisePropertyChanged("KeepDisplayAspect");
-				this.RaisePropertyChanged("KeepDisplayAspectEnabled");
-				this.RaisePropertyChanged("WidthEnabled");
-				this.RaisePropertyChanged("HeightEnabled");
+				this.RaisePropertyChanged(() => this.Anamorphic);
+				this.RaisePropertyChanged(() => this.CustomAnamorphicFieldsVisible);
+				this.RaisePropertyChanged(() => this.PixelAspectVisibile);
+				this.RaisePropertyChanged(() => this.KeepDisplayAspect);
+				this.RaisePropertyChanged(() => this.KeepDisplayAspectEnabled);
+				this.RaisePropertyChanged(() => this.WidthEnabled);
+				this.RaisePropertyChanged(() => this.HeightEnabled);
 				this.RefreshOutputSize();
 
 				this.IsModified = true;
@@ -357,7 +357,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.Modulus = value;
-				this.RaisePropertyChanged("Modulus");
+				this.RaisePropertyChanged(() => this.Modulus);
 
 				this.IsModified = true;
 				this.UpdatePreviewWindow();
@@ -383,9 +383,9 @@ namespace VidCoder.ViewModel
 					this.PopulatePixelAspect();
 				}
 
-				this.RaisePropertyChanged("UseDisplayWidth");
-				this.RaisePropertyChanged("KeepDisplayAspect");
-				this.RaisePropertyChanged("KeepDisplayAspectEnabled");
+				this.RaisePropertyChanged(() => this.UseDisplayWidth);
+				this.RaisePropertyChanged(() => this.KeepDisplayAspect);
+				this.RaisePropertyChanged(() => this.KeepDisplayAspectEnabled);
 				this.RefreshOutputSize();
 
 				this.IsModified = true;
@@ -403,7 +403,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.DisplayWidth = value;
-				this.RaisePropertyChanged("DisplayWidth");
+				this.RaisePropertyChanged(() => this.DisplayWidth);
 				this.RefreshOutputSize();
 
 				this.IsModified = true;
@@ -436,7 +436,7 @@ namespace VidCoder.ViewModel
 				if (this.Profile.PixelAspectX != value)
 				{
 					this.Profile.PixelAspectX = value;
-					this.RaisePropertyChanged("PixelAspectX");
+					this.RaisePropertyChanged(() => this.PixelAspectX);
 					this.RefreshOutputSize();
 
 					this.IsModified = true;
@@ -457,7 +457,7 @@ namespace VidCoder.ViewModel
 				if (this.Profile.PixelAspectY != value)
 				{
 					this.Profile.PixelAspectY = value;
-					this.RaisePropertyChanged("PixelAspectY");
+					this.RaisePropertyChanged(() => this.PixelAspectY);
 					this.RefreshOutputSize();
 
 					this.IsModified = true;
@@ -477,11 +477,11 @@ namespace VidCoder.ViewModel
 			{
 				this.Profile.CustomCropping = value;
 
-				this.RaisePropertyChanged("CustomCropping");
-				this.RaisePropertyChanged("CropLeft");
-				this.RaisePropertyChanged("CropTop");
-				this.RaisePropertyChanged("CropRight");
-				this.RaisePropertyChanged("CropBottom");
+				this.RaisePropertyChanged(() => this.CustomCropping);
+				this.RaisePropertyChanged(() => this.CropLeft);
+				this.RaisePropertyChanged(() => this.CropTop);
+				this.RaisePropertyChanged(() => this.CropRight);
+				this.RaisePropertyChanged(() => this.CropBottom);
 				this.RefreshOutputSize();
 
 				this.IsModified = true;
@@ -509,7 +509,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.Cropping.Left = value;
-				this.RaisePropertyChanged("CropLeft");
+				this.RaisePropertyChanged(() => this.CropLeft);
 				this.RefreshOutputSize();
 
 				this.IsModified = true;
@@ -537,7 +537,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.Cropping.Top = value;
-				this.RaisePropertyChanged("CropTop");
+				this.RaisePropertyChanged(() => this.CropTop);
 				this.RefreshOutputSize();
 
 				this.IsModified = true;
@@ -565,7 +565,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.Cropping.Right = value;
-				this.RaisePropertyChanged("CropRight");
+				this.RaisePropertyChanged(() => this.CropRight);
 				this.RefreshOutputSize();
 
 				this.IsModified = true;
@@ -593,7 +593,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.Cropping.Bottom = value;
-				this.RaisePropertyChanged("CropBottom");
+				this.RaisePropertyChanged(() => this.CropBottom);
 				this.RefreshOutputSize();
 
 				this.IsModified = true;
@@ -631,40 +631,40 @@ namespace VidCoder.ViewModel
 
 		public void NotifyAllChanged()
 		{
-			this.RaisePropertyChanged("Width");
-			this.RaisePropertyChanged("WidthEnabled");
-			this.RaisePropertyChanged("Height");
-			this.RaisePropertyChanged("HeightEnabled");
-			this.RaisePropertyChanged("MaxWidth");
-			this.RaisePropertyChanged("MaxHeight");
-			this.RaisePropertyChanged("KeepDisplayAspect");
-			this.RaisePropertyChanged("KeepDisplayAspectEnabled");
-			this.RaisePropertyChanged("Anamorphic");
-			this.RaisePropertyChanged("CustomAnamorphicFieldsVisible");
-			this.RaisePropertyChanged("Modulus");
-			this.RaisePropertyChanged("UseDisplayWidth");
-			this.RaisePropertyChanged("DisplayWidth");
-			this.RaisePropertyChanged("PixelAspectX");
-			this.RaisePropertyChanged("PixelAspectY");
-			this.RaisePropertyChanged("PixelAspectVisibile");
-			this.RaisePropertyChanged("CustomCropping");
-			this.RaisePropertyChanged("CropLeft");
-			this.RaisePropertyChanged("CropTop");
-			this.RaisePropertyChanged("CropRight");
-			this.RaisePropertyChanged("CropBottom");
+			this.RaisePropertyChanged(() => this.Width);
+			this.RaisePropertyChanged(() => this.WidthEnabled);
+			this.RaisePropertyChanged(() => this.Height);
+			this.RaisePropertyChanged(() => this.HeightEnabled);
+			this.RaisePropertyChanged(() => this.MaxWidth);
+			this.RaisePropertyChanged(() => this.MaxHeight);
+			this.RaisePropertyChanged(() => this.KeepDisplayAspect);
+			this.RaisePropertyChanged(() => this.KeepDisplayAspectEnabled);
+			this.RaisePropertyChanged(() => this.Anamorphic);
+			this.RaisePropertyChanged(() => this.CustomAnamorphicFieldsVisible);
+			this.RaisePropertyChanged(() => this.Modulus);
+			this.RaisePropertyChanged(() => this.UseDisplayWidth);
+			this.RaisePropertyChanged(() => this.DisplayWidth);
+			this.RaisePropertyChanged(() => this.PixelAspectX);
+			this.RaisePropertyChanged(() => this.PixelAspectY);
+			this.RaisePropertyChanged(() => this.PixelAspectVisibile);
+			this.RaisePropertyChanged(() => this.CustomCropping);
+			this.RaisePropertyChanged(() => this.CropLeft);
+			this.RaisePropertyChanged(() => this.CropTop);
+			this.RaisePropertyChanged(() => this.CropRight);
+			this.RaisePropertyChanged(() => this.CropBottom);
 		}
 
 		public override void NotifySelectedTitleChanged()
 		{
 			this.RefreshOutputSize();
 
-			this.RaisePropertyChanged("CropTop");
-			this.RaisePropertyChanged("CropBottom");
-			this.RaisePropertyChanged("CropLeft");
-			this.RaisePropertyChanged("CropRight");
-			this.RaisePropertyChanged("InputSourceResolution");
-			this.RaisePropertyChanged("InputPixelAspectRatio");
-			this.RaisePropertyChanged("InputDisplayResolution");
+			this.RaisePropertyChanged(() => this.CropTop);
+			this.RaisePropertyChanged(() => this.CropBottom);
+			this.RaisePropertyChanged(() => this.CropLeft);
+			this.RaisePropertyChanged(() => this.CropRight);
+			this.RaisePropertyChanged(() => this.InputSourceResolution);
+			this.RaisePropertyChanged(() => this.InputPixelAspectRatio);
+			this.RaisePropertyChanged(() => this.InputDisplayResolution);
 
 			base.NotifySelectedTitleChanged();
 		}
@@ -682,8 +682,8 @@ namespace VidCoder.ViewModel
 				this.Profile.PixelAspectY = this.SelectedTitle.ParVal.Height;
 			}
 
-			this.RaisePropertyChanged("PixelAspectX");
-			this.RaisePropertyChanged("PixelAspectY");
+			this.RaisePropertyChanged(() => this.PixelAspectX);
+			this.RaisePropertyChanged(() => this.PixelAspectY);
 		}
 
 		private void PopulateDisplayWidth()
@@ -706,7 +706,7 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			this.RaisePropertyChanged("DisplayWidth");
+			this.RaisePropertyChanged(() => this.DisplayWidth);
 		}
 
 		private string CreateParDisplayString(int parWidth, int parHeight)

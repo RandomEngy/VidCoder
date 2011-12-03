@@ -105,6 +105,20 @@ namespace VidCoder.View
 					});
 
 			Messenger.Default.Register<StatusMessage>(this, this.ShowStatusMessage);
+
+			Messenger.Default.Register<SaveQueueColumnsMessage>(
+				this,
+				message =>
+					{
+						this.SaveQueueColumns();
+					});
+
+			Messenger.Default.Register<ApplyQueueColumnsMessage>(
+				this,
+				message =>
+					{
+						this.RefreshQueueColumns();
+					});
 		}
 
 		public WindowState RestoredWindowState { get; set; }
@@ -172,15 +186,7 @@ namespace VidCoder.View
 
 		private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName == "QueueColumns")
-			{
-				this.RefreshQueueColumns();
-			}
-			else if (e.PropertyName == "QueueColumnsSaveRequest")
-			{
-				this.SaveQueueColumns();
-			}
-			else if (e.PropertyName == "RangeType")
+			if (e.PropertyName == "RangeType")
 			{
 				DispatchService.BeginInvoke(() => this.rangeDetailsPopup.IsOpen = false);
 			}

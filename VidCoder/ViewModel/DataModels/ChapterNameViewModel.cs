@@ -21,7 +21,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.number = value;
-				this.RaisePropertyChanged("Number");
+				this.RaisePropertyChanged(() => this.Number);
 			}
 		}
 
@@ -35,7 +35,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.title = value;
-				this.RaisePropertyChanged("Title");
+				this.RaisePropertyChanged(() => this.Title);
 			}
 		}
 	}

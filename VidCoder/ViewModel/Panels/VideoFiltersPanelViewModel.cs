@@ -26,8 +26,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.Detelecine = value;
-				this.RaisePropertyChanged("Detelecine");
-				this.RaisePropertyChanged("CustomDetelecineVisible");
+				this.RaisePropertyChanged(() => this.Detelecine);
+				this.RaisePropertyChanged(() => this.CustomDetelecineVisible);
 				this.IsModified = true;
 			}
 		}
@@ -42,7 +42,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.CustomDetelecine = value;
-				this.RaisePropertyChanged("CustomDetelecine");
+				this.RaisePropertyChanged(() => this.CustomDetelecine);
 				this.IsModified = true;
 			}
 		}
@@ -70,8 +70,8 @@ namespace VidCoder.ViewModel
 					this.Decomb = Decomb.Off;
 				}
 
-				this.RaisePropertyChanged("Deinterlace");
-				this.RaisePropertyChanged("CustomDeinterlaceVisible");
+				this.RaisePropertyChanged(() => this.Deinterlace);
+				this.RaisePropertyChanged(() => this.CustomDeinterlaceVisible);
 
 				this.IsModified = true;
 				this.UpdatePreviewWindow();
@@ -88,7 +88,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.CustomDeinterlace = value;
-				this.RaisePropertyChanged("CustomDeinterlace");
+				this.RaisePropertyChanged(() => this.CustomDeinterlace);
 				this.IsModified = true;
 			}
 		}
@@ -116,8 +116,8 @@ namespace VidCoder.ViewModel
 					this.Deinterlace = Deinterlace.Off;
 				}
 
-				this.RaisePropertyChanged("Decomb");
-				this.RaisePropertyChanged("CustomDecombVisible");
+				this.RaisePropertyChanged(() => this.Decomb);
+				this.RaisePropertyChanged(() => this.CustomDecombVisible);
 				this.IsModified = true;
 			}
 		}
@@ -132,7 +132,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.CustomDecomb = value;
-				this.RaisePropertyChanged("CustomDecomb");
+				this.RaisePropertyChanged(() => this.CustomDecomb);
 				this.IsModified = true;
 			}
 		}
@@ -155,8 +155,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.Denoise = value;
-				this.RaisePropertyChanged("Denoise");
-				this.RaisePropertyChanged("CustomDenoiseVisible");
+				this.RaisePropertyChanged(() => this.Denoise);
+				this.RaisePropertyChanged(() => this.CustomDenoiseVisible);
 				this.IsModified = true;
 			}
 		}
@@ -171,7 +171,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.CustomDenoise = value;
-				this.RaisePropertyChanged("CustomDenoise");
+				this.RaisePropertyChanged(() => this.CustomDenoise);
 				this.IsModified = true;
 			}
 		}
@@ -207,8 +207,8 @@ namespace VidCoder.ViewModel
 					this.Profile.Deblock = value;
 				}
 
-				this.RaisePropertyChanged("Deblock");
-				this.RaisePropertyChanged("DeblockText");
+				this.RaisePropertyChanged(() => this.Deblock);
+				this.RaisePropertyChanged(() => this.DeblockText);
 				this.IsModified = true;
 			}
 		}
@@ -236,28 +236,28 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.Grayscale = value;
-				this.RaisePropertyChanged("Grayscale");
+				this.RaisePropertyChanged(() => this.Grayscale);
 				this.IsModified = true;
 			}
 		}
 
 		public void NotifyAllChanged()
 		{
-			this.RaisePropertyChanged("Detelecine");
-			this.RaisePropertyChanged("CustomDetelecine");
-			this.RaisePropertyChanged("CustomDetelecineVisible");
-			this.RaisePropertyChanged("Deinterlace");
-			this.RaisePropertyChanged("CustomDeinterlace");
-			this.RaisePropertyChanged("CustomDeinterlaceVisible");
-			this.RaisePropertyChanged("Decomb");
-			this.RaisePropertyChanged("CustomDecomb");
-			this.RaisePropertyChanged("CustomDecombVisible");
-			this.RaisePropertyChanged("Denoise");
-			this.RaisePropertyChanged("CustomDenoise");
-			this.RaisePropertyChanged("CustomDenoiseVisible");
-			this.RaisePropertyChanged("Deblock");
-			this.RaisePropertyChanged("DeblockText");
-			this.RaisePropertyChanged("Grayscale");
+			this.RaisePropertyChanged(() => this.Detelecine);
+			this.RaisePropertyChanged(() => this.CustomDetelecine);
+			this.RaisePropertyChanged(() => this.CustomDetelecineVisible);
+			this.RaisePropertyChanged(() => this.Deinterlace);
+			this.RaisePropertyChanged(() => this.CustomDeinterlace);
+			this.RaisePropertyChanged(() => this.CustomDeinterlaceVisible);
+			this.RaisePropertyChanged(() => this.Decomb);
+			this.RaisePropertyChanged(() => this.CustomDecomb);
+			this.RaisePropertyChanged(() => this.CustomDecombVisible);
+			this.RaisePropertyChanged(() => this.Denoise);
+			this.RaisePropertyChanged(() => this.CustomDenoise);
+			this.RaisePropertyChanged(() => this.CustomDenoiseVisible);
+			this.RaisePropertyChanged(() => this.Deblock);
+			this.RaisePropertyChanged(() => this.DeblockText);
+			this.RaisePropertyChanged(() => this.Grayscale);
 		}
 	}
 }

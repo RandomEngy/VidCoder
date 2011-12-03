@@ -37,7 +37,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedTrack = value;
-				this.RaisePropertyChanged("SelectedIndex");
+				this.RaisePropertyChanged(() => this.SelectedIndex);
 
 				Messenger.Default.Send(new AudioInputChangedMessage());
 			}

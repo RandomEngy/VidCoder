@@ -365,8 +365,8 @@ namespace VidCoder.ViewModel.Components
 
 			Messenger.Default.Send(new RefreshPreviewMessage());
 
-			this.RaisePropertyChanged("SelectedPreset");
-			this.RaisePropertyChanged("ShowChapterMarkerUI");
+			this.RaisePropertyChanged(() => this.SelectedPreset);
+			this.main.RefreshChapterMarkerUI();
 
 			Settings.Default.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
 		}

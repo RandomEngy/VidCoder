@@ -99,8 +99,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.sourceOption.DriveInfo.VolumeLabel = value;
-				this.RaisePropertyChanged("VolumeLabel");
-				this.RaisePropertyChanged("Text");
+				this.RaisePropertyChanged(() => this.VolumeLabel);
+				this.RaisePropertyChanged(() => this.Text);
 			}
 		}
 

@@ -102,7 +102,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.isSelected = value;
-				this.RaisePropertyChanged("IsSelected");
+				this.RaisePropertyChanged(() => this.IsSelected);
 			}
 		}
 
@@ -118,7 +118,7 @@ namespace VidCoder.ViewModel
 				this.encoding = value;
 				this.EditQueueJobCommand.RaiseCanExecuteChanged();
 				this.RemoveQueueJobCommand.RaiseCanExecuteChanged();
-				this.RaisePropertyChanged("Encoding");
+				this.RaisePropertyChanged(() => this.Encoding);
 			}
 		}
 
@@ -147,7 +147,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.isOnlyItem = value;
-				this.RaisePropertyChanged("ShowProgressBar");
+				this.RaisePropertyChanged(() => this.ShowProgressBar);
 			}
 		}
 
@@ -235,8 +235,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.eta = value;
-				this.RaisePropertyChanged("Eta");
-				this.RaisePropertyChanged("ProgressToolTip");
+				this.RaisePropertyChanged(() => this.Eta);
+				this.RaisePropertyChanged(() => this.ProgressToolTip);
 			}
 		}
 
@@ -263,7 +263,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.percentComplete = value;
-				this.RaisePropertyChanged("PercentComplete");
+				this.RaisePropertyChanged(() => this.PercentComplete);
 			}
 		}
 
@@ -386,30 +386,30 @@ namespace VidCoder.ViewModel
 			this.Encoding = true;
 			this.IsOnlyItem = isOnlyItem;
 			this.encodeTimeStopwatch = Stopwatch.StartNew();
-			this.RaisePropertyChanged("ShowQueueEditButtons");
-			this.RaisePropertyChanged("ShowProgressBar");
+			this.RaisePropertyChanged(() => this.ShowQueueEditButtons);
+			this.RaisePropertyChanged(() => this.ShowProgressBar);
 		}
 
 		public void ReportEncodePause()
 		{
 			this.isPaused = true;
 			this.encodeTimeStopwatch.Stop();
-			this.RaisePropertyChanged("ProgressBarColor");
+			this.RaisePropertyChanged(() => this.ProgressBarColor);
 		}
 
 		public void ReportEncodeResume()
 		{
 			this.isPaused = false;
 			this.encodeTimeStopwatch.Start();
-			this.RaisePropertyChanged("ProgressBarColor");
+			this.RaisePropertyChanged(() => this.ProgressBarColor);
 		}
 
 		public void ReportEncodeEnd()
 		{
 			this.Encoding = false;
 			this.encodeTimeStopwatch.Stop();
-			this.RaisePropertyChanged("ShowQueueEditButtons");
-			this.RaisePropertyChanged("ShowProgressBar");
+			this.RaisePropertyChanged(() => this.ShowQueueEditButtons);
+			this.RaisePropertyChanged(() => this.ShowProgressBar);
 		}
 	}
 }

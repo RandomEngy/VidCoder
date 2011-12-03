@@ -70,7 +70,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.outputPath = value;
-				this.RaisePropertyChanged("OutputPath");
+				this.RaisePropertyChanged(() => this.OutputPath);
 
 				Messenger.Default.Send(new OutputPathChangedMessage());
 			}
@@ -90,7 +90,7 @@ namespace VidCoder.ViewModel.Components
 			set
 			{
 				this.editingDestination = value;
-				this.RaisePropertyChanged("EditingDestination");
+				this.RaisePropertyChanged(() => this.EditingDestination);
 			}
 		}
 
@@ -115,9 +115,7 @@ namespace VidCoder.ViewModel.Components
 						{
 							Settings.Default.AutoNameOutputFolder = newOutputFolder;
 							Settings.Default.Save();
-							this.RaisePropertyChanged("OutputFolderChosen");
-							this.RaisePropertyChanged("EnqueueToolTip");
-							this.RaisePropertyChanged("EncodeToolTip");
+							this.RaisePropertyChanged(() => this.OutputFolderChosen);
 							Messenger.Default.Send(new OutputFolderChangedMessage());
 							this.PickOutputPathCommand.RaiseCanExecuteChanged();
 

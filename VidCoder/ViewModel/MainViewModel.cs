@@ -165,8 +165,8 @@ namespace VidCoder.ViewModel
 					this.SelectedSource.DriveInfo.Empty = false;
 					this.SelectedSource.DriveInfo.VolumeLabel = newDriveCollection.Single(driveInfo => driveInfo.RootDirectory == currentRootDirectory).VolumeLabel;
 					this.SetSourceFromDvd(this.SelectedSource.DriveInfo);
-					this.RaisePropertyChanged("HasVideoSource");
-					this.RaisePropertyChanged("SourceText");
+					this.RaisePropertyChanged(() => this.HasVideoSource);
+					this.RaisePropertyChanged(() => this.SourceText);
 				}
 				else if (!this.SelectedSource.DriveInfo.Empty && !currentDrivePresent)
 				{
@@ -176,8 +176,8 @@ namespace VidCoder.ViewModel
 
 					this.sourceData = null;
 					this.SelectedTitle = null;
-					this.RaisePropertyChanged("HasVideoSource");
-					this.RaisePropertyChanged("SourceText");
+					this.RaisePropertyChanged(() => this.HasVideoSource);
+					this.RaisePropertyChanged(() => this.SourceText);
 				}
 			}
 
@@ -453,8 +453,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.sourceSelectionExpanded = value;
-				this.RaisePropertyChanged("SourceSelectionExpanded");
-				this.RaisePropertyChanged("SourceOptionsVisible");
+				this.RaisePropertyChanged(() => this.SourceSelectionExpanded);
+				this.RaisePropertyChanged(() => this.SourceOptionsVisible);
 			}
 		}
 
@@ -556,9 +556,9 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedSource = value;
-				this.RaisePropertyChanged("SourcePicked");
-				this.RaisePropertyChanged("SourceIcon");
-				this.RaisePropertyChanged("SourceText");
+				this.RaisePropertyChanged(() => this.SourcePicked);
+				this.RaisePropertyChanged(() => this.SourceIcon);
+				this.RaisePropertyChanged(() => this.SourceText);
 			}
 		}
 
@@ -572,9 +572,9 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.scanningSource = value;
-				this.RaisePropertyChanged("SourceOptionsVisible");
-				this.RaisePropertyChanged("HasVideoSource");
-				this.RaisePropertyChanged("ScanningSource");
+				this.RaisePropertyChanged(() => this.SourceOptionsVisible);
+				this.RaisePropertyChanged(() => this.HasVideoSource);
+				this.RaisePropertyChanged(() => this.ScanningSource);
 
 				this.ToggleSourceMenuCommand.RaiseCanExecuteChanged();
 				this.OpenFileCommand.RaiseCanExecuteChanged();
@@ -594,8 +594,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.scanError = value;
-				this.RaisePropertyChanged("ScanError");
-				this.RaisePropertyChanged("SourceOptionsVisible");
+				this.RaisePropertyChanged(() => this.ScanError);
+				this.RaisePropertyChanged(() => this.SourceOptionsVisible);
 			}
 		}
 
@@ -609,7 +609,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.scanProgress = value;
-				this.RaisePropertyChanged("ScanProgress");
+				this.RaisePropertyChanged(() => this.ScanProgress);
 			}
 		}
 
@@ -784,27 +784,27 @@ namespace VidCoder.ViewModel
 					// Soft update so as not to trigger range checking logic.
 					this.selectedStartChapter = this.StartChapters[0];
 					this.selectedEndChapter = this.EndChapters[this.EndChapters.Count - 1];
-					this.RaisePropertyChanged("SelectedStartChapter");
-					this.RaisePropertyChanged("SelectedEndChapter");
+					this.RaisePropertyChanged(() => this.SelectedStartChapter);
+					this.RaisePropertyChanged(() => this.SelectedEndChapter);
 
 					this.secondsRangeStart = 0;
 					this.secondsRangeEnd = this.selectedTitle.Duration.TotalSeconds;
-					this.RaisePropertyChanged("SecondsRangeStart");
-					this.RaisePropertyChanged("SecondsRangeEnd");
+					this.RaisePropertyChanged(() => this.SecondsRangeStart);
+					this.RaisePropertyChanged(() => this.SecondsRangeEnd);
 
 					this.framesRangeStart = 0;
 					this.framesRangeEnd = this.selectedTitle.Frames;
-					this.RaisePropertyChanged("FramesRangeStart");
-					this.RaisePropertyChanged("FramesRangeEnd");
+					this.RaisePropertyChanged(() => this.FramesRangeStart);
+					this.RaisePropertyChanged(() => this.FramesRangeEnd);
 
 					this.PopulateAnglesList();
 
 					this.angle = 1;
 
-					this.RaisePropertyChanged("Angles");
-					this.RaisePropertyChanged("Angle");
-					this.RaisePropertyChanged("AngleVisible");
-					this.RaisePropertyChanged("TotalChaptersText");
+					this.RaisePropertyChanged(() => this.Angles);
+					this.RaisePropertyChanged(() => this.Angle);
+					this.RaisePropertyChanged(() => this.AngleVisible);
+					this.RaisePropertyChanged(() => this.TotalChaptersText);
 
 					this.oldTitle = value;
 
@@ -816,16 +816,14 @@ namespace VidCoder.ViewModel
 				// Custom chapter names are thrown out when switching titles.
 				this.CustomChapterNames = null;
 
-				this.RaisePropertyChanged("SubtitlesSummary");
+				this.RaisePropertyChanged(() => this.SubtitlesSummary);
 				Messenger.Default.Send(new SelectedTitleChangedMessage());
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.RaisePropertyChanged("SelectTitleDuration");
-				this.RaisePropertyChanged("StartChapters");
-				this.RaisePropertyChanged("EndChapters");
-				this.RaisePropertyChanged("MultipleChapters");
-				this.RaisePropertyChanged("SelectedTitle");
+				this.RaisePropertyChanged(() => this.StartChapters);
+				this.RaisePropertyChanged(() => this.EndChapters);
+				this.RaisePropertyChanged(() => this.SelectedTitle);
 
 				this.RefreshRangePreview();
 			}
@@ -859,7 +857,7 @@ namespace VidCoder.ViewModel
 				this.angle = value;
 
 				Messenger.Default.Send(new RefreshPreviewMessage());
-				this.RaisePropertyChanged("Angle");
+				this.RaisePropertyChanged(() => this.Angle);
 			}
 		}
 
@@ -873,8 +871,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.currentSubtitles = value;
-				this.RaisePropertyChanged("CurrentSubtitles");
-				this.RaisePropertyChanged("SubtitlesSummary");
+				this.RaisePropertyChanged(() => this.CurrentSubtitles);
+				this.RaisePropertyChanged(() => this.SubtitlesSummary);
 			}
 		}
 
@@ -936,8 +934,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.useDefaultChapterNames = value;
-				this.RaisePropertyChanged("UseDefaultChapterNames");
-				this.RaisePropertyChanged("ChapterMarkersSummary");
+				this.RaisePropertyChanged(() => this.UseDefaultChapterNames);
+				this.RaisePropertyChanged(() => this.ChapterMarkersSummary);
 			}
 		}
 
@@ -951,7 +949,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.customChapterNames = value;
-				this.RaisePropertyChanged("CustomChapterNames");
+				this.RaisePropertyChanged(() => this.CustomChapterNames);
 			}
 		}
 
@@ -996,12 +994,11 @@ namespace VidCoder.ViewModel
 				this.rangeType = value;
 
 				this.OutputPathVM.GenerateOutputFileName();
-				this.RaisePropertyChanged("RangeType");
-				this.RaisePropertyChanged("ChaptersRangeVisible");
-				this.RaisePropertyChanged("SecondsRangeVisible");
-				this.RaisePropertyChanged("FramesRangeVisible");
-				//this.RaisePropertyChanged("RangeSummary");
-				this.RaisePropertyChanged("TotalChaptersText");
+				this.RaisePropertyChanged(() => this.RangeType);
+				this.RaisePropertyChanged(() => this.ChaptersRangeVisible);
+				this.RaisePropertyChanged(() => this.SecondsRangeVisible);
+				this.RaisePropertyChanged(() => this.FramesRangeVisible);
+				this.RaisePropertyChanged(() => this.TotalChaptersText);
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1058,12 +1055,12 @@ namespace VidCoder.ViewModel
 				if (idealSecondsEnd != this.secondsRangeEnd)
 				{
 					this.secondsRangeEnd = idealSecondsEnd;
-					this.RaisePropertyChanged("SecondsRangeEnd");
+					this.RaisePropertyChanged(() => this.SecondsRangeEnd);
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.RaisePropertyChanged("SecondsRangeStart");
+				this.RaisePropertyChanged(() => this.SecondsRangeStart);
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1096,12 +1093,12 @@ namespace VidCoder.ViewModel
 				if (idealSecondsStart != this.secondsRangeStart)
 				{
 					this.secondsRangeStart = idealSecondsStart;
-					this.RaisePropertyChanged("SecondsRangeStart");
+					this.RaisePropertyChanged(() => this.SecondsRangeStart);
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.RaisePropertyChanged("SecondsRangeEnd");
+				this.RaisePropertyChanged(() => this.SecondsRangeEnd);
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1142,12 +1139,12 @@ namespace VidCoder.ViewModel
 				if (idealFramesEnd != this.framesRangeEnd)
 				{
 					this.framesRangeEnd = idealFramesEnd;
-					this.RaisePropertyChanged("FramesRangeEnd");
+					this.RaisePropertyChanged(() => this.FramesRangeEnd);
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.RaisePropertyChanged("FramesRangeStart");
+				this.RaisePropertyChanged(() => this.FramesRangeStart);
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1180,12 +1177,12 @@ namespace VidCoder.ViewModel
 				if (idealFramesStart != this.framesRangeStart)
 				{
 					this.framesRangeStart = idealFramesStart;
-					this.RaisePropertyChanged("FramesRangeStart");
+					this.RaisePropertyChanged(() => this.FramesRangeStart);
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.RaisePropertyChanged("FramesRangeEnd");
+				this.RaisePropertyChanged(() => this.FramesRangeEnd);
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1222,8 +1219,7 @@ namespace VidCoder.ViewModel
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.RaisePropertyChanged("SelectedStartChapter");
-				//this.RaisePropertyChanged("RangeSummary");
+				this.RaisePropertyChanged(() => this.SelectedStartChapter);
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1252,8 +1248,7 @@ namespace VidCoder.ViewModel
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.RaisePropertyChanged("SelectedEndChapter");
-				//this.RaisePropertyChanged("RangeSummary");
+				this.RaisePropertyChanged(() => this.SelectedEndChapter);
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1453,7 +1448,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.showTrayIcon = value;
-				this.RaisePropertyChanged("ShowTrayIcon");
+				this.RaisePropertyChanged(() => this.ShowTrayIcon);
 			}
 		}
 
@@ -1615,7 +1610,7 @@ namespace VidCoder.ViewModel
 				return this.customizeQueueColumnsCommand ?? (this.customizeQueueColumnsCommand = new RelayCommand(() =>
 					{
 						// Send a request that the view save the column sizes
-						this.RaisePropertyChanged("QueueColumnsSaveRequest");
+						Messenger.Default.Send(new SaveQueueColumnsMessage());
 
 						// Show the queue columns dialog
 						var queueDialog = new QueueColumnsViewModel();
@@ -1626,7 +1621,7 @@ namespace VidCoder.ViewModel
 							// Apply new columns
 							Settings.Default.QueueColumns = queueDialog.NewColumns;
 							Settings.Default.Save();
-							this.RaisePropertyChanged("QueueColumns");
+							Messenger.Default.Send(new ApplyQueueColumnsMessage());
 						}
 					}));
 			}
@@ -1924,7 +1919,7 @@ namespace VidCoder.ViewModel
 
 		public void RefreshChapterMarkerUI()
 		{
-			this.RaisePropertyChanged("ShowChapterMarkerUI");
+			this.RaisePropertyChanged(() => this.ShowChapterMarkerUI);
 		}
 
 		public void RefreshTrayIcon(bool minimized)
@@ -2026,7 +2021,7 @@ namespace VidCoder.ViewModel
 					if (this.scanCancelledFlag)
 					{
 						this.SelectedSource = null;
-						this.RaisePropertyChanged("SourcePicked");
+						this.RaisePropertyChanged(() => this.SourcePicked);
 
 						if (this.ScanCancelled != null)
 						{
@@ -2099,17 +2094,17 @@ namespace VidCoder.ViewModel
 				}
 
 				this.SelectedTitle = selectTitle;
-				this.RaisePropertyChanged("Titles");
-				this.RaisePropertyChanged("TitleVisible");
-				this.RaisePropertyChanged("HasVideoSource");
-				this.RaisePropertyChanged("SourceOptionsVisible");
+				this.RaisePropertyChanged(() => this.Titles);
+				this.RaisePropertyChanged(() => this.TitleVisible);
+				this.RaisePropertyChanged(() => this.HasVideoSource);
+				this.RaisePropertyChanged(() => this.SourceOptionsVisible);
 			}
 			else
 			{
 				this.sourceData = null;
-				this.RaisePropertyChanged("HasVideoSource");
-				this.RaisePropertyChanged("SourceOptionsVisible");
-				this.RaisePropertyChanged("SourcePicked");
+				this.RaisePropertyChanged(() => this.HasVideoSource);
+				this.RaisePropertyChanged(() => this.SourceOptionsVisible);
+				this.RaisePropertyChanged(() => this.SourcePicked);
 				this.ScanError = true;
 			}
 
@@ -2120,9 +2115,9 @@ namespace VidCoder.ViewModel
 		{
 			this.sourceData = null;
 			this.SourceSelectionExpanded = false;
-			this.RaisePropertyChanged("HasVideoSource");
-			this.RaisePropertyChanged("SourceOptionsVisible");
-			this.RaisePropertyChanged("SourcePicked");
+			this.RaisePropertyChanged(() => this.HasVideoSource);
+			this.RaisePropertyChanged(() => this.SourceOptionsVisible);
+			this.RaisePropertyChanged(() => this.SourcePicked);
 
 			DispatchService.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
 			Messenger.Default.Send(new RefreshPreviewMessage());
@@ -2279,26 +2274,26 @@ namespace VidCoder.ViewModel
 
 			// Encode profile handled above this in EditJob
 
-			this.RaisePropertyChanged("SourceIcon");
-			this.RaisePropertyChanged("SourceText");
-			this.RaisePropertyChanged("SelectedTitle");
-			this.RaisePropertyChanged("SelectedStartChapter");
-			this.RaisePropertyChanged("SelectedEndChapter");
-			this.RaisePropertyChanged("StartChapters");
-			this.RaisePropertyChanged("EndChapters");
-			this.RaisePropertyChanged("SecondsRangeStart");
-			this.RaisePropertyChanged("SecondsRangeEnd");
-			this.RaisePropertyChanged("FramesRangeStart");
-			this.RaisePropertyChanged("FramesRangeEnd");
-			this.RaisePropertyChanged("RangeType");
-			this.RaisePropertyChanged("ChaptersRangeVisible");
-			this.RaisePropertyChanged("SecondsRangeVisible");
-			this.RaisePropertyChanged("FramesRangeVisible");
-			this.RaisePropertyChanged("SubtitlesSummary");
-			this.RaisePropertyChanged("ChapterMarkersSummary");
-			this.RaisePropertyChanged("ShowChapterMarkerUI");
-			this.RaisePropertyChanged("Angle");
-			this.RaisePropertyChanged("Angles");
+			this.RaisePropertyChanged(() => this.SourceIcon);
+			this.RaisePropertyChanged(() => this.SourceText);
+			this.RaisePropertyChanged(() => this.SelectedTitle);
+			this.RaisePropertyChanged(() => this.SelectedStartChapter);
+			this.RaisePropertyChanged(() => this.SelectedEndChapter);
+			this.RaisePropertyChanged(() => this.StartChapters);
+			this.RaisePropertyChanged(() => this.EndChapters);
+			this.RaisePropertyChanged(() => this.SecondsRangeStart);
+			this.RaisePropertyChanged(() => this.SecondsRangeEnd);
+			this.RaisePropertyChanged(() => this.FramesRangeStart);
+			this.RaisePropertyChanged(() => this.FramesRangeEnd);
+			this.RaisePropertyChanged(() => this.RangeType);
+			this.RaisePropertyChanged(() => this.ChaptersRangeVisible);
+			this.RaisePropertyChanged(() => this.SecondsRangeVisible);
+			this.RaisePropertyChanged(() => this.FramesRangeVisible);
+			this.RaisePropertyChanged(() => this.SubtitlesSummary);
+			this.RaisePropertyChanged(() => this.ChapterMarkersSummary);
+			this.RaisePropertyChanged(() => this.ShowChapterMarkerUI);
+			this.RaisePropertyChanged(() => this.Angle);
+			this.RaisePropertyChanged(() => this.Angles);
 
 			this.RefreshRangePreview();
 		}
@@ -2442,10 +2437,10 @@ namespace VidCoder.ViewModel
 
 		private void RefreshRangePreview()
 		{
-			this.RaisePropertyChanged("RangePreviewStart");
-			this.RaisePropertyChanged("RangePreviewEnd");
-			this.RaisePropertyChanged("RangePreviewText");
-			this.RaisePropertyChanged("RangePreviewLengthText");
+			this.RaisePropertyChanged(() => this.RangePreviewStart);
+			this.RaisePropertyChanged(() => this.RangePreviewEnd);
+			this.RaisePropertyChanged(() => this.RangePreviewText);
+			this.RaisePropertyChanged(() => this.RangePreviewLengthText);
 		}
 
 		private TimeSpan GetChapterRangeDuration(int startChapter, int endChapter)

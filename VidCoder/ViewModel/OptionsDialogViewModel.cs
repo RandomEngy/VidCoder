@@ -91,7 +91,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.updatesEnabled = value;
-				this.RaisePropertyChanged("UpdatesEnabled");
+				this.RaisePropertyChanged(() => this.UpdatesEnabled);
 			}
 		}
 
@@ -128,7 +128,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.updateDownloading = value;
-				this.RaisePropertyChanged("UpdateDownloading");
+				this.RaisePropertyChanged(() => this.UpdateDownloading);
 			}
 		}
 
@@ -142,7 +142,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.updateProgress = value;
-				this.RaisePropertyChanged("UpdateProgress");
+				this.RaisePropertyChanged(() => this.UpdateProgress);
 			}
 		}
 
@@ -156,7 +156,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.defaultPath = value;
-				this.RaisePropertyChanged("DefaultPath");
+				this.RaisePropertyChanged(() => this.DefaultPath);
 			}
 		}
 
@@ -170,8 +170,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.customFormat = value;
-				this.RaisePropertyChanged("CustomFormat");
-				this.RaisePropertyChanged("CustomFormatStringEnabled");
+				this.RaisePropertyChanged(() => this.CustomFormat);
+				this.RaisePropertyChanged(() => this.CustomFormatStringEnabled);
 			}
 		}
 
@@ -185,7 +185,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.customFormatString = value;
-				this.RaisePropertyChanged("CustomFormatString");
+				this.RaisePropertyChanged(() => this.CustomFormatString);
 			}
 		}
 
@@ -207,7 +207,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.outputToSourceDirectory = value;
-				this.RaisePropertyChanged("OutputToSourceDirectory");
+				this.RaisePropertyChanged(() => this.OutputToSourceDirectory);
 			}
 		}
 
@@ -221,7 +221,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.whenFileExists = value;
-				this.RaisePropertyChanged("WhenFileExists");
+				this.RaisePropertyChanged(() => this.WhenFileExists);
 			}
 		}
 
@@ -235,7 +235,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.whenFileExistsBatch = value;
-				this.RaisePropertyChanged("WhenFileExistsBatch");
+				this.RaisePropertyChanged(() => this.WhenFileExistsBatch);
 			}
 		}
 
@@ -249,7 +249,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.minimizeToTray = value;
-				this.RaisePropertyChanged("MinimizeToTray");
+				this.RaisePropertyChanged(() => this.MinimizeToTray);
 			}
 		}
 
@@ -263,8 +263,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.nativeLanguageCode = value;
-				this.RaisePropertyChanged("NativeLanguageCode");
-				this.RaisePropertyChanged("DubAudioEnabled");
+				this.RaisePropertyChanged(() => this.NativeLanguageCode);
+				this.RaisePropertyChanged(() => this.DubAudioEnabled);
 			}
 		}
 
@@ -278,7 +278,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.dubAudio = value;
-				this.RaisePropertyChanged("DubAudio");
+				this.RaisePropertyChanged(() => this.DubAudio);
 			}
 		}
 
@@ -308,8 +308,8 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.logVerbosity = value;
-				this.RaisePropertyChanged("LogVerbosity");
-				this.RaisePropertyChanged("LogVerbosityWarningVisible");
+				this.RaisePropertyChanged(() => this.LogVerbosity);
+				this.RaisePropertyChanged(() => this.LogVerbosityWarningVisible);
 			}
 		}
 
@@ -332,8 +332,7 @@ namespace VidCoder.ViewModel
 			{
 				this.selectedProcess = value;
 				this.RemoveProcessCommand.RaiseCanExecuteChanged();
-				this.RaisePropertyChanged("SelectedProcess");
-				this.RaisePropertyChanged("ProcessSelected");
+				this.RaisePropertyChanged(() => this.SelectedProcess);
 			}
 		}
 
@@ -347,7 +346,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.previewCount = value;
-				this.RaisePropertyChanged("PreviewCount");
+				this.RaisePropertyChanged(() => this.PreviewCount);
 			}
 		}
 
@@ -361,7 +360,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.showAudioTrackNameField = value;
-				this.RaisePropertyChanged("ShowAudioTrackNameField");
+				this.RaisePropertyChanged(() => this.ShowAudioTrackNameField);
 			}
 		}
 
@@ -376,7 +375,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.keepScansAfterCompletion = value;
-				this.RaisePropertyChanged("KeepScansAfterCompletion");
+				this.RaisePropertyChanged(() => this.KeepScansAfterCompletion);
 			}
 		}
 
@@ -492,7 +491,7 @@ namespace VidCoder.ViewModel
 		private void OnUpdateDownloadCompleted(object sender, EventArgs e)
 		{
 			this.UpdateDownloading = false;
-			this.RaisePropertyChanged("UpdateStatus");
+			this.RaisePropertyChanged(() => this.UpdateStatus);
 		}
 
 		private void OnUpdateDownloadProgress(object sender, EventArgs<double> e)
