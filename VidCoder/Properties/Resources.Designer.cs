@@ -403,20 +403,20 @@ namespace VidCoder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Audio Bitrate.
-        /// </summary>
-        public static string QueueColumnNameAudioBitrate {
-            get {
-                return ResourceManager.GetString("QueueColumnNameAudioBitrate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Audio Encoder.
         /// </summary>
         public static string QueueColumnNameAudioEncoder {
             get {
                 return ResourceManager.GetString("QueueColumnNameAudioEncoder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Audio Quality.
+        /// </summary>
+        public static string QueueColumnNameAudioQuality {
+            get {
+                return ResourceManager.GetString("QueueColumnNameAudioQuality", resourceCulture);
             }
         }
         

@@ -34,7 +34,7 @@ namespace VidCoder
 			{"AudioEncoder", 100},
 			{"VideoQuality", 80},
 			{"Duration", 60},
-			{"AudioBitrate", 80}
+			{"AudioQuality", 80}
 		};
 
 		public static string CurrentVersion

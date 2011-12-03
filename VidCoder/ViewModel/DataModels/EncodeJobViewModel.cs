@@ -334,7 +334,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public string AudioBitrateDisplay
+		public string AudioQualityDisplay
 		{
 			get
 			{
@@ -343,7 +343,14 @@ namespace VidCoder.ViewModel
 				{
 					if (!Encoders.GetAudioEncoder(audioEncoding.Encoder).IsPassthrough)
 					{
-						bitrateParts.Add(audioEncoding.Bitrate.ToString());
+						if (audioEncoding.EncodeRateType == AudioEncodeRateType.Bitrate)
+						{
+							bitrateParts.Add(audioEncoding.Bitrate + " kbps");
+						}
+						else
+						{
+							bitrateParts.Add("CQ " + audioEncoding.Quality);
+						}
 					}
 				}
 

@@ -160,8 +160,8 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="QueueColumnNameTitle" xml:space="preserve">
     <value>Title</value>
   </data>
-  <data name="QueueColumnNameAudioBitrate" xml:space="preserve">
-    <value>Audio Bitrate</value>
+  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
+    <value>Audio Quality</value>
   </data>
   <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
     <value>Audio Encoder</value>

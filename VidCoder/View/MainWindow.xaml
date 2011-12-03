@@ -191,8 +191,8 @@
 			<TextBlock Text="{Binding DurationDisplay}"
 				Style="{StaticResource QueueText}" />
 		</DataTemplate>
-		<DataTemplate x:Key="QueueTemplateAudioBitrate">
-			<TextBlock Text="{Binding AudioBitrateDisplay}"
+		<DataTemplate x:Key="QueueTemplateAudioQuality">
+			<TextBlock Text="{Binding AudioQualityDisplay}"
 				Style="{StaticResource QueueText}" />
 		</DataTemplate>
 		<DataTemplate x:Key="QueueRemoveTemplate">
