@@ -779,14 +779,7 @@ namespace VidCoder.ViewModel
 					}
 
 					this.UseDefaultChapterNames = true;
-					this.startChapters = new List<ChapterViewModel>();
-					this.endChapters = new List<ChapterViewModel>();
-
-					foreach (Chapter chapter in this.selectedTitle.Chapters)
-					{
-						this.startChapters.Add(new ChapterViewModel(chapter));
-						this.endChapters.Add(new ChapterViewModel(chapter));
-					}
+					this.PopulateChapterSelectLists();
 
 					// Soft update so as not to trigger range checking logic.
 					this.selectedStartChapter = this.StartChapters[0];
@@ -804,11 +797,7 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged("FramesRangeStart");
 					this.RaisePropertyChanged("FramesRangeEnd");
 
-					this.angles = new List<int>();
-					for (int i = 1; i <= this.selectedTitle.AngleCount; i++)
-					{
-						this.angles.Add(i);
-					}
+					this.PopulateAnglesList();
 
 					this.angle = 1;
 
@@ -837,6 +826,8 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged("EndChapters");
 				this.RaisePropertyChanged("MultipleChapters");
 				this.RaisePropertyChanged("SelectedTitle");
+
+				this.RefreshRangePreview();
 			}
 		}
 
@@ -2173,6 +2164,8 @@ namespace VidCoder.ViewModel
 			this.selectedTitle = newTitle;
 
 			// Angle
+			this.PopulateAnglesList();
+
 			if (job.Angle <= this.selectedTitle.AngleCount)
 			{
 				this.angle = job.Angle;
@@ -2183,6 +2176,7 @@ namespace VidCoder.ViewModel
 			}
 
 			// Range
+			this.PopulateChapterSelectLists();
 			this.rangeType = job.RangeType;
 			switch (job.RangeType)
 			{
@@ -2283,13 +2277,15 @@ namespace VidCoder.ViewModel
 			this.OutputPathVM.OutputPath = job.OutputPath;
 			this.OutputPathVM.ManualOutputPath = jobVM.ManualOutputPath;
 
-			// Encoding profile?!
+			// Encode profile handled above this in EditJob
 
 			this.RaisePropertyChanged("SourceIcon");
 			this.RaisePropertyChanged("SourceText");
 			this.RaisePropertyChanged("SelectedTitle");
 			this.RaisePropertyChanged("SelectedStartChapter");
 			this.RaisePropertyChanged("SelectedEndChapter");
+			this.RaisePropertyChanged("StartChapters");
+			this.RaisePropertyChanged("EndChapters");
 			this.RaisePropertyChanged("SecondsRangeStart");
 			this.RaisePropertyChanged("SecondsRangeEnd");
 			this.RaisePropertyChanged("FramesRangeStart");
@@ -2302,8 +2298,30 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged("ChapterMarkersSummary");
 			this.RaisePropertyChanged("ShowChapterMarkerUI");
 			this.RaisePropertyChanged("Angle");
+			this.RaisePropertyChanged("Angles");
 
 			this.RefreshRangePreview();
+		}
+
+		private void PopulateChapterSelectLists()
+		{
+			this.startChapters = new List<ChapterViewModel>();
+			this.endChapters = new List<ChapterViewModel>();
+
+			foreach (Chapter chapter in this.selectedTitle.Chapters)
+			{
+				this.startChapters.Add(new ChapterViewModel(chapter));
+				this.endChapters.Add(new ChapterViewModel(chapter));
+			}
+		}
+
+		private void PopulateAnglesList()
+		{
+			this.angles = new List<int>();
+			for (int i = 1; i <= this.selectedTitle.AngleCount; i++)
+			{
+				this.angles.Add(i);
+			}
 		}
 
 		private void ReportLengthChanged()

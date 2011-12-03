@@ -58,7 +58,7 @@ namespace VidCoder.ViewModel
 			this.srtSubtitles.CollectionChanged += this.SrtCollectionChanged;
 
 			this.inputTrackChoices = new List<string>();
-			this.inputTrackChoices.Add("Foriegn Audio Search (Bitmap)");
+			this.inputTrackChoices.Add("Foreign Audio Search (Bitmap)");
 
 			foreach (Subtitle subtitle in this.mainViewModel.SelectedTitle.Subtitles)
 			{
