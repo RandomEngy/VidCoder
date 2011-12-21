@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -227,7 +228,7 @@ namespace VidCoder.ViewModel
 					{
 						IsDefault = true,
 						Label = i.ToString() + " (Default)",
-						Value = i.ToString()
+						Value = i.ToString(CultureInfo.InvariantCulture)
 					});
 				}
 				else
@@ -235,7 +236,7 @@ namespace VidCoder.ViewModel
 					list.Add(new AdvancedChoice
 					{
 						Label = i.ToString(),
-						Value = i.ToString()
+						Value = i.ToString(CultureInfo.InvariantCulture)
 					});
 				}
 			}

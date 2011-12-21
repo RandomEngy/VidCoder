@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using HandBrake.Interop;
@@ -423,7 +424,7 @@ namespace VidCoder.ViewModel
 							case "ref":
 								if (int.TryParse(optionValue, out parseInt))
 								{
-									newChoice = AdvancedChoices.ReferenceFrames.SingleOrDefault(choice => choice.Value == parseInt.ToString());
+									newChoice = AdvancedChoices.ReferenceFrames.SingleOrDefault(choice => choice.Value == parseInt.ToString(CultureInfo.InvariantCulture));
 									if (newChoice != null)
 									{
 										this.ReferenceFrames = newChoice;
@@ -433,7 +434,7 @@ namespace VidCoder.ViewModel
 							case "bframes":
 								if (int.TryParse(optionValue, out parseInt))
 								{
-									newChoice = AdvancedChoices.BFrames.SingleOrDefault(choice => choice.Value == parseInt.ToString());
+									newChoice = AdvancedChoices.BFrames.SingleOrDefault(choice => choice.Value == parseInt.ToString(CultureInfo.InvariantCulture));
 									if (newChoice != null)
 									{
 										this.BFrames = newChoice;
@@ -482,7 +483,7 @@ namespace VidCoder.ViewModel
 							case "subq":
 								if (int.TryParse(optionValue, out parseInt))
 								{
-									newChoice = AdvancedChoices.SubpixelMotionEstimation.SingleOrDefault(choice => choice.Value == parseInt.ToString());
+									newChoice = AdvancedChoices.SubpixelMotionEstimation.SingleOrDefault(choice => choice.Value == parseInt.ToString(CultureInfo.InvariantCulture));
 									if (newChoice != null)
 									{
 										this.SubpixelMotionEstimation = newChoice;
@@ -492,7 +493,7 @@ namespace VidCoder.ViewModel
 							case "merange":
 								if (int.TryParse(optionValue, out parseInt))
 								{
-									newChoice = AdvancedChoices.MotionEstimationRange.SingleOrDefault(choice => choice.Value == parseInt.ToString());
+									newChoice = AdvancedChoices.MotionEstimationRange.SingleOrDefault(choice => choice.Value == parseInt.ToString(CultureInfo.InvariantCulture));
 									if (newChoice != null)
 									{
 										this.MotionEstimationRange = newChoice;
@@ -529,7 +530,7 @@ namespace VidCoder.ViewModel
 							case "trellis":
 								if (int.TryParse(optionValue, out parseInt))
 								{
-									newChoice = AdvancedChoices.Trellis.SingleOrDefault(choice => choice.Value == parseInt.ToString());
+									newChoice = AdvancedChoices.Trellis.SingleOrDefault(choice => choice.Value == parseInt.ToString(CultureInfo.InvariantCulture));
 									if (newChoice != null)
 									{
 										this.Trellis = newChoice;
@@ -731,12 +732,12 @@ namespace VidCoder.ViewModel
 
 			if (this.AdaptiveQuantizationStrength != 1.0)
 			{
-				newOptions.Add("aq-strength=" + this.AdaptiveQuantizationStrength.ToString("F1"));
+				newOptions.Add("aq-strength=" + this.AdaptiveQuantizationStrength.ToString("F1", CultureInfo.InvariantCulture));
 			}
 
 			if (this.PsychovisualRateDistortion != 1.0 || psTrellis > 0.0)
 			{
-				newOptions.Add("psy-rd=" + this.PsychovisualRateDistortion.ToString("F1") + "," + psTrellis.ToString("F2"));
+				newOptions.Add("psy-rd=" + this.PsychovisualRateDistortion.ToString("F1", CultureInfo.InvariantCulture) + "," + psTrellis.ToString("F2", CultureInfo.InvariantCulture));
 			}
 
 			if (this.NoDctDecimate)
