@@ -5,5 +5,6 @@ namespace VidCoder.Services
 		void Sleep();
 		void LogOff();
 		void ShutDown();
+		void Eject(string driveLetter);
 	}
 }

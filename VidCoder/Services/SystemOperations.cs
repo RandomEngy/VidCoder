@@ -78,6 +78,9 @@ namespace VidCoder.Services
 		[return: MarshalAs(UnmanagedType.Bool)]
 		private static extern bool ExitWindowsEx(ExitWindows uFlags, ShutdownReason dwReason);
 
+		[DllImport("winmm.dll")]
+		static extern Int32 mciSendString(String command, StringBuilder buffer, Int32 bufferSize, IntPtr hwndCallback);
+
 		public void Sleep()
 		{
 			logger.Log("Sleeping.");
@@ -94,6 +97,12 @@ namespace VidCoder.Services
 		{
 			logger.Log("Shutting down.");
 			ExitWindowsEx(ExitWindows.ShutDown, ShutdownReason.MajorOther | ShutdownReason.MinorOther | ShutdownReason.FlagPlanned);
+		}
+
+		public void Eject(string driveLetter)
+		{
+			mciSendString("open " + driveLetter + ": type CDAudio alias drive" + driveLetter, null, 0, IntPtr.Zero);
+			mciSendString("set drive" + driveLetter + " door open", null, 0, IntPtr.Zero);
 		}
 	}
 }

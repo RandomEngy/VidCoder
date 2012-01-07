@@ -381,7 +381,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.removeQueueJobCommand ?? (this.removeQueueJobCommand = new RelayCommand(() =>
 					{
-						this.processingVM.RemoveQueueJob(this);
+						this.ProcessingVM.RemoveQueueJob(this);
 					},
 					() =>
 					{

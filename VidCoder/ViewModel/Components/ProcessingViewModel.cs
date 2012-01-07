@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -59,6 +60,7 @@ namespace VidCoder.ViewModel.Components
 		private TimeSpan currentJobEta; // Kept around to check if the job finished early
 		private TaskbarItemProgressState encodeProgressState;
 		private ObservableCollection<EncodeResultViewModel> completedJobs;
+		private List<EncodeCompleteAction> encodeCompleteActions; 
 		private EncodeCompleteAction encodeCompleteAction;
 
 		private int selectedTabIndex;
@@ -88,6 +90,11 @@ namespace VidCoder.ViewModel.Components
 			this.encodeQueue.CollectionChanged +=
 				(o, e) =>
 					{
+						if (e.Action != NotifyCollectionChangedAction.Replace && e.Action != NotifyCollectionChangedAction.Move)
+						{
+							this.RefreshEncodeCompleteActions();
+						}
+
 						this.EncodeCommand.RaiseCanExecuteChanged();
 					};
 
@@ -125,6 +132,16 @@ namespace VidCoder.ViewModel.Components
 					});
 
 			this.completedJobs = new ObservableCollection<EncodeResultViewModel>();
+			this.completedJobs.CollectionChanged +=
+				(o, e) =>
+				{
+					if (e.Action != NotifyCollectionChangedAction.Replace && e.Action != NotifyCollectionChangedAction.Move)
+					{
+						this.RefreshEncodeCompleteActions();
+					}
+				};
+
+			this.RefreshEncodeCompleteActions();
 		}
 
 		public ObservableCollection<EncodeJobViewModel> EncodeQueue
@@ -333,6 +350,14 @@ namespace VidCoder.ViewModel.Components
 				this.RaisePropertyChanged(() => this.EstimatedTimeRemaining);
 			}
 		}
+
+		public List<EncodeCompleteAction> EncodeCompleteActions
+		{
+			get
+			{
+				return this.encodeCompleteActions;
+			}
+		} 
 
 		public EncodeCompleteAction EncodeCompleteAction
 		{
@@ -1070,7 +1095,7 @@ namespace VidCoder.ViewModel.Components
 				catch (IOException exception)
 				{
 					Utilities.MessageBox.Show(
-						"Could not create output directory. Error details: " + Environment.NewLine + Environment.NewLine + exception.ToString(),
+						"Could not create output directory. Error details: " + Environment.NewLine + Environment.NewLine + exception,
 						"Error creating directory",
 						MessageBoxButton.OK,
 						MessageBoxImage.Error);
@@ -1258,17 +1283,20 @@ namespace VidCoder.ViewModel.Components
 
 						Unity.Container.Resolve<TrayService>().ShowBalloonMessage("Encoding completed", "VidCoder has finished all encode jobs in the queue.");
 
-						switch (this.EncodeCompleteAction)
+						switch (this.EncodeCompleteAction.ActionType)
 						{
-							case EncodeCompleteAction.DoNothing:
+							case EncodeCompleteActionType.DoNothing:
 								break;
-							case EncodeCompleteAction.Sleep:
+							case EncodeCompleteActionType.EjectDisc:
+								this.systemOperations.Eject(this.EncodeCompleteAction.DriveLetter);
+								break;
+							case EncodeCompleteActionType.Sleep:
 								this.systemOperations.Sleep();
 								break;
-							case EncodeCompleteAction.LogOff:
+							case EncodeCompleteActionType.LogOff:
 								this.systemOperations.LogOff();
 								break;
-							case EncodeCompleteAction.Shutdown:
+							case EncodeCompleteActionType.Shutdown:
 								this.systemOperations.ShutDown();
 								break;
 							default:
@@ -1326,6 +1354,77 @@ namespace VidCoder.ViewModel.Components
 
 			this.AddToQueueCommand.RaiseCanExecuteChanged();
 			this.QueueTitlesCommand.RaiseCanExecuteChanged();
+		}
+
+		private void RefreshEncodeCompleteActions()
+		{
+			if (this.EncodeQueue == null || this.CompletedJobs == null)
+			{
+				return;
+			}
+
+			EncodeCompleteAction oldCompleteAction = this.EncodeCompleteAction;
+
+			this.encodeCompleteActions =
+				new List<EncodeCompleteAction>
+				{
+					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.DoNothing },
+					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Sleep },
+					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.LogOff },
+					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Shutdown },
+				};
+
+			// Applicable drives to eject are those in the queue or completed items list
+			var applicableDrives = new HashSet<string>();
+			foreach (EncodeJobViewModel job in this.EncodeQueue)
+			{
+				if (job.Job.SourceType == SourceType.Dvd)
+				{
+					string driveLetter = job.Job.SourcePath.Substring(0, 1).ToUpperInvariant();
+					if (!applicableDrives.Contains(driveLetter))
+					{
+						applicableDrives.Add(driveLetter);
+					}
+				}
+			}
+
+			foreach (EncodeResultViewModel result in this.CompletedJobs)
+			{
+				if (result.Job.Job.SourceType == SourceType.Dvd)
+				{
+					string driveLetter = result.Job.Job.SourcePath.Substring(0, 1).ToUpperInvariant();
+					if (!applicableDrives.Contains(driveLetter))
+					{
+						applicableDrives.Add(driveLetter);
+					}
+				}
+			}
+
+			// Order backwards so repeated insertions put them in correct order
+			var orderedDrives =
+				from d in applicableDrives
+				orderby d descending 
+				select d;
+
+			foreach (string drive in orderedDrives)
+			{
+				this.encodeCompleteActions.Insert(1, new EncodeCompleteAction { ActionType = EncodeCompleteActionType.EjectDisc, DriveLetter = drive });
+			}
+
+			this.RaisePropertyChanged(() => this.EncodeCompleteActions);
+
+			// Transfer over the previously selected item
+			this.encodeCompleteAction = this.encodeCompleteActions[0];
+			for (int i = 1; i < this.encodeCompleteActions.Count; i++)
+			{
+				if (this.encodeCompleteActions[i].Equals(oldCompleteAction))
+				{
+					this.encodeCompleteAction = this.encodeCompleteActions[i];
+					break;
+				}
+			}
+
+			this.RaisePropertyChanged(() => this.EncodeCompleteAction);
 		}
 
 		private void AutoPauseEncoding(object sender, EventArgs e)

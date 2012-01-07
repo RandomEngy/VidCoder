@@ -324,6 +324,7 @@
     <Compile Include="Model\Database.cs" />
     <Compile Include="Model\DatabaseConfig.cs" />
     <Compile Include="Model\EncodeCompleteAction.cs" />
+    <Compile Include="Model\EncodeCompleteActionType.cs" />
     <Compile Include="Model\EncodeJobCollection.cs" />
     <Compile Include="Model\EncodeJobPersistGroup.cs" />
     <Compile Include="Model\EncodeJobWithMetadata.cs" />

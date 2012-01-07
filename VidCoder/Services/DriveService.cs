@@ -83,7 +83,7 @@ namespace VidCoder.Services
 		public IList<DriveInfo> GetDriveInformation()
 		{
 			return new List<DriveInfo>(DriveInfo.GetDrives());
-		} 
+		}
 
 		public void Close()
 		{

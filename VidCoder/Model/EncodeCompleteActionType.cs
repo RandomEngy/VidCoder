@@ -6,10 +6,13 @@ using System.Text;
 
 namespace VidCoder.Model
 {
-	public enum EncodeCompleteAction
+	public enum EncodeCompleteActionType
 	{
 		[Display(Name = "Do nothing")]
 		DoNothing = 0,
+
+		[Display(Name = "Eject {0}:")]
+		EjectDisc,
 
 		[Display(Name = "Sleep")]
 		Sleep,
