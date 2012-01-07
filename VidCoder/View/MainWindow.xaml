@@ -23,7 +23,8 @@
 	PreviewDrop="HandleDrop"
 	PreviewDragOver="Window_PreviewDragOver"
 	MouseDown="Window_MouseDown"
-	StateChanged="Window_StateChanged" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Deactivated="Window_Deactivated" Activated="Window_Activated">
+	StateChanged="Window_StateChanged" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:Delay="clr-namespace:Delay;assembly=SplitButtonWpf" Deactivated="Window_Deactivated" Activated="Window_Activated">
 	<Window.Resources>
 		<converters:ChapterVMConverter x:Key="ChapterVMConverter" />
 		<local:EnumDisplayer Type="{x:Type Encoding:VideoEncoder}" x:Key="VideoEncoderChoices" />
@@ -901,10 +902,26 @@
 					</StackPanel>
 				</Button>
 
+				<Delay:SplitButton
+					Grid.Column="2" Height="37" HorizontalAlignment="Left" Margin="0,0,5,0" VerticalAlignment="Bottom" Width="130"
+					Command="{Binding ProcessingVM.AddToQueueCommand}"
+					ToolTip="{Binding ProcessingVM.EnqueueToolTip}" ToolTipService.ShowOnDisabled="True"
+					Visibility="{Binding ProcessingVM.CanEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}}">
+					<Delay:SplitButton.ButtonMenuItemsSource>
+						<MenuItem Header="Add to Queue" Command="{Binding ProcessingVM.AddToQueueCommand}" />
+						<MenuItem Header="Add Multiple Titles to Queue..." Command="{Binding ProcessingVM.QueueTitlesCommand}" />
+					</Delay:SplitButton.ButtonMenuItemsSource>
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/Icons/downarrow_shadow.png" Height="26" />
+						<TextBlock Text="Add to Queue" VerticalAlignment="Center" Margin="5,0,0,0" />
+					</StackPanel>
+				</Delay:SplitButton>
+
 				<Button
 					Grid.Column="2" Height="37" HorizontalAlignment="Left" Margin="0,0,5,0" VerticalAlignment="Bottom" Width="114"
 					Command="{Binding ProcessingVM.AddToQueueCommand}"
-					ToolTip="{Binding ProcessingVM.EnqueueToolTip}" ToolTipService.ShowOnDisabled="True">
+					ToolTip="{Binding ProcessingVM.EnqueueToolTip}" ToolTipService.ShowOnDisabled="True"
+					Visibility="{Binding ProcessingVM.CanEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/downarrow_shadow.png" Height="26" />
 						<TextBlock Text="Add to Queue" VerticalAlignment="Center" Margin="5,0,0,0" />

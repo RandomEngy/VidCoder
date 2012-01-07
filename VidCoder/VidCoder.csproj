@@ -126,6 +126,9 @@
     <Reference Include="Ookii.Dialogs.Wpf">
       <HintPath>..\Lib\Ookii.Dialogs.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="SplitButtonWpf">
+      <HintPath>..\Lib\SplitButtonWpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
