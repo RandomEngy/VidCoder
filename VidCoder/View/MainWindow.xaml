@@ -123,7 +123,7 @@
 		
 		<Style x:Key="QueueText" TargetType="TextBlock">
 			<Style.Triggers>
-				<DataTrigger Binding="{Binding ProcessingVM.Encoding}" Value="True">
+				<DataTrigger Binding="{Binding Encoding}" Value="True">
 					<Setter Property="Foreground" Value="DarkGreen" />
 					<Setter Property="FontWeight" Value="Bold" />
 				</DataTrigger>
@@ -131,7 +131,7 @@
 		</Style>
 		<Style x:Key="QueuePathText" TargetType="{x:Type controls:PathTextBlock}">
 			<Style.Triggers>
-				<DataTrigger Binding="{Binding ProcessingVM.Encoding}" Value="True">
+				<DataTrigger Binding="{Binding Encoding}" Value="True">
 					<Setter Property="Foreground" Value="DarkGreen" />
 					<Setter Property="FontWeight" Value="Bold" />
 				</DataTrigger>
