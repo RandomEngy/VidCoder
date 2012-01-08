@@ -27,6 +27,7 @@ namespace VidCoder.ViewModel
 		private WhenFileExists whenFileExists;
 		private WhenFileExists whenFileExistsBatch;
 		private bool minimizeToTray;
+		private bool playSoundOnCompletion;
 		private string nativeLanguageCode;
 		private bool dubAudio;
 		private int logVerbosity;
@@ -54,6 +55,7 @@ namespace VidCoder.ViewModel
 			this.whenFileExists = Settings.Default.WhenFileExists;
 			this.whenFileExistsBatch = Settings.Default.WhenFileExistsBatch;
 			this.minimizeToTray = Settings.Default.MinimizeToTray;
+			this.playSoundOnCompletion = Settings.Default.PlaySoundOnCompletion;
 			this.nativeLanguageCode = Settings.Default.NativeLanguageCode;
 			this.dubAudio = Settings.Default.DubAudio;
 			this.logVerbosity = Settings.Default.LogVerbosity;
@@ -253,6 +255,20 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool PlaySoundOnCompletion
+		{
+			get
+			{
+				return this.playSoundOnCompletion;
+			}
+
+			set
+			{
+				this.playSoundOnCompletion = value;
+				this.RaisePropertyChanged(() => this.PlaySoundOnCompletion);
+			}
+		}
+
 		public string NativeLanguageCode
 		{
 			get
@@ -407,6 +423,7 @@ namespace VidCoder.ViewModel
 						Settings.Default.WhenFileExists = this.WhenFileExists;
 						Settings.Default.WhenFileExistsBatch = this.WhenFileExistsBatch;
 						Settings.Default.MinimizeToTray = this.MinimizeToTray;
+						Settings.Default.PlaySoundOnCompletion = this.PlaySoundOnCompletion;
 						Settings.Default.NativeLanguageCode = this.NativeLanguageCode;
 						Settings.Default.DubAudio = this.DubAudio;
 						Settings.Default.LogVerbosity = this.LogVerbosity;

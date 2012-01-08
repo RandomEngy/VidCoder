@@ -13,28 +13,24 @@
 		<TabControl Margin="12,12,12,41" Name="tabControl">
 			<TabItem Header="General">
 				<Grid>
-					<TextBlock
-						Height="21" HorizontalAlignment="Left" Margin="6,13,0,0" VerticalAlignment="Top" Width="82"
-						Style="{StaticResource EmphasizedTitle}"
-						Text="System Tray:" />
 					<RadioButton
-						Content="Minimize to task bar" Height="16" HorizontalAlignment="Left" Margin="94,14,0,0" Name="radioButton1" VerticalAlignment="Top"
+						Content="Minimize to task bar" Height="16" HorizontalAlignment="Left" Margin="10,14,0,0" Name="radioButton1" VerticalAlignment="Top"
 						IsChecked="{Binding MinimizeToTray, Converter={StaticResource InverseBoolConverter}}"
 						GroupName="minimize"/>
 					<RadioButton
-						Content="Minimize to system tray" Height="16" HorizontalAlignment="Left" Margin="94,36,0,0" Name="radioButton2" VerticalAlignment="Top"
+						Content="Minimize to system tray" Height="16" HorizontalAlignment="Left" Margin="10,36,0,0" Name="radioButton2" VerticalAlignment="Top"
 						IsChecked="{Binding MinimizeToTray}"
 						GroupName="minimize"/>
-
-					<TextBlock
-						Height="21" HorizontalAlignment="Left" Margin="6,68,0,0" VerticalAlignment="Top" Width="82"
-						Style="{StaticResource EmphasizedTitle}"
-						Text="Updates:" />
+					
 					<CheckBox
-						Height="16" Margin="94,68,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="182"
+						Height="16" Margin="10,69,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="230"
+						IsChecked="{Binding PlaySoundOnCompletion}">Play sound on queue completion</CheckBox>
+					
+					<CheckBox
+						Height="16" Margin="10,103,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="182"
 						IsChecked="{Binding UpdatesEnabled}">Enable automatic updates</CheckBox>
 					<Grid
-						Height="31" Margin="111,90,11,0" VerticalAlignment="Top"
+						Height="31" Margin="27,125,11,0" VerticalAlignment="Top"
 						Visibility="{Binding UpdatesEnabled, Converter={StaticResource VisibilityConverter}}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto" />

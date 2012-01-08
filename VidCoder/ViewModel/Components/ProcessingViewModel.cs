@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading;
 using System.Windows;
@@ -1283,7 +1284,8 @@ namespace VidCoder.ViewModel.Components
 
 						Unity.Container.Resolve<TrayService>().ShowBalloonMessage("Encoding completed", "VidCoder has finished all encode jobs in the queue.");
 
-						switch (this.EncodeCompleteAction.ActionType)
+						EncodeCompleteActionType actionType = this.EncodeCompleteAction.ActionType;
+						switch (actionType)
 						{
 							case EncodeCompleteActionType.DoNothing:
 								break;
@@ -1301,6 +1303,15 @@ namespace VidCoder.ViewModel.Components
 								break;
 							default:
 								throw new ArgumentOutOfRangeException();
+						}
+
+						if (Settings.Default.PlaySoundOnCompletion &&
+							actionType != EncodeCompleteActionType.Sleep && 
+							actionType != EncodeCompleteActionType.LogOff &&
+							actionType != EncodeCompleteActionType.Shutdown)
+						{
+							var soundPlayer = new SoundPlayer("Encode_Complete.wav");
+							soundPlayer.Play();
 						}
 					}
 					else

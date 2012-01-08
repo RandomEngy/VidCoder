@@ -587,6 +587,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Encode_Complete.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Icons\edit_16x16.png" />
     <SplashScreen Include="splash.png" />
     <Resource Include="Icons\video-file.png" />

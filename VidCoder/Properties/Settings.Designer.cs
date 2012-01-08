@@ -573,5 +573,17 @@ namespace VidCoder.Properties {
                 this["KeepScansAfterCompletion"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PlaySoundOnCompletion {
+            get {
+                return ((bool)(this["PlaySoundOnCompletion"]));
+            }
+            set {
+                this["PlaySoundOnCompletion"] = value;
+            }
+        }
     }
 }
