@@ -115,16 +115,6 @@ namespace VidCoder.ViewModel.Components
 						this.EncodeCommand.RaiseCanExecuteChanged();
 					});
 
-			Messenger.Default.Register<OutputFolderChangedMessage>(
-				this,
-				message =>
-					{
-						this.RaisePropertyChanged(() => this.EnqueueToolTip);
-						this.RaisePropertyChanged(() => this.EncodeToolTip);
-						this.QueueFilesCommand.RaiseCanExecuteChanged();
-						this.QueueTitlesCommand.RaiseCanExecuteChanged();
-					});
-
 			Messenger.Default.Register<SelectedTitleChangedMessage>(
 				this,
 				message =>
@@ -177,37 +167,11 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
-		public bool CanEnqueue
+		public bool CanTryEnqueue
 		{
 			get
 			{
-				return this.main.HasVideoSource && Utilities.IsValidFullPath(this.outputVM.OutputPath);
-			}
-		}
-
-		public string EnqueueToolTip
-		{
-			get
-			{
-				if (String.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder))
-				{
-					return "Please choose a destination directory before adding items to the queue.";
-				}
-
-				return null;
-			}
-		}
-
-		public string EncodeToolTip
-		{
-			get
-			{
-				if (String.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder))
-				{
-					return "Please choose a destination directory before encoding.";
-				}
-
-				return null;
+				return this.main.HasVideoSource;
 			}
 		}
 
@@ -316,11 +280,11 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
-		public bool CanEnqueueMultipleTitles
+		public bool CanTryEnqueueMultipleTitles
 		{
 			get
 			{
-				return !string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder) && this.main.HasVideoSource && this.main.SourceData.Titles.Count > 1;
+				return this.main.HasVideoSource && this.main.SourceData.Titles.Count > 1;
 			}
 		}
 
@@ -484,18 +448,10 @@ namespace VidCoder.ViewModel.Components
 						{
 							if (this.EncodeQueue.Count == 0)
 							{
-								var newEncodeJobVM = this.main.CreateEncodeJobVM();
-
-								string resolvedOutputPath = this.outputVM.ResolveOutputPathConflicts(newEncodeJobVM.Job.OutputPath, isBatch: false);
-								if (resolvedOutputPath == null)
+								if (!this.TryQueue())
 								{
-									// There was a conflict and the user canceled out of the operation.
 									return;
 								}
-
-								newEncodeJobVM.Job.OutputPath = resolvedOutputPath;
-
-								this.EncodeQueue.Add(newEncodeJobVM);
 							}
 
 							this.SelectedTabIndex = QueuedTabIndex;
@@ -505,7 +461,7 @@ namespace VidCoder.ViewModel.Components
 					},
 					() =>
 					{
-						return this.EncodeQueue.Count > 0 || this.CanEnqueue;
+						return this.EncodeQueue.Count > 0 || this.CanTryEnqueue;
 					}));
 			}
 		}
@@ -517,22 +473,11 @@ namespace VidCoder.ViewModel.Components
 			{
 				return this.addToQueueCommand ?? (this.addToQueueCommand = new RelayCommand(() =>
 					{
-						var newEncodeJobVM = this.main.CreateEncodeJobVM();
-
-						string resolvedOutputPath = this.outputVM.ResolveOutputPathConflicts(newEncodeJobVM.Job.OutputPath, isBatch: false);
-						if (resolvedOutputPath == null)
-						{
-							// There was a conflict and the user canceled out of the operation.
-							return;
-						}
-
-						newEncodeJobVM.Job.OutputPath = resolvedOutputPath;
-
-						this.Queue(newEncodeJobVM);
+						this.TryQueue();
 					},
 					() =>
 					{
-						return this.CanEnqueue;
+						return this.CanTryEnqueue;
 					}));
 			}
 		}
@@ -544,6 +489,11 @@ namespace VidCoder.ViewModel.Components
 			{
 				return this.queueFilesCommand ?? (this.queueFilesCommand = new RelayCommand(() =>
 					{
+						if (!this.EnsureDefaultOutputFolderSet())
+						{
+							return;
+						}
+
 						IList<string> fileNames = FileService.Instance.GetFileNames(Settings.Default.LastInputFileFolder);
 						if (fileNames != null && fileNames.Count > 0)
 						{
@@ -552,10 +502,6 @@ namespace VidCoder.ViewModel.Components
 
 							this.QueueMultiple(fileNames);
 						}
-					},
-					() =>
-					{
-						return !string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder);
 					}));
 			}
 		}
@@ -567,6 +513,11 @@ namespace VidCoder.ViewModel.Components
 			{
 				return this.queueTitlesCommand ?? (this.queueTitlesCommand = new RelayCommand(() =>
 					{
+						if (!this.EnsureDefaultOutputFolderSet())
+						{
+							return;
+						}
+
 						var queueTitlesDialog = new QueueTitlesDialogViewModel(this.main.SourceData.Titles);
 						WindowManager.OpenDialog(queueTitlesDialog, this.main);
 
@@ -668,7 +619,7 @@ namespace VidCoder.ViewModel.Components
 					},
 					() =>
 					{
-						return this.CanEnqueueMultipleTitles;
+						return this.CanTryEnqueueMultipleTitles;
 					}));
 			}
 		}
@@ -791,6 +742,32 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
+		public bool TryQueue()
+		{
+			if (!this.EnsureDefaultOutputFolderSet())
+			{
+				return false;
+			}
+
+			if (!this.EnsureValidOutputPath())
+			{
+				return false;
+			}
+
+			var newEncodeJobVM = this.main.CreateEncodeJobVM();
+
+			string resolvedOutputPath = this.outputVM.ResolveOutputPathConflicts(newEncodeJobVM.Job.OutputPath, isBatch: false);
+			if (resolvedOutputPath == null)
+			{
+				return false;
+			}
+
+			newEncodeJobVM.Job.OutputPath = resolvedOutputPath;
+
+			this.Queue(newEncodeJobVM);
+			return true;
+		}
+
 		/// <summary>
 		/// Queues the given Job. Assumed that the job has an associated HandBrake instance and populated Length.
 		/// </summary>
@@ -821,8 +798,7 @@ namespace VidCoder.ViewModel.Components
 
 		public void QueueMultiple(IEnumerable<string> filesToQueue)
 		{
-			// Don't queue anything if we don't know where the output files will go.
-			if (string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder))
+			if (!this.EnsureDefaultOutputFolderSet())
 			{
 				return;
 			}
@@ -1360,8 +1336,8 @@ namespace VidCoder.ViewModel.Components
 
 		private void RefreshCanEnqueue()
 		{
-			this.RaisePropertyChanged(() => this.CanEnqueueMultipleTitles);
-			this.RaisePropertyChanged(() => this.CanEnqueue);
+			this.RaisePropertyChanged(() => this.CanTryEnqueueMultipleTitles);
+			this.RaisePropertyChanged(() => this.CanTryEnqueue);
 
 			this.AddToQueueCommand.RaiseCanExecuteChanged();
 			this.QueueTitlesCommand.RaiseCanExecuteChanged();
@@ -1436,6 +1412,45 @@ namespace VidCoder.ViewModel.Components
 			}
 
 			this.RaisePropertyChanged(() => this.EncodeCompleteAction);
+		}
+
+		private bool EnsureDefaultOutputFolderSet()
+		{
+			if (!string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder))
+			{
+				return true;
+			}
+
+			var messageService = Unity.Container.Resolve<IMessageBoxService>();
+			var messageResult = messageService.Show(
+				this.main,
+				"Cannot add encode jobs without a default output folder. Press OK to pick one.", 
+				"Default Output Folder Required", 
+				MessageBoxButton.OKCancel, 
+				MessageBoxImage.Information);
+
+			if (messageResult == MessageBoxResult.Cancel)
+			{
+				return false;
+			}
+
+			return this.outputVM.PickDefaultOutputFolder();
+		}
+
+		private bool EnsureValidOutputPath()
+		{
+			if (this.outputVM.PathIsValid())
+			{
+				return true;
+			}
+
+			Unity.Container.Resolve<IMessageBoxService>().Show(
+				"Output path is not valid.",
+				"Path not valid", 
+				MessageBoxButton.OK,
+				MessageBoxImage.Error);
+
+			return false;
 		}
 
 		private void AutoPauseEncoding(object sender, EventArgs e)

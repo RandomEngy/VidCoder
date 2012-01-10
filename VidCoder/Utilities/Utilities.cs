@@ -343,11 +343,22 @@ namespace VidCoder
 				return false;
 			}
 
-			char[] invalidChars = Path.GetInvalidPathChars();
+			char[] invalidPathChars = Path.GetInvalidPathChars();
 
 			foreach (char c in path)
 			{
-				if (invalidChars.Contains(c))
+				if (invalidPathChars.Contains(c))
+				{
+					return false;
+				}
+			}
+
+			string fileName = Path.GetFileName(path);
+			char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+
+			foreach (char c in fileName)
+			{
+				if (invalidFileNameChars.Contains(c))
 				{
 					return false;
 				}

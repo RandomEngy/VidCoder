@@ -904,8 +904,7 @@
 				<Delay:SplitButton
 					Grid.Column="2" Height="37" HorizontalAlignment="Left" Margin="0,0,5,0" VerticalAlignment="Bottom" Width="130"
 					Command="{Binding ProcessingVM.AddToQueueCommand}"
-					ToolTip="{Binding ProcessingVM.EnqueueToolTip}" ToolTipService.ShowOnDisabled="True"
-					Visibility="{Binding ProcessingVM.CanEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}}">
+					Visibility="{Binding ProcessingVM.CanTryEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}}">
 					<Delay:SplitButton.ButtonMenuItemsSource>
 						<MenuItem Header="Add to Queue" Command="{Binding ProcessingVM.AddToQueueCommand}" />
 						<MenuItem Header="Add Multiple Titles to Queue..." Command="{Binding ProcessingVM.QueueTitlesCommand}" />
@@ -919,8 +918,7 @@
 				<Button
 					Grid.Column="2" Height="37" HorizontalAlignment="Left" Margin="0,0,5,0" VerticalAlignment="Bottom" Width="114"
 					Command="{Binding ProcessingVM.AddToQueueCommand}"
-					ToolTip="{Binding ProcessingVM.EnqueueToolTip}" ToolTipService.ShowOnDisabled="True"
-					Visibility="{Binding ProcessingVM.CanEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
+					Visibility="{Binding ProcessingVM.CanTryEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/downarrow_shadow.png" Height="26" />
 						<TextBlock Text="Add to Queue" VerticalAlignment="Center" Margin="5,0,0,0" />
@@ -940,8 +938,7 @@
 				<Button
 					Grid.Column="4" Height="37" HorizontalAlignment="Right" Margin="0,0,8,0" VerticalAlignment="Bottom" Width="82"
 					Command="{Binding ProcessingVM.EncodeCommand}"
-					Visibility="{Binding ProcessingVM.PauseVisible, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
-					ToolTip="{Binding ProcessingVM.EncodeToolTip}" ToolTipService.ShowOnDisabled="True">
+					Visibility="{Binding ProcessingVM.PauseVisible, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/encode_160.png" Height="26" />
 						<TextBlock Margin="7,0,0,0" Text="{Binding ProcessingVM.EncodeButtonText}" VerticalAlignment="Center" />

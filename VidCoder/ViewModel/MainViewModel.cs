@@ -1267,19 +1267,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		//public string RangeSummary
-		//{
-		//    get
-		//    {
-		//        if (this.HasVideoSource)
-		//        {
-		//            return "(" + this.SelectedTime.ToString(Utilities.TimeFormat) + ")";
-		//        }
-
-		//        return string.Empty;
-		//    }
-		//}
-
 		public TimeSpan RangePreviewStart
 		{
 			get

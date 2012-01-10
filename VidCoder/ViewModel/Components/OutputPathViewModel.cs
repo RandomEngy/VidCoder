@@ -109,18 +109,9 @@ namespace VidCoder.ViewModel.Components
 			{
 				return this.pickDefaultOutputFolderCommand ?? (this.pickDefaultOutputFolderCommand = new RelayCommand(() =>
 					{
-						string newOutputFolder = FileService.Instance.GetFolderName(null, "Choose the output directory for encoded video files.");
-
-						if (newOutputFolder != null)
-						{
-							Settings.Default.AutoNameOutputFolder = newOutputFolder;
-							Settings.Default.Save();
-							this.RaisePropertyChanged(() => this.OutputFolderChosen);
-							Messenger.Default.Send(new OutputFolderChangedMessage());
-							this.PickOutputPathCommand.RaiseCanExecuteChanged();
-
-							this.GenerateOutputFileName();
-						}
+						this.
+							PickDefaultOutputFolder
+							();
 					}));
 			}
 		}
@@ -615,6 +606,29 @@ namespace VidCoder.ViewModel.Components
 			}
 
 			return Utilities.CleanFileName(fileName, allowBackslashes: true);
+		}
+
+		public bool PickDefaultOutputFolder()
+		{
+			string newOutputFolder = FileService.Instance.GetFolderName(null, "Choose the output directory for encoded video files.");
+
+			if (newOutputFolder != null)
+			{
+				Settings.Default.AutoNameOutputFolder = newOutputFolder;
+				Settings.Default.Save();
+				this.RaisePropertyChanged(() => this.OutputFolderChosen);
+				Messenger.Default.Send(new OutputFolderChangedMessage());
+				this.PickOutputPathCommand.RaiseCanExecuteChanged();
+
+				this.GenerateOutputFileName();
+			}
+
+			return newOutputFolder != null;
+		}
+
+		public bool PathIsValid()
+		{
+			return Utilities.IsValidFullPath(this.OutputPath);
 		}
 
 		private static string ReplaceTitles(string inputString, int title)
