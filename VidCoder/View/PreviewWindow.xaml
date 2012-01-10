@@ -71,11 +71,11 @@
 					Orientation="Horizontal" Margin="0,0,0,8" VerticalAlignment="Bottom" HorizontalAlignment="Center"
 					Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
 					<Button
-						Height="23" Width="126"
+						Height="23"
 						Command="{Binding GeneratePreviewCommand}" ToolTip="Encodes and plays a small preview clip from the selected screen. Uses current encoding settings.">
-						<StackPanel Orientation="Horizontal">
+						<StackPanel Orientation="Horizontal" Margin="4,0">
 							<Image Source="/Icons/play_clip.png" VerticalAlignment="Center" Height="15" />
-							<TextBlock Text="Play Preview Clip" Margin="5,0,0,0" VerticalAlignment="Center" />
+							<TextBlock Text="Encode Preview Clip" Margin="5,0,0,0" VerticalAlignment="Center" />
 						</StackPanel>
 					</Button>
 					<ComboBox
