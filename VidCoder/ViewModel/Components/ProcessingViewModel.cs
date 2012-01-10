@@ -1377,7 +1377,7 @@ namespace VidCoder.ViewModel.Components
 
 			foreach (EncodeResultViewModel result in this.CompletedJobs)
 			{
-				if (result.Job.Job.SourceType == SourceType.Dvd)
+				if (result.Job != null && result.Job.Job.SourceType == SourceType.Dvd)
 				{
 					string driveLetter = result.Job.Job.SourcePath.Substring(0, 1).ToUpperInvariant();
 					if (!applicableDrives.Contains(driveLetter))
