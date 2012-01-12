@@ -637,6 +637,11 @@ namespace VidCoder.ViewModel
 					return false;
 				}
 
+				if (this.sourceData.Titles.Count == 0)
+				{
+					return false;
+				}
+
 				return true;
 			}
 		}
