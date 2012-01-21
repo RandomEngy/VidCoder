@@ -636,7 +636,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.SelectedMixdown != null && this.SelectedBitrate != null && this.SelectedAudioEncoder != null;
+				return this.SelectedAudioEncoder.IsPassthrough || this.SelectedMixdown != null && this.SelectedBitrate != null && this.SelectedAudioEncoder != null;
 			}
 		}
 
