@@ -52,6 +52,15 @@ namespace VidCoder.Services
 				// If updates are enabled, and we are the last process instance, prompt to apply the update.
 				if (Settings.Default.UpdatesEnabled && Utilities.CurrentProcessInstances == 1)
 				{
+					// See if the user has already applied the update manually
+					string updateVersion = DatabaseConfig.GetConfigString(UpdateVersion, Database.Connection);
+					if (Utilities.CompareVersions(updateVersion, Utilities.CurrentVersion) <= 0)
+					{
+						// If we already have the newer version clear all the update info and cancel
+						ClearUpdateMetadata();
+						return;
+					}
+
 					string installerPath = DatabaseConfig.GetConfigString(UpdateInstallerLocation, Database.Connection);
 
 					if (installerPath != string.Empty && File.Exists(installerPath))
@@ -136,9 +145,7 @@ namespace VidCoder.Services
 
 					if (updateSucceeded)
 					{
-						DatabaseConfig.SetConfigValue(UpdateVersion, string.Empty, Database.Connection);
-						DatabaseConfig.SetConfigValue(UpdateInstallerLocation, string.Empty, Database.Connection);
-						DatabaseConfig.SetConfigValue(UpdateChangelogLocation, string.Empty, Database.Connection);
+						ClearUpdateMetadata();
 					}
 
 					transaction.Commit();
@@ -170,6 +177,13 @@ namespace VidCoder.Services
 			}
 
 			return false;
+		}
+
+		private static void ClearUpdateMetadata()
+		{
+			DatabaseConfig.SetConfigValue(UpdateVersion, string.Empty, Database.Connection);
+			DatabaseConfig.SetConfigValue(UpdateInstallerLocation, string.Empty, Database.Connection);
+			DatabaseConfig.SetConfigValue(UpdateChangelogLocation, string.Empty, Database.Connection);
 		}
 
 		public void CheckUpdates()
