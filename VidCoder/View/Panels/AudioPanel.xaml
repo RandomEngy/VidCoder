@@ -30,289 +30,296 @@
 	</UserControl.Resources>
 	<Grid>
 		<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-			<StackPanel Orientation="Vertical" Margin="3,6,3,0" VerticalAlignment="Top" Name="audioPanelStack">
+			<StackPanel Orientation="Vertical" VerticalAlignment="Top" Name="audioPanelStack">
 				<ItemsControl ItemsSource="{Binding AudioEncodings}" HorizontalAlignment="Stretch">
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<Grid
-								Margin="0,0,0,10">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition />
-								</Grid.ColumnDefinitions>
-
-								<!-- Column 0, Target stream -->
-								<StackPanel
-									Orientation="Vertical"
-									VerticalAlignment="Center" Grid.Column="0" Margin="0,0,4,0">
-									<TextBlock Text="Target Stream" />
-									<ComboBox
-										ItemsSource="{Binding TargetStreams}"
-										MaxWidth="75"
-										SelectedIndex="{Binding TargetStreamIndex}">
-										<ComboBox.ItemTemplate>
-											<DataTemplate>
-												<StackPanel Orientation="Horizontal">
-													<TextBlock Text="{Binding Text}" VerticalAlignment="Center" />
-													<Border Margin="10,1,1,1" CornerRadius="3" Padding="3,1,3,1"
-													Background="{StaticResource InputBrush}" Visibility="{Binding HasTrackDetails, Converter={StaticResource VisibilityConverter}}">
-														<TextBlock Text="{Binding TrackDetails}" Foreground="Black" FontSize="11" />
-													</Border>
-												</StackPanel>
-											</DataTemplate>
-										</ComboBox.ItemTemplate>
-									</ComboBox>
-								</StackPanel>
-
-								<!-- Column 1, Codec, mixdown, sample rate -->
-								<Grid
-									Grid.Column="1" VerticalAlignment="Center">
-									<Grid.RowDefinitions>
-										<RowDefinition />
-										<RowDefinition />
-										<RowDefinition />
-									</Grid.RowDefinitions>
+							<Border BorderBrush="LightGray" BorderThickness="1" Padding="3" CornerRadius="4" Margin="0,0,0,4">
+								<Border.Background>
+									<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+										<GradientStop Color="#F5F5F5" Offset="0.0" />
+										<GradientStop Color="#EAEAEA" Offset="1.0" />
+									</LinearGradientBrush>
+								</Border.Background>
+								<Grid>
 									<Grid.ColumnDefinitions>
-										<ColumnDefinition />
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="Auto" />
 										<ColumnDefinition />
 									</Grid.ColumnDefinitions>
-									<TextBlock
-										Style="{StaticResource AudioLabel}"
-										Grid.Row="0" Grid.Column="0"
-										Text="Codec:" />
-									<ComboBox
-										Style="{StaticResource AudioControl}"
-										Grid.Row="0" Grid.Column="1" MinWidth="95"
-										ItemsSource="{Binding AudioEncoders}"
-										SelectedItem="{Binding SelectedAudioEncoder}"
-										DisplayMemberPath="DisplayName"/>
 
-									<TextBlock
-										Style="{StaticResource AudioLabel}"
-										Grid.Row="1" Grid.Column="0"
-										Text="Mixdown:"
-										Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
-									<ComboBox
-										Style="{StaticResource AudioControl}"
-										Width="125" Grid.Row="1" Grid.Column="1"
-										ItemsSource="{Binding MixdownChoices}"
-										SelectedItem="{Binding SelectedMixdown}"
-										DisplayMemberPath="DisplayName"
-										Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
+									<!-- Column 0, Target stream -->
+									<StackPanel
+										Orientation="Vertical"
+										VerticalAlignment="Center" Grid.Column="0" Margin="0,0,4,0">
+										<TextBlock Text="Target Stream" />
+										<ComboBox
+											ItemsSource="{Binding TargetStreams}"
+											MaxWidth="75"
+											SelectedIndex="{Binding TargetStreamIndex}">
+											<ComboBox.ItemTemplate>
+												<DataTemplate>
+													<StackPanel Orientation="Horizontal">
+														<TextBlock Text="{Binding Text}" VerticalAlignment="Center" />
+														<Border Margin="10,1,1,1" CornerRadius="3" Padding="3,1,3,1"
+															Background="{StaticResource InputBrush}" Visibility="{Binding HasTrackDetails, Converter={StaticResource VisibilityConverter}}">
+															<TextBlock Text="{Binding TrackDetails}" Foreground="Black" FontSize="11" />
+														</Border>
+													</StackPanel>
+												</DataTemplate>
+											</ComboBox.ItemTemplate>
+										</ComboBox>
+									</StackPanel>
 
-									<TextBlock
-										Style="{StaticResource AudioLabel}"
-										Grid.Row="2" Grid.Column="0"
-										Text="Sample Rate:"
-										Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
-									<ComboBox
-										Style="{StaticResource AudioControl}"
-										Width="107" Grid.Row="2" Grid.Column="1"
-										ItemsSource="{Binding SampleRateChoices}"
-										SelectedValue="{Binding SampleRate}"
-										Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}">
-										<ComboBox.ItemTemplate>
-											<DataTemplate>
-												<TextBlock Text="{Binding Converter={StaticResource SampleRateDisplayConverter}}" />
-											</DataTemplate>
-										</ComboBox.ItemTemplate>
-									</ComboBox>
-								</Grid>
-
-								<!-- Column 2, Bitrate, compression, modifiers -->
-								<StackPanel Orientation="Vertical" Grid.Column="2" Margin="4,0,0,0">
-									<Grid>
+									<!-- Column 1, Codec, mixdown, sample rate -->
+									<Grid
+										Grid.Column="1" VerticalAlignment="Center">
 										<Grid.RowDefinitions>
-											<RowDefinition Height="Auto" />
-											<RowDefinition Height="Auto" />
-											<RowDefinition Height="Auto" />
+											<RowDefinition />
+											<RowDefinition />
+											<RowDefinition />
 										</Grid.RowDefinitions>
 										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="Auto" />
+											<ColumnDefinition />
 											<ColumnDefinition />
 										</Grid.ColumnDefinitions>
-										
-										<!-- Bitrate -->
-										<Grid
-											Grid.Row="0" Grid.Column="0" Height="23"
-											Style="{StaticResource AudioLabelLeft}"
-											Visibility="{Binding AudioQualityRadioVisible, Converter={StaticResource VisibilityConverter}}">
-											<RadioButton
-												VerticalAlignment="Center"
-												Content="Bitrate"
-												IsChecked="{Binding EncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Bitrate}"/>
-										</Grid>
 										<TextBlock
+											Style="{StaticResource AudioLabel}"
 											Grid.Row="0" Grid.Column="0"
-											Style="{StaticResource AudioLabelLeft}"
-											Text="Bitrate:"
-											Visibility="{Binding BitrateLabelVisible, Converter={StaticResource VisibilityConverter}}"/>
+											Text="Codec:" />
 										<ComboBox
-											Grid.Row="0" Grid.Column="1"
 											Style="{StaticResource AudioControl}"
-											MinWidth="45"
-											ItemsSource="{Binding BitrateChoices}"
-											SelectedValue="{Binding SelectedBitrate}"
-											DisplayMemberPath="Display"
-											Visibility="{Binding BitrateVisible, Converter={StaticResource VisibilityConverter}}">
-											<ComboBox.ItemContainerStyle>
-												<Style TargetType="ComboBoxItem">
-													<Style.Triggers>
-														<MultiDataTrigger>
-															<MultiDataTrigger.Conditions>
-																<Condition Binding="{Binding IsCompatible}" Value="False" />
-																<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="False" />
-															</MultiDataTrigger.Conditions>
-															<Setter Property="Foreground" Value="Gray" />
-														</MultiDataTrigger>
-														<MultiDataTrigger>
-															<MultiDataTrigger.Conditions>
-																<Condition Binding="{Binding IsCompatible}" Value="False" />
-																<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="True" />
-															</MultiDataTrigger.Conditions>
-															<Setter Property="Foreground" Value="#DDDDDD" />
-														</MultiDataTrigger>
-													</Style.Triggers>
-												</Style>
-											</ComboBox.ItemContainerStyle>
+											Grid.Row="0" Grid.Column="1" MinWidth="95"
+											ItemsSource="{Binding AudioEncoders}"
+											SelectedItem="{Binding SelectedAudioEncoder}"
+											DisplayMemberPath="DisplayName"/>
+
+										<TextBlock
+											Style="{StaticResource AudioLabel}"
+											Grid.Row="1" Grid.Column="0"
+											Text="Mixdown:"
+											Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
+										<ComboBox
+											Style="{StaticResource AudioControl}"
+											Width="125" Grid.Row="1" Grid.Column="1"
+											ItemsSource="{Binding MixdownChoices}"
+											SelectedItem="{Binding SelectedMixdown}"
+											DisplayMemberPath="DisplayName"
+											Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
+
+										<TextBlock
+											Style="{StaticResource AudioLabel}"
+											Grid.Row="2" Grid.Column="0"
+											Text="Sample Rate:"
+											Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
+										<ComboBox
+											Style="{StaticResource AudioControl}"
+											Width="107" Grid.Row="2" Grid.Column="1"
+											ItemsSource="{Binding SampleRateChoices}"
+											SelectedValue="{Binding SampleRate}"
+											Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}">
+											<ComboBox.ItemTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding Converter={StaticResource SampleRateDisplayConverter}}" />
+												</DataTemplate>
+											</ComboBox.ItemTemplate>
 										</ComboBox>
+									</Grid>
 
-										<!-- Audio quality -->
-										<Grid
-											Grid.Row="1" Grid.Column="0" Height="23"
-											Style="{StaticResource AudioLabelLeft}"
-											Visibility="{Binding AudioQualityRadioVisible, Converter={StaticResource VisibilityConverter}}">
-											<RadioButton
-												VerticalAlignment="Center"
-												Content="Quality"
-												IsChecked="{Binding EncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Quality}"/>
-										</Grid>
-										<controls:NumberBox
-											Grid.Row="1" Grid.Column="1"
-											Style="{StaticResource AudioControl}" ToolTipService.ShowDuration="20000"
-											Height="23" Width="50"
-											Number="{Binding AudioQuality, Mode=TwoWay}" Minimum="{Binding AudioQualityMinimum}" Maximum="{Binding AudioQualityMaximum}" Modulus="{Binding AudioQualityGranularity}" AllowEmpty="False"
-											Visibility="{Binding AudioQualityVisible, Converter={StaticResource VisibilityConverter}}">
-											<controls:NumberBox.ToolTip>
-												<TextBlock Text="{Binding AudioQualityToolTip}" Style="{StaticResource LongToolTip}" />
-											</controls:NumberBox.ToolTip>
-										</controls:NumberBox>
-										<Slider
-											Grid.Column="1" Grid.Row="1" Height="23" Margin="60,0,0,0" VerticalAlignment="Center"
-											TickPlacement="BottomRight" Minimum="{Binding AudioQualityMinimum}" Maximum="{Binding AudioQualityMaximum}" TickFrequency="{Binding AudioQualityGranularity}" IsSnapToTickEnabled="True"
-											Value="{Binding AudioQuality}" ToolTipService.ShowDuration="20000"
-											Visibility="{Binding AudioQualityVisible, Converter={StaticResource VisibilityConverter}}">
-											<Slider.ToolTip>
-												<TextBlock Text="{Binding AudioQualityToolTip}" Style="{StaticResource LongToolTip}" />
-											</Slider.ToolTip>
-										</Slider>
+									<!-- Column 2, Bitrate, compression, modifiers -->
+									<StackPanel Orientation="Vertical" Grid.Column="2" Margin="4,0,0,0">
+										<Grid>
+											<Grid.RowDefinitions>
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+											</Grid.RowDefinitions>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="Auto" />
+												<ColumnDefinition />
+											</Grid.ColumnDefinitions>
 
-										<!-- Compression -->
-										<Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-											<TextBlock
+											<!-- Bitrate -->
+											<Grid
+												Grid.Row="0" Grid.Column="0" Height="23"
 												Style="{StaticResource AudioLabelLeft}"
-												Text="Compression:" ToolTipService.ShowDuration="20000"
-												Visibility="{Binding AudioCompressionVisible, Converter={StaticResource VisibilityConverter}}">
-												<TextBlock.ToolTip>
-													<TextBlock Text="{Binding AudioCompressionToolTip}" Style="{StaticResource LongToolTip}" />
-												</TextBlock.ToolTip>
-											</TextBlock>
+												Visibility="{Binding AudioQualityRadioVisible, Converter={StaticResource VisibilityConverter}}">
+												<RadioButton
+													VerticalAlignment="Center"
+													Content="Bitrate"
+													IsChecked="{Binding EncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Bitrate}"/>
+											</Grid>
+											<TextBlock
+												Grid.Row="0" Grid.Column="0"
+												Style="{StaticResource AudioLabelLeft}"
+												Text="Bitrate:"
+												Visibility="{Binding BitrateLabelVisible, Converter={StaticResource VisibilityConverter}}"/>
+											<ComboBox
+												Grid.Row="0" Grid.Column="1"
+												Style="{StaticResource AudioControl}"
+												MinWidth="45"
+												ItemsSource="{Binding BitrateChoices}"
+												SelectedValue="{Binding SelectedBitrate}"
+												DisplayMemberPath="Display"
+												Visibility="{Binding BitrateVisible, Converter={StaticResource VisibilityConverter}}">
+												<ComboBox.ItemContainerStyle>
+													<Style TargetType="ComboBoxItem">
+														<Style.Triggers>
+															<MultiDataTrigger>
+																<MultiDataTrigger.Conditions>
+																	<Condition Binding="{Binding IsCompatible}" Value="False" />
+																	<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="False" />
+																</MultiDataTrigger.Conditions>
+																<Setter Property="Foreground" Value="Gray" />
+															</MultiDataTrigger>
+															<MultiDataTrigger>
+																<MultiDataTrigger.Conditions>
+																	<Condition Binding="{Binding IsCompatible}" Value="False" />
+																	<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="True" />
+																</MultiDataTrigger.Conditions>
+																<Setter Property="Foreground" Value="#DDDDDD" />
+															</MultiDataTrigger>
+														</Style.Triggers>
+													</Style>
+												</ComboBox.ItemContainerStyle>
+											</ComboBox>
+
+											<!-- Audio quality -->
+											<Grid
+												Grid.Row="1" Grid.Column="0" Height="23"
+												Style="{StaticResource AudioLabelLeft}"
+												Visibility="{Binding AudioQualityRadioVisible, Converter={StaticResource VisibilityConverter}}">
+												<RadioButton
+													VerticalAlignment="Center"
+													Content="Quality"
+													IsChecked="{Binding EncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Quality}"/>
+											</Grid>
 											<controls:NumberBox
+												Grid.Row="1" Grid.Column="1"
 												Style="{StaticResource AudioControl}" ToolTipService.ShowDuration="20000"
-												Height="23" Width="50" Margin="78,0,0,0"
-												Number="{Binding AudioCompression, Mode=TwoWay}" Minimum="{Binding AudioCompressionMinimum}" Maximum="{Binding AudioCompressionMaximum}" Modulus="{Binding AudioCompressionGranularity}" AllowEmpty="False"
-												Visibility="{Binding AudioCompressionVisible, Converter={StaticResource VisibilityConverter}}">
+												Height="23" Width="50"
+												Number="{Binding AudioQuality, Mode=TwoWay}" Minimum="{Binding AudioQualityMinimum}" Maximum="{Binding AudioQualityMaximum}" Modulus="{Binding AudioQualityGranularity}" AllowEmpty="False"
+												Visibility="{Binding AudioQualityVisible, Converter={StaticResource VisibilityConverter}}">
 												<controls:NumberBox.ToolTip>
-													<TextBlock Text="{Binding AudioCompressionToolTip}" Style="{StaticResource LongToolTip}" />
+													<TextBlock Text="{Binding AudioQualityToolTip}" Style="{StaticResource LongToolTip}" />
 												</controls:NumberBox.ToolTip>
 											</controls:NumberBox>
 											<Slider
-												Height="23" Margin="135,0,0,0" VerticalAlignment="Center" ToolTipService.ShowDuration="20000"
-												TickPlacement="BottomRight" Minimum="{Binding AudioCompressionMinimum}" Maximum="{Binding AudioCompressionMaximum}" TickFrequency="{Binding AudioCompressionGranularity}" IsSnapToTickEnabled="True"
-												Value="{Binding AudioCompression}"
-												Visibility="{Binding AudioCompressionVisible, Converter={StaticResource VisibilityConverter}}">
+												Grid.Column="1" Grid.Row="1" Height="23" Margin="60,0,0,0" VerticalAlignment="Center"
+												TickPlacement="BottomRight" Minimum="{Binding AudioQualityMinimum}" Maximum="{Binding AudioQualityMaximum}" TickFrequency="{Binding AudioQualityGranularity}" IsSnapToTickEnabled="True"
+												Value="{Binding AudioQuality}" ToolTipService.ShowDuration="20000"
+												Visibility="{Binding AudioQualityVisible, Converter={StaticResource VisibilityConverter}}">
 												<Slider.ToolTip>
-													<TextBlock Text="{Binding AudioCompressionToolTip}" Style="{StaticResource LongToolTip}" />
+													<TextBlock Text="{Binding AudioQualityToolTip}" Style="{StaticResource LongToolTip}" />
 												</Slider.ToolTip>
 											</Slider>
+
+											<!-- Compression -->
+											<Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+												<TextBlock
+													Style="{StaticResource AudioLabelLeft}"
+													Text="Compression:" ToolTipService.ShowDuration="20000"
+													Visibility="{Binding AudioCompressionVisible, Converter={StaticResource VisibilityConverter}}">
+												<TextBlock.ToolTip>
+													<TextBlock Text="{Binding AudioCompressionToolTip}" Style="{StaticResource LongToolTip}" />
+												</TextBlock.ToolTip>
+											</TextBlock>
+												<controls:NumberBox
+													Style="{StaticResource AudioControl}" ToolTipService.ShowDuration="20000"
+													Height="23" Width="50" Margin="78,0,0,0"
+													Number="{Binding AudioCompression, Mode=TwoWay}" Minimum="{Binding AudioCompressionMinimum}" Maximum="{Binding AudioCompressionMaximum}" Modulus="{Binding AudioCompressionGranularity}" AllowEmpty="False"
+													Visibility="{Binding AudioCompressionVisible, Converter={StaticResource VisibilityConverter}}">
+													<controls:NumberBox.ToolTip>
+														<TextBlock Text="{Binding AudioCompressionToolTip}" Style="{StaticResource LongToolTip}" />
+													</controls:NumberBox.ToolTip>
+												</controls:NumberBox>
+												<Slider
+													Height="23" Margin="135,0,0,0" VerticalAlignment="Center" ToolTipService.ShowDuration="20000"
+													TickPlacement="BottomRight" Minimum="{Binding AudioCompressionMinimum}" Maximum="{Binding AudioCompressionMaximum}" TickFrequency="{Binding AudioCompressionGranularity}" IsSnapToTickEnabled="True"
+													Value="{Binding AudioCompression}"
+													Visibility="{Binding AudioCompressionVisible, Converter={StaticResource VisibilityConverter}}">
+													<Slider.ToolTip>
+														<TextBlock Text="{Binding AudioCompressionToolTip}" Style="{StaticResource LongToolTip}" />
+													</Slider.ToolTip>
+												</Slider>
+											</Grid>
+
+											<Button
+												Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top"
+												Style="{StaticResource RemoveButtonStyle}"
+												Command="{Binding RemoveAudioEncodingCommand}"
+												Margin="0,0,0,0">
+												Remove audio encoding
+											</Button>
 										</Grid>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="Auto" />
+												<ColumnDefinition />
+											</Grid.ColumnDefinitions>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock
+													Style="{StaticResource AudioLabel}"
+													Text="Gain (dB):"
+													ToolTip="{x:Static resx:Resources.Audio_GainToolTip}"
+													Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
+												<controls:NumberBox
+													Style="{StaticResource AudioControl}"
+													Width="42"
+													Number="{Binding Gain, Mode=TwoWay}"
+													AllowEmpty="False" Minimum="-20" Maximum="20"
+													Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"
+													ToolTip="{x:Static resx:Resources.Audio_GainToolTip}"/>
 
-										<Button
-											Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top"
-											Style="{StaticResource RemoveButtonStyle}"
-											Command="{Binding RemoveAudioEncodingCommand}"
-											Margin="0,0,0,0">
-											Remove audio encoding
-										</Button>
-									</Grid>
-									<Grid>
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="Auto" />
-											<ColumnDefinition />
-										</Grid.ColumnDefinitions>
-										<StackPanel Orientation="Horizontal">
-											<TextBlock
-												Style="{StaticResource AudioLabel}"
-												Text="Gain (dB):"
-												ToolTip="{x:Static resx:Resources.Audio_GainToolTip}"
-												Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
-											<controls:NumberBox
-												Style="{StaticResource AudioControl}"
-												Width="42"
-												Number="{Binding Gain, Mode=TwoWay}"
-												AllowEmpty="False" Minimum="-20" Maximum="20"
-												Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"
-												ToolTip="{x:Static resx:Resources.Audio_GainToolTip}"/>
-
-											<TextBlock
-												Style="{StaticResource AudioLabel}" Margin="10,0,2,0"
-												Text="DRC:" ToolTipService.ShowDuration="20000"
-												Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}">
+												<TextBlock
+													Style="{StaticResource AudioLabel}" Margin="10,0,2,0"
+													Text="DRC:" ToolTipService.ShowDuration="20000"
+													Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}">
 												<TextBlock.ToolTip>
 													<TextBlock Text="{x:Static resx:Resources.Audio_DrcToolTip}" Style="{StaticResource LongToolTip}" />
 												</TextBlock.ToolTip>
 											</TextBlock>
-											<controls:NumberBox
-												Width="42" Margin="0,2,10,2"
-												Style="{StaticResource AudioControl}"
-												Number="{Binding Drc, Mode=TwoWay}"
-												AllowEmpty="False" Minimum="0" Maximum="4" Modulus="0.1"
-												Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"
-												ToolTipService.ShowDuration="20000">
-												<controls:NumberBox.ToolTip>
-													<TextBlock Text="{x:Static resx:Resources.Audio_DrcToolTip}" Style="{StaticResource LongToolTip}" />
-												</controls:NumberBox.ToolTip>
-											</controls:NumberBox>
-										</StackPanel>
+												<controls:NumberBox
+													Width="42" Margin="0,2,10,2"
+													Style="{StaticResource AudioControl}"
+													Number="{Binding Drc, Mode=TwoWay}"
+													AllowEmpty="False" Minimum="0" Maximum="4" Modulus="0.1"
+													Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"
+													ToolTipService.ShowDuration="20000">
+													<controls:NumberBox.ToolTip>
+														<TextBlock Text="{x:Static resx:Resources.Audio_DrcToolTip}" Style="{StaticResource LongToolTip}" />
+													</controls:NumberBox.ToolTip>
+												</controls:NumberBox>
+											</StackPanel>
 
-										<TextBlock
-											Grid.Column="1"
-											VerticalAlignment="Center"
-											Text="Name:"
-											Visibility="{Binding NameVisible, Converter={StaticResource VisibilityConverter}}"/>
-										<TextBox
-											Grid.Column="1"
-											Height="23"
-											Margin="40,0,0,0"
-											Text="{Binding Name}"
-											Visibility="{Binding NameVisible, Converter={StaticResource VisibilityConverter}}"/>
-									</Grid>
-								</StackPanel>
-							</Grid>
+											<TextBlock
+												Grid.Column="1"
+												VerticalAlignment="Center"
+												Text="Name:"
+												Visibility="{Binding NameVisible, Converter={StaticResource VisibilityConverter}}"/>
+											<TextBox
+												Grid.Column="1"
+												Height="23"
+												Margin="40,0,0,0"
+												Text="{Binding Name}"
+												Visibility="{Binding NameVisible, Converter={StaticResource VisibilityConverter}}"/>
+										</Grid>
+									</StackPanel>
+								</Grid>
+							</Border>
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>
 					<ItemsControl.Template>
 						<ControlTemplate>
 							<ScrollViewer Margin="0" Focusable="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-								<StackPanel Orientation="Vertical" Margin="2" IsItemsHost="True" />
+								<StackPanel Orientation="Vertical" IsItemsHost="True" />
 							</ScrollViewer>
 						</ControlTemplate>
 					</ItemsControl.Template>
 				</ItemsControl>
 				
 				<Button
-					HorizontalAlignment="Left" Margin="0,6,0,0"
+					HorizontalAlignment="Left" Margin="3,6,0,0"
 					Command="{Binding AddAudioEncodingCommand}">
 					<StackPanel Orientation="Horizontal" Margin="2">
 						<Polygon Style="{StaticResource PlusSign}" />
@@ -321,7 +328,7 @@
 				</Button>
 				
 				<Grid
-					HorizontalAlignment="Left" Margin="0,10,0,0"
+					HorizontalAlignment="Left" Margin="3,10,0,0"
 					Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">
 					<Border
 						Margin="0,0,0,0"
@@ -370,7 +377,7 @@
 				</Grid>
 				<controls:InlineWarning
 					Visibility="{Binding PassthroughWarningVisible, Converter={StaticResource VisibilityConverter}}"
-					Margin="0,10,0,0" HorizontalAlignment="Left"
+					Margin="3,10,0,0" HorizontalAlignment="Left"
 					WarningText="{Binding PassthroughWarningText}" />
 			</StackPanel>
 		</ScrollViewer>
