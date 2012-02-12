@@ -80,6 +80,8 @@ namespace VidCoder.ViewModel.Components
 
 		public bool ManualOutputPath { get; set; }
 
+		public string NameFormatOverride { get; set; }
+
 		public bool EditingDestination
 		{
 			get
@@ -382,7 +384,8 @@ namespace VidCoder.ViewModel.Components
 				this.main.SecondsRangeStart,
 				this.main.SecondsRangeEnd,
 				this.main.FramesRangeStart,
-				this.main.FramesRangeEnd);
+				this.main.FramesRangeEnd,
+				this.NameFormatOverride);
 
 			string extension = this.GetOutputExtension();
 
@@ -478,7 +481,7 @@ namespace VidCoder.ViewModel.Components
 			return null;
 		}
 
-		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, int totalChapters)
+		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, int totalChapters, string nameFormatOverride = null)
 		{
 			return this.BuildOutputFileName(
 				sourcePath,
@@ -492,13 +495,14 @@ namespace VidCoder.ViewModel.Components
 				0,
 				0,
 				0,
-				0);
+				0,
+				nameFormatOverride);
 		}
 
-		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, VideoRangeType rangeType, int startChapter, int endChapter, int totalChapters, double startSecond, double endSecond, int startFrame, int endFrame)
+		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, VideoRangeType rangeType, int startChapter, int endChapter, int totalChapters, double startSecond, double endSecond, int startFrame, int endFrame, string nameFormatOverride)
 		{
 			string fileName;
-			if (Settings.Default.AutoNameCustomFormat)
+			if (Settings.Default.AutoNameCustomFormat || !string.IsNullOrWhiteSpace(nameFormatOverride))
 			{
 				string rangeString = string.Empty;
 				switch (rangeType)
@@ -522,7 +526,14 @@ namespace VidCoder.ViewModel.Components
 						break;
 				}
 
-				fileName = Settings.Default.AutoNameCustomFormatString;
+				if (!string.IsNullOrWhiteSpace(nameFormatOverride))
+				{
+					fileName = nameFormatOverride;
+				}
+				else
+				{
+					fileName = Settings.Default.AutoNameCustomFormatString;
+				}
 
 				fileName = fileName.Replace("{source}", sourceName);
 				fileName = ReplaceTitles(fileName, title);

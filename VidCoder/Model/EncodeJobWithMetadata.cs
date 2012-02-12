@@ -11,5 +11,7 @@ namespace VidCoder.Model
 		public EncodeJob Job { get; set; }
 
 		public bool ManualOutputPath { get; set; }
+
+		public string NameFormatOverride { get; set; }
 	}
 }

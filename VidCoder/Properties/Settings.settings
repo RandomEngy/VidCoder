@@ -143,5 +143,17 @@
     <Setting Name="PlaySoundOnCompletion" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="LastPlayer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">vlc</Value>
+    </Setting>
+    <Setting Name="QueueTitlesUseNameOverride" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="QueueTitlesNameOverride" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="QueueTitlesDialogPlacement2" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

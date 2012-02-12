@@ -688,6 +688,7 @@ namespace VidCoder.ViewModel
 					if (this.oldTitle != null)
 					{
 						this.OutputPathVM.ManualOutputPath = false;
+						this.OutputPathVM.NameFormatOverride = null;
 					}
 
 					// Keep audio/subtitle choices if they match up in index and language.
@@ -1807,6 +1808,7 @@ namespace VidCoder.ViewModel
 			newEncodeJobVM.VideoSource = this.SourceData;
 			newEncodeJobVM.VideoSourceMetadata = this.GetVideoSourceMetadata();
 			newEncodeJobVM.ManualOutputPath = this.OutputPathVM.ManualOutputPath;
+			newEncodeJobVM.NameFormatOverride = this.OutputPathVM.NameFormatOverride;
 
 			return newEncodeJobVM;
 		}
@@ -2263,6 +2265,7 @@ namespace VidCoder.ViewModel
 			// Output path
 			this.OutputPathVM.OutputPath = job.OutputPath;
 			this.OutputPathVM.ManualOutputPath = jobVM.ManualOutputPath;
+			this.OutputPathVM.NameFormatOverride = jobVM.NameFormatOverride;
 
 			// Encode profile handled above this in EditJob
 

@@ -73,7 +73,7 @@ namespace VidCoder.ViewModel.Components
 			EncodeJobPersistGroup jobPersistGroup = EncodeJobsPersist.EncodeJobs;
 			foreach (EncodeJobWithMetadata job in jobPersistGroup.EncodeJobs)
 			{
-				this.encodeQueue.Add(new EncodeJobViewModel(job.Job) { ManualOutputPath = job.ManualOutputPath });
+				this.encodeQueue.Add(new EncodeJobViewModel(job.Job) { ManualOutputPath = job.ManualOutputPath, NameFormatOverride = job.NameFormatOverride});
 			}
 
 			this.autoPause.PauseEncoding += this.AutoPauseEncoding;
@@ -582,12 +582,19 @@ namespace VidCoder.ViewModel.Components
 									currentTitleNumber++;
 								}
 
+								string nameFormatOverride = null;
+								if (queueTitlesDialog.NameOverrideEnabled)
+								{
+									nameFormatOverride = queueTitlesDialog.NameOverride;
+								}
+
 								string queueOutputFileName = this.outputVM.BuildOutputFileName(
 									this.main.SourcePath,
 									queueSourceName,
 									titleNumber,
 									title.Duration,
-									title.Chapters.Count);
+									title.Chapters.Count,
+									nameFormatOverride);
 
 								string extension = this.outputVM.GetOutputExtension(subtitles, title);
 								string queueOutputPath = this.outputVM.BuildOutputPath(queueOutputFileName, extension, sourcePath: null);
@@ -607,11 +614,14 @@ namespace VidCoder.ViewModel.Components
 									Length = title.Duration
 								};
 
-								var jobVM = new EncodeJobViewModel(job);
-								jobVM.HandBrakeInstance = this.main.ScanInstance;
-								jobVM.VideoSource = this.main.SourceData;
-								jobVM.VideoSourceMetadata = this.main.GetVideoSourceMetadata();
-								jobVM.ManualOutputPath = false;
+								var jobVM = new EncodeJobViewModel(job)
+								{
+								    HandBrakeInstance = this.main.ScanInstance,
+								    VideoSource = this.main.SourceData,
+								    VideoSourceMetadata = this.main.GetVideoSourceMetadata(),
+								    ManualOutputPath = false,
+								    NameFormatOverride = nameFormatOverride
+								};
 
 								this.Queue(jobVM);
 							}
@@ -1328,7 +1338,7 @@ namespace VidCoder.ViewModel.Components
 			var jobPersistGroup = new EncodeJobPersistGroup();
 			foreach (EncodeJobViewModel jobVM in this.EncodeQueue)
 			{
-				jobPersistGroup.EncodeJobs.Add(new EncodeJobWithMetadata { Job = jobVM.Job, ManualOutputPath = jobVM.ManualOutputPath });
+				jobPersistGroup.EncodeJobs.Add(new EncodeJobWithMetadata { Job = jobVM.Job, ManualOutputPath = jobVM.ManualOutputPath, NameFormatOverride = jobVM.NameFormatOverride});
 			}
 
 			EncodeJobsPersist.EncodeJobs = jobPersistGroup;

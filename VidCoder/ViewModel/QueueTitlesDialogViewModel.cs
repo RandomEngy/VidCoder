@@ -1,10 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Media;
+using GalaSoft.MvvmLight.Command;
+using HandBrake.Interop.Model;
+using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using System.Collections.ObjectModel;
+using VidCoder.Model;
 using VidCoder.Properties;
+
+using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
@@ -12,20 +21,27 @@ namespace VidCoder.ViewModel
 	{
 		private List<TitleSelectionViewModel> titles;
 		private ObservableCollection<TitleSelectionViewModel> selectedTitles;
+		private List<IVideoPlayer> playerChoices;
 		private bool selectRange;
 		private int startRange;
 		private int endRange;
 		private bool titleStartOverrideEnabled;
 		private int titleStartOverride;
 
+		private MainViewModel main;
+
 		public QueueTitlesDialogViewModel(List<Title> allTitles)
 		{
+			this.main = Unity.Container.Resolve<MainViewModel>();
+
 			this.selectedTitles = new ObservableCollection<TitleSelectionViewModel>();
 			this.selectRange = Settings.Default.QueueTitlesUseRange;
 			this.startRange = Settings.Default.QueueTitlesStartTime;
 			this.endRange = Settings.Default.QueueTitlesEndTime;
 			this.titleStartOverrideEnabled = Settings.Default.QueueTitlesUseTitleOverride;
 			this.titleStartOverride = Settings.Default.QueueTitlesTitleOverride;
+			this.nameOverrideEnabled = Settings.Default.QueueTitlesUseNameOverride;
+			this.nameOverride = Settings.Default.QueueTitlesNameOverride;
 
 			this.titles = new List<TitleSelectionViewModel>();
 			foreach (Title title in allTitles)
@@ -34,11 +50,61 @@ namespace VidCoder.ViewModel
 				this.titles.Add(titleVM);
 			}
 
+			// Populate list of available video players and set the currently selected one
+			this.playerChoices = Players.Installed;
+			if (this.playerChoices.Count > 0)
+			{
+				this.selectedPlayer = this.playerChoices[0];
+
+				foreach (IVideoPlayer player in this.playerChoices)
+				{
+					if (player.Id == Settings.Default.LastPlayer)
+					{
+						this.selectedPlayer = player;
+						break;
+					}
+				}
+			}
+
 			// Perform range selection if enabled.
 			if (this.selectRange)
 			{
 				this.SetSelectedFromRange();
 			}
+
+			this.selectedTitles.CollectionChanged +=
+				(sender, args) =>
+			    {
+					this.RaisePropertyChanged(() => this.TitleDetailsVisible);
+
+					if (this.selectedTitles.Count == 1)
+					{
+						Title title = this.selectedTitles[0].Title;
+
+						// Do preview
+						var previewProfile =
+							new EncodingProfile
+							{
+								CustomCropping = true,
+								Cropping = new Cropping(),
+								VideoEncoder = "x264",
+								AudioEncodings = new List<AudioEncoding>()
+							};
+
+						var previewJob =
+							new EncodeJob
+							{
+								RangeType = VideoRangeType.Chapters,
+								ChapterStart = 1,
+								ChapterEnd = title.Chapters.Count,
+								Title = title.TitleNumber,
+								EncodingProfile = previewProfile
+							};
+
+						this.PreviewImage = this.main.ScanInstance.GetPreview(previewJob, 2);
+						this.RaisePropertyChanged(() => this.TitleText);
+					}
+			    };
 		}
 
 		public List<TitleSelectionViewModel> Titles
@@ -54,6 +120,81 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return this.selectedTitles;
+			}
+		}
+
+		public bool TitleDetailsVisible
+		{
+			get
+			{
+				return this.selectedTitles.Count == 1;
+			}
+		}
+
+		public string TitleText
+		{
+			get
+			{
+				if (!this.TitleDetailsVisible)
+				{
+					return string.Empty;
+				}
+
+				return "Title " + this.selectedTitles[0].Title.TitleNumber.ToString(CultureInfo.CurrentCulture);
+			}
+		}
+
+		private ImageSource previewImage;
+		public ImageSource PreviewImage
+		{
+			get
+			{
+				return this.previewImage;
+			}
+
+			set
+			{
+				this.previewImage = value;
+				this.RaisePropertyChanged(() => this.PreviewImage);
+			}
+		}
+
+		public bool PlayAvailable
+		{
+			get
+			{
+				return Path.GetFileName(this.main.SourcePath) == "VIDEO_TS";
+			}
+		}
+
+		public bool PlayersAvailable
+		{
+			get
+			{
+				return this.playerChoices.Count > 0;
+			}
+		}
+
+		public List<IVideoPlayer> PlayerChoices
+		{
+			get
+			{
+				return this.playerChoices;
+			}
+		}
+
+		private IVideoPlayer selectedPlayer;
+		public IVideoPlayer SelectedPlayer
+		{
+			get
+			{
+				return this.selectedPlayer;
+			}
+
+			set
+			{
+				this.selectedPlayer = value;
+				this.RaisePropertyChanged(() => this.SelectedPlayer);
 			}
 		}
 
@@ -154,6 +295,36 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool nameOverrideEnabled;
+		public bool NameOverrideEnabled
+		{
+			get
+			{
+				return this.nameOverrideEnabled;
+			}
+
+			set
+			{
+				this.nameOverrideEnabled = value;
+				this.RaisePropertyChanged(() => this.NameOverrideEnabled);
+			}
+		}
+
+		private string nameOverride;
+		public string NameOverride
+		{
+			get
+			{
+				return this.nameOverride;
+			}
+
+			set
+			{
+				this.nameOverride = value;
+				this.RaisePropertyChanged(() => this.NameOverride);
+			}
+		}
+
 		public List<Title> CheckedTitles
 		{
 			get
@@ -171,6 +342,22 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private RelayCommand playCommand;
+		public RelayCommand PlayCommand
+		{
+			get
+			{
+				return this.playCommand ?? (this.playCommand = new RelayCommand(() =>
+					{
+						this.selectedPlayer.PlayTitle(this.main.SourcePath, this.selectedTitles[0].Title.TitleNumber);
+					},
+					() =>
+					{
+						return this.playerChoices.Count > 0;
+					}));
+			}
+		}
+
 		public override void OnClosing()
 		{
 			Settings.Default.QueueTitlesUseRange = this.SelectRange;
@@ -178,6 +365,14 @@ namespace VidCoder.ViewModel
 			Settings.Default.QueueTitlesEndTime = this.EndRange;
 			Settings.Default.QueueTitlesUseTitleOverride = this.TitleStartOverrideEnabled;
 			Settings.Default.QueueTitlesTitleOverride = this.TitleStartOverride;
+			Settings.Default.QueueTitlesUseNameOverride = this.NameOverrideEnabled;
+			Settings.Default.QueueTitlesNameOverride = this.NameOverride;
+
+			if (this.selectedPlayer != null)
+			{
+				Settings.Default.LastPlayer = this.selectedPlayer.Id;
+			}
+
 			Settings.Default.Save();
 			base.OnClosing();
 		}

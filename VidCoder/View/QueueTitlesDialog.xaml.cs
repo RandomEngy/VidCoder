@@ -10,6 +10,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using HandBrake.Interop.SourceData;
+using Microsoft.Practices.Unity;
+using VidCoder.Services;
+using VidCoder.ViewModel;
 
 namespace VidCoder.View
 {
@@ -18,21 +22,69 @@ namespace VidCoder.View
 	/// </summary>
 	public partial class QueueTitlesDialog : Window
 	{
+		private QueueTitlesDialogViewModel viewModel;
+
 		public QueueTitlesDialog()
 		{
 			InitializeComponent();
+
+			this.DataContextChanged += this.OnDataContextChanged;
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			this.SetPlacement(Properties.Settings.Default.QueueTitlesDialogPlacement);
+			this.SetPlacement(Properties.Settings.Default.QueueTitlesDialogPlacement2);
+		}
+
+		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+		{
+			this.viewModel = this.DataContext as QueueTitlesDialogViewModel;
+			this.viewModel.PropertyChanged += this.viewModel_PropertyChanged;
+		}
+
+		private void viewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == "PreviewImage")
+			{
+				this.RefreshImageSize();
+			}
+		}
+
+		private void RefreshImageSize()
+		{
+			var previewVM = this.DataContext as QueueTitlesDialogViewModel;
+			if (previewVM.SelectedTitles.Count != 1)
+			{
+				return;
+			}
+
+			double widthPixels, heightPixels;
+
+			Title title = previewVM.SelectedTitles[0].Title;
+			if (title.ParVal.Width > title.ParVal.Height)
+			{
+				widthPixels = title.Resolution.Width * ((double)title.ParVal.Width / title.ParVal.Height);
+				heightPixels = title.Resolution.Height;
+			}
+			else
+			{
+				widthPixels = title.Resolution.Width;
+				heightPixels = title.Resolution.Height * ((double) title.ParVal.Height / title.ParVal.Width);
+			}
+
+			ImageUtilities.UpdatePreviewImageSize(this.previewImage, this.previewImageHolder, widthPixels, heightPixels);
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			Properties.Settings.Default.QueueTitlesDialogPlacement = this.GetPlacement();
+			Properties.Settings.Default.QueueTitlesDialogPlacement2 = this.GetPlacement();
 			Properties.Settings.Default.Save();
+		}
+
+		private void previewImageHolder_SizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			this.RefreshImageSize();
 		}
 	}
 }

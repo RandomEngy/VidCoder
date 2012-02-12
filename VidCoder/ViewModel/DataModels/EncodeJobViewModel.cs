@@ -92,6 +92,8 @@ namespace VidCoder.ViewModel
 		// True if the output path was picked manually rather than auto-generated
 		public bool ManualOutputPath { get; set; }
 
+		public string NameFormatOverride { get; set; }
+
 		public bool IsSelected
 		{
 			get

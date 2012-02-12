@@ -330,6 +330,8 @@
     <Compile Include="Model\EncodeJobWithMetadata.cs" />
     <Compile Include="Model\EncodeResult.cs" />
     <Compile Include="Model\FileConflictResolution.cs" />
+    <Compile Include="Model\Players\MpchcPlayer.cs" />
+    <Compile Include="Model\Players\IVideoPlayer.cs" />
     <Compile Include="Model\LogEntry.cs" />
     <Compile Include="Model\LogSource.cs" />
     <Compile Include="Model\LogType.cs" />
@@ -337,6 +339,7 @@
     <Compile Include="Model\PreviewImageJob.cs" />
     <Compile Include="Model\SaveImageJob.cs" />
     <Compile Include="Model\VideoSourceMetadata.cs" />
+    <Compile Include="Model\Players\VlcPlayer.cs" />
     <Compile Include="Model\WhenFileExists.cs" />
     <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="Services\Interfaces\ILogger.cs" />
@@ -344,12 +347,14 @@
     <Compile Include="Services\Interfaces\IProcesses.cs" />
     <Compile Include="Services\Interfaces\IProcessAutoPause.cs" />
     <Compile Include="Services\Interfaces\ISystemOperations.cs" />
+    <Compile Include="Model\Players\Players.cs" />
     <Compile Include="Services\PresetImportExport.cs" />
     <Compile Include="Services\ProcessAutoPause.cs" />
     <Compile Include="Services\Processes.cs" />
     <Compile Include="Services\SystemOperations.cs" />
     <Compile Include="Services\TrayService.cs" />
     <Compile Include="Utilities\FileCleanup.cs" />
+    <Compile Include="Utilities\ImageUtilities.cs" />
     <Compile Include="Utilities\ListSynchronizer\IListItemConverter.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Utilities\ListSynchronizer\MultiSelectorBehaviors.cs" />
@@ -590,6 +595,7 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\blue_play_80.png" />
     <Resource Include="Icons\edit_16x16.png" />
     <SplashScreen Include="splash.png" />
     <Resource Include="Icons\video-file.png" />

@@ -585,5 +585,53 @@ namespace VidCoder.Properties {
                 this["PlaySoundOnCompletion"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("vlc")]
+        public string LastPlayer {
+            get {
+                return ((string)(this["LastPlayer"]));
+            }
+            set {
+                this["LastPlayer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool QueueTitlesUseNameOverride {
+            get {
+                return ((bool)(this["QueueTitlesUseNameOverride"]));
+            }
+            set {
+                this["QueueTitlesUseNameOverride"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string QueueTitlesNameOverride {
+            get {
+                return ((string)(this["QueueTitlesNameOverride"]));
+            }
+            set {
+                this["QueueTitlesNameOverride"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string QueueTitlesDialogPlacement2 {
+            get {
+                return ((string)(this["QueueTitlesDialogPlacement2"]));
+            }
+            set {
+                this["QueueTitlesDialogPlacement2"] = value;
+            }
+        }
     }
 }

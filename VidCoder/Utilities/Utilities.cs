@@ -8,6 +8,7 @@ using System.IO;
 using System.Windows;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
+using Microsoft.Win32;
 using VidCoder.Services;
 using Microsoft.Practices.Unity;
 
@@ -432,6 +433,29 @@ namespace VidCoder
 			{
 				return parentDirectory.Name;
 			}
+		}
+
+		public static string Wow64RegistryKey
+		{
+			get
+			{
+				if (IntPtr.Size == 8 || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432")))
+				{
+					return @"SOFTWARE\Wow6432Node";
+				}
+
+				return @"SOFTWARE";
+			}
+		}
+
+		public static string ProgramFilesx86()
+		{
+			if (IntPtr.Size == 8 || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432")))
+			{
+				return Environment.GetEnvironmentVariable("ProgramFiles(x86)");
+			}
+
+			return Environment.GetEnvironmentVariable("ProgramFiles");
 		}
 
 		public static void SetDragIcon(DragEventArgs e)
