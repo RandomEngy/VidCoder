@@ -54,7 +54,7 @@ namespace VidCoder.Services
 				{
 					// See if the user has already applied the update manually
 					string updateVersion = DatabaseConfig.GetConfigString(UpdateVersion, Database.Connection);
-					if (Utilities.CompareVersions(updateVersion, Utilities.CurrentVersion) <= 0)
+					if (!string.IsNullOrEmpty(updateVersion) && Utilities.CompareVersions(updateVersion, Utilities.CurrentVersion) <= 0)
 					{
 						// If we already have the newer version clear all the update info and cancel
 						ClearUpdateMetadata();
