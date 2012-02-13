@@ -58,6 +58,7 @@ namespace VidCoder.Services
 					{
 						// If we already have the newer version clear all the update info and cancel
 						ClearUpdateMetadata();
+						DeleteUpdatesFolder();
 						return;
 					}
 
@@ -155,10 +156,7 @@ namespace VidCoder.Services
 				{
 					try
 					{
-						if (Directory.Exists(Utilities.UpdatesFolder))
-						{
-							Directory.Delete(Utilities.UpdatesFolder, true);
-						}
+						DeleteUpdatesFolder();
 					}
 					catch (IOException)
 					{
@@ -177,6 +175,14 @@ namespace VidCoder.Services
 			}
 
 			return false;
+		}
+
+		private static void DeleteUpdatesFolder()
+		{
+			if (Directory.Exists(Utilities.UpdatesFolder))
+			{
+				Directory.Delete(Utilities.UpdatesFolder, true);
+			}
 		}
 
 		private static void ClearUpdateMetadata()
