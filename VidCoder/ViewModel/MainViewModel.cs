@@ -2058,15 +2058,13 @@ namespace VidCoder.ViewModel
 
 		private void UpdateFromNewVideoSource()
 		{
+			Title selectTitle = null;
+
 			if (this.sourceData != null && this.sourceData.Titles.Count > 0)
 			{
-				this.ScanError = false;
-
-				Title selectTitle = null;
 				if (this.sourceData.FeatureTitle > 0)
 				{
 					selectTitle = this.sourceData.Titles.FirstOrDefault(title => title.TitleNumber == this.sourceData.FeatureTitle);
-
 				}
 				else
 				{
@@ -2086,7 +2084,11 @@ namespace VidCoder.ViewModel
 						selectTitle = this.sourceData.Titles[0];
 					}
 				}
+			}
 
+			if (selectTitle != null)
+			{
+				this.ScanError = false;
 				this.SelectedTitle = selectTitle;
 				this.RaisePropertyChanged(() => this.Titles);
 				this.RaisePropertyChanged(() => this.TitleVisible);
