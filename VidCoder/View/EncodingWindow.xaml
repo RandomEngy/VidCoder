@@ -91,9 +91,12 @@
 		</Button>
 
 		<Label Height="28" HorizontalAlignment="Left" Margin="20,36,0,0" Name="label11" VerticalAlignment="Top" Width="69">Container:</Label>
-		<ComboBox Height="23" HorizontalAlignment="Left" Margin="85,39,0,0" VerticalAlignment="Top" Width="58"
-			ItemsSource="{Binding DisplayNames, Source={StaticResource OutputFormatChoices}}"
-			SelectedValue="{Binding OutputFormat, Converter={StaticResource OutputFormatChoices}}"/>
+		<ComboBox 
+			Height="23" HorizontalAlignment="Left" Margin="85,39,0,0" VerticalAlignment="Top" Width="58"
+			ItemsSource="{Binding OutputFormatChoices}"
+			SelectedValue="{Binding OutputFormat}"
+			SelectedValuePath="Value"
+			DisplayMemberPath="Display"/>
 		<Label Height="28" Margin="155.422,34,0,0" Name="label12" VerticalAlignment="Top" HorizontalAlignment="Left" Width="64"
 			Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">Extension:</Label>
 		<RadioButton Margin="221.422,34,0,0" Name="radioButton3" Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"

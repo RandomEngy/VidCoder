@@ -31,11 +31,20 @@ namespace VidCoder.ViewModel
 
 		private EncodingProfile profile;
 
+		private List<ComboChoice<Container>> outputFormatChoices; 
+
 		private Preset originalPreset;
 		private bool isBuiltIn;
 
 		public EncodingViewModel(Preset preset)
 		{
+			this.outputFormatChoices =
+				new List<ComboChoice<Container>>
+				{
+					new ComboChoice<Container>(Container.Mp4, "MP4"),
+					new ComboChoice<Container>(Container.Mkv, "MKV")
+				};
+
 			this.PicturePanelViewModel = new PicturePanelViewModel(this);
 			this.VideoFiltersPanelViewModel = new VideoFiltersPanelViewModel(this);
 			this.VideoPanelViewModel = new VideoPanelViewModel(this);
@@ -255,6 +264,14 @@ namespace VidCoder.ViewModel
 				this.AudioPanelViewModel.NotifyOutputFormatChanged(value);
 			}
 		}
+
+		public List<ComboChoice<Container>> OutputFormatChoices
+		{
+			get
+			{
+				return this.outputFormatChoices;
+			}
+		} 
 
 		public OutputExtension PreferredExtension
 		{

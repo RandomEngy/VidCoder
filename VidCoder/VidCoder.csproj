@@ -321,6 +321,7 @@
     <Compile Include="Messages\StatusMessage.cs" />
     <Compile Include="Messages\VideoSourceChangedMessage.cs" />
     <Compile Include="Model\ComboChoice.cs" />
+    <Compile Include="Model\ComboChoiceT.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="Model\DatabaseConfig.cs" />
     <Compile Include="Model\EncodeCompleteAction.cs" />

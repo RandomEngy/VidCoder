@@ -65,6 +65,8 @@ namespace VidCoder.Model
 						}
 					}
 
+					ErrorCheckPresets(result);
+
 					return result;
 				}
 			}
@@ -77,8 +79,6 @@ namespace VidCoder.Model
 				ThreadPool.QueueUserWorkItem(SaveUserPresetsBackground, presetXmlList);
 			}
 		}
-
-
 
 		/// <summary>
 		/// Serializes a preset to XML. Does not include wrapper.
@@ -286,6 +286,17 @@ namespace VidCoder.Model
 		public static void UpgradeEncodingProfileTo14(EncodingProfile profile)
 		{
 			profile.AudioEncoderFallback = UpgradeAudioEncoder(profile.AudioEncoderFallback);
+		}
+
+		private static void ErrorCheckPresets(List<Preset> presets)
+		{
+			foreach (Preset preset in presets)
+			{
+				if (preset.EncodingProfile.OutputFormat == Container.None)
+				{
+					preset.EncodingProfile.OutputFormat = Container.Mp4;
+				}
+			}
 		}
 
 		private static string UpgradeAudioEncoder(string oldEncoder)
