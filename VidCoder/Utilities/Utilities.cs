@@ -416,14 +416,14 @@ namespace VidCoder
 
 		public static string GetSourceNameFolder(string videoFolder)
 		{
-			// If the directory is not VIDEO_TS, take its name for the source name (Blu-ray)
+			// If the directory is not VIDEO_TS, take its name for the source name (user picked root directory)
 			var videoDirectory = new DirectoryInfo(videoFolder);
 			if (videoDirectory.Name != "VIDEO_TS")
 			{
 				return videoDirectory.Name;
 			}
 
-			// If the directory is named VIDEO_TS, take the source name from the parent folder (DVD)
+			// If the directory is named VIDEO_TS, take the source name from the parent folder (user picked VIDEO_TS folder on DVD)
 			DirectoryInfo parentDirectory = videoDirectory.Parent;
 			if (parentDirectory == null || parentDirectory.Root.FullName == parentDirectory.FullName)
 			{

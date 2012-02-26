@@ -221,7 +221,7 @@ namespace VidCoder.ViewModel
 				this.SourceSelectionExpanded = false;
 			}
 
-			string folderPath = FileService.Instance.GetFolderName(Settings.Default.LastVideoTSFolder, "Pick the DVD's VIDEO_TS folder or the Blu-ray's root folder.");
+			string folderPath = FileService.Instance.GetFolderName(Settings.Default.LastVideoTSFolder, "Pick a DVD or Blu-ray folder.");
 
 			// Make sure we get focus back after displaying the dialog.
 			WindowManager.FocusWindow(this);
@@ -260,15 +260,7 @@ namespace VidCoder.ViewModel
 			}
 
 			this.SourceName = driveInfo.VolumeLabel;
-
-			if (driveInfo.DiscType == DiscType.Dvd)
-			{
-				this.SourcePath = Path.Combine(driveInfo.RootDirectory, "VIDEO_TS");
-			}
-			else
-			{
-				this.SourcePath = driveInfo.RootDirectory;
-			}
+			this.SourcePath = driveInfo.RootDirectory;
 
 			this.SelectedSource = new SourceOption { Type = SourceType.Dvd, DriveInfo = driveInfo };
 			this.StartScan(this.SourcePath);

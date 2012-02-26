@@ -163,7 +163,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return Path.GetFileName(this.main.SourcePath) == "VIDEO_TS";
+				return Path.GetFileName(this.main.SourcePath) == "VIDEO_TS" || Directory.Exists(Path.Combine(this.main.SourcePath, "VIDEO_TS"));
 			}
 		}
 
