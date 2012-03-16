@@ -1,12 +1,12 @@
 <UpdateInfo>
 	<Release>
-		<Latest>1.3.0</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.3.0-x86.exe</DownloadLocation>
-		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/82173</ChangelogLocation>
+		<Latest>1.3.1</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.3.1-x86.exe</DownloadLocation>
+		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/83505</ChangelogLocation>
 	</Release>
 	<Release-x64>
-		<Latest>1.3.0</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.3.0-x64.exe</DownloadLocation>
-		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/82173</ChangelogLocation>
+		<Latest>1.3.1</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.3.1-x64.exe</DownloadLocation>
+		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/83505</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>
