@@ -12,10 +12,13 @@ namespace VidCoder.Controls
 	/// </summary>
 	public partial class NumberBox : UserControl
 	{
+		private static readonly TimeSpan SelectAllThreshold = TimeSpan.FromMilliseconds(500);
+
 		private RefireControl refireControl;
 
 		private string noneCaption;
 		private bool hasFocus;
+		private DateTime lastFocusMouseDown;
 
 		public NumberBox()
 		{
@@ -310,9 +313,18 @@ namespace VidCoder.Controls
 			}
 		}
 
+		private void NumberBoxPreviewMouseDown(object sender, MouseButtonEventArgs e)
+		{
+			if (!this.hasFocus)
+			{
+				this.lastFocusMouseDown = DateTime.Now;
+			}
+		}
+
 		private void NumberBoxPreviewMouseUp(object sender, MouseButtonEventArgs e)
 		{
-			if (this.SelectAllOnClick)
+			// If this mouse up is soon enough after an initial click on the box, select all.
+			if (this.SelectAllOnClick && DateTime.Now - this.lastFocusMouseDown < SelectAllThreshold)
 			{
 				this.Dispatcher.BeginInvoke(new Action(() => this.numberBox.SelectAll()));
 			}

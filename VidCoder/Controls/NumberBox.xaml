@@ -138,6 +138,7 @@
 			LostFocus="NumberBoxLostFocus"
 			PreviewTextInput="NumberBoxPreviewTextInput"
 			PreviewKeyDown="NumberBoxPreviewKeyDown"
+            PreviewMouseDown="NumberBoxPreviewMouseDown"
 			PreviewMouseUp="NumberBoxPreviewMouseUp"
 			TextChanged="NumberBoxTextChanged" />
 		<Grid
