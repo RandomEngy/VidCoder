@@ -56,12 +56,10 @@
 					<Label Height="28" HorizontalAlignment="Left" Margin="5,63,0,0" VerticalAlignment="Top" Width="76.8">File format:</Label>
 					<RadioButton
 						Height="16" Margin="94,70,265,0" VerticalAlignment="Top"
-						IsChecked="{Binding CustomFormat, Converter={StaticResource InverseBoolConverter}}"
-						GroupName="format">Default format</RadioButton>
+						IsChecked="{Binding CustomFormat, Converter={StaticResource InverseBoolConverter}}">Default format</RadioButton>
 					<RadioButton
 						Height="16" Margin="94,92,265,0" VerticalAlignment="Top"
-						IsChecked="{Binding CustomFormat}"
-						GroupName="format">Custom format:</RadioButton>
+						IsChecked="{Binding CustomFormat}">Custom format:</RadioButton>
 					<TextBox
 						Margin="110,114,6,0" Height="22.959" VerticalAlignment="Top"
 						Text="{Binding CustomFormatString}"
@@ -151,16 +149,20 @@
 						IsChecked="{Binding ShowAudioTrackNameField}"
 						Height="16" HorizontalAlignment="Left" Margin="15,40,0,0" VerticalAlignment="Top" />
 					<CheckBox
+						Content="Enable LibDVDNav (change requires program restart)"
+						IsChecked="{Binding EnableLibDvdNav}"
+						Height="16" HorizontalAlignment="Left" Margin="15,62,0,0" VerticalAlignment="Top" />
+					<CheckBox
 						Content="Keep scans after completion (allows editing completed items)"
 						IsChecked="{Binding KeepScansAfterCompletion}"
-						Height="16" HorizontalAlignment="Left" Margin="15,62,0,0" VerticalAlignment="Top" />
-					<Label Content="Logging Verbosity:" Height="28" HorizontalAlignment="Left" Margin="6,86,0,0" VerticalAlignment="Top" />
-					<ComboBox Height="23" HorizontalAlignment="Left" Margin="121,89,0,0" SelectedValue="{Binding LogVerbosity}" SelectedValuePath="Content" VerticalAlignment="Top" Width="42">
+						Height="16" HorizontalAlignment="Left" Margin="15,84,0,0" VerticalAlignment="Top" />
+					<Label Content="Logging Verbosity:" Height="28" HorizontalAlignment="Left" Margin="6,108,0,0" VerticalAlignment="Top" />
+					<ComboBox Height="23" HorizontalAlignment="Left" Margin="121,111,0,0" SelectedValue="{Binding LogVerbosity}" SelectedValuePath="Content" VerticalAlignment="Top" Width="42">
 						<ComboBoxItem Content="0" />
 						<ComboBoxItem Content="1" />
 						<ComboBoxItem Content="2" />
 					</ComboBox>
-					<TextBlock Height="40" HorizontalAlignment="Left" Margin="182,91,0,0" Text="Log verbosity will take effect on next scan or program restart." TextWrapping="Wrap" VerticalAlignment="Top" Visibility="{Binding LogVerbosityWarningVisible, Converter={StaticResource VisibilityConverter}}" />
+					<TextBlock Height="40" HorizontalAlignment="Left" Margin="182,113,0,0" Text="Log verbosity will take effect on next scan or program restart." TextWrapping="Wrap" VerticalAlignment="Top" Visibility="{Binding LogVerbosityWarningVisible, Converter={StaticResource VisibilityConverter}}" />
 				</Grid>
 			</TabItem>
 		</TabControl>

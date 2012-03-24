@@ -80,10 +80,17 @@ namespace VidCoder
 			}
 			else
 			{
+				this.GlobalInitialize();
+
 				var mainVM = new MainViewModel();
 				WindowManager.OpenWindow(mainVM);
 				mainVM.OnLoaded();
 			}
+		}
+
+		private void GlobalInitialize()
+		{
+			HandBrakeUtils.SetDvdNav(Settings.Default.EnableLibDvdNav);
 		}
 
 		private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

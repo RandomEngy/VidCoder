@@ -62,6 +62,7 @@ namespace VidCoder.ViewModel
 			this.previewCount = Settings.Default.PreviewCount;
 			this.showAudioTrackNameField = Settings.Default.ShowAudioTrackNameField;
 			this.keepScansAfterCompletion = Settings.Default.KeepScansAfterCompletion;
+			this.enableLibDvdNav = Settings.Default.EnableLibDvdNav;
 			this.autoPauseProcesses = new ObservableCollection<string>();
 			StringCollection autoPauseStringCollection = Settings.Default.AutoPauseProcesses;
 			if (autoPauseStringCollection != null)
@@ -380,6 +381,21 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool enableLibDvdNav;
+		public bool EnableLibDvdNav
+		{
+			get
+			{
+				return this.enableLibDvdNav;
+			}
+
+			set
+			{
+				this.enableLibDvdNav = value;
+				this.RaisePropertyChanged(() => this.EnableLibDvdNav);
+			}
+		}
+
 		private bool keepScansAfterCompletion;
 		public bool KeepScansAfterCompletion
 		{
@@ -436,6 +452,7 @@ namespace VidCoder.ViewModel
 						Settings.Default.AutoPauseProcesses = autoPauseStringCollection;
 						Settings.Default.PreviewCount = this.PreviewCount;
 						Settings.Default.ShowAudioTrackNameField = this.ShowAudioTrackNameField;
+						Settings.Default.EnableLibDvdNav = this.EnableLibDvdNav;
 						Settings.Default.KeepScansAfterCompletion = this.KeepScansAfterCompletion;
 						Settings.Default.Save();
 
