@@ -13,6 +13,7 @@ using HandBrake.Interop.SourceData;
 using System.IO;
 using Microsoft.Practices.Unity;
 using VidCoder.Messages;
+using VidCoder.Properties;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;
 
@@ -215,12 +216,20 @@ namespace VidCoder.ViewModel
 			{
 				return this.addSrtSubtitleCommand ?? (this.addSrtSubtitleCommand = new RelayCommand(() =>
 					{
-						string srtFile = FileService.Instance.GetFileNameLoad(Properties.Settings.Default.LastSrtFolder, "Add subtitles file", "srt", "SRT Files |*.srt");
+						string srtFile = FileService.Instance.GetFileNameLoad(
+							Settings.Default.RememberPreviousFiles ? Settings.Default.LastSrtFolder : null,
+							"Add subtitles file",
+							"srt",
+							"SRT Files |*.srt");
 
 						if (srtFile != null)
 						{
-							Properties.Settings.Default.LastSrtFolder = Path.GetDirectoryName(srtFile);
-							Properties.Settings.Default.Save();
+							if (Settings.Default.RememberPreviousFiles)
+							{
+								Settings.Default.LastSrtFolder = Path.GetDirectoryName(srtFile);
+								Settings.Default.Save();
+							}
+
 							SrtSubtitle newSubtitle = new SrtSubtitle { FileName = srtFile, Default = false, CharacterCode = "UTF-8", LanguageCode = "eng", Offset = 0 };
 							this.srtSubtitles.Add(new SrtSubtitleViewModel(this, newSubtitle));
 						}

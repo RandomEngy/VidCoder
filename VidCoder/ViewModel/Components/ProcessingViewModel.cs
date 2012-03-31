@@ -494,7 +494,7 @@ namespace VidCoder.ViewModel.Components
 							return;
 						}
 
-						IList<string> fileNames = FileService.Instance.GetFileNames(Settings.Default.LastInputFileFolder);
+						IList<string> fileNames = FileService.Instance.GetFileNames(Settings.Default.RememberPreviousFiles ? Settings.Default.LastInputFileFolder : null);
 						if (fileNames != null && fileNames.Count > 0)
 						{
 							Settings.Default.LastInputFileFolder = Path.GetDirectoryName(fileNames[0]);

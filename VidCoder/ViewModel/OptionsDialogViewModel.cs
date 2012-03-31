@@ -60,6 +60,7 @@ namespace VidCoder.ViewModel
 			this.dubAudio = Settings.Default.DubAudio;
 			this.logVerbosity = Settings.Default.LogVerbosity;
 			this.previewCount = Settings.Default.PreviewCount;
+			this.rememberPreviousFiles = Settings.Default.RememberPreviousFiles;
 			this.showAudioTrackNameField = Settings.Default.ShowAudioTrackNameField;
 			this.keepScansAfterCompletion = Settings.Default.KeepScansAfterCompletion;
 			this.enableLibDvdNav = Settings.Default.EnableLibDvdNav;
@@ -369,6 +370,21 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool rememberPreviousFiles;
+		public bool RememberPreviousFiles
+		{
+			get
+			{
+				return this.rememberPreviousFiles;
+			}
+
+			set
+			{
+				this.rememberPreviousFiles = value;
+				this.RaisePropertyChanged(() => this.RememberPreviousFiles);
+			}
+		}
+
 		public bool ShowAudioTrackNameField
 		{
 			get
@@ -483,6 +499,20 @@ namespace VidCoder.ViewModel
 
 						Settings.Default.AutoPauseProcesses = autoPauseStringCollection;
 						Settings.Default.PreviewCount = this.PreviewCount;
+						Settings.Default.RememberPreviousFiles = this.RememberPreviousFiles;
+						// Clear out any file/folder history when this is disabled.
+						if (!this.RememberPreviousFiles)
+						{
+							Settings.Default.LastCsvFolder = null;
+							Settings.Default.LastInputFileFolder = null;
+							Settings.Default.LastOutputFolder = null;
+							Settings.Default.LastPresetExportFolder = null;
+							Settings.Default.LastSrtFolder = null;
+							Settings.Default.LastVideoTSFolder = null;
+
+							Settings.Default.SourceHistory = null;
+						}
+
 						Settings.Default.ShowAudioTrackNameField = this.ShowAudioTrackNameField;
 						Settings.Default.EnableLibDvdNav = this.EnableLibDvdNav;
 						Settings.Default.KeepScansAfterCompletion = this.KeepScansAfterCompletion;

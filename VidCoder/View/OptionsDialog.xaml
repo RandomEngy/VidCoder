@@ -139,6 +139,7 @@
 						<RowDefinition Height="22" />
 						<RowDefinition Height="22" />
 						<RowDefinition Height="22" />
+						<RowDefinition Height="22" />
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="24" />
 						<RowDefinition Height="Auto" />
@@ -154,45 +155,51 @@
 						<ComboBoxItem>25</ComboBoxItem>
 						<ComboBoxItem>30</ComboBoxItem>
 					</ComboBox>
+					
 					<CheckBox
 						Grid.Row="1"
+						Content="Remember previously used files and folders"
+						IsChecked="{Binding RememberPreviousFiles}"
+						Height="16" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" />
+					<CheckBox
+						Grid.Row="2"
 						Content="Allow setting custom name on audio tracks (limited player support)"
 						IsChecked="{Binding ShowAudioTrackNameField}"
 						Height="16" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" />
 					<CheckBox
-						Grid.Row="2"
+						Grid.Row="3"
 						Content="Enable LibDVDNav (change requires program restart)"
 						IsChecked="{Binding EnableLibDvdNav}"
 						Height="16" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" />
 					<CheckBox
-						Grid.Row="3"
+						Grid.Row="4"
 						Content="Keep scans after completion (allows editing completed items)"
 						IsChecked="{Binding KeepScansAfterCompletion}"
 						Height="16" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" />
 					<CheckBox
-						Grid.Row="4"
+						Grid.Row="5"
 						Content="Prompt to delete source files after clearing successful completed items"
 						IsChecked="{Binding DeleteSourceFilesOnClearingCompleted}"
 						Height="16" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" />
 					<Label
-						Grid.Row="5"
+						Grid.Row="6"
 						Content="Logging Verbosity:" Height="28" HorizontalAlignment="Left" Margin="6,0,0,0" VerticalAlignment="Center" />
 					<ComboBox
-						Grid.Row="5"
+						Grid.Row="6"
 						Height="23" HorizontalAlignment="Left" Margin="121,0,0,0" SelectedValue="{Binding LogVerbosity}" SelectedValuePath="Content" VerticalAlignment="Center" Width="42">
 						<ComboBoxItem Content="0" />
 						<ComboBoxItem Content="1" />
 						<ComboBoxItem Content="2" />
 					</ComboBox>
 					<TextBlock
-						Grid.Row="5"
+						Grid.Row="6"
 						HorizontalAlignment="Left" Margin="182,0,0,0" Text="Log verbosity will take effect on next scan or program restart." TextWrapping="Wrap" VerticalAlignment="Center" Visibility="{Binding LogVerbosityWarningVisible, Converter={StaticResource VisibilityConverter}}" />
 					
 					<TextBlock
-						Grid.Row="6"
+						Grid.Row="7"
 						Height="23" HorizontalAlignment="Left" Margin="11,5,0,0" Text="Minimum length of title to scan (seconds):" VerticalAlignment="Center" />
 					<my:NumberBox
-						Grid.Row="6" HorizontalAlignment="Left" Margin="243,2,0,0" VerticalAlignment="Top" AllowEmpty="False" Width="45"
+						Grid.Row="7" HorizontalAlignment="Left" Margin="243,2,0,0" VerticalAlignment="Top" AllowEmpty="False" Width="45"
 						Number="{Binding MinimumTitleLengthSeconds, Mode=TwoWay}" Minimum="0" />
 				</Grid>
 			</TabItem>

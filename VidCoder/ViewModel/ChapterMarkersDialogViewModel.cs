@@ -84,11 +84,18 @@ namespace VidCoder.ViewModel
 				{
 					this.importCsvFileCommand = new RelayCommand(() =>
 					{
-						string csvFile = FileService.Instance.GetFileNameLoad(Settings.Default.LastCsvFolder, "Import chapters file", "csv", "CSV Files|*.csv");
+						string csvFile = FileService.Instance.GetFileNameLoad(
+							Settings.Default.RememberPreviousFiles ? Settings.Default.LastCsvFolder : null, 
+							"Import chapters file", 
+							"csv", 
+							"CSV Files|*.csv");
 						if (csvFile != null)
 						{
-							Settings.Default.LastCsvFolder = Path.GetDirectoryName(csvFile);
-							Settings.Default.Save();
+							if (Settings.Default.RememberPreviousFiles)
+							{
+								Settings.Default.LastCsvFolder = Path.GetDirectoryName(csvFile);
+								Settings.Default.Save();
+							}
 
 							bool success = false;
 							var chapterMap = new Dictionary<int, string>();

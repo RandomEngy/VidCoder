@@ -12,6 +12,11 @@ namespace VidCoder
 
 		public static void AddToHistory(string sourcePath)
 		{
+			if (!Settings.Default.RememberPreviousFiles)
+			{
+				return;
+			}
+
 			List<string> history = GetHistory();
 			history.Remove(sourcePath);
 

@@ -669,5 +669,17 @@ namespace VidCoder.Properties {
                 this["DeleteSourceFilesOnClearingCompleted"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool RememberPreviousFiles {
+            get {
+                return ((bool)(this["RememberPreviousFiles"]));
+            }
+            set {
+                this["RememberPreviousFiles"] = value;
+            }
+        }
     }
 }

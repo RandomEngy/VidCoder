@@ -191,7 +191,9 @@ namespace VidCoder.ViewModel
 				this.SourceSelectionExpanded = false;
 			}
 
-			string videoFile = FileService.Instance.GetFileNameLoad(Settings.Default.LastInputFileFolder, "Load video file");
+			string videoFile = FileService.Instance.GetFileNameLoad(
+				Settings.Default.RememberPreviousFiles ? Settings.Default.LastInputFileFolder : null, 
+				"Load video file");
 
 			if (videoFile != null)
 			{
@@ -204,8 +206,11 @@ namespace VidCoder.ViewModel
 
 		public void SetSourceFromFile(string videoFile)
 		{
-			Settings.Default.LastInputFileFolder = Path.GetDirectoryName(videoFile);
-			Settings.Default.Save();
+			if (Settings.Default.RememberPreviousFiles)
+			{
+				Settings.Default.LastInputFileFolder = Path.GetDirectoryName(videoFile);
+				Settings.Default.Save();
+			}
 
 			this.SourceName = Utilities.GetSourceNameFile(videoFile);
 			this.StartScan(videoFile);
@@ -221,7 +226,9 @@ namespace VidCoder.ViewModel
 				this.SourceSelectionExpanded = false;
 			}
 
-			string folderPath = FileService.Instance.GetFolderName(Settings.Default.LastVideoTSFolder, "Pick a DVD or Blu-ray folder.");
+			string folderPath = FileService.Instance.GetFolderName(
+				Settings.Default.RememberPreviousFiles ? Settings.Default.LastVideoTSFolder : null, 
+				"Pick a DVD or Blu-ray folder.");
 
 			// Make sure we get focus back after displaying the dialog.
 			WindowManager.FocusWindow(this);
@@ -237,8 +244,12 @@ namespace VidCoder.ViewModel
 
 		public void SetSourceFromFolder(string videoFolder)
 		{
-			Settings.Default.LastVideoTSFolder = videoFolder;
-			Settings.Default.Save();
+			if (Settings.Default.RememberPreviousFiles)
+			{
+				Settings.Default.LastVideoTSFolder = videoFolder;
+				Settings.Default.Save();
+			}
+
 			this.SourceName = Utilities.GetSourceNameFolder(videoFolder);
 
 			this.StartScan(videoFolder);

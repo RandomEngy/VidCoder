@@ -130,7 +130,7 @@ namespace VidCoder.ViewModel.Components
 						string extensionLabel = extension.ToUpperInvariant();
 
 						string newOutputPath = FileService.Instance.GetFileNameSave(
-							Settings.Default.LastOutputFolder,
+							Settings.Default.RememberPreviousFiles ? Settings.Default.LastOutputFolder : null,
 							"Encode output location",
 							null,
 							extension,
@@ -300,8 +300,12 @@ namespace VidCoder.ViewModel.Components
 			if (Utilities.IsValidFullPath(newOutputPath))
 			{
 				string outputDirectory = Path.GetDirectoryName(newOutputPath);
-				Settings.Default.LastOutputFolder = outputDirectory;
-				Settings.Default.Save();
+
+				if (Settings.Default.RememberPreviousFiles)
+				{
+					Settings.Default.LastOutputFolder = outputDirectory;
+					Settings.Default.Save();
+				}
 
 				string fileName = Path.GetFileNameWithoutExtension(newOutputPath);
 				string extension = this.GetOutputExtension();

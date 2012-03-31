@@ -75,15 +75,18 @@ namespace VidCoder.Services
 			}
 
 			string exportFileName = this.fileService.GetFileNameSave(
-				Settings.Default.LastPresetExportFolder,
+				Settings.Default.RememberPreviousFiles ? Settings.Default.LastPresetExportFolder : null,
 				"Export preset",
 				Utilities.CleanFileName(initialFileName + ".xml"),
 				"xml",
 				"XML Files|*.xml");
 			if (exportFileName != null)
 			{
-				Settings.Default.LastPresetExportFolder = Path.GetDirectoryName(exportFileName);
-				Settings.Default.Save();
+				if (Settings.Default.RememberPreviousFiles)
+				{
+					Settings.Default.LastPresetExportFolder = Path.GetDirectoryName(exportFileName);
+					Settings.Default.Save();
+				}
 
 				if (Presets.SavePresetToFile(exportPreset, exportFileName))
 				{
