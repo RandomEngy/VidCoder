@@ -657,5 +657,17 @@ namespace VidCoder.Properties {
                 this["MinimumTitleLengthSeconds"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DeleteSourceFilesOnClearingCompleted {
+            get {
+                return ((bool)(this["DeleteSourceFilesOnClearingCompleted"]));
+            }
+            set {
+                this["DeleteSourceFilesOnClearingCompleted"] = value;
+            }
+        }
     }
 }

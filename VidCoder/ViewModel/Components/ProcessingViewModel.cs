@@ -737,12 +737,52 @@ namespace VidCoder.ViewModel.Components
 					{
 						var removedItems = new List<EncodeResultViewModel>(this.CompletedJobs);
 						this.CompletedJobs.Clear();
+						var deletionCandidates = new List<string>();
 
 						foreach (var removedItem in removedItems)
 						{
-							if (removedItem.Job != null)
+							if (removedItem.Job.HandBrakeInstance != null)
 							{
 								this.CleanupHandBrakeInstanceIfUnused(removedItem.Job.HandBrakeInstance);
+							}
+
+							// Delete file if setting is enabled and item succeeded
+							if (Settings.Default.DeleteSourceFilesOnClearingCompleted && removedItem.EncodeResult.Succeeded)
+							{
+								// And if file exists and is not read-only
+								string sourcePath = removedItem.Job.Job.SourcePath;
+								if (File.Exists(sourcePath) && !new FileInfo(sourcePath).IsReadOnly)
+								{
+									// And if it's not currently scanned or in the encode queue
+									bool sourceInEncodeQueue = this.EncodeQueue.Any(job => string.Compare(job.Job.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0);
+									if (!sourceInEncodeQueue &&
+									    string.Compare(this.main.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) != 0)
+									{
+										deletionCandidates.Add(sourcePath);
+									}
+								}
+							}
+						}
+
+						if (deletionCandidates.Count > 0)
+						{
+							MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+								"Are you sure you want to delete " + deletionCandidates.Count + " source file(s)?", 
+								"Confirm delete", 
+								MessageBoxButton.YesNo);
+							if (dialogResult == MessageBoxResult.Yes)
+							{
+								foreach (string fileToDelete in deletionCandidates)
+								{
+									try
+									{
+										File.Delete(fileToDelete);
+									}
+									catch (IOException exception)
+									{
+										Utilities.MessageBox.Show("Could not delete " + fileToDelete + Environment.NewLine + Environment.NewLine + exception);
+									}
+								}
 							}
 						}
 
@@ -978,7 +1018,7 @@ namespace VidCoder.ViewModel.Components
 
 			foreach (EncodeResultViewModel resultVM in this.CompletedJobs)
 			{
-				if (resultVM.Job != null && instance == resultVM.Job.HandBrakeInstance)
+				if (instance == resultVM.Job.HandBrakeInstance)
 				{
 					return;
 				}
@@ -1009,7 +1049,7 @@ namespace VidCoder.ViewModel.Components
 
 			foreach (EncodeResultViewModel resultVM in this.CompletedJobs)
 			{
-				if (resultVM.Job != null)
+				if (resultVM.Job.HandBrakeInstance != null)
 				{
 					instances.Add(resultVM.Job.HandBrakeInstance);
 				}
@@ -1231,11 +1271,7 @@ namespace VidCoder.ViewModel.Components
 						this.logger.LogError("Encode failed. HandBrake reported no error but the output file was empty.");
 					}
 
-					EncodeJobViewModel resultJob = null;
-					if (Settings.Default.KeepScansAfterCompletion)
-					{
-						resultJob = this.CurrentJob;
-					}
+					EncodeJobViewModel finishedJob = this.CurrentJob;
 
 					this.CompletedJobs.Add(new EncodeResultViewModel(
 						new EncodeResult
@@ -1244,17 +1280,19 @@ namespace VidCoder.ViewModel.Components
 							Succeeded = succeeded,
 							EncodeTime = this.CurrentJob.EncodeTime
 						},
-						resultJob));
+						finishedJob));
 					this.RaisePropertyChanged(() => this.CompletedItemsCount);
 					this.RaisePropertyChanged(() => this.CompletedTabHeader);
 
-					HandBrakeInstance finishedInstance = this.EncodeQueue[0].HandBrakeInstance;
 					this.EncodeQueue.RemoveAt(0);
 					this.RaisePropertyChanged(() => this.QueuedTabHeader);
 
+					// Wait until after it's removed from the queue before running cleanup: otherwise it will find
+					// the instance "in use" in the queue and not do removal.
 					if (!Settings.Default.KeepScansAfterCompletion)
 					{
-						this.CleanupHandBrakeInstanceIfUnused(finishedInstance);
+						this.CleanupHandBrakeInstanceIfUnused(finishedJob.HandBrakeInstance);
+						finishedJob.HandBrakeInstance = null;
 					}
 
 					this.logger.Log("Job completed");
@@ -1387,7 +1425,7 @@ namespace VidCoder.ViewModel.Components
 
 			foreach (EncodeResultViewModel result in this.CompletedJobs)
 			{
-				if (result.Job != null && result.Job.Job.SourceType == SourceType.Dvd)
+				if (result.Job.Job.SourceType == SourceType.Dvd)
 				{
 					string driveLetter = result.Job.Job.SourcePath.Substring(0, 1).ToUpperInvariant();
 					if (!applicableDrives.Contains(driveLetter))

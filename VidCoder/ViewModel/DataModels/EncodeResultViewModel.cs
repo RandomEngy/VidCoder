@@ -108,7 +108,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.Job != null;
+				return this.Job.HandBrakeInstance != null;
 			}
 		}
 

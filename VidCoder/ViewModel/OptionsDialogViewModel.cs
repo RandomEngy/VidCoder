@@ -63,6 +63,7 @@ namespace VidCoder.ViewModel
 			this.showAudioTrackNameField = Settings.Default.ShowAudioTrackNameField;
 			this.keepScansAfterCompletion = Settings.Default.KeepScansAfterCompletion;
 			this.enableLibDvdNav = Settings.Default.EnableLibDvdNav;
+			this.deleteSourceFilesOnClearingCompleted = Settings.Default.DeleteSourceFilesOnClearingCompleted;
 			this.minimumTitleLengthSeconds = Settings.Default.MinimumTitleLengthSeconds;
 			this.autoPauseProcesses = new ObservableCollection<string>();
 			StringCollection autoPauseStringCollection = Settings.Default.AutoPauseProcesses;
@@ -412,6 +413,21 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool deleteSourceFilesOnClearingCompleted;
+		public bool DeleteSourceFilesOnClearingCompleted
+		{
+			get
+			{
+				return this.deleteSourceFilesOnClearingCompleted;
+			}
+
+			set
+			{
+				this.deleteSourceFilesOnClearingCompleted = value;
+				this.RaisePropertyChanged(() => this.DeleteSourceFilesOnClearingCompleted);
+			}
+		}
+
 		public bool LogVerbosityWarningVisible
 		{
 			get
@@ -470,6 +486,7 @@ namespace VidCoder.ViewModel
 						Settings.Default.ShowAudioTrackNameField = this.ShowAudioTrackNameField;
 						Settings.Default.EnableLibDvdNav = this.EnableLibDvdNav;
 						Settings.Default.KeepScansAfterCompletion = this.KeepScansAfterCompletion;
+						Settings.Default.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
 						Settings.Default.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
 						Settings.Default.Save();
 
