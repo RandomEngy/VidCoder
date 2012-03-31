@@ -1,7 +1,7 @@
 ﻿<Window x:Class="VidCoder.View.OptionsDialog"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Model="clr-namespace:VidCoder.Model" Title="Options" Height="415" Width="571"
-	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Closing="Window_Closing">
+	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Closing="Window_Closing" xmlns:my="clr-namespace:VidCoder.Controls">
 	<Window.Resources>
 		<Style x:Key="EmphasizedTitle" TargetType="TextBlock">
 			<Setter Property="VerticalAlignment" Value="Center" />
@@ -133,6 +133,15 @@
 			</TabItem>
 			<TabItem Header="Advanced">
 				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="22" />
+						<RowDefinition Height="22" />
+						<RowDefinition Height="22" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="24" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
 					<Label Content="Number of picture previews to scan:" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="label3" VerticalAlignment="Top" />
 					<ComboBox
 						Height="23" HorizontalAlignment="Left" Margin="211,8,0,0" Name="comboBox1" VerticalAlignment="Top" Width="61"
@@ -145,24 +154,40 @@
 						<ComboBoxItem>30</ComboBoxItem>
 					</ComboBox>
 					<CheckBox
+						Grid.Row="1"
 						Content="Allow setting custom name on audio tracks (limited player support)"
 						IsChecked="{Binding ShowAudioTrackNameField}"
-						Height="16" HorizontalAlignment="Left" Margin="15,40,0,0" VerticalAlignment="Top" />
+						Height="16" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" />
 					<CheckBox
+						Grid.Row="2"
 						Content="Enable LibDVDNav (change requires program restart)"
 						IsChecked="{Binding EnableLibDvdNav}"
-						Height="16" HorizontalAlignment="Left" Margin="15,62,0,0" VerticalAlignment="Top" />
+						Height="16" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" />
 					<CheckBox
+						Grid.Row="3"
 						Content="Keep scans after completion (allows editing completed items)"
 						IsChecked="{Binding KeepScansAfterCompletion}"
-						Height="16" HorizontalAlignment="Left" Margin="15,84,0,0" VerticalAlignment="Top" />
-					<Label Content="Logging Verbosity:" Height="28" HorizontalAlignment="Left" Margin="6,108,0,0" VerticalAlignment="Top" />
-					<ComboBox Height="23" HorizontalAlignment="Left" Margin="121,111,0,0" SelectedValue="{Binding LogVerbosity}" SelectedValuePath="Content" VerticalAlignment="Top" Width="42">
+						Height="16" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" />
+					<Label
+						Grid.Row="4"
+						Content="Logging Verbosity:" Height="28" HorizontalAlignment="Left" Margin="6,0,0,0" VerticalAlignment="Center" />
+					<ComboBox
+						Grid.Row="4"
+						Height="23" HorizontalAlignment="Left" Margin="121,0,0,0" SelectedValue="{Binding LogVerbosity}" SelectedValuePath="Content" VerticalAlignment="Center" Width="42">
 						<ComboBoxItem Content="0" />
 						<ComboBoxItem Content="1" />
 						<ComboBoxItem Content="2" />
 					</ComboBox>
-					<TextBlock Height="40" HorizontalAlignment="Left" Margin="182,113,0,0" Text="Log verbosity will take effect on next scan or program restart." TextWrapping="Wrap" VerticalAlignment="Top" Visibility="{Binding LogVerbosityWarningVisible, Converter={StaticResource VisibilityConverter}}" />
+					<TextBlock
+						Grid.Row="4"
+						HorizontalAlignment="Left" Margin="182,0,0,0" Text="Log verbosity will take effect on next scan or program restart." TextWrapping="Wrap" VerticalAlignment="Center" Visibility="{Binding LogVerbosityWarningVisible, Converter={StaticResource VisibilityConverter}}" />
+					
+					<TextBlock
+						Grid.Row="5"
+						Height="23" HorizontalAlignment="Left" Margin="11,5,0,0" Text="Minimum length of title to scan (seconds):" VerticalAlignment="Center" />
+					<my:NumberBox
+						Grid.Row="5" HorizontalAlignment="Left" Margin="243,2,0,0" VerticalAlignment="Top" AllowEmpty="False" Width="45"
+						Number="{Binding MinimumTitleLengthSeconds, Mode=TwoWay}" Minimum="0" />
 				</Grid>
 			</TabItem>
 		</TabControl>

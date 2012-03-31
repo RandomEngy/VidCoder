@@ -645,5 +645,17 @@ namespace VidCoder.Properties {
                 this["EnableLibDvdNav"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int MinimumTitleLengthSeconds {
+            get {
+                return ((int)(this["MinimumTitleLengthSeconds"]));
+            }
+            set {
+                this["MinimumTitleLengthSeconds"] = value;
+            }
+        }
     }
 }

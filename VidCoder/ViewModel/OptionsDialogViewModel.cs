@@ -63,6 +63,7 @@ namespace VidCoder.ViewModel
 			this.showAudioTrackNameField = Settings.Default.ShowAudioTrackNameField;
 			this.keepScansAfterCompletion = Settings.Default.KeepScansAfterCompletion;
 			this.enableLibDvdNav = Settings.Default.EnableLibDvdNav;
+			this.minimumTitleLengthSeconds = Settings.Default.MinimumTitleLengthSeconds;
 			this.autoPauseProcesses = new ObservableCollection<string>();
 			StringCollection autoPauseStringCollection = Settings.Default.AutoPauseProcesses;
 			if (autoPauseStringCollection != null)
@@ -419,6 +420,21 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private int minimumTitleLengthSeconds;
+		public int MinimumTitleLengthSeconds
+		{
+			get
+			{
+				return this.minimumTitleLengthSeconds;
+			}
+
+			set
+			{
+				this.minimumTitleLengthSeconds = value;
+				this.RaisePropertyChanged(() => this.MinimumTitleLengthSeconds);
+			}
+		}
+
 		private RelayCommand saveSettingsCommand;
 		public RelayCommand SaveSettingsCommand
 		{
@@ -454,6 +470,7 @@ namespace VidCoder.ViewModel
 						Settings.Default.ShowAudioTrackNameField = this.ShowAudioTrackNameField;
 						Settings.Default.EnableLibDvdNav = this.EnableLibDvdNav;
 						Settings.Default.KeepScansAfterCompletion = this.KeepScansAfterCompletion;
+						Settings.Default.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
 						Settings.Default.Save();
 
 						Messenger.Default.Send(new OptionsChangedMessage());

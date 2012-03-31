@@ -2045,7 +2045,7 @@ namespace VidCoder.ViewModel
 			this.ScanError = false;
 			this.ScanningSource = true;
 			this.scanCancelledFlag = false;
-			this.scanInstance.StartScan(path, Settings.Default.PreviewCount);
+			this.scanInstance.StartScan(path, Settings.Default.PreviewCount, TimeSpan.FromSeconds(Settings.Default.MinimumTitleLengthSeconds));
 		}
 
 		private void UpdateFromNewVideoSource()
