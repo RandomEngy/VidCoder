@@ -178,7 +178,7 @@
 						Height="16" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" />
 					<CheckBox
 						Grid.Row="5"
-						Content="Prompt to delete source files after clearing successful completed items"
+						Content="Delete source files after clearing successful completed items (with confirmation)"
 						IsChecked="{Binding DeleteSourceFilesOnClearingCompleted}"
 						Height="16" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" />
 					<Label
