@@ -1523,7 +1523,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.openChaptersDialogCommand ?? (this.openChaptersDialogCommand = new RelayCommand(() =>
 					{
-						var chaptersVM = new ChapterMarkersDialogViewModel(this.SelectedTitle.Chapters.Count, this.CustomChapterNames, this.UseDefaultChapterNames);
+						var chaptersVM = new ChapterMarkersDialogViewModel(this.SelectedTitle.Chapters, this.CustomChapterNames, this.UseDefaultChapterNames);
 						chaptersVM.Closing = () =>
 						{
 							if (chaptersVM.DialogResult)

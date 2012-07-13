@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using HandBrake.Interop.SourceData;
 using VidCoder.Properties;
 using System.IO;
 using VidCoder.Services;
@@ -13,28 +14,38 @@ namespace VidCoder.ViewModel
 {
 	public class ChapterMarkersDialogViewModel : OkCancelDialogViewModel
 	{
-		private int chapters;
+		private List<Chapter> chapters;
+		private int chapterCount;
 
 		private bool useDefaultNames;
 		private ObservableCollection<ChapterNameViewModel> chapterNames;
 
 		private ICommand importCsvFileCommand;
 
-		public ChapterMarkersDialogViewModel(int chapters, List<string> currentNames, bool useDefaultNames)
+		public ChapterMarkersDialogViewModel(List<Chapter> chapters, List<string> currentNames, bool useDefaultNames)
 		{
 			this.chapters = chapters;
 
 			this.chapterNames = new ObservableCollection<ChapterNameViewModel>();
-			for (int i = 0; i < chapters; i++)
+
+			TimeSpan startTime = TimeSpan.Zero;
+			for (int i = 0; i < this.chapters.Count; i++)
 			{
+				Chapter chapter = this.chapters[i];
+
+				var viewModel = new ChapterNameViewModel { Number = i + 1, StartTime = startTime.ToString(Utilities.TimeFormat) };
 				if (currentNames != null && i < currentNames.Count)
 				{
-					this.chapterNames.Add(new ChapterNameViewModel { Number = i + 1, Title = currentNames[i] });
+					viewModel.Title = currentNames[i];
 				}
 				else
 				{
-					this.chapterNames.Add(new ChapterNameViewModel { Number = i + 1, Title = "Chapter " + (i + 1) });
+					viewModel.Title = "Chapter " + (i + 1);
 				}
+
+				this.chapterNames.Add(viewModel);
+
+				startTime += chapter.Duration;
 			}
 
 			this.useDefaultNames = useDefaultNames;
@@ -126,7 +137,7 @@ namespace VidCoder.ViewModel
 
 							if (success)
 							{
-								for (int i = 0; i < this.chapters; i++)
+								for (int i = 0; i < this.chapters.Count; i++)
 								{
 									if (chapterMap.ContainsKey(i + 1))
 									{

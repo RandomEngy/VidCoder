@@ -4,9 +4,9 @@
 	Title="Chapter Markers" Height="326" Width="444" WindowStartupLocation="CenterOwner" Closing="Window_Closing"
 		Style="{StaticResource NormalWindow}">
 	<Window.Resources>
-		<DataTemplate x:Key="NumberTemplate">
+		<!--<DataTemplate x:Key="NumberTemplate">
 			<TextBlock Text="{Binding Number}" />
-		</DataTemplate>
+		</DataTemplate>-->
 		<DataTemplate x:Key="TitleTemplate">
 			<TextBox Width="200" Text="{Binding Title}" GotFocus="TitleBoxGotFocus" />
 		</DataTemplate>
@@ -58,7 +58,8 @@
 			<ListView.View>
 				<GridView>
 					<GridView.Columns>
-						<GridViewColumn Header="Number" Width="54" CellTemplate="{StaticResource NumberTemplate}" />
+						<GridViewColumn Header="Number" Width="54" DisplayMemberBinding="{Binding Number}" />
+						<GridViewColumn Header="Start Time" Width="65" DisplayMemberBinding="{Binding StartTime}" />
 						<GridViewColumn Header="Title" CellTemplate="{StaticResource TitleTemplate}" />
 					</GridView.Columns>
 				</GridView>

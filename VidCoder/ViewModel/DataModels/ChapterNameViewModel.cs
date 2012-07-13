@@ -38,5 +38,20 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.Title);
 			}
 		}
+
+		private string startTime;
+		public string StartTime
+		{
+			get
+			{
+				return this.startTime;
+			}
+
+			set
+			{
+				this.startTime = value;
+				this.RaisePropertyChanged(() => this.StartTime);
+			}
+		}
 	}
 }
