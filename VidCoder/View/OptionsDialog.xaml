@@ -143,6 +143,8 @@
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="24" />
 						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="38*" />
 					</Grid.RowDefinitions>
 					<Label Content="Number of picture previews to scan:" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="label3" VerticalAlignment="Top" />
 					<ComboBox
@@ -201,6 +203,12 @@
 					<my:NumberBox
 						Grid.Row="7" HorizontalAlignment="Left" Margin="243,2,0,0" VerticalAlignment="Top" AllowEmpty="False" Width="45"
 						Number="{Binding MinimumTitleLengthSeconds, Mode=TwoWay}" Minimum="0" />
+					
+					<TextBlock
+						Grid.Row="8" Height="23" HorizontalAlignment="Left" Margin="11,5,0,0" Text="Recognized Extensions:" VerticalAlignment="Top"
+						ToolTip="When scanning folders for video files, add files with these extensions. (Comma separated)" />
+					<TextBox 
+						Grid.Row="8" Height="23" Margin="144,3,9,0" VerticalAlignment="Top" Text="{Binding VideoFileExtensions}"/>
 				</Grid>
 			</TabItem>
 		</TabControl>

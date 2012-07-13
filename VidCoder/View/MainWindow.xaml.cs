@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Media;
 using System.Text;
@@ -129,29 +130,100 @@ namespace VidCoder.View
 			var data = e.Data as DataObject;
 			if (data != null && data.ContainsFileDropList())
 			{
-				System.Collections.Specialized.StringCollection fileList = data.GetFileDropList();
-				if (fileList.Count > 0)
+				StringCollection itemList = data.GetFileDropList();
+				if (itemList.Count > 0)
 				{
-					if (fileList.Count == 1)
+					if (itemList.Count == 1)
 					{
-						if (Path.GetExtension(fileList[0]).ToLowerInvariant() == ".xml")
+						string item = itemList[0];
+
+						if (Path.GetExtension(item).ToLowerInvariant() == ".xml")
 						{
-							Unity.Container.Resolve<IPresetImportExport>().ImportPreset(fileList[0]);
+							// It's a preset
+							Unity.Container.Resolve<IPresetImportExport>().ImportPreset(itemList[0]);
+						}
+						else if (Utilities.IsDiscFolder(item))
+						{
+							// It's a disc folder
+							this.viewModel.SetSourceFromFile(item);
 						}
 						else
 						{
-							this.viewModel.SetSourceFromFile(fileList[0]);
+							// It is a video file or folder full of video files
+							this.HandleDropAsFiles(itemList);
 						}
 					}
 					else
 					{
-						var convertedFileList = fileList.Cast<string>().ToList();
-
-						this.processingVM.QueueMultiple(convertedFileList);
+						// With multiple items, treat it as a list of video files and folders full of video files
+						this.HandleDropAsFiles(itemList);
 					}
 				}
 			}
 		}
+
+		// Takes a list of files/directories and tries to scan/queue them as files
+		private void HandleDropAsFiles(StringCollection itemList)
+		{
+			List<string> fileList = GetFileList(itemList);
+			if (fileList.Count > 0)
+			{
+				if (fileList.Count == 1)
+				{
+					this.viewModel.SetSourceFromFile(fileList[0]);
+				}
+				else
+				{
+					this.processingVM.QueueMultiple(fileList);
+				}
+			}
+		}
+
+		// Gets a file list from a list of files/directories
+		private static List<string> GetFileList(StringCollection itemList)
+		{
+			var videoExtensions = new List<string>();
+			string extensionsString = Settings.Default.VideoFileExtensions;
+			string[] rawExtensions = extensionsString.Split(',', ';');
+			foreach (string rawExtension in rawExtensions)
+			{
+				string extension = rawExtension.Trim();
+				if (extension.Length > 0)
+				{
+					if (!extension.StartsWith("."))
+					{
+						extension = "." + extension;
+					}
+
+					videoExtensions.Add(extension);
+				}
+			}
+
+			//List<string> videoExtensions = new List<string> { ".avi", ".mkv", ".mp4", ".m4v", ".mpg", ".mpeg", ".mov", ".wmv" };
+
+			var fileList = new List<string>();
+			foreach (string item in itemList)
+			{
+				var fileAttributes = File.GetAttributes(item);
+				if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
+				{
+					// Path is a directory
+					List<string> allFiles = Utilities.GetFiles(item);
+					var videoFiles = allFiles.Where(f => videoExtensions.Any(f.EndsWith));
+
+					fileList.AddRange(videoFiles);
+				}
+				else
+				{
+					// Path is a file
+					fileList.Add(item);
+				}
+			}
+
+			return fileList;
+		}
+
+
 
 		public void ShowBalloonMessage(string title, string message)
 		{

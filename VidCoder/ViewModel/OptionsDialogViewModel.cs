@@ -67,6 +67,7 @@ namespace VidCoder.ViewModel
 			this.deleteSourceFilesOnClearingCompleted = Settings.Default.DeleteSourceFilesOnClearingCompleted;
 			this.minimumTitleLengthSeconds = Settings.Default.MinimumTitleLengthSeconds;
 			this.autoPauseProcesses = new ObservableCollection<string>();
+			this.videoFileExtensions = Settings.Default.VideoFileExtensions;
 			StringCollection autoPauseStringCollection = Settings.Default.AutoPauseProcesses;
 			if (autoPauseStringCollection != null)
 			{
@@ -467,6 +468,21 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private string videoFileExtensions;
+		public string VideoFileExtensions
+		{
+			get
+			{
+				return this.videoFileExtensions;
+			}
+
+			set
+			{
+				this.videoFileExtensions = value;
+				this.RaisePropertyChanged(() => this.VideoFileExtensions);
+			}
+		}
+
 		private RelayCommand saveSettingsCommand;
 		public RelayCommand SaveSettingsCommand
 		{
@@ -518,6 +534,7 @@ namespace VidCoder.ViewModel
 						Settings.Default.KeepScansAfterCompletion = this.KeepScansAfterCompletion;
 						Settings.Default.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
 						Settings.Default.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
+						Settings.Default.VideoFileExtensions = this.VideoFileExtensions;
 						Settings.Default.Save();
 
 						Messenger.Default.Send(new OptionsChangedMessage());

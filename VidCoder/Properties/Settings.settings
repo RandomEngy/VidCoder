@@ -167,5 +167,8 @@
     <Setting Name="RememberPreviousFiles" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="VideoFileExtensions" Type="System.String" Scope="User">
+      <Value Profile="(Default)">avi, mkv, mp4, m4v, mpg, mpeg, mov, wmv</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

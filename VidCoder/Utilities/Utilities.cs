@@ -435,6 +435,35 @@ namespace VidCoder
 			}
 		}
 
+		public static bool IsDiscFolder(string directory)
+		{
+			try
+			{
+				var directoryInfo = new DirectoryInfo(directory);
+				if (directoryInfo.Name == "VIDEO_TS")
+				{
+					return true;
+				}
+
+				if (Directory.Exists(Path.Combine(directory, "VIDEO_TS")))
+				{
+					return true;
+				}
+
+				if (Directory.Exists(Path.Combine(directory, "BDMV")))
+				{
+					return true;
+				}
+
+				return false;
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				Unity.Container.Resolve<ILogger>().Log("Could not determine if folder was disc: " + ex);
+				return false;
+			}
+		}
+
 		public static string Wow64RegistryKey
 		{
 			get
@@ -465,6 +494,52 @@ namespace VidCoder
 			{
 				e.Effects = DragDropEffects.Copy;
 				e.Handled = true;
+			}
+		}
+
+		public static List<string> GetFiles(string directory)
+		{
+			var files = new List<string>();
+			var accessErrors = new List<string>();
+			GetFilesRecursive(directory, files, accessErrors);
+
+			if (accessErrors.Count > 0)
+			{
+				var messageBuilder = new StringBuilder("Count not access the following directories:" + Environment.NewLine);
+				foreach (string accessError in accessErrors)
+				{
+					messageBuilder.AppendLine(accessError);
+				}
+
+				MessageBox.Show(messageBuilder.ToString());
+			}
+
+			return files;
+		}
+
+		private static void GetFilesRecursive(string directory, List<string> files, List<string> accessErrors)
+		{
+			try
+			{
+				string[] subdirectories = Directory.GetDirectories(directory);
+				foreach (string subdirectory in subdirectories)
+				{
+					GetFilesRecursive(subdirectory, files, accessErrors);
+				}
+			}
+			catch (UnauthorizedAccessException)
+			{
+				accessErrors.Add(directory);
+			}
+
+			try
+			{
+				string[] files2 = Directory.GetFiles(directory);
+				files.AddRange(files2);
+			}
+			catch (UnauthorizedAccessException)
+			{
+				accessErrors.Add(directory);
 			}
 		}
 
