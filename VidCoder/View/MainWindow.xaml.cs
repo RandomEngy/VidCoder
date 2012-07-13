@@ -199,8 +199,6 @@ namespace VidCoder.View
 				}
 			}
 
-			//List<string> videoExtensions = new List<string> { ".avi", ".mkv", ".mp4", ".m4v", ".mpg", ".mpeg", ".mov", ".wmv" };
-
 			var fileList = new List<string>();
 			foreach (string item in itemList)
 			{

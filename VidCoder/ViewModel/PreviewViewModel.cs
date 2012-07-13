@@ -368,6 +368,16 @@ namespace VidCoder.ViewModel
 
 			int parWidth, parHeight;
 			this.ScanInstance.GetSize(this.job, out width, out height, out parWidth, out parHeight);
+
+			if (parWidth <= 0 || parHeight <= 0)
+			{
+				this.HasPreview = false;
+				this.Title = NoSourceTitle;
+
+				Unity.Container.Resolve<ILogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
+				return;
+			}
+
 			this.PreviewHeight = height;
 			this.PreviewWidth = width * ((double)parWidth / parHeight);
 
