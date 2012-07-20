@@ -52,7 +52,7 @@ namespace VidCoder.View
 
 		private void sourceSubtitles_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			ResizeGridViewColumn(this.sourceTrackColumn);
+			ResizeGridViewColumn(this.nameColumn);
 
 			if (e.Action == NotifyCollectionChangedAction.Add)
 			{
@@ -93,9 +93,12 @@ namespace VidCoder.View
 
 		private void sourceVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName == "TrackNumber")
+			if (e.PropertyName == "Selected")
 			{
-				ResizeGridViewColumn(this.sourceTrackColumn);
+				ResizeGridViewColumn(this.nameColumn);
+				ResizeGridViewColumn(this.sourceDefaultColumn);
+				ResizeGridViewColumn(this.sourceForcedColumn);
+				ResizeGridViewColumn(this.sourceBurnedColumn);
 			}
 		}
 
@@ -109,6 +112,13 @@ namespace VidCoder.View
 			{
 				ResizeGridViewColumn(this.srtLanguageColumn);
 			}
+		}
+
+		private void SourceItemClick(object sender, MouseButtonEventArgs e)
+		{
+			var listItem = sender as ListViewItem;
+			var subtitleVM = listItem.DataContext as SourceSubtitleViewModel;
+			subtitleVM.Selected = !subtitleVM.Selected;
 		}
 
 		private static void ResizeGridViewColumn(GridViewColumn column)

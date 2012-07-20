@@ -44,9 +44,23 @@ namespace VidCoder.ViewModel
 
 			if (currentSubtitles != null)
 			{
+				if (!currentSubtitles.SourceSubtitles.Any(s => s.TrackNumber == 0))
+				{
+					this.sourceSubtitles.Add(
+						new SourceSubtitleViewModel(
+							this,
+							new SourceSubtitle
+								{
+									TrackNumber = 0,
+									BurnedIn = false,
+									Forced = false,
+									Default = false
+								}));
+				}
+
 				foreach (SourceSubtitle subtitle in currentSubtitles.SourceSubtitles)
 				{
-					this.sourceSubtitles.Add(new SourceSubtitleViewModel(this, subtitle.Clone()));
+					this.sourceSubtitles.Add(new SourceSubtitleViewModel(this, subtitle.Clone()) { Selected = true });
 				}
 				
 				foreach (SrtSubtitle subtitle in currentSubtitles.SrtSubtitles)
@@ -55,16 +69,33 @@ namespace VidCoder.ViewModel
 				}
 			}
 
+			// Fill in remaining unselected source subtitles
+			foreach (Subtitle subtitle in this.mainViewModel.SelectedTitle.Subtitles)
+			{
+				if (!currentSubtitles.SourceSubtitles.Any(s => s.TrackNumber == subtitle.TrackNumber))
+				{
+					var newSubtitle = new SourceSubtitle
+					    {
+					        TrackNumber = subtitle.TrackNumber,
+					        Default = false,
+					        Forced = false,
+					        BurnedIn = false
+					    };
+
+					this.sourceSubtitles.Add(new SourceSubtitleViewModel(this, newSubtitle));
+				}
+			}
+
 			this.sourceSubtitles.CollectionChanged += this.SourceCollectionChanged;
 			this.srtSubtitles.CollectionChanged += this.SrtCollectionChanged;
 
-			this.inputTrackChoices = new List<string>();
-			this.inputTrackChoices.Add("Foreign Audio Search (Bitmap)");
+			//this.inputTrackChoices = new List<string>();
+			//this.inputTrackChoices.Add("Foreign Audio Search (Bitmap)");
 
-			foreach (Subtitle subtitle in this.mainViewModel.SelectedTitle.Subtitles)
-			{
-				this.inputTrackChoices.Add(subtitle.ToString());
-			}
+			//foreach (Subtitle subtitle in this.mainViewModel.SelectedTitle.Subtitles)
+			//{
+			//    this.inputTrackChoices.Add(subtitle.ToString());
+			//}
 
 			this.UpdateBoxes();
 		}
@@ -80,10 +111,10 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.HasSrtSubtitles);
 		}
 
-		public List<string> InputTrackChoices
-		{
-			get { return this.inputTrackChoices; }
-		}
+		//public List<string> InputTrackChoices
+		//{
+		//    get { return this.inputTrackChoices; }
+		//}
 
 		public ObservableCollection<SourceSubtitleViewModel> SourceSubtitles
 		{
@@ -110,7 +141,10 @@ namespace VidCoder.ViewModel
 				List<SourceSubtitle> sourceSubtitlesModel = new List<SourceSubtitle>();
 				foreach (SourceSubtitleViewModel sourceSubtitleModel in this.sourceSubtitles)
 				{
-					sourceSubtitlesModel.Add(sourceSubtitleModel.Subtitle);
+					if (sourceSubtitleModel.Selected)
+					{
+						sourceSubtitlesModel.Add(sourceSubtitleModel.Subtitle);
+					}
 				}
 
 				subtitlesModel.SrtSubtitles = srtSubtitlesModel;
@@ -178,36 +212,36 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private RelayCommand addSourceSubtitleCommand;
-		public RelayCommand AddSourceSubtitleCommand
-		{
-			get
-			{
-				return this.addSourceSubtitleCommand ?? (this.addSourceSubtitleCommand = new RelayCommand(() =>
-					{
-						var newSubtitle = new SourceSubtitle
-						{
-							TrackNumber = this.GetFirstUnusedTrack(),
-							Default = false,
-							Forced = false,
-							BurnedIn = false
-						};
+		//private RelayCommand addSourceSubtitleCommand;
+		//public RelayCommand AddSourceSubtitleCommand
+		//{
+		//    get
+		//    {
+		//        return this.addSourceSubtitleCommand ?? (this.addSourceSubtitleCommand = new RelayCommand(() =>
+		//            {
+		//                var newSubtitle = new SourceSubtitle
+		//                {
+		//                    TrackNumber = this.GetFirstUnusedTrack(),
+		//                    Default = false,
+		//                    Forced = false,
+		//                    BurnedIn = false
+		//                };
 
-						this.sourceSubtitles.Add(new SourceSubtitleViewModel(this, newSubtitle));
-						this.UpdateBoxes();
-						this.UpdateWarningVisibility();
-					}, () =>
-					{
-						// Disallow adding if there are no subtitles on the current title.
-						if (this.mainViewModel.SelectedTitle == null || this.mainViewModel.SelectedTitle.Subtitles.Count == 0)
-						{
-							return false;
-						}
+		//                this.sourceSubtitles.Add(new SourceSubtitleViewModel(this, newSubtitle));
+		//                this.UpdateBoxes();
+		//                this.UpdateWarningVisibility();
+		//            }, () =>
+		//            {
+		//                // Disallow adding if there are no subtitles on the current title.
+		//                if (this.mainViewModel.SelectedTitle == null || this.mainViewModel.SelectedTitle.Subtitles.Count == 0)
+		//                {
+		//                    return false;
+		//                }
 
-						return true;
-					}));
-			}
-		}
+		//                return true;
+		//            }));
+		//    }
+		//}
 
 		private RelayCommand addSrtSubtitleCommand;
 		public RelayCommand AddSrtSubtitleCommand
@@ -356,29 +390,29 @@ namespace VidCoder.ViewModel
 			this.BurnedOverlapWarningVisible = anyBurned && totalTracks > 1;
 		}
 
-		private int GetFirstUnusedTrack()
-		{
-			List<int> unusedTracks = new List<int>();
+		//private int GetFirstUnusedTrack()
+		//{
+		//    List<int> unusedTracks = new List<int>();
 
-			for (int i = 0; i < this.InputTrackChoices.Count; i++)
-			{
-				unusedTracks.Add(i);
-			}
+		//    for (int i = 0; i < this.InputTrackChoices.Count; i++)
+		//    {
+		//        unusedTracks.Add(i);
+		//    }
 
-			foreach (SourceSubtitleViewModel sourceSubtitleVM in this.sourceSubtitles)
-			{
-				if (unusedTracks.Contains(sourceSubtitleVM.TrackNumber))
-				{
-					unusedTracks.Remove(sourceSubtitleVM.TrackNumber);
-				}
-			}
+		//    foreach (SourceSubtitleViewModel sourceSubtitleVM in this.sourceSubtitles)
+		//    {
+		//        if (unusedTracks.Contains(sourceSubtitleVM.TrackNumber))
+		//        {
+		//            unusedTracks.Remove(sourceSubtitleVM.TrackNumber);
+		//        }
+		//    }
 
-			if (unusedTracks.Count > 0)
-			{
-				return unusedTracks[0];
-			}
+		//    if (unusedTracks.Count > 0)
+		//    {
+		//        return unusedTracks[0];
+		//    }
 
-			return 0;
-		}
+		//    return 0;
+		//}
 	}
 }

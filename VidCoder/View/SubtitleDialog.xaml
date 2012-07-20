@@ -9,6 +9,13 @@
 	DataContextChanged="OnDataContextChanged"
 	Closing="Window_Closing" ShowInTaskbar="False">
 	<Window.Resources>
+		<Style x:Key="SubtitleTrack" TargetType="TextBlock">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding Selected}" Value="True">
+					<Setter Property="FontWeight" Value="Bold" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
 		<Style x:Key="SubtitleLabel" TargetType="{x:Type TextBlock}">
 			<Setter Property="Margin" Value="4,2,4,0" />
 			<Setter Property="HorizontalAlignment" Value="Center" />
@@ -28,21 +35,39 @@
 		</Style>
 		
 		<DataTemplate x:Key="SourceDragTemplate">
-			<TextBox Text="{Binding SubtitleName, Mode=OneWay}" />
+			<TextBlock Text="{Binding SubtitleName, Mode=OneWay}" Background="White" />
 		</DataTemplate>
-		<DataTemplate x:Key="TrackTemplate">
-			<ComboBox
+		<DataTemplate x:Key="SelectedTemplate">
+			<CheckBox
+				IsChecked="{Binding Selected}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+				Width="22" Height="22"
+				Style="{StaticResource CenteredCheckBox}"/>
+		</DataTemplate>
+		<DataTemplate x:Key="NameTemplate">
+			<Grid Height="22">
+				<TextBlock
+					Text="{Binding SubtitleName}" VerticalAlignment="Center"
+					Style="{StaticResource SubtitleTrack}"/>
+			</Grid>
+			<!--<ComboBox
 				ItemsSource="{Binding SubtitleDialogViewModel.InputTrackChoices}"
-				SelectedIndex="{Binding TrackNumber}" />
+				SelectedIndex="{Binding TrackNumber}" />-->
 		</DataTemplate>
 		<DataTemplate x:Key="ForcedTemplate">
-			<CheckBox IsChecked="{Binding Forced}" ToolTip="{x:Static resx:Resources.ForcedSubtitleToolTip}" />
+			<CheckBox 
+				IsChecked="{Binding Forced}" ToolTip="{x:Static resx:Resources.ForcedSubtitleToolTip}"
+				Visibility="{Binding Selected, Converter={StaticResource VisibilityConverter}}"
+				Width="75" Height="22"
+				Style="{StaticResource CenteredCheckBox}"/>
 		</DataTemplate>
 		<DataTemplate x:Key="BurnedInTemplate">
 			<CheckBox
 				IsChecked="{Binding BurnedIn}"
 				ToolTip="{x:Static resx:Resources.BurnedSubtitleToolTip}"
-				ToolTipService.ShowOnDisabled="True"/>
+				ToolTipService.ShowOnDisabled="True"
+				Visibility="{Binding Selected, Converter={StaticResource VisibilityConverter}}"
+				Width="70" Height="22"
+				Style="{StaticResource CenteredCheckBox}"/>
 		</DataTemplate>
 		<DataTemplate x:Key="SrtDragTemplate">
 			<TextBox Text="{Binding FileName, Mode=OneWay}" />
@@ -55,7 +80,12 @@
 				IsChecked="{Binding Default}"
 				IsEnabled="{Binding SubtitleDialogViewModel.DefaultsEnabled}"
 				ToolTip="{x:Static resx:Resources.DefaultSubtitleToolTip}"
-				ToolTipService.ShowOnDisabled="True"/>
+				ToolTipService.ShowOnDisabled="True"
+				Visibility="{Binding Selected, Converter={StaticResource VisibilityConverter}}"
+				Width="55" Height="22"
+				Style="{StaticResource CenteredCheckBox}">
+
+			</CheckBox>
 		</DataTemplate>
 		<DataTemplate x:Key="LanguageTemplate">
 			<ComboBox
@@ -92,24 +122,30 @@
 				</Grid.RowDefinitions>
 				<Label Height="28" HorizontalAlignment="Left" Name="label1" VerticalAlignment="Top" Width="129">Subtitles from source:</Label>
 				<StackPanel Orientation="Vertical" Margin="12,24,12,4">
-					<ListView VerticalAlignment="Top" Margin="0,0,0,5"
+					<ListView VerticalAlignment="Top" Margin="0,0,0,0"
 						ItemsSource="{Binding SourceSubtitles}" Visibility="{Binding HasSourceSubtitles, Converter={StaticResource VisibilityConverter}}"
 						HandBrakeDragDrop:DragDropHelper.IsDragSource="True" HandBrakeDragDrop:DragDropHelper.IsDropTarget="True" HandBrakeDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SourceDragTemplate}">
+						<ListView.ItemContainerStyle>
+							<Style TargetType="{x:Type ListViewItem}">
+								<EventSetter Event="MouseLeftButtonUp" Handler="SourceItemClick"/>
+							</Style>
+						</ListView.ItemContainerStyle>
 						<ListView.View>
 							<GridView>
 								<GridView.Columns>
-									<GridViewColumn Header="Track" CellTemplate="{StaticResource TrackTemplate}" x:Name="sourceTrackColumn" />
-									<GridViewColumn CellTemplate="{StaticResource DefaultTemplate}">
+									<GridViewColumn CellTemplate="{StaticResource SelectedTemplate}" />
+									<GridViewColumn Header="Name" CellTemplate="{StaticResource NameTemplate}" x:Name="nameColumn" />
+									<GridViewColumn CellTemplate="{StaticResource DefaultTemplate}" x:Name="sourceDefaultColumn">
 										<GridViewColumn.Header>
 											<TextBlock Text="Default" ToolTip="{x:Static resx:Resources.DefaultSubtitleToolTip}" />
 										</GridViewColumn.Header>
 									</GridViewColumn>
-									<GridViewColumn CellTemplate="{StaticResource ForcedTemplate}">
+									<GridViewColumn CellTemplate="{StaticResource ForcedTemplate}" x:Name="sourceForcedColumn">
 										<GridViewColumn.Header>
 											<TextBlock Text="Forced Only" ToolTip="{x:Static resx:Resources.ForcedSubtitleToolTip}" />
 										</GridViewColumn.Header>
 									</GridViewColumn>
-									<GridViewColumn CellTemplate="{StaticResource BurnedInTemplate}">
+									<GridViewColumn CellTemplate="{StaticResource BurnedInTemplate}" x:Name="sourceBurnedColumn">
 										<GridViewColumn.Header>
 											<TextBlock
 												Text="Burned In"
@@ -117,12 +153,11 @@
 												ToolTipService.ShowOnDisabled="True" />
 										</GridViewColumn.Header>
 									</GridViewColumn>
-									<GridViewColumn CellTemplate="{StaticResource RemoveTemplate}" />
 								</GridView.Columns>
 							</GridView>
 						</ListView.View>
 					</ListView>
-					<Button
+					<!--<Button
 						Command="{Binding AddSourceSubtitleCommand}"
 						HorizontalAlignment="Left" Margin="0,0,0,0" Width="97" Height="23" VerticalAlignment="Bottom"
 						ToolTip="{Binding AddSourceSubtitleToolTip}" ToolTipService.ShowOnDisabled="True">
@@ -130,7 +165,7 @@
 							<Polygon Style="{StaticResource PlusSign}" />
 							<TextBlock Text="Add Subtitle" />
 						</StackPanel>
-					</Button>
+					</Button>-->
 					<HandBrakeControls:InlineWarning
 						Margin="0,6,0,0"
 						WarningText="Text subtitles may not show up for Quicktime unless the .m4v extension is used."

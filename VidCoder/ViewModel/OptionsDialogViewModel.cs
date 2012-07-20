@@ -28,8 +28,6 @@ namespace VidCoder.ViewModel
 		private WhenFileExists whenFileExistsBatch;
 		private bool minimizeToTray;
 		private bool playSoundOnCompletion;
-		private string nativeLanguageCode;
-		private bool dubAudio;
 		private int logVerbosity;
 		private ObservableCollection<string> autoPauseProcesses;
 		private string selectedProcess;
@@ -56,8 +54,14 @@ namespace VidCoder.ViewModel
 			this.whenFileExistsBatch = Settings.Default.WhenFileExistsBatch;
 			this.minimizeToTray = Settings.Default.MinimizeToTray;
 			this.playSoundOnCompletion = Settings.Default.PlaySoundOnCompletion;
-			this.nativeLanguageCode = Settings.Default.NativeLanguageCode;
-			this.dubAudio = Settings.Default.DubAudio;
+			this.autoAudio = Settings.Default.AutoAudio;
+			this.audioLanguageCode = Settings.Default.AudioLanguageCode;
+			this.autoAudioAll = Settings.Default.AutoAudioAll;
+			this.autoSubtitle = Settings.Default.AutoSubtitle;
+			this.autoSubtitleBurnIn = Settings.Default.AutoSubtitleBurnIn;
+			this.subtitleLanguageCode = Settings.Default.SubtitleLanguageCode;
+			this.autoSubtitleOnlyIfDifferent = Settings.Default.AutoSubtitleOnlyIfDifferent;
+			this.autoSubtitleAll = Settings.Default.AutoSubtitleAll;
 			this.logVerbosity = Settings.Default.LogVerbosity;
 			this.previewCount = Settings.Default.PreviewCount;
 			this.rememberPreviousFiles = Settings.Default.RememberPreviousFiles;
@@ -274,40 +278,151 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public string NativeLanguageCode
+
+		private AutoAudioType autoAudio;
+		public AutoAudioType AutoAudio
 		{
 			get
 			{
-				return this.nativeLanguageCode;
+				return this.autoAudio;
 			}
 
 			set
 			{
-				this.nativeLanguageCode = value;
-				this.RaisePropertyChanged(() => this.NativeLanguageCode);
-				this.RaisePropertyChanged(() => this.DubAudioEnabled);
+				this.autoAudio = value;
+				this.RaisePropertyChanged(() => this.AutoAudio);
+				this.RaisePropertyChanged(() => this.AutoAudioLanguageSelected);
 			}
 		}
 
-		public bool DubAudio
+		public bool AutoAudioLanguageSelected
 		{
 			get
 			{
-				return this.dubAudio;
+				return this.AutoAudio == AutoAudioType.Language;
+			}
+		}
+
+		private string audioLanguageCode;
+		public string AudioLanguageCode
+		{
+			get
+			{
+				return this.audioLanguageCode;
 			}
 
 			set
 			{
-				this.dubAudio = value;
-				this.RaisePropertyChanged(() => this.DubAudio);
+				this.audioLanguageCode = value;
+				this.RaisePropertyChanged(() => this.AudioLanguageCode);
 			}
 		}
 
-		public bool DubAudioEnabled
+		private bool autoAudioAll;
+		public bool AutoAudioAll
 		{
 			get
 			{
-				return this.NativeLanguageCode != "und";
+				return this.autoAudioAll;
+			}
+
+			set
+			{
+				this.autoAudioAll = value;
+				this.RaisePropertyChanged(() => this.AutoAudioAll);
+			}
+		}
+
+		private AutoSubtitleType autoSubtitle;
+		public AutoSubtitleType AutoSubtitle
+		{
+			get
+			{
+				return this.autoSubtitle;
+			}
+
+			set
+			{
+				this.autoSubtitle = value;
+				this.RaisePropertyChanged(() => this.AutoSubtitle);
+				this.RaisePropertyChanged(() => this.AutoSubtitleFasSelected);
+				this.RaisePropertyChanged(() => this.AutoSubtitleLanguageSelected);
+			}
+		}
+
+		public bool AutoSubtitleFasSelected
+		{
+			get
+			{
+				return this.AutoSubtitle == AutoSubtitleType.ForeignAudioSearch;
+			}
+		}
+
+		public bool AutoSubtitleLanguageSelected
+		{
+			get
+			{
+				return this.AutoSubtitle == AutoSubtitleType.Language;
+			}
+		}
+
+		private bool autoSubtitleBurnIn;
+		public bool AutoSubtitleBurnIn
+		{
+			get
+			{
+				return this.autoSubtitleBurnIn;
+			}
+
+			set
+			{
+				this.autoSubtitleBurnIn = value;
+				this.RaisePropertyChanged(() => this.AutoSubtitleBurnIn);
+			}
+		}
+
+		private string subtitleLanguageCode;
+		public string SubtitleLanguageCode
+		{
+			get
+			{
+				return this.subtitleLanguageCode;
+			}
+
+			set
+			{
+				this.subtitleLanguageCode = value;
+				this.RaisePropertyChanged(() => this.SubtitleLanguageCode);
+			}
+		}
+
+		private bool autoSubtitleOnlyIfDifferent;
+		public bool AutoSubtitleOnlyIfDifferent
+		{
+			get
+			{
+				return this.autoSubtitleOnlyIfDifferent;
+			}
+
+			set
+			{
+				this.autoSubtitleOnlyIfDifferent = value;
+				this.RaisePropertyChanged(() => this.AutoSubtitleOnlyIfDifferent);
+			}
+		}
+
+		private bool autoSubtitleAll;
+		public bool AutoSubtitleAll
+		{
+			get
+			{
+				return this.autoSubtitleAll;
+			}
+
+			set
+			{
+				this.autoSubtitleAll = value;
+				this.RaisePropertyChanged(() => this.AutoSubtitleAll);
 			}
 		}
 
@@ -504,8 +619,14 @@ namespace VidCoder.ViewModel
 						Settings.Default.WhenFileExistsBatch = this.WhenFileExistsBatch;
 						Settings.Default.MinimizeToTray = this.MinimizeToTray;
 						Settings.Default.PlaySoundOnCompletion = this.PlaySoundOnCompletion;
-						Settings.Default.NativeLanguageCode = this.NativeLanguageCode;
-						Settings.Default.DubAudio = this.DubAudio;
+						Settings.Default.AutoAudio = this.AutoAudio;
+						Settings.Default.AudioLanguageCode = this.AudioLanguageCode;
+						Settings.Default.AutoAudioAll = this.AutoAudioAll;
+						Settings.Default.AutoSubtitle = this.AutoSubtitle;
+						Settings.Default.AutoSubtitleBurnIn = this.AutoSubtitleBurnIn;
+						Settings.Default.SubtitleLanguageCode = this.SubtitleLanguageCode;
+						Settings.Default.AutoSubtitleOnlyIfDifferent = this.AutoSubtitleOnlyIfDifferent;
+						Settings.Default.AutoSubtitleAll = this.AutoSubtitleAll;
 						Settings.Default.LogVerbosity = this.LogVerbosity;
 						var autoPauseStringCollection = new StringCollection();
 						foreach (string process in this.AutoPauseProcesses)

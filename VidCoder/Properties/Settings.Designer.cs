@@ -133,7 +133,7 @@ namespace VidCoder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("und")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string NativeLanguageCode {
             get {
                 return ((string)(this["NativeLanguageCode"]));
@@ -691,6 +691,102 @@ namespace VidCoder.Properties {
             }
             set {
                 this["VideoFileExtensions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("und")]
+        public string AudioLanguageCode {
+            get {
+                return ((string)(this["AudioLanguageCode"]));
+            }
+            set {
+                this["AudioLanguageCode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("und")]
+        public string SubtitleLanguageCode {
+            get {
+                return ((string)(this["SubtitleLanguageCode"]));
+            }
+            set {
+                this["SubtitleLanguageCode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Disabled")]
+        public global::VidCoder.Model.AutoAudioType AutoAudio {
+            get {
+                return ((global::VidCoder.Model.AutoAudioType)(this["AutoAudio"]));
+            }
+            set {
+                this["AutoAudio"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Disabled")]
+        public global::VidCoder.Model.AutoSubtitleType AutoSubtitle {
+            get {
+                return ((global::VidCoder.Model.AutoSubtitleType)(this["AutoSubtitle"]));
+            }
+            set {
+                this["AutoSubtitle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoAudioAll {
+            get {
+                return ((bool)(this["AutoAudioAll"]));
+            }
+            set {
+                this["AutoAudioAll"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoSubtitleAll {
+            get {
+                return ((bool)(this["AutoSubtitleAll"]));
+            }
+            set {
+                this["AutoSubtitleAll"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoSubtitleOnlyIfDifferent {
+            get {
+                return ((bool)(this["AutoSubtitleOnlyIfDifferent"]));
+            }
+            set {
+                this["AutoSubtitleOnlyIfDifferent"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoSubtitleBurnIn {
+            get {
+                return ((bool)(this["AutoSubtitleBurnIn"]));
+            }
+            set {
+                this["AutoSubtitleBurnIn"] = value;
             }
         }
     }

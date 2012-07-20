@@ -126,6 +126,7 @@
     <Reference Include="Ookii.Dialogs.Wpf">
       <HintPath>..\Lib\Ookii.Dialogs.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="SplitButtonWpf">
       <HintPath>..\Lib\SplitButtonWpf.dll</HintPath>
     </Reference>
@@ -320,6 +321,8 @@
     <Compile Include="Messages\OptionsChangedMessage.cs" />
     <Compile Include="Messages\StatusMessage.cs" />
     <Compile Include="Messages\VideoSourceChangedMessage.cs" />
+    <Compile Include="Model\AutoAudioType.cs" />
+    <Compile Include="Model\AutoSubtitleType.cs" />
     <Compile Include="Model\ComboChoice.cs" />
     <Compile Include="Model\ComboChoiceT.cs" />
     <Compile Include="Model\Database.cs" />

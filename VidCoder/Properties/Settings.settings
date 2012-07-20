@@ -30,7 +30,7 @@
       <Value Profile="(Default)">{source}-{title}</Value>
     </Setting>
     <Setting Name="NativeLanguageCode" Type="System.String" Scope="User">
-      <Value Profile="(Default)">und</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="DubAudio" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -169,6 +169,30 @@
     </Setting>
     <Setting Name="VideoFileExtensions" Type="System.String" Scope="User">
       <Value Profile="(Default)">avi, mkv, mp4, m4v, mpg, mpeg, mov, wmv</Value>
+    </Setting>
+    <Setting Name="AudioLanguageCode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">und</Value>
+    </Setting>
+    <Setting Name="SubtitleLanguageCode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">und</Value>
+    </Setting>
+    <Setting Name="AutoAudio" Type="VidCoder.Model.AutoAudioType" Scope="User">
+      <Value Profile="(Default)">Disabled</Value>
+    </Setting>
+    <Setting Name="AutoSubtitle" Type="VidCoder.Model.AutoSubtitleType" Scope="User">
+      <Value Profile="(Default)">Disabled</Value>
+    </Setting>
+    <Setting Name="AutoAudioAll" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="AutoSubtitleAll" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="AutoSubtitleOnlyIfDifferent" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="AutoSubtitleBurnIn" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

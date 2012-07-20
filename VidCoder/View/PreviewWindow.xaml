@@ -87,6 +87,7 @@
 						<ComboBoxItem>15</ComboBoxItem>
 						<ComboBoxItem>30</ComboBoxItem>
 						<ComboBoxItem>60</ComboBoxItem>
+						<ComboBoxItem>120</ComboBoxItem>
 					</ComboBox>
 					<TextBlock
 						Text="seconds" VerticalAlignment="Center" Margin="7,0,0,0"

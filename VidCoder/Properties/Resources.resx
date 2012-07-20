@@ -325,4 +325,13 @@ You should set this if you know your playback device only supports a certain pro
   <data name="QueueColumnNameDuration" xml:space="preserve">
     <value>Duration</value>
   </data>
+  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
+    <value>When automatic audio selection is disabled, the last picked track is re-selected.</value>
+  </data>
+  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
+    <value>When automatic subtitle selection is disabled, the last picked subtitles are re-selected.</value>
+  </data>
+  <data name="ForeignAudioSearchToolTip" xml:space="preserve">
+    <value>Searches for subtitle track that is likely to contain bits of foreign dialogue. Good for movies that are mainly in your native language.</value>
+  </data>
 </root>

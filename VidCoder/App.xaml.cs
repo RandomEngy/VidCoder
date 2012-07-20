@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using VidCoder.Model;
 using VidCoder.Properties;
 using VidCoder.Services;
 using VidCoder.ViewModel;
@@ -36,6 +37,27 @@ namespace VidCoder
 				{
 					Settings.Default.Upgrade();
 					Settings.Default.ApplicationVersion = Utilities.CurrentVersion;
+
+					if (Settings.Default.NativeLanguageCode != string.Empty)
+					{
+						var languageCode = Settings.Default.NativeLanguageCode;
+						Settings.Default.NativeLanguageCode = string.Empty;
+
+						if (languageCode != "und")
+						{
+							if (Settings.Default.DubAudio)
+							{
+								Settings.Default.AudioLanguageCode = languageCode;
+								Settings.Default.AutoAudio = AutoAudioType.Language;
+							}
+							else
+							{
+								Settings.Default.SubtitleLanguageCode = languageCode;
+								Settings.Default.AutoSubtitle = AutoSubtitleType.Language;
+							}
+						}
+					}
+
 					Settings.Default.Save();
 				}
 			}

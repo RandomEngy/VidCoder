@@ -37,11 +37,31 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool selected;
+		public bool Selected
+		{
+			get
+			{
+				return this.selected;
+			}
+
+			set
+			{
+				this.selected = value;
+				this.RaisePropertyChanged(() => this.Selected);
+			}
+		}
+
 		public string SubtitleName
 		{
 			get
 			{
-				return this.SubtitleDialogViewModel.InputTrackChoices[this.TrackNumber];
+				if (this.TrackNumber == 0)
+				{
+					return "Foreign Audio Search";
+				}
+
+				return this.mainViewModel.SelectedTitle.Subtitles[this.TrackNumber - 1].Display;
 			}
 		}
 
@@ -50,14 +70,6 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return this.subtitle.TrackNumber;
-			}
-
-			set
-			{
-				this.subtitle.TrackNumber = value;
-				this.RaisePropertyChanged(() => this.SubtitleName);
-				this.RaisePropertyChanged(() => this.TrackNumber);
-				this.SubtitleDialogViewModel.UpdateWarningVisibility();
 			}
 		}
 

@@ -694,98 +694,210 @@ namespace VidCoder.ViewModel
 						this.OutputPathVM.NameFormatOverride = null;
 					}
 
-					// Keep audio/subtitle choices if they match up in index and language.
+					// Save old subtitles
 					Subtitles oldSubtitles = this.CurrentSubtitles;
 					this.CurrentSubtitles = new Subtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
 
-					if (this.oldTitle != null)
+					// Audio selection
+					switch (Settings.Default.AutoAudio)
 					{
-						var keptAudioChoices = new List<AudioChoiceViewModel>();
-						foreach (AudioChoiceViewModel audioChoiceVM in this.AudioChoices)
-						{
-							if (audioChoiceVM.SelectedIndex < this.selectedTitle.AudioTracks.Count &&
-								this.oldTitle.AudioTracks[audioChoiceVM.SelectedIndex].Language == this.selectedTitle.AudioTracks[audioChoiceVM.SelectedIndex].Language)
+						case AutoAudioType.Disabled:
+							// If no auto-selection is done, keep audio from previous selection.
+							if (this.oldTitle != null)
 							{
-								keptAudioChoices.Add(audioChoiceVM);
-							}
-						}
-
-						this.AudioChoices.Clear();
-						foreach (AudioChoiceViewModel audioChoiceVM in keptAudioChoices)
-						{
-							this.AudioChoices.Add(audioChoiceVM);
-						}
-
-						if (oldSubtitles != null)
-						{
-							if (this.selectedTitle.Subtitles.Count > 0)
-							{
-								// Keep source subtitles when changing title, but not specific SRT files.
-								var keptSourceSubtitles = new List<SourceSubtitle>();
-								foreach (SourceSubtitle sourceSubtitle in oldSubtitles.SourceSubtitles)
+								var keptAudioChoices = new List<AudioChoiceViewModel>();
+								foreach (AudioChoiceViewModel audioChoiceVM in this.AudioChoices)
 								{
-									if (sourceSubtitle.TrackNumber == 0)
+									if (audioChoiceVM.SelectedIndex < this.selectedTitle.AudioTracks.Count &&
+										this.oldTitle.AudioTracks[audioChoiceVM.SelectedIndex].Language == this.selectedTitle.AudioTracks[audioChoiceVM.SelectedIndex].Language)
 									{
-										keptSourceSubtitles.Add(sourceSubtitle);
-									}
-									else if (sourceSubtitle.TrackNumber - 1 < this.selectedTitle.Subtitles.Count &&
-										this.oldTitle.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode == this.selectedTitle.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode)
-									{
-										keptSourceSubtitles.Add(sourceSubtitle);
+										keptAudioChoices.Add(audioChoiceVM);
 									}
 								}
 
-								foreach (SourceSubtitle sourceSubtitle in keptSourceSubtitles)
+								this.AudioChoices.Clear();
+								foreach (AudioChoiceViewModel audioChoiceVM in keptAudioChoices)
 								{
-									this.CurrentSubtitles.SourceSubtitles.Add(sourceSubtitle);
+									this.AudioChoices.Add(audioChoiceVM);
 								}
 							}
-						}
-					}
-					else
-					{
-						this.AudioChoices.Clear();
-					}
-
-					// If we have a preferred language specified, try to apply that language
-					if (Settings.Default.NativeLanguageCode != "und")
-					{
-						// Only mess with the audio tracks if we're in dub mode and we're not carrying over previous selections
-						if (Settings.Default.DubAudio && (this.AudioChoices.Count == 0 || this.AudioChoices.Count == 1 && this.AudioChoices[0].SelectedIndex == 0))
-						{
-							List<AudioTrack> nativeTracks = this.selectedTitle.AudioTracks.Where(track => track.LanguageCode == Settings.Default.NativeLanguageCode).ToList();
-							if (nativeTracks.Count > 0)
+							else
 							{
 								this.AudioChoices.Clear();
-								var newVM = new AudioChoiceViewModel();
-								newVM.SelectedIndex = nativeTracks[0].TrackNumber - 1;
+							}
+
+							break;
+						case AutoAudioType.Language:
+							this.AudioChoices.Clear();
+							List<AudioTrack> nativeTracks = this.selectedTitle.AudioTracks.Where(track => track.LanguageCode == Settings.Default.AudioLanguageCode).ToList();
+							if (nativeTracks.Count > 0)
+							{
+								if (Settings.Default.AutoAudioAll)
+								{
+									foreach (AudioTrack audioTrack in nativeTracks)
+									{
+										var newVM = new AudioChoiceViewModel { SelectedIndex = audioTrack.TrackNumber - 1 };
+										this.AudioChoices.Add(newVM);
+									}
+								}
+								else
+								{
+									var newVM = new AudioChoiceViewModel { SelectedIndex = nativeTracks[0].TrackNumber - 1 };
+									this.AudioChoices.Add(newVM);
+								}
+							}
+							break;
+						case AutoAudioType.All:
+							this.AudioChoices.Clear();
+							foreach (AudioTrack audioTrack in this.selectedTitle.AudioTracks)
+							{
+								var newVM = new AudioChoiceViewModel { SelectedIndex = audioTrack.TrackNumber - 1 };
 								this.AudioChoices.Add(newVM);
 							}
-						}
-
-						// Try to apply the preferred language subtitle if no subtitles already exist
-						if (this.CurrentSubtitles.SourceSubtitles.Count == 0 && this.CurrentSubtitles.SrtSubtitles.Count == 0)
-						{
-							List<Subtitle> nativeSubtitles = this.selectedTitle.Subtitles.Where(subtitle => subtitle.LanguageCode == "iso639-2: " + Settings.Default.NativeLanguageCode).ToList();
-							if (nativeSubtitles.Count > 0)
-							{
-								this.CurrentSubtitles.SourceSubtitles.Add(new SourceSubtitle
-								{
-									BurnedIn = false,
-									Default = true,
-									Forced = false,
-									TrackNumber = nativeSubtitles[0].TrackNumber
-								});
-							}
-						}
+							break;
+						default:
+							throw new ArgumentOutOfRangeException();
 					}
 
+					// If nothing got selected, add the first one.
 					if (this.selectedTitle.AudioTracks.Count > 0 && this.AudioChoices.Count == 0)
 					{
-						var newVM = new AudioChoiceViewModel();
-						newVM.SelectedIndex = 0;
+						var newVM = new AudioChoiceViewModel { SelectedIndex = 0 };
 						this.AudioChoices.Add(newVM);
 					}
+
+					switch (Settings.Default.AutoSubtitle)
+					{
+						case AutoSubtitleType.Disabled:
+							// If no auto-selection is done, try and keep selections from previous title
+							if (this.oldTitle != null && oldSubtitles != null)
+							{
+								if (this.selectedTitle.Subtitles.Count > 0)
+								{
+									// Keep source subtitles when changing title, but not specific SRT files.
+									var keptSourceSubtitles = new List<SourceSubtitle>();
+									foreach (SourceSubtitle sourceSubtitle in oldSubtitles.SourceSubtitles)
+									{
+										if (sourceSubtitle.TrackNumber == 0)
+										{
+											keptSourceSubtitles.Add(sourceSubtitle);
+										}
+										else if (sourceSubtitle.TrackNumber - 1 < this.selectedTitle.Subtitles.Count &&
+											this.oldTitle.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode == this.selectedTitle.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode)
+										{
+											keptSourceSubtitles.Add(sourceSubtitle);
+										}
+									}
+
+									foreach (SourceSubtitle sourceSubtitle in keptSourceSubtitles)
+									{
+										this.CurrentSubtitles.SourceSubtitles.Add(sourceSubtitle);
+									}
+								}
+							}
+							break;
+						case AutoSubtitleType.ForeignAudioSearch:
+							this.CurrentSubtitles.SourceSubtitles.Add(
+								new SourceSubtitle
+									{
+										TrackNumber = 0,
+										BurnedIn = Settings.Default.AutoSubtitleBurnIn,
+										Forced = true,
+										Default = true
+									});
+							break;
+						case AutoSubtitleType.Language:
+							string languageCode = Settings.Default.SubtitleLanguageCode;
+							bool audioSame = false;
+							if (this.AudioChoices.Count > 0)
+							{
+								if (this.selectedTitle.AudioTracks[this.AudioChoices[0].SelectedIndex].LanguageCode == languageCode)
+								{
+									audioSame = true;
+								}
+							}
+
+							if (!Settings.Default.AutoSubtitleOnlyIfDifferent || !audioSame)
+							{
+								List<Subtitle> nativeSubtitles = this.selectedTitle.Subtitles.Where(subtitle => subtitle.LanguageCode == languageCode).ToList();
+								if (nativeSubtitles.Count > 0)
+								{
+									if (Settings.Default.AutoSubtitleAll)
+									{
+										foreach (Subtitle subtitle in nativeSubtitles)
+										{
+											this.CurrentSubtitles.SourceSubtitles.Add(new SourceSubtitle
+											{
+												BurnedIn = false,
+												Default = false,
+												Forced = false,
+												TrackNumber = subtitle.TrackNumber
+											});
+										}
+									}
+									else
+									{
+										this.CurrentSubtitles.SourceSubtitles.Add(new SourceSubtitle
+										{
+											BurnedIn = false,
+											Default = false,
+											Forced = false,
+											TrackNumber = nativeSubtitles[0].TrackNumber
+										});
+									}
+								}
+							}
+
+							break;
+						case AutoSubtitleType.All:
+							foreach (Subtitle subtitle in this.selectedTitle.Subtitles)
+							{
+								this.CurrentSubtitles.SourceSubtitles.Add(
+									new SourceSubtitle
+										{
+											 TrackNumber = subtitle.TrackNumber,
+											 BurnedIn = false,
+											 Default = false,
+											 Forced = false
+										});
+							}
+							break;
+						default:
+							throw new ArgumentOutOfRangeException();
+					}
+
+					//// If we have a preferred language specified, try to apply that language
+					//if (Settings.Default.NativeLanguageCode != "und")
+					//{
+					//    // Only mess with the audio tracks if we're in dub mode and we're not carrying over previous selections
+					//    if (Settings.Default.DubAudio && (this.AudioChoices.Count == 0 || this.AudioChoices.Count == 1 && this.AudioChoices[0].SelectedIndex == 0))
+					//    {
+					//        List<AudioTrack> nativeTracks = this.selectedTitle.AudioTracks.Where(track => track.LanguageCode == Settings.Default.NativeLanguageCode).ToList();
+					//        if (nativeTracks.Count > 0)
+					//        {
+					//            this.AudioChoices.Clear();
+					//            var newVM = new AudioChoiceViewModel();
+					//            newVM.SelectedIndex = nativeTracks[0].TrackNumber - 1;
+					//            this.AudioChoices.Add(newVM);
+					//        }
+					//    }
+
+					//    // Try to apply the preferred language subtitle if no subtitles already exist
+					//    if (this.CurrentSubtitles.SourceSubtitles.Count == 0 && this.CurrentSubtitles.SrtSubtitles.Count == 0)
+					//    {
+					//        List<Subtitle> nativeSubtitles = this.selectedTitle.Subtitles.Where(subtitle => subtitle.LanguageCode == "iso639-2: " + Settings.Default.NativeLanguageCode).ToList();
+					//        if (nativeSubtitles.Count > 0)
+					//        {
+					//            this.CurrentSubtitles.SourceSubtitles.Add(new SourceSubtitle
+					//            {
+					//                BurnedIn = false,
+					//                Default = true,
+					//                Forced = false,
+					//                TrackNumber = nativeSubtitles[0].TrackNumber
+					//            });
+					//        }
+					//    }
+					//}
 
 					this.UseDefaultChapterNames = true;
 					this.PopulateChapterSelectLists();
@@ -2063,7 +2175,7 @@ namespace VidCoder.ViewModel
 		{
 			Title selectTitle = null;
 
-			if (this.sourceData != null && this.sourceData.Titles.Count > 0)
+			if (this.sourceData != null && this.sourceData.Titles != null && this.sourceData.Titles.Count > 0)
 			{
 				if (this.sourceData.FeatureTitle > 0)
 				{
