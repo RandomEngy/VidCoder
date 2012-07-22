@@ -1334,7 +1334,8 @@ namespace VidCoder.ViewModel.Components
 							actionType != EncodeCompleteActionType.LogOff &&
 							actionType != EncodeCompleteActionType.Shutdown)
 						{
-							var soundPlayer = new SoundPlayer("Encode_Complete.wav");
+							string soundPath = Path.Combine(Directory.GetCurrentDirectory(), "Encode_Complete.wav");
+							var soundPlayer = new SoundPlayer(soundPath);
 							soundPlayer.Play();
 						}
 					}
