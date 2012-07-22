@@ -79,7 +79,7 @@
 						</StackPanel>
 					</Button>
 					<ComboBox
-						Height="22" Width="40" Margin="20,0,0,0"
+						Height="22" Width="45" Margin="20,0,0,0"
 						SelectedValue="{Binding PreviewSeconds}"
 						SelectedValuePath="Content">
 						<ComboBoxItem>5</ComboBoxItem>

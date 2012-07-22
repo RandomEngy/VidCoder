@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Reflection;
@@ -328,6 +329,64 @@ namespace VidCoder
 
 			return string.Format("{0}s", span.Seconds);
 		}
+
+		public static string FormatFileSize(long bytes)
+		{
+			if (bytes < 1024)
+			{
+				return bytes.ToString(CultureInfo.InvariantCulture) + " bytes";
+			}
+
+			if (bytes < 1048576)
+			{
+				double kilobytes = ((double)bytes) / 1024;
+
+				return kilobytes.ToString(GetFormatForFilesize(kilobytes)) + " KB";
+			}
+
+			double megabytes = ((double)bytes) / 1048576;
+
+			return megabytes.ToString(GetFormatForFilesize(megabytes)) + " MB";
+		}
+
+		private static string GetFormatForFilesize(double size)
+		{
+			int digits = 0;
+			double num = size;
+
+			while (num > 1.0)
+			{
+				num /= 10;
+				digits++;
+			}
+
+			int decimalPlaces = Math.Min(2, 3 - digits);
+
+			return "F" + decimalPlaces;
+		}
+
+		//public static string FormatFileSize(long size)
+		//{
+		//    if (size < 1000)
+		//    {
+		//        return size.ToString(CultureInfo.InvariantCulture) + " bytes";
+		//    }
+
+		//    double kilobytes = (double)size / 1024;
+		//    if (kilobytes < 1000)
+		//    {
+		//        return kilobytes.ToString("F2", CultureInfo.InvariantCulture) + " KB";
+		//    }
+
+		//    double megabytes = kilobytes / 1024;
+		//    if (megabytes < 1000)
+		//    {
+		//        return megabytes.ToString("F2", CultureInfo.InvariantCulture) + " MB";
+		//    }
+
+		//    double gigabytes = kilobytes / 1024;
+		//    return gigabytes.ToString("F2", CultureInfo.InvariantCulture) + " GB";
+		//}
 
 		public static IMessageBoxService MessageBox
 		{

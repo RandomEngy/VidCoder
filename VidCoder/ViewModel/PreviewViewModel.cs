@@ -738,7 +738,9 @@ namespace VidCoder.ViewModel
 					}
 					else
 					{
-						this.logger.Log("Finished preview clip generation");
+						var previewFileInfo = new FileInfo(this.previewFilePath);
+						this.logger.Log("Finished preview clip generation. Size: " + Utilities.FormatFileSize(previewFileInfo.Length));
+
 						FileService.Instance.LaunchFile(previewFilePath);
 					}
 				}
