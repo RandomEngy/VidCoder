@@ -20,16 +20,33 @@ namespace VidCoder.Model
 		public void PlayTitle(string discPath, int title)
 		{
 			string vlcExePath = RegKey.GetValue(string.Empty) as string;
+			string version = RegKey.GetValue("Version") as string;
+
+			if (!discPath.EndsWith(@"\"))
+			{
+				discPath += @"\";
+			}
+
+			string arguments;
+			if (version.StartsWith("1"))
+			{
+				arguments = "DVD://\"" + discPath + "\\\"@" + title;
+			}
+			else
+			{
+				arguments = "dvd:///\"" + discPath + "\\\"#" + title;
+			}
 
 			var process = new Process();
 			process.StartInfo =
 				new ProcessStartInfo
-			    {
+				{
 					FileName = vlcExePath,
-					Arguments = "DVD://\"" + discPath + "\"@" + title
-			    };
+					Arguments = arguments
+				};
 
 			process.Start();
+
 		}
 
 		public string Id
