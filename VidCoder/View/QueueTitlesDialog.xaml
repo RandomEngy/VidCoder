@@ -49,12 +49,6 @@
 						<TextBlock Text="Play Source" Margin="5,0,0,0" VerticalAlignment="Center" />
 					</StackPanel>
 				</Button>
-				<ComboBox
-					Margin="7,0,0,0"
-					ItemsSource="{Binding PlayerChoices}"
-					DisplayMemberPath="Display"
-					SelectedItem="{Binding SelectedPlayer}"
-					Visibility="{Binding PlayersAvailable, Converter={StaticResource VisibilityConverter}}"/>
 			</StackPanel>
 		</Grid>
 		<CheckBox Name="checkBox1" Margin="23,0,0,106" HorizontalAlignment="Left" VerticalAlignment="Bottom" IsChecked="{Binding SelectRange}">

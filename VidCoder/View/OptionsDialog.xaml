@@ -26,12 +26,20 @@
 					<CheckBox
 						Height="16" Margin="10,69,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="230"
 						IsChecked="{Binding PlaySoundOnCompletion}">Play sound on queue completion</CheckBox>
-					
+
+					<TextBlock
+						Height="23" HorizontalAlignment="Left" Margin="10,100,0,0" Text="Preferred DVD player:" VerticalAlignment="Top" />
+					<ComboBox 
+						Height="23" HorizontalAlignment="Left" Margin="133,97,0,0" VerticalAlignment="Top"
+						ItemsSource="{Binding PlayerChoices}"
+						DisplayMemberPath="Display"
+						SelectedItem="{Binding SelectedPlayer}" />
+
 					<CheckBox
-						Height="16" Margin="10,103,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="182"
+						Height="16" Margin="10,135,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="182"
 						IsChecked="{Binding UpdatesEnabled}">Enable automatic updates</CheckBox>
 					<Grid
-						Height="31" Margin="27,125,11,0" VerticalAlignment="Top"
+						Height="31" Margin="27,157,11,0" VerticalAlignment="Top"
 						Visibility="{Binding UpdatesEnabled, Converter={StaticResource VisibilityConverter}}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto" />

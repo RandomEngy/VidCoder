@@ -4,7 +4,7 @@
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	Title="{Binding Title}"
 	Width="864" Height="514"
-	MinWidth="300" MinHeight="200"
+	MinWidth="405" MinHeight="200"
 	Closing="Window_Closing"
 	AllowDrop="True"
 	PreviewDrop="Window_PreviewDrop"
@@ -72,14 +72,24 @@
 					Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
 					<Button
 						Height="23"
-						Command="{Binding GeneratePreviewCommand}" ToolTip="Encodes and plays a small preview clip from the selected screen. Uses current encoding settings.">
+						Command="{Binding PlaySourceCommand}" ToolTip="Plays the source video."
+						Margin="0,0,0,0">
+						<StackPanel Orientation="Horizontal" Margin="4,0">
+							<Image Source="/Icons/blue_play_80.png" VerticalAlignment="Center" Height="15" />
+							<TextBlock Text="Play Source" Margin="5,0,0,0" VerticalAlignment="Center" />
+						</StackPanel>
+					</Button>
+					<Button
+						Height="23"
+						Command="{Binding GeneratePreviewCommand}" ToolTip="Encodes and plays a small preview clip from the selected screen. Uses current encoding settings."
+						Margin="20,0,0,0">
 						<StackPanel Orientation="Horizontal" Margin="4,0">
 							<Image Source="/Icons/play_clip.png" VerticalAlignment="Center" Height="15" />
 							<TextBlock Text="Encode Preview Clip" Margin="5,0,0,0" VerticalAlignment="Center" />
 						</StackPanel>
 					</Button>
 					<ComboBox
-						Height="22" Width="45" Margin="20,0,0,0"
+						Height="22" Width="45" Margin="10,0,0,0"
 						SelectedValue="{Binding PreviewSeconds}"
 						SelectedValuePath="Content">
 						<ComboBoxItem>5</ComboBoxItem>

@@ -34,6 +34,8 @@ namespace VidCoder.ViewModel
 		private int previewCount;
 		private bool showAudioTrackNameField;
 
+		private List<IVideoPlayer> playerChoices;
+
 		private int initialLogVerbosity;
 
 		private IUpdater updateService;
@@ -78,6 +80,21 @@ namespace VidCoder.ViewModel
 				foreach (string process in autoPauseStringCollection)
 				{
 					this.autoPauseProcesses.Add(process);
+				}
+			}
+
+			this.playerChoices = Players.All;
+			if (this.playerChoices.Count > 0)
+			{
+				this.selectedPlayer = this.playerChoices[0];
+
+				foreach (IVideoPlayer player in this.playerChoices)
+				{
+					if (player.Id == Settings.Default.PreferredPlayer)
+					{
+						this.selectedPlayer = player;
+						break;
+					}
 				}
 			}
 
@@ -154,6 +171,29 @@ namespace VidCoder.ViewModel
 			{
 				this.updateProgress = value;
 				this.RaisePropertyChanged(() => this.UpdateProgress);
+			}
+		}
+
+		public List<IVideoPlayer> PlayerChoices
+		{
+			get
+			{
+				return this.playerChoices;
+			}
+		}
+
+		private IVideoPlayer selectedPlayer;
+		public IVideoPlayer SelectedPlayer
+		{
+			get
+			{
+				return this.selectedPlayer;
+			}
+
+			set
+			{
+				this.selectedPlayer = value;
+				this.RaisePropertyChanged(() => this.SelectedPlayer);
 			}
 		}
 
@@ -656,6 +696,9 @@ namespace VidCoder.ViewModel
 						Settings.Default.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
 						Settings.Default.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
 						Settings.Default.VideoFileExtensions = this.VideoFileExtensions;
+
+						Settings.Default.PreferredPlayer = this.selectedPlayer.Id;
+
 						Settings.Default.Save();
 
 						Messenger.Default.Send(new OptionsChangedMessage());

@@ -313,7 +313,7 @@ namespace VidCoder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When automatic audio selection is disabled, the last picked track is re-selected..
+        ///   Looks up a localized string similar to When automatic audio selection is disabled, the last picked track is persisted..
         /// </summary>
         public static string AutoAudioDisabledToolTip {
             get {
@@ -322,7 +322,7 @@ namespace VidCoder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When automatic subtitle selection is disabled, the last picked subtitles are re-selected..
+        ///   Looks up a localized string similar to When automatic subtitle selection is disabled, the last picked subtitles are persisted..
         /// </summary>
         public static string AutoSubtitleDisabledToolTip {
             get {

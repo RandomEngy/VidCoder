@@ -365,29 +365,6 @@ namespace VidCoder
 			return "F" + decimalPlaces;
 		}
 
-		//public static string FormatFileSize(long size)
-		//{
-		//    if (size < 1000)
-		//    {
-		//        return size.ToString(CultureInfo.InvariantCulture) + " bytes";
-		//    }
-
-		//    double kilobytes = (double)size / 1024;
-		//    if (kilobytes < 1000)
-		//    {
-		//        return kilobytes.ToString("F2", CultureInfo.InvariantCulture) + " KB";
-		//    }
-
-		//    double megabytes = kilobytes / 1024;
-		//    if (megabytes < 1000)
-		//    {
-		//        return megabytes.ToString("F2", CultureInfo.InvariantCulture) + " MB";
-		//    }
-
-		//    double gigabytes = kilobytes / 1024;
-		//    return gigabytes.ToString("F2", CultureInfo.InvariantCulture) + " GB";
-		//}
-
 		public static IMessageBoxService MessageBox
 		{
 			get
@@ -492,6 +469,11 @@ namespace VidCoder
 			{
 				return parentDirectory.Name;
 			}
+		}
+
+		public static bool IsDvdFolder(string directory)
+		{
+			return Path.GetFileName(directory) == "VIDEO_TS" || Directory.Exists(Path.Combine(directory, "VIDEO_TS"));
 		}
 
 		public static bool IsDiscFolder(string directory)

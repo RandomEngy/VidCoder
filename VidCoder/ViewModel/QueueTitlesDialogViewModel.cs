@@ -21,7 +21,6 @@ namespace VidCoder.ViewModel
 	{
 		private List<TitleSelectionViewModel> titles;
 		private ObservableCollection<TitleSelectionViewModel> selectedTitles;
-		private List<IVideoPlayer> playerChoices;
 		private bool selectRange;
 		private int startRange;
 		private int endRange;
@@ -48,22 +47,6 @@ namespace VidCoder.ViewModel
 			{
 				var titleVM = new TitleSelectionViewModel(title, this);
 				this.titles.Add(titleVM);
-			}
-
-			// Populate list of available video players and set the currently selected one
-			this.playerChoices = Players.Installed;
-			if (this.playerChoices.Count > 0)
-			{
-				this.selectedPlayer = this.playerChoices[0];
-
-				foreach (IVideoPlayer player in this.playerChoices)
-				{
-					if (player.Id == Settings.Default.LastPlayer)
-					{
-						this.selectedPlayer = player;
-						break;
-					}
-				}
 			}
 
 			// Perform range selection if enabled.
@@ -163,38 +146,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return Path.GetFileName(this.main.SourcePath) == "VIDEO_TS" || Directory.Exists(Path.Combine(this.main.SourcePath, "VIDEO_TS"));
-			}
-		}
-
-		public bool PlayersAvailable
-		{
-			get
-			{
-				return this.playerChoices.Count > 0;
-			}
-		}
-
-		public List<IVideoPlayer> PlayerChoices
-		{
-			get
-			{
-				return this.playerChoices;
-			}
-		}
-
-		private IVideoPlayer selectedPlayer;
-		public IVideoPlayer SelectedPlayer
-		{
-			get
-			{
-				return this.selectedPlayer;
-			}
-
-			set
-			{
-				this.selectedPlayer = value;
-				this.RaisePropertyChanged(() => this.SelectedPlayer);
+				return Utilities.IsDvdFolder(this.main.SourcePath);
 			}
 		}
 
@@ -349,11 +301,17 @@ namespace VidCoder.ViewModel
 			{
 				return this.playCommand ?? (this.playCommand = new RelayCommand(() =>
 					{
-						this.selectedPlayer.PlayTitle(this.main.SourcePath, this.selectedTitles[0].Title.TitleNumber);
+						IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Settings.Default.PreferredPlayer);
+						if (player == null)
+						{
+							player = Players.Installed[0];
+						}
+
+						player.PlayTitle(this.main.SourcePath, this.selectedTitles[0].Title.TitleNumber);
 					},
 					() =>
 					{
-						return this.playerChoices.Count > 0;
+						return Players.Installed.Count > 0;
 					}));
 			}
 		}
@@ -367,11 +325,6 @@ namespace VidCoder.ViewModel
 			Settings.Default.QueueTitlesTitleOverride = this.TitleStartOverride;
 			Settings.Default.QueueTitlesUseNameOverride = this.NameOverrideEnabled;
 			Settings.Default.QueueTitlesNameOverride = this.NameOverride;
-
-			if (this.selectedPlayer != null)
-			{
-				Settings.Default.LastPlayer = this.selectedPlayer.Id;
-			}
 
 			Settings.Default.Save();
 			base.OnClosing();

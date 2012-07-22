@@ -326,10 +326,10 @@ You should set this if you know your playback device only supports a certain pro
     <value>Duration</value>
   </data>
   <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>When automatic audio selection is disabled, the last picked track is re-selected.</value>
+    <value>When automatic audio selection is disabled, the last picked track is persisted.</value>
   </data>
   <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>When automatic subtitle selection is disabled, the last picked subtitles are re-selected.</value>
+    <value>When automatic subtitle selection is disabled, the last picked subtitles are persisted.</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
     <value>Searches for subtitle track that is likely to contain bits of foreign dialogue. Good for movies that are mainly in your native language.</value>

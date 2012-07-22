@@ -194,5 +194,8 @@
     <Setting Name="AutoSubtitleBurnIn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="PreferredPlayer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">vlc</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

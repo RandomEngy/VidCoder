@@ -202,8 +202,10 @@ namespace VidCoder.ViewModel
 			{
 				this.hasPreview = value;
 				this.GeneratePreviewCommand.RaiseCanExecuteChanged();
+				this.PlaySourceCommand.RaiseCanExecuteChanged();
 				this.RaisePropertyChanged(() => this.SeekBarEnabled);
 				this.RaisePropertyChanged(() => this.HasPreview);
+				this.RaisePropertyChanged(() => this.PlayAvailable);
 			}
 		}
 
@@ -264,6 +266,33 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool PlayAvailable
+		{
+			get
+			{
+				if (!this.HasPreview || this.mainViewModel.SourcePath == null)
+				{
+					return false;
+				}
+
+				string sourcePath = this.mainViewModel.SourcePath;
+				var fileAttributes = File.GetAttributes(sourcePath);
+				if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
+				{
+					// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
+					bool isDvd = Utilities.IsDvdFolder(this.mainViewModel.SourcePath);
+					bool playerInstalled = Players.Installed.Count > 0;
+
+					return isDvd && playerInstalled;
+				}
+				else
+				{
+					// Path is a file
+					return true;
+				}
+			}
+		}
+
 		public HandBrakeInstance ScanInstance
 		{
 			get
@@ -296,6 +325,38 @@ namespace VidCoder.ViewModel
 					{
 						return this.HasPreview;
 					}));
+			}
+		}
+
+		private RelayCommand playSourceCommand;
+		public RelayCommand PlaySourceCommand
+		{
+			get
+			{
+				return this.playSourceCommand ?? (this.playSourceCommand = new RelayCommand(() =>
+				    {
+						string sourcePath = this.mainViewModel.SourcePath;
+						var fileAttributes = File.GetAttributes(sourcePath);
+						if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
+						{
+							// Path is a directory
+							IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Settings.Default.PreferredPlayer);
+							if (player == null)
+							{
+								player = Players.Installed[0];
+							}
+
+							player.PlayTitle(sourcePath, this.mainViewModel.SelectedTitle.TitleNumber);
+						}
+						else
+						{
+							// Path is a file
+							FileService.Instance.LaunchFile(sourcePath);
+						}
+				    }, () =>
+				    {
+						return this.PlayAvailable;
+				    }));
 			}
 		}
 

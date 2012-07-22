@@ -789,5 +789,17 @@ namespace VidCoder.Properties {
                 this["AutoSubtitleBurnIn"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("vlc")]
+        public string PreferredPlayer {
+            get {
+                return ((string)(this["PreferredPlayer"]));
+            }
+            set {
+                this["PreferredPlayer"] = value;
+            }
+        }
     }
 }
