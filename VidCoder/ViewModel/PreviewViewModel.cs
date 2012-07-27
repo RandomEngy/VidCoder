@@ -203,6 +203,7 @@ namespace VidCoder.ViewModel
 				this.hasPreview = value;
 				this.GeneratePreviewCommand.RaiseCanExecuteChanged();
 				this.PlaySourceCommand.RaiseCanExecuteChanged();
+				this.RaisePropertyChanged(() => this.PlaySourceToolTip);
 				this.RaisePropertyChanged(() => this.SeekBarEnabled);
 				this.RaisePropertyChanged(() => this.HasPreview);
 				this.RaisePropertyChanged(() => this.PlayAvailable);
@@ -263,6 +264,37 @@ namespace VidCoder.ViewModel
 				}
 
 				return Settings.Default.PreviewCount;
+			}
+		}
+
+		public string PlaySourceToolTip
+		{
+			get
+			{
+				if (!this.HasPreview || this.mainViewModel.SourcePath == null)
+				{
+					return null;
+				}
+
+				string sourcePath = this.mainViewModel.SourcePath;
+				var fileAttributes = File.GetAttributes(sourcePath);
+				if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
+				{
+					// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
+					bool isDvd = Utilities.IsDvdFolder(this.mainViewModel.SourcePath);
+					if (!isDvd)
+					{
+						return "Source preview for Blu-ray not supported yet.";
+					}
+
+					bool playerInstalled = Players.Installed.Count > 0;
+					if (!playerInstalled)
+					{
+						return "A supported DVD player could not be found. Install VLC or MPC-HC to use this feature.";
+					}
+				}
+
+				return "Plays the source video.";
 			}
 		}
 

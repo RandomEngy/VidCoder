@@ -72,7 +72,7 @@
 					Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
 					<Button
 						Height="23"
-						Command="{Binding PlaySourceCommand}" ToolTip="Plays the source video."
+						Command="{Binding PlaySourceCommand}" ToolTip="{Binding PlaySourceToolTip}" ToolTipService.ShowOnDisabled="True"
 						Margin="0,0,0,0">
 						<StackPanel Orientation="Horizontal" Margin="4,0">
 							<Image Source="/Icons/blue_play_80.png" VerticalAlignment="Center" Height="15" />

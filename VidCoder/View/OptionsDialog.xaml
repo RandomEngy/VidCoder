@@ -17,11 +17,11 @@
 					<RadioButton
 						Content="Minimize to task bar" Height="16" HorizontalAlignment="Left" Margin="10,14,0,0" Name="radioButton1" VerticalAlignment="Top"
 						IsChecked="{Binding MinimizeToTray, Converter={StaticResource InverseBoolConverter}}"
-						GroupName="minimize"/>
+						GroupName="minimize1"/>
 					<RadioButton
 						Content="Minimize to system tray" Height="16" HorizontalAlignment="Left" Margin="10,36,0,0" Name="radioButton2" VerticalAlignment="Top"
 						IsChecked="{Binding MinimizeToTray}"
-						GroupName="minimize"/>
+						GroupName="minimize2"/>
 					
 					<CheckBox
 						Height="16" Margin="10,69,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="230"
