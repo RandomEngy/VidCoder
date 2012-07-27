@@ -1506,7 +1506,7 @@ namespace VidCoder.ViewModel.Components
 		{
 			DispatchService.Invoke(() =>
 			{
-				if (this.Encoding && !this.Paused)
+				if (this.Encoding && !this.Paused && this.CurrentJob.HandBrakeInstance != null)
 				{
 					this.PauseEncoding();
 				}
