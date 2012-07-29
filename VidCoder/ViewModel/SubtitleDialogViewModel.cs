@@ -27,8 +27,6 @@ namespace VidCoder.ViewModel
 		private Container outputFormat;
 		private bool defaultsEnabled;
 
-		private List<string> inputTrackChoices;
-
 		private bool textSubtitleWarningVisible;
 		private bool burnedOverlapWarningVisible;
 

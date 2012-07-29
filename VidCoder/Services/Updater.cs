@@ -17,6 +17,9 @@ namespace VidCoder.Services
 {
 	public class Updater : IUpdater
 	{
+		private const string UpdateInfoUrl = "http://engy.us/VidCoder/latest.xml";
+		private const string UpdateInfoUrlBeta = "http://engy.us/VidCoder/latest-beta.xml";
+
 		public const string UpdateInProgress = "UpdateInProgress";
 		public const string UpdateVersion = "UpdateVersion";
 		public const string UpdateInstallerLocation = "UpdateInstallerLocation";
@@ -40,6 +43,9 @@ namespace VidCoder.Services
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
 		private BackgroundWorker updateDownloader;
 		private bool processDownloadsUpdates = true;
+		private bool downloading;
+		private string latestInfoUrl;
+		private bool downloadingBeta;
 
 		public bool UpdateDownloading { get; set; }
 		public bool UpdateReady { get; set; }
@@ -223,6 +229,30 @@ namespace VidCoder.Services
 
 		private void StartBackgroundUpdate()
 		{
+			if (this.downloading)
+			{
+				return;
+			}
+
+			this.downloading = true;
+
+			bool beta = Settings.Default.BetaUpdates;
+
+#if BETA
+			beta = true;
+#endif
+
+			if (beta)
+			{
+				this.latestInfoUrl = UpdateInfoUrlBeta;
+				this.downloadingBeta = true;
+			}
+			else
+			{
+				this.latestInfoUrl = UpdateInfoUrl;
+				this.downloadingBeta = false;
+			}
+
 			this.updateDownloader = new BackgroundWorker { WorkerSupportsCancellation = true };
 			this.updateDownloader.DoWork += CheckAndDownloadUpdate;
 			this.updateDownloader.RunWorkerCompleted += (o, e) =>
@@ -235,8 +265,6 @@ namespace VidCoder.Services
 				}
 			};
 			this.updateDownloader.RunWorkerAsync();
-
-			this.UpdateDownloading = true;
 		}
 
 		private void CheckAndDownloadUpdate(object sender, DoWorkEventArgs e)
@@ -246,7 +274,7 @@ namespace VidCoder.Services
 
 			try
 			{
-				XDocument document = XDocument.Load(Utilities.UpdateInfoUrl);
+				XDocument document = XDocument.Load(this.latestInfoUrl);
 				XElement root = document.Root;
 
 				string configurationElementName;
@@ -288,7 +316,7 @@ namespace VidCoder.Services
 							DatabaseConfig.SetConfigValue(UpdateVersion, string.Empty, Database.Connection);
 							DatabaseConfig.SetConfigValue(UpdateInstallerLocation, string.Empty, Database.Connection);
 							DatabaseConfig.SetConfigValue(UpdateChangelogLocation, string.Empty, Database.Connection);
-							
+
 							transaction.Commit();
 						}
 
@@ -298,9 +326,17 @@ namespace VidCoder.Services
 					// If we have not finished the download update yet, start/resume the download.
 					if (DatabaseConfig.GetConfigString(UpdateInstallerLocation, connection) == string.Empty)
 					{
-						string message = "Version " + updateVersion + " is available. Update download has started.";
+						string updateVersionText = updateVersion;
+						if (this.downloadingBeta)
+						{
+							updateVersionText += " Beta";
+						}
+
+						string message = "Version " + updateVersionText + " is available. Update download has started.";
 						this.logger.Log(message);
 						this.logger.ShowStatus(message);
+
+						this.UpdateDownloading = true;
 
 						string downloadLocation = downloadElement.Value;
 						string changelogLink = changelogLinkElement.Value;
@@ -354,13 +390,13 @@ namespace VidCoder.Services
 									DatabaseConfig.SetConfigValue(UpdateVersion, updateVersion, connection);
 									DatabaseConfig.SetConfigValue(UpdateInstallerLocation, installerFilePath, connection);
 									DatabaseConfig.SetConfigValue(UpdateChangelogLocation, changelogLink, connection);
-									
+
 									transaction.Commit();
 								}
 
 								this.UpdateReady = true;
 
-								message = "Version " + updateVersion + " has finished downloading and will install on exit.";
+								message = "Version " + updateVersionText + " has finished downloading and will install on exit.";
 								this.logger.Log(message);
 								this.logger.ShowStatus(message);
 							}
@@ -395,6 +431,10 @@ namespace VidCoder.Services
 			catch (System.Xml.XmlException)
 			{
 				// Fail silently
+			}
+			finally
+			{
+				this.downloading = false;
 			}
 		}
 	}

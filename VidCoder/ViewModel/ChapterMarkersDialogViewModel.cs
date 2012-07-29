@@ -15,7 +15,6 @@ namespace VidCoder.ViewModel
 	public class ChapterMarkersDialogViewModel : OkCancelDialogViewModel
 	{
 		private List<Chapter> chapters;
-		private int chapterCount;
 
 		private bool useDefaultNames;
 		private ObservableCollection<ChapterNameViewModel> chapterNames;

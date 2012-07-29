@@ -1,19 +1,43 @@
 . ./build_common.ps1
 
-function UpdateIssFile($fileName, $version)
+function UpdateIssFile($fileName, $version, $beta)
 {
     $newString = "`${1}" + $version + "`${2}"
     
+    if ($beta)
+    {
+        $versionNameReplacement = "`${1}" + $version + " Beta (`${2})"
+        $fileNameReplacement = "`${1}" + $version + "-Beta-`${2}"
+    }
+    else
+    {
+        $versionNameReplacement = "`${1}" + $version + " (`${2})"
+        $fileNameReplacement = "`${1}" + $version + "-`${2}"
+    }
+
+    
     $fileContent = Get-Content $fileName
-    $fileContent = $fileContent -replace "(VidCoder )[\d.]+( \(x\d{2}\))", $newString
-    $fileContent = $fileContent -replace "(VidCoder-)[\d.]+(-x\d{2})", $newString
+    $fileContent = $fileContent -replace "(VidCoder )[\d.]+(?: Beta)? \((x\d{2})\)", $versionNameReplacement
+    $fileContent = $fileContent -replace "(VidCoder-)[\d.]+(?:-Beta)?-(x\d{2})", $fileNameReplacement
     $fileContent = $fileContent -replace "AppVersion=[\d.]+", ("AppVersion=" + $version)
     Set-Content $fileName $fileContent
 }
 
+# Master switch for if this branch is beta
+$beta = $false
+
+if ($beta)
+{
+    $configuration = "Release-Beta"
+}
+else
+{
+    $configuration = "Release"
+}
+
 # Build VidCoder.sln
-& $DevEnvExe VidCoder.sln /Rebuild "Release|x86"; ExitIfFailed
-& $DevEnvExe VidCoder.sln /Rebuild "Release|x64"; ExitIfFailed
+& $DevEnvExe VidCoder.sln /Rebuild ($configuration + "|x86"); ExitIfFailed
+& $DevEnvExe VidCoder.sln /Rebuild ($configuration + "|x64"); ExitIfFailed
 
 # Run sgen to create *.XmlSerializers.dll
 & ($NetToolsFolder + "\sgen.exe") /f /a:"Lib\x86\HandBrakeInterop.dll"
@@ -26,21 +50,26 @@ $fileVersion = (Get-Command VidCoder\bin\x64\Release\VidCoder.exe).FileVersionIn
 $fileVersion = $fileVersion.Substring(0, $fileVersion.LastIndexOf("."))
 
 # Update installer files with version
-UpdateIssFile "Installer\VidCoder-x86.iss" $fileVersion
-UpdateIssFile "Installer\VidCoder-x64.iss" $fileVersion
+UpdateIssFile "Installer\VidCoder-x86.iss" $fileVersion $beta
+UpdateIssFile "Installer\VidCoder-x64.iss" $fileVersion $beta
 
-$latestFile = "Installer\latest.xml"
+if ($beta)
+{
+    $latestFile = "Installer\latest-beta.xml"
+}
+else
+{
+    $latestFile = "Installer\latest.xml"
+}
+
 $fileContent = Get-Content $latestFile
 $fileContent = $fileContent -replace "<Latest>[\d.]+</Latest>", ("<Latest>" + $fileVersion + "</Latest>")
-$fileContent = $fileContent -replace "(VidCoder-)[\d.]+(-x\d{2})", ("`${1}" + $fileVersion + "`${2}")
+$fileContent = $fileContent -replace "(VidCoder-)[\d.]+((?:-Beta)?-x\d{2})", ("`${1}" + $fileVersion + "`${2}")
 Set-Content $latestFile $fileContent
 
 # Build installers
 & $InnoSetupExe Installer\VidCoder-x86.iss; ExitIfFailed
 & $InnoSetupExe Installer\VidCoder-x64.iss; ExitIfFailed
-
-
-
 
 
 WriteSuccess

@@ -11,6 +11,9 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
+#if BETA
+				return Utilities.CurrentVersion + " Beta (" + Utilities.Architecture + ")";
+#endif
 				return Utilities.CurrentVersion + " (" + Utilities.Architecture + ")";
 			}
 		}

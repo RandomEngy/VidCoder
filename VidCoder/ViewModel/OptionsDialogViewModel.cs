@@ -48,6 +48,7 @@ namespace VidCoder.ViewModel
 			this.updateService.UpdateDownloadCompleted += this.OnUpdateDownloadCompleted;
 
 			this.updatesEnabled = Settings.Default.UpdatesEnabled;
+			this.betaUpdates = Settings.Default.BetaUpdates;
 			this.defaultPath = Settings.Default.AutoNameOutputFolder;
 			this.customFormat = Settings.Default.AutoNameCustomFormat;
 			this.customFormatString = Settings.Default.AutoNameCustomFormatString;
@@ -120,6 +121,56 @@ namespace VidCoder.ViewModel
 			{
 				this.updatesEnabled = value;
 				this.RaisePropertyChanged(() => this.UpdatesEnabled);
+				this.RaisePropertyChanged(() => this.BetaUpdates);
+				this.RaisePropertyChanged(() => this.BetaUpdatesCheckBoxEnabled);
+			}
+		}
+
+		private bool betaUpdates;
+		public bool BetaUpdates
+		{
+			get
+			{
+#if BETA
+				return true;
+#endif
+
+				if (!this.UpdatesEnabled)
+				{
+					return false;
+				}
+
+				return this.betaUpdates;
+			}
+
+			set
+			{
+				this.betaUpdates = value;
+				this.RaisePropertyChanged(() => this.BetaUpdates);
+			}
+		}
+
+		public bool BetaUpdatesCheckBoxEnabled
+		{
+			get
+			{
+#if BETA
+				return false;
+#endif
+
+				return this.UpdatesEnabled;
+			}
+		}
+
+		public string BetaUpdatesToolTip
+		{
+			get
+			{
+#if BETA
+				return "You're in the Beta track. To go back to a stable version, uninstall, click \"Yes\" to remove presets, then re-install a stable version.";
+#else
+				return "Join the Beta track to get more frequent updates. Beware: this version is more likely to have bugs and crashes.";
+#endif
 			}
 		}
 
@@ -645,9 +696,10 @@ namespace VidCoder.ViewModel
 			{
 				return this.saveSettingsCommand ?? (this.saveSettingsCommand = new RelayCommand(() =>
 					{
-						if (Settings.Default.UpdatesEnabled != this.UpdatesEnabled)
+						if (Settings.Default.UpdatesEnabled != this.UpdatesEnabled || Settings.Default.BetaUpdates != this.BetaUpdates)
 						{
 							Settings.Default.UpdatesEnabled = this.UpdatesEnabled;
+							Settings.Default.BetaUpdates = this.BetaUpdates;
 							this.updateService.HandleUpdatedSettings(this.UpdatesEnabled);
 						}
 

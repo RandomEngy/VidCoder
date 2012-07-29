@@ -1,0 +1,12 @@
+<UpdateInfo>
+	<Release>
+		<Latest>1.3.4</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.3.4-Beta-x86.exe</DownloadLocation>
+		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/91831</ChangelogLocation>
+	</Release>
+	<Release-x64>
+		<Latest>1.3.4</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.3.4-Beta-x64.exe</DownloadLocation>
+		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/91831</ChangelogLocation>
+	</Release-x64>
+</UpdateInfo>
