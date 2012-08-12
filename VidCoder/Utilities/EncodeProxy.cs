@@ -9,8 +9,8 @@ namespace VidCoder
 	using System.Globalization;
 	using System.IO;
 	using System.ServiceModel;
+	using System.Threading;
 	using System.Threading.Tasks;
-	using System.Timers;
 	using HandBrake.Interop;
 	using HandBrake.Interop.Model;
 	using Model;
@@ -19,6 +19,7 @@ namespace VidCoder
 	using VidCoderWorker;
 
 	using Microsoft.Practices.Unity;
+	using Timer = System.Timers.Timer;
 
 	public class EncodeProxy : IHandBrakeEncoderCallback
 	{
@@ -40,6 +41,9 @@ namespace VidCoder
 		private IHandBrakeEncoder channel;
 		private ILogger logger;
 
+		private ManualResetEventSlim encodeStartEvent;
+		private ManualResetEventSlim encodeEndEvent;
+
 		// Timer that pings the worker process periodically to see if it's still alive.
 		private Timer pingTimer;
 
@@ -54,6 +58,9 @@ namespace VidCoder
 		{
 			this.logger = Unity.Container.Resolve<ILogger>();
 
+			this.encodeStartEvent = new ManualResetEventSlim(false);
+			this.encodeEndEvent = new ManualResetEventSlim(false);
+
 			var task = new Task(() =>
 			    {
 					var startInfo = new ProcessStartInfo(
@@ -63,6 +70,7 @@ namespace VidCoder
 					startInfo.UseShellExecute = false;
 					startInfo.CreateNoWindow = true;
 					Process worker = Process.Start(startInfo);
+			    	worker.PriorityClass = ProcessPriorityClass.BelowNormal;
 
 					// When the process writes out a line, it's pipe server is ready and can be contacted for
 					// work. Reading line blocks until this happens.
@@ -80,7 +88,7 @@ namespace VidCoder
 							this.channel = this.pipeFactory.CreateChannel();
 
 							this.channel.StartEncode(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds,
-							                         Settings.Default.LogVerbosity);
+							                         Settings.Default.LogVerbosity, Settings.Default.PreviewCount);
 						}
 						catch (CommunicationException)
 						{
@@ -187,6 +195,23 @@ namespace VidCoder
 			}
 		}
 
+		// This can be called at any time: it will stop the encode ASAP and wait for encode to be stopped before returning.
+		// Usually called before exiting the program.
+		public void StopAndWait()
+		{
+			this.encodeStartEvent.Wait();
+
+			lock (this.encoderLock)
+			{
+				if (this.encoding)
+				{
+					this.channel.StopEncode();
+				}
+			}
+
+			this.encodeEndEvent.Wait();
+		}
+
 		public void OnEncodeStarted()
 		{
 			this.IsEncodeStarted = true;
@@ -194,26 +219,32 @@ namespace VidCoder
 			{
 				this.EncodeStarted(this, new EventArgs());
 			}
+
+			this.encodeStartEvent.Set();
 		}
 
 		public void OnEncodeProgress(float averageFrameRate, float currentFrameRate, TimeSpan estimatedTimeLeft, float fractionComplete, int pass)
 		{
-			lock (this.encoderLock)
-			{
-				if (this.encoding && this.EncodeProgress != null)
-				{
-					this.EncodeProgress(
-						this,
-						new EncodeProgressEventArgs
-							{
-								AverageFrameRate = averageFrameRate,
-								CurrentFrameRate = currentFrameRate,
-								EstimatedTimeLeft = estimatedTimeLeft,
-								FractionComplete = fractionComplete,
-								Pass = pass
-							});
-				}
-			}
+			// Dispatch to avoid deadlocks on callbacks
+			DispatchService.BeginInvoke(() =>
+			    {
+					lock (this.encoderLock)
+					{
+						if (this.encoding && this.EncodeProgress != null)
+						{
+							this.EncodeProgress(
+								this,
+								new EncodeProgressEventArgs
+								{
+									AverageFrameRate = averageFrameRate,
+									CurrentFrameRate = currentFrameRate,
+									EstimatedTimeLeft = estimatedTimeLeft,
+									FractionComplete = fractionComplete,
+									Pass = pass
+								});
+						}
+					}
+			    });
 		}
 
 		public void OnEncodeComplete(bool error)
@@ -222,6 +253,8 @@ namespace VidCoder
 			{
 				this.EndEncode(error);
 			}
+
+			this.encodeEndEvent.Set();
 		}
 
 		public void OnMessageLogged(string message)

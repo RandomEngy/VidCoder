@@ -15,10 +15,13 @@ namespace VidCoderWorker
 		private IHandBrakeEncoderCallback callback;
 		private HandBrakeInstance instance;
 		private object encodeLock = new object();
-		private bool encoding;
 
-		public void StartEncode(EncodeJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds, int verbosity)
+		// True if we are encoding (not scanning)
+		private EncodeState state = EncodeState.NotStarted;
+
+		public void StartEncode(EncodeJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds, int verbosity, int previewCount)
 		{
+			CurrentEncoder = this;
 			this.callback = OperationContext.Current.GetCallbackChannel<IHandBrakeEncoderCallback>();
 
 			try
@@ -30,12 +33,18 @@ namespace VidCoderWorker
 
 				HandBrakeUtils.MessageLogged += (o, e) =>
 					{
-						this.callback.OnMessageLogged(e.Message);
+						this.StopOnException(() =>
+							{
+								this.callback.OnMessageLogged(e.Message);
+							});
 					};
 
 				HandBrakeUtils.ErrorLogged += (o, e) =>
 					{
-						this.callback.OnErrorLogged(e.Message);
+						this.StopOnException(() =>
+							{
+								this.callback.OnErrorLogged(e.Message);
+							});
 					};
 
 				this.instance = new HandBrakeInstance();
@@ -53,35 +62,50 @@ namespace VidCoderWorker
 								{
 									this.instance.StartEncode(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds);
 									this.callback.OnEncodeStarted();
-									this.encoding = true;
+									this.state = EncodeState.Encoding;
 								}
 							}
 							else
 							{
 								this.callback.OnEncodeComplete(true);
-								Program.SignalEncodeComplete();
+								this.CleanUpAndSignalCompletion();
 							}
 						}
 						catch (Exception exception)
 						{
 							this.callback.OnException(exception.ToString());
-							Environment.Exit(1);
-							throw;
+							this.CleanUpAndSignalCompletion();
 						}
 					};
 
 				this.instance.EncodeProgress += (o, e) =>
 					{
-						this.callback.OnEncodeProgress(e.AverageFrameRate, e.CurrentFrameRate, e.EstimatedTimeLeft, e.FractionComplete, e.Pass);
+						this.StopOnException(() =>
+							{
+								this.callback.OnEncodeProgress(e.AverageFrameRate, e.CurrentFrameRate, e.EstimatedTimeLeft, e.FractionComplete, e.Pass);
+							});
 					};
 
 				this.instance.EncodeCompleted += (o, e) =>
 					{
-						this.callback.OnEncodeComplete(e.Error);
-						Program.SignalEncodeComplete();
+						this.state = EncodeState.Finished;
+
+						try
+						{
+							this.callback.OnEncodeComplete(e.Error);
+						}
+						catch (CommunicationException)
+						{
+							// If reporting completion fails, there's nothing we can do but clean up.
+						}
+						finally
+						{
+							this.CleanUpAndSignalCompletion();
+						}
 					};
 
-				this.instance.StartScan(job.SourcePath, 10, job.Title);
+				this.instance.StartScan(job.SourcePath, previewCount, job.Title);
+				this.state = EncodeState.Scanning;
 			}
 			catch (Exception exception)
 			{
@@ -90,11 +114,13 @@ namespace VidCoderWorker
 			}
 		}
 
+		public static HandBrakeEncoder CurrentEncoder { get; private set; }
+
 		public void PauseEncode()
 		{
 			lock (this.encodeLock)
 			{
-				if (this.encoding)
+				if (this.state == EncodeState.Encoding)
 				{
 					this.instance.PauseEncode();
 				}
@@ -105,7 +131,7 @@ namespace VidCoderWorker
 		{
 			lock (this.encodeLock)
 			{
-				if (this.encoding)
+				if (this.state == EncodeState.Encoding)
 				{
 					this.instance.ResumeEncode();
 				}
@@ -114,20 +140,57 @@ namespace VidCoderWorker
 
 		public void StopEncode()
 		{
+			this.StopEncodeIfPossible();
+		}
+
+		// Returns true if we sent a stop signal to the encode.
+		public bool StopEncodeIfPossible()
+		{
 			lock (this.encodeLock)
 			{
-				if (this.encoding)
+				if (this.state == EncodeState.Encoding)
 				{
 					this.instance.StopEncode();
-					this.encoding = false;
-					Program.SignalEncodeComplete();
+					this.state = EncodeState.Stopping;
+					return true;
 				}
 			}
+
+			return false;
 		}
 
 		public string Ping()
 		{
 			return "OK";
+		}
+
+		public void CleanUp()
+		{
+			if (this.instance != null)
+			{
+				this.instance.Dispose();
+			}
+
+			HandBrakeInstance.DisposeGlobal();
+		}
+
+		private void CleanUpAndSignalCompletion()
+		{
+			this.CleanUp();
+			Program.SignalEncodeComplete();
+		}
+
+		// Executes a callback operation and stops the encode when a communication exception occurs.
+		private void StopOnException(Action action)
+		{
+			try
+			{
+				action();
+			}
+			catch (CommunicationException)
+			{
+				this.StopEncodeIfPossible();
+			}
 		}
 	}
 }

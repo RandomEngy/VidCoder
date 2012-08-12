@@ -32,14 +32,15 @@ namespace VidCoder.ViewModel
 
 		private EncodeJob job;
 		private HandBrakeInstance originalScanInstance;
-		private HandBrakeInstance previewInstance;
+		private EncodeProxy encodeProxy;
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
 		private string title;
 		private int selectedPreview;
 		private bool hasPreview;
-		private bool scanningPreview;
+		private bool previewEncodeStarted;
 		private bool generatingPreview;
 		private string previewFilePath;
+		private bool cancelPending;
 		private bool encodeCancelled;
 		private double previewPercentComplete;
 		private int previewSeconds;
@@ -341,18 +342,93 @@ namespace VidCoder.ViewModel
 				return this.generatePreviewCommand ?? (this.generatePreviewCommand = new RelayCommand(() =>
 					{
 						this.job = this.mainViewModel.EncodeJob;
-						this.logger.Log("Generating preview clip");
-						this.logger.Log("Scanning title");
-
-						this.previewInstance = new HandBrakeInstance();
-						this.previewInstance.Initialize(Settings.Default.LogVerbosity);
-						this.previewInstance.ScanCompleted += this.OnPreviewScanCompleted;
-						this.previewInstance.StartScan(this.job.SourcePath, Settings.Default.PreviewCount, this.job.Title);
 
 						this.PreviewPercentComplete = 0;
-						this.scanningPreview = true;
 						this.GeneratingPreview = true;
+						this.cancelPending = false;
 						this.encodeCancelled = false;
+
+						string extension = null;
+
+						if (this.job.EncodingProfile.OutputFormat == Container.Mkv)
+						{
+							extension = ".mkv";
+						}
+						else
+						{
+							if (this.job.EncodingProfile.PreferredExtension == OutputExtension.M4v)
+							{
+								extension = ".m4v";
+							}
+							else
+							{
+								extension = ".mp4";
+							}
+						}
+
+						string previewDirectory = Utilities.LocalAppFolder;
+						if (!Directory.Exists(previewDirectory))
+						{
+							Directory.CreateDirectory(previewDirectory);
+						}
+
+						this.previewFilePath = Path.Combine(previewDirectory, @"preview" + extension);
+						this.job.OutputPath = previewFilePath;
+
+						this.previewEncodeStarted = false;
+
+						this.encodeProxy = new EncodeProxy();
+						this.encodeProxy.EncodeStarted += (o, e) =>
+						{
+							this.previewEncodeStarted = true;
+							if (this.cancelPending)
+							{
+								DispatchService.BeginInvoke(() =>
+								    {
+										this.CancelPreviewEncode();
+								    });
+							}
+							DispatchService.BeginInvoke(() =>
+							{
+								this.CancelPreviewCommand.RaiseCanExecuteChanged();
+							});
+						};
+						this.encodeProxy.EncodeProgress += (o, e) =>
+						{
+							this.PreviewPercentComplete = e.FractionComplete * 100;
+						};
+						this.encodeProxy.EncodeCompleted += (o, e) =>
+						{
+							this.GeneratingPreview = false;
+
+							if (this.encodeCancelled)
+							{
+								this.logger.Log("Cancelled preview clip generation");
+							}
+							else
+							{
+								if (e.Error)
+								{
+									this.logger.Log("Preview clip generation failed");
+									Utilities.MessageBox.Show("Preview clip generation failed. See the Log window for details.");
+								}
+								else
+								{
+									var previewFileInfo = new FileInfo(this.previewFilePath);
+									this.logger.Log("Finished preview clip generation. Size: " + Utilities.FormatFileSize(previewFileInfo.Length));
+
+									FileService.Instance.LaunchFile(previewFilePath);
+								}
+							}
+						};
+
+						this.logger.Log("Generating preview clip");
+						this.logger.Log("  Path: " + this.job.OutputPath);
+						this.logger.Log("  Title: " + this.job.Title);
+						this.logger.Log("  Preview #: " + this.SelectedPreview);
+
+						this.encodeProxy.StartEncode(this.job, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
+						this.CancelPreviewCommand.RaiseCanExecuteChanged();
 					}, () =>
 					{
 						return this.HasPreview;
@@ -400,6 +476,10 @@ namespace VidCoder.ViewModel
 				return this.cancelPreviewCommand ?? (this.cancelPreviewCommand = new RelayCommand(() =>
 					{
 						this.CancelPreviewEncode();
+					},
+					() =>
+					{
+						return this.GeneratingPreview && this.previewEncodeStarted;
 					}));
 			}
 		}
@@ -410,13 +490,13 @@ namespace VidCoder.ViewModel
 			{
 				this.HasPreview = false;
 				this.Title = NoSourceTitle;
-				this.CancelPreviewEncode();
+				this.TryCancelPreviewEncode();
 				return;
 			}
 
 			if (this.originalScanInstance != this.ScanInstance || (this.job != null && this.job.Title != this.mainViewModel.EncodeJob.Title))
 			{
-				this.CancelPreviewEncode();
+				this.TryCancelPreviewEncode();
 			}
 
 			if (this.waitingOnRefresh)
@@ -441,6 +521,12 @@ namespace VidCoder.ViewModel
 			this.lastImageRefreshTime = now;
 
 			this.RefreshPreviews();
+		}
+
+		public void StopAndWait()
+		{
+			this.encodeCancelled = true;
+			this.encodeProxy.StopAndWait();
 		}
 
 		private void previewImageRefreshTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -557,20 +643,25 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private void CancelPreviewEncode()
+		private void TryCancelPreviewEncode()
 		{
 			if (this.GeneratingPreview)
 			{
-				this.encodeCancelled = true;
-				if (this.scanningPreview)
+				if (this.previewEncodeStarted)
 				{
-					this.previewInstance.StopScan();
+					this.CancelPreviewEncode();
 				}
 				else
 				{
-					this.previewInstance.StopEncode();
+					this.cancelPending = true;
 				}
 			}
+		}
+
+		private void CancelPreviewEncode()
+		{
+			this.encodeCancelled = true;
+			this.encodeProxy.StopEncode();
 		}
 
 		private void ClearOutOfRangeItems()
@@ -770,81 +861,6 @@ namespace VidCoder.ViewModel
 					// Directory may have been deleted. Ignore.
 				}
 			}
-		}
-
-		private void OnPreviewScanCompleted(object sender, EventArgs eventArgs)
-		{
-			this.scanningPreview = false;
-
-			if (this.encodeCancelled)
-			{
-				this.GeneratingPreview = false;
-				this.logger.Log("Cancelled preview clip generation");
-				return;
-			}
-
-			string extension = null;
-
-			if (this.job.EncodingProfile.OutputFormat == Container.Mkv)
-			{
-				extension = ".mkv";
-			}
-			else
-			{
-				if (this.job.EncodingProfile.PreferredExtension == OutputExtension.M4v)
-				{
-					extension = ".m4v";
-				}
-				else
-				{
-					extension = ".mp4";
-				}
-			}
-
-			string previewDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"VidCoder");
-
-			if (!Directory.Exists(previewDirectory))
-			{
-				Directory.CreateDirectory(previewDirectory);
-			}
-
-			this.previewFilePath = Path.Combine(previewDirectory, @"preview" + extension);
-			this.job.OutputPath = previewFilePath;
-			this.previewInstance.EncodeProgress += (o, e) =>
-			{
-				this.PreviewPercentComplete = e.FractionComplete * 100;
-			};
-			this.previewInstance.EncodeCompleted += (o, e) =>
-			{
-				this.GeneratingPreview = false;
-
-				if (this.encodeCancelled)
-				{
-					this.logger.Log("Cancelled preview clip generation");
-				}
-				else
-				{
-					if (e.Error)
-					{
-						this.logger.Log("Preview clip generation failed");
-						Utilities.MessageBox.Show("Preview clip generation failed. See the Log window for details.");
-					}
-					else
-					{
-						var previewFileInfo = new FileInfo(this.previewFilePath);
-						this.logger.Log("Finished preview clip generation. Size: " + Utilities.FormatFileSize(previewFileInfo.Length));
-
-						FileService.Instance.LaunchFile(previewFilePath);
-					}
-				}
-			};
-
-			this.logger.Log("Encoding clip");
-			this.logger.Log("  Path: " + this.job.OutputPath);
-			this.logger.Log("  Title: " + this.job.Title);
-			this.logger.Log("  Preview #: " + this.SelectedPreview);
-
-			this.previewInstance.StartEncode(this.job, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
 		}
 	}
 }

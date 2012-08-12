@@ -332,7 +332,8 @@ namespace VidCoder.ViewModel
 			if (this.processingVM.Encoding)
 			{
 				// If so, stop it.
-				this.processingVM.CurrentJob.HandBrakeInstance.StopEncode();
+				this.processingVM.EncodeProxy.StopAndWait();
+				//this.processingVM.CurrentJob.HandBrakeInstance.StopEncode();
 			}
 
 			ViewModelBase encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel));
@@ -341,9 +342,14 @@ namespace VidCoder.ViewModel
 				WindowManager.Close(encodingWindow);
 			}
 
-			ViewModelBase previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel));
+			var previewWindow = WindowManager.FindWindow<PreviewViewModel>();
 			if (previewWindow != null)
 			{
+				if (previewWindow.GeneratingPreview)
+				{
+					previewWindow.StopAndWait();
+				}
+
 				WindowManager.Close(previewWindow);
 			}
 

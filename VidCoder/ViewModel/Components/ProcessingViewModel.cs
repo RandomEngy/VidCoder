@@ -152,6 +152,14 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
+		public EncodeProxy EncodeProxy
+		{
+			get
+			{
+				return this.encodeProxy;
+			}
+		}
+
 		public ObservableCollection<EncodeResultViewModel> CompletedJobs
 		{
 			get
@@ -189,13 +197,11 @@ namespace VidCoder.ViewModel.Components
 
 				if (value)
 				{
-					Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.BelowNormal;
 					SystemSleepManagement.PreventSleep();
 					this.elapsedQueueEncodeTime = Stopwatch.StartNew();
 				}
 				else
 				{
-					Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.Normal;
 					this.EncodeSpeedDetailsAvailable = false;
 					SystemSleepManagement.AllowSleep();
 					this.elapsedQueueEncodeTime.Stop();
@@ -1092,9 +1098,6 @@ namespace VidCoder.ViewModel.Components
 			this.encodeProxy.EncodeCompleted += this.OnEncodeCompleted;
 			this.encodeProxy.EncodeStarted += this.OnEncodeStarted;
 
-			//this.CurrentJob.HandBrakeInstance.EncodeProgress += this.OnEncodeProgress;
-			//this.CurrentJob.HandBrakeInstance.EncodeCompleted += this.OnEncodeCompleted;
-
 			string destinationDirectory = Path.GetDirectoryName(this.CurrentJob.Job.OutputPath);
 			if (!Directory.Exists(destinationDirectory))
 			{
@@ -1119,7 +1122,6 @@ namespace VidCoder.ViewModel.Components
 
 			this.StopEncodeCommand.RaiseCanExecuteChanged();
 			this.PauseCommand.RaiseCanExecuteChanged();
-			//this.CurrentJob.HandBrakeInstance.StartEncode(this.CurrentJob.Job);
 		}
 
 		private void OnEncodeStarted(object sender, EventArgs e)
@@ -1221,7 +1223,7 @@ namespace VidCoder.ViewModel.Components
 
 		private void OnEncodeCompleted(object sender, EncodeCompletedEventArgs e)
 		{
-			DispatchService.Invoke(() =>
+			DispatchService.BeginInvoke(() =>
 			{
 				if (this.encodeStopped)
 				{
