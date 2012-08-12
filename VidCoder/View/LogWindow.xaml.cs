@@ -24,6 +24,9 @@ namespace VidCoder.View
 	{
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
 
+		private int pendingLines;
+		private object writeLock = new object();
+
 		public LogWindow()
 		{
 			InitializeComponent();
@@ -64,11 +67,27 @@ namespace VidCoder.View
 
 		private void OnEntryLogged(object sender, EventArgs<LogEntry> e)
 		{
-			this.Dispatcher.BeginInvoke(new Action(() =>
+			lock (this.writeLock)
 			{
-				this.AddEntry(e.Value);
-				this.logTextBox.ScrollToEnd();
-			}));
+				this.pendingLines++;
+
+				this.Dispatcher.BeginInvoke(new Action(() =>
+					{
+						this.AddEntry(e.Value);
+
+						lock (this.writeLock)
+						{
+							this.pendingLines--;
+
+							if (this.pendingLines == 0)
+							{
+								// Scrolling to the end can be a slow operation so only do it when we've run out of lines to write.
+								this.logTextBox.ScrollToEnd();
+							}
+						}
+					}),
+					System.Windows.Threading.DispatcherPriority.Background);
+			}
 		}
 
 		private void OnCleared(object sender, EventArgs e)

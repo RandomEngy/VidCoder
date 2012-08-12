@@ -26,6 +26,7 @@ namespace VidCoder
 		{
 			DispatchService.BeginInvoke(() =>
 			{
+				System.Diagnostics.Debug.WriteLine("Preventing sleep on thread ID " + System.Threading.Thread.CurrentThread.ManagedThreadId);
 				SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_SYSTEM_REQUIRED);
 			});
 		}
@@ -34,6 +35,7 @@ namespace VidCoder
 		{
 			DispatchService.BeginInvoke(() =>
 			{
+				System.Diagnostics.Debug.WriteLine("Allowing sleep on thread ID " + System.Threading.Thread.CurrentThread.ManagedThreadId);
 				SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS);
 			});
 		}

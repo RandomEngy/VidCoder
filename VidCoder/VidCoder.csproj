@@ -207,6 +207,7 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
@@ -420,6 +421,7 @@
     <Compile Include="Services\Processes.cs" />
     <Compile Include="Services\SystemOperations.cs" />
     <Compile Include="Services\TrayService.cs" />
+    <Compile Include="Utilities\EncodeProxy.cs" />
     <Compile Include="Utilities\FileCleanup.cs" />
     <Compile Include="Utilities\ImageUtilities.cs" />
     <Compile Include="Utilities\ListSynchronizer\IListItemConverter.cs" />
@@ -685,7 +687,12 @@
     <Resource Include="VidCoder_icon.ico" />
     <Resource Include="Icons\win7foldericon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\VidCoderWorker\VidCoderWorker.csproj">
+      <Project>{63452895-7AA1-45EC-A0D8-3F30CCFA6D0D}</Project>
+      <Name>VidCoderWorker</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>

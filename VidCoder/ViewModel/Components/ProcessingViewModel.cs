@@ -63,6 +63,7 @@ namespace VidCoder.ViewModel.Components
 		private ObservableCollection<EncodeResultViewModel> completedJobs;
 		private List<EncodeCompleteAction> encodeCompleteActions; 
 		private EncodeCompleteAction encodeCompleteAction;
+		private EncodeProxy encodeProxy;
 
 		private int selectedTabIndex;
 
@@ -646,7 +647,7 @@ namespace VidCoder.ViewModel.Components
 					},
 					() =>
 					{
-						return this.Encoding && this.CurrentJob.HandBrakeInstance != null;
+						return this.Encoding && this.encodeProxy != null &&  this.encodeProxy.IsEncodeStarted;
 					}));
 			}
 		}
@@ -660,8 +661,13 @@ namespace VidCoder.ViewModel.Components
 					{
 						// Signify that we stopped the encode manually rather than it completing.
 						this.encodeStopped = true;
-						this.CurrentJob.HandBrakeInstance.StopEncode();
+						this.encodeProxy.StopEncode();
+						//this.CurrentJob.HandBrakeInstance.StopEncode();
 						this.logger.ShowStatus("Stopped encoding.");
+					},
+					() =>
+					{
+						return this.Encoding && this.encodeProxy != null && this.encodeProxy.IsEncodeStarted;
 					}));
 			}
 		}
@@ -1069,36 +1075,7 @@ namespace VidCoder.ViewModel.Components
 		private void EncodeNextJob()
 		{
 			this.taskNumber++;
-
-			if (this.CurrentJob.HandBrakeInstance == null)
-			{
-				var onDemandInstance = new HandBrakeInstance();
-				onDemandInstance.Initialize(Settings.Default.LogVerbosity);
-				onDemandInstance.ScanCompleted += (o, e) =>
-				{
-					this.CurrentJob.HandBrakeInstance = onDemandInstance;
-					Title encodeTitle = onDemandInstance.Titles.FirstOrDefault(title => title.TitleNumber == this.CurrentJob.Job.Title);
-
-					if (encodeTitle != null)
-					{
-						DispatchService.BeginInvoke(() =>
-							{
-								this.StartEncode();
-								this.PauseCommand.RaiseCanExecuteChanged();
-							});
-					}
-					else
-					{
-						this.OnEncodeCompleted(this, new EncodeCompletedEventArgs { Error = true });
-					}
-				};
-
-				onDemandInstance.StartScan(this.CurrentJob.Job.SourcePath, Settings.Default.PreviewCount, this.CurrentJob.Job.Title);
-			}
-			else
-			{
-				this.StartEncode();
-			}
+			this.StartEncode();
 		}
 
 		private void StartEncode()
@@ -1109,8 +1086,14 @@ namespace VidCoder.ViewModel.Components
 			this.logger.Log("  Path: " + job.SourcePath);
 			this.logger.Log("  Title: " + job.Title);
 			this.logger.Log("  Chapters: " + job.ChapterStart + "-" + job.ChapterEnd);
-			this.CurrentJob.HandBrakeInstance.EncodeProgress += this.OnEncodeProgress;
-			this.CurrentJob.HandBrakeInstance.EncodeCompleted += this.OnEncodeCompleted;
+
+			this.encodeProxy = new EncodeProxy();
+			this.encodeProxy.EncodeProgress += this.OnEncodeProgress;
+			this.encodeProxy.EncodeCompleted += this.OnEncodeCompleted;
+			this.encodeProxy.EncodeStarted += this.OnEncodeStarted;
+
+			//this.CurrentJob.HandBrakeInstance.EncodeProgress += this.OnEncodeProgress;
+			//this.CurrentJob.HandBrakeInstance.EncodeCompleted += this.OnEncodeCompleted;
 
 			string destinationDirectory = Path.GetDirectoryName(this.CurrentJob.Job.OutputPath);
 			if (!Directory.Exists(destinationDirectory))
@@ -1132,7 +1115,21 @@ namespace VidCoder.ViewModel.Components
 			this.currentJobEta = TimeSpan.Zero;
 			this.errorLoggedDuringJob = false;
 			this.EncodeQueue[0].ReportEncodeStart(this.totalTasks == 1);
-			this.CurrentJob.HandBrakeInstance.StartEncode(this.CurrentJob.Job);
+			this.encodeProxy.StartEncode(this.CurrentJob.Job, false, 0, 0, 0);
+
+			this.StopEncodeCommand.RaiseCanExecuteChanged();
+			this.PauseCommand.RaiseCanExecuteChanged();
+			//this.CurrentJob.HandBrakeInstance.StartEncode(this.CurrentJob.Job);
+		}
+
+		private void OnEncodeStarted(object sender, EventArgs e)
+		{
+			DispatchService.BeginInvoke(() =>
+			    {
+					// After the encode has reported that it's started, we can now pause/stop it.
+					this.StopEncodeCommand.RaiseCanExecuteChanged();
+					this.PauseCommand.RaiseCanExecuteChanged();
+			    });
 		}
 
 		private void OnEncodeProgress(object sender, EncodeProgressEventArgs e)
@@ -1226,10 +1223,6 @@ namespace VidCoder.ViewModel.Components
 		{
 			DispatchService.Invoke(() =>
 			{
-				// Unregister from events. This instance may be used again.
-				this.EncodeQueue[0].HandBrakeInstance.EncodeProgress -= this.OnEncodeProgress;
-				this.EncodeQueue[0].HandBrakeInstance.EncodeCompleted -= this.OnEncodeCompleted;
-
 				if (this.encodeStopped)
 				{
 					// If the encode was stopped manually
@@ -1253,7 +1246,7 @@ namespace VidCoder.ViewModel.Components
 					if (e.Error)
 					{
 						succeeded = false;
-						this.logger.LogError("Encode failed. HandBrake reported an error.");
+						this.logger.LogError("Encode failed.");
 					}
 					else if (this.errorLoggedDuringJob)
 					{
@@ -1349,7 +1342,8 @@ namespace VidCoder.ViewModel.Components
 
 		private void PauseEncoding()
 		{
-			this.CurrentJob.HandBrakeInstance.PauseEncode();
+			this.encodeProxy.PauseEncode();
+			//this.CurrentJob.HandBrakeInstance.PauseEncode();
 			this.EncodeProgressState = TaskbarItemProgressState.Paused;
 			this.CurrentJob.ReportEncodePause();
 
@@ -1358,7 +1352,8 @@ namespace VidCoder.ViewModel.Components
 
 		private void ResumeEncoding()
 		{
-			this.CurrentJob.HandBrakeInstance.ResumeEncode();
+			this.encodeProxy.ResumeEncode();
+			//this.CurrentJob.HandBrakeInstance.ResumeEncode();
 			this.EncodeProgressState = TaskbarItemProgressState.Normal;
 			this.CurrentJob.ReportEncodeResume();
 

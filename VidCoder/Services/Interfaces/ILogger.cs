@@ -9,6 +9,7 @@ namespace VidCoder.Services
 		void ClearLog();
 		void Log(string message);
 		void LogError(string message);
+		void AddEntry(LogEntry entry);
 		object LogLock { get; }
 		List<LogEntry> LogEntries { get; }
 

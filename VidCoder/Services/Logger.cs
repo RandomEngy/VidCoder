@@ -121,7 +121,7 @@ namespace VidCoder.Services
 			}
 		}
 
-		private void AddEntry(LogEntry entry)
+		public void AddEntry(LogEntry entry)
 		{
 			lock (this.disposeLock)
 			{
