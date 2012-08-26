@@ -193,19 +193,19 @@
 		<Grid Margin="45.434,70,0,0" Name="grid4" Grid.Column="1" Height="139.04" VerticalAlignment="Top" Grid.RowSpan="3" HorizontalAlignment="Left" Width="210">
 			<controls:NumberBox
 				Height="23" Margin="74,28,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="45"
-				Number="{Binding CropTop, Mode=TwoWay}" AllowEmpty="False" Minimum="0"
+				Number="{Binding CropTop, Mode=TwoWay}" AllowEmpty="False" Minimum="0" Modulus="2"
 				IsEnabled="{Binding CustomCropping}"/>
 			<controls:NumberBox
 				Margin="111,56,0,0" Height="22.96" VerticalAlignment="Top" HorizontalAlignment="Left" Width="45"
-				Number="{Binding CropRight, Mode=TwoWay}" AllowEmpty="False" Minimum="0"
+				Number="{Binding CropRight, Mode=TwoWay}" AllowEmpty="False" Minimum="0" Modulus="2"
 				IsEnabled="{Binding CustomCropping}"/>
 			<controls:NumberBox
 				Margin="37,56,0,0" HorizontalAlignment="Left" Width="45" Height="23" VerticalAlignment="Top"
-				Number="{Binding CropLeft, Mode=TwoWay}" AllowEmpty="False" Minimum="0"
+				Number="{Binding CropLeft, Mode=TwoWay}" AllowEmpty="False" Minimum="0" Modulus="2"
 				IsEnabled="{Binding CustomCropping}"/>
 			<controls:NumberBox
 				Height="23" Margin="74,82,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="45"
-				Number="{Binding CropBottom, Mode=TwoWay}" AllowEmpty="False" Minimum="0"
+				Number="{Binding CropBottom, Mode=TwoWay}" AllowEmpty="False" Minimum="0" Modulus="2"
 				IsEnabled="{Binding CustomCropping}"/>
 			<Label Height="28" Margin="81,4,0,0" Name="label7" VerticalAlignment="Top" HorizontalAlignment="Left" Width="38.019">Top</Label>
 			<Label Margin="7,54,0,0" Name="label8" HorizontalAlignment="Left" Width="33" Height="28" VerticalAlignment="Top">Left</Label>
