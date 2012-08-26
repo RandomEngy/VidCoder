@@ -19,6 +19,7 @@ namespace VidCoder.Controls
 		private string noneCaption;
 		private bool hasFocus;
 		private DateTime lastFocusMouseDown;
+		private bool suppressRefresh;
 
 		public NumberBox()
 		{
@@ -163,7 +164,10 @@ namespace VidCoder.Controls
 			{
 				var numBox = dependencyObject as NumberBox;
 
-				numBox.RefreshNumberBox();
+				if (!numBox.suppressRefresh)
+				{
+					numBox.RefreshNumberBox();
+				}
 			}
 		}
 
@@ -358,7 +362,10 @@ namespace VidCoder.Controls
 
 					if (newNumber != this.Number)
 					{
+						// While updating the binding we don't need to react to the change.
+						this.suppressRefresh = true;
 						this.Number = newNumber;
+						this.suppressRefresh = false;
 					}
 				}
 			}
