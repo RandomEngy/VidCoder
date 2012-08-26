@@ -145,7 +145,7 @@ namespace VidCoder.View
 						else if (Utilities.IsDiscFolder(item))
 						{
 							// It's a disc folder
-							this.viewModel.SetSourceFromFile(item);
+							this.viewModel.SetSourceFromFolder(item);
 						}
 						else
 						{
