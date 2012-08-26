@@ -74,26 +74,38 @@ namespace VidCoder
 
 					// When the process writes out a line, it's pipe server is ready and can be contacted for
 					// work. Reading line blocks until this happens.
-					Debug.WriteLine(worker.StandardOutput.ReadLine());
+					worker.StandardOutput.ReadLine();
 
 					lock (this.encoderLock)
 					{
 						try
 						{
+							var binding = new NetNamedPipeBinding
+								{
+									OpenTimeout = TimeSpan.FromSeconds(10),
+									CloseTimeout = TimeSpan.FromSeconds(3),
+									SendTimeout = TimeSpan.FromSeconds(3),
+									ReceiveTimeout = TimeSpan.FromSeconds(3)
+								};
+
 							this.pipeFactory = new DuplexChannelFactory<IHandBrakeEncoder>(
 								this,
-								new NetNamedPipeBinding(),
+								binding,
 								new EndpointAddress("net.pipe://localhost/VidCoderWorker_" + worker.Id));
 
 							this.channel = this.pipeFactory.CreateChannel();
 
 							this.channel.StartEncode(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds,
-							                         Settings.Default.LogVerbosity, Settings.Default.PreviewCount);
+													 Settings.Default.LogVerbosity, Settings.Default.PreviewCount);
 						}
 						catch (CommunicationException)
 						{
-							this.logger.LogError("Unable to contact encode proxy.");
-							this.EndEncode(error: true);
+							this.StopEncodeWithError();
+							return;
+						}
+						catch (TimeoutException)
+						{
+							this.StopEncodeWithError();
 							return;
 						}
 					}
@@ -128,6 +140,14 @@ namespace VidCoder
 									this.EndEncode(error: true);
 								}
 							}
+							catch (TimeoutException)
+							{
+								lock (this.encoderLock)
+								{
+									this.logger.LogError("Worker process has crashed.");
+									this.EndEncode(error: true);
+								}
+							}
 						}
 					};
 
@@ -150,8 +170,11 @@ namespace VidCoder
 					}
 					catch (CommunicationException)
 					{
-						this.logger.LogError("Unable to contact encode proxy.");
-						this.EndEncode(error: true);
+						this.StopEncodeWithError();
+					}
+					catch (TimeoutException)
+					{
+						this.StopEncodeWithError();
 					}
 				}
 			}
@@ -169,8 +192,11 @@ namespace VidCoder
 					}
 					catch (CommunicationException)
 					{
-						this.logger.LogError("Unable to contact encode proxy.");
-						this.EndEncode(error: true);
+						this.StopEncodeWithError();
+					}
+					catch (TimeoutException)
+					{
+						this.StopEncodeWithError();
 					}
 				}
 			}
@@ -188,8 +214,11 @@ namespace VidCoder
 					}
 					catch (CommunicationException)
 					{
-						this.logger.LogError("Unable to contact encode proxy.");
-						this.EndEncode(error: true);
+						this.StopEncodeWithError();
+					}
+					catch (TimeoutException)
+					{
+						this.StopEncodeWithError();
 					}
 				}
 			}
@@ -302,6 +331,12 @@ namespace VidCoder
 
 				this.encoding = false;
 			}
+		}
+
+		private void StopEncodeWithError()
+		{
+			this.logger.LogError("Unable to contact encode proxy.");
+			this.EndEncode(error: true);
 		}
 	}
 }
