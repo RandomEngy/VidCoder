@@ -77,22 +77,33 @@
 					</DataTemplate>
 				</ComboBox.ItemTemplate>
 			</ComboBox>
-
+			<RadioButton 
+				Content="Constant Framerate" Height="16" HorizontalAlignment="Left" Margin="124,112,0,0" Name="radioButton1" GroupName="constantFramerate1" VerticalAlignment="Top"
+				IsChecked="{Binding ConstantFramerate}"
+				Style="{StaticResource LongToolTipHolder}">
+				<RadioButton.ToolTip>
+					<TextBlock Text="{Binding ConstantFramerateToolTip}" Style="{StaticResource LongToolTip}" />
+				</RadioButton.ToolTip>
+			</RadioButton>
+			<RadioButton 
+				Content="{Binding VfrChoiceText}" Height="16" HorizontalAlignment="Left" Margin="124,135,0,0" Name="radioButton2" GroupName="constantFramerate2" VerticalAlignment="Top"
+				IsChecked="{Binding ConstantFramerate, Converter={StaticResource InverseBoolConverter}}"
+				Style="{StaticResource LongToolTipHolder}">
+				<RadioButton.ToolTip>
+					<TextBlock Text="{Binding VariableFramerateToolTip}" Style="{StaticResource LongToolTip}" />
+				</RadioButton.ToolTip>
+			</RadioButton>
+			
 			<CheckBox
 				Content="2-pass Encoding"
-				Height="16" HorizontalAlignment="Left" Margin="124,143,0,0" VerticalAlignment="Top"
+				Height="16" HorizontalAlignment="Left" Margin="28,168,0,0" VerticalAlignment="Top"
 				IsChecked="{Binding TwoPassEncoding}"
 				IsEnabled="{Binding TwoPassEncodingEnabled}"/>
 			<CheckBox
 				Content="Turbo first Pass"
-				Height="16" HorizontalAlignment="Left" Margin="145,166,0,0" VerticalAlignment="Top"
+				Height="16" HorizontalAlignment="Left" Margin="49,191,0,0" VerticalAlignment="Top"
 				IsChecked="{Binding TurboFirstPass}"
 				IsEnabled="{Binding TurboFirstPassEnabled}"/>
-			<CheckBox
-				Content="Peak Framerate (VFR)"
-				Height="16" HorizontalAlignment="Left" Margin="124,109,0,0" VerticalAlignment="Top"
-				IsChecked="{Binding PeakFramerate}"
-				Visibility="{Binding PeakFramerateVisible, Converter={StaticResource VisibilityConverter}}"/>
 		</Grid>
 		<Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
 			<TextBlock

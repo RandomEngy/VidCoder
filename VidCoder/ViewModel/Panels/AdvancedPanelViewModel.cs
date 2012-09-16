@@ -409,7 +409,7 @@ namespace VidCoder.ViewModel
 				int equalsIndex = newOptionsSegment.IndexOf('=');
 				if (equalsIndex >= 0)
 				{
-					string optionName = newOptionsSegment.Substring(0, equalsIndex);
+					string optionName = HandBrakeUtils.SanitizeX264OptName(newOptionsSegment.Substring(0, equalsIndex));
 					string optionValue = newOptionsSegment.Substring(equalsIndex + 1);
 
 					if (optionName != string.Empty && optionValue != string.Empty)
@@ -480,7 +480,6 @@ namespace VidCoder.ViewModel
 								}
 								break;
 							case "subme":
-							case "subq":
 								if (int.TryParse(optionValue, out parseInt))
 								{
 									newChoice = AdvancedChoices.SubpixelMotionEstimation.SingleOrDefault(choice => choice.Value == parseInt.ToString(CultureInfo.InvariantCulture));
@@ -644,10 +643,10 @@ namespace VidCoder.ViewModel
 					int equalsIndex = existingSegment.IndexOf('=');
 					if (equalsIndex >= 0)
 					{
-						optionName = existingSegment.Substring(0, existingSegment.IndexOf("="));
+						optionName = existingSegment.Substring(0, existingSegment.IndexOf("=", StringComparison.Ordinal));
 					}
 
-					if (!this.uiOptions.Contains(optionName) && optionName != string.Empty)
+					if (optionName != string.Empty && !this.uiOptions.Contains(HandBrakeUtils.SanitizeX264OptName(optionName)))
 					{
 						newOptions.Add(existingSegment);
 					}

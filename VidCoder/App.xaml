@@ -83,7 +83,7 @@
 
 		<SolidColorBrush x:Key="DisabledBrush" Color="#4C4C4C" />
 		<Style x:Key="LongToolTip" TargetType="TextBlock">
-			<Setter Property="Width" Value="400" />
+			<Setter Property="MaxWidth" Value="400" />
 			<Setter Property="TextWrapping" Value="Wrap" />
 		</Style>
 		<Style x:Key="LongToolTipHolder" TargetType="FrameworkElement">

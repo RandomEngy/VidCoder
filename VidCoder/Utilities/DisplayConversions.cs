@@ -58,6 +58,14 @@ namespace VidCoder
 					return "24 kHz";
 				case 22050:
 					return "22.05 kHz";
+				case 16000:
+					return "16 kHz";
+				case 12000:
+					return "12 kHz";
+				case 11025:
+					return "11.025 kHz";
+				case 8000:
+					return "8 kHz";
 			}
 
 			return sampleRate.ToString();

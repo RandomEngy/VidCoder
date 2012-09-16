@@ -171,7 +171,7 @@ namespace VidCoderWorker
 				this.instance.Dispose();
 			}
 
-			HandBrakeInstance.DisposeGlobal();
+			HandBrakeUtils.DisposeGlobal();
 		}
 
 		private void CleanUpAndSignalCompletion()

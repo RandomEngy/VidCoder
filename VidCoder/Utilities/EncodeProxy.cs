@@ -23,7 +23,10 @@ namespace VidCoder
 
 	public class EncodeProxy : IHandBrakeEncoderCallback
 	{
-		private const double PingTimerIntervalMs = 2000;
+		// Ping interval (3s) longer than timeout (2s) so we don't have two overlapping pings
+		private const double PingTimerIntervalMs = 3000;
+
+		private const double PipeTimeoutSeconds = 2;
 
 		public event EventHandler EncodeStarted;
 
@@ -83,9 +86,9 @@ namespace VidCoder
 							var binding = new NetNamedPipeBinding
 								{
 									OpenTimeout = TimeSpan.FromSeconds(10),
-									CloseTimeout = TimeSpan.FromSeconds(3),
-									SendTimeout = TimeSpan.FromSeconds(3),
-									ReceiveTimeout = TimeSpan.FromSeconds(3)
+									CloseTimeout = TimeSpan.FromSeconds(PipeTimeoutSeconds),
+									SendTimeout = TimeSpan.FromSeconds(PipeTimeoutSeconds),
+									ReceiveTimeout = TimeSpan.FromSeconds(PipeTimeoutSeconds)
 								};
 
 							this.pipeFactory = new DuplexChannelFactory<IHandBrakeEncoder>(
@@ -328,6 +331,8 @@ namespace VidCoder
 								Error = error
 							});
 				}
+
+				this.pingTimer.Dispose();
 
 				this.encoding = false;
 			}

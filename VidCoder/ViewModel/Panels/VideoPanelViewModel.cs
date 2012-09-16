@@ -78,11 +78,16 @@ namespace VidCoder.ViewModel
 				0,
 				5,
 				10,
+				12,
 				15,
 				23.976,
 				24,
 				25,
-				29.97
+				29.97,
+				30,
+				50,
+				59.94,
+				60
 			};
 
 			Messenger.Default.Register<AudioInputChangedMessage>(
@@ -238,31 +243,70 @@ namespace VidCoder.ViewModel
 			{
 				this.Profile.Framerate = value;
 				this.RaisePropertyChanged(() => this.SelectedFramerate);
-				this.RaisePropertyChanged(() => this.PeakFramerateVisible);
+				this.RaisePropertyChanged(() => this.VfrChoiceText);
+				this.RaisePropertyChanged(() => this.ConstantFramerateToolTip);
+				this.RaisePropertyChanged(() => this.VariableFramerateToolTip);
 				this.IsModified = true;
 			}
 		}
 
-		public bool PeakFramerate
+		public bool ConstantFramerate
 		{
 			get
 			{
-				return this.Profile.PeakFramerate;
+				return this.Profile.ConstantFramerate;
 			}
 
 			set
 			{
-				this.Profile.PeakFramerate = value;
-				this.RaisePropertyChanged(() => this.PeakFramerate);
+				this.Profile.ConstantFramerate = value;
+				this.RaisePropertyChanged(() => this.ConstantFramerate);
 				this.IsModified = true;
 			}
 		}
 
-		public bool PeakFramerateVisible
+		public string ConstantFramerateToolTip
 		{
 			get
 			{
-				return this.SelectedFramerate != 0;
+				if (this.Profile.Framerate == 0)
+				{
+					return "Uses the listed framerate from the source title for a constant framerate.";
+				}
+				else
+				{
+					return "Use a constant frame rate.";
+				}
+			}
+		}
+
+		public string VariableFramerateToolTip
+		{
+			get
+			{
+				if (this.Profile.Framerate == 0)
+				{
+					return "Allow a variable framerate. If the source has a variable frame rate, this setting will preserve it. Note that some players do not support variable frame rates.";
+				}
+				else
+				{
+					return "Allow a variable framerate and use the specified rate as a peak. If the source has a variable frame rate, this setting will preserve it. Note that some players do not support variable frame rates.";
+				}
+			}
+		}
+
+		public string VfrChoiceText
+		{
+			get
+			{
+				if (this.Profile.Framerate == 0)
+				{
+					return "Variable Framerate";
+				}
+				else
+				{
+					return "Peak Framerate (VFR)";
+				}
 			}
 		}
 
@@ -687,8 +731,12 @@ namespace VidCoder.ViewModel
 		{
 			this.RaisePropertyChanged(() => this.SelectedEncoder);
 			this.RaisePropertyChanged(() => this.SelectedFramerate);
-			this.RaisePropertyChanged(() => this.PeakFramerate);
-			this.RaisePropertyChanged(() => this.PeakFramerateVisible);
+			//this.RaisePropertyChanged(() => this.PeakFramerate);
+			//this.RaisePropertyChanged(() => this.PeakFramerateVisible);
+			this.RaisePropertyChanged(() => this.ConstantFramerate);
+			this.RaisePropertyChanged(() => this.ConstantFramerateToolTip);
+			this.RaisePropertyChanged(() => this.VariableFramerateToolTip);
+			this.RaisePropertyChanged(() => this.VfrChoiceText);
 			this.RaisePropertyChanged(() => this.TwoPassEncoding);
 			this.RaisePropertyChanged(() => this.TurboFirstPass);
 			this.RaisePropertyChanged(() => this.TwoPassEncodingEnabled);

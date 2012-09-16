@@ -18,7 +18,7 @@ namespace VidCoder.Model
 {
 	public static class Presets
 	{
-		private const int CurrentPresetVersion = 5;
+		private const int CurrentPresetVersion = 6;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
@@ -210,6 +210,11 @@ namespace VidCoder.Model
 			{
 				UpgradeEncodingProfileTo14(profile);
 			}
+
+			if (databaseVersion < 15)
+			{
+				UpgradeEncodingProfileTo15(profile);
+			}
 		}
 
 		public static void UpgradeEncodingProfileTo13(EncodingProfile profile)
@@ -288,6 +293,21 @@ namespace VidCoder.Model
 			profile.AudioEncoderFallback = UpgradeAudioEncoder(profile.AudioEncoderFallback);
 		}
 
+		public static void UpgradeEncodingProfileTo15(EncodingProfile profile)
+		{
+			if (profile.Framerate == 0)
+			{
+				// Profile had only VFR for Same as Source framerate before.
+				profile.ConstantFramerate = false;
+			}
+			else
+			{
+				// If Peak Framerate was checked under a specific framerate
+				// that meant we wanted VFR. Otherwise, CFR with the listed framerate
+				profile.ConstantFramerate = !profile.PeakFramerate;
+			}
+		}
+
 		private static void ErrorCheckPresets(List<Preset> presets)
 		{
 			foreach (Preset preset in presets)
@@ -334,9 +354,14 @@ namespace VidCoder.Model
 				return 12;
 			}
 
-			if (presetVersion == 4)
+			if (presetVersion < 5)
 			{
 				return 13;
+			}
+
+			if (presetVersion == 5)
+			{
+				return 14;
 			}
 
 			return Utilities.CurrentDatabaseVersion;

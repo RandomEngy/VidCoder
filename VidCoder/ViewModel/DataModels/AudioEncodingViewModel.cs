@@ -36,7 +36,6 @@ namespace VidCoder.ViewModel
 		private int sampleRate;
 		private List<BitrateChoiceViewModel> bitrateChoices;
 		private BitrateChoiceViewModel selectedBitrate;
-		//private int bitrate;
 		private int gain;
 		private double drc;
 		private string name;
@@ -45,15 +44,21 @@ namespace VidCoder.ViewModel
 
 		private Container outputFormat;
 
-		private static List<int> sampleRateChoices = new List<int>
+		private static List<int> allSampleRateChoices = new List<int>
 		{
 			0,
+			8000,
+			11025,
+			12000,
+			16000,
 			22050,
 			24000,
 			32000,
 			44100,
 			48000
 		};
+
+		private List<int> currentSampleRateChoices;
 
 		public AudioEncodingViewModel(AudioEncoding audioEncoding, Title selectedTitle, List<int> chosenAudioTracks, Container outputFormat, AudioPanelViewModel audioPanelVM)
 		{
@@ -72,9 +77,26 @@ namespace VidCoder.ViewModel
 			this.RefreshEncoderChoices();
 			this.RefreshMixdownChoices();
 			this.RefreshBitrateChoices();
+			this.RefreshSampleRateChoices();
 
 			this.selectedAudioEncoder = Encoders.GetAudioEncoder(audioEncoding.Encoder);
 			this.selectedMixdown = Encoders.GetMixdown(audioEncoding.Mixdown);
+
+			// The currently selected mixdown might no longer be available as we are now
+			// only showing supported mixdowns. We will pick the last one on the list instead.
+			if (this.selectedMixdown == null)
+			{
+				for (int i = Encoders.Mixdowns.Count - 1; i >= 0; i--)
+				{
+					HBMixdown mixdown = Encoders.Mixdowns[i];
+					if (Encoders.MixdownIsSupported(mixdown, this.selectedAudioEncoder))
+					{
+						this.selectedMixdown = mixdown;
+						break;
+					}
+				}
+			}
+
 			this.sampleRate = audioEncoding.SampleRateRaw;
 
 			if (!this.SelectedAudioEncoder.SupportsQuality)
@@ -233,6 +255,7 @@ namespace VidCoder.ViewModel
 				{
 					this.RefreshMixdownChoices();
 					this.RefreshBitrateChoices();
+					this.RefreshSampleRateChoices();
 					if (!value.IsPassthrough)
 					{
 						if (this.SelectedBitrate == null && this.BitrateChoices.Count > 0)
@@ -516,7 +539,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return sampleRateChoices;
+				return this.currentSampleRateChoices;
 			}
 		}
 
@@ -720,10 +743,12 @@ namespace VidCoder.ViewModel
 			HBMixdown oldMixdown = this.SelectedMixdown;
 			this.mixdownChoices = new List<HBMixdown>();
 
-			int maxMixdownIndex = Encoders.GetMaxMixdownIndex(this.SelectedAudioEncoder);
-			for (int i = 0; i <= maxMixdownIndex; i++)
+			foreach (HBMixdown mixdown in Encoders.Mixdowns)
 			{
-				this.MixdownChoices.Add(Encoders.Mixdowns[i]);
+				if (Encoders.MixdownIsSupported(mixdown, this.SelectedAudioEncoder))
+				{
+					this.MixdownChoices.Add(mixdown);
+				}
 			}
 
 			this.RaisePropertyChanged(() => this.MixdownChoices);
@@ -822,6 +847,46 @@ namespace VidCoder.ViewModel
 
 			this.selectedBitrate = this.BitrateChoices.Single(b => b.Bitrate == oldBitrate);
 			this.RaisePropertyChanged(() => this.SelectedBitrate);
+		}
+
+		private void RefreshSampleRateChoices()
+		{
+			if (this.SelectedAudioEncoder == null)
+			{
+				return;
+			}
+
+			// Many AC3 decoders do not support <32 kHz sample rate. For the AC3 encoder, we remove those
+			// samplerate choices.
+			int oldSampleRate = this.SampleRate;
+			if (this.SelectedAudioEncoder.ShortName == "ffac3")
+			{
+				this.currentSampleRateChoices = new List<int>();
+				foreach (int sampleRateChoice in allSampleRateChoices)
+				{
+					if (sampleRateChoice == 0 || sampleRateChoice >= 32000)
+					{
+						this.currentSampleRateChoices.Add(sampleRateChoice);
+					}
+				}
+
+				if (oldSampleRate == 0 || oldSampleRate >= 32000)
+				{
+					this.sampleRate = oldSampleRate;
+				}
+				else
+				{
+					this.sampleRate = 32000;
+				}
+			}
+			else
+			{
+				this.currentSampleRateChoices = allSampleRateChoices;
+				this.sampleRate = oldSampleRate;
+			}
+
+			this.RaisePropertyChanged(() => this.SampleRateChoices);
+			this.RaisePropertyChanged(() => this.SampleRate);
 		}
 
 		private void MarkModified()

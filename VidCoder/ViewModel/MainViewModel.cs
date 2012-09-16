@@ -366,7 +366,7 @@ namespace VidCoder.ViewModel
 
 			this.driveService.Close();
 			this.ProcessingVM.CleanupHandBrakeInstances();
-			HandBrakeInstance.DisposeGlobal();
+			HandBrakeUtils.DisposeGlobal();
 
 			FileCleanup.CleanOldLogs();
 			FileCleanup.CleanPreviewFileCache();
