@@ -389,7 +389,8 @@ namespace VidCoder.ViewModel.Components
 				this.main.SecondsRangeEnd,
 				this.main.FramesRangeStart,
 				this.main.FramesRangeEnd,
-				this.NameFormatOverride);
+				this.NameFormatOverride,
+				usesScan: true);
 
 			string extension = this.GetOutputExtension();
 
@@ -485,7 +486,7 @@ namespace VidCoder.ViewModel.Components
 			return null;
 		}
 
-		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, int totalChapters, string nameFormatOverride = null)
+		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, int totalChapters, string nameFormatOverride = null, bool usesScan = true)
 		{
 			return this.BuildOutputFileName(
 				sourcePath,
@@ -500,10 +501,11 @@ namespace VidCoder.ViewModel.Components
 				0,
 				0,
 				0,
-				nameFormatOverride);
+				nameFormatOverride,
+				usesScan);
 		}
 
-		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, VideoRangeType rangeType, int startChapter, int endChapter, int totalChapters, double startSecond, double endSecond, int startFrame, int endFrame, string nameFormatOverride)
+		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, VideoRangeType rangeType, int startChapter, int endChapter, int totalChapters, double startSecond, double endSecond, int startFrame, int endFrame, string nameFormatOverride, bool usesScan)
 		{
 			string fileName;
 			if (Settings.Default.AutoNameCustomFormat || !string.IsNullOrWhiteSpace(nameFormatOverride))
@@ -587,7 +589,7 @@ namespace VidCoder.ViewModel.Components
 			else
 			{
 				string titleSection = string.Empty;
-				if (this.main.SelectedSource.Type != SourceType.File)
+				if (usesScan && this.main.SelectedSource != null && this.main.SelectedSource.Type != SourceType.File)
 				{
 					titleSection = " - Title " + title;
 				}

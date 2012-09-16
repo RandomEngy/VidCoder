@@ -240,7 +240,7 @@ namespace VidCoder.ViewModel
 			}
 
 			// For regular encodes, we need to find out what the real mixdown, sample rate and bitrate will be.
-			HBMixdown mixdown = audioVM.SelectedMixdown;
+			HBMixdown mixdown = audioVM.SelectedMixdown.Mixdown;
 			int sampleRate = audioVM.SampleRate;
 			int bitrate = audioVM.SelectedBitrate.Bitrate;
 

@@ -668,7 +668,7 @@ namespace VidCoder.ViewModel.Components
 						// Signify that we stopped the encode manually rather than it completing.
 						this.encodeStopped = true;
 						this.encodeProxy.StopEncode();
-						//this.CurrentJob.HandBrakeInstance.StopEncode();
+
 						this.logger.ShowStatus("Stopped encoding.");
 					},
 					() =>
@@ -879,31 +879,15 @@ namespace VidCoder.ViewModel.Components
 			var itemsToQueue = new List<EncodeJobViewModel>();
 			foreach (string fileToQueue in filesToQueue)
 			{
-				excludedPaths.Add(fileToQueue);
-				string outputFolder = this.outputVM.GetOutputFolder(fileToQueue);
-				string queueOutputPath = Path.Combine(outputFolder, Path.GetFileNameWithoutExtension(fileToQueue) + this.outputVM.GetOutputExtensionForCurrentEncodingProfile());
-				queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, excludedPaths, isBatch: true);
-
-				// Even if you're doing overwrite don't try to stomp on the source file.
-				if (string.Compare(queueOutputPath, fileToQueue, StringComparison.OrdinalIgnoreCase) == 0)
-				{
-					queueOutputPath = Utilities.CreateUniqueFileName(Path.GetFileNameWithoutExtension(fileToQueue) + this.outputVM.GetOutputExtensionForCurrentEncodingProfile(), outputFolder, excludedPaths);
-				}
-
-				excludedPaths.Add(queueOutputPath);
-
 				// When ChapterStart is 0, this means the whole title is encoded.
 				var job = new EncodeJob
 				{
 					SourcePath = fileToQueue,
-					OutputPath = queueOutputPath,
 					EncodingProfile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.Clone(),
 					Title = 1,
 					RangeType = VideoRangeType.Chapters,
 					ChapterStart = 0,
 					ChapterEnd = 0,
-					ChosenAudioTracks = new List<int> { 1 },
-					Subtitles = new Subtitles(),
 					UseDefaultChapterNames = true
 				};
 
@@ -934,6 +918,27 @@ namespace VidCoder.ViewModel.Components
 				// Only queue items with a successful scan
 				if (jobVM.HandBrakeInstance.Titles.Count > 0)
 				{
+					Title title = jobVM.HandBrakeInstance.Titles[0];
+					EncodeJob job = jobVM.Job;
+
+					// Choose the correct audio/subtitle tracks based on settings
+					this.AutoPickAudio(job, title);
+					this.AutoPickSubtitles(job, title);
+
+					// Now that we have the title and subtitles we can determine the final output file name
+					string fileToQueue = job.SourcePath;
+
+					excludedPaths.Add(fileToQueue);
+					string outputFolder = this.outputVM.GetOutputFolder(fileToQueue);
+					string outputFileName = this.outputVM.BuildOutputFileName(fileToQueue, Utilities.GetSourceNameFile(fileToQueue), 1, title.Duration, title.Chapters.Count, usesScan: false);
+					string outputExtension = this.outputVM.GetOutputExtension(job.Subtitles, title);
+					string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
+					queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, excludedPaths, isBatch: true);
+
+					job.OutputPath = queueOutputPath;
+
+					excludedPaths.Add(queueOutputPath);
+
 					this.Queue(jobVM);
 				}
 				else
@@ -1519,6 +1524,135 @@ namespace VidCoder.ViewModel.Components
 					this.ResumeEncoding();
 				}
 			});
+		}
+
+		// Automatically pick the correct audio on the given job.
+		// Only relies on input from settings and the current title.
+		private void AutoPickAudio(EncodeJob job, Title title)
+		{
+			job.ChosenAudioTracks = new List<int>();
+			switch (Settings.Default.AutoAudio)
+			{
+				case AutoAudioType.Disabled:
+					if (title.AudioTracks.Count > 0)
+					{
+						job.ChosenAudioTracks.Add(1);
+					}
+
+					break;
+				case AutoAudioType.Language:
+					List<AudioTrack> nativeTracks = title.AudioTracks.Where(track => track.LanguageCode == Settings.Default.AudioLanguageCode).ToList();
+					if (nativeTracks.Count > 0)
+					{
+						if (Settings.Default.AutoAudioAll)
+						{
+							foreach (AudioTrack audioTrack in nativeTracks)
+							{
+								job.ChosenAudioTracks.Add(audioTrack.TrackNumber);
+							}
+						}
+						else
+						{
+							job.ChosenAudioTracks.Add(nativeTracks[0].TrackNumber);
+						}
+					}
+					break;
+				case AutoAudioType.All:
+					foreach (AudioTrack audioTrack in title.AudioTracks)
+					{
+						job.ChosenAudioTracks.Add(audioTrack.TrackNumber);
+					}
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
+			// If none get chosen, pick the first one.
+			if (job.ChosenAudioTracks.Count == 0 && title.AudioTracks.Count > 0)
+			{
+				job.ChosenAudioTracks.Add(1);
+			}
+		}
+
+		// Automatically pick the correct subtitles on the given job.
+		// Only relies on input from settings and the current title.
+		private void AutoPickSubtitles(EncodeJob job, Title title)
+		{
+			job.Subtitles = new Subtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
+			switch (Settings.Default.AutoSubtitle)
+			{
+				case AutoSubtitleType.Disabled:
+					// If no auto-selection is done, no subtitles will be added.
+					break;
+				case AutoSubtitleType.ForeignAudioSearch:
+					job.Subtitles.SourceSubtitles.Add(
+						new SourceSubtitle
+						{
+							TrackNumber = 0,
+							BurnedIn = Settings.Default.AutoSubtitleBurnIn,
+							Forced = true,
+							Default = true
+						});
+					break;
+				case AutoSubtitleType.Language:
+					string languageCode = Settings.Default.SubtitleLanguageCode;
+					bool audioSame = false;
+					if (job.ChosenAudioTracks.Count > 0 && title.AudioTracks.Count > 0)
+					{
+						if (title.AudioTracks[job.ChosenAudioTracks[0] - 1].LanguageCode == languageCode)
+						{
+							audioSame = true;
+						}
+					}
+
+					if (!Settings.Default.AutoSubtitleOnlyIfDifferent || !audioSame)
+					{
+						List<Subtitle> nativeSubtitles = title.Subtitles.Where(subtitle => subtitle.LanguageCode == languageCode).ToList();
+						if (nativeSubtitles.Count > 0)
+						{
+							if (Settings.Default.AutoSubtitleAll)
+							{
+								foreach (Subtitle subtitle in nativeSubtitles)
+								{
+									job.Subtitles.SourceSubtitles.Add(new SourceSubtitle
+									{
+										BurnedIn = false,
+										Default = false,
+										Forced = false,
+										TrackNumber = subtitle.TrackNumber
+									});
+								}
+							}
+							else
+							{
+								job.Subtitles.SourceSubtitles.Add(new SourceSubtitle
+								{
+									BurnedIn = false,
+									Default = false,
+									Forced = false,
+									TrackNumber = nativeSubtitles[0].TrackNumber
+								});
+							}
+						}
+					}
+
+					break;
+				case AutoSubtitleType.All:
+					foreach (Subtitle subtitle in title.Subtitles)
+					{
+						job.Subtitles.SourceSubtitles.Add(
+							new SourceSubtitle
+							{
+								TrackNumber = subtitle.TrackNumber,
+								BurnedIn = false,
+								Default = false,
+								Forced = false
+							});
+					}
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 	}
 }

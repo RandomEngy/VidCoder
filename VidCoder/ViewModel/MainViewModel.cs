@@ -872,39 +872,6 @@ namespace VidCoder.ViewModel
 							throw new ArgumentOutOfRangeException();
 					}
 
-					//// If we have a preferred language specified, try to apply that language
-					//if (Settings.Default.NativeLanguageCode != "und")
-					//{
-					//    // Only mess with the audio tracks if we're in dub mode and we're not carrying over previous selections
-					//    if (Settings.Default.DubAudio && (this.AudioChoices.Count == 0 || this.AudioChoices.Count == 1 && this.AudioChoices[0].SelectedIndex == 0))
-					//    {
-					//        List<AudioTrack> nativeTracks = this.selectedTitle.AudioTracks.Where(track => track.LanguageCode == Settings.Default.NativeLanguageCode).ToList();
-					//        if (nativeTracks.Count > 0)
-					//        {
-					//            this.AudioChoices.Clear();
-					//            var newVM = new AudioChoiceViewModel();
-					//            newVM.SelectedIndex = nativeTracks[0].TrackNumber - 1;
-					//            this.AudioChoices.Add(newVM);
-					//        }
-					//    }
-
-					//    // Try to apply the preferred language subtitle if no subtitles already exist
-					//    if (this.CurrentSubtitles.SourceSubtitles.Count == 0 && this.CurrentSubtitles.SrtSubtitles.Count == 0)
-					//    {
-					//        List<Subtitle> nativeSubtitles = this.selectedTitle.Subtitles.Where(subtitle => subtitle.LanguageCode == "iso639-2: " + Settings.Default.NativeLanguageCode).ToList();
-					//        if (nativeSubtitles.Count > 0)
-					//        {
-					//            this.CurrentSubtitles.SourceSubtitles.Add(new SourceSubtitle
-					//            {
-					//                BurnedIn = false,
-					//                Default = true,
-					//                Forced = false,
-					//                TrackNumber = nativeSubtitles[0].TrackNumber
-					//            });
-					//        }
-					//    }
-					//}
-
 					this.UseDefaultChapterNames = true;
 					this.PopulateChapterSelectLists();
 

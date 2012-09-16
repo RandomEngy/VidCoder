@@ -27,6 +27,24 @@
 			<Setter Property="Margin" Value="2" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
 		</Style>
+		<Style x:Key="GrayNonCompatible" TargetType="ComboBoxItem">
+			<Style.Triggers>
+				<MultiDataTrigger>
+					<MultiDataTrigger.Conditions>
+						<Condition Binding="{Binding IsCompatible}" Value="False" />
+						<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="False" />
+					</MultiDataTrigger.Conditions>
+					<Setter Property="Foreground" Value="Gray" />
+				</MultiDataTrigger>
+				<MultiDataTrigger>
+					<MultiDataTrigger.Conditions>
+						<Condition Binding="{Binding IsCompatible}" Value="False" />
+						<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="True" />
+					</MultiDataTrigger.Conditions>
+					<Setter Property="Foreground" Value="#DDDDDD" />
+				</MultiDataTrigger>
+			</Style.Triggers>
+		</Style>
 	</UserControl.Resources>
 	<Grid>
 		<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
@@ -104,8 +122,9 @@
 											Width="125" Grid.Row="1" Grid.Column="1"
 											ItemsSource="{Binding MixdownChoices}"
 											SelectedItem="{Binding SelectedMixdown}"
-											DisplayMemberPath="DisplayName"
-											Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
+											DisplayMemberPath="Display"
+											Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"
+											ItemContainerStyle="{StaticResource GrayNonCompatible}"/>
 
 										<TextBlock
 											Style="{StaticResource AudioLabel}"
@@ -161,28 +180,8 @@
 												ItemsSource="{Binding BitrateChoices}"
 												SelectedValue="{Binding SelectedBitrate}"
 												DisplayMemberPath="Display"
-												Visibility="{Binding BitrateVisible, Converter={StaticResource VisibilityConverter}}">
-												<ComboBox.ItemContainerStyle>
-													<Style TargetType="ComboBoxItem">
-														<Style.Triggers>
-															<MultiDataTrigger>
-																<MultiDataTrigger.Conditions>
-																	<Condition Binding="{Binding IsCompatible}" Value="False" />
-																	<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="False" />
-																</MultiDataTrigger.Conditions>
-																<Setter Property="Foreground" Value="Gray" />
-															</MultiDataTrigger>
-															<MultiDataTrigger>
-																<MultiDataTrigger.Conditions>
-																	<Condition Binding="{Binding IsCompatible}" Value="False" />
-																	<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="True" />
-																</MultiDataTrigger.Conditions>
-																<Setter Property="Foreground" Value="#DDDDDD" />
-															</MultiDataTrigger>
-														</Style.Triggers>
-													</Style>
-												</ComboBox.ItemContainerStyle>
-											</ComboBox>
+												Visibility="{Binding BitrateVisible, Converter={StaticResource VisibilityConverter}}"
+												ItemContainerStyle="{StaticResource GrayNonCompatible}" />
 
 											<!-- Audio quality -->
 											<Grid

@@ -9,14 +9,16 @@ namespace VidCoder.ViewModel
 {
 	public class MixdownViewModel : ViewModelBase
 	{
-		public Mixdown Mixdown { get; set; }
+		public HBMixdown Mixdown { get; set; }
 
 		public string Display
 		{
 			get
 			{
-				return DisplayConversions.DisplayMixdown(this.Mixdown);
+				return this.Mixdown.DisplayName;
 			}
 		}
+
+		public bool IsCompatible { get; set; }
 	}
 }

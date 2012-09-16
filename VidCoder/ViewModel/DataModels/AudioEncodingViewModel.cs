@@ -31,8 +31,8 @@ namespace VidCoder.ViewModel
 		private int targetStreamIndex;
 		private List<HBAudioEncoder> audioEncoders;
 		private HBAudioEncoder selectedAudioEncoder;
-		private List<HBMixdown> mixdownChoices;
-		private HBMixdown selectedMixdown;
+		private List<MixdownViewModel> mixdownChoices;
+		private MixdownViewModel selectedMixdown;
 		private int sampleRate;
 		private List<BitrateChoiceViewModel> bitrateChoices;
 		private BitrateChoiceViewModel selectedBitrate;
@@ -71,7 +71,7 @@ namespace VidCoder.ViewModel
 			this.SetChosenTracks(chosenAudioTracks, selectedTitle);
 
 			this.audioEncoders = new List<HBAudioEncoder>();
-			this.mixdownChoices = new List<HBMixdown>();
+			this.mixdownChoices = new List<MixdownViewModel>();
 
 			this.outputFormat = outputFormat;
 			this.RefreshEncoderChoices();
@@ -80,22 +80,7 @@ namespace VidCoder.ViewModel
 			this.RefreshSampleRateChoices();
 
 			this.selectedAudioEncoder = Encoders.GetAudioEncoder(audioEncoding.Encoder);
-			this.selectedMixdown = Encoders.GetMixdown(audioEncoding.Mixdown);
-
-			// The currently selected mixdown might no longer be available as we are now
-			// only showing supported mixdowns. We will pick the last one on the list instead.
-			if (this.selectedMixdown == null)
-			{
-				for (int i = Encoders.Mixdowns.Count - 1; i >= 0; i--)
-				{
-					HBMixdown mixdown = Encoders.Mixdowns[i];
-					if (Encoders.MixdownIsSupported(mixdown, this.selectedAudioEncoder))
-					{
-						this.selectedMixdown = mixdown;
-						break;
-					}
-				}
-			}
+			this.SelectMixdown(Encoders.GetMixdown(audioEncoding.Mixdown));
 
 			this.sampleRate = audioEncoding.SampleRateRaw;
 
@@ -128,6 +113,7 @@ namespace VidCoder.ViewModel
 				this,
 				message =>
 					{
+						this.RefreshMixdownChoices();
 						this.RefreshBitrateChoices();
 					});
 
@@ -135,6 +121,7 @@ namespace VidCoder.ViewModel
 				this,
 				message =>
 					{
+						this.RefreshMixdownChoices();
 						this.RefreshBitrateChoices();
 					});
 
@@ -159,7 +146,7 @@ namespace VidCoder.ViewModel
 
 				if (!this.SelectedAudioEncoder.IsPassthrough)
 				{
-					newAudioEncoding.Mixdown = this.SelectedMixdown.ShortName;
+					newAudioEncoding.Mixdown = this.SelectedMixdown.Mixdown.ShortName;
 					newAudioEncoding.SampleRateRaw = this.SampleRate;
 
 					newAudioEncoding.EncodeRateType = this.EncodeRateType;
@@ -507,7 +494,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public List<HBMixdown> MixdownChoices
+		public List<MixdownViewModel> MixdownChoices
 		{
 			get
 			{
@@ -515,7 +502,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public HBMixdown SelectedMixdown
+		public MixdownViewModel SelectedMixdown
 		{
 			get
 			{
@@ -740,27 +727,47 @@ namespace VidCoder.ViewModel
 
 		private void RefreshMixdownChoices()
 		{
-			HBMixdown oldMixdown = this.SelectedMixdown;
-			this.mixdownChoices = new List<HBMixdown>();
+			HBMixdown oldMixdown = null;
+			if (this.SelectedMixdown != null)
+			{
+				oldMixdown = this.SelectedMixdown.Mixdown;
+			}
+
+			this.mixdownChoices = new List<MixdownViewModel>();
 
 			foreach (HBMixdown mixdown in Encoders.Mixdowns)
 			{
-				if (Encoders.MixdownIsSupported(mixdown, this.SelectedAudioEncoder))
+				// Only add option if codec supports the mixdown
+				if (Encoders.MixdownHasCodecSupport(mixdown, this.SelectedAudioEncoder))
 				{
-					this.MixdownChoices.Add(mixdown);
+					// Determine compatibility of mixdown with the input channel layout
+					// Incompatible mixdowns are grayed out
+					bool isCompatible = true;
+					if (this.main.HasVideoSource)
+					{
+						AudioTrack track = this.GetTargetAudioTrack();
+						if (track != null)
+						{
+							isCompatible = Encoders.MixdownHasRemixSupport(mixdown, track.ChannelLayout);
+						}
+					}
+
+					this.MixdownChoices.Add(new MixdownViewModel { Mixdown = mixdown, IsCompatible = isCompatible });
 				}
 			}
 
 			this.RaisePropertyChanged(() => this.MixdownChoices);
 
-			if (this.MixdownChoices.Contains(oldMixdown))
-			{
-				this.selectedMixdown = oldMixdown;
-			}
-			else
-			{
-				this.selectedMixdown = this.MixdownChoices[0];
-			}
+			this.SelectMixdown(oldMixdown);
+
+			//if (this.MixdownChoices.Contains(oldMixdown))
+			//{
+			//    this.selectedMixdown = oldMixdown;
+			//}
+			//else
+			//{
+			//    this.selectedMixdown = this.MixdownChoices[0];
+			//}
 
 			this.RaisePropertyChanged(() => this.SelectedMixdown);
 		}
@@ -786,26 +793,7 @@ namespace VidCoder.ViewModel
 			if (this.main.HasVideoSource)
 			{
 				// Find if we're encoding a single track
-				AudioTrack track = null;
-				List<int> chosenAudioTracks = this.main.GetChosenAudioTracks();
-
-				if (this.TargetStreamIndex > 0 && this.TargetStreamIndex <= chosenAudioTracks.Count)
-				{
-					int audioTrack = chosenAudioTracks[this.TargetStreamIndex - 1];
-					if (audioTrack <= this.main.SelectedTitle.AudioTracks.Count)
-					{
-						track = this.main.SelectedTitle.AudioTracks[audioTrack - 1];
-					}
-				}
-
-				if (this.TargetStreamIndex == 0 && chosenAudioTracks.Count == 1)
-				{
-					int audioTrack = chosenAudioTracks[0];
-					if (audioTrack <= this.main.SelectedTitle.AudioTracks.Count)
-					{
-						track = this.main.SelectedTitle.AudioTracks[audioTrack - 1];
-					}
-				}
+				var track = this.GetTargetAudioTrack();
 
 				// Can only gray out bitrates if we're encoding exactly one track
 				if (track != null)
@@ -816,7 +804,7 @@ namespace VidCoder.ViewModel
 						sampleRateLimits = track.SampleRate;
 					}
 
-					HBMixdown mixdownLimits = this.SelectedMixdown;
+					HBMixdown mixdownLimits = this.SelectedMixdown.Mixdown;
 					if (mixdownLimits.ShortName == "none" || string.IsNullOrEmpty(mixdownLimits.ShortName))
 					{
 						mixdownLimits = Encoders.SanitizeMixdown(mixdownLimits, this.SelectedAudioEncoder, track.ChannelLayout);
@@ -887,6 +875,46 @@ namespace VidCoder.ViewModel
 
 			this.RaisePropertyChanged(() => this.SampleRateChoices);
 			this.RaisePropertyChanged(() => this.SampleRate);
+		}
+
+		private AudioTrack GetTargetAudioTrack()
+		{
+			AudioTrack track = null;
+			List<int> chosenAudioTracks = this.main.GetChosenAudioTracks();
+
+			if (this.TargetStreamIndex > 0 && this.TargetStreamIndex <= chosenAudioTracks.Count)
+			{
+				int audioTrack = chosenAudioTracks[this.TargetStreamIndex - 1];
+				if (audioTrack <= this.main.SelectedTitle.AudioTracks.Count)
+				{
+					track = this.main.SelectedTitle.AudioTracks[audioTrack - 1];
+				}
+			}
+
+			if (this.TargetStreamIndex == 0 && chosenAudioTracks.Count == 1)
+			{
+				int audioTrack = chosenAudioTracks[0];
+				if (audioTrack <= this.main.SelectedTitle.AudioTracks.Count)
+				{
+					track = this.main.SelectedTitle.AudioTracks[audioTrack - 1];
+				}
+			}
+			return track;
+		}
+
+		// Tries to select the given mixdown. If it cannot, selects the last mixdown on the list.
+		// Does not raise the propertychanged event.
+		private void SelectMixdown(HBMixdown mixdown)
+		{
+			MixdownViewModel mixdownToSelect = this.MixdownChoices.FirstOrDefault(m => m.Mixdown == mixdown);
+			if (mixdownToSelect != null)
+			{
+				this.selectedMixdown = mixdownToSelect;
+			}
+			else
+			{
+				this.selectedMixdown = this.MixdownChoices[this.MixdownChoices.Count - 1];
+			}
 		}
 
 		private void MarkModified()
