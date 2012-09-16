@@ -38,7 +38,7 @@
 			<TwoPass>false</TwoPass>
 			<TurboFirstPass>false</TurboFirstPass>
 			<Framerate>0</Framerate>
-      <ConstantFramerate>false</ConstantFramerate>
+			<ConstantFramerate>false</ConstantFramerate>
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
@@ -83,7 +83,7 @@
 			<Modulus>16</Modulus>
 			<Deinterlace>Off</Deinterlace>
 			<Decomb>Default</Decomb>
-			<Detelecine>Default</Detelecine>
+			<Detelecine>Off</Detelecine>
 			<Denoise>Off</Denoise>
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
@@ -96,7 +96,7 @@
 			<TwoPass>false</TwoPass>
 			<TurboFirstPass>false</TurboFirstPass>
 			<Framerate>0</Framerate>
-      <ConstantFramerate>false</ConstantFramerate>
+			<ConstantFramerate>false</ConstantFramerate>
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
@@ -162,7 +162,7 @@
 			<TwoPass>false</TwoPass>
 			<TurboFirstPass>false</TurboFirstPass>
 			<Framerate>0</Framerate>
-      <ConstantFramerate>false</ConstantFramerate>
+			<ConstantFramerate>false</ConstantFramerate>
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
@@ -228,7 +228,7 @@
 			<TwoPass>false</TwoPass>
 			<TurboFirstPass>false</TurboFirstPass>
 			<Framerate>0</Framerate>
-      <ConstantFramerate>false</ConstantFramerate>
+			<ConstantFramerate>false</ConstantFramerate>
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
@@ -286,7 +286,7 @@
 			<TwoPass>false</TwoPass>
 			<TurboFirstPass>false</TurboFirstPass>
 			<Framerate>0</Framerate>
-      <ConstantFramerate>false</ConstantFramerate>
+			<ConstantFramerate>false</ConstantFramerate>
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
@@ -402,7 +402,7 @@
 			<TwoPass>false</TwoPass>
 			<TurboFirstPass>false</TurboFirstPass>
 			<Framerate>29.97</Framerate>
-      <ConstantFramerate>false</ConstantFramerate>
+			<ConstantFramerate>false</ConstantFramerate>
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
@@ -460,7 +460,7 @@
 			<TwoPass>false</TwoPass>
 			<TurboFirstPass>false</TurboFirstPass>
 			<Framerate>0</Framerate>
-      <ConstantFramerate>false</ConstantFramerate>
+			<ConstantFramerate>false</ConstantFramerate>
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
@@ -526,7 +526,7 @@
 			<TwoPass>false</TwoPass>
 			<TurboFirstPass>false</TurboFirstPass>
 			<Framerate>29.97</Framerate>
-      <ConstantFramerate>false</ConstantFramerate>
+			<ConstantFramerate>false</ConstantFramerate>
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
@@ -549,73 +549,73 @@
 			</AudioEncodings>
 		</EncodingProfile>
 	</Preset>
-  <Preset>
-    <Name>Apple TV 3</Name>
-    <IsBuiltIn>true</IsBuiltIn>
-    <IsModified>false</IsModified>
-    <EncodingProfile>
-      <OutputFormat>Mp4</OutputFormat>
-      <PreferredExtension>M4v</PreferredExtension>
-      <IncludeChapterMarkers>true</IncludeChapterMarkers>
-      <LargeFile>true</LargeFile>
-      <Optimize>false</Optimize>
-      <IPod5GSupport>false</IPod5GSupport>
-      <Width>0</Width>
-      <Height>0</Height>
-      <MaxWidth>1920</MaxWidth>
-      <MaxHeight>0</MaxHeight>
-      <CustomCropping>false</CustomCropping>
-      <Cropping>
-        <Top>0</Top>
-        <Bottom>0</Bottom>
-        <Left>0</Left>
-        <Right>0</Right>
-      </Cropping>
-      <Anamorphic>Loose</Anamorphic>
-      <UseDisplayWidth>false</UseDisplayWidth>
-      <DisplayWidth>0</DisplayWidth>
-      <KeepDisplayAspect>true</KeepDisplayAspect>
-      <PixelAspectX>0</PixelAspectX>
-      <PixelAspectY>0</PixelAspectY>
-      <Modulus>16</Modulus>
-      <Deinterlace>Off</Deinterlace>
-      <Decomb>Off</Decomb>
-      <Detelecine>Off</Detelecine>
-      <Denoise>Off</Denoise>
-      <Deblock>0</Deblock>
-      <Grayscale>false</Grayscale>
-      <VideoEncoder>x264</VideoEncoder>
-      <X264Options>b-adapt=2</X264Options>
-      <VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
-      <Quality>20</Quality>
-      <TargetSize>0</TargetSize>
-      <VideoBitrate>700</VideoBitrate>
-      <TwoPass>false</TwoPass>
-      <TurboFirstPass>false</TurboFirstPass>
-      <Framerate>0</Framerate>
-      <ConstantFramerate>false</ConstantFramerate>
-      <AudioEncodings>
-        <AudioEncoding>
-          <InputNumber>0</InputNumber>
-          <Encoder>faac</Encoder>
-          <EncodeRateType>Bitrate</EncodeRateType>
-          <Bitrate>0</Bitrate>
-          <Mixdown>dpl2</Mixdown>
-          <SampleRateRaw>0</SampleRateRaw>
-          <Drc>0</Drc>
-        </AudioEncoding>
-        <AudioEncoding>
-          <InputNumber>0</InputNumber>
-          <Encoder>copy:ac3</Encoder>
-          <EncodeRateType>Bitrate</EncodeRateType>
-          <Bitrate>0</Bitrate>
-          <Mixdown>dpl2</Mixdown>
-          <SampleRateRaw>0</SampleRateRaw>
-          <Drc>0</Drc>
-        </AudioEncoding>
-      </AudioEncodings>
-    </EncodingProfile>
-  </Preset>
+	<Preset>
+		<Name>Apple TV 3</Name>
+		<IsBuiltIn>true</IsBuiltIn>
+		<IsModified>false</IsModified>
+		<EncodingProfile>
+			<OutputFormat>Mp4</OutputFormat>
+			<PreferredExtension>M4v</PreferredExtension>
+			<IncludeChapterMarkers>true</IncludeChapterMarkers>
+			<LargeFile>true</LargeFile>
+			<Optimize>false</Optimize>
+			<IPod5GSupport>false</IPod5GSupport>
+			<Width>0</Width>
+			<Height>0</Height>
+			<MaxWidth>1920</MaxWidth>
+			<MaxHeight>0</MaxHeight>
+			<CustomCropping>false</CustomCropping>
+			<Cropping>
+				<Top>0</Top>
+				<Bottom>0</Bottom>
+				<Left>0</Left>
+				<Right>0</Right>
+			</Cropping>
+			<Anamorphic>Loose</Anamorphic>
+			<UseDisplayWidth>false</UseDisplayWidth>
+			<DisplayWidth>0</DisplayWidth>
+			<KeepDisplayAspect>true</KeepDisplayAspect>
+			<PixelAspectX>0</PixelAspectX>
+			<PixelAspectY>0</PixelAspectY>
+			<Modulus>16</Modulus>
+			<Deinterlace>Off</Deinterlace>
+			<Decomb>Off</Decomb>
+			<Detelecine>Off</Detelecine>
+			<Denoise>Off</Denoise>
+			<Deblock>0</Deblock>
+			<Grayscale>false</Grayscale>
+			<VideoEncoder>x264</VideoEncoder>
+			<X264Options>b-adapt=2</X264Options>
+			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
+			<Quality>20</Quality>
+			<TargetSize>0</TargetSize>
+			<VideoBitrate>700</VideoBitrate>
+			<TwoPass>false</TwoPass>
+			<TurboFirstPass>false</TurboFirstPass>
+			<Framerate>0</Framerate>
+			<ConstantFramerate>false</ConstantFramerate>
+			<AudioEncodings>
+				<AudioEncoding>
+					<InputNumber>0</InputNumber>
+					<Encoder>faac</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
+					<Bitrate>0</Bitrate>
+					<Mixdown>dpl2</Mixdown>
+					<SampleRateRaw>0</SampleRateRaw>
+					<Drc>0</Drc>
+				</AudioEncoding>
+				<AudioEncoding>
+					<InputNumber>0</InputNumber>
+					<Encoder>copy:ac3</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
+					<Bitrate>0</Bitrate>
+					<Mixdown>dpl2</Mixdown>
+					<SampleRateRaw>0</SampleRateRaw>
+					<Drc>0</Drc>
+				</AudioEncoding>
+			</AudioEncodings>
+		</EncodingProfile>
+	</Preset>
 	<Preset>
 		<Name>Android Mid</Name>
 		<IsBuiltIn>true</IsBuiltIn>
@@ -661,7 +661,7 @@
 			<TwoPass>false</TwoPass>
 			<TurboFirstPass>false</TurboFirstPass>
 			<Framerate>29.97</Framerate>
-      <ConstantFramerate>false</ConstantFramerate>
+			<ConstantFramerate>false</ConstantFramerate>
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
@@ -721,7 +721,7 @@
 			<TwoPass>false</TwoPass>
 			<TurboFirstPass>false</TurboFirstPass>
 			<Framerate>29.97</Framerate>
-      <ConstantFramerate>false</ConstantFramerate>
+			<ConstantFramerate>false</ConstantFramerate>
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
@@ -781,7 +781,7 @@
 			<TwoPass>false</TwoPass>
 			<TurboFirstPass>false</TurboFirstPass>
 			<Framerate>0</Framerate>
-      <ConstantFramerate>false</ConstantFramerate>
+			<ConstantFramerate>false</ConstantFramerate>
 			<AudioEncodings>
 				<AudioEncoding>
 					<InputNumber>0</InputNumber>
