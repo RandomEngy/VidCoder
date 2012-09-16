@@ -536,45 +536,6 @@ namespace VidCoder.ViewModel.Components
 							List<Title> titlesToQueue = queueTitlesDialog.CheckedTitles;
 							foreach (Title title in titlesToQueue)
 							{
-								// Use current subtitle and audio track choices for each queued title.
-								var subtitles =
-									new Subtitles
-									{
-										SrtSubtitles = new List<SrtSubtitle>(),
-										SourceSubtitles = new List<SourceSubtitle>()
-									};
-
-								foreach (SourceSubtitle sourceSubtitle in this.main.CurrentSubtitles.SourceSubtitles)
-								{
-									if (sourceSubtitle.TrackNumber == 0)
-									{
-										subtitles.SourceSubtitles.Add(sourceSubtitle.Clone());
-									}
-									else if (
-										title.Subtitles.Count > sourceSubtitle.TrackNumber - 1 &&
-										this.main.SelectedTitle.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode == title.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode)
-									{
-										subtitles.SourceSubtitles.Add(sourceSubtitle.Clone());
-									}
-								}
-
-								var currentAudioChoices = new List<int>();
-								foreach (AudioChoiceViewModel audioVM in this.main.AudioChoices)
-								{
-									int audioIndex = audioVM.SelectedIndex;
-
-									if (title.AudioTracks.Count > audioIndex && this.main.SelectedTitle.AudioTracks[audioIndex].LanguageCode == title.AudioTracks[audioIndex].LanguageCode)
-									{
-										currentAudioChoices.Add(audioIndex + 1);
-									}
-								}
-
-								// If we didn't manage to match any existing audio tracks, use the first audio track.
-								if (this.main.AudioChoices.Count > 0 && currentAudioChoices.Count == 0)
-								{
-									currentAudioChoices.Add(1);
-								}
-
 								EncodingProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
 								string queueSourceName = this.main.SourceName;
 								if (this.main.SelectedSource.Type == SourceType.Dvd)
@@ -595,6 +556,21 @@ namespace VidCoder.ViewModel.Components
 									nameFormatOverride = queueTitlesDialog.NameOverride;
 								}
 
+								var job = new EncodeJob
+								{
+									SourceType = this.main.SelectedSource.Type,
+									SourcePath = this.main.SourcePath,
+									EncodingProfile = profile.Clone(),
+									Title = title.TitleNumber,
+									ChapterStart = 1,
+									ChapterEnd = title.Chapters.Count,
+									UseDefaultChapterNames = true,
+									Length = title.Duration
+								};
+
+								this.AutoPickAudio(job, title, useCurrentContext: true);
+								this.AutoPickSubtitles(job, title, useCurrentContext: true);
+
 								string queueOutputFileName = this.outputVM.BuildOutputFileName(
 									this.main.SourcePath,
 									queueSourceName,
@@ -603,23 +579,10 @@ namespace VidCoder.ViewModel.Components
 									title.Chapters.Count,
 									nameFormatOverride);
 
-								string extension = this.outputVM.GetOutputExtension(subtitles, title);
+								string extension = this.outputVM.GetOutputExtension(job.Subtitles, title);
 								string queueOutputPath = this.outputVM.BuildOutputPath(queueOutputFileName, extension, sourcePath: null);
 
-								var job = new EncodeJob
-								{
-									SourceType = this.main.SelectedSource.Type,
-									SourcePath = this.main.SourcePath,
-									OutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, isBatch: true),
-									EncodingProfile = profile.Clone(),
-									Title = title.TitleNumber,
-									ChapterStart = 1,
-									ChapterEnd = title.Chapters.Count,
-									ChosenAudioTracks = currentAudioChoices,
-									Subtitles = subtitles,
-									UseDefaultChapterNames = true,
-									Length = title.Duration
-								};
+								job.OutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, isBatch: true);
 
 								var jobVM = new EncodeJobViewModel(job)
 								{
@@ -1528,7 +1491,7 @@ namespace VidCoder.ViewModel.Components
 
 		// Automatically pick the correct audio on the given job.
 		// Only relies on input from settings and the current title.
-		private void AutoPickAudio(EncodeJob job, Title title)
+		private void AutoPickAudio(EncodeJob job, Title title, bool useCurrentContext = false)
 		{
 			job.ChosenAudioTracks = new List<int>();
 			switch (Settings.Default.AutoAudio)
@@ -1536,7 +1499,30 @@ namespace VidCoder.ViewModel.Components
 				case AutoAudioType.Disabled:
 					if (title.AudioTracks.Count > 0)
 					{
-						job.ChosenAudioTracks.Add(1);
+						if (useCurrentContext)
+						{
+							// With previous context, pick similarly
+							foreach (AudioChoiceViewModel audioVM in this.main.AudioChoices)
+							{
+								int audioIndex = audioVM.SelectedIndex;
+
+								if (title.AudioTracks.Count > audioIndex && this.main.SelectedTitle.AudioTracks[audioIndex].LanguageCode == title.AudioTracks[audioIndex].LanguageCode)
+								{
+									job.ChosenAudioTracks.Add(audioIndex + 1);
+								}
+							}
+
+							// If we didn't manage to match any existing audio tracks, use the first audio track.
+							if (this.main.AudioChoices.Count > 0 && job.ChosenAudioTracks.Count == 0)
+							{
+								job.ChosenAudioTracks.Add(1);
+							}
+						}
+						else
+						{
+							// With no previous context, just pick the first track
+							job.ChosenAudioTracks.Add(1);
+						}
 					}
 
 					break;
@@ -1576,13 +1562,29 @@ namespace VidCoder.ViewModel.Components
 
 		// Automatically pick the correct subtitles on the given job.
 		// Only relies on input from settings and the current title.
-		private void AutoPickSubtitles(EncodeJob job, Title title)
+		private void AutoPickSubtitles(EncodeJob job, Title title, bool useCurrentContext = false)
 		{
 			job.Subtitles = new Subtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
 			switch (Settings.Default.AutoSubtitle)
 			{
 				case AutoSubtitleType.Disabled:
-					// If no auto-selection is done, no subtitles will be added.
+					// Only pick subtitles when we have previous context.
+					if (useCurrentContext)
+					{
+						foreach (SourceSubtitle sourceSubtitle in this.main.CurrentSubtitles.SourceSubtitles)
+						{
+							if (sourceSubtitle.TrackNumber == 0)
+							{
+								job.Subtitles.SourceSubtitles.Add(sourceSubtitle.Clone());
+							}
+							else if (
+								title.Subtitles.Count > sourceSubtitle.TrackNumber - 1 &&
+								this.main.SelectedTitle.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode == title.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode)
+							{
+								job.Subtitles.SourceSubtitles.Add(sourceSubtitle.Clone());
+							}
+						}
+					}
 					break;
 				case AutoSubtitleType.ForeignAudioSearch:
 					job.Subtitles.SourceSubtitles.Add(
