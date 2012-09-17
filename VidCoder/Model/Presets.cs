@@ -306,6 +306,14 @@ namespace VidCoder.Model
 				// that meant we wanted VFR. Otherwise, CFR with the listed framerate
 				profile.ConstantFramerate = !profile.PeakFramerate;
 			}
+
+			foreach (AudioEncoding encoding in profile.AudioEncodings)
+			{
+				if (encoding.Mixdown == "6ch")
+				{
+					encoding.Mixdown = "5point1";
+				}
+			}
 		}
 
 		private static void ErrorCheckPresets(List<Preset> presets)
