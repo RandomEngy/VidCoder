@@ -210,37 +210,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		//private RelayCommand addSourceSubtitleCommand;
-		//public RelayCommand AddSourceSubtitleCommand
-		//{
-		//    get
-		//    {
-		//        return this.addSourceSubtitleCommand ?? (this.addSourceSubtitleCommand = new RelayCommand(() =>
-		//            {
-		//                var newSubtitle = new SourceSubtitle
-		//                {
-		//                    TrackNumber = this.GetFirstUnusedTrack(),
-		//                    Default = false,
-		//                    Forced = false,
-		//                    BurnedIn = false
-		//                };
-
-		//                this.sourceSubtitles.Add(new SourceSubtitleViewModel(this, newSubtitle));
-		//                this.UpdateBoxes();
-		//                this.UpdateWarningVisibility();
-		//            }, () =>
-		//            {
-		//                // Disallow adding if there are no subtitles on the current title.
-		//                if (this.mainViewModel.SelectedTitle == null || this.mainViewModel.SelectedTitle.Subtitles.Count == 0)
-		//                {
-		//                    return false;
-		//                }
-
-		//                return true;
-		//            }));
-		//    }
-		//}
-
 		private RelayCommand addSrtSubtitleCommand;
 		public RelayCommand AddSrtSubtitleCommand
 		{
@@ -363,7 +332,7 @@ namespace VidCoder.ViewModel
 			{
 				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
 				{
-					if (sourceVM.SubtitleName.Contains("(Text)"))
+					if (sourceVM.Selected && sourceVM.SubtitleName.Contains("(Text)"))
 					{
 						textSubtitleVisible = true;
 						break;
@@ -374,43 +343,20 @@ namespace VidCoder.ViewModel
 			this.TextSubtitleWarningVisibile = textSubtitleVisible;
 
 			bool anyBurned = false;
+			int totalTracks = 0;
 			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
 			{
-				if (sourceVM.BurnedIn)
+				if (sourceVM.Selected)
 				{
-					anyBurned = true;
-					break;
+					totalTracks++;
+					if (sourceVM.BurnedIn)
+					{
+						anyBurned = true;
+					}
 				}
 			}
 
-			int totalTracks = this.SourceSubtitles.Count + this.SrtSubtitles.Count;
-
 			this.BurnedOverlapWarningVisible = anyBurned && totalTracks > 1;
 		}
-
-		//private int GetFirstUnusedTrack()
-		//{
-		//    List<int> unusedTracks = new List<int>();
-
-		//    for (int i = 0; i < this.InputTrackChoices.Count; i++)
-		//    {
-		//        unusedTracks.Add(i);
-		//    }
-
-		//    foreach (SourceSubtitleViewModel sourceSubtitleVM in this.sourceSubtitles)
-		//    {
-		//        if (unusedTracks.Contains(sourceSubtitleVM.TrackNumber))
-		//        {
-		//            unusedTracks.Remove(sourceSubtitleVM.TrackNumber);
-		//        }
-		//    }
-
-		//    if (unusedTracks.Count > 0)
-		//    {
-		//        return unusedTracks[0];
-		//    }
-
-		//    return 0;
-		//}
 	}
 }

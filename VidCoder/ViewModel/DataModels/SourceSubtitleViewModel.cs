@@ -49,6 +49,7 @@ namespace VidCoder.ViewModel
 			{
 				this.selected = value;
 				this.RaisePropertyChanged(() => this.Selected);
+				this.SubtitleDialogViewModel.UpdateWarningVisibility();
 			}
 		}
 
