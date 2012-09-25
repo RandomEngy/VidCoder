@@ -33,5 +33,10 @@ namespace VidCoder.View
 			Settings.Default.OptionsDialogLastTab = this.tabControl.SelectedIndex;
 			Settings.Default.Save();
 		}
+
+		private void Window_Closed(object sender, EventArgs e)
+		{
+			this.DataContext = null;
+		}
 	}
 }

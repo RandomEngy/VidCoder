@@ -64,5 +64,10 @@ namespace VidCoder.View
 		{
 			UIUtilities.HideOverflowGrid(sender as ToolBar);
 		}
+
+		private void Window_Closed(object sender, EventArgs e)
+		{
+			this.DataContext = null;
+		}
 	}
 }

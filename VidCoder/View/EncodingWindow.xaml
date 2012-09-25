@@ -12,7 +12,7 @@
 	Title="{Binding WindowTitle}" Width="671" Height="467" MinWidth="588" MinHeight="467"
 	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner"
 	Closing="Window_Closing"
-	ShowInTaskbar="False" WindowStyle="ToolWindow">
+	ShowInTaskbar="False" WindowStyle="ToolWindow" Closed="Window_Closed">
 	<Window.Resources>
 		<local:EnumDisplayer Type="{x:Type Encoding:Container}" x:Key="OutputFormatChoices" />
 	</Window.Resources>

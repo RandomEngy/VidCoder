@@ -266,12 +266,6 @@ namespace VidCoder.ViewModel
 
 			set
 			{
-				// WPF will errantly try to set this sometimes after it's closed
-				if (this.EncodingViewModel.Closed)
-				{
-					return;
-				}
-
 				this.Profile.ConstantFramerate = value;
 				this.RaisePropertyChanged(() => this.ConstantFramerate);
 				this.IsModified = true;

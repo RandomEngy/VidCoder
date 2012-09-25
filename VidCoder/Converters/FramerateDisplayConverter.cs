@@ -11,7 +11,7 @@ namespace VidCoder.Converters
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (value == null)
+			if (value == null || value as string == string.Empty)
 			{
 				return string.Empty;
 			}

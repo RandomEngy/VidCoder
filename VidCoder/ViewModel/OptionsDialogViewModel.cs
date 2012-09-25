@@ -350,12 +350,6 @@ namespace VidCoder.ViewModel
 
 			set
 			{
-				// WPF will sometimes fire the setter after the window has closed.
-				if (this.Closed)
-				{
-					return;
-				}
-
 				this.minimizeToTray = value;
 				this.RaisePropertyChanged(() => this.MinimizeToTray);
 			}
