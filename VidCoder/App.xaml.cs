@@ -18,6 +18,8 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder
 {
+	using LocalResources;
+
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>
@@ -29,6 +31,13 @@ namespace VidCoder
 			this.DispatcherUnhandledException += this.OnDispatcherUnhandledException;
 #endif
 			base.OnStartup(e);
+
+#if PSEUDOLOCALIZER_ENABLED
+			Delay.PseudoLocalizer.Enable(typeof(Resources));
+			Delay.PseudoLocalizer.Enable(typeof(MainRes));
+			Delay.PseudoLocalizer.Enable(typeof(EnumsRes));
+			Delay.PseudoLocalizer.Enable(typeof(EncodingRes));
+#endif
 
 			try
 			{

@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using HandBrake.Interop;
-using HandBrake.Interop.Model;
-using HandBrake.Interop.Model.Encoding;
-
+﻿
 namespace VidCoder.ViewModel
 {
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Text;
+	using HandBrake.Interop;
+	using HandBrake.Interop.Model;
+	using HandBrake.Interop.Model.Encoding;
+	using Model;
+
 	public class PicturePanelViewModel : PanelViewModel
 	{
 		private const int DimensionsAutoSetModulus = 2;
@@ -119,7 +121,7 @@ namespace VidCoder.ViewModel
 				{
 					this.Profile.Width = value;
 					this.RaisePropertyChanged(() => this.Width);
-					if (this.Anamorphic == Anamorphic.None && this.KeepDisplayAspect && this.HasSourceData && this.Height > 0 && value > 0)
+					if (this.Profile.Anamorphic == Anamorphic.None && this.KeepDisplayAspect && this.HasSourceData && this.Height > 0 && value > 0)
 					{
 						var cropWidthAmount = this.CropLeft + this.CropRight;
 						var cropHeightAmount = this.CropTop + this.CropBottom;
@@ -150,7 +152,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.Anamorphic == Anamorphic.Strict)
+				if (this.Profile.Anamorphic == Anamorphic.Strict)
 				{
 					return false;
 				}
@@ -172,7 +174,7 @@ namespace VidCoder.ViewModel
 				{
 					this.Profile.Height = value;
 					this.RaisePropertyChanged(() => this.Height);
-					if (this.Anamorphic == Anamorphic.None && this.KeepDisplayAspect && this.HasSourceData && this.Width > 0 && value > 0)
+					if (this.Profile.Anamorphic == Anamorphic.None && this.KeepDisplayAspect && this.HasSourceData && this.Width > 0 && value > 0)
 					{
 						var cropWidthAmount = this.CropLeft + this.CropRight;
 						var cropHeightAmount = this.CropTop + this.CropBottom;
@@ -203,7 +205,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.Anamorphic == Anamorphic.Strict || this.Anamorphic == Anamorphic.Loose)
+				if (this.Profile.Anamorphic == Anamorphic.Strict || this.Profile.Anamorphic == Anamorphic.Loose)
 				{
 					return false;
 				}
@@ -258,7 +260,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.Anamorphic == Anamorphic.Strict || this.Anamorphic == Anamorphic.Loose)
+				if (this.Profile.Anamorphic == Anamorphic.Strict || this.Profile.Anamorphic == Anamorphic.Loose)
 				{
 					return true;
 				}
@@ -272,7 +274,7 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.KeepDisplayAspect);
 				this.RaisePropertyChanged(() => this.PixelAspectVisibile);
 				this.RefreshOutputSize();
-				if (this.Anamorphic == Anamorphic.Custom)
+				if (this.Profile.Anamorphic == Anamorphic.Custom)
 				{
 					if (value && !this.UseDisplayWidth)
 					{
@@ -294,7 +296,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.Anamorphic == Anamorphic.Strict || this.Anamorphic == Anamorphic.Loose)
+				if (this.Profile.Anamorphic == Anamorphic.Strict || this.Profile.Anamorphic == Anamorphic.Loose)
 				{
 					return false;
 				}
@@ -303,18 +305,19 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public Anamorphic Anamorphic
+		public AnamorphicCombo SelectedAnamorphic
 		{
 			get
 			{
-				return this.Profile.Anamorphic;
+				return EnumConverter.Convert<Anamorphic, AnamorphicCombo>(this.Profile.Anamorphic);
 			}
 
 			set
 			{
-				this.Profile.Anamorphic = value;
+				Anamorphic newValue = EnumConverter.Convert<AnamorphicCombo, Anamorphic>(value);
+				this.Profile.Anamorphic = newValue;
 
-				if (value == Anamorphic.Strict || value == Anamorphic.Loose)
+				if (newValue == Anamorphic.Strict || newValue == Anamorphic.Loose)
 				{
 					this.KeepDisplayAspect = true;
 				}
@@ -325,7 +328,7 @@ namespace VidCoder.ViewModel
 					this.UseDisplayWidth = true;
 				}
 
-				this.RaisePropertyChanged(() => this.Anamorphic);
+				this.RaisePropertyChanged(() => this.SelectedAnamorphic);
 				this.RaisePropertyChanged(() => this.CustomAnamorphicFieldsVisible);
 				this.RaisePropertyChanged(() => this.PixelAspectVisibile);
 				this.RaisePropertyChanged(() => this.KeepDisplayAspect);
@@ -343,7 +346,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.Anamorphic == Anamorphic.Custom;
+				return this.Profile.Anamorphic == Anamorphic.Custom;
 			}
 		}
 
@@ -648,7 +651,7 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.MaxHeight);
 			this.RaisePropertyChanged(() => this.KeepDisplayAspect);
 			this.RaisePropertyChanged(() => this.KeepDisplayAspectEnabled);
-			this.RaisePropertyChanged(() => this.Anamorphic);
+			this.RaisePropertyChanged(() => this.SelectedAnamorphic);
 			this.RaisePropertyChanged(() => this.CustomAnamorphicFieldsVisible);
 			this.RaisePropertyChanged(() => this.Modulus);
 			this.RaisePropertyChanged(() => this.UseDisplayWidth);

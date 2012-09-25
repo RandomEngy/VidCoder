@@ -20,6 +20,8 @@ using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
 {
+	using VideoRangeType = Model.VideoRangeTypeCombo;
+
 	/// <summary>
 	/// Controls automatic naming logic for the encoding output path.
 	/// </summary>

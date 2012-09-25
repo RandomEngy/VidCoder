@@ -5,7 +5,8 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:converters="clr-namespace:VidCoder.Converters"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
-	xmlns:resx="clr-namespace:VidCoder.Properties"
+	xmlns:prop="clr-namespace:VidCoder.Properties"
+	xmlns:res="clr-namespace:VidCoder.LocalResources" 
 	mc:Ignorable="d" 
 	d:DesignHeight="300" d:DesignWidth="800">
 	<UserControl.Resources>
@@ -260,7 +261,7 @@
 												<TextBlock
 													Style="{StaticResource AudioLabel}"
 													Text="Gain (dB):"
-													ToolTip="{x:Static resx:Resources.Audio_GainToolTip}"
+													ToolTip="{x:Static res:EncodingRes.Audio_GainToolTip}"
 													Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
 												<controls:NumberBox
 													Style="{StaticResource AudioControl}"
@@ -268,14 +269,14 @@
 													Number="{Binding Gain, Mode=TwoWay}"
 													AllowEmpty="False" Minimum="-20" Maximum="20"
 													Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"
-													ToolTip="{x:Static resx:Resources.Audio_GainToolTip}"/>
+													ToolTip="{x:Static res:EncodingRes.Audio_GainToolTip}"/>
 
 												<TextBlock
 													Style="{StaticResource AudioLabel}" Margin="10,0,2,0"
 													Text="DRC:" ToolTipService.ShowDuration="20000"
 													Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}">
 												<TextBlock.ToolTip>
-													<TextBlock Text="{x:Static resx:Resources.Audio_DrcToolTip}" Style="{StaticResource LongToolTip}" />
+													<TextBlock Text="{x:Static res:EncodingRes.Audio_DrcToolTip}" Style="{StaticResource LongToolTip}" />
 												</TextBlock.ToolTip>
 											</TextBlock>
 												<controls:NumberBox
@@ -286,7 +287,7 @@
 													Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"
 													ToolTipService.ShowDuration="20000">
 													<controls:NumberBox.ToolTip>
-														<TextBlock Text="{x:Static resx:Resources.Audio_DrcToolTip}" Style="{StaticResource LongToolTip}" />
+														<TextBlock Text="{x:Static res:EncodingRes.Audio_DrcToolTip}" Style="{StaticResource LongToolTip}" />
 													</controls:NumberBox.ToolTip>
 												</controls:NumberBox>
 											</StackPanel>

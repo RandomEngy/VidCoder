@@ -33,6 +33,9 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.View
 {
+	using LocalResources;
+	using VideoRangeType = Model.VideoRangeTypeCombo;
+
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
@@ -387,12 +390,12 @@ namespace VidCoder.View
 
 				if (File.Exists(resultFile))
 				{
-					this.ShowStatusMessage(new StatusMessage { Message = "Playing video..." });
+					this.ShowStatusMessage(new StatusMessage { Message = MainRes.PlayingVideoMessage });
 					FileService.Instance.LaunchFile(encodeResultVM.EncodeResult.Destination);
 				}
 				else
 				{
-					MessageBox.Show(resultFile + " does not exist.");
+					MessageBox.Show(string.Format(MainRes.FileDoesNotExist, resultFile));
 				}
 			}
 		}

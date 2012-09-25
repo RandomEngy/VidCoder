@@ -372,6 +372,21 @@
     <Compile Include="Converters\ChapterVMConverter.cs" />
     <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="EnumStringConverter.cs" />
+    <Compile Include="LocalResources\EncodingRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EncodingRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="LocalResources\EnumsRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnumsRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="LocalResources\MainRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="Messages\ApplyQueueColumnsMessage.cs" />
     <Compile Include="Messages\AudioInputChangedMessage.cs" />
     <Compile Include="Messages\HighlightedChapterChangedMessage.cs" />
@@ -385,12 +400,17 @@
     <Compile Include="Messages\OptionsChangedMessage.cs" />
     <Compile Include="Messages\StatusMessage.cs" />
     <Compile Include="Messages\VideoSourceChangedMessage.cs" />
+    <Compile Include="Model\Combo\AnamorphicCombo.cs" />
     <Compile Include="Model\AutoAudioType.cs" />
     <Compile Include="Model\AutoSubtitleType.cs" />
     <Compile Include="Model\ComboChoice.cs" />
     <Compile Include="Model\ComboChoiceT.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="Model\DatabaseConfig.cs" />
+    <Compile Include="Model\Combo\DecombCombo.cs" />
+    <Compile Include="Model\Combo\DeinterlaceCombo.cs" />
+    <Compile Include="Model\Combo\DenoiseCombo.cs" />
+    <Compile Include="Model\Combo\DetelecineCombo.cs" />
     <Compile Include="Model\EncodeCompleteAction.cs" />
     <Compile Include="Model\EncodeCompleteActionType.cs" />
     <Compile Include="Model\EncodeJobCollection.cs" />
@@ -406,6 +426,7 @@
     <Compile Include="Model\PresetCollection.cs" />
     <Compile Include="Model\PreviewImageJob.cs" />
     <Compile Include="Model\SaveImageJob.cs" />
+    <Compile Include="Model\Combo\VideoRangeTypeCombo.cs" />
     <Compile Include="Model\VideoSourceMetadata.cs" />
     <Compile Include="Model\Players\VlcPlayer.cs" />
     <Compile Include="Model\WhenFileExists.cs" />
@@ -422,6 +443,7 @@
     <Compile Include="Services\SystemOperations.cs" />
     <Compile Include="Services\TrayService.cs" />
     <Compile Include="Utilities\EncodeProxy.cs" />
+    <Compile Include="Utilities\EnumConverter.cs" />
     <Compile Include="Utilities\FileCleanup.cs" />
     <Compile Include="Utilities\ImageUtilities.cs" />
     <Compile Include="Utilities\ListSynchronizer\IListItemConverter.cs" />
@@ -429,6 +451,7 @@
     <Compile Include="Utilities\ListSynchronizer\MultiSelectorBehaviors.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Utilities\ListSynchronizer\TwoListSynchronizer.cs" />
+    <Compile Include="Utilities\PseudoLocalizer.cs" />
     <Compile Include="Utilities\RefireControl.cs" />
     <Compile Include="ViewModel\Components\OutputPathViewModel.cs" />
     <Compile Include="ViewModel\Components\PresetsViewModel.cs" />
@@ -623,6 +646,19 @@
     </Compile>
     <Compile Include="WindowPlacement.cs" />
     <Compile Include="WindowPlacementWpf.cs" />
+    <EmbeddedResource Include="LocalResources\EncodingRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EncodingRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocalResources\EnumsRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EnumsRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocalResources\MainRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

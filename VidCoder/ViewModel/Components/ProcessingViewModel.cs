@@ -27,6 +27,8 @@ using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
 {
+	using LocalResources;
+
 	/// <summary>
 	/// Controls the queue and actual processing of encode jobs.
 	/// </summary>
@@ -249,11 +251,11 @@ namespace VidCoder.ViewModel.Components
 			{
 				if (this.Encoding)
 				{
-					return "Resume";
+					return MainRes.Resume;
 				}
 				else
 				{
-					return "Encode";
+					return MainRes.Encode;
 				}
 			}
 		}
@@ -272,10 +274,10 @@ namespace VidCoder.ViewModel.Components
 			{
 				if (this.EncodeQueue.Count == 0)
 				{
-					return "Queued";
+					return MainRes.Queued;
 				}
 
-				return "Queued (" + this.EncodeQueue.Count + ")";
+				return string.Format(MainRes.QueuedWithTotal, this.EncodeQueue.Count);
 			}
 		}
 
@@ -283,7 +285,7 @@ namespace VidCoder.ViewModel.Components
 		{
 			get
 			{
-				return "Completed (" + this.CompletedJobs.Count + ")";
+				return string.Format(MainRes.CompletedWithTotal, this.CompletedJobs.Count);
 			}
 		}
 
@@ -632,7 +634,7 @@ namespace VidCoder.ViewModel.Components
 						this.encodeStopped = true;
 						this.encodeProxy.StopEncode();
 
-						this.logger.ShowStatus("Stopped encoding.");
+						this.logger.ShowStatus(MainRes.StoppedEncoding);
 					},
 					() =>
 					{
@@ -742,8 +744,8 @@ namespace VidCoder.ViewModel.Components
 						if (deletionCandidates.Count > 0)
 						{
 							MessageBoxResult dialogResult = Utilities.MessageBox.Show(
-								"Are you sure you want to delete " + deletionCandidates.Count + " source file(s)?", 
-								"Confirm delete", 
+								string.Format(MainRes.DeleteSourceFilesConfirmationMessage, deletionCandidates.Count), 
+								MainRes.DeleteSourceFilesConfirmationTitle, 
 								MessageBoxButton.YesNo);
 							if (dialogResult == MessageBoxResult.Yes)
 							{
@@ -755,7 +757,7 @@ namespace VidCoder.ViewModel.Components
 									}
 									catch (IOException exception)
 									{
-										Utilities.MessageBox.Show("Could not delete " + fileToDelete + Environment.NewLine + Environment.NewLine + exception);
+										Utilities.MessageBox.Show(string.Format(MainRes.CouldNotDeleteFile, fileToDelete, exception));
 									}
 								}
 							}
@@ -848,7 +850,7 @@ namespace VidCoder.ViewModel.Components
 					SourcePath = fileToQueue,
 					EncodingProfile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.Clone(),
 					Title = 1,
-					RangeType = VideoRangeType.Chapters,
+					RangeType = HandBrake.Interop.Model.VideoRangeType.Chapters,
 					ChapterStart = 0,
 					ChapterEnd = 0,
 					UseDefaultChapterNames = true
@@ -913,8 +915,8 @@ namespace VidCoder.ViewModel.Components
 			if (failedFiles.Count > 0)
 			{
 				Utilities.MessageBox.Show(
-					"The following file(s) could not be recognized and were not added to the queue:" + Environment.NewLine + Environment.NewLine + string.Join(Environment.NewLine, failedFiles),
-					"Error scanning video file(s)",
+					string.Format(MainRes.QueueMultipleScanErrorMessage, string.Join(Environment.NewLine, failedFiles)),
+					MainRes.QueueMultipleScanErrorTitle,
 					MessageBoxButton.OK,
 					MessageBoxImage.Warning);
 			}
@@ -955,7 +957,7 @@ namespace VidCoder.ViewModel.Components
 		{
 			this.EncodeProgressState = TaskbarItemProgressState.Normal;
 			this.logger.Log("Starting queue");
-			this.logger.ShowStatus("Started encoding.");
+			this.logger.ShowStatus(MainRes.StartedEncoding);
 
 			this.totalTasks = this.EncodeQueue.Count;
 			this.taskNumber = 0;
@@ -1076,8 +1078,8 @@ namespace VidCoder.ViewModel.Components
 				catch (IOException exception)
 				{
 					Utilities.MessageBox.Show(
-						"Could not create output directory. Error details: " + Environment.NewLine + Environment.NewLine + exception,
-						"Error creating directory",
+						string.Format(MainRes.DirectoryCreateErrorMessage, exception),
+						MainRes.DirectoryCreateErrorTitle,
 						MessageBoxButton.OK,
 						MessageBoxImage.Error);
 				}
@@ -1266,10 +1268,10 @@ namespace VidCoder.ViewModel.Components
 						this.StopEncodingAndReport();
 
 						this.logger.Log("Queue completed");
-						this.logger.ShowStatus("Encode completed.");
+						this.logger.ShowStatus(MainRes.EncodeCompleted);
 						this.logger.Log("");
 
-						Unity.Container.Resolve<TrayService>().ShowBalloonMessage("Encoding completed", "VidCoder has finished all encode jobs in the queue.");
+						Unity.Container.Resolve<TrayService>().ShowBalloonMessage(MainRes.EncodeCompleteBalloonTitle, MainRes.EncodeCompleteBalloonMessage);
 
 						EncodeCompleteActionType actionType = this.EncodeCompleteAction.ActionType;
 						switch (actionType)
@@ -1438,8 +1440,8 @@ namespace VidCoder.ViewModel.Components
 			var messageService = Unity.Container.Resolve<IMessageBoxService>();
 			var messageResult = messageService.Show(
 				this.main,
-				"Cannot add encode jobs without a default output folder. Press OK to pick one.", 
-				"Default Output Folder Required", 
+				MainRes.OutputFolderRequiredMessage, 
+				MainRes.OutputFolderRequiredTitle, 
 				MessageBoxButton.OKCancel, 
 				MessageBoxImage.Information);
 
@@ -1459,8 +1461,8 @@ namespace VidCoder.ViewModel.Components
 			}
 
 			Unity.Container.Resolve<IMessageBoxService>().Show(
-				"Output path is not valid.",
-				"Path not valid", 
+				MainRes.OutputPathNotValidMessage,
+				MainRes.OutputPathNotValidTitle, 
 				MessageBoxButton.OK,
 				MessageBoxImage.Error);
 

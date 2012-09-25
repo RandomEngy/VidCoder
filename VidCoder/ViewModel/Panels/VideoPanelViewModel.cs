@@ -19,6 +19,8 @@ namespace VidCoder.ViewModel
 		private const int DefaultVideoBitrateKbps = 900;
 		private const int DefaultTargetSizeMB = 700;
 
+		private bool closed;
+
 		private OutputPathViewModel outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
 
 		private List<HBVideoEncoder> encoderChoices;
@@ -103,6 +105,11 @@ namespace VidCoder.ViewModel
 					{
 						this.NotifyAudioInputChanged();
 					});
+		}
+
+		public void OnClose()
+		{
+			this.closed = true;
 		}
 
 		public string InputType
@@ -259,6 +266,12 @@ namespace VidCoder.ViewModel
 
 			set
 			{
+				// WPF will errantly try to set this sometimes after it's closed
+				if (this.EncodingViewModel.Closed)
+				{
+					return;
+				}
+
 				this.Profile.ConstantFramerate = value;
 				this.RaisePropertyChanged(() => this.ConstantFramerate);
 				this.IsModified = true;

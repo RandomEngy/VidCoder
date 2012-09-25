@@ -6,7 +6,8 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:converters="clr-namespace:VidCoder.Converters"
-	xmlns:resx="clr-namespace:VidCoder.Properties"
+	xmlns:prop="clr-namespace:VidCoder.Properties"
+	xmlns:res="clr-namespace:VidCoder.LocalResources"
 	mc:Ignorable="d" 
 	d:DesignHeight="330" d:DesignWidth="622">
 	<UserControl.Resources>
@@ -133,7 +134,7 @@
 				Height="16" Margin="20,99,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" GroupName="VideoQuality"
 				IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}">
 				<RadioButton.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Video_QualityTargetToolTip}" Style="{StaticResource LargeToolTip}" />
+					<TextBlock Text="{x:Static res:EncodingRes.Video_QualityTargetToolTip}" Style="{StaticResource LargeToolTip}" />
 				</RadioButton.ToolTip>
 				Constant Quality
 			</RadioButton>
@@ -142,7 +143,7 @@
 				Number="{Binding Quality, Mode=TwoWay}" Minimum="0" Maximum="51" Modulus="0.1"
 				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}">
 				<controls:NumberBox.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Video_QualityTargetToolTip}" Style="{StaticResource LargeToolTip}" />
+					<TextBlock Text="{x:Static res:EncodingRes.Video_QualityTargetToolTip}" Style="{StaticResource LargeToolTip}" />
 				</controls:NumberBox.ToolTip>
 			</controls:NumberBox>
 			<Slider
@@ -151,7 +152,7 @@
 				Value="{Binding Quality}"
 				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}">
 				<Slider.ToolTip>
-					<TextBlock Text="{x:Static resx:Resources.Video_QualityTargetToolTip}" Style="{StaticResource LargeToolTip}" />
+					<TextBlock Text="{x:Static res:EncodingRes.Video_QualityTargetToolTip}" Style="{StaticResource LargeToolTip}" />
 				</Slider.ToolTip>
 			</Slider>
 			<TextBlock
@@ -188,7 +189,7 @@
 						Style="{StaticResource LongToolTipHolder}"
 						ItemsSource="{Binding X264ProfileChoices}" SelectedValue="{Binding X264Profile}" SelectedValuePath="Value" DisplayMemberPath="Display">
 						<ComboBox.ToolTip>
-							<TextBlock Text="{x:Static resx:Resources.X264ProfileToolTip}" Style="{StaticResource LongToolTip}" />
+							<TextBlock Text="{x:Static res:EncodingRes.X264ProfileToolTip}" Style="{StaticResource LongToolTip}" />
 						</ComboBox.ToolTip>
 					</ComboBox>
 
@@ -201,7 +202,7 @@
 						Style="{StaticResource LongToolTipHolder}"
 						ItemsSource="{Binding X264PresetChoices}" SelectedValue="{Binding X264Preset}" SelectedValuePath="Value" DisplayMemberPath="Display">
 						<ComboBox.ToolTip>
-							<TextBlock Text="{x:Static resx:Resources.X264PresetToolTip}" Style="{StaticResource LongToolTip}" />
+							<TextBlock Text="{x:Static res:EncodingRes.X264PresetToolTip}" Style="{StaticResource LongToolTip}" />
 						</ComboBox.ToolTip>
 					</ComboBox>
 
@@ -214,7 +215,7 @@
 						Style="{StaticResource LongToolTipHolder}"
 						ItemsSource="{Binding X264TuneChoices}" SelectedValue="{Binding X264Tune}" SelectedValuePath="Value" DisplayMemberPath="Display">
 						<ComboBox.ToolTip>
-							<TextBlock Text="{x:Static resx:Resources.X264TuneToolTip}" Style="{StaticResource LongToolTip}" />
+							<TextBlock Text="{x:Static res:EncodingRes.X264TuneToolTip}" Style="{StaticResource LongToolTip}" />
 						</ComboBox.ToolTip>
 					</ComboBox>
 				</Grid>

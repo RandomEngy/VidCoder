@@ -11,6 +11,7 @@ namespace VidCoder
 	using System.ServiceModel;
 	using System.Threading;
 	using System.Threading.Tasks;
+	using System.Xml.Serialization;
 	using HandBrake.Interop;
 	using HandBrake.Interop.Model;
 	using Model;
@@ -55,6 +56,7 @@ namespace VidCoder
 		// Lock to take before interacting with the encoder process or changing encoding state.
 		private object encoderLock = new object();
 
+		[XmlIgnore]
 		public bool IsEncodeStarted { get; private set; }
 
 		public void StartEncode(EncodeJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)

@@ -77,7 +77,7 @@ namespace VidCoder.ViewModel
 						var previewJob =
 							new EncodeJob
 							{
-								RangeType = VideoRangeType.Chapters,
+								RangeType = HandBrake.Interop.Model.VideoRangeType.Chapters,
 								ChapterStart = 1,
 								ChapterEnd = title.Chapters.Count,
 								Title = title.TitleNumber,

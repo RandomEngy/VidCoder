@@ -23,6 +23,9 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
+	using LocalResources;
+	using VideoRangeType = Model.VideoRangeTypeCombo;
+
 	public class MainViewModel : ViewModelBase
 	{
 		private const double SecondsRangeBuffer = 0.25;
@@ -46,7 +49,7 @@ namespace VidCoder.ViewModel
 		private List<int> angles;
 		private int angle;
 
-		private VideoRangeType rangeType;
+		private VidCoder.Model.VideoRangeTypeCombo rangeType;
 		private double secondsRangeStart;
 		private double secondsRangeEnd;
 		private double secondsBaseline;
@@ -228,7 +231,7 @@ namespace VidCoder.ViewModel
 
 			string folderPath = FileService.Instance.GetFolderName(
 				Settings.Default.RememberPreviousFiles ? Settings.Default.LastVideoTSFolder : null, 
-				"Pick a DVD or Blu-ray folder.");
+				MainRes.PickDiscFolderHelpText);
 
 			// Make sure we get focus back after displaying the dialog.
 			WindowManager.FocusWindow(this);
@@ -317,8 +320,8 @@ namespace VidCoder.ViewModel
 			{
 				MessageBoxResult result = Utilities.MessageBox.Show(
 					this,
-					"There are encodes in progress. Are you sure you want to quit?",
-					"Encodes in progress",
+					MainRes.EncodesInProgressExitWarning,
+					MainRes.EncodesInProgressExitWarningTitle,
 					MessageBoxButton.YesNo,
 					MessageBoxImage.Warning);
 
@@ -976,7 +979,7 @@ namespace VidCoder.ViewModel
 			{
 				if (!this.HasVideoSource || this.CurrentSubtitles == null || (this.CurrentSubtitles.SourceSubtitles.Count == 0 && this.CurrentSubtitles.SrtSubtitles.Count == 0))
 				{
-					return "(None)";
+					return MainRes.NoneParen;
 				}
 
 				List<string> trackSummaries = new List<string>();
@@ -985,7 +988,7 @@ namespace VidCoder.ViewModel
 				{
 					if (sourceSubtitle.TrackNumber == 0)
 					{
-						trackSummaries.Add("Foriegn Audio Search");
+						trackSummaries.Add(MainRes.ForeignAudioSearch);
 					}
 					else
 					{
@@ -1000,7 +1003,7 @@ namespace VidCoder.ViewModel
 
 				if (trackSummaries.Count > 3)
 				{
-					return trackSummaries.Count + " tracks";
+					return string.Format(MainRes.TracksSummaryMultiple, trackSummaries.Count);
 				}
 
 				StringBuilder summaryBuilder = new StringBuilder();
@@ -1053,10 +1056,10 @@ namespace VidCoder.ViewModel
 			{
 				if (this.UseDefaultChapterNames)
 				{
-					return "Default";
+					return Resources.Default;
 				}
 
-				return "Custom";
+				return Resources.Custom;
 			}
 		}
 
@@ -1076,7 +1079,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public VideoRangeType RangeType
+		public VidCoder.Model.VideoRangeTypeCombo RangeType
 		{
 			get
 			{
@@ -1118,7 +1121,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.RangeType == VideoRangeType.Chapters;
+				return this.RangeType == VidCoder.Model.VideoRangeTypeCombo.Chapters;
 			}
 		}
 
@@ -1202,7 +1205,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.RangeType == VideoRangeType.Seconds;
+				return this.RangeType == VidCoder.Model.VideoRangeTypeCombo.Seconds;
 			}
 		}
 
@@ -1354,7 +1357,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.SelectedTitle != null && this.RangeType == VideoRangeType.Chapters)
 				{
-					return "of " + this.SelectedTitle.Chapters.Count;
+					return string.Format(MainRes.ChaptersSummary, this.SelectedTitle.Chapters.Count);
 				}
 
 				return string.Empty;
@@ -1829,7 +1832,7 @@ namespace VidCoder.ViewModel
 					EncodingProfile = encodingProfile,
 					Title = title,
 					Angle = this.Angle,
-					RangeType = this.RangeType,
+					RangeType = EnumConverter.Convert<VideoRangeType, HandBrake.Interop.Model.VideoRangeType>(this.RangeType),
 					ChosenAudioTracks = this.GetChosenAudioTracks(),
 					Subtitles = this.CurrentSubtitles,
 					UseDefaultChapterNames = this.UseDefaultChapterNames,
@@ -1913,7 +1916,7 @@ namespace VidCoder.ViewModel
 
 			if (this.PresetsVM.SelectedPreset.IsModified)
 			{
-				MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, "Do you want to save changes to your current preset?", "Save current preset?", MessageBoxButton.YesNoCancel);
+				MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.SaveChangesPresetMessage, MainRes.SaveChangesPresetTitle, MessageBoxButton.YesNoCancel);
 				if (dialogResult == MessageBoxResult.Yes)
 				{
 					this.PresetsVM.SavePreset();
@@ -1957,7 +1960,7 @@ namespace VidCoder.ViewModel
 						DriveInformation driveInfo = this.DriveCollection.FirstOrDefault(d => string.Compare(d.RootDirectory, jobRoot, StringComparison.OrdinalIgnoreCase) == 0);
 						if (driveInfo == null)
 						{
-							Unity.Container.Resolve<IMessageBoxService>().Show("Cannot load for editing. The disc is no longer in the drive.");
+							Unity.Container.Resolve<IMessageBoxService>().Show(MainRes.DiscNotInDriveError);
 							return;
 						}
 
@@ -1976,7 +1979,7 @@ namespace VidCoder.ViewModel
 				this.StartScan(job.SourcePath, jobVM);
 			}
 
-			string presetName = isQueueItem ? "Restored from Queue" : "Restored from Completed";
+			string presetName = isQueueItem ? MainRes.PresetNameRestoredFromQueue : MainRes.PresetNameRestoredFromCompleted;
 
 			var queuePreset = new PresetViewModel(
 				new Preset
@@ -2040,14 +2043,6 @@ namespace VidCoder.ViewModel
 						}
 
 						selectedTime = this.GetChapterRangeDuration(this.SelectedStartChapter.ChapterNumber, this.SelectedEndChapter.ChapterNumber);
-
-						//int selectionStart = this.SelectedStartChapter.ChapterNumber;
-						//int selectionEnd = this.SelectedEndChapter.ChapterNumber;
-
-						//for (int i = selectionStart; i <= selectionEnd; i++)
-						//{
-						//    selectedTime += this.SelectedTitle.Chapters[i].Duration;
-						//}
 
 						break;
 					case VideoRangeType.Seconds:
@@ -2256,8 +2251,8 @@ namespace VidCoder.ViewModel
 
 			// Range
 			this.PopulateChapterSelectLists();
-			this.rangeType = job.RangeType;
-			switch (job.RangeType)
+			this.rangeType = EnumConverter.Convert<HandBrake.Interop.Model.VideoRangeType, VideoRangeType>(job.RangeType);
+			switch (this.rangeType)
 			{
 				case VideoRangeType.Chapters:
 					if (job.ChapterStart > this.selectedTitle.Chapters.Count ||

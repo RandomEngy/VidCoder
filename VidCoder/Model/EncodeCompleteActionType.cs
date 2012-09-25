@@ -6,21 +6,23 @@ using System.Text;
 
 namespace VidCoder.Model
 {
+	using LocalResources;
+
 	public enum EncodeCompleteActionType
 	{
-		[Display(Name = "Do nothing")]
+		[Display(ResourceType = typeof(EnumsRes), Name = "EncodeCompleteActionType_DoNothing")]
 		DoNothing = 0,
 
-		[Display(Name = "Eject {0}:")]
+		[Display(ResourceType = typeof(EnumsRes), Name = "EncodeCompleteActionType_EjectDisc")]
 		EjectDisc,
 
-		[Display(Name = "Sleep")]
+		[Display(ResourceType = typeof(EnumsRes), Name = "EncodeCompleteActionType_Sleep")]
 		Sleep,
 
-		[Display(Name = "Log off")]
+		[Display(ResourceType = typeof(EnumsRes), Name = "EncodeCompleteActionType_LogOff")]
 		LogOff,
 
-		[Display(Name = "Shut down")]
+		[Display(ResourceType = typeof(EnumsRes), Name = "EncodeCompleteActionType_Shutdown")]
 		Shutdown
 	}
 }

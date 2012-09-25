@@ -14,6 +14,8 @@ using VidCoder.Properties;
 
 namespace VidCoder.View
 {
+	using ViewModel;
+
 	/// <summary>
 	/// Interaction logic for OptionsDialog.xaml
 	/// </summary>

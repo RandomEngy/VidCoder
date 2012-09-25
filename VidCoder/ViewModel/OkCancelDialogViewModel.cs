@@ -26,8 +26,11 @@ namespace VidCoder.ViewModel
 				this.Closing();
 			}
 
+			this.Closed = true;
 			WindowManager.ReportClosed(this);
 		}
+
+		public bool Closed { get; set; }
 
 		public bool DialogResult { get; set; }
 		public Action Closing { get; set; }
