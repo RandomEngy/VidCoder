@@ -3,8 +3,8 @@
 
 [Setup]
 AppName=VidCoder
-AppVerName=VidCoder 1.4.0 Beta (x86)
-AppVersion=1.4.0
+AppVerName=VidCoder 1.4.1 Beta (x86)
+AppVersion=1.4.1
 AppPublisher=RandomEngy
 AppPublisherURL=http://vidcoder.codeplex.com/
 
@@ -16,7 +16,7 @@ Compression=lzma
 SolidCompression=yes
 
 OutputDir=BuiltInstallers
-OutputBaseFilename=VidCoder-1.4.0-Beta-x86
+OutputBaseFilename=VidCoder-1.4.1-Beta-x86
 
 AppId=VidCoder
 UsePreviousAppDir=yes
