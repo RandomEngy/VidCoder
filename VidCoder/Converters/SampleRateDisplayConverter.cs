@@ -7,11 +7,13 @@ using System.Globalization;
 
 namespace VidCoder.Converters
 {
+	using LocalResources;
+
 	public class SampleRateDisplayConverter : IValueConverter
 	{
 		private static Dictionary<int, string> rateDisplayTable = new Dictionary<int, string>
 		{
-			{0, "Same as source"},
+			{0, EncodingRes.SameAsSource},
 			{8000, "8 kHz"},
 			{11025, "11.025 kHz"},
 			{12000, "12 kHz"},

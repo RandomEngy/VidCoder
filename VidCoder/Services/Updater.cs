@@ -130,8 +130,11 @@ namespace VidCoder.Services
 				}
 				else
 				{
-					// If we have just turned off updates, cancel any pending downloads.
-					updateDownloader.CancelAsync();
+					if (updateDownloader != null)
+					{
+						// If we have just turned off updates, cancel any pending downloads.
+						updateDownloader.CancelAsync();
+					}
 				}
 			}
 		}

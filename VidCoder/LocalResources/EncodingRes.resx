@@ -282,124 +282,268 @@ You should set this if you know your playback device only supports a certain pro
   <data name="DisplayWidthToolTip" xml:space="preserve">
     <value>The desired display width of the video. Other parameters such as the Pixel Aspect Ratio will be changed to acheive this.</value>
   </data>
-  <data name="ContainerLabel">
-    <value xml:space="preserve">Container:</value>
+  <data name="ContainerLabel" xml:space="preserve">
+    <value>Container:</value>
   </data>
-  <data name="ExtensionLabel">
-    <value xml:space="preserve">Extension:</value>
+  <data name="ExtensionLabel" xml:space="preserve">
+    <value>Extension:</value>
   </data>
-  <data name="LargeFileSizeCheckBox">
-    <value xml:space="preserve">Large file size</value>
+  <data name="LargeFileSizeCheckBox" xml:space="preserve">
+    <value>Large file size</value>
   </data>
-  <data name="WebOptimizedCheckBox">
-    <value xml:space="preserve">Web optimized</value>
+  <data name="WebOptimizedCheckBox" xml:space="preserve">
+    <value>Web optimized</value>
   </data>
-  <data name="Ipod5GSupportCheckBox">
-    <value xml:space="preserve">iPod 5G support</value>
+  <data name="Ipod5GSupportCheckBox" xml:space="preserve">
+    <value>iPod 5G support</value>
   </data>
-  <data name="IncludeChapterMarkersCheckBox">
-    <value xml:space="preserve">Include chapter markers</value>
+  <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
+    <value>Include chapter markers</value>
   </data>
-  <data name="TabHeader_Picture">
-    <value xml:space="preserve">Picture</value>
+  <data name="TabHeader_Picture" xml:space="preserve">
+    <value>Picture</value>
   </data>
-  <data name="TabHeader_VideoFilters">
-    <value xml:space="preserve">Video Filters</value>
+  <data name="TabHeader_VideoFilters" xml:space="preserve">
+    <value>Video Filters</value>
   </data>
-  <data name="TabHeader_Video">
-    <value xml:space="preserve">Video</value>
+  <data name="TabHeader_Video" xml:space="preserve">
+    <value>Video</value>
   </data>
-  <data name="TabHeader_Audio">
-    <value xml:space="preserve">Audio</value>
+  <data name="TabHeader_Audio" xml:space="preserve">
+    <value>Audio</value>
   </data>
-  <data name="TabHeader_Advanced">
-    <value xml:space="preserve">Advanced</value>
+  <data name="TabHeader_Advanced" xml:space="preserve">
+    <value>Advanced</value>
   </data>
-  <data name="Rename">
-    <value xml:space="preserve">Rename</value>
+  <data name="Rename" xml:space="preserve">
+    <value>Rename</value>
   </data>
-  <data name="Input">
-    <value xml:space="preserve">Input</value>
+  <data name="Input" xml:space="preserve">
+    <value>Input</value>
   </data>
-  <data name="AutoCaption">
-    <value xml:space="preserve">(auto)</value>
+  <data name="AutoCaption" xml:space="preserve">
+    <value>(auto)</value>
   </data>
-  <data name="NoneCaption">
-    <value xml:space="preserve">(none)</value>
+  <data name="NoneCaption" xml:space="preserve">
+    <value>(none)</value>
   </data>
-  <data name="StorageResolutionLabel">
-    <value xml:space="preserve">Storage Resolution:</value>
+  <data name="StorageResolutionLabel" xml:space="preserve">
+    <value>Storage Resolution:</value>
   </data>
-  <data name="PixelAspectRatioLabel">
-    <value xml:space="preserve">Pixel Aspect Ratio:</value>
+  <data name="PixelAspectRatioLabel" xml:space="preserve">
+    <value>Pixel Aspect Ratio:</value>
   </data>
-  <data name="DisplayResolutionLabel">
-    <value xml:space="preserve">Display Resolution:</value>
+  <data name="DisplayResolutionLabel" xml:space="preserve">
+    <value>Display Resolution:</value>
   </data>
-  <data name="SizingLabel">
-    <value xml:space="preserve">Sizing</value>
+  <data name="SizingLabel" xml:space="preserve">
+    <value>Sizing</value>
   </data>
-  <data name="WidthLabel">
-    <value xml:space="preserve">Width:</value>
+  <data name="WidthLabel" xml:space="preserve">
+    <value>Width:</value>
   </data>
-  <data name="HeightLabel">
-    <value xml:space="preserve">Height:</value>
+  <data name="HeightLabel" xml:space="preserve">
+    <value>Height:</value>
   </data>
-  <data name="MaxWidthLabel">
-    <value xml:space="preserve">Max Width:</value>
+  <data name="MaxWidthLabel" xml:space="preserve">
+    <value>Max Width:</value>
   </data>
-  <data name="MaxHeightLabel">
-    <value xml:space="preserve">Max Height:</value>
+  <data name="MaxHeightLabel" xml:space="preserve">
+    <value>Max Height:</value>
   </data>
-  <data name="KeepAspectRatioCheckBox">
-    <value xml:space="preserve">Keep Aspect Ratio</value>
+  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
+    <value>Keep Aspect Ratio</value>
   </data>
-  <data name="AnamorphicLabel">
-    <value xml:space="preserve">Anamorphic:</value>
+  <data name="AnamorphicLabel" xml:space="preserve">
+    <value>Anamorphic:</value>
   </data>
-  <data name="ModulusLabel">
-    <value xml:space="preserve">Modulus:</value>
+  <data name="ModulusLabel" xml:space="preserve">
+    <value>Modulus:</value>
   </data>
-  <data name="DisplayWidthRadioButton">
-    <value xml:space="preserve">Display Width:</value>
+  <data name="DisplayWidthRadioButton" xml:space="preserve">
+    <value>Display Width:</value>
   </data>
-  <data name="PixelAspectRatioRadioButton">
-    <value xml:space="preserve">Pixel Aspect Ratio:</value>
+  <data name="PixelAspectRatioRadioButton" xml:space="preserve">
+    <value>Pixel Aspect Ratio:</value>
   </data>
-  <data name="OutputLabel">
-    <value xml:space="preserve">Output</value>
+  <data name="OutputLabel" xml:space="preserve">
+    <value>Output</value>
   </data>
-  <data name="CroppingLabel">
-    <value xml:space="preserve">Cropping</value>
+  <data name="CroppingLabel" xml:space="preserve">
+    <value>Cropping</value>
   </data>
-  <data name="Top">
-    <value xml:space="preserve">Top</value>
+  <data name="Top" xml:space="preserve">
+    <value>Top</value>
   </data>
-  <data name="Left">
-    <value xml:space="preserve">Left</value>
+  <data name="Left" xml:space="preserve">
+    <value>Left</value>
   </data>
-  <data name="Bottom">
-    <value xml:space="preserve">Bottom</value>
+  <data name="Bottom" xml:space="preserve">
+    <value>Bottom</value>
   </data>
-  <data name="Right">
-    <value xml:space="preserve">Right</value>
+  <data name="Right" xml:space="preserve">
+    <value>Right</value>
   </data>
-  <data name="DetelecineLabel">
-    <value xml:space="preserve">Detelecine:</value>
+  <data name="DetelecineLabel" xml:space="preserve">
+    <value>Detelecine:</value>
   </data>
-  <data name="DecombLabel">
-    <value xml:space="preserve">Decomb:</value>
+  <data name="DecombLabel" xml:space="preserve">
+    <value>Decomb:</value>
   </data>
-  <data name="DeinterlaceLabel">
-    <value xml:space="preserve">Deinterlace:</value>
+  <data name="DeinterlaceLabel" xml:space="preserve">
+    <value>Deinterlace:</value>
   </data>
-  <data name="DenoiseLabel">
-    <value xml:space="preserve">Denoise:</value>
+  <data name="DenoiseLabel" xml:space="preserve">
+    <value>Denoise:</value>
   </data>
-  <data name="DeblockLabel">
-    <value xml:space="preserve">Deblock:</value>
+  <data name="DeblockLabel" xml:space="preserve">
+    <value>Deblock:</value>
   </data>
-  <data name="GrayscaleCheckBox">
-    <value xml:space="preserve">Grayscale encoding</value>
+  <data name="GrayscaleCheckBox" xml:space="preserve">
+    <value>Grayscale encoding</value>
+  </data>
+  <data name="TypeLabel" xml:space="preserve">
+    <value>Type:</value>
+  </data>
+  <data name="ShortCodecLabel" xml:space="preserve">
+    <value>Codec:</value>
+  </data>
+  <data name="ShortFramerateLabel" xml:space="preserve">
+    <value>Framerate:</value>
+  </data>
+  <data name="CodecLabel">
+    <value xml:space="preserve">Video Codec:</value>
+  </data>
+  <data name="FramerateLabel">
+    <value xml:space="preserve">Framerate (FPS):</value>
+  </data>
+  <data name="ConstantFramerateRadioButton">
+    <value xml:space="preserve">Constant Framerate</value>
+  </data>
+  <data name="Quality">
+    <value xml:space="preserve">Quality</value>
+  </data>
+  <data name="TwoPassEncodingCheckBox">
+    <value xml:space="preserve">2-pass Encoding</value>
+  </data>
+  <data name="TurboFirstPassCheckBox">
+    <value xml:space="preserve">Turbo first Pass</value>
+  </data>
+  <data name="TargetSizeRadioButton">
+    <value xml:space="preserve">Target Size (MB)</value>
+  </data>
+  <data name="AverageBitrateRadioButton">
+    <value xml:space="preserve">Avg Bitrate (kbps)</value>
+  </data>
+  <data name="ConstantQualityRadioButton">
+    <value xml:space="preserve">Constant Quality</value>
+  </data>
+  <data name="X264BasicSettings">
+    <value xml:space="preserve">x264 Basic Settings</value>
+  </data>
+  <data name="ProfileLabel">
+    <value xml:space="preserve">Profile:</value>
+  </data>
+  <data name="PresetLabel">
+    <value xml:space="preserve">Preset:</value>
+  </data>
+  <data name="TuneLabel">
+    <value xml:space="preserve">Tune:</value>
+  </data>
+  <data name="NoneX264Choice">
+    <value xml:space="preserve">-None-</value>
+  </data>
+  <data name="Profile_Baseline">
+    <value xml:space="preserve">Baseline</value>
+  </data>
+  <data name="Profile_Main">
+    <value xml:space="preserve">Main</value>
+  </data>
+  <data name="Profile_High">
+    <value xml:space="preserve">High</value>
+  </data>
+  <data name="Preset_UltraFast">
+    <value xml:space="preserve">Ultra Fast</value>
+  </data>
+  <data name="Preset_SuperFast">
+    <value xml:space="preserve">Super Fast</value>
+  </data>
+  <data name="Preset_VeryFast">
+    <value xml:space="preserve">Very Fast</value>
+  </data>
+  <data name="Preset_Faster">
+    <value xml:space="preserve">Faster</value>
+  </data>
+  <data name="Preset_Fast">
+    <value xml:space="preserve">Fast</value>
+  </data>
+  <data name="Preset_Medium">
+    <value xml:space="preserve">Medium</value>
+  </data>
+  <data name="Preset_Slow">
+    <value xml:space="preserve">Slow</value>
+  </data>
+  <data name="Preset_Slower">
+    <value xml:space="preserve">Slower</value>
+  </data>
+  <data name="Preset_VerySlow">
+    <value xml:space="preserve">Very Slow</value>
+  </data>
+  <data name="Preset_Placebo">
+    <value xml:space="preserve">Placebo</value>
+  </data>
+  <data name="Tune_Film">
+    <value xml:space="preserve">Film</value>
+  </data>
+  <data name="Tune_Animation">
+    <value xml:space="preserve">Animation</value>
+  </data>
+  <data name="Tune_Grain">
+    <value xml:space="preserve">Grain</value>
+  </data>
+  <data name="Tune_StillImage">
+    <value xml:space="preserve">Still Image</value>
+  </data>
+  <data name="Tune_Psnr">
+    <value xml:space="preserve">PSNR</value>
+  </data>
+  <data name="Tune_Ssim">
+    <value xml:space="preserve">SSIM</value>
+  </data>
+  <data name="Tune_FastDecode">
+    <value xml:space="preserve">Fast Decode</value>
+  </data>
+  <data name="Tune_ZeroLatency">
+    <value xml:space="preserve">Zero Latency</value>
+  </data>
+  <data name="FpsFormat">
+    <value xml:space="preserve">{0:0.###} FPS</value>
+  </data>
+  <data name="CfrSameAsSourceToolTip">
+    <value xml:space="preserve">Uses the listed framerate from the source title for a constant framerate.</value>
+  </data>
+  <data name="CfrToolTip">
+    <value xml:space="preserve">Use a constant frame rate.</value>
+  </data>
+  <data name="VfrSameAsSourceToolTip">
+    <value xml:space="preserve">Allow a variable framerate. If the source has a variable frame rate, this setting will preserve it. Note that some players do not support variable frame rates.</value>
+  </data>
+  <data name="VfrPeakFramerateToolTip">
+    <value xml:space="preserve">Allow a variable framerate and use the specified rate as a peak. If the source has a variable frame rate, this setting will preserve it. Note that some players do not support variable frame rates.</value>
+  </data>
+  <data name="VfrChoice">
+    <value xml:space="preserve">Variable Framerate</value>
+  </data>
+  <data name="VfrPeakChoice">
+    <value xml:space="preserve">Peak Framerate (VFR)</value>
+  </data>
+  <data name="HighQuality">
+    <value xml:space="preserve">High quality</value>
+  </data>
+  <data name="LowQuality">
+    <value xml:space="preserve">Low quality</value>
+  </data>
+  <data name="SameAsSource">
+    <value xml:space="preserve">Same as source</value>
   </data>
 </root>

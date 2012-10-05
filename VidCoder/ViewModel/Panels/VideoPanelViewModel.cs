@@ -14,6 +14,8 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
+	using LocalResources;
+
 	public class VideoPanelViewModel : PanelViewModel
 	{
 		private const int DefaultVideoBitrateKbps = 900;
@@ -41,38 +43,38 @@ namespace VidCoder.ViewModel
 
 			this.x264ProfileChoices = new List<ComboChoice>
 			{
-				new ComboChoice(null, "-None-"),
-				new ComboChoice("baseline", "Baseline"),
-				new ComboChoice("main", "Main"),
-				new ComboChoice("high", "High"),
+				new ComboChoice(null, EncodingRes.NoneX264Choice),
+				new ComboChoice("baseline", EncodingRes.Profile_Baseline),
+				new ComboChoice("main", EncodingRes.Profile_Main),
+				new ComboChoice("high", EncodingRes.Profile_High),
 			};
 
 			this.x264PresetChoices = new List<ComboChoice>
 			{
-				new ComboChoice(null, "-None-"),
-				new ComboChoice("ultrafast", "Ultra Fast"),
-				new ComboChoice("superfast", "Super Fast"),
-				new ComboChoice("veryfast", "Very Fast"),
-				new ComboChoice("faster", "Faster"),
-				new ComboChoice("fast", "Fast"),
-				new ComboChoice("medium", "Medium"),
-				new ComboChoice("slow", "Slow"),
-				new ComboChoice("slower", "Slower"),
-				new ComboChoice("veryslow", "Very Slow"),
-				new ComboChoice("placebo", "Placebo"),
+				new ComboChoice(null, EncodingRes.NoneX264Choice),
+				new ComboChoice("ultrafast", EncodingRes.Preset_UltraFast),
+				new ComboChoice("superfast", EncodingRes.Preset_SuperFast),
+				new ComboChoice("veryfast", EncodingRes.Preset_VeryFast),
+				new ComboChoice("faster", EncodingRes.Preset_Faster),
+				new ComboChoice("fast", EncodingRes.Preset_Fast),
+				new ComboChoice("medium", EncodingRes.Preset_Medium),
+				new ComboChoice("slow", EncodingRes.Preset_Slow),
+				new ComboChoice("slower", EncodingRes.Preset_Slower),
+				new ComboChoice("veryslow", EncodingRes.Preset_VerySlow),
+				new ComboChoice("placebo", EncodingRes.Preset_Placebo),
 			};
 
 			this.x264TuneChoices = new List<ComboChoice>
 			{
-				new ComboChoice(null, "-None-"),
-				new ComboChoice("film", "Film"),
-				new ComboChoice("animation", "Animation"),
-				new ComboChoice("grain", "Grain"),
-				new ComboChoice("stillimage", "Still Image"),
-				new ComboChoice("psnr", "PSNR"),
-				new ComboChoice("ssim", "SSIM"),
-				new ComboChoice("fastdecode", "Fast Decode"),
-				new ComboChoice("zerolatency", "Zero Latency"),
+				new ComboChoice(null, EncodingRes.NoneX264Choice),
+				new ComboChoice("film", EncodingRes.Tune_Film),
+				new ComboChoice("animation", EncodingRes.Tune_Animation),
+				new ComboChoice("grain", EncodingRes.Tune_Grain),
+				new ComboChoice("stillimage", EncodingRes.Tune_StillImage),
+				new ComboChoice("psnr", EncodingRes.Tune_Psnr),
+				new ComboChoice("ssim", EncodingRes.Tune_Ssim),
+				new ComboChoice("fastdecode", EncodingRes.Tune_FastDecode),
+				new ComboChoice("zerolatency", EncodingRes.Tune_ZeroLatency),
 			};
 
 			this.framerateChoices = new List<double>
@@ -144,7 +146,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.HasSourceData)
 				{
-					return string.Format("{0:0.###} FPS", this.SelectedTitle.Framerate);
+					return string.Format(EncodingRes.FpsFormat, this.SelectedTitle.Framerate);
 				}
 
 				return string.Empty;
@@ -278,11 +280,11 @@ namespace VidCoder.ViewModel
 			{
 				if (this.Profile.Framerate == 0)
 				{
-					return "Uses the listed framerate from the source title for a constant framerate.";
+					return EncodingRes.CfrSameAsSourceToolTip;
 				}
 				else
 				{
-					return "Use a constant frame rate.";
+					return EncodingRes.CfrToolTip;
 				}
 			}
 		}
@@ -293,11 +295,11 @@ namespace VidCoder.ViewModel
 			{
 				if (this.Profile.Framerate == 0)
 				{
-					return "Allow a variable framerate. If the source has a variable frame rate, this setting will preserve it. Note that some players do not support variable frame rates.";
+					return EncodingRes.VfrSameAsSourceToolTip;
 				}
 				else
 				{
-					return "Allow a variable framerate and use the specified rate as a peak. If the source has a variable frame rate, this setting will preserve it. Note that some players do not support variable frame rates.";
+					return EncodingRes.VfrPeakFramerateToolTip;
 				}
 			}
 		}
@@ -308,11 +310,11 @@ namespace VidCoder.ViewModel
 			{
 				if (this.Profile.Framerate == 0)
 				{
-					return "Variable Framerate";
+					return EncodingRes.VfrChoice;
 				}
 				else
 				{
-					return "Peak Framerate (VFR)";
+					return EncodingRes.VfrPeakChoice;
 				}
 			}
 		}
@@ -598,9 +600,9 @@ namespace VidCoder.ViewModel
 					case "x264":
 					case "ffmpeg4":
 					case "ffmpeg2":
-						return "High quality";
+						return EncodingRes.HighQuality;
 					case "theora":
-						return "Low quality";
+						return EncodingRes.LowQuality;
 					default:
 						return string.Empty;
 				}
@@ -616,9 +618,9 @@ namespace VidCoder.ViewModel
 					case "x264":
 					case "ffmpeg4":
 					case "ffmpeg2":
-						return "Low quality";
+						return EncodingRes.LowQuality;
 					case "theora":
-						return "High quality";
+						return EncodingRes.HighQuality;
 					default:
 						return string.Empty;
 				}
@@ -738,8 +740,6 @@ namespace VidCoder.ViewModel
 		{
 			this.RaisePropertyChanged(() => this.SelectedEncoder);
 			this.RaisePropertyChanged(() => this.SelectedFramerate);
-			//this.RaisePropertyChanged(() => this.PeakFramerate);
-			//this.RaisePropertyChanged(() => this.PeakFramerateVisible);
 			this.RaisePropertyChanged(() => this.ConstantFramerate);
 			this.RaisePropertyChanged(() => this.ConstantFramerateToolTip);
 			this.RaisePropertyChanged(() => this.VariableFramerateToolTip);
