@@ -14,6 +14,7 @@ namespace VidCoder
 	using System.Xml.Serialization;
 	using HandBrake.Interop;
 	using HandBrake.Interop.Model;
+	using HandBrake.Interop.SourceData;
 	using Model;
 	using Properties;
 	using Services;
@@ -48,6 +49,10 @@ namespace VidCoder
 		private ManualResetEventSlim encodeStartEvent;
 		private ManualResetEventSlim encodeEndEvent;
 
+		// Instance and lock only used when doing in-process encode (for debugging)
+		private HandBrakeInstance instance;
+		private object encodeLock = new object();
+
 		// Timer that pings the worker process periodically to see if it's still alive.
 		private Timer pingTimer;
 
@@ -61,6 +66,11 @@ namespace VidCoder
 
 		public void StartEncode(EncodeJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
 		{
+//#if DEBUG
+//            this.StartEncodeInProcess(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds);
+//            return;
+//#endif
+
 			this.logger = Unity.Container.Resolve<ILogger>();
 
 			this.encodeStartEvent = new ManualResetEventSlim(false);
@@ -161,6 +171,54 @@ namespace VidCoder
 
 			this.encoding = true;
 			task.Start();
+		}
+
+		private void StartEncodeInProcess(EncodeJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
+		{
+			this.encoding = true;
+
+			this.encodeStartEvent = new ManualResetEventSlim(false);
+			this.encodeEndEvent = new ManualResetEventSlim(false);
+
+			this.instance = new HandBrakeInstance();
+			this.instance.Initialize(Settings.Default.LogVerbosity);
+
+			this.instance.ScanCompleted += (o, e) =>
+			{
+				try
+				{
+					Title encodeTitle = this.instance.Titles.FirstOrDefault(title => title.TitleNumber == job.Title);
+
+					if (encodeTitle != null)
+					{
+						lock (this.encodeLock)
+						{
+							this.instance.StartEncode(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds);
+							this.OnEncodeStarted();
+						}
+					}
+					else
+					{
+						this.OnEncodeComplete(true);
+					}
+				}
+				catch (Exception exception)
+				{
+					this.OnException(exception.ToString());
+				}
+			};
+
+			this.instance.EncodeProgress += (o, e) =>
+			{
+				this.OnEncodeProgress(e.AverageFrameRate, e.CurrentFrameRate, e.EstimatedTimeLeft, e.FractionComplete, e.Pass);
+			};
+
+			this.instance.EncodeCompleted += (o, e) =>
+			{
+				this.OnEncodeComplete(e.Error);
+			};
+
+			this.instance.StartScan(job.SourcePath, Settings.Default.PreviewCount, job.Title);
 		}
 
 		public void PauseEncode()
@@ -334,7 +392,10 @@ namespace VidCoder
 							});
 				}
 
-				this.pingTimer.Dispose();
+				if (this.pingTimer != null)
+				{
+					this.pingTimer.Dispose();
+				}
 
 				this.encoding = false;
 			}

@@ -148,13 +148,13 @@
 
 				<Label
 					Grid.Row="1" Grid.Column="0" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" 
-					Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}"
+					Visibility="{Binding ModulusVisible, Converter={StaticResource VisibilityConverter}}"
 					Content="{x:Static res:EncodingRes.ModulusLabel}"/>
 				<ComboBox
 					Grid.Row="1" Grid.Column="1" Height="22" VerticalAlignment="Top" Margin="0,1,0,0" HorizontalAlignment="Left" MinWidth="65"
 					SelectedValue="{Binding Modulus}"
 					SelectedValuePath="Content"
-					Visibility="{Binding CustomAnamorphicFieldsVisible, Converter={StaticResource VisibilityConverter}}">
+					Visibility="{Binding ModulusVisible, Converter={StaticResource VisibilityConverter}}">
 					<ComboBoxItem>16</ComboBoxItem>
 					<ComboBoxItem>8</ComboBoxItem>
 					<ComboBoxItem>4</ComboBoxItem>

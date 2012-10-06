@@ -330,6 +330,7 @@ namespace VidCoder.ViewModel
 
 				this.RaisePropertyChanged(() => this.SelectedAnamorphic);
 				this.RaisePropertyChanged(() => this.CustomAnamorphicFieldsVisible);
+				this.RaisePropertyChanged(() => this.ModulusVisible);
 				this.RaisePropertyChanged(() => this.PixelAspectVisibile);
 				this.RaisePropertyChanged(() => this.KeepDisplayAspect);
 				this.RaisePropertyChanged(() => this.KeepDisplayAspectEnabled);
@@ -364,6 +365,14 @@ namespace VidCoder.ViewModel
 
 				this.IsModified = true;
 				this.UpdatePreviewWindow();
+			}
+		}
+
+		public bool ModulusVisible
+		{
+			get
+			{
+				return this.Profile.Anamorphic == Anamorphic.Custom || this.Profile.Anamorphic == Anamorphic.Loose;
 			}
 		}
 
@@ -653,6 +662,7 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.KeepDisplayAspectEnabled);
 			this.RaisePropertyChanged(() => this.SelectedAnamorphic);
 			this.RaisePropertyChanged(() => this.CustomAnamorphicFieldsVisible);
+			this.RaisePropertyChanged(() => this.ModulusVisible);
 			this.RaisePropertyChanged(() => this.Modulus);
 			this.RaisePropertyChanged(() => this.UseDisplayWidth);
 			this.RaisePropertyChanged(() => this.DisplayWidth);

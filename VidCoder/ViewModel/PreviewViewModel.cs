@@ -542,7 +542,6 @@ namespace VidCoder.ViewModel
 
 			this.job = this.mainViewModel.EncodeJob;
 
-			//EncodingProfile profile = this.job.EncodingProfile;
 			int width, height;
 
 			int parWidth, parHeight;
