@@ -24,8 +24,6 @@ namespace VidCoder.Controls
 		public NumberBox()
 		{
 			this.noneCaption = "(none)";
-			//this.Minimum = double.MinValue;
-			//this.Maximum = double.MaxValue;
 			this.UpdateBindingOnTextChange = true;
 			this.ShowIncrementButtons = true;
 			this.SelectAllOnClick = true;
@@ -97,8 +95,6 @@ namespace VidCoder.Controls
 				SetValue(MaximumProperty, value);
 			}
 		}
-		//public double Minimum { get; set; }
-		//public double Maximum { get; set; }
 
 		public const string ModulusPropertyName = "Modulus";
 		public static readonly DependencyProperty ModulusProperty = DependencyProperty.Register(
@@ -117,8 +113,6 @@ namespace VidCoder.Controls
 				SetValue(ModulusProperty, value);
 			}
 		}
-
-		//public double Modulus { get; set; }
 
 		public bool UpdateBindingOnTextChange { get; set; }
 
@@ -190,11 +184,25 @@ namespace VidCoder.Controls
 			if (this.AllowEmpty && this.Number == 0)
 			{
 				this.numberBox.Text = this.hasFocus ? string.Empty : this.NoneCaption;
-				this.numberBox.Foreground = new SolidColorBrush(Colors.Gray);
+				//this.numberBox.Foreground = new SolidColorBrush(Colors.Gray);
 			}
 			else
 			{
 				this.numberBox.Text = this.Number.ToString();
+				//this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
+			}
+
+			this.RefreshNumberBoxColor();
+		}
+
+		private void RefreshNumberBoxColor()
+		{
+			if (this.numberBox.Text == this.NoneCaption)
+			{
+				this.numberBox.Foreground = new SolidColorBrush(Colors.Gray);
+			}
+			else
+			{
 				this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
 			}
 		}
@@ -346,6 +354,8 @@ namespace VidCoder.Controls
 
 				this.UpdateNumberBindingFromBox();
 			}
+
+			this.RefreshNumberBoxColor();
 		}
 
 		private void UpdateNumberBindingFromBox()
