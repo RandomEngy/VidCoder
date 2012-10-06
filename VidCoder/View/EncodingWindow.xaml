@@ -123,20 +123,20 @@
 			<StackPanel Orientation="Vertical" Margin="10,0,0,0">
 				<CheckBox
 					Content="{x:Static res:EncodingRes.LargeFileSizeCheckBox}" ToolTip="{x:Static res:EncodingRes.LargeFileSizeToolTip}"
-					HorizontalAlignment="Left" Height="16" VerticalAlignment="Top"
+					HorizontalAlignment="Left" VerticalAlignment="Top"
 					Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
 					IsChecked="{Binding LargeFile}" />
 				<CheckBox
 					Content="{x:Static res:EncodingRes.WebOptimizedCheckBox}" ToolTip="{x:Static res:EncodingRes.WebOptimizedToolTip}"
-					Height="16" VerticalAlignment="Top" Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
+					VerticalAlignment="Top" Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
 					IsChecked="{Binding Optimize}" HorizontalAlignment="Left" />
 			</StackPanel>
 
-			<Grid Height="35" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0">
+			<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0">
 				<StackPanel Orientation="Vertical" VerticalAlignment="Center">
 					<CheckBox
 						Content="{x:Static res:EncodingRes.Ipod5GSupportCheckBox}" ToolTip="{x:Static res:EncodingRes.IPod5GSupportToolTip}"
-						Height="18" VerticalAlignment="Center"
+						VerticalAlignment="Center"
 						Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
 						IsChecked="{Binding IPod5GSupport}" />
 					<CheckBox
