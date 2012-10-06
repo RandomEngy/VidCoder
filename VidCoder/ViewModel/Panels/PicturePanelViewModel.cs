@@ -317,9 +317,24 @@ namespace VidCoder.ViewModel
 				Anamorphic newValue = EnumConverter.Convert<AnamorphicCombo, Anamorphic>(value);
 				this.Profile.Anamorphic = newValue;
 
+				if (newValue == Anamorphic.Strict)
+				{
+					this.Profile.Width = 0;
+					this.Profile.MaxWidth = 0;
+
+					this.RaisePropertyChanged(() => this.Width);
+					this.RaisePropertyChanged(() => this.MaxWidth);
+				}
+
 				if (newValue == Anamorphic.Strict || newValue == Anamorphic.Loose)
 				{
 					this.KeepDisplayAspect = true;
+
+					this.Profile.Height = 0;
+					this.Profile.MaxHeight = 0;
+
+					this.RaisePropertyChanged(() => this.Height);
+					this.RaisePropertyChanged(() => this.MaxHeight);
 				}
 
 				if (this.Profile.Anamorphic == Anamorphic.Custom)
