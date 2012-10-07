@@ -12,6 +12,8 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
+	using LocalResources;
+
 	public class SourceOptionViewModel : ViewModelBase
 	{
 		private SourceOption sourceOption;
@@ -66,14 +68,14 @@ namespace VidCoder.ViewModel
 					case SourceType.File:
 						if (this.SourcePath == null)
 						{
-							return "Video File...";
+							return MainRes.SourceOption_VideoFile;
 						}
 
 						return this.SourcePath;
 					case SourceType.VideoFolder:
 						if (this.SourcePath == null)
 						{
-							return "DVD/Blu-ray Folder...";
+							return MainRes.SourceOption_DiscFolder;
 						}
 
 						return this.SourcePath;

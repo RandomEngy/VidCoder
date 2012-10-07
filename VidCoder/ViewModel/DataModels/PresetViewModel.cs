@@ -8,8 +8,13 @@ using VidCoder.Model;
 
 namespace VidCoder.ViewModel
 {
+	using System.Resources;
+	using LocalResources;
+
 	public class PresetViewModel : ViewModelBase
 	{
+		private static ResourceManager manager = new ResourceManager(typeof (MainRes));
+
 		private Preset preset;
 
 		public PresetViewModel(Preset preset)
@@ -51,6 +56,25 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public string DisplayName
+		{
+			get
+			{
+				if (!this.preset.IsBuiltIn)
+				{
+					return this.preset.Name;
+				}
+
+				string displayName = manager.GetString("Preset_" + this.preset.Name);
+				if (displayName == null)
+				{
+					return this.preset.Name;
+				}
+
+				return displayName;
+			}
+		}
+
 		public bool IsBuiltIn
 		{
 			get
@@ -63,6 +87,7 @@ namespace VidCoder.ViewModel
 		{
 			this.RaisePropertyChanged(() => this.IsModified);
 			this.RaisePropertyChanged(() => this.PresetName);
+			this.RaisePropertyChanged(() => this.DisplayName);
 			this.RaisePropertyChanged(() => this.IsBuiltIn);
 		}
 	}

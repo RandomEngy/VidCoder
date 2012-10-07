@@ -74,11 +74,11 @@ namespace VidCoder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When automatic audio selection is disabled, the last picked track is persisted..
+        ///   Looks up a localized string similar to All.
         /// </summary>
-        public static string AutoAudioDisabledToolTip {
+        public static string All {
             get {
-                return ResourceManager.GetString("AutoAudioDisabledToolTip", resourceCulture);
+                return ResourceManager.GetString("All", resourceCulture);
             }
         }
         
@@ -88,15 +88,6 @@ namespace VidCoder.Properties {
         public static string Automatic {
             get {
                 return ResourceManager.GetString("Automatic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to When automatic subtitle selection is disabled, the last picked subtitles are persisted..
-        /// </summary>
-        public static string AutoSubtitleDisabledToolTip {
-            get {
-                return ResourceManager.GetString("AutoSubtitleDisabledToolTip", resourceCulture);
             }
         }
         
@@ -115,6 +106,15 @@ namespace VidCoder.Properties {
         public static string BurnedSubtitleToolTip {
             get {
                 return ResourceManager.GetString("BurnedSubtitleToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
@@ -155,6 +155,15 @@ namespace VidCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        public static string Disabled {
+            get {
+                return ResourceManager.GetString("Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only display forced subtitles from the given track. Usually this means small bits of foreign dialogue..
         /// </summary>
         public static string ForcedSubtitleToolTip {
@@ -187,6 +196,15 @@ namespace VidCoder.Properties {
         public static string OffsetSubtitleToolTip {
             get {
                 return ResourceManager.GetString("OffsetSubtitleToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
             }
         }
         
@@ -295,6 +313,24 @@ namespace VidCoder.Properties {
         public static string QueueEtaToolTip {
             get {
                 return ResourceManager.GetString("QueueEtaToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string Remove {
+            get {
+                return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stream {0}.
+        /// </summary>
+        public static string StreamChoice {
+            get {
+                return ResourceManager.GetString("StreamChoice", resourceCulture);
             }
         }
     }

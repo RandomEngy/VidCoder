@@ -87,14 +87,6 @@ namespace VidCoder.ViewModel
 			this.sourceSubtitles.CollectionChanged += this.SourceCollectionChanged;
 			this.srtSubtitles.CollectionChanged += this.SrtCollectionChanged;
 
-			//this.inputTrackChoices = new List<string>();
-			//this.inputTrackChoices.Add("Foreign Audio Search (Bitmap)");
-
-			//foreach (Subtitle subtitle in this.mainViewModel.SelectedTitle.Subtitles)
-			//{
-			//    this.inputTrackChoices.Add(subtitle.ToString());
-			//}
-
 			this.UpdateBoxes();
 		}
 
@@ -108,11 +100,6 @@ namespace VidCoder.ViewModel
 		{
 			this.RaisePropertyChanged(() => this.HasSrtSubtitles);
 		}
-
-		//public List<string> InputTrackChoices
-		//{
-		//    get { return this.inputTrackChoices; }
-		//}
 
 		public ObservableCollection<SourceSubtitleViewModel> SourceSubtitles
 		{

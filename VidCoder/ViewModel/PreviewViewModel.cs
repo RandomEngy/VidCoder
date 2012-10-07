@@ -22,10 +22,12 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
+	using System.Globalization;
+	using LocalResources;
+
 	public class PreviewViewModel : OkCancelDialogViewModel
 	{
 		private const int PreviewImageCacheDistance = 1;
-		private const string NoSourceTitle = "Preview: No video source";
 
 		private static readonly TimeSpan MinPreviewImageRefreshInterval = TimeSpan.FromSeconds(1);
 		private static int updateVersion;
@@ -73,7 +75,7 @@ namespace VidCoder.ViewModel
 
 			this.previewSeconds = Settings.Default.PreviewSeconds;
 			this.selectedPreview = 1;
-			this.Title = NoSourceTitle;
+			this.Title = PreviewRes.NoVideoSourceTitle;
 
 			this.RequestRefreshPreviews();
 		}
@@ -285,17 +287,17 @@ namespace VidCoder.ViewModel
 					bool isDvd = Utilities.IsDvdFolder(this.mainViewModel.SourcePath);
 					if (!isDvd)
 					{
-						return "Source preview for Blu-ray not supported yet.";
+						return PreviewRes.PlaySourceDisabledBluRayToolTip;
 					}
 
 					bool playerInstalled = Players.Installed.Count > 0;
 					if (!playerInstalled)
 					{
-						return "A supported DVD player could not be found. Install VLC or MPC-HC to use this feature.";
+						return PreviewRes.PlaySourceDisabledNoPlayerToolTip;
 					}
 				}
 
-				return "Plays the source video.";
+				return PreviewRes.PlaySourceToolTip;
 			}
 		}
 
@@ -409,8 +411,8 @@ namespace VidCoder.ViewModel
 							{
 								if (e.Error)
 								{
-									this.logger.Log("Preview clip generation failed");
-									Utilities.MessageBox.Show("Preview clip generation failed. See the Log window for details.");
+									this.logger.Log(PreviewRes.PreviewClipGenerationFailedTitle);
+									Utilities.MessageBox.Show(PreviewRes.PreviewClipGenerationFailedMessage);
 								}
 								else
 								{
@@ -489,7 +491,7 @@ namespace VidCoder.ViewModel
 			if (!this.mainViewModel.HasVideoSource)
 			{
 				this.HasPreview = false;
-				this.Title = NoSourceTitle;
+				this.Title = PreviewRes.NoVideoSourceTitle;
 				this.TryCancelPreviewEncode();
 				return;
 			}
@@ -550,7 +552,7 @@ namespace VidCoder.ViewModel
 			if (parWidth <= 0 || parHeight <= 0)
 			{
 				this.HasPreview = false;
-				this.Title = NoSourceTitle;
+				this.Title = PreviewRes.NoVideoSourceTitle;
 
 				Unity.Container.Resolve<ILogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
 				return;
@@ -579,7 +581,7 @@ namespace VidCoder.ViewModel
 				// Clear main work queue.
 				this.previewImageWorkQueue.Clear();
 
-				this.imageFileCacheFolder = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString(), updateVersion.ToString());
+				this.imageFileCacheFolder = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture), updateVersion.ToString(CultureInfo.InvariantCulture));
 				if (!Directory.Exists(this.imageFileCacheFolder))
 				{
 					Directory.CreateDirectory(this.imageFileCacheFolder);
@@ -599,11 +601,16 @@ namespace VidCoder.ViewModel
 
 			if (parWidth == parHeight)
 			{
-				this.Title = "Preview: " + width + "x" + height;
+				this.Title = string.Format(PreviewRes.PreviewWindowTitleSimple, width, height);
 			}
 			else
 			{
-				this.Title = "Preview: Display " + Math.Round(this.PreviewWidth) + "x" + Math.Round(this.PreviewHeight) + " - Storage " + width + "x" + height;
+				this.Title = string.Format(
+					PreviewRes.PreviewWindowTitleComplex,
+					Math.Round(this.PreviewWidth),
+					Math.Round(this.PreviewHeight),
+					width,
+					height);
 			}
 		}
 
@@ -611,12 +618,12 @@ namespace VidCoder.ViewModel
 		{
 			try
 			{
-				string processCacheFolder = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString());
+				string processCacheFolder = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture));
 
 				int lowestUpdate = -1;
 				for (int i = updateVersion - 1; i >= 1; i--)
 				{
-					if (Directory.Exists(Path.Combine(processCacheFolder, i.ToString())))
+					if (Directory.Exists(Path.Combine(processCacheFolder, i.ToString(CultureInfo.InvariantCulture))))
 					{
 						lowestUpdate = i;
 					}
@@ -633,7 +640,7 @@ namespace VidCoder.ViewModel
 
 				for (int i = lowestUpdate; i <= updateVersion - 1; i++)
 				{
-					Utilities.DeleteDirectory(Path.Combine(processCacheFolder, i.ToString()));
+					Utilities.DeleteDirectory(Path.Combine(processCacheFolder, i.ToString(CultureInfo.InvariantCulture)));
 				}
 			}
 			catch (IOException)
@@ -688,7 +695,6 @@ namespace VidCoder.ViewModel
 
 		private void BeginBackgroundImageLoad()
 		{
-			int initialQueueSize = this.previewImageWorkQueue.Count;
 			int currentPreview = this.SelectedPreview;
 
 			if (!ImageLoadedOrLoading(currentPreview))
@@ -765,8 +771,8 @@ namespace VidCoder.ViewModel
 
 				string imagePath = Path.Combine(
 					Utilities.ImageCacheFolder,
-					Process.GetCurrentProcess().Id.ToString(),
-					imageJob.UpdateVersion.ToString(),
+					Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture),
+					imageJob.UpdateVersion.ToString(CultureInfo.InvariantCulture),
 					imageJob.PreviewNumber + ".bmp");
 				BitmapImage image = null;
 

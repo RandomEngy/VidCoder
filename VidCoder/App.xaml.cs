@@ -37,6 +37,10 @@ namespace VidCoder
 			Delay.PseudoLocalizer.Enable(typeof(MainRes));
 			Delay.PseudoLocalizer.Enable(typeof(EnumsRes));
 			Delay.PseudoLocalizer.Enable(typeof(EncodingRes));
+			Delay.PseudoLocalizer.Enable(typeof(OptionsRes));
+			Delay.PseudoLocalizer.Enable(typeof(PreviewRes));
+			Delay.PseudoLocalizer.Enable(typeof(LogRes));
+			Delay.PseudoLocalizer.Enable(typeof(SubtitleRes));
 #endif
 
 			try

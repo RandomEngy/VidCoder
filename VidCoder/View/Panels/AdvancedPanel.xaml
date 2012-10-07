@@ -15,8 +15,16 @@
 		</Style>
 	</UserControl.Resources>
 	<Grid>
-		<TextBlock Height="21" Width="162" HorizontalAlignment="Left" Margin="6,3,0,0" VerticalAlignment="Top" Text="Encoding" Style="{StaticResource SectionHeader}" />
-		<Grid HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Top" Width="232">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<TextBlock Height="21" HorizontalAlignment="Left" Margin="6,3,0,0" VerticalAlignment="Top" Text="{x:Static res:EncodingRes.Encoding}" Style="{StaticResource SectionHeader}" />
+		<Grid HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Top">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
@@ -29,11 +37,11 @@
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition />
+				<ColumnDefinition MinWidth="80" />
 			</Grid.ColumnDefinitions>
 
 			<Label
-				Content="Reference Frames:" Grid.Row="0" Grid.Column="0"
+				Content="{x:Static res:EncodingRes.ReferenceFramesLabel}" Grid.Row="0" Grid.Column="0"
 				Style="{StaticResource AdvancedLabel}" />
 			<ComboBox
 				Grid.Row="0" Grid.Column="1" Height="22"
@@ -47,91 +55,99 @@
 			</ComboBox>
 
 			<Label
-							Content="Maximum B-Frames:" Grid.Row="1" Grid.Column="0"
-							Style="{StaticResource AdvancedLabel}"/>
+				Content="{x:Static res:EncodingRes.MaxBFramesLabel}" Grid.Row="1" Grid.Column="0"
+				Style="{StaticResource AdvancedLabel}"/>
 			<ComboBox
-							Grid.Row="1" Grid.Column="1" Height="22"
-							ItemsSource="{x:Static vm:AdvancedChoices.BFrames}"
-							DisplayMemberPath="Label"
-							SelectedItem="{Binding BFrames}"
-							Style="{StaticResource LongToolTipHolder}">
+				Grid.Row="1" Grid.Column="1" Height="22"
+				ItemsSource="{x:Static vm:AdvancedChoices.BFrames}"
+				DisplayMemberPath="Label"
+				SelectedItem="{Binding BFrames}"
+				Style="{StaticResource LongToolTipHolder}">
 				<ComboBox.ToolTip>
 					<TextBlock Text="{x:Static res:EncodingRes.Advanced_BFramesToolTip}" Style="{StaticResource LongToolTip}" />
 				</ComboBox.ToolTip>
 			</ComboBox>
 
 
-
 			<Label
-							Content="CABAC:" Height="28" Grid.Row="4" Grid.Column="0"
-							Style="{StaticResource AdvancedLabel}"/>
+				Content="{x:Static res:EncodingRes.CabacLabel}" Height="28" Grid.Row="4" Grid.Column="0"
+				Style="{StaticResource AdvancedLabel}"/>
 			<CheckBox
-							Height="16" Grid.Row="4" Grid.Column="1"
-							IsChecked="{Binding CabacEntropyCoding}"
-							Style="{StaticResource LongToolTipHolder}">
+				Height="16" Grid.Row="4" Grid.Column="1"
+				IsChecked="{Binding CabacEntropyCoding}"
+				Style="{StaticResource LongToolTipHolder}">
 				<CheckBox.ToolTip>
 					<TextBlock Text="{x:Static res:EncodingRes.Advanced_CabacToolTip}" Style="{StaticResource LongToolTip}" />
 				</CheckBox.ToolTip>
 			</CheckBox>
 
 			<Label
-							Content="8x8 Transform:" Height="28" Grid.Row="5" Grid.Column="0"
-							Visibility="{Binding EightByEightDctVisible, Converter={StaticResource VisibilityConverter}}"
-							Style="{StaticResource AdvancedLabel}"/>
+				Content="{x:Static res:EncodingRes.EightByEightTransformLabel}" Height="28" Grid.Row="5" Grid.Column="0"
+				Visibility="{Binding EightByEightDctVisible, Converter={StaticResource VisibilityConverter}}"
+				Style="{StaticResource AdvancedLabel}"/>
 			<CheckBox
-							Height="16" Grid.Row="5" Grid.Column="1"
-							IsChecked="{Binding EightByEightDct}"
-							Visibility="{Binding EightByEightDctVisible, Converter={StaticResource VisibilityConverter}}"
-							Style="{StaticResource LongToolTipHolder}">
+				Height="16" Grid.Row="5" Grid.Column="1"
+				IsChecked="{Binding EightByEightDct}"
+				Visibility="{Binding EightByEightDctVisible, Converter={StaticResource VisibilityConverter}}"
+				Style="{StaticResource LongToolTipHolder}">
 				<CheckBox.ToolTip>
 					<TextBlock Text="{x:Static res:EncodingRes.Advanced_EightByEightDctToolTip}" Style="{StaticResource LongToolTip}" />
 				</CheckBox.ToolTip>
 			</CheckBox>
 
 			<Label
-							Content="Weighted P-Frames:" Grid.Row="6" Grid.Column="0"
-							Style="{StaticResource AdvancedLabel}"/>
+				Content="{x:Static res:EncodingRes.WeightedPFramesLabel}" Grid.Row="6" Grid.Column="0"
+				Style="{StaticResource AdvancedLabel}"/>
 			<CheckBox
-							Grid.Row="6" Grid.Column="1" VerticalAlignment="Center"
-							IsChecked="{Binding WeightedPFrames}"
-							Style="{StaticResource LongToolTipHolder}">
+				Grid.Row="6" Grid.Column="1" VerticalAlignment="Center"
+				IsChecked="{Binding WeightedPFrames}"
+				Style="{StaticResource LongToolTipHolder}">
 				<CheckBox.ToolTip>
 					<TextBlock Text="{x:Static res:EncodingRes.Advanced_WeightPToolTip}" Style="{StaticResource LongToolTip}" />
 				</CheckBox.ToolTip>
 			</CheckBox>
 
 			<Label
-							Content="Pyramidal B-Frames:" Grid.Row="7" Grid.Column="0"
-							Visibility="{Binding PyramidalBFramesVisible, Converter={StaticResource VisibilityConverter}}"
-							Style="{StaticResource AdvancedLabel}"/>
+				Content="{x:Static res:EncodingRes.PyramidalBFramesLabel}" Grid.Row="7" Grid.Column="0"
+				Visibility="{Binding PyramidalBFramesVisible, Converter={StaticResource VisibilityConverter}}"
+				Style="{StaticResource AdvancedLabel}"/>
 			<ComboBox
-							Grid.Row="7" Grid.Column="1" Height="22"
-							ItemsSource="{x:Static vm:AdvancedChoices.PyramidalBFrames}"
-							DisplayMemberPath="Label"
-							SelectedItem="{Binding PyramidalBFrames}"
-							Visibility="{Binding PyramidalBFramesVisible, Converter={StaticResource VisibilityConverter}}"
-							Style="{StaticResource LongToolTipHolder}">
+				Grid.Row="7" Grid.Column="1" Height="22"
+				ItemsSource="{x:Static vm:AdvancedChoices.PyramidalBFrames}"
+				DisplayMemberPath="Label"
+				SelectedItem="{Binding PyramidalBFrames}"
+				Visibility="{Binding PyramidalBFramesVisible, Converter={StaticResource VisibilityConverter}}"
+				Style="{StaticResource LongToolTipHolder}">
 				<ComboBox.ToolTip>
 					<TextBlock Text="{x:Static res:EncodingRes.Advanced_PyramidalBFramesToolTip}" Style="{StaticResource LongToolTip}" />
 				</ComboBox.ToolTip>
 			</ComboBox>
 		</Grid>
 
-		<TextBlock Height="21" Width="162" HorizontalAlignment="Left" Margin="6,194,0,0" VerticalAlignment="Top" Text="Psychovisual" Style="{StaticResource SectionHeader}" />
-		<Label
-						Content="No DCT-Decimate:"
-						Margin="29,209,0,0" HorizontalAlignment="Left" Width="109" Height="26" VerticalAlignment="Top"/>
-		<CheckBox
-						VerticalAlignment="Top" Margin="142,216,0,0" HorizontalAlignment="Left"
-						IsChecked="{Binding NoDctDecimate}"
-						Style="{StaticResource LongToolTipHolder}">
-			<CheckBox.ToolTip>
-				<TextBlock Text="{x:Static res:EncodingRes.Advanced_NoDctDecimateToolTip}" Style="{StaticResource LongToolTip}" />
-			</CheckBox.ToolTip>
-		</CheckBox>
+		<TextBlock Height="21" HorizontalAlignment="Left" Margin="6,194,0,0" VerticalAlignment="Top" Text="Psychovisual" Style="{StaticResource SectionHeader}" />
+		<StackPanel
+			Orientation="Horizontal"
+			Margin="29,208,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+			<Label
+				Content="{x:Static res:EncodingRes.NoDctDecimateLabel}"
+				HorizontalAlignment="Left" VerticalAlignment="Center"/>
+			<CheckBox
+				VerticalAlignment="Center"  HorizontalAlignment="Left"
+				IsChecked="{Binding NoDctDecimate}"
+				Style="{StaticResource LongToolTipHolder}">
+				<CheckBox.ToolTip>
+					<TextBlock Text="{x:Static res:EncodingRes.Advanced_NoDctDecimateToolTip}" Style="{StaticResource LongToolTip}" />
+				</CheckBox.ToolTip>
+			</CheckBox>
+		</StackPanel>
 
-		<TextBlock Height="21" Width="162" HorizontalAlignment="Left" Margin="244,3,0,0" VerticalAlignment="Top" Text="Analysis" Style="{StaticResource SectionHeader}" />
-		<Grid HorizontalAlignment="Left" Margin="239,20,0,0" VerticalAlignment="Top" Width="318">
+
+		<TextBlock 
+			Grid.Column="1"
+			Height="21" HorizontalAlignment="Left" Margin="5,3,0,0" VerticalAlignment="Top" Text="{x:Static res:EncodingRes.Analysis}" Style="{StaticResource SectionHeader}" />
+		<Grid 
+			Grid.Column="1"
+			HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Top">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
@@ -141,57 +157,57 @@
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition />
+				<ColumnDefinition MinWidth="135" />
 			</Grid.ColumnDefinitions>
 
 			<Label
-							Content="Adaptive B-Frames:" Grid.Row="0" Grid.Column="0"
-							Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"
-							Style="{StaticResource AdvancedLabel}"/>
+				Content="{x:Static res:EncodingRes.AdaptiveBFramesLabel}" Grid.Row="0" Grid.Column="0"
+				Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"
+				Style="{StaticResource AdvancedLabel}"/>
 			<ComboBox
-							Grid.Row="0" Grid.Column="1" Height="22"
-							ItemsSource="{x:Static vm:AdvancedChoices.AdaptiveBFrames}"
-							DisplayMemberPath="Label"
-							SelectedItem="{Binding AdaptiveBFrames}"
-							Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"
-							Style="{StaticResource LongToolTipHolder}">
+				Grid.Row="0" Grid.Column="1" Height="22"
+				ItemsSource="{x:Static vm:AdvancedChoices.AdaptiveBFrames}"
+				DisplayMemberPath="Label"
+				SelectedItem="{Binding AdaptiveBFrames}"
+				Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"
+				Style="{StaticResource LongToolTipHolder}">
 				<ComboBox.ToolTip>
 					<TextBlock Text="{x:Static res:EncodingRes.Advanced_AdaptiveBFramesToolTip}" Style="{StaticResource LongToolTip}" />
 				</ComboBox.ToolTip>
 			</ComboBox>
 
 			<Label
-							Content="Adaptive Direct Mode:" Grid.Row="1" Grid.Column="0"
-							Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"
-							Style="{StaticResource AdvancedLabel}"/>
+				Content="{x:Static res:EncodingRes.AdaptiveDirectModeLabel}" Grid.Row="1" Grid.Column="0"
+				Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"
+				Style="{StaticResource AdvancedLabel}"/>
 			<ComboBox
-							Grid.Row="1" Grid.Column="1" Height="22"
-							ItemsSource="{x:Static vm:AdvancedChoices.DirectPrediction}"
-							DisplayMemberPath="Label"
-							SelectedItem="{Binding DirectPrediction}"
-							Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"
-							Style="{StaticResource LongToolTipHolder}">
+				Grid.Row="1" Grid.Column="1" Height="22"
+				ItemsSource="{x:Static vm:AdvancedChoices.DirectPrediction}"
+				DisplayMemberPath="Label"
+				SelectedItem="{Binding DirectPrediction}"
+				Visibility="{Binding BFramesOptionsVisible, Converter={StaticResource VisibilityConverter}}"
+				Style="{StaticResource LongToolTipHolder}">
 				<ComboBox.ToolTip>
 					<TextBlock Text="{x:Static res:EncodingRes.Advanced_AdaptiveDirectModeToolTip}" Style="{StaticResource LongToolTip}" />
 				</ComboBox.ToolTip>
 			</ComboBox>
 
 			<Label
-							Content="Motion Estimation Method:" Grid.Row="2" Grid.Column="0"
-							Style="{StaticResource AdvancedLabel}"/>
+				Content="{x:Static res:EncodingRes.MotionEstimationMethodLabel}" Grid.Row="2" Grid.Column="0"
+				Style="{StaticResource AdvancedLabel}"/>
 			<ComboBox
-							Grid.Row="2" Grid.Column="1" Height="22"
-							ItemsSource="{x:Static vm:AdvancedChoices.MotionEstimationMethod}"
-							DisplayMemberPath="Label"
-							SelectedItem="{Binding MotionEstimationMethod}"
-							Style="{StaticResource LongToolTipHolder}">
+				Grid.Row="2" Grid.Column="1" Height="22"
+				ItemsSource="{x:Static vm:AdvancedChoices.MotionEstimationMethod}"
+				DisplayMemberPath="Label"
+				SelectedItem="{Binding MotionEstimationMethod}"
+				Style="{StaticResource LongToolTipHolder}">
 				<ComboBox.ToolTip>
 					<TextBlock Text="{x:Static res:EncodingRes.Advanced_MotionEstimationMethodToolTip}" Style="{StaticResource LongToolTip}" />
 				</ComboBox.ToolTip>
 			</ComboBox>
 
 			<Label
-				Content="Subpixel Motion Estimation:" Grid.Row="3" Grid.Column="0"
+				Content="{x:Static res:EncodingRes.SubpixelMotionEstimationLabel}" Grid.Row="3" Grid.Column="0"
 				Style="{StaticResource AdvancedLabel}"/>
 			<ComboBox
 				Grid.Row="3" Grid.Column="1" Height="22"
@@ -205,7 +221,7 @@
 			</ComboBox>
 
 			<Label
-				Content="Motion Estimation Range:" Grid.Row="4" Grid.Column="0"
+				Content="{x:Static res:EncodingRes.MotionEstimationRangeLabel}" Grid.Row="4" Grid.Column="0"
 				Visibility="{Binding MotionEstimationRangeVisible, Converter={StaticResource VisibilityConverter}}"
 				Style="{StaticResource AdvancedLabel}"/>
 			<ComboBox
@@ -221,32 +237,11 @@
 			</ComboBox>
 		</Grid>
 
-		<Label Content="Partition Type:" Height="28" HorizontalAlignment="Right" Margin="0,232,111,0" Name="label14" VerticalAlignment="Top" />
-		<ComboBox
-						Height="23" HorizontalAlignment="Right" Margin="0,233,5,0" VerticalAlignment="Top" Width="106"
-						ItemsSource="{x:Static vm:AdvancedChoices.Analysis}"
-						DisplayMemberPath="Label"
-						SelectedItem="{Binding Analysis}"
-						Style="{StaticResource LongToolTipHolder}">
-			<ComboBox.ToolTip>
-				<TextBlock Text="{x:Static res:EncodingRes.Advanced_AnalysisToolTip}" Style="{StaticResource LongToolTip}" />
-			</ComboBox.ToolTip>
-		</ComboBox>
 
-		<Label
-						Content="Trellis:" Height="28" HorizontalAlignment="Right" Margin="0,259,152,0" Name="label17" VerticalAlignment="Top" />
-		<ComboBox
-						Height="23" HorizontalAlignment="Right" Margin="0,260,5,0" VerticalAlignment="Top" Width="141"
-						ItemsSource="{x:Static vm:AdvancedChoices.Trellis}"
-						DisplayMemberPath="Label"
-						SelectedItem="{Binding Trellis}"
-						Style="{StaticResource LongToolTipHolder}">
-			<ComboBox.ToolTip>
-				<TextBlock Text="{x:Static res:EncodingRes.Advanced_TrellisToolTip}" Style="{StaticResource LongToolTip}" />
-			</ComboBox.ToolTip>
-		</ComboBox>
 
-		<Grid Height="80" HorizontalAlignment="Left" Margin="241,152,0,0" VerticalAlignment="Top" Width="316">
+		<Grid 
+			Grid.Column="1"
+			Height="80" HorizontalAlignment="Left" Margin="5,152,0,0" VerticalAlignment="Top">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
@@ -254,36 +249,36 @@
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition />
+				<ColumnDefinition Width="140" />
 			</Grid.ColumnDefinitions>
 			<Label
-							Content="Adaptive Quantization Strength:" Grid.Row="0" Grid.Column="0"
-							Style="{StaticResource AdvancedLabel}"/>
+				Content="{x:Static res:EncodingRes.AdaptiveQuantizationStrengthLabel}" Grid.Row="0" Grid.Column="0"
+				Style="{StaticResource AdvancedLabel}"/>
 			<Slider
-							Grid.Row="0" Grid.Column="1"
-							Minimum="0.0" Maximum="2.0" TickPlacement="BottomRight" TickFrequency="0.1" SmallChange="0.1" LargeChange="0.2" IsSnapToTickEnabled="True"
-							Value="{Binding AdaptiveQuantizationStrength}"
-							Style="{StaticResource LongToolTipHolder}">
+				Grid.Row="0" Grid.Column="1"
+				Minimum="0.0" Maximum="2.0" TickPlacement="BottomRight" TickFrequency="0.1" SmallChange="0.1" LargeChange="0.2" IsSnapToTickEnabled="True"
+				Value="{Binding AdaptiveQuantizationStrength}"
+				Style="{StaticResource LongToolTipHolder}">
 				<Slider.ToolTip>
 					<TextBlock Text="{x:Static res:EncodingRes.Advanced_AdaptiveQuantizationStrengthToolTip}" Style="{StaticResource LongToolTip}" />
 				</Slider.ToolTip>
 			</Slider>
 
 			<Label
-							Content="Psychovisual Rate Distortion:" Grid.Row="1" Grid.Column="0"
-							Style="{StaticResource AdvancedLabel}"/>
+				Content="{x:Static res:EncodingRes.PsychoVisualRateDistortionLabel}" Grid.Row="1" Grid.Column="0"
+				Style="{StaticResource AdvancedLabel}"/>
 			<Slider
-							Grid.Row="1" Grid.Column="1"
-							Minimum="0.0" Maximum="2.0" TickPlacement="BottomRight" TickFrequency="0.1" SmallChange="0.1" LargeChange="0.2" IsSnapToTickEnabled="True"
-							Value="{Binding PsychovisualRateDistortion}"
-							Style="{StaticResource LongToolTipHolder}">
+				Grid.Row="1" Grid.Column="1"
+				Minimum="0.0" Maximum="2.0" TickPlacement="BottomRight" TickFrequency="0.1" SmallChange="0.1" LargeChange="0.2" IsSnapToTickEnabled="True"
+				Value="{Binding PsychovisualRateDistortion}"
+				Style="{StaticResource LongToolTipHolder}">
 				<Slider.ToolTip>
 					<TextBlock Text="{x:Static res:EncodingRes.Advanced_PsychovisualRateDistortionToolTip}" Style="{StaticResource LongToolTip}" />
 				</Slider.ToolTip>
 			</Slider>
 
 			<Label
-				Content="Psychovisual Trellis:" Grid.Row="2" Grid.Column="0"
+				Content="{x:Static res:EncodingRes.PsychovisualTrellisLabel}" Grid.Row="2" Grid.Column="0"
 				Visibility="{Binding PsychovisualTrellisVisible, Converter={StaticResource VisibilityConverter}}"
 				Style="{StaticResource AdvancedLabel}"/>
 			<Slider
@@ -297,31 +292,85 @@
 				</Slider.ToolTip>
 			</Slider>
 		</Grid>
-		<Label Content="Deblocking:" Height="28" HorizontalAlignment="Right" Margin="0,230,292,0" VerticalAlignment="Top" />
-		<ComboBox
-			Height="23" HorizontalAlignment="Right" Margin="0,233,207,0" VerticalAlignment="Top" Width="83"
-			ItemsSource="{x:Static vm:AdvancedChoices.DeblockingStrength}"
-			DisplayMemberPath="Label"
-			SelectedItem="{Binding DeblockingStrength}"
-			Style="{StaticResource LongToolTipHolder}">
-			<ComboBox.ToolTip>
-				<TextBlock Text="{x:Static res:EncodingRes.Advanced_DeblockingToolTip}" Style="{StaticResource LongToolTip}" />
-			</ComboBox.ToolTip>
-		</ComboBox>
-		<ComboBox
-			Height="23" HorizontalAlignment="Right" Margin="0,260,207,0" VerticalAlignment="Top" Width="83"
-			ItemsSource="{x:Static vm:AdvancedChoices.DeblockingThreshold}"
-			DisplayMemberPath="Label"
-			SelectedItem="{Binding DeblockingThreshold}"
-			Style="{StaticResource LongToolTipHolder}">
-			<ComboBox.ToolTip>
-				<TextBlock Text="{x:Static res:EncodingRes.Advanced_DeblockingToolTip}" Style="{StaticResource LongToolTip}" />
-			</ComboBox.ToolTip>
-		</ComboBox>
+		<Grid
+			Grid.Column="1"
+			VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,230,0,0">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<Label
+				Grid.Row="0" Grid.Column="0"
+				Content="{x:Static res:EncodingRes.DeblockingLabel}" Height="28" HorizontalAlignment="Right" VerticalAlignment="Top" />
+			<ComboBox
+				Grid.Row="0" Grid.Column="1"
+				Height="23" HorizontalAlignment="Right" VerticalAlignment="Center" Width="83"
+				ItemsSource="{x:Static vm:AdvancedChoices.DeblockingStrength}"
+				DisplayMemberPath="Label"
+				SelectedItem="{Binding DeblockingStrength}"
+				Style="{StaticResource LongToolTipHolder}">
+				<ComboBox.ToolTip>
+					<TextBlock Text="{x:Static res:EncodingRes.Advanced_DeblockingToolTip}" Style="{StaticResource LongToolTip}" />
+				</ComboBox.ToolTip>
+			</ComboBox>
+			<ComboBox
+				Grid.Row="1" Grid.Column="1"
+				Height="23" HorizontalAlignment="Right" VerticalAlignment="Center" Width="83"
+				ItemsSource="{x:Static vm:AdvancedChoices.DeblockingThreshold}"
+				DisplayMemberPath="Label"
+				SelectedItem="{Binding DeblockingThreshold}"
+				Style="{StaticResource LongToolTipHolder}">
+				<ComboBox.ToolTip>
+					<TextBlock Text="{x:Static res:EncodingRes.Advanced_DeblockingToolTip}" Style="{StaticResource LongToolTip}" />
+				</ComboBox.ToolTip>
+			</ComboBox>
 
-		<Label Content="Options String" Height="28" HorizontalAlignment="Left" Margin="7,262,0,0" VerticalAlignment="Top" />
+			<StackPanel
+				Orientation="Horizontal"
+				Grid.Row="0" Grid.Column="2" Margin="10,0,0,0">
+				<Label 
+					Content="{x:Static res:EncodingRes.PartitionTypeLabel}" Height="28" HorizontalAlignment="Right" VerticalAlignment="Top" />
+				<ComboBox
+					Height="23" HorizontalAlignment="Right" VerticalAlignment="Center" Width="106"
+					ItemsSource="{x:Static vm:AdvancedChoices.Analysis}"
+					DisplayMemberPath="Label"
+					SelectedItem="{Binding Analysis}"
+					Style="{StaticResource LongToolTipHolder}">
+					<ComboBox.ToolTip>
+						<TextBlock Text="{x:Static res:EncodingRes.Advanced_AnalysisToolTip}" Style="{StaticResource LongToolTip}" />
+					</ComboBox.ToolTip>
+				</ComboBox>
+			</StackPanel>
+
+
+			<StackPanel 
+				Orientation="Horizontal"
+				Grid.Row="1" Grid.Column="2" Margin="10,0,0,0">
+				<Label
+					Content="{x:Static res:EncodingRes.TrellisLabel}" Height="28" HorizontalAlignment="Right" VerticalAlignment="Top" />
+				<ComboBox
+					Height="23" HorizontalAlignment="Right" VerticalAlignment="Center" Width="141"
+					ItemsSource="{x:Static vm:AdvancedChoices.Trellis}"
+					DisplayMemberPath="Label"
+					SelectedItem="{Binding Trellis}"
+					Style="{StaticResource LongToolTipHolder}">
+					<ComboBox.ToolTip>
+						<TextBlock Text="{x:Static res:EncodingRes.Advanced_TrellisToolTip}" Style="{StaticResource LongToolTip}" />
+					</ComboBox.ToolTip>
+				</ComboBox>
+			</StackPanel>
+		</Grid>
+
+		<TextBlock 
+				Text="{x:Static res:EncodingRes.OptionsString}" HorizontalAlignment="Left" Margin="7,267,0,0" VerticalAlignment="Top" />
 		<TextBox
-			Margin="0,288,0,0"
-			Text="{Binding AdvancedOptionsString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
+				Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+				Margin="0,0,0,0"
+				Text="{Binding AdvancedOptionsString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
 	</Grid>
 </UserControl>

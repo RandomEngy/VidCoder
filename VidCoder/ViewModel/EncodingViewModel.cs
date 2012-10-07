@@ -21,6 +21,8 @@ using Container = HandBrake.Interop.Model.Encoding.Container;
 
 namespace VidCoder.ViewModel
 {
+	using LocalResources;
+
 	public class EncodingViewModel : OkCancelDialogViewModel
 	{
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
@@ -140,7 +142,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				string windowTitle = "Preset: " + this.ProfileName;
+				string windowTitle = string.Format(EncodingRes.EncodingWindowTitle, this.ProfileName);
 				if (this.IsModified)
 				{
 					windowTitle += " *";
@@ -299,7 +301,7 @@ namespace VidCoder.ViewModel
 			bool enableMp4 = true;
 			foreach (AudioEncodingViewModel audioVM in this.AudioPanelViewModel.AudioEncodings)
 			{
-				if (audioVM.SelectedAudioEncoder.ShortName == "copy:ac3")
+				if (audioVM.SelectedAudioEncoder.Encoder.ShortName == "copy:ac3")
 				{
 					enableMp4 = false;
 					break;

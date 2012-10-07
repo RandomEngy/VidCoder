@@ -10,6 +10,8 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
+	using LocalResources;
+
 	public class SourceSubtitleViewModel : ViewModelBase
 	{
 		private SourceSubtitle subtitle;
@@ -59,7 +61,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.TrackNumber == 0)
 				{
-					return "Foreign Audio Search";
+					return SubtitleRes.ForeignAudioSearch;
 				}
 
 				return this.mainViewModel.SelectedTitle.Subtitles[this.TrackNumber - 1].Display;

@@ -2,6 +2,8 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
+	xmlns:prop="clr-namespace:VidCoder.Properties"
+	xmlns:res="clr-namespace:VidCoder.LocalResources" 
 	Title="{Binding Title}"
 	Width="864" Height="514"
 	MinWidth="405" MinHeight="200"
@@ -76,16 +78,16 @@
 						Margin="0,0,0,0">
 						<StackPanel Orientation="Horizontal" Margin="4,0">
 							<Image Source="/Icons/blue_play_80.png" VerticalAlignment="Center" Height="15" />
-							<TextBlock Text="Play Source" Margin="5,0,0,0" VerticalAlignment="Center" />
+							<TextBlock Text="{x:Static res:PreviewRes.PlaySourceButton}" Margin="5,0,0,0" VerticalAlignment="Center" />
 						</StackPanel>
 					</Button>
 					<Button
 						Height="23"
-						Command="{Binding GeneratePreviewCommand}" ToolTip="Encodes and plays a small preview clip from the selected screen. Uses current encoding settings."
+						Command="{Binding GeneratePreviewCommand}" ToolTip="{x:Static res:PreviewRes.EncodePreviewClipToolTip}"
 						Margin="20,0,0,0">
 						<StackPanel Orientation="Horizontal" Margin="4,0">
 							<Image Source="/Icons/play_clip.png" VerticalAlignment="Center" Height="15" />
-							<TextBlock Text="Encode Preview Clip" Margin="5,0,0,0" VerticalAlignment="Center" />
+							<TextBlock Text="{x:Static res:PreviewRes.EncodePreviewClipButton}" Margin="5,0,0,0" VerticalAlignment="Center" />
 						</StackPanel>
 					</Button>
 					<ComboBox
@@ -100,23 +102,35 @@
 						<ComboBoxItem>120</ComboBoxItem>
 					</ComboBox>
 					<TextBlock
-						Text="seconds" VerticalAlignment="Center" Margin="7,0,0,0"
+						Text="{x:Static res:PreviewRes.Seconds}" VerticalAlignment="Center" Margin="7,0,0,0"
 						Style="{StaticResource PreviewText}" />
 				</StackPanel>
-				<TextBlock
-					HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="12,0,0,12"
-					Style="{StaticResource PreviewText}"
-					Text="Generating preview..."
-					Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}}" />
-				<ProgressBar
-					HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="135,0,80,9" Height="20"
-					Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}}"
-					Value="{Binding PreviewPercentComplete}"/>
-				<Button
-					Content="Cancel"
-					HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,12,8" Height="23" Width="55"
-					Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}}"
-					Command="{Binding CancelPreviewCommand}"/>
+				<Grid 
+					VerticalAlignment="Bottom" Margin="12,0,12,8">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<TextBlock
+						Grid.Column="0"
+						HorizontalAlignment="Left" VerticalAlignment="Center"
+						Style="{StaticResource PreviewText}"
+						Text="{x:Static res:PreviewRes.GeneratingPreview}"
+						Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}}" />
+					<ProgressBar
+						Grid.Column="1"
+						HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="20" Margin="10,0,10,0"
+						Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}}"
+						Value="{Binding PreviewPercentComplete}"/>
+					<Button
+						Grid.Column="2"
+						Content="{x:Static prop:Resources.Cancel}"
+						HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="23" MinWidth="55"
+						Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}}"
+						Command="{Binding CancelPreviewCommand}"/>
+				</Grid>
+
 			</Grid>
 		</Grid>
 	</Grid>

@@ -15,6 +15,9 @@ using System.Collections.ObjectModel;
 
 namespace VidCoder.ViewModel
 {
+	using System.Resources;
+	using LocalResources;
+
 	public class OptionsDialogViewModel : OkCancelDialogViewModel
 	{
 		private bool updatesEnabled;
@@ -35,8 +38,6 @@ namespace VidCoder.ViewModel
 		private bool showAudioTrackNameField;
 
 		private List<IVideoPlayer> playerChoices;
-
-		private int initialLogVerbosity;
 
 		private IUpdater updateService;
 
@@ -98,8 +99,6 @@ namespace VidCoder.ViewModel
 					}
 				}
 			}
-
-			this.initialLogVerbosity = this.LogVerbosity;
 		}
 
 		public override void OnClosing()
@@ -167,9 +166,9 @@ namespace VidCoder.ViewModel
 			get
 			{
 #if BETA
-				return "You're in the Beta track. To go back to a stable version, uninstall, click \"Yes\" to remove presets, then re-install a stable version.";
+				return OptionsRes.BetaUpdatesInBetaToolTip;
 #else
-				return "Join the Beta track to get more frequent updates. Beware: this version is more likely to have bugs and crashes.";
+				return OptionsRes.BetaUpdatesNonBetaToolTip;
 #endif
 			}
 		}
@@ -180,17 +179,17 @@ namespace VidCoder.ViewModel
 			{
 				if (this.updateService.UpdateReady)
 				{
-					return "Update ready. It will install when you exit the program.";
+					return OptionsRes.UpdateReadyStatus;
 				}
 
 				if (this.UpdateDownloading)
 				{
-					return "Downloading:";
+					return OptionsRes.DownloadingStatus;
 				}
 
 				if (this.updateService.UpToDate)
 				{
-					return "VidCoder is up to date.";
+					return OptionsRes.UpToDateStatus;
 				}
 
 				return string.Empty;
@@ -296,6 +295,15 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return this.CustomFormat;
+			}
+		}
+
+		public string AvailableOptionsText
+		{
+			get
+			{
+				var manager = new ResourceManager(typeof (OptionsRes));
+				return string.Format(manager.GetString("FileNameFormatOptions"), "{source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}");
 			}
 		}
 
@@ -536,7 +544,6 @@ namespace VidCoder.ViewModel
 			{
 				this.logVerbosity = value;
 				this.RaisePropertyChanged(() => this.LogVerbosity);
-				this.RaisePropertyChanged(() => this.LogVerbosityWarningVisible);
 			}
 		}
 
@@ -648,14 +655,6 @@ namespace VidCoder.ViewModel
 			{
 				this.deleteSourceFilesOnClearingCompleted = value;
 				this.RaisePropertyChanged(() => this.DeleteSourceFilesOnClearingCompleted);
-			}
-		}
-
-		public bool LogVerbosityWarningVisible
-		{
-			get
-			{
-				return this.LogVerbosity != this.initialLogVerbosity;
 			}
 		}
 
@@ -773,7 +772,7 @@ namespace VidCoder.ViewModel
 							initialDirectory = this.DefaultPath;
 						}
 
-						string newFolder = FileService.Instance.GetFolderName(initialDirectory, "Choose the default output directory for encoded video files.");
+						string newFolder = FileService.Instance.GetFolderName(initialDirectory, OptionsRes.ChooseDefaultOutputFolder);
 						if (newFolder != null)
 						{
 							this.DefaultPath = newFolder;

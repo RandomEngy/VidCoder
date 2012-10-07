@@ -614,6 +614,123 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Android High.
+        /// </summary>
+        public static string Preset_AndroidHigh {
+            get {
+                return ResourceManager.GetString("Preset_AndroidHigh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Android Mid.
+        /// </summary>
+        public static string Preset_AndroidMid {
+            get {
+                return ResourceManager.GetString("Preset_AndroidMid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apple iPad.
+        /// </summary>
+        public static string Preset_AppleiPad {
+            get {
+                return ResourceManager.GetString("Preset_AppleiPad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apple iPhone 4.
+        /// </summary>
+        public static string Preset_AppleiPhone4 {
+            get {
+                return ResourceManager.GetString("Preset_AppleiPhone4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apple iPhone/Touch.
+        /// </summary>
+        public static string Preset_AppleiPhoneTouch {
+            get {
+                return ResourceManager.GetString("Preset_AppleiPhoneTouch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apple iPod.
+        /// </summary>
+        public static string Preset_AppleiPod {
+            get {
+                return ResourceManager.GetString("Preset_AppleiPod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AppleTV.
+        /// </summary>
+        public static string Preset_AppleTV {
+            get {
+                return ResourceManager.GetString("Preset_AppleTV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AppleTV 2.
+        /// </summary>
+        public static string Preset_AppleTV2 {
+            get {
+                return ResourceManager.GetString("Preset_AppleTV2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AppleTV 3.
+        /// </summary>
+        public static string Preset_AppleTV3 {
+            get {
+                return ResourceManager.GetString("Preset_AppleTV3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apple Universal.
+        /// </summary>
+        public static string Preset_AppleUniversal {
+            get {
+                return ResourceManager.GetString("Preset_AppleUniversal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High Profile.
+        /// </summary>
+        public static string Preset_HighProfile {
+            get {
+                return ResourceManager.GetString("Preset_HighProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normal.
+        /// </summary>
+        public static string Preset_Normal {
+            get {
+                return ResourceManager.GetString("Preset_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows Phone 7.
+        /// </summary>
+        public static string Preset_WindowsPhone7 {
+            get {
+                return ResourceManager.GetString("Preset_WindowsPhone7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preset:.
         /// </summary>
         public static string PresetLabel {
@@ -774,6 +891,24 @@ namespace VidCoder.LocalResources {
         public static string SourceLabel {
             get {
                 return ResourceManager.GetString("SourceLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DVD/Blu-ray Folder....
+        /// </summary>
+        public static string SourceOption_DiscFolder {
+            get {
+                return ResourceManager.GetString("SourceOption_DiscFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video File....
+        /// </summary>
+        public static string SourceOption_VideoFile {
+            get {
+                return ResourceManager.GetString("SourceOption_VideoFile", resourceCulture);
             }
         }
         

@@ -117,98 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutLicense" xml:space="preserve">
-    <value>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-
-A full copy of the GNU General Public License has been included along with this program.</value>
+  <data name="PlaySourceButton" xml:space="preserve">
+    <value>Play Source</value>
   </data>
-  <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>Burn the subtitles onto the picture. With burned subtitles, you cannot disable them during playback.</value>
+  <data name="EncodePreviewClipButton" xml:space="preserve">
+    <value>Encode Preview Clip</value>
   </data>
-  <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Mark this subtitle track as the default. This will show up during playback until another track is picked.</value>
+  <data name="EncodePreviewClipToolTip" xml:space="preserve">
+    <value>Encodes and plays a small preview clip from the selected screen. Uses current encoding settings.</value>
   </data>
-  <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Only display forced subtitles from the given track. Usually this means small bits of foreign dialogue.</value>
+  <data name="GeneratingPreview" xml:space="preserve">
+    <value>Generating preview...</value>
   </data>
-  <data name="OffsetSubtitleToolTip" xml:space="preserve">
-    <value>The amount of time to push forward or delay the appearance of the given subtitles.</value>
+  <data name="PlaySourceDisabledBluRayToolTip" xml:space="preserve">
+    <value>Source preview for Blu-ray not supported yet.</value>
   </data>
-  <data name="QueueColumnNameChapters" xml:space="preserve">
-    <value>Chapters</value>
+  <data name="PlaySourceDisabledNoPlayerToolTip" xml:space="preserve">
+    <value>A supported DVD player could not be found. Install VLC or MPC-HC to use this feature.</value>
   </data>
-  <data name="QueueColumnNameDestination" xml:space="preserve">
-    <value>Destination</value>
+  <data name="PlaySourceToolTip" xml:space="preserve">
+    <value>Plays the source video.</value>
   </data>
-  <data name="QueueColumnNameSource" xml:space="preserve">
-    <value>Source</value>
+  <data name="PreviewClipGenerationFailedMessage" xml:space="preserve">
+    <value>Preview clip generation failed. See the Log window for details.</value>
   </data>
-  <data name="QueueColumnNameTitle" xml:space="preserve">
-    <value>Title</value>
+  <data name="PreviewClipGenerationFailedTitle" xml:space="preserve">
+    <value>Preview clip generation failed</value>
   </data>
-  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Audio Quality</value>
+  <data name="PreviewWindowTitleSimple" xml:space="preserve">
+    <value>Preview: {0}x{1}</value>
   </data>
-  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Audio Encoder</value>
+  <data name="PreviewWindowTitleComplex" xml:space="preserve">
+    <value>Preview: Display {0}x{1} - Storage {2}x{3}</value>
   </data>
-  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Video Encoder</value>
+  <data name="NoVideoSourceTitle" xml:space="preserve">
+    <value>Preview: No video source</value>
   </data>
-  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Video Quality</value>
-  </data>
-  <data name="OverrideTitleNumberToolTip" xml:space="preserve">
-    <value>When chosen, this will override the normal title for the purposes of creating the output file name. For example with titles 2, 3 and 4 and an override of 7, they will be labeled as 7, 8 and 9. Can be useful for ripping a disc of a TV series.</value>
-  </data>
-  <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>Estimated time remaining for all jobs in the queue to complete.</value>
-  </data>
-  <data name="QueueColumnNameDuration" xml:space="preserve">
-    <value>Duration</value>
-  </data>
-  <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Searches for subtitle track that is likely to contain bits of foreign dialogue. Good for movies that are mainly in your native language.</value>
-  </data>
-  <data name="Default" xml:space="preserve">
-    <value>Default</value>
-  </data>
-  <data name="Custom" xml:space="preserve">
-    <value>Custom</value>
-  </data>
-  <data name="Browse" xml:space="preserve">
-    <value>Browse...</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="PreviewLabel" xml:space="preserve">
-    <value>Preview</value>
-  </data>
-  <data name="Automatic" xml:space="preserve">
-    <value>Automatic</value>
-  </data>
-  <data name="Off" xml:space="preserve">
-    <value>Off</value>
-  </data>
-  <data name="All" xml:space="preserve">
-    <value>All</value>
-  </data>
-  <data name="StreamChoice" xml:space="preserve">
-    <value>Stream {0}</value>
-  </data>
-  <data name="Ok" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="Disabled">
-    <value xml:space="preserve">Disabled</value>
-  </data>
-  <data name="Remove">
-    <value xml:space="preserve">Remove</value>
+  <data name="Seconds">
+    <value xml:space="preserve">seconds</value>
   </data>
 </root>

@@ -53,7 +53,7 @@
 		</EncodingProfile>
 	</Preset>
 	<Preset>
-		<Name>High Profile</Name>
+		<Name>HighProfile</Name>
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
@@ -119,7 +119,7 @@
 		</EncodingProfile>
 	</Preset>
 	<Preset>
-		<Name>Apple Universal</Name>
+		<Name>AppleUniversal</Name>
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
@@ -185,7 +185,7 @@
 		</EncodingProfile>
 	</Preset>
 	<Preset>
-		<Name>Apple iPod</Name>
+		<Name>AppleiPod</Name>
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
@@ -243,7 +243,7 @@
 		</EncodingProfile>
 	</Preset>
 	<Preset>
-		<Name>Apple iPhone/Touch</Name>
+		<Name>AppleiPhoneTouch</Name>
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
@@ -301,7 +301,7 @@
 		</EncodingProfile>
 	</Preset>
 	<Preset>
-		<Name>Apple iPhone 4</Name>
+		<Name>AppleiPhone4</Name>
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
@@ -359,7 +359,7 @@
 		</EncodingProfile>
 	</Preset>
 	<Preset>
-		<Name>Apple iPad</Name>
+		<Name>AppleiPad</Name>
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
@@ -417,7 +417,7 @@
 		</EncodingProfile>
 	</Preset>
 	<Preset>
-		<Name>Apple TV</Name>
+		<Name>AppleTV</Name>
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
@@ -483,7 +483,7 @@
 		</EncodingProfile>
 	</Preset>
 	<Preset>
-		<Name>Apple TV 2</Name>
+		<Name>AppleTV2</Name>
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
@@ -550,7 +550,7 @@
 		</EncodingProfile>
 	</Preset>
 	<Preset>
-		<Name>Apple TV 3</Name>
+		<Name>AppleTV3</Name>
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
@@ -617,7 +617,7 @@
 		</EncodingProfile>
 	</Preset>
 	<Preset>
-		<Name>Android Mid</Name>
+		<Name>AndroidMid</Name>
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<IsQueue>false</IsQueue>
@@ -677,7 +677,7 @@
 		</EncodingProfile>
 	</Preset>
 	<Preset>
-		<Name>Android High</Name>
+		<Name>AndroidHigh</Name>
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<IsQueue>false</IsQueue>
@@ -737,7 +737,7 @@
 		</EncodingProfile>
 	</Preset>
 	<Preset>
-		<Name>Windows Phone 7</Name>
+		<Name>WindowsPhone7</Name>
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<IsQueue>false</IsQueue>

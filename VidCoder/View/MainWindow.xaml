@@ -565,9 +565,6 @@
 												Grid.Column="1"
 												Text="{Binding Text, Mode=OneWay}" Margin="4" />
 										</Grid>
-										<!--<StackPanel Orientation="Horizontal">
-	
-										</StackPanel>-->
 									</Button>
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>
@@ -887,7 +884,7 @@
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
 							<StackPanel Orientation="Horizontal">
-								<TextBlock Text="{Binding PresetName}" VerticalAlignment="Center">
+								<TextBlock Text="{Binding DisplayName}" VerticalAlignment="Center">
 								<TextBlock.Style>
 									<Style TargetType="TextBlock">
 										<Style.Triggers>

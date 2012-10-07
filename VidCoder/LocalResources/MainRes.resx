@@ -396,4 +396,49 @@
   <data name="WhenDoneLabel" xml:space="preserve">
     <value>When done:</value>
   </data>
+  <data name="Preset_AndroidHigh" xml:space="preserve">
+    <value>Android High</value>
+  </data>
+  <data name="Preset_AndroidMid" xml:space="preserve">
+    <value>Android Mid</value>
+  </data>
+  <data name="Preset_AppleiPad" xml:space="preserve">
+    <value>Apple iPad</value>
+  </data>
+  <data name="Preset_AppleiPhone4" xml:space="preserve">
+    <value>Apple iPhone 4</value>
+  </data>
+  <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
+    <value>Apple iPhone/Touch</value>
+  </data>
+  <data name="Preset_AppleiPod" xml:space="preserve">
+    <value>Apple iPod</value>
+  </data>
+  <data name="Preset_AppleTV" xml:space="preserve">
+    <value>AppleTV</value>
+  </data>
+  <data name="Preset_AppleTV2" xml:space="preserve">
+    <value>AppleTV 2</value>
+  </data>
+  <data name="Preset_AppleTV3" xml:space="preserve">
+    <value>AppleTV 3</value>
+  </data>
+  <data name="Preset_AppleUniversal" xml:space="preserve">
+    <value>Apple Universal</value>
+  </data>
+  <data name="Preset_HighProfile" xml:space="preserve">
+    <value>High Profile</value>
+  </data>
+  <data name="Preset_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Preset_WindowsPhone7" xml:space="preserve">
+    <value>Windows Phone 7</value>
+  </data>
+  <data name="SourceOption_VideoFile">
+    <value xml:space="preserve">Video File...</value>
+  </data>
+  <data name="SourceOption_DiscFolder">
+    <value xml:space="preserve">DVD/Blu-ray Folder...</value>
+  </data>
 </root>

@@ -38,7 +38,6 @@ namespace VidCoder
 							}
 						}
 					}
-
 				}
 			}
 			catch (IOException)

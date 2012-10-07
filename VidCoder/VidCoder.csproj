@@ -129,7 +129,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Beta|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;BETA</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;BETA PSEUDOLOCALIZER_ENABLED</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisLogFile>bin\Debug\VidCoder.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
@@ -382,10 +382,30 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EnumsRes.resx</DependentUpon>
     </Compile>
+    <Compile Include="LocalResources\LogRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LogRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="LocalResources\MainRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MainRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="LocalResources\OptionsRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OptionsRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="LocalResources\PreviewRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PreviewRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="LocalResources\SubtitleRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SubtitleRes.resx</DependentUpon>
     </Compile>
     <Compile Include="Messages\ApplyQueueColumnsMessage.cs" />
     <Compile Include="Messages\AudioInputChangedMessage.cs" />
@@ -613,7 +633,6 @@
     <Compile Include="ViewModel\OptionsDialogViewModel.cs" />
     <Compile Include="ViewModel\PreviewViewModel.cs" />
     <Compile Include="ViewModel\SubtitleDialogViewModel.cs" />
-    <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
     <Compile Include="View\ApplyUpdateConfirmation.xaml.cs">
       <DependentUpon>ApplyUpdateConfirmation.xaml</DependentUpon>
     </Compile>
@@ -654,10 +673,27 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EnumsRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="LocalResources\LogRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LogRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="LocalResources\MainRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MainRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocalResources\OptionsRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>OptionsRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocalResources\PreviewRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PreviewRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocalResources\SubtitleRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SubtitleRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
