@@ -82,6 +82,11 @@ namespace VidCoder.ViewModel
 			this.RefreshSampleRateChoices();
 
 			this.selectedAudioEncoder = this.audioEncoders.FirstOrDefault(e => e.Encoder.ShortName == audioEncoding.Encoder);
+			if (this.selectedAudioEncoder == null)
+			{
+				this.selectedAudioEncoder = this.audioEncoders[0];
+			}
+
 			this.SelectMixdown(Encoders.GetMixdown(audioEncoding.Mixdown));
 
 			this.sampleRate = audioEncoding.SampleRateRaw;
@@ -223,6 +228,12 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedAudioEncoder = value;
+
+				if (value == null)
+				{
+					return;
+				}
+
 				this.RaisePropertyChanged(() => this.SelectedAudioEncoder);
 				this.RaisePropertyChanged(() => this.EncoderSettingsVisible);
 				this.RaisePropertyChanged(() => this.BitrateVisible);
@@ -240,43 +251,40 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.AudioCompressionToolTip);
 				this.MarkModified();
 
-				if (value != null)
+				this.RefreshMixdownChoices();
+				this.RefreshBitrateChoices();
+				this.RefreshSampleRateChoices();
+				if (!value.Encoder.IsPassthrough)
 				{
-					this.RefreshMixdownChoices();
-					this.RefreshBitrateChoices();
-					this.RefreshSampleRateChoices();
-					if (!value.Encoder.IsPassthrough)
+					if (this.SelectedBitrate == null && this.BitrateChoices.Count > 0)
 					{
-						if (this.SelectedBitrate == null && this.BitrateChoices.Count > 0)
-						{
-							this.SelectedBitrate = this.BitrateChoices[0];
-						}
+						this.SelectedBitrate = this.BitrateChoices[0];
 					}
-
-					this.audioPanelVM.RefreshExtensionChoice();
-
-					// Set encode rate type to Bitrate if quality is not supported.
-					if (!value.Encoder.IsPassthrough && !value.Encoder.SupportsQuality)
-					{
-						this.encodeRateType = AudioEncodeRateType.Bitrate;
-						this.RaiseEncodeRateTypeChanged();
-					}
-
-					// On encoder switch set default quality/compression if supported.
-					if (value.Encoder.SupportsQuality)
-					{
-						this.audioQuality = value.Encoder.DefaultQuality;
-						this.RaisePropertyChanged(() => this.AudioQuality);
-					}
-
-					if (value.Encoder.SupportsCompression)
-					{
-						this.audioCompression = value.Encoder.DefaultCompression;
-						this.RaisePropertyChanged(() => this.AudioCompression);
-					}
-
-					this.RaiseAudioEncodingChanged();
 				}
+
+				this.audioPanelVM.RefreshExtensionChoice();
+
+				// Set encode rate type to Bitrate if quality is not supported.
+				if (!value.Encoder.IsPassthrough && !value.Encoder.SupportsQuality)
+				{
+					this.encodeRateType = AudioEncodeRateType.Bitrate;
+					this.RaiseEncodeRateTypeChanged();
+				}
+
+				// On encoder switch set default quality/compression if supported.
+				if (value.Encoder.SupportsQuality)
+				{
+					this.audioQuality = value.Encoder.DefaultQuality;
+					this.RaisePropertyChanged(() => this.AudioQuality);
+				}
+
+				if (value.Encoder.SupportsCompression)
+				{
+					this.audioCompression = value.Encoder.DefaultCompression;
+					this.RaisePropertyChanged(() => this.AudioCompression);
+				}
+
+				this.RaiseAudioEncodingChanged();
 			}
 		}
 
@@ -284,6 +292,11 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
+				if (this.SelectedAudioEncoder == null)
+				{
+					return null;
+				}
+
 				return this.SelectedAudioEncoder.Encoder;
 			}
 		}
@@ -730,6 +743,7 @@ namespace VidCoder.ViewModel
 				}
 			}
 
+			this.RaisePropertyChanged(() => this.AudioEncoders);
 
 			this.selectedAudioEncoder = this.AudioEncoders.FirstOrDefault(e => e.Encoder == oldEncoder);
 
@@ -747,7 +761,6 @@ namespace VidCoder.ViewModel
 			//    this.selectedAudioEncoder = this.AudioEncoders[0];
 			//}
 
-			this.RaisePropertyChanged(() => this.AudioEncoders);
 			this.RaisePropertyChanged(() => this.SelectedAudioEncoder);
 		}
 

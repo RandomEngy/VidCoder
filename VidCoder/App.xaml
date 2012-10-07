@@ -157,6 +157,14 @@
 							<Grid.ToolTip>
 								<ContentPresenter />
 							</Grid.ToolTip>
+							<Border Name="hoverBorder" CornerRadius="3" BorderBrush="#7DA2CE" BorderThickness="1" Visibility="Collapsed">
+								<Border.Background>
+									<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+										<GradientStop Color="#DBEAFC" Offset="0.0" />
+										<GradientStop Color="#C1DBFC" Offset="1.0" />
+									</LinearGradientBrush>
+								</Border.Background>
+							</Border>
 							<Rectangle Name="rect2" Width="12" Height="2" Fill="{StaticResource BlueFill}">
 								<Rectangle.LayoutTransform>
 									<RotateTransform Angle="-45" />
@@ -172,6 +180,7 @@
 							<Trigger Property="IsMouseOver" Value="True">
 								<Setter TargetName="rect1" Property="Fill" Value="{StaticResource BlueHoverFill}" />
 								<Setter TargetName="rect2" Property="Fill" Value="{StaticResource BlueHoverFill}" />
+								<Setter TargetName="hoverBorder" Property="Visibility" Value="Visible" />
 							</Trigger>
 							<Trigger Property="IsPressed" Value="True">
 								<Setter TargetName="rect1" Property="Fill" Value="{StaticResource BluePressFill}" />
