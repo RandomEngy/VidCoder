@@ -16,6 +16,8 @@ using HandBrake.Interop.Model.Encoding;
 
 namespace VidCoder.Model
 {
+	using LocalResources;
+
 	public static class Presets
 	{
 		private const int CurrentPresetVersion = 6;
@@ -155,7 +157,7 @@ namespace VidCoder.Model
 			catch (XmlException exception)
 			{
 				System.Windows.MessageBox.Show(
-					"Could not load preset: " +
+					MainRes.CouldNotLoadPresetMessage +
 					exception +
 					Environment.NewLine +
 					Environment.NewLine +
@@ -188,7 +190,7 @@ namespace VidCoder.Model
 			}
 			catch (XmlException exception)
 			{
-				System.Windows.MessageBox.Show(string.Format("Could not save preset '{0}':{1}{2}", preset.Name, Environment.NewLine, exception));
+				System.Windows.MessageBox.Show(string.Format(MainRes.CouldNotSavePresetMessage, preset.Name, Environment.NewLine, exception));
 			}
 
 			return false;

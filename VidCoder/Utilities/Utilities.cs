@@ -15,6 +15,8 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder
 {
+	using Properties;
+
 	public static class Utilities
 	{
 		public const string AppDataFolderName = "VidCoder";
@@ -545,7 +547,7 @@ namespace VidCoder
 
 			if (accessErrors.Count > 0)
 			{
-				var messageBuilder = new StringBuilder("Count not access the following directories:" + Environment.NewLine);
+				var messageBuilder = new StringBuilder(Resources.CouldNotAccessDirectoriesError + Environment.NewLine);
 				foreach (string accessError in accessErrors)
 				{
 					messageBuilder.AppendLine(accessError);

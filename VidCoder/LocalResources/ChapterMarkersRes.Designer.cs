@@ -22,14 +22,14 @@ namespace VidCoder.LocalResources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class LogRes {
+    public class ChapterMarkersRes {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal LogRes() {
+        internal ChapterMarkersRes() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace VidCoder.LocalResources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VidCoder.LocalResources.LogRes", typeof(LogRes).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VidCoder.LocalResources.ChapterMarkersRes", typeof(ChapterMarkersRes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,74 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear.
+        ///   Looks up a localized string similar to Chapter Markers.
         /// </summary>
-        public static string ClearButton {
+        public static string ChapterMarkersDialogTitle {
             get {
-                return ResourceManager.GetString("ClearButton", resourceCulture);
+                return ResourceManager.GetString("ChapterMarkersDialogTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log.
+        ///   Looks up a localized string similar to Could not read file..
         /// </summary>
-        public static string LogWindowTitle {
+        public static string CouldNotReadFileMessage {
             get {
-                return ResourceManager.GetString("LogWindowTitle", resourceCulture);
+                return ResourceManager.GetString("CouldNotReadFileMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use custom chapter names:.
+        /// </summary>
+        public static string CustomChapterNamesRadioButton {
+            get {
+                return ResourceManager.GetString("CustomChapterNamesRadioButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use default chapter names.
+        /// </summary>
+        public static string DefaultChapterNamesRadioButton {
+            get {
+                return ResourceManager.GetString("DefaultChapterNamesRadioButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import from .csv....
+        /// </summary>
+        public static string ImportFromCsvButton {
+            get {
+                return ResourceManager.GetString("ImportFromCsvButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number.
+        /// </summary>
+        public static string NumberColumn {
+            get {
+                return ResourceManager.GetString("NumberColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Time.
+        /// </summary>
+        public static string StartTimeColumn {
+            get {
+                return ResourceManager.GetString("StartTimeColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string TitleColumn {
+            get {
+                return ResourceManager.GetString("TitleColumn", resourceCulture);
             }
         }
     }

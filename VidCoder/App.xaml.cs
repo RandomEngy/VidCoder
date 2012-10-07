@@ -41,6 +41,9 @@ namespace VidCoder
 			Delay.PseudoLocalizer.Enable(typeof(PreviewRes));
 			Delay.PseudoLocalizer.Enable(typeof(LogRes));
 			Delay.PseudoLocalizer.Enable(typeof(SubtitleRes));
+			Delay.PseudoLocalizer.Enable(typeof(QueueTitlesRes));
+			Delay.PseudoLocalizer.Enable(typeof(ChapterMarkersRes));
+			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
 #endif
 
 			try
@@ -82,8 +85,8 @@ namespace VidCoder
 				// Need to show two message boxes since the first is dismissed by the splash screen due to a bug
 				MessageBox.Show(string.Empty);
 				MessageBoxResult result = MessageBox.Show(
-					"Could not load a required user settings file; it may have become corrupt. Do you want to delete it? This will not affect your saved presets.",
-					"Error loading settings",
+					MainRes.UserConfigLoadError,
+					MainRes.UserConfigLoadErrorTitle,
 					MessageBoxButton.YesNo,
 					MessageBoxImage.Error);
 

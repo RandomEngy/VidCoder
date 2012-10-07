@@ -11,6 +11,8 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder.Services
 {
+	using LocalResources;
+
 	public class FileService : IFileService
 	{
 		public static IFileService Instance
@@ -168,7 +170,7 @@ namespace VidCoder.Services
 			}
 			catch (Win32Exception)
 			{
-				MessageBox.Show("Error launching URL: " + url);
+				MessageBox.Show(string.Format(MainRes.LaunchUrlError, url));
 			}
 		}
 	}

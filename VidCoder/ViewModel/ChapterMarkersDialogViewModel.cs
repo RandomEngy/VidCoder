@@ -12,6 +12,8 @@ using VidCoder.Services;
 
 namespace VidCoder.ViewModel
 {
+	using LocalResources;
+
 	public class ChapterMarkersDialogViewModel : OkCancelDialogViewModel
 	{
 		private List<Chapter> chapters;
@@ -131,7 +133,7 @@ namespace VidCoder.ViewModel
 							}
 							catch (IOException)
 							{
-								Utilities.MessageBox.Show("Could not read file.");
+								Utilities.MessageBox.Show(ChapterMarkersRes.CouldNotReadFileMessage);
 							}
 
 							if (success)

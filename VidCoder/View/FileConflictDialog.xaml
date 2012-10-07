@@ -1,24 +1,30 @@
 ﻿<Window x:Class="VidCoder.View.FileConflictDialog"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		Background="WhiteSmoke"
-		Title="File conflict" Height="186" Width="377" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:LocalResources="clr-namespace:VidCoder.LocalResources"
+		xmlns:Properties="clr-namespace:VidCoder.Properties" Background="WhiteSmoke"
+		Title="{x:Static LocalResources:MiscRes.FileConflictDialogTitle}" Height="186" Width="377" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
 	<Grid>
 		<TextBlock
-			Height="71" Margin="12,12,12,0" Name="textBlock1" VerticalAlignment="Top"
+			Height="71" Margin="12,12,12,0" VerticalAlignment="Top"
 			Text="{Binding WarningText}" 
 			TextWrapping="Wrap" />
-		<Button
-			Content="Overwrite" IsDefault="True"
-			Command="{Binding OverwriteCommand}"
-			Height="23" HorizontalAlignment="Right" Margin="0,0,189,11" Name="button1" VerticalAlignment="Bottom" Width="81" />
-		<Button
-			Content="Auto-rename"
-			Command="{Binding RenameCommand}"
-			Height="23" HorizontalAlignment="Right" Margin="0,0,93,12" Name="button2" VerticalAlignment="Bottom" Width="90" />
-		<Button
-			Content="Cancel"
-			Command="{Binding CancelCommand}"
-			Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="button3" VerticalAlignment="Bottom" Width="75" IsCancel="True" />
+		
+		<StackPanel
+			Orientation="Horizontal"
+			HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,12,12">
+			<Button
+				Content="{x:Static LocalResources:MiscRes.OverwriteButton}" IsDefault="True"
+				Command="{Binding OverwriteCommand}"
+				Height="23" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" MinWidth="75" />
+			<Button
+				Content="{x:Static LocalResources:MiscRes.AutoRenameButton}"
+				Command="{Binding RenameCommand}"
+				Height="23" HorizontalAlignment="Right" Margin="6,0,0,0" VerticalAlignment="Bottom" MinWidth="75" Padding="6,0" />
+			<Button
+				Content="{x:Static Properties:Resources.Cancel}"
+				Command="{Binding CancelCommand}"
+				Height="23" HorizontalAlignment="Right" Margin="6,0,0,0" Name="button3" VerticalAlignment="Bottom" MinWidth="75" IsCancel="True" />
+		</StackPanel>
+
 	</Grid>
 </Window>

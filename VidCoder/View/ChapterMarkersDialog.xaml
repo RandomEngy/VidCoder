@@ -1,12 +1,12 @@
-﻿<Window x:Class="VidCoder.View.ChapterMarkersDialog"
+﻿<Window
+	x:Class="VidCoder.View.ChapterMarkersDialog"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	Title="Chapter Markers" Height="326" Width="444" WindowStartupLocation="CenterOwner" Closing="Window_Closing"
+	xmlns:prop="clr-namespace:VidCoder.Properties"
+	xmlns:res="clr-namespace:VidCoder.LocalResources" 
+	Title="{x:Static res:ChapterMarkersRes.ChapterMarkersDialogTitle}" Height="326" Width="444" WindowStartupLocation="CenterOwner" Closing="Window_Closing"
 		Style="{StaticResource NormalWindow}">
 	<Window.Resources>
-		<!--<DataTemplate x:Key="NumberTemplate">
-			<TextBlock Text="{Binding Number}" />
-		</DataTemplate>-->
 		<DataTemplate x:Key="TitleTemplate">
 			<TextBox Width="200" Text="{Binding Title}" GotFocus="TitleBoxGotFocus" />
 		</DataTemplate>
@@ -39,16 +39,18 @@
 	</Window.Resources>
 	<Grid>
 		<RadioButton
-			Height="16" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top" Width="172"
+			Height="16" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top"
 			GroupName="UseDefault"
-			IsChecked="{Binding UseDefaultNames}">Use default chapter names</RadioButton>
+			IsChecked="{Binding UseDefaultNames}"
+			Content="{x:Static res:ChapterMarkersRes.DefaultChapterNamesRadioButton}" />
 		<RadioButton
-			Height="16" HorizontalAlignment="Left" Margin="12,34,0,0" VerticalAlignment="Top" Width="172"
+			Height="16" HorizontalAlignment="Left" Margin="12,34,0,0" VerticalAlignment="Top"
 			GroupName="UseDefault"
-			IsChecked="{Binding UseDefaultNames, Converter={StaticResource InverseBoolConverter}}">Use custom chapter names:</RadioButton>
+			IsChecked="{Binding UseDefaultNames, Converter={StaticResource InverseBoolConverter}}"
+			Content="{x:Static res:ChapterMarkersRes.CustomChapterNamesRadioButton}" />
 		<Button
-			Height="23" HorizontalAlignment="Right" Margin="0,27,12,0" VerticalAlignment="Top" Width="108"
-			Command="{Binding ImportCsvFileCommand}">Import from .csv...</Button>
+			Height="23" HorizontalAlignment="Right" Margin="0,27,12,0" VerticalAlignment="Top" MinWidth="108" Padding="5,0"
+			Command="{Binding ImportCsvFileCommand}" Content="{x:Static res:ChapterMarkersRes.ImportFromCsvButton}" />
 		<ListView
 			Margin="12,56,12,35"
 			IsEnabled="{Binding UseDefaultNames, Converter={StaticResource InverseBoolConverter}}"
@@ -58,18 +60,22 @@
 			<ListView.View>
 				<GridView>
 					<GridView.Columns>
-						<GridViewColumn Header="Number" Width="54" DisplayMemberBinding="{Binding Number}" />
-						<GridViewColumn Header="Start Time" Width="65" DisplayMemberBinding="{Binding StartTime}" />
-						<GridViewColumn Header="Title" CellTemplate="{StaticResource TitleTemplate}" />
+						<GridViewColumn Header="{x:Static res:ChapterMarkersRes.NumberColumn}" Width="54" DisplayMemberBinding="{Binding Number}" />
+						<GridViewColumn Header="{x:Static res:ChapterMarkersRes.StartTimeColumn}" Width="65" DisplayMemberBinding="{Binding StartTime}" />
+						<GridViewColumn Header="{x:Static res:ChapterMarkersRes.TitleColumn}" CellTemplate="{StaticResource TitleTemplate}" />
 					</GridView.Columns>
 				</GridView>
 			</ListView.View>
 		</ListView>
-		<Button
-			Height="23" HorizontalAlignment="Right" Margin="0,0,91,6" VerticalAlignment="Bottom" Width="75"
-			Command="{Binding AcceptCommand}">OK</Button>
-		<Button
-			Height="23" HorizontalAlignment="Right" Margin="0,0,10,6" VerticalAlignment="Bottom" Width="75"
-			Command="{Binding CancelCommand}">Cancel</Button>
+		<StackPanel
+			Orientation="Horizontal"
+			HorizontalAlignment="Right" Margin="0,0,6,6" VerticalAlignment="Bottom">
+			<Button
+				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsDefault="True"
+				Command="{Binding AcceptCommand}" Margin="0,0,6,0" Content="{x:Static prop:Resources.Ok}" />
+			<Button
+				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsCancel="True"
+				Command="{Binding CancelCommand}" Content="{x:Static prop:Resources.Cancel}" />
+		</StackPanel>
 	</Grid>
 </Window>

@@ -15,6 +15,8 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder.Services
 {
+	using LocalResources;
+
 	public class Updater : IUpdater
 	{
 		private const string UpdateInfoUrl = "http://engy.us/VidCoder/latest.xml";
@@ -179,7 +181,7 @@ namespace VidCoder.Services
 					// If the target version is different from the currently running version,
 					// this means the attempted upgrade failed. We give an error message but
 					// continue with the program.
-					MessageBox.Show("The update was not applied. If you did not cancel it, try installing it manually.");
+					MessageBox.Show(MainRes.UpdateNotAppliedError);
 				}
 			}
 
@@ -335,7 +337,7 @@ namespace VidCoder.Services
 							updateVersionText += " Beta";
 						}
 
-						string message = "Version " + updateVersionText + " is available. Update download has started.";
+						string message = string.Format(MainRes.NewVersionDownloadStartedStatus, updateVersionText);
 						this.logger.Log(message);
 						this.logger.ShowStatus(message);
 
@@ -399,7 +401,7 @@ namespace VidCoder.Services
 
 								this.UpdateReady = true;
 
-								message = "Version " + updateVersionText + " has finished downloading and will install on exit.";
+								message = string.Format(MainRes.NewVersionDownloadFinishedStatus, updateVersionText);
 								this.logger.Log(message);
 								this.logger.ShowStatus(message);
 							}

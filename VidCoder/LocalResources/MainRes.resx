@@ -441,4 +441,70 @@
   <data name="SourceOption_DiscFolder">
     <value xml:space="preserve">DVD/Blu-ray Folder...</value>
   </data>
+  <data name="NewVersionDownloadStartedStatus">
+    <value xml:space="preserve">Version {0} is available. Update download has started.</value>
+  </data>
+  <data name="NewVersionDownloadFinishedStatus">
+    <value xml:space="preserve">Version {0} has finished downloading and will install on exit.</value>
+  </data>
+  <data name="UpdateNotAppliedError">
+    <value xml:space="preserve">The update was not applied. If you did not cancel it, try installing it manually.</value>
+  </data>
+  <data name="CouldNotLoadPresetMessage">
+    <value xml:space="preserve">Could not load preset: </value>
+  </data>
+  <data name="CouldNotSavePresetMessage">
+    <value xml:space="preserve">Could not save preset '{0}':{1}{2}</value>
+  </data>
+  <data name="CouldNotCopyTextError">
+    <value xml:space="preserve">Could not copy text.</value>
+  </data>
+  <data name="LaunchUrlError">
+    <value xml:space="preserve">Error launching URL: {0}</value>
+  </data>
+  <data name="UserConfigLoadError">
+    <value xml:space="preserve">Could not load a required user settings file; it may have become corrupt. Do you want to delete it? This will not affect your saved presets.</value>
+  </data>
+  <data name="UserConfigLoadErrorTitle">
+    <value xml:space="preserve">Error loading settings</value>
+  </data>
+  <data name="PresetImportErrorMessage">
+    <value xml:space="preserve">Could not import preset. Format is unrecognized.</value>
+  </data>
+  <data name="PresetImportErrorTitle">
+    <value xml:space="preserve">Import Error</value>
+  </data>
+  <data name="PresetImportSuccessMessage">
+    <value xml:space="preserve">Successfully imported preset {0}.</value>
+  </data>
+  <data name="PresetImportSuccessTitle">
+    <value xml:space="preserve">Success</value>
+  </data>
+  <data name="PresetExportSuccessMessage">
+    <value xml:space="preserve">Successfully exported preset to {0}</value>
+  </data>
+  <data name="PresetExportSuccessTitle">
+    <value xml:space="preserve">Success</value>
+  </data>
+  <data name="ExportPresetFilePickerText">
+    <value xml:space="preserve">Export preset</value>
+  </data>
+  <data name="PresetSaveConfirmMessage">
+    <value xml:space="preserve">Do you want to save changes to your current preset?</value>
+  </data>
+  <data name="PresetSaveConfirmTitle">
+    <value xml:space="preserve">Save current preset?</value>
+  </data>
+  <data name="PresetRevertConfirmMessage">
+    <value xml:space="preserve">Are you sure you want to revert all unsaved changes to this preset?</value>
+  </data>
+  <data name="PresetRevertConfirmTitle">
+    <value xml:space="preserve">Revert Preset</value>
+  </data>
+  <data name="PresetRemoveConfirmMessage">
+    <value xml:space="preserve">Are you sure you want to remove this preset?</value>
+  </data>
+  <data name="PresetRemoveConfirmTitle">
+    <value xml:space="preserve">Remove Preset</value>
+  </data>
 </root>

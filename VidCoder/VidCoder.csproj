@@ -372,6 +372,11 @@
     <Compile Include="Converters\ChapterVMConverter.cs" />
     <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="EnumStringConverter.cs" />
+    <Compile Include="LocalResources\ChapterMarkersRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChapterMarkersRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="LocalResources\EncodingRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -392,6 +397,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MainRes.resx</DependentUpon>
     </Compile>
+    <Compile Include="LocalResources\MiscRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MiscRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="LocalResources\OptionsRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -401,6 +411,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PreviewRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="LocalResources\QueueTitlesRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QueueTitlesRes.resx</DependentUpon>
     </Compile>
     <Compile Include="LocalResources\SubtitleRes.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -665,6 +680,10 @@
     </Compile>
     <Compile Include="WindowPlacement.cs" />
     <Compile Include="WindowPlacementWpf.cs" />
+    <EmbeddedResource Include="LocalResources\ChapterMarkersRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ChapterMarkersRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="LocalResources\EncodingRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EncodingRes.Designer.cs</LastGenOutput>
@@ -682,6 +701,10 @@
       <LastGenOutput>MainRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="LocalResources\MiscRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MiscRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="LocalResources\OptionsRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>OptionsRes.Designer.cs</LastGenOutput>
@@ -690,6 +713,10 @@
     <EmbeddedResource Include="LocalResources\PreviewRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PreviewRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocalResources\QueueTitlesRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>QueueTitlesRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="LocalResources\SubtitleRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

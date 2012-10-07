@@ -9,6 +9,8 @@ using VidCoder.Model;
 
 namespace VidCoder.ViewModel
 {
+	using LocalResources;
+
 	public class FileConflictDialogViewModel : ViewModelBase, IDialogViewModel
 	{
 		private string filePath;
@@ -43,11 +45,11 @@ namespace VidCoder.ViewModel
 				string template;
 				if (this.isFileConflict)
 				{
-					template = "A file already exists at {0}. Do you want to overwrite the file, automatically find a new output path for the encode job or cancel the operation?";
+					template = MiscRes.FileConflictWarning;
 				}
 				else
 				{
-					template = "A queue job already has an output path at {0}. Do you want to overwrite the file, automatically find a new output path for the encode job or cancel the operation?";
+					template = MiscRes.QueueFileConflictWarning;
 				}
 
 				return string.Format(template, this.filePath);

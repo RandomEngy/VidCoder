@@ -16,6 +16,8 @@ using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
 {
+	using LocalResources;
+
 	/// <summary>
 	/// Controls creation/modification/deletion/import/export of presets.
 	/// </summary>
@@ -132,7 +134,7 @@ namespace VidCoder.ViewModel.Components
 
 				if (this.selectedPreset != null && this.selectedPreset.Preset.IsModified)
 				{
-					MessageBoxResult dialogResult = Utilities.MessageBox.Show(this.main, "Do you want to save changes to your current preset?", "Save current preset?", MessageBoxButton.YesNoCancel);
+					MessageBoxResult dialogResult = Utilities.MessageBox.Show(this.main, MainRes.PresetSaveConfirmMessage, MainRes.PresetSaveConfirmTitle, MessageBoxButton.YesNoCancel);
 					if (dialogResult == MessageBoxResult.Yes)
 					{
 						this.SavePreset();

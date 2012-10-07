@@ -468,7 +468,7 @@ namespace VidCoder.ViewModel
 					{
 						if (this.IsModified)
 						{
-							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, "Are you sure you want to revert all unsaved changes to this preset?", "Revert Preset", MessageBoxButton.YesNo);
+							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.PresetRevertConfirmMessage, MainRes.PresetRevertConfirmTitle, MessageBoxButton.YesNo);
 							if (dialogResult == MessageBoxResult.Yes)
 							{
 								this.presetsViewModel.RevertPreset(true);
@@ -479,7 +479,7 @@ namespace VidCoder.ViewModel
 						}
 						else
 						{
-							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, "Are you sure you want to remove this preset?", "Remove Preset", MessageBoxButton.YesNo);
+							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.PresetRemoveConfirmMessage, MainRes.PresetRemoveConfirmTitle, MessageBoxButton.YesNo);
 							if (dialogResult == MessageBoxResult.Yes)
 							{
 								this.presetsViewModel.DeletePreset();

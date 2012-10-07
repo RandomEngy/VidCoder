@@ -119,6 +119,24 @@ namespace VidCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string Copy {
+            get {
+                return ResourceManager.GetString("Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not access the following directories:.
+        /// </summary>
+        public static string CouldNotAccessDirectoriesError {
+            get {
+                return ResourceManager.GetString("CouldNotAccessDirectoriesError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom.
         /// </summary>
         public static string Custom {
@@ -182,6 +200,15 @@ namespace VidCoder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
         public static string Off {
@@ -205,15 +232,6 @@ namespace VidCoder.Properties {
         public static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to When chosen, this will override the normal title for the purposes of creating the output file name. For example with titles 2, 3 and 4 and an override of 7, they will be labeled as 7, 8 and 9. Can be useful for ripping a disc of a TV series..
-        /// </summary>
-        public static string OverrideTitleNumberToolTip {
-            get {
-                return ResourceManager.GetString("OverrideTitleNumberToolTip", resourceCulture);
             }
         }
         
@@ -331,6 +349,15 @@ namespace VidCoder.Properties {
         public static string StreamChoice {
             get {
                 return ResourceManager.GetString("StreamChoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

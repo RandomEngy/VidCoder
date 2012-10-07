@@ -7,6 +7,8 @@ using System.Windows;
 
 namespace VidCoder.Services
 {
+	using LocalResources;
+
 	public class ClipboardService
 	{
 		public virtual void SetText(string text)
@@ -24,7 +26,7 @@ namespace VidCoder.Services
 				}
 			}
 
-			MessageBox.Show("Could not copy text.");
+			MessageBox.Show(MainRes.CouldNotCopyTextError);
 		}
 	}
 }

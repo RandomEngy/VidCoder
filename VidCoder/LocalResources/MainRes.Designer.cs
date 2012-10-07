@@ -169,6 +169,15 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not copy text..
+        /// </summary>
+        public static string CouldNotCopyTextError {
+            get {
+                return ResourceManager.GetString("CouldNotCopyTextError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not delete {0}
         ///
         ///{1}.
@@ -176,6 +185,24 @@ namespace VidCoder.LocalResources {
         public static string CouldNotDeleteFile {
             get {
                 return ResourceManager.GetString("CouldNotDeleteFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not load preset: .
+        /// </summary>
+        public static string CouldNotLoadPresetMessage {
+            get {
+                return ResourceManager.GetString("CouldNotLoadPresetMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not save preset &apos;{0}&apos;:{1}{2}.
+        /// </summary>
+        public static string CouldNotSavePresetMessage {
+            get {
+                return ResourceManager.GetString("CouldNotSavePresetMessage", resourceCulture);
             }
         }
         
@@ -425,6 +452,15 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export preset.
+        /// </summary>
+        public static string ExportPresetFilePickerText {
+            get {
+                return ResourceManager.GetString("ExportPresetFilePickerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} does not exist..
         /// </summary>
         public static string FileDoesNotExist {
@@ -470,6 +506,15 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error launching URL: {0}.
+        /// </summary>
+        public static string LaunchUrlError {
+            get {
+                return ResourceManager.GetString("LaunchUrlError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log.
         /// </summary>
         public static string LogMenuItem {
@@ -493,6 +538,24 @@ namespace VidCoder.LocalResources {
         public static string MoveToTopMenuItem {
             get {
                 return ResourceManager.GetString("MoveToTopMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version {0} has finished downloading and will install on exit..
+        /// </summary>
+        public static string NewVersionDownloadFinishedStatus {
+            get {
+                return ResourceManager.GetString("NewVersionDownloadFinishedStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version {0} is available. Update download has started..
+        /// </summary>
+        public static string NewVersionDownloadStartedStatus {
+            get {
+                return ResourceManager.GetString("NewVersionDownloadStartedStatus", resourceCulture);
             }
         }
         
@@ -731,6 +794,60 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Successfully exported preset to {0}.
+        /// </summary>
+        public static string PresetExportSuccessMessage {
+            get {
+                return ResourceManager.GetString("PresetExportSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string PresetExportSuccessTitle {
+            get {
+                return ResourceManager.GetString("PresetExportSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not import preset. Format is unrecognized..
+        /// </summary>
+        public static string PresetImportErrorMessage {
+            get {
+                return ResourceManager.GetString("PresetImportErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import Error.
+        /// </summary>
+        public static string PresetImportErrorTitle {
+            get {
+                return ResourceManager.GetString("PresetImportErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully imported preset {0}..
+        /// </summary>
+        public static string PresetImportSuccessMessage {
+            get {
+                return ResourceManager.GetString("PresetImportSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string PresetImportSuccessTitle {
+            get {
+                return ResourceManager.GetString("PresetImportSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preset:.
         /// </summary>
         public static string PresetLabel {
@@ -754,6 +871,60 @@ namespace VidCoder.LocalResources {
         public static string PresetNameRestoredFromQueue {
             get {
                 return ResourceManager.GetString("PresetNameRestoredFromQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove this preset?.
+        /// </summary>
+        public static string PresetRemoveConfirmMessage {
+            get {
+                return ResourceManager.GetString("PresetRemoveConfirmMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Preset.
+        /// </summary>
+        public static string PresetRemoveConfirmTitle {
+            get {
+                return ResourceManager.GetString("PresetRemoveConfirmTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to revert all unsaved changes to this preset?.
+        /// </summary>
+        public static string PresetRevertConfirmMessage {
+            get {
+                return ResourceManager.GetString("PresetRevertConfirmMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revert Preset.
+        /// </summary>
+        public static string PresetRevertConfirmTitle {
+            get {
+                return ResourceManager.GetString("PresetRevertConfirmTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save changes to your current preset?.
+        /// </summary>
+        public static string PresetSaveConfirmMessage {
+            get {
+                return ResourceManager.GetString("PresetSaveConfirmMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save current preset?.
+        /// </summary>
+        public static string PresetSaveConfirmTitle {
+            get {
+                return ResourceManager.GetString("PresetSaveConfirmTitle", resourceCulture);
             }
         }
         
@@ -981,6 +1152,33 @@ namespace VidCoder.LocalResources {
         public static string TracksSummaryMultiple {
             get {
                 return ResourceManager.GetString("TracksSummaryMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The update was not applied. If you did not cancel it, try installing it manually..
+        /// </summary>
+        public static string UpdateNotAppliedError {
+            get {
+                return ResourceManager.GetString("UpdateNotAppliedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not load a required user settings file; it may have become corrupt. Do you want to delete it? This will not affect your saved presets..
+        /// </summary>
+        public static string UserConfigLoadError {
+            get {
+                return ResourceManager.GetString("UserConfigLoadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading settings.
+        /// </summary>
+        public static string UserConfigLoadErrorTitle {
+            get {
+                return ResourceManager.GetString("UserConfigLoadErrorTitle", resourceCulture);
             }
         }
         

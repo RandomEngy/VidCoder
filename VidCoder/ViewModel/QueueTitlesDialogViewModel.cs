@@ -17,6 +17,8 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
+	using LocalResources;
+
 	public class QueueTitlesDialogViewModel : OkCancelDialogViewModel
 	{
 		private List<TitleSelectionViewModel> titles;
@@ -123,7 +125,7 @@ namespace VidCoder.ViewModel
 					return string.Empty;
 				}
 
-				return "Title " + this.selectedTitles[0].Title.TitleNumber.ToString(CultureInfo.CurrentCulture);
+				return string.Format(QueueTitlesRes.TitleFormat, this.selectedTitles[0].Title.TitleNumber);
 			}
 		}
 

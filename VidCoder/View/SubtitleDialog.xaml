@@ -201,7 +201,7 @@
 			Grid.Row="1">
 			<Button
 				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsDefault="True"
-				Command="{Binding SaveSettingsCommand}" Margin="0,0,6,0" Content="{x:Static prop:Resources.Ok}" />
+				Command="{Binding AcceptCommand}" Margin="0,0,6,0" Content="{x:Static prop:Resources.Ok}" />
 			<Button
 				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsCancel="True"
 				Command="{Binding CancelCommand}" Content="{x:Static prop:Resources.Cancel}" />
