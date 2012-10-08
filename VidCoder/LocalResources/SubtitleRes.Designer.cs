@@ -61,6 +61,15 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No subtitles on the source video..
+        /// </summary>
+        public static string AddSourceNoSubtitlesToolTip {
+            get {
+                return ResourceManager.GetString("AddSourceNoSubtitlesToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Burned In.
         /// </summary>
         public static string BurnedInColumn {
@@ -183,6 +192,15 @@ namespace VidCoder.LocalResources {
         public static string RemoveSubtitleTrack {
             get {
                 return ResourceManager.GetString("RemoveSubtitleTrack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add subtitles file.
+        /// </summary>
+        public static string SrtFilePickerText {
+            get {
+                return ResourceManager.GetString("SrtFilePickerText", resourceCulture);
             }
         }
         

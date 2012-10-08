@@ -64,6 +64,7 @@
 				ToolTip="{x:Static prop:Resources.BurnedSubtitleToolTip}"
 				ToolTipService.ShowOnDisabled="True"
 				Visibility="{Binding Selected, Converter={StaticResource VisibilityConverter}}"
+				IsEnabled="{Binding BurnedInEnabled}"
 				Width="70" Height="22"
 				Style="{StaticResource CenteredCheckBox}"/>
 		</DataTemplate>

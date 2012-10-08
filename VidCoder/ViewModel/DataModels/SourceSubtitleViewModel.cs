@@ -10,6 +10,7 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
+	using HandBrake.Interop.Model.Encoding;
 	using LocalResources;
 
 	public class SourceSubtitleViewModel : ViewModelBase
@@ -51,6 +52,7 @@ namespace VidCoder.ViewModel
 			{
 				this.selected = value;
 				this.RaisePropertyChanged(() => this.Selected);
+				this.SubtitleDialogViewModel.UpdateBoxes(this);
 				this.SubtitleDialogViewModel.UpdateWarningVisibility();
 			}
 		}
@@ -113,6 +115,11 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
+				if (this.SubtitleDialogViewModel.OutputFormat == Container.Mp4 && this.IsPgs)
+				{
+					return true;
+				}
+
 				return this.subtitle.BurnedIn;
 			}
 
@@ -131,6 +138,22 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool BurnedInEnabled
+		{
+			get
+			{
+				return this.SubtitleDialogViewModel.OutputFormat != Container.Mp4 || !this.IsPgs;
+			}
+		}
+
+		private bool IsPgs
+		{
+			get
+			{
+				return this.TrackNumber > 0 && this.SubtitleDialogViewModel.GetSubtitle(this).SubtitleSource == SubtitleSource.PGS;
+			}
+		}
+
 		private RelayCommand removeSubtitleCommand;
 		public RelayCommand RemoveSubtitleCommand
 		{
@@ -142,6 +165,12 @@ namespace VidCoder.ViewModel
 						this.SubtitleDialogViewModel.RemoveSourceSubtitle(this);
 					}));
 			}
+		}
+
+		public void Deselect()
+		{
+			this.selected = false;
+			this.RaisePropertyChanged(() => this.Selected);
 		}
 	}
 }

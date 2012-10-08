@@ -146,4 +146,10 @@
   <data name="ForeignAudioSearch">
     <value xml:space="preserve">Foreign Audio Search</value>
   </data>
+  <data name="AddSourceNoSubtitlesToolTip">
+    <value xml:space="preserve">No subtitles on the source video.</value>
+  </data>
+  <data name="SrtFilePickerText">
+    <value xml:space="preserve">Add subtitles file</value>
+  </data>
 </root>

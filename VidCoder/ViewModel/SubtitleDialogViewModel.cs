@@ -19,6 +19,8 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
+	using LocalResources;
+
 	public class SubtitleDialogViewModel : OkCancelDialogViewModel
 	{
 		private ObservableCollection<SourceSubtitleViewModel> sourceSubtitles;
@@ -206,7 +208,7 @@ namespace VidCoder.ViewModel
 					{
 						string srtFile = FileService.Instance.GetFileNameLoad(
 							Settings.Default.RememberPreviousFiles ? Settings.Default.LastSrtFolder : null,
-							"Add subtitles file",
+							SubtitleRes.SrtFilePickerText,
 							"srt",
 							"SRT Files |*.srt");
 
@@ -233,7 +235,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.mainViewModel.SelectedTitle == null || this.mainViewModel.SelectedTitle.Subtitles.Count == 0)
 				{
-					return "No subtitles on the source video.";
+					return SubtitleRes.AddSourceNoSubtitlesToolTip;
 				}
 
 				return null;
@@ -245,6 +247,17 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return this.outputFormat;
+			}
+		}
+
+		private bool AnyPgsSelected
+		{
+			get
+			{
+				return this.SourceSubtitles.Any(s =>
+					s.Selected &&
+					s.TrackNumber > 0 &&
+					this.GetSubtitle(s).SubtitleSource == SubtitleSource.PGS);
 			}
 		}
 
@@ -291,8 +304,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		// If any tracks are burned in, disable and uncheck any "default" boxes
-		public void UpdateBoxes()
+		// Update state of checked boxes after a change
+		public void UpdateBoxes(SourceSubtitleViewModel updatedSubtitle = null)
 		{
 			bool anyBurned = this.SourceSubtitles.Any(sourceSub => sourceSub.BurnedIn);
 			this.DefaultsEnabled = !anyBurned;
@@ -307,6 +320,34 @@ namespace VidCoder.ViewModel
 				foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
 				{
 					srtVM.Default = false;
+				}
+			}
+
+			if (this.OutputFormat == Container.Mp4 && updatedSubtitle != null && updatedSubtitle.Selected)
+			{
+				// In MP4 a PGS subtitle can only be burned in.
+				if (updatedSubtitle.TrackNumber > 0 &&
+					this.GetSubtitle(updatedSubtitle).SubtitleSource == SubtitleSource.PGS)
+				{
+					// If we've just selected a PGS subtitle, deselect all others
+					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles)
+					{
+						if (sourceSub != updatedSubtitle)
+						{
+							sourceSub.Deselect();
+						}
+					}
+				}
+				else
+				{
+					// If we've just selected another subtitle, deselect all PGS subtitles
+					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles)
+					{
+						if (sourceSub.TrackNumber > 0 && this.GetSubtitle(sourceSub).SubtitleSource == SubtitleSource.PGS)
+						{
+							sourceSub.Deselect();
+						}
+					}
 				}
 			}
 		}
@@ -344,6 +385,11 @@ namespace VidCoder.ViewModel
 			}
 
 			this.BurnedOverlapWarningVisible = anyBurned && totalTracks > 1;
+		}
+
+		public Subtitle GetSubtitle(SourceSubtitleViewModel sourceSubtitleViewModel)
+		{
+			return this.mainViewModel.SelectedTitle.Subtitles[sourceSubtitleViewModel.TrackNumber - 1];
 		}
 	}
 }

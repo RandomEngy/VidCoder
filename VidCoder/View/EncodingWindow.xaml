@@ -102,6 +102,7 @@
 				Content="{x:Static res:EncodingRes.ContainerLabel}" />
 			<ComboBox 
 				Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Width="58"
+				VerticalContentAlignment="Center"
 				ItemsSource="{Binding OutputFormatChoices}"
 				SelectedValue="{Binding OutputFormat}"
 				SelectedValuePath="Value"
