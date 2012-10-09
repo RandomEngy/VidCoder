@@ -1,12 +1,12 @@
 <UpdateInfo>
 	<Release>
-		<Latest>1.4.2</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.4.2-Beta-x86.exe</DownloadLocation>
-		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/95847</ChangelogLocation>
+		<Latest>1.4.3</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.4.3-Beta-x86.exe</DownloadLocation>
+		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/95911</ChangelogLocation>
 	</Release>
 	<Release-x64>
-		<Latest>1.4.2</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.4.2-Beta-x64.exe</DownloadLocation>
-		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/95847</ChangelogLocation>
+		<Latest>1.4.3</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.4.3-Beta-x64.exe</DownloadLocation>
+		<ChangelogLocation>http://vidcoder.codeplex.com/releases/view/95911</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>

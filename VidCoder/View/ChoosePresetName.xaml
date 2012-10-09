@@ -8,7 +8,7 @@
 	Title="{x:Static res:MiscRes.PresetNameDialogTitle}" Height="152" Width="250" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False" Loaded="Window_Loaded">
 	<Grid>
 		<TextBlock Margin="12,12,0,0" VerticalAlignment="Top" Text="{x:Static res:MiscRes.ChoosePresetName}" HorizontalAlignment="Left" TextWrapping="Wrap"/>
-		<TextBox Margin="12,43,12,0" Name="presetNameText" Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" Height="23" VerticalAlignment="Top" />
+		<TextBox Margin="12,43,12,0" Name="presetNameText" Text="{Binding PresetName, UpdateSourceTrigger=PropertyChanged}" Height="23" VerticalAlignment="Top" />
 
 		<StackPanel
 			Orientation="Horizontal"
