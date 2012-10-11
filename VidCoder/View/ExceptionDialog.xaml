@@ -1,8 +1,10 @@
-﻿<Window x:Class="VidCoder.View.ExceptionDialog"
-		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:LocalResources="clr-namespace:VidCoder.LocalResources"
-		xmlns:prop="clr-namespace:VidCoder.Properties" Title="{x:Static LocalResources:MiscRes.ExceptionWindowTitle}" Height="381" Width="505"
-		Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterScreen">
+﻿<Window
+	x:Class="VidCoder.View.ExceptionDialog"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:LocalResources="clr-namespace:VidCoder.LocalResources"
+	xmlns:prop="clr-namespace:VidCoder.Properties" Title="{x:Static LocalResources:MiscRes.ExceptionWindowTitle}" Height="381" Width="505"
+	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterScreen"
+	TextOptions.TextFormattingMode="Display">
 	<Grid>
 		<Image Height="32" HorizontalAlignment="Left" Margin="19,16,0,0" Name="errorIcon" Stretch="Fill" VerticalAlignment="Top" Width="32" />
 		<TextBlock

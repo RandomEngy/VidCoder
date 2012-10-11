@@ -1,4 +1,5 @@
-﻿<Window x:Class="VidCoder.View.SubtitleDialog"
+﻿<Window 
+	x:Class="VidCoder.View.SubtitleDialog"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:HandBrakeControls="clr-namespace:VidCoder.Controls"
@@ -8,7 +9,8 @@
 	Title="{x:Static res:SubtitleRes.SubtitlesWindowTitle}" Height="352" Width="572" MinWidth="430" MinHeight="250"
 	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner"
 	DataContextChanged="OnDataContextChanged"
-	Closing="Window_Closing" ShowInTaskbar="False">
+	Closing="Window_Closing" ShowInTaskbar="False"
+	TextOptions.TextFormattingMode="Display">
 	<Window.Resources>
 		<Style x:Key="SubtitleTrack" TargetType="TextBlock">
 			<Style.Triggers>

@@ -340,6 +340,15 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Interface Language:.
+        /// </summary>
+        public static string InterfaceLanguageLabel {
+            get {
+                return ResourceManager.GetString("InterfaceLanguageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Join the Beta update track.
         /// </summary>
         public static string JoinBetaTrackCheckBox {
@@ -399,6 +408,15 @@ namespace VidCoder.LocalResources {
         public static string MinScanLengthLabel {
             get {
                 return ResourceManager.GetString("MinScanLengthLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The new language will take effect after you exit and restart VidCoder..
+        /// </summary>
+        public static string NewLanguageRestartDialogMessage {
+            get {
+                return ResourceManager.GetString("NewLanguageRestartDialogMessage", resourceCulture);
             }
         }
         
@@ -534,6 +552,15 @@ namespace VidCoder.LocalResources {
         public static string UpToDateStatus {
             get {
                 return ResourceManager.GetString("UpToDateStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use OS Language.
+        /// </summary>
+        public static string UseOSLanguage {
+            get {
+                return ResourceManager.GetString("UseOSLanguage", resourceCulture);
             }
         }
         

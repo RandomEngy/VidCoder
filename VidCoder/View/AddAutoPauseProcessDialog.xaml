@@ -4,7 +4,8 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:prop="clr-namespace:VidCoder.Properties"
 	xmlns:res="clr-namespace:VidCoder.LocalResources" 
-	Title="{x:Static res:MiscRes.AddAutoPauseProcessDialogTitle}" Height="371" Width="400" MinHeight="244" MinWidth="244" Closing="Window_Closing" WindowStartupLocation="CenterOwner">
+	Title="{x:Static res:MiscRes.AddAutoPauseProcessDialogTitle}" Height="371" Width="400" MinHeight="244" MinWidth="244" Closing="Window_Closing" WindowStartupLocation="CenterOwner"
+	TextOptions.TextFormattingMode="Display">
 	<Grid>
 		<Grid
 			Margin="7,12,12,0" VerticalAlignment="Top">

@@ -239,7 +239,9 @@ namespace VidCoder.Controls
 				FlowDirection.LeftToRight,
 				new Typeface(this.textBlock.FontFamily, this.textBlock.FontStyle, this.textBlock.FontWeight, this.textBlock.FontStretch),
 				this.textBlock.FontSize,
-				Brushes.Black);
+				Brushes.Black,
+				new NumberSubstitution(),
+				TextFormattingMode.Display);
 
 			return new Size(formattedText.Width, formattedText.Height);
 		}

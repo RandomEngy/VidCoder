@@ -5,7 +5,8 @@
 	xmlns:prop="clr-namespace:VidCoder.Properties"
 	xmlns:res="clr-namespace:VidCoder.LocalResources"
 	Title="{x:Static res:MiscRes.AboutVidCoderDialogTitle}" Height="425" Width="474"
-	Style="{StaticResource NormalWindow}" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+	Style="{StaticResource NormalWindow}" ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
+	TextOptions.TextFormattingMode="Display">
 	<Grid>
 		<Image
 			Height="120" HorizontalAlignment="Left" Margin="12,12,0,0" Stretch="Fill" VerticalAlignment="Top" Width="120"

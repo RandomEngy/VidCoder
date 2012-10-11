@@ -17,6 +17,7 @@ namespace VidCoder.ViewModel
 {
 	using System.Resources;
 	using LocalResources;
+	using Microsoft.Practices.Unity;
 
 	public class OptionsDialogViewModel : OkCancelDialogViewModel
 	{
@@ -29,6 +30,7 @@ namespace VidCoder.ViewModel
 		private bool outputToSourceDirectory;
 		private WhenFileExists whenFileExists;
 		private WhenFileExists whenFileExistsBatch;
+		private InterfaceLanguage interfaceLanguage;
 		private bool minimizeToTray;
 		private bool playSoundOnCompletion;
 		private int logVerbosity;
@@ -38,6 +40,7 @@ namespace VidCoder.ViewModel
 		private bool showAudioTrackNameField;
 
 		private List<IVideoPlayer> playerChoices;
+		private List<InterfaceLanguage> languageChoices;
 
 		private IUpdater updateService;
 
@@ -85,6 +88,20 @@ namespace VidCoder.ViewModel
 				}
 			}
 
+			this.languageChoices =
+				new List<InterfaceLanguage>
+					{
+						new InterfaceLanguage { CultureCode = string.Empty, Display = OptionsRes.UseOSLanguage },
+						new InterfaceLanguage { CultureCode = "en-US", Display = "English" },
+						new InterfaceLanguage { CultureCode = "de-DE", Display = "Deutsch" },
+					};
+
+			this.interfaceLanguage = this.languageChoices.FirstOrDefault(l => l.CultureCode == Settings.Default.InterfaceLanguageCode);
+			if (this.interfaceLanguage == null)
+			{
+				this.interfaceLanguage = this.languageChoices[0];
+			}
+
 			this.playerChoices = Players.All;
 			if (this.playerChoices.Count > 0)
 			{
@@ -107,6 +124,28 @@ namespace VidCoder.ViewModel
 			this.updateService.UpdateDownloadCompleted -= this.OnUpdateDownloadCompleted;
 
 			base.OnClosing();
+		}
+
+		public List<InterfaceLanguage> LanguageChoices
+		{
+			get
+			{
+				return this.languageChoices;
+			}
+		}
+
+		public InterfaceLanguage InterfaceLanguage
+		{
+			get
+			{
+				return this.interfaceLanguage;
+			}
+
+			set
+			{
+				this.interfaceLanguage = value;
+				this.RaisePropertyChanged(() => this.InterfaceLanguage);
+			}
 		}
 
 		public bool UpdatesEnabled
@@ -700,6 +739,12 @@ namespace VidCoder.ViewModel
 							Settings.Default.UpdatesEnabled = this.UpdatesEnabled;
 							Settings.Default.BetaUpdates = this.BetaUpdates;
 							this.updateService.HandleUpdatedSettings(this.UpdatesEnabled);
+						}
+
+						if (Settings.Default.InterfaceLanguageCode != this.InterfaceLanguage.CultureCode)
+						{
+							Settings.Default.InterfaceLanguageCode = this.InterfaceLanguage.CultureCode;
+							Unity.Container.Resolve<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
 						}
 
 						Settings.Default.AutoNameOutputFolder = this.DefaultPath;

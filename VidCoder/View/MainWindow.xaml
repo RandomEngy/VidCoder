@@ -26,7 +26,8 @@
 	MouseDown="Window_MouseDown"
 	StateChanged="Window_StateChanged" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:Delay="clr-namespace:Delay;assembly=SplitButtonWpf"
-	Deactivated="Window_Deactivated" Activated="Window_Activated">
+	Deactivated="Window_Deactivated" Activated="Window_Activated"
+	TextOptions.TextFormattingMode="Display">
 	<Window.Resources>
 		<converters:ChapterVMConverter x:Key="ChapterVMConverter" />
 		<local:EnumDisplayer Type="{x:Type Encoding:VideoEncoder}" x:Key="VideoEncoderChoices" />
@@ -874,7 +875,7 @@
 					Content="{x:Static res:MainRes.PresetLabel}"/>
 
 				<ComboBox 
-					HorizontalAlignment="Left"  Name="presetComboBox" MinWidth="140" MaxWidth="160" Height="22.76" VerticalAlignment="Center" Margin="2,0,0,0"
+					HorizontalAlignment="Left"  Name="presetComboBox" MinWidth="140" MaxWidth="160" Height="22.76" VerticalAlignment="Center" Margin="2,0,0,0" VerticalContentAlignment="Center"
 					UseLayoutRounding="True"
 					ItemsSource="{Binding PresetsVM.AllPresets}" SelectedItem="{Binding PresetsVM.SelectedPreset}"
 					ItemContainerStyle="{StaticResource EncodingContainerStyle}">

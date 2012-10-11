@@ -1,8 +1,10 @@
-﻿<Window x:Class="VidCoder.View.FileConflictDialog"
-		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:LocalResources="clr-namespace:VidCoder.LocalResources"
-		xmlns:Properties="clr-namespace:VidCoder.Properties" Background="WhiteSmoke"
-		Title="{x:Static LocalResources:MiscRes.FileConflictDialogTitle}" Height="186" Width="377" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+﻿<Window
+	x:Class="VidCoder.View.FileConflictDialog"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:LocalResources="clr-namespace:VidCoder.LocalResources"
+	xmlns:Properties="clr-namespace:VidCoder.Properties" Background="WhiteSmoke"
+	Title="{x:Static LocalResources:MiscRes.FileConflictDialogTitle}" Height="186" Width="377" ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
+	TextOptions.TextFormattingMode="Display">
 	<Grid>
 		<TextBlock
 			Height="71" Margin="12,12,12,0" VerticalAlignment="Top"

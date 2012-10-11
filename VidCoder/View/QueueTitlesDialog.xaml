@@ -7,7 +7,8 @@
 	xmlns:prop="clr-namespace:VidCoder.Properties"
 	xmlns:res="clr-namespace:VidCoder.LocalResources" 
 	Title="{x:Static res:QueueTitlesRes.QueueTitlesDialogTitle}" Height="456" Width="463" MinWidth="295" MinHeight="220"
-	Style="{StaticResource NormalWindow}" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" Closing="Window_Closing">
+	Style="{StaticResource NormalWindow}" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" Closing="Window_Closing"
+	TextOptions.TextFormattingMode="Display">
 	<Grid>
 		<TextBlock HorizontalAlignment="Left" Margin="12,6,0,0" Text="{x:Static res:QueueTitlesRes.QueueTitlesWindowHeader}" VerticalAlignment="Top" />
 		<ListView

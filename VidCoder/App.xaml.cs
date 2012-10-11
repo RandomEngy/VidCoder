@@ -18,6 +18,8 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder
 {
+	using System.Globalization;
+	using System.Threading;
 	using LocalResources;
 
 	/// <summary>
@@ -106,6 +108,14 @@ namespace VidCoder
 					Process.Start(System.Reflection.Assembly.GetExecutingAssembly().Location);
 					Environment.Exit(0);
 				}
+			}
+
+			var interfaceLanguageCode = Settings.Default.InterfaceLanguageCode;
+			if (!string.IsNullOrWhiteSpace(interfaceLanguageCode))
+			{
+				var cultureInfo = new CultureInfo(interfaceLanguageCode);
+				Thread.CurrentThread.CurrentCulture = cultureInfo;
+				Thread.CurrentThread.CurrentUICulture = cultureInfo;
 			}
 
 			var updater = Unity.Container.Resolve<IUpdater>();

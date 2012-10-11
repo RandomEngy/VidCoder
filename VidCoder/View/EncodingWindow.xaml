@@ -1,4 +1,5 @@
-﻿<Window x:Class="VidCoder.View.EncodingWindow"
+﻿<Window
+	x:Class="VidCoder.View.EncodingWindow"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:local="clr-namespace:VidCoder"
@@ -12,7 +13,8 @@
 	Title="{Binding WindowTitle}" Width="671" Height="467" MinWidth="588" MinHeight="467"
 	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner"
 	Closing="Window_Closing"
-	ShowInTaskbar="False" WindowStyle="ToolWindow" Closed="Window_Closed">
+	ShowInTaskbar="False" WindowStyle="ToolWindow" Closed="Window_Closed"
+	TextOptions.TextFormattingMode="Display">
 	<Window.Resources>
 		<local:EnumDisplayer Type="{x:Type Encoding:Container}" x:Key="OutputFormatChoices" />
 	</Window.Resources>
@@ -30,7 +32,7 @@
 		<KeyBinding Key="F2" Command="{Binding RenameCommand}" />
 	</Window.InputBindings>
 	<Grid>
-		<ToolBarPanel Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+		<ToolBarPanel Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" UseLayoutRounding="True">
 			<ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
 				<TextBlock
 					Text="{Binding ProfileName}" Margin="0,4,0,0"

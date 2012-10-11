@@ -5,7 +5,8 @@
 	xmlns:prop="clr-namespace:VidCoder.Properties"
 	xmlns:res="clr-namespace:VidCoder.LocalResources" 
 	Title="{x:Static res:ChapterMarkersRes.ChapterMarkersDialogTitle}" Height="326" Width="444" WindowStartupLocation="CenterOwner" Closing="Window_Closing"
-		Style="{StaticResource NormalWindow}">
+	Style="{StaticResource NormalWindow}"
+	TextOptions.TextFormattingMode="Display">
 	<Window.Resources>
 		<DataTemplate x:Key="TitleTemplate">
 			<TextBox Width="200" Text="{Binding Title}" GotFocus="TitleBoxGotFocus" />

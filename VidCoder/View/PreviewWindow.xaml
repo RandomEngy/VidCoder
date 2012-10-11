@@ -1,4 +1,5 @@
-﻿<Window x:Class="VidCoder.View.PreviewWindow"
+﻿<Window
+	x:Class="VidCoder.View.PreviewWindow"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
@@ -11,7 +12,8 @@
 	AllowDrop="True"
 	PreviewDrop="Window_PreviewDrop"
 	PreviewDragOver="Window_PreviewDragOver"
-	ShowInTaskbar="False" WindowStyle="ToolWindow">
+	ShowInTaskbar="False" WindowStyle="ToolWindow"
+	TextOptions.TextFormattingMode="Display">
 	<Window.Resources>
 		<Style x:Key="PreviewText" TargetType="TextBlock">
 			<Setter Property="Foreground" Value="White" />

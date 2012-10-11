@@ -84,7 +84,7 @@
 					Text="{x:Static res:EncodingRes.CodecLabel}"  />
 				<ComboBox
 					Grid.Row="0" Grid.Column="1" Margin="5,4,0,4"
-					Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="122"
+					Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="122" VerticalContentAlignment="Center"
 					ItemsSource="{Binding EncoderChoices}"
 					SelectedItem="{Binding SelectedEncoder}"
 					DisplayMemberPath="DisplayName" />
@@ -94,7 +94,7 @@
 					Text="{x:Static res:EncodingRes.FramerateLabel}" />
 				<ComboBox
 					Grid.Row="1" Grid.Column="1" Margin="5,4,0,4"
-					Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="122"
+					Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="122" VerticalContentAlignment="Center"
 					ItemsSource="{Binding FramerateChoices}"
 					SelectedItem="{Binding SelectedFramerate}">
 					<ComboBox.ItemTemplate>

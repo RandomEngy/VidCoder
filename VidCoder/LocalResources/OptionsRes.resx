@@ -279,4 +279,13 @@
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
     <value>Choose the default output directory for encoded video files.</value>
   </data>
+  <data name="InterfaceLanguageLabel">
+    <value xml:space="preserve">Interface Language:</value>
+  </data>
+  <data name="NewLanguageRestartDialogMessage">
+    <value xml:space="preserve">The new language will take effect after you exit and restart VidCoder.</value>
+  </data>
+  <data name="UseOSLanguage">
+    <value xml:space="preserve">Use OS Language</value>
+  </data>
 </root>

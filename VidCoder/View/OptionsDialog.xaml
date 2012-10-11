@@ -1,9 +1,11 @@
-﻿<Window x:Class="VidCoder.View.OptionsDialog"
+﻿<Window 
+	x:Class="VidCoder.View.OptionsDialog"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Model="clr-namespace:VidCoder.Model" Title="{x:Static res:OptionsRes.OptionsDialogTitle}" Height="415" Width="571"
 	xmlns:prop="clr-namespace:VidCoder.Properties"
 	xmlns:res="clr-namespace:VidCoder.LocalResources" 
-	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Closing="Window_Closing" xmlns:my="clr-namespace:VidCoder.Controls" Closed="Window_Closed">
+	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Closing="Window_Closing" xmlns:my="clr-namespace:VidCoder.Controls" Closed="Window_Closed"
+	TextOptions.TextFormattingMode="Display">
 	<Window.Resources>
 		<Style x:Key="EmphasizedTitle" TargetType="TextBlock">
 			<Setter Property="VerticalAlignment" Value="Center" />
@@ -15,21 +17,27 @@
 		<TabControl Margin="6,6,6,35" Name="tabControl">
 			<TabItem Header="{x:Static res:OptionsRes.GeneralTab}">
 				<Grid>
+					<StackPanel 
+						Orientation="Horizontal"
+						HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" >
+						<TextBlock Text="{x:Static res:OptionsRes.InterfaceLanguageLabel}" VerticalAlignment="Center" />
+						<ComboBox Height="23" MinWidth="100" Margin="6,0,0,0" ItemsSource="{Binding LanguageChoices}" DisplayMemberPath="Display" SelectedItem="{Binding InterfaceLanguage}" />
+					</StackPanel>
 					<RadioButton
-						Content="{x:Static res:OptionsRes.MinimizeToTaskBarRadioButton}" Height="16" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top"
+						Content="{x:Static res:OptionsRes.MinimizeToTaskBarRadioButton}" Height="16" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top"
 						IsChecked="{Binding MinimizeToTray, Converter={StaticResource InverseBoolConverter}}"
 						GroupName="minimize1"/>
 					<RadioButton
-						Content="{x:Static res:OptionsRes.MinimizeToSystemTrayRadioButton}" Height="16" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"
+						Content="{x:Static res:OptionsRes.MinimizeToSystemTrayRadioButton}" Height="16" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top"
 						IsChecked="{Binding MinimizeToTray}"
 						GroupName="minimize2"/>
 					
 					<CheckBox
-						Height="16" Margin="10,69,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
+						Height="16" Margin="10,95,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
 						IsChecked="{Binding PlaySoundOnCompletion}" Content="{x:Static res:OptionsRes.PlaySoundOnQueueCompletionCheckBox}" />
 
 					<StackPanel
-						Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top">
+						Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top">
 						<TextBlock
 							Text="{x:Static res:OptionsRes.PreferredDvdPlayerLabel}" VerticalAlignment="Center"
 							ToolTip="{x:Static res:OptionsRes.PreferredDvdPlayerToolTip}"/>
@@ -43,17 +51,17 @@
 
 
 					<CheckBox
-						Height="16" Margin="10,135,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
+						Height="16" Margin="10,161,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
 						IsChecked="{Binding UpdatesEnabled}" Content="{x:Static res:OptionsRes.AutomaticUpdatesCheckBox}" />
 					<CheckBox 
 						Content="{x:Static res:OptionsRes.JoinBetaTrackCheckBox}" 
-						Height="16" HorizontalAlignment="Left" Margin="10,157,0,0" VerticalAlignment="Top"
+						Height="16" HorizontalAlignment="Left" Margin="10,183,0,0" VerticalAlignment="Top"
 						IsChecked="{Binding BetaUpdates}"
 						IsEnabled="{Binding BetaUpdatesCheckBoxEnabled}"
 						ToolTip="{Binding BetaUpdatesToolTip}"
 						ToolTipService.ShowOnDisabled="True"/>
 					<Grid
-						Height="31" Margin="27,180,11,0" VerticalAlignment="Top"
+						Height="31" Margin="27,206,11,0" VerticalAlignment="Top"
 						Visibility="{Binding UpdatesEnabled, Converter={StaticResource VisibilityConverter}}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto" />

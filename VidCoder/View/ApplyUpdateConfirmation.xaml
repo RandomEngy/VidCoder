@@ -1,9 +1,11 @@
-﻿<Window x:Class="VidCoder.ApplyUpdateConfirmation"
+﻿<Window
+	x:Class="VidCoder.ApplyUpdateConfirmation"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
 	xmlns:prop="clr-namespace:VidCoder.Properties" Style="{StaticResource NormalWindow}"
 	xmlns:res="clr-namespace:VidCoder.LocalResources"
-	Title="{x:Static res:MiscRes.ApplyUpdateDialogTitle}" Height="174" Width="347" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+	Title="{x:Static res:MiscRes.ApplyUpdateDialogTitle}" Height="174" Width="347" WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+	TextOptions.TextFormattingMode="Display">
 	<Grid>
 		<TextBlock
 			Margin="12,12,12,65" FontSize="14" Text="{x:Static res:MiscRes.ApplyUpdateDialogMessage}" TextWrapping="Wrap"  />
