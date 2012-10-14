@@ -123,8 +123,6 @@ namespace VidCoder.ViewModel
 				this.AudioPanelViewModel.NotifyProfileChanged();
 
 				this.PicturePanelViewModel.RefreshOutputSize();
-				
-				this.AdvancedPanelViewModel.UpdateUIFromAdvancedOptions();
 
 				this.NotifyAllChanged();
 			}

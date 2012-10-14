@@ -188,6 +188,7 @@
 					Grid.Row="2" Grid.Column="1"
 					Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Width="49" Margin="8,0,0,0"
 					Number="{Binding Quality, Mode=TwoWay}" Minimum="0" Maximum="51" Modulus="0.1"
+					AllowEmpty="False"
 					Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}">
 					<controls:NumberBox.ToolTip>
 						<TextBlock Text="{x:Static res:EncodingRes.Video_QualityTargetToolTip}" Style="{StaticResource LargeToolTip}" />
@@ -212,62 +213,6 @@
 				Height="21" HorizontalAlignment="Right" Margin="0,149,6,0" VerticalAlignment="Top" TextAlignment="Right"
 				Text="{Binding QualitySliderRightText}"
 				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}"/>
-			<Grid
-				Height="135" Margin="6,179,15,0" VerticalAlignment="Top"
-				Visibility="{Binding X264SettingsVisible, Converter={StaticResource VisibilityConverter}}">
-				<TextBlock
-					Height="21" HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource SectionHeader}" Text="{x:Static res:EncodingRes.X264BasicSettings}" VerticalAlignment="Top" />
-
-				<Grid Height="100" HorizontalAlignment="Left" Margin="14,30,0,0" VerticalAlignment="Top">
-					<Grid.RowDefinitions>
-						<RowDefinition />
-						<RowDefinition />
-						<RowDefinition />
-					</Grid.RowDefinitions>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition Width="Auto" />
-					</Grid.ColumnDefinitions>
-					<Label
-						Content="{x:Static res:EncodingRes.ProfileLabel}" Height="28"
-						Grid.Row="0" Grid.Column="0" />
-					<ComboBox
-						Height="23" MinWidth="120" Margin="3,0,0,0"
-						Grid.Row="0" Grid.Column="1"
-						Style="{StaticResource LongToolTipHolder}"
-						ItemsSource="{Binding X264ProfileChoices}" SelectedValue="{Binding X264Profile}" SelectedValuePath="Value" DisplayMemberPath="Display">
-						<ComboBox.ToolTip>
-							<TextBlock Text="{x:Static res:EncodingRes.X264ProfileToolTip}" Style="{StaticResource LongToolTip}" />
-						</ComboBox.ToolTip>
-					</ComboBox>
-
-					<Label
-						Content="{x:Static res:EncodingRes.PresetLabel}" Height="28"
-						Grid.Row="1" Grid.Column="0" />
-					<ComboBox
-						Height="23" MinWidth="120" Margin="3,0,0,0"
-						Grid.Row="1" Grid.Column="1"
-						Style="{StaticResource LongToolTipHolder}"
-						ItemsSource="{Binding X264PresetChoices}" SelectedValue="{Binding X264Preset}" SelectedValuePath="Value" DisplayMemberPath="Display">
-						<ComboBox.ToolTip>
-							<TextBlock Text="{x:Static res:EncodingRes.X264PresetToolTip}" Style="{StaticResource LongToolTip}" />
-						</ComboBox.ToolTip>
-					</ComboBox>
-
-					<Label
-						Content="{x:Static res:EncodingRes.TuneLabel}" Height="28"
-						Grid.Row="2" Grid.Column="0"/>
-					<ComboBox
-						Height="23" MinWidth="120" Margin="3,0,0,0"
-						Grid.Row="2" Grid.Column="1"
-						Style="{StaticResource LongToolTipHolder}"
-						ItemsSource="{Binding X264TuneChoices}" SelectedValue="{Binding X264Tune}" SelectedValuePath="Value" DisplayMemberPath="Display">
-						<ComboBox.ToolTip>
-							<TextBlock Text="{x:Static res:EncodingRes.X264TuneToolTip}" Style="{StaticResource LongToolTip}" />
-						</ComboBox.ToolTip>
-					</ComboBox>
-				</Grid>
-			</Grid>
 		</Grid>
 	</Grid>
 </UserControl>

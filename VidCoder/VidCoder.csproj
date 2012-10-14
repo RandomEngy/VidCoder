@@ -508,7 +508,6 @@
     <Compile Include="ViewModel\AddAutoPauseProcessDialogViewModel.cs" />
     <Compile Include="ViewModel\Panels\AudioPanelViewModel.cs" />
     <Compile Include="ViewModel\Panels\AdvancedPanelViewModel.cs" />
-    <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\DataModels\ColumnViewModel.cs" />
     <Compile Include="ViewModel\DataModels\EncodeResultViewModel.cs" />
     <Compile Include="ViewModel\DataModels\TitleSelectionViewModel.cs" />

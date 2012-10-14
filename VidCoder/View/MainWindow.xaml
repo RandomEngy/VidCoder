@@ -101,28 +101,6 @@
 		<Style x:Key="ScanStatus" TargetType="TextBlock">
 			<Setter Property="FontSize" Value="16" />
 		</Style>
-		<Style x:Key="EncodingContainerStyle" TargetType="ComboBoxItem">
-			<Setter Property="Margin" Value="5,1" />
-			<Setter Property="Padding" Value="3" />
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="ComboBoxItem">
-						<Grid Background="Transparent">
-							<ContentPresenter x:Name="ContentHost" />
-						</Grid>
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsHighlighted" Value="True">
-								<Setter TargetName="ContentHost" Property="Effect">
-									<Setter.Value>
-										<DropShadowEffect Color="#38A8FF" BlurRadius="10" ShadowDepth="0" />
-									</Setter.Value>
-								</Setter>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
 		
 		<Style x:Key="QueueText" TargetType="TextBlock">
 			<Style.Triggers>
@@ -878,10 +856,15 @@
 					HorizontalAlignment="Left"  Name="presetComboBox" MinWidth="140" MaxWidth="160" Height="22.76" VerticalAlignment="Center" Margin="2,0,0,0" VerticalContentAlignment="Center"
 					UseLayoutRounding="True"
 					ItemsSource="{Binding PresetsVM.AllPresets}" SelectedItem="{Binding PresetsVM.SelectedPreset}"
-					ItemContainerStyle="{StaticResource EncodingContainerStyle}">
+					>
 					<ComboBox.Effect>
 						<DropShadowEffect x:Name="presetGlowEffect" BlurRadius="10" ShadowDepth="0" Color="#1696FF" />
 					</ComboBox.Effect>
+					<ComboBox.ItemContainerStyle>
+						<Style TargetType="ComboBoxItem">
+							<Setter Property="Padding" Value="5,2" />
+						</Style>
+					</ComboBox.ItemContainerStyle>
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
 							<StackPanel Orientation="Horizontal">
@@ -897,6 +880,20 @@
 												<Setter Property="Foreground" Value="#222222" />
 												<Setter Property="FontWeight" Value="Normal" />
 											</DataTrigger>
+											<MultiDataTrigger>
+												<MultiDataTrigger.Conditions>
+													<Condition Binding="{Binding IsBuiltIn}" Value="False" />
+													<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource AncestorType=ComboBoxItem}}" Value="True" />
+												</MultiDataTrigger.Conditions>
+												<Setter Property="Foreground" Value="White" />
+											</MultiDataTrigger>
+											<MultiDataTrigger>
+												<MultiDataTrigger.Conditions>
+													<Condition Binding="{Binding IsQueue}" Value="True" />
+													<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource AncestorType=ComboBoxItem}}" Value="True" />
+												</MultiDataTrigger.Conditions>
+												<Setter Property="Foreground" Value="White" />
+											</MultiDataTrigger>
 										</Style.Triggers>
 									</Style>
 								</TextBlock.Style>

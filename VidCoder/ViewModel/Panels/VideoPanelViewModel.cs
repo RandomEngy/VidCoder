@@ -30,50 +30,12 @@ namespace VidCoder.ViewModel
 		private int displayTargetSize;
 		private int displayVideoBitrate;
 
-		private List<ComboChoice> x264ProfileChoices;
-		private List<ComboChoice> x264PresetChoices;
-		private List<ComboChoice> x264TuneChoices;
+
 
 		public VideoPanelViewModel(EncodingViewModel encodingViewModel)
 			: base(encodingViewModel)
 		{
 			this.encoderChoices = new List<HBVideoEncoder>();
-
-			this.x264ProfileChoices = new List<ComboChoice>
-			{
-				new ComboChoice(null, EncodingRes.NoneX264Choice),
-				new ComboChoice("baseline", EncodingRes.Profile_Baseline),
-				new ComboChoice("main", EncodingRes.Profile_Main),
-				new ComboChoice("high", EncodingRes.Profile_High),
-			};
-
-			this.x264PresetChoices = new List<ComboChoice>
-			{
-				new ComboChoice(null, EncodingRes.NoneX264Choice),
-				new ComboChoice("ultrafast", EncodingRes.Preset_UltraFast),
-				new ComboChoice("superfast", EncodingRes.Preset_SuperFast),
-				new ComboChoice("veryfast", EncodingRes.Preset_VeryFast),
-				new ComboChoice("faster", EncodingRes.Preset_Faster),
-				new ComboChoice("fast", EncodingRes.Preset_Fast),
-				new ComboChoice("medium", EncodingRes.Preset_Medium),
-				new ComboChoice("slow", EncodingRes.Preset_Slow),
-				new ComboChoice("slower", EncodingRes.Preset_Slower),
-				new ComboChoice("veryslow", EncodingRes.Preset_VerySlow),
-				new ComboChoice("placebo", EncodingRes.Preset_Placebo),
-			};
-
-			this.x264TuneChoices = new List<ComboChoice>
-			{
-				new ComboChoice(null, EncodingRes.NoneX264Choice),
-				new ComboChoice("film", EncodingRes.Tune_Film),
-				new ComboChoice("animation", EncodingRes.Tune_Animation),
-				new ComboChoice("grain", EncodingRes.Tune_Grain),
-				new ComboChoice("stillimage", EncodingRes.Tune_StillImage),
-				new ComboChoice("psnr", EncodingRes.Tune_Psnr),
-				new ComboChoice("ssim", EncodingRes.Tune_Ssim),
-				new ComboChoice("fastdecode", EncodingRes.Tune_FastDecode),
-				new ComboChoice("zerolatency", EncodingRes.Tune_ZeroLatency),
-			};
 
 			this.framerateChoices = new List<double>
 			{
@@ -620,74 +582,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public List<ComboChoice> X264ProfileChoices
-		{
-			get
-			{
-				return this.x264ProfileChoices;
-			}
-		}
 
-		public List<ComboChoice> X264PresetChoices
-		{
-			get
-			{
-				return this.x264PresetChoices;
-			}
-		} 
-
-		public List<ComboChoice> X264TuneChoices
-		{
-			get
-			{
-				return this.x264TuneChoices;
-			}
-		} 
-
-		public string X264Profile
-		{
-			get
-			{
-				return this.Profile.X264Profile;
-			}
-
-			set
-			{
-				this.Profile.X264Profile = value;
-				this.RaisePropertyChanged(() => this.X264Profile);
-				this.IsModified = true;
-			}
-		}
-
-		public string X264Preset
-		{
-			get
-			{
-				return this.Profile.X264Preset;
-			}
-
-			set
-			{
-				this.Profile.X264Preset = value;
-				this.RaisePropertyChanged(() => this.X264Preset);
-				this.IsModified = true;
-			}
-		}
-
-		public string X264Tune
-		{
-			get
-			{
-				return this.Profile.X264Tune;
-			}
-
-			set
-			{
-				this.Profile.X264Tune = value;
-				this.RaisePropertyChanged(() => this.X264Tune);
-				this.IsModified = true;
-			}
-		}
 
 		public void NotifyOutputFormatChanged(Container outputFormat)
 		{
@@ -749,9 +644,6 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.QualitySliderMax);
 			this.RaisePropertyChanged(() => this.QualitySliderLeftText);
 			this.RaisePropertyChanged(() => this.QualitySliderRightText);
-			this.RaisePropertyChanged(() => this.X264Profile);
-			this.RaisePropertyChanged(() => this.X264Preset);
-			this.RaisePropertyChanged(() => this.X264Tune);
 			this.RaisePropertyChanged(() => this.X264SettingsVisible);
 		}
 
