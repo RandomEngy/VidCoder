@@ -10,6 +10,8 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder.Services
 {
+	using System.Runtime.InteropServices;
+
 	public class DriveService : IDriveService
 	{
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
@@ -87,7 +89,14 @@ namespace VidCoder.Services
 
 		public void Close()
 		{
-			this.watcher.Stop();
+			try
+			{
+				this.watcher.Stop();
+			}
+			catch (COMException)
+			{
+				// Can happen if the user has already disconnected. Ignore and continue shutting down.
+			}
 		}
 	}
 }
