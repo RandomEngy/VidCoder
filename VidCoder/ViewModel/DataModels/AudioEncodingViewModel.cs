@@ -262,7 +262,7 @@ namespace VidCoder.ViewModel
 					}
 				}
 
-				this.audioPanelVM.RefreshExtensionChoice();
+				//this.audioPanelVM.RefreshExtensionChoice();
 
 				// Set encode rate type to Bitrate if quality is not supported.
 				if (!value.Encoder.IsPassthrough && !value.Encoder.SupportsQuality)

@@ -217,28 +217,12 @@ namespace VidCoder.ViewModel.Components
 		{
 			string extension;
 
-			// If we have a text source subtitle, force .m4v extension.
-			bool allowMp4Extension = true;
-			if (givenSubtitles != null && givenSubtitles.SourceSubtitles != null)
-			{
-				foreach (SourceSubtitle sourceSubtitle in givenSubtitles.SourceSubtitles)
-				{
-					if (sourceSubtitle.TrackNumber > 0)
-					{
-						if (givenTitle.Subtitles[sourceSubtitle.TrackNumber - 1].SubtitleType == SubtitleType.Text)
-						{
-							allowMp4Extension = false;
-						}
-					}
-				}
-			}
-
 			EncodingProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
 			if (profile.OutputFormat == Container.Mkv)
 			{
 				extension = ".mkv";
 			}
-			else if (profile.PreferredExtension == OutputExtension.Mp4 && allowMp4Extension)
+			else if (profile.PreferredExtension == OutputExtension.Mp4)
 			{
 				extension = ".mp4";
 			}

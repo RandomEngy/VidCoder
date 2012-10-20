@@ -115,10 +115,10 @@
 				Content="{x:Static res:EncodingRes.ExtensionLabel}" />
 			
 			<StackPanel Orientation="Vertical">
-				<RadioButton Name="radioButton3" Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
+				<RadioButton Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
 					IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Mp4}"
 					Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">.mp4</RadioButton>
-				<RadioButton Height="16" Name="radioButton4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
+				<RadioButton Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
 					IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=M4v}"
 					Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">.m4v</RadioButton>
 			</StackPanel>

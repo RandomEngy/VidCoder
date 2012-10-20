@@ -355,7 +355,7 @@
 			Grid.RowSpan="2"
 			Name="sourceSelectionMenu"
 			MinWidth="220" HorizontalAlignment="Left"
-			Margin="26,30,0,0" VerticalAlignment="Top" Canvas.ZIndex="20"
+			Margin="8,30,0,0" VerticalAlignment="Top" Canvas.ZIndex="20"
 			Background="White" BorderBrush="Black" BorderThickness="1"
 			Visibility="{Binding SourceSelectionExpanded, Converter={StaticResource VisibilityConverter}}">
 			<Border.Effect>
@@ -853,7 +853,7 @@
 					Content="{x:Static res:MainRes.PresetLabel}"/>
 
 				<ComboBox 
-					HorizontalAlignment="Left"  Name="presetComboBox" MinWidth="140" MaxWidth="160" Height="22.76" VerticalAlignment="Center" Margin="2,0,0,0" VerticalContentAlignment="Center"
+					HorizontalAlignment="Left"  Name="presetComboBox" MinWidth="140" MaxWidth="220" Height="22.76" VerticalAlignment="Center" Margin="2,0,0,0" VerticalContentAlignment="Center"
 					UseLayoutRounding="True"
 					ItemsSource="{Binding PresetsVM.AllPresets}" SelectedItem="{Binding PresetsVM.SelectedPreset}"
 					>

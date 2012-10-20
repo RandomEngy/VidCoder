@@ -119,7 +119,7 @@ namespace VidCoder.ViewModel
 
 						this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this.EncodingViewModel.OutputFormat, this));
 						this.RaisePropertyChanged(() => this.HasAudioTracks);
-						this.RefreshExtensionChoice();
+						//this.RefreshExtensionChoice();
 						this.RefreshAudioPreview();
 						this.UpdateAudioEncodings();
 						this.IsModified = true;
@@ -134,7 +134,7 @@ namespace VidCoder.ViewModel
 		{
 			this.AudioEncodings.Remove(audioEncodingVM);
 			this.RaisePropertyChanged(() => this.HasAudioTracks);
-			this.RefreshExtensionChoice();
+			//this.RefreshExtensionChoice();
 			this.RefreshAudioPreview();
 			this.UpdateAudioEncodings();
 			this.IsModified = true;
@@ -352,9 +352,9 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public void RefreshExtensionChoice()
-		{
-			this.EncodingViewModel.RefreshExtensionChoice();
-		}
+		//public void RefreshExtensionChoice()
+		//{
+		//    this.EncodingViewModel.RefreshExtensionChoice();
+		//}
 	}
 }

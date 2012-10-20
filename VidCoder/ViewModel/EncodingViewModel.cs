@@ -289,28 +289,28 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public void RefreshExtensionChoice()
-		{
-			if (this.OutputFormat != Container.Mp4)
-			{
-				return;
-			}
+		//public void RefreshExtensionChoice()
+		//{
+		//    if (this.OutputFormat != Container.Mp4)
+		//    {
+		//        return;
+		//    }
 
-			bool enableMp4 = true;
-			foreach (AudioEncodingViewModel audioVM in this.AudioPanelViewModel.AudioEncodings)
-			{
-				if (audioVM.SelectedAudioEncoder.Encoder.ShortName == "copy:ac3")
-				{
-					enableMp4 = false;
-					break;
-				}
-			}
+		//    bool enableMp4 = true;
+		//    foreach (AudioEncodingViewModel audioVM in this.AudioPanelViewModel.AudioEncodings)
+		//    {
+		//        if (audioVM.SelectedAudioEncoder.Encoder.ShortName == "copy:ac3")
+		//        {
+		//            enableMp4 = false;
+		//            break;
+		//        }
+		//    }
 
-			if (!enableMp4 && this.PreferredExtension == OutputExtension.Mp4)
-			{
-				this.PreferredExtension = OutputExtension.M4v;
-			}
-		}
+		//    if (!enableMp4 && this.PreferredExtension == OutputExtension.Mp4)
+		//    {
+		//        this.PreferredExtension = OutputExtension.M4v;
+		//    }
+		//}
 
 		public bool LargeFile
 		{
