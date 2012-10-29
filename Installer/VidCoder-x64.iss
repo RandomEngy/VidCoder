@@ -60,6 +60,7 @@ Filename: "{app}\VidCoder.exe"; Description: "Run VidCoder"; Flags: postinstall 
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{userappdata}\VidCoder\Updates"
+Type: filesandordirs; Name: "{localappdata}\VidCoder"
 
 [CustomMessages]
 dotnetmissing=VidCoder requires Microsoft .NET Framework 4, which is not installed. Would you like to download it now?
@@ -105,7 +106,7 @@ procedure DeleteUserFiles();
 var
   iAns: Integer;
 begin
-  iAns := MsgBox('Do you want to delete your presets as well?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2);
+  iAns := MsgBox('Do you want to delete your settings and presets as well?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2);
 
   if iAns = IDYES then
   begin
