@@ -5,7 +5,6 @@ using System.Text;
 using System.Timers;
 using System.Diagnostics;
 using System.Collections.Specialized;
-using VidCoder.Properties;
 
 namespace VidCoder.Services
 {
@@ -137,11 +136,11 @@ namespace VidCoder.Services
 		private string AutoPauseProcess()
 		{
 			Process[] processes = this.processes.GetProcesses();
-			StringCollection autoPauseStringCollection = Settings.Default.AutoPauseProcesses;
+			List<string> autoPauseList = CustomConfig.AutoPauseProcesses;
 
-			if (autoPauseStringCollection != null)
+			if (autoPauseList != null)
 			{
-				foreach (string autoPauseProcessName in autoPauseStringCollection)
+				foreach (string autoPauseProcessName in autoPauseList)
 				{
 					// If the process is present now but not when we started, pause it.
 					if (processes.Count(p => p.ProcessName == autoPauseProcessName) > 0 &&

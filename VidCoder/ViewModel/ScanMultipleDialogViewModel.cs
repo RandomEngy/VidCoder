@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HandBrake.Interop;
-using System.Threading;
 using VidCoder.Services;
-using VidCoder.Properties;
 
 namespace VidCoder.ViewModel
 {
@@ -48,7 +46,7 @@ namespace VidCoder.ViewModel
 			EncodeJobViewModel jobVM = itemsToScan[currentJobIndex];
 
 			HandBrakeInstance onDemandInstance = new HandBrakeInstance();
-			onDemandInstance.Initialize(Settings.Default.LogVerbosity);
+			onDemandInstance.Initialize(Config.LogVerbosity);
 			onDemandInstance.ScanCompleted += (o, e) =>
 			{
 				jobVM.HandBrakeInstance = onDemandInstance;

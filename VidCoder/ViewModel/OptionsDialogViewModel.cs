@@ -9,12 +9,11 @@ using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Services;
 using System.IO;
-using VidCoder.Properties;
-using System.Collections.Specialized;
 using System.Collections.ObjectModel;
 
 namespace VidCoder.ViewModel
 {
+	using System.Data.SQLite;
 	using System.Resources;
 	using LocalResources;
 	using Microsoft.Practices.Unity;
@@ -51,38 +50,38 @@ namespace VidCoder.ViewModel
 			this.updateService.UpdateDownloadProgress += this.OnUpdateDownloadProgress;
 			this.updateService.UpdateDownloadCompleted += this.OnUpdateDownloadCompleted;
 
-			this.updatesEnabled = Settings.Default.UpdatesEnabled;
-			this.betaUpdates = Settings.Default.BetaUpdates;
-			this.defaultPath = Settings.Default.AutoNameOutputFolder;
-			this.customFormat = Settings.Default.AutoNameCustomFormat;
-			this.customFormatString = Settings.Default.AutoNameCustomFormatString;
-			this.outputToSourceDirectory = Settings.Default.OutputToSourceDirectory;
-			this.whenFileExists = Settings.Default.WhenFileExists;
-			this.whenFileExistsBatch = Settings.Default.WhenFileExistsBatch;
-			this.minimizeToTray = Settings.Default.MinimizeToTray;
-			this.playSoundOnCompletion = Settings.Default.PlaySoundOnCompletion;
-			this.autoAudio = Settings.Default.AutoAudio;
-			this.audioLanguageCode = Settings.Default.AudioLanguageCode;
-			this.autoAudioAll = Settings.Default.AutoAudioAll;
-			this.autoSubtitle = Settings.Default.AutoSubtitle;
-			this.autoSubtitleBurnIn = Settings.Default.AutoSubtitleBurnIn;
-			this.subtitleLanguageCode = Settings.Default.SubtitleLanguageCode;
-			this.autoSubtitleOnlyIfDifferent = Settings.Default.AutoSubtitleOnlyIfDifferent;
-			this.autoSubtitleAll = Settings.Default.AutoSubtitleAll;
-			this.logVerbosity = Settings.Default.LogVerbosity;
-			this.previewCount = Settings.Default.PreviewCount;
-			this.rememberPreviousFiles = Settings.Default.RememberPreviousFiles;
-			this.showAudioTrackNameField = Settings.Default.ShowAudioTrackNameField;
-			this.keepScansAfterCompletion = Settings.Default.KeepScansAfterCompletion;
-			this.enableLibDvdNav = Settings.Default.EnableLibDvdNav;
-			this.deleteSourceFilesOnClearingCompleted = Settings.Default.DeleteSourceFilesOnClearingCompleted;
-			this.minimumTitleLengthSeconds = Settings.Default.MinimumTitleLengthSeconds;
+			this.updatesEnabled = Config.UpdatesEnabled;
+			this.betaUpdates = Config.BetaUpdates;
+			this.defaultPath = Config.AutoNameOutputFolder;
+			this.customFormat = Config.AutoNameCustomFormat;
+			this.customFormatString = Config.AutoNameCustomFormatString;
+			this.outputToSourceDirectory = Config.OutputToSourceDirectory;
+			this.whenFileExists = CustomConfig.WhenFileExists;
+			this.whenFileExistsBatch = CustomConfig.WhenFileExistsBatch;
+			this.minimizeToTray = Config.MinimizeToTray;
+			this.playSoundOnCompletion = Config.PlaySoundOnCompletion;
+			this.autoAudio = CustomConfig.AutoAudio;
+			this.audioLanguageCode = Config.AudioLanguageCode;
+			this.autoAudioAll = Config.AutoAudioAll;
+			this.autoSubtitle = CustomConfig.AutoSubtitle;
+			this.autoSubtitleBurnIn = Config.AutoSubtitleBurnIn;
+			this.subtitleLanguageCode = Config.SubtitleLanguageCode;
+			this.autoSubtitleOnlyIfDifferent = Config.AutoSubtitleOnlyIfDifferent;
+			this.autoSubtitleAll = Config.AutoSubtitleAll;
+			this.logVerbosity = Config.LogVerbosity;
+			this.previewCount = Config.PreviewCount;
+			this.rememberPreviousFiles = Config.RememberPreviousFiles;
+			this.showAudioTrackNameField = Config.ShowAudioTrackNameField;
+			this.keepScansAfterCompletion = Config.KeepScansAfterCompletion;
+			this.enableLibDvdNav = Config.EnableLibDvdNav;
+			this.deleteSourceFilesOnClearingCompleted = Config.DeleteSourceFilesOnClearingCompleted;
+			this.minimumTitleLengthSeconds = Config.MinimumTitleLengthSeconds;
 			this.autoPauseProcesses = new ObservableCollection<string>();
-			this.videoFileExtensions = Settings.Default.VideoFileExtensions;
-			StringCollection autoPauseStringCollection = Settings.Default.AutoPauseProcesses;
-			if (autoPauseStringCollection != null)
+			this.videoFileExtensions = Config.VideoFileExtensions;
+			List<string> autoPauseList = CustomConfig.AutoPauseProcesses;
+			if (autoPauseList != null)
 			{
-				foreach (string process in autoPauseStringCollection)
+				foreach (string process in autoPauseList)
 				{
 					this.autoPauseProcesses.Add(process);
 				}
@@ -96,7 +95,7 @@ namespace VidCoder.ViewModel
 						new InterfaceLanguage { CultureCode = "de-DE", Display = "Deutsch" },
 					};
 
-			this.interfaceLanguage = this.languageChoices.FirstOrDefault(l => l.CultureCode == Settings.Default.InterfaceLanguageCode);
+			this.interfaceLanguage = this.languageChoices.FirstOrDefault(l => l.CultureCode == Config.InterfaceLanguageCode);
 			if (this.interfaceLanguage == null)
 			{
 				this.interfaceLanguage = this.languageChoices[0];
@@ -109,7 +108,7 @@ namespace VidCoder.ViewModel
 
 				foreach (IVideoPlayer player in this.playerChoices)
 				{
-					if (player.Id == Settings.Default.PreferredPlayer)
+					if (player.Id == Config.PreferredPlayer)
 					{
 						this.selectedPlayer = player;
 						break;
@@ -734,68 +733,72 @@ namespace VidCoder.ViewModel
 			{
 				return this.saveSettingsCommand ?? (this.saveSettingsCommand = new RelayCommand(() =>
 					{
-						if (Settings.Default.UpdatesEnabled != this.UpdatesEnabled || Settings.Default.BetaUpdates != this.BetaUpdates)
+						using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
 						{
-							Settings.Default.UpdatesEnabled = this.UpdatesEnabled;
-							Settings.Default.BetaUpdates = this.BetaUpdates;
-							this.updateService.HandleUpdatedSettings(this.UpdatesEnabled);
+							if (Config.UpdatesEnabled != this.UpdatesEnabled || Config.BetaUpdates != this.BetaUpdates)
+							{
+								Config.UpdatesEnabled = this.UpdatesEnabled;
+								Config.BetaUpdates = this.BetaUpdates;
+								this.updateService.HandleUpdatedSettings(this.UpdatesEnabled);
+							}
+
+							if (Config.InterfaceLanguageCode != this.InterfaceLanguage.CultureCode)
+							{
+								Config.InterfaceLanguageCode = this.InterfaceLanguage.CultureCode;
+								Unity.Container.Resolve<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
+							}
+
+							Config.AutoNameOutputFolder = this.DefaultPath;
+							Config.AutoNameCustomFormat = this.CustomFormat;
+							Config.AutoNameCustomFormatString = this.CustomFormatString;
+							Config.OutputToSourceDirectory = this.OutputToSourceDirectory;
+							CustomConfig.WhenFileExists = this.WhenFileExists;
+							CustomConfig.WhenFileExistsBatch = this.WhenFileExistsBatch;
+							Config.MinimizeToTray = this.MinimizeToTray;
+							//Config.MinimizeToTray = this.MinimizeToTray;
+							Config.PlaySoundOnCompletion = this.PlaySoundOnCompletion;
+							CustomConfig.AutoAudio = this.AutoAudio;
+							Config.AudioLanguageCode = this.AudioLanguageCode;
+							Config.AutoAudioAll = this.AutoAudioAll;
+							CustomConfig.AutoSubtitle = this.AutoSubtitle;
+							Config.AutoSubtitleBurnIn = this.AutoSubtitleBurnIn;
+							Config.SubtitleLanguageCode = this.SubtitleLanguageCode;
+							Config.AutoSubtitleOnlyIfDifferent = this.AutoSubtitleOnlyIfDifferent;
+							Config.AutoSubtitleAll = this.AutoSubtitleAll;
+							Config.LogVerbosity = this.LogVerbosity;
+							var autoPauseList = new List<string>();
+							foreach (string process in this.AutoPauseProcesses)
+							{
+								autoPauseList.Add(process);
+							}
+
+							CustomConfig.AutoPauseProcesses = autoPauseList;
+							Config.PreviewCount = this.PreviewCount;
+							Config.RememberPreviousFiles = this.RememberPreviousFiles;
+							// Clear out any file/folder history when this is disabled.
+							if (!this.RememberPreviousFiles)
+							{
+								Config.LastCsvFolder = null;
+								Config.LastInputFileFolder = null;
+								Config.LastOutputFolder = null;
+								Config.LastPresetExportFolder = null;
+								Config.LastSrtFolder = null;
+								Config.LastVideoTSFolder = null;
+
+								Config.SourceHistory = null;
+							}
+
+							Config.ShowAudioTrackNameField = this.ShowAudioTrackNameField;
+							Config.EnableLibDvdNav = this.EnableLibDvdNav;
+							Config.KeepScansAfterCompletion = this.KeepScansAfterCompletion;
+							Config.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
+							Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
+							Config.VideoFileExtensions = this.VideoFileExtensions;
+
+							Config.PreferredPlayer = this.selectedPlayer.Id;
+
+							transaction.Commit();
 						}
-
-						if (Settings.Default.InterfaceLanguageCode != this.InterfaceLanguage.CultureCode)
-						{
-							Settings.Default.InterfaceLanguageCode = this.InterfaceLanguage.CultureCode;
-							Unity.Container.Resolve<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
-						}
-
-						Settings.Default.AutoNameOutputFolder = this.DefaultPath;
-						Settings.Default.AutoNameCustomFormat = this.CustomFormat;
-						Settings.Default.AutoNameCustomFormatString = this.CustomFormatString;
-						Settings.Default.OutputToSourceDirectory = this.OutputToSourceDirectory;
-						Settings.Default.WhenFileExists = this.WhenFileExists;
-						Settings.Default.WhenFileExistsBatch = this.WhenFileExistsBatch;
-						Settings.Default.MinimizeToTray = this.MinimizeToTray;
-						Settings.Default.PlaySoundOnCompletion = this.PlaySoundOnCompletion;
-						Settings.Default.AutoAudio = this.AutoAudio;
-						Settings.Default.AudioLanguageCode = this.AudioLanguageCode;
-						Settings.Default.AutoAudioAll = this.AutoAudioAll;
-						Settings.Default.AutoSubtitle = this.AutoSubtitle;
-						Settings.Default.AutoSubtitleBurnIn = this.AutoSubtitleBurnIn;
-						Settings.Default.SubtitleLanguageCode = this.SubtitleLanguageCode;
-						Settings.Default.AutoSubtitleOnlyIfDifferent = this.AutoSubtitleOnlyIfDifferent;
-						Settings.Default.AutoSubtitleAll = this.AutoSubtitleAll;
-						Settings.Default.LogVerbosity = this.LogVerbosity;
-						var autoPauseStringCollection = new StringCollection();
-						foreach (string process in this.AutoPauseProcesses)
-						{
-							autoPauseStringCollection.Add(process);
-						}
-
-						Settings.Default.AutoPauseProcesses = autoPauseStringCollection;
-						Settings.Default.PreviewCount = this.PreviewCount;
-						Settings.Default.RememberPreviousFiles = this.RememberPreviousFiles;
-						// Clear out any file/folder history when this is disabled.
-						if (!this.RememberPreviousFiles)
-						{
-							Settings.Default.LastCsvFolder = null;
-							Settings.Default.LastInputFileFolder = null;
-							Settings.Default.LastOutputFolder = null;
-							Settings.Default.LastPresetExportFolder = null;
-							Settings.Default.LastSrtFolder = null;
-							Settings.Default.LastVideoTSFolder = null;
-
-							Settings.Default.SourceHistory = null;
-						}
-
-						Settings.Default.ShowAudioTrackNameField = this.ShowAudioTrackNameField;
-						Settings.Default.EnableLibDvdNav = this.EnableLibDvdNav;
-						Settings.Default.KeepScansAfterCompletion = this.KeepScansAfterCompletion;
-						Settings.Default.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
-						Settings.Default.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
-						Settings.Default.VideoFileExtensions = this.VideoFileExtensions;
-
-						Settings.Default.PreferredPlayer = this.selectedPlayer.Id;
-
-						Settings.Default.Save();
 
 						Messenger.Default.Send(new OptionsChangedMessage());
 

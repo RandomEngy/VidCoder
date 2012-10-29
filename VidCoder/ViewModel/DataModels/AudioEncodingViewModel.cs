@@ -513,7 +513,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return Settings.Default.ShowAudioTrackNameField;
+				return Config.ShowAudioTrackNameField;
 			}
 		}
 

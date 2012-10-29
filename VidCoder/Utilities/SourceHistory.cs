@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using VidCoder.Properties;
 
 namespace VidCoder
 {
@@ -12,7 +11,7 @@ namespace VidCoder
 
 		public static void AddToHistory(string sourcePath)
 		{
-			if (!Settings.Default.RememberPreviousFiles)
+			if (!Config.RememberPreviousFiles)
 			{
 				return;
 			}
@@ -27,8 +26,7 @@ namespace VidCoder
 				history.RemoveAt(history.Count - 1);
 			}
 
-			Settings.Default.SourceHistory = string.Join("|", history);
-			Settings.Default.Save();
+			Config.SourceHistory = string.Join("|", history);
 		}
 
 		/// <summary>
@@ -36,7 +34,7 @@ namespace VidCoder
 		/// </summary>
 		public static List<string> GetHistory()
 		{
-			string historySetting = Settings.Default.SourceHistory;
+			string historySetting = Config.SourceHistory;
 			if (string.IsNullOrEmpty(historySetting))
 			{
 				return new List<string>();

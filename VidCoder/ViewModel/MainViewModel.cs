@@ -23,6 +23,7 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
+	using System.Data.SQLite;
 	using LocalResources;
 	using VideoRangeType = Model.VideoRangeTypeCombo;
 
@@ -195,7 +196,7 @@ namespace VidCoder.ViewModel
 			}
 
 			string videoFile = FileService.Instance.GetFileNameLoad(
-				Settings.Default.RememberPreviousFiles ? Settings.Default.LastInputFileFolder : null, 
+				Config.RememberPreviousFiles ? Config.LastInputFileFolder : null, 
 				"Load video file");
 
 			if (videoFile != null)
@@ -209,10 +210,9 @@ namespace VidCoder.ViewModel
 
 		public void SetSourceFromFile(string videoFile)
 		{
-			if (Settings.Default.RememberPreviousFiles)
+			if (Config.RememberPreviousFiles)
 			{
-				Settings.Default.LastInputFileFolder = Path.GetDirectoryName(videoFile);
-				Settings.Default.Save();
+				Config.LastInputFileFolder = Path.GetDirectoryName(videoFile);
 			}
 
 			this.SourceName = Utilities.GetSourceNameFile(videoFile);
@@ -230,7 +230,7 @@ namespace VidCoder.ViewModel
 			}
 
 			string folderPath = FileService.Instance.GetFolderName(
-				Settings.Default.RememberPreviousFiles ? Settings.Default.LastVideoTSFolder : null, 
+				Config.RememberPreviousFiles ? Config.LastVideoTSFolder : null, 
 				MainRes.PickDiscFolderHelpText);
 
 			// Make sure we get focus back after displaying the dialog.
@@ -247,10 +247,9 @@ namespace VidCoder.ViewModel
 
 		public void SetSourceFromFolder(string videoFolder)
 		{
-			if (Settings.Default.RememberPreviousFiles)
+			if (Config.RememberPreviousFiles)
 			{
-				Settings.Default.LastVideoTSFolder = videoFolder;
-				Settings.Default.Save();
+				Config.LastVideoTSFolder = videoFolder;
 			}
 
 			this.SourceName = Utilities.GetSourceNameFolder(videoFolder);
@@ -286,19 +285,19 @@ namespace VidCoder.ViewModel
 		{
 			bool windowOpened = false;
 
-			if (Settings.Default.EncodingWindowOpen)
+			if (Config.EncodingWindowOpen)
 			{
 				this.WindowManagerVM.OpenEncodingWindow();
 				windowOpened = true;
 			}
 
-			if (Settings.Default.PreviewWindowOpen)
+			if (Config.PreviewWindowOpen)
 			{
 				this.WindowManagerVM.OpenPreviewWindow();
 				windowOpened = true;
 			}
 
-			if (Settings.Default.LogWindowOpen)
+			if (Config.LogWindowOpen)
 			{
 				this.WindowManagerVM.OpenLogWindow();
 				windowOpened = true;
@@ -362,10 +361,14 @@ namespace VidCoder.ViewModel
 				WindowManager.Close(logWindow);
 			}
 
-			Settings.Default.EncodingWindowOpen = encodingWindow != null;
-			Settings.Default.PreviewWindowOpen = previewWindow != null;
-			Settings.Default.LogWindowOpen = logWindow != null;
-			Settings.Default.Save();
+			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
+			{
+				Config.EncodingWindowOpen = encodingWindow != null;
+				Config.PreviewWindowOpen = previewWindow != null;
+				Config.LogWindowOpen = logWindow != null;
+
+				transaction.Commit();
+			}
 
 			this.driveService.Close();
 			this.ProcessingVM.CleanupHandBrakeInstances();
@@ -708,7 +711,7 @@ namespace VidCoder.ViewModel
 					this.CurrentSubtitles = new Subtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
 
 					// Audio selection
-					switch (Settings.Default.AutoAudio)
+					switch (CustomConfig.AutoAudio)
 					{
 						case AutoAudioType.Disabled:
 							// If no auto-selection is done, keep audio from previous selection.
@@ -738,10 +741,10 @@ namespace VidCoder.ViewModel
 							break;
 						case AutoAudioType.Language:
 							this.AudioChoices.Clear();
-							List<AudioTrack> nativeTracks = this.selectedTitle.AudioTracks.Where(track => track.LanguageCode == Settings.Default.AudioLanguageCode).ToList();
+							List<AudioTrack> nativeTracks = this.selectedTitle.AudioTracks.Where(track => track.LanguageCode == Config.AudioLanguageCode).ToList();
 							if (nativeTracks.Count > 0)
 							{
-								if (Settings.Default.AutoAudioAll)
+								if (Config.AutoAudioAll)
 								{
 									foreach (AudioTrack audioTrack in nativeTracks)
 									{
@@ -775,7 +778,7 @@ namespace VidCoder.ViewModel
 						this.AudioChoices.Add(newVM);
 					}
 
-					switch (Settings.Default.AutoSubtitle)
+					switch (CustomConfig.AutoSubtitle)
 					{
 						case AutoSubtitleType.Disabled:
 							// If no auto-selection is done, try and keep selections from previous title
@@ -810,13 +813,13 @@ namespace VidCoder.ViewModel
 								new SourceSubtitle
 									{
 										TrackNumber = 0,
-										BurnedIn = Settings.Default.AutoSubtitleBurnIn,
+										BurnedIn = Config.AutoSubtitleBurnIn,
 										Forced = true,
 										Default = true
 									});
 							break;
 						case AutoSubtitleType.Language:
-							string languageCode = Settings.Default.SubtitleLanguageCode;
+							string languageCode = Config.SubtitleLanguageCode;
 							bool audioSame = false;
 							if (this.AudioChoices.Count > 0)
 							{
@@ -826,12 +829,12 @@ namespace VidCoder.ViewModel
 								}
 							}
 
-							if (!Settings.Default.AutoSubtitleOnlyIfDifferent || !audioSame)
+							if (!Config.AutoSubtitleOnlyIfDifferent || !audioSame)
 							{
 								List<Subtitle> nativeSubtitles = this.selectedTitle.Subtitles.Where(subtitle => subtitle.LanguageCode == languageCode).ToList();
 								if (nativeSubtitles.Count > 0)
 								{
-									if (Settings.Default.AutoSubtitleAll)
+									if (Config.AutoSubtitleAll)
 									{
 										foreach (Subtitle subtitle in nativeSubtitles)
 										{
@@ -1703,8 +1706,7 @@ namespace VidCoder.ViewModel
 						if (queueDialog.DialogResult)
 						{
 							// Apply new columns
-							Settings.Default.QueueColumns = queueDialog.NewColumns;
-							Settings.Default.Save();
+							Config.QueueColumns = queueDialog.NewColumns;
 							Messenger.Default.Send(new ApplyQueueColumnsMessage());
 						}
 					}));
@@ -1751,7 +1753,6 @@ namespace VidCoder.ViewModel
 						if (optionsVM.DialogResult)
 						{
 							Messenger.Default.Send(new OutputFolderChangedMessage());
-							this.OutputPathVM.GenerateOutputFileName();
 						}
 					}));
 			}
@@ -2009,7 +2010,7 @@ namespace VidCoder.ViewModel
 
 		public void RefreshTrayIcon(bool minimized)
 		{
-			this.ShowTrayIcon = Settings.Default.MinimizeToTray && minimized;
+			this.ShowTrayIcon = Config.MinimizeToTray && minimized;
 		}
 
 		/// <summary>
@@ -2084,7 +2085,7 @@ namespace VidCoder.ViewModel
 			this.logger.Log("Starting scan: " + path);
 
 			this.scanInstance = new HandBrakeInstance();
-			this.scanInstance.Initialize(Settings.Default.LogVerbosity);
+			this.scanInstance.Initialize(Config.LogVerbosity);
 			this.scanInstance.ScanProgress += (o, e) =>
 			{
 				this.ScanProgress = (e.CurrentTitle * 100) / e.Titles;
@@ -2136,7 +2137,7 @@ namespace VidCoder.ViewModel
 			this.ScanError = false;
 			this.ScanningSource = true;
 			this.scanCancelledFlag = false;
-			this.scanInstance.StartScan(path, Settings.Default.PreviewCount, TimeSpan.FromSeconds(Settings.Default.MinimumTitleLengthSeconds));
+			this.scanInstance.StartScan(path, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds));
 		}
 
 		private void UpdateFromNewVideoSource()

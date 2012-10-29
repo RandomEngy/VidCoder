@@ -11,7 +11,6 @@ using System.Windows.Input;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using VidCoder.Messages;
-using VidCoder.Properties;
 using System.IO;
 using Microsoft.Practices.Unity;
 using VidCoder.Services;
@@ -73,7 +72,7 @@ namespace VidCoder.ViewModel
 					this.RequestRefreshPreviews();
 				});
 
-			this.previewSeconds = Settings.Default.PreviewSeconds;
+			this.previewSeconds = Config.PreviewSeconds;
 			this.selectedPreview = 1;
 			this.Title = PreviewRes.NoVideoSourceTitle;
 
@@ -189,8 +188,7 @@ namespace VidCoder.ViewModel
 				this.previewSeconds = value;
 				this.RaisePropertyChanged(() => this.PreviewSeconds);
 
-				Settings.Default.PreviewSeconds = value;
-				Settings.Default.Save();
+				Config.PreviewSeconds = value;
 			}
 		}
 
@@ -253,7 +251,7 @@ namespace VidCoder.ViewModel
 					return this.previewCount - 1;
 				}
 
-				return Settings.Default.PreviewCount - 1;
+				return Config.PreviewCount - 1;
 			}
 		}
 
@@ -266,7 +264,7 @@ namespace VidCoder.ViewModel
 					return this.previewCount;
 				}
 
-				return Settings.Default.PreviewCount;
+				return Config.PreviewCount;
 			}
 		}
 
@@ -450,7 +448,7 @@ namespace VidCoder.ViewModel
 						if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
 						{
 							// Path is a directory
-							IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Settings.Default.PreferredPlayer);
+							IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);
 							if (player == null)
 							{
 								player = Players.Installed[0];

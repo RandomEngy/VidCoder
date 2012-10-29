@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Input;
 using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using System.IO;
 using Microsoft.Practices.Unity;
-using VidCoder.Messages;
-using VidCoder.Properties;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;
 
@@ -207,17 +203,16 @@ namespace VidCoder.ViewModel
 				return this.addSrtSubtitleCommand ?? (this.addSrtSubtitleCommand = new RelayCommand(() =>
 					{
 						string srtFile = FileService.Instance.GetFileNameLoad(
-							Settings.Default.RememberPreviousFiles ? Settings.Default.LastSrtFolder : null,
+							Config.RememberPreviousFiles ? Config.LastSrtFolder : null,
 							SubtitleRes.SrtFilePickerText,
 							"srt",
 							"SRT Files |*.srt");
 
 						if (srtFile != null)
 						{
-							if (Settings.Default.RememberPreviousFiles)
+							if (Config.RememberPreviousFiles)
 							{
-								Settings.Default.LastSrtFolder = Path.GetDirectoryName(srtFile);
-								Settings.Default.Save();
+								Config.LastSrtFolder = Path.GetDirectoryName(srtFile);
 							}
 
 							SrtSubtitle newSubtitle = new SrtSubtitle { FileName = srtFile, Default = false, CharacterCode = "UTF-8", LanguageCode = "eng", Offset = 0 };

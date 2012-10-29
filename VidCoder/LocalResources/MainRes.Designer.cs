@@ -605,6 +605,15 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose the output directory for encoded video files..
+        /// </summary>
+        public static string OutputDirectoryPickerText {
+            get {
+                return ResourceManager.GetString("OutputDirectoryPickerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot add encode jobs without a default output folder. Press OK to pick one..
         /// </summary>
         public static string OutputFolderRequiredMessage {
@@ -1161,6 +1170,15 @@ namespace VidCoder.LocalResources {
         public static string UpdateNotAppliedError {
             get {
                 return ResourceManager.GetString("UpdateNotAppliedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configuration was corrupted and could not be loaded. Some of your settings may have been reset..
+        /// </summary>
+        public static string UserConfigCorrupted {
+            get {
+                return ResourceManager.GetString("UserConfigCorrupted", resourceCulture);
             }
         }
         

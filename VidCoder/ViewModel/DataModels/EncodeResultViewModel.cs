@@ -11,7 +11,6 @@ using System.Globalization;
 using System.Windows.Input;
 using System.IO;
 using Microsoft.Practices.Unity;
-using VidCoder.Properties;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;
 

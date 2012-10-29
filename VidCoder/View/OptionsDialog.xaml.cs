@@ -10,7 +10,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using VidCoder.Properties;
 
 namespace VidCoder.View
 {
@@ -25,13 +24,12 @@ namespace VidCoder.View
 		{
 			InitializeComponent();
 
-			this.tabControl.SelectedIndex = Settings.Default.OptionsDialogLastTab;
+			this.tabControl.SelectedIndex = Config.OptionsDialogLastTab;
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			Settings.Default.OptionsDialogLastTab = this.tabControl.SelectedIndex;
-			Settings.Default.Save();
+			Config.OptionsDialogLastTab = this.tabControl.SelectedIndex;
 		}
 
 		private void Window_Closed(object sender, EventArgs e)

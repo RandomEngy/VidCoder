@@ -11,12 +11,12 @@ using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using System.Collections.ObjectModel;
 using VidCoder.Model;
-using VidCoder.Properties;
 
 using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
+	using System.Data.SQLite;
 	using LocalResources;
 
 	public class QueueTitlesDialogViewModel : OkCancelDialogViewModel
@@ -36,13 +36,13 @@ namespace VidCoder.ViewModel
 			this.main = Unity.Container.Resolve<MainViewModel>();
 
 			this.selectedTitles = new ObservableCollection<TitleSelectionViewModel>();
-			this.selectRange = Settings.Default.QueueTitlesUseRange;
-			this.startRange = Settings.Default.QueueTitlesStartTime;
-			this.endRange = Settings.Default.QueueTitlesEndTime;
-			this.titleStartOverrideEnabled = Settings.Default.QueueTitlesUseTitleOverride;
-			this.titleStartOverride = Settings.Default.QueueTitlesTitleOverride;
-			this.nameOverrideEnabled = Settings.Default.QueueTitlesUseNameOverride;
-			this.nameOverride = Settings.Default.QueueTitlesNameOverride;
+			this.selectRange = Config.QueueTitlesUseRange;
+			this.startRange = Config.QueueTitlesStartTime;
+			this.endRange = Config.QueueTitlesEndTime;
+			this.titleStartOverrideEnabled = Config.QueueTitlesUseTitleOverride;
+			this.titleStartOverride = Config.QueueTitlesTitleOverride;
+			this.nameOverrideEnabled = Config.QueueTitlesUseNameOverride;
+			this.nameOverride = Config.QueueTitlesNameOverride;
 
 			this.titles = new List<TitleSelectionViewModel>();
 			foreach (Title title in allTitles)
@@ -303,7 +303,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.playCommand ?? (this.playCommand = new RelayCommand(() =>
 					{
-						IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Settings.Default.PreferredPlayer);
+						IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);
 						if (player == null)
 						{
 							player = Players.Installed[0];
@@ -320,15 +320,19 @@ namespace VidCoder.ViewModel
 
 		public override void OnClosing()
 		{
-			Settings.Default.QueueTitlesUseRange = this.SelectRange;
-			Settings.Default.QueueTitlesStartTime = this.StartRange;
-			Settings.Default.QueueTitlesEndTime = this.EndRange;
-			Settings.Default.QueueTitlesUseTitleOverride = this.TitleStartOverrideEnabled;
-			Settings.Default.QueueTitlesTitleOverride = this.TitleStartOverride;
-			Settings.Default.QueueTitlesUseNameOverride = this.NameOverrideEnabled;
-			Settings.Default.QueueTitlesNameOverride = this.NameOverride;
+			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
+			{
+				Config.QueueTitlesUseRange = this.SelectRange;
+				Config.QueueTitlesStartTime = this.StartRange;
+				Config.QueueTitlesEndTime = this.EndRange;
+				Config.QueueTitlesUseTitleOverride = this.TitleStartOverrideEnabled;
+				Config.QueueTitlesTitleOverride = this.TitleStartOverride;
+				Config.QueueTitlesUseNameOverride = this.NameOverrideEnabled;
+				Config.QueueTitlesNameOverride = this.NameOverride;
 
-			Settings.Default.Save();
+				transaction.Commit();
+			}
+
 			base.OnClosing();
 		}
 

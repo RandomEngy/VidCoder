@@ -20,7 +20,7 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				string jobsXml = DatabaseConfig.GetConfigString("EncodeJobs2", Database.Connection);
+				string jobsXml = Config.EncodeJobs2;
 				if (string.IsNullOrEmpty(jobsXml))
 				{
 					// Check if there's an old queue collection we should upgrade
@@ -68,7 +68,7 @@ namespace VidCoder.Model
 			set
 			{
 				// Old are stored in EncodeJobs, new in EncodeJobs2
-				DatabaseConfig.SetConfigValue("EncodeJobs2", SerializeJobs(value), Database.Connection);
+				Config.EncodeJobs2 = SerializeJobs(value);
 			}
 		}
 
@@ -76,7 +76,7 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				string jobsXml = DatabaseConfig.GetConfigString("EncodeJobs", Database.Connection);
+				string jobsXml = Config.EncodeJobs;
 				if (string.IsNullOrEmpty(jobsXml))
 				{
 					return new List<EncodeJob>();

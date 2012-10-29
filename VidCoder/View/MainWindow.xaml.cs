@@ -33,6 +33,7 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.View
 {
+	using System.Windows.Interop;
 	using LocalResources;
 	using VideoRangeType = Model.VideoRangeTypeCombo;
 
@@ -186,7 +187,7 @@ namespace VidCoder.View
 		private static List<string> GetFileList(StringCollection itemList)
 		{
 			var videoExtensions = new List<string>();
-			string extensionsString = Settings.Default.VideoFileExtensions;
+			string extensionsString = Config.VideoFileExtensions;
 			string[] rawExtensions = extensionsString.Split(',', ';');
 			foreach (string rawExtension in rawExtensions)
 			{
@@ -271,7 +272,7 @@ namespace VidCoder.View
 			this.queueGridView.Columns.Clear();
 			var resources = new ResourceManager("VidCoder.Properties.Resources", typeof(Resources).Assembly);
 
-			List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Settings.Default.QueueColumns);
+			List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Config.QueueColumns);
 			foreach (Tuple<string, double> column in columns)
 			{
 				var queueColumn = new GridViewColumn
@@ -287,7 +288,7 @@ namespace VidCoder.View
 			var lastColumn = new GridViewColumn
 			{
 				CellTemplate = this.Resources["QueueRemoveTemplate"] as DataTemplate,
-				Width = Settings.Default.QueueLastColumnWidth
+				Width = Config.QueueLastColumnWidth
 			};
 			this.queueGridView.Columns.Add(lastColumn);
 		}
@@ -295,7 +296,7 @@ namespace VidCoder.View
 		private void SaveQueueColumns()
 		{
 			var queueColumnsBuilder = new StringBuilder();
-			List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Settings.Default.QueueColumns);
+			List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Config.QueueColumns);
 			for (int i = 0; i < columns.Count; i++)
 			{
 				queueColumnsBuilder.Append(columns[i].Item1);
@@ -308,12 +309,12 @@ namespace VidCoder.View
 				}
 			}
 
-			Settings.Default.QueueColumns = queueColumnsBuilder.ToString();
+			Config.QueueColumns = queueColumnsBuilder.ToString();
 		}
 
 		private void LoadCompletedColumnWidths()
 		{
-			string columnWidthsString = Settings.Default.CompletedColumnWidths;
+			string columnWidthsString = Config.CompletedColumnWidths;
 
 			if (string.IsNullOrEmpty(columnWidthsString))
 			{
@@ -349,7 +350,7 @@ namespace VidCoder.View
 				}
 			}
 
-			Settings.Default.CompletedColumnWidths = completedColumnsBuilder.ToString();
+			Config.CompletedColumnWidths = completedColumnsBuilder.ToString();
 		}
 
 		private void RefreshQueueTabs()
@@ -411,15 +412,14 @@ namespace VidCoder.View
 				this.SaveQueueColumns();
 				this.SaveCompletedColumnWidths();
 
-				Settings.Default.MainWindowPlacement = this.GetPlacement();
-				Settings.Default.Save();
+				Config.MainWindowPlacement = this.GetPlacement();
 			}
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			string placement = Settings.Default.MainWindowPlacement;
+			string placement = Config.MainWindowPlacement;
 
 			if (string.IsNullOrEmpty(placement))
 			{
@@ -438,6 +438,9 @@ namespace VidCoder.View
 			{
 				this.SetPlacement(placement);
 			}
+
+			var source = PresentationSource.FromVisual(this) as HwndSource;
+			source.AddHook(WndProc);
 		}
 
 		private void Window_PreviewDragOver(object sender, DragEventArgs e)
@@ -646,6 +649,18 @@ namespace VidCoder.View
 			return
 				clickedPoint.X >= relativePoint.X && clickedPoint.X <= relativePoint.X + element.ActualWidth &&
 				clickedPoint.Y >= relativePoint.Y && clickedPoint.Y <= relativePoint.Y + element.ActualHeight;
+		}
+
+		// Handle native window messages. 
+		private IntPtr WndProc(IntPtr hwnd, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
+		{
+			if (message == NativeMethods.WM_SHOWME)
+			{
+				// This is a message from a second instance trying to start up. Bring window to foreground when this happens.
+				this.Activate();
+			}
+
+			return IntPtr.Zero;
 		}
 	}
 }

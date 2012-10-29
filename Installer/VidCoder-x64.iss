@@ -3,20 +3,19 @@
 
 [Setup]
 AppName=VidCoder
-AppVerName=VidCoder 1.4.4 Beta (x64)
-AppVersion=1.4.4
+AppVerName=VidCoder 1.4.5 Beta (x64)
+AppVersion=1.4.5
 AppPublisher=RandomEngy
 AppPublisherURL=http://vidcoder.codeplex.com/
 
 DefaultDirName={pf}\VidCoder
 DisableProgramGroupPage=yes
-;DisableReadyPage=yes
 UninstallDisplayIcon={app}\VidCoder.exe
 Compression=lzma
 SolidCompression=yes
 
 OutputDir=BuiltInstallers
-OutputBaseFilename=VidCoder-1.4.4-Beta-x64
+OutputBaseFilename=VidCoder-1.4.5-Beta-x64
 
 AppId=VidCoder-x64
 UsePreviousAppDir=yes
@@ -106,12 +105,11 @@ procedure DeleteUserFiles();
 var
   iAns: Integer;
 begin
-  iAns := MsgBox('Do you want to delete your settings and presets as well?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2);
+  iAns := MsgBox('Do you want to delete your presets as well?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2);
 
   if iAns = IDYES then
   begin
     DelTree(ExpandConstant('{userappdata}') + '\VidCoder', True, True, True);
-    DelTree(ExpandConstant('{localappdata}') + '\VidCoder', True, True, True);
   end; 
 end;
 

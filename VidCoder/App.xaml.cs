@@ -27,6 +27,8 @@ namespace VidCoder
 	/// </summary>
 	public partial class App : Application
 	{
+		static Mutex mutex = new Mutex(true, "VidCoderSingleInstanceMutex");
+
 		protected override void OnStartup(StartupEventArgs e)
 		{
 #if !DEBUG
@@ -48,69 +50,54 @@ namespace VidCoder
 			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
 #endif
 
-			try
+			// Takes about 50ms
+			Config.Initialize(Database.Connection);
+
+			if (!Config.MigratedConfigs && Directory.Exists(Utilities.LocalAppFolder))
 			{
-				// Upgrade from previous user settings.
-				if (Settings.Default.ApplicationVersion != Utilities.CurrentVersion)
+				// Upgrade configs from previous version before migrating
+				try
 				{
-					Settings.Default.Upgrade();
-					Settings.Default.ApplicationVersion = Utilities.CurrentVersion;
-
-					if (Settings.Default.NativeLanguageCode != string.Empty)
+					if (Settings.Default.ApplicationVersion != Utilities.CurrentVersion)
 					{
-						var languageCode = Settings.Default.NativeLanguageCode;
-						Settings.Default.NativeLanguageCode = string.Empty;
+						Settings.Default.Upgrade();
+						Settings.Default.ApplicationVersion = Utilities.CurrentVersion;
 
-						if (languageCode != "und")
+						if (Settings.Default.NativeLanguageCode != string.Empty)
 						{
-							if (Settings.Default.DubAudio)
+							var languageCode = Settings.Default.NativeLanguageCode;
+							Settings.Default.NativeLanguageCode = string.Empty;
+
+							if (languageCode != "und")
 							{
-								Settings.Default.AudioLanguageCode = languageCode;
-								Settings.Default.AutoAudio = AutoAudioType.Language;
-							}
-							else
-							{
-								Settings.Default.SubtitleLanguageCode = languageCode;
-								Settings.Default.AutoSubtitle = AutoSubtitleType.Language;
+								if (Settings.Default.DubAudio)
+								{
+									Settings.Default.AudioLanguageCode = languageCode;
+									Settings.Default.AutoAudio = AutoAudioType.Language;
+								}
+								else
+								{
+									Settings.Default.SubtitleLanguageCode = languageCode;
+									Settings.Default.AutoSubtitle = AutoSubtitleType.Language;
+								}
 							}
 						}
+
+						Settings.Default.Save();
 					}
 
-					Settings.Default.Save();
+					ConfigMigration.MigrateConfigSettings();
 				}
-			}
-			catch (ConfigurationErrorsException exception)
-			{
-				// This exception will happen if the user.config Settings file becomes corrupt.
-				string userConfigFileName = ((ConfigurationErrorsException)exception.InnerException).Filename;
-
-				// Need to show two message boxes since the first is dismissed by the splash screen due to a bug
-				MessageBox.Show(string.Empty);
-				MessageBoxResult result = MessageBox.Show(
-					MainRes.UserConfigLoadError,
-					MainRes.UserConfigLoadErrorTitle,
-					MessageBoxButton.YesNo,
-					MessageBoxImage.Error);
-
-				if (result == MessageBoxResult.Yes)
+				catch (ConfigurationErrorsException)
 				{
-					// Clear out any user.config files
-					try
-					{
-						File.Delete(userConfigFileName);
-					}
-					catch (IOException)
-					{
-						MessageBox.Show("Unable to delete " + userConfigFileName);
-					}
+					// If we had problems loading the old config we can't recover.
+					MessageBox.Show(MainRes.UserConfigCorrupted);
 
-					// Need to relaunch the process to get the configuration system working again
-					Process.Start(System.Reflection.Assembly.GetExecutingAssembly().Location);
-					Environment.Exit(0);
+					Config.MigratedConfigs = true;
 				}
 			}
 
-			var interfaceLanguageCode = Settings.Default.InterfaceLanguageCode;
+			var interfaceLanguageCode = Config.InterfaceLanguageCode;
 			if (!string.IsNullOrWhiteSpace(interfaceLanguageCode))
 			{
 				var cultureInfo = new CultureInfo(interfaceLanguageCode);
@@ -128,6 +115,17 @@ namespace VidCoder
 			}
 			else
 			{
+				// Check if we're a duplicate instance
+				if (!mutex.WaitOne(TimeSpan.Zero, true))
+				{
+					NativeMethods.PostMessage(
+						(IntPtr)NativeMethods.HWND_BROADCAST,
+						NativeMethods.WM_SHOWME,
+						IntPtr.Zero,
+						IntPtr.Zero);
+					Environment.Exit(0);
+				}
+
 				this.GlobalInitialize();
 
 				var mainVM = new MainViewModel();
@@ -138,7 +136,7 @@ namespace VidCoder
 
 		private void GlobalInitialize()
 		{
-			HandBrakeUtils.SetDvdNav(Settings.Default.EnableLibDvdNav);
+			HandBrakeUtils.SetDvdNav(Config.EnableLibDvdNav);
 		}
 
 		private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

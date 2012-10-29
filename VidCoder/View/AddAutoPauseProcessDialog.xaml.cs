@@ -10,7 +10,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using VidCoder.Properties;
 using VidCoder.ViewModel;
 
 namespace VidCoder.View
@@ -28,13 +27,12 @@ namespace VidCoder.View
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			this.SetPlacement(Settings.Default.AddAutoPauseProcessDialogPlacement);
+			this.SetPlacement(Config.AddAutoPauseProcessDialogPlacement);
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			Settings.Default.AddAutoPauseProcessDialogPlacement = this.GetPlacement();
-			Settings.Default.Save();
+			Config.AddAutoPauseProcessDialogPlacement = this.GetPlacement();
 		}
 
 		private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -111,7 +111,7 @@ namespace VidCoder
 							this.channel = this.pipeFactory.CreateChannel();
 
 							this.channel.StartEncode(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds,
-													 Settings.Default.LogVerbosity, Settings.Default.PreviewCount);
+													 Config.LogVerbosity, Config.PreviewCount);
 						}
 						catch (CommunicationException)
 						{
@@ -181,7 +181,7 @@ namespace VidCoder
 			this.encodeEndEvent = new ManualResetEventSlim(false);
 
 			this.instance = new HandBrakeInstance();
-			this.instance.Initialize(Settings.Default.LogVerbosity);
+			this.instance.Initialize(Config.LogVerbosity);
 
 			this.instance.ScanCompleted += (o, e) =>
 			{
@@ -218,7 +218,7 @@ namespace VidCoder
 				this.OnEncodeComplete(e.Error);
 			};
 
-			this.instance.StartScan(job.SourcePath, Settings.Default.PreviewCount, job.Title);
+			this.instance.StartScan(job.SourcePath, Config.PreviewCount, job.Title);
 		}
 
 		public void PauseEncode()

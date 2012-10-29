@@ -12,7 +12,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Practices.Unity;
 using VidCoder.Model;
-using VidCoder.Properties;
 using VidCoder.Services;
 
 namespace VidCoder.View
@@ -53,7 +52,7 @@ namespace VidCoder.View
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			this.SetPlacement(Settings.Default.LogWindowPlacement);
+			this.SetPlacement(Config.LogWindowPlacement);
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -61,8 +60,7 @@ namespace VidCoder.View
 			this.logger.EntryLogged -= this.OnEntryLogged;
 			this.logger.Cleared -= this.OnCleared;
 
-			Settings.Default.LogWindowPlacement = this.GetPlacement();
-			Settings.Default.Save();
+			Config.LogWindowPlacement = this.GetPlacement();
 		}
 
 		private void OnEntryLogged(object sender, EventArgs<LogEntry> e)

@@ -11,7 +11,6 @@ using HandBrake.Interop.Model.Encoding;
 using Microsoft.Practices.Unity;
 using VidCoder.Messages;
 using VidCoder.Model;
-using VidCoder.Properties;
 using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
@@ -83,7 +82,7 @@ namespace VidCoder.ViewModel.Components
 			}
 			else
 			{
-				presetIndex = Settings.Default.LastPresetIndex;
+				presetIndex = Config.LastPresetIndex;
 			}
 
 			if (presetIndex >= this.allPresets.Count)
@@ -370,7 +369,7 @@ namespace VidCoder.ViewModel.Components
 			this.RaisePropertyChanged(() => this.SelectedPreset);
 			this.main.RefreshChapterMarkerUI();
 
-			Settings.Default.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
+			Config.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
 		}
 	}
 }

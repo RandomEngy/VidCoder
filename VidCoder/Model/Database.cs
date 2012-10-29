@@ -7,15 +7,23 @@ using System.Text;
 
 namespace VidCoder.Model
 {
+	using System.Threading;
+
 	public static class Database
 	{
 		private const string ConfigDatabaseFile = "VidCoder.sqlite";
 
 		private static SQLiteConnection connection;
 
+		private static ThreadLocal<SQLiteConnection> threadLocalConnection = new ThreadLocal<SQLiteConnection>();
+
+		private static long mainThreadId;
+
 		static Database()
 		{
-			int databaseVersion = DatabaseConfig.GetConfigInt("Version", Database.Connection);
+			mainThreadId = Thread.CurrentThread.ManagedThreadId;
+
+			int databaseVersion = DatabaseConfig.Version;
 			if (databaseVersion >= Utilities.CurrentDatabaseVersion)
 			{
 				return;
@@ -39,7 +47,7 @@ namespace VidCoder.Model
 					Presets.SavePresets(presetXmlList, Database.Connection);
 
 					// Upgrade encoding profiles on old queue items.
-					string jobsXml = DatabaseConfig.GetConfigString("EncodeJobs2", Database.Connection);
+					string jobsXml = Config.EncodeJobs2;
 					if (!string.IsNullOrEmpty(jobsXml))
 					{
 						EncodeJobPersistGroup persistGroup = EncodeJobsPersist.LoadJobsXmlString(jobsXml);
@@ -48,7 +56,7 @@ namespace VidCoder.Model
 							Presets.UpgradeEncodingProfile(job.Job.EncodingProfile, databaseVersion);
 						}
 
-						DatabaseConfig.SetConfigValue("EncodeJobs2", EncodeJobsPersist.SerializeJobs(persistGroup), Database.Connection);
+						Config.EncodeJobs2 = EncodeJobsPersist.SerializeJobs(persistGroup);
 					}
 				}
 
@@ -95,6 +103,32 @@ namespace VidCoder.Model
 				}
 
 				return connection;
+			}
+		}
+
+		public static SQLiteConnection ThreadLocalConnection
+		{
+			get
+			{
+				if (IsMainThread)
+				{
+					return Connection;
+				}
+
+				if (!threadLocalConnection.IsValueCreated)
+				{
+					threadLocalConnection.Value = Database.CreateConnection();
+				}
+
+				return threadLocalConnection.Value;
+			}
+		}
+
+		public static bool IsMainThread
+		{
+			get
+			{
+				return Thread.CurrentThread.ManagedThreadId == mainThreadId;
 			}
 		}
 

@@ -173,6 +173,10 @@
     <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight.WPF4, Version=0.0.0.0, Culture=neutral, PublicKeyToken=63eb5c012e0b3c1c, processorArchitecture=MSIL">
       <HintPath>..\Lib\GalaSoft.MvvmLight.WPF4.dll</HintPath>
@@ -205,6 +209,7 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
@@ -440,6 +445,8 @@
     <Compile Include="Model\AutoSubtitleType.cs" />
     <Compile Include="Model\ComboChoice.cs" />
     <Compile Include="Model\ComboChoiceT.cs" />
+    <Compile Include="Model\Config\CustomConfig.cs" />
+    <Compile Include="Model\Config\ConfigMigration.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="Model\DatabaseConfig.cs" />
     <Compile Include="Model\Combo\DecombCombo.cs" />
@@ -477,6 +484,7 @@
     <Compile Include="Services\Processes.cs" />
     <Compile Include="Services\SystemOperations.cs" />
     <Compile Include="Services\TrayService.cs" />
+    <Compile Include="Model\Config\ConfigDeclaration.cs" />
     <Compile Include="Utilities\EncodeProxy.cs" />
     <Compile Include="Utilities\EnumConverter.cs" />
     <Compile Include="Utilities\FileCleanup.cs" />
@@ -486,8 +494,15 @@
     <Compile Include="Utilities\ListSynchronizer\MultiSelectorBehaviors.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Utilities\ListSynchronizer\TwoListSynchronizer.cs" />
+    <Compile Include="Utilities\NativeMethods.cs" />
     <Compile Include="Utilities\PseudoLocalizer.cs" />
     <Compile Include="Utilities\RefireControl.cs" />
+    <Compile Include="Model\Config\Config.cs">
+      <DependentUpon>Config.tt</DependentUpon>
+      <SubType>Code</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="ViewModel\Components\OutputPathViewModel.cs" />
     <Compile Include="ViewModel\Components\PresetsViewModel.cs" />
     <Compile Include="ViewModel\Components\ProcessingViewModel.cs" />
@@ -737,6 +752,10 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Model\Config\Config.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Config.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\disc.png" />
@@ -765,6 +784,7 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Model\Config\Config.txt" />
     <Resource Include="Icons\blue_play_80.png" />
     <Resource Include="Icons\edit_16x16.png" />
     <SplashScreen Include="splash.png" />
@@ -810,6 +830,9 @@
       <Project>{63452895-7AA1-45EC-A0D8-3F30CCFA6D0D}</Project>
       <Name>VidCoderWorker</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

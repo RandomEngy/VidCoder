@@ -22,7 +22,6 @@ using HandBrake.Interop.SourceData;
 using Microsoft.Practices.Unity;
 using VidCoder.Messages;
 using VidCoder.Model;
-using VidCoder.Properties;
 using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
@@ -503,11 +502,10 @@ namespace VidCoder.ViewModel.Components
 							return;
 						}
 
-						IList<string> fileNames = FileService.Instance.GetFileNames(Settings.Default.RememberPreviousFiles ? Settings.Default.LastInputFileFolder : null);
+						IList<string> fileNames = FileService.Instance.GetFileNames(Config.RememberPreviousFiles ? Config.LastInputFileFolder : null);
 						if (fileNames != null && fileNames.Count > 0)
 						{
-							Settings.Default.LastInputFileFolder = Path.GetDirectoryName(fileNames[0]);
-							Settings.Default.Save();
+							Config.LastInputFileFolder = Path.GetDirectoryName(fileNames[0]);
 
 							this.QueueMultiple(fileNames);
 						}
@@ -724,7 +722,7 @@ namespace VidCoder.ViewModel.Components
 							}
 
 							// Delete file if setting is enabled and item succeeded
-							if (Settings.Default.DeleteSourceFilesOnClearingCompleted && removedItem.EncodeResult.Succeeded)
+							if (Config.DeleteSourceFilesOnClearingCompleted && removedItem.EncodeResult.Succeeded)
 							{
 								// And if file exists and is not read-only
 								string sourcePath = removedItem.Job.Job.SourcePath;
@@ -832,7 +830,7 @@ namespace VidCoder.ViewModel.Components
 
 			// Exclude all current queued files if overwrite is disabled
 			HashSet<string> excludedPaths;
-			if (Settings.Default.WhenFileExistsBatch == WhenFileExists.AutoRename)
+			if (CustomConfig.WhenFileExistsBatch == WhenFileExists.AutoRename)
 			{
 				excludedPaths = this.GetQueuedFiles();
 			}
@@ -1254,7 +1252,7 @@ namespace VidCoder.ViewModel.Components
 
 					// Wait until after it's removed from the queue before running cleanup: otherwise it will find
 					// the instance "in use" in the queue and not do removal.
-					if (!Settings.Default.KeepScansAfterCompletion)
+					if (!Config.KeepScansAfterCompletion)
 					{
 						this.CleanupHandBrakeInstanceIfUnused(finishedJob.HandBrakeInstance);
 						finishedJob.HandBrakeInstance = null;
@@ -1294,7 +1292,7 @@ namespace VidCoder.ViewModel.Components
 								throw new ArgumentOutOfRangeException();
 						}
 
-						if (Settings.Default.PlaySoundOnCompletion &&
+						if (Config.PlaySoundOnCompletion &&
 							actionType != EncodeCompleteActionType.Sleep && 
 							actionType != EncodeCompleteActionType.LogOff &&
 							actionType != EncodeCompleteActionType.Shutdown)
@@ -1432,7 +1430,7 @@ namespace VidCoder.ViewModel.Components
 
 		private bool EnsureDefaultOutputFolderSet()
 		{
-			if (!string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder))
+			if (!string.IsNullOrEmpty(Config.AutoNameOutputFolder))
 			{
 				return true;
 			}
@@ -1496,7 +1494,7 @@ namespace VidCoder.ViewModel.Components
 		private void AutoPickAudio(EncodeJob job, Title title, bool useCurrentContext = false)
 		{
 			job.ChosenAudioTracks = new List<int>();
-			switch (Settings.Default.AutoAudio)
+			switch (CustomConfig.AutoAudio)
 			{
 				case AutoAudioType.Disabled:
 					if (title.AudioTracks.Count > 0)
@@ -1529,10 +1527,10 @@ namespace VidCoder.ViewModel.Components
 
 					break;
 				case AutoAudioType.Language:
-					List<AudioTrack> nativeTracks = title.AudioTracks.Where(track => track.LanguageCode == Settings.Default.AudioLanguageCode).ToList();
+					List<AudioTrack> nativeTracks = title.AudioTracks.Where(track => track.LanguageCode == Config.AudioLanguageCode).ToList();
 					if (nativeTracks.Count > 0)
 					{
-						if (Settings.Default.AutoAudioAll)
+						if (Config.AutoAudioAll)
 						{
 							foreach (AudioTrack audioTrack in nativeTracks)
 							{
@@ -1567,7 +1565,7 @@ namespace VidCoder.ViewModel.Components
 		private void AutoPickSubtitles(EncodeJob job, Title title, bool useCurrentContext = false)
 		{
 			job.Subtitles = new Subtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
-			switch (Settings.Default.AutoSubtitle)
+			switch (CustomConfig.AutoSubtitle)
 			{
 				case AutoSubtitleType.Disabled:
 					// Only pick subtitles when we have previous context.
@@ -1593,13 +1591,13 @@ namespace VidCoder.ViewModel.Components
 						new SourceSubtitle
 						{
 							TrackNumber = 0,
-							BurnedIn = Settings.Default.AutoSubtitleBurnIn,
+							BurnedIn = Config.AutoSubtitleBurnIn,
 							Forced = true,
 							Default = true
 						});
 					break;
 				case AutoSubtitleType.Language:
-					string languageCode = Settings.Default.SubtitleLanguageCode;
+					string languageCode = Config.SubtitleLanguageCode;
 					bool audioSame = false;
 					if (job.ChosenAudioTracks.Count > 0 && title.AudioTracks.Count > 0)
 					{
@@ -1609,12 +1607,12 @@ namespace VidCoder.ViewModel.Components
 						}
 					}
 
-					if (!Settings.Default.AutoSubtitleOnlyIfDifferent || !audioSame)
+					if (!Config.AutoSubtitleOnlyIfDifferent || !audioSame)
 					{
 						List<Subtitle> nativeSubtitles = title.Subtitles.Where(subtitle => subtitle.LanguageCode == languageCode).ToList();
 						if (nativeSubtitles.Count > 0)
 						{
-							if (Settings.Default.AutoSubtitleAll)
+							if (Config.AutoSubtitleAll)
 							{
 								foreach (Subtitle subtitle in nativeSubtitles)
 								{

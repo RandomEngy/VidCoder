@@ -14,10 +14,12 @@ using System.ComponentModel;
 using VidCoder.ViewModel;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using VidCoder.Properties;
 
 namespace VidCoder.View
 {
+	using System.Data.SQLite;
+	using Model;
+
 	/// <summary>
 	/// Interaction logic for EncodingWindow.xaml
 	/// </summary>
@@ -27,13 +29,13 @@ namespace VidCoder.View
 		{
 			InitializeComponent();
 
-			this.tabControl.SelectedIndex = Settings.Default.EncodingDialogLastTab;
+			this.tabControl.SelectedIndex = Config.EncodingDialogLastTab;
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			string placement = Settings.Default.EncodingDialogPlacement;
+			string placement = Config.EncodingDialogPlacement;
 			if (string.IsNullOrEmpty(placement))
 			{
 				Rect workArea = SystemParameters.WorkArea;
@@ -55,9 +57,13 @@ namespace VidCoder.View
 
 		private void Window_Closing(object sender, CancelEventArgs e)
 		{
-			Settings.Default.EncodingDialogPlacement = this.GetPlacement();
-			Settings.Default.EncodingDialogLastTab = this.tabControl.SelectedIndex;
-			Settings.Default.Save();
+			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
+			{
+				Config.EncodingDialogPlacement = this.GetPlacement();
+				Config.EncodingDialogLastTab = this.tabControl.SelectedIndex;
+
+				transaction.Commit();
+			}
 		}
 
 		private void ToolBar_Loaded(object sender, RoutedEventArgs e)

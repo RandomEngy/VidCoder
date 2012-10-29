@@ -507,4 +507,10 @@
   <data name="PresetRemoveConfirmTitle">
     <value xml:space="preserve">Remove Preset</value>
   </data>
+  <data name="UserConfigCorrupted">
+    <value xml:space="preserve">Configuration was corrupted and could not be loaded. Some of your settings may have been reset.</value>
+  </data>
+  <data name="OutputDirectoryPickerText">
+    <value xml:space="preserve">Choose the output directory for encoded video files.</value>
+  </data>
 </root>

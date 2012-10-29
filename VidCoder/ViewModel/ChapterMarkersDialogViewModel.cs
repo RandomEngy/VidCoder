@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using HandBrake.Interop.SourceData;
-using VidCoder.Properties;
 using System.IO;
 using VidCoder.Services;
 
@@ -97,16 +96,15 @@ namespace VidCoder.ViewModel
 					this.importCsvFileCommand = new RelayCommand(() =>
 					{
 						string csvFile = FileService.Instance.GetFileNameLoad(
-							Settings.Default.RememberPreviousFiles ? Settings.Default.LastCsvFolder : null, 
+							Config.RememberPreviousFiles ? Config.LastCsvFolder : null, 
 							"Import chapters file", 
 							"csv", 
 							"CSV Files|*.csv");
 						if (csvFile != null)
 						{
-							if (Settings.Default.RememberPreviousFiles)
+							if (Config.RememberPreviousFiles)
 							{
-								Settings.Default.LastCsvFolder = Path.GetDirectoryName(csvFile);
-								Settings.Default.Save();
+								Config.LastCsvFolder = Path.GetDirectoryName(csvFile);
 							}
 
 							bool success = false;

@@ -6,7 +6,6 @@ using System.Text;
 using System.Xml.Linq;
 using Microsoft.Practices.Unity;
 using VidCoder.Model;
-using VidCoder.Properties;
 using VidCoder.ViewModel;
 using VidCoder.ViewModel.Components;
 
@@ -77,17 +76,16 @@ namespace VidCoder.Services
 			}
 
 			string exportFileName = this.fileService.GetFileNameSave(
-				Settings.Default.RememberPreviousFiles ? Settings.Default.LastPresetExportFolder : null,
+				Config.RememberPreviousFiles ? Config.LastPresetExportFolder : null,
 				MainRes.ExportPresetFilePickerText,
 				Utilities.CleanFileName(initialFileName + ".xml"),
 				"xml",
 				"XML Files|*.xml");
 			if (exportFileName != null)
 			{
-				if (Settings.Default.RememberPreviousFiles)
+				if (Config.RememberPreviousFiles)
 				{
-					Settings.Default.LastPresetExportFolder = Path.GetDirectoryName(exportFileName);
-					Settings.Default.Save();
+					Config.LastPresetExportFolder = Path.GetDirectoryName(exportFileName);
 				}
 
 				if (Presets.SavePresetToFile(exportPreset, exportFileName))
