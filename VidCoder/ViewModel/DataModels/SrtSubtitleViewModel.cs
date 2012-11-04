@@ -38,10 +38,16 @@ namespace VidCoder.ViewModel
 
 			set
 			{
-				this.subtitle.Default = value;
-				this.RaisePropertyChanged(() => this.Default);
+				if (value != this.subtitle.Default)
+				{
+					this.subtitle.Default = value;
+					this.RaisePropertyChanged(() => this.Default);
 
-				this.SubtitleDialogViewModel.ReportDefault(this);
+					if (value)
+					{
+						this.SubtitleDialogViewModel.ReportDefault(this);
+					}
+				}
 			}
 		}
 
