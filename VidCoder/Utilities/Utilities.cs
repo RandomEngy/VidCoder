@@ -430,6 +430,27 @@ namespace VidCoder
 				codec == AudioCodec.Mp3;
 		}
 
+		public static Title GetFeatureTitle(List<Title> titles, int hbFeatureTitle)
+		{
+			// If the feature title is supplied, find it in the list.
+			if (hbFeatureTitle > 0)
+			{
+				return titles.FirstOrDefault(title => title.TitleNumber == hbFeatureTitle);
+			}
+
+			// Select the first title within 80% of the duration of the longest title.
+			double maxSeconds = titles.Max(title => title.Duration.TotalSeconds);
+			foreach (Title title in titles)
+			{
+				if (title.Duration.TotalSeconds >= maxSeconds * .8)
+				{
+					return title;
+				}
+			}
+
+			return titles[0];
+		}
+
 		// Assumes the hashset has a comparer of StringComparer.OrdinalIgnoreCase
 		public static bool? FileExists(string path, HashSet<string> queuedPaths)
 		{

@@ -2146,28 +2146,7 @@ namespace VidCoder.ViewModel
 
 			if (this.sourceData != null && this.sourceData.Titles != null && this.sourceData.Titles.Count > 0)
 			{
-				if (this.sourceData.FeatureTitle > 0)
-				{
-					selectTitle = this.sourceData.Titles.FirstOrDefault(title => title.TitleNumber == this.sourceData.FeatureTitle);
-				}
-				else
-				{
-					// Select the first title within 80% of the duration of the longest title.
-					double maxSeconds = this.sourceData.Titles.Max(title => title.Duration.TotalSeconds);
-					foreach (Title title in this.sourceData.Titles)
-					{
-						if (title.Duration.TotalSeconds >= maxSeconds * .8)
-						{
-							selectTitle = title;
-							break;
-						}
-					}
-
-					if (selectTitle == null)
-					{
-						selectTitle = this.sourceData.Titles[0];
-					}
-				}
+				selectTitle = Utilities.GetFeatureTitle(this.sourceData.Titles, this.sourceData.FeatureTitle);
 			}
 
 			if (selectTitle != null)

@@ -7,6 +7,8 @@ using VidCoder.Services;
 
 namespace VidCoder.ViewModel
 {
+	using HandBrake.Interop.SourceData;
+
 	/// <summary>
 	/// View model for dialog that shows when scanning multiple files.
 	/// </summary>
@@ -45,7 +47,7 @@ namespace VidCoder.ViewModel
 		{
 			EncodeJobViewModel jobVM = itemsToScan[currentJobIndex];
 
-			HandBrakeInstance onDemandInstance = new HandBrakeInstance();
+			var onDemandInstance = new HandBrakeInstance();
 			onDemandInstance.Initialize(Config.LogVerbosity);
 			onDemandInstance.ScanCompleted += (o, e) =>
 			{
@@ -53,9 +55,12 @@ namespace VidCoder.ViewModel
 
 				if (onDemandInstance.Titles.Count > 0)
 				{
-					jobVM.Job.Length = onDemandInstance.Titles[0].Duration;
+					Title titleToEncode = Utilities.GetFeatureTitle(onDemandInstance.Titles, onDemandInstance.FeatureTitle);
+
+					jobVM.Job.Title = titleToEncode.TitleNumber;
+					jobVM.Job.Length = titleToEncode.Duration;
 					jobVM.Job.ChapterStart = 1;
-					jobVM.Job.ChapterEnd = onDemandInstance.Titles[0].Chapters.Count;
+					jobVM.Job.ChapterEnd = titleToEncode.Chapters.Count;
 				}
 
 				lock (this.currentJobIndexLock)
@@ -77,7 +82,7 @@ namespace VidCoder.ViewModel
 				}
 			};
 
-			onDemandInstance.StartScan(jobVM.Job.SourcePath, 10, 1);
+			onDemandInstance.StartScan(jobVM.Job.SourcePath, 10, 0);
 		}
 	}
 }
