@@ -7,14 +7,16 @@ using HandBrake.Interop;
 
 namespace VidCoder.ViewModel
 {
+	using GalaSoft.MvvmLight.Messaging;
 	using LocalResources;
+	using Messages;
 	using Model;
 	using Properties;
 
 	public class AdvancedPanelViewModel : PanelViewModel
 	{
 		private List<ComboChoice> x264ProfileChoices;
-		private List<ComboChoice> h264LevelChoices;
+		private List<LevelChoiceViewModel> h264LevelChoices;
 		private List<ComboChoice> x264PresetChoices;
 		private List<ComboChoice> x264TuneChoices;
 
@@ -31,26 +33,26 @@ namespace VidCoder.ViewModel
 				//new ComboChoice("high444", EncodingRes.Profile_High),
 			};
 
-			this.h264LevelChoices = new List<ComboChoice>
+			this.h264LevelChoices = new List<LevelChoiceViewModel>
 			{
-				new ComboChoice(null, Resources.Automatic),
-				new ComboChoice("1.0"),
-				new ComboChoice("1b"),
-				new ComboChoice("1.1"),
-				new ComboChoice("1.2"),
-				new ComboChoice("1.3"),
-				new ComboChoice("2.0"),
-				new ComboChoice("2.1"),
-				new ComboChoice("2.2"),
-				new ComboChoice("3.0"),
-				new ComboChoice("3.1"),
-				new ComboChoice("3.2"),
-				new ComboChoice("4.0"),
-				new ComboChoice("4.1"),
-				new ComboChoice("4.2"),
-				new ComboChoice("5.0"),
-				new ComboChoice("5.1"),
-				new ComboChoice("5.2")
+				new LevelChoiceViewModel(null, Resources.Automatic),
+				new LevelChoiceViewModel("1.0"),
+				new LevelChoiceViewModel("1b"),
+				new LevelChoiceViewModel("1.1"),
+				new LevelChoiceViewModel("1.2"),
+				new LevelChoiceViewModel("1.3"),
+				new LevelChoiceViewModel("2.0"),
+				new LevelChoiceViewModel("2.1"),
+				new LevelChoiceViewModel("2.2"),
+				new LevelChoiceViewModel("3.0"),
+				new LevelChoiceViewModel("3.1"),
+				new LevelChoiceViewModel("3.2"),
+				new LevelChoiceViewModel("4.0"),
+				new LevelChoiceViewModel("4.1"),
+				new LevelChoiceViewModel("4.2"),
+				new LevelChoiceViewModel("5.0"),
+				new LevelChoiceViewModel("5.1"),
+				new LevelChoiceViewModel("5.2")
 			};
 
 			this.x264PresetChoices = new List<ComboChoice>
@@ -80,6 +82,29 @@ namespace VidCoder.ViewModel
 				new ComboChoice("fastdecode", EncodingRes.Tune_FastDecode),
 				new ComboChoice("zerolatency", EncodingRes.Tune_ZeroLatency),
 			};
+
+			this.RefreshLevelCompatibility();
+
+			Messenger.Default.Register<SelectedTitleChangedMessage>(
+				this,
+				message =>
+				{
+					this.RefreshLevelCompatibility();
+				});
+
+			Messenger.Default.Register<OutputSizeChangedMessage>(
+				this,
+				message =>
+				{
+					this.RefreshLevelCompatibility();
+				});
+
+			Messenger.Default.Register<FramerateChangedMessage>(
+				this,
+				message =>
+				{
+					this.RefreshLevelCompatibility();
+				});
 		}
 
 		public List<ComboChoice> X264ProfileChoices
@@ -90,7 +115,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public List<ComboChoice> H264LevelChoices
+		public List<LevelChoiceViewModel> H264LevelChoices
 		{
 			get
 			{
@@ -196,6 +221,63 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.X264Preset);
 			this.RaisePropertyChanged(() => this.X264Tune);
 			this.RaisePropertyChanged(() => this.AdvancedOptionsString);
+		}
+
+		private void RefreshLevelCompatibility()
+		{
+			foreach (LevelChoiceViewModel levelChoice in this.H264LevelChoices)
+			{
+				if (levelChoice.Value != null)
+				{
+					var main = this.EncodingViewModel.MainViewModel;
+					var picturePanel = this.EncodingViewModel.PicturePanelViewModel;
+					if (main.HasVideoSource && picturePanel.StorageWidth > 0 && picturePanel.StorageHeight > 0)
+					{
+						int fpsNumerator;
+						int fpsDenominator;
+
+						if (this.Profile.Framerate == 0)
+						{
+							fpsNumerator = main.SelectedTitle.FramerateNumerator;
+							fpsDenominator = main.SelectedTitle.FramerateDenominator;
+						}
+						else
+						{
+							fpsNumerator = 27000000;
+							fpsDenominator = HandBrake.Interop.Converters.FramerateToVrate(this.Profile.Framerate);
+						}
+
+						bool interlaced = false;
+						bool fakeInterlaced = false;
+
+						Dictionary<string, string> advancedOptions = AdvancedOptionsParsing.ParseOptions(this.Profile.X264Options);
+						if (advancedOptions.ContainsKey("interlaced") && advancedOptions["interlaced"] == "1" ||
+							advancedOptions.ContainsKey("tff") && advancedOptions["tff"] == "1" ||
+							advancedOptions.ContainsKey("bff") && advancedOptions["bff"] == "1")
+						{
+							interlaced = true;
+						}
+
+						if (advancedOptions.ContainsKey("fake-interlaced") && advancedOptions["fake-interlaced"] == "1")
+						{
+							fakeInterlaced = true;
+						}
+
+						levelChoice.IsCompatible = HandBrakeUtils.IsH264LevelValid(
+							levelChoice.Value, 
+							picturePanel.StorageWidth, 
+							picturePanel.StorageHeight, 
+							fpsNumerator, 
+							fpsDenominator, 
+							interlaced, 
+							fakeInterlaced);
+					}
+					else
+					{
+						levelChoice.IsCompatible = true;
+					}
+				}
+			}
 		}
 	}
 }

@@ -92,7 +92,8 @@
 			<ComboBox
 				Height="23" MinWidth="120" Margin="6,0,0,0" VerticalContentAlignment="Center"
 				Style="{StaticResource LongToolTipHolder}"
-				ItemsSource="{Binding H264LevelChoices}" SelectedValue="{Binding H264Level}" SelectedValuePath="Value" DisplayMemberPath="Display">
+				ItemsSource="{Binding H264LevelChoices}" SelectedValue="{Binding H264Level}"
+				SelectedValuePath="Value" DisplayMemberPath="Display" ItemContainerStyle="{StaticResource GrayNonCompatible}">
 				<ComboBox.ToolTip>
 					<TextBlock Text="{x:Static res:EncodingRes.H264LevelToolTip}" Style="{StaticResource LongToolTip}" />
 				</ComboBox.ToolTip>

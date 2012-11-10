@@ -28,24 +28,7 @@
 			<Setter Property="Margin" Value="2" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
 		</Style>
-		<Style x:Key="GrayNonCompatible" TargetType="ComboBoxItem">
-			<Style.Triggers>
-				<MultiDataTrigger>
-					<MultiDataTrigger.Conditions>
-						<Condition Binding="{Binding IsCompatible}" Value="False" />
-						<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="False" />
-					</MultiDataTrigger.Conditions>
-					<Setter Property="Foreground" Value="Gray" />
-				</MultiDataTrigger>
-				<MultiDataTrigger>
-					<MultiDataTrigger.Conditions>
-						<Condition Binding="{Binding IsCompatible}" Value="False" />
-						<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="True" />
-					</MultiDataTrigger.Conditions>
-					<Setter Property="Foreground" Value="#DDDDDD" />
-				</MultiDataTrigger>
-			</Style.Triggers>
-		</Style>
+
 	</UserControl.Resources>
 	<Grid>
 		<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">

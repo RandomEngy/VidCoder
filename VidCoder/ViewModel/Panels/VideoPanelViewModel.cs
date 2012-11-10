@@ -211,6 +211,8 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.ConstantFramerateToolTip);
 				this.RaisePropertyChanged(() => this.VariableFramerateToolTip);
 				this.IsModified = true;
+
+				Messenger.Default.Send(new FramerateChangedMessage());
 			}
 		}
 

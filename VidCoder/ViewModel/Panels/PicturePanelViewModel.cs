@@ -5,9 +5,11 @@ namespace VidCoder.ViewModel
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Text;
+	using GalaSoft.MvvmLight.Messaging;
 	using HandBrake.Interop;
 	using HandBrake.Interop.Model;
 	using HandBrake.Interop.Model.Encoding;
+	using Messages;
 	using Model;
 
 	public class PicturePanelViewModel : PanelViewModel
@@ -659,11 +661,19 @@ namespace VidCoder.ViewModel
 				int width, height, parWidth, parHeight;
 				this.MainViewModel.ScanInstance.GetSize(job, out width, out height, out parWidth, out parHeight);
 
+				this.StorageWidth = width;
+				this.StorageHeight = height;
+
+				Messenger.Default.Send(new OutputSizeChangedMessage());
+
 				this.OutputSourceResolution = width + " x " + height;
 				this.OutputPixelAspectRatio = parWidth + "/" + parHeight;
 				this.OutputDisplayResolution = Math.Round(width * (((double)parWidth) / parHeight)) + " x " + height;
 			}
 		}
+
+		public int StorageWidth { get; set; }
+		public int StorageHeight { get; set; }
 
 		public void NotifyAllChanged()
 		{

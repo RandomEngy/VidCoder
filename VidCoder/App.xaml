@@ -70,7 +70,26 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
-		
+
+		<Style x:Key="GrayNonCompatible" TargetType="ComboBoxItem">
+			<Style.Triggers>
+				<MultiDataTrigger>
+					<MultiDataTrigger.Conditions>
+						<Condition Binding="{Binding IsCompatible}" Value="False" />
+						<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="False" />
+					</MultiDataTrigger.Conditions>
+					<Setter Property="Foreground" Value="Gray" />
+				</MultiDataTrigger>
+				<MultiDataTrigger>
+					<MultiDataTrigger.Conditions>
+						<Condition Binding="{Binding IsCompatible}" Value="False" />
+						<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="True" />
+					</MultiDataTrigger.Conditions>
+					<Setter Property="Foreground" Value="#DDDDDD" />
+				</MultiDataTrigger>
+			</Style.Triggers>
+		</Style>
+
 		<Style x:Key="SectionHeader" TargetType="TextBlock">
 			<Setter Property="FontWeight" Value="Bold" />
 		</Style>

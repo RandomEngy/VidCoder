@@ -92,7 +92,7 @@ namespace VidCoder.ViewModel
 					{
 						new InterfaceLanguage { CultureCode = string.Empty, Display = OptionsRes.UseOSLanguage },
 						new InterfaceLanguage { CultureCode = "en-US", Display = "English" },
-						new InterfaceLanguage { CultureCode = "de-DE", Display = "Deutsch" },
+						//new InterfaceLanguage { CultureCode = "de-DE", Display = "Deutsch" },
 					};
 
 			this.interfaceLanguage = this.languageChoices.FirstOrDefault(l => l.CultureCode == Config.InterfaceLanguageCode);
