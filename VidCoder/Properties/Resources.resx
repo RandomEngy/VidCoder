@@ -220,4 +220,7 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="CouldNotAccessDirectoriesError">
     <value xml:space="preserve">Could not access the following directories:</value>
   </data>
+  <data name="None">
+    <value xml:space="preserve">None</value>
+  </data>
 </root>

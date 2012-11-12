@@ -73,6 +73,11 @@ namespace VidCoder.Model
 				{
 					if (reader.Read())
 					{
+						if (reader.IsDBNull(0))
+						{
+							return string.Empty;
+						}
+
 						return reader.GetString(0);
 					}
 				}
