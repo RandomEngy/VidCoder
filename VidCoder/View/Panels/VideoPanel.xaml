@@ -24,6 +24,7 @@
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
 			<RowDefinition />
 		</Grid.RowDefinitions>
 		<Grid Grid.Row="0" Grid.Column="0" Visibility="{Binding HasSourceData, Converter={StaticResource VisibilityConverter}}">
@@ -62,12 +63,7 @@
 			</Border>
 		</Grid>
 		<Grid Grid.Row="1">
-			<TextBlock
-				Height="21" HorizontalAlignment="Left" Margin="16,12,0,0" Name="textBlock1" VerticalAlignment="Top"
-				Text="Video"
-				Style="{StaticResource SectionHeader}"/>
-
-			<Grid Margin="21,35,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+			<Grid Margin="21,8,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
 				<Grid.RowDefinitions>
 					<RowDefinition />
 					<RowDefinition />
@@ -122,26 +118,10 @@
 					</RadioButton.ToolTip>
 				</RadioButton>
 			</Grid>
-			
-			<CheckBox
-				Content="{x:Static res:EncodingRes.TwoPassEncodingCheckBox}"
-				Height="16" HorizontalAlignment="Left" Margin="28,161,0,0" VerticalAlignment="Top"
-				IsChecked="{Binding TwoPassEncoding}"
-				IsEnabled="{Binding TwoPassEncodingEnabled}"/>
-			<CheckBox
-				Content="{x:Static res:EncodingRes.TurboFirstPassCheckBox}"
-				Height="16" HorizontalAlignment="Left" Margin="49,184,0,0" VerticalAlignment="Top"
-				IsChecked="{Binding TurboFirstPass}"
-				IsEnabled="{Binding TurboFirstPassEnabled}"/>
 		</Grid>
 		<Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
-			<TextBlock
-				Height="21" Margin="15,12,0,0" VerticalAlignment="Top"
-				Text="{x:Static res:EncodingRes.Quality}"
-				Style="{StaticResource SectionHeader}" HorizontalAlignment="Left" />
-
 			<Grid 
-				Margin="20,33,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+				Margin="20,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="29" />
 					<RowDefinition Height="29" />
@@ -197,7 +177,7 @@
 			</Grid>
 
 			<Slider
-				Height="22" Margin="20,121,6,0" VerticalAlignment="Top"
+				Height="22" Margin="20,93,6,0" VerticalAlignment="Top"
 				TickPlacement="BottomRight" Minimum="{Binding QualitySliderMin}" Maximum="{Binding QualitySliderMax}" TickFrequency="1" IsSnapToTickEnabled="True"
 				Value="{Binding Quality}"
 				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}">
@@ -206,13 +186,132 @@
 				</Slider.ToolTip>
 			</Slider>
 			<TextBlock
-				Height="21" Margin="20.2,149,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Left"
+				Height="21" Margin="20.2,121,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Left"
 				Text="{Binding QualitySliderLeftText}"
 				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}"/>
 			<TextBlock
-				Height="21" HorizontalAlignment="Right" Margin="0,149,6,0" VerticalAlignment="Top" TextAlignment="Right"
+				Height="21" HorizontalAlignment="Right" Margin="0,121,6,0" VerticalAlignment="Top" TextAlignment="Right"
 				Text="{Binding QualitySliderRightText}"
 				Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}"/>
+			<CheckBox Content="{x:Static res:EncodingRes.TwoPassEncodingCheckBox}" Height="16" HorizontalAlignment="Left" Margin="20,146,0,0" VerticalAlignment="Top" IsChecked="{Binding TwoPassEncoding}" IsEnabled="{Binding TwoPassEncodingEnabled}" />
+			<CheckBox Content="{x:Static res:EncodingRes.TurboFirstPassCheckBox}" Height="16" HorizontalAlignment="Left" Margin="41,169,0,0" VerticalAlignment="Top" IsChecked="{Binding TurboFirstPass}" IsEnabled="{Binding TurboFirstPassEnabled}" />
+		</Grid>
+		
+		<!-- x264 options panel -->
+		<Grid 
+			Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+			Style="{StaticResource LongToolTipHolder}"
+			Visibility="{Binding X264SettingsVisible, Converter={StaticResource VisibilityConverter}}">
+			<!-- Preset -->
+			<Grid
+				HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,17,10,0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Grid.ToolTip>
+					<TextBlock Text="{x:Static res:EncodingRes.X264PresetToolTip}" Style="{StaticResource LongToolTip}" />
+				</Grid.ToolTip>
+				<TextBlock 
+					Text="x264 Preset:"
+					MinWidth="80" VerticalAlignment="Center" />
+				<Slider
+					Grid.Column="1"
+					TickPlacement="BottomRight" Minimum="0" Maximum="9"
+					Style="{StaticResource LongToolTipHolder}"
+					Value="{Binding X264PresetIndex}" />
+				<TextBlock
+					Grid.Column="2"
+					Text="{Binding X264PresetName}" VerticalAlignment="Center"
+					MinWidth="100" TextAlignment="Center"
+					/>
+			</Grid>
+
+			<Grid Margin="10,41,0,0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+
+				<!-- Tune -->
+				<StackPanel
+					Orientation="Horizontal"
+					Style="{StaticResource LongToolTipHolder}"
+					HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0">
+					<StackPanel.ToolTip>
+						<TextBlock Text="{x:Static res:EncodingRes.X264TuneToolTip}" Style="{StaticResource LongToolTip}" />
+					</StackPanel.ToolTip>
+					<TextBlock 
+						Text="x264 Tune:" 
+						VerticalAlignment="Center" MinWidth="80" />
+					<ComboBox
+						Height="23" MinWidth="120" Margin="6,0,0,0" VerticalContentAlignment="Center"
+						ItemsSource="{Binding X264TuneChoices}" SelectedValue="{Binding X264Tune}" SelectedValuePath="Value" DisplayMemberPath="Display" />
+				</StackPanel>
+
+				<!-- Profile -->
+				<StackPanel
+					Orientation="Horizontal"
+					Style="{StaticResource LongToolTipHolder}"
+					HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,31,0,0">
+					<StackPanel.ToolTip>
+						<TextBlock Text="{x:Static res:EncodingRes.X264ProfileToolTip}" Style="{StaticResource LongToolTip}" />
+					</StackPanel.ToolTip>
+					<TextBlock 
+						Text="H.264 Profile:" 
+						VerticalAlignment="Center" MinWidth="80" />
+					<ComboBox
+						Height="23" MinWidth="120" Margin="6,0,0,0" VerticalContentAlignment="Center"
+						ItemsSource="{Binding X264ProfileChoices}" SelectedValue="{Binding X264Profile}" SelectedValuePath="Value" DisplayMemberPath="Display" />
+				</StackPanel>
+
+				<!-- Level -->
+				<StackPanel
+					Orientation="Horizontal"
+					Style="{StaticResource LongToolTipHolder}"
+					HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,58,0,0">
+					<StackPanel.ToolTip>
+						<TextBlock Text="{x:Static res:EncodingRes.H264LevelToolTip}" Style="{StaticResource LongToolTip}" />
+					</StackPanel.ToolTip>
+					<TextBlock
+						Text="H.264 Level:"
+						VerticalAlignment="Center" MinWidth="80" />
+					<ComboBox
+						Height="23" MinWidth="120" Margin="6,0,0,0" VerticalContentAlignment="Center"
+						ItemsSource="{Binding H264LevelChoices}" SelectedValue="{Binding H264Level}"
+						SelectedValuePath="Value" DisplayMemberPath="Display" ItemContainerStyle="{StaticResource GrayNonCompatible}" />
+				</StackPanel>
+
+				<StackPanel
+					Orientation="Horizontal" Margin="9,8,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1">
+					<CheckBox 
+						Content="{x:Static res:EncodingRes.Tune_FastDecode}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="120"
+						IsChecked="{Binding FastDecode}"/>
+					<CheckBox 
+						Content="{x:Static res:EncodingRes.Tune_ZeroLatency}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"
+						IsChecked="{Binding ZeroLatency}"/>
+				</StackPanel>
+
+
+				<!-- Additional options string -->
+				<Grid
+					Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+					Margin="7,30,6,6">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+
+					<TextBlock
+						HorizontalAlignment="Left" VerticalAlignment="Center"
+						Text="More Settings:" Margin="0,0,6,0" />
+					<TextBox
+						Grid.Column="1"
+						Text="{Binding X264AdditionalOptions, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"
+						/>
+				</Grid>
+			</Grid>
 		</Grid>
 	</Grid>
 </UserControl>

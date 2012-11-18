@@ -15,6 +15,7 @@ using VidCoder.ViewModel.Components;
 namespace VidCoder.ViewModel
 {
 	using LocalResources;
+	using Properties;
 
 	public class VideoPanelViewModel : PanelViewModel
 	{
@@ -30,7 +31,10 @@ namespace VidCoder.ViewModel
 		private int displayTargetSize;
 		private int displayVideoBitrate;
 
-
+		private List<string> x264Presets;
+		private List<ComboChoice> x264ProfileChoices;
+		private List<LevelChoiceViewModel> h264LevelChoices;
+		private List<ComboChoice> x264TuneChoices;
 
 		public VideoPanelViewModel(EncodingViewModel encodingViewModel)
 			: base(encodingViewModel)
@@ -54,19 +58,109 @@ namespace VidCoder.ViewModel
 				60
 			};
 
+			this.x264Presets = new List<string>
+			{
+				"ultrafast",
+				"superfast",
+				"veryfast",
+				"faster",
+				"fast",
+				"medium",
+				"slow",
+				"slower",
+				"veryslow",
+				"placebo"
+			};
+
+			this.x264ProfileChoices = new List<ComboChoice>
+			{
+				new ComboChoice(null, Resources.Automatic),
+				new ComboChoice("baseline", EncodingRes.Profile_Baseline),
+				new ComboChoice("main", EncodingRes.Profile_Main),
+				new ComboChoice("high", EncodingRes.Profile_High),
+				//new ComboChoice("high10", EncodingRes.Profile_High),
+				//new ComboChoice("high422", EncodingRes.Profile_High),
+				new ComboChoice("high444", EncodingRes.Profile_High444),
+			};
+
+			this.h264LevelChoices = new List<LevelChoiceViewModel>
+			{
+				new LevelChoiceViewModel(null, Resources.Automatic),
+				new LevelChoiceViewModel("1.0"),
+				new LevelChoiceViewModel("1b"),
+				new LevelChoiceViewModel("1.1"),
+				new LevelChoiceViewModel("1.2"),
+				new LevelChoiceViewModel("1.3"),
+				new LevelChoiceViewModel("2.0"),
+				new LevelChoiceViewModel("2.1"),
+				new LevelChoiceViewModel("2.2"),
+				new LevelChoiceViewModel("3.0"),
+				new LevelChoiceViewModel("3.1"),
+				new LevelChoiceViewModel("3.2"),
+				new LevelChoiceViewModel("4.0"),
+				new LevelChoiceViewModel("4.1"),
+				new LevelChoiceViewModel("4.2"),
+				new LevelChoiceViewModel("5.0"),
+				new LevelChoiceViewModel("5.1"),
+				new LevelChoiceViewModel("5.2")
+			};
+
+			this.x264TuneChoices = new List<ComboChoice>
+			{
+				new ComboChoice(null, Resources.None),
+				new ComboChoice("film", EncodingRes.Tune_Film),
+				new ComboChoice("animation", EncodingRes.Tune_Animation),
+				new ComboChoice("grain", EncodingRes.Tune_Grain),
+				new ComboChoice("stillimage", EncodingRes.Tune_StillImage),
+				new ComboChoice("psnr", EncodingRes.Tune_Psnr),
+				new ComboChoice("ssim", EncodingRes.Tune_Ssim),
+				//new ComboChoice("fastdecode", EncodingRes.Tune_FastDecode),
+				//new ComboChoice("zerolatency", EncodingRes.Tune_ZeroLatency),
+			};
+
+			this.RefreshLevelCompatibility();
+
 			Messenger.Default.Register<AudioInputChangedMessage>(
 				this,
 				message =>
-					{
-						this.NotifyAudioInputChanged();
-					});
+				{
+					this.NotifyAudioInputChanged();
+				});
 
 			Messenger.Default.Register<SelectedTitleChangedMessage>(
 				this,
 				message =>
-					{
-						this.NotifyAudioInputChanged();
-					});
+				{
+					this.NotifyAudioInputChanged();
+				});
+
+			Messenger.Default.Register<SelectedTitleChangedMessage>(
+				this,
+				message =>
+				{
+					this.RefreshLevelCompatibility();
+				});
+
+			Messenger.Default.Register<OutputSizeChangedMessage>(
+				this,
+				message =>
+				{
+					this.RefreshLevelCompatibility();
+				});
+
+			Messenger.Default.Register<FramerateChangedMessage>(
+				this,
+				message =>
+				{
+					this.RefreshLevelCompatibility();
+				});
+
+			Messenger.Default.Register<AdvancedOptionsChangedMessage>(
+				this,
+				message =>
+				{
+					this.RaisePropertyChanged(() => this.X264AdditionalOptions);
+				});
 		}
 
 		public string InputType
@@ -584,7 +678,183 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public List<ComboChoice> X264ProfileChoices
+		{
+			get
+			{
+				return this.x264ProfileChoices;
+			}
+		}
 
+		public List<LevelChoiceViewModel> H264LevelChoices
+		{
+			get
+			{
+				return this.h264LevelChoices;
+			}
+		}
+
+		public List<ComboChoice> X264TuneChoices
+		{
+			get
+			{
+				return this.x264TuneChoices;
+			}
+		}
+
+		public string X264Profile
+		{
+			get
+			{
+				return this.Profile.X264Profile;
+			}
+
+			set
+			{
+				this.Profile.X264Profile = value;
+				this.RaisePropertyChanged(() => this.X264Profile);
+				this.IsModified = true;
+			}
+		}
+
+		public string H264Level
+		{
+			get
+			{
+				return this.Profile.H264Level;
+			}
+
+			set
+			{
+				this.Profile.H264Level = value;
+				this.RaisePropertyChanged(() => this.H264Level);
+				this.IsModified = true;
+			}
+		}
+
+		private string x264Tune;
+		public string X264Tune
+		{
+			get
+			{
+				return x264Tune;
+				//return this.Profile.X264Tune;
+			}
+
+			set
+			{
+				//this.Profile.X264Tune = value;
+				this.x264Tune = value;
+				this.WriteTuneListToProfile();
+				this.RaisePropertyChanged(() => this.X264Tune);
+				this.IsModified = true;
+			}
+		}
+
+		private bool fastDecode;
+		public bool FastDecode
+		{
+			get
+			{
+				return this.fastDecode;
+			}
+
+			set
+			{
+				this.fastDecode = value;
+				this.WriteTuneListToProfile();
+				this.RaisePropertyChanged(() => this.FastDecode);
+				this.IsModified = true;
+			}
+		}
+
+		private bool zeroLatency;
+		public bool ZeroLatency
+		{
+			get
+			{
+				return this.zeroLatency;
+			}
+
+			set
+			{
+				this.zeroLatency = value;
+				this.WriteTuneListToProfile();
+				this.RaisePropertyChanged(() => this.ZeroLatency);
+				this.IsModified = true;
+			}
+		}
+
+		public int X264PresetIndex
+		{
+			get
+			{
+				string preset = this.Profile.X264Preset;
+				if (string.IsNullOrWhiteSpace(preset))
+				{
+					preset = "medium";
+				}
+
+				return this.x264Presets.IndexOf(preset);
+			}
+
+			set
+			{
+				this.Profile.X264Preset = this.GetX264PresetFromIndex(value);
+				this.RaisePropertyChanged(() => this.X264PresetIndex);
+				this.RaisePropertyChanged(() => this.X264PresetName);
+				this.IsModified = true;
+			}
+		}
+
+		public string X264PresetName
+		{
+			get
+			{
+				switch (this.Profile.X264Preset)
+				{
+					case "ultrafast":
+						return EncodingRes.Preset_UltraFast;
+					case "superfast":
+						return EncodingRes.Preset_SuperFast;
+					case "veryfast":
+						return EncodingRes.Preset_VeryFast;
+					case "faster":
+						return EncodingRes.Preset_Faster;
+					case "fast":
+						return EncodingRes.Preset_Fast;
+					case "medium":
+						return EncodingRes.Preset_Medium;
+					case "slow":
+						return EncodingRes.Preset_Slow;
+					case "slower":
+						return EncodingRes.Preset_Slower;
+					case "veryslow":
+						return EncodingRes.Preset_VerySlow;
+					case "placebo":
+						return EncodingRes.Preset_Placebo;
+					default:
+						return EncodingRes.Preset_Medium;
+				}
+			}
+		}
+
+		public string X264AdditionalOptions
+		{
+			get
+			{
+				return this.Profile.X264Options;
+			}
+
+			set
+			{
+				this.Profile.X264Options = value;
+
+				// Property notification will happen in response to the message
+				Messenger.Default.Send(new AdvancedOptionsChangedMessage());
+				this.IsModified = true;
+			}
+		}
 
 		public void NotifyOutputFormatChanged(Container outputFormat)
 		{
@@ -628,6 +898,8 @@ namespace VidCoder.ViewModel
 
 		public void NotifyAllChanged()
 		{
+			this.ReadTuneListFromProfile();
+
 			this.RaisePropertyChanged(() => this.SelectedEncoder);
 			this.RaisePropertyChanged(() => this.SelectedFramerate);
 			this.RaisePropertyChanged(() => this.ConstantFramerate);
@@ -647,6 +919,12 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.QualitySliderLeftText);
 			this.RaisePropertyChanged(() => this.QualitySliderRightText);
 			this.RaisePropertyChanged(() => this.X264SettingsVisible);
+			this.RaisePropertyChanged(() => this.X264PresetIndex);
+			this.RaisePropertyChanged(() => this.X264PresetName);
+			this.RaisePropertyChanged(() => this.X264Profile);
+			this.RaisePropertyChanged(() => this.H264Level);
+			this.RaisePropertyChanged(() => this.X264Tune);
+			this.RaisePropertyChanged(() => this.X264AdditionalOptions);
 		}
 
 		/// <summary>
@@ -684,6 +962,133 @@ namespace VidCoder.ViewModel
 		{
 			this.UpdateVideoBitrate();
 			this.UpdateTargetSize();
+		}
+
+		private void RefreshLevelCompatibility()
+		{
+			foreach (LevelChoiceViewModel levelChoice in this.H264LevelChoices)
+			{
+				if (levelChoice.Value != null)
+				{
+					var main = this.EncodingViewModel.MainViewModel;
+					var picturePanel = this.EncodingViewModel.PicturePanelViewModel;
+					if (main.HasVideoSource && picturePanel.StorageWidth > 0 && picturePanel.StorageHeight > 0)
+					{
+						int fpsNumerator;
+						int fpsDenominator;
+
+						if (this.Profile.Framerate == 0)
+						{
+							fpsNumerator = main.SelectedTitle.FramerateNumerator;
+							fpsDenominator = main.SelectedTitle.FramerateDenominator;
+						}
+						else
+						{
+							fpsNumerator = 27000000;
+							fpsDenominator = HandBrake.Interop.Converters.FramerateToVrate(this.Profile.Framerate);
+						}
+
+						bool interlaced = false;
+						bool fakeInterlaced = false;
+
+						Dictionary<string, string> advancedOptions = AdvancedOptionsParsing.ParseOptions(this.Profile.X264Options);
+						if (advancedOptions.ContainsKey("interlaced") && advancedOptions["interlaced"] == "1" ||
+							advancedOptions.ContainsKey("tff") && advancedOptions["tff"] == "1" ||
+							advancedOptions.ContainsKey("bff") && advancedOptions["bff"] == "1")
+						{
+							interlaced = true;
+						}
+
+						if (advancedOptions.ContainsKey("fake-interlaced") && advancedOptions["fake-interlaced"] == "1")
+						{
+							fakeInterlaced = true;
+						}
+
+						levelChoice.IsCompatible = HandBrakeUtils.IsH264LevelValid(
+							levelChoice.Value,
+							picturePanel.StorageWidth,
+							picturePanel.StorageHeight,
+							fpsNumerator,
+							fpsDenominator,
+							interlaced,
+							fakeInterlaced);
+					}
+					else
+					{
+						levelChoice.IsCompatible = true;
+					}
+				}
+			}
+		}
+
+		private void ReadTuneListFromProfile()
+		{
+			this.x264Tune = null;
+			this.fastDecode = false;
+			this.zeroLatency = false;
+
+			// Read old tune if it exists
+#pragma warning disable 612,618
+			if (this.Profile.X264Tune != null)
+			{
+				this.ReadTuneList(new List<string>{this.Profile.X264Tune});
+				return;
+			}
+#pragma warning restore 612,618
+
+			if (this.Profile.X264Tunes != null)
+			{
+				this.ReadTuneList(this.Profile.X264Tunes);
+			}
+		}
+
+		private void ReadTuneList(IList<string> tunes)
+		{
+			foreach (string tune in tunes)
+			{
+				switch (tune)
+				{
+					case "fastdecode":
+						this.fastDecode = true;
+						break;
+					case "zerolatency":
+						this.zeroLatency = true;
+						break;
+					default:
+						this.x264Tune = tune;
+						break;
+				}
+			}
+		}
+
+		private void WriteTuneListToProfile()
+		{
+			var tunes = new List<string>();
+			if (this.x264Tune != null)
+			{
+				tunes.Add(this.x264Tune);
+			}
+
+			if (this.fastDecode)
+			{
+				tunes.Add("fastdecode");
+			}
+
+			if (this.zeroLatency)
+			{
+				tunes.Add("zerolatency");
+			}
+
+			// Null out old tune property
+#pragma warning disable 612,618
+			this.Profile.X264Tune = null;
+#pragma warning restore 612,618
+			this.Profile.X264Tunes = tunes;
+		}
+
+		private string GetX264PresetFromIndex(int index)
+		{
+			return this.x264Presets[index];
 		}
 	}
 }

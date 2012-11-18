@@ -832,7 +832,7 @@
 		
 		<!-- Encoding section -->
 		<Grid Grid.Row="3" Background="{StaticResource SectionBackground}">
-			<StackPanel Orientation="Horizontal" Margin="12,16" VerticalAlignment="Top" HorizontalAlignment="Left">
+			<StackPanel Orientation="Horizontal" Margin="9,16" VerticalAlignment="Top" HorizontalAlignment="Left">
 				<TextBlock HorizontalAlignment="Left" MinWidth="78"
 					Text="{x:Static res:MainRes.EncodingLabel}"
 					Style="{StaticResource SectionHeader}" Height="21" VerticalAlignment="Top" />
@@ -847,7 +847,7 @@
 			</StackPanel>
 
 			<StackPanel 
-				Orientation="Horizontal" Margin="12,49,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+				Orientation="Horizontal" Margin="9,49,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
 				<Label
 					Height="28" VerticalAlignment="Top" HorizontalAlignment="Left"
 					Content="{x:Static res:MainRes.PresetLabel}"/>

@@ -124,6 +124,8 @@ namespace VidCoder.ViewModel
 
 				this.PicturePanelViewModel.RefreshOutputSize();
 
+				this.AdvancedPanelViewModel.UpdateUIFromAdvancedOptions();
+
 				this.NotifyAllChanged();
 			}
 		}

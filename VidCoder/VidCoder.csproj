@@ -427,6 +427,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SubtitleRes.resx</DependentUpon>
     </Compile>
+    <Compile Include="Messages\AdvancedOptionsChangedMessage.cs" />
     <Compile Include="Messages\ApplyQueueColumnsMessage.cs" />
     <Compile Include="Messages\AudioInputChangedMessage.cs" />
     <Compile Include="Messages\FramerateChangedMessage.cs" />
@@ -510,6 +511,7 @@
     <Compile Include="ViewModel\Components\PresetsViewModel.cs" />
     <Compile Include="ViewModel\Components\ProcessingViewModel.cs" />
     <Compile Include="ViewModel\Components\WindowManagerViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\DataModels\BitrateChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\ChapterViewModel.cs" />
     <Compile Include="ViewModel\DataModels\LevelChoiceViewModel.cs" />
@@ -706,6 +708,7 @@
     <EmbeddedResource Include="LocalResources\EncodingRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EncodingRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="LocalResources\EnumsRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
