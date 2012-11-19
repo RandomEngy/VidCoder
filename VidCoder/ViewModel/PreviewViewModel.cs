@@ -31,7 +31,7 @@ namespace VidCoder.ViewModel
 		private static readonly TimeSpan MinPreviewImageRefreshInterval = TimeSpan.FromSeconds(1);
 		private static int updateVersion;
 
-		private EncodeJob job;
+		private VCJob job;
 		private HandBrakeInstance originalScanInstance;
 		private EncodeProxy encodeProxy;
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
@@ -542,10 +542,8 @@ namespace VidCoder.ViewModel
 
 			this.job = this.mainViewModel.EncodeJob;
 
-			int width, height;
-
-			int parWidth, parHeight;
-			this.ScanInstance.GetSize(this.job, out width, out height, out parWidth, out parHeight);
+			int width, height, parWidth, parHeight;
+			this.ScanInstance.GetSize(this.job.HbJob, out width, out height, out parWidth, out parHeight);
 
 			if (parWidth <= 0 || parHeight <= 0)
 			{
@@ -586,7 +584,7 @@ namespace VidCoder.ViewModel
 				}
 
 				// Clear old images out of the file cache.
-				this.clearImageFileCache();
+				this.ClearImageFileCache();
 
 				this.imageFileSync = new List<object>(this.previewCount);
 				for (int i = 0; i < this.previewCount; i++)
@@ -612,7 +610,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private void clearImageFileCache()
+		private void ClearImageFileCache()
 		{
 			try
 			{
@@ -791,7 +789,7 @@ namespace VidCoder.ViewModel
 				if (image == null)
 				{
 					// Make a HandBrake call to get the image
-					image = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob, imageJob.PreviewNumber);
+					image = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob.HbJob, imageJob.PreviewNumber);
 
 					// Start saving the image file in the background and continue to process the queue.
 					ThreadPool.QueueUserWorkItem(

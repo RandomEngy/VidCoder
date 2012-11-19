@@ -495,35 +495,43 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool CustomCropping
+		public CroppingType CroppingType
 		{
 			get
 			{
-				return this.Profile.CustomCropping;
+				return this.Profile.CroppingType;
 			}
 
 			set
 			{
-				if (value)
+				if (value == CroppingType.Custom)
 				{
-					// Set initial custom cropping values to previous automatic values to make tweaking easier
+					// Set initial custom cropping values to previous values to make tweaking easier
 					this.Profile.Cropping.Left = this.CropLeft;
 					this.Profile.Cropping.Top = this.CropTop;
 					this.Profile.Cropping.Right = this.CropRight;
 					this.Profile.Cropping.Bottom = this.CropBottom;
 				}
 
-				this.Profile.CustomCropping = value;
+				this.Profile.CroppingType = value;
 
-				this.RaisePropertyChanged(() => this.CustomCropping);
+				this.RaisePropertyChanged(() => this.CroppingType);
+				this.RaisePropertyChanged(() => this.CroppingUIEnabled);
 				this.RaisePropertyChanged(() => this.CropLeft);
 				this.RaisePropertyChanged(() => this.CropTop);
 				this.RaisePropertyChanged(() => this.CropRight);
 				this.RaisePropertyChanged(() => this.CropBottom);
-				this.RefreshOutputSize();
 
 				this.IsModified = true;
 				this.UpdatePreviewWindow();
+			}
+		}
+
+		public bool CroppingUIEnabled
+		{
+			get
+			{
+				return this.CroppingType == CroppingType.Custom;
 			}
 		}
 
@@ -531,14 +539,16 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.CustomCropping)
+				switch (this.CroppingType)
 				{
-					return this.Profile.Cropping.Left;
-				}
-
-				if (this.HasSourceData)
-				{
-					return this.SelectedTitle.AutoCropDimensions.Left;
+					case CroppingType.Automatic:
+						if (this.HasSourceData)
+						{
+							return this.SelectedTitle.AutoCropDimensions.Left;
+						}
+						break;
+					case CroppingType.Custom:
+						return this.Profile.Cropping.Left;
 				}
 
 				return 0;
@@ -559,14 +569,16 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.CustomCropping)
+				switch (this.CroppingType)
 				{
-					return this.Profile.Cropping.Top;
-				}
-
-				if (this.HasSourceData)
-				{
-					return this.SelectedTitle.AutoCropDimensions.Top;
+					case CroppingType.Automatic:
+						if (this.HasSourceData)
+						{
+							return this.SelectedTitle.AutoCropDimensions.Top;
+						}
+						break;
+					case CroppingType.Custom:
+						return this.Profile.Cropping.Top;
 				}
 
 				return 0;
@@ -587,14 +599,16 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.CustomCropping)
+				switch (this.CroppingType)
 				{
-					return this.Profile.Cropping.Right;
-				}
-
-				if (this.HasSourceData)
-				{
-					return this.SelectedTitle.AutoCropDimensions.Right;
+					case CroppingType.Automatic:
+						if (this.HasSourceData)
+						{
+							return this.SelectedTitle.AutoCropDimensions.Right;
+						}
+						break;
+					case CroppingType.Custom:
+						return this.Profile.Cropping.Right;
 				}
 
 				return 0;
@@ -615,14 +629,16 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.CustomCropping)
+				switch (this.CroppingType)
 				{
-					return this.Profile.Cropping.Bottom;
-				}
-
-				if (this.HasSourceData)
-				{
-					return this.SelectedTitle.AutoCropDimensions.Bottom;
+					case CroppingType.Automatic:
+						if (this.HasSourceData)
+						{
+							return this.SelectedTitle.AutoCropDimensions.Bottom;
+						}
+						break;
+					case CroppingType.Custom:
+						return this.Profile.Cropping.Bottom;
 				}
 
 				return 0;
@@ -655,11 +671,11 @@ namespace VidCoder.ViewModel
 		{
 			if (this.HasSourceData)
 			{
-				EncodeJob job = this.MainViewModel.EncodeJob;
+				VCJob job = this.MainViewModel.EncodeJob;
 				job.EncodingProfile = this.Profile;
 
 				int width, height, parWidth, parHeight;
-				this.MainViewModel.ScanInstance.GetSize(job, out width, out height, out parWidth, out parHeight);
+				this.MainViewModel.ScanInstance.GetSize(job.HbJob, out width, out height, out parWidth, out parHeight);
 
 				this.StorageWidth = width;
 				this.StorageHeight = height;
@@ -694,7 +710,8 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.PixelAspectX);
 			this.RaisePropertyChanged(() => this.PixelAspectY);
 			this.RaisePropertyChanged(() => this.PixelAspectVisibile);
-			this.RaisePropertyChanged(() => this.CustomCropping);
+			this.RaisePropertyChanged(() => this.CroppingType);
+			this.RaisePropertyChanged(() => this.CroppingUIEnabled);
 			this.RaisePropertyChanged(() => this.CropLeft);
 			this.RaisePropertyChanged(() => this.CropTop);
 			this.RaisePropertyChanged(() => this.CropRight);

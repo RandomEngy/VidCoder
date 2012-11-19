@@ -259,31 +259,35 @@
 			Style="{StaticResource SectionHeader}" />
 
 		<RadioButton
-			Height="16" Grid.Column="1" Grid.RowSpan="3"  HorizontalAlignment="Left" Margin="50,34,0,0" Name="radioButton1" VerticalAlignment="Top"
-			IsChecked="{Binding CustomCropping, Converter={StaticResource InverseBoolConverter}}"
-			Content="{x:Static prop:Resources.Automatic}"/>
+			Grid.Column="1" Grid.RowSpan="3"  HorizontalAlignment="Left" Margin="50,34,0,0" VerticalAlignment="Top"
+			IsChecked="{Binding CroppingType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Automatic}"
+			Content="{x:Static prop:Resources.Automatic}" GroupName="cropping1" />
 		<RadioButton
-			Height="16" Grid.Column="1" Grid.RowSpan="3"  HorizontalAlignment="Left" Margin="50,56,0,0" Name="radioButton2" VerticalAlignment="Top"
-			IsChecked="{Binding CustomCropping}"
-			Content="{x:Static prop:Resources.Custom}"/>
+			Grid.Column="1" Grid.RowSpan="3"  HorizontalAlignment="Left" Margin="50,56,0,0" VerticalAlignment="Top"
+			IsChecked="{Binding CroppingType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=None}"
+			Content="{x:Static prop:Resources.None}" GroupName="cropping2"/>
+		<RadioButton
+			Grid.Column="1" Grid.RowSpan="3"  HorizontalAlignment="Left" Margin="50,78,0,0" VerticalAlignment="Top"
+			IsChecked="{Binding CroppingType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Custom}"
+			Content="{x:Static prop:Resources.Custom}" GroupName="cropping3"/>
 		<Grid 
-			Margin="25,70,0,0" Grid.Column="1" VerticalAlignment="Top" Grid.RowSpan="3" HorizontalAlignment="Left" Width="235">
+			Margin="25,92,0,0" Grid.Column="1" VerticalAlignment="Top" Grid.RowSpan="3" HorizontalAlignment="Left" Width="235">
 			<controls:NumberBox
 				Height="23" Margin="0,28,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="45"
 				Number="{Binding CropTop, Mode=TwoWay}" AllowEmpty="False" Minimum="0" Modulus="2"
-				IsEnabled="{Binding CustomCropping}"/>
+				IsEnabled="{Binding CroppingUIEnabled}"/>
 			<controls:NumberBox
 				Margin="131,56,0,0" Height="22.96" VerticalAlignment="Top" HorizontalAlignment="Left" Width="45"
 				Number="{Binding CropRight, Mode=TwoWay}" AllowEmpty="False" Minimum="0" Modulus="2"
-				IsEnabled="{Binding CustomCropping}"/>
+				IsEnabled="{Binding CroppingUIEnabled}"/>
 			<controls:NumberBox
 				Margin="57,56,0,0" HorizontalAlignment="Left" Width="45" Height="23" VerticalAlignment="Top"
 				Number="{Binding CropLeft, Mode=TwoWay}" AllowEmpty="False" Minimum="0" Modulus="2"
-				IsEnabled="{Binding CustomCropping}"/>
+				IsEnabled="{Binding CroppingUIEnabled}"/>
 			<controls:NumberBox
 				Height="23" Margin="0,82,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="45"
 				Number="{Binding CropBottom, Mode=TwoWay}" AllowEmpty="False" Minimum="0" Modulus="2"
-				IsEnabled="{Binding CustomCropping}"/>
+				IsEnabled="{Binding CroppingUIEnabled}"/>
 			<TextBlock
 				Text="{x:Static res:EncodingRes.Top}"
 				Margin="0,9,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" />

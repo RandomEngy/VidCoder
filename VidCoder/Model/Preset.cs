@@ -12,6 +12,6 @@ namespace VidCoder.Model
 		public bool IsBuiltIn { get; set; }
 		public bool IsModified { get; set; }
 		public bool IsQueue { get; set; }
-		public EncodingProfile EncodingProfile { get; set; }
+		public VCProfile EncodingProfile { get; set; }
 	}
 }

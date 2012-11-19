@@ -11,6 +11,8 @@ using VidCoder.Messages;
 
 namespace VidCoder.ViewModel
 {
+	using Model;
+
 	/// <summary>
 	/// Base class for view models of panels on the encoding settings window.
 	/// </summary>
@@ -23,7 +25,7 @@ namespace VidCoder.ViewModel
 			this.encodingViewModel = encodingViewModel;
 		}
 
-		public EncodingProfile Profile
+		public VCProfile Profile
 		{
 			get
 			{

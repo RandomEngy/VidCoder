@@ -1802,7 +1802,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public EncodeJob EncodeJob
+		public VCJob EncodeJob
 		{
 			get
 			{
@@ -1821,11 +1821,11 @@ namespace VidCoder.ViewModel
 
 				string outputPath = this.OutputPathVM.OutputPath;
 
-				EncodingProfile encodingProfile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile.Clone();
+				VCProfile encodingProfile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile.Clone();
 
 				int title = this.SelectedTitle.TitleNumber;
 
-				var job = new EncodeJob
+				var job = new VCJob
 				{
 					SourceType = type,
 					SourcePath = this.SourcePath,
@@ -1913,7 +1913,7 @@ namespace VidCoder.ViewModel
 		// Brings up specified job for editing, doing a scan if necessary.
 		public void EditJob(EncodeJobViewModel jobVM, bool isQueueItem = true)
 		{
-			EncodeJob job = jobVM.Job;
+			VCJob job = jobVM.Job;
 
 			if (this.PresetsVM.SelectedPreset.IsModified)
 			{
@@ -2182,7 +2182,7 @@ namespace VidCoder.ViewModel
 			Messenger.Default.Send(new RefreshPreviewMessage());
 		}
 
-		private void LoadVideoSourceMetadata(EncodeJob job, VideoSourceMetadata metadata)
+		private void LoadVideoSourceMetadata(VCJob job, VideoSourceMetadata metadata)
 		{
 			this.SourceName = metadata.Name;
 			this.SourcePath = job.SourcePath;
@@ -2206,7 +2206,7 @@ namespace VidCoder.ViewModel
 				return;
 			}
 
-			EncodeJob job = jobVM.Job;
+			VCJob job = jobVM.Job;
 
 			// Title
 			Title newTitle = this.sourceData.Titles.FirstOrDefault(t => t.TitleNumber == job.Title);

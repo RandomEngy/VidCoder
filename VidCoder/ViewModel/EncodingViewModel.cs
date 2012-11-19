@@ -31,7 +31,7 @@ namespace VidCoder.ViewModel
 		private WindowManagerViewModel windowManagerVM = Unity.Container.Resolve<WindowManagerViewModel>();
 		private ProcessingViewModel processingVM = Unity.Container.Resolve<ProcessingViewModel>();
 
-		private EncodingProfile profile;
+		private VCProfile profile;
 
 		private List<ComboChoice<Container>> outputFormatChoices; 
 
@@ -130,7 +130,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public EncodingProfile EncodingProfile
+		public VCProfile EncodingProfile
 		{
 			get
 			{

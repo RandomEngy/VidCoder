@@ -536,7 +536,7 @@ namespace VidCoder.ViewModel.Components
 							List<Title> titlesToQueue = queueTitlesDialog.CheckedTitles;
 							foreach (Title title in titlesToQueue)
 							{
-								EncodingProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
+								VCProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
 								string queueSourceName = this.main.SourceName;
 								if (this.main.SelectedSource.Type == SourceType.Dvd)
 								{
@@ -556,7 +556,7 @@ namespace VidCoder.ViewModel.Components
 									nameFormatOverride = queueTitlesDialog.NameOverride;
 								}
 
-								var job = new EncodeJob
+								var job = new VCJob
 								{
 									SourceType = this.main.SelectedSource.Type,
 									SourcePath = this.main.SourcePath,
@@ -843,7 +843,7 @@ namespace VidCoder.ViewModel.Components
 			foreach (string fileToQueue in filesToQueue)
 			{
 				// When ChapterStart is 0, this means the whole title is encoded.
-				var job = new EncodeJob
+				var job = new VCJob
 				{
 					SourcePath = fileToQueue,
 					EncodingProfile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.Clone(),
@@ -882,7 +882,7 @@ namespace VidCoder.ViewModel.Components
 				if (jobVM.HandBrakeInstance.Titles.Count > 0)
 				{
 					Title title = jobVM.HandBrakeInstance.Titles[0];
-					EncodeJob job = jobVM.Job;
+					VCJob job = jobVM.Job;
 
 					// Choose the correct audio/subtitle tracks based on settings
 					this.AutoPickAudio(job, title);
@@ -1054,7 +1054,7 @@ namespace VidCoder.ViewModel.Components
 
 		private void StartEncode()
 		{
-			EncodeJob job = this.CurrentJob.Job;
+			VCJob job = this.CurrentJob.Job;
 
 			this.logger.Log("Starting job " + this.taskNumber + "/" + this.totalTasks);
 			this.logger.Log("  Path: " + job.SourcePath);
@@ -1109,7 +1109,7 @@ namespace VidCoder.ViewModel.Components
 				return;
 			}
 
-			EncodeJob currentJob = this.EncodeQueue[0].Job;
+			VCJob currentJob = this.EncodeQueue[0].Job;
 			double passCost = currentJob.Length.TotalSeconds;
 			double scanPassCost = passCost / EncodeJobViewModel.SubtitleScanCostFactor;
 
@@ -1491,7 +1491,7 @@ namespace VidCoder.ViewModel.Components
 
 		// Automatically pick the correct audio on the given job.
 		// Only relies on input from settings and the current title.
-		private void AutoPickAudio(EncodeJob job, Title title, bool useCurrentContext = false)
+		private void AutoPickAudio(VCJob job, Title title, bool useCurrentContext = false)
 		{
 			job.ChosenAudioTracks = new List<int>();
 			switch (CustomConfig.AutoAudio)
@@ -1562,7 +1562,7 @@ namespace VidCoder.ViewModel.Components
 
 		// Automatically pick the correct subtitles on the given job.
 		// Only relies on input from settings and the current title.
-		private void AutoPickSubtitles(EncodeJob job, Title title, bool useCurrentContext = false)
+		private void AutoPickSubtitles(VCJob job, Title title, bool useCurrentContext = false)
 		{
 			job.Subtitles = new Subtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
 			switch (CustomConfig.AutoSubtitle)

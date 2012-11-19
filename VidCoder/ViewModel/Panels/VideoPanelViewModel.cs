@@ -529,7 +529,7 @@ namespace VidCoder.ViewModel
 				{
 					if (this.MainViewModel.HasVideoSource && this.MainViewModel.JobCreationAvailable && this.VideoBitrate > 0)
 					{
-						this.displayTargetSize = (int)Math.Round(this.MainViewModel.ScanInstance.CalculateFileSize(this.MainViewModel.EncodeJob, this.VideoBitrate));
+						this.displayTargetSize = (int)Math.Round(this.MainViewModel.ScanInstance.CalculateFileSize(this.MainViewModel.EncodeJob.HbJob, this.VideoBitrate));
 					}
 					else
 					{
@@ -565,7 +565,7 @@ namespace VidCoder.ViewModel
 				{
 					if (this.MainViewModel.HasVideoSource && this.MainViewModel.JobCreationAvailable && this.TargetSize > 0)
 					{
-						this.displayVideoBitrate = this.MainViewModel.ScanInstance.CalculateBitrate(this.MainViewModel.EncodeJob, this.TargetSize);
+						this.displayVideoBitrate = this.MainViewModel.ScanInstance.CalculateBitrate(this.MainViewModel.EncodeJob.HbJob, this.TargetSize);
 					}
 					else
 					{
@@ -1027,15 +1027,6 @@ namespace VidCoder.ViewModel
 			this.fastDecode = false;
 			this.zeroLatency = false;
 
-			// Read old tune if it exists
-#pragma warning disable 612,618
-			if (this.Profile.X264Tune != null)
-			{
-				this.ReadTuneList(new List<string>{this.Profile.X264Tune});
-				return;
-			}
-#pragma warning restore 612,618
-
 			if (this.Profile.X264Tunes != null)
 			{
 				this.ReadTuneList(this.Profile.X264Tunes);
@@ -1079,10 +1070,6 @@ namespace VidCoder.ViewModel
 				tunes.Add("zerolatency");
 			}
 
-			// Null out old tune property
-#pragma warning disable 612,618
-			this.Profile.X264Tune = null;
-#pragma warning restore 612,618
 			this.Profile.X264Tunes = tunes;
 		}
 

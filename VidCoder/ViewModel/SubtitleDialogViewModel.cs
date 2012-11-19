@@ -16,6 +16,7 @@ using VidCoder.ViewModel.Components;
 namespace VidCoder.ViewModel
 {
 	using LocalResources;
+	using Model;
 
 	public class SubtitleDialogViewModel : OkCancelDialogViewModel
 	{
@@ -350,7 +351,7 @@ namespace VidCoder.ViewModel
 		public void UpdateWarningVisibility()
 		{
 			bool textSubtitleVisible = false;
-			EncodingProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
+			VCProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
 			if (profile.OutputFormat == Container.Mp4 && profile.PreferredExtension == OutputExtension.Mp4)
 			{
 				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)

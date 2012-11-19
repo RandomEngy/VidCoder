@@ -227,7 +227,7 @@ namespace VidCoder.ViewModel.Components
 		{
 			string extension;
 
-			EncodingProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
+			VCProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
 			if (profile.OutputFormat == Container.Mkv)
 			{
 				extension = ".mkv";
@@ -262,7 +262,7 @@ namespace VidCoder.ViewModel.Components
 
 		public string GetOutputExtensionForCurrentEncodingProfile(bool includeDot = true)
 		{
-			EncodingProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
+			VCProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
 			string extension;
 
 			if (profile.OutputFormat == Container.Mkv)
@@ -561,7 +561,7 @@ namespace VidCoder.ViewModel.Components
 
 				if (fileName.Contains("{quality}"))
 				{
-					EncodingProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
+					VCProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
 					double quality = 0;
 					switch (profile.VideoEncodeRateType)
 					{

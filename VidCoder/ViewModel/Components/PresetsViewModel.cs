@@ -278,7 +278,7 @@ namespace VidCoder.ViewModel.Components
 		/// Modify the current preset. Called when first making a change to a preset.
 		/// </summary>
 		/// <param name="newProfile">The new encoding profile to use.</param>
-		public void ModifyPreset(EncodingProfile newProfile)
+		public void ModifyPreset(VCProfile newProfile)
 		{
 			Debug.Assert(this.SelectedPreset.IsModified == false, "Cannot start modification on already modified preset.");
 			Debug.Assert(this.SelectedPreset.OriginalProfile == null, "Preset already has OriginalProfile.");

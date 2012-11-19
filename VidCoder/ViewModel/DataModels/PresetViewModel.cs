@@ -30,7 +30,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public EncodingProfile OriginalProfile { get; set; }
+		public VCProfile OriginalProfile { get; set; }
 
 		public bool IsModified
 		{

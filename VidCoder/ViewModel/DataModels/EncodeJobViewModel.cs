@@ -27,14 +27,14 @@ namespace VidCoder.ViewModel
 
 		private bool isSelected;
 		private bool isPaused;
-		private EncodeJob job;
+		private VCJob job;
 		private bool encoding;
 		private int percentComplete;
 		private bool isOnlyItem;
 		private Stopwatch encodeTimeStopwatch;
 		private TimeSpan eta;
 
-		public EncodeJobViewModel(EncodeJob job)
+		public EncodeJobViewModel(VCJob job)
 		{
 			this.job = job;
 
@@ -46,7 +46,7 @@ namespace VidCoder.ViewModel
 					});
 		}
 
-		public EncodeJob Job
+		public VCJob Job
 		{
 			get
 			{
@@ -54,7 +54,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public EncodingProfile Profile
+		public VCProfile Profile
 		{
 			get
 			{

@@ -68,7 +68,7 @@ namespace VidCoder.ViewModel
 
 						// Do preview
 						var previewProfile =
-							new EncodingProfile
+							new VCProfile
 							{
 								CustomCropping = true,
 								Cropping = new Cropping(),
@@ -77,16 +77,16 @@ namespace VidCoder.ViewModel
 							};
 
 						var previewJob =
-							new EncodeJob
+							new VCJob
 							{
-								RangeType = HandBrake.Interop.Model.VideoRangeType.Chapters,
+								RangeType = VideoRangeType.Chapters,
 								ChapterStart = 1,
 								ChapterEnd = title.Chapters.Count,
 								Title = title.TitleNumber,
 								EncodingProfile = previewProfile
 							};
 
-						this.PreviewImage = this.main.ScanInstance.GetPreview(previewJob, 2);
+						this.PreviewImage = this.main.ScanInstance.GetPreview(previewJob.HbJob, 2);
 						this.RaisePropertyChanged(() => this.TitleText);
 					}
 			    };

@@ -15,7 +15,7 @@
 			<Height>0</Height>
 			<MaxWidth>0</MaxWidth>
 			<MaxHeight>0</MaxHeight>
-			<CustomCropping>false</CustomCropping>
+			<CroppingType>Automatic</CroppingType>
 			<Anamorphic>Strict</Anamorphic>
 			<UseDisplayWidth>false</UseDisplayWidth>
 			<DisplayWidth>0</DisplayWidth>
@@ -69,7 +69,7 @@
 			<Height>0</Height>
 			<MaxWidth>0</MaxWidth>
 			<MaxHeight>0</MaxHeight>
-			<CustomCropping>false</CustomCropping>
+			<CroppingType>Automatic</CroppingType>
 			<Cropping>
 			<Top>0</Top>
 			<Bottom>0</Bottom>
@@ -135,7 +135,7 @@
 			<Height>0</Height>
 			<MaxWidth>720</MaxWidth>
 			<MaxHeight>0</MaxHeight>
-			<CustomCropping>false</CustomCropping>
+			<CroppingType>Automatic</CroppingType>
 			<Cropping>
 				<Top>0</Top>
 				<Bottom>0</Bottom>
@@ -202,7 +202,7 @@
 			<Height>0</Height>
 			<MaxWidth>320</MaxWidth>
 			<MaxHeight>0</MaxHeight>
-			<CustomCropping>false</CustomCropping>
+			<CroppingType>Automatic</CroppingType>
 			<Cropping>
 				<Top>0</Top>
 				<Bottom>0</Bottom>
@@ -260,7 +260,7 @@
 			<Height>0</Height>
 			<MaxWidth>480</MaxWidth>
 			<MaxHeight>0</MaxHeight>
-			<CustomCropping>false</CustomCropping>
+			<CroppingType>Automatic</CroppingType>
 			<Cropping>
 				<Top>0</Top>
 				<Bottom>0</Bottom>
@@ -318,7 +318,7 @@
 			<Height>0</Height>
 			<MaxWidth>960</MaxWidth>
 			<MaxHeight>0</MaxHeight>
-			<CustomCropping>false</CustomCropping>
+			<CroppingType>Automatic</CroppingType>
 			<Cropping>
 				<Top>0</Top>
 				<Bottom>0</Bottom>
@@ -376,7 +376,7 @@
 			<Height>0</Height>
 			<MaxWidth>1024</MaxWidth>
 			<MaxHeight>0</MaxHeight>
-			<CustomCropping>false</CustomCropping>
+			<CroppingType>Automatic</CroppingType>
 			<Cropping>
 				<Top>0</Top>
 				<Bottom>0</Bottom>
@@ -434,7 +434,7 @@
 			<Height>0</Height>
 			<MaxWidth>960</MaxWidth>
 			<MaxHeight>0</MaxHeight>
-			<CustomCropping>false</CustomCropping>
+			<CroppingType>Automatic</CroppingType>
 			<Cropping>
 				<Top>0</Top>
 				<Bottom>0</Bottom>
@@ -500,7 +500,7 @@
 			<Height>0</Height>
 			<MaxWidth>1280</MaxWidth>
 			<MaxHeight>0</MaxHeight>
-			<CustomCropping>false</CustomCropping>
+			<CroppingType>Automatic</CroppingType>
 			<Cropping>
 				<Top>0</Top>
 				<Bottom>0</Bottom>
@@ -569,7 +569,7 @@
 			<Height>0</Height>
 			<MaxWidth>1920</MaxWidth>
 			<MaxHeight>0</MaxHeight>
-			<CustomCropping>false</CustomCropping>
+			<CroppingType>Automatic</CroppingType>
 			<Cropping>
 				<Top>0</Top>
 				<Bottom>0</Bottom>
@@ -637,7 +637,7 @@
 			<Height>0</Height>
 			<MaxWidth>480</MaxWidth>
 			<MaxHeight>0</MaxHeight>
-			<CustomCropping>false</CustomCropping>
+			<CroppingType>Automatic</CroppingType>
 			<Cropping>
 				<Top>0</Top>
 				<Bottom>0</Bottom>
@@ -697,7 +697,7 @@
 			<Height>0</Height>
 			<MaxWidth>720</MaxWidth>
 			<MaxHeight>0</MaxHeight>
-			<CustomCropping>false</CustomCropping>
+			<CroppingType>Automatic</CroppingType>
 			<Cropping>
 				<Top>0</Top>
 				<Bottom>0</Bottom>
@@ -757,7 +757,7 @@
 			<Height>0</Height>
 			<MaxWidth>800</MaxWidth>
 			<MaxHeight>480</MaxHeight>
-			<CustomCropping>false</CustomCropping>
+			<CroppingType>Automatic</CroppingType>
 			<Cropping>
 				<Top>0</Top>
 				<Bottom>0</Bottom>

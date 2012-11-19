@@ -64,7 +64,7 @@ namespace VidCoder
 		[XmlIgnore]
 		public bool IsEncodeStarted { get; private set; }
 
-		public void StartEncode(EncodeJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
+		public void StartEncode(VCJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
 		{
 //#if DEBUG
 //            this.StartEncodeInProcess(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds);
@@ -110,7 +110,7 @@ namespace VidCoder
 
 							this.channel = this.pipeFactory.CreateChannel();
 
-							this.channel.StartEncode(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds,
+							this.channel.StartEncode(job.HbJob, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds,
 													 Config.LogVerbosity, Config.PreviewCount);
 						}
 						catch (CommunicationException)
@@ -173,7 +173,7 @@ namespace VidCoder
 			task.Start();
 		}
 
-		private void StartEncodeInProcess(EncodeJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
+		private void StartEncodeInProcess(VCJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
 		{
 			this.encoding = true;
 
@@ -193,7 +193,7 @@ namespace VidCoder
 					{
 						lock (this.encodeLock)
 						{
-							this.instance.StartEncode(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds);
+							this.instance.StartEncode(job.HbJob, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds);
 							this.OnEncodeStarted();
 						}
 					}

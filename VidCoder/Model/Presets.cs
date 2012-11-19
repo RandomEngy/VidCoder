@@ -20,7 +20,7 @@ namespace VidCoder.Model
 
 	public static class Presets
 	{
-		private const int CurrentPresetVersion = 6;
+		private const int CurrentPresetVersion = 7;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
@@ -196,7 +196,7 @@ namespace VidCoder.Model
 			return false;
 		}
 
-		public static void UpgradeEncodingProfile(EncodingProfile profile, int databaseVersion)
+		public static void UpgradeEncodingProfile(VCProfile profile, int databaseVersion)
 		{
 			if (databaseVersion >= Utilities.CurrentDatabaseVersion)
 			{
@@ -217,9 +217,14 @@ namespace VidCoder.Model
 			{
 				UpgradeEncodingProfileTo15(profile);
 			}
+
+			if (databaseVersion < 16)
+			{
+				UpgradeEncodingProfileTo16(profile);
+			}
 		}
 
-		public static void UpgradeEncodingProfileTo13(EncodingProfile profile)
+		public static void UpgradeEncodingProfileTo13(VCProfile profile)
 		{
 			// Upgrade preset: translate old Enum-based values to short name strings
 			if (!Encoders.VideoEncoders.Any(e => e.ShortName == profile.VideoEncoder))
@@ -290,12 +295,12 @@ namespace VidCoder.Model
 			}
 		}
 
-		public static void UpgradeEncodingProfileTo14(EncodingProfile profile)
+		public static void UpgradeEncodingProfileTo14(VCProfile profile)
 		{
 			profile.AudioEncoderFallback = UpgradeAudioEncoder(profile.AudioEncoderFallback);
 		}
 
-		public static void UpgradeEncodingProfileTo15(EncodingProfile profile)
+		public static void UpgradeEncodingProfileTo15(VCProfile profile)
 		{
 			if (profile.Framerate == 0)
 			{
@@ -318,6 +323,27 @@ namespace VidCoder.Model
 					encoding.Mixdown = "5point1";
 				}
 			}
+		}
+
+		public static void UpgradeEncodingProfileTo16(VCProfile profile)
+		{
+#pragma warning disable 612,618
+			if (profile.CustomCropping)
+#pragma warning restore 612,618
+			{
+				profile.CroppingType = CroppingType.Custom;
+			}
+			else
+			{
+				profile.CroppingType = CroppingType.Automatic;
+			}
+
+#pragma warning disable 612,618
+			if (string.IsNullOrWhiteSpace(profile.X264Tune))
+			{
+				profile.X264Tunes = new List<string> { profile.X264Tune };
+			}
+#pragma warning restore 612,618
 		}
 
 		private static void ErrorCheckPresets(List<Preset> presets)
@@ -371,9 +397,14 @@ namespace VidCoder.Model
 				return 13;
 			}
 
-			if (presetVersion == 5)
+			if (presetVersion < 6)
 			{
 				return 14;
+			}
+
+			if (presetVersion == 6)
+			{
+				return 15;
 			}
 
 			return Utilities.CurrentDatabaseVersion;
