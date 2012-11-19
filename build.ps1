@@ -36,8 +36,8 @@ else
 }
 
 # Build VidCoder.sln
-& $DevEnvExe VidCoder.sln /Rebuild ($configuration + "|x86"); ExitIfFailed
-& $DevEnvExe VidCoder.sln /Rebuild ($configuration + "|x64"); ExitIfFailed
+& $DevEnv11Exe VidCoder.sln /Rebuild ($configuration + "|x86"); ExitIfFailed
+& $DevEnv11Exe VidCoder.sln /Rebuild ($configuration + "|x64"); ExitIfFailed
 
 # Run sgen to create *.XmlSerializers.dll
 & ($NetToolsFolder + "\sgen.exe") /f /a:"Lib\x86\HandBrakeInterop.dll"; ExitIfFailed
