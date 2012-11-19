@@ -32,8 +32,14 @@
 		<KeyBinding Key="F2" Command="{Binding RenameCommand}" />
 	</Window.InputBindings>
 	<Grid>
-		<ToolBarPanel Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" UseLayoutRounding="True">
+		<ToolBarPanel Margin="-5,0,-14,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" UseLayoutRounding="True">
 			<ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+				<ToolBar.Background>
+					<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+						<GradientStop Color="#EEE" Offset="0.0" />
+						<GradientStop Color="#BBB" Offset="1.0" />
+					</LinearGradientBrush>
+				</ToolBar.Background>
 				<TextBlock
 					Text="{Binding ProfileName}" Margin="0,4,0,0"
 					Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" FontWeight="Bold" FontSize="14" TextAlignment="Center" TextTrimming="CharacterEllipsis" />
@@ -84,21 +90,21 @@
 						<TextBlock Text="{x:Static prop:Resources.Delete}" Margin="4,0,0,0" />
 					</StackPanel>
 				</Button>
+				<Button
+					Height="24" Padding="5,0" MinWidth="70"
+					Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}" IsEnabled="{Binding HasSourceData}"
+					Visibility="{Binding WindowManagerVM.PreviewWindowOpen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/Icons/preview.png" Width="16" Height="16" />
+						<TextBlock Text="{x:Static prop:Resources.PreviewLabel}" Margin="5,0,0,0" VerticalAlignment="Center" />
+					</StackPanel>
+				</Button>
 			</ToolBar>
 		</ToolBarPanel>
-		<Button
-			Height="26" Margin="0,4,12,0" VerticalAlignment="Top" IsEnabled="{Binding HasSourceData}"
-			Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}" HorizontalAlignment="Right" Width="77"
-			Visibility="{Binding WindowManagerVM.PreviewWindowOpen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
-			<StackPanel Orientation="Horizontal">
-				<Image Source="/Icons/preview.png" />
-				<TextBlock Text="{x:Static prop:Resources.PreviewLabel}" Margin="5,0,0,0" VerticalAlignment="Center" />
-			</StackPanel>
-		</Button>
 
 		<StackPanel 
 			Orientation="Horizontal"
-			Margin="20,34,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+			Margin="20,36,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
 			<Label 
 				Height="28" HorizontalAlignment="Left" VerticalAlignment="Center"
 				Content="{x:Static res:EncodingRes.ContainerLabel}" />
