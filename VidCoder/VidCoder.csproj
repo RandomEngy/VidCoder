@@ -494,6 +494,7 @@
     <Compile Include="Services\TrayService.cs" />
     <Compile Include="Model\Config\ConfigDeclaration.cs" />
     <Compile Include="Utilities\AdvancedOptionsParsing.cs" />
+    <Compile Include="Utilities\CodecUtilities.cs" />
     <Compile Include="Utilities\EncodeProxy.cs" />
     <Compile Include="Utilities\EnumConverter.cs" />
     <Compile Include="Utilities\FileCleanup.cs" />
@@ -520,6 +521,7 @@
     <Compile Include="ViewModel\DataModels\BitrateChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\ChapterViewModel.cs" />
     <Compile Include="ViewModel\DataModels\LevelChoiceViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
     <Compile Include="ViewModel\FileConflictDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />
     <Compile Include="View\FileConflictDialog.xaml.cs">

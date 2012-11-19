@@ -498,7 +498,7 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to AAC (FAAC).
         /// </summary>
         public static string AudioEncoder_faac {
             get {
@@ -507,7 +507,7 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to AAC (Libav).
         /// </summary>
         public static string AudioEncoder_ffaac {
             get {
@@ -516,7 +516,7 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to AC3 (Libav).
         /// </summary>
         public static string AudioEncoder_ffac3 {
             get {
@@ -525,7 +525,7 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to FLAC (Libav).
         /// </summary>
         public static string AudioEncoder_ffflac {
             get {
@@ -534,7 +534,7 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to MP3 (LAME).
         /// </summary>
         public static string AudioEncoder_lame {
             get {
@@ -633,7 +633,7 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Video Codec:.
+        ///   Looks up a localized string similar to Codec:.
         /// </summary>
         public static string CodecLabel {
             get {
@@ -1580,15 +1580,6 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Codec:.
-        /// </summary>
-        public static string ShortCodecLabel {
-            get {
-                return ResourceManager.GetString("ShortCodecLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Framerate:.
         /// </summary>
         public static string ShortFramerateLabel {
@@ -1990,6 +1981,42 @@ namespace VidCoder.LocalResources {
         public static string Video_QualityTargetToolTip {
             get {
                 return ResourceManager.GetString("Video_QualityTargetToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video Codec:.
+        /// </summary>
+        public static string VideoCodecLabel {
+            get {
+                return ResourceManager.GetString("VideoCodecLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MPEG-2 (Libav).
+        /// </summary>
+        public static string VideoEncoder_ffmpeg2 {
+            get {
+                return ResourceManager.GetString("VideoEncoder_ffmpeg2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MPEG-4 (Libav).
+        /// </summary>
+        public static string VideoEncoder_ffmpeg4 {
+            get {
+                return ResourceManager.GetString("VideoEncoder_ffmpeg4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string VideoEncoder_x264 {
+            get {
+                return ResourceManager.GetString("VideoEncoder_x264", resourceCulture);
             }
         }
         

@@ -405,14 +405,11 @@ You should set this if you know your playback device only supports a certain pro
   <data name="TypeLabel" xml:space="preserve">
     <value>Type:</value>
   </data>
-  <data name="ShortCodecLabel" xml:space="preserve">
-    <value>Codec:</value>
-  </data>
   <data name="ShortFramerateLabel" xml:space="preserve">
     <value>Framerate:</value>
   </data>
   <data name="CodecLabel" xml:space="preserve">
-    <value>Video Codec:</value>
+    <value>Codec:</value>
   </data>
   <data name="FramerateLabel" xml:space="preserve">
     <value>Framerate (FPS):</value>
@@ -610,20 +607,20 @@ You should set this if you know your playback device only supports a certain pro
     <value />
   </data>
   <data name="AudioEncoder_faac" xml:space="preserve">
-    <value />
+    <value>AAC (FAAC)</value>
     <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
   </data>
   <data name="AudioEncoder_ffaac" xml:space="preserve">
-    <value />
+    <value>AAC (Libav)</value>
   </data>
   <data name="AudioEncoder_ffac3" xml:space="preserve">
-    <value />
+    <value>AC3 (Libav)</value>
   </data>
   <data name="AudioEncoder_ffflac" xml:space="preserve">
-    <value />
+    <value>FLAC (Libav)</value>
   </data>
   <data name="AudioEncoder_lame" xml:space="preserve">
-    <value />
+    <value>MP3 (LAME)</value>
   </data>
   <data name="AudioEncoder_vorbis" xml:space="preserve">
     <value />
@@ -834,5 +831,17 @@ Overrides all other settings.</value>
   </data>
   <data name="Profile_High444" xml:space="preserve">
     <value>High 4:4:4 Predictive</value>
+  </data>
+  <data name="VideoCodecLabel" xml:space="preserve">
+    <value>Video Codec:</value>
+  </data>
+  <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
+    <value>MPEG-2 (Libav)</value>
+  </data>
+  <data name="VideoEncoder_ffmpeg4" xml:space="preserve">
+    <value>MPEG-4 (Libav)</value>
+  </data>
+  <data name="VideoEncoder_x264" xml:space="preserve">
+    <value />
   </data>
 </root>

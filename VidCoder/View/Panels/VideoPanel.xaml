@@ -52,7 +52,7 @@
 							<ColumnDefinition Width="Auto" />
 						</Grid.ColumnDefinitions>
 						<TextBlock Text="{x:Static res:EncodingRes.TypeLabel}" Grid.Row="0" Grid.Column="0" />
-						<TextBlock Text="{x:Static res:EncodingRes.ShortCodecLabel}" Grid.Row="1" Grid.Column="0" />
+						<TextBlock Text="{x:Static res:EncodingRes.CodecLabel}" Grid.Row="1" Grid.Column="0" />
 						<TextBlock Text="{x:Static res:EncodingRes.ShortFramerateLabel}" Grid.Row="2" Grid.Column="0" />
 
 						<TextBlock Text="{Binding InputType}" Grid.Row="0" Grid.Column="2" />
@@ -77,13 +77,13 @@
 				
 				<TextBlock 
 					Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"
-					Text="{x:Static res:EncodingRes.CodecLabel}"  />
+					Text="{x:Static res:EncodingRes.VideoCodecLabel}"  />
 				<ComboBox
 					Grid.Row="0" Grid.Column="1" Margin="5,4,0,4"
 					Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="122" VerticalContentAlignment="Center"
 					ItemsSource="{Binding EncoderChoices}"
 					SelectedItem="{Binding SelectedEncoder}"
-					DisplayMemberPath="DisplayName" />
+					DisplayMemberPath="Display" />
 
 				<TextBlock 
 					Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"

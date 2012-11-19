@@ -15,6 +15,7 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder
 {
+	using HandBrake.Interop.Model;
 	using Properties;
 
 	public static class Utilities

@@ -752,15 +752,6 @@ namespace VidCoder.ViewModel
 				this.selectedAudioEncoder = this.AudioEncoders[0];
 			}
 
-			//if (this.AudioEncoders.Contains(oldEncoder))
-			//{
-			//    this.selectedAudioEncoder = oldEncoder;
-			//}
-			//else
-			//{
-			//    this.selectedAudioEncoder = this.AudioEncoders[0];
-			//}
-
 			this.RaisePropertyChanged(() => this.SelectedAudioEncoder);
 		}
 
@@ -844,6 +835,8 @@ namespace VidCoder.ViewModel
 				}
 			}
 
+			BitrateLimits encoderBitrateLimits = CodecUtilities.GetAudioEncoderLimits(this.HBAudioEncoder);
+
 			this.bitrateChoices.Add(new BitrateChoiceViewModel
 			    {
 					Bitrate = 0,
@@ -852,18 +845,27 @@ namespace VidCoder.ViewModel
 
 			foreach (int bitrateChoice in Encoders.AudioBitrates)
 			{
-				bool isCompatible = bitrateLimits == null || bitrateChoice >= bitrateLimits.Low && bitrateChoice <= bitrateLimits.High;
+				if (bitrateChoice >= encoderBitrateLimits.Low && bitrateChoice <= encoderBitrateLimits.High)
+				{
+					bool isCompatible = bitrateLimits == null || bitrateChoice >= bitrateLimits.Low && bitrateChoice <= bitrateLimits.High;
 
-				this.bitrateChoices.Add(new BitrateChoiceViewModel
-				    {
-				        Bitrate = bitrateChoice,
+					this.bitrateChoices.Add(new BitrateChoiceViewModel
+					{
+						Bitrate = bitrateChoice,
 						IsCompatible = isCompatible
-				    });
+					});
+				}
 			}
 
 			this.RaisePropertyChanged(() => this.BitrateChoices);
 
-			this.selectedBitrate = this.BitrateChoices.Single(b => b.Bitrate == oldBitrate);
+			this.selectedBitrate = this.BitrateChoices.SingleOrDefault(b => b.Bitrate == oldBitrate);
+			if (this.selectedBitrate == null)
+			{
+				this.selectedBitrate = this.BitrateChoices[0];
+			}
+
+			//this.selectedBitrate = this.BitrateChoices.Single(b => b.Bitrate == oldBitrate);
 			this.RaisePropertyChanged(() => this.SelectedBitrate);
 		}
 

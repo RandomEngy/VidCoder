@@ -24,9 +24,9 @@ namespace VidCoder.ViewModel
 
 		private OutputPathViewModel outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
 
-		private List<HBVideoEncoder> encoderChoices;
+		private List<VideoEncoderViewModel> encoderChoices;
 
-		private HBVideoEncoder selectedEncoder;
+		private VideoEncoderViewModel selectedEncoder;
 		private List<double> framerateChoices;
 		private int displayTargetSize;
 		private int displayVideoBitrate;
@@ -39,7 +39,7 @@ namespace VidCoder.ViewModel
 		public VideoPanelViewModel(EncodingViewModel encodingViewModel)
 			: base(encodingViewModel)
 		{
-			this.encoderChoices = new List<HBVideoEncoder>();
+			this.encoderChoices = new List<VideoEncoderViewModel>();
 
 			this.framerateChoices = new List<double>
 			{
@@ -202,7 +202,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public List<HBVideoEncoder> EncoderChoices
+		public List<VideoEncoderViewModel> EncoderChoices
 		{
 			get
 			{
@@ -210,7 +210,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public HBVideoEncoder SelectedEncoder
+		public VideoEncoderViewModel SelectedEncoder
 		{
 			get
 			{
@@ -221,10 +221,10 @@ namespace VidCoder.ViewModel
 			{
 				if (value != null && value != this.selectedEncoder)
 				{
-					HBVideoEncoder oldEncoder = this.selectedEncoder;
+					VideoEncoderViewModel oldEncoder = this.selectedEncoder;
 
 					this.selectedEncoder = value;
-					this.Profile.VideoEncoder = this.selectedEncoder.ShortName;
+					this.Profile.VideoEncoder = this.selectedEncoder.Encoder.ShortName;
 					this.RaisePropertyChanged(() => this.SelectedEncoder);
 					this.RaisePropertyChanged(() => this.X264SettingsVisible);
 					this.RaisePropertyChanged(() => this.QualitySliderMin);
@@ -238,7 +238,7 @@ namespace VidCoder.ViewModel
 					{
 						double oldQualityFraction = 0.0;
 
-						switch (oldEncoder.ShortName)
+						switch (oldEncoder.Encoder.ShortName)
 						{
 							case "x264":
 								oldQualityFraction = 1.0 - this.Quality / 51.0;
@@ -254,7 +254,7 @@ namespace VidCoder.ViewModel
 								throw new InvalidOperationException("Unrecognized encoder.");
 						}
 
-						switch (value.ShortName)
+						switch (value.Encoder.ShortName)
 						{
 							case "x264":
 								this.Quality = Math.Round((1.0 - oldQualityFraction) * 51.0);
@@ -278,7 +278,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.SelectedEncoder.ShortName == "x264";
+				return this.SelectedEncoder.Encoder.ShortName == "x264";
 			}
 		}
 
@@ -440,7 +440,7 @@ namespace VidCoder.ViewModel
 				if (value == VideoEncodeRateType.ConstantQuality)
 				{
 					// Set up a default quality.
-					switch (this.SelectedEncoder.ShortName)
+					switch (this.SelectedEncoder.Encoder.ShortName)
 					{
 						case "x264":
 							this.Quality = 20;
@@ -608,7 +608,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				switch (this.SelectedEncoder.ShortName)
+				switch (this.SelectedEncoder.Encoder.ShortName)
 				{
 					case "x264":
 						return 0;
@@ -627,7 +627,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				switch (this.SelectedEncoder.ShortName)
+				switch (this.SelectedEncoder.Encoder.ShortName)
 				{
 					case "x264":
 						return 51;
@@ -646,7 +646,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				switch (this.SelectedEncoder.ShortName)
+				switch (this.SelectedEncoder.Encoder.ShortName)
 				{
 					case "x264":
 					case "ffmpeg4":
@@ -664,7 +664,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				switch (this.SelectedEncoder.ShortName)
+				switch (this.SelectedEncoder.Encoder.ShortName)
 				{
 					case "x264":
 					case "ffmpeg4":
@@ -859,41 +859,44 @@ namespace VidCoder.ViewModel
 		public void NotifyOutputFormatChanged(Container outputFormat)
 		{
 			// Refresh encoder choices based on output format change
-			HBVideoEncoder oldEncoder = this.selectedEncoder;
-
 			this.RefreshEncoderChoices(outputFormat);
-
-			if (this.EncoderChoices.Contains(oldEncoder))
-			{
-				// Review: is this needed to set this?
-				this.SelectedEncoder = oldEncoder;
-			}
-			else
-			{
-				this.SelectedEncoder = this.EncoderChoices[0];
-			}
 		}
 
 		private void RefreshEncoderChoices(Container outputFormat)
 		{
-			this.encoderChoices = new List<HBVideoEncoder>();
+			HBVideoEncoder oldEncoder = null;
+			if (this.selectedEncoder != null)
+			{
+				oldEncoder = this.selectedEncoder.Encoder;
+			}
+
+			this.encoderChoices = new List<VideoEncoderViewModel>();
 
 			foreach (HBVideoEncoder encoder in Encoders.VideoEncoders)
 			{
 				if ((encoder.CompatibleContainers & outputFormat) > 0)
 				{
-					this.EncoderChoices.Add(encoder);
+					this.EncoderChoices.Add(new VideoEncoderViewModel { Encoder = encoder });
 				}
 			}
 
 			this.RaisePropertyChanged(() => this.EncoderChoices);
+
+			this.selectedEncoder = this.EncoderChoices.FirstOrDefault(e => e.Encoder == oldEncoder);
+
+			if (this.selectedEncoder == null)
+			{
+				this.selectedEncoder = this.EncoderChoices[0];
+			}
+
+			this.RaisePropertyChanged(() => this.SelectedEncoder);
 		}
 
 		public void NotifyProfileChanged()
 		{
 			this.RefreshEncoderChoices(this.Profile.OutputFormat);
 
-			this.selectedEncoder = this.EncoderChoices.Single(e => e.ShortName == this.Profile.VideoEncoder);
+			//this.selectedEncoder = this.EncoderChoices.Single(e => e.Encoder.ShortName == this.Profile.VideoEncoder);
 		}
 
 		public void NotifyAllChanged()
