@@ -1297,9 +1297,34 @@ namespace VidCoder.ViewModel.Components
 							actionType != EncodeCompleteActionType.LogOff &&
 							actionType != EncodeCompleteActionType.Shutdown)
 						{
-							string soundPath = Path.Combine(Directory.GetCurrentDirectory(), "Encode_Complete.wav");
+							string soundPath = null;
+							if (Config.UseCustomCompletionSound)
+							{
+								if (File.Exists(Config.CustomCompletionSound))
+								{
+									soundPath = Config.CustomCompletionSound;
+								}
+								else
+								{
+									this.logger.LogError(string.Format("Cound not find custom completion sound \"{0}\" . Using default.", Config.CustomCompletionSound));
+								}
+							}
+
+							if (soundPath == null)
+							{
+								soundPath = Path.Combine(Directory.GetCurrentDirectory(), "Encode_Complete.wav");
+							}
+
 							var soundPlayer = new SoundPlayer(soundPath);
-							soundPlayer.Play();
+
+							try
+							{
+								soundPlayer.Play();
+							}
+							catch (InvalidOperationException)
+							{
+								this.logger.LogError(string.Format("Completion sound \"{0}\" was not a supported WAV file.", soundPath));
+							}
 						}
 					}
 					else

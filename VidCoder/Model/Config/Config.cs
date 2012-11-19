@@ -62,6 +62,8 @@
 			WhenFileExistsBatch_Field = DatabaseConfig.GetConfig("WhenFileExistsBatch", "AutoRename", connection);
 			KeepScansAfterCompletion_Field = DatabaseConfig.GetConfig("KeepScansAfterCompletion", true, connection);
 			PlaySoundOnCompletion_Field = DatabaseConfig.GetConfig("PlaySoundOnCompletion", false, connection);
+			UseCustomCompletionSound_Field = DatabaseConfig.GetConfig("UseCustomCompletionSound", false, connection);
+			CustomCompletionSound_Field = DatabaseConfig.GetConfig("CustomCompletionSound", "", connection);
 			LastPlayer_Field = DatabaseConfig.GetConfig("LastPlayer", "vlc", connection);
 			QueueTitlesUseNameOverride_Field = DatabaseConfig.GetConfig("QueueTitlesUseNameOverride", false, connection);
 			QueueTitlesNameOverride_Field = DatabaseConfig.GetConfig("QueueTitlesNameOverride", "", connection);
@@ -850,6 +852,34 @@
 			{
 				PlaySoundOnCompletion_Field = value;
 				DatabaseConfig.SetConfigValue("PlaySoundOnCompletion", value);
+			}
+		}
+		private static bool UseCustomCompletionSound_Field;
+		public static bool UseCustomCompletionSound
+		{
+			get
+			{
+				return UseCustomCompletionSound_Field;
+			}
+			
+			set
+			{
+				UseCustomCompletionSound_Field = value;
+				DatabaseConfig.SetConfigValue("UseCustomCompletionSound", value);
+			}
+		}
+		private static string CustomCompletionSound_Field;
+		public static string CustomCompletionSound
+		{
+			get
+			{
+				return CustomCompletionSound_Field;
+			}
+			
+			set
+			{
+				CustomCompletionSound_Field = value;
+				DatabaseConfig.SetConfigValue("CustomCompletionSound", value);
 			}
 		}
 		private static string LastPlayer_Field;

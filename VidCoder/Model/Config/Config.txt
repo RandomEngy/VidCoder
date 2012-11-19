@@ -64,6 +64,8 @@ WhenFileExists|string|"Prompt"
 WhenFileExistsBatch|string|"AutoRename"
 KeepScansAfterCompletion|bool|true
 PlaySoundOnCompletion|bool|false
+UseCustomCompletionSound|bool|false
+CustomCompletionSound|string|""
 LastPlayer|string|"vlc"
 QueueTitlesUseNameOverride|bool|false
 QueueTitlesNameOverride|string|""

@@ -31,13 +31,37 @@
 						Content="{x:Static res:OptionsRes.MinimizeToSystemTrayRadioButton}" Height="16" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top"
 						IsChecked="{Binding MinimizeToTray}"
 						GroupName="minimize2"/>
-					
-					<CheckBox
-						Height="16" Margin="10,95,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
+
+                    <CheckBox
+						Margin="10,95,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
 						IsChecked="{Binding PlaySoundOnCompletion}" Content="{x:Static res:OptionsRes.PlaySoundOnQueueCompletionCheckBox}" />
+					<Grid
+						Margin="35,116,10,0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition />
+							<ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <CheckBox
+							VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,6,0"
+							Content="Use custom .wav file:"
+							IsEnabled="{Binding PlaySoundOnCompletion}"
+							IsChecked="{Binding UseCustomCompletionSound}"/>
+                        <TextBox
+							Grid.Column="1"
+                            VerticalAlignment="Top"
+							Text="{Binding CustomCompletionSound}"
+							IsEnabled="{Binding UseCustomCompletionSound}"/>
+						<Button
+							Grid.Column="2" Margin="6,0,0,0" Padding="3,0"
+							Content="{x:Static prop:Resources.Browse}"
+							IsEnabled="{Binding UseCustomCompletionSound}"
+							Command="{Binding BrowseCompletionSoundCommand}"/>
+					</Grid>
+
 
 					<StackPanel
-						Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top">
+						Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top">
 						<TextBlock
 							Text="{x:Static res:OptionsRes.PreferredDvdPlayerLabel}" VerticalAlignment="Center"
 							ToolTip="{x:Static res:OptionsRes.PreferredDvdPlayerToolTip}"/>
@@ -51,17 +75,17 @@
 
 
 					<CheckBox
-						Height="16" Margin="10,161,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
+						Height="16" Margin="10,183,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
 						IsChecked="{Binding UpdatesEnabled}" Content="{x:Static res:OptionsRes.AutomaticUpdatesCheckBox}" />
 					<CheckBox 
 						Content="{x:Static res:OptionsRes.JoinBetaTrackCheckBox}" 
-						Height="16" HorizontalAlignment="Left" Margin="10,183,0,0" VerticalAlignment="Top"
+						Height="16" HorizontalAlignment="Left" Margin="10,205,0,0" VerticalAlignment="Top"
 						IsChecked="{Binding BetaUpdates}"
 						IsEnabled="{Binding BetaUpdatesCheckBoxEnabled}"
 						ToolTip="{Binding BetaUpdatesToolTip}"
 						ToolTipService.ShowOnDisabled="True"/>
 					<Grid
-						Height="31" Margin="27,206,11,0" VerticalAlignment="Top"
+						Height="31" Margin="27,228,11,0" VerticalAlignment="Top"
 						Visibility="{Binding UpdatesEnabled, Converter={StaticResource VisibilityConverter}}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto" />

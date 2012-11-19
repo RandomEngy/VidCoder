@@ -60,6 +60,8 @@ namespace VidCoder.ViewModel
 			this.whenFileExistsBatch = CustomConfig.WhenFileExistsBatch;
 			this.minimizeToTray = Config.MinimizeToTray;
 			this.playSoundOnCompletion = Config.PlaySoundOnCompletion;
+			this.useCustomCompletionSound = Config.UseCustomCompletionSound;
+			this.customCompletionSound = Config.CustomCompletionSound;
 			this.autoAudio = CustomConfig.AutoAudio;
 			this.audioLanguageCode = Config.AudioLanguageCode;
 			this.autoAudioAll = Config.AutoAudioAll;
@@ -415,6 +417,36 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool useCustomCompletionSound;
+		public bool UseCustomCompletionSound
+		{
+			get
+			{
+				return this.useCustomCompletionSound;
+			}
+
+			set
+			{
+				this.useCustomCompletionSound = value;
+				this.RaisePropertyChanged(() => this.UseCustomCompletionSound);
+				this.BrowseCompletionSoundCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+		private string customCompletionSound;
+		public string CustomCompletionSound
+		{
+			get
+			{
+				return this.customCompletionSound;
+			}
+
+			set
+			{
+				this.customCompletionSound = value;
+				this.RaisePropertyChanged(() => this.CustomCompletionSound);
+			}
+		}
 
 		private AutoAudioType autoAudio;
 		public AutoAudioType AutoAudio
@@ -757,6 +789,8 @@ namespace VidCoder.ViewModel
 							Config.MinimizeToTray = this.MinimizeToTray;
 							//Config.MinimizeToTray = this.MinimizeToTray;
 							Config.PlaySoundOnCompletion = this.PlaySoundOnCompletion;
+							Config.UseCustomCompletionSound = this.UseCustomCompletionSound;
+							Config.CustomCompletionSound = this.CustomCompletionSound;
 							CustomConfig.AutoAudio = this.AutoAudio;
 							Config.AudioLanguageCode = this.AudioLanguageCode;
 							Config.AutoAudioAll = this.AutoAudioAll;
@@ -803,6 +837,30 @@ namespace VidCoder.ViewModel
 						Messenger.Default.Send(new OptionsChangedMessage());
 
 						this.AcceptCommand.Execute(null);
+					}));
+			}
+		}
+
+		private RelayCommand browseCompletionSoundCommand;
+		public RelayCommand BrowseCompletionSoundCommand
+		{
+			get
+			{
+				return this.browseCompletionSoundCommand ?? (this.browseCompletionSoundCommand = new RelayCommand(() =>
+					{
+						string fileName = FileService.Instance.GetFileNameLoad(
+							title: "Pick the .wav file you want to use for the completion sound.", 
+							defaultExt: "wav", 
+							filter: "WAV Files|*.wav");
+
+						if (fileName != null)
+						{
+							this.CustomCompletionSound = fileName;
+						}
+					},
+					() =>
+					{
+						return this.UseCustomCompletionSound;
 					}));
 			}
 		}
