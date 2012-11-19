@@ -623,7 +623,7 @@ You should set this if you know your playback device only supports a certain pro
     <value>MP3 (LAME)</value>
   </data>
   <data name="AudioEncoder_vorbis" xml:space="preserve">
-    <value />
+    <value>Vorbis (Vorbis)</value>
   </data>
   <data name="Mixdown_5point1" xml:space="preserve">
     <value />

@@ -543,7 +543,7 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Vorbis (Vorbis).
         /// </summary>
         public static string AudioEncoder_vorbis {
             get {
