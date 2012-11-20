@@ -521,6 +521,7 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.CropTop);
 				this.RaisePropertyChanged(() => this.CropRight);
 				this.RaisePropertyChanged(() => this.CropBottom);
+				this.RefreshOutputSize();
 
 				this.IsModified = true;
 				this.UpdatePreviewWindow();
