@@ -103,9 +103,6 @@ namespace VidCoder.Model
 				Height = this.Height,
 				MaxWidth = this.MaxWidth,
 				MaxHeight = this.MaxHeight,
-#pragma warning disable 612,618
-				CustomCropping = this.CustomCropping,
-#pragma warning restore 612,618
 				CroppingType = this.CroppingType,
 				Cropping = this.Cropping.Clone(),
 				Anamorphic = this.Anamorphic,
@@ -131,9 +128,6 @@ namespace VidCoder.Model
 				X264Options = this.X264Options,
 				X264Profile = this.X264Profile,
 				X264Preset = this.X264Preset,
-#pragma warning disable 612,618
-				X264Tune = this.X264Tune,
-#pragma warning restore 612,618
 				X264Tunes = this.X264Tunes,
 				H264Level = this.H264Level,
 				VideoEncodeRateType = this.VideoEncodeRateType,
@@ -144,9 +138,6 @@ namespace VidCoder.Model
 				TurboFirstPass = this.TurboFirstPass,
 				Framerate = this.Framerate,
 				ConstantFramerate = this.ConstantFramerate,
-#pragma warning disable 612,618
-				PeakFramerate = this.PeakFramerate,
-#pragma warning restore 612,618
 
 				AudioEncodings = new List<AudioEncoding>(this.AudioEncodings)
 			};

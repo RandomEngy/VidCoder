@@ -52,6 +52,7 @@
 			LogVerbosity_Field = DatabaseConfig.GetConfig("LogVerbosity", 1, connection);
 			AutoPauseProcesses_Field = DatabaseConfig.GetConfig("AutoPauseProcesses", "", connection);
 			PreviewCount_Field = DatabaseConfig.GetConfig("PreviewCount", 10, connection);
+			PreviewDisplay_Field = DatabaseConfig.GetConfig("PreviewDisplay", "FitToWindow", connection);
 			QueueTitlesUseTitleOverride_Field = DatabaseConfig.GetConfig("QueueTitlesUseTitleOverride", false, connection);
 			QueueTitlesTitleOverride_Field = DatabaseConfig.GetConfig("QueueTitlesTitleOverride", 1, connection);
 			ShowAudioTrackNameField_Field = DatabaseConfig.GetConfig("ShowAudioTrackNameField", false, connection);
@@ -712,6 +713,20 @@
 			{
 				PreviewCount_Field = value;
 				DatabaseConfig.SetConfigValue("PreviewCount", value);
+			}
+		}
+		private static string PreviewDisplay_Field;
+		public static string PreviewDisplay
+		{
+			get
+			{
+				return PreviewDisplay_Field;
+			}
+			
+			set
+			{
+				PreviewDisplay_Field = value;
+				DatabaseConfig.SetConfigValue("PreviewDisplay", value);
 			}
 		}
 		private static bool QueueTitlesUseTitleOverride_Field;

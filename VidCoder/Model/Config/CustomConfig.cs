@@ -73,5 +73,18 @@ namespace VidCoder
 				Config.AutoSubtitle = value.ToString();
 			}
 		}
+
+		public static PreviewDisplay PreviewDisplay
+		{
+			get
+			{
+				return (PreviewDisplay) Enum.Parse(typeof (PreviewDisplay), Config.PreviewDisplay);
+			}
+
+			set
+			{
+				Config.PreviewDisplay = value.ToString();
+			}
+		}
 	}
 }

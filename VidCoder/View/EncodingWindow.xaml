@@ -104,9 +104,9 @@
 
 		<StackPanel 
 			Orientation="Horizontal"
-			Margin="20,36,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+			Margin="20,37,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32">
 			<Label 
-				Height="28" HorizontalAlignment="Left" VerticalAlignment="Center"
+				HorizontalAlignment="Left" VerticalAlignment="Center"
 				Content="{x:Static res:EncodingRes.ContainerLabel}" />
 			<ComboBox 
 				Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Width="58"
@@ -141,24 +141,18 @@
 					IsChecked="{Binding Optimize}" HorizontalAlignment="Left" />
 			</StackPanel>
 
-			<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0">
-				<StackPanel Orientation="Vertical" VerticalAlignment="Center">
-					<CheckBox
-						Content="{x:Static res:EncodingRes.Ipod5GSupportCheckBox}" ToolTip="{x:Static res:EncodingRes.IPod5GSupportToolTip}"
-						VerticalAlignment="Center"
-						Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
-						IsChecked="{Binding IPod5GSupport}" />
-					<CheckBox
-						Content="{x:Static res:EncodingRes.IncludeChapterMarkersCheckBox}" ToolTip="{x:Static res:EncodingRes.IncludeChapterMarkersToolTip}"
-						VerticalAlignment="Center"
-						IsChecked="{Binding IncludeChapterMarkers}" />
-				</StackPanel>
-			</Grid>
+			<StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,0,0,0">
+				<CheckBox
+					Content="{x:Static res:EncodingRes.Ipod5GSupportCheckBox}" ToolTip="{x:Static res:EncodingRes.IPod5GSupportToolTip}"
+					VerticalAlignment="Center"
+					Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
+					IsChecked="{Binding IPod5GSupport}" />
+				<CheckBox
+					Content="{x:Static res:EncodingRes.IncludeChapterMarkersCheckBox}" ToolTip="{x:Static res:EncodingRes.IncludeChapterMarkersToolTip}"
+					VerticalAlignment="Center"
+					IsChecked="{Binding IncludeChapterMarkers}" />
+			</StackPanel>
 		</StackPanel>
-
-
-
-
 
 
 

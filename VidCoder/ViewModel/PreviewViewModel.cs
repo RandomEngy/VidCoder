@@ -28,7 +28,7 @@ namespace VidCoder.ViewModel
 	{
 		private const int PreviewImageCacheDistance = 1;
 
-		private static readonly TimeSpan MinPreviewImageRefreshInterval = TimeSpan.FromSeconds(1);
+		private static readonly TimeSpan MinPreviewImageRefreshInterval = TimeSpan.FromSeconds(0.5);
 		private static int updateVersion;
 
 		private VCJob job;
@@ -50,13 +50,13 @@ namespace VidCoder.ViewModel
 		private DateTime lastImageRefreshTime;
 		private System.Timers.Timer previewImageRefreshTimer;
 		private bool waitingOnRefresh;
-		private ImageSource previewImage;
-		private ImageSource[] previewImageCache;
+		private BitmapImage[] previewImageCache;
 		private Queue<PreviewImageJob> previewImageWorkQueue = new Queue<PreviewImageJob>();
 		private bool previewImageQueueProcessing;
 		private object imageSync = new object();
 		private List<object> imageFileSync;
 		private string imageFileCacheFolder;
+		private BitmapImage previewBitmapImage;
 
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 		private OutputPathViewModel outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
@@ -73,6 +73,7 @@ namespace VidCoder.ViewModel
 				});
 
 			this.previewSeconds = Config.PreviewSeconds;
+			this.displayType = CustomConfig.PreviewDisplay;
 			this.selectedPreview = 1;
 			this.Title = PreviewRes.NoVideoSourceTitle;
 
@@ -125,6 +126,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private ImageSource previewImage;
 		public ImageSource PreviewImage
 		{
 			get
@@ -136,6 +138,17 @@ namespace VidCoder.ViewModel
 			{
 				this.previewImage = value;
 				this.RaisePropertyChanged(() => this.PreviewImage);
+			}
+		}
+
+		public BitmapImage PreviewBitmapImage
+		{
+			get
+			{
+				lock (this.imageSync)
+				{
+					return this.previewBitmapImage;
+				}
 			}
 		}
 
@@ -151,6 +164,14 @@ namespace VidCoder.ViewModel
 				this.generatingPreview = value;
 				this.RaisePropertyChanged(() => this.GeneratingPreview);
 				this.RaisePropertyChanged(() => this.SeekBarEnabled);
+			}
+		}
+
+		public bool InCornerDisplayMode
+		{
+			get
+			{
+				return this.DisplayType == PreviewDisplay.Corners;
 			}
 		}
 
@@ -208,6 +229,9 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.SeekBarEnabled);
 				this.RaisePropertyChanged(() => this.HasPreview);
 				this.RaisePropertyChanged(() => this.PlayAvailable);
+				this.RaisePropertyChanged(() => this.SingleOneToOneImageVisible);
+				this.RaisePropertyChanged(() => this.SingleFitImageVisible);
+				this.RaisePropertyChanged(() => this.CornersImagesVisible);
 			}
 		}
 
@@ -223,24 +247,56 @@ namespace VidCoder.ViewModel
 				this.selectedPreview = value;
 				this.RaisePropertyChanged(() => this.SelectedPreview);
 
-				lock (this.imageSync)
+				if (this.DisplayType == PreviewDisplay.Corners)
 				{
-					this.PreviewImage = this.previewImageCache[value];
-					this.ClearOutOfRangeItems();
-					this.BeginBackgroundImageLoad();
+					this.RequestRefreshPreviews();
+				}
+				else
+				{
+					lock (this.imageSync)
+					{
+						this.previewBitmapImage = this.previewImageCache[value];
+						this.RefreshFromBitmapImage();
+						this.ClearOutOfRangeItems();
+						this.BeginBackgroundImageLoad();
+					}
 				}
 			}
 		}
 
-		/// <summary>
-		/// Gets or sets the width of the preview image in pixels.
-		/// </summary>
-		public double PreviewWidth { get; set; }
+		public bool SingleFitImageVisible
+		{
+			get
+			{
+				return this.HasPreview && this.DisplayType == PreviewDisplay.FitToWindow;
+			}
+		}
+
+		public bool SingleOneToOneImageVisible
+		{
+			get
+			{
+				return this.HasPreview && this.DisplayType == PreviewDisplay.OneToOne;
+			}
+		}
+
+		public bool CornersImagesVisible
+		{
+			get
+			{
+				return this.HasPreview && this.DisplayType == PreviewDisplay.Corners;
+			}
+		}
 
 		/// <summary>
-		/// Gets or sets the height of the preview image in pixels.
+		/// Gets or sets the display width of the preview image in pixels.
 		/// </summary>
-		public double PreviewHeight { get; set; }
+		public double PreviewDisplayWidth { get; set; }
+
+		/// <summary>
+		/// Gets or sets the display height of the preview image in pixels.
+		/// </summary>
+		public double PreviewDisplayHeight { get; set; }
 
 		public int SliderMax
 		{
@@ -322,6 +378,32 @@ namespace VidCoder.ViewModel
 				{
 					// Path is a file
 					return true;
+				}
+			}
+		}
+
+		private PreviewDisplay displayType;
+		public PreviewDisplay DisplayType
+		{
+			get
+			{
+				return this.displayType;
+			}
+
+			set
+			{
+				if (this.displayType != value)
+				{
+					this.displayType = value;
+					this.RaisePropertyChanged(() => this.DisplayType);
+					this.RaisePropertyChanged(() => this.SingleFitImageVisible);
+					this.RaisePropertyChanged(() => this.SingleOneToOneImageVisible);
+					this.RaisePropertyChanged(() => this.CornersImagesVisible);
+					this.RaisePropertyChanged(() => this.InCornerDisplayMode);
+
+					CustomConfig.PreviewDisplay = value;
+
+					this.RequestRefreshPreviews();
 				}
 			}
 		}
@@ -554,8 +636,8 @@ namespace VidCoder.ViewModel
 				return;
 			}
 
-			this.PreviewHeight = height;
-			this.PreviewWidth = width * ((double)parWidth / parHeight);
+			this.PreviewDisplayHeight = height;
+			this.PreviewDisplayWidth = width * ((double)parWidth / parHeight);
 
 			// Update the number of previews.
 			this.previewCount = this.ScanInstance.PreviewCount;
@@ -571,13 +653,15 @@ namespace VidCoder.ViewModel
 
 			lock (this.imageSync)
 			{
-				this.previewImageCache = new ImageSource[this.previewCount];
+				this.previewImageCache = new BitmapImage[this.previewCount];
 				updateVersion++;
 
 				// Clear main work queue.
 				this.previewImageWorkQueue.Clear();
 
-				this.imageFileCacheFolder = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture), updateVersion.ToString(CultureInfo.InvariantCulture));
+				this.imageFileCacheFolder = Path.Combine(Utilities.ImageCacheFolder,
+														 Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture),
+														 updateVersion.ToString(CultureInfo.InvariantCulture));
 				if (!Directory.Exists(this.imageFileCacheFolder))
 				{
 					Directory.CreateDirectory(this.imageFileCacheFolder);
@@ -603,8 +687,8 @@ namespace VidCoder.ViewModel
 			{
 				this.Title = string.Format(
 					PreviewRes.PreviewWindowTitleComplex,
-					Math.Round(this.PreviewWidth),
-					Math.Round(this.PreviewHeight),
+					Math.Round(this.PreviewDisplayWidth),
+					Math.Round(this.PreviewDisplayHeight),
 					width,
 					height);
 			}
@@ -615,6 +699,10 @@ namespace VidCoder.ViewModel
 			try
 			{
 				string processCacheFolder = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture));
+				if (!Directory.Exists(processCacheFolder))
+				{
+					return;
+				}
 
 				int lowestUpdate = -1;
 				for (int i = updateVersion - 1; i >= 1; i--)
@@ -813,7 +901,9 @@ namespace VidCoder.ViewModel
 						{
 							DispatchService.BeginInvoke(() =>
 							{
-								this.PreviewImage = image;
+								this.previewBitmapImage = image;
+								this.RefreshFromBitmapImage();
+								//this.PreviewImage = image;
 							});
 						}
 					}
@@ -825,6 +915,22 @@ namespace VidCoder.ViewModel
 					}
 				}
 			}
+		}
+
+		private void RefreshFromBitmapImage()
+		{
+			if (this.previewBitmapImage == null)
+			{
+				return;
+			}
+
+			if (this.DisplayType != PreviewDisplay.Corners)
+			{
+				this.PreviewImage = this.previewBitmapImage;
+			}
+
+			// In the Corners display mode, the view code will react to the message and read from this.previewBitmapImage.
+			Messenger.Default.Send(new PreviewImageChangedMessage());
 		}
 
 		private void BackgroundFileSave(object state)

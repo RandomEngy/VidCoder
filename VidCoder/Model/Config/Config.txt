@@ -54,6 +54,7 @@ CompletedColumnWidths|string|""
 LogVerbosity|int|1
 AutoPauseProcesses|string|""
 PreviewCount|int|10
+PreviewDisplay|string|"FitToWindow"
 QueueTitlesUseTitleOverride|bool|false
 QueueTitlesTitleOverride|int|1
 ShowAudioTrackNameField|bool|false

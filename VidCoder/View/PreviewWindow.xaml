@@ -5,6 +5,8 @@
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:prop="clr-namespace:VidCoder.Properties"
 	xmlns:res="clr-namespace:VidCoder.LocalResources" 
+	xmlns:local="clr-namespace:VidCoder"
+	xmlns:localmodel="clr-namespace:VidCoder.Model"
 	Title="{Binding Title}"
 	Width="864" Height="514"
 	MinWidth="405" MinHeight="200"
@@ -18,6 +20,15 @@
 		<Style x:Key="PreviewText" TargetType="TextBlock">
 			<Setter Property="Foreground" Value="White" />
 		</Style>
+		<Style x:Key="MarginText" TargetType="TextBlock">
+			<Setter Property="Foreground" Value="White" />
+			<Setter Property="FontWeight" Value="Bold" />
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect Opacity="0.9" BlurRadius="10" ShadowDepth="0" />
+				</Setter.Value>
+			</Setter>
+		</Style>
 		<Storyboard x:Key="FadePreviewControlsOut">
 			<DoubleAnimation
 				Storyboard.TargetProperty="Opacity"
@@ -28,6 +39,7 @@
 				Storyboard.TargetProperty="Opacity"
 				To="1.0" Duration="0:0:0.2" />
 		</Storyboard>
+		<local:EnumDisplayer Type="{x:Type localmodel:PreviewDisplay}" x:Key="DisplayChoices" />
 	</Window.Resources>
 	<Window.InputBindings>
 		<KeyBinding Key="Q" Modifiers="Control" Command="{Binding ProcessingVM.AddToQueueCommand}" />
@@ -42,9 +54,82 @@
 			<Image
 				Name="previewImage" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Top"
 				Source="{Binding PreviewImage}"
-				Visibility="{Binding HasPreview, Converter={StaticResource VisibilityConverter}}"/>
+				Visibility="{Binding SingleFitImageVisible, Converter={StaticResource VisibilityConverter}}"/>
+			<ScrollViewer
+				Name="previewImageScrollViewer"
+				Visibility="{Binding SingleOneToOneImageVisible, Converter={StaticResource VisibilityConverter}}"
+				HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" SizeChanged="previewImageScrollViewer_SizeChanged" >
+				<Image
+					Name="previewImageOneToOne"
+					Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" SizeChanged="previewImageOneToOne_SizeChanged"
+					Source="{Binding PreviewImage}"/>
+			</ScrollViewer>
 			<Grid
-				Name="previewControls" Margin="6,0,6,6" Height="71" VerticalAlignment="Bottom">
+				Margin="0,0,0,0"
+				Visibility="{Binding CornersImagesVisible, Converter={StaticResource VisibilityConverter}}"
+				UseLayoutRounding="True">
+				<Grid.Background>
+					<ImageBrush ImageSource="/Icons/crop_bg_tile_12x12.png" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,12,12" />
+				</Grid.Background>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition Height="106" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition Width="10" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				
+				<!-- Top left -->
+				<Grid>
+					<TextBlock
+						Text="{x:Static res:PreviewRes.TopMargin}"
+						Style="{StaticResource MarginText}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,4,0,0" />
+					<TextBlock
+						Text="{x:Static res:PreviewRes.LeftMargin}"
+						Style="{StaticResource MarginText}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,0">
+						<TextBlock.LayoutTransform>
+							<RotateTransform Angle="270" />
+						</TextBlock.LayoutTransform>
+					</TextBlock>
+					<Grid Name="topLeftImageHolder" Margin="24,24,0,0">
+						<Image
+						Name="topLeftImage" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+						RenderOptions.BitmapScalingMode="NearestNeighbor" />
+					</Grid>
+				</Grid>
+				
+				<!-- Divider -->
+				<Grid
+					Grid.Column="1"
+					Background="#111" Visibility="{Binding InCornerDisplayMode, Converter={StaticResource VisibilityConverter}}" />
+
+				<!-- Bottom right -->
+				<Grid Grid.Column="2">
+					<Grid Name="bottomRightImageHolder" Margin="0,0,24,24">
+						<Image 
+							Name="bottomRightImage" HorizontalAlignment="Left" VerticalAlignment="Top"
+							RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+					</Grid>
+					<TextBlock
+						Text="{x:Static res:PreviewRes.RightMargin}"
+						Style="{StaticResource MarginText}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0">
+						<TextBlock.LayoutTransform>
+							<RotateTransform Angle="270" />
+						</TextBlock.LayoutTransform>
+					</TextBlock>
+					<TextBlock
+						Text="{x:Static res:PreviewRes.BottomMargin}"
+						Style="{StaticResource MarginText}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,4"/>
+				</Grid>
+				<Grid
+					Grid.Row="1" Grid.ColumnSpan="3"
+					Height="106" VerticalAlignment="Bottom" Background="#111" Visibility="{Binding InCornerDisplayMode, Converter={StaticResource VisibilityConverter}}" />
+			</Grid>
+
+			<Grid
+				Name="previewControls" Margin="6,0,6,6" Height="100" VerticalAlignment="Bottom">
 				<Grid.Style>
 					<Style TargetType="Grid">
 						<Style.Triggers>
@@ -52,6 +137,7 @@
 								<MultiDataTrigger.Conditions>
 									<Condition Binding="{Binding Path=IsMouseOver, ElementName=previewImageHolder}" Value="False" />
 									<Condition Binding="{Binding GeneratingPreview}" Value="False" />
+									<Condition Binding="{Binding InCornerDisplayMode}" Value="False" />
 								</MultiDataTrigger.Conditions>
 								<MultiDataTrigger.EnterActions>
 									<BeginStoryboard Storyboard="{StaticResource FadePreviewControlsOut}" x:Name="FadePreviewControlsOut_BeginStoryboard" />
@@ -72,43 +158,57 @@
 					IsEnabled="{Binding SeekBarEnabled}"
 					/>
 				<StackPanel
-					Orientation="Horizontal" Margin="0,0,0,8" VerticalAlignment="Bottom" HorizontalAlignment="Center"
+					Orientation="Vertical" Margin="0,0,0,8" VerticalAlignment="Bottom" HorizontalAlignment="Center"
 					Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
-					<Button
-						Height="23"
-						Command="{Binding PlaySourceCommand}" ToolTip="{Binding PlaySourceToolTip}" ToolTipService.ShowOnDisabled="True"
-						Margin="0,0,0,0">
-						<StackPanel Orientation="Horizontal" Margin="4,0">
-							<Image Source="/Icons/blue_play_80.png" VerticalAlignment="Center" Height="15" />
-							<TextBlock Text="{x:Static res:PreviewRes.PlaySourceButton}" Margin="5,0,0,0" VerticalAlignment="Center" />
-						</StackPanel>
-					</Button>
-					<Button
-						Height="23"
-						Command="{Binding GeneratePreviewCommand}" ToolTip="{x:Static res:PreviewRes.EncodePreviewClipToolTip}"
-						Margin="20,0,0,0">
-						<StackPanel Orientation="Horizontal" Margin="4,0">
-							<Image Source="/Icons/play_clip.png" VerticalAlignment="Center" Height="15" />
-							<TextBlock Text="{x:Static res:PreviewRes.EncodePreviewClipButton}" Margin="5,0,0,0" VerticalAlignment="Center" />
-						</StackPanel>
-					</Button>
-					<ComboBox
-						Height="22" Width="45" Margin="10,0,0,0"
-						SelectedValue="{Binding PreviewSeconds}"
-						SelectedValuePath="Content">
-						<ComboBoxItem>5</ComboBoxItem>
-						<ComboBoxItem>10</ComboBoxItem>
-						<ComboBoxItem>15</ComboBoxItem>
-						<ComboBoxItem>30</ComboBoxItem>
-						<ComboBoxItem>60</ComboBoxItem>
-						<ComboBoxItem>120</ComboBoxItem>
-					</ComboBox>
-					<TextBlock
-						Text="{x:Static res:PreviewRes.Seconds}" VerticalAlignment="Center" Margin="7,0,0,0"
-						Style="{StaticResource PreviewText}" />
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+						<Button
+							Height="23"
+							Command="{Binding GeneratePreviewCommand}" ToolTip="{x:Static res:PreviewRes.EncodePreviewClipToolTip}"
+							Margin="20,0,0,0">
+							<StackPanel Orientation="Horizontal" Margin="4,0">
+								<Image Source="/Icons/play_clip.png" VerticalAlignment="Center" Height="15" />
+								<TextBlock Text="{x:Static res:PreviewRes.EncodePreviewClipButton}" Margin="5,0,0,0" VerticalAlignment="Center" />
+							</StackPanel>
+						</Button>
+						<ComboBox
+							Height="22" Width="45" Margin="10,0,0,0"
+							SelectedValue="{Binding PreviewSeconds}"
+							SelectedValuePath="Content">
+							<ComboBoxItem>5</ComboBoxItem>
+							<ComboBoxItem>10</ComboBoxItem>
+							<ComboBoxItem>15</ComboBoxItem>
+							<ComboBoxItem>30</ComboBoxItem>
+							<ComboBoxItem>60</ComboBoxItem>
+							<ComboBoxItem>120</ComboBoxItem>
+						</ComboBox>
+						<TextBlock
+							Text="{x:Static res:PreviewRes.Seconds}" VerticalAlignment="Center" Margin="7,0,0,0"
+							Style="{StaticResource PreviewText}" />
+					</StackPanel>
+					<StackPanel Orientation="Horizontal" Margin="0,6,0,0" HorizontalAlignment="Center">
+						<Button
+							Height="23"
+							Command="{Binding PlaySourceCommand}" ToolTip="{Binding PlaySourceToolTip}" ToolTipService.ShowOnDisabled="True"
+							Margin="0,0,0,0">
+							<StackPanel Orientation="Horizontal" Margin="4,0">
+								<Image Source="/Icons/blue_play_80.png" VerticalAlignment="Center" Height="15" />
+								<TextBlock Text="{x:Static res:PreviewRes.PlaySourceButton}" Margin="5,0,0,0" VerticalAlignment="Center" />
+							</StackPanel>
+						</Button>
+						<TextBlock
+							Margin="20,0,0,0" VerticalAlignment="Center"
+							Text="{x:Static res:PreviewRes.ViewLabel}" Foreground="White"
+							/>
+						<ComboBox
+							MinWidth="100" Margin="6,0,0,0"
+							ItemsSource="{Binding DisplayNames, Source={StaticResource DisplayChoices}}"
+							SelectedValue="{Binding DisplayType, Converter={StaticResource DisplayChoices}}"/>
+					</StackPanel>
 				</StackPanel>
+
 				<Grid 
-					VerticalAlignment="Bottom" Margin="12,0,12,8">
+					VerticalAlignment="Bottom" Margin="12,0,12,23"
+					Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}}">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" />
 						<ColumnDefinition />
@@ -118,18 +218,15 @@
 						Grid.Column="0"
 						HorizontalAlignment="Left" VerticalAlignment="Center"
 						Style="{StaticResource PreviewText}"
-						Text="{x:Static res:PreviewRes.GeneratingPreview}"
-						Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}}" />
+						Text="{x:Static res:PreviewRes.GeneratingPreview}" />
 					<ProgressBar
 						Grid.Column="1"
 						HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="20" Margin="10,0,10,0"
-						Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}}"
 						Value="{Binding PreviewPercentComplete}"/>
 					<Button
 						Grid.Column="2"
 						Content="{x:Static prop:Resources.Cancel}"
 						HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="23" MinWidth="55"
-						Visibility="{Binding GeneratingPreview, Converter={StaticResource VisibilityConverter}}"
 						Command="{Binding CancelPreviewCommand}"/>
 				</Grid>
 

@@ -438,6 +438,7 @@
     <Compile Include="Messages\OutputFolderChangedMessage.cs" />
     <Compile Include="Messages\OutputPathChangedMessage.cs" />
     <Compile Include="Messages\OutputSizeChangedMessage.cs" />
+    <Compile Include="Messages\PreviewImageChangedMessage.cs" />
     <Compile Include="Messages\RangeFocusMessage.cs" />
     <Compile Include="Messages\RefreshPreviewMessage.cs" />
     <Compile Include="Messages\SaveQueueColumnsMessage.cs" />
@@ -473,6 +474,7 @@
     <Compile Include="Model\LogType.cs" />
     <Compile Include="Model\PresetCollection.cs" />
     <Compile Include="Model\PreviewImageJob.cs" />
+    <Compile Include="Model\PreviewDisplay.cs" />
     <Compile Include="Model\SaveImageJob.cs" />
     <Compile Include="Model\Combo\VideoRangeTypeCombo.cs" />
     <Compile Include="Model\VCJob.cs" />
@@ -799,6 +801,7 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\crop_bg_tile_12x12.png" />
     <Resource Include="Model\Config\Config.txt" />
     <Resource Include="Icons\blue_play_80.png" />
     <Resource Include="Icons\edit_16x16.png" />

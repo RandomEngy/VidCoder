@@ -61,6 +61,15 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bottom Margin.
+        /// </summary>
+        public static string BottomMargin {
+            get {
+                return ResourceManager.GetString("BottomMargin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encode Preview Clip.
         /// </summary>
         public static string EncodePreviewClipButton {
@@ -84,6 +93,15 @@ namespace VidCoder.LocalResources {
         public static string GeneratingPreview {
             get {
                 return ResourceManager.GetString("GeneratingPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left Margin.
+        /// </summary>
+        public static string LeftMargin {
+            get {
+                return ResourceManager.GetString("LeftMargin", resourceCulture);
             }
         }
         
@@ -151,6 +169,33 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Corners.
+        /// </summary>
+        public static string PreviewDisplay_Corners {
+            get {
+                return ResourceManager.GetString("PreviewDisplay_Corners", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fit to Window.
+        /// </summary>
+        public static string PreviewDisplay_FitToWindow {
+            get {
+                return ResourceManager.GetString("PreviewDisplay_FitToWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1:1.
+        /// </summary>
+        public static string PreviewDisplay_OneToOne {
+            get {
+                return ResourceManager.GetString("PreviewDisplay_OneToOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preview: Display {0}x{1} - Storage {2}x{3}.
         /// </summary>
         public static string PreviewWindowTitleComplex {
@@ -169,11 +214,38 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Right Margin.
+        /// </summary>
+        public static string RightMargin {
+            get {
+                return ResourceManager.GetString("RightMargin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to seconds.
         /// </summary>
         public static string Seconds {
             get {
                 return ResourceManager.GetString("Seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top Margin.
+        /// </summary>
+        public static string TopMargin {
+            get {
+                return ResourceManager.GetString("TopMargin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View:.
+        /// </summary>
+        public static string ViewLabel {
+            get {
+                return ResourceManager.GetString("ViewLabel", resourceCulture);
             }
         }
     }

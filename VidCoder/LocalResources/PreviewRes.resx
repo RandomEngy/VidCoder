@@ -153,7 +153,31 @@
   <data name="NoVideoSourceTitle" xml:space="preserve">
     <value>Preview: No video source</value>
   </data>
-  <data name="Seconds">
-    <value xml:space="preserve">seconds</value>
+  <data name="Seconds" xml:space="preserve">
+    <value>seconds</value>
+  </data>
+  <data name="PreviewDisplay_Corners" xml:space="preserve">
+    <value>Corners</value>
+  </data>
+  <data name="PreviewDisplay_FitToWindow" xml:space="preserve">
+    <value>Fit to Window</value>
+  </data>
+  <data name="PreviewDisplay_OneToOne" xml:space="preserve">
+    <value>1:1</value>
+  </data>
+  <data name="ViewLabel" xml:space="preserve">
+    <value>View:</value>
+  </data>
+  <data name="TopMargin" xml:space="preserve">
+    <value>Top Margin</value>
+  </data>
+  <data name="LeftMargin" xml:space="preserve">
+    <value>Left Margin</value>
+  </data>
+  <data name="RightMargin" xml:space="preserve">
+    <value>Right Margin</value>
+  </data>
+  <data name="BottomMargin" xml:space="preserve">
+    <value>Bottom Margin</value>
   </data>
 </root>
