@@ -844,4 +844,7 @@ Overrides all other settings.</value>
   <data name="VideoEncoder_x264" xml:space="preserve">
     <value />
   </data>
+  <data name="Analysis_Most" xml:space="preserve">
+    <value>Most</value>
+  </data>
 </root>

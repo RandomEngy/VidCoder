@@ -97,8 +97,9 @@ namespace VidCoder.ViewModel
 
 			analysis = new List<AdvancedChoice>
 			{
+				new AdvancedChoice { Label = string.Format(EncodingRes.DefaultFormat, EncodingRes.Analysis_Most), IsDefault = true },
 				new AdvancedChoice { Label = EncodingRes.Analysis_None, Value = "none" },
-				new AdvancedChoice { Label = string.Format(EncodingRes.DefaultFormat, EncodingRes.Analysis_Some), IsDefault = true },
+				new AdvancedChoice { Label = EncodingRes.Analysis_Some, Value = "i4x4,i8x8" },
 				new AdvancedChoice { Label = EncodingRes.Analysis_All, Value = "all" }
 			};
 

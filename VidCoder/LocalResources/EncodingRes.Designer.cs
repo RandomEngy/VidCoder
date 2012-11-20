@@ -370,6 +370,15 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Most.
+        /// </summary>
+        public static string Analysis_Most {
+            get {
+                return ResourceManager.GetString("Analysis_Most", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to None.
         /// </summary>
         public static string Analysis_None {
