@@ -28,6 +28,9 @@ namespace VidCoder.Model
 		private static XmlSerializer presetSerializer = new XmlSerializer(typeof(Preset));
 		private static object userPresetSync = new object();
 
+		// This field holds the copy of the preset list that has been most recently queued for saving.
+		private static volatile List<string> pendingSavePresetList;
+
 		static Presets()
 		{
 
@@ -76,6 +79,8 @@ namespace VidCoder.Model
 			set
 			{
 				var presetXmlList = value.Select(SerializePreset).ToList();
+
+				pendingSavePresetList = presetXmlList;
 
 				// Do the actual save asynchronously.
 				ThreadPool.QueueUserWorkItem(SaveUserPresetsBackground, presetXmlList);
@@ -418,6 +423,13 @@ namespace VidCoder.Model
 		{
 			lock (userPresetSync)
 			{
+				// If the pending save list is different from the one we've been passed, we abort.
+				// This means that another background task has been scheduled with a more recent save.
+				if (presetXmlListObject != pendingSavePresetList)
+				{
+					return;
+				}
+
 				if (Directory.Exists(UserPresetsFolder))
 				{
 					string[] existingFiles = Directory.GetFiles(UserPresetsFolder);
