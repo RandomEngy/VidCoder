@@ -352,6 +352,15 @@ namespace VidCoder.LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advanced Query.
+        /// </summary>
+        public static string AdvancedQuery {
+            get {
+                return ResourceManager.GetString("AdvancedQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Analysis.
         /// </summary>
         public static string Analysis {

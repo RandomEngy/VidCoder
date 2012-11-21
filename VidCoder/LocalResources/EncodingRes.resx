@@ -847,4 +847,7 @@ Overrides all other settings.</value>
   <data name="Analysis_Most" xml:space="preserve">
     <value>Most</value>
   </data>
+  <data name="AdvancedQuery" xml:space="preserve">
+    <value>Advanced Query</value>
+  </data>
 </root>

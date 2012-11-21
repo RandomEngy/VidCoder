@@ -19,7 +19,7 @@
 		<Grid
 			Visibility="{Binding X264CodecSelected, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
 			<TextBlock
-				Text="Advanced Query" Margin="12,6,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+				Text="{x:Static res:EncodingRes.AdvancedQuery}" Margin="12,6,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
 			<TextBox
 				VerticalAlignment="Top" Margin="6,24,6,0" Height="60"
 				Text="{Binding AdvancedOptionsString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
