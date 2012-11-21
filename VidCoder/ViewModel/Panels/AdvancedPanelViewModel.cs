@@ -49,14 +49,29 @@ namespace VidCoder.ViewModel
 			Messenger.Default.Register<AdvancedOptionsChangedMessage>(
 				this,
 				message =>
-				{
-					if (!this.suppressUIUpdate)
 					{
-						this.UpdateUIFromAdvancedOptions();
-					}
+						if (!this.suppressUIUpdate)
+						{
+							this.UpdateUIFromAdvancedOptions();
+						}
 
-					this.RaisePropertyChanged(() => this.AdvancedOptionsString);
-				});
+						this.RaisePropertyChanged(() => this.AdvancedOptionsString);
+					});
+
+			Messenger.Default.Register<VideoCodecChangedMessage>(
+				this,
+				message =>
+					{
+						this.RaisePropertyChanged(() => this.X264CodecSelected);
+					});
+		}
+
+		public bool X264CodecSelected
+		{
+			get
+			{
+				return this.Profile.VideoEncoder == "x264";
+			}
 		}
 
 		public AdvancedChoice ReferenceFrames

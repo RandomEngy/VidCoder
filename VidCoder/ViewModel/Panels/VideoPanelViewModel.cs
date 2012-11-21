@@ -231,6 +231,7 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(() => this.QualitySliderMax);
 					this.RaisePropertyChanged(() => this.QualitySliderLeftText);
 					this.RaisePropertyChanged(() => this.QualitySliderRightText);
+					Messenger.Default.Send(new VideoCodecChangedMessage());
 					this.IsModified = true;
 
 					// Move the quality number to something equivalent for the new encoder.

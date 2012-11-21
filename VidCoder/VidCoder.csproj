@@ -446,6 +446,7 @@
     <Compile Include="Messages\SelectedTitleChangedMessage.cs" />
     <Compile Include="Messages\OptionsChangedMessage.cs" />
     <Compile Include="Messages\StatusMessage.cs" />
+    <Compile Include="Messages\VideoCodecChangedMessage.cs" />
     <Compile Include="Messages\VideoSourceChangedMessage.cs" />
     <Compile Include="Model\Combo\AnamorphicCombo.cs" />
     <Compile Include="Model\AutoAudioType.cs" />
@@ -727,7 +728,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LogRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="LocalResources\MainRes.de.resx" />
     <EmbeddedResource Include="LocalResources\MainRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MainRes.Designer.cs</LastGenOutput>
