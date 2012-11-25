@@ -8,8 +8,8 @@ $HandBrakeInteropFolder = "..\HandBrakeSVN\win\CS\HandBrake.Interop"
 
 $HandBrakeSolution = $HandBrakeInteropFolder + "\HandBrakeInterop.sln"
 
-& $DevEnv10Exe $HandBrakeSolution /Rebuild "Release|x86"; ExitIfFailed
-& $DevEnv10Exe $HandBrakeSolution /Rebuild "Release|x64"; ExitIfFailed
+& $DevEnv11Exe $HandBrakeSolution /Rebuild "Release|x86"; ExitIfFailed
+& $DevEnv11Exe $HandBrakeSolution /Rebuild "Release|x64"; ExitIfFailed
 copy ($HandBrakeInteropFolder + "\HandBrakeInterop\bin\x86\Release\HandBrakeInterop.dll") Lib\x86 -force
 copy ($HandBrakeInteropFolder + "\HandBrakeInterop\bin\x86\Release\HandBrakeInterop.pdb") Lib\x86 -force
 copy ($HandBrakeInteropFolder + "\HandBrakeInterop\bin\x64\Release\HandBrakeInterop.dll") Lib\x64 -force
