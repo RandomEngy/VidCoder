@@ -25,7 +25,7 @@
 	PreviewDragOver="Window_PreviewDragOver"
 	MouseDown="Window_MouseDown"
 	StateChanged="Window_StateChanged" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:Delay="clr-namespace:Delay;assembly=SplitButtonWpf"
+	xmlns:Delay="clr-namespace:Delay;assembly=SplitButtonWpf" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 	Deactivated="Window_Deactivated" Activated="Window_Activated"
 	TextOptions.TextFormattingMode="Display">
 	<Window.Resources>
@@ -794,7 +794,7 @@
 					Text="{Binding OutputPathVM.OutputPath, UpdateSourceTrigger=PropertyChanged}"
 					GotFocus="DestinationEditBoxGotFocus"
 					LostFocus="DestinationEditBoxLostFocus"
-					PreviewKeyDown="DestinationEditBoxPreviewKeyDown"/>
+					PreviewKeyDown="DestinationEditBoxPreviewKeyDown" VerticalContentAlignment="Center" />
 				<Grid
 					Name="destinationReadCover"
 					Background="Transparent"
@@ -855,8 +855,7 @@
 				<ComboBox 
 					HorizontalAlignment="Left"  Name="presetComboBox" MinWidth="140" MaxWidth="220" Height="22.76" VerticalAlignment="Center" Margin="2,0,0,0" VerticalContentAlignment="Center"
 					UseLayoutRounding="True"
-					ItemsSource="{Binding PresetsVM.AllPresets}" SelectedItem="{Binding PresetsVM.SelectedPreset}"
-					>
+					ItemsSource="{Binding PresetsVM.AllPresets}" SelectedItem="{Binding PresetsVM.SelectedPreset}">
 					<ComboBox.Effect>
 						<DropShadowEffect x:Name="presetGlowEffect" BlurRadius="10" ShadowDepth="0" Color="#1696FF" />
 					</ComboBox.Effect>
@@ -880,20 +879,20 @@
 												<Setter Property="Foreground" Value="#222222" />
 												<Setter Property="FontWeight" Value="Normal" />
 											</DataTrigger>
-											<MultiDataTrigger>
+											<!--<MultiDataTrigger>
 												<MultiDataTrigger.Conditions>
 													<Condition Binding="{Binding IsBuiltIn}" Value="False" />
 													<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource AncestorType=ComboBoxItem}}" Value="True" />
 												</MultiDataTrigger.Conditions>
-												<Setter Property="Foreground" Value="White" />
+												<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
 											</MultiDataTrigger>
 											<MultiDataTrigger>
 												<MultiDataTrigger.Conditions>
 													<Condition Binding="{Binding IsQueue}" Value="True" />
 													<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource AncestorType=ComboBoxItem}}" Value="True" />
 												</MultiDataTrigger.Conditions>
-												<Setter Property="Foreground" Value="White" />
-											</MultiDataTrigger>
+												<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
+											</MultiDataTrigger>-->
 										</Style.Triggers>
 									</Style>
 								</TextBlock.Style>
@@ -929,7 +928,7 @@
 						<TextBlock Text="{x:Static prop:Resources.PreviewLabel}" Margin="5,0,0,0" VerticalAlignment="Center" />
 					</StackPanel>
 				</Button>
-
+				
 				<Delay:SplitButton
 					Grid.Column="2" Height="37" HorizontalAlignment="Left" Margin="0,0,5,0" VerticalAlignment="Bottom" 
 					Padding="5,0"
@@ -949,7 +948,8 @@
 					Grid.Column="2" Height="37" HorizontalAlignment="Left" Margin="0,0,5,0" VerticalAlignment="Bottom"
 					Padding="5,0"
 					Command="{Binding ProcessingVM.AddToQueueCommand}"
-					Visibility="{Binding ProcessingVM.CanTryEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
+					Visibility="{Binding ProcessingVM.CanTryEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
+					Style="{StaticResource GrayOnDisabledButton}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/downarrow_shadow.png" Height="26" />
 						<TextBlock Text="{x:Static res:MainRes.AddToQueueLabel}" VerticalAlignment="Center" Margin="5,0,0,0" />
@@ -971,7 +971,8 @@
 					Grid.Column="4" Height="37" HorizontalAlignment="Right" Margin="0,0,8,0" VerticalAlignment="Bottom"
 					MinWidth="78" Padding="5,0"
 					Command="{Binding ProcessingVM.EncodeCommand}"
-					Visibility="{Binding ProcessingVM.PauseVisible, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
+					Visibility="{Binding ProcessingVM.PauseVisible, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
+					Style="{StaticResource GrayOnDisabledButton}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/encode_160.png" Height="26" />
 						<TextBlock Margin="7,0,0,0" Text="{Binding ProcessingVM.EncodeButtonText}" VerticalAlignment="Center" />

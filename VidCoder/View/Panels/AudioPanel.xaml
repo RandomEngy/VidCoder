@@ -108,7 +108,8 @@
 											SelectedItem="{Binding SelectedMixdown}"
 											DisplayMemberPath="Display"
 											Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"
-											ItemContainerStyle="{StaticResource GrayNonCompatible}"/>
+											ItemContainerStyle="{StaticResource GrayNonCompatible}">
+										</ComboBox>
 
 										<TextBlock
 											Style="{StaticResource AudioLabel}"
@@ -248,7 +249,7 @@
 													Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"/>
 												<controls:NumberBox
 													Style="{StaticResource AudioControl}"
-													Width="42"
+													Width="42" Height="22" VerticalAlignment="Center"
 													Number="{Binding Gain, Mode=TwoWay}"
 													AllowEmpty="False" Minimum="-20" Maximum="20"
 													Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"
@@ -258,12 +259,12 @@
 													Style="{StaticResource AudioLabel}" Margin="10,0,2,0"
 													Text="{x:Static res:EncodingRes.DrcLabel}" ToolTipService.ShowDuration="20000"
 													Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}">
-												<TextBlock.ToolTip>
-													<TextBlock Text="{x:Static res:EncodingRes.Audio_DrcToolTip}" Style="{StaticResource LongToolTip}" />
-												</TextBlock.ToolTip>
-											</TextBlock>
+													<TextBlock.ToolTip>
+														<TextBlock Text="{x:Static res:EncodingRes.Audio_DrcToolTip}" Style="{StaticResource LongToolTip}" />
+													</TextBlock.ToolTip>
+												</TextBlock>
 												<controls:NumberBox
-													Width="42" Margin="0,2,10,2"
+													Width="42" Height="22" VerticalAlignment="Center" Margin="0,2,10,2"
 													Style="{StaticResource AudioControl}"
 													Number="{Binding Drc, Mode=TwoWay}"
 													AllowEmpty="False" Minimum="0" Maximum="4" Modulus="0.1"

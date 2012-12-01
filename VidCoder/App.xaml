@@ -14,6 +14,17 @@
 		<converters:PercentDisplayConverter x:Key="PercentDisplayConverter" />
 		<converters:DoubleDisplayConverter x:Key="DoubleDisplayConverter" />
 		
+		<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#B8E0F3"/>
+		<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+
+		<Style x:Key="GrayOnDisabledButton" TargetType="Button">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled}" Value="False">
+					<Setter Property="Foreground" Value="Gray"></Setter>
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+
 		<Style x:Key="CenteredCheckBox" TargetType="CheckBox">
 			<Setter Property="Template">
 				<Setter.Value>
@@ -73,7 +84,10 @@
 
 		<Style x:Key="GrayNonCompatible" TargetType="ComboBoxItem">
 			<Style.Triggers>
-				<MultiDataTrigger>
+				<DataTrigger Binding="{Binding IsCompatible}" Value="False">
+					<Setter Property="Foreground" Value="Gray" />
+				</DataTrigger>
+				<!--<MultiDataTrigger>
 					<MultiDataTrigger.Conditions>
 						<Condition Binding="{Binding IsCompatible}" Value="False" />
 						<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="False" />
@@ -86,7 +100,7 @@
 						<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="True" />
 					</MultiDataTrigger.Conditions>
 					<Setter Property="Foreground" Value="#DDDDDD" />
-				</MultiDataTrigger>
+				</MultiDataTrigger>-->
 			</Style.Triggers>
 		</Style>
 

@@ -32,7 +32,7 @@
 						IsChecked="{Binding MinimizeToTray}"
 						GroupName="minimize2"/>
 
-                    <CheckBox
+					<CheckBox
 						Margin="10,95,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
 						IsChecked="{Binding PlaySoundOnCompletion}" Content="{x:Static res:OptionsRes.PlaySoundOnQueueCompletionCheckBox}" />
 					<Grid
@@ -41,19 +41,19 @@
 							<ColumnDefinition Width="Auto" />
 							<ColumnDefinition />
 							<ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <CheckBox
+						</Grid.ColumnDefinitions>
+						<CheckBox
 							VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,6,0"
 							Content="Use custom .wav file:"
 							IsEnabled="{Binding PlaySoundOnCompletion}"
 							IsChecked="{Binding UseCustomCompletionSound}"/>
-                        <TextBox
-							Grid.Column="1"
-                            VerticalAlignment="Top"
+						<TextBox
+							Grid.Column="1" Height="22"
+							VerticalAlignment="Top" VerticalContentAlignment="Center"
 							Text="{Binding CustomCompletionSound}"
 							IsEnabled="{Binding UseCustomCompletionSound}"/>
 						<Button
-							Grid.Column="2" Margin="6,0,0,0" Padding="3,0"
+							Grid.Column="2" Margin="6,0,0,0" Padding="3,2" VerticalAlignment="Center"
 							Content="{x:Static prop:Resources.Browse}"
 							IsEnabled="{Binding UseCustomCompletionSound}"
 							Command="{Binding BrowseCompletionSoundCommand}"/>
@@ -114,7 +114,7 @@
 							Text="{x:Static res:OptionsRes.DefaultFolderLabel}" />
 						<TextBox
 							Grid.Column="1"
-							Height="23" VerticalAlignment="Center"
+							Height="23" VerticalAlignment="Center" VerticalContentAlignment="Center"
 							Text="{Binding DefaultPath}" />
 						<Button
 							Grid.Column="2"
@@ -144,7 +144,7 @@
 							IsChecked="{Binding CustomFormat}" Content="{x:Static res:OptionsRes.CustomFormatRadioButton}" />
 						<TextBox
 							Grid.Column="1"
-							Margin="20,51,6,0" Height="22.959" VerticalAlignment="Top"
+							Margin="20,51,6,0" Height="22.959" VerticalAlignment="Top" VerticalContentAlignment="Center"
 							Text="{Binding CustomFormatString}"
 							IsEnabled="{Binding CustomFormatStringEnabled}" />
 						<TextBlock 
@@ -406,7 +406,7 @@
 							Grid.Column="0" HorizontalAlignment="Left" Text="{x:Static res:OptionsRes.RecognizedExtensionsLabel}" VerticalAlignment="Center"
 							ToolTip="{x:Static res:OptionsRes.RecognizedExtensionsToolTip}" />
 						<TextBox 
-							Grid.Column="1" Height="23" Margin="6,0,9,0" VerticalAlignment="Center" Text="{Binding VideoFileExtensions}"/>
+							Grid.Column="1" Height="23" Margin="6,0,9,0" VerticalAlignment="Center" Text="{Binding VideoFileExtensions}" VerticalContentAlignment="Center"/>
 					</Grid>
 				</Grid>
 			</TabItem>

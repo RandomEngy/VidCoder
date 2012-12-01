@@ -138,9 +138,10 @@
 			LostFocus="NumberBoxLostFocus"
 			PreviewTextInput="NumberBoxPreviewTextInput"
 			PreviewKeyDown="NumberBoxPreviewKeyDown"
-            PreviewMouseDown="NumberBoxPreviewMouseDown"
+			PreviewMouseDown="NumberBoxPreviewMouseDown"
 			PreviewMouseUp="NumberBoxPreviewMouseUp"
-			TextChanged="NumberBoxTextChanged" />
+			TextChanged="NumberBoxTextChanged"
+			VerticalContentAlignment="Center"/>
 		<Grid
 			Name="incrementButtonsGrid"
 			Grid.Column="1"
