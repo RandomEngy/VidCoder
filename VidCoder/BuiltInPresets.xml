@@ -62,7 +62,7 @@
 			<OutputFormat>Mp4</OutputFormat>
 			<PreferredExtension>Mp4</PreferredExtension>
 			<IncludeChapterMarkers>false</IncludeChapterMarkers>
-			<LargeFile>false</LargeFile>
+			<LargeFile>true</LargeFile>
 			<Optimize>false</Optimize>
 			<IPod5GSupport>false</IPod5GSupport>
 			<Width>0</Width>

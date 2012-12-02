@@ -164,7 +164,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.originalPreset.Name;
+				return this.originalPreset.DisplayName;
 			}
 		}
 
