@@ -93,9 +93,9 @@ namespace VidCoder
 
 					lock (this.encoderLock)
 					{
-						try
-						{
-							var binding = new NetNamedPipeBinding
+						this.ExecuteProxyOperation(() =>
+							{
+								var binding = new NetNamedPipeBinding
 								{
 									OpenTimeout = TimeSpan.FromSeconds(10),
 									CloseTimeout = TimeSpan.FromSeconds(PipeTimeoutSeconds),
@@ -103,26 +103,16 @@ namespace VidCoder
 									ReceiveTimeout = TimeSpan.FromSeconds(PipeTimeoutSeconds)
 								};
 
-							this.pipeFactory = new DuplexChannelFactory<IHandBrakeEncoder>(
-								this,
-								binding,
-								new EndpointAddress("net.pipe://localhost/VidCoderWorker_" + worker.Id));
+								this.pipeFactory = new DuplexChannelFactory<IHandBrakeEncoder>(
+									this,
+									binding,
+									new EndpointAddress("net.pipe://localhost/VidCoderWorker_" + worker.Id));
 
-							this.channel = this.pipeFactory.CreateChannel();
+								this.channel = this.pipeFactory.CreateChannel();
 
-							this.channel.StartEncode(job.HbJob, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds,
-													 Config.LogVerbosity, Config.PreviewCount);
-						}
-						catch (CommunicationException)
-						{
-							this.StopEncodeWithError();
-							return;
-						}
-						catch (TimeoutException)
-						{
-							this.StopEncodeWithError();
-							return;
-						}
+								this.channel.StartEncode(job.HbJob, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds,
+														 Config.LogVerbosity, Config.PreviewCount);
+							});
 					}
 
 			    	this.pingTimer = new Timer
@@ -227,18 +217,7 @@ namespace VidCoder
 			{
 				if (this.channel != null)
 				{
-					try
-					{
-						this.channel.PauseEncode();
-					}
-					catch (CommunicationException)
-					{
-						this.StopEncodeWithError();
-					}
-					catch (TimeoutException)
-					{
-						this.StopEncodeWithError();
-					}
+					this.ExecuteProxyOperation(() => this.channel.PauseEncode());
 				}
 			}
 		}
@@ -249,18 +228,7 @@ namespace VidCoder
 			{
 				if (this.channel != null)
 				{
-					try
-					{
-						this.channel.ResumeEncode();
-					}
-					catch (CommunicationException)
-					{
-						this.StopEncodeWithError();
-					}
-					catch (TimeoutException)
-					{
-						this.StopEncodeWithError();
-					}
+					this.ExecuteProxyOperation(() => this.channel.ResumeEncode());
 				}
 			}
 		}
@@ -271,18 +239,7 @@ namespace VidCoder
 			{
 				if (this.channel != null)
 				{
-					try
-					{
-						this.channel.StopEncode();
-					}
-					catch (CommunicationException)
-					{
-						this.StopEncodeWithError();
-					}
-					catch (TimeoutException)
-					{
-						this.StopEncodeWithError();
-					}
+					this.ExecuteProxyOperation(() => this.channel.StopEncode());
 				}
 			}
 		}
@@ -378,6 +335,23 @@ namespace VidCoder
 			this.logger.LogError("Encode worker crashed. Please report this error so it can be fixed in the future:" + Environment.NewLine + exceptionString);
 		}
 
+		// Executes the given proxy operation, stopping the encode and logging if a communication problem occurs.
+		private void ExecuteProxyOperation(Action action)
+		{
+			try
+			{
+				action();
+			}
+			catch (CommunicationException exception)
+			{
+				this.StopEncodeWithError(exception);
+			}
+			catch (TimeoutException exception)
+			{
+				this.StopEncodeWithError(exception);
+			}
+		}
+
 		private void EndEncode(bool error)
 		{
 			if (this.encoding)
@@ -401,9 +375,9 @@ namespace VidCoder
 			}
 		}
 
-		private void StopEncodeWithError()
+		private void StopEncodeWithError(Exception exception)
 		{
-			this.logger.LogError("Unable to contact encode proxy.");
+			this.logger.LogError("Unable to contact encode proxy: " + exception);
 			this.EndEncode(error: true);
 		}
 	}

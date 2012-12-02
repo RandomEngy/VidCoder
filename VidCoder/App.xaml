@@ -20,7 +20,7 @@
 		<Style x:Key="GrayOnDisabledButton" TargetType="Button">
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled}" Value="False">
-					<Setter Property="Foreground" Value="Gray"></Setter>
+					<Setter Property="Foreground" Value="#999999"></Setter>
 				</DataTrigger>
 			</Style.Triggers>
 		</Style>

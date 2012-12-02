@@ -115,6 +115,7 @@ namespace VidCoder
 			}
 			else
 			{
+#if !DEBUG
 				// Check if we're a duplicate instance
 				if (!mutex.WaitOne(TimeSpan.Zero, true))
 				{
@@ -125,6 +126,7 @@ namespace VidCoder
 						IntPtr.Zero);
 					Environment.Exit(0);
 				}
+#endif
 
 				this.GlobalInitialize();
 

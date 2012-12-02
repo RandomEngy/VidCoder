@@ -922,7 +922,8 @@
 					Padding="5,0"
 					Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}"
 					IsEnabled="{Binding HasVideoSource}"
-					Visibility="{Binding WindowManagerVM.PreviewWindowOpen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
+					Visibility="{Binding WindowManagerVM.PreviewWindowOpen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
+					Style="{StaticResource GrayOnDisabledButton}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/preview.png" Height="26" />
 						<TextBlock Text="{x:Static prop:Resources.PreviewLabel}" Margin="5,0,0,0" VerticalAlignment="Center" />
