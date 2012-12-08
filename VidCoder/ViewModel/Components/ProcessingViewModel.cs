@@ -212,6 +212,7 @@ namespace VidCoder.ViewModel.Components
 				this.RaisePropertyChanged(() => this.PauseVisible);
 				this.RaisePropertyChanged(() => this.Encoding);
 				this.RaisePropertyChanged(() => this.EncodeButtonText);
+				Messenger.Default.Send(new ProgressChangedMessage());
 			}
 		}
 
@@ -386,6 +387,7 @@ namespace VidCoder.ViewModel.Components
 				this.overallEncodeProgressFraction = value;
 				this.RaisePropertyChanged(() => this.OverallEncodeProgressPercent);
 				this.RaisePropertyChanged(() => this.OverallEncodeProgressFraction);
+				Messenger.Default.Send(new ProgressChangedMessage());
 			}
 		}
 

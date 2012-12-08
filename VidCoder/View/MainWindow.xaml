@@ -11,9 +11,10 @@
 	xmlns:prop="clr-namespace:VidCoder.Properties"
 	xmlns:VidCoderDragDrop="clr-namespace:VidCoder.DragDropUtils"
 	xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop"
-	xmlns:Model="clr-namespace:HandBrake.Interop.Model;assembly=HandBrakeInterop" Title="VidCoder"
+	xmlns:Model="clr-namespace:HandBrake.Interop.Model;assembly=HandBrakeInterop"
 	xmlns:tb="http://www.hardcodet.net/taskbar"
 	xmlns:res="clr-namespace:VidCoder.LocalResources"
+	Title="{Binding WindowTitle}"
 	Width="671"
 	Height="445"
 	MinWidth="617"
@@ -923,7 +924,7 @@
 					Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}"
 					IsEnabled="{Binding HasVideoSource}"
 					Visibility="{Binding WindowManagerVM.PreviewWindowOpen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
-					Style="{StaticResource GrayOnDisabledButton}">
+					Style="{StaticResource GrayOnDisabledControl}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/preview.png" Height="26" />
 						<TextBlock Text="{x:Static prop:Resources.PreviewLabel}" Margin="5,0,0,0" VerticalAlignment="Center" />
@@ -950,7 +951,7 @@
 					Padding="5,0"
 					Command="{Binding ProcessingVM.AddToQueueCommand}"
 					Visibility="{Binding ProcessingVM.CanTryEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
-					Style="{StaticResource GrayOnDisabledButton}">
+					Style="{StaticResource GrayOnDisabledControl}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/downarrow_shadow.png" Height="26" />
 						<TextBlock Text="{x:Static res:MainRes.AddToQueueLabel}" VerticalAlignment="Center" Margin="5,0,0,0" />
@@ -973,7 +974,7 @@
 					MinWidth="78" Padding="5,0"
 					Command="{Binding ProcessingVM.EncodeCommand}"
 					Visibility="{Binding ProcessingVM.PauseVisible, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
-					Style="{StaticResource GrayOnDisabledButton}">
+					Style="{StaticResource GrayOnDisabledControl}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/encode_160.png" Height="26" />
 						<TextBlock Margin="7,0,0,0" Text="{Binding ProcessingVM.EncodeButtonText}" VerticalAlignment="Center" />

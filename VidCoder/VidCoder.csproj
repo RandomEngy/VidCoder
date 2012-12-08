@@ -439,6 +439,7 @@
     <Compile Include="Messages\OutputPathChangedMessage.cs" />
     <Compile Include="Messages\OutputSizeChangedMessage.cs" />
     <Compile Include="Messages\PreviewImageChangedMessage.cs" />
+    <Compile Include="Messages\ProgressChangedMessage.cs" />
     <Compile Include="Messages\RangeFocusMessage.cs" />
     <Compile Include="Messages\RefreshPreviewMessage.cs" />
     <Compile Include="Messages\SaveQueueColumnsMessage.cs" />

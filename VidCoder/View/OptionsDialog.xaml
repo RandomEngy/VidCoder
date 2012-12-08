@@ -46,7 +46,7 @@
 							VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,6,0"
 							Content="Use custom .wav file:"
 							IsEnabled="{Binding PlaySoundOnCompletion}"
-							IsChecked="{Binding UseCustomCompletionSound}"/>
+							IsChecked="{Binding UseCustomCompletionSound}" Style="{StaticResource GrayOnDisabledControl}" />
 						<TextBox
 							Grid.Column="1" Height="22"
 							VerticalAlignment="Top" VerticalContentAlignment="Center"
@@ -83,7 +83,7 @@
 						IsChecked="{Binding BetaUpdates}"
 						IsEnabled="{Binding BetaUpdatesCheckBoxEnabled}"
 						ToolTip="{Binding BetaUpdatesToolTip}"
-						ToolTipService.ShowOnDisabled="True"/>
+						ToolTipService.ShowOnDisabled="True" Style="{StaticResource GrayOnDisabledControl}"/>
 					<Grid
 						Height="31" Margin="27,228,11,0" VerticalAlignment="Top"
 						Visibility="{Binding UpdatesEnabled, Converter={StaticResource VisibilityConverter}}">
@@ -219,13 +219,14 @@
 							Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" MinWidth="120" Margin="6,0,0,0"
 							ItemsSource="{Binding Languages}" SelectedValue="{Binding AudioLanguageCode}"
 							DisplayMemberPath="Name" SelectedValuePath="Code"
-							IsEnabled="{Binding AutoAudioLanguageSelected}"/>
+							IsEnabled="{Binding AutoAudioLanguageSelected}"
+							Style="{StaticResource GrayOnDisabledControl}"/>
 					</StackPanel>
 
 					<CheckBox 
 						Content="{x:Static res:OptionsRes.IncludeAllTracksCheckBox}" Height="16" HorizontalAlignment="Left" Margin="50,77,0,0" VerticalAlignment="Top"
 						IsChecked="{Binding AutoAudioAll}"
-						IsEnabled="{Binding AutoAudioLanguageSelected}"/>
+						IsEnabled="{Binding AutoAudioLanguageSelected}" Style="{StaticResource GrayOnDisabledControl}"/>
 					<RadioButton 
 						Content="{x:Static prop:Resources.All}" Height="16" HorizontalAlignment="Left" Margin="28,98,0,0" VerticalAlignment="Top"
 						IsChecked="{Binding AutoAudio, Converter={StaticResource EnumBoolConverter}, ConverterParameter=All}"
@@ -251,7 +252,7 @@
 						Content="{x:Static res:OptionsRes.BurnInCheckBox}" Height="16" HorizontalAlignment="Left" Margin="50,73,0,0" VerticalAlignment="Top"
 						ToolTip="{x:Static prop:Resources.BurnedSubtitleToolTip}"
 						IsChecked="{Binding AutoSubtitleBurnIn}"
-						IsEnabled="{Binding AutoSubtitleFasSelected}"/>
+						IsEnabled="{Binding AutoSubtitleFasSelected}" Style="{StaticResource GrayOnDisabledControl}" />
 					<StackPanel 
 						Grid.Column="2"
 						Orientation="Horizontal"
@@ -266,19 +267,20 @@
 							Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" MinWidth="120" Margin="6,0,0,0"
 							ItemsSource="{Binding Languages}" SelectedValue="{Binding SubtitleLanguageCode}"
 							DisplayMemberPath="Name" SelectedValuePath="Code"
-							IsEnabled="{Binding AutoSubtitleLanguageSelected}"/>
+							IsEnabled="{Binding AutoSubtitleLanguageSelected}"
+							Style="{StaticResource GrayOnDisabledControl}"/>
 					</StackPanel>
 
 					<CheckBox 
 						Grid.Column="2"
 						Content="{x:Static res:OptionsRes.OnlyIfDifferentFromAudioCheckBox}" Height="16" HorizontalAlignment="Left" Margin="50,121,0,0" Name="checkBox3" VerticalAlignment="Top"
 						IsChecked="{Binding AutoSubtitleOnlyIfDifferent}"
-						IsEnabled="{Binding AutoSubtitleLanguageSelected}"/>
+						IsEnabled="{Binding AutoSubtitleLanguageSelected}" Style="{StaticResource GrayOnDisabledControl}" />
 					<CheckBox 
 						Grid.Column="2"
 						Content="{x:Static res:OptionsRes.IncludeAllTracksCheckBox}" Height="16" HorizontalAlignment="Left" Margin="50,143,0,0" Name="checkBox4" VerticalAlignment="Top"
 						IsChecked="{Binding AutoSubtitleAll}"
-						IsEnabled="{Binding AutoSubtitleLanguageSelected}"/>
+						IsEnabled="{Binding AutoSubtitleLanguageSelected}" Style="{StaticResource GrayOnDisabledControl}" />
 					<RadioButton 
 						Grid.Column="2"
 						Content="{x:Static prop:Resources.All}" Height="16" HorizontalAlignment="Left" Margin="28,165,0,0" Name="radioButton9" VerticalAlignment="Top"

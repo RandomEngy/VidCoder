@@ -141,6 +141,13 @@ namespace VidCoder.ViewModel
 						this.RefreshRangePreview();
 					});
 
+			Messenger.Default.Register<ProgressChangedMessage>(
+				this,
+				message =>
+					{
+						this.RaisePropertyChanged(() => this.WindowTitle);
+					});
+
 			Messenger.Default.Register<RangeFocusMessage>(this, this.OnRangeControlGotFocus);
 		}
 
@@ -382,6 +389,19 @@ namespace VidCoder.ViewModel
 			this.logger.Dispose();
 
 			return true;
+		}
+
+		public string WindowTitle
+		{
+			get
+			{
+				if (!this.processingVM.Encoding)
+				{
+					return "VidCoder";
+				}
+
+				return string.Format("VidCoder - {0:F1}%", this.processingVM.OverallEncodeProgressPercent);
+			}
 		}
 
 		public string SourcePath { get; private set; }

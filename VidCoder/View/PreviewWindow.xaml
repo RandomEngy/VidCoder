@@ -164,7 +164,7 @@
 						<Button
 							Height="23"
 							Command="{Binding GeneratePreviewCommand}" ToolTip="{x:Static res:PreviewRes.EncodePreviewClipToolTip}"
-							Margin="20,0,0,0" Style="{StaticResource GrayOnDisabledButton}">
+							Margin="20,0,0,0" Style="{StaticResource GrayOnDisabledControl}">
 							<StackPanel Orientation="Horizontal" Margin="4,0">
 								<Image Source="/Icons/play_clip.png" VerticalAlignment="Center" Height="15" />
 								<TextBlock Text="{x:Static res:PreviewRes.EncodePreviewClipButton}" Margin="5,0,0,0" VerticalAlignment="Center" />
@@ -189,7 +189,7 @@
 						<Button
 							Height="23"
 							Command="{Binding PlaySourceCommand}" ToolTip="{Binding PlaySourceToolTip}" ToolTipService.ShowOnDisabled="True"
-							Margin="0,0,0,0" Style="{StaticResource GrayOnDisabledButton}">
+							Margin="0,0,0,0" Style="{StaticResource GrayOnDisabledControl}">
 							<StackPanel Orientation="Horizontal" Margin="4,0">
 								<Image Source="/Icons/blue_play_80.png" VerticalAlignment="Center" Height="15" />
 								<TextBlock Text="{x:Static res:PreviewRes.PlaySourceButton}" Margin="5,0,0,0" VerticalAlignment="Center" />

@@ -87,7 +87,7 @@ namespace VidCoder
 					Process worker = Process.Start(startInfo);
 			    	worker.PriorityClass = ProcessPriorityClass.BelowNormal;
 
-					// When the process writes out a line, it's pipe server is ready and can be contacted for
+					// When the process writes out a line, its pipe server is ready and can be contacted for
 					// work. Reading line blocks until this happens.
 					worker.StandardOutput.ReadLine();
 
@@ -98,9 +98,9 @@ namespace VidCoder
 								var binding = new NetNamedPipeBinding
 								{
 									OpenTimeout = TimeSpan.FromSeconds(10),
-									CloseTimeout = TimeSpan.FromSeconds(PipeTimeoutSeconds),
-									SendTimeout = TimeSpan.FromSeconds(PipeTimeoutSeconds),
-									ReceiveTimeout = TimeSpan.FromSeconds(PipeTimeoutSeconds)
+									CloseTimeout = TimeSpan.FromSeconds(10),
+									SendTimeout = TimeSpan.FromSeconds(10),
+									ReceiveTimeout = TimeSpan.FromSeconds(10)
 								};
 
 								this.pipeFactory = new DuplexChannelFactory<IHandBrakeEncoder>(
@@ -112,6 +112,10 @@ namespace VidCoder
 
 								this.channel.StartEncode(job.HbJob, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds,
 														 Config.LogVerbosity, Config.PreviewCount);
+
+								// After we do StartEncode (which can take a while), switch the timeout down to 2 seconds to do pings
+								var contextChannel = (IContextChannel)this.channel;
+								contextChannel.OperationTimeout = TimeSpan.FromSeconds(PipeTimeoutSeconds);
 							});
 					}
 
