@@ -475,7 +475,7 @@
 				<Button
 					Height="25" Margin="10,0,0,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"
 					MinWidth="55" Padding="5,0"
-					Content="Cancel"
+					Content="{x:Static prop:Resources.Cancel}"
 					Command="{Binding CancelScanCommand}"/>
 			</Grid>
 
@@ -898,7 +898,7 @@
 									</Style>
 								</TextBlock.Style>
 								</TextBlock>
-								<TextBlock Text="(Modified)" Foreground="Gray" FontStyle="Italic" Margin="7,0,0,0" FontSize="11" VerticalAlignment="Center"
+								<TextBlock Text="{x:Static res:MainRes.ModifiedAffix}" Foreground="Gray" FontStyle="Italic" Margin="7,0,0,0" FontSize="11" VerticalAlignment="Center"
 									Visibility="{Binding IsModified, Converter={StaticResource VisibilityConverter}}" />
 							</StackPanel>
 						</DataTemplate>

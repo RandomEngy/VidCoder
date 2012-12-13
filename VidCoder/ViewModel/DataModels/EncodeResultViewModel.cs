@@ -16,6 +16,9 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
+	using LocalResources;
+	using Properties;
+
 	public class EncodeResultViewModel : ViewModelBase
 	{
 		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
@@ -75,10 +78,10 @@ namespace VidCoder.ViewModel
 			{
 				if (this.encodeResult.Succeeded)
 				{
-					return "Succeeded";
+					return Resources.Succeeded;
 				}
 
-				return "Failed";
+				return Resources.Failed;
 			}
 		}
 
@@ -118,7 +121,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.playCommand ?? (this.playCommand = new RelayCommand(() =>
 					{
-						Messenger.Default.Send(new StatusMessage { Message = "Playing video..." });
+						Messenger.Default.Send(new StatusMessage { Message = MainRes.PlayingVideoStatus });
 						FileService.Instance.LaunchFile(this.encodeResult.Destination);
 					}));
 			}
@@ -131,7 +134,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.openContainingFolderCommand ?? (this.openContainingFolderCommand = new RelayCommand(() =>
 					{
-						Messenger.Default.Send(new StatusMessage { Message = "Opening folder..." });
+						Messenger.Default.Send(new StatusMessage { Message = MainRes.OpeningFolderStatus });
 						FileService.Instance.LaunchFile(Path.GetDirectoryName(this.encodeResult.Destination));
 					}));
 			}

@@ -117,116 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutLicense" xml:space="preserve">
-    <value>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-
-A full copy of the GNU General Public License has been included along with this program.</value>
+  <data name="OverrideTitleNumberToolTip" xml:space="preserve">
+    <value>Kiválasztása esetén felülírja a normál címet a kimeneti fájlnév létrehozásához. Például 2, 3 és 4 címekkel és 7-es felülírás esetén, 7, 8 és 9-es címeket kapnak. TV sorozatok lemezről való konvertálásánál hasznos lehet.</value>
   </data>
-  <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>Burn the subtitles onto the picture. With burned subtitles, you cannot disable them during playback.</value>
+  <data name="QueueTitlesWindowHeader" xml:space="preserve">
+    <value>Több cím választása a sorbaállításhoz.</value>
   </data>
-  <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Mark this subtitle track as the default. This will show up during playback until another track is picked.</value>
+  <data name="PlaySourceToolTip" xml:space="preserve">
+    <value>Ha támogatott lejátszó van telepítve (VLC vagy Media Player Classic Home Cinema), megtekintheted a DVD-k különálló címeinek előnézetét</value>
   </data>
-  <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Only display forced subtitles from the given track. Usually this means small bits of foreign dialogue.</value>
+  <data name="PlaySourceButton" xml:space="preserve">
+    <value>Forrás lejátszása</value>
   </data>
-  <data name="OffsetSubtitleToolTip" xml:space="preserve">
-    <value>The amount of time to push forward or delay the appearance of the given subtitles.</value>
+  <data name="LengthRangePre" xml:space="preserve">
+    <value>Minden cím</value>
+    <comment>Goes before the first number box in the length range specification.</comment>
   </data>
-  <data name="QueueColumnNameChapters" xml:space="preserve">
-    <value>Chapters</value>
+  <data name="LengthRangeMid" xml:space="preserve">
+    <value>-</value>
+    <comment>Goes in between the two number boxes in the length range specification.</comment>
   </data>
-  <data name="QueueColumnNameDestination" xml:space="preserve">
-    <value>Destination</value>
+  <data name="LengthRangePost" xml:space="preserve">
+    <value>perc</value>
+    <comment>Goes after the second number box in the length range specification.</comment>
   </data>
-  <data name="QueueColumnNameSource" xml:space="preserve">
-    <value>Source</value>
+  <data name="OverrideTitleCheckBox">
+    <value xml:space="preserve"># cím felülírása: kezdés itt:</value>
   </data>
-  <data name="QueueColumnNameTitle" xml:space="preserve">
-    <value>Title</value>
+  <data name="OverrideNameFormatCheckBox">
+    <value xml:space="preserve">Felülíró elnevezésformátum:</value>
   </data>
-  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Audio Quality</value>
+  <data name="QueueTitlesDialogTitle">
+    <value xml:space="preserve">Több cím sorbaállítása</value>
   </data>
-  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Audio Encoder</value>
-  </data>
-  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Video Encoder</value>
-  </data>
-  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Video Quality</value>
-  </data>
-  <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>Estimated time remaining for all jobs in the queue to complete.</value>
-  </data>
-  <data name="QueueColumnNameDuration" xml:space="preserve">
-    <value>Duration</value>
-  </data>
-  <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Searches for subtitle track that is likely to contain bits of foreign dialogue. Good for movies that are mainly in your native language.</value>
-  </data>
-  <data name="Default" xml:space="preserve">
-    <value>Default</value>
-  </data>
-  <data name="Custom" xml:space="preserve">
-    <value>Custom</value>
-  </data>
-  <data name="Browse" xml:space="preserve">
-    <value>Browse...</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="PreviewLabel" xml:space="preserve">
-    <value>Preview</value>
-  </data>
-  <data name="Automatic" xml:space="preserve">
-    <value>Automatic</value>
-  </data>
-  <data name="Off" xml:space="preserve">
-    <value>Off</value>
-  </data>
-  <data name="All" xml:space="preserve">
-    <value>All</value>
-  </data>
-  <data name="StreamChoice" xml:space="preserve">
-    <value>Stream {0}</value>
-  </data>
-  <data name="Ok" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="Disabled" xml:space="preserve">
-    <value>Disabled</value>
-  </data>
-  <data name="Remove" xml:space="preserve">
-    <value>Remove</value>
-  </data>
-  <data name="Copy">
-    <value xml:space="preserve">Copy</value>
-  </data>
-  <data name="Yes">
-    <value xml:space="preserve">Yes</value>
-  </data>
-  <data name="No">
-    <value xml:space="preserve">No</value>
-  </data>
-  <data name="CouldNotAccessDirectoriesError">
-    <value xml:space="preserve">Could not access the following directories:</value>
-  </data>
-  <data name="None">
-    <value xml:space="preserve">None</value>
-  </data>
-  <data name="Succeeded" xml:space="preserve">
-    <value>Succeeded</value>
-  </data>
-  <data name="Failed" xml:space="preserve">
-    <value>Failed</value>
+  <data name="TitleFormat">
+    <value xml:space="preserve">Cím {0}</value>
   </data>
 </root>

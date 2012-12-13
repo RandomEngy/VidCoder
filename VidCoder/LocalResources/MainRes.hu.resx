@@ -112,295 +112,295 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
-    <value>Title:</value>
+    <value>Cím:</value>
   </data>
   <data name="SettingsLabel" xml:space="preserve">
-    <value>Settings</value>
+    <value>Beállítások</value>
   </data>
   <data name="AddToQueueLabel" xml:space="preserve">
-    <value>Add to Queue</value>
+    <value>Hozzáadás a sorhoz</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
-    <value>Add Multiple Titles to Queue...</value>
+    <value>Több cím hozzáadása a sorhoz...</value>
   </data>
   <data name="FileMenu" xml:space="preserve">
-    <value>File</value>
+    <value>Fájl</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
-    <value>Open Video File...</value>
+    <value>Videófájl megnyitása...</value>
   </data>
   <data name="OpenDiscFolder" xml:space="preserve">
-    <value>Open DVD/Blu-ray Folder...</value>
+    <value>DVD/Blu-ray mappa megnyitása...</value>
   </data>
   <data name="EnqueueMultipleFiles" xml:space="preserve">
-    <value>Enqueue Multiple Files...</value>
+    <value>Több fájl sorba állítása...</value>
   </data>
   <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Enqueue Multiple Titles...</value>
+    <value>Több cím sorba állítása...</value>
   </data>
   <data name="ToolsMenu" xml:space="preserve">
-    <value>Tools</value>
+    <value>Eszközök</value>
   </data>
   <data name="ImportPreset" xml:space="preserve">
-    <value>Import Preset...</value>
+    <value>Séma importálása...</value>
   </data>
   <data name="ExportPreset" xml:space="preserve">
-    <value>Export Preset...</value>
+    <value>Séma exportálása...</value>
   </data>
   <data name="OptionsMenuItem" xml:space="preserve">
-    <value>Options...</value>
+    <value>Beállítás...</value>
   </data>
   <data name="Play" xml:space="preserve">
-    <value>Play</value>
+    <value>Lejátszás</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Szerkeszt</value>
   </data>
   <data name="OpenContainingFolder" xml:space="preserve">
-    <value>Open Containing Folder</value>
+    <value>Tartalmazó mappa megnyitása</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
-    <value>Clear Completed</value>
+    <value>Teljesítettek eltávolítása</value>
   </data>
   <data name="ExitMenuItem" xml:space="preserve">
-    <value>Exit</value>
+    <value>Kilépés</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Windows</value>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
-    <value>Encoding Settings</value>
+    <value>Kódolási beállítások</value>
   </data>
   <data name="PreviewMenuItem" xml:space="preserve">
-    <value>Preview</value>
+    <value>Előnézet</value>
   </data>
   <data name="LogMenuItem" xml:space="preserve">
-    <value>Log</value>
+    <value>Napló</value>
   </data>
   <data name="HelpMenu" xml:space="preserve">
-    <value>Help</value>
+    <value>Súgó</value>
   </data>
   <data name="VidCoderHomepageMenuItem" xml:space="preserve">
-    <value>VidCoder Homepage</value>
+    <value>VidCoder honlap</value>
   </data>
   <data name="ReportABugMenuItem" xml:space="preserve">
-    <value>Report a Bug</value>
+    <value>Hiba bejelentése</value>
   </data>
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
-    <value>About VidCoder...</value>
+    <value>VidCoder névjegye...</value>
   </data>
   <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>Choose a video source:</value>
+    <value>Válassz egy videóforrást:</value>
   </data>
   <data name="SourceLabel" xml:space="preserve">
-    <value>Source:</value>
+    <value>Forrás:</value>
   </data>
   <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Scanning source...</value>
+    <value>Forrás vizsgálata...</value>
   </data>
   <data name="Recent" xml:space="preserve">
-    <value>Recent</value>
+    <value>Legutóbbi</value>
   </data>
   <data name="DragFilesHereLabel" xml:space="preserve">
-    <value>(Or drag video files or folders here)</value>
+    <value>(Vagy húzz videófájlokat és mappákat ide)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
-    <value>An error occurred while scanning.</value>
+    <value>Hiba történt a vizsgálat során.</value>
   </data>
   <data name="AudioLabel" xml:space="preserve">
-    <value>Audio:</value>
+    <value>Hang.</value>
   </data>
   <data name="VideoLabel" xml:space="preserve">
-    <value>Video:</value>
+    <value>Videó:</value>
   </data>
   <data name="SubtitlesLabel" xml:space="preserve">
-    <value>Subtitles:</value>
+    <value>Feliratok:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
-    <value>Add Track</value>
+    <value>Sáv hozzáadása</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
-    <value>Chapter Markers:</value>
+    <value>Fejezetjelzők:</value>
   </data>
   <data name="EditButton" xml:space="preserve">
-    <value>Edit...</value>
+    <value>Szerkeszt...</value>
   </data>
   <data name="DestinationLabel" xml:space="preserve">
-    <value>Destination:</value>
+    <value>Cél:</value>
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
-    <value>Click to edit the encode destination.</value>
+    <value>Kattints a kódolási cél szerkesztéséhez.</value>
   </data>
   <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>Select output path...</value>
+    <value>Kimeneti útvonal kiválasztása...</value>
   </data>
   <data name="EncodingLabel" xml:space="preserve">
-    <value>Encoding:</value>
+    <value>Kódolás:</value>
   </data>
   <data name="Stop" xml:space="preserve">
-    <value>Stop</value>
+    <value>Megállít</value>
   </data>
   <data name="Pause" xml:space="preserve">
-    <value>Pause</value>
+    <value>Szünet</value>
   </data>
   <data name="MoveToTopMenuItem" xml:space="preserve">
-    <value>Move to Top</value>
+    <value>Mozgatás a tetejére</value>
   </data>
   <data name="MoveToBottomMenuItem" xml:space="preserve">
-    <value>Move to Bottom</value>
+    <value>Mozgatás az aljára</value>
   </data>
   <data name="CustomizeColumnsMenuItem" xml:space="preserve">
-    <value>Customize columns...</value>
+    <value>Oszlopok testreszabása...</value>
   </data>
   <data name="CurrentFpsLabel" xml:space="preserve">
-    <value>Current FPS:</value>
+    <value>Jelenlegi FPS:</value>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>Average FPS:</value>
+    <value>Átlagos FPS:</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
-    <value>Pick a DVD or Blu-ray folder.</value>
+    <value>Válassz egy DVD vagy Blu-ray mappát.</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
-    <value>There are encodes in progress. Are you sure you want to quit?</value>
+    <value>Kódolások vannak még folyamatban. Biztosan ki akarsz lépni?</value>
   </data>
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
-    <value>Encodes in progress</value>
+    <value>Kódolások folyamatban</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Foreign Audio Search</value>
+    <value>Idegen hangkeresés</value>
   </data>
   <data name="NoneParen" xml:space="preserve">
-    <value>(None)</value>
+    <value>(Nincs)</value>
   </data>
   <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} tracks</value>
+    <value>{0} sáv</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
-    <value>Do you want to save changes to your current preset?</value>
+    <value>Szeretnéd elmenteni a változásokat a jelenlegi sémába?</value>
   </data>
   <data name="SaveChangesPresetTitle" xml:space="preserve">
-    <value>Save current preset?</value>
+    <value>Elmented a jelenlegi sémát?</value>
   </data>
   <data name="DiscNotInDriveError" xml:space="preserve">
-    <value>Cannot load for editing. The disc is no longer in the drive.</value>
+    <value>Nem tölthető be szerkesztésre. A lemez már nincs a meghajtóban.</value>
   </data>
   <data name="PresetNameRestoredFromQueue" xml:space="preserve">
-    <value>Restored from Queue</value>
+    <value>Visszaállítva a sorból</value>
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
-    <value>Restored from Completed</value>
+    <value>Visszaállítva a teljesítettekből</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Preset:</value>
+    <value>Séma:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
-    <value>Destination</value>
+    <value>Cél</value>
   </data>
   <data name="StatusColumnHeader" xml:space="preserve">
-    <value>Status</value>
+    <value>Állapot</value>
   </data>
   <data name="ElapsedTimeColumnHeader" xml:space="preserve">
-    <value>Elapsed Time</value>
+    <value>Eltelt idő</value>
   </data>
   <data name="PlayingVideoMessage" xml:space="preserve">
-    <value>Playing video...</value>
+    <value>Videó lejátszása..</value>
   </data>
   <data name="FileDoesNotExist" xml:space="preserve">
-    <value>{0} does not exist.</value>
+    <value>{0} nem létezik.</value>
   </data>
   <data name="AngleLabel" xml:space="preserve">
-    <value>Angle:</value>
+    <value>Szög:</value>
   </data>
   <data name="ChaptersSummary" xml:space="preserve">
-    <value>of {0}</value>
+    <value>/ {0}</value>
   </data>
   <data name="Queued" xml:space="preserve">
-    <value>Queued</value>
+    <value>Sorbaállítva</value>
   </data>
   <data name="QueuedWithTotal" xml:space="preserve">
-    <value>Queued ({0})</value>
+    <value>({0}) sorbaállítva</value>
   </data>
   <data name="CompletedWithTotal" xml:space="preserve">
-    <value>Completed ({0})</value>
+    <value>({0}) befejezve</value>
   </data>
   <data name="StoppedEncoding" xml:space="preserve">
-    <value>Stopped encoding.</value>
+    <value>Kódolás megállítva.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Are you sure you want to delete {0} source file(s)?</value>
+    <value>Biztosan törölni akarsz {0} forrásfájlt?</value>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
-    <value>Confirm delete</value>
+    <value>Törlés megerősítése</value>
   </data>
   <data name="CouldNotDeleteFile" xml:space="preserve">
-    <value>Could not delete {0}
+    <value>{0}
 
-{1}</value>
+{1} törlése nem lehetséges</value>
   </data>
   <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>The following file(s) could not be recognized and were not added to the queue:
+    <value>A következő fájlokat nem sikerült felismerni és ezért nem állíthatók sorba:
 
 {0}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
-    <value>Error scanning video file(s)</value>
+    <value>Hiba történt a videófájl(ok) vizsgálata során</value>
   </data>
   <data name="StartedEncoding" xml:space="preserve">
-    <value>Started encoding.</value>
+    <value>Kódolás elindítva.</value>
   </data>
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
-    <value>Could not create output directory. Error details:
+    <value>Nem sikerült a kimeneti mappa létrehozása. A hiba részletei:
 
 {0}</value>
   </data>
   <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>Error creating directory</value>
+    <value>Hiba a mappa létrehozása közben</value>
   </data>
   <data name="EncodeCompleted" xml:space="preserve">
-    <value>Encode completed.</value>
+    <value>Kódolás befejeződött.</value>
   </data>
   <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
-    <value>Encoding completed</value>
+    <value>Kódolás befejeződött</value>
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
-    <value>VidCoder has finished all encode jobs in the queue.</value>
+    <value>A VidCoder befejezte az összes sorbaállított fájl kódolását.</value>
   </data>
   <data name="OutputFolderRequiredMessage" xml:space="preserve">
     <value>Cannot add encode jobs without a default output folder. Press OK to pick one.</value>
   </data>
   <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>Default Output Folder Required</value>
+    <value>Alapértelmezett kimeneti mappa szükséges!</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
-    <value>Output path is not valid.</value>
+    <value>Kimeneti útvonal nem érvényes.</value>
   </data>
   <data name="OutputPathNotValidTitle" xml:space="preserve">
-    <value>Path not valid</value>
+    <value>Útvonal nem érvényes</value>
   </data>
   <data name="Encode" xml:space="preserve">
-    <value>Encode</value>
+    <value>Kódolás</value>
   </data>
   <data name="Resume" xml:space="preserve">
-    <value>Resume</value>
+    <value>Folytatás</value>
   </data>
   <data name="EtaLabel" xml:space="preserve">
-    <value>ETA:</value>
+    <value>Hátravan:</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
-    <value>When done:</value>
+    <value>Amikor végez:</value>
   </data>
   <data name="Preset_AndroidHigh" xml:space="preserve">
-    <value>Android High</value>
+    <value>Android Magas</value>
   </data>
   <data name="Preset_AndroidMid" xml:space="preserve">
-    <value>Android Mid</value>
+    <value>Android Közepes</value>
   </data>
   <data name="Preset_AppleiPad" xml:space="preserve">
     <value>Apple iPad</value>
@@ -424,105 +424,105 @@
     <value>AppleTV 3</value>
   </data>
   <data name="Preset_AppleUniversal" xml:space="preserve">
-    <value>Apple Universal</value>
+    <value>Apple univerzális</value>
   </data>
   <data name="Preset_HighProfile" xml:space="preserve">
-    <value>High Profile</value>
+    <value>Magas profil</value>
   </data>
   <data name="Preset_Normal" xml:space="preserve">
-    <value>Normal</value>
+    <value>Normál</value>
   </data>
   <data name="Preset_WindowsPhone7" xml:space="preserve">
     <value>Windows Phone 7</value>
   </data>
-  <data name="SourceOption_VideoFile">
-    <value xml:space="preserve">Video File...</value>
+  <data name="SourceOption_VideoFile" xml:space="preserve">
+    <value>Videófájl...</value>
   </data>
-  <data name="SourceOption_DiscFolder">
-    <value xml:space="preserve">DVD/Blu-ray Folder...</value>
+  <data name="SourceOption_DiscFolder" xml:space="preserve">
+    <value>DVD/Blu-ray mappa...</value>
   </data>
-  <data name="NewVersionDownloadStartedStatus">
-    <value xml:space="preserve">Version {0} is available. Update download has started.</value>
+  <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
+    <value>{0} verzió elérhető. A frissítés letöltése elkezdődött.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus">
-    <value xml:space="preserve">Version {0} has finished downloading and will install on exit.</value>
+  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
+    <value>{0} verzió letöltődött és kilépéskor telepítésre kerül.</value>
   </data>
-  <data name="UpdateNotAppliedError">
-    <value xml:space="preserve">The update was not applied. If you did not cancel it, try installing it manually.</value>
+  <data name="UpdateNotAppliedError" xml:space="preserve">
+    <value>A frissítés nem került telepítésrre. Ha nem szakítottad meg, próbáld meg manuálisan telepíteni.</value>
   </data>
-  <data name="CouldNotLoadPresetMessage">
-    <value xml:space="preserve">Could not load preset: </value>
+  <data name="CouldNotLoadPresetMessage" xml:space="preserve">
+    <value>Séma betöltése nem lehetséges: </value>
   </data>
-  <data name="CouldNotSavePresetMessage">
-    <value xml:space="preserve">Could not save preset '{0}':{1}{2}</value>
+  <data name="CouldNotSavePresetMessage" xml:space="preserve">
+    <value>Nem lehetséges a(z) '{0}' séma elmentése:{1}{2}</value>
   </data>
-  <data name="CouldNotCopyTextError">
-    <value xml:space="preserve">Could not copy text.</value>
+  <data name="CouldNotCopyTextError" xml:space="preserve">
+    <value>Nem sikerült a szöveg másolása.</value>
   </data>
-  <data name="LaunchUrlError">
-    <value xml:space="preserve">Error launching URL: {0}</value>
+  <data name="LaunchUrlError" xml:space="preserve">
+    <value>URL elindítási hiba: {0}</value>
   </data>
-  <data name="UserConfigLoadError">
-    <value xml:space="preserve">Could not load a required user settings file; it may have become corrupt. Do you want to delete it? This will not affect your saved presets.</value>
+  <data name="UserConfigLoadError" xml:space="preserve">
+    <value>Nem sikerült betölteni a szükséges felhasználói beállításfájlt; valósznűleg meghibásodott. Szeretnéd most törölni? Ennek nincs semmilyen hatása a már elmentett sémákra.</value>
   </data>
-  <data name="UserConfigLoadErrorTitle">
-    <value xml:space="preserve">Error loading settings</value>
+  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
+    <value>Hiba történt a beállítások betöltése közben</value>
   </data>
-  <data name="PresetImportErrorMessage">
-    <value xml:space="preserve">Could not import preset. Format is unrecognized.</value>
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Nem sikerült a séma importálása. A formátum ismeretlen.</value>
   </data>
-  <data name="PresetImportErrorTitle">
-    <value xml:space="preserve">Import Error</value>
+  <data name="PresetImportErrorTitle" xml:space="preserve">
+    <value>Import hiba</value>
   </data>
-  <data name="PresetImportSuccessMessage">
-    <value xml:space="preserve">Successfully imported preset {0}.</value>
+  <data name="PresetImportSuccessMessage" xml:space="preserve">
+    <value>{0} séma sikeresen importálva.</value>
   </data>
-  <data name="PresetImportSuccessTitle">
-    <value xml:space="preserve">Success</value>
+  <data name="PresetImportSuccessTitle" xml:space="preserve">
+    <value>Siker</value>
   </data>
-  <data name="PresetExportSuccessMessage">
-    <value xml:space="preserve">Successfully exported preset to {0}</value>
+  <data name="PresetExportSuccessMessage" xml:space="preserve">
+    <value>Séma sikeresen exportálva ide: {0}</value>
   </data>
-  <data name="PresetExportSuccessTitle">
-    <value xml:space="preserve">Success</value>
+  <data name="PresetExportSuccessTitle" xml:space="preserve">
+    <value>Siker</value>
   </data>
-  <data name="ExportPresetFilePickerText">
-    <value xml:space="preserve">Export preset</value>
+  <data name="ExportPresetFilePickerText" xml:space="preserve">
+    <value>Séma exportálása</value>
   </data>
-  <data name="PresetSaveConfirmMessage">
-    <value xml:space="preserve">Do you want to save changes to your current preset?</value>
+  <data name="PresetSaveConfirmMessage" xml:space="preserve">
+    <value>Szeretnéd elmenteni a változásokat a jelenlegi sémába?</value>
   </data>
-  <data name="PresetSaveConfirmTitle">
-    <value xml:space="preserve">Save current preset?</value>
+  <data name="PresetSaveConfirmTitle" xml:space="preserve">
+    <value>Elmented a jelenlegi sémát?</value>
   </data>
-  <data name="PresetRevertConfirmMessage">
-    <value xml:space="preserve">Are you sure you want to revert all unsaved changes to this preset?</value>
+  <data name="PresetRevertConfirmMessage" xml:space="preserve">
+    <value>Biztosan szeretnéd elvetni a jelenlegi séma változásait?</value>
   </data>
-  <data name="PresetRevertConfirmTitle">
-    <value xml:space="preserve">Revert Preset</value>
+  <data name="PresetRevertConfirmTitle" xml:space="preserve">
+    <value>Séma visszaállítása</value>
   </data>
-  <data name="PresetRemoveConfirmMessage">
-    <value xml:space="preserve">Are you sure you want to remove this preset?</value>
+  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
+    <value>Biztosan szeretnéd eltávolítani ezt a sémát?</value>
   </data>
-  <data name="PresetRemoveConfirmTitle">
-    <value xml:space="preserve">Remove Preset</value>
+  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
+    <value>Séma eltávolítása</value>
   </data>
-  <data name="UserConfigCorrupted">
-    <value xml:space="preserve">Configuration was corrupted and could not be loaded. Some of your settings may have been reset.</value>
+  <data name="UserConfigCorrupted" xml:space="preserve">
+    <value>A beállítás meghibásodott és nem sikerült betölteni. Néhány beállítás valószínűleg visszaállításra került.</value>
   </data>
-  <data name="OutputDirectoryPickerText">
-    <value xml:space="preserve">Choose the output directory for encoded video files.</value>
-  </data>
-  <data name="LengthPreviewLabel" xml:space="preserve">
-    <value>Length: {0}</value>
+  <data name="OutputDirectoryPickerText" xml:space="preserve">
+    <value>Add meg az átkonvertált videófájlok kimeneti mappáját.</value>
   </data>
   <data name="ModifiedAffix" xml:space="preserve">
-    <value>(Modified)</value>
+    <value>(Módosított)</value>
+  </data>
+  <data name="LengthPreviewLabel" xml:space="preserve">
+    <value>Hossz: {0}</value>
   </data>
   <data name="PlayingVideoStatus" xml:space="preserve">
-    <value>Playing video...</value>
+    <value>Videó lejátszása</value>
   </data>
   <data name="OpeningFolderStatus" xml:space="preserve">
-    <value>Opening folder...</value>
+    <value>Mappa megnyitása</value>
   </data>
 </root>

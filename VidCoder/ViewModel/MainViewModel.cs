@@ -1506,7 +1506,7 @@ namespace VidCoder.ViewModel
 					duration = end - start;
 				}
 
-				return "Length: " + duration.ToString(Utilities.TimeFormat);
+				return string.Format(MainRes.LengthPreviewLabel, duration.ToString(Utilities.TimeFormat));
 			}
 		}
 

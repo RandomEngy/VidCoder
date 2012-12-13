@@ -74,7 +74,7 @@
 				<!-- Main settings -->
 				<Grid Row="1">
 					<TextBlock
-						Text="Video"
+						Text="{x:Static res:EncodingRes.Video}"
 						Style="{StaticResource SectionHeader}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="7,4,0,0" />
 					<Grid Margin="16,22,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
 						<Grid.RowDefinitions>
@@ -137,7 +137,7 @@
 			<!-- Quality -->
 			<Grid Grid.Column="1">
 				<TextBlock
-					Text="Quality"
+					Text="{x:Static res:EncodingRes.Quality}"
 					Style="{StaticResource SectionHeader}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,4,0,0"/>
 				<Grid 
 					Margin="20,22,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -209,7 +209,7 @@
 					Text="{Binding QualitySliderLeftText}"
 					Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}"/>
 				<TextBlock
-					Height="21" HorizontalAlignment="Right" Margin="0,139,6,0" VerticalAlignment="Top" TextAlignment="Right"
+					Height="21" HorizontalAlignment="Right" Margin="0,132,6,0" VerticalAlignment="Top" TextAlignment="Right"
 					Text="{Binding QualitySliderRightText}"
 					Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}"/>
 				<CheckBox 
@@ -228,7 +228,7 @@
 			Visibility="{Binding X264SettingsVisible, Converter={StaticResource VisibilityConverter}}">
 			<TextBlock
 				HorizontalAlignment="Left" VerticalAlignment="Top"
-				Text="x264 Settings"
+				Text="{x:Static res:EncodingRes.X264Settings}"
 				Style="{StaticResource SectionHeader}" Margin="7,7,0,0"/>
 
 			<!-- Preset -->
@@ -243,7 +243,7 @@
 					<TextBlock Text="{x:Static res:EncodingRes.X264PresetToolTip}" Style="{StaticResource LongToolTip}" />
 				</Grid.ToolTip>
 				<TextBlock 
-					Text="x264 Preset:"
+					Text="{x:Static res:EncodingRes.X264PresetLabel}"
 					MinWidth="80" VerticalAlignment="Center" />
 				<Slider
 					Grid.Column="1"
@@ -272,7 +272,7 @@
 						<TextBlock Text="{x:Static res:EncodingRes.X264TuneToolTip}" Style="{StaticResource LongToolTip}" />
 					</StackPanel.ToolTip>
 					<TextBlock 
-						Text="x264 Tune:" 
+						Text="{x:Static res:EncodingRes.X264TuneLabel}" 
 						VerticalAlignment="Center" MinWidth="80" />
 					<ComboBox
 						Height="23" MinWidth="120" Margin="6,0,0,0" VerticalContentAlignment="Center"
@@ -288,7 +288,7 @@
 						<TextBlock Text="{x:Static res:EncodingRes.X264ProfileToolTip}" Style="{StaticResource LongToolTip}" />
 					</StackPanel.ToolTip>
 					<TextBlock 
-						Text="H.264 Profile:" 
+						Text="{x:Static res:EncodingRes.H264ProfileLabel}"
 						VerticalAlignment="Center" MinWidth="80" />
 					<ComboBox
 						Height="23" MinWidth="120" Margin="6,0,0,0" VerticalContentAlignment="Center"
@@ -304,7 +304,7 @@
 						<TextBlock Text="{x:Static res:EncodingRes.H264LevelToolTip}" Style="{StaticResource LongToolTip}" />
 					</StackPanel.ToolTip>
 					<TextBlock
-						Text="H.264 Level:"
+						Text="{x:Static res:EncodingRes.H264LevelLabel}"
 						VerticalAlignment="Center" MinWidth="80" />
 					<ComboBox
 						Height="23" MinWidth="120" Margin="6,0,0,0" VerticalContentAlignment="Center"
@@ -334,7 +334,7 @@
 
 					<TextBlock
 						HorizontalAlignment="Left" VerticalAlignment="Center"
-						Text="More Settings:" Margin="0,0,6,0" />
+						Text="{x:Static res:EncodingRes.MoreSettingsLabel}" Margin="0,0,6,0" />
 					<TextBox
 						Grid.Column="1"
 						Text="{Binding X264AdditionalOptions, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"

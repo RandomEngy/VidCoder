@@ -112,277 +112,275 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
-    <value>Save</value>
+    <value>Mentés</value>
   </data>
   <data name="SaveAs" xml:space="preserve">
-    <value>Save As...</value>
+    <value>Mentés mint...</value>
   </data>
   <data name="Revert" xml:space="preserve">
-    <value>Revert</value>
+    <value>Visszavonás</value>
   </data>
   <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x264 has a variety of algorithms to decide when to use B-frames and how many to use.
+    <value>Az x264 számos különböző algoritmussal rendelkezik, amelyek eldöntik, hogy mikor és mennyi B-képkockát használjon.
 
-Fast mode takes roughly the same amount of time no matter how many B-frames you specify.  However, while fast, its decisions are often suboptimal.
+A gyors mód nagyjából ugyanannyi időt vesz igénybe, az általad meghatározott B-képkockák számától függetlenül.  Azonban mivel gyors, a döntései nem mindig teljesen optimálisak.
 
-Optimal mode gets slower as the maximum number of B-Frames increases, but makes much more accurate decisions, especially when used with B-pyramid.</value>
+Az optimális mód lelassul, ahogy a B-képkocka száma növekszik, de sokkal pontosabb döntéseket hoz, főleg ha a B-piramissal együtt használják.</value>
   </data>
   <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264 allows for two different prediction modes, spatial and temporal, in B-frames.
+    <value>A H.264 kétféle különböző becslési módot tesz lehetővé a B-képkockákon, térbelit és időlegest.
 
-Spatial, the default, is almost always better, but temporal is sometimes useful too.
+Az alapértelmezett térbeli a legtöbb esetben jobb döntés, de az időleges is néha hasznosnak bizonyulhat.
 
-x264 can, at the cost of a small amount of speed (and accordingly for a small compression gain), adaptively select which is better for each particular frame.</value>
+A x264 némi sebességcsökkenésért (és ennek megfelelően kicsi tömörítésnövekedésért) cserébe magától kiválasztani a legmegfelelőbbet minden képkocka esetében.</value>
   </data>
   <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>Adaptive quantization controls how the encoder distributes bits across the frame.
-Higher values take more bits away from edges and complex areas to improve areas with finer detail.</value>
+    <value>Az adaptív felbontás erősség irányítja, hogy a kódolóegység miként osztja el a biteket a képkockán.
+A magasabb értékek több bitet mozgatnak át a szélekről és bonyolultabb területekről, hogy feljavítsák a finomabb részletekkel rendelkező területeket.</value>
   </data>
   <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>Mode decision picks from a variety of options to make its decision: this option chooses what options those are.  
-Fewer partitions to check means faster encoding, at the cost of worse decisions, since the best option might have been one that was turned off.</value>
+    <value>A mód döntés különböző beállítások közül választ: ez a lehetőség kiválasztja ezeket a beállításokat.  
+A kevesebb felosztás gyorsabb kódolást jelent, a rosszabb döntések kárára, mivel a legjobb lehetőség éppen az is lehet, ami ki lett kapcsolva.</value>
   </data>
   <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>Sane values are ~2-5.  
-This specifies the maximum number of sequential B-frames that the encoder can use. 
- Large numbers generally won't help significantly unless Adaptive B-frames is set to Optimal.  
-Cel-animated source material and B-pyramid also significantly increase the usefulness of larger values. 
-Baseline profile, as required for iPods and similar devices, requires B-frames to be set to 0 (off).</value>
+    <value>Az ésszerű értékek ~2-5 közöttiek.  
+Ez meghatározza a szekvenciális B-képkockák maximális számát, amit a kódoló használhat. 
+A nagyobb értékek általában nem sokat segítenek, kivéve ha az Adaptív B-képkockák Optimálisra vannak állítva.  
+Cel-animált forrásanyagok és a B-piramis szintén nagymértékben megnövelik a nagyobb értékek hatékonyságát. 
+Az alapvonal profil esetében, mivel az iPodok és hasonló eszközök igénylik, a B-képkockákat 0 (ki) értékre kell állítani.</value>
   </data>
   <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>After the encoder has done its work, it has a bunch of data that needs to be compressed losslessly, similar to ZIP or RAR. H.264 provides two options for this: CAVLC and CABAC.  CABAC decodes a lot slower but compresses significantly better (10-30%), especially at lower bitrates. If you're looking to minimize CPU requirements for video playback, disable this option. Baseline profile, as required for iPods and similar devices, requires CABAC to be disabled.</value>
+    <value>Miután a kódoló egység befejezte a munkáját, rengeteg adat marad hátra, amelyeket veszteségmentesen kell tömörítenie, hasonlóan a ZIP vagy RAR fájlokhoz. A H.264 két lehetőséget kínál fel: CAVLC és CABAC. A CABAC sokkal lassabban dekódol, de lényegesen jobban tömörít (10-30%), főleg alacsonyabb bitsűrűségeken. Ha minimalizálni akarod a CPU terhelést a videó visszajátszása során, kapcsold ki ezt a beállítást. Az alapvonal profil esetén, amelyet az iPodok és hasonló eszközök használnak, szükségessé válik a CABAC kikapcsolása.</value>
   </data>
   <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>H.264 has a built-in deblocking filter that smooths out blocking artifacts after decoding each frame.  This not only improves visual quality, but also helps compression significantly. 
-The deblocking filter takes a lot of CPU power, so if you're looking to minimize CPU requirements for video playback, disable it.
+    <value>A H.264 beépített deblocking szűrővel rendelkezik, amely elsimítja a kockás hibákat minden egyes dekódolt képkocka után.  Ez nemcsak a vizuális minőséget javítja, hanem a tömörítést is jelentősen megkönnyíti. 
+A deblocking szűrő nagy mértékű CPU erőt kíván, ezért ha a CPU terhelés minimalizálására törekszel a videó visszajátszása során, kapcsold ezt ki.
 
-The deblocking filter has two adjustable parameters, "strength" and "threshold". 
-The former controls how strong (or weak) the deblocker is, while the latter controls how many (or few)  edges it applies to. 
-Lower values mean less deblocking, higher values mean more deblocking. The default is 0 (normal strength) for both parameters.</value>
+A deblocking szűrő két állítható paraméterrel, "erősség" és "határ". 
+Előbbi azt állítja be, hogy mennyire erős (vagy gyenge) a deblocker, míg utóbbi azt, hogy milyen sok (vagy kevés) élre lesz érvényes. 
+Alacsonyabb értékek kevesebb deblockingot, magasabb értékek több deblockingot eredményeznek. Az alapértelmezett érték 0 (normál erősség) mindkét paraméter esetében.</value>
   </data>
   <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>The 8x8 transform is the single most useful feature of x264 in terms of compression-per-speed.  
-It improves compression by at least 5% at a very small speed cost and may provide an unusually high visual quality benefit compared to its compression gain.  
-However, it requires High Profile, which many devices may not support.</value>
+    <value>A 8x8 átalakítás az x264 leghasznosabb lehetősége ami a tömörítés/sebesség arányát iilleti.  
+Legalább 5%-kal javítja a tömörítés mértékét egy nagyon kicsi sebességcsökkenés mellett és szokatlanul magas képminőséget biztosíthat a tömörítés mértékéhez képest.  
+Figyelem, magas profilt igényel, amit sok eszköz nem támogat.</value>
   </data>
   <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>Controls the motion estimation method. Motion estimation is how the encoder estimates how each block of pixels in a frame has moved.  
-A better motion search method improves compression at the cost of speed.
+    <value>Ez irányítja a mozgásbecslési metódust. A mozgásbecslés arról szól, hogyan becsüli meg a kódolóegység minden egyes pixel elmozdulásának módját.  
+A jobb mozgásbecslési metódus növeli a tömörítés hatékonyságát a sebesség kárára.
 
-Diamond: performs an extremely fast and simple search using a diamond pattern.
+Gyémánt: nagyon gyors és egyszerű keresést hajt végre egy gyémánt alakú mintát használva.
 
-Hexagon: performs a somewhat more effective but slightly slower search using a hexagon pattern.
+Hexagon: valamennyire hatékony, de kissé lassabb keresést hajt végre egy hexagon mintát használva.
+Egyenlőtlen Multi-Hex: széles keresést hajt végre többféle minta alapján, sokkal pontosabban rögzítve a bonyolult mozgást.
 
-Uneven Multi-Hex: performs a very wide search using a variety of patterns, more accurately capturing complex motion.
+Teljes: végrehajt egy "buta" keresést minden pixelen egy széles területen.  Lényegesen lassabb, csak kisebb mértékű tömörítésnövekedéssel jár.
 
-Exhaustive: performs a "dumb" search of every pixel in a wide area.  Significantly slower for only a small compression gain.
-
-Transformed Exhaustive: Like exhaustive, but makes even more accurate decisions. Accordingly, somewhat slower, also for only a small improvement.</value>
+Átalakított teljes: Mint a teljes, csak még pontosabb döntéseket hoz. Ehhez mérten még lassabb, ugyancsak kis mértékű javulásért.</value>
   </data>
   <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
-    <value>This is the distance x264 searches from its best guess at the motion of a block in order to try to find its actual motion.  
-Doesn't apply to Diamond or Hexagon search options.  
-The default is fine for most content, but extremely high motion video, especially at HD resolutions, may benefit from higher ranges, albeit at a high speed cost.</value>
+    <value>Az a távolság, ameddig az x264 keresés a legjobb becslése szerint egy blokk mozgásától, hogy megtalálja annak valódi elmozdulását.  
+Nem érvényes a Gyémánt és Hexagon keresési beállítások esetében.  
+Az alapbeállítás a legtöbb esetben megfelel, de különösen sok mozgást tartalmazó videók esetében, főleg HD felbontásokon, ajánlott a szélesebb tartomány, ennek ára viszont a nagymértékű sebességcsökkenés.</value>
   </data>
   <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x264 normally zeroes out nearly-empty data blocks to save bits to be better used for some other purpose in the video.  
-However, this can sometimes have slight negative effects on retention of subtle grain and dither.  
-Don't touch this unless you're having banding issues or other such cases where you are having trouble keeping fine noise.</value>
+    <value>Az x264 normál esetben nullákkal tölti meg a majdnem üres adatblokkokat, hogy spóroljon a bitekkel más felhasználásra a videóban.  
+Ez azonban néha negatív kihatással lehet szemcsés és remegő videókra.  
+Ne nyúlj hozzá, kivéve ha gondjaid akadnál a sávozással vagy olyan esetekben, amikor nem sikerül megtartanod az enyhe zajt.</value>
   </data>
   <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
-    <value>Psychovisual Rate Distortion means x264 tries to retain detail, for better quality to the human eye, 
-as opposed to trying to maximize quality the way a computer understands it, through signal-to-noise ratios that have trouble telling apart fine detail and noise.</value>
+    <value>A pszichovizuális aránytorzítás azt jelenti, hogy az x264 megpróbálja megtartani a részleteket, a jobb minőséget az emberi szem számára, 
+ellentétben azzal, hogy a minőség maximalizálására törekedne úgy, hogy a számítógép megértse, jel-zaj arányokon keresztül, melyek nehezen tudnak különbséget tenni a finom részletek és a zaj között.</value>
   </data>
   <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
-    <value>Psychovisual Trellis tries to retain more sharpness and detail, but can cause artifacting.
-It is considered experimental, which is why it's off by default. Good values are 0.1 to 0.2.</value>
+    <value>A pszichovizuális rács megpróbál nagyobb élességet és részletességet megtartani, de hibákat okozhat a képkockákon.
+Kísérleti lehetőségként érdemes rá tekinteni, ezért is van alapértelmezett módon kikapcsolva. A jó értékek 0.1 - 0.2 között találhatóak.</value>
   </data>
   <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
-    <value>B-pyramid improves compression by creating a pyramidal structure (hence the name) of B-frames, allowing B-frames to 
-reference each other to improve compression.  
+    <value>A B-piramis növeli a tömörítés hatékonyságát a B-képkockák piramis alakú szerkezetének építésével (innen a név), ezáltal lehetővé teszi nekik, hogy egymásra hivatkozzanak a tömörítés hatékonyságának növeléséhez.  
 
-Requires Max B-frames greater than 1; optimal adaptive B-frames is strongly recommended for full compression benefit.</value>
+Szükséges max B-képkockák értéke nagyobb, mint 1; optimális adaptív B-képkockák erősen ajánlottak a teljes tömörítési növekedés kihasználásához.</value>
   </data>
   <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
-    <value>Sane values are ~1-6.
+    <value>Ésszerű értékek ~1-6 között.
 
-The more you add, the better the compression, but the slower the encode.
+Minél nagyobb az érték, annál jobb a tömörítés hatékonysága, de a kódolás sebessége lelassul.
 
-Cel animation tends to benefit from more reference frames a lot more than film content.
+A cel animáció általában esetében nagyobb előny származik a referencia képkockákból, mint a filmtartalomból.
 
-Note that many hardware devices have limitations on the number of supported reference frames, so if you're encoding for a handheld or standalone player, don't touch this unless you're absolutely sure you know what you're doing!</value>
+Figyelem, sok hardvereszköz rendelkezik limitációkkal a referencia képkockák számát illetően, így ha kézi vagy külső lejátszóra kódolsz, ne nyúlj ehhez, hacsak biztos nem vagy abban, amit csinálsz!</value>
   </data>
   <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
-    <value>This setting controls both subpixel-precision motion estimation and mode decision methods.
+    <value>Ez a beállítás kezeli a szubpixel-pontosságú mozgásbecslést és móddöntési metódusokat is.
 
-Subpixel motion estimation is used for refining motion estimates beyond mere pixel accuracy, improving compression.
+A szubpixel mozgásbecslést az egyszerű pixelpontosságon túli mozgásfinomításhoz használják, ezáltal növelve a tömörítés hatékonyságát.
 
-Mode decision is the method used to choose how to encode each block of the frame: a very important decision.
+A móddöntés egy olyan metódus, amely meghatározza minden egyes képkocka blokknál, hogy milyen kódolással legyen tömörítve: nagyon fontos döntés.
 
-SAD is the fastest method, followed by SATD, RD, RD refinement, and the slowest, QPRD.
-6 or higher is strongly recommended: Psy-RD, a very powerful psy optimization that helps retain detail, requires RD.
-10, the most powerful and slowest option, requires trellis=2.</value>
+A SAD a leggyorsabb mód, ezt követi a SATD, RD, RD finomítás, a leglassabb pedig a QPRD.
+6 vagy magasabb érték erősen ajánlott: a Pszi-RD, egy nagyon hatékony pszi optimalizáció segíti megőrizni a részleteket, ehhez szükséges az RD.
+10, a leghatékonyabb és leglassabb beállítás, rácsozat=2-t igényel.</value>
   </data>
   <data name="Advanced_TrellisToolTip" xml:space="preserve">
-    <value>Trellis fine-tunes the rounding of transform coefficients to squeeze out 3-5% more compression at the cost of some speed. 
-"Always" uses trellis not only during the main encoding process, but also during analysis, which improves compression even more, albeit at great speed cost. 
+    <value>A rácsozat finombeállításával módosítható az átalakítási tényezők lekerekítései, ezáltal további 3-5% tömörítési hatékonyság érhető el némi sebességcsökkenés árán. 
+A "Mindig" beállítás a rácsozatot nemcsak a fő kódolási folyamat alatt használja, hanem az analízis alatt is, mely tovább növeli a tömörítés hatékonyságát, azonban nagyban csökkenti a kódolási sebességet. 
 
-Trellis costs more speed at higher bitrates.</value>
+A rácsozat nagyobb sebességcsökkenést okoz magasabb bitsűrűség esetén.</value>
   </data>
   <data name="Advanced_WeightPToolTip" xml:space="preserve">
-    <value>Performs extra analysis to decide upon weighting parameters for each frame.  
-This improves overall compression slightly and improves the quality of fades greatly. 
-Baseline profile, as required for iPods and similar devices, requires weighted P-frame prediction to be disabled.  
-Note that some devices and players, even those that support Main Profile, 
-may have problems with Weighted P-frame prediction: the Apple TV is completely incompatible with it, for example.</value>
+    <value>Extra analízist hajt végre a minden képkockához illő paraméterek kiválasztásánál.  
+Ez kisebb mértékben növeli a tömörítés hatékonyságát és nagyban javítja az átmenetek minőségét. 
+Az alapvonal profil, amelyet iPodok és hasonló eszközök használnak, kikapcsolt súlyozott P-képkocka becslést igényel.  
+Figyelem, néhány eszköznek és lejátszónak, amelyek támogatják a magas profilt, 
+problémáik akadhatnak a súlyozott P-képkocka becsléssel: példának okáért az Apple TV teljesen inkompatibilis vele.</value>
   </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
-    <value>Dynamic Range Compression. Valid values are 0-4.
+    <value>Dinamikus tartomány tömörítés. Érvényes értékek 0 és 4 között.
 
-For source audio that has a wide dynamic range (very loud and very soft sequences), DRC allows you to "compress" the range by making loud sections softer and soft sections louder.</value>
+A széles dinamikus tartománnyal rendelkező forrásaudiók (nagyon hangos és nagyon halk hangszekvenciák), a DRC lehetővé teszi a tartományok "tömörítését" a hangos részek halkításával és a halk részek felhangosításával.</value>
   </data>
   <data name="Audio_GainToolTip" xml:space="preserve">
-    <value>Amplify or attenuate audio before encoding. Valid values are -20 to +20 dB.</value>
+    <value>Hang felerősítése vagy halkítása a kódolás előtt. Az érvényes értékek -20 és +20 dB közöttiek.</value>
   </data>
   <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
-    <value>Include chapter markers from the input video in the encoded video.</value>
+    <value>Fejezetjelzők beillesztése a bemeneti videóból az átkonvertált videóba.</value>
   </data>
   <data name="IPod5GSupportToolTip" xml:space="preserve">
-    <value>Applies a marker to the file that older iPods require before they'll allow H.264 video to sync.</value>
+    <value>Jelző hozzáadása a fájlhoz, mely régebbi iPodoknál szükséges, mielőtt engedélyeznék az H.264 videó lejátszását.</value>
   </data>
   <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Allows files over 4GB. When enabled, uses 64-bit numbers in encoding. Some devices such as the iPod and PS3 are incompatible with this option.</value>
+    <value>Fájlok engedélyezése 4GB felett. Ha engedélyezve van, 64-bites számokat használ a kódoláshoz. Néhány eszköz, mint például az iPod és a PS3 nem kompatibilisek ezzel a beállítással.</value>
   </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
-    <value>Manually specify a Pixel Aspect Ratio.</value>
+    <value>Pixel képarány manuális megadása.</value>
   </data>
   <data name="Video_QualityTargetToolTip" xml:space="preserve">
-    <value>Set the desired quality factor. The scale used by each video encoder is different.</value>
+    <value>A kívánt minőségszint beállítása. A skála videókódolónként változik.</value>
   </data>
   <data name="WebOptimizedToolTip" xml:space="preserve">
-    <value>Arrange file to play better as a progressive download.</value>
+    <value>A fájl átrendezése, hogy jobban működjön progresszív letöltésként.</value>
   </data>
   <data name="X264PresetToolTip" xml:space="preserve">
-    <value>Change options to trade off compression efficiency against encoding speed. If you specify a preset, the changes it makes will be applied before all other parameters are applied.</value>
+    <value>Csökkenthetsz a tömörítés hatékonyságán a kódolási sebesség javára. Ha megadsz egy sémát, a változtatásai minden más paraméter előtt kerülnek alkalmazásra.</value>
   </data>
   <data name="X264ProfileToolTip" xml:space="preserve">
-    <value>Limit the profile of the output stream. If you specify a profile, it overrides all other settings, so if you use it, you will be guaranteed a compatible stream.
+    <value>A kimeneti folyamat profiljának limitálása. Ha megadsz egy profilt, az felülír minden más beállítást, így ha használod, garantáltan kompatibilis folyamatot kapsz.
 
-You should set this if you know your playback device only supports a certain profile.</value>
+Akkor érdemes beállítani, ha tudod, hogy a lejátszó eszköz csak egy bizonyos profilt támogat.</value>
   </data>
   <data name="X264TuneToolTip" xml:space="preserve">
-    <value>Tune options to further optimize them for your input content. If you specify a tuning, the changes will be applied after the Preset but before all other parameters.</value>
+    <value>Beállítások további optimalizálása a bemeneti tartalmakhoz. Ha megadsz egy módosítást, a változások a Séma után, de a többi paraméter előtt kerülnek érvényesítésre.</value>
   </data>
   <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>The desired display width of the video. Other parameters such as the Pixel Aspect Ratio will be changed to acheive this.</value>
+    <value>A videó kívánt megjelenítési szélessége. Egyéb paraméterek, mint például a Pixel képarány megváloztatásra kerülnek a hatás érdekében.</value>
   </data>
   <data name="ContainerLabel" xml:space="preserve">
-    <value>Container:</value>
+    <value>Tároló:</value>
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
-    <value>Extension:</value>
+    <value>Kiterjesztés:</value>
   </data>
   <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Large file size</value>
+    <value>Nagy fájlméret</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
-    <value>Web optimized</value>
+    <value>Webre optimalizált</value>
   </data>
   <data name="Ipod5GSupportCheckBox" xml:space="preserve">
-    <value>iPod 5G support</value>
+    <value>iPod 5G támogatás</value>
   </data>
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
-    <value>Include chapter markers</value>
+    <value>Fejezetjelzők használata</value>
   </data>
   <data name="TabHeader_Picture" xml:space="preserve">
-    <value>Picture</value>
+    <value>Kép</value>
   </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
-    <value>Video Filters</value>
+    <value>Videószűrők</value>
   </data>
   <data name="TabHeader_Video" xml:space="preserve">
-    <value>Video</value>
+    <value>Videó</value>
   </data>
   <data name="TabHeader_Audio" xml:space="preserve">
-    <value>Audio</value>
+    <value>Hang</value>
   </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>Advanced</value>
+    <value>Haladó</value>
   </data>
   <data name="Rename" xml:space="preserve">
-    <value>Rename</value>
+    <value>Átnevezés</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Input</value>
+    <value>Bemenet</value>
   </data>
   <data name="AutoCaption" xml:space="preserve">
     <value>(auto)</value>
   </data>
   <data name="NoneCaption" xml:space="preserve">
-    <value>(none)</value>
+    <value>(nincs)</value>
   </data>
   <data name="StorageResolutionLabel" xml:space="preserve">
-    <value>Storage Resolution:</value>
+    <value>Tárolási felbontás:</value>
   </data>
   <data name="PixelAspectRatioLabel" xml:space="preserve">
-    <value>Pixel Aspect Ratio:</value>
+    <value>Pixel képarány:</value>
   </data>
   <data name="DisplayResolutionLabel" xml:space="preserve">
-    <value>Display Resolution:</value>
+    <value>Megjelenítési felbontás:</value>
   </data>
   <data name="SizingLabel" xml:space="preserve">
-    <value>Sizing</value>
+    <value>Méretezés</value>
   </data>
   <data name="WidthLabel" xml:space="preserve">
-    <value>Width:</value>
+    <value>Szélesség:</value>
   </data>
   <data name="HeightLabel" xml:space="preserve">
-    <value>Height:</value>
+    <value>Magasság:</value>
   </data>
   <data name="MaxWidthLabel" xml:space="preserve">
-    <value>Max Width:</value>
+    <value>Max szélesség:</value>
   </data>
   <data name="MaxHeightLabel" xml:space="preserve">
-    <value>Max Height:</value>
+    <value>Max magasság:</value>
   </data>
   <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>Keep Aspect Ratio</value>
+    <value>Képarány</value>
   </data>
   <data name="AnamorphicLabel" xml:space="preserve">
-    <value>Anamorphic:</value>
+    <value>Anamorfikus:</value>
   </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>Modulus:</value>
   </data>
   <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Display Width:</value>
+    <value>Megjelenítési szélesség:</value>
   </data>
   <data name="PixelAspectRatioRadioButton" xml:space="preserve">
-    <value>Pixel Aspect Ratio:</value>
+    <value>Pixel képarány:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
-    <value>Output</value>
+    <value>Kimenet</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
-    <value>Cropping</value>
+    <value>Levágás</value>
   </data>
   <data name="Top" xml:space="preserve">
-    <value>Top</value>
+    <value>Felül</value>
   </data>
   <data name="Left" xml:space="preserve">
-    <value>Left</value>
+    <value>Balra</value>
   </data>
   <data name="Bottom" xml:space="preserve">
-    <value>Bottom</value>
+    <value>Lent</value>
   </data>
   <data name="Right" xml:space="preserve">
-    <value>Right</value>
+    <value>Jobbra</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
@@ -400,88 +398,88 @@ You should set this if you know your playback device only supports a certain pro
     <value>Deblock:</value>
   </data>
   <data name="GrayscaleCheckBox" xml:space="preserve">
-    <value>Grayscale encoding</value>
+    <value>Szürkeárnyalatos kódolás</value>
   </data>
   <data name="TypeLabel" xml:space="preserve">
-    <value>Type:</value>
+    <value>Típus:</value>
   </data>
   <data name="ShortFramerateLabel" xml:space="preserve">
-    <value>Framerate:</value>
+    <value>Képkockasebesség:</value>
   </data>
   <data name="CodecLabel" xml:space="preserve">
-    <value>Codec:</value>
+    <value>Kodek:</value>
   </data>
   <data name="FramerateLabel" xml:space="preserve">
-    <value>Framerate (FPS):</value>
+    <value>Képkockasebesség (FPS):</value>
   </data>
   <data name="ConstantFramerateRadioButton" xml:space="preserve">
-    <value>Constant Framerate</value>
+    <value>Állandó képkockasebesség</value>
   </data>
   <data name="Quality" xml:space="preserve">
-    <value>Quality</value>
+    <value>Minőség</value>
   </data>
   <data name="TwoPassEncodingCheckBox" xml:space="preserve">
-    <value>2-pass Encoding</value>
+    <value>2-menetes kódolás</value>
   </data>
   <data name="TurboFirstPassCheckBox" xml:space="preserve">
-    <value>Turbo first Pass</value>
+    <value>Turbó első menet</value>
   </data>
   <data name="TargetSizeRadioButton" xml:space="preserve">
-    <value>Target Size (MB)</value>
+    <value>Célpont méret (MB)</value>
   </data>
   <data name="AverageBitrateRadioButton" xml:space="preserve">
-    <value>Avg Bitrate (kbps)</value>
+    <value>Átlagos bitsűrűség (kbps)</value>
   </data>
   <data name="ConstantQualityRadioButton" xml:space="preserve">
-    <value>Constant Quality</value>
+    <value>Állandó minőség</value>
   </data>
   <data name="X264BasicSettings" xml:space="preserve">
-    <value>x264 Basic Settings</value>
+    <value>x264 alapbeállítások</value>
   </data>
   <data name="ProfileLabel" xml:space="preserve">
-    <value>Profile:</value>
+    <value>Profil:</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Preset:</value>
+    <value>Séma:</value>
   </data>
   <data name="TuneLabel" xml:space="preserve">
-    <value>Tune:</value>
+    <value>Beállítás:</value>
   </data>
   <data name="Profile_Baseline" xml:space="preserve">
-    <value>Baseline</value>
+    <value>Alapvonal</value>
   </data>
   <data name="Profile_Main" xml:space="preserve">
-    <value>Main</value>
+    <value>Fő</value>
   </data>
   <data name="Profile_High" xml:space="preserve">
-    <value>High</value>
+    <value>Magas</value>
   </data>
   <data name="Preset_UltraFast" xml:space="preserve">
-    <value>Ultra Fast</value>
+    <value>Ultra gyors</value>
   </data>
   <data name="Preset_SuperFast" xml:space="preserve">
-    <value>Super Fast</value>
+    <value>Szuper gyors</value>
   </data>
   <data name="Preset_VeryFast" xml:space="preserve">
-    <value>Very Fast</value>
+    <value>Nagyon gyors</value>
   </data>
   <data name="Preset_Faster" xml:space="preserve">
-    <value>Faster</value>
+    <value>Gyorsabb</value>
   </data>
   <data name="Preset_Fast" xml:space="preserve">
-    <value>Fast</value>
+    <value>Gyors</value>
   </data>
   <data name="Preset_Medium" xml:space="preserve">
-    <value>Medium (Default)</value>
+    <value>Közepes (alapért.)</value>
   </data>
   <data name="Preset_Slow" xml:space="preserve">
-    <value>Slow</value>
+    <value>Lassú</value>
   </data>
   <data name="Preset_Slower" xml:space="preserve">
-    <value>Slower</value>
+    <value>Lassabb</value>
   </data>
   <data name="Preset_VerySlow" xml:space="preserve">
-    <value>Very Slow</value>
+    <value>Nagyon lassú</value>
   </data>
   <data name="Preset_Placebo" xml:space="preserve">
     <value>Placebo</value>
@@ -490,13 +488,13 @@ You should set this if you know your playback device only supports a certain pro
     <value>Film</value>
   </data>
   <data name="Tune_Animation" xml:space="preserve">
-    <value>Animation</value>
+    <value>Animáció</value>
   </data>
   <data name="Tune_Grain" xml:space="preserve">
-    <value>Grain</value>
+    <value>Szemcsés</value>
   </data>
   <data name="Tune_StillImage" xml:space="preserve">
-    <value>Still Image</value>
+    <value>Állókép</value>
   </data>
   <data name="Tune_Psnr" xml:space="preserve">
     <value>PSNR</value>
@@ -505,106 +503,88 @@ You should set this if you know your playback device only supports a certain pro
     <value>SSIM</value>
   </data>
   <data name="Tune_FastDecode" xml:space="preserve">
-    <value>Fast Decode</value>
+    <value>Gyors dekódolás</value>
   </data>
   <data name="Tune_ZeroLatency" xml:space="preserve">
-    <value>Zero Latency</value>
+    <value>Nincs késleltetés</value>
   </data>
   <data name="FpsFormat" xml:space="preserve">
     <value>{0:0.###} FPS</value>
   </data>
   <data name="CfrSameAsSourceToolTip" xml:space="preserve">
-    <value>Uses the listed framerate from the source title for a constant framerate.</value>
+    <value>A listázott képkockasebességet használja a forrásból az állandó képkockasebesség érdekében.</value>
   </data>
   <data name="CfrToolTip" xml:space="preserve">
-    <value>Use a constant frame rate.</value>
+    <value>Állandó képkockasebességet használ.</value>
   </data>
   <data name="VfrSameAsSourceToolTip" xml:space="preserve">
-    <value>Allow a variable framerate. If the source has a variable frame rate, this setting will preserve it. Note that some players do not support variable frame rates.</value>
+    <value>Változó képkockasebességet engedélyez. Ha a forrás változó képkockasebességgel rendelkezik, ez a beállítás megőrzi azt. Érdemes megjegyezni, hogy néhány lejátszó nem támogatja a változó képkockasebességet.</value>
   </data>
   <data name="VfrPeakFramerateToolTip" xml:space="preserve">
-    <value>Allow a variable framerate and use the specified rate as a peak. If the source has a variable frame rate, this setting will preserve it. Note that some players do not support variable frame rates.</value>
+    <value>Változó képkockasebességet engedélyez és a megadott értéket maximum értékként kezeli. Ha a forrás változó képkockasebességgel rendelkezik, ez a beállítás megőrzi azt. Érdemes megjegyezni, hogy néhány lejátszó nem támogatja a változó képkockasebességet.</value>
   </data>
   <data name="VfrChoice" xml:space="preserve">
-    <value>Variable Framerate</value>
+    <value>Változó képkockasebesség</value>
   </data>
   <data name="VfrPeakChoice" xml:space="preserve">
-    <value>Peak Framerate (VFR)</value>
+    <value>Csúcs képkockasebesség (VFR)</value>
   </data>
   <data name="HighQuality" xml:space="preserve">
-    <value>High quality</value>
+    <value>Magas minőség</value>
   </data>
   <data name="LowQuality" xml:space="preserve">
-    <value>Low quality</value>
+    <value>Alacsony minőség</value>
   </data>
   <data name="SameAsSource" xml:space="preserve">
-    <value>Same as source</value>
+    <value>Forrással megegyező</value>
   </data>
   <data name="AddAudioEncodingButton" xml:space="preserve">
-    <value>Add audio encoding</value>
+    <value>Audiókódolás hozzáadása</value>
   </data>
   <data name="NoTracksPlaceholder" xml:space="preserve">
-    <value>(No tracks)</value>
+    <value>(Nincsenek sávok)</value>
   </data>
   <data name="TargetStream" xml:space="preserve">
-    <value>Target Stream</value>
+    <value>Célsáv</value>
   </data>
   <data name="MixdownLabel" xml:space="preserve">
-    <value>Mixdown:</value>
+    <value>Lemixelés:</value>
   </data>
   <data name="SampleRateLabel" xml:space="preserve">
-    <value>Sample Rate:</value>
+    <value>Mintavétel:</value>
   </data>
   <data name="BitrateLabel" xml:space="preserve">
-    <value>Bitrate:</value>
+    <value>Bitsűrűség:</value>
   </data>
   <data name="CompressionLabel" xml:space="preserve">
-    <value>Compression:</value>
+    <value>Tömörítés:</value>
   </data>
   <data name="GainLabel" xml:space="preserve">
-    <value>Gain (dB):</value>
+    <value>Erősítés (dB):</value>
   </data>
   <data name="DrcLabel" xml:space="preserve">
     <value>DRC:</value>
   </data>
   <data name="NameLabel" xml:space="preserve">
-    <value>Name:</value>
+    <value>Név:</value>
   </data>
   <data name="AscendingQualityToolTip" xml:space="preserve">
-    <value>High values mean high quality.</value>
+    <value>Magas értékek magas minőséget jelentenek.</value>
   </data>
   <data name="DescendingQualityToolTip" xml:space="preserve">
-    <value>Low values mean high quality.</value>
+    <value>Alacsony értékek magas minőséget jelentenek.</value>
   </data>
   <data name="AudioQualityToolTip" xml:space="preserve">
-    <value>The audio quality target. {0} Valid values are from {1} to {2}.</value>
+    <value>A megcélzott hangminőség szintje. {0} Érvényes értékek {1} - {2} között.</value>
   </data>
   <data name="AscendingCompressionToolTip" xml:space="preserve">
-    <value>High values mean high compression: better quality/smaller size but longer encode times.</value>
+    <value>Magas értékek magas tömörítést jelentenek:  jobb minőség/kisebb méret, de hosszabb kódolási idők.</value>
   </data>
   <data name="DescendingCompressionToolTip" xml:space="preserve">
-    <value>Low values mean high compression: better quality/smaller size but longer encode times.</value>
+    <value>Alacsony értékek magas tömörítést jelentenek: jobb minőség/kisebb méret, de hosszabb kódolási idők.</value>
   </data>
   <data name="AudioCompressionToolTip" xml:space="preserve">
-    <value>The amount of compression to apply. {0} Valid values are from {1} to {2}.</value>
-  </data>
-  <data name="AudioEncoder_copy" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AudioEncoder_copy_aac" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AudioEncoder_copy_ac3" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AudioEncoder_copy_dts" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AudioEncoder_copy_dtshd" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AudioEncoder_copy_mp3" xml:space="preserve">
-    <value />
+    <value>A használni kívánt tömörítés mértéke. {0} Érvényes értékek {1} - {2} között.</value>
   </data>
   <data name="AudioEncoder_faac" xml:space="preserve">
     <value>AAC (FAAC)</value>
@@ -625,144 +605,119 @@ You should set this if you know your playback device only supports a certain pro
   <data name="AudioEncoder_vorbis" xml:space="preserve">
     <value>Vorbis (Vorbis)</value>
   </data>
-  <data name="Mixdown_5point1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Mixdown_5_2_lfe" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Mixdown_dpl1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Mixdown_dpl2" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Mixdown_left_only" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Mixdown_mono" xml:space="preserve">
-    <value />
-    <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key.</comment>
-  </data>
-  <data name="Mixdown_right_only" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Mixdown_stereo" xml:space="preserve">
-    <value />
-  </data>
   <data name="Bitrate" xml:space="preserve">
-    <value>Bitrate</value>
+    <value>Bitsűrűség</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Kódolás</value>
   </data>
   <data name="ReferenceFramesLabel" xml:space="preserve">
-    <value>Reference Frames:</value>
+    <value>Referencia képkockák:</value>
   </data>
   <data name="MaxBFramesLabel" xml:space="preserve">
-    <value>Maximum B-Frames:</value>
+    <value>Maximum B-képkockák:</value>
   </data>
   <data name="CabacLabel" xml:space="preserve">
     <value>CABAC:</value>
   </data>
   <data name="EightByEightTransformLabel" xml:space="preserve">
-    <value>8x8 Transform:</value>
+    <value>8x8 átalakítás:</value>
   </data>
   <data name="WeightedPFramesLabel" xml:space="preserve">
-    <value>Weighted P-Frames:</value>
+    <value>Súlyozott P-képkockák:</value>
   </data>
   <data name="PyramidalBFramesLabel" xml:space="preserve">
-    <value>Pyramidal B-Frames:</value>
+    <value>Piramis B-képkockák:</value>
   </data>
   <data name="NoDctDecimateLabel" xml:space="preserve">
-    <value>No DCT-Decimate:</value>
+    <value>Nincs DCT-tizedelés:</value>
   </data>
   <data name="Analysis" xml:space="preserve">
-    <value>Analysis</value>
+    <value>Analízis</value>
   </data>
   <data name="AdaptiveBFramesLabel" xml:space="preserve">
-    <value>Adaptive B-Frames:</value>
+    <value>Adaptív B-képkockák:</value>
   </data>
   <data name="AdaptiveDirectModeLabel" xml:space="preserve">
-    <value>Adaptive Direct Mode:</value>
+    <value>Adaptív közvetlen mód:</value>
   </data>
   <data name="MotionEstimationMethodLabel" xml:space="preserve">
-    <value>Motion Estimation Method:</value>
+    <value>Mozgásbecslés módja:</value>
   </data>
   <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
-    <value>Subpixel Motion Estimation:</value>
+    <value>Szubpixel mozgásbecslés:</value>
   </data>
   <data name="MotionEstimationRangeLabel" xml:space="preserve">
-    <value>Motion Estimation Range:</value>
+    <value>Mozgásbecslés távolsága:</value>
   </data>
   <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
-    <value>Adaptive Quantization Strength:</value>
+    <value>Adaptív felbontás erősség:</value>
   </data>
   <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
-    <value>Psychovisual Rate Distortion:</value>
+    <value>Pszichovizuális aránytorzítás:</value>
   </data>
   <data name="PsychovisualTrellisLabel" xml:space="preserve">
-    <value>Psychovisual Trellis:</value>
+    <value>Pszichovizuális rácsozat:</value>
   </data>
   <data name="DeblockingLabel" xml:space="preserve">
     <value>Deblocking:</value>
   </data>
   <data name="PartitionTypeLabel" xml:space="preserve">
-    <value>Partition Type:</value>
+    <value>Felosztás típusa:</value>
   </data>
   <data name="TrellisLabel" xml:space="preserve">
-    <value>Trellis:</value>
+    <value>Rács:</value>
   </data>
   <data name="OptionsString" xml:space="preserve">
-    <value>Options String</value>
+    <value>Beállítások szöveg</value>
   </data>
   <data name="PyramidalBFrames_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Ki</value>
   </data>
   <data name="PyramidalBFrames_Normal" xml:space="preserve">
-    <value>Normal</value>
+    <value>Normál</value>
   </data>
   <data name="PyramidalBFrames_Strict" xml:space="preserve">
-    <value>Strict</value>
+    <value>Szigorú</value>
   </data>
   <data name="AdaptiveBFrames_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Ki</value>
   </data>
   <data name="AdaptiveBFrames_Fast" xml:space="preserve">
-    <value>Fast</value>
+    <value>Gyors</value>
   </data>
   <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
-    <value>Optimal</value>
+    <value>Optimális</value>
   </data>
   <data name="DirectPrediction_None" xml:space="preserve">
-    <value>None</value>
+    <value>Nincs</value>
   </data>
   <data name="DirectPrediction_Spatial" xml:space="preserve">
-    <value>Spatial</value>
+    <value>Térbeli</value>
   </data>
   <data name="DirectPrediction_Temporal" xml:space="preserve">
-    <value>Temporal</value>
+    <value>Időleges</value>
   </data>
   <data name="DirectPrediction_Automatic" xml:space="preserve">
-    <value>Automatic</value>
+    <value>Automatikus</value>
   </data>
   <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
-    <value>Diamond</value>
+    <value>Gyémánt</value>
   </data>
   <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
     <value>Hexagon</value>
   </data>
   <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
-    <value>Uneven Multi-Hexagon</value>
+    <value>Egyenlőtlen Multi-Hexagon</value>
   </data>
   <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
-    <value>Exhaustive</value>
+    <value>Teljes</value>
   </data>
   <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
-    <value>Transformed Exhaustive</value>
+    <value>Átalakított teljes</value>
   </data>
   <data name="SubpixelMotionEstimation_0" xml:space="preserve">
-    <value>0: SAD, no subpel (super fast!)</value>
+    <value>0: SAD, nincs subpel (szupergyors!)</value>
   </data>
   <data name="SubpixelMotionEstimation_1" xml:space="preserve">
     <value>1: SAD, qpel</value>
@@ -774,66 +729,66 @@ You should set this if you know your playback device only supports a certain pro
     <value>3: SATD, multi-qpel</value>
   </data>
   <data name="SubpixelMotionEstimation_4" xml:space="preserve">
-    <value>4: SATD, qpel on all</value>
+    <value>4: SATD, qpel az összesen</value>
   </data>
   <data name="SubpixelMotionEstimation_5" xml:space="preserve">
-    <value>5: SATD, multi-qpel on all</value>
+    <value>5: SATD, multi-qpel az összesen</value>
   </data>
   <data name="SubpixelMotionEstimation_6" xml:space="preserve">
-    <value>6: RD in I/P-frames</value>
+    <value>6: RD az I/P-képkockákon</value>
   </data>
   <data name="SubpixelMotionEstimation_7" xml:space="preserve">
-    <value>7: RD in all frames</value>
+    <value>7: RD az összes képkockán</value>
   </data>
   <data name="SubpixelMotionEstimation_8" xml:space="preserve">
-    <value>8: RD refine in I/P-frames</value>
+    <value>8: RD finomítás az I/P-képkockákon</value>
   </data>
   <data name="SubpixelMotionEstimation_9" xml:space="preserve">
-    <value>9: RD refine in all frames</value>
+    <value>9: RD finomítás az összes képkockán</value>
   </data>
   <data name="SubpixelMotionEstimation_10" xml:space="preserve">
-    <value>10: QPRD in all frames</value>
+    <value>10: QPRD az összes képkockán</value>
   </data>
   <data name="SubpixelMotionEstimation_11" xml:space="preserve">
-    <value>11: No early terminations in analysis</value>
+    <value>11: Nincs korai leállítás az anaízis közben</value>
   </data>
   <data name="Analysis_None" xml:space="preserve">
-    <value>None</value>
+    <value>Nincs</value>
   </data>
   <data name="Analysis_Some" xml:space="preserve">
-    <value>Some</value>
+    <value>Néhány</value>
   </data>
   <data name="Analysis_All" xml:space="preserve">
-    <value>All</value>
+    <value>Mind</value>
   </data>
   <data name="Trellis_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Ki</value>
   </data>
   <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>Encode Only</value>
+    <value>Csak kódolás</value>
   </data>
   <data name="Trellis_Always" xml:space="preserve">
-    <value>Always</value>
+    <value>Mindig</value>
   </data>
   <data name="DefaultFormat" xml:space="preserve">
-    <value>{0} (Default)</value>
+    <value>{0} (Alapért.)</value>
   </data>
   <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Preset: {0}</value>
+    <value>Séma: {0}</value>
   </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
-    <value>Additional advanced x264 options:</value>
+    <value>További haladó x264 beállítások:</value>
   </data>
   <data name="H264LevelToolTip" xml:space="preserve">
-    <value>Sets and ensures compliance with the specified H.264 level.
+    <value>Beállítja és biztosítja a meghatározott H.264 szint használatát.
 
-Overrides all other settings.</value>
+Felülírja az összes többi beállítást.</value>
   </data>
   <data name="Profile_High444" xml:space="preserve">
-    <value>High 4:4:4 Predictive</value>
+    <value>Magas 4:4:4 prediktív</value>
   </data>
   <data name="VideoCodecLabel" xml:space="preserve">
-    <value>Video Codec:</value>
+    <value>Videókodek</value>
   </data>
   <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
     <value>MPEG-2 (Libav)</value>
@@ -841,58 +796,52 @@ Overrides all other settings.</value>
   <data name="VideoEncoder_ffmpeg4" xml:space="preserve">
     <value>MPEG-4 (Libav)</value>
   </data>
-  <data name="VideoEncoder_x264" xml:space="preserve">
-    <value />
-  </data>
   <data name="Analysis_Most" xml:space="preserve">
-    <value>Most</value>
-  </data>
-  <data name="AdvancedQuery" xml:space="preserve">
-    <value>Advanced Query</value>
-  </data>
-  <data name="Video" xml:space="preserve">
-    <value>Video</value>
+    <value>Legtöbb</value>
   </data>
   <data name="X264Settings" xml:space="preserve">
-    <value>x264 Settings</value>
+    <value>x264 beállítások</value>
   </data>
   <data name="X264PresetLabel" xml:space="preserve">
-    <value>x264 Preset:</value>
+    <value>x264 séma</value>
   </data>
   <data name="X264TuneLabel" xml:space="preserve">
-    <value>x264 Tune:</value>
+    <value>x264 hangolás</value>
   </data>
   <data name="H264ProfileLabel" xml:space="preserve">
-    <value>H.264 Profile:</value>
+    <value>H.264 profil</value>
   </data>
   <data name="H264LevelLabel" xml:space="preserve">
-    <value>H.264 Level:</value>
+    <value>H.264 szint</value>
   </data>
   <data name="MoreSettingsLabel" xml:space="preserve">
-    <value>More Settings:</value>
+    <value>További beállítások:</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>Videó</value>
   </data>
   <data name="Track" xml:space="preserve">
-    <value>Track</value>
+    <value>Sáv</value>
   </data>
   <data name="Source" xml:space="preserve">
-    <value>Source</value>
+    <value>Forrás</value>
   </data>
   <data name="Encoder" xml:space="preserve">
-    <value>Encoder</value>
+    <value>Kódoló</value>
   </data>
   <data name="ChannelLayout" xml:space="preserve">
-    <value>Channel Layout</value>
+    <value>Csatorna felépítés</value>
   </data>
   <data name="SampleRate" xml:space="preserve">
-    <value>Sample Rate</value>
+    <value>Bitsűrűség</value>
   </data>
   <data name="Modifiers" xml:space="preserve">
-    <value>Modifiers</value>
+    <value>Módosítók</value>
   </data>
   <data name="PassthroughTrackDroppedWarning" xml:space="preserve">
-    <value>Passthrough does not work for this input codec; the track has been dropped.</value>
+    <value>Ez a menetes kódolás nem támogatott a bemenő kodek esetében; a sáv kihagyásra került.</value>
   </data>
   <data name="DtsMp4Warning" xml:space="preserve">
-    <value>Few players support playback of DTS audio in MP4 containers. MKV is recommended for DTS audio.</value>
+    <value>Kevés lejátszó támogatja a DTS hang lejátszását az MP4-es formátumokba. A DTS hanghoz MKV ajánlott.</value>
   </data>
 </root>

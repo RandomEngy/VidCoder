@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
     <value>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
@@ -125,108 +125,108 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 A full copy of the GNU General Public License has been included along with this program.</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>Burn the subtitles onto the picture. With burned subtitles, you cannot disable them during playback.</value>
+    <value>Feliratok ráégetése a képre. A ráégetett feliratok esetén nem lehetséges a kikapcsolásuk lejátszáskor.</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Mark this subtitle track as the default. This will show up during playback until another track is picked.</value>
+    <value>Feliratsáv megjelelölése alapértelmezettként. Ez fog megjelenni lejátszáskor, amíg egy másik sáv nem kerül kiválasztásra.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Only display forced subtitles from the given track. Usually this means small bits of foreign dialogue.</value>
+    <value>Csak a kényszerített feliratok jelenítse meg az adott sávról. Általában ez néhány idegen szöveget jelent.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
-    <value>The amount of time to push forward or delay the appearance of the given subtitles.</value>
+    <value>Az idő mértéke, amennyivel előre vagy hátra tolja a megadott feliratokat.</value>
   </data>
   <data name="QueueColumnNameChapters" xml:space="preserve">
-    <value>Chapters</value>
+    <value>Fejezetek</value>
   </data>
   <data name="QueueColumnNameDestination" xml:space="preserve">
-    <value>Destination</value>
+    <value>Cél</value>
   </data>
   <data name="QueueColumnNameSource" xml:space="preserve">
-    <value>Source</value>
+    <value>Forrás</value>
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
-    <value>Title</value>
+    <value>Cím</value>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Audio Quality</value>
+    <value>Hangminőség</value>
   </data>
   <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Audio Encoder</value>
+    <value>Hangkódoló</value>
   </data>
   <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Video Encoder</value>
+    <value>Videókódoló</value>
   </data>
   <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Video Quality</value>
+    <value>Videóminőség</value>
   </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>Estimated time remaining for all jobs in the queue to complete.</value>
+    <value>A sorban található műveletek befejezésének becsült ideje.</value>
   </data>
   <data name="QueueColumnNameDuration" xml:space="preserve">
-    <value>Duration</value>
+    <value>Időtartam</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Searches for subtitle track that is likely to contain bits of foreign dialogue. Good for movies that are mainly in your native language.</value>
+    <value>Feliratsávot keres, amely valószínűleg tartalmaz idegen nyelvű szövegeket. Nagyszerű olyan filmek esetében, amelyek főként a saját nyelveden vannak.</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>Default</value>
+    <value>Alapértelmezett</value>
   </data>
   <data name="Custom" xml:space="preserve">
-    <value>Custom</value>
+    <value>Egyéni</value>
   </data>
   <data name="Browse" xml:space="preserve">
-    <value>Browse...</value>
+    <value>Tallózás...</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Törlés</value>
   </data>
   <data name="PreviewLabel" xml:space="preserve">
-    <value>Preview</value>
+    <value>Előnézet</value>
   </data>
   <data name="Automatic" xml:space="preserve">
-    <value>Automatic</value>
+    <value>Automatikus</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Ki</value>
   </data>
   <data name="All" xml:space="preserve">
-    <value>All</value>
+    <value>Mind</value>
   </data>
   <data name="StreamChoice" xml:space="preserve">
-    <value>Stream {0}</value>
+    <value>{0} folyamat</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>OK</value>
+    <value>Rendben</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Mégse</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>Disabled</value>
+    <value>Kikapcsolva</value>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>Remove</value>
+    <value>Eltávolítás</value>
   </data>
-  <data name="Copy">
-    <value xml:space="preserve">Copy</value>
+  <data name="Copy" xml:space="preserve">
+    <value>Másolás</value>
   </data>
-  <data name="Yes">
-    <value xml:space="preserve">Yes</value>
+  <data name="Yes" xml:space="preserve">
+    <value>Igen</value>
   </data>
-  <data name="No">
-    <value xml:space="preserve">No</value>
+  <data name="No" xml:space="preserve">
+    <value>Nem</value>
   </data>
-  <data name="CouldNotAccessDirectoriesError">
-    <value xml:space="preserve">Could not access the following directories:</value>
+  <data name="CouldNotAccessDirectoriesError" xml:space="preserve">
+    <value>Nem sikerült hozzáférni a következő mappákhoz:</value>
   </data>
-  <data name="None">
-    <value xml:space="preserve">None</value>
+  <data name="None" xml:space="preserve">
+    <value>Nincs</value>
   </data>
   <data name="Succeeded" xml:space="preserve">
-    <value>Succeeded</value>
+    <value>Sikeres</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Failed</value>
+    <value>Sikertelen</value>
   </data>
 </root>

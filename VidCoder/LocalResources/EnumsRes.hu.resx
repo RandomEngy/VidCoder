@@ -117,116 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutLicense" xml:space="preserve">
-    <value>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-
-A full copy of the GNU General Public License has been included along with this program.</value>
+  <data name="Anamorphic_Custom" xml:space="preserve">
+    <value>Egyéni</value>
   </data>
-  <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>Burn the subtitles onto the picture. With burned subtitles, you cannot disable them during playback.</value>
+  <data name="Anamorphic_Loose" xml:space="preserve">
+    <value>Laza</value>
   </data>
-  <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Mark this subtitle track as the default. This will show up during playback until another track is picked.</value>
+  <data name="Anamorphic_None" xml:space="preserve">
+    <value>Nincs</value>
   </data>
-  <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Only display forced subtitles from the given track. Usually this means small bits of foreign dialogue.</value>
-  </data>
-  <data name="OffsetSubtitleToolTip" xml:space="preserve">
-    <value>The amount of time to push forward or delay the appearance of the given subtitles.</value>
-  </data>
-  <data name="QueueColumnNameChapters" xml:space="preserve">
-    <value>Chapters</value>
-  </data>
-  <data name="QueueColumnNameDestination" xml:space="preserve">
-    <value>Destination</value>
-  </data>
-  <data name="QueueColumnNameSource" xml:space="preserve">
-    <value>Source</value>
-  </data>
-  <data name="QueueColumnNameTitle" xml:space="preserve">
-    <value>Title</value>
-  </data>
-  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Audio Quality</value>
-  </data>
-  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Audio Encoder</value>
-  </data>
-  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Video Encoder</value>
-  </data>
-  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Video Quality</value>
-  </data>
-  <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>Estimated time remaining for all jobs in the queue to complete.</value>
-  </data>
-  <data name="QueueColumnNameDuration" xml:space="preserve">
-    <value>Duration</value>
-  </data>
-  <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Searches for subtitle track that is likely to contain bits of foreign dialogue. Good for movies that are mainly in your native language.</value>
-  </data>
-  <data name="Default" xml:space="preserve">
-    <value>Default</value>
+  <data name="Anamorphic_Strict" xml:space="preserve">
+    <value>Szigorú</value>
   </data>
   <data name="Custom" xml:space="preserve">
-    <value>Custom</value>
+    <value>Egyéni</value>
   </data>
-  <data name="Browse" xml:space="preserve">
-    <value>Browse...</value>
+  <data name="Decomb_Bob" xml:space="preserve">
+    <value>Bob</value>
   </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
+  <data name="Decomb_Fast" xml:space="preserve">
+    <value>Gyors</value>
   </data>
-  <data name="PreviewLabel" xml:space="preserve">
-    <value>Preview</value>
+  <data name="Default" xml:space="preserve">
+    <value>Alapértelmezett</value>
   </data>
-  <data name="Automatic" xml:space="preserve">
-    <value>Automatic</value>
+  <data name="Deinterlace_Bob" xml:space="preserve">
+    <value>Bob</value>
+  </data>
+  <data name="Deinterlace_Fast" xml:space="preserve">
+    <value>Gyors</value>
+  </data>
+  <data name="Deinterlace_Slow" xml:space="preserve">
+    <value>Lassú</value>
+  </data>
+  <data name="Deinterlace_Slower" xml:space="preserve">
+    <value>Lassabb</value>
+  </data>
+  <data name="Denoise_Medium" xml:space="preserve">
+    <value>Közepes</value>
+  </data>
+  <data name="Denoise_Strong" xml:space="preserve">
+    <value>Erős</value>
+  </data>
+  <data name="Denoise_Weak" xml:space="preserve">
+    <value>Gyenge</value>
+  </data>
+  <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
+    <value>Ne csináljon semmit</value>
+  </data>
+  <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
+    <value>{0} kiadása:</value>
+  </data>
+  <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
+    <value>Kijelentkezés</value>
+  </data>
+  <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
+    <value>Leállítás</value>
+  </data>
+  <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
+    <value>Alvás</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Ki</value>
   </data>
-  <data name="All" xml:space="preserve">
-    <value>All</value>
+  <data name="VideoRangeType_Chapters" xml:space="preserve">
+    <value>Fejezetek</value>
   </data>
-  <data name="StreamChoice" xml:space="preserve">
-    <value>Stream {0}</value>
+  <data name="VideoRangeType_Frames" xml:space="preserve">
+    <value>Képkockák</value>
   </data>
-  <data name="Ok" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="Disabled" xml:space="preserve">
-    <value>Disabled</value>
-  </data>
-  <data name="Remove" xml:space="preserve">
-    <value>Remove</value>
-  </data>
-  <data name="Copy">
-    <value xml:space="preserve">Copy</value>
-  </data>
-  <data name="Yes">
-    <value xml:space="preserve">Yes</value>
-  </data>
-  <data name="No">
-    <value xml:space="preserve">No</value>
-  </data>
-  <data name="CouldNotAccessDirectoriesError">
-    <value xml:space="preserve">Could not access the following directories:</value>
-  </data>
-  <data name="None">
-    <value xml:space="preserve">None</value>
-  </data>
-  <data name="Succeeded" xml:space="preserve">
-    <value>Succeeded</value>
-  </data>
-  <data name="Failed" xml:space="preserve">
-    <value>Failed</value>
+  <data name="VideoRangeType_Seconds" xml:space="preserve">
+    <value>Másodperc</value>
   </data>
 </root>
