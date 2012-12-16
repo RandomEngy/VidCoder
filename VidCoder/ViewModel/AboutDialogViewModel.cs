@@ -26,7 +26,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return string.Format(MiscRes.BasedOnHandBrake, 5079);
+				return string.Format(MiscRes.BasedOnHandBrake, 5098);
 			}
 		}
 
