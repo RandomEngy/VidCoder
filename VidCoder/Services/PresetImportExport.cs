@@ -11,7 +11,7 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.Services
 {
-	using LocalResources;
+	using Resources;
 
 	public class PresetImportExport : IPresetImportExport
 	{

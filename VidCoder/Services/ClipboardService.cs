@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace VidCoder.Services
 {
-	using LocalResources;
+	using Resources;
 
 	public class ClipboardService
 	{

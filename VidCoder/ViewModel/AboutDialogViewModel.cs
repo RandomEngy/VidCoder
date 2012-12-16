@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VidCoder.ViewModel
 {
-	using LocalResources;
+	using Resources;
 
 	public class AboutDialogViewModel : OkCancelDialogViewModel
 	{

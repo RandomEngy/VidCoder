@@ -13,7 +13,7 @@
 	xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop"
 	xmlns:Model="clr-namespace:HandBrake.Interop.Model;assembly=HandBrakeInterop"
 	xmlns:tb="http://www.hardcodet.net/taskbar"
-	xmlns:res="clr-namespace:VidCoder.LocalResources"
+	xmlns:res="clr-namespace:VidCoder.Resources"
 	xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 	Title="{Binding WindowTitle}"
 	Width="671"
@@ -475,7 +475,7 @@
 				<Button
 					Height="25" Margin="10,0,0,0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"
 					MinWidth="55" Padding="5,0"
-					Content="{x:Static prop:Resources.Cancel}"
+					Content="{x:Static res:CommonRes.Cancel}"
 					Command="{Binding CancelScanCommand}"/>
 			</Grid>
 
@@ -827,7 +827,7 @@
 				Padding="5,0"
 				Command="{Binding OutputPathVM.PickOutputPathCommand}"
 				Visibility="{Binding OutputPathVM.OutputFolderChosen, Converter={StaticResource VisibilityConverter}}">
-				<TextBlock Text="{x:Static prop:Resources.Browse}" />
+				<TextBlock Text="{x:Static res:CommonRes.Browse}" />
 			</Button>
 		</Grid>
 		
@@ -927,7 +927,7 @@
 					Style="{StaticResource GrayOnDisabledControl}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/preview.png" Height="26" />
-						<TextBlock Text="{x:Static prop:Resources.PreviewLabel}" Margin="5,0,0,0" VerticalAlignment="Center" />
+						<TextBlock Text="{x:Static res:CommonRes.PreviewLabel}" Margin="5,0,0,0" VerticalAlignment="Center" />
 					</StackPanel>
 				</Button>
 				
@@ -1045,7 +1045,7 @@
 													</MenuItem.Icon>
 												</MenuItem>
 												<MenuItem
-													Header="{x:Static prop:Resources.Delete}" Command="{Binding ProcessingVM.RemoveSelectedJobsCommand}"
+													Header="{x:Static res:CommonRes.Delete}" Command="{Binding ProcessingVM.RemoveSelectedJobsCommand}"
 													IsEnabled="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}">
 													<MenuItem.Icon>
 														<Image Source="/Icons/delete.png" Width="16" Height="16" />
@@ -1197,11 +1197,11 @@
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
 				<TextBlock
 						Text="{x:Static res:MainRes.EtaLabel}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="6,0,0,0"
-						ToolTip="{x:Static prop:Resources.QueueEtaToolTip}"
+						ToolTip="{x:Static res:CommonRes.QueueEtaToolTip}"
 						Visibility="{Binding ProcessingVM.EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}" />
 				<TextBlock
 						Text="{Binding ProcessingVM.EstimatedTimeRemaining}"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="3,0,0,0"
-						ToolTip="{x:Static prop:Resources.QueueEtaToolTip}"
+						ToolTip="{x:Static res:CommonRes.QueueEtaToolTip}"
 						Visibility="{Binding ProcessingVM.EncodeSpeedDetailsAvailable, Converter={StaticResource VisibilityConverter}}"/>
 				<TextBlock
 					Text="{x:Static res:MainRes.WhenDoneLabel}"

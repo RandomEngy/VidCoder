@@ -7,7 +7,7 @@ using HandBrake.Interop.Model.Encoding;
 namespace VidCoder.Model
 {
 	using System.Resources;
-	using LocalResources;
+	using Resources;
 
 	public class Preset
 	{

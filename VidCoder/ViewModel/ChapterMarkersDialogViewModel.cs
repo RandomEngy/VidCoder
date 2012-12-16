@@ -11,7 +11,7 @@ using VidCoder.Services;
 
 namespace VidCoder.ViewModel
 {
-	using LocalResources;
+	using Resources;
 
 	public class ChapterMarkersDialogViewModel : OkCancelDialogViewModel
 	{

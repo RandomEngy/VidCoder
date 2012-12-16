@@ -2,7 +2,7 @@
 namespace VidCoder.Model
 {
 	using System.ComponentModel.DataAnnotations;
-	using LocalResources;
+	using Resources;
 
 	public enum AnamorphicCombo
 	{

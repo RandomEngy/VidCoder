@@ -22,7 +22,7 @@ using VidCoder.ViewModel.Components;
 namespace VidCoder.ViewModel
 {
 	using System.Globalization;
-	using LocalResources;
+	using Resources;
 
 	public class PreviewViewModel : OkCancelDialogViewModel
 	{

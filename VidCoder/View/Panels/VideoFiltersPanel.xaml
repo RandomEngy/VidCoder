@@ -7,7 +7,7 @@
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:localmodel="clr-namespace:VidCoder.Model"
 	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
-	xmlns:LocalResources="clr-namespace:VidCoder.LocalResources" mc:Ignorable="d" 
+	xmlns:res="clr-namespace:VidCoder.Resources" mc:Ignorable="d" 
 	d:DesignHeight="330" d:DesignWidth="622">
 	<UserControl.Resources>
 		<local:EnumDisplayer Type="{x:Type localmodel:DetelecineCombo}" x:Key="DetelecineChoices" />
@@ -44,7 +44,7 @@
 
 			<Label
 				Grid.Row="0" Grid.Column="0"
-				Content="{x:Static LocalResources:EncodingRes.DetelecineLabel}"/>
+				Content="{x:Static res:EncodingRes.DetelecineLabel}"/>
 			<ComboBox
 				Grid.Row="0" Grid.Column="1"
 				Style="{StaticResource NormalComboBox}"
@@ -58,7 +58,7 @@
 
 			<Label
 				Grid.Row="1" Grid.Column="0"
-				Content="{x:Static LocalResources:EncodingRes.DecombLabel}"/>
+				Content="{x:Static res:EncodingRes.DecombLabel}"/>
 			<ComboBox
 				Grid.Row="1" Grid.Column="1"
 				Style="{StaticResource NormalComboBox}"
@@ -72,7 +72,7 @@
 
 			<Label
 				Grid.Row="2" Grid.Column="0"
-				Content="{x:Static LocalResources:EncodingRes.DeinterlaceLabel}"/>
+				Content="{x:Static res:EncodingRes.DeinterlaceLabel}"/>
 			<ComboBox
 				Grid.Row="2" Grid.Column="1"
 				Style="{StaticResource NormalComboBox}"
@@ -86,7 +86,7 @@
 
 			<Label 
 				Grid.Row="3" Grid.Column="0"
-				Content="{x:Static LocalResources:EncodingRes.DenoiseLabel}"/>
+				Content="{x:Static res:EncodingRes.DenoiseLabel}"/>
 			<ComboBox
 				Grid.Row="3" Grid.Column="1"
 				Style="{StaticResource NormalComboBox}"
@@ -100,14 +100,14 @@
 
 			<Label 
 				Grid.Row="4" Grid.Column="0"
-				Content="{x:Static LocalResources:EncodingRes.DeblockLabel}"/>
+				Content="{x:Static res:EncodingRes.DeblockLabel}"/>
 			<StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
 				<TextBlock MinWidth="34" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding DeblockText}" />
 				<Slider Value="{Binding Deblock}" Width="155" Minimum="4" Maximum="15" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" />
 			</StackPanel>
 
 			<CheckBox 
-				Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="3" Content="{x:Static LocalResources:EncodingRes.GrayscaleCheckBox}" IsChecked="{Binding Grayscale}" />
+				Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="3" Content="{x:Static res:EncodingRes.GrayscaleCheckBox}" IsChecked="{Binding Grayscale}" />
 		</Grid>
 	</Grid>
 </UserControl>

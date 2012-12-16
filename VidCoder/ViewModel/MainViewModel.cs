@@ -24,7 +24,7 @@ using VidCoder.ViewModel.Components;
 namespace VidCoder.ViewModel
 {
 	using System.Data.SQLite;
-	using LocalResources;
+	using Resources;
 	using VideoRangeType = Model.VideoRangeTypeCombo;
 
 	public class MainViewModel : ViewModelBase
@@ -1079,10 +1079,10 @@ namespace VidCoder.ViewModel
 			{
 				if (this.UseDefaultChapterNames)
 				{
-					return Resources.Default;
+					return CommonRes.Default;
 				}
 
-				return Resources.Custom;
+				return CommonRes.Custom;
 			}
 		}
 

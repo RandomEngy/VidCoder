@@ -19,7 +19,7 @@ using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
 {
-	using LocalResources;
+	using Resources;
 	using VideoRangeType = Model.VideoRangeTypeCombo;
 
 	/// <summary>

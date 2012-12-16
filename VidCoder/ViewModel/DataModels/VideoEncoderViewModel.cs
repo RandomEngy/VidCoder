@@ -8,7 +8,7 @@ namespace VidCoder.ViewModel
 	using System.Resources;
 	using GalaSoft.MvvmLight;
 	using HandBrake.Interop.Model.Encoding;
-	using LocalResources;
+	using Resources;
 
 	public class VideoEncoderViewModel : ViewModelBase
 	{

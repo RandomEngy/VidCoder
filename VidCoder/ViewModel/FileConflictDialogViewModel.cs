@@ -9,7 +9,7 @@ using VidCoder.Model;
 
 namespace VidCoder.ViewModel
 {
-	using LocalResources;
+	using Resources;
 
 	public class FileConflictDialogViewModel : ViewModelBase, IDialogViewModel
 	{

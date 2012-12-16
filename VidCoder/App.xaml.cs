@@ -20,7 +20,7 @@ namespace VidCoder
 {
 	using System.Globalization;
 	using System.Threading;
-	using LocalResources;
+	using Resources;
 
 	/// <summary>
 	/// Interaction logic for App.xaml

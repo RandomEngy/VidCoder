@@ -17,6 +17,7 @@ namespace VidCoder
 {
 	using HandBrake.Interop.Model;
 	using Properties;
+	using Resources;
 
 	public static class Utilities
 	{
@@ -569,7 +570,7 @@ namespace VidCoder
 
 			if (accessErrors.Count > 0)
 			{
-				var messageBuilder = new StringBuilder(Resources.CouldNotAccessDirectoriesError + Environment.NewLine);
+				var messageBuilder = new StringBuilder(CommonRes.CouldNotAccessDirectoriesError + Environment.NewLine);
 				foreach (string accessError in accessErrors)
 				{
 					messageBuilder.AppendLine(accessError);

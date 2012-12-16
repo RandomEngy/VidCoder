@@ -8,7 +8,7 @@ using HandBrake.Interop.Model.Encoding;
 namespace VidCoder.ViewModel
 {
 	using System.Resources;
-	using LocalResources;
+	using Resources;
 
 	public class MixdownViewModel : ViewModelBase
 	{

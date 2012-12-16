@@ -21,7 +21,7 @@ using Container = HandBrake.Interop.Model.Encoding.Container;
 
 namespace VidCoder.ViewModel
 {
-	using LocalResources;
+	using Resources;
 
 	public class EncodingViewModel : OkCancelDialogViewModel
 	{

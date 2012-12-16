@@ -15,7 +15,7 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
-	using LocalResources;
+	using Resources;
 	using Model;
 
 	public class SubtitleDialogViewModel : OkCancelDialogViewModel

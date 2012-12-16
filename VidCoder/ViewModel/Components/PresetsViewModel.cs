@@ -15,7 +15,7 @@ using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
 {
-	using LocalResources;
+	using Resources;
 
 	/// <summary>
 	/// Controls creation/modification/deletion/import/export of presets.

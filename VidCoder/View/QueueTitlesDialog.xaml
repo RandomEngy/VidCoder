@@ -5,7 +5,7 @@
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:prop="clr-namespace:VidCoder.Properties"
-	xmlns:res="clr-namespace:VidCoder.LocalResources" 
+	xmlns:res="clr-namespace:VidCoder.Resources" 
 	Title="{x:Static res:QueueTitlesRes.QueueTitlesDialogTitle}" Height="464" Width="550" MinWidth="295" MinHeight="220"
 	Style="{StaticResource NormalWindow}" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" Closing="Window_Closing"
 	TextOptions.TextFormattingMode="Display">
@@ -119,10 +119,10 @@
 			HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom">
 			<Button
 				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsDefault="True"
-				Command="{Binding AcceptCommand}" Margin="0,0,6,0" Content="{x:Static prop:Resources.Ok}" />
+				Command="{Binding AcceptCommand}" Margin="0,0,6,0" Content="{x:Static res:CommonRes.Ok}" />
 			<Button
 				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsCancel="True"
-				Command="{Binding CancelCommand}" Content="{x:Static prop:Resources.Cancel}" />
+				Command="{Binding CancelCommand}" Content="{x:Static res:CommonRes.Cancel}" />
 		</StackPanel>
 	</Grid>
 </Window>

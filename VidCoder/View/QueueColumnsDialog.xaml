@@ -4,7 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:VidCoderDragDrop="clr-namespace:VidCoder.DragDropUtils"
 	xmlns:prop="clr-namespace:VidCoder.Properties"
-	xmlns:res="clr-namespace:VidCoder.LocalResources" 
+	xmlns:res="clr-namespace:VidCoder.Resources" 
 	Title="{x:Static res:MiscRes.QueueColumnsDialogTitle}" Height="411" Width="436"
 	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False"
 	TextOptions.TextFormattingMode="Display">
@@ -46,10 +46,10 @@
 			HorizontalAlignment="Right" Margin="0,0,12,12" VerticalAlignment="Bottom">
 			<Button
 				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsDefault="True"
-				Command="{Binding AcceptCommand}" Margin="0,0,6,0" Content="{x:Static prop:Resources.Ok}" />
+				Command="{Binding AcceptCommand}" Margin="0,0,6,0" Content="{x:Static res:CommonRes.Ok}" />
 			<Button
 				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsCancel="True"
-				Command="{Binding CancelCommand}" Content="{x:Static prop:Resources.Cancel}" />
+				Command="{Binding CancelCommand}" Content="{x:Static res:CommonRes.Cancel}" />
 		</StackPanel>
 	</Grid>
 </Window>

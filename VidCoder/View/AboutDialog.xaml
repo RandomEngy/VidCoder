@@ -3,7 +3,7 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:prop="clr-namespace:VidCoder.Properties"
-	xmlns:res="clr-namespace:VidCoder.LocalResources"
+	xmlns:res="clr-namespace:VidCoder.Resources"
 	Title="{x:Static res:MiscRes.AboutVidCoderDialogTitle}" Height="425" Width="474"
 	Style="{StaticResource NormalWindow}" ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
 	TextOptions.TextFormattingMode="Display">
@@ -23,9 +23,9 @@
 
 		<TextBlock
 			Margin="13,162,12,41" TextWrapping="Wrap"
-			Text="{x:Static prop:Resources.AboutLicense}" />
+			Text="{x:Static res:CommonRes.AboutLicense}" />
 		<Button
-			Content="{x:Static prop:Resources.Ok}" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="button1" VerticalAlignment="Bottom" MinWidth="75" IsDefault="True" IsCancel="True"
+			Content="{x:Static res:CommonRes.Ok}" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="button1" VerticalAlignment="Bottom" MinWidth="75" IsDefault="True" IsCancel="True"
 			Command="{Binding AcceptCommand}"/>
 	</Grid>
 </Window>

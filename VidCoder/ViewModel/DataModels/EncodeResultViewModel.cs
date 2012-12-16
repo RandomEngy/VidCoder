@@ -16,7 +16,7 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
-	using LocalResources;
+	using Resources;
 	using Properties;
 
 	public class EncodeResultViewModel : ViewModelBase
@@ -78,10 +78,10 @@ namespace VidCoder.ViewModel
 			{
 				if (this.encodeResult.Succeeded)
 				{
-					return Resources.Succeeded;
+					return CommonRes.Succeeded;
 				}
 
-				return Resources.Failed;
+				return CommonRes.Failed;
 			}
 		}
 

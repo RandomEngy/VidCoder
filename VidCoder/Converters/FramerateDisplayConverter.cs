@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace VidCoder.Converters
 {
-	using LocalResources;
+	using Resources;
 
 	public class FramerateDisplayConverter : IValueConverter
 	{

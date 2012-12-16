@@ -16,7 +16,7 @@ using HandBrake.Interop.Model.Encoding;
 
 namespace VidCoder.Model
 {
-	using LocalResources;
+	using Resources;
 
 	public static class Presets
 	{

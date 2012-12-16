@@ -6,7 +6,7 @@ using System.Text;
 
 namespace VidCoder.Model
 {
-	using LocalResources;
+	using Resources;
 
 	public enum EncodeCompleteActionType
 	{

@@ -5,7 +5,7 @@
 	xmlns:HandBrakeControls="clr-namespace:VidCoder.Controls"
 	xmlns:HandBrakeDragDrop="clr-namespace:VidCoder.DragDropUtils"
 	xmlns:prop="clr-namespace:VidCoder.Properties"
-	xmlns:res="clr-namespace:VidCoder.LocalResources" 
+	xmlns:res="clr-namespace:VidCoder.Resources" 
 	Title="{x:Static res:SubtitleRes.SubtitlesWindowTitle}" Height="352" Width="572" MinWidth="430" MinHeight="250"
 	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner"
 	DataContextChanged="OnDataContextChanged"
@@ -55,7 +55,7 @@
 		</DataTemplate>
 		<DataTemplate x:Key="ForcedTemplate">
 			<CheckBox 
-				IsChecked="{Binding Forced}" ToolTip="{x:Static prop:Resources.ForcedSubtitleToolTip}"
+				IsChecked="{Binding Forced}" ToolTip="{x:Static res:CommonRes.ForcedSubtitleToolTip}"
 				Visibility="{Binding Selected, Converter={StaticResource VisibilityConverter}}"
 				Width="75" Height="22"
 				Style="{StaticResource CenteredCheckBox}"/>
@@ -63,7 +63,7 @@
 		<DataTemplate x:Key="BurnedInTemplate">
 			<CheckBox
 				IsChecked="{Binding BurnedIn}"
-				ToolTip="{x:Static prop:Resources.BurnedSubtitleToolTip}"
+				ToolTip="{x:Static res:CommonRes.BurnedSubtitleToolTip}"
 				ToolTipService.ShowOnDisabled="True"
 				Visibility="{Binding Selected, Converter={StaticResource VisibilityConverter}}"
 				IsEnabled="{Binding BurnedInEnabled}"
@@ -80,7 +80,7 @@
 			<CheckBox
 				IsChecked="{Binding Default}"
 				IsEnabled="{Binding SubtitleDialogViewModel.DefaultsEnabled}"
-				ToolTip="{x:Static prop:Resources.DefaultSubtitleToolTip}"
+				ToolTip="{x:Static res:CommonRes.DefaultSubtitleToolTip}"
 				ToolTipService.ShowOnDisabled="True"
 				Visibility="{Binding Selected, Converter={StaticResource VisibilityConverter}}"
 				Width="55" Height="22"
@@ -103,7 +103,7 @@
 			<HandBrakeControls:NumberBox
 				Width="40" Height="22"
 				Number="{Binding Offset, Mode=TwoWay}" AllowEmpty="False"
-				ToolTip="{x:Static prop:Resources.OffsetSubtitleToolTip}"/>
+				ToolTip="{x:Static res:CommonRes.OffsetSubtitleToolTip}"/>
 		</DataTemplate>
 		<DataTemplate x:Key="RemoveTemplate">
 			<Button 
@@ -140,19 +140,19 @@
 									<GridViewColumn Header="{x:Static res:SubtitleRes.NameColumn}" CellTemplate="{StaticResource NameTemplate}" x:Name="nameColumn" />
 									<GridViewColumn CellTemplate="{StaticResource DefaultTemplate}" x:Name="sourceDefaultColumn">
 										<GridViewColumn.Header>
-											<TextBlock Text="{x:Static res:SubtitleRes.DefaultColumn}" ToolTip="{x:Static prop:Resources.DefaultSubtitleToolTip}" />
+											<TextBlock Text="{x:Static res:SubtitleRes.DefaultColumn}" ToolTip="{x:Static res:CommonRes.DefaultSubtitleToolTip}" />
 										</GridViewColumn.Header>
 									</GridViewColumn>
 									<GridViewColumn CellTemplate="{StaticResource ForcedTemplate}" x:Name="sourceForcedColumn">
 										<GridViewColumn.Header>
-											<TextBlock Text="{x:Static res:SubtitleRes.ForcedOnlyColumn}" ToolTip="{x:Static prop:Resources.ForcedSubtitleToolTip}" />
+											<TextBlock Text="{x:Static res:SubtitleRes.ForcedOnlyColumn}" ToolTip="{x:Static res:CommonRes.ForcedSubtitleToolTip}" />
 										</GridViewColumn.Header>
 									</GridViewColumn>
 									<GridViewColumn CellTemplate="{StaticResource BurnedInTemplate}" x:Name="sourceBurnedColumn">
 										<GridViewColumn.Header>
 											<TextBlock
 												Text="{x:Static res:SubtitleRes.BurnedInColumn}"
-												ToolTip="{x:Static prop:Resources.BurnedSubtitleToolTip}"
+												ToolTip="{x:Static res:CommonRes.BurnedSubtitleToolTip}"
 												ToolTipService.ShowOnDisabled="True" />
 										</GridViewColumn.Header>
 									</GridViewColumn>
@@ -204,10 +204,10 @@
 			Grid.Row="1">
 			<Button
 				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsDefault="True"
-				Command="{Binding AcceptCommand}" Margin="0,0,6,0" Content="{x:Static prop:Resources.Ok}" />
+				Command="{Binding AcceptCommand}" Margin="0,0,6,0" Content="{x:Static res:CommonRes.Ok}" />
 			<Button
 				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsCancel="True"
-				Command="{Binding CancelCommand}" Content="{x:Static prop:Resources.Cancel}" />
+				Command="{Binding CancelCommand}" Content="{x:Static res:CommonRes.Cancel}" />
 		</StackPanel>
 	</Grid>
 </Window>

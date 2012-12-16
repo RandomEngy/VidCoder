@@ -14,7 +14,7 @@ using VidCoder.Messages;
 
 namespace VidCoder.ViewModel
 {
-	using LocalResources;
+	using Resources;
 
 	public class AudioPanelViewModel : PanelViewModel
 	{

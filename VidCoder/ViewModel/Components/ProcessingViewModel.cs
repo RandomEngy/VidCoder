@@ -26,7 +26,7 @@ using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
 {
-	using LocalResources;
+	using Resources;
 
 	/// <summary>
 	/// Controls the queue and actual processing of encode jobs.

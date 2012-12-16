@@ -11,7 +11,7 @@ using Microsoft.Practices.Unity;
 namespace VidCoder.ViewModel
 {
 	using HandBrake.Interop.Model.Encoding;
-	using LocalResources;
+	using Resources;
 
 	public class SourceSubtitleViewModel : ViewModelBase
 	{

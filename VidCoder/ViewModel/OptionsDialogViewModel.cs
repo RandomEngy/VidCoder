@@ -15,7 +15,7 @@ namespace VidCoder.ViewModel
 {
 	using System.Data.SQLite;
 	using System.Resources;
-	using LocalResources;
+	using Resources;
 	using Microsoft.Practices.Unity;
 
 	public class OptionsDialogViewModel : OkCancelDialogViewModel

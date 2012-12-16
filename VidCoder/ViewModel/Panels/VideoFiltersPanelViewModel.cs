@@ -9,6 +9,7 @@ namespace VidCoder.ViewModel
 {
 	using Model;
 	using Properties;
+	using Resources;
 
 	public class VideoFiltersPanelViewModel : PanelViewModel
 	{
@@ -227,7 +228,7 @@ namespace VidCoder.ViewModel
 					return this.Deblock.ToString();
 				}
 
-				return Resources.Off;
+				return CommonRes.Off;
 			}
 		}
 

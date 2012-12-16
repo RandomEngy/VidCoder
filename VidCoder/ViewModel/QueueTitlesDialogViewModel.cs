@@ -17,7 +17,7 @@ using Microsoft.Practices.Unity;
 namespace VidCoder.ViewModel
 {
 	using System.Data.SQLite;
-	using LocalResources;
+	using Resources;
 
 	public class QueueTitlesDialogViewModel : OkCancelDialogViewModel
 	{

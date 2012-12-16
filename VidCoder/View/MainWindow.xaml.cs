@@ -34,7 +34,7 @@ using VidCoder.ViewModel.Components;
 namespace VidCoder.View
 {
 	using System.Windows.Interop;
-	using LocalResources;
+	using Resources;
 	using VideoRangeType = Model.VideoRangeTypeCombo;
 
 	/// <summary>
@@ -270,7 +270,7 @@ namespace VidCoder.View
 		private void RefreshQueueColumns()
 		{
 			this.queueGridView.Columns.Clear();
-			var resources = new ResourceManager("VidCoder.Properties.Resources", typeof(Resources).Assembly);
+			var resources = new ResourceManager("VidCoder.Resources.CommonRes", typeof(CommonRes).Assembly);
 
 			List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Config.QueueColumns);
 			foreach (Tuple<string, double> column in columns)

@@ -7,7 +7,7 @@
 	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
 	xmlns:converters="clr-namespace:VidCoder.Converters"
 	xmlns:prop="clr-namespace:VidCoder.Properties"
-	xmlns:res="clr-namespace:VidCoder.LocalResources" 
+	xmlns:res="clr-namespace:VidCoder.Resources" 
 	xmlns:view="clr-namespace:VidCoder.View"
 	xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop"
 	Title="{Binding WindowTitle}" Width="671" Height="467" MinWidth="588" MinHeight="467"
@@ -87,7 +87,7 @@
 								</Rectangle.LayoutTransform>
 							</Rectangle>
 						</Grid>
-						<TextBlock Text="{x:Static prop:Resources.Delete}" Margin="4,0,0,0" />
+						<TextBlock Text="{x:Static res:CommonRes.Delete}" Margin="4,0,0,0" />
 					</StackPanel>
 				</Button>
 				<Button
@@ -96,7 +96,7 @@
 					Visibility="{Binding WindowManagerVM.PreviewWindowOpen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/preview.png" Width="16" Height="16" />
-						<TextBlock Text="{x:Static prop:Resources.PreviewLabel}" Margin="5,0,0,0" VerticalAlignment="Center" />
+						<TextBlock Text="{x:Static res:CommonRes.PreviewLabel}" Margin="5,0,0,0" VerticalAlignment="Center" />
 					</StackPanel>
 				</Button>
 			</ToolBar>

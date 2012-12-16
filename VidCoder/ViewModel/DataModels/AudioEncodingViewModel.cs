@@ -18,7 +18,7 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
-	using LocalResources;
+	using Resources;
 
 	public class AudioEncodingViewModel : ViewModelBase
 	{
@@ -696,7 +696,7 @@ namespace VidCoder.ViewModel
 				int previousIndex = this.TargetStreamIndex;
 
 				this.targetStreams.Clear();
-				this.targetStreams.Add(new TargetStreamViewModel { Text = Resources.All });
+				this.targetStreams.Add(new TargetStreamViewModel { Text = CommonRes.All });
 
 				int shownStreams = Math.Max(previousIndex, chosenAudioTracks.Count);
 
@@ -711,7 +711,7 @@ namespace VidCoder.ViewModel
 					this.targetStreams.Add(
 						new TargetStreamViewModel
 					    {
-					        Text = string.Format(Resources.StreamChoice, (i + 1)), 
+							Text = string.Format(CommonRes.StreamChoice, (i + 1)), 
 							TrackDetails = details
 					    });
 				}

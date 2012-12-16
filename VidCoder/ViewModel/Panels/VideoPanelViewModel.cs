@@ -14,7 +14,7 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
-	using LocalResources;
+	using Resources;
 	using Properties;
 
 	public class VideoPanelViewModel : PanelViewModel
@@ -74,7 +74,7 @@ namespace VidCoder.ViewModel
 
 			this.x264ProfileChoices = new List<ComboChoice>
 			{
-				new ComboChoice(null, Resources.Automatic),
+				new ComboChoice(null, CommonRes.Automatic),
 				new ComboChoice("baseline", EncodingRes.Profile_Baseline),
 				new ComboChoice("main", EncodingRes.Profile_Main),
 				new ComboChoice("high", EncodingRes.Profile_High),
@@ -85,7 +85,7 @@ namespace VidCoder.ViewModel
 
 			this.h264LevelChoices = new List<LevelChoiceViewModel>
 			{
-				new LevelChoiceViewModel(null, Resources.Automatic),
+				new LevelChoiceViewModel(null, CommonRes.Automatic),
 				new LevelChoiceViewModel("1.0"),
 				new LevelChoiceViewModel("1b"),
 				new LevelChoiceViewModel("1.1"),
@@ -107,7 +107,7 @@ namespace VidCoder.ViewModel
 
 			this.x264TuneChoices = new List<ComboChoice>
 			{
-				new ComboChoice(null, Resources.None),
+				new ComboChoice(null, CommonRes.None),
 				new ComboChoice("film", EncodingRes.Tune_Film),
 				new ComboChoice("animation", EncodingRes.Tune_Animation),
 				new ComboChoice("grain", EncodingRes.Tune_Grain),

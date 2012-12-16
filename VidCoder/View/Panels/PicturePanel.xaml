@@ -9,7 +9,7 @@
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
 	xmlns:prop="clr-namespace:VidCoder.Properties"
-	xmlns:res="clr-namespace:VidCoder.LocalResources"
+	xmlns:res="clr-namespace:VidCoder.Resources"
 	xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop" mc:Ignorable="d" 
 	d:DesignHeight="330" d:DesignWidth="622">
 	<UserControl.Resources>
@@ -261,15 +261,15 @@
 		<RadioButton
 			Grid.Column="1" Grid.RowSpan="3"  HorizontalAlignment="Left" Margin="50,34,0,0" VerticalAlignment="Top"
 			IsChecked="{Binding CroppingType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Automatic}"
-			Content="{x:Static prop:Resources.Automatic}" GroupName="cropping1" />
+			Content="{x:Static res:CommonRes.Automatic}" GroupName="cropping1" />
 		<RadioButton
 			Grid.Column="1" Grid.RowSpan="3"  HorizontalAlignment="Left" Margin="50,56,0,0" VerticalAlignment="Top"
 			IsChecked="{Binding CroppingType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=None}"
-			Content="{x:Static prop:Resources.None}" GroupName="cropping2"/>
+			Content="{x:Static res:CommonRes.None}" GroupName="cropping2"/>
 		<RadioButton
 			Grid.Column="1" Grid.RowSpan="3"  HorizontalAlignment="Left" Margin="50,78,0,0" VerticalAlignment="Top"
 			IsChecked="{Binding CroppingType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Custom}"
-			Content="{x:Static prop:Resources.Custom}" GroupName="cropping3"/>
+			Content="{x:Static res:CommonRes.Custom}" GroupName="cropping3"/>
 		<Grid 
 			Margin="25,92,0,0" Grid.Column="1" VerticalAlignment="Top" Grid.RowSpan="3" HorizontalAlignment="Left" Width="235">
 			<controls:NumberBox
