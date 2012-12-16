@@ -197,9 +197,6 @@
       <HintPath>..\Lib\Ookii.Dialogs.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
-    <Reference Include="SplitButtonWpf">
-      <HintPath>..\Lib\SplitButtonWpf.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -267,6 +264,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\SeekBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SplitButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -371,6 +372,9 @@
     </Compile>
     <Compile Include="Controls\SeekBar.xaml.cs">
       <DependentUpon>SeekBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SplitButton.xaml.cs">
+      <DependentUpon>SplitButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\DoubleDisplayConverter.cs" />
     <Compile Include="Converters\EnumVisibilityConverter.cs" />

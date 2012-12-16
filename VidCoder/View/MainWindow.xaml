@@ -14,6 +14,7 @@
 	xmlns:Model="clr-namespace:HandBrake.Interop.Model;assembly=HandBrakeInterop"
 	xmlns:tb="http://www.hardcodet.net/taskbar"
 	xmlns:res="clr-namespace:VidCoder.LocalResources"
+	xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 	Title="{Binding WindowTitle}"
 	Width="671"
 	Height="445"
@@ -26,7 +27,6 @@
 	PreviewDragOver="Window_PreviewDragOver"
 	MouseDown="Window_MouseDown"
 	StateChanged="Window_StateChanged" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:Delay="clr-namespace:Delay;assembly=SplitButtonWpf" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 	Deactivated="Window_Deactivated" Activated="Window_Activated"
 	TextOptions.TextFormattingMode="Display">
 	<Window.Resources>
@@ -931,20 +931,20 @@
 					</StackPanel>
 				</Button>
 				
-				<Delay:SplitButton
+				<controls:SplitButton
 					Grid.Column="2" Height="37" HorizontalAlignment="Left" Margin="0,0,5,0" VerticalAlignment="Bottom" 
 					Padding="5,0"
 					Command="{Binding ProcessingVM.AddToQueueCommand}"
 					Visibility="{Binding ProcessingVM.CanTryEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}}">
-					<Delay:SplitButton.ButtonMenuItemsSource>
+					<controls:SplitButton.MenuItemsSource>
 						<MenuItem Header="{x:Static res:MainRes.AddToQueueLabel}" Command="{Binding ProcessingVM.AddToQueueCommand}" />
 						<MenuItem Header="{x:Static res:MainRes.AddMultipleTitlesToQueueLabel}" Command="{Binding ProcessingVM.QueueTitlesCommand}" />
-					</Delay:SplitButton.ButtonMenuItemsSource>
+					</controls:SplitButton.MenuItemsSource>
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/downarrow_shadow.png" Height="26" />
 						<TextBlock Text="{x:Static res:MainRes.AddToQueueLabel}" VerticalAlignment="Center" Margin="5,0,0,0" />
 					</StackPanel>
-				</Delay:SplitButton>
+				</controls:SplitButton>
 
 				<Button
 					Grid.Column="2" Height="37" HorizontalAlignment="Left" Margin="0,0,5,0" VerticalAlignment="Bottom"

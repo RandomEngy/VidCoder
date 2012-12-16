@@ -171,6 +171,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
+#pragma warning disable 162
 #if BETA
 				return true;
 #endif
@@ -181,6 +182,7 @@ namespace VidCoder.ViewModel
 				}
 
 				return this.betaUpdates;
+#pragma warning restore 162
 			}
 
 			set
@@ -194,11 +196,13 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
+#pragma warning disable 162
 #if BETA
 				return false;
 #endif
 
 				return this.UpdatesEnabled;
+#pragma warning restore 162
 			}
 		}
 

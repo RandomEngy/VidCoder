@@ -16,13 +16,13 @@
 			<MaxWidth>0</MaxWidth>
 			<MaxHeight>0</MaxHeight>
 			<CroppingType>Automatic</CroppingType>
-			<Anamorphic>Strict</Anamorphic>
+			<Anamorphic>Loose</Anamorphic>
 			<UseDisplayWidth>false</UseDisplayWidth>
 			<DisplayWidth>0</DisplayWidth>
 			<KeepDisplayAspect>false</KeepDisplayAspect>
 			<PixelAspectX>0</PixelAspectX>
 			<PixelAspectY>0</PixelAspectY>
-			<Modulus>16</Modulus>
+			<Modulus>2</Modulus>
 			<Deinterlace>Off</Deinterlace>
 			<Decomb>Off</Decomb>
 			<Detelecine>Off</Detelecine>
@@ -33,6 +33,7 @@
 			<X264Options />
 			<X264Preset>veryfast</X264Preset>
 			<X264Profile>main</X264Profile>
+			<H264Level>4.0</H264Level>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
 			<TargetSize>0</TargetSize>
@@ -82,7 +83,7 @@
 			<KeepDisplayAspect>true</KeepDisplayAspect>
 			<PixelAspectX>0</PixelAspectX>
 			<PixelAspectY>0</PixelAspectY>
-			<Modulus>16</Modulus>
+			<Modulus>2</Modulus>
 			<Deinterlace>Off</Deinterlace>
 			<Decomb>Default</Decomb>
 			<Detelecine>Off</Detelecine>
@@ -90,7 +91,10 @@
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
 			<VideoEncoder>x264</VideoEncoder>
-			<X264Options>rc-lookahead=50:b-adapt=2</X264Options>
+			<X264Options />
+			<X264Preset>medium</X264Preset>
+			<X264Profile>high</X264Profile>
+			<H264Level>4.1</H264Level>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
 			<TargetSize>0</TargetSize>
@@ -148,7 +152,7 @@
 			<KeepDisplayAspect>true</KeepDisplayAspect>
 			<PixelAspectX>0</PixelAspectX>
 			<PixelAspectY>0</PixelAspectY>
-			<Modulus>16</Modulus>
+			<Modulus>2</Modulus>
 			<Deinterlace>Off</Deinterlace>
 			<Decomb>Off</Decomb>
 			<Detelecine>Off</Detelecine>
@@ -156,8 +160,10 @@
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
 			<VideoEncoder>x264</VideoEncoder>
-			<X264Options>ref=2:me=umh:subme=6</X264Options>
+			<X264Options />
+			<X264Preset>fast</X264Preset>
 			<X264Profile>baseline</X264Profile>
+			<H264Level>3.0</H264Level>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
 			<TargetSize>0</TargetSize>
@@ -215,7 +221,7 @@
 			<KeepDisplayAspect>true</KeepDisplayAspect>
 			<PixelAspectX>0</PixelAspectX>
 			<PixelAspectY>0</PixelAspectY>
-			<Modulus>16</Modulus>
+			<Modulus>2</Modulus>
 			<Deinterlace>Off</Deinterlace>
 			<Decomb>Off</Decomb>
 			<Detelecine>Off</Detelecine>
@@ -223,9 +229,12 @@
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
 			<VideoEncoder>x264</VideoEncoder>
-			<X264Options>level=30:vbv-maxrate=768:vbv-bufsize=2000:no-fast-pskip=1:ref=1:bframes=0:weightp=0:me=umh:subme=6:analyse=all:8x8dct=0:cabac=0:trellis=0</X264Options>
-			<VideoEncodeRateType>AverageBitrate</VideoEncodeRateType>
-			<Quality>20</Quality>
+			<X264Options />
+			<X264Preset>medium</X264Preset>
+			<X264Profile>baseline</X264Profile>
+			<H264Level>1.3</H264Level>
+			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
+			<Quality>22</Quality>
 			<TargetSize>0</TargetSize>
 			<VideoBitrate>700</VideoBitrate>
 			<TwoPass>false</TwoPass>
@@ -258,7 +267,7 @@
 			<IPod5GSupport>false</IPod5GSupport>
 			<Width>0</Width>
 			<Height>0</Height>
-			<MaxWidth>480</MaxWidth>
+			<MaxWidth>960</MaxWidth>
 			<MaxHeight>0</MaxHeight>
 			<CroppingType>Automatic</CroppingType>
 			<Cropping>
@@ -267,13 +276,13 @@
 				<Left>0</Left>
 				<Right>0</Right>
 			</Cropping>
-			<Anamorphic>None</Anamorphic>
+			<Anamorphic>Loose</Anamorphic>
 			<UseDisplayWidth>false</UseDisplayWidth>
 			<DisplayWidth>0</DisplayWidth>
 			<KeepDisplayAspect>true</KeepDisplayAspect>
 			<PixelAspectX>0</PixelAspectX>
 			<PixelAspectY>0</PixelAspectY>
-			<Modulus>16</Modulus>
+			<Modulus>2</Modulus>
 			<Deinterlace>Off</Deinterlace>
 			<Decomb>Off</Decomb>
 			<Detelecine>Off</Detelecine>
@@ -281,9 +290,12 @@
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
 			<VideoEncoder>x264</VideoEncoder>
-			<X264Options>ref=2:bframes=0:weightp=0:me=umh:subme=6:8x8dct=0:cabac=0:trellis=0</X264Options>
+			<X264Options />
+			<X264Preset>medium</X264Preset>
+			<X264Profile>high</X264Profile>
+			<H264Level>3.1</H264Level>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
-			<Quality>20</Quality>
+			<Quality>22</Quality>
 			<TargetSize>0</TargetSize>
 			<VideoBitrate>0</VideoBitrate>
 			<TwoPass>false</TwoPass>
@@ -374,7 +386,7 @@
 			<IPod5GSupport>false</IPod5GSupport>
 			<Width>0</Width>
 			<Height>0</Height>
-			<MaxWidth>1024</MaxWidth>
+			<MaxWidth>1280</MaxWidth>
 			<MaxHeight>0</MaxHeight>
 			<CroppingType>Automatic</CroppingType>
 			<Cropping>
@@ -389,7 +401,7 @@
 			<KeepDisplayAspect>true</KeepDisplayAspect>
 			<PixelAspectX>0</PixelAspectX>
 			<PixelAspectY>0</PixelAspectY>
-			<Modulus>16</Modulus>
+			<Modulus>2</Modulus>
 			<Deinterlace>Off</Deinterlace>
 			<Decomb>Off</Decomb>
 			<Detelecine>Off</Detelecine>
@@ -398,6 +410,9 @@
 			<Grayscale>false</Grayscale>
 			<VideoEncoder>x264</VideoEncoder>
 			<X264Options />
+			<X264Preset>medium</X264Preset>
+			<X264Profile>high</X264Profile>
+			<H264Level>3.1</H264Level>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
 			<TargetSize>0</TargetSize>
@@ -447,7 +462,7 @@
 			<KeepDisplayAspect>true</KeepDisplayAspect>
 			<PixelAspectX>0</PixelAspectX>
 			<PixelAspectY>0</PixelAspectY>
-			<Modulus>16</Modulus>
+			<Modulus>2</Modulus>
 			<Deinterlace>Off</Deinterlace>
 			<Decomb>Off</Decomb>
 			<Detelecine>Off</Detelecine>
@@ -455,7 +470,10 @@
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
 			<VideoEncoder>x264</VideoEncoder>
-			<X264Options>weightb=0:vbv-maxrate=9500:vbv-bufsize=9500:ref=2:b-adapt=2:b-pyramid=none:weightp=0:me=umh:cabac=0:trellis=0</X264Options>
+			<X264Options>cabac=0:weightb=0:weightp=0:vbv-maxrate=9500:vbv-bufsize=9500:b-pyramid=none:refs=2</X264Options>
+			<X264Preset>medium</X264Preset>
+			<X264Profile>main</X264Profile>
+			<H264Level>3.1</H264Level>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
 			<TargetSize>0</TargetSize>
@@ -513,7 +531,7 @@
 			<KeepDisplayAspect>true</KeepDisplayAspect>
 			<PixelAspectX>0</PixelAspectX>
 			<PixelAspectY>0</PixelAspectY>
-			<Modulus>16</Modulus>
+			<Modulus>2</Modulus>
 			<Deinterlace>Off</Deinterlace>
 			<Decomb>Off</Decomb>
 			<Detelecine>Off</Detelecine>
@@ -522,6 +540,7 @@
 			<Grayscale>false</Grayscale>
 			<VideoEncoder>x264</VideoEncoder>
 			<X264Options />
+			<X264Preset>medium</X264Preset>
 			<X264Profile>high</X264Profile>
 			<H264Level>3.1</H264Level>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
@@ -582,7 +601,7 @@
 			<KeepDisplayAspect>true</KeepDisplayAspect>
 			<PixelAspectX>0</PixelAspectX>
 			<PixelAspectY>0</PixelAspectY>
-			<Modulus>16</Modulus>
+			<Modulus>2</Modulus>
 			<Deinterlace>Off</Deinterlace>
 			<Decomb>Off</Decomb>
 			<Detelecine>Off</Detelecine>
@@ -590,7 +609,10 @@
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
 			<VideoEncoder>x264</VideoEncoder>
-			<X264Options>b-adapt=2</X264Options>
+			<X264Options />
+			<X264Preset>medium</X264Preset>
+			<X264Profile>high</X264Profile>
+			<H264Level>4.0</H264Level>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>20</Quality>
 			<TargetSize>0</TargetSize>
@@ -650,7 +672,7 @@
 			<KeepDisplayAspect>true</KeepDisplayAspect>
 			<PixelAspectX>99</PixelAspectX>
 			<PixelAspectY>100</PixelAspectY>
-			<Modulus>16</Modulus>
+			<Modulus>2</Modulus>
 			<Deinterlace>Off</Deinterlace>
 			<Decomb>Off</Decomb>
 			<Detelecine>Off</Detelecine>
@@ -710,7 +732,7 @@
 			<KeepDisplayAspect>true</KeepDisplayAspect>
 			<PixelAspectX>99</PixelAspectX>
 			<PixelAspectY>100</PixelAspectY>
-			<Modulus>16</Modulus>
+			<Modulus>2</Modulus>
 			<Deinterlace>Off</Deinterlace>
 			<Decomb>Off</Decomb>
 			<Detelecine>Off</Detelecine>
@@ -718,7 +740,10 @@
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
 			<VideoEncoder>x264</VideoEncoder>
-			<X264Options>weightp=0:cabac=0</X264Options>
+			<X264Options />
+			<X264Preset>medium</X264Preset>
+			<X264Profile>main</X264Profile>
+			<H264Level>2.2</H264Level>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>22</Quality>
 			<TargetSize>110</TargetSize>
