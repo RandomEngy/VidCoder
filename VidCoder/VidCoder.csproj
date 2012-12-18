@@ -770,7 +770,7 @@
       <LastGenOutput>SubtitleRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.hu.resx" />
+    <EmbeddedResource Include="Resources\CommonRes.hu.resx" />
     <EmbeddedResource Include="Resources\CommonRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CommonRes.Designer.cs</LastGenOutput>

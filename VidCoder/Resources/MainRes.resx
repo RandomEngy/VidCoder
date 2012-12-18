@@ -423,8 +423,8 @@
   <data name="Preset_AppleTV3" xml:space="preserve">
     <value>AppleTV 3</value>
   </data>
-  <data name="Preset_AppleUniversal" xml:space="preserve">
-    <value>Apple Universal</value>
+  <data name="Preset_Universal" xml:space="preserve">
+    <value>Universal</value>
   </data>
   <data name="Preset_HighProfile" xml:space="preserve">
     <value>High Profile</value>
@@ -435,83 +435,83 @@
   <data name="Preset_WindowsPhone7" xml:space="preserve">
     <value>Windows Phone 7</value>
   </data>
-  <data name="SourceOption_VideoFile">
-    <value xml:space="preserve">Video File...</value>
+  <data name="SourceOption_VideoFile" xml:space="preserve">
+    <value>Video File...</value>
   </data>
-  <data name="SourceOption_DiscFolder">
-    <value xml:space="preserve">DVD/Blu-ray Folder...</value>
+  <data name="SourceOption_DiscFolder" xml:space="preserve">
+    <value>DVD/Blu-ray Folder...</value>
   </data>
-  <data name="NewVersionDownloadStartedStatus">
-    <value xml:space="preserve">Version {0} is available. Update download has started.</value>
+  <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
+    <value>Version {0} is available. Update download has started.</value>
   </data>
-  <data name="NewVersionDownloadFinishedStatus">
-    <value xml:space="preserve">Version {0} has finished downloading and will install on exit.</value>
+  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
+    <value>Version {0} has finished downloading and will install on exit.</value>
   </data>
-  <data name="UpdateNotAppliedError">
-    <value xml:space="preserve">The update was not applied. If you did not cancel it, try installing it manually.</value>
+  <data name="UpdateNotAppliedError" xml:space="preserve">
+    <value>The update was not applied. If you did not cancel it, try installing it manually.</value>
   </data>
-  <data name="CouldNotLoadPresetMessage">
-    <value xml:space="preserve">Could not load preset: </value>
+  <data name="CouldNotLoadPresetMessage" xml:space="preserve">
+    <value>Could not load preset: </value>
   </data>
-  <data name="CouldNotSavePresetMessage">
-    <value xml:space="preserve">Could not save preset '{0}':{1}{2}</value>
+  <data name="CouldNotSavePresetMessage" xml:space="preserve">
+    <value>Could not save preset '{0}':{1}{2}</value>
   </data>
-  <data name="CouldNotCopyTextError">
-    <value xml:space="preserve">Could not copy text.</value>
+  <data name="CouldNotCopyTextError" xml:space="preserve">
+    <value>Could not copy text.</value>
   </data>
-  <data name="LaunchUrlError">
-    <value xml:space="preserve">Error launching URL: {0}</value>
+  <data name="LaunchUrlError" xml:space="preserve">
+    <value>Error launching URL: {0}</value>
   </data>
-  <data name="UserConfigLoadError">
-    <value xml:space="preserve">Could not load a required user settings file; it may have become corrupt. Do you want to delete it? This will not affect your saved presets.</value>
+  <data name="UserConfigLoadError" xml:space="preserve">
+    <value>Could not load a required user settings file; it may have become corrupt. Do you want to delete it? This will not affect your saved presets.</value>
   </data>
-  <data name="UserConfigLoadErrorTitle">
-    <value xml:space="preserve">Error loading settings</value>
+  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
+    <value>Error loading settings</value>
   </data>
-  <data name="PresetImportErrorMessage">
-    <value xml:space="preserve">Could not import preset. Format is unrecognized.</value>
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Could not import preset. Format is unrecognized.</value>
   </data>
-  <data name="PresetImportErrorTitle">
-    <value xml:space="preserve">Import Error</value>
+  <data name="PresetImportErrorTitle" xml:space="preserve">
+    <value>Import Error</value>
   </data>
-  <data name="PresetImportSuccessMessage">
-    <value xml:space="preserve">Successfully imported preset {0}.</value>
+  <data name="PresetImportSuccessMessage" xml:space="preserve">
+    <value>Successfully imported preset {0}.</value>
   </data>
-  <data name="PresetImportSuccessTitle">
-    <value xml:space="preserve">Success</value>
+  <data name="PresetImportSuccessTitle" xml:space="preserve">
+    <value>Success</value>
   </data>
-  <data name="PresetExportSuccessMessage">
-    <value xml:space="preserve">Successfully exported preset to {0}</value>
+  <data name="PresetExportSuccessMessage" xml:space="preserve">
+    <value>Successfully exported preset to {0}</value>
   </data>
-  <data name="PresetExportSuccessTitle">
-    <value xml:space="preserve">Success</value>
+  <data name="PresetExportSuccessTitle" xml:space="preserve">
+    <value>Success</value>
   </data>
-  <data name="ExportPresetFilePickerText">
-    <value xml:space="preserve">Export preset</value>
+  <data name="ExportPresetFilePickerText" xml:space="preserve">
+    <value>Export preset</value>
   </data>
-  <data name="PresetSaveConfirmMessage">
-    <value xml:space="preserve">Do you want to save changes to your current preset?</value>
+  <data name="PresetSaveConfirmMessage" xml:space="preserve">
+    <value>Do you want to save changes to your current preset?</value>
   </data>
-  <data name="PresetSaveConfirmTitle">
-    <value xml:space="preserve">Save current preset?</value>
+  <data name="PresetSaveConfirmTitle" xml:space="preserve">
+    <value>Save current preset?</value>
   </data>
-  <data name="PresetRevertConfirmMessage">
-    <value xml:space="preserve">Are you sure you want to revert all unsaved changes to this preset?</value>
+  <data name="PresetRevertConfirmMessage" xml:space="preserve">
+    <value>Are you sure you want to revert all unsaved changes to this preset?</value>
   </data>
-  <data name="PresetRevertConfirmTitle">
-    <value xml:space="preserve">Revert Preset</value>
+  <data name="PresetRevertConfirmTitle" xml:space="preserve">
+    <value>Revert Preset</value>
   </data>
-  <data name="PresetRemoveConfirmMessage">
-    <value xml:space="preserve">Are you sure you want to remove this preset?</value>
+  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
+    <value>Are you sure you want to remove this preset?</value>
   </data>
-  <data name="PresetRemoveConfirmTitle">
-    <value xml:space="preserve">Remove Preset</value>
+  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
+    <value>Remove Preset</value>
   </data>
-  <data name="UserConfigCorrupted">
-    <value xml:space="preserve">Configuration was corrupted and could not be loaded. Some of your settings may have been reset.</value>
+  <data name="UserConfigCorrupted" xml:space="preserve">
+    <value>Configuration was corrupted and could not be loaded. Some of your settings may have been reset.</value>
   </data>
-  <data name="OutputDirectoryPickerText">
-    <value xml:space="preserve">Choose the output directory for encoded video files.</value>
+  <data name="OutputDirectoryPickerText" xml:space="preserve">
+    <value>Choose the output directory for encoded video files.</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
     <value>Length: {0}</value>

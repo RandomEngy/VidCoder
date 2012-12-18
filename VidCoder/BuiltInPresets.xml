@@ -125,7 +125,7 @@
 		</EncodingProfile>
 	</Preset>
 	<Preset>
-		<Name>AppleUniversal</Name>
+		<Name>Universal</Name>
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>

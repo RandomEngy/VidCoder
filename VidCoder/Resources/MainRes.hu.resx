@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
     <value>Cím:</value>
@@ -423,8 +423,8 @@
   <data name="Preset_AppleTV3" xml:space="preserve">
     <value>AppleTV 3</value>
   </data>
-  <data name="Preset_AppleUniversal" xml:space="preserve">
-    <value>Apple univerzális</value>
+  <data name="Preset_Universal" xml:space="preserve">
+    <value>Univerzális</value>
   </data>
   <data name="Preset_HighProfile" xml:space="preserve">
     <value>Magas profil</value>

@@ -803,15 +803,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apple Universal.
-        /// </summary>
-        public static string Preset_AppleUniversal {
-            get {
-                return ResourceManager.GetString("Preset_AppleUniversal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to High Profile.
         /// </summary>
         public static string Preset_HighProfile {
@@ -826,6 +817,15 @@ namespace VidCoder.Resources {
         public static string Preset_Normal {
             get {
                 return ResourceManager.GetString("Preset_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Universal.
+        /// </summary>
+        public static string Preset_Universal {
+            get {
+                return ResourceManager.GetString("Preset_Universal", resourceCulture);
             }
         }
         
