@@ -470,7 +470,7 @@
 			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
 			<VideoEncoder>x264</VideoEncoder>
-			<X264Options>cabac=0:weightb=0:weightp=0:vbv-maxrate=9500:vbv-bufsize=9500:b-pyramid=none:refs=2</X264Options>
+			<X264Options>cabac=0:weightb=0:weightp=0:vbv-maxrate=9500:vbv-bufsize=9500:b-pyramid=none:ref=2</X264Options>
 			<X264Preset>medium</X264Preset>
 			<X264Profile>main</X264Profile>
 			<H264Level>3.1</H264Level>
@@ -644,67 +644,7 @@
 		</EncodingProfile>
 	</Preset>
 	<Preset>
-		<Name>AndroidMid</Name>
-		<IsBuiltIn>true</IsBuiltIn>
-		<IsModified>false</IsModified>
-		<IsQueue>false</IsQueue>
-		<EncodingProfile>
-			<OutputFormat>Mp4</OutputFormat>
-			<PreferredExtension>Mp4</PreferredExtension>
-			<IncludeChapterMarkers>false</IncludeChapterMarkers>
-			<LargeFile>false</LargeFile>
-			<Optimize>false</Optimize>
-			<IPod5GSupport>false</IPod5GSupport>
-			<Width>0</Width>
-			<Height>0</Height>
-			<MaxWidth>480</MaxWidth>
-			<MaxHeight>0</MaxHeight>
-			<CroppingType>Automatic</CroppingType>
-			<Cropping>
-				<Top>0</Top>
-				<Bottom>0</Bottom>
-				<Left>0</Left>
-				<Right>0</Right>
-			</Cropping>
-			<Anamorphic>None</Anamorphic>
-			<UseDisplayWidth>false</UseDisplayWidth>
-			<DisplayWidth>1920</DisplayWidth>
-			<KeepDisplayAspect>true</KeepDisplayAspect>
-			<PixelAspectX>99</PixelAspectX>
-			<PixelAspectY>100</PixelAspectY>
-			<Modulus>2</Modulus>
-			<Deinterlace>Off</Deinterlace>
-			<Decomb>Off</Decomb>
-			<Detelecine>Off</Detelecine>
-			<Denoise>Off</Denoise>
-			<Deblock>0</Deblock>
-			<Grayscale>false</Grayscale>
-			<VideoEncoder>x264</VideoEncoder>
-			<X264Options>cabac=0:ref=2:me=umh:bframes=0:weightp=0:subq=6:8x8dct=0:trellis=0</X264Options>
-			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
-			<Quality>22</Quality>
-			<TargetSize>0</TargetSize>
-			<VideoBitrate>900</VideoBitrate>
-			<TwoPass>false</TwoPass>
-			<TurboFirstPass>false</TurboFirstPass>
-			<Framerate>29.97</Framerate>
-			<ConstantFramerate>false</ConstantFramerate>
-			<AudioEncodings>
-				<AudioEncoding>
-					<InputNumber>0</InputNumber>
-					<Encoder>faac</Encoder>
-					<EncodeRateType>Bitrate</EncodeRateType>
-					<Bitrate>128</Bitrate>
-					<Mixdown>dpl2</Mixdown>
-					<SampleRateRaw>0</SampleRateRaw>
-					<Gain>0</Gain>
-					<Drc>0</Drc>
-				</AudioEncoding>
-			</AudioEncodings>
-		</EncodingProfile>
-	</Preset>
-	<Preset>
-		<Name>AndroidHigh</Name>
+		<Name>Android</Name>
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<IsQueue>false</IsQueue>
@@ -744,6 +684,69 @@
 			<X264Preset>medium</X264Preset>
 			<X264Profile>main</X264Profile>
 			<H264Level>2.2</H264Level>
+			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
+			<Quality>22</Quality>
+			<TargetSize>0</TargetSize>
+			<VideoBitrate>900</VideoBitrate>
+			<TwoPass>false</TwoPass>
+			<TurboFirstPass>false</TurboFirstPass>
+			<Framerate>29.97</Framerate>
+			<ConstantFramerate>false</ConstantFramerate>
+			<AudioEncodings>
+				<AudioEncoding>
+					<InputNumber>0</InputNumber>
+					<Encoder>faac</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
+					<Bitrate>128</Bitrate>
+					<Mixdown>dpl2</Mixdown>
+					<SampleRateRaw>0</SampleRateRaw>
+					<Gain>0</Gain>
+					<Drc>0</Drc>
+				</AudioEncoding>
+			</AudioEncodings>
+		</EncodingProfile>
+	</Preset>
+	<Preset>
+		<Name>AndroidTablet</Name>
+		<IsBuiltIn>true</IsBuiltIn>
+		<IsModified>false</IsModified>
+		<IsQueue>false</IsQueue>
+		<EncodingProfile>
+			<OutputFormat>Mp4</OutputFormat>
+			<PreferredExtension>Mp4</PreferredExtension>
+			<IncludeChapterMarkers>false</IncludeChapterMarkers>
+			<LargeFile>false</LargeFile>
+			<Optimize>false</Optimize>
+			<IPod5GSupport>false</IPod5GSupport>
+			<Width>0</Width>
+			<Height>0</Height>
+			<MaxWidth>1280</MaxWidth>
+			<MaxHeight>0</MaxHeight>
+			<CroppingType>Automatic</CroppingType>
+			<Cropping>
+				<Top>0</Top>
+				<Bottom>0</Bottom>
+				<Left>0</Left>
+				<Right>0</Right>
+			</Cropping>
+			<Anamorphic>Loose</Anamorphic>
+			<UseDisplayWidth>false</UseDisplayWidth>
+			<DisplayWidth>1920</DisplayWidth>
+			<KeepDisplayAspect>true</KeepDisplayAspect>
+			<PixelAspectX>99</PixelAspectX>
+			<PixelAspectY>100</PixelAspectY>
+			<Modulus>2</Modulus>
+			<Deinterlace>Off</Deinterlace>
+			<Decomb>Off</Decomb>
+			<Detelecine>Off</Detelecine>
+			<Denoise>Off</Denoise>
+			<Deblock>0</Deblock>
+			<Grayscale>false</Grayscale>
+			<VideoEncoder>x264</VideoEncoder>
+			<X264Options />
+			<X264Preset>medium</X264Preset>
+			<X264Profile>main</X264Profile>
+			<H264Level>3.1</H264Level>
 			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
 			<Quality>22</Quality>
 			<TargetSize>110</TargetSize>

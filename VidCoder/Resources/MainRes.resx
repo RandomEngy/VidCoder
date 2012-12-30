@@ -396,11 +396,11 @@
   <data name="WhenDoneLabel" xml:space="preserve">
     <value>When done:</value>
   </data>
-  <data name="Preset_AndroidHigh" xml:space="preserve">
-    <value>Android High</value>
+  <data name="Preset_AndroidTablet" xml:space="preserve">
+    <value>Android Tablet</value>
   </data>
-  <data name="Preset_AndroidMid" xml:space="preserve">
-    <value>Android Mid</value>
+  <data name="Preset_Android" xml:space="preserve">
+    <value>Android</value>
   </data>
   <data name="Preset_AppleiPad" xml:space="preserve">
     <value>Apple iPad</value>

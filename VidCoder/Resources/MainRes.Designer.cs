@@ -722,20 +722,20 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Android High.
+        ///   Looks up a localized string similar to Android.
         /// </summary>
-        public static string Preset_AndroidHigh {
+        public static string Preset_Android {
             get {
-                return ResourceManager.GetString("Preset_AndroidHigh", resourceCulture);
+                return ResourceManager.GetString("Preset_Android", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Android Mid.
+        ///   Looks up a localized string similar to Android Tablet.
         /// </summary>
-        public static string Preset_AndroidMid {
+        public static string Preset_AndroidTablet {
             get {
-                return ResourceManager.GetString("Preset_AndroidMid", resourceCulture);
+                return ResourceManager.GetString("Preset_AndroidTablet", resourceCulture);
             }
         }
         
