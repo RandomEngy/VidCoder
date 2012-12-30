@@ -25,10 +25,10 @@ namespace VidCoder
 
 	public class EncodeProxy : IHandBrakeEncoderCallback
 	{
-		// Ping interval (3s) longer than timeout (2s) so we don't have two overlapping pings
-		private const double PingTimerIntervalMs = 3000;
+		// Ping interval (6s) longer than timeout (5s) so we don't have two overlapping pings
+		private const double PingTimerIntervalMs = 6000;
 
-		private const double PipeTimeoutSeconds = 2;
+		private const double PipeTimeoutSeconds = 5;
 
 		public event EventHandler EncodeStarted;
 
@@ -85,7 +85,9 @@ namespace VidCoder
 					startInfo.UseShellExecute = false;
 					startInfo.CreateNoWindow = true;
 					Process worker = Process.Start(startInfo);
-			    	worker.PriorityClass = ProcessPriorityClass.BelowNormal;
+
+					// We don't set this any more because the thread priority inside the worker process sets them to lower priority.
+			    	//worker.PriorityClass = ProcessPriorityClass.BelowNormal;
 
 					// When the process writes out a line, its pipe server is ready and can be contacted for
 					// work. Reading line blocks until this happens.
@@ -113,7 +115,7 @@ namespace VidCoder
 								this.channel.StartEncode(job.HbJob, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds,
 														 Config.LogVerbosity, Config.PreviewCount);
 
-								// After we do StartEncode (which can take a while), switch the timeout down to 2 seconds to do pings
+								// After we do StartEncode (which can take a while), switch the timeout down to normal level to do pings
 								var contextChannel = (IContextChannel)this.channel;
 								contextChannel.OperationTimeout = TimeSpan.FromSeconds(PipeTimeoutSeconds);
 							});
@@ -141,19 +143,19 @@ namespace VidCoder
 							{
 								this.channel.Ping();
 							}
-							catch (CommunicationException)
+							catch (CommunicationException exception)
 							{
 								lock (this.encoderLock)
 								{
-									this.logger.LogError("Worker process has crashed.");
+									this.logger.LogError("Worker process has crashed: " + exception.ToString());
 									this.EndEncode(error: true);
 								}
 							}
-							catch (TimeoutException)
+							catch (TimeoutException exception)
 							{
 								lock (this.encoderLock)
 								{
-									this.logger.LogError("Worker process has crashed.");
+									this.logger.LogError("Worker process has crashed: " + exception.ToString());
 									this.EndEncode(error: true);
 								}
 							}
