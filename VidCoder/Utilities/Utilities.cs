@@ -608,6 +608,62 @@ namespace VidCoder
 			}
 		}
 
+		public static List<string> GetFilesOrVideoFolders(string directory, IList<string> videoExtensions)
+		{
+			var path = new List<string>();
+			var accessErrors = new List<string>();
+			GetFilesOrVideoFoldersRecursive(directory, path, accessErrors, videoExtensions);
+
+			if (accessErrors.Count > 0)
+			{
+				var messageBuilder = new StringBuilder(CommonRes.CouldNotAccessDirectoriesError + Environment.NewLine);
+				foreach (string accessError in accessErrors)
+				{
+					messageBuilder.AppendLine(accessError);
+				}
+
+				MessageBox.Show(messageBuilder.ToString());
+			}
+
+			return path;
+		}
+
+		private static void GetFilesOrVideoFoldersRecursive(string directory, List<string> paths, List<string> accessErrors, IList<string> videoExtensions)
+		{
+			try
+			{
+				string[] subdirectories = Directory.GetDirectories(directory);
+				foreach (string subdirectory in subdirectories)
+				{
+					if (IsDiscFolder(subdirectory))
+					{
+						paths.Add(subdirectory);
+					}
+					else
+					{
+						GetFilesOrVideoFoldersRecursive(subdirectory, paths, accessErrors, videoExtensions);
+					}
+				}
+			}
+			catch (UnauthorizedAccessException)
+			{
+				accessErrors.Add(directory);
+			}
+
+			try
+			{
+				string[] files = Directory.GetFiles(directory);
+				paths.AddRange(
+					files.Where(
+						f => videoExtensions.Any(
+							e => f.EndsWith(e, StringComparison.OrdinalIgnoreCase))));
+			}
+			catch (UnauthorizedAccessException)
+			{
+				accessErrors.Add(directory);
+			}
+		}
+
 		private static bool IsExcluded(string candidate, HashSet<string> exclusionList)
 		{
 			return exclusionList.Contains(candidate);

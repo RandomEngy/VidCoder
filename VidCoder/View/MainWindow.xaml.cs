@@ -154,22 +154,22 @@ namespace VidCoder.View
 						else
 						{
 							// It is a video file or folder full of video files
-							this.HandleDropAsFiles(itemList);
+							this.HandleDropAsPaths(itemList);
 						}
 					}
 					else
 					{
-						// With multiple items, treat it as a list of video files and folders full of video files
-						this.HandleDropAsFiles(itemList);
+						// With multiple items, treat it as a list video files/disc folders or folders full of those items
+						this.HandleDropAsPaths(itemList);
 					}
 				}
 			}
 		}
 
-		// Takes a list of files/directories and tries to scan/queue them as files
-		private void HandleDropAsFiles(StringCollection itemList)
+		// Takes a list of files/directories and tries to scan/queue them as files/disc folders
+		private void HandleDropAsPaths(StringCollection itemList)
 		{
-			List<string> fileList = GetFileList(itemList);
+			List<string> fileList = GetPathList(itemList);
 			if (fileList.Count > 0)
 			{
 				if (fileList.Count == 1)
@@ -183,8 +183,8 @@ namespace VidCoder.View
 			}
 		}
 
-		// Gets a file list from a list of files/directories
-		private static List<string> GetFileList(StringCollection itemList)
+		// Gets a file/video folder list from a list of files/directories
+		private static List<string> GetPathList(StringCollection itemList)
 		{
 			var videoExtensions = new List<string>();
 			string extensionsString = Config.VideoFileExtensions;
@@ -203,29 +203,32 @@ namespace VidCoder.View
 				}
 			}
 
-			var fileList = new List<string>();
+			var pathList = new List<string>();
 			foreach (string item in itemList)
 			{
 				var fileAttributes = File.GetAttributes(item);
 				if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
 				{
 					// Path is a directory
-					List<string> allFiles = Utilities.GetFiles(item);
-					var videoFiles = allFiles.Where(f => videoExtensions.Any(f.EndsWith));
-
-					fileList.AddRange(videoFiles);
+					if (Utilities.IsDiscFolder(item))
+					{
+						// If it's a disc folder, add it
+						pathList.Add(item);
+					}
+					else
+					{
+						pathList.AddRange(Utilities.GetFilesOrVideoFolders(item, videoExtensions));
+					}
 				}
 				else
 				{
 					// Path is a file
-					fileList.Add(item);
+					pathList.Add(item);
 				}
 			}
 
-			return fileList;
+			return pathList;
 		}
-
-
 
 		public void ShowBalloonMessage(string title, string message)
 		{

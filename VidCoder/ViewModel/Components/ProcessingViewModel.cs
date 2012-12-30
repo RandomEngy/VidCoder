@@ -823,7 +823,8 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
-		public void QueueMultiple(IEnumerable<string> filesToQueue)
+		// Queues a list of files or video folders.
+		public void QueueMultiple(IEnumerable<string> pathsToQueue)
 		{
 			if (!this.EnsureDefaultOutputFolderSet())
 			{
@@ -842,12 +843,12 @@ namespace VidCoder.ViewModel.Components
 			}
 
 			var itemsToQueue = new List<EncodeJobViewModel>();
-			foreach (string fileToQueue in filesToQueue)
+			foreach (string pathToQueue in pathsToQueue)
 			{
 				// When ChapterStart is 0, this means the whole title is encoded.
 				var job = new VCJob
 				{
-					SourcePath = fileToQueue,
+					SourcePath = pathToQueue,
 					EncodingProfile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.Clone(),
 					Title = 1,
 					RangeType = HandBrake.Interop.Model.VideoRangeType.Chapters,
@@ -856,11 +857,11 @@ namespace VidCoder.ViewModel.Components
 					UseDefaultChapterNames = true
 				};
 
-				if (Directory.Exists(fileToQueue))
+				if (Directory.Exists(pathToQueue))
 				{
 					job.SourceType = SourceType.VideoFolder;
 				}
-				else if (File.Exists(fileToQueue))
+				else if (File.Exists(pathToQueue))
 				{
 					job.SourceType = SourceType.File;
 				}

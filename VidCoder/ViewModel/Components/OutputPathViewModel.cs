@@ -348,7 +348,7 @@ namespace VidCoder.ViewModel.Components
 				string outputFolder = Config.AutoNameOutputFolder;
 				if (outputFolder != null)
 				{
-					this.OutputPath = outputFolder + (outputFolder.EndsWith(@"\") ? string.Empty : @"\");
+					this.OutputPath = outputFolder + (outputFolder.EndsWith(@"\", StringComparison.Ordinal) ? string.Empty : @"\");
 				}
 
 				return;
