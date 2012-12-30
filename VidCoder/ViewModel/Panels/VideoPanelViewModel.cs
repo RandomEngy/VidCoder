@@ -769,23 +769,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private bool zeroLatency;
-		public bool ZeroLatency
-		{
-			get
-			{
-				return this.zeroLatency;
-			}
-
-			set
-			{
-				this.zeroLatency = value;
-				this.WriteTuneListToProfile();
-				this.RaisePropertyChanged(() => this.ZeroLatency);
-				this.IsModified = true;
-			}
-		}
-
 		public int X264PresetIndex
 		{
 			get
@@ -1029,7 +1012,6 @@ namespace VidCoder.ViewModel
 		{
 			this.x264Tune = null;
 			this.fastDecode = false;
-			this.zeroLatency = false;
 
 			if (this.Profile.X264Tunes != null)
 			{
@@ -1047,7 +1029,6 @@ namespace VidCoder.ViewModel
 						this.fastDecode = true;
 						break;
 					case "zerolatency":
-						this.zeroLatency = true;
 						break;
 					default:
 						this.x264Tune = tune;
@@ -1067,11 +1048,6 @@ namespace VidCoder.ViewModel
 			if (this.fastDecode)
 			{
 				tunes.Add("fastdecode");
-			}
-
-			if (this.zeroLatency)
-			{
-				tunes.Add("zerolatency");
 			}
 
 			this.Profile.X264Tunes = tunes;

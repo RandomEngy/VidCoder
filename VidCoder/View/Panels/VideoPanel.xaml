@@ -317,9 +317,6 @@
 					<CheckBox 
 						Content="{x:Static res:EncodingRes.Tune_FastDecode}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="120"
 						IsChecked="{Binding FastDecode}"/>
-					<CheckBox 
-						Content="{x:Static res:EncodingRes.Tune_ZeroLatency}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"
-						IsChecked="{Binding ZeroLatency}"/>
 				</StackPanel>
 
 
