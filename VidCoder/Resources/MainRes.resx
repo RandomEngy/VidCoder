@@ -525,4 +525,10 @@
   <data name="OpeningFolderStatus" xml:space="preserve">
     <value>Opening folder...</value>
   </data>
+	<data name="CloseVideoSourceToolTip" xml:space="preserve">
+    <value>Close video source</value>
+  </data>
+	<data name="CloseVideoSourceMenuItem" xml:space="preserve">
+    <value>Close Video Source</value>
+  </data>
 </root>

@@ -262,6 +262,7 @@
 		<KeyBinding Key="P" Modifiers="Control" Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}" />
 		<KeyBinding Key="O" Modifiers="Control+Shift" Command="{Binding ProcessingVM.QueueFilesCommand}" />
 		<KeyBinding Key="T" Modifiers="Control" Command="{Binding ProcessingVM.QueueTitlesCommand}" />
+		<KeyBinding Key="W" Modifiers="Control" Command="{Binding CloseVideoSourceCommand}" />
 		<KeyBinding Key="D" Modifiers="Control" Command="{Binding OutputPathVM.PickOutputPathCommand}" />
 	</Window.InputBindings>
 	
@@ -308,6 +309,11 @@
 					Command="{Binding ProcessingVM.QueueTitlesCommand}"
 					InputGestureText="Ctrl+T"
 					Visibility="{Binding ProcessingVM.CanEnqueueMultipleTitles, Converter={StaticResource VisibilityConverter}}"/>
+				<MenuItem
+					Header="{x:Static res:MainRes.CloseVideoSourceMenuItem}"
+					Command="{Binding CloseVideoSourceCommand}"
+					InputGestureText="Ctrl+W"
+					/>
 				<Separator />
 				<MenuItem
 					Header="{x:Static res:MainRes.ExitMenuItem}"
@@ -351,6 +357,7 @@
 				</MenuItem>
 			</MenuItem>
 		</Menu>
+		<!-- Video source drop-down -->
 		<Border
 			Grid.Row="1"
 			Grid.RowSpan="2"
@@ -391,7 +398,7 @@
 			Grid.Row="1" MinHeight="138"
 			Background="{StaticResource SectionBackground}">
 			<!-- Video source header -->
-			<StackPanel Orientation="Horizontal" Height="27" Margin="8,4,16,0" VerticalAlignment="Top">
+			<StackPanel Orientation="Horizontal" Height="27" Margin="8,4,16,0" VerticalAlignment="Top" HorizontalAlignment="Left">
 				<TextBlock
 					Text="{x:Static res:MainRes.ChooseVideoSourceLabel}" Style="{StaticResource SectionHeader}"
 					Visibility="{Binding SourcePicked, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"/>
@@ -449,6 +456,12 @@
 					</StackPanel>
 				</Grid>
 			</StackPanel>
+			
+			<!-- Close video source button -->
+			<Button
+				Style="{StaticResource RemoveButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Content="{x:Static res:MainRes.CloseVideoSourceToolTip}"
+				Command="{Binding CloseVideoSourceCommand}"
+				Visibility="{Binding CanCloseVideoSource, Converter={StaticResource VisibilityConverter}}"/>
 			
 			<!-- Scan progress -->
 			<Grid
@@ -573,7 +586,7 @@
 					Foreground="Red"
 					Visibility="{Binding ScanError, Converter={StaticResource VisibilityConverter}}"/>
 
-				
+				<!-- Video, audio, subtitles grid -->
 				<Grid Visibility="{Binding HasVideoSource, Converter={StaticResource VisibilityConverter}}">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" />

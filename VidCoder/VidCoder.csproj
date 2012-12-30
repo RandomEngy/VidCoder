@@ -727,10 +727,13 @@
       <LastGenOutput>EncodingRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\EnumsRes.hu.resx" />
+    <EmbeddedResource Include="Resources\EnumsRes.hu.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\EnumsRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EnumsRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\LogRes.hu.resx" />
     <EmbeddedResource Include="Resources\LogRes.resx">

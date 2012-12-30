@@ -160,6 +160,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close Video Source.
+        /// </summary>
+        public static string CloseVideoSourceMenuItem {
+            get {
+                return ResourceManager.GetString("CloseVideoSourceMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close video source.
+        /// </summary>
+        public static string CloseVideoSourceToolTip {
+            get {
+                return ResourceManager.GetString("CloseVideoSourceToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Completed ({0}).
         /// </summary>
         public static string CompletedWithTotal {

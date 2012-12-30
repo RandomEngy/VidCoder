@@ -608,6 +608,8 @@ namespace VidCoder.ViewModel
 			{
 				this.scanningSource = value;
 				this.RaisePropertyChanged(() => this.SourceOptionsVisible);
+				this.CloseVideoSourceCommand.RaiseCanExecuteChanged();
+				this.RaisePropertyChanged(() => this.CanCloseVideoSource);
 				this.RaisePropertyChanged(() => this.HasVideoSource);
 				this.RaisePropertyChanged(() => this.ScanningSource);
 
@@ -673,6 +675,24 @@ namespace VidCoder.ViewModel
 				}
 
 				if (this.sourceData.Titles.Count == 0)
+				{
+					return false;
+				}
+
+				return true;
+			}
+		}
+
+		public bool CanCloseVideoSource
+		{
+			get
+			{
+				if (this.SelectedSource == null)
+				{
+					return false;
+				}
+
+				if (this.ScanningSource)
 				{
 					return false;
 				}
@@ -1709,6 +1729,40 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private RelayCommand closeVideoSourceCommand;
+		public RelayCommand CloseVideoSourceCommand
+		{
+			get
+			{
+				return this.closeVideoSourceCommand ?? (this.closeVideoSourceCommand = new RelayCommand(() =>
+					{
+						this.sourceData = null;
+						this.SelectedSource = null;
+						this.SourceSelectionExpanded = false;
+						this.CloseVideoSourceCommand.RaiseCanExecuteChanged();
+						this.RaisePropertyChanged(() => this.CanCloseVideoSource);
+						this.RaisePropertyChanged(() => this.HasVideoSource);
+						this.RaisePropertyChanged(() => this.SourceOptionsVisible);
+						this.RaisePropertyChanged(() => this.SourcePicked);
+
+						DispatchService.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
+						Messenger.Default.Send(new RefreshPreviewMessage());
+						this.SelectedTitle = null;
+
+						HandBrakeInstance oldInstance = this.scanInstance;
+						this.scanInstance = null;
+						if (oldInstance != null)
+						{
+							this.ProcessingVM.CleanupHandBrakeInstanceIfUnused(oldInstance);
+						}
+					},
+					() =>
+					{
+						return this.CanCloseVideoSource;
+					}));
+			}
+		}
+
 		private RelayCommand customizeQueueColumnsCommand;
 		public RelayCommand CustomizeQueueColumnsCommand
 		{
@@ -2097,10 +2151,6 @@ namespace VidCoder.ViewModel
 
 			this.ScanProgress = 0;
 			HandBrakeInstance oldInstance = this.scanInstance;
-			if (oldInstance != null)
-			{
-				this.ProcessingVM.CleanupHandBrakeInstanceIfUnused(oldInstance);
-			}
 
 			this.logger.Log("Starting scan: " + path);
 
@@ -2158,6 +2208,11 @@ namespace VidCoder.ViewModel
 			this.ScanningSource = true;
 			this.scanCancelledFlag = false;
 			this.scanInstance.StartScan(path, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds));
+
+			if (oldInstance != null)
+			{
+				this.ProcessingVM.CleanupHandBrakeInstanceIfUnused(oldInstance);
+			}
 		}
 
 		private void UpdateFromNewVideoSource()
@@ -2175,12 +2230,16 @@ namespace VidCoder.ViewModel
 				this.SelectedTitle = selectTitle;
 				this.RaisePropertyChanged(() => this.Titles);
 				this.RaisePropertyChanged(() => this.TitleVisible);
+				this.CloseVideoSourceCommand.RaiseCanExecuteChanged();
+				this.RaisePropertyChanged(() => this.CanCloseVideoSource);
 				this.RaisePropertyChanged(() => this.HasVideoSource);
 				this.RaisePropertyChanged(() => this.SourceOptionsVisible);
 			}
 			else
 			{
 				this.sourceData = null;
+				this.CloseVideoSourceCommand.RaiseCanExecuteChanged();
+				this.RaisePropertyChanged(() => this.CanCloseVideoSource);
 				this.RaisePropertyChanged(() => this.HasVideoSource);
 				this.RaisePropertyChanged(() => this.SourceOptionsVisible);
 				this.RaisePropertyChanged(() => this.SourcePicked);
@@ -2194,6 +2253,8 @@ namespace VidCoder.ViewModel
 		{
 			this.sourceData = null;
 			this.SourceSelectionExpanded = false;
+			this.CloseVideoSourceCommand.RaiseCanExecuteChanged();
+			this.RaisePropertyChanged(() => this.CanCloseVideoSource);
 			this.RaisePropertyChanged(() => this.HasVideoSource);
 			this.RaisePropertyChanged(() => this.SourceOptionsVisible);
 			this.RaisePropertyChanged(() => this.SourcePicked);
