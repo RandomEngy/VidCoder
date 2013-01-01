@@ -1228,6 +1228,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Updates....
+        /// </summary>
+        public static string UpdatesMenuItem {
+            get {
+                return ResourceManager.GetString("UpdatesMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configuration was corrupted and could not be loaded. Some of your settings may have been reset..
         /// </summary>
         public static string UserConfigCorrupted {

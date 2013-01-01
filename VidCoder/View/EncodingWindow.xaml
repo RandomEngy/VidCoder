@@ -30,6 +30,7 @@
 		<KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveCommand}" />
 		<KeyBinding Key="S" Modifiers="Control+Shift" Command="{Binding SaveAsCommand}" />
 		<KeyBinding Key="F2" Command="{Binding RenameCommand}" />
+		<KeyBinding Key="F4" Command="{Binding MainViewModel.OpenOptionsCommand}" />
 	</Window.InputBindings>
 	<Grid>
 		<ToolBarPanel Margin="-5,0,-14,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" UseLayoutRounding="True">

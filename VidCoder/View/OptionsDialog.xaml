@@ -8,7 +8,7 @@
 	xmlns:converters="clr-namespace:VidCoder.Converters" Closed="Window_Closed"
 	TextOptions.TextFormattingMode="Display"
 	MinWidth="450" MinHeight="300"
-	Closing="Window_Closing">
+	Closing="Window_Closing" Background="White">
 	<Window.Resources>
 		<Style x:Key="EmphasizedTitle" TargetType="TextBlock">
 			<Setter Property="VerticalAlignment" Value="Center" />
@@ -28,13 +28,16 @@
 		<converters:IntVisibilityConverter x:Key="IntVisibilityConverter" />
 	</Window.Resources>
 	<Grid>
-		<Grid Margin="6,6,6,35">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition />
-			</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" MinWidth="130" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid Background="WhiteSmoke" Grid.RowSpan="2">
 			<ListBox
-				Grid.Column="0"
 				ItemsSource="{Binding Tabs}" SelectedIndex="{Binding SelectedTabIndex}" BorderThickness="0" Background="Transparent">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
@@ -52,10 +55,12 @@
 					</DataTemplate>
 				</ListBox.ItemTemplate>
 			</ListBox>
+		</Grid>
+		<Grid Margin="0,0,0,0" Grid.Column="1">
 			<ScrollViewer 
-				Grid.Column="1" VerticalScrollBarVisibility="Auto">
+				VerticalScrollBarVisibility="Auto" Background="White">
 				<Grid
-					Margin="15,5,5,5">
+					Margin="15,8,5,5">
 					<!-- General -->
 					<StackPanel
 						Orientation="Vertical"
@@ -492,8 +497,8 @@
 		</Grid>
 
 		<StackPanel
-			Orientation="Horizontal"
-			HorizontalAlignment="Right" Margin="0,0,6,6" VerticalAlignment="Bottom">
+			Orientation="Horizontal" Grid.Row="1" Grid.Column="1"
+			HorizontalAlignment="Right" Margin="0,6,6,6" VerticalAlignment="Bottom">
 			<Button
 				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsDefault="True"
 				Command="{Binding SaveSettingsCommand}" Margin="0,0,6,0" Content="{x:Static res:CommonRes.Ok}" />

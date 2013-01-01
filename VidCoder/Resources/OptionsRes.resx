@@ -309,49 +309,49 @@
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>Beware: this version is more likely to have bugs and crashes.</value>
   </data>
-	<data name="LanguagesSection" xml:space="preserve">
+  <data name="LanguagesSection" xml:space="preserve">
     <value>Languages</value>
   </data>
-	<data name="PlayersSection" xml:space="preserve">
+  <data name="PlayersSection" xml:space="preserve">
     <value>Players</value>
   </data>
-	<data name="SoundSection" xml:space="preserve">
+  <data name="SoundSection" xml:space="preserve">
     <value>Sound</value>
   </data>
-	<data name="SystemTraySection" xml:space="preserve">
+  <data name="SystemTraySection" xml:space="preserve">
     <value>System tray</value>
   </data>
-	<data name="OutputFolderSection" xml:space="preserve">
+  <data name="OutputFolderSection" xml:space="preserve">
     <value>Output folder</value>
   </data>
-	<data name="NamingFormatSection" xml:space="preserve">
+  <data name="NamingFormatSection" xml:space="preserve">
     <value>Naming format</value>
   </data>
-	<data name="AdvancedOptionsSection" xml:space="preserve">
+  <data name="AdvancedOptionsSection" xml:space="preserve">
     <value>Advanced options</value>
   </data>
-	<data name="ScanningSection" xml:space="preserve">
+  <data name="ScanningSection" xml:space="preserve">
     <value>Scanning</value>
   </data>
-	<data name="LoggingSection" xml:space="preserve">
+  <data name="LoggingSection" xml:space="preserve">
     <value>Logging</value>
   </data>
-	<data name="DvdReadingSection" xml:space="preserve">
+  <data name="DvdReadingSection" xml:space="preserve">
     <value>DVD reading</value>
   </data>
-	<data name="UpdatesSection" xml:space="preserve">
+  <data name="UpdatesSection" xml:space="preserve">
     <value>Updates</value>
   </data>
-	<data name="UpdateStatusSection" xml:space="preserve">
+  <data name="UpdateStatusSection" xml:space="preserve">
     <value>Status</value>
   </data>
-	<data name="BetaSection" xml:space="preserve">
+  <data name="BetaSection" xml:space="preserve">
     <value>Beta</value>
   </data>
-	<data name="UseCustomWavLabel" xml:space="preserve">
+  <data name="UseCustomWavLabel" xml:space="preserve">
     <value>Use custom .wav file:</value>
   </data>
-	<data name="CheckNowButton" xml:space="preserve">
+  <data name="CheckNowButton" xml:space="preserve">
     <value>Check Now</value>
   </data>
 </root>

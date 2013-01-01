@@ -1856,6 +1856,19 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private RelayCommand openUpdatesCommand;
+		public RelayCommand OpenUpdatesCommand
+		{
+			get
+			{
+				return this.openUpdatesCommand ?? (this.openUpdatesCommand = new RelayCommand(() =>
+					{
+						Config.OptionsDialogLastTab = 5;
+						this.OpenOptionsCommand.Execute(null);
+					}));
+			}
+		}
+
 		private RelayCommand exitCommand;
 		public RelayCommand ExitCommand
 		{

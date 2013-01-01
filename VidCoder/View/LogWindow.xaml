@@ -12,6 +12,7 @@
 	<Window.InputBindings>
 		<KeyBinding Key="N" Modifiers="Control" Command="{Binding WindowManagerVM.OpenEncodingWindowCommand}" />
 		<KeyBinding Key="P" Modifiers="Control" Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}" />
+		<KeyBinding Key="F4" Command="{Binding MainViewModel.OpenOptionsCommand}" />
 	</Window.InputBindings>
 	<Grid>
 		<RichTextBox

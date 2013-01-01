@@ -262,6 +262,7 @@
 		<KeyBinding Key="P" Modifiers="Control" Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}" />
 		<KeyBinding Key="O" Modifiers="Control+Shift" Command="{Binding ProcessingVM.QueueFilesCommand}" />
 		<KeyBinding Key="T" Modifiers="Control" Command="{Binding ProcessingVM.QueueTitlesCommand}" />
+		<KeyBinding Key="F4" Command="{Binding OpenOptionsCommand}" />
 		<KeyBinding Key="W" Modifiers="Control" Command="{Binding CloseVideoSourceCommand}" />
 		<KeyBinding Key="D" Modifiers="Control" Command="{Binding OutputPathVM.PickOutputPathCommand}" />
 	</Window.InputBindings>
@@ -323,7 +324,7 @@
 			<MenuItem Header="{x:Static res:MainRes.ToolsMenu}">
 				<MenuItem Header="{x:Static res:MainRes.ImportPreset}" Command="{Binding ImportPresetCommand}" />
 				<MenuItem Header="{x:Static res:MainRes.ExportPreset}" Command="{Binding ExportPresetCommand}" />
-				<MenuItem Header="{x:Static res:MainRes.OptionsMenuItem}" Command="{Binding OpenOptionsCommand}" />
+				<MenuItem Header="{x:Static res:MainRes.OptionsMenuItem}" Command="{Binding OpenOptionsCommand}" InputGestureText="F4" />
 			</MenuItem>
 			<MenuItem Header="{x:Static res:MainRes.WindowsMenu}">
 				<MenuItem
@@ -349,6 +350,8 @@
 					</MenuItem.Icon>
 				</MenuItem>
 				<MenuItem Header="{x:Static res:MainRes.ReportABugMenuItem}" Command="{Binding ReportBugCommand}" />
+				<Separator/>
+				<MenuItem Header="{x:Static res:MainRes.UpdatesMenuItem}" Command="{Binding OpenUpdatesCommand}" />
 				<Separator/>
 				<MenuItem Header="{x:Static res:MainRes.AboutVidCoderMenuItem}" Command="{Binding OpenAboutDialogCommand}">
 					<MenuItem.Icon>

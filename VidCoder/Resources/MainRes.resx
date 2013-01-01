@@ -531,4 +531,7 @@
 	<data name="CloseVideoSourceMenuItem" xml:space="preserve">
     <value>Close Video Source</value>
   </data>
+	<data name="UpdatesMenuItem" xml:space="preserve">
+    <value>Updates...</value>
+  </data>
 </root>
