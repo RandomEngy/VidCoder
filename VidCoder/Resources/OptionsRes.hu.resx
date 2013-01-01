@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AutoAudioDisabledToolTip" xml:space="preserve">
     <value>Amikor az automatikus hangkiválasztás ki van kapcsolva, az utolsó kiválasztott sáv érvényesül.</value>
@@ -290,5 +290,68 @@
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
     <value>Figyelem: ebben a verzióban valószínűleg még több hiba és összeomlás is előfordulhat.</value>
+  </data>
+  <data name="UpdatesTab" xml:space="preserve">
+    <value>Frissítések</value>
+  </data>
+  <data name="DownloadingInfoStatus" xml:space="preserve">
+    <value>Legfrissebb verzió keresése...</value>
+  </data>
+  <data name="UpdateFailedStatus" xml:space="preserve">
+    <value>Frissítés keresés nem sikerült.</value>
+  </data>
+  <data name="CompletionWavFilePickTitle" xml:space="preserve">
+    <value>Válaszd ki a befejezést jelző .wav hangfájlt.</value>
+  </data>
+  <data name="WavFiles" xml:space="preserve">
+    <value>WAV fájlok</value>
+  </data>
+  <data name="CurrentVersionLabel" xml:space="preserve">
+    <value>Jelenlegi verzió: {0}</value>
+  </data>
+  <data name="LanguagesSection" xml:space="preserve">
+    <value>Nyelvek</value>
+  </data>
+  <data name="PlayersSection" xml:space="preserve">
+    <value>Lejátszók</value>
+  </data>
+  <data name="SoundSection" xml:space="preserve">
+    <value>Hang</value>
+  </data>
+  <data name="SystemTraySection" xml:space="preserve">
+    <value>Rendszertálca</value>
+  </data>
+  <data name="OutputFolderSection" xml:space="preserve">
+    <value>Kimeneti mappa</value>
+  </data>
+  <data name="NamingFormatSection" xml:space="preserve">
+    <value>Elnevezési formátum</value>
+  </data>
+  <data name="AdvancedOptionsSection" xml:space="preserve">
+    <value>Haladó beállítások</value>
+  </data>
+  <data name="ScanningSection" xml:space="preserve">
+    <value>Keresés</value>
+  </data>
+  <data name="LoggingSection" xml:space="preserve">
+    <value>Naplózás</value>
+  </data>
+  <data name="DvdReadingSection" xml:space="preserve">
+    <value>DVD olvasás</value>
+  </data>
+  <data name="UpdatesSection" xml:space="preserve">
+    <value>Frissítések</value>
+  </data>
+  <data name="UpdateStatusSection" xml:space="preserve">
+    <value>Állapot</value>
+  </data>
+  <data name="BetaSection" xml:space="preserve">
+    <value>Béta</value>
+  </data>
+  <data name="UseCustomWavLabel" xml:space="preserve">
+    <value>Egyéni .wav fájl használata:</value>
+  </data>
+  <data name="CheckNowButton" xml:space="preserve">
+    <value>Keresés most</value>
   </data>
 </root>
