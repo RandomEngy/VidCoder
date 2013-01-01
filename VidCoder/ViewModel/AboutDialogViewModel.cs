@@ -21,7 +21,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return string.Format(MiscRes.BasedOnHandBrake, 5098);
+				return string.Format(MiscRes.BasedOnHandBrake, 5125);
 			}
 		}
 
@@ -29,7 +29,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return string.Format(MiscRes.Copyright, "2010-2012");
+				return string.Format(MiscRes.Copyright, "2010-2013");
 			}
 		}
 	}

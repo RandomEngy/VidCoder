@@ -60,7 +60,7 @@
 			<ScrollViewer 
 				VerticalScrollBarVisibility="Auto" Background="White">
 				<Grid
-					Margin="15,8,5,5">
+					Margin="15,8,10,5">
 					<!-- General -->
 					<StackPanel
 						Orientation="Vertical"

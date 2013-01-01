@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("VidCoder")]
 [assembly: AssemblyProduct("VidCoder")]
-[assembly: AssemblyCopyright("Copyright © 2010-2012")]
+[assembly: AssemblyCopyright("Copyright © 2010-2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
