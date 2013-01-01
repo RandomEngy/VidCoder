@@ -32,6 +32,7 @@ PreviewWindowPlacement|string|""
 QueueTitlesDialogPlacement|string|""
 QueueTitlesDialogPlacement2|string|""
 AddAutoPauseProcessDialogPlacement|string|""
+OptionsDialogPlacement|string|""
 
 EncodingWindowOpen|bool|false
 PreviewWindowOpen|bool|false

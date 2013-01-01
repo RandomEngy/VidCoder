@@ -50,6 +50,19 @@ namespace VidCoder
 			}
 		}
 
+		public static string VersionString
+		{
+			get
+			{
+#pragma warning disable 162
+#if BETA
+				return string.Format(MiscRes.BetaVersionFormat, CurrentVersion, Architecture);
+#endif
+				return string.Format(MiscRes.VersionFormat, CurrentVersion, Architecture);
+#pragma warning restore 162
+			}
+		}
+
 		public static string Architecture
 		{
 			get

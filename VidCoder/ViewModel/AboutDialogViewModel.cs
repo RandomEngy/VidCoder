@@ -13,12 +13,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-#pragma warning disable 162
-#if BETA
-				return string.Format(MiscRes.BetaVersionFormat, Utilities.CurrentVersion, Utilities.Architecture);
-#endif
-				return string.Format(MiscRes.VersionFormat, Utilities.CurrentVersion, Utilities.Architecture);
-#pragma warning restore 162
+				return Utilities.VersionString;
 			}
 		}
 

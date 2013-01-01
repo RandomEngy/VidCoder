@@ -36,6 +36,7 @@
 			QueueTitlesDialogPlacement_Field = DatabaseConfig.GetConfig("QueueTitlesDialogPlacement", "", connection);
 			QueueTitlesDialogPlacement2_Field = DatabaseConfig.GetConfig("QueueTitlesDialogPlacement2", "", connection);
 			AddAutoPauseProcessDialogPlacement_Field = DatabaseConfig.GetConfig("AddAutoPauseProcessDialogPlacement", "", connection);
+			OptionsDialogPlacement_Field = DatabaseConfig.GetConfig("OptionsDialogPlacement", "", connection);
 			EncodingWindowOpen_Field = DatabaseConfig.GetConfig("EncodingWindowOpen", false, connection);
 			PreviewWindowOpen_Field = DatabaseConfig.GetConfig("PreviewWindowOpen", false, connection);
 			LogWindowOpen_Field = DatabaseConfig.GetConfig("LogWindowOpen", false, connection);
@@ -489,6 +490,20 @@
 			{
 				AddAutoPauseProcessDialogPlacement_Field = value;
 				DatabaseConfig.SetConfigValue("AddAutoPauseProcessDialogPlacement", value);
+			}
+		}
+		private static string OptionsDialogPlacement_Field;
+		public static string OptionsDialogPlacement
+		{
+			get
+			{
+				return OptionsDialogPlacement_Field;
+			}
+			
+			set
+			{
+				OptionsDialogPlacement_Field = value;
+				DatabaseConfig.SetConfigValue("OptionsDialogPlacement", value);
 			}
 		}
 		private static bool EncodingWindowOpen_Field;

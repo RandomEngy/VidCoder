@@ -37,7 +37,7 @@ namespace VidCoder
 			base.OnStartup(e);
 
 #if PSEUDOLOCALIZER_ENABLED
-			Delay.PseudoLocalizer.Enable(typeof(Resources));
+			Delay.PseudoLocalizer.Enable(typeof(CommonRes));
 			Delay.PseudoLocalizer.Enable(typeof(MainRes));
 			Delay.PseudoLocalizer.Enable(typeof(EnumsRes));
 			Delay.PseudoLocalizer.Enable(typeof(EncodingRes));

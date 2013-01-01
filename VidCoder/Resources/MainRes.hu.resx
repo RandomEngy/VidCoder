@@ -396,9 +396,6 @@
   <data name="WhenDoneLabel" xml:space="preserve">
     <value>Amikor végez:</value>
   </data>
-  <data name="Preset_AndroidTablet" xml:space="preserve">
-    <value>Android Magas</value>
-  </data>
   <data name="Preset_Android" xml:space="preserve">
     <value>Android</value>
   </data>

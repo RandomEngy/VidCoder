@@ -261,17 +261,17 @@
   <data name="AdvancedTab" xml:space="preserve">
     <value>Advanced</value>
   </data>
-  <data name="BetaUpdatesInBetaToolTip" xml:space="preserve">
+  <data name="BetaUpdatesInBeta" xml:space="preserve">
     <value>You're in the Beta track. To go back to a stable version, uninstall, click "Yes" to remove presets, then re-install a stable version.</value>
   </data>
-  <data name="BetaUpdatesNonBetaToolTip" xml:space="preserve">
-    <value>Join the Beta track to get more frequent updates. Beware: this version is more likely to have bugs and crashes.</value>
+  <data name="BetaUpdatesNonBeta" xml:space="preserve">
+    <value>Join the Beta track to get more frequent updates</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Update ready. It will install when you exit the program.</value>
+    <value>Update {0} ready. It will install when you exit the program.</value>
   </data>
   <data name="DownloadingStatus" xml:space="preserve">
-    <value>Downloading:</value>
+    <value>Downloading update {0}:</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder is up to date.</value>
@@ -279,13 +279,79 @@
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
     <value>Choose the default output directory for encoded video files.</value>
   </data>
-  <data name="InterfaceLanguageLabel">
-    <value xml:space="preserve">Interface Language:</value>
+  <data name="InterfaceLanguageLabel" xml:space="preserve">
+    <value>Interface Language:</value>
   </data>
-  <data name="NewLanguageRestartDialogMessage">
-    <value xml:space="preserve">The new language will take effect after you exit and restart VidCoder.</value>
+  <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
+    <value>The new language will take effect after you exit and restart VidCoder.</value>
   </data>
-  <data name="UseOSLanguage">
-    <value xml:space="preserve">Use OS Language</value>
+  <data name="UseOSLanguage" xml:space="preserve">
+    <value>Use OS Language</value>
+  </data>
+  <data name="UpdatesTab" xml:space="preserve">
+    <value>Updates</value>
+  </data>
+  <data name="DownloadingInfoStatus" xml:space="preserve">
+    <value>Finding latest version...</value>
+  </data>
+  <data name="UpdateFailedStatus" xml:space="preserve">
+    <value>Update check failed.</value>
+  </data>
+  <data name="CompletionWavFilePickTitle" xml:space="preserve">
+    <value>Pick the .wav file you want to use for the completion sound.</value>
+  </data>
+  <data name="WavFiles" xml:space="preserve">
+    <value>WAV Files</value>
+  </data>
+  <data name="CurrentVersionLabel" xml:space="preserve">
+    <value>Current Version: {0}</value>
+  </data>
+  <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
+    <value>Beware: this version is more likely to have bugs and crashes.</value>
+  </data>
+	<data name="LanguagesSection" xml:space="preserve">
+    <value>Languages</value>
+  </data>
+	<data name="PlayersSection" xml:space="preserve">
+    <value>Players</value>
+  </data>
+	<data name="SoundSection" xml:space="preserve">
+    <value>Sound</value>
+  </data>
+	<data name="SystemTraySection" xml:space="preserve">
+    <value>System tray</value>
+  </data>
+	<data name="OutputFolderSection" xml:space="preserve">
+    <value>Output folder</value>
+  </data>
+	<data name="NamingFormatSection" xml:space="preserve">
+    <value>Naming format</value>
+  </data>
+	<data name="AdvancedOptionsSection" xml:space="preserve">
+    <value>Advanced options</value>
+  </data>
+	<data name="ScanningSection" xml:space="preserve">
+    <value>Scanning</value>
+  </data>
+	<data name="LoggingSection" xml:space="preserve">
+    <value>Logging</value>
+  </data>
+	<data name="DvdReadingSection" xml:space="preserve">
+    <value>DVD reading</value>
+  </data>
+	<data name="UpdatesSection" xml:space="preserve">
+    <value>Updates</value>
+  </data>
+	<data name="UpdateStatusSection" xml:space="preserve">
+    <value>Status</value>
+  </data>
+	<data name="BetaSection" xml:space="preserve">
+    <value>Beta</value>
+  </data>
+	<data name="UseCustomWavLabel" xml:space="preserve">
+    <value>Use custom .wav file:</value>
+  </data>
+	<data name="CheckNowButton" xml:space="preserve">
+    <value>Check Now</value>
   </data>
 </root>

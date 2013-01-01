@@ -261,11 +261,11 @@
   <data name="AdvancedTab" xml:space="preserve">
     <value>Haladó</value>
   </data>
-  <data name="BetaUpdatesInBetaToolTip" xml:space="preserve">
+  <data name="BetaUpdatesInBeta" xml:space="preserve">
     <value>Jelenleg béta verzióval rendelkezel. A stabil verzióra visszaváltáshoz távolítsd el, kattints az "Igen"-re az összes séma eltávolításához és telepítsd újra a stabil változatot.</value>
   </data>
-  <data name="BetaUpdatesNonBetaToolTip" xml:space="preserve">
-    <value>Csatlakozás a béta verziókhoz. Figyelem: ebben a verzióban valószínűleg még több hiba és összeomlás is előfordulhat.</value>
+  <data name="BetaUpdatesNonBeta" xml:space="preserve">
+    <value>Csatlakozás a béta verziókhoz</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
     <value>A letöltés készen áll. Miután kiléptél a programból, a telepítés elindul.</value>
@@ -279,13 +279,16 @@
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
     <value>Add meg az átkonvertált videófájlok alapértelmezett kimeneti mappáját.</value>
   </data>
-  <data name="InterfaceLanguageLabel">
-    <value xml:space="preserve">Kezelőfelület nyelve:</value>
+  <data name="InterfaceLanguageLabel" xml:space="preserve">
+    <value>Kezelőfelület nyelve:</value>
   </data>
-  <data name="NewLanguageRestartDialogMessage">
-    <value xml:space="preserve">Az új nyelv a VidCoder újraindítása után lép életbe.</value>
+  <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
+    <value>Az új nyelv a VidCoder újraindítása után lép életbe.</value>
   </data>
-  <data name="UseOSLanguage">
-    <value xml:space="preserve">Operációs rendszer nyelvének használata</value>
+  <data name="UseOSLanguage" xml:space="preserve">
+    <value>Operációs rendszer nyelvének használata</value>
+  </data>
+  <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
+    <value>Figyelem: ebben a verzióban valószínűleg még több hiba és összeomlás is előfordulhat.</value>
   </data>
 </root>

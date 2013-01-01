@@ -70,6 +70,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advanced options.
+        /// </summary>
+        public static string AdvancedOptionsSection {
+            get {
+                return ResourceManager.GetString("AdvancedOptionsSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advanced.
         /// </summary>
         public static string AdvancedTab {
@@ -178,20 +187,38 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You&apos;re in the Beta track. To go back to a stable version, uninstall, click &quot;Yes&quot; to remove presets, then re-install a stable version..
+        ///   Looks up a localized string similar to Beta.
         /// </summary>
-        public static string BetaUpdatesInBetaToolTip {
+        public static string BetaSection {
             get {
-                return ResourceManager.GetString("BetaUpdatesInBetaToolTip", resourceCulture);
+                return ResourceManager.GetString("BetaSection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Join the Beta track to get more frequent updates. Beware: this version is more likely to have bugs and crashes..
+        ///   Looks up a localized string similar to You&apos;re in the Beta track. To go back to a stable version, uninstall, click &quot;Yes&quot; to remove presets, then re-install a stable version..
         /// </summary>
-        public static string BetaUpdatesNonBetaToolTip {
+        public static string BetaUpdatesInBeta {
             get {
-                return ResourceManager.GetString("BetaUpdatesNonBetaToolTip", resourceCulture);
+                return ResourceManager.GetString("BetaUpdatesInBeta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join the Beta track to get more frequent updates.
+        /// </summary>
+        public static string BetaUpdatesNonBeta {
+            get {
+                return ResourceManager.GetString("BetaUpdatesNonBeta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beware: this version is more likely to have bugs and crashes..
+        /// </summary>
+        public static string BetaUpdatesNonBetaWarning {
+            get {
+                return ResourceManager.GetString("BetaUpdatesNonBetaWarning", resourceCulture);
             }
         }
         
@@ -205,11 +232,38 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check Now.
+        /// </summary>
+        public static string CheckNowButton {
+            get {
+                return ResourceManager.GetString("CheckNowButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose the default output directory for encoded video files..
         /// </summary>
         public static string ChooseDefaultOutputFolder {
             get {
                 return ResourceManager.GetString("ChooseDefaultOutputFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick the .wav file you want to use for the completion sound..
+        /// </summary>
+        public static string CompletionWavFilePickTitle {
+            get {
+                return ResourceManager.GetString("CompletionWavFilePickTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Version: {0}.
+        /// </summary>
+        public static string CurrentVersionLabel {
+            get {
+                return ResourceManager.GetString("CurrentVersionLabel", resourceCulture);
             }
         }
         
@@ -250,11 +304,29 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Downloading:.
+        ///   Looks up a localized string similar to Finding latest version....
+        /// </summary>
+        public static string DownloadingInfoStatus {
+            get {
+                return ResourceManager.GetString("DownloadingInfoStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading update {0}:.
         /// </summary>
         public static string DownloadingStatus {
             get {
                 return ResourceManager.GetString("DownloadingStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DVD reading.
+        /// </summary>
+        public static string DvdReadingSection {
+            get {
+                return ResourceManager.GetString("DvdReadingSection", resourceCulture);
             }
         }
         
@@ -376,6 +448,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Languages.
+        /// </summary>
+        public static string LanguagesSection {
+            get {
+                return ResourceManager.GetString("LanguagesSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logging.
+        /// </summary>
+        public static string LoggingSection {
+            get {
+                return ResourceManager.GetString("LoggingSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logging Verbosity:.
         /// </summary>
         public static string LoggingVerbosityLabel {
@@ -412,6 +502,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Naming format.
+        /// </summary>
+        public static string NamingFormatSection {
+            get {
+                return ResourceManager.GetString("NamingFormatSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The new language will take effect after you exit and restart VidCoder..
         /// </summary>
         public static string NewLanguageRestartDialogMessage {
@@ -439,6 +538,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Output folder.
+        /// </summary>
+        public static string OutputFolderSection {
+            get {
+                return ResourceManager.GetString("OutputFolderSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Output to the source directory if possible.
         /// </summary>
         public static string OutputToSourceDirCheckBox {
@@ -462,6 +570,15 @@ namespace VidCoder.Resources {
         public static string OverwriteWithoutPromptRadioButton {
             get {
                 return ResourceManager.GetString("OverwriteWithoutPromptRadioButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Players.
+        /// </summary>
+        public static string PlayersSection {
+            get {
+                return ResourceManager.GetString("PlayersSection", resourceCulture);
             }
         }
         
@@ -538,11 +655,74 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update ready. It will install when you exit the program..
+        ///   Looks up a localized string similar to Scanning.
+        /// </summary>
+        public static string ScanningSection {
+            get {
+                return ResourceManager.GetString("ScanningSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sound.
+        /// </summary>
+        public static string SoundSection {
+            get {
+                return ResourceManager.GetString("SoundSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System tray.
+        /// </summary>
+        public static string SystemTraySection {
+            get {
+                return ResourceManager.GetString("SystemTraySection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update check failed..
+        /// </summary>
+        public static string UpdateFailedStatus {
+            get {
+                return ResourceManager.GetString("UpdateFailedStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update {0} ready. It will install when you exit the program..
         /// </summary>
         public static string UpdateReadyStatus {
             get {
                 return ResourceManager.GetString("UpdateReadyStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updates.
+        /// </summary>
+        public static string UpdatesSection {
+            get {
+                return ResourceManager.GetString("UpdatesSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updates.
+        /// </summary>
+        public static string UpdatesTab {
+            get {
+                return ResourceManager.GetString("UpdatesTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string UpdateStatusSection {
+            get {
+                return ResourceManager.GetString("UpdateStatusSection", resourceCulture);
             }
         }
         
@@ -556,11 +736,29 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use custom .wav file:.
+        /// </summary>
+        public static string UseCustomWavLabel {
+            get {
+                return ResourceManager.GetString("UseCustomWavLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use OS Language.
         /// </summary>
         public static string UseOSLanguage {
             get {
                 return ResourceManager.GetString("UseOSLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WAV Files.
+        /// </summary>
+        public static string WavFiles {
+            get {
+                return ResourceManager.GetString("WavFiles", resourceCulture);
             }
         }
         

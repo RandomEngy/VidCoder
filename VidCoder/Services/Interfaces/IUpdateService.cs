@@ -5,18 +5,19 @@ using System.Text;
 
 namespace VidCoder.Services
 {
+	using Model;
+
 	public interface IUpdater
 	{
 		event EventHandler<EventArgs<double>> UpdateDownloadProgress;
-		event EventHandler<EventArgs> UpdateDownloadCompleted;
+		event EventHandler<EventArgs> UpdateStateChanged;
 
 		void CheckUpdates();
 		bool HandlePendingUpdate();
 		void PromptToApplyUpdate();
 		void HandleUpdatedSettings(bool updatesEnabled);
 
-		bool UpdateDownloading { get; }
-		bool UpdateReady { get; }
-		bool UpToDate { get; set; }
+		UpdateState State { get; }
+		string LatestVersion { get; }
 	}
 }

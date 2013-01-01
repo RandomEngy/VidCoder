@@ -13,7 +13,7 @@ namespace VidCoder
 		{
 			get
 			{
-				return new List<string>(Config.AutoPauseProcesses.Split('\x7f'));
+				return new List<string>(Config.AutoPauseProcesses.Split(new char[] {'\x7f'}, StringSplitOptions.RemoveEmptyEntries));
 			}
 
 			set

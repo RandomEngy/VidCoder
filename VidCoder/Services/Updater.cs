@@ -18,11 +18,11 @@ namespace VidCoder.Services
 
 	public class Updater : IUpdater
 	{
-		private const string UpdateInfoUrl = "http://engy.us/VidCoder/latest.xml";
-		private const string UpdateInfoUrlBeta = "http://engy.us/VidCoder/latest-beta.xml";
+		public const string UpdateInfoUrlBeta = "http://engy.us/VidCoder/latest-beta.xml";
+		public const string UpdateInfoUrlNonBeta = "http://engy.us/VidCoder/latest.xml";
 
 		public event EventHandler<EventArgs<double>> UpdateDownloadProgress;
-		public event EventHandler<EventArgs> UpdateDownloadCompleted;
+		public event EventHandler<EventArgs> UpdateStateChanged;
 
 		private static bool DebugMode
 		{
@@ -36,16 +36,44 @@ namespace VidCoder.Services
 			}
 		}
 
+		private static bool Beta
+		{
+			get
+			{
+#if BETA
+				return true;
+#else
+				return false;
+#endif
+			}
+		}
+
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
 		private BackgroundWorker updateDownloader;
 		private bool processDownloadsUpdates = true;
-		private bool downloading;
-		private string latestInfoUrl;
-		private bool downloadingBeta;
 
-		public bool UpdateDownloading { get; set; }
-		public bool UpdateReady { get; set; }
-		public bool UpToDate { get; set; }
+		private UpdateState state;
+		public UpdateState State
+		{
+			get
+			{
+				return this.state;
+			}
+
+			set
+			{
+				if (value != this.state)
+				{
+					this.state = value;
+					if (this.UpdateStateChanged != null)
+					{
+						this.UpdateStateChanged(this, new EventArgs());
+					}
+				}
+			}
+		}
+
+		public string LatestVersion { get; set; }
 
 		public void PromptToApplyUpdate()
 		{
@@ -181,6 +209,18 @@ namespace VidCoder.Services
 			return false;
 		}
 
+		private static string UpdateInfoUrl
+		{
+			get
+			{
+#if BETA
+				return UpdateInfoUrlBeta;
+#else
+				return UpdateInfoUrlNonBeta;
+#endif
+			}
+		}
+
 		private static void DeleteUpdatesFolder()
 		{
 			if (Directory.Exists(Utilities.UpdatesFolder))
@@ -196,71 +236,51 @@ namespace VidCoder.Services
 			Config.UpdateChangelogLocation = string.Empty;
 		}
 
+		// Starts checking for updates
 		public void CheckUpdates()
 		{
 			// Only check for updates in release mode.
-			if (!DebugMode)
-			{
-				if (Utilities.CurrentProcessInstances > 1)
-				{
-					processDownloadsUpdates = false;
-
-					return;
-				}
-
-				if (!Config.UpdatesEnabled)
-				{
-					// On a program restart, if updates are disabled, clean any pending installers.
-					Config.UpdateInstallerLocation = string.Empty;
-
-					if (Directory.Exists(Utilities.UpdatesFolder))
-					{
-						Directory.Delete(Utilities.UpdatesFolder, true);
-					}
-
-					return;
-				}
-
-				this.StartBackgroundUpdate();
-			}
-		}
-
-		private void StartBackgroundUpdate()
-		{
-			if (this.downloading)
+			if (DebugMode)
 			{
 				return;
 			}
 
-			this.downloading = true;
-
-			bool beta = Config.BetaUpdates;
-
-#if BETA
-			beta = true;
-#endif
-
-			if (beta)
+			if (Utilities.CurrentProcessInstances > 1)
 			{
-				this.latestInfoUrl = UpdateInfoUrlBeta;
-				this.downloadingBeta = true;
+				this.processDownloadsUpdates = false;
+				return;
 			}
-			else
+
+			if (!Config.UpdatesEnabled)
 			{
-				this.latestInfoUrl = UpdateInfoUrl;
-				this.downloadingBeta = false;
+				// On a program restart, if updates are disabled, clean any pending installers.
+				Config.UpdateInstallerLocation = string.Empty;
+
+				if (Directory.Exists(Utilities.UpdatesFolder))
+				{
+					Directory.Delete(Utilities.UpdatesFolder, true);
+				}
+
+				return;
 			}
+
+			this.StartBackgroundUpdate();
+		}
+
+		private void StartBackgroundUpdate()
+		{
+			if (this.State != UpdateState.NotStarted && this.State != UpdateState.Failed && this.State != UpdateState.UpToDate)
+			{
+				// Can only start updates from certain states.
+				return;
+			}
+
+			this.State = UpdateState.DownloadingInfo;
 
 			this.updateDownloader = new BackgroundWorker { WorkerSupportsCancellation = true };
 			this.updateDownloader.DoWork += CheckAndDownloadUpdate;
 			this.updateDownloader.RunWorkerCompleted += (o, e) =>
 			{
-				this.UpdateDownloading = false;
-
-				if (this.UpdateDownloadCompleted != null)
-				{
-					this.UpdateDownloadCompleted(this, new EventArgs());
-				}
 			};
 			this.updateDownloader.RunWorkerAsync();
 		}
@@ -272,35 +292,10 @@ namespace VidCoder.Services
 
 			try
 			{
-				XDocument document = XDocument.Load(this.latestInfoUrl);
-				XElement root = document.Root;
+				UpdateInfo updateInfo = GetUpdateInfo(Beta);
 
-				string configurationElementName;
-				if (IntPtr.Size == 4)
-				{
-					configurationElementName = "Release";
-				}
-				else
-				{
-					configurationElementName = "Release-x64";
-				}
-
-				XElement configurationElement = root.Element(configurationElementName);
-				if (configurationElement == null)
-				{
-					return;
-				}
-
-				XElement latestElement = configurationElement.Element("Latest");
-				XElement downloadElement = configurationElement.Element("DownloadLocation");
-				XElement changelogLinkElement = configurationElement.Element("ChangelogLocation");
-
-				if (latestElement == null || downloadElement == null || changelogLinkElement == null)
-				{
-					return;
-				}
-
-				string updateVersion = latestElement.Value;
+				string updateVersion = updateInfo.LatestVersion;
+				this.LatestVersion = updateVersion;
 
 				if (Utilities.CompareVersions(updateVersion, Utilities.CurrentVersion) > 0)
 				{
@@ -323,19 +318,18 @@ namespace VidCoder.Services
 					if (Config.UpdateInstallerLocation == string.Empty)
 					{
 						string updateVersionText = updateVersion;
-						if (this.downloadingBeta)
-						{
-							updateVersionText += " Beta";
-						}
+#if BETA
+						updateVersionText += " Beta";
+#endif
 
 						string message = string.Format(MainRes.NewVersionDownloadStartedStatus, updateVersionText);
 						this.logger.Log(message);
 						this.logger.ShowStatus(message);
 
-						this.UpdateDownloading = true;
+						this.State = UpdateState.DownloadingInstaller;
 
-						string downloadLocation = downloadElement.Value;
-						string changelogLink = changelogLinkElement.Value;
+						string downloadLocation = updateInfo.DownloadLocation;
+						string changelogLink = updateInfo.ChangelogLocation;
 						string installerFileName = Path.GetFileName(downloadLocation);
 						string installerFilePath = Path.Combine(Utilities.UpdatesFolder, installerFileName);
 
@@ -390,11 +384,16 @@ namespace VidCoder.Services
 									transaction.Commit();
 								}
 
-								this.UpdateReady = true;
+								this.State = UpdateState.InstallerReady;
 
 								message = string.Format(MainRes.NewVersionDownloadFinishedStatus, updateVersionText);
 								this.logger.Log(message);
 								this.logger.ShowStatus(message);
+							}
+							else
+							{
+								// In this case the download must have been cancelled.
+								this.State = UpdateState.NotStarted;
 							}
 						}
 						finally
@@ -412,26 +411,64 @@ namespace VidCoder.Services
 					}
 					else
 					{
-						this.UpdateReady = true;
+						this.State = UpdateState.InstallerReady;
 					}
 				}
 				else
 				{
-					this.UpToDate = true;
+					this.State = UpdateState.UpToDate;
 				}
 			}
-			catch (WebException)
+			catch (WebException exception)
 			{
-				// Fail silently
+				this.State = UpdateState.Failed;
+				this.logger.Log("Update download failed: " + exception.Message);
 			}
-			catch (System.Xml.XmlException)
+			catch (System.Xml.XmlException exception)
 			{
-				// Fail silently
+				this.State = UpdateState.Failed;
+				this.logger.Log("Update download failed: " + exception.Message);
 			}
-			finally
+		}
+
+		internal static UpdateInfo GetUpdateInfo(bool beta)
+		{
+			string url = beta ? UpdateInfoUrlBeta : UpdateInfoUrlNonBeta;
+
+			XDocument document = XDocument.Load(url);
+			XElement root = document.Root;
+
+			string configurationElementName;
+			if (IntPtr.Size == 4)
 			{
-				this.downloading = false;
+				configurationElementName = "Release";
 			}
+			else
+			{
+				configurationElementName = "Release-x64";
+			}
+
+			XElement configurationElement = root.Element(configurationElementName);
+			if (configurationElement == null)
+			{
+				return null;
+			}
+
+			XElement latestElement = configurationElement.Element("Latest");
+			XElement downloadElement = configurationElement.Element("DownloadLocation");
+			XElement changelogLinkElement = configurationElement.Element("ChangelogLocation");
+
+			if (latestElement == null || downloadElement == null || changelogLinkElement == null)
+			{
+				return null;
+			}
+
+			return new UpdateInfo
+				{
+					LatestVersion = latestElement.Value,
+					DownloadLocation = downloadElement.Value,
+					ChangelogLocation = changelogLinkElement.Value
+				};
 		}
 	}
 }

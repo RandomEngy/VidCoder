@@ -13,6 +13,8 @@ using System.Windows.Shapes;
 
 namespace VidCoder.View
 {
+	using System.Diagnostics;
+	using System.Windows.Navigation;
 	using ViewModel;
 
 	/// <summary>
@@ -23,18 +25,33 @@ namespace VidCoder.View
 		public OptionsDialog()
 		{
 			InitializeComponent();
-
-			this.tabControl.SelectedIndex = Config.OptionsDialogLastTab;
 		}
 
-		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		protected override void OnSourceInitialized(EventArgs e)
 		{
-			Config.OptionsDialogLastTab = this.tabControl.SelectedIndex;
+			base.OnSourceInitialized(e);
+
+			try
+			{
+				this.SetPlacement(Config.OptionsDialogPlacement);
+			}
+			catch { }
 		}
 
 		private void Window_Closed(object sender, EventArgs e)
 		{
 			this.DataContext = null;
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			Config.OptionsDialogPlacement = this.GetPlacement();
+		}
+
+		private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+		{
+			Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+			e.Handled = true;
 		}
 	}
 }

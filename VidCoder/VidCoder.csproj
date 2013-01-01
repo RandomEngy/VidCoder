@@ -379,11 +379,14 @@
     <Compile Include="Converters\DoubleDisplayConverter.cs" />
     <Compile Include="Converters\EnumVisibilityConverter.cs" />
     <Compile Include="Converters\EnumVisibilityInverseConverter.cs" />
+    <Compile Include="Converters\IntVisibilityConverter.cs" />
     <Compile Include="Converters\PercentDisplayConverter.cs" />
     <Compile Include="Converters\SampleRateDisplayConverter.cs" />
     <Compile Include="Converters\ChapterVMConverter.cs" />
     <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="EnumStringConverter.cs" />
+    <Compile Include="Model\UpdateInfo.cs" />
+    <Compile Include="Model\UpdateState.cs" />
     <Compile Include="Resources\ChapterMarkersRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

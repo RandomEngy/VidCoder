@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 
 namespace VidCoder.ViewModel
 {
+	using System.ComponentModel;
 	using System.Data.SQLite;
 	using System.Resources;
 	using Resources;
@@ -21,7 +22,6 @@ namespace VidCoder.ViewModel
 	public class OptionsDialogViewModel : OkCancelDialogViewModel
 	{
 		private bool updatesEnabled;
-		private bool updateDownloading;
 		private double updateProgress;
 		private string defaultPath;
 		private bool customFormat;
@@ -41,17 +41,18 @@ namespace VidCoder.ViewModel
 		private List<IVideoPlayer> playerChoices;
 		private List<InterfaceLanguage> languageChoices;
 
-		private IUpdater updateService;
+		private UpdateInfo betaInfo;
+		private bool betaInfoAvailable;
+
+		private IUpdater updater;
 
 		public OptionsDialogViewModel(IUpdater updateService)
 		{
-			this.updateService = updateService;
-			this.updateDownloading = updateService.UpdateDownloading;
-			this.updateService.UpdateDownloadProgress += this.OnUpdateDownloadProgress;
-			this.updateService.UpdateDownloadCompleted += this.OnUpdateDownloadCompleted;
+			this.updater = updateService;
+			this.updater.UpdateDownloadProgress += this.OnUpdateDownloadProgress;
+			this.updater.UpdateStateChanged += this.OnUpdateStateChanged;
 
 			this.updatesEnabled = Config.UpdatesEnabled;
-			this.betaUpdates = Config.BetaUpdates;
 			this.defaultPath = Config.AutoNameOutputFolder;
 			this.customFormat = Config.AutoNameCustomFormat;
 			this.customFormatString = Config.AutoNameCustomFormatString;
@@ -118,14 +119,66 @@ namespace VidCoder.ViewModel
 					}
 				}
 			}
+
+#if !BETA
+			var betaInfoWorker = new BackgroundWorker();
+			betaInfoWorker.DoWork += (o, e) =>
+				{
+					this.betaInfo = Updater.GetUpdateInfo(true);
+				};
+			betaInfoWorker.RunWorkerCompleted += (o, e) =>
+				{
+					this.betaInfoAvailable = true;
+					this.RaisePropertyChanged(() => this.BetaChangelogUrl);
+					this.RaisePropertyChanged(() => this.BetaSectionVisible);
+				};
+			betaInfoWorker.RunWorkerAsync();
+#endif
+
+			this.SelectedTabIndex = Config.OptionsDialogLastTab;
+
+			this.RefreshUpdateStatus();
 		}
 
 		public override void OnClosing()
 		{
-			this.updateService.UpdateDownloadProgress -= this.OnUpdateDownloadProgress;
-			this.updateService.UpdateDownloadCompleted -= this.OnUpdateDownloadCompleted;
+			this.updater.UpdateDownloadProgress -= this.OnUpdateDownloadProgress;
+			this.updater.UpdateStateChanged -= this.OnUpdateStateChanged;
+
+			Config.OptionsDialogLastTab = this.SelectedTabIndex;
 
 			base.OnClosing();
+		}
+
+		public IList<string> Tabs
+		{
+			get
+			{
+				return new List<string>
+					{
+						OptionsRes.GeneralTab,			// 0
+						OptionsRes.FileNamingTab,		// 1
+						OptionsRes.AudioSubtitlesTab,	// 2
+						OptionsRes.ProcessesTab,		// 3
+						OptionsRes.AdvancedTab,			// 4
+						OptionsRes.UpdatesTab			// 5
+					};
+			}
+		} 
+
+		private int selectedTabIndex;
+		public int SelectedTabIndex
+		{
+			get
+			{
+				return this.selectedTabIndex;
+			}
+
+			set
+			{
+				this.selectedTabIndex = value;
+				this.RaisePropertyChanged(() => this.SelectedTabIndex);
+			}
 		}
 
 		public List<InterfaceLanguage> LanguageChoices
@@ -150,6 +203,14 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public string CurrentVersion
+		{
+			get
+			{
+				return string.Format(OptionsRes.CurrentVersionLabel, Utilities.VersionString);
+			}
+		}
+
 		public bool UpdatesEnabled
 		{
 			get
@@ -161,60 +222,6 @@ namespace VidCoder.ViewModel
 			{
 				this.updatesEnabled = value;
 				this.RaisePropertyChanged(() => this.UpdatesEnabled);
-				this.RaisePropertyChanged(() => this.BetaUpdates);
-				this.RaisePropertyChanged(() => this.BetaUpdatesCheckBoxEnabled);
-			}
-		}
-
-		private bool betaUpdates;
-		public bool BetaUpdates
-		{
-			get
-			{
-#pragma warning disable 162
-#if BETA
-				return true;
-#endif
-
-				if (!this.UpdatesEnabled)
-				{
-					return false;
-				}
-
-				return this.betaUpdates;
-#pragma warning restore 162
-			}
-
-			set
-			{
-				this.betaUpdates = value;
-				this.RaisePropertyChanged(() => this.BetaUpdates);
-			}
-		}
-
-		public bool BetaUpdatesCheckBoxEnabled
-		{
-			get
-			{
-#pragma warning disable 162
-#if BETA
-				return false;
-#endif
-
-				return this.UpdatesEnabled;
-#pragma warning restore 162
-			}
-		}
-
-		public string BetaUpdatesToolTip
-		{
-			get
-			{
-#if BETA
-				return OptionsRes.BetaUpdatesInBetaToolTip;
-#else
-				return OptionsRes.BetaUpdatesNonBetaToolTip;
-#endif
 			}
 		}
 
@@ -222,22 +229,23 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.updateService.UpdateReady)
+				switch (this.updater.State)
 				{
-					return OptionsRes.UpdateReadyStatus;
+					case UpdateState.NotStarted:
+						return string.Empty;
+					case UpdateState.DownloadingInfo:
+						return OptionsRes.DownloadingInfoStatus;
+					case UpdateState.DownloadingInstaller:
+						return string.Format(OptionsRes.DownloadingStatus, this.updater.LatestVersion);
+					case UpdateState.UpToDate:
+						return OptionsRes.UpToDateStatus;
+					case UpdateState.InstallerReady:
+						return string.Format(OptionsRes.UpdateReadyStatus, this.updater.LatestVersion);
+					case UpdateState.Failed:
+						return OptionsRes.UpdateFailedStatus;
+					default:
+						throw new ArgumentOutOfRangeException();
 				}
-
-				if (this.UpdateDownloading)
-				{
-					return OptionsRes.DownloadingStatus;
-				}
-
-				if (this.updateService.UpToDate)
-				{
-					return OptionsRes.UpToDateStatus;
-				}
-
-				return string.Empty;
 			}
 		}
 
@@ -245,13 +253,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.updateDownloading;
-			}
-
-			set
-			{
-				this.updateDownloading = value;
-				this.RaisePropertyChanged(() => this.UpdateDownloading);
+				return this.updater.State == UpdateState.DownloadingInstaller;
 			}
 		}
 
@@ -266,6 +268,54 @@ namespace VidCoder.ViewModel
 			{
 				this.updateProgress = value;
 				this.RaisePropertyChanged(() => this.UpdateProgress);
+			}
+		}
+
+		public string BetaUpdatesText
+		{
+			get
+			{
+#if BETA
+				return OptionsRes.BetaUpdatesInBeta;
+#else
+				return OptionsRes.BetaUpdatesNonBeta;
+#endif
+			}
+		}
+
+		public string BetaChangelogUrl
+		{
+			get
+			{
+#if BETA
+				return string.Empty;
+#else
+				return this.betaInfo.ChangelogLocation;
+#endif
+			}
+		}
+
+		public bool BetaSectionVisible
+		{
+			get
+			{
+#if BETA
+				return true;
+#else
+				return this.betaInfoAvailable;
+#endif
+			}
+		}
+
+		public bool InBeta
+		{
+			get
+			{
+#if BETA
+				return true;
+#else
+				return false;
+#endif
 			}
 		}
 
@@ -772,11 +822,10 @@ namespace VidCoder.ViewModel
 					{
 						using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
 						{
-							if (Config.UpdatesEnabled != this.UpdatesEnabled || Config.BetaUpdates != this.BetaUpdates)
+							if (Config.UpdatesEnabled != this.UpdatesEnabled)
 							{
 								Config.UpdatesEnabled = this.UpdatesEnabled;
-								Config.BetaUpdates = this.BetaUpdates;
-								this.updateService.HandleUpdatedSettings(this.UpdatesEnabled);
+								this.updater.HandleUpdatedSettings(this.UpdatesEnabled);
 							}
 
 							if (Config.InterfaceLanguageCode != this.InterfaceLanguage.CultureCode)
@@ -854,9 +903,9 @@ namespace VidCoder.ViewModel
 				return this.browseCompletionSoundCommand ?? (this.browseCompletionSoundCommand = new RelayCommand(() =>
 					{
 						string fileName = FileService.Instance.GetFileNameLoad(
-							title: "Pick the .wav file you want to use for the completion sound.", 
+							title: OptionsRes.CompletionWavFilePickTitle, 
 							defaultExt: "wav", 
-							filter: "WAV Files|*.wav");
+							filter: OptionsRes.WavFiles + "|*.wav");
 
 						if (fileName != null)
 						{
@@ -929,10 +978,38 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private void OnUpdateDownloadCompleted(object sender, EventArgs e)
+		private RelayCommand checkUpdateCommand;
+		public RelayCommand CheckUpdateCommand
 		{
-			this.UpdateDownloading = false;
+			get
+			{
+				return this.checkUpdateCommand ?? (this.checkUpdateCommand = new RelayCommand(() =>
+					{
+						this.updater.CheckUpdates();
+					},
+					() =>
+					{
+						return Config.UpdatesEnabled &&
+							(this.updater.State == UpdateState.Failed || 
+							this.updater.State == UpdateState.NotStarted || 
+							this.updater.State == UpdateState.UpToDate);
+					}));
+			}
+		}
+
+		private void RefreshUpdateStatus()
+		{
+			this.RaisePropertyChanged(() => this.UpdateDownloading);
 			this.RaisePropertyChanged(() => this.UpdateStatus);
+			this.CheckUpdateCommand.RaiseCanExecuteChanged();
+		}
+
+		private void OnUpdateStateChanged(object sender, EventArgs e)
+		{
+			DispatchService.BeginInvoke(() =>
+				{
+					this.RefreshUpdateStatus();
+				});
 		}
 
 		private void OnUpdateDownloadProgress(object sender, EventArgs<double> e)
