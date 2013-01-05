@@ -589,22 +589,22 @@ You should set this if you know your playback device only supports a certain pro
     <value>The amount of compression to apply. {0} Valid values are from {1} to {2}.</value>
   </data>
   <data name="AudioEncoder_copy" xml:space="preserve">
-    <value />
+    <value>Auto Passthrough</value>
   </data>
   <data name="AudioEncoder_copy_aac" xml:space="preserve">
-    <value />
+    <value>AAC Passthrough</value>
   </data>
   <data name="AudioEncoder_copy_ac3" xml:space="preserve">
-    <value />
+    <value>AC3 Passthrough</value>
   </data>
   <data name="AudioEncoder_copy_dts" xml:space="preserve">
-    <value />
+    <value>DTS Passthrough</value>
   </data>
   <data name="AudioEncoder_copy_dtshd" xml:space="preserve">
-    <value />
+    <value>DTS-HD Passthrough</value>
   </data>
   <data name="AudioEncoder_copy_mp3" xml:space="preserve">
-    <value />
+    <value>MP3 Passthrough</value>
   </data>
   <data name="AudioEncoder_faac" xml:space="preserve">
     <value>AAC (FAAC)</value>
@@ -894,5 +894,8 @@ Overrides all other settings.</value>
   </data>
   <data name="DtsMp4Warning" xml:space="preserve">
     <value>Few players support playback of DTS audio in MP4 containers. MKV is recommended for DTS audio.</value>
+  </data>
+  <data name="AudioEncoder_ffflac24" xml:space="preserve">
+    <value>FLAC 24-bit (Libav)</value>
   </data>
 </root>

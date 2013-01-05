@@ -80,7 +80,7 @@ namespace VidCoder.ViewModel
 				new ComboChoice("high", EncodingRes.Profile_High),
 				//new ComboChoice("high10", EncodingRes.Profile_High),
 				//new ComboChoice("high422", EncodingRes.Profile_High),
-				new ComboChoice("high444", EncodingRes.Profile_High444),
+				//new ComboChoice("high444", EncodingRes.Profile_High444),
 			};
 
 			this.h264LevelChoices = new List<LevelChoiceViewModel>

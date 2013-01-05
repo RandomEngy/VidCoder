@@ -462,7 +462,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Auto Passthrough.
         /// </summary>
         public static string AudioEncoder_copy {
             get {
@@ -471,7 +471,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to AAC Passthrough.
         /// </summary>
         public static string AudioEncoder_copy_aac {
             get {
@@ -480,7 +480,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to AC3 Passthrough.
         /// </summary>
         public static string AudioEncoder_copy_ac3 {
             get {
@@ -489,7 +489,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to DTS Passthrough.
         /// </summary>
         public static string AudioEncoder_copy_dts {
             get {
@@ -498,7 +498,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to DTS-HD Passthrough.
         /// </summary>
         public static string AudioEncoder_copy_dtshd {
             get {
@@ -507,7 +507,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to MP3 Passthrough.
         /// </summary>
         public static string AudioEncoder_copy_mp3 {
             get {
@@ -548,6 +548,15 @@ namespace VidCoder.Resources {
         public static string AudioEncoder_ffflac {
             get {
                 return ResourceManager.GetString("AudioEncoder_ffflac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FLAC 24-bit (Libav).
+        /// </summary>
+        public static string AudioEncoder_ffflac24 {
+            get {
+                return ResourceManager.GetString("AudioEncoder_ffflac24", resourceCulture);
             }
         }
         

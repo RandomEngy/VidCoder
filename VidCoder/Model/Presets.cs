@@ -20,7 +20,7 @@ namespace VidCoder.Model
 
 	public static class Presets
 	{
-		private const int CurrentPresetVersion = 7;
+		private const int CurrentPresetVersion = 8;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
@@ -227,6 +227,11 @@ namespace VidCoder.Model
 			{
 				UpgradeEncodingProfileTo16(profile);
 			}
+
+			if (databaseVersion < 17)
+			{
+				UpgradeEncodingProfileTo17(profile);
+			}
 		}
 
 		public static void UpgradeEncodingProfileTo13(VCProfile profile)
@@ -349,6 +354,14 @@ namespace VidCoder.Model
 				profile.X264Tunes = new List<string> { profile.X264Tune };
 			}
 #pragma warning restore 612,618
+		}
+
+		public static void UpgradeEncodingProfileTo17(VCProfile profile)
+		{
+			if (profile.X264Profile == "high444")
+			{
+				profile.X264Profile = null;
+			}
 		}
 
 		private static void ErrorCheckPresets(List<Preset> presets)
