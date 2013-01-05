@@ -142,7 +142,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Automatic Audio Selection.
+        ///   Looks up a localized string similar to Automatic audio selection.
         /// </summary>
         public static string AutomaticAudioSelection {
             get {
@@ -151,7 +151,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Automatic Subtitle Selection.
+        ///   Looks up a localized string similar to Automatic subtitle selection.
         /// </summary>
         public static string AutomaticSubtitleSelection {
             get {
@@ -273,6 +273,24 @@ namespace VidCoder.Resources {
         public static string CustomFormatRadioButton {
             get {
                 return ResourceManager.GetString("CustomFormatRadioButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom player:.
+        /// </summary>
+        public static string CustomPlayerLabel {
+            get {
+                return ResourceManager.GetString("CustomPlayerLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify the path to the video player you wish to use for files..
+        /// </summary>
+        public static string CustomVideoPlayerToolTip {
+            get {
+                return ResourceManager.GetString("CustomVideoPlayerToolTip", resourceCulture);
             }
         }
         
@@ -754,11 +772,29 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WAV Files.
+        ///   Looks up a localized string similar to Use system player.
         /// </summary>
-        public static string WavFiles {
+        public static string UseSystemPlayer {
             get {
-                return ResourceManager.GetString("WavFiles", resourceCulture);
+                return ResourceManager.GetString("UseSystemPlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video Files:.
+        /// </summary>
+        public static string VideoFilesLabel {
+            get {
+                return ResourceManager.GetString("VideoFilesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick the player to use for video files..
+        /// </summary>
+        public static string VideoPlayerFilePickTitle {
+            get {
+                return ResourceManager.GetString("VideoPlayerFilePickTitle", resourceCulture);
             }
         }
         

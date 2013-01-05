@@ -63,6 +63,8 @@
 			WhenFileExists_Field = DatabaseConfig.GetConfig("WhenFileExists", "Prompt", connection);
 			WhenFileExistsBatch_Field = DatabaseConfig.GetConfig("WhenFileExistsBatch", "AutoRename", connection);
 			KeepScansAfterCompletion_Field = DatabaseConfig.GetConfig("KeepScansAfterCompletion", true, connection);
+			UseCustomVideoPlayer_Field = DatabaseConfig.GetConfig("UseCustomVideoPlayer", false, connection);
+			CustomVideoPlayer_Field = DatabaseConfig.GetConfig("CustomVideoPlayer", "", connection);
 			PlaySoundOnCompletion_Field = DatabaseConfig.GetConfig("PlaySoundOnCompletion", false, connection);
 			UseCustomCompletionSound_Field = DatabaseConfig.GetConfig("UseCustomCompletionSound", false, connection);
 			CustomCompletionSound_Field = DatabaseConfig.GetConfig("CustomCompletionSound", "", connection);
@@ -868,6 +870,34 @@
 			{
 				KeepScansAfterCompletion_Field = value;
 				DatabaseConfig.SetConfigValue("KeepScansAfterCompletion", value);
+			}
+		}
+		private static bool UseCustomVideoPlayer_Field;
+		public static bool UseCustomVideoPlayer
+		{
+			get
+			{
+				return UseCustomVideoPlayer_Field;
+			}
+			
+			set
+			{
+				UseCustomVideoPlayer_Field = value;
+				DatabaseConfig.SetConfigValue("UseCustomVideoPlayer", value);
+			}
+		}
+		private static string CustomVideoPlayer_Field;
+		public static string CustomVideoPlayer
+		{
+			get
+			{
+				return CustomVideoPlayer_Field;
+			}
+			
+			set
+			{
+				CustomVideoPlayer_Field = value;
+				DatabaseConfig.SetConfigValue("CustomVideoPlayer", value);
 			}
 		}
 		private static bool PlaySoundOnCompletion_Field;

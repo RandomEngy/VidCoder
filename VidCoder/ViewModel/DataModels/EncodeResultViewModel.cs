@@ -122,7 +122,7 @@ namespace VidCoder.ViewModel
 				return this.playCommand ?? (this.playCommand = new RelayCommand(() =>
 					{
 						Messenger.Default.Send(new StatusMessage { Message = MainRes.PlayingVideoStatus });
-						FileService.Instance.LaunchFile(this.encodeResult.Destination);
+						FileService.Instance.PlayVideo(this.encodeResult.Destination);
 					}));
 			}
 		}

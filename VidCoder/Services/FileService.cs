@@ -173,5 +173,17 @@ namespace VidCoder.Services
 				MessageBox.Show(string.Format(MainRes.LaunchUrlError, url));
 			}
 		}
+
+		public void PlayVideo(string fileName)
+		{
+			if (Config.UseCustomVideoPlayer && !string.IsNullOrWhiteSpace(Config.CustomVideoPlayer))
+			{
+				Process.Start(Config.CustomVideoPlayer, "\"" + fileName + "\"");
+			}
+			else
+			{
+				this.LaunchFile(fileName);
+			}
+		}
 	}
 }

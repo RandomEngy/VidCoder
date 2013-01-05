@@ -92,6 +92,33 @@
 									SelectedItem="{Binding SelectedPlayer}"
 									ToolTip="{x:Static res:OptionsRes.PreferredDvdPlayerToolTip}"/>
 							</StackPanel>
+							<TextBlock
+								Text="{x:Static res:OptionsRes.VideoFilesLabel}" Margin="0,6,0,0" />
+							<RadioButton
+								Margin="20,6,0,0" HorizontalAlignment="Left"
+								Content="{x:Static res:OptionsRes.UseSystemPlayer}"
+								IsChecked="{Binding UseCustomVideoPlayer, Converter={StaticResource InverseBoolConverter}}" GroupName="customVideo1"/>
+							<Grid HorizontalAlignment="Stretch" Margin="20,6,0,0" ToolTip="{x:Static res:OptionsRes.CustomVideoPlayerToolTip}">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<RadioButton
+									VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,6,0"
+									Content="{x:Static res:OptionsRes.CustomPlayerLabel}"
+									IsChecked="{Binding UseCustomVideoPlayer}" Style="{StaticResource GrayOnDisabledControl}" GroupName="customVideo1" />
+								<TextBox
+									Grid.Column="1" Height="22"
+									VerticalAlignment="Top" VerticalContentAlignment="Center"
+									Text="{Binding CustomVideoPlayer}"
+									IsEnabled="{Binding UseCustomVideoPlayer}"/>
+								<Button
+									Grid.Column="2" Margin="6,0,0,0" Padding="3,2" VerticalAlignment="Center"
+									Content="{x:Static res:CommonRes.Browse}"
+									IsEnabled="{Binding UseCustomVideoPlayer}"
+									Command="{Binding BrowseVideoPlayerCommand}"/>
+							</Grid>
 						</StackPanel>
 
 						<!-- Sounds -->

@@ -395,7 +395,7 @@ namespace VidCoder.View
 				if (File.Exists(resultFile))
 				{
 					this.ShowStatusMessage(new StatusMessage { Message = MainRes.PlayingVideoMessage });
-					FileService.Instance.LaunchFile(encodeResultVM.EncodeResult.Destination);
+					FileService.Instance.PlayVideo(encodeResultVM.EncodeResult.Destination);
 				}
 				else
 				{

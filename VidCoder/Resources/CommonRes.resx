@@ -229,4 +229,7 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="Failed" xml:space="preserve">
     <value>Failed</value>
   </data>
+	<data name="FilePickerExtTemplate" xml:space="preserve">
+    <value>{0} Files</value>
+  </data>
 </root>

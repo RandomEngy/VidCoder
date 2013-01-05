@@ -499,7 +499,7 @@ namespace VidCoder.ViewModel
 									var previewFileInfo = new FileInfo(this.previewFilePath);
 									this.logger.Log("Finished preview clip generation. Size: " + Utilities.FormatFileSize(previewFileInfo.Length));
 
-									FileService.Instance.LaunchFile(previewFilePath);
+									FileService.Instance.PlayVideo(previewFilePath);
 								}
 							}
 						};
@@ -541,7 +541,7 @@ namespace VidCoder.ViewModel
 						else
 						{
 							// Path is a file
-							FileService.Instance.LaunchFile(sourcePath);
+							FileService.Instance.PlayVideo(sourcePath);
 						}
 				    }, () =>
 				    {

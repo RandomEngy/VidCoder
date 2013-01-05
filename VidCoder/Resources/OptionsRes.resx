@@ -193,7 +193,7 @@
     <value>Automatically rename</value>
   </data>
   <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Automatic Audio Selection</value>
+    <value>Automatic audio selection</value>
   </data>
   <data name="AudioSubtitlesTab" xml:space="preserve">
     <value>Audio / Subtitles</value>
@@ -205,7 +205,7 @@
     <value>Include all tracks</value>
   </data>
   <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Automatic Subtitle Selection</value>
+    <value>Automatic subtitle selection</value>
   </data>
   <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
     <value>Foreign Audio Search</value>
@@ -300,9 +300,6 @@
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
     <value>Pick the .wav file you want to use for the completion sound.</value>
   </data>
-  <data name="WavFiles" xml:space="preserve">
-    <value>WAV Files</value>
-  </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
     <value>Current Version: {0}</value>
   </data>
@@ -353,5 +350,20 @@
   </data>
   <data name="CheckNowButton" xml:space="preserve">
     <value>Check Now</value>
+  </data>
+  <data name="UseSystemPlayer" xml:space="preserve">
+    <value>Use system player</value>
+  </data>
+  <data name="VideoFilesLabel" xml:space="preserve">
+    <value>Video Files:</value>
+  </data>
+  <data name="CustomVideoPlayerToolTip" xml:space="preserve">
+    <value>Specify the path to the video player you wish to use for files.</value>
+  </data>
+  <data name="VideoPlayerFilePickTitle" xml:space="preserve">
+    <value>Pick the player to use for video files.</value>
+  </data>
+  <data name="CustomPlayerLabel" xml:space="preserve">
+    <value>Custom player:</value>
   </data>
 </root>

@@ -60,6 +60,8 @@ namespace VidCoder.ViewModel
 			this.whenFileExists = CustomConfig.WhenFileExists;
 			this.whenFileExistsBatch = CustomConfig.WhenFileExistsBatch;
 			this.minimizeToTray = Config.MinimizeToTray;
+			this.useCustomVideoPlayer = Config.UseCustomVideoPlayer;
+			this.customVideoPlayer = Config.CustomVideoPlayer;
 			this.playSoundOnCompletion = Config.PlaySoundOnCompletion;
 			this.useCustomCompletionSound = Config.UseCustomCompletionSound;
 			this.customCompletionSound = Config.CustomCompletionSound;
@@ -339,6 +341,37 @@ namespace VidCoder.ViewModel
 			{
 				this.selectedPlayer = value;
 				this.RaisePropertyChanged(() => this.SelectedPlayer);
+			}
+		}
+
+		private bool useCustomVideoPlayer;
+		public bool UseCustomVideoPlayer
+		{
+			get
+			{
+				return this.useCustomVideoPlayer;
+			}
+
+			set
+			{
+				this.useCustomVideoPlayer = value;
+				this.RaisePropertyChanged(() => this.UseCustomVideoPlayer);
+				this.BrowseVideoPlayerCommand.RaiseCanExecuteChanged();
+			}
+		}
+
+		private string customVideoPlayer;
+		public string CustomVideoPlayer
+		{
+			get
+			{
+				return this.customVideoPlayer;
+			}
+
+			set
+			{
+				this.customVideoPlayer = value;
+				this.RaisePropertyChanged(() => this.CustomVideoPlayer);
 			}
 		}
 
@@ -841,7 +874,8 @@ namespace VidCoder.ViewModel
 							CustomConfig.WhenFileExists = this.WhenFileExists;
 							CustomConfig.WhenFileExistsBatch = this.WhenFileExistsBatch;
 							Config.MinimizeToTray = this.MinimizeToTray;
-							//Config.MinimizeToTray = this.MinimizeToTray;
+							Config.UseCustomVideoPlayer = this.UseCustomVideoPlayer;
+							Config.CustomVideoPlayer = this.CustomVideoPlayer;
 							Config.PlaySoundOnCompletion = this.PlaySoundOnCompletion;
 							Config.UseCustomCompletionSound = this.UseCustomCompletionSound;
 							Config.CustomCompletionSound = this.CustomCompletionSound;
@@ -895,6 +929,30 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private RelayCommand browseVideoPlayerCommand;
+		public RelayCommand BrowseVideoPlayerCommand
+		{
+			get
+			{
+				return this.browseVideoPlayerCommand ?? (this.browseVideoPlayerCommand = new RelayCommand(() =>
+					{
+						string fileName = FileService.Instance.GetFileNameLoad(
+							title: OptionsRes.VideoPlayerFilePickTitle,
+							defaultExt: "exe",
+							filter: string.Format(CommonRes.FilePickerExtTemplate, "EXE") + "|*.exe");
+
+						if (fileName != null)
+						{
+							this.CustomVideoPlayer = fileName;
+						}
+					},
+					() =>
+					{
+						return this.UseCustomVideoPlayer;
+					}));
+			}
+		}
+
 		private RelayCommand browseCompletionSoundCommand;
 		public RelayCommand BrowseCompletionSoundCommand
 		{
@@ -905,7 +963,7 @@ namespace VidCoder.ViewModel
 						string fileName = FileService.Instance.GetFileNameLoad(
 							title: OptionsRes.CompletionWavFilePickTitle, 
 							defaultExt: "wav", 
-							filter: OptionsRes.WavFiles + "|*.wav");
+							filter: string.Format(CommonRes.FilePickerExtTemplate, "WAV") + "|*.wav");
 
 						if (fileName != null)
 						{

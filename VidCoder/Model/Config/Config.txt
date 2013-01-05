@@ -65,6 +65,8 @@ OutputToSourceDirectory|bool|false
 WhenFileExists|string|"Prompt"
 WhenFileExistsBatch|string|"AutoRename"
 KeepScansAfterCompletion|bool|true
+UseCustomVideoPlayer|bool|false
+CustomVideoPlayer|string|""
 PlaySoundOnCompletion|bool|false
 UseCustomCompletionSound|bool|false
 CustomCompletionSound|string|""
