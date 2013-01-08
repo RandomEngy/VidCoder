@@ -67,8 +67,8 @@ namespace VidCoder
 		public void StartEncode(VCJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
 		{
 //#if DEBUG
-//            this.StartEncodeInProcess(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds);
-//            return;
+//			this.StartEncodeInProcess(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds);
+//			return;
 //#endif
 
 			this.logger = Unity.Container.Resolve<ILogger>();

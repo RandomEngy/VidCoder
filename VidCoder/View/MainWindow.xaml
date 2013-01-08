@@ -407,7 +407,7 @@
 					Visibility="{Binding SourcePicked, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"/>
 				<Grid
 					Name="sourceLabelArea"
-					Background="Transparent">
+					Background="Transparent" UseLayoutRounding="True">
 					<Grid.InputBindings>
 						<MouseBinding
 							Gesture="LeftClick"
@@ -511,7 +511,7 @@
 						<DataTemplate>
 							<Button
 								HorizontalContentAlignment="Left"
-								Command="{Binding ChooseSourceCommand}">
+								Command="{Binding ChooseSourceCommand}" UseLayoutRounding="True">
 								<StackPanel Orientation="Horizontal">
 									<Image Source="{Binding Image}" Visibility="{Binding ImageVisible, Converter={StaticResource VisibilityConverter}}" Width="16" Height="16" Margin="4,2,0,2" />
 									<TextBlock Text="{Binding Text}" Style="{StaticResource PlainTitle}" Margin="4" />
@@ -533,7 +533,7 @@
 					
 					<!-- Recently opened sources -->
 					<Grid
-						HorizontalAlignment="Center" Margin="0,-16,0,0"
+						HorizontalAlignment="Center" Margin="0,-16,0,0" UseLayoutRounding="True"
 						Visibility="{Binding RecentSourcesVisible, Converter={StaticResource VisibilityConverter}}">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
@@ -743,7 +743,7 @@
 						</ItemsControl>
 						<Button 
 							Command="{Binding AddTrackCommand}" Grid.Column="1" Grid.Row="1"  Margin="5,7,0,0" Name="button1" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top"
-							Padding="5,0">
+							Padding="5,0" UseLayoutRounding="True">
 							<StackPanel Orientation="Horizontal">
 								<Polygon Style="{StaticResource PlusSign}" />
 								<TextBlock Text="{x:Static res:MainRes.AddTrackButton}" />
