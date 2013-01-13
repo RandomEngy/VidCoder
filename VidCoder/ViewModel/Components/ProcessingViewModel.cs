@@ -1062,7 +1062,19 @@ namespace VidCoder.ViewModel.Components
 			this.logger.Log("Starting job " + this.taskNumber + "/" + this.totalTasks);
 			this.logger.Log("  Path: " + job.SourcePath);
 			this.logger.Log("  Title: " + job.Title);
-			this.logger.Log("  Chapters: " + job.ChapterStart + "-" + job.ChapterEnd);
+
+			switch (job.RangeType)
+			{
+				case VideoRangeType.Chapters:
+					this.logger.Log("  Chapters: " + job.ChapterStart + "-" + job.ChapterEnd);
+					break;
+				case VideoRangeType.Seconds:
+					this.logger.Log("  Seconds: " + job.SecondsStart + "-" + job.SecondsEnd);
+					break;
+				case VideoRangeType.Frames:
+					this.logger.Log("  Frames: " + job.FramesStart + "-" + job.FramesEnd);
+					break;
+			}
 
 			this.encodeProxy = new EncodeProxy();
 			this.encodeProxy.EncodeProgress += this.OnEncodeProgress;
