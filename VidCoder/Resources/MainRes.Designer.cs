@@ -124,6 +124,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CBR Auto.
+        /// </summary>
+        public static string CbrAuto {
+            get {
+                return ResourceManager.GetString("CbrAuto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chapter Markers:.
         /// </summary>
         public static string ChapterMarkersLabel {

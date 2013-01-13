@@ -18,6 +18,8 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
+	using Resources;
+
 	public class EncodeJobViewModel : ViewModelBase, IDragItem
 	{
 		public const double SubtitleScanCostFactor = 80.0;
@@ -347,7 +349,14 @@ namespace VidCoder.ViewModel
 					{
 						if (audioEncoding.EncodeRateType == AudioEncodeRateType.Bitrate)
 						{
-							bitrateParts.Add(audioEncoding.Bitrate + " kbps");
+							if (audioEncoding.Bitrate == 0)
+							{
+								bitrateParts.Add(MainRes.CbrAuto);
+							}
+							else
+							{
+								bitrateParts.Add(audioEncoding.Bitrate + " kbps");
+							}
 						}
 						else
 						{

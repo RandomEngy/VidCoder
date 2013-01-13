@@ -534,4 +534,7 @@
 	<data name="UpdatesMenuItem" xml:space="preserve">
     <value>Updates...</value>
   </data>
+	<data name="CbrAuto" xml:space="preserve">
+    <value>CBR Auto</value>
+  </data>
 </root>

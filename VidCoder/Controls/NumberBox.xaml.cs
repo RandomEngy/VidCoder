@@ -236,12 +236,16 @@ namespace VidCoder.Controls
 			{
 				newNumber = Math.Max(this.Minimum, this.Increment);
 			}
+			else if (this.AllowEmpty && this.Number == this.Maximum && this.Maximum < 0)
+			{
+				newNumber = 0;
+			}
 			else
 			{
 				newNumber = this.Number + this.Increment;
 			}
 
-			if (newNumber > this.Maximum)
+			if (newNumber > this.Maximum && (!this.AllowEmpty || newNumber != 0))
 			{
 				newNumber = this.Maximum;
 			}
@@ -259,12 +263,16 @@ namespace VidCoder.Controls
 			{
 				newNumber = Math.Min(this.Maximum, -this.Increment);
 			}
+			else if (this.AllowEmpty && this.Number == this.Minimum && this.Minimum > 0)
+			{
+				newNumber = 0;
+			}
 			else
 			{
 				newNumber = this.Number - this.Increment;
 			}
 
-			if (newNumber < this.Minimum)
+			if (newNumber < this.Minimum && (!this.AllowEmpty || newNumber != 0))
 			{
 				newNumber = this.Minimum;
 			}

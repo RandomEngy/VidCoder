@@ -208,20 +208,20 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
-  <data name="Copy">
-    <value xml:space="preserve">Copy</value>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
   </data>
-  <data name="Yes">
-    <value xml:space="preserve">Yes</value>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
-  <data name="No">
-    <value xml:space="preserve">No</value>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
   </data>
-  <data name="CouldNotAccessDirectoriesError">
-    <value xml:space="preserve">Could not access the following directories:</value>
+  <data name="CouldNotAccessDirectoriesError" xml:space="preserve">
+    <value>Could not access the following directories:</value>
   </data>
-  <data name="None">
-    <value xml:space="preserve">None</value>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
   </data>
   <data name="Succeeded" xml:space="preserve">
     <value>Succeeded</value>
@@ -229,7 +229,7 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="Failed" xml:space="preserve">
     <value>Failed</value>
   </data>
-	<data name="FilePickerExtTemplate" xml:space="preserve">
+  <data name="FilePickerExtTemplate" xml:space="preserve">
     <value>{0} Files</value>
   </data>
 </root>
