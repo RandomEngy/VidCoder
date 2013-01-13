@@ -30,6 +30,9 @@ namespace VidCoder
 
 		private const double PipeTimeoutSeconds = 5;
 
+		private const int ConnectionRetryIntervalMs = 1000;
+		private const int ConnectionRetries = 10;
+
 		public event EventHandler EncodeStarted;
 
 		/// <summary>
@@ -91,26 +94,33 @@ namespace VidCoder
 
 					// When the process writes out a line, its pipe server is ready and can be contacted for
 					// work. Reading line blocks until this happens.
-					worker.StandardOutput.ReadLine();
+					this.logger.Log("Worker ready: " + worker.StandardOutput.ReadLine());
+				    bool connectionSucceeded = false;
 
 					lock (this.encoderLock)
 					{
 						this.ExecuteProxyOperation(() =>
 							{
-								var binding = new NetNamedPipeBinding
+								connectionSucceeded = this.ConnectToPipe(worker.Id);
+								if (!connectionSucceeded)
 								{
-									OpenTimeout = TimeSpan.FromSeconds(10),
-									CloseTimeout = TimeSpan.FromSeconds(10),
-									SendTimeout = TimeSpan.FromSeconds(10),
-									ReceiveTimeout = TimeSpan.FromSeconds(10)
-								};
+									return;
+								}
 
-								this.pipeFactory = new DuplexChannelFactory<IHandBrakeEncoder>(
-									this,
-									binding,
-									new EndpointAddress("net.pipe://localhost/VidCoderWorker_" + worker.Id));
+								//var binding = new NetNamedPipeBinding
+								//{
+								//	OpenTimeout = TimeSpan.FromSeconds(10),
+								//	CloseTimeout = TimeSpan.FromSeconds(10),
+								//	SendTimeout = TimeSpan.FromSeconds(10),
+								//	ReceiveTimeout = TimeSpan.FromSeconds(10)
+								//};
 
-								this.channel = this.pipeFactory.CreateChannel();
+								//this.pipeFactory = new DuplexChannelFactory<IHandBrakeEncoder>(
+								//	this,
+								//	binding,
+								//	new EndpointAddress("net.pipe://localhost/VidCoderWorker_" + worker.Id));
+
+								//this.channel = this.pipeFactory.CreateChannel();
 
 								this.channel.StartEncode(job.HbJob, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds,
 														 Config.LogVerbosity, Config.PreviewCount);
@@ -119,6 +129,12 @@ namespace VidCoder
 								var contextChannel = (IContextChannel)this.channel;
 								contextChannel.OperationTimeout = TimeSpan.FromSeconds(PipeTimeoutSeconds);
 							});
+					}
+
+					if (!connectionSucceeded)
+					{
+						this.EndEncode(error: true);
+						return;
 					}
 
 			    	this.pingTimer = new Timer
@@ -215,6 +231,41 @@ namespace VidCoder
 			};
 
 			this.instance.StartScan(job.SourcePath, Config.PreviewCount, job.Title);
+		}
+
+		private bool ConnectToPipe(int workerId)
+		{
+			for (int i = 0; i < ConnectionRetries; i++)
+			{
+				try
+				{
+					var binding = new NetNamedPipeBinding
+						{
+							OpenTimeout = TimeSpan.FromSeconds(10),
+							CloseTimeout = TimeSpan.FromSeconds(10),
+							SendTimeout = TimeSpan.FromSeconds(10),
+							ReceiveTimeout = TimeSpan.FromSeconds(10)
+						};
+
+					this.pipeFactory = new DuplexChannelFactory<IHandBrakeEncoder>(
+						this,
+						binding,
+						new EndpointAddress("net.pipe://localhost/VidCoderWorker_" + workerId));
+
+					this.channel = this.pipeFactory.CreateChannel();
+					this.channel.Ping();
+
+					return true;
+				}
+				catch (EndpointNotFoundException)
+				{
+				}
+
+				Thread.Sleep(ConnectionRetryIntervalMs);
+			}
+
+			this.logger.LogError("Connection to worker failed after " + ConnectionRetries + " retries. Unable to find endpoint.");
+			return false;
 		}
 
 		public void PauseEncode()

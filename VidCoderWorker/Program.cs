@@ -60,16 +60,17 @@ namespace VidCoderWorker
 					}))
 			{
 				int processId = Process.GetCurrentProcess().Id;
+				string pipeName = "VidCoderWorker_" + processId;
 
 				host.AddServiceEndpoint(
 					typeof(IHandBrakeEncoder),
 					new NetNamedPipeBinding(),
-					"VidCoderWorker_" + processId);
+					pipeName);
 
 				host.Open();
 
 				encodeComplete = new ManualResetEventSlim(false);
-				Console.WriteLine("Service is available.");
+				Console.WriteLine("Service state is " + host.State + " on pipe " + pipeName);
 				encodeComplete.Wait();
 
 				host.Close();
