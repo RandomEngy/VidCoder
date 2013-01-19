@@ -6,7 +6,7 @@
 	xmlns:res="clr-namespace:VidCoder.Resources" 
 	Title="{x:Static res:ChapterMarkersRes.ChapterMarkersDialogTitle}" Height="326" Width="444" WindowStartupLocation="CenterOwner" Closing="Window_Closing"
 	Style="{StaticResource NormalWindow}"
-	TextOptions.TextFormattingMode="Display">
+	TextOptions.TextFormattingMode="Display" Closed="Window_Closed">
 	<Window.Resources>
 		<DataTemplate x:Key="TitleTemplate">
 			<TextBox Width="200" Text="{Binding Title}" GotFocus="TitleBoxGotFocus" />
@@ -41,12 +41,12 @@
 	<Grid>
 		<RadioButton
 			Height="16" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top"
-			GroupName="UseDefault"
+			GroupName="UseDefault1"
 			IsChecked="{Binding UseDefaultNames}"
 			Content="{x:Static res:ChapterMarkersRes.DefaultChapterNamesRadioButton}" />
 		<RadioButton
 			Height="16" HorizontalAlignment="Left" Margin="12,34,0,0" VerticalAlignment="Top"
-			GroupName="UseDefault"
+			GroupName="UseDefault2"
 			IsChecked="{Binding UseDefaultNames, Converter={StaticResource InverseBoolConverter}}"
 			Content="{x:Static res:ChapterMarkersRes.CustomChapterNamesRadioButton}" />
 		<Button
@@ -54,7 +54,7 @@
 			Command="{Binding ImportCsvFileCommand}" Content="{x:Static res:ChapterMarkersRes.ImportFromCsvButton}" />
 		<ListView
 			Margin="12,56,12,35"
-			IsEnabled="{Binding UseDefaultNames, Converter={StaticResource InverseBoolConverter}}"
+			IsEnabled="{Binding UseDefaultNames, Converter={StaticResource InverseBoolConverter}, Mode=OneWay}"
 			ItemsSource="{Binding ChapterNames}"
 			KeyboardNavigation.TabNavigation="Continue"
 			ItemContainerStyle="{StaticResource ChapterListItem}">

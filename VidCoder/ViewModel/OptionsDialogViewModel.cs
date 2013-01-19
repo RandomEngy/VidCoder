@@ -40,6 +40,7 @@ namespace VidCoder.ViewModel
 
 		private List<IVideoPlayer> playerChoices;
 		private List<InterfaceLanguage> languageChoices;
+		private List<ComboChoice> priorityChoices; 
 
 		private UpdateInfo betaInfo;
 		private bool betaInfoAvailable;
@@ -73,6 +74,7 @@ namespace VidCoder.ViewModel
 			this.subtitleLanguageCode = Config.SubtitleLanguageCode;
 			this.autoSubtitleOnlyIfDifferent = Config.AutoSubtitleOnlyIfDifferent;
 			this.autoSubtitleAll = Config.AutoSubtitleAll;
+			this.workerProcessPriority = Config.WorkerProcessPriority;
 			this.logVerbosity = Config.LogVerbosity;
 			this.previewCount = Config.PreviewCount;
 			this.rememberPreviousFiles = Config.RememberPreviousFiles;
@@ -100,6 +102,15 @@ namespace VidCoder.ViewModel
 						new InterfaceLanguage { CultureCode = "hu-HU", Display = "Magyar (Hungarian)"},
 						//new InterfaceLanguage { CultureCode = "de-DE", Display = "Deutsch" },
 					};
+
+			this.priorityChoices = new List<ComboChoice>
+				{
+					new ComboChoice("High", OptionsRes.Priority_High),
+					new ComboChoice("AboveNormal", OptionsRes.Priority_AboveNormal),
+					new ComboChoice("Normal", OptionsRes.Priority_Normal),
+					new ComboChoice("BelowNormal", OptionsRes.Priority_BelowNormal),
+					new ComboChoice("Idle", OptionsRes.Priority_Idle),
+				};
 
 			this.interfaceLanguage = this.languageChoices.FirstOrDefault(l => l.CultureCode == Config.InterfaceLanguageCode);
 			if (this.interfaceLanguage == null)
@@ -190,6 +201,14 @@ namespace VidCoder.ViewModel
 				return this.languageChoices;
 			}
 		}
+
+		public List<ComboChoice> PriorityChoices
+		{
+			get
+			{
+				return this.priorityChoices;
+			}
+		} 
 
 		public InterfaceLanguage InterfaceLanguage
 		{
@@ -742,6 +761,21 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private string workerProcessPriority;
+		public string WorkerProcessPriority
+		{
+			get
+			{
+				return this.workerProcessPriority;
+			}
+
+			set
+			{
+				this.workerProcessPriority = value;
+				this.RaisePropertyChanged(() => this.WorkerProcessPriority);
+			}
+		}
+
 		private bool rememberPreviousFiles;
 		public bool RememberPreviousFiles
 		{
@@ -887,6 +921,7 @@ namespace VidCoder.ViewModel
 							Config.SubtitleLanguageCode = this.SubtitleLanguageCode;
 							Config.AutoSubtitleOnlyIfDifferent = this.AutoSubtitleOnlyIfDifferent;
 							Config.AutoSubtitleAll = this.AutoSubtitleAll;
+							Config.WorkerProcessPriority = this.WorkerProcessPriority;
 							Config.LogVerbosity = this.LogVerbosity;
 							var autoPauseList = new List<string>();
 							foreach (string process in this.AutoPauseProcesses)

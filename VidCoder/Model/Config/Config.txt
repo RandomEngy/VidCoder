@@ -52,6 +52,7 @@ QueueTitlesUseRange|bool|false
 
 CompletedColumnWidths|string|""
 
+WorkerProcessPriority|string|"Normal"
 LogVerbosity|int|1
 AutoPauseProcesses|string|""
 PreviewCount|int|10

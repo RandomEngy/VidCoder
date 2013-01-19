@@ -116,15 +116,21 @@ namespace VidCoder
 			else
 			{
 #if !DEBUG
-				// Check if we're a duplicate instance
-				if (!mutex.WaitOne(TimeSpan.Zero, true))
+				try
 				{
-					NativeMethods.PostMessage(
-						(IntPtr)NativeMethods.HWND_BROADCAST,
-						NativeMethods.WM_SHOWME,
-						IntPtr.Zero,
-						IntPtr.Zero);
-					Environment.Exit(0);
+					// Check if we're a duplicate instance
+					if (!mutex.WaitOne(TimeSpan.Zero, true))
+					{
+						NativeMethods.PostMessage(
+							(IntPtr)NativeMethods.HWND_BROADCAST,
+							NativeMethods.WM_SHOWME,
+							IntPtr.Zero,
+							IntPtr.Zero);
+						Environment.Exit(0);
+					}
+				}
+				catch (AbandonedMutexException)
+				{
 				}
 #endif
 
@@ -133,6 +139,17 @@ namespace VidCoder
 				var mainVM = new MainViewModel();
 				WindowManager.OpenWindow(mainVM);
 				mainVM.OnLoaded();
+			}
+		}
+
+		protected override void OnExit(ExitEventArgs e)
+		{
+			try
+			{
+				mutex.ReleaseMutex();
+			}
+			catch (ApplicationException)
+			{
 			}
 		}
 

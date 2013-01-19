@@ -5,6 +5,7 @@ using System.Text;
 
 namespace VidCoder
 {
+	using System.Diagnostics;
 	using Model;
 
 	public static class CustomConfig
@@ -84,6 +85,28 @@ namespace VidCoder
 			set
 			{
 				Config.PreviewDisplay = value.ToString();
+			}
+		}
+
+		public static ProcessPriorityClass WorkerProcessPriority
+		{
+			get
+			{
+				switch (Config.WorkerProcessPriority)
+				{
+					case "High":
+						return ProcessPriorityClass.High;
+					case "AboveNormal":
+						return ProcessPriorityClass.AboveNormal;
+					case "Normal":
+						return ProcessPriorityClass.Normal;
+					case "BelowNormal":
+						return ProcessPriorityClass.BelowNormal;
+					case "Idle":
+						return ProcessPriorityClass.Idle;
+					default:
+						throw new ArgumentException("Priority class not recognized: " + Config.WorkerProcessPriority);
+				}
 			}
 		}
 	}

@@ -50,6 +50,7 @@
 			QueueTitlesEndTime_Field = DatabaseConfig.GetConfig("QueueTitlesEndTime", 45, connection);
 			QueueTitlesUseRange_Field = DatabaseConfig.GetConfig("QueueTitlesUseRange", false, connection);
 			CompletedColumnWidths_Field = DatabaseConfig.GetConfig("CompletedColumnWidths", "", connection);
+			WorkerProcessPriority_Field = DatabaseConfig.GetConfig("WorkerProcessPriority", "Normal", connection);
 			LogVerbosity_Field = DatabaseConfig.GetConfig("LogVerbosity", 1, connection);
 			AutoPauseProcesses_Field = DatabaseConfig.GetConfig("AutoPauseProcesses", "", connection);
 			PreviewCount_Field = DatabaseConfig.GetConfig("PreviewCount", 10, connection);
@@ -688,6 +689,20 @@
 			{
 				CompletedColumnWidths_Field = value;
 				DatabaseConfig.SetConfigValue("CompletedColumnWidths", value);
+			}
+		}
+		private static string WorkerProcessPriority_Field;
+		public static string WorkerProcessPriority
+		{
+			get
+			{
+				return WorkerProcessPriority_Field;
+			}
+			
+			set
+			{
+				WorkerProcessPriority_Field = value;
+				DatabaseConfig.SetConfigValue("WorkerProcessPriority", value);
 			}
 		}
 		private static int LogVerbosity_Field;

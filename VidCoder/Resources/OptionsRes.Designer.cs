@@ -637,6 +637,51 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Above Normal.
+        /// </summary>
+        public static string Priority_AboveNormal {
+            get {
+                return ResourceManager.GetString("Priority_AboveNormal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below Normal.
+        /// </summary>
+        public static string Priority_BelowNormal {
+            get {
+                return ResourceManager.GetString("Priority_BelowNormal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High.
+        /// </summary>
+        public static string Priority_High {
+            get {
+                return ResourceManager.GetString("Priority_High", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Low.
+        /// </summary>
+        public static string Priority_Idle {
+            get {
+                return ResourceManager.GetString("Priority_Idle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normal.
+        /// </summary>
+        public static string Priority_Normal {
+            get {
+                return ResourceManager.GetString("Priority_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Processes.
         /// </summary>
         public static string ProcessesTab {
@@ -804,6 +849,15 @@ namespace VidCoder.Resources {
         public static string WhenFileAlreadyExists {
             get {
                 return ResourceManager.GetString("WhenFileAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Worker process priority:.
+        /// </summary>
+        public static string WorkerProcessPriorityLabel {
+            get {
+                return ResourceManager.GetString("WorkerProcessPriorityLabel", resourceCulture);
             }
         }
     }

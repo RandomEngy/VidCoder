@@ -80,47 +80,34 @@ namespace VidCoder
 			this.encodeEndEvent = new ManualResetEventSlim(false);
 
 			var task = new Task(() =>
-			    {
+				{
+					string pipeGuidString = Guid.NewGuid().ToString();
 					var startInfo = new ProcessStartInfo(
 						"VidCoderWorker.exe",
-						Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture));
+						Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture) + " " + pipeGuidString);
 					startInfo.RedirectStandardOutput = true;
 					startInfo.UseShellExecute = false;
 					startInfo.CreateNoWindow = true;
 					Process worker = Process.Start(startInfo);
 
 					// We don't set this any more because the thread priority inside the worker process sets them to lower priority.
-			    	//worker.PriorityClass = ProcessPriorityClass.BelowNormal;
+					worker.PriorityClass = CustomConfig.WorkerProcessPriority;
 
 					// When the process writes out a line, its pipe server is ready and can be contacted for
 					// work. Reading line blocks until this happens.
 					this.logger.Log("Worker ready: " + worker.StandardOutput.ReadLine());
 				    bool connectionSucceeded = false;
 
+					this.logger.Log("Connecting to process " + worker.Id);
 					lock (this.encoderLock)
 					{
 						this.ExecuteProxyOperation(() =>
 							{
-								connectionSucceeded = this.ConnectToPipe(worker.Id);
+								connectionSucceeded = this.ConnectToPipe(pipeGuidString, worker);
 								if (!connectionSucceeded)
 								{
 									return;
 								}
-
-								//var binding = new NetNamedPipeBinding
-								//{
-								//	OpenTimeout = TimeSpan.FromSeconds(10),
-								//	CloseTimeout = TimeSpan.FromSeconds(10),
-								//	SendTimeout = TimeSpan.FromSeconds(10),
-								//	ReceiveTimeout = TimeSpan.FromSeconds(10)
-								//};
-
-								//this.pipeFactory = new DuplexChannelFactory<IHandBrakeEncoder>(
-								//	this,
-								//	binding,
-								//	new EndpointAddress("net.pipe://localhost/VidCoderWorker_" + worker.Id));
-
-								//this.channel = this.pipeFactory.CreateChannel();
 
 								this.channel.StartEncode(job.HbJob, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds,
 														 Config.LogVerbosity, Config.PreviewCount);
@@ -233,7 +220,7 @@ namespace VidCoder
 			this.instance.StartScan(job.SourcePath, Config.PreviewCount, job.Title);
 		}
 
-		private bool ConnectToPipe(int workerId)
+		private bool ConnectToPipe(string pipeGuidString, Process worker)
 		{
 			for (int i = 0; i < ConnectionRetries; i++)
 			{
@@ -250,7 +237,7 @@ namespace VidCoder
 					this.pipeFactory = new DuplexChannelFactory<IHandBrakeEncoder>(
 						this,
 						binding,
-						new EndpointAddress("net.pipe://localhost/VidCoderWorker_" + workerId));
+						new EndpointAddress("net.pipe://localhost/" + pipeGuidString + "/VidCoderWorker"));
 
 					this.channel = this.pipeFactory.CreateChannel();
 					this.channel.Ping();
@@ -259,6 +246,12 @@ namespace VidCoder
 				}
 				catch (EndpointNotFoundException)
 				{
+				}
+
+				if (worker.HasExited)
+				{
+					this.logger.LogError("Worker exited before a connection could be established.");
+					return false;
 				}
 
 				Thread.Sleep(ConnectionRetryIntervalMs);
@@ -434,7 +427,7 @@ namespace VidCoder
 
 		private void StopEncodeWithError(Exception exception)
 		{
-			this.logger.LogError("Unable to contact encode proxy: " + exception);
+			this.logger.LogError("Unable to contact encode process: " + exception);
 			this.EndEncode(error: true);
 		}
 	}

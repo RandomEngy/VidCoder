@@ -1158,7 +1158,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.endChapters;
 			}
-		} 
+		}
 
 		public bool ChaptersRangeVisible
 		{
@@ -1404,6 +1404,77 @@ namespace VidCoder.ViewModel
 				}
 
 				return string.Empty;
+			}
+		}
+
+		public int ChapterPreviewStart
+		{
+			get
+			{
+				if (this.SelectedTitle == null || this.SelectedStartChapter == null || this.SelectedEndChapter == null)
+				{
+					return 0;
+				}
+
+				int startChapter;
+				ChapterViewModel highlightedStartChapter = this.StartChapters.FirstOrDefault(c => c.IsHighlighted);
+				ChapterViewModel highlightedEndChapter = this.EndChapters.FirstOrDefault(c => c.IsHighlighted);
+
+				if (highlightedStartChapter != null)
+				{
+					startChapter = highlightedStartChapter.ChapterNumber;
+				}
+				else
+				{
+					startChapter = this.SelectedStartChapter.ChapterNumber;
+				}
+
+				// If an end chapter is highlighted, automatically do adjustment of start chapter.
+				if (highlightedEndChapter != null && highlightedEndChapter.ChapterNumber < startChapter)
+				{
+					startChapter = highlightedEndChapter.ChapterNumber;
+				}
+
+				return startChapter;
+			}
+			set
+			{
+				this.SelectedStartChapter = this.StartChapters.FirstOrDefault(c => c.ChapterNumber == value);
+			}
+		}
+
+		public int ChapterPreviewEnd
+		{
+			get
+			{
+				if (this.SelectedTitle == null || this.SelectedStartChapter == null || this.SelectedEndChapter == null)
+				{
+					return 0;
+				}
+
+				int endChapter;
+				ChapterViewModel highlightedStartChapter = this.StartChapters.FirstOrDefault(c => c.IsHighlighted);
+				ChapterViewModel highlightedEndChapter = this.EndChapters.FirstOrDefault(c => c.IsHighlighted);
+				if (highlightedEndChapter != null)
+				{
+					endChapter = highlightedEndChapter.ChapterNumber;
+				}
+				else
+				{
+					endChapter = this.SelectedEndChapter.ChapterNumber;
+				}
+
+				// If a start chapter is highlighted, automatically do adjustment of end chapter
+				if (highlightedStartChapter != null && highlightedStartChapter.ChapterNumber > endChapter)
+				{
+					endChapter = highlightedStartChapter.ChapterNumber;
+				}
+
+				return endChapter;
+			}
+			set
+			{
+				this.SelectedEndChapter = this.EndChapters.FirstOrDefault(c => c.ChapterNumber == value);
 			}
 		}
 
@@ -2591,6 +2662,8 @@ namespace VidCoder.ViewModel
 
 		private void RefreshRangePreview()
 		{
+			this.RaisePropertyChanged(() => this.ChapterPreviewStart);
+			this.RaisePropertyChanged(() => this.ChapterPreviewEnd);
 			this.RaisePropertyChanged(() => this.RangePreviewStart);
 			this.RaisePropertyChanged(() => this.RangePreviewEnd);
 			this.RaisePropertyChanged(() => this.RangePreviewText);

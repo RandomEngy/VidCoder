@@ -21,6 +21,8 @@ namespace VidCoderWorker
 
 		public void StartEncode(EncodeJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds, int verbosity, int previewCount)
 		{
+			Program.Logger.Log("StartEncode called.");
+
 			CurrentEncoder = this;
 			this.callback = OperationContext.Current.GetCallbackChannel<IHandBrakeEncoderCallback>();
 
@@ -161,11 +163,15 @@ namespace VidCoderWorker
 
 		public string Ping()
 		{
+			Program.Logger.Log("Got Ping.");
+
 			return "OK";
 		}
 
 		public void CleanUp()
 		{
+			Program.Logger.Log("Cleaning up handbrake instance.");
+
 			if (this.instance != null)
 			{
 				this.instance.Dispose();
@@ -187,8 +193,10 @@ namespace VidCoderWorker
 			{
 				action();
 			}
-			catch (CommunicationException)
+			catch (CommunicationException exception)
 			{
+				Program.Logger.Log("Got exception: " + exception.ToString());
+
 				this.StopEncodeIfPossible();
 			}
 		}

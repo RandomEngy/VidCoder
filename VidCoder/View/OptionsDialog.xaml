@@ -5,10 +5,14 @@
 	xmlns:prop="clr-namespace:VidCoder.Properties"
 	xmlns:res="clr-namespace:VidCoder.Resources" 
 	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner" xmlns:my="clr-namespace:VidCoder.Controls"
-	xmlns:converters="clr-namespace:VidCoder.Converters" Closed="Window_Closed"
+	xmlns:converters="clr-namespace:VidCoder.Converters" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:vm="clr-namespace:VidCoder.ViewModel"
+	mc:Ignorable="d"
+	Closed="Window_Closed"
 	TextOptions.TextFormattingMode="Display"
 	MinWidth="450" MinHeight="300"
-	Closing="Window_Closing" Background="White">
+	Closing="Window_Closing" Background="White" d:DataContext="{d:DesignInstance vm:OptionsDialogViewModel}">
 	<Window.Resources>
 		<Style x:Key="EmphasizedTitle" TargetType="TextBlock">
 			<Setter Property="VerticalAlignment" Value="Center" />
@@ -400,6 +404,13 @@
 								<TextBox 
 									Grid.Column="1" Height="23" Margin="6,0,9,0" VerticalAlignment="Center" Text="{Binding VideoFileExtensions}" VerticalContentAlignment="Center"/>
 							</Grid>
+							<StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+								<TextBlock Text="{x:Static res:OptionsRes.WorkerProcessPriorityLabel}" VerticalAlignment="Center" />
+								<ComboBox
+									MinWidth="100" Margin="6,0,0,0"
+									ItemsSource="{Binding PriorityChoices}" SelectedValuePath="Value"
+									SelectedValue="{Binding WorkerProcessPriority, Mode=TwoWay}" DisplayMemberPath="Display"/>
+							</StackPanel>
 						</StackPanel>
 
 						<!-- Scanning -->

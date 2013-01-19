@@ -103,12 +103,12 @@ namespace VidCoder.View
 				this.RestoredWindowState = this.WindowState;
 			};
 
-			Messenger.Default.Register<ScanningChangedMessage>(
-				this,
-				message =>
-					{
-						this.CloseRangeDetailsPopup();
-					});
+			//Messenger.Default.Register<ScanningChangedMessage>(
+			//	this,
+			//	message =>
+			//		{
+			//			this.CloseRangeDetailsPopup();
+			//		});
 
 			Messenger.Default.Register<StatusMessage>(this, this.ShowStatusMessage);
 
@@ -266,7 +266,7 @@ namespace VidCoder.View
 		{
 			if (e.PropertyName == "RangeType")
 			{
-				DispatchService.BeginInvoke(() => this.rangeDetailsPopup.IsOpen = false);
+				//DispatchService.BeginInvoke(() => this.rangeDetailsPopup.IsOpen = false);
 			}
 		}
 
@@ -461,68 +461,68 @@ namespace VidCoder.View
 			this.encodeProgressDetailsPopup.IsOpen = false;
 		}
 
-		private void RangeMouseEnter(object sender, MouseEventArgs e)
-		{
-			this.rangeUIMouseOver = true;
-			this.RefreshRangeDetailsPopupIsOpen();
-		}
+		//private void RangeMouseEnter(object sender, MouseEventArgs e)
+		//{
+		//	this.rangeUIMouseOver = true;
+		//	this.RefreshRangeDetailsPopupIsOpen();
+		//}
 
-		private void RangeMouseLeave(object sender, MouseEventArgs e)
-		{
-			this.rangeUIMouseOver = false;
-			this.RefreshRangeDetailsPopupIsOpen();
-		}
+		//private void RangeMouseLeave(object sender, MouseEventArgs e)
+		//{
+		//	this.rangeUIMouseOver = false;
+		//	this.RefreshRangeDetailsPopupIsOpen();
+		//}
 
-		private void SecondsStartGotFocus(object sender, RoutedEventArgs e)
-		{
-			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = true });
-			this.RangeControlGotFocus(sender, e);
-		}
+		//private void SecondsStartGotFocus(object sender, RoutedEventArgs e)
+		//{
+		//	Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = true });
+		//	this.RangeControlGotFocus(sender, e);
+		//}
 
-		private void SecondsEndGotFocus(object sender, RoutedEventArgs e)
-		{
-			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = false });
-			this.RangeControlGotFocus(sender, e);
-		}
+		//private void SecondsEndGotFocus(object sender, RoutedEventArgs e)
+		//{
+		//	Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = false });
+		//	this.RangeControlGotFocus(sender, e);
+		//}
 
-		private void FramesStartGotFocus(object sender, RoutedEventArgs e)
-		{
-			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = true });
-			this.RangeControlGotFocus(sender, e);
-		}
+		//private void FramesStartGotFocus(object sender, RoutedEventArgs e)
+		//{
+		//	Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = true });
+		//	this.RangeControlGotFocus(sender, e);
+		//}
 
-		private void FramesEndGotFocus(object sender, RoutedEventArgs e)
-		{
-			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = false });
-			this.RangeControlGotFocus(sender, e);
-		}
+		//private void FramesEndGotFocus(object sender, RoutedEventArgs e)
+		//{
+		//	Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = false });
+		//	this.RangeControlGotFocus(sender, e);
+		//}
 
-		private void RangeControlGotFocus(object sender, RoutedEventArgs e)
-		{
-			this.rangeUIFocus = true;
-			this.RefreshRangeDetailsPopupIsOpen();
-		}
+		//private void RangeControlGotFocus(object sender, RoutedEventArgs e)
+		//{
+		//	this.rangeUIFocus = true;
+		//	this.RefreshRangeDetailsPopupIsOpen();
+		//}
 
-		private void RangeControlLostFocus(object sender, RoutedEventArgs e)
-		{
-			this.rangeUIFocus = false;
-			this.RefreshRangeDetailsPopupIsOpen();
-		}
+		//private void RangeControlLostFocus(object sender, RoutedEventArgs e)
+		//{
+		//	this.rangeUIFocus = false;
+		//	this.RefreshRangeDetailsPopupIsOpen();
+		//}
 
-		private void RefreshRangeDetailsPopupIsOpen()
-		{
-			bool shouldBeOpen = this.rangeUIMouseOver || this.rangeUIFocus;
-			if (shouldBeOpen != this.rangeDetailsPopup.IsOpen)
-			{
-				this.rangeDetailsPopup.IsOpen = shouldBeOpen;
-			}
-		}
+		//private void RefreshRangeDetailsPopupIsOpen()
+		//{
+		//	bool shouldBeOpen = this.rangeUIMouseOver || this.rangeUIFocus;
+		//	if (shouldBeOpen != this.rangeDetailsPopup.IsOpen)
+		//	{
+		//		this.rangeDetailsPopup.IsOpen = shouldBeOpen;
+		//	}
+		//}
 
-		private void CloseRangeDetailsPopup()
-		{
-			this.rangeUIFocus = false;
-			this.rangeDetailsPopup.IsOpen = false;
-		}
+		//private void CloseRangeDetailsPopup()
+		//{
+		//	this.rangeUIFocus = false;
+		//	this.rangeDetailsPopup.IsOpen = false;
+		//}
 
 		private void DestinationReadCoverMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
@@ -611,11 +611,11 @@ namespace VidCoder.View
 				this.viewModel.SourceSelectionExpanded = false;
 			}
 
-			if (this.rangeDetailsPopup.IsOpen && !this.HitElement(this.rangeUI, hitPoint))
-			{
-				this.rangeUIFocus = false;
-				this.RefreshRangeDetailsPopupIsOpen();
-			}
+			//if (this.rangeDetailsPopup.IsOpen && !this.HitElement(this.rangeUI, hitPoint))
+			//{
+			//	this.rangeUIFocus = false;
+			//	this.RefreshRangeDetailsPopupIsOpen();
+			//}
 		}
 
 		private void Window_StateChanged(object sender, EventArgs e)
@@ -635,15 +635,15 @@ namespace VidCoder.View
 			}
 		}
 
-		private void Window_Activated(object sender, EventArgs e)
-		{
-			this.RefreshRangeDetailsPopupIsOpen();
-		}
+		//private void Window_Activated(object sender, EventArgs e)
+		//{
+		//	this.RefreshRangeDetailsPopupIsOpen();
+		//}
 
-		private void Window_Deactivated(object sender, EventArgs e)
-		{
-			this.rangeDetailsPopup.IsOpen = false;
-		}
+		//private void Window_Deactivated(object sender, EventArgs e)
+		//{
+		//	this.rangeDetailsPopup.IsOpen = false;
+		//}
 
 		private bool HitElement(FrameworkElement element, Point clickedPoint)
 		{

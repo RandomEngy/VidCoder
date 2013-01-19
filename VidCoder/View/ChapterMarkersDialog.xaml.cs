@@ -45,5 +45,10 @@ namespace VidCoder.View
 			TextBox titleBox = sender as TextBox;
 			titleBox.SelectAll();
 		}
+
+		private void Window_Closed(object sender, EventArgs e)
+		{
+			this.DataContext = null;
+		}
 	}
 }
