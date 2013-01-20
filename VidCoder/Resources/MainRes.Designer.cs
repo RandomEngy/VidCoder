@@ -542,7 +542,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Length: {0}.
+        ///   Looks up a localized string similar to ({0}).
         /// </summary>
         public static string LengthPreviewLabel {
             get {
@@ -1044,6 +1044,15 @@ namespace VidCoder.Resources {
         public static string QueueMultipleScanErrorTitle {
             get {
                 return ResourceManager.GetString("QueueMultipleScanErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left-click to set the start time and right-click to set the end time..
+        /// </summary>
+        public static string RangeBarToolTip {
+            get {
+                return ResourceManager.GetString("RangeBarToolTip", resourceCulture);
             }
         }
         

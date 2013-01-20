@@ -607,7 +607,11 @@ namespace VidCoder.ViewModel.Components
 
 						break;
 					case VideoRangeType.Seconds:
-						rangeSection = " - Seconds " + startSecond + "-" + endSecond;
+						if (startSecond > 0 || endSecond < titleDuration.TotalSeconds)
+						{
+							rangeSection = " - Seconds " + startSecond + "-" + endSecond;
+						}
+
 						break;
 					case VideoRangeType.Frames:
 						rangeSection = " - Frames " + startFrame + "-" + endFrame;

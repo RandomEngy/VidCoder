@@ -514,7 +514,7 @@
     <value>Choose the output directory for encoded video files.</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
-    <value>Length: {0}</value>
+    <value>({0})</value>
   </data>
   <data name="ModifiedAffix" xml:space="preserve">
     <value>(Modified)</value>
@@ -525,16 +525,19 @@
   <data name="OpeningFolderStatus" xml:space="preserve">
     <value>Opening folder...</value>
   </data>
-	<data name="CloseVideoSourceToolTip" xml:space="preserve">
+  <data name="CloseVideoSourceToolTip" xml:space="preserve">
     <value>Close video source</value>
   </data>
-	<data name="CloseVideoSourceMenuItem" xml:space="preserve">
+  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
     <value>Close Video Source</value>
   </data>
-	<data name="UpdatesMenuItem" xml:space="preserve">
+  <data name="UpdatesMenuItem" xml:space="preserve">
     <value>Updates...</value>
   </data>
-	<data name="CbrAuto" xml:space="preserve">
+  <data name="CbrAuto" xml:space="preserve">
     <value>CBR Auto</value>
+  </data>
+  <data name="RangeBarToolTip" xml:space="preserve">
+    <value>Left-click to set the start time and right-click to set the end time.</value>
   </data>
 </root>

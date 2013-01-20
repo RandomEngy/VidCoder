@@ -243,7 +243,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Controls\ChapterBar.xaml">
+    <Page Include="Controls\RangeBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -260,10 +260,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\PathTextBlock.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\RangeBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -367,15 +363,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controls\ChapterBar.xaml.cs">
-      <DependentUpon>ChapterBar.xaml</DependentUpon>
+    <Compile Include="Controls\RangeBar.xaml.cs">
+      <DependentUpon>RangeBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PathSegmentSet.cs" />
     <Compile Include="Controls\PathTextBlock.xaml.cs">
       <DependentUpon>PathTextBlock.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\RangeBar.xaml.cs">
-      <DependentUpon>RangeBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\SeekBar.xaml.cs">
       <DependentUpon>SeekBar.xaml</DependentUpon>

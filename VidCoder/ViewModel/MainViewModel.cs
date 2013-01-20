@@ -29,8 +29,6 @@ namespace VidCoder.ViewModel
 
 	public class MainViewModel : ViewModelBase
 	{
-		private const double SecondsRangeBuffer = 0.25;
-
 		private HandBrakeInstance scanInstance;
 
 		private IUpdater updater = Unity.Container.Resolve<IUpdater>();
@@ -927,10 +925,12 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(() => this.SelectedStartChapter);
 					this.RaisePropertyChanged(() => this.SelectedEndChapter);
 
-					this.secondsRangeStart = 0;
-					this.secondsRangeEnd = this.selectedTitle.Duration.TotalSeconds;
+					this.SetRangeSecondsStart(0);
+					this.SetRangeSecondsEnd(this.selectedTitle.Duration.TotalSeconds);
 					this.RaisePropertyChanged(() => this.SecondsRangeStart);
+					this.RaisePropertyChanged(() => this.SecondsRangeStartBar);
 					this.RaisePropertyChanged(() => this.SecondsRangeEnd);
+					this.RaisePropertyChanged(() => this.SecondsRangeEndBar);
 
 					this.framesRangeStart = 0;
 					this.framesRangeEnd = this.selectedTitle.Frames;
@@ -945,6 +945,17 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(() => this.Angle);
 					this.RaisePropertyChanged(() => this.AngleVisible);
 					this.RaisePropertyChanged(() => this.TotalChaptersText);
+
+
+					// Change range type based on whether or not we have any chapters
+					if (this.selectedTitle.Chapters.Count > 1)
+					{
+						this.RangeType = VideoRangeTypeCombo.Chapters;
+					}
+					else
+					{
+						this.RangeType = VideoRangeTypeCombo.Seconds;
+					}
 
 					this.oldTitle = value;
 
@@ -1122,7 +1133,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public VidCoder.Model.VideoRangeTypeCombo RangeType
+		public VideoRangeTypeCombo RangeType
 		{
 			get
 			{
@@ -1131,16 +1142,36 @@ namespace VidCoder.ViewModel
 
 			set
 			{
-				this.rangeType = value;
+				if (value != this.rangeType)
+				{
+					this.rangeType = value;
 
-				this.OutputPathVM.GenerateOutputFileName();
-				this.RaisePropertyChanged(() => this.RangeType);
-				this.RaisePropertyChanged(() => this.ChaptersRangeVisible);
-				this.RaisePropertyChanged(() => this.SecondsRangeVisible);
-				this.RaisePropertyChanged(() => this.FramesRangeVisible);
-				this.RaisePropertyChanged(() => this.TotalChaptersText);
-				this.RefreshRangePreview();
-				this.ReportLengthChanged();
+					this.OutputPathVM.GenerateOutputFileName();
+					this.RaisePropertyChanged(() => this.RangeType);
+					this.RaisePropertyChanged(() => this.SecondsRangeVisible);
+					this.RaisePropertyChanged(() => this.FramesRangeVisible);
+					this.RaisePropertyChanged(() => this.TotalChaptersText);
+					this.RaisePropertyChanged(() => this.UsingChaptersRange);
+					this.RaisePropertyChanged(() => this.RangeBarVisible);
+					this.RefreshRangePreview();
+					this.ReportLengthChanged();
+				}
+			}
+		}
+
+		public bool UsingChaptersRange
+		{
+			get
+			{
+				return this.RangeType == VideoRangeTypeCombo.Chapters;
+			}
+		}
+
+		public bool RangeBarVisible
+		{
+			get
+			{
+				return this.RangeType == VideoRangeTypeCombo.Chapters || this.RangeType == VideoRangeTypeCombo.Seconds;
 			}
 		}
 
@@ -1160,14 +1191,50 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool ChaptersRangeVisible
+		// Properties for the range seek bar
+		private double secondsRangeStartBar;
+		public double SecondsRangeStartBar
 		{
 			get
 			{
-				return this.RangeType == VidCoder.Model.VideoRangeTypeCombo.Chapters;
+				return this.secondsRangeStartBar;
+			}
+
+			set
+			{
+				this.SetRangeSecondsStart(value);
+
+				this.OutputPathVM.GenerateOutputFileName();
+
+				this.RaisePropertyChanged(() => this.SecondsRangeStartBar);
+				this.RaisePropertyChanged(() => this.SecondsRangeStart);
+				this.RefreshRangePreview();
+				this.ReportLengthChanged();
 			}
 		}
 
+		private double secondsRangeEndBar;
+		public double SecondsRangeEndBar
+		{
+			get
+			{
+				return this.secondsRangeEndBar;
+			}
+
+			set
+			{
+				this.SetRangeSecondsEnd(value);
+
+				this.OutputPathVM.GenerateOutputFileName();
+
+				this.RaisePropertyChanged(() => this.SecondsRangeEndBar);
+				this.RaisePropertyChanged(() => this.SecondsRangeEnd);
+				this.RefreshRangePreview();
+				this.ReportLengthChanged();
+			}
+		}
+
+		// Properties for the range text boxes
 		public double SecondsRangeStart
 		{
 			get
@@ -1180,27 +1247,31 @@ namespace VidCoder.ViewModel
 				double maxSeconds = this.SelectedTitle.Duration.TotalSeconds;
 
 				this.secondsRangeStart = value;
-				if (this.secondsRangeStart > maxSeconds - SecondsRangeBuffer)
+				if (this.secondsRangeStart > maxSeconds - Constants.SecondsRangeBuffer)
 				{
-					this.secondsRangeStart = maxSeconds - SecondsRangeBuffer;
+					this.secondsRangeStart = maxSeconds - Constants.SecondsRangeBuffer;
 				}
+
+				this.secondsRangeStartBar = this.secondsRangeStart;
 
 				// Constrain from the baseline: what the other end was when we got focus
 				double idealSecondsEnd = this.secondsBaseline;
-				if (idealSecondsEnd < this.secondsRangeStart + SecondsRangeBuffer)
+				if (idealSecondsEnd < this.secondsRangeStart + Constants.SecondsRangeBuffer)
 				{
-					idealSecondsEnd = this.secondsRangeStart + SecondsRangeBuffer;
+					idealSecondsEnd = this.secondsRangeStart + Constants.SecondsRangeBuffer;
 				}
 
 				if (idealSecondsEnd != this.secondsRangeEnd)
 				{
-					this.secondsRangeEnd = idealSecondsEnd;
+					this.SetRangeSecondsEnd(idealSecondsEnd);
 					this.RaisePropertyChanged(() => this.SecondsRangeEnd);
+					this.RaisePropertyChanged(() => this.SecondsRangeEndBar);
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
 				this.RaisePropertyChanged(() => this.SecondsRangeStart);
+				this.RaisePropertyChanged(() => this.SecondsRangeStartBar);
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1223,22 +1294,26 @@ namespace VidCoder.ViewModel
 					this.secondsRangeEnd = maxSeconds;
 				}
 
+				this.secondsRangeEndBar = this.secondsRangeEnd;
+
 				// Constrain from the baseline: what the other end was when we got focus
 				double idealSecondsStart = this.secondsBaseline;
-				if (idealSecondsStart > this.secondsRangeEnd - SecondsRangeBuffer)
+				if (idealSecondsStart > this.secondsRangeEnd - Constants.SecondsRangeBuffer)
 				{
-					idealSecondsStart = this.secondsRangeEnd - SecondsRangeBuffer;
+					idealSecondsStart = this.secondsRangeEnd - Constants.SecondsRangeBuffer;
 				}
 
 				if (idealSecondsStart != this.secondsRangeStart)
 				{
-					this.secondsRangeStart = idealSecondsStart;
+					this.SetRangeSecondsEnd(idealSecondsStart);
 					this.RaisePropertyChanged(() => this.SecondsRangeStart);
+					this.RaisePropertyChanged(() => this.SecondsRangeStartBar);
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
 				this.RaisePropertyChanged(() => this.SecondsRangeEnd);
+				this.RaisePropertyChanged(() => this.SecondsRangeEndBar);
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -2417,13 +2492,13 @@ namespace VidCoder.ViewModel
 					if (job.SecondsStart < this.selectedTitle.Duration.TotalSeconds + 1 &&
 						job.SecondsEnd < this.selectedTitle.Duration.TotalSeconds + 1)
 					{
-						this.secondsRangeStart = job.SecondsStart;
-						this.secondsRangeEnd = job.SecondsEnd;
+						this.SetRangeSecondsStart(job.SecondsStart);
+						this.SetRangeSecondsEnd(job.SecondsEnd);
 					}
 					else
 					{
-						this.secondsRangeStart = 0;
-						this.secondsRangeEnd = this.selectedTitle.Duration.TotalSeconds;
+						this.SetRangeSecondsStart(0);
+						this.SetRangeSecondsEnd(this.selectedTitle.Duration.TotalSeconds);
 					}
 
 					break;
@@ -2507,11 +2582,14 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.StartChapters);
 			this.RaisePropertyChanged(() => this.EndChapters);
 			this.RaisePropertyChanged(() => this.SecondsRangeStart);
+			this.RaisePropertyChanged(() => this.SecondsRangeStartBar);
 			this.RaisePropertyChanged(() => this.SecondsRangeEnd);
+			this.RaisePropertyChanged(() => this.SecondsRangeEndBar);
 			this.RaisePropertyChanged(() => this.FramesRangeStart);
 			this.RaisePropertyChanged(() => this.FramesRangeEnd);
 			this.RaisePropertyChanged(() => this.RangeType);
-			this.RaisePropertyChanged(() => this.ChaptersRangeVisible);
+			this.RaisePropertyChanged(() => this.UsingChaptersRange);
+			this.RaisePropertyChanged(() => this.RangeBarVisible);
 			this.RaisePropertyChanged(() => this.SecondsRangeVisible);
 			this.RaisePropertyChanged(() => this.FramesRangeVisible);
 			this.RaisePropertyChanged(() => this.SubtitlesSummary);
@@ -2658,6 +2736,20 @@ namespace VidCoder.ViewModel
 					this.framesBaseline = this.FramesRangeStart;
 				}
 			}
+		}
+
+		// Sets both range seconds start properties passively (text box and bar)
+		private void SetRangeSecondsStart(double secondsStart)
+		{
+			this.secondsRangeStart = secondsStart;
+			this.secondsRangeStartBar = secondsStart;
+		}
+
+		// Sets both range seconds end properties passively (text box and bar)
+		private void SetRangeSecondsEnd(double secondsEnd)
+		{
+			this.secondsRangeEnd = secondsEnd;
+			this.secondsRangeEndBar = secondsEnd;
 		}
 
 		private void RefreshRangePreview()

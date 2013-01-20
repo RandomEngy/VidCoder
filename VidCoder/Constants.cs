@@ -9,5 +9,7 @@ namespace VidCoder
 	{
 		public const double TotalDefaultWidth = 1538;
 		public const double TotalDefaultHeight = 916;
+
+		public const double SecondsRangeBuffer = 0.25;
 	}
 }

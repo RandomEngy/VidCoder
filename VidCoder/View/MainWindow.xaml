@@ -27,7 +27,9 @@
 	PreviewDragOver="Window_PreviewDragOver"
 	MouseDown="Window_MouseDown"
 	StateChanged="Window_StateChanged" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	TextOptions.TextFormattingMode="Display">
+	mc:Ignorable="d"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	TextOptions.TextFormattingMode="Display" d:DataContext="{d:DesignInstance viewmodel:MainViewModel}">
 	<Window.Resources>
 		<converters:ChapterVMConverter x:Key="ChapterVMConverter" />
 		<local:EnumDisplayer Type="{x:Type Encoding:VideoEncoder}" x:Key="VideoEncoderChoices" />
@@ -603,57 +605,46 @@
 					</Grid.RowDefinitions>
 
 					<TextBlock
-						HorizontalAlignment="Right" Margin="0,4,10,0" VerticalAlignment="Top"
+						HorizontalAlignment="Right" Margin="0,6,10,0" VerticalAlignment="Top"
 						Text="{x:Static res:MainRes.VideoLabel}"
 						Style="{StaticResource EmphasizedTitle}"
 						Grid.Row="0" Grid.Column="0" />
-					<StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
-						<Grid>
-							<StackPanel Orientation="Horizontal">
-								<StackPanel Orientation="Horizontal" Visibility="{Binding TitleVisible, Converter={StaticResource VisibilityConverter}}">
-									<TextBlock Text="{x:Static res:MainRes.TitleLabel}" Style="{StaticResource PlainTitle}" />
-									<ComboBox ItemsSource="{Binding Titles}" SelectedItem="{Binding SelectedTitle}" Height="23" VerticalAlignment="Center" MinWidth="102">
-										<ComboBox.ItemTemplate>
-											<DataTemplate>
-												<TextBlock Text="{Binding Display}" Style="{StaticResource PlainTitle}" />
-											</DataTemplate>
-										</ComboBox.ItemTemplate>
-									</ComboBox>
-								</StackPanel>
-								<StackPanel Orientation="Horizontal" Visibility="{Binding AngleVisible, Converter={StaticResource VisibilityConverter}}">
-									<Polygon Style="{StaticResource ArrowSeparator}" />
-									<TextBlock Text="{x:Static res:MainRes.AngleLabel}" Style="{StaticResource PlainTitle}" />
-									<ComboBox ItemsSource="{Binding Angles}" SelectedItem="{Binding Angle}" Width="32" Height="23" VerticalAlignment="Center" />
-								</StackPanel>
+					<StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" Margin="0,0,0,2">
+						<StackPanel Orientation="Horizontal">
+							<!-- Title -->
+							<StackPanel Orientation="Horizontal" Visibility="{Binding TitleVisible, Converter={StaticResource VisibilityConverter}}">
+								<TextBlock Text="{x:Static res:MainRes.TitleLabel}" Style="{StaticResource PlainTitle}" />
+								<ComboBox ItemsSource="{Binding Titles}" SelectedItem="{Binding SelectedTitle}" Height="23" VerticalAlignment="Center" MinWidth="102">
+									<ComboBox.ItemTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding Display}" Style="{StaticResource PlainTitle}" />
+										</DataTemplate>
+									</ComboBox.ItemTemplate>
+								</ComboBox>
+								<Polygon Style="{StaticResource ArrowSeparator}" />
 							</StackPanel>
-							<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-								<TextBlock
-									Text="{Binding RangePreviewText}"
-									VerticalAlignment="Bottom"/>
-								<TextBlock
-									Text="{Binding RangePreviewLengthText}"
-									VerticalAlignment="Bottom" Margin="20,0,0,0"/>
+								
+							<!-- Angle -->
+							<StackPanel Orientation="Horizontal" Visibility="{Binding AngleVisible, Converter={StaticResource VisibilityConverter}}">
+								<TextBlock Text="{x:Static res:MainRes.AngleLabel}" Style="{StaticResource PlainTitle}" />
+								<ComboBox ItemsSource="{Binding Angles}" SelectedItem="{Binding Angle}" Width="32" Height="23" VerticalAlignment="Center" />
+								<Polygon Style="{StaticResource ArrowSeparator}" />
 							</StackPanel>
-						</Grid>
 
-
-						<Grid Margin="0,3,0,0" UseLayoutRounding="True">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition />
-							</Grid.ColumnDefinitions>
 							<StackPanel
 								Name="rangeUI"
 								Orientation="Horizontal"
 								Background="Transparent">
 								<ComboBox
-									Height="23" VerticalAlignment="Center" Margin="4,0,10,0" HorizontalAlignment="Left"
+									Height="23" VerticalAlignment="Center" Margin="0,0,10,0" HorizontalAlignment="Left"
 									MinWidth="75"
 									ItemsSource="{Binding DisplayNames, Source={StaticResource VideoRangeTypeChoices}}"
 									SelectedValue="{Binding RangeType, Converter={StaticResource VideoRangeTypeChoices}}" />
+
+								<!-- Chapters range -->
 								<StackPanel
 									Orientation="Horizontal"
-									Visibility="{Binding ChaptersRangeVisible, Converter={StaticResource VisibilityConverter}}">
+									Visibility="{Binding UsingChaptersRange, Converter={StaticResource VisibilityConverter}}">
 									<ComboBox
 										MinWidth="40" Height="23"
 										ItemsSource="{Binding StartChapters}" SelectedItem="{Binding SelectedStartChapter}" Style="{StaticResource ChapterComboBox}"
@@ -665,6 +656,8 @@
 										ItemsSource="{Binding EndChapters}" SelectedItem="{Binding SelectedEndChapter}" Style="{StaticResource ChapterComboBox}"
 										ItemContainerStyle="{StaticResource ChapterComboBoxItem}"/>
 								</StackPanel>
+
+								<!-- Seconds range -->
 								<StackPanel
 									Orientation="Horizontal"
 									Visibility="{Binding SecondsRangeVisible, Converter={StaticResource VisibilityConverter}}">
@@ -682,6 +675,8 @@
 										ShowIncrementButtons="False"
 										Number="{Binding SecondsRangeEnd, Mode=TwoWay}"/>
 								</StackPanel>
+
+								<!-- Frames range -->
 								<StackPanel
 									Orientation="Horizontal"
 									Visibility="{Binding FramesRangeVisible, Converter={StaticResource VisibilityConverter}}">
@@ -699,37 +694,34 @@
 								</StackPanel>
 								<TextBlock Text="{Binding TotalChaptersText}" Style="{StaticResource PlainTitle}" />
 							</StackPanel>
-							<controls:ChapterBar 
-								Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10,0,0,0"
-								Start="{Binding ChapterPreviewStart, Mode=TwoWay}" End="{Binding ChapterPreviewEnd, Mode=TwoWay}" 
-								Chapters="{Binding SelectedTitle.Chapters}"
-								Height="22" />
-							<!--<Popup
-								Name="rangeDetailsPopup" IsOpen="False"
-								PlacementTarget="{Binding ElementName=rangeUI}"
-								Placement="Right"
-								HorizontalOffset="4"
-								VerticalOffset="-16"
-								AllowsTransparency="True">
-								<ContentControl Template="{StaticResource PopupInfoTemplate}">
-									<StackPanel
-										Orientation="Vertical"
-										Margin="4">
-										<TextBlock
-											Text="{Binding RangePreviewText}"
-											HorizontalAlignment="Center"/>
-										<controls:RangeBar
-											Duration="{Binding SelectedTitle.Duration}"
-											StartTime="{Binding RangePreviewStart}" EndTime="{Binding RangePreviewEnd}"
-											Width="200" Height="15" HorizontalAlignment="Center"
-											Margin="2"
-											/>
-										<TextBlock
-											Text="{Binding RangePreviewLengthText}"
-											HorizontalAlignment="Center"/>
-									</StackPanel>
-								</ContentControl>
-							</Popup>-->
+						</StackPanel>
+
+						<Grid Margin="0,3,0,0" UseLayoutRounding="True">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+
+							<controls:RangeBar 
+								Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+								Start="{Binding ChapterPreviewStart, Mode=TwoWay}" End="{Binding ChapterPreviewEnd, Mode=TwoWay}"
+								StartSeconds="{Binding SecondsRangeStartBar, Mode=TwoWay}" EndSeconds="{Binding SecondsRangeEndBar, Mode=TwoWay}"
+								Title="{Binding SelectedTitle}"
+								ChaptersEnabled="{Binding UsingChaptersRange}"
+								Height="18" Visibility="{Binding RangeBarVisible, Converter={StaticResource VisibilityConverter}}"
+								ToolTip="{x:Static res:MainRes.RangeBarToolTip}" />
+
+							<!-- Range preview text -->
+							<StackPanel 
+								Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="1" Margin="6,0,0,0"
+								Visibility="{Binding RangeBarVisible, Converter={StaticResource VisibilityConverter}}">
+								<TextBlock
+									Text="{Binding RangePreviewText}"
+									VerticalAlignment="Bottom"/>
+								<TextBlock
+									Text="{Binding RangePreviewLengthText}"
+									VerticalAlignment="Bottom" Margin="10,0,0,0"/>
+							</StackPanel>
 						</Grid>
 
 					</StackPanel>
