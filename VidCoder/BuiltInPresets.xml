@@ -803,7 +803,7 @@
 			<Decomb>Off</Decomb>
 			<Detelecine>Off</Detelecine>
 			<Denoise>Off</Denoise>
-			<Deblock>4</Deblock>
+			<Deblock>0</Deblock>
 			<Grayscale>false</Grayscale>
 			<VideoEncoder>x264</VideoEncoder>
 			<X264Options>ref=2:mixed-refs=0:bframes=2:weightb=0:subq=6:8x8dct=0:trellis=0</X264Options>
