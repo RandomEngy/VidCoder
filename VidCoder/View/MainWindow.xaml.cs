@@ -473,17 +473,15 @@ namespace VidCoder.View
 		//	this.RefreshRangeDetailsPopupIsOpen();
 		//}
 
-		//private void SecondsStartGotFocus(object sender, RoutedEventArgs e)
-		//{
-		//	Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = true });
-		//	this.RangeControlGotFocus(sender, e);
-		//}
+		private void StartTimeGotFocus(object sender, RoutedEventArgs e)
+		{
+			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = true });
+		}
 
-		//private void SecondsEndGotFocus(object sender, RoutedEventArgs e)
-		//{
-		//	Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = false });
-		//	this.RangeControlGotFocus(sender, e);
-		//}
+		private void EndTimeGotFocus(object sender, RoutedEventArgs e)
+		{
+			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = false });
+		}
 
 		//private void FramesStartGotFocus(object sender, RoutedEventArgs e)
 		//{

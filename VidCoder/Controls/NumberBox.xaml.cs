@@ -184,12 +184,10 @@ namespace VidCoder.Controls
 			if (this.AllowEmpty && this.Number == 0)
 			{
 				this.numberBox.Text = this.hasFocus ? string.Empty : this.NoneCaption;
-				//this.numberBox.Foreground = new SolidColorBrush(Colors.Gray);
 			}
 			else
 			{
 				this.numberBox.Text = this.Number.ToString();
-				//this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
 			}
 
 			this.RefreshNumberBoxColor();

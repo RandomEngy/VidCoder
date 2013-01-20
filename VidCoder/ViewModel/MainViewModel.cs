@@ -49,9 +49,10 @@ namespace VidCoder.ViewModel
 		private int angle;
 
 		private VidCoder.Model.VideoRangeTypeCombo rangeType;
-		private double secondsRangeStart;
-		private double secondsRangeEnd;
-		private double secondsBaseline;
+		//private double secondsRangeStart;
+		//private double secondsRangeEnd;
+		//private double secondsBaseline;
+		private TimeSpan timeBaseline;
 		private int framesRangeStart;
 		private int framesRangeEnd;
 		private int framesBaseline;
@@ -925,12 +926,12 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(() => this.SelectedStartChapter);
 					this.RaisePropertyChanged(() => this.SelectedEndChapter);
 
-					this.SetRangeSecondsStart(0);
-					this.SetRangeSecondsEnd(this.selectedTitle.Duration.TotalSeconds);
-					this.RaisePropertyChanged(() => this.SecondsRangeStart);
-					this.RaisePropertyChanged(() => this.SecondsRangeStartBar);
-					this.RaisePropertyChanged(() => this.SecondsRangeEnd);
-					this.RaisePropertyChanged(() => this.SecondsRangeEndBar);
+					this.SetRangeTimeStart(TimeSpan.Zero);
+					this.SetRangeTimeEnd(this.selectedTitle.Duration);
+					this.RaisePropertyChanged(() => this.TimeRangeStart);
+					this.RaisePropertyChanged(() => this.TimeRangeStartBar);
+					this.RaisePropertyChanged(() => this.TimeRangeEnd);
+					this.RaisePropertyChanged(() => this.TimeRangeEndBar);
 
 					this.framesRangeStart = 0;
 					this.framesRangeEnd = this.selectedTitle.Frames;
@@ -1192,132 +1193,261 @@ namespace VidCoder.ViewModel
 		}
 
 		// Properties for the range seek bar
-		private double secondsRangeStartBar;
-		public double SecondsRangeStartBar
+		private TimeSpan timeRangeStartBar;
+		public TimeSpan TimeRangeStartBar
 		{
 			get
 			{
-				return this.secondsRangeStartBar;
+				return this.timeRangeStartBar;
 			}
 
 			set
 			{
-				this.SetRangeSecondsStart(value);
+				this.SetRangeTimeStart(value);
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.RaisePropertyChanged(() => this.SecondsRangeStartBar);
-				this.RaisePropertyChanged(() => this.SecondsRangeStart);
+				this.RaisePropertyChanged(() => this.TimeRangeStartBar);
+				this.RaisePropertyChanged(() => this.TimeRangeStart);
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
 		}
 
-		private double secondsRangeEndBar;
-		public double SecondsRangeEndBar
+		private TimeSpan timeRangeEndBar;
+		public TimeSpan TimeRangeEndBar
 		{
 			get
 			{
-				return this.secondsRangeEndBar;
+				return this.timeRangeEndBar;
 			}
 
 			set
 			{
-				this.SetRangeSecondsEnd(value);
+				this.SetRangeTimeEnd(value);
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.RaisePropertyChanged(() => this.SecondsRangeEndBar);
-				this.RaisePropertyChanged(() => this.SecondsRangeEnd);
+				this.RaisePropertyChanged(() => this.TimeRangeEndBar);
+				this.RaisePropertyChanged(() => this.TimeRangeEnd);
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
 		}
+
+		//private double secondsRangeStartBar;
+		//public double SecondsRangeStartBar
+		//{
+		//	get
+		//	{
+		//		return this.secondsRangeStartBar;
+		//	}
+
+		//	set
+		//	{
+		//		this.SetRangeSecondsStart(value);
+
+		//		this.OutputPathVM.GenerateOutputFileName();
+
+		//		this.RaisePropertyChanged(() => this.SecondsRangeStartBar);
+		//		this.RaisePropertyChanged(() => this.SecondsRangeStart);
+		//		this.RefreshRangePreview();
+		//		this.ReportLengthChanged();
+		//	}
+		//}
+
+		//private double secondsRangeEndBar;
+		//public double SecondsRangeEndBar
+		//{
+		//	get
+		//	{
+		//		return this.secondsRangeEndBar;
+		//	}
+
+		//	set
+		//	{
+		//		this.SetRangeSecondsEnd(value);
+
+		//		this.OutputPathVM.GenerateOutputFileName();
+
+		//		this.RaisePropertyChanged(() => this.SecondsRangeEndBar);
+		//		this.RaisePropertyChanged(() => this.SecondsRangeEnd);
+		//		this.RefreshRangePreview();
+		//		this.ReportLengthChanged();
+		//	}
+		//}
 
 		// Properties for the range text boxes
-		public double SecondsRangeStart
+		private TimeSpan timeRangeStart;
+		public TimeSpan TimeRangeStart
 		{
 			get
 			{
-				return this.secondsRangeStart;
+				return this.timeRangeStart;
 			}
 
 			set
 			{
-				double maxSeconds = this.SelectedTitle.Duration.TotalSeconds;
+				this.timeRangeStart = value;
 
-				this.secondsRangeStart = value;
-				if (this.secondsRangeStart > maxSeconds - Constants.SecondsRangeBuffer)
+				TimeSpan maxTime = this.SelectedTitle.Duration;
+				if (this.timeRangeStart > maxTime - Constants.TimeRangeBuffer)
 				{
-					this.secondsRangeStart = maxSeconds - Constants.SecondsRangeBuffer;
+					this.timeRangeStart = maxTime - Constants.TimeRangeBuffer;
 				}
 
-				this.secondsRangeStartBar = this.secondsRangeStart;
+				this.timeRangeStartBar = this.timeRangeStart;
 
 				// Constrain from the baseline: what the other end was when we got focus
-				double idealSecondsEnd = this.secondsBaseline;
-				if (idealSecondsEnd < this.secondsRangeStart + Constants.SecondsRangeBuffer)
+				TimeSpan idealTimeEnd = this.timeBaseline;
+				if (idealTimeEnd < this.timeRangeStart + Constants.TimeRangeBuffer)
 				{
-					idealSecondsEnd = this.secondsRangeStart + Constants.SecondsRangeBuffer;
+					idealTimeEnd = this.timeRangeStart + Constants.TimeRangeBuffer;
 				}
 
-				if (idealSecondsEnd != this.secondsRangeEnd)
+				if (idealTimeEnd != this.timeRangeEnd)
 				{
-					this.SetRangeSecondsEnd(idealSecondsEnd);
-					this.RaisePropertyChanged(() => this.SecondsRangeEnd);
-					this.RaisePropertyChanged(() => this.SecondsRangeEndBar);
+					this.SetRangeTimeEnd(idealTimeEnd);
+					this.RaisePropertyChanged(() => this.TimeRangeEnd);
+					this.RaisePropertyChanged(() => this.TimeRangeEndBar);
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.RaisePropertyChanged(() => this.SecondsRangeStart);
-				this.RaisePropertyChanged(() => this.SecondsRangeStartBar);
+				this.RaisePropertyChanged(() => this.TimeRangeStart);
+				this.RaisePropertyChanged(() => this.TimeRangeStartBar);
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
 		}
 
-		public double SecondsRangeEnd
+		private TimeSpan timeRangeEnd;
+		public TimeSpan TimeRangeEnd
 		{
 			get
 			{
-				return this.secondsRangeEnd;
+				return this.timeRangeEnd;
 			}
 
 			set
 			{
-				double maxSeconds = this.SelectedTitle.Duration.TotalSeconds;
+				this.timeRangeEnd = value;
 
-				this.secondsRangeEnd = value;
-				if (this.secondsRangeEnd > maxSeconds)
+				TimeSpan maxTime = this.SelectedTitle.Duration;
+
+				if (this.timeRangeEnd > maxTime)
 				{
-					this.secondsRangeEnd = maxSeconds;
+					this.timeRangeEnd = maxTime;
 				}
 
-				this.secondsRangeEndBar = this.secondsRangeEnd;
+				this.timeRangeEndBar = this.timeRangeEnd;
 
 				// Constrain from the baseline: what the other end was when we got focus
-				double idealSecondsStart = this.secondsBaseline;
-				if (idealSecondsStart > this.secondsRangeEnd - Constants.SecondsRangeBuffer)
+				TimeSpan idealTimeStart = this.timeBaseline;
+				if (idealTimeStart > this.timeRangeEnd - Constants.TimeRangeBuffer)
 				{
-					idealSecondsStart = this.secondsRangeEnd - Constants.SecondsRangeBuffer;
+					idealTimeStart = this.timeRangeEnd - Constants.TimeRangeBuffer;
 				}
 
-				if (idealSecondsStart != this.secondsRangeStart)
+				if (idealTimeStart != this.timeRangeStart)
 				{
-					this.SetRangeSecondsEnd(idealSecondsStart);
-					this.RaisePropertyChanged(() => this.SecondsRangeStart);
-					this.RaisePropertyChanged(() => this.SecondsRangeStartBar);
+					this.SetRangeTimeEnd(idealTimeStart);
+					this.RaisePropertyChanged(() => this.TimeRangeStart);
+					this.RaisePropertyChanged(() => this.TimeRangeStartBar);
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.RaisePropertyChanged(() => this.SecondsRangeEnd);
-				this.RaisePropertyChanged(() => this.SecondsRangeEndBar);
+				this.RaisePropertyChanged(() => this.TimeRangeEnd);
+				this.RaisePropertyChanged(() => this.TimeRangeEndBar);
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
 		}
+
+		//public double SecondsRangeStart
+		//{
+		//	get
+		//	{
+		//		return this.secondsRangeStart;
+		//	}
+
+		//	set
+		//	{
+		//		double maxSeconds = this.SelectedTitle.Duration.TotalSeconds;
+
+		//		this.secondsRangeStart = value;
+		//		if (this.secondsRangeStart > maxSeconds - Constants.SecondsRangeBuffer)
+		//		{
+		//			this.secondsRangeStart = maxSeconds - Constants.SecondsRangeBuffer;
+		//		}
+
+		//		this.secondsRangeStartBar = this.secondsRangeStart;
+
+		//		// Constrain from the baseline: what the other end was when we got focus
+		//		double idealSecondsEnd = this.secondsBaseline;
+		//		if (idealSecondsEnd < this.secondsRangeStart + Constants.SecondsRangeBuffer)
+		//		{
+		//			idealSecondsEnd = this.secondsRangeStart + Constants.SecondsRangeBuffer;
+		//		}
+
+		//		if (idealSecondsEnd != this.secondsRangeEnd)
+		//		{
+		//			this.SetRangeSecondsEnd(idealSecondsEnd);
+		//			this.RaisePropertyChanged(() => this.SecondsRangeEnd);
+		//			this.RaisePropertyChanged(() => this.SecondsRangeEndBar);
+		//		}
+
+		//		this.OutputPathVM.GenerateOutputFileName();
+
+		//		this.RaisePropertyChanged(() => this.SecondsRangeStart);
+		//		this.RaisePropertyChanged(() => this.SecondsRangeStartBar);
+		//		this.RefreshRangePreview();
+		//		this.ReportLengthChanged();
+		//	}
+		//}
+
+		//public double SecondsRangeEnd
+		//{
+		//	get
+		//	{
+		//		return this.secondsRangeEnd;
+		//	}
+
+		//	set
+		//	{
+		//		double maxSeconds = this.SelectedTitle.Duration.TotalSeconds;
+
+		//		this.secondsRangeEnd = value;
+		//		if (this.secondsRangeEnd > maxSeconds)
+		//		{
+		//			this.secondsRangeEnd = maxSeconds;
+		//		}
+
+		//		this.secondsRangeEndBar = this.secondsRangeEnd;
+
+		//		// Constrain from the baseline: what the other end was when we got focus
+		//		double idealSecondsStart = this.secondsBaseline;
+		//		if (idealSecondsStart > this.secondsRangeEnd - Constants.SecondsRangeBuffer)
+		//		{
+		//			idealSecondsStart = this.secondsRangeEnd - Constants.SecondsRangeBuffer;
+		//		}
+
+		//		if (idealSecondsStart != this.secondsRangeStart)
+		//		{
+		//			this.SetRangeSecondsEnd(idealSecondsStart);
+		//			this.RaisePropertyChanged(() => this.SecondsRangeStart);
+		//			this.RaisePropertyChanged(() => this.SecondsRangeStartBar);
+		//		}
+
+		//		this.OutputPathVM.GenerateOutputFileName();
+
+		//		this.RaisePropertyChanged(() => this.SecondsRangeEnd);
+		//		this.RaisePropertyChanged(() => this.SecondsRangeEndBar);
+		//		this.RefreshRangePreview();
+		//		this.ReportLengthChanged();
+		//	}
+		//}
 
 		public bool SecondsRangeVisible
 		{
@@ -1596,7 +1726,7 @@ namespace VidCoder.ViewModel
 
 						return this.GetChapterRangeDuration(1, startChapter - 1);
 					case VideoRangeType.Seconds:
-						return TimeSpan.FromSeconds(this.SecondsRangeStart);
+						return this.TimeRangeStart;
 					case VideoRangeType.Frames:
 						return TimeSpan.FromSeconds(this.FramesRangeStart / this.SelectedTitle.Framerate);
 				}
@@ -1642,7 +1772,7 @@ namespace VidCoder.ViewModel
 
 						return this.GetChapterRangeDuration(1, endChapter);
 					case VideoRangeType.Seconds:
-						return TimeSpan.FromSeconds(this.SecondsRangeEnd);
+						return this.TimeRangeEnd;
 					case VideoRangeType.Frames:
 						return TimeSpan.FromSeconds(this.FramesRangeEnd / this.SelectedTitle.Framerate);
 				}
@@ -2096,8 +2226,8 @@ namespace VidCoder.ViewModel
 						job.ChapterEnd = chapterEnd;
 						break;
 					case VideoRangeType.Seconds:
-						job.SecondsStart = this.SecondsRangeStart;
-						job.SecondsEnd = this.SecondsRangeEnd;
+						job.SecondsStart = this.TimeRangeStart.TotalSeconds;
+						job.SecondsEnd = this.TimeRangeEnd.TotalSeconds;
 						break;
 					case VideoRangeType.Frames:
 						job.FramesStart = this.FramesRangeStart;
@@ -2280,9 +2410,9 @@ namespace VidCoder.ViewModel
 
 						break;
 					case VideoRangeType.Seconds:
-						if (this.SecondsRangeEnd >= this.SecondsRangeStart)
+						if (this.TimeRangeEnd >= this.TimeRangeStart)
 						{
-							selectedTime = TimeSpan.FromSeconds(this.SecondsRangeEnd - this.SecondsRangeStart);
+							selectedTime = this.TimeRangeEnd - this.TimeRangeStart;
 						}
 
 						break;
@@ -2492,13 +2622,31 @@ namespace VidCoder.ViewModel
 					if (job.SecondsStart < this.selectedTitle.Duration.TotalSeconds + 1 &&
 						job.SecondsEnd < this.selectedTitle.Duration.TotalSeconds + 1)
 					{
-						this.SetRangeSecondsStart(job.SecondsStart);
-						this.SetRangeSecondsEnd(job.SecondsEnd);
+						TimeSpan startTime = TimeSpan.FromSeconds(job.SecondsStart);
+						TimeSpan endTime = TimeSpan.FromSeconds(job.SecondsEnd);
+
+						if (endTime > this.selectedTitle.Duration)
+						{
+							endTime = this.selectedTitle.Duration;
+						}
+
+						if (startTime > endTime - Constants.TimeRangeBuffer)
+						{
+							startTime = endTime - Constants.TimeRangeBuffer;
+						}
+
+						if (startTime < TimeSpan.Zero)
+						{
+							startTime = TimeSpan.Zero;
+						}
+
+						this.SetRangeTimeStart(startTime);
+						this.SetRangeTimeEnd(endTime);
 					}
 					else
 					{
-						this.SetRangeSecondsStart(0);
-						this.SetRangeSecondsEnd(this.selectedTitle.Duration.TotalSeconds);
+						this.SetRangeTimeStart(TimeSpan.Zero);
+						this.SetRangeTimeEnd(this.selectedTitle.Duration);
 					}
 
 					break;
@@ -2581,10 +2729,10 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.SelectedEndChapter);
 			this.RaisePropertyChanged(() => this.StartChapters);
 			this.RaisePropertyChanged(() => this.EndChapters);
-			this.RaisePropertyChanged(() => this.SecondsRangeStart);
-			this.RaisePropertyChanged(() => this.SecondsRangeStartBar);
-			this.RaisePropertyChanged(() => this.SecondsRangeEnd);
-			this.RaisePropertyChanged(() => this.SecondsRangeEndBar);
+			this.RaisePropertyChanged(() => this.TimeRangeStart);
+			this.RaisePropertyChanged(() => this.TimeRangeStartBar);
+			this.RaisePropertyChanged(() => this.TimeRangeEnd);
+			this.RaisePropertyChanged(() => this.TimeRangeEndBar);
 			this.RaisePropertyChanged(() => this.FramesRangeStart);
 			this.RaisePropertyChanged(() => this.FramesRangeEnd);
 			this.RaisePropertyChanged(() => this.RangeType);
@@ -2718,11 +2866,13 @@ namespace VidCoder.ViewModel
 			{
 				if (message.Start)
 				{
-					this.secondsBaseline = this.SecondsRangeEnd;
+					this.timeBaseline = this.TimeRangeEnd;
+					//this.secondsBaseline = this.SecondsRangeEnd;
 				}
 				else
 				{
-					this.secondsBaseline = this.SecondsRangeStart;
+					this.timeBaseline = this.TimeRangeStart;
+					//this.secondsBaseline = this.SecondsRangeStart;
 				}
 			}
 			else if (message.RangeType == VideoRangeType.Frames)
@@ -2738,18 +2888,32 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		// Sets both range seconds start properties passively (text box and bar)
-		private void SetRangeSecondsStart(double secondsStart)
+		//// Sets both range seconds start properties passively (text box and bar)
+		//private void SetRangeSecondsStart(double secondsStart)
+		//{
+		//	this.secondsRangeStart = secondsStart;
+		//	this.secondsRangeStartBar = secondsStart;
+		//}
+
+		//// Sets both range seconds end properties passively (text box and bar)
+		//private void SetRangeSecondsEnd(double secondsEnd)
+		//{
+		//	this.secondsRangeEnd = secondsEnd;
+		//	this.secondsRangeEndBar = secondsEnd;
+		//}
+
+		// Sets both range time start properties passively (time box and bar)
+		private void SetRangeTimeStart(TimeSpan timeStart)
 		{
-			this.secondsRangeStart = secondsStart;
-			this.secondsRangeStartBar = secondsStart;
+			this.timeRangeStart = timeStart;
+			this.timeRangeStartBar = timeStart;
 		}
 
-		// Sets both range seconds end properties passively (text box and bar)
-		private void SetRangeSecondsEnd(double secondsEnd)
+		// Sets both range time end properties passively (time box and bar)
+		private void SetRangeTimeEnd(TimeSpan timeEnd)
 		{
-			this.secondsRangeEnd = secondsEnd;
-			this.secondsRangeEndBar = secondsEnd;
+			this.timeRangeEnd = timeEnd;
+			this.timeRangeEndBar = timeEnd;
 		}
 
 		private void RefreshRangePreview()

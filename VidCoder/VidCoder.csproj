@@ -271,6 +271,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\TimeBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddAutoPauseProcessDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -376,6 +380,9 @@
     <Compile Include="Controls\SplitButton.xaml.cs">
       <DependentUpon>SplitButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TimeBox.xaml.cs">
+      <DependentUpon>TimeBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\DoubleDisplayConverter.cs" />
     <Compile Include="Converters\EnumVisibilityConverter.cs" />
     <Compile Include="Converters\EnumVisibilityInverseConverter.cs" />
@@ -385,6 +392,7 @@
     <Compile Include="Converters\ChapterVMConverter.cs" />
     <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="EnumStringConverter.cs" />
+    <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="Model\UpdateInfo.cs" />
     <Compile Include="Model\UpdateState.cs" />
     <Compile Include="Resources\ChapterMarkersRes.Designer.cs">

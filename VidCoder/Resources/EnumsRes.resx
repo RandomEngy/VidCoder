@@ -187,6 +187,6 @@
     <value>Frames</value>
   </data>
   <data name="VideoRangeType_Seconds" xml:space="preserve">
-    <value>Seconds</value>
+    <value>Time Range</value>
   </data>
 </root>

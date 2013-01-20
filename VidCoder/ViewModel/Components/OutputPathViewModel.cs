@@ -19,6 +19,7 @@ using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
 {
+	using Extensions;
 	using Resources;
 	using VideoRangeType = Model.VideoRangeTypeCombo;
 
@@ -380,8 +381,8 @@ namespace VidCoder.ViewModel.Components
 				this.main.SelectedStartChapter.ChapterNumber,
 				this.main.SelectedEndChapter.ChapterNumber,
 				this.main.SelectedTitle.Chapters.Count,
-				this.main.SecondsRangeStart,
-				this.main.SecondsRangeEnd,
+				this.main.TimeRangeStart,
+				this.main.TimeRangeEnd,
 				this.main.FramesRangeStart,
 				this.main.FramesRangeEnd,
 				this.NameFormatOverride,
@@ -492,15 +493,15 @@ namespace VidCoder.ViewModel.Components
 				1,
 				totalChapters,
 				totalChapters,
-				0,
-				0,
+				TimeSpan.Zero,
+				TimeSpan.Zero,
 				0,
 				0,
 				nameFormatOverride,
 				usesScan);
 		}
 
-		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, VideoRangeType rangeType, int startChapter, int endChapter, int totalChapters, double startSecond, double endSecond, int startFrame, int endFrame, string nameFormatOverride, bool usesScan)
+		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, VideoRangeType rangeType, int startChapter, int endChapter, int totalChapters, TimeSpan startTime, TimeSpan endTime, int startFrame, int endFrame, string nameFormatOverride, bool usesScan)
 		{
 			string fileName;
 			if (Config.AutoNameCustomFormat || !string.IsNullOrWhiteSpace(nameFormatOverride))
@@ -520,7 +521,7 @@ namespace VidCoder.ViewModel.Components
 
 						break;
 					case VideoRangeType.Seconds:
-						rangeString = startSecond + "-" + endSecond;
+						rangeString = startTime.ToFileName() + "-" + endTime.ToFileName();
 						break;
 					case VideoRangeType.Frames:
 						rangeString = startFrame + "-" + endFrame;
@@ -540,7 +541,7 @@ namespace VidCoder.ViewModel.Components
 				fileName = ReplaceTitles(fileName, title);
 				fileName = fileName.Replace("{range}", rangeString);
 
-				fileName = fileName.Replace("{titleduration}", titleDuration.ToString(@"h\.mm\.ss", CultureInfo.InvariantCulture));
+				fileName = fileName.Replace("{titleduration}", titleDuration.ToFileName());
 
 				// {chapters} is deprecated in favor of {range} but we replace here for backwards compatibility.
 				fileName = fileName.Replace("{chapters}", rangeString);
@@ -607,9 +608,9 @@ namespace VidCoder.ViewModel.Components
 
 						break;
 					case VideoRangeType.Seconds:
-						if (startSecond > 0 || endSecond < titleDuration.TotalSeconds)
+						if (startTime > TimeSpan.Zero || endTime < titleDuration)
 						{
-							rangeSection = " - Seconds " + startSecond + "-" + endSecond;
+							rangeSection = " - " + startTime.ToFileName() + "-" + endTime.ToFileName();
 						}
 
 						break;

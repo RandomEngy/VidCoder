@@ -268,7 +268,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seconds.
+        ///   Looks up a localized string similar to Time Range.
         /// </summary>
         public static string VideoRangeType_Seconds {
             get {

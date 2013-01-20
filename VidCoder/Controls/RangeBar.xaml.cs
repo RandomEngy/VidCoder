@@ -23,6 +23,7 @@ namespace VidCoder.Controls
 	{
 		private bool markersUpdated = false;
 		private double totalSeconds;
+		private TimeSpan totalDuration;
 		private List<double> chapterFractions;
 
 		private bool captured;
@@ -67,13 +68,26 @@ namespace VidCoder.Controls
 			}
 		}
 
-		public static readonly DependencyProperty StartProperty = DependencyProperty.Register(
-			"Start",
+		public static readonly DependencyProperty StartChapterProperty = DependencyProperty.Register(
+			"StartChapter",
 			typeof (int),
 			typeof (RangeBar),
-			new PropertyMetadata(OnStartChanged));
+			new PropertyMetadata(OnStartChapterChanged));
 
-		private static void OnStartChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		public int StartChapter
+		{
+			get
+			{
+				return (int)GetValue(StartChapterProperty);
+			}
+
+			set
+			{
+				SetValue(StartChapterProperty, value);
+			}
+		}
+
+		private static void OnStartChapterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
 			if (e.NewValue != e.OldValue)
 			{
@@ -83,45 +97,32 @@ namespace VidCoder.Controls
 			}
 		}
 
-		public int Start
+		public static readonly DependencyProperty EndChapterProperty = DependencyProperty.Register(
+			"EndChapter",
+			typeof (int),
+			typeof (RangeBar),
+			new PropertyMetadata(OnEndChapterChanged));
+
+		public int EndChapter
 		{
 			get
 			{
-				return (int) GetValue(StartProperty);
+				return (int)GetValue(EndChapterProperty);
 			}
 
 			set
 			{
-				SetValue(StartProperty, value);
+				SetValue(EndChapterProperty, value);
 			}
 		}
 
-		public static readonly DependencyProperty EndProperty = DependencyProperty.Register(
-			"End",
-			typeof (int),
-			typeof (RangeBar),
-			new PropertyMetadata(OnEndChanged));
-
-		private static void OnEndChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		private static void OnEndChapterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
 			if (e.NewValue != e.OldValue)
 			{
 				var chapterBar = d as RangeBar;
 				chapterBar.UpdateSeekBarUI();
 				chapterBar.UpdateMarkers();
-			}
-		}
-
-		public int End
-		{
-			get
-			{
-				return (int) GetValue(EndProperty);
-			}
-
-			set
-			{
-				SetValue(EndProperty, value);
 			}
 		}
 
@@ -158,68 +159,20 @@ namespace VidCoder.Controls
 
 			chapterBar.markersUpdated = false;
 
-			chapterBar.totalSeconds = title.Duration.TotalSeconds;
+			chapterBar.totalDuration = title.Duration;
+			chapterBar.totalSeconds = HandBrake.Interop.Converters.PtsToSeconds(title.DurationPts);
 
-			double seconds = 0;
+			ulong pts = 0;
 			chapterBar.chapterFractions = new List<double>();
 			foreach (Chapter chapter in chapters)
 			{
-				seconds += chapter.Duration.TotalSeconds;
-				chapterBar.chapterFractions.Add(Math.Min(seconds / chapterBar.totalSeconds, 1));
+				pts += chapter.DurationPts;
+				chapterBar.chapterFractions.Add(Math.Min(HandBrake.Interop.Converters.PtsToSeconds(pts) / chapterBar.totalSeconds, 1));
 			}
 
 			chapterBar.UpdateSeekBarUI();
 			chapterBar.UpdateMarkers();
 		}
-
-		//public static readonly DependencyProperty ChaptersProperty = DependencyProperty.Register(
-		//	"Chapters",
-		//	typeof (List<Chapter>),
-		//	typeof (ChapterBar),
-		//	new PropertyMetadata(OnChaptersChanged));
-
-		//private static void OnChaptersChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-		//{
-		//	var chapters = (List<Chapter>) e.NewValue;
-		//	var chapterBar = d as ChapterBar;
-
-		//	if (chapters == null)
-		//	{
-		//		return;
-		//	}
-
-		//	chapterBar.markersUpdated = false;
-
-		//	chapterBar.totalSeconds = 0;
-		//	foreach (Chapter chapter in chapters)
-		//	{
-		//		chapterBar.totalSeconds += chapter.Duration.TotalSeconds;
-		//	}
-
-		//	double seconds = 0;
-		//	chapterBar.chapterFractions = new List<double>();
-		//	foreach (Chapter chapter in chapters)
-		//	{
-		//		seconds += chapter.Duration.TotalSeconds;
-		//		chapterBar.chapterFractions.Add(Math.Min(seconds / chapterBar.totalSeconds, 1));
-		//	}
-
-		//	chapterBar.UpdateSeekBarUI();
-		//	chapterBar.UpdateMarkers();
-		//}
-
-		//public List<Chapter> Chapters
-		//{
-		//	get
-		//	{
-		//		return (List<Chapter>) GetValue(ChaptersProperty);
-		//	}
-
-		//	set
-		//	{
-		//		SetValue(ChaptersProperty, value);
-		//	}
-		//}
 
 		public List<Chapter> Chapters
 		{
@@ -232,28 +185,28 @@ namespace VidCoder.Controls
 
 				return this.Title.Chapters;
 			}
-		} 
+		}
 
-		public static readonly DependencyProperty StartSecondsProperty = DependencyProperty.Register(
-			"StartSeconds",
-			typeof (double),
+		public static readonly DependencyProperty StartTimeProperty = DependencyProperty.Register(
+			"StartTime",
+			typeof (TimeSpan),
 			typeof (RangeBar),
-			new PropertyMetadata(OnStartSecondsChanged));
+			new PropertyMetadata(OnStartTimeChanged));
 
-		public double StartSeconds
+		public TimeSpan StartTime
 		{
 			get
 			{
-				return (double) GetValue(StartSecondsProperty);
+				return (TimeSpan) GetValue(StartTimeProperty);
 			}
 
 			set
 			{
-				SetValue(StartSecondsProperty, value);
+				SetValue(StartTimeProperty, value);
 			}
 		}
 
-		private static void OnStartSecondsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		private static void OnStartTimeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
 			if (e.NewValue != e.OldValue)
 			{
@@ -263,26 +216,26 @@ namespace VidCoder.Controls
 			}
 		}
 
-		public static readonly DependencyProperty EndSecondsProperty = DependencyProperty.Register(
-			"EndSeconds",
-			typeof (double),
+		public static readonly DependencyProperty EndTimeProperty = DependencyProperty.Register(
+			"EndTime",
+			typeof (TimeSpan),
 			typeof (RangeBar),
-			new PropertyMetadata(OnEndSecondsChanged));
+			new PropertyMetadata(OnEndTimeChanged));
 
-		public double EndSeconds
+		public TimeSpan EndTime
 		{
 			get
 			{
-				return (double) GetValue(EndSecondsProperty);
+				return (TimeSpan) GetValue(EndTimeProperty);
 			}
 
 			set
 			{
-				SetValue(EndSecondsProperty, value);
+				SetValue(EndTimeProperty, value);
 			}
 		}
 
-		private static void OnEndSecondsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		private static void OnEndTimeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
 			if (e.NewValue != e.OldValue)
 			{
@@ -291,19 +244,86 @@ namespace VidCoder.Controls
 				chapterBar.UpdateMarkers();
 			}
 		}
+
+		//public static readonly DependencyProperty StartSecondsProperty = DependencyProperty.Register(
+		//	"StartSeconds",
+		//	typeof (double),
+		//	typeof (RangeBar),
+		//	new PropertyMetadata(OnStartSecondsChanged));
+
+		//public double StartSeconds
+		//{
+		//	get
+		//	{
+		//		return (double) GetValue(StartSecondsProperty);
+		//	}
+
+		//	set
+		//	{
+		//		SetValue(StartSecondsProperty, value);
+		//	}
+		//}
+
+		//private static void OnStartSecondsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		//{
+		//	if (e.NewValue != e.OldValue)
+		//	{
+		//		var chapterBar = d as RangeBar;
+		//		chapterBar.UpdateSeekBarUI();
+		//		chapterBar.UpdateMarkers();
+		//	}
+		//}
+
+		//public static readonly DependencyProperty EndSecondsProperty = DependencyProperty.Register(
+		//	"EndSeconds",
+		//	typeof (double),
+		//	typeof (RangeBar),
+		//	new PropertyMetadata(OnEndSecondsChanged));
+
+		//public double EndSeconds
+		//{
+		//	get
+		//	{
+		//		return (double) GetValue(EndSecondsProperty);
+		//	}
+
+		//	set
+		//	{
+		//		SetValue(EndSecondsProperty, value);
+		//	}
+		//}
+
+		//private static void OnEndSecondsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		//{
+		//	if (e.NewValue != e.OldValue)
+		//	{
+		//		var chapterBar = d as RangeBar;
+		//		chapterBar.UpdateSeekBarUI();
+		//		chapterBar.UpdateMarkers();
+		//	}
+		//}
 
 		private void UpdateSeekBarUI()
 		{
 			if (this.ChaptersEnabled)
 			{
-				if (this.Start <= 0 || this.End <= 0 || this.Chapters == null || this.Start > this.End || this.Start > this.Chapters.Count || this.End > this.Chapters.Count)
+				if (this.StartChapter <= 0 || 
+					this.EndChapter <= 0 ||
+					this.Chapters == null || 
+					this.StartChapter > this.EndChapter ||
+					this.StartChapter > this.Chapters.Count || 
+					this.EndChapter > this.Chapters.Count)
 				{
 					return;
 				}
 			}
 			else
 			{
-				if (this.StartSeconds < 0 || this.StartSeconds > this.totalSeconds || this.EndSeconds <= 0 || this.EndSeconds > this.totalSeconds || this.StartSeconds > this.EndSeconds)
+				if (this.StartTime < TimeSpan.Zero || 
+					this.StartTime > this.totalDuration || 
+					this.EndTime <= TimeSpan.Zero ||
+					this.EndTime > this.totalDuration || 
+					this.StartTime > this.EndTime)
 				{
 					return;
 				}
@@ -319,23 +339,18 @@ namespace VidCoder.Controls
 			double startBarFraction, endBarFraction;
 			if (this.ChaptersEnabled)
 			{
-				startBarFraction = this.GetBarFractionFromChapter(this.Start - 1);
-				endBarFraction = this.GetBarFractionFromChapter(this.End);
+				startBarFraction = this.GetBarFractionFromChapter(this.StartChapter - 1);
+				endBarFraction = this.GetBarFractionFromChapter(this.EndChapter);
 			}
 			else
 			{
-				startBarFraction = this.GetBarFractionFromSeconds(this.StartSeconds);
-				endBarFraction = this.GetBarFractionFromSeconds(this.EndSeconds);
+				startBarFraction = this.GetBarFractionFromTime(this.StartTime);
+				endBarFraction = this.GetBarFractionFromTime(this.EndTime);
 			}
 
 			this.preColumn.Width = new GridLength(startBarFraction, GridUnitType.Star);
 			this.rangeColumn.Width = new GridLength(endBarFraction - startBarFraction, GridUnitType.Star);
 			this.postColumn.Width = new GridLength(1 - endBarFraction, GridUnitType.Star);
-
-			//double leftRadius = this.Start == 1 ? 5 : 0;
-			//double rightRadius = this.End == this.Chapters.Count ? 5 : 0;
-
-			//this.seekBarFilledBorder.CornerRadius = new CornerRadius(leftRadius, rightRadius, rightRadius, leftRadius);
 		}
 
 		private void UpdateMarkers()
@@ -347,7 +362,7 @@ namespace VidCoder.Controls
 
 			if (this.ChaptersEnabled)
 			{
-				if (this.Start <= 0 || this.End <= 0 || this.Chapters == null)
+				if (this.StartChapter <= 0 || this.EndChapter <= 0 || this.Chapters == null)
 				{
 					return;
 				}
@@ -364,15 +379,15 @@ namespace VidCoder.Controls
 
 			if (this.ChaptersEnabled)
 			{
-				double seconds = 0;
+				ulong pts = 0;
 				for (int i = 1; i < this.Chapters.Count - 1; i++)
 				{
-					seconds += this.Chapters[i - 1].Duration.TotalSeconds;
+					pts += this.Chapters[i - 1].DurationPts;
 
 					var marker = new Polygon
 						{
 							Style = this.FindResource("SeekBarTick") as Style,
-							Margin = new Thickness(barWidth * (seconds / this.totalSeconds) - 1, 0, 0, 0),
+							Margin = new Thickness(barWidth * (HandBrake.Interop.Converters.PtsToSeconds(pts) / this.totalSeconds) - 1, 0, 0, 0),
 							HorizontalAlignment = HorizontalAlignment.Left,
 							VerticalAlignment = VerticalAlignment.Top
 						};
@@ -401,13 +416,18 @@ namespace VidCoder.Controls
 
 		private double GetBarFractionFromChapter(int chapter)
 		{
-			double seconds = 0;
+			ulong pts = 0;
 			for (int i = 1; i <= chapter; i++)
 			{
-				seconds += this.Chapters[i - 1].Duration.TotalSeconds;
+				pts += this.Chapters[i - 1].DurationPts;
 			}
 
-			return GetBarFractionFromSeconds(seconds);
+			return GetBarFractionFromSeconds(HandBrake.Interop.Converters.PtsToSeconds(pts));
+		}
+
+		private double GetBarFractionFromTime(TimeSpan time)
+		{
+			return GetBarFractionFromSeconds(time.TotalSeconds);
 		}
 
 		private double GetBarFractionFromSeconds(double seconds)
@@ -440,6 +460,7 @@ namespace VidCoder.Controls
 			this.startCaptured = true;
 			this.HandleMouseEvent(e, start: true);
 			this.CaptureMouse();
+			this.Focus();
 		}
 
 		private void ChapterBar_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -454,6 +475,7 @@ namespace VidCoder.Controls
 			this.startCaptured = false;
 			this.HandleMouseEvent(e, start: false);
 			this.CaptureMouse();
+			this.Focus();
 		}
 
 		private void ChapterBar_OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
@@ -496,32 +518,32 @@ namespace VidCoder.Controls
 			{
 				if (slot == this.Chapters.Count)
 				{
-					this.Start = this.Chapters.Count;
+					this.StartChapter = this.Chapters.Count;
 				}
 				else
 				{
-					this.Start = slot + 1;
+					this.StartChapter = slot + 1;
 				}
 
-				if (this.Start > this.End)
+				if (this.StartChapter > this.EndChapter)
 				{
-					this.End = this.Start;
+					this.EndChapter = this.StartChapter;
 				}
 			}
 			else
 			{
 				if (slot == 0)
 				{
-					this.End = 1;
+					this.EndChapter = 1;
 				}
 				else
 				{
-					this.End = slot;
+					this.EndChapter = slot;
 				}
 
-				if (this.Start > this.End)
+				if (this.StartChapter > this.EndChapter)
 				{
-					this.Start = this.End;
+					this.StartChapter = this.EndChapter;
 				}
 			}
 		}
@@ -584,49 +606,85 @@ namespace VidCoder.Controls
 
 			double rawSeconds = this.totalSeconds * fraction;
 
-			double secondsStart, secondsEnd;
+			TimeSpan startTime, endTime;
+			//double secondsStart, secondsEnd;
 			if (start)
 			{
-				secondsStart = Math.Round(rawSeconds);
-				secondsEnd = this.EndSeconds;
-				if (secondsStart > this.totalSeconds - Constants.SecondsRangeBuffer)
+				startTime = TimeSpan.FromSeconds(Math.Round(rawSeconds));
+				endTime = this.EndTime;
+				//secondsStart = Math.Round(rawSeconds);
+				//secondsEnd = this.EndSeconds;
+
+				if (startTime > this.totalDuration - Constants.TimeRangeBuffer)
 				{
-					secondsStart = this.totalSeconds - Constants.SecondsRangeBuffer;
+					startTime = this.totalDuration - Constants.TimeRangeBuffer;
 				}
 
-				if (secondsEnd < secondsStart + Constants.SecondsRangeBuffer)
+				if (endTime < startTime + Constants.TimeRangeBuffer)
 				{
-					secondsEnd = secondsStart + Constants.SecondsRangeBuffer;
+					endTime = startTime + Constants.TimeRangeBuffer;
 				}
 
-				if (secondsEnd > this.totalSeconds)
+				if (endTime > this.totalDuration)
 				{
-					secondsEnd = totalSeconds;
+					endTime = this.totalDuration;
 				}
+
+				//if (secondsStart > this.totalSeconds - Constants.SecondsRangeBuffer)
+				//{
+				//	secondsStart = this.totalSeconds - Constants.SecondsRangeBuffer;
+				//}
+
+				//if (secondsEnd < secondsStart + Constants.SecondsRangeBuffer)
+				//{
+				//	secondsEnd = secondsStart + Constants.SecondsRangeBuffer;
+				//}
+
+				//if (secondsEnd > this.totalSeconds)
+				//{
+				//	secondsEnd = totalSeconds;
+				//}
 			}
 			else
 			{
-				secondsStart = this.StartSeconds;
-				secondsEnd = fraction == 1 ? rawSeconds : Math.Round(rawSeconds);
+				startTime = this.StartTime;
+				endTime = fraction == 1 ? this.totalDuration : TimeSpan.FromSeconds(Math.Round(rawSeconds));
+				//secondsStart = this.StartSeconds;
+				//secondsEnd = fraction == 1 ? rawSeconds : Math.Round(rawSeconds);
 
-				if (secondsEnd < Constants.SecondsRangeBuffer)
+				if (endTime < Constants.TimeRangeBuffer)
 				{
-					secondsEnd = Constants.SecondsRangeBuffer;
+					endTime = Constants.TimeRangeBuffer;
 				}
 
-				if (secondsStart > secondsEnd - Constants.SecondsRangeBuffer)
+				if (startTime > endTime - Constants.TimeRangeBuffer)
 				{
-					secondsStart = secondsEnd - Constants.SecondsRangeBuffer;
+					startTime = endTime - Constants.TimeRangeBuffer;
 				}
 
-				if (secondsStart < 0)
+				if (startTime < TimeSpan.Zero)
 				{
-					secondsStart = 0;
+					startTime = TimeSpan.Zero;
 				}
+
+				//if (secondsEnd < Constants.SecondsRangeBuffer)
+				//{
+				//	secondsEnd = Constants.SecondsRangeBuffer;
+				//}
+
+				//if (secondsStart > secondsEnd - Constants.SecondsRangeBuffer)
+				//{
+				//	secondsStart = secondsEnd - Constants.SecondsRangeBuffer;
+				//}
+
+				//if (secondsStart < 0)
+				//{
+				//	secondsStart = 0;
+				//}
 			}
 
-			this.StartSeconds = secondsStart;
-			this.EndSeconds = secondsEnd;
+			this.StartTime = startTime;
+			this.EndTime = endTime;
 		}
 	}
 }

@@ -626,8 +626,8 @@
 								
 							<!-- Angle -->
 							<StackPanel Orientation="Horizontal" Visibility="{Binding AngleVisible, Converter={StaticResource VisibilityConverter}}">
-								<TextBlock Text="{x:Static res:MainRes.AngleLabel}" Style="{StaticResource PlainTitle}" />
-								<ComboBox ItemsSource="{Binding Angles}" SelectedItem="{Binding Angle}" Width="32" Height="23" VerticalAlignment="Center" />
+								<TextBlock Text="{x:Static res:MainRes.AngleLabel}" VerticalAlignment="Center" />
+								<ComboBox ItemsSource="{Binding Angles}" SelectedItem="{Binding Angle}" Height="23" VerticalAlignment="Center" Margin="4,0,0,0" />
 								<Polygon Style="{StaticResource ArrowSeparator}" />
 							</StackPanel>
 
@@ -637,7 +637,7 @@
 								Background="Transparent">
 								<ComboBox
 									Height="23" VerticalAlignment="Center" Margin="0,0,10,0" HorizontalAlignment="Left"
-									MinWidth="75"
+									MinWidth="92"
 									ItemsSource="{Binding DisplayNames, Source={StaticResource VideoRangeTypeChoices}}"
 									SelectedValue="{Binding RangeType, Converter={StaticResource VideoRangeTypeChoices}}" />
 
@@ -657,8 +657,25 @@
 										ItemContainerStyle="{StaticResource ChapterComboBoxItem}"/>
 								</StackPanel>
 
-								<!-- Seconds range -->
+								<!-- Time range -->
 								<StackPanel
+									Orientation="Horizontal" VerticalAlignment="Center"
+									Visibility="{Binding SecondsRangeVisible, Converter={StaticResource VisibilityConverter}}">
+									<controls:TimeBox
+										Width="42" Height="22"
+										Style="{StaticResource RangeNumberBox}"
+										Time="{Binding TimeRangeStart, Mode=TwoWay}" Maximum="{Binding SelectedTitle.Duration}"
+										GotFocus="StartTimeGotFocus"/>
+									<TextBlock Text="-" Style="{StaticResource PlainTitle}" />
+									<controls:TimeBox
+										Width="42" Height="22"
+										Style="{StaticResource RangeNumberBox}"
+										Time="{Binding TimeRangeEnd, Mode=TwoWay}" Maximum="{Binding SelectedTitle.Duration}"
+										GotFocus="EndTimeGotFocus"/>
+								</StackPanel>
+
+								<!-- Seconds range -->
+								<!--<StackPanel
 									Orientation="Horizontal"
 									Visibility="{Binding SecondsRangeVisible, Converter={StaticResource VisibilityConverter}}">
 									<controls:NumberBox
@@ -674,7 +691,7 @@
 										AllowEmpty="False" Minimum="0.25" Modulus="0.001"
 										ShowIncrementButtons="False"
 										Number="{Binding SecondsRangeEnd, Mode=TwoWay}"/>
-								</StackPanel>
+								</StackPanel>-->
 
 								<!-- Frames range -->
 								<StackPanel
@@ -704,8 +721,8 @@
 
 							<controls:RangeBar 
 								Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-								Start="{Binding ChapterPreviewStart, Mode=TwoWay}" End="{Binding ChapterPreviewEnd, Mode=TwoWay}"
-								StartSeconds="{Binding SecondsRangeStartBar, Mode=TwoWay}" EndSeconds="{Binding SecondsRangeEndBar, Mode=TwoWay}"
+								StartChapter="{Binding ChapterPreviewStart, Mode=TwoWay}" EndChapter="{Binding ChapterPreviewEnd, Mode=TwoWay}"
+								StartTime="{Binding TimeRangeStartBar, Mode=TwoWay}" EndTime="{Binding TimeRangeEndBar, Mode=TwoWay}"
 								Title="{Binding SelectedTitle}"
 								ChaptersEnabled="{Binding UsingChaptersRange}"
 								Height="18" Visibility="{Binding RangeBarVisible, Converter={StaticResource VisibilityConverter}}"
