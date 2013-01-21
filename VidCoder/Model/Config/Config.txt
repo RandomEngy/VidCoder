@@ -44,7 +44,7 @@ PreviewSeconds|int|10
 ApplicationVersion|string|""
 LogWindowPlacement|string|""
 
-QueueColumns|string|"Source:200|Title:35|Chapters:60|Destination:200"
+QueueColumns|string|"Source:200|Title:35|Range:106|Destination:200"
 QueueLastColumnWidth|double|75.0
 QueueTitlesStartTime|int|40
 QueueTitlesEndTime|int|45

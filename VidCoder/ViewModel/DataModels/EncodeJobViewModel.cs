@@ -18,6 +18,7 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
+	using System.Globalization;
 	using Resources;
 
 	public class EncodeJobViewModel : ViewModelBase, IDragItem
@@ -271,17 +272,35 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public string ChaptersDisplay
+		public string RangeDisplay
 		{
 			get
 			{
-				if (this.job.ChapterStart == this.job.ChapterEnd)
+				switch (this.job.RangeType)
 				{
-					return this.job.ChapterStart.ToString();
-				}
-				else
-				{
-					return this.job.ChapterStart + " - " + this.job.ChapterEnd;
+					case VideoRangeType.All:
+						return MainRes.QueueRangeAll;
+					case VideoRangeType.Chapters:
+						int startChapter = this.job.ChapterStart;
+						int endChapter = this.job.ChapterEnd;
+
+						string chaptersString;
+						if (startChapter == endChapter)
+						{
+							chaptersString = startChapter.ToString(CultureInfo.CurrentCulture);
+						}
+						else
+						{
+							chaptersString = startChapter + " - " + endChapter;
+						}
+
+						return string.Format(MainRes.QueueFormat_Chapters, chaptersString);
+					case VideoRangeType.Seconds:
+						return TimeSpan.FromSeconds(this.job.SecondsStart).ToString("g") + " - " + TimeSpan.FromSeconds(this.job.SecondsEnd).ToString("g");
+					case VideoRangeType.Frames:
+						return string.Format(MainRes.QueueFormat_Frames, this.job.FramesStart, this.job.FramesEnd);
+					default:
+						throw new ArgumentOutOfRangeException();
 				}
 			}
 		}

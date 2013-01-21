@@ -290,15 +290,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chapters.
-        /// </summary>
-        public static string QueueColumnNameChapters {
-            get {
-                return ResourceManager.GetString("QueueColumnNameChapters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Destination.
         /// </summary>
         public static string QueueColumnNameDestination {
@@ -313,6 +304,15 @@ namespace VidCoder.Resources {
         public static string QueueColumnNameDuration {
             get {
                 return ResourceManager.GetString("QueueColumnNameDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Range.
+        /// </summary>
+        public static string QueueColumnNameRange {
+            get {
+                return ResourceManager.GetString("QueueColumnNameRange", resourceCulture);
             }
         }
         

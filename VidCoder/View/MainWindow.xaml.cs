@@ -35,7 +35,6 @@ namespace VidCoder.View
 {
 	using System.Windows.Interop;
 	using Resources;
-	using VideoRangeType = Model.VideoRangeTypeCombo;
 
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml

@@ -136,8 +136,8 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>The amount of time to push forward or delay the appearance of the given subtitles.</value>
   </data>
-  <data name="QueueColumnNameChapters" xml:space="preserve">
-    <value>Chapters</value>
+  <data name="QueueColumnNameRange" xml:space="preserve">
+    <value>Range</value>
   </data>
   <data name="QueueColumnNameDestination" xml:space="preserve">
     <value>Destination</value>

@@ -21,7 +21,6 @@ namespace VidCoder.ViewModel.Components
 {
 	using Extensions;
 	using Resources;
-	using VideoRangeType = Model.VideoRangeTypeCombo;
 
 	/// <summary>
 	/// Controls automatic naming logic for the encoding output path.

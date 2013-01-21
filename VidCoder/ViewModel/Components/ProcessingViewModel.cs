@@ -845,15 +845,12 @@ namespace VidCoder.ViewModel.Components
 			var itemsToQueue = new List<EncodeJobViewModel>();
 			foreach (string pathToQueue in pathsToQueue)
 			{
-				// When ChapterStart is 0, this means the whole title is encoded.
 				var job = new VCJob
 				{
 					SourcePath = pathToQueue,
 					EncodingProfile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.Clone(),
 					Title = 1,
-					RangeType = HandBrake.Interop.Model.VideoRangeType.Chapters,
-					ChapterStart = 0,
-					ChapterEnd = 0,
+					RangeType = VideoRangeType.All,
 					UseDefaultChapterNames = true
 				};
 
@@ -1065,6 +1062,9 @@ namespace VidCoder.ViewModel.Components
 
 			switch (job.RangeType)
 			{
+				case VideoRangeType.All:
+					this.logger.Log("  Range: All");
+					break;
 				case VideoRangeType.Chapters:
 					this.logger.Log("  Chapters: " + job.ChapterStart + "-" + job.ChapterEnd);
 					break;

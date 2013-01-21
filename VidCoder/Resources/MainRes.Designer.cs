@@ -1037,6 +1037,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ch {0}.
+        /// </summary>
+        public static string QueueFormat_Chapters {
+            get {
+                return ResourceManager.GetString("QueueFormat_Chapters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fr {0}-{1}.
+        /// </summary>
+        public static string QueueFormat_Frames {
+            get {
+                return ResourceManager.GetString("QueueFormat_Frames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The following file(s) could not be recognized and were not added to the queue:
         ///
         ///{0}.
@@ -1053,6 +1071,15 @@ namespace VidCoder.Resources {
         public static string QueueMultipleScanErrorTitle {
             get {
                 return ResourceManager.GetString("QueueMultipleScanErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string QueueRangeAll {
+            get {
+                return ResourceManager.GetString("QueueRangeAll", resourceCulture);
             }
         }
         

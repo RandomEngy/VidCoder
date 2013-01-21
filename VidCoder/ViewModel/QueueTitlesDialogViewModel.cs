@@ -79,9 +79,7 @@ namespace VidCoder.ViewModel
 						var previewJob =
 							new VCJob
 							{
-								RangeType = VideoRangeType.Chapters,
-								ChapterStart = 1,
-								ChapterEnd = title.Chapters.Count,
+								RangeType = VideoRangeType.All,
 								Title = title.TitleNumber,
 								EncodingProfile = previewProfile
 							};

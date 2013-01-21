@@ -1,11 +1,12 @@
 ﻿
 namespace VidCoder.Messages
 {
+	using HandBrake.Interop.Model;
 	using Model;
 
 	public class RangeFocusMessage
 	{
-		public VideoRangeTypeCombo RangeType { get; set; }
+		public VideoRangeType RangeType { get; set; }
 
 		public bool GotFocus { get; set; }
 

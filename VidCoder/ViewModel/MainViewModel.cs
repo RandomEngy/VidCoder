@@ -25,7 +25,6 @@ namespace VidCoder.ViewModel
 {
 	using System.Data.SQLite;
 	using Resources;
-	using VideoRangeType = Model.VideoRangeTypeCombo;
 
 	public class MainViewModel : ViewModelBase
 	{
@@ -48,7 +47,8 @@ namespace VidCoder.ViewModel
 		private List<int> angles;
 		private int angle;
 
-		private VidCoder.Model.VideoRangeTypeCombo rangeType;
+		private VideoRangeType rangeType;
+		private List<ComboChoice<VideoRangeType>> rangeTypeChoices; 
 		//private double secondsRangeStart;
 		//private double secondsRangeEnd;
 		//private double secondsBaseline;
@@ -101,6 +101,13 @@ namespace VidCoder.ViewModel
 				new SourceOptionViewModel(new SourceOption { Type = SourceType.File }),
 				new SourceOptionViewModel(new SourceOption { Type = SourceType.VideoFolder })
 			};
+
+			this.rangeTypeChoices = new List<ComboChoice<VideoRangeType>>
+				{
+					new ComboChoice<VideoRangeType>(VideoRangeType.Chapters, EnumsRes.VideoRangeType_Chapters),
+					new ComboChoice<VideoRangeType>(VideoRangeType.Seconds, EnumsRes.VideoRangeType_Seconds),
+					new ComboChoice<VideoRangeType>(VideoRangeType.Frames, EnumsRes.VideoRangeType_Frames),
+				};
 
 			this.recentSourceOptions = new ObservableCollection<SourceOptionViewModel>();
 
@@ -951,11 +958,11 @@ namespace VidCoder.ViewModel
 					// Change range type based on whether or not we have any chapters
 					if (this.selectedTitle.Chapters.Count > 1)
 					{
-						this.RangeType = VideoRangeTypeCombo.Chapters;
+						this.RangeType = VideoRangeType.Chapters;
 					}
 					else
 					{
-						this.RangeType = VideoRangeTypeCombo.Seconds;
+						this.RangeType = VideoRangeType.Seconds;
 					}
 
 					this.oldTitle = value;
@@ -1134,7 +1141,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public VideoRangeTypeCombo RangeType
+		public VideoRangeType RangeType
 		{
 			get
 			{
@@ -1160,11 +1167,19 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public List<ComboChoice<VideoRangeType>> RangeTypeChoices
+		{
+			get
+			{
+				return this.rangeTypeChoices;
+			}
+		}
+
 		public bool UsingChaptersRange
 		{
 			get
 			{
-				return this.RangeType == VideoRangeTypeCombo.Chapters;
+				return this.RangeType == VideoRangeType.Chapters;
 			}
 		}
 
@@ -1172,7 +1187,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.RangeType == VideoRangeTypeCombo.Chapters || this.RangeType == VideoRangeTypeCombo.Seconds;
+				return this.RangeType == VideoRangeType.Chapters || this.RangeType == VideoRangeType.Seconds;
 			}
 		}
 
@@ -1327,7 +1342,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.RangeType == VidCoder.Model.VideoRangeTypeCombo.Seconds;
+				return this.RangeType == VideoRangeType.Seconds;
 			}
 		}
 
@@ -1568,6 +1583,8 @@ namespace VidCoder.ViewModel
 
 				switch (this.RangeType)
 				{
+					case VideoRangeType.All:
+						return TimeSpan.Zero;
 					case VideoRangeType.Chapters:
 						if (this.SelectedStartChapter == null || this.SelectedEndChapter == null)
 						{
@@ -1620,6 +1637,8 @@ namespace VidCoder.ViewModel
 
 				switch (this.RangeType)
 				{
+					case VideoRangeType.All:
+						return this.SelectedTitle.Duration;
 					case VideoRangeType.Chapters:
 						if (this.SelectedStartChapter == null || this.SelectedEndChapter == null)
 						{
@@ -2070,7 +2089,7 @@ namespace VidCoder.ViewModel
 					EncodingProfile = encodingProfile,
 					Title = title,
 					Angle = this.Angle,
-					RangeType = EnumConverter.Convert<VideoRangeType, HandBrake.Interop.Model.VideoRangeType>(this.RangeType),
+					RangeType = this.RangeType,
 					ChosenAudioTracks = this.GetChosenAudioTracks(),
 					Subtitles = this.CurrentSubtitles,
 					UseDefaultChapterNames = this.UseDefaultChapterNames,
@@ -2096,12 +2115,30 @@ namespace VidCoder.ViewModel
 							chapterEnd = this.SelectedEndChapter.ChapterNumber;
 						}
 
-						job.ChapterStart = chapterStart;
-						job.ChapterEnd = chapterEnd;
+						if (chapterStart == 1 && chapterEnd == this.SelectedTitle.Chapters.Count)
+						{
+							job.RangeType = VideoRangeType.All;
+						}
+						else
+						{
+							job.ChapterStart = chapterStart;
+							job.ChapterEnd = chapterEnd;
+						}
+
 						break;
 					case VideoRangeType.Seconds:
-						job.SecondsStart = this.TimeRangeStart.TotalSeconds;
-						job.SecondsEnd = this.TimeRangeEnd.TotalSeconds;
+						TimeSpan timeRangeStart = this.TimeRangeStart;
+						TimeSpan timeRangeEnd = this.TimeRangeEnd;
+
+						if (timeRangeStart == TimeSpan.Zero && timeRangeEnd == this.SelectedTitle.Duration)
+						{
+							job.RangeType = VideoRangeType.All;
+						}
+						else
+						{
+							job.SecondsStart = this.TimeRangeStart.TotalSeconds;
+							job.SecondsEnd = this.TimeRangeEnd.TotalSeconds;
+						}
 						break;
 					case VideoRangeType.Frames:
 						job.FramesStart = this.FramesRangeStart;
@@ -2475,7 +2512,19 @@ namespace VidCoder.ViewModel
 
 			// Range
 			this.PopulateChapterSelectLists();
-			this.rangeType = EnumConverter.Convert<HandBrake.Interop.Model.VideoRangeType, VideoRangeType>(job.RangeType);
+			this.rangeType = job.RangeType;
+			if (this.rangeType == VideoRangeType.All)
+			{
+				if (this.selectedTitle.Chapters.Count > 1)
+				{
+					this.rangeType = VideoRangeType.Chapters;
+				}
+				else
+				{
+					this.rangeType = VideoRangeType.Seconds;
+				}
+			}
+
 			switch (this.rangeType)
 			{
 				case VideoRangeType.Chapters:
@@ -2741,12 +2790,10 @@ namespace VidCoder.ViewModel
 				if (message.Start)
 				{
 					this.timeBaseline = this.TimeRangeEnd;
-					//this.secondsBaseline = this.SecondsRangeEnd;
 				}
 				else
 				{
 					this.timeBaseline = this.TimeRangeStart;
-					//this.secondsBaseline = this.SecondsRangeStart;
 				}
 			}
 			else if (message.RangeType == VideoRangeType.Frames)
@@ -2761,20 +2808,6 @@ namespace VidCoder.ViewModel
 				}
 			}
 		}
-
-		//// Sets both range seconds start properties passively (text box and bar)
-		//private void SetRangeSecondsStart(double secondsStart)
-		//{
-		//	this.secondsRangeStart = secondsStart;
-		//	this.secondsRangeStartBar = secondsStart;
-		//}
-
-		//// Sets both range seconds end properties passively (text box and bar)
-		//private void SetRangeSecondsEnd(double secondsEnd)
-		//{
-		//	this.secondsRangeEnd = secondsEnd;
-		//	this.secondsRangeEndBar = secondsEnd;
-		//}
 
 		// Sets both range time start properties passively (time box and bar)
 		private void SetRangeTimeStart(TimeSpan timeStart)

@@ -44,7 +44,7 @@
 			PreviewSeconds_Field = DatabaseConfig.GetConfig("PreviewSeconds", 10, connection);
 			ApplicationVersion_Field = DatabaseConfig.GetConfig("ApplicationVersion", "", connection);
 			LogWindowPlacement_Field = DatabaseConfig.GetConfig("LogWindowPlacement", "", connection);
-			QueueColumns_Field = DatabaseConfig.GetConfig("QueueColumns", "Source:200|Title:35|Chapters:60|Destination:200", connection);
+			QueueColumns_Field = DatabaseConfig.GetConfig("QueueColumns", "Source:200|Title:35|Range:106|Destination:200", connection);
 			QueueLastColumnWidth_Field = DatabaseConfig.GetConfig("QueueLastColumnWidth", 75.0, connection);
 			QueueTitlesStartTime_Field = DatabaseConfig.GetConfig("QueueTitlesStartTime", 40, connection);
 			QueueTitlesEndTime_Field = DatabaseConfig.GetConfig("QueueTitlesEndTime", 45, connection);

@@ -33,7 +33,7 @@ namespace VidCoder
 		{
 			{"Source", 200},
 			{"Title", 35},
-			{"Chapters", 60},
+			{"Range", 60},
 			{"Destination", 200},
 			{"VideoEncoder", 100},
 			{"AudioEncoder", 100},
@@ -309,6 +309,12 @@ namespace VidCoder
 					{
 						double columnWidth;
 						string columnId = settingParts[0];
+
+						if (columnId == "Chapters")
+						{
+							columnId = "Range";
+						}
+
 						if (IsValidQueueColumn(columnId) && double.TryParse(settingParts[1], out columnWidth))
 						{
 							resultList.Add(new Tuple<string, double>(columnId, columnWidth));

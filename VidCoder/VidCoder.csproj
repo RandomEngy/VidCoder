@@ -493,7 +493,6 @@
     <Compile Include="Model\PreviewImageJob.cs" />
     <Compile Include="Model\PreviewDisplay.cs" />
     <Compile Include="Model\SaveImageJob.cs" />
-    <Compile Include="Model\Combo\VideoRangeTypeCombo.cs" />
     <Compile Include="Model\VCJob.cs" />
     <Compile Include="Model\VCProfile.cs" />
     <Compile Include="Model\VideoSourceMetadata.cs" />
