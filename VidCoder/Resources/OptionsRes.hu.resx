@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AutoAudioDisabledToolTip" xml:space="preserve">
     <value>Amikor az automatikus hangkiválasztás ki van kapcsolva, az utolsó kiválasztott sáv érvényesül.</value>
@@ -350,5 +350,38 @@
   </data>
   <data name="CheckNowButton" xml:space="preserve">
     <value>Keresés most</value>
+  </data>
+  <data name="UseSystemPlayer" xml:space="preserve">
+    <value>Rendszer lejátszó használata</value>
+  </data>
+  <data name="VideoFilesLabel" xml:space="preserve">
+    <value>Videófájlok:</value>
+  </data>
+  <data name="CustomVideoPlayerToolTip" xml:space="preserve">
+    <value>Add meg az útvonalat a fájlokhoz használni kívánt videólejátszóhoz.</value>
+  </data>
+  <data name="VideoPlayerFilePickTitle" xml:space="preserve">
+    <value>Válaszd ki a lejátszót a videófájlokhoz.</value>
+  </data>
+  <data name="CustomPlayerLabel" xml:space="preserve">
+    <value>Egyéni lejátszó:</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Magas</value>
+  </data>
+  <data name="Priority_AboveNormal" xml:space="preserve">
+    <value>Normál feletti</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Normál</value>
+  </data>
+  <data name="Priority_BelowNormal" xml:space="preserve">
+    <value>Normál alatti</value>
+  </data>
+  <data name="WorkerProcessPriorityLabel" xml:space="preserve">
+    <value>Dolgozó folyamat prioritása:</value>
+  </data>
+  <data name="Priority_Idle" xml:space="preserve">
+    <value>Alacsony</value>
   </data>
 </root>

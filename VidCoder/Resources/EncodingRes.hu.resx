@@ -186,8 +186,10 @@ Teljes: végrehajt egy "buta" keresést minden pixelen egy széles területen.  
   </data>
   <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
     <value>Az a távolság, ameddig az x264 keresés a legjobb becslése szerint egy blokk mozgásától, hogy megtalálja annak valódi elmozdulását.  
-Nem érvényes a Gyémánt és Hexagon keresési beállítások esetében.  
-Az alapbeállítás a legtöbb esetben megfelel, de különösen sok mozgást tartalmazó videók esetében, főleg HD felbontásokon, ajánlott a szélesebb tartomány, ennek ára viszont a nagymértékű sebességcsökkenés.</value>
+
+Az alapbeállítás a legtöbb esetben megfelel, de különösen sok mozgást tartalmazó videók esetében, főleg HD felbontásokon, ajánlott a szélesebb tartomány, ennek ára viszont a nagymértékű sebességcsökkenés.
+
+Az érvényes értékek 4-16 közöttiek Gyémánt és Hexagon és 4-64 közöttiek más metódusok esetében.</value>
   </data>
   <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
     <value>Az x264 normál esetben nullákkal tölti meg a majdnem üres adatblokkokat, hogy spóroljon a bitekkel más felhasználásra a videóban.  
@@ -843,5 +845,26 @@ Felülírja az összes többi beállítást.</value>
   </data>
   <data name="DtsMp4Warning" xml:space="preserve">
     <value>Kevés lejátszó támogatja a DTS hang lejátszását az MP4-es formátumokba. A DTS hanghoz MKV ajánlott.</value>
+  </data>
+  <data name="AudioEncoder_copy" xml:space="preserve">
+    <value>Automata másolás</value>
+  </data>
+  <data name="AudioEncoder_copy_aac" xml:space="preserve">
+    <value>AAC másolása</value>
+  </data>
+  <data name="AudioEncoder_copy_ac3" xml:space="preserve">
+    <value>AC3 másolása</value>
+  </data>
+  <data name="AudioEncoder_copy_dts" xml:space="preserve">
+    <value>DTS másolása</value>
+  </data>
+  <data name="AudioEncoder_copy_dtshd" xml:space="preserve">
+    <value>DTS-HD másolása</value>
+  </data>
+  <data name="AudioEncoder_copy_mp3" xml:space="preserve">
+    <value>MP3 másolása</value>
+  </data>
+  <data name="AudioEncoder_ffflac24" xml:space="preserve">
+    <value>FLAC 24-bit (Libav)</value>
   </data>
 </root>
