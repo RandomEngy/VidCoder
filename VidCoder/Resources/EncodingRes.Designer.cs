@@ -234,8 +234,10 @@ namespace VidCoder.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to This is the distance x264 searches from its best guess at the motion of a block in order to try to find its actual motion.  
-        ///Doesn&apos;t apply to Diamond or Hexagon search options.  
-        ///The default is fine for most content, but extremely high motion video, especially at HD resolutions, may benefit from higher ranges, albeit at a high speed cost..
+        ///
+        ///The default is fine for most content, but extremely high motion video, especially at HD resolutions, may benefit from higher ranges, albeit at a high speed cost.
+        ///
+        ///Valid values are 4-16 for Diamond and Hexagon methods and 4-64 for other methods..
         /// </summary>
         public static string Advanced_MotionEstimationRangeToolTip {
             get {

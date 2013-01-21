@@ -20,7 +20,6 @@ namespace VidCoder.ViewModel
 		private AdvancedChoice pyramidalBFrames;
 		private AdvancedChoice motionEstimationMethod;
 		private AdvancedChoice subpixelMotionEstimation;
-		private AdvancedChoice motionEstimationRange;
 		private AdvancedChoice analysis;
 		private bool eightByEightDct;
 		private bool cabacEntropyCoding;
@@ -192,8 +191,9 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.motionEstimationMethod = value;
+				this.CheckMotionEstimationRange();
 				this.RaisePropertyChanged(() => this.MotionEstimationMethod);
-				this.RaisePropertyChanged(() => this.MotionEstimationRangeVisible);
+				this.RaisePropertyChanged(() => this.MotionEstimationRange);
 				this.UpdateOptionsString();
 			}
 		}
@@ -213,7 +213,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public AdvancedChoice MotionEstimationRange
+		private int motionEstimationRange;
+		public int MotionEstimationRange
 		{
 			get
 			{
@@ -223,17 +224,22 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.motionEstimationRange = value;
+				this.CheckMotionEstimationRange();
+
 				this.RaisePropertyChanged(() => this.MotionEstimationRange);
 				this.UpdateOptionsString();
 			}
 		}
 
-		public bool MotionEstimationRangeVisible
+		private void CheckMotionEstimationRange()
 		{
-			get
+			if ((MotionEstimationMethod.Value == "hex" || MotionEstimationMethod.Value == "dia") && (this.motionEstimationRange > 16))
 			{
-				string motionMethod = this.MotionEstimationMethod.Value;
-				return motionMethod == "umh" || motionMethod == "esa" || motionMethod == "tesa";
+				this.motionEstimationRange = 16;
+			}
+			else if (this.motionEstimationRange < 4)
+			{
+				this.motionEstimationRange = 4;
 			}
 		}
 
@@ -525,11 +531,7 @@ namespace VidCoder.ViewModel
 							case "merange":
 								if (int.TryParse(optionValue, out parseInt))
 								{
-									newChoice = AdvancedChoices.MotionEstimationRange.SingleOrDefault(choice => choice.Value == parseInt.ToString(CultureInfo.InvariantCulture));
-									if (newChoice != null)
-									{
-										this.MotionEstimationRange = newChoice;
-									}
+									this.MotionEstimationRange = parseInt;
 								}
 								break;
 							case "analyse":
@@ -641,7 +643,7 @@ namespace VidCoder.ViewModel
 			this.PyramidalBFrames = AdvancedChoices.PyramidalBFrames.SingleOrDefault(choice => choice.IsDefault);
 			this.MotionEstimationMethod = AdvancedChoices.MotionEstimationMethod.SingleOrDefault(choice => choice.IsDefault);
 			this.SubpixelMotionEstimation = AdvancedChoices.SubpixelMotionEstimation.SingleOrDefault(choice => choice.IsDefault);
-			this.MotionEstimationRange = AdvancedChoices.MotionEstimationRange.SingleOrDefault(choice => choice.IsDefault);
+			this.MotionEstimationRange = 16;
 			this.Analysis = AdvancedChoices.Analysis.SingleOrDefault(choice => choice.IsDefault);
 			this.EightByEightDct = true;
 			this.CabacEntropyCoding = true;
@@ -730,10 +732,9 @@ namespace VidCoder.ViewModel
 				newOptions.Add("subme=" + this.SubpixelMotionEstimation.Value);
 			}
 
-			string motionEstimation = this.MotionEstimationMethod.Value;
-			if ((motionEstimation == "umh" || motionEstimation == "esa" || motionEstimation == "tesa") && !this.MotionEstimationRange.IsDefault)
+			if (this.MotionEstimationRange != 16)
 			{
-				newOptions.Add("merange=" + this.MotionEstimationRange.Value);
+				newOptions.Add("merange=" + this.MotionEstimationRange);
 			}
 
 			if (!this.Analysis.IsDefault)

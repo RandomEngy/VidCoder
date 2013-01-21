@@ -6,7 +6,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:vm="clr-namespace:VidCoder.ViewModel"
 	xmlns:prop="clr-namespace:VidCoder.Properties"
-	xmlns:res="clr-namespace:VidCoder.Resources"
+	xmlns:res="clr-namespace:VidCoder.Resources" xmlns:controls="clr-namespace:VidCoder.Controls"
 	mc:Ignorable="d" 
 	d:DesignHeight="330" d:DesignWidth="622">
 	<UserControl.Resources>
@@ -235,19 +235,16 @@
 
 				<Label
 					Content="{x:Static res:EncodingRes.MotionEstimationRangeLabel}" Grid.Row="4" Grid.Column="0"
-					Visibility="{Binding MotionEstimationRangeVisible, Converter={StaticResource VisibilityConverter}}"
 					Style="{StaticResource AdvancedLabel}"/>
-				<ComboBox
+				<controls:NumberBox
 					Grid.Row="4" Grid.Column="1" Height="22"
-					ItemsSource="{x:Static vm:AdvancedChoices.MotionEstimationRange}"
-					DisplayMemberPath="Label"
-					SelectedItem="{Binding MotionEstimationRange}"
-					Visibility="{Binding MotionEstimationRangeVisible, Converter={StaticResource VisibilityConverter}}"
+					Number="{Binding MotionEstimationRange, Mode=TwoWay}"
+					Minimum="4" Maximum="64" AllowEmpty="False"
 					Style="{StaticResource LongToolTipHolder}">
-					<ComboBox.ToolTip>
+					<controls:NumberBox.ToolTip>
 						<TextBlock Text="{x:Static res:EncodingRes.Advanced_MotionEstimationRangeToolTip}" Style="{StaticResource LongToolTip}" />
-					</ComboBox.ToolTip>
-				</ComboBox>
+					</controls:NumberBox.ToolTip>
+				</controls:NumberBox>
 			</Grid>
 
 

@@ -866,6 +866,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Windows Phone 8.
+        /// </summary>
+        public static string Preset_WindowsPhone8 {
+            get {
+                return ResourceManager.GetString("Preset_WindowsPhone8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successfully exported preset to {0}.
         /// </summary>
         public static string PresetExportSuccessMessage {

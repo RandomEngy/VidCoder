@@ -662,13 +662,13 @@
 									Orientation="Horizontal" VerticalAlignment="Center"
 									Visibility="{Binding SecondsRangeVisible, Converter={StaticResource VisibilityConverter}}">
 									<controls:TimeBox
-										Width="42" Height="22"
+										Width="45" Height="22"
 										Style="{StaticResource RangeNumberBox}"
 										Time="{Binding TimeRangeStart, Mode=TwoWay}" Maximum="{Binding SelectedTitle.Duration}"
 										GotFocus="StartTimeGotFocus"/>
 									<TextBlock Text="-" Style="{StaticResource PlainTitle}" />
 									<controls:TimeBox
-										Width="42" Height="22"
+										Width="45" Height="22"
 										Style="{StaticResource RangeNumberBox}"
 										Time="{Binding TimeRangeEnd, Mode=TwoWay}" Maximum="{Binding SelectedTitle.Duration}"
 										GotFocus="EndTimeGotFocus"/>

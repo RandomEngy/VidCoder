@@ -187,8 +187,10 @@ Transformed Exhaustive: Like exhaustive, but makes even more accurate decisions.
   </data>
   <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
     <value>This is the distance x264 searches from its best guess at the motion of a block in order to try to find its actual motion.  
-Doesn't apply to Diamond or Hexagon search options.  
-The default is fine for most content, but extremely high motion video, especially at HD resolutions, may benefit from higher ranges, albeit at a high speed cost.</value>
+
+The default is fine for most content, but extremely high motion video, especially at HD resolutions, may benefit from higher ranges, albeit at a high speed cost.
+
+Valid values are 4-16 for Diamond and Hexagon methods and 4-64 for other methods.</value>
   </data>
   <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
     <value>x264 normally zeroes out nearly-empty data blocks to save bits to be better used for some other purpose in the video.  

@@ -410,7 +410,7 @@ namespace VidCoder.ViewModel
 				return this.saveAsCommand ?? (this.saveAsCommand = new RelayCommand(() =>
 					{
 						var dialogVM = new ChoosePresetNameViewModel(this.presetsViewModel.AllPresets);
-						dialogVM.PresetName = this.originalPreset.Name;
+						dialogVM.PresetName = this.originalPreset.DisplayName;
 						WindowManager.OpenDialog(dialogVM, this);
 
 						if (dialogVM.DialogResult)
@@ -437,7 +437,7 @@ namespace VidCoder.ViewModel
 				return this.renameCommand ?? (this.renameCommand = new RelayCommand(() =>
 					{
 						var dialogVM = new ChoosePresetNameViewModel(this.presetsViewModel.AllPresets);
-						dialogVM.PresetName = this.originalPreset.Name;
+						dialogVM.PresetName = this.originalPreset.DisplayName;
 						WindowManager.OpenDialog(dialogVM, this);
 
 						if (dialogVM.DialogResult)

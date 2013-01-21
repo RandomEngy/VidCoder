@@ -831,4 +831,68 @@
 			</AudioEncodings>
 		</EncodingProfile>
 	</Preset>
+	<Preset>
+		<Name>WindowsPhone8</Name>
+		<IsBuiltIn>true</IsBuiltIn>
+		<IsModified>false</IsModified>
+		<IsQueue>false</IsQueue>
+		<EncodingProfile>
+			<OutputFormat>Mp4</OutputFormat>
+			<PreferredExtension>Mp4</PreferredExtension>
+			<IncludeChapterMarkers>false</IncludeChapterMarkers>
+			<LargeFile>true</LargeFile>
+			<Optimize>false</Optimize>
+			<IPod5GSupport>false</IPod5GSupport>
+			<Width>0</Width>
+			<Height>0</Height>
+			<MaxWidth>1280</MaxWidth>
+			<MaxHeight>720</MaxHeight>
+			<CustomCropping>false</CustomCropping>
+			<CroppingType>Automatic</CroppingType>
+			<Cropping>
+				<Top>0</Top>
+				<Bottom>0</Bottom>
+				<Left>0</Left>
+				<Right>0</Right>
+			</Cropping>
+			<Anamorphic>None</Anamorphic>
+			<UseDisplayWidth>true</UseDisplayWidth>
+			<DisplayWidth>0</DisplayWidth>
+			<KeepDisplayAspect>true</KeepDisplayAspect>
+			<PixelAspectX>0</PixelAspectX>
+			<PixelAspectY>0</PixelAspectY>
+			<Modulus>16</Modulus>
+			<Deinterlace>Off</Deinterlace>
+			<Decomb>Off</Decomb>
+			<Detelecine>Off</Detelecine>
+			<Denoise>Off</Denoise>
+			<Deblock>0</Deblock>
+			<Grayscale>false</Grayscale>
+			<VideoEncoder>x264</VideoEncoder>
+			<X264Options />
+			<X264Tunes />
+			<VideoEncodeRateType>ConstantQuality</VideoEncodeRateType>
+			<Quality>20</Quality>
+			<TargetSize>700</TargetSize>
+			<VideoBitrate>1200</VideoBitrate>
+			<TwoPass>false</TwoPass>
+			<TurboFirstPass>false</TurboFirstPass>
+			<Framerate>0</Framerate>
+			<ConstantFramerate>false</ConstantFramerate>
+			<AudioEncodings>
+				<AudioEncoding>
+					<InputNumber>0</InputNumber>
+					<Encoder>faac</Encoder>
+					<EncodeRateType>Bitrate</EncodeRateType>
+					<Bitrate>0</Bitrate>
+					<Quality>0</Quality>
+					<Compression>-1</Compression>
+					<Mixdown>dpl2</Mixdown>
+					<SampleRateRaw>0</SampleRateRaw>
+					<Gain>0</Gain>
+					<Drc>0</Drc>
+				</AudioEncoding>
+			</AudioEncodings>
+		</EncodingProfile>
+	</Preset>
 </PresetCollection>
