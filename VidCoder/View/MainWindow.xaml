@@ -85,7 +85,7 @@
 		<Style x:Key="RightGridItem" TargetType="FrameworkElement">
 			<Setter Property="Margin" Value="0,3,0,3" />
 		</Style>
-		<Style x:Key="ChapterComboBox" TargetType="ComboBox" BasedOn="{StaticResource RightGridItem}">
+		<Style x:Key="ChapterComboBox" TargetType="ComboBox">
 			<Setter Property="ItemTemplate">
 				<Setter.Value>
 					<DataTemplate>
@@ -96,7 +96,7 @@
 			<Setter Property="Height" Value="23" />
 			<Setter Property="VerticalAlignment" Value="Center" />
 		</Style>
-		<Style x:Key="RangeNumberBox" TargetType="FrameworkElement" BasedOn="{StaticResource RightGridItem}">
+		<Style x:Key="RangeNumberBox" TargetType="FrameworkElement">
 			<Setter Property="Height" Value="23" />
 			<Setter Property="VerticalAlignment" Value="Center" />
 		</Style>
@@ -662,36 +662,17 @@
 									Orientation="Horizontal" VerticalAlignment="Center"
 									Visibility="{Binding SecondsRangeVisible, Converter={StaticResource VisibilityConverter}}">
 									<controls:TimeBox
-										Width="45" Height="22"
+										Width="46" Height="22"
 										Style="{StaticResource RangeNumberBox}"
 										Time="{Binding TimeRangeStart, Mode=TwoWay}" Maximum="{Binding SelectedTitle.Duration}"
 										GotFocus="StartTimeGotFocus"/>
 									<TextBlock Text="-" Style="{StaticResource PlainTitle}" />
 									<controls:TimeBox
-										Width="45" Height="22"
+										Width="46" Height="22"
 										Style="{StaticResource RangeNumberBox}"
 										Time="{Binding TimeRangeEnd, Mode=TwoWay}" Maximum="{Binding SelectedTitle.Duration}"
 										GotFocus="EndTimeGotFocus"/>
 								</StackPanel>
-
-								<!-- Seconds range -->
-								<!--<StackPanel
-									Orientation="Horizontal"
-									Visibility="{Binding SecondsRangeVisible, Converter={StaticResource VisibilityConverter}}">
-									<controls:NumberBox
-										Width="55"
-										Style="{StaticResource RangeNumberBox}"
-										AllowEmpty="False" Minimum="0" Modulus="0.001"
-										ShowIncrementButtons="False"
-										Number="{Binding SecondsRangeStart, Mode=TwoWay}"/>
-									<TextBlock Text="-" Style="{StaticResource PlainTitle}" />
-									<controls:NumberBox
-										Width="55"
-										Style="{StaticResource RangeNumberBox}"
-										AllowEmpty="False" Minimum="0.25" Modulus="0.001"
-										ShowIncrementButtons="False"
-										Number="{Binding SecondsRangeEnd, Mode=TwoWay}"/>
-								</StackPanel>-->
 
 								<!-- Frames range -->
 								<StackPanel
@@ -713,7 +694,7 @@
 							</StackPanel>
 						</StackPanel>
 
-						<Grid Margin="0,3,0,0" UseLayoutRounding="True">
+						<Grid Margin="0,6,0,0" UseLayoutRounding="True">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition />
 								<ColumnDefinition Width="Auto" />

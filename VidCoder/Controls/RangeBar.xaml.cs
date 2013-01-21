@@ -499,7 +499,7 @@ namespace VidCoder.Controls
 				return;
 			}
 
-			Point location = e.GetPosition(this);
+			Point location = e.GetPosition(this.barHolder);
 
 			if (this.ChaptersEnabled)
 			{
@@ -551,7 +551,7 @@ namespace VidCoder.Controls
 		// Gets the slot the mouse is pointing to (starts at 0 and goes to chapters.Count)
 		private int GetSlot(Point location)
 		{
-			double width = this.ActualWidth;
+			double width = this.barHolder.ActualWidth;
 			double fraction = location.X / width;
 
 			if (fraction < Math.Abs(this.chapterFractions[0] - fraction))
@@ -592,7 +592,7 @@ namespace VidCoder.Controls
 
 		private void HandleMouseEventNoChapters(bool start, Point location)
 		{
-			double width = this.ActualWidth;
+			double width = this.barHolder.ActualWidth;
 			double fraction = location.X / width;
 			if (fraction < 0)
 			{

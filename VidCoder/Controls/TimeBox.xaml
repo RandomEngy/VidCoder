@@ -9,7 +9,7 @@
 	<Grid>
 		<TextBox
 			Name="timeBox"
-			VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
+			VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
 			GotFocus="TimeBoxGotFocus" LostFocus="TimeBoxLostFocus" PreviewTextInput="TimeBoxPreviewTextInput" PreviewKeyDown="TimeBoxPreviewKeyDown" TextChanged="TimeBoxTextChanged" />
 	</Grid>
 </UserControl>
