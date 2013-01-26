@@ -146,11 +146,39 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool RemoveVisible
+		{
+			get
+			{
+				return this.SubtitleDialogViewModel.HasMultipleSourceTracks(this.TrackNumber);
+			}
+		}
+
+		public bool DuplicateVisible
+		{
+			get
+			{
+				return !this.SubtitleDialogViewModel.HasMultipleSourceTracks(this.TrackNumber);
+			}
+		}
+
 		private bool IsPgs
 		{
 			get
 			{
 				return this.TrackNumber > 0 && this.SubtitleDialogViewModel.GetSubtitle(this).SubtitleSource == SubtitleSource.PGS;
+			}
+		}
+
+		private RelayCommand duplicateSubtitleCommand;
+		public RelayCommand DuplicateSubtitleCommand
+		{
+			get
+			{
+				return this.duplicateSubtitleCommand ?? (this.duplicateSubtitleCommand = new RelayCommand(() =>
+					{
+						this.SubtitleDialogViewModel.DuplicateSourceSubtitle(this);
+					}));
 			}
 		}
 
@@ -171,6 +199,12 @@ namespace VidCoder.ViewModel
 		{
 			this.selected = false;
 			this.RaisePropertyChanged(() => this.Selected);
+		}
+
+		public void UpdateButtonVisiblity()
+		{
+			this.RaisePropertyChanged(() => this.DuplicateVisible);
+			this.RaisePropertyChanged(() => this.RemoveVisible);
 		}
 	}
 }

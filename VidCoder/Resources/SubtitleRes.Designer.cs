@@ -70,7 +70,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Burned In.
+        ///   Looks up a localized string similar to Burn In.
         /// </summary>
         public static string BurnedInColumn {
             get {
@@ -102,6 +102,15 @@ namespace VidCoder.Resources {
         public static string DefaultColumn {
             get {
                 return ResourceManager.GetString("DefaultColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duplicate this track.
+        /// </summary>
+        public static string DuplicateSubtitleTrack {
+            get {
+                return ResourceManager.GetString("DuplicateSubtitleTrack", resourceCulture);
             }
         }
         
@@ -187,7 +196,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove subtitle track.
+        ///   Looks up a localized string similar to Remove this track.
         /// </summary>
         public static string RemoveSubtitleTrack {
             get {

@@ -5,7 +5,8 @@
 	xmlns:HandBrakeControls="clr-namespace:VidCoder.Controls"
 	xmlns:HandBrakeDragDrop="clr-namespace:VidCoder.DragDropUtils"
 	xmlns:prop="clr-namespace:VidCoder.Properties"
-	xmlns:res="clr-namespace:VidCoder.Resources" 
+	xmlns:res="clr-namespace:VidCoder.Resources"
+	xmlns:vm="clr-namespace:VidCoder.ViewModel"
 	Title="{x:Static res:SubtitleRes.SubtitlesWindowTitle}" Height="352" Width="572" MinWidth="430" MinHeight="250"
 	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner"
 	DataContextChanged="OnDataContextChanged"
@@ -110,6 +111,18 @@
 				Command="{Binding RemoveSubtitleCommand}" VerticalAlignment="Center" Style="{StaticResource RemoveButtonStyle}"
 				Content="{x:Static res:SubtitleRes.RemoveSubtitleTrack}" />
 		</DataTemplate>
+		<DataTemplate x:Key="RemoveDuplicateTemplate" DataType="vm:SourceSubtitleViewModel">
+			<Grid>
+				<Button 
+					Command="{Binding RemoveSubtitleCommand}" VerticalAlignment="Center" Style="{StaticResource RemoveButtonStyle}"
+					Content="{x:Static res:SubtitleRes.RemoveSubtitleTrack}"
+					Visibility="{Binding RemoveVisible, Converter={StaticResource VisibilityConverter}}"/>
+				<Button
+					Command="{Binding DuplicateSubtitleCommand}" VerticalContentAlignment="Center" Style="{StaticResource AddButtonStyle}"
+					Content="{x:Static res:SubtitleRes.DuplicateSubtitleTrack}"
+					Visibility="{Binding DuplicateVisible, Converter={StaticResource VisibilityConverter}}"/>
+			</Grid>
+		</DataTemplate>
 	</Window.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
@@ -125,7 +138,8 @@
 				</Grid.RowDefinitions>
 				<Label Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Content="{x:Static res:SubtitleRes.SubtitlesFromSourceLabel}" />
 				<StackPanel Orientation="Vertical" Margin="12,24,12,4">
-					<ListView VerticalAlignment="Top" Margin="0,0,0,0"
+					<ListView 
+						VerticalAlignment="Top" Margin="0,0,0,0" UseLayoutRounding="True"
 						ItemsSource="{Binding SourceSubtitles}" Visibility="{Binding HasSourceSubtitles, Converter={StaticResource VisibilityConverter}}"
 						HandBrakeDragDrop:DragDropHelper.IsDragSource="True" HandBrakeDragDrop:DragDropHelper.IsDropTarget="True" HandBrakeDragDrop:DragDropHelper.DragDropTemplate="{StaticResource SourceDragTemplate}">
 						<ListView.ItemContainerStyle>
@@ -156,6 +170,7 @@
 												ToolTipService.ShowOnDisabled="True" />
 										</GridViewColumn.Header>
 									</GridViewColumn>
+									<GridViewColumn CellTemplate="{StaticResource RemoveDuplicateTemplate}" />
 								</GridView.Columns>
 							</GridView>
 						</ListView.View>

@@ -23,7 +23,7 @@ namespace VidCoder.ViewModel
 
 	public class EncodeJobViewModel : ViewModelBase, IDragItem
 	{
-		public const double SubtitleScanCostFactor = 80.0;
+		public const double SubtitleScanCostFactor = 5.0;
 
 		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
 		private ProcessingViewModel processingVM;

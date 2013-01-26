@@ -225,6 +225,49 @@
 			</Setter>
 		</Style>
 		
+		<Style x:Key="AddButtonStyle">
+			<Setter Property="Control.Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Grid Background="Transparent" Name="addButtonGrid" Width="15" Height="15">
+							<Grid.ToolTip>
+								<ContentPresenter />
+							</Grid.ToolTip>
+							<Border Name="hoverBorder" CornerRadius="3" BorderBrush="#7DA2CE" BorderThickness="1" Visibility="Collapsed">
+								<Border.Background>
+									<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+										<GradientStop Color="#DBEAFC" Offset="0.0" />
+										<GradientStop Color="#C1DBFC" Offset="1.0" />
+									</LinearGradientBrush>
+								</Border.Background>
+							</Border>
+							<Rectangle Name="rect2" Width="10" Height="2" Fill="Green">
+								<Rectangle.LayoutTransform>
+									<RotateTransform Angle="0" />
+								</Rectangle.LayoutTransform>
+							</Rectangle>
+							<Rectangle Name="rect1" Width="10" Height="2" Fill="Green">
+								<Rectangle.LayoutTransform>
+									<RotateTransform Angle="90" />
+								</Rectangle.LayoutTransform>
+							</Rectangle>
+						</Grid>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter TargetName="rect1" Property="Fill" Value="{StaticResource BlueHoverFill}" />
+								<Setter TargetName="rect2" Property="Fill" Value="{StaticResource BlueHoverFill}" />
+								<Setter TargetName="hoverBorder" Property="Visibility" Value="Visible" />
+							</Trigger>
+							<Trigger Property="IsPressed" Value="True">
+								<Setter TargetName="rect1" Property="Fill" Value="{StaticResource BluePressFill}" />
+								<Setter TargetName="rect2" Property="Fill" Value="{StaticResource BluePressFill}" />
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		
 		<ControlTemplate x:Key="PopupInfoTemplate" TargetType="ContentControl">
 			<Border
 				BorderBrush="Gray"

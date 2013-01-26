@@ -261,6 +261,34 @@ namespace VidCoder.ViewModel
 		{
 			this.SourceSubtitles.Remove(subtitleViewModel);
 			this.UpdateBoxes();
+			this.UpdateButtonVisibility();
+			this.UpdateWarningVisibility();
+		}
+
+		public void DuplicateSourceSubtitle(SourceSubtitleViewModel sourceSubtitleViewModel)
+		{
+			sourceSubtitleViewModel.Selected = true;
+			if (sourceSubtitleViewModel.BurnedIn)
+			{
+				sourceSubtitleViewModel.BurnedIn = false;
+			}
+
+			var newSubtitle = new SourceSubtitleViewModel(
+				this,
+				new SourceSubtitle
+					{
+						BurnedIn = false,
+						Default = false,
+						Forced = !sourceSubtitleViewModel.Forced,
+						TrackNumber = sourceSubtitleViewModel.TrackNumber
+					});
+			newSubtitle.Selected = true;
+
+			this.SourceSubtitles.Insert(
+				this.SourceSubtitles.IndexOf(sourceSubtitleViewModel) + 1,
+				newSubtitle);
+			this.UpdateBoxes();
+			this.UpdateButtonVisibility();
 			this.UpdateWarningVisibility();
 		}
 
@@ -268,6 +296,11 @@ namespace VidCoder.ViewModel
 		{
 			this.SrtSubtitles.Remove(subtitleViewModel);
 			this.UpdateWarningVisibility();
+		}
+
+		public bool HasMultipleSourceTracks(int trackNumber)
+		{
+			return this.SourceSubtitles.Count(s => s.TrackNumber == trackNumber) > 1;
 		}
 
 		public void ReportDefault(ViewModelBase viewModel)
@@ -381,6 +414,14 @@ namespace VidCoder.ViewModel
 			}
 
 			this.BurnedOverlapWarningVisible = anyBurned && totalTracks > 1;
+		}
+
+		private void UpdateButtonVisibility()
+		{
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+			{
+				sourceVM.UpdateButtonVisiblity();
+			}
 		}
 
 		public Subtitle GetSubtitle(SourceSubtitleViewModel sourceSubtitleViewModel)
