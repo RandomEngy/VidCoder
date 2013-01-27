@@ -23,6 +23,20 @@ function UpdateIssFile($fileName, $version, $beta)
     Set-Content $fileName $fileContent
 }
 
+function UpdateAssemblyInfo($fileName, $version)
+{
+    $newVersionText = 'AssemblyVersion("' + $version + '")';
+    $newFileVersionText = 'AssemblyFileVersion("' + $version + '")';
+
+    $tmpFile = $fileName + ".tmp"
+
+    Get-Content $fileName | 
+    %{$_ -replace 'AssemblyVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', $newVersionText } |
+    %{$_ -replace 'AssemblyFileVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', $newFileVersionText } > $tmpFile
+
+    Move-Item $tmpFile $fileName -force
+}
+
 # Master switch for if this branch is beta
 $beta = $true
 
@@ -35,6 +49,14 @@ else
     $configuration = "Release"
 }
 
+# Get master version number
+$versionShort = Get-Content "version.txt"
+$versionLong = $versionShort + ".0"
+
+# Put version numbers into AssemblyInfo.cs files
+UpdateAssemblyInfo "VidCoder\Properties\AssemblyInfo.cs" $versionLong
+UpdateAssemblyInfo "VidCoderWorker\Properties\AssemblyInfo.cs" $versionLong
+
 # Build VidCoder.sln
 & $DevEnv11Exe VidCoder.sln /Rebuild ($configuration + "|x86"); ExitIfFailed
 & $DevEnv11Exe VidCoder.sln /Rebuild ($configuration + "|x64"); ExitIfFailed
@@ -46,12 +68,12 @@ else
 & ($NetToolsFolder + "\x64\sgen.exe") /f /a:"VidCoder\bin\x64\Release\VidCoder.exe"; ExitIfFailed
 
 # Get the version of the built executable
-$fileVersion = (Get-Command VidCoder\bin\x64\Release\VidCoder.exe).FileVersionInfo.FileVersion
-$fileVersion = $fileVersion.Substring(0, $fileVersion.LastIndexOf("."))
+#$fileVersion = (Get-Command VidCoder\bin\x64\Release\VidCoder.exe).FileVersionInfo.FileVersion
+#$fileVersion = $fileVersion.Substring(0, $fileVersion.LastIndexOf("."))
 
 # Update installer files with version
-UpdateIssFile "Installer\VidCoder-x86.iss" $fileVersion $beta
-UpdateIssFile "Installer\VidCoder-x64.iss" $fileVersion $beta
+UpdateIssFile "Installer\VidCoder-x86.iss" $versionShort $beta
+UpdateIssFile "Installer\VidCoder-x64.iss" $versionShort $beta
 
 if ($beta)
 {
@@ -63,8 +85,8 @@ else
 }
 
 $fileContent = Get-Content $latestFile
-$fileContent = $fileContent -replace "<Latest>[\d.]+</Latest>", ("<Latest>" + $fileVersion + "</Latest>")
-$fileContent = $fileContent -replace "(VidCoder-)[\d.]+((?:-Beta)?-x\d{2})", ("`${1}" + $fileVersion + "`${2}")
+$fileContent = $fileContent -replace "<Latest>[\d.]+</Latest>", ("<Latest>" + $versionShort + "</Latest>")
+$fileContent = $fileContent -replace "(VidCoder-)[\d.]+((?:-Beta)?-x\d{2})", ("`${1}" + $versionShort + "`${2}")
 Set-Content $latestFile $fileContent
 
 # Build installers

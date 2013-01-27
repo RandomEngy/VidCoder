@@ -24,7 +24,7 @@ namespace VidCoder
 		public const string AppDataFolderName = "VidCoder";
 		public const string LocalAppDataFolderName = "VidCoder";
 		public const string TimeFormat = @"h\:mm\:ss";
-		public const int CurrentDatabaseVersion = 17;
+		public const int CurrentDatabaseVersion = 18;
 		public const int LastUpdatedEncodingProfileDatabaseVersion = 17;
 
 		private static List<string> disallowedCharacters = new List<string> { "\\", "/", "\"", ":", "*", "?", "<", ">", "|" };

@@ -5,77 +5,32 @@ using System.Text;
 
 namespace VidCoderWorker
 {
+	using System.Data.SQLite;
 	using System.Diagnostics;
 	using System.IO;
 
-	public class WorkerLogger
+	public static class WorkerLogger
 	{
-		private const bool Enabled = false;
-
-		private StreamWriter logFile;
-		private bool disposed;
-		private object logLock = new object();
-		private object disposeLock = new object();
-
-		public WorkerLogger()
+		public static void Log(string message, bool isError = false)
 		{
-			if (Enabled)
+			SQLiteConnection connection = WorkerDatabase.CreateConnection();
+
+			try
 			{
-				string logFolder = Path.Combine(
-					Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-					"VidCoder",
-					"Logs",
-					"Worker");
-				if (!Directory.Exists(logFolder))
+				using (var command = new SQLiteCommand(connection))
 				{
-					Directory.CreateDirectory(logFolder);
+					command.CommandText = "INSERT INTO workerLogs (workerGuid, message, level, time) VALUES (?, ?, ?, ?)";
+					command.Parameters.AddWithValue("workerGuid", Program.PipeGuidString);
+					command.Parameters.AddWithValue("message", message);
+					command.Parameters.AddWithValue("level", isError ? 1 : 0);
+					command.Parameters.AddWithValue("time", DateTimeOffset.UtcNow.ToString("o"));
+
+					command.ExecuteNonQuery();
 				}
-
-				string logFilePath = Path.Combine(logFolder, DateTime.UtcNow.ToString("yyyy-MM-dd_HH.mm.ss") + "_PID_" + Process.GetCurrentProcess().Id + ".txt");
-				this.logFile = new StreamWriter(logFilePath);
 			}
-		}
-
-		public object LogLock
-		{
-			get
+			finally
 			{
-				return logLock;
-			}
-		}
-
-		public void Log(string message)
-		{
-			if (Enabled)
-			{
-				lock (this.disposeLock)
-				{
-					if (this.disposed)
-					{
-						return;
-					}
-				}
-
-				this.logFile.WriteLine("[" + DateTimeOffset.UtcNow.ToString("o") + "] " + message);
-				this.logFile.Flush();
-			}
-		}
-
-		/// <summary>
-		/// Frees any resources associated with this object.
-		/// </summary>
-		public void Dispose()
-		{
-			if (Enabled)
-			{
-				lock (this.disposeLock)
-				{
-					if (!this.disposed)
-					{
-						this.disposed = true;
-						this.logFile.Close();
-					}
-				}
+				connection.Close();
 			}
 		}
 	}

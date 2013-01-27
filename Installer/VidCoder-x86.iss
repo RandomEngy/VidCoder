@@ -3,8 +3,8 @@
 
 [Setup]
 AppName=VidCoder
-AppVerName=VidCoder 1.4.13 Beta (x86)
-AppVersion=1.4.13
+AppVerName=VidCoder 1.4.14 Beta (x86)
+AppVersion=1.4.14
 AppPublisher=RandomEngy
 AppPublisherURL=http://vidcoder.codeplex.com/
 
@@ -15,7 +15,7 @@ Compression=lzma
 SolidCompression=yes
 
 OutputDir=BuiltInstallers
-OutputBaseFilename=VidCoder-1.4.13-Beta-x86
+OutputBaseFilename=VidCoder-1.4.14-Beta-x86
 
 AppId=VidCoder
 UsePreviousAppDir=yes
@@ -28,6 +28,7 @@ Source: "..\VidCoder\bin\x86\Release\VidCoder.exe"; DestDir: "{app}"
 Source: "..\VidCoder\bin\x86\Release\VidCoder.pdb"; DestDir: "{app}"
 Source: "..\VidCoder\bin\x86\Release\VidCoder.exe.config"; DestDir: "{app}"
 Source: "..\VidCoder\bin\x86\Release\VidCoderWorker.exe"; DestDir: "{app}"
+Source: "..\VidCoder\bin\x64\Release\VidCoderWorker.exe.config"; DestDir: "{app}"
 Source: "..\VidCoder\bin\x86\Release\VidCoderWorker.pdb"; DestDir: "{app}"
 Source: "..\VidCoder\bin\x86\Release\VidCoder.XmlSerializers.dll"; DestDir: "{app}"
 Source: "..\VidCoder\bin\x86\Release\Omu.ValueInjecter.dll"; DestDir: "{app}"

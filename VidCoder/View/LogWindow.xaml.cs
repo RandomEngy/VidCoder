@@ -108,6 +108,10 @@ namespace VidCoder.View
 			{
 				run.Foreground = new SolidColorBrush(Colors.DarkBlue);
 			}
+			else if (entry.Source == LogSource.VidCoderWorker)
+			{
+				run.Foreground = new SolidColorBrush(Colors.DarkGreen);
+			}
 
 			this.logDocument.Blocks.Add(new Paragraph(run));
 		}

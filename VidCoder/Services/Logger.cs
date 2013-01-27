@@ -76,6 +76,14 @@ namespace VidCoder.Services
 			this.AddEntry(entry);
 		}
 
+		public void Log(IEnumerable<LogEntry> entries)
+		{
+			foreach (var entry in entries)
+			{
+				this.AddEntry(entry);
+			}
+		}
+
 		public void LogError(string message)
 		{
 			var entry = new LogEntry
@@ -83,6 +91,18 @@ namespace VidCoder.Services
 				LogType = LogType.Error,
 				Source = LogSource.VidCoder,
 				Text = "# " + message
+			};
+
+			this.AddEntry(entry);
+		}
+
+		public void LogWorker(string message, bool isError)
+		{
+			var entry = new LogEntry
+			{
+				LogType = isError ? LogType.Error : LogType.Message,
+				Source = LogSource.VidCoderWorker,
+				Text = "* " + message
 			};
 
 			this.AddEntry(entry);

@@ -13,7 +13,6 @@ namespace VidCoderWorker
 	class Program
 	{
 		private const double ParentCheckInterval = 5000;
-		private static WorkerLogger logger = new WorkerLogger();
 
 		private static ManualResetEventSlim encodeComplete;
 		private static System.Timers.Timer parentCheckTimer;
@@ -22,8 +21,6 @@ namespace VidCoderWorker
 		{
 			try
 			{
-				logger.Log("Worker process started.");
-
 				if (args.Length < 2)
 				{
 					PrintUsage();
@@ -37,14 +34,15 @@ namespace VidCoderWorker
 					return;
 				}
 
+				PipeGuidString = args[1];
 				Guid pipeGuid;
-				if (!Guid.TryParse(args[1], out pipeGuid))
+				if (!Guid.TryParse(PipeGuidString, out pipeGuid))
 				{
 					PrintUsage();
 					return;
 				}
 
-				string pipeGuidString = args[1];
+				WorkerLogger.Log("testing", isError: true);
 
 				parentCheckTimer = new System.Timers.Timer();
 				parentCheckTimer.Interval = ParentCheckInterval;
@@ -67,14 +65,12 @@ namespace VidCoderWorker
 						}
 						catch (Exception exception)
 						{
-							logger.Log("Exception in parentCheckTimer.Elapsed: " + exception.ToString());
+							WorkerLogger.Log("Exception in parentCheckTimer.Elapsed: " + exception.ToString(), isError: true);
 							throw;
 						}
 					};
 
 				parentCheckTimer.Start();
-
-				logger.Log("Started check timer.");
 
 				ServiceHost host = null;
 				try
@@ -83,7 +79,7 @@ namespace VidCoderWorker
 						typeof (HandBrakeEncoder),
 						new Uri[]
 							{
-								new Uri("net.pipe://localhost/" + pipeGuidString)
+								new Uri("net.pipe://localhost/" + PipeGuidString)
 							});
 					string pipeName = "VidCoderWorker";
 
@@ -97,13 +93,12 @@ namespace VidCoderWorker
 					encodeComplete = new ManualResetEventSlim(false);
 					Console.WriteLine("Service state is " + host.State + " on pipe " + pipeName);
 					encodeComplete.Wait();
-					logger.Log("Encode complete has been signaled. Closing host.");
 
 					host.Close();
 				}
 				catch (CommunicationException exception)
 				{
-					logger.Log("Exception when trying to establish pipe service: " + exception.ToString());
+					WorkerLogger.Log("Exception when trying to establish pipe service: " + exception, isError: true);
 					if (host != null)
 					{
 						host.Abort();
@@ -111,7 +106,7 @@ namespace VidCoderWorker
 				}
 				catch (TimeoutException exception)
 				{
-					logger.Log("Exception when trying to establish pipe service: " + exception.ToString());
+					WorkerLogger.Log("Exception when trying to establish pipe service: " + exception, isError: true);
 					if (host != null)
 					{
 						host.Abort();
@@ -129,22 +124,12 @@ namespace VidCoderWorker
 			}
 			catch (Exception exception)
 			{
-				logger.Log("Exception in Main: " + exception.ToString());
+				WorkerLogger.Log("Exception in Main: " + exception, isError: true);
 				throw;
-			}
-			finally
-			{
-				logger.Dispose();
 			}
 		}
 
-		public static WorkerLogger Logger
-		{
-			get
-			{
-				return logger;
-			}
-		}
+		public static string PipeGuidString { get; set; }
 
 		public static void SignalEncodeComplete()
 		{

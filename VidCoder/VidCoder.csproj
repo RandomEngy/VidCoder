@@ -802,6 +802,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Config.cs</LastGenOutput>
     </None>
+    <None Include="VidCoderWorker.exe.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\disc.png" />

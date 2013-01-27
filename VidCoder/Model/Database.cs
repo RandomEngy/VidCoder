@@ -7,6 +7,7 @@ using System.Text;
 
 namespace VidCoder.Model
 {
+	using System.Globalization;
 	using System.Threading;
 
 	public static class Database
@@ -60,6 +61,17 @@ namespace VidCoder.Model
 					}
 				}
 
+				// Update DB schema
+				if (databaseVersion < 18)
+				{
+					Database.ExecuteNonQuery(
+						"CREATE TABLE workerLogs (" +
+						"workerGuid TEXT, " +
+						"message TEXT, " +
+						"level INTEGER, " +
+						"time TEXT)", connection);
+				}
+
 				SetDatabaseVersionToLatest();
 				transaction.Commit();
 			}
@@ -97,12 +109,7 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				if (connection == null)
-				{
-					connection = CreateConnection();
-				}
-
-				return connection;
+				return connection ?? (connection = CreateConnection());
 			}
 		}
 
@@ -148,7 +155,7 @@ namespace VidCoder.Model
 			{
 				CreateTables(newConnection);
 
-				var settingsList = new Dictionary<string, string> {{"Version", Utilities.CurrentDatabaseVersion.ToString()}};
+				var settingsList = new Dictionary<string, string> {{"Version", Utilities.CurrentDatabaseVersion.ToString(CultureInfo.InvariantCulture)}};
 				AddSettingsList(newConnection, settingsList);
 			}
 
@@ -164,6 +171,13 @@ namespace VidCoder.Model
 				"CREATE TABLE settings (" +
 				"name TEXT, " +
 				"value TEXT)", connection);
+
+			Database.ExecuteNonQuery(
+				"CREATE TABLE workerLogs (" +
+				"workerGuid TEXT, " +
+				"message TEXT, " +
+				"level INTEGER, " + 
+				"time TEXT)", connection);
 		}
 
 		public static void ExecuteNonQuery(string query, SQLiteConnection connection)

@@ -5,6 +5,7 @@ using System.Text;
 
 namespace VidCoder
 {
+	using System.Data.SQLite;
 	using System.Diagnostics;
 	using System.Globalization;
 	using System.IO;
@@ -46,8 +47,12 @@ namespace VidCoder
 		public event EventHandler<EncodeCompletedEventArgs> EncodeCompleted;
 
 		private DuplexChannelFactory<IHandBrakeEncoder> pipeFactory;
+		private string pipeGuidString;
 		private IHandBrakeEncoder channel;
 		private ILogger logger;
+		private bool crashLogged;
+
+		private Process worker;
 
 		private ManualResetEventSlim encodeStartEvent;
 		private ManualResetEventSlim encodeEndEvent;
@@ -81,29 +86,29 @@ namespace VidCoder
 
 			var task = new Task(() =>
 				{
-					string pipeGuidString = Guid.NewGuid().ToString();
+					this.pipeGuidString = Guid.NewGuid().ToString();
 					var startInfo = new ProcessStartInfo(
 						"VidCoderWorker.exe",
-						Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture) + " " + pipeGuidString);
+						Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture) + " " + this.pipeGuidString);
 					startInfo.RedirectStandardOutput = true;
 					startInfo.UseShellExecute = false;
 					startInfo.CreateNoWindow = true;
-					Process worker = Process.Start(startInfo);
+					this.worker = Process.Start(startInfo);
 
 					// We don't set this any more because the thread priority inside the worker process sets them to lower priority.
-					worker.PriorityClass = CustomConfig.WorkerProcessPriority;
+					this.worker.PriorityClass = CustomConfig.WorkerProcessPriority;
 
 					// When the process writes out a line, its pipe server is ready and can be contacted for
 					// work. Reading line blocks until this happens.
-					this.logger.Log("Worker ready: " + worker.StandardOutput.ReadLine());
+					this.logger.Log("Worker ready: " + this.worker.StandardOutput.ReadLine());
 				    bool connectionSucceeded = false;
 
-					this.logger.Log("Connecting to process " + worker.Id);
+					this.logger.Log("Connecting to process " + this.worker.Id);
 					lock (this.encoderLock)
 					{
 						this.ExecuteProxyOperation(() =>
 							{
-								connectionSucceeded = this.ConnectToPipe(pipeGuidString, worker);
+								connectionSucceeded = this.ConnectToPipe(this.pipeGuidString);
 								if (!connectionSucceeded)
 								{
 									return;
@@ -150,16 +155,14 @@ namespace VidCoder
 							{
 								lock (this.encoderLock)
 								{
-									this.logger.LogError("Worker process has crashed: " + exception.ToString());
-									this.EndEncode(error: true);
+									this.HandleWorkerCommunicationError(exception);
 								}
 							}
 							catch (TimeoutException exception)
 							{
 								lock (this.encoderLock)
 								{
-									this.logger.LogError("Worker process has crashed: " + exception.ToString());
-									this.EndEncode(error: true);
+									this.HandleWorkerCommunicationError(exception);
 								}
 							}
 						}
@@ -220,7 +223,7 @@ namespace VidCoder
 			this.instance.StartScan(job.SourcePath, Config.PreviewCount, job.Title);
 		}
 
-		private bool ConnectToPipe(string pipeGuidString, Process worker)
+		private bool ConnectToPipe(string pipeGuid)
 		{
 			for (int i = 0; i < ConnectionRetries; i++)
 			{
@@ -237,7 +240,7 @@ namespace VidCoder
 					this.pipeFactory = new DuplexChannelFactory<IHandBrakeEncoder>(
 						this,
 						binding,
-						new EndpointAddress("net.pipe://localhost/" + pipeGuidString + "/VidCoderWorker"));
+						new EndpointAddress("net.pipe://localhost/" + pipeGuid + "/VidCoderWorker"));
 
 					this.channel = this.pipeFactory.CreateChannel();
 					this.channel.Ping();
@@ -248,9 +251,17 @@ namespace VidCoder
 				{
 				}
 
-				if (worker.HasExited)
+				if (this.worker.HasExited)
 				{
+					List<LogEntry> logs = this.GetWorkerMessages();
+					int errors = logs.Count(l => l.LogType == LogType.Error);
+
 					this.logger.LogError("Worker exited before a connection could be established.");
+					if (errors > 0)
+					{
+						this.logger.Log(logs);
+					}
+
 					return false;
 				}
 
@@ -382,7 +393,8 @@ namespace VidCoder
 
 		public void OnException(string exceptionString)
 		{
-			this.logger.LogError("Encode worker crashed. Please report this error so it can be fixed in the future:" + Environment.NewLine + exceptionString);
+			this.logger.LogError("Worker process crashed. Please report this error so it can be fixed in the future:" + Environment.NewLine + exceptionString);
+			this.crashLogged = true;
 		}
 
 		// Executes the given proxy operation, stopping the encode and logging if a communication problem occurs.
@@ -394,11 +406,11 @@ namespace VidCoder
 			}
 			catch (CommunicationException exception)
 			{
-				this.StopEncodeWithError(exception);
+				this.HandleWorkerCommunicationError(exception);
 			}
 			catch (TimeoutException exception)
 			{
-				this.StopEncodeWithError(exception);
+				this.HandleWorkerCommunicationError(exception);
 			}
 		}
 
@@ -425,10 +437,75 @@ namespace VidCoder
 			}
 		}
 
-		private void StopEncodeWithError(Exception exception)
+		private void HandleWorkerCommunicationError(Exception exception)
 		{
-			this.logger.LogError("Unable to contact encode process: " + exception);
+			if (!this.crashLogged)
+			{
+				if (this.worker.HasExited)
+				{
+					List<LogEntry> logs = this.GetWorkerMessages();
+					this.ClearWorkerMessages();
+
+					int errors = logs.Count(l => l.LogType == LogType.Error);
+
+					if (errors > 0)
+					{
+						this.logger.LogError("Worker process crashed. Details:");
+						this.logger.Log(logs);
+					}
+					else
+					{
+						this.logger.LogError("Worker process exited unexpectedly; no additional details are available. This may be due to a HandBrake engine crash.");
+					}
+				}
+				else
+				{
+					this.logger.LogError("Lost communication with worker process: " + exception);
+				}
+			}
+
 			this.EndEncode(error: true);
+		}
+
+		private List<LogEntry> GetWorkerMessages()
+		{
+			var messages = new List<LogEntry>();
+			SQLiteConnection connection = Database.ThreadLocalConnection;
+
+			using (var command = new SQLiteCommand("SELECT * FROM workerLogs WHERE workerGuid = ?", connection))
+			{
+				command.Parameters.AddWithValue("workerGuid", this.pipeGuidString);
+
+				using (SQLiteDataReader reader = command.ExecuteReader())
+				{
+					while (reader.Read())
+					{
+						int level = reader.GetInt32("level");
+						string message = reader.GetString("message");
+						bool isError = level == 1;
+
+						messages.Add(new LogEntry
+							{
+								LogType = isError ? LogType.Error : LogType.Message,
+								Source = LogSource.VidCoderWorker,
+								Text = message
+							});
+					}
+				}
+			}
+
+			return messages;
+		}
+
+		private void ClearWorkerMessages()
+		{
+			SQLiteConnection connection = Database.ThreadLocalConnection;
+
+			using (var command = new SQLiteCommand("DELETE FROM workerLogs WHERE workerGuid = ?", connection))
+			{
+				command.Parameters.AddWithValue("workerGuid", this.pipeGuidString);
+				command.ExecuteNonQuery();
+			}
 		}
 	}
 }
