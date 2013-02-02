@@ -308,6 +308,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preset.
+        /// </summary>
+        public static string QueueColumnNamePreset {
+            get {
+                return ResourceManager.GetString("QueueColumnNamePreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Range.
         /// </summary>
         public static string QueueColumnNameRange {

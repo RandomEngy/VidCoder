@@ -139,42 +139,46 @@
 		<DataTemplate x:Key="QueueDragTemplate">
 			<TextBlock Text="" />
 		</DataTemplate>
-		<DataTemplate x:Key="QueueTemplateSource">
+		<DataTemplate x:Key="QueueTemplateSource" DataType="viewmodel:EncodeJobViewModel">
 			<controls:PathTextBlock
 				Text="{Binding Job.SourcePath}"
 				Style="{StaticResource QueuePathText}" />
 		</DataTemplate>
-		<DataTemplate x:Key="QueueTemplateTitle">
+		<DataTemplate x:Key="QueueTemplateTitle" DataType="viewmodel:EncodeJobViewModel">
 			<TextBlock Text="{Binding Job.Title}"
 				Style="{StaticResource QueueText}" />
 		</DataTemplate>
-		<DataTemplate x:Key="QueueTemplateRange">
+		<DataTemplate x:Key="QueueTemplateRange" DataType="viewmodel:EncodeJobViewModel">
 			<TextBlock Text="{Binding RangeDisplay}"
 				Style="{StaticResource QueueText}" />
 		</DataTemplate>
-		<DataTemplate x:Key="QueueTemplateDestination">
+		<DataTemplate x:Key="QueueTemplateDestination" DataType="viewmodel:EncodeJobViewModel">
 			<controls:PathTextBlock
 				Text="{Binding Job.OutputPath}"
 				Style="{StaticResource QueuePathText}" />
 		</DataTemplate>
-		<DataTemplate x:Key="QueueTemplateVideoEncoder">
+		<DataTemplate x:Key="QueueTemplateVideoEncoder" DataType="viewmodel:EncodeJobViewModel">
 			<TextBlock Text="{Binding VideoEncoderDisplay}"
 				Style="{StaticResource QueueText}" />
 		</DataTemplate>
-		<DataTemplate x:Key="QueueTemplateAudioEncoder">
+		<DataTemplate x:Key="QueueTemplateAudioEncoder" DataType="viewmodel:EncodeJobViewModel">
 			<TextBlock Text="{Binding AudioEncodersDisplay}"
 				Style="{StaticResource QueueText}" />
 		</DataTemplate>
-		<DataTemplate x:Key="QueueTemplateVideoQuality">
+		<DataTemplate x:Key="QueueTemplateVideoQuality" DataType="viewmodel:EncodeJobViewModel">
 			<TextBlock Text="{Binding VideoQualityDisplay}"
 				Style="{StaticResource QueueText}" />
 		</DataTemplate>
-		<DataTemplate x:Key="QueueTemplateDuration">
+		<DataTemplate x:Key="QueueTemplateDuration" DataType="viewmodel:EncodeJobViewModel">
 			<TextBlock Text="{Binding DurationDisplay}"
 				Style="{StaticResource QueueText}" />
 		</DataTemplate>
-		<DataTemplate x:Key="QueueTemplateAudioQuality">
+		<DataTemplate x:Key="QueueTemplateAudioQuality" DataType="viewmodel:EncodeJobViewModel">
 			<TextBlock Text="{Binding AudioQualityDisplay}"
+				Style="{StaticResource QueueText}" />
+		</DataTemplate>
+		<DataTemplate x:Key="QueueTemplatePreset" DataType="viewmodel:EncodeJobViewModel">
+			<TextBlock Text="{Binding PresetName}"
 				Style="{StaticResource QueueText}" />
 		</DataTemplate>
 		<DataTemplate x:Key="QueueRemoveTemplate">

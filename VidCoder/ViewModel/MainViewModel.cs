@@ -2175,6 +2175,7 @@ namespace VidCoder.ViewModel
 			newEncodeJobVM.VideoSourceMetadata = this.GetVideoSourceMetadata();
 			newEncodeJobVM.ManualOutputPath = this.OutputPathVM.ManualOutputPath;
 			newEncodeJobVM.NameFormatOverride = this.OutputPathVM.NameFormatOverride;
+			newEncodeJobVM.PresetName = this.PresetsVM.SelectedPreset.DisplayName;
 
 			return newEncodeJobVM;
 		}
@@ -2529,7 +2530,9 @@ namespace VidCoder.ViewModel
 			{
 				case VideoRangeType.Chapters:
 					if (job.ChapterStart > this.selectedTitle.Chapters.Count ||
-						job.ChapterEnd > this.selectedTitle.Chapters.Count)
+						job.ChapterEnd > this.selectedTitle.Chapters.Count ||
+						job.ChapterStart == 0 ||
+						job.ChapterEnd == 0)
 					{
 						this.selectedStartChapter = this.StartChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.Chapters[0]);
 						this.selectedEndChapter = this.EndChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.Chapters[this.selectedTitle.Chapters.Count - 1]);

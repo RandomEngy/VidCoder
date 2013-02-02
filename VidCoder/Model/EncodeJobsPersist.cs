@@ -53,7 +53,7 @@ namespace VidCoder.Model
 						}
 
 						var persistGroup = new EncodeJobPersistGroup();
-						persistGroup.EncodeJobs.AddRange(oldJobs.Select(j => new EncodeJobWithMetadata { Job = j, ManualOutputPath = true }));
+						persistGroup.EncodeJobs.AddRange(oldJobs.Select(j => new EncodeJobWithMetadata { Job = j, ManualOutputPath = true, PresetName = string.Empty }));
 
 						EncodeJobs = persistGroup;
 						return persistGroup;

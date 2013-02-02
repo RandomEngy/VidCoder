@@ -13,5 +13,7 @@ namespace VidCoder.Model
 		public bool ManualOutputPath { get; set; }
 
 		public string NameFormatOverride { get; set; }
+
+		public string PresetName { get; set; }
 	}
 }

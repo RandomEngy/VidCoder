@@ -232,4 +232,7 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="FilePickerExtTemplate" xml:space="preserve">
     <value>{0} Files</value>
   </data>
+  <data name="QueueColumnNamePreset" xml:space="preserve">
+    <value>Preset</value>
+  </data>
 </root>

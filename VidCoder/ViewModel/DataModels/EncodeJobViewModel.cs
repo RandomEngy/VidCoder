@@ -97,6 +97,8 @@ namespace VidCoder.ViewModel
 
 		public string NameFormatOverride { get; set; }
 
+		public string PresetName { get; set; }
+
 		public bool IsSelected
 		{
 			get
