@@ -67,10 +67,6 @@ UpdateAssemblyInfo "VidCoderWorker\Properties\AssemblyInfo.cs" $versionLong
 & ($NetToolsFolder + "\sgen.exe") /f /a:"VidCoder\bin\x86\Release\VidCoder.exe"; ExitIfFailed
 & ($NetToolsFolder + "\x64\sgen.exe") /f /a:"VidCoder\bin\x64\Release\VidCoder.exe"; ExitIfFailed
 
-# Get the version of the built executable
-#$fileVersion = (Get-Command VidCoder\bin\x64\Release\VidCoder.exe).FileVersionInfo.FileVersion
-#$fileVersion = $fileVersion.Substring(0, $fileVersion.LastIndexOf("."))
-
 # Update installer files with version
 UpdateIssFile "Installer\VidCoder-x86.iss" $versionShort $beta
 UpdateIssFile "Installer\VidCoder-x64.iss" $versionShort $beta

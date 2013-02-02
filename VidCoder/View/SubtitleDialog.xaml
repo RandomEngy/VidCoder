@@ -154,12 +154,16 @@
 									<GridViewColumn Header="{x:Static res:SubtitleRes.NameColumn}" CellTemplate="{StaticResource NameTemplate}" x:Name="nameColumn" />
 									<GridViewColumn CellTemplate="{StaticResource DefaultTemplate}" x:Name="sourceDefaultColumn">
 										<GridViewColumn.Header>
-											<TextBlock Text="{x:Static res:SubtitleRes.DefaultColumn}" ToolTip="{x:Static res:CommonRes.DefaultSubtitleToolTip}" />
+											<TextBlock 
+												Text="{x:Static res:SubtitleRes.DefaultColumn}" ToolTip="{x:Static res:CommonRes.DefaultSubtitleToolTip}" 
+												MinWidth="70" TextAlignment="Center" />
 										</GridViewColumn.Header>
 									</GridViewColumn>
 									<GridViewColumn CellTemplate="{StaticResource ForcedTemplate}" x:Name="sourceForcedColumn">
 										<GridViewColumn.Header>
-											<TextBlock Text="{x:Static res:SubtitleRes.ForcedOnlyColumn}" ToolTip="{x:Static res:CommonRes.ForcedSubtitleToolTip}" />
+											<TextBlock 
+												Text="{x:Static res:SubtitleRes.ForcedOnlyColumn}" ToolTip="{x:Static res:CommonRes.ForcedSubtitleToolTip}"
+												MinWidth="85" TextAlignment="Center"/>
 										</GridViewColumn.Header>
 									</GridViewColumn>
 									<GridViewColumn CellTemplate="{StaticResource BurnedInTemplate}" x:Name="sourceBurnedColumn">
@@ -167,7 +171,8 @@
 											<TextBlock
 												Text="{x:Static res:SubtitleRes.BurnedInColumn}"
 												ToolTip="{x:Static res:CommonRes.BurnedSubtitleToolTip}"
-												ToolTipService.ShowOnDisabled="True" />
+												ToolTipService.ShowOnDisabled="True"
+												MinWidth="80" TextAlignment="Center"/>
 										</GridViewColumn.Header>
 									</GridViewColumn>
 									<GridViewColumn CellTemplate="{StaticResource RemoveDuplicateTemplate}" />

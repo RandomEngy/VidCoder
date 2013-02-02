@@ -269,6 +269,8 @@ namespace VidCoder
 			}
 
 			this.logger.LogError("Connection to worker failed after " + ConnectionRetries + " retries. Unable to find endpoint.");
+			this.LogAndClearWorkerMessages();
+
 			return false;
 		}
 
@@ -439,6 +441,11 @@ namespace VidCoder
 
 		private void HandleWorkerCommunicationError(Exception exception)
 		{
+			if (!this.encoding)
+			{
+				return;
+			}
+
 			if (!this.crashLogged)
 			{
 				if (this.worker.HasExited)
@@ -461,10 +468,21 @@ namespace VidCoder
 				else
 				{
 					this.logger.LogError("Lost communication with worker process: " + exception);
+					this.LogAndClearWorkerMessages();
 				}
 			}
 
 			this.EndEncode(error: true);
+		}
+
+		private void LogAndClearWorkerMessages()
+		{
+			List<LogEntry> logs = this.GetWorkerMessages();
+			if (logs.Count > 0)
+			{
+				this.logger.Log(logs);
+				this.ClearWorkerMessages();
+			}
 		}
 
 		private List<LogEntry> GetWorkerMessages()
