@@ -211,7 +211,7 @@
 			<TextBlock Text="{Binding TimeDisplay}"
 				/>
 		</DataTemplate>
-		<ContextMenu x:Key="CompletedItemContextMenu">
+		<ContextMenu x:Key="CompletedItemContextMenu" d:DataContext="{d:DesignInstance viewmodel:EncodeResultViewModel}">
 			<MenuItem Header="{x:Static res:MainRes.Play}" Command="{Binding PlayCommand}">
 				<MenuItem.Icon>
 					<Image Source="/Icons/play_small.png" Width="16" Height="16"  />
@@ -227,6 +227,18 @@
 					<Image Source="/Icons/folder.png" Width="16" Height="16"  />
 				</MenuItem.Icon>
 			</MenuItem>
+			<Separator />
+			<MenuItem Header="{x:Static res:MainRes.OpenLog}" Command="{Binding OpenLogCommand}">
+				<MenuItem.Icon>
+					<Image Source="/Icons/text_file_16x16.png" Width="16" Height="16"  />
+				</MenuItem.Icon>
+			</MenuItem>
+			<MenuItem Header="{x:Static res:MainRes.CopyLog}" Command="{Binding CopyLogCommand}">
+				<MenuItem.Icon>
+					<Image Source="/Icons/copy.png" Width="16" Height="16"  />
+				</MenuItem.Icon>
+			</MenuItem>
+			<Separator />
 			<MenuItem Header="{x:Static res:MainRes.ClearCompleted}" Command="{Binding ProcessingVM.ClearCompletedCommand}">
 				<MenuItem.Icon>
 					<Image Source="/Icons/delete.png" Width="16" Height="16"  />

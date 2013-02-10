@@ -76,6 +76,7 @@ namespace VidCoder.ViewModel
 			this.autoSubtitleAll = Config.AutoSubtitleAll;
 			this.workerProcessPriority = Config.WorkerProcessPriority;
 			this.logVerbosity = Config.LogVerbosity;
+			this.copyLogToOutputFolder = Config.CopyLogToOutputFolder;
 			this.previewCount = Config.PreviewCount;
 			this.rememberPreviousFiles = Config.RememberPreviousFiles;
 			this.showAudioTrackNameField = Config.ShowAudioTrackNameField;
@@ -724,6 +725,21 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool copyLogToOutputFolder;
+		public bool CopyLogToOutputFolder
+		{
+			get
+			{
+				return this.copyLogToOutputFolder;
+			}
+
+			set
+			{
+				this.copyLogToOutputFolder = value;
+				this.RaisePropertyChanged(() => this.CopyLogToOutputFolder);
+			}
+		}
+
 		public ObservableCollection<string> AutoPauseProcesses
 		{
 			get
@@ -923,6 +939,7 @@ namespace VidCoder.ViewModel
 							Config.AutoSubtitleAll = this.AutoSubtitleAll;
 							Config.WorkerProcessPriority = this.WorkerProcessPriority;
 							Config.LogVerbosity = this.LogVerbosity;
+							Config.CopyLogToOutputFolder = this.CopyLogToOutputFolder;
 							var autoPauseList = new List<string>();
 							foreach (string process in this.AutoPauseProcesses)
 							{
@@ -1067,6 +1084,27 @@ namespace VidCoder.ViewModel
 					}, () =>
 					{
 						return this.SelectedProcess != null;
+					}));
+			}
+		}
+
+		private RelayCommand openLogFolderCommand;
+		public RelayCommand OpenLogFolderCommand
+		{
+			get
+			{
+				return this.openLogFolderCommand ?? (this.openLogFolderCommand = new RelayCommand(() =>
+					{
+						string logFolder = Utilities.LogsFolder;
+
+						if (Directory.Exists(logFolder))
+						{
+							FileService.Instance.LaunchFile(logFolder);
+						}
+					},
+					() =>
+					{
+						return Directory.Exists(Utilities.LogsFolder);
 					}));
 			}
 		}

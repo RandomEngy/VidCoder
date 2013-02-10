@@ -52,6 +52,7 @@
 			CompletedColumnWidths_Field = DatabaseConfig.GetConfig("CompletedColumnWidths", "", connection);
 			WorkerProcessPriority_Field = DatabaseConfig.GetConfig("WorkerProcessPriority", "Normal", connection);
 			LogVerbosity_Field = DatabaseConfig.GetConfig("LogVerbosity", 1, connection);
+			CopyLogToOutputFolder_Field = DatabaseConfig.GetConfig("CopyLogToOutputFolder", false, connection);
 			AutoPauseProcesses_Field = DatabaseConfig.GetConfig("AutoPauseProcesses", "", connection);
 			PreviewCount_Field = DatabaseConfig.GetConfig("PreviewCount", 10, connection);
 			PreviewDisplay_Field = DatabaseConfig.GetConfig("PreviewDisplay", "FitToWindow", connection);
@@ -717,6 +718,20 @@
 			{
 				LogVerbosity_Field = value;
 				DatabaseConfig.SetConfigValue("LogVerbosity", value);
+			}
+		}
+		private static bool CopyLogToOutputFolder_Field;
+		public static bool CopyLogToOutputFolder
+		{
+			get
+			{
+				return CopyLogToOutputFolder_Field;
+			}
+			
+			set
+			{
+				CopyLogToOutputFolder_Field = value;
+				DatabaseConfig.SetConfigValue("CopyLogToOutputFolder", value);
 			}
 		}
 		private static string AutoPauseProcesses_Field;

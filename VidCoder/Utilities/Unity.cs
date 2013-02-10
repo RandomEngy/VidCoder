@@ -18,7 +18,7 @@ namespace VidCoder
 			Container.RegisterType<IDriveService, DriveService>(new ContainerControlledLifetimeManager());
 			Container.RegisterType<IUpdater, Updater>();
 			Container.RegisterType<IMessageBoxService, MessageBoxService>(new ContainerControlledLifetimeManager());
-			Container.RegisterType<ILogger, Logger>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<ILogger, Logger>(new ContainerControlledLifetimeManager(), new InjectionConstructor());
 			Container.RegisterType<IFileService, FileService>(new ContainerControlledLifetimeManager());
 			Container.RegisterType<IPresetImportExport, PresetImportExport>();
 			Container.RegisterType<IProcesses, Processes>(new ContainerControlledLifetimeManager());

@@ -509,7 +509,7 @@ namespace VidCoder.ViewModel
 						this.logger.Log("  Title: " + this.job.Title);
 						this.logger.Log("  Preview #: " + this.SelectedPreview);
 
-						this.encodeProxy.StartEncode(this.job, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
+						this.encodeProxy.StartEncode(this.job, this.logger, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
 						this.CancelPreviewCommand.RaiseCanExecuteChanged();
 					}, () =>
 					{

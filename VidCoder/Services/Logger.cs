@@ -16,14 +16,22 @@ namespace VidCoder.Services
 		private List<LogEntry> logEntries = new List<LogEntry>();
 		private StreamWriter logFile;
 		private bool disposed;
+		private ILogger parent;
+
 		private object logLock = new object();
 		private object disposeLock = new object();
 
 		public event EventHandler<EventArgs<LogEntry>> EntryLogged;
 		public event EventHandler Cleared;
 
-		public Logger()
+		public Logger() : this(null, null)
 		{
+		}
+
+		public Logger(ILogger parent, string baseFileName)
+		{
+			this.parent = parent;
+
 			HandBrakeUtils.MessageLogged += this.OnMessageLogged;
 			HandBrakeUtils.ErrorLogged += this.OnErrorLogged;
 
@@ -33,8 +41,18 @@ namespace VidCoder.Services
 				Directory.CreateDirectory(logFolder);
 			}
 
-			string logFilePath = Path.Combine(logFolder, DateTime.UtcNow.ToString("yyyy-MM-dd HH-mm-ss") + ".txt");
-			this.logFile = new StreamWriter(logFilePath);
+			string logFileNamePrefix;
+			if (baseFileName != null)
+			{
+				logFileNamePrefix = baseFileName + " ";
+			}
+			else
+			{
+				logFileNamePrefix = string.Empty;
+			}
+
+			this.LogPath = Path.Combine(logFolder, logFileNamePrefix + DateTimeOffset.Now.ToString("yyyy-MM-dd HH.mm.ss") + ".txt");
+			this.logFile = new StreamWriter(this.LogPath);
 
 			var initialEntry = new LogEntry
 			{
@@ -45,6 +63,8 @@ namespace VidCoder.Services
 
 			this.AddEntry(initialEntry);
 		}
+
+		public string LogPath { get; private set; }
 
 		public object LogLock
 		{
@@ -163,6 +183,11 @@ namespace VidCoder.Services
 
 			this.logFile.WriteLine(entry.Text);
 			this.logFile.Flush();
+
+			if (this.parent != null)
+			{
+				this.parent.AddEntry(entry);
+			}
 		}
 
 		private void OnMessageLogged(object sender, MessageLoggedEventArgs e)

@@ -12,6 +12,7 @@ namespace VidCoder.Services
 		void AddEntry(LogEntry entry);
 		object LogLock { get; }
 		List<LogEntry> LogEntries { get; }
+		string LogPath { get; }
 
 		event EventHandler<EventArgs<LogEntry>> EntryLogged;
 		event EventHandler Cleared;

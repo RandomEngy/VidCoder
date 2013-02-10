@@ -552,4 +552,13 @@
 	<data name="QueueRangeAll" xml:space="preserve">
     <value>All</value>
   </data>
+	<data name="CouldNotCopyLogError" xml:space="preserve">
+    <value>Could not copy log:{0}{0}{1}</value>
+  </data>
+	<data name="OpenLog" xml:space="preserve">
+    <value>Open Log</value>
+  </data>
+	<data name="CopyLog" xml:space="preserve">
+    <value>Copy Log</value>
+  </data>
 </root>

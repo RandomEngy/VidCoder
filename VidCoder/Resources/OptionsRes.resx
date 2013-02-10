@@ -384,4 +384,10 @@
   <data name="Priority_Idle" xml:space="preserve">
     <value>Low</value>
   </data>
+	<data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+    <value>Copy the encode log to the same directory as the encoded video</value>
+  </data>
+	<data name="OpenLogFolderButton" xml:space="preserve">
+    <value>Open Log Folder</value>
+  </data>
 </root>

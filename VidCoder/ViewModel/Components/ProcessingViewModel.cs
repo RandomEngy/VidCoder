@@ -1058,23 +1058,26 @@ namespace VidCoder.ViewModel.Components
 		{
 			VCJob job = this.CurrentJob.Job;
 
-			this.logger.Log("Starting job " + this.taskNumber + "/" + this.totalTasks);
-			this.logger.Log("  Path: " + job.SourcePath);
-			this.logger.Log("  Title: " + job.Title);
+			var encodeLogger = new Logger(this.logger, Path.GetFileName(job.OutputPath));
+			this.CurrentJob.Logger = encodeLogger;
+
+			encodeLogger.Log("Starting job " + this.taskNumber + "/" + this.totalTasks);
+			encodeLogger.Log("  Path: " + job.SourcePath);
+			encodeLogger.Log("  Title: " + job.Title);
 
 			switch (job.RangeType)
 			{
 				case VideoRangeType.All:
-					this.logger.Log("  Range: All");
+					encodeLogger.Log("  Range: All");
 					break;
 				case VideoRangeType.Chapters:
-					this.logger.Log("  Chapters: " + job.ChapterStart + "-" + job.ChapterEnd);
+					encodeLogger.Log("  Chapters: " + job.ChapterStart + "-" + job.ChapterEnd);
 					break;
 				case VideoRangeType.Seconds:
-					this.logger.Log("  Seconds: " + job.SecondsStart + "-" + job.SecondsEnd);
+					encodeLogger.Log("  Seconds: " + job.SecondsStart + "-" + job.SecondsEnd);
 					break;
 				case VideoRangeType.Frames:
-					this.logger.Log("  Frames: " + job.FramesStart + "-" + job.FramesEnd);
+					encodeLogger.Log("  Frames: " + job.FramesStart + "-" + job.FramesEnd);
 					break;
 			}
 
@@ -1103,7 +1106,7 @@ namespace VidCoder.ViewModel.Components
 			this.currentJobEta = TimeSpan.Zero;
 			this.errorLoggedDuringJob = false;
 			this.EncodeQueue[0].ReportEncodeStart(this.totalTasks == 1);
-			this.encodeProxy.StartEncode(this.CurrentJob.Job, false, 0, 0, 0);
+			this.encodeProxy.StartEncode(this.CurrentJob.Job, encodeLogger, false, 0, 0, 0);
 
 			this.StopEncodeCommand.RaiseCanExecuteChanged();
 			this.PauseCommand.RaiseCanExecuteChanged();
@@ -1210,45 +1213,48 @@ namespace VidCoder.ViewModel.Components
 		{
 			DispatchService.BeginInvoke(() =>
 			{
+				ILogger encodeLogger = this.CurrentJob.Logger;
+				string outputPath = this.CurrentJob.Job.OutputPath;
+
 				if (this.encodeStopped)
 				{
 					// If the encode was stopped manually
 					this.StopEncodingAndReport();
-					this.EncodeQueue[0].ReportEncodeEnd();
+					this.CurrentJob.ReportEncodeEnd();
 
 					if (this.totalTasks == 1)
 					{
 						this.EncodeQueue.Clear();
 					}
 
-					this.logger.Log("Encoding stopped");
+					encodeLogger.Log("Encoding stopped");
 				}
 				else
 				{
 					// If the encode completed successfully
-					this.completedQueueWork += this.EncodeQueue[0].Cost;
+					this.completedQueueWork += this.CurrentJob.Cost;
 
 					var outputFileInfo = new FileInfo(this.CurrentJob.Job.OutputPath);
 					bool succeeded = true;
 					if (e.Error)
 					{
 						succeeded = false;
-						this.logger.LogError("Encode failed.");
+						encodeLogger.LogError("Encode failed.");
 					}
 					else if (this.errorLoggedDuringJob)
 					{
 						succeeded = false;
-						this.logger.LogError("Encode failed. Error(s) were reported during the encode.");
+						encodeLogger.LogError("Encode failed. Error(s) were reported during the encode.");
 					}
 					else if (!outputFileInfo.Exists)
 					{
 						succeeded = false;
-						this.logger.LogError("Encode failed. HandBrake reported no error but the expected output file was not found.");
+						encodeLogger.LogError("Encode failed. HandBrake reported no error but the expected output file was not found.");
 					}
 					else if (outputFileInfo.Length == 0)
 					{
 						succeeded = false;
-						this.logger.LogError("Encode failed. HandBrake reported no error but the output file was empty.");
+						encodeLogger.LogError("Encode failed. HandBrake reported no error but the output file was empty.");
 					}
 
 					EncodeJobViewModel finishedJob = this.CurrentJob;
@@ -1258,7 +1264,8 @@ namespace VidCoder.ViewModel.Components
 						{
 							Destination = this.CurrentJob.Job.OutputPath,
 							Succeeded = succeeded,
-							EncodeTime = this.CurrentJob.EncodeTime
+							EncodeTime = this.CurrentJob.EncodeTime,
+							LogPath = encodeLogger.LogPath
 						},
 						finishedJob));
 					this.RaisePropertyChanged(() => this.CompletedItemsCount);
@@ -1275,7 +1282,7 @@ namespace VidCoder.ViewModel.Components
 						finishedJob.HandBrakeInstance = null;
 					}
 
-					this.logger.Log("Job completed");
+					encodeLogger.Log("Job completed");
 
 					if (this.EncodeQueue.Count == 0)
 					{
@@ -1347,6 +1354,27 @@ namespace VidCoder.ViewModel.Components
 					else
 					{
 						this.EncodeNextJob();
+					}
+				}
+
+				string encodeLogPath = encodeLogger.LogPath;
+				encodeLogger.Dispose();
+
+				if (Config.CopyLogToOutputFolder)
+				{
+					string logCopyPath = Path.Combine(Path.GetDirectoryName(outputPath), Path.GetFileName(encodeLogPath));
+
+					try
+					{
+						File.Copy(encodeLogPath, logCopyPath);
+					}
+					catch (IOException exception)
+					{
+						this.logger.LogError("Could not copy log file to output directory: " + exception);
+					}
+					catch (UnauthorizedAccessException exception)
+					{
+						this.logger.LogError("Could not copy log file to output directory: " + exception);
 					}
 				}
 			});

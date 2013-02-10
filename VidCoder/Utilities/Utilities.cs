@@ -161,6 +161,14 @@ namespace VidCoder
 			}
 		}
 
+		public static string LogsFolder
+		{
+			get
+			{
+				return Path.Combine(AppFolder, "Logs");
+			}
+		}
+
 		public static string UpdatesFolder
 		{
 			get

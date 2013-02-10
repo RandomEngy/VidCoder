@@ -379,6 +379,7 @@ namespace VidCoder.ViewModel
 			{
 				this.Profile.Modulus = value;
 				this.RaisePropertyChanged(() => this.Modulus);
+				this.RefreshOutputSize();
 
 				this.IsModified = true;
 				this.UpdatePreviewWindow();

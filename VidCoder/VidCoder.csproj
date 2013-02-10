@@ -833,6 +833,7 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\text_file_16x16.png" />
     <Resource Include="Icons\crop_bg_tile_12x12.png" />
     <Resource Include="Model\Config\Config.txt" />
     <Resource Include="Icons\blue_play_80.png" />

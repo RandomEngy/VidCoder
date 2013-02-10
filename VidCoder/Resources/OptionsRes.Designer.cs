@@ -259,6 +259,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy the encode log to the same directory as the encoded video.
+        /// </summary>
+        public static string CopyLogToOutputFolderLabel {
+            get {
+                return ResourceManager.GetString("CopyLogToOutputFolderLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Version: {0}.
         /// </summary>
         public static string CurrentVersionLabel {
@@ -543,6 +552,15 @@ namespace VidCoder.Resources {
         public static string OnlyIfDifferentFromAudioCheckBox {
             get {
                 return ResourceManager.GetString("OnlyIfDifferentFromAudioCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Log Folder.
+        /// </summary>
+        public static string OpenLogFolderButton {
+            get {
+                return ResourceManager.GetString("OpenLogFolderButton", resourceCulture);
             }
         }
         

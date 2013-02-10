@@ -20,6 +20,7 @@ namespace VidCoder.ViewModel
 {
 	using System.Globalization;
 	using Resources;
+	using Services;
 
 	public class EncodeJobViewModel : ViewModelBase, IDragItem
 	{
@@ -85,6 +86,8 @@ namespace VidCoder.ViewModel
 				return this.processingVM;
 			}
 		}
+
+		public ILogger Logger { get; set; }
 
 		public HandBrakeInstance HandBrakeInstance { get; set; }
 

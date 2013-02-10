@@ -54,6 +54,7 @@ CompletedColumnWidths|string|""
 
 WorkerProcessPriority|string|"Normal"
 LogVerbosity|int|1
+CopyLogToOutputFolder|bool|false
 AutoPauseProcesses|string|""
 PreviewCount|int|10
 PreviewDisplay|string|"FitToWindow"

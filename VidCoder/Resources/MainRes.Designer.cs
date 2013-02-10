@@ -196,6 +196,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy Log.
+        /// </summary>
+        public static string CopyLog {
+            get {
+                return ResourceManager.GetString("CopyLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not copy log:{0}{0}{1}.
+        /// </summary>
+        public static string CouldNotCopyLogError {
+            get {
+                return ResourceManager.GetString("CouldNotCopyLogError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not copy text..
         /// </summary>
         public static string CouldNotCopyTextError {
@@ -637,6 +655,15 @@ namespace VidCoder.Resources {
         public static string OpeningFolderStatus {
             get {
                 return ResourceManager.GetString("OpeningFolderStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Log.
+        /// </summary>
+        public static string OpenLog {
+            get {
+                return ResourceManager.GetString("OpenLog", resourceCulture);
             }
         }
         

@@ -154,5 +154,42 @@ namespace VidCoder.ViewModel
 					}));
 			}
 		}
+
+		private RelayCommand openLogCommand;
+		public RelayCommand OpenLogCommand
+		{
+			get
+			{
+				return this.openLogCommand ?? (this.openLogCommand = new RelayCommand(() =>
+					{
+						FileService.Instance.LaunchFile(this.encodeResult.LogPath);
+					}));
+			}
+		}
+
+		private RelayCommand copyLogCommand;
+		public RelayCommand CopyLogCommand
+		{
+			get
+			{
+				return this.copyLogCommand ?? (this.copyLogCommand = new RelayCommand(() =>
+					{
+						try
+						{
+							string logText = File.ReadAllText(this.encodeResult.LogPath);
+
+							Unity.Container.Resolve<ClipboardService>().SetText(logText);
+						}
+						catch (IOException exception)
+						{
+							Unity.Container.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+						}
+						catch (UnauthorizedAccessException exception)
+						{
+							Unity.Container.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+						}
+					}));
+			}
+		}
 	}
 }
