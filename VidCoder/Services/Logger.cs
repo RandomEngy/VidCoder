@@ -64,7 +64,7 @@ namespace VidCoder.Services
 			this.AddEntry(initialEntry);
 		}
 
-		public string LogPath { get; private set; }
+		public string LogPath { get; set; }
 
 		public object LogLock
 		{
