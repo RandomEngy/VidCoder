@@ -42,8 +42,6 @@ namespace VidCoderWorker
 					return;
 				}
 
-				WorkerLogger.Log("testing", isError: true);
-
 				parentCheckTimer = new System.Timers.Timer();
 				parentCheckTimer.Interval = ParentCheckInterval;
 				parentCheckTimer.AutoReset = true;

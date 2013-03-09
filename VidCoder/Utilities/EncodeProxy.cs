@@ -33,6 +33,8 @@ namespace VidCoder
 		private const int ConnectionRetryIntervalMs = 1000;
 		private const int ConnectionRetries = 10;
 
+		private static readonly TimeSpan LastUpdateTimeoutWindow = TimeSpan.FromSeconds(10);
+
 		public event EventHandler EncodeStarted;
 
 		/// <summary>
@@ -44,6 +46,8 @@ namespace VidCoder
 		/// Fires when an encode has completed.
 		/// </summary>
 		public event EventHandler<EncodeCompletedEventArgs> EncodeCompleted;
+
+		private DateTimeOffset lastWorkerCommunication;
 
 		private DuplexChannelFactory<IHandBrakeEncoder> pipeFactory;
 		private string pipeGuidString;
@@ -85,6 +89,7 @@ namespace VidCoder
 
 			var task = new Task(() =>
 				{
+					this.lastWorkerCommunication = DateTimeOffset.UtcNow;
 					this.pipeGuidString = Guid.NewGuid().ToString();
 					var startInfo = new ProcessStartInfo(
 						"VidCoderWorker.exe",
@@ -149,20 +154,19 @@ namespace VidCoder
 							try
 							{
 								this.channel.Ping();
+
+								lock (this.encoderLock)
+								{
+									this.lastWorkerCommunication = DateTimeOffset.UtcNow;
+								}
 							}
 							catch (CommunicationException exception)
 							{
-								lock (this.encoderLock)
-								{
-									this.HandleWorkerCommunicationError(exception);
-								}
+								this.HandlePingError(exception);
 							}
 							catch (TimeoutException exception)
 							{
-								lock (this.encoderLock)
-								{
-									this.HandleWorkerCommunicationError(exception);
-								}
+								this.HandlePingError(exception);
 							}
 						}
 					};
@@ -341,6 +345,8 @@ namespace VidCoder
 			    {
 					lock (this.encoderLock)
 					{
+						this.lastWorkerCommunication = DateTimeOffset.UtcNow;
+
 						if (this.encoding && this.EncodeProgress != null)
 						{
 							this.EncodeProgress(
@@ -435,6 +441,19 @@ namespace VidCoder
 				}
 
 				this.encoding = false;
+			}
+		}
+
+		private void HandlePingError(Exception exception)
+		{
+			lock (this.encoderLock)
+			{
+				// If the ping times out something may be wrong. If the worker process has exited or we haven't heard an
+				// update from it in 10 seconds we assume something is wrong.
+				if (this.worker.HasExited || this.lastWorkerCommunication < DateTimeOffset.UtcNow - LastUpdateTimeoutWindow)
+				{
+					this.HandleWorkerCommunicationError(exception);
+				}
 			}
 		}
 
