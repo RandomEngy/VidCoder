@@ -561,4 +561,10 @@
 	<data name="CopyLog" xml:space="preserve">
     <value>Copy Log</value>
   </data>
+	<data name="PresetDiscardConfirmMessage" xml:space="preserve">
+    <value>You have unsaved changes. Are you sure you want to discard these changes by switching to another preset?</value>
+  </data>
+	<data name="PresetDiscardConfirmTitle" xml:space="preserve">
+    <value>Discard Changes?</value>
+  </data>
 </root>

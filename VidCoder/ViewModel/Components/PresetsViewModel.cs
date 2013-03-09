@@ -133,13 +133,36 @@ namespace VidCoder.ViewModel.Components
 
 				if (this.selectedPreset != null && this.selectedPreset.Preset.IsModified)
 				{
-					MessageBoxResult dialogResult = Utilities.MessageBox.Show(this.main, MainRes.PresetSaveConfirmMessage, MainRes.PresetSaveConfirmTitle, MessageBoxButton.YesNoCancel);
+					string dialogMessage;
+					string dialogTitle;
+					MessageBoxButton buttons;
+
+					if (this.selectedPreset.IsBuiltIn)
+					{
+						dialogMessage = MainRes.PresetDiscardConfirmMessage;
+						dialogTitle = MainRes.PresetDiscardConfirmTitle;
+						buttons = MessageBoxButton.OKCancel;
+					}
+					else
+					{
+						dialogMessage = MainRes.PresetSaveConfirmMessage;
+						dialogTitle = MainRes.PresetSaveConfirmTitle;
+						buttons = MessageBoxButton.YesNoCancel;
+					}
+
+					MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+						this.main,
+						dialogMessage,
+						dialogTitle, 
+						buttons);
 					if (dialogResult == MessageBoxResult.Yes)
 					{
+						// Yes, we wanted to save changes
 						this.SavePreset();
 					}
-					else if (dialogResult == MessageBoxResult.No)
+					else if (dialogResult == MessageBoxResult.No || dialogResult == MessageBoxResult.OK)
 					{
+						// No, we didn't want to save changes or OK, we wanted to discard changes.
 						this.RevertPreset(userInitiated: false);
 					}
 					else if (dialogResult == MessageBoxResult.Cancel)

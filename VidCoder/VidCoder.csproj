@@ -503,6 +503,11 @@
     <Compile Include="Model\VideoSourceMetadata.cs" />
     <Compile Include="Model\Players\VlcPlayer.cs" />
     <Compile Include="Model\WhenFileExists.cs" />
+    <Compile Include="Resources\SubtitleRes.hu.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SubtitleRes.hu.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="Services\Interfaces\ILogger.cs" />
     <Compile Include="Services\Interfaces\IPresetImportExport.cs" />
@@ -786,7 +791,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>QueueTitlesRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\SubtitleRes.hu.resx" />
+    <EmbeddedResource Include="Resources\SubtitleRes.hu.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SubtitleRes.hu.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\SubtitleRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SubtitleRes.Designer.cs</LastGenOutput>
