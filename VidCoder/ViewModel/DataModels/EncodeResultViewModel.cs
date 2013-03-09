@@ -16,6 +16,7 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
+	using System.Diagnostics;
 	using Resources;
 	using Properties;
 
@@ -135,7 +136,7 @@ namespace VidCoder.ViewModel
 				return this.openContainingFolderCommand ?? (this.openContainingFolderCommand = new RelayCommand(() =>
 					{
 						Messenger.Default.Send(new StatusMessage { Message = MainRes.OpeningFolderStatus });
-						FileService.Instance.LaunchFile(Path.GetDirectoryName(this.encodeResult.Destination));
+						Process.Start("explorer.exe", "/select," + this.encodeResult.Destination);
 					}));
 			}
 		}
