@@ -420,6 +420,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MainRes.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\MainRes.hu.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainRes.hu.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\MiscRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -750,7 +755,11 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LogRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\MainRes.hu.resx" />
+    <EmbeddedResource Include="Resources\MainRes.hu.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainRes.hu.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\MainRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MainRes.Designer.cs</LastGenOutput>

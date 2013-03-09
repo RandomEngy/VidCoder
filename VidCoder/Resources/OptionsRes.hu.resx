@@ -384,4 +384,10 @@
   <data name="Priority_Idle" xml:space="preserve">
     <value>Alacsony</value>
   </data>
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+    <value>Kódolási napló másolása a kódolt videót tartalmazó mappába</value>
+  </data>
+  <data name="OpenLogFolderButton" xml:space="preserve">
+    <value>Napló mappájának megnyitása</value>
+  </data>
 </root>
