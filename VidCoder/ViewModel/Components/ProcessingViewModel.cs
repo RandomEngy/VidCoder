@@ -17,7 +17,6 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop;
 using HandBrake.Interop.Model;
-using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using Microsoft.Practices.Unity;
 using VidCoder.Messages;
@@ -26,6 +25,7 @@ using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
 {
+	using HandBrake.Interop.EventArgs;
 	using Resources;
 
 	/// <summary>

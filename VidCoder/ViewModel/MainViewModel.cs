@@ -642,6 +642,9 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the scan progress percentage.
+		/// </summary>
 		public double ScanProgress
 		{
 			get
@@ -2359,7 +2362,7 @@ namespace VidCoder.ViewModel
 			this.scanInstance.Initialize(Config.LogVerbosity);
 			this.scanInstance.ScanProgress += (o, e) =>
 			{
-				this.ScanProgress = (e.CurrentTitle * 100) / e.Titles;
+				this.ScanProgress = e.Progress * 100;
 			};
 			this.scanInstance.ScanCompleted += (o, e) =>
 			{

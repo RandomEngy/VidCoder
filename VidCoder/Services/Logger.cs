@@ -7,10 +7,11 @@ using HandBrake.Interop;
 using System.IO;
 using VidCoder.Messages;
 using VidCoder.Model;
-using VidCoder.ViewModel;
 
 namespace VidCoder.Services
 {
+	using HandBrake.Interop.EventArgs;
+
 	public class Logger : IDisposable, ILogger
 	{
 		private List<LogEntry> logEntries = new List<LogEntry>();

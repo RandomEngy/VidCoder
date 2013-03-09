@@ -14,10 +14,9 @@ namespace VidCoder
 	using System.Threading.Tasks;
 	using System.Xml.Serialization;
 	using HandBrake.Interop;
-	using HandBrake.Interop.Model;
+	using HandBrake.Interop.EventArgs;
 	using HandBrake.Interop.SourceData;
 	using Model;
-	using Properties;
 	using Services;
 	using VidCoderWorker;
 
