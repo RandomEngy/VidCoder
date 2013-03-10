@@ -171,8 +171,10 @@ $portableExeWithoutExtension64 = ".\Installer\BuiltInstallers\VidCoder-$versionS
 DeleteFileIfExists ($portableExeWithoutExtension86 + ".exe")
 DeleteFileIfExists ($portableExeWithoutExtension64 + ".exe")
 
-& "c:\Program Files\WinRar\Rar.exe" a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension86 .\Installer\Files\x86\**; ExitIfFailed
-& "c:\Program Files\WinRar\Rar.exe" a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension64 .\Installer\Files\x64\**; ExitIfFailed
+$winRarExe = "c:\Program Files\WinRar\WinRAR.exe"
+
+& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension86 .\Installer\Files\x86\**; ExitIfFailed
+& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension64 .\Installer\Files\x64\**; ExitIfFailed
 
 #$archiveFolder = ".\Installer\Archive\"
 #ClearFolder $archiveFolder
