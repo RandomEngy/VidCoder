@@ -1,4 +1,4 @@
-# Common settings for scripts
+# Common settings/functions for scripts
 
 function ExitIfFailed()
 {
@@ -12,6 +12,22 @@ function ExitIfFailed()
 function WriteSuccess()
 {
     Write-Host "Build succeeded." -foregroundcolor "green"
+}
+
+function ClearFolder($folderName)
+{
+    DeleteFolderIfExists $folderName
+    New-Item $folderName -type directory
+}
+
+function DeleteFolderIfExists($folderName)
+{
+    if (Test-Path $folderName) { Remove-Item -r $folderName }
+}
+
+function DeleteFileIfExists($fileName)
+{
+    if (Test-Path $fileName) { Remove-Item $fileName }
 }
 
 $DevEnv10Exe = "C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\devenv.com"

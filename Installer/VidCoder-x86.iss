@@ -3,8 +3,8 @@
 
 [Setup]
 AppName=VidCoder
-AppVerName=VidCoder 1.4.14 Beta (x86)
-AppVersion=1.4.14
+AppVerName=VidCoder 1.4.15 Beta (x86)
+AppVersion=1.4.15
 AppPublisher=RandomEngy
 AppPublisherURL=http://vidcoder.codeplex.com/
 
@@ -15,7 +15,7 @@ Compression=lzma
 SolidCompression=yes
 
 OutputDir=BuiltInstallers
-OutputBaseFilename=VidCoder-1.4.14-Beta-x86
+OutputBaseFilename=VidCoder-1.4.15-Beta-x86
 
 AppId=VidCoder
 UsePreviousAppDir=yes
@@ -24,28 +24,7 @@ UsePreviousAppDir=yes
 Name: "en"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "..\VidCoder\bin\x86\Release\VidCoder.exe"; DestDir: "{app}"
-Source: "..\VidCoder\bin\x86\Release\VidCoder.pdb"; DestDir: "{app}"
-Source: "..\VidCoder\bin\x86\Release\VidCoder.exe.config"; DestDir: "{app}"
-Source: "..\VidCoder\bin\x86\Release\VidCoderWorker.exe"; DestDir: "{app}"
-Source: "..\VidCoder\bin\x64\Release\VidCoderWorker.exe.config"; DestDir: "{app}"
-Source: "..\VidCoder\bin\x86\Release\VidCoderWorker.pdb"; DestDir: "{app}"
-Source: "..\VidCoder\bin\x86\Release\VidCoder.XmlSerializers.dll"; DestDir: "{app}"
-Source: "..\VidCoder\bin\x86\Release\Omu.ValueInjecter.dll"; DestDir: "{app}"
-Source: "..\VidCoder\bin\x86\Release\hu\VidCoder.resources.dll"; DestDir: "{app}\hu"
-Source: "..\Lib\Ookii.Dialogs.Wpf.dll"; DestDir: "{app}"
-Source: "..\Lib\Ookii.Dialogs.Wpf.pdb"; DestDir: "{app}"
-Source: "..\Lib\Microsoft.Practices.Unity.dll"; DestDir: "{app}"
-Source: "..\Lib\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"
-Source: "..\Lib\GalaSoft.MvvmLight.WPF4.dll"; DestDir: "{app}"
-Source: "..\VidCoder\BuiltInPresets.xml"; DestDir: "{app}"
-Source: "..\VidCoder\Encode_Complete.wav"; DestDir: "{app}"
-Source: "..\Lib\x86\hb.dll"; DestDir: "{app}"
-Source: "..\Lib\x86\System.Data.SQLite.dll"; DestDir: "{app}"
-Source: "..\Lib\x86\HandBrakeInterop.dll"; DestDir: "{app}"
-Source: "..\Lib\x86\HandBrakeInterop.pdb"; DestDir: "{app}"
-Source: "..\Lib\x86\HandBrakeInterop.XmlSerializers.dll"; DestDir: "{app}"
-Source: "..\License.txt"; DestDir: "{app}"
+Source: "Files\x86\*"; DestDir: "{app}"; Flags: recursesubdirs
 
 [Messages]
 WelcomeLabel2=This will install [name/ver] on your computer.
