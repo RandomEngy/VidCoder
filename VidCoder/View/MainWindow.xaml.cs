@@ -47,9 +47,6 @@ namespace VidCoder.View
 
 		private bool tabsVisible = false;
 
-		private bool rangeUIMouseOver;
-		private bool rangeUIFocus;
-
 		private Storyboard presetGlowStoryboard;
 
 		public static System.Windows.Threading.Dispatcher TheDispatcher;

@@ -19,7 +19,6 @@ namespace VidCoder.Controls
 	/// </summary>
 	public partial class TimeBox : UserControl
 	{
-		private bool hasFocus;
 		private bool suppressRefresh;
 
 		public TimeBox()
@@ -87,13 +86,10 @@ namespace VidCoder.Controls
 
 		private void TimeBoxGotFocus(object sender, RoutedEventArgs e)
 		{
-			this.hasFocus = true;
 		}
 
 		private void TimeBoxLostFocus(object sender, RoutedEventArgs e)
 		{
-			this.hasFocus = false;
-
 			this.UpdateTimeBindingFromBox();
 			this.RefreshTimeBox();
 		}

@@ -48,6 +48,14 @@ namespace VidCoder.Services
 			}
 		}
 
+		private static bool BuildSupportsUpdates
+		{
+			get
+			{
+				return !DebugMode && !Utilities.IsPortable;
+			}
+		}
+
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
 		private BackgroundWorker updateDownloader;
 		private bool processDownloadsUpdates = true;
@@ -77,7 +85,7 @@ namespace VidCoder.Services
 
 		public void PromptToApplyUpdate()
 		{
-			if (!DebugMode)
+			if (BuildSupportsUpdates)
 			{
 				// If updates are enabled, and we are the last process instance, prompt to apply the update.
 				if (Config.UpdatesEnabled && Utilities.CurrentProcessInstances == 1)
@@ -141,7 +149,7 @@ namespace VidCoder.Services
 
 		public void HandleUpdatedSettings(bool updatesEnabled)
 		{
-			if (!DebugMode)
+			if (BuildSupportsUpdates)
 			{
 				if (updatesEnabled)
 				{
@@ -239,8 +247,8 @@ namespace VidCoder.Services
 		// Starts checking for updates
 		public void CheckUpdates()
 		{
-			// Only check for updates in release mode.
-			if (DebugMode)
+			// Only check for updates in release mode, non-portable
+			if (!BuildSupportsUpdates)
 			{
 				return;
 			}

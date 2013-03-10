@@ -27,6 +27,13 @@ namespace VidCoder
 		public const int CurrentDatabaseVersion = 18;
 		public const int LastUpdatedEncodingProfileDatabaseVersion = 17;
 
+		private static bool isPortable;
+
+		static Utilities()
+		{
+			isPortable = Directory.GetCurrentDirectory().Contains("Temp");
+		}
+
 		private static List<string> disallowedCharacters = new List<string> { "\\", "/", "\"", ":", "*", "?", "<", ">", "|" };
 
 		private static Dictionary<string, double> defaultQueueColumnSizes = new Dictionary<string, double>
@@ -74,6 +81,14 @@ namespace VidCoder
 				}
 
 				return "x64";
+			}
+		}
+
+		public static bool IsPortable
+		{
+			get
+			{
+				return isPortable;
 			}
 		}
 

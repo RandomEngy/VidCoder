@@ -490,7 +490,8 @@
 								Text="{Binding CurrentVersion}" Margin="0,0,0,6" />
 							<CheckBox
 								VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,6"
-								IsChecked="{Binding UpdatesEnabled}" Content="{x:Static res:OptionsRes.AutomaticUpdatesCheckBox}" />
+								Visibility="{Binding BuildSupportsUpdates, Converter={StaticResource VisibilityConverter}}"
+								IsChecked="{Binding UpdatesEnabledConfig}" Content="{x:Static res:OptionsRes.AutomaticUpdatesCheckBox}" />
 							<Button
 								Content="{x:Static res:OptionsRes.CheckNowButton}" HorizontalAlignment="Left" Padding="3"
 								Command="{Binding CheckUpdateCommand}"

@@ -21,7 +21,6 @@ namespace VidCoder.ViewModel
 
 	public class OptionsDialogViewModel : OkCancelDialogViewModel
 	{
-		private bool updatesEnabled;
 		private double updateProgress;
 		private string defaultPath;
 		private bool customFormat;
@@ -53,7 +52,7 @@ namespace VidCoder.ViewModel
 			this.updater.UpdateDownloadProgress += this.OnUpdateDownloadProgress;
 			this.updater.UpdateStateChanged += this.OnUpdateStateChanged;
 
-			this.updatesEnabled = Config.UpdatesEnabled;
+			this.updatesEnabledConfig = Config.UpdatesEnabled;
 			this.defaultPath = Config.AutoNameOutputFolder;
 			this.customFormat = Config.AutoNameCustomFormat;
 			this.customFormatString = Config.AutoNameCustomFormatString;
@@ -233,17 +232,40 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool UpdatesEnabled
+		private bool updatesEnabledConfig;
+		public bool UpdatesEnabledConfig
 		{
 			get
 			{
-				return this.updatesEnabled;
+				return this.updatesEnabledConfig;
 			}
 
 			set
 			{
-				this.updatesEnabled = value;
+				this.updatesEnabledConfig = value;
+				this.RaisePropertyChanged(() => this.UpdatesEnabledConfig);
 				this.RaisePropertyChanged(() => this.UpdatesEnabled);
+			}
+		}
+
+		public bool UpdatesEnabled
+		{
+			get
+			{
+				if (Utilities.IsPortable)
+				{
+					return false;
+				}
+
+				return this.updatesEnabledConfig;
+			}
+		}
+
+		public bool BuildSupportsUpdates
+		{
+			get
+			{
+				return !Utilities.IsPortable;
 			}
 		}
 
@@ -905,10 +927,10 @@ namespace VidCoder.ViewModel
 					{
 						using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
 						{
-							if (Config.UpdatesEnabled != this.UpdatesEnabled)
+							if (Config.UpdatesEnabled != this.UpdatesEnabledConfig)
 							{
-								Config.UpdatesEnabled = this.UpdatesEnabled;
-								this.updater.HandleUpdatedSettings(this.UpdatesEnabled);
+								Config.UpdatesEnabled = this.UpdatesEnabledConfig;
+								this.updater.HandleUpdatedSettings(this.UpdatesEnabledConfig);
 							}
 
 							if (Config.InterfaceLanguageCode != this.InterfaceLanguage.CultureCode)
