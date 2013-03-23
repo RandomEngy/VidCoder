@@ -33,7 +33,7 @@ namespace VidCoder
 		private const int ConnectionRetryIntervalMs = 1000;
 		private const int ConnectionRetries = 10;
 
-		private static readonly TimeSpan LastUpdateTimeoutWindow = TimeSpan.FromSeconds(10);
+		private static readonly TimeSpan LastUpdateTimeoutWindow = TimeSpan.FromSeconds(20);
 
 		public event EventHandler EncodeStarted;
 
