@@ -5,6 +5,7 @@ using System.Text;
 
 namespace VidCoderWorker
 {
+	using System.Configuration;
 	using System.Data.SQLite;
 	using System.IO;
 
@@ -12,14 +13,18 @@ namespace VidCoderWorker
 	{
 		private const string ConfigDatabaseFile = "VidCoder.sqlite";
 		private static SQLiteConnection connection;
+		private static string settingsDirectory;
+
+		static WorkerDatabase()
+		{
+			settingsDirectory = ConfigurationManager.AppSettings["SettingsDirectory"];
+		}
 
 		public static string DatabaseFile
 		{
 			get
 			{
-				string appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "VidCoder");
-
-				return Path.Combine(appDataFolder, ConfigDatabaseFile);
+				return Path.Combine(AppFolder, ConfigDatabaseFile);
 			}
 		}
 
@@ -51,6 +56,11 @@ namespace VidCoderWorker
 		{
 			get
 			{
+				if (settingsDirectory != null)
+				{
+					return settingsDirectory;
+				}
+
 				return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "VidCoder");
 			}
 		}

@@ -15,6 +15,7 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder
 {
+	using System.Configuration;
 	using HandBrake.Interop.Model;
 	using Properties;
 	using Resources;
@@ -28,10 +29,12 @@ namespace VidCoder
 		public const int LastUpdatedEncodingProfileDatabaseVersion = 17;
 
 		private static bool isPortable;
+		private static string settingsDirectory;
 
 		static Utilities()
 		{
 			isPortable = Directory.GetCurrentDirectory().Contains("Temp");
+			settingsDirectory = ConfigurationManager.AppSettings["SettingsDirectory"];
 		}
 
 		private static List<string> disallowedCharacters = new List<string> { "\\", "/", "\"", ":", "*", "?", "<", ">", "|" };
@@ -162,6 +165,11 @@ namespace VidCoder
 		{
 			get
 			{
+				if (settingsDirectory != null)
+				{
+					return settingsDirectory;
+				}
+
 				return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppDataFolderName);
 			}
 		}

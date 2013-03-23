@@ -86,7 +86,7 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				string appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Utilities.AppDataFolderName);
+				string appDataFolder = Utilities.AppFolder;
 
 				if (!Directory.Exists(appDataFolder))
 				{
