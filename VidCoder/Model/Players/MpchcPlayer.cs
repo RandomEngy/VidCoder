@@ -11,21 +11,19 @@ namespace VidCoder.Model
 
 	public class MpchcPlayer : IVideoPlayer
 	{
-		private const string ExeSubPath = @"MPC-HC\mpc-hc.exe";
+		//private const string ExeSubPath = @"MPC-HC\mpc-hc.exe";
 
 		public bool Installed
 		{
 			get
 			{
-				return ExePath != null;
-				//return RegKey != null;
+				return RegKey != null;
 			}
 		}
 
 		public void PlayTitle(string discPath, int title)
 		{
-			string mpchcExePath = ExePath;
-			//string mpchcExePath = RegKey.GetValue("ExePath") as string;
+			string mpchcExePath = RegKey.GetValue("ExePath") as string;
 
 			if (!discPath.EndsWith(@"\", StringComparison.Ordinal))
 			{
@@ -59,25 +57,25 @@ namespace VidCoder.Model
 			}
 		}
 
-		private static string ExePath
-		{
-			get
-			{
-				string programFilesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), ExeSubPath);
-				if (File.Exists(programFilesPath))
-				{
-					return programFilesPath;
-				}
+		//private static string ExePath
+		//{
+		//	get
+		//	{
+		//		string programFilesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), ExeSubPath);
+		//		if (File.Exists(programFilesPath))
+		//		{
+		//			return programFilesPath;
+		//		}
 
-				string programFilesX86Path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), ExeSubPath);
-				if (File.Exists(programFilesX86Path))
-				{
-					return programFilesX86Path;
-				}
+		//		string programFilesX86Path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), ExeSubPath);
+		//		if (File.Exists(programFilesX86Path))
+		//		{
+		//			return programFilesX86Path;
+		//		}
 
-				return null;
-			}
-		}
+		//		return null;
+		//	}
+		//}
 
 		//private static RegistryKey RegKey
 		//{
@@ -97,19 +95,19 @@ namespace VidCoder.Model
 		//	}
 		//}
 
-		//private static RegistryKey RegKeyNormal
-		//{
-		//	get
-		//	{
-		//		return Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Gabest\Media Player Classic");
-		//	}
-		//}
+		private static RegistryKey RegKey
+		{
+			get
+			{
+				return Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Gabest\Media Player Classic");
+			}
+		}
 
 		//private static RegistryKey RegKeyWow
 		//{
 		//	get
 		//	{
-		//		return Registry.LocalMachine.OpenSubKey(Utilities.Wow64RegistryKey + @"\Gabest\Media Player Classic");
+		//		return Registry.CurrentUser.OpenSubKey(Utilities.Wow64RegistryKey + @"\Gabest\Media Player Classic");
 		//	}
 		//}
 	}
