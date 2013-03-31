@@ -2139,8 +2139,13 @@ namespace VidCoder.ViewModel
 						}
 						else
 						{
-							job.SecondsStart = this.TimeRangeStart.TotalSeconds;
-							job.SecondsEnd = this.TimeRangeEnd.TotalSeconds;
+							if (timeRangeEnd == TimeSpan.Zero)
+							{
+								throw new ArgumentException("Job end time of 0 seconds is invalid.");
+							}
+
+							job.SecondsStart = timeRangeStart.TotalSeconds;
+							job.SecondsEnd = timeRangeEnd.TotalSeconds;
 						}
 						break;
 					case VideoRangeType.Frames:
@@ -2548,6 +2553,11 @@ namespace VidCoder.ViewModel
 
 					break;
 				case VideoRangeType.Seconds:
+					if (this.selectedTitle.Duration == TimeSpan.Zero)
+					{
+						throw new InvalidOperationException("Title's duration is 0, cannot continue.");
+					}
+
 					if (job.SecondsStart < this.selectedTitle.Duration.TotalSeconds + 1 &&
 						job.SecondsEnd < this.selectedTitle.Duration.TotalSeconds + 1)
 					{
@@ -2575,6 +2585,12 @@ namespace VidCoder.ViewModel
 					else
 					{
 						this.SetRangeTimeStart(TimeSpan.Zero);
+						this.SetRangeTimeEnd(this.selectedTitle.Duration);
+					}
+
+					// We saw a problem with a job getting seconds 0-0 after a queue edit, add some sanity checking.
+					if (this.TimeRangeEnd == TimeSpan.Zero)
+					{
 						this.SetRangeTimeEnd(this.selectedTitle.Duration);
 					}
 
