@@ -19,4 +19,4 @@ copy ($HandBrakeInteropFolder + "\HandBrakeInterop\bin\x64\Release\HandBrakeInte
 WriteSuccess
 
 Write-Host
-powershell.exe -noexit -nologo
+Pause
