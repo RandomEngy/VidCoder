@@ -25,6 +25,7 @@ using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
 {
+	using System.Reflection;
 	using HandBrake.Interop.EventArgs;
 	using Resources;
 
@@ -1336,7 +1337,7 @@ namespace VidCoder.ViewModel.Components
 
 							if (soundPath == null)
 							{
-								soundPath = Path.Combine(Directory.GetCurrentDirectory(), "Encode_Complete.wav");
+								soundPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Encode_Complete.wav");
 							}
 
 							var soundPlayer = new SoundPlayer(soundPath);
