@@ -506,25 +506,23 @@ namespace VidCoder
 		private List<LogEntry> GetWorkerMessages()
 		{
 			var messages = new List<LogEntry>();
-			SQLiteConnection connection = Database.ThreadLocalConnection;
 
-			using (var command = new SQLiteCommand("SELECT * FROM workerLogs WHERE workerGuid = ?", connection))
+			string workerLogFile = Path.Combine(Utilities.WorkerLogsFolder, worker.Id + ".txt");
+
+			if (File.Exists(workerLogFile))
 			{
-				command.Parameters.AddWithValue("workerGuid", this.pipeGuidString);
-
-				using (SQLiteDataReader reader = command.ExecuteReader())
+				string[] lines = File.ReadAllLines(workerLogFile);
+				foreach (string line in lines)
 				{
-					while (reader.Read())
+					if (!string.IsNullOrWhiteSpace(line))
 					{
-						int level = reader.GetInt32("level");
-						string message = reader.GetString("message");
-						bool isError = level == 1;
-
+						// TODO: distinguish errors from non errors. For now the only thing we log is errors since if everything is working
+						// we can use normal channels.
 						messages.Add(new LogEntry
 							{
-								LogType = isError ? LogType.Error : LogType.Message,
+								LogType = LogType.Error,
 								Source = LogSource.VidCoderWorker,
-								Text = message
+								Text = line
 							});
 					}
 				}
@@ -535,12 +533,10 @@ namespace VidCoder
 
 		private void ClearWorkerMessages()
 		{
-			SQLiteConnection connection = Database.ThreadLocalConnection;
-
-			using (var command = new SQLiteCommand("DELETE FROM workerLogs WHERE workerGuid = ?", connection))
+			var workerLogsFolder = Utilities.WorkerLogsFolder;
+			if (Directory.Exists(workerLogsFolder))
 			{
-				command.Parameters.AddWithValue("workerGuid", this.pipeGuidString);
-				command.ExecuteNonQuery();
+				Directory.Delete(workerLogsFolder, recursive: true);
 			}
 		}
 	}

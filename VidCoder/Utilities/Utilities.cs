@@ -192,6 +192,14 @@ namespace VidCoder
 			}
 		}
 
+		public static string WorkerLogsFolder
+		{
+			get
+			{
+				return Path.Combine(Path.GetTempPath(), "VidCoderWorkerLogs");
+			}
+		}
+
 		public static string UpdatesFolder
 		{
 			get
