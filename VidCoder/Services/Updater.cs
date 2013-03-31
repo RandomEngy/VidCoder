@@ -142,8 +142,8 @@ namespace VidCoder.Services
 				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons" };
 				installerProcess.Start();
 
-				// We want to make sure the program is gone when the update installer runs.
-				Environment.Exit(0);
+				// Let the program close on its own.
+				//Environment.Exit(0);
 			}
 		}
 

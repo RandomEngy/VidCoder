@@ -212,4 +212,4 @@ Set-Content $latestFile $fileContent
 WriteSuccess
 
 Write-Host
-powershell.exe -noexit -nologo
+Pause
