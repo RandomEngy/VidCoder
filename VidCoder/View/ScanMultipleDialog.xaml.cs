@@ -27,9 +27,10 @@ namespace VidCoder.View
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			ScanMultipleDialogViewModel viewModel = this.DataContext as ScanMultipleDialogViewModel;
-			if (!viewModel.CanClose)
+			if (!viewModel.ScanFinished)
 			{
 				e.Cancel = true;
+				viewModel.CancelPending = true;
 			}
 		}
 	}

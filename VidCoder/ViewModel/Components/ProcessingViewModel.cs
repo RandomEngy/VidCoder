@@ -881,6 +881,12 @@ namespace VidCoder.ViewModel.Components
 			var failedFiles = new List<string>();
 			foreach (EncodeJobViewModel jobVM in itemsToQueue)
 			{
+				// Skip over any cancelled jobs
+				if (jobVM.HandBrakeInstance == null)
+				{
+					continue;
+				}
+
 				// Only queue items with a successful scan
 				if (jobVM.HandBrakeInstance.Titles.Count > 0)
 				{

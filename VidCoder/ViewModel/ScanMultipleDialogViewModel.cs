@@ -32,13 +32,15 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public override bool CanClose
+		public bool CancelPending { get; set; }
+
+		public bool ScanFinished
 		{
 			get
 			{
 				lock (this.currentJobIndexLock)
 				{
-					return this.currentJobIndex >= this.itemsToScan.Count;
+					return this.currentJobIndex >= this.itemsToScan.Count || this.CancelPending;
 				}
 			}
 		}
@@ -68,7 +70,7 @@ namespace VidCoder.ViewModel
 					this.currentJobIndex++;
 					this.RaisePropertyChanged(() => this.Progress);
 
-					if (this.currentJobIndex >= this.itemsToScan.Count)
+					if (this.ScanFinished)
 					{
 						DispatchService.BeginInvoke(() =>
 						{
