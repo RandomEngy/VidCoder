@@ -82,14 +82,14 @@ namespace VidCoder.ViewModel.Components
 			this.autoPause.PauseEncoding += this.AutoPauseEncoding;
 			this.autoPause.ResumeEncoding += this.AutoResumeEncoding;
 
-			// Keep track of errors logged. HandBrake doesn't reliably report errors on job completion.
-			this.logger.EntryLogged += (sender, e) =>
-			{
-				if (e.Value.LogType == LogType.Error && this.Encoding && !this.main.ScanningSource)
-				{
-					this.errorLoggedDuringJob = true;
-				}
-			};
+			//// Keep track of errors logged. HandBrake doesn't reliably report errors on job completion.
+			//this.logger.EntryLogged += (sender, e) =>
+			//{
+			//	if (e.Value.LogType == LogType.Error && this.Encoding && !this.main.ScanningSource)
+			//	{
+			//		this.errorLoggedDuringJob = true;
+			//	}
+			//};
 
 			this.encodeQueue.CollectionChanged +=
 				(o, e) =>
@@ -1068,6 +1068,15 @@ namespace VidCoder.ViewModel.Components
 			var encodeLogger = new Logger(this.logger, Path.GetFileName(job.OutputPath));
 			this.CurrentJob.Logger = encodeLogger;
 
+			this.errorLoggedDuringJob = false;
+			encodeLogger.EntryLogged += (sender, e) =>
+			{
+				if (e.Value.LogType == LogType.Error && this.Encoding)
+				{
+					this.errorLoggedDuringJob = true;
+				}
+			};
+
 			encodeLogger.Log("Starting job " + this.taskNumber + "/" + this.totalTasks);
 			encodeLogger.Log("  Path: " + job.SourcePath);
 			encodeLogger.Log("  Title: " + job.Title);
@@ -1111,7 +1120,6 @@ namespace VidCoder.ViewModel.Components
 			}
 
 			this.currentJobEta = TimeSpan.Zero;
-			this.errorLoggedDuringJob = false;
 			this.EncodeQueue[0].ReportEncodeStart(this.totalTasks == 1);
 			this.encodeProxy.StartEncode(this.CurrentJob.Job, encodeLogger, false, 0, 0, 0);
 
