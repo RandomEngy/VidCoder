@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="EncodeState.cs" />
     <Compile Include="HandBrakeEncoder.cs" />
     <Compile Include="IHandBrakeEncoder.cs" />

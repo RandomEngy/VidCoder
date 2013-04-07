@@ -107,7 +107,7 @@ namespace VidCoder
 					this.logger.Log("Worker ready: " + this.worker.StandardOutput.ReadLine());
 				    bool connectionSucceeded = false;
 
-					this.logger.Log("Connecting to process " + this.worker.Id);
+					this.logger.Log("Connecting to process " + this.worker.Id + " on pipe " + this.pipeGuidString);
 					lock (this.encoderLock)
 					{
 						this.ExecuteProxyOperation(() =>
@@ -243,7 +243,7 @@ namespace VidCoder
 					this.pipeFactory = new DuplexChannelFactory<IHandBrakeEncoder>(
 						this,
 						binding,
-						new EndpointAddress("net.pipe://localhost/" + pipeGuid + "/VidCoderWorker"));
+						new EndpointAddress("net.pipe://localhost/" + pipeGuid + "/" + VidCoderWorker.Constants.WorkerPipeName));
 
 					this.channel = this.pipeFactory.CreateChannel();
 					this.channel.Ping();

@@ -79,17 +79,16 @@ namespace VidCoderWorker
 							{
 								new Uri("net.pipe://localhost/" + PipeGuidString)
 							});
-					string pipeName = "VidCoderWorker";
 
 					host.AddServiceEndpoint(
 						typeof (IHandBrakeEncoder),
 						new NetNamedPipeBinding(),
-						pipeName);
+						Constants.WorkerPipeName);
 
 					host.Open();
 
 					encodeComplete = new ManualResetEventSlim(false);
-					Console.WriteLine("Service state is " + host.State + " on pipe " + pipeName);
+					Console.WriteLine("Service state is " + host.State + " on pipe " + PipeGuidString);
 					encodeComplete.Wait();
 
 					host.Close();
