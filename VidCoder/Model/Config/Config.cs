@@ -76,6 +76,7 @@
 			EnableLibDvdNav_Field = DatabaseConfig.GetConfig("EnableLibDvdNav", true, connection);
 			MinimumTitleLengthSeconds_Field = DatabaseConfig.GetConfig("MinimumTitleLengthSeconds", 10, connection);
 			DeleteSourceFilesOnClearingCompleted_Field = DatabaseConfig.GetConfig("DeleteSourceFilesOnClearingCompleted", false, connection);
+			ResumeEncodingOnRestart_Field = DatabaseConfig.GetConfig("ResumeEncodingOnRestart", false, connection);
 			RememberPreviousFiles_Field = DatabaseConfig.GetConfig("RememberPreviousFiles", true, connection);
 			VideoFileExtensions_Field = DatabaseConfig.GetConfig("VideoFileExtensions", "avi, mkv, mp4, m4v, mpg, mpeg, mov, wmv", connection);
 			AudioLanguageCode_Field = DatabaseConfig.GetConfig("AudioLanguageCode", "und", connection);
@@ -1054,6 +1055,20 @@
 			{
 				DeleteSourceFilesOnClearingCompleted_Field = value;
 				DatabaseConfig.SetConfigValue("DeleteSourceFilesOnClearingCompleted", value);
+			}
+		}
+		private static bool ResumeEncodingOnRestart_Field;
+		public static bool ResumeEncodingOnRestart
+		{
+			get
+			{
+				return ResumeEncodingOnRestart_Field;
+			}
+			
+			set
+			{
+				ResumeEncodingOnRestart_Field = value;
+				DatabaseConfig.SetConfigValue("ResumeEncodingOnRestart", value);
 			}
 		}
 		private static bool RememberPreviousFiles_Field;

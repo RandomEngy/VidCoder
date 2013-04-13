@@ -5,6 +5,7 @@ using System.Text;
 
 namespace VidCoder
 {
+	using System.ComponentModel;
 	using System.Data.SQLite;
 	using System.Diagnostics;
 	using System.Globalization;
@@ -438,6 +439,23 @@ namespace VidCoder
 				if (this.pingTimer != null)
 				{
 					this.pingTimer.Dispose();
+				}
+
+				// If the encode failed and the worker is still running, kill it.
+				if (error && this.worker != null && !this.worker.HasExited)
+				{
+					try
+					{
+						this.worker.Kill();
+					}
+					catch (InvalidOperationException exception)
+					{
+						this.logger.LogError("Could not kill unresponsive worker process: " + exception);
+					}
+					catch (Win32Exception exception)
+					{
+						this.logger.LogError("Could not kill unresponsive worker process: " + exception);
+					}
 				}
 
 				this.encoding = false;

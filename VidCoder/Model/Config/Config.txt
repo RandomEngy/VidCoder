@@ -78,6 +78,7 @@ QueueTitlesNameOverride|string|""
 EnableLibDvdNav|bool|true
 MinimumTitleLengthSeconds|int|10
 DeleteSourceFilesOnClearingCompleted|bool|false
+ResumeEncodingOnRestart|bool|false
 RememberPreviousFiles|bool|true
 VideoFileExtensions|string|"avi, mkv, mp4, m4v, mpg, mpeg, mov, wmv"
 AudioLanguageCode|string|"und"

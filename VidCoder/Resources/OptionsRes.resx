@@ -390,4 +390,7 @@
 	<data name="OpenLogFolderButton" xml:space="preserve">
     <value>Open Log Folder</value>
   </data>
+	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+    <value>Automatically resume encoding on restart</value>
+  </data>
 </root>

@@ -82,6 +82,7 @@ namespace VidCoder.ViewModel
 			this.keepScansAfterCompletion = Config.KeepScansAfterCompletion;
 			this.enableLibDvdNav = Config.EnableLibDvdNav;
 			this.deleteSourceFilesOnClearingCompleted = Config.DeleteSourceFilesOnClearingCompleted;
+			this.resumeEncodingOnRestart = Config.ResumeEncodingOnRestart;
 			this.minimumTitleLengthSeconds = Config.MinimumTitleLengthSeconds;
 			this.autoPauseProcesses = new ObservableCollection<string>();
 			this.videoFileExtensions = Config.VideoFileExtensions;
@@ -888,6 +889,21 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool resumeEncodingOnRestart;
+		public bool ResumeEncodingOnRestart
+		{
+			get
+			{
+				return this.resumeEncodingOnRestart;
+			}
+
+			set
+			{
+				this.resumeEncodingOnRestart = value;
+				this.RaisePropertyChanged(() => this.ResumeEncodingOnRestart);
+			}
+		}
+
 		private int minimumTitleLengthSeconds;
 		public int MinimumTitleLengthSeconds
 		{
@@ -988,6 +1004,7 @@ namespace VidCoder.ViewModel
 							Config.EnableLibDvdNav = this.EnableLibDvdNav;
 							Config.KeepScansAfterCompletion = this.KeepScansAfterCompletion;
 							Config.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
+							Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;
 							Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
 							Config.VideoFileExtensions = this.VideoFileExtensions;
 

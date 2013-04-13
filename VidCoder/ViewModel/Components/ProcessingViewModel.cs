@@ -136,6 +136,14 @@ namespace VidCoder.ViewModel.Components
 				};
 
 			this.RefreshEncodeCompleteActions();
+
+			if (Config.ResumeEncodingOnRestart && this.encodeQueue.Count > 0)
+			{
+				DispatchService.BeginInvoke(() =>
+					{
+						this.StartEncodeQueue();
+					});
+			}
 		}
 
 		public ObservableCollection<EncodeJobViewModel> EncodeQueue
