@@ -83,6 +83,7 @@ namespace VidCoder.ViewModel
 			this.enableLibDvdNav = Config.EnableLibDvdNav;
 			this.deleteSourceFilesOnClearingCompleted = Config.DeleteSourceFilesOnClearingCompleted;
 			this.resumeEncodingOnRestart = Config.ResumeEncodingOnRestart;
+			this.useWorkerProcess = Config.UseWorkerProcess;
 			this.minimumTitleLengthSeconds = Config.MinimumTitleLengthSeconds;
 			this.autoPauseProcesses = new ObservableCollection<string>();
 			this.videoFileExtensions = Config.VideoFileExtensions;
@@ -904,6 +905,21 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool useWorkerProcess;
+		public bool UseWorkerProcess
+		{
+			get
+			{
+				return this.useWorkerProcess;
+			}
+
+			set
+			{
+				this.useWorkerProcess = value;
+				this.RaisePropertyChanged(() => this.UseWorkerProcess);
+			}
+		}
+
 		private int minimumTitleLengthSeconds;
 		public int MinimumTitleLengthSeconds
 		{
@@ -1005,6 +1021,7 @@ namespace VidCoder.ViewModel
 							Config.KeepScansAfterCompletion = this.KeepScansAfterCompletion;
 							Config.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
 							Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;
+							Config.UseWorkerProcess = this.UseWorkerProcess;
 							Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
 							Config.VideoFileExtensions = this.VideoFileExtensions;
 

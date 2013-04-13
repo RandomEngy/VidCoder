@@ -853,6 +853,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use worker process to encode.
+        /// </summary>
+        public static string UseWorkerProcessCheckBox {
+            get {
+                return ResourceManager.GetString("UseWorkerProcessCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Video Files:.
         /// </summary>
         public static string VideoFilesLabel {

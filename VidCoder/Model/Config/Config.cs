@@ -77,6 +77,7 @@
 			MinimumTitleLengthSeconds_Field = DatabaseConfig.GetConfig("MinimumTitleLengthSeconds", 10, connection);
 			DeleteSourceFilesOnClearingCompleted_Field = DatabaseConfig.GetConfig("DeleteSourceFilesOnClearingCompleted", false, connection);
 			ResumeEncodingOnRestart_Field = DatabaseConfig.GetConfig("ResumeEncodingOnRestart", false, connection);
+			UseWorkerProcess_Field = DatabaseConfig.GetConfig("UseWorkerProcess", true, connection);
 			RememberPreviousFiles_Field = DatabaseConfig.GetConfig("RememberPreviousFiles", true, connection);
 			VideoFileExtensions_Field = DatabaseConfig.GetConfig("VideoFileExtensions", "avi, mkv, mp4, m4v, mpg, mpeg, mov, wmv", connection);
 			AudioLanguageCode_Field = DatabaseConfig.GetConfig("AudioLanguageCode", "und", connection);
@@ -1069,6 +1070,20 @@
 			{
 				ResumeEncodingOnRestart_Field = value;
 				DatabaseConfig.SetConfigValue("ResumeEncodingOnRestart", value);
+			}
+		}
+		private static bool UseWorkerProcess_Field;
+		public static bool UseWorkerProcess
+		{
+			get
+			{
+				return UseWorkerProcess_Field;
+			}
+			
+			set
+			{
+				UseWorkerProcess_Field = value;
+				DatabaseConfig.SetConfigValue("UseWorkerProcess", value);
 			}
 		}
 		private static bool RememberPreviousFiles_Field;

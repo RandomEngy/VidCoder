@@ -78,12 +78,13 @@ namespace VidCoder
 
 		public void StartEncode(VCJob job, ILogger logger, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
 		{
-//#if DEBUG
-//			this.StartEncodeInProcess(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds);
-//			return;
-//#endif
-
 			this.logger = logger;
+
+			if (!Config.UseWorkerProcess)
+			{
+				this.StartEncodeInProcess(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds);
+				return;
+			}
 
 			this.encodeStartEvent = new ManualResetEventSlim(false);
 			this.encodeEndEvent = new ManualResetEventSlim(false);
@@ -181,6 +182,8 @@ namespace VidCoder
 
 		private void StartEncodeInProcess(VCJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
 		{
+			this.logger.Log("Starting encode in-process");
+
 			this.encoding = true;
 
 			this.encodeStartEvent = new ManualResetEventSlim(false);
@@ -222,6 +225,7 @@ namespace VidCoder
 			this.instance.EncodeCompleted += (o, e) =>
 			{
 				this.OnEncodeComplete(e.Error);
+				this.instance.Dispose();
 			};
 
 			this.instance.StartScan(job.SourcePath, Config.PreviewCount, job.Title);

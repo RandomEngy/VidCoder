@@ -396,6 +396,10 @@
 								Content="{x:Static res:OptionsRes.ResumeEncodingOnRestartCheckBox}"
 								IsChecked="{Binding ResumeEncodingOnRestart}"
 								HorizontalAlignment="Left" Margin="0,6,0,0" VerticalAlignment="Center"/>
+							<CheckBox
+								Content="{x:Static res:OptionsRes.UseWorkerProcessCheckBox}"
+								IsChecked="{Binding UseWorkerProcess}"
+								HorizontalAlignment="Left" Margin="0,6,0,0" VerticalAlignment="Center"/>
 							<Grid Margin="0,6,0,0">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="Auto" />
