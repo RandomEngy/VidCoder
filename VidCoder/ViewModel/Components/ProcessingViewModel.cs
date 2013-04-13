@@ -730,7 +730,10 @@ namespace VidCoder.ViewModel.Components
 							{
 								// And if file exists and is not read-only
 								string sourcePath = removedItem.Job.Job.SourcePath;
-								if (File.Exists(sourcePath) && !new FileInfo(sourcePath).IsReadOnly)
+								var fileInfo = new FileInfo(sourcePath);
+								var directoryInfo = new DirectoryInfo(sourcePath);
+
+								if (fileInfo.Exists && !fileInfo.IsReadOnly || directoryInfo.Exists && !directoryInfo.Attributes.HasFlag(FileAttributes.ReadOnly))
 								{
 									// And if it's not currently scanned or in the encode queue
 									bool sourceInEncodeQueue = this.EncodeQueue.Any(job => string.Compare(job.Job.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0);
@@ -751,15 +754,22 @@ namespace VidCoder.ViewModel.Components
 								MessageBoxButton.YesNo);
 							if (dialogResult == MessageBoxResult.Yes)
 							{
-								foreach (string fileToDelete in deletionCandidates)
+								foreach (string pathToDelete in deletionCandidates)
 								{
 									try
 									{
-										File.Delete(fileToDelete);
+										if (File.Exists(pathToDelete))
+										{
+											File.Delete(pathToDelete);
+										}
+										else if (Directory.Exists(pathToDelete))
+										{
+											Utilities.DeleteDirectory(pathToDelete);
+										}
 									}
 									catch (IOException exception)
 									{
-										Utilities.MessageBox.Show(string.Format(MainRes.CouldNotDeleteFile, fileToDelete, exception));
+										Utilities.MessageBox.Show(string.Format(MainRes.CouldNotDeleteFile, pathToDelete, exception));
 									}
 								}
 							}

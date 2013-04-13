@@ -564,6 +564,11 @@ namespace VidCoder
 			try
 			{
 				var directoryInfo = new DirectoryInfo(directory);
+				if (!directoryInfo.Exists)
+				{
+					return false;
+				}
+
 				if (directoryInfo.Name == "VIDEO_TS")
 				{
 					return true;

@@ -270,7 +270,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete {0} source file(s)?.
+        ///   Looks up a localized string similar to Are you sure you want to delete {0} source file(s)/folder(s)?.
         /// </summary>
         public static string DeleteSourceFilesConfirmationMessage {
             get {
