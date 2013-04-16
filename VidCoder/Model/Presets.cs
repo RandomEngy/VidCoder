@@ -17,6 +17,8 @@ using HandBrake.Interop.Model.Encoding;
 namespace VidCoder.Model
 {
 	using Resources;
+	using Services;
+	using Microsoft.Practices.Unity;
 
 	public static class Presets
 	{
@@ -366,8 +368,20 @@ namespace VidCoder.Model
 
 		private static void ErrorCheckPresets(List<Preset> presets)
 		{
-			foreach (Preset preset in presets)
+			for (int i = presets.Count - 1; i >= 0; i--)
 			{
+				var preset = presets[i];
+
+				if (preset.EncodingProfile == null)
+				{
+					presets.RemoveAt(i);
+
+					// Splash screen eats first dialog, need to show twice.
+					Unity.Container.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.DisplayName + "'.");
+					Unity.Container.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.DisplayName + "'.");
+					continue;
+				}
+
 				if (preset.EncodingProfile.OutputFormat == Container.None)
 				{
 					preset.EncodingProfile.OutputFormat = Container.Mp4;
