@@ -746,7 +746,7 @@ namespace VidCoder.ViewModel.Components
 									// And if it's not currently scanned or in the encode queue
 									bool sourceInEncodeQueue = this.EncodeQueue.Any(job => string.Compare(job.Job.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0);
 									if (!sourceInEncodeQueue &&
-									    string.Compare(this.main.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) != 0)
+									    (!this.main.HasVideoSource || string.Compare(this.main.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) != 0))
 									{
 										deletionCandidates.Add(sourcePath);
 									}
