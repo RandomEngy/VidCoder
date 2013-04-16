@@ -509,6 +509,7 @@
       <DependentUpon>SubtitleRes.hu.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\ClipboardService.cs" />
+    <Compile Include="Services\EncodeProxy\LocalEncodeProxy.cs" />
     <Compile Include="Services\Interfaces\ILogger.cs" />
     <Compile Include="Services\Interfaces\IPresetImportExport.cs" />
     <Compile Include="Services\Interfaces\IProcesses.cs" />
@@ -523,9 +524,10 @@
     <Compile Include="Model\Config\ConfigDeclaration.cs" />
     <Compile Include="Utilities\AdvancedOptionsParsing.cs" />
     <Compile Include="Utilities\CodecUtilities.cs" />
-    <Compile Include="Utilities\EncodeProxy.cs" />
+    <Compile Include="Services\EncodeProxy\RemoteEncodeProxy.cs" />
     <Compile Include="Utilities\EnumConverter.cs" />
     <Compile Include="Utilities\FileCleanup.cs" />
+    <Compile Include="Services\EncodeProxy\IEncodeProxy.cs" />
     <Compile Include="Utilities\ImageUtilities.cs" />
     <Compile Include="Utilities\ListSynchronizer\IListItemConverter.cs" />
     <Compile Include="Services\Logger.cs" />

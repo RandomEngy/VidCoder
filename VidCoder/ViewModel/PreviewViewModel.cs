@@ -33,7 +33,7 @@ namespace VidCoder.ViewModel
 
 		private VCJob job;
 		private HandBrakeInstance originalScanInstance;
-		private EncodeProxy encodeProxy;
+		private IEncodeProxy encodeProxy;
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
 		private string title;
 		private int selectedPreview;
@@ -459,7 +459,7 @@ namespace VidCoder.ViewModel
 
 						this.previewEncodeStarted = false;
 
-						this.encodeProxy = new EncodeProxy();
+						this.encodeProxy = Utilities.CreateEncodeProxy();
 						this.encodeProxy.EncodeStarted += (o, e) =>
 						{
 							this.previewEncodeStarted = true;

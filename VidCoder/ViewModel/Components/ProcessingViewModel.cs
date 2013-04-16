@@ -65,7 +65,7 @@ namespace VidCoder.ViewModel.Components
 		private ObservableCollection<EncodeResultViewModel> completedJobs;
 		private List<EncodeCompleteAction> encodeCompleteActions; 
 		private EncodeCompleteAction encodeCompleteAction;
-		private EncodeProxy encodeProxy;
+		private IEncodeProxy encodeProxy;
 
 		private int selectedTabIndex;
 
@@ -162,7 +162,7 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
-		public EncodeProxy EncodeProxy
+		public IEncodeProxy EncodeProxy
 		{
 			get
 			{
@@ -1115,7 +1115,7 @@ namespace VidCoder.ViewModel.Components
 					break;
 			}
 
-			this.encodeProxy = new EncodeProxy();
+			this.encodeProxy = Utilities.CreateEncodeProxy();
 			this.encodeProxy.EncodeProgress += this.OnEncodeProgress;
 			this.encodeProxy.EncodeCompleted += this.OnEncodeCompleted;
 			this.encodeProxy.EncodeStarted += this.OnEncodeStarted;

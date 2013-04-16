@@ -241,6 +241,18 @@ namespace VidCoder
 			return defaultQueueColumnSizes.ContainsKey(columnId);
 		}
 
+		public static IEncodeProxy CreateEncodeProxy()
+		{
+			if (Config.UseWorkerProcess)
+			{
+				return new RemoteEncodeProxy();
+			}
+			else
+			{
+				return new LocalEncodeProxy();
+			}
+		}
+
 		public static void DeleteDirectory(string path)
 		{
 			var directory = new DirectoryInfo(path);

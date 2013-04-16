@@ -24,7 +24,7 @@ namespace VidCoder
 	using Microsoft.Practices.Unity;
 	using Timer = System.Timers.Timer;
 
-	public class EncodeProxy : IHandBrakeEncoderCallback
+	public class RemoteEncodeProxy : IHandBrakeEncoderCallback, IEncodeProxy
 	{
 		// Ping interval (6s) longer than timeout (5s) so we don't have two overlapping pings
 		private const double PingTimerIntervalMs = 6000;
@@ -61,10 +61,6 @@ namespace VidCoder
 		private ManualResetEventSlim encodeStartEvent;
 		private ManualResetEventSlim encodeEndEvent;
 
-		// Instance and lock only used when doing in-process encode (for debugging)
-		private HandBrakeInstance instance;
-		private object encodeLock = new object();
-
 		// Timer that pings the worker process periodically to see if it's still alive.
 		private Timer pingTimer;
 
@@ -79,12 +75,6 @@ namespace VidCoder
 		public void StartEncode(VCJob job, ILogger logger, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
 		{
 			this.logger = logger;
-
-			if (!Config.UseWorkerProcess)
-			{
-				this.StartEncodeInProcess(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds);
-				return;
-			}
 
 			this.encodeStartEvent = new ManualResetEventSlim(false);
 			this.encodeEndEvent = new ManualResetEventSlim(false);
@@ -178,57 +168,6 @@ namespace VidCoder
 
 			this.encoding = true;
 			task.Start();
-		}
-
-		private void StartEncodeInProcess(VCJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
-		{
-			this.logger.Log("Starting encode in-process");
-
-			this.encoding = true;
-
-			this.encodeStartEvent = new ManualResetEventSlim(false);
-			this.encodeEndEvent = new ManualResetEventSlim(false);
-
-			this.instance = new HandBrakeInstance();
-			this.instance.Initialize(Config.LogVerbosity);
-
-			this.instance.ScanCompleted += (o, e) =>
-			{
-				try
-				{
-					Title encodeTitle = this.instance.Titles.FirstOrDefault(title => title.TitleNumber == job.Title);
-
-					if (encodeTitle != null)
-					{
-						lock (this.encodeLock)
-						{
-							this.instance.StartEncode(job.HbJob, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds);
-							this.OnEncodeStarted();
-						}
-					}
-					else
-					{
-						this.OnEncodeComplete(true);
-					}
-				}
-				catch (Exception exception)
-				{
-					this.OnException(exception.ToString());
-				}
-			};
-
-			this.instance.EncodeProgress += (o, e) =>
-			{
-				this.OnEncodeProgress(e.AverageFrameRate, e.CurrentFrameRate, e.EstimatedTimeLeft, e.FractionComplete, e.Pass);
-			};
-
-			this.instance.EncodeCompleted += (o, e) =>
-			{
-				this.OnEncodeComplete(e.Error);
-				this.instance.Dispose();
-			};
-
-			this.instance.StartScan(job.SourcePath, Config.PreviewCount, job.Title);
 		}
 
 		private bool ConnectToPipe(string pipeGuid)
