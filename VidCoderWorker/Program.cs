@@ -34,13 +34,7 @@ namespace VidCoderWorker
 					return;
 				}
 
-				PipeGuidString = args[1];
-				Guid pipeGuid;
-				if (!Guid.TryParse(PipeGuidString, out pipeGuid))
-				{
-					PrintUsage();
-					return;
-				}
+				PipeName = args[1];
 
 				parentCheckTimer = new System.Timers.Timer();
 				parentCheckTimer.Interval = ParentCheckInterval;
@@ -73,22 +67,17 @@ namespace VidCoderWorker
 				ServiceHost host = null;
 				try
 				{
-					host = new ServiceHost(
-						typeof (HandBrakeEncoder),
-						new Uri[]
-							{
-								new Uri("net.pipe://localhost/" + PipeGuidString)
-							});
+					host = new ServiceHost(typeof (HandBrakeEncoder));
 
 					host.AddServiceEndpoint(
 						typeof (IHandBrakeEncoder),
 						new NetNamedPipeBinding(),
-						Constants.WorkerPipeName);
+						"net.pipe://localhost/" + PipeName);
 
 					host.Open();
 
 					encodeComplete = new ManualResetEventSlim(false);
-					Console.WriteLine("Service state is " + host.State + " on pipe " + PipeGuidString);
+					Console.WriteLine("Service state is " + host.State + " on pipe " + PipeName);
 					encodeComplete.Wait();
 
 					host.Close();
@@ -126,7 +115,7 @@ namespace VidCoderWorker
 			}
 		}
 
-		public static string PipeGuidString { get; set; }
+		public static string PipeName { get; set; }
 
 		public static void SignalEncodeComplete()
 		{

@@ -6,6 +6,7 @@ using System.Text;
 namespace VidCoder
 {
 	using System.Threading;
+	using System.Xml.Serialization;
 	using HandBrake.Interop;
 	using HandBrake.Interop.EventArgs;
 	using HandBrake.Interop.SourceData;
@@ -28,6 +29,8 @@ namespace VidCoder
 		public event EventHandler EncodeStarted;
 		public event EventHandler<EncodeProgressEventArgs> EncodeProgress;
 		public event EventHandler<EncodeCompletedEventArgs> EncodeCompleted;
+
+		[XmlIgnore]
 		public bool IsEncodeStarted { get; private set; }
 		public void StartEncode(VCJob job, ILogger logger, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
 		{

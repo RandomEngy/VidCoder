@@ -34,6 +34,8 @@ namespace VidCoder
 		private const int ConnectionRetryIntervalMs = 1000;
 		private const int ConnectionRetries = 10;
 
+		private const string PipeNamePrefix = "VidCoderWorker.";
+
 		private static readonly TimeSpan LastUpdateTimeoutWindow = TimeSpan.FromSeconds(20);
 
 		public event EventHandler EncodeStarted;
@@ -52,6 +54,7 @@ namespace VidCoder
 
 		private DuplexChannelFactory<IHandBrakeEncoder> pipeFactory;
 		private string pipeGuidString;
+		private string pipeName;
 		private IHandBrakeEncoder channel;
 		private ILogger logger;
 		private bool crashLogged;
@@ -82,10 +85,10 @@ namespace VidCoder
 			var task = new Task(() =>
 				{
 					this.lastWorkerCommunication = DateTimeOffset.UtcNow;
-					this.pipeGuidString = Guid.NewGuid().ToString();
+					this.pipeName = PipeNamePrefix + Guid.NewGuid().ToString();
 					var startInfo = new ProcessStartInfo(
 						"VidCoderWorker.exe",
-						Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture) + " " + this.pipeGuidString);
+						Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture) + " " + this.pipeName);
 					startInfo.RedirectStandardOutput = true;
 					startInfo.UseShellExecute = false;
 					startInfo.CreateNoWindow = true;
@@ -99,12 +102,12 @@ namespace VidCoder
 					this.logger.Log("Worker ready: " + this.worker.StandardOutput.ReadLine());
 				    bool connectionSucceeded = false;
 
-					this.logger.Log("Connecting to process " + this.worker.Id + " on pipe " + this.pipeGuidString);
+					this.logger.Log("Connecting to process " + this.worker.Id + " on pipe " + this.pipeName);
 					lock (this.encoderLock)
 					{
 						this.ExecuteProxyOperation(() =>
 							{
-								connectionSucceeded = this.ConnectToPipe(this.pipeGuidString);
+								connectionSucceeded = this.ConnectToPipe();
 								if (!connectionSucceeded)
 								{
 									return;
@@ -170,7 +173,7 @@ namespace VidCoder
 			task.Start();
 		}
 
-		private bool ConnectToPipe(string pipeGuid)
+		private bool ConnectToPipe()
 		{
 			for (int i = 0; i < ConnectionRetries; i++)
 			{
@@ -187,7 +190,7 @@ namespace VidCoder
 					this.pipeFactory = new DuplexChannelFactory<IHandBrakeEncoder>(
 						this,
 						binding,
-						new EndpointAddress("net.pipe://localhost/" + pipeGuid + "/" + VidCoderWorker.Constants.WorkerPipeName));
+						new EndpointAddress("net.pipe://localhost/" + this.pipeName));
 
 					this.channel = this.pipeFactory.CreateChannel();
 					this.channel.Ping();
