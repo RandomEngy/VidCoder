@@ -18,7 +18,7 @@ namespace VidCoder.Services
 
 	public class Updater : IUpdater
 	{
-		public const string UpdateInfoUrlBeta = "http://engy.us/VidCoder/latest-test-beta.xml";
+		public const string UpdateInfoUrlBeta = "http://engy.us/VidCoder/latest-beta2.xml";
 		public const string UpdateInfoUrlNonBeta = "http://engy.us/VidCoder/latest.xml";
 
 		public event EventHandler<EventArgs<double>> UpdateDownloadProgress;
