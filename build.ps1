@@ -27,7 +27,7 @@ function CreateIssFile($version, $beta, $arch) {
         if ($beta) {
             $appId = "VidCoder-Beta-x64"
         } else {
-            $appId = "VidCoder-64"
+            $appId = "VidCoder-x64"
         }
     }
 
@@ -104,7 +104,7 @@ function CopyLanguage($language) {
 }
 
 # Master switch for if this branch is beta
-$beta = $true
+$beta = $false
 
 if ($beta) {
     $configuration = "Release-Beta"
@@ -188,8 +188,11 @@ DeleteFileIfExists ($portableExeWithoutExtension64 + ".exe")
 
 $winRarExe = "c:\Program Files\WinRar\WinRAR.exe"
 
-& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension86 .\Installer\Files\x86\**; ExitIfFailed
-& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension64 .\Installer\Files\x64\**; ExitIfFailed
+& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension86 .\Installer\Files\x86\** | Out-Null
+ExitIfFailed
+
+& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension64 .\Installer\Files\x64\** | Out-Null
+ExitIfFailed
 
 #$archiveFolder = ".\Installer\Archive\"
 #ClearFolder $archiveFolder
