@@ -11,11 +11,12 @@ using HandBrake.Interop.Model.Encoding;
 using Microsoft.Practices.Unity;
 using VidCoder.Messages;
 using VidCoder.Model;
-using VidCoder.Properties;
 using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
 {
+	using Resources;
+
 	/// <summary>
 	/// Controls creation/modification/deletion/import/export of presets.
 	/// </summary>
@@ -81,7 +82,7 @@ namespace VidCoder.ViewModel.Components
 			}
 			else
 			{
-				presetIndex = Settings.Default.LastPresetIndex;
+				presetIndex = Config.LastPresetIndex;
 			}
 
 			if (presetIndex >= this.allPresets.Count)
@@ -132,13 +133,36 @@ namespace VidCoder.ViewModel.Components
 
 				if (this.selectedPreset != null && this.selectedPreset.Preset.IsModified)
 				{
-					MessageBoxResult dialogResult = Utilities.MessageBox.Show(this.main, "Do you want to save changes to your current preset?", "Save current preset?", MessageBoxButton.YesNoCancel);
+					string dialogMessage;
+					string dialogTitle;
+					MessageBoxButton buttons;
+
+					if (this.selectedPreset.IsBuiltIn)
+					{
+						dialogMessage = MainRes.PresetDiscardConfirmMessage;
+						dialogTitle = MainRes.PresetDiscardConfirmTitle;
+						buttons = MessageBoxButton.OKCancel;
+					}
+					else
+					{
+						dialogMessage = MainRes.PresetSaveConfirmMessage;
+						dialogTitle = MainRes.PresetSaveConfirmTitle;
+						buttons = MessageBoxButton.YesNoCancel;
+					}
+
+					MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+						this.main,
+						dialogMessage,
+						dialogTitle, 
+						buttons);
 					if (dialogResult == MessageBoxResult.Yes)
 					{
+						// Yes, we wanted to save changes
 						this.SavePreset();
 					}
-					else if (dialogResult == MessageBoxResult.No)
+					else if (dialogResult == MessageBoxResult.No || dialogResult == MessageBoxResult.OK)
 					{
+						// No, we didn't want to save changes or OK, we wanted to discard changes.
 						this.RevertPreset(userInitiated: false);
 					}
 					else if (dialogResult == MessageBoxResult.Cancel)
@@ -235,8 +259,13 @@ namespace VidCoder.ViewModel.Components
 		/// </summary>
 		public void RevertPreset(bool userInitiated)
 		{
-			Debug.Assert(this.SelectedPreset.OriginalProfile != null, "Error reverting preset: Original profile cannot be null.");
-			Debug.Assert(this.SelectedPreset.OriginalProfile != this.SelectedPreset.Preset.EncodingProfile, "Error reverting preset: Original profile must be different from current profile.");
+			Trace.Assert(this.SelectedPreset.OriginalProfile != null, "Error reverting preset: Original profile cannot be null.");
+			Trace.Assert(this.SelectedPreset.OriginalProfile != this.SelectedPreset.Preset.EncodingProfile, "Error reverting preset: Original profile must be different from current profile.");
+
+			if (this.SelectedPreset.OriginalProfile == null || this.SelectedPreset.OriginalProfile == this.SelectedPreset.Preset.EncodingProfile)
+			{
+				return;
+			}
 
 			this.SelectedPreset.Preset.EncodingProfile = this.SelectedPreset.OriginalProfile;
 			this.SelectedPreset.OriginalProfile = null;
@@ -277,10 +306,15 @@ namespace VidCoder.ViewModel.Components
 		/// Modify the current preset. Called when first making a change to a preset.
 		/// </summary>
 		/// <param name="newProfile">The new encoding profile to use.</param>
-		public void ModifyPreset(EncodingProfile newProfile)
+		public void ModifyPreset(VCProfile newProfile)
 		{
-			Debug.Assert(this.SelectedPreset.IsModified == false, "Cannot start modification on already modified preset.");
-			Debug.Assert(this.SelectedPreset.OriginalProfile == null, "Preset already has OriginalProfile.");
+			Trace.Assert(!this.SelectedPreset.IsModified, "Cannot start modification on already modified preset.");
+			Trace.Assert(this.SelectedPreset.OriginalProfile == null, "Preset already has OriginalProfile.");
+
+			if (this.SelectedPreset.IsModified || this.SelectedPreset.OriginalProfile != null)
+			{
+				return;
+			}
 
 			this.SelectedPreset.OriginalProfile = this.SelectedPreset.Preset.EncodingProfile;
 			this.SelectedPreset.Preset.EncodingProfile = newProfile;
@@ -302,17 +336,19 @@ namespace VidCoder.ViewModel.Components
 				// Add the original version of the preset, if we're working with a more recent version.
 				if (!presetVM.Preset.IsBuiltIn && presetVM.Preset.IsModified)
 				{
-					Debug.Assert(presetVM.OriginalProfile != null, "Error saving user presets: Preset marked as modified but no OriginalProfile could be found.");
-
-					var originalPreset = new Preset
+					Trace.Assert(presetVM.OriginalProfile != null, "Error saving user presets: Preset marked as modified but no OriginalProfile could be found.");
+					if (presetVM.OriginalProfile != null)
 					{
-						Name = presetVM.Preset.Name,
-						IsBuiltIn = presetVM.Preset.IsBuiltIn,
-						IsModified = false,
-						EncodingProfile = presetVM.OriginalProfile
-					};
+						var originalPreset = new Preset
+						{
+							Name = presetVM.Preset.Name,
+							IsBuiltIn = presetVM.Preset.IsBuiltIn,
+							IsModified = false,
+							EncodingProfile = presetVM.OriginalProfile
+						};
 
-					userPresets.Add(originalPreset);
+						userPresets.Add(originalPreset);
+					}
 				}
 			}
 
@@ -350,7 +386,7 @@ namespace VidCoder.ViewModel.Components
 				}
 			}
 
-			Debug.Assert(true, "Did not find place to insert new preset.");
+			Trace.Assert(true, "Did not find place to insert new preset.");
 		}
 
 		private void NotifySelectedPresetChanged()
@@ -368,7 +404,7 @@ namespace VidCoder.ViewModel.Components
 			this.RaisePropertyChanged(() => this.SelectedPreset);
 			this.main.RefreshChapterMarkerUI();
 
-			Settings.Default.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
+			Config.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
 		}
 	}
 }

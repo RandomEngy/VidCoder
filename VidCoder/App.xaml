@@ -14,6 +14,17 @@
 		<converters:PercentDisplayConverter x:Key="PercentDisplayConverter" />
 		<converters:DoubleDisplayConverter x:Key="DoubleDisplayConverter" />
 		
+		<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#B8E0F3"/>
+		<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+
+		<Style x:Key="GrayOnDisabledControl" TargetType="Control">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled}" Value="False">
+					<Setter Property="Foreground" Value="#999999"></Setter>
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+
 		<Style x:Key="CenteredCheckBox" TargetType="CheckBox">
 			<Setter Property="Template">
 				<Setter.Value>
@@ -70,7 +81,29 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
-		
+
+		<Style x:Key="GrayNonCompatible" TargetType="ComboBoxItem">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding IsCompatible}" Value="False">
+					<Setter Property="Foreground" Value="Gray" />
+				</DataTrigger>
+				<!--<MultiDataTrigger>
+					<MultiDataTrigger.Conditions>
+						<Condition Binding="{Binding IsCompatible}" Value="False" />
+						<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="False" />
+					</MultiDataTrigger.Conditions>
+					<Setter Property="Foreground" Value="Gray" />
+				</MultiDataTrigger>
+				<MultiDataTrigger>
+					<MultiDataTrigger.Conditions>
+						<Condition Binding="{Binding IsCompatible}" Value="False" />
+						<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="True" />
+					</MultiDataTrigger.Conditions>
+					<Setter Property="Foreground" Value="#DDDDDD" />
+				</MultiDataTrigger>-->
+			</Style.Triggers>
+		</Style>
+
 		<Style x:Key="SectionHeader" TargetType="TextBlock">
 			<Setter Property="FontWeight" Value="Bold" />
 		</Style>
@@ -83,7 +116,7 @@
 
 		<SolidColorBrush x:Key="DisabledBrush" Color="#4C4C4C" />
 		<Style x:Key="LongToolTip" TargetType="TextBlock">
-			<Setter Property="Width" Value="400" />
+			<Setter Property="MaxWidth" Value="400" />
 			<Setter Property="TextWrapping" Value="Wrap" />
 		</Style>
 		<Style x:Key="LongToolTipHolder" TargetType="FrameworkElement">
@@ -131,6 +164,8 @@
 			<GradientStop Color="#125599" Offset="0" />
 			<GradientStop Color="#125599" Offset="1" />
 		</RadialGradientBrush>
+		<SolidColorBrush x:Key="GreenHoverFill" Color="#00AF00" />
+		<SolidColorBrush x:Key="GreenPressFill" Color="DarkGreen" />
 		<Grid x:Key="RedX" Background="Transparent">
 			<Rectangle Name="rect2" Width="14" Height="3" Fill="{StaticResource RedFill}">
 				<Rectangle.LayoutTransform>
@@ -157,6 +192,14 @@
 							<Grid.ToolTip>
 								<ContentPresenter />
 							</Grid.ToolTip>
+							<Border Name="hoverBorder" CornerRadius="3" BorderBrush="#7DA2CE" BorderThickness="1" Visibility="Collapsed">
+								<Border.Background>
+									<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+										<GradientStop Color="#DBEAFC" Offset="0.0" />
+										<GradientStop Color="#C1DBFC" Offset="1.0" />
+									</LinearGradientBrush>
+								</Border.Background>
+							</Border>
 							<Rectangle Name="rect2" Width="12" Height="2" Fill="{StaticResource BlueFill}">
 								<Rectangle.LayoutTransform>
 									<RotateTransform Angle="-45" />
@@ -172,10 +215,54 @@
 							<Trigger Property="IsMouseOver" Value="True">
 								<Setter TargetName="rect1" Property="Fill" Value="{StaticResource BlueHoverFill}" />
 								<Setter TargetName="rect2" Property="Fill" Value="{StaticResource BlueHoverFill}" />
+								<Setter TargetName="hoverBorder" Property="Visibility" Value="Visible" />
 							</Trigger>
 							<Trigger Property="IsPressed" Value="True">
 								<Setter TargetName="rect1" Property="Fill" Value="{StaticResource BluePressFill}" />
 								<Setter TargetName="rect2" Property="Fill" Value="{StaticResource BluePressFill}" />
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		
+		<Style x:Key="AddButtonStyle">
+			<Setter Property="Control.Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Grid Background="Transparent" Name="addButtonGrid" Width="15" Height="15">
+							<Grid.ToolTip>
+								<ContentPresenter />
+							</Grid.ToolTip>
+							<Border Name="hoverBorder" CornerRadius="3" BorderBrush="#7DA2CE" BorderThickness="1" Visibility="Collapsed">
+								<Border.Background>
+									<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+										<GradientStop Color="#DBEAFC" Offset="0.0" />
+										<GradientStop Color="#C1DBFC" Offset="1.0" />
+									</LinearGradientBrush>
+								</Border.Background>
+							</Border>
+							<Rectangle Name="rect2" Width="10" Height="2" Fill="Green">
+								<Rectangle.LayoutTransform>
+									<RotateTransform Angle="0" />
+								</Rectangle.LayoutTransform>
+							</Rectangle>
+							<Rectangle Name="rect1" Width="10" Height="2" Fill="Green">
+								<Rectangle.LayoutTransform>
+									<RotateTransform Angle="90" />
+								</Rectangle.LayoutTransform>
+							</Rectangle>
+						</Grid>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter TargetName="rect1" Property="Fill" Value="{StaticResource GreenHoverFill}" />
+								<Setter TargetName="rect2" Property="Fill" Value="{StaticResource GreenHoverFill}" />
+								<Setter TargetName="hoverBorder" Property="Visibility" Value="Visible" />
+							</Trigger>
+							<Trigger Property="IsPressed" Value="True">
+								<Setter TargetName="rect1" Property="Fill" Value="{StaticResource GreenPressFill}" />
+								<Setter TargetName="rect2" Property="Fill" Value="{StaticResource GreenPressFill}" />
 							</Trigger>
 						</ControlTemplate.Triggers>
 					</ControlTemplate>

@@ -25,7 +25,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public EncodingProfile OriginalProfile { get; set; }
+		public VCProfile OriginalProfile { get; set; }
 
 		public bool IsModified
 		{
@@ -51,6 +51,14 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public string DisplayName
+		{
+			get
+			{
+				return this.preset.DisplayName;
+			}
+		}
+
 		public bool IsBuiltIn
 		{
 			get
@@ -63,6 +71,7 @@ namespace VidCoder.ViewModel
 		{
 			this.RaisePropertyChanged(() => this.IsModified);
 			this.RaisePropertyChanged(() => this.PresetName);
+			this.RaisePropertyChanged(() => this.DisplayName);
 			this.RaisePropertyChanged(() => this.IsBuiltIn);
 		}
 	}

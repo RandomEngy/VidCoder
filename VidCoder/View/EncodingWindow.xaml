@@ -1,17 +1,20 @@
-﻿<Window x:Class="VidCoder.View.EncodingWindow"
+﻿<Window
+	x:Class="VidCoder.View.EncodingWindow"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
 	xmlns:converters="clr-namespace:VidCoder.Converters"
-	xmlns:resx="clr-namespace:VidCoder.Properties"
+	xmlns:prop="clr-namespace:VidCoder.Properties"
+	xmlns:res="clr-namespace:VidCoder.Resources" 
 	xmlns:view="clr-namespace:VidCoder.View"
-		xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop"
-		Title="{Binding WindowTitle}" Width="671" Height="467" MinWidth="588" MinHeight="467"
+	xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop"
+	Title="{Binding WindowTitle}" Width="671" Height="467" MinWidth="588" MinHeight="467"
 	Style="{StaticResource NormalWindow}" WindowStartupLocation="CenterOwner"
 	Closing="Window_Closing"
-	ShowInTaskbar="False" WindowStyle="ToolWindow">
+	ShowInTaskbar="False" WindowStyle="ToolWindow" Closed="Window_Closed"
+	TextOptions.TextFormattingMode="Display">
 	<Window.Resources>
 		<local:EnumDisplayer Type="{x:Type Encoding:Container}" x:Key="OutputFormatChoices" />
 	</Window.Resources>
@@ -27,39 +30,49 @@
 		<KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveCommand}" />
 		<KeyBinding Key="S" Modifiers="Control+Shift" Command="{Binding SaveAsCommand}" />
 		<KeyBinding Key="F2" Command="{Binding RenameCommand}" />
+		<KeyBinding Key="F4" Command="{Binding MainViewModel.OpenOptionsCommand}" />
 	</Window.InputBindings>
 	<Grid>
-		<ToolBarPanel Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+		<ToolBarPanel Margin="-5,0,-14,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" UseLayoutRounding="True">
 			<ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+				<ToolBar.Background>
+					<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+						<GradientStop Color="#EEE" Offset="0.0" />
+						<GradientStop Color="#BBB" Offset="1.0" />
+					</LinearGradientBrush>
+				</ToolBar.Background>
 				<TextBlock
 					Text="{Binding ProfileName}" Margin="0,4,0,0"
 					Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" FontWeight="Bold" FontSize="14" TextAlignment="Center" TextTrimming="CharacterEllipsis" />
-				<Button Height="24" Width="70"
+				<Button
+					Height="24" Padding="5,0" MinWidth="70"
 					Visibility="{Binding SaveRenameButtonsVisible, Converter={StaticResource VisibilityConverter}}"
 					Command="{Binding SaveCommand}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/save.png" Width="16" Height="16" />
-						<TextBlock Text="Save" Margin="5,0,0,0" />
+						<TextBlock Text="{x:Static res:EncodingRes.Save}" Margin="5,0,0,0" />
 					</StackPanel>
 				</Button>
-				<Button Height="24" Width="73"
-					Command="{Binding SaveAsCommand}">Save As...</Button>
+				<Button 
+					Height="24" Padding="5,0" MinWidth="70"
+					Command="{Binding SaveAsCommand}"
+					Content="{x:Static res:EncodingRes.SaveAs}"/>
 				<Button
-					Content="Rename"
+					Content="{x:Static res:EncodingRes.Rename}"
 					Visibility="{Binding SaveRenameButtonsVisible, Converter={StaticResource VisibilityConverter}}"
-					Height="24" Width="65"
+					Height="24" Padding="5,0" MinWidth="70"
 					Command="{Binding RenameCommand}" />
 				<Button
-					Height="24" Width="70"
+					Height="24" Padding="5,0" MinWidth="70"
 					Visibility="{Binding IsModified, Converter={StaticResource VisibilityConverter}}"
 					Command="{Binding DeletePresetCommand}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/undo_16x16.png" Width="16" Height="16" />
-						<TextBlock Text="Revert" Margin="4,0,0,0" />
+						<TextBlock Text="{x:Static res:EncodingRes.Revert}" Margin="4,0,0,0" />
 					</StackPanel>
 				</Button>
 				<Button
-					Height="24" Width="70"
+					Height="24" Padding="5,0" MinWidth="70"
 					Visibility="{Binding DeleteButtonVisible, Converter={StaticResource VisibilityConverter}}"
 					Command="{Binding DeletePresetCommand}">
 					<StackPanel Orientation="Horizontal">
@@ -75,75 +88,89 @@
 								</Rectangle.LayoutTransform>
 							</Rectangle>
 						</Grid>
-						<TextBlock Text="Delete" Margin="4,0,0,0" />
+						<TextBlock Text="{x:Static res:CommonRes.Delete}" Margin="4,0,0,0" />
+					</StackPanel>
+				</Button>
+				<Button
+					Height="24" Padding="5,0" MinWidth="70"
+					Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}" IsEnabled="{Binding HasSourceData}"
+					Visibility="{Binding WindowManagerVM.PreviewWindowOpen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/Icons/preview.png" Width="16" Height="16" />
+						<TextBlock Text="{x:Static res:CommonRes.PreviewLabel}" Margin="5,0,0,0" VerticalAlignment="Center" />
 					</StackPanel>
 				</Button>
 			</ToolBar>
 		</ToolBarPanel>
-		<Button
-			Height="26" Margin="0,4,12,0" VerticalAlignment="Top" IsEnabled="{Binding HasSourceData}"
-			Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}" HorizontalAlignment="Right" Width="77"
-			Visibility="{Binding WindowManagerVM.PreviewWindowOpen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
-			<StackPanel Orientation="Horizontal">
-				<Image Source="/Icons/preview.png" />
-				<TextBlock Text="Preview" Margin="5,0,0,0" VerticalAlignment="Center" />
-			</StackPanel>
-		</Button>
 
-		<Label Height="28" HorizontalAlignment="Left" Margin="20,36,0,0" Name="label11" VerticalAlignment="Top" Width="69">Container:</Label>
-		<ComboBox 
-			Height="23" HorizontalAlignment="Left" Margin="85,39,0,0" VerticalAlignment="Top" Width="58"
-			ItemsSource="{Binding OutputFormatChoices}"
-			SelectedValue="{Binding OutputFormat}"
-			SelectedValuePath="Value"
-			DisplayMemberPath="Display"/>
-		<Label Height="28" Margin="155.422,34,0,0" Name="label12" VerticalAlignment="Top" HorizontalAlignment="Left" Width="64"
-			Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">Extension:</Label>
-		<RadioButton Margin="221.422,34,0,0" Name="radioButton3" Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
-			IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Mp4}"
-			Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">.mp4</RadioButton>
-		<RadioButton Height="16" Margin="221.422,49,0,0" Name="radioButton4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
-			IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=M4v}"
-			Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">.m4v</RadioButton>
-		<CheckBox
-			Content="Large file size" ToolTip="{x:Static resx:Resources.LargeFileSizeToolTip}"
-			Margin="277.093,34,0,0" HorizontalAlignment="Left" Width="98.907" Height="16" VerticalAlignment="Top"
-			Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
-			IsChecked="{Binding LargeFile}" />
-		<CheckBox
-			Content="Web optimized" ToolTip="{x:Static resx:Resources.WebOptimizedToolTip}"
-			Height="16" Margin="277,52,0,0" VerticalAlignment="Top" Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
-			IsChecked="{Binding Optimize}" HorizontalAlignment="Left" Width="111" />
-		<Grid Height="35" HorizontalAlignment="Left" Margin="385.995,34,0,0" VerticalAlignment="Top" Width="150">
-			<StackPanel Orientation="Vertical" VerticalAlignment="Center">
+		<StackPanel 
+			Orientation="Horizontal"
+			Margin="20,37,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32">
+			<Label 
+				HorizontalAlignment="Left" VerticalAlignment="Center"
+				Content="{x:Static res:EncodingRes.ContainerLabel}" />
+			<ComboBox 
+				Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Width="58"
+				VerticalContentAlignment="Center"
+				ItemsSource="{Binding OutputFormatChoices}"
+				SelectedValue="{Binding OutputFormat}"
+				SelectedValuePath="Value"
+				DisplayMemberPath="Display"/>
+			<Label 
+				Height="28" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"
+				Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
+				Content="{x:Static res:EncodingRes.ExtensionLabel}" />
+			
+			<StackPanel Orientation="Vertical">
+				<RadioButton Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
+					IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Mp4}"
+					Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">.mp4</RadioButton>
+				<RadioButton Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="53.578"
+					IsChecked="{Binding PreferredExtension, Converter={StaticResource EnumBoolConverter}, ConverterParameter=M4v}"
+					Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}">.m4v</RadioButton>
+			</StackPanel>
+
+			<StackPanel Orientation="Vertical" Margin="10,0,0,0">
 				<CheckBox
-					Content="iPod 5G support" ToolTip="{x:Static resx:Resources.IPod5GSupportToolTip}"
-					Height="18" VerticalAlignment="Center"
+					Content="{x:Static res:EncodingRes.LargeFileSizeCheckBox}" ToolTip="{x:Static res:EncodingRes.LargeFileSizeToolTip}"
+					HorizontalAlignment="Left" VerticalAlignment="Top"
+					Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
+					IsChecked="{Binding LargeFile}" />
+				<CheckBox
+					Content="{x:Static res:EncodingRes.WebOptimizedCheckBox}" ToolTip="{x:Static res:EncodingRes.WebOptimizedToolTip}"
+					VerticalAlignment="Top" Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
+					IsChecked="{Binding Optimize}" HorizontalAlignment="Left" />
+			</StackPanel>
+
+			<StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,0,0,0">
+				<CheckBox
+					Content="{x:Static res:EncodingRes.Ipod5GSupportCheckBox}" ToolTip="{x:Static res:EncodingRes.IPod5GSupportToolTip}"
+					VerticalAlignment="Center"
 					Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
 					IsChecked="{Binding IPod5GSupport}" />
 				<CheckBox
-					Content="Include chapter markers" ToolTip="{x:Static resx:Resources.IncludeChapterMarkersToolTip}"
+					Content="{x:Static res:EncodingRes.IncludeChapterMarkersCheckBox}" ToolTip="{x:Static res:EncodingRes.IncludeChapterMarkersToolTip}"
 					VerticalAlignment="Center"
 					IsChecked="{Binding IncludeChapterMarkers}" />
 			</StackPanel>
-		</Grid>
+		</StackPanel>
 
 
 
 		<TabControl Margin="0,73,0,0" Name="tabControl">
-			<TabItem Header="Picture">
+			<TabItem Header="{x:Static res:EncodingRes.TabHeader_Picture}">
 				<view:PicturePanel DataContext="{Binding PicturePanelViewModel}"/>
 			</TabItem>
-			<TabItem Header="Video Filters">
+			<TabItem Header="{x:Static res:EncodingRes.TabHeader_VideoFilters}">
 				<view:VideoFiltersPanel DataContext="{Binding VideoFiltersPanelViewModel}" />
 			</TabItem>
-			<TabItem Header="Video">
+			<TabItem Header="{x:Static res:EncodingRes.TabHeader_Video}">
 				<view:VideoPanel DataContext="{Binding VideoPanelViewModel}" />
 			</TabItem>
-			<TabItem Header="Audio">
+			<TabItem Header="{x:Static res:EncodingRes.TabHeader_Audio}">
 				<view:AudioPanel DataContext="{Binding AudioPanelViewModel}" />
 			</TabItem>
-			<TabItem Header="Advanced">
+			<TabItem Header="{x:Static res:EncodingRes.TabHeader_Advanced}">
 				<view:AdvancedPanel DataContext="{Binding AdvancedPanelViewModel}" />
 			</TabItem>
 		</TabControl>

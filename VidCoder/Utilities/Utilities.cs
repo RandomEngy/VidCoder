@@ -15,13 +15,28 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder
 {
+	using System.Configuration;
+	using HandBrake.Interop.Model;
+	using Properties;
+	using Resources;
+
 	public static class Utilities
 	{
-		public const string AppDataFolderName = "VidCoder";
-		public const string LocalAppDataFolderName = "VidCoder";
 		public const string TimeFormat = @"h\:mm\:ss";
-		public const int CurrentDatabaseVersion = 14;
-		public const int LastUpdatedEncodingProfileDatabaseVersion = 14;
+		public const int CurrentDatabaseVersion = 18;
+		public const int LastUpdatedEncodingProfileDatabaseVersion = 17;
+
+		private const string AppDataFolderName = "VidCoder";
+		private const string LocalAppDataFolderName = "VidCoder";
+
+		private static bool isPortable;
+		private static string settingsDirectory;
+
+		static Utilities()
+		{
+			isPortable = Directory.GetCurrentDirectory().Contains("Temp");
+			settingsDirectory = ConfigurationManager.AppSettings["SettingsDirectory"];
+		}
 
 		private static List<string> disallowedCharacters = new List<string> { "\\", "/", "\"", ":", "*", "?", "<", ">", "|" };
 
@@ -29,20 +44,46 @@ namespace VidCoder
 		{
 			{"Source", 200},
 			{"Title", 35},
-			{"Chapters", 60},
+			{"Range", 60},
 			{"Destination", 200},
 			{"VideoEncoder", 100},
 			{"AudioEncoder", 100},
 			{"VideoQuality", 80},
 			{"Duration", 60},
-			{"AudioQuality", 80}
+			{"AudioQuality", 80},
+			{"Preset", 120}
 		};
+
+		public static bool Beta
+		{
+			get
+			{
+#if BETA
+				return true;
+#else
+				return false;
+#endif
+			}
+		}
 
 		public static string CurrentVersion
 		{
 			get
 			{
 				return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+			}
+		}
+
+		public static string VersionString
+		{
+			get
+			{
+#pragma warning disable 162
+#if BETA
+				return string.Format(MiscRes.BetaVersionFormat, CurrentVersion, Architecture);
+#endif
+				return string.Format(MiscRes.VersionFormat, CurrentVersion, Architecture);
+#pragma warning restore 162
 			}
 		}
 
@@ -56,6 +97,14 @@ namespace VidCoder
 				}
 
 				return "x64";
+			}
+		}
+
+		public static bool IsPortable
+		{
+			get
+			{
+				return isPortable;
 			}
 		}
 
@@ -129,7 +178,7 @@ namespace VidCoder
 		{
 			get
 			{
-				return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppDataFolderName);
+				return GetAppFolder(Beta);
 			}
 		}
 
@@ -137,9 +186,31 @@ namespace VidCoder
 		{
 			get
 			{
-				return Path.Combine(
+				string folder = Path.Combine(
 					Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
 					LocalAppDataFolderName);
+
+#if BETA
+				folder += "-Beta";
+#endif
+
+				return folder;
+			}
+		}
+
+		public static string LogsFolder
+		{
+			get
+			{
+				return Path.Combine(AppFolder, "Logs");
+			}
+		}
+
+		public static string WorkerLogsFolder
+		{
+			get
+			{
+				return Path.Combine(Path.GetTempPath(), "VidCoderWorkerLogs");
 			}
 		}
 
@@ -179,9 +250,53 @@ namespace VidCoder
 			}
 		}
 
+		public static string GetAppFolder(bool beta)
+		{
+			if (settingsDirectory != null)
+			{
+				return settingsDirectory;
+			}
+
+			string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppDataFolderName);
+
+			if (beta)
+			{
+				folder += "-Beta";
+			}
+
+			return folder;
+		}
+
 		public static bool IsValidQueueColumn(string columnId)
 		{
 			return defaultQueueColumnSizes.ContainsKey(columnId);
+		}
+
+		public static IEncodeProxy CreateEncodeProxy()
+		{
+			if (Config.UseWorkerProcess)
+			{
+				return new RemoteEncodeProxy();
+			}
+			else
+			{
+				return new LocalEncodeProxy();
+			}
+		}
+
+		public static void CopyDirectory(string sourceDir, string destDir)
+		{
+			// Create directories
+			foreach (string dirPath in Directory.GetDirectories(sourceDir, "*", SearchOption.AllDirectories))
+			{
+				Directory.CreateDirectory(dirPath.Replace(sourceDir, destDir));
+			}
+
+			// Create files
+			foreach (string newPath in Directory.GetFiles(sourceDir, "*.*", SearchOption.AllDirectories))
+			{
+				File.Copy(newPath, newPath.Replace(sourceDir, destDir));
+			}
 		}
 
 		public static void DeleteDirectory(string path)
@@ -292,6 +407,12 @@ namespace VidCoder
 					{
 						double columnWidth;
 						string columnId = settingParts[0];
+
+						if (columnId == "Chapters")
+						{
+							columnId = "Range";
+						}
+
 						if (IsValidQueueColumn(columnId) && double.TryParse(settingParts[1], out columnWidth))
 						{
 							resultList.Add(new Tuple<string, double>(columnId, columnWidth));
@@ -428,6 +549,27 @@ namespace VidCoder
 				codec == AudioCodec.Mp3;
 		}
 
+		public static Title GetFeatureTitle(List<Title> titles, int hbFeatureTitle)
+		{
+			// If the feature title is supplied, find it in the list.
+			if (hbFeatureTitle > 0)
+			{
+				return titles.FirstOrDefault(title => title.TitleNumber == hbFeatureTitle);
+			}
+
+			// Select the first title within 80% of the duration of the longest title.
+			double maxSeconds = titles.Max(title => title.Duration.TotalSeconds);
+			foreach (Title title in titles)
+			{
+				if (title.Duration.TotalSeconds >= maxSeconds * .8)
+				{
+					return title;
+				}
+			}
+
+			return titles[0];
+		}
+
 		// Assumes the hashset has a comparer of StringComparer.OrdinalIgnoreCase
 		public static bool? FileExists(string path, HashSet<string> queuedPaths)
 		{
@@ -480,6 +622,11 @@ namespace VidCoder
 			try
 			{
 				var directoryInfo = new DirectoryInfo(directory);
+				if (!directoryInfo.Exists)
+				{
+					return false;
+				}
+
 				if (directoryInfo.Name == "VIDEO_TS")
 				{
 					return true;
@@ -545,7 +692,7 @@ namespace VidCoder
 
 			if (accessErrors.Count > 0)
 			{
-				var messageBuilder = new StringBuilder("Count not access the following directories:" + Environment.NewLine);
+				var messageBuilder = new StringBuilder(CommonRes.CouldNotAccessDirectoriesError + Environment.NewLine);
 				foreach (string accessError in accessErrors)
 				{
 					messageBuilder.AppendLine(accessError);
@@ -576,6 +723,62 @@ namespace VidCoder
 			{
 				string[] files2 = Directory.GetFiles(directory);
 				files.AddRange(files2);
+			}
+			catch (UnauthorizedAccessException)
+			{
+				accessErrors.Add(directory);
+			}
+		}
+
+		public static List<string> GetFilesOrVideoFolders(string directory, IList<string> videoExtensions)
+		{
+			var path = new List<string>();
+			var accessErrors = new List<string>();
+			GetFilesOrVideoFoldersRecursive(directory, path, accessErrors, videoExtensions);
+
+			if (accessErrors.Count > 0)
+			{
+				var messageBuilder = new StringBuilder(CommonRes.CouldNotAccessDirectoriesError + Environment.NewLine);
+				foreach (string accessError in accessErrors)
+				{
+					messageBuilder.AppendLine(accessError);
+				}
+
+				MessageBox.Show(messageBuilder.ToString());
+			}
+
+			return path;
+		}
+
+		private static void GetFilesOrVideoFoldersRecursive(string directory, List<string> paths, List<string> accessErrors, IList<string> videoExtensions)
+		{
+			try
+			{
+				string[] subdirectories = Directory.GetDirectories(directory);
+				foreach (string subdirectory in subdirectories)
+				{
+					if (IsDiscFolder(subdirectory))
+					{
+						paths.Add(subdirectory);
+					}
+					else
+					{
+						GetFilesOrVideoFoldersRecursive(subdirectory, paths, accessErrors, videoExtensions);
+					}
+				}
+			}
+			catch (UnauthorizedAccessException)
+			{
+				accessErrors.Add(directory);
+			}
+
+			try
+			{
+				string[] files = Directory.GetFiles(directory);
+				paths.AddRange(
+					files.Where(
+						f => videoExtensions.Any(
+							e => f.EndsWith(e, StringComparison.OrdinalIgnoreCase))));
 			}
 			catch (UnauthorizedAccessException)
 			{

@@ -8,9 +8,11 @@ using VidCoder.Properties;
 
 namespace VidCoder.ViewModel
 {
+	using Resources;
+
 	public class ColumnViewModel : ViewModelBase
 	{
-		private static ResourceManager resources = new ResourceManager("VidCoder.Properties.Resources", typeof(Resources).Assembly);
+		private static ResourceManager resources = new ResourceManager("VidCoder.Resources.CommonRes", typeof(CommonRes).Assembly);
 
 		public ColumnViewModel(string id)
 		{

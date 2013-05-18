@@ -134,13 +134,12 @@ namespace VidCoder.View
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			this.SetPlacement(Properties.Settings.Default.SubtitlesDialogPlacement);
+			this.SetPlacement(Config.SubtitlesDialogPlacement);
 		}
 
 		private void Window_Closing(object sender, CancelEventArgs e)
 		{
-			Properties.Settings.Default.SubtitlesDialogPlacement = this.GetPlacement();
-			Properties.Settings.Default.Save();
+			Config.SubtitlesDialogPlacement = this.GetPlacement();
 		}
 	}
 }

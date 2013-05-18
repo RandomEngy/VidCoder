@@ -7,15 +7,27 @@ using HandBrake.Interop.Model.Encoding;
 
 namespace VidCoder.ViewModel
 {
+	using System.Resources;
+	using Resources;
+
 	public class AudioEncoderViewModel : ViewModelBase
 	{
-		public AudioEncoder Encoder { get; set; }
+		private static ResourceManager manager = new ResourceManager(typeof(EncodingRes));
+
+		public HBAudioEncoder Encoder { get; set; }
 
 		public string Display
 		{
 			get
 			{
-				return DisplayConversions.DisplayAudioEncoder(this.Encoder);
+				string resourceString = manager.GetString("AudioEncoder_" + this.Encoder.ShortName.Replace(':', '_'));
+
+				if (string.IsNullOrWhiteSpace(resourceString))
+				{
+					return this.Encoder.DisplayName;
+				}
+
+				return resourceString;
 			}
 		}
 	}

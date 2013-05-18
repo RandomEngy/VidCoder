@@ -1,32 +1,35 @@
-﻿<Window x:Class="VidCoder.View.QueueTitlesDialog"
-		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:local="clr-namespace:VidCoder"
-		xmlns:controls="clr-namespace:VidCoder.Controls"
-		xmlns:resx="clr-namespace:VidCoder.Properties"
-		Title="Queue Multiple Titles" Height="456" Width="463" MinWidth="295" MinHeight="220"
-		Style="{StaticResource NormalWindow}" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" Closing="Window_Closing">
+﻿<Window 
+	x:Class="VidCoder.View.QueueTitlesDialog"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="clr-namespace:VidCoder"
+	xmlns:controls="clr-namespace:VidCoder.Controls"
+	xmlns:prop="clr-namespace:VidCoder.Properties"
+	xmlns:res="clr-namespace:VidCoder.Resources" 
+	Title="{x:Static res:QueueTitlesRes.QueueTitlesDialogTitle}" Height="464" Width="550" MinWidth="295" MinHeight="220"
+	Style="{StaticResource NormalWindow}" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" Closing="Window_Closing"
+	TextOptions.TextFormattingMode="Display">
 	<Grid>
-		<TextBlock Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="textBlock1" Text="Pick multiple titles to add to the queue." VerticalAlignment="Top" Width="244" />
+		<TextBlock HorizontalAlignment="Left" Margin="12,6,0,0" Text="{x:Static res:QueueTitlesRes.QueueTitlesWindowHeader}" VerticalAlignment="Top" />
 		<ListView
-			Margin="12,41,0,136" Name="listView1"
+			Margin="12,30,0,136"
 			SelectionMode="Extended"
 			ItemsSource="{Binding Titles}"
-			local:MultiSelectorBehaviors.SynchronizedSelectedItems="{Binding SelectedTitles}" HorizontalAlignment="Left" Width="150">
+			local:MultiSelectorBehaviors.SynchronizedSelectedItems="{Binding SelectedTitles}" HorizontalAlignment="Left" Width="180">
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<StackPanel Orientation="Horizontal">
-						<CheckBox IsChecked="{Binding Selected}" />
+						<CheckBox IsChecked="{Binding Selected}" VerticalAlignment="Center" />
 						<TextBlock Text="{Binding Text}" Margin="8,0,0,0" VerticalAlignment="Center" />
 					</StackPanel>
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>
 		<Grid
-			Margin="167,41,12,136" Name="grid1"
+			Margin="197,30,12,136"
 			Visibility="{Binding TitleDetailsVisible, Converter={StaticResource VisibilityConverter}}">
 			<TextBlock 
-				HorizontalAlignment="Left" Margin="16,0,0,0" Name="textBlock2" Text="{Binding TitleText}" VerticalAlignment="Top" FontSize="16" />
+				HorizontalAlignment="Left" Margin="16,0,0,0" Text="{Binding TitleText}" VerticalAlignment="Top" FontSize="16" />
 
 			<Grid
 				Name="previewImageHolder" Margin="6,23,6,35"
@@ -42,32 +45,33 @@
 				<Button
 					Height="23"
 					Command="{Binding PlayCommand}"
-					ToolTip="If a supported player is installed (VLC or Media Player Classic Home Cinema), you can preview individual titles of DVDs"
+					ToolTip="{x:Static res:QueueTitlesRes.PlaySourceToolTip}"
 					ToolTipService.ShowOnDisabled="True">
 					<StackPanel Orientation="Horizontal" Margin="4,0">
 						<Image Source="/Icons/blue_play_80.png" VerticalAlignment="Center" Height="15" />
-						<TextBlock Text="Play Source" Margin="5,0,0,0" VerticalAlignment="Center" />
+						<TextBlock Text="{x:Static res:QueueTitlesRes.PlaySourceButton}" Margin="5,0,0,0" VerticalAlignment="Center" />
 					</StackPanel>
 				</Button>
 			</StackPanel>
 		</Grid>
-		<CheckBox Name="checkBox1" Margin="23,0,0,106" HorizontalAlignment="Left" VerticalAlignment="Bottom" IsChecked="{Binding SelectRange}">
+		<CheckBox 
+			Margin="23,0,0,106" HorizontalAlignment="Left" VerticalAlignment="Bottom" IsChecked="{Binding SelectRange}">
 			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="All titles from" Margin="0,0,4,0" VerticalAlignment="Center" />
+				<TextBlock Text="{x:Static res:QueueTitlesRes.LengthRangePre}" Margin="0,0,4,0" VerticalAlignment="Center" />
 				<controls:NumberBox
 					Width="46"
 					Number="{Binding StartRange, Mode=TwoWay}"
 					Minimum="0"
 					AllowEmpty="False"
 					IsEnabled="{Binding SelectRange}"/>
-				<TextBlock Text="to" Margin="4,0,4,0" VerticalAlignment="Center" />
+				<TextBlock Text="{x:Static res:QueueTitlesRes.LengthRangeMid}" Margin="4,0,4,0" VerticalAlignment="Center" />
 				<controls:NumberBox
 					Width="46"
 					Number="{Binding EndRange, Mode=TwoWay}"
 					Minimum="0"
 					AllowEmpty="False"
 					IsEnabled="{Binding SelectRange}"/>
-				<TextBlock Text="minutes" Margin="4,0,0,0" VerticalAlignment="Center" />
+				<TextBlock Text="{x:Static res:QueueTitlesRes.LengthRangePost}" Margin="4,0,0,0" VerticalAlignment="Center" />
 			</StackPanel>
 		</CheckBox>
 		<CheckBox
@@ -75,10 +79,10 @@
 			IsChecked="{Binding TitleStartOverrideEnabled}"
 			Style="{StaticResource LongToolTipHolder}">
 			<CheckBox.ToolTip>
-				<TextBlock Text="{x:Static resx:Resources.OverrideTitleNumberToolTip}" Style="{StaticResource LongToolTip}" />
+				<TextBlock Text="{x:Static res:QueueTitlesRes.OverrideTitleNumberToolTip}" Style="{StaticResource LongToolTip}" />
 			</CheckBox.ToolTip>
 			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="Override title #: start at" Margin="0,0,4,0" VerticalAlignment="Center" />
+				<TextBlock Text="{x:Static res:QueueTitlesRes.OverrideTitleCheckBox}" Margin="0,0,4,0" VerticalAlignment="Center" />
 				<controls:NumberBox
 					Width="44"
 					Number="{Binding TitleStartOverride, Mode=TwoWay}"
@@ -87,24 +91,38 @@
 					IsEnabled="{Binding TitleStartOverrideEnabled}"/>
 			</StackPanel>
 		</CheckBox>
-		<CheckBox
-			HorizontalAlignment="Left" Margin="23,0,0,48" Name="checkBox2" VerticalAlignment="Bottom" IsChecked="{Binding NameOverrideEnabled}">
-			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="Override naming format:" Margin="0,0,4,0" VerticalAlignment="Center" />
-			</StackPanel>
-		</CheckBox>
 		
-		<Button
-			Content="OK"
-			Command="{Binding AcceptCommand}"
-			Height="23" HorizontalAlignment="Right" Margin="0,0,93,12" Name="button1" VerticalAlignment="Bottom" Width="75" IsDefault="True" />
-		<Button
-			Content="Cancel"
-			Command="{Binding CancelCommand}"
-			Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="button2" VerticalAlignment="Bottom" Width="75" IsCancel="True" />
-		<TextBox
-			IsEnabled="{Binding NameOverrideEnabled, UpdateSourceTrigger=PropertyChanged}"
-			Text="{Binding NameOverride}"
-			Margin="180,0,18,45" Height="22" VerticalAlignment="Bottom" />
+		<Grid
+			Margin="23,0,18,46" VerticalAlignment="Bottom">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+
+			<CheckBox
+				Grid.Column="0"
+				HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding NameOverrideEnabled}">
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="{x:Static res:QueueTitlesRes.OverrideNameFormatCheckBox}" Margin="0,0,4,0" VerticalAlignment="Center" />
+				</StackPanel>
+			</CheckBox>
+
+			<TextBox
+				Grid.Column="1"
+				IsEnabled="{Binding NameOverrideEnabled, UpdateSourceTrigger=PropertyChanged}"
+				Text="{Binding NameOverride}"
+				Height="22" VerticalAlignment="Center" Margin="5,0,0,0" />
+		</Grid>
+
+		<StackPanel
+			Orientation="Horizontal"
+			HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom">
+			<Button
+				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsDefault="True"
+				Command="{Binding AcceptCommand}" Margin="0,0,6,0" Content="{x:Static res:CommonRes.Ok}" />
+			<Button
+				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsCancel="True"
+				Command="{Binding CancelCommand}" Content="{x:Static res:CommonRes.Cancel}" />
+		</StackPanel>
 	</Grid>
 </Window>

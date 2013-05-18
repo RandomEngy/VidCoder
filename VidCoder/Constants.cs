@@ -9,5 +9,7 @@ namespace VidCoder
 	{
 		public const double TotalDefaultWidth = 1538;
 		public const double TotalDefaultHeight = 916;
+
+		public static readonly TimeSpan TimeRangeBuffer = TimeSpan.FromSeconds(1);
 	}
 }

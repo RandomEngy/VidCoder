@@ -19,12 +19,11 @@ namespace VidCoder.Controls
 		private string noneCaption;
 		private bool hasFocus;
 		private DateTime lastFocusMouseDown;
+		private bool suppressRefresh;
 
 		public NumberBox()
 		{
 			this.noneCaption = "(none)";
-			//this.Minimum = double.MinValue;
-			//this.Maximum = double.MaxValue;
 			this.UpdateBindingOnTextChange = true;
 			this.ShowIncrementButtons = true;
 			this.SelectAllOnClick = true;
@@ -96,8 +95,6 @@ namespace VidCoder.Controls
 				SetValue(MaximumProperty, value);
 			}
 		}
-		//public double Minimum { get; set; }
-		//public double Maximum { get; set; }
 
 		public const string ModulusPropertyName = "Modulus";
 		public static readonly DependencyProperty ModulusProperty = DependencyProperty.Register(
@@ -116,8 +113,6 @@ namespace VidCoder.Controls
 				SetValue(ModulusProperty, value);
 			}
 		}
-
-		//public double Modulus { get; set; }
 
 		public bool UpdateBindingOnTextChange { get; set; }
 
@@ -163,7 +158,10 @@ namespace VidCoder.Controls
 			{
 				var numBox = dependencyObject as NumberBox;
 
-				numBox.RefreshNumberBox();
+				if (!numBox.suppressRefresh)
+				{
+					numBox.RefreshNumberBox();
+				}
 			}
 		}
 
@@ -186,11 +184,23 @@ namespace VidCoder.Controls
 			if (this.AllowEmpty && this.Number == 0)
 			{
 				this.numberBox.Text = this.hasFocus ? string.Empty : this.NoneCaption;
-				this.numberBox.Foreground = new SolidColorBrush(Colors.Gray);
 			}
 			else
 			{
 				this.numberBox.Text = this.Number.ToString();
+			}
+
+			this.RefreshNumberBoxColor();
+		}
+
+		private void RefreshNumberBoxColor()
+		{
+			if (this.numberBox.Text == this.NoneCaption)
+			{
+				this.numberBox.Foreground = new SolidColorBrush(Colors.Gray);
+			}
+			else
+			{
 				this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
 			}
 		}
@@ -224,12 +234,16 @@ namespace VidCoder.Controls
 			{
 				newNumber = Math.Max(this.Minimum, this.Increment);
 			}
+			else if (this.AllowEmpty && this.Number == this.Maximum && this.Maximum < 0)
+			{
+				newNumber = 0;
+			}
 			else
 			{
 				newNumber = this.Number + this.Increment;
 			}
 
-			if (newNumber > this.Maximum)
+			if (newNumber > this.Maximum && (!this.AllowEmpty || newNumber != 0))
 			{
 				newNumber = this.Maximum;
 			}
@@ -247,12 +261,16 @@ namespace VidCoder.Controls
 			{
 				newNumber = Math.Min(this.Maximum, -this.Increment);
 			}
+			else if (this.AllowEmpty && this.Number == this.Minimum && this.Minimum > 0)
+			{
+				newNumber = 0;
+			}
 			else
 			{
 				newNumber = this.Number - this.Increment;
 			}
 
-			if (newNumber < this.Minimum)
+			if (newNumber < this.Minimum && (!this.AllowEmpty || newNumber != 0))
 			{
 				newNumber = this.Minimum;
 			}
@@ -342,6 +360,8 @@ namespace VidCoder.Controls
 
 				this.UpdateNumberBindingFromBox();
 			}
+
+			this.RefreshNumberBoxColor();
 		}
 
 		private void UpdateNumberBindingFromBox()
@@ -358,7 +378,10 @@ namespace VidCoder.Controls
 
 					if (newNumber != this.Number)
 					{
+						// While updating the binding we don't need to react to the change.
+						this.suppressRefresh = true;
 						this.Number = newNumber;
+						this.suppressRefresh = false;
 					}
 				}
 			}

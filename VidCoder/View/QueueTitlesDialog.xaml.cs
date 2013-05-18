@@ -34,7 +34,7 @@ namespace VidCoder.View
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			this.SetPlacement(Properties.Settings.Default.QueueTitlesDialogPlacement2);
+			this.SetPlacement(Config.QueueTitlesDialogPlacement2);
 		}
 
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -78,8 +78,7 @@ namespace VidCoder.View
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			Properties.Settings.Default.QueueTitlesDialogPlacement2 = this.GetPlacement();
-			Properties.Settings.Default.Save();
+			Config.QueueTitlesDialogPlacement2 = this.GetPlacement();
 		}
 
 		private void previewImageHolder_SizeChanged(object sender, SizeChangedEventArgs e)

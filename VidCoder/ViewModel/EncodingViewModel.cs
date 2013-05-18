@@ -21,6 +21,8 @@ using Container = HandBrake.Interop.Model.Encoding.Container;
 
 namespace VidCoder.ViewModel
 {
+	using Resources;
+
 	public class EncodingViewModel : OkCancelDialogViewModel
 	{
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
@@ -29,7 +31,7 @@ namespace VidCoder.ViewModel
 		private WindowManagerViewModel windowManagerVM = Unity.Container.Resolve<WindowManagerViewModel>();
 		private ProcessingViewModel processingVM = Unity.Container.Resolve<ProcessingViewModel>();
 
-		private EncodingProfile profile;
+		private VCProfile profile;
 
 		private List<ComboChoice<Container>> outputFormatChoices; 
 
@@ -121,14 +123,14 @@ namespace VidCoder.ViewModel
 				this.AudioPanelViewModel.NotifyProfileChanged();
 
 				this.PicturePanelViewModel.RefreshOutputSize();
-				
+
 				this.AdvancedPanelViewModel.UpdateUIFromAdvancedOptions();
 
 				this.NotifyAllChanged();
 			}
 		}
 
-		public EncodingProfile EncodingProfile
+		public VCProfile EncodingProfile
 		{
 			get
 			{
@@ -140,7 +142,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				string windowTitle = "Preset: " + this.ProfileName;
+				string windowTitle = string.Format(EncodingRes.EncodingWindowTitle, this.ProfileName);
 				if (this.IsModified)
 				{
 					windowTitle += " *";
@@ -162,7 +164,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.originalPreset.Name;
+				return this.originalPreset.DisplayName;
 			}
 		}
 
@@ -289,28 +291,28 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public void RefreshExtensionChoice()
-		{
-			if (this.OutputFormat != Container.Mp4)
-			{
-				return;
-			}
+		//public void RefreshExtensionChoice()
+		//{
+		//    if (this.OutputFormat != Container.Mp4)
+		//    {
+		//        return;
+		//    }
 
-			bool enableMp4 = true;
-			foreach (AudioEncodingViewModel audioVM in this.AudioPanelViewModel.AudioEncodings)
-			{
-				if (audioVM.SelectedAudioEncoder.ShortName == "copy:ac3")
-				{
-					enableMp4 = false;
-					break;
-				}
-			}
+		//    bool enableMp4 = true;
+		//    foreach (AudioEncodingViewModel audioVM in this.AudioPanelViewModel.AudioEncodings)
+		//    {
+		//        if (audioVM.SelectedAudioEncoder.Encoder.ShortName == "copy:ac3")
+		//        {
+		//            enableMp4 = false;
+		//            break;
+		//        }
+		//    }
 
-			if (!enableMp4 && this.PreferredExtension == OutputExtension.Mp4)
-			{
-				this.PreferredExtension = OutputExtension.M4v;
-			}
-		}
+		//    if (!enableMp4 && this.PreferredExtension == OutputExtension.Mp4)
+		//    {
+		//        this.PreferredExtension = OutputExtension.M4v;
+		//    }
+		//}
 
 		public bool LargeFile
 		{
@@ -408,7 +410,7 @@ namespace VidCoder.ViewModel
 				return this.saveAsCommand ?? (this.saveAsCommand = new RelayCommand(() =>
 					{
 						var dialogVM = new ChoosePresetNameViewModel(this.presetsViewModel.AllPresets);
-						dialogVM.PresetName = this.originalPreset.Name;
+						dialogVM.PresetName = this.originalPreset.DisplayName;
 						WindowManager.OpenDialog(dialogVM, this);
 
 						if (dialogVM.DialogResult)
@@ -435,7 +437,7 @@ namespace VidCoder.ViewModel
 				return this.renameCommand ?? (this.renameCommand = new RelayCommand(() =>
 					{
 						var dialogVM = new ChoosePresetNameViewModel(this.presetsViewModel.AllPresets);
-						dialogVM.PresetName = this.originalPreset.Name;
+						dialogVM.PresetName = this.originalPreset.DisplayName;
 						WindowManager.OpenDialog(dialogVM, this);
 
 						if (dialogVM.DialogResult)
@@ -466,7 +468,7 @@ namespace VidCoder.ViewModel
 					{
 						if (this.IsModified)
 						{
-							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, "Are you sure you want to revert all unsaved changes to this preset?", "Revert Preset", MessageBoxButton.YesNo);
+							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.PresetRevertConfirmMessage, MainRes.PresetRevertConfirmTitle, MessageBoxButton.YesNo);
 							if (dialogResult == MessageBoxResult.Yes)
 							{
 								this.presetsViewModel.RevertPreset(true);
@@ -477,7 +479,7 @@ namespace VidCoder.ViewModel
 						}
 						else
 						{
-							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, "Are you sure you want to remove this preset?", "Remove Preset", MessageBoxButton.YesNo);
+							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.PresetRemoveConfirmMessage, MainRes.PresetRemoveConfirmTitle, MessageBoxButton.YesNo);
 							if (dialogResult == MessageBoxResult.Yes)
 							{
 								this.presetsViewModel.DeletePreset();

@@ -11,6 +11,8 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder.Services
 {
+	using Resources;
+
 	public class FileService : IFileService
 	{
 		public static IFileService Instance
@@ -168,7 +170,19 @@ namespace VidCoder.Services
 			}
 			catch (Win32Exception)
 			{
-				MessageBox.Show("Error launching URL: " + url);
+				MessageBox.Show(string.Format(MainRes.LaunchUrlError, url));
+			}
+		}
+
+		public void PlayVideo(string fileName)
+		{
+			if (Config.UseCustomVideoPlayer && !string.IsNullOrWhiteSpace(Config.CustomVideoPlayer))
+			{
+				Process.Start(Config.CustomVideoPlayer, "\"" + fileName + "\"");
+			}
+			else
+			{
+				this.LaunchFile(fileName);
 			}
 		}
 	}

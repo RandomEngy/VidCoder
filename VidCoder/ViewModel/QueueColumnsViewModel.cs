@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
-using VidCoder.Properties;
 
 namespace VidCoder.ViewModel
 {
@@ -24,7 +23,7 @@ namespace VidCoder.ViewModel
 
 			this.usedColumns = new ObservableCollection<ColumnViewModel>();
 
-			this.oldColumns = Utilities.ParseQueueColumnList(Settings.Default.QueueColumns);
+			this.oldColumns = Utilities.ParseQueueColumnList(Config.QueueColumns);
 			foreach (Tuple<string, double> column in oldColumns)
 			{
 				this.usedColumns.Add(new ColumnViewModel(column.Item1));

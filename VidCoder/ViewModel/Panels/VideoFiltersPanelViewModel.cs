@@ -7,6 +7,10 @@ using HandBrake.Interop.Model.Encoding;
 
 namespace VidCoder.ViewModel
 {
+	using Model;
+	using Properties;
+	using Resources;
+
 	public class VideoFiltersPanelViewModel : PanelViewModel
 	{
 		private const int MinDeblock = 5;
@@ -16,17 +20,17 @@ namespace VidCoder.ViewModel
 		{
 		}
 
-		public Detelecine Detelecine
+		public DetelecineCombo SelectedDetelecine
 		{
 			get
 			{
-				return this.Profile.Detelecine;
+				return EnumConverter.Convert<Detelecine, DetelecineCombo>(this.Profile.Detelecine);
 			}
 
 			set
 			{
-				this.Profile.Detelecine = value;
-				this.RaisePropertyChanged(() => this.Detelecine);
+				this.Profile.Detelecine = EnumConverter.Convert<DetelecineCombo, Detelecine>(value);
+				this.RaisePropertyChanged(() => this.SelectedDetelecine);
 				this.RaisePropertyChanged(() => this.CustomDetelecineVisible);
 				this.IsModified = true;
 			}
@@ -51,26 +55,27 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.Detelecine == Detelecine.Custom;
+				return this.Profile.Detelecine == Detelecine.Custom;
 			}
 		}
 
-		public Deinterlace Deinterlace
+		public DeinterlaceCombo SelectedDeinterlace
 		{
 			get
 			{
-				return this.Profile.Deinterlace;
+				return EnumConverter.Convert<Deinterlace, DeinterlaceCombo>(this.Profile.Deinterlace);
 			}
 
 			set
 			{
-				this.Profile.Deinterlace = value;
-				if (value != Deinterlace.Off)
+				Deinterlace newValue = EnumConverter.Convert<DeinterlaceCombo, Deinterlace>(value);
+				this.Profile.Deinterlace = newValue;
+				if (newValue != Deinterlace.Off)
 				{
-					this.Decomb = Decomb.Off;
+					this.SelectedDecomb = DecombCombo.Off;
 				}
 
-				this.RaisePropertyChanged(() => this.Deinterlace);
+				this.RaisePropertyChanged(() => this.SelectedDeinterlace);
 				this.RaisePropertyChanged(() => this.CustomDeinterlaceVisible);
 
 				this.IsModified = true;
@@ -97,26 +102,27 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.Deinterlace == Deinterlace.Custom;
+				return this.Profile.Deinterlace == Deinterlace.Custom;
 			}
 		}
 
-		public Decomb Decomb
+		public DecombCombo SelectedDecomb
 		{
 			get
 			{
-				return this.Profile.Decomb;
+				return EnumConverter.Convert<Decomb, DecombCombo>(this.Profile.Decomb);
 			}
 
 			set
 			{
-				this.Profile.Decomb = value;
-				if (value != Decomb.Off)
+				Decomb newValue = EnumConverter.Convert<DecombCombo, Decomb>(value);
+				this.Profile.Decomb = newValue;
+				if (newValue != Decomb.Off)
 				{
-					this.Deinterlace = Deinterlace.Off;
+					this.SelectedDeinterlace = DeinterlaceCombo.Off;
 				}
 
-				this.RaisePropertyChanged(() => this.Decomb);
+				this.RaisePropertyChanged(() => this.SelectedDecomb);
 				this.RaisePropertyChanged(() => this.CustomDecombVisible);
 				this.IsModified = true;
 			}
@@ -141,21 +147,21 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.Decomb == Decomb.Custom;
+				return this.Profile.Decomb == Decomb.Custom;
 			}
 		}
 
-		public Denoise Denoise
+		public DenoiseCombo SelectedDenoise
 		{
 			get
 			{
-				return this.Profile.Denoise;
+				return EnumConverter.Convert<Denoise, DenoiseCombo>(this.Profile.Denoise);
 			}
 
 			set
 			{
-				this.Profile.Denoise = value;
-				this.RaisePropertyChanged(() => this.Denoise);
+				this.Profile.Denoise = EnumConverter.Convert<DenoiseCombo, Denoise>(value);
+				this.RaisePropertyChanged(() => this.SelectedDenoise);
 				this.RaisePropertyChanged(() => this.CustomDenoiseVisible);
 				this.IsModified = true;
 			}
@@ -180,7 +186,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.Denoise == Denoise.Custom;
+				return this.Profile.Denoise == Denoise.Custom;
 			}
 		}
 
@@ -222,7 +228,7 @@ namespace VidCoder.ViewModel
 					return this.Deblock.ToString();
 				}
 
-				return "Off";
+				return CommonRes.Off;
 			}
 		}
 
@@ -243,16 +249,16 @@ namespace VidCoder.ViewModel
 
 		public void NotifyAllChanged()
 		{
-			this.RaisePropertyChanged(() => this.Detelecine);
+			this.RaisePropertyChanged(() => this.SelectedDetelecine);
 			this.RaisePropertyChanged(() => this.CustomDetelecine);
 			this.RaisePropertyChanged(() => this.CustomDetelecineVisible);
-			this.RaisePropertyChanged(() => this.Deinterlace);
+			this.RaisePropertyChanged(() => this.SelectedDeinterlace);
 			this.RaisePropertyChanged(() => this.CustomDeinterlace);
 			this.RaisePropertyChanged(() => this.CustomDeinterlaceVisible);
-			this.RaisePropertyChanged(() => this.Decomb);
+			this.RaisePropertyChanged(() => this.SelectedDecomb);
 			this.RaisePropertyChanged(() => this.CustomDecomb);
 			this.RaisePropertyChanged(() => this.CustomDecombVisible);
-			this.RaisePropertyChanged(() => this.Denoise);
+			this.RaisePropertyChanged(() => this.SelectedDenoise);
 			this.RaisePropertyChanged(() => this.CustomDenoise);
 			this.RaisePropertyChanged(() => this.CustomDenoiseVisible);
 			this.RaisePropertyChanged(() => this.Deblock);

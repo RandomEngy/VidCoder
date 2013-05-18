@@ -11,7 +11,6 @@ using System.Windows.Input;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using VidCoder.Messages;
-using VidCoder.Properties;
 using System.IO;
 using Microsoft.Practices.Unity;
 using VidCoder.Services;
@@ -22,24 +21,27 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
+	using System.Globalization;
+	using Resources;
+
 	public class PreviewViewModel : OkCancelDialogViewModel
 	{
 		private const int PreviewImageCacheDistance = 1;
-		private const string NoSourceTitle = "Preview: No video source";
 
-		private static readonly TimeSpan MinPreviewImageRefreshInterval = TimeSpan.FromSeconds(1);
+		private static readonly TimeSpan MinPreviewImageRefreshInterval = TimeSpan.FromSeconds(0.5);
 		private static int updateVersion;
 
-		private EncodeJob job;
+		private VCJob job;
 		private HandBrakeInstance originalScanInstance;
-		private HandBrakeInstance previewInstance;
+		private IEncodeProxy encodeProxy;
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
 		private string title;
 		private int selectedPreview;
 		private bool hasPreview;
-		private bool scanningPreview;
+		private bool previewEncodeStarted;
 		private bool generatingPreview;
 		private string previewFilePath;
+		private bool cancelPending;
 		private bool encodeCancelled;
 		private double previewPercentComplete;
 		private int previewSeconds;
@@ -48,13 +50,13 @@ namespace VidCoder.ViewModel
 		private DateTime lastImageRefreshTime;
 		private System.Timers.Timer previewImageRefreshTimer;
 		private bool waitingOnRefresh;
-		private ImageSource previewImage;
-		private ImageSource[] previewImageCache;
+		private BitmapImage[] previewImageCache;
 		private Queue<PreviewImageJob> previewImageWorkQueue = new Queue<PreviewImageJob>();
 		private bool previewImageQueueProcessing;
 		private object imageSync = new object();
 		private List<object> imageFileSync;
 		private string imageFileCacheFolder;
+		private BitmapImage previewBitmapImage;
 
 		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
 		private OutputPathViewModel outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
@@ -70,9 +72,10 @@ namespace VidCoder.ViewModel
 					this.RequestRefreshPreviews();
 				});
 
-			this.previewSeconds = Settings.Default.PreviewSeconds;
+			this.previewSeconds = Config.PreviewSeconds;
+			this.displayType = CustomConfig.PreviewDisplay;
 			this.selectedPreview = 1;
-			this.Title = NoSourceTitle;
+			this.Title = PreviewRes.NoVideoSourceTitle;
 
 			this.RequestRefreshPreviews();
 		}
@@ -123,6 +126,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private ImageSource previewImage;
 		public ImageSource PreviewImage
 		{
 			get
@@ -134,6 +138,17 @@ namespace VidCoder.ViewModel
 			{
 				this.previewImage = value;
 				this.RaisePropertyChanged(() => this.PreviewImage);
+			}
+		}
+
+		public BitmapImage PreviewBitmapImage
+		{
+			get
+			{
+				lock (this.imageSync)
+				{
+					return this.previewBitmapImage;
+				}
 			}
 		}
 
@@ -149,6 +164,14 @@ namespace VidCoder.ViewModel
 				this.generatingPreview = value;
 				this.RaisePropertyChanged(() => this.GeneratingPreview);
 				this.RaisePropertyChanged(() => this.SeekBarEnabled);
+			}
+		}
+
+		public bool InCornerDisplayMode
+		{
+			get
+			{
+				return this.DisplayType == PreviewDisplay.Corners;
 			}
 		}
 
@@ -186,8 +209,7 @@ namespace VidCoder.ViewModel
 				this.previewSeconds = value;
 				this.RaisePropertyChanged(() => this.PreviewSeconds);
 
-				Settings.Default.PreviewSeconds = value;
-				Settings.Default.Save();
+				Config.PreviewSeconds = value;
 			}
 		}
 
@@ -207,6 +229,9 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.SeekBarEnabled);
 				this.RaisePropertyChanged(() => this.HasPreview);
 				this.RaisePropertyChanged(() => this.PlayAvailable);
+				this.RaisePropertyChanged(() => this.SingleOneToOneImageVisible);
+				this.RaisePropertyChanged(() => this.SingleFitImageVisible);
+				this.RaisePropertyChanged(() => this.CornersImagesVisible);
 			}
 		}
 
@@ -222,24 +247,56 @@ namespace VidCoder.ViewModel
 				this.selectedPreview = value;
 				this.RaisePropertyChanged(() => this.SelectedPreview);
 
-				lock (this.imageSync)
+				if (this.DisplayType == PreviewDisplay.Corners)
 				{
-					this.PreviewImage = this.previewImageCache[value];
-					this.ClearOutOfRangeItems();
-					this.BeginBackgroundImageLoad();
+					this.RequestRefreshPreviews();
+				}
+				else
+				{
+					lock (this.imageSync)
+					{
+						this.previewBitmapImage = this.previewImageCache[value];
+						this.RefreshFromBitmapImage();
+						this.ClearOutOfRangeItems();
+						this.BeginBackgroundImageLoad();
+					}
 				}
 			}
 		}
 
-		/// <summary>
-		/// Gets or sets the width of the preview image in pixels.
-		/// </summary>
-		public double PreviewWidth { get; set; }
+		public bool SingleFitImageVisible
+		{
+			get
+			{
+				return this.HasPreview && this.DisplayType == PreviewDisplay.FitToWindow;
+			}
+		}
+
+		public bool SingleOneToOneImageVisible
+		{
+			get
+			{
+				return this.HasPreview && this.DisplayType == PreviewDisplay.OneToOne;
+			}
+		}
+
+		public bool CornersImagesVisible
+		{
+			get
+			{
+				return this.HasPreview && this.DisplayType == PreviewDisplay.Corners;
+			}
+		}
 
 		/// <summary>
-		/// Gets or sets the height of the preview image in pixels.
+		/// Gets or sets the display width of the preview image in pixels.
 		/// </summary>
-		public double PreviewHeight { get; set; }
+		public double PreviewDisplayWidth { get; set; }
+
+		/// <summary>
+		/// Gets or sets the display height of the preview image in pixels.
+		/// </summary>
+		public double PreviewDisplayHeight { get; set; }
 
 		public int SliderMax
 		{
@@ -250,7 +307,7 @@ namespace VidCoder.ViewModel
 					return this.previewCount - 1;
 				}
 
-				return Settings.Default.PreviewCount - 1;
+				return Config.PreviewCount - 1;
 			}
 		}
 
@@ -263,7 +320,7 @@ namespace VidCoder.ViewModel
 					return this.previewCount;
 				}
 
-				return Settings.Default.PreviewCount;
+				return Config.PreviewCount;
 			}
 		}
 
@@ -284,17 +341,17 @@ namespace VidCoder.ViewModel
 					bool isDvd = Utilities.IsDvdFolder(this.mainViewModel.SourcePath);
 					if (!isDvd)
 					{
-						return "Source preview for Blu-ray not supported yet.";
+						return PreviewRes.PlaySourceDisabledBluRayToolTip;
 					}
 
 					bool playerInstalled = Players.Installed.Count > 0;
 					if (!playerInstalled)
 					{
-						return "A supported DVD player could not be found. Install VLC or MPC-HC to use this feature.";
+						return PreviewRes.PlaySourceDisabledNoPlayerToolTip;
 					}
 				}
 
-				return "Plays the source video.";
+				return PreviewRes.PlaySourceToolTip;
 			}
 		}
 
@@ -325,6 +382,32 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private PreviewDisplay displayType;
+		public PreviewDisplay DisplayType
+		{
+			get
+			{
+				return this.displayType;
+			}
+
+			set
+			{
+				if (this.displayType != value)
+				{
+					this.displayType = value;
+					this.RaisePropertyChanged(() => this.DisplayType);
+					this.RaisePropertyChanged(() => this.SingleFitImageVisible);
+					this.RaisePropertyChanged(() => this.SingleOneToOneImageVisible);
+					this.RaisePropertyChanged(() => this.CornersImagesVisible);
+					this.RaisePropertyChanged(() => this.InCornerDisplayMode);
+
+					CustomConfig.PreviewDisplay = value;
+
+					this.RequestRefreshPreviews();
+				}
+			}
+		}
+
 		public HandBrakeInstance ScanInstance
 		{
 			get
@@ -341,18 +424,93 @@ namespace VidCoder.ViewModel
 				return this.generatePreviewCommand ?? (this.generatePreviewCommand = new RelayCommand(() =>
 					{
 						this.job = this.mainViewModel.EncodeJob;
-						this.logger.Log("Generating preview clip");
-						this.logger.Log("Scanning title");
-
-						this.previewInstance = new HandBrakeInstance();
-						this.previewInstance.Initialize(Settings.Default.LogVerbosity);
-						this.previewInstance.ScanCompleted += this.OnPreviewScanCompleted;
-						this.previewInstance.StartScan(this.job.SourcePath, Settings.Default.PreviewCount, this.job.Title);
 
 						this.PreviewPercentComplete = 0;
-						this.scanningPreview = true;
 						this.GeneratingPreview = true;
+						this.cancelPending = false;
 						this.encodeCancelled = false;
+
+						string extension = null;
+
+						if (this.job.EncodingProfile.OutputFormat == Container.Mkv)
+						{
+							extension = ".mkv";
+						}
+						else
+						{
+							if (this.job.EncodingProfile.PreferredExtension == OutputExtension.M4v)
+							{
+								extension = ".m4v";
+							}
+							else
+							{
+								extension = ".mp4";
+							}
+						}
+
+						string previewDirectory = Utilities.LocalAppFolder;
+						if (!Directory.Exists(previewDirectory))
+						{
+							Directory.CreateDirectory(previewDirectory);
+						}
+
+						this.previewFilePath = Path.Combine(previewDirectory, @"preview" + extension);
+						this.job.OutputPath = previewFilePath;
+
+						this.previewEncodeStarted = false;
+
+						this.encodeProxy = Utilities.CreateEncodeProxy();
+						this.encodeProxy.EncodeStarted += (o, e) =>
+						{
+							this.previewEncodeStarted = true;
+							if (this.cancelPending)
+							{
+								DispatchService.BeginInvoke(() =>
+								    {
+										this.CancelPreviewEncode();
+								    });
+							}
+							DispatchService.BeginInvoke(() =>
+							{
+								this.CancelPreviewCommand.RaiseCanExecuteChanged();
+							});
+						};
+						this.encodeProxy.EncodeProgress += (o, e) =>
+						{
+							this.PreviewPercentComplete = e.FractionComplete * 100;
+						};
+						this.encodeProxy.EncodeCompleted += (o, e) =>
+						{
+							this.GeneratingPreview = false;
+
+							if (this.encodeCancelled)
+							{
+								this.logger.Log("Cancelled preview clip generation");
+							}
+							else
+							{
+								if (e.Error)
+								{
+									this.logger.Log(PreviewRes.PreviewClipGenerationFailedTitle);
+									Utilities.MessageBox.Show(PreviewRes.PreviewClipGenerationFailedMessage);
+								}
+								else
+								{
+									var previewFileInfo = new FileInfo(this.previewFilePath);
+									this.logger.Log("Finished preview clip generation. Size: " + Utilities.FormatFileSize(previewFileInfo.Length));
+
+									FileService.Instance.PlayVideo(previewFilePath);
+								}
+							}
+						};
+
+						this.logger.Log("Generating preview clip");
+						this.logger.Log("  Path: " + this.job.OutputPath);
+						this.logger.Log("  Title: " + this.job.Title);
+						this.logger.Log("  Preview #: " + this.SelectedPreview);
+
+						this.encodeProxy.StartEncode(this.job, this.logger, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
+						this.CancelPreviewCommand.RaiseCanExecuteChanged();
 					}, () =>
 					{
 						return this.HasPreview;
@@ -372,7 +530,7 @@ namespace VidCoder.ViewModel
 						if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
 						{
 							// Path is a directory
-							IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Settings.Default.PreferredPlayer);
+							IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);
 							if (player == null)
 							{
 								player = Players.Installed[0];
@@ -383,7 +541,7 @@ namespace VidCoder.ViewModel
 						else
 						{
 							// Path is a file
-							FileService.Instance.LaunchFile(sourcePath);
+							FileService.Instance.PlayVideo(sourcePath);
 						}
 				    }, () =>
 				    {
@@ -400,6 +558,10 @@ namespace VidCoder.ViewModel
 				return this.cancelPreviewCommand ?? (this.cancelPreviewCommand = new RelayCommand(() =>
 					{
 						this.CancelPreviewEncode();
+					},
+					() =>
+					{
+						return this.GeneratingPreview && this.previewEncodeStarted;
 					}));
 			}
 		}
@@ -409,14 +571,14 @@ namespace VidCoder.ViewModel
 			if (!this.mainViewModel.HasVideoSource)
 			{
 				this.HasPreview = false;
-				this.Title = NoSourceTitle;
-				this.CancelPreviewEncode();
+				this.Title = PreviewRes.NoVideoSourceTitle;
+				this.TryCancelPreviewEncode();
 				return;
 			}
 
 			if (this.originalScanInstance != this.ScanInstance || (this.job != null && this.job.Title != this.mainViewModel.EncodeJob.Title))
 			{
-				this.CancelPreviewEncode();
+				this.TryCancelPreviewEncode();
 			}
 
 			if (this.waitingOnRefresh)
@@ -443,6 +605,12 @@ namespace VidCoder.ViewModel
 			this.RefreshPreviews();
 		}
 
+		public void StopAndWait()
+		{
+			this.encodeCancelled = true;
+			this.encodeProxy.StopAndWait();
+		}
+
 		private void previewImageRefreshTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
 		{
 			this.waitingOnRefresh = false;
@@ -456,23 +624,20 @@ namespace VidCoder.ViewModel
 
 			this.job = this.mainViewModel.EncodeJob;
 
-			//EncodingProfile profile = this.job.EncodingProfile;
-			int width, height;
-
-			int parWidth, parHeight;
-			this.ScanInstance.GetSize(this.job, out width, out height, out parWidth, out parHeight);
+			int width, height, parWidth, parHeight;
+			this.ScanInstance.GetSize(this.job.HbJob, out width, out height, out parWidth, out parHeight);
 
 			if (parWidth <= 0 || parHeight <= 0)
 			{
 				this.HasPreview = false;
-				this.Title = NoSourceTitle;
+				this.Title = PreviewRes.NoVideoSourceTitle;
 
 				Unity.Container.Resolve<ILogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
 				return;
 			}
 
-			this.PreviewHeight = height;
-			this.PreviewWidth = width * ((double)parWidth / parHeight);
+			this.PreviewDisplayHeight = height;
+			this.PreviewDisplayWidth = width * ((double)parWidth / parHeight);
 
 			// Update the number of previews.
 			this.previewCount = this.ScanInstance.PreviewCount;
@@ -488,20 +653,22 @@ namespace VidCoder.ViewModel
 
 			lock (this.imageSync)
 			{
-				this.previewImageCache = new ImageSource[this.previewCount];
+				this.previewImageCache = new BitmapImage[this.previewCount];
 				updateVersion++;
 
 				// Clear main work queue.
 				this.previewImageWorkQueue.Clear();
 
-				this.imageFileCacheFolder = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString(), updateVersion.ToString());
+				this.imageFileCacheFolder = Path.Combine(Utilities.ImageCacheFolder,
+														 Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture),
+														 updateVersion.ToString(CultureInfo.InvariantCulture));
 				if (!Directory.Exists(this.imageFileCacheFolder))
 				{
 					Directory.CreateDirectory(this.imageFileCacheFolder);
 				}
 
 				// Clear old images out of the file cache.
-				this.clearImageFileCache();
+				this.ClearImageFileCache();
 
 				this.imageFileSync = new List<object>(this.previewCount);
 				for (int i = 0; i < this.previewCount; i++)
@@ -514,24 +681,33 @@ namespace VidCoder.ViewModel
 
 			if (parWidth == parHeight)
 			{
-				this.Title = "Preview: " + width + "x" + height;
+				this.Title = string.Format(PreviewRes.PreviewWindowTitleSimple, width, height);
 			}
 			else
 			{
-				this.Title = "Preview: Display " + Math.Round(this.PreviewWidth) + "x" + Math.Round(this.PreviewHeight) + " - Storage " + width + "x" + height;
+				this.Title = string.Format(
+					PreviewRes.PreviewWindowTitleComplex,
+					Math.Round(this.PreviewDisplayWidth),
+					Math.Round(this.PreviewDisplayHeight),
+					width,
+					height);
 			}
 		}
 
-		private void clearImageFileCache()
+		private void ClearImageFileCache()
 		{
 			try
 			{
-				string processCacheFolder = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString());
+				string processCacheFolder = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture));
+				if (!Directory.Exists(processCacheFolder))
+				{
+					return;
+				}
 
 				int lowestUpdate = -1;
 				for (int i = updateVersion - 1; i >= 1; i--)
 				{
-					if (Directory.Exists(Path.Combine(processCacheFolder, i.ToString())))
+					if (Directory.Exists(Path.Combine(processCacheFolder, i.ToString(CultureInfo.InvariantCulture))))
 					{
 						lowestUpdate = i;
 					}
@@ -548,7 +724,7 @@ namespace VidCoder.ViewModel
 
 				for (int i = lowestUpdate; i <= updateVersion - 1; i++)
 				{
-					Utilities.DeleteDirectory(Path.Combine(processCacheFolder, i.ToString()));
+					Utilities.DeleteDirectory(Path.Combine(processCacheFolder, i.ToString(CultureInfo.InvariantCulture)));
 				}
 			}
 			catch (IOException)
@@ -557,20 +733,25 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private void CancelPreviewEncode()
+		private void TryCancelPreviewEncode()
 		{
 			if (this.GeneratingPreview)
 			{
-				this.encodeCancelled = true;
-				if (this.scanningPreview)
+				if (this.previewEncodeStarted)
 				{
-					this.previewInstance.StopScan();
+					this.CancelPreviewEncode();
 				}
 				else
 				{
-					this.previewInstance.StopEncode();
+					this.cancelPending = true;
 				}
 			}
+		}
+
+		private void CancelPreviewEncode()
+		{
+			this.encodeCancelled = true;
+			this.encodeProxy.StopEncode();
 		}
 
 		private void ClearOutOfRangeItems()
@@ -598,7 +779,6 @@ namespace VidCoder.ViewModel
 
 		private void BeginBackgroundImageLoad()
 		{
-			int initialQueueSize = this.previewImageWorkQueue.Count;
 			int currentPreview = this.SelectedPreview;
 
 			if (!ImageLoadedOrLoading(currentPreview))
@@ -675,8 +855,8 @@ namespace VidCoder.ViewModel
 
 				string imagePath = Path.Combine(
 					Utilities.ImageCacheFolder,
-					Process.GetCurrentProcess().Id.ToString(),
-					imageJob.UpdateVersion.ToString(),
+					Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture),
+					imageJob.UpdateVersion.ToString(CultureInfo.InvariantCulture),
 					imageJob.PreviewNumber + ".bmp");
 				BitmapImage image = null;
 
@@ -697,7 +877,7 @@ namespace VidCoder.ViewModel
 				if (image == null)
 				{
 					// Make a HandBrake call to get the image
-					image = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob, imageJob.PreviewNumber);
+					image = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob.HbJob, imageJob.PreviewNumber);
 
 					// Start saving the image file in the background and continue to process the queue.
 					ThreadPool.QueueUserWorkItem(
@@ -721,7 +901,9 @@ namespace VidCoder.ViewModel
 						{
 							DispatchService.BeginInvoke(() =>
 							{
-								this.PreviewImage = image;
+								this.previewBitmapImage = image;
+								this.RefreshFromBitmapImage();
+								//this.PreviewImage = image;
 							});
 						}
 					}
@@ -733,6 +915,22 @@ namespace VidCoder.ViewModel
 					}
 				}
 			}
+		}
+
+		private void RefreshFromBitmapImage()
+		{
+			if (this.previewBitmapImage == null)
+			{
+				return;
+			}
+
+			if (this.DisplayType != PreviewDisplay.Corners)
+			{
+				this.PreviewImage = this.previewBitmapImage;
+			}
+
+			// In the Corners display mode, the view code will react to the message and read from this.previewBitmapImage.
+			Messenger.Default.Send(new PreviewImageChangedMessage());
 		}
 
 		private void BackgroundFileSave(object state)
@@ -770,81 +968,6 @@ namespace VidCoder.ViewModel
 					// Directory may have been deleted. Ignore.
 				}
 			}
-		}
-
-		private void OnPreviewScanCompleted(object sender, EventArgs eventArgs)
-		{
-			this.scanningPreview = false;
-
-			if (this.encodeCancelled)
-			{
-				this.GeneratingPreview = false;
-				this.logger.Log("Cancelled preview clip generation");
-				return;
-			}
-
-			string extension = null;
-
-			if (this.job.EncodingProfile.OutputFormat == Container.Mkv)
-			{
-				extension = ".mkv";
-			}
-			else
-			{
-				if (this.job.EncodingProfile.PreferredExtension == OutputExtension.M4v)
-				{
-					extension = ".m4v";
-				}
-				else
-				{
-					extension = ".mp4";
-				}
-			}
-
-			string previewDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"VidCoder");
-
-			if (!Directory.Exists(previewDirectory))
-			{
-				Directory.CreateDirectory(previewDirectory);
-			}
-
-			this.previewFilePath = Path.Combine(previewDirectory, @"preview" + extension);
-			this.job.OutputPath = previewFilePath;
-			this.previewInstance.EncodeProgress += (o, e) =>
-			{
-				this.PreviewPercentComplete = e.FractionComplete * 100;
-			};
-			this.previewInstance.EncodeCompleted += (o, e) =>
-			{
-				this.GeneratingPreview = false;
-
-				if (this.encodeCancelled)
-				{
-					this.logger.Log("Cancelled preview clip generation");
-				}
-				else
-				{
-					if (e.Error)
-					{
-						this.logger.Log("Preview clip generation failed");
-						Utilities.MessageBox.Show("Preview clip generation failed. See the Log window for details.");
-					}
-					else
-					{
-						var previewFileInfo = new FileInfo(this.previewFilePath);
-						this.logger.Log("Finished preview clip generation. Size: " + Utilities.FormatFileSize(previewFileInfo.Length));
-
-						FileService.Instance.LaunchFile(previewFilePath);
-					}
-				}
-			};
-
-			this.logger.Log("Encoding clip");
-			this.logger.Log("  Path: " + this.job.OutputPath);
-			this.logger.Log("  Title: " + this.job.Title);
-			this.logger.Log("  Preview #: " + this.SelectedPreview);
-
-			this.previewInstance.StartEncode(this.job, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
 		}
 	}
 }

@@ -78,7 +78,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="QueueColumns" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Source:200|Title:35|Chapters:60|Destination:200</Value>
+      <Value Profile="(Default)">Source:200|Title:35|Range:106|Destination:200</Value>
     </Setting>
     <Setting Name="QueueLastColumnWidth" Type="System.Double" Scope="User">
       <Value Profile="(Default)">75</Value>
@@ -199,6 +199,9 @@
     </Setting>
     <Setting Name="BetaUpdates" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="InterfaceLanguageCode" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

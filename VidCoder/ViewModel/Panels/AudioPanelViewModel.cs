@@ -14,6 +14,8 @@ using VidCoder.Messages;
 
 namespace VidCoder.ViewModel
 {
+	using Resources;
+
 	public class AudioPanelViewModel : PanelViewModel
 	{
 		private string passthroughWarningText;
@@ -119,7 +121,6 @@ namespace VidCoder.ViewModel
 
 						this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this.EncodingViewModel.OutputFormat, this));
 						this.RaisePropertyChanged(() => this.HasAudioTracks);
-						this.RefreshExtensionChoice();
 						this.RefreshAudioPreview();
 						this.UpdateAudioEncodings();
 						this.IsModified = true;
@@ -134,7 +135,6 @@ namespace VidCoder.ViewModel
 		{
 			this.AudioEncodings.Remove(audioEncodingVM);
 			this.RaisePropertyChanged(() => this.HasAudioTracks);
-			this.RefreshExtensionChoice();
 			this.RefreshAudioPreview();
 			this.UpdateAudioEncodings();
 			this.IsModified = true;
@@ -192,13 +192,13 @@ namespace VidCoder.ViewModel
 				{
 					this.AudioOutputPreviews.Insert(0, new AudioOutputPreview
 					{
-						TrackNumber = "Track",
-						Name = "Source",
-						Encoder = "Encoder",
-						Mixdown = "Channel Layout",
-						SampleRate = "Sample Rate",
-						Quality = "Quality",
-						Modifiers = "Modifiers"
+						TrackNumber = EncodingRes.Track,
+						Name = EncodingRes.Source,
+						Encoder = EncodingRes.Encoder,
+						Mixdown = EncodingRes.ChannelLayout,
+						SampleRate = EncodingRes.SampleRate,
+						Quality = EncodingRes.Quality,
+						Modifiers = EncodingRes.Modifiers
 					});
 				}
 
@@ -208,7 +208,7 @@ namespace VidCoder.ViewModel
 
 		public AudioOutputPreview GetAudioPreview(AudioTrack inputTrack, AudioEncodingViewModel audioVM)
 		{
-			HBAudioEncoder encoder = audioVM.SelectedAudioEncoder;
+			HBAudioEncoder encoder = audioVM.SelectedAudioEncoder.Encoder;
 
 			var outputPreviewTrack = new AudioOutputPreview
 			{
@@ -223,7 +223,7 @@ namespace VidCoder.ViewModel
 				{
 					if (encoder.ShortName == "copy")
 					{
-						this.PassthroughWarningText = "Passthrough does not work for this input codec; the track has been dropped.";
+						this.PassthroughWarningText = EncodingRes.PassthroughTrackDroppedWarning;
 						this.PassthroughWarningVisible = true;
 					}
 
@@ -232,7 +232,7 @@ namespace VidCoder.ViewModel
 
 				if (encoder.ShortName == "copy" && (inputTrack.Codec == AudioCodec.Dts || inputTrack.Codec == AudioCodec.DtsHD) && this.Profile.OutputFormat == Container.Mp4)
 				{
-					this.PassthroughWarningText = "Few players support playback of DTS audio in MP4 containers. MKV is recommended for DTS audio.";
+					this.PassthroughWarningText = EncodingRes.DtsMp4Warning;
 					this.PassthroughWarningVisible = true;
 				}
 
@@ -240,7 +240,7 @@ namespace VidCoder.ViewModel
 			}
 
 			// For regular encodes, we need to find out what the real mixdown, sample rate and bitrate will be.
-			HBMixdown mixdown = audioVM.SelectedMixdown;
+			HBMixdown mixdown = audioVM.SelectedMixdown.Mixdown;
 			int sampleRate = audioVM.SampleRate;
 			int bitrate = audioVM.SelectedBitrate.Bitrate;
 
@@ -350,11 +350,6 @@ namespace VidCoder.ViewModel
 			{
 				audioEncoding.OutputFormat = outputFormat;
 			}
-		}
-
-		public void RefreshExtensionChoice()
-		{
-			this.EncodingViewModel.RefreshExtensionChoice();
 		}
 	}
 }

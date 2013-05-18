@@ -10,10 +10,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using VidCoder.Properties;
 
 namespace VidCoder.View
 {
+	using System.Diagnostics;
+	using System.Windows.Navigation;
+	using ViewModel;
+
 	/// <summary>
 	/// Interaction logic for OptionsDialog.xaml
 	/// </summary>
@@ -22,14 +25,33 @@ namespace VidCoder.View
 		public OptionsDialog()
 		{
 			InitializeComponent();
+		}
 
-			this.tabControl.SelectedIndex = Settings.Default.OptionsDialogLastTab;
+		protected override void OnSourceInitialized(EventArgs e)
+		{
+			base.OnSourceInitialized(e);
+
+			try
+			{
+				this.SetPlacement(Config.OptionsDialogPlacement);
+			}
+			catch { }
+		}
+
+		private void Window_Closed(object sender, EventArgs e)
+		{
+			this.DataContext = null;
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			Settings.Default.OptionsDialogLastTab = this.tabControl.SelectedIndex;
-			Settings.Default.Save();
+			Config.OptionsDialogPlacement = this.GetPlacement();
+		}
+
+		private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+		{
+			Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+			e.Handled = true;
 		}
 	}
 }

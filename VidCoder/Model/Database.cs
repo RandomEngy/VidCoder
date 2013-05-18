@@ -7,15 +7,24 @@ using System.Text;
 
 namespace VidCoder.Model
 {
+	using System.Globalization;
+	using System.Threading;
+
 	public static class Database
 	{
 		private const string ConfigDatabaseFile = "VidCoder.sqlite";
 
 		private static SQLiteConnection connection;
 
+		private static ThreadLocal<SQLiteConnection> threadLocalConnection = new ThreadLocal<SQLiteConnection>();
+
+		private static long mainThreadId;
+
 		static Database()
 		{
-			int databaseVersion = DatabaseConfig.GetConfigInt("Version", Database.Connection);
+			mainThreadId = Thread.CurrentThread.ManagedThreadId;
+
+			int databaseVersion = DatabaseConfig.Version;
 			if (databaseVersion >= Utilities.CurrentDatabaseVersion)
 			{
 				return;
@@ -39,7 +48,7 @@ namespace VidCoder.Model
 					Presets.SavePresets(presetXmlList, Database.Connection);
 
 					// Upgrade encoding profiles on old queue items.
-					string jobsXml = DatabaseConfig.GetConfigString("EncodeJobs2", Database.Connection);
+					string jobsXml = Config.EncodeJobs2;
 					if (!string.IsNullOrEmpty(jobsXml))
 					{
 						EncodeJobPersistGroup persistGroup = EncodeJobsPersist.LoadJobsXmlString(jobsXml);
@@ -48,8 +57,19 @@ namespace VidCoder.Model
 							Presets.UpgradeEncodingProfile(job.Job.EncodingProfile, databaseVersion);
 						}
 
-						DatabaseConfig.SetConfigValue("EncodeJobs2", EncodeJobsPersist.SerializeJobs(persistGroup), Database.Connection);
+						Config.EncodeJobs2 = EncodeJobsPersist.SerializeJobs(persistGroup);
 					}
+				}
+
+				// Update DB schema
+				if (databaseVersion < 18)
+				{
+					Database.ExecuteNonQuery(
+						"CREATE TABLE workerLogs (" +
+						"workerGuid TEXT, " +
+						"message TEXT, " +
+						"level INTEGER, " +
+						"time TEXT)", connection);
 				}
 
 				SetDatabaseVersionToLatest();
@@ -66,7 +86,7 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				string appDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Utilities.AppDataFolderName);
+				string appDataFolder = Utilities.AppFolder;
 
 				if (!Directory.Exists(appDataFolder))
 				{
@@ -89,12 +109,33 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				if (connection == null)
+				return connection ?? (connection = CreateConnection());
+			}
+		}
+
+		public static SQLiteConnection ThreadLocalConnection
+		{
+			get
+			{
+				if (IsMainThread)
 				{
-					connection = CreateConnection();
+					return Connection;
 				}
 
-				return connection;
+				if (!threadLocalConnection.IsValueCreated)
+				{
+					threadLocalConnection.Value = Database.CreateConnection();
+				}
+
+				return threadLocalConnection.Value;
+			}
+		}
+
+		public static bool IsMainThread
+		{
+			get
+			{
+				return Thread.CurrentThread.ManagedThreadId == mainThreadId;
 			}
 		}
 
@@ -102,7 +143,17 @@ namespace VidCoder.Model
 		{
 			if (!Directory.Exists(Utilities.AppFolder))
 			{
-				Directory.CreateDirectory(Utilities.AppFolder);
+				if (Utilities.Beta && Directory.Exists(Utilities.GetAppFolder(beta: false)))
+				{
+					// In beta mode if we don't have the appdata folder copy the stable appdata folder
+					Utilities.CopyDirectory(
+						Utilities.GetAppFolder(beta: false),
+						Utilities.GetAppFolder(beta: true));
+				}
+				else
+				{
+					Directory.CreateDirectory(Utilities.AppFolder);
+				}
 			}
 
 			bool newDataFile = !File.Exists(DatabaseFile);
@@ -114,7 +165,7 @@ namespace VidCoder.Model
 			{
 				CreateTables(newConnection);
 
-				var settingsList = new Dictionary<string, string> {{"Version", Utilities.CurrentDatabaseVersion.ToString()}};
+				var settingsList = new Dictionary<string, string> {{"Version", Utilities.CurrentDatabaseVersion.ToString(CultureInfo.InvariantCulture)}};
 				AddSettingsList(newConnection, settingsList);
 			}
 
@@ -130,6 +181,13 @@ namespace VidCoder.Model
 				"CREATE TABLE settings (" +
 				"name TEXT, " +
 				"value TEXT)", connection);
+
+			Database.ExecuteNonQuery(
+				"CREATE TABLE workerLogs (" +
+				"workerGuid TEXT, " +
+				"message TEXT, " +
+				"level INTEGER, " + 
+				"time TEXT)", connection);
 		}
 
 		public static void ExecuteNonQuery(string query, SQLiteConnection connection)

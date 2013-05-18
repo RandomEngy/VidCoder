@@ -90,6 +90,11 @@ namespace VidCoder
 			windowLauncher.FocusWindow(viewModel);
 		}
 
+		public static T FindWindow<T>() where T : ViewModelBase
+		{
+			return openWindows.SingleOrDefault(vm => vm is T) as T;
+		}
+
 		public static ViewModelBase FindWindow(Type viewModelType)
 		{
 			return openWindows.SingleOrDefault(vm => vm.GetType() == viewModelType);

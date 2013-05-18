@@ -22,7 +22,7 @@ namespace VidCoder.Model
 			string vlcExePath = RegKey.GetValue(string.Empty) as string;
 			string version = RegKey.GetValue("Version") as string;
 
-			if (!discPath.EndsWith(@"\"))
+			if (!discPath.EndsWith(@"\", StringComparison.Ordinal))
 			{
 				discPath += @"\";
 			}

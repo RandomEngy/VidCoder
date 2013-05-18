@@ -14,108 +14,677 @@ using System.Windows.Shapes;
 
 namespace VidCoder.Controls
 {
+	using HandBrake.Interop.SourceData;
+
 	/// <summary>
-	/// Interaction logic for RangeBar.xaml
+	/// Interaction logic for ChapterBar.xaml
 	/// </summary>
 	public partial class RangeBar : UserControl
 	{
+		private bool markersUpdated = false;
+		private double totalSeconds;
+		private TimeSpan totalDuration;
+		private List<double> chapterFractions;
+
+		private bool captured;
+		private bool startCaptured;
+
 		public RangeBar()
 		{
 			InitializeComponent();
 
-			this.RefreshRange();
+			this.UpdateSeekBarUI();
 		}
 
-		public const string StartTimePropertyName = "StartTime";
+		public static readonly DependencyProperty ChaptersEnabledProperty = DependencyProperty.Register(
+			"ChaptersEnabled",
+			typeof (bool),
+			typeof (RangeBar),
+			new PropertyMetadata(OnChaptersEnabledChanged));
+
+		public bool ChaptersEnabled
+		{
+			get
+			{
+				return (bool) GetValue(ChaptersEnabledProperty);
+			}
+
+			set
+			{
+				SetValue(ChaptersEnabledProperty, value);
+			}
+		}
+
+		private static void OnChaptersEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			if (e.NewValue != e.OldValue)
+			{
+				var chapterBar = d as RangeBar;
+
+				chapterBar.markersUpdated = false;
+
+				chapterBar.UpdateSeekBarUI();
+				chapterBar.UpdateMarkers();
+			}
+		}
+
+		public static readonly DependencyProperty StartChapterProperty = DependencyProperty.Register(
+			"StartChapter",
+			typeof (int),
+			typeof (RangeBar),
+			new PropertyMetadata(OnStartChapterChanged));
+
+		public int StartChapter
+		{
+			get
+			{
+				return (int)GetValue(StartChapterProperty);
+			}
+
+			set
+			{
+				SetValue(StartChapterProperty, value);
+			}
+		}
+
+		private static void OnStartChapterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			if (e.NewValue != e.OldValue)
+			{
+				var chapterBar = d as RangeBar;
+				chapterBar.UpdateSeekBarUI();
+				chapterBar.UpdateMarkers();
+			}
+		}
+
+		public static readonly DependencyProperty EndChapterProperty = DependencyProperty.Register(
+			"EndChapter",
+			typeof (int),
+			typeof (RangeBar),
+			new PropertyMetadata(OnEndChapterChanged));
+
+		public int EndChapter
+		{
+			get
+			{
+				return (int)GetValue(EndChapterProperty);
+			}
+
+			set
+			{
+				SetValue(EndChapterProperty, value);
+			}
+		}
+
+		private static void OnEndChapterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			if (e.NewValue != e.OldValue)
+			{
+				var chapterBar = d as RangeBar;
+				chapterBar.UpdateSeekBarUI();
+				chapterBar.UpdateMarkers();
+			}
+		}
+
+		public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
+			"Title",
+			typeof (Title),
+			typeof (RangeBar),
+			new PropertyMetadata(OnTitleChanged));
+
+		public Title Title
+		{
+			get
+			{
+				return (Title) GetValue(TitleProperty);
+			}
+
+			set
+			{
+				SetValue(TitleProperty, value);
+			}
+		}
+
+		private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			var title = (Title) e.NewValue;
+			var chapterBar = d as RangeBar;
+
+			if (title == null)
+			{
+				return;
+			}
+
+			List<Chapter> chapters = title.Chapters;
+
+			chapterBar.markersUpdated = false;
+
+			chapterBar.totalDuration = title.Duration;
+			chapterBar.totalSeconds = HandBrake.Interop.Converters.PtsToSeconds(title.DurationPts);
+
+			ulong pts = 0;
+			chapterBar.chapterFractions = new List<double>();
+			foreach (Chapter chapter in chapters)
+			{
+				pts += chapter.DurationPts;
+				chapterBar.chapterFractions.Add(Math.Min(HandBrake.Interop.Converters.PtsToSeconds(pts) / chapterBar.totalSeconds, 1));
+			}
+
+			chapterBar.UpdateSeekBarUI();
+			chapterBar.UpdateMarkers();
+		}
+
+		public List<Chapter> Chapters
+		{
+			get
+			{
+				if (this.Title == null)
+				{
+					return null;
+				}
+
+				return this.Title.Chapters;
+			}
+		}
+
 		public static readonly DependencyProperty StartTimeProperty = DependencyProperty.Register(
-			StartTimePropertyName,
-			typeof(TimeSpan),
-			typeof(RangeBar),
-			new UIPropertyMetadata(OnTimeChanged));
+			"StartTime",
+			typeof (TimeSpan),
+			typeof (RangeBar),
+			new PropertyMetadata(OnStartTimeChanged));
+
 		public TimeSpan StartTime
 		{
 			get
 			{
-				return (TimeSpan)GetValue(StartTimeProperty);
+				return (TimeSpan) GetValue(StartTimeProperty);
 			}
+
 			set
 			{
 				SetValue(StartTimeProperty, value);
 			}
 		}
 
-		public const string EndTimePropertyName = "EndTime";
+		private static void OnStartTimeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			if (e.NewValue != e.OldValue)
+			{
+				var chapterBar = d as RangeBar;
+				chapterBar.UpdateSeekBarUI();
+				chapterBar.UpdateMarkers();
+			}
+		}
+
 		public static readonly DependencyProperty EndTimeProperty = DependencyProperty.Register(
-			EndTimePropertyName,
-			typeof(TimeSpan),
-			typeof(RangeBar),
-			new UIPropertyMetadata(OnTimeChanged));
+			"EndTime",
+			typeof (TimeSpan),
+			typeof (RangeBar),
+			new PropertyMetadata(OnEndTimeChanged));
+
 		public TimeSpan EndTime
 		{
 			get
 			{
-				return (TimeSpan)GetValue(EndTimeProperty);
+				return (TimeSpan) GetValue(EndTimeProperty);
 			}
+
 			set
 			{
 				SetValue(EndTimeProperty, value);
 			}
 		}
 
-		public const string DurationPropertyName = "Duration";
-		public static readonly DependencyProperty DurationProperty = DependencyProperty.Register(
-			DurationPropertyName,
-			typeof(TimeSpan),
-			typeof(RangeBar),
-			new UIPropertyMetadata(OnTimeChanged));
-		public TimeSpan Duration
+		private static void OnEndTimeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
-			get
+			if (e.NewValue != e.OldValue)
 			{
-				return (TimeSpan)GetValue(DurationProperty);
-			}
-			set
-			{
-				SetValue(DurationProperty, value);
+				var chapterBar = d as RangeBar;
+				chapterBar.UpdateSeekBarUI();
+				chapterBar.UpdateMarkers();
 			}
 		}
 
-		private static void OnTimeChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
-		{
-			if (eventArgs.NewValue != eventArgs.OldValue)
-			{
-				var rangeBar = dependencyObject as RangeBar;
+		//public static readonly DependencyProperty StartSecondsProperty = DependencyProperty.Register(
+		//	"StartSeconds",
+		//	typeof (double),
+		//	typeof (RangeBar),
+		//	new PropertyMetadata(OnStartSecondsChanged));
 
-				rangeBar.RefreshRange();
+		//public double StartSeconds
+		//{
+		//	get
+		//	{
+		//		return (double) GetValue(StartSecondsProperty);
+		//	}
+
+		//	set
+		//	{
+		//		SetValue(StartSecondsProperty, value);
+		//	}
+		//}
+
+		//private static void OnStartSecondsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		//{
+		//	if (e.NewValue != e.OldValue)
+		//	{
+		//		var chapterBar = d as RangeBar;
+		//		chapterBar.UpdateSeekBarUI();
+		//		chapterBar.UpdateMarkers();
+		//	}
+		//}
+
+		//public static readonly DependencyProperty EndSecondsProperty = DependencyProperty.Register(
+		//	"EndSeconds",
+		//	typeof (double),
+		//	typeof (RangeBar),
+		//	new PropertyMetadata(OnEndSecondsChanged));
+
+		//public double EndSeconds
+		//{
+		//	get
+		//	{
+		//		return (double) GetValue(EndSecondsProperty);
+		//	}
+
+		//	set
+		//	{
+		//		SetValue(EndSecondsProperty, value);
+		//	}
+		//}
+
+		//private static void OnEndSecondsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		//{
+		//	if (e.NewValue != e.OldValue)
+		//	{
+		//		var chapterBar = d as RangeBar;
+		//		chapterBar.UpdateSeekBarUI();
+		//		chapterBar.UpdateMarkers();
+		//	}
+		//}
+
+		private void UpdateSeekBarUI()
+		{
+			if (this.ChaptersEnabled)
+			{
+				if (this.StartChapter <= 0 || 
+					this.EndChapter <= 0 ||
+					this.Chapters == null || 
+					this.StartChapter > this.EndChapter ||
+					this.StartChapter > this.Chapters.Count || 
+					this.EndChapter > this.Chapters.Count)
+				{
+					return;
+				}
 			}
-		}
-
-		private void RefreshRange()
-		{
-			if (this.Duration == TimeSpan.Zero ||
-				this.StartTime > this.EndTime)
+			else
 			{
-				SetRange(1, 0, 0);
+				if (this.StartTime < TimeSpan.Zero || 
+					this.StartTime > this.totalDuration || 
+					this.EndTime <= TimeSpan.Zero ||
+					this.EndTime > this.totalDuration || 
+					this.StartTime > this.EndTime)
+				{
+					return;
+				}
+			}
+
+			double barWidth = this.barHolder.ActualWidth;
+
+			if (barWidth == 0)
+			{
 				return;
 			}
 
-			double beforeSeconds = this.StartTime.TotalSeconds;
-			double rangeSeconds = (this.EndTime - this.StartTime).TotalSeconds;
-			double afterSeconds = (this.Duration - this.EndTime).TotalSeconds;
-
-			if (afterSeconds < 0)
+			double startBarFraction, endBarFraction;
+			if (this.ChaptersEnabled)
 			{
-				afterSeconds = 0;
+				startBarFraction = this.GetBarFractionFromChapter(this.StartChapter - 1);
+				endBarFraction = this.GetBarFractionFromChapter(this.EndChapter);
+			}
+			else
+			{
+				startBarFraction = this.GetBarFractionFromTime(this.StartTime);
+				endBarFraction = this.GetBarFractionFromTime(this.EndTime);
 			}
 
-			SetRange(beforeSeconds, rangeSeconds, afterSeconds);
+			this.preColumn.Width = new GridLength(startBarFraction, GridUnitType.Star);
+			this.rangeColumn.Width = new GridLength(endBarFraction - startBarFraction, GridUnitType.Star);
+			this.postColumn.Width = new GridLength(1 - endBarFraction, GridUnitType.Star);
 		}
 
-		private void SetRange(double before, double range, double after)
+		private void UpdateMarkers()
 		{
-			this.beforeColumn.Width = new GridLength(before, GridUnitType.Star);
-			this.filledColumn.Width = new GridLength(range, GridUnitType.Star);
-			this.afterColumn.Width = new GridLength(after, GridUnitType.Star);
+			if (this.markersUpdated)
+			{
+				return;
+			}
+
+			if (this.ChaptersEnabled)
+			{
+				if (this.StartChapter <= 0 || this.EndChapter <= 0 || this.Chapters == null)
+				{
+					return;
+				}
+			}
+
+			double barWidth = this.barHolder.ActualWidth;
+
+			if (barWidth == 0)
+			{
+				return;
+			}
+
+			this.markersGrid.Children.Clear();
+
+			if (this.ChaptersEnabled)
+			{
+				ulong pts = 0;
+				for (int i = 1; i < this.Chapters.Count - 1; i++)
+				{
+					pts += this.Chapters[i - 1].DurationPts;
+
+					var marker = new Polygon
+						{
+							Style = this.FindResource("SeekBarTick") as Style,
+							Margin = new Thickness(barWidth * (HandBrake.Interop.Converters.PtsToSeconds(pts) / this.totalSeconds) - 1, 0, 0, 0),
+							HorizontalAlignment = HorizontalAlignment.Left,
+							VerticalAlignment = VerticalAlignment.Top
+						};
+
+					this.markersGrid.Children.Add(marker);
+				}
+			}
+
+			for (int minutes = 10; minutes * 60 < this.totalSeconds; minutes += 10)
+			{
+				string style = minutes % 60 == 0 ? "SeekBarBigTick" : "SeekBarTick";
+
+				var marker = new Polygon
+				{
+					Style = this.FindResource(style) as Style,
+					Margin = new Thickness(barWidth * ((minutes * 60) / this.totalSeconds) - 1, 0, 0, 0),
+					HorizontalAlignment = HorizontalAlignment.Left,
+					VerticalAlignment = VerticalAlignment.Bottom
+				};
+
+				this.markersGrid.Children.Add(marker);
+			}
+
+			this.markersUpdated = true;
+		}
+
+		private double GetBarFractionFromChapter(int chapter)
+		{
+			ulong pts = 0;
+			for (int i = 1; i <= chapter; i++)
+			{
+				pts += this.Chapters[i - 1].DurationPts;
+			}
+
+			return GetBarFractionFromSeconds(HandBrake.Interop.Converters.PtsToSeconds(pts));
+		}
+
+		private double GetBarFractionFromTime(TimeSpan time)
+		{
+			return GetBarFractionFromSeconds(time.TotalSeconds);
+		}
+
+		private double GetBarFractionFromSeconds(double seconds)
+		{
+			double fraction = seconds / this.totalSeconds;
+			if (fraction > 1)
+			{
+				fraction = 1;
+			}
+
+			if (fraction < 0)
+			{
+				fraction = 0;
+			}
+
+			return fraction;
+		}
+
+		private void BarHolder_OnSizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			this.markersUpdated = false;
+
+			this.UpdateSeekBarUI();
+			this.UpdateMarkers();
+		}
+
+		private void ChapterBar_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			this.captured = true;
+			this.startCaptured = true;
+			this.HandleMouseEvent(e, start: true);
+			this.CaptureMouse();
+			this.Focus();
+		}
+
+		private void ChapterBar_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		{
+			this.captured = false;
+			this.ReleaseMouseCapture();
+		}
+
+		private void ChapterBar_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			this.captured = true;
+			this.startCaptured = false;
+			this.HandleMouseEvent(e, start: false);
+			this.CaptureMouse();
+			this.Focus();
+		}
+
+		private void ChapterBar_OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+		{
+			this.captured = false;
+			this.ReleaseMouseCapture();
+		}
+
+		private void ChapterBar_OnMouseMove(object sender, MouseEventArgs e)
+		{
+			if (this.captured)
+			{
+				this.HandleMouseEvent(e, this.startCaptured);
+			}
+		}
+
+		private void HandleMouseEvent(MouseEventArgs e, bool start)
+		{
+			if (!this.IsEnabled)
+			{
+				return;
+			}
+
+			Point location = e.GetPosition(this.barHolder);
+
+			if (this.ChaptersEnabled)
+			{
+				this.HandleMouseEventChapters(start, location);
+			}
+			else
+			{
+				this.HandleMouseEventNoChapters(start, location);
+			}
+		}
+
+		private void HandleMouseEventChapters(bool start, Point location)
+		{
+			int slot = this.GetSlot(location);
+			if (start)
+			{
+				if (slot == this.Chapters.Count)
+				{
+					this.StartChapter = this.Chapters.Count;
+				}
+				else
+				{
+					this.StartChapter = slot + 1;
+				}
+
+				if (this.StartChapter > this.EndChapter)
+				{
+					this.EndChapter = this.StartChapter;
+				}
+			}
+			else
+			{
+				if (slot == 0)
+				{
+					this.EndChapter = 1;
+				}
+				else
+				{
+					this.EndChapter = slot;
+				}
+
+				if (this.StartChapter > this.EndChapter)
+				{
+					this.StartChapter = this.EndChapter;
+				}
+			}
+		}
+
+		// Gets the slot the mouse is pointing to (starts at 0 and goes to chapters.Count)
+		private int GetSlot(Point location)
+		{
+			double width = this.barHolder.ActualWidth;
+			double fraction = location.X / width;
+
+			if (fraction < Math.Abs(this.chapterFractions[0] - fraction))
+			{
+				return 0;
+			}
+
+			if (fraction >= this.chapterFractions[this.chapterFractions.Count - 1])
+			{
+				return this.chapterFractions.Count;
+			}
+
+			// Find the slot with the closest fraction
+			int low = 0;
+			int high = this.Chapters.Count - 1;
+
+			while (high - low > 1)
+			{
+				int mid = (low + high) / 2;
+				if (fraction <= this.chapterFractions[mid])
+				{
+					high = mid;
+				}
+				else
+				{
+					low = mid;
+				}
+			}
+
+			// Add 1 when returning because the array search was checking 0-based chapters and we need to return the slot
+			if (Math.Abs(this.chapterFractions[low] - fraction) < Math.Abs(this.chapterFractions[high] - fraction))
+			{
+				return low + 1;
+			}
+
+			return high + 1;
+		}
+
+		private void HandleMouseEventNoChapters(bool start, Point location)
+		{
+			double width = this.barHolder.ActualWidth;
+			double fraction = location.X / width;
+			if (fraction < 0)
+			{
+				fraction = 0;
+			}
+
+			if (fraction > 1)
+			{
+				fraction = 1;
+			}
+
+			double rawSeconds = this.totalSeconds * fraction;
+
+			TimeSpan startTime, endTime;
+			//double secondsStart, secondsEnd;
+			if (start)
+			{
+				startTime = TimeSpan.FromSeconds(Math.Round(rawSeconds));
+				endTime = this.EndTime;
+				//secondsStart = Math.Round(rawSeconds);
+				//secondsEnd = this.EndSeconds;
+
+				if (startTime > this.totalDuration - Constants.TimeRangeBuffer)
+				{
+					startTime = this.totalDuration - Constants.TimeRangeBuffer;
+				}
+
+				if (endTime < startTime + Constants.TimeRangeBuffer)
+				{
+					endTime = startTime + Constants.TimeRangeBuffer;
+				}
+
+				if (endTime > this.totalDuration)
+				{
+					endTime = this.totalDuration;
+				}
+
+				//if (secondsStart > this.totalSeconds - Constants.SecondsRangeBuffer)
+				//{
+				//	secondsStart = this.totalSeconds - Constants.SecondsRangeBuffer;
+				//}
+
+				//if (secondsEnd < secondsStart + Constants.SecondsRangeBuffer)
+				//{
+				//	secondsEnd = secondsStart + Constants.SecondsRangeBuffer;
+				//}
+
+				//if (secondsEnd > this.totalSeconds)
+				//{
+				//	secondsEnd = totalSeconds;
+				//}
+			}
+			else
+			{
+				startTime = this.StartTime;
+				endTime = fraction == 1 ? this.totalDuration : TimeSpan.FromSeconds(Math.Round(rawSeconds));
+				//secondsStart = this.StartSeconds;
+				//secondsEnd = fraction == 1 ? rawSeconds : Math.Round(rawSeconds);
+
+				if (endTime < Constants.TimeRangeBuffer)
+				{
+					endTime = Constants.TimeRangeBuffer;
+				}
+
+				if (startTime > endTime - Constants.TimeRangeBuffer)
+				{
+					startTime = endTime - Constants.TimeRangeBuffer;
+				}
+
+				if (startTime < TimeSpan.Zero)
+				{
+					startTime = TimeSpan.Zero;
+				}
+
+				//if (secondsEnd < Constants.SecondsRangeBuffer)
+				//{
+				//	secondsEnd = Constants.SecondsRangeBuffer;
+				//}
+
+				//if (secondsStart > secondsEnd - Constants.SecondsRangeBuffer)
+				//{
+				//	secondsStart = secondsEnd - Constants.SecondsRangeBuffer;
+				//}
+
+				//if (secondsStart < 0)
+				//{
+				//	secondsStart = 0;
+				//}
+			}
+
+			this.StartTime = startTime;
+			this.EndTime = endTime;
 		}
 	}
 }

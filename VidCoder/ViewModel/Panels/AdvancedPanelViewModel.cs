@@ -7,6 +7,9 @@ using HandBrake.Interop;
 
 namespace VidCoder.ViewModel
 {
+	using GalaSoft.MvvmLight.Messaging;
+	using Messages;
+
 	public class AdvancedPanelViewModel : PanelViewModel
 	{
 		private AdvancedChoice referenceFrames;
@@ -17,7 +20,6 @@ namespace VidCoder.ViewModel
 		private AdvancedChoice pyramidalBFrames;
 		private AdvancedChoice motionEstimationMethod;
 		private AdvancedChoice subpixelMotionEstimation;
-		private AdvancedChoice motionEstimationRange;
 		private AdvancedChoice analysis;
 		private bool eightByEightDct;
 		private bool cabacEntropyCoding;
@@ -29,6 +31,8 @@ namespace VidCoder.ViewModel
 		private AdvancedChoice deblockingThreshold;
 		private bool noDctDecimate;
 
+		private bool suppressUIUpdate;
+
 		/// <summary>
 		/// X264 options that have UI elements that correspond to them.
 		/// </summary>
@@ -38,8 +42,35 @@ namespace VidCoder.ViewModel
 			"analyse", "8x8dct", "cabac", "trellis", "aq-strength", "psy-rd", "no-dct-decimate", "deblock"
 		};
 
-		public AdvancedPanelViewModel(EncodingViewModel encodingViewModel) : base(encodingViewModel)
+		public AdvancedPanelViewModel(EncodingViewModel encodingViewModel)
+			: base(encodingViewModel)
 		{
+			Messenger.Default.Register<AdvancedOptionsChangedMessage>(
+				this,
+				message =>
+					{
+						if (!this.suppressUIUpdate)
+						{
+							this.UpdateUIFromAdvancedOptions();
+						}
+
+						this.RaisePropertyChanged(() => this.AdvancedOptionsString);
+					});
+
+			Messenger.Default.Register<VideoCodecChangedMessage>(
+				this,
+				message =>
+					{
+						this.RaisePropertyChanged(() => this.X264CodecSelected);
+					});
+		}
+
+		public bool X264CodecSelected
+		{
+			get
+			{
+				return this.Profile.VideoEncoder == "x264";
+			}
 		}
 
 		public AdvancedChoice ReferenceFrames
@@ -160,8 +191,9 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.motionEstimationMethod = value;
+				this.CheckMotionEstimationRange();
 				this.RaisePropertyChanged(() => this.MotionEstimationMethod);
-				this.RaisePropertyChanged(() => this.MotionEstimationRangeVisible);
+				this.RaisePropertyChanged(() => this.MotionEstimationRange);
 				this.UpdateOptionsString();
 			}
 		}
@@ -181,7 +213,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public AdvancedChoice MotionEstimationRange
+		private int motionEstimationRange;
+		public int MotionEstimationRange
 		{
 			get
 			{
@@ -191,17 +224,22 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.motionEstimationRange = value;
+				this.CheckMotionEstimationRange();
+
 				this.RaisePropertyChanged(() => this.MotionEstimationRange);
 				this.UpdateOptionsString();
 			}
 		}
 
-		public bool MotionEstimationRangeVisible
+		private void CheckMotionEstimationRange()
 		{
-			get
+			if ((MotionEstimationMethod.Value == "hex" || MotionEstimationMethod.Value == "dia") && (this.motionEstimationRange > 16))
 			{
-				string motionMethod = this.MotionEstimationMethod.Value;
-				return motionMethod == "umh" || motionMethod == "esa" || motionMethod == "tesa";
+				this.motionEstimationRange = 16;
+			}
+			else if (this.motionEstimationRange < 4)
+			{
+				this.motionEstimationRange = 4;
 			}
 		}
 
@@ -383,8 +421,9 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.X264Options = value;
-				this.UpdateUIFromAdvancedOptions();
-				this.RaisePropertyChanged(() => this.AdvancedOptionsString);
+
+				// UI update and property notification will happen in response to the message
+				Messenger.Default.Send(new AdvancedOptionsChangedMessage());
 				this.IsModified = true;
 			}
 		}
@@ -409,7 +448,7 @@ namespace VidCoder.ViewModel
 				int equalsIndex = newOptionsSegment.IndexOf('=');
 				if (equalsIndex >= 0)
 				{
-					string optionName = newOptionsSegment.Substring(0, equalsIndex);
+					string optionName = HandBrakeUtils.SanitizeX264OptName(newOptionsSegment.Substring(0, equalsIndex));
 					string optionValue = newOptionsSegment.Substring(equalsIndex + 1);
 
 					if (optionName != string.Empty && optionValue != string.Empty)
@@ -480,7 +519,6 @@ namespace VidCoder.ViewModel
 								}
 								break;
 							case "subme":
-							case "subq":
 								if (int.TryParse(optionValue, out parseInt))
 								{
 									newChoice = AdvancedChoices.SubpixelMotionEstimation.SingleOrDefault(choice => choice.Value == parseInt.ToString(CultureInfo.InvariantCulture));
@@ -493,11 +531,7 @@ namespace VidCoder.ViewModel
 							case "merange":
 								if (int.TryParse(optionValue, out parseInt))
 								{
-									newChoice = AdvancedChoices.MotionEstimationRange.SingleOrDefault(choice => choice.Value == parseInt.ToString(CultureInfo.InvariantCulture));
-									if (newChoice != null)
-									{
-										this.MotionEstimationRange = newChoice;
-									}
+									this.MotionEstimationRange = parseInt;
 								}
 								break;
 							case "analyse":
@@ -609,7 +643,7 @@ namespace VidCoder.ViewModel
 			this.PyramidalBFrames = AdvancedChoices.PyramidalBFrames.SingleOrDefault(choice => choice.IsDefault);
 			this.MotionEstimationMethod = AdvancedChoices.MotionEstimationMethod.SingleOrDefault(choice => choice.IsDefault);
 			this.SubpixelMotionEstimation = AdvancedChoices.SubpixelMotionEstimation.SingleOrDefault(choice => choice.IsDefault);
-			this.MotionEstimationRange = AdvancedChoices.MotionEstimationRange.SingleOrDefault(choice => choice.IsDefault);
+			this.MotionEstimationRange = 16;
 			this.Analysis = AdvancedChoices.Analysis.SingleOrDefault(choice => choice.IsDefault);
 			this.EightByEightDct = true;
 			this.CabacEntropyCoding = true;
@@ -644,10 +678,10 @@ namespace VidCoder.ViewModel
 					int equalsIndex = existingSegment.IndexOf('=');
 					if (equalsIndex >= 0)
 					{
-						optionName = existingSegment.Substring(0, existingSegment.IndexOf("="));
+						optionName = existingSegment.Substring(0, existingSegment.IndexOf("=", StringComparison.Ordinal));
 					}
 
-					if (!this.uiOptions.Contains(optionName) && optionName != string.Empty)
+					if (optionName != string.Empty && !this.uiOptions.Contains(HandBrakeUtils.SanitizeX264OptName(optionName)))
 					{
 						newOptions.Add(existingSegment);
 					}
@@ -698,10 +732,9 @@ namespace VidCoder.ViewModel
 				newOptions.Add("subme=" + this.SubpixelMotionEstimation.Value);
 			}
 
-			string motionEstimation = this.MotionEstimationMethod.Value;
-			if ((motionEstimation == "umh" || motionEstimation == "esa" || motionEstimation == "tesa") && !this.MotionEstimationRange.IsDefault)
+			if (this.MotionEstimationRange != 16)
 			{
-				newOptions.Add("merange=" + this.MotionEstimationRange.Value);
+				newOptions.Add("merange=" + this.MotionEstimationRange);
 			}
 
 			if (!this.Analysis.IsDefault)
@@ -751,7 +784,13 @@ namespace VidCoder.ViewModel
 			}
 
 			this.Profile.X264Options = string.Join(":", newOptions);
-			this.RaisePropertyChanged(() => this.AdvancedOptionsString);
+
+			// Send the message about the advanced options changing, but suppress any UI updates from it.
+			this.suppressUIUpdate = true;
+			Messenger.Default.Send(new AdvancedOptionsChangedMessage());
+			//this.RaisePropertyChanged(() => this.AdvancedOptionsString);
+			this.suppressUIUpdate = false;
+
 			this.IsModified = true;
 		}
 

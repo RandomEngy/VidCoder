@@ -7,11 +7,13 @@ using System.Globalization;
 
 namespace VidCoder.Converters
 {
+	using Resources;
+
 	public class FramerateDisplayConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (value == null)
+			if (value == null || value as string == string.Empty)
 			{
 				return string.Empty;
 			}
@@ -20,7 +22,7 @@ namespace VidCoder.Converters
 
 			if (framerate == 0)
 			{
-				return "Same as source";
+				return EncodingRes.SameAsSource;
 			}
 
 			return framerate.ToString();

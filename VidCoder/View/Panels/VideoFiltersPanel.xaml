@@ -5,14 +5,15 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:VidCoder"
+	xmlns:localmodel="clr-namespace:VidCoder.Model"
 	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
-	xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop" mc:Ignorable="d" 
+	xmlns:res="clr-namespace:VidCoder.Resources" mc:Ignorable="d" 
 	d:DesignHeight="330" d:DesignWidth="622">
 	<UserControl.Resources>
-		<local:EnumDisplayer Type="{x:Type Encoding:Detelecine}" x:Key="DetelecineChoices" />
-		<local:EnumDisplayer Type="{x:Type Encoding:Decomb}" x:Key="DecombChoices" />
-		<local:EnumDisplayer Type="{x:Type Encoding:Deinterlace}" x:Key="DeinterlaceChoices" />
-		<local:EnumDisplayer Type="{x:Type Encoding:Denoise}" x:Key="DenoiseChoices" />
+		<local:EnumDisplayer Type="{x:Type localmodel:DetelecineCombo}" x:Key="DetelecineChoices" />
+		<local:EnumDisplayer Type="{x:Type localmodel:DecombCombo}" x:Key="DecombChoices" />
+		<local:EnumDisplayer Type="{x:Type localmodel:DeinterlaceCombo}" x:Key="DeinterlaceChoices" />
+		<local:EnumDisplayer Type="{x:Type localmodel:DenoiseCombo}" x:Key="DenoiseChoices" />
 		<Style x:Key="NormalComboBox" TargetType="ComboBox">
 			<Setter Property="Height" Value="22" />
 			<Setter Property="Width" Value="80" />
@@ -26,7 +27,7 @@
 		</Style>
 	</UserControl.Resources>
 	<Grid>
-		<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,16,0,121" Name="grid5" Width="290">
+		<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,16,0,121">
 			<Grid.RowDefinitions>
 				<RowDefinition />
 				<RowDefinition />
@@ -41,61 +42,72 @@
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 
-			<Label Grid.Row="0" Grid.Column="0">Detelecine:</Label>
+			<Label
+				Grid.Row="0" Grid.Column="0"
+				Content="{x:Static res:EncodingRes.DetelecineLabel}"/>
 			<ComboBox
 				Grid.Row="0" Grid.Column="1"
 				Style="{StaticResource NormalComboBox}"
 				ItemsSource="{Binding DisplayNames, Source={StaticResource DetelecineChoices}}"
-				SelectedValue="{Binding Detelecine, Converter={StaticResource DetelecineChoices}}"/>
+				SelectedValue="{Binding SelectedDetelecine, Converter={StaticResource DetelecineChoices}}"/>
 			<TextBox
 				Grid.Row="0" Grid.Column="2"
 				Text="{Binding CustomDetelecine}"
 				Visibility="{Binding CustomDetelecineVisible, Converter={StaticResource VisibilityConverter}}"
 				Style="{StaticResource CustomFilterBox}" />
 
-			<Label Grid.Row="1" Grid.Column="0">Decomb:</Label>
+			<Label
+				Grid.Row="1" Grid.Column="0"
+				Content="{x:Static res:EncodingRes.DecombLabel}"/>
 			<ComboBox
 				Grid.Row="1" Grid.Column="1"
 				Style="{StaticResource NormalComboBox}"
 				ItemsSource="{Binding DisplayNames, Source={StaticResource DecombChoices}}"
-				SelectedValue="{Binding Decomb, Converter={StaticResource DecombChoices}}"/>
+				SelectedValue="{Binding SelectedDecomb, Converter={StaticResource DecombChoices}}"/>
 			<TextBox
 				Grid.Row="1" Grid.Column="2"
 				Text="{Binding CustomDecomb}"
 				Visibility="{Binding CustomDecombVisible, Converter={StaticResource VisibilityConverter}}"
 				Style="{StaticResource CustomFilterBox}" />
 
-			<Label Grid.Row="2" Grid.Column="0">Deinterlace:</Label>
+			<Label
+				Grid.Row="2" Grid.Column="0"
+				Content="{x:Static res:EncodingRes.DeinterlaceLabel}"/>
 			<ComboBox
 				Grid.Row="2" Grid.Column="1"
 				Style="{StaticResource NormalComboBox}"
 				ItemsSource="{Binding DisplayNames, Source={StaticResource DeinterlaceChoices}}"
-				SelectedValue="{Binding Deinterlace, Converter={StaticResource DeinterlaceChoices}}"/>
+				SelectedValue="{Binding SelectedDeinterlace, Converter={StaticResource DeinterlaceChoices}}"/>
 			<TextBox
 				Grid.Row="2" Grid.Column="2"
 				Text="{Binding CustomDeinterlace}"
 				Visibility="{Binding CustomDeinterlaceVisible, Converter={StaticResource VisibilityConverter}}"
 				Style="{StaticResource CustomFilterBox}" />
 
-			<Label Grid.Row="3" Grid.Column="0">Denoise:</Label>
+			<Label 
+				Grid.Row="3" Grid.Column="0"
+				Content="{x:Static res:EncodingRes.DenoiseLabel}"/>
 			<ComboBox
 				Grid.Row="3" Grid.Column="1"
 				Style="{StaticResource NormalComboBox}"
 				ItemsSource="{Binding DisplayNames, Source={StaticResource DenoiseChoices}}"
-				SelectedValue="{Binding Denoise, Converter={StaticResource DenoiseChoices}}"/>
+				SelectedValue="{Binding SelectedDenoise, Converter={StaticResource DenoiseChoices}}"/>
 			<TextBox
 				Grid.Row="3" Grid.Column="2"
 				Text="{Binding CustomDenoise}"
 				Visibility="{Binding CustomDenoiseVisible, Converter={StaticResource VisibilityConverter}}"
 				Style="{StaticResource CustomFilterBox}" />
 
-			<Label Grid.Row="4" Grid.Column="0">Deblock:</Label>
+			<Label 
+				Grid.Row="4" Grid.Column="0"
+				Content="{x:Static res:EncodingRes.DeblockLabel}"/>
 			<StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
-				<TextBlock Width="28" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding DeblockText}" />
+				<TextBlock MinWidth="34" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding DeblockText}" />
 				<Slider Value="{Binding Deblock}" Width="155" Minimum="4" Maximum="15" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" />
 			</StackPanel>
 
-			<CheckBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="3" Content="Grayscale encoding" IsChecked="{Binding Grayscale}" />
+			<CheckBox 
+				Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="3" Content="{x:Static res:EncodingRes.GrayscaleCheckBox}" IsChecked="{Binding Grayscale}" />
 		</Grid>
 	</Grid>
 </UserControl>

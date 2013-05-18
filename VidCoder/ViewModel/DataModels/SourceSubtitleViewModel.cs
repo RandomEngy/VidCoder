@@ -10,6 +10,9 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
+	using HandBrake.Interop.Model.Encoding;
+	using Resources;
+
 	public class SourceSubtitleViewModel : ViewModelBase
 	{
 		private SourceSubtitle subtitle;
@@ -49,6 +52,8 @@ namespace VidCoder.ViewModel
 			{
 				this.selected = value;
 				this.RaisePropertyChanged(() => this.Selected);
+				this.SubtitleDialogViewModel.UpdateBoxes(this);
+				this.SubtitleDialogViewModel.UpdateWarningVisibility();
 			}
 		}
 
@@ -58,7 +63,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.TrackNumber == 0)
 				{
-					return "Foreign Audio Search";
+					return SubtitleRes.ForeignAudioSearch;
 				}
 
 				return this.mainViewModel.SelectedTitle.Subtitles[this.TrackNumber - 1].Display;
@@ -110,6 +115,11 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
+				if (this.SubtitleDialogViewModel.OutputFormat == Container.Mp4 && this.IsPgs)
+				{
+					return true;
+				}
+
 				return this.subtitle.BurnedIn;
 			}
 
@@ -128,6 +138,50 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool BurnedInEnabled
+		{
+			get
+			{
+				return this.SubtitleDialogViewModel.OutputFormat != Container.Mp4 || !this.IsPgs;
+			}
+		}
+
+		public bool RemoveVisible
+		{
+			get
+			{
+				return this.SubtitleDialogViewModel.HasMultipleSourceTracks(this.TrackNumber);
+			}
+		}
+
+		public bool DuplicateVisible
+		{
+			get
+			{
+				return !this.SubtitleDialogViewModel.HasMultipleSourceTracks(this.TrackNumber);
+			}
+		}
+
+		private bool IsPgs
+		{
+			get
+			{
+				return this.TrackNumber > 0 && this.SubtitleDialogViewModel.GetSubtitle(this).SubtitleSource == SubtitleSource.PGS;
+			}
+		}
+
+		private RelayCommand duplicateSubtitleCommand;
+		public RelayCommand DuplicateSubtitleCommand
+		{
+			get
+			{
+				return this.duplicateSubtitleCommand ?? (this.duplicateSubtitleCommand = new RelayCommand(() =>
+					{
+						this.SubtitleDialogViewModel.DuplicateSourceSubtitle(this);
+					}));
+			}
+		}
+
 		private RelayCommand removeSubtitleCommand;
 		public RelayCommand RemoveSubtitleCommand
 		{
@@ -139,6 +193,18 @@ namespace VidCoder.ViewModel
 						this.SubtitleDialogViewModel.RemoveSourceSubtitle(this);
 					}));
 			}
+		}
+
+		public void Deselect()
+		{
+			this.selected = false;
+			this.RaisePropertyChanged(() => this.Selected);
+		}
+
+		public void UpdateButtonVisiblity()
+		{
+			this.RaisePropertyChanged(() => this.DuplicateVisible);
+			this.RaisePropertyChanged(() => this.RemoveVisible);
 		}
 	}
 }

@@ -6,6 +6,8 @@ using System.Text;
 
 namespace VidCoder.ViewModel
 {
+	using Resources;
+
 	public class AdvancedChoice
 	{
 		/// <summary>
@@ -46,66 +48,66 @@ namespace VidCoder.ViewModel
 
 			pyramidalBFrames = new List<AdvancedChoice>
 			{
-				new AdvancedChoice { Label = "Off", Value = "none"},
-				new AdvancedChoice { Label = "Normal (Default)", IsDefault = true },
-				new AdvancedChoice { Label = "Strict", Value = "strict"}
+				new AdvancedChoice { Label = EncodingRes.PyramidalBFrames_Off, Value = "none"},
+				new AdvancedChoice { Label = string.Format(EncodingRes.DefaultFormat, EncodingRes.PyramidalBFrames_Normal), IsDefault = true },
+				new AdvancedChoice { Label = EncodingRes.PyramidalBFrames_Strict, Value = "strict"}
 			};
 
 			adaptiveBFrames = new List<AdvancedChoice>
 			{
-				new AdvancedChoice { Label = "Off", Value = "0" },
-				new AdvancedChoice { Label = "Fast (Default)", Value = "1", IsDefault = true },
-				new AdvancedChoice { Label = "Optimal", Value = "2" }
+				new AdvancedChoice { Label = EncodingRes.AdaptiveBFrames_Off, Value = "0" },
+				new AdvancedChoice { Label = string.Format(EncodingRes.DefaultFormat, EncodingRes.AdaptiveBFrames_Fast), Value = "1", IsDefault = true },
+				new AdvancedChoice { Label = EncodingRes.AdaptiveBFrames_Optimal, Value = "2" }
 			};
 
 			directPrediction = new List<AdvancedChoice>
 			{
-				new AdvancedChoice { Label = "None", Value = "none" },
-				new AdvancedChoice { Label = "Spatial (Default)", Value = "spatial", IsDefault = true },
-				new AdvancedChoice { Label = "Temporal", Value = "temporal" },
-				new AdvancedChoice { Label = "Automatic", Value = "auto" }
+				new AdvancedChoice { Label = EncodingRes.DirectPrediction_None, Value = "none" },
+				new AdvancedChoice { Label = string.Format(EncodingRes.DefaultFormat, EncodingRes.DirectPrediction_Spatial), Value = "spatial", IsDefault = true },
+				new AdvancedChoice { Label = EncodingRes.DirectPrediction_Temporal, Value = "temporal" },
+				new AdvancedChoice { Label = EncodingRes.DirectPrediction_Automatic, Value = "auto" }
 			};
 
 			motionEstimationMethod = new List<AdvancedChoice>
 			{
-				new AdvancedChoice { Label = "Diamond", Value = "dia" },
-				new AdvancedChoice { Label = "Hexagon (Default)", Value = "hex", IsDefault = true },
-				new AdvancedChoice { Label = "Uneven Multi-Hexagon", Value = "umh" },
-				new AdvancedChoice { Label = "Exhaustive", Value = "esa" },
-				new AdvancedChoice { Label = "Transformed Exhaustive", Value = "tesa" },
+				new AdvancedChoice { Label = EncodingRes.MotionEstimationMethod_Diamond, Value = "dia" },
+				new AdvancedChoice { Label = string.Format(EncodingRes.DefaultFormat, EncodingRes.MotionEstimationMethod_Hexagon), Value = "hex", IsDefault = true },
+				new AdvancedChoice { Label = EncodingRes.MotionEstimationMethod_UnevenMultiHexagon, Value = "umh" },
+				new AdvancedChoice { Label = EncodingRes.MotionEstimationMethod_Exhaustive, Value = "esa" },
+				new AdvancedChoice { Label = EncodingRes.MotionEstimationMethod_TransformedExhaustive, Value = "tesa" },
 			};
 
 			subpixelMotionEstimation = new List<AdvancedChoice>
 			{
-				new AdvancedChoice { Label = "0: SAD, no subpel (super fast!)", Value = "0" },
-				new AdvancedChoice { Label = "1: SAD, qpel", Value = "1" },
-				new AdvancedChoice { Label = "2: SATD, qpel", Value = "2" },
-				new AdvancedChoice { Label = "3: SATD, multi-qpel", Value = "3" },
-				new AdvancedChoice { Label = "4: SATD, qpel on all", Value = "4" },
-				new AdvancedChoice { Label = "5: SATD, multi-qpel on all", Value = "5" },
-				new AdvancedChoice { Label = "6: RD in I/P-frames", Value = "6" },
-				new AdvancedChoice { Label = "7: RD in all frames (Default)", Value = "7", IsDefault = true },
-				new AdvancedChoice { Label = "8: RD refine in I/P-frames", Value = "8" },
-				new AdvancedChoice { Label = "9: RD refine in all frames", Value = "9" },
-				new AdvancedChoice { Label = "10: QPRD in all frames", Value = "10" },
-				new AdvancedChoice { Label = "11: No early terminations in analysis", Value = "11" },
+				new AdvancedChoice { Label = EncodingRes.SubpixelMotionEstimation_0, Value = "0" },
+				new AdvancedChoice { Label = EncodingRes.SubpixelMotionEstimation_1, Value = "1" },
+				new AdvancedChoice { Label = EncodingRes.SubpixelMotionEstimation_2, Value = "2" },
+				new AdvancedChoice { Label = EncodingRes.SubpixelMotionEstimation_3, Value = "3" },
+				new AdvancedChoice { Label = EncodingRes.SubpixelMotionEstimation_4, Value = "4" },
+				new AdvancedChoice { Label = EncodingRes.SubpixelMotionEstimation_5, Value = "5" },
+				new AdvancedChoice { Label = EncodingRes.SubpixelMotionEstimation_6, Value = "6" },
+				new AdvancedChoice { Label = string.Format(EncodingRes.DefaultFormat, EncodingRes.SubpixelMotionEstimation_7), Value = "7", IsDefault = true },
+				new AdvancedChoice { Label = EncodingRes.SubpixelMotionEstimation_8, Value = "8" },
+				new AdvancedChoice { Label = EncodingRes.SubpixelMotionEstimation_9, Value = "9" },
+				new AdvancedChoice { Label = EncodingRes.SubpixelMotionEstimation_10, Value = "10" },
+				new AdvancedChoice { Label = EncodingRes.SubpixelMotionEstimation_11, Value = "11" },
 			};
 
-			//subpixelMotionEstimation = CreateNumberList(0, 9, defaultNumber: 7);
 			motionEstimationRange = CreateNumberList(4, 64, defaultNumber: 16);
 
 			analysis = new List<AdvancedChoice>
 			{
-				new AdvancedChoice { Label = "None", Value = "none" },
-				new AdvancedChoice { Label = "Some (Default)", IsDefault = true },
-				new AdvancedChoice { Label = "All", Value = "all" }
+				new AdvancedChoice { Label = string.Format(EncodingRes.DefaultFormat, EncodingRes.Analysis_Most), IsDefault = true },
+				new AdvancedChoice { Label = EncodingRes.Analysis_None, Value = "none" },
+				new AdvancedChoice { Label = EncodingRes.Analysis_Some, Value = "i4x4,i8x8" },
+				new AdvancedChoice { Label = EncodingRes.Analysis_All, Value = "all" }
 			};
 
 			trellis = new List<AdvancedChoice>
 			{
-				new AdvancedChoice { Label = "Off", Value = "0"},
-				new AdvancedChoice { Label = "Encode Only (Default)", Value = "1", IsDefault = true},
-				new AdvancedChoice { Label = "Always", Value = "2"}
+				new AdvancedChoice { Label = EncodingRes.Trellis_Off, Value = "0"},
+				new AdvancedChoice { Label = string.Format(EncodingRes.DefaultFormat, EncodingRes.Trellis_EncodeOnly), Value = "1", IsDefault = true},
+				new AdvancedChoice { Label = EncodingRes.Trellis_Always, Value = "2"}
 			};
 
 			deblockingStrength = CreateNumberList(-6, 6, defaultNumber: 0);
@@ -227,7 +229,7 @@ namespace VidCoder.ViewModel
 					list.Add(new AdvancedChoice
 					{
 						IsDefault = true,
-						Label = i.ToString() + " (Default)",
+						Label = string.Format(EncodingRes.DefaultFormat, i),
 						Value = i.ToString(CultureInfo.InvariantCulture)
 					});
 				}
@@ -235,7 +237,7 @@ namespace VidCoder.ViewModel
 				{
 					list.Add(new AdvancedChoice
 					{
-						Label = i.ToString(),
+						Label = i.ToString(CultureInfo.CurrentCulture),
 						Value = i.ToString(CultureInfo.InvariantCulture)
 					});
 				}

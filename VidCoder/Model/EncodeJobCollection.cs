@@ -13,6 +13,6 @@ namespace VidCoder.Model
 	public class EncodeJobCollection
 	{
 		[XmlElement(ElementName = "EncodeJob")]
-		public List<EncodeJob> EncodeJobs { get; set; }
+		public List<VCJob> EncodeJobs { get; set; }
 	}
 }

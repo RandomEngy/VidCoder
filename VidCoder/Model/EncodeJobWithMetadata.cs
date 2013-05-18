@@ -8,10 +8,12 @@ namespace VidCoder.Model
 {
 	public class EncodeJobWithMetadata
 	{
-		public EncodeJob Job { get; set; }
+		public VCJob Job { get; set; }
 
 		public bool ManualOutputPath { get; set; }
 
 		public string NameFormatOverride { get; set; }
+
+		public string PresetName { get; set; }
 	}
 }

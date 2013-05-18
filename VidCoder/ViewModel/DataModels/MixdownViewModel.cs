@@ -7,16 +7,30 @@ using HandBrake.Interop.Model.Encoding;
 
 namespace VidCoder.ViewModel
 {
+	using System.Resources;
+	using Resources;
+
 	public class MixdownViewModel : ViewModelBase
 	{
-		public Mixdown Mixdown { get; set; }
+		private static ResourceManager manager = new ResourceManager(typeof (EncodingRes));
+
+		public HBMixdown Mixdown { get; set; }
 
 		public string Display
 		{
 			get
 			{
-				return DisplayConversions.DisplayMixdown(this.Mixdown);
+				string resourceString = manager.GetString("Mixdown_" + this.Mixdown.ShortName);
+
+				if (string.IsNullOrWhiteSpace(resourceString))
+				{
+					return this.Mixdown.DisplayName;
+				}
+
+				return resourceString;
 			}
 		}
+
+		public bool IsCompatible { get; set; }
 	}
 }

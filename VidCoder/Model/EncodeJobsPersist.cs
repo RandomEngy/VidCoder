@@ -20,11 +20,11 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				string jobsXml = DatabaseConfig.GetConfigString("EncodeJobs2", Database.Connection);
+				string jobsXml = Config.EncodeJobs2;
 				if (string.IsNullOrEmpty(jobsXml))
 				{
 					// Check if there's an old queue collection we should upgrade
-					List<EncodeJob> oldJobs = EncodeJobsOld;
+					List<VCJob> oldJobs = EncodeJobsOld;
 					if (oldJobs.Count > 0)
 					{
 						// Populate the SourceType enum. We need this for editing queue items.
@@ -47,13 +47,13 @@ namespace VidCoder.Model
 							}
 						}
 
-						foreach (EncodeJob job in oldJobs)
+						foreach (VCJob job in oldJobs)
 						{
 							Presets.UpgradeEncodingProfile(job.EncodingProfile, 12);
 						}
 
 						var persistGroup = new EncodeJobPersistGroup();
-						persistGroup.EncodeJobs.AddRange(oldJobs.Select(j => new EncodeJobWithMetadata { Job = j, ManualOutputPath = true }));
+						persistGroup.EncodeJobs.AddRange(oldJobs.Select(j => new EncodeJobWithMetadata { Job = j, ManualOutputPath = true, PresetName = string.Empty }));
 
 						EncodeJobs = persistGroup;
 						return persistGroup;
@@ -68,18 +68,18 @@ namespace VidCoder.Model
 			set
 			{
 				// Old are stored in EncodeJobs, new in EncodeJobs2
-				DatabaseConfig.SetConfigValue("EncodeJobs2", SerializeJobs(value), Database.Connection);
+				Config.EncodeJobs2 = SerializeJobs(value);
 			}
 		}
 
-		public static List<EncodeJob> EncodeJobsOld
+		public static List<VCJob> EncodeJobsOld
 		{
 			get
 			{
-				string jobsXml = DatabaseConfig.GetConfigString("EncodeJobs", Database.Connection);
+				string jobsXml = Config.EncodeJobs;
 				if (string.IsNullOrEmpty(jobsXml))
 				{
-					return new List<EncodeJob>();
+					return new List<VCJob>();
 				}
 
 				return LoadJobsXmlStringOld(jobsXml);
@@ -128,7 +128,7 @@ namespace VidCoder.Model
 			return new EncodeJobPersistGroup();
 		}
 
-		private static List<EncodeJob> LoadJobsXmlStringOld(string jobsXml)
+		private static List<VCJob> LoadJobsXmlStringOld(string jobsXml)
 		{
 			try
 			{
@@ -139,7 +139,7 @@ namespace VidCoder.Model
 						var jobCollection = oldXmlSerializer.Deserialize(xmlReader) as EncodeJobCollection;
 						if (jobCollection == null)
 						{
-							return new List<EncodeJob>();
+							return new List<VCJob>();
 						}
 
 						return jobCollection.EncodeJobs;
@@ -156,7 +156,7 @@ namespace VidCoder.Model
 					jobsXml);
 			}
 
-			return new List<EncodeJob>();
+			return new List<VCJob>();
 		}
 	}
 }

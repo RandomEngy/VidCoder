@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HandBrake.Interop;
-using System.Threading;
 using VidCoder.Services;
-using VidCoder.Properties;
 
 namespace VidCoder.ViewModel
 {
+	using HandBrake.Interop.SourceData;
+
 	/// <summary>
 	/// View model for dialog that shows when scanning multiple files.
 	/// </summary>
@@ -32,13 +32,15 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public override bool CanClose
+		public bool CancelPending { get; set; }
+
+		public bool ScanFinished
 		{
 			get
 			{
 				lock (this.currentJobIndexLock)
 				{
-					return this.currentJobIndex >= this.itemsToScan.Count;
+					return this.currentJobIndex >= this.itemsToScan.Count || this.CancelPending;
 				}
 			}
 		}
@@ -47,17 +49,20 @@ namespace VidCoder.ViewModel
 		{
 			EncodeJobViewModel jobVM = itemsToScan[currentJobIndex];
 
-			HandBrakeInstance onDemandInstance = new HandBrakeInstance();
-			onDemandInstance.Initialize(Settings.Default.LogVerbosity);
+			var onDemandInstance = new HandBrakeInstance();
+			onDemandInstance.Initialize(Config.LogVerbosity);
 			onDemandInstance.ScanCompleted += (o, e) =>
 			{
 				jobVM.HandBrakeInstance = onDemandInstance;
 
 				if (onDemandInstance.Titles.Count > 0)
 				{
-					jobVM.Job.Length = onDemandInstance.Titles[0].Duration;
+					Title titleToEncode = Utilities.GetFeatureTitle(onDemandInstance.Titles, onDemandInstance.FeatureTitle);
+
+					jobVM.Job.Title = titleToEncode.TitleNumber;
+					jobVM.Job.Length = titleToEncode.Duration;
 					jobVM.Job.ChapterStart = 1;
-					jobVM.Job.ChapterEnd = onDemandInstance.Titles[0].Chapters.Count;
+					jobVM.Job.ChapterEnd = titleToEncode.Chapters.Count;
 				}
 
 				lock (this.currentJobIndexLock)
@@ -65,7 +70,7 @@ namespace VidCoder.ViewModel
 					this.currentJobIndex++;
 					this.RaisePropertyChanged(() => this.Progress);
 
-					if (this.currentJobIndex >= this.itemsToScan.Count)
+					if (this.ScanFinished)
 					{
 						DispatchService.BeginInvoke(() =>
 						{
@@ -79,7 +84,7 @@ namespace VidCoder.ViewModel
 				}
 			};
 
-			onDemandInstance.StartScan(jobVM.Job.SourcePath, 10, 1);
+			onDemandInstance.StartScan(jobVM.Job.SourcePath, 10, 0);
 		}
 	}
 }

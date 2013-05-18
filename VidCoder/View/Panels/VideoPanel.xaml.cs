@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 
 namespace VidCoder.View
 {
+	using ViewModel;
+
 	/// <summary>
 	/// Interaction logic for VideoPanel.xaml
 	/// </summary>

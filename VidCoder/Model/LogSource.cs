@@ -3,6 +3,7 @@
 	public enum LogSource
 	{
 		VidCoder,
-		HandBrake
+		HandBrake,
+		VidCoderWorker
 	}
 }

@@ -8,8 +8,8 @@ $HandBrakeInteropFolder = "..\HandBrakeSVN\win\CS\HandBrake.Interop"
 
 $HandBrakeSolution = $HandBrakeInteropFolder + "\HandBrakeInterop.sln"
 
-& $DevEnvExe $HandBrakeSolution /Rebuild "Release|x86"; ExitIfFailed
-& $DevEnvExe $HandBrakeSolution /Rebuild "Release|x64"; ExitIfFailed
+& $DevEnv11Exe $HandBrakeSolution /Rebuild "Release|x86"; ExitIfFailed
+& $DevEnv11Exe $HandBrakeSolution /Rebuild "Release|x64"; ExitIfFailed
 copy ($HandBrakeInteropFolder + "\HandBrakeInterop\bin\x86\Release\HandBrakeInterop.dll") Lib\x86 -force
 copy ($HandBrakeInteropFolder + "\HandBrakeInterop\bin\x86\Release\HandBrakeInterop.pdb") Lib\x86 -force
 copy ($HandBrakeInteropFolder + "\HandBrakeInterop\bin\x64\Release\HandBrakeInterop.dll") Lib\x64 -force
@@ -19,4 +19,4 @@ copy ($HandBrakeInteropFolder + "\HandBrakeInterop\bin\x64\Release\HandBrakeInte
 WriteSuccess
 
 Write-Host
-powershell.exe -noexit -nologo
+Pause

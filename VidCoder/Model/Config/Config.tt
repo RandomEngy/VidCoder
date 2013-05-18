@@ -1,0 +1,67 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="$(TargetPath)" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="VidCoder" #>
+<#
+string fileName = this.Host.ResolvePath("Config.txt");
+var settings = new List<ConfigDeclaration>();
+var lines = File.ReadLines(fileName);
+foreach (string line in lines)
+{
+	if (!string.IsNullOrWhiteSpace(line))
+	{
+		int firstPipeIndex = line.IndexOf('|');
+		string name = line.Substring(0, firstPipeIndex);
+
+		int secondPipeIndex = line.IndexOf('|', firstPipeIndex + 1);
+		string valueType = line.Substring(firstPipeIndex + 1, secondPipeIndex - firstPipeIndex - 1);
+
+		string defaultValue = line.Substring(secondPipeIndex + 1);
+
+		settings.Add(new ConfigDeclaration { Name = name, ValueType = valueType, Default = defaultValue });
+	}
+}
+#>
+namespace VidCoder
+{
+	using System.Data.SQLite;
+	using Model;
+
+	public static class Config
+	{
+		public static void Initialize(SQLiteConnection connection)
+		{
+<#
+foreach (var setting in settings)
+{
+#>
+			<#= setting.Name + "_Field" #> = DatabaseConfig.GetConfig("<#= setting.Name #>", <#= setting.Default #>, connection);
+<#
+}   
+#>
+		}
+<#
+foreach (var setting in settings)
+{
+#>
+		private static <#= setting.ValueType #> <#= setting.Name + "_Field" #>;
+		public static <#= setting.ValueType #> <#= setting.Name #>
+		{
+			get
+			{
+				return <#= setting.Name + "_Field" #>;
+			}
+			
+			set
+			{
+				<#= setting.Name + "_Field" #> = value;
+				DatabaseConfig.SetConfigValue("<#= setting.Name #>", value);
+			}
+		}
+<#
+}   
+#>
+	}
+}

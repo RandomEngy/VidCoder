@@ -7,6 +7,12 @@ namespace VidCoder.Model
 {
 	public class ComboChoice
 	{
+		public ComboChoice(string value)
+		{
+			this.Value = value;
+			this.Display = value;
+		}
+
 		public ComboChoice(string value, string display)
 		{
 			this.Value = value;

@@ -15,11 +15,13 @@ using HandBrake.Interop.SourceData;
 using Microsoft.Practices.Unity;
 using VidCoder.Messages;
 using VidCoder.Model;
-using VidCoder.Properties;
 using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
 {
+	using Extensions;
+	using Resources;
+
 	/// <summary>
 	/// Controls automatic naming logic for the encoding output path.
 	/// </summary>
@@ -33,6 +35,18 @@ namespace VidCoder.ViewModel.Components
 		private string outputPath;
 
 		private bool editingDestination;
+
+		public OutputPathViewModel()
+		{
+			Messenger.Default.Register<OutputFolderChangedMessage>(
+				this,
+				message =>
+					{
+						this.RaisePropertyChanged(() => this.OutputFolderChosen);
+						this.PickOutputPathCommand.RaiseCanExecuteChanged();
+						this.GenerateOutputFileName();
+					});
+		}
 
 		public ProcessingViewModel ProcessingVM
 		{
@@ -100,7 +114,7 @@ namespace VidCoder.ViewModel.Components
 		{
 			get
 			{
-				return !string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder);
+				return !string.IsNullOrEmpty(Config.AutoNameOutputFolder);
 			}
 		}
 
@@ -111,9 +125,7 @@ namespace VidCoder.ViewModel.Components
 			{
 				return this.pickDefaultOutputFolderCommand ?? (this.pickDefaultOutputFolderCommand = new RelayCommand(() =>
 					{
-						this.
-							PickDefaultOutputFolder
-							();
+						this.PickDefaultOutputFolder();
 					}));
 			}
 		}
@@ -130,7 +142,7 @@ namespace VidCoder.ViewModel.Components
 						string extensionLabel = extension.ToUpperInvariant();
 
 						string newOutputPath = FileService.Instance.GetFileNameSave(
-							Settings.Default.RememberPreviousFiles ? Settings.Default.LastOutputFolder : null,
+							Config.RememberPreviousFiles ? Config.LastOutputFolder : null,
 							"Encode output location",
 							null,
 							extension,
@@ -161,11 +173,11 @@ namespace VidCoder.ViewModel.Components
 			WhenFileExists preference;
 			if (isBatch)
 			{
-				preference = Settings.Default.WhenFileExistsBatch;
+				preference = CustomConfig.WhenFileExistsBatch;
 			}
 			else
 			{
-				preference = Settings.Default.WhenFileExists;
+				preference = CustomConfig.WhenFileExists;
 			}
 
 			switch (preference)
@@ -215,28 +227,12 @@ namespace VidCoder.ViewModel.Components
 		{
 			string extension;
 
-			// If we have a text source subtitle, force .m4v extension.
-			bool allowMp4Extension = true;
-			if (givenSubtitles != null && givenSubtitles.SourceSubtitles != null)
-			{
-				foreach (SourceSubtitle sourceSubtitle in givenSubtitles.SourceSubtitles)
-				{
-					if (sourceSubtitle.TrackNumber > 0)
-					{
-						if (givenTitle.Subtitles[sourceSubtitle.TrackNumber - 1].SubtitleType == SubtitleType.Text)
-						{
-							allowMp4Extension = false;
-						}
-					}
-				}
-			}
-
-			EncodingProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
+			VCProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
 			if (profile.OutputFormat == Container.Mkv)
 			{
 				extension = ".mkv";
 			}
-			else if (profile.PreferredExtension == OutputExtension.Mp4 && allowMp4Extension)
+			else if (profile.PreferredExtension == OutputExtension.Mp4)
 			{
 				extension = ".mp4";
 			}
@@ -266,7 +262,7 @@ namespace VidCoder.ViewModel.Components
 
 		public string GetOutputExtensionForCurrentEncodingProfile(bool includeDot = true)
 		{
-			EncodingProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
+			VCProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
 			string extension;
 
 			if (profile.OutputFormat == Container.Mkv)
@@ -301,10 +297,9 @@ namespace VidCoder.ViewModel.Components
 			{
 				string outputDirectory = Path.GetDirectoryName(newOutputPath);
 
-				if (Settings.Default.RememberPreviousFiles)
+				if (Config.RememberPreviousFiles)
 				{
-					Settings.Default.LastOutputFolder = outputDirectory;
-					Settings.Default.Save();
+					Config.LastOutputFolder = outputDirectory;
 				}
 
 				string fileName = Path.GetFileNameWithoutExtension(newOutputPath);
@@ -350,10 +345,10 @@ namespace VidCoder.ViewModel.Components
 
 			if (!this.main.HasVideoSource)
 			{
-				string outputFolder = Settings.Default.AutoNameOutputFolder;
+				string outputFolder = Config.AutoNameOutputFolder;
 				if (outputFolder != null)
 				{
-					this.OutputPath = outputFolder + (outputFolder.EndsWith(@"\") ? string.Empty : @"\");
+					this.OutputPath = outputFolder + (outputFolder.EndsWith(@"\", StringComparison.Ordinal) ? string.Empty : @"\");
 				}
 
 				return;
@@ -364,7 +359,7 @@ namespace VidCoder.ViewModel.Components
 				return;
 			}
 
-			if (string.IsNullOrEmpty(Settings.Default.AutoNameOutputFolder))
+			if (string.IsNullOrEmpty(Config.AutoNameOutputFolder))
 			{
 				return;
 			}
@@ -385,11 +380,12 @@ namespace VidCoder.ViewModel.Components
 				this.main.SelectedStartChapter.ChapterNumber,
 				this.main.SelectedEndChapter.ChapterNumber,
 				this.main.SelectedTitle.Chapters.Count,
-				this.main.SecondsRangeStart,
-				this.main.SecondsRangeEnd,
+				this.main.TimeRangeStart,
+				this.main.TimeRangeEnd,
 				this.main.FramesRangeStart,
 				this.main.FramesRangeEnd,
-				this.NameFormatOverride);
+				this.NameFormatOverride,
+				usesScan: true);
 
 			string extension = this.GetOutputExtension();
 
@@ -448,8 +444,8 @@ namespace VidCoder.ViewModel.Components
 		public string GetOutputFolder(string sourcePath)
 		{
 			// Use our default output folder by default
-			string outputFolder = Settings.Default.AutoNameOutputFolder;
-			if (Settings.Default.OutputToSourceDirectory)
+			string outputFolder = Config.AutoNameOutputFolder;
+			if (Config.OutputToSourceDirectory)
 			{
 				string sourceRoot = Path.GetPathRoot(sourcePath);
 				IList<DriveInfo> driveInfo = this.driveService.GetDriveInformation();
@@ -485,7 +481,7 @@ namespace VidCoder.ViewModel.Components
 			return null;
 		}
 
-		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, int totalChapters, string nameFormatOverride = null)
+		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, int totalChapters, string nameFormatOverride = null, bool usesScan = true)
 		{
 			return this.BuildOutputFileName(
 				sourcePath,
@@ -496,17 +492,18 @@ namespace VidCoder.ViewModel.Components
 				1,
 				totalChapters,
 				totalChapters,
+				TimeSpan.Zero,
+				TimeSpan.Zero,
 				0,
 				0,
-				0,
-				0,
-				nameFormatOverride);
+				nameFormatOverride,
+				usesScan);
 		}
 
-		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, VideoRangeType rangeType, int startChapter, int endChapter, int totalChapters, double startSecond, double endSecond, int startFrame, int endFrame, string nameFormatOverride)
+		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, VideoRangeType rangeType, int startChapter, int endChapter, int totalChapters, TimeSpan startTime, TimeSpan endTime, int startFrame, int endFrame, string nameFormatOverride, bool usesScan)
 		{
 			string fileName;
-			if (Settings.Default.AutoNameCustomFormat || !string.IsNullOrWhiteSpace(nameFormatOverride))
+			if (Config.AutoNameCustomFormat || !string.IsNullOrWhiteSpace(nameFormatOverride))
 			{
 				string rangeString = string.Empty;
 				switch (rangeType)
@@ -523,7 +520,7 @@ namespace VidCoder.ViewModel.Components
 
 						break;
 					case VideoRangeType.Seconds:
-						rangeString = startSecond + "-" + endSecond;
+						rangeString = startTime.ToFileName() + "-" + endTime.ToFileName();
 						break;
 					case VideoRangeType.Frames:
 						rangeString = startFrame + "-" + endFrame;
@@ -536,14 +533,14 @@ namespace VidCoder.ViewModel.Components
 				}
 				else
 				{
-					fileName = Settings.Default.AutoNameCustomFormatString;
+					fileName = Config.AutoNameCustomFormatString;
 				}
 
 				fileName = fileName.Replace("{source}", sourceName);
 				fileName = ReplaceTitles(fileName, title);
 				fileName = fileName.Replace("{range}", rangeString);
 
-				fileName = fileName.Replace("{titleduration}", titleDuration.ToString(@"h\.mm\.ss", CultureInfo.InvariantCulture));
+				fileName = fileName.Replace("{titleduration}", titleDuration.ToFileName());
 
 				// {chapters} is deprecated in favor of {range} but we replace here for backwards compatibility.
 				fileName = fileName.Replace("{chapters}", rangeString);
@@ -564,7 +561,7 @@ namespace VidCoder.ViewModel.Components
 
 				if (fileName.Contains("{quality}"))
 				{
-					EncodingProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
+					VCProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
 					double quality = 0;
 					switch (profile.VideoEncodeRateType)
 					{
@@ -587,7 +584,7 @@ namespace VidCoder.ViewModel.Components
 			else
 			{
 				string titleSection = string.Empty;
-				if (this.main.SelectedSource.Type != SourceType.File)
+				if (usesScan && this.main.SelectedSource != null && this.main.SelectedSource.Type != SourceType.File)
 				{
 					titleSection = " - Title " + title;
 				}
@@ -610,7 +607,11 @@ namespace VidCoder.ViewModel.Components
 
 						break;
 					case VideoRangeType.Seconds:
-						rangeSection = " - Seconds " + startSecond + "-" + endSecond;
+						if (startTime > TimeSpan.Zero || endTime < titleDuration)
+						{
+							rangeSection = " - " + startTime.ToFileName() + "-" + endTime.ToFileName();
+						}
+
 						break;
 					case VideoRangeType.Frames:
 						rangeSection = " - Frames " + startFrame + "-" + endFrame;
@@ -625,17 +626,12 @@ namespace VidCoder.ViewModel.Components
 
 		public bool PickDefaultOutputFolder()
 		{
-			string newOutputFolder = FileService.Instance.GetFolderName(null, "Choose the output directory for encoded video files.");
+			string newOutputFolder = FileService.Instance.GetFolderName(null, MainRes.OutputDirectoryPickerText);
 
 			if (newOutputFolder != null)
 			{
-				Settings.Default.AutoNameOutputFolder = newOutputFolder;
-				Settings.Default.Save();
-				this.RaisePropertyChanged(() => this.OutputFolderChosen);
+				Config.AutoNameOutputFolder = newOutputFolder;
 				Messenger.Default.Send(new OutputFolderChangedMessage());
-				this.PickOutputPathCommand.RaiseCanExecuteChanged();
-
-				this.GenerateOutputFileName();
 			}
 
 			return newOutputFolder != null;

@@ -12,7 +12,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Practices.Unity;
 using VidCoder.Model;
-using VidCoder.Properties;
 using VidCoder.Services;
 
 namespace VidCoder.View
@@ -23,6 +22,9 @@ namespace VidCoder.View
 	public partial class LogWindow : Window
 	{
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
+
+		private int pendingLines;
+		private object writeLock = new object();
 
 		public LogWindow()
 		{
@@ -50,7 +52,7 @@ namespace VidCoder.View
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			this.SetPlacement(Settings.Default.LogWindowPlacement);
+			this.SetPlacement(Config.LogWindowPlacement);
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -58,17 +60,32 @@ namespace VidCoder.View
 			this.logger.EntryLogged -= this.OnEntryLogged;
 			this.logger.Cleared -= this.OnCleared;
 
-			Settings.Default.LogWindowPlacement = this.GetPlacement();
-			Settings.Default.Save();
+			Config.LogWindowPlacement = this.GetPlacement();
 		}
 
 		private void OnEntryLogged(object sender, EventArgs<LogEntry> e)
 		{
-			this.Dispatcher.BeginInvoke(new Action(() =>
+			lock (this.writeLock)
 			{
-				this.AddEntry(e.Value);
-				this.logTextBox.ScrollToEnd();
-			}));
+				this.pendingLines++;
+
+				this.Dispatcher.BeginInvoke(new Action(() =>
+					{
+						this.AddEntry(e.Value);
+
+						lock (this.writeLock)
+						{
+							this.pendingLines--;
+
+							if (this.pendingLines == 0)
+							{
+								// Scrolling to the end can be a slow operation so only do it when we've run out of lines to write.
+								this.logTextBox.ScrollToEnd();
+							}
+						}
+					}),
+					System.Windows.Threading.DispatcherPriority.Background);
+			}
 		}
 
 		private void OnCleared(object sender, EventArgs e)
@@ -90,6 +107,10 @@ namespace VidCoder.View
 			else if (entry.Source == LogSource.VidCoder)
 			{
 				run.Foreground = new SolidColorBrush(Colors.DarkBlue);
+			}
+			else if (entry.Source == LogSource.VidCoderWorker)
+			{
+				run.Foreground = new SolidColorBrush(Colors.DarkGreen);
 			}
 
 			this.logDocument.Blocks.Add(new Paragraph(run));

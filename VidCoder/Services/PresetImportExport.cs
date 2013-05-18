@@ -6,12 +6,13 @@ using System.Text;
 using System.Xml.Linq;
 using Microsoft.Practices.Unity;
 using VidCoder.Model;
-using VidCoder.Properties;
 using VidCoder.ViewModel;
 using VidCoder.ViewModel.Components;
 
 namespace VidCoder.Services
 {
+	using Resources;
+
 	public class PresetImportExport : IPresetImportExport
 	{
 		private IFileService fileService;
@@ -29,7 +30,7 @@ namespace VidCoder.Services
 			Preset preset = Presets.LoadPresetFile(presetFile);
 			if (preset == null || string.IsNullOrWhiteSpace(preset.Name))
 			{
-				this.messageBoxService.Show("Could not import preset. Format is unrecognized.", "Import Error", System.Windows.MessageBoxButton.OK);
+				this.messageBoxService.Show(MainRes.PresetImportErrorMessage, MainRes.PresetImportErrorTitle, System.Windows.MessageBoxButton.OK);
 				return;
 			}
 
@@ -52,7 +53,7 @@ namespace VidCoder.Services
 				}
 			}
 
-			this.messageBoxService.Show("Successfully imported preset " + preset.Name + ".", "Success", System.Windows.MessageBoxButton.OK);
+			this.messageBoxService.Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), MainRes.PresetImportSuccessTitle, System.Windows.MessageBoxButton.OK);
 
 			this.presetsViewModel.AddPreset(preset);
 		}
@@ -75,24 +76,23 @@ namespace VidCoder.Services
 			}
 
 			string exportFileName = this.fileService.GetFileNameSave(
-				Settings.Default.RememberPreviousFiles ? Settings.Default.LastPresetExportFolder : null,
-				"Export preset",
+				Config.RememberPreviousFiles ? Config.LastPresetExportFolder : null,
+				MainRes.ExportPresetFilePickerText,
 				Utilities.CleanFileName(initialFileName + ".xml"),
 				"xml",
 				"XML Files|*.xml");
 			if (exportFileName != null)
 			{
-				if (Settings.Default.RememberPreviousFiles)
+				if (Config.RememberPreviousFiles)
 				{
-					Settings.Default.LastPresetExportFolder = Path.GetDirectoryName(exportFileName);
-					Settings.Default.Save();
+					Config.LastPresetExportFolder = Path.GetDirectoryName(exportFileName);
 				}
 
 				if (Presets.SavePresetToFile(exportPreset, exportFileName))
 				{
 					this.messageBoxService.Show(
-						"Successfully exported preset to " + exportFileName,
-						"Success",
+						string.Format(MainRes.PresetExportSuccessMessage, exportFileName),
+						MainRes.PresetExportSuccessTitle,
 						System.Windows.MessageBoxButton.OK);
 				}
 			}

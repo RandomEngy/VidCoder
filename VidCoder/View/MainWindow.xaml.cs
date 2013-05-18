@@ -33,6 +33,9 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.View
 {
+	using System.Windows.Interop;
+	using Resources;
+
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
@@ -43,9 +46,6 @@ namespace VidCoder.View
 		private OutputPathViewModel outputVM = Unity.Container.Resolve<OutputPathViewModel>();
 
 		private bool tabsVisible = false;
-
-		private bool rangeUIMouseOver;
-		private bool rangeUIFocus;
 
 		private Storyboard presetGlowStoryboard;
 
@@ -99,12 +99,12 @@ namespace VidCoder.View
 				this.RestoredWindowState = this.WindowState;
 			};
 
-			Messenger.Default.Register<ScanningChangedMessage>(
-				this,
-				message =>
-					{
-						this.CloseRangeDetailsPopup();
-					});
+			//Messenger.Default.Register<ScanningChangedMessage>(
+			//	this,
+			//	message =>
+			//		{
+			//			this.CloseRangeDetailsPopup();
+			//		});
 
 			Messenger.Default.Register<StatusMessage>(this, this.ShowStatusMessage);
 
@@ -145,27 +145,27 @@ namespace VidCoder.View
 						else if (Utilities.IsDiscFolder(item))
 						{
 							// It's a disc folder
-							this.viewModel.SetSourceFromFile(item);
+							this.viewModel.SetSourceFromFolder(item);
 						}
 						else
 						{
 							// It is a video file or folder full of video files
-							this.HandleDropAsFiles(itemList);
+							this.HandleDropAsPaths(itemList);
 						}
 					}
 					else
 					{
-						// With multiple items, treat it as a list of video files and folders full of video files
-						this.HandleDropAsFiles(itemList);
+						// With multiple items, treat it as a list video files/disc folders or folders full of those items
+						this.HandleDropAsPaths(itemList);
 					}
 				}
 			}
 		}
 
-		// Takes a list of files/directories and tries to scan/queue them as files
-		private void HandleDropAsFiles(StringCollection itemList)
+		// Takes a list of files/directories and tries to scan/queue them as files/disc folders
+		private void HandleDropAsPaths(StringCollection itemList)
 		{
-			List<string> fileList = GetFileList(itemList);
+			List<string> fileList = GetPathList(itemList);
 			if (fileList.Count > 0)
 			{
 				if (fileList.Count == 1)
@@ -179,11 +179,11 @@ namespace VidCoder.View
 			}
 		}
 
-		// Gets a file list from a list of files/directories
-		private static List<string> GetFileList(StringCollection itemList)
+		// Gets a file/video folder list from a list of files/directories
+		private static List<string> GetPathList(StringCollection itemList)
 		{
 			var videoExtensions = new List<string>();
-			string extensionsString = Settings.Default.VideoFileExtensions;
+			string extensionsString = Config.VideoFileExtensions;
 			string[] rawExtensions = extensionsString.Split(',', ';');
 			foreach (string rawExtension in rawExtensions)
 			{
@@ -199,29 +199,32 @@ namespace VidCoder.View
 				}
 			}
 
-			var fileList = new List<string>();
+			var pathList = new List<string>();
 			foreach (string item in itemList)
 			{
 				var fileAttributes = File.GetAttributes(item);
 				if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
 				{
 					// Path is a directory
-					List<string> allFiles = Utilities.GetFiles(item);
-					var videoFiles = allFiles.Where(f => videoExtensions.Any(f.EndsWith));
-
-					fileList.AddRange(videoFiles);
+					if (Utilities.IsDiscFolder(item))
+					{
+						// If it's a disc folder, add it
+						pathList.Add(item);
+					}
+					else
+					{
+						pathList.AddRange(Utilities.GetFilesOrVideoFolders(item, videoExtensions));
+					}
 				}
 				else
 				{
 					// Path is a file
-					fileList.Add(item);
+					pathList.Add(item);
 				}
 			}
 
-			return fileList;
+			return pathList;
 		}
-
-
 
 		public void ShowBalloonMessage(string title, string message)
 		{
@@ -259,16 +262,16 @@ namespace VidCoder.View
 		{
 			if (e.PropertyName == "RangeType")
 			{
-				DispatchService.BeginInvoke(() => this.rangeDetailsPopup.IsOpen = false);
+				//DispatchService.BeginInvoke(() => this.rangeDetailsPopup.IsOpen = false);
 			}
 		}
 
 		private void RefreshQueueColumns()
 		{
 			this.queueGridView.Columns.Clear();
-			var resources = new ResourceManager("VidCoder.Properties.Resources", typeof(Resources).Assembly);
+			var resources = new ResourceManager("VidCoder.Resources.CommonRes", typeof(CommonRes).Assembly);
 
-			List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Settings.Default.QueueColumns);
+			List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Config.QueueColumns);
 			foreach (Tuple<string, double> column in columns)
 			{
 				var queueColumn = new GridViewColumn
@@ -284,7 +287,7 @@ namespace VidCoder.View
 			var lastColumn = new GridViewColumn
 			{
 				CellTemplate = this.Resources["QueueRemoveTemplate"] as DataTemplate,
-				Width = Settings.Default.QueueLastColumnWidth
+				Width = Config.QueueLastColumnWidth
 			};
 			this.queueGridView.Columns.Add(lastColumn);
 		}
@@ -292,7 +295,7 @@ namespace VidCoder.View
 		private void SaveQueueColumns()
 		{
 			var queueColumnsBuilder = new StringBuilder();
-			List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Settings.Default.QueueColumns);
+			List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Config.QueueColumns);
 			for (int i = 0; i < columns.Count; i++)
 			{
 				queueColumnsBuilder.Append(columns[i].Item1);
@@ -305,12 +308,12 @@ namespace VidCoder.View
 				}
 			}
 
-			Settings.Default.QueueColumns = queueColumnsBuilder.ToString();
+			Config.QueueColumns = queueColumnsBuilder.ToString();
 		}
 
 		private void LoadCompletedColumnWidths()
 		{
-			string columnWidthsString = Settings.Default.CompletedColumnWidths;
+			string columnWidthsString = Config.CompletedColumnWidths;
 
 			if (string.IsNullOrEmpty(columnWidthsString))
 			{
@@ -346,7 +349,7 @@ namespace VidCoder.View
 				}
 			}
 
-			Settings.Default.CompletedColumnWidths = completedColumnsBuilder.ToString();
+			Config.CompletedColumnWidths = completedColumnsBuilder.ToString();
 		}
 
 		private void RefreshQueueTabs()
@@ -387,12 +390,12 @@ namespace VidCoder.View
 
 				if (File.Exists(resultFile))
 				{
-					this.ShowStatusMessage(new StatusMessage { Message = "Playing video..." });
-					FileService.Instance.LaunchFile(encodeResultVM.EncodeResult.Destination);
+					this.ShowStatusMessage(new StatusMessage { Message = MainRes.PlayingVideoMessage });
+					FileService.Instance.PlayVideo(encodeResultVM.EncodeResult.Destination);
 				}
 				else
 				{
-					MessageBox.Show(resultFile + " does not exist.");
+					MessageBox.Show(string.Format(MainRes.FileDoesNotExist, resultFile));
 				}
 			}
 		}
@@ -408,15 +411,14 @@ namespace VidCoder.View
 				this.SaveQueueColumns();
 				this.SaveCompletedColumnWidths();
 
-				Settings.Default.MainWindowPlacement = this.GetPlacement();
-				Settings.Default.Save();
+				Config.MainWindowPlacement = this.GetPlacement();
 			}
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			string placement = Settings.Default.MainWindowPlacement;
+			string placement = Config.MainWindowPlacement;
 
 			if (string.IsNullOrEmpty(placement))
 			{
@@ -435,6 +437,9 @@ namespace VidCoder.View
 			{
 				this.SetPlacement(placement);
 			}
+
+			var source = PresentationSource.FromVisual(this) as HwndSource;
+			source.AddHook(WndProc);
 		}
 
 		private void Window_PreviewDragOver(object sender, DragEventArgs e)
@@ -452,68 +457,66 @@ namespace VidCoder.View
 			this.encodeProgressDetailsPopup.IsOpen = false;
 		}
 
-		private void RangeMouseEnter(object sender, MouseEventArgs e)
-		{
-			this.rangeUIMouseOver = true;
-			this.RefreshRangeDetailsPopupIsOpen();
-		}
+		//private void RangeMouseEnter(object sender, MouseEventArgs e)
+		//{
+		//	this.rangeUIMouseOver = true;
+		//	this.RefreshRangeDetailsPopupIsOpen();
+		//}
 
-		private void RangeMouseLeave(object sender, MouseEventArgs e)
-		{
-			this.rangeUIMouseOver = false;
-			this.RefreshRangeDetailsPopupIsOpen();
-		}
+		//private void RangeMouseLeave(object sender, MouseEventArgs e)
+		//{
+		//	this.rangeUIMouseOver = false;
+		//	this.RefreshRangeDetailsPopupIsOpen();
+		//}
 
-		private void SecondsStartGotFocus(object sender, RoutedEventArgs e)
+		private void StartTimeGotFocus(object sender, RoutedEventArgs e)
 		{
 			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = true });
-			this.RangeControlGotFocus(sender, e);
 		}
 
-		private void SecondsEndGotFocus(object sender, RoutedEventArgs e)
+		private void EndTimeGotFocus(object sender, RoutedEventArgs e)
 		{
 			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = false });
-			this.RangeControlGotFocus(sender, e);
 		}
 
-		private void FramesStartGotFocus(object sender, RoutedEventArgs e)
-		{
-			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = true });
-			this.RangeControlGotFocus(sender, e);
-		}
+		//private void FramesStartGotFocus(object sender, RoutedEventArgs e)
+		//{
+		//	Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = true });
+		//	this.RangeControlGotFocus(sender, e);
+		//}
 
-		private void FramesEndGotFocus(object sender, RoutedEventArgs e)
-		{
-			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = false });
-			this.RangeControlGotFocus(sender, e);
-		}
+		//private void FramesEndGotFocus(object sender, RoutedEventArgs e)
+		//{
+		//	Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = false });
+		//	this.RangeControlGotFocus(sender, e);
+		//}
 
-		private void RangeControlGotFocus(object sender, RoutedEventArgs e)
-		{
-			this.rangeUIFocus = true;
-			this.RefreshRangeDetailsPopupIsOpen();
-		}
+		//private void RangeControlGotFocus(object sender, RoutedEventArgs e)
+		//{
+		//	this.rangeUIFocus = true;
+		//	this.RefreshRangeDetailsPopupIsOpen();
+		//}
 
-		private void RangeControlLostFocus(object sender, RoutedEventArgs e)
-		{
-			this.rangeUIFocus = false;
-			this.RefreshRangeDetailsPopupIsOpen();
-		}
+		//private void RangeControlLostFocus(object sender, RoutedEventArgs e)
+		//{
+		//	this.rangeUIFocus = false;
+		//	this.RefreshRangeDetailsPopupIsOpen();
+		//}
 
-		private void RefreshRangeDetailsPopupIsOpen()
-		{
-			bool shouldBeOpen = this.rangeUIMouseOver || this.rangeUIFocus;
-			if (shouldBeOpen != this.rangeDetailsPopup.IsOpen)
-			{
-				this.rangeDetailsPopup.IsOpen = shouldBeOpen;
-			}
-		}
+		//private void RefreshRangeDetailsPopupIsOpen()
+		//{
+		//	bool shouldBeOpen = this.rangeUIMouseOver || this.rangeUIFocus;
+		//	if (shouldBeOpen != this.rangeDetailsPopup.IsOpen)
+		//	{
+		//		this.rangeDetailsPopup.IsOpen = shouldBeOpen;
+		//	}
+		//}
 
-		private void CloseRangeDetailsPopup()
-		{
-			this.rangeUIFocus = false;
-			this.rangeDetailsPopup.IsOpen = false;
-		}
+		//private void CloseRangeDetailsPopup()
+		//{
+		//	this.rangeUIFocus = false;
+		//	this.rangeDetailsPopup.IsOpen = false;
+		//}
 
 		private void DestinationReadCoverMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
@@ -602,11 +605,11 @@ namespace VidCoder.View
 				this.viewModel.SourceSelectionExpanded = false;
 			}
 
-			if (this.rangeDetailsPopup.IsOpen && !this.HitElement(this.rangeUI, hitPoint))
-			{
-				this.rangeUIFocus = false;
-				this.RefreshRangeDetailsPopupIsOpen();
-			}
+			//if (this.rangeDetailsPopup.IsOpen && !this.HitElement(this.rangeUI, hitPoint))
+			//{
+			//	this.rangeUIFocus = false;
+			//	this.RefreshRangeDetailsPopupIsOpen();
+			//}
 		}
 
 		private void Window_StateChanged(object sender, EventArgs e)
@@ -626,15 +629,15 @@ namespace VidCoder.View
 			}
 		}
 
-		private void Window_Activated(object sender, EventArgs e)
-		{
-			this.RefreshRangeDetailsPopupIsOpen();
-		}
+		//private void Window_Activated(object sender, EventArgs e)
+		//{
+		//	this.RefreshRangeDetailsPopupIsOpen();
+		//}
 
-		private void Window_Deactivated(object sender, EventArgs e)
-		{
-			this.rangeDetailsPopup.IsOpen = false;
-		}
+		//private void Window_Deactivated(object sender, EventArgs e)
+		//{
+		//	this.rangeDetailsPopup.IsOpen = false;
+		//}
 
 		private bool HitElement(FrameworkElement element, Point clickedPoint)
 		{
@@ -643,6 +646,18 @@ namespace VidCoder.View
 			return
 				clickedPoint.X >= relativePoint.X && clickedPoint.X <= relativePoint.X + element.ActualWidth &&
 				clickedPoint.Y >= relativePoint.Y && clickedPoint.Y <= relativePoint.Y + element.ActualHeight;
+		}
+
+		// Handle native window messages. 
+		private IntPtr WndProc(IntPtr hwnd, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
+		{
+			if (message == NativeMethods.WM_SHOWME)
+			{
+				// This is a message from a second instance trying to start up. Bring window to foreground when this happens.
+				this.Activate();
+			}
+
+			return IntPtr.Zero;
 		}
 	}
 }

@@ -11,12 +11,15 @@ using System.Globalization;
 using System.Windows.Input;
 using System.IO;
 using Microsoft.Practices.Unity;
-using VidCoder.Properties;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
+	using System.Diagnostics;
+	using Resources;
+	using Properties;
+
 	public class EncodeResultViewModel : ViewModelBase
 	{
 		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
@@ -76,10 +79,10 @@ namespace VidCoder.ViewModel
 			{
 				if (this.encodeResult.Succeeded)
 				{
-					return "Succeeded";
+					return CommonRes.Succeeded;
 				}
 
-				return "Failed";
+				return CommonRes.Failed;
 			}
 		}
 
@@ -119,8 +122,8 @@ namespace VidCoder.ViewModel
 			{
 				return this.playCommand ?? (this.playCommand = new RelayCommand(() =>
 					{
-						Messenger.Default.Send(new StatusMessage { Message = "Playing video..." });
-						FileService.Instance.LaunchFile(this.encodeResult.Destination);
+						Messenger.Default.Send(new StatusMessage { Message = MainRes.PlayingVideoStatus });
+						FileService.Instance.PlayVideo(this.encodeResult.Destination);
 					}));
 			}
 		}
@@ -132,8 +135,8 @@ namespace VidCoder.ViewModel
 			{
 				return this.openContainingFolderCommand ?? (this.openContainingFolderCommand = new RelayCommand(() =>
 					{
-						Messenger.Default.Send(new StatusMessage { Message = "Opening folder..." });
-						FileService.Instance.LaunchFile(Path.GetDirectoryName(this.encodeResult.Destination));
+						Messenger.Default.Send(new StatusMessage { Message = MainRes.OpeningFolderStatus });
+						Process.Start("explorer.exe", "/select," + this.encodeResult.Destination);
 					}));
 			}
 		}
@@ -149,6 +152,43 @@ namespace VidCoder.ViewModel
 					}, () =>
 					{
 						return !this.main.ScanningSource;
+					}));
+			}
+		}
+
+		private RelayCommand openLogCommand;
+		public RelayCommand OpenLogCommand
+		{
+			get
+			{
+				return this.openLogCommand ?? (this.openLogCommand = new RelayCommand(() =>
+					{
+						FileService.Instance.LaunchFile(this.encodeResult.LogPath);
+					}));
+			}
+		}
+
+		private RelayCommand copyLogCommand;
+		public RelayCommand CopyLogCommand
+		{
+			get
+			{
+				return this.copyLogCommand ?? (this.copyLogCommand = new RelayCommand(() =>
+					{
+						try
+						{
+							string logText = File.ReadAllText(this.encodeResult.LogPath);
+
+							Unity.Container.Resolve<ClipboardService>().SetText(logText);
+						}
+						catch (IOException exception)
+						{
+							Unity.Container.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+						}
+						catch (UnauthorizedAccessException exception)
+						{
+							Unity.Container.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+						}
 					}));
 			}
 		}

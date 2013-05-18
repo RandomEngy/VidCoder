@@ -173,6 +173,10 @@
     <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight.WPF4, Version=0.0.0.0, Culture=neutral, PublicKeyToken=63eb5c012e0b3c1c, processorArchitecture=MSIL">
       <HintPath>..\Lib\GalaSoft.MvvmLight.WPF4.dll</HintPath>
@@ -186,13 +190,13 @@
     <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\Lib\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
+    <Reference Include="Omu.ValueInjecter">
+      <HintPath>..\packages\valueinjecter.2.3.3\lib\net35\Omu.ValueInjecter.dll</HintPath>
+    </Reference>
     <Reference Include="Ookii.Dialogs.Wpf">
       <HintPath>..\Lib\Ookii.Dialogs.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
-    <Reference Include="SplitButtonWpf">
-      <HintPath>..\Lib\SplitButtonWpf.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -205,8 +209,10 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
@@ -237,6 +243,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\RangeBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\InlineWarning.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -253,11 +263,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\RangeBar.xaml">
+    <Page Include="Controls\SeekBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\SeekBar.xaml">
+    <Page Include="Controls\SplitButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TimeBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -353,29 +367,99 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\RangeBar.xaml.cs">
+      <DependentUpon>RangeBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PathSegmentSet.cs" />
     <Compile Include="Controls\PathTextBlock.xaml.cs">
       <DependentUpon>PathTextBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\RangeBar.xaml.cs">
-      <DependentUpon>RangeBar.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\SeekBar.xaml.cs">
       <DependentUpon>SeekBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SplitButton.xaml.cs">
+      <DependentUpon>SplitButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TimeBox.xaml.cs">
+      <DependentUpon>TimeBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\DoubleDisplayConverter.cs" />
     <Compile Include="Converters\EnumVisibilityConverter.cs" />
     <Compile Include="Converters\EnumVisibilityInverseConverter.cs" />
+    <Compile Include="Converters\IntVisibilityConverter.cs" />
     <Compile Include="Converters\PercentDisplayConverter.cs" />
     <Compile Include="Converters\SampleRateDisplayConverter.cs" />
     <Compile Include="Converters\ChapterVMConverter.cs" />
     <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="EnumStringConverter.cs" />
+    <Compile Include="Extensions\TimeSpanExtensions.cs" />
+    <Compile Include="Model\UpdateInfo.cs" />
+    <Compile Include="Model\UpdateState.cs" />
+    <Compile Include="Resources\ChapterMarkersRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChapterMarkersRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\EncodingRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EncodingRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\EnumsRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnumsRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\LogRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LogRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MainRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MainRes.hu.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainRes.hu.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MiscRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MiscRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\OptionsRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OptionsRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\PreviewRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PreviewRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\QueueTitlesRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QueueTitlesRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\SubtitleRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SubtitleRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Messages\AdvancedOptionsChangedMessage.cs" />
     <Compile Include="Messages\ApplyQueueColumnsMessage.cs" />
     <Compile Include="Messages\AudioInputChangedMessage.cs" />
+    <Compile Include="Messages\FramerateChangedMessage.cs" />
     <Compile Include="Messages\HighlightedChapterChangedMessage.cs" />
     <Compile Include="Messages\OutputFolderChangedMessage.cs" />
     <Compile Include="Messages\OutputPathChangedMessage.cs" />
+    <Compile Include="Messages\OutputSizeChangedMessage.cs" />
+    <Compile Include="Messages\PreviewImageChangedMessage.cs" />
+    <Compile Include="Messages\ProgressChangedMessage.cs" />
     <Compile Include="Messages\RangeFocusMessage.cs" />
     <Compile Include="Messages\RefreshPreviewMessage.cs" />
     <Compile Include="Messages\SaveQueueColumnsMessage.cs" />
@@ -383,13 +467,21 @@
     <Compile Include="Messages\SelectedTitleChangedMessage.cs" />
     <Compile Include="Messages\OptionsChangedMessage.cs" />
     <Compile Include="Messages\StatusMessage.cs" />
+    <Compile Include="Messages\VideoCodecChangedMessage.cs" />
     <Compile Include="Messages\VideoSourceChangedMessage.cs" />
+    <Compile Include="Model\Combo\AnamorphicCombo.cs" />
     <Compile Include="Model\AutoAudioType.cs" />
     <Compile Include="Model\AutoSubtitleType.cs" />
     <Compile Include="Model\ComboChoice.cs" />
     <Compile Include="Model\ComboChoiceT.cs" />
+    <Compile Include="Model\Config\CustomConfig.cs" />
+    <Compile Include="Model\Config\ConfigMigration.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="Model\DatabaseConfig.cs" />
+    <Compile Include="Model\Combo\DecombCombo.cs" />
+    <Compile Include="Model\Combo\DeinterlaceCombo.cs" />
+    <Compile Include="Model\Combo\DenoiseCombo.cs" />
+    <Compile Include="Model\Combo\DetelecineCombo.cs" />
     <Compile Include="Model\EncodeCompleteAction.cs" />
     <Compile Include="Model\EncodeCompleteActionType.cs" />
     <Compile Include="Model\EncodeJobCollection.cs" />
@@ -404,11 +496,20 @@
     <Compile Include="Model\LogType.cs" />
     <Compile Include="Model\PresetCollection.cs" />
     <Compile Include="Model\PreviewImageJob.cs" />
+    <Compile Include="Model\PreviewDisplay.cs" />
     <Compile Include="Model\SaveImageJob.cs" />
+    <Compile Include="Model\VCJob.cs" />
+    <Compile Include="Model\VCProfile.cs" />
     <Compile Include="Model\VideoSourceMetadata.cs" />
     <Compile Include="Model\Players\VlcPlayer.cs" />
     <Compile Include="Model\WhenFileExists.cs" />
+    <Compile Include="Resources\SubtitleRes.hu.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SubtitleRes.hu.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\ClipboardService.cs" />
+    <Compile Include="Services\EncodeProxy\LocalEncodeProxy.cs" />
     <Compile Include="Services\Interfaces\ILogger.cs" />
     <Compile Include="Services\Interfaces\IPresetImportExport.cs" />
     <Compile Include="Services\Interfaces\IProcesses.cs" />
@@ -420,21 +521,39 @@
     <Compile Include="Services\Processes.cs" />
     <Compile Include="Services\SystemOperations.cs" />
     <Compile Include="Services\TrayService.cs" />
+    <Compile Include="Model\Config\ConfigDeclaration.cs" />
+    <Compile Include="Utilities\AdvancedOptionsParsing.cs" />
+    <Compile Include="Utilities\CodecUtilities.cs" />
+    <Compile Include="Services\EncodeProxy\RemoteEncodeProxy.cs" />
+    <Compile Include="Utilities\EnumConverter.cs" />
     <Compile Include="Utilities\FileCleanup.cs" />
+    <Compile Include="Services\EncodeProxy\IEncodeProxy.cs" />
     <Compile Include="Utilities\ImageUtilities.cs" />
     <Compile Include="Utilities\ListSynchronizer\IListItemConverter.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Utilities\ListSynchronizer\MultiSelectorBehaviors.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Utilities\ListSynchronizer\TwoListSynchronizer.cs" />
+    <Compile Include="Utilities\NativeMethods.cs" />
+    <Compile Include="Utilities\PseudoLocalizer.cs" />
     <Compile Include="Utilities\RefireControl.cs" />
+    <Compile Include="Model\Config\Config.cs">
+      <DependentUpon>Config.tt</DependentUpon>
+      <SubType>Code</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="ViewModel\Components\OutputPathViewModel.cs" />
     <Compile Include="ViewModel\Components\PresetsViewModel.cs" />
     <Compile Include="ViewModel\Components\ProcessingViewModel.cs" />
     <Compile Include="ViewModel\Components\WindowManagerViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\DataModels\BitrateChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\ChapterViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\LevelChoiceViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
     <Compile Include="ViewModel\FileConflictDialogViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />
     <Compile Include="View\FileConflictDialog.xaml.cs">
       <DependentUpon>FileConflictDialog.xaml</DependentUpon>
     </Compile>
@@ -447,7 +566,6 @@
     <Compile Include="ViewModel\AddAutoPauseProcessDialogViewModel.cs" />
     <Compile Include="ViewModel\Panels\AudioPanelViewModel.cs" />
     <Compile Include="ViewModel\Panels\AdvancedPanelViewModel.cs" />
-    <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\DataModels\ColumnViewModel.cs" />
     <Compile Include="ViewModel\DataModels\EncodeResultViewModel.cs" />
     <Compile Include="ViewModel\DataModels\TitleSelectionViewModel.cs" />
@@ -566,10 +684,10 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
+    <Compile Include="Resources\CommonRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
+      <DependentUpon>CommonRes.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -588,7 +706,6 @@
     <Compile Include="ViewModel\OptionsDialogViewModel.cs" />
     <Compile Include="ViewModel\PreviewViewModel.cs" />
     <Compile Include="ViewModel\SubtitleDialogViewModel.cs" />
-    <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
     <Compile Include="View\ApplyUpdateConfirmation.xaml.cs">
       <DependentUpon>ApplyUpdateConfirmation.xaml</DependentUpon>
     </Compile>
@@ -621,19 +738,92 @@
     </Compile>
     <Compile Include="WindowPlacement.cs" />
     <Compile Include="WindowPlacementWpf.cs" />
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Resources\ChapterMarkersRes.hu.resx" />
+    <EmbeddedResource Include="Resources\ChapterMarkersRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <LastGenOutput>ChapterMarkersRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EncodingRes.hu.resx" />
+    <EmbeddedResource Include="Resources\EncodingRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EncodingRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EnumsRes.hu.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EnumsRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EnumsRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LogRes.hu.resx" />
+    <EmbeddedResource Include="Resources\LogRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LogRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MainRes.hu.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainRes.hu.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MainRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MiscRes.hu.resx" />
+    <EmbeddedResource Include="Resources\MiscRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MiscRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\OptionsRes.hu.resx" />
+    <EmbeddedResource Include="Resources\OptionsRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>OptionsRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PreviewRes.hu.resx" />
+    <EmbeddedResource Include="Resources\PreviewRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PreviewRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\QueueTitlesRes.hu.resx" />
+    <EmbeddedResource Include="Resources\QueueTitlesRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>QueueTitlesRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SubtitleRes.hu.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SubtitleRes.hu.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SubtitleRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SubtitleRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommonRes.hu.resx" />
+    <EmbeddedResource Include="Resources\CommonRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommonRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Model\Config\Config.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Config.cs</LastGenOutput>
+    </None>
+    <None Include="VidCoderWorker.exe.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\disc.png" />
@@ -662,6 +852,9 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\text_file_16x16.png" />
+    <Resource Include="Icons\crop_bg_tile_12x12.png" />
+    <Resource Include="Model\Config\Config.txt" />
     <Resource Include="Icons\blue_play_80.png" />
     <Resource Include="Icons\edit_16x16.png" />
     <SplashScreen Include="splash.png" />
@@ -685,7 +878,6 @@
     <Resource Include="VidCoder_icon.ico" />
     <Resource Include="Icons\win7foldericon.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
@@ -702,6 +894,15 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VidCoderWorker\VidCoderWorker.csproj">
+      <Project>{63452895-7AA1-45EC-A0D8-3F30CCFA6D0D}</Project>
+      <Name>VidCoderWorker</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

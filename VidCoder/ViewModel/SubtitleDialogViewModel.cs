@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Input;
 using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using System.IO;
 using Microsoft.Practices.Unity;
-using VidCoder.Messages;
-using VidCoder.Properties;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
+	using Resources;
+	using Model;
+
 	public class SubtitleDialogViewModel : OkCancelDialogViewModel
 	{
 		private ObservableCollection<SourceSubtitleViewModel> sourceSubtitles;
@@ -87,14 +86,6 @@ namespace VidCoder.ViewModel
 			this.sourceSubtitles.CollectionChanged += this.SourceCollectionChanged;
 			this.srtSubtitles.CollectionChanged += this.SrtCollectionChanged;
 
-			//this.inputTrackChoices = new List<string>();
-			//this.inputTrackChoices.Add("Foreign Audio Search (Bitmap)");
-
-			//foreach (Subtitle subtitle in this.mainViewModel.SelectedTitle.Subtitles)
-			//{
-			//    this.inputTrackChoices.Add(subtitle.ToString());
-			//}
-
 			this.UpdateBoxes();
 		}
 
@@ -108,11 +99,6 @@ namespace VidCoder.ViewModel
 		{
 			this.RaisePropertyChanged(() => this.HasSrtSubtitles);
 		}
-
-		//public List<string> InputTrackChoices
-		//{
-		//    get { return this.inputTrackChoices; }
-		//}
 
 		public ObservableCollection<SourceSubtitleViewModel> SourceSubtitles
 		{
@@ -210,37 +196,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		//private RelayCommand addSourceSubtitleCommand;
-		//public RelayCommand AddSourceSubtitleCommand
-		//{
-		//    get
-		//    {
-		//        return this.addSourceSubtitleCommand ?? (this.addSourceSubtitleCommand = new RelayCommand(() =>
-		//            {
-		//                var newSubtitle = new SourceSubtitle
-		//                {
-		//                    TrackNumber = this.GetFirstUnusedTrack(),
-		//                    Default = false,
-		//                    Forced = false,
-		//                    BurnedIn = false
-		//                };
-
-		//                this.sourceSubtitles.Add(new SourceSubtitleViewModel(this, newSubtitle));
-		//                this.UpdateBoxes();
-		//                this.UpdateWarningVisibility();
-		//            }, () =>
-		//            {
-		//                // Disallow adding if there are no subtitles on the current title.
-		//                if (this.mainViewModel.SelectedTitle == null || this.mainViewModel.SelectedTitle.Subtitles.Count == 0)
-		//                {
-		//                    return false;
-		//                }
-
-		//                return true;
-		//            }));
-		//    }
-		//}
-
 		private RelayCommand addSrtSubtitleCommand;
 		public RelayCommand AddSrtSubtitleCommand
 		{
@@ -249,17 +204,16 @@ namespace VidCoder.ViewModel
 				return this.addSrtSubtitleCommand ?? (this.addSrtSubtitleCommand = new RelayCommand(() =>
 					{
 						string srtFile = FileService.Instance.GetFileNameLoad(
-							Settings.Default.RememberPreviousFiles ? Settings.Default.LastSrtFolder : null,
-							"Add subtitles file",
+							Config.RememberPreviousFiles ? Config.LastSrtFolder : null,
+							SubtitleRes.SrtFilePickerText,
 							"srt",
 							"SRT Files |*.srt");
 
 						if (srtFile != null)
 						{
-							if (Settings.Default.RememberPreviousFiles)
+							if (Config.RememberPreviousFiles)
 							{
-								Settings.Default.LastSrtFolder = Path.GetDirectoryName(srtFile);
-								Settings.Default.Save();
+								Config.LastSrtFolder = Path.GetDirectoryName(srtFile);
 							}
 
 							SrtSubtitle newSubtitle = new SrtSubtitle { FileName = srtFile, Default = false, CharacterCode = "UTF-8", LanguageCode = "eng", Offset = 0 };
@@ -277,7 +231,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.mainViewModel.SelectedTitle == null || this.mainViewModel.SelectedTitle.Subtitles.Count == 0)
 				{
-					return "No subtitles on the source video.";
+					return SubtitleRes.AddSourceNoSubtitlesToolTip;
 				}
 
 				return null;
@@ -292,10 +246,49 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool AnyPgsSelected
+		{
+			get
+			{
+				return this.SourceSubtitles.Any(s =>
+					s.Selected &&
+					s.TrackNumber > 0 &&
+					this.GetSubtitle(s).SubtitleSource == SubtitleSource.PGS);
+			}
+		}
+
 		public void RemoveSourceSubtitle(SourceSubtitleViewModel subtitleViewModel)
 		{
 			this.SourceSubtitles.Remove(subtitleViewModel);
 			this.UpdateBoxes();
+			this.UpdateButtonVisibility();
+			this.UpdateWarningVisibility();
+		}
+
+		public void DuplicateSourceSubtitle(SourceSubtitleViewModel sourceSubtitleViewModel)
+		{
+			sourceSubtitleViewModel.Selected = true;
+			if (sourceSubtitleViewModel.BurnedIn)
+			{
+				sourceSubtitleViewModel.BurnedIn = false;
+			}
+
+			var newSubtitle = new SourceSubtitleViewModel(
+				this,
+				new SourceSubtitle
+					{
+						BurnedIn = false,
+						Default = false,
+						Forced = !sourceSubtitleViewModel.Forced,
+						TrackNumber = sourceSubtitleViewModel.TrackNumber
+					});
+			newSubtitle.Selected = true;
+
+			this.SourceSubtitles.Insert(
+				this.SourceSubtitles.IndexOf(sourceSubtitleViewModel) + 1,
+				newSubtitle);
+			this.UpdateBoxes();
+			this.UpdateButtonVisibility();
 			this.UpdateWarningVisibility();
 		}
 
@@ -303,6 +296,11 @@ namespace VidCoder.ViewModel
 		{
 			this.SrtSubtitles.Remove(subtitleViewModel);
 			this.UpdateWarningVisibility();
+		}
+
+		public bool HasMultipleSourceTracks(int trackNumber)
+		{
+			return this.SourceSubtitles.Count(s => s.TrackNumber == trackNumber) > 1;
 		}
 
 		public void ReportDefault(ViewModelBase viewModel)
@@ -335,8 +333,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		// If any tracks are burned in, disable and uncheck any "default" boxes
-		public void UpdateBoxes()
+		// Update state of checked boxes after a change
+		public void UpdateBoxes(SourceSubtitleViewModel updatedSubtitle = null)
 		{
 			bool anyBurned = this.SourceSubtitles.Any(sourceSub => sourceSub.BurnedIn);
 			this.DefaultsEnabled = !anyBurned;
@@ -353,17 +351,45 @@ namespace VidCoder.ViewModel
 					srtVM.Default = false;
 				}
 			}
+
+			if (this.OutputFormat == Container.Mp4 && updatedSubtitle != null && updatedSubtitle.Selected)
+			{
+				// In MP4 a PGS subtitle can only be burned in.
+				if (updatedSubtitle.TrackNumber > 0 &&
+					this.GetSubtitle(updatedSubtitle).SubtitleSource == SubtitleSource.PGS)
+				{
+					// If we've just selected a PGS subtitle, deselect all others
+					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles)
+					{
+						if (sourceSub != updatedSubtitle)
+						{
+							sourceSub.Deselect();
+						}
+					}
+				}
+				else
+				{
+					// If we've just selected another subtitle, deselect all PGS subtitles
+					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles)
+					{
+						if (sourceSub.TrackNumber > 0 && this.GetSubtitle(sourceSub).SubtitleSource == SubtitleSource.PGS)
+						{
+							sourceSub.Deselect();
+						}
+					}
+				}
+			}
 		}
 
 		public void UpdateWarningVisibility()
 		{
 			bool textSubtitleVisible = false;
-			EncodingProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
+			VCProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
 			if (profile.OutputFormat == Container.Mp4 && profile.PreferredExtension == OutputExtension.Mp4)
 			{
 				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
 				{
-					if (sourceVM.SubtitleName.Contains("(Text)"))
+					if (sourceVM.Selected && sourceVM.SubtitleName.Contains("(Text)"))
 					{
 						textSubtitleVisible = true;
 						break;
@@ -374,43 +400,33 @@ namespace VidCoder.ViewModel
 			this.TextSubtitleWarningVisibile = textSubtitleVisible;
 
 			bool anyBurned = false;
+			int totalTracks = 0;
 			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
 			{
-				if (sourceVM.BurnedIn)
+				if (sourceVM.Selected)
 				{
-					anyBurned = true;
-					break;
+					totalTracks++;
+					if (sourceVM.BurnedIn)
+					{
+						anyBurned = true;
+					}
 				}
 			}
-
-			int totalTracks = this.SourceSubtitles.Count + this.SrtSubtitles.Count;
 
 			this.BurnedOverlapWarningVisible = anyBurned && totalTracks > 1;
 		}
 
-		//private int GetFirstUnusedTrack()
-		//{
-		//    List<int> unusedTracks = new List<int>();
+		private void UpdateButtonVisibility()
+		{
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+			{
+				sourceVM.UpdateButtonVisiblity();
+			}
+		}
 
-		//    for (int i = 0; i < this.InputTrackChoices.Count; i++)
-		//    {
-		//        unusedTracks.Add(i);
-		//    }
-
-		//    foreach (SourceSubtitleViewModel sourceSubtitleVM in this.sourceSubtitles)
-		//    {
-		//        if (unusedTracks.Contains(sourceSubtitleVM.TrackNumber))
-		//        {
-		//            unusedTracks.Remove(sourceSubtitleVM.TrackNumber);
-		//        }
-		//    }
-
-		//    if (unusedTracks.Count > 0)
-		//    {
-		//        return unusedTracks[0];
-		//    }
-
-		//    return 0;
-		//}
+		public Subtitle GetSubtitle(SourceSubtitleViewModel sourceSubtitleViewModel)
+		{
+			return this.mainViewModel.SelectedTitle.Subtitles[sourceSubtitleViewModel.TrackNumber - 1];
+		}
 	}
 }

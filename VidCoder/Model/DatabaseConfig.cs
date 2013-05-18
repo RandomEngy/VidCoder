@@ -8,35 +8,64 @@ using VidCoder.Services;
 
 namespace VidCoder.Model
 {
+	using System.Globalization;
+	using System.Threading;
+
 	public static class DatabaseConfig
 	{
-		private static Dictionary<string, string> configDefaults;
-
-		static DatabaseConfig()
+		public static int Version
 		{
-			configDefaults = new Dictionary<string, string>
+			get
 			{
-				{"Version", Utilities.CurrentDatabaseVersion.ToString()},
-				{"EncodeJobs", string.Empty},
-				{"EncodeJobs2", string.Empty},
-				{Updater.UpdateInProgress, "false"},
-				{Updater.UpdateVersion, string.Empty},
-				{Updater.UpdateInstallerLocation, string.Empty},
-				{Updater.UpdateChangelogLocation, string.Empty}
-			};
+				return GetConfig("Version", Utilities.CurrentDatabaseVersion, Database.ThreadLocalConnection);
+			}
 		}
 
-		public static bool GetConfigBool(string configName, SQLiteConnection connection)
+		public static bool GetConfig(string configName, bool defaultValue, SQLiteConnection connection)
 		{
-			return bool.Parse(GetConfigString(configName, connection));
+			string configValue = GetConfigStringRaw(configName, connection);
+			if (configValue != null)
+			{
+				return bool.Parse(configValue);
+			}
+
+			return defaultValue;
 		}
 
-		public static int GetConfigInt(string configName, SQLiteConnection connection)
+		public static int GetConfig(string configName, int defaultValue, SQLiteConnection connection)
 		{
-			return int.Parse(GetConfigString(configName, connection));
+			string configValue = GetConfigStringRaw(configName, connection);
+			if (configValue != null)
+			{
+				return int.Parse(configValue);
+			}
+
+			return defaultValue;
 		}
 
-		public static string GetConfigString(string configName, SQLiteConnection connection)
+		public static double GetConfig(string configName, double defaultValue, SQLiteConnection connection)
+		{
+			string configValue = GetConfigStringRaw(configName, connection);
+			if (configValue != null)
+			{
+				return double.Parse(configValue);
+			}
+
+			return defaultValue;
+		}
+
+		public static string GetConfig(string configName, string defaultValue, SQLiteConnection connection)
+		{
+			string configValue = GetConfigStringRaw(configName, connection);
+			if (configValue != null)
+			{
+				return configValue;
+			}
+
+			return defaultValue;
+		}
+
+		private static string GetConfigStringRaw(string configName, SQLiteConnection connection)
 		{
 			using (var command = new SQLiteCommand("SELECT value FROM settings WHERE name = '" + configName + "'", connection))
 			{
@@ -44,21 +73,17 @@ namespace VidCoder.Model
 				{
 					if (reader.Read())
 					{
+						if (reader.IsDBNull(0))
+						{
+							return string.Empty;
+						}
+
 						return reader.GetString(0);
 					}
 				}
 			}
 
-			// The setting does not exist in the DB, we need to insert the default value.
-
-			if (configDefaults.ContainsKey(configName))
-			{
-				AddConfigValue(configName, configDefaults[configName], connection);
-
-				return configDefaults[configName];
-			}
-
-			throw new ArgumentException("Config value not found: " + configName, "configName");
+			return null;
 		}
 
 		private static void AddConfigValue(string configName, string configValue, SQLiteConnection connection)
@@ -75,12 +100,32 @@ namespace VidCoder.Model
 
 		public static void SetConfigValue(string configName, bool value, SQLiteConnection connection)
 		{
-			SetConfigValue(configName, value.ToString(), connection);
+			SetConfigValue(configName, value.ToString(CultureInfo.InvariantCulture), connection);
+		}
+
+		public static void SetConfigValue(string configName, bool value)
+		{
+			SetConfigValue(configName, value, Database.ThreadLocalConnection);
 		}
 
 		public static void SetConfigValue(string configName, int value, SQLiteConnection connection)
 		{
-			SetConfigValue(configName, value.ToString(), connection);
+			SetConfigValue(configName, value.ToString(CultureInfo.InvariantCulture), connection);
+		}
+
+		public static void SetConfigValue(string configName, int value)
+		{
+			SetConfigValue(configName, value, Database.ThreadLocalConnection);
+		}
+
+		public static void SetConfigValue(string configName, double value, SQLiteConnection connection)
+		{
+			SetConfigValue(configName, value.ToString(CultureInfo.InvariantCulture), connection);
+		}
+
+		public static void SetConfigValue(string configName, double value)
+		{
+			SetConfigValue(configName, value, Database.ThreadLocalConnection);
 		}
 
 		public static void SetConfigValue(string configName, string configValue, SQLiteConnection connection)
@@ -94,6 +139,11 @@ namespace VidCoder.Model
 				// If the setting did not exist, add it
 				AddConfigValue(configName, configValue, connection);
 			}
+		}
+
+		public static void SetConfigValue(string configName, string configValue)
+		{
+			SetConfigValue(configName, configValue, Database.ThreadLocalConnection);
 		}
 	}
 }

@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using HandBrake.Interop;
-using HandBrake.Interop.Model;
-using HandBrake.Interop.Model.Encoding;
-
+﻿
 namespace VidCoder.ViewModel
 {
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Text;
+	using GalaSoft.MvvmLight.Messaging;
+	using HandBrake.Interop;
+	using HandBrake.Interop.Model;
+	using HandBrake.Interop.Model.Encoding;
+	using Messages;
+	using Model;
+
 	public class PicturePanelViewModel : PanelViewModel
 	{
 		private const int DimensionsAutoSetModulus = 2;
@@ -119,7 +123,7 @@ namespace VidCoder.ViewModel
 				{
 					this.Profile.Width = value;
 					this.RaisePropertyChanged(() => this.Width);
-					if (this.Anamorphic == Anamorphic.None && this.KeepDisplayAspect && this.HasSourceData && this.Height > 0 && value > 0)
+					if (this.Profile.Anamorphic == Anamorphic.None && this.KeepDisplayAspect && this.HasSourceData && this.Height > 0 && value > 0)
 					{
 						var cropWidthAmount = this.CropLeft + this.CropRight;
 						var cropHeightAmount = this.CropTop + this.CropBottom;
@@ -150,7 +154,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.Anamorphic == Anamorphic.Strict)
+				if (this.Profile.Anamorphic == Anamorphic.Strict)
 				{
 					return false;
 				}
@@ -172,7 +176,7 @@ namespace VidCoder.ViewModel
 				{
 					this.Profile.Height = value;
 					this.RaisePropertyChanged(() => this.Height);
-					if (this.Anamorphic == Anamorphic.None && this.KeepDisplayAspect && this.HasSourceData && this.Width > 0 && value > 0)
+					if (this.Profile.Anamorphic == Anamorphic.None && this.KeepDisplayAspect && this.HasSourceData && this.Width > 0 && value > 0)
 					{
 						var cropWidthAmount = this.CropLeft + this.CropRight;
 						var cropHeightAmount = this.CropTop + this.CropBottom;
@@ -203,7 +207,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.Anamorphic == Anamorphic.Strict || this.Anamorphic == Anamorphic.Loose)
+				if (this.Profile.Anamorphic == Anamorphic.Strict || this.Profile.Anamorphic == Anamorphic.Loose)
 				{
 					return false;
 				}
@@ -258,7 +262,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.Anamorphic == Anamorphic.Strict || this.Anamorphic == Anamorphic.Loose)
+				if (this.Profile.Anamorphic == Anamorphic.Strict || this.Profile.Anamorphic == Anamorphic.Loose)
 				{
 					return true;
 				}
@@ -272,7 +276,7 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.KeepDisplayAspect);
 				this.RaisePropertyChanged(() => this.PixelAspectVisibile);
 				this.RefreshOutputSize();
-				if (this.Anamorphic == Anamorphic.Custom)
+				if (this.Profile.Anamorphic == Anamorphic.Custom)
 				{
 					if (value && !this.UseDisplayWidth)
 					{
@@ -294,7 +298,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.Anamorphic == Anamorphic.Strict || this.Anamorphic == Anamorphic.Loose)
+				if (this.Profile.Anamorphic == Anamorphic.Strict || this.Profile.Anamorphic == Anamorphic.Loose)
 				{
 					return false;
 				}
@@ -303,20 +307,36 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public Anamorphic Anamorphic
+		public AnamorphicCombo SelectedAnamorphic
 		{
 			get
 			{
-				return this.Profile.Anamorphic;
+				return EnumConverter.Convert<Anamorphic, AnamorphicCombo>(this.Profile.Anamorphic);
 			}
 
 			set
 			{
-				this.Profile.Anamorphic = value;
+				Anamorphic newValue = EnumConverter.Convert<AnamorphicCombo, Anamorphic>(value);
+				this.Profile.Anamorphic = newValue;
 
-				if (value == Anamorphic.Strict || value == Anamorphic.Loose)
+				if (newValue == Anamorphic.Strict)
+				{
+					this.Profile.Width = 0;
+					this.Profile.MaxWidth = 0;
+
+					this.RaisePropertyChanged(() => this.Width);
+					this.RaisePropertyChanged(() => this.MaxWidth);
+				}
+
+				if (newValue == Anamorphic.Strict || newValue == Anamorphic.Loose)
 				{
 					this.KeepDisplayAspect = true;
+
+					this.Profile.Height = 0;
+					this.Profile.MaxHeight = 0;
+
+					this.RaisePropertyChanged(() => this.Height);
+					this.RaisePropertyChanged(() => this.MaxHeight);
 				}
 
 				if (this.Profile.Anamorphic == Anamorphic.Custom)
@@ -325,8 +345,9 @@ namespace VidCoder.ViewModel
 					this.UseDisplayWidth = true;
 				}
 
-				this.RaisePropertyChanged(() => this.Anamorphic);
+				this.RaisePropertyChanged(() => this.SelectedAnamorphic);
 				this.RaisePropertyChanged(() => this.CustomAnamorphicFieldsVisible);
+				this.RaisePropertyChanged(() => this.ModulusVisible);
 				this.RaisePropertyChanged(() => this.PixelAspectVisibile);
 				this.RaisePropertyChanged(() => this.KeepDisplayAspect);
 				this.RaisePropertyChanged(() => this.KeepDisplayAspectEnabled);
@@ -343,7 +364,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.Anamorphic == Anamorphic.Custom;
+				return this.Profile.Anamorphic == Anamorphic.Custom;
 			}
 		}
 
@@ -358,9 +379,18 @@ namespace VidCoder.ViewModel
 			{
 				this.Profile.Modulus = value;
 				this.RaisePropertyChanged(() => this.Modulus);
+				this.RefreshOutputSize();
 
 				this.IsModified = true;
 				this.UpdatePreviewWindow();
+			}
+		}
+
+		public bool ModulusVisible
+		{
+			get
+			{
+				return this.Profile.Anamorphic == Anamorphic.Custom || this.Profile.Anamorphic == Anamorphic.Loose;
 			}
 		}
 
@@ -466,27 +496,28 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool CustomCropping
+		public CroppingType CroppingType
 		{
 			get
 			{
-				return this.Profile.CustomCropping;
+				return this.Profile.CroppingType;
 			}
 
 			set
 			{
-				if (value)
+				if (value == CroppingType.Custom)
 				{
-					// Set initial custom cropping values to previous automatic values to make tweaking easier
+					// Set initial custom cropping values to previous values to make tweaking easier
 					this.Profile.Cropping.Left = this.CropLeft;
 					this.Profile.Cropping.Top = this.CropTop;
 					this.Profile.Cropping.Right = this.CropRight;
 					this.Profile.Cropping.Bottom = this.CropBottom;
 				}
 
-				this.Profile.CustomCropping = value;
+				this.Profile.CroppingType = value;
 
-				this.RaisePropertyChanged(() => this.CustomCropping);
+				this.RaisePropertyChanged(() => this.CroppingType);
+				this.RaisePropertyChanged(() => this.CroppingUIEnabled);
 				this.RaisePropertyChanged(() => this.CropLeft);
 				this.RaisePropertyChanged(() => this.CropTop);
 				this.RaisePropertyChanged(() => this.CropRight);
@@ -498,18 +529,28 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool CroppingUIEnabled
+		{
+			get
+			{
+				return this.CroppingType == CroppingType.Custom;
+			}
+		}
+
 		public int CropLeft
 		{
 			get
 			{
-				if (this.CustomCropping)
+				switch (this.CroppingType)
 				{
-					return this.Profile.Cropping.Left;
-				}
-
-				if (this.HasSourceData)
-				{
-					return this.SelectedTitle.AutoCropDimensions.Left;
+					case CroppingType.Automatic:
+						if (this.HasSourceData)
+						{
+							return this.SelectedTitle.AutoCropDimensions.Left;
+						}
+						break;
+					case CroppingType.Custom:
+						return this.Profile.Cropping.Left;
 				}
 
 				return 0;
@@ -530,14 +571,16 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.CustomCropping)
+				switch (this.CroppingType)
 				{
-					return this.Profile.Cropping.Top;
-				}
-
-				if (this.HasSourceData)
-				{
-					return this.SelectedTitle.AutoCropDimensions.Top;
+					case CroppingType.Automatic:
+						if (this.HasSourceData)
+						{
+							return this.SelectedTitle.AutoCropDimensions.Top;
+						}
+						break;
+					case CroppingType.Custom:
+						return this.Profile.Cropping.Top;
 				}
 
 				return 0;
@@ -558,14 +601,16 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.CustomCropping)
+				switch (this.CroppingType)
 				{
-					return this.Profile.Cropping.Right;
-				}
-
-				if (this.HasSourceData)
-				{
-					return this.SelectedTitle.AutoCropDimensions.Right;
+					case CroppingType.Automatic:
+						if (this.HasSourceData)
+						{
+							return this.SelectedTitle.AutoCropDimensions.Right;
+						}
+						break;
+					case CroppingType.Custom:
+						return this.Profile.Cropping.Right;
 				}
 
 				return 0;
@@ -586,14 +631,16 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.CustomCropping)
+				switch (this.CroppingType)
 				{
-					return this.Profile.Cropping.Bottom;
-				}
-
-				if (this.HasSourceData)
-				{
-					return this.SelectedTitle.AutoCropDimensions.Bottom;
+					case CroppingType.Automatic:
+						if (this.HasSourceData)
+						{
+							return this.SelectedTitle.AutoCropDimensions.Bottom;
+						}
+						break;
+					case CroppingType.Custom:
+						return this.Profile.Cropping.Bottom;
 				}
 
 				return 0;
@@ -626,17 +673,25 @@ namespace VidCoder.ViewModel
 		{
 			if (this.HasSourceData)
 			{
-				EncodeJob job = this.MainViewModel.EncodeJob;
+				VCJob job = this.MainViewModel.EncodeJob;
 				job.EncodingProfile = this.Profile;
 
 				int width, height, parWidth, parHeight;
-				this.MainViewModel.ScanInstance.GetSize(job, out width, out height, out parWidth, out parHeight);
+				this.MainViewModel.ScanInstance.GetSize(job.HbJob, out width, out height, out parWidth, out parHeight);
+
+				this.StorageWidth = width;
+				this.StorageHeight = height;
+
+				Messenger.Default.Send(new OutputSizeChangedMessage());
 
 				this.OutputSourceResolution = width + " x " + height;
 				this.OutputPixelAspectRatio = parWidth + "/" + parHeight;
 				this.OutputDisplayResolution = Math.Round(width * (((double)parWidth) / parHeight)) + " x " + height;
 			}
 		}
+
+		public int StorageWidth { get; set; }
+		public int StorageHeight { get; set; }
 
 		public void NotifyAllChanged()
 		{
@@ -648,15 +703,17 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.MaxHeight);
 			this.RaisePropertyChanged(() => this.KeepDisplayAspect);
 			this.RaisePropertyChanged(() => this.KeepDisplayAspectEnabled);
-			this.RaisePropertyChanged(() => this.Anamorphic);
+			this.RaisePropertyChanged(() => this.SelectedAnamorphic);
 			this.RaisePropertyChanged(() => this.CustomAnamorphicFieldsVisible);
+			this.RaisePropertyChanged(() => this.ModulusVisible);
 			this.RaisePropertyChanged(() => this.Modulus);
 			this.RaisePropertyChanged(() => this.UseDisplayWidth);
 			this.RaisePropertyChanged(() => this.DisplayWidth);
 			this.RaisePropertyChanged(() => this.PixelAspectX);
 			this.RaisePropertyChanged(() => this.PixelAspectY);
 			this.RaisePropertyChanged(() => this.PixelAspectVisibile);
-			this.RaisePropertyChanged(() => this.CustomCropping);
+			this.RaisePropertyChanged(() => this.CroppingType);
+			this.RaisePropertyChanged(() => this.CroppingUIEnabled);
 			this.RaisePropertyChanged(() => this.CropLeft);
 			this.RaisePropertyChanged(() => this.CropTop);
 			this.RaisePropertyChanged(() => this.CropRight);

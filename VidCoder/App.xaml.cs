@@ -18,11 +18,21 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder
 {
+	using System.Globalization;
+	using System.Threading;
+	using Resources;
+
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>
 	public partial class App : Application
 	{
+#if BETA
+		static Mutex mutex = new Mutex(true, "VidCoderBetaSingleInstanceMutex");
+#else
+		static Mutex mutex = new Mutex(true, "VidCoderSingleInstanceMutex");
+#endif
+
 		protected override void OnStartup(StartupEventArgs e)
 		{
 #if !DEBUG
@@ -30,66 +40,73 @@ namespace VidCoder
 #endif
 			base.OnStartup(e);
 
-			try
+#if PSEUDOLOCALIZER_ENABLED
+			Delay.PseudoLocalizer.Enable(typeof(CommonRes));
+			Delay.PseudoLocalizer.Enable(typeof(MainRes));
+			Delay.PseudoLocalizer.Enable(typeof(EnumsRes));
+			Delay.PseudoLocalizer.Enable(typeof(EncodingRes));
+			Delay.PseudoLocalizer.Enable(typeof(OptionsRes));
+			Delay.PseudoLocalizer.Enable(typeof(PreviewRes));
+			Delay.PseudoLocalizer.Enable(typeof(LogRes));
+			Delay.PseudoLocalizer.Enable(typeof(SubtitleRes));
+			Delay.PseudoLocalizer.Enable(typeof(QueueTitlesRes));
+			Delay.PseudoLocalizer.Enable(typeof(ChapterMarkersRes));
+			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
+#endif
+
+			// Takes about 50ms
+			Config.Initialize(Database.Connection);
+
+			if (!Config.MigratedConfigs && Directory.Exists(Utilities.LocalAppFolder))
 			{
-				// Upgrade from previous user settings.
-				if (Settings.Default.ApplicationVersion != Utilities.CurrentVersion)
+				// Upgrade configs from previous version before migrating
+				try
 				{
-					Settings.Default.Upgrade();
-					Settings.Default.ApplicationVersion = Utilities.CurrentVersion;
-
-					if (Settings.Default.NativeLanguageCode != string.Empty)
+					if (Settings.Default.ApplicationVersion != Utilities.CurrentVersion)
 					{
-						var languageCode = Settings.Default.NativeLanguageCode;
-						Settings.Default.NativeLanguageCode = string.Empty;
+						Settings.Default.Upgrade();
+						Settings.Default.ApplicationVersion = Utilities.CurrentVersion;
 
-						if (languageCode != "und")
+						if (Settings.Default.NativeLanguageCode != string.Empty)
 						{
-							if (Settings.Default.DubAudio)
+							var languageCode = Settings.Default.NativeLanguageCode;
+							Settings.Default.NativeLanguageCode = string.Empty;
+
+							if (languageCode != "und")
 							{
-								Settings.Default.AudioLanguageCode = languageCode;
-								Settings.Default.AutoAudio = AutoAudioType.Language;
-							}
-							else
-							{
-								Settings.Default.SubtitleLanguageCode = languageCode;
-								Settings.Default.AutoSubtitle = AutoSubtitleType.Language;
+								if (Settings.Default.DubAudio)
+								{
+									Settings.Default.AudioLanguageCode = languageCode;
+									Settings.Default.AutoAudio = AutoAudioType.Language;
+								}
+								else
+								{
+									Settings.Default.SubtitleLanguageCode = languageCode;
+									Settings.Default.AutoSubtitle = AutoSubtitleType.Language;
+								}
 							}
 						}
+
+						Settings.Default.Save();
 					}
 
-					Settings.Default.Save();
+					ConfigMigration.MigrateConfigSettings();
+				}
+				catch (ConfigurationErrorsException)
+				{
+					// If we had problems loading the old config we can't recover.
+					MessageBox.Show(MainRes.UserConfigCorrupted);
+
+					Config.MigratedConfigs = true;
 				}
 			}
-			catch (ConfigurationErrorsException exception)
+
+			var interfaceLanguageCode = Config.InterfaceLanguageCode;
+			if (!string.IsNullOrWhiteSpace(interfaceLanguageCode))
 			{
-				// This exception will happen if the user.config Settings file becomes corrupt.
-				string userConfigFileName = ((ConfigurationErrorsException)exception.InnerException).Filename;
-
-				// Need to show two message boxes since the first is dismissed by the splash screen due to a bug
-				MessageBox.Show(string.Empty);
-				MessageBoxResult result = MessageBox.Show(
-					"Could not load a required user settings file; it may have become corrupt. Do you want to delete it? This will not affect your saved presets.",
-					"Error loading settings",
-					MessageBoxButton.YesNo,
-					MessageBoxImage.Error);
-
-				if (result == MessageBoxResult.Yes)
-				{
-					// Clear out any user.config files
-					try
-					{
-						File.Delete(userConfigFileName);
-					}
-					catch (IOException)
-					{
-						MessageBox.Show("Unable to delete " + userConfigFileName);
-					}
-
-					// Need to relaunch the process to get the configuration system working again
-					Process.Start(System.Reflection.Assembly.GetExecutingAssembly().Location);
-					Environment.Exit(0);
-				}
+				var cultureInfo = new CultureInfo(interfaceLanguageCode);
+				Thread.CurrentThread.CurrentCulture = cultureInfo;
+				Thread.CurrentThread.CurrentUICulture = cultureInfo;
 			}
 
 			var updater = Unity.Container.Resolve<IUpdater>();
@@ -102,6 +119,25 @@ namespace VidCoder
 			}
 			else
 			{
+#if !DEBUG
+				try
+				{
+					// Check if we're a duplicate instance
+					if (!mutex.WaitOne(TimeSpan.Zero, true))
+					{
+						NativeMethods.PostMessage(
+							(IntPtr)NativeMethods.HWND_BROADCAST,
+							NativeMethods.WM_SHOWME,
+							IntPtr.Zero,
+							IntPtr.Zero);
+						Environment.Exit(0);
+					}
+				}
+				catch (AbandonedMutexException)
+				{
+				}
+#endif
+
 				this.GlobalInitialize();
 
 				var mainVM = new MainViewModel();
@@ -110,9 +146,20 @@ namespace VidCoder
 			}
 		}
 
+		protected override void OnExit(ExitEventArgs e)
+		{
+			try
+			{
+				mutex.ReleaseMutex();
+			}
+			catch (ApplicationException)
+			{
+			}
+		}
+
 		private void GlobalInitialize()
 		{
-			HandBrakeUtils.SetDvdNav(Settings.Default.EnableLibDvdNav);
+			HandBrakeUtils.SetDvdNav(Config.EnableLibDvdNav);
 		}
 
 		private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

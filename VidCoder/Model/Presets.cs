@@ -16,15 +16,22 @@ using HandBrake.Interop.Model.Encoding;
 
 namespace VidCoder.Model
 {
+	using Resources;
+	using Services;
+	using Microsoft.Practices.Unity;
+
 	public static class Presets
 	{
-		private const int CurrentPresetVersion = 5;
+		private const int CurrentPresetVersion = 8;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
 		private static XmlSerializer presetListSerializer = new XmlSerializer(typeof(PresetCollection));
 		private static XmlSerializer presetSerializer = new XmlSerializer(typeof(Preset));
 		private static object userPresetSync = new object();
+
+		// This field holds the copy of the preset list that has been most recently queued for saving.
+		private static volatile List<string> pendingSavePresetList;
 
 		static Presets()
 		{
@@ -74,6 +81,8 @@ namespace VidCoder.Model
 			set
 			{
 				var presetXmlList = value.Select(SerializePreset).ToList();
+
+				pendingSavePresetList = presetXmlList;
 
 				// Do the actual save asynchronously.
 				ThreadPool.QueueUserWorkItem(SaveUserPresetsBackground, presetXmlList);
@@ -155,7 +164,7 @@ namespace VidCoder.Model
 			catch (XmlException exception)
 			{
 				System.Windows.MessageBox.Show(
-					"Could not load preset: " +
+					MainRes.CouldNotLoadPresetMessage +
 					exception +
 					Environment.NewLine +
 					Environment.NewLine +
@@ -188,13 +197,13 @@ namespace VidCoder.Model
 			}
 			catch (XmlException exception)
 			{
-				System.Windows.MessageBox.Show(string.Format("Could not save preset '{0}':{1}{2}", preset.Name, Environment.NewLine, exception));
+				System.Windows.MessageBox.Show(string.Format(MainRes.CouldNotSavePresetMessage, preset.Name, Environment.NewLine, exception));
 			}
 
 			return false;
 		}
 
-		public static void UpgradeEncodingProfile(EncodingProfile profile, int databaseVersion)
+		public static void UpgradeEncodingProfile(VCProfile profile, int databaseVersion)
 		{
 			if (databaseVersion >= Utilities.CurrentDatabaseVersion)
 			{
@@ -210,9 +219,24 @@ namespace VidCoder.Model
 			{
 				UpgradeEncodingProfileTo14(profile);
 			}
+
+			if (databaseVersion < 15)
+			{
+				UpgradeEncodingProfileTo15(profile);
+			}
+
+			if (databaseVersion < 16)
+			{
+				UpgradeEncodingProfileTo16(profile);
+			}
+
+			if (databaseVersion < 17)
+			{
+				UpgradeEncodingProfileTo17(profile);
+			}
 		}
 
-		public static void UpgradeEncodingProfileTo13(EncodingProfile profile)
+		public static void UpgradeEncodingProfileTo13(VCProfile profile)
 		{
 			// Upgrade preset: translate old Enum-based values to short name strings
 			if (!Encoders.VideoEncoders.Any(e => e.ShortName == profile.VideoEncoder))
@@ -283,15 +307,81 @@ namespace VidCoder.Model
 			}
 		}
 
-		public static void UpgradeEncodingProfileTo14(EncodingProfile profile)
+		public static void UpgradeEncodingProfileTo14(VCProfile profile)
 		{
 			profile.AudioEncoderFallback = UpgradeAudioEncoder(profile.AudioEncoderFallback);
 		}
 
+		public static void UpgradeEncodingProfileTo15(VCProfile profile)
+		{
+			if (profile.Framerate == 0)
+			{
+				// Profile had only VFR for Same as Source framerate before.
+				profile.ConstantFramerate = false;
+			}
+			else
+			{
+				// If Peak Framerate was checked under a specific framerate
+				// that meant we wanted VFR. Otherwise, CFR with the listed framerate
+#pragma warning disable 612,618
+				profile.ConstantFramerate = !profile.PeakFramerate;
+#pragma warning restore 612,618
+			}
+
+			foreach (AudioEncoding encoding in profile.AudioEncodings)
+			{
+				if (encoding.Mixdown == "6ch")
+				{
+					encoding.Mixdown = "5point1";
+				}
+			}
+		}
+
+		public static void UpgradeEncodingProfileTo16(VCProfile profile)
+		{
+#pragma warning disable 612,618
+			if (profile.CustomCropping)
+#pragma warning restore 612,618
+			{
+				profile.CroppingType = CroppingType.Custom;
+			}
+			else
+			{
+				profile.CroppingType = CroppingType.Automatic;
+			}
+
+#pragma warning disable 612,618
+			if (string.IsNullOrWhiteSpace(profile.X264Tune))
+			{
+				profile.X264Tunes = new List<string> { profile.X264Tune };
+			}
+#pragma warning restore 612,618
+		}
+
+		public static void UpgradeEncodingProfileTo17(VCProfile profile)
+		{
+			if (profile.X264Profile == "high444")
+			{
+				profile.X264Profile = null;
+			}
+		}
+
 		private static void ErrorCheckPresets(List<Preset> presets)
 		{
-			foreach (Preset preset in presets)
+			for (int i = presets.Count - 1; i >= 0; i--)
 			{
+				var preset = presets[i];
+
+				if (preset.EncodingProfile == null)
+				{
+					presets.RemoveAt(i);
+
+					// Splash screen eats first dialog, need to show twice.
+					Unity.Container.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.DisplayName + "'.");
+					Unity.Container.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.DisplayName + "'.");
+					continue;
+				}
+
 				if (preset.EncodingProfile.OutputFormat == Container.None)
 				{
 					preset.EncodingProfile.OutputFormat = Container.Mp4;
@@ -334,9 +424,19 @@ namespace VidCoder.Model
 				return 12;
 			}
 
-			if (presetVersion == 4)
+			if (presetVersion < 5)
 			{
 				return 13;
+			}
+
+			if (presetVersion < 6)
+			{
+				return 14;
+			}
+
+			if (presetVersion == 6)
+			{
+				return 15;
 			}
 
 			return Utilities.CurrentDatabaseVersion;
@@ -350,6 +450,13 @@ namespace VidCoder.Model
 		{
 			lock (userPresetSync)
 			{
+				// If the pending save list is different from the one we've been passed, we abort.
+				// This means that another background task has been scheduled with a more recent save.
+				if (presetXmlListObject != pendingSavePresetList)
+				{
+					return;
+				}
+
 				if (Directory.Exists(UserPresetsFolder))
 				{
 					string[] existingFiles = Directory.GetFiles(UserPresetsFolder);

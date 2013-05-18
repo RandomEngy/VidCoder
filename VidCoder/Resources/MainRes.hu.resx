@@ -1,0 +1,564 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>Cím:</value>
+  </data>
+  <data name="SettingsLabel" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="AddToQueueLabel" xml:space="preserve">
+    <value>Hozzáadás a sorhoz</value>
+  </data>
+  <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
+    <value>Több cím hozzáadása a sorhoz...</value>
+  </data>
+  <data name="FileMenu" xml:space="preserve">
+    <value>Fájl</value>
+  </data>
+  <data name="OpenVideoFile" xml:space="preserve">
+    <value>Videófájl megnyitása...</value>
+  </data>
+  <data name="OpenDiscFolder" xml:space="preserve">
+    <value>DVD/Blu-ray mappa megnyitása...</value>
+  </data>
+  <data name="EnqueueMultipleFiles" xml:space="preserve">
+    <value>Több fájl sorba állítása...</value>
+  </data>
+  <data name="EnqueueMultipleTitles" xml:space="preserve">
+    <value>Több cím sorba állítása...</value>
+  </data>
+  <data name="ToolsMenu" xml:space="preserve">
+    <value>Eszközök</value>
+  </data>
+  <data name="ImportPreset" xml:space="preserve">
+    <value>Séma importálása...</value>
+  </data>
+  <data name="ExportPreset" xml:space="preserve">
+    <value>Séma exportálása...</value>
+  </data>
+  <data name="OptionsMenuItem" xml:space="preserve">
+    <value>Beállítás...</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Lejátszás</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Szerkeszt</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>Tartalmazó mappa megnyitása</value>
+  </data>
+  <data name="ClearCompleted" xml:space="preserve">
+    <value>Teljesítettek eltávolítása</value>
+  </data>
+  <data name="ExitMenuItem" xml:space="preserve">
+    <value>Kilépés</value>
+  </data>
+  <data name="WindowsMenu" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="EncodingSettingsMenuItem" xml:space="preserve">
+    <value>Kódolási beállítások</value>
+  </data>
+  <data name="PreviewMenuItem" xml:space="preserve">
+    <value>Előnézet</value>
+  </data>
+  <data name="LogMenuItem" xml:space="preserve">
+    <value>Napló</value>
+  </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>Súgó</value>
+  </data>
+  <data name="VidCoderHomepageMenuItem" xml:space="preserve">
+    <value>VidCoder honlap</value>
+  </data>
+  <data name="ReportABugMenuItem" xml:space="preserve">
+    <value>Hiba bejelentése</value>
+  </data>
+  <data name="AboutVidCoderMenuItem" xml:space="preserve">
+    <value>VidCoder névjegye...</value>
+  </data>
+  <data name="ChooseVideoSourceLabel" xml:space="preserve">
+    <value>Válassz egy videóforrást:</value>
+  </data>
+  <data name="SourceLabel" xml:space="preserve">
+    <value>Forrás:</value>
+  </data>
+  <data name="ScanningSourceLabel" xml:space="preserve">
+    <value>Forrás vizsgálata...</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Legutóbbi</value>
+  </data>
+  <data name="DragFilesHereLabel" xml:space="preserve">
+    <value>(Vagy húzz videófájlokat és mappákat ide)</value>
+  </data>
+  <data name="ScanErrorLabel" xml:space="preserve">
+    <value>Hiba történt a vizsgálat során.</value>
+  </data>
+  <data name="AudioLabel" xml:space="preserve">
+    <value>Hang.</value>
+  </data>
+  <data name="VideoLabel" xml:space="preserve">
+    <value>Videó:</value>
+  </data>
+  <data name="SubtitlesLabel" xml:space="preserve">
+    <value>Feliratok:</value>
+  </data>
+  <data name="AddTrackButton" xml:space="preserve">
+    <value>Sáv hozzáadása</value>
+  </data>
+  <data name="ChapterMarkersLabel" xml:space="preserve">
+    <value>Fejezetjelzők:</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Szerkeszt...</value>
+  </data>
+  <data name="DestinationLabel" xml:space="preserve">
+    <value>Cél:</value>
+  </data>
+  <data name="DestinationToolTip" xml:space="preserve">
+    <value>Kattints a kódolási cél szerkesztéséhez.</value>
+  </data>
+  <data name="SelectOutputPathButton" xml:space="preserve">
+    <value>Kimeneti útvonal kiválasztása...</value>
+  </data>
+  <data name="EncodingLabel" xml:space="preserve">
+    <value>Kódolás:</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Megállít</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Szünet</value>
+  </data>
+  <data name="MoveToTopMenuItem" xml:space="preserve">
+    <value>Mozgatás a tetejére</value>
+  </data>
+  <data name="MoveToBottomMenuItem" xml:space="preserve">
+    <value>Mozgatás az aljára</value>
+  </data>
+  <data name="CustomizeColumnsMenuItem" xml:space="preserve">
+    <value>Oszlopok testreszabása...</value>
+  </data>
+  <data name="CurrentFpsLabel" xml:space="preserve">
+    <value>Jelenlegi FPS:</value>
+  </data>
+  <data name="AverageFpsLabel" xml:space="preserve">
+    <value>Átlagos FPS:</value>
+  </data>
+  <data name="PickDiscFolderHelpText" xml:space="preserve">
+    <value>Válassz egy DVD vagy Blu-ray mappát.</value>
+  </data>
+  <data name="EncodesInProgressExitWarning" xml:space="preserve">
+    <value>Kódolások vannak még folyamatban. Biztosan ki akarsz lépni?</value>
+  </data>
+  <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
+    <value>Kódolások folyamatban</value>
+  </data>
+  <data name="ForeignAudioSearch" xml:space="preserve">
+    <value>Idegen hangkeresés</value>
+  </data>
+  <data name="NoneParen" xml:space="preserve">
+    <value>(Nincs)</value>
+  </data>
+  <data name="TracksSummaryMultiple" xml:space="preserve">
+    <value>{0} sáv</value>
+  </data>
+  <data name="SaveChangesPresetMessage" xml:space="preserve">
+    <value>Szeretnéd elmenteni a változásokat a jelenlegi sémába?</value>
+  </data>
+  <data name="SaveChangesPresetTitle" xml:space="preserve">
+    <value>Elmented a jelenlegi sémát?</value>
+  </data>
+  <data name="DiscNotInDriveError" xml:space="preserve">
+    <value>Nem tölthető be szerkesztésre. A lemez már nincs a meghajtóban.</value>
+  </data>
+  <data name="PresetNameRestoredFromQueue" xml:space="preserve">
+    <value>Visszaállítva a sorból</value>
+  </data>
+  <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
+    <value>Visszaállítva a teljesítettekből</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Séma:</value>
+  </data>
+  <data name="DestinationColumnHeader" xml:space="preserve">
+    <value>Cél</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Állapot</value>
+  </data>
+  <data name="ElapsedTimeColumnHeader" xml:space="preserve">
+    <value>Eltelt idő</value>
+  </data>
+  <data name="PlayingVideoMessage" xml:space="preserve">
+    <value>Videó lejátszása..</value>
+  </data>
+  <data name="FileDoesNotExist" xml:space="preserve">
+    <value>{0} nem létezik.</value>
+  </data>
+  <data name="AngleLabel" xml:space="preserve">
+    <value>Szög:</value>
+  </data>
+  <data name="ChaptersSummary" xml:space="preserve">
+    <value>/ {0}</value>
+  </data>
+  <data name="Queued" xml:space="preserve">
+    <value>Sorbaállítva</value>
+  </data>
+  <data name="QueuedWithTotal" xml:space="preserve">
+    <value>({0}) sorbaállítva</value>
+  </data>
+  <data name="CompletedWithTotal" xml:space="preserve">
+    <value>({0}) befejezve</value>
+  </data>
+  <data name="StoppedEncoding" xml:space="preserve">
+    <value>Kódolás megállítva.</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
+    <value>Biztosan törölni akarsz {0} forrásfájlt?</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
+    <value>Törlés megerősítése</value>
+  </data>
+  <data name="CouldNotDeleteFile" xml:space="preserve">
+    <value>{0}
+
+{1} törlése nem lehetséges</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>A következő fájlokat nem sikerült felismerni és ezért nem állíthatók sorba:
+
+{0}</value>
+  </data>
+  <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
+    <value>Hiba történt a videófájl(ok) vizsgálata során</value>
+  </data>
+  <data name="StartedEncoding" xml:space="preserve">
+    <value>Kódolás elindítva.</value>
+  </data>
+  <data name="DirectoryCreateErrorMessage" xml:space="preserve">
+    <value>Nem sikerült a kimeneti mappa létrehozása. A hiba részletei:
+
+{0}</value>
+  </data>
+  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
+    <value>Hiba a mappa létrehozása közben</value>
+  </data>
+  <data name="EncodeCompleted" xml:space="preserve">
+    <value>Kódolás befejeződött.</value>
+  </data>
+  <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
+    <value>Kódolás befejeződött</value>
+  </data>
+  <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
+    <value>A VidCoder befejezte az összes sorbaállított fájl kódolását.</value>
+  </data>
+  <data name="OutputFolderRequiredMessage" xml:space="preserve">
+    <value>Cannot add encode jobs without a default output folder. Press OK to pick one.</value>
+  </data>
+  <data name="OutputFolderRequiredTitle" xml:space="preserve">
+    <value>Alapértelmezett kimeneti mappa szükséges!</value>
+  </data>
+  <data name="OutputPathNotValidMessage" xml:space="preserve">
+    <value>Kimeneti útvonal nem érvényes.</value>
+  </data>
+  <data name="OutputPathNotValidTitle" xml:space="preserve">
+    <value>Útvonal nem érvényes</value>
+  </data>
+  <data name="Encode" xml:space="preserve">
+    <value>Kódolás</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Folytatás</value>
+  </data>
+  <data name="EtaLabel" xml:space="preserve">
+    <value>Hátravan:</value>
+  </data>
+  <data name="WhenDoneLabel" xml:space="preserve">
+    <value>Amikor végez:</value>
+  </data>
+  <data name="Preset_Android" xml:space="preserve">
+    <value>Android</value>
+  </data>
+  <data name="Preset_AppleiPad" xml:space="preserve">
+    <value>Apple iPad</value>
+  </data>
+  <data name="Preset_AppleiPhone4" xml:space="preserve">
+    <value>Apple iPhone 4</value>
+  </data>
+  <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
+    <value>Apple iPhone/Touch</value>
+  </data>
+  <data name="Preset_AppleiPod" xml:space="preserve">
+    <value>Apple iPod</value>
+  </data>
+  <data name="Preset_AppleTV" xml:space="preserve">
+    <value>AppleTV</value>
+  </data>
+  <data name="Preset_AppleTV2" xml:space="preserve">
+    <value>AppleTV 2</value>
+  </data>
+  <data name="Preset_AppleTV3" xml:space="preserve">
+    <value>AppleTV 3</value>
+  </data>
+  <data name="Preset_Universal" xml:space="preserve">
+    <value>Univerzális</value>
+  </data>
+  <data name="Preset_HighProfile" xml:space="preserve">
+    <value>Magas profil</value>
+  </data>
+  <data name="Preset_Normal" xml:space="preserve">
+    <value>Normál</value>
+  </data>
+  <data name="Preset_WindowsPhone7" xml:space="preserve">
+    <value>Windows Phone 7</value>
+  </data>
+  <data name="SourceOption_VideoFile" xml:space="preserve">
+    <value>Videófájl...</value>
+  </data>
+  <data name="SourceOption_DiscFolder" xml:space="preserve">
+    <value>DVD/Blu-ray mappa...</value>
+  </data>
+  <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
+    <value>{0} verzió elérhető. A frissítés letöltése elkezdődött.</value>
+  </data>
+  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
+    <value>{0} verzió letöltődött és kilépéskor telepítésre kerül.</value>
+  </data>
+  <data name="UpdateNotAppliedError" xml:space="preserve">
+    <value>A frissítés nem került telepítésrre. Ha nem szakítottad meg, próbáld meg manuálisan telepíteni.</value>
+  </data>
+  <data name="CouldNotLoadPresetMessage" xml:space="preserve">
+    <value>Séma betöltése nem lehetséges: </value>
+  </data>
+  <data name="CouldNotSavePresetMessage" xml:space="preserve">
+    <value>Nem lehetséges a(z) '{0}' séma elmentése:{1}{2}</value>
+  </data>
+  <data name="CouldNotCopyTextError" xml:space="preserve">
+    <value>Nem sikerült a szöveg másolása.</value>
+  </data>
+  <data name="LaunchUrlError" xml:space="preserve">
+    <value>URL elindítási hiba: {0}</value>
+  </data>
+  <data name="UserConfigLoadError" xml:space="preserve">
+    <value>Nem sikerült betölteni a szükséges felhasználói beállításfájlt; valósznűleg meghibásodott. Szeretnéd most törölni? Ennek nincs semmilyen hatása a már elmentett sémákra.</value>
+  </data>
+  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
+    <value>Hiba történt a beállítások betöltése közben</value>
+  </data>
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Nem sikerült a séma importálása. A formátum ismeretlen.</value>
+  </data>
+  <data name="PresetImportErrorTitle" xml:space="preserve">
+    <value>Import hiba</value>
+  </data>
+  <data name="PresetImportSuccessMessage" xml:space="preserve">
+    <value>{0} séma sikeresen importálva.</value>
+  </data>
+  <data name="PresetImportSuccessTitle" xml:space="preserve">
+    <value>Siker</value>
+  </data>
+  <data name="PresetExportSuccessMessage" xml:space="preserve">
+    <value>Séma sikeresen exportálva ide: {0}</value>
+  </data>
+  <data name="PresetExportSuccessTitle" xml:space="preserve">
+    <value>Siker</value>
+  </data>
+  <data name="ExportPresetFilePickerText" xml:space="preserve">
+    <value>Séma exportálása</value>
+  </data>
+  <data name="PresetSaveConfirmMessage" xml:space="preserve">
+    <value>Szeretnéd elmenteni a változásokat a jelenlegi sémába?</value>
+  </data>
+  <data name="PresetSaveConfirmTitle" xml:space="preserve">
+    <value>Elmented a jelenlegi sémát?</value>
+  </data>
+  <data name="PresetRevertConfirmMessage" xml:space="preserve">
+    <value>Biztosan szeretnéd elvetni a jelenlegi séma változásait?</value>
+  </data>
+  <data name="PresetRevertConfirmTitle" xml:space="preserve">
+    <value>Séma visszaállítása</value>
+  </data>
+  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
+    <value>Biztosan szeretnéd eltávolítani ezt a sémát?</value>
+  </data>
+  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
+    <value>Séma eltávolítása</value>
+  </data>
+  <data name="UserConfigCorrupted" xml:space="preserve">
+    <value>A beállítás meghibásodott és nem sikerült betölteni. Néhány beállítás valószínűleg visszaállításra került.</value>
+  </data>
+  <data name="OutputDirectoryPickerText" xml:space="preserve">
+    <value>Add meg az átkonvertált videófájlok kimeneti mappáját.</value>
+  </data>
+  <data name="ModifiedAffix" xml:space="preserve">
+    <value>(Módosított)</value>
+  </data>
+  <data name="LengthPreviewLabel" xml:space="preserve">
+    <value>Hossz: {0}</value>
+  </data>
+  <data name="PlayingVideoStatus" xml:space="preserve">
+    <value>Videó lejátszása</value>
+  </data>
+  <data name="OpeningFolderStatus" xml:space="preserve">
+    <value>Mappa megnyitása</value>
+  </data>
+  <data name="Preset_AndroidTablet" xml:space="preserve">
+    <value>Android tablet</value>
+  </data>
+  <data name="CloseVideoSourceToolTip" xml:space="preserve">
+    <value>Videóforrás bezárása</value>
+  </data>
+  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
+    <value>Videóforrás bezárása</value>
+  </data>
+  <data name="UpdatesMenuItem" xml:space="preserve">
+    <value>Frissítések...</value>
+  </data>
+  <data name="CbrAuto" xml:space="preserve">
+    <value>CBR Auto</value>
+  </data>
+  <data name="RangeBarToolTip" xml:space="preserve">
+    <value>Bal klikkel az indulási, jobb klikkel a befejezési idő adható meg.</value>
+  </data>
+  <data name="Preset_WindowsPhone8" xml:space="preserve">
+    <value>Windows Phone 8</value>
+  </data>
+  <data name="QueueFormat_Chapters" xml:space="preserve">
+    <value>{0}. fejezet</value>
+  </data>
+  <data name="QueueFormat_Frames" xml:space="preserve">
+    <value>{0}-{1}. képkocka</value>
+  </data>
+  <data name="QueueRangeAll" xml:space="preserve">
+    <value>Mind</value>
+  </data>
+  <data name="CouldNotCopyLogError" xml:space="preserve">
+    <value>Nem sikerült a napló másolása:{0}{0}{1}</value>
+  </data>
+  <data name="OpenLog" xml:space="preserve">
+    <value>Napló megnyitása</value>
+  </data>
+  <data name="CopyLog" xml:space="preserve">
+    <value>Napló másolása</value>
+  </data>
+</root>

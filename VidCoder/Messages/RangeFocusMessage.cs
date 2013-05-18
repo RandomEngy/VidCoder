@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using HandBrake.Interop.Model;
-
+﻿
 namespace VidCoder.Messages
 {
+	using HandBrake.Interop.Model;
+	using Model;
+
 	public class RangeFocusMessage
 	{
 		public VideoRangeType RangeType { get; set; }

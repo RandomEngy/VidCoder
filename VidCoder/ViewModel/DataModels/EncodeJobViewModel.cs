@@ -18,23 +18,27 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
+	using System.Globalization;
+	using Resources;
+	using Services;
+
 	public class EncodeJobViewModel : ViewModelBase, IDragItem
 	{
-		public const double SubtitleScanCostFactor = 80.0;
+		public const double SubtitleScanCostFactor = 5.0;
 
 		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
 		private ProcessingViewModel processingVM;
 
 		private bool isSelected;
 		private bool isPaused;
-		private EncodeJob job;
+		private VCJob job;
 		private bool encoding;
 		private int percentComplete;
 		private bool isOnlyItem;
 		private Stopwatch encodeTimeStopwatch;
 		private TimeSpan eta;
 
-		public EncodeJobViewModel(EncodeJob job)
+		public EncodeJobViewModel(VCJob job)
 		{
 			this.job = job;
 
@@ -46,7 +50,7 @@ namespace VidCoder.ViewModel
 					});
 		}
 
-		public EncodeJob Job
+		public VCJob Job
 		{
 			get
 			{
@@ -54,7 +58,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public EncodingProfile Profile
+		public VCProfile Profile
 		{
 			get
 			{
@@ -83,6 +87,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public ILogger Logger { get; set; }
+
 		public HandBrakeInstance HandBrakeInstance { get; set; }
 
 		public VideoSource VideoSource { get; set; }
@@ -93,6 +99,8 @@ namespace VidCoder.ViewModel
 		public bool ManualOutputPath { get; set; }
 
 		public string NameFormatOverride { get; set; }
+
+		public string PresetName { get; set; }
 
 		public bool IsSelected
 		{
@@ -269,17 +277,35 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public string ChaptersDisplay
+		public string RangeDisplay
 		{
 			get
 			{
-				if (this.job.ChapterStart == this.job.ChapterEnd)
+				switch (this.job.RangeType)
 				{
-					return this.job.ChapterStart.ToString();
-				}
-				else
-				{
-					return this.job.ChapterStart + " - " + this.job.ChapterEnd;
+					case VideoRangeType.All:
+						return MainRes.QueueRangeAll;
+					case VideoRangeType.Chapters:
+						int startChapter = this.job.ChapterStart;
+						int endChapter = this.job.ChapterEnd;
+
+						string chaptersString;
+						if (startChapter == endChapter)
+						{
+							chaptersString = startChapter.ToString(CultureInfo.CurrentCulture);
+						}
+						else
+						{
+							chaptersString = startChapter + " - " + endChapter;
+						}
+
+						return string.Format(MainRes.QueueFormat_Chapters, chaptersString);
+					case VideoRangeType.Seconds:
+						return TimeSpan.FromSeconds(this.job.SecondsStart).ToString("g") + " - " + TimeSpan.FromSeconds(this.job.SecondsEnd).ToString("g");
+					case VideoRangeType.Frames:
+						return string.Format(MainRes.QueueFormat_Frames, this.job.FramesStart, this.job.FramesEnd);
+					default:
+						throw new ArgumentOutOfRangeException();
 				}
 			}
 		}
@@ -347,7 +373,14 @@ namespace VidCoder.ViewModel
 					{
 						if (audioEncoding.EncodeRateType == AudioEncodeRateType.Bitrate)
 						{
-							bitrateParts.Add(audioEncoding.Bitrate + " kbps");
+							if (audioEncoding.Bitrate == 0)
+							{
+								bitrateParts.Add(MainRes.CbrAuto);
+							}
+							else
+							{
+								bitrateParts.Add(audioEncoding.Bitrate + " kbps");
+							}
 						}
 						else
 						{

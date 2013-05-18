@@ -10,5 +10,6 @@ namespace VidCoder.Model
 		public string Destination { get; set; }
 		public bool Succeeded { get; set; }
 		public TimeSpan EncodeTime { get; set; }
+		public string LogPath { get; set; }
 	}
 }
