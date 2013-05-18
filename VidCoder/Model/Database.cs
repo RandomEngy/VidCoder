@@ -143,7 +143,17 @@ namespace VidCoder.Model
 		{
 			if (!Directory.Exists(Utilities.AppFolder))
 			{
-				Directory.CreateDirectory(Utilities.AppFolder);
+				if (Utilities.Beta && Directory.Exists(Utilities.GetAppFolder(beta: false)))
+				{
+					// In beta mode if we don't have the appdata folder copy the stable appdata folder
+					Utilities.CopyDirectory(
+						Utilities.GetAppFolder(beta: false),
+						Utilities.GetAppFolder(beta: true));
+				}
+				else
+				{
+					Directory.CreateDirectory(Utilities.AppFolder);
+				}
 			}
 
 			bool newDataFile = !File.Exists(DatabaseFile);

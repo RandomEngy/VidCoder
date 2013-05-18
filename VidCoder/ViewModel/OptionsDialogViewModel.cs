@@ -143,7 +143,15 @@ namespace VidCoder.ViewModel
 				};
 			betaInfoWorker.RunWorkerCompleted += (o, e) =>
 				{
-					this.betaInfoAvailable = true;
+					this.betaInfoAvailable = false;
+					if (this.betaInfo != null)
+					{
+						if (Utilities.CompareVersions(betaInfo.LatestVersion, Utilities.CurrentVersion) > 0)
+						{
+							this.betaInfoAvailable = true;
+						}
+					}
+
 					this.RaisePropertyChanged(() => this.BetaChangelogUrl);
 					this.RaisePropertyChanged(() => this.BetaSectionVisible);
 				};

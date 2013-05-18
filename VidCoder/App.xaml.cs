@@ -27,7 +27,11 @@ namespace VidCoder
 	/// </summary>
 	public partial class App : Application
 	{
+#if BETA
+		static Mutex mutex = new Mutex(true, "VidCoderBetaSingleInstanceMutex");
+#else
 		static Mutex mutex = new Mutex(true, "VidCoderSingleInstanceMutex");
+#endif
 
 		protected override void OnStartup(StartupEventArgs e)
 		{

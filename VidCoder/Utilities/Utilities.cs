@@ -22,11 +22,12 @@ namespace VidCoder
 
 	public static class Utilities
 	{
-		public const string AppDataFolderName = "VidCoder";
-		public const string LocalAppDataFolderName = "VidCoder";
 		public const string TimeFormat = @"h\:mm\:ss";
 		public const int CurrentDatabaseVersion = 18;
 		public const int LastUpdatedEncodingProfileDatabaseVersion = 17;
+
+		private const string AppDataFolderName = "VidCoder";
+		private const string LocalAppDataFolderName = "VidCoder";
 
 		private static bool isPortable;
 		private static string settingsDirectory;
@@ -52,6 +53,18 @@ namespace VidCoder
 			{"AudioQuality", 80},
 			{"Preset", 120}
 		};
+
+		public static bool Beta
+		{
+			get
+			{
+#if BETA
+				return true;
+#else
+				return false;
+#endif
+			}
+		}
 
 		public static string CurrentVersion
 		{
@@ -165,12 +178,7 @@ namespace VidCoder
 		{
 			get
 			{
-				if (settingsDirectory != null)
-				{
-					return settingsDirectory;
-				}
-
-				return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppDataFolderName);
+				return GetAppFolder(Beta);
 			}
 		}
 
@@ -178,9 +186,15 @@ namespace VidCoder
 		{
 			get
 			{
-				return Path.Combine(
+				string folder = Path.Combine(
 					Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
 					LocalAppDataFolderName);
+
+#if BETA
+				folder += "-Beta";
+#endif
+
+				return folder;
 			}
 		}
 
@@ -236,6 +250,23 @@ namespace VidCoder
 			}
 		}
 
+		public static string GetAppFolder(bool beta)
+		{
+			if (settingsDirectory != null)
+			{
+				return settingsDirectory;
+			}
+
+			string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppDataFolderName);
+
+			if (beta)
+			{
+				folder += "-Beta";
+			}
+
+			return folder;
+		}
+
 		public static bool IsValidQueueColumn(string columnId)
 		{
 			return defaultQueueColumnSizes.ContainsKey(columnId);
@@ -250,6 +281,21 @@ namespace VidCoder
 			else
 			{
 				return new LocalEncodeProxy();
+			}
+		}
+
+		public static void CopyDirectory(string sourceDir, string destDir)
+		{
+			// Create directories
+			foreach (string dirPath in Directory.GetDirectories(sourceDir, "*", SearchOption.AllDirectories))
+			{
+				Directory.CreateDirectory(dirPath.Replace(sourceDir, destDir));
+			}
+
+			// Create files
+			foreach (string newPath in Directory.GetFiles(sourceDir, "*.*", SearchOption.AllDirectories))
+			{
+				File.Copy(newPath, newPath.Replace(sourceDir, destDir));
 			}
 		}
 

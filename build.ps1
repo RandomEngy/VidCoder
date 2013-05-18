@@ -1,30 +1,55 @@
 . ./build_common.ps1
 
-function UpdateIssFile($fileName, $version, $beta)
-{
-    $newString = "`${1}" + $version + "`${2}"
-    
-    if ($beta)
-    {
-        $versionNameReplacement = "`${1}" + $version + " Beta (`${2})"
-        $fileNameReplacement = "`${1}" + $version + "-Beta-`${2}"
-    }
-    else
-    {
-        $versionNameReplacement = "`${1}" + $version + " (`${2})"
-        $fileNameReplacement = "`${1}" + $version + "-`${2}"
+function ReplaceTokens($inputFile, $outputFile, $replacements) {
+    $fileContent = Get-Content $inputFile
+
+    foreach($key in $($replacements.keys)){
+        $fileContent = $fileContent -replace ("%" + $key + "%"), $replacements[$key]
     }
 
-    
-    $fileContent = Get-Content $fileName
-    $fileContent = $fileContent -replace "(VidCoder )[\d.]+(?: Beta)? \((x\d{2})\)", $versionNameReplacement
-    $fileContent = $fileContent -replace "(VidCoder-)[\d.]+(?:-Beta)?-(x\d{2})", $fileNameReplacement
-    $fileContent = $fileContent -replace "AppVersion=[\d.]+", ("AppVersion=" + $version)
-    Set-Content $fileName $fileContent
+    Set-Content $outputFile $fileContent
 }
 
-function UpdateAssemblyInfo($fileName, $version)
-{
+function CreateIssFile($version, $beta, $arch) {
+    $tokens = @{}
+
+    if ($arch -eq "x86") {
+        $tokens["x64Directives"] = ""
+        
+        if ($beta) {
+            $appId = "VidCoder-Beta-x86"
+        } else {
+            $appId = "VidCoder"
+        }
+    } else {
+        $tokens["x64Directives"] = "ArchitecturesAllowed=x64`r`nArchitecturesInstallIn64BitMode=x64"
+
+        if ($beta) {
+            $appId = "VidCoder-Beta-x64"
+        } else {
+            $appId = "VidCoder-64"
+        }
+    }
+
+
+    $tokens["arch"] = $arch
+    $tokens["version"] = $version
+    $tokens["appId"] = $appId
+    if ($beta) {
+        $tokens["appName"] = "VidCoder Beta"
+        $tokens["folderName"] = "VidCoder-Beta"
+        $tokens["outputBaseFileName"] = "VidCoder-" + $version + "-Beta-" + $arch
+        $tokens["appVerName"] = "VidCoder " + $version + " Beta (" + $arch + ")"
+    } else {
+        $tokens["appName"] = "VidCoder"
+        $tokens["folderName"] = "VidCoder"
+        $tokens["outputBaseFileName"] = "VidCoder-" + $version + "-" + $arch
+        $tokens["appVerName"] = "VidCoder " + $version + " (" + $arch + ")"
+    }
+    ReplaceTokens "Installer\VidCoder.iss.txt" ("Installer\VidCoder-" + $arch + "-gen.iss") $tokens
+}
+
+function UpdateAssemblyInfo($fileName, $version) {
     $newVersionText = 'AssemblyVersion("' + $version + '")';
     $newFileVersionText = 'AssemblyFileVersion("' + $version + '")';
 
@@ -37,8 +62,7 @@ function UpdateAssemblyInfo($fileName, $version)
     Move-Item $tmpFile $fileName -force
 }
 
-function CopyBoth($fileName)
-{
+function CopyBoth($fileName) {
     $dest86 = ".\Installer\Files\x86\"
     $dest64 = ".\Installer\Files\x64\"
 
@@ -49,8 +73,7 @@ function CopyBoth($fileName)
     copy ($source64 + $fileName) ($dest64 + $fileName); ExitIfFailed
 }
 
-function CopyLibBoth($fileName)
-{
+function CopyLibBoth($fileName) {
     $dest86 = ".\Installer\Files\x86\"
     $dest64 = ".\Installer\Files\x64\"
 
@@ -61,8 +84,7 @@ function CopyLibBoth($fileName)
     copy ($source64 + $fileName) ($dest64 + $fileName); ExitIfFailed
 }
 
-function CopyCommon($fileName)
-{
+function CopyCommon($fileName) {
     $dest86 = ".\Installer\Files\x86"
     $dest64 = ".\Installer\Files\x64"
 
@@ -70,8 +92,7 @@ function CopyCommon($fileName)
     copy $fileName $dest64; ExitIfFailed
 }
 
-function CopyLanguage($language)
-{
+function CopyLanguage($language) {
     $dest86 = ".\Installer\Files\x86\"
     $dest64 = ".\Installer\Files\x64\"
 
@@ -85,12 +106,9 @@ function CopyLanguage($language)
 # Master switch for if this branch is beta
 $beta = $true
 
-if ($beta)
-{
+if ($beta) {
     $configuration = "Release-Beta"
-}
-else
-{
+} else {
     $configuration = "Release"
 }
 
@@ -156,12 +174,9 @@ CopyLanguage "hu"
 
 # Create portable installer
 
-if ($beta)
-{
+if ($beta) {
     $betaNameSection = "-Beta"
-}
-else
-{
+} else {
     $betaNameSection = ""
 }
 
@@ -185,10 +200,6 @@ $winRarExe = "c:\Program Files\WinRar\WinRAR.exe"
 #cmd /c copy /b .\Lib\7z\7zS.sfx + .\Installer\PortableInstallConfig.txt + $archive86 .\Installer\BuiltInstallers\VidCoder-$versionShort$betaNameSection-x86-Portable.exe; ExitIfFailed
 #cmd /c copy /b .\Lib\7z\7zS.sfx + .\Installer\PortableInstallConfig.txt + $archive64 .\Installer\BuiltInstallers\VidCoder-$versionShort$betaNameSection-x64-Portable.exe; ExitIfFailed
 
-# Update installer files with version
-UpdateIssFile "Installer\VidCoder-x86.iss" $versionShort $beta
-UpdateIssFile "Installer\VidCoder-x64.iss" $versionShort $beta
-
 # Update latest.xml files with version
 if ($beta)
 {
@@ -204,9 +215,13 @@ $fileContent = $fileContent -replace "<Latest>[\d.]+</Latest>", ("<Latest>" + $v
 $fileContent = $fileContent -replace "(VidCoder-)[\d.]+((?:-Beta)?-x\d{2})", ("`${1}" + $versionShort + "`${2}")
 Set-Content $latestFile $fileContent
 
-# Build installers
-& $InnoSetupExe Installer\VidCoder-x86.iss; ExitIfFailed
-& $InnoSetupExe Installer\VidCoder-x64.iss; ExitIfFailed
+# Create x86/x64 .iss files in the correct configuration
+CreateIssFile $versionShort $beta "x86"
+CreateIssFile $versionShort $beta "x64"
+
+# Build the installers
+& $InnoSetupExe Installer\VidCoder-x86-gen.iss; ExitIfFailed
+& $InnoSetupExe Installer\VidCoder-x64-gen.iss; ExitIfFailed
 
 
 WriteSuccess

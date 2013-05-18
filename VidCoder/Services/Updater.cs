@@ -18,7 +18,7 @@ namespace VidCoder.Services
 
 	public class Updater : IUpdater
 	{
-		public const string UpdateInfoUrlBeta = "http://engy.us/VidCoder/latest-beta.xml";
+		public const string UpdateInfoUrlBeta = "http://engy.us/VidCoder/latest-test-beta.xml";
 		public const string UpdateInfoUrlNonBeta = "http://engy.us/VidCoder/latest.xml";
 
 		public event EventHandler<EventArgs<double>> UpdateDownloadProgress;
@@ -443,40 +443,47 @@ namespace VidCoder.Services
 		{
 			string url = beta ? UpdateInfoUrlBeta : UpdateInfoUrlNonBeta;
 
-			XDocument document = XDocument.Load(url);
-			XElement root = document.Root;
-
-			string configurationElementName;
-			if (IntPtr.Size == 4)
+			try
 			{
-				configurationElementName = "Release";
-			}
-			else
-			{
-				configurationElementName = "Release-x64";
-			}
+				XDocument document = XDocument.Load(url);
+				XElement root = document.Root;
 
-			XElement configurationElement = root.Element(configurationElementName);
-			if (configurationElement == null)
-			{
-				return null;
-			}
-
-			XElement latestElement = configurationElement.Element("Latest");
-			XElement downloadElement = configurationElement.Element("DownloadLocation");
-			XElement changelogLinkElement = configurationElement.Element("ChangelogLocation");
-
-			if (latestElement == null || downloadElement == null || changelogLinkElement == null)
-			{
-				return null;
-			}
-
-			return new UpdateInfo
+				string configurationElementName;
+				if (IntPtr.Size == 4)
 				{
-					LatestVersion = latestElement.Value,
-					DownloadLocation = downloadElement.Value,
-					ChangelogLocation = changelogLinkElement.Value
-				};
+					configurationElementName = "Release";
+				}
+				else
+				{
+					configurationElementName = "Release-x64";
+				}
+
+				XElement configurationElement = root.Element(configurationElementName);
+				if (configurationElement == null)
+				{
+					return null;
+				}
+
+				XElement latestElement = configurationElement.Element("Latest");
+				XElement downloadElement = configurationElement.Element("DownloadLocation");
+				XElement changelogLinkElement = configurationElement.Element("ChangelogLocation");
+
+				if (latestElement == null || downloadElement == null || changelogLinkElement == null)
+				{
+					return null;
+				}
+
+				return new UpdateInfo
+					{
+						LatestVersion = latestElement.Value,
+						DownloadLocation = downloadElement.Value,
+						ChangelogLocation = changelogLinkElement.Value
+					};
+			}
+			catch (WebException)
+			{
+				return null;
+			}
 		}
 	}
 }
