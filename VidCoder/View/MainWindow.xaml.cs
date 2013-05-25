@@ -70,6 +70,12 @@ namespace VidCoder.View
 			this.RegisterName("PresetGlowEffect", this.presetGlowEffect);
 			this.RegisterName("StatusText", this.statusText);
 
+			var storyboard = (Storyboard)this.FindResource("statusTextStoryboard");
+			storyboard.Completed += (sender, args) =>
+				{
+					this.statusText.Visibility = Visibility.Collapsed;
+				};
+
 			var presetGlowFadeUp = new DoubleAnimation
 			{
 				From = 0.0,
@@ -98,13 +104,6 @@ namespace VidCoder.View
 			{
 				this.RestoredWindowState = this.WindowState;
 			};
-
-			//Messenger.Default.Register<ScanningChangedMessage>(
-			//	this,
-			//	message =>
-			//		{
-			//			this.CloseRangeDetailsPopup();
-			//		});
 
 			Messenger.Default.Register<StatusMessage>(this, this.ShowStatusMessage);
 
@@ -457,18 +456,6 @@ namespace VidCoder.View
 			this.encodeProgressDetailsPopup.IsOpen = false;
 		}
 
-		//private void RangeMouseEnter(object sender, MouseEventArgs e)
-		//{
-		//	this.rangeUIMouseOver = true;
-		//	this.RefreshRangeDetailsPopupIsOpen();
-		//}
-
-		//private void RangeMouseLeave(object sender, MouseEventArgs e)
-		//{
-		//	this.rangeUIMouseOver = false;
-		//	this.RefreshRangeDetailsPopupIsOpen();
-		//}
-
 		private void StartTimeGotFocus(object sender, RoutedEventArgs e)
 		{
 			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = true });
@@ -488,33 +475,6 @@ namespace VidCoder.View
 		{
 			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = false });
 		}
-
-		//private void RangeControlGotFocus(object sender, RoutedEventArgs e)
-		//{
-		//	this.rangeUIFocus = true;
-		//	this.RefreshRangeDetailsPopupIsOpen();
-		//}
-
-		//private void RangeControlLostFocus(object sender, RoutedEventArgs e)
-		//{
-		//	this.rangeUIFocus = false;
-		//	this.RefreshRangeDetailsPopupIsOpen();
-		//}
-
-		//private void RefreshRangeDetailsPopupIsOpen()
-		//{
-		//	bool shouldBeOpen = this.rangeUIMouseOver || this.rangeUIFocus;
-		//	if (shouldBeOpen != this.rangeDetailsPopup.IsOpen)
-		//	{
-		//		this.rangeDetailsPopup.IsOpen = shouldBeOpen;
-		//	}
-		//}
-
-		//private void CloseRangeDetailsPopup()
-		//{
-		//	this.rangeUIFocus = false;
-		//	this.rangeDetailsPopup.IsOpen = false;
-		//}
 
 		private void DestinationReadCoverMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
@@ -584,7 +544,9 @@ namespace VidCoder.View
 			DispatchService.BeginInvoke(() =>
 			    {
 			        this.statusTextBlock.Text = message.Message;
+					this.statusText.Visibility = Visibility.Visible;
 			        var storyboard = (Storyboard) this.FindResource("statusTextStoryboard");
+					storyboard.Stop();
 			        storyboard.Begin();
 			    });
 		}
@@ -602,12 +564,6 @@ namespace VidCoder.View
 			{
 				this.viewModel.SourceSelectionExpanded = false;
 			}
-
-			//if (this.rangeDetailsPopup.IsOpen && !this.HitElement(this.rangeUI, hitPoint))
-			//{
-			//	this.rangeUIFocus = false;
-			//	this.RefreshRangeDetailsPopupIsOpen();
-			//}
 		}
 
 		private void Window_StateChanged(object sender, EventArgs e)
