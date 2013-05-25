@@ -206,7 +206,7 @@ ExitIfFailed
 # Update latest.xml files with version
 if ($beta)
 {
-    $latestFile = "Installer\latest-beta.xml"
+    $latestFile = "Installer\latest-beta2.xml"
 }
 else
 {

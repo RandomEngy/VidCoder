@@ -479,17 +479,15 @@ namespace VidCoder.View
 			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = false });
 		}
 
-		//private void FramesStartGotFocus(object sender, RoutedEventArgs e)
-		//{
-		//	Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = true });
-		//	this.RangeControlGotFocus(sender, e);
-		//}
+		private void FramesStartGotFocus(object sender, RoutedEventArgs e)
+		{
+			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = true });
+		}
 
-		//private void FramesEndGotFocus(object sender, RoutedEventArgs e)
-		//{
-		//	Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = false });
-		//	this.RangeControlGotFocus(sender, e);
-		//}
+		private void FramesEndGotFocus(object sender, RoutedEventArgs e)
+		{
+			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = false });
+		}
 
 		//private void RangeControlGotFocus(object sender, RoutedEventArgs e)
 		//{

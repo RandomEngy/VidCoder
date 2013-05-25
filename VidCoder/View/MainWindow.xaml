@@ -697,13 +697,13 @@
 									<controls:NumberBox
 										Width="65"
 										Style="{StaticResource RangeNumberBox}"
-										AllowEmpty="False" Minimum="0"
+										AllowEmpty="False" Minimum="0" GotFocus="FramesStartGotFocus"
 										Number="{Binding FramesRangeStart, Mode=TwoWay}"/>
 									<TextBlock Text="-" Style="{StaticResource PlainTitle}" />
 									<controls:NumberBox
 										Width="65"
 										Style="{StaticResource RangeNumberBox}"
-										AllowEmpty="False" Minimum="1"
+										AllowEmpty="False" Minimum="1" GotFocus="FramesEndGotFocus"
 										Number="{Binding FramesRangeEnd, Mode=TwoWay}"/>
 								</StackPanel>
 								<TextBlock Text="{Binding TotalChaptersText}" Style="{StaticResource PlainTitle}" />
