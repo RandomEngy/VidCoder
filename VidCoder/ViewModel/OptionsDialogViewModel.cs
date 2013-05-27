@@ -101,6 +101,7 @@ namespace VidCoder.ViewModel
 					{
 						new InterfaceLanguage { CultureCode = string.Empty, Display = OptionsRes.UseOSLanguage },
 						new InterfaceLanguage { CultureCode = "en-US", Display = "English" },
+						new InterfaceLanguage { CultureCode = "es-ES", Display = "Español (Spanish)"},
 						new InterfaceLanguage { CultureCode = "hu-HU", Display = "Magyar (Hungarian)"},
 						//new InterfaceLanguage { CultureCode = "de-DE", Display = "Deutsch" },
 					};

@@ -16,7 +16,7 @@
 		<local:EnumDisplayer Type="{x:Type localmodel:DenoiseCombo}" x:Key="DenoiseChoices" />
 		<Style x:Key="NormalComboBox" TargetType="ComboBox">
 			<Setter Property="Height" Value="22" />
-			<Setter Property="Width" Value="80" />
+			<Setter Property="MinWidth" Value="80" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
 		</Style>
 		<Style x:Key="CustomFilterBox" TargetType="TextBox">

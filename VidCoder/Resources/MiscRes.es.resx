@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+	
+	<xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1"/>
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required"/>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>1.3</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+  <data name="AddButton">
+    <value xml:space="preserve">Agregar</value>
+  </data>
+  <data name="RefreshButton">
+    <value xml:space="preserve">Actualizar</value>
+  </data>
+  <data name="ChooseFromProcessesLabel">
+    <value xml:space="preserve">Elegir los procesos existentes:</value>
+  </data>
+  <data name="AddAutoPauseProcessDialogTitle">
+    <value xml:space="preserve">Agregar proceso de Auto Pause</value>
+  </data>
+  <data name="ProcessNameLabel">
+    <value xml:space="preserve">Nombre del proceso:</value>
+  </data>
+  <data name="ExceptionDialogMainText">
+    <value xml:space="preserve">VidCoder ha experimentado un error inesperado.</value>
+  </data>
+  <data name="ExceptionDialogSubText">
+    <value xml:space="preserve">Por favor reportelo, asi puede arreglarse en el futuro.</value>
+  </data>
+  <data name="ExceptionWindowTitle">
+    <value xml:space="preserve">Excepcion</value>
+  </data>
+  <data name="FileConflictDialogTitle">
+    <value xml:space="preserve">Conflicto de archivo</value>
+  </data>
+  <data name="OverwriteButton">
+    <value xml:space="preserve">Sobrescribir</value>
+  </data>
+  <data name="AutoRenameButton">
+    <value xml:space="preserve">Auto-renombrar</value>
+  </data>
+  <data name="FileConflictWarning">
+    <value xml:space="preserve">Ya existe un archivo en {0}. ¿Desea sobrescribir el archivo, encontrar automaticamente una nueva ruta de salida para el trabajo o cancelar la operacion?</value>
+  </data>
+  <data name="QueueFileConflictWarning">
+    <value xml:space="preserve">Un trabajo en cola ya tiene una ruta de salida en {0}. ¿Desea sobrescribir el archivo, encontrar automaticamente una nueva ruta de salida para el trabajo o cancelar la operacion?</value>
+  </data>
+  <data name="QueueColumnsDialogTitle">
+    <value xml:space="preserve">Columnas de cola</value>
+  </data>
+  <data name="QueueColumnsDialogHeaderText">
+    <value xml:space="preserve">Arrastrar y soltar para agregar, eliminar o reordenar las columnas.</value>
+  </data>
+  <data name="UnusedColumns">
+    <value xml:space="preserve">Columnas sin usar</value>
+  </data>
+  <data name="UsedColumns">
+    <value xml:space="preserve">Columnas usadas</value>
+  </data>
+  <data name="ScanMultipleWindowTitle">
+    <value xml:space="preserve">Analizando archivos...</value>
+  </data>
+  <data name="UpdateSuccessDialogTitle">
+    <value xml:space="preserve">Correcto</value>
+  </data>
+  <data name="UpdateSuccessDialogMessage">
+    <value xml:space="preserve">VidCoder se ha actualizado con exito.</value>
+  </data>
+  <data name="AboutVidCoderDialogTitle">
+    <value xml:space="preserve">Acerca de VidCoder</value>
+  </data>
+  <data name="LicenseLabel">
+    <value xml:space="preserve">Licencia:</value>
+  </data>
+  <data name="Version">
+    <value xml:space="preserve">Version</value>
+  </data>
+  <data name="BasedOnHandBrake">
+    <value xml:space="preserve">Basado en HandBrake (svn {0})</value>
+  </data>
+  <data name="Copyright">
+    <value xml:space="preserve">© {0} Desarrolladores de VidCoder</value>
+  </data>
+  <data name="VersionFormat">
+    <value xml:space="preserve">{0} ({1})</value>
+    <comment>First is version, second is architecture. For example: 1.4.2 (x64)</comment>
+  </data>
+  <data name="BetaVersionFormat">
+    <value xml:space="preserve">{0} Beta ({1})</value>
+    <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
+  </data>
+  <data name="PresetNameDialogTitle">
+    <value xml:space="preserve">Nombre del Preset</value>
+  </data>
+  <data name="ChoosePresetName">
+    <value xml:space="preserve">Elija un nombre para el preset:</value>
+  </data>
+  <data name="ApplyUpdateDialogTitle">
+    <value xml:space="preserve">¿Aplicar la actualizacion?</value>
+  </data>
+  <data name="ApplyUpdateDialogMessage">
+    <value xml:space="preserve">Se ha descargado una actualizacion. ¿Desea aplicar ahora?</value>
+  </data>
+  <data name="ViewFullChangelog">
+    <value xml:space="preserve">Ver la lista completa de cambios</value>
+  </data>
+  <data name="DisableUpdatesButton">
+    <value xml:space="preserve">Desactivar las actualizaciones</value>
+  </data>
+</root>
