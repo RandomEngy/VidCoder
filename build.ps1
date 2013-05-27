@@ -170,6 +170,8 @@ CopyCommon ".\License.txt"
 
 # Languages
 CopyLanguage "hu"
+CopyLanguage "es"
+CopyLanguage "eu"
 
 
 # Create portable installer

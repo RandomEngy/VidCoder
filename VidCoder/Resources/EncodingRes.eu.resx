@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -118,273 +118,272 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
-    <value>Save</value>
+    <value>Gorde</value>
   </data>
   <data name="SaveAs" xml:space="preserve">
-    <value>Save As...</value>
+    <value>Gorde Honela...</value>
   </data>
   <data name="Revert" xml:space="preserve">
-    <value>Revert</value>
+    <value>Leheneratu</value>
   </data>
   <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x264 has a variety of algorithms to decide when to use B-frames and how many to use.
+    <value>x264-k algoritmo ugari ditu B-frameak noiz eta zenbat erabili erabakitzeko.
 
-Fast mode takes roughly the same amount of time no matter how many B-frames you specify.  However, while fast, its decisions are often suboptimal.
+Modu azkarrak gutxi-gorabehera denbora kopuru berdina hartzen du, ez dio axola zenbat B-frame adierazten dituzun. Horrela ere, azkarra bada ere, bere erabakiak sarri ez dira hoberenak.
 
-Optimal mode gets slower as the maximum number of B-Frames increases, but makes much more accurate decisions, especially when used with B-pyramid.</value>
+Modu hoberena astiroago egiten da gehinezko B-Frame zenbatekoa handitzean, baina erabaki askoz zehatzagoak hartzen ditu, bereziki B-piramidearekin erabiltzen denean.</value>
   </data>
   <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264 allows for two different prediction modes, spatial and temporal, in B-frames.
+    <value>H.264-k bi iragarpen modu ezberdin ahalbidetzen ditu, espazila eta tenporala, B-frametan.
 
-Spatial, the default, is almost always better, but temporal is sometimes useful too.
+Espaziala, berezkoa, hobea da gehienetan, baina tenporala batzuetan erabilgarria da ere.
 
-x264 can, at the cost of a small amount of speed (and accordingly for a small compression gain), adaptively select which is better for each particular frame.</value>
+x264-k ahal du, abiadura kopuru txiki baten ordainetan (eta konpresio irabazi txiki baten arabera), egokigarritasunez hautatu zein den hobea frame bereizi bakoitzarentzat.</value>
   </data>
   <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>Adaptive quantization controls how the encoder distributes bits across the frame.
-Higher values take more bits away from edges and complex areas to improve areas with finer detail.</value>
+    <value>Kuantizazio egokigarriak kodeatzaileak bitak framean zehar nola banatzen dituen agintzen du.
+Balio handiek bit gehiago hartzen dituzte hertzetatik eta eremu korapilotsuetatik eremuak hobetzeko xehetasun finagoarekin.</value>
   </data>
   <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>Mode decision picks from a variety of options to make its decision: this option chooses what options those are.  
-Fewer partitions to check means faster encoding, at the cost of worse decisions, since the best option might have been one that was turned off.</value>
+    <value>Modu erabakiak aukera ugariren artean hautatzen du bere erabakiak hartzeko: aukera honek zer aukera dagoen hautzen du.
+Egiaztatzeko zati gutxiagok kodeaketa  azkarragoa esanahi du, erabaki okerren ordainarekin, zeren erabaki hoberena eten denetako bat izan daitekeelako.</value>
   </data>
   <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>Sane values are ~2-5.  
-This specifies the maximum number of sequential B-frames that the encoder can use. 
- Large numbers generally won't help significantly unless Adaptive B-frames is set to Optimal.  
-Cel-animated source material and B-pyramid also significantly increase the usefulness of larger values. 
-Baseline profile, as required for iPods and similar devices, requires B-frames to be set to 0 (off).</value>
+    <value>Balio osantsuak dira ~2-5.  
+Honek kodeatzaileak jarraian erabili ditzakeen B-frame zenbateko gehiena adierazten du.
+Zenbaki handiek orokorrean ez dute askorik laguntzen B-frame Egokigarria hoberenean ezarrita ez badago.
+Cel-animatu iturburu materialak eta B-piramidalak ere balio handien erabilgarritasuna nabamen handitzen du.
+Ohinarrizko profila, beharrezkoa iPod eta antzeko gailuentzat, B-frameak 0-ean (gabe) ezarrita behar ditu.</value>
   </data>
   <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>After the encoder has done its work, it has a bunch of data that needs to be compressed losslessly, similar to ZIP or RAR. H.264 provides two options for this: CAVLC and CABAC.  CABAC decodes a lot slower but compresses significantly better (10-30%), especially at lower bitrates. If you're looking to minimize CPU requirements for video playback, disable this option. Baseline profile, as required for iPods and similar devices, requires CABAC to be disabled.</value>
+    <value>Kodeatzaileak bere lana egin ondoren, datu pilo bat ditu galera gabe konprimitu behar direnak, ZIP edo RAR antzera.
+H.264-k bi aukera eskaintzen ditu honetarako: CAVLC eta CABAC. CABAC-ek askoz astiroago dekodeatzen du baina nabarmen hobeto (%10-30) konprimitzen du, bereziki bitneurri txikietan. Bideo irakurketarako CPU beharrak gutxitzea bilatzen baduzu, ezgaitu aukera hau.
+Ohinarrizko profilak, iPod eta antzeko gailuetarako beharrezkoa, CABAC ezgaituta egotea behar du.</value>
   </data>
   <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>H.264 has a built-in deblocking filter that smooths out blocking artifacts after decoding each frame.  This not only improves visual quality, but also helps compression significantly. 
-The deblocking filter takes a lot of CPU power, so if you're looking to minimize CPU requirements for video playback, disable it.
+    <value>H.264-k desblokeaketa iragazki bat du barne-eraikita frame bakoitzaren dekodeaketaren ondoren zakartze blokeaketak lehuntzen dituena. Honek ez du ikus ontasuna bakarrik hobetzen, gainera konpresioan laguntza esangurutsua ematen du.
+Desblokeaketa iragazkiak CPU indar asko hartzen du, hortaz bideo irakurketarako CPU beharrak gutxitzearen bila bazabiltza, ezgaitu ezazu.
 
-The deblocking filter has two adjustable parameters, "strength" and "threshold". 
-The former controls how strong (or weak) the deblocker is, while the latter controls how many (or few)  edges it applies to. 
-Lower values mean less deblocking, higher values mean more deblocking. The default is 0 (normal strength) for both parameters.</value>
+Desblokeaketa iragazkia bi parametro zehazgarri ditu, "indarra" eta "muga". 
+Lehenak desblokeatzailearen indartsutasuna (edo ahultasuna) agintzen du, bigarrenak aldiz zenbat (edo batzueri) hertzeri ezartzen zaion agintzen du.
+Balio apalek desblokeaketa gutxiago esanahi dute, balio handiagoek desblokeaketa gehiago esanahi dute. Berezkoa 0 da (indar arrunta) bi parametroentzat.</value>
   </data>
   <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>The 8x8 transform is the single most useful feature of x264 in terms of compression-per-speed.  
-It improves compression by at least 5% at a very small speed cost and may provide an unusually high visual quality benefit compared to its compression gain.  
-However, it requires High Profile, which many devices may not support.</value>
+    <value>8x8 eraldaketa x264 ezaugarri erabilgarrienetako bat da konpresio-abiadura harremanaz hitz egiterakoan.
+Konpresioa gutxienez %5 hobetzen du abiadura oso txiki baten ordainarekin eta ezohiko ikus ontasun onura handi bat eskaini dezake bere konpresio irabaziarekin alderatuta.
+Horrela ere, Goi Profila behar du, badaitekena zenbait gailuk ez sostengatzea.</value>
   </data>
   <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>Controls the motion estimation method. Motion estimation is how the encoder estimates how each block of pixels in a frame has moved.  
-A better motion search method improves compression at the cost of speed.
+    <value>Mugimendu estimazio metodoa agintzen du. Mugimendu estimazioa kodeatzaileak frame batean pixel bloke bakoitza nola mugitu den nola estimatzen duen da.
+Mugimendu bilaketa metodo hobeago batek konpresioa hobetzen du abiaduraren ordainarekin.
 
-Diamond: performs an extremely fast and simple search using a diamond pattern.
+Diamantea: bilaketa oso azkar eta arrunt bat egiten du diamante eredua erabiliz.
 
-Hexagon: performs a somewhat more effective but slightly slower search using a hexagon pattern.
+Hexagonala: bilaketa zerbait eraginkorragoa egiten du baina apur bat astiroagoa hexagono eredua erabiliz.
 
-Uneven Multi-Hex: performs a very wide search using a variety of patterns, more accurately capturing complex motion.
+Multi-Hex Ezberdina: bilaketa oso zabal bat egiten du eredu ugari erabiliz, zehaztasun handiagoa mugimendu korapilotsuak hartzerakoan. 
 
-Exhaustive: performs a "dumb" search of every pixel in a wide area.  Significantly slower for only a small compression gain.
+Nekagarria: bilaketa "ergel" bat egiten du eremu zabal bateko pixel bakoitzean. Nabarmen astiroa konpresio irabazi txiki baterako.
 
-Transformed Exhaustive: Like exhaustive, but makes even more accurate decisions. Accordingly, somewhat slower, also for only a small improvement.</value>
+Nekagarri Eraldatua: nekagarria bezalakoa, baina erabaki zehatzagoak hartzen ditu. Hortaz, apur bat astiroagoa, eta baita hobekuntza txiki baterako.</value>
   </data>
   <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
-    <value>This is the distance x264 searches from its best guess at the motion of a block in order to try to find its actual motion.  
+    <value>Hau x264-k bloke baten mugimenduan bere uste hoberenean bilatzen duen hurruntasuna da honen egizko mugimendua aurkitzeko.
 
-The default is fine for most content, but extremely high motion video, especially at HD resolutions, may benefit from higher ranges, albeit at a high speed cost.
+Berezkoa ona da eduki gehienentzat, baina bideo mugimendu oso handiarekin, bereziki HD bereizmenetan, maila handiagoetatik onura atera dezake, baina abiadura handiaren ordainarekin. 
 
-Valid values are 4-16 for Diamond and Hexagon methods and 4-64 for other methods.</value>
+Baliozko balioak dira 4-16 Diamante eta Hexagonal metodoentzat eta 4-64 beste metodoentzat.</value>
   </data>
   <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x264 normally zeroes out nearly-empty data blocks to save bits to be better used for some other purpose in the video.  
-However, this can sometimes have slight negative effects on retention of subtle grain and dither.  
-Don't touch this unless you're having banding issues or other such cases where you are having trouble keeping fine noise.</value>
+    <value>x264-k arrunt hutsean jartzen ditu ia hutsik dauden datu blokeak bitak gordetzeko bideoko beste asmo batean hobeto erabiltzeko.
+Horrela ere, honek batzuetan eragin kaltegarri arin batzuk izan ditzake bihi sotilari eta ehundurari heusterakoan.
+Ez ikutu hau banda arazoak edo zaratari ongi heusteko arazoak dituzun kasuetan izan ezik.</value>
   </data>
   <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
-    <value>Psychovisual Rate Distortion means x264 tries to retain detail, for better quality to the human eye, 
-as opposed to trying to maximize quality the way a computer understands it, through signal-to-noise ratios that have trouble telling apart fine detail and noise.</value>
+    <value>Psikoikuspen Neurri Zakartzeak esanahi du x264 xehetasunari heusten saiatzen dela, giza begiaren ontasun hoberako, ontasuna gehiengoratzen saiatzearen aurka ordenagailu batek ulertzen duen bezala, xehetasuna eta zarata bereizteko arazoak dituzten seinale-zarata mailetan zehar.</value>
   </data>
   <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
-    <value>Psychovisual Trellis tries to retain more sharpness and detail, but can cause artifacting.
-It is considered experimental, which is why it's off by default. Good values are 0.1 to 0.2.</value>
+    <value>Psikoikuspen Trellisa garbitasun eta xehetasun gehiagori heusten saitzen da, baina zakartzea eragin dezake.
+Esperimentaltzat hartzen da, horregaitik dago berez ezgaituta. Balio onak 0.1 eta 0.2 artean dira.</value>
   </data>
   <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
-    <value>B-pyramid improves compression by creating a pyramidal structure (hence the name) of B-frames, allowing B-frames to 
-reference each other to improve compression.  
+    <value>B-piramideak konpresioa hobetzen du B-frame piramide egitura bat sortuz (hortik bere izena), beren arteko xehetasunerako B-frameak ahalbidetuz konpresioa hobetzeko.
 
-Requires Max B-frames greater than 1; optimal adaptive B-frames is strongly recommended for full compression benefit.</value>
+Geh. B-frameak 1 baino handiagoa behar du; B-frame egokigarri hoberena oso gomendatua da konpresio osoaren onurarako.</value>
   </data>
   <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
-    <value>Sane values are ~1-6.
+    <value>Balio osasuntsuak dira ~1-6.
 
-The more you add, the better the compression, but the slower the encode.
+Gehiago gehitzen baduzu, konpresioa hobea izango da, baina kodeaketa astiroagoa.
 
-Cel animation tends to benefit from more reference frames a lot more than film content.
+Cel animazioak xehetasun frame gehiagotik onura ateratzeko joera du, fima edukiek baino askoz gehiago.
 
-Note that many hardware devices have limitations on the number of supported reference frames, so if you're encoding for a handheld or standalone player, don't touch this unless you're absolutely sure you know what you're doing!</value>
+Ohartu hardware gailu askok mugak dituztela sostengatzen dituzten xehetasun frametan, hortaz irakurgailu eramangarri edo aske baterako kodeatzen ari bazara, ez ikutu hau zer egiten ari zaren erabat zihur ez bazaude!</value>
   </data>
   <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
-    <value>This setting controls both subpixel-precision motion estimation and mode decision methods.
+    <value>Ezarpen honek biak agintzen ditu azpipixel-zehaztasun mugimendu estimazioa eta modu erabakitze metodoak.
 
-Subpixel motion estimation is used for refining motion estimates beyond mere pixel accuracy, improving compression.
+Azpi-pixel mugimendu estimazioa mugimendu estimazioak pixel zehaztasun soiletik baino harago fintzeko erabiltzen da, konpresioa hobetuz.
 
-Mode decision is the method used to choose how to encode each block of the frame: a very important decision.
+Modu erabakia frame bloke bakoitza nola kodeatu hautzeko erabiltzen den metodoa da: erabaki oso garrantzitsu bat.
 
-SAD is the fastest method, followed by SATD, RD, RD refinement, and the slowest, QPRD.
-6 or higher is strongly recommended: Psy-RD, a very powerful psy optimization that helps retain detail, requires RD.
-10, the most powerful and slowest option, requires trellis=2.</value>
+SAD da metodo azkarrena, ondoren SATD, RD, RD fintasuna doaz, eta astiroena, QPRD da.
+6 edo handiagoa oso gomendatua da: Psi-RD, psi hobekuntza oso indartsua da xehetasunei heusten laguntzen duelarik, RD behar du.
+10, aukera indartsuena eta astiroena da, trellis=2 behar du.</value>
   </data>
   <data name="Advanced_TrellisToolTip" xml:space="preserve">
-    <value>Trellis fine-tunes the rounding of transform coefficients to squeeze out 3-5% more compression at the cost of some speed. 
-"Always" uses trellis not only during the main encoding process, but also during analysis, which improves compression even more, albeit at great speed cost. 
+    <value>Trellisek eraldaketa ezaugarrien borobiltzea fintzen du konpresioa %3-5 hobetzeko abiadura apur baten ordainarekin
+"Betik"-ek trellis erabiltzen du ez kodeaketa garapen nagusian zehar bakarrik, baina baita azterketan zehar, honek konpresioa hare gehiago hobetzen du, abiadura ordain handi batekin.
 
-Trellis costs more speed at higher bitrates.</value>
+Trellisek abiadura ordain handiagoa du bitneurri handietan.</value>
   </data>
   <data name="Advanced_WeightPToolTip" xml:space="preserve">
-    <value>Performs extra analysis to decide upon weighting parameters for each frame.  
-This improves overall compression slightly and improves the quality of fades greatly. 
-Baseline profile, as required for iPods and similar devices, requires weighted P-frame prediction to be disabled.  
-Note that some devices and players, even those that support Main Profile, 
-may have problems with Weighted P-frame prediction: the Apple TV is completely incompatible with it, for example.</value>
+    <value>Gain azterketak egiten ditu frame bakoitzaren aztapen parametroak erabakitzeko.
+Honek konpresioa orokorra apur bat hobetzen du eta hutsaltasun ontasuna asko hobetzen du.
+Ohinarrizko profilak, iPod eta antzeko gailuetarako beharrezkoa denak, P-frame iragarpen aztapena ezgaituta egotea behar du.
+Ohartu zenbait gailu eta irakurgailuk, baita Profil Nagusia sostengatzen dutenak, arazoak izan ditzaketela P-frame iragarpen aztapenarekin: adibidez, Apple TV erabat bateraezina da berarekin.</value>
   </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
-    <value>Dynamic Range Compression. Valid values are 0-4.
+    <value>Maila Dinamiko Konpresioa. Baliozko balioak dira 0-4.
 
-For source audio that has a wide dynamic range (very loud and very soft sequences), DRC allows you to "compress" the range by making loud sections softer and soft sections louder.</value>
+Maila dinamiko zabala duen audio iturburu baterako (sekuentzia oso ozenak eta oso bigunak), GZD-k maila hau "konprimitzea" ahalbidetzen dizu zati ozenak bigunagoak eta zati bigunak ozenagoak egiteko.</value>
   </data>
   <data name="Audio_GainToolTip" xml:space="preserve">
-    <value>Amplify or attenuate audio before encoding. Valid values are -20 to +20 dB.</value>
+    <value>Handitu edo arindu audioa kodeatu aurretik. Baliozko balioak dira -20 eta +20 dB artean.</value>
   </data>
   <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
-    <value>Include chapter markers from the input video in the encoded video.</value>
+    <value>Barneratu atal markatzaileak sarrera bideotik kodeatutako bideoan.</value>
   </data>
   <data name="IPod5GSupportToolTip" xml:space="preserve">
-    <value>Applies a marker to the file that older iPods require before they'll allow H.264 video to sync.</value>
+    <value>Agiriari iPod zaharrek H.264 bideoa aldiberetzeko behar duten markatzaile bat ezartzen dio.</value>
   </data>
   <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Allows files over 4GB. When enabled, uses 64-bit numbers in encoding. Some devices such as the iPod and PS3 are incompatible with this option.</value>
+    <value>4GB baino gehiagoko agiriak ahalbidetzen ditu, 64-biteko zenbakiak erabiltzen ditu kodeaketan. iPod eta PS3 bezalako zenbait gailu bateraezinak dira aukera honekin.</value>
   </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
-    <value>Manually specify a Pixel Aspect Ratio.</value>
+    <value>Eskuz adierazi Pixel Ikuspegi Maila.</value>
   </data>
   <data name="Video_QualityTargetToolTip" xml:space="preserve">
-    <value>Set the desired quality factor. The scale used by each video encoder is different.</value>
+    <value>Ezarri desiratutako ontasun ezaugarria. Bideo kodeatzaile bakoitzak erabiltzen duen neurria ezberdina da.</value>
   </data>
   <data name="WebOptimizedToolTip" xml:space="preserve">
-    <value>Arrange file to play better as a progressive download.</value>
+    <value>Antolatu agiria hobeto irakurtzeko jeisketa aurrerakor bat bezala.</value>
   </data>
   <data name="X264PresetToolTip" xml:space="preserve">
-    <value>Change options to trade off compression efficiency against encoding speed. If you specify a preset, the changes it makes will be applied before all other parameters are applied.</value>
+    <value>Aldatu aukerak konpresio eraginkortasuna kodeaketa abiduraren aurka ezgaitzeko. Aurrezarpen bat adierazten baduzu, aldaketak ezarritako beste parametro guztien aurretik ezarriko dira.</value>
   </data>
   <data name="X264ProfileToolTip" xml:space="preserve">
-    <value>Limit the profile of the output stream. If you specify a profile, it overrides all other settings, so if you use it, you will be guaranteed a compatible stream.
+    <value>Mugatu profila irtera jarioara. Profil bat adierazten baduzu, honek beste ezarpen guztiak ezeztatzen ditu, hortaz erabiltzen baduzu, jario bateragarri bermatu bat izango duzu..
 
-You should set this if you know your playback device only supports a certain profile.</value>
+Hau ezarri beharra duzu zure irakurketa gailuak profil zehatz bat bakarrik sostengatzen duela jakinez gero.</value>
   </data>
   <data name="X264TuneToolTip" xml:space="preserve">
-    <value>Tune options to further optimize them for your input content. If you specify a tuning, the changes will be applied after the Preset but before all other parameters.</value>
+    <value>Sintonizazio aukerak zure sarrera edukiarekin gehiago egokitzeko. Sintonizazio bat adierazten baduzu, aldaketak Aurrezarpenaren ondoren baina beste parametro guztien aurretik ezarriko dira.</value>
   </data>
   <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>The desired display width of the video. Other parameters such as the Pixel Aspect Ratio will be changed to acheive this.</value>
+    <value>Desiraturiko bideoaren erakuspen zabalera. Beste parametro batzuk Pixel Ikuspegi Maila bezalakoak aldatuko dira hau lortzeko.</value>
   </data>
   <data name="ContainerLabel" xml:space="preserve">
-    <value>Container:</value>
+    <value>Edukiontzia:</value>
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
-    <value>Extension:</value>
+    <value>Luzapena:</value>
   </data>
   <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Large file size</value>
+    <value>Agiri handi neurria</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
-    <value>Web optimized</value>
+    <value>Web egokitzapena</value>
   </data>
   <data name="Ipod5GSupportCheckBox" xml:space="preserve">
-    <value>iPod 5G support</value>
+    <value>iPod 5G sostengua</value>
   </data>
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
-    <value>Include chapter markers</value>
+    <value>Barneratu atal markatzaileak</value>
   </data>
   <data name="TabHeader_Picture" xml:space="preserve">
-    <value>Picture</value>
+    <value>Irudia</value>
   </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
-    <value>Video Filters</value>
+    <value>Bideo Iragazkiak</value>
   </data>
   <data name="TabHeader_Video" xml:space="preserve">
-    <value>Video</value>
+    <value>Bideoa</value>
   </data>
   <data name="TabHeader_Audio" xml:space="preserve">
-    <value>Audio</value>
+    <value>Audioa</value>
   </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>Advanced</value>
+    <value>Aurreratua</value>
   </data>
   <data name="Rename" xml:space="preserve">
-    <value>Rename</value>
+    <value>Berrizendatu</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Input</value>
+    <value>Sarrera</value>
   </data>
   <data name="AutoCaption" xml:space="preserve">
-    <value>(auto)</value>
+    <value>(berez)</value>
   </data>
   <data name="NoneCaption" xml:space="preserve">
-    <value>(none)</value>
+    <value>(ezer ez)</value>
   </data>
   <data name="StorageResolutionLabel" xml:space="preserve">
-    <value>Storage Resolution:</value>
+    <value>Biltegiratze Bereizmena:</value>
   </data>
   <data name="PixelAspectRatioLabel" xml:space="preserve">
-    <value>Pixel Aspect Ratio:</value>
+    <value>Pixel Ikuspegi Maila:</value>
   </data>
   <data name="DisplayResolutionLabel" xml:space="preserve">
-    <value>Display Resolution:</value>
+    <value>Erakuspen Bereizmena:</value>
   </data>
   <data name="SizingLabel" xml:space="preserve">
-    <value>Sizing</value>
+    <value>Neurriraketa</value>
   </data>
   <data name="WidthLabel" xml:space="preserve">
-    <value>Width:</value>
+    <value>Zabal:</value>
   </data>
   <data name="HeightLabel" xml:space="preserve">
-    <value>Height:</value>
+    <value>Garai:</value>
   </data>
   <data name="MaxWidthLabel" xml:space="preserve">
-    <value>Max Width:</value>
+    <value>Geh. Zabalera:</value>
   </data>
   <data name="MaxHeightLabel" xml:space="preserve">
-    <value>Max Height:</value>
+    <value>Geh. Garaiera:</value>
   </data>
   <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>Keep Aspect Ratio</value>
+    <value>Heutsi Ikuspegi Mailari</value>
   </data>
   <data name="AnamorphicLabel" xml:space="preserve">
-    <value>Anamorphic:</value>
+    <value>Anamorfikoa:</value>
   </data>
   <data name="ModulusLabel" xml:space="preserve">
-    <value>Modulus:</value>
+    <value>Moduloak:</value>
   </data>
   <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Display Width:</value>
+    <value>Erakuspen Zabalera:</value>
   </data>
   <data name="PixelAspectRatioRadioButton" xml:space="preserve">
-    <value>Pixel Aspect Ratio:</value>
+    <value>Pixel Ikuspegi Maila:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
-    <value>Output</value>
+    <value>Irteera</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
-    <value>Cropping</value>
+    <value>Mozketa</value>
   </data>
   <data name="Top" xml:space="preserve">
-    <value>Top</value>
+    <value>Goian</value>
   </data>
   <data name="Left" xml:space="preserve">
-    <value>Left</value>
+    <value>Ezker</value>
   </data>
   <data name="Bottom" xml:space="preserve">
-    <value>Bottom</value>
+    <value>Behean</value>
   </data>
   <data name="Right" xml:space="preserve">
-    <value>Right</value>
+    <value>Eskuin</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
@@ -393,112 +392,112 @@ You should set this if you know your playback device only supports a certain pro
     <value>Decomb:</value>
   </data>
   <data name="DeinterlaceLabel" xml:space="preserve">
-    <value>Deinterlace:</value>
+    <value>Ez-elkarlotura:</value>
   </data>
   <data name="DenoiseLabel" xml:space="preserve">
-    <value>Denoise:</value>
+    <value>Zaratakentzea:</value>
   </data>
   <data name="DeblockLabel" xml:space="preserve">
-    <value>Deblock:</value>
+    <value>Desblokeaketa:</value>
   </data>
   <data name="GrayscaleCheckBox" xml:space="preserve">
-    <value>Grayscale encoding</value>
+    <value>Urdinabar kodeaketa</value>
   </data>
   <data name="TypeLabel" xml:space="preserve">
-    <value>Type:</value>
+    <value>Mota:</value>
   </data>
   <data name="ShortFramerateLabel" xml:space="preserve">
-    <value>Framerate:</value>
+    <value>Frameneurria:</value>
   </data>
   <data name="CodecLabel" xml:space="preserve">
-    <value>Codec:</value>
+    <value>Kodeka:</value>
   </data>
   <data name="FramerateLabel" xml:space="preserve">
-    <value>Framerate (FPS):</value>
+    <value>Frameneurria (FS-ko):</value>
   </data>
   <data name="ConstantFramerateRadioButton" xml:space="preserve">
-    <value>Constant Framerate</value>
+    <value>Frameneurri Aldagaitza</value>
   </data>
   <data name="Quality" xml:space="preserve">
-    <value>Quality</value>
+    <value>Ontasuna</value>
   </data>
   <data name="TwoPassEncodingCheckBox" xml:space="preserve">
-    <value>2-pass Encoding</value>
+    <value>2-pasaldiko Kodeaketa</value>
   </data>
   <data name="TurboFirstPassCheckBox" xml:space="preserve">
-    <value>Turbo first Pass</value>
+    <value>Lehen Pasaldia Turboa</value>
   </data>
   <data name="TargetSizeRadioButton" xml:space="preserve">
-    <value>Target Size (MB)</value>
+    <value>Xede Neurria (MB)</value>
   </data>
   <data name="AverageBitrateRadioButton" xml:space="preserve">
-    <value>Avg Bitrate (kbps)</value>
+    <value>Bataz-best. Bitneurria (kbs-ko)</value>
   </data>
   <data name="ConstantQualityRadioButton" xml:space="preserve">
-    <value>Constant Quality</value>
+    <value>Ontasun Aldagaitza</value>
   </data>
   <data name="X264BasicSettings" xml:space="preserve">
-    <value>x264 Basic Settings</value>
+    <value>x264 Ohinarrizko Ezarpenak</value>
   </data>
   <data name="ProfileLabel" xml:space="preserve">
-    <value>Profile:</value>
+    <value>Profila:</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Preset:</value>
+    <value>Aurrezarpena:</value>
   </data>
   <data name="TuneLabel" xml:space="preserve">
-    <value>Tune:</value>
+    <value>Sintonizazioa:</value>
   </data>
   <data name="Profile_Baseline" xml:space="preserve">
-    <value>Baseline</value>
+    <value>Ohinarrizkoa</value>
   </data>
   <data name="Profile_Main" xml:space="preserve">
-    <value>Main</value>
+    <value>Nagusia</value>
   </data>
   <data name="Profile_High" xml:space="preserve">
-    <value>High</value>
+    <value>Handia</value>
   </data>
   <data name="Preset_UltraFast" xml:space="preserve">
-    <value>Ultra Fast</value>
+    <value>Ultra Azkarra</value>
   </data>
   <data name="Preset_SuperFast" xml:space="preserve">
-    <value>Super Fast</value>
+    <value>Super Azkarra</value>
   </data>
   <data name="Preset_VeryFast" xml:space="preserve">
-    <value>Very Fast</value>
+    <value>Oso Azkarra</value>
   </data>
   <data name="Preset_Faster" xml:space="preserve">
-    <value>Faster</value>
+    <value>Azkarragoa</value>
   </data>
   <data name="Preset_Fast" xml:space="preserve">
-    <value>Fast</value>
+    <value>Azkarra</value>
   </data>
   <data name="Preset_Medium" xml:space="preserve">
-    <value>Medium (Default)</value>
+    <value>Ertaina (Berezkoa)</value>
   </data>
   <data name="Preset_Slow" xml:space="preserve">
-    <value>Slow</value>
+    <value>Astiroa</value>
   </data>
   <data name="Preset_Slower" xml:space="preserve">
-    <value>Slower</value>
+    <value>Astiroagoa</value>
   </data>
   <data name="Preset_VerySlow" xml:space="preserve">
-    <value>Very Slow</value>
+    <value>Oso Astiroa</value>
   </data>
   <data name="Preset_Placebo" xml:space="preserve">
-    <value>Placebo</value>
+    <value>Plazeboa</value>
   </data>
   <data name="Tune_Film" xml:space="preserve">
-    <value>Film</value>
+    <value>Filma</value>
   </data>
   <data name="Tune_Animation" xml:space="preserve">
-    <value>Animation</value>
+    <value>Animazioa</value>
   </data>
   <data name="Tune_Grain" xml:space="preserve">
-    <value>Grain</value>
+    <value>Garaua</value>
   </data>
   <data name="Tune_StillImage" xml:space="preserve">
-    <value>Still Image</value>
+    <value>Irudi Finkoa</value>
   </data>
   <data name="Tune_Psnr" xml:space="preserve">
     <value>PSNR</value>
@@ -507,106 +506,106 @@ You should set this if you know your playback device only supports a certain pro
     <value>SSIM</value>
   </data>
   <data name="Tune_FastDecode" xml:space="preserve">
-    <value>Fast Decode</value>
+    <value>Dekodeaketa Azkarra</value>
   </data>
   <data name="Tune_ZeroLatency" xml:space="preserve">
-    <value>Zero Latency</value>
+    <value>Zero Latentzia</value>
   </data>
   <data name="FpsFormat" xml:space="preserve">
-    <value>{0:0.###} FPS</value>
+    <value>{0:0.###} FS-ko</value>
   </data>
   <data name="CfrSameAsSourceToolTip" xml:space="preserve">
-    <value>Uses the listed framerate from the source title for a constant framerate.</value>
+    <value>Zerrendatutako frameneurria erabiltzen du iturburu izenburutik frameneurri aldagaitz baterako.</value>
   </data>
   <data name="CfrToolTip" xml:space="preserve">
-    <value>Use a constant frame rate.</value>
+    <value>Erabili frame neurri aldagaitza.</value>
   </data>
   <data name="VfrSameAsSourceToolTip" xml:space="preserve">
-    <value>Allow a variable framerate. If the source has a variable frame rate, this setting will preserve it. Note that some players do not support variable frame rates.</value>
+    <value>Frameneurri aldakorra ahalbidetzen du. Iturburuak frame neurri aldakorra badu, ezarpen honek horri heutsiko dio. Ohartu zenbait irakurgailuk ez dutela frame neurri aldakorrik sostengatzen.</value>
   </data>
   <data name="VfrPeakFramerateToolTip" xml:space="preserve">
-    <value>Allow a variable framerate and use the specified rate as a peak. If the source has a variable frame rate, this setting will preserve it. Note that some players do not support variable frame rates.</value>
+    <value>Frameneurri aldakorra ahalbidetzen du eta adierazitako neurria erabiltzen du gailur bezala. Iturburuak frame neurri aldakorra badu, ezarpen honek horri heutsiko dio. Ohartu zenbait irakurgailuk ez dutela frame neurri aldakorrik sostengatzen.</value>
   </data>
   <data name="VfrChoice" xml:space="preserve">
-    <value>Variable Framerate</value>
+    <value>Frameneurri Aldakorra</value>
   </data>
   <data name="VfrPeakChoice" xml:space="preserve">
-    <value>Peak Framerate (VFR)</value>
+    <value>Gailur Frameneurria (FMA)</value>
   </data>
   <data name="HighQuality" xml:space="preserve">
-    <value>High quality</value>
+    <value>Ontasun handia</value>
   </data>
   <data name="LowQuality" xml:space="preserve">
-    <value>Low quality</value>
+    <value>Ontasun apala</value>
   </data>
   <data name="SameAsSource" xml:space="preserve">
-    <value>Same as source</value>
+    <value>Iturburua bezala</value>
   </data>
   <data name="AddAudioEncodingButton" xml:space="preserve">
-    <value>Add audio encoding</value>
+    <value>Gehitu audio kodeaketa</value>
   </data>
   <data name="NoTracksPlaceholder" xml:space="preserve">
-    <value>(No tracks)</value>
+    <value>(Biderik ez)</value>
   </data>
   <data name="TargetStream" xml:space="preserve">
-    <value>Target Stream</value>
+    <value>Xede Jarioa</value>
   </data>
   <data name="MixdownLabel" xml:space="preserve">
-    <value>Mixdown:</value>
+    <value>Behera-nahask:</value>
   </data>
   <data name="SampleRateLabel" xml:space="preserve">
-    <value>Sample Rate:</value>
+    <value>Lagin Neurria:</value>
   </data>
   <data name="BitrateLabel" xml:space="preserve">
-    <value>Bitrate:</value>
+    <value>Bitneurria:</value>
   </data>
   <data name="CompressionLabel" xml:space="preserve">
-    <value>Compression:</value>
+    <value>Konpresioa:</value>
   </data>
   <data name="GainLabel" xml:space="preserve">
-    <value>Gain (dB):</value>
+    <value>Irabazia (dB):</value>
   </data>
   <data name="DrcLabel" xml:space="preserve">
-    <value>DRC:</value>
+    <value>GZD:</value>
   </data>
   <data name="NameLabel" xml:space="preserve">
-    <value>Name:</value>
+    <value>Izena:</value>
   </data>
   <data name="AscendingQualityToolTip" xml:space="preserve">
-    <value>High values mean high quality.</value>
+    <value>Balio handiek ontasun handia esanahi dute.</value>
   </data>
   <data name="DescendingQualityToolTip" xml:space="preserve">
-    <value>Low values mean high quality.</value>
+    <value>Balio apalek ontasun apala esanahi dute.</value>
   </data>
   <data name="AudioQualityToolTip" xml:space="preserve">
-    <value>The audio quality target. {0} Valid values are from {1} to {2}.</value>
+    <value>Xede audio ontasuna. {0} Baliozko balioak dira {1} eta {2} artean.</value>
   </data>
   <data name="AscendingCompressionToolTip" xml:space="preserve">
-    <value>High values mean high compression: better quality/smaller size but longer encode times.</value>
+    <value>Balio handiek konpresio handia esanahi dute: ontasun hobea/neurri txikiagoa baina kodeaketa denbora luzeak.</value>
   </data>
   <data name="DescendingCompressionToolTip" xml:space="preserve">
-    <value>Low values mean high compression: better quality/smaller size but longer encode times.</value>
+    <value>Balio apalek konpresio handia esanahi dute: ontasun hobea/neurri txikiagoa baina kodeaketa denbora luzeak.</value>
   </data>
   <data name="AudioCompressionToolTip" xml:space="preserve">
-    <value>The amount of compression to apply. {0} Valid values are from {1} to {2}.</value>
+    <value>Ezartzeko konpresio kopurua. {0} Baliozko balioak dira {1} eta {2} artean.</value>
   </data>
   <data name="AudioEncoder_copy" xml:space="preserve">
-    <value>Auto Passthrough</value>
+    <value>Berez Igaropena</value>
   </data>
   <data name="AudioEncoder_copy_aac" xml:space="preserve">
-    <value>AAC Passthrough</value>
+    <value>AAC Igaropena</value>
   </data>
   <data name="AudioEncoder_copy_ac3" xml:space="preserve">
-    <value>AC3 Passthrough</value>
+    <value>AC3 Igaropena</value>
   </data>
   <data name="AudioEncoder_copy_dts" xml:space="preserve">
-    <value>DTS Passthrough</value>
+    <value>DTS Igaropena</value>
   </data>
   <data name="AudioEncoder_copy_dtshd" xml:space="preserve">
-    <value>DTS-HD Passthrough</value>
+    <value>DTS-HD Igaropena</value>
   </data>
   <data name="AudioEncoder_copy_mp3" xml:space="preserve">
-    <value>MP3 Passthrough</value>
+    <value>MP3 Igaropena</value>
   </data>
   <data name="AudioEncoder_faac" xml:space="preserve">
     <value>AAC (FAAC)</value>
@@ -628,10 +627,10 @@ You should set this if you know your playback device only supports a certain pro
     <value>Vorbis (Vorbis)</value>
   </data>
   <data name="Mixdown_5point1" xml:space="preserve">
-    <value>5.1 Channels</value>
+    <value>5.1 Bide</value>
   </data>
   <data name="Mixdown_5_2_lfe" xml:space="preserve">
-    <value>7.1 (5F/2R/LFE)</value>
+    <value>7.1 (5AU/2AT/BME)</value>
   </data>
   <data name="Mixdown_dpl1" xml:space="preserve">
     <value>Dolby Surround</value>
@@ -640,130 +639,130 @@ You should set this if you know your playback device only supports a certain pro
     <value>Dolby Pro Logic II</value>
   </data>
   <data name="Mixdown_left_only" xml:space="preserve">
-    <value>Mono (Left Only)</value>
+    <value>Monoa (Ezkerra Bakarrik)</value>
   </data>
   <data name="Mixdown_mono" xml:space="preserve">
-    <value>Mono</value>
+    <value>Monoa</value>
   </data>
   <data name="Mixdown_right_only" xml:space="preserve">
-    <value>Mono (Right Only)</value>
+    <value>Monoa (Eskuina Bakarrik)</value>
   </data>
   <data name="Mixdown_stereo" xml:space="preserve">
-    <value>Stereo</value>
+    <value>Estereoa</value>
   </data>
   <data name="Bitrate" xml:space="preserve">
-    <value>Bitrate</value>
+    <value>Bitneurria</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Encoding</value>
+    <value>Kodeaketa</value>
   </data>
   <data name="ReferenceFramesLabel" xml:space="preserve">
-    <value>Reference Frames:</value>
+    <value>Xehetasun Frameak:</value>
   </data>
   <data name="MaxBFramesLabel" xml:space="preserve">
-    <value>Maximum B-Frames:</value>
+    <value>Gehienezko B-Frameak:</value>
   </data>
   <data name="CabacLabel" xml:space="preserve">
     <value>CABAC:</value>
   </data>
   <data name="EightByEightTransformLabel" xml:space="preserve">
-    <value>8x8 Transform:</value>
+    <value>8x8 Eraldaketa:</value>
   </data>
   <data name="WeightedPFramesLabel" xml:space="preserve">
-    <value>Weighted P-Frames:</value>
+    <value>P-Frame Aztatuak:</value>
   </data>
   <data name="PyramidalBFramesLabel" xml:space="preserve">
-    <value>Pyramidal B-Frames:</value>
+    <value>B-Frame Piramidalak:</value>
   </data>
   <data name="NoDctDecimateLabel" xml:space="preserve">
-    <value>No DCT-Decimate:</value>
+    <value>Ez DCT-Hamarrendua:</value>
   </data>
   <data name="Analysis" xml:space="preserve">
-    <value>Analysis</value>
+    <value>Azterketa</value>
   </data>
   <data name="AdaptiveBFramesLabel" xml:space="preserve">
-    <value>Adaptive B-Frames:</value>
+    <value>B-Frame Egokigarriak:</value>
   </data>
   <data name="AdaptiveDirectModeLabel" xml:space="preserve">
-    <value>Adaptive Direct Mode:</value>
+    <value>Zuzeneko Modu Egokigarria:</value>
   </data>
   <data name="MotionEstimationMethodLabel" xml:space="preserve">
-    <value>Motion Estimation Method:</value>
+    <value>Mugimendu Estimazio Metodoa:</value>
   </data>
   <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
-    <value>Subpixel Motion Estimation:</value>
+    <value>Azpi-pixel Mugimendu Estimazioa:</value>
   </data>
   <data name="MotionEstimationRangeLabel" xml:space="preserve">
-    <value>Motion Estimation Range:</value>
+    <value>Mugimendu Estimazio Maila:</value>
   </data>
   <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
-    <value>Adaptive Quantization Strength:</value>
+    <value>Kuantizazio Indar Egokigarria:</value>
   </data>
   <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
-    <value>Psychovisual Rate Distortion:</value>
+    <value>Psikoikuspen Neurri Zakartzea:</value>
   </data>
   <data name="PsychovisualTrellisLabel" xml:space="preserve">
-    <value>Psychovisual Trellis:</value>
+    <value>Psikoikuspen Trellis:</value>
   </data>
   <data name="DeblockingLabel" xml:space="preserve">
-    <value>Deblocking:</value>
+    <value>Desblokeaketa:</value>
   </data>
   <data name="PartitionTypeLabel" xml:space="preserve">
-    <value>Partition Type:</value>
+    <value>Zatiketa Mota:</value>
   </data>
   <data name="TrellisLabel" xml:space="preserve">
     <value>Trellis:</value>
   </data>
   <data name="OptionsString" xml:space="preserve">
-    <value>Options String</value>
+    <value>Aukeren Katea</value>
   </data>
   <data name="PyramidalBFrames_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Ez</value>
   </data>
   <data name="PyramidalBFrames_Normal" xml:space="preserve">
-    <value>Normal</value>
+    <value>Arrunta</value>
   </data>
   <data name="PyramidalBFrames_Strict" xml:space="preserve">
-    <value>Strict</value>
+    <value>Zorrotza</value>
   </data>
   <data name="AdaptiveBFrames_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Ez</value>
   </data>
   <data name="AdaptiveBFrames_Fast" xml:space="preserve">
-    <value>Fast</value>
+    <value>Azkarra</value>
   </data>
   <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
-    <value>Optimal</value>
+    <value>Hoberena</value>
   </data>
   <data name="DirectPrediction_None" xml:space="preserve">
-    <value>None</value>
+    <value>Ezer ez</value>
   </data>
   <data name="DirectPrediction_Spatial" xml:space="preserve">
-    <value>Spatial</value>
+    <value>Espaziala</value>
   </data>
   <data name="DirectPrediction_Temporal" xml:space="preserve">
-    <value>Temporal</value>
+    <value>Tenporala</value>
   </data>
   <data name="DirectPrediction_Automatic" xml:space="preserve">
-    <value>Automatic</value>
+    <value>Berezgaitasunez</value>
   </data>
   <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
-    <value>Diamond</value>
+    <value>Diamantea</value>
   </data>
   <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
-    <value>Hexagon</value>
+    <value>Hexagonala</value>
   </data>
   <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
-    <value>Uneven Multi-Hexagon</value>
+    <value>Multi-Hexagonal Ezberdina</value>
   </data>
   <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
-    <value>Exhaustive</value>
+    <value>Nekagarria</value>
   </data>
   <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
-    <value>Transformed Exhaustive</value>
+    <value>Nekagarri Eraldatua</value>
   </data>
   <data name="SubpixelMotionEstimation_0" xml:space="preserve">
-    <value>0: SAD, no subpel (super fast!)</value>
+    <value>0: SAD, ez subpel (super azkarra!)</value>
   </data>
   <data name="SubpixelMotionEstimation_1" xml:space="preserve">
     <value>1: SAD, qpel</value>
@@ -775,66 +774,64 @@ You should set this if you know your playback device only supports a certain pro
     <value>3: SATD, multi-qpel</value>
   </data>
   <data name="SubpixelMotionEstimation_4" xml:space="preserve">
-    <value>4: SATD, qpel on all</value>
+    <value>4: SATD, qpel guztian</value>
   </data>
   <data name="SubpixelMotionEstimation_5" xml:space="preserve">
-    <value>5: SATD, multi-qpel on all</value>
+    <value>5: SATD, multi-qpel guztian</value>
   </data>
   <data name="SubpixelMotionEstimation_6" xml:space="preserve">
-    <value>6: RD in I/P-frames</value>
+    <value>6: RD I/P-frametan</value>
   </data>
   <data name="SubpixelMotionEstimation_7" xml:space="preserve">
-    <value>7: RD in all frames</value>
+    <value>7: RD frame guztietan</value>
   </data>
   <data name="SubpixelMotionEstimation_8" xml:space="preserve">
-    <value>8: RD refine in I/P-frames</value>
+    <value>8: RD findu I/P-frametan</value>
   </data>
   <data name="SubpixelMotionEstimation_9" xml:space="preserve">
-    <value>9: RD refine in all frames</value>
+    <value>9: RD findu frame guztietan</value>
   </data>
   <data name="SubpixelMotionEstimation_10" xml:space="preserve">
-    <value>10: QPRD in all frames</value>
+    <value>10: QPRD frame guztietan</value>
   </data>
   <data name="SubpixelMotionEstimation_11" xml:space="preserve">
-    <value>11: No early terminations in analysis</value>
+    <value>11: Ez dago amaiera goiztiarrik azterketan</value>
   </data>
   <data name="Analysis_None" xml:space="preserve">
-    <value>None</value>
+    <value>Ezer ez</value>
   </data>
   <data name="Analysis_Some" xml:space="preserve">
-    <value>Some</value>
+    <value>Zerbait</value>
   </data>
   <data name="Analysis_All" xml:space="preserve">
-    <value>All</value>
+    <value>Dena</value>
   </data>
   <data name="Trellis_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Ez</value>
   </data>
   <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>Encode Only</value>
+    <value>Kodeaketa Bakarrik</value>
   </data>
   <data name="Trellis_Always" xml:space="preserve">
-    <value>Always</value>
+    <value>Betik</value>
   </data>
   <data name="DefaultFormat" xml:space="preserve">
-    <value>{0} (Default)</value>
+    <value>{0} (Berezkoa)</value>
   </data>
   <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Preset: {0}</value>
+    <value>Aurrezarp.: {0}</value>
   </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
-    <value>Additional advanced x264 options:</value>
+    <value>x264 aukera aurreratu gehigarriak:</value>
   </data>
   <data name="H264LevelToolTip" xml:space="preserve">
-    <value>Sets and ensures compliance with the specified H.264 level.
-
-Overrides all other settings.</value>
+    <value>Adierazitako H.264 maila ezarri eta betetzea zihurtatzen du.</value>
   </data>
   <data name="Profile_High444" xml:space="preserve">
-    <value>High 4:4:4 Predictive</value>
+    <value>Handia 4:4:4 Iragarlea</value>
   </data>
   <data name="VideoCodecLabel" xml:space="preserve">
-    <value>Video Codec:</value>
+    <value>Bideo Kodeka:</value>
   </data>
   <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
     <value>MPEG-2 (Libav)</value>
@@ -846,55 +843,55 @@ Overrides all other settings.</value>
     <value>H.264 (x264)</value>
   </data>
   <data name="Analysis_Most" xml:space="preserve">
-    <value>Most</value>
+    <value>Gehiago</value>
   </data>
   <data name="AdvancedQuery" xml:space="preserve">
-    <value>Advanced Query</value>
+    <value>Eskabide Aurreratua</value>
   </data>
   <data name="Video" xml:space="preserve">
-    <value>Video</value>
+    <value>Bideoa</value>
   </data>
   <data name="X264Settings" xml:space="preserve">
-    <value>x264 Settings</value>
+    <value>x264 Ezarpenak</value>
   </data>
   <data name="X264PresetLabel" xml:space="preserve">
-    <value>x264 Preset:</value>
+    <value>x264 Aurrezarpena:</value>
   </data>
   <data name="X264TuneLabel" xml:space="preserve">
-    <value>x264 Tune:</value>
+    <value>x264 Sintonizazioa:</value>
   </data>
   <data name="H264ProfileLabel" xml:space="preserve">
-    <value>H.264 Profile:</value>
+    <value>H.264 Profila:</value>
   </data>
   <data name="H264LevelLabel" xml:space="preserve">
-    <value>H.264 Level:</value>
+    <value>H.264 Maila:</value>
   </data>
   <data name="MoreSettingsLabel" xml:space="preserve">
-    <value>More Settings:</value>
+    <value>Ezarpen Gehiago:</value>
   </data>
   <data name="Track" xml:space="preserve">
-    <value>Track</value>
+    <value>Bidea</value>
   </data>
   <data name="Source" xml:space="preserve">
-    <value>Source</value>
+    <value>Iturburua</value>
   </data>
   <data name="Encoder" xml:space="preserve">
-    <value>Encoder</value>
+    <value>Kodeatzailea</value>
   </data>
   <data name="ChannelLayout" xml:space="preserve">
-    <value>Channel Layout</value>
+    <value>Bide Antolakuntza</value>
   </data>
   <data name="SampleRate" xml:space="preserve">
-    <value>Sample Rate</value>
+    <value>Lagin Neurria</value>
   </data>
   <data name="Modifiers" xml:space="preserve">
-    <value>Modifiers</value>
+    <value>Aldatzaileak</value>
   </data>
   <data name="PassthroughTrackDroppedWarning" xml:space="preserve">
-    <value>Passthrough does not work for this input codec; the track has been dropped.</value>
+    <value>Igaropenak ez du lanik egiten sarrera kodek honekin; bidea erori egin da.</value>
   </data>
   <data name="DtsMp4Warning" xml:space="preserve">
-    <value>Few players support playback of DTS audio in MP4 containers. MKV is recommended for DTS audio.</value>
+    <value>Irakurgailu gutxik sostengatzen dute DTS audio irakurketa MP4 edukiontzietan. MKV da gomendatua DTS audiorako.</value>
   </data>
   <data name="AudioEncoder_ffflac24" xml:space="preserve">
     <value>FLAC 24-bit (Libav)</value>

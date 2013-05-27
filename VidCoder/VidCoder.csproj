@@ -739,13 +739,16 @@
     <Compile Include="WindowPlacement.cs" />
     <Compile Include="WindowPlacementWpf.cs" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.es.resx" />
+    <EmbeddedResource Include="Resources\ChapterMarkersRes.eu.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.hu.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ChapterMarkersRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommonRes.es.resx" />
+    <EmbeddedResource Include="Resources\CommonRes.eu.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.es.resx" />
+    <EmbeddedResource Include="Resources\EncodingRes.eu.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.hu.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -753,6 +756,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\EnumsRes.es.resx" />
+    <EmbeddedResource Include="Resources\EnumsRes.eu.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.hu.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -762,12 +766,14 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\LogRes.es.resx" />
+    <EmbeddedResource Include="Resources\LogRes.eu.resx" />
     <EmbeddedResource Include="Resources\LogRes.hu.resx" />
     <EmbeddedResource Include="Resources\LogRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LogRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\MainRes.es.resx" />
+    <EmbeddedResource Include="Resources\MainRes.eu.resx" />
     <EmbeddedResource Include="Resources\MainRes.hu.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -779,12 +785,14 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\MiscRes.es.resx" />
+    <EmbeddedResource Include="Resources\MiscRes.eu.resx" />
     <EmbeddedResource Include="Resources\MiscRes.hu.resx" />
     <EmbeddedResource Include="Resources\MiscRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MiscRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\OptionsRes.es.resx" />
+    <EmbeddedResource Include="Resources\OptionsRes.eu.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.hu.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -792,18 +800,21 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\PreviewRes.es.resx" />
+    <EmbeddedResource Include="Resources\PreviewRes.eu.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.hu.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PreviewRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\QueueTitlesRes.es.resx" />
+    <EmbeddedResource Include="Resources\QueueTitlesRes.eu.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.hu.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>QueueTitlesRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\SubtitleRes.es.resx" />
+    <EmbeddedResource Include="Resources\SubtitleRes.eu.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.hu.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SubtitleRes.hu.Designer.cs</LastGenOutput>

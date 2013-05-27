@@ -1,0 +1,570 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>Izenburua:</value>
+  </data>
+  <data name="SettingsLabel" xml:space="preserve">
+    <value>Ezarpenak</value>
+  </data>
+  <data name="AddToQueueLabel" xml:space="preserve">
+    <value>Gehitu Lerrora</value>
+  </data>
+  <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
+    <value>Gehitu Izenburu Anitz Lerrora...</value>
+  </data>
+  <data name="FileMenu" xml:space="preserve">
+    <value>Agiria</value>
+  </data>
+  <data name="OpenVideoFile" xml:space="preserve">
+    <value>Ireki Bideo Agiria...</value>
+  </data>
+  <data name="OpenDiscFolder" xml:space="preserve">
+    <value>Ireki DVD/Blu-ray Agiritegia...</value>
+  </data>
+  <data name="EnqueueMultipleFiles" xml:space="preserve">
+    <value>Lerrokatu Agiri Anitz...</value>
+  </data>
+  <data name="EnqueueMultipleTitles" xml:space="preserve">
+    <value>Lerrokatu Izenburu Anitz...</value>
+  </data>
+  <data name="ToolsMenu" xml:space="preserve">
+    <value>Tresnak</value>
+  </data>
+  <data name="ImportPreset" xml:space="preserve">
+    <value>Inportatu Aurrezarpenak...</value>
+  </data>
+  <data name="ExportPreset" xml:space="preserve">
+    <value>Esportatu Aurrezarpenak...</value>
+  </data>
+  <data name="OptionsMenuItem" xml:space="preserve">
+    <value>Aukerak...</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Irakurri</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editatu</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>Ireki Edukiaren Agiritegia</value>
+  </data>
+  <data name="ClearCompleted" xml:space="preserve">
+    <value>Garbitu Osatutakoa</value>
+  </data>
+  <data name="ExitMenuItem" xml:space="preserve">
+    <value>Irten</value>
+  </data>
+  <data name="WindowsMenu" xml:space="preserve">
+    <value>Leihoak</value>
+  </data>
+  <data name="EncodingSettingsMenuItem" xml:space="preserve">
+    <value>Kodeaketa Ezarpenak</value>
+  </data>
+  <data name="PreviewMenuItem" xml:space="preserve">
+    <value>Aurreikuspena</value>
+  </data>
+  <data name="LogMenuItem" xml:space="preserve">
+    <value>Oharra</value>
+  </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>Laguntza</value>
+  </data>
+  <data name="VidCoderHomepageMenuItem" xml:space="preserve">
+    <value>VidCoder Webgunea</value>
+  </data>
+  <data name="ReportABugMenuItem" xml:space="preserve">
+    <value>Jakinarazi Akats bat</value>
+  </data>
+  <data name="AboutVidCoderMenuItem" xml:space="preserve">
+    <value>VidCoder Buruz...</value>
+  </data>
+  <data name="ChooseVideoSourceLabel" xml:space="preserve">
+    <value>Hautatu bideo iturburu bat:</value>
+  </data>
+  <data name="SourceLabel" xml:space="preserve">
+    <value>Iturburua:</value>
+  </data>
+  <data name="ScanningSourceLabel" xml:space="preserve">
+    <value>Iturburua mihatzen...</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Berrikikoak</value>
+  </data>
+  <data name="DragFilesHereLabel" xml:space="preserve">
+    <value>(Edo arrastatu bideo agiriak edo agiritegiak hona)</value>
+  </data>
+  <data name="ScanErrorLabel" xml:space="preserve">
+    <value>Akats bat gertatu da mihaketan.</value>
+  </data>
+  <data name="AudioLabel" xml:space="preserve">
+    <value>Audioa:</value>
+  </data>
+  <data name="VideoLabel" xml:space="preserve">
+    <value>Bideoa:</value>
+  </data>
+  <data name="SubtitlesLabel" xml:space="preserve">
+    <value>Azpidatziak:</value>
+  </data>
+  <data name="AddTrackButton" xml:space="preserve">
+    <value>Gehitu Bidea</value>
+  </data>
+  <data name="ChapterMarkersLabel" xml:space="preserve">
+    <value>Atal Markatzaileak:</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Editatu...</value>
+  </data>
+  <data name="DestinationLabel" xml:space="preserve">
+    <value>Helmuga:</value>
+  </data>
+  <data name="DestinationToolTip" xml:space="preserve">
+    <value>Klikatu kodeaketa helmuga editatzeko.</value>
+  </data>
+  <data name="SelectOutputPathButton" xml:space="preserve">
+    <value>Hautatu irteera helburua...</value>
+  </data>
+  <data name="EncodingLabel" xml:space="preserve">
+    <value>Kodeaketa:</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Gelditu</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Pausatu</value>
+  </data>
+  <data name="MoveToTopMenuItem" xml:space="preserve">
+    <value>Mugitu Goren</value>
+  </data>
+  <data name="MoveToBottomMenuItem" xml:space="preserve">
+    <value>Mugitu Beheren</value>
+  </data>
+  <data name="CustomizeColumnsMenuItem" xml:space="preserve">
+    <value>Norbereratu zutabeak...</value>
+  </data>
+  <data name="CurrentFpsLabel" xml:space="preserve">
+    <value>Oraingo FS-ko:</value>
+  </data>
+  <data name="AverageFpsLabel" xml:space="preserve">
+    <value>Bataz-best. FS-ko:</value>
+  </data>
+  <data name="PickDiscFolderHelpText" xml:space="preserve">
+    <value>Hautatu DVD edo Blu-ray agiritegi bat.</value>
+  </data>
+  <data name="EncodesInProgressExitWarning" xml:space="preserve">
+    <value>Kodeaketak daude garatzen. Zihur zaude uztea nahi duzula?</value>
+  </data>
+  <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
+    <value>Kodeaketak garatzen</value>
+  </data>
+  <data name="ForeignAudioSearch" xml:space="preserve">
+    <value>Beste hizkuntzako Audio Bilaketa</value>
+  </data>
+  <data name="NoneParen" xml:space="preserve">
+    <value>(Ezer ez)</value>
+  </data>
+  <data name="TracksSummaryMultiple" xml:space="preserve">
+    <value>{0} bide</value>
+  </data>
+  <data name="SaveChangesPresetMessage" xml:space="preserve">
+    <value>Aldaketak zure oraingo aurrezarpenean gordetzea nahi dituzu?</value>
+  </data>
+  <data name="SaveChangesPresetTitle" xml:space="preserve">
+    <value>Gorde oraingo aurrezarpena?</value>
+  </data>
+  <data name="DiscNotInDriveError" xml:space="preserve">
+    <value>Ezin da editatzeko gertatu. Diska ez dago gidagailuan.</value>
+  </data>
+  <data name="PresetNameRestoredFromQueue" xml:space="preserve">
+    <value>Lerrotik Leheneratuta</value>
+  </data>
+  <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
+    <value>Osatutatik Leheneratuta</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Aurrezarpena:</value>
+  </data>
+  <data name="DestinationColumnHeader" xml:space="preserve">
+    <value>Helmuga</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Egoera</value>
+  </data>
+  <data name="ElapsedTimeColumnHeader" xml:space="preserve">
+    <value>Igarotako Denbora</value>
+  </data>
+  <data name="PlayingVideoMessage" xml:space="preserve">
+    <value>Bideoa irakurtzen...</value>
+  </data>
+  <data name="FileDoesNotExist" xml:space="preserve">
+    <value>{0} ez dago.</value>
+  </data>
+  <data name="AngleLabel" xml:space="preserve">
+    <value>Angelua:</value>
+  </data>
+  <data name="ChaptersSummary" xml:space="preserve">
+    <value>{0}-tik</value>
+  </data>
+  <data name="Queued" xml:space="preserve">
+    <value>Lerrokatuta</value>
+  </data>
+  <data name="QueuedWithTotal" xml:space="preserve">
+    <value>Lerrokatuta ({0})</value>
+  </data>
+  <data name="CompletedWithTotal" xml:space="preserve">
+    <value>Osatuta ({0})</value>
+  </data>
+  <data name="StoppedEncoding" xml:space="preserve">
+    <value>Kodeaketa geldituta.</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
+    <value>Zihur zaude {0} iturburuko agiria(k)/agiritegia(k) ezabatzea nahi d(it)uzula?</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
+    <value>Baieztatu ezabapena</value>
+  </data>
+  <data name="CouldNotDeleteFile" xml:space="preserve">
+    <value>Ezinezkoa ezabatzea {0}
+
+{1}</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Hurrengo agiria(k) ezin d(ir)a ezagutu eta ez dira lerrora gehitu:
+
+{0}</value>
+  </data>
+  <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
+    <value>Akatsa bideo agiria(k) mihatzerakoan</value>
+  </data>
+  <data name="StartedEncoding" xml:space="preserve">
+    <value>Kodeaketa hasita.</value>
+  </data>
+  <data name="DirectoryCreateErrorMessage" xml:space="preserve">
+    <value>Ezinezkoa irteera zuzenbidea sortzea. Akats xehetasunak:
+
+{0}</value>
+  </data>
+  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
+    <value>Akatsa zuzenbidea sortzerakoan</value>
+  </data>
+  <data name="EncodeCompleted" xml:space="preserve">
+    <value>Kodeaketa osatuta.</value>
+  </data>
+  <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
+    <value>Kodeaketa osatuta</value>
+  </data>
+  <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
+    <value>VidCoder-ek amaitu du lerroko lan guztiak kodeatzeaz.</value>
+  </data>
+  <data name="OutputFolderRequiredMessage" xml:space="preserve">
+    <value>Ezin dira kodeaketa lanak gehitu berezko irteera agiritegi bat gabe. Sakatu Ongi bat hautatzeko.</value>
+  </data>
+  <data name="OutputFolderRequiredTitle" xml:space="preserve">
+    <value>Berezko Irteera Agiritegia Beharrezkoa</value>
+  </data>
+  <data name="OutputPathNotValidMessage" xml:space="preserve">
+    <value>Irteera helburua ez da baliozkoa.</value>
+  </data>
+  <data name="OutputPathNotValidTitle" xml:space="preserve">
+    <value>Helburua ez da baliozkoa</value>
+  </data>
+  <data name="Encode" xml:space="preserve">
+    <value>Kodeatu</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Berrekin</value>
+  </data>
+  <data name="EtaLabel" xml:space="preserve">
+    <value>UED:</value>
+  </data>
+  <data name="WhenDoneLabel" xml:space="preserve">
+    <value>Egindakoan:</value>
+  </data>
+  <data name="Preset_AndroidTablet" xml:space="preserve">
+    <value>Android Tableta</value>
+  </data>
+  <data name="Preset_Android" xml:space="preserve">
+    <value>Android</value>
+  </data>
+  <data name="Preset_AppleiPad" xml:space="preserve">
+    <value>Apple iPad</value>
+  </data>
+  <data name="Preset_AppleiPhone4" xml:space="preserve">
+    <value>Apple iPhone 4</value>
+  </data>
+  <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
+    <value>Apple iPhone/Touch</value>
+  </data>
+  <data name="Preset_AppleiPod" xml:space="preserve">
+    <value>Apple iPod</value>
+  </data>
+  <data name="Preset_AppleTV" xml:space="preserve">
+    <value>AppleTV</value>
+  </data>
+  <data name="Preset_AppleTV2" xml:space="preserve">
+    <value>AppleTV 2</value>
+  </data>
+  <data name="Preset_AppleTV3" xml:space="preserve">
+    <value>AppleTV 3</value>
+  </data>
+  <data name="Preset_Universal" xml:space="preserve">
+    <value>Unibertsala</value>
+  </data>
+  <data name="Preset_HighProfile" xml:space="preserve">
+    <value>Goi Profila</value>
+  </data>
+  <data name="Preset_Normal" xml:space="preserve">
+    <value>Arrunta</value>
+  </data>
+  <data name="Preset_WindowsPhone7" xml:space="preserve">
+    <value>Windows Phone 7</value>
+  </data>
+  <data name="SourceOption_VideoFile" xml:space="preserve">
+    <value>Bideo Agiria...</value>
+  </data>
+  <data name="SourceOption_DiscFolder" xml:space="preserve">
+    <value>DVD/Blu-ray Agiritegia...</value>
+  </data>
+  <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
+    <value>{0} bertsioa eskuragarri dago. Eguneraketa jeisketa hasi da.</value>
+  </data>
+  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
+    <value>{0} bertsioak amaitu du jeisketa eta irtetzerakoan ezarriko da.</value>
+  </data>
+  <data name="UpdateNotAppliedError" xml:space="preserve">
+    <value>Eguneraketa ez da ezarri. Ez baduzu zeuk ezeztatu, saiatu eskuz ezartzen.</value>
+  </data>
+  <data name="CouldNotLoadPresetMessage" xml:space="preserve">
+    <value>Ezinezkoa aurrezarpena gertatzea: </value>
+  </data>
+  <data name="CouldNotSavePresetMessage" xml:space="preserve">
+    <value>Ezinezkoa aurrezarpena gordetzea '{0}':{1}{2}</value>
+  </data>
+  <data name="CouldNotCopyTextError" xml:space="preserve">
+    <value>Ezinezkoa idazkia kopiatzea.</value>
+  </data>
+  <data name="LaunchUrlError" xml:space="preserve">
+    <value>Akatsa URL-a abiarazterakoan: {0}</value>
+  </data>
+  <data name="UserConfigLoadError" xml:space="preserve">
+    <value>Ezinezkoa beharrezko erabiltzaile ezarpenen agiria gertatzea; badaiteke hondatuta egotea. Ezabatzea nahi duzu? Honek ez die eragingo gordetako zure aurrezarpenei.</value>
+  </data>
+  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
+    <value>Akatsa ezarpenak gertatzerakoan</value>
+  </data>
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Ezinezkoa aurrezarpena inporatzea. Heuskarria ez da ezagutzen.</value>
+  </data>
+  <data name="PresetImportErrorTitle" xml:space="preserve">
+    <value>Inportazio Akatsa</value>
+  </data>
+  <data name="PresetImportSuccessMessage" xml:space="preserve">
+    <value>{0} aurrezarpena ongi inportatu da.</value>
+  </data>
+  <data name="PresetImportSuccessTitle" xml:space="preserve">
+    <value>Ongi</value>
+  </data>
+  <data name="PresetExportSuccessMessage" xml:space="preserve">
+    <value>Aurrezarpena ongi esportatu da {0}-ra</value>
+  </data>
+  <data name="PresetExportSuccessTitle" xml:space="preserve">
+    <value>Ongi</value>
+  </data>
+  <data name="ExportPresetFilePickerText" xml:space="preserve">
+    <value>Esportatu Aurrezarpena</value>
+  </data>
+  <data name="PresetSaveConfirmMessage" xml:space="preserve">
+    <value>Aldaketak zure oraingo aurrezarpenean gordetzea nahi dituzu?</value>
+  </data>
+  <data name="PresetSaveConfirmTitle" xml:space="preserve">
+    <value>Gorde oraingo aurrezarpena?</value>
+  </data>
+  <data name="PresetRevertConfirmMessage" xml:space="preserve">
+    <value>Zihur zaude gorde gabeko aldaketa guztiak aurrezarpen honetara leheneratzea nahi dituzula?</value>
+  </data>
+  <data name="PresetRevertConfirmTitle" xml:space="preserve">
+    <value>Leheneratu Aurrezarpena</value>
+  </data>
+  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
+    <value>Zihur zaude aurrezarpen hau kentzea nahi duzula?</value>
+  </data>
+  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
+    <value>Kendu Aurrezarpena</value>
+  </data>
+  <data name="UserConfigCorrupted" xml:space="preserve">
+    <value>Itxurapena hondatuta zegoen eta ezin izan da gertatu. Badaiteke zure zenbait ezarpen berrezarriak izana.</value>
+  </data>
+  <data name="OutputDirectoryPickerText" xml:space="preserve">
+    <value>Hautatu kodeatutako bideo agirientzako irteera zuzenbidea.</value>
+  </data>
+  <data name="LengthPreviewLabel" xml:space="preserve">
+    <value>({0})</value>
+  </data>
+  <data name="ModifiedAffix" xml:space="preserve">
+    <value>(Aldatuta)</value>
+  </data>
+  <data name="PlayingVideoStatus" xml:space="preserve">
+    <value>Bideoa irakurtzen...</value>
+  </data>
+  <data name="OpeningFolderStatus" xml:space="preserve">
+    <value>Agiritegia irekitzen...</value>
+  </data>
+  <data name="CloseVideoSourceToolTip" xml:space="preserve">
+    <value>Itxi bideo iturburua</value>
+  </data>
+  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
+    <value>Itxi Bideo Iturburua</value>
+  </data>
+  <data name="UpdatesMenuItem" xml:space="preserve">
+    <value>Eguneraketak...</value>
+  </data>
+  <data name="CbrAuto" xml:space="preserve">
+    <value>BNG Berez</value>
+  </data>
+  <data name="RangeBarToolTip" xml:space="preserve">
+    <value>Ezker-klikatu hasiera denbora ezartzeko eta eskuin-klikatu amaiera denbora ezartzeko.</value>
+  </data>
+  <data name="Preset_WindowsPhone8" xml:space="preserve">
+    <value>Windows Phone 8</value>
+  </data>
+  <data name="QueueFormat_Chapters" xml:space="preserve">
+    <value>Bd {0}</value>
+  </data>
+  <data name="QueueFormat_Frames" xml:space="preserve">
+    <value>Fr {0}-{1}</value>
+  </data>
+  <data name="QueueRangeAll" xml:space="preserve">
+    <value>Denak</value>
+  </data>
+  <data name="CouldNotCopyLogError" xml:space="preserve">
+    <value>Ezinezko oharra kopiatzea:{0}{0}{1}</value>
+  </data>
+  <data name="OpenLog" xml:space="preserve">
+    <value>Ireki Oharra</value>
+  </data>
+  <data name="CopyLog" xml:space="preserve">
+    <value>Kopiatu Oharra</value>
+  </data>
+  <data name="PresetDiscardConfirmMessage" xml:space="preserve">
+    <value>Gorde gabeko aldaketak dituzu. Zihur zaude aldaketa hauek baztertzea nahi dituzula beste aurrezarp. batera aldatuz?</value>
+  </data>
+  <data name="PresetDiscardConfirmTitle" xml:space="preserve">
+    <value>Baztertu Aldaketak?</value>
+  </data>
+</root>
