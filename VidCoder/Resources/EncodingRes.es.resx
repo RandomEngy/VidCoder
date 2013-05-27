@@ -632,29 +632,28 @@ Debes establecerlo si sabes que tu dispositivo de reproducción sólo es compati
     <value>Vorbis (Vorbis)</value>
   </data>
   <data name="Mixdown_5point1" xml:space="preserve">
-    <value> </value>
+    <value>Canales 5.1</value>
   </data>
   <data name="Mixdown_5_2_lfe" xml:space="preserve">
-    <value> </value>
+    <value>7.1 (5F/2R/LFE)</value>
   </data>
   <data name="Mixdown_dpl1" xml:space="preserve">
-    <value> </value>
+    <value>Dolby Surround</value>
   </data>
   <data name="Mixdown_dpl2" xml:space="preserve">
-    <value> </value>
+    <value>Dolby Pro Logic II</value>
   </data>
   <data name="Mixdown_left_only" xml:space="preserve">
-    <value> </value>
+    <value>Mono (Solo izquierda)</value>
   </data>
   <data name="Mixdown_mono" xml:space="preserve">
-    <value> </value>
-    <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key.</comment>
+    <value>Mono</value>
   </data>
   <data name="Mixdown_right_only" xml:space="preserve">
-    <value> </value>
+    <value>Mono (Solo derecha)</value>
   </data>
   <data name="Mixdown_stereo" xml:space="preserve">
-    <value> </value>
+    <value>Estéreo</value>
   </data>
   <data name="Bitrate" xml:space="preserve">
     <value>Tasa de bits</value>
@@ -846,7 +845,7 @@ Debes establecerlo si sabes que tu dispositivo de reproducción sólo es compati
     <value>MPEG-4 (Libav)</value>
   </data>
   <data name="VideoEncoder_x264" xml:space="preserve">
-    <value> </value>
+    <value>H.264 (x264)</value>
   </data>
   <data name="Analysis_Most" xml:space="preserve">
     <value>La mayor parte</value>
