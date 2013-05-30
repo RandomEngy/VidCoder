@@ -114,7 +114,7 @@ namespace VidCoder
 								}
 
 								this.channel.StartEncode(job.HbJob, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds,
-														 Config.LogVerbosity, Config.PreviewCount);
+														 Config.LogVerbosity, Config.PreviewCount, Config.EnableLibDvdNav);
 
 								// After we do StartEncode (which can take a while), switch the timeout down to normal level to do pings
 								var contextChannel = (IContextChannel)this.channel;

@@ -203,11 +203,11 @@
 
 					<CheckBox 
 						Grid.Column="1"
-						Content="{x:Static res:EncodingRes.TwoPassEncodingCheckBox}" HorizontalAlignment="Left" Margin="15,29,0,0" VerticalAlignment="Top" IsChecked="{Binding TwoPassEncoding}" IsEnabled="{Binding TwoPassEncodingEnabled}"
+						Content="{x:Static res:EncodingRes.TwoPassEncodingCheckBox}" HorizontalAlignment="Left" Margin="15,5,0,0" VerticalAlignment="Top" IsChecked="{Binding TwoPassEncoding}" IsEnabled="{Binding TwoPassEncodingEnabled}"
 						Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter=ConstantQuality}"/>
 					<CheckBox 
 						Grid.Column="1"
-						Content="{x:Static res:EncodingRes.TurboFirstPassCheckBox}" HorizontalAlignment="Left" Margin="36,50,0,0" VerticalAlignment="Top" IsChecked="{Binding TurboFirstPass}" IsEnabled="{Binding TurboFirstPassEnabled}"
+						Content="{x:Static res:EncodingRes.TurboFirstPassCheckBox}" HorizontalAlignment="Left" Margin="36,26,0,0" VerticalAlignment="Top" IsChecked="{Binding TurboFirstPass}" IsEnabled="{Binding TurboFirstPassEnabled}"
 						Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter=ConstantQuality}"/>
 				</Grid>
 
