@@ -422,7 +422,7 @@ Hau ezarri beharra duzu zure irakurketa gailuak profil zehatz bat bakarrik soste
     <value>Ontasuna</value>
   </data>
   <data name="TwoPassEncodingCheckBox" xml:space="preserve">
-    <value>2-pas. Kodeak.</value>
+    <value>2-pasaldiko Kodeaketa</value>
   </data>
   <data name="TurboFirstPassCheckBox" xml:space="preserve">
     <value>1. Pasaldia Turboa</value>
@@ -431,7 +431,7 @@ Hau ezarri beharra duzu zure irakurketa gailuak profil zehatz bat bakarrik soste
     <value>Xede Neurria (MB)</value>
   </data>
   <data name="AverageBitrateRadioButton" xml:space="preserve">
-    <value>Bb. Bitneur. (kbs)</value>
+    <value>Bb. Bitneurria (kbs)</value>
   </data>
   <data name="ConstantQualityRadioButton" xml:space="preserve">
     <value>Ontasun Aldagaitza</value>

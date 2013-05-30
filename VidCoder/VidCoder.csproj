@@ -738,8 +738,12 @@
     </Compile>
     <Compile Include="WindowPlacement.cs" />
     <Compile Include="WindowPlacementWpf.cs" />
-    <EmbeddedResource Include="Resources\ChapterMarkersRes.es.resx" />
-    <EmbeddedResource Include="Resources\ChapterMarkersRes.eu.resx" />
+    <EmbeddedResource Include="Resources\ChapterMarkersRes.es.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ChapterMarkersRes.eu.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\ChapterMarkersRes.hu.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
