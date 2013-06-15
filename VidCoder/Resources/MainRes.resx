@@ -567,4 +567,10 @@
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Discard Changes?</value>
   </data>
+  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
+    <value>Remove audio track</value>
+  </data>
+  <data name="Preset_Xbox360" xml:space="preserve">
+    <value>Xbox 360</value>
+  </data>
 </root>

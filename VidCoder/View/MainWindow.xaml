@@ -751,7 +751,7 @@
 								<DataTemplate>
 									<StackPanel Orientation="Horizontal">
 										<ComboBox ItemsSource="{Binding MainViewModel.InputTracks}" SelectedIndex="{Binding SelectedIndex}" MinWidth="180" Margin="2" />
-										<Button Command="{Binding RemoveCommand}" Height="23" Margin="2" Style="{StaticResource RemoveButtonStyle}">Remove audio track</Button>
+										<Button Command="{Binding RemoveCommand}" Height="23" Margin="2" Style="{StaticResource RemoveButtonStyle}" Content="{x:Static res:MainRes.RemoveAudioTrackToolTip}" />
 									</StackPanel>
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>

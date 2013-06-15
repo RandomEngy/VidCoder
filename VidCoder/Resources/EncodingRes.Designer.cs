@@ -257,6 +257,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Psychovisual.
+        /// </summary>
+        public static string Advanced_PsychovisualLabel {
+            get {
+                return ResourceManager.GetString("Advanced_PsychovisualLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Psychovisual Rate Distortion means x264 tries to retain detail, for better quality to the human eye, 
         ///as opposed to trying to maximize quality the way a computer understands it, through signal-to-noise ratios that have trouble telling apart fine detail and noise..
         /// </summary>

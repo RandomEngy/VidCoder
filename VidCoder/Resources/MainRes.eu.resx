@@ -148,10 +148,10 @@
     <value>Tresnak</value>
   </data>
   <data name="ImportPreset" xml:space="preserve">
-    <value>Inportatu Aurrezarpenak...</value>
+    <value>Inportatu Aurrezarpena...</value>
   </data>
   <data name="ExportPreset" xml:space="preserve">
-    <value>Esportatu Aurrezarpenak...</value>
+    <value>Esportatu Aurrezarpena...</value>
   </data>
   <data name="OptionsMenuItem" xml:space="preserve">
     <value>Aukerak...</value>
@@ -566,5 +566,8 @@
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Baztertu Aldaketak?</value>
+  </data>
+	<data name="RemoveAudioTrackToolTip" xml:space="preserve">
+    <value>Kendu audio bidea</value>
   </data>
 </root>

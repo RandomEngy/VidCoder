@@ -390,4 +390,10 @@
 	<data name="OpenLogFolderButton" xml:space="preserve">
     <value>Abrir carpeta de registro</value>
   </data>
+	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+    <value>Resumir automaticamente la codificacion despues de reiniciar</value>
+  </data>
+	<data name="UseWorkerProcessCheckBox" xml:space="preserve">
+    <value>Utilizar el proceso de trabajo para codificar</value>
+  </data>
 </root>

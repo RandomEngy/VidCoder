@@ -899,4 +899,7 @@ Overrides all other settings.</value>
   <data name="AudioEncoder_ffflac24" xml:space="preserve">
     <value>FLAC 24-bit (Libav)</value>
   </data>
+	<data name="Advanced_PsychovisualLabel" xml:space="preserve">
+    <value>Psychovisual</value>
+  </data>
 </root>

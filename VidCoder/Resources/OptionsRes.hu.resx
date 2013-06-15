@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AutoAudioDisabledToolTip" xml:space="preserve">
     <value>Amikor az automatikus hangkiválasztás ki van kapcsolva, az utolsó kiválasztott sáv érvényesül.</value>
@@ -288,9 +288,6 @@
   <data name="UseOSLanguage" xml:space="preserve">
     <value>Operációs rendszer nyelvének használata</value>
   </data>
-  <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
-    <value>Figyelem: ebben a verzióban valószínűleg még több hiba és összeomlás is előfordulhat.</value>
-  </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Frissítések</value>
   </data>
@@ -305,6 +302,9 @@
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
     <value>Jelenlegi verzió: {0}</value>
+  </data>
+  <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
+    <value>Figyelem: ebben a verzióban valószínűleg még több hiba és összeomlás is előfordulhat.</value>
   </data>
   <data name="LanguagesSection" xml:space="preserve">
     <value>Nyelvek</value>
@@ -384,10 +384,16 @@
   <data name="Priority_Idle" xml:space="preserve">
     <value>Alacsony</value>
   </data>
-  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+	<data name="CopyLogToOutputFolderLabel" xml:space="preserve">
     <value>Kódolási napló másolása a kódolt videót tartalmazó mappába</value>
   </data>
-  <data name="OpenLogFolderButton" xml:space="preserve">
+	<data name="OpenLogFolderButton" xml:space="preserve">
     <value>Napló mappájának megnyitása</value>
+  </data>
+	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+    <value>Kódolás automatikus folytatása az újraindítás után</value>
+  </data>
+	<data name="UseWorkerProcessCheckBox" xml:space="preserve">
+    <value>Munkavégző folyamat használata a kódoláshoz</value>
   </data>
 </root>

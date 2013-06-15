@@ -135,8 +135,8 @@ UpdateAssemblyInfo "VidCoderWorker\Properties\AssemblyInfo.cs" $versionLong
 $dest86 = ".\Installer\Files\x86"
 $dest64 = ".\Installer\Files\x64"
 
-ClearFolder $dest86
-ClearFolder $dest64
+ClearFolder $dest86; ExitIfFailed
+ClearFolder $dest64; ExitIfFailed
 
 $source86 = ".\VidCoder\bin\x86\Release\"
 $source64 = ".\VidCoder\bin\x64\Release\"

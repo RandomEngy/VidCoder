@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -136,8 +136,9 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>Az idő mértéke, amennyivel előre vagy hátra tolja a megadott feliratokat.</value>
   </data>
-  <data name="QueueColumnNameChapters" xml:space="preserve">
-    <value>Fejezetek</value>
+  <data name="QueueColumnNameRange" xml:space="preserve">
+    <value>Hatókör</value>
+    <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
   </data>
   <data name="QueueColumnNameDestination" xml:space="preserve">
     <value>Cél</value>
@@ -171,9 +172,11 @@ A full copy of the GNU General Public License has been included along with this 
   </data>
   <data name="Default" xml:space="preserve">
     <value>Alapértelmezett</value>
+    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="Custom" xml:space="preserve">
     <value>Egyéni</value>
+    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="Browse" xml:space="preserve">
     <value>Tallózás...</value>
@@ -189,12 +192,14 @@ A full copy of the GNU General Public License has been included along with this 
   </data>
   <data name="Off" xml:space="preserve">
     <value>Ki</value>
+    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="All" xml:space="preserve">
     <value>Mind</value>
   </data>
   <data name="StreamChoice" xml:space="preserve">
     <value>{0} folyamat</value>
+    <comment>Used in the encoding settings dialog to mark which audio stream an audio encoding is targeting. By default the encoding works on all streams but you can target it to affect only the first stream, in which case it would label it "Stream 1"</comment>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>Rendben</value>
@@ -231,9 +236,6 @@ A full copy of the GNU General Public License has been included along with this 
   </data>
   <data name="FilePickerExtTemplate" xml:space="preserve">
     <value>{0} fájlok</value>
-  </data>
-  <data name="QueueColumnNameRange" xml:space="preserve">
-    <value>Hatókör</value>
   </data>
   <data name="QueueColumnNamePreset" xml:space="preserve">
     <value>Séma</value>

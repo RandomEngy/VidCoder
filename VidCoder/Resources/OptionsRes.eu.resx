@@ -390,4 +390,10 @@
 	<data name="OpenLogFolderButton" xml:space="preserve">
     <value>Ireki Ohar Agiritegia</value>
   </data>
+	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+    <value>Berezgaitasunez berrekin kodeaketa hasterakoan</value>
+  </data>
+	<data name="UseWorkerProcessCheckBox" xml:space="preserve">
+    <value>Erabili langile garapena kodeatzeko</value>
+  </data>
 </root>
