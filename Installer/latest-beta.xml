@@ -1,12 +1,12 @@
 <UpdateInfo>
 	<Release>
-		<Latest>1.4.21</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.4.21-x86.exe</DownloadLocation>
-		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/107071</ChangelogLocation>
+		<Latest>1.4.22</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.4.22-x86.exe</DownloadLocation>
+		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/108094</ChangelogLocation>
 	</Release>
 	<Release-x64>
-		<Latest>1.4.21</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.4.21-x64.exe</DownloadLocation>
-		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/107071</ChangelogLocation>
+		<Latest>1.4.22</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.4.22-x64.exe</DownloadLocation>
+		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/108094</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>
