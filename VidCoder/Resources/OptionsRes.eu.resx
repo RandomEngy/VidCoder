@@ -118,282 +118,282 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>Amikor az automatikus hangkiválasztás ki van kapcsolva, az utolsó kiválasztott sáv érvényesül.</value>
+    <value>Berezgaitasunezko audio hautapena ezgaitua dagoenean, hautaturiko azken bideari heusten zaio.</value>
   </data>
   <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>Amikor az automatikus feliratkiválasztás ki van kapcsolva, az utolsó kiválasztott felirat érvényesül.</value>
+    <value>Berezgaitasunezko azpidatzi hautapen ezgaituta dagoenean, hautaturiko azken azpidatziari heusten zaio.</value>
   </data>
   <data name="GeneralTab" xml:space="preserve">
-    <value>Általános</value>
+    <value>Orokorra</value>
   </data>
   <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
-    <value>Minimalizálás az eszköztárba</value>
+    <value>Txikiendu eginkizun barrara</value>
   </data>
   <data name="MinimizeToSystemTrayRadioButton" xml:space="preserve">
-    <value>Minimalizálás a rendszertálcára</value>
+    <value>Txikiendu sistema erretilura</value>
   </data>
   <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
-    <value>Hang lejátszása a sor befejezésekor</value>
+    <value>Jo soinu bat lerroa osatutakoan</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
-    <value>Előnyben részesített DVD lejátszó:</value>
+    <value>Hobetsitako DVD irakurgailua:</value>
   </data>
   <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
-    <value>Válassz lejátszót a DVD forrásokhoz.</value>
+    <value>Hautatu DVD iturburuentzako erabiltzea nahi duzun irakurgailua.</value>
   </data>
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
-    <value>Automatikus frissítés</value>
+    <value>Berezgaitasunezko eguneraketak</value>
   </data>
   <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Csatlakozás a béta verziókhoz</value>
+    <value>Batu Beta eguneraketa bidea</value>
   </data>
   <data name="FileNamingTab" xml:space="preserve">
-    <value>Fájl elnevezés</value>
+    <value>Agiri Izendapena</value>
   </data>
   <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>Alapértelmezett mappa:</value>
+    <value>Berezko agiritegia:</value>
   </data>
   <data name="FileFormatLabel" xml:space="preserve">
-    <value>Fájlformátum:</value>
+    <value>Agiri heuskarria:</value>
   </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Kimenet a forrásmappába, ha lehetséges</value>
+    <value>Irteera iturburu zuzenbidera ahal bada</value>
   </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Alapértelmezett formátum</value>
+    <value>Berezko heuskarria</value>
   </data>
   <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Egyéni formátum:</value>
+    <value>Norbere heuskarria:</value>
   </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>Elérhető beállítások: {0}</value>
+    <value>Aukera eskuragarriak: {0}</value>
   </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
-    <value>Ha a fájl már létezik...</value>
+    <value>Agiri bat jadanik badagoenean...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
-    <value>Egy fájl kódolása:</value>
+    <value>Agiri bakar kodeaketa:</value>
   </data>
   <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Kérdezzen rá a felülírásra</value>
+    <value>Galdetu gainidaztea nahi duzun</value>
   </data>
   <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Fájl felülírása rákérdezés nélkül</value>
+    <value>Gainidatzi agiria galdetu gabe</value>
   </data>
   <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Automatikus átváltás egy másik névre</value>
+    <value>Berezgaitasunez aldatu izen ezberdin batera</value>
   </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
-    <value>Több fájl kódolása:</value>
+    <value>Agiri multzo kodeaketa:</value>
   </data>
   <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Felülírás</value>
+    <value>Gainidatzi</value>
   </data>
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Automatikus átnevezés</value>
+    <value>Berezgaitasunez berrizendatu</value>
   </data>
   <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Automatikus hangkiválasztása</value>
+    <value>Berezgaitasunezko audio hautapena</value>
   </data>
   <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Hang / Feliratok</value>
+    <value>Audioa / Azpidatziak</value>
   </data>
   <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Nyelv:</value>
+    <value>Hizkuntza:</value>
   </data>
   <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Összes sáv használata</value>
+    <value>Barneratu bide guztiak</value>
   </data>
   <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Automatikus feliratválasztás</value>
+    <value>Berezgaitasunezko azpidatzi hautapena</value>
   </data>
   <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Idegen hangkeresés</value>
+    <value>Beste Hizkuntza Audio Bilaketa</value>
   </data>
   <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Ráégetés</value>
+    <value>Erre</value>
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Csak ha a nyelv különbözik a hangtól</value>
+    <value>Audiotik hizkuntza ezberdina bada bakarrik</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
-    <value>Automatikusan szüneteltesse a kódolást, ha a következő folyamatok egyike is fut:</value>
+    <value>Berezgaitasunez pausatu kodeaketa prozesu hauetako bat ekinean dagoenean:</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
-    <value>Hozzáadás...</value>
+    <value>Gehitu...</value>
   </data>
   <data name="PreviewCountLabel" xml:space="preserve">
-    <value>Képelőnézetek szkennelésének száma:</value>
+    <value>Mihatu beharreko aurreikuspen irudi zenbatekoa:</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
-    <value>Emlékezzen a legutóbb használt fájlokra és mappákra</value>
+    <value>Gogoratu aurretik erabilitako agiriak eta agiritegiak</value>
   </data>
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Hangsávok egyedi neveinek engedélyzése (limitált lejátszótámogatás)</value>
+    <value>Ahalbidetu norbere izena ezartzea audio bideetan (irakurgailu sostengu mugatua)</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>LibDVDNav engedélyezése (a változás a program újraindítását igénylit)</value>
+    <value>Gaitu LibDVDNav (aldaketak programa berrabiaraztea behar du)</value>
   </data>
   <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Szkennelések megtartása a befejezés után (lehetővé teszi a befejezett elemek szerkesztését)</value>
+    <value>Heutsi mihaketei osatu ondoren (osatutako gaiak editatzea ahalbidetzen du)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Forrásfájlok törlése, miután eltávolítottad a befejezett elemeket (megerősítéssel)</value>
+    <value>Ezabatu iturburu agiriak ongi osatutako gaiak garbitu ondoren (baieztapenarekin)</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
-    <value>Naplózási részletesség:</value>
+    <value>Ohar Berritsukeria:</value>
   </data>
   <data name="MinScanLengthLabel" xml:space="preserve">
-    <value>Legrövidebb cím, amit keressen (másodperc):</value>
+    <value>Izenburu mihaketaren gutxienezko luzera (segundutan):</value>
   </data>
   <data name="RecognizedExtensionsLabel" xml:space="preserve">
-    <value>Felismert kiterjesztések:</value>
+    <value>Luzapen Ezagutuak:</value>
   </data>
   <data name="RecognizedExtensionsToolTip" xml:space="preserve">
-    <value>A videófájlokat tartalmazó mappák ellenőrzése közben adja hozzá ezekkel a kiterjesztésekkel rendelkező fájlokat. (Vesszővel elválasztva)</value>
+    <value>Agiritegiak mihatzerakoan bideo agiri bila, gehitu luzapen hau duten agiriak. (Kakotxaz bananduta)</value>
   </data>
   <data name="OptionsDialogTitle" xml:space="preserve">
-    <value>Beállítások</value>
+    <value>Aukerak</value>
   </data>
   <data name="ProcessesTab" xml:space="preserve">
-    <value>Folyamatok</value>
+    <value>Garapenak</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
-    <value>Haladó</value>
+    <value>Aurreratua</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Jelenleg béta verzióval rendelkezel. A stabil verzióra visszaváltáshoz távolítsd el, kattints az "Igen"-re az összes séma eltávolításához és telepítsd újra a stabil változatot.</value>
+    <value>Beta bidean zaude. Atzera bertsio egonkorrera itzultzeko, kendu, klikatu "Bai" aurrezarpenak kentzeko, orduan berrezarri bertsio egonkorra.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
-    <value>Csatlakozás a béta verziókhoz</value>
+    <value>Batu Beta bidea eguneraketak sarriago lortzeko</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>A letöltés készen áll. Miután kiléptél a programból, a telepítés elindul.</value>
+    <value>{0} eguneraketa gertu. Programatik irtetzen zarenean ezarriko da.</value>
   </data>
   <data name="DownloadingStatus" xml:space="preserve">
-    <value>Letöltés:</value>
+    <value>Eguneraketa jeisten {0}:</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
-    <value>Ez a legfrissebb verziójú VidCoder.</value>
+    <value>VidCoder eguneratuta dago.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>Add meg az átkonvertált videófájlok alapértelmezett kimeneti mappáját.</value>
+    <value>Hautatu kodeatutako bideo agirientzako berezko irteera zuzenbidea.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
-    <value>Kezelőfelület nyelve:</value>
+    <value>Interfaze Hizkuntza:</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
-    <value>Az új nyelv a VidCoder újraindítása után lép életbe.</value>
+    <value>Hizkuntza berriak irten eta VidCoder berrabiarazi ondoren izango du eragina.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
-    <value>Operációs rendszer nyelvének használata</value>
+    <value>Erabili SE Hizkuntza</value>
   </data>
   <data name="UpdatesTab" xml:space="preserve">
-    <value>Frissítések</value>
+    <value>Eguneraketak</value>
   </data>
   <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Legfrissebb verzió keresése...</value>
+    <value>Azken bertsioa bilatzen...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
-    <value>Frissítés keresés nem sikerült.</value>
+    <value>Eguneraketa egiaztapen hutsegitea.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>Válaszd ki a befejezést jelző .wav hangfájlt.</value>
+    <value>Hautatu soinua osatzeko erabiltzea nahi duzun .wav agiria.</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
-    <value>Jelenlegi verzió: {0}</value>
+    <value>Oraingo bertsioa: {0}</value>
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
-    <value>Figyelem: ebben a verzióban valószínűleg még több hiba és összeomlás is előfordulhat.</value>
+    <value>Kontuz: zihurragoa da bertsio honek akatsak eta matxurak izatea.</value>
   </data>
   <data name="LanguagesSection" xml:space="preserve">
-    <value>Nyelvek</value>
+    <value>Hizkuntzak</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
-    <value>Lejátszók</value>
+    <value>Irakurgailuak</value>
   </data>
   <data name="SoundSection" xml:space="preserve">
-    <value>Hang</value>
+    <value>Soinua</value>
   </data>
   <data name="SystemTraySection" xml:space="preserve">
-    <value>Rendszertálca</value>
+    <value>Sistema erretilua</value>
   </data>
   <data name="OutputFolderSection" xml:space="preserve">
-    <value>Kimeneti mappa</value>
+    <value>Irteera agiritegia</value>
   </data>
   <data name="NamingFormatSection" xml:space="preserve">
-    <value>Elnevezési formátum</value>
+    <value>Izendapen heuskarria</value>
   </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
-    <value>Haladó beállítások</value>
+    <value>Aukera aurreratuak</value>
   </data>
   <data name="ScanningSection" xml:space="preserve">
-    <value>Keresés</value>
+    <value>Mihaketa</value>
   </data>
   <data name="LoggingSection" xml:space="preserve">
-    <value>Naplózás</value>
+    <value>Oharrak</value>
   </data>
   <data name="DvdReadingSection" xml:space="preserve">
-    <value>DVD olvasás</value>
+    <value>DVD irakurketa</value>
   </data>
   <data name="UpdatesSection" xml:space="preserve">
-    <value>Frissítések</value>
+    <value>Eguneraketak</value>
   </data>
   <data name="UpdateStatusSection" xml:space="preserve">
-    <value>Állapot</value>
+    <value>Egoera</value>
   </data>
   <data name="BetaSection" xml:space="preserve">
-    <value>Béta</value>
+    <value>Beta</value>
   </data>
   <data name="UseCustomWavLabel" xml:space="preserve">
-    <value>Egyéni .wav fájl használata:</value>
+    <value>Erabili norbere .wav agiria:</value>
   </data>
   <data name="CheckNowButton" xml:space="preserve">
-    <value>Keresés most</value>
+    <value>Egiaztatu Orain</value>
   </data>
   <data name="UseSystemPlayer" xml:space="preserve">
-    <value>Rendszer lejátszó használata</value>
+    <value>Erabili sistemaren irakurgailua</value>
   </data>
   <data name="VideoFilesLabel" xml:space="preserve">
-    <value>Videófájlok:</value>
+    <value>Bideo Agiriak:</value>
   </data>
   <data name="CustomVideoPlayerToolTip" xml:space="preserve">
-    <value>Add meg az útvonalat a fájlokhoz használni kívánt videólejátszóhoz.</value>
+    <value>Adierazi agirientzako erabiltzea nahi duzun bideo irakurgailuaren helburua.</value>
   </data>
   <data name="VideoPlayerFilePickTitle" xml:space="preserve">
-    <value>Válaszd ki a lejátszót a videófájlokhoz.</value>
+    <value>Hautatu bideo agiriekin erabiltzeko irakurgailua.</value>
   </data>
   <data name="CustomPlayerLabel" xml:space="preserve">
-    <value>Egyéni lejátszó:</value>
+    <value>Norbere irakurgailua:</value>
   </data>
   <data name="Priority_High" xml:space="preserve">
-    <value>Magas</value>
+    <value>Handia</value>
   </data>
   <data name="Priority_AboveNormal" xml:space="preserve">
-    <value>Normál feletti</value>
+    <value>Arruntetik Gora</value>
   </data>
   <data name="Priority_Normal" xml:space="preserve">
-    <value>Normál</value>
+    <value>Arrunta</value>
   </data>
   <data name="Priority_BelowNormal" xml:space="preserve">
-    <value>Normál alatti</value>
+    <value>Arruntetik Behera</value>
   </data>
   <data name="WorkerProcessPriorityLabel" xml:space="preserve">
-    <value>Dolgozó folyamat prioritása:</value>
+    <value>Lan garapen lehentasuna:</value>
   </data>
   <data name="Priority_Idle" xml:space="preserve">
-    <value>Alacsony</value>
+    <value>Apala</value>
   </data>
 	<data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>Kódolási napló másolása a kódolt videót tartalmazó mappába</value>
+    <value>Kopiatu kodeaketa oharra kodeatutako bideoaren zuzenbide berera</value>
   </data>
 	<data name="OpenLogFolderButton" xml:space="preserve">
-    <value>Napló mappájának megnyitása</value>
+    <value>Ireki Ohar Agiritegia</value>
   </data>
 	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
-    <value>Kódolás automatikus folytatása az újraindítás után</value>
+    <value>Berezgaitasunez berrekin kodeaketa hasterakoan</value>
   </data>
 	<data name="UseWorkerProcessCheckBox" xml:space="preserve">
-    <value>Munkavégző folyamat használata a kódoláshoz</value>
+    <value>Erabili langile garapena kodeatzeko</value>
   </data>
 </root>

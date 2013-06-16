@@ -19,7 +19,7 @@ namespace VidCoderWorker
 		// True if we are encoding (not scanning)
 		private EncodeState state = EncodeState.NotStarted;
 
-		public void StartEncode(EncodeJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds, int verbosity, int previewCount)
+		public void StartEncode(EncodeJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds, int verbosity, int previewCount, bool useDvdNav)
 		{
 			CurrentEncoder = this;
 			this.callback = OperationContext.Current.GetCallbackChannel<IHandBrakeEncoderCallback>();
@@ -46,6 +46,8 @@ namespace VidCoderWorker
 								this.callback.OnErrorLogged(e.Message);
 							});
 					};
+
+				HandBrakeUtils.SetDvdNav(useDvdNav);
 
 				this.instance = new HandBrakeInstance();
 				this.instance.Initialize(verbosity);

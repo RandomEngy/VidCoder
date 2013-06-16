@@ -137,7 +137,7 @@
 				</ComboBox>
 			</Grid>
 
-			<TextBlock Height="21" HorizontalAlignment="Left" Margin="6,194,0,0" VerticalAlignment="Top" Text="Psychovisual" Style="{StaticResource SectionHeader}" />
+			<TextBlock Height="21" HorizontalAlignment="Left" Margin="6,194,0,0" VerticalAlignment="Top" Text="{x:Static res:EncodingRes.Advanced_PsychovisualLabel}" Style="{StaticResource SectionHeader}" />
 			<StackPanel
 				Orientation="Horizontal"
 				Margin="29,208,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">

@@ -628,29 +628,28 @@ You should set this if you know your playback device only supports a certain pro
     <value>Vorbis (Vorbis)</value>
   </data>
   <data name="Mixdown_5point1" xml:space="preserve">
-    <value />
+    <value>5.1 Channels</value>
   </data>
   <data name="Mixdown_5_2_lfe" xml:space="preserve">
-    <value />
+    <value>7.1 (5F/2R/LFE)</value>
   </data>
   <data name="Mixdown_dpl1" xml:space="preserve">
-    <value />
+    <value>Dolby Surround</value>
   </data>
   <data name="Mixdown_dpl2" xml:space="preserve">
-    <value />
+    <value>Dolby Pro Logic II</value>
   </data>
   <data name="Mixdown_left_only" xml:space="preserve">
-    <value />
+    <value>Mono (Left Only)</value>
   </data>
   <data name="Mixdown_mono" xml:space="preserve">
-    <value />
-    <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key.</comment>
+    <value>Mono</value>
   </data>
   <data name="Mixdown_right_only" xml:space="preserve">
-    <value />
+    <value>Mono (Right Only)</value>
   </data>
   <data name="Mixdown_stereo" xml:space="preserve">
-    <value />
+    <value>Stereo</value>
   </data>
   <data name="Bitrate" xml:space="preserve">
     <value>Bitrate</value>
@@ -844,7 +843,7 @@ Overrides all other settings.</value>
     <value>MPEG-4 (Libav)</value>
   </data>
   <data name="VideoEncoder_x264" xml:space="preserve">
-    <value />
+    <value>H.264 (x264)</value>
   </data>
   <data name="Analysis_Most" xml:space="preserve">
     <value>Most</value>
@@ -899,5 +898,8 @@ Overrides all other settings.</value>
   </data>
   <data name="AudioEncoder_ffflac24" xml:space="preserve">
     <value>FLAC 24-bit (Libav)</value>
+  </data>
+	<data name="Advanced_PsychovisualLabel" xml:space="preserve">
+    <value>Psychovisual</value>
   </data>
 </root>

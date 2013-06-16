@@ -99,27 +99,27 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
   <data name="ChapterMarkersDialogTitle">
-    <value xml:space="preserve">Fejezet jelzők</value>
+    <value xml:space="preserve">Indicadores de capitulo</value>
   </data>
   <data name="DefaultChapterNamesRadioButton">
-    <value xml:space="preserve">Alapértelmezett fejezetcímek használata</value>
+    <value xml:space="preserve">Usar nombres de capitulo predeterminados</value>
   </data>
   <data name="CustomChapterNamesRadioButton">
-    <value xml:space="preserve">Egyéni fejezetcímek használata</value>
+    <value xml:space="preserve">Utilice nombres de capitulo personalizado:</value>
   </data>
   <data name="ImportFromCsvButton">
-    <value xml:space="preserve">Importálás .csv fájlból...</value>
+    <value xml:space="preserve">Importar de archivo CSV...</value>
   </data>
   <data name="NumberColumn">
-    <value xml:space="preserve">Szám</value>
+    <value xml:space="preserve">Numero</value>
   </data>
   <data name="StartTimeColumn">
-    <value xml:space="preserve">Kezdési idő</value>
+    <value xml:space="preserve">Hora de inicio</value>
   </data>
   <data name="TitleColumn">
-    <value xml:space="preserve">Cím</value>
+    <value xml:space="preserve">Titulo</value>
   </data>
   <data name="CouldNotReadFileMessage">
-    <value xml:space="preserve">Fájl nem olvasható.</value>
+    <value xml:space="preserve">No se pudo leer el archivo.</value>
   </data>
 </root>

@@ -697,13 +697,13 @@
 									<controls:NumberBox
 										Width="65"
 										Style="{StaticResource RangeNumberBox}"
-										AllowEmpty="False" Minimum="0"
+										AllowEmpty="False" Minimum="0" GotFocus="FramesStartGotFocus"
 										Number="{Binding FramesRangeStart, Mode=TwoWay}"/>
 									<TextBlock Text="-" Style="{StaticResource PlainTitle}" />
 									<controls:NumberBox
 										Width="65"
 										Style="{StaticResource RangeNumberBox}"
-										AllowEmpty="False" Minimum="1"
+										AllowEmpty="False" Minimum="1" GotFocus="FramesEndGotFocus"
 										Number="{Binding FramesRangeEnd, Mode=TwoWay}"/>
 								</StackPanel>
 								<TextBlock Text="{Binding TotalChaptersText}" Style="{StaticResource PlainTitle}" />
@@ -751,7 +751,7 @@
 								<DataTemplate>
 									<StackPanel Orientation="Horizontal">
 										<ComboBox ItemsSource="{Binding MainViewModel.InputTracks}" SelectedIndex="{Binding SelectedIndex}" MinWidth="180" Margin="2" />
-										<Button Command="{Binding RemoveCommand}" Height="23" Margin="2" Style="{StaticResource RemoveButtonStyle}">Remove audio track</Button>
+										<Button Command="{Binding RemoveCommand}" Height="23" Margin="2" Style="{StaticResource RemoveButtonStyle}" Content="{x:Static res:MainRes.RemoveAudioTrackToolTip}" />
 									</StackPanel>
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>
@@ -849,12 +849,12 @@
 
 			<Button
 				Grid.Column="1"
-				Height="22" Margin="10,9,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
+				Margin="10,8,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
 				Visibility="{Binding OutputPathVM.OutputFolderChosen, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}"
 				Command="{Binding OutputPathVM.PickDefaultOutputFolderCommand}">
-				<StackPanel Orientation="Horizontal" Margin="4,0">
-					<Image Source="/Icons/win7foldericon.png" />
-					<TextBlock Text="{x:Static res:MainRes.SelectOutputPathButton}" Margin="7,0,0,0" />
+				<StackPanel Orientation="Horizontal" Margin="4,2">
+					<Image Source="/Icons/win7foldericon.png" Width="16" Height="16" />
+					<TextBlock Text="{x:Static res:MainRes.SelectOutputPathButton}" Margin="7,0,0,0" VerticalAlignment="Center" />
 				</StackPanel>
 			</Button>
 
@@ -1157,7 +1157,7 @@
 				
 				<Border
 					VerticalAlignment="Bottom" HorizontalAlignment="Right" BorderThickness="1,1,0,0" BorderBrush="DarkGray" CornerRadius="4,0,0,0"
-					Name="statusText">
+					Name="statusText" Visibility="Collapsed">
 					<Border.Background>
 						<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
 							<GradientStop Color="White" Offset="0.0" />

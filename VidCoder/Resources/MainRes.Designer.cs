@@ -902,6 +902,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Xbox 360.
+        /// </summary>
+        public static string Preset_Xbox360 {
+            get {
+                return ResourceManager.GetString("Preset_Xbox360", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You have unsaved changes. Are you sure you want to discard these changes by switching to another preset?.
         /// </summary>
         public static string PresetDiscardConfirmMessage {
@@ -1143,6 +1152,15 @@ namespace VidCoder.Resources {
         public static string Recent {
             get {
                 return ResourceManager.GetString("Recent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove audio track.
+        /// </summary>
+        public static string RemoveAudioTrackToolTip {
+            get {
+                return ResourceManager.GetString("RemoveAudioTrackToolTip", resourceCulture);
             }
         }
         

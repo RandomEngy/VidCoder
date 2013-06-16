@@ -141,59 +141,76 @@
 					Style="{StaticResource SectionHeader}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,4,0,0"/>
 				<Grid 
 					Margin="20,22,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-					<Grid.RowDefinitions>
-						<RowDefinition Height="27" />
-						<RowDefinition Height="27" />
-						<RowDefinition Height="27" />
-					</Grid.RowDefinitions>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition />
+						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
-					<RadioButton
-						Grid.Row="0" Grid.Column="0"
-						Height="16" VerticalAlignment="Center" HorizontalAlignment="Left" GroupName="VideoQuality"
-						IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=TargetSize}"
-						Content="{x:Static res:EncodingRes.TargetSizeRadioButton}"/>
-					<controls:NumberBox
-						Grid.Row="0" Grid.Column="1"
-						Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Width="62" Margin="8,0,0,0"
-						Number="{Binding TargetSize, Mode=TwoWay}" Minimum="0" ShowIncrementButtons="False"
-						AllowEmpty="False" IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=TargetSize}"
-						Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter=ConstantQuality}"/>
+					<Grid 
+						HorizontalAlignment="Left" VerticalAlignment="Top">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="27" />
+							<RowDefinition Height="27" />
+							<RowDefinition Height="27" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<RadioButton
+							Grid.Row="0" Grid.Column="0"
+							Height="16" VerticalAlignment="Center" HorizontalAlignment="Left" GroupName="VideoQuality"
+							IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=TargetSize}"
+							Content="{x:Static res:EncodingRes.TargetSizeRadioButton}"/>
+						<controls:NumberBox
+							Grid.Row="0" Grid.Column="1"
+							Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Width="62" Margin="8,0,0,0"
+							Number="{Binding TargetSize, Mode=TwoWay}" Minimum="0" ShowIncrementButtons="False"
+							AllowEmpty="False" IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=TargetSize}"
+							Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter=ConstantQuality}"/>
 
-					<RadioButton
-						Grid.Row="1" Grid.Column="0"
-						Height="16" VerticalAlignment="Center" HorizontalAlignment="Left" GroupName="VideoQuality"
-						IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=AverageBitrate}"
-						Content="{x:Static res:EncodingRes.AverageBitrateRadioButton}"/>
-					<controls:NumberBox
-						Grid.Row="1" Grid.Column="1"
-						Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Width="62" Margin="8,0,0,0"
-						Number="{Binding VideoBitrate, Mode=TwoWay}" Minimum="100" ShowIncrementButtons="False"
-						AllowEmpty="False" IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=AverageBitrate}"
-						Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter=ConstantQuality}"/>
+						<RadioButton
+							Grid.Row="1" Grid.Column="0"
+							Height="16" VerticalAlignment="Center" HorizontalAlignment="Left" GroupName="VideoQuality"
+							IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=AverageBitrate}"
+							Content="{x:Static res:EncodingRes.AverageBitrateRadioButton}"/>
+						<controls:NumberBox
+							Grid.Row="1" Grid.Column="1"
+							Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Width="62" Margin="8,0,0,0"
+							Number="{Binding VideoBitrate, Mode=TwoWay}" Minimum="100" ShowIncrementButtons="False"
+							AllowEmpty="False" IsEnabled="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=AverageBitrate}"
+							Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter=ConstantQuality}"/>
 
-					<RadioButton
-						Grid.Row="2" Grid.Column="0"
-						Height="16" VerticalAlignment="Center" HorizontalAlignment="Left" GroupName="VideoQuality"
-						IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}"
-						Content="{x:Static res:EncodingRes.ConstantQualityRadioButton}">
-						<RadioButton.ToolTip>
-							<TextBlock Text="{x:Static res:EncodingRes.Video_QualityTargetToolTip}" Style="{StaticResource LargeToolTip}" />
-						</RadioButton.ToolTip>
-					</RadioButton>
-					<controls:NumberBox
-						Grid.Row="2" Grid.Column="1"
-						Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Width="49" Margin="8,0,0,0"
-						Number="{Binding Quality, Mode=TwoWay}" Minimum="0" Maximum="51" Modulus="0.1"
-						AllowEmpty="False"
-						Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}">
-						<controls:NumberBox.ToolTip>
-							<TextBlock Text="{x:Static res:EncodingRes.Video_QualityTargetToolTip}" Style="{StaticResource LargeToolTip}" />
-						</controls:NumberBox.ToolTip>
-					</controls:NumberBox>
+						<RadioButton
+							Grid.Row="2" Grid.Column="0"
+							Height="16" VerticalAlignment="Center" HorizontalAlignment="Left" GroupName="VideoQuality"
+							IsChecked="{Binding VideoEncodeRateType, Converter={StaticResource EnumBoolConverter}, ConverterParameter=ConstantQuality}"
+							Content="{x:Static res:EncodingRes.ConstantQualityRadioButton}">
+							<RadioButton.ToolTip>
+								<TextBlock Text="{x:Static res:EncodingRes.Video_QualityTargetToolTip}" Style="{StaticResource LargeToolTip}" />
+							</RadioButton.ToolTip>
+						</RadioButton>
+						<controls:NumberBox
+							Grid.Row="2" Grid.Column="1"
+							Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Width="49" Margin="8,0,0,0"
+							Number="{Binding Quality, Mode=TwoWay}" Minimum="0" Maximum="51" Modulus="0.1"
+							AllowEmpty="False"
+							Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}">
+							<controls:NumberBox.ToolTip>
+								<TextBlock Text="{x:Static res:EncodingRes.Video_QualityTargetToolTip}" Style="{StaticResource LargeToolTip}" />
+							</controls:NumberBox.ToolTip>
+						</controls:NumberBox>
+					</Grid>
+
+					<CheckBox 
+						Grid.Column="1"
+						Content="{x:Static res:EncodingRes.TwoPassEncodingCheckBox}" HorizontalAlignment="Left" Margin="15,5,0,0" VerticalAlignment="Top" IsChecked="{Binding TwoPassEncoding}" IsEnabled="{Binding TwoPassEncodingEnabled}"
+						Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter=ConstantQuality}"/>
+					<CheckBox 
+						Grid.Column="1"
+						Content="{x:Static res:EncodingRes.TurboFirstPassCheckBox}" HorizontalAlignment="Left" Margin="36,26,0,0" VerticalAlignment="Top" IsChecked="{Binding TurboFirstPass}" IsEnabled="{Binding TurboFirstPassEnabled}"
+						Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter=ConstantQuality}"/>
 				</Grid>
+
 
 				<Slider
 					Height="22" Margin="20,104,6,0" VerticalAlignment="Top"
@@ -212,12 +229,7 @@
 					Height="21" HorizontalAlignment="Right" Margin="0,132,6,0" VerticalAlignment="Top" TextAlignment="Right"
 					Text="{Binding QualitySliderRightText}"
 					Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}"/>
-				<CheckBox 
-					Content="{x:Static res:EncodingRes.TwoPassEncodingCheckBox}" HorizontalAlignment="Left" Margin="214,29,0,0" VerticalAlignment="Top" IsChecked="{Binding TwoPassEncoding}" IsEnabled="{Binding TwoPassEncodingEnabled}"
-					Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter=ConstantQuality}"/>
-				<CheckBox 
-					Content="{x:Static res:EncodingRes.TurboFirstPassCheckBox}" HorizontalAlignment="Left" Margin="235,50,0,0" VerticalAlignment="Top" IsChecked="{Binding TurboFirstPass}" IsEnabled="{Binding TurboFirstPassEnabled}"
-					Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter=ConstantQuality}"/>
+
 			</Grid>
 		</Grid>
 		

@@ -98,28 +98,105 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-  <data name="ChapterMarkersDialogTitle">
-    <value xml:space="preserve">Fejezet jelzők</value>
+  <data name="AddButton">
+    <value xml:space="preserve">Gehitu</value>
   </data>
-  <data name="DefaultChapterNamesRadioButton">
-    <value xml:space="preserve">Alapértelmezett fejezetcímek használata</value>
+  <data name="RefreshButton">
+    <value xml:space="preserve">Berritu</value>
   </data>
-  <data name="CustomChapterNamesRadioButton">
-    <value xml:space="preserve">Egyéni fejezetcímek használata</value>
+  <data name="ChooseFromProcessesLabel">
+    <value xml:space="preserve">Hautatu dauden garapenetatik:</value>
   </data>
-  <data name="ImportFromCsvButton">
-    <value xml:space="preserve">Importálás .csv fájlból...</value>
+  <data name="AddAutoPauseProcessDialogTitle">
+    <value xml:space="preserve">Gehitu Berez Pausatu Garapena</value>
   </data>
-  <data name="NumberColumn">
-    <value xml:space="preserve">Szám</value>
+  <data name="ProcessNameLabel">
+    <value xml:space="preserve">Garapen Izena:</value>
   </data>
-  <data name="StartTimeColumn">
-    <value xml:space="preserve">Kezdési idő</value>
+  <data name="ExceptionDialogMainText">
+    <value xml:space="preserve">VidCoder-ek ustekabeko akats bat izan du.</value>
   </data>
-  <data name="TitleColumn">
-    <value xml:space="preserve">Cím</value>
+  <data name="ExceptionDialogSubText">
+    <value xml:space="preserve">Mesedez jakinarazi hau horrela etorkizunean zuzendu ahal izango da.</value>
   </data>
-  <data name="CouldNotReadFileMessage">
-    <value xml:space="preserve">Fájl nem olvasható.</value>
+  <data name="ExceptionWindowTitle">
+    <value xml:space="preserve">Salbuespena</value>
+  </data>
+  <data name="FileConflictDialogTitle">
+    <value xml:space="preserve">Agiri gatazka</value>
+  </data>
+  <data name="OverwriteButton">
+    <value xml:space="preserve">Gainidatzi</value>
+  </data>
+  <data name="AutoRenameButton">
+    <value xml:space="preserve">Berez-berrizendatu</value>
+  </data>
+  <data name="FileConflictWarning">
+    <value xml:space="preserve">Agiria jadanik badago hemen: {0}. Agiria gainidaztea, kodeaketa lanarentzat irteera helburu berri bat berezgaitasunez bilatu edo eragiketa hau ezeztatzea nahi duzu?</value>
+  </data>
+  <data name="QueueFileConflictWarning">
+    <value xml:space="preserve">Lerroko lan bat jadanik badago irteera helburuan hemen: {0}. Agiria gainidaztea, kodeaketa lanarentzat irteera helburu berri bat berezgaitasunez bilatu edo eragiketa hau ezeztatzea nahi duzu?</value>
+  </data>
+  <data name="QueueColumnsDialogTitle">
+    <value xml:space="preserve">Lerro Zutabeak</value>
+  </data>
+  <data name="QueueColumnsDialogHeaderText">
+    <value xml:space="preserve">Arrasatu eta askatu gehitzeko, kendu edo birrantolatu zutabeak.</value>
+  </data>
+  <data name="UnusedColumns">
+    <value xml:space="preserve">Zutabe ezerabiliak</value>
+  </data>
+  <data name="UsedColumns">
+    <value xml:space="preserve">Zutabe erabiliak</value>
+  </data>
+  <data name="ScanMultipleWindowTitle">
+    <value xml:space="preserve">Agiriak mihatzen...</value>
+  </data>
+  <data name="UpdateSuccessDialogTitle">
+    <value xml:space="preserve">Ongi</value>
+  </data>
+  <data name="UpdateSuccessDialogMessage">
+    <value xml:space="preserve">VidCoder ongi eguneratu da.</value>
+  </data>
+  <data name="AboutVidCoderDialogTitle">
+    <value xml:space="preserve">VidCoder Buruz</value>
+  </data>
+  <data name="LicenseLabel">
+    <value xml:space="preserve">Baimena:</value>
+  </data>
+  <data name="Version">
+    <value xml:space="preserve">Bertsioa</value>
+  </data>
+  <data name="BasedOnHandBrake">
+    <value xml:space="preserve">HandBrake (svn {0})-an ohinarritua</value>
+  </data>
+  <data name="Copyright">
+    <value xml:space="preserve">© {0} VidCoder Garatzaileak</value>
+  </data>
+  <data name="VersionFormat">
+    <value xml:space="preserve">{0} ({1})</value>
+    <comment>First is version, second is architecture. For example: 1.4.2 (x64)</comment>
+  </data>
+  <data name="BetaVersionFormat">
+    <value xml:space="preserve">{0} Beta ({1})</value>
+    <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
+  </data>
+  <data name="PresetNameDialogTitle">
+    <value xml:space="preserve">Aurrezarpen Izena</value>
+  </data>
+  <data name="ChoosePresetName">
+    <value xml:space="preserve">Hautatu izen bat aurrezarpenarentzat:</value>
+  </data>
+  <data name="ApplyUpdateDialogTitle">
+    <value xml:space="preserve">Ezarri Eguneraketa?</value>
+  </data>
+  <data name="ApplyUpdateDialogMessage">
+    <value xml:space="preserve">Eguneraketa bat jeitsi da. Nahi duzu orain ezartzea?</value>
+  </data>
+  <data name="ViewFullChangelog">
+    <value xml:space="preserve">Ikusi Aldaketa-ohar osoa</value>
+  </data>
+  <data name="DisableUpdatesButton">
+    <value xml:space="preserve">Ezgaitu Eguneraketak</value>
   </data>
 </root>

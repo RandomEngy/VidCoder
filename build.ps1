@@ -27,7 +27,7 @@ function CreateIssFile($version, $beta, $arch) {
         if ($beta) {
             $appId = "VidCoder-Beta-x64"
         } else {
-            $appId = "VidCoder-64"
+            $appId = "VidCoder-x64"
         }
     }
 
@@ -104,7 +104,7 @@ function CopyLanguage($language) {
 }
 
 # Master switch for if this branch is beta
-$beta = $true
+$beta = $false
 
 if ($beta) {
     $configuration = "Release-Beta"
@@ -135,8 +135,8 @@ UpdateAssemblyInfo "VidCoderWorker\Properties\AssemblyInfo.cs" $versionLong
 $dest86 = ".\Installer\Files\x86"
 $dest64 = ".\Installer\Files\x64"
 
-ClearFolder $dest86
-ClearFolder $dest64
+ClearFolder $dest86; ExitIfFailed
+ClearFolder $dest64; ExitIfFailed
 
 $source86 = ".\VidCoder\bin\x86\Release\"
 $source64 = ".\VidCoder\bin\x64\Release\"
@@ -170,6 +170,8 @@ CopyCommon ".\License.txt"
 
 # Languages
 CopyLanguage "hu"
+CopyLanguage "es"
+CopyLanguage "eu"
 
 
 # Create portable installer
@@ -188,8 +190,11 @@ DeleteFileIfExists ($portableExeWithoutExtension64 + ".exe")
 
 $winRarExe = "c:\Program Files\WinRar\WinRAR.exe"
 
-& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension86 .\Installer\Files\x86\**; ExitIfFailed
-& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension64 .\Installer\Files\x64\**; ExitIfFailed
+& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension86 .\Installer\Files\x86\** | Out-Null
+ExitIfFailed
+
+& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension64 .\Installer\Files\x64\** | Out-Null
+ExitIfFailed
 
 #$archiveFolder = ".\Installer\Archive\"
 #ClearFolder $archiveFolder
@@ -203,7 +208,7 @@ $winRarExe = "c:\Program Files\WinRar\WinRAR.exe"
 # Update latest.xml files with version
 if ($beta)
 {
-    $latestFile = "Installer\latest-beta.xml"
+    $latestFile = "Installer\latest-beta2.xml"
 }
 else
 {

@@ -118,126 +118,126 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
-    <value>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+    <value>Este programa es software libre; Usted puede redistribuirlo y/o modificarlo bajo los terminos de la GNU General Public License publicada por la Free Software Foundation; sea version 2 de la licencia, o (a su opcion) cualquier version posterior.
 
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+Este programa se distribuye con la esperanza de que sea util, pero SIN GARANTIA ALGUNA; ni siquiera la garantia implicita de COMERCIABILIDAD o IDONEIDAD PARA UN FIN DETERMINADO. Consulte la GNU General Public License para obtener más detalles.
 
-A full copy of the GNU General Public License has been included along with this program.</value>
+Una copia completa de la Licencia Publica General de GNU se ha incluido junto con este programa.</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>Feliratok ráégetése a képre. A ráégetett feliratok esetén nem lehetséges a kikapcsolásuk lejátszáskor.</value>
+    <value>"Pega" los subtitulos en la imagen. Los subtitulos pegados no pueden ser deshabilidatos durante la reproduccion del video.</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Feliratsáv megjelelölése alapértelmezettként. Ez fog megjelenni lejátszáskor, amíg egy másik sáv nem kerül kiválasztásra.</value>
+    <value>Define este subtitulo como predeterminado. Se mostrara durante la reproduccion hasta que otra pista sea elegida.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Csak a kényszerített feliratok jelenítse meg az adott sávról. Általában ez néhány idegen szöveget jelent.</value>
+    <value>Muestra solamente los subtitulos forzados en la pista data. Normalmente significa pequeños fragmentos de dialogo extranjero.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
-    <value>Az idő mértéke, amennyivel előre vagy hátra tolja a megadott feliratokat.</value>
+    <value>La cantidad de tiempo a adelantar o atrasar la aparicion de los subtitulos.</value>
   </data>
   <data name="QueueColumnNameRange" xml:space="preserve">
-    <value>Hatókör</value>
+    <value>Rango</value>
     <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
   </data>
   <data name="QueueColumnNameDestination" xml:space="preserve">
-    <value>Cél</value>
+    <value>Destino</value>
   </data>
   <data name="QueueColumnNameSource" xml:space="preserve">
-    <value>Forrás</value>
+    <value>Fuente</value>
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
-    <value>Cím</value>
+    <value>Titulo</value>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Hangminőség</value>
+    <value>Calidad de audio</value>
   </data>
   <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Hangkódoló</value>
+    <value>Codificador de audio</value>
   </data>
   <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Videókódoló</value>
+    <value>Codificador de video</value>
   </data>
   <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Videóminőség</value>
+    <value>Calidad de video</value>
   </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>A sorban található műveletek befejezésének becsült ideje.</value>
+    <value>Tiempo estimado restante de todos los trabajos en cola para completar.</value>
   </data>
   <data name="QueueColumnNameDuration" xml:space="preserve">
-    <value>Időtartam</value>
+    <value>Duracion</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Feliratsávot keres, amely valószínűleg tartalmaz idegen nyelvű szövegeket. Nagyszerű olyan filmek esetében, amelyek főként a saját nyelveden vannak.</value>
+    <value>Busca pista de subtitulos que es probable contenga fragmentos de dialogo extranjero. Bueno para las peliculas que se encuentran principalmente en su lengua materna.</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>Alapértelmezett</value>
+    <value>Predeterminado</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="Custom" xml:space="preserve">
-    <value>Egyéni</value>
+    <value>Personalizar</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="Browse" xml:space="preserve">
-    <value>Tallózás...</value>
+    <value>Explorar...</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Törlés</value>
+    <value>Borrar</value>
   </data>
   <data name="PreviewLabel" xml:space="preserve">
-    <value>Előnézet</value>
+    <value>Preview</value>
   </data>
   <data name="Automatic" xml:space="preserve">
-    <value>Automatikus</value>
+    <value>Automatico</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>Ki</value>
+    <value>Apagado</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="All" xml:space="preserve">
-    <value>Mind</value>
+    <value>Todo</value>
   </data>
   <data name="StreamChoice" xml:space="preserve">
-    <value>{0} folyamat</value>
+    <value>Flujo {0}</value>
     <comment>Used in the encoding settings dialog to mark which audio stream an audio encoding is targeting. By default the encoding works on all streams but you can target it to affect only the first stream, in which case it would label it "Stream 1"</comment>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>Rendben</value>
+    <value>OK</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Mégse</value>
+    <value>Cancelar</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>Kikapcsolva</value>
+    <value>Deshabilitado</value>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>Eltávolítás</value>
+    <value>Quitar</value>
   </data>
   <data name="Copy" xml:space="preserve">
-    <value>Másolás</value>
+    <value>Copiar</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Igen</value>
+    <value>Si</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>Nem</value>
+    <value>No</value>
   </data>
   <data name="CouldNotAccessDirectoriesError" xml:space="preserve">
-    <value>Nem sikerült hozzáférni a következő mappákhoz:</value>
+    <value>No se pudo acceder a los siguientes directorios:</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>Nincs</value>
+    <value>Ninguno</value>
   </data>
   <data name="Succeeded" xml:space="preserve">
-    <value>Sikeres</value>
+    <value>Exitoso</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Sikertelen</value>
+    <value>Fallido</value>
   </data>
   <data name="FilePickerExtTemplate" xml:space="preserve">
-    <value>{0} fájlok</value>
+    <value>{0} Archivos</value>
   </data>
   <data name="QueueColumnNamePreset" xml:space="preserve">
-    <value>Séma</value>
+    <value>Preset</value>
   </data>
 </root>

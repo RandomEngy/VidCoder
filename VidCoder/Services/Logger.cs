@@ -162,7 +162,7 @@ namespace VidCoder.Services
 			}
 		}
 
-		public void AddEntry(LogEntry entry)
+		public void AddEntry(LogEntry entry, bool logParent = true)
 		{
 			lock (this.disposeLock)
 			{
@@ -185,7 +185,7 @@ namespace VidCoder.Services
 			this.logFile.WriteLine(entry.Text);
 			this.logFile.Flush();
 
-			if (this.parent != null)
+			if (this.parent != null && logParent)
 			{
 				this.parent.AddEntry(entry);
 			}
@@ -200,7 +200,8 @@ namespace VidCoder.Services
 				Text = e.Message
 			};
 
-			this.AddEntry(entry);
+			// Parent will also get this message
+			this.AddEntry(entry, logParent: false);
 		}
 
 		private void OnErrorLogged(object sender, MessageLoggedEventArgs e)
@@ -212,7 +213,8 @@ namespace VidCoder.Services
 				Text = "ERROR: " + e.Message
 			};
 
-			this.AddEntry(entry);
+			// Parent will also get this message
+			this.AddEntry(entry, logParent: false);
 		}
 	}
 }

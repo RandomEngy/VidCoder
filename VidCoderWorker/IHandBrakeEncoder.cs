@@ -11,7 +11,7 @@ namespace VidCoderWorker
 	public interface IHandBrakeEncoder
 	{
 		[OperationContract]
-		void StartEncode(EncodeJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds, int verbosity, int previewCount);
+		void StartEncode(EncodeJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds, int verbosity, int previewCount, bool useDvdNav);
 
 		[OperationContract]
 		void PauseEncode();
