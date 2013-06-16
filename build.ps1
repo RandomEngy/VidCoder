@@ -104,7 +104,7 @@ function CopyLanguage($language) {
 }
 
 # Master switch for if this branch is beta
-$beta = $false
+$beta = $true
 
 if ($beta) {
     $configuration = "Release-Beta"

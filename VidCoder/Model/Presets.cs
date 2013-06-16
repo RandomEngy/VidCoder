@@ -22,7 +22,7 @@ namespace VidCoder.Model
 
 	public static class Presets
 	{
-		private const int CurrentPresetVersion = 8;
+		private const int CurrentPresetVersion = 9;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
@@ -234,6 +234,11 @@ namespace VidCoder.Model
 			{
 				UpgradeEncodingProfileTo17(profile);
 			}
+
+			if (databaseVersion < 19)
+			{
+				UpgradeEncodingProfileTo19(profile);
+			}
 		}
 
 		public static void UpgradeEncodingProfileTo13(VCProfile profile)
@@ -366,6 +371,23 @@ namespace VidCoder.Model
 			}
 		}
 
+		public static void UpgradeEncodingProfileTo19(VCProfile profile)
+		{
+			foreach (AudioEncoding encoding in profile.AudioEncodings)
+			{
+				if (!Encoders.AudioEncoders.Any(e => e.ShortName == encoding.Encoder))
+				{
+					string newAudioEncoder = UpgradeAudioEncoder2(encoding.Encoder);
+					if (newAudioEncoder == null)
+					{
+						newAudioEncoder = "av_aac";
+					}
+
+					encoding.Encoder = newAudioEncoder;
+				}
+			}
+		}
+
 		private static void ErrorCheckPresets(List<Preset> presets)
 		{
 			for (int i = presets.Count - 1; i >= 0; i--)
@@ -389,6 +411,7 @@ namespace VidCoder.Model
 			}
 		}
 
+		// For v13 upgrade
 		private static string UpgradeAudioEncoder(string oldEncoder)
 		{
 			switch (oldEncoder)
@@ -407,6 +430,27 @@ namespace VidCoder.Model
 					return "copy:dts";
 				case "Vorbis":
 					return "vorbis";
+			}
+
+			return oldEncoder;
+		}
+
+		// For v19 upgrade
+		private static string UpgradeAudioEncoder2(string oldEncoder)
+		{
+			switch (oldEncoder)
+			{
+				case "faac":
+				case "ffaac":
+					return "av_aac";
+				case "ffflac":
+					return "flac16";
+				case "ffflac24":
+					return "flac24";
+				case "ffac3":
+					return "ac3";
+				case "lame":
+					return "mp3";
 			}
 
 			return oldEncoder;
@@ -434,9 +478,14 @@ namespace VidCoder.Model
 				return 14;
 			}
 
-			if (presetVersion == 6)
+			if (presetVersion < 7)
 			{
 				return 15;
+			}
+
+			if (presetVersion < 9)
+			{
+				return 18;
 			}
 
 			return Utilities.CurrentDatabaseVersion;

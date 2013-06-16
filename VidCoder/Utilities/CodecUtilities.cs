@@ -15,18 +15,24 @@ namespace VidCoder
 		/// </summary>
 		/// <param name="encoder">The encoder to check.</param>
 		/// <returns>The bitrate limits for the given encoder.</returns>
+		/// <remarks>HandBrake does not supply an "overall" set of limits, only when you give it a specific
+		/// mixdown and sample rate.</remarks>
 		public static BitrateLimits GetAudioEncoderLimits(HBAudioEncoder encoder)
 		{
-			int low = 32;
+			int low = 8;
 			int high = 1536;
 
 			switch (encoder.ShortName)
 			{
-				case "faac":
-					low = 32;
-					high = 1536;
+				case "fdk_aac":
+					low = 48;
+					high = 1440;
 					break;
-				case "ffaac":
+				case "fdk_haac":
+					low = 8;
+					high = 256;
+					break;
+				case "av_aac":
 					low = 32;
 					high = 512;
 					break;
@@ -34,11 +40,11 @@ namespace VidCoder
 					low = 32;
 					high = 1536;
 					break;
-				case "lame":
+				case "mp3":
 					low = 32;
 					high = 320;
 					break;
-				case "ffac3":
+				case "ac3":
 					low = 48;
 					high = 640;
 					break;

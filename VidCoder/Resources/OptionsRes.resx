@@ -262,7 +262,7 @@
     <value>Advanced</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>You're in the Beta track. To go back to a stable version, uninstall, click "Yes" to remove presets, then re-install a stable version.</value>
+    <value>You're running the Beta version. This can run side-by-side with the stable version.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Join the Beta track to get more frequent updates</value>
@@ -384,16 +384,16 @@
   <data name="Priority_Idle" xml:space="preserve">
     <value>Low</value>
   </data>
-	<data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
     <value>Copy the encode log to the same directory as the encoded video</value>
   </data>
-	<data name="OpenLogFolderButton" xml:space="preserve">
+  <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Open Log Folder</value>
   </data>
-	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
     <value>Automatically resume encoding on restart</value>
   </data>
-	<data name="UseWorkerProcessCheckBox" xml:space="preserve">
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Use worker process to encode</value>
   </data>
 </root>

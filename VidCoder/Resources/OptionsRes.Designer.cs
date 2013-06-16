@@ -196,7 +196,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You&apos;re in the Beta track. To go back to a stable version, uninstall, click &quot;Yes&quot; to remove presets, then re-install a stable version..
+        ///   Looks up a localized string similar to You&apos;re running the Beta version. This can run side-by-side with the stable version..
         /// </summary>
         public static string BetaUpdatesInBeta {
             get {

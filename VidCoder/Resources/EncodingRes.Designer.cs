@@ -473,6 +473,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AC3.
+        /// </summary>
+        public static string AudioEncoder_ac3 {
+            get {
+                return ResourceManager.GetString("AudioEncoder_ac3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AAC (avcodec).
+        /// </summary>
+        public static string AudioEncoder_av_aac {
+            get {
+                return ResourceManager.GetString("AudioEncoder_av_aac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auto Passthrough.
         /// </summary>
         public static string AudioEncoder_copy {
@@ -536,52 +554,52 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AAC (Libav).
+        ///   Looks up a localized string similar to AAC (FDK).
         /// </summary>
-        public static string AudioEncoder_ffaac {
+        public static string AudioEncoder_fdk_aac {
             get {
-                return ResourceManager.GetString("AudioEncoder_ffaac", resourceCulture);
+                return ResourceManager.GetString("AudioEncoder_fdk_aac", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AC3 (Libav).
+        ///   Looks up a localized string similar to HE-AAC (FDK).
         /// </summary>
-        public static string AudioEncoder_ffac3 {
+        public static string AudioEncoder_fdk_haac {
             get {
-                return ResourceManager.GetString("AudioEncoder_ffac3", resourceCulture);
+                return ResourceManager.GetString("AudioEncoder_fdk_haac", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FLAC (Libav).
+        ///   Looks up a localized string similar to FLAC 16-bit.
         /// </summary>
-        public static string AudioEncoder_ffflac {
+        public static string AudioEncoder_flac16 {
             get {
-                return ResourceManager.GetString("AudioEncoder_ffflac", resourceCulture);
+                return ResourceManager.GetString("AudioEncoder_flac16", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FLAC 24-bit (Libav).
+        ///   Looks up a localized string similar to FLAC 24-bit.
         /// </summary>
-        public static string AudioEncoder_ffflac24 {
+        public static string AudioEncoder_flac24 {
             get {
-                return ResourceManager.GetString("AudioEncoder_ffflac24", resourceCulture);
+                return ResourceManager.GetString("AudioEncoder_flac24", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MP3 (LAME).
+        ///   Looks up a localized string similar to MP3.
         /// </summary>
-        public static string AudioEncoder_lame {
+        public static string AudioEncoder_mp3 {
             get {
-                return ResourceManager.GetString("AudioEncoder_lame", resourceCulture);
+                return ResourceManager.GetString("AudioEncoder_mp3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vorbis (Vorbis).
+        ///   Looks up a localized string similar to Vorbis.
         /// </summary>
         public static string AudioEncoder_vorbis {
             get {

@@ -41,22 +41,11 @@ namespace VidCoder.ViewModel
 		{
 			this.encoderChoices = new List<VideoEncoderViewModel>();
 
-			this.framerateChoices = new List<double>
+			this.framerateChoices = new List<double> { 0 };
+			foreach (var framerate in Encoders.VideoFramerates)
 			{
-				0,
-				5,
-				10,
-				12,
-				15,
-				23.976,
-				24,
-				25,
-				29.97,
-				30,
-				50,
-				59.94,
-				60
-			};
+				this.framerateChoices.Add(double.Parse(framerate.Name));
+			}
 
 			this.x264Presets = new List<string>
 			{
@@ -114,8 +103,6 @@ namespace VidCoder.ViewModel
 				new ComboChoice("stillimage", EncodingRes.Tune_StillImage),
 				new ComboChoice("psnr", EncodingRes.Tune_Psnr),
 				new ComboChoice("ssim", EncodingRes.Tune_Ssim),
-				//new ComboChoice("fastdecode", EncodingRes.Tune_FastDecode),
-				//new ComboChoice("zerolatency", EncodingRes.Tune_ZeroLatency),
 			};
 
 			this.RefreshLevelCompatibility();

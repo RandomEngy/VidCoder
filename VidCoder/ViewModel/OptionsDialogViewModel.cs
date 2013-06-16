@@ -42,8 +42,10 @@ namespace VidCoder.ViewModel
 		private List<InterfaceLanguage> languageChoices;
 		private List<ComboChoice> priorityChoices; 
 
+#pragma warning disable 169
 		private UpdateInfo betaInfo;
 		private bool betaInfoAvailable;
+#pragma warning restore 169
 
 		private IUpdater updater;
 

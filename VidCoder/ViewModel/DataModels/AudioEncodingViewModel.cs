@@ -46,21 +46,18 @@ namespace VidCoder.ViewModel
 
 		private Container outputFormat;
 
-		private static List<int> allSampleRateChoices = new List<int>
-		{
-			0,
-			8000,
-			11025,
-			12000,
-			16000,
-			22050,
-			24000,
-			32000,
-			44100,
-			48000
-		};
+		private static List<int> allSampleRateChoices;
 
 		private List<int> currentSampleRateChoices;
+
+		static AudioEncodingViewModel()
+		{
+			allSampleRateChoices = new List<int> { 0 };
+			foreach (var sampleRate in Encoders.AudioSampleRates)
+			{
+				allSampleRateChoices.Add(sampleRate.Rate);
+			}
+		}
 
 		public AudioEncodingViewModel(AudioEncoding audioEncoding, Title selectedTitle, List<int> chosenAudioTracks, Container outputFormat, AudioPanelViewModel audioPanelVM)
 		{
@@ -879,7 +876,7 @@ namespace VidCoder.ViewModel
 			// Many AC3 decoders do not support <32 kHz sample rate. For the AC3 encoder, we remove those
 			// samplerate choices.
 			int oldSampleRate = this.SampleRate;
-			if (this.HBAudioEncoder.ShortName == "ffac3")
+			if (this.HBAudioEncoder.ShortName == "ac3")
 			{
 				this.currentSampleRateChoices = new List<int>();
 				foreach (int sampleRateChoice in allSampleRateChoices)

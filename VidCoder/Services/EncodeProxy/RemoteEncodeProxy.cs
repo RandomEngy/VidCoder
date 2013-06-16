@@ -53,7 +53,6 @@ namespace VidCoder
 		private DateTimeOffset lastWorkerCommunication;
 
 		private DuplexChannelFactory<IHandBrakeEncoder> pipeFactory;
-		private string pipeGuidString;
 		private string pipeName;
 		private IHandBrakeEncoder channel;
 		private ILogger logger;

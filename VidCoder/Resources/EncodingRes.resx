@@ -612,20 +612,20 @@ You should set this if you know your playback device only supports a certain pro
     <value>AAC (FAAC)</value>
     <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
   </data>
-  <data name="AudioEncoder_ffaac" xml:space="preserve">
-    <value>AAC (Libav)</value>
+  <data name="AudioEncoder_av_aac" xml:space="preserve">
+    <value>AAC (avcodec)</value>
   </data>
-  <data name="AudioEncoder_ffac3" xml:space="preserve">
-    <value>AC3 (Libav)</value>
+  <data name="AudioEncoder_ac3" xml:space="preserve">
+    <value>AC3</value>
   </data>
-  <data name="AudioEncoder_ffflac" xml:space="preserve">
-    <value>FLAC (Libav)</value>
+  <data name="AudioEncoder_flac16" xml:space="preserve">
+    <value>FLAC 16-bit</value>
   </data>
-  <data name="AudioEncoder_lame" xml:space="preserve">
-    <value>MP3 (LAME)</value>
+  <data name="AudioEncoder_mp3" xml:space="preserve">
+    <value>MP3</value>
   </data>
   <data name="AudioEncoder_vorbis" xml:space="preserve">
-    <value>Vorbis (Vorbis)</value>
+    <value>Vorbis</value>
   </data>
   <data name="Mixdown_5point1" xml:space="preserve">
     <value>5.1 Channels</value>
@@ -896,10 +896,16 @@ Overrides all other settings.</value>
   <data name="DtsMp4Warning" xml:space="preserve">
     <value>Few players support playback of DTS audio in MP4 containers. MKV is recommended for DTS audio.</value>
   </data>
-  <data name="AudioEncoder_ffflac24" xml:space="preserve">
-    <value>FLAC 24-bit (Libav)</value>
+  <data name="AudioEncoder_flac24" xml:space="preserve">
+    <value>FLAC 24-bit</value>
   </data>
-	<data name="Advanced_PsychovisualLabel" xml:space="preserve">
+  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Psychovisual</value>
+  </data>
+  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
+    <value>AAC (FDK)</value>
+  </data>
+  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
+    <value>HE-AAC (FDK)</value>
   </data>
 </root>
