@@ -14,6 +14,7 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
+	using System.Globalization;
 	using Resources;
 	using Properties;
 
@@ -44,7 +45,7 @@ namespace VidCoder.ViewModel
 			this.framerateChoices = new List<double> { 0 };
 			foreach (var framerate in Encoders.VideoFramerates)
 			{
-				this.framerateChoices.Add(double.Parse(framerate.Name));
+				this.framerateChoices.Add(double.Parse(framerate.Name, CultureInfo.InvariantCulture));
 			}
 
 			this.x264Presets = new List<string>
