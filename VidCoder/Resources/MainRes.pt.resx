@@ -118,115 +118,115 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
-    <value>Titulo:</value>
+    <value>Título:</value>
   </data>
   <data name="SettingsLabel" xml:space="preserve">
-    <value>Ajustes</value>
+    <value>Definições</value>
   </data>
   <data name="AddToQueueLabel" xml:space="preserve">
-    <value>Añadir a la Cola</value>
+    <value>Adicionar à lista de tarefas</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
-    <value>Añadir Varios Titulos a la Cola...</value>
+    <value>Adicione vários títulos à lista de tarefas...</value>
   </data>
   <data name="FileMenu" xml:space="preserve">
-    <value>Archivo</value>
+    <value>Ficheiro</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
-    <value>Abrir Archivo de Video...</value>
+    <value>Abrir ficheiro de vídeo...</value>
   </data>
   <data name="OpenDiscFolder" xml:space="preserve">
-    <value>Abrir Carpeta de DVD/Blu-ray...</value>
+    <value>Abrir pasta do DVD ou do Blu-Ray...</value>
   </data>
   <data name="EnqueueMultipleFiles" xml:space="preserve">
-    <value>Poner en cola Multiples Archivos...</value>
+    <value>Adicionar vários ficheiros à lista de tarefas...</value>
   </data>
   <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Poner en cola Multiples Titulos...</value>
+    <value>Adicionar vários títulos à lista de tarefas...</value>
   </data>
   <data name="ToolsMenu" xml:space="preserve">
-    <value>Herramientas</value>
+    <value>Ferramentas</value>
   </data>
   <data name="ImportPreset" xml:space="preserve">
-    <value>Importar Preset...</value>
+    <value>Importar Pré-ajustes...</value>
   </data>
   <data name="ExportPreset" xml:space="preserve">
-    <value>Exportar Preset...</value>
+    <value>Exportar Pré-ajustes...</value>
   </data>
   <data name="OptionsMenuItem" xml:space="preserve">
-    <value>Opciones...</value>
+    <value>Opções...</value>
   </data>
   <data name="Play" xml:space="preserve">
-    <value>Reproducir</value>
+    <value>Reproduzir</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Editar</value>
   </data>
   <data name="OpenContainingFolder" xml:space="preserve">
-    <value>Abrir Carpeta Contenedora</value>
+    <value>Abrir pasta do conteúdo</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
-    <value>Limpiar Finalizados</value>
+    <value>Eliminar concluídos</value>
   </data>
   <data name="ExitMenuItem" xml:space="preserve">
-    <value>Salit</value>
+    <value>Sair</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
-    <value>Mostrar</value>
+    <value>Windows</value>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
-    <value>Ajustes de Codificacion</value>
+    <value>Configurações de codificação</value>
   </data>
   <data name="PreviewMenuItem" xml:space="preserve">
-    <value>Preview</value>
+    <value>Pré-Visualizar</value>
   </data>
   <data name="LogMenuItem" xml:space="preserve">
-    <value>Log</value>
+    <value>Relatório</value>
   </data>
   <data name="HelpMenu" xml:space="preserve">
-    <value>Ayuda</value>
+    <value>Ajuda</value>
   </data>
   <data name="VidCoderHomepageMenuItem" xml:space="preserve">
-    <value>Pagina Oficial de VidCoder</value>
+    <value>VidCoder Homepage</value>
   </data>
   <data name="ReportABugMenuItem" xml:space="preserve">
-    <value>Notificar Falla</value>
+    <value>Reportar um Erro</value>
   </data>
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
-    <value>Acerca de VidCoder...</value>
+    <value>Acerca do VidCoder...</value>
   </data>
   <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>Elegir una fuente de video:</value>
+    <value>Escolha uma fonte de vídeo:</value>
   </data>
   <data name="SourceLabel" xml:space="preserve">
-    <value>Fuente:</value>
+    <value>Fonte:</value>
   </data>
   <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Analizando fuente...</value>
+    <value>Analisando a fonte...</value>
   </data>
   <data name="Recent" xml:space="preserve">
-    <value>Reciente</value>
+    <value>Recentes</value>
   </data>
   <data name="DragFilesHereLabel" xml:space="preserve">
-    <value>(O arrastre aquí los archivos de vídeo o carpetas)</value>
+    <value>(Ou arraste pastas ou ficheiros de vídeo para aqui)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
-    <value>Se ha producido un error durante el analisis.</value>
+    <value>Ocorreu um erro durante a análise.</value>
   </data>
   <data name="AudioLabel" xml:space="preserve">
-    <value>Audio:</value>
+    <value>Áudio:</value>
   </data>
   <data name="VideoLabel" xml:space="preserve">
     <value>Vídeo:</value>
   </data>
   <data name="SubtitlesLabel" xml:space="preserve">
-    <value>Subtitulos:</value>
+    <value>Legendas:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
-    <value>Añadir pista</value>
+    <value>Adicionar pista</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
-    <value>Indicadores de capítulo:</value>
+    <value>Marcadores de capítulos:</value>
   </data>
   <data name="EditButton" xml:space="preserve">
     <value>Editar...</value>
@@ -235,70 +235,70 @@
     <value>Destino:</value>
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
-    <value>Haga clic para editar el destino de la codificacion.</value>
+    <value>Clique para editar o destino da codificação.</value>
   </data>
   <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>Elegir ruta de salida...</value>
+    <value>Seleccione o destino...</value>
   </data>
   <data name="EncodingLabel" xml:space="preserve">
-    <value>Codificando:</value>
+    <value>Codificação:</value>
   </data>
   <data name="Stop" xml:space="preserve">
-    <value>Detener</value>
+    <value>Parar</value>
   </data>
   <data name="Pause" xml:space="preserve">
     <value>Pausar</value>
   </data>
   <data name="MoveToTopMenuItem" xml:space="preserve">
-    <value>Mover al Principio</value>
+    <value>Mover para cima</value>
   </data>
   <data name="MoveToBottomMenuItem" xml:space="preserve">
-    <value>Mover al Final</value>
+    <value>Mover para baixo</value>
   </data>
   <data name="CustomizeColumnsMenuItem" xml:space="preserve">
-    <value>Personalizar columnas...</value>
+    <value>Personalizar colunas...</value>
   </data>
   <data name="CurrentFpsLabel" xml:space="preserve">
-    <value>FPS actual:</value>
+    <value>FPS atual:</value>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>FPS promedio:</value>
+    <value>FPS médio:</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
-    <value>Elegir una carpeta de DVD o Blu-ray.</value>
+    <value>Seleccione uma pasta de DVD ou de Blu-Ray.</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
-    <value>Hay codificaciones en progreso. ¿Esta seguro de que desea salir?</value>
+    <value>Existe uma codificação em andamento. Tem certeza que deseja sair?</value>
   </data>
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
-    <value>Codificaciones en progreso</value>
+    <value>Codificação em andamento</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Busqueda de Audio Externo</value>
+    <value>Pesquisa de áudio externo</value>
   </data>
   <data name="NoneParen" xml:space="preserve">
-    <value>(None)</value>
+    <value>(Nenhum)</value>
   </data>
   <data name="TracksSummaryMultiple" xml:space="preserve">
     <value>{0} pistas</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
-    <value>¿Desea guardar los cambios en su preset actual?</value>
+    <value>Deseja guardar as alterações do pré-ajuste actual?</value>
   </data>
   <data name="SaveChangesPresetTitle" xml:space="preserve">
-    <value>¿Guardar preset actual?</value>
+    <value>Guardar pré-ajuste actual?</value>
   </data>
   <data name="DiscNotInDriveError" xml:space="preserve">
-    <value>No se puede cargar para su edición. El disco ya no esta en la unidad.</value>
+    <value>Não é possível carregar para edição. O disco não está na unidade.</value>
   </data>
   <data name="PresetNameRestoredFromQueue" xml:space="preserve">
-    <value>Restaurado de cola</value>
+    <value>Restaurado a partir de lista de tarefas</value>
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
-    <value>Restaurado de Completado</value>
+    <value>Restaurado a partir de lista de concluídos</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Preset:</value>
+    <value>Pré-ajuste:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
     <value>Destino</value>
@@ -307,91 +307,91 @@
     <value>Estado</value>
   </data>
   <data name="ElapsedTimeColumnHeader" xml:space="preserve">
-    <value>Tiempo transcurrido</value>
+    <value>Tempo decorrido</value>
   </data>
   <data name="PlayingVideoMessage" xml:space="preserve">
-    <value>Reproduciendo video...</value>
+    <value>Reproduzindo vídeo...</value>
   </data>
   <data name="FileDoesNotExist" xml:space="preserve">
-    <value>{0} no existe.</value>
+    <value>{0} não existe.</value>
   </data>
   <data name="AngleLabel" xml:space="preserve">
-    <value>Angulo:</value>
+    <value>Ângulo:</value>
   </data>
   <data name="ChaptersSummary" xml:space="preserve">
     <value>de {0}</value>
   </data>
   <data name="Queued" xml:space="preserve">
-    <value>En cola</value>
+    <value>Na lista de tarefas</value>
   </data>
   <data name="QueuedWithTotal" xml:space="preserve">
-    <value>En cola ({0})</value>
+    <value>Lista de tarefas ({0})</value>
   </data>
   <data name="CompletedWithTotal" xml:space="preserve">
-    <value>Terminados ({0})</value>
+    <value>Concluídos ({0})</value>
   </data>
   <data name="StoppedEncoding" xml:space="preserve">
-    <value>Codificacion detenida.</value>
+    <value>Codificação parada.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>¿Estas seguro de querer borrar {0} el archivo(s)/carpeta(s) de origen?</value>
+    <value>Tem a certeza de que deseja eliminar {0} ficheiro(s)/pasta(s) de origem?</value>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
-    <value>Confirmar borrar</value>
+    <value>Confirme a eliminação</value>
   </data>
   <data name="CouldNotDeleteFile" xml:space="preserve">
-    <value>No se pudo eliminar {0} {1}</value>
+    <value>Não foi possível eliminar {0} {1}</value>
   </data>
   <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>Los siguientes archivo(s) no son reconocidos y no se añadieron a la cola: {0}</value>
+    <value>Os seguinte(s) ficheiro(s) não é/são reconhecido(s) e não foi/foram adicionado(s) à lista de tarefas: {0}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
-    <value>Error al analizar archivo(s) de video</value>
+    <value>Erro de verificação do(s) ficheiro(s) de vídeo</value>
   </data>
   <data name="StartedEncoding" xml:space="preserve">
-    <value>Codificacion iniciada.</value>
+    <value>Iniciar a codificação.</value>
   </data>
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
-    <value>No se pudo crear el directorio de salida. Detalles del error: {0}</value>
+    <value>Não foi possível criar a pasta de destino. Detalhes do erro: {0}</value>
   </data>
   <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>Error al crear directorio</value>
+    <value>Erro ao criar pasta</value>
   </data>
   <data name="EncodeCompleted" xml:space="preserve">
-    <value>Codificado terminado.</value>
+    <value>Codificação concluída.</value>
   </data>
   <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
-    <value>Codificacion terminada</value>
+    <value>Codificação concluída</value>
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
-    <value>VidCoder ha terminado todos los trabajos en cola.</value>
+    <value>VidCoder terminou todas as tarefas de codificação.</value>
   </data>
   <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>No se puede agregar trabajos sin una carpeta de salida predeterminada. Presione OK para elegir una.</value>
+    <value>Não é possível adicionar tarefas de codificação sem ter uma pasta de destino padrão. Pressione OK para escolher uma.</value>
   </data>
   <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>Carpeta de salida predeterminada requerida</value>
+    <value>Pasta de destino padrão exigida</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
-    <value>Ruta de salida no es valida.</value>
+    <value>Pasta de destino inválida.</value>
   </data>
   <data name="OutputPathNotValidTitle" xml:space="preserve">
-    <value>Ruta no valida</value>
+    <value>Caminho inválido</value>
   </data>
   <data name="Encode" xml:space="preserve">
     <value>Codificar</value>
   </data>
   <data name="Resume" xml:space="preserve">
-    <value>Reanudar</value>
+    <value>Retomar</value>
   </data>
   <data name="EtaLabel" xml:space="preserve">
-    <value>ETA:</value>
+    <value>TER:</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Al terminar:</value>
+    <value>Quando terminar:</value>
   </data>
   <data name="Preset_AndroidTablet" xml:space="preserve">
-    <value>Android Tablet</value>
+    <value>Tablet Android</value>
   </data>
   <data name="Preset_Android" xml:space="preserve">
     <value>Android</value>
@@ -421,7 +421,7 @@
     <value>Universal</value>
   </data>
   <data name="Preset_HighProfile" xml:space="preserve">
-    <value>High Profile</value>
+    <value>Perfil Alto</value>
   </data>
   <data name="Preset_Normal" xml:space="preserve">
     <value>Normal</value>
@@ -430,82 +430,82 @@
     <value>Windows Phone 7</value>
   </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
-    <value>Archivo de video...</value>
+    <value>Ficheiros de vídeo...</value>
   </data>
   <data name="SourceOption_DiscFolder" xml:space="preserve">
-    <value>Carpeta de DVD/Blu-ray...</value>
+    <value>Pasta de DVD/Blu-ray...</value>
   </data>
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
-    <value>Version {0} esta disponible. La descarga de la actualizacion ha comenzado.</value>
+    <value>Versão {0} está disponível. Download da actualização foi iniciado.</value>
   </data>
   <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>Versión {0} se ha terminado de descargar y se instalara al salir.</value>
+    <value>O download da versão {0} terminou e vai ser instalado quando sair do programa.</value>
   </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
-    <value>La actualizacion no se aplico. Si no la cancelo, trate de instalarla manualmente.</value>
+    <value>A actualização não foi aplicada. Se não a cancelou, tente instalá-la manualmente.</value>
   </data>
   <data name="CouldNotLoadPresetMessage" xml:space="preserve">
-    <value>No se pudo cargar preset: </value>
+    <value>Não foi possível carregar os pré-ajustes: </value>
   </data>
   <data name="CouldNotSavePresetMessage" xml:space="preserve">
-    <value>No se pudo guardar preset '{0}': {1} {2}</value>
+    <value>Não foi possível guardar o pré-ajuste '{0}': {1} {2}</value>
   </data>
   <data name="CouldNotCopyTextError" xml:space="preserve">
-    <value>No se pudo copiar el texto.</value>
+    <value>Não foi possível copiar o texto.</value>
   </data>
   <data name="LaunchUrlError" xml:space="preserve">
-    <value>Error al abrir URL: {0}</value>
+    <value>Erro ao iniciar o URL: {0}</value>
   </data>
   <data name="UserConfigLoadError" xml:space="preserve">
-    <value>No se pudo cargar un archivo requerido de configuracion de usuario; puede estar dañado. ¿Desea eliminarlo? Esto no afectara sus presets guardados.</value>
+    <value>Não foi possível carregar um ficheiro necessário com configurações do usuário; pode ter-se tornado corrupto. Deseja excluí-lo? Isto não afectará os pré-ajustes já guardados.</value>
   </data>
   <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>Error al cargar las configuraciones</value>
+    <value>Erro ao ler configurações</value>
   </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>No se pudo importar el preset. El formato es desconocido.</value>
+    <value>Não foi possível importar o pré-ajuste. Formato não reconhecido.</value>
   </data>
   <data name="PresetImportErrorTitle" xml:space="preserve">
-    <value>Error de importacion</value>
+    <value>Erro de importação</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
-    <value>Preset importado con exito {0}.</value>
+    <value>Pré-ajuste importado com êxito {0}.</value>
   </data>
   <data name="PresetImportSuccessTitle" xml:space="preserve">
-    <value>Correcto</value>
+    <value>Sucesso</value>
   </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
-    <value>Preset exportado con exito {0}</value>
+    <value>Pré-ajuste exportado com êxito {0}</value>
   </data>
   <data name="PresetExportSuccessTitle" xml:space="preserve">
-    <value>Correcto</value>
+    <value>Sucesso</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
-    <value>Exportar Preset</value>
+    <value>Exportar Pré-ajustes</value>
   </data>
   <data name="PresetSaveConfirmMessage" xml:space="preserve">
-    <value>¿Desea guardar los cambios al preset actual?</value>
+    <value>Deseja guardar as alterações do pré-ajuste actual?</value>
   </data>
   <data name="PresetSaveConfirmTitle" xml:space="preserve">
-    <value>Guardar preset actual?</value>
+    <value>Guardar pré-ajuste actual?</value>
   </data>
   <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>¿Está seguro de que desea deshacer todos los cambios de este preset?</value>
+    <value>Tem certeza que deseja reverter todas as alterações não guardadas neste pré-ajuste?</value>
   </data>
   <data name="PresetRevertConfirmTitle" xml:space="preserve">
-    <value>Revertir Preset</value>
+    <value>Reverter o pré-ajuste</value>
   </data>
   <data name="PresetRemoveConfirmMessage" xml:space="preserve">
-    <value>¿Está seguro que desea eliminar este preset?</value>
+    <value>Tem certeza que deseja remover este pré-ajuste?</value>
   </data>
   <data name="PresetRemoveConfirmTitle" xml:space="preserve">
-    <value>Eliminar Preset</value>
+    <value>Remover o pré-ajuste</value>
   </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>La configuración estaba dañada y no se pudo cargar. Algunos de los ajustes pueden haber sido restaurados.</value>
+    <value>Configuração está corrompida e não pode ser carregada. Algumas das suas configurações podem ter sido repostas.</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
-    <value>Elegir el directorio de salida para archivos de video codificados.</value>
+    <value>Escolha a paste de destino para os ficheiros de vídeo codificados.</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
     <value>({0})</value>
@@ -514,54 +514,54 @@
     <value>(Modificado)</value>
   </data>
   <data name="PlayingVideoStatus" xml:space="preserve">
-    <value>Reproduciendo vídeo...</value>
+    <value>Reproduzindo vídeo...</value>
   </data>
   <data name="OpeningFolderStatus" xml:space="preserve">
-    <value>Abriendo carpeta...</value>
+    <value>Abrir pasta...</value>
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
-    <value>Cerrar video fuente</value>
+    <value>Fechar origem do vídeo</value>
   </data>
   <data name="CloseVideoSourceMenuItem" xml:space="preserve">
-    <value>Cerrar Video fuente</value>
+    <value>Fechar Origem do Vídeo</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
-    <value>Actualizaciones...</value>
+    <value>Actualizações...</value>
   </data>
   <data name="CbrAuto" xml:space="preserve">
     <value>CBR Auto</value>
   </data>
   <data name="RangeBarToolTip" xml:space="preserve">
-    <value>Clic izquierdo para establecer la hora de inicio y clic derecho para establecer la hora final.</value>
+    <value>Botão esquerdo para definir o início e botão direito para definir o fim.</value>
   </data>
   <data name="Preset_WindowsPhone8" xml:space="preserve">
     <value>Windows Phone 8</value>
   </data>
   <data name="QueueFormat_Chapters" xml:space="preserve">
-    <value>Ch {0}</value>
+    <value>Ch: {0}</value>
   </data>
   <data name="QueueFormat_Frames" xml:space="preserve">
     <value>Fr {0}-{1}</value>
   </data>
   <data name="QueueRangeAll" xml:space="preserve">
-    <value>Todo</value>
+    <value>Todos</value>
   </data>
   <data name="CouldNotCopyLogError" xml:space="preserve">
-    <value>No se pudo copiar log: {0} {0} {1}</value>
+    <value>Não pode copiar o relatório: {0} {0} {1}</value>
   </data>
   <data name="OpenLog" xml:space="preserve">
-    <value>Abrir Log</value>
+    <value>Relatório aberto</value>
   </data>
   <data name="CopyLog" xml:space="preserve">
-    <value>Copiar Log</value>
+    <value>Copiar relatório</value>
   </data>
   <data name="PresetDiscardConfirmMessage" xml:space="preserve">
-    <value>No ha guardado los cambios. ¿Esta seguro que desea eliminar estos cambios al cambiar a otro preset?</value>
+    <value>Tem alterações não salvas. Tem certeza que deseja descartar essas alterações alternando para outro pré-ajuste?</value>
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
-    <value>¿Descartar cambios?</value>
+    <value>Descartar alterações?</value>
   </data>
 	<data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>Eliminar la pista de audio</value>
+    <value>Remover a pista de áudio</value>
   </data>
 </root>
