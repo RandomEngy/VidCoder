@@ -1,0 +1,628 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="SaveAs" xml:space="preserve">
+    <value>Guardar como...</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Reverter</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="ContainerLabel" xml:space="preserve">
+    <value>Contentor:</value>
+  </data>
+  <data name="ExtensionLabel" xml:space="preserve">
+    <value>Extensão:</value>
+  </data>
+  <data name="LargeFileSizeCheckBox" xml:space="preserve">
+    <value>Ficheiro de tamanho grande</value>
+  </data>
+  <data name="WebOptimizedCheckBox" xml:space="preserve">
+    <value>Otimizado para Web</value>
+  </data>
+  <data name="Ipod5GSupportCheckBox" xml:space="preserve">
+    <value>Suporte para iPod 5g</value>
+  </data>
+  <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
+    <value>Incluir marcadores de capítulos</value>
+  </data>
+  <data name="TabHeader_Picture" xml:space="preserve">
+    <value>Imagem</value>
+  </data>
+  <data name="TabHeader_VideoFilters" xml:space="preserve">
+    <value>Filtros de vídeo</value>
+  </data>
+  <data name="TabHeader_Video" xml:space="preserve">
+    <value>Vídeo</value>
+  </data>
+  <data name="TabHeader_Audio" xml:space="preserve">
+    <value>Áudio</value>
+  </data>
+  <data name="TabHeader_Advanced" xml:space="preserve">
+    <value>Avançadas</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Renomear</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>Introdução</value>
+  </data>
+  <data name="AutoCaption" xml:space="preserve">
+    <value>(automático)</value>
+  </data>
+  <data name="NoneCaption" xml:space="preserve">
+    <value>(nenhum)</value>
+  </data>
+  <data name="StorageResolutionLabel" xml:space="preserve">
+    <value>Resolução de armazenamento:</value>
+  </data>
+  <data name="PixelAspectRatioLabel" xml:space="preserve">
+    <value>Proporções do pixel - Aspect Ratio:</value>
+  </data>
+  <data name="DisplayResolutionLabel" xml:space="preserve">
+    <value>Resolução do ecrã:</value>
+  </data>
+  <data name="SizingLabel" xml:space="preserve">
+    <value>Dimensionamento</value>
+  </data>
+  <data name="WidthLabel" xml:space="preserve">
+    <value>Largura:</value>
+  </data>
+  <data name="HeightLabel" xml:space="preserve">
+    <value>Altura:</value>
+  </data>
+  <data name="MaxWidthLabel" xml:space="preserve">
+    <value>Largura máxima:</value>
+  </data>
+  <data name="MaxHeightLabel" xml:space="preserve">
+    <value>Altura máxima:</value>
+  </data>
+  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
+    <value>Manter proporção - Aspect Ratio</value>
+  </data>
+  <data name="AnamorphicLabel" xml:space="preserve">
+    <value>Anamórfico:</value>
+  </data>
+  
+  
+  <data name="PixelAspectRatioRadioButton" xml:space="preserve">
+    <value>Proporções do pixel - Aspect Ratio:</value>
+  </data>
+  <data name="OutputLabel" xml:space="preserve">
+    <value>Saída</value>
+  </data>
+  
+  <data name="Top" xml:space="preserve">
+    <value>Cimo</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Esquerda</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Fundo</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Direita</value>
+  </data>
+  
+  
+  
+  
+  
+  <data name="GrayscaleCheckBox" xml:space="preserve">
+    <value>Codificação de tons de cinza</value>
+  </data>
+  <data name="TypeLabel" xml:space="preserve">
+    <value>Tipo:</value>
+  </data>
+  <data name="ShortFramerateLabel" xml:space="preserve">
+    <value>Taxa de frames:</value>
+  </data>
+  <data name="CodecLabel" xml:space="preserve">
+    <value>Codec:</value>
+  </data>
+  <data name="FramerateLabel" xml:space="preserve">
+    <value>Taxa de frames (FPS):</value>
+  </data>
+  <data name="ConstantFramerateRadioButton" xml:space="preserve">
+    <value>Framerate constante</value>
+  </data>
+  <data name="Quality" xml:space="preserve">
+    <value>Qualidade</value>
+  </data>
+  <data name="TwoPassEncodingCheckBox" xml:space="preserve">
+    <value>Codificação em 2 passagens</value>
+  </data>
+  <data name="TurboFirstPassCheckBox" xml:space="preserve">
+    <value>Primeira passagem em modo Turbo</value>
+  </data>
+  <data name="TargetSizeRadioButton" xml:space="preserve">
+    <value>Tamanho Máximo (MB)</value>
+  </data>
+  <data name="AverageBitrateRadioButton" xml:space="preserve">
+    <value>AVG Bitrate (kbps)</value>
+  </data>
+  <data name="ConstantQualityRadioButton" xml:space="preserve">
+    <value>Qualidade constante</value>
+  </data>
+  <data name="X264BasicSettings" xml:space="preserve">
+    <value>Configurações básicas do x264</value>
+  </data>
+  <data name="ProfileLabel" xml:space="preserve">
+    <value>Perfil:</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Predefinição:</value>
+  </data>
+  <data name="TuneLabel" xml:space="preserve">
+    <value>Ajuste:</value>
+  </data>
+  <data name="Profile_Baseline" xml:space="preserve">
+    <value>Baixo</value>
+  </data>
+  <data name="Profile_Main" xml:space="preserve">
+    <value>Base</value>
+  </data>
+  <data name="Profile_High" xml:space="preserve">
+    <value>Alto</value>
+  </data>
+  <data name="Preset_UltraFast" xml:space="preserve">
+    <value>Ultra rápido</value>
+  </data>
+  <data name="Preset_SuperFast" xml:space="preserve">
+    <value>Super rápido</value>
+  </data>
+  <data name="Preset_VeryFast" xml:space="preserve">
+    <value>Muito rápido</value>
+  </data>
+  <data name="Preset_Faster" xml:space="preserve">
+    <value>Mais rápido</value>
+  </data>
+  <data name="Preset_Fast" xml:space="preserve">
+    <value>Rápido</value>
+  </data>
+  <data name="Preset_Medium" xml:space="preserve">
+    <value>Médio (padrão)</value>
+  </data>
+  <data name="Preset_Slow" xml:space="preserve">
+    <value>Lento</value>
+  </data>
+  <data name="Preset_Slower" xml:space="preserve">
+    <value>Mais lento</value>
+  </data>
+  <data name="Preset_VerySlow" xml:space="preserve">
+    <value>Muito lento</value>
+  </data>
+  <data name="Preset_Placebo" xml:space="preserve">
+    <value>Placebo</value>
+  </data>
+  <data name="Tune_Film" xml:space="preserve">
+    <value>Filme</value>
+  </data>
+  <data name="Tune_Animation" xml:space="preserve">
+    <value>Animação</value>
+  </data>
+  <data name="Tune_Grain" xml:space="preserve">
+    <value>Grão</value>
+  </data>
+  
+  
+  <data name="Tune_Ssim" xml:space="preserve">
+    <value>SSIM</value>
+  </data>
+  <data name="Tune_FastDecode" xml:space="preserve">
+    <value>Decodificar rápido</value>
+  </data>
+  <data name="Tune_ZeroLatency" xml:space="preserve">
+    <value>Latência zero</value>
+  </data>
+  <data name="FpsFormat" xml:space="preserve">
+    <value>{0:0. # # #} FPS</value>
+  </data>
+  
+  <data name="CfrToolTip" xml:space="preserve">
+    <value>Utilizar uma taxa de frames constante.</value>
+  </data>
+  
+  
+  <data name="VfrChoice" xml:space="preserve">
+    <value>Framerate variável</value>
+  </data>
+  
+  <data name="HighQuality" xml:space="preserve">
+    <value>Alta qualidade</value>
+  </data>
+  <data name="LowQuality" xml:space="preserve">
+    <value>Baixa qualidade</value>
+  </data>
+  <data name="SameAsSource" xml:space="preserve">
+    <value>Mesmo que a fonte</value>
+  </data>
+  <data name="AddAudioEncodingButton" xml:space="preserve">
+    <value>Adicionar áudio para codificação</value>
+  </data>
+  <data name="NoTracksPlaceholder" xml:space="preserve">
+    <value>(Sem pistas)</value>
+  </data>
+  
+  
+  
+  
+  <data name="CompressionLabel" xml:space="preserve">
+    <value>Compressão:</value>
+  </data>
+  <data name="GainLabel" xml:space="preserve">
+    <value>Ganho (dB):</value>
+  </data>
+  <data name="DrcLabel" xml:space="preserve">
+    <value>DRC:</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Nome:</value>
+  </data>
+  <data name="AscendingQualityToolTip" xml:space="preserve">
+    <value>Valores altos significam qualidade alta.</value>
+  </data>
+  <data name="DescendingQualityToolTip" xml:space="preserve">
+    <value>Valores baixos significam qualidade alta.</value>
+  </data>
+  
+  <data name="AscendingCompressionToolTip" xml:space="preserve">
+    <value>Valores altos significam compressão alta: melhor qualidade/menor tamanho mas mais tempos para codificar.</value>
+  </data>
+  
+  <data name="AudioCompressionToolTip" xml:space="preserve">
+    <value>A quantidade de compressão para aplicar. Os valores válidos de {0} são de {1} para {2}.</value>
+  </data>
+  <data name="AudioEncoder_copy" xml:space="preserve">
+    <value>Passagem automática</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="Mixdown_left_only" xml:space="preserve">
+    <value>Mono (esquerda somente)</value>
+  </data>
+  <data name="Mixdown_mono" xml:space="preserve">
+    <value>Mono</value>
+  </data>
+  <data name="Mixdown_right_only" xml:space="preserve">
+    <value>Mono (somente direito)</value>
+  </data>
+  <data name="Mixdown_stereo" xml:space="preserve">
+    <value>Estéreo</value>
+  </data>
+  
+  <data name="Encoding" xml:space="preserve">
+    <value>Codificação</value>
+  </data>
+  <data name="ReferenceFramesLabel" xml:space="preserve">
+    <value>Frames de referência:</value>
+  </data>
+  <data name="MaxBFramesLabel" xml:space="preserve">
+    <value>B-Frames máximo:</value>
+  </data>
+  <data name="CabacLabel" xml:space="preserve">
+    <value>CABAC:</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="OptionsString" xml:space="preserve">
+    <value>Sequência de opções</value>
+  </data>
+  <data name="PyramidalBFrames_Off" xml:space="preserve">
+    <value>Desligado</value>
+  </data>
+  <data name="PyramidalBFrames_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  
+  <data name="AdaptiveBFrames_Off" xml:space="preserve">
+    <value>Desligado</value>
+  </data>
+  <data name="AdaptiveBFrames_Fast" xml:space="preserve">
+    <value>Rápido</value>
+  </data>
+  <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
+    <value>Ideal</value>
+  </data>
+  <data name="DirectPrediction_None" xml:space="preserve">
+    <value>Nenhum</value>
+  </data>
+  
+  <data name="DirectPrediction_Temporal" xml:space="preserve">
+    <value>Temporal</value>
+  </data>
+  <data name="DirectPrediction_Automatic" xml:space="preserve">
+    <value>Automático</value>
+  </data>
+  <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
+    <value>Diamante</value>
+  </data>
+  <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
+    <value>Hexágono</value>
+  </data>
+  <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
+    <value>Multi-Hexágono irregular</value>
+  </data>
+  <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
+    <value>Exaustivo</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="Analysis_None" xml:space="preserve">
+    <value>Nenhum</value>
+  </data>
+  <data name="Analysis_Some" xml:space="preserve">
+    <value>Alguns</value>
+  </data>
+  <data name="Analysis_All" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="Trellis_Off" xml:space="preserve">
+    <value>Desligado</value>
+  </data>
+  <data name="Trellis_EncodeOnly" xml:space="preserve">
+    <value>Codificar apenas</value>
+  </data>
+  <data name="Trellis_Always" xml:space="preserve">
+    <value>Sempre</value>
+  </data>
+  <data name="DefaultFormat" xml:space="preserve">
+    <value>{0} (Padrão)</value>
+  </data>
+  <data name="EncodingWindowTitle" xml:space="preserve">
+    <value>Pré-ajuste: {0}</value>
+  </data>
+  <data name="AdvancedOptionsStringLabel" xml:space="preserve">
+    <value>Opções avançadas adicionais x264:</value>
+  </data>
+  <data name="H264LevelToolTip" xml:space="preserve">
+    <value>Define e garante a conformidade com o nível H.264 especificado.  Substitui todas as outras configurações.</value>
+  </data>
+  
+  <data name="VideoCodecLabel" xml:space="preserve">
+    <value>Codec de vídeo:</value>
+  </data>
+  
+  
+  
+  <data name="Analysis_Most" xml:space="preserve">
+    <value>Maioria</value>
+  </data>
+  <data name="AdvancedQuery" xml:space="preserve">
+    <value>Consulta avançada</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>Vídeo</value>
+  </data>
+  <data name="X264Settings" xml:space="preserve">
+    <value>Configurações x264</value>
+  </data>
+  <data name="X264PresetLabel" xml:space="preserve">
+    <value>Pré-ajuste x264:</value>
+  </data>
+  <data name="X264TuneLabel" xml:space="preserve">
+    <value>Ajuste x264:</value>
+  </data>
+  <data name="H264ProfileLabel" xml:space="preserve">
+    <value>Perfil H.264:</value>
+  </data>
+  <data name="H264LevelLabel" xml:space="preserve">
+    <value>Nível H.264:</value>
+  </data>
+  <data name="MoreSettingsLabel" xml:space="preserve">
+    <value>Mais configurações:</value>
+  </data>
+  <data name="Track" xml:space="preserve">
+    <value>Faixa</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Origem</value>
+  </data>
+  <data name="Encoder" xml:space="preserve">
+    <value>Codificador</value>
+  </data>
+  <data name="ChannelLayout" xml:space="preserve">
+    <value>Canais</value>
+  </data>
+  <data name="SampleRate" xml:space="preserve">
+    <value>Taxa de amostragem</value>
+  </data>
+  <data name="Modifiers" xml:space="preserve">
+    <value>Modificadores</value>
+  </data>
+  <data name="PassthroughTrackDroppedWarning" xml:space="preserve">
+    <value>Passthrough não funciona para este codec de entrada; a faixa foi descartada.</value>
+  </data>
+  <data name="DtsMp4Warning" xml:space="preserve">
+    <value>Alguns leitores suportam reprodução de áudio DTS em contentores MP4. É recomendado o formato MKV para áudio DTS.</value>
+  </data>
+  
+	
+</root>
