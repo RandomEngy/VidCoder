@@ -22,7 +22,7 @@ namespace VidCoder.ViewModel
 			get
 			{
 				//return string.Format(MiscRes.BasedOnHandBrakeStable, "0.9.9");
-				return string.Format(MiscRes.BasedOnHandBrake, 5590);
+				return string.Format(MiscRes.BasedOnHandBrake, 5614);
 			}
 		}
 
