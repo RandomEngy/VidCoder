@@ -110,19 +110,7 @@ namespace VidCoder.ViewModel
 				};
 
 			this.recentSourceOptions = new ObservableCollection<SourceOptionViewModel>();
-
-			List<string> sourceHistory = SourceHistory.GetHistory();
-			foreach (string recentSourcePath in sourceHistory)
-			{
-				if (File.Exists(recentSourcePath))
-				{
-					this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.File }, recentSourcePath));
-				}
-				else if (Directory.Exists(recentSourcePath))
-				{
-					this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.VideoFolder }, recentSourcePath));
-				}
-			}
+			this.RefreshRecentSourceOptions();
 
 			this.useDefaultChapterNames = true;
 
@@ -1917,6 +1905,8 @@ namespace VidCoder.ViewModel
 						this.RaisePropertyChanged(() => this.SourceOptionsVisible);
 						this.RaisePropertyChanged(() => this.SourcePicked);
 
+						this.RefreshRecentSourceOptions();
+
 						DispatchService.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
 						Messenger.Default.Send(new RefreshPreviewMessage());
 						this.SelectedTitle = null;
@@ -2853,6 +2843,24 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.RangePreviewEnd);
 			this.RaisePropertyChanged(() => this.RangePreviewText);
 			this.RaisePropertyChanged(() => this.RangePreviewLengthText);
+		}
+
+		private void RefreshRecentSourceOptions()
+		{
+			this.recentSourceOptions.Clear();
+
+			List<string> sourceHistory = SourceHistory.GetHistory();
+			foreach (string recentSourcePath in sourceHistory)
+			{
+				if (File.Exists(recentSourcePath))
+				{
+					this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.File }, recentSourcePath));
+				}
+				else if (Directory.Exists(recentSourcePath))
+				{
+					this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.VideoFolder }, recentSourcePath));
+				}
+			}
 		}
 
 		private TimeSpan GetChapterRangeDuration(int startChapter, int endChapter)
