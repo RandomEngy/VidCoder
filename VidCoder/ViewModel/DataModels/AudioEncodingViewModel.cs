@@ -108,7 +108,12 @@ namespace VidCoder.ViewModel
 				this.audioCompression = this.HBAudioEncoder.DefaultCompression;
 			}
 
-			this.selectedBitrate = this.BitrateChoices.Single(b => b.Bitrate == audioEncoding.Bitrate);
+			this.selectedBitrate = this.BitrateChoices.SingleOrDefault(b => b.Bitrate == audioEncoding.Bitrate);
+			if (this.selectedBitrate == null)
+			{
+				this.selectedBitrate = this.BitrateChoices.First();
+			}
+
 			this.gain = audioEncoding.Gain;
 			this.drc = audioEncoding.Drc;
 			this.name = audioEncoding.Name;
