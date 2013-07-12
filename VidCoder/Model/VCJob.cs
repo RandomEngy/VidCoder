@@ -54,8 +54,7 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				var hbProfile = new EncodingProfile();
-				hbProfile.InjectFrom(this.EncodingProfile);
+				var hbProfile = this.EncodingProfile.HbProfile;
 
 				var hbJob = new EncodeJob();
 				hbJob.InjectFrom(this);

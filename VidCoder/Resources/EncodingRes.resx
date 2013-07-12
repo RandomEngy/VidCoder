@@ -908,4 +908,12 @@ Overrides all other settings.</value>
   <data name="AudioEncoder_fdk_haac" xml:space="preserve">
     <value>HE-AAC (FDK)</value>
   </data>
+	<data name="X264SettingsRadioButtonBasic" xml:space="preserve">
+    <value>Basic</value>
+    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
+  </data>
+	<data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
+    <value>Advanced Tab</value>
+    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
+  </data>
 </root>

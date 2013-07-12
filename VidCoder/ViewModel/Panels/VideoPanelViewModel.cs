@@ -667,6 +667,21 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool UseAdvancedTab
+		{
+			get
+			{
+				return this.Profile.UseAdvancedTab;
+			}
+
+			set
+			{
+				this.Profile.UseAdvancedTab = value;
+				this.RaisePropertyChanged(() => this.UseAdvancedTab);
+				this.IsModified = true;
+			}
+		}
+
 		public List<ComboChoice> X264ProfileChoices
 		{
 			get

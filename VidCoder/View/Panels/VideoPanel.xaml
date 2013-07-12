@@ -238,14 +238,27 @@
 			Grid.Row="1"
 			Style="{StaticResource LongToolTipHolder}"
 			Visibility="{Binding X264SettingsVisible, Converter={StaticResource VisibilityConverter}}">
-			<TextBlock
-				HorizontalAlignment="Left" VerticalAlignment="Top"
-				Text="{x:Static res:EncodingRes.X264Settings}"
-				Style="{StaticResource SectionHeader}" Margin="7,7,0,0"/>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="7,7,0,0">
+				<TextBlock
+					VerticalAlignment="Center"
+					Text="{x:Static res:EncodingRes.X264Settings}"
+					Style="{StaticResource SectionHeader}"/>
+				<RadioButton
+					Content="{x:Static res:EncodingRes.X264SettingsRadioButtonBasic}"
+					Margin="25,2,0,0"
+					IsChecked="{Binding UseAdvancedTab, Converter={StaticResource InverseBoolConverter}}"
+					GroupName="advancedTab1"/>
+				<RadioButton
+					Content="{x:Static res:EncodingRes.X264SettingsRadioButtonAdvanced}"
+					Margin="15,2,0,0"
+					IsChecked="{Binding UseAdvancedTab}"
+					GroupName="advancedTab2"/>
+			</StackPanel>
 
 			<!-- Preset -->
 			<Grid
-				HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="16,32,10,0">
+				HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="16,32,10,0"
+				Visibility="{Binding UseAdvancedTab, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition />
@@ -269,7 +282,9 @@
 				/>
 			</Grid>
 
-			<Grid Margin="16,57,0,0">
+			<Grid 
+				Margin="16,57,0,0"
+				Visibility="{Binding UseAdvancedTab, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition />

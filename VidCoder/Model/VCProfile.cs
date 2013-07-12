@@ -54,6 +54,7 @@ namespace VidCoder.Model
 		public int Deblock { get; set; }
 		public bool Grayscale { get; set; }
 
+		public bool UseAdvancedTab { get; set; }
 		public string VideoEncoder { get; set; }
 		public string X264Options { get; set; }
 		public string X264Profile { get; set; }
@@ -84,6 +85,15 @@ namespace VidCoder.Model
 			{
 				var hbProfile = new EncodingProfile();
 				hbProfile.InjectFrom(this);
+
+				if (this.UseAdvancedTab)
+				{
+					hbProfile.X264Preset = null;
+					hbProfile.X264Profile = null;
+					hbProfile.X264Tunes = null;
+					hbProfile.H264Level = null;
+				}
+
 				return hbProfile;
 			}
 		}
@@ -124,6 +134,7 @@ namespace VidCoder.Model
 				Deblock = this.Deblock,
 				Grayscale = this.Grayscale,
 
+				UseAdvancedTab = this.UseAdvancedTab,
 				VideoEncoder = this.VideoEncoder,
 				X264Options = this.X264Options,
 				X264Profile = this.X264Profile,
