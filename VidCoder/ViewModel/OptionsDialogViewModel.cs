@@ -73,6 +73,7 @@ namespace VidCoder.ViewModel
 			this.autoAudioAll = Config.AutoAudioAll;
 			this.autoSubtitle = CustomConfig.AutoSubtitle;
 			this.autoSubtitleBurnIn = Config.AutoSubtitleBurnIn;
+			this.autoSubtitleLanguageBurnIn = Config.AutoSubtitleLanguageBurnIn;
 			this.subtitleLanguageCode = Config.SubtitleLanguageCode;
 			this.autoSubtitleOnlyIfDifferent = Config.AutoSubtitleOnlyIfDifferent;
 			this.autoSubtitleAll = Config.AutoSubtitleAll;
@@ -739,6 +740,27 @@ namespace VidCoder.ViewModel
 			{
 				this.autoSubtitleAll = value;
 				this.RaisePropertyChanged(() => this.AutoSubtitleAll);
+
+				this.autoSubtitleLanguageBurnIn = false;
+				this.RaisePropertyChanged(() => this.AutoSubtitleLanguageBurnIn);
+			}
+		}
+
+		private bool autoSubtitleLanguageBurnIn;
+		public bool AutoSubtitleLanguageBurnIn
+		{
+			get
+			{
+				return this.autoSubtitleLanguageBurnIn;
+			}
+
+			set
+			{
+				this.autoSubtitleLanguageBurnIn = value;
+				this.RaisePropertyChanged(() => this.AutoSubtitleLanguageBurnIn);
+
+				this.autoSubtitleAll = false;
+				this.RaisePropertyChanged(() => this.AutoSubtitleAll);
 			}
 		}
 
@@ -1003,6 +1025,7 @@ namespace VidCoder.ViewModel
 							Config.AutoAudioAll = this.AutoAudioAll;
 							CustomConfig.AutoSubtitle = this.AutoSubtitle;
 							Config.AutoSubtitleBurnIn = this.AutoSubtitleBurnIn;
+							Config.AutoSubtitleLanguageBurnIn = this.AutoSubtitleLanguageBurnIn;
 							Config.SubtitleLanguageCode = this.SubtitleLanguageCode;
 							Config.AutoSubtitleOnlyIfDifferent = this.AutoSubtitleOnlyIfDifferent;
 							Config.AutoSubtitleAll = this.AutoSubtitleAll;

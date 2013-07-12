@@ -335,12 +335,16 @@
 							</StackPanel>
 
 							<CheckBox 
-								Content="{x:Static res:OptionsRes.OnlyIfDifferentFromAudioCheckBox}" HorizontalAlignment="Left" Margin="20,6,0,0" Name="checkBox3" VerticalAlignment="Top"
+								Content="{x:Static res:OptionsRes.OnlyIfDifferentFromAudioCheckBox}" HorizontalAlignment="Left" Margin="20,6,0,0" VerticalAlignment="Top"
 								IsChecked="{Binding AutoSubtitleOnlyIfDifferent}"
 								IsEnabled="{Binding AutoSubtitleLanguageSelected}" Style="{StaticResource GrayOnDisabledControl}" />
 							<CheckBox 
-								Content="{x:Static res:OptionsRes.IncludeAllTracksCheckBox}" HorizontalAlignment="Left" Margin="20,6,0,0" Name="checkBox4" VerticalAlignment="Top"
+								Content="{x:Static res:OptionsRes.IncludeAllTracksCheckBox}" HorizontalAlignment="Left" Margin="20,6,0,0" VerticalAlignment="Top"
 								IsChecked="{Binding AutoSubtitleAll}"
+								IsEnabled="{Binding AutoSubtitleLanguageSelected}" Style="{StaticResource GrayOnDisabledControl}" />
+							<CheckBox 
+								Content="{x:Static res:OptionsRes.BurnInCheckBox}" HorizontalAlignment="Left" Margin="20,6,0,0" VerticalAlignment="Top"
+								IsChecked="{Binding AutoSubtitleLanguageBurnIn}"
 								IsEnabled="{Binding AutoSubtitleLanguageSelected}" Style="{StaticResource GrayOnDisabledControl}" />
 							<RadioButton 
 								Content="{x:Static res:CommonRes.All}" HorizontalAlignment="Left" Margin="0,6,0,0" Name="radioButton9" VerticalAlignment="Top"
