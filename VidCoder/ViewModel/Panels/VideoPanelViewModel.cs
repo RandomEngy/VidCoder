@@ -880,7 +880,11 @@ namespace VidCoder.ViewModel
 		{
 			this.RefreshEncoderChoices(this.Profile.OutputFormat);
 
-			//this.selectedEncoder = this.EncoderChoices.Single(e => e.Encoder.ShortName == this.Profile.VideoEncoder);
+			this.selectedEncoder = this.EncoderChoices.Single(e => e.Encoder.ShortName == this.Profile.VideoEncoder);
+			if (this.selectedEncoder == null)
+			{
+				this.selectedEncoder = this.EncoderChoices[0];
+			}
 		}
 
 		public void NotifyAllChanged()
