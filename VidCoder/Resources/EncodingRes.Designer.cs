@@ -446,7 +446,9 @@ namespace VidCoder.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Dynamic Range Compression. Valid values are 0-4.
         ///
-        ///For source audio that has a wide dynamic range (very loud and very soft sequences), DRC allows you to &quot;compress&quot; the range by making loud sections softer and soft sections louder..
+        ///For source audio that has a wide dynamic range (very loud and very soft sequences), DRC allows you to &quot;compress&quot; the range by making loud sections softer and soft sections louder.
+        ///
+        ///This only works with AC3 sources..
         /// </summary>
         public static string Audio_DrcToolTip {
             get {
@@ -1870,7 +1872,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Advanced.
+        ///   Looks up a localized string similar to Advanced Video.
         /// </summary>
         public static string TabHeader_Advanced {
             get {
@@ -2172,6 +2174,33 @@ namespace VidCoder.Resources {
         public static string VideoEncoder_ffmpeg4 {
             get {
                 return ResourceManager.GetString("VideoEncoder_ffmpeg4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MPEG-2.
+        /// </summary>
+        public static string VideoEncoder_mpeg2 {
+            get {
+                return ResourceManager.GetString("VideoEncoder_mpeg2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MPEG-4.
+        /// </summary>
+        public static string VideoEncoder_mpeg4 {
+            get {
+                return ResourceManager.GetString("VideoEncoder_mpeg4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theora.
+        /// </summary>
+        public static string VideoEncoder_theora {
+            get {
+                return ResourceManager.GetString("VideoEncoder_theora", resourceCulture);
             }
         }
         

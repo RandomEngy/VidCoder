@@ -22,7 +22,7 @@ namespace VidCoder.Model
 
 	public static class Presets
 	{
-		private const int CurrentPresetVersion = 9;
+		private const int CurrentPresetVersion = 10;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
@@ -239,6 +239,11 @@ namespace VidCoder.Model
 			{
 				UpgradeEncodingProfileTo19(profile);
 			}
+
+			if (databaseVersion < 20)
+			{
+				UpgradeEncodingProfileTo20(profile);
+			}
 		}
 
 		public static void UpgradeEncodingProfileTo13(VCProfile profile)
@@ -388,6 +393,20 @@ namespace VidCoder.Model
 			}
 		}
 
+		public static void UpgradeEncodingProfileTo20(VCProfile profile)
+		{
+			if (!Encoders.VideoEncoders.Any(e => e.ShortName == profile.VideoEncoder))
+			{
+				string newVideoEncoder = UpgradeVideoEncoder(profile.VideoEncoder);
+				if (newVideoEncoder == null)
+				{
+					newVideoEncoder = "x264";
+				}
+
+				profile.VideoEncoder = newVideoEncoder;
+			}
+		}
+
 		private static void ErrorCheckPresets(List<Preset> presets)
 		{
 			for (int i = presets.Count - 1; i >= 0; i--)
@@ -456,6 +475,23 @@ namespace VidCoder.Model
 			return oldEncoder;
 		}
 
+		// For v20 upgrade
+		private static string UpgradeVideoEncoder(string oldEncoder)
+		{
+			switch (oldEncoder)
+			{
+				case "ffmpeg4":
+				case "ffmpeg":
+					return "mpeg4";
+				case "ffmpeg2":
+					return "mpeg2";
+				case "libtheora":
+					return "theora";
+			}
+
+			return oldEncoder;
+		}
+
 		private static int PresetToDbVersion(int presetVersion)
 		{
 			if (presetVersion >= CurrentPresetVersion)
@@ -486,6 +522,11 @@ namespace VidCoder.Model
 			if (presetVersion < 9)
 			{
 				return 18;
+			}
+
+			if (presetVersion < 10)
+			{
+				return 19;
 			}
 
 			return Utilities.CurrentDatabaseVersion;

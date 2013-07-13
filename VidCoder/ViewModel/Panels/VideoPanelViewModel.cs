@@ -232,8 +232,8 @@ namespace VidCoder.ViewModel
 							case "x264":
 								oldQualityFraction = 1.0 - this.Quality / 51.0;
 								break;
-							case "ffmpeg4":
-							case "ffmpeg2":
+							case "mpeg4":
+							case "mpeg2":
 								oldQualityFraction = 1.0 - this.Quality / 31.0;
 								break;
 							case "theora":
@@ -248,8 +248,8 @@ namespace VidCoder.ViewModel
 							case "x264":
 								this.Quality = Math.Round((1.0 - oldQualityFraction) * 51.0);
 								break;
-							case "ffmpeg4":
-							case "ffmpeg2":
+							case "mpeg4":
+							case "mpeg2":
 								this.Quality = Math.Max(1.0, Math.Round((1.0 - oldQualityFraction) * 31.0));
 								break;
 							case "theora":
@@ -434,8 +434,8 @@ namespace VidCoder.ViewModel
 						case "x264":
 							this.Quality = 20;
 							break;
-						case "ffmpeg4":
-						case "ffmpeg2":
+						case "mpeg4":
+						case "mpeg2":
 							this.Quality = 12;
 							break;
 						case "theora":
@@ -601,8 +601,8 @@ namespace VidCoder.ViewModel
 				{
 					case "x264":
 						return 0;
-					case "ffmpeg4":
-					case "ffmpeg2":
+					case "mpeg4":
+					case "mpeg2":
 						return 1;
 					case "theora":
 						return 0;
@@ -620,8 +620,8 @@ namespace VidCoder.ViewModel
 				{
 					case "x264":
 						return 51;
-					case "ffmpeg4":
-					case "ffmpeg2":
+					case "mpeg4":
+					case "mpeg2":
 						return 31;
 					case "theora":
 						return 63;
@@ -638,8 +638,8 @@ namespace VidCoder.ViewModel
 				switch (this.SelectedEncoder.Encoder.ShortName)
 				{
 					case "x264":
-					case "ffmpeg4":
-					case "ffmpeg2":
+					case "mpeg4":
+					case "mpeg2":
 						return EncodingRes.HighQuality;
 					case "theora":
 						return EncodingRes.LowQuality;
@@ -656,8 +656,8 @@ namespace VidCoder.ViewModel
 				switch (this.SelectedEncoder.Encoder.ShortName)
 				{
 					case "x264":
-					case "ffmpeg4":
-					case "ffmpeg2":
+					case "mpeg4":
+					case "mpeg2":
 						return EncodingRes.LowQuality;
 					case "theora":
 						return EncodingRes.HighQuality;
@@ -883,7 +883,12 @@ namespace VidCoder.ViewModel
 		{
 			this.RefreshEncoderChoices(this.Profile.OutputFormat);
 
-			//this.selectedEncoder = this.EncoderChoices.Single(e => e.Encoder.ShortName == this.Profile.VideoEncoder);
+			this.selectedEncoder = this.EncoderChoices.SingleOrDefault(e => e.Encoder.ShortName == this.Profile.VideoEncoder);
+
+			if (this.selectedEncoder == null)
+			{
+				this.selectedEncoder = this.EncoderChoices[0];
+			}
 		}
 
 		public void NotifyAllChanged()

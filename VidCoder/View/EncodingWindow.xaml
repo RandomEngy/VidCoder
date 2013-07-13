@@ -167,13 +167,13 @@
 			<TabItem Header="{x:Static res:EncodingRes.TabHeader_Video}">
 				<view:VideoPanel DataContext="{Binding VideoPanelViewModel}" />
 			</TabItem>
-			<TabItem Header="{x:Static res:EncodingRes.TabHeader_Audio}">
-				<view:AudioPanel DataContext="{Binding AudioPanelViewModel}" />
-			</TabItem>
 			<TabItem 
 				Header="{x:Static res:EncodingRes.TabHeader_Advanced}" 
 				Visibility="{Binding VideoPanelViewModel.UseAdvancedTab, Converter={StaticResource VisibilityConverter}}">
 				<view:AdvancedPanel DataContext="{Binding AdvancedPanelViewModel}" />
+			</TabItem>
+			<TabItem Header="{x:Static res:EncodingRes.TabHeader_Audio}">
+				<view:AudioPanel DataContext="{Binding AudioPanelViewModel}" />
 			</TabItem>
 		</TabControl>
 

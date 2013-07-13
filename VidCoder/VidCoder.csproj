@@ -755,7 +755,9 @@
     <EmbeddedResource Include="Resources\CommonRes.eu.resx" />
     <EmbeddedResource Include="Resources\CommonRes.fr.resx" />
     <EmbeddedResource Include="Resources\CommonRes.pt.resx" />
-    <EmbeddedResource Include="Resources\EncodingRes.es.resx" />
+    <EmbeddedResource Include="Resources\EncodingRes.es.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\EncodingRes.eu.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.fr.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.hu.resx" />
