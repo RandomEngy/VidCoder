@@ -284,7 +284,7 @@ You should set this if you know your playback device only supports a certain pro
     <value>Tune options to further optimize them for your input content. If you specify a tuning, the changes will be applied after the Preset but before all other parameters.</value>
   </data>
   <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>The desired display width of the video. Other parameters such as the Pixel Aspect Ratio will be changed to acheive this.</value>
+    <value>The desired display width of the video. Other parameters such as the Pixel Aspect Ratio will be changed to achieve this.</value>
   </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Container:</value>
@@ -366,9 +366,6 @@ You should set this if you know your playback device only supports a certain pro
   </data>
   <data name="DisplayWidthRadioButton" xml:space="preserve">
     <value>Display Width:</value>
-  </data>
-  <data name="PixelAspectRatioRadioButton" xml:space="preserve">
-    <value>Pixel Aspect Ratio:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Output</value>

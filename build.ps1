@@ -174,6 +174,7 @@ CopyLanguage "es"
 CopyLanguage "eu"
 CopyLanguage "pt"
 CopyLanguage "fr"
+CopyLanguage "de"
 
 
 # Create portable installer

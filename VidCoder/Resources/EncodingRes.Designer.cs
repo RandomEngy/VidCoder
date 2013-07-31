@@ -224,7 +224,8 @@ namespace VidCoder.Resources {
         ///Hexagon: performs a somewhat more effective but slightly slower search using a hexagon pattern.
         ///
         ///Uneven Multi-Hex: performs a very wide search using a variety of patterns, more accurately capturing complex motion.
-        ///        /// [rest of string was truncated]&quot;;.
+        ///
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Advanced_MotionEstimationMethodToolTip {
             get {
@@ -889,7 +890,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The desired display width of the video. Other parameters such as the Pixel Aspect Ratio will be changed to acheive this..
+        ///   Looks up a localized string similar to The desired display width of the video. Other parameters such as the Pixel Aspect Ratio will be changed to achieve this..
         /// </summary>
         public static string DisplayWidthToolTip {
             get {
@@ -1409,15 +1410,6 @@ namespace VidCoder.Resources {
         public static string PixelAspectRatioLabel {
             get {
                 return ResourceManager.GetString("PixelAspectRatioLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pixel Aspect Ratio:.
-        /// </summary>
-        public static string PixelAspectRatioRadioButton {
-            get {
-                return ResourceManager.GetString("PixelAspectRatioRadioButton", resourceCulture);
             }
         }
         

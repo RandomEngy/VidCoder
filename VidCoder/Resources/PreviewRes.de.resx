@@ -117,123 +117,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutLicense" xml:space="preserve">
-    <value>Este programa é um software livre; você pode redistribuí-lo e/ou modificá-lo de acordo com os termos da Licença Pública Geral do GNU, tal como publicada pela Free Software Foundation; versão 2 da licença, ou ainda (à sua escolha) qualquer versão posterior.  Este programa é distribuído na esperança de que ele seja útil, mas SEM NENHUMA GARANTIA; sem mesmo a garantia implícita de COMERCIALIZAÇÃO ou de ADAPTAÇÃO A UM OBJECTO PARTICULAR. Para mais detalhes, consulte a Licença Pública Geral do GNU. Um exemplar da Licença Pública Geral do GNU foi incluída neste programa.</value>
+  <data name="PlaySourceButton" xml:space="preserve">
+    <value>Spiele Quelle</value>
   </data>
-  <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>Gravar as legendas na imagem. Com legendas gravadas, não poderá desactivá-las durante a reprodução.</value>
+  <data name="EncodePreviewClipButton" xml:space="preserve">
+    <value>Encode Vorschau Clip</value>
   </data>
-  <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Marca esta faixa de legendas como predefinida. Isto fará com esta faixa seja exibida durante a reprodução até outra faixa seja escolhida.</value>
+  <data name="EncodePreviewClipToolTip" xml:space="preserve">
+    <value>Encodiert und spielt einen kleinen Vorschau Clip von der Gewählten Stelle. Benutzt aktuelle Encode Einstellungen.</value>
   </data>
-  <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Exibir apenas legendas forçadas da faixa determinada. Geralmente significa pequenos pedaços de diálogo estrangeiro.</value>
+  <data name="GeneratingPreview" xml:space="preserve">
+    <value>Erstelle Vorschau...</value>
   </data>
-  <data name="OffsetSubtitleToolTip" xml:space="preserve">
-    <value>A quantidade de tempo para avançar ou retardar o aparecimento das legendas.</value>
+  <data name="PlaySourceDisabledBluRayToolTip" xml:space="preserve">
+    <value>Quell Anzeige für BluRay ist noch nicht unterstützt.</value>
   </data>
-  <data name="QueueColumnNameRange" xml:space="preserve">
-    <value>Intervalo</value>
-    <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
+  <data name="PlaySourceDisabledNoPlayerToolTip" xml:space="preserve">
+    <value>Unterstützte DVD-Player konnte nicht gefunden werden. Installieren Sie, VLC oder MPC-HC, um dieses Feature zu verwenden.</value>
   </data>
-  <data name="QueueColumnNameDestination" xml:space="preserve">
-    <value>Destino</value>
+  <data name="PlaySourceToolTip" xml:space="preserve">
+    <value>Spielt das Quellvideo.</value>
   </data>
-  <data name="QueueColumnNameSource" xml:space="preserve">
-    <value>Origem</value>
+  <data name="PreviewClipGenerationFailedMessage" xml:space="preserve">
+    <value>Vorschau-Clip-Erstellung ist fehlgeschlagen. Überprüfen  Sie im das Log für Details.</value>
   </data>
-  <data name="QueueColumnNameTitle" xml:space="preserve">
-    <value>Título</value>
+  <data name="PreviewClipGenerationFailedTitle" xml:space="preserve">
+    <value>Clip Vorschauerzeugung fehlgeschlagen</value>
   </data>
-  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Qualidade do áudio</value>
+  <data name="PreviewWindowTitleSimple" xml:space="preserve">
+    <value>Vorschau: {0} x {1}</value>
   </data>
-  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Codificador do áudio</value>
+  <data name="PreviewWindowTitleComplex" xml:space="preserve">
+    <value>Vorschau: Anzeige von {0} x {1} - Gespeichert {2} x {3}</value>
   </data>
-  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Codificador de vídeo</value>
+  <data name="NoVideoSourceTitle" xml:space="preserve">
+    <value>Vorschau: Keine Video-Quelle</value>
   </data>
-  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Qualidade do vídeo</value>
+  <data name="Seconds" xml:space="preserve">
+    <value>Sekunden</value>
   </data>
-  <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>Tempo estimado para finalizar todas as tarefas.</value>
+  <data name="PreviewDisplay_Corners" xml:space="preserve">
+    <value>Ecken</value>
   </data>
-  <data name="QueueColumnNameDuration" xml:space="preserve">
-    <value>Duração</value>
+  <data name="PreviewDisplay_FitToWindow" xml:space="preserve">
+    <value>An Fenster anpassen</value>
   </data>
-  <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Procurar uma faixa de legenda que é susceptível de conter pedaços de diálogo estrangeiro. Bom para filmes que são principalmente na sua língua nativa.</value>
+  <data name="PreviewDisplay_OneToOne" xml:space="preserve">
+    <value>1:1</value>
   </data>
-  <data name="Default" xml:space="preserve">
-    <value>Predefinição</value>
-    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
+  <data name="ViewLabel" xml:space="preserve">
+    <value>Ansicht:</value>
   </data>
-  <data name="Custom" xml:space="preserve">
-    <value>Personalizado</value>
-    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
+  <data name="TopMargin" xml:space="preserve">
+    <value>Oberer Rand</value>
   </data>
-  <data name="Browse" xml:space="preserve">
-    <value>Procurar...</value>
+  <data name="LeftMargin" xml:space="preserve">
+    <value>Linken Rand</value>
   </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Eliminar</value>
+  <data name="RightMargin" xml:space="preserve">
+    <value>Rechter Rand</value>
   </data>
-  <data name="PreviewLabel" xml:space="preserve">
-    <value>Pré-Visualizar</value>
-  </data>
-  <data name="Automatic" xml:space="preserve">
-    <value>Automático</value>
-  </data>
-  <data name="Off" xml:space="preserve">
-    <value>Desligado</value>
-    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
-  </data>
-  <data name="All" xml:space="preserve">
-    <value>Todos</value>
-  </data>
-  <data name="StreamChoice" xml:space="preserve">
-    <value>Stream {0}</value>
-    <comment>Used in the encoding settings dialog to mark which audio stream an audio encoding is targeting. By default the encoding works on all streams but you can target it to affect only the first stream, in which case it would label it "Stream 1"</comment>
-  </data>
-  <data name="Ok" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancelar</value>
-  </data>
-  <data name="Disabled" xml:space="preserve">
-    <value>Desativado</value>
-  </data>
-  <data name="Remove" xml:space="preserve">
-    <value>Remover</value>
-  </data>
-  <data name="Copy" xml:space="preserve">
-    <value>Copiar</value>
-  </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Sim</value>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>Não</value>
-  </data>
-  <data name="CouldNotAccessDirectoriesError" xml:space="preserve">
-    <value>Não foi possível aceder aos seguintes directórios:</value>
-  </data>
-  <data name="None" xml:space="preserve">
-    <value>Nenhum</value>
-  </data>
-  <data name="Succeeded" xml:space="preserve">
-    <value>Sucesso</value>
-  </data>
-  <data name="Failed" xml:space="preserve">
-    <value>Falhou</value>
-  </data>
-  <data name="FilePickerExtTemplate" xml:space="preserve">
-    <value>{0} Ficheiros</value>
-  </data>
-  <data name="QueueColumnNamePreset" xml:space="preserve">
-    <value>Pré-ajustes</value>
+  <data name="BottomMargin" xml:space="preserve">
+    <value>Unterer Rand</value>
   </data>
 </root>

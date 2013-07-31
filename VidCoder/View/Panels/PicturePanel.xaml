@@ -194,7 +194,7 @@
 					Visibility="{Binding PixelAspectVisibile, Converter={StaticResource VisibilityConverter}}"
 					IsChecked="{Binding UseDisplayWidth, Converter={StaticResource InverseBoolConverter}}" GroupName="useDisplayWidth2"
 					ToolTip="{x:Static res:EncodingRes.PixelAspectRatioToolTip}"
-					Content="{x:Static res:EncodingRes.PixelAspectRatioRadioButton}"/>
+					Content="{x:Static res:EncodingRes.PixelAspectRatioLabel}"/>
 				<controls:NumberBox
 					Grid.Row="1" Grid.Column="1"
 					Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="45"

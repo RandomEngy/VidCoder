@@ -118,282 +118,282 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>Berezgaitasunezko audio hautapena ezgaitua dagoenean, hautaturiko azken bideari heusten zaio.</value>
+    <value>Wenn die automatische Audio-Auswahl deaktiviert ist, wird die letzte ausgewählt Einstellung beibehalten.</value>
   </data>
   <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>Berezgaitasunezko azpidatzi hautapen ezgaituta dagoenean, hautaturiko azken azpidatziari heusten zaio.</value>
+    <value>Wenn automatische Untertitel-Auswahl deaktiviert ist, wird die letzte Einstellung beibehalten.</value>
   </data>
   <data name="GeneralTab" xml:space="preserve">
-    <value>Orokorra</value>
+    <value>Allgemeine</value>
   </data>
   <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
-    <value>Txikiendu eginkizun barrara</value>
+    <value>In die Taskleiste minimieren</value>
   </data>
   <data name="MinimizeToSystemTrayRadioButton" xml:space="preserve">
-    <value>Txikiendu sistema erretilura</value>
+    <value>Minimize to System tray</value>
   </data>
   <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
-    <value>Jo soinu bat lerroa osatutakoan</value>
+    <value>Akustisches Signal am Ende der Warteschlange</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
-    <value>Hobetsitako DVD irakurgailua:</value>
+    <value>Bevorzugter DVD-Player:</value>
   </data>
   <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
-    <value>Hautatu DVD iturburuentzako erabiltzea nahi duzun irakurgailua.</value>
+    <value>Wählen Sie den Player für DVD-Quellen verwenden möchten.</value>
   </data>
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
-    <value>Berezgaitasunezko eguneraketak</value>
+    <value>Automatische updates</value>
   </data>
   <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Batu Beta eguneraketa bidea</value>
+    <value>Am Beta Projekt teilnehmen</value>
   </data>
   <data name="FileNamingTab" xml:space="preserve">
-    <value>Agiri Izendapena</value>
+    <value>Dateibenennung</value>
   </data>
   <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>Berezko agiritegia:</value>
+    <value>Standardordner:</value>
   </data>
   <data name="FileFormatLabel" xml:space="preserve">
-    <value>Agiri heuskarria:</value>
+    <value>Dateiformat:</value>
   </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Irteera iturburu zuzenbidera ahal bada</value>
+    <value>Ausgabe in das Quellverzeichnis wenn möglich</value>
   </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Berezko heuskarria</value>
+    <value>Standardformat</value>
   </data>
   <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Norbere heuskarria:</value>
+    <value>Benutzerdefiniertes Format:</value>
   </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>Aukera eskuragarriak: {0}</value>
+    <value>Verfügbare Optionen: {0}</value>
   </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
-    <value>Agiri bat jadanik badagoenean...</value>
+    <value>Wenn eine Datei bereits vorhanden ist...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
-    <value>Agiri bakar kodeaketa:</value>
+    <value>Einzelne Datei encodieren:</value>
   </data>
   <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Galdetu gainidaztea nahi duzun</value>
+    <value>Fragen Sie, ob Sie überschreiben möchten</value>
   </data>
   <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Gainidatzi agiria galdetu gabe</value>
+    <value>Datei ohne nachfrage überschreiben</value>
   </data>
   <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Berezgaitasunez aldatu izen ezberdin batera</value>
+    <value>Automatisch auf einen anderen Namen wechseln</value>
   </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
-    <value>Agiri multzo kodeaketa:</value>
+    <value>Mehrere Dateien encodieren:</value>
   </data>
   <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Gainidatzi</value>
+    <value>Überschreiben</value>
   </data>
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Berezgaitasunez berrizendatu</value>
+    <value>Automatisch umbenennen</value>
   </data>
   <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Berezgaitasunezko audio hautapena</value>
+    <value>Automatische Audio-Auswahl</value>
   </data>
   <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Audioa / Azpidatziak</value>
+    <value>Audio / Untertitel</value>
   </data>
   <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Hizkuntza:</value>
+    <value>Sprache:</value>
   </data>
   <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Barneratu bide guztiak</value>
+    <value>Alle Spuren inkludieren</value>
   </data>
   <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Berezgaitasunezko azpidatzi hautapena</value>
+    <value>Automatische Untertitel-Auswahl</value>
   </data>
   <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Beste Hizkuntza Audio Bilaketa</value>
+    <value>Ausländische Audio-Suche</value>
   </data>
   <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Erre</value>
+    <value>Einbrennen</value>
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Audiotik hizkuntza ezberdina bada bakarrik</value>
+    <value>Nur wenn andere Sprache vom Audio</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
-    <value>Berezgaitasunez pausatu kodeaketa prozesu hauetako bat ekinean dagoenean:</value>
+    <value>Automatisch pausieren wenn diese Prozesse ausgeführt werden:</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
-    <value>Gehitu...</value>
+    <value>Hinzufügen...</value>
   </data>
   <data name="PreviewCountLabel" xml:space="preserve">
-    <value>Mihatu beharreko aurreikuspen irudi zenbatekoa:</value>
+    <value>Anzahl der Bild-Vorschauen zu scannen:</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
-    <value>Gogoratu aurretik erabilitako agiriak eta agiritegiak</value>
+    <value>Benutzte Dateien und Ordner merken</value>
   </data>
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Ahalbidetu norbere izena ezartzea audio bideetan (irakurgailu sostengu mugatua)</value>
+    <value>Festlegen von benutzerdefinierten Namen für Audio-Tracks (begrenzte Player Support) ermöglichen</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Gaitu LibDVDNav (aldaketak programa berrabiaraztea behar du)</value>
+    <value>LibDVDNav einschalten (Erfordert Neustart des Programms)</value>
   </data>
   <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Heutsi mihaketei osatu ondoren (osatutako gaiak editatzea ahalbidetzen du)</value>
+    <value>Scans nach Fertigstellung behalten (ermöglicht die Bearbeitung fertiger Dateien)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Ezabatu iturburu agiriak ongi osatutako gaiak garbitu ondoren (baieztapenarekin)</value>
+    <value>Quellcode-Dateien löschen nachdem Dateien erfolgreich abgeschlossen wurden (mit Bestätigung)</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
-    <value>Ohar Berritsukeria:</value>
+    <value>Ausführlichkeit der Protokollierung:</value>
   </data>
   <data name="MinScanLengthLabel" xml:space="preserve">
-    <value>Izenburu mihaketaren gutxienezko luzera (segundutan):</value>
+    <value>Minimale Länge eines Titels zum scan (Sekunden):</value>
   </data>
   <data name="RecognizedExtensionsLabel" xml:space="preserve">
-    <value>Luzapen Ezagutuak:</value>
+    <value>Anerkannten Erweiterungen:</value>
   </data>
   <data name="RecognizedExtensionsToolTip" xml:space="preserve">
-    <value>Agiritegiak mihatzerakoan bideo agiri bila, gehitu luzapen hau duten agiriak. (Kakotxaz bananduta)</value>
+    <value>Wenn Ordner nach Videos gescannt werden,  Dateien mit diesen Erweiterungen hinzufügen. (Durch Komma getrennt)</value>
   </data>
   <data name="OptionsDialogTitle" xml:space="preserve">
-    <value>Aukerak</value>
+    <value>Optionen</value>
   </data>
   <data name="ProcessesTab" xml:space="preserve">
-    <value>Garapenak</value>
+    <value>Prozesse</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
-    <value>Aurreratua</value>
+    <value>Erweiterte</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Beta bidean zaude. Atzera bertsio egonkorrera itzultzeko, kendu, klikatu "Bai" aurrezarpenak kentzeko, orduan berrezarri bertsio egonkorra.</value>
+    <value>Sie sind nun im Beta-Projekt. Um zu den stabilen Versionen zurückzukehren müssen Sie das Programm deinstallieren, die Voreinstellungen (Presets) entfernen und eine Stabile Version neu installieren.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
-    <value>Batu Beta bidera eguneraketak sarriago lortzeko</value>
+    <value>An Beta-Projekt teilnehmen für häufigere Updates</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>{0} eguneraketa gertu. Programatik irtetzen zarenean ezarriko da.</value>
+    <value>Aktualisierung {0} steht bereit bereit. Sie wird installiert, wenn Sie das Programm beenden.</value>
   </data>
   <data name="DownloadingStatus" xml:space="preserve">
-    <value>Eguneraketa jeisten {0}:</value>
+    <value>Lade Update {0}:</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
-    <value>VidCoder eguneratuta dago.</value>
+    <value>VidCoder ist aktuell.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>Hautatu kodeatutako bideo agirientzako berezko irteera zuzenbidea.</value>
+    <value>Wählen Sie das Standardverzeichnis für die enkodierten Video Dateien.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
-    <value>Interfaze Hizkuntza:</value>
+    <value>Sprache der Benutzeroberfläche:</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
-    <value>Hizkuntza berriak irten eta VidCoder berrabiarazi ondoren izango du eragina.</value>
+    <value>Die neue Sprache wird erst nach neustart von VidCoder wirksam.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
-    <value>Erabili SE Hizkuntza</value>
+    <value>Betriebssystem Sprache verwenden</value>
   </data>
   <data name="UpdatesTab" xml:space="preserve">
-    <value>Eguneraketak</value>
+    <value>Updates</value>
   </data>
   <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Azken bertsioa bilatzen...</value>
+    <value>Suche neuste Version...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
-    <value>Eguneraketa egiaztapen hutsegitea.</value>
+    <value>Update-Überprüfung fehlgeschlagen.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>Hautatu soinua osatzeko erabiltzea nahi duzun .wav agiria.</value>
+    <value>Wählen Sie die WAV-Datei, die Sie für den Abschluss-Sound verwenden möchten.</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
-    <value>Oraingo bertsioa: {0}</value>
+    <value>Aktuelle Version: {0}</value>
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
-    <value>Kontuz: zihurragoa da bertsio honek akatsak eta matxurak izatea.</value>
+    <value>Achtung: Diese Version kann Fehler beinhalten und abstürzen.</value>
   </data>
   <data name="LanguagesSection" xml:space="preserve">
-    <value>Hizkuntzak</value>
+    <value>Sprachen</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
-    <value>Irakurgailuak</value>
+    <value>Abspieler</value>
   </data>
   <data name="SoundSection" xml:space="preserve">
-    <value>Soinua</value>
+    <value>Ton</value>
   </data>
   <data name="SystemTraySection" xml:space="preserve">
-    <value>Sistema erretilua</value>
+    <value>System-tray</value>
   </data>
   <data name="OutputFolderSection" xml:space="preserve">
-    <value>Irteera agiritegia</value>
+    <value>Ausgabeordner</value>
   </data>
   <data name="NamingFormatSection" xml:space="preserve">
-    <value>Izendapen heuskarria</value>
+    <value>Namensformat</value>
   </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
-    <value>Aukera aurreratuak</value>
+    <value>Erweiterte Optionen</value>
   </data>
   <data name="ScanningSection" xml:space="preserve">
-    <value>Mihaketa</value>
+    <value>Scannen</value>
   </data>
   <data name="LoggingSection" xml:space="preserve">
-    <value>Oharrak</value>
+    <value>Protokollierung</value>
   </data>
   <data name="DvdReadingSection" xml:space="preserve">
-    <value>DVD irakurketa</value>
+    <value>DVD lesen</value>
   </data>
   <data name="UpdatesSection" xml:space="preserve">
-    <value>Eguneraketak</value>
+    <value>Updates</value>
   </data>
   <data name="UpdateStatusSection" xml:space="preserve">
-    <value>Egoera</value>
+    <value>Status</value>
   </data>
   <data name="BetaSection" xml:space="preserve">
     <value>Beta</value>
   </data>
   <data name="UseCustomWavLabel" xml:space="preserve">
-    <value>Erabili norbere .wav agiria:</value>
+    <value>Benutzerdefinierte WAV-Datei verwenden:</value>
   </data>
   <data name="CheckNowButton" xml:space="preserve">
-    <value>Egiaztatu Orain</value>
+    <value>Jetzt überprüfen</value>
   </data>
   <data name="UseSystemPlayer" xml:space="preserve">
-    <value>Erabili sistemaren irakurgailua</value>
+    <value>Benutze System Abspieler</value>
   </data>
   <data name="VideoFilesLabel" xml:space="preserve">
-    <value>Bideo Agiriak:</value>
+    <value>Video-Dateien:</value>
   </data>
   <data name="CustomVideoPlayerToolTip" xml:space="preserve">
-    <value>Adierazi agirientzako erabiltzea nahi duzun bideo irakurgailuaren helburua.</value>
+    <value>Wählen Sie den Pfad zum Video Abspiel Programm welches Sie verwenden möchten für Dateien.</value>
   </data>
   <data name="VideoPlayerFilePickTitle" xml:space="preserve">
-    <value>Hautatu bideo agiriekin erabiltzeko irakurgailua.</value>
+    <value>Wählen Sie den Player für Video-Dateien.</value>
   </data>
   <data name="CustomPlayerLabel" xml:space="preserve">
-    <value>Norbere irakurgailua:</value>
+    <value>Benutzerdefinierter Player:</value>
   </data>
   <data name="Priority_High" xml:space="preserve">
-    <value>Handia</value>
+    <value>Hoch</value>
   </data>
   <data name="Priority_AboveNormal" xml:space="preserve">
-    <value>Arruntetik Gora</value>
+    <value>Höher als Normal</value>
   </data>
   <data name="Priority_Normal" xml:space="preserve">
-    <value>Arrunta</value>
+    <value>Normal</value>
   </data>
   <data name="Priority_BelowNormal" xml:space="preserve">
-    <value>Arruntetik Behera</value>
+    <value>Unter normal</value>
   </data>
   <data name="WorkerProcessPriorityLabel" xml:space="preserve">
-    <value>Lan garapen lehentasuna:</value>
+    <value>Worker-Prozess-Priorität:</value>
   </data>
   <data name="Priority_Idle" xml:space="preserve">
-    <value>Apala</value>
+    <value>Niedrig</value>
   </data>
 	<data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>Kopiatu kodeaketa oharra kodeatutako bideoaren zuzenbide berera</value>
+    <value>Kopiere das encode Log in den selben Ordner wie das enkodierte Video</value>
   </data>
 	<data name="OpenLogFolderButton" xml:space="preserve">
-    <value>Ireki Ohar Agiritegia</value>
+    <value>Offene Protokollordner</value>
   </data>
 	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
-    <value>Berezgaitasunez berrekin kodeaketa hasterakoan</value>
+    <value>Enkodierung beim Neustart automatisch fortsetzen</value>
   </data>
 	<data name="UseWorkerProcessCheckBox" xml:space="preserve">
-    <value>Erabili langile garapena kodeatzeko</value>
+    <value>Arbeiter-Prozess zum Enkodieren verwenden</value>
   </data>
 </root>
