@@ -103,11 +103,11 @@ namespace VidCoder.ViewModel
 						new InterfaceLanguage { CultureCode = string.Empty, Display = OptionsRes.UseOSLanguage },
 						new InterfaceLanguage { CultureCode = "en-US", Display = "English" },
 						new InterfaceLanguage { CultureCode = "es-ES", Display = "Español (Spanish)"},
+						new InterfaceLanguage { CultureCode = "de-DE", Display = "Deutsch (German)" },
 						new InterfaceLanguage { CultureCode = "fr-FR", Display = "Français (French)"},
 						//new InterfaceLanguage { CultureCode = "pt-PT", Display = "Português (Portuguese)"},
 						new InterfaceLanguage { CultureCode = "hu-HU", Display = "Magyar (Hungarian)"},
-						new InterfaceLanguage { CultureCode = "eu-ES", Display = "Euskara (Basque)"}
-						//new InterfaceLanguage { CultureCode = "de-DE", Display = "Deutsch (German)" },
+						new InterfaceLanguage { CultureCode = "eu-ES", Display = "Euskara (Basque)"},
 					};
 
 			this.priorityChoices = new List<ComboChoice>
