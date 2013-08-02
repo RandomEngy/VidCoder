@@ -1416,7 +1416,6 @@ namespace VidCoder.ViewModel.Components
 		private void PauseEncoding()
 		{
 			this.encodeProxy.PauseEncode();
-			//this.CurrentJob.HandBrakeInstance.PauseEncode();
 			this.EncodeProgressState = TaskbarItemProgressState.Paused;
 			this.CurrentJob.ReportEncodePause();
 
@@ -1426,7 +1425,6 @@ namespace VidCoder.ViewModel.Components
 		private void ResumeEncoding()
 		{
 			this.encodeProxy.ResumeEncode();
-			//this.CurrentJob.HandBrakeInstance.ResumeEncode();
 			this.EncodeProgressState = TaskbarItemProgressState.Normal;
 			this.CurrentJob.ReportEncodeResume();
 

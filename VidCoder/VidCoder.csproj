@@ -679,7 +679,6 @@
     <Compile Include="ViewModel\DataModels\PresetViewModel.cs" />
     <Compile Include="ViewModel\DataModels\TargetStreamViewModel.cs" />
     <Compile Include="ViewModel\EncodingViewModel.cs" />
-    <Compile Include="ViewModel\Language.cs" />
     <Compile Include="Model\SourceOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

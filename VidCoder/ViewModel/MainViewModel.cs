@@ -1052,7 +1052,7 @@ namespace VidCoder.ViewModel
 
 				foreach (SrtSubtitle srtSubtitle in this.currentSubtitles.SrtSubtitles)
 				{
-					trackSummaries.Add(Language.Decode(srtSubtitle.LanguageCode));
+					trackSummaries.Add(Languages.Get(srtSubtitle.LanguageCode).EnglishName);
 				}
 
 				if (trackSummaries.Count > 3)

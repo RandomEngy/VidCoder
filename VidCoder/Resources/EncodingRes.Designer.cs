@@ -628,6 +628,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fallback:.
+        /// </summary>
+        public static string AutoPassthroughFallbackLabel {
+            get {
+                return ResourceManager.GetString("AutoPassthroughFallbackLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passthrough does not work on all audio codecs. This specifies the encoder to fall back to if the track cannot be passed through..
+        /// </summary>
+        public static string AutoPassthroughFallbackToolTip {
+            get {
+                return ResourceManager.GetString("AutoPassthroughFallbackToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Avg Bitrate (kbps).
         /// </summary>
         public static string AverageBitrateRadioButton {
@@ -1391,15 +1409,6 @@ namespace VidCoder.Resources {
         public static string PartitionTypeLabel {
             get {
                 return ResourceManager.GetString("PartitionTypeLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Passthrough does not work for this input codec; the track has been dropped..
-        /// </summary>
-        public static string PassthroughTrackDroppedWarning {
-            get {
-                return ResourceManager.GetString("PassthroughTrackDroppedWarning", resourceCulture);
             }
         }
         

@@ -209,8 +209,6 @@ namespace VidCoder.ViewModel
 			{
 				if (value != null && value != this.selectedEncoder)
 				{
-					VideoEncoderViewModel oldEncoder = this.selectedEncoder;
-
 					this.selectedEncoder = value;
 					this.Profile.VideoEncoder = this.selectedEncoder.Encoder.ShortName;
 					this.RaisePropertyChanged(() => this.SelectedEncoder);
@@ -222,43 +220,7 @@ namespace VidCoder.ViewModel
 					Messenger.Default.Send(new VideoCodecChangedMessage());
 					this.IsModified = true;
 
-					// Move the quality number to something equivalent for the new encoder.
-					if (oldEncoder != null)
-					{
-						double oldQualityFraction = 0.0;
-
-						switch (oldEncoder.Encoder.ShortName)
-						{
-							case "x264":
-								oldQualityFraction = 1.0 - this.Quality / 51.0;
-								break;
-							case "mpeg4":
-							case "mpeg2":
-								oldQualityFraction = 1.0 - this.Quality / 31.0;
-								break;
-							case "theora":
-								oldQualityFraction = this.Quality / 63.0;
-								break;
-							default:
-								throw new InvalidOperationException("Unrecognized encoder.");
-						}
-
-						switch (value.Encoder.ShortName)
-						{
-							case "x264":
-								this.Quality = Math.Round((1.0 - oldQualityFraction) * 51.0);
-								break;
-							case "mpeg4":
-							case "mpeg2":
-								this.Quality = Math.Max(1.0, Math.Round((1.0 - oldQualityFraction) * 31.0));
-								break;
-							case "theora":
-								this.Quality = Math.Round(oldQualityFraction * 63);
-								break;
-							default:
-								throw new InvalidOperationException("Unrecognized encoder.");
-						}
-					}
+					this.SetDefaultQuality();
 				}
 			}
 		}
@@ -428,22 +390,7 @@ namespace VidCoder.ViewModel
 
 				if (value == VideoEncodeRateType.ConstantQuality)
 				{
-					// Set up a default quality.
-					switch (this.SelectedEncoder.Encoder.ShortName)
-					{
-						case "x264":
-							this.Quality = 20;
-							break;
-						case "mpeg4":
-						case "mpeg2":
-							this.Quality = 12;
-							break;
-						case "theora":
-							this.Quality = 38;
-							break;
-						default:
-							break;
-					}
+					this.SetDefaultQuality();
 
 					// Disable two-pass options
 					this.Profile.TwoPass = false;
@@ -593,41 +540,19 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public int QualitySliderMin
+		public float QualitySliderMin
 		{
 			get
 			{
-				switch (this.SelectedEncoder.Encoder.ShortName)
-				{
-					case "x264":
-						return 0;
-					case "mpeg4":
-					case "mpeg2":
-						return 1;
-					case "theora":
-						return 0;
-					default:
-						return 0;
-				}
+				return Encoders.GetVideoQualityLimits(this.SelectedEncoder.Encoder).Low;
 			}
 		}
 
-		public int QualitySliderMax
+		public float QualitySliderMax
 		{
 			get
 			{
-				switch (this.SelectedEncoder.Encoder.ShortName)
-				{
-					case "x264":
-						return 51;
-					case "mpeg4":
-					case "mpeg2":
-						return 31;
-					case "theora":
-						return 63;
-					default:
-						return 0;
-				}
+				return Encoders.GetVideoQualityLimits(this.SelectedEncoder.Encoder).High;
 			}
 		}
 
@@ -635,16 +560,13 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				switch (this.SelectedEncoder.Encoder.ShortName)
+				if (Encoders.GetVideoQualityLimits(this.SelectedEncoder.Encoder).Ascending)
 				{
-					case "x264":
-					case "mpeg4":
-					case "mpeg2":
-						return EncodingRes.HighQuality;
-					case "theora":
-						return EncodingRes.LowQuality;
-					default:
-						return string.Empty;
+					return EncodingRes.LowQuality;
+				}
+				else
+				{
+					return EncodingRes.HighQuality;
 				}
 			}
 		}
@@ -653,16 +575,13 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				switch (this.SelectedEncoder.Encoder.ShortName)
+				if (Encoders.GetVideoQualityLimits(this.SelectedEncoder.Encoder).Ascending)
 				{
-					case "x264":
-					case "mpeg4":
-					case "mpeg2":
-						return EncodingRes.LowQuality;
-					case "theora":
-						return EncodingRes.HighQuality;
-					default:
-						return string.Empty;
+					return EncodingRes.HighQuality;
+				}
+				else
+				{
+					return EncodingRes.LowQuality;
 				}
 			}
 		}
@@ -775,12 +694,10 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return x264Tune;
-				//return this.Profile.X264Tune;
 			}
 
 			set
 			{
-				//this.Profile.X264Tune = value;
 				this.x264Tune = value;
 				this.WriteTuneListToProfile();
 				this.RaisePropertyChanged(() => this.X264Tune);
@@ -1046,6 +963,25 @@ namespace VidCoder.ViewModel
 						levelChoice.IsCompatible = true;
 					}
 				}
+			}
+		}
+
+		private void SetDefaultQuality()
+		{
+			switch (this.SelectedEncoder.Encoder.ShortName)
+			{
+				case "x264":
+					this.Quality = 20;
+					break;
+				case "mpeg4":
+				case "mpeg2":
+					this.Quality = 12;
+					break;
+				case "theora":
+					this.Quality = 38;
+					break;
+				default:
+					throw new InvalidOperationException("Unrecognized encoder.");
 			}
 		}
 

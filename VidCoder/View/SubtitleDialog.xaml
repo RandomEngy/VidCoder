@@ -93,7 +93,7 @@
 			<ComboBox
 				Width="80"
 				ItemsSource="{Binding Languages}" SelectedValue="{Binding LanguageCode}"
-				DisplayMemberPath="Name" SelectedValuePath="Code" />
+				DisplayMemberPath="Display" SelectedValuePath="Code" />
 		</DataTemplate>
 		<DataTemplate x:Key="CharCodeTemplate">
 			<ComboBox

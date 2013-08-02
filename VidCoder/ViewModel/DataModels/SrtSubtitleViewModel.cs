@@ -9,6 +9,8 @@ using System.Windows.Input;
 
 namespace VidCoder.ViewModel
 {
+	using HandBrake.Interop;
+
 	public class SrtSubtitleViewModel : ViewModelBase
 	{
 		private SrtSubtitle subtitle;
@@ -111,7 +113,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return Language.Languages;
+				return HandBrake.Interop.Languages.AllLanguages;
 			}
 		}
 

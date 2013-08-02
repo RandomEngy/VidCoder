@@ -17,8 +17,10 @@ namespace VidCoder.ViewModel
 	using System.Data.SQLite;
 	using System.Globalization;
 	using System.Resources;
+	using HandBrake.Interop;
 	using Resources;
 	using Microsoft.Practices.Unity;
+	using Utilities = VidCoder.Utilities;
 
 	public class OptionsDialogViewModel : OkCancelDialogViewModel
 	{
@@ -768,7 +770,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return Language.Languages;
+				return HandBrake.Interop.Languages.AllLanguages;
 			}
 		}
 

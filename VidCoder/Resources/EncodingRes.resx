@@ -889,9 +889,6 @@ Overrides all other settings.</value>
   <data name="Modifiers" xml:space="preserve">
     <value>Modifiers</value>
   </data>
-  <data name="PassthroughTrackDroppedWarning" xml:space="preserve">
-    <value>Passthrough does not work for this input codec; the track has been dropped.</value>
-  </data>
   <data name="DtsMp4Warning" xml:space="preserve">
     <value>Few players support playback of DTS audio in MP4 containers. MKV is recommended for DTS audio.</value>
   </data>
@@ -926,5 +923,11 @@ Overrides all other settings.</value>
   </data>
   <data name="RemoveAudioEncodingToolTip" xml:space="preserve">
     <value>Remove audio encoding</value>
+  </data>
+  <data name="AutoPassthroughFallbackLabel" xml:space="preserve">
+    <value>Fallback:</value>
+  </data>
+  <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
+    <value>Passthrough does not work on all audio codecs. This specifies the encoder to fall back to if the track cannot be passed through.</value>
   </data>
 </root>

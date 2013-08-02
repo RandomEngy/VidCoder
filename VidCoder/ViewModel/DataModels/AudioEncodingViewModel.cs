@@ -144,6 +144,14 @@ namespace VidCoder.ViewModel
 			this.initializing = false;
 		}
 
+		public AudioPanelViewModel AudioPanelVM
+		{
+			get
+			{
+				return this.audioPanelVM;
+			}
+		}
+
 		public AudioEncoding NewAudioEncoding
 		{
 			get
@@ -238,6 +246,7 @@ namespace VidCoder.ViewModel
 
 				this.RaisePropertyChanged(() => this.SelectedAudioEncoder);
 				this.RaisePropertyChanged(() => this.EncoderSettingsVisible);
+				this.RaisePropertyChanged(() => this.AutoPassthroughSettingsVisible);
 				this.RaisePropertyChanged(() => this.BitrateVisible);
 				this.RaisePropertyChanged(() => this.AudioQualityVisible);
 				this.RaisePropertyChanged(() => this.AudioQualityRadioVisible);
@@ -263,8 +272,6 @@ namespace VidCoder.ViewModel
 						this.SelectedBitrate = this.BitrateChoices[0];
 					}
 				}
-
-				//this.audioPanelVM.RefreshExtensionChoice();
 
 				// Set encode rate type to Bitrate if quality is not supported.
 				if (!value.Encoder.IsPassthrough && !value.Encoder.SupportsQuality)
@@ -313,6 +320,19 @@ namespace VidCoder.ViewModel
 				}
 
 				return !this.HBAudioEncoder.IsPassthrough;
+			}
+		}
+
+		public bool AutoPassthroughSettingsVisible
+		{
+			get
+			{
+				if (this.SelectedAudioEncoder == null)
+				{
+					return false;
+				}
+
+				return this.HBAudioEncoder.ShortName == "copy";
 			}
 		}
 
@@ -756,6 +776,8 @@ namespace VidCoder.ViewModel
 
 			this.RaisePropertyChanged(() => this.SelectedAudioEncoder);
 		}
+
+
 
 		private void RefreshMixdownChoices()
 		{

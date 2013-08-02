@@ -73,7 +73,7 @@
 										</ComboBox>
 									</StackPanel>
 
-									<!-- Column 1, Codec, mixdown, sample rate -->
+									<!-- Column 1: Codec, mixdown, sample rate -->
 									<Grid
 										Grid.Column="1" VerticalAlignment="Center">
 										<Grid.RowDefinitions>
@@ -85,6 +85,8 @@
 											<ColumnDefinition />
 											<ColumnDefinition />
 										</Grid.ColumnDefinitions>
+										
+										<!-- Codec -->
 										<TextBlock
 											Style="{StaticResource AudioLabel}"
 											Grid.Row="0" Grid.Column="0"
@@ -96,6 +98,7 @@
 											SelectedItem="{Binding SelectedAudioEncoder}"
 											DisplayMemberPath="Display"/>
 
+										<!-- Mixdown -->
 										<TextBlock
 											Style="{StaticResource AudioLabel}"
 											Grid.Row="1" Grid.Column="0"
@@ -111,6 +114,7 @@
 											ItemContainerStyle="{StaticResource GrayNonCompatible}">
 										</ComboBox>
 
+										<!-- Sample rate -->
 										<TextBlock
 											Style="{StaticResource AudioLabel}"
 											Grid.Row="2" Grid.Column="0"
@@ -130,7 +134,7 @@
 										</ComboBox>
 									</Grid>
 
-									<!-- Column 2, Bitrate, compression, modifiers -->
+									<!-- Column 2: Bitrate, compression, modifiers, auto-passthrough fallback -->
 									<StackPanel Orientation="Vertical" Grid.Column="2" Margin="4,0,0,0">
 										<Grid>
 											<Grid.RowDefinitions>
@@ -228,6 +232,31 @@
 												</Slider>
 											</Grid>
 
+											<!-- Auto-passthrough fallback -->
+											<StackPanel
+												Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="0,8,0,0"
+												Visibility="{Binding AutoPassthroughSettingsVisible, Converter={StaticResource VisibilityConverter}}">
+												<TextBlock
+													Style="{StaticResource AudioLabelLeft}"
+													Text="{x:Static res:EncodingRes.AutoPassthroughFallbackLabel}"
+													ToolTipService.ShowDuration="20000">
+													<TextBlock.ToolTip>
+														<TextBlock Text="{x:Static res:EncodingRes.AutoPassthroughFallbackToolTip}" Style="{StaticResource LongToolTip}" />
+													</TextBlock.ToolTip>
+												</TextBlock>
+												<ComboBox
+													MinWidth="110"
+													ItemsSource="{Binding AudioPanelVM.FallbackEncoderChoices}"
+													SelectedItem="{Binding AudioPanelVM.SelectedFallbackEncoder}"
+													DisplayMemberPath="Display"
+													ToolTipService.ShowDuration="20000">
+													<ComboBox.ToolTip>
+														<TextBlock Text="{x:Static res:EncodingRes.AutoPassthroughFallbackToolTip}" Style="{StaticResource LongToolTip}" />
+													</ComboBox.ToolTip>
+												</ComboBox>
+											</StackPanel>
+
+
 											<Button
 												Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top"
 												Style="{StaticResource RemoveButtonStyle}"
@@ -241,6 +270,7 @@
 												<ColumnDefinition />
 											</Grid.ColumnDefinitions>
 											<StackPanel Orientation="Horizontal">
+												<!-- Gain -->
 												<TextBlock
 													Style="{StaticResource AudioLabel}"
 													Text="{x:Static res:EncodingRes.GainLabel}"
@@ -254,6 +284,7 @@
 													Visibility="{Binding EncoderSettingsVisible, Converter={StaticResource VisibilityConverter}}"
 													ToolTip="{x:Static res:EncodingRes.Audio_GainToolTip}"/>
 
+												<!-- DRC -->
 												<TextBlock
 													Style="{StaticResource AudioLabel}" Margin="10,0,2,0"
 													Text="{x:Static res:EncodingRes.DrcLabel}" ToolTipService.ShowDuration="20000"

@@ -286,7 +286,7 @@
 								<ComboBox
 									Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" MinWidth="120" Margin="6,0,0,0"
 									ItemsSource="{Binding Languages}" SelectedValue="{Binding AudioLanguageCode}"
-									DisplayMemberPath="Name" SelectedValuePath="Code"
+									DisplayMemberPath="Display" SelectedValuePath="Code"
 									IsEnabled="{Binding AutoAudioLanguageSelected}"
 									Style="{StaticResource GrayOnDisabledControl}"/>
 							</StackPanel>
@@ -329,7 +329,7 @@
 								<ComboBox
 									Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" MinWidth="120" Margin="6,0,0,0"
 									ItemsSource="{Binding Languages}" SelectedValue="{Binding SubtitleLanguageCode}"
-									DisplayMemberPath="Name" SelectedValuePath="Code"
+									DisplayMemberPath="Display" SelectedValuePath="Code"
 									IsEnabled="{Binding AutoSubtitleLanguageSelected}"
 									Style="{StaticResource GrayOnDisabledControl}"/>
 							</StackPanel>
