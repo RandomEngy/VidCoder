@@ -15,7 +15,7 @@
 			Margin="12,30,0,136"
 			SelectionMode="Extended"
 			ItemsSource="{Binding Titles}"
-			local:MultiSelectorBehaviors.SynchronizedSelectedItems="{Binding SelectedTitles}" HorizontalAlignment="Left" Width="180">
+			local:MultiSelectorBehaviors.SynchronizedSelectedItems="{Binding SelectedTitles}" HorizontalAlignment="Left" Width="188">
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<StackPanel Orientation="Horizontal">
@@ -26,7 +26,7 @@
 			</ListView.ItemTemplate>
 		</ListView>
 		<Grid
-			Margin="197,30,12,136"
+			Margin="205,30,12,136"
 			Visibility="{Binding TitleDetailsVisible, Converter={StaticResource VisibilityConverter}}">
 			<TextBlock 
 				HorizontalAlignment="Left" Margin="16,0,0,0" Text="{Binding TitleText}" VerticalAlignment="Top" FontSize="16" />

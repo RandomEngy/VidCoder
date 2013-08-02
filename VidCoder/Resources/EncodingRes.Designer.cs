@@ -224,8 +224,7 @@ namespace VidCoder.Resources {
         ///Hexagon: performs a somewhat more effective but slightly slower search using a hexagon pattern.
         ///
         ///Uneven Multi-Hex: performs a very wide search using a variety of patterns, more accurately capturing complex motion.
-        ///
-        /// [rest of string was truncated]&quot;;.
+        ///        /// [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Advanced_MotionEstimationMethodToolTip {
             get {
@@ -287,7 +286,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to B-pyramid improves compression by creating a pyramidal structure (hence the name) of B-frames, allowing B-frames to 
+        ///   Looks up a localized string similar to B-pyramid creates a pyramidal structure (hence the name) of B-frames, allowing B-frames to 
         ///reference each other to improve compression.  
         ///
         ///Requires Max B-frames greater than 1; optimal adaptive B-frames is strongly recommended for full compression benefit..
@@ -1635,6 +1634,15 @@ namespace VidCoder.Resources {
         public static string ReferenceFramesLabel {
             get {
                 return ResourceManager.GetString("ReferenceFramesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove audio encoding.
+        /// </summary>
+        public static string RemoveAudioEncodingToolTip {
+            get {
+                return ResourceManager.GetString("RemoveAudioEncodingToolTip", resourceCulture);
             }
         }
         

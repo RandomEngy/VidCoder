@@ -157,7 +157,7 @@
 
 
 
-		<TabControl Margin="0,73,0,0" Name="tabControl">
+		<TabControl Margin="0,73,0,0" Name="tabControl" SelectedIndex="{Binding SelectedTabIndex}">
 			<TabItem Header="{x:Static res:EncodingRes.TabHeader_Picture}">
 				<view:PicturePanel DataContext="{Binding PicturePanelViewModel}"/>
 			</TabItem>

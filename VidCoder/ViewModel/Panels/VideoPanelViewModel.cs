@@ -677,6 +677,39 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.Profile.UseAdvancedTab = value;
+
+				if (value)
+				{
+					int width, height;
+					if (this.MainViewModel.HasVideoSource && this.MainViewModel.SelectedTitle != null)
+					{
+						width = this.MainViewModel.SelectedTitle.Resolution.Width;
+						height = this.MainViewModel.SelectedTitle.Resolution.Height;
+					}
+					else
+					{
+						width = 640;
+						height = 480;
+					}
+
+					this.Profile.X264Options = HandBrakeUtils.CreateX264OptionsString(
+						this.Profile.X264Preset,
+						this.Profile.X264Tunes,
+						this.Profile.X264Options,
+						this.Profile.X264Profile,
+						this.Profile.H264Level,
+						width,
+						height);
+
+					this.EncodingViewModel.SelectedTabIndex = 3;
+				}
+				else
+				{
+					this.Profile.X264Options = string.Empty;
+				}
+
+				Messenger.Default.Send(new AdvancedOptionsChangedMessage());
+
 				this.RaisePropertyChanged(() => this.UseAdvancedTab);
 				this.IsModified = true;
 			}

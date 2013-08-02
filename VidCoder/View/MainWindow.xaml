@@ -186,7 +186,11 @@
 				<StackPanel
 					Orientation="Horizontal"
 					Visibility="{Binding ShowQueueEditButtons, Converter={StaticResource VisibilityConverter}}">
-					<Button Command="{Binding RemoveQueueJobCommand}" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource RemoveButtonStyle}">Remove from queue</Button>
+					<Button
+						Command="{Binding RemoveQueueJobCommand}"
+						VerticalAlignment="Center" HorizontalAlignment="Left" 
+						Style="{StaticResource RemoveButtonStyle}"
+						Content="{x:Static res:MainRes.RemoveFromQueueToolTip}" />
 				</StackPanel>
 				<ProgressBar VerticalAlignment="Center" Height="12"
 					Value="{Binding PercentComplete}"

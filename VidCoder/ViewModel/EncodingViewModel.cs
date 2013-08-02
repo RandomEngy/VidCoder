@@ -55,6 +55,8 @@ namespace VidCoder.ViewModel
 
 			this.EditingPreset = preset;
 			this.mainViewModel.PropertyChanged += this.OnMainPropertyChanged;
+
+			this.selectedTabIndex = Config.EncodingDialogLastTab;
 		}
 
 		public MainViewModel MainViewModel
@@ -157,6 +159,21 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return this.mainViewModel.SelectedTitle;
+			}
+		}
+
+		private int selectedTabIndex;
+		public int SelectedTabIndex
+		{
+			get
+			{
+				return this.selectedTabIndex;
+			}
+
+			set
+			{
+				this.selectedTabIndex = value;
+				this.RaisePropertyChanged(() => this.SelectedTabIndex);
 			}
 		}
 

@@ -232,9 +232,8 @@
 												Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top"
 												Style="{StaticResource RemoveButtonStyle}"
 												Command="{Binding RemoveAudioEncodingCommand}"
-												Margin="0,0,0,0">
-												Remove audio encoding
-											</Button>
+												Margin="0,0,0,0"
+												Content="{x:Static res:EncodingRes.RemoveAudioEncodingToolTip}" />
 										</Grid>
 										<Grid>
 											<Grid.ColumnDefinitions>

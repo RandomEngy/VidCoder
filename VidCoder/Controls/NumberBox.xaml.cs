@@ -213,7 +213,10 @@ namespace VidCoder.Controls
 
 		private void UpButtonMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
-			this.refireControl.Stop();
+			if (this.refireControl != null)
+			{
+				this.refireControl.Stop();
+			}
 		}
 
 		private void DownButtonMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -224,7 +227,10 @@ namespace VidCoder.Controls
 
 		private void DownButtonMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
-			this.refireControl.Stop();
+			if (this.refireControl != null)
+			{
+				this.refireControl.Stop();
+			}
 		}
 
 		private void IncrementNumber()

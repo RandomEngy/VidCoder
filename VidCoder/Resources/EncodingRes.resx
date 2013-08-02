@@ -206,7 +206,7 @@ as opposed to trying to maximize quality the way a computer understands it, thro
 It is considered experimental, which is why it's off by default. Good values are 0.1 to 0.2.</value>
   </data>
   <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
-    <value>B-pyramid improves compression by creating a pyramidal structure (hence the name) of B-frames, allowing B-frames to 
+    <value>B-pyramid creates a pyramidal structure (hence the name) of B-frames, allowing B-frames to 
 reference each other to improve compression.  
 
 Requires Max B-frames greater than 1; optimal adaptive B-frames is strongly recommended for full compression benefit.</value>
@@ -923,5 +923,8 @@ Overrides all other settings.</value>
   </data>
   <data name="VideoEncoder_theora" xml:space="preserve">
     <value>Theora</value>
+  </data>
+  <data name="RemoveAudioEncodingToolTip" xml:space="preserve">
+    <value>Remove audio encoding</value>
   </data>
 </root>
