@@ -118,75 +118,75 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Anamorphic_Custom" xml:space="preserve">
-    <value>Personalizado</value>
+    <value>自訂</value>
   </data>
   <data name="Anamorphic_Loose" xml:space="preserve">
-    <value>Loose</value>
+    <value>寬鬆</value>
   </data>
   <data name="Anamorphic_None" xml:space="preserve">
-    <value>Nenhum</value>
+    <value>無</value>
   </data>
   <data name="Anamorphic_Strict" xml:space="preserve">
-    <value>Estrito</value>
+    <value>嚴格</value>
   </data>
   <data name="Custom" xml:space="preserve">
-    <value>Personalizado</value>
+    <value>自訂</value>
   </data>
   <data name="Decomb_Bob" xml:space="preserve">
     <value>Bob</value>
   </data>
   <data name="Decomb_Fast" xml:space="preserve">
-    <value>Rápido</value>
+    <value>快速</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>Padrão</value>
+    <value>預設</value>
   </data>
   <data name="Deinterlace_Bob" xml:space="preserve">
     <value>Bob</value>
   </data>
   <data name="Deinterlace_Fast" xml:space="preserve">
-    <value>Rápido</value>
+    <value>快速</value>
   </data>
   <data name="Deinterlace_Slow" xml:space="preserve">
-    <value>Lento</value>
+    <value>緩慢</value>
   </data>
   <data name="Deinterlace_Slower" xml:space="preserve">
-    <value>Mais lento</value>
+    <value>較慢</value>
   </data>
   <data name="Denoise_Medium" xml:space="preserve">
-    <value>Médio</value>
+    <value>中等</value>
   </data>
   <data name="Denoise_Strong" xml:space="preserve">
-    <value>Forte</value>
+    <value>強</value>
   </data>
   <data name="Denoise_Weak" xml:space="preserve">
-    <value>Fraco</value>
+    <value>弱</value>
   </data>
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
-    <value>Não fazer nada</value>
+    <value>不執行任何動作</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
-    <value>Ejectar {0}:</value>
+    <value>退出 {0}:</value>
   </data>
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
-    <value>Terminar Sessão</value>
+    <value>登出</value>
   </data>
   <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
-    <value>Desligar PC</value>
+    <value>關機</value>
   </data>
   <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
-    <value>Suspender PC</value>
+    <value>休眠</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>Desligado</value>
+    <value>關閉</value>
   </data>
   <data name="VideoRangeType_Chapters" xml:space="preserve">
-    <value>Capítulos</value>
+    <value>章節</value>
   </data>
   <data name="VideoRangeType_Frames" xml:space="preserve">
-    <value>Frames</value>
+    <value>畫格</value>
   </data>
   <data name="VideoRangeType_Seconds" xml:space="preserve">
-    <value>Intervalo de tempo</value>
+    <value>時間範圍</value>
   </data>
 </root>

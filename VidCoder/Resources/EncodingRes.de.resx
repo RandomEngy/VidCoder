@@ -528,13 +528,13 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Identisch mit Quelle</value>
   </data>
   <data name="AddAudioEncodingButton" xml:space="preserve">
-    <value>Audio-Enkodierung hinzufügen</value>
+    <value>Voreinstellung für Tonspur hinzufügen</value>
   </data>
   <data name="NoTracksPlaceholder" xml:space="preserve">
     <value>(Kein Titel)</value>
   </data>
   <data name="TargetStream" xml:space="preserve">
-    <value>Voreinstellung für folgende Streams</value>
+    <value>Voreinstellung für folgende Tonspur(en)</value>
   </data>
   <data name="MixdownLabel" xml:space="preserve">
     <value>Abmischung:</value>

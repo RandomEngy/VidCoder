@@ -134,7 +134,7 @@ Modu azkarrak gutxi-gorabehera denbora kopuru berdina hartzen du, ez dio axola z
 Modu hoberena astiroago egiten da gehinezko B-Frame zenbatekoa handitzean, baina erabaki askoz zehatzagoak hartzen ditu, bereziki B-piramidearekin erabiltzen denean.</value>
   </data>
   <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264-k bi iragarpen modu ezberdin ahalbidetzen ditu, espazila eta tenporala, B-frametan.
+    <value>H.264-k bi iragarpen modu ezberdin ahalbidetzen ditu, espaziala eta tenporala, B-frametan.
 
 Espaziala, berezkoa, hobea da gehienetan, baina tenporala batzuetan erabilgarria da ere.
 
@@ -149,7 +149,7 @@ Balio handiek bit gehiago hartzen dituzte hertzetatik eta eremu korapilotsuetati
 Egiaztatzeko zati gutxiagok kodeaketa  azkarragoa esanahi du, erabaki okerren ordainarekin, zeren erabaki hoberena eten denetako bat izan daitekeelako.</value>
   </data>
   <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>Balio osantsuak dira ~2-5.  
+    <value>Balio osasuntsuak dira ~2-5.  
 Honek kodeatzaileak jarraian erabili ditzakeen B-frame zenbateko gehiena adierazten du.
 Zenbaki handiek orokorrean ez dute askorik laguntzen B-frame Egokigarria hoberenean ezarrita ez badago.
 Cel-animatu iturburu materialak eta B-piramidalak ere balio handien erabilgarritasuna nabamen handitzen du.

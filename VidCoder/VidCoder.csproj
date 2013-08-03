@@ -752,11 +752,13 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ChapterMarkersRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ChapterMarkersRes.zh.resx" />
     <EmbeddedResource Include="Resources\CommonRes.de.resx" />
     <EmbeddedResource Include="Resources\CommonRes.es.resx" />
     <EmbeddedResource Include="Resources\CommonRes.eu.resx" />
     <EmbeddedResource Include="Resources\CommonRes.fr.resx" />
     <EmbeddedResource Include="Resources\CommonRes.pt.resx" />
+    <EmbeddedResource Include="Resources\CommonRes.zh.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.de.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.es.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.eu.resx" />
@@ -768,6 +770,7 @@
       <LastGenOutput>EncodingRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EncodingRes.zh.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.de.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.es.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.eu.resx" />
@@ -781,6 +784,7 @@
       <LastGenOutput>EnumsRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EnumsRes.zh.resx" />
     <EmbeddedResource Include="Resources\LogRes.de.resx" />
     <EmbeddedResource Include="Resources\LogRes.es.resx" />
     <EmbeddedResource Include="Resources\LogRes.eu.resx" />
@@ -791,6 +795,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LogRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LogRes.zh.resx" />
     <EmbeddedResource Include="Resources\MainRes.de.resx" />
     <EmbeddedResource Include="Resources\MainRes.es.resx" />
     <EmbeddedResource Include="Resources\MainRes.eu.resx" />
@@ -806,6 +811,7 @@
       <LastGenOutput>MainRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MainRes.zh.resx" />
     <EmbeddedResource Include="Resources\MiscRes.de.resx" />
     <EmbeddedResource Include="Resources\MiscRes.es.resx" />
     <EmbeddedResource Include="Resources\MiscRes.eu.resx" />
@@ -816,6 +822,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MiscRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MiscRes.zh.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.de.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.es.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.eu.resx" />
@@ -827,6 +834,7 @@
       <LastGenOutput>OptionsRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\OptionsRes.zh.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.de.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.es.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.eu.resx" />
@@ -837,6 +845,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PreviewRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PreviewRes.zh.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.de.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.es.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.eu.resx" />
@@ -847,6 +856,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>QueueTitlesRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\QueueTitlesRes.zh.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.de.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.es.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.eu.resx" />
@@ -867,6 +877,7 @@
       <LastGenOutput>CommonRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SubtitleRes.zh.resx" />
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>

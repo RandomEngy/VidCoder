@@ -117,76 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Anamorphic_Custom" xml:space="preserve">
-    <value>Personalizado</value>
+  <data name="SubtitlesWindowTitle" xml:space="preserve">
+    <value>字幕</value>
   </data>
-  <data name="Anamorphic_Loose" xml:space="preserve">
-    <value>Loose</value>
+  <data name="RemoveSubtitleTrack" xml:space="preserve">
+    <value>移除此軌</value>
   </data>
-  <data name="Anamorphic_None" xml:space="preserve">
-    <value>Nenhum</value>
+  <data name="SubtitlesFromSourceLabel" xml:space="preserve">
+    <value>來源字幕軌:</value>
   </data>
-  <data name="Anamorphic_Strict" xml:space="preserve">
-    <value>Estrito</value>
+  <data name="QuickTimeSubtitlesWarning" xml:space="preserve">
+    <value>除非使用 .m4v 副檔名，否則文字字幕可能無法於 Quicktime 正常顯示。</value>
   </data>
-  <data name="Custom" xml:space="preserve">
-    <value>Personalizado</value>
+  <data name="NameColumn" xml:space="preserve">
+    <value>名稱</value>
   </data>
-  <data name="Decomb_Bob" xml:space="preserve">
-    <value>Bob</value>
+  <data name="DefaultColumn" xml:space="preserve">
+    <value>預設</value>
   </data>
-  <data name="Decomb_Fast" xml:space="preserve">
-    <value>Rápido</value>
+  <data name="ForcedOnlyColumn" xml:space="preserve">
+    <value>僅強制</value>
   </data>
-  <data name="Default" xml:space="preserve">
-    <value>Padrão</value>
+  <data name="BurnedInColumn" xml:space="preserve">
+    <value>內嵌</value>
   </data>
-  <data name="Deinterlace_Bob" xml:space="preserve">
-    <value>Bob</value>
+  <data name="ExternalSubtitlesLabel" xml:space="preserve">
+    <value>外部字幕:</value>
   </data>
-  <data name="Deinterlace_Fast" xml:space="preserve">
-    <value>Rápido</value>
+  <data name="FileColumn" xml:space="preserve">
+    <value>檔案</value>
   </data>
-  <data name="Deinterlace_Slow" xml:space="preserve">
-    <value>Lento</value>
+  <data name="LanguageColumn" xml:space="preserve">
+    <value>語言</value>
   </data>
-  <data name="Deinterlace_Slower" xml:space="preserve">
-    <value>Mais lento</value>
+  <data name="CharCodeColumn" xml:space="preserve">
+    <value>字元編碼</value>
   </data>
-  <data name="Denoise_Medium" xml:space="preserve">
-    <value>Médio</value>
+  <data name="OffsetColumn" xml:space="preserve">
+    <value>偏移量 (毫秒)</value>
   </data>
-  <data name="Denoise_Strong" xml:space="preserve">
-    <value>Forte</value>
+  <data name="ImportSrtButton" xml:space="preserve">
+    <value>匯入 .srt 檔...</value>
   </data>
-  <data name="Denoise_Weak" xml:space="preserve">
-    <value>Fraco</value>
+  <data name="BurnedOverlapWarning" xml:space="preserve">
+    <value>其他字幕軌將與內嵌字幕重疊。</value>
   </data>
-  <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
-    <value>Não fazer nada</value>
+  <data name="ForeignAudioSearch" xml:space="preserve">
+    <value>外語音訊搜尋</value>
   </data>
-  <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
-    <value>Ejectar {0}:</value>
+  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
+    <value>來源視訊中無字幕。</value>
   </data>
-  <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
-    <value>Terminar Sessão</value>
+  <data name="SrtFilePickerText" xml:space="preserve">
+    <value>新增字幕檔</value>
   </data>
-  <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
-    <value>Desligar PC</value>
-  </data>
-  <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
-    <value>Suspender PC</value>
-  </data>
-  <data name="Off" xml:space="preserve">
-    <value>Desligado</value>
-  </data>
-  <data name="VideoRangeType_Chapters" xml:space="preserve">
-    <value>Capítulos</value>
-  </data>
-  <data name="VideoRangeType_Frames" xml:space="preserve">
-    <value>Frames</value>
-  </data>
-  <data name="VideoRangeType_Seconds" xml:space="preserve">
-    <value>Intervalo de tempo</value>
+	<data name="DuplicateSubtitleTrack" xml:space="preserve">
+    <value>複製此軌</value>
   </data>
 </root>
