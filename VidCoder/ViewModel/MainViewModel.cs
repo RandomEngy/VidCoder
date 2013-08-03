@@ -1957,7 +1957,11 @@ namespace VidCoder.ViewModel
 			{
 				return this.importPresetCommand ?? (this.importPresetCommand = new RelayCommand(() =>
 					{
-						string presetFileName = FileService.Instance.GetFileNameLoad(null, "Import preset file", "xml", "XML Files|*.xml");
+						string presetFileName = FileService.Instance.GetFileNameLoad(
+							null, 
+							MainRes.ImportPresetFilePickerTitle, 
+							"xml", 
+							Utilities.GetFilePickerFilter("xml"));
 						if (presetFileName != null)
 						{
 							Unity.Container.Resolve<IPresetImportExport>().ImportPreset(presetFileName);

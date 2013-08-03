@@ -165,6 +165,16 @@ namespace VidCoder
 			return 0;
 		}
 
+		public static string GetFilePickerFilter(string extension)
+		{
+			if (extension.StartsWith("."))
+			{
+				extension = extension.Substring(1);
+			}
+
+			return string.Format(CommonRes.FilePickerExtTemplate, extension.ToUpperInvariant()) + "|*." + extension.ToLowerInvariant();
+		}
+
 		public static int CurrentProcessInstances
 		{
 			get

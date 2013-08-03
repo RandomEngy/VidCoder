@@ -100,6 +100,7 @@ namespace VidCoder.ViewModel.Components
 						}
 
 						this.EncodeCommand.RaiseCanExecuteChanged();
+						this.RaisePropertyChanged(() => this.QueueHasItems);
 					};
 
 			Messenger.Default.Register<VideoSourceChangedMessage>(
@@ -222,6 +223,14 @@ namespace VidCoder.ViewModel.Components
 				this.RaisePropertyChanged(() => this.Encoding);
 				this.RaisePropertyChanged(() => this.EncodeButtonText);
 				Messenger.Default.Send(new ProgressChangedMessage());
+			}
+		}
+
+		public bool QueueHasItems
+		{
+			get
+			{
+				return this.EncodeQueue.Count > 0;
 			}
 		}
 
@@ -703,6 +712,63 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
+		private RelayCommand importQueueCommand;
+		public RelayCommand ImportQueueCommand
+		{
+			get
+			{
+				return this.importQueueCommand ?? (this.importQueueCommand = new RelayCommand(() =>
+				{
+					string presetFileName = FileService.Instance.GetFileNameLoad(null, MainRes.ImportQueueFilePickerTitle, "xml", Utilities.GetFilePickerFilter("xml"));
+					if (presetFileName != null)
+					{
+						Unity.Container.Resolve<IQueueImportExport>().Import(presetFileName);
+					}
+
+				}));
+			}
+		}
+
+		private RelayCommand exportQueueCommand;
+		public RelayCommand ExportQueueCommand
+		{
+			get
+			{
+				return this.exportQueueCommand ?? (this.exportQueueCommand = new RelayCommand(() =>
+					{
+						var encodeJobs = new List<EncodeJobWithMetadata>();
+						foreach (EncodeJobViewModel jobVM in this.EncodeQueue)
+						{
+							encodeJobs.Add(
+								new EncodeJobWithMetadata
+								{
+									Job = jobVM.Job,
+									ManualOutputPath = jobVM.ManualOutputPath,
+									NameFormatOverride = jobVM.NameFormatOverride,
+									PresetName = jobVM.PresetName
+								});
+						}
+
+						//var jobPersistGroup = new EncodeJobPersistGroup();
+						//foreach (EncodeJobViewModel jobVM in this.EncodeQueue)
+						//{
+						//	jobPersistGroup.EncodeJobs.Add(
+						//		new EncodeJobWithMetadata
+						//		{
+						//			Job = jobVM.Job,
+						//			ManualOutputPath = jobVM.ManualOutputPath,
+						//			NameFormatOverride = jobVM.NameFormatOverride,
+						//			PresetName = jobVM.PresetName
+						//		});
+						//}
+
+						//return jobPersistGroup;
+
+						Unity.Container.Resolve<IQueueImportExport>().Export(encodeJobs);
+				}));
+			}
+		}
+
 		private RelayCommand removeSelectedJobsCommand;
 		public RelayCommand RemoveSelectedJobsCommand
 		{
@@ -1073,6 +1139,24 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
+		public EncodeJobPersistGroup GetQueuePersistGroup()
+		{
+			var jobPersistGroup = new EncodeJobPersistGroup();
+			foreach (EncodeJobViewModel jobVM in this.EncodeQueue)
+			{
+				jobPersistGroup.EncodeJobs.Add(
+					new EncodeJobWithMetadata
+					{
+						Job = jobVM.Job,
+						ManualOutputPath = jobVM.ManualOutputPath,
+						NameFormatOverride = jobVM.NameFormatOverride,
+						PresetName = jobVM.PresetName
+					});
+			}
+
+			return jobPersistGroup;
+		}
+
 		private void EncodeNextJob()
 		{
 			this.taskNumber++;
@@ -1440,20 +1524,7 @@ namespace VidCoder.ViewModel.Components
 
 		private void SaveEncodeQueue()
 		{
-			var jobPersistGroup = new EncodeJobPersistGroup();
-			foreach (EncodeJobViewModel jobVM in this.EncodeQueue)
-			{
-				jobPersistGroup.EncodeJobs.Add(
-					new EncodeJobWithMetadata
-						{
-							Job = jobVM.Job, 
-							ManualOutputPath = jobVM.ManualOutputPath, 
-							NameFormatOverride = jobVM.NameFormatOverride,
-							PresetName = jobVM.PresetName
-						});
-			}
-
-			EncodeJobsPersist.EncodeJobs = jobPersistGroup;
+			EncodeJobsPersist.EncodeJobs = this.GetQueuePersistGroup();
 		}
 
 		private void RefreshCanEnqueue()

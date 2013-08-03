@@ -393,6 +393,7 @@
     <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="EnumStringConverter.cs" />
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
+    <Compile Include="Model\EncodeJobsXml.cs" />
     <Compile Include="Model\UpdateInfo.cs" />
     <Compile Include="Model\UpdateState.cs" />
     <Compile Include="Resources\ChapterMarkersRes.Designer.cs">
@@ -516,9 +517,11 @@
     <Compile Include="Services\Interfaces\IProcessAutoPause.cs" />
     <Compile Include="Services\Interfaces\ISystemOperations.cs" />
     <Compile Include="Model\Players\Players.cs" />
+    <Compile Include="Services\Interfaces\IQueueImportExport.cs" />
     <Compile Include="Services\PresetImportExport.cs" />
     <Compile Include="Services\ProcessAutoPause.cs" />
     <Compile Include="Services\Processes.cs" />
+    <Compile Include="Services\QueueImportExport.cs" />
     <Compile Include="Services\SystemOperations.cs" />
     <Compile Include="Services\TrayService.cs" />
     <Compile Include="Model\Config\ConfigDeclaration.cs" />

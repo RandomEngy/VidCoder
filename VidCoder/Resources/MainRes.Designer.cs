@@ -252,6 +252,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not save queue:{0}{1}.
+        /// </summary>
+        public static string CouldNotSaveQueueMessage {
+            get {
+                return ResourceManager.GetString("CouldNotSaveQueueMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current FPS:.
         /// </summary>
         public static string CurrentFpsLabel {
@@ -506,6 +515,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export Queue....
+        /// </summary>
+        public static string ExportQueue {
+            get {
+                return ResourceManager.GetString("ExportQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export queue.
+        /// </summary>
+        public static string ExportQueueFilePickerText {
+            get {
+                return ResourceManager.GetString("ExportQueueFilePickerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} does not exist..
         /// </summary>
         public static string FileDoesNotExist {
@@ -542,11 +569,47 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import Error.
+        /// </summary>
+        public static string ImportErrorTitle {
+            get {
+                return ResourceManager.GetString("ImportErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Import Preset....
         /// </summary>
         public static string ImportPreset {
             get {
                 return ResourceManager.GetString("ImportPreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import preset file.
+        /// </summary>
+        public static string ImportPresetFilePickerTitle {
+            get {
+                return ResourceManager.GetString("ImportPresetFilePickerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import Queue....
+        /// </summary>
+        public static string ImportQueue {
+            get {
+                return ResourceManager.GetString("ImportQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import queue file.
+        /// </summary>
+        public static string ImportQueueFilePickerTitle {
+            get {
+                return ResourceManager.GetString("ImportQueueFilePickerTitle", resourceCulture);
             }
         }
         
@@ -938,15 +1001,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Success.
-        /// </summary>
-        public static string PresetExportSuccessTitle {
-            get {
-                return ResourceManager.GetString("PresetExportSuccessTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Could not import preset. Format is unrecognized..
         /// </summary>
         public static string PresetImportErrorMessage {
@@ -956,29 +1010,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import Error.
-        /// </summary>
-        public static string PresetImportErrorTitle {
-            get {
-                return ResourceManager.GetString("PresetImportErrorTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Successfully imported preset {0}..
         /// </summary>
         public static string PresetImportSuccessMessage {
             get {
                 return ResourceManager.GetString("PresetImportSuccessMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Success.
-        /// </summary>
-        public static string PresetImportSuccessTitle {
-            get {
-                return ResourceManager.GetString("PresetImportSuccessTitle", resourceCulture);
             }
         }
         
@@ -1091,6 +1127,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Successfully exported queue to {0}.
+        /// </summary>
+        public static string QueueExportSuccessMessage {
+            get {
+                return ResourceManager.GetString("QueueExportSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ch {0}.
         /// </summary>
         public static string QueueFormat_Chapters {
@@ -1105,6 +1150,24 @@ namespace VidCoder.Resources {
         public static string QueueFormat_Frames {
             get {
                 return ResourceManager.GetString("QueueFormat_Frames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not import queue. Format is unrecognized..
+        /// </summary>
+        public static string QueueImportErrorMessage {
+            get {
+                return ResourceManager.GetString("QueueImportErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully imported queue..
+        /// </summary>
+        public static string QueueImportSuccessMessage {
+            get {
+                return ResourceManager.GetString("QueueImportSuccessMessage", resourceCulture);
             }
         }
         

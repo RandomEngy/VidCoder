@@ -30,7 +30,7 @@ namespace VidCoder.Services
 			Preset preset = Presets.LoadPresetFile(presetFile);
 			if (preset == null || string.IsNullOrWhiteSpace(preset.Name))
 			{
-				this.messageBoxService.Show(MainRes.PresetImportErrorMessage, MainRes.PresetImportErrorTitle, System.Windows.MessageBoxButton.OK);
+				this.messageBoxService.Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
 				return;
 			}
 
@@ -53,7 +53,7 @@ namespace VidCoder.Services
 				}
 			}
 
-			this.messageBoxService.Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), MainRes.PresetImportSuccessTitle, System.Windows.MessageBoxButton.OK);
+			this.messageBoxService.Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
 
 			this.presetsViewModel.AddPreset(preset);
 		}
@@ -80,7 +80,7 @@ namespace VidCoder.Services
 				MainRes.ExportPresetFilePickerText,
 				Utilities.CleanFileName(initialFileName + ".xml"),
 				"xml",
-				"XML Files|*.xml");
+				Utilities.GetFilePickerFilter("xml"));
 			if (exportFileName != null)
 			{
 				if (Config.RememberPreviousFiles)
@@ -92,7 +92,7 @@ namespace VidCoder.Services
 				{
 					this.messageBoxService.Show(
 						string.Format(MainRes.PresetExportSuccessMessage, exportFileName),
-						MainRes.PresetExportSuccessTitle,
+						CommonRes.Success,
 						System.Windows.MessageBoxButton.OK);
 				}
 			}

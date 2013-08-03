@@ -1087,7 +1087,7 @@ namespace VidCoder.ViewModel
 						string fileName = FileService.Instance.GetFileNameLoad(
 							title: OptionsRes.VideoPlayerFilePickTitle,
 							defaultExt: "exe",
-							filter: string.Format(CommonRes.FilePickerExtTemplate, "EXE") + "|*.exe");
+							filter: Utilities.GetFilePickerFilter("exe"));
 
 						if (fileName != null)
 						{
@@ -1111,7 +1111,7 @@ namespace VidCoder.ViewModel
 						string fileName = FileService.Instance.GetFileNameLoad(
 							title: OptionsRes.CompletionWavFilePickTitle, 
 							defaultExt: "wav", 
-							filter: string.Format(CommonRes.FilePickerExtTemplate, "WAV") + "|*.wav");
+							filter: Utilities.GetFilePickerFilter("wav"));
 
 						if (fileName != null)
 						{

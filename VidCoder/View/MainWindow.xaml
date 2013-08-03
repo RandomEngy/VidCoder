@@ -344,6 +344,13 @@
 			<MenuItem Header="{x:Static res:MainRes.ToolsMenu}">
 				<MenuItem Header="{x:Static res:MainRes.ImportPreset}" Command="{Binding ImportPresetCommand}" />
 				<MenuItem Header="{x:Static res:MainRes.ExportPreset}" Command="{Binding ExportPresetCommand}" />
+				<Separator />
+				<MenuItem
+					Header="{x:Static res:MainRes.ImportQueue}" Command="{Binding ProcessingVM.ImportQueueCommand}" />
+				<MenuItem
+					Header="{x:Static res:MainRes.ExportQueue}" Command="{Binding ProcessingVM.ExportQueueCommand}"
+					IsEnabled="{Binding ProcessingVM.QueueHasItems}" />
+				<Separator />
 				<MenuItem Header="{x:Static res:MainRes.OptionsMenuItem}" Command="{Binding OpenOptionsCommand}" InputGestureText="F4" />
 			</MenuItem>
 			<MenuItem Header="{x:Static res:MainRes.WindowsMenu}">
@@ -1093,6 +1100,12 @@
 														<Image Source="/Icons/delete.png" Width="16" Height="16" />
 													</MenuItem.Icon>
 												</MenuItem>
+												<Separator />
+												<MenuItem
+													Header="{x:Static res:MainRes.ImportQueue}" Command="{Binding ProcessingVM.ImportQueueCommand}" />
+												<MenuItem
+													Header="{x:Static res:MainRes.ExportQueue}" Command="{Binding ProcessingVM.ExportQueueCommand}"
+													IsEnabled="{Binding ProcessingVM.QueueHasItems}" />
 											</ContextMenu>
 										</Setter.Value>
 									</Setter>
@@ -1108,6 +1121,12 @@
 							<ListView.ContextMenu>
 								<ContextMenu>
 									<MenuItem Header="{x:Static res:MainRes.CustomizeColumnsMenuItem}" Command="{Binding CustomizeQueueColumnsCommand}" />
+									<Separator />
+									<MenuItem
+										Header="{x:Static res:MainRes.ImportQueue}" Command="{Binding ProcessingVM.ImportQueueCommand}" />
+									<MenuItem
+										Header="{x:Static res:MainRes.ExportQueue}" Command="{Binding ProcessingVM.ExportQueueCommand}"
+										IsEnabled="{Binding ProcessingVM.QueueHasItems}" />
 								</ContextMenu>
 							</ListView.ContextMenu>
 						</ListView>
