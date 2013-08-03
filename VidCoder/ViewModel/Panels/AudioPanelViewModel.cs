@@ -310,7 +310,15 @@ namespace VidCoder.ViewModel
 					return outputPreviewTrack;
 				}
 
-				encoder = Encoders.GetAudioEncoder(this.Profile.AudioEncoderFallback);
+				if (this.Profile.AudioEncoderFallback == null)
+				{
+					encoder = Encoders.AudioEncoders.First(a => !a.IsPassthrough);
+				}
+				else
+				{
+					encoder = Encoders.GetAudioEncoder(this.Profile.AudioEncoderFallback);
+				}
+
 				mixdown = Encoders.GetDefaultMixdown(encoder, inputTrack.ChannelLayout);
 				sampleRate = 0;
 				bitrate = 0;
