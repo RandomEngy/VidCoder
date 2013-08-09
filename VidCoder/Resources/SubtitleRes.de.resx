@@ -121,13 +121,13 @@
     <value>Untertitel</value>
   </data>
   <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>Entfernen Sie diese Spur</value>
+    <value>Diese Untertitelspur entfernen</value>
   </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
-    <value>Untertitel von Quelle:</value>
+    <value>Untertitel aus Quelle:</value>
   </data>
   <data name="QuickTimeSubtitlesWarning" xml:space="preserve">
-    <value>Text Untertitel werden nicht mit Quicktime angezeigt es sei denn es wird die M4V Dateiendung verwendet.</value>
+    <value>Text Untertitel werden mit Quicktime eventuell nicht angezeigt, falls die .m4v Dateiendung nicht verwendet wird.</value>
   </data>
   <data name="NameColumn" xml:space="preserve">
     <value>Name</value>
@@ -151,7 +151,7 @@
     <value>Sprache</value>
   </data>
   <data name="CharCodeColumn" xml:space="preserve">
-    <value>Char-Code</value>
+    <value>Zeichenkodierung</value>
   </data>
   <data name="OffsetColumn" xml:space="preserve">
     <value>Versatz (ms)</value>
@@ -160,18 +160,18 @@
     <value>Importiere .srt Datei...</value>
   </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
-    <value>Andere Untertitelspuren überlappen sich mit gebrannten Untertiteln.</value>
+    <value>Andere Untertitelspuren werden die gebrannten Untertitel überlagern.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Ausländische Audio-Suche</value>
+    <value>Suche nach ausländischem Ton</value>
   </data>
   <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>Keine Untertitel auf das Quellvideo.</value>
+    <value>Das ursprüngliche Video enthält keine Untertitel.</value>
   </data>
   <data name="SrtFilePickerText" xml:space="preserve">
-    <value>Addiere Untertitel-Datei</value>
+    <value>Füge Untertitel-Datei hinzu</value>
   </data>
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>Diese Spur duplizieren</value>
+    <value>Diese Untertitelspur duplizieren</value>
   </data>
 </root>

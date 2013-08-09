@@ -118,23 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="OverrideTitleNumberToolTip" xml:space="preserve">
-    <value>Wenn ausgewählt, wird dies den normalen Titel für die Zwecke der erstellen den Namens des Ausgabedatei überschreiben. Zum Beispiel bei Titeln mit 2,3 und 4 und der Überschreibung 7 werden sie dann als 7, 8 und 9 betitelt. Das kann nützlich für das Kopieren einer CD mit einer TV-Serie sein.</value>
+    <value>Durch das Auswählen dieser Option wird der normale Titel überschrieben, um den Namen der endgültigen Datei zu erstellen. Zum Beispiel für die Titel 2,3 und 4 und eine Ersetzung von 7, werden sie als 7, 8 und 9 betitelt. Unter anderem nützlich für das Rippen einer CD mit einer TV-Serie.</value>
   </data>
   <data name="QueueTitlesWindowHeader" xml:space="preserve">
-    <value>Wähle mehrere Titel zum hinzufügen zu der Warteschlange.</value>
+    <value>Mehrere Titel auswählen und zur Warteschlange hinzufügen.</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
-    <value>Wenn ein unterstützter Player installiert (VLC oder Media Player Classic Home Cinema) ist, können Sie einzelne Titel von DVDs im voraus ansehen</value>
+    <value>Wenn ein unterstützter Player installiert ist (VLC oder Media Player Classic Home Cinema), können Sie einzelne Titel von DVDs im voraus ansehen</value>
   </data>
   <data name="PlaySourceButton" xml:space="preserve">
-    <value>Spiele Quelle</value>
+    <value>Quelle abspielen</value>
   </data>
   <data name="LengthRangePre" xml:space="preserve">
     <value>Alle Titel von</value>
     <comment>Goes before the first number box in the length range specification.</comment>
   </data>
   <data name="LengthRangeMid" xml:space="preserve">
-    <value>bis</value>
+    <value>zu</value>
     <comment>Goes in between the two number boxes in the length range specification.</comment>
   </data>
   <data name="LengthRangePost" xml:space="preserve">
@@ -145,10 +145,10 @@
     <value xml:space="preserve">Überschreibe Titel #: beginnen bei</value>
   </data>
   <data name="OverrideNameFormatCheckBox">
-    <value xml:space="preserve">Überschreibe Namens Format:</value>
+    <value xml:space="preserve">Namensformat überschreiben:</value>
   </data>
   <data name="QueueTitlesDialogTitle">
-    <value xml:space="preserve">Mehrere Titel in Warteschlange legen</value>
+    <value xml:space="preserve">Mehrere Titel in Warteschlange einreihen</value>
   </data>
   <data name="TitleFormat">
     <value xml:space="preserve">Titel {0}</value>

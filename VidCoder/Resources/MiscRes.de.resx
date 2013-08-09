@@ -114,7 +114,7 @@
     <value xml:space="preserve">Prozessname:</value>
   </data>
   <data name="ExceptionDialogMainText">
-    <value xml:space="preserve">VidCoder es ist einen unerwarteten Fehler aufgetreten.</value>
+    <value xml:space="preserve">VidCoder: Es ist ein unerwarteter Fehler aufgetreten.</value>
   </data>
   <data name="ExceptionDialogSubText">
     <value xml:space="preserve">Bitte melden Sie dies, damit es in Zukunft behoben werden kann.</value>
@@ -132,16 +132,16 @@
     <value xml:space="preserve">Auto-Umbenennen</value>
   </data>
   <data name="FileConflictWarning">
-    <value xml:space="preserve">Unter {0} ist bereits eine Datei mit gleichen Namen vorhanden. Möchten Sie die Datei überschreiben, automatisch eine neue Ausgabepfad für den Job finden oder den Vorgang abbrechen?</value>
+    <value xml:space="preserve">Unter {0} ist bereits eine Datei mit gleichem Namen vorhanden. Möchten Sie die Datei überschreiben, automatisch einen neuen Ausgabepfad für den Encodierungs-Auftrag finden oder den Vorgang abbrechen?</value>
   </data>
   <data name="QueueFileConflictWarning">
-    <value xml:space="preserve">Ein Warteschlangenauftrag hat bereits einen Ausgabepfad bei {0}. Möchten Sie die Datei überschreiben, automatisch eine neue Ausgabepfad für den Job finden oder den Vorgang abbrechen?</value>
+    <value xml:space="preserve">Ein Warteschlangenauftrag nutzt bereits denselben Ausgabepfad {0}. Möchten Sie die Datei überschreiben, automatisch einen neuen Ausgabepfad für den Encodierungs-Auftrag finden oder den Vorgang abbrechen?</value>
   </data>
   <data name="QueueColumnsDialogTitle">
-    <value xml:space="preserve">Warteschlange Spalten</value>
+    <value xml:space="preserve">Warteschlange: Spalten</value>
   </data>
   <data name="QueueColumnsDialogHeaderText">
-    <value xml:space="preserve">Spalten Drag &amp; Drop hinzufügen, entfernen oder neu anordnen.</value>
+    <value xml:space="preserve">Spalten per Drag &amp; Drop hinzufügen, entfernen oder neu anordnen.</value>
   </data>
   <data name="UnusedColumns">
     <value xml:space="preserve">Ungenutzte Spalten</value>
@@ -150,7 +150,7 @@
     <value xml:space="preserve">Verwendete Spalten</value>
   </data>
   <data name="ScanMultipleWindowTitle">
-    <value xml:space="preserve">Scannen von Dateien...</value>
+    <value xml:space="preserve">Scannt Dateien...</value>
   </data>
   <data name="UpdateSuccessDialogTitle">
     <value xml:space="preserve">Erfolgreich</value>
@@ -168,7 +168,7 @@
     <value xml:space="preserve">Version</value>
   </data>
   <data name="BasedOnHandBrake">
-    <value xml:space="preserve">Auf der Grundlage von HandBrake (svn {0})</value>
+    <value xml:space="preserve">Basiert auf HandBrake (svn {0})</value>
   </data>
   <data name="Copyright">
     <value xml:space="preserve">© {0} VidCoder Entwickler</value>
@@ -185,7 +185,7 @@
     <value xml:space="preserve">Name der Voreinstellung</value>
   </data>
   <data name="ChoosePresetName">
-    <value xml:space="preserve">Wählen Sie einen Namen für die Vorgabe:</value>
+    <value xml:space="preserve">Wählen Sie einen Namen für die Voreinstellung:</value>
   </data>
   <data name="ApplyUpdateDialogTitle">
     <value xml:space="preserve">Update ausführen?</value>
@@ -194,7 +194,7 @@
     <value xml:space="preserve">Ein Update wurde heruntergeladen. Möchten Sie es jetzt installieren?</value>
   </data>
   <data name="ViewFullChangelog">
-    <value xml:space="preserve">Ansicht des vollständige Änderungsprotokoll</value>
+    <value xml:space="preserve">Vollständiges Änderungsprotokoll ansehen</value>
   </data>
   <data name="DisableUpdatesButton">
     <value xml:space="preserve">Updates deaktivieren</value>

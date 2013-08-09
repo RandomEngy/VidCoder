@@ -154,7 +154,7 @@
     <value>Langsamer</value>
   </data>
   <data name="Denoise_Medium" xml:space="preserve">
-    <value>Normal</value>
+    <value>Mittel</value>
   </data>
   <data name="Denoise_Strong" xml:space="preserve">
     <value>Stark</value>
@@ -163,7 +163,7 @@
     <value>Schwach</value>
   </data>
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
-    <value>Benutzerdefiniert</value>
+    <value>Mache nichts</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
     <value>Auswerfen {0}:</value>

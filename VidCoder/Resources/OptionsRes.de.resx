@@ -118,31 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>Wenn die automatische Audio-Auswahl deaktiviert ist, wird die letzte ausgewählt Einstellung beibehalten.</value>
+    <value>Wenn die automatische Audio-Auswahl deaktiviert ist, wird die zuletzt ausgewählte Tonspur beibehalten.</value>
   </data>
   <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>Wenn automatische Untertitel-Auswahl deaktiviert ist, wird die letzte Einstellung beibehalten.</value>
+    <value>Wenn automatische Untertitel-Auswahl deaktiviert ist, werden die zuletzt ausgewählten Untertitel beibehalten.</value>
   </data>
   <data name="GeneralTab" xml:space="preserve">
-    <value>Allgemeine</value>
+    <value>Allgemein</value>
   </data>
   <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
     <value>In die Taskleiste minimieren</value>
   </data>
   <data name="MinimizeToSystemTrayRadioButton" xml:space="preserve">
-    <value>Minimize to System tray</value>
+    <value>In den Infobereich minimieren</value>
   </data>
   <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
-    <value>Akustisches Signal am Ende der Warteschlange</value>
+    <value>Signal nach Vollendung der Warteschlange ausgeben</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
     <value>Bevorzugter DVD-Player:</value>
   </data>
   <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
-    <value>Wählen Sie den Player für DVD-Quellen verwenden möchten.</value>
+    <value>Wählen Sie den Player, den Sie für DVD-Quellen verwenden möchten.</value>
   </data>
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
-    <value>Automatische updates</value>
+    <value>Automatische Updates</value>
   </data>
   <data name="JoinBetaTrackCheckBox" xml:space="preserve">
     <value>Am Beta Projekt teilnehmen</value>
@@ -157,7 +157,7 @@
     <value>Dateiformat:</value>
   </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Ausgabe in das Quellverzeichnis wenn möglich</value>
+    <value>Wenn möglich Quellverzeichnis zur Ausgabe verwenden</value>
   </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>Standardformat</value>
@@ -172,22 +172,22 @@
     <value>Wenn eine Datei bereits vorhanden ist...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
-    <value>Einzelne Datei encodieren:</value>
+    <value>Bei der Encodierung einer Datei:</value>
   </data>
   <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Fragen Sie, ob Sie überschreiben möchten</value>
+    <value>Nachfragen, ob die sie überschrieben werden soll</value>
   </data>
   <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Datei ohne nachfrage überschreiben</value>
+    <value>Datei ohne Nachfrage überschreiben</value>
   </data>
   <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Automatisch auf einen anderen Namen wechseln</value>
+    <value>Automatisch auf anderen Namen ausweichen</value>
   </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
-    <value>Mehrere Dateien encodieren:</value>
+    <value>Bei der Encodierung mehrerer Dateien:</value>
   </data>
   <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Überschreiben</value>
+    <value>Automatisch überschreiben</value>
   </data>
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>Automatisch umbenennen</value>
@@ -202,34 +202,34 @@
     <value>Sprache:</value>
   </data>
   <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Alle Spuren inkludieren</value>
+    <value>Alle Tonspuren übernehmen</value>
   </data>
   <data name="AutomaticSubtitleSelection" xml:space="preserve">
     <value>Automatische Untertitel-Auswahl</value>
   </data>
   <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Ausländische Audio-Suche</value>
+    <value>Suche nach ausländischem Ton</value>
   </data>
   <data name="BurnInCheckBox" xml:space="preserve">
     <value>Einbrennen</value>
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Nur wenn andere Sprache vom Audio</value>
+    <value>Nur wenn sich die Sprache von der Sprache der Tonspur unterscheidet</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
-    <value>Automatisch pausieren wenn diese Prozesse ausgeführt werden:</value>
+    <value>Encodierung automatisch pausieren, wenn einer der folgenden Prozesse läuft:</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
     <value>Hinzufügen...</value>
   </data>
   <data name="PreviewCountLabel" xml:space="preserve">
-    <value>Anzahl der Bild-Vorschauen zu scannen:</value>
+    <value>Anzahl der zu scannenden Vorschaubilder:</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
-    <value>Benutzte Dateien und Ordner merken</value>
+    <value>Zuletzt benutzte Dateien und Verzeichnisse merken</value>
   </data>
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Festlegen von benutzerdefinierten Namen für Audio-Tracks (begrenzte Player Support) ermöglichen</value>
+    <value>Festlegen von benutzerdefinierten Namen für Tonspuren ermöglichen (Wird nicht von jedem Wiedergabegerät unterstützt)</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>LibDVDNav einschalten (Erfordert Neustart des Programms)</value>
@@ -238,19 +238,19 @@
     <value>Scans nach Fertigstellung behalten (ermöglicht die Bearbeitung fertiger Dateien)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Quellcode-Dateien löschen nachdem Dateien erfolgreich abgeschlossen wurden (mit Bestätigung)</value>
+    <value>Ürsprüngliche Dateien löschen, nachdem die erfolgreich abgeschlossen Aufträge aus der Liste entfernt wurden (mit Bestätigung)</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Ausführlichkeit der Protokollierung:</value>
   </data>
   <data name="MinScanLengthLabel" xml:space="preserve">
-    <value>Minimale Länge eines Titels zum scan (Sekunden):</value>
+    <value>Minimale Dauer eines Titels zum Scannen (Sekunden):</value>
   </data>
   <data name="RecognizedExtensionsLabel" xml:space="preserve">
-    <value>Anerkannten Erweiterungen:</value>
+    <value>Anerkannte Erweiterungen:</value>
   </data>
   <data name="RecognizedExtensionsToolTip" xml:space="preserve">
-    <value>Wenn Ordner nach Videos gescannt werden,  Dateien mit diesen Erweiterungen hinzufügen. (Durch Komma getrennt)</value>
+    <value>Wenn Ordner nach Videos durchsucht werden, Dateien der folgenden Dateitypen hinzufügen. (Durch Komma getrennt)</value>
   </data>
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Optionen</value>
@@ -259,34 +259,34 @@
     <value>Prozesse</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
-    <value>Erweiterte</value>
+    <value>Erweitert</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Sie sind nun im Beta-Projekt. Um zu den stabilen Versionen zurückzukehren müssen Sie das Programm deinstallieren, die Voreinstellungen (Presets) entfernen und eine Stabile Version neu installieren.</value>
+    <value>Sie erhalten nun Beta-Updates. Um zu den stabilen Versionen zurückzukehren, müssen Sie das Programm deinstallieren, die Voreinstellungen (Presets) mit einem Klick auf "Ja" entfernen und dann eine stabile Version neu installieren.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
-    <value>An Beta-Projekt teilnehmen für häufigere Updates</value>
+    <value>Am Beta-Projekt teilnehmen für häufigere Updates</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Aktualisierung {0} steht bereit bereit. Sie wird installiert, wenn Sie das Programm beenden.</value>
+    <value>Update {0} steht zur Installation bereit. Es wird installiert, nachdem Sie das Programm beenden.</value>
   </data>
   <data name="DownloadingStatus" xml:space="preserve">
-    <value>Lade Update {0}:</value>
+    <value>Update {0} wird heruntergeladen:</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder ist aktuell.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>Wählen Sie das Standardverzeichnis für die enkodierten Video Dateien.</value>
+    <value>Wählen Sie das Standardverzeichnis für die encodierten Video Dateien.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>Sprache der Benutzeroberfläche:</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
-    <value>Die neue Sprache wird erst nach neustart von VidCoder wirksam.</value>
+    <value>Die neue Sprache wird erst nach einem Neustart von VidCoder wirksam.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
-    <value>Betriebssystem Sprache verwenden</value>
+    <value>Sprache des Betriebssystems verwenden</value>
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Updates</value>
@@ -298,7 +298,7 @@
     <value>Update-Überprüfung fehlgeschlagen.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>Wählen Sie die WAV-Datei, die Sie für den Abschluss-Sound verwenden möchten.</value>
+    <value>Wählen Sie die .wav Datei, die nach Abschluss der Encodierung abgespielt werden soll.</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
     <value>Aktuelle Version: {0}</value>
@@ -310,13 +310,13 @@
     <value>Sprachen</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
-    <value>Abspieler</value>
+    <value>Wiedergabe-Programme</value>
   </data>
   <data name="SoundSection" xml:space="preserve">
     <value>Ton</value>
   </data>
   <data name="SystemTraySection" xml:space="preserve">
-    <value>System-tray</value>
+    <value>Infobereich</value>
   </data>
   <data name="OutputFolderSection" xml:space="preserve">
     <value>Ausgabeordner</value>
@@ -346,25 +346,25 @@
     <value>Beta</value>
   </data>
   <data name="UseCustomWavLabel" xml:space="preserve">
-    <value>Benutzerdefinierte WAV-Datei verwenden:</value>
+    <value>Benutzerdefinierte .wav Datei verwenden:</value>
   </data>
   <data name="CheckNowButton" xml:space="preserve">
     <value>Jetzt überprüfen</value>
   </data>
   <data name="UseSystemPlayer" xml:space="preserve">
-    <value>Benutze System Abspieler</value>
+    <value>Benutze Standard Wiedergabe-Programm (System)</value>
   </data>
   <data name="VideoFilesLabel" xml:space="preserve">
     <value>Video-Dateien:</value>
   </data>
   <data name="CustomVideoPlayerToolTip" xml:space="preserve">
-    <value>Wählen Sie den Pfad zum Video Abspiel Programm welches Sie verwenden möchten für Dateien.</value>
+    <value>Wählen Sie den Pfad zum Wiedergabe-Programm, welches Sie für die Videos verwenden möchten.</value>
   </data>
   <data name="VideoPlayerFilePickTitle" xml:space="preserve">
-    <value>Wählen Sie den Player für Video-Dateien.</value>
+    <value>Wählen Sie das Wiedergabe-Programm, welches für die Videos verwendet werden soll.</value>
   </data>
   <data name="CustomPlayerLabel" xml:space="preserve">
-    <value>Benutzerdefinierter Player:</value>
+    <value>Benutzerdefiniertes Wiedergabe-Programm:</value>
   </data>
   <data name="Priority_High" xml:space="preserve">
     <value>Hoch</value>
@@ -385,15 +385,15 @@
     <value>Niedrig</value>
   </data>
 	<data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>Kopiere das encode Log in den selben Ordner wie das enkodierte Video</value>
+    <value>Kopiere das Encodierungsprotokoll in denselben Ordner wie das encodierte Video</value>
   </data>
 	<data name="OpenLogFolderButton" xml:space="preserve">
-    <value>Offene Protokollordner</value>
+    <value>Öffne Protokollordner</value>
   </data>
 	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
-    <value>Enkodierung beim Neustart automatisch fortsetzen</value>
+    <value>Encodierung beim Neustart automatisch fortsetzen</value>
   </data>
 	<data name="UseWorkerProcessCheckBox" xml:space="preserve">
-    <value>Arbeiter-Prozess zum Enkodieren verwenden</value>
+    <value>Arbeiter-Prozess zum Encodieren verwenden</value>
   </data>
 </root>

@@ -127,55 +127,58 @@
     <value>Rückgängig</value>
   </data>
   <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x264 verwendet eine Vielzahl von Algorithmen um zu entscheiden wann und wie viele B-Frames zu benutzen sind.
+    <value>x264 verwendet eine Vielzahl von Algorithmen, um zu entscheiden wann und wie viele B-Frames zu benutzen sind.
 
-Fast mode benötigt ungefähr die selbe Zeit egal wie viele B-Frames Sie angeben, aber erzeugt akkuratere Ergebnisse speziell bei Nutzung von B-pyramid.</value>
+Der schnelle Modus benötigt ungefähr gleichlang, unabhängig davon wie viele B-Frames Sie angebe. Allerdings sind seine Entscheidungen, durch die schnellen Entscheidungen, oft suboptimal.
+
+Der optimale Modus wird langsamer, wenn die maximale Anzahl von B-Frames steigt, jedoch entscheidet er viel genauer, vor allem in Kombination mit pyramidalen B-Frames verwendet.</value>
   </data>
   <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>Bei B-Frames  ermöglicht h264 zwei verschiedene Vorhersage-Modi, spatial und temporal.  Spatial, der Standard Wert, ist fast immer besser aber ab und zu ist auch der temporale nützlich.
-
-x264 kann mit ein wenig Geschwindigkeitsverlust und wenig Kompressions Gewinn auch adaptiv auswählen was für welches Frame am besten ist.</value>
+    <value>H.264 ermöglicht für B-Frames zwei verschiedene Vorhersage-Modi, Räumlich und Zeitlich.
+Räumlich (Standard) ist fast immer besser, aber ab und zu erweist sich auch Zeitlich als nützlich.
+x264 kann für einen kleinen Kompressions Gewinn auf Kosten von ein wenig Geschwindigkeit, auch flexibel auswählen, welcher Modus für jeden einzelnen Frame am besten geeignet ist.</value>
   </data>
   <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>Die flexible Quantisierung steuert, wie der Enkoder die Bits über das Bild verteilt.
+    <value>Die flexible Quantisierung steuert, wie der Encodierer die Bits über das Bild verteilt.
 Höhere Werte nehmen mehr Bits von den Rand- und den komplexen Bereichen, um die Bereiche mit den feineren Details zu verbessern.</value>
   </data>
   <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>Modus Entscheidung wählt aus einer Vielzahl von Optionen, um seine Entscheidung zu treffen: mit dieser Option wird festgelegt, welche Optionen dazu zur Auswahl stehen.   Je weniger Partitionen dazu zu überprüfen sind, desto schneller verläuft die Kodierung, dies geschieht jedoch auf Kosten schlechterer Entscheidungen, falls die beste Option abgeschaltet war.</value>
+    <value>Modus Entscheidung wählt aus einer Vielzahl von Optionen, um seine Entscheidung zu treffen: mit dieser Option wird festgelegt, welche Optionen dazu zur Auswahl stehen. Je weniger Partitionen dazu zu überprüfen sind, desto schneller verläuft die Encodierung, dies geschieht jedoch auf Kosten schlechterer Entscheidungen, falls die beste Option abgeschaltet war.</value>
   </data>
   <data name="Advanced_BFramesToolTip" xml:space="preserve">
     <value>Gute Werte liegen zwischen 2 und 5.
-Dies legt die maximale Anzahl der aufeinanderfolgenden B-Frames fest, die der Encoder verwenden soll.
+Dies legt die maximale Anzahl der aufeinanderfolgenden B-Frames fest, die der Encodierer verwenden soll.
 Höhere Werte werden allgemein nur dann spürbar helfen, wenn Flexible B-Frames auf Optimal eingestellt sind.
 Cel-animiertes Quellmaterial und B-Pyramide erhöhen deutlich die Nützlichkeit größerer Werte.
-Das Baseline Profil (für iPods und ähnliche Geräte) erfordert, dass B-Frames deaktiviert sind (Wert: 0).</value>
+Das Grund Profil (für iPods und ähnliche Geräte) erfordert, dass B-Frames deaktiviert sind (Wert: 0).</value>
   </data>
   <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>Nach der Encoder seine Arbeit getan hat, gibt es eine Reihe von Daten, die verlustfrei, ähnlich wie ZIP oder RAR komprimiert werden muss. H. 264 bietet hierfür zwei Optionen: CAVLC und CABAC.  CABAC decodiert viel langsamer, aber mit deutlich besser Komprimierung (10-30 %), vor allem bei niedrigeren Bitraten. Deaktivieren Sie diese Option, wenn Sie die CPU-Anforderungen bei der Videowiedergabe minimieren wollen. Für Baseline Profile, wie sie für iPods und ähnliche Geräte erforderlich sind ist CABAC zu deaktivieren.</value>
+    <value>Nachdem der Encodierer seine Arbeit getan hat, gibt es eine Reihe von Daten, die verlustfrei, ähnlich wie ZIP oder RAR komprimiert werden müssen. H.264 bietet hierfür zwei Optionen: CAVLC und CABAC.  CABAC decodiert viel langsamer, aber komprimiert dafür deutlich besser (10-30 %), vor allem bei niedrigeren Bitraten. Deaktivieren Sie diese Option, wenn Sie die CPU-Anforderungen bei der Videowiedergabe minimieren wollen. Für das Grund Profil, welches für iPods und ähnliche Geräte erforderlich ist, muss CABAC deaktiviert bleiben.</value>
   </data>
   <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>H. 264 hat einen integrierten Entblockungs-Filter, der blockartige Artefakte nach der Dekodierung eines jeden Frames glättet. Dies verbessert nicht nur die Bildqualität, sondern hilft auch der Komprimierung erheblich.
-Jedoch nimmt der Entblockungs-Filter viel CPU-Leistung in Anspruch, falls Sie also versuchen, die CPU-Anforderungen für die Videowiedergabe zu minimieren, dann sollten Sie es deaktivieren.
+    <value>H. 264 hat einen integrierten Entblockungs-Filter, der blockartige Artefakte nach der Decodierung eines jeden Frames glättet. Dies verbessert nicht nur die Bildqualität, sondern unterstützt auch die Komprimierung erheblich.
+Jedoch nimmt der Entblockungs-Filter viel CPU-Leistung in Anspruch, wenn Sie versuchen, die CPU-Anforderungen für die Videowiedergabe zu minimieren, dann sollten Sie ihn deaktivieren.
 
 Der Entblockung-Filter verfügt über zwei einstellbare Parameter, "Stärke" und "Schwellenwert".
-Das Erstgenannte bestimmt, wie stark (oder schwach) der Entblocker ist, während das Letztgenannte bestimmt, auf wie viele (oder wenige) Kanten er angewendet wird.  Niedrigere Werte bedeuten, dass weniger entblockt wird, höhere Werte, dass mehr entblockt wird. Der Standardwert ist 0 (normale Stärke) für beide Parameter.</value>
+Das Erstgenannte bestimmt, wie stark (oder schwach) der Entblocker ist, während das Letztgenannte bestimmt, auf wie viele (oder wenige) Kanten er angewendet wird.
+Niedrigere Werte bedeuten, dass weniger entblockt wird, höhere Werte, dass mehr entblockt wird. Der Standardwert ist 0 (normale Stärke) für beide Parameter.</value>
   </data>
   <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>Die 8x8-Transformation ist das einzige nützliche Funktion von x264 in Bezug auf Kompression-per-Geschwindigkeit.
-Es verbessert die Kompression um mindestens 5% bei einer sehr geringen Geschwindigkeitsverlust und kann eine ungewöhnlich hohe visuellen Qualitätsvorteil im Vergleich zu seiner Kompressionsverstärkung bereitstellen.
-Allerdings erfordert es High Profile, die viele Geräte nicht unterstützen.</value>
+    <value>Die 8x8-Transformation ist die einzige, nützlichste Funktion von x264 in Bezug auf das Verhältnis zwischen Komprimierung und Geschwindigkeit.
+Es verbessert die Komprimierung um mindestens 5% bei einem sehr geringen Geschwindigkeitsverlust und kann einen ungewöhnlich hohen visuellen Qualitätsvorteil im Vergleich zu seiner Komprimierungsverstärkung hervorrufen.
+Allerdings erfordert es das Hohe Profil, welches viele Geräte nicht unterstützen.</value>
   </data>
   <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>Steuert die Bewegung-Analyse. Der Enkodierer schätzt durch eine Bewegungs-Analyse, wie sich jede Gruppe von Pixeln in einem Bild bewegt hat.
+    <value>Steuert die Bewegung-Analyse. Der Encodierer schätzt durch eine Bewegungs-Analyse, wie sich jede Gruppe von Pixeln in einem Bild bewegt hat.
 Aufwändigere Bewegungs-Analyse verbessert die Kompression auf Kosten der Geschwindigkeit.
 
-Raute: führt eine extrem schnelle und einfache Suche mit einem Rauten-Muster durch.
+Raute: Führt eine extrem schnelle und einfache Suche mit einem Rauten-Muster durch.
 
-Sechseck: führt eine etwas effektivere, aber langsamere Suche mit einem Sechseck-Muster durch.
+Sechseck: Führt eine etwas effektivere, aber langsamere Suche mit einem Sechseck-Muster durch.
 
-Ungleichmäßiges Mehrfach-Sechseck: führt eine sehr breite Suche mit einer Vielzahl von Mustern durch. Genauer bei der Erfassung komplexer Bewegungen.
+Ungleichmäßiges Mehrfach-Sechseck: Führt eine sehr breite Suche mit einer Vielzahl von Mustern durch. Genauer bei der Erfassung komplexer Bewegungen.
 
-Gründlich: führt eine stumpfe Suche eines jedes Pixels in einem breiten Bereich durch.  Nur kleiner Kompressionsgewinn und deutlich langsamer.
+Gründlich: Führt eine stumpfe Suche eines jedes Pixels in einem breiten Bereich durch.  Nur kleiner Kompressionsgewinn und deutlich langsamer.
 
 Gründlich Transformiert: Wie gründlich, aber fällt noch genauere Entscheidungen. Dementsprechend etwas langsamer und nur eine kleine Verbesserung.</value>
   </data>
@@ -187,8 +190,8 @@ Der Standardwert ist für die meisten Inhalte in Ordnung, aber Videos mit sehr g
 Gültige Werte sind 4-16 für die Raute- und die Sechseck-Methode und 4-64 für alle restlichen Methoden.</value>
   </data>
   <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x264 ersetzt fast leere Datenblöcke normalerweise ducrh Nullen, um Bits zu sparen, die besser für andere Zwecke im Video zu gebrauchen sind.
-Jedoch kann dies manchmal leichte negative Auswirkungen auf die Beibehaltung feiner Körnungen und Zittern haben.
+    <value>x264 ersetzt fast leere Datenblöcke normalerweise durch Nullen, um Bits zu sparen, die besser für andere Zwecke im Video zu gebrauchen sind.
+Jedoch kann dies manchmal leichte, negative Auswirkungen auf die Beibehaltung von feinen Körnungen und von Zittern haben.
 Verändern Sie diese Einstellung nicht, so lange bei Ihnen keine Streifenbildung oder ähnliche Bildstörungen auftreten.</value>
   </data>
   <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
@@ -205,58 +208,58 @@ Erfordert, dass die maximale Anzahl von B-Frames größer als 1 ist; optimalerwe
   </data>
   <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
     <value>Gute Werte liegen zwischen 1 und 6.
-Je größer der Wert, desto besser die Kompression, aber desto langsamer das Enkodieren.
+Je größer der Wert, desto besser die Kompression, aber desto langsamer das Encodieren.
 Cel Animation tendiert dazu stärker von mehr Referenz-Frames, als vom Filminhalt profitieren.
-Beachten Sie, dass viele Hardware-Geräte im Hinblick auf die Anzahl der unterstützten Referenz-Frames limitiert sind. Wenn Sie also für einen Handheld oder einen Standalone-Player Enkodieren und sich nicht absolut sicher sind, was diese Einstellung bewirkt, lassen Sie sie besser unverändert!</value>
+Beachten Sie, dass viele Hardware-Geräte im Hinblick auf die Anzahl der unterstützten Referenz-Frames limitiert sind. Wenn Sie also für einen Handheld oder einen Standalone-Player encodieren und sich nicht absolut sicher sind, was diese Einstellung bewirkt, lassen Sie sie besser unverändert!</value>
   </data>
   <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
     <value>Diese Einstellung steuert beides, die präzise Bewegung-Analyse der Teilbildpunkte und die Methoden, die über den Modus entscheiden.
 Die Bewegungs-Analyse der Teilbildpunkte dient zur Verfeinerung der Bewegungs-Analyse über bloße Pixel-Genauigkeiten hinaus (Verbesserung der Kompression).
-Die Methode, die über den Modus entscheidet, ist insofern sehr wichtig, als dass sie auszuwählt, wie jeder Block eines Frames kodiert wird.
+Die Methode, die über den Modus entscheidet, ist insofern sehr wichtig, als dass sie auszuwählt, wie jeder Block eines Frames encodiert wird.
 SAD ist die schnellste Methode, gefolgt von SATD, RD, verfeinertem RD und der langsamsten Methode: QPRD.
 6 oder höher wird dringend empfohlen: Psy-RD, eine sehr leistungsfähige Psy-Optimierung, die hilft Details beizuhalten, erfordert RD.
 10, die leistungsfähigste und langsamste Option, erfordert Gitter = 2.</value>
   </data>
   <data name="Advanced_TrellisToolTip" xml:space="preserve">
     <value>Das Gitter stimmt die Rundung der Transformations-Koeffizienten optimal ab, um die Kompression auf Kosten von etwas Geschwindigkeit um weitere 3-5 % zu erhöhen.
-"Immer" verwendet das Gitter nicht nur während der Haupt-Enkodierung, sondern auch während der Analyse, was die Kompression trotz großer Geschwindigkeitseinbußen weiter verbessert.
+"Immer" verwendet das Gitter nicht nur während der Haupt-Encodierung, sondern auch während der Analyse, was die Kompression trotz großer Geschwindigkeitseinbußen weiter verbessert.
 
 Die Geschwindigkeitseinbußen durch das Gitter nehmen mit höheren Bitrates zu.</value>
   </data>
   <data name="Advanced_WeightPToolTip" xml:space="preserve">
     <value>Führt eine zusätzliche Analyse durch, um über die Gewichtung der Parameter für jeden Frame zu entscheiden.
 Dies verbessert die allgemeine Kompression leicht und verbessert die Qualität von Überblendungen in hohem Maße.
-Das Baseline Profil (für iPods und ähnliche Geräte), erfordert, dass die gewichtete Vorhersage der P-Frames deaktiviert ist.
-Beachten Sie, dass einige Wiedergabegeräte, selbst diejenigen, die das Haupt-Profil unterstützen, möglicherweise Probleme mit der gewichteten P-Frame-Vorhersage haben: Der Apple TV ist beispielsweise völlig inkompatibel mit dieser Einstellung.</value>
+Das Grund Profil (für iPods und ähnliche Geräte), erfordert, dass die gewichtete Vorhersage der P-Frames deaktiviert ist.
+Beachten Sie, dass einige Wiedergabegeräte, selbst diejenigen, die das Haupt Profil unterstützen, möglicherweise Probleme mit der gewichteten P-Frame-Vorhersage haben: Der Apple TV ist beispielsweise völlig inkompatibel mit dieser Einstellung.</value>
   </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
     <value>Komprimierung des dynamischen Umfangs. Gültige Werte liegen zwischen 0 und 4.
 
-Für Audio-Ausgangsmaterial mit einem hohen dynamischen Umfang (sehr laute und sehr leise Sequenzen) erlaubt es DRC den Umfang zu "komprimieren", indem laute Abschnitte leiser und leise Abschnitte lauter gemacht werden.</value>
+Für Audioquellen mit einem hohen dynamischen Umfang (sehr laute und sehr leise Sequenzen) erlaubt es DRC den Umfang zu "komprimieren", indem laute Abschnitte leiser und leise Abschnitte lauter gemacht werden.</value>
   </data>
   <data name="Audio_GainToolTip" xml:space="preserve">
-    <value>Verstärken oder verringern Sie die Lautstärke vor der Enkodierung. Gültige Werte liegen zwischen -20 und +20 dB.</value>
+    <value>Verstärken oder verringern Sie die Lautstärke vor der Encodierung. Gültige Werte liegen zwischen -20 und +20 dB.</value>
   </data>
   <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
-    <value>Behalten Sie die Kapitelmarkierungen aus dem Eingangs-Videosignal.</value>
+    <value>Kapitelmarkierungen aus dem Eingangs-Video in das encodierte Video übernehmen.</value>
   </data>
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Fügt der Datei eine Markierung bei, welche ältere iPods benötigen, bevor sie erlauben, dass das H.264 Video auf das Gerät synchronisiert wird.</value>
   </data>
   <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Ermöglicht Dateien größer als 4 GB. Wenn aktiviert, werden 64-Bit-Zahlen zur Enkodierung verwendet. Einige Geräte wie iPod und PS3 sind inkompatibel mit dieser Option.</value>
+    <value>Ermöglicht Dateien größer als 4 GB. Wenn aktiviert, werden 64-Bit-Zahlen zur Encodierung verwendet. Einige Geräte wie iPod und PS3 sind inkompatibel mit dieser Option.</value>
   </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
-    <value>Geben Sie manuell ein Pixelseitenverhältnis ein.</value>
+    <value>Pixelseitenverhältnis manuell festlegen.</value>
   </data>
   <data name="Video_QualityTargetToolTip" xml:space="preserve">
-    <value>Legen Sie den gewünschten Qualitäts-Faktor fest. Diese Skala ist für jeden Video-Enkoder unterschiedlich.</value>
+    <value>Legen Sie den gewünschten Qualitätsfaktor fest. Diese Skala ist für jeden Video-Encodierer unterschiedlich.</value>
   </data>
   <data name="WebOptimizedToolTip" xml:space="preserve">
     <value>Ordnet die Datei besser an, damit sie später als progressiver Download besser abgespielt werden kann.</value>
   </data>
   <data name="X264PresetToolTip" xml:space="preserve">
-    <value>Ändern Sie die Optionen, um die Effizienz der Komprimierung gegen die Enkodierungsgeschwindigkeit abzuwägen. Wenn Sie eine Voreinstellung auswählen, werden die Änderungen, die es macht, angewendet werden, bevor alle anderen Parameter angewendet werden.</value>
+    <value>Ändern Sie die Optionen, um die Effizienz der Komprimierung gegen die Encodierungsgeschwindigkeit abzuwägen. Wenn Sie eine Voreinstellung auswählen, werden die Änderungen, die es macht, angewendet werden, bevor alle anderen Parameter angewendet werden.</value>
   </data>
   <data name="X264ProfileToolTip" xml:space="preserve">
     <value>Begrenzen Sie das Profil des Ausgabestreams. Wenn Sie ein Profil auswählen, überschreibt dies alle anderen Einstellungen, wenn Sie es also verwenden, erhalten Sie einen garantiert kompatiblen Stream.
@@ -282,10 +285,10 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Web optimiert</value>
   </data>
   <data name="Ipod5GSupportCheckBox" xml:space="preserve">
-    <value>Support für den iPod 5G</value>
+    <value>iPod 5G Unterstützung</value>
   </data>
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
-    <value>Enthaltene Kapitelmarkierungen</value>
+    <value>Kapitelmarkierungen übernehmen</value>
   </data>
   <data name="TabHeader_Picture" xml:space="preserve">
     <value>Bild</value>
@@ -312,19 +315,19 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>(Auto)</value>
   </data>
   <data name="NoneCaption" xml:space="preserve">
-    <value>(keine)</value>
+    <value>(Keine)</value>
   </data>
   <data name="StorageResolutionLabel" xml:space="preserve">
     <value>Speicher-Lösung:</value>
   </data>
   <data name="PixelAspectRatioLabel" xml:space="preserve">
-    <value>Pixel-Seitenverhältnis:</value>
+    <value>Pixelseitenverhältnis:</value>
   </data>
   <data name="DisplayResolutionLabel" xml:space="preserve">
-    <value>Display-Auflösung:</value>
+    <value>Bildschirmauflösung:</value>
   </data>
   <data name="SizingLabel" xml:space="preserve">
-    <value>Größenanpassung</value>
+    <value>Skalieren</value>
   </data>
   <data name="WidthLabel" xml:space="preserve">
     <value>Breite:</value>
@@ -348,19 +351,19 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Modulus:</value>
   </data>
   <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Display-Breite:</value>
+    <value>Bildschirmbreite:</value>
   </data>
   <data name="PixelAspectRatioRadioButton" xml:space="preserve">
-    <value>Pixel-Seitenverhältnis:</value>
+    <value>Pixelseitenverhältnis:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Ausgabe</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
-    <value>Zuschneiden</value>
+    <value>Beschneiden</value>
   </data>
   <data name="Top" xml:space="preserve">
-    <value>Nach oben</value>
+    <value>Oben</value>
   </data>
   <data name="Left" xml:space="preserve">
     <value>Links</value>
@@ -378,16 +381,16 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Decomb:</value>
   </data>
   <data name="DeinterlaceLabel" xml:space="preserve">
-    <value>Zusammenfügen:</value>
+    <value>Zeilenentflechtung:</value>
   </data>
   <data name="DenoiseLabel" xml:space="preserve">
-    <value>Entstören:</value>
+    <value>Entrauschen:</value>
   </data>
   <data name="DeblockLabel" xml:space="preserve">
     <value>Entblocken:</value>
   </data>
   <data name="GrayscaleCheckBox" xml:space="preserve">
-    <value>Graustufen-Kodierung</value>
+    <value>In Graustufen encodieren</value>
   </data>
   <data name="TypeLabel" xml:space="preserve">
     <value>Typ:</value>
@@ -399,7 +402,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Codec:</value>
   </data>
   <data name="FramerateLabel" xml:space="preserve">
-    <value>Bildrate (FPS):</value>
+    <value>Framerate (FPS):</value>
   </data>
   <data name="ConstantFramerateRadioButton" xml:space="preserve">
     <value>Konstante Framerate</value>
@@ -408,7 +411,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Qualität</value>
   </data>
   <data name="TwoPassEncodingCheckBox" xml:space="preserve">
-    <value>2-Pass Encoding</value>
+    <value>In zwei Durchläufen encodieren</value>
   </data>
   <data name="TurboFirstPassCheckBox" xml:space="preserve">
     <value>Schneller erster Durchlauf</value>
@@ -435,10 +438,10 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Abstimmung:</value>
   </data>
   <data name="Profile_Baseline" xml:space="preserve">
-    <value>Baseline</value>
+    <value>Grund</value>
   </data>
   <data name="Profile_Main" xml:space="preserve">
-    <value>Main</value>
+    <value>Haupt</value>
   </data>
   <data name="Profile_High" xml:space="preserve">
     <value>Hoch</value>
@@ -480,7 +483,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Animation</value>
   </data>
   <data name="Tune_Grain" xml:space="preserve">
-    <value>Körnung</value>
+    <value>Körnung/Rauschen</value>
   </data>
   <data name="Tune_StillImage" xml:space="preserve">
     <value>Standbild</value>
@@ -492,7 +495,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>SSIM</value>
   </data>
   <data name="Tune_FastDecode" xml:space="preserve">
-    <value>Schnelles Dekodieren</value>
+    <value>Schnelles Decodieren</value>
   </data>
   <data name="Tune_ZeroLatency" xml:space="preserve">
     <value>Keine Wartezeit</value>
@@ -501,16 +504,16 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>{0:0. ###} FPS</value>
   </data>
   <data name="CfrSameAsSourceToolTip" xml:space="preserve">
-    <value>Verwendet die angegebene Framerate aus dem Ausgangsmaterial für eine konstante Framerate.</value>
+    <value>Verwendet die angegebene Framerate aus dem Quelltitel für eine konstante Framerate.</value>
   </data>
   <data name="CfrToolTip" xml:space="preserve">
-    <value>Verwenden Sie eine Konstante Framerate.</value>
+    <value>Verwenden Sie eine konstante Framerate.</value>
   </data>
   <data name="VfrSameAsSourceToolTip" xml:space="preserve">
     <value>Ermöglicht eine variable Framerate. Wenn die Quelle über eine variable Framerate verfügt, wird sie durch diese Einstellung beibehalten. Beachten Sie, dass einige Wiedergabegeräte variable Framerates nicht unterstützen.</value>
   </data>
   <data name="VfrPeakFramerateToolTip" xml:space="preserve">
-    <value>Ermöglichen Sie eine variable Framerate und verwenden Sie die angegebene Rate als Höchstwert. Wenn die Quelle über eine variable Framerate verfügt, wird sie durch diese Einstellung beibehalten. Beachten Sie, dass einige Wiedergabegeräte variable Framerates nicht unterstützen.</value>
+    <value>Ermöglicht eine variable Framerate und verwendet die angegebene Rate als Höchstwert. Wenn die Quelle über eine variable Framerate verfügt, wird sie durch diese Einstellung beibehalten. Beachten Sie, dass einige Wiedergabegeräte variable Framerates nicht unterstützen.</value>
   </data>
   <data name="VfrChoice" xml:space="preserve">
     <value>Variable Framerate</value>
@@ -525,7 +528,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Niedrige Qualität</value>
   </data>
   <data name="SameAsSource" xml:space="preserve">
-    <value>Identisch mit Quelle</value>
+    <value>Aus Quelle übernehmen</value>
   </data>
   <data name="AddAudioEncodingButton" xml:space="preserve">
     <value>Voreinstellung für Tonspur hinzufügen</value>
@@ -540,7 +543,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Abmischung:</value>
   </data>
   <data name="SampleRateLabel" xml:space="preserve">
-    <value>Sample-Rate:</value>
+    <value>Abtastrate:</value>
   </data>
   <data name="BitrateLabel" xml:space="preserve">
     <value>Bitrate:</value>
@@ -558,40 +561,40 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Name:</value>
   </data>
   <data name="AscendingQualityToolTip" xml:space="preserve">
-    <value>Hohe Werte bedeuten hohen Qualität.</value>
+    <value>Hohe Werte bedeuten hohe Qualität.</value>
   </data>
   <data name="DescendingQualityToolTip" xml:space="preserve">
-    <value>Niedrige Werte bedeuten hohen Qualität.</value>
+    <value>Niedrige Werte bedeuten hohe Qualität.</value>
   </data>
   <data name="AudioQualityToolTip" xml:space="preserve">
     <value>Das Audio Qualitätsziel. {0} Gültige Werte liegen zwischen {1} und {2}.</value>
   </data>
   <data name="AscendingCompressionToolTip" xml:space="preserve">
-    <value>Hohe Werte sorgen für eine hohe Komprimierung: bessere Qualität/kleinere Größe, aber langsameres Kodierungstempo.</value>
+    <value>Hohe Werte sorgen für eine hohe Komprimierung: bessere Qualität/kleinere Größe, aber langsameres Encodierungstempo.</value>
   </data>
   <data name="DescendingCompressionToolTip" xml:space="preserve">
-    <value>Niedrige Werte sorgen für eine hohe Komprimierung: bessere Qualität/kleinere Größe, aber langsameres Kodierungstempo.</value>
+    <value>Niedrige Werte sorgen für eine hohe Komprimierung: bessere Qualität/kleinere Größe, aber langsameres Encodierungstempo.</value>
   </data>
   <data name="AudioCompressionToolTip" xml:space="preserve">
     <value>Der Umfang der anzuwendenden Komprimierung. {0} Gültige Werte liegen zwischen {1} und {2}.</value>
   </data>
   <data name="AudioEncoder_copy" xml:space="preserve">
-    <value>Auto-weiterzuleiten</value>
+    <value>Auto Durchschleifen</value>
   </data>
   <data name="AudioEncoder_copy_aac" xml:space="preserve">
-    <value>AAC-weiterzuleiten</value>
+    <value>AAC Durchschleifen</value>
   </data>
   <data name="AudioEncoder_copy_ac3" xml:space="preserve">
-    <value>AC3 weiterzuleiten</value>
+    <value>AC3 Durchschleifen</value>
   </data>
   <data name="AudioEncoder_copy_dts" xml:space="preserve">
-    <value>DTS-weiterzuleiten</value>
+    <value>DTS Durchschleifen</value>
   </data>
   <data name="AudioEncoder_copy_dtshd" xml:space="preserve">
-    <value>DTS-HD-weiterzuleiten</value>
+    <value>DTS-HD Durchschleifen</value>
   </data>
   <data name="AudioEncoder_copy_mp3" xml:space="preserve">
-    <value>MP3-weiterzuleiten</value>
+    <value>MP3 Durchschleifen</value>
   </data>
   <data name="AudioEncoder_faac" xml:space="preserve">
     <value>AAC (FAAC)</value>
@@ -640,7 +643,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Bitrate</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Kodierung</value>
+    <value>Encodierung</value>
   </data>
   <data name="ReferenceFramesLabel" xml:space="preserve">
     <value>Referenz-Frames:</value>
@@ -652,7 +655,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>CABAC:</value>
   </data>
   <data name="EightByEightTransformLabel" xml:space="preserve">
-    <value>8 x 8-Transformation:</value>
+    <value>8x8 Transformation:</value>
   </data>
   <data name="WeightedPFramesLabel" xml:space="preserve">
     <value>Gewichtete P-Frames:</value>
@@ -661,7 +664,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Pyramidale B-Frames:</value>
   </data>
   <data name="NoDctDecimateLabel" xml:space="preserve">
-    <value>Keine Dezimierung der Diskreten Kosinustransformation (DCT):</value>
+    <value>Keine DCT-Dezimierung:</value>
   </data>
   <data name="Analysis" xml:space="preserve">
     <value>Analyse</value>
@@ -700,7 +703,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Gitter:</value>
   </data>
   <data name="OptionsString" xml:space="preserve">
-    <value>Optionszeichenfolge</value>
+    <value>Parameterkette</value>
   </data>
   <data name="PyramidalBFrames_Off" xml:space="preserve">
     <value>Aus</value>
@@ -745,7 +748,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Gründlich</value>
   </data>
   <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
-    <value>Vollständig umgewandelt</value>
+    <value>Gründlich Transformiert</value>
   </data>
   <data name="SubpixelMotionEstimation_0" xml:space="preserve">
     <value>0: SAD, keine Teilbilder (sehr schnell!)</value>
@@ -787,16 +790,16 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Keine</value>
   </data>
   <data name="Analysis_Some" xml:space="preserve">
-    <value>Einige</value>
+    <value>Weniges</value>
   </data>
   <data name="Analysis_All" xml:space="preserve">
-    <value>Alle</value>
+    <value>Alles</value>
   </data>
   <data name="Trellis_Off" xml:space="preserve">
     <value>Aus</value>
   </data>
   <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>Nur codieren</value>
+    <value>Nur Encodierung</value>
   </data>
   <data name="Trellis_Always" xml:space="preserve">
     <value>Immer</value>
@@ -808,14 +811,14 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Voreinstellung: {0}</value>
   </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
-    <value>Zusätzliche erweiterte X 264 Optionen:</value>
+    <value>Zusätzliche, erweiterte x264 Optionen:</value>
   </data>
   <data name="H264LevelToolTip" xml:space="preserve">
     <value>Legt das ausgewählte H.264 Level fest und stellt dessen Kompatibilität sicher.
 Überschreibt alle anderen Einstellungen.</value>
   </data>
   <data name="Profile_High444" xml:space="preserve">
-    <value>High 4:4:4 Prädiktive</value>
+    <value>Hoch 4:4:4 Prädiktiv</value>
   </data>
   <data name="VideoCodecLabel" xml:space="preserve">
     <value>Video-Codec:</value>
@@ -839,46 +842,46 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Video</value>
   </data>
   <data name="X264Settings" xml:space="preserve">
-    <value>x 264-Einstellungen</value>
+    <value>x264 Einstellungen</value>
   </data>
   <data name="X264PresetLabel" xml:space="preserve">
-    <value>X264 Voreinstellung:</value>
+    <value>x264 Voreinstellung:</value>
   </data>
   <data name="X264TuneLabel" xml:space="preserve">
-    <value>X 264 optimieren:</value>
+    <value>x264 Tuning:</value>
   </data>
   <data name="H264ProfileLabel" xml:space="preserve">
-    <value>H. 264-Profil:</value>
+    <value>H.264 Profil:</value>
   </data>
   <data name="H264LevelLabel" xml:space="preserve">
-    <value>H. 264 Level:</value>
+    <value>H.264 Level:</value>
   </data>
   <data name="MoreSettingsLabel" xml:space="preserve">
     <value>Weitere Einstellungen:</value>
   </data>
   <data name="Track" xml:space="preserve">
-    <value>Track</value>
+    <value>Tonspur</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Quelle</value>
   </data>
   <data name="Encoder" xml:space="preserve">
-    <value>Encoder</value>
+    <value>Encodierer</value>
   </data>
   <data name="ChannelLayout" xml:space="preserve">
     <value>Kanal-Layout</value>
   </data>
   <data name="SampleRate" xml:space="preserve">
-    <value>Sample-Rate</value>
+    <value>Abtastrate</value>
   </data>
   <data name="Modifiers" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
   <data name="PassthroughTrackDroppedWarning" xml:space="preserve">
-    <value>Passthrough funktioniert nicht für diese Eingabe Codec; der Track wurde gelöscht.</value>
+    <value>Das Durchschleifen funktioniert mit diesem Eingangs-Codec nicht; die Tonspur wurde verworfen.</value>
   </data>
   <data name="DtsMp4Warning" xml:space="preserve">
-    <value>Einige Players unterstützen die Wiedergabe von DTS-Audio in MP4-Container. MKV empfiehlt sich für DTS.</value>
+    <value>Nur wenige Wiedergabegeräte unterstützen die Wiedergabe von DTS-Audio in einem MP4-Container. MKV wird als Containerformat für DTS-Tonspuren empfohlen.</value>
   </data>
   <data name="AudioEncoder_ffflac24" xml:space="preserve">
     <value>FLAC 24bit (Libav)</value>
