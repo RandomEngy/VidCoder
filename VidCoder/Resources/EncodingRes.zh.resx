@@ -118,375 +118,387 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Save" xml:space="preserve">
-    <value>Speichern</value>
+    <value>儲存</value>
   </data>
   <data name="SaveAs" xml:space="preserve">
-    <value>Speichern als...</value>
+    <value>另存為...</value>
   </data>
   <data name="Revert" xml:space="preserve">
-    <value>Rückgängig</value>
+    <value>回復</value>
   </data>
   <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x264 verwendet eine Vielzahl von Algorithmen, um zu entscheiden wann und wie viele B-Frames zu benutzen sind.
+    <value>x264 擁有多種演算法去決定何時要使用 B-frames 及要使用多少數量。
 
-Der schnelle Modus benötigt ungefähr gleichlang, unabhängig davon wie viele B-Frames Sie angebe. Allerdings sind seine Entscheidungen, durch die schnellen Entscheidungen, oft suboptimal.
+快速模式下不管你指定多少 B-frames，所耗費的時間都大致相同。然而當處於快速模式，往往在處理時所做的決定通常都不理想。
 
-Der optimale Modus wird langsamer, wenn die maximale Anzahl von B-Frames steigt, jedoch entscheidet er viel genauer, vor allem in Kombination mit pyramidalen B-Frames verwendet.</value>
+優化模式下所耗費的時間與 B-Frames 的最大數量成正比，但是在處理時所做的決定會更加準確,尤其是在與 B-pyramid 一起使用時。</value>
   </data>
   <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264 ermöglicht für B-Frames zwei verschiedene Vorhersage-Modi, Räumlich und Zeitlich.
-Räumlich (Standard) ist fast immer besser, aber ab und zu erweist sich auch Zeitlich als nützlich.
-x264 kann für einen kleinen Kompressions Gewinn auf Kosten von ein wenig Geschwindigkeit, auch flexibel auswählen, welcher Modus für jeden einzelnen Frame am besten geeignet ist.</value>
+    <value>H.264 允許 B-畫格 使用空間性及時間性兩種不同的預測模式。
+
+預設值空間性在大部分情形下皆是較佳的選擇，但在部份情況時間性能產生較佳的結果。
+
+x264 可在耗費小量時間 (可爭取到小幅度的壓縮增益) 的情況下適應性為每個畫格選擇較佳的模式。</value>
   </data>
   <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>Die flexible Quantisierung steuert, wie der Encodierer die Bits über das Bild verteilt.
-Höhere Werte nehmen mehr Bits von den Rand- und den komplexen Bereichen, um die Bereiche mit den feineren Details zu verbessern.</value>
+    <value>適應性量化能控制編碼器如何分配整個畫格的位元分佈量。
+高設定值會將原本分配於邊緣的部分位元數用來加強複雜的區域。</value>
   </data>
   <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>Modus Entscheidung wählt aus einer Vielzahl von Optionen, um seine Entscheidung zu treffen: mit dieser Option wird festgelegt, welche Optionen dazu zur Auswahl stehen. Je weniger Partitionen dazu zu überprüfen sind, desto schneller verläuft die Encodierung, dies geschieht jedoch auf Kosten schlechterer Entscheidungen, falls die beste Option abgeschaltet war.</value>
+    <value>此選項可調整動態搜尋的各種模式。
+開啟越多的選項表示您可用更長的編碼時間換取更好的編碼效果。</value>
   </data>
   <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>Gute Werte liegen zwischen 2 und 5.
-Dies legt die maximale Anzahl der aufeinanderfolgenden B-Frames fest, die der Encodierer verwenden soll.
-Höhere Werte werden allgemein nur dann spürbar helfen, wenn Flexible B-Frames auf Optimal eingestellt sind.
-Cel-animiertes Quellmaterial und B-Pyramide erhöhen deutlich die Nützlichkeit größerer Werte.
-Das Grund Profil (für iPods und ähnliche Geräte) erfordert, dass B-Frames deaktiviert sind (Wert: 0).</value>
+    <value>合理的值為 2 至 5。
+此選項可控制編碼器可連續使用的 B-畫格最大數。
+除非適應性 B-畫格設定已最佳化，否則調大此數值並無幫助。
+賽璐璐動畫片及錐狀 B-畫格能在較高數值的情況下獲得更好的效果。
+Baseline 規模的設定無法使用 B-畫格。 (通常使用在 iPod 或其他可攜裝置)</value>
   </data>
   <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>Nachdem der Encodierer seine Arbeit getan hat, gibt es eine Reihe von Daten, die verlustfrei, ähnlich wie ZIP oder RAR komprimiert werden müssen. H.264 bietet hierfür zwei Optionen: CAVLC und CABAC.  CABAC decodiert viel langsamer, aber komprimiert dafür deutlich besser (10-30 %), vor allem bei niedrigeren Bitraten. Deaktivieren Sie diese Option, wenn Sie die CPU-Anforderungen bei der Videowiedergabe minimieren wollen. Für das Grund Profil, welches für iPods und ähnliche Geräte erforderlich ist, muss CABAC deaktiviert bleiben.</value>
+    <value>編碼器完成工作後需完整保留部分資訊，H.264 提供兩種方法壓縮這類資訊: CAVLC 及 CABAC。
+CABAC 解碼速度較慢但壓縮率較佳 (10% 至 30%)，於低位元率時壓縮的差異更明顯。
+若您想降低解碼的硬體需求，請停用此選項。
+Baseline 規模的設定無法使用 CABAC。 (通常使用在 iPod 或其他可攜裝置)</value>
   </data>
   <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>H. 264 hat einen integrierten Entblockungs-Filter, der blockartige Artefakte nach der Decodierung eines jeden Frames glättet. Dies verbessert nicht nur die Bildqualität, sondern unterstützt auch die Komprimierung erheblich.
-Jedoch nimmt der Entblockungs-Filter viel CPU-Leistung in Anspruch, wenn Sie versuchen, die CPU-Anforderungen für die Videowiedergabe zu minimieren, dann sollten Sie ihn deaktivieren.
+    <value>H.264 內建解碼去塊濾鏡以柔化壓縮時產生的人工雜訊，此技巧不但能改善視覺品質，也能大幅改善壓縮率。
+解碼去塊需耗費大量的運算，若您想最小化解碼的硬體需求，請停用此選項。
 
-Der Entblockung-Filter verfügt über zwei einstellbare Parameter, "Stärke" und "Schwellenwert".
-Das Erstgenannte bestimmt, wie stark (oder schwach) der Entblocker ist, während das Letztgenannte bestimmt, auf wie viele (oder wenige) Kanten er angewendet wird.
-Niedrigere Werte bedeuten, dass weniger entblockt wird, höhere Werte, dass mehr entblockt wird. Der Standardwert ist 0 (normale Stärke) für beide Parameter.</value>
+解碼去塊濾鏡有兩個參數可供調整:「強度」及「門檻」。
+前者可調整解碼去塊器的強度，後者可調整柔化區塊邊緣的範圍。
+值越大表示解碼去塊的效果越強，兩個參數的預設值皆為 0 (一般強度)。</value>
   </data>
   <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>Die 8x8-Transformation ist die einzige, nützlichste Funktion von x264 in Bezug auf das Verhältnis zwischen Komprimierung und Geschwindigkeit.
-Es verbessert die Komprimierung um mindestens 5% bei einem sehr geringen Geschwindigkeitsverlust und kann einen ungewöhnlich hohen visuellen Qualitätsvorteil im Vergleich zu seiner Komprimierungsverstärkung hervorrufen.
-Allerdings erfordert es das Hohe Profil, welches viele Geräte nicht unterstützen.</value>
+    <value>8x8 轉換為 x264 最有效的壓縮技巧。
+此方法可耗費少量時間提升至少 5% 壓縮率，且得到非常佳的畫面品質。
+但此方法需符合 High 規模，許多裝置並不支援。</value>
   </data>
   <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>Steuert die Bewegung-Analyse. Der Encodierer schätzt durch eine Bewegungs-Analyse, wie sich jede Gruppe von Pixeln in einem Bild bewegt hat.
-Aufwändigere Bewegungs-Analyse verbessert die Kompression auf Kosten der Geschwindigkeit.
+    <value>此選項控制動態搜尋的方法，動態搜尋為編碼器預測像素區塊於畫格中移動的方法。
+較佳的搜尋方法耗費較多的時間，但可改善壓縮效果。
 
-Raute: Führt eine extrem schnelle und einfache Suche mit einem Rauten-Muster durch.
+菱形: 使用菱形模式快速搜尋。
 
-Sechseck: Führt eine etwas effektivere, aber langsamere Suche mit einem Sechseck-Muster durch.
+六角形: 使用六角形模式搜尋，較菱形方法慢但壓縮效果較佳。
 
-Ungleichmäßiges Mehrfach-Sechseck: Führt eine sehr breite Suche mit einer Vielzahl von Mustern durch. Genauer bei der Erfassung komplexer Bewegungen.
+非均勻多重六角形: 利用各種不同模式搜尋，在動作複雜的影片中可得到較佳的效果。
 
-Gründlich: Führt eine stumpfe Suche eines jedes Pixels in einem breiten Bereich durch.  Nur kleiner Kompressionsgewinn und deutlich langsamer.
+徹底: 於廣域中搜尋每個像素，耗費極多時間但僅可提高少部分壓縮效果。
 
-Gründlich Transformiert: Wie gründlich, aber fällt noch genauere Entscheidungen. Dementsprechend etwas langsamer und nur eine kleine Verbesserung.</value>
+轉換徹底: 較精確的徹底搜尋，比徹底方法更慢且也僅能再提高少部分壓縮效果。</value>
   </data>
   <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
-    <value>Dies ist die Reichweite, die x264 bei der Bewegungs-Analyse verwendet, um die aktuelle Bewegung einer Gruppe von Pixeln nachvollziehen zu können, indem er einen Bildbereich um seine beste Schätzung herum absucht.
+    <value>此值為 x264 嘗試找出區塊移動的像素距離範圍。
 
-Der Standardwert ist für die meisten Inhalte in Ordnung, aber Videos mit sehr großen Bewegungen, vor allem bei HD-Auflösungen, können von höheren Reichweiten trotz größerer Geschwindigkeitseinbußen profitieren.
+預設值可適用大多數的影片，但運動極端劇烈的影片 (尤其是高解析度) 可在較大範圍的設定下得到更佳的效果，但也需更長的搜尋時間。
 
-Gültige Werte sind 4-16 für die Raute- und die Sechseck-Methode und 4-64 für alle restlichen Methoden.</value>
+菱形搜尋及六角形搜尋的有效值為 4 至 16、其他搜尋方法的有效值為 4 至 64。</value>
   </data>
   <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x264 ersetzt fast leere Datenblöcke normalerweise durch Nullen, um Bits zu sparen, die besser für andere Zwecke im Video zu gebrauchen sind.
-Jedoch kann dies manchmal leichte, negative Auswirkungen auf die Beibehaltung von feinen Körnungen und von Zittern haben.
-Verändern Sie diese Einstellung nicht, so lange bei Ihnen keine Streifenbildung oder ähnliche Bildstörungen auftreten.</value>
+    <value>x264 通常會將接近空白的資料區塊全數歸零以節省位元、改善輸出視訊品質。
+但此特性在保留輕微顆粒感及抖動效果上會產生負面影響。
+除非您遇到條紋問題或無法保留良噪，否則不建議更改此設定。</value>
   </data>
   <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
-    <value>Psychovisuelle Ratenverzerrung bedeutet: x264 versucht Details beizubehalten, welche subjektiv beim menschlichen Auge für eine bessere Qualität sorgen, 
-statt die Qualität so zu maximieren, wie ein Computer sie verstehen würde. Dies wird durch die Verhältnisse von Signalen zu Störungen erreicht, die Schwierigkeiten aufweisen, genaue Details von Lärm zu unterscheiden.</value>
+    <value>心理視覺碼率失真法能使 x264 模擬在人眼視覺中，透過調整訊噪比保留更多細節以改善品質，而非單純由電腦計算出最佳品質。</value>
   </data>
   <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
-    <value>Dass Psychovisuelle Gitter versucht, mehr Schärfe und Detail beizubehalten, aber kann Artefakte verursachen.
-Es gilt als experimentell, weswegen es standardmäßig deaktiviert ist. Gute Werte liegen zwischen 0,1 und 0,2.</value>
+    <value>心理視覺格狀編碼會嘗試保留更高的清晰度及細節，但會產生人造雜訊。
+由於仍在實驗階段，此選項預設為關閉狀態。合理的值為 0.1 ~ 0.2。</value>
   </data>
   <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
-    <value>B-Pyramide verbessert die Kompression durch die Erstellung einer pyramidalen Struktur (daher der Name) von B-Frames, um es zu ermöglichen, dass B-Frames aufeinander verweisen können.
-Erfordert, dass die maximale Anzahl von B-Frames größer als 1 ist; optimalerweise werden flexible B-Frames verwendet, um den vollen Kompressionvorteil auszunutzen.</value>
+    <value>錐狀 B-畫格藉由建立原始 B-畫格的錐狀架構，使 B-畫格可交互參照以提高壓縮率。
+
+B-畫格最大數需大於 1 以啟用此功能，建議搭配最佳化適應性 B-畫格以得到最佳的壓縮效果。</value>
   </data>
   <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
-    <value>Gute Werte liegen zwischen 1 und 6.
-Je größer der Wert, desto besser die Kompression, aber desto langsamer das Encodieren.
-Cel Animation tendiert dazu stärker von mehr Referenz-Frames, als vom Filminhalt profitieren.
-Beachten Sie, dass viele Hardware-Geräte im Hinblick auf die Anzahl der unterstützten Referenz-Frames limitiert sind. Wenn Sie also für einen Handheld oder einen Standalone-Player encodieren und sich nicht absolut sicher sind, was diese Einstellung bewirkt, lassen Sie sie besser unverändert!</value>
+    <value>合理的值為 1 ~ 6。
+
+值越大壓縮率越高，但編碼時間越長。
+
+賽璐璐動畫於使用更多參考畫格的設定下編碼結果將比電影內容更佳。
+
+請注意許多硬體支援的參考畫格數有限，若您要為手持裝置或獨立播放機編碼檔案，除非您了解此項目細節，否則不建議更改此選項。</value>
   </data>
   <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
-    <value>Diese Einstellung steuert beides, die präzise Bewegung-Analyse der Teilbildpunkte und die Methoden, die über den Modus entscheiden.
-Die Bewegungs-Analyse der Teilbildpunkte dient zur Verfeinerung der Bewegungs-Analyse über bloße Pixel-Genauigkeiten hinaus (Verbesserung der Kompression).
-Die Methode, die über den Modus entscheidet, ist insofern sehr wichtig, als dass sie auszuwählt, wie jeder Block eines Frames encodiert wird.
-SAD ist die schnellste Methode, gefolgt von SATD, RD, verfeinertem RD und der langsamsten Methode: QPRD.
-6 oder höher wird dringend empfohlen: Psy-RD, eine sehr leistungsfähige Psy-Optimierung, die hilft Details beizuhalten, erfordert RD.
-10, die leistungsfähigste und langsamste Option, erfordert Gitter = 2.</value>
+    <value>此選項控制次像素的精確動態偵測及模式決策。
+
+次像素動態偵測能提高一般動態偵測的精確度及改善壓縮率。
+
+模式決策用來決定編碼每個區塊: 決策方式影響甚大。
+
+SAD 速度最快，接著是 SATD、RD、RD (精密)，及最慢的 QPRD。
+建議設定 6 以上的值: 心理視覺 RD 為可幫助保留細節的心理視覺最佳化方法，需搭配 RD。
+10 為最有效但最慢的的選項，需搭配格狀編碼 = 2。</value>
   </data>
   <data name="Advanced_TrellisToolTip" xml:space="preserve">
-    <value>Das Gitter stimmt die Rundung der Transformations-Koeffizienten optimal ab, um die Kompression auf Kosten von etwas Geschwindigkeit um weitere 3-5 % zu erhöhen.
-"Immer" verwendet das Gitter nicht nur während der Haupt-Encodierung, sondern auch während der Analyse, was die Kompression trotz großer Geschwindigkeitseinbußen weiter verbessert.
+    <value>格狀編碼可藉由微調轉換係數，多花費部分編碼時間，提高 3% 至 5% 的壓縮率。
+「必要」選項會在分析與編碼時皆使用格狀編碼，雖可改善壓縮率但會耗費相當多的時間。
 
-Die Geschwindigkeitseinbußen durch das Gitter nehmen mit höheren Bitrates zu.</value>
+格狀編碼於高位元率設定時需耗費更多編碼時間。</value>
   </data>
   <data name="Advanced_WeightPToolTip" xml:space="preserve">
-    <value>Führt eine zusätzliche Analyse durch, um über die Gewichtung der Parameter für jeden Frame zu entscheiden.
-Dies verbessert die allgemeine Kompression leicht und verbessert die Qualität von Überblendungen in hohem Maße.
-Das Grund Profil (für iPods und ähnliche Geräte), erfordert, dass die gewichtete Vorhersage der P-Frames deaktiviert ist.
-Beachten Sie, dass einige Wiedergabegeräte, selbst diejenigen, die das Haupt Profil unterstützen, möglicherweise Probleme mit der gewichteten P-Frame-Vorhersage haben: Der Apple TV ist beispielsweise völlig inkompatibel mit dieser Einstellung.</value>
+    <value>進行額外分析調整每個畫格的權重。
+此選項可稍微提升壓縮率，且能大幅改善畫面淡入淡出的效果。
+Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或其他可攜裝置)
+請注意部分裝置或播放器即使支援 Main 規模，處理加權 P-畫格時仍可能產生問題。 (如 Apple TV 無法相容加權 P-畫格)</value>
   </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
-    <value>Komprimierung des dynamischen Umfangs. Gültige Werte liegen zwischen 0 und 4.
+    <value>動態範圍壓縮，有效值為 0 ~ 4。
 
-Für Audioquellen mit einem hohen dynamischen Umfang (sehr laute und sehr leise Sequenzen) erlaubt es DRC den Umfang zu "komprimieren", indem laute Abschnitte leiser und leise Abschnitte lauter gemacht werden.</value>
+若來源音訊的動態範圍非常大 (同時含有極大聲和極小聲的連續片段)，DRC 能協助您減弱極大聲部分、增強極小聲部分以達到壓縮效果。</value>
   </data>
   <data name="Audio_GainToolTip" xml:space="preserve">
-    <value>Verstärken oder verringern Sie die Lautstärke vor der Encodierung. Gültige Werte liegen zwischen -20 und +20 dB.</value>
+    <value>編碼前增強或減弱音訊源音量，有效值為 -20 ~ +20 dB。</value>
   </data>
   <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
-    <value>Kapitelmarkierungen aus dem Eingangs-Video in das encodierte Video übernehmen.</value>
+    <value>嵌入來源視訊的章節標記至編碼視訊中。</value>
   </data>
   <data name="IPod5GSupportToolTip" xml:space="preserve">
-    <value>Fügt der Datei eine Markierung bei, welche ältere iPods benötigen, bevor sie erlauben, dass das H.264 Video auf das Gerät synchronisiert wird.</value>
+    <value>套用特殊標記使檔案能支援舊型 iPod 的同步更新。</value>
   </data>
   <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Ermöglicht Dateien größer als 4 GB. Wenn aktiviert, werden 64-Bit-Zahlen zur Encodierung verwendet. Einige Geräte wie iPod und PS3 sind inkompatibel mit dieser Option.</value>
+    <value>允許檔案超過 4GB。啟用此選項時將使用 64 位元編碼，部分裝置如 iPod 及 PS3 不相容此選項。</value>
   </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
-    <value>Pixelseitenverhältnis manuell festlegen.</value>
+    <value>手動指定像素長寬比。</value>
   </data>
   <data name="Video_QualityTargetToolTip" xml:space="preserve">
-    <value>Legen Sie den gewünschten Qualitätsfaktor fest. Diese Skala ist für jeden Video-Encodierer unterschiedlich.</value>
+    <value>設定品質參數，每個視訊編碼器使用的參數量級不盡相同。</value>
   </data>
   <data name="WebOptimizedToolTip" xml:space="preserve">
-    <value>Ordnet die Datei besser an, damit sie später als progressiver Download besser abgespielt werden kann.</value>
+    <value>針對漸進式下載的播放最佳化。</value>
   </data>
   <data name="X264PresetToolTip" xml:space="preserve">
-    <value>Ändern Sie die Optionen, um die Effizienz der Komprimierung gegen die Encodierungsgeschwindigkeit abzuwägen. Wenn Sie eine Voreinstellung auswählen, werden die Änderungen, die es macht, angewendet werden, bevor alle anderen Parameter angewendet werden.</value>
+    <value>變更選項以斟酌偏好壓縮效率或編碼速度。若套用設定值，將優先參考設定值，再套用其他參數。</value>
   </data>
   <data name="X264ProfileToolTip" xml:space="preserve">
-    <value>Begrenzen Sie das Profil des Ausgabestreams. Wenn Sie ein Profil auswählen, überschreibt dies alle anderen Einstellungen, wenn Sie es also verwenden, erhalten Sie einen garantiert kompatiblen Stream.
+    <value>限制輸出串流的規模，若您指定規模，編碼將產生符合指定規模的串流檔案。
 
-Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein bestimmtes Profil unterstützt.</value>
+若您的裝置僅支援特定規模的串流，您可以設定此選項產生相容的檔案。</value>
   </data>
   <data name="X264TuneToolTip" xml:space="preserve">
-    <value>Wählen Sie die Art des Ausgangsmaterials aus, um die Enkodierung weiter zu optimieren. Wenn Sie einen Typ auswählen, werden die Änderungen nach der Voreinstellung, aber vor allen anderen Parametern angewendet werden.</value>
+    <value>依輸入內容微調選項以最佳化編碼結果，若您指定微調設定，將於參考設定值後調整微調設定，再套用其他參數。</value>
   </data>
   <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>Die gewünschte Video-Breite. Andere Parameter wie das Seitenverhältnis der Pixel werden angepasst, um dies zu erreichen.</value>
+    <value>視訊所需的顯示寬度，其他參數如像素長寬比將依照此值自動調整。</value>
   </data>
   <data name="ContainerLabel" xml:space="preserve">
-    <value>Container:</value>
+    <value>封裝格式:</value>
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
-    <value>Erweiterung:</value>
+    <value>副檔名:</value>
   </data>
   <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Große Dateigröße</value>
+    <value>大容量檔案</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
-    <value>Web optimiert</value>
+    <value>網路最佳化</value>
   </data>
   <data name="Ipod5GSupportCheckBox" xml:space="preserve">
-    <value>iPod 5G Unterstützung</value>
+    <value>iPod 5G 支援</value>
   </data>
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
-    <value>Kapitelmarkierungen übernehmen</value>
+    <value>包含章節標記</value>
   </data>
   <data name="TabHeader_Picture" xml:space="preserve">
-    <value>Bild</value>
+    <value>影像</value>
   </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
-    <value>Videofilter</value>
+    <value>視訊濾鏡</value>
   </data>
   <data name="TabHeader_Video" xml:space="preserve">
-    <value>Video</value>
+    <value>視訊</value>
   </data>
   <data name="TabHeader_Audio" xml:space="preserve">
-    <value>Audio</value>
+    <value>音訊</value>
   </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>Erweitert</value>
+    <value>進階</value>
   </data>
   <data name="Rename" xml:space="preserve">
-    <value>Umbenennen</value>
+    <value>重新命名</value>
   </data>
   <data name="Input" xml:space="preserve">
-    <value>Eingang</value>
+    <value>輸入</value>
   </data>
   <data name="AutoCaption" xml:space="preserve">
-    <value>(Auto)</value>
+    <value>(自動)</value>
   </data>
   <data name="NoneCaption" xml:space="preserve">
-    <value>(Keine)</value>
+    <value>(無)</value>
   </data>
   <data name="StorageResolutionLabel" xml:space="preserve">
-    <value>Speicher-Lösung:</value>
+    <value>原始解析度:</value>
   </data>
   <data name="PixelAspectRatioLabel" xml:space="preserve">
-    <value>Pixelseitenverhältnis:</value>
+    <value>像素長寬比:</value>
   </data>
   <data name="DisplayResolutionLabel" xml:space="preserve">
-    <value>Bildschirmauflösung:</value>
+    <value>顯示解析度:</value>
   </data>
   <data name="SizingLabel" xml:space="preserve">
-    <value>Skalieren</value>
+    <value>大小調整</value>
   </data>
   <data name="WidthLabel" xml:space="preserve">
-    <value>Breite:</value>
+    <value>寬度:</value>
   </data>
   <data name="HeightLabel" xml:space="preserve">
-    <value>Höhe:</value>
+    <value>高度:</value>
   </data>
   <data name="MaxWidthLabel" xml:space="preserve">
-    <value>Max Breite:</value>
+    <value>最大寬度:</value>
   </data>
   <data name="MaxHeightLabel" xml:space="preserve">
-    <value>Max Höhe:</value>
+    <value>最大高度:</value>
   </data>
   <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>Seitenverhältnis beibehalten</value>
+    <value>保持長寬比</value>
   </data>
   <data name="AnamorphicLabel" xml:space="preserve">
-    <value>Anamorph:</value>
+    <value>變形:</value>
   </data>
   <data name="ModulusLabel" xml:space="preserve">
-    <value>Modulus:</value>
+    <value>模數:</value>
   </data>
   <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Bildschirmbreite:</value>
+    <value>顯示寬度:</value>
   </data>
   <data name="PixelAspectRatioRadioButton" xml:space="preserve">
-    <value>Pixelseitenverhältnis:</value>
+    <value>像素長寬比:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
-    <value>Ausgabe</value>
+    <value>輸出</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
-    <value>Beschneiden</value>
+    <value>裁剪</value>
   </data>
   <data name="Top" xml:space="preserve">
-    <value>Oben</value>
+    <value>頂端</value>
   </data>
   <data name="Left" xml:space="preserve">
-    <value>Links</value>
+    <value>左緣</value>
   </data>
   <data name="Bottom" xml:space="preserve">
-    <value>Unten</value>
+    <value>底部</value>
   </data>
   <data name="Right" xml:space="preserve">
-    <value>Rechts</value>
+    <value>右緣</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
-    <value>Detelecine:</value>
+    <value>反電視殘影:</value>
   </data>
   <data name="DecombLabel" xml:space="preserve">
-    <value>Decomb:</value>
+    <value>反梳狀:</value>
   </data>
   <data name="DeinterlaceLabel" xml:space="preserve">
-    <value>Zeilenentflechtung:</value>
+    <value>反交錯:</value>
   </data>
   <data name="DenoiseLabel" xml:space="preserve">
-    <value>Entrauschen:</value>
+    <value>降噪:</value>
   </data>
   <data name="DeblockLabel" xml:space="preserve">
-    <value>Entblocken:</value>
+    <value>解碼去塊:</value>
   </data>
   <data name="GrayscaleCheckBox" xml:space="preserve">
-    <value>In Graustufen encodieren</value>
+    <value>灰階編碼</value>
   </data>
   <data name="TypeLabel" xml:space="preserve">
-    <value>Typ:</value>
+    <value>類型:</value>
   </data>
   <data name="ShortFramerateLabel" xml:space="preserve">
-    <value>Framerate:</value>
+    <value>畫面更新率:</value>
   </data>
   <data name="CodecLabel" xml:space="preserve">
-    <value>Codec:</value>
+    <value>編碼格式:</value>
   </data>
   <data name="FramerateLabel" xml:space="preserve">
-    <value>Framerate (FPS):</value>
+    <value>畫面更新率 (FPS):</value>
   </data>
   <data name="ConstantFramerateRadioButton" xml:space="preserve">
-    <value>Konstante Framerate</value>
+    <value>固定畫面更新率</value>
   </data>
   <data name="Quality" xml:space="preserve">
-    <value>Qualität</value>
+    <value>品質</value>
   </data>
   <data name="TwoPassEncodingCheckBox" xml:space="preserve">
-    <value>In zwei Durchläufen encodieren</value>
+    <value>2 次編碼</value>
   </data>
   <data name="TurboFirstPassCheckBox" xml:space="preserve">
-    <value>Schneller erster Durchlauf</value>
+    <value>加速首次編碼</value>
   </data>
   <data name="TargetSizeRadioButton" xml:space="preserve">
-    <value>Zielgröße (MB)</value>
+    <value>目標大小 (MB)</value>
   </data>
   <data name="AverageBitrateRadioButton" xml:space="preserve">
-    <value>Durchschnittliche Bitrate (kbps)</value>
+    <value>平均位元率 (kbps)</value>
   </data>
   <data name="ConstantQualityRadioButton" xml:space="preserve">
-    <value>Konstante Qualität</value>
+    <value>固定品質</value>
   </data>
   <data name="X264BasicSettings" xml:space="preserve">
-    <value>x264 Grundeinstellungen</value>
+    <value>x264 基本設定</value>
   </data>
   <data name="ProfileLabel" xml:space="preserve">
-    <value>Profil:</value>
+    <value>規模:</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Voreinstellung:</value>
+    <value>設定值:</value>
   </data>
   <data name="TuneLabel" xml:space="preserve">
-    <value>Abstimmung:</value>
+    <value>微調:</value>
   </data>
   <data name="Profile_Baseline" xml:space="preserve">
-    <value>Grund</value>
+    <value>Baseline</value>
   </data>
   <data name="Profile_Main" xml:space="preserve">
-    <value>Haupt</value>
+    <value>Main</value>
   </data>
   <data name="Profile_High" xml:space="preserve">
-    <value>Hoch</value>
+    <value>High</value>
   </data>
   <data name="Preset_UltraFast" xml:space="preserve">
-    <value>Ultra Schnell</value>
+    <value>最快</value>
   </data>
   <data name="Preset_SuperFast" xml:space="preserve">
-    <value>Super schnell</value>
+    <value>超快</value>
   </data>
   <data name="Preset_VeryFast" xml:space="preserve">
-    <value>Sehr schnell</value>
+    <value>很快</value>
   </data>
   <data name="Preset_Faster" xml:space="preserve">
-    <value>Schneller</value>
+    <value>較快</value>
   </data>
   <data name="Preset_Fast" xml:space="preserve">
-    <value>Schnell</value>
+    <value>快速</value>
   </data>
   <data name="Preset_Medium" xml:space="preserve">
-    <value>Mittel (Standard)</value>
+    <value>中等 (預設值)</value>
   </data>
   <data name="Preset_Slow" xml:space="preserve">
-    <value>Langsam</value>
+    <value>緩慢</value>
   </data>
   <data name="Preset_Slower" xml:space="preserve">
-    <value>Langsamer</value>
+    <value>較慢</value>
   </data>
   <data name="Preset_VerySlow" xml:space="preserve">
-    <value>Sehr langsam</value>
+    <value>很慢</value>
   </data>
   <data name="Preset_Placebo" xml:space="preserve">
-    <value>Placebo</value>
+    <value>最慢</value>
   </data>
   <data name="Tune_Film" xml:space="preserve">
-    <value>Film</value>
+    <value>電影</value>
   </data>
   <data name="Tune_Animation" xml:space="preserve">
-    <value>Animation</value>
+    <value>動畫</value>
   </data>
   <data name="Tune_Grain" xml:space="preserve">
-    <value>Körnung/Rauschen</value>
+    <value>膠片顆粒</value>
   </data>
   <data name="Tune_StillImage" xml:space="preserve">
-    <value>Standbild</value>
+    <value>靜止影像</value>
   </data>
   <data name="Tune_Psnr" xml:space="preserve">
     <value>PSNR</value>
@@ -495,106 +507,106 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>SSIM</value>
   </data>
   <data name="Tune_FastDecode" xml:space="preserve">
-    <value>Schnelles Decodieren</value>
+    <value>快速解碼</value>
   </data>
   <data name="Tune_ZeroLatency" xml:space="preserve">
-    <value>Keine Wartezeit</value>
+    <value>零延遲</value>
   </data>
   <data name="FpsFormat" xml:space="preserve">
-    <value>{0:0. ###} FPS</value>
+    <value>{0:0.###} FPS</value>
   </data>
   <data name="CfrSameAsSourceToolTip" xml:space="preserve">
-    <value>Verwendet die angegebene Framerate aus dem Quelltitel für eine konstante Framerate.</value>
+    <value>使用來源標題所列之固定更新率。</value>
   </data>
   <data name="CfrToolTip" xml:space="preserve">
-    <value>Verwenden Sie eine konstante Framerate.</value>
+    <value>使用固定畫面更新率。</value>
   </data>
   <data name="VfrSameAsSourceToolTip" xml:space="preserve">
-    <value>Ermöglicht eine variable Framerate. Wenn die Quelle über eine variable Framerate verfügt, wird sie durch diese Einstellung beibehalten. Beachten Sie, dass einige Wiedergabegeräte variable Framerates nicht unterstützen.</value>
+    <value>允許動態畫面更新率。若來源為動態畫面更新率，此設定能保留原始畫面更新率。請注意並非所有播放器皆支援動態畫面更新率。</value>
   </data>
   <data name="VfrPeakFramerateToolTip" xml:space="preserve">
-    <value>Ermöglicht eine variable Framerate und verwendet die angegebene Rate als Höchstwert. Wenn die Quelle über eine variable Framerate verfügt, wird sie durch diese Einstellung beibehalten. Beachten Sie, dass einige Wiedergabegeräte variable Framerates nicht unterstützen.</value>
+    <value>允許動態畫面更新率並使用指定更新率為其最大值。若來源為動態畫面更新率，此設定能保留原始畫面更新率。請注意並非所有播放器皆支援動態畫面更新率。</value>
   </data>
   <data name="VfrChoice" xml:space="preserve">
-    <value>Variable Framerate</value>
+    <value>動態畫面更新率</value>
   </data>
   <data name="VfrPeakChoice" xml:space="preserve">
-    <value>Maximale Framerate (VFR)</value>
+    <value>最高畫面更新率 (VFR)</value>
   </data>
   <data name="HighQuality" xml:space="preserve">
-    <value>Hohe Qualität</value>
+    <value>高品質</value>
   </data>
   <data name="LowQuality" xml:space="preserve">
-    <value>Niedrige Qualität</value>
+    <value>低品質</value>
   </data>
   <data name="SameAsSource" xml:space="preserve">
-    <value>Aus Quelle übernehmen</value>
+    <value>與來源相同</value>
   </data>
   <data name="AddAudioEncodingButton" xml:space="preserve">
-    <value>Voreinstellung für Tonspur hinzufügen</value>
+    <value>新增音訊編碼</value>
   </data>
   <data name="NoTracksPlaceholder" xml:space="preserve">
-    <value>(Kein Titel)</value>
+    <value>(無音軌)</value>
   </data>
   <data name="TargetStream" xml:space="preserve">
-    <value>Voreinstellung für folgende Tonspur(en)</value>
+    <value>目標串流</value>
   </data>
   <data name="MixdownLabel" xml:space="preserve">
-    <value>Abmischung:</value>
+    <value>縮混:</value>
   </data>
   <data name="SampleRateLabel" xml:space="preserve">
-    <value>Abtastrate:</value>
+    <value>取樣率:</value>
   </data>
   <data name="BitrateLabel" xml:space="preserve">
-    <value>Bitrate:</value>
+    <value>位元率:</value>
   </data>
   <data name="CompressionLabel" xml:space="preserve">
-    <value>Komprimierung:</value>
+    <value>壓縮率:</value>
   </data>
   <data name="GainLabel" xml:space="preserve">
-    <value>Verstärkung (dB):</value>
+    <value>增益 (dB):</value>
   </data>
   <data name="DrcLabel" xml:space="preserve">
     <value>DRC:</value>
   </data>
   <data name="NameLabel" xml:space="preserve">
-    <value>Name:</value>
+    <value>名稱:</value>
   </data>
   <data name="AscendingQualityToolTip" xml:space="preserve">
-    <value>Hohe Werte bedeuten hohe Qualität.</value>
+    <value>值越高品質越好。</value>
   </data>
   <data name="DescendingQualityToolTip" xml:space="preserve">
-    <value>Niedrige Werte bedeuten hohe Qualität.</value>
+    <value>值越低品質越好。</value>
   </data>
   <data name="AudioQualityToolTip" xml:space="preserve">
-    <value>Das Audio Qualitätsziel. {0} Gültige Werte liegen zwischen {1} und {2}.</value>
+    <value>目標音訊品質。 {0} 有效值範圍為 {1} 至 {2}。</value>
   </data>
   <data name="AscendingCompressionToolTip" xml:space="preserve">
-    <value>Hohe Werte sorgen für eine hohe Komprimierung: bessere Qualität/kleinere Größe, aber langsameres Encodierungstempo.</value>
+    <value>值越高表示壓縮率越高: 品質越高/容量越小，但編碼時間越長。</value>
   </data>
   <data name="DescendingCompressionToolTip" xml:space="preserve">
-    <value>Niedrige Werte sorgen für eine hohe Komprimierung: bessere Qualität/kleinere Größe, aber langsameres Encodierungstempo.</value>
+    <value>值越低表示壓縮率越高: 品質越高/容量越小，但編碼時間越長。</value>
   </data>
   <data name="AudioCompressionToolTip" xml:space="preserve">
-    <value>Der Umfang der anzuwendenden Komprimierung. {0} Gültige Werte liegen zwischen {1} und {2}.</value>
+    <value>欲套用的壓縮度。 {0} 有效值範圍為 {1} 至 {2}。</value>
   </data>
   <data name="AudioEncoder_copy" xml:space="preserve">
-    <value>Auto Durchschleifen</value>
+    <value>自動複製</value>
   </data>
   <data name="AudioEncoder_copy_aac" xml:space="preserve">
-    <value>AAC Durchschleifen</value>
+    <value>AAC 複製</value>
   </data>
   <data name="AudioEncoder_copy_ac3" xml:space="preserve">
-    <value>AC3 Durchschleifen</value>
+    <value>AC3 複製</value>
   </data>
   <data name="AudioEncoder_copy_dts" xml:space="preserve">
-    <value>DTS Durchschleifen</value>
+    <value>DTS 複製</value>
   </data>
   <data name="AudioEncoder_copy_dtshd" xml:space="preserve">
-    <value>DTS-HD Durchschleifen</value>
+    <value>DTS-HD 複製</value>
   </data>
   <data name="AudioEncoder_copy_mp3" xml:space="preserve">
-    <value>MP3 Durchschleifen</value>
+    <value>MP3 複製</value>
   </data>
   <data name="AudioEncoder_faac" xml:space="preserve">
     <value>AAC (FAAC)</value>
@@ -616,7 +628,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Vorbis (Vorbis)</value>
   </data>
   <data name="Mixdown_5point1" xml:space="preserve">
-    <value>5.1 Kanäle</value>
+    <value>5.1 聲道</value>
   </data>
   <data name="Mixdown_5_2_lfe" xml:space="preserve">
     <value>7.1 (5F/2R/LFE)</value>
@@ -628,200 +640,201 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Dolby Pro Logic II</value>
   </data>
   <data name="Mixdown_left_only" xml:space="preserve">
-    <value>Mono (Nur Links)</value>
+    <value>單聲道 (僅左聲道)</value>
   </data>
   <data name="Mixdown_mono" xml:space="preserve">
-    <value>Mono</value>
+    <value>單聲道</value>
   </data>
   <data name="Mixdown_right_only" xml:space="preserve">
-    <value>Mono (Nur Rechts)</value>
+    <value>單聲道 (僅右聲道)</value>
   </data>
   <data name="Mixdown_stereo" xml:space="preserve">
-    <value>Stereo</value>
+    <value>立體聲</value>
   </data>
   <data name="Bitrate" xml:space="preserve">
-    <value>Bitrate</value>
+    <value>位元率</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Encodierung</value>
+    <value>編碼</value>
   </data>
   <data name="ReferenceFramesLabel" xml:space="preserve">
-    <value>Referenz-Frames:</value>
+    <value>參考畫格:</value>
   </data>
   <data name="MaxBFramesLabel" xml:space="preserve">
-    <value>Maximale B-Frames:</value>
+    <value>最大 B-畫格:</value>
   </data>
   <data name="CabacLabel" xml:space="preserve">
     <value>CABAC:</value>
   </data>
   <data name="EightByEightTransformLabel" xml:space="preserve">
-    <value>8x8 Transformation:</value>
+    <value>8x8 轉換:</value>
   </data>
   <data name="WeightedPFramesLabel" xml:space="preserve">
-    <value>Gewichtete P-Frames:</value>
+    <value>加權 P-畫格:</value>
   </data>
   <data name="PyramidalBFramesLabel" xml:space="preserve">
-    <value>Pyramidale B-Frames:</value>
+    <value>錐狀 B-畫格:</value>
   </data>
   <data name="NoDctDecimateLabel" xml:space="preserve">
-    <value>Keine DCT-Dezimierung:</value>
+    <value>無 DCT-過濾</value>
   </data>
   <data name="Analysis" xml:space="preserve">
-    <value>Analyse</value>
+    <value>分析</value>
   </data>
   <data name="AdaptiveBFramesLabel" xml:space="preserve">
-    <value>Flexible B-Frames:</value>
+    <value>適應性 B-畫格:</value>
   </data>
   <data name="AdaptiveDirectModeLabel" xml:space="preserve">
-    <value>Flexibler Direkt-Modus:</value>
+    <value>適應性直接模式:</value>
   </data>
   <data name="MotionEstimationMethodLabel" xml:space="preserve">
-    <value>Methode zur Bewegungs-Analyse:</value>
+    <value>動態偵測模式:</value>
   </data>
   <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
-    <value>Bewegungs-Analyse von Teilbildpunkten:</value>
+    <value>次像素動態偵測:</value>
   </data>
   <data name="MotionEstimationRangeLabel" xml:space="preserve">
-    <value>Reichweite der Bewegungs-Analyse:</value>
+    <value>動態偵測範圍:</value>
   </data>
   <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
-    <value>Flexible Quantisierungsstärke:</value>
+    <value>適應性量化強度:</value>
   </data>
   <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
-    <value>Psychovisuelle Ratenverzerrung:</value>
+    <value>心理視覺碼率失真:</value>
   </data>
   <data name="PsychovisualTrellisLabel" xml:space="preserve">
-    <value>Psychovisuelles Gitter:</value>
+    <value>心理視覺格狀:</value>
   </data>
   <data name="DeblockingLabel" xml:space="preserve">
-    <value>Entblockung:</value>
+    <value>解碼去塊:</value>
   </data>
   <data name="PartitionTypeLabel" xml:space="preserve">
-    <value>Partitionstyp:</value>
+    <value>分割類型:</value>
   </data>
   <data name="TrellisLabel" xml:space="preserve">
-    <value>Gitter:</value>
+    <value>格狀:</value>
   </data>
   <data name="OptionsString" xml:space="preserve">
-    <value>Parameterkette</value>
+    <value>選項字串</value>
   </data>
   <data name="PyramidalBFrames_Off" xml:space="preserve">
-    <value>Aus</value>
+    <value>關閉</value>
   </data>
   <data name="PyramidalBFrames_Normal" xml:space="preserve">
-    <value>Normal</value>
+    <value>標準</value>
   </data>
   <data name="PyramidalBFrames_Strict" xml:space="preserve">
-    <value>Genau</value>
+    <value>嚴格</value>
   </data>
   <data name="AdaptiveBFrames_Off" xml:space="preserve">
-    <value>Aus</value>
+    <value>關閉</value>
   </data>
   <data name="AdaptiveBFrames_Fast" xml:space="preserve">
-    <value>Schnell</value>
+    <value>快速</value>
   </data>
   <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
-    <value>Optimal</value>
+    <value>最佳化</value>
   </data>
   <data name="DirectPrediction_None" xml:space="preserve">
-    <value>Keine</value>
+    <value>無</value>
   </data>
   <data name="DirectPrediction_Spatial" xml:space="preserve">
-    <value>Räumlich</value>
+    <value>空間性</value>
   </data>
   <data name="DirectPrediction_Temporal" xml:space="preserve">
-    <value>Zeitlich</value>
+    <value>時間性</value>
   </data>
   <data name="DirectPrediction_Automatic" xml:space="preserve">
-    <value>Automatisch</value>
+    <value>自動</value>
   </data>
   <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
-    <value>Raute</value>
+    <value>菱形</value>
   </data>
   <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
-    <value>Sechseck</value>
+    <value>六角形</value>
   </data>
   <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
-    <value>Ungleichmäßiges Mehrfach-Sechseck</value>
+    <value>均勻多重六角形</value>
   </data>
   <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
-    <value>Gründlich</value>
+    <value>徹底</value>
   </data>
   <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
-    <value>Gründlich Transformiert</value>
+    <value>轉換徹底</value>
   </data>
   <data name="SubpixelMotionEstimation_0" xml:space="preserve">
-    <value>0: SAD, keine Teilbilder (sehr schnell!)</value>
+    <value>0: SAD，無次像素 (超快!)</value>
   </data>
   <data name="SubpixelMotionEstimation_1" xml:space="preserve">
-    <value>1: SAD, qpel</value>
+    <value>1: SAD，1/4 像素</value>
   </data>
   <data name="SubpixelMotionEstimation_2" xml:space="preserve">
-    <value>2: SATD, qpel</value>
+    <value>2: SATD，1/4 像素</value>
   </data>
   <data name="SubpixelMotionEstimation_3" xml:space="preserve">
-    <value>3: SATD, mehrfaches-qpel</value>
+    <value>3: SATD，多重 1/4 像素</value>
   </data>
   <data name="SubpixelMotionEstimation_4" xml:space="preserve">
-    <value>4: SATD, qpel auf allem</value>
+    <value>4: SATD，所有 1/4 像素</value>
   </data>
   <data name="SubpixelMotionEstimation_5" xml:space="preserve">
-    <value>5: SATD, mehrfach-qpel auf allem</value>
+    <value>5: SATD，所有多重 1/4 像素</value>
   </data>
   <data name="SubpixelMotionEstimation_6" xml:space="preserve">
-    <value>6: RD in I/P-Frames</value>
+    <value>6: RD 於 I/P-畫格</value>
   </data>
   <data name="SubpixelMotionEstimation_7" xml:space="preserve">
-    <value>7: RD in allen Frames</value>
+    <value>7: RD 於所有畫格</value>
   </data>
   <data name="SubpixelMotionEstimation_8" xml:space="preserve">
-    <value>8: RD verfeinern in I/P-Frames</value>
+    <value>8: RD (精密) 於 I/P-畫格</value>
   </data>
   <data name="SubpixelMotionEstimation_9" xml:space="preserve">
-    <value>9: RD verfeinern in allen Frames</value>
+    <value>9: RD (精密) 於所有畫格</value>
   </data>
   <data name="SubpixelMotionEstimation_10" xml:space="preserve">
-    <value>10: QPRD in allen Frames</value>
+    <value>10: QPRD 於所有畫格</value>
   </data>
   <data name="SubpixelMotionEstimation_11" xml:space="preserve">
-    <value>11: Keine übereilten Entscheidungen in der Analyse</value>
+    <value>11: 不提前終止分析</value>
   </data>
   <data name="Analysis_None" xml:space="preserve">
-    <value>Keine</value>
+    <value>無</value>
   </data>
   <data name="Analysis_Some" xml:space="preserve">
-    <value>Weniges</value>
+    <value>部分</value>
   </data>
   <data name="Analysis_All" xml:space="preserve">
-    <value>Alles</value>
+    <value>全部</value>
   </data>
   <data name="Trellis_Off" xml:space="preserve">
-    <value>Aus</value>
+    <value>關閉</value>
   </data>
   <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>Nur Encodierung</value>
+    <value>僅編碼</value>
   </data>
   <data name="Trellis_Always" xml:space="preserve">
-    <value>Immer</value>
+    <value>必要</value>
   </data>
   <data name="DefaultFormat" xml:space="preserve">
-    <value>{0} (Standard)</value>
+    <value>{0} (預設值)</value>
   </data>
   <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Voreinstellung: {0}</value>
+    <value>設定值: {0}</value>
   </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
-    <value>Zusätzliche, erweiterte x264 Optionen:</value>
+    <value>額外的進階 x264 選項:</value>
   </data>
   <data name="H264LevelToolTip" xml:space="preserve">
-    <value>Legt das ausgewählte H.264 Level fest und stellt dessen Kompatibilität sicher.
-Überschreibt alle anderen Einstellungen.</value>
+    <value>設定能確保編碼符合指定的 H.264 等級規範。
+
+此設定會覆蓋其他設定。</value>
   </data>
   <data name="Profile_High444" xml:space="preserve">
-    <value>Hoch 4:4:4 Prädiktiv</value>
+    <value>高度 4:4:4 預測</value>
   </data>
   <data name="VideoCodecLabel" xml:space="preserve">
-    <value>Video-Codec:</value>
+    <value>視訊編碼:</value>
   </data>
   <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
     <value>MPEG-2 (Libav)</value>
@@ -833,60 +846,60 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>H.264 (x264)</value>
   </data>
   <data name="Analysis_Most" xml:space="preserve">
-    <value>Viel</value>
+    <value>大部分</value>
   </data>
   <data name="AdvancedQuery" xml:space="preserve">
-    <value>Erweiterte Abfrage</value>
+    <value>進階查詢</value>
   </data>
   <data name="Video" xml:space="preserve">
-    <value>Video</value>
+    <value>視訊</value>
   </data>
   <data name="X264Settings" xml:space="preserve">
-    <value>x264 Einstellungen</value>
+    <value>x264 設定</value>
   </data>
   <data name="X264PresetLabel" xml:space="preserve">
-    <value>x264 Voreinstellung:</value>
+    <value>264 設定值:</value>
   </data>
   <data name="X264TuneLabel" xml:space="preserve">
-    <value>x264 Tuning:</value>
+    <value>x264 微調:</value>
   </data>
   <data name="H264ProfileLabel" xml:space="preserve">
-    <value>H.264 Profil:</value>
+    <value>H.264 規模:</value>
   </data>
   <data name="H264LevelLabel" xml:space="preserve">
-    <value>H.264 Level:</value>
+    <value>H.264 等級:</value>
   </data>
   <data name="MoreSettingsLabel" xml:space="preserve">
-    <value>Weitere Einstellungen:</value>
+    <value>更多設定:</value>
   </data>
   <data name="Track" xml:space="preserve">
-    <value>Tonspur</value>
+    <value>音軌</value>
   </data>
   <data name="Source" xml:space="preserve">
-    <value>Quelle</value>
+    <value>來源</value>
   </data>
   <data name="Encoder" xml:space="preserve">
-    <value>Encodierer</value>
+    <value>編碼器</value>
   </data>
   <data name="ChannelLayout" xml:space="preserve">
-    <value>Kanal-Layout</value>
+    <value>聲道佈局</value>
   </data>
   <data name="SampleRate" xml:space="preserve">
-    <value>Abtastrate</value>
+    <value>取樣率</value>
   </data>
   <data name="Modifiers" xml:space="preserve">
-    <value>Bearbeiten</value>
+    <value>修飾器</value>
   </data>
   <data name="PassthroughTrackDroppedWarning" xml:space="preserve">
-    <value>Das Durchschleifen funktioniert mit diesem Eingangs-Codec nicht; die Tonspur wurde verworfen.</value>
+    <value>輸入編碼不支援直接複製，已刪除此軌。</value>
   </data>
   <data name="DtsMp4Warning" xml:space="preserve">
-    <value>Nur wenige Wiedergabegeräte unterstützen die Wiedergabe von DTS-Audio in einem MP4-Container. MKV wird als Containerformat für DTS-Tonspuren empfohlen.</value>
+    <value>僅少部分播放器支援 MP4 中內嵌的 DTS 音訊，使用 DTS 音訊時建議採用 MKV。</value>
   </data>
   <data name="AudioEncoder_ffflac24" xml:space="preserve">
-    <value>FLAC 24bit (Libav)</value>
+    <value>FLAC 24-bit (Libav)</value>
   </data>
 	<data name="Advanced_PsychovisualLabel" xml:space="preserve">
-    <value>Psychovisuell</value>
+    <value>心理視覺</value>
   </data>
 </root>

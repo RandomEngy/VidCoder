@@ -118,37 +118,37 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="PlaySourceButton" xml:space="preserve">
-    <value>Spiele Quelle</value>
+    <value>Quelle abspielen</value>
   </data>
   <data name="EncodePreviewClipButton" xml:space="preserve">
-    <value>Encode Vorschau Clip</value>
+    <value>Vorschauvideo encodieren</value>
   </data>
   <data name="EncodePreviewClipToolTip" xml:space="preserve">
-    <value>Encodiert und spielt einen kleinen Vorschau Clip von der Gewählten Stelle. Benutzt aktuelle Encode Einstellungen.</value>
+    <value>Ein kleiner Vorschau Clip von der ausgewählten Stelle wird unter der Verwendung der aktuellen Encodierungs-Einstellungen encodiert und abgespielt.</value>
   </data>
   <data name="GeneratingPreview" xml:space="preserve">
     <value>Erstelle Vorschau...</value>
   </data>
   <data name="PlaySourceDisabledBluRayToolTip" xml:space="preserve">
-    <value>Quell Anzeige für BluRay ist noch nicht unterstützt.</value>
+    <value>Die Vorschau einer Blu-ray als Quelle wird noch nicht unterstützt.</value>
   </data>
   <data name="PlaySourceDisabledNoPlayerToolTip" xml:space="preserve">
-    <value>Unterstützte DVD-Player konnte nicht gefunden werden. Installieren Sie, VLC oder MPC-HC, um dieses Feature zu verwenden.</value>
+    <value>Es konnte kein unterstützter DVD-Player gefunden werden. Installieren Sie VLC oder MPC-HC, um dieses Feature zu verwenden.</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
-    <value>Spielt das Quellvideo.</value>
+    <value>Gibt das Quellevideo wieder.</value>
   </data>
   <data name="PreviewClipGenerationFailedMessage" xml:space="preserve">
-    <value>Vorschau-Clip-Erstellung ist fehlgeschlagen. Überprüfen  Sie im das Log für Details.</value>
+    <value>Die Erstellung des Vorschauvideos ist fehlgeschlagen. Sehen Sie sich das Protokoll an, um weitere Details zu erfahren.</value>
   </data>
   <data name="PreviewClipGenerationFailedTitle" xml:space="preserve">
-    <value>Clip Vorschauerzeugung fehlgeschlagen</value>
+    <value>Die Erstellung des Vorschauvideos ist fehlgeschlagen</value>
   </data>
   <data name="PreviewWindowTitleSimple" xml:space="preserve">
-    <value>Vorschau: {0} x {1}</value>
+    <value>Vorschau: {0}x{1}</value>
   </data>
   <data name="PreviewWindowTitleComplex" xml:space="preserve">
-    <value>Vorschau: Anzeige von {0} x {1} - Gespeichert {2} x {3}</value>
+    <value>Vorschau: Anzeige von {0}x{1} - Gespeichert {2}x{3}</value>
   </data>
   <data name="NoVideoSourceTitle" xml:space="preserve">
     <value>Vorschau: Keine Video-Quelle</value>
@@ -172,7 +172,7 @@
     <value>Oberer Rand</value>
   </data>
   <data name="LeftMargin" xml:space="preserve">
-    <value>Linken Rand</value>
+    <value>Linker Rand</value>
   </data>
   <data name="RightMargin" xml:space="preserve">
     <value>Rechter Rand</value>

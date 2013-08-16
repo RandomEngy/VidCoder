@@ -120,7 +120,9 @@
   <data name="Anamorphic_Custom" xml:space="preserve">
     <value>Personalizado</value>
   </data>
-  
+  <data name="Anamorphic_Loose" xml:space="preserve">
+    <value>Loose</value>
+  </data>
   <data name="Anamorphic_None" xml:space="preserve">
     <value>Nenhum</value>
   </data>

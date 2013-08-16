@@ -125,19 +125,19 @@ Dieses Programm wird verteilt, in der Hoffnung, dass es nützlich ist, aber OHNE
 Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>Untertitel fest in das Video encoden. Feste Untertitel können nicht abgeschaltet werden.</value>
+    <value>Untertitel fest in das Video enkodieren. Feste Untertitel können nicht abgeschaltet werden.</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Untertitel als Standard markieren. Dieser wird angezeigt bis ein anderer gewählt wird.</value>
+    <value>Untertitel als Wiedergabestandard festlegen, damit er angezeigt wird bis ein anderer Untertitel ausgewählt wird.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Nur erzwungene Untertitel aus der Datei anzeigen. In der Regel enthalten diese teilweise Fremdsprachen.</value>
+    <value>Nur erzwungene Untertitel aus der Spur anzeigen. Diese enthalten in der Regel nur die Stellen, in denen die Charaktere in einer fremden Sprache reden.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>Zeitspanne, um die der gewählten Untertitel vorgezogen oder verzögert angezeigt wird.</value>
   </data>
   <data name="QueueColumnNameRange" xml:space="preserve">
-    <value>Bereich</value>
+    <value>Zeitbereich</value>
     <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
   </data>
   <data name="QueueColumnNameDestination" xml:space="preserve">
@@ -168,7 +168,7 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
     <value>Dauer</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Sucht nach Untertitel Spur, welche ausländische Dialoge enthält. Gut für Filme in Ihrer Muttersprache.</value>
+    <value>Sucht nach Untertitel Spuren, welche ausländische Dialoge enthalten könnten. Gut für Filme in Ihrer Muttersprache.</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Standard</value>
@@ -238,6 +238,6 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
     <value>{0} Dateien</value>
   </data>
   <data name="QueueColumnNamePreset" xml:space="preserve">
-    <value>Vorgabe</value>
+    <value>Voreinstellung</value>
   </data>
 </root>

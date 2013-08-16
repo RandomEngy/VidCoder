@@ -117,40 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="OverrideTitleNumberToolTip" xml:space="preserve">
-    <value>Durch das Auswählen dieser Option wird der normale Titel überschrieben, um den Namen der endgültigen Datei zu erstellen. Zum Beispiel für die Titel 2,3 und 4 und eine Ersetzung von 7, werden sie als 7, 8 und 9 betitelt. Unter anderem nützlich für das Rippen einer CD mit einer TV-Serie.</value>
+  <data name="ClearButton" xml:space="preserve">
+    <value>清除</value>
   </data>
-  <data name="QueueTitlesWindowHeader" xml:space="preserve">
-    <value>Mehrere Titel auswählen und zur Warteschlange hinzufügen.</value>
-  </data>
-  <data name="PlaySourceToolTip" xml:space="preserve">
-    <value>Wenn ein unterstützter Player installiert ist (VLC oder Media Player Classic Home Cinema), können Sie einzelne Titel von DVDs im voraus ansehen</value>
-  </data>
-  <data name="PlaySourceButton" xml:space="preserve">
-    <value>Quelle abspielen</value>
-  </data>
-  <data name="LengthRangePre" xml:space="preserve">
-    <value>Alle Titel von</value>
-    <comment>Goes before the first number box in the length range specification.</comment>
-  </data>
-  <data name="LengthRangeMid" xml:space="preserve">
-    <value>zu</value>
-    <comment>Goes in between the two number boxes in the length range specification.</comment>
-  </data>
-  <data name="LengthRangePost" xml:space="preserve">
-    <value>Minuten</value>
-    <comment>Goes after the second number box in the length range specification.</comment>
-  </data>
-  <data name="OverrideTitleCheckBox">
-    <value xml:space="preserve">Überschreibe Titel #: beginnen bei</value>
-  </data>
-  <data name="OverrideNameFormatCheckBox">
-    <value xml:space="preserve">Namensformat überschreiben:</value>
-  </data>
-  <data name="QueueTitlesDialogTitle">
-    <value xml:space="preserve">Mehrere Titel in Warteschlange einreihen</value>
-  </data>
-  <data name="TitleFormat">
-    <value xml:space="preserve">Titel {0}</value>
+  <data name="LogWindowTitle" xml:space="preserve">
+    <value>記錄</value>
   </data>
 </root>

@@ -117,40 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="OverrideTitleNumberToolTip" xml:space="preserve">
-    <value>Durch das Auswählen dieser Option wird der normale Titel überschrieben, um den Namen der endgültigen Datei zu erstellen. Zum Beispiel für die Titel 2,3 und 4 und eine Ersetzung von 7, werden sie als 7, 8 und 9 betitelt. Unter anderem nützlich für das Rippen einer CD mit einer TV-Serie.</value>
+  <data name="SubtitlesWindowTitle" xml:space="preserve">
+    <value>字幕</value>
   </data>
-  <data name="QueueTitlesWindowHeader" xml:space="preserve">
-    <value>Mehrere Titel auswählen und zur Warteschlange hinzufügen.</value>
+  <data name="RemoveSubtitleTrack" xml:space="preserve">
+    <value>移除此軌</value>
   </data>
-  <data name="PlaySourceToolTip" xml:space="preserve">
-    <value>Wenn ein unterstützter Player installiert ist (VLC oder Media Player Classic Home Cinema), können Sie einzelne Titel von DVDs im voraus ansehen</value>
+  <data name="SubtitlesFromSourceLabel" xml:space="preserve">
+    <value>來源字幕軌:</value>
   </data>
-  <data name="PlaySourceButton" xml:space="preserve">
-    <value>Quelle abspielen</value>
+  <data name="QuickTimeSubtitlesWarning" xml:space="preserve">
+    <value>除非使用 .m4v 副檔名，否則文字字幕可能無法於 Quicktime 正常顯示。</value>
   </data>
-  <data name="LengthRangePre" xml:space="preserve">
-    <value>Alle Titel von</value>
-    <comment>Goes before the first number box in the length range specification.</comment>
+  <data name="NameColumn" xml:space="preserve">
+    <value>名稱</value>
   </data>
-  <data name="LengthRangeMid" xml:space="preserve">
-    <value>zu</value>
-    <comment>Goes in between the two number boxes in the length range specification.</comment>
+  <data name="DefaultColumn" xml:space="preserve">
+    <value>預設</value>
   </data>
-  <data name="LengthRangePost" xml:space="preserve">
-    <value>Minuten</value>
-    <comment>Goes after the second number box in the length range specification.</comment>
+  <data name="ForcedOnlyColumn" xml:space="preserve">
+    <value>僅強制</value>
   </data>
-  <data name="OverrideTitleCheckBox">
-    <value xml:space="preserve">Überschreibe Titel #: beginnen bei</value>
+  <data name="BurnedInColumn" xml:space="preserve">
+    <value>內嵌</value>
   </data>
-  <data name="OverrideNameFormatCheckBox">
-    <value xml:space="preserve">Namensformat überschreiben:</value>
+  <data name="ExternalSubtitlesLabel" xml:space="preserve">
+    <value>外部字幕:</value>
   </data>
-  <data name="QueueTitlesDialogTitle">
-    <value xml:space="preserve">Mehrere Titel in Warteschlange einreihen</value>
+  <data name="FileColumn" xml:space="preserve">
+    <value>檔案</value>
   </data>
-  <data name="TitleFormat">
-    <value xml:space="preserve">Titel {0}</value>
+  <data name="LanguageColumn" xml:space="preserve">
+    <value>語言</value>
+  </data>
+  <data name="CharCodeColumn" xml:space="preserve">
+    <value>字元編碼</value>
+  </data>
+  <data name="OffsetColumn" xml:space="preserve">
+    <value>偏移量 (毫秒)</value>
+  </data>
+  <data name="ImportSrtButton" xml:space="preserve">
+    <value>匯入 .srt 檔...</value>
+  </data>
+  <data name="BurnedOverlapWarning" xml:space="preserve">
+    <value>其他字幕軌將與內嵌字幕重疊。</value>
+  </data>
+  <data name="ForeignAudioSearch" xml:space="preserve">
+    <value>外語音訊搜尋</value>
+  </data>
+  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
+    <value>來源視訊中無字幕。</value>
+  </data>
+  <data name="SrtFilePickerText" xml:space="preserve">
+    <value>新增字幕檔</value>
+  </data>
+	<data name="DuplicateSubtitleTrack" xml:space="preserve">
+    <value>複製此軌</value>
   </data>
 </root>

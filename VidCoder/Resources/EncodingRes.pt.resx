@@ -367,16 +367,24 @@
   <data name="FpsFormat" xml:space="preserve">
     <value>{0:0. # # #} FPS</value>
   </data>
-  
+  <data name="CfrSameAsSourceToolTip" xml:space="preserve">
+    <value>Usa a mesma taxa de frames da fonte para uma taxa de frames constante.</value>
+  </data>
   <data name="CfrToolTip" xml:space="preserve">
     <value>Utilizar uma taxa de frames constante.</value>
   </data>
-  
-  
+  <data name="VfrSameAsSourceToolTip" xml:space="preserve">
+    <value>Permitir uma taxa de frames variável. Se a fonte tiver uma taxa de frame variável, esta configuração irá preservá-la. Note que em alguns leitores não são suportadas taxas de frames variáveis.</value>
+  </data>
+  <data name="VfrPeakFramerateToolTip" xml:space="preserve">
+    <value>Permitir uma taxa de frames variável e usar a taxa especificada como um pico. Se a fonte tem uma taxa de frames variável, esta configuração irá preservá-la. Note que alguns leitores não suportam taxas de frames variáveis.</value>
+  </data>
   <data name="VfrChoice" xml:space="preserve">
     <value>Framerate variável</value>
   </data>
-  
+  <data name="VfrPeakChoice" xml:space="preserve">
+    <value>Pico da taxa de Frames (VFR)</value>
+  </data>
   <data name="HighQuality" xml:space="preserve">
     <value>Alta qualidade</value>
   </data>
@@ -392,10 +400,18 @@
   <data name="NoTracksPlaceholder" xml:space="preserve">
     <value>(Sem pistas)</value>
   </data>
-  
-  
-  
-  
+  <data name="TargetStream" xml:space="preserve">
+    <value>Pista Alvo</value>
+  </data>
+  <data name="MixdownLabel" xml:space="preserve">
+    <value>Mistura:</value>
+  </data>
+  <data name="SampleRateLabel" xml:space="preserve">
+    <value>Taxa de amostragem:</value>
+  </data>
+  <data name="BitrateLabel" xml:space="preserve">
+    <value>Taxa de Bits (Bitrate):</value>
+  </data>
   <data name="CompressionLabel" xml:space="preserve">
     <value>Compressão:</value>
   </data>
@@ -414,32 +430,67 @@
   <data name="DescendingQualityToolTip" xml:space="preserve">
     <value>Valores baixos significam qualidade alta.</value>
   </data>
-  
+  <data name="AudioQualityToolTip" xml:space="preserve">
+    <value>A qualidade do áudio no destino.  {0} Os valores válidos vão de {1} a {2}.</value>
+  </data>
   <data name="AscendingCompressionToolTip" xml:space="preserve">
     <value>Valores altos significam compressão alta: melhor qualidade/menor tamanho mas mais tempos para codificar.</value>
   </data>
-  
+  <data name="DescendingCompressionToolTip" xml:space="preserve">
+    <value>Valores baixos significam compressão alta: melhor qualidade/menor tamanho mas mais demorado a codificar.</value>
+  </data>
   <data name="AudioCompressionToolTip" xml:space="preserve">
     <value>A quantidade de compressão para aplicar. Os valores válidos de {0} são de {1} para {2}.</value>
   </data>
   <data name="AudioEncoder_copy" xml:space="preserve">
     <value>Passagem automática</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="AudioEncoder_copy_aac" xml:space="preserve">
+    <value>AAC Passthrough</value>
+  </data>
+  <data name="AudioEncoder_copy_ac3" xml:space="preserve">
+    <value>AC3 Passthrough</value>
+  </data>
+  <data name="AudioEncoder_copy_dts" xml:space="preserve">
+    <value>DTS Passthrough</value>
+  </data>
+  <data name="AudioEncoder_copy_dtshd" xml:space="preserve">
+    <value>DTS-HD Passthrough</value>
+  </data>
+  <data name="AudioEncoder_copy_mp3" xml:space="preserve">
+    <value>Mp3 Passthrough</value>
+  </data>
+  <data name="AudioEncoder_faac" xml:space="preserve">
+    <value>AAC (FAAC)</value>
+    <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
+  </data>
+  <data name="AudioEncoder_ffaac" xml:space="preserve">
+    <value>AAC (Libav)</value>
+  </data>
+  <data name="AudioEncoder_ffac3" xml:space="preserve">
+    <value>AC3 (Libav)</value>
+  </data>
+  <data name="AudioEncoder_ffflac" xml:space="preserve">
+    <value>FLAC (Libav)</value>
+  </data>
+  <data name="AudioEncoder_lame" xml:space="preserve">
+    <value>MP3 (LAME)</value>
+  </data>
+  <data name="AudioEncoder_vorbis" xml:space="preserve">
+    <value>Vorbis (Vorbis)</value>
+  </data>
+  <data name="Mixdown_5point1" xml:space="preserve">
+    <value>5.1 (Canais)</value>
+  </data>
+  <data name="Mixdown_5_2_lfe" xml:space="preserve">
+    <value>7.1 (5F/2R/LFE)</value>
+  </data>
+  <data name="Mixdown_dpl1" xml:space="preserve">
+    <value>Dolby Surround</value>
+  </data>
+  <data name="Mixdown_dpl2" xml:space="preserve">
+    <value>Dolby Pro Logic II</value>
+  </data>
   <data name="Mixdown_left_only" xml:space="preserve">
     <value>Mono (esquerda somente)</value>
   </data>
@@ -452,7 +503,9 @@
   <data name="Mixdown_stereo" xml:space="preserve">
     <value>Estéreo</value>
   </data>
-  
+  <data name="Bitrate" xml:space="preserve">
+    <value>Taxa de Bits (Bitrate)</value>
+  </data>
   <data name="Encoding" xml:space="preserve">
     <value>Codificação</value>
   </data>
@@ -466,21 +519,51 @@
     <value>CABAC:</value>
   </data>
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="WeightedPFramesLabel" xml:space="preserve">
+    <value>P-Frames ponderados:</value>
+  </data>
+  <data name="PyramidalBFramesLabel" xml:space="preserve">
+    <value>B-Frames piramidais:</value>
+  </data>
+  <data name="NoDctDecimateLabel" xml:space="preserve">
+    <value>Sem DCT-Decimate:</value>
+  </data>
+  <data name="Analysis" xml:space="preserve">
+    <value>Análise</value>
+  </data>
+  <data name="AdaptiveBFramesLabel" xml:space="preserve">
+    <value>B-Frames adaptáveis:</value>
+  </data>
+  <data name="AdaptiveDirectModeLabel" xml:space="preserve">
+    <value>Modo directo adaptável:</value>
+  </data>
+  <data name="MotionEstimationMethodLabel" xml:space="preserve">
+    <value>Método de estimativa do movimento:</value>
+  </data>
+  <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
+    <value>Estimativa do movimento do subpixel:</value>
+  </data>
+  <data name="MotionEstimationRangeLabel" xml:space="preserve">
+    <value>Estimativa da escala de movimento:</value>
+  </data>
+  <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
+    <value>Força de quantização adaptativa:</value>
+  </data>
+  <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
+    <value>Taxa de distorção Psychovisual:</value>
+  </data>
+  <data name="PsychovisualTrellisLabel" xml:space="preserve">
+    <value>Psychovisual Trellis:</value>
+  </data>
+  <data name="DeblockingLabel" xml:space="preserve">
+    <value>Desbloqueio:</value>
+  </data>
+  <data name="PartitionTypeLabel" xml:space="preserve">
+    <value>Tipo de partição:</value>
+  </data>
+  <data name="TrellisLabel" xml:space="preserve">
+    <value>Trellis:</value>
+  </data>
   <data name="OptionsString" xml:space="preserve">
     <value>Sequência de opções</value>
   </data>
@@ -490,7 +573,9 @@
   <data name="PyramidalBFrames_Normal" xml:space="preserve">
     <value>Normal</value>
   </data>
-  
+  <data name="PyramidalBFrames_Strict" xml:space="preserve">
+    <value>Severo</value>
+  </data>
   <data name="AdaptiveBFrames_Off" xml:space="preserve">
     <value>Desligado</value>
   </data>
@@ -503,7 +588,9 @@
   <data name="DirectPrediction_None" xml:space="preserve">
     <value>Nenhum</value>
   </data>
-  
+  <data name="DirectPrediction_Spatial" xml:space="preserve">
+    <value>Spatial</value>
+  </data>
   <data name="DirectPrediction_Temporal" xml:space="preserve">
     <value>Temporal</value>
   </data>
@@ -522,19 +609,45 @@
   <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
     <value>Exaustivo</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
+    <value>Transformação exaustiva (TESA)</value>
+  </data>
+  <data name="SubpixelMotionEstimation_0" xml:space="preserve">
+    <value>0: SAD, nenhum subpel (super rápido!)</value>
+  </data>
+  <data name="SubpixelMotionEstimation_1" xml:space="preserve">
+    <value>1: SAD, qpel</value>
+  </data>
+  <data name="SubpixelMotionEstimation_2" xml:space="preserve">
+    <value>2: SATD, qpel</value>
+  </data>
+  <data name="SubpixelMotionEstimation_3" xml:space="preserve">
+    <value>3: SATD, multi-qpel</value>
+  </data>
+  <data name="SubpixelMotionEstimation_4" xml:space="preserve">
+    <value>4: SATD, qpel em todos</value>
+  </data>
+  <data name="SubpixelMotionEstimation_5" xml:space="preserve">
+    <value>5: SATD, multi-qpel em todos</value>
+  </data>
+  <data name="SubpixelMotionEstimation_6" xml:space="preserve">
+    <value>6: RD em frames I/P</value>
+  </data>
+  <data name="SubpixelMotionEstimation_7" xml:space="preserve">
+    <value>7: RD em todos os frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_8" xml:space="preserve">
+    <value>8: Refinar RD em frames I/P</value>
+  </data>
+  <data name="SubpixelMotionEstimation_9" xml:space="preserve">
+    <value>9: Refinar RD em todos os frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_10" xml:space="preserve">
+    <value>10: QPRD em todos os frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_11" xml:space="preserve">
+    <value>11: Não terminar precocemente a análise</value>
+  </data>
   <data name="Analysis_None" xml:space="preserve">
     <value>Nenhum</value>
   </data>
@@ -565,13 +678,21 @@
   <data name="H264LevelToolTip" xml:space="preserve">
     <value>Define e garante a conformidade com o nível H.264 especificado.  Substitui todas as outras configurações.</value>
   </data>
-  
+  <data name="Profile_High444" xml:space="preserve">
+    <value>Alto 4:4:4 Preditivo</value>
+  </data>
   <data name="VideoCodecLabel" xml:space="preserve">
     <value>Codec de vídeo:</value>
   </data>
-  
-  
-  
+  <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
+    <value>MPEG-2 (Libav)</value>
+  </data>
+  <data name="VideoEncoder_ffmpeg4" xml:space="preserve">
+    <value>MPEG-2 (Libav)</value>
+  </data>
+  <data name="VideoEncoder_x264" xml:space="preserve">
+    <value>H. 264 (264)</value>
+  </data>
   <data name="Analysis_Most" xml:space="preserve">
     <value>Maioria</value>
   </data>
@@ -623,6 +744,10 @@
   <data name="DtsMp4Warning" xml:space="preserve">
     <value>Alguns leitores suportam reprodução de áudio DTS em contentores MP4. É recomendado o formato MKV para áudio DTS.</value>
   </data>
-  
-	
+  <data name="AudioEncoder_ffflac24" xml:space="preserve">
+    <value>FLAC 24 bits (Libav)</value>
+  </data>
+	<data name="Advanced_PsychovisualLabel" xml:space="preserve">
+    <value>Psychovisual</value>
+  </data>
 </root>

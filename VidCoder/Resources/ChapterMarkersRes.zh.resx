@@ -98,105 +98,28 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-  <data name="AddButton">
-    <value xml:space="preserve">Hinzufügen</value>
+  <data name="ChapterMarkersDialogTitle">
+    <value xml:space="preserve">章節編輯器</value>
   </data>
-  <data name="RefreshButton">
-    <value xml:space="preserve">Aktualisieren</value>
+  <data name="DefaultChapterNamesRadioButton">
+    <value xml:space="preserve">使用預設章節名稱</value>
   </data>
-  <data name="ChooseFromProcessesLabel">
-    <value xml:space="preserve">Wählen Sie einen vorhandenen Prozess:</value>
+  <data name="CustomChapterNamesRadioButton">
+    <value xml:space="preserve">使用自訂章節名稱:</value>
   </data>
-  <data name="AddAutoPauseProcessDialogTitle">
-    <value xml:space="preserve">Auto-Pause-Prozess hinzufügen</value>
+  <data name="ImportFromCsvButton">
+    <value xml:space="preserve">自 .csv 檔匯入...</value>
   </data>
-  <data name="ProcessNameLabel">
-    <value xml:space="preserve">Prozessname:</value>
+  <data name="NumberColumn">
+    <value xml:space="preserve">編號</value>
   </data>
-  <data name="ExceptionDialogMainText">
-    <value xml:space="preserve">VidCoder: Es ist ein unerwarteter Fehler aufgetreten.</value>
+  <data name="StartTimeColumn">
+    <value xml:space="preserve">開始時間</value>
   </data>
-  <data name="ExceptionDialogSubText">
-    <value xml:space="preserve">Bitte melden Sie dies, damit es in Zukunft behoben werden kann.</value>
+  <data name="TitleColumn">
+    <value xml:space="preserve">標題</value>
   </data>
-  <data name="ExceptionWindowTitle">
-    <value xml:space="preserve">Ausnahme</value>
-  </data>
-  <data name="FileConflictDialogTitle">
-    <value xml:space="preserve">Dateikonflikt</value>
-  </data>
-  <data name="OverwriteButton">
-    <value xml:space="preserve">Überschreiben</value>
-  </data>
-  <data name="AutoRenameButton">
-    <value xml:space="preserve">Auto-Umbenennen</value>
-  </data>
-  <data name="FileConflictWarning">
-    <value xml:space="preserve">Unter {0} ist bereits eine Datei mit gleichem Namen vorhanden. Möchten Sie die Datei überschreiben, automatisch einen neuen Ausgabepfad für den Encodierungs-Auftrag finden oder den Vorgang abbrechen?</value>
-  </data>
-  <data name="QueueFileConflictWarning">
-    <value xml:space="preserve">Ein Warteschlangenauftrag nutzt bereits denselben Ausgabepfad {0}. Möchten Sie die Datei überschreiben, automatisch einen neuen Ausgabepfad für den Encodierungs-Auftrag finden oder den Vorgang abbrechen?</value>
-  </data>
-  <data name="QueueColumnsDialogTitle">
-    <value xml:space="preserve">Warteschlange: Spalten</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText">
-    <value xml:space="preserve">Spalten per Drag &amp; Drop hinzufügen, entfernen oder neu anordnen.</value>
-  </data>
-  <data name="UnusedColumns">
-    <value xml:space="preserve">Ungenutzte Spalten</value>
-  </data>
-  <data name="UsedColumns">
-    <value xml:space="preserve">Verwendete Spalten</value>
-  </data>
-  <data name="ScanMultipleWindowTitle">
-    <value xml:space="preserve">Scannt Dateien...</value>
-  </data>
-  <data name="UpdateSuccessDialogTitle">
-    <value xml:space="preserve">Erfolgreich</value>
-  </data>
-  <data name="UpdateSuccessDialogMessage">
-    <value xml:space="preserve">VidCoder wurde erfolgreich aktualisiert.</value>
-  </data>
-  <data name="AboutVidCoderDialogTitle">
-    <value xml:space="preserve">Über VidCoder</value>
-  </data>
-  <data name="LicenseLabel">
-    <value xml:space="preserve">Lizenz:</value>
-  </data>
-  <data name="Version">
-    <value xml:space="preserve">Version</value>
-  </data>
-  <data name="BasedOnHandBrake">
-    <value xml:space="preserve">Basiert auf HandBrake (svn {0})</value>
-  </data>
-  <data name="Copyright">
-    <value xml:space="preserve">© {0} VidCoder Entwickler</value>
-  </data>
-  <data name="VersionFormat">
-    <value xml:space="preserve">{0} ({1})</value>
-    <comment>First is version, second is architecture. For example: 1.4.2 (x64)</comment>
-  </data>
-  <data name="BetaVersionFormat">
-    <value xml:space="preserve">{0} Beta ({1})</value>
-    <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
-  </data>
-  <data name="PresetNameDialogTitle">
-    <value xml:space="preserve">Name der Voreinstellung</value>
-  </data>
-  <data name="ChoosePresetName">
-    <value xml:space="preserve">Wählen Sie einen Namen für die Voreinstellung:</value>
-  </data>
-  <data name="ApplyUpdateDialogTitle">
-    <value xml:space="preserve">Update ausführen?</value>
-  </data>
-  <data name="ApplyUpdateDialogMessage">
-    <value xml:space="preserve">Ein Update wurde heruntergeladen. Möchten Sie es jetzt installieren?</value>
-  </data>
-  <data name="ViewFullChangelog">
-    <value xml:space="preserve">Vollständiges Änderungsprotokoll ansehen</value>
-  </data>
-  <data name="DisableUpdatesButton">
-    <value xml:space="preserve">Updates deaktivieren</value>
+  <data name="CouldNotReadFileMessage">
+    <value xml:space="preserve">無法讀取檔案。</value>
   </data>
 </root>

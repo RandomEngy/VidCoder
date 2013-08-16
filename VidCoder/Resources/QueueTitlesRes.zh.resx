@@ -118,39 +118,39 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="OverrideTitleNumberToolTip" xml:space="preserve">
-    <value>Durch das Auswählen dieser Option wird der normale Titel überschrieben, um den Namen der endgültigen Datei zu erstellen. Zum Beispiel für die Titel 2,3 und 4 und eine Ersetzung von 7, werden sie als 7, 8 und 9 betitelt. Unter anderem nützlich für das Rippen einer CD mit einer TV-Serie.</value>
+    <value>選擇此選項時，將覆寫輸出檔名的編號順序。比方說原本的標題為 2、3、4，當以 7 覆寫時輸出檔將命名為 7、8、9，此功能在轉錄電視影集時很有幫助。</value>
   </data>
   <data name="QueueTitlesWindowHeader" xml:space="preserve">
-    <value>Mehrere Titel auswählen und zur Warteschlange hinzufügen.</value>
+    <value>選擇多個章節標題以新增至工作佇列。</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
-    <value>Wenn ein unterstützter Player installiert ist (VLC oder Media Player Classic Home Cinema), können Sie einzelne Titel von DVDs im voraus ansehen</value>
+    <value>若已安裝支援的播放器 (VLC 或 Media Player Classic Home Cinema)，可提供預覽 DVD 各章節標題的功能</value>
   </data>
   <data name="PlaySourceButton" xml:space="preserve">
-    <value>Quelle abspielen</value>
+    <value>播放來源影片</value>
   </data>
   <data name="LengthRangePre" xml:space="preserve">
-    <value>Alle Titel von</value>
+    <value>所有章節標題</value>
     <comment>Goes before the first number box in the length range specification.</comment>
   </data>
   <data name="LengthRangeMid" xml:space="preserve">
-    <value>zu</value>
+    <value>至</value>
     <comment>Goes in between the two number boxes in the length range specification.</comment>
   </data>
   <data name="LengthRangePost" xml:space="preserve">
-    <value>Minuten</value>
+    <value>分鐘</value>
     <comment>Goes after the second number box in the length range specification.</comment>
   </data>
   <data name="OverrideTitleCheckBox">
-    <value xml:space="preserve">Überschreibe Titel #: beginnen bei</value>
+    <value xml:space="preserve">覆寫標題 #: 起始於</value>
   </data>
   <data name="OverrideNameFormatCheckBox">
-    <value xml:space="preserve">Namensformat überschreiben:</value>
+    <value xml:space="preserve">覆寫命名格式:</value>
   </data>
   <data name="QueueTitlesDialogTitle">
-    <value xml:space="preserve">Mehrere Titel in Warteschlange einreihen</value>
+    <value xml:space="preserve">新增多個章節標題至工作佇列</value>
   </data>
   <data name="TitleFormat">
-    <value xml:space="preserve">Titel {0}</value>
+    <value xml:space="preserve">標題 {0}</value>
   </data>
 </root>
