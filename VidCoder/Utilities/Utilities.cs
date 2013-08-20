@@ -596,11 +596,22 @@ namespace VidCoder
 			return null;
 		}
 
-		public static string GetSourceName(string sourcePath)
+		public static SourceType GetSourceType(string sourcePath)
 		{
 			FileAttributes attributes = File.GetAttributes(sourcePath);
-
 			if ((attributes & FileAttributes.Directory) == FileAttributes.Directory)
+			{
+				return SourceType.VideoFolder;
+			}
+			else
+			{
+				return SourceType.File;
+			}
+		}
+
+		public static string GetSourceName(string sourcePath)
+		{
+			if (GetSourceType(sourcePath) == SourceType.VideoFolder)
 			{
 				return GetSourceNameFolder(sourcePath);
 			}

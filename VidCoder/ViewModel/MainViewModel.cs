@@ -2655,7 +2655,7 @@ namespace VidCoder.ViewModel
 			}
 			else
 			{
-				if (this.selectedTitle.Chapters.Count == this.CustomChapterNames.Count)
+				if (this.CustomChapterNames != null && this.selectedTitle.Chapters.Count == this.CustomChapterNames.Count)
 				{
 					this.CustomChapterNames = job.CustomChapterNames;
 				}

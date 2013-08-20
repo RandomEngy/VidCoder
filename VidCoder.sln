@@ -70,6 +70,7 @@ Global
 		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Release-Beta|x64.ActiveCfg = Release-Beta|Any CPU
 		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Release-Beta|x64.Build.0 = Release-Beta|Any CPU
 		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Release-Beta|x86.ActiveCfg = Release-Beta|Any CPU
+		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Release-Beta|x86.Build.0 = Release-Beta|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

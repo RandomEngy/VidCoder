@@ -150,6 +150,8 @@ CopyBoth "VidCoderWorker.exe.config"
 CopyBoth "VidCoderWorker.pdb"
 CopyBoth "VidCoder.XmlSerializers.dll"
 CopyBoth "Omu.ValueInjecter.dll"
+CopyBoth "VidCoderCLI.exe"
+CopyBoth "VidCoderCLI.pdb"
 
 # Architecture-specific files from Lib folder
 CopyLibBoth "hb.dll"
@@ -199,15 +201,6 @@ ExitIfFailed
 
 & $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension64 .\Installer\Files\x64\** | Out-Null
 ExitIfFailed
-
-#$archiveFolder = ".\Installer\Archive\"
-#ClearFolder $archiveFolder
-#$archive86 = $archiveFolder + "VidCoder-x86.7z"
-#$archive64 = $archiveFolder + "VidCoder-x64.7z"
-#.\Lib\7z\7za.exe a $archive86 .\Installer\Files\x86\**; ExitIfFailed
-#.\Lib\7z\7za.exe a $archive64 .\Installer\Files\x64\**; ExitIfFailed
-#cmd /c copy /b .\Lib\7z\7zS.sfx + .\Installer\PortableInstallConfig.txt + $archive86 .\Installer\BuiltInstallers\VidCoder-$versionShort$betaNameSection-x86-Portable.exe; ExitIfFailed
-#cmd /c copy /b .\Lib\7z\7zS.sfx + .\Installer\PortableInstallConfig.txt + $archive64 .\Installer\BuiltInstallers\VidCoder-$versionShort$betaNameSection-x64-Portable.exe; ExitIfFailed
 
 # Update latest.xml files with version
 if ($beta)

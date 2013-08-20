@@ -873,12 +873,16 @@ namespace VidCoder.ViewModel.Components
 			var jobVM = new EncodeJobViewModel(new VCJob
 				{
 					SourcePath = source,
+					SourceType = Utilities.GetSourceType(source),
 					Title = 1,
 					RangeType = VideoRangeType.All,
 					EncodingProfile = profile,
 					ChosenAudioTracks = new List<int> { 1 },
 					OutputPath = destination
 				});
+
+			jobVM.PresetName = presetName;
+			jobVM.ManualOutputPath = !string.IsNullOrWhiteSpace(destination);
 
 			var scanMultipleDialog = new ScanMultipleDialogViewModel(new List<EncodeJobViewModel>{ jobVM });
 			WindowManager.OpenDialog(scanMultipleDialog, this.main);

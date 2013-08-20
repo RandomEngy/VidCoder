@@ -825,6 +825,7 @@
     <EmbeddedResource Include="Resources\MiscRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MiscRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\MiscRes.zh.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.de.resx" />

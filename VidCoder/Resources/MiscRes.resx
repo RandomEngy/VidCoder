@@ -169,7 +169,7 @@
     <value>Used columns</value>
   </data>
   <data name="ScanMultipleWindowTitle" xml:space="preserve">
-    <value>Scanning files...</value>
+    <value>Scanning...</value>
   </data>
   <data name="UpdateSuccessDialogTitle" xml:space="preserve">
     <value>Success</value>
