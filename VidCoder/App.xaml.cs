@@ -20,6 +20,7 @@ namespace VidCoder
 {
 	using System.Globalization;
 	using System.Threading;
+	using Automation;
 	using Resources;
 
 	/// <summary>
@@ -143,6 +144,11 @@ namespace VidCoder
 				var mainVM = new MainViewModel();
 				WindowManager.OpenWindow(mainVM);
 				mainVM.OnLoaded();
+
+				if (!Utilities.IsPortable)
+				{
+					AutomationHost.StartListening();
+				}
 			}
 		}
 

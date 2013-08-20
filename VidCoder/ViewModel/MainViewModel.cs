@@ -24,6 +24,7 @@ using VidCoder.ViewModel.Components;
 namespace VidCoder.ViewModel
 {
 	using System.Data.SQLite;
+	using Automation;
 	using Resources;
 
 	public class MainViewModel : ViewModelBase
@@ -377,6 +378,11 @@ namespace VidCoder.ViewModel
 
 			FileCleanup.CleanOldLogs();
 			FileCleanup.CleanPreviewFileCache();
+
+			if (!Utilities.IsPortable)
+			{
+				AutomationHost.StopListening();
+			}
 
 			this.updater.PromptToApplyUpdate();
 

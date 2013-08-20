@@ -367,6 +367,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Automation\AutomationHost.cs" />
+    <Compile Include="Automation\VidCoderAutomation.cs" />
     <Compile Include="Controls\RangeBar.xaml.cs">
       <DependentUpon>RangeBar.xaml</DependentUpon>
     </Compile>
@@ -968,6 +970,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VidCoderCLI\VidCoderCLI.csproj">
+      <Project>{847f9e68-0ea8-4ab1-a1e6-9c327612a0ab}</Project>
+      <Name>VidCoderCLI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VidCoderWorker\VidCoderWorker.csproj">
       <Project>{63452895-7AA1-45EC-A0D8-3F30CCFA6D0D}</Project>
       <Name>VidCoderWorker</Name>

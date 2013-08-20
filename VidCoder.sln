@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		version.txt = version.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VidCoderCLI", "VidCoderCLI\VidCoderCLI.csproj", "{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -54,6 +56,20 @@ Global
 		{63452895-7AA1-45EC-A0D8-3F30CCFA6D0D}.Release-Beta|x64.Build.0 = Release|x64
 		{63452895-7AA1-45EC-A0D8-3F30CCFA6D0D}.Release-Beta|x86.ActiveCfg = Release|x86
 		{63452895-7AA1-45EC-A0D8-3F30CCFA6D0D}.Release-Beta|x86.Build.0 = Release|x86
+		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Debug|x64.Build.0 = Debug|Any CPU
+		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Debug|x86.Build.0 = Debug|Any CPU
+		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Debug-Beta|x64.ActiveCfg = Debug-Beta|Any CPU
+		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Debug-Beta|x64.Build.0 = Debug-Beta|Any CPU
+		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Debug-Beta|x86.ActiveCfg = Debug-Beta|Any CPU
+		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Debug-Beta|x86.Build.0 = Debug-Beta|Any CPU
+		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Release|x64.ActiveCfg = Release|Any CPU
+		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Release|x64.Build.0 = Release|Any CPU
+		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Release|x86.ActiveCfg = Release|Any CPU
+		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Release-Beta|x64.ActiveCfg = Release-Beta|Any CPU
+		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Release-Beta|x64.Build.0 = Release-Beta|Any CPU
+		{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}.Release-Beta|x86.ActiveCfg = Release-Beta|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

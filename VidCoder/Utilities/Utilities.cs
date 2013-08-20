@@ -596,6 +596,20 @@ namespace VidCoder
 			return null;
 		}
 
+		public static string GetSourceName(string sourcePath)
+		{
+			FileAttributes attributes = File.GetAttributes(sourcePath);
+
+			if ((attributes & FileAttributes.Directory) == FileAttributes.Directory)
+			{
+				return GetSourceNameFolder(sourcePath);
+			}
+			else
+			{
+				return GetSourceNameFile(sourcePath);
+			}
+		}
+
 		public static string GetSourceNameFile(string videoFile)
 		{
 			return Path.GetFileNameWithoutExtension(videoFile);
@@ -607,7 +621,14 @@ namespace VidCoder
 			var videoDirectory = new DirectoryInfo(videoFolder);
 			if (videoDirectory.Name != "VIDEO_TS")
 			{
-				return videoDirectory.Name;
+				if (videoDirectory.Root.FullName == videoDirectory.FullName)
+				{
+					return "VideoFolder";
+				}
+				else
+				{
+					return videoDirectory.Name;
+				}
 			}
 
 			// If the directory is named VIDEO_TS, take the source name from the parent folder (user picked VIDEO_TS folder on DVD)

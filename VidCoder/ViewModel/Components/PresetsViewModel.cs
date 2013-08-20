@@ -15,6 +15,7 @@ using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
 {
+	using System.Globalization;
 	using Resources;
 
 	/// <summary>
@@ -192,6 +193,44 @@ namespace VidCoder.ViewModel.Components
 					}
 				}
 			}
+		}
+
+		public VCProfile GetProfileByName(string presetName)
+		{
+			foreach (var preset in this.allPresets)
+			{
+				if (string.Compare(presetName.Trim(), preset.DisplayName.Trim(), ignoreCase: true, culture: CultureInfo.CurrentUICulture) == 0)
+				{
+					if (preset.IsModified)
+					{
+						return preset.OriginalProfile;
+					}
+					else
+					{
+						return preset.Preset.EncodingProfile;
+					}
+				}
+			}
+
+			return null;
+
+			//PresetViewModel match =
+			//	this.allPresets.SingleOrDefault(p =>
+			//		{
+			//			if (p.IsModified)
+			//			{
+			//				return false;
+			//			}
+
+			//			return string.Compare(presetName.Trim(), p.DisplayName.Trim(), ignoreCase: true, culture: CultureInfo.CurrentUICulture) == 0;
+			//		});
+
+			//if (match == null)
+			//{
+			//	return null;
+			//}
+
+			//return match.Preset;
 		}
 
 		public void SavePreset()
