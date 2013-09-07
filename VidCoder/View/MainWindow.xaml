@@ -1224,7 +1224,7 @@
 					Name="encodeProgressDetailsPopup" IsOpen="False"
 					PlacementTarget="{Binding ElementName=overallEncodeProgressBar}"
 					Placement="Center"
-					VerticalOffset="36"
+					VerticalOffset="-36"
 					AllowsTransparency="True">
 					<ContentControl Template="{StaticResource PopupInfoTemplate}">
 						<Grid Margin="7,2,7,2">
