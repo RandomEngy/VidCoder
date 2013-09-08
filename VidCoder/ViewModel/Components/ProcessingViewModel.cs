@@ -1481,7 +1481,7 @@ namespace VidCoder.ViewModel.Components
 						finishedJob.HandBrakeInstance = null;
 					}
 
-					encodeLogger.Log("Job completed");
+					encodeLogger.Log("Job completed (Elapsed Time: " + Utilities.FormatTimeSpan(finishedJob.EncodeTime) + ")");
 
 					if (this.EncodeQueue.Count == 0)
 					{

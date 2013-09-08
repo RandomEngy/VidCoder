@@ -447,6 +447,9 @@ namespace VidCoder.ViewModel
 			{
 				audioEncoding.OutputFormat = outputFormat;
 			}
+
+			// Refresh the preview as the warnings displayed may change.
+			this.RefreshAudioPreview();
 		}
 	}
 }
