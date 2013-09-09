@@ -395,6 +395,7 @@
     <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="EnumStringConverter.cs" />
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
+    <Compile Include="Messages\ContainerChangedMessage.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
     <Compile Include="Model\UpdateInfo.cs" />
     <Compile Include="Model\UpdateState.cs" />
@@ -652,7 +653,7 @@
     <Compile Include="DragDrop\DraggedAdorner.cs" />
     <Compile Include="DragDrop\IDragItem.cs" />
     <Compile Include="DragDrop\InsertionAdorner.cs" />
-    <Compile Include="DragDrop\Utilities.cs" />
+    <Compile Include="DragDrop\DragDropUtilities.cs" />
     <Compile Include="EnumDisplayer.cs" />
     <Compile Include="EventArgs.cs" />
     <Compile Include="Model\DriveInformation.cs" />

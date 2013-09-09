@@ -16,7 +16,6 @@
 	ShowInTaskbar="False" WindowStyle="ToolWindow" Closed="Window_Closed"
 	TextOptions.TextFormattingMode="Display">
 	<Window.Resources>
-		<local:EnumDisplayer Type="{x:Type Encoding:Container}" x:Key="OutputFormatChoices" />
 	</Window.Resources>
 	<Window.InputBindings>
 		<KeyBinding Key="Q" Modifiers="Control" Command="{Binding ProcessingVM.AddToQueueCommand}" />
@@ -110,10 +109,10 @@
 				HorizontalAlignment="Left" VerticalAlignment="Center"
 				Content="{x:Static res:EncodingRes.ContainerLabel}" />
 			<ComboBox 
-				Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Width="58"
+				Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="136"
 				VerticalContentAlignment="Center"
-				ItemsSource="{Binding OutputFormatChoices}"
-				SelectedValue="{Binding OutputFormat}"
+				ItemsSource="{Binding ContainerChoices}"
+				SelectedValue="{Binding ContainerName}"
 				SelectedValuePath="Value"
 				DisplayMemberPath="Display"/>
 			<Label 
@@ -132,10 +131,9 @@
 
 			<StackPanel Orientation="Vertical" Margin="10,0,0,0">
 				<CheckBox
-					Content="{x:Static res:EncodingRes.LargeFileSizeCheckBox}" ToolTip="{x:Static res:EncodingRes.LargeFileSizeToolTip}"
-					HorizontalAlignment="Left" VerticalAlignment="Top"
-					Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
-					IsChecked="{Binding LargeFile}" />
+					Content="{x:Static res:EncodingRes.IncludeChapterMarkersCheckBox}" ToolTip="{x:Static res:EncodingRes.IncludeChapterMarkersToolTip}"
+					VerticalAlignment="Center"
+					IsChecked="{Binding IncludeChapterMarkers}" />
 				<CheckBox
 					Content="{x:Static res:EncodingRes.WebOptimizedCheckBox}" ToolTip="{x:Static res:EncodingRes.WebOptimizedToolTip}"
 					VerticalAlignment="Top" Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
@@ -149,9 +147,10 @@
 					Visibility="{Binding ShowMp4Choices, Converter={StaticResource VisibilityConverter}}"
 					IsChecked="{Binding IPod5GSupport}" />
 				<CheckBox
-					Content="{x:Static res:EncodingRes.IncludeChapterMarkersCheckBox}" ToolTip="{x:Static res:EncodingRes.IncludeChapterMarkersToolTip}"
-					VerticalAlignment="Center"
-					IsChecked="{Binding IncludeChapterMarkers}" />
+					Content="{x:Static res:EncodingRes.LargeFileSizeCheckBox}" ToolTip="{x:Static res:EncodingRes.LargeFileSizeToolTip}"
+					HorizontalAlignment="Left" VerticalAlignment="Top"
+					Visibility="{Binding ShowOldMp4Choices, Converter={StaticResource VisibilityConverter}}"
+					IsChecked="{Binding LargeFile}" />
 			</StackPanel>
 		</StackPanel>
 

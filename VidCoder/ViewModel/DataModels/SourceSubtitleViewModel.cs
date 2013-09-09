@@ -115,7 +115,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.SubtitleDialogViewModel.OutputFormat == Container.Mp4 && this.IsPgs)
+				if (this.SubtitleDialogViewModel.Container.DefaultExtension == "mp4" && this.IsPgs)
 				{
 					return true;
 				}
@@ -142,7 +142,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.SubtitleDialogViewModel.OutputFormat != Container.Mp4 || !this.IsPgs;
+				return this.SubtitleDialogViewModel.Container.DefaultExtension != "mp4" || !this.IsPgs;
 			}
 		}
 

@@ -430,23 +430,7 @@ namespace VidCoder.ViewModel
 						this.cancelPending = false;
 						this.encodeCancelled = false;
 
-						string extension = null;
-
-						if (this.job.EncodingProfile.OutputFormat == Container.Mkv)
-						{
-							extension = ".mkv";
-						}
-						else
-						{
-							if (this.job.EncodingProfile.PreferredExtension == OutputExtension.M4v)
-							{
-								extension = ".m4v";
-							}
-							else
-							{
-								extension = ".mp4";
-							}
-						}
+						string extension = this.OutputPathVM.GetExtensionForProfile(this.job.EncodingProfile);
 
 						string previewDirectory = Utilities.LocalAppFolder;
 						if (!Directory.Exists(previewDirectory))

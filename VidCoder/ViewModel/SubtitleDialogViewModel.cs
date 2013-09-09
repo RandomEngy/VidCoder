@@ -23,7 +23,7 @@ namespace VidCoder.ViewModel
 		private ObservableCollection<SourceSubtitleViewModel> sourceSubtitles;
 		private ObservableCollection<SrtSubtitleViewModel> srtSubtitles;
 
-		private Container outputFormat;
+		private HBContainer container;
 		private bool defaultsEnabled;
 
 		private bool textSubtitleWarningVisible;
@@ -34,7 +34,7 @@ namespace VidCoder.ViewModel
 
 		public SubtitleDialogViewModel(Subtitles currentSubtitles)
 		{
-			this.outputFormat = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.OutputFormat;
+			this.container = Encoders.GetContainer(this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.ContainerName);
 
 			this.sourceSubtitles = new ObservableCollection<SourceSubtitleViewModel>();
 			this.srtSubtitles = new ObservableCollection<SrtSubtitleViewModel>();
@@ -238,11 +238,11 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public Container OutputFormat
+		public HBContainer Container
 		{
 			get
 			{
-				return this.outputFormat;
+				return this.container;
 			}
 		}
 
@@ -352,7 +352,7 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			if (this.OutputFormat == Container.Mp4 && updatedSubtitle != null && updatedSubtitle.Selected)
+			if (this.Container.DefaultExtension == "mp4" && updatedSubtitle != null && updatedSubtitle.Selected)
 			{
 				// In MP4 a PGS subtitle can only be burned in.
 				if (updatedSubtitle.TrackNumber > 0 &&
@@ -385,7 +385,8 @@ namespace VidCoder.ViewModel
 		{
 			bool textSubtitleVisible = false;
 			VCProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
-			if (profile.OutputFormat == Container.Mp4 && profile.PreferredExtension == OutputExtension.Mp4)
+			HBContainer profileContainer = Encoders.GetContainer(profile.ContainerName);
+			if (profileContainer.DefaultExtension == "mp4" && profile.PreferredExtension == OutputExtension.Mp4)
 			{
 				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
 				{

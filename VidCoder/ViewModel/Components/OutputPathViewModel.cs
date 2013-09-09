@@ -137,8 +137,8 @@ namespace VidCoder.ViewModel.Components
 			{
 				return this.pickOutputPathCommand ?? (this.pickOutputPathCommand = new RelayCommand(() =>
 					{
-						string extensionDot = this.GetOutputExtensionForCurrentEncodingProfile();
-						string extension = this.GetOutputExtensionForCurrentEncodingProfile(includeDot: false);
+						string extensionDot = this.GetOutputExtension();
+						string extension = this.GetOutputExtension(includeDot: false);
 						string extensionLabel = extension.ToUpperInvariant();
 
 						string newOutputPath = FileService.Instance.GetFileNameSave(
@@ -216,60 +216,26 @@ namespace VidCoder.ViewModel.Components
 		}
 
 		/// <summary>
-		/// Gets the output extension for the given subtitles and title, and with the
-		/// current encoding settings.
+		/// Gets the extension that should be used for the current encoding profile.
 		/// </summary>
-		/// <param name="givenSubtitles">The subtitles to determine the extension for.</param>
-		/// <param name="givenTitle">The title to determine the extension for.</param>
-		/// <returns>The output extension (with dot) for the given subtitles and title,
-		/// and with the current encoding settings.</returns>
-		public string GetOutputExtension(Subtitles givenSubtitles, Title givenTitle)
-		{
-			string extension;
-
-			VCProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
-			if (profile.OutputFormat == Container.Mkv)
-			{
-				extension = ".mkv";
-			}
-			else if (profile.PreferredExtension == OutputExtension.Mp4)
-			{
-				extension = ".mp4";
-			}
-			else
-			{
-				extension = ".m4v";
-			}
-
-			return extension;
-		}
-
-		/// <summary>
-		/// Gets the extension that should be used for the current encoding settings, subtitles
-		/// and title.
-		/// </summary>
-		/// <returns>The extension (with dot) that should be used for current encoding settings, subtitles
-		/// and title. If no video source is present, this is determined from the encoding settings.</returns>
-		private string GetOutputExtension()
-		{
-			if (this.main.HasVideoSource)
-			{
-				return this.GetOutputExtension(this.main.CurrentSubtitles, this.main.SelectedTitle);
-			}
-
-			return this.GetOutputExtensionForCurrentEncodingProfile();
-		}
-
-		public string GetOutputExtensionForCurrentEncodingProfile(bool includeDot = true)
+		/// <returns>The extension (with dot) that should be used for current encoding profile.</returns>
+		public string GetOutputExtension(bool includeDot = true)
 		{
 			VCProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
+			return this.GetExtensionForProfile(profile, includeDot);
+		}
+
+		public string GetExtensionForProfile(VCProfile profile, bool includeDot = true)
+		{
+			HBContainer container = Encoders.GetContainer(profile.ContainerName);
+
 			string extension;
 
-			if (profile.OutputFormat == Container.Mkv)
+			if (container.DefaultExtension == "mkv")
 			{
 				extension = "mkv";
 			}
-			else if (profile.PreferredExtension == OutputExtension.Mp4)
+			else if (container.DefaultExtension == "mp4" && profile.PreferredExtension == OutputExtension.Mp4)
 			{
 				extension = "mp4";
 			}

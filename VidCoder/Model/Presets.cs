@@ -22,7 +22,7 @@ namespace VidCoder.Model
 
 	public static class Presets
 	{
-		private const int CurrentPresetVersion = 10;
+		private const int CurrentPresetVersion = 11;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
@@ -244,6 +244,11 @@ namespace VidCoder.Model
 			{
 				UpgradeEncodingProfileTo20(profile);
 			}
+
+			if (databaseVersion < 21)
+			{
+				UpgradeEncodingProfileTo21(profile);
+			}
 		}
 
 		public static void UpgradeEncodingProfileTo13(VCProfile profile)
@@ -407,6 +412,20 @@ namespace VidCoder.Model
 			}
 		}
 
+		public static void UpgradeEncodingProfileTo21(VCProfile profile)
+		{
+#pragma warning disable 612,618
+			if (profile.OutputFormat == Container.Mp4)
+			{
+				profile.ContainerName = "av_mp4";
+			}
+			else
+			{
+				profile.ContainerName = "av_mkv";
+			}
+#pragma warning restore 612,618
+		}
+
 		private static void ErrorCheckPresets(List<Preset> presets)
 		{
 			for (int i = presets.Count - 1; i >= 0; i--)
@@ -420,12 +439,6 @@ namespace VidCoder.Model
 					// Splash screen eats first dialog, need to show twice.
 					Unity.Container.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.DisplayName + "'.");
 					Unity.Container.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.DisplayName + "'.");
-					continue;
-				}
-
-				if (preset.EncodingProfile.OutputFormat == Container.None)
-				{
-					preset.EncodingProfile.OutputFormat = Container.Mp4;
 				}
 			}
 		}
@@ -527,6 +540,11 @@ namespace VidCoder.Model
 			if (presetVersion < 10)
 			{
 				return 19;
+			}
+
+			if (presetVersion < 11)
+			{
+				return 20;
 			}
 
 			return Utilities.CurrentDatabaseVersion;

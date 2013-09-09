@@ -19,7 +19,10 @@ namespace VidCoder.Model
 			this.Cropping = new Cropping();
 		}
 
+		[Obsolete("Use ContainerName instead.")]
 		public Container OutputFormat { get; set; }
+
+		public string ContainerName { get; set; }
 		public OutputExtension PreferredExtension { get; set; }
 		public bool IncludeChapterMarkers { get; set; }
 		public bool LargeFile { get; set; }
@@ -102,7 +105,10 @@ namespace VidCoder.Model
 		{
 			var profile = new VCProfile
 			{
+#pragma warning disable 612, 618
 				OutputFormat = this.OutputFormat,
+#pragma warning restore 612, 618
+				ContainerName = this.ContainerName,
 				PreferredExtension = this.PreferredExtension,
 				IncludeChapterMarkers = this.IncludeChapterMarkers,
 				LargeFile = this.LargeFile,

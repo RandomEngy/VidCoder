@@ -599,7 +599,7 @@ namespace VidCoder.ViewModel.Components
 									title.Chapters.Count,
 									nameFormatOverride);
 
-								string extension = this.outputVM.GetOutputExtension(job.Subtitles, title);
+								string extension = this.outputVM.GetOutputExtension();
 								string queueOutputPath = this.outputVM.BuildOutputPath(queueOutputFileName, extension, sourcePath: null);
 
 								job.OutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, isBatch: true);
@@ -918,7 +918,7 @@ namespace VidCoder.ViewModel.Components
 				excludedPaths.Add(pathToQueue);
 				string outputFolder = this.outputVM.GetOutputFolder(pathToQueue);
 				string outputFileName = this.outputVM.BuildOutputFileName(pathToQueue, Utilities.GetSourceName(pathToQueue), job.Title, title.Duration, title.Chapters.Count, usesScan: false);
-				string outputExtension = this.outputVM.GetOutputExtension(job.Subtitles, title);
+				string outputExtension = this.outputVM.GetOutputExtension();
 				string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
 				queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, excludedPaths, isBatch: true);
 
@@ -1069,7 +1069,7 @@ namespace VidCoder.ViewModel.Components
 					excludedPaths.Add(fileToQueue);
 					string outputFolder = this.outputVM.GetOutputFolder(fileToQueue);
 					string outputFileName = this.outputVM.BuildOutputFileName(fileToQueue, Utilities.GetSourceNameFile(fileToQueue), job.Title, title.Duration, title.Chapters.Count, usesScan: false);
-					string outputExtension = this.outputVM.GetOutputExtension(job.Subtitles, title);
+					string outputExtension = this.outputVM.GetOutputExtension();
 					string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
 					queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, excludedPaths, isBatch: true);
 

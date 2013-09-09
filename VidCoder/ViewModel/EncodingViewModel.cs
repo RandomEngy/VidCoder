@@ -17,10 +17,10 @@ using HandBrake.Interop;
 using System.Windows;
 using Microsoft.Practices.Unity;
 using VidCoder.ViewModel.Components;
-using Container = HandBrake.Interop.Model.Encoding.Container;
 
 namespace VidCoder.ViewModel
 {
+	using HandBrake.Interop.Model;
 	using Resources;
 
 	public class EncodingViewModel : OkCancelDialogViewModel
@@ -33,19 +33,18 @@ namespace VidCoder.ViewModel
 
 		private VCProfile profile;
 
-		private List<ComboChoice<Container>> outputFormatChoices; 
+		private List<ComboChoice> containerChoices;
 
 		private Preset originalPreset;
 		private bool isBuiltIn;
 
 		public EncodingViewModel(Preset preset)
 		{
-			this.outputFormatChoices =
-				new List<ComboChoice<Container>>
-				{
-					new ComboChoice<Container>(Container.Mp4, "MP4"),
-					new ComboChoice<Container>(Container.Mkv, "MKV")
-				};
+			this.containerChoices = new List<ComboChoice>();
+			foreach (HBContainer hbContainer in Encoders.Containers)
+			{
+				this.containerChoices.Add(new ComboChoice(hbContainer.ShortName, hbContainer.DisplayName));
+			}
 
 			this.PicturePanelViewModel = new PicturePanelViewModel(this);
 			this.VideoFiltersPanelViewModel = new VideoFiltersPanelViewModel(this);
@@ -264,33 +263,33 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public Container OutputFormat
+		public string ContainerName
 		{
 			get
 			{
-				return this.profile.OutputFormat;
+				return this.profile.ContainerName;
 			}
 
 			set
 			{
-				this.profile.OutputFormat = value;
-				this.RaisePropertyChanged(() => this.OutputFormat);
+				this.profile.ContainerName = value;
+				this.RaisePropertyChanged(() => this.ContainerName);
 				this.RaisePropertyChanged(() => this.ShowMp4Choices);
+				this.RaisePropertyChanged(() => this.ShowOldMp4Choices);
 				this.IsModified = true;
 				this.outputPathVM.GenerateOutputFileName();
 
-				this.VideoPanelViewModel.NotifyOutputFormatChanged(value);
-				this.AudioPanelViewModel.NotifyOutputFormatChanged(value);
+				Messenger.Default.Send(new ContainerChangedMessage(value));
 			}
 		}
 
-		public List<ComboChoice<Container>> OutputFormatChoices
+		public List<ComboChoice> ContainerChoices
 		{
 			get
 			{
-				return this.outputFormatChoices;
+				return this.containerChoices;
 			}
-		} 
+		}
 
 		public OutputExtension PreferredExtension
 		{
@@ -307,29 +306,6 @@ namespace VidCoder.ViewModel
 				this.outputPathVM.GenerateOutputFileName();
 			}
 		}
-
-		//public void RefreshExtensionChoice()
-		//{
-		//    if (this.OutputFormat != Container.Mp4)
-		//    {
-		//        return;
-		//    }
-
-		//    bool enableMp4 = true;
-		//    foreach (AudioEncodingViewModel audioVM in this.AudioPanelViewModel.AudioEncodings)
-		//    {
-		//        if (audioVM.SelectedAudioEncoder.Encoder.ShortName == "copy:ac3")
-		//        {
-		//            enableMp4 = false;
-		//            break;
-		//        }
-		//    }
-
-		//    if (!enableMp4 && this.PreferredExtension == OutputExtension.Mp4)
-		//    {
-		//        this.PreferredExtension = OutputExtension.M4v;
-		//    }
-		//}
 
 		public bool LargeFile
 		{
@@ -380,7 +356,16 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.OutputFormat == Container.Mp4;
+				HBContainer container = Encoders.GetContainer(this.ContainerName);
+				return container.DefaultExtension == "mp4";
+			}
+		}
+
+		public bool ShowOldMp4Choices
+		{
+			get
+			{
+				return this.ContainerName == "mp4v2";
 			}
 		}
 
@@ -524,12 +509,13 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.SaveRenameButtonsVisible);
 			this.RaisePropertyChanged(() => this.DeleteButtonVisible);
 			this.RaisePropertyChanged(() => this.IsModified);
-			this.RaisePropertyChanged(() => this.OutputFormat);
+			this.RaisePropertyChanged(() => this.ContainerName);
 			this.RaisePropertyChanged(() => this.PreferredExtension);
 			this.RaisePropertyChanged(() => this.LargeFile);
 			this.RaisePropertyChanged(() => this.Optimize);
 			this.RaisePropertyChanged(() => this.IPod5GSupport);
 			this.RaisePropertyChanged(() => this.ShowMp4Choices);
+			this.RaisePropertyChanged(() => this.ShowOldMp4Choices);
 			this.RaisePropertyChanged(() => this.IncludeChapterMarkers);
 			
 			this.PicturePanelViewModel.NotifyAllChanged();

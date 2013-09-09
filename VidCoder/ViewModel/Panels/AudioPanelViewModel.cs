@@ -50,6 +50,16 @@ namespace VidCoder.ViewModel
 					{
 						this.NotifyAudioInputChanged();
 					});
+
+			Messenger.Default.Register<ContainerChangedMessage>(
+				this,
+				message =>
+				{
+					this.RefreshFallbackEncoderChoices();
+
+					// Refresh the preview as the warnings displayed may change.
+					this.RefreshAudioPreview();
+				});
 		}
 
 
@@ -150,7 +160,7 @@ namespace VidCoder.ViewModel
 							Drc = 0.0
 						};
 
-						this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this.EncodingViewModel.OutputFormat, this));
+						this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this.EncodingViewModel.ContainerName, this));
 						this.RaisePropertyChanged(() => this.HasAudioTracks);
 						this.RefreshAudioPreview();
 						this.UpdateAudioEncodings();
@@ -178,6 +188,7 @@ namespace VidCoder.ViewModel
 				return;
 			}
 
+			HBContainer container = Encoders.GetContainer(this.EncodingViewModel.EncodingProfile.ContainerName);
 			HBAudioEncoder oldEncoder = null;
 			if (this.selectedFallbackEncoder != null)
 			{
@@ -188,7 +199,7 @@ namespace VidCoder.ViewModel
 
 			foreach (HBAudioEncoder encoder in Encoders.AudioEncoders)
 			{
-				if ((encoder.CompatibleContainers & this.EncodingViewModel.EncodingProfile.OutputFormat) > 0 && !encoder.IsPassthrough)
+				if ((encoder.CompatibleContainers & container.Id) > 0 && !encoder.IsPassthrough)
 				{
 					this.FallbackEncoderChoices.Add(new AudioEncoderViewModel { Encoder = encoder });
 				}
@@ -290,7 +301,9 @@ namespace VidCoder.ViewModel
 					return null;
 				}
 
-				if (encoder.ShortName == "copy" && (inputTrack.Codec == AudioCodec.Dts || inputTrack.Codec == AudioCodec.DtsHD) && this.Profile.OutputFormat == Container.Mp4)
+				HBContainer container = Encoders.GetContainer(this.Profile.ContainerName);
+
+				if (encoder.ShortName == "copy" && (inputTrack.Codec == AudioCodec.Dts || inputTrack.Codec == AudioCodec.DtsHD) && container.DefaultExtension == "mp4")
 				{
 					this.PassthroughWarningText = EncodingRes.DtsMp4Warning;
 					this.PassthroughWarningVisible = true;
@@ -405,7 +418,7 @@ namespace VidCoder.ViewModel
 			this.audioEncodings.Clear();
 			foreach (AudioEncoding audioEncoding in this.Profile.AudioEncodings)
 			{
-				this.audioEncodings.Add(new AudioEncodingViewModel(audioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this.Profile.OutputFormat, this));
+				this.audioEncodings.Add(new AudioEncodingViewModel(audioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this.Profile.ContainerName, this));
 			}
 
 			this.audioOutputPreviews.Clear();
@@ -436,20 +449,6 @@ namespace VidCoder.ViewModel
 			{
 				encodingVM.SetChosenTracks(this.MainViewModel.GetChosenAudioTracks(), this.MainViewModel.SelectedTitle);
 			}
-		}
-
-		public void NotifyOutputFormatChanged(Container outputFormat)
-		{
-			this.RefreshFallbackEncoderChoices();
-
-			// Report output format change to audio encodings.
-			foreach (AudioEncodingViewModel audioEncoding in this.AudioEncodings)
-			{
-				audioEncoding.OutputFormat = outputFormat;
-			}
-
-			// Refresh the preview as the warnings displayed may change.
-			this.RefreshAudioPreview();
 		}
 	}
 }

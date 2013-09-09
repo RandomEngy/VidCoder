@@ -5,7 +5,7 @@
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
-			<OutputFormat>Mp4</OutputFormat>
+			<ContainerName>av_mp4</ContainerName>
 			<PreferredExtension>Mp4</PreferredExtension>
 			<IncludeChapterMarkers>false</IncludeChapterMarkers>
 			<LargeFile>false</LargeFile>
@@ -60,7 +60,7 @@
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
-			<OutputFormat>Mp4</OutputFormat>
+			<ContainerName>av_mp4</ContainerName>
 			<PreferredExtension>Mp4</PreferredExtension>
 			<IncludeChapterMarkers>false</IncludeChapterMarkers>
 			<LargeFile>true</LargeFile>
@@ -129,7 +129,7 @@
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
-			<OutputFormat>Mp4</OutputFormat>
+			<ContainerName>av_mp4</ContainerName>
 			<PreferredExtension>M4v</PreferredExtension>
 			<IncludeChapterMarkers>true</IncludeChapterMarkers>
 			<LargeFile>false</LargeFile>
@@ -199,7 +199,7 @@
 		<IsModified>false</IsModified>
 		<IsQueue>false</IsQueue>
 		<EncodingProfile>
-			<OutputFormat>Mp4</OutputFormat>
+			<ContainerName>av_mp4</ContainerName>
 			<PreferredExtension>Mp4</PreferredExtension>
 			<IncludeChapterMarkers>false</IncludeChapterMarkers>
 			<LargeFile>false</LargeFile>
@@ -262,7 +262,7 @@
 		<IsModified>false</IsModified>
 		<IsQueue>false</IsQueue>
 		<EncodingProfile>
-			<OutputFormat>Mp4</OutputFormat>
+			<ContainerName>av_mp4</ContainerName>
 			<PreferredExtension>Mp4</PreferredExtension>
 			<IncludeChapterMarkers>false</IncludeChapterMarkers>
 			<LargeFile>false</LargeFile>
@@ -324,7 +324,7 @@
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
-			<OutputFormat>Mp4</OutputFormat>
+			<ContainerName>av_mp4</ContainerName>
 			<PreferredExtension>Mp4</PreferredExtension>
 			<IncludeChapterMarkers>true</IncludeChapterMarkers>
 			<LargeFile>false</LargeFile>
@@ -385,7 +385,7 @@
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
-			<OutputFormat>Mp4</OutputFormat>
+			<ContainerName>av_mp4</ContainerName>
 			<PreferredExtension>Mp4</PreferredExtension>
 			<IncludeChapterMarkers>true</IncludeChapterMarkers>
 			<LargeFile>false</LargeFile>
@@ -446,7 +446,7 @@
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
-			<OutputFormat>Mp4</OutputFormat>
+			<ContainerName>av_mp4</ContainerName>
 			<PreferredExtension>Mp4</PreferredExtension>
 			<IncludeChapterMarkers>true</IncludeChapterMarkers>
 			<LargeFile>true</LargeFile>
@@ -504,7 +504,7 @@
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
-			<OutputFormat>Mp4</OutputFormat>
+			<ContainerName>av_mp4</ContainerName>
 			<PreferredExtension>Mp4</PreferredExtension>
 			<IncludeChapterMarkers>true</IncludeChapterMarkers>
 			<LargeFile>true</LargeFile>
@@ -565,7 +565,7 @@
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
-			<OutputFormat>Mp4</OutputFormat>
+			<ContainerName>av_mp4</ContainerName>
 			<PreferredExtension>M4v</PreferredExtension>
 			<IncludeChapterMarkers>true</IncludeChapterMarkers>
 			<LargeFile>true</LargeFile>
@@ -634,7 +634,7 @@
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
-			<OutputFormat>Mp4</OutputFormat>
+			<ContainerName>av_mp4</ContainerName>
 			<PreferredExtension>M4v</PreferredExtension>
 			<IncludeChapterMarkers>true</IncludeChapterMarkers>
 			<LargeFile>true</LargeFile>
@@ -704,7 +704,7 @@
 		<IsBuiltIn>true</IsBuiltIn>
 		<IsModified>false</IsModified>
 		<EncodingProfile>
-			<OutputFormat>Mp4</OutputFormat>
+			<ContainerName>av_mp4</ContainerName>
 			<PreferredExtension>M4v</PreferredExtension>
 			<IncludeChapterMarkers>true</IncludeChapterMarkers>
 			<LargeFile>true</LargeFile>
@@ -775,7 +775,7 @@
 		<IsModified>false</IsModified>
 		<IsQueue>false</IsQueue>
 		<EncodingProfile>
-			<OutputFormat>Mp4</OutputFormat>
+			<ContainerName>av_mp4</ContainerName>
 			<PreferredExtension>Mp4</PreferredExtension>
 			<IncludeChapterMarkers>false</IncludeChapterMarkers>
 			<LargeFile>false</LargeFile>
@@ -837,7 +837,7 @@
 		<IsModified>false</IsModified>
 		<IsQueue>false</IsQueue>
 		<EncodingProfile>
-			<OutputFormat>Mp4</OutputFormat>
+			<ContainerName>av_mp4</ContainerName>
 			<PreferredExtension>Mp4</PreferredExtension>
 			<IncludeChapterMarkers>false</IncludeChapterMarkers>
 			<LargeFile>true</LargeFile>
@@ -901,7 +901,7 @@
 		<IsModified>false</IsModified>
 		<IsQueue>false</IsQueue>
 		<EncodingProfile>
-			<OutputFormat>Mp4</OutputFormat>
+			<ContainerName>av_mp4</ContainerName>
 			<PreferredExtension>Mp4</PreferredExtension>
 			<IncludeChapterMarkers>false</IncludeChapterMarkers>
 			<LargeFile>false</LargeFile>

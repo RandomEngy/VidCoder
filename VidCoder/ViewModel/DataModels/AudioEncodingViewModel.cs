@@ -44,7 +44,7 @@ namespace VidCoder.ViewModel
 
 		private ICommand removeAudioEncodingCommand;
 
-		private Container outputFormat;
+		private string containerName;
 
 		private static List<int> allSampleRateChoices;
 
@@ -59,7 +59,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public AudioEncodingViewModel(AudioEncoding audioEncoding, Title selectedTitle, List<int> chosenAudioTracks, Container outputFormat, AudioPanelViewModel audioPanelVM)
+		public AudioEncodingViewModel(AudioEncoding audioEncoding, Title selectedTitle, List<int> chosenAudioTracks, string containerName, AudioPanelViewModel audioPanelVM)
 		{
 			this.initializing = true;
 			this.audioPanelVM = audioPanelVM;
@@ -72,7 +72,7 @@ namespace VidCoder.ViewModel
 			this.audioEncoders = new List<AudioEncoderViewModel>();
 			this.mixdownChoices = new List<MixdownViewModel>();
 
-			this.outputFormat = outputFormat;
+			this.containerName = containerName;
 			this.RefreshEncoderChoices();
 			this.RefreshMixdownChoices();
 			this.RefreshBitrateChoices();
@@ -139,6 +139,14 @@ namespace VidCoder.ViewModel
 				message =>
 					{
 						this.RaisePropertyChanged(() => this.NameVisible);
+					});
+
+			Messenger.Default.Register<ContainerChangedMessage>(
+				this,
+				message =>
+					{
+						this.containerName = message.ContainerName;
+						this.RefreshEncoderChoices();
 					});
 
 			this.initializing = false;
@@ -673,20 +681,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public Container OutputFormat
-		{
-			get
-			{
-				return this.outputFormat;
-			}
-
-			set
-			{
-				this.outputFormat = value;
-				this.RefreshEncoderChoices();
-			}
-		}
-
 		public bool IsValid
 		{
 			get
@@ -749,6 +743,7 @@ namespace VidCoder.ViewModel
 
 		private void RefreshEncoderChoices()
 		{
+			HBContainer container = Encoders.GetContainer(this.containerName);
 			HBAudioEncoder oldEncoder = null;
 			if (this.selectedAudioEncoder != null)
 			{
@@ -759,7 +754,7 @@ namespace VidCoder.ViewModel
 
 			foreach (HBAudioEncoder encoder in Encoders.AudioEncoders)
 			{
-				if ((encoder.CompatibleContainers & this.OutputFormat) > 0)
+				if ((encoder.CompatibleContainers & container.Id) > 0)
 				{
 					this.AudioEncoders.Add(new AudioEncoderViewModel{ Encoder = encoder });
 				}

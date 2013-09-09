@@ -149,6 +149,13 @@ namespace VidCoder.ViewModel
 				{
 					this.RaisePropertyChanged(() => this.X264AdditionalOptions);
 				});
+
+			Messenger.Default.Register<ContainerChangedMessage>(
+				this,
+				message =>
+				{
+					this.RefreshEncoderChoices(message.ContainerName);
+				});
 		}
 
 		public string InputType
@@ -793,14 +800,10 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public void NotifyOutputFormatChanged(Container outputFormat)
+		private void RefreshEncoderChoices(string containerName)
 		{
-			// Refresh encoder choices based on output format change
-			this.RefreshEncoderChoices(outputFormat);
-		}
+			HBContainer container = Encoders.GetContainer(containerName);
 
-		private void RefreshEncoderChoices(Container outputFormat)
-		{
 			HBVideoEncoder oldEncoder = null;
 			if (this.selectedEncoder != null)
 			{
@@ -811,7 +814,7 @@ namespace VidCoder.ViewModel
 
 			foreach (HBVideoEncoder encoder in Encoders.VideoEncoders)
 			{
-				if ((encoder.CompatibleContainers & outputFormat) > 0)
+				if ((encoder.CompatibleContainers & container.Id) > 0)
 				{
 					this.EncoderChoices.Add(new VideoEncoderViewModel { Encoder = encoder });
 				}
@@ -831,7 +834,7 @@ namespace VidCoder.ViewModel
 
 		public void NotifyProfileChanged()
 		{
-			this.RefreshEncoderChoices(this.Profile.OutputFormat);
+			this.RefreshEncoderChoices(this.Profile.ContainerName);
 
 			this.selectedEncoder = this.EncoderChoices.SingleOrDefault(e => e.Encoder.ShortName == this.Profile.VideoEncoder);
 
