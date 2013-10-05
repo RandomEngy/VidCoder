@@ -115,20 +115,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Based on HandBrake (svn {0}).
+        ///   Looks up a localized string similar to Based on HandBrake ({0}).
         /// </summary>
         public static string BasedOnHandBrake {
             get {
                 return ResourceManager.GetString("BasedOnHandBrake", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Based on HandBrake ({0}).
-        /// </summary>
-        public static string BasedOnHandBrakeStable {
-            get {
-                return ResourceManager.GetString("BasedOnHandBrakeStable", resourceCulture);
             }
         }
         
