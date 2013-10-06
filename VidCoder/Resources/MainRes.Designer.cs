@@ -1363,6 +1363,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to stop the encode?.
+        /// </summary>
+        public static string StopEncodeConfirmationMessage {
+            get {
+                return ResourceManager.GetString("StopEncodeConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop encode?.
+        /// </summary>
+        public static string StopEncodeConfirmationTitle {
+            get {
+                return ResourceManager.GetString("StopEncodeConfirmationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stopped encoding..
         /// </summary>
         public static string StoppedEncoding {

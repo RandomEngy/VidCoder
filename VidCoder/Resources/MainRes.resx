@@ -597,4 +597,10 @@
 	<data name="QueueImportSuccessMessage" xml:space="preserve">
     <value>Successfully imported queue.</value>
   </data>
+	<data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>Stop encode?</value>
+  </data>
+	<data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>Are you sure you want to stop the encode?</value>
+  </data>
 </root>

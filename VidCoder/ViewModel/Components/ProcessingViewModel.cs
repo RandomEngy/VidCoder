@@ -37,6 +37,8 @@ namespace VidCoder.ViewModel.Components
 		public const int QueuedTabIndex = 0;
 		public const int CompletedTabIndex = 1;
 
+		private const double StopWarningThresholdMinutes = 5;
+
 		private ILogger logger = Unity.Container.Resolve<ILogger>();
 		private IProcessAutoPause autoPause = Unity.Container.Resolve<IProcessAutoPause>();
 		private ISystemOperations systemOperations = Unity.Container.Resolve<ISystemOperations>();
@@ -81,15 +83,6 @@ namespace VidCoder.ViewModel.Components
 
 			this.autoPause.PauseEncoding += this.AutoPauseEncoding;
 			this.autoPause.ResumeEncoding += this.AutoResumeEncoding;
-
-			//// Keep track of errors logged. HandBrake doesn't reliably report errors on job completion.
-			//this.logger.EntryLogged += (sender, e) =>
-			//{
-			//	if (e.Value.LogType == LogType.Error && this.Encoding && !this.main.ScanningSource)
-			//	{
-			//		this.errorLoggedDuringJob = true;
-			//	}
-			//};
 
 			this.encodeQueue.CollectionChanged +=
 				(o, e) =>
@@ -649,6 +642,18 @@ namespace VidCoder.ViewModel.Components
 			{
 				return this.stopEncodeCommand ?? (this.stopEncodeCommand = new RelayCommand(() =>
 					{
+						if (this.CurrentJob.EncodeTime > TimeSpan.FromMinutes(StopWarningThresholdMinutes))
+						{
+							MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+								MainRes.StopEncodeConfirmationMessage,
+								MainRes.StopEncodeConfirmationTitle,
+								MessageBoxButton.YesNo);
+							if (dialogResult == MessageBoxResult.No)
+							{
+								return;
+							}
+						}
+
 						// Signify that we stopped the encode manually rather than it completing.
 						this.encodeStopped = true;
 						this.encodeProxy.StopEncode();
