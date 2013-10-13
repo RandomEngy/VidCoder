@@ -60,6 +60,7 @@ namespace VidCoder.Model
 				hbJob.InjectFrom(this);
 
 				hbJob.EncodingProfile = hbProfile;
+				hbJob.DxvaDecoding = Config.DxvaDecoding;
 
 				return hbJob;
 			}

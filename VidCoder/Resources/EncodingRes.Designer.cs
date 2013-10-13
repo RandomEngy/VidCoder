@@ -952,6 +952,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encoder Settings.
+        /// </summary>
+        public static string EncoderSettings {
+            get {
+                return ResourceManager.GetString("EncoderSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encoding.
         /// </summary>
         public static string Encoding {
@@ -1530,6 +1539,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change options to trade off compression efficiency against encoding speed..
+        /// </summary>
+        public static string PresetToolTip {
+            get {
+                return ResourceManager.GetString("PresetToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Baseline.
         /// </summary>
         public static string Profile_Baseline {
@@ -1629,6 +1647,51 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to QSV Decoding.
+        /// </summary>
+        public static string QsvDecodingLabel {
+            get {
+                return ResourceManager.GetString("QsvDecodingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Balanced.
+        /// </summary>
+        public static string QsvPreset_Balanced {
+            get {
+                return ResourceManager.GetString("QsvPreset_Balanced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quality.
+        /// </summary>
+        public static string QsvPreset_Quality {
+            get {
+                return ResourceManager.GetString("QsvPreset_Quality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Speed.
+        /// </summary>
+        public static string QsvPreset_Speed {
+            get {
+                return ResourceManager.GetString("QsvPreset_Speed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to QSV Preset:.
+        /// </summary>
+        public static string QsvPresetLabel {
+            get {
+                return ResourceManager.GetString("QsvPresetLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quality.
         /// </summary>
         public static string Quality {
@@ -1724,6 +1787,34 @@ namespace VidCoder.Resources {
         public static string SaveAs {
             get {
                 return ResourceManager.GetString("SaveAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bicubic (OpenCL).
+        /// </summary>
+        public static string ScaleMethod_BicubicOpenCL {
+            get {
+                return ResourceManager.GetString("ScaleMethod_BicubicOpenCL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lanczos.
+        /// </summary>
+        public static string ScaleMethod_Lanczos {
+            get {
+                return ResourceManager.GetString("ScaleMethod_Lanczos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lanczos: This is the default scaler with the best quality.
+        ///Bicubic: This is an OpenCL hardware accelerated scaling algorithm..
+        /// </summary>
+        public static string ScaleMethodToolTip {
+            get {
+                return ResourceManager.GetString("ScaleMethodToolTip", resourceCulture);
             }
         }
         

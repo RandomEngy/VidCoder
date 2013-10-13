@@ -930,4 +930,35 @@ Overrides all other settings.</value>
   <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
     <value>Passthrough does not work on all audio codecs. This specifies the encoder to fall back to if the track cannot be passed through.</value>
   </data>
+  <data name="EncoderSettings" xml:space="preserve">
+    <value>Encoder Settings</value>
+  </data>
+  <data name="QsvDecodingLabel" xml:space="preserve">
+    <value>QSV Decoding</value>
+  </data>
+  <data name="ScaleMethod_Lanczos" xml:space="preserve">
+    <value>Lanczos</value>
+  </data>
+  <data name="ScaleMethod_BicubicOpenCL" xml:space="preserve">
+    <value>Bicubic (OpenCL)</value>
+  </data>
+  <data name="QsvPreset_Speed" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="QsvPreset_Balanced" xml:space="preserve">
+    <value>Balanced</value>
+  </data>
+  <data name="QsvPreset_Quality" xml:space="preserve">
+    <value>Quality</value>
+  </data>
+  <data name="QsvPresetLabel" xml:space="preserve">
+    <value>QSV Preset:</value>
+  </data>
+  <data name="PresetToolTip" xml:space="preserve">
+    <value>Change options to trade off compression efficiency against encoding speed.</value>
+  </data>
+  <data name="ScaleMethodToolTip" xml:space="preserve">
+    <value>Lanczos: This is the default scaler with the best quality.
+Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
+  </data>
 </root>

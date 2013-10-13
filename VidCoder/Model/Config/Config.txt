@@ -75,6 +75,7 @@ CustomCompletionSound|string|""
 LastPlayer|string|"vlc"
 QueueTitlesUseNameOverride|bool|false
 QueueTitlesNameOverride|string|""
+DxvaDecoding|bool|false
 EnableLibDvdNav|bool|true
 MinimumTitleLengthSeconds|int|10
 DeleteSourceFilesOnClearingCompleted|bool|false

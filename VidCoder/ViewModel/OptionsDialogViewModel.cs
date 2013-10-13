@@ -86,6 +86,7 @@ namespace VidCoder.ViewModel
 			this.rememberPreviousFiles = Config.RememberPreviousFiles;
 			this.showAudioTrackNameField = Config.ShowAudioTrackNameField;
 			this.keepScansAfterCompletion = Config.KeepScansAfterCompletion;
+			this.dxvaDecoding = Config.DxvaDecoding;
 			this.enableLibDvdNav = Config.EnableLibDvdNav;
 			this.deleteSourceFilesOnClearingCompleted = Config.DeleteSourceFilesOnClearingCompleted;
 			this.resumeEncodingOnRestart = Config.ResumeEncodingOnRestart;
@@ -885,6 +886,21 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool dxvaDecoding;
+		public bool DxvaDecoding
+		{
+			get
+			{
+				return this.dxvaDecoding;
+			}
+
+			set
+			{
+				this.dxvaDecoding = value;
+				this.RaisePropertyChanged(() => this.DxvaDecoding);
+			}
+		}
+
 		private bool enableLibDvdNav;
 		public bool EnableLibDvdNav
 		{
@@ -1059,6 +1075,7 @@ namespace VidCoder.ViewModel
 
 							Config.ShowAudioTrackNameField = this.ShowAudioTrackNameField;
 							Config.EnableLibDvdNav = this.EnableLibDvdNav;
+							Config.DxvaDecoding = this.DxvaDecoding;
 							Config.KeepScansAfterCompletion = this.KeepScansAfterCompletion;
 							Config.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
 							Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;

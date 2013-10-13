@@ -73,6 +73,7 @@
 			LastPlayer_Field = DatabaseConfig.GetConfig("LastPlayer", "vlc", connection);
 			QueueTitlesUseNameOverride_Field = DatabaseConfig.GetConfig("QueueTitlesUseNameOverride", false, connection);
 			QueueTitlesNameOverride_Field = DatabaseConfig.GetConfig("QueueTitlesNameOverride", "", connection);
+			DxvaDecoding_Field = DatabaseConfig.GetConfig("DxvaDecoding", false, connection);
 			EnableLibDvdNav_Field = DatabaseConfig.GetConfig("EnableLibDvdNav", true, connection);
 			MinimumTitleLengthSeconds_Field = DatabaseConfig.GetConfig("MinimumTitleLengthSeconds", 10, connection);
 			DeleteSourceFilesOnClearingCompleted_Field = DatabaseConfig.GetConfig("DeleteSourceFilesOnClearingCompleted", false, connection);
@@ -1015,6 +1016,20 @@
 			{
 				QueueTitlesNameOverride_Field = value;
 				DatabaseConfig.SetConfigValue("QueueTitlesNameOverride", value);
+			}
+		}
+		private static bool DxvaDecoding_Field;
+		public static bool DxvaDecoding
+		{
+			get
+			{
+				return DxvaDecoding_Field;
+			}
+			
+			set
+			{
+				DxvaDecoding_Field = value;
+				DatabaseConfig.SetConfigValue("DxvaDecoding", value);
 			}
 		}
 		private static bool EnableLibDvdNav_Field;

@@ -479,6 +479,20 @@
 								Content="{x:Static res:OptionsRes.OpenLogFolderButton}" Command="{Binding OpenLogFolderCommand}" />
 						</StackPanel>
 
+						<!-- Video -->
+						<TextBlock Text="{x:Static res:OptionsRes.VideoSection}" Style="{StaticResource ConfigSectionHeader}" TextWrapping="Wrap" />
+						<StackPanel Style="{StaticResource ConfigSectionStack}">
+							<CheckBox
+								Content="{x:Static res:OptionsRes.DxvaDecodingCheckBox}"
+								IsChecked="{Binding DxvaDecoding}"
+								HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"
+								Style="{StaticResource LongToolTipHolder}">
+								<CheckBox.ToolTip>
+									<TextBlock Text="{x:Static res:OptionsRes.DxvaDecodingToolTip}" Style="{StaticResource LongToolTip}" />
+								</CheckBox.ToolTip>
+							</CheckBox>
+						</StackPanel>
+						
 						<!-- DVD reading -->
 						<TextBlock Text="{x:Static res:OptionsRes.DvdReadingSection}" Style="{StaticResource ConfigSectionHeader}" TextWrapping="Wrap" />
 						<StackPanel Style="{StaticResource ConfigSectionStack}">

@@ -15,6 +15,7 @@ using Microsoft.Practices.Unity;
 
 namespace VidCoder
 {
+	using System.ComponentModel;
 	using System.Configuration;
 	using HandBrake.Interop.Model;
 	using Properties;
@@ -23,8 +24,8 @@ namespace VidCoder
 	public static class Utilities
 	{
 		public const string TimeFormat = @"h\:mm\:ss";
-		public const int CurrentDatabaseVersion = 21;
-		public const int LastUpdatedEncodingProfileDatabaseVersion = 21;
+		public const int CurrentDatabaseVersion = 22;
+		public const int LastUpdatedEncodingProfileDatabaseVersion = 22;
 
 		private const string AppDataFolderName = "VidCoder";
 		private const string LocalAppDataFolderName = "VidCoder";
@@ -105,6 +106,14 @@ namespace VidCoder
 			get
 			{
 				return isPortable;
+			}
+		}
+
+		public static bool IsDesigner
+		{
+			get
+			{
+				return DesignerProperties.GetIsInDesignMode(new DependencyObject());
 			}
 		}
 

@@ -22,7 +22,7 @@ namespace VidCoder.Model
 
 	public static class Presets
 	{
-		private const int CurrentPresetVersion = 11;
+		private const int CurrentPresetVersion = 12;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
@@ -426,6 +426,11 @@ namespace VidCoder.Model
 #pragma warning restore 612,618
 		}
 
+		public static void UpgradeEncodingProfileTo22(VCProfile profile)
+		{
+			profile.QsvDecode = true;
+		}
+
 		private static void ErrorCheckPresets(List<Preset> presets)
 		{
 			for (int i = presets.Count - 1; i >= 0; i--)
@@ -439,6 +444,33 @@ namespace VidCoder.Model
 					// Splash screen eats first dialog, need to show twice.
 					Unity.Container.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.DisplayName + "'.");
 					Unity.Container.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.DisplayName + "'.");
+				}
+				else
+				{
+					ErrorCheckPreset(preset);
+				}
+			}
+		}
+
+		private static void ErrorCheckPreset(Preset preset)
+		{
+			// mp4v2 only available on x86
+			string containerName = preset.EncodingProfile.ContainerName;
+			if (Encoders.GetContainer(containerName) == null)
+			{
+				if (containerName == "mp4v2")
+				{
+					preset.EncodingProfile.ContainerName = "av_mp4";
+				}
+			}
+
+			// QSV H.264 only available on systems with the right hardware.
+			string videoEncoderName = preset.EncodingProfile.VideoEncoder;
+			if (Encoders.GetVideoEncoder(videoEncoderName) == null)
+			{
+				if (videoEncoderName == "qsv_h264")
+				{
+					preset.EncodingProfile.VideoEncoder = "x264";
 				}
 			}
 		}
@@ -545,6 +577,11 @@ namespace VidCoder.Model
 			if (presetVersion < 11)
 			{
 				return 20;
+			}
+
+			if (presetVersion < 12)
+			{
+				return 21;
 			}
 
 			return Utilities.CurrentDatabaseVersion;
