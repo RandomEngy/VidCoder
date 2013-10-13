@@ -10,7 +10,7 @@ DisableProgramGroupPage=yes
 UninstallDisplayIcon={app}\VidCoder.exe
 Compression=lzma
 SolidCompression=yes
-SetupIconFile=..\VidCoder\VidCoder_icon.ico
+SetupIconFile=VidCoder_Setup.ico
 
 OutputDir=BuiltInstallers
 OutputBaseFilename=%outputBaseFileName%
