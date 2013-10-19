@@ -42,7 +42,7 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				using (var stream = new FileStream(BuiltInPresetsPath, FileMode.Open, FileAccess.Read))
+				using (var stream = new FileStream(Path.Combine(Utilities.ProgramFolder, BuiltInPresetsPath), FileMode.Open, FileAccess.Read))
 				{
 					var presetCollection = presetListSerializer.Deserialize(stream) as PresetCollection;
 					return presetCollection.Presets;

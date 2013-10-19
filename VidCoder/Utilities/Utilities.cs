@@ -217,6 +217,22 @@ namespace VidCoder
 			}
 		}
 
+		public static string ProgramPath
+		{
+			get
+			{
+				return Assembly.GetExecutingAssembly().Location;
+			}
+		}
+
+		public static string ProgramFolder
+		{
+			get
+			{
+				return Path.GetDirectoryName(ProgramPath);
+			}
+		}
+
 		public static string LogsFolder
 		{
 			get

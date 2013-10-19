@@ -24,7 +24,7 @@ UsePreviousAppDir=yes
 Name: "en"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "Files\%arch%\*"; DestDir: "{app}"; Flags: recursesubdirs
+Source: "Files\%arch%\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
 
 [Messages]
 WelcomeLabel2=This will install [name/ver] on your computer.

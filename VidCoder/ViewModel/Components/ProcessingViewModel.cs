@@ -1540,7 +1540,7 @@ namespace VidCoder.ViewModel.Components
 
 							if (soundPath == null)
 							{
-								soundPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Encode_Complete.wav");
+								soundPath = Path.Combine(Utilities.ProgramFolder, "Encode_Complete.wav");
 							}
 
 							var soundPlayer = new SoundPlayer(soundPath);
