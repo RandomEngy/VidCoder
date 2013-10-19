@@ -218,4 +218,10 @@
   <data name="DisableUpdatesButton" xml:space="preserve">
     <value>Disable Updates</value>
   </data>
+	<data name="NoticeMessageTitle" xml:space="preserve">
+    <value>Notice</value>
+  </data>
+	<data name="WinXPError" xml:space="preserve">
+    <value>Windows XP support is currently broken. It is not known if or when it will be fixed.</value>
+  </data>
 </root>
