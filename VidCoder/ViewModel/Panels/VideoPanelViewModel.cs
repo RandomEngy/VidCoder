@@ -114,7 +114,7 @@ namespace VidCoder.ViewModel
 			{
 				"speed",
 				"balanced",
-				"quality"
+				//"quality"
 			};
 
 			this.RefreshLevelCompatibility();
@@ -794,7 +794,13 @@ namespace VidCoder.ViewModel
 					preset = "balanced";
 				}
 
-				return this.qsvPresets.IndexOf(preset);
+				int presetIndex = this.qsvPresets.IndexOf(preset);
+				if (presetIndex < 0)
+				{
+					return this.qsvPresets.IndexOf("balanced");
+				}
+
+				return presetIndex;
 			}
 
 			set
