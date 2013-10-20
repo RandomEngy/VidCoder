@@ -976,6 +976,10 @@
       <Project>{847f9e68-0ea8-4ab1-a1e6-9c327612a0ab}</Project>
       <Name>VidCoderCLI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VidCoderWindowlessCLI\VidCoderWindowlessCLI.csproj">
+      <Project>{4c1e1b61-6736-45b1-8700-4fc52f9a940f}</Project>
+      <Name>VidCoderWindowlessCLI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VidCoderWorker\VidCoderWorker.csproj">
       <Project>{63452895-7AA1-45EC-A0D8-3F30CCFA6D0D}</Project>
       <Name>VidCoderWorker</Name>

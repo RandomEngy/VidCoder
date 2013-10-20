@@ -8,5 +8,9 @@
 		[OperationContract]
 		[FaultContract(typeof(AutomationError))]
 		void Encode(string source, string destination, string preset);
+
+		[OperationContract]
+		[FaultContract(typeof(AutomationError))]
+		void Scan(string source);
 	}
 }

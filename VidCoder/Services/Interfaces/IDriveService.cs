@@ -12,5 +12,7 @@ namespace VidCoder.Services
 		IList<DriveInformation> GetDiscInformation();
 		void Close();
 		IList<DriveInfo> GetDriveInformation();
+		bool PathIsDrive(string sourcePath);
+		DriveInformation GetDriveInformationFromPath(string sourcePath);
 	}
 }

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VidCoderCLI
+﻿namespace VidCoderCLI
 {
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Text;
+	using System.Threading.Tasks;
 	using System.Diagnostics;
 	using System.IO;
 	using System.ServiceModel;
@@ -25,13 +24,31 @@ namespace VidCoderCLI
 				return;
 			}
 
-			if (args[0].ToLowerInvariant() != "encode")
-			{
-				PrintUsage();
-				return;
-			}
+			Console.WriteLine("args: " + string.Join(" ", args));
+
+			string action = args[0].ToLowerInvariant();
+			Console.WriteLine("Action: '" + action + "'");
+			Console.WriteLine("Action length: " + action.Length);
 
 			Dictionary<string, string> argumentDict = ReadArguments(args);
+
+			switch (action)
+			{
+				case "encode":
+					Encode(argumentDict);
+					break;
+				case "scan":
+					Scan(argumentDict);
+					break;
+				default:
+					Console.WriteLine("Action not recognized.");
+					PrintUsage();
+					break;
+			}
+		}
+
+		private static void Encode(Dictionary<string, string> argumentDict)
+		{
 			foreach (string token in argumentDict.Keys)
 			{
 				switch (token)
@@ -72,43 +89,34 @@ namespace VidCoderCLI
 				return;
 			}
 
-			var firstAttemptResult = TryEncode(source, destination, preset);
-			if (firstAttemptResult == AutomationEncodeResult.Success)
-			{
-				Console.WriteLine("Encode started.");
-				return;
-			}
+			RunAction(a => a.Encode(source, destination, preset), "Encode started.", "Could not start encode.");
+		}
 
-			if (firstAttemptResult == AutomationEncodeResult.FailedInVidCoder)
+		private static void Scan(Dictionary<string, string> argumentDict)
+		{
+			foreach (string token in argumentDict.Keys)
 			{
-				return;
-			}
-
-			string vidCoderExe = GetVidCoderExePath();
-
-			if (!VidCoderIsRunning(vidCoderExe))
-			{
-				Console.WriteLine("Could not find a running instance of VidCoder. Starting it now.");
-				Process.Start(vidCoderExe);
-			}
-
-			for (int i = 0; i < 30; i++)
-			{
-				Thread.Sleep(1000);
-				var encodeResult = TryEncode(source, destination, preset);
-				if (encodeResult == AutomationEncodeResult.Success)
+				switch (token)
 				{
-					Console.WriteLine("Encode started.");
-					return;
-				}
-
-				if (encodeResult == AutomationEncodeResult.FailedInVidCoder)
-				{
-					return;
+					case "s":
+					case "source":
+						source = argumentDict[token];
+						break;
+					default:
+						Console.WriteLine("Argument not recognized.");
+						PrintUsage();
+						return;
 				}
 			}
 
-			Console.WriteLine("Could not start encode.");
+			if (string.IsNullOrWhiteSpace(source))
+			{
+				Console.WriteLine("Source is missing.");
+				PrintUsage();
+				return;
+			}
+
+			RunAction(a => a.Scan(source), "Scan started.", "Could not start scan.");
 		}
 
 		private static Dictionary<string, string> ReadArguments(string[] args)
@@ -140,7 +148,9 @@ namespace VidCoderCLI
 
 		private static void PrintUsage()
 		{
-			Console.WriteLine("Usage: VidCoderCLI encode -s[ource] \"<source path>\" [-d[estination] \"<encode file destination>\"] -p[reset] \"<preset name>\"");
+			Console.WriteLine("Usage:");
+			Console.WriteLine("VidCoderCLI encode -s[ource] \"<source path>\" [-d[estination] \"<encode file destination>\"] -p[reset] \"<preset name>\"");
+			Console.WriteLine("VidCoderCLI scan -s[ource] \"<source path>\"");
 		}
 
 		private static bool VidCoderIsRunning(string vidCoderExe)
@@ -166,17 +176,59 @@ namespace VidCoderCLI
 			return false;
 		}
 
-		private static AutomationEncodeResult TryEncode(string source, string destination, string presetName)
+		private static void RunAction(Action<IVidCoderAutomation> action, string startedText, string failedText)
+		{
+			var firstAttemptResult = TryAction(action);
+			if (firstAttemptResult == AutomationResult.Success)
+			{
+				Console.WriteLine(startedText);
+				return;
+			}
+
+			if (firstAttemptResult == AutomationResult.FailedInVidCoder)
+			{
+				return;
+			}
+
+			string vidCoderExe = GetVidCoderExePath();
+
+			if (!VidCoderIsRunning(vidCoderExe))
+			{
+				Console.WriteLine("Could not find a running instance of VidCoder. Starting it now.");
+				Process.Start(vidCoderExe);
+			}
+
+			for (int i = 0; i < 30; i++)
+			{
+				Thread.Sleep(1000);
+				var encodeResult = TryAction(action);
+
+				if (encodeResult == AutomationResult.Success)
+				{
+					Console.WriteLine(startedText);
+					return;
+				}
+
+				if (encodeResult == AutomationResult.FailedInVidCoder)
+				{
+					return;
+				}
+			}
+
+			Console.WriteLine(failedText);
+		}
+
+		private static AutomationResult TryAction(Action<IVidCoderAutomation> action)
 		{
 			try
 			{
 				var binding = new NetNamedPipeBinding
-					{
-						OpenTimeout = TimeSpan.FromSeconds(30),
-						CloseTimeout = TimeSpan.FromSeconds(30),
-						SendTimeout = TimeSpan.FromSeconds(30),
-						ReceiveTimeout = TimeSpan.FromSeconds(30)
-					};
+				{
+					OpenTimeout = TimeSpan.FromSeconds(30),
+					CloseTimeout = TimeSpan.FromSeconds(30),
+					SendTimeout = TimeSpan.FromSeconds(30),
+					ReceiveTimeout = TimeSpan.FromSeconds(30)
+				};
 
 				string betaString = string.Empty;
 #if BETA
@@ -188,22 +240,22 @@ namespace VidCoderCLI
 					new EndpointAddress("net.pipe://localhost/VidCoderAutomation" + betaString));
 
 				IVidCoderAutomation channel = pipeFactory.CreateChannel();
+				action(channel);
 
-				channel.Encode(source, destination, presetName);
-				return AutomationEncodeResult.Success;
+				return AutomationResult.Success;
 			}
 			catch (FaultException<AutomationError> exception)
 			{
 				Console.WriteLine(exception.Detail.Message);
-				return AutomationEncodeResult.FailedInVidCoder;
+				return AutomationResult.FailedInVidCoder;
 			}
 			catch (CommunicationException)
 			{
-				return AutomationEncodeResult.ConnectionFailed;
+				return AutomationResult.ConnectionFailed;
 			}
 			catch (TimeoutException)
 			{
-				return AutomationEncodeResult.ConnectionFailed;
+				return AutomationResult.ConnectionFailed;
 			}
 		}
 

@@ -24,6 +24,7 @@ using VidCoder.ViewModel.Components;
 namespace VidCoder.ViewModel
 {
 	using System.Data.SQLite;
+	using System.Runtime.Remoting.Messaging;
 	using Automation;
 	using Resources;
 
@@ -77,6 +78,7 @@ namespace VidCoder.ViewModel
 		private bool scanningSource;
 		private bool scanError;
 		private double scanProgress;
+		private string pendingScan;
 		private bool scanCancelledFlag;
 
 		private bool showTrayIcon;
@@ -281,6 +283,28 @@ namespace VidCoder.ViewModel
 			this.StartScan(this.SourcePath);
 
 			return true;
+		}
+
+		public void SetSource(string sourcePath)
+		{
+			SourceType sourceType = Utilities.GetSourceType(sourcePath);
+			switch (sourceType)
+			{
+				case SourceType.File:
+					this.SetSourceFromFile(sourcePath);
+					break;
+				case SourceType.VideoFolder:
+					this.SetSourceFromFolder(sourcePath);
+					break;
+				case SourceType.Dvd:
+					DriveInformation driveInfo = this.driveService.GetDriveInformationFromPath(sourcePath);
+					if (driveInfo != null)
+					{
+						this.SetSourceFromDvd(driveInfo);
+					}
+
+					break;
+			}
 		}
 
 		public void OnLoaded()
@@ -2287,6 +2311,40 @@ namespace VidCoder.ViewModel
 			this.PresetsVM.SaveUserPresets();
 		}
 
+		public void ScanFromAutoplay(string sourcePath)
+		{
+			if ((this.HasVideoSource || this.ScanningSource) && string.Compare(this.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0)
+			{
+				// We're already on this disc. Return.
+				return;
+			}
+
+			//DriveInformation driveInfo = this.driveService.GetDriveInformationFromPath(sourcePath);
+			if (this.HasVideoSource && !this.ScanningSource)
+			{
+				var messageResult = Unity.Container.Resolve<IMessageBoxService>().Show(
+					this,
+					MainRes.AutoplayDiscConfirmationMessage,
+					CommonRes.ConfirmDialogTitle,
+					MessageBoxButton.YesNo);
+
+				if (messageResult == MessageBoxResult.Yes)
+				{
+					this.SetSource(sourcePath);
+				}
+			}
+			else if (this.ScanningSource)
+			{
+				// If we're scanning already, cancel the scan and set a pending scan for the new path.
+				this.pendingScan = sourcePath;
+				this.CancelScanCommand.Execute(null);
+			}
+			else
+			{
+				this.SetSource(sourcePath);
+			}
+		}
+
 		public void RefreshChapterMarkerUI()
 		{
 			this.RaisePropertyChanged(() => this.ShowChapterMarkerUI);
@@ -2387,6 +2445,13 @@ namespace VidCoder.ViewModel
 						}
 
 						this.logger.Log("Scan cancelled");
+
+						if (this.pendingScan != null)
+						{
+							this.SetSource(this.pendingScan);
+
+							this.pendingScan = null;
+						}
 					}
 					else
 					{

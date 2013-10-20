@@ -616,7 +616,15 @@ namespace VidCoder
 			FileAttributes attributes = File.GetAttributes(sourcePath);
 			if ((attributes & FileAttributes.Directory) == FileAttributes.Directory)
 			{
-				return SourceType.VideoFolder;
+				var driveService = Unity.Container.Resolve<IDriveService>();
+				if (driveService.PathIsDrive(sourcePath))
+				{
+					return SourceType.Dvd;
+				}
+				else
+				{
+					return SourceType.VideoFolder;
+				}
 			}
 			else
 			{

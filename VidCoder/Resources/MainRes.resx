@@ -603,4 +603,7 @@
 	<data name="StopEncodeConfirmationMessage" xml:space="preserve">
     <value>Are you sure you want to stop the encode?</value>
   </data>
+	<data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>Close the current file and open the disc?</value>
+  </data>
 </root>

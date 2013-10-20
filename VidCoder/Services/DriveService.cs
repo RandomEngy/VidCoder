@@ -82,6 +82,41 @@ namespace VidCoder.Services
 			return driveList;
 		}
 
+		public bool PathIsDrive(string sourcePath)
+		{
+			if (string.IsNullOrWhiteSpace(sourcePath))
+			{
+				return false;
+			}
+
+			string root = Path.GetPathRoot(sourcePath);
+			if (string.Compare(sourcePath, root, StringComparison.OrdinalIgnoreCase) == 0)
+			{
+				foreach (DriveInformation drive in this.GetDiscInformation())
+				{
+					if (string.Compare(drive.RootDirectory, sourcePath, StringComparison.OrdinalIgnoreCase) == 0)
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
+
+		public DriveInformation GetDriveInformationFromPath(string sourcePath)
+		{
+			foreach (DriveInformation drive in this.GetDiscInformation())
+			{
+				if (string.Compare(drive.RootDirectory, sourcePath, StringComparison.OrdinalIgnoreCase) == 0)
+				{
+					return drive;
+				}
+			}
+
+			return null;
+		}
+
 		public IList<DriveInfo> GetDriveInformation()
 		{
 			return new List<DriveInfo>(DriveInfo.GetDrives());

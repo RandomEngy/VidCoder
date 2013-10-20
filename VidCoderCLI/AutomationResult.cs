@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VidCoderCLI
 {
-	public enum AutomationEncodeResult
+	public enum AutomationResult
 	{
 		Success,
 		ConnectionFailed,

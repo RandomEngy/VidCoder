@@ -37,11 +37,13 @@ function CreateIssFile($version, $beta, $arch) {
     $tokens["appId"] = $appId
     if ($beta) {
         $tokens["appName"] = "VidCoder Beta"
+        $tokens["appNameNoSpace"] = "VidCoderBeta"
         $tokens["folderName"] = "VidCoder-Beta"
         $tokens["outputBaseFileName"] = "VidCoder-" + $version + "-Beta-" + $arch
         $tokens["appVerName"] = "VidCoder " + $version + " Beta (" + $arch + ")"
     } else {
         $tokens["appName"] = "VidCoder"
+        $tokens["appNameNoSpace"] = "VidCoder"
         $tokens["folderName"] = "VidCoder"
         $tokens["outputBaseFileName"] = "VidCoder-" + $version + "-" + $arch
         $tokens["appVerName"] = "VidCoder " + $version + " (" + $arch + ")"
@@ -141,7 +143,7 @@ ClearFolder $dest64; ExitIfFailed
 $source86 = ".\VidCoder\bin\x86\Release\"
 $source64 = ".\VidCoder\bin\x64\Release\"
 
-# Architecture-specific app files
+# Files from the main output directory (some architecture-specific)
 CopyBoth "VidCoder.exe"
 CopyBoth "VidCoder.pdb"
 CopyBoth "VidCoder.exe.config"
@@ -152,6 +154,8 @@ CopyBoth "VidCoder.XmlSerializers.dll"
 CopyBoth "Omu.ValueInjecter.dll"
 CopyBoth "VidCoderCLI.exe"
 CopyBoth "VidCoderCLI.pdb"
+CopyBoth "VidCoderWindowlessCLI.exe"
+CopyBoth "VidCoderWindowlessCLI.pdb"
 
 # Architecture-specific files from Lib folder
 CopyLibBoth "hb.dll"
