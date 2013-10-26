@@ -589,24 +589,6 @@ You should set this if you know your playback device only supports a certain pro
   <data name="AudioCompressionToolTip" xml:space="preserve">
     <value>The amount of compression to apply. {0} Valid values are from {1} to {2}.</value>
   </data>
-  <data name="AudioEncoder_copy" xml:space="preserve">
-    <value>Auto Passthrough</value>
-  </data>
-  <data name="AudioEncoder_copy_aac" xml:space="preserve">
-    <value>AAC Passthrough</value>
-  </data>
-  <data name="AudioEncoder_copy_ac3" xml:space="preserve">
-    <value>AC3 Passthrough</value>
-  </data>
-  <data name="AudioEncoder_copy_dts" xml:space="preserve">
-    <value>DTS Passthrough</value>
-  </data>
-  <data name="AudioEncoder_copy_dtshd" xml:space="preserve">
-    <value>DTS-HD Passthrough</value>
-  </data>
-  <data name="AudioEncoder_copy_mp3" xml:space="preserve">
-    <value>MP3 Passthrough</value>
-  </data>
   <data name="AudioEncoder_faac" xml:space="preserve">
     <value>AAC (FAAC)</value>
     <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
@@ -960,5 +942,33 @@ Overrides all other settings.</value>
   <data name="ScaleMethodToolTip" xml:space="preserve">
     <value>Lanczos: This is the default scaler with the best quality.
 Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
+  </data>
+  <data name="AudioEncoder_Passthrough" xml:space="preserve">
+    <value>Passthrough</value>
+  </data>
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_any" xml:space="preserve">
+    <value>Any</value>
+    <comment>Choice for a passthrough which accepts any input codec.</comment>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="ScopeLabel" xml:space="preserve">
+    <value>Scope:</value>
+  </data>
+  <data name="PassthroughScopeToolTip" xml:space="preserve">
+    <value>Specifies which input codecs the passthrough will apply to.</value>
   </data>
 </root>

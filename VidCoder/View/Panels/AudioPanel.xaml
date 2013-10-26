@@ -15,7 +15,7 @@
 			<Setter Property="Margin" Value="9,0,9,2" />
 		</Style>
 		<Style x:Key="AudioLabel" TargetType="TextBlock">
-			<Setter Property="Margin" Value="2" />
+			<Setter Property="Margin" Value="7,2,2,2" />
 			<Setter Property="HorizontalAlignment" Value="Right" />
 			<Setter Property="VerticalAlignment" Value="Center" />
 		</Style>
@@ -98,6 +98,31 @@
 											SelectedItem="{Binding SelectedAudioEncoder}"
 											DisplayMemberPath="Display"/>
 
+										<!-- Passthrough type -->
+										<TextBlock
+											Style="{StaticResource AudioLabel}"
+											Grid.Row="1" Grid.Column="0"
+											Text="{x:Static res:EncodingRes.ScopeLabel}"
+											Visibility="{Binding PassthroughChoicesVisible, Converter={StaticResource VisibilityConverter}}"
+											ToolTipService.ShowDuration="20000">
+											<TextBlock.ToolTip>
+												<TextBlock Text="{x:Static res:EncodingRes.PassthroughScopeToolTip}" Style="{StaticResource LongToolTip}" />
+											</TextBlock.ToolTip>
+										</TextBlock>
+										<ComboBox
+											Style="{StaticResource AudioControl}"
+											Grid.Row="1" Grid.Column="1" MinWidth="95"
+											ItemsSource="{Binding PassthroughChoices}"
+											SelectedValue="{Binding SelectedPassthrough}"
+											SelectedValuePath="Value"
+											DisplayMemberPath="Display"
+											Visibility="{Binding PassthroughChoicesVisible, Converter={StaticResource VisibilityConverter}}"
+											ToolTipService.ShowDuration="20000">
+											<ComboBox.ToolTip>
+												<TextBlock Text="{x:Static res:EncodingRes.PassthroughScopeToolTip}" Style="{StaticResource LongToolTip}" />
+											</ComboBox.ToolTip>
+										</ComboBox>
+										
 										<!-- Mixdown -->
 										<TextBlock
 											Style="{StaticResource AudioLabel}"

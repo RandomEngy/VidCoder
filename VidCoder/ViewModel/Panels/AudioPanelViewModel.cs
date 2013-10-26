@@ -285,7 +285,7 @@ namespace VidCoder.ViewModel
 
 		public AudioOutputPreview GetAudioPreview(AudioTrack inputTrack, AudioEncodingViewModel audioVM)
 		{
-			HBAudioEncoder encoder = audioVM.SelectedAudioEncoder.Encoder;
+			HBAudioEncoder encoder = audioVM.HBAudioEncoder;
 
 			var outputPreviewTrack = new AudioOutputPreview
 			{
