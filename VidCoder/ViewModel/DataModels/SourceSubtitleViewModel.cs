@@ -6,7 +6,6 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.SourceData;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
@@ -17,7 +16,7 @@ namespace VidCoder.ViewModel
 	{
 		private SourceSubtitle subtitle;
 
-		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
+		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
 
 		public SourceSubtitleViewModel(SubtitleDialogViewModel subtitleDialogViewModel, SourceSubtitle subtitle)
 		{

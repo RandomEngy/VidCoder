@@ -5,7 +5,6 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
-using Microsoft.Practices.Unity;
 using VidCoder.Model;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;
@@ -14,9 +13,9 @@ namespace VidCoder.ViewModel
 {
 	public class LogViewModel : OkCancelDialogViewModel
 	{
-		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
-		private WindowManagerViewModel windowManagerVM = Unity.Container.Resolve<WindowManagerViewModel>();
-		private ILogger logger = Unity.Container.Resolve<ILogger>();
+		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
+		private WindowManagerViewModel windowManagerVM = Ioc.Container.GetInstance<WindowManagerViewModel>();
+		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
 
 		private ICommand clearLogCommand;
 		private ICommand copyCommand;
@@ -70,7 +69,7 @@ namespace VidCoder.ViewModel
 								logTextBuilder.AppendLine(entry.Text);
 							}
 
-							Unity.Container.Resolve<ClipboardService>().SetText(logTextBuilder.ToString());
+							Ioc.Container.GetInstance<ClipboardService>().SetText(logTextBuilder.ToString());
 						}
 					});
 				}

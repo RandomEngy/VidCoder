@@ -7,7 +7,6 @@ using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
-using Microsoft.Practices.Unity;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.ViewModel.Components;
@@ -25,7 +24,7 @@ namespace VidCoder.ViewModel
 		private const int DefaultVideoBitrateKbps = 900;
 		private const int DefaultTargetSizeMB = 700;
 
-		private OutputPathViewModel outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
+		private OutputPathViewModel outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
 
 		private List<VideoEncoderViewModel> encoderChoices;
 

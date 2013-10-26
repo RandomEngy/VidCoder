@@ -8,7 +8,6 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using HandBrake.Interop.Model;
 using VidCoder.Model;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
@@ -118,7 +117,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.chooseSourceCommand ?? (this.chooseSourceCommand = new RelayCommand(() =>
 					{
-						var mainVM = Unity.Container.Resolve<MainViewModel>();
+						var mainVM = Ioc.Container.GetInstance<MainViewModel>();
 
 						switch (this.SourceOption.Type)
 						{

@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using Microsoft.Practices.Unity;
 using VidCoder.Model;
 using VidCoder.ViewModel;
 using VidCoder.ViewModel.Components;
@@ -17,7 +16,7 @@ namespace VidCoder.Services
 	{
 		private IFileService fileService;
 		private IMessageBoxService messageBoxService;
-		private PresetsViewModel presetsViewModel = Unity.Container.Resolve<PresetsViewModel>();
+		private PresetsViewModel presetsViewModel = Ioc.Container.GetInstance<PresetsViewModel>();
 
 		public PresetImportExport(IFileService fileService, IMessageBoxService messageBoxService)
 		{

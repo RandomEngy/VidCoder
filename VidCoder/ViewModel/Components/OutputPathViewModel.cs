@@ -12,7 +12,6 @@ using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
-using Microsoft.Practices.Unity;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Services;
@@ -27,10 +26,10 @@ namespace VidCoder.ViewModel.Components
 	/// </summary>
 	public class OutputPathViewModel : ViewModelBase
 	{
-		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
+		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
 		private ProcessingViewModel processingVM;
 		private PresetsViewModel presetsVM;
-		private IDriveService driveService = Unity.Container.Resolve<IDriveService>();
+		private IDriveService driveService = Ioc.Container.GetInstance<IDriveService>();
 
 		private string outputPath;
 
@@ -54,7 +53,7 @@ namespace VidCoder.ViewModel.Components
 			{
 				if (this.processingVM == null)
 				{
-					this.processingVM = Unity.Container.Resolve<ProcessingViewModel>();
+					this.processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
 				}
 
 				return this.processingVM;
@@ -67,7 +66,7 @@ namespace VidCoder.ViewModel.Components
 			{
 				if (this.presetsVM == null)
 				{
-					this.presetsVM = Unity.Container.Resolve<PresetsViewModel>();
+					this.presetsVM = Ioc.Container.GetInstance<PresetsViewModel>();
 				}
 
 				return this.presetsVM;

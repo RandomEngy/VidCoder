@@ -5,7 +5,6 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using VidCoder.View;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder
 {
@@ -13,7 +12,7 @@ namespace VidCoder
 	{
 		public void Execute(object parameter)
 		{
-			var mainWindow = Unity.Container.Resolve<MainWindow>();
+			var mainWindow = Ioc.Container.GetInstance<MainWindow>();
 			mainWindow.Show();
 
 			mainWindow.Dispatcher.BeginInvoke(new Action(() =>

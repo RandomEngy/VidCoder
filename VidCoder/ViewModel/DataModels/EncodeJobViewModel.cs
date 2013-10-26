@@ -11,7 +11,6 @@ using HandBrake.Interop.Model.Encoding;
 using VidCoder.DragDropUtils;
 using HandBrake.Interop;
 using System.Diagnostics;
-using Microsoft.Practices.Unity;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.ViewModel.Components;
@@ -26,7 +25,7 @@ namespace VidCoder.ViewModel
 	{
 		public const double SubtitleScanCostFactor = 5.0;
 
-		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
+		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
 		private ProcessingViewModel processingVM;
 
 		private bool isSelected;
@@ -80,7 +79,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.processingVM == null)
 				{
-					this.processingVM = Unity.Container.Resolve<ProcessingViewModel>();
+					this.processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
 				}
 
 				return this.processingVM;

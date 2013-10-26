@@ -28,7 +28,6 @@ using System.Windows.Media.Effects;
 using HandBrake.Interop;
 using System.Resources;
 using System.IO;
-using Microsoft.Practices.Unity;
 using VidCoder.ViewModel.Components;
 
 namespace VidCoder.View
@@ -42,8 +41,8 @@ namespace VidCoder.View
 	public partial class MainWindow : Window
 	{
 		private MainViewModel viewModel;
-		private ProcessingViewModel processingVM = Unity.Container.Resolve<ProcessingViewModel>();
-		private OutputPathViewModel outputVM = Unity.Container.Resolve<OutputPathViewModel>();
+		private ProcessingViewModel processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
+		private OutputPathViewModel outputVM = Ioc.Container.GetInstance<OutputPathViewModel>();
 
 		private bool tabsVisible = false;
 
@@ -53,7 +52,7 @@ namespace VidCoder.View
 
 		public MainWindow()
 		{
-			Unity.Container.RegisterInstance(this);
+			Ioc.Container.Register(() => this);
 
 			InitializeComponent();
 
@@ -139,7 +138,7 @@ namespace VidCoder.View
 						if (Path.GetExtension(item).ToLowerInvariant() == ".xml")
 						{
 							// It's a preset
-							Unity.Container.Resolve<IPresetImportExport>().ImportPreset(itemList[0]);
+							Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(itemList[0]);
 						}
 						else if (Utilities.IsDiscFolder(item))
 						{

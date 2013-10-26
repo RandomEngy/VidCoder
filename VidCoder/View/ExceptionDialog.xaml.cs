@@ -14,7 +14,6 @@ using System.Drawing;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
 using VidCoder.Services;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder.View
 {
@@ -37,7 +36,7 @@ namespace VidCoder.View
 
 		private void copyButton_Click(object sender, RoutedEventArgs e)
 		{
-			Unity.Container.Resolve<ClipboardService>().SetText(this.exception.ToString());
+			Ioc.Container.GetInstance<ClipboardService>().SetText(this.exception.ToString());
 		}
 	}
 }

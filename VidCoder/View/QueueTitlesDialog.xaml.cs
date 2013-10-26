@@ -11,7 +11,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using HandBrake.Interop.SourceData;
-using Microsoft.Practices.Unity;
 using VidCoder.Services;
 using VidCoder.ViewModel;
 

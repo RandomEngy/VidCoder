@@ -6,7 +6,6 @@ using System.Text;
 namespace VidCoder.Automation
 {
 	using System.ServiceModel;
-	using Microsoft.Practices.Unity;
 	using VidCoderCLI;
 	using ViewModel;
 	using ViewModel.Components;
@@ -15,7 +14,7 @@ namespace VidCoder.Automation
 	{
 		public void Encode(string source, string destination, string preset)
 		{
-			var processingVM = Unity.Container.Resolve<ProcessingViewModel>();
+			var processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
 
 			try
 			{
@@ -29,7 +28,7 @@ namespace VidCoder.Automation
 
 		public void Scan(string source)
 		{
-			var mainVM = Unity.Container.Resolve<MainViewModel>();
+			var mainVM = Ioc.Container.GetInstance<MainViewModel>();
 
 			try
 			{

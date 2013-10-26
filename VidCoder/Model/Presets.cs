@@ -18,7 +18,6 @@ namespace VidCoder.Model
 {
 	using Resources;
 	using Services;
-	using Microsoft.Practices.Unity;
 
 	public static class Presets
 	{
@@ -442,8 +441,8 @@ namespace VidCoder.Model
 					presets.RemoveAt(i);
 
 					// Splash screen eats first dialog, need to show twice.
-					Unity.Container.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.DisplayName + "'.");
-					Unity.Container.Resolve<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.DisplayName + "'.");
+					Ioc.Container.GetInstance<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.DisplayName + "'.");
+					Ioc.Container.GetInstance<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.DisplayName + "'.");
 				}
 				else
 				{

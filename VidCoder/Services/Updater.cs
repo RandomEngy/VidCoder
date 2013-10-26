@@ -10,7 +10,6 @@ using System.Net;
 using System.Windows;
 using VidCoder.Model;
 using System.Diagnostics;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder.Services
 {
@@ -56,7 +55,7 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ILogger logger = Unity.Container.Resolve<ILogger>();
+		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
 		private BackgroundWorker updateDownloader;
 		private bool processDownloadsUpdates = true;
 
@@ -106,7 +105,7 @@ namespace VidCoder.Services
 					{
 						// An update is ready, to give a prompt to apply it.
 						var updateConfirmation = new ApplyUpdateConfirmation();
-						updateConfirmation.Owner = Unity.Container.Resolve<View.MainWindow>();
+						updateConfirmation.Owner = Ioc.Container.GetInstance<View.MainWindow>();
 						updateConfirmation.ShowDialog();
 
 						if (updateConfirmation.Result == "Yes")

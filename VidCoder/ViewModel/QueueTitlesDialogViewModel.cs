@@ -12,8 +12,6 @@ using HandBrake.Interop.SourceData;
 using System.Collections.ObjectModel;
 using VidCoder.Model;
 
-using Microsoft.Practices.Unity;
-
 namespace VidCoder.ViewModel
 {
 	using System.Data.SQLite;
@@ -33,7 +31,7 @@ namespace VidCoder.ViewModel
 
 		public QueueTitlesDialogViewModel(List<Title> allTitles)
 		{
-			this.main = Unity.Container.Resolve<MainViewModel>();
+			this.main = Ioc.Container.GetInstance<MainViewModel>();
 
 			this.selectedTitles = new ObservableCollection<TitleSelectionViewModel>();
 			this.selectRange = Config.QueueTitlesUseRange;

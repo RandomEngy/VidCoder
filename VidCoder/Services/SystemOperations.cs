@@ -6,7 +6,6 @@ using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
 using System.Text;
-using Microsoft.Practices.Unity;
 using VidCoder.Model;
 using System.Windows.Forms;
 
@@ -15,7 +14,7 @@ namespace VidCoder.Services
 {
 	public class SystemOperations : ISystemOperations
 	{
-		private static ILogger logger = Unity.Container.Resolve<ILogger>();
+		private static ILogger logger = Ioc.Container.GetInstance<ILogger>();
 
 		[Flags]
 		private enum ExitWindows : uint

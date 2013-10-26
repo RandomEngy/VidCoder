@@ -12,7 +12,6 @@ using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using VidCoder.Messages;
 using System.IO;
-using Microsoft.Practices.Unity;
 using VidCoder.Services;
 using System.Threading;
 using VidCoder.Model;
@@ -34,7 +33,7 @@ namespace VidCoder.ViewModel
 		private VCJob job;
 		private HandBrakeInstance originalScanInstance;
 		private IEncodeProxy encodeProxy;
-		private ILogger logger = Unity.Container.Resolve<ILogger>();
+		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
 		private string title;
 		private int selectedPreview;
 		private bool hasPreview;
@@ -58,10 +57,10 @@ namespace VidCoder.ViewModel
 		private string imageFileCacheFolder;
 		private BitmapImage previewBitmapImage;
 
-		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
-		private OutputPathViewModel outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
-		private WindowManagerViewModel windowManagerVM = Unity.Container.Resolve<WindowManagerViewModel>();
-		private ProcessingViewModel processingVM = Unity.Container.Resolve<ProcessingViewModel>();
+		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
+		private OutputPathViewModel outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
+		private WindowManagerViewModel windowManagerVM = Ioc.Container.GetInstance<WindowManagerViewModel>();
+		private ProcessingViewModel processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
 
 		public PreviewViewModel()
 		{
@@ -616,7 +615,7 @@ namespace VidCoder.ViewModel
 				this.HasPreview = false;
 				this.Title = PreviewRes.NoVideoSourceTitle;
 
-				Unity.Container.Resolve<ILogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
+				Ioc.Container.GetInstance<ILogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
 				return;
 			}
 

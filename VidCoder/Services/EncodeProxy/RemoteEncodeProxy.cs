@@ -21,7 +21,6 @@ namespace VidCoder
 	using Services;
 	using VidCoderWorker;
 
-	using Microsoft.Practices.Unity;
 	using Timer = System.Timers.Timer;
 
 	public class RemoteEncodeProxy : IHandBrakeEncoderCallback, IEncodeProxy

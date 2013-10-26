@@ -10,13 +10,12 @@ namespace VidCoder.Services
 	using Resources;
 	using ViewModel;
 	using ViewModel.Components;
-	using Microsoft.Practices.Unity;
 
 	public class QueueImportExport : IQueueImportExport
 	{
 		private IFileService fileService;
 		private IMessageBoxService messageBoxService;
-		private ProcessingViewModel processingViewModel = Unity.Container.Resolve<ProcessingViewModel>();
+		private ProcessingViewModel processingViewModel = Ioc.Container.GetInstance<ProcessingViewModel>();
 
 		public QueueImportExport(IFileService fileService, IMessageBoxService messageBoxService)
 		{

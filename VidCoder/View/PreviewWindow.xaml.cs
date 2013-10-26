@@ -12,7 +12,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using VidCoder.Services;
 using VidCoder.ViewModel;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder.View
 {
@@ -224,7 +223,7 @@ namespace VidCoder.View
 
 		private void Window_PreviewDrop(object sender, DragEventArgs e)
 		{
-			Unity.Container.Resolve<MainWindow>().HandleDrop(sender, e);
+			Ioc.Container.GetInstance<MainWindow>().HandleDrop(sender, e);
 		}
 
 		private void Window_PreviewDragOver(object sender, DragEventArgs e)

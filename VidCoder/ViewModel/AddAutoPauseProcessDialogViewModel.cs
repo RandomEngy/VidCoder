@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using GalaSoft.MvvmLight.Command;
 using VidCoder.Services;
-using Microsoft.Practices.Unity;
 using System.Windows.Input;
 
 namespace VidCoder.ViewModel
@@ -22,7 +21,7 @@ namespace VidCoder.ViewModel
 
 		public AddAutoPauseProcessDialogViewModel()
 		{
-			this.processes = Unity.Container.Resolve<IProcesses>();
+			this.processes = Ioc.Container.GetInstance<IProcesses>();
 			this.currentProcesses = new ObservableCollection<string>();
 			this.RefreshCurrentProcesses();
 		}

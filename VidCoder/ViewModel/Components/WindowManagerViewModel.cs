@@ -5,7 +5,6 @@ using System.Text;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel.Components
 {
@@ -14,7 +13,7 @@ namespace VidCoder.ViewModel.Components
 	/// </summary>
 	public class WindowManagerViewModel : ViewModelBase
 	{
-		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
+		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
 
 		private bool encodingWindowOpen;
 		private bool previewWindowOpen;
@@ -121,7 +120,7 @@ namespace VidCoder.ViewModel.Components
 
 			if (encodingWindow == null)
 			{
-				encodingWindow = new EncodingViewModel(Unity.Container.Resolve<PresetsViewModel>().SelectedPreset.Preset);
+				encodingWindow = new EncodingViewModel(Ioc.Container.GetInstance<PresetsViewModel>().SelectedPreset.Preset);
 				encodingWindow.Closing = () =>
 				{
 					this.EncodingWindowOpen = false;

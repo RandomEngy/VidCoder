@@ -18,7 +18,6 @@ using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.SourceData;
-using Microsoft.Practices.Unity;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Services;
@@ -39,12 +38,12 @@ namespace VidCoder.ViewModel.Components
 
 		private const double StopWarningThresholdMinutes = 5;
 
-		private ILogger logger = Unity.Container.Resolve<ILogger>();
-		private IProcessAutoPause autoPause = Unity.Container.Resolve<IProcessAutoPause>();
-		private ISystemOperations systemOperations = Unity.Container.Resolve<ISystemOperations>();
-		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
-		private OutputPathViewModel outputVM = Unity.Container.Resolve<OutputPathViewModel>();
-		private PresetsViewModel presetsViewModel = Unity.Container.Resolve<PresetsViewModel>();
+		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
+		private IProcessAutoPause autoPause = Ioc.Container.GetInstance<IProcessAutoPause>();
+		private ISystemOperations systemOperations = Ioc.Container.GetInstance<ISystemOperations>();
+		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
+		private OutputPathViewModel outputVM = Ioc.Container.GetInstance<OutputPathViewModel>();
+		private PresetsViewModel presetsViewModel = Ioc.Container.GetInstance<PresetsViewModel>();
 
 		private ObservableCollection<EncodeJobViewModel> encodeQueue;
 		private bool encoding;
@@ -727,7 +726,7 @@ namespace VidCoder.ViewModel.Components
 					string presetFileName = FileService.Instance.GetFileNameLoad(null, MainRes.ImportQueueFilePickerTitle, "xml", Utilities.GetFilePickerFilter("xml"));
 					if (presetFileName != null)
 					{
-						Unity.Container.Resolve<IQueueImportExport>().Import(presetFileName);
+						Ioc.Container.GetInstance<IQueueImportExport>().Import(presetFileName);
 					}
 
 				}));
@@ -754,7 +753,7 @@ namespace VidCoder.ViewModel.Components
 								});
 						}
 
-						Unity.Container.Resolve<IQueueImportExport>().Export(encodeJobs);
+						Ioc.Container.GetInstance<IQueueImportExport>().Export(encodeJobs);
 				}));
 			}
 		}
@@ -1497,7 +1496,7 @@ namespace VidCoder.ViewModel.Components
 						this.logger.ShowStatus(MainRes.EncodeCompleted);
 						this.logger.Log("");
 
-						Unity.Container.Resolve<TrayService>().ShowBalloonMessage(MainRes.EncodeCompleteBalloonTitle, MainRes.EncodeCompleteBalloonMessage);
+						Ioc.Container.GetInstance<TrayService>().ShowBalloonMessage(MainRes.EncodeCompleteBalloonTitle, MainRes.EncodeCompleteBalloonMessage);
 
 						EncodeCompleteActionType actionType = this.EncodeCompleteAction.ActionType;
 						switch (actionType)
@@ -1701,7 +1700,7 @@ namespace VidCoder.ViewModel.Components
 				return true;
 			}
 
-			var messageService = Unity.Container.Resolve<IMessageBoxService>();
+			var messageService = Ioc.Container.GetInstance<IMessageBoxService>();
 			var messageResult = messageService.Show(
 				this.main,
 				MainRes.OutputFolderRequiredMessage, 
@@ -1724,7 +1723,7 @@ namespace VidCoder.ViewModel.Components
 				return true;
 			}
 
-			Unity.Container.Resolve<IMessageBoxService>().Show(
+			Ioc.Container.GetInstance<IMessageBoxService>().Show(
 				MainRes.OutputPathNotValidMessage,
 				MainRes.OutputPathNotValidTitle, 
 				MessageBoxButton.OK,

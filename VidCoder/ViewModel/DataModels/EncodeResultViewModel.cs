@@ -10,7 +10,6 @@ using VidCoder.Model;
 using System.Globalization;
 using System.Windows.Input;
 using System.IO;
-using Microsoft.Practices.Unity;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;
 
@@ -22,8 +21,8 @@ namespace VidCoder.ViewModel
 
 	public class EncodeResultViewModel : ViewModelBase
 	{
-		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
-		private ProcessingViewModel processingVM = Unity.Container.Resolve<ProcessingViewModel>();
+		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
+		private ProcessingViewModel processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
 
 		private EncodeResult encodeResult;
 		private EncodeJobViewModel job;
@@ -179,15 +178,15 @@ namespace VidCoder.ViewModel
 						{
 							string logText = File.ReadAllText(this.encodeResult.LogPath);
 
-							Unity.Container.Resolve<ClipboardService>().SetText(logText);
+							Ioc.Container.GetInstance<ClipboardService>().SetText(logText);
 						}
 						catch (IOException exception)
 						{
-							Unity.Container.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+							Ioc.Container.GetInstance<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
 						}
 						catch (UnauthorizedAccessException exception)
 						{
-							Unity.Container.Resolve<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+							Ioc.Container.GetInstance<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
 						}
 					}));
 			}

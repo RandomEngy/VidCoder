@@ -14,7 +14,6 @@ using System.IO;
 using System.ComponentModel;
 using HandBrake.Interop;
 using VidCoder.View;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder
 {
@@ -118,7 +117,7 @@ namespace VidCoder
 				Thread.CurrentThread.CurrentUICulture = cultureInfo;
 			}
 
-			var updater = Unity.Container.Resolve<IUpdater>();
+			var updater = Ioc.Container.GetInstance<IUpdater>();
 			bool updateSucceeded = updater.HandlePendingUpdate();
 
 			if (updateSucceeded)

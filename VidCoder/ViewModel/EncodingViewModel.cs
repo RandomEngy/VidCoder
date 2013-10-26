@@ -15,7 +15,6 @@ using System.Windows.Media.Imaging;
 using System.ComponentModel;
 using HandBrake.Interop;
 using System.Windows;
-using Microsoft.Practices.Unity;
 using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
@@ -25,11 +24,11 @@ namespace VidCoder.ViewModel
 
 	public class EncodingViewModel : OkCancelDialogViewModel
 	{
-		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
-		private OutputPathViewModel outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
-		private PresetsViewModel presetsViewModel = Unity.Container.Resolve<PresetsViewModel>();
-		private WindowManagerViewModel windowManagerVM = Unity.Container.Resolve<WindowManagerViewModel>();
-		private ProcessingViewModel processingVM = Unity.Container.Resolve<ProcessingViewModel>();
+		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
+		private OutputPathViewModel outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
+		private PresetsViewModel presetsViewModel = Ioc.Container.GetInstance<PresetsViewModel>();
+		private WindowManagerViewModel windowManagerVM = Ioc.Container.GetInstance<WindowManagerViewModel>();
+		private ProcessingViewModel processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
 
 		private VCProfile profile;
 

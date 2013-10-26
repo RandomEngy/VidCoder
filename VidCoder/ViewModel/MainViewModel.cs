@@ -18,7 +18,6 @@ using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Properties;
 using VidCoder.Services;
-using Microsoft.Practices.Unity;
 using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
@@ -32,8 +31,8 @@ namespace VidCoder.ViewModel
 	{
 		private HandBrakeInstance scanInstance;
 
-		private IUpdater updater = Unity.Container.Resolve<IUpdater>();
-		private ILogger logger = Unity.Container.Resolve<ILogger>();
+		private IUpdater updater = Ioc.Container.GetInstance<IUpdater>();
+		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
 		private OutputPathViewModel outputPathVM;
 		private PresetsViewModel presetsVM;
 		private ProcessingViewModel processingVM;
@@ -88,12 +87,12 @@ namespace VidCoder.ViewModel
 
 		public MainViewModel()
 		{
-			Unity.Container.RegisterInstance(this);
+			Ioc.Container.Register(() => this);
 
-			this.outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
-			this.processingVM = Unity.Container.Resolve<ProcessingViewModel>();
-			this.presetsVM = Unity.Container.Resolve<PresetsViewModel>();
-			this.windowManagerVM = Unity.Container.Resolve<WindowManagerViewModel>();
+			this.outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
+			this.processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
+			this.presetsVM = Ioc.Container.GetInstance<PresetsViewModel>();
+			this.windowManagerVM = Ioc.Container.GetInstance<WindowManagerViewModel>();
 
 			updater.CheckUpdates();
 
@@ -117,7 +116,7 @@ namespace VidCoder.ViewModel
 
 			this.useDefaultChapterNames = true;
 
-			this.driveService = Unity.Container.Resolve<IDriveService>();
+			this.driveService = Ioc.Container.GetInstance<IDriveService>();
 
 			this.DriveCollection = this.driveService.GetDiscInformation();
 
@@ -1994,7 +1993,7 @@ namespace VidCoder.ViewModel
 							Utilities.GetFilePickerFilter("xml"));
 						if (presetFileName != null)
 						{
-							Unity.Container.Resolve<IPresetImportExport>().ImportPreset(presetFileName);
+							Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(presetFileName);
 						}
 					}));
 			}
@@ -2007,7 +2006,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.exportPresetCommand ?? (this.exportPresetCommand = new RelayCommand(() =>
 					{
-						Unity.Container.Resolve<IPresetImportExport>().ExportPreset(this.presetsVM.SelectedPreset.Preset);
+						Ioc.Container.GetInstance<IPresetImportExport>().ExportPreset(this.presetsVM.SelectedPreset.Preset);
 					}));
 			}
 		}
@@ -2269,7 +2268,7 @@ namespace VidCoder.ViewModel
 						DriveInformation driveInfo = this.DriveCollection.FirstOrDefault(d => string.Compare(d.RootDirectory, jobRoot, StringComparison.OrdinalIgnoreCase) == 0);
 						if (driveInfo == null)
 						{
-							Unity.Container.Resolve<IMessageBoxService>().Show(MainRes.DiscNotInDriveError);
+							Ioc.Container.GetInstance<IMessageBoxService>().Show(MainRes.DiscNotInDriveError);
 							return;
 						}
 
@@ -2322,7 +2321,7 @@ namespace VidCoder.ViewModel
 			//DriveInformation driveInfo = this.driveService.GetDriveInformationFromPath(sourcePath);
 			if (this.HasVideoSource && !this.ScanningSource)
 			{
-				var messageResult = Unity.Container.Resolve<IMessageBoxService>().Show(
+				var messageResult = Ioc.Container.GetInstance<IMessageBoxService>().Show(
 					this,
 					MainRes.AutoplayDiscConfirmationMessage,
 					CommonRes.ConfirmDialogTitle,

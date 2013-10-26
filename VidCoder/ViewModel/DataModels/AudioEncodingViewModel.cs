@@ -12,9 +12,7 @@ using HandBrake.Interop.SourceData;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using VidCoder.Messages;
-using VidCoder.Properties;
 using VidCoder.Services;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
@@ -27,7 +25,7 @@ namespace VidCoder.ViewModel
 		private AudioPanelViewModel audioPanelVM;
 		private bool initializing;
 
-		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
+		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
 
 		private ObservableCollection<TargetStreamViewModel> targetStreams;
 		private int targetStreamIndex;

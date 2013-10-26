@@ -9,7 +9,6 @@ using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using System.IO;
-using Microsoft.Practices.Unity;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;
 
@@ -29,8 +28,8 @@ namespace VidCoder.ViewModel
 		private bool textSubtitleWarningVisible;
 		private bool burnedOverlapWarningVisible;
 
-		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
-		private PresetsViewModel presetsViewModel = Unity.Container.Resolve<PresetsViewModel>();
+		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
+		private PresetsViewModel presetsViewModel = Ioc.Container.GetInstance<PresetsViewModel>();
 
 		public SubtitleDialogViewModel(Subtitles currentSubtitles)
 		{

@@ -19,7 +19,6 @@ namespace VidCoder.ViewModel
 	using System.Resources;
 	using HandBrake.Interop;
 	using Resources;
-	using Microsoft.Practices.Unity;
 	using Utilities = VidCoder.Utilities;
 
 	public class OptionsDialogViewModel : OkCancelDialogViewModel
@@ -1024,7 +1023,7 @@ namespace VidCoder.ViewModel
 							if (Config.InterfaceLanguageCode != this.InterfaceLanguage.CultureCode)
 							{
 								Config.InterfaceLanguageCode = this.InterfaceLanguage.CultureCode;
-								Unity.Container.Resolve<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
+								Ioc.Container.GetInstance<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
 							}
 
 							Config.AutoNameOutputFolder = this.DefaultPath;

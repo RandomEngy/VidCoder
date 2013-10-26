@@ -11,7 +11,6 @@ using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using Microsoft.Win32;
 using VidCoder.Services;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder
 {
@@ -524,7 +523,7 @@ namespace VidCoder
 		{
 			get
 			{
-				return Unity.Container.Resolve<IMessageBoxService>();
+				return Ioc.Container.GetInstance<IMessageBoxService>();
 			}
 		}
 
@@ -616,7 +615,7 @@ namespace VidCoder
 			FileAttributes attributes = File.GetAttributes(sourcePath);
 			if ((attributes & FileAttributes.Directory) == FileAttributes.Directory)
 			{
-				var driveService = Unity.Container.Resolve<IDriveService>();
+				var driveService = Ioc.Container.GetInstance<IDriveService>();
 				if (driveService.PathIsDrive(sourcePath))
 				{
 					return SourceType.Dvd;
@@ -711,7 +710,7 @@ namespace VidCoder
 			}
 			catch (UnauthorizedAccessException ex)
 			{
-				Unity.Container.Resolve<ILogger>().Log("Could not determine if folder was disc: " + ex);
+				Ioc.Container.GetInstance<ILogger>().Log("Could not determine if folder was disc: " + ex);
 				return false;
 			}
 		}

@@ -8,7 +8,6 @@ using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop.Model.Encoding;
-using Microsoft.Practices.Unity;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Services;
@@ -23,7 +22,7 @@ namespace VidCoder.ViewModel.Components
 	/// </summary>
 	public class PresetsViewModel : ViewModelBase
 	{
-		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
+		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
 		private OutputPathViewModel outputPathVM;
 
 		private PresetViewModel selectedPreset;
@@ -100,7 +99,7 @@ namespace VidCoder.ViewModel.Components
 			{
 				if (this.outputPathVM == null)
 				{
-					this.outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
+					this.outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
 				}
 
 				return this.outputPathVM;

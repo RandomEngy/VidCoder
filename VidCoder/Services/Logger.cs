@@ -10,6 +10,7 @@ using VidCoder.Model;
 
 namespace VidCoder.Services
 {
+	using GalaSoft.MvvmLight.Ioc;
 	using HandBrake.Interop.EventArgs;
 
 	public class Logger : IDisposable, ILogger
@@ -25,6 +26,7 @@ namespace VidCoder.Services
 		public event EventHandler<EventArgs<LogEntry>> EntryLogged;
 		public event EventHandler Cleared;
 
+		[PreferredConstructor]
 		public Logger() : this(null, null)
 		{
 		}
