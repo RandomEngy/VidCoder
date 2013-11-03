@@ -2,11 +2,11 @@
 	<Release>
 		<Latest>1.5.10</Latest>
 		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.5.10-Beta-x86.exe</DownloadLocation>
-		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/113705</ChangelogLocation>
+		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/114025</ChangelogLocation>
 	</Release>
 	<Release-x64>
 		<Latest>1.5.10</Latest>
 		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.5.10-Beta-x64.exe</DownloadLocation>
-		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/113705</ChangelogLocation>
+		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/114025</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>

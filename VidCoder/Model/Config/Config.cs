@@ -37,9 +37,11 @@
 			QueueTitlesDialogPlacement2_Field = DatabaseConfig.GetConfig("QueueTitlesDialogPlacement2", "", connection);
 			AddAutoPauseProcessDialogPlacement_Field = DatabaseConfig.GetConfig("AddAutoPauseProcessDialogPlacement", "", connection);
 			OptionsDialogPlacement_Field = DatabaseConfig.GetConfig("OptionsDialogPlacement", "", connection);
+			EncodeDetailsWindowPlacement_Field = DatabaseConfig.GetConfig("EncodeDetailsWindowPlacement", "", connection);
 			EncodingWindowOpen_Field = DatabaseConfig.GetConfig("EncodingWindowOpen", false, connection);
 			PreviewWindowOpen_Field = DatabaseConfig.GetConfig("PreviewWindowOpen", false, connection);
 			LogWindowOpen_Field = DatabaseConfig.GetConfig("LogWindowOpen", false, connection);
+			EncodeDetailsWindowOpen_Field = DatabaseConfig.GetConfig("EncodeDetailsWindowOpen", false, connection);
 			UpdatesEnabled_Field = DatabaseConfig.GetConfig("UpdatesEnabled", true, connection);
 			PreviewSeconds_Field = DatabaseConfig.GetConfig("PreviewSeconds", 10, connection);
 			ApplicationVersion_Field = DatabaseConfig.GetConfig("ApplicationVersion", "", connection);
@@ -514,6 +516,20 @@
 				DatabaseConfig.SetConfigValue("OptionsDialogPlacement", value);
 			}
 		}
+		private static string EncodeDetailsWindowPlacement_Field;
+		public static string EncodeDetailsWindowPlacement
+		{
+			get
+			{
+				return EncodeDetailsWindowPlacement_Field;
+			}
+			
+			set
+			{
+				EncodeDetailsWindowPlacement_Field = value;
+				DatabaseConfig.SetConfigValue("EncodeDetailsWindowPlacement", value);
+			}
+		}
 		private static bool EncodingWindowOpen_Field;
 		public static bool EncodingWindowOpen
 		{
@@ -554,6 +570,20 @@
 			{
 				LogWindowOpen_Field = value;
 				DatabaseConfig.SetConfigValue("LogWindowOpen", value);
+			}
+		}
+		private static bool EncodeDetailsWindowOpen_Field;
+		public static bool EncodeDetailsWindowOpen
+		{
+			get
+			{
+				return EncodeDetailsWindowOpen_Field;
+			}
+			
+			set
+			{
+				EncodeDetailsWindowOpen_Field = value;
+				DatabaseConfig.SetConfigValue("EncodeDetailsWindowOpen", value);
 			}
 		}
 		private static bool UpdatesEnabled_Field;

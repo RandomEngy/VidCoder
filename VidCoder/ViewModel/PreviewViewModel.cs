@@ -21,6 +21,7 @@ using VidCoder.ViewModel.Components;
 namespace VidCoder.ViewModel
 {
 	using System.Globalization;
+	using System.Linq.Expressions;
 	using Resources;
 
 	public class PreviewViewModel : OkCancelDialogViewModel
@@ -333,21 +334,31 @@ namespace VidCoder.ViewModel
 				}
 
 				string sourcePath = this.mainViewModel.SourcePath;
-				var fileAttributes = File.GetAttributes(sourcePath);
-				if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
-				{
-					// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
-					bool isDvd = Utilities.IsDvdFolder(this.mainViewModel.SourcePath);
-					if (!isDvd)
-					{
-						return PreviewRes.PlaySourceDisabledBluRayToolTip;
-					}
 
-					bool playerInstalled = Players.Installed.Count > 0;
-					if (!playerInstalled)
+				try
+				{
+					if (Utilities.IsDirectory(sourcePath))
 					{
-						return PreviewRes.PlaySourceDisabledNoPlayerToolTip;
+						// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
+						bool isDvd = Utilities.IsDvdFolder(this.mainViewModel.SourcePath);
+						if (!isDvd)
+						{
+							return PreviewRes.PlaySourceDisabledBluRayToolTip;
+						}
+
+						bool playerInstalled = Players.Installed.Count > 0;
+						if (!playerInstalled)
+						{
+							return PreviewRes.PlaySourceDisabledNoPlayerToolTip;
+						}
 					}
+				}
+				catch (FileNotFoundException)
+				{
+					return PreviewRes.PlaySourceDisabledNotFoundToolTip;
+				}
+				catch (IOException)
+				{
 				}
 
 				return PreviewRes.PlaySourceToolTip;
@@ -358,25 +369,33 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (!this.HasPreview || this.mainViewModel.SourcePath == null)
+				string sourcePath = this.mainViewModel.SourcePath;
+
+				if (!this.HasPreview || sourcePath == null)
 				{
 					return false;
 				}
 
-				string sourcePath = this.mainViewModel.SourcePath;
-				var fileAttributes = File.GetAttributes(sourcePath);
-				if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
+				try
 				{
-					// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
-					bool isDvd = Utilities.IsDvdFolder(this.mainViewModel.SourcePath);
-					bool playerInstalled = Players.Installed.Count > 0;
+					if (Utilities.IsDirectory(sourcePath))
+					{
+						// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
+						bool isDvd = Utilities.IsDvdFolder(this.mainViewModel.SourcePath);
+						bool playerInstalled = Players.Installed.Count > 0;
 
-					return isDvd && playerInstalled;
+						return isDvd && playerInstalled;
+					}
+					else
+					{
+						// Path is a file
+						return true;
+					}
 				}
-				else
+				catch (IOException)
 				{
-					// Path is a file
-					return true;
+					this.RaisePropertyChanged(() => this.PlaySourceToolTip);
+					return false;
 				}
 			}
 		}
@@ -509,23 +528,30 @@ namespace VidCoder.ViewModel
 				return this.playSourceCommand ?? (this.playSourceCommand = new RelayCommand(() =>
 				    {
 						string sourcePath = this.mainViewModel.SourcePath;
-						var fileAttributes = File.GetAttributes(sourcePath);
-						if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
-						{
-							// Path is a directory
-							IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);
-							if (player == null)
-							{
-								player = Players.Installed[0];
-							}
 
-							player.PlayTitle(sourcePath, this.mainViewModel.SelectedTitle.TitleNumber);
-						}
-						else
-						{
-							// Path is a file
-							FileService.Instance.PlayVideo(sourcePath);
-						}
+					    try
+					    {
+						    if (Utilities.IsDirectory(sourcePath))
+						    {
+								// Path is a directory
+								IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);
+								if (player == null)
+								{
+									player = Players.Installed[0];
+								}
+
+								player.PlayTitle(sourcePath, this.mainViewModel.SelectedTitle.TitleNumber);
+						    }
+						    else
+						    {
+								// Path is a file
+								FileService.Instance.PlayVideo(sourcePath);
+						    }
+					    }
+					    catch (IOException)
+					    {
+							this.PlaySourceCommand.RaiseCanExecuteChanged();
+					    }
 				    }, () =>
 				    {
 						return this.PlayAvailable;

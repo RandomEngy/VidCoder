@@ -434,6 +434,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encode Details.
+        /// </summary>
+        public static string EncodeDetailsMenuItem {
+            get {
+                return ResourceManager.GetString("EncodeDetailsMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are encodes in progress. Are you sure you want to quit?.
         /// </summary>
         public static string EncodesInProgressExitWarning {

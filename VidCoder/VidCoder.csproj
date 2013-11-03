@@ -286,6 +286,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EncodeDetailsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FileConflictDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -410,6 +414,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ChapterMarkersRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\EncodeDetailsRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EncodeDetailsRes.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\EncodingRes.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -566,8 +575,12 @@
     <Compile Include="ViewModel\DataModels\ChapterViewModel.cs" />
     <Compile Include="ViewModel\DataModels\LevelChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
+    <Compile Include="ViewModel\EncodeDetailsViewModel.cs" />
     <Compile Include="ViewModel\FileConflictDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />
+    <Compile Include="View\EncodeDetailsWindow.xaml.cs">
+      <DependentUpon>EncodeDetailsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FileConflictDialog.xaml.cs">
       <DependentUpon>FileConflictDialog.xaml</DependentUpon>
     </Compile>
@@ -771,6 +784,10 @@
     <EmbeddedResource Include="Resources\CommonRes.fr.resx" />
     <EmbeddedResource Include="Resources\CommonRes.pt.resx" />
     <EmbeddedResource Include="Resources\CommonRes.zh.resx" />
+    <EmbeddedResource Include="Resources\EncodeDetailsRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EncodeDetailsRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\EncodingRes.de.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.es.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.eu.resx" />

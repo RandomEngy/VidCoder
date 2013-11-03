@@ -318,6 +318,13 @@ namespace VidCoder
 			}
 		}
 
+
+		public static bool IsDirectory(string filePath)
+		{
+			var fileAttributes = File.GetAttributes(filePath);
+			return (fileAttributes & FileAttributes.Directory) == FileAttributes.Directory;
+		}
+
 		public static void CopyDirectory(string sourceDir, string destDir)
 		{
 			// Create directories
@@ -498,9 +505,16 @@ namespace VidCoder
 				return kilobytes.ToString(GetFormatForFilesize(kilobytes)) + " KB";
 			}
 
-			double megabytes = ((double)bytes) / 1048576;
+			if (bytes < 1073741824)
+			{
+				double megabytes = ((double)bytes) / 1048576;
 
-			return megabytes.ToString(GetFormatForFilesize(megabytes)) + " MB";
+				return megabytes.ToString(GetFormatForFilesize(megabytes)) + " MB";
+			}
+
+			double gigabytes = ((double) bytes) / 1073741824;
+
+			return gigabytes.ToString(GetFormatForFilesize(gigabytes)) + " GB";
 		}
 
 		private static string GetFormatForFilesize(double size)

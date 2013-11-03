@@ -369,6 +369,10 @@
 					Command="{Binding WindowManagerVM.OpenLogWindowCommand}"
 					IsCheckable="True" IsChecked="{Binding WindowManagerVM.LogWindowOpen}"
 					InputGestureText="Ctrl+L"/>
+				<MenuItem
+					Header="{x:Static res:MainRes.EncodeDetailsMenuItem}"
+					Command="{Binding WindowManagerVM.OpenEncodeDetailsWindowCommand}"
+					IsCheckable="True" IsChecked="{Binding WindowManagerVM.EncodeDetailsWindowOpen}" />
 			</MenuItem>
 			<MenuItem Header="{x:Static res:MainRes.HelpMenu}">
 				<MenuItem Header="{x:Static res:MainRes.VidCoderHomepageMenuItem}" Command="{Binding OpenHomepageCommand}">

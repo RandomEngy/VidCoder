@@ -579,31 +579,34 @@
   <data name="ExportQueueFilePickerText" xml:space="preserve">
     <value>Export queue</value>
   </data>
-	<data name="QueueImportErrorMessage" xml:space="preserve">
+  <data name="QueueImportErrorMessage" xml:space="preserve">
     <value>Could not import queue. Format is unrecognized.</value>
   </data>
-	<data name="ImportPresetFilePickerTitle" xml:space="preserve">
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>Import preset file</value>
   </data>
-	<data name="ImportQueueFilePickerTitle" xml:space="preserve">
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
     <value>Import queue file</value>
   </data>
-	<data name="ImportQueue" xml:space="preserve">
+  <data name="ImportQueue" xml:space="preserve">
     <value>Import Queue...</value>
   </data>
-	<data name="QueueExportSuccessMessage" xml:space="preserve">
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
     <value>Successfully exported queue to {0}</value>
   </data>
-	<data name="QueueImportSuccessMessage" xml:space="preserve">
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
     <value>Successfully imported queue.</value>
   </data>
-	<data name="StopEncodeConfirmationTitle" xml:space="preserve">
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
     <value>Stop encode?</value>
   </data>
-	<data name="StopEncodeConfirmationMessage" xml:space="preserve">
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
     <value>Are you sure you want to stop the encode?</value>
   </data>
-	<data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
     <value>Close the current file and open the disc?</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>Encode Details</value>
   </data>
 </root>

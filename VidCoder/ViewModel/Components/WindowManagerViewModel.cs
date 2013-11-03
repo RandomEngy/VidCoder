@@ -18,10 +18,7 @@ namespace VidCoder.ViewModel.Components
 		private bool encodingWindowOpen;
 		private bool previewWindowOpen;
 		private bool logWindowOpen;
-
-		private ICommand openEncodingWindowCommand;
-		private ICommand openPreviewWindowCommand;
-		private ICommand openLogWindowCommand;
+		private bool encodeDetailsWindowOpen;
 
 		public bool EncodingWindowOpen
 		{
@@ -65,6 +62,21 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
+		public bool EncodeDetailsWindowOpen
+		{
+			get
+			{
+				return this.encodeDetailsWindowOpen;
+			}
+
+			set
+			{
+				this.encodeDetailsWindowOpen = value;
+				this.RaisePropertyChanged(() => this.EncodeDetailsWindowOpen);
+			}
+		}
+
+		private ICommand openEncodingWindowCommand;
 		public ICommand OpenEncodingWindowCommand
 		{
 			get
@@ -81,6 +93,7 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
+		private ICommand openPreviewWindowCommand;
 		public ICommand OpenPreviewWindowCommand
 		{
 			get
@@ -97,6 +110,7 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
+		private ICommand openLogWindowCommand;
 		public ICommand OpenLogWindowCommand
 		{
 			get
@@ -110,6 +124,22 @@ namespace VidCoder.ViewModel.Components
 				}
 
 				return this.openLogWindowCommand;
+			}
+		}
+
+		private RelayCommand openEncodeDetailsWindowCommand;
+		public RelayCommand OpenEncodeDetailsWindowCommand
+		{
+			get
+			{
+				return this.openEncodeDetailsWindowCommand ?? (this.openEncodeDetailsWindowCommand = new RelayCommand(() =>
+					{
+						this.OpenEncodeDetailsWindow();
+					},
+					() =>
+					{
+						return this.main.ProcessingVM.Encoding;
+					}));
 			}
 		}
 
@@ -175,6 +205,43 @@ namespace VidCoder.ViewModel.Components
 			{
 				WindowManager.FocusWindow(logWindow);
 			}
+		}
+
+		public void OpenEncodeDetailsWindow()
+		{
+			var encodeDetailsWindow = WindowManager.FindWindow(typeof (EncodeDetailsViewModel)) as EncodeDetailsViewModel;
+			this.EncodeDetailsWindowOpen = true;
+
+			if (encodeDetailsWindow == null)
+			{
+				encodeDetailsWindow = new EncodeDetailsViewModel();
+				encodeDetailsWindow.Closing = () =>
+				{
+					this.EncodeDetailsWindowOpen = false;
+				};
+
+				Config.EncodeDetailsWindowOpen = true;
+
+				WindowManager.OpenWindow(encodeDetailsWindow, this.main);
+			}
+			else
+			{
+				WindowManager.FocusWindow(encodeDetailsWindow);
+			}
+		}
+
+		public void CloseEncodeDetailsWindow()
+		{
+			var encodeDetailsWindow = WindowManager.FindWindow(typeof(EncodeDetailsViewModel)) as EncodeDetailsViewModel;
+			if (encodeDetailsWindow != null)
+			{
+				WindowManager.Close(encodeDetailsWindow);
+			}
+		}
+
+		public void RefreshEncoding()
+		{
+			this.OpenEncodeDetailsWindowCommand.RaiseCanExecuteChanged();
 		}
 	}
 }

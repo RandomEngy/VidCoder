@@ -61,6 +61,7 @@ namespace VidCoder.ViewModel.Components
 		private double completedQueueWork;
 		private double totalQueueCost;
 		private double overallEncodeProgressFraction;
+		private TimeSpan overallEtaSpan;
 		private TimeSpan currentJobEta; // Kept around to check if the job finished early
 		private TaskbarItemProgressState encodeProgressState;
 		private ObservableCollection<EncodeResultViewModel> completedJobs;
@@ -214,7 +215,12 @@ namespace VidCoder.ViewModel.Components
 				this.RaisePropertyChanged(() => this.PauseVisible);
 				this.RaisePropertyChanged(() => this.Encoding);
 				this.RaisePropertyChanged(() => this.EncodeButtonText);
-				Messenger.Default.Send(new ProgressChangedMessage());
+				this.main.WindowManagerVM.RefreshEncoding();
+
+				if (!value)
+				{
+					Messenger.Default.Send(new ProgressChangedMessage { Encoding = false });
+				}
 			}
 		}
 
@@ -397,7 +403,6 @@ namespace VidCoder.ViewModel.Components
 				this.overallEncodeProgressFraction = value;
 				this.RaisePropertyChanged(() => this.OverallEncodeProgressPercent);
 				this.RaisePropertyChanged(() => this.OverallEncodeProgressFraction);
-				Messenger.Default.Send(new ProgressChangedMessage());
 			}
 		}
 
@@ -1147,6 +1152,7 @@ namespace VidCoder.ViewModel.Components
 			}
 
 			this.OverallEncodeProgressFraction = 0;
+
 			this.pollCount = 0;
 			this.Encoding = true;
 			this.Paused = false;
@@ -1154,6 +1160,21 @@ namespace VidCoder.ViewModel.Components
 			this.autoPause.ReportStart();
 
 			this.EncodeNextJob();
+
+			// User had the window open when the encode ended last time, so we re-open when starting the queue again.
+			if (Config.EncodeDetailsWindowOpen)
+			{
+				this.main.WindowManagerVM.OpenEncodeDetailsWindow();
+			}
+
+			Messenger.Default.Send(new ProgressChangedMessage
+			{
+				Encoding = true,
+				OverallProgressFraction = 0,
+				TaskNumber = 1,
+				TotalTasks = this.totalTasks,
+				FileName = Path.GetFileName(this.CurrentJob.Job.OutputPath)
+			});
 		}
 
 		public HashSet<string> GetQueuedFiles()
@@ -1335,7 +1356,6 @@ namespace VidCoder.ViewModel.Components
 			VCJob currentJob = this.EncodeQueue[0].Job;
 			double passCost = currentJob.Length.TotalSeconds;
 			double scanPassCost = passCost / EncodeJobViewModel.SubtitleScanCostFactor;
-
 			double currentJobCompletedWork = 0.0;
 
 			if (this.EncodeQueue[0].SubtitleScan)
@@ -1377,6 +1397,7 @@ namespace VidCoder.ViewModel.Components
 			double totalCompletedWork = this.completedQueueWork + currentJobCompletedWork;
 
 			this.OverallEncodeProgressFraction = totalCompletedWork / this.totalQueueCost;
+
 			double overallWorkCompletionRate = totalCompletedWork / this.elapsedQueueEncodeTime.Elapsed.TotalSeconds;
 
 			// Only update encode time every 5th update.
@@ -1390,8 +1411,8 @@ namespace VidCoder.ViewModel.Components
 					}
 					else
 					{
-						TimeSpan eta = TimeSpan.FromSeconds((long)(((1.0 - this.OverallEncodeProgressFraction) * this.elapsedQueueEncodeTime.Elapsed.TotalSeconds) / this.OverallEncodeProgressFraction));
-						this.EstimatedTimeRemaining = Utilities.FormatTimeSpan(eta);
+						this.overallEtaSpan = TimeSpan.FromSeconds((long)(((1.0 - this.OverallEncodeProgressFraction) * this.elapsedQueueEncodeTime.Elapsed.TotalSeconds) / this.OverallEncodeProgressFraction));
+						this.EstimatedTimeRemaining = Utilities.FormatTimeSpan(this.overallEtaSpan);
 					}
 
 					double currentJobRemainingWork = this.EncodeQueue[0].Cost - currentJobCompletedWork;
@@ -1402,7 +1423,8 @@ namespace VidCoder.ViewModel.Components
 				}
 			}
 
-			this.EncodeQueue[0].PercentComplete = (int)((currentJobCompletedWork / this.EncodeQueue[0].Cost) * 100.0);
+			double currentJobFractionComplete = currentJobCompletedWork / this.EncodeQueue[0].Cost;
+			this.EncodeQueue[0].PercentComplete = (int)(currentJobFractionComplete * 100.0);
 
 			if (e.EstimatedTimeLeft >= TimeSpan.Zero)
 			{
@@ -1410,6 +1432,41 @@ namespace VidCoder.ViewModel.Components
 				this.AverageFps = Math.Round(e.AverageFrameRate, 1);
 				this.EncodeSpeedDetailsAvailable = true;
 			}
+
+			var progressChangedMessage = new ProgressChangedMessage
+			{
+				Encoding = true,
+				OverallProgressFraction = this.OverallEncodeProgressFraction,
+				TaskNumber = this.taskNumber,
+				TotalTasks = this.totalTasks,
+				OverallElapsedTime = this.elapsedQueueEncodeTime.Elapsed,
+				OverallEta = this.overallEtaSpan,
+				FileName = Path.GetFileName(currentJob.OutputPath),
+				FileProgressFraction = currentJobFractionComplete,
+				FileElapsedTime = this.CurrentJob.EncodeTime,
+				FileEta = this.currentJobEta,
+				HasScanPass = this.CurrentJob.SubtitleScan,
+				TwoPass = currentJob.EncodingProfile.TwoPass,
+				CurrentPass = e.Pass,
+				PassProgressFraction = e.FractionComplete,
+				EncodeSpeedDetailsAvailable = this.EncodeSpeedDetailsAvailable,
+				CurrentFps = this.CurrentFps,
+				AverageFps = this.AverageFps
+			};
+
+			try
+			{
+				var outputFileInfo = new FileInfo(currentJob.OutputPath);
+				progressChangedMessage.FileSizeBytes = outputFileInfo.Length;
+			}
+			catch (IOException)
+			{
+			}
+			catch (UnauthorizedAccessException)
+			{
+			}
+
+			Messenger.Default.Send(progressChangedMessage);
 		}
 
 		private void OnEncodeCompleted(object sender, EncodeCompletedEventArgs e)
@@ -1558,6 +1615,11 @@ namespace VidCoder.ViewModel.Components
 					{
 						this.EncodeNextJob();
 					}
+				}
+
+				if (this.encodeStopped || this.EncodeQueue.Count == 0)
+				{
+					this.main.WindowManagerVM.CloseEncodeDetailsWindow();
 				}
 
 				string encodeLogPath = encodeLogger.LogPath;
