@@ -56,8 +56,9 @@
 		</DataTemplate>
 		<DataTemplate x:Key="ForcedTemplate">
 			<CheckBox 
-				IsChecked="{Binding Forced}" ToolTip="{x:Static res:CommonRes.ForcedSubtitleToolTip}"
+				IsChecked="{Binding ForcedOnly}" ToolTip="{x:Static res:CommonRes.ForcedSubtitleToolTip}"
 				Visibility="{Binding Selected, Converter={StaticResource VisibilityConverter}}"
+				IsEnabled="{Binding ForcedOnlyEnabled}"
 				Width="75" Height="22"
 				Style="{StaticResource CenteredCheckBox}"/>
 		</DataTemplate>

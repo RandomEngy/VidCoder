@@ -245,17 +245,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private bool AnyPgsSelected
-		{
-			get
-			{
-				return this.SourceSubtitles.Any(s =>
-					s.Selected &&
-					s.TrackNumber > 0 &&
-					this.GetSubtitle(s).SubtitleSource == SubtitleSource.PGS);
-			}
-		}
-
 		public void RemoveSourceSubtitle(SourceSubtitleViewModel subtitleViewModel)
 		{
 			this.SourceSubtitles.Remove(subtitleViewModel);
@@ -278,7 +267,7 @@ namespace VidCoder.ViewModel
 					{
 						BurnedIn = false,
 						Default = false,
-						Forced = !sourceSubtitleViewModel.Forced,
+						Forced = !sourceSubtitleViewModel.ForcedOnly,
 						TrackNumber = sourceSubtitleViewModel.TrackNumber
 					});
 			newSubtitle.Selected = true;
@@ -351,13 +340,11 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			if (this.Container.DefaultExtension == "mp4" && updatedSubtitle != null && updatedSubtitle.Selected)
+			if (updatedSubtitle != null && updatedSubtitle.Selected)
 			{
-				// In MP4 a PGS subtitle can only be burned in.
-				if (updatedSubtitle.TrackNumber > 0 &&
-					this.GetSubtitle(updatedSubtitle).SubtitleSource == SubtitleSource.PGS)
+				if (!updatedSubtitle.CanPass)
 				{
-					// If we've just selected a PGS subtitle, deselect all others
+					// If we just selected a burn-in only subtitle, deselect all other subtitles.
 					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles)
 					{
 						if (sourceSub != updatedSubtitle)
@@ -368,10 +355,10 @@ namespace VidCoder.ViewModel
 				}
 				else
 				{
-					// If we've just selected another subtitle, deselect all PGS subtitles
+					// We selected a soft subtitle. Deselect any burn-in-only subtitles.
 					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles)
 					{
-						if (sourceSub.TrackNumber > 0 && this.GetSubtitle(sourceSub).SubtitleSource == SubtitleSource.PGS)
+						if (!sourceSub.CanPass)
 						{
 							sourceSub.Deselect();
 						}
@@ -413,7 +400,7 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			this.BurnedOverlapWarningVisible = anyBurned && totalTracks > 1;
+			this.BurnedOverlapWarningVisible = anyBurned && (totalTracks > 1 || this.SrtSubtitles.Count > 0);
 		}
 
 		private void UpdateButtonVisibility()

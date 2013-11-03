@@ -9,7 +9,9 @@ using HandBrake.Interop.SourceData;
 
 namespace VidCoder.ViewModel
 {
+	using GalaSoft.MvvmLight.Messaging;
 	using HandBrake.Interop.Model.Encoding;
+	using Messages;
 	using Resources;
 
 	public class SourceSubtitleViewModel : ViewModelBase
@@ -22,6 +24,12 @@ namespace VidCoder.ViewModel
 		{
 			this.SubtitleDialogViewModel = subtitleDialogViewModel;
 			this.subtitle = subtitle;
+
+			MessengerInstance.Register<ContainerChangedMessage>(this,
+				m =>
+				{
+					this.RefreshBoxes();
+				});
 		}
 
 		public SubtitleDialogViewModel SubtitleDialogViewModel { get; set; }
@@ -65,7 +73,7 @@ namespace VidCoder.ViewModel
 					return SubtitleRes.ForeignAudioSearch;
 				}
 
-				return this.mainViewModel.SelectedTitle.Subtitles[this.TrackNumber - 1].Display;
+				return this.InputSubtitle.Display;
 			}
 		}
 
@@ -96,17 +104,30 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool Forced
+		public bool ForcedOnly
 		{
 			get
 			{
+				if (this.TrackNumber > 0 && !this.InputSubtitle.CanSetForcedOnly)
+				{
+					return false;
+				}
+
 				return this.subtitle.Forced;
 			}
 
 			set
 			{
 				this.subtitle.Forced = value;
-				this.RaisePropertyChanged(() => this.Forced);
+				this.RaisePropertyChanged(() => this.ForcedOnly);
+			}
+		}
+
+		public bool ForcedOnlyEnabled
+		{
+			get
+			{
+				return this.TrackNumber == 0 || this.InputSubtitle.CanSetForcedOnly;
 			}
 		}
 
@@ -114,9 +135,14 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.SubtitleDialogViewModel.Container.DefaultExtension == "mp4" && this.IsPgs)
+				if (!this.CanPass)
 				{
 					return true;
+				}
+
+				if (!this.CanBurn)
+				{
+					return false;
 				}
 
 				return this.subtitle.BurnedIn;
@@ -141,7 +167,22 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.SubtitleDialogViewModel.Container.DefaultExtension != "mp4" || !this.IsPgs;
+				if (this.TrackNumber == 0)
+				{
+					return true;
+				}
+
+				if (!this.CanPass)
+				{
+					return false;
+				}
+
+				if (!this.CanBurn)
+				{
+					return false;
+				}
+
+				return true;
 			}
 		}
 
@@ -161,11 +202,37 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private bool IsPgs
+		public bool CanPass
 		{
 			get
 			{
-				return this.TrackNumber > 0 && this.SubtitleDialogViewModel.GetSubtitle(this).SubtitleSource == SubtitleSource.PGS;
+				if (this.TrackNumber == 0)
+				{
+					return true;
+				}
+
+				return this.InputSubtitle.CanPass(this.SubtitleDialogViewModel.Container.Id);
+			}
+		}
+
+		public bool CanBurn
+		{
+			get
+			{
+				if (this.TrackNumber == 0)
+				{
+					return true;
+				}
+
+				return this.InputSubtitle.CanBurn;
+			}
+		}
+
+		private Subtitle InputSubtitle
+		{
+			get
+			{
+				return this.InputSubtitles[this.TrackNumber - 1];
 			}
 		}
 
@@ -204,6 +271,12 @@ namespace VidCoder.ViewModel
 		{
 			this.RaisePropertyChanged(() => this.DuplicateVisible);
 			this.RaisePropertyChanged(() => this.RemoveVisible);
+		}
+
+		private void RefreshBoxes()
+		{
+			this.RaisePropertyChanged(() => this.BurnedIn);
+			this.RaisePropertyChanged(() => this.BurnedInEnabled);
 		}
 	}
 }
