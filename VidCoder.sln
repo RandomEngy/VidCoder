@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VidCoder", "VidCoder\VidCoder.csproj", "{F912FA33-DC57-4272-915A-EEDB212BB860}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VidCoderWorker", "VidCoderWorker\VidCoderWorker.csproj", "{63452895-7AA1-45EC-A0D8-3F30CCFA6D0D}"

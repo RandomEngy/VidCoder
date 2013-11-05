@@ -982,6 +982,7 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.X264SettingsVisible);
 			this.RaisePropertyChanged(() => this.EncoderSettingsVisible);
 			this.RaisePropertyChanged(() => this.BasicEncoderSettingsVisible);
+			this.RaisePropertyChanged(() => this.UseAdvancedTab);
 			this.RaisePropertyChanged(() => this.QsvSettingsVisible);
 			this.RaisePropertyChanged(() => this.X264PresetIndex);
 			this.RaisePropertyChanged(() => this.PresetName);
