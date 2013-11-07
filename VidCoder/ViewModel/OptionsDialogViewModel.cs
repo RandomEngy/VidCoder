@@ -88,6 +88,7 @@ namespace VidCoder.ViewModel
 			this.dxvaDecoding = Config.DxvaDecoding;
 			this.enableLibDvdNav = Config.EnableLibDvdNav;
 			this.deleteSourceFilesOnClearingCompleted = Config.DeleteSourceFilesOnClearingCompleted;
+			this.preserveModifyTimeFiles = Config.PreserveModifyTimeFiles;
 			this.resumeEncodingOnRestart = Config.ResumeEncodingOnRestart;
 			this.useWorkerProcess = Config.UseWorkerProcess;
 			this.minimumTitleLengthSeconds = Config.MinimumTitleLengthSeconds;
@@ -945,6 +946,21 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool preserveModifyTimeFiles;
+		public bool PreserveModifyTimeFiles
+		{
+			get
+			{
+				return this.preserveModifyTimeFiles;
+			}
+
+			set
+			{
+				this.preserveModifyTimeFiles = value;
+				this.RaisePropertyChanged(() => this.PreserveModifyTimeFiles);
+			}
+		}
+
 		private bool resumeEncodingOnRestart;
 		public bool ResumeEncodingOnRestart
 		{
@@ -1077,6 +1093,7 @@ namespace VidCoder.ViewModel
 							Config.DxvaDecoding = this.DxvaDecoding;
 							Config.KeepScansAfterCompletion = this.KeepScansAfterCompletion;
 							Config.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
+							Config.PreserveModifyTimeFiles = this.PreserveModifyTimeFiles;
 							Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;
 							Config.UseWorkerProcess = this.UseWorkerProcess;
 							Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;

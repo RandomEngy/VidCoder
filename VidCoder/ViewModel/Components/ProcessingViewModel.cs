@@ -1519,6 +1519,28 @@ namespace VidCoder.ViewModel.Components
 
 					EncodeJobViewModel finishedJob = this.CurrentJob;
 
+					if (Config.PreserveModifyTimeFiles)
+					{
+						try
+						{
+							if (succeeded && !Utilities.IsDirectory(finishedJob.Job.SourcePath))
+							{
+								FileInfo info = new FileInfo(finishedJob.Job.SourcePath);
+
+								File.SetCreationTimeUtc(finishedJob.Job.OutputPath, info.CreationTimeUtc);
+								File.SetLastWriteTimeUtc(finishedJob.Job.OutputPath, info.LastWriteTimeUtc);
+							}
+						}
+						catch (IOException exception)
+						{
+							encodeLogger.LogError("Could not set create/modify dates on file: " + exception);
+						}
+						catch (UnauthorizedAccessException exception)
+						{
+							encodeLogger.LogError("Could not set create/modify dates on file: " + exception);
+						} 
+					}
+
 					this.CompletedJobs.Add(new EncodeResultViewModel(
 						new EncodeResult
 						{

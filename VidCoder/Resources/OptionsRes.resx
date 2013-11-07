@@ -405,4 +405,7 @@
 	<data name="DxvaDecodingToolTip" xml:space="preserve">
     <value>This option is only suitable for slower systems. Hardware decoders are currently designed for playback, not for re-encoding video so will likely bottleneck on faster systems.</value>
   </data>
+	<data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+    <value>Preserve Created and Modified time when converting files</value>
+  </data>
 </root>
