@@ -94,6 +94,7 @@ AutoAudioAll|bool|false
 AutoSubtitleAll|bool|false
 AutoSubtitleOnlyIfDifferent|bool|true
 AutoSubtitleBurnIn|bool|true
+AutoSubtitleLanguageDefault|bool|false
 AutoSubtitleLanguageBurnIn|bool|false
 PreferredPlayer|string|"vlc"
 BetaUpdates|bool|false

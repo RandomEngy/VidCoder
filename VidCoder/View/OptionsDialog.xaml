@@ -343,7 +343,13 @@
 								IsChecked="{Binding AutoSubtitleAll}"
 								IsEnabled="{Binding AutoSubtitleLanguageSelected}" Style="{StaticResource GrayOnDisabledControl}" />
 							<CheckBox 
+								Content="{x:Static res:OptionsRes.DefaultCheckBox}" HorizontalAlignment="Left" Margin="20,6,0,0" VerticalAlignment="Top"
+								ToolTip="{x:Static res:CommonRes.DefaultSubtitleToolTip}"
+								IsChecked="{Binding AutoSubtitleLanguageDefault}"
+								IsEnabled="{Binding AutoSubtitleLanguageSelected}" Style="{StaticResource GrayOnDisabledControl}" />
+							<CheckBox 
 								Content="{x:Static res:OptionsRes.BurnInCheckBox}" HorizontalAlignment="Left" Margin="20,6,0,0" VerticalAlignment="Top"
+								ToolTip="{x:Static res:CommonRes.BurnedSubtitleToolTip}"
 								IsChecked="{Binding AutoSubtitleLanguageBurnIn}"
 								IsEnabled="{Binding AutoSubtitleLanguageSelected}" Style="{StaticResource GrayOnDisabledControl}" />
 							<RadioButton 

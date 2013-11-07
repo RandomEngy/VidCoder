@@ -408,4 +408,8 @@
 	<data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Preserve Created and Modified time when converting files</value>
   </data>
+	<data name="DefaultCheckBox" xml:space="preserve">
+    <value>Default</value>
+    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
+  </data>
 </root>

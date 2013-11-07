@@ -888,6 +888,7 @@ namespace VidCoder.ViewModel
 							string languageCode = Config.SubtitleLanguageCode;
 							bool audioSame = false;
 							bool burnIn = Config.AutoSubtitleLanguageBurnIn;
+							bool def = Config.AutoSubtitleLanguageDefault;
 							if (this.AudioChoices.Count > 0)
 							{
 								if (this.selectedTitle.AudioTracks[this.AudioChoices[0].SelectedIndex].LanguageCode == languageCode)
@@ -919,7 +920,7 @@ namespace VidCoder.ViewModel
 										this.CurrentSubtitles.SourceSubtitles.Add(new SourceSubtitle
 										{
 											BurnedIn = burnIn,
-											Default = false,
+											Default = def,
 											Forced = false,
 											TrackNumber = nativeSubtitles[0].TrackNumber
 										});

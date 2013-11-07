@@ -74,6 +74,7 @@ namespace VidCoder.ViewModel
 			this.autoAudioAll = Config.AutoAudioAll;
 			this.autoSubtitle = CustomConfig.AutoSubtitle;
 			this.autoSubtitleBurnIn = Config.AutoSubtitleBurnIn;
+			this.autoSubtitleLanguageDefault = Config.AutoSubtitleLanguageDefault;
 			this.autoSubtitleLanguageBurnIn = Config.AutoSubtitleLanguageBurnIn;
 			this.subtitleLanguageCode = Config.SubtitleLanguageCode;
 			this.autoSubtitleOnlyIfDifferent = Config.AutoSubtitleOnlyIfDifferent;
@@ -747,6 +748,30 @@ namespace VidCoder.ViewModel
 
 				this.autoSubtitleLanguageBurnIn = false;
 				this.RaisePropertyChanged(() => this.AutoSubtitleLanguageBurnIn);
+
+				this.autoSubtitleLanguageDefault = false;
+				this.RaisePropertyChanged(() => this.AutoSubtitleLanguageDefault);
+			}
+		}
+
+		private bool autoSubtitleLanguageDefault;
+		public bool AutoSubtitleLanguageDefault
+		{
+			get
+			{
+				return this.autoSubtitleLanguageDefault;
+			}
+
+			set
+			{
+				this.autoSubtitleLanguageDefault = value;
+				this.RaisePropertyChanged(() => this.AutoSubtitleLanguageDefault);
+
+				this.autoSubtitleLanguageBurnIn = false;
+				this.RaisePropertyChanged(() => this.AutoSubtitleLanguageBurnIn);
+
+				this.autoSubtitleAll = false;
+				this.RaisePropertyChanged(() => this.AutoSubtitleAll);
 			}
 		}
 
@@ -762,6 +787,9 @@ namespace VidCoder.ViewModel
 			{
 				this.autoSubtitleLanguageBurnIn = value;
 				this.RaisePropertyChanged(() => this.AutoSubtitleLanguageBurnIn);
+
+				this.autoSubtitleLanguageDefault = false;
+				this.RaisePropertyChanged(() => this.AutoSubtitleLanguageDefault);
 
 				this.autoSubtitleAll = false;
 				this.RaisePropertyChanged(() => this.AutoSubtitleAll);
@@ -1059,6 +1087,7 @@ namespace VidCoder.ViewModel
 							Config.AutoAudioAll = this.AutoAudioAll;
 							CustomConfig.AutoSubtitle = this.AutoSubtitle;
 							Config.AutoSubtitleBurnIn = this.AutoSubtitleBurnIn;
+							Config.AutoSubtitleLanguageDefault = this.AutoSubtitleLanguageDefault;
 							Config.AutoSubtitleLanguageBurnIn = this.AutoSubtitleLanguageBurnIn;
 							Config.SubtitleLanguageCode = this.SubtitleLanguageCode;
 							Config.AutoSubtitleOnlyIfDifferent = this.AutoSubtitleOnlyIfDifferent;

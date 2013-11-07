@@ -92,6 +92,7 @@
 			AutoSubtitleAll_Field = DatabaseConfig.GetConfig("AutoSubtitleAll", false, connection);
 			AutoSubtitleOnlyIfDifferent_Field = DatabaseConfig.GetConfig("AutoSubtitleOnlyIfDifferent", true, connection);
 			AutoSubtitleBurnIn_Field = DatabaseConfig.GetConfig("AutoSubtitleBurnIn", true, connection);
+			AutoSubtitleLanguageDefault_Field = DatabaseConfig.GetConfig("AutoSubtitleLanguageDefault", false, connection);
 			AutoSubtitleLanguageBurnIn_Field = DatabaseConfig.GetConfig("AutoSubtitleLanguageBurnIn", false, connection);
 			PreferredPlayer_Field = DatabaseConfig.GetConfig("PreferredPlayer", "vlc", connection);
 			BetaUpdates_Field = DatabaseConfig.GetConfig("BetaUpdates", false, connection);
@@ -1285,6 +1286,20 @@
 			{
 				AutoSubtitleBurnIn_Field = value;
 				DatabaseConfig.SetConfigValue("AutoSubtitleBurnIn", value);
+			}
+		}
+		private static bool AutoSubtitleLanguageDefault_Field;
+		public static bool AutoSubtitleLanguageDefault
+		{
+			get
+			{
+				return AutoSubtitleLanguageDefault_Field;
+			}
+			
+			set
+			{
+				AutoSubtitleLanguageDefault_Field = value;
+				DatabaseConfig.SetConfigValue("AutoSubtitleLanguageDefault", value);
 			}
 		}
 		private static bool AutoSubtitleLanguageBurnIn_Field;

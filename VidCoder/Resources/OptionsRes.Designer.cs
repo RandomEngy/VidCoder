@@ -304,6 +304,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string DefaultCheckBox {
+            get {
+                return ResourceManager.GetString("DefaultCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default folder:.
         /// </summary>
         public static string DefaultFolderLabel {
