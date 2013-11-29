@@ -159,6 +159,7 @@ CopyBoth "VidCoderWindowlessCLI.pdb"
 CopyBoth "GalaSoft.MvvmLight.WPF4.dll"
 CopyBoth "GalaSoft.MvvmLight.Extras.WPF4.dll"
 CopyBoth "Microsoft.Practices.ServiceLocation.dll"
+CopyBoth "Hardcodet.Wpf.TaskbarNotification.dll"
 
 # Architecture-specific files from Lib folder
 CopyLibBoth "hb.dll"
@@ -170,7 +171,6 @@ CopyLibBoth "HandBrakeInterop.XmlSerializers.dll"
 # Common files
 CopyCommon ".\Lib\Ookii.Dialogs.Wpf.dll"
 CopyCommon ".\Lib\Ookii.Dialogs.Wpf.pdb"
-CopyCommon ".\Lib\Hardcodet.Wpf.TaskbarNotification.dll"
 CopyCommon ".\VidCoder\BuiltInPresets.xml"
 CopyCommon ".\VidCoder\Encode_Complete.wav"
 CopyCommon ".\License.txt"
