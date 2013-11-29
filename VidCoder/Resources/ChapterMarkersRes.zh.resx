@@ -99,27 +99,27 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
   <data name="ChapterMarkersDialogTitle">
-    <value xml:space="preserve">章節編輯器</value>
+    <value xml:space="preserve">章节编辑器</value>
   </data>
   <data name="DefaultChapterNamesRadioButton">
-    <value xml:space="preserve">使用預設章節名稱</value>
+    <value xml:space="preserve">使用默认章节名称</value>
   </data>
   <data name="CustomChapterNamesRadioButton">
-    <value xml:space="preserve">使用自訂章節名稱:</value>
+    <value xml:space="preserve">使用自定义章节名称：</value>
   </data>
   <data name="ImportFromCsvButton">
-    <value xml:space="preserve">自 .csv 檔匯入...</value>
+    <value xml:space="preserve">从.csv 文件导入...</value>
   </data>
   <data name="NumberColumn">
-    <value xml:space="preserve">編號</value>
+    <value xml:space="preserve">编号</value>
   </data>
   <data name="StartTimeColumn">
-    <value xml:space="preserve">開始時間</value>
+    <value xml:space="preserve">开始时间</value>
   </data>
   <data name="TitleColumn">
-    <value xml:space="preserve">標題</value>
+    <value xml:space="preserve">标题</value>
   </data>
   <data name="CouldNotReadFileMessage">
-    <value xml:space="preserve">無法讀取檔案。</value>
+    <value xml:space="preserve">无法读取文件。</value>
   </data>
 </root>

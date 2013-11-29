@@ -121,57 +121,57 @@
     <value>字幕</value>
   </data>
   <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>移除此軌</value>
+    <value>删除此轨</value>
   </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
-    <value>來源字幕軌:</value>
+    <value>字幕来源：</value>
   </data>
   <data name="QuickTimeSubtitlesWarning" xml:space="preserve">
-    <value>除非使用 .m4v 副檔名，否則文字字幕可能無法於 Quicktime 正常顯示。</value>
+    <value>除非m4v 扩展名，否则文字字幕可能无法于 Quicktime 正常显示。</value>
   </data>
   <data name="NameColumn" xml:space="preserve">
-    <value>名稱</value>
+    <value>名称</value>
   </data>
   <data name="DefaultColumn" xml:space="preserve">
-    <value>預設</value>
+    <value>默认值</value>
   </data>
   <data name="ForcedOnlyColumn" xml:space="preserve">
-    <value>僅強制</value>
+    <value>仅强制</value>
   </data>
   <data name="BurnedInColumn" xml:space="preserve">
-    <value>內嵌</value>
+    <value>嵌入</value>
   </data>
   <data name="ExternalSubtitlesLabel" xml:space="preserve">
-    <value>外部字幕:</value>
+    <value>外部字幕：</value>
   </data>
   <data name="FileColumn" xml:space="preserve">
-    <value>檔案</value>
+    <value>文件</value>
   </data>
   <data name="LanguageColumn" xml:space="preserve">
-    <value>語言</value>
+    <value>语言</value>
   </data>
   <data name="CharCodeColumn" xml:space="preserve">
-    <value>字元編碼</value>
+    <value>字符编码</value>
   </data>
   <data name="OffsetColumn" xml:space="preserve">
-    <value>偏移量 (毫秒)</value>
+    <value>偏移量(毫秒)</value>
   </data>
   <data name="ImportSrtButton" xml:space="preserve">
-    <value>匯入 .srt 檔...</value>
+    <value>导入.srt 文件...</value>
   </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
-    <value>其他字幕軌將與內嵌字幕重疊。</value>
+    <value>其他字幕轨将与内嵌字幕重迭。</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>外語音訊搜尋</value>
+    <value>外语音频搜索</value>
   </data>
   <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>來源視訊中無字幕。</value>
+    <value>来源视频中无字幕。</value>
   </data>
   <data name="SrtFilePickerText" xml:space="preserve">
-    <value>新增字幕檔</value>
+    <value>添加字幕文件</value>
   </data>
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>複製此軌</value>
+    <value>复制此轨</value>
   </data>
 </root>

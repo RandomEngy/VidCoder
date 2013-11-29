@@ -99,79 +99,79 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
   <data name="AddButton">
-    <value xml:space="preserve">添加</value>
+    <value xml:space="preserve">新增</value>
   </data>
   <data name="RefreshButton">
-    <value xml:space="preserve">刷新</value>
+    <value xml:space="preserve">更新</value>
   </data>
   <data name="ChooseFromProcessesLabel">
-    <value xml:space="preserve">从现有的处理程序中选择：</value>
+    <value xml:space="preserve">由現行處理程序中選擇:</value>
   </data>
   <data name="AddAutoPauseProcessDialogTitle">
-    <value xml:space="preserve">添加自动暂停处理程序</value>
+    <value xml:space="preserve">新增自動暫停處理程序</value>
   </data>
   <data name="ProcessNameLabel">
-    <value xml:space="preserve">进程名称：</value>
+    <value xml:space="preserve">處理程序名稱:</value>
   </data>
   <data name="ExceptionDialogMainText">
-    <value xml:space="preserve">VidCoder 遇到意外的错误</value>
+    <value xml:space="preserve">VidCoder 發生意外錯誤。</value>
   </data>
   <data name="ExceptionDialogSubText">
-    <value xml:space="preserve">请发送出错误报告以便开发者修正。</value>
+    <value xml:space="preserve">請送出錯誤報告以便開發者修正。</value>
   </data>
   <data name="ExceptionWindowTitle">
-    <value xml:space="preserve">异常</value>
+    <value xml:space="preserve">例外</value>
   </data>
   <data name="FileConflictDialogTitle">
-    <value xml:space="preserve">文件冲突</value>
+    <value xml:space="preserve">檔案衝突</value>
   </data>
   <data name="OverwriteButton">
-    <value xml:space="preserve">覆盖</value>
+    <value xml:space="preserve">覆寫</value>
   </data>
   <data name="AutoRenameButton">
-    <value xml:space="preserve">自动重命名</value>
+    <value xml:space="preserve">自動重新命名</value>
   </data>
   <data name="FileConflictWarning">
-    <value xml:space="preserve">{0} 已有同名文件，您想要覆盖该文件、自动改变输出路径，还是取消编码作业?</value>
+    <value xml:space="preserve">{0} 已有同名檔案，您想要覆寫該檔、自動變更輸出路徑，還是取消編碼作業?</value>
   </data>
   <data name="QueueFileConflictWarning">
-    <value xml:space="preserve">队列中的作业在 {0} 已有同名的输出文件。你想要覆盖文件、 自动改变输出路径或取消操作？</value>
+    <value xml:space="preserve">佇列工作於 {0} 已有同名的輸出檔案，您想要覆寫該檔、自動變更輸出路徑，還是取消編碼作業?</value>
   </data>
   <data name="QueueColumnsDialogTitle">
-    <value xml:space="preserve">队列字段</value>
+    <value xml:space="preserve">佇列欄位</value>
   </data>
   <data name="QueueColumnsDialogHeaderText">
-    <value xml:space="preserve">拖动以新增、移除或移动字段。</value>
+    <value xml:space="preserve">拖拉以新增、移除或移動欄位。</value>
   </data>
   <data name="UnusedColumns">
-    <value xml:space="preserve">未使用的列</value>
+    <value xml:space="preserve">未使用欄位</value>
   </data>
   <data name="UsedColumns">
-    <value xml:space="preserve">使用的列</value>
+    <value xml:space="preserve">已使用欄位</value>
   </data>
   <data name="ScanMultipleWindowTitle">
-    <value xml:space="preserve">正在扫描文件...</value>
+    <value xml:space="preserve">掃描檔案中...</value>
   </data>
   <data name="UpdateSuccessDialogTitle">
     <value xml:space="preserve">成功</value>
   </data>
   <data name="UpdateSuccessDialogMessage">
-    <value xml:space="preserve">VidCoder 已被成功更新。</value>
+    <value xml:space="preserve">VidCoder 已成功更新。</value>
   </data>
   <data name="AboutVidCoderDialogTitle">
-    <value xml:space="preserve">关于 VidCoder</value>
+    <value xml:space="preserve">關於 VidCoder</value>
   </data>
   <data name="LicenseLabel">
-    <value xml:space="preserve">授权</value>
+    <value xml:space="preserve">授權:</value>
   </data>
   <data name="Version">
     <value xml:space="preserve">版本</value>
   </data>
   <data name="BasedOnHandBrake">
-    <value xml:space="preserve">基于HandBrake (svn {0})</value>
+    <value xml:space="preserve">基於 HandBrake (svn {0})</value>
   </data>
   <data name="Copyright">
-    <value xml:space="preserve">© {0} VidCoder 开发人员</value>
+    <value xml:space="preserve">© {0} VidCoder 開發人員</value>
   </data>
   <data name="VersionFormat">
     <value xml:space="preserve">{0} ({1})</value>
@@ -182,21 +182,21 @@
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
   <data name="PresetNameDialogTitle">
-    <value xml:space="preserve">命名预设值</value>
+    <value xml:space="preserve">命名設定值</value>
   </data>
   <data name="ChoosePresetName">
-    <value xml:space="preserve">选择预设值的名称：</value>
+    <value xml:space="preserve">選擇設定值的名稱:</value>
   </data>
   <data name="ApplyUpdateDialogTitle">
-    <value xml:space="preserve">应用更新吗？</value>
+    <value xml:space="preserve">套用更新?</value>
   </data>
   <data name="ApplyUpdateDialogMessage">
-    <value xml:space="preserve">更新文件已下载完成。您想要现在应用更新吗？</value>
+    <value xml:space="preserve">更新檔已下載，您要立即套用更新嗎?</value>
   </data>
   <data name="ViewFullChangelog">
-    <value xml:space="preserve">查看完整的更新日志</value>
+    <value xml:space="preserve">檢視完整變更記錄</value>
   </data>
   <data name="DisableUpdatesButton">
-    <value xml:space="preserve">禁用更新</value>
+    <value xml:space="preserve">停用更新</value>
   </data>
 </root>

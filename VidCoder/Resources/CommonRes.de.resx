@@ -128,7 +128,7 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
     <value>Untertitel fest in das Video enkodieren. Feste Untertitel können nicht abgeschaltet werden.</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Untertitel als Wiedergabestandard festlegen, damit er angezeigt wird bis ein anderer Untertitel ausgewählt wird.</value>
+    <value>Untertitelspur als Wiedergabestandard festlegen, damit sie angezeigt wird bis eine andere ausgewählt wird.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
     <value>Nur erzwungene Untertitel aus der Spur anzeigen. Diese enthalten in der Regel nur die Stellen, in denen die Charaktere in einer fremden Sprache reden.</value>
@@ -137,7 +137,7 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
     <value>Zeitspanne, um die der gewählten Untertitel vorgezogen oder verzögert angezeigt wird.</value>
   </data>
   <data name="QueueColumnNameRange" xml:space="preserve">
-    <value>Zeitbereich</value>
+    <value>Bereich</value>
     <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
   </data>
   <data name="QueueColumnNameDestination" xml:space="preserve">
@@ -168,7 +168,7 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
     <value>Dauer</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Sucht nach Untertitel Spuren, welche ausländische Dialoge enthalten könnten. Gut für Filme in Ihrer Muttersprache.</value>
+    <value>Sucht nach Untertitelspuren, welche ausländische Dialoge enthalten könnten. Gut für Filme in Ihrer Muttersprache.</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Standard</value>

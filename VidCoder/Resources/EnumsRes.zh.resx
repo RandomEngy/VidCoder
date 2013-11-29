@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Anamorphic_Custom" xml:space="preserve">
-    <value>自訂</value>
+    <value>自定义</value>
   </data>
   <data name="Anamorphic_Loose" xml:space="preserve">
-    <value>寬鬆</value>
+    <value>宽松</value>
   </data>
   <data name="Anamorphic_None" xml:space="preserve">
-    <value>無</value>
+    <value>无</value>
   </data>
   <data name="Anamorphic_Strict" xml:space="preserve">
-    <value>嚴格</value>
+    <value>严格</value>
   </data>
   <data name="Custom" xml:space="preserve">
-    <value>自訂</value>
+    <value>自定义</value>
   </data>
   <data name="Decomb_Bob" xml:space="preserve">
     <value>Bob</value>
@@ -139,7 +139,7 @@
     <value>快速</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>預設</value>
+    <value>默认值</value>
   </data>
   <data name="Deinterlace_Bob" xml:space="preserve">
     <value>Bob</value>
@@ -148,45 +148,45 @@
     <value>快速</value>
   </data>
   <data name="Deinterlace_Slow" xml:space="preserve">
-    <value>緩慢</value>
+    <value>慢速</value>
   </data>
   <data name="Deinterlace_Slower" xml:space="preserve">
-    <value>較慢</value>
+    <value>较慢</value>
   </data>
   <data name="Denoise_Medium" xml:space="preserve">
     <value>中等</value>
   </data>
   <data name="Denoise_Strong" xml:space="preserve">
-    <value>強</value>
+    <value>强</value>
   </data>
   <data name="Denoise_Weak" xml:space="preserve">
     <value>弱</value>
   </data>
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
-    <value>不執行任何動作</value>
+    <value>不执行任何操作</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
-    <value>退出 {0}:</value>
+    <value>弹出 {0}：</value>
   </data>
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
-    <value>登出</value>
+    <value>注销</value>
   </data>
   <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
-    <value>關機</value>
+    <value>关机</value>
   </data>
   <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
     <value>休眠</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关闭</value>
   </data>
   <data name="VideoRangeType_Chapters" xml:space="preserve">
-    <value>章節</value>
+    <value>章节</value>
   </data>
   <data name="VideoRangeType_Frames" xml:space="preserve">
-    <value>畫格</value>
+    <value>帧</value>
   </data>
   <data name="VideoRangeType_Seconds" xml:space="preserve">
-    <value>時間範圍</value>
+    <value>时间范围</value>
   </data>
 </root>

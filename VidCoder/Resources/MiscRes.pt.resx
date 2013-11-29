@@ -132,10 +132,10 @@
     <value xml:space="preserve">Renomar automáticamente</value>
   </data>
   <data name="FileConflictWarning">
-    <value xml:space="preserve">Já existe um ficheiro em {0}. Deseja substituir o ficheiro, Encontrar automaticamente uma nova localização de saída para o trabalho de codificação ou cancelar a operação?</value>
+    <value xml:space="preserve">Já existe um ficheiro em {0}. Deseja substituir o ficheiro, renomear automaticamente ou cancelar a operação?</value>
   </data>
   <data name="QueueFileConflictWarning">
-    <value xml:space="preserve">Uma tarefa já tem um caminho de saída em {0}. Deseja substituir o ficheiro, encontrar automaticamente uma nova localização de saída para o trabalho de codificação ou cancelar a operação?</value>
+    <value xml:space="preserve">Já existe uma tarefa com um caminho de saída em {0}. Deseja substituir o ficheiro, renomear automaticamente  ou cancelar a operação?</value>
   </data>
   <data name="QueueColumnsDialogTitle">
     <value xml:space="preserve">Colunas do Gestor de Tarefas</value>
@@ -168,10 +168,10 @@
     <value xml:space="preserve">Versão</value>
   </data>
   <data name="BasedOnHandBrake">
-    <value xml:space="preserve">Com base no HandBrake (svn {0})</value>
+    <value xml:space="preserve">Baseado no HandBrake (svn {0})</value>
   </data>
   <data name="Copyright">
-    <value xml:space="preserve">© {0} programadores VidCoder</value>
+    <value xml:space="preserve">© {0} Programadores VidCoder</value>
   </data>
   <data name="VersionFormat">
     <value xml:space="preserve">{0} ({1})</value>

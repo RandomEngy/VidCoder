@@ -117,67 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PlaySourceButton" xml:space="preserve">
-    <value>Reproduzir fonte</value>
+  <data name="SubtitlesWindowTitle" xml:space="preserve">
+    <value>Sottotitoli</value>
   </data>
-  <data name="EncodePreviewClipButton" xml:space="preserve">
-    <value>Codificar pré-visualização</value>
+  <data name="RemoveSubtitleTrack" xml:space="preserve">
+    <value>Rimuovere questa traccia</value>
   </data>
-  <data name="EncodePreviewClipToolTip" xml:space="preserve">
-    <value>Codifica e lê um pequeno excerto de pré-visualização da tela seleccionada. Usa as configurações de codificação actuais.</value>
+  <data name="SubtitlesFromSourceLabel" xml:space="preserve">
+    <value>Sottotitoli dall'origine:</value>
   </data>
-  <data name="GeneratingPreview" xml:space="preserve">
-    <value>Gerando pré-visualização...</value>
+  <data name="QuickTimeSubtitlesWarning" xml:space="preserve">
+    <value>I sottotitoli di testo potrebbero non essere visibili per Quicktime se non viene utilizzata l'estensione .m4v .</value>
   </data>
-  <data name="PlaySourceDisabledBluRayToolTip" xml:space="preserve">
-    <value>Pré-visualização do Blu-Ray de origem ainda não é suportada.</value>
+  <data name="NameColumn" xml:space="preserve">
+    <value>Nome</value>
   </data>
-  <data name="PlaySourceDisabledNoPlayerToolTip" xml:space="preserve">
-    <value>Não foi encontrado nenhum leitor de DVD. Instale o VLC ou o MPC-HC para utilizar este recurso.</value>
+  <data name="DefaultColumn" xml:space="preserve">
+    <value>Predefinito</value>
   </data>
-  <data name="PlaySourceToolTip" xml:space="preserve">
-    <value>Reproduzir o vídeo de origem.</value>
+  <data name="ForcedOnlyColumn" xml:space="preserve">
+    <value>Solo Forzati</value>
   </data>
-  <data name="PreviewClipGenerationFailedMessage" xml:space="preserve">
-    <value>Falha ao gerar excerto de pré-visualização. Consulte o relatório para mais detalhes.</value>
+  <data name="BurnedInColumn" xml:space="preserve">
+    <value>Sovraimpressi</value>
   </data>
-  <data name="PreviewClipGenerationFailedTitle" xml:space="preserve">
-    <value>Geração do excerto de pré-visualização falhou</value>
+  <data name="ExternalSubtitlesLabel" xml:space="preserve">
+    <value>Sottotitoli esterni:</value>
   </data>
-  <data name="PreviewWindowTitleSimple" xml:space="preserve">
-    <value>Pré-visualização: {0} x {1}</value>
+  <data name="FileColumn" xml:space="preserve">
+    <value>File</value>
   </data>
-  <data name="PreviewWindowTitleComplex" xml:space="preserve">
-    <value>Pré-visualização: Exibir {0} x {1} - Armazenamento {2} x {3}</value>
+  <data name="LanguageColumn" xml:space="preserve">
+    <value>Lingua</value>
   </data>
-  <data name="NoVideoSourceTitle" xml:space="preserve">
-    <value>Pré-Visualização: Nenhuma fonte de vídeo</value>
+  <data name="CharCodeColumn" xml:space="preserve">
+    <value>Codice Carattere</value>
   </data>
-  <data name="Seconds" xml:space="preserve">
-    <value>segundos</value>
+  <data name="OffsetColumn" xml:space="preserve">
+    <value>Offset (ms)</value>
   </data>
-  <data name="PreviewDisplay_Corners" xml:space="preserve">
-    <value>Cantos</value>
+  <data name="ImportSrtButton" xml:space="preserve">
+    <value>Importare File .srt ...</value>
   </data>
-  <data name="PreviewDisplay_FitToWindow" xml:space="preserve">
-    <value>Ajustar à janela</value>
+  <data name="BurnedOverlapWarning" xml:space="preserve">
+    <value>Altre tracce di sottotitoli si sovrapporranno ai sottotitoli sovraimpressi.</value>
   </data>
-  <data name="PreviewDisplay_OneToOne" xml:space="preserve">
-    <value>1:1</value>
+  <data name="ForeignAudioSearch" xml:space="preserve">
+    <value>Ricerca Audio Straniero</value>
   </data>
-  <data name="ViewLabel" xml:space="preserve">
-    <value>Visualizar:</value>
+  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
+    <value>Niente sottotitoli sul video di origine.</value>
   </data>
-  <data name="TopMargin" xml:space="preserve">
-    <value>Margem superior</value>
+  <data name="SrtFilePickerText" xml:space="preserve">
+    <value>Aggiungi file di sottotitoli</value>
   </data>
-  <data name="LeftMargin" xml:space="preserve">
-    <value>Margem esquerda</value>
-  </data>
-  <data name="RightMargin" xml:space="preserve">
-    <value>Margem direita</value>
-  </data>
-  <data name="BottomMargin" xml:space="preserve">
-    <value>Margem inferior</value>
+	<data name="DuplicateSubtitleTrack" xml:space="preserve">
+    <value>Duplica questa traccia</value>
   </data>
 </root>

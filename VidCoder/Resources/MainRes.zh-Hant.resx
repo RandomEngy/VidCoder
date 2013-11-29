@@ -118,280 +118,280 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
-    <value>Título:</value>
+    <value>標題:</value>
   </data>
   <data name="SettingsLabel" xml:space="preserve">
-    <value>Definições</value>
+    <value>設定</value>
   </data>
   <data name="AddToQueueLabel" xml:space="preserve">
-    <value>Adicionar à lista de tarefas</value>
+    <value>新增至工作佇列</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
-    <value>Adicione vários títulos à lista de tarefas...</value>
+    <value>新增多個章節標題至工作佇列...</value>
   </data>
   <data name="FileMenu" xml:space="preserve">
-    <value>Ficheiro</value>
+    <value>檔案</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
-    <value>Abrir ficheiro de vídeo...</value>
+    <value>開啟視訊檔...</value>
   </data>
   <data name="OpenDiscFolder" xml:space="preserve">
-    <value>Abrir pasta do DVD ou do Blu-Ray...</value>
+    <value>開啟 DVD/藍光 資料夾...</value>
   </data>
   <data name="EnqueueMultipleFiles" xml:space="preserve">
-    <value>Adicionar vários ficheiros à lista de tarefas...</value>
+    <value>加入多個檔案至工作佇列...</value>
   </data>
   <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Adicionar vários títulos à lista de tarefas...</value>
+    <value>新增多個章節標題至工作佇列...</value>
   </data>
   <data name="ToolsMenu" xml:space="preserve">
-    <value>Ferramentas</value>
+    <value>工具</value>
   </data>
   <data name="ImportPreset" xml:space="preserve">
-    <value>Importar Pré-ajustes...</value>
+    <value>匯入設定值...</value>
   </data>
   <data name="ExportPreset" xml:space="preserve">
-    <value>Exportar Pré-ajustes...</value>
+    <value>匯出設定值...</value>
   </data>
   <data name="OptionsMenuItem" xml:space="preserve">
-    <value>Opções...</value>
+    <value>選項...</value>
   </data>
   <data name="Play" xml:space="preserve">
-    <value>Reproduzir</value>
+    <value>播放</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Editar</value>
+    <value>編輯</value>
   </data>
   <data name="OpenContainingFolder" xml:space="preserve">
-    <value>Abrir pasta do conteúdo</value>
+    <value>開啟所在資料夾</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
-    <value>Eliminar concluídos</value>
+    <value>清除完成項目</value>
   </data>
   <data name="ExitMenuItem" xml:space="preserve">
-    <value>Sair</value>
+    <value>離開</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
-    <value>Windows</value>
+    <value>視窗</value>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
-    <value>Configurações de codificação</value>
+    <value>編碼設定</value>
   </data>
   <data name="PreviewMenuItem" xml:space="preserve">
-    <value>Pré-Visualizar</value>
+    <value>預覽</value>
   </data>
   <data name="LogMenuItem" xml:space="preserve">
-    <value>Relatório</value>
+    <value>記錄</value>
   </data>
   <data name="HelpMenu" xml:space="preserve">
-    <value>Ajuda</value>
+    <value>説明</value>
   </data>
   <data name="VidCoderHomepageMenuItem" xml:space="preserve">
-    <value>VidCoder Homepage</value>
+    <value>VidCoder 首頁</value>
   </data>
   <data name="ReportABugMenuItem" xml:space="preserve">
-    <value>Reportar um Erro</value>
+    <value>回報臭蟲</value>
   </data>
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
-    <value>Acerca do VidCoder...</value>
+    <value>關於 VidCoder...</value>
   </data>
   <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>Escolha uma fonte de vídeo:</value>
+    <value>選擇視訊來源:</value>
   </data>
   <data name="SourceLabel" xml:space="preserve">
-    <value>Fonte:</value>
+    <value>來源:</value>
   </data>
   <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Analisando a fonte...</value>
+    <value>掃描來源中...</value>
   </data>
   <data name="Recent" xml:space="preserve">
-    <value>Recentes</value>
+    <value>最近使用項目</value>
   </data>
   <data name="DragFilesHereLabel" xml:space="preserve">
-    <value>(Arraste pastas ou ficheiros de vídeo para aqui)</value>
+    <value>(或拖拉視訊檔案/資料夾至此)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
-    <value>Ocorreu um erro durante a análise.</value>
+    <value>掃描時發生錯誤。</value>
   </data>
   <data name="AudioLabel" xml:space="preserve">
-    <value>Áudio:</value>
+    <value>音訊:</value>
   </data>
   <data name="VideoLabel" xml:space="preserve">
-    <value>Vídeo:</value>
+    <value>視訊:</value>
   </data>
   <data name="SubtitlesLabel" xml:space="preserve">
-    <value>Legendas:</value>
+    <value>字幕:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
-    <value>Adicionar faixa</value>
+    <value>新增音軌</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
-    <value>Capítulos:</value>
+    <value>章節編輯器:</value>
   </data>
   <data name="EditButton" xml:space="preserve">
-    <value>Editar...</value>
+    <value>編輯...</value>
   </data>
   <data name="DestinationLabel" xml:space="preserve">
-    <value>Destino:</value>
+    <value>輸出位置:</value>
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
-    <value>Clique para alterar o destino da codificação.</value>
+    <value>點擊以編輯編碼檔案輸出位置。</value>
   </data>
   <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>Seleccione o destino...</value>
+    <value>選擇輸出路徑...</value>
   </data>
   <data name="EncodingLabel" xml:space="preserve">
-    <value>Codificação:</value>
+    <value>編碼:</value>
   </data>
   <data name="Stop" xml:space="preserve">
-    <value>Parar</value>
+    <value>停止</value>
   </data>
   <data name="Pause" xml:space="preserve">
-    <value>Pausar</value>
+    <value>暫停</value>
   </data>
   <data name="MoveToTopMenuItem" xml:space="preserve">
-    <value>Mover para cima</value>
+    <value>移至最上方</value>
   </data>
   <data name="MoveToBottomMenuItem" xml:space="preserve">
-    <value>Mover para baixo</value>
+    <value>移至最下方</value>
   </data>
   <data name="CustomizeColumnsMenuItem" xml:space="preserve">
-    <value>Personalizar colunas...</value>
+    <value>自訂欄位...</value>
   </data>
   <data name="CurrentFpsLabel" xml:space="preserve">
-    <value>FPS actual:</value>
+    <value>目前 FPS:</value>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>FPS médio:</value>
+    <value>平均 FPS:</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
-    <value>Seleccione uma pasta de DVD ou de Blu-Ray.</value>
+    <value>選擇 DVD 或藍光資料夾。</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
-    <value>Existe uma codificação em andamento. Tem certeza que deseja sair?</value>
+    <value>仍有編碼工作進行中，您確定要離開嗎?</value>
   </data>
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
-    <value>Codificação em andamento</value>
+    <value>編碼進行中</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Pesquisa de áudio externo</value>
+    <value>外語音訊搜尋</value>
   </data>
   <data name="NoneParen" xml:space="preserve">
-    <value>(Nenhum)</value>
+    <value>(無)</value>
   </data>
   <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} pistas</value>
+    <value>{0} 軌</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
-    <value>Deseja guardar as alterações do pré-ajuste actual?</value>
+    <value>您想儲存目前的預設值變更嗎?</value>
   </data>
   <data name="SaveChangesPresetTitle" xml:space="preserve">
-    <value>Guardar pré-ajuste actual?</value>
+    <value>儲存目前的設定值?</value>
   </data>
   <data name="DiscNotInDriveError" xml:space="preserve">
-    <value>Não é possível carregar para edição. O disco não está na unidade.</value>
+    <value>碟片已移除，無法載入供編輯。</value>
   </data>
   <data name="PresetNameRestoredFromQueue" xml:space="preserve">
-    <value>Restaurado a partir de lista de tarefas</value>
+    <value>自工作佇列中還原</value>
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
-    <value>Restaurado a partir de lista de concluídos</value>
+    <value>自完成佇列中還原</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Pré-ajuste:</value>
+    <value>設定值:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
-    <value>Destino</value>
+    <value>輸出位置</value>
   </data>
   <data name="StatusColumnHeader" xml:space="preserve">
-    <value>Estado</value>
+    <value>狀態</value>
   </data>
   <data name="ElapsedTimeColumnHeader" xml:space="preserve">
-    <value>Tempo decorrido</value>
+    <value>經過時間</value>
   </data>
   <data name="PlayingVideoMessage" xml:space="preserve">
-    <value>Reproduzindo vídeo...</value>
+    <value>播放視訊...</value>
   </data>
   <data name="FileDoesNotExist" xml:space="preserve">
-    <value>{0} não existe.</value>
+    <value>{0} 不存在。</value>
   </data>
   <data name="AngleLabel" xml:space="preserve">
-    <value>Ângulo:</value>
+    <value>角度:</value>
   </data>
   <data name="ChaptersSummary" xml:space="preserve">
-    <value>de {0}</value>
+    <value>/ {0}</value>
   </data>
   <data name="Queued" xml:space="preserve">
-    <value>Na lista de tarefas</value>
+    <value>工作佇列</value>
   </data>
   <data name="QueuedWithTotal" xml:space="preserve">
-    <value>Lista de tarefas ({0})</value>
+    <value>工作佇列 ({0})</value>
   </data>
   <data name="CompletedWithTotal" xml:space="preserve">
-    <value>Concluídos ({0})</value>
+    <value>完成佇列 ({0})</value>
   </data>
   <data name="StoppedEncoding" xml:space="preserve">
-    <value>Codificação parada.</value>
+    <value>停止編碼。</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Tem a certeza de que deseja eliminar {0} ficheiro(s)/pasta(s) de origem?</value>
+    <value>您確定要刪除 {0} 來源檔/資料夾 嗎?</value>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
-    <value>Confirme a eliminação</value>
+    <value>確認刪除</value>
   </data>
   <data name="CouldNotDeleteFile" xml:space="preserve">
-    <value>Não foi possível eliminar {0} {1}</value>
+    <value>無法刪除 {0} {1}</value>
   </data>
   <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>Os seguinte(s) ficheiro(s) não é/são reconhecido(s) e não foi/foram adicionado(s) à lista de tarefas: {0}</value>
+    <value>下列檔案因無法辨識並未加入工作佇列: {0}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
-    <value>Erro ao analizar o(s) ficheiro(s) de vídeo</value>
+    <value>掃描視訊檔時出現錯誤</value>
   </data>
   <data name="StartedEncoding" xml:space="preserve">
-    <value>Iniciar a codificação.</value>
+    <value>編碼已開始。</value>
   </data>
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
-    <value>Não foi possível criar a pasta de destino. Detalhes do erro: {0}</value>
+    <value>無法建立輸出資料夾，錯誤詳情: {0}</value>
   </data>
   <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>Erro ao criar pasta</value>
+    <value>建立資料夾時發生錯誤</value>
   </data>
   <data name="EncodeCompleted" xml:space="preserve">
-    <value>Codificação concluída.</value>
+    <value>編碼已完成。</value>
   </data>
   <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
-    <value>Codificação concluída</value>
+    <value>編碼已完成</value>
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
-    <value>VidCoder terminou todas as tarefas de codificação.</value>
+    <value>VidCoder 已完成工作佇列中的所有作業。</value>
   </data>
   <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>Não é possível adicionar tarefas de codificação sem ter uma pasta de destino padrão. Pressione OK para escolher uma.</value>
+    <value>未設定預設輸出資料夾無法新增編碼工作，請點選確定選擇資料夾。</value>
   </data>
   <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>Pasta de destino padrão exigida</value>
+    <value>預設輸出資料夾為必要設定</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
-    <value>Pasta de destino inválida.</value>
+    <value>輸出路徑無效。</value>
   </data>
   <data name="OutputPathNotValidTitle" xml:space="preserve">
-    <value>Caminho inválido</value>
+    <value>路徑無效</value>
   </data>
   <data name="Encode" xml:space="preserve">
-    <value>Codificar</value>
+    <value>編碼</value>
   </data>
   <data name="Resume" xml:space="preserve">
-    <value>Retomar</value>
+    <value>繼續</value>
   </data>
   <data name="EtaLabel" xml:space="preserve">
-    <value>TRE:</value>
+    <value>ETA:</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Quando terminar:</value>
+    <value>完成時:</value>
   </data>
   <data name="Preset_AndroidTablet" xml:space="preserve">
-    <value>Tablet Android</value>
+    <value>Android 平板</value>
   </data>
   <data name="Preset_Android" xml:space="preserve">
     <value>Android</value>
@@ -418,150 +418,150 @@
     <value>AppleTV 3</value>
   </data>
   <data name="Preset_Universal" xml:space="preserve">
-    <value>Universal</value>
+    <value>通用</value>
   </data>
   <data name="Preset_HighProfile" xml:space="preserve">
-    <value>Perfil Alto</value>
+    <value>High Profile</value>
   </data>
   <data name="Preset_Normal" xml:space="preserve">
-    <value>Normal</value>
+    <value>標準</value>
   </data>
   <data name="Preset_WindowsPhone7" xml:space="preserve">
     <value>Windows Phone 7</value>
   </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
-    <value>Ficheiro de vídeo...</value>
+    <value>視訊檔...</value>
   </data>
   <data name="SourceOption_DiscFolder" xml:space="preserve">
-    <value>Pasta de DVD/Blu-ray...</value>
+    <value>DVD/藍光 資料夾...</value>
   </data>
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
-    <value>Versão {0} está disponível. O download da actualização foi iniciado.</value>
+    <value>版本 {0} 可使用，已開始下載更新檔。</value>
   </data>
   <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>O download da versão {0} terminou e vai ser instalado quando sair do programa.</value>
+    <value>版本 {0} 已下載完成，將於程式離開時安裝。</value>
   </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
-    <value>A actualização não foi aplicada. Se não a cancelou, tente instalá-la manualmente.</value>
+    <value>更新並未套用，若您非手動取消更新，請嘗試手動安裝更新。</value>
   </data>
   <data name="CouldNotLoadPresetMessage" xml:space="preserve">
-    <value>Não foi possível carregar o pré-ajuste: </value>
+    <value>無法載入設定值:</value>
   </data>
   <data name="CouldNotSavePresetMessage" xml:space="preserve">
-    <value>Não foi possível guardar o pré-ajuste '{0}': {1} {2}</value>
+    <value>無法儲存設定值 '{0}':{1}{2}</value>
   </data>
   <data name="CouldNotCopyTextError" xml:space="preserve">
-    <value>Não foi possível copiar o texto.</value>
+    <value>無法複製文字。</value>
   </data>
   <data name="LaunchUrlError" xml:space="preserve">
-    <value>Erro ao iniciar o URL: {0}</value>
+    <value>開啟 URL 時發生錯誤: {0}</value>
   </data>
   <data name="UserConfigLoadError" xml:space="preserve">
-    <value>Não foi possível carregar um ficheiro necessário com as configurações do utilizador. Pode ter-se tornado corrupto. Deseja excluí-lo? Isto não afectará os pré-ajustes já guardados.</value>
+    <value>無法載入所需的使用者設定檔，檔案可能已毀損。您想要刪除設定檔嗎? 此動作不會影響到您已儲存的設定值。</value>
   </data>
   <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>Erro ao ler configurações</value>
+    <value>載入設定時發生錯誤</value>
   </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Não foi possível importar o pré-ajuste. Formato não reconhecido.</value>
+    <value>無法匯入設定值，無法辨識格式。</value>
   </data>
   <data name="PresetImportErrorTitle" xml:space="preserve">
-    <value>Erro de importação</value>
+    <value>匯入錯誤</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
-    <value>Pré-ajuste importado com êxito {0}.</value>
+    <value>已成功匯入設定值 {0}。</value>
   </data>
   <data name="PresetImportSuccessTitle" xml:space="preserve">
-    <value>Sucesso</value>
+    <value>成功</value>
   </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
-    <value>Pré-ajuste exportado com êxito {0}</value>
+    <value>已成功匯出設定值至 {0}。</value>
   </data>
   <data name="PresetExportSuccessTitle" xml:space="preserve">
-    <value>Sucesso</value>
+    <value>成功</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
-    <value>Exportar Pré-ajustes</value>
+    <value>匯出設定值</value>
   </data>
   <data name="PresetSaveConfirmMessage" xml:space="preserve">
-    <value>Deseja guardar as alterações do pré-ajuste actual?</value>
+    <value>您想要儲存目前設定值的變更嗎?</value>
   </data>
   <data name="PresetSaveConfirmTitle" xml:space="preserve">
-    <value>Guardar pré-ajuste actual?</value>
+    <value>儲存目前的設定值?</value>
   </data>
   <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>Tem certeza que deseja reverter todas as alterações não guardadas neste pré-ajuste?</value>
+    <value>您想要還原此設定值所有未儲存的變更嗎?</value>
   </data>
   <data name="PresetRevertConfirmTitle" xml:space="preserve">
-    <value>Reverter o pré-ajuste</value>
+    <value>還原設定值</value>
   </data>
   <data name="PresetRemoveConfirmMessage" xml:space="preserve">
-    <value>Tem certeza que deseja remover este pré-ajuste?</value>
+    <value>您確定要移除此設定值嗎?</value>
   </data>
   <data name="PresetRemoveConfirmTitle" xml:space="preserve">
-    <value>Remover o pré-ajuste</value>
+    <value>移除設定值</value>
   </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>Configuração está corrompida e não pode ser carregada. Algumas das suas configurações podem ter sido repostas.</value>
+    <value>設定檔損毀無法載入，您的部分設定可能會被重置。</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
-    <value>Escolha a paste de destino para os ficheiros de vídeo codificados.</value>
+    <value>選擇編碼檔案的輸出資料夾。</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
     <value>({0})</value>
   </data>
   <data name="ModifiedAffix" xml:space="preserve">
-    <value>(Modificado)</value>
+    <value>(已修改)</value>
   </data>
   <data name="PlayingVideoStatus" xml:space="preserve">
-    <value>Reproduzindo vídeo...</value>
+    <value>播放視訊中...</value>
   </data>
   <data name="OpeningFolderStatus" xml:space="preserve">
-    <value>Abrir pasta...</value>
+    <value>開啟資料夾中...</value>
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
-    <value>Fechar origem do vídeo</value>
+    <value>關閉視訊來源</value>
   </data>
   <data name="CloseVideoSourceMenuItem" xml:space="preserve">
-    <value>Fechar Origem do Vídeo</value>
+    <value>關閉視訊來源</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
-    <value>Actualizações...</value>
+    <value>更新...</value>
   </data>
   <data name="CbrAuto" xml:space="preserve">
-    <value>CBR Auto</value>
+    <value>自動 CBR</value>
   </data>
   <data name="RangeBarToolTip" xml:space="preserve">
-    <value>Botão esquerdo para definir o início e botão direito para definir o fim.</value>
+    <value>左鍵點擊設定起始時間，右鍵點擊設定結束時間。</value>
   </data>
   <data name="Preset_WindowsPhone8" xml:space="preserve">
     <value>Windows Phone 8</value>
   </data>
   <data name="QueueFormat_Chapters" xml:space="preserve">
-    <value>Cap.: {0}</value>
+    <value>章節 {0}</value>
   </data>
   <data name="QueueFormat_Frames" xml:space="preserve">
-    <value>Fr {0}-{1}</value>
+    <value>畫格 {0}-{1}</value>
   </data>
   <data name="QueueRangeAll" xml:space="preserve">
-    <value>Todos</value>
+    <value>全部</value>
   </data>
   <data name="CouldNotCopyLogError" xml:space="preserve">
-    <value>Não pode copiar o relatório: {0} {0} {1}</value>
+    <value>無法複製記錄: {0}{0}{1}</value>
   </data>
   <data name="OpenLog" xml:space="preserve">
-    <value>Abrir relatório</value>
+    <value>開啟記錄</value>
   </data>
   <data name="CopyLog" xml:space="preserve">
-    <value>Copiar relatório</value>
+    <value>複製記錄</value>
   </data>
   <data name="PresetDiscardConfirmMessage" xml:space="preserve">
-    <value>Tem alterações não guardadas. Tem certeza que deseja ignorar essas alterações e mudar para outro pré-ajuste?</value>
+    <value>您尚未儲存變更，您確定要放棄變更並切換至其他的設定值嗎?</value>
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
-    <value>Ignorar alterações?</value>
+    <value>放棄變更?</value>
   </data>
 	<data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>Remover a pista de áudio</value>
+    <value>移除音軌</value>
   </data>
 </root>

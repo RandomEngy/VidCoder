@@ -160,7 +160,7 @@
     <value>Importiere .srt Datei...</value>
   </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
-    <value>Andere Untertitelspuren werden die gebrannten Untertitel überlagern.</value>
+    <value>Andere Untertitelspuren werden die eingebrannten Untertitel überlagern.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Suche nach ausländischem Ton</value>

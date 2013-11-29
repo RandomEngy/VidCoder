@@ -175,7 +175,7 @@
     <value>Bei der Encodierung einer Datei:</value>
   </data>
   <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Nachfragen, ob die sie überschrieben werden soll</value>
+    <value>Nachfragen, ob sie überschrieben werden soll</value>
   </data>
   <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
     <value>Datei ohne Nachfrage überschreiben</value>
@@ -202,7 +202,7 @@
     <value>Sprache:</value>
   </data>
   <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Alle Tonspuren übernehmen</value>
+    <value>Alle Spuren übernehmen</value>
   </data>
   <data name="AutomaticSubtitleSelection" xml:space="preserve">
     <value>Automatische Untertitel-Auswahl</value>
@@ -235,7 +235,7 @@
     <value>LibDVDNav einschalten (Erfordert Neustart des Programms)</value>
   </data>
   <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Scans nach Fertigstellung behalten (ermöglicht die Bearbeitung fertiger Dateien)</value>
+    <value>Scans nach Fertigstellung behalten (ermöglicht es abgeschlossene Aufträge zu bearbeiten)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Ürsprüngliche Dateien löschen, nachdem die erfolgreich abgeschlossen Aufträge aus der Liste entfernt wurden (mit Bestätigung)</value>
@@ -385,7 +385,7 @@
     <value>Niedrig</value>
   </data>
 	<data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>Kopiere das Encodierungsprotokoll in denselben Ordner wie das encodierte Video</value>
+    <value>Encodierungsprotokoll in den Ordner des encodierten Video kopieren</value>
   </data>
 	<data name="OpenLogFolderButton" xml:space="preserve">
     <value>Öffne Protokollordner</value>

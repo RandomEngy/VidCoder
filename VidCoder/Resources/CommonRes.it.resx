@@ -117,67 +117,123 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PlaySourceButton" xml:space="preserve">
-    <value>Reproduzir fonte</value>
+  <data name="AboutLicense" xml:space="preserve">
+    <value>Questo programma è software libero; è lecito redistribuirlo o modificarlo secondo i termini della GNU General Public License come pubblicata dalla Free Software Foundation; sia la versione 2 della licenza, o (a tua scelta) qualsiasi versione successiva.  Questo programma è distribuito nella speranza che possa essere utile, ma senza alcuna garanzia; senza neppure la garanzia implicita di commerciabilità o idoneità per uno scopo particolare.  Vedi la GNU General Public License per maggiori dettagli.  Una copia completa della GNU General Public License è stato inclusa insieme a questo programma.</value>
   </data>
-  <data name="EncodePreviewClipButton" xml:space="preserve">
-    <value>Codificar pré-visualização</value>
+  <data name="BurnedSubtitleToolTip" xml:space="preserve">
+    <value>Scrivere i sottotitoli sull'immagine. I sottotitoli scritti, non si possono disattivare durante la riproduzione.</value>
   </data>
-  <data name="EncodePreviewClipToolTip" xml:space="preserve">
-    <value>Codifica e lê um pequeno excerto de pré-visualização da tela seleccionada. Usa as configurações de codificação actuais.</value>
+  <data name="DefaultSubtitleToolTip" xml:space="preserve">
+    <value>Segna questa traccia dei sottotitoli come predefinita. Questa verrà visualizzata durante la riproduzione fino a quando un altra traccia verrà scelta.</value>
   </data>
-  <data name="GeneratingPreview" xml:space="preserve">
-    <value>Gerando pré-visualização...</value>
+  <data name="ForcedSubtitleToolTip" xml:space="preserve">
+    <value>Visualizzare solo i sottotitoli forzati dalla traccia dati. Di solito questo significa che piccole parti di dialogo straniere verranno tradotte.</value>
   </data>
-  <data name="PlaySourceDisabledBluRayToolTip" xml:space="preserve">
-    <value>Pré-visualização do Blu-Ray de origem ainda não é suportada.</value>
+  <data name="OffsetSubtitleToolTip" xml:space="preserve">
+    <value>La quantità di tempo per spingere in avanti o ritardare la comparsa dei sottotitoli.</value>
   </data>
-  <data name="PlaySourceDisabledNoPlayerToolTip" xml:space="preserve">
-    <value>Não foi encontrado nenhum leitor de DVD. Instale o VLC ou o MPC-HC para utilizar este recurso.</value>
+  <data name="QueueColumnNameRange" xml:space="preserve">
+    <value>Gamma</value>
+    <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
   </data>
-  <data name="PlaySourceToolTip" xml:space="preserve">
-    <value>Reproduzir o vídeo de origem.</value>
+  <data name="QueueColumnNameDestination" xml:space="preserve">
+    <value>Destinazione</value>
   </data>
-  <data name="PreviewClipGenerationFailedMessage" xml:space="preserve">
-    <value>Falha ao gerar excerto de pré-visualização. Consulte o relatório para mais detalhes.</value>
+  <data name="QueueColumnNameSource" xml:space="preserve">
+    <value>Sorgente</value>
   </data>
-  <data name="PreviewClipGenerationFailedTitle" xml:space="preserve">
-    <value>Geração do excerto de pré-visualização falhou</value>
+  <data name="QueueColumnNameTitle" xml:space="preserve">
+    <value>Titolo</value>
   </data>
-  <data name="PreviewWindowTitleSimple" xml:space="preserve">
-    <value>Pré-visualização: {0} x {1}</value>
+  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
+    <value>Qualità audio</value>
   </data>
-  <data name="PreviewWindowTitleComplex" xml:space="preserve">
-    <value>Pré-visualização: Exibir {0} x {1} - Armazenamento {2} x {3}</value>
+  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
+    <value>Codificatore audio</value>
   </data>
-  <data name="NoVideoSourceTitle" xml:space="preserve">
-    <value>Pré-Visualização: Nenhuma fonte de vídeo</value>
+  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
+    <value>Codificatore video</value>
   </data>
-  <data name="Seconds" xml:space="preserve">
-    <value>segundos</value>
+  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
+    <value>Qualità video</value>
   </data>
-  <data name="PreviewDisplay_Corners" xml:space="preserve">
-    <value>Cantos</value>
+  <data name="QueueEtaToolTip" xml:space="preserve">
+    <value>Tempo stimato rimanente per tutti i lavori in coda da completare.</value>
   </data>
-  <data name="PreviewDisplay_FitToWindow" xml:space="preserve">
-    <value>Ajustar à janela</value>
+  <data name="QueueColumnNameDuration" xml:space="preserve">
+    <value>Durata</value>
   </data>
-  <data name="PreviewDisplay_OneToOne" xml:space="preserve">
-    <value>1:1</value>
+  <data name="ForeignAudioSearchToolTip" xml:space="preserve">
+    <value>Ricerche per la traccia sottotitoli che è probabile che contengono pezzi di dialogo straniero. Buono per i film che sono principalmente nella vostra lingua madre.</value>
   </data>
-  <data name="ViewLabel" xml:space="preserve">
-    <value>Visualizar:</value>
+  <data name="Default" xml:space="preserve">
+    <value>Impostazione Predefinita</value>
+    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
-  <data name="TopMargin" xml:space="preserve">
-    <value>Margem superior</value>
+  <data name="Custom" xml:space="preserve">
+    <value>Personalizza</value>
+    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
-  <data name="LeftMargin" xml:space="preserve">
-    <value>Margem esquerda</value>
+  <data name="Browse" xml:space="preserve">
+    <value>Sfoglia...</value>
   </data>
-  <data name="RightMargin" xml:space="preserve">
-    <value>Margem direita</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Cancella</value>
   </data>
-  <data name="BottomMargin" xml:space="preserve">
-    <value>Margem inferior</value>
+  <data name="PreviewLabel" xml:space="preserve">
+    <value>Anteprima</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Automatico</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>Spento</value>
+    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Tutti</value>
+  </data>
+  <data name="StreamChoice" xml:space="preserve">
+    <value>Flusso: {0}</value>
+    <comment>Used in the encoding settings dialog to mark which audio stream an audio encoding is targeting. By default the encoding works on all streams but you can target it to affect only the first stream, in which case it would label it "Stream 1"</comment>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Disattivato</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Rimuovi</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copia</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sì</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="CouldNotAccessDirectoriesError" xml:space="preserve">
+    <value>Non ho potuto accedere alle seguenti cartelle:</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Nessuno</value>
+  </data>
+  <data name="Succeeded" xml:space="preserve">
+    <value>È riuscito</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Non riuscito</value>
+  </data>
+  <data name="FilePickerExtTemplate" xml:space="preserve">
+    <value>File: {0}</value>
+  </data>
+  <data name="QueueColumnNamePreset" xml:space="preserve">
+    <value>Preimpostato</value>
   </data>
 </root>

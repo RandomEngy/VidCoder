@@ -118,64 +118,64 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="PlaySourceButton" xml:space="preserve">
-    <value>播放來源影片</value>
+    <value>播放来源影片</value>
   </data>
   <data name="EncodePreviewClipButton" xml:space="preserve">
-    <value>編碼預覽影片</value>
+    <value>编码预览影片</value>
   </data>
   <data name="EncodePreviewClipToolTip" xml:space="preserve">
-    <value>使用目前的編碼設定將選擇的影片編碼為小段的預覽影片後播放。</value>
+    <value>使用目前的编码设定将选择的影片编码为小段的预览影片后播放。</value>
   </data>
   <data name="GeneratingPreview" xml:space="preserve">
-    <value>產生預覽影片中...</value>
+    <value>正在生成预览...</value>
   </data>
   <data name="PlaySourceDisabledBluRayToolTip" xml:space="preserve">
-    <value>目前尚未支援藍光影片的預覽功能。</value>
+    <value>目前暂不支持蓝光影片的预览功能</value>
   </data>
   <data name="PlaySourceDisabledNoPlayerToolTip" xml:space="preserve">
-    <value>找不到支援的 DVD 播放器，請安裝 VLC 或 MPC-HC 以使用這個功能。</value>
+    <value>找不到支持的 DVD 播放器，请安装 VLC 或 MPC-HC 以使用这个功能。</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
-    <value>播放來源視訊。</value>
+    <value>播放源视频。</value>
   </data>
   <data name="PreviewClipGenerationFailedMessage" xml:space="preserve">
-    <value>預覽影片建立失敗，請參考記錄視窗中的詳細資訊。</value>
+    <value>预览剪辑生成失败。请参阅日志窗口中的详细信息。</value>
   </data>
   <data name="PreviewClipGenerationFailedTitle" xml:space="preserve">
-    <value>預覽影片建立失敗</value>
+    <value>预览剪辑生成失败</value>
   </data>
   <data name="PreviewWindowTitleSimple" xml:space="preserve">
-    <value>預覽: {0}x{1}</value>
+    <value>预览: {0} x {1}</value>
   </data>
   <data name="PreviewWindowTitleComplex" xml:space="preserve">
-    <value>預覽: 顯示 {0}x{1} - 原始 {2}x{3}</value>
+    <value>预览: 显示 {0} x {1}-存储 {2} x {3}</value>
   </data>
   <data name="NoVideoSourceTitle" xml:space="preserve">
-    <value>預覽: 無視訊來源</value>
+    <value>预览: 没有视频源</value>
   </data>
   <data name="Seconds" xml:space="preserve">
     <value>秒</value>
   </data>
   <data name="PreviewDisplay_Corners" xml:space="preserve">
-    <value>邊角檢視</value>
+    <value>边角预览</value>
   </data>
   <data name="PreviewDisplay_FitToWindow" xml:space="preserve">
-    <value>縮放至整個視窗</value>
+    <value>适应窗口</value>
   </data>
   <data name="PreviewDisplay_OneToOne" xml:space="preserve">
     <value>1:1</value>
   </data>
   <data name="ViewLabel" xml:space="preserve">
-    <value>檢視:</value>
+    <value>查看</value>
   </data>
   <data name="TopMargin" xml:space="preserve">
-    <value>頂端</value>
+    <value>顶端</value>
   </data>
   <data name="LeftMargin" xml:space="preserve">
-    <value>左側</value>
+    <value>左侧</value>
   </data>
   <data name="RightMargin" xml:space="preserve">
-    <value>右側</value>
+    <value>右侧</value>
   </data>
   <data name="BottomMargin" xml:space="preserve">
     <value>底部</value>

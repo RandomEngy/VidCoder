@@ -176,6 +176,8 @@ CopyLanguage "pt"
 CopyLanguage "fr"
 CopyLanguage "de"
 CopyLanguage "zh"
+CopyLanguage "zh-Hant"
+CopyLanguage "it"
 
 
 # Create portable installer

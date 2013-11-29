@@ -105,6 +105,8 @@ namespace VidCoder.ViewModel
 						new InterfaceLanguage { CultureCode = "es-ES", Display = "Español / Spanish"},
 						new InterfaceLanguage { CultureCode = "de-DE", Display = "Deutsch / German" },
 						new InterfaceLanguage { CultureCode = "fr-FR", Display = "Français / French"},
+						new InterfaceLanguage { CultureCode = "it-IT", Display = "italiano / Italian"},
+						new InterfaceLanguage { CultureCode = "zh-Hans", Display = "中文(简体) / Chinese (Simplified)"},
 						new InterfaceLanguage { CultureCode = "zh-Hant", Display = "中文(繁體) / Chinese (Traditional)"},
 						//new InterfaceLanguage { CultureCode = "pt-PT", Display = "Português (Portuguese)"},
 						new InterfaceLanguage { CultureCode = "hu-HU", Display = "Magyar / Hungarian"},

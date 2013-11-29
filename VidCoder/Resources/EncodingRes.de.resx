@@ -143,7 +143,8 @@ x264 kann für einen kleinen Kompressions Gewinn auf Kosten von ein wenig Geschw
 Höhere Werte nehmen mehr Bits von den Rand- und den komplexen Bereichen, um die Bereiche mit den feineren Details zu verbessern.</value>
   </data>
   <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>Modus Entscheidung wählt aus einer Vielzahl von Optionen, um seine Entscheidung zu treffen: mit dieser Option wird festgelegt, welche Optionen dazu zur Auswahl stehen. Je weniger Partitionen dazu zu überprüfen sind, desto schneller verläuft die Encodierung, dies geschieht jedoch auf Kosten schlechterer Entscheidungen, falls die beste Option abgeschaltet war.</value>
+    <value>Modus Entscheidung wählt aus einer Vielzahl von Optionen, um seine Entscheidung zu treffen: mit dieser Option wird festgelegt, welche Optionen dazu zur Auswahl stehen.
+Je weniger Teilbereiche dazu zu überprüfen sind, desto schneller verläuft die Encodierung, dies geschieht jedoch auf Kosten schlechterer Entscheidungen, falls die beste Option abgeschaltet war.</value>
   </data>
   <data name="Advanced_BFramesToolTip" xml:space="preserve">
     <value>Gute Werte liegen zwischen 2 und 5.
@@ -241,7 +242,7 @@ Für Audioquellen mit einem hohen dynamischen Umfang (sehr laute und sehr leise 
     <value>Verstärken oder verringern Sie die Lautstärke vor der Encodierung. Gültige Werte liegen zwischen -20 und +20 dB.</value>
   </data>
   <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
-    <value>Kapitelmarkierungen aus dem Eingangs-Video in das encodierte Video übernehmen.</value>
+    <value>Kapitelmarkierungen aus dem Eingangsvideo in das encodierte Video übernehmen.</value>
   </data>
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Fügt der Datei eine Markierung bei, welche ältere iPods benötigen, bevor sie erlauben, dass das H.264 Video auf das Gerät synchronisiert wird.</value>
@@ -534,7 +535,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Voreinstellung für Tonspur hinzufügen</value>
   </data>
   <data name="NoTracksPlaceholder" xml:space="preserve">
-    <value>(Kein Titel)</value>
+    <value>(Kein Spuren)</value>
   </data>
   <data name="TargetStream" xml:space="preserve">
     <value>Voreinstellung für folgende Tonspur(en)</value>
@@ -697,13 +698,13 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Entblockung:</value>
   </data>
   <data name="PartitionTypeLabel" xml:space="preserve">
-    <value>Partitionstyp:</value>
+    <value>Teilbereiche:</value>
   </data>
   <data name="TrellisLabel" xml:space="preserve">
     <value>Gitter:</value>
   </data>
   <data name="OptionsString" xml:space="preserve">
-    <value>Parameterkette</value>
+    <value>Zeichenkette der erweiterten Einstellungen</value>
   </data>
   <data name="PyramidalBFrames_Off" xml:space="preserve">
     <value>Aus</value>
@@ -790,10 +791,10 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Keine</value>
   </data>
   <data name="Analysis_Some" xml:space="preserve">
-    <value>Weniges</value>
+    <value>Einige</value>
   </data>
   <data name="Analysis_All" xml:space="preserve">
-    <value>Alles</value>
+    <value>Alle</value>
   </data>
   <data name="Trellis_Off" xml:space="preserve">
     <value>Aus</value>
@@ -833,7 +834,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>H.264 (x264)</value>
   </data>
   <data name="Analysis_Most" xml:space="preserve">
-    <value>Viel</value>
+    <value>Viele</value>
   </data>
   <data name="AdvancedQuery" xml:space="preserve">
     <value>Erweiterte Abfrage</value>
@@ -860,7 +861,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Weitere Einstellungen:</value>
   </data>
   <data name="Track" xml:space="preserve">
-    <value>Tonspur</value>
+    <value>Spur</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Quelle</value>

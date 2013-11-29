@@ -124,7 +124,7 @@
     <value>Remover esta pista</value>
   </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
-    <value>Legendas da fonte:</value>
+    <value>Legendas na fonte:</value>
   </data>
   <data name="QuickTimeSubtitlesWarning" xml:space="preserve">
     <value>Legendas de texto podem não aparecer no Quicktime a menos que use a extensão .m4v.</value>
@@ -166,12 +166,12 @@
     <value>Pesquisa de áudio externa</value>
   </data>
   <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>Não existem legendas no vídeo de origem.</value>
+    <value>Não existem legendas na origem.</value>
   </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>Adicionar ficheiro de legendas</value>
   </data>
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
-    <value>Duplicar esta pista</value>
+    <value>Duplicar esta faixa</value>
   </data>
 </root>

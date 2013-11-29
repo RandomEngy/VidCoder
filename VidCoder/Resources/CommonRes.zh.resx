@@ -118,103 +118,103 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
-    <value>本程式是自由軟體，您可以遵照自由軟體基金會 (Free Software Foundation) 出版的 GNU 通用公共許可證條款 (GNU General Public License) 第二版修改及重新發佈此程式，或自由選擇使用任何更新的版本。 
+    <value>本程序是自由软件，您可以遵照自由软件基金会 (Free Software Foundation) 出版的 GNU 通用公共许可证条款 (GNU General Public License) 第二版修改及重新发布此程序，或自由选择使用任何更新的版本。 
 
-此程式在沒有任何保證的前提下發佈供大眾使用，亦不保證程式可能涉及之商業行為或特定用途。細節請參閱 GNU 通用公共許可證。 
+此程序在没有任何保证的前提下发布供大众使用，亦不保证程序可能涉及之商业行为或特定用途。细节请参阅 GNU 通用公共许可证。 
 
-程式隨附 GNU 通用公共許可證的完整副本以供參考。</value>
+程序随附 GNU 通用公共许可证的完整副本以供参考。</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>將字幕烙印至畫面上。若使用內嵌字幕，播放時無法選擇取消字幕。</value>
+    <value>将字幕烙印至画面上。若使用内嵌字幕，播放时无法选择取消字幕。</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>將此字幕軌標記為預設值。此字幕軌將在播放時預設為顯示字幕。</value>
+    <value>将此字幕轨标记为默认值。此字幕轨将在播放时默认为显示字幕。</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>僅從特定軌強制顯示字幕。通常用於少量外語對話。</value>
+    <value>仅从特定轨强制显示字幕。通常用于少量外语对话。</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
-    <value>提前或延遲指定字幕的顯示時間點。</value>
+    <value>提前或延迟指定字幕的显示时间点。</value>
   </data>
   <data name="QueueColumnNameRange" xml:space="preserve">
-    <value>範圍</value>
+    <value>范围</value>
     <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
   </data>
   <data name="QueueColumnNameDestination" xml:space="preserve">
-    <value>輸出位置</value>
+    <value>目标</value>
   </data>
   <data name="QueueColumnNameSource" xml:space="preserve">
-    <value>來源</value>
+    <value>源</value>
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
-    <value>標題</value>
+    <value>标题</value>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>音訊品質</value>
+    <value>音频质量</value>
   </data>
   <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>音訊編碼器</value>
+    <value>音频编码器</value>
   </data>
   <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>視訊編碼器</value>
+    <value>视频编码器</value>
   </data>
   <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>視訊品質</value>
+    <value>视频质量</value>
   </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>完成工作佇列中所有工作的剩餘所需時間預估值。</value>
+    <value>估计完成队列中的所有作业的剩余时间。</value>
   </data>
   <data name="QueueColumnNameDuration" xml:space="preserve">
-    <value>影片長度</value>
+    <value>持续时间</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>搜尋可能包含外語對話的字幕軌，適用於非英語的影片。</value>
+    <value>搜寻可能包含外语对话的字幕轨，适用于非英语的影片。</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>預設</value>
+    <value>默认</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="Custom" xml:space="preserve">
-    <value>自訂</value>
+    <value>自定义</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="Browse" xml:space="preserve">
-    <value>瀏覽...</value>
+    <value>浏览...</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>刪除</value>
+    <value>删除</value>
   </data>
   <data name="PreviewLabel" xml:space="preserve">
-    <value>預覽</value>
+    <value>预览</value>
   </data>
   <data name="Automatic" xml:space="preserve">
-    <value>自動</value>
+    <value>自动</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关闭</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="All" xml:space="preserve">
-    <value>全部</value>
+    <value>所有</value>
   </data>
   <data name="StreamChoice" xml:space="preserve">
-    <value>串流 {0}</value>
+    <value>流{0}</value>
     <comment>Used in the encoding settings dialog to mark which audio stream an audio encoding is targeting. By default the encoding works on all streams but you can target it to affect only the first stream, in which case it would label it "Stream 1"</comment>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>確定</value>
+    <value>确定</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>停用</value>
+    <value>禁用</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>移除</value>
   </data>
   <data name="Copy" xml:space="preserve">
-    <value>複製</value>
+    <value>复制</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>是</value>
@@ -223,21 +223,21 @@
     <value>否</value>
   </data>
   <data name="CouldNotAccessDirectoriesError" xml:space="preserve">
-    <value>無法存取以下目錄:</value>
+    <value>不能访问以下目录：</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>無</value>
+    <value>无</value>
   </data>
   <data name="Succeeded" xml:space="preserve">
     <value>成功</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>失敗</value>
+    <value>失败</value>
   </data>
   <data name="FilePickerExtTemplate" xml:space="preserve">
-    <value>{0} 檔案</value>
+    <value>{0} 文件</value>
   </data>
   <data name="QueueColumnNamePreset" xml:space="preserve">
-    <value>設定值</value>
+    <value>预设</value>
   </data>
 </root>
