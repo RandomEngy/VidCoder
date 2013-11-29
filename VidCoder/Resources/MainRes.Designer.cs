@@ -443,6 +443,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Errors reported.
+        /// </summary>
+        public static string EncodeResultStatus_SucceededWithErrors {
+            get {
+                return ResourceManager.GetString("EncodeResultStatus_SucceededWithErrors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The job succeeded but error(s) were reported..
+        /// </summary>
+        public static string EncodeResultStatus_SucceededWithErrors_ToolTip {
+            get {
+                return ResourceManager.GetString("EncodeResultStatus_SucceededWithErrors_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are encodes in progress. Are you sure you want to quit?.
         /// </summary>
         public static string EncodesInProgressExitWarning {

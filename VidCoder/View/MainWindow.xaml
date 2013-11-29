@@ -205,6 +205,9 @@
 		</DataTemplate>
 		<DataTemplate x:Key="CompletedStatusTemplate">
 			<StackPanel Orientation="Horizontal">
+				<StackPanel.ToolTip>
+					<TextBlock Text="{Binding StatusToolTip}" />
+				</StackPanel.ToolTip>
 				<Image Source="{Binding StatusImage}" Width="16" Height="16" />
 				<TextBlock
 					Text="{Binding StatusText}"
@@ -1158,7 +1161,7 @@
 								<GridView x:Name="completedGridView">
 									<GridView.Columns>
 										<GridViewColumn Width="300" Header="{x:Static res:MainRes.DestinationColumnHeader}" CellTemplate="{StaticResource CompletedDestinationTemplate}" />
-										<GridViewColumn Width="95" Header="{x:Static res:MainRes.StatusColumnHeader}" CellTemplate="{StaticResource CompletedStatusTemplate}" />
+										<GridViewColumn Width="120" Header="{x:Static res:MainRes.StatusColumnHeader}" CellTemplate="{StaticResource CompletedStatusTemplate}" />
 										<GridViewColumn Width="90" Header="{x:Static res:MainRes.ElapsedTimeColumnHeader}" CellTemplate="{StaticResource CompletedTimeTemplate}" />
 									</GridView.Columns>
 								</GridView>

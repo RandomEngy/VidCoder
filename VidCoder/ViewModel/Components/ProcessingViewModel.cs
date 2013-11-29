@@ -1495,25 +1495,26 @@ namespace VidCoder.ViewModel.Components
 					this.completedQueueWork += this.CurrentJob.Cost;
 
 					var outputFileInfo = new FileInfo(this.CurrentJob.Job.OutputPath);
-					bool succeeded = true;
+
+					EncodeResultStatus status = EncodeResultStatus.Succeeded;
 					if (e.Error)
 					{
-						succeeded = false;
+						status = EncodeResultStatus.Failed;
 						encodeLogger.LogError("Encode failed.");
 					}
 					else if (this.errorLoggedDuringJob)
 					{
-						succeeded = false;
-						encodeLogger.LogError("Encode failed. Error(s) were reported during the encode.");
+						status = EncodeResultStatus.SucceededWithErrors;
+						encodeLogger.LogError("Encode succeeded but error(s) were reported during the encode.");
 					}
 					else if (!outputFileInfo.Exists)
 					{
-						succeeded = false;
+						status = EncodeResultStatus.Failed;
 						encodeLogger.LogError("Encode failed. HandBrake reported no error but the expected output file was not found.");
 					}
 					else if (outputFileInfo.Length == 0)
 					{
-						succeeded = false;
+						status = EncodeResultStatus.Failed;
 						encodeLogger.LogError("Encode failed. HandBrake reported no error but the output file was empty.");
 					}
 
@@ -1523,7 +1524,7 @@ namespace VidCoder.ViewModel.Components
 					{
 						try
 						{
-							if (succeeded && !Utilities.IsDirectory(finishedJob.Job.SourcePath))
+							if (status != EncodeResultStatus.Failed && !Utilities.IsDirectory(finishedJob.Job.SourcePath))
 							{
 								FileInfo info = new FileInfo(finishedJob.Job.SourcePath);
 
@@ -1545,7 +1546,7 @@ namespace VidCoder.ViewModel.Components
 						new EncodeResult
 						{
 							Destination = this.CurrentJob.Job.OutputPath,
-							Succeeded = succeeded,
+							Status = status,
 							EncodeTime = this.CurrentJob.EncodeTime,
 							LogPath = encodeLogger.LogPath
 						},
