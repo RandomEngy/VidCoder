@@ -21,7 +21,7 @@ namespace VidCoder.Model
 
 	public static class Presets
 	{
-		private const int CurrentPresetVersion = 12;
+		private const int CurrentPresetVersion = 13;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
@@ -248,6 +248,16 @@ namespace VidCoder.Model
 			{
 				UpgradeEncodingProfileTo21(profile);
 			}
+
+			if (databaseVersion < 22)
+			{
+				UpgradeEncodingProfileTo22(profile);
+			}
+
+			if (databaseVersion < 23)
+			{
+				UpgradeEncodingProfileTo23(profile);
+			}
 		}
 
 		public static void UpgradeEncodingProfileTo13(VCProfile profile)
@@ -430,6 +440,18 @@ namespace VidCoder.Model
 			profile.QsvDecode = true;
 		}
 
+		public static void UpgradeEncodingProfileTo23(VCProfile profile)
+		{
+			if (profile.ContainerName == "mp4v2")
+			{
+				profile.ContainerName = "av_mp4";
+			}
+			else if (profile.ContainerName == "libmkv")
+			{
+				profile.ContainerName = "av_mkv";
+			}
+		}
+
 		private static void ErrorCheckPresets(List<Preset> presets)
 		{
 			for (int i = presets.Count - 1; i >= 0; i--)
@@ -581,6 +603,11 @@ namespace VidCoder.Model
 			if (presetVersion < 12)
 			{
 				return 21;
+			}
+
+			if (presetVersion < 13)
+			{
+				return 22;
 			}
 
 			return Utilities.CurrentDatabaseVersion;
