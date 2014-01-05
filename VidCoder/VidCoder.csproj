@@ -1023,4 +1023,7 @@
     <Copy SourceFiles="..\Lib\$(Platform)\hb.dll" DestinationFolder="$(OutDir)" />
     <Copy SourceFiles="..\Lib\$(Platform)\HandBrakeInterop.pdb" DestinationFolder="$(OutDir)" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(ProjectDir)..\Lib\fonts" "$(TargetDir)fonts" /e /y /i /r</PostBuildEvent>
+  </PropertyGroup>
 </Project>

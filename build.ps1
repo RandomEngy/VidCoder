@@ -184,6 +184,10 @@ CopyLanguage "fr"
 CopyLanguage "de"
 CopyLanguage "zh"
 
+# fonts folder for subtitles
+copy ".\Lib\fonts" ".\Installer\Files\x86" -Recurse
+copy ".\Lib\fonts" ".\Installer\Files\x64" -Recurse
+
 
 # Create portable installer
 

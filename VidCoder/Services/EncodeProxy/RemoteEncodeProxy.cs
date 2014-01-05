@@ -442,7 +442,7 @@ namespace VidCoder
 					}
 					else
 					{
-						this.logger.LogError("Worker process exited unexpectedly; no additional details are available. This may be due to a HandBrake engine crash.");
+						this.logger.LogError("Worker process exited unexpectedly with code " + this.worker.ExitCode + ". This may be due to a HandBrake engine crash.");
 					}
 				}
 				else
