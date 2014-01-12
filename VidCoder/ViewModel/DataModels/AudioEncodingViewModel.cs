@@ -798,10 +798,12 @@ namespace VidCoder.ViewModel
 		private void RefreshEncoderChoices()
 		{
 			HBContainer container = Encoders.GetContainer(this.containerName);
-			HBAudioEncoder oldEncoder = null;
+			AudioEncoderViewModel oldEncoder = null;
+			string oldPassthrough = null;
 			if (this.selectedAudioEncoder != null)
 			{
-				oldEncoder = this.selectedAudioEncoder.Encoder;
+				oldEncoder = this.selectedAudioEncoder;
+				oldPassthrough = this.selectedPassthrough;
 			}
 
 			var resourceManager = new ResourceManager(typeof(EncodingRes));
@@ -845,11 +847,11 @@ namespace VidCoder.ViewModel
 				if (oldEncoder.IsPassthrough)
 				{
 					this.selectedAudioEncoder = this.audioEncoders[0];
-					this.selectedPassthrough = oldEncoder.ShortName;
+					this.selectedPassthrough = oldPassthrough;
 				}
 				else
 				{
-					this.selectedAudioEncoder = this.audioEncoders.Skip(1).FirstOrDefault(e => e.Encoder == oldEncoder);
+					this.selectedAudioEncoder = this.audioEncoders.Skip(1).FirstOrDefault(e => e.Encoder == oldEncoder.Encoder);
 					this.selectedPassthrough = "copy";
 				}
 			}
@@ -860,6 +862,8 @@ namespace VidCoder.ViewModel
 			}
 
 			this.RaisePropertyChanged(() => this.SelectedAudioEncoder);
+			this.RaisePropertyChanged(() => this.SelectedPassthrough);
+			this.RaisePropertyChanged(() => this.AutoPassthroughSettingsVisible);
 		}
 
 
