@@ -410,6 +410,7 @@
     <Compile Include="Messages\ContainerChangedMessage.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />
+    <Compile Include="Model\SourcePath.cs" />
     <Compile Include="Model\UpdateInfo.cs" />
     <Compile Include="Model\UpdateState.cs" />
     <Compile Include="Resources\ChapterMarkersRes.Designer.cs">

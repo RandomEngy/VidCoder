@@ -27,7 +27,6 @@ namespace VidCoder.ViewModel
 		private string defaultPath;
 		private bool customFormat;
 		private string customFormatString;
-		private bool outputToSourceDirectory;
 		private WhenFileExists whenFileExists;
 		private WhenFileExists whenFileExistsBatch;
 		private InterfaceLanguage interfaceLanguage;
@@ -61,6 +60,7 @@ namespace VidCoder.ViewModel
 			this.customFormat = Config.AutoNameCustomFormat;
 			this.customFormatString = Config.AutoNameCustomFormatString;
 			this.outputToSourceDirectory = Config.OutputToSourceDirectory;
+			this.preserveFolderStructureInBatch = Config.PreserveFolderStructureInBatch;
 			this.whenFileExists = CustomConfig.WhenFileExists;
 			this.whenFileExistsBatch = CustomConfig.WhenFileExistsBatch;
 			this.minimizeToTray = Config.MinimizeToTray;
@@ -500,6 +500,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool outputToSourceDirectory;
 		public bool OutputToSourceDirectory
 		{
 			get
@@ -511,6 +512,21 @@ namespace VidCoder.ViewModel
 			{
 				this.outputToSourceDirectory = value;
 				this.RaisePropertyChanged(() => this.OutputToSourceDirectory);
+			}
+		}
+
+		private bool preserveFolderStructureInBatch;
+		public bool PreserveFolderStructureInBatch
+		{
+			get
+			{
+				return this.preserveFolderStructureInBatch;
+			}
+
+			set
+			{
+				this.preserveFolderStructureInBatch = value;
+				this.RaisePropertyChanged(() => this.PreserveFolderStructureInBatch);
 			}
 		}
 
@@ -1074,6 +1090,7 @@ namespace VidCoder.ViewModel
 							Config.AutoNameCustomFormat = this.CustomFormat;
 							Config.AutoNameCustomFormatString = this.CustomFormatString;
 							Config.OutputToSourceDirectory = this.OutputToSourceDirectory;
+							Config.PreserveFolderStructureInBatch = this.PreserveFolderStructureInBatch;
 							CustomConfig.WhenFileExists = this.WhenFileExists;
 							CustomConfig.WhenFileExistsBatch = this.WhenFileExistsBatch;
 							Config.MinimizeToTray = this.MinimizeToTray;

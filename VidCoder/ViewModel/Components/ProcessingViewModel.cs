@@ -78,7 +78,7 @@ namespace VidCoder.ViewModel.Components
 			EncodeJobPersistGroup jobPersistGroup = EncodeJobsPersist.EncodeJobs;
 			foreach (EncodeJobWithMetadata job in jobPersistGroup.EncodeJobs)
 			{
-				this.encodeQueue.Add(new EncodeJobViewModel(job.Job) { ManualOutputPath = job.ManualOutputPath, NameFormatOverride = job.NameFormatOverride, PresetName = job.PresetName});
+				this.encodeQueue.Add(new EncodeJobViewModel(job.Job) { SourceParentFolder = job.SourceParentFolder, ManualOutputPath = job.ManualOutputPath, NameFormatOverride = job.NameFormatOverride, PresetName = job.PresetName});
 			}
 
 			this.autoPause.PauseEncoding += this.AutoPauseEncoding;
@@ -752,6 +752,7 @@ namespace VidCoder.ViewModel.Components
 								new EncodeJobWithMetadata
 								{
 									Job = jobVM.Job,
+									SourceParentFolder = jobVM.SourceParentFolder,
 									ManualOutputPath = jobVM.ManualOutputPath,
 									NameFormatOverride = jobVM.NameFormatOverride,
 									PresetName = jobVM.PresetName
@@ -996,8 +997,13 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
-		// Queues a list of files or video folders.
 		public void QueueMultiple(IEnumerable<string> pathsToQueue)
+		{
+			this.QueueMultiple(pathsToQueue.Select(p => new SourcePath { Path = p }));
+		}
+
+		// Queues a list of files or video folders.
+		public void QueueMultiple(IEnumerable<SourcePath> sourcePaths)
 		{
 			if (!this.EnsureDefaultOutputFolderSet())
 			{
@@ -1016,29 +1022,37 @@ namespace VidCoder.ViewModel.Components
 			}
 
 			var itemsToQueue = new List<EncodeJobViewModel>();
-			foreach (string pathToQueue in pathsToQueue)
+			foreach (SourcePath sourcePath in sourcePaths)
 			{
 				var job = new VCJob
 				{
-					SourcePath = pathToQueue,
+					SourcePath = sourcePath.Path,
 					EncodingProfile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.Clone(),
 					Title = 1,
 					RangeType = VideoRangeType.All,
 					UseDefaultChapterNames = true
 				};
 
-				if (Directory.Exists(pathToQueue))
+				if (sourcePath.SourceType == SourceType.None)
 				{
-					job.SourceType = SourceType.VideoFolder;
+					if (Directory.Exists(sourcePath.Path))
+					{
+						job.SourceType = SourceType.VideoFolder;
+					}
+					else if (File.Exists(sourcePath.Path))
+					{
+						job.SourceType = SourceType.File;
+					}
 				}
-				else if (File.Exists(pathToQueue))
+				else
 				{
-					job.SourceType = SourceType.File;
+					job.SourceType = sourcePath.SourceType;
 				}
 
 				if (job.SourceType != SourceType.None)
 				{
 					var jobVM = new EncodeJobViewModel(job);
+					jobVM.SourceParentFolder = sourcePath.ParentFolder;
 					jobVM.ManualOutputPath = false;
 					jobVM.PresetName = this.presetsViewModel.SelectedPreset.DisplayName;
 					itemsToQueue.Add(jobVM);
@@ -1076,7 +1090,7 @@ namespace VidCoder.ViewModel.Components
 					string fileToQueue = job.SourcePath;
 
 					excludedPaths.Add(fileToQueue);
-					string outputFolder = this.outputVM.GetOutputFolder(fileToQueue);
+					string outputFolder = this.outputVM.GetOutputFolder(fileToQueue, jobVM.SourceParentFolder);
 					string outputFileName = this.outputVM.BuildOutputFileName(fileToQueue, Utilities.GetSourceNameFile(fileToQueue), job.Title, title.Duration, title.Chapters.Count, usesScan: false);
 					string outputExtension = this.outputVM.GetOutputExtension();
 					string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
@@ -1255,6 +1269,7 @@ namespace VidCoder.ViewModel.Components
 					new EncodeJobWithMetadata
 					{
 						Job = jobVM.Job,
+						SourceParentFolder = jobVM.SourceParentFolder,
 						ManualOutputPath = jobVM.ManualOutputPath,
 						NameFormatOverride = jobVM.NameFormatOverride,
 						PresetName = jobVM.PresetName

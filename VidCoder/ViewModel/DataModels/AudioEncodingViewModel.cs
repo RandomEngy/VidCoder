@@ -17,8 +17,10 @@ using VidCoder.Services;
 namespace VidCoder.ViewModel
 {
 	using System.Resources;
+	using System.Windows.Media;
 	using Model;
 	using Resources;
+	using Brush = System.Windows.Media.Brush;
 
 	public class AudioEncodingViewModel : ViewModelBase
 	{
@@ -137,6 +139,7 @@ namespace VidCoder.ViewModel
 					{
 						this.RefreshMixdownChoices();
 						this.RefreshBitrateChoices();
+						this.RefreshDrc();
 					});
 
 			Messenger.Default.Register<AudioInputChangedMessage>(
@@ -145,6 +148,7 @@ namespace VidCoder.ViewModel
 					{
 						this.RefreshMixdownChoices();
 						this.RefreshBitrateChoices();
+						this.RefreshDrc();
 					});
 
 			Messenger.Default.Register<OptionsChangedMessage>(
@@ -287,6 +291,7 @@ namespace VidCoder.ViewModel
 				this.RefreshMixdownChoices();
 				this.RefreshBitrateChoices();
 				this.RefreshSampleRateChoices();
+				this.RefreshDrc();
 
 				if (!value.IsPassthrough)
 				{
@@ -719,6 +724,43 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public Brush DrcBrush
+		{
+			get
+			{
+				Brush disabledBrush = Brushes.Gray;
+				Brush enabledBrush = Brushes.Black;
+
+				if (!this.main.HasVideoSource)
+				{
+					return enabledBrush;
+				}
+
+				if (this.SelectedAudioEncoder == null)
+				{
+					return enabledBrush;
+				}
+
+				// Find if we're encoding a single track
+				var track = this.GetTargetAudioTrack();
+
+				// Can only gray out DRC if we're encoding exactly one track
+				if (track != null)
+				{
+					if (Encoders.CanApplyDrc(track, this.SelectedAudioEncoder.Encoder))
+					{
+						return enabledBrush;
+					}
+					else
+					{
+						return disabledBrush;
+					}
+				}
+
+				return enabledBrush;
+			}
+		}
+
 		public string Name
 		{
 			get
@@ -1021,6 +1063,11 @@ namespace VidCoder.ViewModel
 
 			this.RaisePropertyChanged(() => this.SampleRateChoices);
 			this.RaisePropertyChanged(() => this.SampleRate);
+		}
+
+		private void RefreshDrc()
+		{
+			this.RaisePropertyChanged(() => this.DrcBrush);
 		}
 
 		private AudioTrack GetTargetAudioTrack()

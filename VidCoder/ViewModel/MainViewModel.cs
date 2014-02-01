@@ -770,6 +770,7 @@ namespace VidCoder.ViewModel
 					{
 						this.OutputPathVM.ManualOutputPath = false;
 						this.OutputPathVM.NameFormatOverride = null;
+						this.OutputPathVM.SourceParentFolder = null;
 					}
 
 					// Save old subtitles
@@ -2206,6 +2207,7 @@ namespace VidCoder.ViewModel
 			newEncodeJobVM.HandBrakeInstance = this.scanInstance;
 			newEncodeJobVM.VideoSource = this.SourceData;
 			newEncodeJobVM.VideoSourceMetadata = this.GetVideoSourceMetadata();
+			newEncodeJobVM.SourceParentFolder = this.OutputPathVM.SourceParentFolder;
 			newEncodeJobVM.ManualOutputPath = this.OutputPathVM.ManualOutputPath;
 			newEncodeJobVM.NameFormatOverride = this.OutputPathVM.NameFormatOverride;
 			newEncodeJobVM.PresetName = this.PresetsVM.SelectedPreset.DisplayName;
@@ -2728,6 +2730,7 @@ namespace VidCoder.ViewModel
 
 			// Output path
 			this.OutputPathVM.OutputPath = job.OutputPath;
+			this.OutputPathVM.SourceParentFolder = jobVM.SourceParentFolder;
 			this.OutputPathVM.ManualOutputPath = jobVM.ManualOutputPath;
 			this.OutputPathVM.NameFormatOverride = jobVM.NameFormatOverride;
 

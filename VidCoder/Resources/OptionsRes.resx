@@ -396,20 +396,26 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Use worker process to encode</value>
   </data>
-	<data name="VideoSection" xml:space="preserve">
+  <data name="VideoSection" xml:space="preserve">
     <value>Video</value>
   </data>
-	<data name="DxvaDecodingCheckBox" xml:space="preserve">
+  <data name="DxvaDecodingCheckBox" xml:space="preserve">
     <value>Enable DXVA Hardware Accelerated Decoding</value>
   </data>
-	<data name="DxvaDecodingToolTip" xml:space="preserve">
+  <data name="DxvaDecodingToolTip" xml:space="preserve">
     <value>This option is only suitable for slower systems. Hardware decoders are currently designed for playback, not for re-encoding video so will likely bottleneck on faster systems.</value>
   </data>
-	<data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+  <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Preserve Created and Modified time when converting files</value>
   </data>
-	<data name="DefaultCheckBox" xml:space="preserve">
+  <data name="DefaultCheckBox" xml:space="preserve">
     <value>Default</value>
     <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Preserve folder structure in batch encodes</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>If you encode a folder full of files the encoded versions will be put into subfolders to match the source directory structure.</value>
   </data>
 </root>

@@ -94,6 +94,9 @@ namespace VidCoder.ViewModel
 
 		public VideoSourceMetadata VideoSourceMetadata { get; set; }
 
+		// The parent folder for the item (if it was inside a folder of files added in a batch)
+		public string SourceParentFolder { get; set; }
+
 		// True if the output path was picked manually rather than auto-generated
 		public bool ManualOutputPath { get; set; }
 

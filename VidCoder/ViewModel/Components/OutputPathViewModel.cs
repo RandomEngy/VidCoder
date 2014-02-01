@@ -89,6 +89,9 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
+		// The parent folder for the item (if it was inside a folder of files added in a batch)
+		public string SourceParentFolder { get; set; }
+
 		public string OldOutputPath { get; set; }
 
 		public bool ManualOutputPath { get; set; }
@@ -406,12 +409,16 @@ namespace VidCoder.ViewModel.Components
 			return string.Join(" ", translatedTitleWords);
 		}
 
-		public string GetOutputFolder(string sourcePath)
+		public string GetOutputFolder(string sourcePath, string sourceParentFolder = null)
 		{
 			// Use our default output folder by default
 			string outputFolder = Config.AutoNameOutputFolder;
+
+			bool usedSourceDirectory = false;
+
 			if (Config.OutputToSourceDirectory)
 			{
+				// Use the source directory if we can
 				string sourceRoot = Path.GetPathRoot(sourcePath);
 				IList<DriveInfo> driveInfo = this.driveService.GetDriveInformation();
 				DriveInfo matchingDrive = driveInfo.FirstOrDefault(d => string.Compare(d.RootDirectory.FullName, sourceRoot, StringComparison.OrdinalIgnoreCase) == 0);
@@ -422,6 +429,32 @@ namespace VidCoder.ViewModel.Components
 				if (!string.IsNullOrEmpty(sourceDirectory) && (matchingDrive == null || matchingDrive.DriveType != DriveType.CDRom))
 				{
 					outputFolder = sourceDirectory;
+					usedSourceDirectory = true;
+				}
+			}
+
+			if (!usedSourceDirectory && sourceParentFolder != null && Config.PreserveFolderStructureInBatch)
+			{
+				// Tack on some subdirectories if we have a parent folder specified and it's enabled, and we didn't use the source directory
+				string sourceDirectory = Path.GetDirectoryName(sourcePath);
+
+				if (sourceParentFolder.Length > sourceDirectory.Length)
+				{
+					throw new InvalidOperationException("sourceParentFolder (" + sourceParentFolder + ") is longer than sourceDirectory (" + sourceDirectory +")");
+				}
+
+				if (string.Compare(
+					sourceDirectory.Substring(0, sourceParentFolder.Length),
+					sourceParentFolder, 
+					CultureInfo.InvariantCulture, 
+					CompareOptions.IgnoreCase) != 0)
+				{
+					throw new InvalidOperationException("sourceParentFolder (" + sourceParentFolder + ") is not a parent of sourceDirectory (" + sourceDirectory + ")");
+				}
+
+				if (sourceParentFolder.Length < sourceDirectory.Length)
+				{
+					outputFolder = outputFolder + sourceDirectory.Substring(sourceParentFolder.Length);
 				}
 			}
 

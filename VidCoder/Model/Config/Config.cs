@@ -64,6 +64,7 @@
 			SourceHistory_Field = DatabaseConfig.GetConfig("SourceHistory", "", connection);
 			MinimizeToTray_Field = DatabaseConfig.GetConfig("MinimizeToTray", false, connection);
 			OutputToSourceDirectory_Field = DatabaseConfig.GetConfig("OutputToSourceDirectory", false, connection);
+			PreserveFolderStructureInBatch_Field = DatabaseConfig.GetConfig("PreserveFolderStructureInBatch", false, connection);
 			WhenFileExists_Field = DatabaseConfig.GetConfig("WhenFileExists", "Prompt", connection);
 			WhenFileExistsBatch_Field = DatabaseConfig.GetConfig("WhenFileExistsBatch", "AutoRename", connection);
 			KeepScansAfterCompletion_Field = DatabaseConfig.GetConfig("KeepScansAfterCompletion", true, connection);
@@ -894,6 +895,20 @@
 			{
 				OutputToSourceDirectory_Field = value;
 				DatabaseConfig.SetConfigValue("OutputToSourceDirectory", value);
+			}
+		}
+		private static bool PreserveFolderStructureInBatch_Field;
+		public static bool PreserveFolderStructureInBatch
+		{
+			get
+			{
+				return PreserveFolderStructureInBatch_Field;
+			}
+			
+			set
+			{
+				PreserveFolderStructureInBatch_Field = value;
+				DatabaseConfig.SetConfigValue("PreserveFolderStructureInBatch", value);
 			}
 		}
 		private static string WhenFileExists_Field;

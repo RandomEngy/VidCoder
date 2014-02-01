@@ -673,6 +673,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preserve folder structure in batch encodes.
+        /// </summary>
+        public static string PreserveFolderStructureCheckBox {
+            get {
+                return ResourceManager.GetString("PreserveFolderStructureCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you encode a folder full of files the encoded versions will be put into subfolders to match the source directory structure..
+        /// </summary>
+        public static string PreserveFolderStructureToolTip {
+            get {
+                return ResourceManager.GetString("PreserveFolderStructureToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preserve Created and Modified time when converting files.
         /// </summary>
         public static string PreserveModifyTimeFilesCheckBox {

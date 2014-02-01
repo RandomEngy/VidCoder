@@ -66,6 +66,7 @@ ShowAudioTrackNameField|bool|false
 SourceHistory|string|""
 MinimizeToTray|bool|false
 OutputToSourceDirectory|bool|false
+PreserveFolderStructureInBatch|bool|false
 WhenFileExists|string|"Prompt"
 WhenFileExistsBatch|string|"AutoRename"
 KeepScansAfterCompletion|bool|true

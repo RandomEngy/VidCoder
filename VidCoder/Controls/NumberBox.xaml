@@ -141,7 +141,7 @@
 			PreviewMouseDown="NumberBoxPreviewMouseDown"
 			PreviewMouseUp="NumberBoxPreviewMouseUp"
 			TextChanged="NumberBoxTextChanged"
-			VerticalContentAlignment="Center"/>
+			VerticalContentAlignment="Center" />
 		<Grid
 			Name="incrementButtonsGrid"
 			Grid.Column="1"

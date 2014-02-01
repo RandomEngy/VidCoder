@@ -36,6 +36,7 @@ namespace VidCoder.Services
 			{
 				this.processingViewModel.Queue(new EncodeJobViewModel(job.Job)
 					{
+						SourceParentFolder = job.SourceParentFolder,
 						ManualOutputPath = job.ManualOutputPath,
 						NameFormatOverride = job.NameFormatOverride,
 						PresetName = job.PresetName

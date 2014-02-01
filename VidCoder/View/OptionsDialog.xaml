@@ -203,6 +203,10 @@
 								Content="{x:Static res:OptionsRes.OutputToSourceDirCheckBox}"
 								Height="16" HorizontalAlignment="Left" Margin="0,6,0,0" VerticalAlignment="Top"
 								IsChecked="{Binding OutputToSourceDirectory}"/>
+							<CheckBox
+								Content="{x:Static res:OptionsRes.PreserveFolderStructureCheckBox}"
+								Height="16" HorizontalAlignment="Left" Margin="0,6,0,0" VerticalAlignment="Top"
+								IsChecked="{Binding PreserveFolderStructureInBatch}" ToolTip="{x:Static res:OptionsRes.PreserveFolderStructureToolTip}"/>
 						</StackPanel>
 
 						<!-- Naming format -->
