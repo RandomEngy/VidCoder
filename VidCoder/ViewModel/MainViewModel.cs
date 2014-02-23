@@ -25,7 +25,9 @@ namespace VidCoder.ViewModel
 	using System.Data.SQLite;
 	using System.Runtime.Remoting.Messaging;
 	using Automation;
+	using HandBrake.Interop.Helpers;
 	using Resources;
+	using Utilities = VidCoder.Utilities;
 
 	public class MainViewModel : ViewModelBase
 	{

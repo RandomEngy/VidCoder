@@ -113,7 +113,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return HandBrake.Interop.Languages.AllLanguages;
+				return HandBrake.Interop.Helpers.Languages.AllLanguages;
 			}
 		}
 

@@ -1050,7 +1050,7 @@ namespace VidCoder.ViewModel
 						else
 						{
 							fpsNumerator = 27000000;
-							fpsDenominator = HandBrake.Interop.Converters.FramerateToVrate(this.Profile.Framerate);
+							fpsDenominator = HandBrake.Interop.Converters.Converters.FramerateToVrate(this.Profile.Framerate);
 						}
 
 						bool interlaced = false;

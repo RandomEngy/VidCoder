@@ -18,6 +18,7 @@ namespace VidCoder.ViewModel
 	using System.Globalization;
 	using System.Resources;
 	using HandBrake.Interop;
+	using HandBrake.Interop.Model;
 	using Resources;
 	using Utilities = VidCoder.Utilities;
 
@@ -816,7 +817,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return HandBrake.Interop.Languages.AllLanguages;
+				return HandBrake.Interop.Helpers.Languages.AllLanguages;
 			}
 		}
 

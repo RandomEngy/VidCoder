@@ -160,14 +160,14 @@ namespace VidCoder.Controls
 			chapterBar.markersUpdated = false;
 
 			chapterBar.totalDuration = title.Duration;
-			chapterBar.totalSeconds = HandBrake.Interop.Converters.PtsToSeconds(title.DurationPts);
+			chapterBar.totalSeconds = HandBrake.Interop.Converters.Converters.PtsToSeconds(title.DurationPts);
 
 			ulong pts = 0;
 			chapterBar.chapterFractions = new List<double>();
 			foreach (Chapter chapter in chapters)
 			{
 				pts += chapter.DurationPts;
-				chapterBar.chapterFractions.Add(Math.Min(HandBrake.Interop.Converters.PtsToSeconds(pts) / chapterBar.totalSeconds, 1));
+				chapterBar.chapterFractions.Add(Math.Min(HandBrake.Interop.Converters.Converters.PtsToSeconds(pts) / chapterBar.totalSeconds, 1));
 			}
 
 			chapterBar.UpdateSeekBarUI();
@@ -387,7 +387,7 @@ namespace VidCoder.Controls
 					var marker = new Polygon
 						{
 							Style = this.FindResource("SeekBarTick") as Style,
-							Margin = new Thickness(barWidth * (HandBrake.Interop.Converters.PtsToSeconds(pts) / this.totalSeconds) - 1, 0, 0, 0),
+							Margin = new Thickness(barWidth * (HandBrake.Interop.Converters.Converters.PtsToSeconds(pts) / this.totalSeconds) - 1, 0, 0, 0),
 							HorizontalAlignment = HorizontalAlignment.Left,
 							VerticalAlignment = VerticalAlignment.Top
 						};
@@ -422,7 +422,7 @@ namespace VidCoder.Controls
 				pts += this.Chapters[i - 1].DurationPts;
 			}
 
-			return GetBarFractionFromSeconds(HandBrake.Interop.Converters.PtsToSeconds(pts));
+			return GetBarFractionFromSeconds(HandBrake.Interop.Converters.Converters.PtsToSeconds(pts));
 		}
 
 		private double GetBarFractionFromTime(TimeSpan time)
