@@ -55,7 +55,7 @@ namespace VidCoder
 					{
 						lock (this.encoderLock)
 						{
-							this.instance.StartEncode(job.HbJob, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds);
+							this.instance.StartEncode(job.HbJob, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds, Config.PreviewCount);
 							this.IsEncodeStarted = true;
 							if (this.EncodeStarted != null)
 							{
