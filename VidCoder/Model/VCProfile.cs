@@ -19,8 +19,18 @@ namespace VidCoder.Model
 			this.Cropping = new Cropping();
 		}
 
+		#region Obsolete fields
 		[Obsolete("Use ContainerName instead.")]
 		public Container OutputFormat { get; set; }
+		public string X264Options { get; set; }
+		// X264Tune is obsolete but marking it that way prevents the XML serializer from working. Use VideoTunes instead.
+		public string X264Tune { get; set; }
+		public List<string> X264Tunes { get; set; }
+		public string X264Profile { get; set; }
+		public string X264Preset { get; set; }
+		public string QsvPreset { get; set; }
+		public string H264Level { get; set; }
+		#endregion
 
 		public string ContainerName { get; set; }
 		public OutputExtension PreferredExtension { get; set; }
@@ -60,16 +70,12 @@ namespace VidCoder.Model
 
 		public bool UseAdvancedTab { get; set; }
 		public string VideoEncoder { get; set; }
-		public string X264Options { get; set; }
-		public string X264Profile { get; set; }
-		public string X264Preset { get; set; }
-
-		// X264Tune is obsolete but marking it that way prevents the XML serializer from working. Use X264Tunes instead.
-		public string X264Tune { get; set; }
-		public List<string> X264Tunes { get; set; }
-		public string QsvPreset { get; set; }
+		public string VideoOptions { get; set; }
+		public string VideoProfile { get; set; }
+		public string VideoPreset { get; set; }
+		public string VideoLevel { get; set; }
+		public List<string> VideoTunes { get; set; }
 		public bool QsvDecode { get; set; }
-		public string H264Level { get; set; }
 		public VideoEncodeRateType VideoEncodeRateType { get; set; }
 		public double Quality { get; set; }
 		public int TargetSize { get; set; }
@@ -94,10 +100,10 @@ namespace VidCoder.Model
 
 				if (this.UseAdvancedTab)
 				{
-					hbProfile.X264Preset = null;
-					hbProfile.X264Profile = null;
-					hbProfile.X264Tunes = null;
-					hbProfile.H264Level = null;
+					hbProfile.VideoPreset = null;
+					hbProfile.VideoProfile = null;
+					hbProfile.VideoTunes = null;
+					hbProfile.VideoLevel = null;
 				}
 
 				return hbProfile;
@@ -145,14 +151,19 @@ namespace VidCoder.Model
 				Grayscale = this.Grayscale,
 
 				UseAdvancedTab = this.UseAdvancedTab,
-				VideoEncoder = this.VideoEncoder,
 				X264Options = this.X264Options,
 				X264Profile = this.X264Profile,
 				X264Preset = this.X264Preset,
-				X264Tunes = this.X264Tunes,
 				QsvPreset = this.QsvPreset,
-				QsvDecode = this.QsvDecode,
+				X264Tunes = this.X264Tunes,
 				H264Level = this.H264Level,
+				VideoEncoder = this.VideoEncoder,
+				VideoOptions = this.VideoOptions,
+				VideoProfile = this.VideoProfile,
+				VideoPreset = this.VideoPreset,
+				VideoTunes = this.VideoTunes,
+				VideoLevel = this.VideoLevel,
+				QsvDecode = this.QsvDecode,
 				VideoEncodeRateType = this.VideoEncodeRateType,
 				Quality = this.Quality,
 				TargetSize = this.TargetSize,

@@ -272,10 +272,7 @@ This only works with AC3 sources.</value>
   <data name="WebOptimizedToolTip" xml:space="preserve">
     <value>Arrange file to play better as a progressive download.</value>
   </data>
-  <data name="X264PresetToolTip" xml:space="preserve">
-    <value>Change options to trade off compression efficiency against encoding speed. If you specify a preset, the changes it makes will be applied before all other parameters are applied.</value>
-  </data>
-  <data name="X264ProfileToolTip" xml:space="preserve">
+  <data name="ProfileToolTip" xml:space="preserve">
     <value>Limit the profile of the output stream. If you specify a profile, it overrides all other settings, so if you use it, you will be guaranteed a compatible stream.
 
 You should set this if you know your playback device only supports a certain profile.</value>
@@ -448,13 +445,13 @@ You should set this if you know your playback device only supports a certain pro
   <data name="TuneLabel" xml:space="preserve">
     <value>Tune:</value>
   </data>
-  <data name="Profile_Baseline" xml:space="preserve">
+  <data name="Profile_baseline" xml:space="preserve">
     <value>Baseline</value>
   </data>
-  <data name="Profile_Main" xml:space="preserve">
+  <data name="Profile_main" xml:space="preserve">
     <value>Main</value>
   </data>
-  <data name="Profile_High" xml:space="preserve">
+  <data name="Profile_high" xml:space="preserve">
     <value>High</value>
   </data>
   <data name="Preset_UltraFast" xml:space="preserve">
@@ -487,28 +484,28 @@ You should set this if you know your playback device only supports a certain pro
   <data name="Preset_Placebo" xml:space="preserve">
     <value>Placebo</value>
   </data>
-  <data name="Tune_Film" xml:space="preserve">
+  <data name="Tune_film" xml:space="preserve">
     <value>Film</value>
   </data>
-  <data name="Tune_Animation" xml:space="preserve">
+  <data name="Tune_animation" xml:space="preserve">
     <value>Animation</value>
   </data>
-  <data name="Tune_Grain" xml:space="preserve">
+  <data name="Tune_grain" xml:space="preserve">
     <value>Grain</value>
   </data>
-  <data name="Tune_StillImage" xml:space="preserve">
+  <data name="Tune_stillimage" xml:space="preserve">
     <value>Still Image</value>
   </data>
-  <data name="Tune_Psnr" xml:space="preserve">
+  <data name="Tune_psnr" xml:space="preserve">
     <value>PSNR</value>
   </data>
-  <data name="Tune_Ssim" xml:space="preserve">
+  <data name="Tune_ssim" xml:space="preserve">
     <value>SSIM</value>
   </data>
-  <data name="Tune_FastDecode" xml:space="preserve">
+  <data name="Tune_fastdecode" xml:space="preserve">
     <value>Fast Decode</value>
   </data>
-  <data name="Tune_ZeroLatency" xml:space="preserve">
+  <data name="Tune_zerolatency" xml:space="preserve">
     <value>Zero Latency</value>
   </data>
   <data name="FpsFormat" xml:space="preserve">
@@ -806,12 +803,12 @@ You should set this if you know your playback device only supports a certain pro
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>Additional advanced x264 options:</value>
   </data>
-  <data name="H264LevelToolTip" xml:space="preserve">
-    <value>Sets and ensures compliance with the specified H.264 level.
+  <data name="LevelToolTip" xml:space="preserve">
+    <value>Sets and ensures compliance with the specified encoder level.
 
 Overrides all other settings.</value>
   </data>
-  <data name="Profile_High444" xml:space="preserve">
+  <data name="Profile_high444" xml:space="preserve">
     <value>High 4:4:4 Predictive</value>
   </data>
   <data name="VideoCodecLabel" xml:space="preserve">
@@ -838,17 +835,8 @@ Overrides all other settings.</value>
   <data name="X264Settings" xml:space="preserve">
     <value>x264 Settings</value>
   </data>
-  <data name="X264PresetLabel" xml:space="preserve">
-    <value>x264 Preset:</value>
-  </data>
-  <data name="X264TuneLabel" xml:space="preserve">
-    <value>x264 Tune:</value>
-  </data>
-  <data name="H264ProfileLabel" xml:space="preserve">
-    <value>H.264 Profile:</value>
-  </data>
-  <data name="H264LevelLabel" xml:space="preserve">
-    <value>H.264 Level:</value>
+  <data name="LevelLabel" xml:space="preserve">
+    <value>Level:</value>
   </data>
   <data name="MoreSettingsLabel" xml:space="preserve">
     <value>More Settings:</value>
@@ -932,9 +920,6 @@ Overrides all other settings.</value>
   </data>
   <data name="QsvPreset_Quality" xml:space="preserve">
     <value>Quality</value>
-  </data>
-  <data name="QsvPresetLabel" xml:space="preserve">
-    <value>QSV Preset:</value>
   </data>
   <data name="PresetToolTip" xml:space="preserve">
     <value>Change options to trade off compression efficiency against encoding speed.</value>

@@ -21,7 +21,7 @@ namespace VidCoder.Model
 
 	public static class Presets
 	{
-		private const int CurrentPresetVersion = 13;
+		private const int CurrentPresetVersion = 14;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
@@ -258,6 +258,11 @@ namespace VidCoder.Model
 			{
 				UpgradeEncodingProfileTo23(profile);
 			}
+
+			if (databaseVersion < 24)
+			{
+				UpgradeEncodingProfileTo24(profile);
+			}
 		}
 
 		public static void UpgradeEncodingProfileTo13(VCProfile profile)
@@ -452,6 +457,25 @@ namespace VidCoder.Model
 			}
 		}
 
+		public static void UpgradeEncodingProfileTo24(VCProfile profile)
+		{
+			profile.VideoOptions = profile.X264Options;
+			profile.VideoTunes = profile.X264Tunes;
+			profile.VideoPreset = profile.X264Preset;
+			profile.VideoProfile = profile.X264Profile;
+			profile.VideoLevel = profile.H264Level;
+
+			// If QSV was the old encoder and QSV is available, use the QSV preset.
+			string videoEncoderName = profile.VideoEncoder;
+			if (Encoders.GetVideoEncoder(videoEncoderName) == null)
+			{
+				if (videoEncoderName == "qsv_h264")
+				{
+					profile.VideoPreset = profile.QsvPreset;
+				}
+			}
+		}
+
 		private static void ErrorCheckPresets(List<Preset> presets)
 		{
 			for (int i = presets.Count - 1; i >= 0; i--)
@@ -608,6 +632,11 @@ namespace VidCoder.Model
 			if (presetVersion < 13)
 			{
 				return 22;
+			}
+
+			if (presetVersion < 14)
+			{
+				return 23;
 			}
 
 			return Utilities.CurrentDatabaseVersion;
