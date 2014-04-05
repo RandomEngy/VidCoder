@@ -178,6 +178,7 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(() => this.EncoderSettingsVisible);
 					this.RaisePropertyChanged(() => this.BasicEncoderSettingsVisible);
 					this.RaisePropertyChanged(() => this.QsvSettingsVisible);
+					this.RaisePropertyChanged(() => this.QualityModulus);
 					this.RaisePropertyChanged(() => this.QualitySliderMin);
 					this.RaisePropertyChanged(() => this.QualitySliderMax);
 					this.RaisePropertyChanged(() => this.QualitySliderLeftText);
@@ -535,6 +536,16 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.Quality);
 				this.outputPathVM.GenerateOutputFileName();
 				this.IsModified = true;
+			}
+		}
+
+		public double QualityModulus
+		{
+			get
+			{
+				return Math.Round(
+					Encoders.GetVideoQualityLimits(Encoders.GetVideoEncoder(this.Profile.VideoEncoder)).Granularity,
+					2);
 			}
 		}
 
@@ -946,6 +957,8 @@ namespace VidCoder.ViewModel
 			{
 				this.selectedEncoder = this.EncoderChoices[0];
 			}
+
+			this.RefreshEncoderSettings(applyDefaults: false);
 		}
 
 		public void NotifyAllChanged()
@@ -966,6 +979,7 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.TargetSize);
 			this.RaisePropertyChanged(() => this.VideoBitrate);
 			this.RaisePropertyChanged(() => this.Quality);
+			this.RaisePropertyChanged(() => this.QualityModulus);
 			this.RaisePropertyChanged(() => this.QualitySliderMin);
 			this.RaisePropertyChanged(() => this.QualitySliderMax);
 			this.RaisePropertyChanged(() => this.QualitySliderLeftText);

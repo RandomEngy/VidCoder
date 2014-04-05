@@ -193,7 +193,7 @@
 						<controls:NumberBox
 							Grid.Row="2" Grid.Column="1"
 							Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Width="49" Margin="8,0,0,0"
-							Number="{Binding Quality, Mode=TwoWay}" Minimum="0" Maximum="51" Modulus="0.1"
+							Number="{Binding Quality, Mode=TwoWay}" Minimum="0" Maximum="51" Modulus="{Binding QualityModulus}"
 							AllowEmpty="False"
 							Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=ConstantQuality}">
 							<controls:NumberBox.ToolTip>
