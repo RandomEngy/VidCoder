@@ -1084,22 +1084,18 @@
 										<Setter.Value>
 											<ContextMenu>
 												<MenuItem
-													Header="{x:Static res:MainRes.MoveToTopMenuItem}" Command="{Binding ProcessingVM.MoveSelectedJobsToTopCommand}"
-													IsEnabled="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}" />
+													Header="{x:Static res:MainRes.MoveToTopMenuItem}" Command="{Binding ProcessingVM.MoveSelectedJobsToTopCommand}" />
 												<MenuItem
-													Header="{x:Static res:MainRes.MoveToBottomMenuItem}" Command="{Binding ProcessingVM.MoveSelectedJobsToBottomCommand}"
-													IsEnabled="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}" />
+													Header="{x:Static res:MainRes.MoveToBottomMenuItem}" Command="{Binding ProcessingVM.MoveSelectedJobsToBottomCommand}" />
 												<Separator />
 												<MenuItem
-													Header="{x:Static res:MainRes.Edit}" Command="{Binding EditQueueJobCommand}"
-													IsEnabled="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}">
+													Header="{x:Static res:MainRes.Edit}" Command="{Binding EditQueueJobCommand}">
 													<MenuItem.Icon>
 														<Image Source="/Icons/edit_16x16.png" Width="16" Height="16" />
 													</MenuItem.Icon>
 												</MenuItem>
 												<MenuItem
-													Header="{x:Static res:CommonRes.Delete}" Command="{Binding ProcessingVM.RemoveSelectedJobsCommand}"
-													IsEnabled="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}">
+													Header="{x:Static res:CommonRes.Delete}" Command="{Binding ProcessingVM.RemoveSelectedJobsCommand}">
 													<MenuItem.Icon>
 														<Image Source="/Icons/delete.png" Width="16" Height="16" />
 													</MenuItem.Icon>
