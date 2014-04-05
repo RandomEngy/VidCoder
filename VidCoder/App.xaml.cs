@@ -41,11 +41,11 @@ namespace VidCoder
 			base.OnStartup(e);
 
 			OperatingSystem OS = Environment.OSVersion; 
-			if ((OS.Platform == PlatformID.Win32NT) && (OS.Version.Major == 5 && OS.Version.Minor == 1)) 
-			{ 
-				MessageBox.Show(MiscRes.WinXPError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
-				MessageBox.Show(MiscRes.WinXPError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
-				Application.Current.Shutdown(); 
+			if (OS.Version.Major <= 5) 
+			{
+				MessageBox.Show(MiscRes.UnsupportedOSError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+				MessageBox.Show(MiscRes.UnsupportedOSError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+				this.Shutdown(); 
 				return; 
 			} 
 
