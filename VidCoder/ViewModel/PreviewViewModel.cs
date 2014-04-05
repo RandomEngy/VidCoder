@@ -448,7 +448,7 @@ namespace VidCoder.ViewModel
 						this.cancelPending = false;
 						this.encodeCancelled = false;
 
-						string extension = this.OutputPathVM.GetExtensionForProfile(this.job.EncodingProfile);
+						string extension = OutputPathViewModel.GetExtensionForProfile(this.job.EncodingProfile);
 
 						string previewDirectory = Utilities.LocalAppFolder;
 						if (!Directory.Exists(previewDirectory))

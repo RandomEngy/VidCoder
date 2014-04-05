@@ -408,6 +408,7 @@
     <Compile Include="EnumStringConverter.cs" />
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="Messages\ContainerChangedMessage.cs" />
+    <Compile Include="Messages\EncodingProfileChangedMessage.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />
     <Compile Include="Model\SourcePath.cs" />

@@ -68,6 +68,7 @@ namespace VidCoder.ViewModel.Components
 		private List<EncodeCompleteAction> encodeCompleteActions; 
 		private EncodeCompleteAction encodeCompleteAction;
 		private IEncodeProxy encodeProxy;
+		private bool profileEditedSinceLastQueue;
 
 		private int selectedTabIndex;
 
@@ -117,6 +118,13 @@ namespace VidCoder.ViewModel.Components
 				message =>
 					{
 						this.QueueTitlesCommand.RaiseCanExecuteChanged();
+					});
+
+			Messenger.Default.Register<EncodingProfileChangedMessage>(
+				this,
+				message =>
+					{
+						this.profileEditedSinceLastQueue = true;
 					});
 
 			this.completedJobs = new ObservableCollection<EncodeResultViewModel>();
@@ -476,6 +484,39 @@ namespace VidCoder.ViewModel.Components
 								if (!this.TryQueue())
 								{
 									return;
+								}
+							}
+							else if (profileEditedSinceLastQueue)
+							{
+								// If the encoding profile has changed since the last time we queued an item, we'll prompt to apply the current
+								// encoding profile to all queued items.
+
+								var messageBoxService = Ioc.Container.GetInstance<IMessageBoxService>();
+								MessageBoxResult result = messageBoxService.Show(
+									this.main,
+									MainRes.EncodingSettingsChangedMessage,
+									MainRes.EncodingSettingsChangedTitle,
+									MessageBoxButton.YesNo);
+
+								if (result == MessageBoxResult.Yes)
+								{
+									var newJobs = new List<EncodeJobViewModel>();
+
+									foreach (EncodeJobViewModel job in this.EncodeQueue)
+									{
+										VCProfile newProfile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
+										job.Job.EncodingProfile = newProfile;
+										job.Job.OutputPath = Path.ChangeExtension(job.Job.OutputPath, OutputPathViewModel.GetExtensionForProfile(newProfile));
+
+										newJobs.Add(job);
+									}
+
+									// Clear out the queue and re-add the updated jobs so all the changes get reflected.
+									this.EncodeQueue.Clear();
+									foreach (var job in newJobs)
+									{
+										this.EncodeQueue.Add(job);
+									}
 								}
 							}
 
@@ -987,6 +1028,8 @@ namespace VidCoder.ViewModel.Components
 			}
 
 			this.EncodeQueue.Add(encodeJobVM);
+
+			this.profileEditedSinceLastQueue = false;
 
 			this.RaisePropertyChanged(() => this.QueuedTabHeader);
 

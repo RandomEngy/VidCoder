@@ -224,10 +224,10 @@ namespace VidCoder.ViewModel.Components
 		public string GetOutputExtension(bool includeDot = true)
 		{
 			VCProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
-			return this.GetExtensionForProfile(profile, includeDot);
+			return GetExtensionForProfile(profile, includeDot);
 		}
 
-		public string GetExtensionForProfile(VCProfile profile, bool includeDot = true)
+		public static string GetExtensionForProfile(VCProfile profile, bool includeDot = true)
 		{
 			HBContainer container = Encoders.GetContainer(profile.ContainerName);
 

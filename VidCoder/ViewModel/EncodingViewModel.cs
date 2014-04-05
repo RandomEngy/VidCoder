@@ -228,6 +228,11 @@ namespace VidCoder.ViewModel
 
 			set
 			{
+				if (!this.AutomaticChange)
+				{
+					Messenger.Default.Send(new EncodingProfileChangedMessage());
+				}
+
 				// Don't mark as modified if this is an automatic change or if it's a temporary queue preset.
 				if (!this.AutomaticChange && !this.originalPreset.IsQueue)
 				{

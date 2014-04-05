@@ -470,6 +470,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encoding settings have changed since you last added an item to the queue. Do you want to apply the current encoding settings to all items in the queue?.
+        /// </summary>
+        public static string EncodingSettingsChangedMessage {
+            get {
+                return ResourceManager.GetString("EncodingSettingsChangedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings have changed.
+        /// </summary>
+        public static string EncodingSettingsChangedTitle {
+            get {
+                return ResourceManager.GetString("EncodingSettingsChangedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encoding Settings.
         /// </summary>
         public static string EncodingSettingsMenuItem {
