@@ -205,9 +205,6 @@
 		</DataTemplate>
 		<DataTemplate x:Key="CompletedStatusTemplate">
 			<StackPanel Orientation="Horizontal">
-				<StackPanel.ToolTip>
-					<TextBlock Text="{Binding StatusToolTip}" />
-				</StackPanel.ToolTip>
 				<Image Source="{Binding StatusImage}" Width="16" Height="16" />
 				<TextBlock
 					Text="{Binding StatusText}"

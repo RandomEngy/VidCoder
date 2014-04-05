@@ -8,7 +8,6 @@ namespace VidCoder.Model
 	public enum EncodeResultStatus
 	{
 		Succeeded,
-		SucceededWithErrors,
 		Failed
 	}
 }

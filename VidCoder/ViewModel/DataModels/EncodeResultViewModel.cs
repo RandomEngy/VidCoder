@@ -80,8 +80,6 @@ namespace VidCoder.ViewModel
 				{
 					case EncodeResultStatus.Succeeded:
 						return CommonRes.Succeeded;
-					case EncodeResultStatus.SucceededWithErrors:
-						return MainRes.EncodeResultStatus_SucceededWithErrors;
 					case EncodeResultStatus.Failed:
 						return CommonRes.Failed;
 					default:
@@ -106,26 +104,11 @@ namespace VidCoder.ViewModel
 				{
 					case EncodeResultStatus.Succeeded:
 						return "/Icons/succeeded.png";
-					case EncodeResultStatus.SucceededWithErrors:
-						return "/Icons/warning.png";
 					case EncodeResultStatus.Failed:
 						return "/Icons/failed.png";
 					default:
 						throw new ArgumentOutOfRangeException();
 				}
-			}
-		}
-
-		public string StatusToolTip
-		{
-			get
-			{
-				if (this.encodeResult.Status == EncodeResultStatus.SucceededWithErrors)
-				{
-					return MainRes.EncodeResultStatus_SucceededWithErrors_ToolTip;
-				}
-
-				return null;
 			}
 		}
 

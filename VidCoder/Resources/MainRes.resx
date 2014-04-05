@@ -609,10 +609,4 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Encode Details</value>
   </data>
-  <data name="EncodeResultStatus_SucceededWithErrors" xml:space="preserve">
-    <value>Errors reported</value>
-  </data>
-	<data name="EncodeResultStatus_SucceededWithErrors_ToolTip" xml:space="preserve">
-    <value>The job succeeded but error(s) were reported.</value>
-  </data>
 </root>

@@ -194,7 +194,7 @@ namespace VidCoder.ViewModel
 			{
 				double cost = this.Job.Length.TotalSeconds;
 
-				if (this.Job.EncodingProfile.TwoPass)
+				if (this.Job.EncodingProfile.VideoEncodeRateType != VideoEncodeRateType.ConstantQuality && this.Job.EncodingProfile.TwoPass)
 				{
 					cost += this.Job.Length.TotalSeconds;
 				}

@@ -16,6 +16,8 @@ namespace VidCoder
 	using System.Xml.Serialization;
 	using HandBrake.Interop;
 	using HandBrake.Interop.EventArgs;
+	using HandBrake.Interop.Model;
+	using HandBrake.Interop.Model.Encoding;
 	using HandBrake.Interop.SourceData;
 	using Model;
 	using Services;
@@ -111,8 +113,15 @@ namespace VidCoder
 									return;
 								}
 
-								this.channel.StartEncode(job.HbJob, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds,
-														 Config.LogVerbosity, Config.PreviewCount, Config.EnableLibDvdNav);
+								this.channel.StartEncode(
+									job.HbJob,
+									preview,
+									previewNumber,
+									previewSeconds,
+									overallSelectedLengthSeconds,
+									Config.LogVerbosity,
+									Config.PreviewCount,
+									Config.EnableLibDvdNav);
 
 								// After we do StartEncode (which can take a while), switch the timeout down to normal level to do pings
 								var contextChannel = (IContextChannel)this.channel;

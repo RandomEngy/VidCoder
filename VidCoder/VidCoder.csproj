@@ -790,6 +790,7 @@
     <EmbeddedResource Include="Resources\EncodeDetailsRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EncodeDetailsRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\EncodingRes.de.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.es.resx" />

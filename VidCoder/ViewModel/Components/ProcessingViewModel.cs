@@ -26,6 +26,7 @@ namespace VidCoder.ViewModel.Components
 {
 	using System.Reflection;
 	using HandBrake.Interop.EventArgs;
+	using HandBrake.Interop.Model.Encoding;
 	using Resources;
 
 	/// <summary>
@@ -49,7 +50,6 @@ namespace VidCoder.ViewModel.Components
 		private bool encoding;
 		private bool paused;
 		private bool encodeStopped;
-		private bool errorLoggedDuringJob; // True if an error was logged during an encode (and no scan was going on at the time)
 		private int totalTasks;
 		private int taskNumber;
 		private bool encodeSpeedDetailsAvailable;
@@ -1292,15 +1292,6 @@ namespace VidCoder.ViewModel.Components
 			var encodeLogger = new Logger(this.logger, Path.GetFileName(job.OutputPath));
 			this.CurrentJob.Logger = encodeLogger;
 
-			this.errorLoggedDuringJob = false;
-			encodeLogger.EntryLogged += (sender, e) =>
-			{
-				if (e.Value.LogType == LogType.Error && this.Encoding)
-				{
-					this.errorLoggedDuringJob = true;
-				}
-			};
-
 			encodeLogger.Log("Starting job " + this.taskNumber + "/" + this.totalTasks);
 			encodeLogger.Log("  Path: " + job.SourcePath);
 			encodeLogger.Log("  Title: " + job.Title);
@@ -1448,6 +1439,8 @@ namespace VidCoder.ViewModel.Components
 				this.EncodeSpeedDetailsAvailable = true;
 			}
 
+			VCProfile currentProfile = currentJob.EncodingProfile;
+
 			var progressChangedMessage = new ProgressChangedMessage
 			{
 				Encoding = true,
@@ -1461,7 +1454,7 @@ namespace VidCoder.ViewModel.Components
 				FileElapsedTime = this.CurrentJob.EncodeTime,
 				FileEta = this.currentJobEta,
 				HasScanPass = this.CurrentJob.SubtitleScan,
-				TwoPass = currentJob.EncodingProfile.TwoPass,
+				TwoPass = currentProfile.VideoEncodeRateType != VideoEncodeRateType.ConstantQuality && currentProfile.TwoPass,
 				CurrentPass = e.Pass,
 				PassProgressFraction = e.FractionComplete,
 				EncodeSpeedDetailsAvailable = this.EncodeSpeedDetailsAvailable,
@@ -1516,11 +1509,6 @@ namespace VidCoder.ViewModel.Components
 					{
 						status = EncodeResultStatus.Failed;
 						encodeLogger.LogError("Encode failed.");
-					}
-					else if (this.errorLoggedDuringJob)
-					{
-						status = EncodeResultStatus.SucceededWithErrors;
-						encodeLogger.LogError("Encode succeeded but error(s) were reported during the encode.");
 					}
 					else if (!outputFileInfo.Exists)
 					{
