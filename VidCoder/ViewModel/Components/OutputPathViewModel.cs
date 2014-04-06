@@ -461,9 +461,12 @@ namespace VidCoder.ViewModel.Components
 			return outputFolder;
 		}
 
-		public string BuildOutputPath(string fileName, string extension, string sourcePath)
+		public string BuildOutputPath(string fileName, string extension, string sourcePath, string outputFolder = null)
 		{
-			string outputFolder = GetOutputFolder(sourcePath);
+			if (outputFolder == null)
+			{
+				outputFolder = GetOutputFolder(sourcePath);
+			}
 
 			if (!string.IsNullOrEmpty(outputFolder))
 			{
@@ -479,7 +482,14 @@ namespace VidCoder.ViewModel.Components
 			return null;
 		}
 
-		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, int totalChapters, string nameFormatOverride = null, bool usesScan = true)
+		public string BuildOutputFileName(
+			string sourcePath,
+			string sourceName, 
+			int title, 
+			TimeSpan titleDuration,
+			int totalChapters,
+			string nameFormatOverride = null, 
+			bool usesScan = true)
 		{
 			return this.BuildOutputFileName(
 				sourcePath,
@@ -498,7 +508,21 @@ namespace VidCoder.ViewModel.Components
 				usesScan);
 		}
 
-		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, VideoRangeType rangeType, int startChapter, int endChapter, int totalChapters, TimeSpan startTime, TimeSpan endTime, int startFrame, int endFrame, string nameFormatOverride, bool usesScan)
+		public string BuildOutputFileName(
+			string sourcePath, 
+			string sourceName, 
+			int title, 
+			TimeSpan titleDuration, 
+			VideoRangeType rangeType, 
+			int startChapter, 
+			int endChapter, 
+			int totalChapters, 
+			TimeSpan startTime, 
+			TimeSpan endTime, 
+			int startFrame, 
+			int endFrame,
+			string nameFormatOverride, 
+			bool usesScan)
 		{
 			string fileName;
 			if (Config.AutoNameCustomFormat || !string.IsNullOrWhiteSpace(nameFormatOverride))

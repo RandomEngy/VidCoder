@@ -153,4 +153,7 @@
   <data name="TitleFormat">
     <value xml:space="preserve">Title {0}</value>
   </data>
+	<data name="OverrideDirectoryCheckBox" xml:space="preserve">
+    <value>Override directory:</value>
+  </data>
 </root>

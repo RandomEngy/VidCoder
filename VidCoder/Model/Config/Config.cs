@@ -74,6 +74,8 @@
 			UseCustomCompletionSound_Field = DatabaseConfig.GetConfig("UseCustomCompletionSound", false, connection);
 			CustomCompletionSound_Field = DatabaseConfig.GetConfig("CustomCompletionSound", "", connection);
 			LastPlayer_Field = DatabaseConfig.GetConfig("LastPlayer", "vlc", connection);
+			QueueTitlesUseDirectoryOverride_Field = DatabaseConfig.GetConfig("QueueTitlesUseDirectoryOverride", false, connection);
+			QueueTitlesDirectoryOverride_Field = DatabaseConfig.GetConfig("QueueTitlesDirectoryOverride", "", connection);
 			QueueTitlesUseNameOverride_Field = DatabaseConfig.GetConfig("QueueTitlesUseNameOverride", false, connection);
 			QueueTitlesNameOverride_Field = DatabaseConfig.GetConfig("QueueTitlesNameOverride", "", connection);
 			DxvaDecoding_Field = DatabaseConfig.GetConfig("DxvaDecoding", false, connection);
@@ -1035,6 +1037,34 @@
 			{
 				LastPlayer_Field = value;
 				DatabaseConfig.SetConfigValue("LastPlayer", value);
+			}
+		}
+		private static bool QueueTitlesUseDirectoryOverride_Field;
+		public static bool QueueTitlesUseDirectoryOverride
+		{
+			get
+			{
+				return QueueTitlesUseDirectoryOverride_Field;
+			}
+			
+			set
+			{
+				QueueTitlesUseDirectoryOverride_Field = value;
+				DatabaseConfig.SetConfigValue("QueueTitlesUseDirectoryOverride", value);
+			}
+		}
+		private static string QueueTitlesDirectoryOverride_Field;
+		public static string QueueTitlesDirectoryOverride
+		{
+			get
+			{
+				return QueueTitlesDirectoryOverride_Field;
+			}
+			
+			set
+			{
+				QueueTitlesDirectoryOverride_Field = value;
+				DatabaseConfig.SetConfigValue("QueueTitlesDirectoryOverride", value);
 			}
 		}
 		private static bool QueueTitlesUseNameOverride_Field;

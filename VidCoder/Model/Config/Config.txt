@@ -76,6 +76,8 @@ PlaySoundOnCompletion|bool|false
 UseCustomCompletionSound|bool|false
 CustomCompletionSound|string|""
 LastPlayer|string|"vlc"
+QueueTitlesUseDirectoryOverride|bool|false
+QueueTitlesDirectoryOverride|string|""
 QueueTitlesUseNameOverride|bool|false
 QueueTitlesNameOverride|string|""
 DxvaDecoding|bool|false

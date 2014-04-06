@@ -614,6 +614,12 @@ namespace VidCoder.ViewModel.Components
 									nameFormatOverride = queueTitlesDialog.NameOverride;
 								}
 
+								string outputDirectoryOverride = null;
+								if (queueTitlesDialog.DirectoryOverrideEnabled && Directory.Exists(queueTitlesDialog.DirectoryOverride))
+								{
+									outputDirectoryOverride = queueTitlesDialog.DirectoryOverride;
+								}
+
 								var job = new VCJob
 								{
 									SourceType = this.main.SelectedSource.Type,
@@ -638,7 +644,7 @@ namespace VidCoder.ViewModel.Components
 									nameFormatOverride);
 
 								string extension = this.outputVM.GetOutputExtension();
-								string queueOutputPath = this.outputVM.BuildOutputPath(queueOutputFileName, extension, sourcePath: null);
+								string queueOutputPath = this.outputVM.BuildOutputPath(queueOutputFileName, extension, sourcePath: null, outputFolder: outputDirectoryOverride);
 
 								job.OutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, isBatch: true);
 
