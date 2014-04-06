@@ -169,6 +169,69 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You will be logged off in {0} seconds..
+        /// </summary>
+        public static string EncodeCompleteWarning_LogOffMessage {
+            get {
+                return ResourceManager.GetString("EncodeCompleteWarning_LogOffMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log off imminent.
+        /// </summary>
+        public static string EncodeCompleteWarning_LogOffTitle {
+            get {
+                return ResourceManager.GetString("EncodeCompleteWarning_LogOffTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The system will shut down in {0} seconds..
+        /// </summary>
+        public static string EncodeCompleteWarning_ShutdownMessage {
+            get {
+                return ResourceManager.GetString("EncodeCompleteWarning_ShutdownMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shutdown imminent.
+        /// </summary>
+        public static string EncodeCompleteWarning_ShutdownTitle {
+            get {
+                return ResourceManager.GetString("EncodeCompleteWarning_ShutdownTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The system will sleep in {0} seconds..
+        /// </summary>
+        public static string EncodeCompleteWarning_SleepMessage {
+            get {
+                return ResourceManager.GetString("EncodeCompleteWarning_SleepMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System sleep imminent.
+        /// </summary>
+        public static string EncodeCompleteWarning_SleepTitle {
+            get {
+                return ResourceManager.GetString("EncodeCompleteWarning_SleepTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding has completed..
+        /// </summary>
+        public static string EncodeCompleteWarning_Title {
+            get {
+                return ResourceManager.GetString("EncodeCompleteWarning_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VidCoder has experienced an unexpected error..
         /// </summary>
         public static string ExceptionDialogMainText {

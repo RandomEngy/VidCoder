@@ -113,6 +113,10 @@ namespace VidCoder.Services
 			{
 				windowToOpen = new EncodeDetailsWindow();
 			}
+			else if (viewModel is ShutdownWarningViewModel)
+			{
+				windowToOpen = new ShutdownWarningWindow();
+			}
 
 			if (owner != null)
 			{

@@ -369,6 +369,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ShutdownWarningWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SubtitleDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -582,6 +586,7 @@
     <Compile Include="ViewModel\EncodeDetailsViewModel.cs" />
     <Compile Include="ViewModel\FileConflictDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />
+    <Compile Include="ViewModel\ShutdownWarningViewModel.cs" />
     <Compile Include="View\EncodeDetailsWindow.xaml.cs">
       <DependentUpon>EncodeDetailsWindow.xaml</DependentUpon>
     </Compile>
@@ -752,6 +757,9 @@
     </Compile>
     <Compile Include="View\PreviewWindow.xaml.cs">
       <DependentUpon>PreviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ShutdownWarningWindow.xaml.cs">
+      <DependentUpon>ShutdownWarningWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SubtitleDialog.xaml.cs">
       <DependentUpon>SubtitleDialog.xaml</DependentUpon>

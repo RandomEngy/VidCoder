@@ -1625,26 +1625,6 @@ namespace VidCoder.ViewModel.Components
 						Ioc.Container.GetInstance<TrayService>().ShowBalloonMessage(MainRes.EncodeCompleteBalloonTitle, MainRes.EncodeCompleteBalloonMessage);
 
 						EncodeCompleteActionType actionType = this.EncodeCompleteAction.ActionType;
-						switch (actionType)
-						{
-							case EncodeCompleteActionType.DoNothing:
-								break;
-							case EncodeCompleteActionType.EjectDisc:
-								this.systemOperations.Eject(this.EncodeCompleteAction.DriveLetter);
-								break;
-							case EncodeCompleteActionType.Sleep:
-								this.systemOperations.Sleep();
-								break;
-							case EncodeCompleteActionType.LogOff:
-								this.systemOperations.LogOff();
-								break;
-							case EncodeCompleteActionType.Shutdown:
-								this.systemOperations.ShutDown();
-								break;
-							default:
-								throw new ArgumentOutOfRangeException();
-						}
-
 						if (Config.PlaySoundOnCompletion &&
 							actionType != EncodeCompleteActionType.Sleep && 
 							actionType != EncodeCompleteActionType.LogOff &&
@@ -1678,6 +1658,22 @@ namespace VidCoder.ViewModel.Components
 							{
 								this.logger.LogError(string.Format("Completion sound \"{0}\" was not a supported WAV file.", soundPath));
 							}
+						}
+
+						switch (actionType)
+						{
+							case EncodeCompleteActionType.DoNothing:
+								break;
+							case EncodeCompleteActionType.EjectDisc:
+								this.systemOperations.Eject(this.EncodeCompleteAction.DriveLetter);
+								break;
+							case EncodeCompleteActionType.Sleep:
+							case EncodeCompleteActionType.LogOff:
+							case EncodeCompleteActionType.Shutdown:
+								WindowManager.OpenWindow(new ShutdownWarningViewModel(actionType));
+								break;
+							default:
+								throw new ArgumentOutOfRangeException();
 						}
 					}
 					else
