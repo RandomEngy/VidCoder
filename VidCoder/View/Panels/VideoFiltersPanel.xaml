@@ -111,7 +111,7 @@
 				<Slider Value="{Binding Deblock}" Width="155" Minimum="4" Maximum="15" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" />
 			</StackPanel>
 
-			<Label Grid.Row="5" Grid.Column="0" Content="Rotation:" Style="{StaticResource LongToolTipHolder}">
+			<Label Grid.Row="5" Grid.Column="0" Content="Rotation:" Style="{StaticResource LongToolTipHolder}" VerticalAlignment="Center">
 				<Label.ToolTip>
 					<TextBlock Text="{x:Static res:EncodingRes.RotationToolTip}" Style="{StaticResource LongToolTip}" />
 				</Label.ToolTip>
