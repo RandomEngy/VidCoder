@@ -413,6 +413,7 @@
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="Messages\ContainerChangedMessage.cs" />
     <Compile Include="Messages\EncodingProfileChangedMessage.cs" />
+    <Compile Include="Messages\RotationChangedMessage.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />
     <Compile Include="Model\SourcePath.cs" />
@@ -582,6 +583,7 @@
     <Compile Include="ViewModel\DataModels\BitrateChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\ChapterViewModel.cs" />
     <Compile Include="ViewModel\DataModels\LevelChoiceViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\RotationViewModel.cs" />
     <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
     <Compile Include="ViewModel\EncodeDetailsViewModel.cs" />
     <Compile Include="ViewModel\FileConflictDialogViewModel.cs" />
@@ -965,6 +967,9 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\rotate_180.png" />
+    <Resource Include="Icons\rotate_90_ccw.png" />
+    <Resource Include="Icons\rotate_90_cw.png" />
     <Resource Include="Icons\text_file_16x16.png" />
     <Resource Include="Icons\crop_bg_tile_12x12.png" />
     <Resource Include="Model\Config\Config.txt" />

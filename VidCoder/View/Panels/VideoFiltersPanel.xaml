@@ -7,7 +7,9 @@
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:localmodel="clr-namespace:VidCoder.Model"
 	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
-	xmlns:res="clr-namespace:VidCoder.Resources" mc:Ignorable="d" 
+	xmlns:res="clr-namespace:VidCoder.Resources"
+	xmlns:dataModels="clr-namespace:VidCoder.ViewModel.DataModels"
+	mc:Ignorable="d" 
 	d:DesignHeight="330" d:DesignWidth="622">
 	<UserControl.Resources>
 		<local:EnumDisplayer Type="{x:Type localmodel:DetelecineCombo}" x:Key="DetelecineChoices" />
@@ -27,8 +29,11 @@
 		</Style>
 	</UserControl.Resources>
 	<Grid>
-		<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,16,0,121">
+		<Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,16,0,0">
 			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
 				<RowDefinition />
 				<RowDefinition />
 				<RowDefinition />
@@ -106,8 +111,44 @@
 				<Slider Value="{Binding Deblock}" Width="155" Minimum="4" Maximum="15" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" />
 			</StackPanel>
 
+			<Label Grid.Row="5" Grid.Column="0" Content="Rotation:" Style="{StaticResource LongToolTipHolder}">
+				<Label.ToolTip>
+					<TextBlock Text="{x:Static res:EncodingRes.RotationToolTip}" Style="{StaticResource LongToolTip}" />
+				</Label.ToolTip>
+			</Label>
+			<ComboBox 
+				Grid.Row="5" Grid.Column="1" Margin="3" VerticalAlignment="Center"
+				SelectedValuePath="Rotation" SelectedValue="{Binding Rotation}" ItemsSource="{Binding RotationChoices}" MinWidth="140"
+				Style="{StaticResource LongToolTipHolder}">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal" d:DataContext="{d:DesignInstance dataModels:RotationViewModel}">
+							<Image Source="{Binding Image}" Visibility="{Binding ShowImage, Converter={StaticResource VisibilityConverter}}" Width="20" Height="20" />
+							<TextBlock Text="{Binding Display}" VerticalAlignment="Center" Margin="6,0,0,0" />
+						</StackPanel>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+				<ComboBox.ToolTip>
+					<TextBlock Text="{x:Static res:EncodingRes.RotationToolTip}" Style="{StaticResource LongToolTip}" />
+				</ComboBox.ToolTip>
+			</ComboBox>
+			<CheckBox
+				Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Margin="3" Content="{x:Static res:EncodingRes.FlipHorizontalCheckBox}" IsChecked="{Binding FlipHorizontal}"
+				Style="{StaticResource LongToolTipHolder}">
+				<CheckBox.ToolTip>
+					<TextBlock Text="{x:Static res:EncodingRes.FlipHorizontalToolTip}" Style="{StaticResource LongToolTip}" />
+				</CheckBox.ToolTip>
+			</CheckBox>
+			<CheckBox
+				Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="3" Content="{x:Static res:EncodingRes.FlipVerticalCheckBox}" IsChecked="{Binding FlipVertical}"
+				Style="{StaticResource LongToolTipHolder}">
+				<CheckBox.ToolTip>
+					<TextBlock Text="{x:Static res:EncodingRes.FlipVerticalToolTip}" Style="{StaticResource LongToolTip}" />
+				</CheckBox.ToolTip>
+			</CheckBox>
+
 			<CheckBox 
-				Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="3" Content="{x:Static res:EncodingRes.GrayscaleCheckBox}" IsChecked="{Binding Grayscale}" />
+				Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Margin="3,10,3,3" Content="{x:Static res:EncodingRes.GrayscaleCheckBox}" IsChecked="{Binding Grayscale}" />
 		</Grid>
 	</Grid>
 </UserControl>

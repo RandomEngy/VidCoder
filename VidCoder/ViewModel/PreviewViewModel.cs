@@ -20,6 +20,7 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
+	using System.Drawing;
 	using System.Globalization;
 	using System.Linq.Expressions;
 	using Resources;
@@ -50,13 +51,13 @@ namespace VidCoder.ViewModel
 		private DateTime lastImageRefreshTime;
 		private System.Timers.Timer previewImageRefreshTimer;
 		private bool waitingOnRefresh;
-		private BitmapImage[] previewImageCache;
+		private BitmapSource[] previewImageCache;
 		private Queue<PreviewImageJob> previewImageWorkQueue = new Queue<PreviewImageJob>();
 		private bool previewImageQueueProcessing;
 		private object imageSync = new object();
 		private List<object> imageFileSync;
 		private string imageFileCacheFolder;
-		private BitmapImage previewBitmapImage;
+		private BitmapSource previewBitmapSource;
 
 		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
 		private OutputPathViewModel outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
@@ -141,13 +142,13 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public BitmapImage PreviewBitmapImage
+		public BitmapSource PreviewBitmapSource
 		{
 			get
 			{
 				lock (this.imageSync)
 				{
-					return this.previewBitmapImage;
+					return this.previewBitmapSource;
 				}
 			}
 		}
@@ -255,7 +256,7 @@ namespace VidCoder.ViewModel
 				{
 					lock (this.imageSync)
 					{
-						this.previewBitmapImage = this.previewImageCache[value];
+						this.previewBitmapSource = this.previewImageCache[value];
 						this.RefreshFromBitmapImage();
 						this.ClearOutOfRangeItems();
 						this.BeginBackgroundImageLoad();
@@ -632,9 +633,22 @@ namespace VidCoder.ViewModel
 			this.originalScanInstance = this.ScanInstance;
 
 			this.job = this.mainViewModel.EncodeJob;
+			VCProfile profile = this.job.EncodingProfile;
 
 			int width, height, parWidth, parHeight;
 			this.ScanInstance.GetSize(this.job.HbJob, out width, out height, out parWidth, out parHeight);
+
+			// If we're rotating by 90 degrees, swap width and height for sizing purposes.
+			if (profile.Rotation == PictureRotation.Clockwise90 || profile.Rotation == PictureRotation.Clockwise270)
+			{
+				int temp = width;
+				width = height;
+				height = temp;
+
+				temp = parWidth;
+				parWidth = parHeight;
+				parHeight = temp;
+			}
 
 			if (parWidth <= 0 || parHeight <= 0)
 			{
@@ -662,7 +676,7 @@ namespace VidCoder.ViewModel
 
 			lock (this.imageSync)
 			{
-				this.previewImageCache = new BitmapImage[this.previewCount];
+				this.previewImageCache = new BitmapSource[this.previewCount];
 				updateVersion++;
 
 				// Clear main work queue.
@@ -867,26 +881,36 @@ namespace VidCoder.ViewModel
 					Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture),
 					imageJob.UpdateVersion.ToString(CultureInfo.InvariantCulture),
 					imageJob.PreviewNumber + ".bmp");
-				BitmapImage image = null;
+				BitmapSource imageSource = null;
 
 				// Check the disc cache for the image
 				lock (imageJob.ImageFileSync)
 				{
 					if (File.Exists(imagePath))
 					{
-						image = new BitmapImage();
-						image.BeginInit();
-						image.CacheOption = BitmapCacheOption.OnLoad;
-						image.UriSource = new Uri(imagePath);
-						image.EndInit();
-						image.Freeze();
+						// When we read from disc cache the image is already transformed.
+						var bitmapImage = new BitmapImage();
+						bitmapImage.BeginInit();
+						bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+						bitmapImage.UriSource = new Uri(imagePath);
+						bitmapImage.EndInit();
+						bitmapImage.Freeze();
+
+						imageSource = bitmapImage;
 					}
 				}
 
-				if (image == null)
+				if (imageSource == null)
 				{
 					// Make a HandBrake call to get the image
-					image = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob.HbJob, imageJob.PreviewNumber);
+					imageSource = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob.HbJob, imageJob.PreviewNumber);
+
+					// Transform the image as per rotation and reflection settings
+					VCProfile profile = imageJob.EncodeJob.EncodingProfile;
+					if (profile.FlipHorizontal || profile.FlipVertical || profile.Rotation != PictureRotation.None)
+					{
+						imageSource = CreateTransformedBitmap(imageSource, profile);
+					}
 
 					// Start saving the image file in the background and continue to process the queue.
 					ThreadPool.QueueUserWorkItem(
@@ -896,7 +920,7 @@ namespace VidCoder.ViewModel
 							PreviewNumber = imageJob.PreviewNumber,
 							UpdateVersion = imageJob.UpdateVersion,
 							FilePath = imagePath,
-							Image = image,
+							Image = imageSource,
 							ImageFileSync = imageJob.ImageFileSync
 						});
 				}
@@ -905,14 +929,13 @@ namespace VidCoder.ViewModel
 				{
 					if (imageJob.UpdateVersion == updateVersion)
 					{
-						this.previewImageCache[imageJob.PreviewNumber] = image;
+						this.previewImageCache[imageJob.PreviewNumber] = imageSource;
 						if (this.SelectedPreview == imageJob.PreviewNumber)
 						{
 							DispatchService.BeginInvoke(() =>
 							{
-								this.previewBitmapImage = image;
+								this.previewBitmapSource = imageSource;
 								this.RefreshFromBitmapImage();
-								//this.PreviewImage = image;
 							});
 						}
 					}
@@ -926,19 +949,51 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private static TransformedBitmap CreateTransformedBitmap(BitmapSource source, VCProfile profile)
+		{
+			var transformedBitmap = new TransformedBitmap();
+			transformedBitmap.BeginInit();
+			transformedBitmap.Source = source;
+			var transformGroup = new TransformGroup();
+			transformGroup.Children.Add(new ScaleTransform(profile.FlipHorizontal ? -1 : 1, profile.FlipVertical ? -1 : 1));
+			transformGroup.Children.Add(new RotateTransform(ConvertRotationToDegrees(profile.Rotation)));
+			transformedBitmap.Transform = transformGroup;
+			transformedBitmap.EndInit();
+			transformedBitmap.Freeze();
+
+			return transformedBitmap;
+		}
+
+		private static double ConvertRotationToDegrees(PictureRotation rotation)
+		{
+			switch (rotation)
+			{
+				case PictureRotation.None:
+					return 0;
+				case PictureRotation.Clockwise90:
+					return 90;
+				case PictureRotation.Clockwise180:
+					return 180;
+				case PictureRotation.Clockwise270:
+					return 270;
+			}
+
+			return 0;
+		}
+
 		private void RefreshFromBitmapImage()
 		{
-			if (this.previewBitmapImage == null)
+			if (this.previewBitmapSource == null)
 			{
 				return;
 			}
 
 			if (this.DisplayType != PreviewDisplay.Corners)
 			{
-				this.PreviewImage = this.previewBitmapImage;
+				this.PreviewImage = this.previewBitmapSource;
 			}
 
-			// In the Corners display mode, the view code will react to the message and read from this.previewBitmapImage.
+			// In the Corners display mode, the view code will react to the message and read from this.previewBitmapSource.
 			Messenger.Default.Send(new PreviewImageChangedMessage());
 		}
 

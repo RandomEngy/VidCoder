@@ -943,6 +943,42 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Flip horizontally.
+        /// </summary>
+        public static string FlipHorizontalCheckBox {
+            get {
+                return ResourceManager.GetString("FlipHorizontalCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flip the picture horizontally. This is applied before any rotation..
+        /// </summary>
+        public static string FlipHorizontalToolTip {
+            get {
+                return ResourceManager.GetString("FlipHorizontalToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flip vertically.
+        /// </summary>
+        public static string FlipVerticalCheckBox {
+            get {
+                return ResourceManager.GetString("FlipVerticalCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flip the picture vertically. This is applied before any rotation..
+        /// </summary>
+        public static string FlipVerticalToolTip {
+            get {
+                return ResourceManager.GetString("FlipVerticalToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0:0.###} FPS.
         /// </summary>
         public static string FpsFormat {
@@ -1753,6 +1789,42 @@ namespace VidCoder.Resources {
         public static string Right {
             get {
                 return ResourceManager.GetString("Right", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 180°.
+        /// </summary>
+        public static string Rotation_180 {
+            get {
+                return ResourceManager.GetString("Rotation_180", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clockwise 90°.
+        /// </summary>
+        public static string Rotation_Clockwise90 {
+            get {
+                return ResourceManager.GetString("Rotation_Clockwise90", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counterclockwise 90°.
+        /// </summary>
+        public static string Rotation_Counterclockwise90 {
+            get {
+                return ResourceManager.GetString("Rotation_Counterclockwise90", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotate the picture. This is applied after all sizing and cropping..
+        /// </summary>
+        public static string RotationToolTip {
+            get {
+                return ResourceManager.GetString("RotationToolTip", resourceCulture);
             }
         }
         

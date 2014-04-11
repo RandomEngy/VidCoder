@@ -7,6 +7,9 @@ using HandBrake.Interop.Model.Encoding;
 
 namespace VidCoder.ViewModel
 {
+	using DataModels;
+	using GalaSoft.MvvmLight.Messaging;
+	using Messages;
 	using Model;
 	using Properties;
 	using Resources;
@@ -14,10 +17,18 @@ namespace VidCoder.ViewModel
 	public class VideoFiltersPanelViewModel : PanelViewModel
 	{
 		private const int MinDeblock = 5;
+		private List<RotationViewModel> rotationChoices; 
 
 		public VideoFiltersPanelViewModel(EncodingViewModel encodingViewModel)
 			: base(encodingViewModel)
 		{
+			this.rotationChoices = new List<RotationViewModel>
+			{
+				new RotationViewModel { Rotation = PictureRotation.None, Display = CommonRes.None },
+				new RotationViewModel { Rotation = PictureRotation.Clockwise90, Display = EncodingRes.Rotation_Clockwise90, Image = "/Icons/rotate_90_cw.png"},
+				new RotationViewModel { Rotation = PictureRotation.Clockwise270, Display = EncodingRes.Rotation_Counterclockwise90, Image = "/Icons/rotate_90_ccw.png" },
+				new RotationViewModel { Rotation = PictureRotation.Clockwise180, Display = EncodingRes.Rotation_180, Image = "/Icons/rotate_180.png" }
+			};
 		}
 
 		public DetelecineCombo SelectedDetelecine
@@ -247,6 +258,62 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public List<RotationViewModel> RotationChoices
+		{
+			get
+			{
+				return this.rotationChoices;
+			}
+		}
+
+		public PictureRotation Rotation
+		{
+			get
+			{
+				return this.Profile.Rotation;
+			}
+
+			set
+			{
+				this.Profile.Rotation = value;
+				this.RaisePropertyChanged(() => this.Rotation);
+				this.IsModified = true;
+				this.NotifyRotationChanged();
+			}
+		}
+
+		public bool FlipHorizontal
+		{
+			get
+			{
+				return this.Profile.FlipHorizontal;
+			}
+
+			set
+			{
+				this.Profile.FlipHorizontal = value;
+				this.RaisePropertyChanged(() => this.FlipHorizontal);
+				this.IsModified = true;
+				this.NotifyRotationChanged();
+			}
+		}
+
+		public bool FlipVertical
+		{
+			get
+			{
+				return this.Profile.FlipVertical;
+			}
+
+			set
+			{
+				this.Profile.FlipVertical = value;
+				this.RaisePropertyChanged(() => this.FlipVertical);
+				this.IsModified = true;
+				this.NotifyRotationChanged();
+			}
+		}
+
 		public void NotifyAllChanged()
 		{
 			this.RaisePropertyChanged(() => this.SelectedDetelecine);
@@ -264,6 +331,15 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.Deblock);
 			this.RaisePropertyChanged(() => this.DeblockText);
 			this.RaisePropertyChanged(() => this.Grayscale);
+			this.RaisePropertyChanged(() => this.Rotation);
+			this.RaisePropertyChanged(() => this.FlipHorizontal);
+			this.RaisePropertyChanged(() => this.FlipVertical);
+		}
+
+		private void NotifyRotationChanged()
+		{
+			Messenger.Default.Send(new RefreshPreviewMessage());
+			Messenger.Default.Send(new RotationChangedMessage());
 		}
 	}
 }

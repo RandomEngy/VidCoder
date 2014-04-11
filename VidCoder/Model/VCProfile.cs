@@ -56,6 +56,9 @@ namespace VidCoder.Model
 		public int PixelAspectX { get; set; }
 		public int PixelAspectY { get; set; }
 		public int Modulus { get; set; }
+		public PictureRotation Rotation { get; set; }
+		public bool FlipHorizontal { get; set; }
+		public bool FlipVertical { get; set; }
 
 		public Deinterlace Deinterlace { get; set; }
 		public string CustomDeinterlace { get; set; }
@@ -138,6 +141,9 @@ namespace VidCoder.Model
 				PixelAspectX = this.PixelAspectX,
 				PixelAspectY = this.PixelAspectY,
 				Modulus = this.Modulus,
+				Rotation = this.Rotation,
+				FlipHorizontal = this.FlipHorizontal,
+				FlipVertical = this.FlipVertical,
 
 				Deinterlace = this.Deinterlace,
 				CustomDeinterlace = this.CustomDeinterlace,

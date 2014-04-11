@@ -121,7 +121,7 @@ namespace VidCoder.View
 
 			if (previewVM.DisplayType == PreviewDisplay.Corners)
 			{
-				var bitmap = previewVM.PreviewBitmapImage;
+				var bitmap = previewVM.PreviewBitmapSource;
 				
 				if (bitmap != null)
 				{
@@ -149,7 +149,7 @@ namespace VidCoder.View
 			}
 		}
 
-		private static void UpdateCornerImage(Image image, Grid imageHolder, BitmapImage bitmap, RegionChooser regionChooser, bool isRetry = false)
+		private static void UpdateCornerImage(Image image, Grid imageHolder, BitmapSource bitmap, RegionChooser regionChooser, bool isRetry = false)
 		{
 			// Image dimensions
 			int imageWidth = bitmap.PixelWidth;

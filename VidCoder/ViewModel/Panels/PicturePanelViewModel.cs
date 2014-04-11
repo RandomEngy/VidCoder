@@ -31,6 +31,13 @@ namespace VidCoder.ViewModel
 				new ComboChoice<ScaleMethod>(ScaleMethod.Lanczos, EncodingRes.ScaleMethod_Lanczos),
 				new ComboChoice<ScaleMethod>(ScaleMethod.Bicubic, EncodingRes.ScaleMethod_BicubicOpenCL)
 			};
+
+			Messenger.Default.Register<RotationChangedMessage>(
+				this,
+				message =>
+				{
+					this.RefreshOutputSize();
+				});
 		}
 
 		public string InputSourceResolution
@@ -709,6 +716,17 @@ namespace VidCoder.ViewModel
 
 				int width, height, parWidth, parHeight;
 				this.MainViewModel.ScanInstance.GetSize(job.HbJob, out width, out height, out parWidth, out parHeight);
+
+				if (this.Profile.Rotation == PictureRotation.Clockwise90 || this.Profile.Rotation == PictureRotation.Clockwise270)
+				{
+					int temp = width;
+					width = height;
+					height = temp;
+
+					temp = parWidth;
+					parWidth = parHeight;
+					parHeight = temp;
+				}
 
 				this.StorageWidth = width;
 				this.StorageHeight = height;

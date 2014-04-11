@@ -956,4 +956,28 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>Specifies which input codecs the passthrough will apply to.</value>
   </data>
+  <data name="FlipHorizontalCheckBox" xml:space="preserve">
+    <value>Flip horizontally</value>
+  </data>
+  <data name="FlipVerticalCheckBox" xml:space="preserve">
+    <value>Flip vertically</value>
+  </data>
+	<data name="Rotation_Clockwise90" xml:space="preserve">
+    <value>Clockwise 90°</value>
+  </data>
+	<data name="Rotation_Counterclockwise90" xml:space="preserve">
+    <value>Counterclockwise 90°</value>
+  </data>
+	<data name="Rotation_180" xml:space="preserve">
+    <value>180°</value>
+  </data>
+	<data name="RotationToolTip" xml:space="preserve">
+    <value>Rotate the picture. This is applied after all sizing and cropping.</value>
+  </data>
+	<data name="FlipHorizontalToolTip" xml:space="preserve">
+    <value>Flip the picture horizontally. This is applied before any rotation.</value>
+  </data>
+	<data name="FlipVerticalToolTip" xml:space="preserve">
+    <value>Flip the picture vertically. This is applied before any rotation.</value>
+  </data>
 </root>
