@@ -915,6 +915,8 @@ namespace VidCoder.ViewModel
 		// Refreshes preset/profile/tune/level lists
 		private void RefreshEncoderSettings(bool applyDefaults)
 		{
+			this.EncodingViewModel.AutomaticChange = true;
+
 			this.RefreshPresets();
 			this.RefreshProfileChoices();
 			this.RefreshTuneChoices();
@@ -945,6 +947,8 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.LevelChoices);
 			this.RaisePropertyChanged(() => this.LevelVisible);
 			this.RefreshLevelCompatibility();
+
+			this.EncodingViewModel.AutomaticChange = false;
 		}
 
 		public void NotifyProfileChanged()
