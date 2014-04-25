@@ -53,6 +53,41 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool BurnedIn
+		{
+			get
+			{
+				if (!BurnedInEnabled)
+				{
+					return false;
+				}
+
+				return this.subtitle.BurnedIn;
+			}
+
+			set
+			{
+				this.subtitle.BurnedIn = value;
+				this.RaisePropertyChanged(() => this.BurnedIn);
+
+				if (value)
+				{
+					this.SubtitleDialogViewModel.ReportBurned(this);
+				}
+
+				this.SubtitleDialogViewModel.UpdateBoxes();
+				this.SubtitleDialogViewModel.UpdateWarningVisibility();
+			}
+		}
+
+		public bool BurnedInEnabled
+		{
+			get
+			{
+				return Encoders.CanBurnSrt;
+			}
+		}
+
 		public string FileName
 		{
 			get

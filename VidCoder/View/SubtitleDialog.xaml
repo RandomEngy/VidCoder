@@ -199,6 +199,7 @@
 								<GridView.Columns>
 									<GridViewColumn Header="{x:Static res:SubtitleRes.FileColumn}" CellTemplate="{StaticResource FileNameTemplate}" />
 									<GridViewColumn Header="{x:Static res:SubtitleRes.DefaultColumn}" CellTemplate="{StaticResource DefaultTemplate}" />
+									<GridViewColumn Header="{x:Static res:SubtitleRes.BurnedInColumn}" CellTemplate="{StaticResource BurnedInTemplate}" />
 									<GridViewColumn Header="{x:Static res:SubtitleRes.LanguageColumn}" CellTemplate="{StaticResource LanguageTemplate}" x:Name="srtLanguageColumn"  />
 									<GridViewColumn Header="{x:Static res:SubtitleRes.CharCodeColumn}" CellTemplate="{StaticResource CharCodeTemplate}" x:Name="srtCharCodeColumn" />
 									<GridViewColumn Header="{x:Static res:SubtitleRes.OffsetColumn}" CellTemplate="{StaticResource OffsetTemplate}" />

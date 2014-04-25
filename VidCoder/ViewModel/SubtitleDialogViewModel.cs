@@ -319,26 +319,33 @@ namespace VidCoder.ViewModel
 					sourceVM.BurnedIn = false;
 				}
 			}
+
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+			{
+				srtVM.BurnedIn = false;
+			}
+		}
+
+		public void ReportBurned(SrtSubtitleViewModel subtitleViewModel)
+		{
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+			{
+				sourceVM.BurnedIn = false;
+			}
+
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+			{
+				if (srtVM != subtitleViewModel)
+				{
+					srtVM.BurnedIn = false;
+				}
+			}
 		}
 
 		// Update state of checked boxes after a change
 		public void UpdateBoxes(SourceSubtitleViewModel updatedSubtitle = null)
 		{
-			bool anyBurned = this.SourceSubtitles.Any(sourceSub => sourceSub.BurnedIn);
-			this.DefaultsEnabled = !anyBurned;
-
-			if (!this.DefaultsEnabled)
-			{
-				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
-				{
-					sourceVM.Default = false;
-				}
-
-				foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
-				{
-					srtVM.Default = false;
-				}
-			}
+			this.DeselectDefaults();
 
 			if (updatedSubtitle != null && updatedSubtitle.Selected)
 			{
@@ -363,6 +370,25 @@ namespace VidCoder.ViewModel
 							sourceSub.Deselect();
 						}
 					}
+				}
+			}
+		}
+
+		private void DeselectDefaults()
+		{
+			bool anyBurned = this.SourceSubtitles.Any(sourceSub => sourceSub.BurnedIn) || this.SrtSubtitles.Any(sourceSub => sourceSub.BurnedIn);
+			this.DefaultsEnabled = !anyBurned;
+
+			if (!this.DefaultsEnabled)
+			{
+				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+				{
+					sourceVM.Default = false;
+				}
+
+				foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+				{
+					srtVM.Default = false;
 				}
 			}
 		}
@@ -400,7 +426,16 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			this.BurnedOverlapWarningVisible = anyBurned && (totalTracks > 1 || this.SrtSubtitles.Count > 0);
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+			{
+				totalTracks++;
+				if (srtVM.BurnedIn)
+				{
+					anyBurned = true;
+				}
+			}
+
+			this.BurnedOverlapWarningVisible = anyBurned && totalTracks > 1;
 		}
 
 		private void UpdateButtonVisibility()

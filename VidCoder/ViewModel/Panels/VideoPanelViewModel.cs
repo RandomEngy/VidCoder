@@ -165,30 +165,32 @@ namespace VidCoder.ViewModel
 					this.selectedEncoder = value;
 					this.Profile.VideoEncoder = this.selectedEncoder.Encoder.ShortName;
 
-					// Make sure correct preset is set on the profile
-					this.RefreshPresets();
-					this.RefreshProfileChoices();
-					this.RefreshTuneChoices();
-					this.RefreshLevelChoices();
+					// Refresh preset/profile/tune/level choices and values
+					this.RefreshEncoderSettings(applyDefaults: false);
 
-					this.RaisePropertyChanged(() => this.SelectedEncoder);
-					this.RaisePropertyChanged(() => this.X264SettingsVisible);
-					this.RaisePropertyChanged(() => this.UseAdvancedTab);
-					this.RaisePropertyChanged(() => this.PresetName);
-					this.RaisePropertyChanged(() => this.EncoderSettingsVisible);
-					this.RaisePropertyChanged(() => this.BasicEncoderSettingsVisible);
-					this.RaisePropertyChanged(() => this.QsvSettingsVisible);
-					this.RaisePropertyChanged(() => this.QualityModulus);
-					this.RaisePropertyChanged(() => this.QualitySliderMin);
-					this.RaisePropertyChanged(() => this.QualitySliderMax);
-					this.RaisePropertyChanged(() => this.QualitySliderLeftText);
-					this.RaisePropertyChanged(() => this.QualitySliderRightText);
-					Messenger.Default.Send(new VideoCodecChangedMessage());
+					this.NotifyEncoderChanged();
 					this.IsModified = true;
 
 					this.SetDefaultQuality();
 				}
 			}
+		}
+
+		private void NotifyEncoderChanged()
+		{
+			this.RaisePropertyChanged(() => this.SelectedEncoder);
+			this.RaisePropertyChanged(() => this.X264SettingsVisible);
+			this.RaisePropertyChanged(() => this.UseAdvancedTab);
+			this.RaisePropertyChanged(() => this.PresetName);
+			this.RaisePropertyChanged(() => this.EncoderSettingsVisible);
+			this.RaisePropertyChanged(() => this.BasicEncoderSettingsVisible);
+			this.RaisePropertyChanged(() => this.QsvSettingsVisible);
+			this.RaisePropertyChanged(() => this.QualityModulus);
+			this.RaisePropertyChanged(() => this.QualitySliderMin);
+			this.RaisePropertyChanged(() => this.QualitySliderMax);
+			this.RaisePropertyChanged(() => this.QualitySliderLeftText);
+			this.RaisePropertyChanged(() => this.QualitySliderRightText);
+			Messenger.Default.Send(new VideoCodecChangedMessage());
 		}
 
 		public bool X264SettingsVisible
@@ -907,6 +909,7 @@ namespace VidCoder.ViewModel
 			if (this.selectedEncoder.Encoder != oldEncoder)
 			{
 				RefreshEncoderSettings(applyDefaults);
+				this.NotifyEncoderChanged();
 			}
 
 			this.RaisePropertyChanged(() => this.SelectedEncoder);
@@ -916,6 +919,11 @@ namespace VidCoder.ViewModel
 		private void RefreshEncoderSettings(bool applyDefaults)
 		{
 			this.EncodingViewModel.AutomaticChange = true;
+
+			string oldPreset = this.Profile.VideoPreset;
+			string oldProfile = this.EncoderProfile;
+			List<string> oldTunes = this.Profile.VideoTunes;
+			string oldLevel = this.Level;
 
 			this.RefreshPresets();
 			this.RefreshProfileChoices();
@@ -928,6 +936,35 @@ namespace VidCoder.ViewModel
 				this.Profile.VideoProfile = null;
 				this.Profile.VideoTunes = new List<string>();
 				this.Profile.VideoLevel = null;
+			}
+			else
+			{
+				// Reset to the default value if the new encoder doesn't have the old preset/profile/tune/level choice
+				if (this.presets != null && !this.presets.Contains(oldPreset))
+				{
+					this.Profile.VideoPreset = GetDefaultPreset(this.SelectedEncoder.Encoder.ShortName);
+				}
+
+				if (this.profileChoices != null && !this.profileChoices.Any(c => c.Value == oldProfile))
+				{
+					this.Profile.VideoProfile = null;
+				}
+
+				if (this.tuneChoices != null)
+				{
+					foreach (string tune in oldTunes)
+					{
+						if (!this.tuneChoices.Any(t => t.Value == tune))
+						{
+							this.Profile.VideoTunes = new List<string>();
+						}
+					}
+				}
+
+				if (this.levelChoices != null && !this.levelChoices.Any(l => l.Value == oldLevel))
+				{
+					this.Profile.VideoLevel = null;
+				}
 			}
 
 			this.RaisePropertyChanged(() => this.PresetIndex);
@@ -1066,7 +1103,24 @@ namespace VidCoder.ViewModel
 				return;
 			}
 
+			//string oldPreset = this.Profile.VideoPreset;
+
 			this.presets = this.SelectedEncoder.Encoder.Presets;
+
+			//if (this.presets != null)
+			//{
+			//	if (this.presets.Contains(oldPreset))
+			//	{
+			//		this.Profile.VideoPreset = oldPreset;
+			//	}
+			//	else
+			//	{
+			//		this.Profile.VideoPreset = GetDefaultPreset(this.SelectedEncoder.Encoder.ShortName);
+			//	}
+
+			//	this.RaisePropertyChanged(() => this.PresetIndex);
+			//	this.RaisePropertyChanged(() => this.PresetName);
+			//}
 		}
 
 		private void RefreshProfileChoices()

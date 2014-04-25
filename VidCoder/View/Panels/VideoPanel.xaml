@@ -316,7 +316,8 @@
 						<StackPanel
 							Orientation="Horizontal"
 							Style="{StaticResource LongToolTipHolder}"
-							HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0">
+							HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0"
+							Visibility="{Binding ProfileVisible, Converter={StaticResource VisibilityConverter}}">
 							<StackPanel.ToolTip>
 								<TextBlock Text="{x:Static res:EncodingRes.ProfileToolTip}" Style="{StaticResource LongToolTip}" />
 							</StackPanel.ToolTip>
@@ -332,7 +333,8 @@
 						<StackPanel
 							Orientation="Horizontal"
 							Style="{StaticResource LongToolTipHolder}"
-							HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0">
+							HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0"
+							Visibility="{Binding LevelVisible, Converter={StaticResource VisibilityConverter}}">
 							<StackPanel.ToolTip>
 								<TextBlock Text="{x:Static res:EncodingRes.LevelToolTip}" Style="{StaticResource LongToolTip}" />
 							</StackPanel.ToolTip>
