@@ -973,16 +973,18 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.PresetVisible);
 			this.RaisePropertyChanged(() => this.PresetName);
 
-			this.RaisePropertyChanged(() => this.EncoderProfile);
+			// Make sure to notify of the collection change before the index change. So that the system knows that the new value
+			// is from the new collection.
 			this.RaisePropertyChanged(() => this.ProfileChoices);
+			this.RaisePropertyChanged(() => this.EncoderProfile);
 			this.RaisePropertyChanged(() => this.ProfileVisible);
 
-			this.RaisePropertyChanged(() => this.Tune);
 			this.RaisePropertyChanged(() => this.TuneChoices);
+			this.RaisePropertyChanged(() => this.Tune);
 			this.RaisePropertyChanged(() => this.TuneVisible);
 
-			this.RaisePropertyChanged(() => this.Level);
 			this.RaisePropertyChanged(() => this.LevelChoices);
+			this.RaisePropertyChanged(() => this.Level);
 			this.RaisePropertyChanged(() => this.LevelVisible);
 			this.RefreshLevelCompatibility();
 
