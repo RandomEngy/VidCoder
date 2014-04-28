@@ -615,4 +615,15 @@
 	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
     <value>Settings have changed</value>
   </data>
+	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>Do you want to rename the existing file and start with a new one?</value>
+  </data>
+	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>Cannot read version {0} database file. The highest version recognized by VidCoder {1} is {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>Incompatible database file</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
 </root>

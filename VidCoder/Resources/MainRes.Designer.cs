@@ -650,6 +650,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incompatible database file.
+        /// </summary>
+        public static string IncompatibleDatabaseFileTitle {
+            get {
+                return ResourceManager.GetString("IncompatibleDatabaseFileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error launching URL: {0}.
         /// </summary>
         public static string LaunchUrlError {
@@ -1269,6 +1278,24 @@ namespace VidCoder.Resources {
         public static string RemoveFromQueueToolTip {
             get {
                 return ResourceManager.GetString("RemoveFromQueueToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot read version {0} database file. The highest version recognized by VidCoder {1} is {2}.
+        /// </summary>
+        public static string RenameDatabaseFileLine1 {
+            get {
+                return ResourceManager.GetString("RenameDatabaseFileLine1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to rename the existing file and start with a new one?.
+        /// </summary>
+        public static string RenameDatabaseFileLine2 {
+            get {
+                return ResourceManager.GetString("RenameDatabaseFileLine2", resourceCulture);
             }
         }
         

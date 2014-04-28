@@ -100,6 +100,7 @@ namespace VidCoder.ViewModel
 				this,
 				message =>
 				{
+					// If the encoder changes due to a profile change, we'll want to apply default settings for the encoder.
 					this.RefreshEncoderChoices(message.ContainerName, applyDefaults: true);
 				});
 		}
@@ -915,7 +916,7 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.SelectedEncoder);
 		}
 
-		// Refreshes preset/profile/tune/level lists
+		// Refreshes preset/profile/tune/level lists.
 		private void RefreshEncoderSettings(bool applyDefaults)
 		{
 			this.EncodingViewModel.AutomaticChange = true;

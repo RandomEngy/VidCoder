@@ -8,11 +8,17 @@ using System.Text;
 namespace VidCoder.Model
 {
 	using System.Globalization;
+	using System.ServiceModel.Channels;
 	using System.Threading;
+	using System.Windows;
+	using Resources;
+	using Services;
 
 	public static class Database
 	{
-		private const string ConfigDatabaseFile = "VidCoder.sqlite";
+		private const string ConfigDatabaseFileWithoutExtension = "VidCoder";
+		private const string ConfigDatabaseFileExtension = ".sqlite";
+		private const string ConfigDatabaseFile = ConfigDatabaseFileWithoutExtension + ConfigDatabaseFileExtension;
 
 		private static SQLiteConnection connection;
 
@@ -25,12 +31,63 @@ namespace VidCoder.Model
 			mainThreadId = Thread.CurrentThread.ManagedThreadId;
 
 			int databaseVersion = DatabaseConfig.Version;
-			if (databaseVersion >= Utilities.CurrentDatabaseVersion)
+			if (databaseVersion > Utilities.CurrentDatabaseVersion)
+			{
+				string messageLine1 = string.Format(
+					CultureInfo.CurrentCulture, 
+					MainRes.RenameDatabaseFileLine1,
+					databaseVersion,
+					Utilities.CurrentVersion,
+					Utilities.CurrentDatabaseVersion);
+
+				string messageLine2 = MainRes.RenameDatabaseFileLine2;
+
+				string message = string.Format(
+					CultureInfo.CurrentCulture,
+					"{0}{1}{1}{2}",
+					messageLine1,
+					Environment.NewLine,
+					messageLine2);
+
+				var messageService = Ioc.Container.GetInstance<IMessageBoxService>();
+				messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
+				if (messageService.Show(
+					message,
+					MainRes.IncompatibleDatabaseFileTitle,
+					MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+				{
+					Connection.Close();
+
+					try
+					{
+						string newFileName = ConfigDatabaseFileWithoutExtension + "-v" + databaseVersion + ConfigDatabaseFileExtension;
+						string newFilePath = Utilities.CreateUniqueFileName(newFileName, Utilities.AppFolder, new HashSet<string>());
+
+						File.Move(DatabaseFile, newFilePath);
+						connection = null;
+						databaseVersion = DatabaseConfig.Version;
+					}
+					catch (IOException)
+					{
+						HandleCriticalFileError();
+					}
+					catch (UnauthorizedAccessException)
+					{
+						HandleCriticalFileError();
+					}
+				}
+				else
+				{
+					Environment.Exit(0);
+				}
+			}
+
+			if (databaseVersion == Utilities.CurrentDatabaseVersion)
 			{
 				return;
 			}
 
-			using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
+			using (SQLiteTransaction transaction = Connection.BeginTransaction())
 			{
 				// Update encoding profiles if we need to.
 				if (databaseVersion < Utilities.LastUpdatedEncodingProfileDatabaseVersion)
@@ -45,7 +102,7 @@ namespace VidCoder.Model
 
 					var presetXmlList = presets.Select(Presets.SerializePreset).ToList();
 
-					Presets.SavePresets(presetXmlList, Database.Connection);
+					Presets.SavePresets(presetXmlList, Connection);
 
 					// Upgrade encoding profiles on old queue items.
 					string jobsXml = Config.EncodeJobs2;
@@ -75,6 +132,14 @@ namespace VidCoder.Model
 				SetDatabaseVersionToLatest();
 				transaction.Commit();
 			}
+		}
+
+		private static void HandleCriticalFileError()
+		{
+			var messageService = Ioc.Container.GetInstance<IMessageBoxService>();
+
+			messageService.Show(CommonRes.FileFailureErrorMessage, CommonRes.FileFailureErrorTitle, MessageBoxButton.OK);
+			Environment.Exit(1);
 		}
 
 		private static void SetDatabaseVersionToLatest()

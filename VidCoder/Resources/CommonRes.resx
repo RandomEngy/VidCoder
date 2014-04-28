@@ -243,7 +243,13 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="Success" xml:space="preserve">
     <value>Success</value>
   </data>
-	<data name="ConfirmDialogTitle" xml:space="preserve">
+  <data name="ConfirmDialogTitle" xml:space="preserve">
     <value>Confirm</value>
+  </data>
+  <data name="FileFailureErrorMessage" xml:space="preserve">
+    <value>Could not complete the file operation.</value>
+  </data>
+  <data name="FileFailureErrorTitle" xml:space="preserve">
+    <value>File operation error</value>
   </data>
 </root>

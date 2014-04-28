@@ -397,7 +397,6 @@ namespace VidCoder
 		/// <returns>A file name that does not exist and does not match any of the given paths.</returns>
 		public static string CreateUniqueFileName(string baseName, string outputDirectory, HashSet<string> excludedPaths)
 		{
-			//string fileName = Path.GetFileName(baseName);
 			string candidateFilePath = Path.Combine(outputDirectory, baseName);
 			if (!File.Exists(candidateFilePath) && !IsExcluded(candidateFilePath, excludedPaths))
 			{
