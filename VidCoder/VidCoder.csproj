@@ -790,6 +790,7 @@
     <EmbeddedResource Include="Resources\ChapterMarkersRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ChapterMarkersRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ChapterMarkersRes.zh.resx" />
     <EmbeddedResource Include="Resources\CommonRes.de.resx" />

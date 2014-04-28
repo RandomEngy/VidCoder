@@ -116,13 +116,13 @@ namespace VidCoder.ViewModel
 
 								foreach (string line in lines)
 								{
-									string[] parts = line.Split(',');
-									if (parts.Length == 2)
+									int commaIndex = line.IndexOf(',');
+									if (commaIndex > 0)
 									{
 										int number;
-										if (int.TryParse(parts[0], out number) && !chapterMap.ContainsKey(number))
+										if (int.TryParse(line.Substring(0, commaIndex), out number) && !chapterMap.ContainsKey(number))
 										{
-											chapterMap.Add(number, parts[1]);
+											chapterMap.Add(number, line.Substring(commaIndex + 1));
 										}
 									}
 								}
