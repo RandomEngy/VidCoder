@@ -23,6 +23,7 @@ using VidCoder.ViewModel.Components;
 namespace VidCoder.ViewModel
 {
 	using System.Data.SQLite;
+	using System.Diagnostics;
 	using System.Runtime.InteropServices;
 	using System.Runtime.Remoting.Messaging;
 	using Automation;
@@ -91,6 +92,8 @@ namespace VidCoder.ViewModel
 
 		public MainViewModel()
 		{
+			long affinity = (long)Process.GetCurrentProcess().ProcessorAffinity;
+
 			Ioc.Container.Register(() => this);
 
 			this.outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
