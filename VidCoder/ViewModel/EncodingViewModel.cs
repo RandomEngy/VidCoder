@@ -24,6 +24,9 @@ namespace VidCoder.ViewModel
 
 	public class EncodingViewModel : OkCancelDialogViewModel
 	{
+		public const int VideoTabIndex = 2;
+		public const int AdvancedVideoTabIndex = 3;
+
 		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
 		private OutputPathViewModel outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
 		private PresetsViewModel presetsViewModel = Ioc.Container.GetInstance<PresetsViewModel>();
@@ -118,6 +121,11 @@ namespace VidCoder.ViewModel
 				this.originalPreset = value;
 
 				this.IsBuiltIn = value.IsBuiltIn;
+
+				if (!value.EncodingProfile.UseAdvancedTab && this.SelectedTabIndex == AdvancedVideoTabIndex)
+				{
+					this.SelectedTabIndex = VideoTabIndex;
+				}
 
 				this.VideoPanelViewModel.NotifyProfileChanged();
 				this.AudioPanelViewModel.NotifyProfileChanged();
@@ -480,7 +488,6 @@ namespace VidCoder.ViewModel
 								this.presetsViewModel.RevertPreset(true);
 							}
 
-							//this.IsModified = false;
 							this.EditingPreset = this.originalPreset;
 						}
 						else

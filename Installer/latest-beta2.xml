@@ -1,12 +1,12 @@
 <UpdateInfo>
 	<Release>
-		<Latest>1.5.21</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.5.21-Beta-x86.exe</DownloadLocation>
-		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/120959</ChangelogLocation>
+		<Latest>1.5.22</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.5.22-Beta-x86.exe</DownloadLocation>
+		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/121856</ChangelogLocation>
 	</Release>
 	<Release-x64>
-		<Latest>1.5.21</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.5.21-Beta-x64.exe</DownloadLocation>
-		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/120959</ChangelogLocation>
+		<Latest>1.5.22</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.5.22-Beta-x64.exe</DownloadLocation>
+		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/121856</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>

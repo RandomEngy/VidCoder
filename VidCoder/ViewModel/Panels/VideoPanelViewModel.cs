@@ -637,7 +637,7 @@ namespace VidCoder.ViewModel
 						width,
 						height);
 
-					this.EncodingViewModel.SelectedTabIndex = 3;
+					this.EncodingViewModel.SelectedTabIndex = EncodingViewModel.AdvancedVideoTabIndex;
 				}
 				else
 				{
@@ -921,72 +921,99 @@ namespace VidCoder.ViewModel
 		{
 			this.EncodingViewModel.AutomaticChange = true;
 
-			string oldPreset = this.Profile.VideoPreset;
-			string oldProfile = this.EncoderProfile;
-			List<string> oldTunes = this.Profile.VideoTunes;
-			string oldLevel = this.Level;
+			// Find the values we want to set to after refreshing the lists
+			string newPreset = this.Profile.VideoPreset;
+			string newProfile = this.EncoderProfile;
+			List<string> newTunes = this.Profile.VideoTunes;
+			string newLevel = this.Level;
+
+			if (applyDefaults)
+			{
+				newPreset = GetDefaultPreset(this.SelectedEncoder.Encoder.ShortName);
+				newProfile = null;
+				newTunes = new List<string>();
+				newLevel = null;
+			}
 
 			this.RefreshPresets();
 			this.RefreshProfileChoices();
 			this.RefreshTuneChoices();
 			this.RefreshLevelChoices();
 
-			if (applyDefaults)
+			this.RaisePropertyChanged(() => this.PresetMaxIndex);
+			this.RaisePropertyChanged(() => this.PresetVisible);
+
+			// Make sure to notify of the collection change before the index change. So that the system knows that the new value
+			// is from the new collection.
+			this.RaisePropertyChanged(() => this.ProfileChoices);
+			this.RaisePropertyChanged(() => this.ProfileVisible);
+
+			this.RaisePropertyChanged(() => this.TuneChoices);
+			this.RaisePropertyChanged(() => this.TuneVisible);
+
+			this.RaisePropertyChanged(() => this.LevelChoices);
+			this.RaisePropertyChanged(() => this.LevelVisible);
+			this.RefreshLevelCompatibility();
+
+			// Apply the selected values, falling back to default if they no longer exist.
+			if (this.presets != null)
 			{
-				this.Profile.VideoPreset = GetDefaultPreset(this.SelectedEncoder.Encoder.ShortName);
-				this.Profile.VideoProfile = null;
-				this.Profile.VideoTunes = new List<string>();
-				this.Profile.VideoLevel = null;
-			}
-			else
-			{
-				// Reset to the default value if the new encoder doesn't have the old preset/profile/tune/level choice
-				if (this.presets != null && !this.presets.Contains(oldPreset))
+				if (this.presets.Contains(newPreset))
+				{
+					this.Profile.VideoPreset = newPreset;
+				}
+				else
 				{
 					this.Profile.VideoPreset = GetDefaultPreset(this.SelectedEncoder.Encoder.ShortName);
 				}
+			}
 
-				if (this.profileChoices != null && !this.profileChoices.Any(c => c.Value == oldProfile))
+			if (this.profileChoices != null)
+			{
+				if (this.profileChoices.Any(c => c.Value == newProfile))
+				{
+					this.Profile.VideoProfile = newProfile;
+				}
+				else
 				{
 					this.Profile.VideoProfile = null;
 				}
+			}
 
-				if (this.tuneChoices != null)
+			if (this.tuneChoices != null)
+			{
+				this.Profile.VideoTunes = newTunes;
+
+				foreach (string tune in newTunes)
 				{
-					foreach (string tune in oldTunes)
+					if (!this.tuneChoices.Any(t => t.Value == tune))
 					{
-						if (!this.tuneChoices.Any(t => t.Value == tune))
-						{
-							this.Profile.VideoTunes = new List<string>();
-						}
+						this.Profile.VideoTunes = new List<string>();
 					}
 				}
+			}
 
-				if (this.levelChoices != null && !this.levelChoices.Any(l => l.Value == oldLevel))
+			if (this.levelChoices != null)
+			{
+				if (this.levelChoices.Any(l => l.Value == newLevel))
+				{
+					this.Profile.VideoLevel = newLevel;
+				}
+				else
 				{
 					this.Profile.VideoLevel = null;
 				}
 			}
 
+			// Notify of the new values
 			this.RaisePropertyChanged(() => this.PresetIndex);
-			this.RaisePropertyChanged(() => this.PresetMaxIndex);
-			this.RaisePropertyChanged(() => this.PresetVisible);
 			this.RaisePropertyChanged(() => this.PresetName);
 
-			// Make sure to notify of the collection change before the index change. So that the system knows that the new value
-			// is from the new collection.
-			this.RaisePropertyChanged(() => this.ProfileChoices);
 			this.RaisePropertyChanged(() => this.EncoderProfile);
-			this.RaisePropertyChanged(() => this.ProfileVisible);
 
-			this.RaisePropertyChanged(() => this.TuneChoices);
 			this.RaisePropertyChanged(() => this.Tune);
-			this.RaisePropertyChanged(() => this.TuneVisible);
 
-			this.RaisePropertyChanged(() => this.LevelChoices);
 			this.RaisePropertyChanged(() => this.Level);
-			this.RaisePropertyChanged(() => this.LevelVisible);
-			this.RefreshLevelCompatibility();
 
 			this.EncodingViewModel.AutomaticChange = false;
 		}
