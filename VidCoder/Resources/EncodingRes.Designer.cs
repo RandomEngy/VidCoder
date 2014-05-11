@@ -1458,6 +1458,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Passthrough if possible.
+        /// </summary>
+        public static string PassthroughIfPossibleCheckBox {
+            get {
+                return ResourceManager.GetString("PassthroughIfPossibleCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the input track matches the codec it will be passed through instead of encoded..
+        /// </summary>
+        public static string PassthroughIfPossibleToolTip {
+            get {
+                return ResourceManager.GetString("PassthroughIfPossibleToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Specifies which input codecs the passthrough will apply to..
         /// </summary>
         public static string PassthroughScopeToolTip {

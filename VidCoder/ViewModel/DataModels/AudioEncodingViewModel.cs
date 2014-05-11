@@ -131,6 +131,7 @@ namespace VidCoder.ViewModel
 
 			this.gain = audioEncoding.Gain;
 			this.drc = audioEncoding.Drc;
+			this.passthroughIfPossible = audioEncoding.PassthroughIfPossible;
 			this.name = audioEncoding.Name;
 
 			Messenger.Default.Register<SelectedTitleChangedMessage>(
@@ -208,6 +209,7 @@ namespace VidCoder.ViewModel
 
 					newAudioEncoding.Gain = this.Gain;
 					newAudioEncoding.Drc = this.Drc;
+					newAudioEncoding.PassthroughIfPossible = this.PassthroughIfPossible;
 					newAudioEncoding.Name = this.Name;
 				}
 
@@ -758,6 +760,23 @@ namespace VidCoder.ViewModel
 				}
 
 				return enabledBrush;
+			}
+		}
+
+		private bool passthroughIfPossible;
+		public bool PassthroughIfPossible
+		{
+			get
+			{
+				return this.passthroughIfPossible;
+			}
+
+			set
+			{
+				this.passthroughIfPossible = value;
+				this.RaisePropertyChanged(() => this.PassthroughIfPossible);
+				this.audioPanelVM.NotifyAudioEncodingChanged();
+				this.MarkModified();
 			}
 		}
 

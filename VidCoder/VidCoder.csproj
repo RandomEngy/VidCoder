@@ -295,6 +295,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Panels\AudioEncodingPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Panels\AudioPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -594,6 +598,9 @@
     </Compile>
     <Compile Include="View\FileConflictDialog.xaml.cs">
       <DependentUpon>FileConflictDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Panels\AudioEncodingPanel.xaml.cs">
+      <DependentUpon>AudioEncodingPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RestoreWindowCommand.cs" />
     <Compile Include="Utilities\SourceHistory.cs" />

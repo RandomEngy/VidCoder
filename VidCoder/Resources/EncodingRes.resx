@@ -962,22 +962,28 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
   <data name="FlipVerticalCheckBox" xml:space="preserve">
     <value>Flip vertically</value>
   </data>
-	<data name="Rotation_Clockwise90" xml:space="preserve">
+  <data name="Rotation_Clockwise90" xml:space="preserve">
     <value>Clockwise 90°</value>
   </data>
-	<data name="Rotation_Counterclockwise90" xml:space="preserve">
+  <data name="Rotation_Counterclockwise90" xml:space="preserve">
     <value>Counterclockwise 90°</value>
   </data>
-	<data name="Rotation_180" xml:space="preserve">
+  <data name="Rotation_180" xml:space="preserve">
     <value>180°</value>
   </data>
-	<data name="RotationToolTip" xml:space="preserve">
+  <data name="RotationToolTip" xml:space="preserve">
     <value>Rotate the picture. This is applied after all sizing and cropping.</value>
   </data>
-	<data name="FlipHorizontalToolTip" xml:space="preserve">
+  <data name="FlipHorizontalToolTip" xml:space="preserve">
     <value>Flip the picture horizontally. This is applied before any rotation.</value>
   </data>
-	<data name="FlipVerticalToolTip" xml:space="preserve">
+  <data name="FlipVerticalToolTip" xml:space="preserve">
     <value>Flip the picture vertically. This is applied before any rotation.</value>
+  </data>
+  <data name="PassthroughIfPossibleCheckBox" xml:space="preserve">
+    <value>Passthrough if possible</value>
+  </data>
+  <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
+    <value>If the input track matches the codec it will be passed through instead of encoded.</value>
   </data>
 </root>
