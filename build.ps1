@@ -183,6 +183,10 @@ CopyLanguage "pt"
 CopyLanguage "fr"
 CopyLanguage "de"
 CopyLanguage "zh"
+CopyLanguage "zh-Hant"
+CopyLanguage "it"
+CopyLanguage "cs"
+CopyLanguage "ja"
 
 # fonts folder for subtitles
 copy ".\Lib\fonts" ".\Installer\Files\x86" -Recurse
