@@ -240,4 +240,16 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="QueueColumnNamePreset" xml:space="preserve">
     <value>Séma</value>
   </data>
+  <data name="Success" xml:space="preserve">
+    <value>Siker</value>
+  </data>
+  <data name="ConfirmDialogTitle" xml:space="preserve">
+    <value>Megerősítés</value>
+  </data>
+  <data name="FileFailureErrorMessage" xml:space="preserve">
+    <value>A fájlművelet nem fejeződött be.</value>
+  </data>
+  <data name="FileFailureErrorTitle" xml:space="preserve">
+    <value>Fájlműveleti hiba</value>
+  </data>
 </root>

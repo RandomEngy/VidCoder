@@ -105,18 +105,24 @@ namespace VidCoder.ViewModel
 				}
 			}
 
+			// List of language codes and names: http://msdn.microsoft.com/en-us/goglobal/bb896001.aspx
+
 			this.languageChoices =
 				new List<InterfaceLanguage>
 					{
 						new InterfaceLanguage { CultureCode = string.Empty, Display = OptionsRes.UseOSLanguage },
 						new InterfaceLanguage { CultureCode = "en-US", Display = "English" },
-						new InterfaceLanguage { CultureCode = "es-ES", Display = "Español / Spanish"},
+						new InterfaceLanguage { CultureCode = "cs-CZ", Display = "čeština / Czech" },
 						new InterfaceLanguage { CultureCode = "de-DE", Display = "Deutsch / German" },
-						new InterfaceLanguage { CultureCode = "fr-FR", Display = "Français / French"},
-						new InterfaceLanguage { CultureCode = "zh-Hant", Display = "中文(繁體) / Chinese (Traditional)"},
-						//new InterfaceLanguage { CultureCode = "pt-PT", Display = "Português (Portuguese)"},
-						new InterfaceLanguage { CultureCode = "hu-HU", Display = "Magyar / Hungarian"},
-						new InterfaceLanguage { CultureCode = "eu-ES", Display = "Euskara / Basque"},
+						new InterfaceLanguage { CultureCode = "es-ES", Display = "Español / Spanish" },
+						new InterfaceLanguage { CultureCode = "eu-ES", Display = "Euskara / Basque" },
+						new InterfaceLanguage { CultureCode = "fr-FR", Display = "Français / French" },
+						new InterfaceLanguage { CultureCode = "it-IT", Display = "italiano / Italian" },
+						new InterfaceLanguage { CultureCode = "hu-HU", Display = "Magyar / Hungarian" },
+						new InterfaceLanguage { CultureCode = "pt-PT", Display = "Português (Portuguese)" },
+						new InterfaceLanguage { CultureCode = "zh-Hans", Display = "中文(简体) / Chinese (Simplified)" },
+						new InterfaceLanguage { CultureCode = "zh-Hant", Display = "中文(繁體) / Chinese (Traditional)" },
+						new InterfaceLanguage { CultureCode =  "ja-JP", Display = "日本語 / Japanese" },
 					};
 
 			this.priorityChoices = new List<ComboChoice>

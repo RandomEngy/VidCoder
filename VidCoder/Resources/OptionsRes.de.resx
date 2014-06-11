@@ -175,7 +175,7 @@
     <value>Bei der Encodierung einer Datei:</value>
   </data>
   <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Nachfragen, ob die sie überschrieben werden soll</value>
+    <value>Nachfragen, ob sie überschrieben werden soll</value>
   </data>
   <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
     <value>Datei ohne Nachfrage überschreiben</value>
@@ -202,7 +202,7 @@
     <value>Sprache:</value>
   </data>
   <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Alle Tonspuren übernehmen</value>
+    <value>Alle Spuren übernehmen</value>
   </data>
   <data name="AutomaticSubtitleSelection" xml:space="preserve">
     <value>Automatische Untertitel-Auswahl</value>
@@ -235,7 +235,7 @@
     <value>LibDVDNav einschalten (Erfordert Neustart des Programms)</value>
   </data>
   <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Scans nach Fertigstellung behalten (ermöglicht die Bearbeitung fertiger Dateien)</value>
+    <value>Scans nach Fertigstellung behalten (ermöglicht es abgeschlossene Aufträge zu bearbeiten)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Ürsprüngliche Dateien löschen, nachdem die erfolgreich abgeschlossen Aufträge aus der Liste entfernt wurden (mit Bestätigung)</value>
@@ -262,7 +262,7 @@
     <value>Erweitert</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Sie erhalten nun Beta-Updates. Um zu den stabilen Versionen zurückzukehren, müssen Sie das Programm deinstallieren, die Voreinstellungen (Presets) mit einem Klick auf "Ja" entfernen und dann eine stabile Version neu installieren.</value>
+    <value>Sie verwenden die Betaversion. Diese kann neben der stabilen Version her laufen.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Am Beta-Projekt teilnehmen für häufigere Updates</value>
@@ -286,7 +286,7 @@
     <value>Die neue Sprache wird erst nach einem Neustart von VidCoder wirksam.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
-    <value>Sprache des Betriebssystems verwenden</value>
+    <value>Systemsprache verwenden</value>
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Updates</value>
@@ -384,16 +384,38 @@
   <data name="Priority_Idle" xml:space="preserve">
     <value>Niedrig</value>
   </data>
-	<data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>Kopiere das Encodierungsprotokoll in denselben Ordner wie das encodierte Video</value>
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+    <value>Encodierungsprotokoll in den Ordner des encodierten Video kopieren</value>
   </data>
-	<data name="OpenLogFolderButton" xml:space="preserve">
+  <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Öffne Protokollordner</value>
   </data>
-	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
     <value>Encodierung beim Neustart automatisch fortsetzen</value>
   </data>
-	<data name="UseWorkerProcessCheckBox" xml:space="preserve">
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Arbeiter-Prozess zum Encodieren verwenden</value>
+  </data>
+  <data name="VideoSection" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="DxvaDecodingCheckBox" xml:space="preserve">
+    <value>Hardware beschleunigte Decodierung durch DXVA aktivieren</value>
+  </data>
+  <data name="DxvaDecodingToolTip" xml:space="preserve">
+    <value>Diese Option eignet sich nur für langsamere Systeme. Hardwaredecodierer sind derzeit nur für die Wiedergabe konzipiert und nicht für die Reencodierung von Videos, sodass sie auf schnelleren Systemen wahrscheinlich zum Flaschenhals werden.</value>
+  </data>
+  <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+    <value>Erstellungs- und Änderungsdatum beim Konvertieren von Dateien erhalten</value>
+  </data>
+  <data name="DefaultCheckBox" xml:space="preserve">
+    <value>Standard</value>
+    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Ordnerstruktur bei Stapelencodierungen erhalten</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Wenn Sie einen mit Dateien gefüllten Ordner encodieren, werden die encodierten Versionen in Unterordner gepackt, um der Struktur des Quellordners zu entsprechen.</value>
   </data>
 </root>

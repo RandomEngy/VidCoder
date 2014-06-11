@@ -133,13 +133,13 @@
     <value>Minimizar para a bandeja do sistema</value>
   </data>
   <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
-    <value>Reproduzir som quando completar a fila</value>
+    <value>Reproduzir som quando completar as tarefas</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
     <value>Leitor de DVD preferido:</value>
   </data>
   <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
-    <value>Escolha o leitor de DVD que deseja usar para as fontes.</value>
+    <value>Escolha o leitor de DVD que deseja utilizar.</value>
   </data>
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
     <value>Actualizações automáticas</value>
@@ -181,10 +181,10 @@
     <value>Substituir o ficheiro sem avisar</value>
   </data>
   <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Alterar automaticamente para um nome diferente</value>
+    <value>Renomear automaticamente</value>
   </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
-    <value>Codificar lote de ficheiros:</value>
+    <value>Codificar grupo de ficheiros:</value>
   </data>
   <data name="OverwriteRadioButton" xml:space="preserve">
     <value>Substituir</value>
@@ -217,7 +217,7 @@
     <value>Apenas se diferente do áudio</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
-    <value>Pausa automaticamente quando um destes processos é iniciado:</value>
+    <value>Pausa automática quando um destes processos é iniciado:</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
     <value>Adicionar...</value>
@@ -261,9 +261,7 @@
   <data name="AdvancedTab" xml:space="preserve">
     <value>Avançadas</value>
   </data>
-  <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Está a usar uma versão Beta. Para voltar para uma versão estável, desinstale, clique em "Sim" para remover as as suas definições e, em seguida, reinstale uma versão estável.</value>
-  </data>
+  
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Junte-se à lista de testadores Beta para obter atualizações mais frequentes</value>
   </data>
@@ -274,19 +272,19 @@
     <value>Transferindo actualização {0}:</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
-    <value>VidCoder está actualizado.</value>
+    <value>O VidCoder está actualizado.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
     <value>Escolha a pasta de destino por defeito para os ficheiros de vídeo codificados.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
-    <value>Idioma do interface:</value>
+    <value>Idioma do programa:</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
     <value>O novo idioma só terá efeito depois de reiniciar o VidCoder.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
-    <value>Usar o idioma do sistema operativo</value>
+    <value>Utilizar o idioma do sistema operativo</value>
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Actualizações</value>
@@ -298,13 +296,13 @@
     <value>Erro ao verificar actualizações.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>Escolha o ficheiro .wav que deseja usar para som de conclusão.</value>
+    <value>Escolha o ficheiro .wav que deseja usar como som de conclusão.</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
     <value>Versão actual: {0}</value>
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
-    <value>Cuidado: esta versão é mais susceptível a ter erros e falhas.</value>
+    <value>Cuidado: Estas versões são susceptíveis a ter mais erros e falhas.</value>
   </data>
   <data name="LanguagesSection" xml:space="preserve">
     <value>Idiomas</value>
@@ -328,13 +326,13 @@
     <value>Opções avançadas</value>
   </data>
   <data name="ScanningSection" xml:space="preserve">
-    <value>Analizando</value>
+    <value>Ao analisar </value>
   </data>
   <data name="LoggingSection" xml:space="preserve">
     <value>Relatórios</value>
   </data>
   <data name="DvdReadingSection" xml:space="preserve">
-    <value>Lendo o DVD</value>
+    <value>Ao ler o DVD</value>
   </data>
   <data name="UpdatesSection" xml:space="preserve">
     <value>Actualizações</value>
@@ -358,7 +356,7 @@
     <value>Ficheiros de vídeo:</value>
   </data>
   <data name="CustomVideoPlayerToolTip" xml:space="preserve">
-    <value>Especifique a pasta do leitor de vídeo que deseja usar para os ficheiros.</value>
+    <value>Especifique a localização do leitor de vídeo que deseja usar.</value>
   </data>
   <data name="VideoPlayerFilePickTitle" xml:space="preserve">
     <value>Escolha o leitor a usar para ficheiros de vídeo.</value>
@@ -384,16 +382,23 @@
   <data name="Priority_Idle" xml:space="preserve">
     <value>Baixa</value>
   </data>
-	<data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>Copie o relatório de codificação para o mesmo diretório como o vídeo codificado</value>
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+    <value>Copie o relatório de codificação para o mesmo diretório do vídeo codificado</value>
   </data>
-	<data name="OpenLogFolderButton" xml:space="preserve">
+  <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Abrir pasta de relatórios</value>
   </data>
-	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
     <value>Retomar automáticamente a codificação ao reiniciar</value>
   </data>
-	<data name="UseWorkerProcessCheckBox" xml:space="preserve">
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Utilizar o processo de trabalho para codificar</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
 </root>

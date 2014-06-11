@@ -261,9 +261,7 @@
   <data name="AdvancedTab" xml:space="preserve">
     <value>Avancé</value>
   </data>
-  <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Vous utilisez une version bêta. Pour revenir à une version stable, désinstaller, cliquez sur « Oui » pour supprimer les paramètres prédéfinis, puis réinstallez une version stable.</value>
-  </data>
+  
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Rejoindre la liste des utilisateurs de version bêta pour obtenir les mises à jour plus fréquentes</value>
   </data>
@@ -384,16 +382,23 @@
   <data name="Priority_Idle" xml:space="preserve">
     <value>Faible</value>
   </data>
-	<data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
     <value>Copiez le journal d'encodage dans le même répertoire que la vidéo encodée</value>
   </data>
-	<data name="OpenLogFolderButton" xml:space="preserve">
+  <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Ouvrir le Dossier du Journal</value>
   </data>
-	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
     <value>Reprendre automatiquement l'encodage sur redémarrage</value>
   </data>
-	<data name="UseWorkerProcessCheckBox" xml:space="preserve">
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Utiliser des processus de travail pour encoder</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
 </root>

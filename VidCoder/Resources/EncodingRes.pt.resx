@@ -126,6 +126,30 @@
   <data name="Revert" xml:space="preserve">
     <value>Reverter</value>
   </data>
+  <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
+    <value>O codec x264 tem uma variedade de algoritmos que permite decidir quando utiliza "B-frames" e quando não utiliza.  No modo RÁPIDO leva mais ou menos o mesmo tempo, não importa quantos "B-frames" são especificados.  No modo ÓPTIMO fica mais lento, já que o número máximo de "B-frames" aumenta, mas toma decisões muito mais precisas, especialmente quando utilizado com "Pyramidal B-frames".</value>
+  </data>
+  <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
+    <value>O codec H.264 permite uma previsão em dois diferentes modos nos B-frames, "Spatial" e "Temporal".  Stapial, o padrão, quase sempre é melhor, mas o Temporal por vezes também é útil.  x264 pode, à custa de uma pequena perca de velocidade (e consequentemente de um pequeno ganho de compressão), seleccionar o que  é melhor para cada frame, em particular.</value>
+  </data>
+  <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
+    <value>Adaptive Quantization Strenght controla a forma como o codificador distribui "bits" nos frames. Valores mais altos levam mais bits para  longe das arestas e das superfícies complexas para melhorar as áreas com detalhes mais finos.</value>
+  </data>
+  <data name="Advanced_AnalysisToolTip" xml:space="preserve">
+    <value>Escolhe de entre uma variedade de opções, para fazer a sua: esta opção escolhe quais são as opções.  Menos partições a verificar significa codificação mais rápida, à custa de decisões piores, desde que a melhor opção esteja desactivada.  Por defeito: Maioria (Padrão)</value>
+  </data>
+  <data name="Advanced_BFramesToolTip" xml:space="preserve">
+    <value>Os valores normais são ~ 2-5.   Isso especifica o número máximo de "B-Frames" sequenciais que o codificador pode usar.   Números grandes geralmente não ajudam significativamente, a menos que os "Adaptive B-Frames" estejam definidos como Óptimo.   Animações à base de celuloide (caricaturas) e "Pyramidal B-Frames" também aumentam significativamente a utilidade dos valores maiores.  O perfil "Base" (H.264) , necessário para iPods e dispositivos similares, requerem que os B-frames sejam 0 (Desligado).</value>
+  </data>
+  <data name="Advanced_CabacToolTip" xml:space="preserve">
+    <value>Depois da codificação terminar, ainda existem dados que precisam ser comprimidos sem percas, similar aos ZIP ou RAR. O H.264 oferece duas opções para fazer isso: CAVLC e CABAC.  CABAC descodifica muito mais lentamente mas comprime significativamente melhor (10-30%), especialmente em bitrates mais baixos. Se está a tentar minimizar os requisitos de CPU para a reprodução de vídeo, desactive esta opção. O perfil "Base" (H.264) , necessário para iPods e dispositivos similares, requerem que o CABAC seja desactivado.</value>
+  </data>
+  <data name="Advanced_DeblockingToolTip" xml:space="preserve">
+    <value>O codec H.264 tem um filtro Deblocking inserido, que suaviza  artefactos após a descodificação de cada frame.  Isto não só melhora a qualidade visual, como também ajuda significativamente a compactação.  O filtro Deblocking exige muito processamento do CPU, logo, se está a tentar reduzir os requisitos do CPU para a reprodução de vídeo, desactive-o.  O filtro Deblocking tem dois parâmetros ajustáveis, "strenght" (força) e "threshold" (limiar).    Valores mais baixos significam menos desbloqueio, valores maiores  mais desbloqueio. O padrão é "0"  para ambos os parâmetros.</value>
+  </data>
+  <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
+    <value>A transformação de 8x8 é o recurso mais útil do x264 em termos de velocidade-por-compressão.   Melhora a compressão pelo menos 5% a  custo de uma perca de velocidade muito pequena, e pode fornecer um beneficio invulgarmente elevado de qualidade visual em relação ao seu ganho de compressão.   No entanto, exige que o "Perfil H.264" esteja definido como "Alto", o que muitos dispositivos poderão não suportar.</value>
+  </data>
   
   
   
@@ -136,26 +160,37 @@
   
   
   
+  <data name="Audio_DrcToolTip" xml:space="preserve">
+    <value>Dynamic Range Compression (Rácio de Compressão Dinâmica). Os valores válidos são 0-4.  Para pistas de áudio que possuem um amplo alcance dinâmico (sequências muito altas e muito macias). O DRC permite "comprimir" o intervalo fazendo as secções macias mais altas e as secções suaves mais fortes.</value>
+  </data>
+  <data name="Audio_GainToolTip" xml:space="preserve">
+    <value>Amplifica ou atenua o áudio antes de codificação. Os valores válidos são entre -20 a + 20 dB.</value>
+  </data>
+  <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
+    <value>Incluir capítulos da origem no vídeo codificado.</value>
+  </data>
+  <data name="IPod5GSupportToolTip" xml:space="preserve">
+    <value>Insere um marcador no ficheiro, que os iPods mais antigos requerem, antes de permitirem a sincronização de vídeo H.264.</value>
+  </data>
+  <data name="LargeFileSizeToolTip" xml:space="preserve">
+    <value>Permite ficheiros com mais de 4GB. Quando activado, utiliza números de 64 bits na codificação. Alguns dispositivos como o iPod e a PS3 são incompatíveis com esta opção.</value>
+  </data>
+  <data name="PixelAspectRatioToolTip" xml:space="preserve">
+    <value>Especifique manualmente as proporções do pixel - Aspect Ratio.</value>
+  </data>
+  <data name="Video_QualityTargetToolTip" xml:space="preserve">
+    <value>Defina a qualidade desejada. A escala utilizada por cada codificador de vídeo é diferente.</value>
+  </data>
+  <data name="WebOptimizedToolTip" xml:space="preserve">
+    <value>Ajuste o ficheiro para que seja reproduzido melhor em download progressivo. (Por ex.: youtube)</value>
+  </data>
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="X264TuneToolTip" xml:space="preserve">
+    <value>Ajuste opções adicionais para optimizar o seu conteúdo de entrada. Se especificar um ajuste, as alterações serão aplicadas depois da predefinição, mas antes de todos os outros parâmetros.  Por defeito: Nenhum</value>
+  </data>
+  <data name="DisplayWidthToolTip" xml:space="preserve">
+    <value>A largura de vídeo desejada para exibição. Outros parâmetros tais como a "Aspect Ratio" do Pixel serão alterados para alcançar este objectivo.</value>
+  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Contentor:</value>
   </data>
@@ -169,10 +204,10 @@
     <value>Otimizado para Web</value>
   </data>
   <data name="Ipod5GSupportCheckBox" xml:space="preserve">
-    <value>Suporte para iPod 5g</value>
+    <value>Suporte para iPod 5G</value>
   </data>
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
-    <value>Incluir marcadores de capítulos</value>
+    <value>Incluir capítulos</value>
   </data>
   <data name="TabHeader_Picture" xml:space="preserve">
     <value>Imagem</value>
@@ -186,9 +221,7 @@
   <data name="TabHeader_Audio" xml:space="preserve">
     <value>Áudio</value>
   </data>
-  <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>Avançadas</value>
-  </data>
+  
   <data name="Rename" xml:space="preserve">
     <value>Renomear</value>
   </data>
@@ -231,15 +264,18 @@
   <data name="AnamorphicLabel" xml:space="preserve">
     <value>Anamórfico:</value>
   </data>
-  
-  
-  <data name="PixelAspectRatioRadioButton" xml:space="preserve">
-    <value>Proporções do pixel - Aspect Ratio:</value>
+  <data name="ModulusLabel" xml:space="preserve">
+    <value>Modulus:</value>
+  </data>
+  <data name="DisplayWidthRadioButton" xml:space="preserve">
+    <value>Largura da exibição:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Saída</value>
   </data>
-  
+  <data name="CroppingLabel" xml:space="preserve">
+    <value>Corte</value>
+  </data>
   <data name="Top" xml:space="preserve">
     <value>Cimo</value>
   </data>
@@ -252,11 +288,21 @@
   <data name="Right" xml:space="preserve">
     <value>Direita</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="DetelecineLabel" xml:space="preserve">
+    <value>Detelecine:</value>
+  </data>
+  <data name="DecombLabel" xml:space="preserve">
+    <value>Decomb:</value>
+  </data>
+  <data name="DeinterlaceLabel" xml:space="preserve">
+    <value>Deinterlace:</value>
+  </data>
+  <data name="DenoiseLabel" xml:space="preserve">
+    <value>Denoise:</value>
+  </data>
+  <data name="DeblockLabel" xml:space="preserve">
+    <value>Deblock:</value>
+  </data>
   <data name="GrayscaleCheckBox" xml:space="preserve">
     <value>Codificação de tons de cinza</value>
   </data>
@@ -273,7 +319,7 @@
     <value>Taxa de frames (FPS):</value>
   </data>
   <data name="ConstantFramerateRadioButton" xml:space="preserve">
-    <value>Framerate constante</value>
+    <value>Taxa de frames constante</value>
   </data>
   <data name="Quality" xml:space="preserve">
     <value>Qualidade</value>
@@ -300,20 +346,14 @@
     <value>Perfil:</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Predefinição:</value>
+    <value>Pré-ajuste:</value>
   </data>
   <data name="TuneLabel" xml:space="preserve">
     <value>Ajuste:</value>
   </data>
-  <data name="Profile_Baseline" xml:space="preserve">
-    <value>Baixo</value>
-  </data>
-  <data name="Profile_Main" xml:space="preserve">
-    <value>Base</value>
-  </data>
-  <data name="Profile_High" xml:space="preserve">
-    <value>Alto</value>
-  </data>
+  
+  
+  
   <data name="Preset_UltraFast" xml:space="preserve">
     <value>Ultra rápido</value>
   </data>
@@ -344,31 +384,35 @@
   <data name="Preset_Placebo" xml:space="preserve">
     <value>Placebo</value>
   </data>
-  <data name="Tune_Film" xml:space="preserve">
+  <data name="Tune_film" xml:space="preserve">
     <value>Filme</value>
   </data>
-  <data name="Tune_Animation" xml:space="preserve">
+  <data name="Tune_animation" xml:space="preserve">
     <value>Animação</value>
   </data>
-  <data name="Tune_Grain" xml:space="preserve">
+  <data name="Tune_grain" xml:space="preserve">
     <value>Grão</value>
   </data>
-  
-  
-  <data name="Tune_Ssim" xml:space="preserve">
+  <data name="Tune_stillimage" xml:space="preserve">
+    <value>Imobilizar imagem</value>
+  </data>
+  <data name="Tune_psnr" xml:space="preserve">
+    <value>PSNR</value>
+  </data>
+  <data name="Tune_ssim" xml:space="preserve">
     <value>SSIM</value>
   </data>
-  <data name="Tune_FastDecode" xml:space="preserve">
-    <value>Decodificar rápido</value>
+  <data name="Tune_fastdecode" xml:space="preserve">
+    <value>Decodificação rápida</value>
   </data>
-  <data name="Tune_ZeroLatency" xml:space="preserve">
+  <data name="Tune_zerolatency" xml:space="preserve">
     <value>Latência zero</value>
   </data>
   <data name="FpsFormat" xml:space="preserve">
     <value>{0:0. # # #} FPS</value>
   </data>
   <data name="CfrSameAsSourceToolTip" xml:space="preserve">
-    <value>Usa a mesma taxa de frames da fonte para uma taxa de frames constante.</value>
+    <value>Utiliza a taxa de frames da fonte para uma taxa de frames constante.</value>
   </data>
   <data name="CfrToolTip" xml:space="preserve">
     <value>Utilizar uma taxa de frames constante.</value>
@@ -377,7 +421,7 @@
     <value>Permitir uma taxa de frames variável. Se a fonte tiver uma taxa de frame variável, esta configuração irá preservá-la. Note que em alguns leitores não são suportadas taxas de frames variáveis.</value>
   </data>
   <data name="VfrPeakFramerateToolTip" xml:space="preserve">
-    <value>Permitir uma taxa de frames variável e usar a taxa especificada como um pico. Se a fonte tem uma taxa de frames variável, esta configuração irá preservá-la. Note que alguns leitores não suportam taxas de frames variáveis.</value>
+    <value>Permitir uma taxa de frames variável e utiliza a taxa especificada como um pico. Se a fonte tem uma taxa de frames variável, esta configuração irá preservá-la. Note que em alguns leitores não suportam taxas de frames variáveis.</value>
   </data>
   <data name="VfrChoice" xml:space="preserve">
     <value>Framerate variável</value>
@@ -440,44 +484,26 @@
     <value>Valores baixos significam compressão alta: melhor qualidade/menor tamanho mas mais demorado a codificar.</value>
   </data>
   <data name="AudioCompressionToolTip" xml:space="preserve">
-    <value>A quantidade de compressão para aplicar. Os valores válidos de {0} são de {1} para {2}.</value>
-  </data>
-  <data name="AudioEncoder_copy" xml:space="preserve">
-    <value>Passagem automática</value>
-  </data>
-  <data name="AudioEncoder_copy_aac" xml:space="preserve">
-    <value>AAC Passthrough</value>
-  </data>
-  <data name="AudioEncoder_copy_ac3" xml:space="preserve">
-    <value>AC3 Passthrough</value>
-  </data>
-  <data name="AudioEncoder_copy_dts" xml:space="preserve">
-    <value>DTS Passthrough</value>
-  </data>
-  <data name="AudioEncoder_copy_dtshd" xml:space="preserve">
-    <value>DTS-HD Passthrough</value>
-  </data>
-  <data name="AudioEncoder_copy_mp3" xml:space="preserve">
-    <value>Mp3 Passthrough</value>
+    <value>A quantidade de compressão a aplicar. Os valores válidos de {0} são de {1} para {2}.</value>
   </data>
   <data name="AudioEncoder_faac" xml:space="preserve">
     <value>AAC (FAAC)</value>
     <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
   </data>
-  <data name="AudioEncoder_ffaac" xml:space="preserve">
-    <value>AAC (Libav)</value>
+  <data name="AudioEncoder_av_aac" xml:space="preserve">
+    <value>AAC (avcodec)</value>
   </data>
-  <data name="AudioEncoder_ffac3" xml:space="preserve">
-    <value>AC3 (Libav)</value>
+  <data name="AudioEncoder_ac3" xml:space="preserve">
+    <value>AC3</value>
   </data>
-  <data name="AudioEncoder_ffflac" xml:space="preserve">
-    <value>FLAC (Libav)</value>
+  <data name="AudioEncoder_flac16" xml:space="preserve">
+    <value>FLAC 16 bits</value>
   </data>
-  <data name="AudioEncoder_lame" xml:space="preserve">
-    <value>MP3 (LAME)</value>
+  <data name="AudioEncoder_mp3" xml:space="preserve">
+    <value>MP3</value>
   </data>
   <data name="AudioEncoder_vorbis" xml:space="preserve">
-    <value>Vorbis (Vorbis)</value>
+    <value>Vorbis</value>
   </data>
   <data name="Mixdown_5point1" xml:space="preserve">
     <value>5.1 (Canais)</value>
@@ -518,7 +544,9 @@
   <data name="CabacLabel" xml:space="preserve">
     <value>CABAC:</value>
   </data>
-  
+  <data name="EightByEightTransformLabel" xml:space="preserve">
+    <value>8x8 Transform:</value>
+  </data>
   <data name="WeightedPFramesLabel" xml:space="preserve">
     <value>P-Frames ponderados:</value>
   </data>
@@ -583,7 +611,7 @@
     <value>Rápido</value>
   </data>
   <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
-    <value>Ideal</value>
+    <value>Óptimo</value>
   </data>
   <data name="DirectPrediction_None" xml:space="preserve">
     <value>Nenhum</value>
@@ -661,7 +689,7 @@
     <value>Desligado</value>
   </data>
   <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>Codificar apenas</value>
+    <value>Apenas codificar</value>
   </data>
   <data name="Trellis_Always" xml:space="preserve">
     <value>Sempre</value>
@@ -675,12 +703,8 @@
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>Opções avançadas adicionais x264:</value>
   </data>
-  <data name="H264LevelToolTip" xml:space="preserve">
-    <value>Define e garante a conformidade com o nível H.264 especificado.  Substitui todas as outras configurações.</value>
-  </data>
-  <data name="Profile_High444" xml:space="preserve">
-    <value>Alto 4:4:4 Preditivo</value>
-  </data>
+  
+  
   <data name="VideoCodecLabel" xml:space="preserve">
     <value>Codec de vídeo:</value>
   </data>
@@ -705,17 +729,8 @@
   <data name="X264Settings" xml:space="preserve">
     <value>Configurações x264</value>
   </data>
-  <data name="X264PresetLabel" xml:space="preserve">
-    <value>Pré-ajuste x264:</value>
-  </data>
-  <data name="X264TuneLabel" xml:space="preserve">
-    <value>Ajuste x264:</value>
-  </data>
-  <data name="H264ProfileLabel" xml:space="preserve">
-    <value>Perfil H.264:</value>
-  </data>
-  <data name="H264LevelLabel" xml:space="preserve">
-    <value>Nível H.264:</value>
+  <data name="LevelLabel" xml:space="preserve">
+    <value>Nível:</value>
   </data>
   <data name="MoreSettingsLabel" xml:space="preserve">
     <value>Mais configurações:</value>
@@ -738,16 +753,106 @@
   <data name="Modifiers" xml:space="preserve">
     <value>Modificadores</value>
   </data>
-  <data name="PassthroughTrackDroppedWarning" xml:space="preserve">
-    <value>Passthrough não funciona para este codec de entrada; a faixa foi descartada.</value>
-  </data>
   <data name="DtsMp4Warning" xml:space="preserve">
     <value>Alguns leitores suportam reprodução de áudio DTS em contentores MP4. É recomendado o formato MKV para áudio DTS.</value>
   </data>
-  <data name="AudioEncoder_ffflac24" xml:space="preserve">
-    <value>FLAC 24 bits (Libav)</value>
+  <data name="AudioEncoder_flac24" xml:space="preserve">
+    <value>FLAC 24 bits</value>
   </data>
-	<data name="Advanced_PsychovisualLabel" xml:space="preserve">
+  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Psychovisual</value>
   </data>
+  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
+    <value>AAC (FDK)</value>
+  </data>
+  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
+    <value>HE-AAC (FDK)</value>
+  </data>
+  <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
+    <value>Básico</value>
+    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
+  </data>
+  <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
+    <value>Avançadas</value>
+    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
+  </data>
+  <data name="VideoEncoder_mpeg2" xml:space="preserve">
+    <value>MPEG-2</value>
+  </data>
+  <data name="VideoEncoder_mpeg4" xml:space="preserve">
+    <value>MPEG-4</value>
+  </data>
+  <data name="VideoEncoder_theora" xml:space="preserve">
+    <value>Theora</value>
+  </data>
+  <data name="RemoveAudioEncodingToolTip" xml:space="preserve">
+    <value>Remover a codificação de áudio</value>
+  </data>
+  
+  
+  <data name="EncoderSettings" xml:space="preserve">
+    <value>Configurações do codificador</value>
+  </data>
+  
+  <data name="ScaleMethod_Lanczos" xml:space="preserve">
+    <value>Lanczos</value>
+  </data>
+  <data name="ScaleMethod_BicubicOpenCL" xml:space="preserve">
+    <value>Bicubic (OpenCL)</value>
+  </data>
+  <data name="QsvPreset_Speed" xml:space="preserve">
+    <value>Velocidade</value>
+  </data>
+  
+  <data name="QsvPreset_Quality" xml:space="preserve">
+    <value>Qualidade</value>
+  </data>
+  
+  
+  <data name="AudioEncoder_Passthrough" xml:space="preserve">
+    <value>Passagem directa</value>
+  </data>
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_any" xml:space="preserve">
+    <value>Qualquer</value>
+    <comment>Choice for a passthrough which accepts any input codec.</comment>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  
+  
+  <data name="FlipHorizontalCheckBox" xml:space="preserve">
+    <value>Inverter horizontalmente</value>
+  </data>
+  <data name="FlipVerticalCheckBox" xml:space="preserve">
+    <value>Inverter verticalmente</value>
+  </data>
+  <data name="Rotation_Clockwise90" xml:space="preserve">
+    <value>Para a direita 90°</value>
+  </data>
+  <data name="Rotation_Counterclockwise90" xml:space="preserve">
+    <value>Para a esquerda 90°</value>
+  </data>
+  <data name="Rotation_180" xml:space="preserve">
+    <value>180°</value>
+  </data>
+  
+  
+  
+  <data name="PassthroughIfPossibleCheckBox" xml:space="preserve">
+    <value>Passagem directa se possível</value>
+  </data>
+  
 </root>

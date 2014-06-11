@@ -240,4 +240,16 @@ GNU Baimen Publiko Orokorraren kopia oso bat barneratu da programa honekin bater
   <data name="QueueColumnNamePreset" xml:space="preserve">
     <value>Aurrezarpena</value>
   </data>
+  <data name="Success" xml:space="preserve">
+    <value>Ongi</value>
+  </data>
+  <data name="ConfirmDialogTitle" xml:space="preserve">
+    <value>Baieztatu</value>
+  </data>
+  <data name="FileFailureErrorMessage" xml:space="preserve">
+    <value>Ezin da agiri eragiketa osatu.</value>
+  </data>
+  <data name="FileFailureErrorTitle" xml:space="preserve">
+    <value>Agiri eragiketa akatsa</value>
+  </data>
 </root>

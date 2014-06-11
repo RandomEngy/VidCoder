@@ -127,7 +127,7 @@
     <value>Keine</value>
   </data>
   <data name="Anamorphic_Strict" xml:space="preserve">
-    <value>Genau</value>
+    <value>Strikt</value>
   </data>
   <data name="Custom" xml:space="preserve">
     <value>Benutzerdefiniert</value>
@@ -143,6 +143,7 @@
   </data>
   <data name="Deinterlace_Bob" xml:space="preserve">
     <value>Bob</value>
+    <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
   </data>
   <data name="Deinterlace_Fast" xml:space="preserve">
     <value>Schnell</value>
@@ -163,7 +164,7 @@
     <value>Schwach</value>
   </data>
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
-    <value>Mache nichts</value>
+    <value>Nichts machen</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
     <value>Auswerfen {0}:</value>

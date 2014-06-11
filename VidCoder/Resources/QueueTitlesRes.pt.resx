@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="OverrideTitleNumberToolTip" xml:space="preserve">
-    <value>Quando escolhido, este substituirá o título normal para fins de criação de nome de ficheiro de saída. Por exemplo com títulos 2, 3 e 4 e uma substituição de 7, eles serão rotulados como 7, 8 e 9. Pode ser útil para ripar um disco de uma série de TV.</value>
+    <value>Quando escolhido, este substituirá o título normal para fins de criação do nome do ficheiro de saída. Por exemplo com títulos 2, 3 e 4 e uma substituição de 7, eles serão rotulados como 7, 8 e 9. Pode ser útil para ripar um disco de uma série de TV.</value>
   </data>
   <data name="QueueTitlesWindowHeader" xml:space="preserve">
-    <value>Escolha vários títulos para adicionar à fila.</value>
+    <value>Escolha vários títulos para adicionar à lista de tarefas.</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
     <value>Se um leitor suportado estiver instalado (VLC ou Media Player Classic Home Cinema), poderá visualizar os títulos individuais dos DVDs</value>
@@ -148,9 +148,10 @@
     <value xml:space="preserve">Substituir o formato de nomes:</value>
   </data>
   <data name="QueueTitlesDialogTitle">
-    <value xml:space="preserve">Vários títulos na fila</value>
+    <value xml:space="preserve">Vários títulos na lista de tarefas</value>
   </data>
   <data name="TitleFormat">
     <value xml:space="preserve">Título: {0}</value>
   </data>
+	
 </root>

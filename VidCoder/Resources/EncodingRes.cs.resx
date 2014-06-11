@@ -1,0 +1,910 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Save" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="SaveAs" xml:space="preserve">
+    <value>Uložit jako...</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Vrátit zpět</value>
+  </data>
+  <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
+    <value>x264 má velké množství variant algoritmů pro použití B-snímků a kolik jich použít.
+
+Rychlý režim trvá zhruba stejnou dobu, bez ohledu na to, kolik B-snímků zadáte. Třebaže je rychlý, jeho výsledky nejsou často optimální.
+
+Optimální režim je pomalejší, zvláště pokud se počet B-snímků zvyšuje, ale výsledky jsou mnohem přesnější, zvláště  při použití B-pyramid.</value>
+  </data>
+  <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
+    <value>H.264 umožňuje v B-snímcích dva různé režimy predikce, prostorovou a časovou
+
+Prostorová -výchozí, je téměř vždy lepší, ale časová je někdy taky vhodná.
+
+x264 může, za cenu malého snížení rychlosti (a tedy i nižší kompresní zisk), adaptivně vybrat, která je lepší pro každý konkrétní snímek.</value>
+  </data>
+  <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
+    <value>Adaptivní kvantizace řídí způsob jak enkódér rozděluje bity napříč snímkem.
+Vyšší hodnota umožní více bitů pro kraje a složité oblasti vedoucí k zlepšení jemných detailů.</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <data name="Advanced_TrellisToolTip" xml:space="preserve">
+    <value>Matice zlepšuje zaokrouhlení transformačních koeficientů pro zvýšení komprese o 3-5 % za cenu malého snížení rychlosti. 
+"Vždy" používá matici a to nejen v průběhu hlavního procesu kódování, ale také při analýze, která zlepšuje kompresi ještě víc, i když s velkými náklady na rychlost.
+
+Matice vede ke snížení rychlosti při vyšších přenosových rychlostech.</value>
+  </data>
+  <data name="Advanced_WeightPToolTip" xml:space="preserve">
+    <value>Provézt další analýzu pro zvážení parametrů pro každý snímek.  
+Toto mírně zlepšuje celkovou kompresi a výrazně zlepšuje kvalitu přechodu do černé. 
+Základní profil, který je vyžadován pro iPod-y a podobné zařízení, vyžaduje aby vážená predikce P-snímků byla zakázána.  
+Poznámka: Některé zařízení a přehrávače, které podporují Základní profil, mohou mít s váženou predikcí P-snímků problém. Např. Apple TV je zcela nekompatibilní s ním.</value>
+  </data>
+  <data name="Audio_DrcToolTip" xml:space="preserve">
+    <value>Komprimace dynamického rozsahu. Platné hodnoty jsou 0-4.
+
+Pro zdroj zvuku který má široký dynamický rozsah (velmi hlasité a velmi tiché části) KDR umožňuje "stlačením" rozsahu tím, že hlasité části zeslabí a tiché části zesílí.</value>
+  </data>
+  <data name="Audio_GainToolTip" xml:space="preserve">
+    <value>Zesílit nebo zeslabit audio pro kódování. Platné hodnoty jsou -20 až +20 dB.</value>
+  </data>
+  <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
+    <value>Zahrnout kapitoly ze vstupního videa do kódovaného videa.</value>
+  </data>
+  <data name="IPod5GSupportToolTip" xml:space="preserve">
+    <value>Marker aplikován na soubor, protože starší verze iPodu vyžadují před tím, než umožní synchronizovat H.264 video.</value>
+  </data>
+  <data name="LargeFileSizeToolTip" xml:space="preserve">
+    <value>Umožňuje soubory větší než 4GB. Pokud je povoleno tak používá 64-bitové číselné kódování. Některá zařízení jako iPod a PS3 s tím nejsou kompatibilní.</value>
+  </data>
+  <data name="PixelAspectRatioToolTip" xml:space="preserve">
+    <value>Ručně zadat poměr stran obrazových bodů.</value>
+  </data>
+  <data name="Video_QualityTargetToolTip" xml:space="preserve">
+    <value>Nastavte požadovanou kvalitu. Použivaná stupnice se pro každé video kódování liší.</value>
+  </data>
+  <data name="WebOptimizedToolTip" xml:space="preserve">
+    <value>Uspořádat soubor pro optimální hraní při postupném stahování.</value>
+  </data>
+  <data name="ProfileToolTip" xml:space="preserve">
+    <value>Nastavte profil výstupního streamu. Pokud vyberete daný profil přepíšou se všechna nastavení a pokud ho použijete budete mít zaručeně kompatibilní stream.
+
+Měli byste nastavit daný profil pokud víte že přehrávací zařízení podporuje pouze určitý profil.</value>
+  </data>
+  <data name="X264TuneToolTip" xml:space="preserve">
+    <value>Konfigurace možností pro další optimalizaci vstupního obsahu. Zadáte-li se změny nastavení budou použita po přednastavení, ale i pro všechny ostatní parametry.</value>
+  </data>
+  <data name="DisplayWidthToolTip" xml:space="preserve">
+    <value>Požadovaná šířka zobrazení videa. Ostatní parametry jako je poměr stran bodů bude změněn pro dosažení tohoto cíle.</value>
+  </data>
+  <data name="ContainerLabel" xml:space="preserve">
+    <value>Kontejner:</value>
+  </data>
+  <data name="ExtensionLabel" xml:space="preserve">
+    <value>Přípona souboru:</value>
+  </data>
+  <data name="LargeFileSizeCheckBox" xml:space="preserve">
+    <value>Velký soubor</value>
+  </data>
+  <data name="WebOptimizedCheckBox" xml:space="preserve">
+    <value>Optimalizován pro web</value>
+  </data>
+  <data name="Ipod5GSupportCheckBox" xml:space="preserve">
+    <value>iPod 5G podpora</value>
+  </data>
+  <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
+    <value>Zahrnout kapitoly</value>
+  </data>
+  <data name="TabHeader_Picture" xml:space="preserve">
+    <value>Obraz</value>
+  </data>
+  <data name="TabHeader_VideoFilters" xml:space="preserve">
+    <value>Video filtry</value>
+  </data>
+  <data name="TabHeader_Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="TabHeader_Audio" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="TabHeader_Advanced" xml:space="preserve">
+    <value>Pokročilé video</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Přejmenovat</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>Vstup</value>
+  </data>
+  <data name="AutoCaption" xml:space="preserve">
+    <value>(auto)</value>
+  </data>
+  <data name="NoneCaption" xml:space="preserve">
+    <value>(žádný)</value>
+  </data>
+  <data name="StorageResolutionLabel" xml:space="preserve">
+    <value>Uložené rozlišení:</value>
+  </data>
+  <data name="PixelAspectRatioLabel" xml:space="preserve">
+    <value>Poměr stran bodů:</value>
+  </data>
+  <data name="DisplayResolutionLabel" xml:space="preserve">
+    <value>Zobrazené rozlišení:</value>
+  </data>
+  <data name="SizingLabel" xml:space="preserve">
+    <value>Velikost</value>
+  </data>
+  <data name="WidthLabel" xml:space="preserve">
+    <value>Šířka:</value>
+  </data>
+  <data name="HeightLabel" xml:space="preserve">
+    <value>Výška:</value>
+  </data>
+  <data name="MaxWidthLabel" xml:space="preserve">
+    <value>Max šířka:</value>
+  </data>
+  <data name="MaxHeightLabel" xml:space="preserve">
+    <value>Max výška:</value>
+  </data>
+  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
+    <value>Zachovat poměr stran</value>
+  </data>
+  <data name="AnamorphicLabel" xml:space="preserve">
+    <value>Anamorfní:</value>
+  </data>
+  <data name="ModulusLabel" xml:space="preserve">
+    <value>Modul:</value>
+  </data>
+  <data name="DisplayWidthRadioButton" xml:space="preserve">
+    <value>Zobrazit šířku:</value>
+  </data>
+  <data name="OutputLabel" xml:space="preserve">
+    <value>Výstup</value>
+  </data>
+  <data name="CroppingLabel" xml:space="preserve">
+    <value>Oříznutí</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Nahoře</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Vlevo</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Dole</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Vpravo</value>
+  </data>
+  <data name="DetelecineLabel" xml:space="preserve">
+    <value>Detelecine:</value>
+  </data>
+  <data name="DecombLabel" xml:space="preserve">
+    <value>Decomb:</value>
+  </data>
+  <data name="DeinterlaceLabel" xml:space="preserve">
+    <value>Deinterlace:</value>
+  </data>
+  <data name="DenoiseLabel" xml:space="preserve">
+    <value>Denoise:</value>
+  </data>
+  <data name="DeblockLabel" xml:space="preserve">
+    <value>Deblock:</value>
+  </data>
+  <data name="GrayscaleCheckBox" xml:space="preserve">
+    <value>Kódování v odstínech šedi</value>
+  </data>
+  <data name="TypeLabel" xml:space="preserve">
+    <value>Typ:</value>
+  </data>
+  <data name="ShortFramerateLabel" xml:space="preserve">
+    <value>Obrazová frekvence:</value>
+  </data>
+  <data name="CodecLabel" xml:space="preserve">
+    <value>Kodek:</value>
+  </data>
+  <data name="FramerateLabel" xml:space="preserve">
+    <value>Obrazová frekvence (FPS):</value>
+  </data>
+  <data name="ConstantFramerateRadioButton" xml:space="preserve">
+    <value>Konstantní obrazová frekvence</value>
+  </data>
+  <data name="Quality" xml:space="preserve">
+    <value>Kvalita</value>
+  </data>
+  <data name="TwoPassEncodingCheckBox" xml:space="preserve">
+    <value>2-průchody kódování</value>
+  </data>
+  <data name="TurboFirstPassCheckBox" xml:space="preserve">
+    <value>První průchod Turbo</value>
+  </data>
+  <data name="TargetSizeRadioButton" xml:space="preserve">
+    <value>Výstupní velikost (MB)</value>
+  </data>
+  <data name="AverageBitrateRadioButton" xml:space="preserve">
+    <value>Průměrný datový tok (kbps)</value>
+  </data>
+  <data name="ConstantQualityRadioButton" xml:space="preserve">
+    <value>Konstantní kvalita</value>
+  </data>
+  <data name="X264BasicSettings" xml:space="preserve">
+    <value>x264 základní nastavení</value>
+  </data>
+  <data name="ProfileLabel" xml:space="preserve">
+    <value>Profil:</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Přednastavení:</value>
+  </data>
+  <data name="TuneLabel" xml:space="preserve">
+    <value>Přizpůsobit:</value>
+  </data>
+  <data name="Profile_baseline" xml:space="preserve">
+    <value>Základní</value>
+  </data>
+  <data name="Profile_main" xml:space="preserve">
+    <value>Hlavní</value>
+  </data>
+  <data name="Profile_high" xml:space="preserve">
+    <value>Vysoký</value>
+  </data>
+  <data name="Preset_UltraFast" xml:space="preserve">
+    <value>Ultra rychle</value>
+  </data>
+  <data name="Preset_SuperFast" xml:space="preserve">
+    <value>Super rychle</value>
+  </data>
+  <data name="Preset_VeryFast" xml:space="preserve">
+    <value>Velmi rychle</value>
+  </data>
+  <data name="Preset_Faster" xml:space="preserve">
+    <value>Rychleji</value>
+  </data>
+  <data name="Preset_Fast" xml:space="preserve">
+    <value>Rychle</value>
+  </data>
+  <data name="Preset_Medium" xml:space="preserve">
+    <value>Střední (výchozí nastavení)</value>
+  </data>
+  <data name="Preset_Slow" xml:space="preserve">
+    <value>Pomalu</value>
+  </data>
+  <data name="Preset_Slower" xml:space="preserve">
+    <value>Pomaleji</value>
+  </data>
+  <data name="Preset_VerySlow" xml:space="preserve">
+    <value>Velmi pomalu</value>
+  </data>
+  <data name="Preset_Placebo" xml:space="preserve">
+    <value>Extrémě pomalu</value>
+  </data>
+  <data name="Tune_film" xml:space="preserve">
+    <value>Film</value>
+  </data>
+  <data name="Tune_animation" xml:space="preserve">
+    <value>Animace</value>
+  </data>
+  <data name="Tune_grain" xml:space="preserve">
+    <value>Zrnitý</value>
+  </data>
+  <data name="Tune_stillimage" xml:space="preserve">
+    <value>Nehybný obraz</value>
+  </data>
+  <data name="Tune_psnr" xml:space="preserve">
+    <value>PSNR</value>
+  </data>
+  <data name="Tune_ssim" xml:space="preserve">
+    <value>SSIM</value>
+  </data>
+  <data name="Tune_fastdecode" xml:space="preserve">
+    <value>Rychlé dekódování</value>
+  </data>
+  <data name="Tune_zerolatency" xml:space="preserve">
+    <value>Nulová čekací doba</value>
+  </data>
+  <data name="FpsFormat" xml:space="preserve">
+    <value>{0:0.###} FPS</value>
+  </data>
+  <data name="CfrSameAsSourceToolTip" xml:space="preserve">
+    <value>Konstantní obrazová frekvence je stejná jako obrazová frekvence zdroje.</value>
+  </data>
+  <data name="CfrToolTip" xml:space="preserve">
+    <value>Používejte konstantní obrazovou frekvenci.</value>
+  </data>
+  <data name="VfrSameAsSourceToolTip" xml:space="preserve">
+    <value>Dovolit proměnlivou obrazovou frekvenci. Pokud má zdroj proměnlivou obrazovou frekvenci tak toto nastavení ji zachová. Některé přehrávače ale proměnlivou obrazovou frekvenci nepodporují.</value>
+  </data>
+  <data name="VfrPeakFramerateToolTip" xml:space="preserve">
+    <value>Povolit proměnlivou obrazovou frekvenci a tuto hodnotu používat jako vrchol. Pokud je vstupní soubor s proměnným datovým tokem bude jeho hodnota použita. Mějte na vědomí že některé přehrávací zařízení nepodporují proměnllivou obrazovou frekvenci.</value>
+  </data>
+  <data name="VfrChoice" xml:space="preserve">
+    <value>Proměnlivá obrazová frekvence</value>
+  </data>
+  <data name="VfrPeakChoice" xml:space="preserve">
+    <value>Vrcholná obrazová frekvence (VFR)</value>
+  </data>
+  <data name="HighQuality" xml:space="preserve">
+    <value>Vysoká kvalita</value>
+  </data>
+  <data name="LowQuality" xml:space="preserve">
+    <value>Nízká kvalita</value>
+  </data>
+  <data name="SameAsSource" xml:space="preserve">
+    <value>Stejné jako zdroj</value>
+  </data>
+  <data name="AddAudioEncodingButton" xml:space="preserve">
+    <value>Přidat kódování zvuku</value>
+  </data>
+  <data name="NoTracksPlaceholder" xml:space="preserve">
+    <value>(Žádné stopy)</value>
+  </data>
+  <data name="TargetStream" xml:space="preserve">
+    <value>Target Stream</value>
+  </data>
+  <data name="MixdownLabel" xml:space="preserve">
+    <value>Výstupní kanál:</value>
+  </data>
+  <data name="SampleRateLabel" xml:space="preserve">
+    <value>Vzorkovací frekvence:</value>
+  </data>
+  <data name="BitrateLabel" xml:space="preserve">
+    <value>Datový tok:</value>
+  </data>
+  <data name="CompressionLabel" xml:space="preserve">
+    <value>Komprimace:</value>
+  </data>
+  <data name="GainLabel" xml:space="preserve">
+    <value>Zisk (dB):</value>
+  </data>
+  <data name="DrcLabel" xml:space="preserve">
+    <value>DRC:</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Jméno:</value>
+  </data>
+  <data name="AscendingQualityToolTip" xml:space="preserve">
+    <value>Vysoké hodnoty znamenají vysokou kvalitu.</value>
+  </data>
+  <data name="DescendingQualityToolTip" xml:space="preserve">
+    <value>Nízké hodnoty znamenají vysokou kvalitu.</value>
+  </data>
+  <data name="AudioQualityToolTip" xml:space="preserve">
+    <value>Kvalita výstupního zvuku. {0} Platné hodnoty jsou od {1} do {2}.</value>
+  </data>
+  <data name="AscendingCompressionToolTip" xml:space="preserve">
+    <value>Vysoké hodnoty znamenají vysokou kompresi: lepší kvalita/menší velikost ale delší doba na překódování.</value>
+  </data>
+  <data name="DescendingCompressionToolTip" xml:space="preserve">
+    <value>Nízké hodnoty znamenají vysokou kompresi: lepší kvalita/menší velikost ale delší doba na překódování.</value>
+  </data>
+  <data name="AudioCompressionToolTip" xml:space="preserve">
+    <value>Použít hodnotu komprese. {0} Povolené hodnoty od {1} do {2}.</value>
+  </data>
+  <data name="AudioEncoder_faac" xml:space="preserve">
+    <value>AAC (FAAC)</value>
+    <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
+  </data>
+  <data name="AudioEncoder_av_aac" xml:space="preserve">
+    <value>AAC (avkodek)</value>
+  </data>
+  <data name="AudioEncoder_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="AudioEncoder_flac16" xml:space="preserve">
+    <value>FLAC 16-bit</value>
+  </data>
+  <data name="AudioEncoder_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="AudioEncoder_vorbis" xml:space="preserve">
+    <value>Vorbis</value>
+  </data>
+  <data name="Mixdown_5point1" xml:space="preserve">
+    <value>5.1 Channels</value>
+  </data>
+  <data name="Mixdown_5_2_lfe" xml:space="preserve">
+    <value>7.1 (5F/2R/LFE)</value>
+  </data>
+  <data name="Mixdown_dpl1" xml:space="preserve">
+    <value>Dolby Surround</value>
+  </data>
+  <data name="Mixdown_dpl2" xml:space="preserve">
+    <value>Dolby Pro Logic II</value>
+  </data>
+  <data name="Mixdown_left_only" xml:space="preserve">
+    <value>Mono (pouze vlevý)</value>
+  </data>
+  <data name="Mixdown_mono" xml:space="preserve">
+    <value>Mono</value>
+  </data>
+  <data name="Mixdown_right_only" xml:space="preserve">
+    <value>Mono (pouze pravý)</value>
+  </data>
+  <data name="Mixdown_stereo" xml:space="preserve">
+    <value>Stereo</value>
+  </data>
+  <data name="Bitrate" xml:space="preserve">
+    <value>Datový tok</value>
+  </data>
+  <data name="Encoding" xml:space="preserve">
+    <value>Kódování</value>
+  </data>
+  <data name="ReferenceFramesLabel" xml:space="preserve">
+    <value>Reference Frames:</value>
+  </data>
+  <data name="MaxBFramesLabel" xml:space="preserve">
+    <value>Maximum B-Frames:</value>
+  </data>
+  <data name="CabacLabel" xml:space="preserve">
+    <value>CABAC:</value>
+  </data>
+  <data name="EightByEightTransformLabel" xml:space="preserve">
+    <value>8x8 Transform:</value>
+  </data>
+  <data name="WeightedPFramesLabel" xml:space="preserve">
+    <value>Weighted P-Frames:</value>
+  </data>
+  <data name="PyramidalBFramesLabel" xml:space="preserve">
+    <value>Pyramidal B-Frames:</value>
+  </data>
+  <data name="NoDctDecimateLabel" xml:space="preserve">
+    <value>No DCT-Decimate:</value>
+  </data>
+  <data name="Analysis" xml:space="preserve">
+    <value>Analysis</value>
+  </data>
+  <data name="AdaptiveBFramesLabel" xml:space="preserve">
+    <value>Adaptive B-Frames:</value>
+  </data>
+  <data name="AdaptiveDirectModeLabel" xml:space="preserve">
+    <value>Adaptive Direct Mode:</value>
+  </data>
+  <data name="MotionEstimationMethodLabel" xml:space="preserve">
+    <value>Motion Estimation Method:</value>
+  </data>
+  <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
+    <value>Subpixel Motion Estimation:</value>
+  </data>
+  <data name="MotionEstimationRangeLabel" xml:space="preserve">
+    <value>Motion Estimation Range:</value>
+  </data>
+  <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
+    <value>Adaptive Quantization Strength:</value>
+  </data>
+  <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
+    <value>Psychovisual Rate Distortion:</value>
+  </data>
+  <data name="PsychovisualTrellisLabel" xml:space="preserve">
+    <value>Psychovisual Trellis:</value>
+  </data>
+  <data name="DeblockingLabel" xml:space="preserve">
+    <value>Deblocking:</value>
+  </data>
+  <data name="PartitionTypeLabel" xml:space="preserve">
+    <value>Partition Type:</value>
+  </data>
+  <data name="TrellisLabel" xml:space="preserve">
+    <value>Trellis:</value>
+  </data>
+  <data name="OptionsString" xml:space="preserve">
+    <value>Options String</value>
+  </data>
+  <data name="PyramidalBFrames_Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="PyramidalBFrames_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="PyramidalBFrames_Strict" xml:space="preserve">
+    <value>Strict</value>
+  </data>
+  <data name="AdaptiveBFrames_Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="AdaptiveBFrames_Fast" xml:space="preserve">
+    <value>Fast</value>
+  </data>
+  <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
+    <value>Optimal</value>
+  </data>
+  <data name="DirectPrediction_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="DirectPrediction_Spatial" xml:space="preserve">
+    <value>Spatial</value>
+  </data>
+  <data name="DirectPrediction_Temporal" xml:space="preserve">
+    <value>Temporal</value>
+  </data>
+  <data name="DirectPrediction_Automatic" xml:space="preserve">
+    <value>Automatic</value>
+  </data>
+  <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
+    <value>Diamond</value>
+  </data>
+  <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
+    <value>Hexagon</value>
+  </data>
+  <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
+    <value>Uneven Multi-Hexagon</value>
+  </data>
+  <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
+    <value>Exhaustive</value>
+  </data>
+  <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
+    <value>Transformed Exhaustive</value>
+  </data>
+  <data name="SubpixelMotionEstimation_0" xml:space="preserve">
+    <value>0: SAD, no subpel (super fast!)</value>
+  </data>
+  <data name="SubpixelMotionEstimation_1" xml:space="preserve">
+    <value>1: SAD, qpel</value>
+  </data>
+  <data name="SubpixelMotionEstimation_2" xml:space="preserve">
+    <value>2: SATD, qpel</value>
+  </data>
+  <data name="SubpixelMotionEstimation_3" xml:space="preserve">
+    <value>3: SATD, multi-qpel</value>
+  </data>
+  <data name="SubpixelMotionEstimation_4" xml:space="preserve">
+    <value>4: SATD, qpel on all</value>
+  </data>
+  <data name="SubpixelMotionEstimation_5" xml:space="preserve">
+    <value>5: SATD, multi-qpel on all</value>
+  </data>
+  <data name="SubpixelMotionEstimation_6" xml:space="preserve">
+    <value>6: RD in I/P-frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_7" xml:space="preserve">
+    <value>7: RD in all frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_8" xml:space="preserve">
+    <value>8: RD refine in I/P-frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_9" xml:space="preserve">
+    <value>9: RD refine in all frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_10" xml:space="preserve">
+    <value>10: QPRD in all frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_11" xml:space="preserve">
+    <value>11: No early terminations in analysis</value>
+  </data>
+  <data name="Analysis_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Analysis_Some" xml:space="preserve">
+    <value>Some</value>
+  </data>
+  <data name="Analysis_All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Trellis_Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="Trellis_EncodeOnly" xml:space="preserve">
+    <value>Encode Only</value>
+  </data>
+  <data name="Trellis_Always" xml:space="preserve">
+    <value>Vždy</value>
+  </data>
+  <data name="DefaultFormat" xml:space="preserve">
+    <value>{0} (Default)</value>
+  </data>
+  <data name="EncodingWindowTitle" xml:space="preserve">
+    <value>Předvolba: {0}</value>
+  </data>
+  <data name="AdvancedOptionsStringLabel" xml:space="preserve">
+    <value>Additional advanced x264 options:</value>
+  </data>
+  <data name="LevelToolTip" xml:space="preserve">
+    <value>Nastavit a zajistit soulad se specifikací úrovně Enkoderu.</value>
+  </data>
+  <data name="Profile_high444" xml:space="preserve">
+    <value>Vysoké 4:4:4 prediktivní</value>
+  </data>
+  <data name="VideoCodecLabel" xml:space="preserve">
+    <value>Video kodek:</value>
+  </data>
+  <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
+    <value>MPEG-2 (Libav)</value>
+  </data>
+  <data name="VideoEncoder_ffmpeg4" xml:space="preserve">
+    <value>MPEG-4 (Libav)</value>
+  </data>
+  <data name="VideoEncoder_x264" xml:space="preserve">
+    <value>H.264 (x264)</value>
+  </data>
+  <data name="Analysis_Most" xml:space="preserve">
+    <value>Většina</value>
+  </data>
+  <data name="AdvancedQuery" xml:space="preserve">
+    <value>Rozšířený dotaz</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="X264Settings" xml:space="preserve">
+    <value>x264 nastavení</value>
+  </data>
+  <data name="LevelLabel" xml:space="preserve">
+    <value>Úroveň:</value>
+  </data>
+  <data name="MoreSettingsLabel" xml:space="preserve">
+    <value>Další nastavení:</value>
+  </data>
+  <data name="Track" xml:space="preserve">
+    <value>Stopa</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Zdroj</value>
+  </data>
+  <data name="Encoder" xml:space="preserve">
+    <value>Kódování</value>
+  </data>
+  <data name="ChannelLayout" xml:space="preserve">
+    <value>Uspořádání kanálů</value>
+  </data>
+  <data name="SampleRate" xml:space="preserve">
+    <value>Vzorkovací frekvence</value>
+  </data>
+  <data name="Modifiers" xml:space="preserve">
+    <value>Modifikátory</value>
+  </data>
+  <data name="DtsMp4Warning" xml:space="preserve">
+    <value>Jen málo přehrávačů podporuje přehrávání DTS zvuku v MP4 kontejnerech. Pro DTS zvuk je doporučen MKV kontejner.</value>
+  </data>
+  <data name="AudioEncoder_flac24" xml:space="preserve">
+    <value>FLAC 24-bit</value>
+  </data>
+  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
+    <value>Psychovizuální</value>
+  </data>
+  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
+    <value>AAC (FDK)</value>
+  </data>
+  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
+    <value>HE-AAC (FDK)</value>
+  </data>
+  <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
+    <value>Základní</value>
+    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
+  </data>
+  <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
+    <value>Pokročilé nastavení</value>
+    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
+  </data>
+  <data name="VideoEncoder_mpeg2" xml:space="preserve">
+    <value>MPEG-2</value>
+  </data>
+  <data name="VideoEncoder_mpeg4" xml:space="preserve">
+    <value>MPEG-4</value>
+  </data>
+  <data name="VideoEncoder_theora" xml:space="preserve">
+    <value>Theora</value>
+  </data>
+  <data name="RemoveAudioEncodingToolTip" xml:space="preserve">
+    <value>Odstranit kódování zvuku</value>
+  </data>
+  <data name="AutoPassthroughFallbackLabel" xml:space="preserve">
+    <value>Náhradní:</value>
+  </data>
+  <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
+    <value>Passthrough does not work on all audio codecs. This specifies the encoder to fall back to if the track cannot be passed through.</value>
+  </data>
+  <data name="EncoderSettings" xml:space="preserve">
+    <value>Nastavení kodéru</value>
+  </data>
+  <data name="QsvDecodingLabel" xml:space="preserve">
+    <value>Dekódování QSV</value>
+  </data>
+  <data name="ScaleMethod_Lanczos" xml:space="preserve">
+    <value>Lanczos</value>
+  </data>
+  <data name="ScaleMethod_BicubicOpenCL" xml:space="preserve">
+    <value>Bicubic (OpenCL)</value>
+  </data>
+  <data name="QsvPreset_Speed" xml:space="preserve">
+    <value>Rychlost</value>
+  </data>
+  <data name="QsvPreset_Balanced" xml:space="preserve">
+    <value>Vyvážené</value>
+  </data>
+  <data name="QsvPreset_Quality" xml:space="preserve">
+    <value>Kvalita</value>
+  </data>
+  <data name="PresetToolTip" xml:space="preserve">
+    <value>Change options to trade off compression efficiency against encoding speed.</value>
+  </data>
+  <data name="ScaleMethodToolTip" xml:space="preserve">
+    <value>Lanczos: Toto je výchozí měřítko pro nejlepší kvalitu.
+Bicubic: Toto je měřítko hardwarově urychleného algoritmu OpenCL.</value>
+  </data>
+  <data name="AudioEncoder_Passthrough" xml:space="preserve">
+    <value>Průchod</value>
+  </data>
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_any" xml:space="preserve">
+    <value>Jakýkoliv</value>
+    <comment>Choice for a passthrough which accepts any input codec.</comment>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="ScopeLabel" xml:space="preserve">
+    <value>Rozsah:</value>
+  </data>
+  <data name="PassthroughScopeToolTip" xml:space="preserve">
+    <value>Určit na který vstupní kodek se bude vztahovat přímý průchod.</value>
+  </data>
+  <data name="FlipHorizontalCheckBox" xml:space="preserve">
+    <value>Překlopit vodorovně</value>
+  </data>
+  <data name="FlipVerticalCheckBox" xml:space="preserve">
+    <value>Překlopit svisle</value>
+  </data>
+  <data name="Rotation_Clockwise90" xml:space="preserve">
+    <value>90° ve směru hodinových ručiček</value>
+  </data>
+  <data name="Rotation_Counterclockwise90" xml:space="preserve">
+    <value>90° proti směru hodinových ručiček</value>
+  </data>
+  <data name="Rotation_180" xml:space="preserve">
+    <value>180°</value>
+  </data>
+  <data name="RotationToolTip" xml:space="preserve">
+    <value>Otočit obraz. Toto je použito ještě před všemi zvětšeními a ořezy.</value>
+  </data>
+  <data name="FlipHorizontalToolTip" xml:space="preserve">
+    <value>Otočit obraz horizontálně. Toto je použito ještě před všemi rotacemi.</value>
+  </data>
+  <data name="FlipVerticalToolTip" xml:space="preserve">
+    <value>Otočit obraz svisle. Toto je použito ještě před všemi rotacemi.</value>
+  </data>
+  <data name="PassthroughIfPossibleCheckBox" xml:space="preserve">
+    <value>Přímý průchod je-li možný</value>
+  </data>
+  <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
+    <value>Odpovídá-li vstupní track kodeku, bude použit přímý průchod bez překódování.</value>
+  </data>
+</root>

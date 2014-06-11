@@ -121,6 +121,6 @@
     <value>清除</value>
   </data>
   <data name="LogWindowTitle" xml:space="preserve">
-    <value>記錄</value>
+    <value>日志</value>
   </data>
 </root>

@@ -1,0 +1,625 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>タイトル:</value>
+  </data>
+  <data name="SettingsLabel" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="AddToQueueLabel" xml:space="preserve">
+    <value>キューへ追加</value>
+  </data>
+  <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
+    <value>キューに複数のタイトルを追加</value>
+  </data>
+  <data name="FileMenu" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="OpenVideoFile" xml:space="preserve">
+    <value>ビデオ ファイルを開く</value>
+  </data>
+  <data name="OpenDiscFolder" xml:space="preserve">
+    <value>DVD/ブルーレイのフォルダーを開く</value>
+  </data>
+  <data name="EnqueueMultipleFiles" xml:space="preserve">
+    <value>複数のファイルをキューに入れる</value>
+  </data>
+  <data name="EnqueueMultipleTitles" xml:space="preserve">
+    <value>複数のタイトルをキューに入れる</value>
+  </data>
+  <data name="ToolsMenu" xml:space="preserve">
+    <value>ツール</value>
+  </data>
+  <data name="ImportPreset" xml:space="preserve">
+    <value>プリセットのインポート</value>
+  </data>
+  <data name="ExportPreset" xml:space="preserve">
+    <value>プリセットをエクスポート</value>
+  </data>
+  <data name="OptionsMenuItem" xml:space="preserve">
+    <value>オプション</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>再生</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>フォルダーを開く</value>
+  </data>
+  <data name="ClearCompleted" xml:space="preserve">
+    <value>クリア完了</value>
+  </data>
+  <data name="ExitMenuItem" xml:space="preserve">
+    <value>終了</value>
+  </data>
+  <data name="WindowsMenu" xml:space="preserve">
+    <value>ウィンドウ</value>
+  </data>
+  <data name="EncodingSettingsMenuItem" xml:space="preserve">
+    <value>エンコード設定</value>
+  </data>
+  <data name="PreviewMenuItem" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
+  <data name="LogMenuItem" xml:space="preserve">
+    <value>ログ</value>
+  </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>ヘルプ</value>
+  </data>
+  <data name="VidCoderHomepageMenuItem" xml:space="preserve">
+    <value>VidCoder ホームページ</value>
+  </data>
+  <data name="ReportABugMenuItem" xml:space="preserve">
+    <value>バグを報告</value>
+  </data>
+  <data name="AboutVidCoderMenuItem" xml:space="preserve">
+    <value>VidCoderについて</value>
+  </data>
+  <data name="ChooseVideoSourceLabel" xml:space="preserve">
+    <value>ビデオ ソースを選択：</value>
+  </data>
+  <data name="SourceLabel" xml:space="preserve">
+    <value>入力元：</value>
+  </data>
+  <data name="ScanningSourceLabel" xml:space="preserve">
+    <value>ソースをスキャンしています...</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>最近利用したソース</value>
+  </data>
+  <data name="DragFilesHereLabel" xml:space="preserve">
+    <value>(ここにビデオファイルかフォルダーをドラッグします)</value>
+  </data>
+  <data name="ScanErrorLabel" xml:space="preserve">
+    <value>スキャン中にエラーが発生しました。</value>
+  </data>
+  <data name="AudioLabel" xml:space="preserve">
+    <value>音声:</value>
+  </data>
+  <data name="VideoLabel" xml:space="preserve">
+    <value>ビデオ：</value>
+  </data>
+  <data name="SubtitlesLabel" xml:space="preserve">
+    <value>字幕：</value>
+  </data>
+  <data name="AddTrackButton" xml:space="preserve">
+    <value>トラック追加</value>
+  </data>
+  <data name="ChapterMarkersLabel" xml:space="preserve">
+    <value>チャプターマーカー:</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>編集...</value>
+  </data>
+  <data name="DestinationLabel" xml:space="preserve">
+    <value>出力先:</value>
+  </data>
+  <data name="DestinationToolTip" xml:space="preserve">
+    <value>クリックして出力先を編集します</value>
+  </data>
+  <data name="SelectOutputPathButton" xml:space="preserve">
+    <value>出力パスを選択</value>
+  </data>
+  <data name="EncodingLabel" xml:space="preserve">
+    <value>エンコード中:</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>一時停止</value>
+  </data>
+  <data name="MoveToTopMenuItem" xml:space="preserve">
+    <value>最上部に移動</value>
+  </data>
+  <data name="MoveToBottomMenuItem" xml:space="preserve">
+    <value>最下部に移動</value>
+  </data>
+  <data name="CustomizeColumnsMenuItem" xml:space="preserve">
+    <value>列のカスタマイズ...</value>
+  </data>
+  <data name="CurrentFpsLabel" xml:space="preserve">
+    <value>現在の FPS:</value>
+  </data>
+  <data name="AverageFpsLabel" xml:space="preserve">
+    <value>平均 FPS:</value>
+  </data>
+  <data name="PickDiscFolderHelpText" xml:space="preserve">
+    <value>DVD または blu-ray フォルダーを選択します。</value>
+  </data>
+  <data name="EncodesInProgressExitWarning" xml:space="preserve">
+    <value>エンコード中です。終了してもよろしいですか？</value>
+  </data>
+  <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
+    <value>エンコード中</value>
+  </data>
+  <data name="ForeignAudioSearch" xml:space="preserve">
+    <value>外国語音声検索</value>
+  </data>
+  <data name="NoneParen" xml:space="preserve">
+    <value>(なし)</value>
+  </data>
+  <data name="TracksSummaryMultiple" xml:space="preserve">
+    <value>{0} トラック</value>
+  </data>
+  <data name="SaveChangesPresetMessage" xml:space="preserve">
+    <value>プリセットの変更を保存しますか？</value>
+  </data>
+  <data name="SaveChangesPresetTitle" xml:space="preserve">
+    <value>現在のプリセットを保存しますか？</value>
+  </data>
+  <data name="DiscNotInDriveError" xml:space="preserve">
+    <value>読み込みに失敗しました。ディスクがドライブに入っているか確認して下さい。</value>
+  </data>
+  <data name="PresetNameRestoredFromQueue" xml:space="preserve">
+    <value>キューから復元</value>
+  </data>
+  <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
+    <value>完了したジョブから復元しました</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>プリセット:</value>
+  </data>
+  <data name="DestinationColumnHeader" xml:space="preserve">
+    <value>出力先:</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>状態：</value>
+  </data>
+  <data name="ElapsedTimeColumnHeader" xml:space="preserve">
+    <value>経過時間</value>
+  </data>
+  <data name="PlayingVideoMessage" xml:space="preserve">
+    <value>ビデオを再生...</value>
+  </data>
+  <data name="FileDoesNotExist" xml:space="preserve">
+    <value>{0} は存在しません。</value>
+  </data>
+  <data name="AngleLabel" xml:space="preserve">
+    <value>アングル:</value>
+  </data>
+  <data name="ChaptersSummary" xml:space="preserve">
+    <value>{0} の</value>
+  </data>
+  <data name="Queued" xml:space="preserve">
+    <value>キュー</value>
+  </data>
+  <data name="QueuedWithTotal" xml:space="preserve">
+    <value>キュー({0})</value>
+  </data>
+  <data name="CompletedWithTotal" xml:space="preserve">
+    <value>完了({0})</value>
+  </data>
+  <data name="StoppedEncoding" xml:space="preserve">
+    <value>エンコードを停止します。</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
+    <value>{0}個のフィアル・フォルダを本当に削除しますか？</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
+    <value>削除の確認</value>
+  </data>
+  <data name="CouldNotDeleteFile" xml:space="preserve">
+    <value>{0}を削除できませんでした。
+
+{1}</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>以下のフアイルは識別できなかったため、キューに追加されませんでした：{0}</value>
+  </data>
+  <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
+    <value>ビデオ ファイルのスキャン中にエラー</value>
+  </data>
+  <data name="StartedEncoding" xml:space="preserve">
+    <value>エンコード開始</value>
+  </data>
+  <data name="DirectoryCreateErrorMessage" xml:space="preserve">
+    <value>出力フォルダを作成できませんでした。エラーの詳細：{0}</value>
+  </data>
+  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
+    <value>ディレクトリの作成エラー</value>
+  </data>
+  <data name="EncodeCompleted" xml:space="preserve">
+    <value>エンコード完了</value>
+  </data>
+  <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
+    <value>エンコード完了</value>
+  </data>
+  <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
+    <value>キュー内のすべてのエンコードが完了しました</value>
+  </data>
+  <data name="OutputFolderRequiredMessage" xml:space="preserve">
+    <value>エンコードジョブを追加できません。[OK]を押して既定の出力先を指定してください。</value>
+  </data>
+  <data name="OutputFolderRequiredTitle" xml:space="preserve">
+    <value>既定の出力先を設定してください</value>
+  </data>
+  <data name="OutputPathNotValidMessage" xml:space="preserve">
+    <value>出力先が無効です</value>
+  </data>
+  <data name="OutputPathNotValidTitle" xml:space="preserve">
+    <value>パスが無効です</value>
+  </data>
+  <data name="Encode" xml:space="preserve">
+    <value>エンコード</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>再開</value>
+  </data>
+  <data name="EtaLabel" xml:space="preserve">
+    <value>所要時間：</value>
+  </data>
+  <data name="WhenDoneLabel" xml:space="preserve">
+    <value>終了時の処理：</value>
+  </data>
+  <data name="Preset_AndroidTablet" xml:space="preserve">
+    <value>Android Tablet</value>
+  </data>
+  <data name="Preset_Android" xml:space="preserve">
+    <value>Android</value>
+  </data>
+  <data name="Preset_AppleiPad" xml:space="preserve">
+    <value>Apple iPad</value>
+  </data>
+  <data name="Preset_AppleiPhone4" xml:space="preserve">
+    <value>Apple iPhone 4</value>
+  </data>
+  <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
+    <value>Apple iPhone/Touch</value>
+  </data>
+  <data name="Preset_AppleiPod" xml:space="preserve">
+    <value>Apple iPod</value>
+  </data>
+  <data name="Preset_AppleTV" xml:space="preserve">
+    <value>AppleTV</value>
+  </data>
+  <data name="Preset_AppleTV2" xml:space="preserve">
+    <value>AppleTV 2</value>
+  </data>
+  <data name="Preset_AppleTV3" xml:space="preserve">
+    <value>AppleTV 3</value>
+  </data>
+  <data name="Preset_Universal" xml:space="preserve">
+    <value>一般形式</value>
+  </data>
+  <data name="Preset_HighProfile" xml:space="preserve">
+    <value>High Profile</value>
+  </data>
+  <data name="Preset_Normal" xml:space="preserve">
+    <value>ノーマル</value>
+  </data>
+  <data name="Preset_WindowsPhone7" xml:space="preserve">
+    <value>Windows Phone 7</value>
+  </data>
+  <data name="SourceOption_VideoFile" xml:space="preserve">
+    <value>動画フィアル...</value>
+  </data>
+  <data name="SourceOption_DiscFolder" xml:space="preserve">
+    <value>DVD/ブルーレイのフォルダー...</value>
+  </data>
+  <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
+    <value>バージョン {0} が利用可能です。アップデートのダウンロードが開始されました。</value>
+  </data>
+  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
+    <value>バージョン {0} のダウンロードが完了しました。終了時にインストールされます。</value>
+  </data>
+  <data name="UpdateNotAppliedError" xml:space="preserve">
+    <value>この更新プログラムは適用されませんでした。キャンセルていない場合は、手動インストールを試してください。</value>
+  </data>
+  <data name="CouldNotLoadPresetMessage" xml:space="preserve">
+    <value>プリセットをロードできませんでした：</value>
+  </data>
+  <data name="CouldNotSavePresetMessage" xml:space="preserve">
+    <value>プリセット '{0}' 保存できませんでした: {1} {2}</value>
+  </data>
+  <data name="CouldNotCopyTextError" xml:space="preserve">
+    <value>テキストをコピーできません</value>
+  </data>
+  <data name="LaunchUrlError" xml:space="preserve">
+    <value>URL の起動エラー: {0}</value>
+  </data>
+  <data name="UserConfigLoadError" xml:space="preserve">
+    <value>設定ファイルを読み込めません。ファイルが壊れている可能性があります。削除しますか？保存したプリセットには影響しません。</value>
+  </data>
+  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
+    <value>設定読み込みエラー</value>
+  </data>
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>プリセットをインポートできません。不明なファイル形式です。</value>
+  </data>
+  <data name="ImportErrorTitle" xml:space="preserve">
+    <value>インポートエラー</value>
+  </data>
+  <data name="PresetImportSuccessMessage" xml:space="preserve">
+    <value>正常にインポートされたプリセット：{0}</value>
+  </data>
+  <data name="PresetExportSuccessMessage" xml:space="preserve">
+    <value>プリセットは{0}へ正常にエクスポートされました</value>
+  </data>
+  <data name="ExportPresetFilePickerText" xml:space="preserve">
+    <value>プリセットをエクスポート</value>
+  </data>
+  <data name="PresetSaveConfirmMessage" xml:space="preserve">
+    <value>プリセットの変更を保存しますか？</value>
+  </data>
+  <data name="PresetSaveConfirmTitle" xml:space="preserve">
+    <value>現在のプリセットを保存しますか？</value>
+  </data>
+  <data name="PresetRevertConfirmMessage" xml:space="preserve">
+    <value>このプリセットは変更されています。変更を破棄しますか？</value>
+  </data>
+  <data name="PresetRevertConfirmTitle" xml:space="preserve">
+    <value>プリセットを元に戻す</value>
+  </data>
+  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
+    <value>このプリセットを本当に消去しますか？</value>
+  </data>
+  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
+    <value>プリセットを削除</value>
+  </data>
+  <data name="UserConfigCorrupted" xml:space="preserve">
+    <value>設定ファイルが壊れているため読み込めません。一部の設定はリセットされています。</value>
+  </data>
+  <data name="OutputDirectoryPickerText" xml:space="preserve">
+    <value>エンコードしたビデオファイルの出力先を選択してください。</value>
+  </data>
+  <data name="LengthPreviewLabel" xml:space="preserve">
+    <value>({0})</value>
+  </data>
+  <data name="ModifiedAffix" xml:space="preserve">
+    <value>（変更されています）</value>
+  </data>
+  <data name="PlayingVideoStatus" xml:space="preserve">
+    <value>ビデオを再生中...</value>
+  </data>
+  <data name="OpeningFolderStatus" xml:space="preserve">
+    <value>フォルダを開く</value>
+  </data>
+  <data name="CloseVideoSourceToolTip" xml:space="preserve">
+    <value>ソースファイルを閉じる</value>
+  </data>
+  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
+    <value>ソースファイルを閉じる</value>
+  </data>
+  <data name="UpdatesMenuItem" xml:space="preserve">
+    <value>アップデート...</value>
+  </data>
+  <data name="CbrAuto" xml:space="preserve">
+    <value>CBR Auto</value>
+  </data>
+  <data name="RangeBarToolTip" xml:space="preserve">
+    <value>左クリックで開始時間をセットし、右クリックで終了時間をセットします</value>
+  </data>
+  <data name="Preset_WindowsPhone8" xml:space="preserve">
+    <value>Windows Phone 8</value>
+  </data>
+  <data name="QueueFormat_Chapters" xml:space="preserve">
+    <value>チャンネル {0}</value>
+  </data>
+  <data name="QueueFormat_Frames" xml:space="preserve">
+    <value>Fr {0}-{1}</value>
+  </data>
+  <data name="QueueRangeAll" xml:space="preserve">
+    <value>すべて</value>
+  </data>
+  <data name="CouldNotCopyLogError" xml:space="preserve">
+    <value>ログをコピーできませんでした: {0} {0} {1}</value>
+  </data>
+  <data name="OpenLog" xml:space="preserve">
+    <value>ログを開く</value>
+  </data>
+  <data name="CopyLog" xml:space="preserve">
+    <value>ログのコピー</value>
+  </data>
+  <data name="PresetDiscardConfirmMessage" xml:space="preserve">
+    <value>変更が保存されていません。変更を破棄して他のプリセットを表示してもよろしいですか？</value>
+  </data>
+  <data name="PresetDiscardConfirmTitle" xml:space="preserve">
+    <value>変更を破棄しますか？</value>
+  </data>
+  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
+    <value>オーディオ トラックを削除</value>
+  </data>
+  <data name="Preset_Xbox360" xml:space="preserve">
+    <value>Xbox 360</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>キューから削除</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>キューを保存できませんでした: {0} {1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>キューをエクスポート...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>キューをエクスポート</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>プリセットをインポートできません。不明なファイル形式です。</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>インポートするプリセットファイルを選択</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>インポートするキューファイルを選択</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>キューをインポート</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>キューは{0}へ正常にエクスポートされました</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>キューは正常にインポートされました</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>エンコードを停止しますか？</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>本当にエンコードを停止しますか？</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>現在のファイルを閉じてディスクを開きますか？</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>エンコードの詳細</value>
+  </data>
+	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+    <value>キューに追加後にエンコードの設定が変更されています。現在の設定をキュー内のすべてのアイテムに適用しますか？</value>
+  </data>
+	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+    <value>設定が変更されました</value>
+  </data>
+	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>既存のファイルの名前を変更し、新しいファイルを作成しますか？</value>
+  </data>
+	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>バージョン {0} データベース ファイルを読み取ることができません。VidCoder {1} によって認識される最高のバージョンは {2}です。</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>対応していないデータベースファイル形式です</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+</root>

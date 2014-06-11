@@ -124,25 +124,25 @@
     <value>Codificar pré-visualização</value>
   </data>
   <data name="EncodePreviewClipToolTip" xml:space="preserve">
-    <value>Codifica e lê um pequeno clip de pré-visualização da tela seleccionada. Usa as configurações de codificação actuais.</value>
+    <value>Codifica e lê um pequeno excerto de pré-visualização da tela seleccionada. Usa as configurações de codificação actuais.</value>
   </data>
   <data name="GeneratingPreview" xml:space="preserve">
     <value>Gerando pré-visualização...</value>
   </data>
   <data name="PlaySourceDisabledBluRayToolTip" xml:space="preserve">
-    <value>Pré-visualização do Blu-Ray de origem ainda não suportada.</value>
+    <value>Pré-visualização do Blu-Ray de origem ainda não é suportada.</value>
   </data>
   <data name="PlaySourceDisabledNoPlayerToolTip" xml:space="preserve">
-    <value>Não foi encontrado nenhum leitor de DVD. Instale o VLC ou o MPC-HC para usar este recurso.</value>
+    <value>Não foi encontrado nenhum leitor de DVD. Instale o VLC ou o MPC-HC para utilizar este recurso.</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
     <value>Reproduzir o vídeo de origem.</value>
   </data>
   <data name="PreviewClipGenerationFailedMessage" xml:space="preserve">
-    <value>Falha de geração do clip de pré-visualização. Consulte a janela de Relatório para mais detalhes.</value>
+    <value>Falha ao gerar excerto de pré-visualização. Consulte o relatório para mais detalhes.</value>
   </data>
   <data name="PreviewClipGenerationFailedTitle" xml:space="preserve">
-    <value>Geração do clip de pré-visualização falhou</value>
+    <value>Geração do excerto de pré-visualização falhou</value>
   </data>
   <data name="PreviewWindowTitleSimple" xml:space="preserve">
     <value>Pré-visualização: {0} x {1}</value>
@@ -180,4 +180,5 @@
   <data name="BottomMargin" xml:space="preserve">
     <value>Margem inferior</value>
   </data>
+	
 </root>

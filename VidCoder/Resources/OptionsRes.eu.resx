@@ -262,7 +262,7 @@
     <value>Aurreratua</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Beta bidean zaude. Atzera bertsio egonkorrera itzultzeko, kendu, klikatu "Bai" aurrezarpenak kentzeko, orduan berrezarri bertsio egonkorra.</value>
+    <value>Beta bertsioa ari zara erabiltzen. Honek bertsio egonkorrarekin batera lan egin dezake.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Batu Beta bidera eguneraketak sarriago lortzeko</value>
@@ -384,16 +384,38 @@
   <data name="Priority_Idle" xml:space="preserve">
     <value>Apala</value>
   </data>
-	<data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
     <value>Kopiatu kodeaketa oharra kodeatutako bideoaren zuzenbide berera</value>
   </data>
-	<data name="OpenLogFolderButton" xml:space="preserve">
+  <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Ireki Ohar Agiritegia</value>
   </data>
-	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
     <value>Berezgaitasunez berrekin kodeaketa hasterakoan</value>
   </data>
-	<data name="UseWorkerProcessCheckBox" xml:space="preserve">
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Erabili langile garapena kodeatzeko</value>
+  </data>
+  <data name="VideoSection" xml:space="preserve">
+    <value>Bideoa</value>
+  </data>
+  <data name="DxvaDecodingCheckBox" xml:space="preserve">
+    <value>Gaitu DXVA Hardware Bizkorpen Dekodeaketa</value>
+  </data>
+  <data name="DxvaDecodingToolTip" xml:space="preserve">
+    <value>Aukera hau sistema geldoenentzat bakarrik da baliagarria. Hardware dekodeatzaileak irakurketarako diseinatuak daude, ez bideo ber-kodeaketarako hortaz botilalepoa eragin dezake sistema azkarretan.</value>
+  </data>
+  <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+    <value>Heutsi Sortutako eta Aldatutako denbora agiriak bihurtzerakoan</value>
+  </data>
+  <data name="DefaultCheckBox" xml:space="preserve">
+    <value>Berezkoa</value>
+    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Heutsi agiritegi egiturari multzo kodeaketan</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Agiritegi bateko agiri guztiak kodeatzen badituzu kodeatutako bertsioak azpiagiritegietan jarriko dira iturburu zuzenbide egiturarekin bat etortzeko.</value>
   </data>
 </root>

@@ -143,6 +143,7 @@
   </data>
   <data name="Deinterlace_Bob" xml:space="preserve">
     <value>Doublement (Bob)</value>
+    <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
   </data>
   <data name="Deinterlace_Fast" xml:space="preserve">
     <value>Rapide</value>

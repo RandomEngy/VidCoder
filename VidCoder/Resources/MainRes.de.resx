@@ -136,7 +136,7 @@
     <value>Öffne Videodatei...</value>
   </data>
   <data name="OpenDiscFolder" xml:space="preserve">
-    <value> Öffne DVD/Blu-ray-Ordner...</value>
+    <value>Öffne DVD/Blu-ray-Ordner...</value>
   </data>
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>Mehrere Dateien in Warteschlange einreihen...</value>
@@ -163,7 +163,7 @@
     <value>Bearbeiten</value>
   </data>
   <data name="OpenContainingFolder" xml:space="preserve">
-    <value>Öffne übergeordneten Ordner</value>
+    <value>Übergeordneten Ordner öffnen</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
     <value>Abgeschlossene entfernen</value>
@@ -208,7 +208,7 @@
     <value>Zuletzt geöffnet</value>
   </data>
   <data name="DragFilesHereLabel" xml:space="preserve">
-    <value>(Oder ziehen Sie die Video-Dateien oder Ordner hier hinein)</value>
+    <value>(Oder ziehen Sie Video-Dateien bzw. Ordner hierhin)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Es ist ein Fehler beim Scannen aufgetreten.</value>
@@ -235,7 +235,7 @@
     <value>Ziel:</value>
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
-    <value>Zum Auswählen des Zielordners der Encodierung klicken.</value>
+    <value>Hier klicken, um das Ziel der Encodierung zu bearbeiten.</value>
   </data>
   <data name="SelectOutputPathButton" xml:space="preserve">
     <value>Ausgabepfad wählen...</value>
@@ -268,7 +268,7 @@
     <value>Wählen Sie einen DVD oder Blu-ray-Ordner.</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
-    <value>Die Encodierung ist noch nicht abgeschlossen. Sind Sie sicher, dass Sie aufhören möchten?</value>
+    <value>Es sind noch Encodierungen im Gange. Wollen Sie diese wirklich abbrechen und das Programm beenden?</value>
   </data>
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
     <value>Encodierung im Gange</value>
@@ -418,13 +418,13 @@
     <value>AppleTV-3</value>
   </data>
   <data name="Preset_Universal" xml:space="preserve">
-    <value>Universal</value>
+    <value>Universelles Profil</value>
   </data>
   <data name="Preset_HighProfile" xml:space="preserve">
     <value>Hohes Profil</value>
   </data>
   <data name="Preset_Normal" xml:space="preserve">
-    <value>Normal</value>
+    <value>Normales Profil</value>
   </data>
   <data name="Preset_WindowsPhone7" xml:space="preserve">
     <value>Windows Phone 7</value>
@@ -465,20 +465,14 @@
   <data name="PresetImportErrorMessage" xml:space="preserve">
     <value>Vorgabe konnte nicht importiert werden. Format ist unbekannt.</value>
   </data>
-  <data name="PresetImportErrorTitle" xml:space="preserve">
+  <data name="ImportErrorTitle" xml:space="preserve">
     <value>Importfehler</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
     <value>Voreinstellung {0} erfolgreich importiert.</value>
   </data>
-  <data name="PresetImportSuccessTitle" xml:space="preserve">
-    <value>Erfolgreich</value>
-  </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
     <value>Voreinstellung erfolgreich nach {0} exportiert.</value>
-  </data>
-  <data name="PresetExportSuccessTitle" xml:space="preserve">
-    <value>Erfolgreich</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Voreinstellung exportieren</value>
@@ -561,7 +555,69 @@
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Änderungen verwerfen?</value>
   </data>
-	<data name="RemoveAudioTrackToolTip" xml:space="preserve">
+  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>Audiospur entfernen</value>
+  </data>
+  <data name="Preset_Xbox360" xml:space="preserve">
+    <value>Xbox 360</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>Aus der Warteschlange entfernen</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>Warteschlange konnte nicht gespeichert werden:{0}{1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>Warteschlange exportieren...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>Warteschlange exportieren</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Warteschlange konnte nicht importiert werden. Format ist unbekannt.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>Voreinstellungsdatei importieren</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>Warteschlangendatei importieren</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>Warteschlange importieren...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>Warteschlange erfolgreich nach {0} exportiert</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>Warteschlange erfolgreich importiert.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>Encodierung beenden?</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>Möchten Sie die Encodierung wirklich beenden?</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>Die aktuelle Datei schließen und die CD/DVD öffnen?</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>Encodierungsdetails</value>
+  </data>
+	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+    <value>Die Encodierungseinstellungen haben sich geändert, seitdem Sie das letzte Mal ein Element zur Warteschlange hinzugefügt haben. Wollen Sie die aktuellen Encodierungseinstellungen auf alle Elemente der Warteschlange anwenden?</value>
+  </data>
+	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+    <value>Einstellungen wurden geändert</value>
+  </data>
+	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>Möchten Sie die vorhandene Datei umbenennen und mit einer neuen beginnen?</value>
+  </data>
+	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>Version {0} der Datenbankdatei kann nicht gelesen werden. Die höchste von VidCoder {1} erkannte Version ist {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>Inkompatible Datenbankdatei</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
 </root>

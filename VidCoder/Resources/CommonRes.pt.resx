@@ -124,10 +124,10 @@
     <value>Gravar as legendas na imagem. Com legendas gravadas, não poderá desactivá-las durante a reprodução.</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Marca esta faixa de legendas como predefinida. Isto fará com esta faixa seja exibida durante a reprodução até outra faixa seja escolhida.</value>
+    <value>Marca estas legendas como predefinidas. Isto fará com que estas legendas sejam exibidas durante a reprodução do vídeo, até que outra seja escolhida.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Exibir apenas legendas forçadas da faixa determinada. Geralmente significa pequenos pedaços de diálogo estrangeiro.</value>
+    <value>Exibir apenas legendas forçadas desta faixa. Geralmente significa pequenos pedaços de diálogo estrangeiro.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>A quantidade de tempo para avançar ou retardar o aparecimento das legendas.</value>
@@ -164,7 +164,7 @@
     <value>Duração</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Procurar uma faixa de legenda que é susceptível de conter pedaços de diálogo estrangeiro. Bom para filmes que são principalmente na sua língua nativa.</value>
+    <value>Procurar uma legenda que seja susceptível de conter pedaços de diálogo estrangeiro. Bom para filmes que são principalmente na sua língua nativa.</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Predefinição</value>
@@ -194,7 +194,7 @@
     <value>Todos</value>
   </data>
   <data name="StreamChoice" xml:space="preserve">
-    <value>Stream {0}</value>
+    <value>Faixa {0}</value>
     <comment>Used in the encoding settings dialog to mark which audio stream an audio encoding is targeting. By default the encoding works on all streams but you can target it to affect only the first stream, in which case it would label it "Stream 1"</comment>
   </data>
   <data name="Ok" xml:space="preserve">
@@ -219,7 +219,7 @@
     <value>Não</value>
   </data>
   <data name="CouldNotAccessDirectoriesError" xml:space="preserve">
-    <value>Não foi possível aceder aos seguintes directórios:</value>
+    <value>Não foi possível aceder às seguintes pastas:</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>Nenhum</value>
@@ -234,6 +234,18 @@
     <value>{0} Ficheiros</value>
   </data>
   <data name="QueueColumnNamePreset" xml:space="preserve">
-    <value>Pré-ajustes</value>
+    <value>Pré-ajuste</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Sucesso</value>
+  </data>
+  <data name="ConfirmDialogTitle" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="FileFailureErrorMessage" xml:space="preserve">
+    <value>Não foi possível concluir a operação sobre o ficheiro.</value>
+  </data>
+  <data name="FileFailureErrorTitle" xml:space="preserve">
+    <value>Erro na operação sobre o ficheiro</value>
   </data>
 </root>

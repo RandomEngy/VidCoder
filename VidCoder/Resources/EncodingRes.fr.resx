@@ -269,14 +269,7 @@ Pour la source audio disposant d'une large plage dynamique (séquences très for
   <data name="WebOptimizedToolTip" xml:space="preserve">
     <value>Organiser le fichier pour une meilleure lecture en téléchargement progressif.</value>
   </data>
-  <data name="X264PresetToolTip" xml:space="preserve">
-    <value>Modifier les options de compromis efficacité de compression contre la vitesse d'encodage. Si vous spécifiez un paramètre prédéfini, les modifications qu'il apporte s'appliquera avant tous les autres paramètres.</value>
-  </data>
-  <data name="X264ProfileToolTip" xml:space="preserve">
-    <value>Limiter le profil du flux de sortie. Si vous spécifiez un profil, il se substitue à tous les autres paramètres, donc si vous l'utilisez, vous serez garanti d'un flux compatible.
-
-Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniquement en charge un certain profil.</value>
-  </data>
+  
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>Ajuster les options pour les optimiser pour le contenu de votre entrée. Si vous spécifiez une mise au point, les modifications s'appliqueront après la présélection mais avant tous les autres paramètres.</value>
   </data>
@@ -313,9 +306,7 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   <data name="TabHeader_Audio" xml:space="preserve">
     <value>Audio</value>
   </data>
-  <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>Avancé</value>
-  </data>
+  
   <data name="Rename" xml:space="preserve">
     <value>Renommer</value>
   </data>
@@ -363,9 +354,6 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   </data>
   <data name="DisplayWidthRadioButton" xml:space="preserve">
     <value>Largeur d'affichage :</value>
-  </data>
-  <data name="PixelAspectRatioRadioButton" xml:space="preserve">
-    <value>Rapport des pixels:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Sortie</value>
@@ -448,15 +436,9 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   <data name="TuneLabel" xml:space="preserve">
     <value>Optimisation:</value>
   </data>
-  <data name="Profile_Baseline" xml:space="preserve">
-    <value>de base</value>
-  </data>
-  <data name="Profile_Main" xml:space="preserve">
-    <value>Principal</value>
-  </data>
-  <data name="Profile_High" xml:space="preserve">
-    <value>Haut</value>
-  </data>
+  
+  
+  
   <data name="Preset_UltraFast" xml:space="preserve">
     <value>Ultra rapide</value>
   </data>
@@ -487,30 +469,14 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   <data name="Preset_Placebo" xml:space="preserve">
     <value>Placebo</value>
   </data>
-  <data name="Tune_Film" xml:space="preserve">
-    <value>Film</value>
-  </data>
-  <data name="Tune_Animation" xml:space="preserve">
-    <value>Animation</value>
-  </data>
-  <data name="Tune_Grain" xml:space="preserve">
-    <value>Grain [EN]</value>
-  </data>
-  <data name="Tune_StillImage" xml:space="preserve">
-    <value>Image fixe</value>
-  </data>
-  <data name="Tune_Psnr" xml:space="preserve">
-    <value>PSNR (Signal/Bruit des Pics)</value>
-  </data>
-  <data name="Tune_Ssim" xml:space="preserve">
-    <value>SSIM (indice de similarité structurelle)</value>
-  </data>
-  <data name="Tune_FastDecode" xml:space="preserve">
-    <value>Décodage rapide</value>
-  </data>
-  <data name="Tune_ZeroLatency" xml:space="preserve">
-    <value>Zéro de latence</value>
-  </data>
+  
+  
+  
+  
+  
+  
+  
+  
   <data name="FpsFormat" xml:space="preserve">
     <value>{0:0. ###} IPS</value>
   </data>
@@ -589,43 +555,15 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   <data name="AudioCompressionToolTip" xml:space="preserve">
     <value>Le taux de compression à appliquer. Les valeurs valides de {0} sont de {1} à {2}.</value>
   </data>
-  <data name="AudioEncoder_copy" xml:space="preserve">
-    <value>Source Directe Auto</value>
-  </data>
-  <data name="AudioEncoder_copy_aac" xml:space="preserve">
-    <value>Source Directe AAC</value>
-  </data>
-  <data name="AudioEncoder_copy_ac3" xml:space="preserve">
-    <value>Source Directe AC3</value>
-  </data>
-  <data name="AudioEncoder_copy_dts" xml:space="preserve">
-    <value>Source Directe DTS</value>
-  </data>
-  <data name="AudioEncoder_copy_dtshd" xml:space="preserve">
-    <value>Source Directe DTS-HD</value>
-  </data>
-  <data name="AudioEncoder_copy_mp3" xml:space="preserve">
-    <value>Source Directe MP3</value>
-  </data>
   <data name="AudioEncoder_faac" xml:space="preserve">
     <value>AAC (FAAC)</value>
     <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
   </data>
-  <data name="AudioEncoder_ffaac" xml:space="preserve">
-    <value>AAC (Libav)</value>
-  </data>
-  <data name="AudioEncoder_ffac3" xml:space="preserve">
-    <value>AC3 (Libav)</value>
-  </data>
-  <data name="AudioEncoder_ffflac" xml:space="preserve">
-    <value>FLAC (Libav)</value>
-  </data>
-  <data name="AudioEncoder_lame" xml:space="preserve">
-    <value>MP3 (LAME)</value>
-  </data>
-  <data name="AudioEncoder_vorbis" xml:space="preserve">
-    <value>Vorbis (Vorbis)</value>
-  </data>
+  
+  
+  
+  
+  
   <data name="Mixdown_5point1" xml:space="preserve">
     <value>Canaux 5.1</value>
   </data>
@@ -824,14 +762,8 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>options x264 additionnelles avancée :</value>
   </data>
-  <data name="H264LevelToolTip" xml:space="preserve">
-    <value>Définit et assure la conformité avec le niveau spécifié de H.264.
-
-Remplace tous les autres réglages.</value>
-  </data>
-  <data name="Profile_High444" xml:space="preserve">
-    <value>Haut 4:4:4 prédictif</value>
-  </data>
+  
+  
   <data name="VideoCodecLabel" xml:space="preserve">
     <value>Codec vidéo :</value>
   </data>
@@ -856,18 +788,7 @@ Remplace tous les autres réglages.</value>
   <data name="X264Settings" xml:space="preserve">
     <value>Réglages x264</value>
   </data>
-  <data name="X264PresetLabel" xml:space="preserve">
-    <value>Pré-Réglages x264 :</value>
-  </data>
-  <data name="X264TuneLabel" xml:space="preserve">
-    <value>Optimisation x264 :</value>
-  </data>
-  <data name="H264ProfileLabel" xml:space="preserve">
-    <value>Profil H.264 :</value>
-  </data>
-  <data name="H264LevelLabel" xml:space="preserve">
-    <value>Niveau H.264 :</value>
-  </data>
+  
   <data name="MoreSettingsLabel" xml:space="preserve">
     <value>+ de Paramètres :</value>
   </data>
@@ -889,16 +810,49 @@ Remplace tous les autres réglages.</value>
   <data name="Modifiers" xml:space="preserve">
     <value>Modificateurs</value>
   </data>
-  <data name="PassthroughTrackDroppedWarning" xml:space="preserve">
-    <value>La Source Directe ne fonctionne pas pour ce codec d'entrée ; la piste a été supprimée.</value>
-  </data>
   <data name="DtsMp4Warning" xml:space="preserve">
     <value>Peu de lecteurs supporte la lecture de l'audio DTS dans un conteneur MP4. MKV est recommandé pour l'audio DTS.</value>
   </data>
-  <data name="AudioEncoder_ffflac24" xml:space="preserve">
-    <value>FLAC 24-bits (Libav)</value>
-  </data>
-	<data name="Advanced_PsychovisualLabel" xml:space="preserve">
+  
+  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Psychovisuel</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

@@ -153,4 +153,5 @@
   <data name="TitleFormat">
     <value xml:space="preserve">Titre : {0}</value>
   </data>
+	
 </root>

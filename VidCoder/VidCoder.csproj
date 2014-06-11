@@ -784,6 +784,7 @@
     </Compile>
     <Compile Include="WindowPlacement.cs" />
     <Compile Include="WindowPlacementWpf.cs" />
+    <EmbeddedResource Include="Resources\ChapterMarkersRes.cs.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.de.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.es.resx">
       <SubType>Designer</SubType>
@@ -793,36 +794,59 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ChapterMarkersRes.fr.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.hu.resx" />
+    <EmbeddedResource Include="Resources\ChapterMarkersRes.it.resx" />
+    <EmbeddedResource Include="Resources\ChapterMarkersRes.ja.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.pt.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ChapterMarkersRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ChapterMarkersRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.zh.resx" />
+    <EmbeddedResource Include="Resources\CommonRes.cs.resx" />
     <EmbeddedResource Include="Resources\CommonRes.de.resx" />
     <EmbeddedResource Include="Resources\CommonRes.es.resx" />
     <EmbeddedResource Include="Resources\CommonRes.eu.resx" />
     <EmbeddedResource Include="Resources\CommonRes.fr.resx" />
+    <EmbeddedResource Include="Resources\CommonRes.it.resx" />
+    <EmbeddedResource Include="Resources\CommonRes.ja.resx" />
     <EmbeddedResource Include="Resources\CommonRes.pt.resx" />
+    <EmbeddedResource Include="Resources\CommonRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\CommonRes.zh.resx" />
+    <EmbeddedResource Include="Resources\EncodeDetailsRes.cs.resx" />
+    <EmbeddedResource Include="Resources\EncodeDetailsRes.de.resx" />
+    <EmbeddedResource Include="Resources\EncodeDetailsRes.es.resx" />
+    <EmbeddedResource Include="Resources\EncodeDetailsRes.eu.resx" />
+    <EmbeddedResource Include="Resources\EncodeDetailsRes.fr.resx" />
+    <EmbeddedResource Include="Resources\EncodeDetailsRes.hu.resx" />
+    <EmbeddedResource Include="Resources\EncodeDetailsRes.it.resx" />
+    <EmbeddedResource Include="Resources\EncodeDetailsRes.ja.resx" />
+    <EmbeddedResource Include="Resources\EncodeDetailsRes.pt.resx" />
     <EmbeddedResource Include="Resources\EncodeDetailsRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EncodeDetailsRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EncodeDetailsRes.zh-Hant.resx" />
+    <EmbeddedResource Include="Resources\EncodeDetailsRes.zh.resx" />
+    <EmbeddedResource Include="Resources\EncodingRes.cs.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.de.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.es.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.eu.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.fr.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.hu.resx" />
+    <EmbeddedResource Include="Resources\EncodingRes.it.resx" />
+    <EmbeddedResource Include="Resources\EncodingRes.ja.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.pt.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EncodingRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EncodingRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.zh.resx" />
+    <EmbeddedResource Include="Resources\EnumsRes.cs.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.de.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.es.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.eu.resx" />
@@ -830,24 +854,32 @@
     <EmbeddedResource Include="Resources\EnumsRes.hu.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EnumsRes.it.resx" />
+    <EmbeddedResource Include="Resources\EnumsRes.ja.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.pt.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EnumsRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EnumsRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.zh.resx" />
+    <EmbeddedResource Include="Resources\LogRes.cs.resx" />
     <EmbeddedResource Include="Resources\LogRes.de.resx" />
     <EmbeddedResource Include="Resources\LogRes.es.resx" />
     <EmbeddedResource Include="Resources\LogRes.eu.resx" />
     <EmbeddedResource Include="Resources\LogRes.fr.resx" />
     <EmbeddedResource Include="Resources\LogRes.hu.resx" />
+    <EmbeddedResource Include="Resources\LogRes.it.resx" />
+    <EmbeddedResource Include="Resources\LogRes.ja.resx" />
     <EmbeddedResource Include="Resources\LogRes.pt.resx" />
     <EmbeddedResource Include="Resources\LogRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LogRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LogRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\LogRes.zh.resx" />
+    <EmbeddedResource Include="Resources\MainRes.cs.resx" />
     <EmbeddedResource Include="Resources\MainRes.de.resx" />
     <EmbeddedResource Include="Resources\MainRes.es.resx" />
     <EmbeddedResource Include="Resources\MainRes.eu.resx" />
@@ -857,59 +889,79 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MainRes.hu.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MainRes.it.resx" />
+    <EmbeddedResource Include="Resources\MainRes.ja.resx" />
     <EmbeddedResource Include="Resources\MainRes.pt.resx" />
     <EmbeddedResource Include="Resources\MainRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MainRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MainRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\MainRes.zh.resx" />
+    <EmbeddedResource Include="Resources\MiscRes.cs.resx" />
     <EmbeddedResource Include="Resources\MiscRes.de.resx" />
     <EmbeddedResource Include="Resources\MiscRes.es.resx" />
     <EmbeddedResource Include="Resources\MiscRes.eu.resx" />
     <EmbeddedResource Include="Resources\MiscRes.fr.resx" />
     <EmbeddedResource Include="Resources\MiscRes.hu.resx" />
+    <EmbeddedResource Include="Resources\MiscRes.it.resx" />
+    <EmbeddedResource Include="Resources\MiscRes.ja.resx" />
     <EmbeddedResource Include="Resources\MiscRes.pt.resx" />
     <EmbeddedResource Include="Resources\MiscRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MiscRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MiscRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\MiscRes.zh.resx" />
+    <EmbeddedResource Include="Resources\OptionsRes.cs.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.de.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.es.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.eu.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.fr.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.hu.resx" />
+    <EmbeddedResource Include="Resources\OptionsRes.it.resx" />
+    <EmbeddedResource Include="Resources\OptionsRes.ja.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.pt.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>OptionsRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\OptionsRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.zh.resx" />
+    <EmbeddedResource Include="Resources\PreviewRes.cs.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.de.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.es.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.eu.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.fr.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.hu.resx" />
+    <EmbeddedResource Include="Resources\PreviewRes.it.resx" />
+    <EmbeddedResource Include="Resources\PreviewRes.ja.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.pt.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PreviewRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PreviewRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.zh.resx" />
+    <EmbeddedResource Include="Resources\QueueTitlesRes.cs.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.de.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.es.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.eu.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.fr.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.hu.resx" />
+    <EmbeddedResource Include="Resources\QueueTitlesRes.it.resx" />
+    <EmbeddedResource Include="Resources\QueueTitlesRes.ja.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.pt.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>QueueTitlesRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\QueueTitlesRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.zh.resx" />
+    <EmbeddedResource Include="Resources\SubtitleRes.cs.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.de.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.es.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.eu.resx" />
@@ -918,6 +970,8 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SubtitleRes.hu.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SubtitleRes.it.resx" />
+    <EmbeddedResource Include="Resources\SubtitleRes.ja.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.pt.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -930,6 +984,7 @@
       <LastGenOutput>CommonRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SubtitleRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.zh.resx" />
     <None Include="App.config">
       <SubType>Designer</SubType>

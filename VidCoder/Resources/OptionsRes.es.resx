@@ -262,7 +262,7 @@
     <value>Avanzado</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Estás en la pista Beta. Para volver a una versión estable, desinstalar, haz clic en "Sí" para eliminar los ajustes preestablecidos, luego vuelve a instalar una versión estable.</value>
+    <value>Estas ejecutando la versión Beta. Esta se puede ejecutar de lado con la versión estable.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Únete a la pista Beta para obtener las actualizaciones más frecuentes</value>
@@ -384,16 +384,38 @@
   <data name="Priority_Idle" xml:space="preserve">
     <value>Bajo</value>
   </data>
-	<data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
     <value>Copiar registro en el mismo directorio que el vídeo codificado</value>
   </data>
-	<data name="OpenLogFolderButton" xml:space="preserve">
+  <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Abrir carpeta de registro</value>
   </data>
-	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
     <value>Resumir automaticamente la codificacion despues de reiniciar</value>
   </data>
-	<data name="UseWorkerProcessCheckBox" xml:space="preserve">
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Utilizar el proceso de trabajo para codificar</value>
+  </data>
+  <data name="VideoSection" xml:space="preserve">
+    <value>Vídeo</value>
+  </data>
+  <data name="DxvaDecodingCheckBox" xml:space="preserve">
+    <value>Habilitar decodificación DXVA de aceleración por Hardware</value>
+  </data>
+  <data name="DxvaDecodingToolTip" xml:space="preserve">
+    <value>Esta opción sólo es adecuada para sistemas más lentos. Decodificadores de hardware actualmente están diseñados para la reproducción, no para volver a codificar vídeo entonces esta opcion será un cuello de botella en sistemas más rápidos.</value>
+  </data>
+  <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+    <value>Mantener tiempo creado y modificado cuando se conviertan archivos</value>
+  </data>
+  <data name="DefaultCheckBox" xml:space="preserve">
+    <value>Por defecto</value>
+    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Preservar estructura de la carpeta en lote de codificadas</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Si codificas una carpeta llena de archivos se pondrán las versiones codificadas en subcarpetas para que coincida con la estructura del directorio original.</value>
   </data>
 </root>

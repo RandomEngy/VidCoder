@@ -262,7 +262,7 @@
     <value>Haladó</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Jelenleg béta verzióval rendelkezel. A stabil verzióra visszaváltáshoz távolítsd el, kattints az "Igen"-re az összes séma eltávolításához és telepítsd újra a stabil változatot.</value>
+    <value>A béta verziót futtatod. Ez a stabil verzióval párhuzamosan is futtatható.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Csatlakozás a béta verziókhoz</value>
@@ -384,16 +384,38 @@
   <data name="Priority_Idle" xml:space="preserve">
     <value>Alacsony</value>
   </data>
-	<data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
     <value>Kódolási napló másolása a kódolt videót tartalmazó mappába</value>
   </data>
-	<data name="OpenLogFolderButton" xml:space="preserve">
+  <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Napló mappájának megnyitása</value>
   </data>
-	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
     <value>Kódolás automatikus folytatása az újraindítás után</value>
   </data>
-	<data name="UseWorkerProcessCheckBox" xml:space="preserve">
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Munkavégző folyamat használata a kódoláshoz</value>
+  </data>
+  <data name="VideoSection" xml:space="preserve">
+    <value>Videó</value>
+  </data>
+  <data name="DxvaDecodingCheckBox" xml:space="preserve">
+    <value>DXVA hardveresen gyorsított dekódolás engedélyezése</value>
+  </data>
+  <data name="DxvaDecodingToolTip" xml:space="preserve">
+    <value>Ez a beállítás csak a lassabb rendszerekhez alkalmas. A hardveres dekódereket lejátszásra tervezték, nem újrakódolásra, így a gyorsabb rendszerek szűk keresztmetszetét jelenthetik.</value>
+  </data>
+  <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+    <value>Fájlok Létrehozva és Módosítva értékeinek megőrzése a konvertálás során</value>
+  </data>
+  <data name="DefaultCheckBox" xml:space="preserve">
+    <value>Alapértelmezett</value>
+    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Mappa struktúra megőrzése a sorozatkódolás során</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Ha egy fájlokkal teli mappát kódolsz át, a kódolt verziók külön almappákba kerülnek, hogy tükrözzék a forrásmappa struktúráját.</value>
   </data>
 </root>

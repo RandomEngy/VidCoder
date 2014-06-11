@@ -467,20 +467,12 @@
   <data name="PresetImportErrorMessage" xml:space="preserve">
     <value>Ne peut pas importer le pré-réglage. Son format n'est pas reconnu.</value>
   </data>
-  <data name="PresetImportErrorTitle" xml:space="preserve">
-    <value>Erreur d'importation</value>
-  </data>
+  
   <data name="PresetImportSuccessMessage" xml:space="preserve">
     <value>Importation du pré-réglage {0} réussi.</value>
   </data>
-  <data name="PresetImportSuccessTitle" xml:space="preserve">
-    <value>Succès</value>
-  </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
     <value>Exportation du pré-réglage vers {0} réussi</value>
-  </data>
-  <data name="PresetExportSuccessTitle" xml:space="preserve">
-    <value>Succès</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Exporter un Pré-réglage</value>
@@ -563,7 +555,27 @@
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Ignorer les modifications ?</value>
   </data>
-	<data name="RemoveAudioTrackToolTip" xml:space="preserve">
+  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>Supprimer la piste audio</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+	
+	
+	
+	
+	
 </root>

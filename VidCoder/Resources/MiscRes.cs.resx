@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>Přidat</value>
+  </data>
+  <data name="RefreshButton" xml:space="preserve">
+    <value>Znovu načíst</value>
+  </data>
+  <data name="ChooseFromProcessesLabel" xml:space="preserve">
+    <value>Vybrat ze stávajících procesů:</value>
+  </data>
+  <data name="AddAutoPauseProcessDialogTitle" xml:space="preserve">
+    <value>Přidat automatické pozastavení procesu</value>
+  </data>
+  <data name="ProcessNameLabel" xml:space="preserve">
+    <value>Název procesu:</value>
+  </data>
+  <data name="ExceptionDialogMainText" xml:space="preserve">
+    <value>V programu VidCoder došlo k neočekávané chybě.</value>
+  </data>
+  <data name="ExceptionDialogSubText" xml:space="preserve">
+    <value>Oznamte to prosím aby to mohlo být v budoucnosti opraveno.</value>
+  </data>
+  <data name="ExceptionWindowTitle" xml:space="preserve">
+    <value>Výjimka</value>
+  </data>
+  <data name="FileConflictDialogTitle" xml:space="preserve">
+    <value>Konflikt souborů</value>
+  </data>
+  <data name="OverwriteButton" xml:space="preserve">
+    <value>Přepsat</value>
+  </data>
+  <data name="AutoRenameButton" xml:space="preserve">
+    <value>Automaticky-přejmenovat</value>
+  </data>
+  <data name="FileConflictWarning" xml:space="preserve">
+    <value>Soubor již existuje v {0}. Chcete soubor přepsat, automaticky najít novou výstupní cestu pro kódování a nebo operaci zrušit?</value>
+  </data>
+  <data name="QueueFileConflictWarning" xml:space="preserve">
+    <value>Úloha fronty již má výstupní cestu na {0}. Chcete soubor přepsat, automaticky najít novou výstupní cestu pro kódování a nebo operaci zrušit?</value>
+  </data>
+  <data name="QueueColumnsDialogTitle" xml:space="preserve">
+    <value>Sloupce fronty</value>
+  </data>
+  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
+    <value>Přetažením přidat, odebrat nebo změnit pořadí sloupců.</value>
+  </data>
+  <data name="UnusedColumns" xml:space="preserve">
+    <value>Nepoužité sloupce</value>
+  </data>
+  <data name="UsedColumns" xml:space="preserve">
+    <value>Použité sloupce</value>
+  </data>
+  <data name="ScanMultipleWindowTitle" xml:space="preserve">
+    <value>Snímání...</value>
+  </data>
+  <data name="UpdateSuccessDialogTitle" xml:space="preserve">
+    <value>Podařilo se</value>
+  </data>
+  <data name="UpdateSuccessDialogMessage" xml:space="preserve">
+    <value>VidCoder byl úspěšně aktualizován.</value>
+  </data>
+  <data name="AboutVidCoderDialogTitle" xml:space="preserve">
+    <value>O programu VidCoder</value>
+  </data>
+  <data name="LicenseLabel" xml:space="preserve">
+    <value>Licence:</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Verze</value>
+  </data>
+  <data name="BasedOnHandBrake" xml:space="preserve">
+    <value>Založeno na HandBrake ({0})</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>© {0} VidCoder vývojový tým</value>
+  </data>
+  <data name="VersionFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
+    <comment>First is version, second is architecture. For example: 1.4.2 (x64)</comment>
+  </data>
+  <data name="BetaVersionFormat" xml:space="preserve">
+    <value>{0} Beta ({1})</value>
+    <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
+  </data>
+  <data name="PresetNameDialogTitle" xml:space="preserve">
+    <value>Pojmenovat přednastavení</value>
+  </data>
+  <data name="ChoosePresetName" xml:space="preserve">
+    <value>Zvolte název pro přednastavení:</value>
+  </data>
+  <data name="ApplyUpdateDialogTitle" xml:space="preserve">
+    <value>Zahájit aktualizaci?</value>
+  </data>
+  <data name="ApplyUpdateDialogMessage" xml:space="preserve">
+    <value>Aktualizace byla stažena. Chcete ji nyní použít?</value>
+  </data>
+  <data name="ViewFullChangelog" xml:space="preserve">
+    <value>Zobrazit všechny změny</value>
+  </data>
+  <data name="DisableUpdatesButton" xml:space="preserve">
+    <value>Zakázat aktualizace</value>
+  </data>
+  <data name="NoticeMessageTitle" xml:space="preserve">
+    <value>Upozornění</value>
+  </data>
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>VidCoder nefunguje na vašem operačním systému. Windows XP a Server 2003 již nejsou podporovány. Nainstalujte si prosím VidCoder 1.4 a nebo inovujte operační systém.</value>
+  </data>
+  <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
+    <value>Systém bezprostředně přejde do režimu spánku</value>
+  </data>
+  <data name="EncodeCompleteWarning_LogOffTitle" xml:space="preserve">
+    <value>Dojde bezprostředně k odhlášení</value>
+  </data>
+  <data name="EncodeCompleteWarning_ShutdownTitle" xml:space="preserve">
+    <value>Dojde bezprostředně k vypnutí</value>
+  </data>
+  <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
+    <value>Systém přejde do režimu spánku během {0} sekund.</value>
+  </data>
+  <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
+    <value>Budete odhlášen během {0} sekund.</value>
+  </data>
+  <data name="EncodeCompleteWarning_ShutdownMessage" xml:space="preserve">
+    <value>Systém bude vypnut během {0} sekund.</value>
+  </data>
+  <data name="EncodeCompleteWarning_Title" xml:space="preserve">
+    <value>Kódování bylo dokončeno.</value>
+  </data>
+</root>

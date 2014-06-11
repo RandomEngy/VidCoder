@@ -268,14 +268,7 @@ A széles dinamikus tartománnyal rendelkező forrásaudiók (nagyon hangos és 
   <data name="WebOptimizedToolTip" xml:space="preserve">
     <value>A fájl átrendezése, hogy jobban működjön progresszív letöltésként.</value>
   </data>
-  <data name="X264PresetToolTip" xml:space="preserve">
-    <value>Csökkenthetsz a tömörítés hatékonyságán a kódolási sebesség javára. Ha megadsz egy sémát, a változtatásai minden más paraméter előtt kerülnek alkalmazásra.</value>
-  </data>
-  <data name="X264ProfileToolTip" xml:space="preserve">
-    <value>A kimeneti folyamat profiljának limitálása. Ha megadsz egy profilt, az felülír minden más beállítást, így ha használod, garantáltan kompatibilis folyamatot kapsz.
-
-Akkor érdemes beállítani, ha tudod, hogy a lejátszó eszköz csak egy bizonyos profilt támogat.</value>
-  </data>
+  
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>Beállítások további optimalizálása a bemeneti tartalmakhoz. Ha megadsz egy módosítást, a változások a Séma után, de a többi paraméter előtt kerülnek érvényesítésre.</value>
   </data>
@@ -312,9 +305,7 @@ Akkor érdemes beállítani, ha tudod, hogy a lejátszó eszköz csak egy bizony
   <data name="TabHeader_Audio" xml:space="preserve">
     <value>Hang</value>
   </data>
-  <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>Haladó</value>
-  </data>
+  
   <data name="Rename" xml:space="preserve">
     <value>Átnevezés</value>
   </data>
@@ -362,9 +353,6 @@ Akkor érdemes beállítani, ha tudod, hogy a lejátszó eszköz csak egy bizony
   </data>
   <data name="DisplayWidthRadioButton" xml:space="preserve">
     <value>Megjelenítési szélesség:</value>
-  </data>
-  <data name="PixelAspectRatioRadioButton" xml:space="preserve">
-    <value>Pixel képarány:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Kimenet</value>
@@ -447,15 +435,9 @@ Akkor érdemes beállítani, ha tudod, hogy a lejátszó eszköz csak egy bizony
   <data name="TuneLabel" xml:space="preserve">
     <value>Beállítás:</value>
   </data>
-  <data name="Profile_Baseline" xml:space="preserve">
-    <value>Alapvonal</value>
-  </data>
-  <data name="Profile_Main" xml:space="preserve">
-    <value>Fő</value>
-  </data>
-  <data name="Profile_High" xml:space="preserve">
-    <value>Magas</value>
-  </data>
+  
+  
+  
   <data name="Preset_UltraFast" xml:space="preserve">
     <value>Ultra gyors</value>
   </data>
@@ -486,30 +468,14 @@ Akkor érdemes beállítani, ha tudod, hogy a lejátszó eszköz csak egy bizony
   <data name="Preset_Placebo" xml:space="preserve">
     <value>Placebo</value>
   </data>
-  <data name="Tune_Film" xml:space="preserve">
-    <value>Film</value>
-  </data>
-  <data name="Tune_Animation" xml:space="preserve">
-    <value>Animáció</value>
-  </data>
-  <data name="Tune_Grain" xml:space="preserve">
-    <value>Szemcsés</value>
-  </data>
-  <data name="Tune_StillImage" xml:space="preserve">
-    <value>Állókép</value>
-  </data>
-  <data name="Tune_Psnr" xml:space="preserve">
-    <value>PSNR</value>
-  </data>
-  <data name="Tune_Ssim" xml:space="preserve">
-    <value>SSIM</value>
-  </data>
-  <data name="Tune_FastDecode" xml:space="preserve">
-    <value>Gyors dekódolás</value>
-  </data>
-  <data name="Tune_ZeroLatency" xml:space="preserve">
-    <value>Nincs késleltetés</value>
-  </data>
+  
+  
+  
+  
+  
+  
+  
+  
   <data name="FpsFormat" xml:space="preserve">
     <value>{0:0.###} FPS</value>
   </data>
@@ -588,43 +554,15 @@ Akkor érdemes beállítani, ha tudod, hogy a lejátszó eszköz csak egy bizony
   <data name="AudioCompressionToolTip" xml:space="preserve">
     <value>A használni kívánt tömörítés mértéke. {0} Érvényes értékek {1} - {2} között.</value>
   </data>
-  <data name="AudioEncoder_copy" xml:space="preserve">
-    <value>Automata másolás</value>
-  </data>
-  <data name="AudioEncoder_copy_aac" xml:space="preserve">
-    <value>AAC másolása</value>
-  </data>
-  <data name="AudioEncoder_copy_ac3" xml:space="preserve">
-    <value>AC3 másolása</value>
-  </data>
-  <data name="AudioEncoder_copy_dts" xml:space="preserve">
-    <value>DTS másolása</value>
-  </data>
-  <data name="AudioEncoder_copy_dtshd" xml:space="preserve">
-    <value>DTS-HD másolása</value>
-  </data>
-  <data name="AudioEncoder_copy_mp3" xml:space="preserve">
-    <value>MP3 másolása</value>
-  </data>
   <data name="AudioEncoder_faac" xml:space="preserve">
     <value>AAC (FAAC)</value>
     <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
   </data>
-  <data name="AudioEncoder_ffaac" xml:space="preserve">
-    <value>AAC (Libav)</value>
-  </data>
-  <data name="AudioEncoder_ffac3" xml:space="preserve">
-    <value>AC3 (Libav)</value>
-  </data>
-  <data name="AudioEncoder_ffflac" xml:space="preserve">
-    <value>FLAC (Libav)</value>
-  </data>
-  <data name="AudioEncoder_lame" xml:space="preserve">
-    <value>MP3 (LAME)</value>
-  </data>
-  <data name="AudioEncoder_vorbis" xml:space="preserve">
-    <value>Vorbis (Vorbis)</value>
-  </data>
+  
+  
+  
+  
+  
   <data name="Mixdown_5point1" xml:space="preserve">
     <value>5.1 csatorna</value>
   </data>
@@ -823,14 +761,8 @@ Akkor érdemes beállítani, ha tudod, hogy a lejátszó eszköz csak egy bizony
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>További haladó x264 beállítások:</value>
   </data>
-  <data name="H264LevelToolTip" xml:space="preserve">
-    <value>Beállítja és biztosítja a meghatározott H.264 szint használatát.
-
-Felülírja az összes többi beállítást.</value>
-  </data>
-  <data name="Profile_High444" xml:space="preserve">
-    <value>Magas 4:4:4 prediktív</value>
-  </data>
+  
+  
   <data name="VideoCodecLabel" xml:space="preserve">
     <value>Videókodek</value>
   </data>
@@ -855,18 +787,7 @@ Felülírja az összes többi beállítást.</value>
   <data name="X264Settings" xml:space="preserve">
     <value>x264 beállítások</value>
   </data>
-  <data name="X264PresetLabel" xml:space="preserve">
-    <value>x264 séma</value>
-  </data>
-  <data name="X264TuneLabel" xml:space="preserve">
-    <value>x264 hangolás</value>
-  </data>
-  <data name="H264ProfileLabel" xml:space="preserve">
-    <value>H.264 profil</value>
-  </data>
-  <data name="H264LevelLabel" xml:space="preserve">
-    <value>H.264 szint</value>
-  </data>
+  
   <data name="MoreSettingsLabel" xml:space="preserve">
     <value>További beállítások:</value>
   </data>
@@ -888,16 +809,49 @@ Felülírja az összes többi beállítást.</value>
   <data name="Modifiers" xml:space="preserve">
     <value>Módosítók</value>
   </data>
-  <data name="PassthroughTrackDroppedWarning" xml:space="preserve">
-    <value>Ez a menetes kódolás nem támogatott a bemenő kodek esetében; a sáv kihagyásra került.</value>
-  </data>
   <data name="DtsMp4Warning" xml:space="preserve">
     <value>Kevés lejátszó támogatja a DTS hang lejátszását az MP4-es formátumokba. A DTS hanghoz MKV ajánlott.</value>
   </data>
-  <data name="AudioEncoder_ffflac24" xml:space="preserve">
-    <value>FLAC 24-bit (Libav)</value>
-  </data>
-	<data name="Advanced_PsychovisualLabel" xml:space="preserve">
+  
+  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Pszichovizuális</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

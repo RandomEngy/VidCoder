@@ -1,202 +1,226 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
-		Microsoft ResX Schema
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-		Version 1.3
-
-		The primary goals of this format is to allow a simple XML format 
-		that is mostly human readable. The generation and parsing of the 
-		various data types are done through the TypeConverter classes 
-		associated with the data types.
-
-		Example:
-
-		... ado.net/XML headers & schema ...
-		<resheader name="resmimetype">text/microsoft-resx</resheader>
-		<resheader name="version">1.3</resheader>
-		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-		<data name="Name1">this is my long string</data>
-		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-			[base64 mime encoded serialized .NET Framework object]
-		</data>
-		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-			[base64 mime encoded string representing a byte array form of the .NET Framework object]
-		</data>
-
-		There are any number of "resheader" rows that contain simple 
-		name/value pairs.
-
-		Each data row contains a name, and value. The row also contains a 
-		type or mimetype. Type corresponds to a .NET class that support 
-		text/value conversion through the TypeConverter architecture. 
-		Classes that don't support this are serialized and stored with the 
-		mimetype set.
-
-		The mimetype is used for serialized objects, and tells the 
-		ResXResourceReader how to depersist the object. This is currently not 
-		extensible. For a given mimetype the value must be set accordingly:
-
-		Note - application/x-microsoft.net.object.binary.base64 is the format 
-		that the ResXResourceWriter will generate, however the reader can 
-		read any of the formats listed below.
-
-		mimetype: application/x-microsoft.net.object.binary.base64
-		value   : The object must be serialized with 
-			: System.Serialization.Formatters.Binary.BinaryFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.soap.base64
-		value   : The object must be serialized with 
-			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.bytearray.base64
-		value   : The object must be serialized into a byte array 
-			: using a System.ComponentModel.TypeConverter
-			: and then encoded with base64 encoding.
-	-->
-	
-	<xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1"/>
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required"/>
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>1.3</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-  <data name="AddButton">
-    <value xml:space="preserve">Adicionar</value>
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>Adicionar</value>
   </data>
-  <data name="RefreshButton">
-    <value xml:space="preserve">Actualizar</value>
+  <data name="RefreshButton" xml:space="preserve">
+    <value>Actualizar</value>
   </data>
-  <data name="ChooseFromProcessesLabel">
-    <value xml:space="preserve">Escolha de entre os processos existentes:</value>
+  <data name="ChooseFromProcessesLabel" xml:space="preserve">
+    <value>Escolha de entre os processos existentes:</value>
   </data>
-  <data name="AddAutoPauseProcessDialogTitle">
-    <value xml:space="preserve">Adicionar pausa automática ao processo</value>
+  <data name="AddAutoPauseProcessDialogTitle" xml:space="preserve">
+    <value>Adicionar pausa automática ao processo</value>
   </data>
-  <data name="ProcessNameLabel">
-    <value xml:space="preserve">Nome do processo:</value>
+  <data name="ProcessNameLabel" xml:space="preserve">
+    <value>Nome do processo:</value>
   </data>
-  <data name="ExceptionDialogMainText">
-    <value xml:space="preserve">VidCoder teve um erro inesperado.</value>
+  <data name="ExceptionDialogMainText" xml:space="preserve">
+    <value>VidCoder teve um erro inesperado.</value>
   </data>
-  <data name="ExceptionDialogSubText">
-    <value xml:space="preserve">Por favor informe-nos disto para que possamos corrigir no futuro.</value>
+  <data name="ExceptionDialogSubText" xml:space="preserve">
+    <value>Por favor informe-nos disto para que possamos corrigir no futuro.</value>
   </data>
-  <data name="ExceptionWindowTitle">
-    <value xml:space="preserve">Excepção</value>
+  <data name="ExceptionWindowTitle" xml:space="preserve">
+    <value>Excepção</value>
   </data>
-  <data name="FileConflictDialogTitle">
-    <value xml:space="preserve">Conflito de ficheiro</value>
+  <data name="FileConflictDialogTitle" xml:space="preserve">
+    <value>Conflito de ficheiro</value>
   </data>
-  <data name="OverwriteButton">
-    <value xml:space="preserve">Substituir</value>
+  <data name="OverwriteButton" xml:space="preserve">
+    <value>Substituir</value>
   </data>
-  <data name="AutoRenameButton">
-    <value xml:space="preserve">Renomar automáticamente</value>
+  <data name="AutoRenameButton" xml:space="preserve">
+    <value>Renomar automáticamente</value>
   </data>
-  <data name="FileConflictWarning">
-    <value xml:space="preserve">Já existe um ficheiro em {0}. Deseja substituir o ficheiro, Encontrar automaticamente uma nova localização de saída para o trabalho de codificação ou cancelar a operação?</value>
+  <data name="FileConflictWarning" xml:space="preserve">
+    <value>Já existe um ficheiro em {0}. Deseja substituir o ficheiro, renomear automaticamente ou cancelar a operação?</value>
   </data>
-  <data name="QueueFileConflictWarning">
-    <value xml:space="preserve">Uma tarefa já tem um caminho de saída em {0}. Deseja substituir o ficheiro, encontrar automaticamente uma nova localização de saída para o trabalho de codificação ou cancelar a operação?</value>
+  <data name="QueueFileConflictWarning" xml:space="preserve">
+    <value>Já existe uma tarefa com um caminho de saída em {0}. Deseja substituir o ficheiro, renomear automaticamente  ou cancelar a operação?</value>
   </data>
-  <data name="QueueColumnsDialogTitle">
-    <value xml:space="preserve">Colunas do Gestor de Tarefas</value>
+  <data name="QueueColumnsDialogTitle" xml:space="preserve">
+    <value>Colunas do Gestor de Tarefas</value>
   </data>
-  <data name="QueueColumnsDialogHeaderText">
-    <value xml:space="preserve">Arraste e solte as colunas para adicionar, remover ou reordenar.</value>
+  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
+    <value>Arraste e solte as colunas para adicionar, remover ou reordenar.</value>
   </data>
-  <data name="UnusedColumns">
-    <value xml:space="preserve">Colunas não utilizadas</value>
+  <data name="UnusedColumns" xml:space="preserve">
+    <value>Colunas não utilizadas</value>
   </data>
-  <data name="UsedColumns">
-    <value xml:space="preserve">Colunas usadas</value>
+  <data name="UsedColumns" xml:space="preserve">
+    <value>Colunas usadas</value>
   </data>
-  <data name="ScanMultipleWindowTitle">
-    <value xml:space="preserve">Análise de ficheiros...</value>
+  
+  <data name="UpdateSuccessDialogTitle" xml:space="preserve">
+    <value>Sucesso</value>
   </data>
-  <data name="UpdateSuccessDialogTitle">
-    <value xml:space="preserve">Sucesso</value>
+  <data name="UpdateSuccessDialogMessage" xml:space="preserve">
+    <value>O VidCoder foi actualizado com sucesso.</value>
   </data>
-  <data name="UpdateSuccessDialogMessage">
-    <value xml:space="preserve">O VidCoder foi actualizado com sucesso.</value>
+  <data name="AboutVidCoderDialogTitle" xml:space="preserve">
+    <value>Acerca do VidCoder</value>
   </data>
-  <data name="AboutVidCoderDialogTitle">
-    <value xml:space="preserve">Acerca do VidCoder</value>
+  <data name="LicenseLabel" xml:space="preserve">
+    <value>Licença:</value>
   </data>
-  <data name="LicenseLabel">
-    <value xml:space="preserve">Licença:</value>
+  <data name="Version" xml:space="preserve">
+    <value>Versão</value>
   </data>
-  <data name="Version">
-    <value xml:space="preserve">Versão</value>
+  
+  <data name="Copyright" xml:space="preserve">
+    <value>© {0} Programadores VidCoder</value>
   </data>
-  <data name="BasedOnHandBrake">
-    <value xml:space="preserve">Com base no HandBrake (svn {0})</value>
-  </data>
-  <data name="Copyright">
-    <value xml:space="preserve">© {0} programadores VidCoder</value>
-  </data>
-  <data name="VersionFormat">
-    <value xml:space="preserve">{0} ({1})</value>
+  <data name="VersionFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 (x64)</comment>
   </data>
-  <data name="BetaVersionFormat">
-    <value xml:space="preserve">{0} Beta ({1})</value>
+  <data name="BetaVersionFormat" xml:space="preserve">
+    <value>{0} Beta ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
-  <data name="PresetNameDialogTitle">
-    <value xml:space="preserve">Nome do pré-ajuste</value>
+  <data name="PresetNameDialogTitle" xml:space="preserve">
+    <value>Nome do pré-ajuste</value>
   </data>
-  <data name="ChoosePresetName">
-    <value xml:space="preserve">Escolha um nome para o pré-ajuste:</value>
+  <data name="ChoosePresetName" xml:space="preserve">
+    <value>Escolha um nome para o pré-ajuste:</value>
   </data>
-  <data name="ApplyUpdateDialogTitle">
-    <value xml:space="preserve">Instalar actualização?</value>
+  <data name="ApplyUpdateDialogTitle" xml:space="preserve">
+    <value>Instalar actualização?</value>
   </data>
-  <data name="ApplyUpdateDialogMessage">
-    <value xml:space="preserve">Uma actualização foi transferida. Deseja instala-la agora?</value>
+  <data name="ApplyUpdateDialogMessage" xml:space="preserve">
+    <value>Uma actualização foi transferida. Deseja instala-la agora?</value>
   </data>
-  <data name="ViewFullChangelog">
-    <value xml:space="preserve">Vizualizar relatório de alterações completo</value>
+  <data name="ViewFullChangelog" xml:space="preserve">
+    <value>Vizualizar relatório de alterações completo</value>
   </data>
-  <data name="DisableUpdatesButton">
-    <value xml:space="preserve">Desativar atualizações</value>
+  <data name="DisableUpdatesButton" xml:space="preserve">
+    <value>Desativar atualizações</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

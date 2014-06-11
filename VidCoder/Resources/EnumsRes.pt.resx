@@ -127,7 +127,7 @@
     <value>Nenhum</value>
   </data>
   <data name="Anamorphic_Strict" xml:space="preserve">
-    <value>Estrito</value>
+    <value>Preciso</value>
   </data>
   <data name="Custom" xml:space="preserve">
     <value>Personalizado</value>
@@ -143,6 +143,7 @@
   </data>
   <data name="Deinterlace_Bob" xml:space="preserve">
     <value>Bob</value>
+    <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
   </data>
   <data name="Deinterlace_Fast" xml:space="preserve">
     <value>Rápido</value>
