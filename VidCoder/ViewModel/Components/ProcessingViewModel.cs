@@ -1466,14 +1466,30 @@ namespace VidCoder.ViewModel.Components
 					}
 					else
 					{
-						this.overallEtaSpan = TimeSpan.FromSeconds((long)(((1.0 - this.OverallEncodeProgressFraction) * this.elapsedQueueEncodeTime.Elapsed.TotalSeconds) / this.OverallEncodeProgressFraction));
+						try
+						{
+							this.overallEtaSpan =
+								TimeSpan.FromSeconds((long) (((1.0 - this.OverallEncodeProgressFraction) * this.elapsedQueueEncodeTime.Elapsed.TotalSeconds) / this.OverallEncodeProgressFraction));
+						}
+						catch (OverflowException)
+						{
+							this.overallEtaSpan = TimeSpan.MaxValue;
+						}
+
 						this.EstimatedTimeRemaining = Utilities.FormatTimeSpan(this.overallEtaSpan);
 					}
 
 					double currentJobRemainingWork = this.EncodeQueue[0].Cost - currentJobCompletedWork;
 
-					this.currentJobEta =
-						TimeSpan.FromSeconds(currentJobRemainingWork / overallWorkCompletionRate);
+					try
+					{
+						this.currentJobEta = TimeSpan.FromSeconds(currentJobRemainingWork / overallWorkCompletionRate);
+					}
+					catch (OverflowException)
+					{
+						this.currentJobEta = TimeSpan.MaxValue;
+					}
+
 					this.EncodeQueue[0].Eta = this.currentJobEta;
 				}
 			}
