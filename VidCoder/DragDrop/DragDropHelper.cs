@@ -254,18 +254,6 @@ namespace VidCoder.DragDropUtils
 			this.targetItemsControl = (ItemsControl)sender;
 			object draggedItem = e.Data.GetData(this.format.Name);
 
-			// Sometimes we can't get our item container for some reason (like when dragging from a button)
-			// In this case we abort the drag.
-			int targetItemsControlCount = this.targetItemsControl.Items.Count;
-			for (int i = 0; i < targetItemsControlCount; i++)
-			{
-				var currentItemContainer = this.targetItemsControl.ItemContainerGenerator.ContainerFromIndex(i) as FrameworkElement;
-				if (currentItemContainer == null)
-				{
-					return;
-				}
-			}
-
 			DecideDropTarget(e);
 			if (draggedItem != null)
 			{
@@ -354,18 +342,22 @@ namespace VidCoder.DragDropUtils
 					for (int i = 0; i < targetItemsControlCount; i++)
 					{
 						FrameworkElement currentItemContainer = this.targetItemsControl.ItemContainerGenerator.ContainerFromIndex(i) as FrameworkElement;
-						Point relativeDistanceFromItem = e.GetPosition(currentItemContainer);
 
-						if (relativeDistanceFromItem.Y < 0)
+						if (currentItemContainer != null)
 						{
-							this.targetItemContainer = currentItemContainer;
-							break;
-						}
+							Point relativeDistanceFromItem = e.GetPosition(currentItemContainer);
 
-						if (relativeDistanceFromItem.Y < currentItemContainer.ActualHeight)
-						{
-							this.targetItemContainer = currentItemContainer;
-							break;
+							if (relativeDistanceFromItem.Y < 0)
+							{
+								this.targetItemContainer = currentItemContainer;
+								break;
+							}
+
+							if (relativeDistanceFromItem.Y < currentItemContainer.ActualHeight)
+							{
+								this.targetItemContainer = currentItemContainer;
+								break;
+							}
 						}
 					}
 

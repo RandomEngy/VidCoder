@@ -20,10 +20,20 @@ namespace VidCoder.DragDropUtils
 			FrameworkElement itemContainer = null;
 			if (itemsControl != null && bottomMostVisual != null && itemsControl.Items.Count >= 1)
 			{
-				var firstContainer = itemsControl.ItemContainerGenerator.ContainerFromIndex(0);
-				if (firstContainer != null)
+				var someContainer = itemsControl.ItemContainerGenerator.ContainerFromIndex(0);
+				for (int i = 1; i < itemsControl.Items.Count; i++)
 				{
-					Type containerType = firstContainer.GetType();
+					if (someContainer != null)
+					{
+						break;
+					}
+
+					someContainer = itemsControl.ItemContainerGenerator.ContainerFromIndex(i);
+				}
+
+				if (someContainer != null)
+				{
+					Type containerType = someContainer.GetType();
 
 					itemContainer = FindAncestor(containerType, bottomMostVisual);
 
