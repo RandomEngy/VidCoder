@@ -181,7 +181,7 @@
     <value>Přepsat soubor bez výzvy</value>
   </data>
   <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Automatické přepnutí na jiný název</value>
+    <value>Automaticky přepnout na jiný název</value>
   </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>Kódování skupiny souborů:</value>
@@ -193,7 +193,7 @@
     <value>Automaticky přejmenovat</value>
   </data>
   <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Automatický výběr zvuku</value>
+    <value>Automatický výběr audia</value>
   </data>
   <data name="AudioSubtitlesTab" xml:space="preserve">
     <value>Audio / Titulky</value>
@@ -208,10 +208,10 @@
     <value>Automatický výběr titulků</value>
   </data>
   <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Zahraniční audio-hledání</value>
+    <value>Hledání cizí audio stopy</value>
   </data>
   <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Vložit do obrazu</value>
+    <value>Vypálit</value>
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
     <value>Pouze pokud je jazyk jiný než jazyk audia</value>
@@ -223,13 +223,13 @@
     <value>Přidat...</value>
   </data>
   <data name="PreviewCountLabel" xml:space="preserve">
-    <value>Počet snímků pro náhled:</value>
+    <value>Počet obrázků pro náhled:</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Pamatovat dříve použité soubory a složky</value>
   </data>
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Povolit nastavení vlastního názvu audio stop (podporuje omezená škála přehrávačů)</value>
+    <value>Povolit nastavení vlastního názvu audio stop (omezená podpora přehrávačů)</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Povolit LibDVDNav (změna vyžaduje restart programu)</value>
@@ -250,7 +250,7 @@
     <value>Přípustné přípony souborů:</value>
   </data>
   <data name="RecognizedExtensionsToolTip" xml:space="preserve">
-    <value>Při načtení složky s video soubory přidat soubory s tímto typem. (Oddělené čárkou)</value>
+    <value>Při načítání složky s video soubory přidat soubory s touto příponou. (Oddělené čárkou)</value>
   </data>
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Možnosti</value>
@@ -298,7 +298,7 @@
     <value>Kontrola aktualizace se nezdařila.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>Vyberte .wav soubor se zvukem, který bude přehrán po dokončení fronty.</value>
+    <value>Vyberte .wav soubor který chcete použit pro konečnou zvukovou stopu.</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
     <value>Aktuální verze: {0}</value>
@@ -358,7 +358,7 @@
     <value>Video soubory:</value>
   </data>
   <data name="CustomVideoPlayerToolTip" xml:space="preserve">
-    <value>Vyberte spouštěcí soubor video přehrávače, který chcete používat pro tyto soubory.</value>
+    <value>Zadejte cestu k přehrávači videa který chcete používat pro tyto soubory.</value>
   </data>
   <data name="VideoPlayerFilePickTitle" xml:space="preserve">
     <value>Vyberte si přehrávač pro video soubory.</value>
@@ -394,19 +394,19 @@
     <value>Automaticky obnovit kódování při restartu</value>
   </data>
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
-    <value>Použit pracovního procesu pro kódování</value>
+    <value>Použit pracovní proces pro kódování</value>
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>Video</value>
   </data>
   <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>Povolit DXVA Hardware Akcelerované dekódování</value>
+    <value>Povolit DXVA dekódování s hardwarovým urychlením</value>
   </data>
   <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>Tato možnost je vhodná pouze pro pomalejší systémy. Hardwarové dekodéry jsou v současnosti navrženy pro přehrávání a ne pro re-enkódování videa, na rychlejších systémech se může vyskytnout chyba z důvodu nízkého hodnoty mezi-paměti.</value>
+    <value>Tato možnost je vhodná pouze pro pomalejší systémy. Hardwarové dekodéry jsou v současnosti navrženy pro přehrávání a ne pro re-kódování videa a tak na rychlejších systémech může docházet k chybám.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
-    <value>Zachovat čas vytvoření a změnu souborů při převodu souborů</value>
+    <value>Při převodu souborů zachovat vytvořený a změněný čas</value>
   </data>
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>Výchozí</value>
@@ -416,6 +416,6 @@
     <value>Zachovat strukturu složky při kódování v dávce</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Jestliže enkódujete složku plnou souborů, bude výsledná složka odpovídat struktuře zdrojové složky.</value>
+    <value>Jestliže kódujete složku zaplněnou soubory budou kódované verze umístěny do podsložek tak aby odpovídaly struktuře zdrojového adresáře.</value>
   </data>
 </root>

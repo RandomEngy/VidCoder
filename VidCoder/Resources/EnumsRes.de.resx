@@ -154,15 +154,16 @@
   <data name="Deinterlace_Slower" xml:space="preserve">
     <value>Langsamer</value>
   </data>
-  <data name="Denoise_Medium" xml:space="preserve">
-    <value>Mittel</value>
-  </data>
-  <data name="Denoise_Strong" xml:space="preserve">
-    <value>Stark</value>
-  </data>
-  <data name="Denoise_Weak" xml:space="preserve">
-    <value>Schwach</value>
-  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
     <value>Nichts machen</value>
   </data>

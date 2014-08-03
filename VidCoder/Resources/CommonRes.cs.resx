@@ -131,7 +131,7 @@ Tento program je rozšiřován v naději že bude užitečný, ale BEZ JAKÉKOLI
     <value>Označit tyto titulky jako výchozí. Zobrazí se během přehrávání až do doby kdy se vyberou jiné.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Zobrazit pouze vynucené titulky dané stopy. Obvykle se jedná o krátké části zahraničního dialogu.</value>
+    <value>Zobrazit pouze vynucené titulky dané stopy. Obvykle se jedná o krátké části cizího dialogu.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>Množství času které zobrazí dané titulky dříve nebo později.</value>
@@ -153,22 +153,22 @@ Tento program je rozšiřován v naději že bude užitečný, ale BEZ JAKÉKOLI
     <value>Audio kvalita</value>
   </data>
   <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Audio kódování</value>
+    <value>Audio kodér</value>
   </data>
   <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Video kódování</value>
+    <value>Video kodér</value>
   </data>
   <data name="QueueColumnNameVideoQuality" xml:space="preserve">
     <value>Video kvalita</value>
   </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>Přibližný zbývající čas dokončení všech úloh v řadě.</value>
+    <value>Přibližný zbývající čas pro dokončení všech úloh ve frontě.</value>
   </data>
   <data name="QueueColumnNameDuration" xml:space="preserve">
     <value>Doba trvání</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Vyhledává titulkovou stopu která by mohla obsahovat zahraniční dialog. Dobré pro filmy které jsou převážně v rodném jazyce.</value>
+    <value>Vyhledává stopu s titulky která by mohla obsahovat části cizího dialogu. To je užitečné pro filmy které jsou převážně v rodném jazyce.</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Výchozí</value>
@@ -198,11 +198,11 @@ Tento program je rozšiřován v naději že bude užitečný, ale BEZ JAKÉKOLI
     <value>Vše</value>
   </data>
   <data name="StreamChoice" xml:space="preserve">
-    <value>Stream {0}</value>
+    <value>Stopa {0}</value>
     <comment>Used in the encoding settings dialog to mark which audio stream an audio encoding is targeting. By default the encoding works on all streams but you can target it to affect only the first stream, in which case it would label it "Stream 1"</comment>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>Ok</value>
+    <value>OK</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Zrušit</value>
@@ -247,9 +247,9 @@ Tento program je rozšiřován v naději že bude užitečný, ale BEZ JAKÉKOLI
     <value>Potvrdit</value>
   </data>
   <data name="FileFailureErrorMessage" xml:space="preserve">
-    <value>Nelze dokončit operaci se souborem.</value>
+    <value>Nelze dokončit operaci s tímto souborem.</value>
   </data>
   <data name="FileFailureErrorTitle" xml:space="preserve">
-    <value>Chyba při operaci se souborem</value>
+    <value>Chyba při operaci s tímto souborem</value>
   </data>
 </root>

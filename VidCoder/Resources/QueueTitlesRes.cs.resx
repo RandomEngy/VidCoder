@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="OverrideTitleNumberToolTip" xml:space="preserve">
-    <value>Při této volbě bude normální titul přepsán za účelem vytvoření názvu výstupního souboru. Například tituly 2, 3 a 4 s přepsáním 7 budou označeny jako 7, 8 a 9. To může být užitečné pro ripování disku televizního seriálu.</value>
+    <value>Při této volbě bude normální titul přepsán za účelem vytvoření názvu výstupního souboru. Například tituly 2, 3 a 4 a přepsání 7 budou označeny jako 7, 8 a 9. To může být užitečné pro ripování disku televizního seriálu.</value>
   </data>
   <data name="QueueTitlesWindowHeader" xml:space="preserve">
-    <value>Vyberte více titulů a přidejte do řady.</value>
+    <value>Vyberte více titulů a přidejte do fronty.</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
     <value>Pokud je nainstalován podporovaný přehrávač (VLC nebo Media Player Classic Home Cinema) tak v náhledu můžete přehrát jednotlivé tituly tohoto DVD</value>
   </data>
   <data name="PlaySourceButton" xml:space="preserve">
-    <value>Přehrát ze zdroje</value>
+    <value>Přehrát zdroj</value>
   </data>
   <data name="LengthRangePre" xml:space="preserve">
     <value>Všechny tituly z</value>
@@ -148,12 +148,12 @@
     <value xml:space="preserve">Přepsat formát pojmenování:</value>
   </data>
   <data name="QueueTitlesDialogTitle">
-    <value xml:space="preserve">Více titulů do řady</value>
+    <value xml:space="preserve">Více titulů do fronty</value>
   </data>
   <data name="TitleFormat">
     <value xml:space="preserve">Titul {0}</value>
   </data>
 	<data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>Přepište adresář:</value>
+    <value>Přepsat adresář:</value>
   </data>
 </root>

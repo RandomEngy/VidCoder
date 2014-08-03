@@ -133,13 +133,13 @@
     <value>Náhled ze zdroje pro Blu-ray zatím není podporován.</value>
   </data>
   <data name="PlaySourceDisabledNoPlayerToolTip" xml:space="preserve">
-    <value>Podporovaný DVD přehrávač nebyl nalezen. Naistalujte VLC nebo MPC-HC chcete-li použít tuto funkci.</value>
+    <value>Podporovaný DVD přehrávač nebyl nalezen. Naistalujte VLC nebo MPC-HC přehrávač chcete-li použít tuto funkci.</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
-    <value>Přehrát zdrojové video.</value>
+    <value>Přehrává zdrojové video.</value>
   </data>
   <data name="PreviewClipGenerationFailedMessage" xml:space="preserve">
-    <value>Vytvoření video klipu z náhledu se nezdařilo. Viz log pro více podrobností.</value>
+    <value>Vytvoření video klipu z náhledu se nezdařilo. Podívejte se do logu pro více podrobností.</value>
   </data>
   <data name="PreviewClipGenerationFailedTitle" xml:space="preserve">
     <value>Vytvoření náhledu z video klipu se nezdařilo</value>
@@ -151,13 +151,13 @@
     <value>Náhled: Zobrazení {0}x{1} - Uložení {2}x{3}</value>
   </data>
   <data name="NoVideoSourceTitle" xml:space="preserve">
-    <value>Náhled: Videosignál nebyl nalezen</value>
+    <value>Náhled: Žádný zdroj videa</value>
   </data>
   <data name="Seconds" xml:space="preserve">
     <value>sekund</value>
   </data>
   <data name="PreviewDisplay_Corners" xml:space="preserve">
-    <value>Rohy</value>
+    <value>Oblast v rozích</value>
   </data>
   <data name="PreviewDisplay_FitToWindow" xml:space="preserve">
     <value>Přizpůsobit oknu</value>

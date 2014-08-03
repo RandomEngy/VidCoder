@@ -148,7 +148,7 @@
     <value>プレビュー：{0}x{1}</value>
   </data>
   <data name="PreviewWindowTitleComplex" xml:space="preserve">
-    <value>プレビュー：表示{0}x{1} - 画素{2}x{3}</value>
+    <value>プレビュー：表示解像度{0}x{1} - ファイル解像度{2}x{3}</value>
   </data>
   <data name="NoVideoSourceTitle" xml:space="preserve">
     <value>プレビュー：ビデオソースがありません</value>

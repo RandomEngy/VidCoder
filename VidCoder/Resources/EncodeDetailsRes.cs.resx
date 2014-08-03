@@ -105,13 +105,13 @@
     <value>Fronta</value>
   </data>
 	<data name="ScanPassLabel" xml:space="preserve">
-    <value>Skenování průchodu:</value>
+    <value>Načítací fáze:</value>
   </data>
 	<data name="FirstPassLabel" xml:space="preserve">
-    <value>První průchod:</value>
+    <value>První fáze:</value>
   </data>
 	<data name="SecondPassLabel" xml:space="preserve">
-    <value>Druhý průchod:</value>
+    <value>Druhá fáze:</value>
   </data>
 	<data name="EncodePassLabel" xml:space="preserve">
     <value>Kódovat průchod:</value>
@@ -129,7 +129,7 @@
     <value>ETA:</value>
   </data>
 	<data name="FileProgressLabel" xml:space="preserve">
-    <value>Aktualizování souboru:</value>
+    <value>Aktualizace souboru:</value>
     <comment>Label on the encode details window for % progress on the current file.</comment>
   </data>
 	<data name="FileSizeLabel" xml:space="preserve">

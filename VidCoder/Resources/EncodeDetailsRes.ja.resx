@@ -104,11 +104,21 @@
 	<data name="QueueSectionHeader" xml:space="preserve">
     <value>キュー</value>
   </data>
-	
-	
-	
-	
-	
+	<data name="ScanPassLabel" xml:space="preserve">
+    <value>強制字幕検索：</value>
+  </data>
+	<data name="FirstPassLabel" xml:space="preserve">
+    <value>ファーストパス：</value>
+  </data>
+	<data name="SecondPassLabel" xml:space="preserve">
+    <value>セカンドパス：</value>
+  </data>
+	<data name="EncodePassLabel" xml:space="preserve">
+    <value>エンコード：</value>
+  </data>
+	<data name="JobLabel" xml:space="preserve">
+    <value>ジョブ：</value>
+  </data>
 	<data name="ProgressLabel" xml:space="preserve">
     <value>進捗：</value>
   </data>

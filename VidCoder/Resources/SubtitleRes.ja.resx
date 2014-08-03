@@ -163,7 +163,7 @@
     <value>その他の字幕は焼きこんだ字幕の上に表示されます</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>外国語音声検索</value>
+    <value>強制字幕検索</value>
   </data>
   <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
     <value>ソースファイルには字幕がありません。</value>

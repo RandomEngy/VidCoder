@@ -108,7 +108,7 @@
     <value xml:space="preserve">Použít vlastní názvy kapitol:</value>
   </data>
   <data name="ImportFromCsvButton">
-    <value xml:space="preserve">Import z .csv...</value>
+    <value xml:space="preserve">Importovat z .csv...</value>
   </data>
   <data name="NumberColumn">
     <value xml:space="preserve">Číslo</value>

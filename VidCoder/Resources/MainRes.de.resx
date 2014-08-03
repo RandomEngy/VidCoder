@@ -388,7 +388,7 @@
     <value>ETA:</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Wenn fertig:</value>
+    <value>Nach Abschluss:</value>
   </data>
   <data name="Preset_AndroidTablet" xml:space="preserve">
     <value>Android Tablet</value>

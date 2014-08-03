@@ -166,7 +166,7 @@
     <value>Otevřít příslušnou složku</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
-    <value>Vymazání dokončeno</value>
+    <value>Odstranění dokončeno</value>
   </data>
   <data name="ExitMenuItem" xml:space="preserve">
     <value>Ukončit</value>
@@ -202,16 +202,16 @@
     <value>Zdroj:</value>
   </data>
   <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Prohledávání zdroje...</value>
+    <value>Načítání zdroje...</value>
   </data>
   <data name="Recent" xml:space="preserve">
-    <value>Nedávný</value>
+    <value>Nedávné</value>
   </data>
   <data name="DragFilesHereLabel" xml:space="preserve">
     <value>(Nebo přetáhnout video soubory nebo složky sem)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
-    <value>Při prohledávání došlo k chybě.</value>
+    <value>Při načítání došlo k chybě.</value>
   </data>
   <data name="AudioLabel" xml:space="preserve">
     <value>Audio:</value>
@@ -265,19 +265,19 @@
     <value>Průměrná obrazová frekvence:</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
-    <value>Vybrat DVD nebo Blu-ray složku.</value>
+    <value>Vyberte DVD nebo Blu-ray složku.</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
-    <value>Probíhá kódování. Jste si jist že chcete skončit?</value>
+    <value>Probíhá kódování. Jste si jist že chcete program ukončit?</value>
   </data>
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
     <value>Probíhá kódování</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Zahraniční audio-hledání</value>
+    <value>Hledání cizí audio stopy</value>
   </data>
   <data name="NoneParen" xml:space="preserve">
-    <value>(Žádný)</value>
+    <value>(Žádné)</value>
   </data>
   <data name="TracksSummaryMultiple" xml:space="preserve">
     <value>{0} stopy</value>
@@ -334,7 +334,7 @@
     <value>Kódování zastaveno.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>Opravdu chcete odstranit {0} zdrojový soubor (y) / složku (y)?</value>
+    <value>Opravdu chcete odstranit {0} zdrojový soubor(y)/složku(y)?</value>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
     <value>Potvrdit odstranění</value>
@@ -343,10 +343,10 @@
     <value>Nelze odstranit {0} {1}</value>
   </data>
   <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>Následující soubor (y) nelze rozeznat a nebyl (y) přidán (y) do fronty: {0}</value>
+    <value>Následující soubor(y) nelze rozeznat a nebyl(y) přidán(y) do fronty: {0}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
-    <value>Chyba při prohledávání video souboru</value>
+    <value>Chyba při načítání video souboru</value>
   </data>
   <data name="StartedEncoding" xml:space="preserve">
     <value>Kódování začalo.</value>
@@ -442,7 +442,7 @@
     <value>Stahování verze {0} bylo dokončeno a nainstaluje se při ukončení aplikace.</value>
   </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
-    <value>Aktualizace nebyla uskutečněna. Pokud jste ji nezrušili,  můžete ji nainstalovat manuálně.</value>
+    <value>Aktualizace nebyla uskutečněna. Pokud jste ji nezrušili tak ji můžete nainstalovat manuálně.</value>
   </data>
   <data name="CouldNotLoadPresetMessage" xml:space="preserve">
     <value>Přednastavení nelze načíst: </value>
@@ -484,7 +484,7 @@
     <value>Uložit aktuální přednastavení?</value>
   </data>
   <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>Opravdu chcete vrátit všechny neuložené změny tohoto přednastavení?</value>
+    <value>Opravdu chcete vrátit všechny neuložené změny do tohoto přednastavení?</value>
   </data>
   <data name="PresetRevertConfirmTitle" xml:space="preserve">
     <value>Vrátit přednastavení</value>
@@ -556,7 +556,7 @@
     <value>Zrušit změny?</value>
   </data>
   <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>Odebrat zvukovou stopu</value>
+    <value>Odebrat audio stopu</value>
   </data>
   <data name="Preset_Xbox360" xml:space="preserve">
     <value>Xbox 360</value>
@@ -565,7 +565,7 @@
     <value>Odebrat z fronty</value>
   </data>
   <data name="CouldNotSaveQueueMessage" xml:space="preserve">
-    <value>Nelze uložit frontu:{0}{1}</value>
+    <value>Frontu nelze uložit:{0}{1}</value>
   </data>
   <data name="ExportQueue" xml:space="preserve">
     <value>Exportovat frontu...</value>
@@ -574,7 +574,7 @@
     <value>Exportovat frontu</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>Nelze importovat frontu. Neznámý formát.</value>
+    <value>Frontu nelze importovat. Formát je neznámý.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>Importovat soubor přednastavení</value>
@@ -617,7 +617,7 @@
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
 	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
-    <value>Nekompatibilní databázový soubor</value>
+    <value>Databázový soubor není kompatibilní</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
 </root>

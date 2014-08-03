@@ -169,7 +169,7 @@
     <value>Použité sloupce</value>
   </data>
   <data name="ScanMultipleWindowTitle" xml:space="preserve">
-    <value>Snímání...</value>
+    <value>Načítání...</value>
   </data>
   <data name="UpdateSuccessDialogTitle" xml:space="preserve">
     <value>Podařilo se</value>
@@ -245,4 +245,6 @@
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
     <value>Kódování bylo dokončeno.</value>
   </data>
+	
+	
 </root>

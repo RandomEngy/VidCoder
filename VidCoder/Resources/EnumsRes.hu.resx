@@ -154,15 +154,16 @@
   <data name="Deinterlace_Slower" xml:space="preserve">
     <value>Lassabb</value>
   </data>
-  <data name="Denoise_Medium" xml:space="preserve">
-    <value>Közepes</value>
-  </data>
-  <data name="Denoise_Strong" xml:space="preserve">
-    <value>Erős</value>
-  </data>
-  <data name="Denoise_Weak" xml:space="preserve">
-    <value>Gyenge</value>
-  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
     <value>Ne csináljon semmit</value>
   </data>

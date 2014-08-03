@@ -144,7 +144,7 @@ A full copy of the GNU General Public License has been included along with this 
     <value>出力先</value>
   </data>
   <data name="QueueColumnNameSource" xml:space="preserve">
-    <value>ソース</value>
+    <value>入力元</value>
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
     <value>タイトル</value>

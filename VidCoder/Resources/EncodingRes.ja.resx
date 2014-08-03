@@ -315,7 +315,7 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
     <value>(指定なし)</value>
   </data>
   <data name="StorageResolutionLabel" xml:space="preserve">
-    <value>ファイルの解像度：</value>
+    <value>ファイル解像度：</value>
   </data>
   <data name="PixelAspectRatioLabel" xml:space="preserve">
     <value>ピクセル縦横比:</value>
@@ -513,7 +513,7 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
     <value>可変フレームレート</value>
   </data>
   <data name="VfrPeakChoice" xml:space="preserve">
-    <value>最大フレームレート（可変フレームレート）</value>
+    <value>ピークフレームレート（可変フレームレート）</value>
   </data>
   <data name="HighQuality" xml:space="preserve">
     <value>高品質</value>

@@ -139,7 +139,7 @@
     <value>Pouze vynucené</value>
   </data>
   <data name="BurnedInColumn" xml:space="preserve">
-    <value>Trvale vypálit</value>
+    <value>Vypálit</value>
   </data>
   <data name="ExternalSubtitlesLabel" xml:space="preserve">
     <value>Externí titulky:</value>
@@ -151,7 +151,7 @@
     <value>Jazyk</value>
   </data>
   <data name="CharCodeColumn" xml:space="preserve">
-    <value>Kód Znaku</value>
+    <value>Znakový kód</value>
   </data>
   <data name="OffsetColumn" xml:space="preserve">
     <value>Časový posun (ms)</value>
@@ -163,10 +163,10 @@
     <value>Ostatní titulky budou překrývat vypálené titulky.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Hledání cizích audio stop</value>
+    <value>Hledání cizí audio stopy</value>
   </data>
   <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>Ve video souboru nejsou žádné titulky.</value>
+    <value>Video soubor neobsahuje žádné titulky.</value>
   </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>Přidat soubor s titulky</value>

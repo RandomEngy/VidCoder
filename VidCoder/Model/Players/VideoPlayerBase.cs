@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using VidCoder.Resources;
 using VidCoder.Services;
 
 namespace VidCoder.Model
@@ -30,7 +31,7 @@ namespace VidCoder.Model
 			if (!File.Exists(executablePath))
 			{
 				string message = string.Format(
-					"Could not find video player for {0}.",
+					MiscRes.CouldNotFindVideoPlayerError,
 					this.Display);
 				Ioc.Container.GetInstance<IMessageBoxService>().Show(message);
 				return;
@@ -48,7 +49,7 @@ namespace VidCoder.Model
 			catch (Exception exception)
 			{
 				string message = 
-					"Error playing source." + Environment.NewLine + Environment.NewLine + exception.Message;
+					MiscRes.ErrorPlayingSource + Environment.NewLine + Environment.NewLine + exception.Message;
 				Ioc.Container.GetInstance<IMessageBoxService>().Show(message);
 			}
 		}

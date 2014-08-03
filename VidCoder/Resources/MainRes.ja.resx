@@ -133,7 +133,7 @@
     <value>ファイル</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
-    <value>ビデオ ファイルを開く</value>
+    <value>動画ファイルを開く</value>
   </data>
   <data name="OpenDiscFolder" xml:space="preserve">
     <value>DVD/ブルーレイのフォルダーを開く</value>
@@ -274,7 +274,7 @@
     <value>エンコード中</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>外国語音声検索</value>
+    <value>強制字幕検索</value>
   </data>
   <data name="NoneParen" xml:space="preserve">
     <value>(なし)</value>
@@ -432,7 +432,7 @@
     <value>Windows Phone 7</value>
   </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
-    <value>動画フィアル...</value>
+    <value>動画ファイル...</value>
   </data>
   <data name="SourceOption_DiscFolder" xml:space="preserve">
     <value>DVD/ブルーレイのフォルダー...</value>

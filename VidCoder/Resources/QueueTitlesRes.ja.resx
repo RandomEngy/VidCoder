@@ -145,7 +145,7 @@
     <value xml:space="preserve">タイトルを次の数字からに変更：</value>
   </data>
   <data name="OverrideNameFormatCheckBox">
-    <value xml:space="preserve">置き換えるファイル名形式：</value>
+    <value xml:space="preserve">ファイル名形式の変更：</value>
   </data>
   <data name="QueueTitlesDialogTitle">
     <value xml:space="preserve">複数タイトルのキュー登録</value>
@@ -154,6 +154,6 @@
     <value xml:space="preserve">タイトル {0}</value>
   </data>
 	<data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>置き換えるディレクトリ：</value>
+    <value>出力先の変更：</value>
   </data>
 </root>
