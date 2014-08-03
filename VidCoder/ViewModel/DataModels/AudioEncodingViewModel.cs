@@ -275,6 +275,7 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.EncoderSettingsVisible);
 				this.RaisePropertyChanged(() => this.PassthroughChoicesVisible);
 				this.RaisePropertyChanged(() => this.AutoPassthroughSettingsVisible);
+				this.RaisePropertyChanged(() => this.PassthroughIfPossibleVisible);
 				this.RaisePropertyChanged(() => this.BitrateVisible);
 				this.RaisePropertyChanged(() => this.AudioQualityVisible);
 				this.RaisePropertyChanged(() => this.AudioQualityRadioVisible);
@@ -777,6 +778,24 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.PassthroughIfPossible);
 				this.audioPanelVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
+			}
+		}
+
+		public bool PassthroughIfPossibleVisible
+		{
+			get
+			{
+				if (this.SelectedAudioEncoder.IsPassthrough)
+				{
+					return false;
+				}
+
+				if (Encoders.CanPassthroughAudio(this.SelectedAudioEncoder.Encoder.Id))
+				{
+					return true;
+				}
+
+				return this.SelectedAudioEncoder.Encoder.ShortName.ToLowerInvariant().Contains("aac") || this.SelectedAudioEncoder.Encoder.ShortName.ToLowerInvariant().Contains("mp3");
 			}
 		}
 

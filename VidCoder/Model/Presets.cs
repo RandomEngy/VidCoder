@@ -21,7 +21,7 @@ namespace VidCoder.Model
 
 	public static class Presets
 	{
-		private const int CurrentPresetVersion = 14;
+		private const int CurrentPresetVersion = 15;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
@@ -476,6 +476,42 @@ namespace VidCoder.Model
 			}
 		}
 
+		public static void UpgradeEncodingProfileTo25(VCProfile profile)
+		{
+#pragma warning disable 618
+			if (profile.Denoise == null || profile.Denoise == "Off")
+			{
+				profile.DenoiseType = Denoise.Off;
+			}
+			else
+			{
+				profile.DenoiseType = Denoise.hqdn3d;
+			}
+
+			switch (profile.Denoise)
+			{
+				case "Off":
+					break;
+				case "Weak":
+					profile.DenoisePreset = "light";
+					break;
+				case "Medium":
+					profile.DenoisePreset = "medium";
+					break;
+				case "Strong":
+					profile.DenoisePreset = "strong";
+					break;
+				case "Custom":
+					profile.DenoisePreset = null;
+					profile.UseCustomDenoise = true;
+					break;
+				default:
+					profile.DenoisePreset = "medium";
+					break;
+			}
+#pragma warning restore 618
+		}
+
 		private static void ErrorCheckPresets(List<Preset> presets)
 		{
 			for (int i = presets.Count - 1; i >= 0; i--)
@@ -637,6 +673,11 @@ namespace VidCoder.Model
 			if (presetVersion < 14)
 			{
 				return 23;
+			}
+
+			if (presetVersion < 15)
+			{
+				return 24;
 			}
 
 			return Utilities.CurrentDatabaseVersion;

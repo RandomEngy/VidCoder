@@ -66,7 +66,13 @@ namespace VidCoder.Model
 		public string CustomDecomb { get; set; }
 		public Detelecine Detelecine { get; set; }
 		public string CustomDetelecine { get; set; }
-		public Denoise Denoise { get; set; }
+
+		[Obsolete("Use DenoiseType instead.")]
+		public string Denoise { get; set; }
+		public Denoise DenoiseType { get; set; }
+		public string DenoisePreset { get; set; }
+		public string DenoiseTune { get; set; }
+		public bool UseCustomDenoise { get; set; }
 		public string CustomDenoise { get; set; }
 		public int Deblock { get; set; }
 		public bool Grayscale { get; set; }
@@ -108,6 +114,8 @@ namespace VidCoder.Model
 					hbProfile.VideoTunes = null;
 					hbProfile.VideoLevel = null;
 				}
+
+				hbProfile.Denoise = this.DenoiseType;
 
 				return hbProfile;
 			}
@@ -151,7 +159,10 @@ namespace VidCoder.Model
 				CustomDecomb = this.CustomDecomb,
 				Detelecine = this.Detelecine,
 				CustomDetelecine = this.CustomDetelecine,
-				Denoise = this.Denoise,
+				DenoiseType = this.DenoiseType,
+				DenoisePreset = this.DenoisePreset,
+				DenoiseTune = this.DenoiseTune,
+				UseCustomDenoise = this.UseCustomDenoise,
 				CustomDenoise = this.CustomDenoise,
 				Deblock = this.Deblock,
 				Grayscale = this.Grayscale,

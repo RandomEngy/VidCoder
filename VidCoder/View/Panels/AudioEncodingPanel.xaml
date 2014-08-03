@@ -468,7 +468,9 @@
 						Content="{x:Static res:EncodingRes.PassthroughIfPossibleCheckBox}"
 						IsChecked="{Binding PassthroughIfPossible}"
 						Style="{StaticResource AudioLabelLeft}"
-						ToolTipService.ShowDuration="20000">
+						ToolTipService.ShowDuration="20000"
+						Visibility="{Binding PassthroughIfPossibleVisible,
+					                               Converter={StaticResource VisibilityConverter}}">
 						<CheckBox.ToolTip>
 							<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.PassthroughIfPossibleToolTip}" />
 						</CheckBox.ToolTip>

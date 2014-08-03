@@ -201,6 +201,10 @@ namespace VidCoder.Services
 					{
 						// Ignore this. Not critical that we delete the updates folder.
 					}
+					catch (UnauthorizedAccessException)
+					{
+						// Ignore this. Not critical that we delete the updates folder.
+					}
 
 					return true;
 				}
