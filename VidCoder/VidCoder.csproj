@@ -423,6 +423,7 @@
     <Compile Include="Model\Combo\DenoiseCombo.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />
+    <Compile Include="Model\Players\VideoPlayerBase.cs" />
     <Compile Include="Model\SourcePath.cs" />
     <Compile Include="Model\UpdateInfo.cs" />
     <Compile Include="Model\UpdateState.cs" />

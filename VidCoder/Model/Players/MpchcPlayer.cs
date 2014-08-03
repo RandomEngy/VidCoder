@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -9,39 +10,35 @@ namespace VidCoder.Model
 {
 	using System.IO;
 
-	public class MpchcPlayer : IVideoPlayer
+	public class MpchcPlayer : VideoPlayerBase
 	{
-		//private const string ExeSubPath = @"MPC-HC\mpc-hc.exe";
-
-		public bool Installed
+		public override string PlayerExecutable
 		{
 			get
 			{
-				return RegKey != null;
+				if (RegKey == null)
+				{
+					return null;
+				}
+
+				return RegKey.GetValue("ExePath") as string;
 			}
 		}
 
-		public void PlayTitle(string discPath, int title)
+		public override void PlayTitleInternal(string executablePath, string discPath, int title)
 		{
-			string mpchcExePath = RegKey.GetValue("ExePath") as string;
-
-			if (!discPath.EndsWith(@"\", StringComparison.Ordinal))
-			{
-				discPath += @"\";
-			}
-
 			var process = new Process();
 			process.StartInfo =
 				new ProcessStartInfo
 				{
-					FileName = mpchcExePath,
+					FileName = executablePath,
 					Arguments = "\"" + discPath + "\"\"" + " /dvdpos " + title
 				};
 
 			process.Start();
 		}
 
-		public string Id
+		public override string Id
 		{
 			get
 			{
@@ -49,51 +46,13 @@ namespace VidCoder.Model
 			}
 		}
 
-		public string Display
+		public override string Display
 		{
 			get
 			{
 				return "MPC-HC";
 			}
 		}
-
-		//private static string ExePath
-		//{
-		//	get
-		//	{
-		//		string programFilesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), ExeSubPath);
-		//		if (File.Exists(programFilesPath))
-		//		{
-		//			return programFilesPath;
-		//		}
-
-		//		string programFilesX86Path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), ExeSubPath);
-		//		if (File.Exists(programFilesX86Path))
-		//		{
-		//			return programFilesX86Path;
-		//		}
-
-		//		return null;
-		//	}
-		//}
-
-		//private static RegistryKey RegKey
-		//{
-		//	get
-		//	{
-		//		RegistryKey regKey;
-		//		if (RegKeyNormal != null)
-		//		{
-		//			regKey = RegKeyNormal;
-		//		}
-		//		else
-		//		{
-		//			regKey = RegKeyWow;
-		//		}
-
-		//		return regKey;
-		//	}
-		//}
 
 		private static RegistryKey RegKey
 		{
@@ -102,13 +61,5 @@ namespace VidCoder.Model
 				return Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Gabest\Media Player Classic");
 			}
 		}
-
-		//private static RegistryKey RegKeyWow
-		//{
-		//	get
-		//	{
-		//		return Registry.CurrentUser.OpenSubKey(Utilities.Wow64RegistryKey + @"\Gabest\Media Player Classic");
-		//	}
-		//}
 	}
 }
