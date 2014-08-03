@@ -166,7 +166,7 @@ namespace VidCoder.ViewModel
 					this.betaInfoAvailable = false;
 					if (this.betaInfo != null)
 					{
-						if (Utilities.CompareVersions(betaInfo.LatestVersion, Utilities.CurrentVersion) > 0)
+						if (Utilities.CompareVersions(this.betaInfo.LatestVersion, Utilities.CurrentVersion) > 0)
 						{
 							this.betaInfoAvailable = true;
 						}

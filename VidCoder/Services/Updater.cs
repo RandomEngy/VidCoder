@@ -305,6 +305,13 @@ namespace VidCoder.Services
 			{
 				UpdateInfo updateInfo = GetUpdateInfo(Beta);
 
+				if (updateInfo == null)
+				{
+					this.State = UpdateState.Failed;
+					this.logger.Log("Update download failed. Unable to get update info.");
+					return;
+				}
+
 				string updateVersion = updateInfo.LatestVersion;
 				this.LatestVersion = updateVersion;
 
@@ -430,12 +437,7 @@ namespace VidCoder.Services
 					this.State = UpdateState.UpToDate;
 				}
 			}
-			catch (WebException exception)
-			{
-				this.State = UpdateState.Failed;
-				this.logger.Log("Update download failed: " + exception.Message);
-			}
-			catch (System.Xml.XmlException exception)
+			catch (Exception exception)
 			{
 				this.State = UpdateState.Failed;
 				this.logger.Log("Update download failed: " + exception.Message);
