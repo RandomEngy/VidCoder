@@ -219,7 +219,7 @@
 				Grid.Row="5"
 				Grid.Column="0"
 				Style="{StaticResource FilterLabel}"
-				Text="Rotation:"
+				Text="{x:Static res:EncodingRes.RotationLabel}"
 				ToolTipService.ShowDuration="20000">
 				<TextBlock.ToolTip>
 					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.RotationToolTip}" />

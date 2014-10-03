@@ -261,7 +261,9 @@
   <data name="AdvancedTab" xml:space="preserve">
     <value>Avancé</value>
   </data>
-  
+  <data name="BetaUpdatesInBeta" xml:space="preserve">
+    <value>Vous exécutez la version bêta. Cela peut fonctionner côte-à-côte avec la version stable.</value>
+  </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Rejoindre la liste des utilisateurs de version bêta pour obtenir les mises à jour plus fréquentes</value>
   </data>
@@ -394,11 +396,26 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Utiliser des processus de travail pour encoder</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
+  <data name="VideoSection" xml:space="preserve">
+    <value>Vidéo</value>
+  </data>
+  <data name="DxvaDecodingCheckBox" xml:space="preserve">
+    <value>Activer l'accélération matérielle DXVA de décodage</value>
+  </data>
+  <data name="DxvaDecodingToolTip" xml:space="preserve">
+    <value>Cette option est uniquement pour les systèmes lents. Le décodeur matériels sont actuellement conçus pour la lecture, et non pas pour le ré-encodage vidéo qui va ralentir les systèmes rapides.</value>
+  </data>
+  <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+    <value>Conserver l'horodatage lors de la conversion des fichiers</value>
+  </data>
+  <data name="DefaultCheckBox" xml:space="preserve">
+    <value>Par défaut</value>
+    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Garder la structure de dossiers dans l'encodage par lots</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Si vous encodez un dossier plein de fichiers, ils seront encodés dans des sous-dossiers en gardant la même structure du dossiers source.</value>
+  </data>
 </root>

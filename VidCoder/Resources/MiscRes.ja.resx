@@ -245,6 +245,10 @@
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
     <value>エンコードが完了しました</value>
   </data>
-	
-	
+	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+    <value>{0} のビデオ プレーヤーを見つけられませんでした。</value>
+  </data>
+	<data name="ErrorPlayingSource" xml:space="preserve">
+    <value>ソースファイルの再生エラー</value>
+  </data>
 </root>

@@ -62,6 +62,8 @@ namespace VidCoder.ViewModel
 			this.customFormatString = Config.AutoNameCustomFormatString;
 			this.outputToSourceDirectory = Config.OutputToSourceDirectory;
 			this.preserveFolderStructureInBatch = Config.PreserveFolderStructureInBatch;
+			this.useCustomPreviewFolder = Config.UseCustomPreviewFolder;
+			this.previewOutputFolder = Config.PreviewOutputFolder;
 			this.whenFileExists = CustomConfig.WhenFileExists;
 			this.whenFileExistsBatch = CustomConfig.WhenFileExistsBatch;
 			this.minimizeToTray = Config.MinimizeToTray;
@@ -119,7 +121,9 @@ namespace VidCoder.ViewModel
 						new InterfaceLanguage { CultureCode = "fr-FR", Display = "Français / French" },
 						new InterfaceLanguage { CultureCode = "it-IT", Display = "italiano / Italian" },
 						new InterfaceLanguage { CultureCode = "hu-HU", Display = "Magyar / Hungarian" },
-						new InterfaceLanguage { CultureCode = "pt-PT", Display = "Português (Portuguese)" },
+						new InterfaceLanguage { CultureCode = "pt-PT", Display = "Português / Portuguese" },
+						new InterfaceLanguage { CultureCode = "pt-BR", Display = "Português (Brasil) / Portuguese (Brazil)" },
+						new InterfaceLanguage { CultureCode = "ru-RU", Display = "русский / Russian" },
 						new InterfaceLanguage { CultureCode = "zh-Hans", Display = "中文(简体) / Chinese (Simplified)" },
 						new InterfaceLanguage { CultureCode = "zh-Hant", Display = "中文(繁體) / Chinese (Traditional)" },
 						new InterfaceLanguage { CultureCode =  "ja-JP", Display = "日本語 / Japanese" },
@@ -534,6 +538,36 @@ namespace VidCoder.ViewModel
 			{
 				this.preserveFolderStructureInBatch = value;
 				this.RaisePropertyChanged(() => this.PreserveFolderStructureInBatch);
+			}
+		}
+
+		private bool useCustomPreviewFolder;
+		public bool UseCustomPreviewFolder
+		{
+			get
+			{
+				return this.useCustomPreviewFolder;
+			}
+
+			set
+			{
+				this.useCustomPreviewFolder = value;
+				this.RaisePropertyChanged(() => this.UseCustomPreviewFolder);
+			}
+		}
+
+		private string previewOutputFolder;
+		public string PreviewOutputFolder
+		{
+			get
+			{
+				return this.previewOutputFolder;
+			}
+
+			set
+			{
+				this.previewOutputFolder = value;
+				this.RaisePropertyChanged(() => this.PreviewOutputFolder);
 			}
 		}
 
@@ -1098,6 +1132,8 @@ namespace VidCoder.ViewModel
 							Config.AutoNameCustomFormatString = this.CustomFormatString;
 							Config.OutputToSourceDirectory = this.OutputToSourceDirectory;
 							Config.PreserveFolderStructureInBatch = this.PreserveFolderStructureInBatch;
+							Config.UseCustomPreviewFolder = this.UseCustomPreviewFolder;
+							Config.PreviewOutputFolder = this.PreviewOutputFolder;
 							CustomConfig.WhenFileExists = this.WhenFileExists;
 							CustomConfig.WhenFileExistsBatch = this.WhenFileExistsBatch;
 							Config.MinimizeToTray = this.MinimizeToTray;
@@ -1231,6 +1267,22 @@ namespace VidCoder.ViewModel
 							this.DefaultPath = newFolder;
 						}
 					}));
+			}
+		}
+
+		private RelayCommand browsePreviewFolderCommand;
+		public RelayCommand BrowsePreviewFolderCommand
+		{
+			get
+			{
+				return this.browsePreviewFolderCommand ?? (this.browsePreviewFolderCommand = new RelayCommand(() =>
+				{
+					string newFolder = FileService.Instance.GetFolderName(null);
+					if (newFolder != null)
+					{
+						this.PreviewOutputFolder = newFolder;
+					}
+				}));
 			}
 		}
 

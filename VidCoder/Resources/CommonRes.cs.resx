@@ -226,7 +226,7 @@ Tento program je rozšiřován v naději že bude užitečný, ale BEZ JAKÉKOLI
     <value>Nelze získat přístup do následujícího adresáře:</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>Žádný</value>
+    <value>Žádné</value>
   </data>
   <data name="Succeeded" xml:space="preserve">
     <value>Podařilo se</value>

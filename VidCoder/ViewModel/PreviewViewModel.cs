@@ -449,16 +449,9 @@ namespace VidCoder.ViewModel
 						this.cancelPending = false;
 						this.encodeCancelled = false;
 
-						string extension = OutputPathViewModel.GetExtensionForProfile(this.job.EncodingProfile);
+						this.SetPreviewFilePath();
 
-						string previewDirectory = Utilities.LocalAppFolder;
-						if (!Directory.Exists(previewDirectory))
-						{
-							Directory.CreateDirectory(previewDirectory);
-						}
-
-						this.previewFilePath = Path.Combine(previewDirectory, @"preview" + extension);
-						this.job.OutputPath = previewFilePath;
+						this.job.OutputPath = this.previewFilePath;
 
 						this.previewEncodeStarted = false;
 
@@ -518,6 +511,48 @@ namespace VidCoder.ViewModel
 					{
 						return this.HasPreview;
 					}));
+			}
+		}
+
+		private void SetPreviewFilePath()
+		{
+			string extension = OutputPathViewModel.GetExtensionForProfile(this.job.EncodingProfile);
+
+			string previewDirectory;
+			if (Config.UseCustomPreviewFolder)
+			{
+				previewDirectory = Config.PreviewOutputFolder;
+
+				try
+				{
+					if (!Directory.Exists(previewDirectory))
+					{
+						Directory.CreateDirectory(previewDirectory);
+					}
+				}
+				catch (Exception exception)
+				{
+					this.logger.LogError("Could not create preview directory " + Config.PreviewOutputFolder + Environment.NewLine + exception);
+					previewDirectory = Utilities.LocalAppFolder;
+				}
+			}
+			else
+			{
+				previewDirectory = Utilities.LocalAppFolder;
+			}
+
+			this.previewFilePath = Path.Combine(previewDirectory, "preview" + extension);
+
+			if (File.Exists(this.previewFilePath))
+			{
+				try
+				{
+					File.Delete(this.previewFilePath);
+				}
+				catch (Exception)
+				{
+					this.previewFilePath = Utilities.CreateUniqueFileName(this.previewFilePath, new HashSet<string>());
+				}
 			}
 		}
 

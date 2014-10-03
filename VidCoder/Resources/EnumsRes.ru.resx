@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Anamorphic_Custom" xml:space="preserve">
+    <value>Пользовательский</value>
+  </data>
+  <data name="Anamorphic_Loose" xml:space="preserve">
+    <value>Свободно</value>
+  </data>
+  <data name="Anamorphic_None" xml:space="preserve">
+    <value>Отсутствует</value>
+  </data>
+  <data name="Anamorphic_Strict" xml:space="preserve">
+    <value>Точно</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Пользовательский</value>
+  </data>
+  <data name="Decomb_Bob" xml:space="preserve">
+    <value>Bob</value>
+  </data>
+  <data name="Decomb_Fast" xml:space="preserve">
+    <value>Быстрая</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="Deinterlace_Bob" xml:space="preserve">
+    <value>Bob</value>
+    <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
+  </data>
+  <data name="Deinterlace_Fast" xml:space="preserve">
+    <value>Быстрая</value>
+  </data>
+  <data name="Deinterlace_Slow" xml:space="preserve">
+    <value>Медленная</value>
+  </data>
+  <data name="Deinterlace_Slower" xml:space="preserve">
+    <value>Медленнее</value>
+  </data>
+  <data name="DenoisePreset_Light" xml:space="preserve">
+    <value>Лёгкий</value>
+  </data>
+  <data name="DenoisePreset_Medium" xml:space="preserve">
+    <value>Средний</value>
+  </data>
+  <data name="DenoisePreset_Strong" xml:space="preserve">
+    <value>Сильно</value>
+  </data>
+  <data name="DenoisePreset_Ultralight" xml:space="preserve">
+    <value>Ультралайт</value>
+  </data>
+  <data name="DenoiseTune_Animation" xml:space="preserve">
+    <value>Анимация</value>
+  </data>
+  <data name="DenoiseTune_Film" xml:space="preserve">
+    <value>Фильм</value>
+  </data>
+  <data name="DenoiseTune_Grain" xml:space="preserve">
+    <value>Зерна</value>
+  </data>
+  <data name="DenoiseTune_HighMotion" xml:space="preserve">
+    <value>Высокое движение</value>
+  </data>
+  <data name="Denoise_HQDN3D" xml:space="preserve">
+    <value>hqdn3d</value>
+  </data>
+  <data name="Denoise_NLMeans" xml:space="preserve">
+    <value>NL-Means</value>
+  </data>
+  <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
+    <value>Ничего не делать</value>
+  </data>
+  <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
+    <value>Извлечь {0}:</value>
+  </data>
+  <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
+    <value>Выключить</value>
+  </data>
+  <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
+    <value>Спящий режим</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>Выкл</value>
+  </data>
+  <data name="VideoRangeType_Chapters" xml:space="preserve">
+    <value>Главы</value>
+  </data>
+  <data name="VideoRangeType_Frames" xml:space="preserve">
+    <value>Кадры</value>
+  </data>
+  <data name="VideoRangeType_Seconds" xml:space="preserve">
+    <value>Диапазон времени</value>
+  </data>
+</root>

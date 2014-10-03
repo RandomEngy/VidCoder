@@ -168,7 +168,9 @@
   <data name="UsedColumns" xml:space="preserve">
     <value>Colonnes utilisées</value>
   </data>
-  
+  <data name="ScanMultipleWindowTitle" xml:space="preserve">
+    <value>Analyse en cours...</value>
+  </data>
   <data name="UpdateSuccessDialogTitle" xml:space="preserve">
     <value>Succès</value>
   </data>
@@ -184,7 +186,9 @@
   <data name="Version" xml:space="preserve">
     <value>Version</value>
   </data>
-  
+  <data name="BasedOnHandBrake" xml:space="preserve">
+    <value>Basé sur HandBrake ({0})</value>
+  </data>
   <data name="Copyright" xml:space="preserve">
     <value>© {0} Développeurs VidCoder</value>
   </data>
@@ -214,15 +218,37 @@
   <data name="DisableUpdatesButton" xml:space="preserve">
     <value>Désactiver les mises à jour</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-	
-	
+  <data name="NoticeMessageTitle" xml:space="preserve">
+    <value>Important</value>
+  </data>
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>VidCoder n'est pas pris en charge sur votre système d'exploitation. Windows XP et Server 2003 ne fonctionnent plus. S'il vous plaît installer VidCoder 1.4, ou mettez votre système d'exploitation à niveau.</value>
+  </data>
+  <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
+    <value>Prochaine mise en veille</value>
+  </data>
+  <data name="EncodeCompleteWarning_LogOffTitle" xml:space="preserve">
+    <value>Prochaine déconnexion</value>
+  </data>
+  <data name="EncodeCompleteWarning_ShutdownTitle" xml:space="preserve">
+    <value>Prochain arrêt</value>
+  </data>
+  <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
+    <value>Mise en veille du système dans {0} secondes.</value>
+  </data>
+  <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
+    <value>Vous serez déconnecté dans {0} secondes.</value>
+  </data>
+  <data name="EncodeCompleteWarning_ShutdownMessage" xml:space="preserve">
+    <value>Le système s'arrêtera dans {0} secondes.</value>
+  </data>
+  <data name="EncodeCompleteWarning_Title" xml:space="preserve">
+    <value>Encodage terminé.</value>
+  </data>
+	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+    <value>Lecteur vidéo introuvable pour {0}.</value>
+  </data>
+	<data name="ErrorPlayingSource" xml:space="preserve">
+    <value>Erreur de lecture de la source.</value>
+  </data>
 </root>

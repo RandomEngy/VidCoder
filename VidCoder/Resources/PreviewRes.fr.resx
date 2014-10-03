@@ -180,5 +180,7 @@
   <data name="BottomMargin" xml:space="preserve">
     <value>Marge du bas</value>
   </data>
-	
+	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
+    <value>Fichier source introuvable.</value>
+  </data>
 </root>

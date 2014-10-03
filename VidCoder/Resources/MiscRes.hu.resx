@@ -245,6 +245,10 @@
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
     <value>A kódolás befejeződött.</value>
   </data>
-	
-	
+	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+    <value>Nem található videólejátszó {0} formátumhoz.</value>
+  </data>
+	<data name="ErrorPlayingSource" xml:space="preserve">
+    <value>Hiba történt a forrás lejátszása közben.</value>
+  </data>
 </root>

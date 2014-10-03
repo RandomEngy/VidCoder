@@ -183,7 +183,7 @@
 				</Grid>
 
 				<StackPanel Orientation="Horizontal" Margin="4,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
-					<TextBlock Text="Scaling Algorithm:" VerticalAlignment="Center" Style="{StaticResource LongToolTipHolder}">
+					<TextBlock Text="{x:Static res:EncodingRes.ScalingAlgorithmLabel}" VerticalAlignment="Center" Style="{StaticResource LongToolTipHolder}">
 						<TextBlock.ToolTip>
 							<TextBlock Text="{x:Static res:EncodingRes.ScaleMethodToolTip}" Style="{StaticResource LongToolTip}" />
 						</TextBlock.ToolTip>

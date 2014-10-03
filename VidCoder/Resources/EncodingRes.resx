@@ -986,4 +986,10 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>If the input track matches the codec it will be passed through instead of encoded.</value>
   </data>
+	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+    <value>Scaling Algorithm:</value>
+  </data>
+	<data name="RotationLabel" xml:space="preserve">
+    <value>Rotation:</value>
+  </data>
 </root>

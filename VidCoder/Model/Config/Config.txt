@@ -60,6 +60,8 @@ CopyLogToOutputFolder|bool|false
 AutoPauseProcesses|string|""
 PreviewCount|int|10
 PreviewDisplay|string|"FitToWindow"
+UseCustomPreviewFolder|bool|false
+PreviewOutputFolder|string|""
 QueueTitlesUseTitleOverride|bool|false
 QueueTitlesTitleOverride|int|1
 ShowAudioTrackNameField|bool|false

@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
+    <value>Когда автоматическая выбор аудио отключен, последний выбранный трек сохраняется.</value>
+  </data>
+  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
+    <value>Когда автоматический выбор субтитров отключен, последние выбранные субтитры сохраняются.</value>
+  </data>
+  <data name="GeneralTab" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
+    <value>Свернуть в панель задач</value>
+  </data>
+  <data name="MinimizeToSystemTrayRadioButton" xml:space="preserve">
+    <value>Минимизировать в системный трей</value>
+  </data>
+  <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
+    <value>Звуковой сигнал после завершения очереди</value>
+  </data>
+  <data name="PreferredDvdPlayerLabel" xml:space="preserve">
+    <value>Предпочтительный DVD плеер:</value>
+  </data>
+  <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
+    <value>Выберите плеер, который вы хотите использовать для источников DVD.</value>
+  </data>
+  <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
+    <value>Автоматическое обновления</value>
+  </data>
+  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
+    <value>Принять участие в бета-версии проекта</value>
+  </data>
+  <data name="FileNamingTab" xml:space="preserve">
+    <value>Именование файлов</value>
+  </data>
+  <data name="DefaultFolderLabel" xml:space="preserve">
+    <value>Папка по умолчанию:</value>
+  </data>
+  <data name="FileFormatLabel" xml:space="preserve">
+    <value>Формат файла:</value>
+  </data>
+  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
+    <value>Вывод в исходный каталог, если это возможно</value>
+  </data>
+  <data name="DefaultFormatRadioButton" xml:space="preserve">
+    <value>Формат по умолчанию</value>
+  </data>
+  <data name="CustomFormatRadioButton" xml:space="preserve">
+    <value>Пользовательский формат:</value>
+  </data>
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Доступные параметры: {0}</value>
+  </data>
+  <data name="WhenFileAlreadyExists" xml:space="preserve">
+    <value>Если файл уже существует...</value>
+  </data>
+  <data name="EncodingSingleFile" xml:space="preserve">
+    <value>Кодирование одного файла:</value>
+  </data>
+  <data name="AskOverwriteRadioButton" xml:space="preserve">
+    <value>Спросите, если вы хотите перезаписать его</value>
+  </data>
+  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
+    <value>Перезаписать файл без запроса</value>
+  </data>
+  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
+    <value>Автоматическое переключение на другое имя</value>
+  </data>
+  <data name="EncodingBatchOfFiles" xml:space="preserve">
+    <value>Пакетное кодирование файлов:</value>
+  </data>
+  <data name="OverwriteRadioButton" xml:space="preserve">
+    <value>Перезаписать</value>
+  </data>
+  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
+    <value>Автоматическое переименование</value>
+  </data>
+  <data name="AutomaticAudioSelection" xml:space="preserve">
+    <value>Автоматический выбор аудио</value>
+  </data>
+  <data name="AudioSubtitlesTab" xml:space="preserve">
+    <value>Аудио / субтитры</value>
+  </data>
+  <data name="LanguageRadioButton" xml:space="preserve">
+    <value>Язык:</value>
+  </data>
+  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
+    <value>Включить все треки</value>
+  </data>
+  <data name="AutomaticSubtitleSelection" xml:space="preserve">
+    <value>Автоматический выбор субтитров</value>
+  </data>
+  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
+    <value>По поиску иностранного звука</value>
+  </data>
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>Записать в</value>
+  </data>
+  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
+    <value>Только если другой язык аудио</value>
+  </data>
+  <data name="AutoPauseLabel" xml:space="preserve">
+    <value>Автоматически пауза кодирования, если любой из этих процессов запущен:</value>
+  </data>
+  <data name="AddEllipsesButton" xml:space="preserve">
+    <value>Добавить...</value>
+  </data>
+  <data name="PreviewCountLabel" xml:space="preserve">
+    <value>Номер изображения пред просмотра для сканирования:</value>
+  </data>
+  <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
+    <value>Запомнить недавно использованные файлы и папки</value>
+  </data>
+  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
+    <value>Позволяет установить пользовательское имя для аудио-треков (ограниченная поддержка плееров)</value>
+  </data>
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>Включить LibDVDNav (Требуется перезапуск программы)</value>
+  </data>
+  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
+    <value>Хранить сканы после завершения (позволяет редактировать завершенные пункты)</value>
+  </data>
+  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
+    <value>Удалить исходные файлы после очистки успешно завершенных пунктов (с подтверждением)</value>
+  </data>
+  <data name="LoggingVerbosityLabel" xml:space="preserve">
+    <value>Подробное протоколирование:</value>
+  </data>
+  <data name="MinScanLengthLabel" xml:space="preserve">
+    <value>Минимальная длительность названия для сканирования (секунды):</value>
+  </data>
+  <data name="RecognizedExtensionsLabel" xml:space="preserve">
+    <value>Признанные расширения:</value>
+  </data>
+  <data name="RecognizedExtensionsToolTip" xml:space="preserve">
+    <value>При сканировании папки для видео файлов, добавлять файлы с этими расширениями. (Через запятую)</value>
+  </data>
+  <data name="OptionsDialogTitle" xml:space="preserve">
+    <value>Параметры</value>
+  </data>
+  <data name="ProcessesTab" xml:space="preserve">
+    <value>Процессы</value>
+  </data>
+  <data name="AdvancedTab" xml:space="preserve">
+    <value>Дополнительно</value>
+  </data>
+  <data name="BetaUpdatesInBeta" xml:space="preserve">
+    <value>Вы используете бета-версию. Вы может работать бок о бок со стабильной версией.</value>
+  </data>
+  <data name="BetaUpdatesNonBeta" xml:space="preserve">
+    <value>Принять участие в бета-версии проекта для частых обновлений</value>
+  </data>
+  <data name="UpdateReadyStatus" xml:space="preserve">
+    <value>Обновление {0} готово к установке. Оно установится после выхода из программы.</value>
+  </data>
+  <data name="DownloadingStatus" xml:space="preserve">
+    <value>Загрузка обновления {0}:</value>
+  </data>
+  <data name="UpToDateStatus" xml:space="preserve">
+    <value>VidCoder в актуальном состоянии.</value>
+  </data>
+  <data name="ChooseDefaultOutputFolder" xml:space="preserve">
+    <value>Выберите выходной каталог по умолчанию для закодированных видео-файлов.</value>
+  </data>
+  <data name="InterfaceLanguageLabel" xml:space="preserve">
+    <value>Язык интерфейса:</value>
+  </data>
+  <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
+    <value>Новый язык вступит в силу только после перезапуска VidCoder.</value>
+  </data>
+  <data name="UseOSLanguage" xml:space="preserve">
+    <value>Использовать язык ОС</value>
+  </data>
+  <data name="UpdatesTab" xml:space="preserve">
+    <value>Обновления</value>
+  </data>
+  <data name="DownloadingInfoStatus" xml:space="preserve">
+    <value>Найти последнюю версию...</value>
+  </data>
+  <data name="UpdateFailedStatus" xml:space="preserve">
+    <value>Ошибка проверки обновления.</value>
+  </data>
+  <data name="CompletionWavFilePickTitle" xml:space="preserve">
+    <value>Выберите .wav файл, который будет проигрываться после завершения кодирования.</value>
+  </data>
+  <data name="CurrentVersionLabel" xml:space="preserve">
+    <value>Текущая версия: {0}</value>
+  </data>
+  <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
+    <value>Внимание: Данная версия может содержать ошибки и аварии.</value>
+  </data>
+  <data name="LanguagesSection" xml:space="preserve">
+    <value>Языки</value>
+  </data>
+  <data name="PlayersSection" xml:space="preserve">
+    <value>Игроки</value>
+  </data>
+  <data name="SoundSection" xml:space="preserve">
+    <value>Звук</value>
+  </data>
+  <data name="SystemTraySection" xml:space="preserve">
+    <value>Системный трей</value>
+  </data>
+  <data name="OutputFolderSection" xml:space="preserve">
+    <value>Выходная папка</value>
+  </data>
+  <data name="NamingFormatSection" xml:space="preserve">
+    <value>Формат именования</value>
+  </data>
+  <data name="AdvancedOptionsSection" xml:space="preserve">
+    <value>Дополнительные возможности</value>
+  </data>
+  <data name="ScanningSection" xml:space="preserve">
+    <value>Сканирование</value>
+  </data>
+  <data name="LoggingSection" xml:space="preserve">
+    <value>Ведение журнала</value>
+  </data>
+  <data name="DvdReadingSection" xml:space="preserve">
+    <value>DVD чтение</value>
+  </data>
+  <data name="UpdatesSection" xml:space="preserve">
+    <value>Обновления</value>
+  </data>
+  <data name="UpdateStatusSection" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="BetaSection" xml:space="preserve">
+    <value>Бета-версия</value>
+  </data>
+  <data name="UseCustomWavLabel" xml:space="preserve">
+    <value>Использование пользовательских WAV-файлов:</value>
+  </data>
+  <data name="CheckNowButton" xml:space="preserve">
+    <value>Проверить сейчас</value>
+  </data>
+  <data name="UseSystemPlayer" xml:space="preserve">
+    <value>Использовать плеер системы</value>
+  </data>
+  <data name="VideoFilesLabel" xml:space="preserve">
+    <value>Видео-файл:</value>
+  </data>
+  <data name="CustomVideoPlayerToolTip" xml:space="preserve">
+    <value>Выберите путь к программе воспроизведения, которую вы хотите использовать для видео.</value>
+  </data>
+  <data name="VideoPlayerFilePickTitle" xml:space="preserve">
+    <value>Выберите плеер, который будет использоваться для видео-файлов.</value>
+  </data>
+  <data name="CustomPlayerLabel" xml:space="preserve">
+    <value>Пользовательский проигрыватель:</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Высокий</value>
+  </data>
+  <data name="Priority_AboveNormal" xml:space="preserve">
+    <value>Выше среднего</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Норма</value>
+  </data>
+  <data name="Priority_BelowNormal" xml:space="preserve">
+    <value>Ниже нормы</value>
+  </data>
+  <data name="WorkerProcessPriorityLabel" xml:space="preserve">
+    <value>Приоритет рабочего процесса:</value>
+  </data>
+  <data name="Priority_Idle" xml:space="preserve">
+    <value>Низкий</value>
+  </data>
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+    <value>Скопировать журнал кодирования в каталог кодируемого видео</value>
+  </data>
+  <data name="OpenLogFolderButton" xml:space="preserve">
+    <value>Открыть папку журнала</value>
+  </data>
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+    <value>Возобновить кодирование при перезагрузке</value>
+  </data>
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
+    <value>Использовать рабочий процесс для кодирования</value>
+  </data>
+  <data name="VideoSection" xml:space="preserve">
+    <value>Видео</value>
+  </data>
+  <data name="DxvaDecodingCheckBox" xml:space="preserve">
+    <value>Включить DXVA декодирования с аппаратным ускорением</value>
+  </data>
+  <data name="DxvaDecodingToolTip" xml:space="preserve">
+    <value>Этот вариант подходит только для медленных системах. В настоящее время аппаратные декодеры предназначены для воспроизведения, не для повторного кодирования видео так будет скорее всего узким местом на быстрее систем.</value>
+  </data>
+  <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+    <value>Заповедник создан и изменен время при преобразовании файлов</value>
+  </data>
+  <data name="DefaultCheckBox" xml:space="preserve">
+    <value>По умолчанию</value>
+    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Сохранить структуру папок в кодируемом пакете</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Если вы кодируете папку с файлами закодированной версии поместит в подпапки в соответствии со структурой исходного каталога.</value>
+  </data>
+</root>

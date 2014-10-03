@@ -268,7 +268,11 @@ A széles dinamikus tartománnyal rendelkező forrásaudiók (nagyon hangos és 
   <data name="WebOptimizedToolTip" xml:space="preserve">
     <value>A fájl átrendezése, hogy jobban működjön progresszív letöltésként.</value>
   </data>
-  
+  <data name="ProfileToolTip" xml:space="preserve">
+    <value>A kimeneti folyamat profiljának limitálása. Ha megadsz egy profilt, az felülír minden más beállítást, így ha használod, garantáltan kompatibilis folyamatot kapsz.
+
+Akkor érdemes beállítani, ha tudod, hogy a lejátszó eszköz csak egy bizonyos profilt támogat.</value>
+  </data>
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>Beállítások további optimalizálása a bemeneti tartalmakhoz. Ha megadsz egy módosítást, a változások a Séma után, de a többi paraméter előtt kerülnek érvényesítésre.</value>
   </data>
@@ -305,7 +309,9 @@ A széles dinamikus tartománnyal rendelkező forrásaudiók (nagyon hangos és 
   <data name="TabHeader_Audio" xml:space="preserve">
     <value>Hang</value>
   </data>
-  
+  <data name="TabHeader_Advanced" xml:space="preserve">
+    <value>Haladó videó</value>
+  </data>
   <data name="Rename" xml:space="preserve">
     <value>Átnevezés</value>
   </data>
@@ -435,9 +441,15 @@ A széles dinamikus tartománnyal rendelkező forrásaudiók (nagyon hangos és 
   <data name="TuneLabel" xml:space="preserve">
     <value>Beállítás:</value>
   </data>
-  
-  
-  
+  <data name="Profile_baseline" xml:space="preserve">
+    <value>Alapvonal</value>
+  </data>
+  <data name="Profile_main" xml:space="preserve">
+    <value>Fő</value>
+  </data>
+  <data name="Profile_high" xml:space="preserve">
+    <value>Magas</value>
+  </data>
   <data name="Preset_UltraFast" xml:space="preserve">
     <value>Ultra gyors</value>
   </data>
@@ -468,14 +480,30 @@ A széles dinamikus tartománnyal rendelkező forrásaudiók (nagyon hangos és 
   <data name="Preset_Placebo" xml:space="preserve">
     <value>Placebo</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="Tune_film" xml:space="preserve">
+    <value>Film</value>
+  </data>
+  <data name="Tune_animation" xml:space="preserve">
+    <value>Animáció</value>
+  </data>
+  <data name="Tune_grain" xml:space="preserve">
+    <value>Szemcsés</value>
+  </data>
+  <data name="Tune_stillimage" xml:space="preserve">
+    <value>Állókép</value>
+  </data>
+  <data name="Tune_psnr" xml:space="preserve">
+    <value>PSNR</value>
+  </data>
+  <data name="Tune_ssim" xml:space="preserve">
+    <value>SSIM</value>
+  </data>
+  <data name="Tune_fastdecode" xml:space="preserve">
+    <value>Gyors dekódolás</value>
+  </data>
+  <data name="Tune_zerolatency" xml:space="preserve">
+    <value>Nincs késleltetés</value>
+  </data>
   <data name="FpsFormat" xml:space="preserve">
     <value>{0:0.###} FPS</value>
   </data>
@@ -558,11 +586,21 @@ A széles dinamikus tartománnyal rendelkező forrásaudiók (nagyon hangos és 
     <value>AAC (FAAC)</value>
     <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
   </data>
-  
-  
-  
-  
-  
+  <data name="AudioEncoder_av_aac" xml:space="preserve">
+    <value>AAC (avcodec)</value>
+  </data>
+  <data name="AudioEncoder_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="AudioEncoder_flac16" xml:space="preserve">
+    <value>16 bites FLAC</value>
+  </data>
+  <data name="AudioEncoder_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="AudioEncoder_vorbis" xml:space="preserve">
+    <value>Vorbis</value>
+  </data>
   <data name="Mixdown_5point1" xml:space="preserve">
     <value>5.1 csatorna</value>
   </data>
@@ -761,8 +799,14 @@ A széles dinamikus tartománnyal rendelkező forrásaudiók (nagyon hangos és 
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>További haladó x264 beállítások:</value>
   </data>
-  
-  
+  <data name="LevelToolTip" xml:space="preserve">
+    <value>Beállítja és biztosítja a meghatározott kódolási szint használatát.
+
+Felülírja az összes többi beállítást.</value>
+  </data>
+  <data name="Profile_high444" xml:space="preserve">
+    <value>Magas 4:4:4 prediktív</value>
+  </data>
   <data name="VideoCodecLabel" xml:space="preserve">
     <value>Videókodek</value>
   </data>
@@ -787,7 +831,9 @@ A széles dinamikus tartománnyal rendelkező forrásaudiók (nagyon hangos és 
   <data name="X264Settings" xml:space="preserve">
     <value>x264 beállítások</value>
   </data>
-  
+  <data name="LevelLabel" xml:space="preserve">
+    <value>Szint:</value>
+  </data>
   <data name="MoreSettingsLabel" xml:space="preserve">
     <value>További beállítások:</value>
   </data>

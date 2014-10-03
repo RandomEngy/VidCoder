@@ -245,6 +245,10 @@
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
     <value>Kodeaketa osatu da.</value>
   </data>
-	
-	
+	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+    <value>Ezin da bideo irakurgailurik aurkitu {0}-rako.</value>
+  </data>
+	<data name="ErrorPlayingSource" xml:space="preserve">
+    <value>Akatsa iturburua irakurtzerakoan.</value>
+  </data>
 </root>

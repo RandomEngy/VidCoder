@@ -322,7 +322,7 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>(auto)</value>
   </data>
   <data name="NoneCaption" xml:space="preserve">
-    <value>(žádný)</value>
+    <value>(žádná)</value>
   </data>
   <data name="StorageResolutionLabel" xml:space="preserve">
     <value>Uložené rozlišení:</value>
@@ -451,34 +451,34 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>Vysoký</value>
   </data>
   <data name="Preset_UltraFast" xml:space="preserve">
-    <value>Ultra rychle</value>
+    <value>Ultra rychlé</value>
   </data>
   <data name="Preset_SuperFast" xml:space="preserve">
-    <value>Super rychle</value>
+    <value>Super rychlé</value>
   </data>
   <data name="Preset_VeryFast" xml:space="preserve">
-    <value>Velmi rychle</value>
+    <value>Velmi rychlé</value>
   </data>
   <data name="Preset_Faster" xml:space="preserve">
-    <value>Rychleji</value>
+    <value>Rychlejší</value>
   </data>
   <data name="Preset_Fast" xml:space="preserve">
-    <value>Rychle</value>
+    <value>Rychlé</value>
   </data>
   <data name="Preset_Medium" xml:space="preserve">
     <value>Střední (výchozí nastavení)</value>
   </data>
   <data name="Preset_Slow" xml:space="preserve">
-    <value>Pomalu</value>
+    <value>Pomalé</value>
   </data>
   <data name="Preset_Slower" xml:space="preserve">
-    <value>Pomaleji</value>
+    <value>Pomalejší</value>
   </data>
   <data name="Preset_VerySlow" xml:space="preserve">
-    <value>Velmi pomalu</value>
+    <value>Velmi pomalé</value>
   </data>
   <data name="Preset_Placebo" xml:space="preserve">
-    <value>Extrémě pomalu</value>
+    <value>Placebo</value>
   </data>
   <data name="Tune_film" xml:space="preserve">
     <value>Film</value>
@@ -487,7 +487,7 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>Animace</value>
   </data>
   <data name="Tune_grain" xml:space="preserve">
-    <value>Zrnitost</value>
+    <value>Zrnitý</value>
   </data>
   <data name="Tune_stillimage" xml:space="preserve">
     <value>Nehybný obraz</value>
@@ -532,7 +532,7 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>Nízká kvalita</value>
   </data>
   <data name="SameAsSource" xml:space="preserve">
-    <value>Stejné jako zdroj</value>
+    <value>Stejná jako zdroj</value>
   </data>
   <data name="AddAudioEncodingButton" xml:space="preserve">
     <value>Přidat audio kódování</value>
@@ -602,7 +602,7 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>Vorbis</value>
   </data>
   <data name="Mixdown_5point1" xml:space="preserve">
-    <value>5.1 Channels</value>
+    <value>5.1 Kanály</value>
   </data>
   <data name="Mixdown_5_2_lfe" xml:space="preserve">
     <value>7.1 (5F/2R/LFE)</value>
@@ -875,7 +875,7 @@ Přepíše všechna ostatní nastavení.</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
   </data>
   <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
-    <value>Pro pokročilé nastavení</value>
+    <value>Pokročilé</value>
     <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
   </data>
   <data name="VideoEncoder_mpeg2" xml:space="preserve">

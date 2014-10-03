@@ -98,18 +98,50 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<data name="EncodeDetailsWindowTitle" xml:space="preserve">
+    <value>Détails d'encodage</value>
+  </data>
+	<data name="QueueSectionHeader" xml:space="preserve">
+    <value>File d'attente</value>
+  </data>
+	<data name="ScanPassLabel" xml:space="preserve">
+    <value>Passage d'analyse:</value>
+  </data>
+	<data name="FirstPassLabel" xml:space="preserve">
+    <value>Premier passage :</value>
+  </data>
+	<data name="SecondPassLabel" xml:space="preserve">
+    <value>Deuxième passage :</value>
+  </data>
+	<data name="EncodePassLabel" xml:space="preserve">
+    <value>Passage d'encodage :</value>
+  </data>
+	<data name="JobLabel" xml:space="preserve">
+    <value>Tâche:</value>
+  </data>
+	<data name="ProgressLabel" xml:space="preserve">
+    <value>Progression:</value>
+  </data>
+	<data name="ElapsedTimeLabel" xml:space="preserve">
+    <value>Temps écoulé:</value>
+  </data>
+	<data name="EtaLabel" xml:space="preserve">
+    <value>ETA:</value>
+  </data>
+	<data name="FileProgressLabel" xml:space="preserve">
+    <value>Progression du fichier:</value>
+    <comment>Label on the encode details window for % progress on the current file.</comment>
+  </data>
+	<data name="FileSizeLabel" xml:space="preserve">
+    <value>Taille du fichier:</value>
+    <comment>Label for current file size on encode details window.</comment>
+  </data>
+	<data name="CurrentFpsLabel" xml:space="preserve">
+    <value>FPS actuel :</value>
+    <comment>Label for the current encoding rate in frames per second.</comment>
+  </data>
+	<data name="AverageFpsLabel" xml:space="preserve">
+    <value>Moyenne FPS :</value>
+    <comment>Label for the average encoding rate in frames per second.</comment>
+  </data>
 </root>

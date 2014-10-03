@@ -1838,6 +1838,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rotation:.
+        /// </summary>
+        public static string RotationLabel {
+            get {
+                return ResourceManager.GetString("RotationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rotate the picture. This is applied after all sizing and cropping..
         /// </summary>
         public static string RotationToolTip {
@@ -1916,6 +1925,15 @@ namespace VidCoder.Resources {
         public static string ScaleMethodToolTip {
             get {
                 return ResourceManager.GetString("ScaleMethodToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scaling Algorithm:.
+        /// </summary>
+        public static string ScalingAlgorithmLabel {
+            get {
+                return ResourceManager.GetString("ScalingAlgorithmLabel", resourceCulture);
             }
         }
         

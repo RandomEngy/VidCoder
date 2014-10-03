@@ -379,7 +379,7 @@
     <value>Cesta není platná</value>
   </data>
   <data name="Encode" xml:space="preserve">
-    <value>Kódování</value>
+    <value>Kódovat</value>
   </data>
   <data name="Resume" xml:space="preserve">
     <value>Pokračovat</value>
@@ -484,7 +484,7 @@
     <value>Uložit aktuální přednastavení?</value>
   </data>
   <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>Opravdu chcete vrátit všechny neuložené změny do tohoto přednastavení?</value>
+    <value>Opravdu chcete vrátit všechny neuložené změny tohoto přednastavení?</value>
   </data>
   <data name="PresetRevertConfirmTitle" xml:space="preserve">
     <value>Vrátit přednastavení</value>

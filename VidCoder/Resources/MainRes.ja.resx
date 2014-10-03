@@ -241,7 +241,7 @@
     <value>出力パスを選択</value>
   </data>
   <data name="EncodingLabel" xml:space="preserve">
-    <value>エンコード中:</value>
+    <value>エンコード:</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>停止</value>

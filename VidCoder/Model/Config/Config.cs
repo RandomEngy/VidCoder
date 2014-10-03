@@ -58,6 +58,8 @@
 			AutoPauseProcesses_Field = DatabaseConfig.GetConfig("AutoPauseProcesses", "", connection);
 			PreviewCount_Field = DatabaseConfig.GetConfig("PreviewCount", 10, connection);
 			PreviewDisplay_Field = DatabaseConfig.GetConfig("PreviewDisplay", "FitToWindow", connection);
+			UseCustomPreviewFolder_Field = DatabaseConfig.GetConfig("UseCustomPreviewFolder", false, connection);
+			PreviewOutputFolder_Field = DatabaseConfig.GetConfig("PreviewOutputFolder", "", connection);
 			QueueTitlesUseTitleOverride_Field = DatabaseConfig.GetConfig("QueueTitlesUseTitleOverride", false, connection);
 			QueueTitlesTitleOverride_Field = DatabaseConfig.GetConfig("QueueTitlesTitleOverride", 1, connection);
 			ShowAudioTrackNameField_Field = DatabaseConfig.GetConfig("ShowAudioTrackNameField", false, connection);
@@ -813,6 +815,34 @@
 			{
 				PreviewDisplay_Field = value;
 				DatabaseConfig.SetConfigValue("PreviewDisplay", value);
+			}
+		}
+		private static bool UseCustomPreviewFolder_Field;
+		public static bool UseCustomPreviewFolder
+		{
+			get
+			{
+				return UseCustomPreviewFolder_Field;
+			}
+			
+			set
+			{
+				UseCustomPreviewFolder_Field = value;
+				DatabaseConfig.SetConfigValue("UseCustomPreviewFolder", value);
+			}
+		}
+		private static string PreviewOutputFolder_Field;
+		public static string PreviewOutputFolder
+		{
+			get
+			{
+				return PreviewOutputFolder_Field;
+			}
+			
+			set
+			{
+				PreviewOutputFolder_Field = value;
+				DatabaseConfig.SetConfigValue("PreviewOutputFolder", value);
 			}
 		}
 		private static bool QueueTitlesUseTitleOverride_Field;

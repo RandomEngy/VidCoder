@@ -27,10 +27,12 @@ namespace VidCoder
 	/// </summary>
 	public partial class App : Application
 	{
+		public static bool IsPrimaryInstance { get; private set; }
+
 #if BETA
-		static Mutex mutex = new Mutex(true, "VidCoderBetaSingleInstanceMutex");
+		static Mutex mutex = new Mutex(true, "VidCoderBetaPrimaryInstanceMutex");
 #else
-		static Mutex mutex = new Mutex(true, "VidCoderSingleInstanceMutex");
+		static Mutex mutex = new Mutex(true, "VidCoderPrimaryInstanceMutex");
 #endif
 
 		protected override void OnStartup(StartupEventArgs e)
@@ -128,24 +130,14 @@ namespace VidCoder
 			}
 			else
 			{
-#if !DEBUG
 				try
 				{
-					// Check if we're a duplicate instance
-					if (!mutex.WaitOne(TimeSpan.Zero, true))
-					{
-						NativeMethods.PostMessage(
-							(IntPtr)NativeMethods.HWND_BROADCAST,
-							NativeMethods.WM_SHOWME,
-							IntPtr.Zero,
-							IntPtr.Zero);
-						Environment.Exit(0);
-					}
+					// Check if we're a secondary instance
+					IsPrimaryInstance = mutex.WaitOne(TimeSpan.Zero, true);
 				}
 				catch (AbandonedMutexException)
 				{
 				}
-#endif
 
 				this.GlobalInitialize();
 
@@ -153,7 +145,7 @@ namespace VidCoder
 				WindowManager.OpenWindow(mainVM);
 				mainVM.OnLoaded();
 
-				if (!Utilities.IsPortable)
+				if (!Utilities.IsPortable && IsPrimaryInstance)
 				{
 					AutomationHost.StartListening();
 				}
@@ -162,12 +154,15 @@ namespace VidCoder
 
 		protected override void OnExit(ExitEventArgs e)
 		{
-			try
+			if (IsPrimaryInstance)
 			{
-				mutex.ReleaseMutex();
-			}
-			catch (ApplicationException)
-			{
+				try
+				{
+					mutex.ReleaseMutex();
+				}
+				catch (ApplicationException)
+				{
+				}
 			}
 		}
 

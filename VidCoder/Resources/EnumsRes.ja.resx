@@ -154,16 +154,28 @@
   <data name="Deinterlace_Slower" xml:space="preserve">
     <value>より遅い</value>
   </data>
+  <data name="DenoisePreset_Light" xml:space="preserve">
+    <value>弱</value>
+  </data>
+  <data name="DenoisePreset_Medium" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="DenoisePreset_Strong" xml:space="preserve">
+    <value>強</value>
+  </data>
+  <data name="DenoisePreset_Ultralight" xml:space="preserve">
+    <value>微弱</value>
+  </data>
   
   
   
   
-  
-  
-  
-  
-  
-  
+  <data name="Denoise_HQDN3D" xml:space="preserve">
+    <value>hqdn3d</value>
+  </data>
+  <data name="Denoise_NLMeans" xml:space="preserve">
+    <value>NL-Means</value>
+  </data>
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
     <value>何もしない</value>
   </data>
