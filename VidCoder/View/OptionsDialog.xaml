@@ -285,11 +285,13 @@
 								<CheckBox
 									Height="16"
 									Margin="0,0,5,0"
-									Content="Custom folder for previews:"
+									VerticalAlignment="Center"
+									Content="{x:Static res:OptionsRes.CustomPreviewFolderCheckBox}"
 									IsChecked="{Binding UseCustomPreviewFolder}" />
 								<TextBox
 									Grid.Column="1"
 									Height="22"
+									VerticalContentAlignment="Center"
 									IsEnabled="{Binding UseCustomPreviewFolder}"
 									Text="{Binding PreviewOutputFolder}" />
 								<Button
