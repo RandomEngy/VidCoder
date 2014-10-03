@@ -184,12 +184,18 @@ namespace VidCoder.Services
 				this.EntryLogged(this, new EventArgs<LogEntry>(entry));
 			}
 
-			this.logFile.WriteLine(entry.Text);
-			this.logFile.Flush();
-
-			if (this.parent != null && logParent)
+			try
 			{
-				this.parent.AddEntry(entry);
+				this.logFile.WriteLine(entry.Text);
+				this.logFile.Flush();
+
+				if (this.parent != null && logParent)
+				{
+					this.parent.AddEntry(entry);
+				}
+			}
+			catch (ObjectDisposedException)
+			{
 			}
 		}
 

@@ -1165,10 +1165,7 @@ namespace VidCoder.ViewModel
 
 		public bool TitleVisible
 		{
-			get
-			{
-				return this.HasVideoSource && this.SourceData.Titles.Count > 1;
-			}
+			get { return this.HasVideoSource && this.SourceData.Titles.Count > 1; }
 		}
 
 		public VideoRangeType RangeType
