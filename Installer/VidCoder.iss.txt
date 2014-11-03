@@ -49,7 +49,7 @@ WelcomeLabel2=This will install [name/ver] on your computer.
 Name: "{commonprograms}\%appName%"; Filename: "{app}\VidCoder.exe"; WorkingDir: "{app}"
 
 [Run]
-Filename: "{app}\VidCoder.exe"; Description: "Run VidCoder"; Flags: postinstall shellexec
+Filename: "{app}\VidCoder.exe"; Description: "Run VidCoder"; Flags: postinstall nowait skipifsilent
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{userappdata}\%folderName%\Updates"
@@ -94,6 +94,41 @@ begin
   end;
 end;
 
+//util method, equivalent to C# string.StartsWith
+function StartsWith(SubStr, S: String):Boolean;
+begin
+  Result:= Pos(SubStr, S) = 1;
+end;
+
+//util method, equivalent to C# string.Replace
+function StringReplace(S, oldSubString, newSubString: String) : String;
+var
+  stringCopy : String;
+begin
+  stringCopy := S; //Prevent modification to the original string
+  StringChange(stringCopy, oldSubString, newSubString);
+  Result := stringCopy;
+end;
+
+//==================================================================
+function GetCommandlineParam (inParamName: String):String;
+var
+   paramNameAndValue: String;
+   i: Integer;
+begin
+   Result := '';
+
+   for i:= 0 to ParamCount do
+   begin
+     paramNameAndValue := ParamStr(i);
+     if (StartsWith(inParamName, paramNameAndValue)) then
+     begin
+       Result := StringReplace(paramNameAndValue, inParamName + '=', '');
+       break;
+     end;
+   end;
+end;
+
 // Delete app data
 procedure DeleteUserFiles();
 var
@@ -106,6 +141,23 @@ begin
     DelTree(ExpandConstant('{userappdata}') + '\%folderName%', True, True, True);
   end; 
 end;
+
+procedure CurStepChanged(CurStep: TSetupStep);
+var
+   showSuccessDialog: String;
+begin
+  case CurStep of
+    ssDone:
+      begin
+        showSuccessDialog := GetCommandLineParam('/showSuccessDialog');
+        if showSuccessDialog <> '' then
+        begin
+          MsgBox('VidCoder has been successfully updated.', mbInformation, MB_OK);
+        end;
+     end;
+  end;
+end;
+
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin

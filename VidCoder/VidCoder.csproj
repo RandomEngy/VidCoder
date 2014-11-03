@@ -671,10 +671,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UpdateSuccess.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
@@ -781,9 +777,6 @@
     </Compile>
     <Compile Include="View\Panels\VideoPanel.xaml.cs">
       <DependentUpon>VideoPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UpdateSuccess.xaml.cs">
-      <DependentUpon>UpdateSuccess.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowPlacement.cs" />
     <Compile Include="WindowPlacementWpf.cs" />

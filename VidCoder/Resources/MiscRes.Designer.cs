@@ -403,24 +403,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to VidCoder has been successfully updated..
-        /// </summary>
-        public static string UpdateSuccessDialogMessage {
-            get {
-                return ResourceManager.GetString("UpdateSuccessDialogMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Success.
-        /// </summary>
-        public static string UpdateSuccessDialogTitle {
-            get {
-                return ResourceManager.GetString("UpdateSuccessDialogTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Used columns.
         /// </summary>
         public static string UsedColumns {

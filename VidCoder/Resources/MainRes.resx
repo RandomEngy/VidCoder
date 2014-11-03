@@ -462,12 +462,6 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>Error launching URL: {0}</value>
   </data>
-  <data name="UserConfigLoadError" xml:space="preserve">
-    <value>Could not load a required user settings file; it may have become corrupt. Do you want to delete it? This will not affect your saved presets.</value>
-  </data>
-  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>Error loading settings</value>
-  </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
     <value>Could not import preset. Format is unrecognized.</value>
   </data>

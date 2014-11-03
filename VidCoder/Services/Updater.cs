@@ -17,7 +17,7 @@ namespace VidCoder.Services
 
 	public class Updater : IUpdater
 	{
-		public const string UpdateInfoUrlBeta = "http://engy.us/VidCoder/latest-beta2.xml";
+		public const string UpdateInfoUrlBeta = "http://engy.us/VidCoder/Test/latest-beta2.xml";
 		public const string UpdateInfoUrlNonBeta = "http://engy.us/VidCoder/latest.xml";
 
 		public event EventHandler<EventArgs<double>> UpdateDownloadProgress;
@@ -138,7 +138,7 @@ namespace VidCoder.Services
 				Config.UpdateInProgress = true;
 
 				var installerProcess = new Process();
-				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons" };
+				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons /showSuccessDialog=\"yes\"" };
 				installerProcess.Start();
 
 				// Let the program close on its own.

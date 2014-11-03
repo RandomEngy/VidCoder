@@ -121,34 +121,26 @@ namespace VidCoder
 			}
 
 			var updater = Ioc.Container.GetInstance<IUpdater>();
-			bool updateSucceeded = updater.HandlePendingUpdate();
+			updater.HandlePendingUpdate();
 
-			if (updateSucceeded)
+			try
 			{
-				var updateSuccess = new UpdateSuccess();
-				updateSuccess.Show();
+				// Check if we're a secondary instance
+				IsPrimaryInstance = mutex.WaitOne(TimeSpan.Zero, true);
 			}
-			else
+			catch (AbandonedMutexException)
 			{
-				try
-				{
-					// Check if we're a secondary instance
-					IsPrimaryInstance = mutex.WaitOne(TimeSpan.Zero, true);
-				}
-				catch (AbandonedMutexException)
-				{
-				}
+			}
 
-				this.GlobalInitialize();
+			this.GlobalInitialize();
 
-				var mainVM = new MainViewModel();
-				WindowManager.OpenWindow(mainVM);
-				mainVM.OnLoaded();
+			var mainVM = new MainViewModel();
+			WindowManager.OpenWindow(mainVM);
+			mainVM.OnLoaded();
 
-				if (!Utilities.IsPortable && IsPrimaryInstance)
-				{
-					AutomationHost.StartListening();
-				}
+			if (!Utilities.IsPortable && IsPrimaryInstance)
+			{
+				AutomationHost.StartListening();
 			}
 		}
 
