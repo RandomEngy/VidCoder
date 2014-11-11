@@ -522,22 +522,22 @@ namespace VidCoder.ViewModel
 			if (Config.UseCustomPreviewFolder)
 			{
 				previewDirectory = Config.PreviewOutputFolder;
-
-				try
-				{
-					if (!Directory.Exists(previewDirectory))
-					{
-						Directory.CreateDirectory(previewDirectory);
-					}
-				}
-				catch (Exception exception)
-				{
-					this.logger.LogError("Could not create preview directory " + Config.PreviewOutputFolder + Environment.NewLine + exception);
-					previewDirectory = Utilities.LocalAppFolder;
-				}
 			}
 			else
 			{
+				previewDirectory = Utilities.LocalAppFolder;
+			}
+
+			try
+			{
+				if (!Directory.Exists(previewDirectory))
+				{
+					Directory.CreateDirectory(previewDirectory);
+				}
+			}
+			catch (Exception exception)
+			{
+				this.logger.LogError("Could not create preview directory " + Config.PreviewOutputFolder + Environment.NewLine + exception);
 				previewDirectory = Utilities.LocalAppFolder;
 			}
 
