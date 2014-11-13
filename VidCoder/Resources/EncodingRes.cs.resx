@@ -134,136 +134,134 @@ Rychlý režim trvá zhruba stejnou dobu, bez ohledu na to, kolik B-snímků zad
 Optimální režim je pomalejší, zvláště pokud se počet B-snímků zvyšuje, ale výsledky jsou mnohem přesnější, zvláště  při použití B-pyramid.</value>
   </data>
   <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264 umožňuje v B-snímcích dva různé režimy predikce, prostorovou a časovou
+    <value>H.264 umožňuje v B-snímcích dva různé režimy predikce, prostorovou a časovou.
 
-Prostorová -výchozí, je téměř vždy lepší, ale časová je někdy taky vhodná.
+Prostorová která je výchozí, je téměř vždy lepší, ale časová je někdy taky vhodná.
 
-x264 může, za cenu malého snížení rychlosti (a tedy i nižší kompresní zisk), adaptivně vybrat, která je lepší pro každý konkrétní snímek.</value>
+x264 může, za cenu malého snížení rychlosti (a tedy i nižšího komprimačního zisku), adaptivně vybrat, což je lepší pro každý konkrétní snímek.</value>
   </data>
   <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>Adaptivní kvantizace řídí způsob jak enkódér rozděluje bity napříč snímkem.
-Vyšší hodnota umožní více bitů pro kraje a složité oblasti vedoucí k zlepšení jemných detailů.</value>
+    <value>Adaptivní kvantizace řídí způsob jak enkodér rozděluje bity napříč snímkem.
+Vyšší hodnota ubere více bitů z okrajových a složitých oblastí a tím vede ke zlepšení jemných detailů.</value>
   </data>
   <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>Režim porovnání -  Výběr z několika možností, jak učinit rozhodnutí výběru: Vyberte jednu z možností, které jsou k dispozici. 
-Čím menší část pro porovnání, tím vyšší rychlost kódování, ale za cenu horších rozhodnutí, protože tou nejlepší volbou by mohla být právě ta, která byla omezena.</value>
+    <value>Režim rozhodnutí vybere z různých možností a na tomto základě udělá své rozhodnutí: tato možnost zvolí jaké možnosti to jsou.
+Čím je menší část pro porovnání tím vyšší je rychlost enkódování, ale za cenu horších rozhodnutí, protože tou nejlepší volbou by mohla být právě ta která byla omezena.</value>
   </data>
   <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>Doporučené hodnoty jsou mezi 2 až 5.
-Hodnota maximálního počtu po sobě jdoucích B-snímků, které mají být používány kodekem v daném okamžiku. 
-Vyšší hodnoty obvykle povedou ke konkrétnímu zlepšení, za předpokladu, že Adaptivní B-snímky jsou nastaveny na optimální. 
-Animovaný zdrojový materiál a B-pyramida výrazně zvyšují užitnou hodnotu při větších hodnotách. 
-Základní Profil, který je vyžadovaný pro iPod a podobná zařízení, vyžaduje aby B-snímky byly nastaveny na hodnotu 0 (vypnuto).</value>
+    <value>Rozumné hodnoty jsou ~2-5.
+Hodnota maximálního počtu po sobě jdoucích B-snímků které mají být používány kodekem v daném okamžiku.
+Vyšší hodnoty obvykle nepovedou ke konkrétnímu zlepšení pokud se adaptivní B-snímky nenastaví na optimální.
+Animovaný zdrojový materiál a B-pyramida výrazně zvyšují užitnou hodnotu při větších hodnotách.
+Základní profil, který je vyžadovaný pro iPod a podobná zařízení, vyžaduje aby B-snímky byly nastaveny na hodnotu 0 (vypnuto).</value>
   </data>
   <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>Pro dokončení kódování existuje celá řada údajů, které musí být komprimovány bezztrátově, obdobně jako ZIP nebo RAR. H.264 nabízí dvě možnosti: CAVLC „Context Adaptive Variable Length Coding” a CABAC „Context-adaptive binary arithmetic coding”.  CABAC dekóduje mnohem pomaleji, ale dosahuje výrazně lepší kompresní poměr (10-30%), a to zejména při nízkých datových tocích.. Máte-li zájem, aby se minimalizovaly požadavky CPU při přehrávání videa, tuto možnost zakažte. Základní profil, který je požadován pro iPod a obdobná zařízení, vyžaduje, aby CABAC byl vypnutý.</value>
+    <value>Pro dokončení enkódování existuje celá řada údajů, které musí být komprimovány bezztrátově, obdobně jako ZIP nebo RAR. H.264 nabízí dvě možnosti: CAVLC (Context Adaptive Variable Length Coding) a CABAC (Context-adaptive binary arithmetic coding). CABAC dekóduje mnohem pomaleji, ale dosahuje výrazně lepší komprimační poměr (10-30%), a to zejména při nízkých datových tocích. Chcete-li aby se minimalizovaly požadavky CPU při přehrávání videa, tak tuto možnost zakažte. Základní profil, který je požadován pro iPod a podobná zařízení vyžaduje aby CABAC byl vypnutý.</value>
   </data>
   <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>H.264 obsahuje vestavěný interní deblokovací filtr, který vyhlazuje blokové artefakty po dekódování každého snímku. To zlepšuje nejen kvalitu obrazu, ale také výrazně pomáhá při kompresi.
-Nicméně, deblokovací filtr má velký požadavek na výkonu CPU, takže pokud potřebujete minimalizovat požadavky na CPU pro přehrávání videa, měli by jste tuto možnost vypnout. 
+    <value>H.264 obsahuje vestavěný interní deblokovací filtr, který vyhlazuje blokové artefakty po dekódování každého snímku. To zlepšuje nejen kvalitu obrazu, ale také výrazně pomáhá při komprimaci.
+Deblokovací filtr má velký požadavek na výkonu CPU, takže pokud potřebujete minimalizovat požadavky CPU pro přehrávání videa, tak tuto možnost vypněte. 
 
 Deblokovací filtr má dva nastavitelné parametry, "síla" a "práh". 
 První hodnota určuje, jak silně (nebo slabě) bude deblokovat, zatímco druhá hodnota určuje, kolik hrany (nebo jen část) bude použito. 
-Nižší hodnota Deblokovacího filtru znamená méně deblokování - vyhlazování, vyšší hodnota znamená více deblokování - větší vyhlazování. Výchozí hodnota je 0 (normální sílu) pro oba parametry.</value>
+Nižší hodnota znamená méně deblokování, vyšší hodnota znamená více deblokování. Výchozí hodnota je 0 (normální síla) pro oba parametry.</value>
   </data>
   <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>8x8 transformace je jedna z neužitečnějších funkcí x264, pokud jde o kompresní poměr a rychlost.
-Zlepšuje kompresi minimálně o 5% při velmi nízké ztrátě rychlosti a dosahuje neobvykle vysoké vizuální kvality ve srovnání k zisku kompresního poměru. Vyžaduje však High-Profil, který nepodporuje mnoho zařízení.  </value>
+    <value>8x8 transformace je jedna z nejužitečnějších funkcí x264, pokud jde o komprimační poměr a rychlost.
+Zlepšuje komprimaci minimálně o 5% při velmi nízké ztrátě rychlosti a dosahuje neobvykle vysoké vizuální kvality ve srovnání k zisku komprimačního poměru. Vyžaduje však High profil, který mnoho zařízení nepodporuje.</value>
   </data>
   <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>Ovládá analýzu pohybu. Enkodér v současné době odhaduje na základě analýzy pohybu, protože každá skupina je přesunuta z pixelů v obraze. 
-Složitější analýza pohybu zlepšuje kompresi na úkor rychlosti. 
+    <value>Ovládá metodu odhadu pohybu. Enkodér odhaduje tento pohyb tak jak je každá skupina pixelů v obraze přesunuta.
+Lepší metoda vyhledávání pohybu zlepšuje komprimaci na úkor rychlosti.
 
-Diamant: provádí velmi rychlé a jednoduché vyhledávání podle diamantového-kosočtvercového vzoru. 
+Diamant: provádí velmi rychlé a jednoduché vyhledávání podle diamantového-kosočtvercového vzoru.
 
-Šestiúhelník: provádí více efektivní, ale pomalejší hledání podle šestihranného vzoru.
+Šestiúhelník: provádí více efektivní, ale pomalejší vyhledávání podle šestihranného vzoru.
 
-Nerovnoměrný multi-šestiúhelník: provádí velmi široký hledání s různými vzory, k získání přesnosti komplexních pohybů..
+Nerovnoměrný multi-šestiúhelník: provádí velmi široké vyhledávání s různými vzory k získání přesnosti komplexních pohybů.
 
-Důkladný: provádí "tupé" vyhledání každého pixelu v širokém okolí. Výrazně pomalejší  při nevýrazném kompresním zisku.
+Důkladná: provádí "tupé" vyhledávání každého pixelu v širokém okolí. Výrazně pomalejší při nevýrazném komprimačním zisku.
 
-Transformovaný důkladný: jako Důkladný, ale při rozhodování přesnější. Proto je jen malé zlepšení komprese, ale pomalejší rychlost komprese.</value>
+Transformovaná důkladná: Je jako důkladná, ale při rozhodování přesnější. Proto je pomalejší a jen s malým zlepšením.</value>
   </data>
   <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
-    <value>Oblast, kterou používá x264 pro analýzu pohybu, pro upřesnění nejlepšího odhadu pohybu bloku, pro zjištění jeho skutečného pohybu. 
+    <value>Oblast, kterou používá x264 pro analýzu pohybu, pro upřesnění nejlepšího odhadu pohybu bloku a pro zjištění jeho skutečného pohybu.
 
-Výchozí hodnota je nastavená pro většinu běžného obsahu, ale pro videa s extrémně vysokými pohyby ve scéně, a to zejména v HD rozlišení, mohou mít hodnoty z vyšších řad ku prospěchu, třebaže při znatelné strátě na rychlosti kódování. 
+Výchozí hodnota vyhovuje pro většinu běžného obsahu, ale pro videa s extrémně vysokými pohyby ve scéně, a to zejména v HD rozlišení, mohou z vyšších hodnot vzniknout výhody, i když dojde ke znatelné strátě na rychlosti enkódování.
 
-Platné hodnoty jsou 4-16 pro Diamantové a Šestiúhelníkové režimy a 4-64 pro ostatní režimy.</value>
+Platné hodnoty jsou 4-16 pro Diamantové a Šestiúhelníkové metody a 4-64 pro ostatní metody.</value>
   </data>
   <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x264 nahradí téměř prázdné datové bloky normálně nulami, aby se ušetřily bity, které lze použít pro jiné účely ve videu.
-Může to však někdy mít mírný negativní vliv na zachování jemného zrna a řádkování. 
-Neměňte toto nastavení, pokud máte problém s  pruhy nebo jemnými odstíny šumu a barvami.
-</value>
+    <value>x264 normálně nahradí téměř prázdné datové bloky nulami, aby se ušetřily bity, které lze lépe použít pro jiné účely ve videu.
+Může to však někdy mít mírný negativní vliv na zachování jemného zrna a řádkování.
+Neměňte toto nastavení, pokud nemáte problém s pruhy, nebo v takových případech jako je udržet minimální šum.</value>
   </data>
   <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
-    <value>Psychovizuální mírou zkreslení se rozumí: x264 se snaží zachovat detaily, které subjektivně poskytuje pro lidské oko v co nejlepší kvalitě, 
-tak aby těmto detailům porozuměl i počítač. Toho je dosaženo prostřednictvím poměru signál-šum, mající vylepšit rozlišení jemných detailů a šum.</value>
+    <value>Psychovizuální míra zkreslení znamená že x264 se snaží zachovat detaily v lepší kvalitě pro lidské oko, a ne maximalizovat kvalitu tak jak to vidí počítač prostřednictvím poměru signál-šum mající potíže rozlišit co je jemný detail a co šum.</value>
   </data>
   <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
-    <value>Psychovizuální matice se snaží zachovat větší ostrost a detaily, ale může způsobit artefakty (špatné vykreslení,či vypadnutí pixelů).
-Nastavení je považováno za experimentální, proto je ve výchozím nastavení zakázáno. Dobré hodnoty jsou 0,1 do 0,2.</value>
+    <value>Psychovizuální matice se snaží zachovat větší ostrost a detaily, může ale způsobit artefakty.
+Nastavení je považováno za experimentální a proto je ve výchozím nastavení vypnuto. Dobré hodnoty jsou 0,1 do 0,2.</value>
   </data>
   <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
-    <value>B-pyramida zvyšuje kompresi tím, že vytvoří strukturu pyramid (odtud název) z B-snímků, tak aby jednotlivé B-snímků mohou odkazovat navzájem na sebe.
+    <value>B-pyramida vytváří strukturu pyramid (odtud název) z B-snímků tak že jednotlivé B-snímky se na sebe vzájemě odkazují a tím se zlepšuje komprimace.
 
-Vyžaduje, aby maximální počet B-snímků byl větší než 1; je důrazně doporučeno, povolit adaptivními B-snímky pro dokonalé využití výhod této možnosti při celkové kompresi. možnosti.</value>
+To vyžaduje aby maximální počet B-snímků byl větší než 1; doporučuje se povolit optimální adaptivní B-snímky ve prospěch plného využití komprimace.</value>
   </data>
   <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
-    <value>Doporučená hodnota ~ 1-6.
+    <value>Rozumné hodnoty jsou ~1-6.
 
-Čím větší hodnota, tím větší kompresní poměr, ale tím nižší rychlost kódování.
+Čím větší hodnota, tím je větší komprimační poměr, ale tím nižší rychlost enkódování.
 
-Animovaný zdroj má tendenci více využívat větší množství referenčních rámců, než je klasický filmový zdroj.
+Animovaný zdroj má tendenci více využívat větší množství referenčních rámců, než je běžný filmový zdroj.
 
-Poznámka: Mnoho hardwarových zařízení mají omezený počet podporovaných referenčních rámců, takže pokud chcete kódovat pro přenosné zařízení nebo standardní  přehrávač, nechejte standardní nastavení, pokud si nejste absolutně jisti, že víte, co děláte!</value>
+Poznámka: Mnoho hardwarových zařízení má omezený počet podporovaných referenčních rámců a tak pokud chcete enkódovat pro kapesní nebo samostatný přehrávač tak nastavení neměňte pokud si nejste absolutně jisti že víte co děláte!</value>
   </data>
   <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
-    <value>Toto nastavení ovládá přesnou analýzu pohybu subpixelů, a metody, které určují režim. 
+    <value>Toto nastavení ovládá subpixelovou-přesnost odhadu pohybu a metody určující režim.
 
-Analýza pohybu z subpixelů se používá k zpřesnění analýzy pohybu nad rámec přesnosti samotného pixelu (lepší komprese). 
+Subpixelový odhad pohybu se používá k zpřesnění odhadu pohybu nad rámec přesnosti samotného pixelu, zlepšující komprimaci.
 
-Metoda, která určuje režim jak zakódovat každý blok rámu je velmi důležitá.
+Režim rozhodnutí je metoda která určuje jak enkódovat každý blok rámu: což je velmi důležité rozhodnutí.
 
 SAD je nejrychlejší metoda, následuje SATD, RD, RD vylepšení, a nejpomalejší QPRD.
-6 nebo vyšší je doporučeno: Psy-RD, velmi silná psy optimalizace, která pomáhá k zachování detailů, vyžaduje RD.
+6 nebo vyšší se velmi doporučuje: Psy-RD, velmi silná psy optimalizace která pomáhá k zachování detailů, vyžaduje RD.
 10, nejsilnější ale nejpomalejší nastavení, vyžaduje nastavení matice=2.</value>
   </data>
   <data name="Advanced_TrellisToolTip" xml:space="preserve">
-    <value>Matice zlepšuje zaokrouhlení transformačních koeficientů pro zvýšení komprese o 3-5 % za cenu malého snížení rychlosti. 
-"Vždy" používá matici a to nejen v průběhu hlavního procesu kódování, ale také při analýze, která zlepšuje kompresi ještě víc, i když s velkými náklady na rychlost.
+    <value>Matice dolaďuje zaokrouhlení transformačních koeficientů pro zvýšení komprimace o 3-5 % za cenu malého snížení rychlosti.
+"Vždy" používá matici a to nejen v průběhu hlavního procesu enkódování, ale i během analýzy, která zlepšuje komprimaci ještě více, i když za cenu ztráty rychlosti.
 
-Matice vede ke snížení rychlosti při vyšších přenosových rychlostech.</value>
+Matice ztrácí na rychlosti při vyšších datových tocích.</value>
   </data>
   <data name="Advanced_WeightPToolTip" xml:space="preserve">
-    <value>Provézt další analýzu pro zvážení parametrů pro každý snímek.  
-Toto mírně zlepšuje celkovou kompresi a výrazně zlepšuje kvalitu přechodu do černé. 
-Základní profil, který je vyžadován pro iPod-y a podobné zařízení, vyžaduje aby vážená predikce P-snímků byla zakázána.  
-Poznámka: Některé zařízení a přehrávače, které podporují Základní profil, mohou mít s váženou predikcí P-snímků problém. Např. Apple TV je zcela nekompatibilní s ním.</value>
+    <value>Provádí dodatečné analýzy pro zvážení parametrů pro každý snímek.
+Toto mírně zlepšuje celkovou komprimaci a výrazně zlepšuje kvalitu stmívání.
+Základní profil, který je vyžadován pro iPody a podobná zařízení, vyžaduje aby vážená predikce P-snímků byla zakázána.
+Poznámka: Některé zařízení a přehrávače, i ty které podporují hlavní profil, mohou mít s váženou predikcí P-snímků problémy. Např. Apple TV je zcela nekompatibilní.</value>
   </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
     <value>Komprimace dynamického rozsahu. Platné hodnoty jsou 0-4.
 
-Pro zdroj audia který má široký dynamický rozsah (velmi hlasité a velmi tiché části) DRC umožňuje "stlačením" rozsahu tím že hlasité části zeslabí a tiché části zesílí.</value>
+Pro zdroj audia který má široký dynamický rozsah (velmi hlasité a velmi tiché části) DRC umožňuje "stlačit" rozsah tak že hlasité části zeslabí a tiché části zesílí.</value>
   </data>
   <data name="Audio_GainToolTip" xml:space="preserve">
-    <value>Zesílit nebo zeslabit audio pro kódování. Platné hodnoty jsou -20 až +20 dB.</value>
+    <value>Zesílit nebo zeslabit audio pro enkódování. Platné hodnoty jsou -20 až +20 dB.</value>
   </data>
   <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
-    <value>Zahrnout kapitoly ze vstupního videa do kódovaného videa.</value>
+    <value>Zahrnout kapitoly ze vstupního videa do enkódovaného videa.</value>
   </data>
   <data name="IPod5GSupportToolTip" xml:space="preserve">
-    <value>Marker aplikován na soubor, protože starší verze iPodu vyžadují před tím, než umožní synchronizovat H.264 video.</value>
+    <value>Na soubor je aplikována značka, kterou vyžadují starší verze iPodu před umožněním synchronizovat H.264 video.</value>
   </data>
   <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Umožňuje soubory větší než 4GB. Pokud je povoleno tak používá 64-bitové číselné kódování. Některá zařízení jako iPod a PS3 s tím nejsou kompatibilní.</value>
+    <value>Umožňuje soubory větší než 4GB. Pokud je povoleno tak používá 64-bitové číselné enkódování. Některá zařízení jako iPod a PS3 s tím nejsou kompatibilní.</value>
   </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>Ručně zadat poměr stran obrazových bodů.</value>
   </data>
   <data name="Video_QualityTargetToolTip" xml:space="preserve">
-    <value>Nastavte požadovanou kvalitu. Použivaná stupnice se pro každé video kódování liší.</value>
+    <value>Nastavte požadovanou kvalitu. Použitá stupnice se pro každý video enkodér liší.</value>
   </data>
   <data name="WebOptimizedToolTip" xml:space="preserve">
     <value>Uspořádat soubor pro optimální hraní při postupném stahování.</value>
@@ -394,7 +392,7 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>Deblock:</value>
   </data>
   <data name="GrayscaleCheckBox" xml:space="preserve">
-    <value>Kódování v odstínech šedi</value>
+    <value>Enkódování v odstínech šedi</value>
   </data>
   <data name="TypeLabel" xml:space="preserve">
     <value>Typ:</value>
@@ -415,7 +413,7 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>Kvalita</value>
   </data>
   <data name="TwoPassEncodingCheckBox" xml:space="preserve">
-    <value>2-fáze kódování</value>
+    <value>2-fáze enkódování</value>
   </data>
   <data name="TurboFirstPassCheckBox" xml:space="preserve">
     <value>Turbo první fáze</value>
@@ -535,7 +533,7 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>Stejná jako zdroj</value>
   </data>
   <data name="AddAudioEncodingButton" xml:space="preserve">
-    <value>Přidat audio kódování</value>
+    <value>Přidat audio enkódování</value>
   </data>
   <data name="NoTracksPlaceholder" xml:space="preserve">
     <value>(Žádné stopy)</value>
@@ -562,7 +560,7 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>DRC:</value>
   </data>
   <data name="NameLabel" xml:space="preserve">
-    <value>Jméno:</value>
+    <value>Název:</value>
   </data>
   <data name="AscendingQualityToolTip" xml:space="preserve">
     <value>Vysoké hodnoty znamenají vysokou kvalitu.</value>
@@ -574,10 +572,10 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>Kvalita výstupního audia. {0} Platné hodnoty jsou od {1} do {2}.</value>
   </data>
   <data name="AscendingCompressionToolTip" xml:space="preserve">
-    <value>Vysoké hodnoty znamenají vysokou komprimaci: lepší kvalita/menší velikost ale delší dobu kódování.</value>
+    <value>Vysoké hodnoty znamenají vysokou komprimaci: lepší kvalita/menší velikost ale delší dobu enkódování.</value>
   </data>
   <data name="DescendingCompressionToolTip" xml:space="preserve">
-    <value>Nízké hodnoty znamenají vysokou komprimaci: lepší kvalita/menší velikost ale delší dobu kódování.</value>
+    <value>Nízké hodnoty znamenají vysokou komprimaci: lepší kvalita/menší velikost ale delší dobu enkódování.</value>
   </data>
   <data name="AudioCompressionToolTip" xml:space="preserve">
     <value>Použít hodnotu komprimace. {0} Povolené hodnoty od {1} do {2}.</value>
@@ -614,7 +612,7 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>Dolby Pro Logic II</value>
   </data>
   <data name="Mixdown_left_only" xml:space="preserve">
-    <value>Mono (pouze vlevý)</value>
+    <value>Mono (pouze levý)</value>
   </data>
   <data name="Mixdown_mono" xml:space="preserve">
     <value>Mono</value>
@@ -629,7 +627,7 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>Datový tok</value>
   </data>
   <data name="Encoding" xml:space="preserve">
-    <value>Kódování</value>
+    <value>Enkódování</value>
   </data>
   <data name="ReferenceFramesLabel" xml:space="preserve">
     <value>Reference snímků:</value>
@@ -731,10 +729,10 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>Nerovnoměrný multi-šestiúhelník</value>
   </data>
   <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
-    <value>Vyčerpávající</value>
+    <value>Důkladná</value>
   </data>
   <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
-    <value>Transformované vyčerpávající</value>
+    <value>Transformovaná důkladná</value>
   </data>
   <data name="SubpixelMotionEstimation_0" xml:space="preserve">
     <value>0: SAD, žádné subpel (super rychlé!)</value>
@@ -785,7 +783,7 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>Vypnuto</value>
   </data>
   <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>Pouze kódovat</value>
+    <value>Pouze enkódovat</value>
   </data>
   <data name="Trellis_Always" xml:space="preserve">
     <value>Vždy</value>
@@ -800,7 +798,7 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>Další pokročilé x264 možnosti:</value>
   </data>
   <data name="LevelToolTip" xml:space="preserve">
-    <value>Nastavit a zajistit soulad se specifikací úrovně kódéru.
+    <value>Nastavit a zajistit soulad se specifikací úrovně enkodéru.
 
 Přepíše všechna ostatní nastavení.</value>
   </data>
@@ -844,7 +842,7 @@ Přepíše všechna ostatní nastavení.</value>
     <value>Zdroj</value>
   </data>
   <data name="Encoder" xml:space="preserve">
-    <value>Kodér</value>
+    <value>Enkodér</value>
   </data>
   <data name="ChannelLayout" xml:space="preserve">
     <value>Uspořádání kanálů</value>
@@ -888,16 +886,16 @@ Přepíše všechna ostatní nastavení.</value>
     <value>Theora</value>
   </data>
   <data name="RemoveAudioEncodingToolTip" xml:space="preserve">
-    <value>Odstranit audio kódování</value>
+    <value>Odstranit audio enkódování</value>
   </data>
   <data name="AutoPassthroughFallbackLabel" xml:space="preserve">
     <value>Náhradní:</value>
   </data>
   <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
-    <value>Přímý průchod nefunguje pro všechny audio kodeky. Tato hodnota bude v kodéru nastavena pokud nemohl být použit pro audio stopu přímý průchod.</value>
+    <value>Přímý průchod nefunguje pro všechny audio kodeky. Tato hodnota bude v enkodéru nastavena pokud nemohl být použit pro audio stopu přímý průchod.</value>
   </data>
   <data name="EncoderSettings" xml:space="preserve">
-    <value>Nastavení kodéru</value>
+    <value>Nastavení enkodéru</value>
   </data>
   <data name="QsvDecodingLabel" xml:space="preserve">
     <value>Dekódování QSV</value>
@@ -918,11 +916,11 @@ Přepíše všechna ostatní nastavení.</value>
     <value>Kvalita</value>
   </data>
   <data name="PresetToolTip" xml:space="preserve">
-    <value>Změnit možnosti a upřednostnit účinnost komprimace oproti rychlosti kódování.</value>
+    <value>Změnit možnosti a upřednostnit účinnost komprimace oproti rychlosti enkódování.</value>
   </data>
   <data name="ScaleMethodToolTip" xml:space="preserve">
-    <value>Lanczos: Toto je výchozí měřítko pro nejlepší kvalitu.
-Bicubic: Toto je měřítko hardwarově urychleného algoritmu OpenCL.</value>
+    <value>Lanczos: Toto je výchozí metoda s nejlepší kvalitou.
+Bicubic: Toto je metoda hardwarově urychleného algoritmu OpenCL.</value>
   </data>
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Přímý průchod</value>
@@ -971,7 +969,7 @@ Bicubic: Toto je měřítko hardwarově urychleného algoritmu OpenCL.</value>
     <value>Otočit obraz. Toto je použito až po všech změnách velikosti a ořezy.</value>
   </data>
   <data name="FlipHorizontalToolTip" xml:space="preserve">
-    <value>Převrátit obraz horizontálně. Toto je použito před všemi rotacemi.</value>
+    <value>Převrátit obraz vodorovně. Toto je použito před všemi rotacemi.</value>
   </data>
   <data name="FlipVerticalToolTip" xml:space="preserve">
     <value>Převrátit obraz svisle. Toto je použito před všemi rotacemi.</value>
@@ -980,6 +978,12 @@ Bicubic: Toto je měřítko hardwarově urychleného algoritmu OpenCL.</value>
     <value>Přímý průchod je-li možný</value>
   </data>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
-    <value>Odpovídá-li vstupní stopa kodeku tak dojde k přímému průchodu bez kódování.</value>
+    <value>Odpovídá-li vstupní stopa kodeku tak dojde k přímému průchodu bez enkódování.</value>
+  </data>
+	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+    <value>Interpolační algoritmus:</value>
+  </data>
+	<data name="RotationLabel" xml:space="preserve">
+    <value>Otočení:</value>
   </data>
 </root>

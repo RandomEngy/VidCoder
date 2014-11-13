@@ -988,4 +988,6 @@ Bicúbica: Esto es un algoritmo OpenCL de escalamiento acelerado por hardware.</
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Si la pista de entrada coincide con el códec sera pasado a traves en lugar de codificar.</value>
   </data>
+	
+	
 </root>

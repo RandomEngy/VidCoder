@@ -175,7 +175,7 @@
     <value>Okna</value>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
-    <value>Nastavení kódování</value>
+    <value>Nastavení enkódování</value>
   </data>
   <data name="PreviewMenuItem" xml:space="preserve">
     <value>Náhled</value>
@@ -235,13 +235,13 @@
     <value>Cílová složka:</value>
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
-    <value>Kliknutím upravíte cílovou složku.</value>
+    <value>Kliknutím upravíte cílovou složku pro enkódování.</value>
   </data>
   <data name="SelectOutputPathButton" xml:space="preserve">
     <value>Vybrat výstupní cestu...</value>
   </data>
   <data name="EncodingLabel" xml:space="preserve">
-    <value>Kódování:</value>
+    <value>Enkódování:</value>
   </data>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
@@ -268,10 +268,10 @@
     <value>Vyberte DVD nebo Blu-ray složku.</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
-    <value>Probíhá kódování. Jste si jist že chcete program ukončit?</value>
+    <value>Probíhá enkódování. Jste si jist že chcete program ukončit?</value>
   </data>
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
-    <value>Probíhá kódování</value>
+    <value>Probíhá enkódování</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Hledání cizí audio stopy</value>
@@ -331,7 +331,7 @@
     <value>Dokončeno ({0})</value>
   </data>
   <data name="StoppedEncoding" xml:space="preserve">
-    <value>Kódování zastaveno.</value>
+    <value>Enkódování zastaveno.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
     <value>Opravdu chcete odstranit {0} zdrojový soubor(y)/složku(y)?</value>
@@ -349,7 +349,7 @@
     <value>Chyba při načítání video souboru</value>
   </data>
   <data name="StartedEncoding" xml:space="preserve">
-    <value>Kódování začalo.</value>
+    <value>Enkódování začalo.</value>
   </data>
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
     <value>Výstupní adresář nelze vytvořit. Podrobnosti o chybě: {0}</value>
@@ -358,16 +358,16 @@
     <value>Adresář nelze vytvořit</value>
   </data>
   <data name="EncodeCompleted" xml:space="preserve">
-    <value>Kódování je dokončeno.</value>
+    <value>Enkódování je dokončeno.</value>
   </data>
   <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
-    <value>Kódování je dokončeno</value>
+    <value>Enkódování je dokončeno</value>
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
-    <value>VidCoder dokončil z fronty všechny úlohy kódování.</value>
+    <value>VidCoder dokončil z fronty všechny úlohy enkódování.</value>
   </data>
   <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>Bez výchozí výstupní složky nelze zadat úkol pro kódování. Stisknutím tlačítka OK vyberte složku.</value>
+    <value>Bez výchozí výstupní složky nelze zadat úkol pro enkódování. Stisknutím tlačítka OK vyberte složku.</value>
   </data>
   <data name="OutputFolderRequiredTitle" xml:space="preserve">
     <value>Výchozí výstupní složka je povinná</value>
@@ -379,7 +379,7 @@
     <value>Cesta není platná</value>
   </data>
   <data name="Encode" xml:space="preserve">
-    <value>Kódovat</value>
+    <value>Enkódovat</value>
   </data>
   <data name="Resume" xml:space="preserve">
     <value>Pokračovat</value>
@@ -499,7 +499,7 @@
     <value>Konfigurace byla poškozena a nelze ji načíst. Některá z nastavení mohla být obnovena.</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
-    <value>Zvolte výstupní adresář pro soubory kódovaného videa.</value>
+    <value>Zvolte výstupní adresář pro soubory enkódovaného videa.</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
     <value>({0})</value>
@@ -592,19 +592,19 @@
     <value>Fronta byla úspěšně importována.</value>
   </data>
   <data name="StopEncodeConfirmationTitle" xml:space="preserve">
-    <value>Zastavit kódování?</value>
+    <value>Zastavit enkódování?</value>
   </data>
   <data name="StopEncodeConfirmationMessage" xml:space="preserve">
-    <value>Opravdu chcete zastavit kódování?</value>
+    <value>Opravdu chcete zastavit enkódování?</value>
   </data>
   <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
     <value>Zavřít současný soubor a otevřít disk?</value>
   </data>
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
-    <value>Detaily kódování</value>
+    <value>Detaily enkódování</value>
   </data>
 	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>Nastavení kódování bylo změněno od posledního přidání položky do fronty. Chcete použít stávající nastavení kódování pro všechny položky ve frontě?</value>
+    <value>Nastavení enkódování bylo změněno od posledního přidání položky do fronty. Chcete použít stávající nastavení enkódování pro všechny položky ve frontě?</value>
   </data>
 	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
     <value>Došlo ke změně nastavení</value>

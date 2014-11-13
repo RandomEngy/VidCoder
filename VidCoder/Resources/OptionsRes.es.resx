@@ -418,4 +418,5 @@
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
     <value>Si codificas una carpeta llena de archivos se pondrán las versiones codificadas en subcarpetas para que coincida con la estructura del directorio original.</value>
   </data>
+	
 </root>

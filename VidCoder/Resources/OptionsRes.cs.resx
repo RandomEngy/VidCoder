@@ -145,7 +145,7 @@
     <value>Automatická aktualizace</value>
   </data>
   <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Připojit k aktualizacím Beta verze</value>
+    <value>Připojte se k aktualizacím Beta verze</value>
   </data>
   <data name="FileNamingTab" xml:space="preserve">
     <value>Pojmenovávání souborů</value>
@@ -172,7 +172,7 @@
     <value>Pokud soubor již existuje...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
-    <value>Kódování jednoho souboru:</value>
+    <value>Enkódování jednoho souboru:</value>
   </data>
   <data name="AskOverwriteRadioButton" xml:space="preserve">
     <value>Zeptejte se jestli to chcete přepsat</value>
@@ -184,7 +184,7 @@
     <value>Automaticky přepnout na jiný název</value>
   </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
-    <value>Kódování skupiny souborů:</value>
+    <value>Enkódování skupiny souborů:</value>
   </data>
   <data name="OverwriteRadioButton" xml:space="preserve">
     <value>Přepsat</value>
@@ -217,7 +217,7 @@
     <value>Pouze pokud je jazyk jiný než jazyk audia</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
-    <value>Automaticky pozastavit kódování pokud jsou některé tyto procesy spuštěny:</value>
+    <value>Automaticky pozastavit enkódování pokud jsou některé tyto procesy spuštěny:</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
     <value>Přidat...</value>
@@ -265,7 +265,7 @@
     <value>Používáte Beta verzi kterou lze používat součastně se stabilní verzi.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
-    <value>Připojit k testování Beta verzí, vyšší frekvence aktualizací</value>
+    <value>Připojte se k testování Beta verzí s vyšší frekvencí aktualizací</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
     <value>Aktualizace {0} připravena. Instalace bude zahájena po ukončení programu.</value>
@@ -277,7 +277,7 @@
     <value>VidCoder je aktualizován.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>Zvolte výchozí adresář pro uložení překódovaných video souborů.</value>
+    <value>Zvolte výchozí adresář pro uložení enkódovaných video souborů.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>Jazyk rozhraní:</value>
@@ -385,16 +385,16 @@
     <value>Nízká</value>
   </data>
   <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>Zkopírovat log kódování do stejného adresáře jako kódované video</value>
+    <value>Zkopírovat log enkódování do stejného adresáře jako enkódované video</value>
   </data>
   <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Otevřít složku logu</value>
   </data>
   <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
-    <value>Automaticky obnovit kódování při restartu</value>
+    <value>Automaticky obnovit enkódování při restartu</value>
   </data>
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
-    <value>Použit pracovní proces pro kódování</value>
+    <value>Použit pracovní proces pro enkódování</value>
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>Video</value>
@@ -403,7 +403,7 @@
     <value>Povolit DXVA dekódování s hardwarovým urychlením</value>
   </data>
   <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>Tato možnost je vhodná pouze pro pomalejší systémy. Hardwarové dekodéry jsou v současnosti navrženy pro přehrávání a ne pro re-kódování videa a tak na rychlejších systémech může docházet k chybám.</value>
+    <value>Tato možnost je vhodná pouze pro pomalejší systémy. Hardwarové dekodéry jsou v současnosti navrženy pro přehrávání a ne pro re-enkódování videa a tak na rychlejších systémech může docházet k chybám.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Při převodu souborů zachovat vytvořený a změněný čas</value>
@@ -413,9 +413,12 @@
     <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
   </data>
   <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Zachovat strukturu složky při kódování v dávce</value>
+    <value>Zachovat strukturu složky při enkódování v dávce</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Jestliže kódujete složku zaplněnou soubory budou kódované verze umístěny do podsložek tak aby odpovídaly struktuře zdrojového adresáře.</value>
+    <value>Jestliže enkódujete složku zaplněnou soubory budou enkódované verze umístěny do podsložek tak aby odpovídaly struktuře zdrojového adresáře.</value>
+  </data>
+	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+    <value>Vlastní složka pro náhledy:</value>
   </data>
 </root>

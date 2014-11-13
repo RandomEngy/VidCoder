@@ -121,10 +121,10 @@
     <value>Přehrát zdroj</value>
   </data>
   <data name="EncodePreviewClipButton" xml:space="preserve">
-    <value>Kódovat náhledový klip</value>
+    <value>Enkódovat náhledový klip</value>
   </data>
   <data name="EncodePreviewClipToolTip" xml:space="preserve">
-    <value>Kóduje a přehraje krátký náhledový klip z vybraného obrazu. Použito je aktuální nastavení kódování.</value>
+    <value>Enkóduje a přehraje krátký náhledový klip z vybraného obrazu. Použito je aktuální nastavení enkódování.</value>
   </data>
   <data name="GeneratingPreview" xml:space="preserve">
     <value>Vytváření náhledu...</value>
@@ -145,7 +145,7 @@
     <value>Vytvoření náhledu z video klipu se nezdařilo</value>
   </data>
   <data name="PreviewWindowTitleSimple" xml:space="preserve">
-    <value>Náhled: {0}x{1}</value>
+    <value>Náhled: {0} x {1}</value>
   </data>
   <data name="PreviewWindowTitleComplex" xml:space="preserve">
     <value>Náhled: Zobrazení {0}x{1} - Uložení {2}x{3}</value>

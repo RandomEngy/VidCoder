@@ -418,4 +418,7 @@
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
     <value>Если вы кодируете папку с файлами закодированной версии поместит в подпапки в соответствии со структурой исходного каталога.</value>
   </data>
+	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+    <value>Папка для просмотра:</value>
+  </data>
 </root>

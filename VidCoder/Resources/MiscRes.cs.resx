@@ -151,10 +151,10 @@
     <value>Automaticky-přejmenovat</value>
   </data>
   <data name="FileConflictWarning" xml:space="preserve">
-    <value>Soubor již existuje v {0}. Chcete soubor přepsat, automaticky najít novou výstupní cestu pro kódování a nebo operaci zrušit?</value>
+    <value>Soubor již existuje v {0}. Chcete soubor přepsat, automaticky najít novou výstupní cestu pro enkódování a nebo operaci zrušit?</value>
   </data>
   <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>Úloha fronty již má výstupní cestu na {0}. Chcete soubor přepsat, automaticky najít novou výstupní cestu pro kódování a nebo operaci zrušit?</value>
+    <value>Úloha fronty již má výstupní cestu na {0}. Chcete soubor přepsat, automaticky najít novou výstupní cestu pro enkódování a nebo operaci zrušit?</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Sloupce fronty</value>
@@ -243,7 +243,7 @@
     <value>Systém bude vypnut během {0} sekund.</value>
   </data>
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
-    <value>Kódování bylo dokončeno.</value>
+    <value>Enkódování bylo dokončeno.</value>
   </data>
 	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
     <value>Nelze najít video přehrávač pro {0}.</value>

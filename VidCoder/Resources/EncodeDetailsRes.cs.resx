@@ -99,7 +99,7 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<data name="EncodeDetailsWindowTitle" xml:space="preserve">
-    <value>Detaily kódování</value>
+    <value>Detaily enkódování</value>
   </data>
 	<data name="QueueSectionHeader" xml:space="preserve">
     <value>Fronta</value>
@@ -114,7 +114,7 @@
     <value>Druhá fáze:</value>
   </data>
 	<data name="EncodePassLabel" xml:space="preserve">
-    <value>Kódovat průchod:</value>
+    <value>Enkódovat průchod:</value>
   </data>
 	<data name="JobLabel" xml:space="preserve">
     <value>Úloha:</value>

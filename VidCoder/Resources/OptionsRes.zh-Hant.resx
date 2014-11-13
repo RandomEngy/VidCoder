@@ -418,4 +418,5 @@
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
     <value>若您以資料夾為單位進行編碼，編碼後的版本將置於與來源資料夾結構相同的子目錄下。</value>
   </data>
+	
 </root>

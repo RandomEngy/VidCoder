@@ -970,4 +970,10 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>入力トラックがパススルーが可能な場合エンコードしません</value>
   </data>
+	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+    <value>リサイズ方法：</value>
+  </data>
+	<data name="RotationLabel" xml:space="preserve">
+    <value>回転：</value>
+  </data>
 </root>

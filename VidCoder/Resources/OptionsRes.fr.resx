@@ -418,4 +418,7 @@
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
     <value>Si vous encodez un dossier plein de fichiers, ils seront encodés dans des sous-dossiers en gardant la même structure du dossiers source.</value>
   </data>
+	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+    <value>Dossier personnalisé pour les prévisualisations :</value>
+  </data>
 </root>

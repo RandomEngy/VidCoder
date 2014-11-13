@@ -976,4 +976,10 @@ Bikubisch: Dies ist ein durch OpenCL-Hardware beschleunigter Skalierungsalgorith
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Wenn der Eingangscodec diesem Codec entspricht, wird er durchgeschliffen statt encodiert.</value>
   </data>
+	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+    <value>Skalierungsalgorithmus:</value>
+  </data>
+	<data name="RotationLabel" xml:space="preserve">
+    <value>Drehung:</value>
+  </data>
 </root>

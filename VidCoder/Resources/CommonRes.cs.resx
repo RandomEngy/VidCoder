@@ -153,10 +153,10 @@ Tento program je rozšiřován v naději že bude užitečný, ale BEZ JAKÉKOLI
     <value>Audio kvalita</value>
   </data>
   <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Audio kodér</value>
+    <value>Audio enkodér</value>
   </data>
   <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Video kodér</value>
+    <value>Video enkodér</value>
   </data>
   <data name="QueueColumnNameVideoQuality" xml:space="preserve">
     <value>Video kvalita</value>

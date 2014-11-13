@@ -418,4 +418,7 @@
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
     <value>Wenn Sie einen mit Dateien gefüllten Ordner encodieren, werden die encodierten Versionen in Unterordner gepackt, um der Struktur des Quellordners zu entsprechen.</value>
   </data>
+	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+    <value>Benutzerdefinierter Ordner für Vorschauvideos:</value>
+  </data>
 </root>

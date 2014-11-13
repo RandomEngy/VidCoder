@@ -923,4 +923,6 @@ x264 può, con un lieve rallentamento (ed un piccolo vantaggio in compressione),
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Se all'ingresso della pista corrisponde il codec, verrà passato attraverso anziché codificato.</value>
   </data>
+	
+	
 </root>

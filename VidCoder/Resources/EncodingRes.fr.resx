@@ -983,4 +983,10 @@ Bicubique : Algorithme de mise à l'échelle basé sur l'accéléré matériel O
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Si la piste d'entrée correspond au codec, elle sera ignorée au lieu d'encodée.</value>
   </data>
+	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+    <value>Algorithme de mise à l'échelle :</value>
+  </data>
+	<data name="RotationLabel" xml:space="preserve">
+    <value>Rotation :</value>
+  </data>
 </root>

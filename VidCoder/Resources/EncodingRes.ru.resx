@@ -917,4 +917,10 @@
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Если вводу трека соответствует кодек, который будет передаваться через него вместо кодируемого.</value>
   </data>
+	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+    <value>Алгоритм масштабирования:</value>
+  </data>
+	<data name="RotationLabel" xml:space="preserve">
+    <value>Поворот экрана:</value>
+  </data>
 </root>

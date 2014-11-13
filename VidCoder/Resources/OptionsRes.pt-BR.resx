@@ -418,4 +418,5 @@
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
     <value>Se você codificar uma pasta cheia de arquivos, os arquivos convertidos serão colocados em subpastas, para coincidir com a estrutura de diretório de origem.</value>
   </data>
+	
 </root>

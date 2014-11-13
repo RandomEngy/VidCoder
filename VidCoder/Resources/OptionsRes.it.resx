@@ -420,4 +420,5 @@
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
     <value>Se si codifica una cartella piena di file saranno messe le versioni codificate in sottocartelle per abbinare la struttura di directory di origine.</value>
   </data>
+	
 </root>
