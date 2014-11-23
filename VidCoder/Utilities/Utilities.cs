@@ -527,7 +527,7 @@ namespace VidCoder
 				digits++;
 			}
 
-			int decimalPlaces = Math.Min(2, 3 - digits);
+			int decimalPlaces = Math.Max(0, Math.Min(2, 3 - digits));
 
 			return "F" + decimalPlaces;
 		}
