@@ -118,307 +118,307 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>自動字幕選擇停用時，自動選取上次的選項。</value>
+    <value>Kiedy automatyczny wybór dźwięku jest wyłączony, zachowywana jest ostatnia ścieżka.</value>
   </data>
   <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>自動字幕選擇停用時，自動選取上次的選項。</value>
+    <value>Kiedy automatyczny wybór napisów jest wyłączony, zachowywany jest ostatni wybór ścieżki.</value>
   </data>
   <data name="GeneralTab" xml:space="preserve">
-    <value>一般設定</value>
+    <value>Ogólne</value>
   </data>
   <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
-    <value>最小化至工作列</value>
+    <value>Minimalizuj do paska zadań</value>
   </data>
   <data name="MinimizeToSystemTrayRadioButton" xml:space="preserve">
-    <value>最小化至系統列</value>
+    <value>Minimalizuj do zasobnika systemowego</value>
   </data>
   <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
-    <value>工作佇列完成後播放音效</value>
+    <value>Odtwórz dźwięk na zakończenie kolejki</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
-    <value>偏好的 DVD 播放器:</value>
+    <value>Preferowany odtwarzacz DVD:</value>
   </data>
   <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
-    <value>選擇您想用來檢視 DVD 的播放器。</value>
+    <value>Wybierz odtwarzacz, którego chcesz użyć dla źródeł DVD.</value>
   </data>
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
-    <value>自動更新</value>
+    <value>Automatyczna aktualizacja</value>
   </data>
   <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>追蹤 Beta 更新</value>
+    <value>Włącz aktualizacje w wersji beta</value>
   </data>
   <data name="FileNamingTab" xml:space="preserve">
-    <value>檔案命名</value>
+    <value>Nazewnictwo Plików</value>
   </data>
   <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>預設資料夾:</value>
+    <value>Folder domyślny:</value>
   </data>
   <data name="FileFormatLabel" xml:space="preserve">
-    <value>檔案格式:</value>
+    <value>Format pliku:</value>
   </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>若可行，將輸出資料夾指向來源資料夾</value>
+    <value>Zapisz do katalogu źródłowego, jeśli to możliwe</value>
   </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>預設格式</value>
+    <value>Domyślny format</value>
   </data>
   <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>自訂格式:</value>
+    <value>Własny format:</value>
   </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>可用選項: {0}</value>
+    <value>Dostępne opcje: {0}</value>
   </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
-    <value>當檔案存在時...</value>
+    <value>Kiedy plik już istnieje, to...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
-    <value>編碼單一檔案:</value>
+    <value>Enkodowanie pojedynczego pliku:</value>
   </data>
   <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>覆寫檔案時詢問</value>
+    <value>Zapytaj przed zastąpieniem</value>
   </data>
   <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>覆寫檔案時不詢問</value>
+    <value>Zastąp plik bez powiadamiania</value>
   </data>
   <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>自動切換至不同名稱</value>
+    <value>Automatycznie przełącz na inna nazwę</value>
   </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
-    <value>批次編碼檔案:</value>
+    <value>Enkodowanie wielu plików:</value>
   </data>
   <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>覆寫</value>
+    <value>Nadpisz</value>
   </data>
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>自動重新命名</value>
+    <value>Automatyczna zmiana nazwy</value>
   </data>
   <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>自動音訊選擇</value>
+    <value>Automatyczny wybór dźwięku</value>
   </data>
   <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>音訊 / 字幕</value>
+    <value>Audio / napisy</value>
   </data>
   <data name="LanguageRadioButton" xml:space="preserve">
-    <value>語言:</value>
+    <value>Język:</value>
   </data>
   <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>包含所有軌道</value>
+    <value>Dołącz wszystkie ścieżki</value>
   </data>
   <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>自動選擇字幕</value>
+    <value>Automatyczny wybór napisów</value>
   </data>
   <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>外語音訊搜尋</value>
+    <value>Wyszukiwanie Zagranicznych Ścieżek Audio</value>
   </data>
   <data name="BurnInCheckBox" xml:space="preserve">
-    <value>內嵌</value>
+    <value>Nałóż</value>
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>僅選取與音訊相異的語言</value>
+    <value>Tylko wtedy, gdy jest inny język w audio</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
-    <value>當以下處理程序執行時自動暫停編碼:</value>
+    <value>Automatycznie wstrzymaj enkodowanie, gdy którykolwiek z tych procesów jest uruchomiony:</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
-    <value>新增...</value>
+    <value>Dodaj...</value>
   </data>
   <data name="PreviewCountLabel" xml:space="preserve">
-    <value>預覽畫面掃描數:</value>
+    <value>Ilość podglądów do analizy:</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
-    <value>記錄先前使用的檔案及資料夾</value>
+    <value>Pamiętaj wcześniej używane pliki i foldery</value>
   </data>
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>允許音軌設定自訂名稱 (非所有播放器皆支援)</value>
+    <value>Umożliwia ustawienie niestandardowej nazwy ścieżek audio (obsługiwane tylko przez niektóre otwarzacze)</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>啟用 LibDVDNav (需重新啟動程式套用變更)</value>
+    <value>Włącz LibDVDNav (zmiana wymaga ponownego uruchomienia programu)</value>
   </data>
   <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>完成後保留掃描結果 (可編輯完成項目)</value>
+    <value>Zachować skany po zakończeniu (umożliwia edycję ukończonych elementów)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>清除完成項目後刪除來源檔案 (會彈出確認對話視窗)</value>
+    <value>Usuń pliki źródłowe po wyczyszczeniu zakończonych pomyślnie zadań (z potwierdzeniem)</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
-    <value>記錄詳細度:</value>
+    <value>Szczegółowość rejestrowania:</value>
   </data>
   <data name="MinScanLengthLabel" xml:space="preserve">
-    <value>最小掃描長度 (秒):</value>
+    <value>Minimalna długość tytułu do skanowania (w sekundach):</value>
   </data>
   <data name="RecognizedExtensionsLabel" xml:space="preserve">
-    <value>認可的副檔名:</value>
+    <value>Rozpoznawane rozszerzenia:</value>
   </data>
   <data name="RecognizedExtensionsToolTip" xml:space="preserve">
-    <value>搜尋資料夾時新增列表中副檔名的檔案。 (以半形逗點分隔)</value>
+    <value>Podczas wyszukiwania filmów wideo w folderach, dodaj pliki o tych rozszerzeniach. (rozdzielanie przecinkami)</value>
   </data>
   <data name="OptionsDialogTitle" xml:space="preserve">
-    <value>選項</value>
+    <value>Opcje</value>
   </data>
   <data name="ProcessesTab" xml:space="preserve">
-    <value>處理程序</value>
+    <value>Procesy</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
-    <value>進階</value>
+    <value>Zaawansowane</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>您目前執行的是測試版，此版本可與穩定版同時執行。</value>
+    <value>Używasz wersji Beta. Może ona działać razem z wersją stabilną.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
-    <value>追蹤 Beta 取得更頻繁的更新</value>
+    <value>Dołącz do trybu Beta aby otrzymywać częstsze aktualizacje</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>更新 {0} 已準備好，將於您離開程式時安裝。</value>
+    <value>Aktualizacja {0} gotowa. Zostanie zainstalowana po wyjściu z programu.</value>
   </data>
   <data name="DownloadingStatus" xml:space="preserve">
-    <value>下載更新中 {0}:</value>
+    <value>Pobieranie aktualizacji {0}:</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
-    <value>VidCoder 為最新版。</value>
+    <value>VidCoder jest aktualny.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>選取編碼視訊檔的預設輸出資料夾。</value>
+    <value>Wybierz domyślny katalog wyjściowy enkodowanych plików wideo.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
-    <value>介面語言:</value>
+    <value>Język interfejsu:</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
-    <value>新語言設定將於您離開 VidCoder 重新啟動後生效。</value>
+    <value>Język zostanie zmieniony po ponownym uruchomieniu VidCoder.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
-    <value>使用作業系統語言</value>
+    <value>Użyj języka systemu operacyjnego</value>
   </data>
   <data name="UpdatesTab" xml:space="preserve">
-    <value>更新</value>
+    <value>Aktualizacje</value>
   </data>
   <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>尋找最新版本中...</value>
+    <value>Wyszukiwanie najnowszej wersji...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
-    <value>更新檢查失敗。</value>
+    <value>Sprawdzanie aktualizacji nie powiodło się.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>選取完成編碼後播放的 .wav 音效檔。</value>
+    <value>Wybierz plik .wav, który chcesz użyć do powiadamiania o zakończeniu.</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
-    <value>目前版本: {0}</value>
+    <value>Aktualna wersja: {0}</value>
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
-    <value>注意: 此版本可能有更多臭蟲及更高的程式錯誤頻率。</value>
+    <value>Uwaga: Ta wersja może być niestabilna i mieć więcej błędów.</value>
   </data>
   <data name="LanguagesSection" xml:space="preserve">
-    <value>語言</value>
+    <value>Języki</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
-    <value>播放器</value>
+    <value>Odtwarzacze</value>
   </data>
   <data name="SoundSection" xml:space="preserve">
-    <value>音效</value>
+    <value>Dźwięk</value>
   </data>
   <data name="SystemTraySection" xml:space="preserve">
-    <value>系統列</value>
+    <value>Zasobnik systemowy</value>
   </data>
   <data name="OutputFolderSection" xml:space="preserve">
-    <value>輸出資料夾</value>
+    <value>Folder wyjściowy</value>
   </data>
   <data name="NamingFormatSection" xml:space="preserve">
-    <value>命名格式</value>
+    <value>Format nazewnictwa</value>
   </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
-    <value>進階選項</value>
+    <value>Opcje zaawansowane</value>
   </data>
   <data name="ScanningSection" xml:space="preserve">
-    <value>掃描</value>
+    <value>Skanowanie</value>
   </data>
   <data name="LoggingSection" xml:space="preserve">
-    <value>記錄</value>
+    <value>Rejestrowanie</value>
   </data>
   <data name="DvdReadingSection" xml:space="preserve">
-    <value>DVD 讀取</value>
+    <value>Wczytywanie DVD</value>
   </data>
   <data name="UpdatesSection" xml:space="preserve">
-    <value>更新</value>
+    <value>Aktualizacje</value>
   </data>
   <data name="UpdateStatusSection" xml:space="preserve">
-    <value>狀態</value>
+    <value>Stan</value>
   </data>
   <data name="BetaSection" xml:space="preserve">
     <value>Beta</value>
   </data>
   <data name="UseCustomWavLabel" xml:space="preserve">
-    <value>使用自訂 .wav 檔:</value>
+    <value>Użyj niestandardowego pliku .wav:</value>
   </data>
   <data name="CheckNowButton" xml:space="preserve">
-    <value>立即檢查</value>
+    <value>Sprawdź teraz</value>
   </data>
   <data name="UseSystemPlayer" xml:space="preserve">
-    <value>使用系統播放器</value>
+    <value>Użyj odtwarzacza systemowego</value>
   </data>
   <data name="VideoFilesLabel" xml:space="preserve">
-    <value>視訊檔:</value>
+    <value>Pliki wideo:</value>
   </data>
   <data name="CustomVideoPlayerToolTip" xml:space="preserve">
-    <value>指定檢視檔案用的視訊播放器路徑。</value>
+    <value>Określ ścieżkę do odtwarzacza wideo, którego chcesz używać.</value>
   </data>
   <data name="VideoPlayerFilePickTitle" xml:space="preserve">
-    <value>選擇用於檢視視訊檔的播放器。</value>
+    <value>Wybierz odtwarzacz dla plików wideo.</value>
   </data>
   <data name="CustomPlayerLabel" xml:space="preserve">
-    <value>自訂播放器:</value>
+    <value>Odtwarzacz niestandardowy:</value>
   </data>
   <data name="Priority_High" xml:space="preserve">
-    <value>高</value>
+    <value>Wysoki</value>
   </data>
   <data name="Priority_AboveNormal" xml:space="preserve">
-    <value>標準以上</value>
+    <value>Powyżej normalnego</value>
   </data>
   <data name="Priority_Normal" xml:space="preserve">
-    <value>標準</value>
+    <value>Normalny</value>
   </data>
   <data name="Priority_BelowNormal" xml:space="preserve">
-    <value>標準以下</value>
+    <value>Poniżej normalnego</value>
   </data>
   <data name="WorkerProcessPriorityLabel" xml:space="preserve">
-    <value>Worker 處理程序優先順序:</value>
+    <value>Priorytet procesu roboczego:</value>
   </data>
   <data name="Priority_Idle" xml:space="preserve">
-    <value>低</value>
+    <value>Niski</value>
   </data>
   <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>複製編碼記錄至編碼檔案的資料夾下</value>
+    <value>Skopiuj plik dziennika do katalogu enkodowanego wideo</value>
   </data>
   <data name="OpenLogFolderButton" xml:space="preserve">
-    <value>開啟記錄資料夾</value>
+    <value>Otwórz folder z dziennikami</value>
   </data>
   <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
-    <value>重新啟動時自動繼續編碼</value>
+    <value>Automatycznie wznów enkodowanie po ponownym uruchomieniu</value>
   </data>
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
-    <value>使用 Worker 處理程序編碼</value>
+    <value>Użyj procesu roboczego do enkodowania</value>
   </data>
   <data name="VideoSection" xml:space="preserve">
-    <value>視訊</value>
+    <value>Wideo</value>
   </data>
   <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>啟用 DXVA 硬體加速解碼</value>
+    <value>Włącz DXVA Dekodowanie Przyspieszone Sprzętowo</value>
   </data>
   <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>此選項僅適用於較慢的系統，硬體解碼器目前僅用於播放而非重新編碼，故在較快的系統上可能會產生瓶頸。</value>
+    <value>Opcja ta nadaje się tylko do wolniejszych systemów. Dekodery sprzętowe są obecnie przeznaczone do odtwarzania, nie do ponownego kodowania wideo więc będzie to prawdopodobnie wąskie gardło na szybszych systemach.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
-    <value>轉換檔案時保留建立及修改時間</value>
+    <value>Zachowaj czasy Utworzono i Zmodyfikowano podczas konwersji plików</value>
   </data>
   <data name="DefaultCheckBox" xml:space="preserve">
-    <value>預設</value>
+    <value>Domyślne</value>
     <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
   </data>
   <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>批次編碼時保留資料夾結構</value>
+    <value>Zachowaj strukturę katalogów przy enkodowaniu wielu plików</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>若您以資料夾為單位進行編碼，編碼後的版本將置於與來源資料夾結構相同的子目錄下。</value>
+    <value>Jeśli enkodujesz folder pełen plików,  ich wersje będą umieszczone w podfolderach, aby dopasować strukturę do katalogu źródłowego.</value>
   </data>
 	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
-    <value>自訂預覽資料夾:</value>
+    <value>Niestandardowy folder dla podglądu:</value>
   </data>
 </root>

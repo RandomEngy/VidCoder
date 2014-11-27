@@ -245,6 +245,10 @@
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
     <value>編碼已完成。</value>
   </data>
-	
-	
+	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+    <value>無法找到相容 {0} 的播放器。</value>
+  </data>
+	<data name="ErrorPlayingSource" xml:space="preserve">
+    <value>播放來源檔時發生錯誤。</value>
+  </data>
 </root>

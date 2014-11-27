@@ -117,98 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Anamorphic_Custom" xml:space="preserve">
-    <value>Vlastní</value>
+  <data name="OverrideTitleNumberToolTip" xml:space="preserve">
+    <value>Gdy wybrany, spowoduje zastąpienie domyślnego tytułu w celu utworzenia nazwy pliku wyjściowego. Na przykład dla tytułów 2, 3 i 4 wymuszasz 7, zostaną oznaczone jako 7, 8 i 9. Może być to przydatne do zgrywania płyt z serialami TV.</value>
   </data>
-  <data name="Anamorphic_Loose" xml:space="preserve">
-    <value>Volné</value>
+  <data name="QueueTitlesWindowHeader" xml:space="preserve">
+    <value>Wybierz kilka tytułów w celu dodania do kolejki.</value>
   </data>
-  <data name="Anamorphic_None" xml:space="preserve">
-    <value>Žádné</value>
+  <data name="PlaySourceToolTip" xml:space="preserve">
+    <value>Jeśli wspierany odtwarzacz multimedialny jest zainstalowany (VLC lub Media Player Classic Home Cinema), można wyświetlić podgląd poszczególnych tytułów DVD</value>
   </data>
-  <data name="Anamorphic_Strict" xml:space="preserve">
-    <value>Striktní</value>
+  <data name="PlaySourceButton" xml:space="preserve">
+    <value>Odtwórz Źródło</value>
   </data>
-  <data name="Custom" xml:space="preserve">
-    <value>Vlastní</value>
+  <data name="LengthRangePre" xml:space="preserve">
+    <value>Wszystkie tytuły od</value>
+    <comment>Goes before the first number box in the length range specification.</comment>
   </data>
-  <data name="Decomb_Bob" xml:space="preserve">
-    <value>Bob</value>
+  <data name="LengthRangeMid" xml:space="preserve">
+    <value>do</value>
+    <comment>Goes in between the two number boxes in the length range specification.</comment>
   </data>
-  <data name="Decomb_Fast" xml:space="preserve">
-    <value>Rychlé</value>
+  <data name="LengthRangePost" xml:space="preserve">
+    <value>minut(y)</value>
+    <comment>Goes after the second number box in the length range specification.</comment>
   </data>
-  <data name="Default" xml:space="preserve">
-    <value>Výchozí</value>
+  <data name="OverrideTitleCheckBox">
+    <value xml:space="preserve">Zastąpić tytuł #: rozpocznij od</value>
   </data>
-  <data name="Deinterlace_Bob" xml:space="preserve">
-    <value>Bob</value>
-    <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
+  <data name="OverrideNameFormatCheckBox">
+    <value xml:space="preserve">Zastąp format nazewnictwa:</value>
   </data>
-  <data name="Deinterlace_Fast" xml:space="preserve">
-    <value>Rychlé</value>
+  <data name="QueueTitlesDialogTitle">
+    <value xml:space="preserve">Kolejkuj Kilka Tytułów</value>
   </data>
-  <data name="Deinterlace_Slow" xml:space="preserve">
-    <value>Pomalé</value>
+  <data name="TitleFormat">
+    <value xml:space="preserve">Tytuł {0}</value>
   </data>
-  <data name="Deinterlace_Slower" xml:space="preserve">
-    <value>Pomalejší</value>
-  </data>
-  <data name="DenoisePreset_Light" xml:space="preserve">
-    <value>Slabé</value>
-  </data>
-  <data name="DenoisePreset_Medium" xml:space="preserve">
-    <value>Střední</value>
-  </data>
-  <data name="DenoisePreset_Strong" xml:space="preserve">
-    <value>Silné</value>
-  </data>
-  <data name="DenoisePreset_Ultralight" xml:space="preserve">
-    <value>Velmi slabé</value>
-  </data>
-  <data name="DenoiseTune_Animation" xml:space="preserve">
-    <value>Animace</value>
-  </data>
-  <data name="DenoiseTune_Film" xml:space="preserve">
-    <value>Film</value>
-  </data>
-  <data name="DenoiseTune_Grain" xml:space="preserve">
-    <value>Zrnitý obraz</value>
-  </data>
-  <data name="DenoiseTune_HighMotion" xml:space="preserve">
-    <value>Rychlý pohyb</value>
-  </data>
-  <data name="Denoise_HQDN3D" xml:space="preserve">
-    <value>hqdn3d</value>
-  </data>
-  <data name="Denoise_NLMeans" xml:space="preserve">
-    <value>NL-Means</value>
-  </data>
-  <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
-    <value>Nedělat nic</value>
-  </data>
-  <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
-    <value>Vysunout {0}:</value>
-  </data>
-  <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
-    <value>Odhlásit</value>
-  </data>
-  <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
-    <value>Vypnout</value>
-  </data>
-  <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
-    <value>Režim spánku</value>
-  </data>
-  <data name="Off" xml:space="preserve">
-    <value>Vypnuto</value>
-  </data>
-  <data name="VideoRangeType_Chapters" xml:space="preserve">
-    <value>Kapitoly</value>
-  </data>
-  <data name="VideoRangeType_Frames" xml:space="preserve">
-    <value>Snímky</value>
-  </data>
-  <data name="VideoRangeType_Seconds" xml:space="preserve">
-    <value>Časový rozsah</value>
+	<data name="OverrideDirectoryCheckBox" xml:space="preserve">
+    <value>Zastąp katalog:</value>
   </data>
 </root>

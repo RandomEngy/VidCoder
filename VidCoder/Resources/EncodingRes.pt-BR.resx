@@ -928,6 +928,10 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Se a faixa de entrada coincidir com o codec, será copiado ao invés de codificado.</value>
   </data>
-	
-	
+	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+    <value>Algoritmo de escalonamento:</value>
+  </data>
+	<data name="RotationLabel" xml:space="preserve">
+    <value>Rotação:</value>
+  </data>
 </root>

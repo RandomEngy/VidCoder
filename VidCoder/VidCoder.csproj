@@ -792,6 +792,7 @@
     <EmbeddedResource Include="Resources\ChapterMarkersRes.hu.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.it.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.ja.resx" />
+    <EmbeddedResource Include="Resources\ChapterMarkersRes.pl.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.pt-BR.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.pt.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.resx">
@@ -809,6 +810,7 @@
     <EmbeddedResource Include="Resources\CommonRes.fr.resx" />
     <EmbeddedResource Include="Resources\CommonRes.it.resx" />
     <EmbeddedResource Include="Resources\CommonRes.ja.resx" />
+    <EmbeddedResource Include="Resources\CommonRes.pl.resx" />
     <EmbeddedResource Include="Resources\CommonRes.pt-BR.resx" />
     <EmbeddedResource Include="Resources\CommonRes.pt.resx" />
     <EmbeddedResource Include="Resources\CommonRes.ru.resx" />
@@ -822,6 +824,7 @@
     <EmbeddedResource Include="Resources\EncodeDetailsRes.hu.resx" />
     <EmbeddedResource Include="Resources\EncodeDetailsRes.it.resx" />
     <EmbeddedResource Include="Resources\EncodeDetailsRes.ja.resx" />
+    <EmbeddedResource Include="Resources\EncodeDetailsRes.pl.resx" />
     <EmbeddedResource Include="Resources\EncodeDetailsRes.pt-BR.resx" />
     <EmbeddedResource Include="Resources\EncodeDetailsRes.pt.resx" />
     <EmbeddedResource Include="Resources\EncodeDetailsRes.resx">
@@ -840,6 +843,7 @@
     <EmbeddedResource Include="Resources\EncodingRes.hu.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.it.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.ja.resx" />
+    <EmbeddedResource Include="Resources\EncodingRes.pl.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.pt-BR.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.pt.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.resx">
@@ -860,6 +864,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\EnumsRes.it.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.ja.resx" />
+    <EmbeddedResource Include="Resources\EnumsRes.pl.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.pt-BR.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.pt.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.resx">
@@ -878,6 +883,7 @@
     <EmbeddedResource Include="Resources\LogRes.hu.resx" />
     <EmbeddedResource Include="Resources\LogRes.it.resx" />
     <EmbeddedResource Include="Resources\LogRes.ja.resx" />
+    <EmbeddedResource Include="Resources\LogRes.pl.resx" />
     <EmbeddedResource Include="Resources\LogRes.pt-BR.resx" />
     <EmbeddedResource Include="Resources\LogRes.pt.resx" />
     <EmbeddedResource Include="Resources\LogRes.resx">
@@ -899,6 +905,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\MainRes.it.resx" />
     <EmbeddedResource Include="Resources\MainRes.ja.resx" />
+    <EmbeddedResource Include="Resources\MainRes.pl.resx" />
     <EmbeddedResource Include="Resources\MainRes.pt-BR.resx" />
     <EmbeddedResource Include="Resources\MainRes.pt.resx" />
     <EmbeddedResource Include="Resources\MainRes.resx">
@@ -917,6 +924,7 @@
     <EmbeddedResource Include="Resources\MiscRes.hu.resx" />
     <EmbeddedResource Include="Resources\MiscRes.it.resx" />
     <EmbeddedResource Include="Resources\MiscRes.ja.resx" />
+    <EmbeddedResource Include="Resources\MiscRes.pl.resx" />
     <EmbeddedResource Include="Resources\MiscRes.pt-BR.resx" />
     <EmbeddedResource Include="Resources\MiscRes.pt.resx" />
     <EmbeddedResource Include="Resources\MiscRes.resx">
@@ -935,6 +943,7 @@
     <EmbeddedResource Include="Resources\OptionsRes.hu.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.it.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.ja.resx" />
+    <EmbeddedResource Include="Resources\OptionsRes.pl.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.pt-BR.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.pt.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.resx">
@@ -953,6 +962,7 @@
     <EmbeddedResource Include="Resources\PreviewRes.hu.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.it.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.ja.resx" />
+    <EmbeddedResource Include="Resources\PreviewRes.pl.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.pt-BR.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.pt.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.resx">
@@ -970,6 +980,7 @@
     <EmbeddedResource Include="Resources\QueueTitlesRes.hu.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.it.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.ja.resx" />
+    <EmbeddedResource Include="Resources\QueueTitlesRes.pl.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.pt-BR.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.pt.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.resx">
@@ -990,6 +1001,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\SubtitleRes.it.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.ja.resx" />
+    <EmbeddedResource Include="Resources\SubtitleRes.pl.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.pt-BR.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.pt.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.resx">

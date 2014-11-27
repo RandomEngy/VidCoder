@@ -984,6 +984,10 @@ Bicubic: OpenCL 硬體加速縮放演算法。</value>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>若輸入軌道符合指定編碼將直接複製而不進行編碼。</value>
   </data>
-	
-	
+	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+    <value>縮放演算法:</value>
+  </data>
+	<data name="RotationLabel" xml:space="preserve">
+    <value>旋轉:</value>
+  </data>
 </root>

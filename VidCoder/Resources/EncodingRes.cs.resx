@@ -485,7 +485,7 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>Animace</value>
   </data>
   <data name="Tune_grain" xml:space="preserve">
-    <value>Zrnitý</value>
+    <value>Zrnitý obraz</value>
   </data>
   <data name="Tune_stillimage" xml:space="preserve">
     <value>Nehybný obraz</value>
@@ -966,7 +966,7 @@ Bicubic: Toto je metoda hardwarově urychleného algoritmu OpenCL.</value>
     <value>180°</value>
   </data>
   <data name="RotationToolTip" xml:space="preserve">
-    <value>Otočit obraz. Toto je použito až po všech změnách velikosti a ořezy.</value>
+    <value>Otočit obraz. Toto je použito až po všech změnách velikosti a oříznutí.</value>
   </data>
   <data name="FlipHorizontalToolTip" xml:space="preserve">
     <value>Převrátit obraz vodorovně. Toto je použito před všemi rotacemi.</value>

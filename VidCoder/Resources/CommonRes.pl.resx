@@ -117,98 +117,139 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Anamorphic_Custom" xml:space="preserve">
-    <value>Vlastní</value>
+  <data name="AboutLicense" xml:space="preserve">
+    <value>Ten program jest wolnym oprogramowaniem; można go rozpowszechniać i/lub modyfikować zgodnie z warunkami GNU General Public License opublikowanej przez Free Software Foundation; w wersji drugiej tej licencji lub (według Twojego wyboru) dowolnej późniejszej.
+
+Ten program jest rozpowszechniany w nadziei, że będzie użyteczny, ale BEZ JAKIEJKOLWIEK GWARANCJI, nawet domyślnej gwarancji PRZYDATNOŚCI HANDLOWEJ albo PRZYDATNOŚCI DO OKREŚLONYCH ZASTOSOWAŃ. Zobacz licencję GNU General Public po więcej szczegółów.
+
+Pełna kopia licencji GNU General Public została dołączona do tego programu.</value>
   </data>
-  <data name="Anamorphic_Loose" xml:space="preserve">
-    <value>Volné</value>
+  <data name="BurnedSubtitleToolTip" xml:space="preserve">
+    <value>Nałóż napisy na obraz. Nałożonych napisów nie można wyłączyć podczas odtwarzania.</value>
   </data>
-  <data name="Anamorphic_None" xml:space="preserve">
-    <value>Žádné</value>
+  <data name="DefaultSubtitleToolTip" xml:space="preserve">
+    <value>Zaznacz tą ścieżkę napisów jako domyślną. Napisy będą wyświetlane do momentu wyboru nowej ścieżki.</value>
   </data>
-  <data name="Anamorphic_Strict" xml:space="preserve">
-    <value>Striktní</value>
+  <data name="ForcedSubtitleToolTip" xml:space="preserve">
+    <value>Wyświetl tylko wymuszone napisy z danej ścieżki. Zwykle oznacza to małe kawałki zagranicznych dialogów.</value>
   </data>
-  <data name="Custom" xml:space="preserve">
-    <value>Vlastní</value>
+  <data name="OffsetSubtitleToolTip" xml:space="preserve">
+    <value>Ilość czasu przesunięcia w przód, bądź opóźnienie pojawiania się wybranych napisów.</value>
   </data>
-  <data name="Decomb_Bob" xml:space="preserve">
-    <value>Bob</value>
+  <data name="QueueColumnNameRange" xml:space="preserve">
+    <value>Zakres</value>
+    <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
   </data>
-  <data name="Decomb_Fast" xml:space="preserve">
-    <value>Rychlé</value>
+  <data name="QueueColumnNameDestination" xml:space="preserve">
+    <value>Cel</value>
+  </data>
+  <data name="QueueColumnNameSource" xml:space="preserve">
+    <value>Źródło</value>
+  </data>
+  <data name="QueueColumnNameTitle" xml:space="preserve">
+    <value>Tytuł</value>
+  </data>
+  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
+    <value>Jakość dźwięku</value>
+  </data>
+  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
+    <value>Audio Encoder</value>
+  </data>
+  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
+    <value>Video Encoder</value>
+  </data>
+  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
+    <value>Jakość Wideo</value>
+  </data>
+  <data name="QueueEtaToolTip" xml:space="preserve">
+    <value>Szacowany czas pozostały dla wykonania wszystkich zadań w kolejce.</value>
+  </data>
+  <data name="QueueColumnNameDuration" xml:space="preserve">
+    <value>Czas Trwania</value>
+  </data>
+  <data name="ForeignAudioSearchToolTip" xml:space="preserve">
+    <value>Wyszukuje ścieżkę napisów, która może zawierać części zagranicznych dialogów. Dobre dla filmów, które są głównie w Twoim ojczystym języku.</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>Výchozí</value>
+    <value>Domyślne</value>
+    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
-  <data name="Deinterlace_Bob" xml:space="preserve">
-    <value>Bob</value>
-    <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
+  <data name="Custom" xml:space="preserve">
+    <value>Ustawienia Własne</value>
+    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
-  <data name="Deinterlace_Fast" xml:space="preserve">
-    <value>Rychlé</value>
+  <data name="Browse" xml:space="preserve">
+    <value>Przeglądaj...</value>
   </data>
-  <data name="Deinterlace_Slow" xml:space="preserve">
-    <value>Pomalé</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Usuń</value>
   </data>
-  <data name="Deinterlace_Slower" xml:space="preserve">
-    <value>Pomalejší</value>
+  <data name="PreviewLabel" xml:space="preserve">
+    <value>Podgląd</value>
   </data>
-  <data name="DenoisePreset_Light" xml:space="preserve">
-    <value>Slabé</value>
-  </data>
-  <data name="DenoisePreset_Medium" xml:space="preserve">
-    <value>Střední</value>
-  </data>
-  <data name="DenoisePreset_Strong" xml:space="preserve">
-    <value>Silné</value>
-  </data>
-  <data name="DenoisePreset_Ultralight" xml:space="preserve">
-    <value>Velmi slabé</value>
-  </data>
-  <data name="DenoiseTune_Animation" xml:space="preserve">
-    <value>Animace</value>
-  </data>
-  <data name="DenoiseTune_Film" xml:space="preserve">
-    <value>Film</value>
-  </data>
-  <data name="DenoiseTune_Grain" xml:space="preserve">
-    <value>Zrnitý obraz</value>
-  </data>
-  <data name="DenoiseTune_HighMotion" xml:space="preserve">
-    <value>Rychlý pohyb</value>
-  </data>
-  <data name="Denoise_HQDN3D" xml:space="preserve">
-    <value>hqdn3d</value>
-  </data>
-  <data name="Denoise_NLMeans" xml:space="preserve">
-    <value>NL-Means</value>
-  </data>
-  <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
-    <value>Nedělat nic</value>
-  </data>
-  <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
-    <value>Vysunout {0}:</value>
-  </data>
-  <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
-    <value>Odhlásit</value>
-  </data>
-  <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
-    <value>Vypnout</value>
-  </data>
-  <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
-    <value>Režim spánku</value>
+  <data name="Automatic" xml:space="preserve">
+    <value>Automatyczny</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>Vypnuto</value>
+    <value>Wyłącz</value>
+    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
-  <data name="VideoRangeType_Chapters" xml:space="preserve">
-    <value>Kapitoly</value>
+  <data name="All" xml:space="preserve">
+    <value>Wszystkie</value>
   </data>
-  <data name="VideoRangeType_Frames" xml:space="preserve">
-    <value>Snímky</value>
+  <data name="StreamChoice" xml:space="preserve">
+    <value>Strumień {0}</value>
+    <comment>Used in the encoding settings dialog to mark which audio stream an audio encoding is targeting. By default the encoding works on all streams but you can target it to affect only the first stream, in which case it would label it "Stream 1"</comment>
   </data>
-  <data name="VideoRangeType_Seconds" xml:space="preserve">
-    <value>Časový rozsah</value>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Wyłączony</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopiuj</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Tak</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nie</value>
+  </data>
+  <data name="CouldNotAccessDirectoriesError" xml:space="preserve">
+    <value>Nie można uzyskać dostępu do następujących katalogów:</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Brak</value>
+  </data>
+  <data name="Succeeded" xml:space="preserve">
+    <value>Zakończone sukcesem</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Nie powiodło się</value>
+  </data>
+  <data name="FilePickerExtTemplate" xml:space="preserve">
+    <value>{0} Plików</value>
+  </data>
+  <data name="QueueColumnNamePreset" xml:space="preserve">
+    <value>Ustawienia zdefiniowane</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Zakończono pomyślnie</value>
+  </data>
+  <data name="ConfirmDialogTitle" xml:space="preserve">
+    <value>Potwierdź</value>
+  </data>
+  <data name="FileFailureErrorMessage" xml:space="preserve">
+    <value>Nie można ukończyć operacji na pliku.</value>
+  </data>
+  <data name="FileFailureErrorTitle" xml:space="preserve">
+    <value>Błąd operacji na pliku</value>
   </data>
 </root>

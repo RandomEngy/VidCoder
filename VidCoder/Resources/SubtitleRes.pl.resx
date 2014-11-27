@@ -117,98 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Anamorphic_Custom" xml:space="preserve">
-    <value>Vlastní</value>
+  <data name="SubtitlesWindowTitle" xml:space="preserve">
+    <value>Napisy</value>
   </data>
-  <data name="Anamorphic_Loose" xml:space="preserve">
-    <value>Volné</value>
+  <data name="RemoveSubtitleTrack" xml:space="preserve">
+    <value>Usuń tą ścieżkę</value>
   </data>
-  <data name="Anamorphic_None" xml:space="preserve">
-    <value>Žádné</value>
+  <data name="SubtitlesFromSourceLabel" xml:space="preserve">
+    <value>Napisy ze źródła:</value>
   </data>
-  <data name="Anamorphic_Strict" xml:space="preserve">
-    <value>Striktní</value>
+  <data name="QuickTimeSubtitlesWarning" xml:space="preserve">
+    <value>Napisy mogą nie być wyświetlane w Quicktime jeżeli nie zostanie użyte rozszerzenie .m4v.</value>
   </data>
-  <data name="Custom" xml:space="preserve">
-    <value>Vlastní</value>
+  <data name="NameColumn" xml:space="preserve">
+    <value>Nazwa</value>
   </data>
-  <data name="Decomb_Bob" xml:space="preserve">
-    <value>Bob</value>
+  <data name="DefaultColumn" xml:space="preserve">
+    <value>Domyślne</value>
   </data>
-  <data name="Decomb_Fast" xml:space="preserve">
-    <value>Rychlé</value>
+  <data name="ForcedOnlyColumn" xml:space="preserve">
+    <value>Tylko Wymuszony</value>
   </data>
-  <data name="Default" xml:space="preserve">
-    <value>Výchozí</value>
+  <data name="BurnedInColumn" xml:space="preserve">
+    <value>Nałóż</value>
   </data>
-  <data name="Deinterlace_Bob" xml:space="preserve">
-    <value>Bob</value>
-    <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
+  <data name="ExternalSubtitlesLabel" xml:space="preserve">
+    <value>Napisy zewnętrzne:</value>
   </data>
-  <data name="Deinterlace_Fast" xml:space="preserve">
-    <value>Rychlé</value>
+  <data name="FileColumn" xml:space="preserve">
+    <value>Plik</value>
   </data>
-  <data name="Deinterlace_Slow" xml:space="preserve">
-    <value>Pomalé</value>
+  <data name="LanguageColumn" xml:space="preserve">
+    <value>Język</value>
   </data>
-  <data name="Deinterlace_Slower" xml:space="preserve">
-    <value>Pomalejší</value>
+  <data name="CharCodeColumn" xml:space="preserve">
+    <value>Kod Znaku</value>
   </data>
-  <data name="DenoisePreset_Light" xml:space="preserve">
-    <value>Slabé</value>
+  <data name="OffsetColumn" xml:space="preserve">
+    <value>Przesunięcie (ms)</value>
   </data>
-  <data name="DenoisePreset_Medium" xml:space="preserve">
-    <value>Střední</value>
+  <data name="ImportSrtButton" xml:space="preserve">
+    <value>Importuj plik .srt...</value>
   </data>
-  <data name="DenoisePreset_Strong" xml:space="preserve">
-    <value>Silné</value>
+  <data name="BurnedOverlapWarning" xml:space="preserve">
+    <value>Inne ścieżki napisów zakryją już nałożone napisy.</value>
   </data>
-  <data name="DenoisePreset_Ultralight" xml:space="preserve">
-    <value>Velmi slabé</value>
+  <data name="ForeignAudioSearch" xml:space="preserve">
+    <value>Wyszukiwanie Zagranicznych Ścieżek Audio</value>
   </data>
-  <data name="DenoiseTune_Animation" xml:space="preserve">
-    <value>Animace</value>
+  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
+    <value>Brak napisów w źródłowym pliku wideo.</value>
   </data>
-  <data name="DenoiseTune_Film" xml:space="preserve">
-    <value>Film</value>
+  <data name="SrtFilePickerText" xml:space="preserve">
+    <value>Dodaj plik napisów</value>
   </data>
-  <data name="DenoiseTune_Grain" xml:space="preserve">
-    <value>Zrnitý obraz</value>
-  </data>
-  <data name="DenoiseTune_HighMotion" xml:space="preserve">
-    <value>Rychlý pohyb</value>
-  </data>
-  <data name="Denoise_HQDN3D" xml:space="preserve">
-    <value>hqdn3d</value>
-  </data>
-  <data name="Denoise_NLMeans" xml:space="preserve">
-    <value>NL-Means</value>
-  </data>
-  <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
-    <value>Nedělat nic</value>
-  </data>
-  <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
-    <value>Vysunout {0}:</value>
-  </data>
-  <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
-    <value>Odhlásit</value>
-  </data>
-  <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
-    <value>Vypnout</value>
-  </data>
-  <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
-    <value>Režim spánku</value>
-  </data>
-  <data name="Off" xml:space="preserve">
-    <value>Vypnuto</value>
-  </data>
-  <data name="VideoRangeType_Chapters" xml:space="preserve">
-    <value>Kapitoly</value>
-  </data>
-  <data name="VideoRangeType_Frames" xml:space="preserve">
-    <value>Snímky</value>
-  </data>
-  <data name="VideoRangeType_Seconds" xml:space="preserve">
-    <value>Časový rozsah</value>
+	<data name="DuplicateSubtitleTrack" xml:space="preserve">
+    <value>Duplikuj ścieżkę</value>
   </data>
 </root>

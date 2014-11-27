@@ -1,0 +1,623 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>Tytuł:</value>
+  </data>
+  <data name="SettingsLabel" xml:space="preserve">
+    <value>Ustawienia</value>
+  </data>
+  <data name="AddToQueueLabel" xml:space="preserve">
+    <value>Dodaj do Kolejki</value>
+  </data>
+  <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
+    <value>Dodaj kilka tytułów do kolejki...</value>
+  </data>
+  <data name="FileMenu" xml:space="preserve">
+    <value>Plik</value>
+  </data>
+  <data name="OpenVideoFile" xml:space="preserve">
+    <value>Otwórz plik wideo...</value>
+  </data>
+  <data name="OpenDiscFolder" xml:space="preserve">
+    <value>Otwórz Folder DVD/Blu-ray...</value>
+  </data>
+  <data name="EnqueueMultipleFiles" xml:space="preserve">
+    <value>Dodaj do kolejki kilka plików...</value>
+  </data>
+  <data name="EnqueueMultipleTitles" xml:space="preserve">
+    <value>Dodaj do kolejki kilka plików...</value>
+  </data>
+  <data name="ToolsMenu" xml:space="preserve">
+    <value>Narzędzia</value>
+  </data>
+  <data name="ImportPreset" xml:space="preserve">
+    <value>Importuj Ustawienia...</value>
+  </data>
+  <data name="ExportPreset" xml:space="preserve">
+    <value>Eksportuj Ustawienia...</value>
+  </data>
+  <data name="OptionsMenuItem" xml:space="preserve">
+    <value>Opcje...</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Odtwórz</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edytuj</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>Otwórz Folder Zawierający</value>
+  </data>
+  <data name="ClearCompleted" xml:space="preserve">
+    <value>Wyczyść Ukończone</value>
+  </data>
+  <data name="ExitMenuItem" xml:space="preserve">
+    <value>Wyjście</value>
+  </data>
+  <data name="WindowsMenu" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="EncodingSettingsMenuItem" xml:space="preserve">
+    <value>Ustawienia Enkodowania</value>
+  </data>
+  <data name="PreviewMenuItem" xml:space="preserve">
+    <value>Podgląd</value>
+  </data>
+  <data name="LogMenuItem" xml:space="preserve">
+    <value>Dziennik</value>
+  </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>Pomoc</value>
+  </data>
+  <data name="VidCoderHomepageMenuItem" xml:space="preserve">
+    <value>Strona główna VidCoder</value>
+  </data>
+  <data name="ReportABugMenuItem" xml:space="preserve">
+    <value>Zgłoś błąd</value>
+  </data>
+  <data name="AboutVidCoderMenuItem" xml:space="preserve">
+    <value>O programie VidCoder...</value>
+  </data>
+  <data name="ChooseVideoSourceLabel" xml:space="preserve">
+    <value>Wybierz źródło wideo:</value>
+  </data>
+  <data name="SourceLabel" xml:space="preserve">
+    <value>Źródło:</value>
+  </data>
+  <data name="ScanningSourceLabel" xml:space="preserve">
+    <value>Skanowanie źródła...</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Ostatnie</value>
+  </data>
+  <data name="DragFilesHereLabel" xml:space="preserve">
+    <value>(Lub przeciągnij pliki wideo bądź foldery tutaj)</value>
+  </data>
+  <data name="ScanErrorLabel" xml:space="preserve">
+    <value>Wystąpił błąd podczas skanowania.</value>
+  </data>
+  <data name="AudioLabel" xml:space="preserve">
+    <value>Audio:</value>
+  </data>
+  <data name="VideoLabel" xml:space="preserve">
+    <value>Wideo:</value>
+  </data>
+  <data name="SubtitlesLabel" xml:space="preserve">
+    <value>Napisy:</value>
+  </data>
+  <data name="AddTrackButton" xml:space="preserve">
+    <value>Dodać Ścieżkę</value>
+  </data>
+  <data name="ChapterMarkersLabel" xml:space="preserve">
+    <value>Znacznik rozdziałów:</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Edytuj...</value>
+  </data>
+  <data name="DestinationLabel" xml:space="preserve">
+    <value>Miejsce docelowe:</value>
+  </data>
+  <data name="DestinationToolTip" xml:space="preserve">
+    <value>Kliknij aby zmienić miejsce docelowe enkodowania.</value>
+  </data>
+  <data name="SelectOutputPathButton" xml:space="preserve">
+    <value>Wybierz ścieżkę wyjścową...</value>
+  </data>
+  <data name="EncodingLabel" xml:space="preserve">
+    <value>Enkodowanie:</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Pauza</value>
+  </data>
+  <data name="MoveToTopMenuItem" xml:space="preserve">
+    <value>Przesuń na samą górę</value>
+  </data>
+  <data name="MoveToBottomMenuItem" xml:space="preserve">
+    <value>Przesuń na sam dół</value>
+  </data>
+  <data name="CustomizeColumnsMenuItem" xml:space="preserve">
+    <value>Dostosuj kolumny...</value>
+  </data>
+  <data name="CurrentFpsLabel" xml:space="preserve">
+    <value>Obecny FPS:</value>
+  </data>
+  <data name="AverageFpsLabel" xml:space="preserve">
+    <value>Średni FPS:</value>
+  </data>
+  <data name="PickDiscFolderHelpText" xml:space="preserve">
+    <value>Wybierz folder DVD lub Blu-ray.</value>
+  </data>
+  <data name="EncodesInProgressExitWarning" xml:space="preserve">
+    <value>Enkodowanie w toku. Czy na pewno chcesz zakończyć?</value>
+  </data>
+  <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
+    <value>Enkodowanie w toku</value>
+  </data>
+  <data name="ForeignAudioSearch" xml:space="preserve">
+    <value>Wyszukiwanie Zagranicznych Ścieżek Audio</value>
+  </data>
+  <data name="NoneParen" xml:space="preserve">
+    <value>(Brak)</value>
+  </data>
+  <data name="TracksSummaryMultiple" xml:space="preserve">
+    <value>{0} utwory(ów)</value>
+  </data>
+  <data name="SaveChangesPresetMessage" xml:space="preserve">
+    <value>Czy chcesz zapisać zmiany w ustawieniach?</value>
+  </data>
+  <data name="SaveChangesPresetTitle" xml:space="preserve">
+    <value>Zapisz aktualne ustawienia?</value>
+  </data>
+  <data name="DiscNotInDriveError" xml:space="preserve">
+    <value>Nie można załadować do edycji. Płyta nie jest już w napędzie.</value>
+  </data>
+  <data name="PresetNameRestoredFromQueue" xml:space="preserve">
+    <value>Przywrócony z kolejki</value>
+  </data>
+  <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
+    <value>Przywrócony z zakończonych</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Ustawienia zdefiniowane:</value>
+  </data>
+  <data name="DestinationColumnHeader" xml:space="preserve">
+    <value>Miejsce docelowe</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ElapsedTimeColumnHeader" xml:space="preserve">
+    <value>Upłynęło</value>
+  </data>
+  <data name="PlayingVideoMessage" xml:space="preserve">
+    <value>Odtwarzanie wideo...</value>
+  </data>
+  <data name="FileDoesNotExist" xml:space="preserve">
+    <value>{0} nie istnieje.</value>
+  </data>
+  <data name="AngleLabel" xml:space="preserve">
+    <value>Kąt:</value>
+  </data>
+  <data name="ChaptersSummary" xml:space="preserve">
+    <value>z {0}</value>
+  </data>
+  <data name="Queued" xml:space="preserve">
+    <value>W kolejce</value>
+  </data>
+  <data name="QueuedWithTotal" xml:space="preserve">
+    <value>W kolejce ({0})</value>
+  </data>
+  <data name="CompletedWithTotal" xml:space="preserve">
+    <value>Zakończone pomyślnie ({0})</value>
+  </data>
+  <data name="StoppedEncoding" xml:space="preserve">
+    <value>Enkodowanie zatrzymane.</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć {0} źródłowe pliki/foldery?</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
+    <value>Potwierdź usunięcie</value>
+  </data>
+  <data name="CouldNotDeleteFile" xml:space="preserve">
+    <value>Nie można usunąć {0} {1}</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Następujące pliki nie zostały rozpoznane i będą dodane do kolejki: {0}</value>
+  </data>
+  <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
+    <value>Błąd skanowania plików wideo</value>
+  </data>
+  <data name="StartedEncoding" xml:space="preserve">
+    <value>Rozpoczęto enkodowanie.</value>
+  </data>
+  <data name="DirectoryCreateErrorMessage" xml:space="preserve">
+    <value>Nie można utworzyć katalogu wyjściowego. Szczegóły błędu: {0}</value>
+  </data>
+  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
+    <value>Błąd tworzenia katalogu</value>
+  </data>
+  <data name="EncodeCompleted" xml:space="preserve">
+    <value>Enkodowanie zakończone.</value>
+  </data>
+  <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
+    <value>Enkodowanie zakończone</value>
+  </data>
+  <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
+    <value>VidCoder zakończył enkodowanie wszystkich zadań z kolejki.</value>
+  </data>
+  <data name="OutputFolderRequiredMessage" xml:space="preserve">
+    <value>Nie można dodać zadań bez domyślnego folderu danych wyjściowych. Naciśnij przycisk OK, aby wybrać jeden.</value>
+  </data>
+  <data name="OutputFolderRequiredTitle" xml:space="preserve">
+    <value>Wymagany domyślny folder danych wyjściowych</value>
+  </data>
+  <data name="OutputPathNotValidMessage" xml:space="preserve">
+    <value>Ścieżka wyjściowa nie jest prawidłowa.</value>
+  </data>
+  <data name="OutputPathNotValidTitle" xml:space="preserve">
+    <value>Nieprawidłowa ścieżka</value>
+  </data>
+  <data name="Encode" xml:space="preserve">
+    <value>Enkodowanie</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Wznów</value>
+  </data>
+  <data name="EtaLabel" xml:space="preserve">
+    <value>ETA:</value>
+  </data>
+  <data name="WhenDoneLabel" xml:space="preserve">
+    <value>Po zakończeniu:</value>
+  </data>
+  <data name="Preset_AndroidTablet" xml:space="preserve">
+    <value>Android Tablet</value>
+  </data>
+  <data name="Preset_Android" xml:space="preserve">
+    <value>Android</value>
+  </data>
+  <data name="Preset_AppleiPad" xml:space="preserve">
+    <value>Apple iPad</value>
+  </data>
+  <data name="Preset_AppleiPhone4" xml:space="preserve">
+    <value>Apple iPhone 4</value>
+  </data>
+  <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
+    <value>Apple iPhone/Touch</value>
+  </data>
+  <data name="Preset_AppleiPod" xml:space="preserve">
+    <value>Apple iPod</value>
+  </data>
+  <data name="Preset_AppleTV" xml:space="preserve">
+    <value>AppleTV</value>
+  </data>
+  <data name="Preset_AppleTV2" xml:space="preserve">
+    <value>AppleTV 2</value>
+  </data>
+  <data name="Preset_AppleTV3" xml:space="preserve">
+    <value>AppleTV 3</value>
+  </data>
+  <data name="Preset_Universal" xml:space="preserve">
+    <value>Uniwersalne</value>
+  </data>
+  <data name="Preset_HighProfile" xml:space="preserve">
+    <value>Wysoki profil</value>
+  </data>
+  <data name="Preset_Normal" xml:space="preserve">
+    <value>Normalny</value>
+  </data>
+  <data name="Preset_WindowsPhone7" xml:space="preserve">
+    <value>Windows Phone 7</value>
+  </data>
+  <data name="SourceOption_VideoFile" xml:space="preserve">
+    <value>Plik wideo...</value>
+  </data>
+  <data name="SourceOption_DiscFolder" xml:space="preserve">
+    <value>Folder DVD/Blu-ray...</value>
+  </data>
+  <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
+    <value>Wersja {0} jest dostępny. Rozpoczęto pobieranie aktualizacji.</value>
+  </data>
+  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
+    <value>Zakończono pobieranie wersji {0}. Zostanie zainstalowana po wyjściu z programu.,</value>
+  </data>
+  <data name="UpdateNotAppliedError" xml:space="preserve">
+    <value>Nie zainstalowano aktualizacji. Jeśli nie została anulowana, spróbuj zainstalować ją ręcznie.</value>
+  </data>
+  <data name="CouldNotLoadPresetMessage" xml:space="preserve">
+    <value>Nie można załadować ustawień: </value>
+  </data>
+  <data name="CouldNotSavePresetMessage" xml:space="preserve">
+    <value>Nie można zapisać ustawień '{0}": {1} {2}</value>
+  </data>
+  <data name="CouldNotCopyTextError" xml:space="preserve">
+    <value>Nie można skopiować tekstu.</value>
+  </data>
+  <data name="LaunchUrlError" xml:space="preserve">
+    <value>Błąd uruchomienia adresu URL: {0}</value>
+  </data>
+  <data name="UserConfigLoadError" xml:space="preserve">
+    <value>Nie można załadować wymaganego pliku ustawień użytkownika; może być uszkodzony. Czy chcesz go usunąć? Nie wpłynie to na inne zapisane ustawienia.</value>
+  </data>
+  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
+    <value>Błąd ładowania ustawień</value>
+  </data>
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Nie można zaimportować ustawień. Format nierozpoznany.</value>
+  </data>
+  <data name="ImportErrorTitle" xml:space="preserve">
+    <value>Błąd importowania</value>
+  </data>
+  <data name="PresetImportSuccessMessage" xml:space="preserve">
+    <value>Zaimportowano ustawienia z sukcesem {0}.</value>
+  </data>
+  <data name="PresetExportSuccessMessage" xml:space="preserve">
+    <value>Wyeksportowano ustawienia z sukcesem do {0}</value>
+  </data>
+  <data name="ExportPresetFilePickerText" xml:space="preserve">
+    <value>Eksportuj Ustawienia</value>
+  </data>
+  <data name="PresetSaveConfirmMessage" xml:space="preserve">
+    <value>Czy chcesz zapisać zmiany w ustawieniach?</value>
+  </data>
+  <data name="PresetSaveConfirmTitle" xml:space="preserve">
+    <value>Zapisz aktualne ustawienia?</value>
+  </data>
+  <data name="PresetRevertConfirmMessage" xml:space="preserve">
+    <value>Czy na pewno chcesz anulować wszystkie niezapisane zmiany w ustawieniach?</value>
+  </data>
+  <data name="PresetRevertConfirmTitle" xml:space="preserve">
+    <value>Przywróć ustawienia</value>
+  </data>
+  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć to ustawienie?</value>
+  </data>
+  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
+    <value>Usuń ustawienie</value>
+  </data>
+  <data name="UserConfigCorrupted" xml:space="preserve">
+    <value>Konfiguracja jest uszkodzona i nie może być załadowana. Niektóre ustawienia mogą być zresetowane.</value>
+  </data>
+  <data name="OutputDirectoryPickerText" xml:space="preserve">
+    <value>Wybierz katalog wyjściowy enkodowanych plików wideo.</value>
+  </data>
+  <data name="LengthPreviewLabel" xml:space="preserve">
+    <value>({0})</value>
+  </data>
+  <data name="ModifiedAffix" xml:space="preserve">
+    <value>(Zmodyfikowany)</value>
+  </data>
+  <data name="PlayingVideoStatus" xml:space="preserve">
+    <value>Odtwarzanie wideo...</value>
+  </data>
+  <data name="OpeningFolderStatus" xml:space="preserve">
+    <value>Otwieranie folderu...</value>
+  </data>
+  <data name="CloseVideoSourceToolTip" xml:space="preserve">
+    <value>Zamknij źródło wideo</value>
+  </data>
+  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
+    <value>Zamknij Źródło Wideo</value>
+  </data>
+  <data name="UpdatesMenuItem" xml:space="preserve">
+    <value>Aktualizacje...</value>
+  </data>
+  <data name="CbrAuto" xml:space="preserve">
+    <value>CBR Auto</value>
+  </data>
+  <data name="RangeBarToolTip" xml:space="preserve">
+    <value>Kliknij lewym przyciskiem, aby ustawić czas rozpoczęcia oraz prawym, aby ustawić czas zakończenia.</value>
+  </data>
+  <data name="Preset_WindowsPhone8" xml:space="preserve">
+    <value>Windows Phone 8</value>
+  </data>
+  <data name="QueueFormat_Chapters" xml:space="preserve">
+    <value>Ch {0}</value>
+  </data>
+  <data name="QueueFormat_Frames" xml:space="preserve">
+    <value>Fr {0}-{1}</value>
+  </data>
+  <data name="QueueRangeAll" xml:space="preserve">
+    <value>Wszystkie</value>
+  </data>
+  <data name="CouldNotCopyLogError" xml:space="preserve">
+    <value>Nie można skopiować dziennika: {0} {0} {1}</value>
+  </data>
+  <data name="OpenLog" xml:space="preserve">
+    <value>Otwórz Dziennik</value>
+  </data>
+  <data name="CopyLog" xml:space="preserve">
+    <value>Kopiuj Dziennik</value>
+  </data>
+  <data name="PresetDiscardConfirmMessage" xml:space="preserve">
+    <value>Masz niezapisane zmiany. Czy na pewno chcesz je odrzucić przełączając do innego ustawienia?</value>
+  </data>
+  <data name="PresetDiscardConfirmTitle" xml:space="preserve">
+    <value>Odrzuć Zmiany?</value>
+  </data>
+  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
+    <value>Usuń ścieżkę dźwiękową</value>
+  </data>
+  <data name="Preset_Xbox360" xml:space="preserve">
+    <value>Xbox 360</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>Usuń z kolejki</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>Nie można zapisać kolejki: {0} {1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>Wyeksportuj kolejkę...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>Wyeksportuj kolejkę</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Nie można zaimportować kolejki. Format nierozpoznany.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>Importuj plik z ustawieniami domyślnymi</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>Importuj plik kolejki</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>Importuj kolejkę...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>Poprawnie wyeksportowano kolejkę {0}</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>Poprawnie zaimportowano kolejkę.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>Zatrzymać enkodowanie?</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>Czy na pewno chcesz zatrzymać enkodowanie?</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>Zamknąć bieżący plik i otwórz dysk?</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>Szczegóły kompresji</value>
+  </data>
+	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+    <value>Ustawienia enkodowania uległy zmianie od ostatnio dodanego elementu kolejki. Czy chcesz zastosować bieżące ustawienia kodowania dla wszystkich elementów w kolejce?</value>
+  </data>
+	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+    <value>Ustawienia zostały zmienione</value>
+  </data>
+	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>Czy chcesz zmienić nazwę istniejącego pliku i rozpocząć z nowym?</value>
+  </data>
+	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>Nie można odczytać wersji {0} pliku bazy danych. Najwyższą wersją rozpoznawalną przez VidCoder {1} jest {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>Niekompatybilny plik bazy danych</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+</root>

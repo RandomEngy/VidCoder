@@ -418,5 +418,7 @@
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
     <value>Ha egy fájlokkal teli mappát kódolsz át, a kódolt verziók külön almappákba kerülnek, hogy tükrözzék a forrásmappa struktúráját.</value>
   </data>
-	
+	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+    <value>Egyéni mappa az előnézetekhez:</value>
+  </data>
 </root>

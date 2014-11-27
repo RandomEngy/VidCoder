@@ -121,6 +121,7 @@ namespace VidCoder.ViewModel
 						new InterfaceLanguage { CultureCode = "fr-FR", Display = "Français / French" },
 						new InterfaceLanguage { CultureCode = "it-IT", Display = "italiano / Italian" },
 						new InterfaceLanguage { CultureCode = "hu-HU", Display = "Magyar / Hungarian" },
+						new InterfaceLanguage { CultureCode = "pl-PL", Display = "polski / Polish" },
 						new InterfaceLanguage { CultureCode = "pt-PT", Display = "Português / Portuguese" },
 						new InterfaceLanguage { CultureCode = "pt-BR", Display = "Português (Brasil) / Portuguese (Brazil)" },
 						new InterfaceLanguage { CultureCode = "ru-RU", Display = "русский / Russian" },
