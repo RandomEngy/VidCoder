@@ -54,7 +54,7 @@
 					<controls:NumberBox
 						Grid.Row="0" Grid.Column="1"
 						Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60"
-						Number="{Binding Width, Mode=TwoWay}" NoneCaption="{x:Static res:EncodingRes.AutoCaption}" Modulus="2" Minimum="46" Maximum="3712"
+						Number="{Binding Width, Mode=TwoWay}" NoneCaption="{x:Static res:EncodingRes.AutoCaption}" Modulus="2" Minimum="46" Maximum="8192"
 						IsEnabled="{Binding WidthEnabled}"/>
 					<Label
 						Grid.Row="1" Grid.Column="0"
@@ -63,7 +63,7 @@
 					<controls:NumberBox
 						Grid.Row="1" Grid.Column="1"
 						Height="23" VerticalAlignment="Center" HorizontalAlignment="Left" Width="60"
-						Number="{Binding Height, Mode=TwoWay}" NoneCaption="{x:Static res:EncodingRes.AutoCaption}" Modulus="2" Minimum="46" Maximum="3712"
+						Number="{Binding Height, Mode=TwoWay}" NoneCaption="{x:Static res:EncodingRes.AutoCaption}" Modulus="2" Minimum="46" Maximum="4608"
 						IsEnabled="{Binding HeightEnabled}"/>
 					<Label 
 						Grid.Row="0" Grid.Column="2" Margin="4,0,0,0"
