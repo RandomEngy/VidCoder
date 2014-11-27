@@ -37,9 +37,11 @@
 			QueueTitlesDialogPlacement2_Field = DatabaseConfig.GetConfig("QueueTitlesDialogPlacement2", "", connection);
 			AddAutoPauseProcessDialogPlacement_Field = DatabaseConfig.GetConfig("AddAutoPauseProcessDialogPlacement", "", connection);
 			OptionsDialogPlacement_Field = DatabaseConfig.GetConfig("OptionsDialogPlacement", "", connection);
+			EncodeDetailsWindowPlacement_Field = DatabaseConfig.GetConfig("EncodeDetailsWindowPlacement", "", connection);
 			EncodingWindowOpen_Field = DatabaseConfig.GetConfig("EncodingWindowOpen", false, connection);
 			PreviewWindowOpen_Field = DatabaseConfig.GetConfig("PreviewWindowOpen", false, connection);
 			LogWindowOpen_Field = DatabaseConfig.GetConfig("LogWindowOpen", false, connection);
+			EncodeDetailsWindowOpen_Field = DatabaseConfig.GetConfig("EncodeDetailsWindowOpen", false, connection);
 			UpdatesEnabled_Field = DatabaseConfig.GetConfig("UpdatesEnabled", true, connection);
 			PreviewSeconds_Field = DatabaseConfig.GetConfig("PreviewSeconds", 10, connection);
 			ApplicationVersion_Field = DatabaseConfig.GetConfig("ApplicationVersion", "", connection);
@@ -56,12 +58,15 @@
 			AutoPauseProcesses_Field = DatabaseConfig.GetConfig("AutoPauseProcesses", "", connection);
 			PreviewCount_Field = DatabaseConfig.GetConfig("PreviewCount", 10, connection);
 			PreviewDisplay_Field = DatabaseConfig.GetConfig("PreviewDisplay", "FitToWindow", connection);
+			UseCustomPreviewFolder_Field = DatabaseConfig.GetConfig("UseCustomPreviewFolder", false, connection);
+			PreviewOutputFolder_Field = DatabaseConfig.GetConfig("PreviewOutputFolder", "", connection);
 			QueueTitlesUseTitleOverride_Field = DatabaseConfig.GetConfig("QueueTitlesUseTitleOverride", false, connection);
 			QueueTitlesTitleOverride_Field = DatabaseConfig.GetConfig("QueueTitlesTitleOverride", 1, connection);
 			ShowAudioTrackNameField_Field = DatabaseConfig.GetConfig("ShowAudioTrackNameField", false, connection);
 			SourceHistory_Field = DatabaseConfig.GetConfig("SourceHistory", "", connection);
 			MinimizeToTray_Field = DatabaseConfig.GetConfig("MinimizeToTray", false, connection);
 			OutputToSourceDirectory_Field = DatabaseConfig.GetConfig("OutputToSourceDirectory", false, connection);
+			PreserveFolderStructureInBatch_Field = DatabaseConfig.GetConfig("PreserveFolderStructureInBatch", false, connection);
 			WhenFileExists_Field = DatabaseConfig.GetConfig("WhenFileExists", "Prompt", connection);
 			WhenFileExistsBatch_Field = DatabaseConfig.GetConfig("WhenFileExistsBatch", "AutoRename", connection);
 			KeepScansAfterCompletion_Field = DatabaseConfig.GetConfig("KeepScansAfterCompletion", true, connection);
@@ -71,11 +76,15 @@
 			UseCustomCompletionSound_Field = DatabaseConfig.GetConfig("UseCustomCompletionSound", false, connection);
 			CustomCompletionSound_Field = DatabaseConfig.GetConfig("CustomCompletionSound", "", connection);
 			LastPlayer_Field = DatabaseConfig.GetConfig("LastPlayer", "vlc", connection);
+			QueueTitlesUseDirectoryOverride_Field = DatabaseConfig.GetConfig("QueueTitlesUseDirectoryOverride", false, connection);
+			QueueTitlesDirectoryOverride_Field = DatabaseConfig.GetConfig("QueueTitlesDirectoryOverride", "", connection);
 			QueueTitlesUseNameOverride_Field = DatabaseConfig.GetConfig("QueueTitlesUseNameOverride", false, connection);
 			QueueTitlesNameOverride_Field = DatabaseConfig.GetConfig("QueueTitlesNameOverride", "", connection);
+			DxvaDecoding_Field = DatabaseConfig.GetConfig("DxvaDecoding", false, connection);
 			EnableLibDvdNav_Field = DatabaseConfig.GetConfig("EnableLibDvdNav", true, connection);
 			MinimumTitleLengthSeconds_Field = DatabaseConfig.GetConfig("MinimumTitleLengthSeconds", 10, connection);
 			DeleteSourceFilesOnClearingCompleted_Field = DatabaseConfig.GetConfig("DeleteSourceFilesOnClearingCompleted", false, connection);
+			PreserveModifyTimeFiles_Field = DatabaseConfig.GetConfig("PreserveModifyTimeFiles", false, connection);
 			ResumeEncodingOnRestart_Field = DatabaseConfig.GetConfig("ResumeEncodingOnRestart", false, connection);
 			UseWorkerProcess_Field = DatabaseConfig.GetConfig("UseWorkerProcess", true, connection);
 			RememberPreviousFiles_Field = DatabaseConfig.GetConfig("RememberPreviousFiles", true, connection);
@@ -88,6 +97,8 @@
 			AutoSubtitleAll_Field = DatabaseConfig.GetConfig("AutoSubtitleAll", false, connection);
 			AutoSubtitleOnlyIfDifferent_Field = DatabaseConfig.GetConfig("AutoSubtitleOnlyIfDifferent", true, connection);
 			AutoSubtitleBurnIn_Field = DatabaseConfig.GetConfig("AutoSubtitleBurnIn", true, connection);
+			AutoSubtitleLanguageDefault_Field = DatabaseConfig.GetConfig("AutoSubtitleLanguageDefault", false, connection);
+			AutoSubtitleLanguageBurnIn_Field = DatabaseConfig.GetConfig("AutoSubtitleLanguageBurnIn", false, connection);
 			PreferredPlayer_Field = DatabaseConfig.GetConfig("PreferredPlayer", "vlc", connection);
 			BetaUpdates_Field = DatabaseConfig.GetConfig("BetaUpdates", false, connection);
 			InterfaceLanguageCode_Field = DatabaseConfig.GetConfig("InterfaceLanguageCode", "", connection);
@@ -512,6 +523,20 @@
 				DatabaseConfig.SetConfigValue("OptionsDialogPlacement", value);
 			}
 		}
+		private static string EncodeDetailsWindowPlacement_Field;
+		public static string EncodeDetailsWindowPlacement
+		{
+			get
+			{
+				return EncodeDetailsWindowPlacement_Field;
+			}
+			
+			set
+			{
+				EncodeDetailsWindowPlacement_Field = value;
+				DatabaseConfig.SetConfigValue("EncodeDetailsWindowPlacement", value);
+			}
+		}
 		private static bool EncodingWindowOpen_Field;
 		public static bool EncodingWindowOpen
 		{
@@ -552,6 +577,20 @@
 			{
 				LogWindowOpen_Field = value;
 				DatabaseConfig.SetConfigValue("LogWindowOpen", value);
+			}
+		}
+		private static bool EncodeDetailsWindowOpen_Field;
+		public static bool EncodeDetailsWindowOpen
+		{
+			get
+			{
+				return EncodeDetailsWindowOpen_Field;
+			}
+			
+			set
+			{
+				EncodeDetailsWindowOpen_Field = value;
+				DatabaseConfig.SetConfigValue("EncodeDetailsWindowOpen", value);
 			}
 		}
 		private static bool UpdatesEnabled_Field;
@@ -778,6 +817,34 @@
 				DatabaseConfig.SetConfigValue("PreviewDisplay", value);
 			}
 		}
+		private static bool UseCustomPreviewFolder_Field;
+		public static bool UseCustomPreviewFolder
+		{
+			get
+			{
+				return UseCustomPreviewFolder_Field;
+			}
+			
+			set
+			{
+				UseCustomPreviewFolder_Field = value;
+				DatabaseConfig.SetConfigValue("UseCustomPreviewFolder", value);
+			}
+		}
+		private static string PreviewOutputFolder_Field;
+		public static string PreviewOutputFolder
+		{
+			get
+			{
+				return PreviewOutputFolder_Field;
+			}
+			
+			set
+			{
+				PreviewOutputFolder_Field = value;
+				DatabaseConfig.SetConfigValue("PreviewOutputFolder", value);
+			}
+		}
 		private static bool QueueTitlesUseTitleOverride_Field;
 		public static bool QueueTitlesUseTitleOverride
 		{
@@ -860,6 +927,20 @@
 			{
 				OutputToSourceDirectory_Field = value;
 				DatabaseConfig.SetConfigValue("OutputToSourceDirectory", value);
+			}
+		}
+		private static bool PreserveFolderStructureInBatch_Field;
+		public static bool PreserveFolderStructureInBatch
+		{
+			get
+			{
+				return PreserveFolderStructureInBatch_Field;
+			}
+			
+			set
+			{
+				PreserveFolderStructureInBatch_Field = value;
+				DatabaseConfig.SetConfigValue("PreserveFolderStructureInBatch", value);
 			}
 		}
 		private static string WhenFileExists_Field;
@@ -988,6 +1069,34 @@
 				DatabaseConfig.SetConfigValue("LastPlayer", value);
 			}
 		}
+		private static bool QueueTitlesUseDirectoryOverride_Field;
+		public static bool QueueTitlesUseDirectoryOverride
+		{
+			get
+			{
+				return QueueTitlesUseDirectoryOverride_Field;
+			}
+			
+			set
+			{
+				QueueTitlesUseDirectoryOverride_Field = value;
+				DatabaseConfig.SetConfigValue("QueueTitlesUseDirectoryOverride", value);
+			}
+		}
+		private static string QueueTitlesDirectoryOverride_Field;
+		public static string QueueTitlesDirectoryOverride
+		{
+			get
+			{
+				return QueueTitlesDirectoryOverride_Field;
+			}
+			
+			set
+			{
+				QueueTitlesDirectoryOverride_Field = value;
+				DatabaseConfig.SetConfigValue("QueueTitlesDirectoryOverride", value);
+			}
+		}
 		private static bool QueueTitlesUseNameOverride_Field;
 		public static bool QueueTitlesUseNameOverride
 		{
@@ -1014,6 +1123,20 @@
 			{
 				QueueTitlesNameOverride_Field = value;
 				DatabaseConfig.SetConfigValue("QueueTitlesNameOverride", value);
+			}
+		}
+		private static bool DxvaDecoding_Field;
+		public static bool DxvaDecoding
+		{
+			get
+			{
+				return DxvaDecoding_Field;
+			}
+			
+			set
+			{
+				DxvaDecoding_Field = value;
+				DatabaseConfig.SetConfigValue("DxvaDecoding", value);
 			}
 		}
 		private static bool EnableLibDvdNav_Field;
@@ -1056,6 +1179,20 @@
 			{
 				DeleteSourceFilesOnClearingCompleted_Field = value;
 				DatabaseConfig.SetConfigValue("DeleteSourceFilesOnClearingCompleted", value);
+			}
+		}
+		private static bool PreserveModifyTimeFiles_Field;
+		public static bool PreserveModifyTimeFiles
+		{
+			get
+			{
+				return PreserveModifyTimeFiles_Field;
+			}
+			
+			set
+			{
+				PreserveModifyTimeFiles_Field = value;
+				DatabaseConfig.SetConfigValue("PreserveModifyTimeFiles", value);
 			}
 		}
 		private static bool ResumeEncodingOnRestart_Field;
@@ -1224,6 +1361,34 @@
 			{
 				AutoSubtitleBurnIn_Field = value;
 				DatabaseConfig.SetConfigValue("AutoSubtitleBurnIn", value);
+			}
+		}
+		private static bool AutoSubtitleLanguageDefault_Field;
+		public static bool AutoSubtitleLanguageDefault
+		{
+			get
+			{
+				return AutoSubtitleLanguageDefault_Field;
+			}
+			
+			set
+			{
+				AutoSubtitleLanguageDefault_Field = value;
+				DatabaseConfig.SetConfigValue("AutoSubtitleLanguageDefault", value);
+			}
+		}
+		private static bool AutoSubtitleLanguageBurnIn_Field;
+		public static bool AutoSubtitleLanguageBurnIn
+		{
+			get
+			{
+				return AutoSubtitleLanguageBurnIn_Field;
+			}
+			
+			set
+			{
+				AutoSubtitleLanguageBurnIn_Field = value;
+				DatabaseConfig.SetConfigValue("AutoSubtitleLanguageBurnIn", value);
 			}
 		}
 		private static string PreferredPlayer_Field;

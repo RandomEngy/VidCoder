@@ -17,8 +17,10 @@ namespace VidCoder.ViewModel
 	using System.Data.SQLite;
 	using System.Globalization;
 	using System.Resources;
+	using HandBrake.Interop;
+	using HandBrake.Interop.Model;
 	using Resources;
-	using Microsoft.Practices.Unity;
+	using Utilities = VidCoder.Utilities;
 
 	public class OptionsDialogViewModel : OkCancelDialogViewModel
 	{
@@ -26,7 +28,6 @@ namespace VidCoder.ViewModel
 		private string defaultPath;
 		private bool customFormat;
 		private string customFormatString;
-		private bool outputToSourceDirectory;
 		private WhenFileExists whenFileExists;
 		private WhenFileExists whenFileExistsBatch;
 		private InterfaceLanguage interfaceLanguage;
@@ -42,8 +43,10 @@ namespace VidCoder.ViewModel
 		private List<InterfaceLanguage> languageChoices;
 		private List<ComboChoice> priorityChoices; 
 
+#pragma warning disable 169
 		private UpdateInfo betaInfo;
 		private bool betaInfoAvailable;
+#pragma warning restore 169
 
 		private IUpdater updater;
 
@@ -58,6 +61,9 @@ namespace VidCoder.ViewModel
 			this.customFormat = Config.AutoNameCustomFormat;
 			this.customFormatString = Config.AutoNameCustomFormatString;
 			this.outputToSourceDirectory = Config.OutputToSourceDirectory;
+			this.preserveFolderStructureInBatch = Config.PreserveFolderStructureInBatch;
+			this.useCustomPreviewFolder = Config.UseCustomPreviewFolder;
+			this.previewOutputFolder = Config.PreviewOutputFolder;
 			this.whenFileExists = CustomConfig.WhenFileExists;
 			this.whenFileExistsBatch = CustomConfig.WhenFileExistsBatch;
 			this.minimizeToTray = Config.MinimizeToTray;
@@ -71,6 +77,8 @@ namespace VidCoder.ViewModel
 			this.autoAudioAll = Config.AutoAudioAll;
 			this.autoSubtitle = CustomConfig.AutoSubtitle;
 			this.autoSubtitleBurnIn = Config.AutoSubtitleBurnIn;
+			this.autoSubtitleLanguageDefault = Config.AutoSubtitleLanguageDefault;
+			this.autoSubtitleLanguageBurnIn = Config.AutoSubtitleLanguageBurnIn;
 			this.subtitleLanguageCode = Config.SubtitleLanguageCode;
 			this.autoSubtitleOnlyIfDifferent = Config.AutoSubtitleOnlyIfDifferent;
 			this.autoSubtitleAll = Config.AutoSubtitleAll;
@@ -81,8 +89,10 @@ namespace VidCoder.ViewModel
 			this.rememberPreviousFiles = Config.RememberPreviousFiles;
 			this.showAudioTrackNameField = Config.ShowAudioTrackNameField;
 			this.keepScansAfterCompletion = Config.KeepScansAfterCompletion;
+			this.dxvaDecoding = Config.DxvaDecoding;
 			this.enableLibDvdNav = Config.EnableLibDvdNav;
 			this.deleteSourceFilesOnClearingCompleted = Config.DeleteSourceFilesOnClearingCompleted;
+			this.preserveModifyTimeFiles = Config.PreserveModifyTimeFiles;
 			this.resumeEncodingOnRestart = Config.ResumeEncodingOnRestart;
 			this.useWorkerProcess = Config.UseWorkerProcess;
 			this.minimumTitleLengthSeconds = Config.MinimumTitleLengthSeconds;
@@ -97,20 +107,26 @@ namespace VidCoder.ViewModel
 				}
 			}
 
+			// List of language codes and names: http://msdn.microsoft.com/en-us/goglobal/bb896001.aspx
+
 			this.languageChoices =
 				new List<InterfaceLanguage>
 					{
 						new InterfaceLanguage { CultureCode = string.Empty, Display = OptionsRes.UseOSLanguage },
 						new InterfaceLanguage { CultureCode = "en-US", Display = "English" },
-						new InterfaceLanguage { CultureCode = "es-ES", Display = "Español / Spanish"},
+						new InterfaceLanguage { CultureCode = "cs-CZ", Display = "čeština / Czech" },
 						new InterfaceLanguage { CultureCode = "de-DE", Display = "Deutsch / German" },
-						new InterfaceLanguage { CultureCode = "fr-FR", Display = "Français / French"},
-						new InterfaceLanguage { CultureCode = "it-IT", Display = "italiano / Italian"},
-						new InterfaceLanguage { CultureCode = "zh-Hans", Display = "中文(简体) / Chinese (Simplified)"},
-						new InterfaceLanguage { CultureCode = "zh-Hant", Display = "中文(繁體) / Chinese (Traditional)"},
-						//new InterfaceLanguage { CultureCode = "pt-PT", Display = "Português (Portuguese)"},
-						new InterfaceLanguage { CultureCode = "hu-HU", Display = "Magyar / Hungarian"},
-						new InterfaceLanguage { CultureCode = "eu-ES", Display = "Euskara / Basque"},
+						new InterfaceLanguage { CultureCode = "es-ES", Display = "Español / Spanish" },
+						new InterfaceLanguage { CultureCode = "eu-ES", Display = "Euskara / Basque" },
+						new InterfaceLanguage { CultureCode = "fr-FR", Display = "Français / French" },
+						new InterfaceLanguage { CultureCode = "it-IT", Display = "italiano / Italian" },
+						new InterfaceLanguage { CultureCode = "hu-HU", Display = "Magyar / Hungarian" },
+						new InterfaceLanguage { CultureCode = "pt-PT", Display = "Português / Portuguese" },
+						new InterfaceLanguage { CultureCode = "pt-BR", Display = "Português (Brasil) / Portuguese (Brazil)" },
+						new InterfaceLanguage { CultureCode = "ru-RU", Display = "русский / Russian" },
+						new InterfaceLanguage { CultureCode = "zh-Hans", Display = "中文(简体) / Chinese (Simplified)" },
+						new InterfaceLanguage { CultureCode = "zh-Hant", Display = "中文(繁體) / Chinese (Traditional)" },
+						new InterfaceLanguage { CultureCode =  "ja-JP", Display = "日本語 / Japanese" },
 					};
 
 			this.priorityChoices = new List<ComboChoice>
@@ -154,7 +170,7 @@ namespace VidCoder.ViewModel
 					this.betaInfoAvailable = false;
 					if (this.betaInfo != null)
 					{
-						if (Utilities.CompareVersions(betaInfo.LatestVersion, Utilities.CurrentVersion) > 0)
+						if (Utilities.CompareVersions(this.betaInfo.LatestVersion, Utilities.CurrentVersion) > 0)
 						{
 							this.betaInfoAvailable = true;
 						}
@@ -495,6 +511,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool outputToSourceDirectory;
 		public bool OutputToSourceDirectory
 		{
 			get
@@ -506,6 +523,51 @@ namespace VidCoder.ViewModel
 			{
 				this.outputToSourceDirectory = value;
 				this.RaisePropertyChanged(() => this.OutputToSourceDirectory);
+			}
+		}
+
+		private bool preserveFolderStructureInBatch;
+		public bool PreserveFolderStructureInBatch
+		{
+			get
+			{
+				return this.preserveFolderStructureInBatch;
+			}
+
+			set
+			{
+				this.preserveFolderStructureInBatch = value;
+				this.RaisePropertyChanged(() => this.PreserveFolderStructureInBatch);
+			}
+		}
+
+		private bool useCustomPreviewFolder;
+		public bool UseCustomPreviewFolder
+		{
+			get
+			{
+				return this.useCustomPreviewFolder;
+			}
+
+			set
+			{
+				this.useCustomPreviewFolder = value;
+				this.RaisePropertyChanged(() => this.UseCustomPreviewFolder);
+			}
+		}
+
+		private string previewOutputFolder;
+		public string PreviewOutputFolder
+		{
+			get
+			{
+				return this.previewOutputFolder;
+			}
+
+			set
+			{
+				this.previewOutputFolder = value;
+				this.RaisePropertyChanged(() => this.PreviewOutputFolder);
 			}
 		}
 
@@ -740,6 +802,54 @@ namespace VidCoder.ViewModel
 			{
 				this.autoSubtitleAll = value;
 				this.RaisePropertyChanged(() => this.AutoSubtitleAll);
+
+				this.autoSubtitleLanguageBurnIn = false;
+				this.RaisePropertyChanged(() => this.AutoSubtitleLanguageBurnIn);
+
+				this.autoSubtitleLanguageDefault = false;
+				this.RaisePropertyChanged(() => this.AutoSubtitleLanguageDefault);
+			}
+		}
+
+		private bool autoSubtitleLanguageDefault;
+		public bool AutoSubtitleLanguageDefault
+		{
+			get
+			{
+				return this.autoSubtitleLanguageDefault;
+			}
+
+			set
+			{
+				this.autoSubtitleLanguageDefault = value;
+				this.RaisePropertyChanged(() => this.AutoSubtitleLanguageDefault);
+
+				this.autoSubtitleLanguageBurnIn = false;
+				this.RaisePropertyChanged(() => this.AutoSubtitleLanguageBurnIn);
+
+				this.autoSubtitleAll = false;
+				this.RaisePropertyChanged(() => this.AutoSubtitleAll);
+			}
+		}
+
+		private bool autoSubtitleLanguageBurnIn;
+		public bool AutoSubtitleLanguageBurnIn
+		{
+			get
+			{
+				return this.autoSubtitleLanguageBurnIn;
+			}
+
+			set
+			{
+				this.autoSubtitleLanguageBurnIn = value;
+				this.RaisePropertyChanged(() => this.AutoSubtitleLanguageBurnIn);
+
+				this.autoSubtitleLanguageDefault = false;
+				this.RaisePropertyChanged(() => this.AutoSubtitleLanguageDefault);
+
+				this.autoSubtitleAll = false;
+				this.RaisePropertyChanged(() => this.AutoSubtitleAll);
 			}
 		}
 
@@ -747,7 +857,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return Language.Languages;
+				return HandBrake.Interop.Helpers.Languages.AllLanguages;
 			}
 		}
 
@@ -861,6 +971,21 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool dxvaDecoding;
+		public bool DxvaDecoding
+		{
+			get
+			{
+				return this.dxvaDecoding;
+			}
+
+			set
+			{
+				this.dxvaDecoding = value;
+				this.RaisePropertyChanged(() => this.DxvaDecoding);
+			}
+		}
+
 		private bool enableLibDvdNav;
 		public bool EnableLibDvdNav
 		{
@@ -903,6 +1028,21 @@ namespace VidCoder.ViewModel
 			{
 				this.deleteSourceFilesOnClearingCompleted = value;
 				this.RaisePropertyChanged(() => this.DeleteSourceFilesOnClearingCompleted);
+			}
+		}
+
+		private bool preserveModifyTimeFiles;
+		public bool PreserveModifyTimeFiles
+		{
+			get
+			{
+				return this.preserveModifyTimeFiles;
+			}
+
+			set
+			{
+				this.preserveModifyTimeFiles = value;
+				this.RaisePropertyChanged(() => this.PreserveModifyTimeFiles);
 			}
 		}
 
@@ -984,13 +1124,16 @@ namespace VidCoder.ViewModel
 							if (Config.InterfaceLanguageCode != this.InterfaceLanguage.CultureCode)
 							{
 								Config.InterfaceLanguageCode = this.InterfaceLanguage.CultureCode;
-								Unity.Container.Resolve<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
+								Ioc.Container.GetInstance<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
 							}
 
 							Config.AutoNameOutputFolder = this.DefaultPath;
 							Config.AutoNameCustomFormat = this.CustomFormat;
 							Config.AutoNameCustomFormatString = this.CustomFormatString;
 							Config.OutputToSourceDirectory = this.OutputToSourceDirectory;
+							Config.PreserveFolderStructureInBatch = this.PreserveFolderStructureInBatch;
+							Config.UseCustomPreviewFolder = this.UseCustomPreviewFolder;
+							Config.PreviewOutputFolder = this.PreviewOutputFolder;
 							CustomConfig.WhenFileExists = this.WhenFileExists;
 							CustomConfig.WhenFileExistsBatch = this.WhenFileExistsBatch;
 							Config.MinimizeToTray = this.MinimizeToTray;
@@ -1004,6 +1147,8 @@ namespace VidCoder.ViewModel
 							Config.AutoAudioAll = this.AutoAudioAll;
 							CustomConfig.AutoSubtitle = this.AutoSubtitle;
 							Config.AutoSubtitleBurnIn = this.AutoSubtitleBurnIn;
+							Config.AutoSubtitleLanguageDefault = this.AutoSubtitleLanguageDefault;
+							Config.AutoSubtitleLanguageBurnIn = this.AutoSubtitleLanguageBurnIn;
 							Config.SubtitleLanguageCode = this.SubtitleLanguageCode;
 							Config.AutoSubtitleOnlyIfDifferent = this.AutoSubtitleOnlyIfDifferent;
 							Config.AutoSubtitleAll = this.AutoSubtitleAll;
@@ -1034,8 +1179,10 @@ namespace VidCoder.ViewModel
 
 							Config.ShowAudioTrackNameField = this.ShowAudioTrackNameField;
 							Config.EnableLibDvdNav = this.EnableLibDvdNav;
+							Config.DxvaDecoding = this.DxvaDecoding;
 							Config.KeepScansAfterCompletion = this.KeepScansAfterCompletion;
 							Config.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
+							Config.PreserveModifyTimeFiles = this.PreserveModifyTimeFiles;
 							Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;
 							Config.UseWorkerProcess = this.UseWorkerProcess;
 							Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
@@ -1063,7 +1210,7 @@ namespace VidCoder.ViewModel
 						string fileName = FileService.Instance.GetFileNameLoad(
 							title: OptionsRes.VideoPlayerFilePickTitle,
 							defaultExt: "exe",
-							filter: string.Format(CommonRes.FilePickerExtTemplate, "EXE") + "|*.exe");
+							filter: Utilities.GetFilePickerFilter("exe"));
 
 						if (fileName != null)
 						{
@@ -1087,7 +1234,7 @@ namespace VidCoder.ViewModel
 						string fileName = FileService.Instance.GetFileNameLoad(
 							title: OptionsRes.CompletionWavFilePickTitle, 
 							defaultExt: "wav", 
-							filter: string.Format(CommonRes.FilePickerExtTemplate, "WAV") + "|*.wav");
+							filter: Utilities.GetFilePickerFilter("wav"));
 
 						if (fileName != null)
 						{
@@ -1120,6 +1267,22 @@ namespace VidCoder.ViewModel
 							this.DefaultPath = newFolder;
 						}
 					}));
+			}
+		}
+
+		private RelayCommand browsePreviewFolderCommand;
+		public RelayCommand BrowsePreviewFolderCommand
+		{
+			get
+			{
+				return this.browsePreviewFolderCommand ?? (this.browsePreviewFolderCommand = new RelayCommand(() =>
+				{
+					string newFolder = FileService.Instance.GetFolderName(null);
+					if (newFolder != null)
+					{
+						this.PreviewOutputFolder = newFolder;
+					}
+				}));
 			}
 		}
 

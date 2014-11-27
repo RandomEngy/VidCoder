@@ -10,7 +10,6 @@ using System.Net;
 using System.Windows;
 using VidCoder.Model;
 using System.Diagnostics;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder.Services
 {
@@ -56,7 +55,7 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ILogger logger = Unity.Container.Resolve<ILogger>();
+		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
 		private BackgroundWorker updateDownloader;
 		private bool processDownloadsUpdates = true;
 
@@ -106,7 +105,7 @@ namespace VidCoder.Services
 					{
 						// An update is ready, to give a prompt to apply it.
 						var updateConfirmation = new ApplyUpdateConfirmation();
-						updateConfirmation.Owner = Unity.Container.Resolve<View.MainWindow>();
+						updateConfirmation.Owner = Ioc.Container.GetInstance<View.MainWindow>();
 						updateConfirmation.ShowDialog();
 
 						if (updateConfirmation.Result == "Yes")
@@ -139,7 +138,7 @@ namespace VidCoder.Services
 				Config.UpdateInProgress = true;
 
 				var installerProcess = new Process();
-				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons" };
+				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons /showSuccessDialog=\"yes\"" };
 				installerProcess.Start();
 
 				// Let the program close on its own.
@@ -199,6 +198,10 @@ namespace VidCoder.Services
 						DeleteUpdatesFolder();
 					}
 					catch (IOException)
+					{
+						// Ignore this. Not critical that we delete the updates folder.
+					}
+					catch (UnauthorizedAccessException)
 					{
 						// Ignore this. Not critical that we delete the updates folder.
 					}
@@ -301,6 +304,13 @@ namespace VidCoder.Services
 			try
 			{
 				UpdateInfo updateInfo = GetUpdateInfo(Beta);
+
+				if (updateInfo == null)
+				{
+					this.State = UpdateState.Failed;
+					this.logger.Log("Update download failed. Unable to get update info.");
+					return;
+				}
 
 				string updateVersion = updateInfo.LatestVersion;
 				this.LatestVersion = updateVersion;
@@ -427,12 +437,7 @@ namespace VidCoder.Services
 					this.State = UpdateState.UpToDate;
 				}
 			}
-			catch (WebException exception)
-			{
-				this.State = UpdateState.Failed;
-				this.logger.Log("Update download failed: " + exception.Message);
-			}
-			catch (System.Xml.XmlException exception)
+			catch (Exception exception)
 			{
 				this.State = UpdateState.Failed;
 				this.logger.Log("Update download failed: " + exception.Message);

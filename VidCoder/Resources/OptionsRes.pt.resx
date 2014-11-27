@@ -261,9 +261,7 @@
   <data name="AdvancedTab" xml:space="preserve">
     <value>Avançadas</value>
   </data>
-  <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Está a usar uma versão Beta. Para voltar a uma versão estável, desinstale, clique em "Sim" para remover as as suas definições e, em seguida, reinstale uma versão estável.</value>
-  </data>
+  
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Junte-se à lista de testadores Beta para obter atualizações mais frequentes</value>
   </data>
@@ -384,16 +382,24 @@
   <data name="Priority_Idle" xml:space="preserve">
     <value>Baixa</value>
   </data>
-	<data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
     <value>Copie o relatório de codificação para o mesmo diretório do vídeo codificado</value>
   </data>
-	<data name="OpenLogFolderButton" xml:space="preserve">
+  <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Abrir pasta de relatórios</value>
   </data>
-	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
     <value>Retomar automáticamente a codificação ao reiniciar</value>
   </data>
-	<data name="UseWorkerProcessCheckBox" xml:space="preserve">
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Utilizar o processo de trabalho para codificar</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+	
 </root>

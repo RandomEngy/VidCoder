@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Omu.ValueInjecter</name>
+    </assembly>
+    <members>
+        <member name="T:Omu.ValueInjecter.ExactValueInjection">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Omu.ValueInjecter.PrefixedValueInjection.SearchTargetName(System.String)">
+            <summary>
+            get a string representing the target property name using the source property name and prefixes
+            </summary>
+            <param name="s">source property original name</param>
+            <returns></returns>
+        </member>
+        <member name="M:Omu.ValueInjecter.PrefixedValueInjection.SearchSourceName(System.String)">
+            <summary>
+            get a string representing the source property name using the target property name and prefixes
+            </summary>
+            <param name="s">target property original name</param>
+            <returns></returns>
+        </member>
+        <member name="M:Omu.ValueInjecter.DescriptorTools.GetByName(System.ComponentModel.PropertyDescriptorCollection,System.String)">
+            <summary>
+            Seek for a PropertyDescriptor within the collection by Name
+            </summary>
+            <returns>the search result or null if nothing was found</returns>
+        </member>
+        <member name="M:Omu.ValueInjecter.DescriptorTools.GetByName(System.ComponentModel.PropertyDescriptorCollection,System.String,System.Boolean)">
+            <summary>
+            Seek for a PropertyDescriptor within the collection by Name with option to ignore case
+            </summary>
+            <returns>search result or null if nothing was found</returns>
+        </member>
+        <member name="M:Omu.ValueInjecter.DescriptorTools.GetByNameType``1(System.ComponentModel.PropertyDescriptorCollection,System.String)">
+            <summary>
+            Search for a PropertyDescriptor within the collection that is of a specific type T
+            </summary>
+            <returns>search result or null if nothing was found</returns>
+        </member>
+        <member name="T:Omu.ValueInjecter.NoSourceValueInjection">
+            <summary>
+             inject value without source
+            </summary>
+        </member>
+        <member name="T:Omu.ValueInjecter.UberFlatter">
+            <summary>
+            performs flattening and unflattening
+            first version of this class was made by Vadim Plamadeala ☺
+            </summary>
+        </member>
+        <member name="T:Omu.ValueInjecter.PropertyInfosStorage">
+            <summary>
+            this is for caching the PropertyDescriptorCollection and PropertyInfo[] for each Type
+            </summary>
+        </member>
+        <member name="T:Omu.ValueInjecter.LoopValueInjection`2">
+            <summary>
+            maps the properties with the same name from the source object of type TSourceProperty to the ones from the target object of type TTargetProperty
+            </summary>
+            <typeparam name="TSourceProperty">source properties type</typeparam>
+            <typeparam name="TTargetProperty">target properties type</typeparam>
+        </member>
+        <member name="T:Omu.ValueInjecter.LoopValueInjection">
+            <summary>
+             maps the properties with the same name and type(by default, but you can override TypesMatch to change this) from source to the ones in the target
+            </summary>
+        </member>
+        <member name="M:Omu.ValueInjecter.StaticValueInjecter.InjectFrom``1(System.Object,System.Object[])">
+            <summary>
+            Injects values from source to target
+            </summary>
+            <typeparam name="T">ValueInjection used</typeparam>
+            <param name="target">target where the value is going to be injected</param>
+            <param name="source">source from where the value is taken</param>
+            <returns>the modified target</returns>
+        </member>
+        <member name="M:Omu.ValueInjecter.StaticValueInjecter.InjectFrom(System.Object,Omu.ValueInjecter.IValueInjection,System.Object[])">
+            <summary>
+            Injects values from source to target
+            </summary>
+            <param name="target">target where the value is going to be injected</param>
+            <param name="injection">ValueInjection used</param>
+            <param name="source">source from where the value is taken</param>
+            <returns>the modified target</returns>
+        </member>
+        <member name="M:Omu.ValueInjecter.StaticValueInjecter.InjectFrom``1(System.Object)">
+            <summary>
+            Injects values into the target
+            </summary>
+            <typeparam name="T">ValueInjection(INoSourceValueInjection) used for that</typeparam>
+            <param name="target">target where the value is going to be injected</param>
+            <returns>the modified target</returns>
+        </member>
+        <member name="M:Omu.ValueInjecter.StaticValueInjecter.InjectFrom(System.Object,Omu.ValueInjecter.INoSourceValueInjection)">
+            <summary>
+            Injects value into target without source
+            </summary>
+            <param name="target">the target where the value is going to be injected</param>
+            <param name="injection"> the injection(INoSourceValueInjection) used to inject value</param>
+            <returns>the modified target</returns>
+        </member>
+        <member name="M:Omu.ValueInjecter.StaticValueInjecter.InjectFrom(System.Object,System.Object[])">
+            <summary>
+            it the same as calling InjectFrom&lt;LookupValueInjection&gt;()
+            </summary>
+        </member>
+        <member name="M:Omu.ValueInjecter.ValueInjecter.Inject``1(System.Object,System.Object[])">
+            <summary>
+            inject values from source to target
+            </summary>
+            <typeparam name="T">ValueInjection used </typeparam>
+            <param name="target">target where the values is going to be injected</param>
+            <param name="source">source from where the values are taken</param>
+            <returns>the modified target</returns>
+        </member>
+        <member name="M:Omu.ValueInjecter.ValueInjecter.Inject(Omu.ValueInjecter.IValueInjection,System.Object,System.Object[])">
+            <summary>
+            inject values from source to target
+            </summary>
+            <param name="injection">the injection used</param>
+            <param name="target">target where the values is going to be injected</param>
+            <param name="source">source from where the values are taken</param>
+            <returns>the modified target</returns>
+        </member>
+        <member name="M:Omu.ValueInjecter.ValueInjecter.Inject``1(System.Object)">
+            <summary>
+            inject values into the target
+            </summary>
+            <typeparam name="T">ValueInjection used </typeparam>
+            <param name="target">target where the values is going to be injected</param>
+            <returns>the modified target</returns>
+        </member>
+        <member name="M:Omu.ValueInjecter.ValueInjecter.Inject(Omu.ValueInjecter.INoSourceValueInjection,System.Object)">
+            <summary>
+            inject values into the target
+            </summary>
+            <param name="injection">ValueInjection used</param>
+            <param name="target">target where the values is going to be injected</param>
+            <returns>the modified target</returns>
+        </member>
+        <member name="M:Omu.ValueInjecter.ValueInjecter.Inject(System.Object,System.Object[])">
+            <summary>
+            the same as calling Inject&lt;LoopValueInjection>()
+            </summary>
+        </member>
+    </members>
+</doc>

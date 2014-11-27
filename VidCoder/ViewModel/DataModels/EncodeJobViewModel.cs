@@ -11,7 +11,6 @@ using HandBrake.Interop.Model.Encoding;
 using VidCoder.DragDropUtils;
 using HandBrake.Interop;
 using System.Diagnostics;
-using Microsoft.Practices.Unity;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.ViewModel.Components;
@@ -26,7 +25,7 @@ namespace VidCoder.ViewModel
 	{
 		public const double SubtitleScanCostFactor = 5.0;
 
-		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
+		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
 		private ProcessingViewModel processingVM;
 
 		private bool isSelected;
@@ -80,7 +79,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.processingVM == null)
 				{
-					this.processingVM = Unity.Container.Resolve<ProcessingViewModel>();
+					this.processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
 				}
 
 				return this.processingVM;
@@ -94,6 +93,9 @@ namespace VidCoder.ViewModel
 		public VideoSource VideoSource { get; set; }
 
 		public VideoSourceMetadata VideoSourceMetadata { get; set; }
+
+		// The parent folder for the item (if it was inside a folder of files added in a batch)
+		public string SourceParentFolder { get; set; }
 
 		// True if the output path was picked manually rather than auto-generated
 		public bool ManualOutputPath { get; set; }
@@ -192,7 +194,7 @@ namespace VidCoder.ViewModel
 			{
 				double cost = this.Job.Length.TotalSeconds;
 
-				if (this.Job.EncodingProfile.TwoPass)
+				if (this.Job.EncodingProfile.VideoEncodeRateType != VideoEncodeRateType.ConstantQuality && this.Job.EncodingProfile.TwoPass)
 				{
 					cost += this.Job.Length.TotalSeconds;
 				}

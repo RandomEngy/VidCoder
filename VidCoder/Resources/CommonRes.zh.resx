@@ -240,4 +240,16 @@
   <data name="QueueColumnNamePreset" xml:space="preserve">
     <value>预设</value>
   </data>
+  <data name="Success" xml:space="preserve">
+    <value>成功</value>
+  </data>
+  <data name="ConfirmDialogTitle" xml:space="preserve">
+    <value>确认 </value>
+  </data>
+  <data name="FileFailureErrorMessage" xml:space="preserve">
+    <value>无法完成文件操作。</value>
+  </data>
+  <data name="FileFailureErrorTitle" xml:space="preserve">
+    <value>文件处理出错</value>
+  </data>
 </root>

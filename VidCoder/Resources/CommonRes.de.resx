@@ -240,4 +240,16 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
   <data name="QueueColumnNamePreset" xml:space="preserve">
     <value>Voreinstellung</value>
   </data>
+  <data name="Success" xml:space="preserve">
+    <value>Erfolgreich</value>
+  </data>
+  <data name="ConfirmDialogTitle" xml:space="preserve">
+    <value>Bestätigen</value>
+  </data>
+  <data name="FileFailureErrorMessage" xml:space="preserve">
+    <value>Der Dateivorgang konnte nicht abgeschlossen werden.</value>
+  </data>
+  <data name="FileFailureErrorTitle" xml:space="preserve">
+    <value>Fehler beim Dateivorgang</value>
+  </data>
 </root>

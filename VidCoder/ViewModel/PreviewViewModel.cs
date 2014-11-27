@@ -12,7 +12,6 @@ using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using VidCoder.Messages;
 using System.IO;
-using Microsoft.Practices.Unity;
 using VidCoder.Services;
 using System.Threading;
 using VidCoder.Model;
@@ -21,7 +20,9 @@ using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
+	using System.Drawing;
 	using System.Globalization;
+	using System.Linq.Expressions;
 	using Resources;
 
 	public class PreviewViewModel : OkCancelDialogViewModel
@@ -34,7 +35,7 @@ namespace VidCoder.ViewModel
 		private VCJob job;
 		private HandBrakeInstance originalScanInstance;
 		private IEncodeProxy encodeProxy;
-		private ILogger logger = Unity.Container.Resolve<ILogger>();
+		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
 		private string title;
 		private int selectedPreview;
 		private bool hasPreview;
@@ -50,18 +51,18 @@ namespace VidCoder.ViewModel
 		private DateTime lastImageRefreshTime;
 		private System.Timers.Timer previewImageRefreshTimer;
 		private bool waitingOnRefresh;
-		private BitmapImage[] previewImageCache;
+		private BitmapSource[] previewImageCache;
 		private Queue<PreviewImageJob> previewImageWorkQueue = new Queue<PreviewImageJob>();
 		private bool previewImageQueueProcessing;
 		private object imageSync = new object();
 		private List<object> imageFileSync;
 		private string imageFileCacheFolder;
-		private BitmapImage previewBitmapImage;
+		private BitmapSource previewBitmapSource;
 
-		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
-		private OutputPathViewModel outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
-		private WindowManagerViewModel windowManagerVM = Unity.Container.Resolve<WindowManagerViewModel>();
-		private ProcessingViewModel processingVM = Unity.Container.Resolve<ProcessingViewModel>();
+		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
+		private OutputPathViewModel outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
+		private WindowManagerViewModel windowManagerVM = Ioc.Container.GetInstance<WindowManagerViewModel>();
+		private ProcessingViewModel processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
 
 		public PreviewViewModel()
 		{
@@ -141,13 +142,13 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public BitmapImage PreviewBitmapImage
+		public BitmapSource PreviewBitmapSource
 		{
 			get
 			{
 				lock (this.imageSync)
 				{
-					return this.previewBitmapImage;
+					return this.previewBitmapSource;
 				}
 			}
 		}
@@ -255,7 +256,7 @@ namespace VidCoder.ViewModel
 				{
 					lock (this.imageSync)
 					{
-						this.previewBitmapImage = this.previewImageCache[value];
+						this.previewBitmapSource = this.previewImageCache[value];
 						this.RefreshFromBitmapImage();
 						this.ClearOutOfRangeItems();
 						this.BeginBackgroundImageLoad();
@@ -334,21 +335,31 @@ namespace VidCoder.ViewModel
 				}
 
 				string sourcePath = this.mainViewModel.SourcePath;
-				var fileAttributes = File.GetAttributes(sourcePath);
-				if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
-				{
-					// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
-					bool isDvd = Utilities.IsDvdFolder(this.mainViewModel.SourcePath);
-					if (!isDvd)
-					{
-						return PreviewRes.PlaySourceDisabledBluRayToolTip;
-					}
 
-					bool playerInstalled = Players.Installed.Count > 0;
-					if (!playerInstalled)
+				try
+				{
+					if (Utilities.IsDirectory(sourcePath))
 					{
-						return PreviewRes.PlaySourceDisabledNoPlayerToolTip;
+						// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
+						bool isDvd = Utilities.IsDvdFolder(this.mainViewModel.SourcePath);
+						if (!isDvd)
+						{
+							return PreviewRes.PlaySourceDisabledBluRayToolTip;
+						}
+
+						bool playerInstalled = Players.Installed.Count > 0;
+						if (!playerInstalled)
+						{
+							return PreviewRes.PlaySourceDisabledNoPlayerToolTip;
+						}
 					}
+				}
+				catch (FileNotFoundException)
+				{
+					return PreviewRes.PlaySourceDisabledNotFoundToolTip;
+				}
+				catch (IOException)
+				{
 				}
 
 				return PreviewRes.PlaySourceToolTip;
@@ -359,25 +370,33 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (!this.HasPreview || this.mainViewModel.SourcePath == null)
+				string sourcePath = this.mainViewModel.SourcePath;
+
+				if (!this.HasPreview || sourcePath == null)
 				{
 					return false;
 				}
 
-				string sourcePath = this.mainViewModel.SourcePath;
-				var fileAttributes = File.GetAttributes(sourcePath);
-				if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
+				try
 				{
-					// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
-					bool isDvd = Utilities.IsDvdFolder(this.mainViewModel.SourcePath);
-					bool playerInstalled = Players.Installed.Count > 0;
+					if (Utilities.IsDirectory(sourcePath))
+					{
+						// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
+						bool isDvd = Utilities.IsDvdFolder(this.mainViewModel.SourcePath);
+						bool playerInstalled = Players.Installed.Count > 0;
 
-					return isDvd && playerInstalled;
+						return isDvd && playerInstalled;
+					}
+					else
+					{
+						// Path is a file
+						return true;
+					}
 				}
-				else
+				catch (IOException)
 				{
-					// Path is a file
-					return true;
+					this.RaisePropertyChanged(() => this.PlaySourceToolTip);
+					return false;
 				}
 			}
 		}
@@ -430,32 +449,9 @@ namespace VidCoder.ViewModel
 						this.cancelPending = false;
 						this.encodeCancelled = false;
 
-						string extension = null;
+						this.SetPreviewFilePath();
 
-						if (this.job.EncodingProfile.OutputFormat == Container.Mkv)
-						{
-							extension = ".mkv";
-						}
-						else
-						{
-							if (this.job.EncodingProfile.PreferredExtension == OutputExtension.M4v)
-							{
-								extension = ".m4v";
-							}
-							else
-							{
-								extension = ".mp4";
-							}
-						}
-
-						string previewDirectory = Utilities.LocalAppFolder;
-						if (!Directory.Exists(previewDirectory))
-						{
-							Directory.CreateDirectory(previewDirectory);
-						}
-
-						this.previewFilePath = Path.Combine(previewDirectory, @"preview" + extension);
-						this.job.OutputPath = previewFilePath;
+						this.job.OutputPath = this.previewFilePath;
 
 						this.previewEncodeStarted = false;
 
@@ -518,6 +514,48 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private void SetPreviewFilePath()
+		{
+			string extension = OutputPathViewModel.GetExtensionForProfile(this.job.EncodingProfile);
+
+			string previewDirectory;
+			if (Config.UseCustomPreviewFolder)
+			{
+				previewDirectory = Config.PreviewOutputFolder;
+			}
+			else
+			{
+				previewDirectory = Utilities.LocalAppFolder;
+			}
+
+			try
+			{
+				if (!Directory.Exists(previewDirectory))
+				{
+					Directory.CreateDirectory(previewDirectory);
+				}
+			}
+			catch (Exception exception)
+			{
+				this.logger.LogError("Could not create preview directory " + Config.PreviewOutputFolder + Environment.NewLine + exception);
+				previewDirectory = Utilities.LocalAppFolder;
+			}
+
+			this.previewFilePath = Path.Combine(previewDirectory, "preview" + extension);
+
+			if (File.Exists(this.previewFilePath))
+			{
+				try
+				{
+					File.Delete(this.previewFilePath);
+				}
+				catch (Exception)
+				{
+					this.previewFilePath = Utilities.CreateUniqueFileName(this.previewFilePath, new HashSet<string>());
+				}
+			}
+		}
+
 		private RelayCommand playSourceCommand;
 		public RelayCommand PlaySourceCommand
 		{
@@ -526,23 +564,30 @@ namespace VidCoder.ViewModel
 				return this.playSourceCommand ?? (this.playSourceCommand = new RelayCommand(() =>
 				    {
 						string sourcePath = this.mainViewModel.SourcePath;
-						var fileAttributes = File.GetAttributes(sourcePath);
-						if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
-						{
-							// Path is a directory
-							IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);
-							if (player == null)
-							{
-								player = Players.Installed[0];
-							}
 
-							player.PlayTitle(sourcePath, this.mainViewModel.SelectedTitle.TitleNumber);
-						}
-						else
-						{
-							// Path is a file
-							FileService.Instance.PlayVideo(sourcePath);
-						}
+					    try
+					    {
+						    if (Utilities.IsDirectory(sourcePath))
+						    {
+								// Path is a directory
+								IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);
+								if (player == null)
+								{
+									player = Players.Installed[0];
+								}
+
+								player.PlayTitle(sourcePath, this.mainViewModel.SelectedTitle.TitleNumber);
+						    }
+						    else
+						    {
+								// Path is a file
+								FileService.Instance.PlayVideo(sourcePath);
+						    }
+					    }
+					    catch (IOException)
+					    {
+							this.PlaySourceCommand.RaiseCanExecuteChanged();
+					    }
 				    }, () =>
 				    {
 						return this.PlayAvailable;
@@ -623,16 +668,29 @@ namespace VidCoder.ViewModel
 			this.originalScanInstance = this.ScanInstance;
 
 			this.job = this.mainViewModel.EncodeJob;
+			VCProfile profile = this.job.EncodingProfile;
 
 			int width, height, parWidth, parHeight;
 			this.ScanInstance.GetSize(this.job.HbJob, out width, out height, out parWidth, out parHeight);
+
+			// If we're rotating by 90 degrees, swap width and height for sizing purposes.
+			if (profile.Rotation == PictureRotation.Clockwise90 || profile.Rotation == PictureRotation.Clockwise270)
+			{
+				int temp = width;
+				width = height;
+				height = temp;
+
+				temp = parWidth;
+				parWidth = parHeight;
+				parHeight = temp;
+			}
 
 			if (parWidth <= 0 || parHeight <= 0)
 			{
 				this.HasPreview = false;
 				this.Title = PreviewRes.NoVideoSourceTitle;
 
-				Unity.Container.Resolve<ILogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
+				Ioc.Container.GetInstance<ILogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
 				return;
 			}
 
@@ -653,7 +711,7 @@ namespace VidCoder.ViewModel
 
 			lock (this.imageSync)
 			{
-				this.previewImageCache = new BitmapImage[this.previewCount];
+				this.previewImageCache = new BitmapSource[this.previewCount];
 				updateVersion++;
 
 				// Clear main work queue.
@@ -858,26 +916,36 @@ namespace VidCoder.ViewModel
 					Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture),
 					imageJob.UpdateVersion.ToString(CultureInfo.InvariantCulture),
 					imageJob.PreviewNumber + ".bmp");
-				BitmapImage image = null;
+				BitmapSource imageSource = null;
 
 				// Check the disc cache for the image
 				lock (imageJob.ImageFileSync)
 				{
 					if (File.Exists(imagePath))
 					{
-						image = new BitmapImage();
-						image.BeginInit();
-						image.CacheOption = BitmapCacheOption.OnLoad;
-						image.UriSource = new Uri(imagePath);
-						image.EndInit();
-						image.Freeze();
+						// When we read from disc cache the image is already transformed.
+						var bitmapImage = new BitmapImage();
+						bitmapImage.BeginInit();
+						bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+						bitmapImage.UriSource = new Uri(imagePath);
+						bitmapImage.EndInit();
+						bitmapImage.Freeze();
+
+						imageSource = bitmapImage;
 					}
 				}
 
-				if (image == null)
+				if (imageSource == null)
 				{
 					// Make a HandBrake call to get the image
-					image = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob.HbJob, imageJob.PreviewNumber);
+					imageSource = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob.HbJob, imageJob.PreviewNumber);
+
+					// Transform the image as per rotation and reflection settings
+					VCProfile profile = imageJob.EncodeJob.EncodingProfile;
+					if (profile.FlipHorizontal || profile.FlipVertical || profile.Rotation != PictureRotation.None)
+					{
+						imageSource = CreateTransformedBitmap(imageSource, profile);
+					}
 
 					// Start saving the image file in the background and continue to process the queue.
 					ThreadPool.QueueUserWorkItem(
@@ -887,7 +955,7 @@ namespace VidCoder.ViewModel
 							PreviewNumber = imageJob.PreviewNumber,
 							UpdateVersion = imageJob.UpdateVersion,
 							FilePath = imagePath,
-							Image = image,
+							Image = imageSource,
 							ImageFileSync = imageJob.ImageFileSync
 						});
 				}
@@ -896,14 +964,13 @@ namespace VidCoder.ViewModel
 				{
 					if (imageJob.UpdateVersion == updateVersion)
 					{
-						this.previewImageCache[imageJob.PreviewNumber] = image;
+						this.previewImageCache[imageJob.PreviewNumber] = imageSource;
 						if (this.SelectedPreview == imageJob.PreviewNumber)
 						{
 							DispatchService.BeginInvoke(() =>
 							{
-								this.previewBitmapImage = image;
+								this.previewBitmapSource = imageSource;
 								this.RefreshFromBitmapImage();
-								//this.PreviewImage = image;
 							});
 						}
 					}
@@ -917,19 +984,51 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private static TransformedBitmap CreateTransformedBitmap(BitmapSource source, VCProfile profile)
+		{
+			var transformedBitmap = new TransformedBitmap();
+			transformedBitmap.BeginInit();
+			transformedBitmap.Source = source;
+			var transformGroup = new TransformGroup();
+			transformGroup.Children.Add(new ScaleTransform(profile.FlipHorizontal ? -1 : 1, profile.FlipVertical ? -1 : 1));
+			transformGroup.Children.Add(new RotateTransform(ConvertRotationToDegrees(profile.Rotation)));
+			transformedBitmap.Transform = transformGroup;
+			transformedBitmap.EndInit();
+			transformedBitmap.Freeze();
+
+			return transformedBitmap;
+		}
+
+		private static double ConvertRotationToDegrees(PictureRotation rotation)
+		{
+			switch (rotation)
+			{
+				case PictureRotation.None:
+					return 0;
+				case PictureRotation.Clockwise90:
+					return 90;
+				case PictureRotation.Clockwise180:
+					return 180;
+				case PictureRotation.Clockwise270:
+					return 270;
+			}
+
+			return 0;
+		}
+
 		private void RefreshFromBitmapImage()
 		{
-			if (this.previewBitmapImage == null)
+			if (this.previewBitmapSource == null)
 			{
 				return;
 			}
 
 			if (this.DisplayType != PreviewDisplay.Corners)
 			{
-				this.PreviewImage = this.previewBitmapImage;
+				this.PreviewImage = this.previewBitmapSource;
 			}
 
-			// In the Corners display mode, the view code will react to the message and read from this.previewBitmapImage.
+			// In the Corners display mode, the view code will react to the message and read from this.previewBitmapSource.
 			Messenger.Default.Send(new PreviewImageChangedMessage());
 		}
 

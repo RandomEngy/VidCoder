@@ -153,4 +153,7 @@
   <data name="TitleFormat">
     <value xml:space="preserve">標題 {0}</value>
   </data>
+	<data name="OverrideDirectoryCheckBox" xml:space="preserve">
+    <value>覆寫資料夾:</value>
+  </data>
 </root>

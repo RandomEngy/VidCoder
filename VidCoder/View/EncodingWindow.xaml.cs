@@ -28,8 +28,6 @@ namespace VidCoder.View
 		public EncodingWindow()
 		{
 			InitializeComponent();
-
-			this.tabControl.SelectedIndex = Config.EncodingDialogLastTab;
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)

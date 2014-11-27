@@ -136,7 +136,7 @@
     <value>Standard</value>
   </data>
   <data name="ForcedOnlyColumn" xml:space="preserve">
-    <value>Nur erzwungene</value>
+    <value>Nur Forciert</value>
   </data>
   <data name="BurnedInColumn" xml:space="preserve">
     <value>Einbrennen</value>

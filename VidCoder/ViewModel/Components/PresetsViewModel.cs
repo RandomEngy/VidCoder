@@ -8,13 +8,13 @@ using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop.Model.Encoding;
-using Microsoft.Practices.Unity;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
 {
+	using System.Globalization;
 	using Resources;
 
 	/// <summary>
@@ -22,7 +22,7 @@ namespace VidCoder.ViewModel.Components
 	/// </summary>
 	public class PresetsViewModel : ViewModelBase
 	{
-		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
+		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
 		private OutputPathViewModel outputPathVM;
 
 		private PresetViewModel selectedPreset;
@@ -99,7 +99,7 @@ namespace VidCoder.ViewModel.Components
 			{
 				if (this.outputPathVM == null)
 				{
-					this.outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
+					this.outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
 				}
 
 				return this.outputPathVM;
@@ -192,6 +192,44 @@ namespace VidCoder.ViewModel.Components
 					}
 				}
 			}
+		}
+
+		public VCProfile GetProfileByName(string presetName)
+		{
+			foreach (var preset in this.allPresets)
+			{
+				if (string.Compare(presetName.Trim(), preset.DisplayName.Trim(), ignoreCase: true, culture: CultureInfo.CurrentUICulture) == 0)
+				{
+					if (preset.IsModified)
+					{
+						return preset.OriginalProfile;
+					}
+					else
+					{
+						return preset.Preset.EncodingProfile;
+					}
+				}
+			}
+
+			return null;
+
+			//PresetViewModel match =
+			//	this.allPresets.SingleOrDefault(p =>
+			//		{
+			//			if (p.IsModified)
+			//			{
+			//				return false;
+			//			}
+
+			//			return string.Compare(presetName.Trim(), p.DisplayName.Trim(), ignoreCase: true, culture: CultureInfo.CurrentUICulture) == 0;
+			//		});
+
+			//if (match == null)
+			//{
+			//	return null;
+			//}
+
+			//return match.Preset;
 		}
 
 		public void SavePreset()

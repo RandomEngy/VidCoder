@@ -462,29 +462,17 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>Error launching URL: {0}</value>
   </data>
-  <data name="UserConfigLoadError" xml:space="preserve">
-    <value>Could not load a required user settings file; it may have become corrupt. Do you want to delete it? This will not affect your saved presets.</value>
-  </data>
-  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>Error loading settings</value>
-  </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
     <value>Could not import preset. Format is unrecognized.</value>
   </data>
-  <data name="PresetImportErrorTitle" xml:space="preserve">
+  <data name="ImportErrorTitle" xml:space="preserve">
     <value>Import Error</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
-    <value>Successfully imported preset {0}.</value>
-  </data>
-  <data name="PresetImportSuccessTitle" xml:space="preserve">
-    <value>Success</value>
+    <value>Successfully imported preset {0}</value>
   </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
     <value>Successfully exported preset to {0}</value>
-  </data>
-  <data name="PresetExportSuccessTitle" xml:space="preserve">
-    <value>Success</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Export preset</value>
@@ -572,5 +560,64 @@
   </data>
   <data name="Preset_Xbox360" xml:space="preserve">
     <value>Xbox 360</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>Remove from queue</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>Could not save queue:{0}{1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>Export Queue...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>Export queue</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Could not import queue. Format is unrecognized.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>Import preset file</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>Import queue file</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>Import Queue...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>Successfully exported queue to {0}</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>Successfully imported queue.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>Stop encode?</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>Are you sure you want to stop the encode?</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>Close the current file and open the disc?</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>Encode Details</value>
+  </data>
+  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
+    <value>Encoding settings have changed since you last added an item to the queue. Do you want to apply the current encoding settings to all items in the queue?</value>
+  </data>
+  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
+    <value>Settings have changed</value>
+  </data>
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>Do you want to rename the existing file and start with a new one?</value>
+  </data>
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>Cannot read version {0} database file. The highest version recognized by VidCoder {1} is {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>Incompatible database file</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
 </root>

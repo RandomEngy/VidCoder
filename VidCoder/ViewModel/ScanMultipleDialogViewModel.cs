@@ -16,6 +16,7 @@ namespace VidCoder.ViewModel
 	{
 		private List<EncodeJobViewModel> itemsToScan;
 		private int currentJobIndex;
+		private float currentJobProgress;
 		private object currentJobIndexLock = new object();
 
 		public ScanMultipleDialogViewModel(List<EncodeJobViewModel> itemsToScan)
@@ -28,7 +29,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return ((double)this.currentJobIndex * 100.0) / this.itemsToScan.Count;
+				return ((this.currentJobIndex + this.currentJobProgress) * 100.0) / this.itemsToScan.Count;
 			}
 		}
 
@@ -51,40 +52,49 @@ namespace VidCoder.ViewModel
 
 			var onDemandInstance = new HandBrakeInstance();
 			onDemandInstance.Initialize(Config.LogVerbosity);
+			onDemandInstance.ScanProgress += (o, e) =>
+				{
+					lock (this.currentJobIndexLock)
+					{
+						this.currentJobProgress = e.Progress;
+						this.RaisePropertyChanged(() => this.Progress);
+					}
+				};
 			onDemandInstance.ScanCompleted += (o, e) =>
-			{
-				jobVM.HandBrakeInstance = onDemandInstance;
-
-				if (onDemandInstance.Titles.Count > 0)
 				{
-					Title titleToEncode = Utilities.GetFeatureTitle(onDemandInstance.Titles, onDemandInstance.FeatureTitle);
+					jobVM.HandBrakeInstance = onDemandInstance;
 
-					jobVM.Job.Title = titleToEncode.TitleNumber;
-					jobVM.Job.Length = titleToEncode.Duration;
-					jobVM.Job.ChapterStart = 1;
-					jobVM.Job.ChapterEnd = titleToEncode.Chapters.Count;
-				}
-
-				lock (this.currentJobIndexLock)
-				{
-					this.currentJobIndex++;
-					this.RaisePropertyChanged(() => this.Progress);
-
-					if (this.ScanFinished)
+					if (onDemandInstance.Titles.Count > 0)
 					{
-						DispatchService.BeginInvoke(() =>
+						Title titleToEncode = Utilities.GetFeatureTitle(onDemandInstance.Titles, onDemandInstance.FeatureTitle);
+
+						jobVM.Job.Title = titleToEncode.TitleNumber;
+						jobVM.Job.Length = titleToEncode.Duration;
+						jobVM.Job.ChapterStart = 1;
+						jobVM.Job.ChapterEnd = titleToEncode.Chapters.Count;
+					}
+
+					lock (this.currentJobIndexLock)
+					{
+						this.currentJobIndex++;
+						this.currentJobProgress = 0;
+						this.RaisePropertyChanged(() => this.Progress);
+
+						if (this.ScanFinished)
 						{
-							this.CancelCommand.Execute(null);
-						});
+							DispatchService.BeginInvoke(() =>
+							{
+								this.CancelCommand.Execute(null);
+							});
+						}
+						else
+						{
+							this.ScanNextJob();
+						}
 					}
-					else
-					{
-						this.ScanNextJob();
-					}
-				}
-			};
+				};
 
-			onDemandInstance.StartScan(jobVM.Job.SourcePath, 10, 0);
+			onDemandInstance.StartScan(jobVM.Job.SourcePath, Config.PreviewCount, 0);
 		}
 	}
 }

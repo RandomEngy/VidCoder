@@ -12,13 +12,15 @@ using HandBrake.Interop.SourceData;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using VidCoder.Messages;
-using VidCoder.Properties;
 using VidCoder.Services;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel
 {
+	using System.Resources;
+	using System.Windows.Media;
+	using Model;
 	using Resources;
+	using Brush = System.Windows.Media.Brush;
 
 	public class AudioEncodingViewModel : ViewModelBase
 	{
@@ -27,11 +29,12 @@ namespace VidCoder.ViewModel
 		private AudioPanelViewModel audioPanelVM;
 		private bool initializing;
 
-		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
+		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
 
 		private ObservableCollection<TargetStreamViewModel> targetStreams;
 		private int targetStreamIndex;
 		private List<AudioEncoderViewModel> audioEncoders;
+		private List<ComboChoice> passthroughChoices;
 		private AudioEncoderViewModel selectedAudioEncoder;
 		private List<MixdownViewModel> mixdownChoices;
 		private MixdownViewModel selectedMixdown;
@@ -44,25 +47,22 @@ namespace VidCoder.ViewModel
 
 		private ICommand removeAudioEncodingCommand;
 
-		private Container outputFormat;
+		private string containerName;
 
-		private static List<int> allSampleRateChoices = new List<int>
-		{
-			0,
-			8000,
-			11025,
-			12000,
-			16000,
-			22050,
-			24000,
-			32000,
-			44100,
-			48000
-		};
+		private static List<int> allSampleRateChoices;
 
 		private List<int> currentSampleRateChoices;
 
-		public AudioEncodingViewModel(AudioEncoding audioEncoding, Title selectedTitle, List<int> chosenAudioTracks, Container outputFormat, AudioPanelViewModel audioPanelVM)
+		static AudioEncodingViewModel()
+		{
+			allSampleRateChoices = new List<int> { 0 };
+			foreach (var sampleRate in Encoders.AudioSampleRates)
+			{
+				allSampleRateChoices.Add(sampleRate.Rate);
+			}
+		}
+
+		public AudioEncodingViewModel(AudioEncoding audioEncoding, Title selectedTitle, List<int> chosenAudioTracks, string containerName, AudioPanelViewModel audioPanelVM)
 		{
 			this.initializing = true;
 			this.audioPanelVM = audioPanelVM;
@@ -75,17 +75,29 @@ namespace VidCoder.ViewModel
 			this.audioEncoders = new List<AudioEncoderViewModel>();
 			this.mixdownChoices = new List<MixdownViewModel>();
 
-			this.outputFormat = outputFormat;
+			this.containerName = containerName;
 			this.RefreshEncoderChoices();
+
+			HBAudioEncoder hbAudioEncoder = Encoders.GetAudioEncoder(audioEncoding.Encoder);
+			if (hbAudioEncoder.IsPassthrough)
+			{
+				this.selectedAudioEncoder = this.audioEncoders[0];
+				this.selectedPassthrough = audioEncoding.Encoder;
+			}
+			else
+			{
+				this.selectedAudioEncoder = this.audioEncoders.Skip(1).FirstOrDefault(e => e.Encoder.ShortName == audioEncoding.Encoder);
+				this.selectedPassthrough = "copy";
+			}
+
+			if (this.selectedAudioEncoder == null)
+			{
+				this.selectedAudioEncoder = this.audioEncoders[1];
+			}
+
 			this.RefreshMixdownChoices();
 			this.RefreshBitrateChoices();
 			this.RefreshSampleRateChoices();
-
-			this.selectedAudioEncoder = this.audioEncoders.FirstOrDefault(e => e.Encoder.ShortName == audioEncoding.Encoder);
-			if (this.selectedAudioEncoder == null)
-			{
-				this.selectedAudioEncoder = this.audioEncoders[0];
-			}
 
 			this.SelectMixdown(Encoders.GetMixdown(audioEncoding.Mixdown));
 
@@ -111,9 +123,15 @@ namespace VidCoder.ViewModel
 				this.audioCompression = this.HBAudioEncoder.DefaultCompression;
 			}
 
-			this.selectedBitrate = this.BitrateChoices.Single(b => b.Bitrate == audioEncoding.Bitrate);
+			this.selectedBitrate = this.BitrateChoices.SingleOrDefault(b => b.Bitrate == audioEncoding.Bitrate);
+			if (this.selectedBitrate == null)
+			{
+				this.selectedBitrate = this.BitrateChoices.First();
+			}
+
 			this.gain = audioEncoding.Gain;
 			this.drc = audioEncoding.Drc;
+			this.passthroughIfPossible = audioEncoding.PassthroughIfPossible;
 			this.name = audioEncoding.Name;
 
 			Messenger.Default.Register<SelectedTitleChangedMessage>(
@@ -122,6 +140,7 @@ namespace VidCoder.ViewModel
 					{
 						this.RefreshMixdownChoices();
 						this.RefreshBitrateChoices();
+						this.RefreshDrc();
 					});
 
 			Messenger.Default.Register<AudioInputChangedMessage>(
@@ -130,6 +149,7 @@ namespace VidCoder.ViewModel
 					{
 						this.RefreshMixdownChoices();
 						this.RefreshBitrateChoices();
+						this.RefreshDrc();
 					});
 
 			Messenger.Default.Register<OptionsChangedMessage>(
@@ -139,7 +159,23 @@ namespace VidCoder.ViewModel
 						this.RaisePropertyChanged(() => this.NameVisible);
 					});
 
+			Messenger.Default.Register<ContainerChangedMessage>(
+				this,
+				message =>
+					{
+						this.containerName = message.ContainerName;
+						this.RefreshEncoderChoices();
+					});
+
 			this.initializing = false;
+		}
+
+		public AudioPanelViewModel AudioPanelVM
+		{
+			get
+			{
+				return this.audioPanelVM;
+			}
 		}
 
 		public AudioEncoding NewAudioEncoding
@@ -173,6 +209,7 @@ namespace VidCoder.ViewModel
 
 					newAudioEncoding.Gain = this.Gain;
 					newAudioEncoding.Drc = this.Drc;
+					newAudioEncoding.PassthroughIfPossible = this.PassthroughIfPossible;
 					newAudioEncoding.Name = this.Name;
 				}
 
@@ -236,6 +273,9 @@ namespace VidCoder.ViewModel
 
 				this.RaisePropertyChanged(() => this.SelectedAudioEncoder);
 				this.RaisePropertyChanged(() => this.EncoderSettingsVisible);
+				this.RaisePropertyChanged(() => this.PassthroughChoicesVisible);
+				this.RaisePropertyChanged(() => this.AutoPassthroughSettingsVisible);
+				this.RaisePropertyChanged(() => this.PassthroughIfPossibleVisible);
 				this.RaisePropertyChanged(() => this.BitrateVisible);
 				this.RaisePropertyChanged(() => this.AudioQualityVisible);
 				this.RaisePropertyChanged(() => this.AudioQualityRadioVisible);
@@ -254,47 +294,52 @@ namespace VidCoder.ViewModel
 				this.RefreshMixdownChoices();
 				this.RefreshBitrateChoices();
 				this.RefreshSampleRateChoices();
-				if (!value.Encoder.IsPassthrough)
+				this.RefreshDrc();
+
+				if (!value.IsPassthrough)
 				{
 					if (this.SelectedBitrate == null && this.BitrateChoices.Count > 0)
 					{
 						this.SelectedBitrate = this.BitrateChoices[0];
 					}
-				}
 
-				//this.audioPanelVM.RefreshExtensionChoice();
+					// Set encode rate type to Bitrate if quality is not supported.
+					if (!value.Encoder.SupportsQuality)
+					{
+						this.encodeRateType = AudioEncodeRateType.Bitrate;
+						this.RaiseEncodeRateTypeChanged();
+					}
 
-				// Set encode rate type to Bitrate if quality is not supported.
-				if (!value.Encoder.IsPassthrough && !value.Encoder.SupportsQuality)
-				{
-					this.encodeRateType = AudioEncodeRateType.Bitrate;
-					this.RaiseEncodeRateTypeChanged();
-				}
+					// On encoder switch set default quality/compression if supported.
+					if (value.Encoder.SupportsQuality)
+					{
+						this.audioQuality = value.Encoder.DefaultQuality;
+						this.RaisePropertyChanged(() => this.AudioQuality);
+					}
 
-				// On encoder switch set default quality/compression if supported.
-				if (value.Encoder.SupportsQuality)
-				{
-					this.audioQuality = value.Encoder.DefaultQuality;
-					this.RaisePropertyChanged(() => this.AudioQuality);
-				}
-
-				if (value.Encoder.SupportsCompression)
-				{
-					this.audioCompression = value.Encoder.DefaultCompression;
-					this.RaisePropertyChanged(() => this.AudioCompression);
+					if (value.Encoder.SupportsCompression)
+					{
+						this.audioCompression = value.Encoder.DefaultCompression;
+						this.RaisePropertyChanged(() => this.AudioCompression);
+					}
 				}
 
 				this.RaiseAudioEncodingChanged();
 			}
 		}
 
-		private HBAudioEncoder HBAudioEncoder
+		public HBAudioEncoder HBAudioEncoder
 		{
 			get
 			{
 				if (this.SelectedAudioEncoder == null)
 				{
 					return null;
+				}
+
+				if (this.SelectedAudioEncoder.IsPassthrough)
+				{
+					return Encoders.GetAudioEncoder(this.SelectedPassthrough);
 				}
 
 				return this.SelectedAudioEncoder.Encoder;
@@ -311,6 +356,53 @@ namespace VidCoder.ViewModel
 				}
 
 				return !this.HBAudioEncoder.IsPassthrough;
+			}
+		}
+
+		public List<ComboChoice> PassthroughChoices
+		{
+			get
+			{
+				return this.passthroughChoices;
+			}
+		}
+
+		private string selectedPassthrough;
+		public string SelectedPassthrough
+		{
+			get
+			{
+				return this.selectedPassthrough;
+			}
+
+			set
+			{
+				this.selectedPassthrough = value;
+				this.RaisePropertyChanged(() => this.SelectedPassthrough);
+				this.RaisePropertyChanged(() => this.AutoPassthroughSettingsVisible);
+
+				this.RaiseAudioEncodingChanged();
+			}
+		}
+
+		public bool PassthroughChoicesVisible
+		{
+			get
+			{
+				return this.selectedAudioEncoder.IsPassthrough;
+			}
+		}
+
+		public bool AutoPassthroughSettingsVisible
+		{
+			get
+			{
+				if (this.SelectedAudioEncoder == null)
+				{
+					return false;
+				}
+
+				return this.HBAudioEncoder.ShortName == "copy";
 			}
 		}
 
@@ -635,6 +727,78 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public Brush DrcBrush
+		{
+			get
+			{
+				Brush disabledBrush = Brushes.Gray;
+				Brush enabledBrush = Brushes.Black;
+
+				if (!this.main.HasVideoSource)
+				{
+					return enabledBrush;
+				}
+
+				if (this.SelectedAudioEncoder == null)
+				{
+					return enabledBrush;
+				}
+
+				// Find if we're encoding a single track
+				var track = this.GetTargetAudioTrack();
+
+				// Can only gray out DRC if we're encoding exactly one track
+				if (track != null)
+				{
+					if (Encoders.CanApplyDrc(track, this.SelectedAudioEncoder.Encoder))
+					{
+						return enabledBrush;
+					}
+					else
+					{
+						return disabledBrush;
+					}
+				}
+
+				return enabledBrush;
+			}
+		}
+
+		private bool passthroughIfPossible;
+		public bool PassthroughIfPossible
+		{
+			get
+			{
+				return this.passthroughIfPossible;
+			}
+
+			set
+			{
+				this.passthroughIfPossible = value;
+				this.RaisePropertyChanged(() => this.PassthroughIfPossible);
+				this.audioPanelVM.NotifyAudioEncodingChanged();
+				this.MarkModified();
+			}
+		}
+
+		public bool PassthroughIfPossibleVisible
+		{
+			get
+			{
+				if (this.SelectedAudioEncoder.IsPassthrough)
+				{
+					return false;
+				}
+
+				if (Encoders.CanPassthroughAudio(this.SelectedAudioEncoder.Encoder.Id))
+				{
+					return true;
+				}
+
+				return this.SelectedAudioEncoder.Encoder.ShortName.ToLowerInvariant().Contains("aac") || this.SelectedAudioEncoder.Encoder.ShortName.ToLowerInvariant().Contains("mp3");
+			}
+		}
+
 		public string Name
 		{
 			get
@@ -648,20 +812,6 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.Name);
 				this.audioPanelVM.NotifyAudioEncodingChanged();
 				this.MarkModified();
-			}
-		}
-
-		public Container OutputFormat
-		{
-			get
-			{
-				return this.outputFormat;
-			}
-
-			set
-			{
-				this.outputFormat = value;
-				this.RefreshEncoderChoices();
 			}
 		}
 
@@ -727,33 +877,76 @@ namespace VidCoder.ViewModel
 
 		private void RefreshEncoderChoices()
 		{
-			HBAudioEncoder oldEncoder = null;
+			HBContainer container = Encoders.GetContainer(this.containerName);
+			AudioEncoderViewModel oldEncoder = null;
+			string oldPassthrough = null;
 			if (this.selectedAudioEncoder != null)
 			{
-				oldEncoder = this.selectedAudioEncoder.Encoder;
+				oldEncoder = this.selectedAudioEncoder;
+				oldPassthrough = this.selectedPassthrough;
 			}
 
+			var resourceManager = new ResourceManager(typeof(EncodingRes));
+
 			this.audioEncoders = new List<AudioEncoderViewModel>();
+			this.audioEncoders.Add(new AudioEncoderViewModel { IsPassthrough = true });
+
+			this.passthroughChoices = new List<ComboChoice>();
+			this.passthroughChoices.Add(new ComboChoice("copy", EncodingRes.Passthrough_any));
 
 			foreach (HBAudioEncoder encoder in Encoders.AudioEncoders)
 			{
-				if ((encoder.CompatibleContainers & this.OutputFormat) > 0)
+				if ((encoder.CompatibleContainers & container.Id) > 0)
 				{
-					this.AudioEncoders.Add(new AudioEncoderViewModel{ Encoder = encoder });
+					if (encoder.IsPassthrough)
+					{
+						if (encoder.ShortName.Contains(":"))
+						{
+							string inputCodec = encoder.ShortName.Split(':')[1];
+							string display = resourceManager.GetString("Passthrough_" + inputCodec);
+
+							this.passthroughChoices.Add(new ComboChoice(encoder.ShortName, display));
+						}
+					}
+					else
+					{
+						this.AudioEncoders.Add(new AudioEncoderViewModel { Encoder = encoder });
+					}
 				}
 			}
 
 			this.RaisePropertyChanged(() => this.AudioEncoders);
+			this.RaisePropertyChanged(() => this.PassthroughChoices);
 
-			this.selectedAudioEncoder = this.AudioEncoders.FirstOrDefault(e => e.Encoder == oldEncoder);
+			if (oldEncoder == null)
+			{
+				this.selectedAudioEncoder = this.audioEncoders[1];
+			}
+			else
+			{
+				if (oldEncoder.IsPassthrough)
+				{
+					this.selectedAudioEncoder = this.audioEncoders[0];
+					this.selectedPassthrough = oldPassthrough;
+				}
+				else
+				{
+					this.selectedAudioEncoder = this.audioEncoders.Skip(1).FirstOrDefault(e => e.Encoder == oldEncoder.Encoder);
+					this.selectedPassthrough = "copy";
+				}
+			}
 
 			if (this.selectedAudioEncoder == null)
 			{
-				this.selectedAudioEncoder = this.AudioEncoders[0];
+				this.selectedAudioEncoder = this.audioEncoders[1];
 			}
 
 			this.RaisePropertyChanged(() => this.SelectedAudioEncoder);
+			this.RaisePropertyChanged(() => this.SelectedPassthrough);
+			this.RaisePropertyChanged(() => this.AutoPassthroughSettingsVisible);
 		}
+
+
 
 		private void RefreshMixdownChoices()
 		{
@@ -765,10 +958,11 @@ namespace VidCoder.ViewModel
 
 			this.mixdownChoices = new List<MixdownViewModel>();
 
+			HBAudioEncoder hbAudioEncoder = this.HBAudioEncoder;
 			foreach (HBMixdown mixdown in Encoders.Mixdowns)
 			{
 				// Only add option if codec supports the mixdown
-				if (Encoders.MixdownHasCodecSupport(mixdown, this.HBAudioEncoder))
+				if (Encoders.MixdownHasCodecSupport(mixdown, hbAudioEncoder))
 				{
 					// Determine compatibility of mixdown with the input channel layout
 					// Incompatible mixdowns are grayed out
@@ -879,7 +1073,7 @@ namespace VidCoder.ViewModel
 			// Many AC3 decoders do not support <32 kHz sample rate. For the AC3 encoder, we remove those
 			// samplerate choices.
 			int oldSampleRate = this.SampleRate;
-			if (this.HBAudioEncoder.ShortName == "ffac3")
+			if (this.HBAudioEncoder.ShortName == "ac3")
 			{
 				this.currentSampleRateChoices = new List<int>();
 				foreach (int sampleRateChoice in allSampleRateChoices)
@@ -907,6 +1101,11 @@ namespace VidCoder.ViewModel
 
 			this.RaisePropertyChanged(() => this.SampleRateChoices);
 			this.RaisePropertyChanged(() => this.SampleRate);
+		}
+
+		private void RefreshDrc()
+		{
+			this.RaisePropertyChanged(() => this.DrcBrush);
 		}
 
 		private AudioTrack GetTargetAudioTrack()

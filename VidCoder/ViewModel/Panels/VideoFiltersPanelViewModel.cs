@@ -7,17 +7,51 @@ using HandBrake.Interop.Model.Encoding;
 
 namespace VidCoder.ViewModel
 {
+	using DataModels;
+	using GalaSoft.MvvmLight.Messaging;
+	using Messages;
 	using Model;
 	using Properties;
 	using Resources;
 
 	public class VideoFiltersPanelViewModel : PanelViewModel
 	{
+		private const string CustomDenoisePreset = "custom";
 		private const int MinDeblock = 5;
+
+		private List<ComboChoice> denoisePresetChoices;
+		private List<ComboChoice> denoiseTuneChoices; 
+		private List<RotationViewModel> rotationChoices;
 
 		public VideoFiltersPanelViewModel(EncodingViewModel encodingViewModel)
 			: base(encodingViewModel)
 		{
+			// Right now both hqdn3d and NL-Means have the same preset choices.
+			this.denoisePresetChoices = new List<ComboChoice>
+			{
+				new ComboChoice("ultralight", EnumsRes.DenoisePreset_Ultralight),
+				new ComboChoice("light", EnumsRes.DenoisePreset_Light),
+				new ComboChoice("medium", EnumsRes.DenoisePreset_Medium),
+				new ComboChoice("strong", EnumsRes.DenoisePreset_Strong),
+				new ComboChoice("custom", CommonRes.Custom),
+			};
+
+			this.denoiseTuneChoices = new List<ComboChoice>
+			{
+				new ComboChoice("none", CommonRes.None),
+				new ComboChoice("film", EnumsRes.DenoiseTune_Film),
+				new ComboChoice("grain", EnumsRes.DenoiseTune_Grain),
+				new ComboChoice("highmotion", EnumsRes.DenoiseTune_HighMotion),
+				new ComboChoice("animation", EnumsRes.DenoiseTune_Animation),
+			};
+
+			this.rotationChoices = new List<RotationViewModel>
+			{
+				new RotationViewModel { Rotation = PictureRotation.None, Display = CommonRes.None },
+				new RotationViewModel { Rotation = PictureRotation.Clockwise90, Display = EncodingRes.Rotation_Clockwise90, Image = "/Icons/rotate_90_cw.png"},
+				new RotationViewModel { Rotation = PictureRotation.Clockwise270, Display = EncodingRes.Rotation_Counterclockwise90, Image = "/Icons/rotate_90_ccw.png" },
+				new RotationViewModel { Rotation = PictureRotation.Clockwise180, Display = EncodingRes.Rotation_180, Image = "/Icons/rotate_180.png" }
+			};
 		}
 
 		public DetelecineCombo SelectedDetelecine
@@ -155,15 +189,107 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return EnumConverter.Convert<Denoise, DenoiseCombo>(this.Profile.Denoise);
+				return EnumConverter.Convert<Denoise, DenoiseCombo>(this.Profile.DenoiseType);
 			}
 
 			set
 			{
-				this.Profile.Denoise = EnumConverter.Convert<DenoiseCombo, Denoise>(value);
+				this.Profile.DenoiseType = EnumConverter.Convert<DenoiseCombo, Denoise>(value);
+
+				if (value != DenoiseCombo.Off && string.IsNullOrEmpty(this.DenoisePreset))
+				{
+					this.DenoisePreset = "medium";
+				}
+
+				if (value == DenoiseCombo.NlMeans && string.IsNullOrEmpty(this.DenoiseTune))
+				{
+					this.DenoiseTune = "none";
+				}
+
 				this.RaisePropertyChanged(() => this.SelectedDenoise);
+				this.RaisePropertyChanged(() => this.DenoisePresetVisible);
+				this.RaisePropertyChanged(() => this.DenoiseTuneVisible);
 				this.RaisePropertyChanged(() => this.CustomDenoiseVisible);
 				this.IsModified = true;
+			}
+		}
+
+		public List<ComboChoice> DenoisePresetChoices
+		{
+			get
+			{
+				return this.denoisePresetChoices;
+			}
+		} 
+
+		public string DenoisePreset
+		{
+			get
+			{
+				if (this.Profile.UseCustomDenoise)
+				{
+					return CustomDenoisePreset;
+				}
+
+				return this.Profile.DenoisePreset;
+			}
+
+			set
+			{
+				if (value == CustomDenoisePreset)
+				{
+					this.Profile.DenoisePreset = null;
+					this.Profile.UseCustomDenoise = true;
+				}
+				else
+				{
+					this.Profile.DenoisePreset = value;
+					this.Profile.UseCustomDenoise = false;
+				}
+
+				this.RaisePropertyChanged(() => this.DenoisePreset);
+				this.RaisePropertyChanged(() => this.CustomDenoiseVisible);
+				this.RaisePropertyChanged(() => this.DenoiseTuneVisible);
+				this.IsModified = true;
+			}
+		}
+
+		public bool DenoisePresetVisible
+		{
+			get
+			{
+				return this.SelectedDenoise != DenoiseCombo.Off;
+			}
+		}
+
+		public List<ComboChoice> DenoiseTuneChoices
+		{
+			get
+			{
+				return this.denoiseTuneChoices;
+			}
+		} 
+
+		public string DenoiseTune
+		{
+			get
+			{
+				return this.Profile.DenoiseTune;
+			}
+
+			set
+			{
+				this.Profile.DenoiseTune = value;
+				this.RaisePropertyChanged(() => this.DenoiseTune);
+				this.IsModified = true;
+			}
+		}
+
+		public bool DenoiseTuneVisible
+		{
+			get
+			{
+				return this.SelectedDenoise == DenoiseCombo.NlMeans && !this.Profile.UseCustomDenoise;
 			}
 		}
 
@@ -186,7 +312,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.Profile.Denoise == Denoise.Custom;
+				return this.Profile.DenoiseType != Denoise.Off && this.Profile.UseCustomDenoise;
 			}
 		}
 
@@ -247,6 +373,62 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public List<RotationViewModel> RotationChoices
+		{
+			get
+			{
+				return this.rotationChoices;
+			}
+		}
+
+		public PictureRotation Rotation
+		{
+			get
+			{
+				return this.Profile.Rotation;
+			}
+
+			set
+			{
+				this.Profile.Rotation = value;
+				this.RaisePropertyChanged(() => this.Rotation);
+				this.IsModified = true;
+				this.NotifyRotationChanged();
+			}
+		}
+
+		public bool FlipHorizontal
+		{
+			get
+			{
+				return this.Profile.FlipHorizontal;
+			}
+
+			set
+			{
+				this.Profile.FlipHorizontal = value;
+				this.RaisePropertyChanged(() => this.FlipHorizontal);
+				this.IsModified = true;
+				this.NotifyRotationChanged();
+			}
+		}
+
+		public bool FlipVertical
+		{
+			get
+			{
+				return this.Profile.FlipVertical;
+			}
+
+			set
+			{
+				this.Profile.FlipVertical = value;
+				this.RaisePropertyChanged(() => this.FlipVertical);
+				this.IsModified = true;
+				this.NotifyRotationChanged();
+			}
+		}
+
 		public void NotifyAllChanged()
 		{
 			this.RaisePropertyChanged(() => this.SelectedDetelecine);
@@ -259,11 +441,24 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.CustomDecomb);
 			this.RaisePropertyChanged(() => this.CustomDecombVisible);
 			this.RaisePropertyChanged(() => this.SelectedDenoise);
+			this.RaisePropertyChanged(() => this.DenoisePreset);
+			this.RaisePropertyChanged(() => this.DenoisePresetVisible);
+			this.RaisePropertyChanged(() => this.DenoiseTune);
+			this.RaisePropertyChanged(() => this.DenoiseTuneVisible);
 			this.RaisePropertyChanged(() => this.CustomDenoise);
 			this.RaisePropertyChanged(() => this.CustomDenoiseVisible);
 			this.RaisePropertyChanged(() => this.Deblock);
 			this.RaisePropertyChanged(() => this.DeblockText);
 			this.RaisePropertyChanged(() => this.Grayscale);
+			this.RaisePropertyChanged(() => this.Rotation);
+			this.RaisePropertyChanged(() => this.FlipHorizontal);
+			this.RaisePropertyChanged(() => this.FlipVertical);
+		}
+
+		private void NotifyRotationChanged()
+		{
+			Messenger.Default.Send(new RefreshPreviewMessage());
+			Messenger.Default.Send(new RotationChangedMessage());
 		}
 	}
 }

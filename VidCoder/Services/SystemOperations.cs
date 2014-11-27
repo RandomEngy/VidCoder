@@ -6,7 +6,6 @@ using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
 using System.Text;
-using Microsoft.Practices.Unity;
 using VidCoder.Model;
 using System.Windows.Forms;
 
@@ -15,7 +14,7 @@ namespace VidCoder.Services
 {
 	public class SystemOperations : ISystemOperations
 	{
-		private static ILogger logger = Unity.Container.Resolve<ILogger>();
+		private static ILogger logger = Ioc.Container.GetInstance<ILogger>();
 
 		[Flags]
 		private enum ExitWindows : uint
@@ -78,6 +77,15 @@ namespace VidCoder.Services
 		[return: MarshalAs(UnmanagedType.Bool)]
 		private static extern bool ExitWindowsEx(ExitWindows uFlags, ShutdownReason dwReason);
 
+		[DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+		private static extern bool InitiateSystemShutdownEx(
+			string lpMachineName,
+			string lpMessage,
+			uint dwTimeout,
+			bool bForceAppsClosed,
+			bool bRebootAfterShutdown,
+			ShutdownReason dwReason);
+
 		[DllImport("winmm.dll")]
 		static extern Int32 mciSendString(String command, StringBuilder buffer, Int32 bufferSize, IntPtr hwndCallback);
 
@@ -96,7 +104,13 @@ namespace VidCoder.Services
 		public void ShutDown()
 		{
 			logger.Log("Shutting down.");
-			ExitWindowsEx(ExitWindows.ShutDown, ShutdownReason.MajorOther | ShutdownReason.MinorOther | ShutdownReason.FlagPlanned);
+			InitiateSystemShutdownEx(
+				null, 
+				null, 
+				0, 
+				false, 
+				false, 
+				ShutdownReason.MajorOther | ShutdownReason.MinorOther | ShutdownReason.FlagPlanned);
 		}
 
 		public void Eject(string driveLetter)

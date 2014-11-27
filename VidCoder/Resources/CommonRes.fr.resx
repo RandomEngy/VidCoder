@@ -242,4 +242,16 @@ Traduit en Français par TheCrazyRabbit...</value>
   <data name="QueueColumnNamePreset" xml:space="preserve">
     <value>Pré-réglage</value>
   </data>
+  <data name="Success" xml:space="preserve">
+    <value>Succès</value>
+  </data>
+  <data name="ConfirmDialogTitle" xml:space="preserve">
+    <value>Confirmer</value>
+  </data>
+  <data name="FileFailureErrorMessage" xml:space="preserve">
+    <value>Impossible de terminer l'opération de fichier.</value>
+  </data>
+  <data name="FileFailureErrorTitle" xml:space="preserve">
+    <value>Erreur d'opération de fichier</value>
+  </data>
 </root>

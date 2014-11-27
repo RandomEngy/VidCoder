@@ -33,10 +33,12 @@ QueueTitlesDialogPlacement|string|""
 QueueTitlesDialogPlacement2|string|""
 AddAutoPauseProcessDialogPlacement|string|""
 OptionsDialogPlacement|string|""
+EncodeDetailsWindowPlacement|string|""
 
 EncodingWindowOpen|bool|false
 PreviewWindowOpen|bool|false
 LogWindowOpen|bool|false
+EncodeDetailsWindowOpen|bool|false
 
 UpdatesEnabled|bool|true
 
@@ -58,12 +60,15 @@ CopyLogToOutputFolder|bool|false
 AutoPauseProcesses|string|""
 PreviewCount|int|10
 PreviewDisplay|string|"FitToWindow"
+UseCustomPreviewFolder|bool|false
+PreviewOutputFolder|string|""
 QueueTitlesUseTitleOverride|bool|false
 QueueTitlesTitleOverride|int|1
 ShowAudioTrackNameField|bool|false
 SourceHistory|string|""
 MinimizeToTray|bool|false
 OutputToSourceDirectory|bool|false
+PreserveFolderStructureInBatch|bool|false
 WhenFileExists|string|"Prompt"
 WhenFileExistsBatch|string|"AutoRename"
 KeepScansAfterCompletion|bool|true
@@ -73,11 +78,15 @@ PlaySoundOnCompletion|bool|false
 UseCustomCompletionSound|bool|false
 CustomCompletionSound|string|""
 LastPlayer|string|"vlc"
+QueueTitlesUseDirectoryOverride|bool|false
+QueueTitlesDirectoryOverride|string|""
 QueueTitlesUseNameOverride|bool|false
 QueueTitlesNameOverride|string|""
+DxvaDecoding|bool|false
 EnableLibDvdNav|bool|true
 MinimumTitleLengthSeconds|int|10
 DeleteSourceFilesOnClearingCompleted|bool|false
+PreserveModifyTimeFiles|bool|false
 ResumeEncodingOnRestart|bool|false
 UseWorkerProcess|bool|true
 RememberPreviousFiles|bool|true
@@ -90,6 +99,8 @@ AutoAudioAll|bool|false
 AutoSubtitleAll|bool|false
 AutoSubtitleOnlyIfDifferent|bool|true
 AutoSubtitleBurnIn|bool|true
+AutoSubtitleLanguageDefault|bool|false
+AutoSubtitleLanguageBurnIn|bool|false
 PreferredPlayer|string|"vlc"
 BetaUpdates|bool|false
 InterfaceLanguageCode|string|""

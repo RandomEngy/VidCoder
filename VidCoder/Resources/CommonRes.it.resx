@@ -236,4 +236,16 @@
   <data name="QueueColumnNamePreset" xml:space="preserve">
     <value>Preimpostato</value>
   </data>
+  <data name="Success" xml:space="preserve">
+    <value>Successo</value>
+  </data>
+  <data name="ConfirmDialogTitle" xml:space="preserve">
+    <value>Conferma</value>
+  </data>
+  <data name="FileFailureErrorMessage" xml:space="preserve">
+    <value>Impossibile completare l'operazione di file.</value>
+  </data>
+  <data name="FileFailureErrorTitle" xml:space="preserve">
+    <value>Errore operazione di file</value>
+  </data>
 </root>

@@ -62,7 +62,7 @@ namespace VidCoderWorker
 							{
 								lock (this.encodeLock)
 								{
-									this.instance.StartEncode(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds);
+									this.instance.StartEncode(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds, previewCount);
 									this.callback.OnEncodeStarted();
 									this.state = EncodeState.Encoding;
 								}

@@ -12,12 +12,11 @@ using HandBrake.Interop.SourceData;
 using System.Collections.ObjectModel;
 using VidCoder.Model;
 
-using Microsoft.Practices.Unity;
-
 namespace VidCoder.ViewModel
 {
 	using System.Data.SQLite;
 	using Resources;
+	using Services;
 
 	public class QueueTitlesDialogViewModel : OkCancelDialogViewModel
 	{
@@ -33,7 +32,7 @@ namespace VidCoder.ViewModel
 
 		public QueueTitlesDialogViewModel(List<Title> allTitles)
 		{
-			this.main = Unity.Container.Resolve<MainViewModel>();
+			this.main = Ioc.Container.GetInstance<MainViewModel>();
 
 			this.selectedTitles = new ObservableCollection<TitleSelectionViewModel>();
 			this.selectRange = Config.QueueTitlesUseRange;
@@ -41,6 +40,8 @@ namespace VidCoder.ViewModel
 			this.endRange = Config.QueueTitlesEndTime;
 			this.titleStartOverrideEnabled = Config.QueueTitlesUseTitleOverride;
 			this.titleStartOverride = Config.QueueTitlesTitleOverride;
+			this.directoryOverrideEnabled = Config.QueueTitlesUseDirectoryOverride;
+			this.directoryOverride = Config.QueueTitlesDirectoryOverride;
 			this.nameOverrideEnabled = Config.QueueTitlesUseNameOverride;
 			this.nameOverride = Config.QueueTitlesNameOverride;
 
@@ -247,6 +248,36 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool directoryOverrideEnabled;
+		public bool DirectoryOverrideEnabled
+		{
+			get
+			{
+				return this.directoryOverrideEnabled;
+			}
+
+			set
+			{
+				this.directoryOverrideEnabled = value;
+				this.RaisePropertyChanged(() => this.DirectoryOverrideEnabled);
+			}
+		}
+
+		private string directoryOverride;
+		public string DirectoryOverride
+		{
+			get
+			{
+				return this.directoryOverride;
+			}
+
+			set
+			{
+				this.directoryOverride = value;
+				this.RaisePropertyChanged(() => this.DirectoryOverride);
+			}
+		}
+
 		private bool nameOverrideEnabled;
 		public bool NameOverrideEnabled
 		{
@@ -316,6 +347,22 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private RelayCommand pickDirectoryCommand;
+		public RelayCommand PickDirectoryCommand
+		{
+			get
+			{
+				return this.pickDirectoryCommand ?? (this.pickDirectoryCommand = new RelayCommand(() =>
+				{
+					string overrideFolder = FileService.Instance.GetFolderName(null, MainRes.OutputDirectoryPickerText);
+					if (overrideFolder != null)
+					{
+						this.DirectoryOverride = overrideFolder;
+					}
+				}));
+			}
+		}
+
 		public override void OnClosing()
 		{
 			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
@@ -325,6 +372,8 @@ namespace VidCoder.ViewModel
 				Config.QueueTitlesEndTime = this.EndRange;
 				Config.QueueTitlesUseTitleOverride = this.TitleStartOverrideEnabled;
 				Config.QueueTitlesTitleOverride = this.TitleStartOverride;
+				Config.QueueTitlesUseDirectoryOverride = this.DirectoryOverrideEnabled;
+				Config.QueueTitlesDirectoryOverride = this.DirectoryOverride;
 				Config.QueueTitlesUseNameOverride = this.NameOverrideEnabled;
 				Config.QueueTitlesNameOverride = this.NameOverride;
 

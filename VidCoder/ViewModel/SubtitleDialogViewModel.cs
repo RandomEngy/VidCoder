@@ -9,7 +9,6 @@ using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using System.IO;
-using Microsoft.Practices.Unity;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;
 
@@ -23,18 +22,18 @@ namespace VidCoder.ViewModel
 		private ObservableCollection<SourceSubtitleViewModel> sourceSubtitles;
 		private ObservableCollection<SrtSubtitleViewModel> srtSubtitles;
 
-		private Container outputFormat;
+		private HBContainer container;
 		private bool defaultsEnabled;
 
 		private bool textSubtitleWarningVisible;
 		private bool burnedOverlapWarningVisible;
 
-		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
-		private PresetsViewModel presetsViewModel = Unity.Container.Resolve<PresetsViewModel>();
+		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
+		private PresetsViewModel presetsViewModel = Ioc.Container.GetInstance<PresetsViewModel>();
 
 		public SubtitleDialogViewModel(Subtitles currentSubtitles)
 		{
-			this.outputFormat = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.OutputFormat;
+			this.container = Encoders.GetContainer(this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.ContainerName);
 
 			this.sourceSubtitles = new ObservableCollection<SourceSubtitleViewModel>();
 			this.srtSubtitles = new ObservableCollection<SrtSubtitleViewModel>();
@@ -238,22 +237,11 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public Container OutputFormat
+		public HBContainer Container
 		{
 			get
 			{
-				return this.outputFormat;
-			}
-		}
-
-		private bool AnyPgsSelected
-		{
-			get
-			{
-				return this.SourceSubtitles.Any(s =>
-					s.Selected &&
-					s.TrackNumber > 0 &&
-					this.GetSubtitle(s).SubtitleSource == SubtitleSource.PGS);
+				return this.container;
 			}
 		}
 
@@ -279,7 +267,7 @@ namespace VidCoder.ViewModel
 					{
 						BurnedIn = false,
 						Default = false,
-						Forced = !sourceSubtitleViewModel.Forced,
+						Forced = !sourceSubtitleViewModel.ForcedOnly,
 						TrackNumber = sourceSubtitleViewModel.TrackNumber
 					});
 			newSubtitle.Selected = true;
@@ -331,12 +319,64 @@ namespace VidCoder.ViewModel
 					sourceVM.BurnedIn = false;
 				}
 			}
+
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+			{
+				srtVM.BurnedIn = false;
+			}
+		}
+
+		public void ReportBurned(SrtSubtitleViewModel subtitleViewModel)
+		{
+			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
+			{
+				sourceVM.BurnedIn = false;
+			}
+
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+			{
+				if (srtVM != subtitleViewModel)
+				{
+					srtVM.BurnedIn = false;
+				}
+			}
 		}
 
 		// Update state of checked boxes after a change
 		public void UpdateBoxes(SourceSubtitleViewModel updatedSubtitle = null)
 		{
-			bool anyBurned = this.SourceSubtitles.Any(sourceSub => sourceSub.BurnedIn);
+			this.DeselectDefaults();
+
+			if (updatedSubtitle != null && updatedSubtitle.Selected)
+			{
+				if (!updatedSubtitle.CanPass)
+				{
+					// If we just selected a burn-in only subtitle, deselect all other subtitles.
+					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles)
+					{
+						if (sourceSub != updatedSubtitle)
+						{
+							sourceSub.Deselect();
+						}
+					}
+				}
+				else
+				{
+					// We selected a soft subtitle. Deselect any burn-in-only subtitles.
+					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles)
+					{
+						if (!sourceSub.CanPass)
+						{
+							sourceSub.Deselect();
+						}
+					}
+				}
+			}
+		}
+
+		private void DeselectDefaults()
+		{
+			bool anyBurned = this.SourceSubtitles.Any(sourceSub => sourceSub.BurnedIn) || this.SrtSubtitles.Any(sourceSub => sourceSub.BurnedIn);
 			this.DefaultsEnabled = !anyBurned;
 
 			if (!this.DefaultsEnabled)
@@ -351,41 +391,14 @@ namespace VidCoder.ViewModel
 					srtVM.Default = false;
 				}
 			}
-
-			if (this.OutputFormat == Container.Mp4 && updatedSubtitle != null && updatedSubtitle.Selected)
-			{
-				// In MP4 a PGS subtitle can only be burned in.
-				if (updatedSubtitle.TrackNumber > 0 &&
-					this.GetSubtitle(updatedSubtitle).SubtitleSource == SubtitleSource.PGS)
-				{
-					// If we've just selected a PGS subtitle, deselect all others
-					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles)
-					{
-						if (sourceSub != updatedSubtitle)
-						{
-							sourceSub.Deselect();
-						}
-					}
-				}
-				else
-				{
-					// If we've just selected another subtitle, deselect all PGS subtitles
-					foreach (SourceSubtitleViewModel sourceSub in this.SourceSubtitles)
-					{
-						if (sourceSub.TrackNumber > 0 && this.GetSubtitle(sourceSub).SubtitleSource == SubtitleSource.PGS)
-						{
-							sourceSub.Deselect();
-						}
-					}
-				}
-			}
 		}
 
 		public void UpdateWarningVisibility()
 		{
 			bool textSubtitleVisible = false;
 			VCProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
-			if (profile.OutputFormat == Container.Mp4 && profile.PreferredExtension == OutputExtension.Mp4)
+			HBContainer profileContainer = Encoders.GetContainer(profile.ContainerName);
+			if (profileContainer.DefaultExtension == "mp4" && profile.PreferredExtension == OutputExtension.Mp4)
 			{
 				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
 				{
@@ -410,6 +423,15 @@ namespace VidCoder.ViewModel
 					{
 						anyBurned = true;
 					}
+				}
+			}
+
+			foreach (SrtSubtitleViewModel srtVM in this.SrtSubtitles)
+			{
+				totalTracks++;
+				if (srtVM.BurnedIn)
+				{
+					anyBurned = true;
 				}
 			}
 

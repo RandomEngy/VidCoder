@@ -11,10 +11,10 @@ using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using Microsoft.Win32;
 using VidCoder.Services;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder
 {
+	using System.ComponentModel;
 	using System.Configuration;
 	using HandBrake.Interop.Model;
 	using Properties;
@@ -23,8 +23,8 @@ namespace VidCoder
 	public static class Utilities
 	{
 		public const string TimeFormat = @"h\:mm\:ss";
-		public const int CurrentDatabaseVersion = 18;
-		public const int LastUpdatedEncodingProfileDatabaseVersion = 17;
+		public const int CurrentDatabaseVersion = 25;
+		public const int LastUpdatedEncodingProfileDatabaseVersion = 25;
 
 		private const string AppDataFolderName = "VidCoder";
 		private const string LocalAppDataFolderName = "VidCoder";
@@ -108,6 +108,14 @@ namespace VidCoder
 			}
 		}
 
+		public static bool IsDesigner
+		{
+			get
+			{
+				return DesignerProperties.GetIsInDesignMode(new DependencyObject());
+			}
+		}
+
 		public static int CompareVersions(string versionA, string versionB)
 		{
 			string[] stringPartsA = versionA.Split('.');
@@ -165,6 +173,16 @@ namespace VidCoder
 			return 0;
 		}
 
+		public static string GetFilePickerFilter(string extension)
+		{
+			if (extension.StartsWith("."))
+			{
+				extension = extension.Substring(1);
+			}
+
+			return string.Format(CommonRes.FilePickerExtTemplate, extension.ToUpperInvariant()) + "|*." + extension.ToLowerInvariant();
+		}
+
 		public static int CurrentProcessInstances
 		{
 			get
@@ -195,6 +213,22 @@ namespace VidCoder
 #endif
 
 				return folder;
+			}
+		}
+
+		public static string ProgramPath
+		{
+			get
+			{
+				return Assembly.GetExecutingAssembly().Location;
+			}
+		}
+
+		public static string ProgramFolder
+		{
+			get
+			{
+				return Path.GetDirectoryName(ProgramPath);
 			}
 		}
 
@@ -284,6 +318,13 @@ namespace VidCoder
 			}
 		}
 
+
+		public static bool IsDirectory(string filePath)
+		{
+			var fileAttributes = File.GetAttributes(filePath);
+			return (fileAttributes & FileAttributes.Directory) == FileAttributes.Directory;
+		}
+
 		public static void CopyDirectory(string sourceDir, string destDir)
 		{
 			// Create directories
@@ -356,7 +397,6 @@ namespace VidCoder
 		/// <returns>A file name that does not exist and does not match any of the given paths.</returns>
 		public static string CreateUniqueFileName(string baseName, string outputDirectory, HashSet<string> excludedPaths)
 		{
-			//string fileName = Path.GetFileName(baseName);
 			string candidateFilePath = Path.Combine(outputDirectory, baseName);
 			if (!File.Exists(candidateFilePath) && !IsExcluded(candidateFilePath, excludedPaths))
 			{
@@ -464,9 +504,16 @@ namespace VidCoder
 				return kilobytes.ToString(GetFormatForFilesize(kilobytes)) + " KB";
 			}
 
-			double megabytes = ((double)bytes) / 1048576;
+			if (bytes < 1073741824)
+			{
+				double megabytes = ((double)bytes) / 1048576;
 
-			return megabytes.ToString(GetFormatForFilesize(megabytes)) + " MB";
+				return megabytes.ToString(GetFormatForFilesize(megabytes)) + " MB";
+			}
+
+			double gigabytes = ((double) bytes) / 1073741824;
+
+			return gigabytes.ToString(GetFormatForFilesize(gigabytes)) + " GB";
 		}
 
 		private static string GetFormatForFilesize(double size)
@@ -480,7 +527,7 @@ namespace VidCoder
 				digits++;
 			}
 
-			int decimalPlaces = Math.Min(2, 3 - digits);
+			int decimalPlaces = Math.Max(0, Math.Min(2, 3 - digits));
 
 			return "F" + decimalPlaces;
 		}
@@ -489,7 +536,7 @@ namespace VidCoder
 		{
 			get
 			{
-				return Unity.Container.Resolve<IMessageBoxService>();
+				return Ioc.Container.GetInstance<IMessageBoxService>();
 			}
 		}
 
@@ -539,16 +586,6 @@ namespace VidCoder
 			return encoder == AudioEncoder.Passthrough || encoder == AudioEncoder.Ac3Passthrough;
 		}
 
-		public static bool CanPassthrough(AudioCodec codec)
-		{
-			return
-				codec == AudioCodec.Ac3 ||
-				codec == AudioCodec.Dts || 
-				codec == AudioCodec.DtsHD ||
-				codec == AudioCodec.Aac ||
-				codec == AudioCodec.Mp3;
-		}
-
 		public static Title GetFeatureTitle(List<Title> titles, int hbFeatureTitle)
 		{
 			// If the feature title is supplied, find it in the list.
@@ -586,6 +623,39 @@ namespace VidCoder
 			return null;
 		}
 
+		public static SourceType GetSourceType(string sourcePath)
+		{
+			FileAttributes attributes = File.GetAttributes(sourcePath);
+			if ((attributes & FileAttributes.Directory) == FileAttributes.Directory)
+			{
+				var driveService = Ioc.Container.GetInstance<IDriveService>();
+				if (driveService.PathIsDrive(sourcePath))
+				{
+					return SourceType.Dvd;
+				}
+				else
+				{
+					return SourceType.VideoFolder;
+				}
+			}
+			else
+			{
+				return SourceType.File;
+			}
+		}
+
+		public static string GetSourceName(string sourcePath)
+		{
+			if (GetSourceType(sourcePath) == SourceType.VideoFolder)
+			{
+				return GetSourceNameFolder(sourcePath);
+			}
+			else
+			{
+				return GetSourceNameFile(sourcePath);
+			}
+		}
+
 		public static string GetSourceNameFile(string videoFile)
 		{
 			return Path.GetFileNameWithoutExtension(videoFile);
@@ -597,7 +667,14 @@ namespace VidCoder
 			var videoDirectory = new DirectoryInfo(videoFolder);
 			if (videoDirectory.Name != "VIDEO_TS")
 			{
-				return videoDirectory.Name;
+				if (videoDirectory.Root.FullName == videoDirectory.FullName)
+				{
+					return "VideoFolder";
+				}
+				else
+				{
+					return videoDirectory.Name;
+				}
 			}
 
 			// If the directory is named VIDEO_TS, take the source name from the parent folder (user picked VIDEO_TS folder on DVD)
@@ -646,7 +723,7 @@ namespace VidCoder
 			}
 			catch (UnauthorizedAccessException ex)
 			{
-				Unity.Container.Resolve<ILogger>().Log("Could not determine if folder was disc: " + ex);
+				Ioc.Container.GetInstance<ILogger>().Log("Could not determine if folder was disc: " + ex);
 				return false;
 			}
 		}

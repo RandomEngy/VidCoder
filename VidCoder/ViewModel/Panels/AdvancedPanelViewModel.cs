@@ -415,12 +415,12 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.Profile.X264Options;
+				return this.Profile.VideoOptions;
 			}
 
 			set
 			{
-				this.Profile.X264Options = value;
+				this.Profile.VideoOptions = value;
 
 				// UI update and property notification will happen in response to the message
 				Messenger.Default.Send(new AdvancedOptionsChangedMessage());
@@ -435,14 +435,14 @@ namespace VidCoder.ViewModel
 			// Reset UI to defaults, and re-apply options.
 			this.SetAdvancedToDefaults();
 
-			if (this.Profile.X264Options == null)
+			if (this.Profile.VideoOptions == null)
 			{
 				this.AutomaticChange = false;
 				return;
 			}
 
 			// Check the updated options string. Update UI for any recognized options.
-			string[] newOptionsSegments = this.Profile.X264Options.Split(':');
+			string[] newOptionsSegments = this.Profile.VideoOptions.Split(':');
 			foreach (string newOptionsSegment in newOptionsSegments)
 			{
 				int equalsIndex = newOptionsSegment.IndexOf('=');
@@ -783,7 +783,7 @@ namespace VidCoder.ViewModel
 				newOptions.Add("deblock=" + this.DeblockingStrength.Value + "," + this.DeblockingThreshold.Value);
 			}
 
-			this.Profile.X264Options = string.Join(":", newOptions);
+			this.Profile.VideoOptions = string.Join(":", newOptions);
 
 			// Send the message about the advanced options changing, but suppress any UI updates from it.
 			this.suppressUIUpdate = true;

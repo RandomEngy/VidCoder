@@ -28,7 +28,6 @@ using System.Windows.Media.Effects;
 using HandBrake.Interop;
 using System.Resources;
 using System.IO;
-using Microsoft.Practices.Unity;
 using VidCoder.ViewModel.Components;
 
 namespace VidCoder.View
@@ -42,8 +41,8 @@ namespace VidCoder.View
 	public partial class MainWindow : Window
 	{
 		private MainViewModel viewModel;
-		private ProcessingViewModel processingVM = Unity.Container.Resolve<ProcessingViewModel>();
-		private OutputPathViewModel outputVM = Unity.Container.Resolve<OutputPathViewModel>();
+		private ProcessingViewModel processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
+		private OutputPathViewModel outputVM = Ioc.Container.GetInstance<OutputPathViewModel>();
 
 		private bool tabsVisible = false;
 
@@ -53,7 +52,7 @@ namespace VidCoder.View
 
 		public MainWindow()
 		{
-			Unity.Container.RegisterInstance(this);
+			Ioc.Container.Register(() => this);
 
 			InitializeComponent();
 
@@ -139,12 +138,12 @@ namespace VidCoder.View
 						if (Path.GetExtension(item).ToLowerInvariant() == ".xml")
 						{
 							// It's a preset
-							Unity.Container.Resolve<IPresetImportExport>().ImportPreset(itemList[0]);
+							Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(itemList[0]);
 						}
 						else if (Utilities.IsDiscFolder(item))
 						{
-							// It's a disc folder
-							this.viewModel.SetSourceFromFolder(item);
+							// It's a disc folder or disc
+							this.viewModel.SetSource(item);
 						}
 						else
 						{
@@ -164,12 +163,12 @@ namespace VidCoder.View
 		// Takes a list of files/directories and tries to scan/queue them as files/disc folders
 		private void HandleDropAsPaths(StringCollection itemList)
 		{
-			List<string> fileList = GetPathList(itemList);
+			List<SourcePath> fileList = GetPathList(itemList);
 			if (fileList.Count > 0)
 			{
 				if (fileList.Count == 1)
 				{
-					this.viewModel.SetSourceFromFile(fileList[0]);
+					this.viewModel.SetSourceFromFile(fileList[0].Path);
 				}
 				else
 				{
@@ -179,7 +178,7 @@ namespace VidCoder.View
 		}
 
 		// Gets a file/video folder list from a list of files/directories
-		private static List<string> GetPathList(StringCollection itemList)
+		private static List<SourcePath> GetPathList(StringCollection itemList)
 		{
 			var videoExtensions = new List<string>();
 			string extensionsString = Config.VideoFileExtensions;
@@ -198,7 +197,7 @@ namespace VidCoder.View
 				}
 			}
 
-			var pathList = new List<string>();
+			var pathList = new List<SourcePath>();
 			foreach (string item in itemList)
 			{
 				var fileAttributes = File.GetAttributes(item);
@@ -208,17 +207,25 @@ namespace VidCoder.View
 					if (Utilities.IsDiscFolder(item))
 					{
 						// If it's a disc folder, add it
-						pathList.Add(item);
+						pathList.Add(new SourcePath { Path = item, SourceType = SourceType.VideoFolder });
 					}
 					else
 					{
-						pathList.AddRange(Utilities.GetFilesOrVideoFolders(item, videoExtensions));
+						string parentFolder = Path.GetDirectoryName(item);
+						pathList.AddRange(
+							Utilities.GetFilesOrVideoFolders(item, videoExtensions)
+							.Select(p => new SourcePath
+								{
+									Path = p, 
+									ParentFolder = parentFolder, 
+									SourceType = SourceType.None
+								}));
 					}
 				}
 				else
 				{
 					// Path is a file
-					pathList.Add(item);
+					pathList.Add(new SourcePath { Path = item, SourceType = SourceType.File });
 				}
 			}
 

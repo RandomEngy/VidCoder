@@ -7,25 +7,24 @@ using Microsoft.Win32;
 
 namespace VidCoder.Model
 {
-	public class VlcPlayer : IVideoPlayer
+	public class VlcPlayer : VideoPlayerBase
 	{
-		public bool Installed
+		public override string PlayerExecutable
 		{
 			get
 			{
-				return RegKey != null;
+				if (RegKey == null)
+				{
+					return null;
+				}
+
+				return RegKey.GetValue(string.Empty) as string;
 			}
 		}
 
-		public void PlayTitle(string discPath, int title)
+		public override void PlayTitleInternal(string executablePath, string discPath, int title)
 		{
-			string vlcExePath = RegKey.GetValue(string.Empty) as string;
 			string version = RegKey.GetValue("Version") as string;
-
-			if (!discPath.EndsWith(@"\", StringComparison.Ordinal))
-			{
-				discPath += @"\";
-			}
 
 			string arguments;
 			if (version.StartsWith("1"))
@@ -41,15 +40,14 @@ namespace VidCoder.Model
 			process.StartInfo =
 				new ProcessStartInfo
 				{
-					FileName = vlcExePath,
+					FileName = executablePath,
 					Arguments = arguments
 				};
 
 			process.Start();
-
 		}
 
-		public string Id
+		public override string Id
 		{
 			get
 			{
@@ -57,7 +55,7 @@ namespace VidCoder.Model
 			}
 		}
 
-		public string Display
+		public override string Display
 		{
 			get
 			{

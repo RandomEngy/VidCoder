@@ -180,4 +180,7 @@
   <data name="BottomMargin" xml:space="preserve">
     <value>Unterer Rand</value>
   </data>
+	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
+    <value>Quelldatei konnte nicht gefunden werden.</value>
+  </data>
 </root>

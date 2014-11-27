@@ -186,7 +186,11 @@
 				<StackPanel
 					Orientation="Horizontal"
 					Visibility="{Binding ShowQueueEditButtons, Converter={StaticResource VisibilityConverter}}">
-					<Button Command="{Binding RemoveQueueJobCommand}" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource RemoveButtonStyle}">Remove from queue</Button>
+					<Button
+						Command="{Binding RemoveQueueJobCommand}"
+						VerticalAlignment="Center" HorizontalAlignment="Left" 
+						Style="{StaticResource RemoveButtonStyle}"
+						Content="{x:Static res:MainRes.RemoveFromQueueToolTip}" />
 				</StackPanel>
 				<ProgressBar VerticalAlignment="Center" Height="12"
 					Value="{Binding PercentComplete}"
@@ -340,6 +344,13 @@
 			<MenuItem Header="{x:Static res:MainRes.ToolsMenu}">
 				<MenuItem Header="{x:Static res:MainRes.ImportPreset}" Command="{Binding ImportPresetCommand}" />
 				<MenuItem Header="{x:Static res:MainRes.ExportPreset}" Command="{Binding ExportPresetCommand}" />
+				<Separator />
+				<MenuItem
+					Header="{x:Static res:MainRes.ImportQueue}" Command="{Binding ProcessingVM.ImportQueueCommand}" />
+				<MenuItem
+					Header="{x:Static res:MainRes.ExportQueue}" Command="{Binding ProcessingVM.ExportQueueCommand}"
+					IsEnabled="{Binding ProcessingVM.QueueHasItems}" />
+				<Separator />
 				<MenuItem Header="{x:Static res:MainRes.OptionsMenuItem}" Command="{Binding OpenOptionsCommand}" InputGestureText="F4" />
 			</MenuItem>
 			<MenuItem Header="{x:Static res:MainRes.WindowsMenu}">
@@ -358,6 +369,10 @@
 					Command="{Binding WindowManagerVM.OpenLogWindowCommand}"
 					IsCheckable="True" IsChecked="{Binding WindowManagerVM.LogWindowOpen}"
 					InputGestureText="Ctrl+L"/>
+				<MenuItem
+					Header="{x:Static res:MainRes.EncodeDetailsMenuItem}"
+					Command="{Binding WindowManagerVM.OpenEncodeDetailsWindowCommand}"
+					IsCheckable="True" IsChecked="{Binding WindowManagerVM.EncodeDetailsWindowOpen}" />
 			</MenuItem>
 			<MenuItem Header="{x:Static res:MainRes.HelpMenu}">
 				<MenuItem Header="{x:Static res:MainRes.VidCoderHomepageMenuItem}" Command="{Binding OpenHomepageCommand}">
@@ -1069,26 +1084,28 @@
 										<Setter.Value>
 											<ContextMenu>
 												<MenuItem
-													Header="{x:Static res:MainRes.MoveToTopMenuItem}" Command="{Binding ProcessingVM.MoveSelectedJobsToTopCommand}"
-													IsEnabled="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}" />
+													Header="{x:Static res:MainRes.MoveToTopMenuItem}" Command="{Binding ProcessingVM.MoveSelectedJobsToTopCommand}" />
 												<MenuItem
-													Header="{x:Static res:MainRes.MoveToBottomMenuItem}" Command="{Binding ProcessingVM.MoveSelectedJobsToBottomCommand}"
-													IsEnabled="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}" />
+													Header="{x:Static res:MainRes.MoveToBottomMenuItem}" Command="{Binding ProcessingVM.MoveSelectedJobsToBottomCommand}" />
 												<Separator />
 												<MenuItem
-													Header="{x:Static res:MainRes.Edit}" Command="{Binding EditQueueJobCommand}"
-													IsEnabled="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}">
+													Header="{x:Static res:MainRes.Edit}" Command="{Binding EditQueueJobCommand}">
 													<MenuItem.Icon>
 														<Image Source="/Icons/edit_16x16.png" Width="16" Height="16" />
 													</MenuItem.Icon>
 												</MenuItem>
 												<MenuItem
-													Header="{x:Static res:CommonRes.Delete}" Command="{Binding ProcessingVM.RemoveSelectedJobsCommand}"
-													IsEnabled="{Binding ProcessingVM.Encoding, Converter={StaticResource InverseBoolConverter}}">
+													Header="{x:Static res:CommonRes.Delete}" Command="{Binding ProcessingVM.RemoveSelectedJobsCommand}">
 													<MenuItem.Icon>
 														<Image Source="/Icons/delete.png" Width="16" Height="16" />
 													</MenuItem.Icon>
 												</MenuItem>
+												<Separator />
+												<MenuItem
+													Header="{x:Static res:MainRes.ImportQueue}" Command="{Binding ProcessingVM.ImportQueueCommand}" />
+												<MenuItem
+													Header="{x:Static res:MainRes.ExportQueue}" Command="{Binding ProcessingVM.ExportQueueCommand}"
+													IsEnabled="{Binding ProcessingVM.QueueHasItems}" />
 											</ContextMenu>
 										</Setter.Value>
 									</Setter>
@@ -1104,6 +1121,12 @@
 							<ListView.ContextMenu>
 								<ContextMenu>
 									<MenuItem Header="{x:Static res:MainRes.CustomizeColumnsMenuItem}" Command="{Binding CustomizeQueueColumnsCommand}" />
+									<Separator />
+									<MenuItem
+										Header="{x:Static res:MainRes.ImportQueue}" Command="{Binding ProcessingVM.ImportQueueCommand}" />
+									<MenuItem
+										Header="{x:Static res:MainRes.ExportQueue}" Command="{Binding ProcessingVM.ExportQueueCommand}"
+										IsEnabled="{Binding ProcessingVM.QueueHasItems}" />
 								</ContextMenu>
 							</ListView.ContextMenu>
 						</ListView>
@@ -1131,7 +1154,7 @@
 								<GridView x:Name="completedGridView">
 									<GridView.Columns>
 										<GridViewColumn Width="300" Header="{x:Static res:MainRes.DestinationColumnHeader}" CellTemplate="{StaticResource CompletedDestinationTemplate}" />
-										<GridViewColumn Width="95" Header="{x:Static res:MainRes.StatusColumnHeader}" CellTemplate="{StaticResource CompletedStatusTemplate}" />
+										<GridViewColumn Width="120" Header="{x:Static res:MainRes.StatusColumnHeader}" CellTemplate="{StaticResource CompletedStatusTemplate}" />
 										<GridViewColumn Width="90" Header="{x:Static res:MainRes.ElapsedTimeColumnHeader}" CellTemplate="{StaticResource CompletedTimeTemplate}" />
 									</GridView.Columns>
 								</GridView>
@@ -1201,7 +1224,7 @@
 					Name="encodeProgressDetailsPopup" IsOpen="False"
 					PlacementTarget="{Binding ElementName=overallEncodeProgressBar}"
 					Placement="Center"
-					VerticalOffset="36"
+					VerticalOffset="-36"
 					AllowsTransparency="True">
 					<ContentControl Template="{StaticResource PopupInfoTemplate}">
 						<Grid Margin="7,2,7,2">

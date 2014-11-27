@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>CommonServiceLocator</id>
+    <version>1.3</version>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <licenseUrl>http://commonservicelocator.codeplex.com/license</licenseUrl>
+    <projectUrl>http://commonservicelocator.codeplex.com/</projectUrl>
+    <iconUrl>http://www.gravatar.com/avatar/7db4eb02e62dfb5df5067169d12d9672?s=128&amp;r=g&amp;d=retro</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The Common Service Locator library contains a shared interface for service location which application and framework developers can reference. The library provides an abstraction over IoC containers and service locators. Using the library allows an application to indirectly access the capabilities without relying on hard references. The hope is that using this library, third-party applications and frameworks can begin to leverage IoC/Service Location without tying themselves down to a specific implementation. This library contains a portable class library that targets .NET Framework 4, Windows 8, Windows Phone Silverlight 8, Windows Phone 8.1, and Silverlight 5.</description>
+    <summary>The Common Service Locator library contains a shared interface for service location which application and framework developers can reference. The library provides an abstraction over IoC containers and service locators. Using the library allows an application to indirectly access the capabilities without relying on hard references. The hope is that using this library, third-party applications and frameworks can begin to leverage IoC/Service Location without tying themselves down to a specific implementation.</summary>
+    <language>en-US</language>
+  </metadata>
+</package>

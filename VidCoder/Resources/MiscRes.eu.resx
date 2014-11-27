@@ -1,202 +1,254 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
-		Microsoft ResX Schema
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-		Version 1.3
-
-		The primary goals of this format is to allow a simple XML format 
-		that is mostly human readable. The generation and parsing of the 
-		various data types are done through the TypeConverter classes 
-		associated with the data types.
-
-		Example:
-
-		... ado.net/XML headers & schema ...
-		<resheader name="resmimetype">text/microsoft-resx</resheader>
-		<resheader name="version">1.3</resheader>
-		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-		<data name="Name1">this is my long string</data>
-		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-			[base64 mime encoded serialized .NET Framework object]
-		</data>
-		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-			[base64 mime encoded string representing a byte array form of the .NET Framework object]
-		</data>
-
-		There are any number of "resheader" rows that contain simple 
-		name/value pairs.
-
-		Each data row contains a name, and value. The row also contains a 
-		type or mimetype. Type corresponds to a .NET class that support 
-		text/value conversion through the TypeConverter architecture. 
-		Classes that don't support this are serialized and stored with the 
-		mimetype set.
-
-		The mimetype is used for serialized objects, and tells the 
-		ResXResourceReader how to depersist the object. This is currently not 
-		extensible. For a given mimetype the value must be set accordingly:
-
-		Note - application/x-microsoft.net.object.binary.base64 is the format 
-		that the ResXResourceWriter will generate, however the reader can 
-		read any of the formats listed below.
-
-		mimetype: application/x-microsoft.net.object.binary.base64
-		value   : The object must be serialized with 
-			: System.Serialization.Formatters.Binary.BinaryFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.soap.base64
-		value   : The object must be serialized with 
-			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.bytearray.base64
-		value   : The object must be serialized into a byte array 
-			: using a System.ComponentModel.TypeConverter
-			: and then encoded with base64 encoding.
-	-->
-	
-	<xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1"/>
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required"/>
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>1.3</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-  <data name="AddButton">
-    <value xml:space="preserve">Gehitu</value>
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>Gehitu</value>
   </data>
-  <data name="RefreshButton">
-    <value xml:space="preserve">Berritu</value>
+  <data name="RefreshButton" xml:space="preserve">
+    <value>Berritu</value>
   </data>
-  <data name="ChooseFromProcessesLabel">
-    <value xml:space="preserve">Hautatu dauden garapenetatik:</value>
+  <data name="ChooseFromProcessesLabel" xml:space="preserve">
+    <value>Hautatu dauden garapenetatik:</value>
   </data>
-  <data name="AddAutoPauseProcessDialogTitle">
-    <value xml:space="preserve">Gehitu Berez Pausatu Garapena</value>
+  <data name="AddAutoPauseProcessDialogTitle" xml:space="preserve">
+    <value>Gehitu Berez Pausatu Garapena</value>
   </data>
-  <data name="ProcessNameLabel">
-    <value xml:space="preserve">Garapen Izena:</value>
+  <data name="ProcessNameLabel" xml:space="preserve">
+    <value>Garapen Izena:</value>
   </data>
-  <data name="ExceptionDialogMainText">
-    <value xml:space="preserve">VidCoder-ek ustekabeko akats bat izan du.</value>
+  <data name="ExceptionDialogMainText" xml:space="preserve">
+    <value>VidCoder-ek ustekabeko akats bat izan du.</value>
   </data>
-  <data name="ExceptionDialogSubText">
-    <value xml:space="preserve">Mesedez jakinarazi hau horrela etorkizunean zuzendu ahal izango da.</value>
+  <data name="ExceptionDialogSubText" xml:space="preserve">
+    <value>Mesedez jakinarazi hau horrela etorkizunean zuzendu ahal izango da.</value>
   </data>
-  <data name="ExceptionWindowTitle">
-    <value xml:space="preserve">Salbuespena</value>
+  <data name="ExceptionWindowTitle" xml:space="preserve">
+    <value>Salbuespena</value>
   </data>
-  <data name="FileConflictDialogTitle">
-    <value xml:space="preserve">Agiri gatazka</value>
+  <data name="FileConflictDialogTitle" xml:space="preserve">
+    <value>Agiri gatazka</value>
   </data>
-  <data name="OverwriteButton">
-    <value xml:space="preserve">Gainidatzi</value>
+  <data name="OverwriteButton" xml:space="preserve">
+    <value>Gainidatzi</value>
   </data>
-  <data name="AutoRenameButton">
-    <value xml:space="preserve">Berez-berrizendatu</value>
+  <data name="AutoRenameButton" xml:space="preserve">
+    <value>Berez-berrizendatu</value>
   </data>
-  <data name="FileConflictWarning">
-    <value xml:space="preserve">Agiria jadanik badago hemen: {0}. Agiria gainidaztea, kodeaketa lanarentzat irteera helburu berri bat berezgaitasunez bilatu edo eragiketa hau ezeztatzea nahi duzu?</value>
+  <data name="FileConflictWarning" xml:space="preserve">
+    <value>Agiria jadanik badago hemen: {0}. Agiria gainidaztea, kodeaketa lanarentzat irteera helburu berri bat berezgaitasunez bilatu edo eragiketa hau ezeztatzea nahi duzu?</value>
   </data>
-  <data name="QueueFileConflictWarning">
-    <value xml:space="preserve">Lerroko lan bat jadanik badago irteera helburuan hemen: {0}. Agiria gainidaztea, kodeaketa lanarentzat irteera helburu berri bat berezgaitasunez bilatu edo eragiketa hau ezeztatzea nahi duzu?</value>
+  <data name="QueueFileConflictWarning" xml:space="preserve">
+    <value>Lerroko lan bat jadanik badago irteera helburuan hemen: {0}. Agiria gainidaztea, kodeaketa lanarentzat irteera helburu berri bat berezgaitasunez bilatu edo eragiketa hau ezeztatzea nahi duzu?</value>
   </data>
-  <data name="QueueColumnsDialogTitle">
-    <value xml:space="preserve">Lerro Zutabeak</value>
+  <data name="QueueColumnsDialogTitle" xml:space="preserve">
+    <value>Lerro Zutabeak</value>
   </data>
-  <data name="QueueColumnsDialogHeaderText">
-    <value xml:space="preserve">Arrasatu eta askatu gehitzeko, kendu edo birrantolatu zutabeak.</value>
+  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
+    <value>Arrasatu eta askatu gehitzeko, kendu edo birrantolatu zutabeak.</value>
   </data>
-  <data name="UnusedColumns">
-    <value xml:space="preserve">Zutabe ezerabiliak</value>
+  <data name="UnusedColumns" xml:space="preserve">
+    <value>Zutabe ezerabiliak</value>
   </data>
-  <data name="UsedColumns">
-    <value xml:space="preserve">Zutabe erabiliak</value>
+  <data name="UsedColumns" xml:space="preserve">
+    <value>Zutabe erabiliak</value>
   </data>
-  <data name="ScanMultipleWindowTitle">
-    <value xml:space="preserve">Agiriak mihatzen...</value>
+  <data name="ScanMultipleWindowTitle" xml:space="preserve">
+    <value>Mihatzen...</value>
   </data>
-  <data name="UpdateSuccessDialogTitle">
-    <value xml:space="preserve">Ongi</value>
+  <data name="UpdateSuccessDialogTitle" xml:space="preserve">
+    <value>Ongi</value>
   </data>
-  <data name="UpdateSuccessDialogMessage">
-    <value xml:space="preserve">VidCoder ongi eguneratu da.</value>
+  <data name="UpdateSuccessDialogMessage" xml:space="preserve">
+    <value>VidCoder ongi eguneratu da.</value>
   </data>
-  <data name="AboutVidCoderDialogTitle">
-    <value xml:space="preserve">VidCoder Buruz</value>
+  <data name="AboutVidCoderDialogTitle" xml:space="preserve">
+    <value>VidCoder Buruz</value>
   </data>
-  <data name="LicenseLabel">
-    <value xml:space="preserve">Baimena:</value>
+  <data name="LicenseLabel" xml:space="preserve">
+    <value>Baimena:</value>
   </data>
-  <data name="Version">
-    <value xml:space="preserve">Bertsioa</value>
+  <data name="Version" xml:space="preserve">
+    <value>Bertsioa</value>
   </data>
-  <data name="BasedOnHandBrake">
-    <value xml:space="preserve">HandBrake (svn {0})-an ohinarritua</value>
+  <data name="BasedOnHandBrake" xml:space="preserve">
+    <value>HandBrake ({0})-an ohinarritua</value>
   </data>
-  <data name="Copyright">
-    <value xml:space="preserve">© {0} VidCoder Garatzaileak</value>
+  <data name="Copyright" xml:space="preserve">
+    <value>© {0} VidCoder Garatzaileak</value>
   </data>
-  <data name="VersionFormat">
-    <value xml:space="preserve">{0} ({1})</value>
+  <data name="VersionFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 (x64)</comment>
   </data>
-  <data name="BetaVersionFormat">
-    <value xml:space="preserve">{0} Beta ({1})</value>
+  <data name="BetaVersionFormat" xml:space="preserve">
+    <value>{0} Beta ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
-  <data name="PresetNameDialogTitle">
-    <value xml:space="preserve">Aurrezarpen Izena</value>
+  <data name="PresetNameDialogTitle" xml:space="preserve">
+    <value>Aurrezarpen Izena</value>
   </data>
-  <data name="ChoosePresetName">
-    <value xml:space="preserve">Hautatu izen bat aurrezarpenarentzat:</value>
+  <data name="ChoosePresetName" xml:space="preserve">
+    <value>Hautatu izen bat aurrezarpenarentzat:</value>
   </data>
-  <data name="ApplyUpdateDialogTitle">
-    <value xml:space="preserve">Ezarri Eguneraketa?</value>
+  <data name="ApplyUpdateDialogTitle" xml:space="preserve">
+    <value>Ezarri Eguneraketa?</value>
   </data>
-  <data name="ApplyUpdateDialogMessage">
-    <value xml:space="preserve">Eguneraketa bat jeitsi da. Nahi duzu orain ezartzea?</value>
+  <data name="ApplyUpdateDialogMessage" xml:space="preserve">
+    <value>Eguneraketa bat jeitsi da. Nahi duzu orain ezartzea?</value>
   </data>
-  <data name="ViewFullChangelog">
-    <value xml:space="preserve">Ikusi Aldaketa-ohar osoa</value>
+  <data name="ViewFullChangelog" xml:space="preserve">
+    <value>Ikusi Aldaketa-ohar osoa</value>
   </data>
-  <data name="DisableUpdatesButton">
-    <value xml:space="preserve">Ezgaitu Eguneraketak</value>
+  <data name="DisableUpdatesButton" xml:space="preserve">
+    <value>Ezgaitu Eguneraketak</value>
+  </data>
+  <data name="NoticeMessageTitle" xml:space="preserve">
+    <value>Oharra</value>
+  </data>
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>Zure sistemak ez du VidCoder sostengatzen. Windows XP eta Server 2003-k ez dute lan egiten. Mesedez ezarri VidCoder 1.4 edo eguneratu zure sistema eragilea.</value>
+  </data>
+  <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
+    <value>Berehalako sistema lotaratzea</value>
+  </data>
+  <data name="EncodeCompleteWarning_LogOffTitle" xml:space="preserve">
+    <value>Berehalako saio amaitzea</value>
+  </data>
+  <data name="EncodeCompleteWarning_ShutdownTitle" xml:space="preserve">
+    <value>Berehalako itzaltzea</value>
+  </data>
+  <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
+    <value>Sistema lotaratu egingo da {0} segundu barru.</value>
+  </data>
+  <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
+    <value>Saioa amaituko da {0} segundu barru.</value>
+  </data>
+  <data name="EncodeCompleteWarning_ShutdownMessage" xml:space="preserve">
+    <value>Sistema itzali egingo da {0} segundu barru.</value>
+  </data>
+  <data name="EncodeCompleteWarning_Title" xml:space="preserve">
+    <value>Kodeaketa osatu da.</value>
+  </data>
+	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+    <value>Ezin da bideo irakurgailurik aurkitu {0}-rako.</value>
+  </data>
+	<data name="ErrorPlayingSource" xml:space="preserve">
+    <value>Akatsa iturburua irakurtzerakoan.</value>
   </data>
 </root>

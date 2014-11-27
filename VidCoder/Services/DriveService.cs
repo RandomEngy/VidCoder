@@ -6,7 +6,6 @@ using VidCoder.Model;
 using VidCoder.ViewModel;
 using System.IO;
 using System.Management;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder.Services
 {
@@ -14,7 +13,7 @@ namespace VidCoder.Services
 
 	public class DriveService : IDriveService
 	{
-		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
+		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
 		private ManagementEventWatcher watcher;
 
 		public DriveService()
@@ -80,6 +79,41 @@ namespace VidCoder.Services
 			}
 
 			return driveList;
+		}
+
+		public bool PathIsDrive(string sourcePath)
+		{
+			if (string.IsNullOrWhiteSpace(sourcePath))
+			{
+				return false;
+			}
+
+			string root = Path.GetPathRoot(sourcePath);
+			if (string.Compare(sourcePath, root, StringComparison.OrdinalIgnoreCase) == 0)
+			{
+				foreach (DriveInformation drive in this.GetDiscInformation())
+				{
+					if (string.Compare(drive.RootDirectory, sourcePath, StringComparison.OrdinalIgnoreCase) == 0)
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
+
+		public DriveInformation GetDriveInformationFromPath(string sourcePath)
+		{
+			foreach (DriveInformation drive in this.GetDiscInformation())
+			{
+				if (string.Compare(drive.RootDirectory, sourcePath, StringComparison.OrdinalIgnoreCase) == 0)
+				{
+					return drive;
+				}
+			}
+
+			return null;
 		}
 
 		public IList<DriveInfo> GetDriveInformation()

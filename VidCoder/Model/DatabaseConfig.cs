@@ -48,7 +48,7 @@ namespace VidCoder.Model
 			string configValue = GetConfigStringRaw(configName, connection);
 			if (configValue != null)
 			{
-				return double.Parse(configValue);
+				return double.Parse(configValue, CultureInfo.InvariantCulture);
 			}
 
 			return defaultValue;

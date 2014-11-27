@@ -65,6 +65,12 @@ namespace VidCoder.Controls
 		private string GetShortText(double maxWidth)
 		{
 			string fullPath = this.Text;
+
+			if (string.IsNullOrEmpty(fullPath))
+			{
+				return string.Empty;
+			}
+
 			if (this.MeasureStringWidth(fullPath) <= maxWidth)
 			{
 				return fullPath;

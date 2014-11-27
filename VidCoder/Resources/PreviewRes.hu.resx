@@ -180,4 +180,7 @@
   <data name="BottomMargin" xml:space="preserve">
     <value>Alsó margó</value>
   </data>
+	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
+    <value>Forrásfájl nem található.</value>
+  </data>
 </root>

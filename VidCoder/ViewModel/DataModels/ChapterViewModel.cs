@@ -5,7 +5,6 @@ using System.Text;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop.SourceData;
-using Microsoft.Practices.Unity;
 using VidCoder.Messages;
 
 namespace VidCoder.ViewModel

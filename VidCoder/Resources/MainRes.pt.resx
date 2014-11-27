@@ -465,20 +465,12 @@
   <data name="PresetImportErrorMessage" xml:space="preserve">
     <value>Não foi possível importar o pré-ajuste. Formato não reconhecido.</value>
   </data>
-  <data name="PresetImportErrorTitle" xml:space="preserve">
-    <value>Erro de importação</value>
-  </data>
+  
   <data name="PresetImportSuccessMessage" xml:space="preserve">
     <value>Pré-ajuste importado com êxito {0}.</value>
   </data>
-  <data name="PresetImportSuccessTitle" xml:space="preserve">
-    <value>Sucesso</value>
-  </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
     <value>Pré-ajuste exportado com êxito {0}</value>
-  </data>
-  <data name="PresetExportSuccessTitle" xml:space="preserve">
-    <value>Sucesso</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Exportar Pré-ajustes</value>
@@ -561,7 +553,27 @@
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Ignorar alterações?</value>
   </data>
-	<data name="RemoveAudioTrackToolTip" xml:space="preserve">
+  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>Remover a pista de áudio</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+	
+	
+	
+	
+	
 </root>

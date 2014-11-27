@@ -114,6 +114,24 @@ namespace VidCoder.Controls
 			}
 		}
 
+		public static readonly DependencyProperty BoxForegroundProperty = DependencyProperty.Register(
+			"BoxForeground",
+			typeof (Brush),
+			typeof (NumberBox),
+			new PropertyMetadata(OnBoxForegroundChanged));
+		public Brush BoxForeground
+		{
+			get
+			{
+				return (Brush)GetValue(BoxForegroundProperty);
+			}
+
+			set
+			{
+				SetValue(BoxForegroundProperty, value);
+			}
+		}
+
 		public bool UpdateBindingOnTextChange { get; set; }
 
 		public bool ShowIncrementButtons { get; set; }
@@ -165,6 +183,15 @@ namespace VidCoder.Controls
 			}
 		}
 
+		private static void OnBoxForegroundChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+		{
+			if (eventArgs.NewValue != eventArgs.OldValue)
+			{
+				var numBox = dependencyObject as NumberBox;
+				numBox.RefreshNumberBoxColor();
+			}
+		}
+
 		private static void OnAllowEmptyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
 		{
 			var numBox = dependencyObject as NumberBox;
@@ -201,7 +228,14 @@ namespace VidCoder.Controls
 			}
 			else
 			{
-				this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
+				if (this.BoxForeground != null)
+				{
+					this.numberBox.Foreground = this.BoxForeground;
+				}
+				else
+				{
+					this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
+				}
 			}
 		}
 
@@ -213,7 +247,10 @@ namespace VidCoder.Controls
 
 		private void UpButtonMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
-			this.refireControl.Stop();
+			if (this.refireControl != null)
+			{
+				this.refireControl.Stop();
+			}
 		}
 
 		private void DownButtonMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -224,7 +261,10 @@ namespace VidCoder.Controls
 
 		private void DownButtonMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
-			this.refireControl.Stop();
+			if (this.refireControl != null)
+			{
+				this.refireControl.Stop();
+			}
 		}
 
 		private void IncrementNumber()
@@ -292,7 +332,14 @@ namespace VidCoder.Controls
 					this.numberBox.Text = string.Empty;
 				}
 
-				this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
+				if (this.BoxForeground != null)
+				{
+					this.numberBox.Foreground = this.BoxForeground;
+				}
+				else
+				{
+					this.numberBox.Foreground = new SolidColorBrush(Colors.Black);
+				}
 			}
 		}
 

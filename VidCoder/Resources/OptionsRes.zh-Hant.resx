@@ -262,7 +262,7 @@
     <value>進階</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>您已追蹤 Beta 版，欲換回穩定版本，請解除安裝、點選「是」移除設定值後重新安裝穩定版本。</value>
+    <value>您目前執行的是測試版，此版本可與穩定版同時執行。</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>追蹤 Beta 取得更頻繁的更新</value>
@@ -384,16 +384,39 @@
   <data name="Priority_Idle" xml:space="preserve">
     <value>低</value>
   </data>
-	<data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
     <value>複製編碼記錄至編碼檔案的資料夾下</value>
   </data>
-	<data name="OpenLogFolderButton" xml:space="preserve">
+  <data name="OpenLogFolderButton" xml:space="preserve">
     <value>開啟記錄資料夾</value>
   </data>
-	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
     <value>重新啟動時自動繼續編碼</value>
   </data>
-	<data name="UseWorkerProcessCheckBox" xml:space="preserve">
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>使用 Worker 處理程序編碼</value>
   </data>
+  <data name="VideoSection" xml:space="preserve">
+    <value>視訊</value>
+  </data>
+  <data name="DxvaDecodingCheckBox" xml:space="preserve">
+    <value>啟用 DXVA 硬體加速解碼</value>
+  </data>
+  <data name="DxvaDecodingToolTip" xml:space="preserve">
+    <value>此選項僅適用於較慢的系統，硬體解碼器目前僅用於播放而非重新編碼，故在較快的系統上可能會產生瓶頸。</value>
+  </data>
+  <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+    <value>轉換檔案時保留建立及修改時間</value>
+  </data>
+  <data name="DefaultCheckBox" xml:space="preserve">
+    <value>預設</value>
+    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>批次編碼時保留資料夾結構</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>若您以資料夾為單位進行編碼，編碼後的版本將置於與來源資料夾結構相同的子目錄下。</value>
+  </data>
+	
 </root>

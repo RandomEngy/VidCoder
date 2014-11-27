@@ -14,7 +14,7 @@ namespace VidCoder.Model
 
 		public string FilePath { get; set; }
 
-		public BitmapImage Image { get; set; }
+		public BitmapSource Image { get; set; }
 
 		/// <summary>
 		/// Gets or sets the object to lock on before accessing the file cache image.

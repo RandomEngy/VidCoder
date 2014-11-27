@@ -467,20 +467,14 @@
   <data name="PresetImportErrorMessage" xml:space="preserve">
     <value>Ne peut pas importer le pré-réglage. Son format n'est pas reconnu.</value>
   </data>
-  <data name="PresetImportErrorTitle" xml:space="preserve">
+  <data name="ImportErrorTitle" xml:space="preserve">
     <value>Erreur d'importation</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
     <value>Importation du pré-réglage {0} réussi.</value>
   </data>
-  <data name="PresetImportSuccessTitle" xml:space="preserve">
-    <value>Succès</value>
-  </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
     <value>Exportation du pré-réglage vers {0} réussi</value>
-  </data>
-  <data name="PresetExportSuccessTitle" xml:space="preserve">
-    <value>Succès</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Exporter un Pré-réglage</value>
@@ -563,7 +557,69 @@
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Ignorer les modifications ?</value>
   </data>
-	<data name="RemoveAudioTrackToolTip" xml:space="preserve">
+  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>Supprimer la piste audio</value>
+  </data>
+  <data name="Preset_Xbox360" xml:space="preserve">
+    <value>Xbox 360</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>Supprimer de la file d'attente</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>Impossible d'enregistrer la file d'attente: {0} {1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>Exporter la file d'attente...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>Exporter la file d'attente</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Impossible d'importer la file d'attente. Le format n'est pas reconnu.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>Importer un Pré-réglage</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>Importer une file d'attente</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>Importer une file d'attente...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>File d'attente exporté avec succès à {0}</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>File d'attente importé avec succès.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>Arrêter l'encodage ?</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>Êtes-vous sûr de que vouloir arrêter l'encodage ?</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>Fermez le fichier actuel et ouvrez le disque ?</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>Détails d'encodage</value>
+  </data>
+	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+    <value>Les paramètres d'encodage sont changés depuis votre dernier ajout d'élément à la file d'attente. Vous voulez appliquer les paramètres d'encodage actuels à tous les éléments dans la file d'attente ?</value>
+  </data>
+	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+    <value>Les paramètres ont été modifiés</value>
+  </data>
+	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>Voulez-vous renommer le fichier existant et démarrer avec un nouveau ?</value>
+  </data>
+	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>Impossible de lire le fichier de base de données version {0}. La version la plus récente reconnue par VidCoder {1} est {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>Fichier de base de données incompatible</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
 </root>

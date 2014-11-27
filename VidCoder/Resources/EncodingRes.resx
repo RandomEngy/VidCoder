@@ -206,7 +206,7 @@ as opposed to trying to maximize quality the way a computer understands it, thro
 It is considered experimental, which is why it's off by default. Good values are 0.1 to 0.2.</value>
   </data>
   <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
-    <value>B-pyramid improves compression by creating a pyramidal structure (hence the name) of B-frames, allowing B-frames to 
+    <value>B-pyramid creates a pyramidal structure (hence the name) of B-frames, allowing B-frames to 
 reference each other to improve compression.  
 
 Requires Max B-frames greater than 1; optimal adaptive B-frames is strongly recommended for full compression benefit.</value>
@@ -247,7 +247,9 @@ may have problems with Weighted P-frame prediction: the Apple TV is completely i
   <data name="Audio_DrcToolTip" xml:space="preserve">
     <value>Dynamic Range Compression. Valid values are 0-4.
 
-For source audio that has a wide dynamic range (very loud and very soft sequences), DRC allows you to "compress" the range by making loud sections softer and soft sections louder.</value>
+For source audio that has a wide dynamic range (very loud and very soft sequences), DRC allows you to "compress" the range by making loud sections softer and soft sections louder.
+
+This only works with AC3 sources.</value>
   </data>
   <data name="Audio_GainToolTip" xml:space="preserve">
     <value>Amplify or attenuate audio before encoding. Valid values are -20 to +20 dB.</value>
@@ -270,10 +272,7 @@ For source audio that has a wide dynamic range (very loud and very soft sequence
   <data name="WebOptimizedToolTip" xml:space="preserve">
     <value>Arrange file to play better as a progressive download.</value>
   </data>
-  <data name="X264PresetToolTip" xml:space="preserve">
-    <value>Change options to trade off compression efficiency against encoding speed. If you specify a preset, the changes it makes will be applied before all other parameters are applied.</value>
-  </data>
-  <data name="X264ProfileToolTip" xml:space="preserve">
+  <data name="ProfileToolTip" xml:space="preserve">
     <value>Limit the profile of the output stream. If you specify a profile, it overrides all other settings, so if you use it, you will be guaranteed a compatible stream.
 
 You should set this if you know your playback device only supports a certain profile.</value>
@@ -315,7 +314,7 @@ You should set this if you know your playback device only supports a certain pro
     <value>Audio</value>
   </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>Advanced</value>
+    <value>Advanced Video</value>
   </data>
   <data name="Rename" xml:space="preserve">
     <value>Rename</value>
@@ -446,13 +445,13 @@ You should set this if you know your playback device only supports a certain pro
   <data name="TuneLabel" xml:space="preserve">
     <value>Tune:</value>
   </data>
-  <data name="Profile_Baseline" xml:space="preserve">
+  <data name="Profile_baseline" xml:space="preserve">
     <value>Baseline</value>
   </data>
-  <data name="Profile_Main" xml:space="preserve">
+  <data name="Profile_main" xml:space="preserve">
     <value>Main</value>
   </data>
-  <data name="Profile_High" xml:space="preserve">
+  <data name="Profile_high" xml:space="preserve">
     <value>High</value>
   </data>
   <data name="Preset_UltraFast" xml:space="preserve">
@@ -485,28 +484,28 @@ You should set this if you know your playback device only supports a certain pro
   <data name="Preset_Placebo" xml:space="preserve">
     <value>Placebo</value>
   </data>
-  <data name="Tune_Film" xml:space="preserve">
+  <data name="Tune_film" xml:space="preserve">
     <value>Film</value>
   </data>
-  <data name="Tune_Animation" xml:space="preserve">
+  <data name="Tune_animation" xml:space="preserve">
     <value>Animation</value>
   </data>
-  <data name="Tune_Grain" xml:space="preserve">
+  <data name="Tune_grain" xml:space="preserve">
     <value>Grain</value>
   </data>
-  <data name="Tune_StillImage" xml:space="preserve">
+  <data name="Tune_stillimage" xml:space="preserve">
     <value>Still Image</value>
   </data>
-  <data name="Tune_Psnr" xml:space="preserve">
+  <data name="Tune_psnr" xml:space="preserve">
     <value>PSNR</value>
   </data>
-  <data name="Tune_Ssim" xml:space="preserve">
+  <data name="Tune_ssim" xml:space="preserve">
     <value>SSIM</value>
   </data>
-  <data name="Tune_FastDecode" xml:space="preserve">
+  <data name="Tune_fastdecode" xml:space="preserve">
     <value>Fast Decode</value>
   </data>
-  <data name="Tune_ZeroLatency" xml:space="preserve">
+  <data name="Tune_zerolatency" xml:space="preserve">
     <value>Zero Latency</value>
   </data>
   <data name="FpsFormat" xml:space="preserve">
@@ -587,42 +586,24 @@ You should set this if you know your playback device only supports a certain pro
   <data name="AudioCompressionToolTip" xml:space="preserve">
     <value>The amount of compression to apply. {0} Valid values are from {1} to {2}.</value>
   </data>
-  <data name="AudioEncoder_copy" xml:space="preserve">
-    <value>Auto Passthrough</value>
-  </data>
-  <data name="AudioEncoder_copy_aac" xml:space="preserve">
-    <value>AAC Passthrough</value>
-  </data>
-  <data name="AudioEncoder_copy_ac3" xml:space="preserve">
-    <value>AC3 Passthrough</value>
-  </data>
-  <data name="AudioEncoder_copy_dts" xml:space="preserve">
-    <value>DTS Passthrough</value>
-  </data>
-  <data name="AudioEncoder_copy_dtshd" xml:space="preserve">
-    <value>DTS-HD Passthrough</value>
-  </data>
-  <data name="AudioEncoder_copy_mp3" xml:space="preserve">
-    <value>MP3 Passthrough</value>
-  </data>
   <data name="AudioEncoder_faac" xml:space="preserve">
     <value>AAC (FAAC)</value>
     <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
   </data>
-  <data name="AudioEncoder_ffaac" xml:space="preserve">
-    <value>AAC (Libav)</value>
+  <data name="AudioEncoder_av_aac" xml:space="preserve">
+    <value>AAC (avcodec)</value>
   </data>
-  <data name="AudioEncoder_ffac3" xml:space="preserve">
-    <value>AC3 (Libav)</value>
+  <data name="AudioEncoder_ac3" xml:space="preserve">
+    <value>AC3</value>
   </data>
-  <data name="AudioEncoder_ffflac" xml:space="preserve">
-    <value>FLAC (Libav)</value>
+  <data name="AudioEncoder_flac16" xml:space="preserve">
+    <value>FLAC 16-bit</value>
   </data>
-  <data name="AudioEncoder_lame" xml:space="preserve">
-    <value>MP3 (LAME)</value>
+  <data name="AudioEncoder_mp3" xml:space="preserve">
+    <value>MP3</value>
   </data>
   <data name="AudioEncoder_vorbis" xml:space="preserve">
-    <value>Vorbis (Vorbis)</value>
+    <value>Vorbis</value>
   </data>
   <data name="Mixdown_5point1" xml:space="preserve">
     <value>5.1 Channels</value>
@@ -822,12 +803,12 @@ You should set this if you know your playback device only supports a certain pro
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>Additional advanced x264 options:</value>
   </data>
-  <data name="H264LevelToolTip" xml:space="preserve">
-    <value>Sets and ensures compliance with the specified H.264 level.
+  <data name="LevelToolTip" xml:space="preserve">
+    <value>Sets and ensures compliance with the specified encoder level.
 
 Overrides all other settings.</value>
   </data>
-  <data name="Profile_High444" xml:space="preserve">
+  <data name="Profile_high444" xml:space="preserve">
     <value>High 4:4:4 Predictive</value>
   </data>
   <data name="VideoCodecLabel" xml:space="preserve">
@@ -854,17 +835,8 @@ Overrides all other settings.</value>
   <data name="X264Settings" xml:space="preserve">
     <value>x264 Settings</value>
   </data>
-  <data name="X264PresetLabel" xml:space="preserve">
-    <value>x264 Preset:</value>
-  </data>
-  <data name="X264TuneLabel" xml:space="preserve">
-    <value>x264 Tune:</value>
-  </data>
-  <data name="H264ProfileLabel" xml:space="preserve">
-    <value>H.264 Profile:</value>
-  </data>
-  <data name="H264LevelLabel" xml:space="preserve">
-    <value>H.264 Level:</value>
+  <data name="LevelLabel" xml:space="preserve">
+    <value>Level:</value>
   </data>
   <data name="MoreSettingsLabel" xml:space="preserve">
     <value>More Settings:</value>
@@ -887,16 +859,137 @@ Overrides all other settings.</value>
   <data name="Modifiers" xml:space="preserve">
     <value>Modifiers</value>
   </data>
-  <data name="PassthroughTrackDroppedWarning" xml:space="preserve">
-    <value>Passthrough does not work for this input codec; the track has been dropped.</value>
-  </data>
   <data name="DtsMp4Warning" xml:space="preserve">
     <value>Few players support playback of DTS audio in MP4 containers. MKV is recommended for DTS audio.</value>
   </data>
-  <data name="AudioEncoder_ffflac24" xml:space="preserve">
-    <value>FLAC 24-bit (Libav)</value>
+  <data name="AudioEncoder_flac24" xml:space="preserve">
+    <value>FLAC 24-bit</value>
   </data>
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Psychovisual</value>
+  </data>
+  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
+    <value>AAC (FDK)</value>
+  </data>
+  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
+    <value>HE-AAC (FDK)</value>
+  </data>
+  <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
+    <value>Basic</value>
+    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
+  </data>
+  <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
+    <value>Advanced Tab</value>
+    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
+  </data>
+  <data name="VideoEncoder_mpeg2" xml:space="preserve">
+    <value>MPEG-2</value>
+  </data>
+  <data name="VideoEncoder_mpeg4" xml:space="preserve">
+    <value>MPEG-4</value>
+  </data>
+  <data name="VideoEncoder_theora" xml:space="preserve">
+    <value>Theora</value>
+  </data>
+  <data name="RemoveAudioEncodingToolTip" xml:space="preserve">
+    <value>Remove audio encoding</value>
+  </data>
+  <data name="AutoPassthroughFallbackLabel" xml:space="preserve">
+    <value>Fallback:</value>
+  </data>
+  <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
+    <value>Passthrough does not work on all audio codecs. This specifies the encoder to fall back to if the track cannot be passed through.</value>
+  </data>
+  <data name="EncoderSettings" xml:space="preserve">
+    <value>Encoder Settings</value>
+  </data>
+  <data name="QsvDecodingLabel" xml:space="preserve">
+    <value>QSV Decoding</value>
+  </data>
+  <data name="ScaleMethod_Lanczos" xml:space="preserve">
+    <value>Lanczos</value>
+  </data>
+  <data name="ScaleMethod_BicubicOpenCL" xml:space="preserve">
+    <value>Bicubic (OpenCL)</value>
+  </data>
+  <data name="QsvPreset_Speed" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="QsvPreset_Balanced" xml:space="preserve">
+    <value>Balanced</value>
+  </data>
+  <data name="QsvPreset_Quality" xml:space="preserve">
+    <value>Quality</value>
+  </data>
+  <data name="PresetToolTip" xml:space="preserve">
+    <value>Change options to trade off compression efficiency against encoding speed.</value>
+  </data>
+  <data name="ScaleMethodToolTip" xml:space="preserve">
+    <value>Lanczos: This is the default scaler with the best quality.
+Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
+  </data>
+  <data name="AudioEncoder_Passthrough" xml:space="preserve">
+    <value>Passthrough</value>
+  </data>
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_any" xml:space="preserve">
+    <value>Any</value>
+    <comment>Choice for a passthrough which accepts any input codec.</comment>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="ScopeLabel" xml:space="preserve">
+    <value>Scope:</value>
+  </data>
+  <data name="PassthroughScopeToolTip" xml:space="preserve">
+    <value>Specifies which input codecs the passthrough will apply to.</value>
+  </data>
+  <data name="FlipHorizontalCheckBox" xml:space="preserve">
+    <value>Flip horizontally</value>
+  </data>
+  <data name="FlipVerticalCheckBox" xml:space="preserve">
+    <value>Flip vertically</value>
+  </data>
+  <data name="Rotation_Clockwise90" xml:space="preserve">
+    <value>Clockwise 90°</value>
+  </data>
+  <data name="Rotation_Counterclockwise90" xml:space="preserve">
+    <value>Counterclockwise 90°</value>
+  </data>
+  <data name="Rotation_180" xml:space="preserve">
+    <value>180°</value>
+  </data>
+  <data name="RotationToolTip" xml:space="preserve">
+    <value>Rotate the picture. This is applied after all sizing and cropping.</value>
+  </data>
+  <data name="FlipHorizontalToolTip" xml:space="preserve">
+    <value>Flip the picture horizontally. This is applied before any rotation.</value>
+  </data>
+  <data name="FlipVerticalToolTip" xml:space="preserve">
+    <value>Flip the picture vertically. This is applied before any rotation.</value>
+  </data>
+  <data name="PassthroughIfPossibleCheckBox" xml:space="preserve">
+    <value>Passthrough if possible</value>
+  </data>
+  <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
+    <value>If the input track matches the codec it will be passed through instead of encoded.</value>
+  </data>
+	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+    <value>Scaling Algorithm:</value>
+  </data>
+	<data name="RotationLabel" xml:space="preserve">
+    <value>Rotation:</value>
   </data>
 </root>

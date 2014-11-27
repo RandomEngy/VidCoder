@@ -127,7 +127,7 @@
     <value>Keine</value>
   </data>
   <data name="Anamorphic_Strict" xml:space="preserve">
-    <value>Genau</value>
+    <value>Strikt</value>
   </data>
   <data name="Custom" xml:space="preserve">
     <value>Benutzerdefiniert</value>
@@ -143,6 +143,7 @@
   </data>
   <data name="Deinterlace_Bob" xml:space="preserve">
     <value>Bob</value>
+    <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
   </data>
   <data name="Deinterlace_Fast" xml:space="preserve">
     <value>Schnell</value>
@@ -153,17 +154,38 @@
   <data name="Deinterlace_Slower" xml:space="preserve">
     <value>Langsamer</value>
   </data>
-  <data name="Denoise_Medium" xml:space="preserve">
-    <value>Mittel</value>
+  <data name="DenoisePreset_Light" xml:space="preserve">
+    <value>Leicht</value>
   </data>
-  <data name="Denoise_Strong" xml:space="preserve">
+  <data name="DenoisePreset_Medium" xml:space="preserve">
+    <value>Mittelmäßig</value>
+  </data>
+  <data name="DenoisePreset_Strong" xml:space="preserve">
     <value>Stark</value>
   </data>
-  <data name="Denoise_Weak" xml:space="preserve">
-    <value>Schwach</value>
+  <data name="DenoisePreset_Ultralight" xml:space="preserve">
+    <value>Sehr leicht</value>
+  </data>
+  <data name="DenoiseTune_Animation" xml:space="preserve">
+    <value>Zeichentrick</value>
+  </data>
+  <data name="DenoiseTune_Film" xml:space="preserve">
+    <value>Film</value>
+  </data>
+  <data name="DenoiseTune_Grain" xml:space="preserve">
+    <value>Körnung</value>
+  </data>
+  <data name="DenoiseTune_HighMotion" xml:space="preserve">
+    <value>Starke Bewegung</value>
+  </data>
+  <data name="Denoise_HQDN3D" xml:space="preserve">
+    <value>hqdn3d</value>
+  </data>
+  <data name="Denoise_NLMeans" xml:space="preserve">
+    <value>NL-Means</value>
   </data>
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
-    <value>Mache nichts</value>
+    <value>Nichts machen</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
     <value>Auswerfen {0}:</value>

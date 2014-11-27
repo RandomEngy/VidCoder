@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using VidCoder.View;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder.Services
 {
@@ -11,7 +10,7 @@ namespace VidCoder.Services
 	{
 		public void ShowBalloonMessage(string title, string message)
 		{
-			Unity.Container.Resolve<MainWindow>().ShowBalloonMessage(title, message);
+			Ioc.Container.GetInstance<MainWindow>().ShowBalloonMessage(title, message);
 		}
 	}
 }

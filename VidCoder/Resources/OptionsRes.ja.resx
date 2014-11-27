@@ -1,0 +1,424 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
+    <value>音声の自動選択を無効にすると、最後に選択したトラックが維持されます</value>
+  </data>
+  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
+    <value>字幕の自動選択を無効にすると、最後に選択したも字幕が維持されます。</value>
+  </data>
+  <data name="GeneralTab" xml:space="preserve">
+    <value>全般</value>
+  </data>
+  <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
+    <value>タスクバーに最小化します。</value>
+  </data>
+  <data name="MinimizeToSystemTrayRadioButton" xml:space="preserve">
+    <value>システムトレイに最小化します。</value>
+  </data>
+  <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
+    <value>キューの完了時にサウンドを再生します。</value>
+  </data>
+  <data name="PreferredDvdPlayerLabel" xml:space="preserve">
+    <value>使用するDVDプレーヤー：</value>
+  </data>
+  <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
+    <value>DVDソースの再生に使用するプレーヤーを選択します。</value>
+  </data>
+  <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
+    <value>自動更新</value>
+  </data>
+  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
+    <value>ベータ版の更新に参加する</value>
+  </data>
+  <data name="FileNamingTab" xml:space="preserve">
+    <value>ファイルの名前付け</value>
+  </data>
+  <data name="DefaultFolderLabel" xml:space="preserve">
+    <value>既定のフォルダー：</value>
+  </data>
+  <data name="FileFormatLabel" xml:space="preserve">
+    <value>ファイル形式：</value>
+  </data>
+  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
+    <value>可能であればソースと同じフォルダに出力する</value>
+  </data>
+  <data name="DefaultFormatRadioButton" xml:space="preserve">
+    <value>既定の形式</value>
+  </data>
+  <data name="CustomFormatRadioButton" xml:space="preserve">
+    <value>カスタム形式：</value>
+  </data>
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>使用可能なオプション: {0}</value>
+  </data>
+  <data name="WhenFileAlreadyExists" xml:space="preserve">
+    <value>ファイルが既に存在する場合.</value>
+  </data>
+  <data name="EncodingSingleFile" xml:space="preserve">
+    <value>単一ファイルのエンコード時：</value>
+  </data>
+  <data name="AskOverwriteRadioButton" xml:space="preserve">
+    <value>上書きするか確認する</value>
+  </data>
+  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
+    <value>確認せずに上書きする</value>
+  </data>
+  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
+    <value>自動的に別の名前に切り替える</value>
+  </data>
+  <data name="EncodingBatchOfFiles" xml:space="preserve">
+    <value>複数ファイルのエンコード時：</value>
+  </data>
+  <data name="OverwriteRadioButton" xml:space="preserve">
+    <value>上書き</value>
+  </data>
+  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
+    <value>自動的に名前を変更します。</value>
+  </data>
+  <data name="AutomaticAudioSelection" xml:space="preserve">
+    <value>音声の自動選択</value>
+  </data>
+  <data name="AudioSubtitlesTab" xml:space="preserve">
+    <value>音声/字幕</value>
+  </data>
+  <data name="LanguageRadioButton" xml:space="preserve">
+    <value>言語:</value>
+  </data>
+  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
+    <value>すべてのトラックを含める</value>
+  </data>
+  <data name="AutomaticSubtitleSelection" xml:space="preserve">
+    <value>字幕の自動選択</value>
+  </data>
+  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
+    <value>外部オーディオ検索</value>
+  </data>
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>焼きこむ</value>
+  </data>
+  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
+    <value>音声と言語が違う場合のみ</value>
+  </data>
+  <data name="AutoPauseLabel" xml:space="preserve">
+    <value>これらのプロセスのいずれかを実行しているときに、エンコーディングを自動的に一時停止します。</value>
+  </data>
+  <data name="AddEllipsesButton" xml:space="preserve">
+    <value>追加...</value>
+  </data>
+  <data name="PreviewCountLabel" xml:space="preserve">
+    <value>スキャンするプレビュー画像の数：</value>
+  </data>
+  <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
+    <value>以前に使用したファイルとフォルダを記憶する</value>
+  </data>
+  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
+    <value>音声トラックにカスタム名を許可する (限られたプレーヤーのみサポート)</value>
+  </data>
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>LibDVDNavを有効にする(要再起動)</value>
+  </data>
+  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
+    <value>完了後スキャン結果を保持します。（完了したアイテムを編集することができます）</value>
+  </data>
+  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
+    <value>問題なく完了したアイテムをクリアする際にソースファイルを削除します（確認あり）</value>
+  </data>
+  <data name="LoggingVerbosityLabel" xml:space="preserve">
+    <value>ログレベル：</value>
+  </data>
+  <data name="MinScanLengthLabel" xml:space="preserve">
+    <value>タイトルとして認識する最小値（秒）：</value>
+  </data>
+  <data name="RecognizedExtensionsLabel" xml:space="preserve">
+    <value>認識する拡張子：</value>
+  </data>
+  <data name="RecognizedExtensionsToolTip" xml:space="preserve">
+    <value>フォルダをスキャンする際に、これらの拡張子を追加します。（カンマで区切ってください）</value>
+  </data>
+  <data name="OptionsDialogTitle" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="ProcessesTab" xml:space="preserve">
+    <value>プロセス</value>
+  </data>
+  <data name="AdvancedTab" xml:space="preserve">
+    <value>詳細設定</value>
+  </data>
+  <data name="BetaUpdatesInBeta" xml:space="preserve">
+    <value>ベータ版を実行中です。ベータ版は安定版と同時に使えます。</value>
+  </data>
+  <data name="BetaUpdatesNonBeta" xml:space="preserve">
+    <value>最新のベータバージョンを使う</value>
+  </data>
+  <data name="UpdateReadyStatus" xml:space="preserve">
+    <value>バージョン{0} への更新準備が出来ました。プログラム終了時にインストールされます。</value>
+  </data>
+  <data name="DownloadingStatus" xml:space="preserve">
+    <value>更新をダウンロードしています {0}：</value>
+  </data>
+  <data name="UpToDateStatus" xml:space="preserve">
+    <value>最新の状態です</value>
+  </data>
+  <data name="ChooseDefaultOutputFolder" xml:space="preserve">
+    <value>既定の出力フォルダを選択します。</value>
+  </data>
+  <data name="InterfaceLanguageLabel" xml:space="preserve">
+    <value>使用言語：</value>
+  </data>
+  <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
+    <value>新しい言語は、VidCoderの再起動後有効になります。</value>
+  </data>
+  <data name="UseOSLanguage" xml:space="preserve">
+    <value>OSの言語を使用</value>
+  </data>
+  <data name="UpdatesTab" xml:space="preserve">
+    <value>アップデート</value>
+  </data>
+  <data name="DownloadingInfoStatus" xml:space="preserve">
+    <value>最新バージョンを確認しています</value>
+  </data>
+  <data name="UpdateFailedStatus" xml:space="preserve">
+    <value>最新バージョンの確認に失敗しました</value>
+  </data>
+  <data name="CompletionWavFilePickTitle" xml:space="preserve">
+    <value>完了時に鳴らすwavファイルを選択します</value>
+  </data>
+  <data name="CurrentVersionLabel" xml:space="preserve">
+    <value>現在のバージョン：{0}</value>
+  </data>
+  <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
+    <value>注意： ベータバージョンはバグが有りクラッシュする可能性もあります。</value>
+  </data>
+  <data name="LanguagesSection" xml:space="preserve">
+    <value>言語</value>
+  </data>
+  <data name="PlayersSection" xml:space="preserve">
+    <value>再生設定</value>
+  </data>
+  <data name="SoundSection" xml:space="preserve">
+    <value>サウンド</value>
+  </data>
+  <data name="SystemTraySection" xml:space="preserve">
+    <value>システムトレイ</value>
+  </data>
+  <data name="OutputFolderSection" xml:space="preserve">
+    <value>出力先：</value>
+  </data>
+  <data name="NamingFormatSection" xml:space="preserve">
+    <value>ファイル名設定</value>
+  </data>
+  <data name="AdvancedOptionsSection" xml:space="preserve">
+    <value>詳細設定</value>
+  </data>
+  <data name="ScanningSection" xml:space="preserve">
+    <value>スキャン設定</value>
+  </data>
+  <data name="LoggingSection" xml:space="preserve">
+    <value>ログ設定</value>
+  </data>
+  <data name="DvdReadingSection" xml:space="preserve">
+    <value>DVD の読み取り</value>
+  </data>
+  <data name="UpdatesSection" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="UpdateStatusSection" xml:space="preserve">
+    <value>状態</value>
+  </data>
+  <data name="BetaSection" xml:space="preserve">
+    <value>ベータバージョン</value>
+  </data>
+  <data name="UseCustomWavLabel" xml:space="preserve">
+    <value>サウンドファイルを指定：</value>
+  </data>
+  <data name="CheckNowButton" xml:space="preserve">
+    <value>更新確認</value>
+  </data>
+  <data name="UseSystemPlayer" xml:space="preserve">
+    <value>システムの既定のプレーヤーを使う</value>
+  </data>
+  <data name="VideoFilesLabel" xml:space="preserve">
+    <value>動画ファイルの再生</value>
+  </data>
+  <data name="CustomVideoPlayerToolTip" xml:space="preserve">
+    <value>動画プレヤーの実行ファイルを指定します</value>
+  </data>
+  <data name="VideoPlayerFilePickTitle" xml:space="preserve">
+    <value>動画ファイルを再生するプレーヤーを選択します</value>
+  </data>
+  <data name="CustomPlayerLabel" xml:space="preserve">
+    <value>動画プレーヤーを指定：</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="Priority_AboveNormal" xml:space="preserve">
+    <value>通常以上</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>通常</value>
+  </data>
+  <data name="Priority_BelowNormal" xml:space="preserve">
+    <value>通常以下</value>
+  </data>
+  <data name="WorkerProcessPriorityLabel" xml:space="preserve">
+    <value>プロセス優先度の設定：</value>
+  </data>
+  <data name="Priority_Idle" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+    <value>変換する動画と同じフォルダにログをコピーする</value>
+  </data>
+  <data name="OpenLogFolderButton" xml:space="preserve">
+    <value>ログフォルダを開く</value>
+  </data>
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+    <value>再起動後に自動的にエンコードを再開する</value>
+  </data>
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
+    <value>ワーカープロセスを使用してエンコード</value>
+  </data>
+  <data name="VideoSection" xml:space="preserve">
+    <value>ビデオ</value>
+  </data>
+  <data name="DxvaDecodingCheckBox" xml:space="preserve">
+    <value>DXVAによるハードウェハデコードを有効にする</value>
+  </data>
+  <data name="DxvaDecodingToolTip" xml:space="preserve">
+    <value>このオプションは遅いPCにのみ適しています。ハードウェアによるデコードは現在の所再生時のみ使われ、エンコード時には用いられないため高速なPCでは遅くなることがあります。</value>
+  </data>
+  <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+    <value>ファイル変換時に作成日時と更新日時を保持します。</value>
+  </data>
+  <data name="DefaultCheckBox" xml:space="preserve">
+    <value>デフォルト</value>
+    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>バッチ処理時にフォルダ構造を保持します。</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>フォルダ中のすべてのファイルをエンコードする場合にエンコードしたファイルは元のディレクトリ構造と同じフォルダに保存されます。</value>
+  </data>
+	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+    <value>プレビュー用のフォルダを指定:</value>
+  </data>
+</root>

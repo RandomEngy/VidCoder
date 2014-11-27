@@ -466,20 +466,14 @@
   <data name="PresetImportErrorMessage" xml:space="preserve">
     <value>不能导入预设，格式无法识别。</value>
   </data>
-  <data name="PresetImportErrorTitle" xml:space="preserve">
+  <data name="ImportErrorTitle" xml:space="preserve">
     <value>导入错误</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
     <value>成功导入预设值 {0}。</value>
   </data>
-  <data name="PresetImportSuccessTitle" xml:space="preserve">
-    <value>成功</value>
-  </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
     <value>已成功导出到 {0} 预设</value>
-  </data>
-  <data name="PresetExportSuccessTitle" xml:space="preserve">
-    <value>成功</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>导出预设</value>
@@ -562,7 +556,69 @@
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>放弃更改吗？</value>
   </data>
-	<data name="RemoveAudioTrackToolTip" xml:space="preserve">
+  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>删除音频轨</value>
+  </data>
+  <data name="Preset_Xbox360" xml:space="preserve">
+    <value>Xbox 360</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>从队列中删除</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>不能保存队列： {0} {1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>导出队列...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>导出队列...</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>不能导入队列,格式无法识别。</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>导入预设的文件</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>导入队列文件</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>导入队列...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>成功的导出队列到{0}</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>成功的导入队列</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>停止编码?</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>你确定你想要停止编码吗？</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>关闭当前文件并打开光盘吗？</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>编码的详细信息</value>
+  </data>
+	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+    <value>最后向队列中添加一个项目编码设置已经更改。你想要将当前编码设置应用到队列中的所有项目吗？</value>
+  </data>
+	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+    <value>设置已更改</value>
+  </data>
+	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>你想要重命名现有的文件并启动一个新的吗？</value>
+  </data>
+	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>无法读取数据库文件版本 {0}。VidCoder {1} 支持的最高版本是 {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>不兼容的数据库文件</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
 </root>

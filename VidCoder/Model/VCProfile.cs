@@ -19,7 +19,20 @@ namespace VidCoder.Model
 			this.Cropping = new Cropping();
 		}
 
+		#region Obsolete fields
+		[Obsolete("Use ContainerName instead.")]
 		public Container OutputFormat { get; set; }
+		public string X264Options { get; set; }
+		// X264Tune is obsolete but marking it that way prevents the XML serializer from working. Use VideoTunes instead.
+		public string X264Tune { get; set; }
+		public List<string> X264Tunes { get; set; }
+		public string X264Profile { get; set; }
+		public string X264Preset { get; set; }
+		public string QsvPreset { get; set; }
+		public string H264Level { get; set; }
+		#endregion
+
+		public string ContainerName { get; set; }
 		public OutputExtension PreferredExtension { get; set; }
 		public bool IncludeChapterMarkers { get; set; }
 		public bool LargeFile { get; set; }
@@ -30,6 +43,7 @@ namespace VidCoder.Model
 		public int Height { get; set; }
 		public int MaxWidth { get; set; }
 		public int MaxHeight { get; set; }
+		public ScaleMethod ScaleMethod { get; set; }
 		
 		// CustomCropping is obsolete but marking it that way prevents the XML serializer from working. Use CroppingType instead.
 		public bool CustomCropping { get; set; }
@@ -42,6 +56,9 @@ namespace VidCoder.Model
 		public int PixelAspectX { get; set; }
 		public int PixelAspectY { get; set; }
 		public int Modulus { get; set; }
+		public PictureRotation Rotation { get; set; }
+		public bool FlipHorizontal { get; set; }
+		public bool FlipVertical { get; set; }
 
 		public Deinterlace Deinterlace { get; set; }
 		public string CustomDeinterlace { get; set; }
@@ -49,20 +66,25 @@ namespace VidCoder.Model
 		public string CustomDecomb { get; set; }
 		public Detelecine Detelecine { get; set; }
 		public string CustomDetelecine { get; set; }
-		public Denoise Denoise { get; set; }
+
+		[Obsolete("Use DenoiseType instead.")]
+		public string Denoise { get; set; }
+		public Denoise DenoiseType { get; set; }
+		public string DenoisePreset { get; set; }
+		public string DenoiseTune { get; set; }
+		public bool UseCustomDenoise { get; set; }
 		public string CustomDenoise { get; set; }
 		public int Deblock { get; set; }
 		public bool Grayscale { get; set; }
 
+		public bool UseAdvancedTab { get; set; }
 		public string VideoEncoder { get; set; }
-		public string X264Options { get; set; }
-		public string X264Profile { get; set; }
-		public string X264Preset { get; set; }
-
-		// X264Tune is obsolete but marking it that way prevents the XML serializer from working. Use X264Tunes instead.
-		public string X264Tune { get; set; }
-		public List<string> X264Tunes { get; set; }
-		public string H264Level { get; set; }
+		public string VideoOptions { get; set; }
+		public string VideoProfile { get; set; }
+		public string VideoPreset { get; set; }
+		public string VideoLevel { get; set; }
+		public List<string> VideoTunes { get; set; }
+		public bool QsvDecode { get; set; }
 		public VideoEncodeRateType VideoEncodeRateType { get; set; }
 		public double Quality { get; set; }
 		public int TargetSize { get; set; }
@@ -84,6 +106,17 @@ namespace VidCoder.Model
 			{
 				var hbProfile = new EncodingProfile();
 				hbProfile.InjectFrom(this);
+
+				if (this.UseAdvancedTab)
+				{
+					hbProfile.VideoPreset = null;
+					hbProfile.VideoProfile = null;
+					hbProfile.VideoTunes = null;
+					hbProfile.VideoLevel = null;
+				}
+
+				hbProfile.Denoise = this.DenoiseType;
+
 				return hbProfile;
 			}
 		}
@@ -92,7 +125,10 @@ namespace VidCoder.Model
 		{
 			var profile = new VCProfile
 			{
+#pragma warning disable 612, 618
 				OutputFormat = this.OutputFormat,
+#pragma warning restore 612, 618
+				ContainerName = this.ContainerName,
 				PreferredExtension = this.PreferredExtension,
 				IncludeChapterMarkers = this.IncludeChapterMarkers,
 				LargeFile = this.LargeFile,
@@ -103,6 +139,7 @@ namespace VidCoder.Model
 				Height = this.Height,
 				MaxWidth = this.MaxWidth,
 				MaxHeight = this.MaxHeight,
+				ScaleMethod = this.ScaleMethod,
 				CroppingType = this.CroppingType,
 				Cropping = this.Cropping.Clone(),
 				Anamorphic = this.Anamorphic,
@@ -112,6 +149,9 @@ namespace VidCoder.Model
 				PixelAspectX = this.PixelAspectX,
 				PixelAspectY = this.PixelAspectY,
 				Modulus = this.Modulus,
+				Rotation = this.Rotation,
+				FlipHorizontal = this.FlipHorizontal,
+				FlipVertical = this.FlipVertical,
 
 				Deinterlace = this.Deinterlace,
 				CustomDeinterlace = this.CustomDeinterlace,
@@ -119,17 +159,28 @@ namespace VidCoder.Model
 				CustomDecomb = this.CustomDecomb,
 				Detelecine = this.Detelecine,
 				CustomDetelecine = this.CustomDetelecine,
-				Denoise = this.Denoise,
+				DenoiseType = this.DenoiseType,
+				DenoisePreset = this.DenoisePreset,
+				DenoiseTune = this.DenoiseTune,
+				UseCustomDenoise = this.UseCustomDenoise,
 				CustomDenoise = this.CustomDenoise,
 				Deblock = this.Deblock,
 				Grayscale = this.Grayscale,
 
-				VideoEncoder = this.VideoEncoder,
+				UseAdvancedTab = this.UseAdvancedTab,
 				X264Options = this.X264Options,
 				X264Profile = this.X264Profile,
 				X264Preset = this.X264Preset,
+				QsvPreset = this.QsvPreset,
 				X264Tunes = this.X264Tunes,
 				H264Level = this.H264Level,
+				VideoEncoder = this.VideoEncoder,
+				VideoOptions = this.VideoOptions,
+				VideoProfile = this.VideoProfile,
+				VideoPreset = this.VideoPreset,
+				VideoTunes = this.VideoTunes,
+				VideoLevel = this.VideoLevel,
+				QsvDecode = this.QsvDecode,
 				VideoEncodeRateType = this.VideoEncodeRateType,
 				Quality = this.Quality,
 				TargetSize = this.TargetSize,
@@ -139,7 +190,8 @@ namespace VidCoder.Model
 				Framerate = this.Framerate,
 				ConstantFramerate = this.ConstantFramerate,
 
-				AudioEncodings = new List<AudioEncoding>(this.AudioEncodings)
+				AudioEncodings = new List<AudioEncoding>(this.AudioEncodings),
+				AudioEncoderFallback = this.AudioEncoderFallback
 			};
 
 			return profile;

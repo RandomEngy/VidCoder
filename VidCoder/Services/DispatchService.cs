@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Threading;
 using System.Collections;
-using Microsoft.Practices.Unity;
 using System.Windows;
 
 namespace VidCoder.Services

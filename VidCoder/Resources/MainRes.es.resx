@@ -465,20 +465,14 @@
   <data name="PresetImportErrorMessage" xml:space="preserve">
     <value>No se pudo importar el preset. El formato es desconocido.</value>
   </data>
-  <data name="PresetImportErrorTitle" xml:space="preserve">
-    <value>Error de importacion</value>
+  <data name="ImportErrorTitle" xml:space="preserve">
+    <value>Error al importar</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
     <value>El Preset se ha importado con exito {0}.</value>
   </data>
-  <data name="PresetImportSuccessTitle" xml:space="preserve">
-    <value>Correcto</value>
-  </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
     <value>El Preset se ha exportado con exito {0}</value>
-  </data>
-  <data name="PresetExportSuccessTitle" xml:space="preserve">
-    <value>Correcto</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Exportar Preset</value>
@@ -561,7 +555,69 @@
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>¿Desea descartar los cambios?</value>
   </data>
-	<data name="RemoveAudioTrackToolTip" xml:space="preserve">
+  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>Eliminar la pista de audio</value>
+  </data>
+  <data name="Preset_Xbox360" xml:space="preserve">
+    <value>Xbox 360</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>Remover de la cola</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>No se pudo guardar la cola: {0} {1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>Exportar cola...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>Exportar cola</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>No se pudo importar la cola. El formato es desconocido.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>Importar archivo preestablecido</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>Importar archivo de cola</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>Importar cola...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>Cola exportada con éxito a {0}</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>Cola importada con éxito.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>¿Detener codificada?</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>¿Está seguro que deseas detener la codificación?</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>¿Cerrar el archivo actual y abrir el disco?</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>Detalles de codificacion</value>
+  </data>
+	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+    <value>Los ajustes de codificación han cambiado desde que añadistes un objeto a la cola. ¿Quieres aplicar la configuración actual de codificación a todos los elementos en la cola?</value>
+  </data>
+	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+    <value>Ajustes han cambiado</value>
+  </data>
+	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>¿Quieres renombrar el archivo existente y empezar con uno nuevo?</value>
+  </data>
+	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>No puede leer la version de la base de datos de archivos {0}. La versión más alta reconocida por VidCoder {1} es {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>Archivo de base de datos incompatible</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
 </root>

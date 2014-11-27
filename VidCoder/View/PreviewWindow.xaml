@@ -55,7 +55,7 @@
 			<Image
 				Name="previewImage" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Top"
 				Source="{Binding PreviewImage}"
-				Visibility="{Binding SingleFitImageVisible, Converter={StaticResource VisibilityConverter}}"/>
+				Visibility="{Binding SingleFitImageVisible, Converter={StaticResource VisibilityConverter}}" />
 			<ScrollViewer
 				Name="previewImageScrollViewer"
 				Visibility="{Binding SingleOneToOneImageVisible, Converter={StaticResource VisibilityConverter}}"

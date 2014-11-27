@@ -56,8 +56,9 @@
 		</DataTemplate>
 		<DataTemplate x:Key="ForcedTemplate">
 			<CheckBox 
-				IsChecked="{Binding Forced}" ToolTip="{x:Static res:CommonRes.ForcedSubtitleToolTip}"
+				IsChecked="{Binding ForcedOnly}" ToolTip="{x:Static res:CommonRes.ForcedSubtitleToolTip}"
 				Visibility="{Binding Selected, Converter={StaticResource VisibilityConverter}}"
+				IsEnabled="{Binding ForcedOnlyEnabled}"
 				Width="75" Height="22"
 				Style="{StaticResource CenteredCheckBox}"/>
 		</DataTemplate>
@@ -93,7 +94,7 @@
 			<ComboBox
 				Width="80"
 				ItemsSource="{Binding Languages}" SelectedValue="{Binding LanguageCode}"
-				DisplayMemberPath="Name" SelectedValuePath="Code" />
+				DisplayMemberPath="Display" SelectedValuePath="Code" />
 		</DataTemplate>
 		<DataTemplate x:Key="CharCodeTemplate">
 			<ComboBox
@@ -198,6 +199,7 @@
 								<GridView.Columns>
 									<GridViewColumn Header="{x:Static res:SubtitleRes.FileColumn}" CellTemplate="{StaticResource FileNameTemplate}" />
 									<GridViewColumn Header="{x:Static res:SubtitleRes.DefaultColumn}" CellTemplate="{StaticResource DefaultTemplate}" />
+									<GridViewColumn Header="{x:Static res:SubtitleRes.BurnedInColumn}" CellTemplate="{StaticResource BurnedInTemplate}" />
 									<GridViewColumn Header="{x:Static res:SubtitleRes.LanguageColumn}" CellTemplate="{StaticResource LanguageTemplate}" x:Name="srtLanguageColumn"  />
 									<GridViewColumn Header="{x:Static res:SubtitleRes.CharCodeColumn}" CellTemplate="{StaticResource CharCodeTemplate}" x:Name="srtCharCodeColumn" />
 									<GridViewColumn Header="{x:Static res:SubtitleRes.OffsetColumn}" CellTemplate="{StaticResource OffsetTemplate}" />

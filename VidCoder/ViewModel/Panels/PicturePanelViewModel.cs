@@ -11,10 +11,13 @@ namespace VidCoder.ViewModel
 	using HandBrake.Interop.Model.Encoding;
 	using Messages;
 	using Model;
+	using Resources;
 
 	public class PicturePanelViewModel : PanelViewModel
 	{
 		private const int DimensionsAutoSetModulus = 2;
+
+		private List<ComboChoice<ScaleMethod>> scaleChoices; 
 
 		private string outputSourceResolution;
 		private string outputPixelAspectRatio;
@@ -23,6 +26,18 @@ namespace VidCoder.ViewModel
 		public PicturePanelViewModel(EncodingViewModel encodingViewModel)
 			: base(encodingViewModel)
 		{
+			this.scaleChoices = new List<ComboChoice<ScaleMethod>>
+			{
+				new ComboChoice<ScaleMethod>(ScaleMethod.Lanczos, EncodingRes.ScaleMethod_Lanczos),
+				new ComboChoice<ScaleMethod>(ScaleMethod.Bicubic, EncodingRes.ScaleMethod_BicubicOpenCL)
+			};
+
+			Messenger.Default.Register<RotationChangedMessage>(
+				this,
+				message =>
+				{
+					this.RefreshOutputSize();
+				});
 		}
 
 		public string InputSourceResolution
@@ -304,6 +319,29 @@ namespace VidCoder.ViewModel
 				}
 
 				return true;
+			}
+		}
+
+		public List<ComboChoice<ScaleMethod>> ScaleChoices
+		{
+			get
+			{
+				return this.scaleChoices;
+			}
+		}
+
+		public ScaleMethod ScaleMethod
+		{
+			get
+			{
+				return this.Profile.ScaleMethod;
+			}
+
+			set
+			{
+				this.Profile.ScaleMethod = value;
+				this.RaisePropertyChanged(() => this.ScaleMethod);
+				this.IsModified = true;
 			}
 		}
 
@@ -679,6 +717,17 @@ namespace VidCoder.ViewModel
 				int width, height, parWidth, parHeight;
 				this.MainViewModel.ScanInstance.GetSize(job.HbJob, out width, out height, out parWidth, out parHeight);
 
+				if (this.Profile.Rotation == PictureRotation.Clockwise90 || this.Profile.Rotation == PictureRotation.Clockwise270)
+				{
+					int temp = width;
+					width = height;
+					height = temp;
+
+					temp = parWidth;
+					parWidth = parHeight;
+					parHeight = temp;
+				}
+
 				this.StorageWidth = width;
 				this.StorageHeight = height;
 
@@ -701,6 +750,7 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.HeightEnabled);
 			this.RaisePropertyChanged(() => this.MaxWidth);
 			this.RaisePropertyChanged(() => this.MaxHeight);
+			this.RaisePropertyChanged(() => this.ScaleMethod);
 			this.RaisePropertyChanged(() => this.KeepDisplayAspect);
 			this.RaisePropertyChanged(() => this.KeepDisplayAspectEnabled);
 			this.RaisePropertyChanged(() => this.SelectedAnamorphic);

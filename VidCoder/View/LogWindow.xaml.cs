@@ -10,7 +10,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Microsoft.Practices.Unity;
 using VidCoder.Model;
 using VidCoder.Services;
 
@@ -21,7 +20,7 @@ namespace VidCoder.View
 	/// </summary>
 	public partial class LogWindow : Window
 	{
-		private ILogger logger = Unity.Container.Resolve<ILogger>();
+		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
 
 		private int pendingLines;
 		private object writeLock = new object();

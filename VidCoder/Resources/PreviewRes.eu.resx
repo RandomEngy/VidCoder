@@ -180,4 +180,7 @@
   <data name="BottomMargin" xml:space="preserve">
     <value>Beheko Bazterra</value>
   </data>
+	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
+    <value>Ezin da iturburu agiria aurkitu.</value>
+  </data>
 </root>

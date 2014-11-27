@@ -471,20 +471,14 @@
   <data name="PresetImportErrorMessage" xml:space="preserve">
     <value>Nem sikerült a séma importálása. A formátum ismeretlen.</value>
   </data>
-  <data name="PresetImportErrorTitle" xml:space="preserve">
-    <value>Import hiba</value>
+  <data name="ImportErrorTitle" xml:space="preserve">
+    <value>Importálási hiba</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
     <value>{0} séma sikeresen importálva.</value>
   </data>
-  <data name="PresetImportSuccessTitle" xml:space="preserve">
-    <value>Siker</value>
-  </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
     <value>Séma sikeresen exportálva ide: {0}</value>
-  </data>
-  <data name="PresetExportSuccessTitle" xml:space="preserve">
-    <value>Siker</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Séma exportálása</value>
@@ -567,7 +561,69 @@
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Változások elvetése?</value>
   </data>
-	<data name="RemoveAudioTrackToolTip" xml:space="preserve">
+  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>Hangsáv eltávolítása</value>
+  </data>
+  <data name="Preset_Xbox360" xml:space="preserve">
+    <value>Xbox 360</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>Eltávolítás a várólistából</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>Várólista nem menthető:{0}{1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>Várólista exportálása...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>Várólista exportálása</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Nem sikerült a várólista importálása. A formátum ismeretlen.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>Séma fájl importálása</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>Várólista fájl importálása</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>Várólista importálása...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>Várólista sikeresen exportálva ide: {0}</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>Várólista sikeresen importálva.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>Megállítod a konvertálást?</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>Biztosan le szeretnéd állítani a konvertálást?</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>Bezárod az aktuális fájlt és megnyitod a lemezt?</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>Konvertálás részletei</value>
+  </data>
+	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+    <value>A konvertálási beállítások megváltoztak, amióta egy elemet a várólistához adtál. Szeretnéd alkalmazni az aktuális konvertálási beállításokat a várólista összes eleméhez?</value>
+  </data>
+	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+    <value>A beállítások megváltoztak</value>
+  </data>
+	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>Szeretnéd átnevezni a létező fájlt és újat indítani?</value>
+  </data>
+	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>{0} verziójú adatbázis fájl nem olvasható. A Vidcoder {1} által felismert legmagasabb verzió {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>Nem kompatibilis adatbázis fájl</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
 </root>

@@ -16,12 +16,13 @@ namespace VidCoder
 	using System.Xml.Serialization;
 	using HandBrake.Interop;
 	using HandBrake.Interop.EventArgs;
+	using HandBrake.Interop.Model;
+	using HandBrake.Interop.Model.Encoding;
 	using HandBrake.Interop.SourceData;
 	using Model;
 	using Services;
 	using VidCoderWorker;
 
-	using Microsoft.Practices.Unity;
 	using Timer = System.Timers.Timer;
 
 	public class RemoteEncodeProxy : IHandBrakeEncoderCallback, IEncodeProxy
@@ -53,7 +54,6 @@ namespace VidCoder
 		private DateTimeOffset lastWorkerCommunication;
 
 		private DuplexChannelFactory<IHandBrakeEncoder> pipeFactory;
-		private string pipeGuidString;
 		private string pipeName;
 		private IHandBrakeEncoder channel;
 		private ILogger logger;
@@ -113,8 +113,15 @@ namespace VidCoder
 									return;
 								}
 
-								this.channel.StartEncode(job.HbJob, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds,
-														 Config.LogVerbosity, Config.PreviewCount, Config.EnableLibDvdNav);
+								this.channel.StartEncode(
+									job.HbJob,
+									preview,
+									previewNumber,
+									previewSeconds,
+									overallSelectedLengthSeconds,
+									Config.LogVerbosity,
+									Config.PreviewCount,
+									Config.EnableLibDvdNav);
 
 								// After we do StartEncode (which can take a while), switch the timeout down to normal level to do pings
 								var contextChannel = (IContextChannel)this.channel;
@@ -444,7 +451,7 @@ namespace VidCoder
 					}
 					else
 					{
-						this.logger.LogError("Worker process exited unexpectedly; no additional details are available. This may be due to a HandBrake engine crash.");
+						this.logger.LogError("Worker process exited unexpectedly with code " + this.worker.ExitCode + ". This may be due to a HandBrake engine crash.");
 					}
 				}
 				else

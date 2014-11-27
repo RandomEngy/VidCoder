@@ -24,6 +24,7 @@ namespace VidCoder.Services
 			this.PrepareWindow(viewModel, owner).Show();
 		}
 
+		// This bypasses the normal call to vm.OnClosing(). Closes the window without any prompting.
 		public void CloseWindow(ViewModelBase viewModel)
 		{
 			openWindows[viewModel].Closing -= this.OnClosing;
@@ -108,6 +109,14 @@ namespace VidCoder.Services
 			{
 				windowToOpen = new FileConflictDialog();
 			}
+			else if (viewModel is EncodeDetailsViewModel)
+			{
+				windowToOpen = new EncodeDetailsWindow();
+			}
+			else if (viewModel is ShutdownWarningViewModel)
+			{
+				windowToOpen = new ShutdownWarningWindow();
+			}
 
 			if (owner != null)
 			{
@@ -121,6 +130,7 @@ namespace VidCoder.Services
 			return windowToOpen;
 		}
 
+		// Fires when the user closes a window.
 		private void OnClosing(object sender, CancelEventArgs e)
 		{
 			var closingWindow = sender as Window;

@@ -37,11 +37,13 @@ function CreateIssFile($version, $beta, $arch) {
     $tokens["appId"] = $appId
     if ($beta) {
         $tokens["appName"] = "VidCoder Beta"
+        $tokens["appNameNoSpace"] = "VidCoderBeta"
         $tokens["folderName"] = "VidCoder-Beta"
         $tokens["outputBaseFileName"] = "VidCoder-" + $version + "-Beta-" + $arch
         $tokens["appVerName"] = "VidCoder " + $version + " Beta (" + $arch + ")"
     } else {
         $tokens["appName"] = "VidCoder"
+        $tokens["appNameNoSpace"] = "VidCoder"
         $tokens["folderName"] = "VidCoder"
         $tokens["outputBaseFileName"] = "VidCoder-" + $version + "-" + $arch
         $tokens["appVerName"] = "VidCoder " + $version + " (" + $arch + ")"
@@ -141,7 +143,7 @@ ClearFolder $dest64; ExitIfFailed
 $source86 = ".\VidCoder\bin\x86\Release\"
 $source64 = ".\VidCoder\bin\x64\Release\"
 
-# Architecture-specific app files
+# Files from the main output directory (some architecture-specific)
 CopyBoth "VidCoder.exe"
 CopyBoth "VidCoder.pdb"
 CopyBoth "VidCoder.exe.config"
@@ -150,6 +152,14 @@ CopyBoth "VidCoderWorker.exe.config"
 CopyBoth "VidCoderWorker.pdb"
 CopyBoth "VidCoder.XmlSerializers.dll"
 CopyBoth "Omu.ValueInjecter.dll"
+CopyBoth "VidCoderCLI.exe"
+CopyBoth "VidCoderCLI.pdb"
+CopyBoth "VidCoderWindowlessCLI.exe"
+CopyBoth "VidCoderWindowlessCLI.pdb"
+CopyBoth "GalaSoft.MvvmLight.dll"
+CopyBoth "GalaSoft.MvvmLight.Extras.dll"
+CopyBoth "Microsoft.Practices.ServiceLocation.dll"
+CopyBoth "Hardcodet.Wpf.TaskbarNotification.dll"
 
 # Architecture-specific files from Lib folder
 CopyLibBoth "hb.dll"
@@ -161,9 +171,6 @@ CopyLibBoth "HandBrakeInterop.XmlSerializers.dll"
 # Common files
 CopyCommon ".\Lib\Ookii.Dialogs.Wpf.dll"
 CopyCommon ".\Lib\Ookii.Dialogs.Wpf.pdb"
-CopyCommon ".\Lib\Microsoft.Practices.Unity.dll"
-CopyCommon ".\Lib\Hardcodet.Wpf.TaskbarNotification.dll"
-CopyCommon ".\Lib\GalaSoft.MvvmLight.WPF4.dll"
 CopyCommon ".\VidCoder\BuiltInPresets.xml"
 CopyCommon ".\VidCoder\Encode_Complete.wav"
 CopyCommon ".\License.txt"
@@ -178,6 +185,12 @@ CopyLanguage "de"
 CopyLanguage "zh"
 CopyLanguage "zh-Hant"
 CopyLanguage "it"
+CopyLanguage "cs"
+CopyLanguage "ja"
+
+# fonts folder for subtitles
+copy ".\Lib\fonts" ".\Installer\Files\x86" -Recurse
+copy ".\Lib\fonts" ".\Installer\Files\x64" -Recurse
 
 
 # Create portable installer
@@ -201,15 +214,6 @@ ExitIfFailed
 
 & $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension64 .\Installer\Files\x64\** | Out-Null
 ExitIfFailed
-
-#$archiveFolder = ".\Installer\Archive\"
-#ClearFolder $archiveFolder
-#$archive86 = $archiveFolder + "VidCoder-x86.7z"
-#$archive64 = $archiveFolder + "VidCoder-x64.7z"
-#.\Lib\7z\7za.exe a $archive86 .\Installer\Files\x86\**; ExitIfFailed
-#.\Lib\7z\7za.exe a $archive64 .\Installer\Files\x64\**; ExitIfFailed
-#cmd /c copy /b .\Lib\7z\7zS.sfx + .\Installer\PortableInstallConfig.txt + $archive86 .\Installer\BuiltInstallers\VidCoder-$versionShort$betaNameSection-x86-Portable.exe; ExitIfFailed
-#cmd /c copy /b .\Lib\7z\7zS.sfx + .\Installer\PortableInstallConfig.txt + $archive64 .\Installer\BuiltInstallers\VidCoder-$versionShort$betaNameSection-x64-Portable.exe; ExitIfFailed
 
 # Update latest.xml files with version
 if ($beta)

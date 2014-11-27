@@ -9,6 +9,8 @@ using System.Windows.Input;
 
 namespace VidCoder.ViewModel
 {
+	using HandBrake.Interop;
+
 	public class SrtSubtitleViewModel : ViewModelBase
 	{
 		private SrtSubtitle subtitle;
@@ -48,6 +50,41 @@ namespace VidCoder.ViewModel
 						this.SubtitleDialogViewModel.ReportDefault(this);
 					}
 				}
+			}
+		}
+
+		public bool BurnedIn
+		{
+			get
+			{
+				if (!BurnedInEnabled)
+				{
+					return false;
+				}
+
+				return this.subtitle.BurnedIn;
+			}
+
+			set
+			{
+				this.subtitle.BurnedIn = value;
+				this.RaisePropertyChanged(() => this.BurnedIn);
+
+				if (value)
+				{
+					this.SubtitleDialogViewModel.ReportBurned(this);
+				}
+
+				this.SubtitleDialogViewModel.UpdateBoxes();
+				this.SubtitleDialogViewModel.UpdateWarningVisibility();
+			}
+		}
+
+		public bool BurnedInEnabled
+		{
+			get
+			{
+				return Encoders.CanBurnSrt;
 			}
 		}
 
@@ -111,7 +148,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return Language.Languages;
+				return HandBrake.Interop.Helpers.Languages.AllLanguages;
 			}
 		}
 

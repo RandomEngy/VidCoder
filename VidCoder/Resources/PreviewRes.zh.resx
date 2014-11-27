@@ -180,4 +180,7 @@
   <data name="BottomMargin" xml:space="preserve">
     <value>底部</value>
   </data>
+	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
+    <value>找不到源文件。</value>
+  </data>
 </root>

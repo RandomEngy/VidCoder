@@ -5,7 +5,6 @@ using System.Text;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder.ViewModel.Components
 {
@@ -14,15 +13,12 @@ namespace VidCoder.ViewModel.Components
 	/// </summary>
 	public class WindowManagerViewModel : ViewModelBase
 	{
-		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
+		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
 
 		private bool encodingWindowOpen;
 		private bool previewWindowOpen;
 		private bool logWindowOpen;
-
-		private ICommand openEncodingWindowCommand;
-		private ICommand openPreviewWindowCommand;
-		private ICommand openLogWindowCommand;
+		private bool encodeDetailsWindowOpen;
 
 		public bool EncodingWindowOpen
 		{
@@ -66,6 +62,21 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
+		public bool EncodeDetailsWindowOpen
+		{
+			get
+			{
+				return this.encodeDetailsWindowOpen;
+			}
+
+			set
+			{
+				this.encodeDetailsWindowOpen = value;
+				this.RaisePropertyChanged(() => this.EncodeDetailsWindowOpen);
+			}
+		}
+
+		private ICommand openEncodingWindowCommand;
 		public ICommand OpenEncodingWindowCommand
 		{
 			get
@@ -82,6 +93,7 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
+		private ICommand openPreviewWindowCommand;
 		public ICommand OpenPreviewWindowCommand
 		{
 			get
@@ -98,6 +110,7 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
+		private ICommand openLogWindowCommand;
 		public ICommand OpenLogWindowCommand
 		{
 			get
@@ -114,6 +127,22 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
+		private RelayCommand openEncodeDetailsWindowCommand;
+		public RelayCommand OpenEncodeDetailsWindowCommand
+		{
+			get
+			{
+				return this.openEncodeDetailsWindowCommand ?? (this.openEncodeDetailsWindowCommand = new RelayCommand(() =>
+					{
+						this.OpenEncodeDetailsWindow();
+					},
+					() =>
+					{
+						return this.main.ProcessingVM.Encoding;
+					}));
+			}
+		}
+
 		public void OpenEncodingWindow()
 		{
 			var encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel)) as EncodingViewModel;
@@ -121,7 +150,7 @@ namespace VidCoder.ViewModel.Components
 
 			if (encodingWindow == null)
 			{
-				encodingWindow = new EncodingViewModel(Unity.Container.Resolve<PresetsViewModel>().SelectedPreset.Preset);
+				encodingWindow = new EncodingViewModel(Ioc.Container.GetInstance<PresetsViewModel>().SelectedPreset.Preset);
 				encodingWindow.Closing = () =>
 				{
 					this.EncodingWindowOpen = false;
@@ -176,6 +205,43 @@ namespace VidCoder.ViewModel.Components
 			{
 				WindowManager.FocusWindow(logWindow);
 			}
+		}
+
+		public void OpenEncodeDetailsWindow()
+		{
+			var encodeDetailsWindow = WindowManager.FindWindow(typeof (EncodeDetailsViewModel)) as EncodeDetailsViewModel;
+			this.EncodeDetailsWindowOpen = true;
+
+			if (encodeDetailsWindow == null)
+			{
+				encodeDetailsWindow = new EncodeDetailsViewModel();
+				encodeDetailsWindow.Closing = () =>
+				{
+					this.EncodeDetailsWindowOpen = false;
+				};
+
+				Config.EncodeDetailsWindowOpen = true;
+
+				WindowManager.OpenWindow(encodeDetailsWindow, this.main);
+			}
+			else
+			{
+				WindowManager.FocusWindow(encodeDetailsWindow);
+			}
+		}
+
+		public void CloseEncodeDetailsWindow()
+		{
+			var encodeDetailsWindow = WindowManager.FindWindow(typeof(EncodeDetailsViewModel)) as EncodeDetailsViewModel;
+			if (encodeDetailsWindow != null)
+			{
+				WindowManager.Close(encodeDetailsWindow);
+			}
+		}
+
+		public void RefreshEncoding()
+		{
+			this.OpenEncodeDetailsWindowCommand.RaiseCanExecuteChanged();
 		}
 	}
 }

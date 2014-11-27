@@ -465,20 +465,14 @@
   <data name="PresetImportErrorMessage" xml:space="preserve">
     <value>Potrebbe non importare la preimpostazione. Formato non riconosciuto.</value>
   </data>
-  <data name="PresetImportErrorTitle" xml:space="preserve">
+  <data name="ImportErrorTitle" xml:space="preserve">
     <value>Errore di importazione</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
     <value>Preimpostazione Importata correttamente {0}.</value>
   </data>
-  <data name="PresetImportSuccessTitle" xml:space="preserve">
-    <value>Successo</value>
-  </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
     <value>Preimpostazione esportata con successo a {0}</value>
-  </data>
-  <data name="PresetExportSuccessTitle" xml:space="preserve">
-    <value>Successo</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Esporta Preimpostazioni</value>
@@ -561,7 +555,69 @@
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Ignorare le modifiche?</value>
   </data>
-	<data name="RemoveAudioTrackToolTip" xml:space="preserve">
+  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>Rimuovere la traccia audio</value>
+  </data>
+  <data name="Preset_Xbox360" xml:space="preserve">
+    <value>Xbox 360</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>Rimuovere dalla coda</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>Non può salvare la coda: {0} {1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>Esportare la coda...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>Esportare la coda</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Potrebbe non importare la preimpostazione. Formato non riconosciuto.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>Importa file preimpostati</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>Importa file di coda</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>Coda di importazione...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>Coda esportato correttamente a {0}</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>Coda importata con successo.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>Fermare la codifica?</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>Sei sicuro di che voler interrompere la codifica?</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>Chiudere il file corrente e aprire il disco?</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>Codifica i dettagli</value>
+  </data>
+	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+    <value>Impostazioni di codifica sono cambiate da quando l'ultima aggiunto un elemento alla coda. Si desidera applicare le impostazioni di codifica corrente a tutti gli elementi nella coda?</value>
+  </data>
+	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+    <value>Le impostazioni sono state cambiate</value>
+  </data>
+	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>Si desidera rinominare il file esistente e iniziare con uno nuovo?</value>
+  </data>
+	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>Impossibile leggere il file di database versione {0}. La versione più recente riconosciuta da VidCoder {1} è {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>File di database incompatibili</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
 </root>

@@ -169,13 +169,7 @@
     <value>Used columns</value>
   </data>
   <data name="ScanMultipleWindowTitle" xml:space="preserve">
-    <value>Scanning files...</value>
-  </data>
-  <data name="UpdateSuccessDialogTitle" xml:space="preserve">
-    <value>Success</value>
-  </data>
-  <data name="UpdateSuccessDialogMessage" xml:space="preserve">
-    <value>VidCoder has been successfully updated.</value>
+    <value>Scanning...</value>
   </data>
   <data name="AboutVidCoderDialogTitle" xml:space="preserve">
     <value>About VidCoder</value>
@@ -187,7 +181,7 @@
     <value>Version</value>
   </data>
   <data name="BasedOnHandBrake" xml:space="preserve">
-    <value>Based on HandBrake (svn {0})</value>
+    <value>Based on HandBrake ({0})</value>
   </data>
   <data name="Copyright" xml:space="preserve">
     <value>© {0} VidCoder Developers</value>
@@ -218,7 +212,37 @@
   <data name="DisableUpdatesButton" xml:space="preserve">
     <value>Disable Updates</value>
   </data>
-  <data name="BasedOnHandBrakeStable" xml:space="preserve">
-    <value>Based on HandBrake ({0})</value>
+  <data name="NoticeMessageTitle" xml:space="preserve">
+    <value>Notice</value>
+  </data>
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>VidCoder is not supported on your operating system. Windows XP and Server 2003 no longer work. Please install VidCoder 1.4 or upgrade your operating system.</value>
+  </data>
+  <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
+    <value>System sleep imminent</value>
+  </data>
+  <data name="EncodeCompleteWarning_LogOffTitle" xml:space="preserve">
+    <value>Log off imminent</value>
+  </data>
+  <data name="EncodeCompleteWarning_ShutdownTitle" xml:space="preserve">
+    <value>Shutdown imminent</value>
+  </data>
+  <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
+    <value>The system will sleep in {0} seconds.</value>
+  </data>
+  <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
+    <value>You will be logged off in {0} seconds.</value>
+  </data>
+  <data name="EncodeCompleteWarning_ShutdownMessage" xml:space="preserve">
+    <value>The system will shut down in {0} seconds.</value>
+  </data>
+  <data name="EncodeCompleteWarning_Title" xml:space="preserve">
+    <value>Encoding has completed.</value>
+  </data>
+  <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+    <value>Could not find video player for {0}.</value>
+  </data>
+  <data name="ErrorPlayingSource" xml:space="preserve">
+    <value>Error playing source.</value>
   </data>
 </root>

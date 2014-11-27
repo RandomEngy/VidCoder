@@ -153,4 +153,7 @@
   <data name="TitleFormat">
     <value xml:space="preserve">Cím {0}</value>
   </data>
+	<data name="OverrideDirectoryCheckBox" xml:space="preserve">
+    <value>Felülírási mappa:</value>
+  </data>
 </root>

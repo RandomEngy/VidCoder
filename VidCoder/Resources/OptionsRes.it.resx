@@ -262,7 +262,7 @@
     <value>Avanzato</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Sei in traccia Beta. Per tornare a una versione stabile, disinstallare, fare clic su "Si" per rimuovere il preset, quindi re-installare una versione stabile.</value>
+    <value>Si sta eseguendo la versione Beta. Questo può funzionare a fianco con la versione stabile.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Unisci la traccia Beta per aggiornamenti più frequenti</value>
@@ -386,16 +386,39 @@
   <data name="Priority_Idle" xml:space="preserve">
     <value>Basso</value>
   </data>
-	<data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
     <value>Copia codifica log nella stessa directory come il codifica video</value>
   </data>
-	<data name="OpenLogFolderButton" xml:space="preserve">
+  <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Cartella di registro aperto</value>
   </data>
-	<data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
     <value>Riprendere automaticamente la codifica al riavvio</value>
   </data>
-	<data name="UseWorkerProcessCheckBox" xml:space="preserve">
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Utilizzare il processo di lavoro per la codifica</value>
   </data>
+  <data name="VideoSection" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="DxvaDecodingCheckBox" xml:space="preserve">
+    <value>Abilitare decodifica Hardware DXVA</value>
+  </data>
+  <data name="DxvaDecodingToolTip" xml:space="preserve">
+    <value>Questa opzione è soltanto adatta a sistemi più lenti. Decodificatori hardware attualmente sono progettati per la riproduzione, non per la ri-codifica video così sarà probabile strozzatura sui sistemi più veloci.</value>
+  </data>
+  <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+    <value>Preservare il tempo creata e modificata quando conversione file</value>
+  </data>
+  <data name="DefaultCheckBox" xml:space="preserve">
+    <value>Default</value>
+    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Preservare la struttura della codifica delle cartelle in modalità batch</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Se si codifica una cartella piena di file saranno messe le versioni codificate in sottocartelle per abbinare la struttura di directory di origine.</value>
+  </data>
+	
 </root>

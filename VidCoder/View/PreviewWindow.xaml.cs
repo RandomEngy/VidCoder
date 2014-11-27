@@ -12,7 +12,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using VidCoder.Services;
 using VidCoder.ViewModel;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder.View
 {
@@ -122,7 +121,7 @@ namespace VidCoder.View
 
 			if (previewVM.DisplayType == PreviewDisplay.Corners)
 			{
-				var bitmap = previewVM.PreviewBitmapImage;
+				var bitmap = previewVM.PreviewBitmapSource;
 				
 				if (bitmap != null)
 				{
@@ -150,7 +149,7 @@ namespace VidCoder.View
 			}
 		}
 
-		private static void UpdateCornerImage(Image image, Grid imageHolder, BitmapImage bitmap, RegionChooser regionChooser, bool isRetry = false)
+		private static void UpdateCornerImage(Image image, Grid imageHolder, BitmapSource bitmap, RegionChooser regionChooser, bool isRetry = false)
 		{
 			// Image dimensions
 			int imageWidth = bitmap.PixelWidth;
@@ -224,7 +223,7 @@ namespace VidCoder.View
 
 		private void Window_PreviewDrop(object sender, DragEventArgs e)
 		{
-			Unity.Container.Resolve<MainWindow>().HandleDrop(sender, e);
+			Ioc.Container.GetInstance<MainWindow>().HandleDrop(sender, e);
 		}
 
 		private void Window_PreviewDragOver(object sender, DragEventArgs e)

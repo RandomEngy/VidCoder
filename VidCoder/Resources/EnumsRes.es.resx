@@ -143,6 +143,7 @@
   </data>
   <data name="Deinterlace_Bob" xml:space="preserve">
     <value>Bob</value>
+    <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
   </data>
   <data name="Deinterlace_Fast" xml:space="preserve">
     <value>Fast</value>
@@ -153,15 +154,16 @@
   <data name="Deinterlace_Slower" xml:space="preserve">
     <value>Slower</value>
   </data>
-  <data name="Denoise_Medium" xml:space="preserve">
-    <value>Medium</value>
-  </data>
-  <data name="Denoise_Strong" xml:space="preserve">
-    <value>Strong</value>
-  </data>
-  <data name="Denoise_Weak" xml:space="preserve">
-    <value>Weak</value>
-  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
     <value>No hacer nada</value>
   </data>

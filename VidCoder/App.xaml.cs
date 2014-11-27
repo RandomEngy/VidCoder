@@ -14,12 +14,12 @@ using System.IO;
 using System.ComponentModel;
 using HandBrake.Interop;
 using VidCoder.View;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder
 {
 	using System.Globalization;
 	using System.Threading;
+	using Automation;
 	using Resources;
 
 	/// <summary>
@@ -27,10 +27,12 @@ namespace VidCoder
 	/// </summary>
 	public partial class App : Application
 	{
+		public static bool IsPrimaryInstance { get; private set; }
+
 #if BETA
-		static Mutex mutex = new Mutex(true, "VidCoderBetaSingleInstanceMutex");
+		static Mutex mutex = new Mutex(true, "VidCoderBetaPrimaryInstanceMutex");
 #else
-		static Mutex mutex = new Mutex(true, "VidCoderSingleInstanceMutex");
+		static Mutex mutex = new Mutex(true, "VidCoderPrimaryInstanceMutex");
 #endif
 
 		protected override void OnStartup(StartupEventArgs e)
@@ -39,6 +41,15 @@ namespace VidCoder
 			this.DispatcherUnhandledException += this.OnDispatcherUnhandledException;
 #endif
 			base.OnStartup(e);
+
+			OperatingSystem OS = Environment.OSVersion; 
+			if (OS.Version.Major <= 5) 
+			{
+				MessageBox.Show(MiscRes.UnsupportedOSError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+				MessageBox.Show(MiscRes.UnsupportedOSError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+				this.Shutdown(); 
+				return; 
+			} 
 
 #if PSEUDOLOCALIZER_ENABLED
 			Delay.PseudoLocalizer.Enable(typeof(CommonRes));
@@ -109,51 +120,41 @@ namespace VidCoder
 				Thread.CurrentThread.CurrentUICulture = cultureInfo;
 			}
 
-			var updater = Unity.Container.Resolve<IUpdater>();
-			bool updateSucceeded = updater.HandlePendingUpdate();
+			var updater = Ioc.Container.GetInstance<IUpdater>();
+			updater.HandlePendingUpdate();
 
-			if (updateSucceeded)
+			try
 			{
-				var updateSuccess = new UpdateSuccess();
-				updateSuccess.Show();
+				// Check if we're a secondary instance
+				IsPrimaryInstance = mutex.WaitOne(TimeSpan.Zero, true);
 			}
-			else
+			catch (AbandonedMutexException)
 			{
-#if !DEBUG
-				try
-				{
-					// Check if we're a duplicate instance
-					if (!mutex.WaitOne(TimeSpan.Zero, true))
-					{
-						NativeMethods.PostMessage(
-							(IntPtr)NativeMethods.HWND_BROADCAST,
-							NativeMethods.WM_SHOWME,
-							IntPtr.Zero,
-							IntPtr.Zero);
-						Environment.Exit(0);
-					}
-				}
-				catch (AbandonedMutexException)
-				{
-				}
-#endif
+			}
 
-				this.GlobalInitialize();
+			this.GlobalInitialize();
 
-				var mainVM = new MainViewModel();
-				WindowManager.OpenWindow(mainVM);
-				mainVM.OnLoaded();
+			var mainVM = new MainViewModel();
+			WindowManager.OpenWindow(mainVM);
+			mainVM.OnLoaded();
+
+			if (!Utilities.IsPortable && IsPrimaryInstance)
+			{
+				AutomationHost.StartListening();
 			}
 		}
 
 		protected override void OnExit(ExitEventArgs e)
 		{
-			try
+			if (IsPrimaryInstance)
 			{
-				mutex.ReleaseMutex();
-			}
-			catch (ApplicationException)
-			{
+				try
+				{
+					mutex.ReleaseMutex();
+				}
+				catch (ApplicationException)
+				{
+				}
 			}
 		}
 

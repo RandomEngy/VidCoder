@@ -1,28 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using VidCoder.Resources;
 
 namespace VidCoder.Model
 {
-	using System.ComponentModel.DataAnnotations;
-	using Resources;
-
 	public enum DenoiseCombo
 	{
-		[Display(ResourceType = typeof(EnumsRes), Name = "Off")]
-		Off = 0,
+		[Display(ResourceType = typeof(CommonRes), Name = "Off")]
+		Off,
 
-		[Display(ResourceType = typeof(EnumsRes), Name = "Denoise_Weak")]
-		Weak,
+		[Display(ResourceType = typeof(EnumsRes), Name = "Denoise_HQDN3D")]
+		hqdn3d,
 
-		[Display(ResourceType = typeof(EnumsRes), Name = "Denoise_Medium")]
-		Medium,
-
-		[Display(ResourceType = typeof(EnumsRes), Name = "Denoise_Strong")]
-		Strong,
-
-		[Display(ResourceType = typeof(EnumsRes), Name = "Custom")]
-		Custom
+		[Display(ResourceType = typeof(EnumsRes), Name = "Denoise_NLMeans")]
+		NlMeans
 	}
 }

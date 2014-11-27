@@ -10,7 +10,7 @@ DisableProgramGroupPage=yes
 UninstallDisplayIcon={app}\VidCoder.exe
 Compression=lzma
 SolidCompression=yes
-SetupIconFile=..\VidCoder\VidCoder_icon.ico
+SetupIconFile=VidCoder_Setup.ico
 
 OutputDir=BuiltInstallers
 OutputBaseFilename=%outputBaseFileName%
@@ -24,7 +24,23 @@ UsePreviousAppDir=yes
 Name: "en"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "Files\%arch%\*"; DestDir: "{app}"; Flags: recursesubdirs
+Source: "Files\%arch%\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
+
+[Registry]
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlers\PlayBluRayOnArrival"; ValueType: string; ValueName: "%appNameNoSpace%RipDriveOnArrival"; ValueData: ""; Flags: uninsdeletevalue
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlers\PlayDVDMovieOnArrival"; ValueType: string; ValueName: "%appNameNoSpace%RipDriveOnArrival"; ValueData: ""; Flags: uninsdeletevalue
+
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\Handlers\%appNameNoSpace%RipDriveOnArrival"; Flags: uninsdeletekey
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\Handlers\%appNameNoSpace%RipDriveOnArrival"; ValueType: string; ValueName: "Action"; ValueData: "Rip"
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\Handlers\%appNameNoSpace%RipDriveOnArrival"; ValueType: string; ValueName: "DefaultIcon"; ValueData: "{app}\VidCoder.exe,0"
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\Handlers\%appNameNoSpace%RipDriveOnArrival"; ValueType: string; ValueName: "InvokeProgId"; ValueData: "%appNameNoSpace%.RipDrive"
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\Handlers\%appNameNoSpace%RipDriveOnArrival"; ValueType: string; ValueName: "InvokeVerb"; ValueData: "rip"
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\Handlers\%appNameNoSpace%RipDriveOnArrival"; ValueType: string; ValueName: "Provider"; ValueData: "%appName%"
+
+Root: HKCR; Subkey: "%appNameNoSpace%.RipDrive"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "%appNameNoSpace%.RipDrive\shell"
+Root: HKCR; Subkey: "%appNameNoSpace%.RipDrive\shell\rip"
+Root: HKCR; Subkey: "%appNameNoSpace%.RipDrive\shell\rip\command"; ValueType: string; ValueData: """{app}\VidCoderWindowlessCLI.exe"" scan -s %L"
 
 [Messages]
 WelcomeLabel2=This will install [name/ver] on your computer.
@@ -33,7 +49,7 @@ WelcomeLabel2=This will install [name/ver] on your computer.
 Name: "{commonprograms}\%appName%"; Filename: "{app}\VidCoder.exe"; WorkingDir: "{app}"
 
 [Run]
-Filename: "{app}\VidCoder.exe"; Description: "Run VidCoder"; Flags: postinstall shellexec
+Filename: "{app}\VidCoder.exe"; Description: "Run VidCoder"; Flags: postinstall nowait skipifsilent
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{userappdata}\%folderName%\Updates"
@@ -78,6 +94,41 @@ begin
   end;
 end;
 
+//util method, equivalent to C# string.StartsWith
+function StartsWith(SubStr, S: String):Boolean;
+begin
+  Result:= Pos(SubStr, S) = 1;
+end;
+
+//util method, equivalent to C# string.Replace
+function StringReplace(S, oldSubString, newSubString: String) : String;
+var
+  stringCopy : String;
+begin
+  stringCopy := S; //Prevent modification to the original string
+  StringChange(stringCopy, oldSubString, newSubString);
+  Result := stringCopy;
+end;
+
+//==================================================================
+function GetCommandlineParam (inParamName: String):String;
+var
+   paramNameAndValue: String;
+   i: Integer;
+begin
+   Result := '';
+
+   for i:= 0 to ParamCount do
+   begin
+     paramNameAndValue := ParamStr(i);
+     if (StartsWith(inParamName, paramNameAndValue)) then
+     begin
+       Result := StringReplace(paramNameAndValue, inParamName + '=', '');
+       break;
+     end;
+   end;
+end;
+
 // Delete app data
 procedure DeleteUserFiles();
 var
@@ -90,6 +141,23 @@ begin
     DelTree(ExpandConstant('{userappdata}') + '\%folderName%', True, True, True);
   end; 
 end;
+
+procedure CurStepChanged(CurStep: TSetupStep);
+var
+   showSuccessDialog: String;
+begin
+  case CurStep of
+    ssDone:
+      begin
+        showSuccessDialog := GetCommandLineParam('/showSuccessDialog');
+        if showSuccessDialog <> '' then
+        begin
+          MsgBox('VidCoder has been successfully updated.', mbInformation, MB_OK);
+        end;
+     end;
+  end;
+end;
+
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin

@@ -11,6 +11,10 @@ using HandBrake.Interop.Model;
 
 namespace VidCoder.Model
 {
+	using System.Globalization;
+	using System.Runtime.Serialization;
+	using Resources;
+
 	public static class EncodeJobsPersist
 	{
 		private static XmlSerializer oldXmlSerializer = new XmlSerializer(typeof(EncodeJobCollection));
@@ -84,6 +88,55 @@ namespace VidCoder.Model
 
 				return LoadJobsXmlStringOld(jobsXml);
 			}
+		}
+
+		public static IList<EncodeJobWithMetadata> LoadQueueFile(string queueFile)
+		{
+			if (Path.GetExtension(queueFile).ToLowerInvariant() != ".xml")
+			{
+				return null;
+			}
+
+			try
+			{
+				DataContractSerializer serializer = new DataContractSerializer(typeof(EncodeJobsXml));
+
+				using (var reader = XmlReader.Create(queueFile))
+				{
+					var jobsXmlObject = serializer.ReadObject(reader) as EncodeJobsXml;
+					return jobsXmlObject.Jobs;
+				}
+			}
+			catch (XmlException)
+			{
+				return null;
+			}
+		}
+
+		public static bool SaveQueueToFile(IList<EncodeJobWithMetadata> jobs, string filePath)
+		{
+			try
+			{
+				var jobsXmlObject = new EncodeJobsXml
+					{
+						Jobs = jobs,
+						Version = Utilities.CurrentDatabaseVersion
+					};
+
+				DataContractSerializer serializer = new DataContractSerializer(typeof(EncodeJobsXml));
+				using (var writer = XmlWriter.Create(filePath, new XmlWriterSettings{ Indent = true }))
+				{
+					serializer.WriteObject(writer, jobsXmlObject);
+				}
+
+				return true;
+			}
+			catch (XmlException exception)
+			{
+				System.Windows.MessageBox.Show(string.Format(MainRes.CouldNotSaveQueueMessage, Environment.NewLine, exception));
+			}
+
+			return false;
 		}
 
 		internal static string SerializeJobs(EncodeJobPersistGroup jobPersistGroup)

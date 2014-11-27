@@ -7,7 +7,6 @@ using System.IO;
 using System.ComponentModel;
 using System.Windows;
 using Ookii.Dialogs.Wpf;
-using Microsoft.Practices.Unity;
 
 namespace VidCoder.Services
 {
@@ -19,7 +18,7 @@ namespace VidCoder.Services
 		{
 			get
 			{
-				return Unity.Container.Resolve<IFileService>();
+				return Ioc.Container.GetInstance<IFileService>();
 			}
 		}
 

@@ -6,14 +6,13 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using Microsoft.Practices.Unity;
 using VidCoder.Messages;
 
 namespace VidCoder.ViewModel
 {
 	public class AudioChoiceViewModel : ViewModelBase
 	{
-		private MainViewModel mainViewModel = Unity.Container.Resolve<MainViewModel>();
+		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
 		private int selectedTrack;
 
 		public MainViewModel MainViewModel

@@ -12,7 +12,6 @@ using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
-using Microsoft.Practices.Unity;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Services;
@@ -27,10 +26,10 @@ namespace VidCoder.ViewModel.Components
 	/// </summary>
 	public class OutputPathViewModel : ViewModelBase
 	{
-		private MainViewModel main = Unity.Container.Resolve<MainViewModel>();
+		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
 		private ProcessingViewModel processingVM;
 		private PresetsViewModel presetsVM;
-		private IDriveService driveService = Unity.Container.Resolve<IDriveService>();
+		private IDriveService driveService = Ioc.Container.GetInstance<IDriveService>();
 
 		private string outputPath;
 
@@ -54,7 +53,7 @@ namespace VidCoder.ViewModel.Components
 			{
 				if (this.processingVM == null)
 				{
-					this.processingVM = Unity.Container.Resolve<ProcessingViewModel>();
+					this.processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
 				}
 
 				return this.processingVM;
@@ -67,7 +66,7 @@ namespace VidCoder.ViewModel.Components
 			{
 				if (this.presetsVM == null)
 				{
-					this.presetsVM = Unity.Container.Resolve<PresetsViewModel>();
+					this.presetsVM = Ioc.Container.GetInstance<PresetsViewModel>();
 				}
 
 				return this.presetsVM;
@@ -89,6 +88,9 @@ namespace VidCoder.ViewModel.Components
 				Messenger.Default.Send(new OutputPathChangedMessage());
 			}
 		}
+
+		// The parent folder for the item (if it was inside a folder of files added in a batch)
+		public string SourceParentFolder { get; set; }
 
 		public string OldOutputPath { get; set; }
 
@@ -137,8 +139,8 @@ namespace VidCoder.ViewModel.Components
 			{
 				return this.pickOutputPathCommand ?? (this.pickOutputPathCommand = new RelayCommand(() =>
 					{
-						string extensionDot = this.GetOutputExtensionForCurrentEncodingProfile();
-						string extension = this.GetOutputExtensionForCurrentEncodingProfile(includeDot: false);
+						string extensionDot = this.GetOutputExtension();
+						string extension = this.GetOutputExtension(includeDot: false);
 						string extensionLabel = extension.ToUpperInvariant();
 
 						string newOutputPath = FileService.Instance.GetFileNameSave(
@@ -216,60 +218,26 @@ namespace VidCoder.ViewModel.Components
 		}
 
 		/// <summary>
-		/// Gets the output extension for the given subtitles and title, and with the
-		/// current encoding settings.
+		/// Gets the extension that should be used for the current encoding profile.
 		/// </summary>
-		/// <param name="givenSubtitles">The subtitles to determine the extension for.</param>
-		/// <param name="givenTitle">The title to determine the extension for.</param>
-		/// <returns>The output extension (with dot) for the given subtitles and title,
-		/// and with the current encoding settings.</returns>
-		public string GetOutputExtension(Subtitles givenSubtitles, Title givenTitle)
-		{
-			string extension;
-
-			VCProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
-			if (profile.OutputFormat == Container.Mkv)
-			{
-				extension = ".mkv";
-			}
-			else if (profile.PreferredExtension == OutputExtension.Mp4)
-			{
-				extension = ".mp4";
-			}
-			else
-			{
-				extension = ".m4v";
-			}
-
-			return extension;
-		}
-
-		/// <summary>
-		/// Gets the extension that should be used for the current encoding settings, subtitles
-		/// and title.
-		/// </summary>
-		/// <returns>The extension (with dot) that should be used for current encoding settings, subtitles
-		/// and title. If no video source is present, this is determined from the encoding settings.</returns>
-		private string GetOutputExtension()
-		{
-			if (this.main.HasVideoSource)
-			{
-				return this.GetOutputExtension(this.main.CurrentSubtitles, this.main.SelectedTitle);
-			}
-
-			return this.GetOutputExtensionForCurrentEncodingProfile();
-		}
-
-		public string GetOutputExtensionForCurrentEncodingProfile(bool includeDot = true)
+		/// <returns>The extension (with dot) that should be used for current encoding profile.</returns>
+		public string GetOutputExtension(bool includeDot = true)
 		{
 			VCProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
+			return GetExtensionForProfile(profile, includeDot);
+		}
+
+		public static string GetExtensionForProfile(VCProfile profile, bool includeDot = true)
+		{
+			HBContainer container = Encoders.GetContainer(profile.ContainerName);
+
 			string extension;
 
-			if (profile.OutputFormat == Container.Mkv)
+			if (container.DefaultExtension == "mkv")
 			{
 				extension = "mkv";
 			}
-			else if (profile.PreferredExtension == OutputExtension.Mp4)
+			else if (container.DefaultExtension == "mp4" && profile.PreferredExtension == OutputExtension.Mp4)
 			{
 				extension = "mp4";
 			}
@@ -441,12 +409,16 @@ namespace VidCoder.ViewModel.Components
 			return string.Join(" ", translatedTitleWords);
 		}
 
-		public string GetOutputFolder(string sourcePath)
+		public string GetOutputFolder(string sourcePath, string sourceParentFolder = null)
 		{
 			// Use our default output folder by default
 			string outputFolder = Config.AutoNameOutputFolder;
+
+			bool usedSourceDirectory = false;
+
 			if (Config.OutputToSourceDirectory)
 			{
+				// Use the source directory if we can
 				string sourceRoot = Path.GetPathRoot(sourcePath);
 				IList<DriveInfo> driveInfo = this.driveService.GetDriveInformation();
 				DriveInfo matchingDrive = driveInfo.FirstOrDefault(d => string.Compare(d.RootDirectory.FullName, sourceRoot, StringComparison.OrdinalIgnoreCase) == 0);
@@ -457,15 +429,44 @@ namespace VidCoder.ViewModel.Components
 				if (!string.IsNullOrEmpty(sourceDirectory) && (matchingDrive == null || matchingDrive.DriveType != DriveType.CDRom))
 				{
 					outputFolder = sourceDirectory;
+					usedSourceDirectory = true;
+				}
+			}
+
+			if (!usedSourceDirectory && sourceParentFolder != null && Config.PreserveFolderStructureInBatch)
+			{
+				// Tack on some subdirectories if we have a parent folder specified and it's enabled, and we didn't use the source directory
+				string sourceDirectory = Path.GetDirectoryName(sourcePath);
+
+				if (sourceParentFolder.Length > sourceDirectory.Length)
+				{
+					throw new InvalidOperationException("sourceParentFolder (" + sourceParentFolder + ") is longer than sourceDirectory (" + sourceDirectory +")");
+				}
+
+				if (string.Compare(
+					sourceDirectory.Substring(0, sourceParentFolder.Length),
+					sourceParentFolder, 
+					CultureInfo.InvariantCulture, 
+					CompareOptions.IgnoreCase) != 0)
+				{
+					throw new InvalidOperationException("sourceParentFolder (" + sourceParentFolder + ") is not a parent of sourceDirectory (" + sourceDirectory + ")");
+				}
+
+				if (sourceParentFolder.Length < sourceDirectory.Length)
+				{
+					outputFolder = outputFolder + sourceDirectory.Substring(sourceParentFolder.Length);
 				}
 			}
 
 			return outputFolder;
 		}
 
-		public string BuildOutputPath(string fileName, string extension, string sourcePath)
+		public string BuildOutputPath(string fileName, string extension, string sourcePath, string outputFolder = null)
 		{
-			string outputFolder = GetOutputFolder(sourcePath);
+			if (outputFolder == null)
+			{
+				outputFolder = GetOutputFolder(sourcePath);
+			}
 
 			if (!string.IsNullOrEmpty(outputFolder))
 			{
@@ -481,7 +482,14 @@ namespace VidCoder.ViewModel.Components
 			return null;
 		}
 
-		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, int totalChapters, string nameFormatOverride = null, bool usesScan = true)
+		public string BuildOutputFileName(
+			string sourcePath,
+			string sourceName, 
+			int title, 
+			TimeSpan titleDuration,
+			int totalChapters,
+			string nameFormatOverride = null, 
+			bool usesScan = true)
 		{
 			return this.BuildOutputFileName(
 				sourcePath,
@@ -500,7 +508,21 @@ namespace VidCoder.ViewModel.Components
 				usesScan);
 		}
 
-		public string BuildOutputFileName(string sourcePath, string sourceName, int title, TimeSpan titleDuration, VideoRangeType rangeType, int startChapter, int endChapter, int totalChapters, TimeSpan startTime, TimeSpan endTime, int startFrame, int endFrame, string nameFormatOverride, bool usesScan)
+		public string BuildOutputFileName(
+			string sourcePath, 
+			string sourceName, 
+			int title, 
+			TimeSpan titleDuration, 
+			VideoRangeType rangeType, 
+			int startChapter, 
+			int endChapter, 
+			int totalChapters, 
+			TimeSpan startTime, 
+			TimeSpan endTime, 
+			int startFrame, 
+			int endFrame,
+			string nameFormatOverride, 
+			bool usesScan)
 		{
 			string fileName;
 			if (Config.AutoNameCustomFormat || !string.IsNullOrWhiteSpace(nameFormatOverride))

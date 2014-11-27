@@ -18,20 +18,26 @@ using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Properties;
 using VidCoder.Services;
-using Microsoft.Practices.Unity;
 using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
 	using System.Data.SQLite;
+	using System.Diagnostics;
+	using System.Runtime.InteropServices;
+	using System.Runtime.Remoting.Messaging;
+	using Automation;
+	using HandBrake.Interop.HbLib;
+	using HandBrake.Interop.Helpers;
 	using Resources;
+	using Utilities = VidCoder.Utilities;
 
 	public class MainViewModel : ViewModelBase
 	{
 		private HandBrakeInstance scanInstance;
 
-		private IUpdater updater = Unity.Container.Resolve<IUpdater>();
-		private ILogger logger = Unity.Container.Resolve<ILogger>();
+		private IUpdater updater = Ioc.Container.GetInstance<IUpdater>();
+		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
 		private OutputPathViewModel outputPathVM;
 		private PresetsViewModel presetsVM;
 		private ProcessingViewModel processingVM;
@@ -76,6 +82,7 @@ namespace VidCoder.ViewModel
 		private bool scanningSource;
 		private bool scanError;
 		private double scanProgress;
+		private string pendingScan;
 		private bool scanCancelledFlag;
 
 		private bool showTrayIcon;
@@ -85,12 +92,14 @@ namespace VidCoder.ViewModel
 
 		public MainViewModel()
 		{
-			Unity.Container.RegisterInstance(this);
+			long affinity = (long)Process.GetCurrentProcess().ProcessorAffinity;
 
-			this.outputPathVM = Unity.Container.Resolve<OutputPathViewModel>();
-			this.processingVM = Unity.Container.Resolve<ProcessingViewModel>();
-			this.presetsVM = Unity.Container.Resolve<PresetsViewModel>();
-			this.windowManagerVM = Unity.Container.Resolve<WindowManagerViewModel>();
+			Ioc.Container.Register(() => this);
+
+			this.outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
+			this.processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
+			this.presetsVM = Ioc.Container.GetInstance<PresetsViewModel>();
+			this.windowManagerVM = Ioc.Container.GetInstance<WindowManagerViewModel>();
 
 			updater.CheckUpdates();
 
@@ -110,23 +119,11 @@ namespace VidCoder.ViewModel
 				};
 
 			this.recentSourceOptions = new ObservableCollection<SourceOptionViewModel>();
-
-			List<string> sourceHistory = SourceHistory.GetHistory();
-			foreach (string recentSourcePath in sourceHistory)
-			{
-				if (File.Exists(recentSourcePath))
-				{
-					this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.File }, recentSourcePath));
-				}
-				else if (Directory.Exists(recentSourcePath))
-				{
-					this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.VideoFolder }, recentSourcePath));
-				}
-			}
+			this.RefreshRecentSourceOptions();
 
 			this.useDefaultChapterNames = true;
 
-			this.driveService = Unity.Container.Resolve<IDriveService>();
+			this.driveService = Ioc.Container.GetInstance<IDriveService>();
 
 			this.DriveCollection = this.driveService.GetDiscInformation();
 
@@ -294,6 +291,28 @@ namespace VidCoder.ViewModel
 			return true;
 		}
 
+		public void SetSource(string sourcePath)
+		{
+			SourceType sourceType = Utilities.GetSourceType(sourcePath);
+			switch (sourceType)
+			{
+				case SourceType.File:
+					this.SetSourceFromFile(sourcePath);
+					break;
+				case SourceType.VideoFolder:
+					this.SetSourceFromFolder(sourcePath);
+					break;
+				case SourceType.Dvd:
+					DriveInformation driveInfo = this.driveService.GetDriveInformationFromPath(sourcePath);
+					if (driveInfo != null)
+					{
+						this.SetSourceFromDvd(driveInfo);
+					}
+
+					break;
+			}
+		}
+
 		public void OnLoaded()
 		{
 			bool windowOpened = false;
@@ -389,6 +408,11 @@ namespace VidCoder.ViewModel
 
 			FileCleanup.CleanOldLogs();
 			FileCleanup.CleanPreviewFileCache();
+
+			if (!Utilities.IsPortable)
+			{
+				AutomationHost.StopListening();
+			}
 
 			this.updater.PromptToApplyUpdate();
 
@@ -753,6 +777,7 @@ namespace VidCoder.ViewModel
 					{
 						this.OutputPathVM.ManualOutputPath = false;
 						this.OutputPathVM.NameFormatOverride = null;
+						this.OutputPathVM.SourceParentFolder = null;
 					}
 
 					// Save old subtitles
@@ -870,6 +895,8 @@ namespace VidCoder.ViewModel
 						case AutoSubtitleType.Language:
 							string languageCode = Config.SubtitleLanguageCode;
 							bool audioSame = false;
+							bool burnIn = Config.AutoSubtitleLanguageBurnIn;
+							bool def = Config.AutoSubtitleLanguageDefault;
 							if (this.AudioChoices.Count > 0)
 							{
 								if (this.selectedTitle.AudioTracks[this.AudioChoices[0].SelectedIndex].LanguageCode == languageCode)
@@ -900,8 +927,8 @@ namespace VidCoder.ViewModel
 									{
 										this.CurrentSubtitles.SourceSubtitles.Add(new SourceSubtitle
 										{
-											BurnedIn = false,
-											Default = false,
+											BurnedIn = burnIn,
+											Default = def,
 											Forced = false,
 											TrackNumber = nativeSubtitles[0].TrackNumber
 										});
@@ -1063,7 +1090,7 @@ namespace VidCoder.ViewModel
 
 				foreach (SrtSubtitle srtSubtitle in this.currentSubtitles.SrtSubtitles)
 				{
-					trackSummaries.Add(Language.Decode(srtSubtitle.LanguageCode));
+					trackSummaries.Add(Languages.Get(srtSubtitle.LanguageCode).EnglishName);
 				}
 
 				if (trackSummaries.Count > 3)
@@ -1138,10 +1165,7 @@ namespace VidCoder.ViewModel
 
 		public bool TitleVisible
 		{
-			get
-			{
-				return this.HasVideoSource && this.SourceData.Titles.Count > 1;
-			}
+			get { return this.HasVideoSource && this.SourceData.Titles.Count > 1; }
 		}
 
 		public VideoRangeType RangeType
@@ -1917,6 +1941,8 @@ namespace VidCoder.ViewModel
 						this.RaisePropertyChanged(() => this.SourceOptionsVisible);
 						this.RaisePropertyChanged(() => this.SourcePicked);
 
+						this.RefreshRecentSourceOptions();
+
 						DispatchService.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
 						Messenger.Default.Send(new RefreshPreviewMessage());
 						this.SelectedTitle = null;
@@ -1966,10 +1992,14 @@ namespace VidCoder.ViewModel
 			{
 				return this.importPresetCommand ?? (this.importPresetCommand = new RelayCommand(() =>
 					{
-						string presetFileName = FileService.Instance.GetFileNameLoad(null, "Import preset file", "xml", "XML Files|*.xml");
+						string presetFileName = FileService.Instance.GetFileNameLoad(
+							null, 
+							MainRes.ImportPresetFilePickerTitle, 
+							"xml", 
+							Utilities.GetFilePickerFilter("xml"));
 						if (presetFileName != null)
 						{
-							Unity.Container.Resolve<IPresetImportExport>().ImportPreset(presetFileName);
+							Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(presetFileName);
 						}
 					}));
 			}
@@ -1982,7 +2012,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.exportPresetCommand ?? (this.exportPresetCommand = new RelayCommand(() =>
 					{
-						Unity.Container.Resolve<IPresetImportExport>().ExportPreset(this.presetsVM.SelectedPreset.Preset);
+						Ioc.Container.GetInstance<IPresetImportExport>().ExportPreset(this.presetsVM.SelectedPreset.Preset);
 					}));
 			}
 		}
@@ -2181,6 +2211,7 @@ namespace VidCoder.ViewModel
 			newEncodeJobVM.HandBrakeInstance = this.scanInstance;
 			newEncodeJobVM.VideoSource = this.SourceData;
 			newEncodeJobVM.VideoSourceMetadata = this.GetVideoSourceMetadata();
+			newEncodeJobVM.SourceParentFolder = this.OutputPathVM.SourceParentFolder;
 			newEncodeJobVM.ManualOutputPath = this.OutputPathVM.ManualOutputPath;
 			newEncodeJobVM.NameFormatOverride = this.OutputPathVM.NameFormatOverride;
 			newEncodeJobVM.PresetName = this.PresetsVM.SelectedPreset.DisplayName;
@@ -2244,7 +2275,7 @@ namespace VidCoder.ViewModel
 						DriveInformation driveInfo = this.DriveCollection.FirstOrDefault(d => string.Compare(d.RootDirectory, jobRoot, StringComparison.OrdinalIgnoreCase) == 0);
 						if (driveInfo == null)
 						{
-							Unity.Container.Resolve<IMessageBoxService>().Show(MainRes.DiscNotInDriveError);
+							Ioc.Container.GetInstance<IMessageBoxService>().Show(MainRes.DiscNotInDriveError);
 							return;
 						}
 
@@ -2284,6 +2315,40 @@ namespace VidCoder.ViewModel
 			}
 
 			this.PresetsVM.SaveUserPresets();
+		}
+
+		public void ScanFromAutoplay(string sourcePath)
+		{
+			if ((this.HasVideoSource || this.ScanningSource) && string.Compare(this.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0)
+			{
+				// We're already on this disc. Return.
+				return;
+			}
+
+			//DriveInformation driveInfo = this.driveService.GetDriveInformationFromPath(sourcePath);
+			if (this.HasVideoSource && !this.ScanningSource)
+			{
+				var messageResult = Ioc.Container.GetInstance<IMessageBoxService>().Show(
+					this,
+					MainRes.AutoplayDiscConfirmationMessage,
+					CommonRes.ConfirmDialogTitle,
+					MessageBoxButton.YesNo);
+
+				if (messageResult == MessageBoxResult.Yes)
+				{
+					this.SetSource(sourcePath);
+				}
+			}
+			else if (this.ScanningSource)
+			{
+				// If we're scanning already, cancel the scan and set a pending scan for the new path.
+				this.pendingScan = sourcePath;
+				this.CancelScanCommand.Execute(null);
+			}
+			else
+			{
+				this.SetSource(sourcePath);
+			}
 		}
 
 		public void RefreshChapterMarkerUI()
@@ -2386,6 +2451,13 @@ namespace VidCoder.ViewModel
 						}
 
 						this.logger.Log("Scan cancelled");
+
+						if (this.pendingScan != null)
+						{
+							this.SetSource(this.pendingScan);
+
+							this.pendingScan = null;
+						}
 					}
 					else
 					{
@@ -2654,7 +2726,7 @@ namespace VidCoder.ViewModel
 			}
 			else
 			{
-				if (this.selectedTitle.Chapters.Count == this.CustomChapterNames.Count)
+				if (this.CustomChapterNames != null && this.selectedTitle.Chapters.Count == this.CustomChapterNames.Count)
 				{
 					this.CustomChapterNames = job.CustomChapterNames;
 				}
@@ -2662,6 +2734,7 @@ namespace VidCoder.ViewModel
 
 			// Output path
 			this.OutputPathVM.OutputPath = job.OutputPath;
+			this.OutputPathVM.SourceParentFolder = jobVM.SourceParentFolder;
 			this.OutputPathVM.ManualOutputPath = jobVM.ManualOutputPath;
 			this.OutputPathVM.NameFormatOverride = jobVM.NameFormatOverride;
 
@@ -2853,6 +2926,24 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.RangePreviewEnd);
 			this.RaisePropertyChanged(() => this.RangePreviewText);
 			this.RaisePropertyChanged(() => this.RangePreviewLengthText);
+		}
+
+		private void RefreshRecentSourceOptions()
+		{
+			this.recentSourceOptions.Clear();
+
+			List<string> sourceHistory = SourceHistory.GetHistory();
+			foreach (string recentSourcePath in sourceHistory)
+			{
+				if (File.Exists(recentSourcePath))
+				{
+					this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.File }, recentSourcePath));
+				}
+				else if (Directory.Exists(recentSourcePath))
+				{
+					this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.VideoFolder }, recentSourcePath));
+				}
+			}
 		}
 
 		private TimeSpan GetChapterRangeDuration(int startChapter, int endChapter)

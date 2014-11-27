@@ -270,13 +270,10 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   <data name="WebOptimizedToolTip" xml:space="preserve">
     <value>針對漸進式下載的播放最佳化。</value>
   </data>
-  <data name="X264PresetToolTip" xml:space="preserve">
-    <value>變更選項以斟酌偏好壓縮效率或編碼速度。若套用設定值，將優先參考設定值，再套用其他參數。</value>
-  </data>
-  <data name="X264ProfileToolTip" xml:space="preserve">
-    <value>限制輸出串流的規模，若您指定規模，編碼將產生符合指定規模的串流檔案。
+  <data name="ProfileToolTip" xml:space="preserve">
+    <value>限制輸出串流的設定檔。指定設定檔將覆蓋所有其他設定，使用設定檔將確保產生相容的串流。
 
-若您的裝置僅支援特定規模的串流，您可以設定此選項產生相容的檔案。</value>
+若您的裝置僅支援部分設定檔，則您需要手動指定設定檔確保串流相容。</value>
   </data>
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>依輸入內容微調選項以最佳化編碼結果，若您指定微調設定，將於參考設定值後調整微調設定，再套用其他參數。</value>
@@ -315,7 +312,7 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
     <value>音訊</value>
   </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
-    <value>進階</value>
+    <value>進階視訊</value>
   </data>
   <data name="Rename" xml:space="preserve">
     <value>重新命名</value>
@@ -364,9 +361,6 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   </data>
   <data name="DisplayWidthRadioButton" xml:space="preserve">
     <value>顯示寬度:</value>
-  </data>
-  <data name="PixelAspectRatioRadioButton" xml:space="preserve">
-    <value>像素長寬比:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>輸出</value>
@@ -449,13 +443,13 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   <data name="TuneLabel" xml:space="preserve">
     <value>微調:</value>
   </data>
-  <data name="Profile_Baseline" xml:space="preserve">
+  <data name="Profile_baseline" xml:space="preserve">
     <value>Baseline</value>
   </data>
-  <data name="Profile_Main" xml:space="preserve">
+  <data name="Profile_main" xml:space="preserve">
     <value>Main</value>
   </data>
-  <data name="Profile_High" xml:space="preserve">
+  <data name="Profile_high" xml:space="preserve">
     <value>High</value>
   </data>
   <data name="Preset_UltraFast" xml:space="preserve">
@@ -488,28 +482,28 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   <data name="Preset_Placebo" xml:space="preserve">
     <value>最慢</value>
   </data>
-  <data name="Tune_Film" xml:space="preserve">
+  <data name="Tune_film" xml:space="preserve">
     <value>電影</value>
   </data>
-  <data name="Tune_Animation" xml:space="preserve">
+  <data name="Tune_animation" xml:space="preserve">
     <value>動畫</value>
   </data>
-  <data name="Tune_Grain" xml:space="preserve">
+  <data name="Tune_grain" xml:space="preserve">
     <value>膠片顆粒</value>
   </data>
-  <data name="Tune_StillImage" xml:space="preserve">
+  <data name="Tune_stillimage" xml:space="preserve">
     <value>靜止影像</value>
   </data>
-  <data name="Tune_Psnr" xml:space="preserve">
+  <data name="Tune_psnr" xml:space="preserve">
     <value>PSNR</value>
   </data>
-  <data name="Tune_Ssim" xml:space="preserve">
+  <data name="Tune_ssim" xml:space="preserve">
     <value>SSIM</value>
   </data>
-  <data name="Tune_FastDecode" xml:space="preserve">
+  <data name="Tune_fastdecode" xml:space="preserve">
     <value>快速解碼</value>
   </data>
-  <data name="Tune_ZeroLatency" xml:space="preserve">
+  <data name="Tune_zerolatency" xml:space="preserve">
     <value>零延遲</value>
   </data>
   <data name="FpsFormat" xml:space="preserve">
@@ -590,42 +584,24 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   <data name="AudioCompressionToolTip" xml:space="preserve">
     <value>欲套用的壓縮度。 {0} 有效值範圍為 {1} 至 {2}。</value>
   </data>
-  <data name="AudioEncoder_copy" xml:space="preserve">
-    <value>自動複製</value>
-  </data>
-  <data name="AudioEncoder_copy_aac" xml:space="preserve">
-    <value>AAC 複製</value>
-  </data>
-  <data name="AudioEncoder_copy_ac3" xml:space="preserve">
-    <value>AC3 複製</value>
-  </data>
-  <data name="AudioEncoder_copy_dts" xml:space="preserve">
-    <value>DTS 複製</value>
-  </data>
-  <data name="AudioEncoder_copy_dtshd" xml:space="preserve">
-    <value>DTS-HD 複製</value>
-  </data>
-  <data name="AudioEncoder_copy_mp3" xml:space="preserve">
-    <value>MP3 複製</value>
-  </data>
   <data name="AudioEncoder_faac" xml:space="preserve">
     <value>AAC (FAAC)</value>
     <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
   </data>
-  <data name="AudioEncoder_ffaac" xml:space="preserve">
-    <value>AAC (Libav)</value>
+  <data name="AudioEncoder_av_aac" xml:space="preserve">
+    <value>AAC (avcodec)</value>
   </data>
-  <data name="AudioEncoder_ffac3" xml:space="preserve">
-    <value>AC3 (Libav)</value>
+  <data name="AudioEncoder_ac3" xml:space="preserve">
+    <value>AC3</value>
   </data>
-  <data name="AudioEncoder_ffflac" xml:space="preserve">
-    <value>FLAC (Libav)</value>
+  <data name="AudioEncoder_flac16" xml:space="preserve">
+    <value>FLAC 16 位元</value>
   </data>
-  <data name="AudioEncoder_lame" xml:space="preserve">
-    <value>MP3 (LAME)</value>
+  <data name="AudioEncoder_mp3" xml:space="preserve">
+    <value>MP3</value>
   </data>
   <data name="AudioEncoder_vorbis" xml:space="preserve">
-    <value>Vorbis (Vorbis)</value>
+    <value>Vorbis</value>
   </data>
   <data name="Mixdown_5point1" xml:space="preserve">
     <value>5.1 聲道</value>
@@ -825,12 +801,12 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>額外的進階 x264 選項:</value>
   </data>
-  <data name="H264LevelToolTip" xml:space="preserve">
-    <value>設定能確保編碼符合指定的 H.264 等級規範。
+  <data name="LevelToolTip" xml:space="preserve">
+    <value>此設定可確保符合指定的編碼等級規範。
 
-此設定會覆蓋其他設定。</value>
+此設定會覆蓋所有其他設定。</value>
   </data>
-  <data name="Profile_High444" xml:space="preserve">
+  <data name="Profile_high444" xml:space="preserve">
     <value>高度 4:4:4 預測</value>
   </data>
   <data name="VideoCodecLabel" xml:space="preserve">
@@ -857,17 +833,8 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   <data name="X264Settings" xml:space="preserve">
     <value>x264 設定</value>
   </data>
-  <data name="X264PresetLabel" xml:space="preserve">
-    <value>264 設定值:</value>
-  </data>
-  <data name="X264TuneLabel" xml:space="preserve">
-    <value>x264 微調:</value>
-  </data>
-  <data name="H264ProfileLabel" xml:space="preserve">
-    <value>H.264 規模:</value>
-  </data>
-  <data name="H264LevelLabel" xml:space="preserve">
-    <value>H.264 等級:</value>
+  <data name="LevelLabel" xml:space="preserve">
+    <value>等級:</value>
   </data>
   <data name="MoreSettingsLabel" xml:space="preserve">
     <value>更多設定:</value>
@@ -890,16 +857,133 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   <data name="Modifiers" xml:space="preserve">
     <value>修飾器</value>
   </data>
-  <data name="PassthroughTrackDroppedWarning" xml:space="preserve">
-    <value>輸入編碼不支援直接複製，已刪除此軌。</value>
-  </data>
   <data name="DtsMp4Warning" xml:space="preserve">
     <value>僅少部分播放器支援 MP4 中內嵌的 DTS 音訊，使用 DTS 音訊時建議採用 MKV。</value>
   </data>
-  <data name="AudioEncoder_ffflac24" xml:space="preserve">
-    <value>FLAC 24-bit (Libav)</value>
+  <data name="AudioEncoder_flac24" xml:space="preserve">
+    <value>FLAC 24 位元</value>
   </data>
-	<data name="Advanced_PsychovisualLabel" xml:space="preserve">
+  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>心理視覺</value>
   </data>
+  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
+    <value>AAC (FDK)</value>
+  </data>
+  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
+    <value>HE-AAC (FDK)</value>
+  </data>
+  <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
+    <value>Basic</value>
+    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
+  </data>
+  <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
+    <value>進階分頁</value>
+    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
+  </data>
+  <data name="VideoEncoder_mpeg2" xml:space="preserve">
+    <value>MPEG-2</value>
+  </data>
+  <data name="VideoEncoder_mpeg4" xml:space="preserve">
+    <value>MPEG-4</value>
+  </data>
+  <data name="VideoEncoder_theora" xml:space="preserve">
+    <value>Theora</value>
+  </data>
+  <data name="RemoveAudioEncodingToolTip" xml:space="preserve">
+    <value>移除音訊編碼</value>
+  </data>
+  <data name="AutoPassthroughFallbackLabel" xml:space="preserve">
+    <value>放棄複製:</value>
+  </data>
+  <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
+    <value>直接複製並非適用於所有音訊編碼，當無法直接複製時此設定將指定編碼器放棄複製。</value>
+  </data>
+  <data name="EncoderSettings" xml:space="preserve">
+    <value>編碼器設定</value>
+  </data>
+  <data name="QsvDecodingLabel" xml:space="preserve">
+    <value>QSV 解碼</value>
+  </data>
+  <data name="ScaleMethod_Lanczos" xml:space="preserve">
+    <value>Lanczos</value>
+  </data>
+  <data name="ScaleMethod_BicubicOpenCL" xml:space="preserve">
+    <value>Bicubic (OpenCL)</value>
+  </data>
+  <data name="QsvPreset_Speed" xml:space="preserve">
+    <value>速度</value>
+  </data>
+  <data name="QsvPreset_Balanced" xml:space="preserve">
+    <value>平衡</value>
+  </data>
+  <data name="QsvPreset_Quality" xml:space="preserve">
+    <value>品質</value>
+  </data>
+  <data name="PresetToolTip" xml:space="preserve">
+    <value>變更選項以權衡您偏好壓縮效率或編碼速度。</value>
+  </data>
+  <data name="ScaleMethodToolTip" xml:space="preserve">
+    <value>Lanczos: 最佳品質的預設縮放器。
+Bicubic: OpenCL 硬體加速縮放演算法。</value>
+  </data>
+  <data name="AudioEncoder_Passthrough" xml:space="preserve">
+    <value>直接複製</value>
+  </data>
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_any" xml:space="preserve">
+    <value>任何</value>
+    <comment>Choice for a passthrough which accepts any input codec.</comment>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="ScopeLabel" xml:space="preserve">
+    <value>範圍:</value>
+  </data>
+  <data name="PassthroughScopeToolTip" xml:space="preserve">
+    <value>指定將直接複製的輸入編碼。</value>
+  </data>
+  <data name="FlipHorizontalCheckBox" xml:space="preserve">
+    <value>水平翻轉</value>
+  </data>
+  <data name="FlipVerticalCheckBox" xml:space="preserve">
+    <value>垂直翻轉</value>
+  </data>
+  <data name="Rotation_Clockwise90" xml:space="preserve">
+    <value>順時針 90°</value>
+  </data>
+  <data name="Rotation_Counterclockwise90" xml:space="preserve">
+    <value>逆時針 90°</value>
+  </data>
+  <data name="Rotation_180" xml:space="preserve">
+    <value>180°</value>
+  </data>
+  <data name="RotationToolTip" xml:space="preserve">
+    <value>旋轉圖片，此選項將於所有變更尺寸及裁剪後才套用。</value>
+  </data>
+  <data name="FlipHorizontalToolTip" xml:space="preserve">
+    <value>水平翻轉圖片，此選項將於任何旋轉前套用。</value>
+  </data>
+  <data name="FlipVerticalToolTip" xml:space="preserve">
+    <value>垂直翻轉圖片，此選項將於任何旋轉前套用。</value>
+  </data>
+  <data name="PassthroughIfPossibleCheckBox" xml:space="preserve">
+    <value>若可能直接複製</value>
+  </data>
+  <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
+    <value>若輸入軌道符合指定編碼將直接複製而不進行編碼。</value>
+  </data>
+	
+	
 </root>
