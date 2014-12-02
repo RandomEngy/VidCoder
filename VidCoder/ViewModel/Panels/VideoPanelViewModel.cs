@@ -163,11 +163,19 @@ namespace VidCoder.ViewModel
 			{
 				if (value != null && value != this.selectedEncoder)
 				{
+					bool wasAdvancedTab = this.UseAdvancedTab;
+
 					this.selectedEncoder = value;
 					this.Profile.VideoEncoder = this.selectedEncoder.Encoder.ShortName;
 
 					// Refresh preset/profile/tune/level choices and values
 					this.RefreshEncoderSettings(applyDefaults: false);
+
+					// There might be some auto-generated stuff on the additional options
+					if (wasAdvancedTab && this.selectedEncoder.Encoder.ShortName == "x265")
+					{
+						this.X264AdditionalOptions = string.Empty;
+					}
 
 					this.NotifyEncoderChanged();
 					this.IsModified = true;
