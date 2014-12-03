@@ -429,7 +429,7 @@ namespace VidCoder.Model
 		public static void UpgradeEncodingProfileTo21(VCProfile profile)
 		{
 #pragma warning disable 612,618
-			if (profile.OutputFormat == Container.Mp4)
+			if (profile.OutputFormat == VCContainer.Mp4)
 			{
 				profile.ContainerName = "av_mp4";
 			}

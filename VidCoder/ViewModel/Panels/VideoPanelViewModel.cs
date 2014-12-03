@@ -174,7 +174,10 @@ namespace VidCoder.ViewModel
 					// There might be some auto-generated stuff on the additional options
 					if (wasAdvancedTab && this.selectedEncoder.Encoder.ShortName == "x265")
 					{
-						this.X264AdditionalOptions = string.Empty;
+						this.Profile.VideoOptions = string.Empty;
+						Messenger.Default.Send(new AdvancedOptionsChangedMessage());
+
+						this.UseAdvancedTab = false;
 					}
 
 					this.NotifyEncoderChanged();
@@ -1181,9 +1184,12 @@ namespace VidCoder.ViewModel
 					new ComboChoice(null, CommonRes.Automatic)
 				};
 
-				foreach (string profile in profiles.Skip(1))
+				foreach (string profile in profiles)
 				{
-					this.profileChoices.Add(new ComboChoice(profile, GetProfileDisplay(profile)));
+					if (profile != "auto")
+					{
+						this.profileChoices.Add(new ComboChoice(profile, GetProfileDisplay(profile)));
+					}
 				}
 			}
 		}

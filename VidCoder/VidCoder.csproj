@@ -427,6 +427,7 @@
     <Compile Include="Model\SourcePath.cs" />
     <Compile Include="Model\UpdateInfo.cs" />
     <Compile Include="Model\UpdateState.cs" />
+    <Compile Include="Model\VCContainer.cs" />
     <Compile Include="Resources\ChapterMarkersRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

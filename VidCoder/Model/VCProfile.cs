@@ -21,7 +21,7 @@ namespace VidCoder.Model
 
 		#region Obsolete fields
 		[Obsolete("Use ContainerName instead.")]
-		public Container OutputFormat { get; set; }
+		public VCContainer OutputFormat { get; set; }
 		public string X264Options { get; set; }
 		// X264Tune is obsolete but marking it that way prevents the XML serializer from working. Use VideoTunes instead.
 		public string X264Tune { get; set; }
