@@ -209,7 +209,7 @@
 					<CheckBox 
 						Grid.Column="1"
 						Content="{x:Static res:EncodingRes.TurboFirstPassCheckBox}" HorizontalAlignment="Left" Margin="36,26,0,0" VerticalAlignment="Top" IsChecked="{Binding TurboFirstPass}" IsEnabled="{Binding TurboFirstPassEnabled}"
-						Visibility="{Binding VideoEncodeRateType, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter=ConstantQuality}"/>
+						Visibility="{Binding TurboFirstPassVisible, Converter={StaticResource VisibilityConverter}}"/>
 				</Grid>
 
 

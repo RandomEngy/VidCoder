@@ -202,6 +202,7 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.QualitySliderMax);
 			this.RaisePropertyChanged(() => this.QualitySliderLeftText);
 			this.RaisePropertyChanged(() => this.QualitySliderRightText);
+			this.RaisePropertyChanged(() => this.TurboFirstPassVisible);
 			Messenger.Default.Send(new VideoCodecChangedMessage());
 		}
 
@@ -387,6 +388,11 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool TurboFirstPassVisible
+		{
+			get { return this.VideoEncodeRateType != VideoEncodeRateType.ConstantQuality && this.SelectedEncoder.Encoder.ShortName != "x265"; }
+		}
+
 		public VideoEncodeRateType VideoEncodeRateType
 		{
 			get
@@ -414,6 +420,7 @@ namespace VidCoder.ViewModel
 
 				this.RaisePropertyChanged(() => this.TwoPassEncodingEnabled);
 				this.RaisePropertyChanged(() => this.TurboFirstPassEnabled);
+				this.RaisePropertyChanged(() => this.TurboFirstPassVisible);
 
 				if (value == VideoEncodeRateType.AverageBitrate)
 				{
@@ -1057,6 +1064,7 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.TurboFirstPass);
 			this.RaisePropertyChanged(() => this.TwoPassEncodingEnabled);
 			this.RaisePropertyChanged(() => this.TurboFirstPassEnabled);
+			this.RaisePropertyChanged(() => this.TurboFirstPassVisible);
 			this.RaisePropertyChanged(() => this.VideoEncodeRateType);
 			this.RaisePropertyChanged(() => this.TargetSize);
 			this.RaisePropertyChanged(() => this.VideoBitrate);
