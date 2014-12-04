@@ -465,7 +465,9 @@
   <data name="PresetImportErrorMessage" xml:space="preserve">
     <value>Não foi possível importar o pré-ajuste. Formato não reconhecido.</value>
   </data>
-  
+  <data name="ImportErrorTitle" xml:space="preserve">
+    <value>Erro na importação</value>
+  </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
     <value>Pré-ajuste importado com êxito {0}.</value>
   </data>
@@ -556,24 +558,66 @@
   <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>Remover a pista de áudio</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-	
-	
-	
-	
-	
+  <data name="Preset_Xbox360" xml:space="preserve">
+    <value>Xbox 360</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>Remover da lista de tarefas</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>Não foi possível guardar a lista de tarefas:{0}{1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>Exportar Lista de Tarefas...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>Exportar lista de tarefas</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Não foi possível importar a lista de tarefas. Formato não reconhecido.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>Importar ficheiro de pré-ajustes</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>Importar ficheiro com lista de tarefas</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>Importar Lista de Tarefas...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>Lista de tarefas exportada com sucesso para {0}</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>Lista de tarefas importada com sucesso.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>Parar a codificação?</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>Tem certeza que quer parar a codificação?</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>Fechar o ficheiro actual e abrir o disco?</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>Detalhes da codificação</value>
+  </data>
+	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+    <value>As configurações de codificação foram alteradas desde o último item adicionado à lista de tarefas. Quer aplicar as configurações de codificação actuais para todos os itens da lista de tarefas?</value>
+  </data>
+	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+    <value>As configurações foram alteradas</value>
+  </data>
+	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>Deseja renomear o ficheiro existente e começar com um novo?</value>
+  </data>
+	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>Não é possível ler o ficheiro da base de dados versão {0}. A versão mais alta reconhecida pelo VidCoder {1} é {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>Ficheiro da base de dados incompatível</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
 </root>

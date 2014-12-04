@@ -261,7 +261,9 @@
   <data name="AdvancedTab" xml:space="preserve">
     <value>Avançadas</value>
   </data>
-  
+  <data name="BetaUpdatesInBeta" xml:space="preserve">
+    <value>Está a executar uma versão Beta. Pode executa-la lado a lado com a versão estável.</value>
+  </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Junte-se à lista de testadores Beta para obter atualizações mais frequentes</value>
   </data>
@@ -394,12 +396,29 @@
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Utilizar o processo de trabalho para codificar</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-	
+  <data name="VideoSection" xml:space="preserve">
+    <value>Vídeo</value>
+  </data>
+  <data name="DxvaDecodingCheckBox" xml:space="preserve">
+    <value>Activar descodificação acelerada por hardware para DXVA</value>
+  </data>
+  <data name="DxvaDecodingToolTip" xml:space="preserve">
+    <value>Esta opção só é adequada para sistemas mais lentos. Os descodificadores de hardware actualmente são projectados para a reprodução, não para recodificar vídeo. Em sistemas modernos, provavelmente irá estrangular o sistema.</value>
+  </data>
+  <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+    <value>Preservar as datas de criação e modificação na conversão de ficheiros</value>
+  </data>
+  <data name="DefaultCheckBox" xml:space="preserve">
+    <value>Predefinição</value>
+    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Preservar a estrutura de pastas em codificação em lote</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Se codificar uma pasta cheia de ficheiros, as versões codificadas serão colocadas em sub-pastas que  coincidem com a estrutura de directório de origem.</value>
+  </data>
+	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+    <value>Pasta personalizada para pré-visualizações:</value>
+  </data>
 </root>

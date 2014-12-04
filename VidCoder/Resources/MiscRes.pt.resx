@@ -168,7 +168,9 @@
   <data name="UsedColumns" xml:space="preserve">
     <value>Colunas usadas</value>
   </data>
-  
+  <data name="ScanMultipleWindowTitle" xml:space="preserve">
+    <value>Analisando...</value>
+  </data>
   <data name="UpdateSuccessDialogTitle" xml:space="preserve">
     <value>Sucesso</value>
   </data>
@@ -184,7 +186,9 @@
   <data name="Version" xml:space="preserve">
     <value>Versão</value>
   </data>
-  
+  <data name="BasedOnHandBrake" xml:space="preserve">
+    <value>Baseado no HandBrake ({0})</value>
+  </data>
   <data name="Copyright" xml:space="preserve">
     <value>© {0} Programadores VidCoder</value>
   </data>
@@ -214,15 +218,37 @@
   <data name="DisableUpdatesButton" xml:space="preserve">
     <value>Desativar atualizações</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-	
-	
+  <data name="NoticeMessageTitle" xml:space="preserve">
+    <value>Aviso</value>
+  </data>
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>O VidCoder não é suportado no seu sistema operativo. O Windows XP e o Windows Server 2003 não são mais suportados. Por favor, instale o VidCoder 1.4 ou actualize seu sistema operativo.</value>
+  </data>
+  <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
+    <value>O seu sistema está na eminencia de entrar em suspensão</value>
+  </data>
+  <data name="EncodeCompleteWarning_LogOffTitle" xml:space="preserve">
+    <value>O seu sistema está na eminencia de fazer Log Off</value>
+  </data>
+  <data name="EncodeCompleteWarning_ShutdownTitle" xml:space="preserve">
+    <value>O seu sistema está na eminencia de se encerrar</value>
+  </data>
+  <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
+    <value>O sistema será suspenso em {0} segundos.</value>
+  </data>
+  <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
+    <value>Terminará a sua sessão em {0} segundos.</value>
+  </data>
+  <data name="EncodeCompleteWarning_ShutdownMessage" xml:space="preserve">
+    <value>O sistema será encerrado em {0} segundos.</value>
+  </data>
+  <data name="EncodeCompleteWarning_Title" xml:space="preserve">
+    <value>Codificação concluída.</value>
+  </data>
+	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+    <value>Não foi possível encontrar o leitor de vídeo para {0}.</value>
+  </data>
+	<data name="ErrorPlayingSource" xml:space="preserve">
+    <value>Erro ao ler a fonte.</value>
+  </data>
 </root>
