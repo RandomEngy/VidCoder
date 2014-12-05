@@ -1,12 +1,12 @@
 <UpdateInfo>
 	<Release>
-		<Latest>1.5.29</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.5.29-x86.exe</DownloadLocation>
-		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/115536</ChangelogLocation>
+		<Latest>1.5.30</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.5.30-x86.exe</DownloadLocation>
+		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/167158</ChangelogLocation>
 	</Release>
 	<Release-x64>
-		<Latest>1.5.29</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.5.29-x64.exe</DownloadLocation>
-		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/115536</ChangelogLocation>
+		<Latest>1.5.30</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.5.30-x64.exe</DownloadLocation>
+		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/167158</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>

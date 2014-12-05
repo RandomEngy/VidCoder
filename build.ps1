@@ -180,6 +180,7 @@ CopyLanguage "hu"
 CopyLanguage "es"
 CopyLanguage "eu"
 CopyLanguage "pt"
+CopyLanguage "pt-BR"
 CopyLanguage "fr"
 CopyLanguage "de"
 CopyLanguage "zh"
@@ -187,6 +188,9 @@ CopyLanguage "zh-Hant"
 CopyLanguage "it"
 CopyLanguage "cs"
 CopyLanguage "ja"
+CopyLanguage "pl"
+CopyLanguage "ru"
+
 
 # fonts folder for subtitles
 copy ".\Lib\fonts" ".\Installer\Files\x86" -Recurse

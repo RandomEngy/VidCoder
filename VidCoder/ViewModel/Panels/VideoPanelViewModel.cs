@@ -390,7 +390,7 @@ namespace VidCoder.ViewModel
 
 		public bool TurboFirstPassVisible
 		{
-			get { return this.VideoEncodeRateType != VideoEncodeRateType.ConstantQuality && this.SelectedEncoder.Encoder.ShortName != "x265"; }
+			get { return this.VideoEncodeRateType != VideoEncodeRateType.ConstantQuality && (this.SelectedEncoder.Encoder.ShortName == "x265" || this.SelectedEncoder.Encoder.ShortName == "x264"); }
 		}
 
 		public VideoEncodeRateType VideoEncodeRateType
