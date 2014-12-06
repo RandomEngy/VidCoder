@@ -189,12 +189,35 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return EnumConverter.Convert<Denoise, DenoiseCombo>(this.Profile.DenoiseType);
+				switch (this.Profile.DenoiseType)
+				{
+					case Denoise.Off:
+						return DenoiseCombo.Off;
+					case Denoise.hqdn3d:
+						return DenoiseCombo.hqdn3d;
+					case Denoise.NLMeans:
+						return DenoiseCombo.NlMeans;
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
 			}
 
 			set
 			{
-				this.Profile.DenoiseType = EnumConverter.Convert<DenoiseCombo, Denoise>(value);
+				switch (value)
+				{
+					case DenoiseCombo.Off:
+						this.Profile.DenoiseType = Denoise.Off;
+						break;
+					case DenoiseCombo.hqdn3d:
+						this.Profile.DenoiseType = Denoise.hqdn3d;
+						break;
+					case DenoiseCombo.NlMeans:
+						this.Profile.DenoiseType = Denoise.NLMeans;
+						break;
+					default:
+						throw new ArgumentOutOfRangeException("value");
+				}
 
 				if (value != DenoiseCombo.Off && string.IsNullOrEmpty(this.DenoisePreset))
 				{
