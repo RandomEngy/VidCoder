@@ -121,6 +121,13 @@
 							<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.PassthroughScopeToolTip}" />
 						</TextBlock.ToolTip>
 					</TextBlock>
+					<TextBlock
+						Grid.Row="1"
+						Grid.Column="0"
+						Style="{StaticResource AudioLabel}"
+						Text="{x:Static res:EncodingRes.MixdownLabel}"
+						Visibility="{Binding EncoderSettingsVisible,
+					                                Converter={StaticResource VisibilityConverter}}" />
 					<ComboBox
 						Grid.Row="1"
 						Grid.Column="1"
@@ -139,13 +146,6 @@
 					</ComboBox>
 
 					<!--  Mixdown  -->
-					<TextBlock
-						Grid.Row="1"
-						Grid.Column="0"
-						Style="{StaticResource AudioLabel}"
-						Text="{x:Static res:EncodingRes.MixdownLabel}"
-						Visibility="{Binding EncoderSettingsVisible,
-					                                Converter={StaticResource VisibilityConverter}}" />
 					<ComboBox
 						Grid.Row="1"
 						Grid.Column="1"
@@ -221,6 +221,34 @@
 							Text="{x:Static res:EncodingRes.BitrateLabel}"
 							Visibility="{Binding BitrateLabelVisible,
 						                                Converter={StaticResource VisibilityConverter}}" />
+						<StackPanel
+							Grid.Row="0"
+							Grid.Column="0"
+							Margin="0,8,0,0"
+							Orientation="Horizontal"
+							Visibility="{Binding AutoPassthroughSettingsVisible,
+						                                 Converter={StaticResource VisibilityConverter}}">
+							<TextBlock
+								Style="{StaticResource AudioLabelLeft}"
+								Text="{x:Static res:EncodingRes.AutoPassthroughFallbackLabel}"
+								ToolTipService.ShowDuration="20000">
+								<TextBlock.ToolTip>
+									<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.AutoPassthroughFallbackToolTip}" />
+								</TextBlock.ToolTip>
+							</TextBlock>
+							<ComboBox
+								MinWidth="110"
+								DisplayMemberPath="Display"
+								ItemsSource="{Binding AudioPanelVM.FallbackEncoderChoices}"
+								SelectedItem="{Binding AudioPanelVM.SelectedFallbackEncoder}"
+								ToolTipService.ShowDuration="20000">
+								<ComboBox.ToolTip>
+									<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.AutoPassthroughFallbackToolTip}" />
+								</ComboBox.ToolTip>
+							</ComboBox>
+						</StackPanel>
+
+
 						<ComboBox
 							Grid.Row="0"
 							Grid.Column="1"
@@ -234,6 +262,15 @@
 						                               Converter={StaticResource VisibilityConverter}}" />
 
 						<!--  Audio quality  -->
+						<Button
+							Grid.Row="0"
+							Grid.Column="1"
+							Margin="0,0,0,0"
+							HorizontalAlignment="Right"
+							VerticalAlignment="Top"
+							Command="{Binding RemoveAudioEncodingCommand}"
+							Content="{x:Static res:EncodingRes.RemoveAudioEncodingToolTip}"
+							Style="{StaticResource RemoveButtonStyle}" />
 						<Grid
 							Grid.Row="1"
 							Grid.Column="0"
@@ -350,43 +387,6 @@
 						</Grid>
 
 						<!--  Auto-passthrough fallback  -->
-						<StackPanel
-							Grid.Row="0"
-							Grid.Column="0"
-							Margin="0,8,0,0"
-							Orientation="Horizontal"
-							Visibility="{Binding AutoPassthroughSettingsVisible,
-						                                 Converter={StaticResource VisibilityConverter}}">
-							<TextBlock
-								Style="{StaticResource AudioLabelLeft}"
-								Text="{x:Static res:EncodingRes.AutoPassthroughFallbackLabel}"
-								ToolTipService.ShowDuration="20000">
-								<TextBlock.ToolTip>
-									<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.AutoPassthroughFallbackToolTip}" />
-								</TextBlock.ToolTip>
-							</TextBlock>
-							<ComboBox
-								MinWidth="110"
-								DisplayMemberPath="Display"
-								ItemsSource="{Binding AudioPanelVM.FallbackEncoderChoices}"
-								SelectedItem="{Binding AudioPanelVM.SelectedFallbackEncoder}"
-								ToolTipService.ShowDuration="20000">
-								<ComboBox.ToolTip>
-									<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.AutoPassthroughFallbackToolTip}" />
-								</ComboBox.ToolTip>
-							</ComboBox>
-						</StackPanel>
-
-
-						<Button
-							Grid.Row="0"
-							Grid.Column="1"
-							Margin="0,0,0,0"
-							HorizontalAlignment="Right"
-							VerticalAlignment="Top"
-							Command="{Binding RemoveAudioEncodingCommand}"
-							Content="{x:Static res:EncodingRes.RemoveAudioEncodingToolTip}"
-							Style="{StaticResource RemoveButtonStyle}" />
 					</Grid>
 					<Grid>
 						<Grid.ColumnDefinitions>
@@ -450,6 +450,7 @@
 							</controls:NumberBox>
 						</StackPanel>
 
+						<!--  Track name  -->
 						<TextBlock
 							Grid.Column="1"
 							VerticalAlignment="Center"
@@ -460,6 +461,7 @@
 							Grid.Column="1"
 							Height="23"
 							Margin="40,0,0,0"
+							VerticalContentAlignment="Center"
 							Text="{Binding Name}"
 							Visibility="{Binding NameVisible,
 						                              Converter={StaticResource VisibilityConverter}}" />
