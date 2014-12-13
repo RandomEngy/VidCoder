@@ -5,20 +5,18 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:dataModels="clr-namespace:VidCoder.ViewModel.DataModels"
 	xmlns:local="clr-namespace:VidCoder"
-	xmlns:localmodel="clr-namespace:VidCoder.Model"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
 	xmlns:res="clr-namespace:VidCoder.Resources"
 	xmlns:viewModel="clr-namespace:VidCoder.ViewModel"
+	xmlns:encoding="clr-namespace:VidCoder.Model.Encoding"
 	d:DataContext="{d:DesignInstance viewModel:VideoFiltersPanelViewModel}"
 	d:DesignHeight="330"
 	d:DesignWidth="622"
 	mc:Ignorable="d">
 	<UserControl.Resources>
-		<local:EnumDisplayer x:Key="DetelecineChoices" Type="{x:Type localmodel:DetelecineCombo}" />
-		<local:EnumDisplayer x:Key="DecombChoices" Type="{x:Type localmodel:DecombCombo}" />
-		<local:EnumDisplayer x:Key="DeinterlaceChoices" Type="{x:Type localmodel:DeinterlaceCombo}" />
-		<local:EnumDisplayer x:Key="DenoiseChoices" Type="{x:Type localmodel:DenoiseCombo}" />
+		<local:EnumDisplayer x:Key="DetelecineChoices" Type="{x:Type encoding:VCDetelecine}" />
+		<local:EnumDisplayer x:Key="DecombChoices" Type="{x:Type encoding:VCDecomb}" />
+		<local:EnumDisplayer x:Key="DeinterlaceChoices" Type="{x:Type encoding:VCDeinterlace}" />
 		<Style x:Key="NormalComboBox" TargetType="ComboBox">
 			<Setter Property="Height" Value="22" />
 			<Setter Property="MinWidth" Value="80" />
@@ -136,10 +134,10 @@
 			<ComboBox
 				Grid.Row="3"
 				Grid.Column="1"
-				ItemsSource="{Binding DisplayNames,
-			                                Source={StaticResource DenoiseChoices}}"
-				SelectedValue="{Binding SelectedDenoise,
-			                                  Converter={StaticResource DenoiseChoices}}"
+				ItemsSource="{Binding DenoiseChoices}"
+				SelectedValue="{Binding SelectedDenoise}"
+                DisplayMemberPath="Display"
+                SelectedValuePath="Value"
 				Style="{StaticResource NormalComboBox}" />
 
 			<StackPanel

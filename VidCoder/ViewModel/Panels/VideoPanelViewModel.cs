@@ -9,6 +9,7 @@ using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using VidCoder.Messages;
 using VidCoder.Model;
+using VidCoder.Model.Encoding;
 using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
@@ -356,7 +357,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.VideoEncodeRateType != VideoEncodeRateType.ConstantQuality;
+                return this.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality;
 			}
 		}
 
@@ -384,16 +385,16 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.VideoEncodeRateType != VideoEncodeRateType.ConstantQuality && this.TwoPassEncoding;
+                return this.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && this.TwoPassEncoding;
 			}
 		}
 
 		public bool TurboFirstPassVisible
 		{
-			get { return this.VideoEncodeRateType != VideoEncodeRateType.ConstantQuality && (this.SelectedEncoder.Encoder.ShortName == "x265" || this.SelectedEncoder.Encoder.ShortName == "x264"); }
+            get { return this.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && (this.SelectedEncoder.Encoder.ShortName == "x265" || this.SelectedEncoder.Encoder.ShortName == "x264"); }
 		}
 
-		public VideoEncodeRateType VideoEncodeRateType
+        public VCVideoEncodeRateType VideoEncodeRateType
 		{
 			get
 			{
@@ -402,12 +403,12 @@ namespace VidCoder.ViewModel
 
 			set
 			{
-				VideoEncodeRateType oldRateType = this.Profile.VideoEncodeRateType;
+                VCVideoEncodeRateType oldRateType = this.Profile.VideoEncodeRateType;
 
 				this.Profile.VideoEncodeRateType = value;
 				this.RaisePropertyChanged(() => this.VideoEncodeRateType);
 
-				if (value == VideoEncodeRateType.ConstantQuality)
+                if (value == VCVideoEncodeRateType.ConstantQuality)
 				{
 					this.SetDefaultQuality();
 
@@ -422,16 +423,16 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.TurboFirstPassEnabled);
 				this.RaisePropertyChanged(() => this.TurboFirstPassVisible);
 
-				if (value == VideoEncodeRateType.AverageBitrate)
+                if (value == VCVideoEncodeRateType.AverageBitrate)
 				{
-					if (oldRateType == VideoEncodeRateType.ConstantQuality)
+                    if (oldRateType == VCVideoEncodeRateType.ConstantQuality)
 					{
 						if (this.Profile.VideoBitrate == 0)
 						{
 							this.VideoBitrate = DefaultVideoBitrateKbps;
 						}
 					}
-					else if (oldRateType == VideoEncodeRateType.TargetSize)
+                    else if (oldRateType == VCVideoEncodeRateType.TargetSize)
 					{
 						if (this.displayVideoBitrate == 0)
 						{
@@ -447,16 +448,16 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(() => this.TargetSize);
 				}
 
-				if (value == VideoEncodeRateType.TargetSize)
+                if (value == VCVideoEncodeRateType.TargetSize)
 				{
-					if (oldRateType == VideoEncodeRateType.ConstantQuality)
+                    if (oldRateType == VCVideoEncodeRateType.ConstantQuality)
 					{
 						if (this.Profile.TargetSize == 0)
 						{
 							this.TargetSize = DefaultTargetSizeMB;
 						}
 					}
-					else if (oldRateType == VideoEncodeRateType.AverageBitrate)
+                    else if (oldRateType == VCVideoEncodeRateType.AverageBitrate)
 					{
 						if (this.displayTargetSize == 0)
 						{
@@ -481,7 +482,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.VideoEncodeRateType == VideoEncodeRateType.AverageBitrate)
+                if (this.VideoEncodeRateType == VCVideoEncodeRateType.AverageBitrate)
 				{
 					if (this.MainViewModel.HasVideoSource && this.MainViewModel.JobCreationAvailable && this.VideoBitrate > 0)
 					{
@@ -512,12 +513,12 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.VideoEncodeRateType == VideoEncodeRateType.ConstantQuality)
+                if (this.VideoEncodeRateType == VCVideoEncodeRateType.ConstantQuality)
 				{
 					return DefaultVideoBitrateKbps;
 				}
 
-				if (this.VideoEncodeRateType == VideoEncodeRateType.TargetSize)
+                if (this.VideoEncodeRateType == VCVideoEncodeRateType.TargetSize)
 				{
 					if (this.MainViewModel.HasVideoSource && this.MainViewModel.JobCreationAvailable && this.TargetSize > 0)
 					{
@@ -1100,7 +1101,7 @@ namespace VidCoder.ViewModel
 		/// </summary>
 		public void UpdateVideoBitrate()
 		{
-			if (this.VideoEncodeRateType == VideoEncodeRateType.TargetSize)
+            if (this.VideoEncodeRateType == VCVideoEncodeRateType.TargetSize)
 			{
 				this.RaisePropertyChanged(() => this.VideoBitrate);
 			}
@@ -1111,7 +1112,7 @@ namespace VidCoder.ViewModel
 		/// </summary>
 		public void UpdateTargetSize()
 		{
-			if (this.VideoEncodeRateType == VideoEncodeRateType.AverageBitrate)
+            if (this.VideoEncodeRateType == VCVideoEncodeRateType.AverageBitrate)
 			{
 				this.RaisePropertyChanged(() => this.TargetSize);
 			}

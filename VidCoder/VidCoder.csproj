@@ -420,14 +420,23 @@
     <Compile Include="Messages\ContainerChangedMessage.cs" />
     <Compile Include="Messages\EncodingProfileChangedMessage.cs" />
     <Compile Include="Messages\RotationChangedMessage.cs" />
-    <Compile Include="Model\Combo\DenoiseCombo.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />
+    <Compile Include="Model\Encoding\VCAnamorphic.cs" />
+    <Compile Include="Model\Encoding\VCCroppingType.cs" />
+    <Compile Include="Model\Encoding\VCDecomb.cs" />
+    <Compile Include="Model\Encoding\VCDeinterlace.cs" />
+    <Compile Include="Model\Encoding\VCDetelecine.cs" />
+    <Compile Include="Model\Encoding\VCOutputExtension.cs" />
+    <Compile Include="Model\Encoding\VCPictureRotation.cs" />
+    <Compile Include="Model\Encoding\VCScaleMethod.cs" />
+    <Compile Include="Model\Encoding\VCVideoEncodeRateType.cs" />
     <Compile Include="Model\Players\VideoPlayerBase.cs" />
     <Compile Include="Model\SourcePath.cs" />
     <Compile Include="Model\UpdateInfo.cs" />
     <Compile Include="Model\UpdateState.cs" />
-    <Compile Include="Model\VCContainer.cs" />
+    <Compile Include="Model\Encoding\VCContainer.cs" />
+    <Compile Include="Model\Encoding\VCDenoise.cs" />
     <Compile Include="Resources\ChapterMarkersRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -507,7 +516,6 @@
     <Compile Include="Messages\StatusMessage.cs" />
     <Compile Include="Messages\VideoCodecChangedMessage.cs" />
     <Compile Include="Messages\VideoSourceChangedMessage.cs" />
-    <Compile Include="Model\Combo\AnamorphicCombo.cs" />
     <Compile Include="Model\AutoAudioType.cs" />
     <Compile Include="Model\AutoSubtitleType.cs" />
     <Compile Include="Model\ComboChoice.cs" />
@@ -516,9 +524,6 @@
     <Compile Include="Model\Config\ConfigMigration.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="Model\DatabaseConfig.cs" />
-    <Compile Include="Model\Combo\DecombCombo.cs" />
-    <Compile Include="Model\Combo\DeinterlaceCombo.cs" />
-    <Compile Include="Model\Combo\DetelecineCombo.cs" />
     <Compile Include="Model\EncodeCompleteAction.cs" />
     <Compile Include="Model\EncodeCompleteActionType.cs" />
     <Compile Include="Model\EncodeJobCollection.cs" />
@@ -535,8 +540,8 @@
     <Compile Include="Model\PreviewImageJob.cs" />
     <Compile Include="Model\PreviewDisplay.cs" />
     <Compile Include="Model\SaveImageJob.cs" />
-    <Compile Include="Model\VCJob.cs" />
-    <Compile Include="Model\VCProfile.cs" />
+    <Compile Include="Model\Encoding\VCJob.cs" />
+    <Compile Include="Model\Encoding\VCProfile.cs" />
     <Compile Include="Model\VideoSourceMetadata.cs" />
     <Compile Include="Model\Players\VlcPlayer.cs" />
     <Compile Include="Model\WhenFileExists.cs" />

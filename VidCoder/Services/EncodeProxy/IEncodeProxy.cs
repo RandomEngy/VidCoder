@@ -1,4 +1,6 @@
-﻿namespace VidCoder
+﻿using VidCoder.Model.Encoding;
+
+namespace VidCoder
 {
 	using System;
 	using System.Xml.Serialization;

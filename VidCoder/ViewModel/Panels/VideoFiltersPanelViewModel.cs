@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using HandBrake.Interop;
 using HandBrake.Interop.Model.Encoding;
+using VidCoder.Model.Encoding;
 
 namespace VidCoder.ViewModel
 {
@@ -19,6 +19,7 @@ namespace VidCoder.ViewModel
 		private const string CustomDenoisePreset = "custom";
 		private const int MinDeblock = 5;
 
+        private List<ComboChoice<VCDenoise>> denoiseChoices; 
 		private List<ComboChoice> denoisePresetChoices;
 		private List<ComboChoice> denoiseTuneChoices; 
 		private List<RotationViewModel> rotationChoices;
@@ -26,6 +27,13 @@ namespace VidCoder.ViewModel
 		public VideoFiltersPanelViewModel(EncodingViewModel encodingViewModel)
 			: base(encodingViewModel)
 		{
+            this.denoiseChoices = new List<ComboChoice<VCDenoise>>
+            {
+                new ComboChoice<VCDenoise>(VCDenoise.Off, CommonRes.Off),
+                new ComboChoice<VCDenoise>(VCDenoise.hqdn3d, EnumsRes.Denoise_HQDN3D),
+                new ComboChoice<VCDenoise>(VCDenoise.NLMeans, EnumsRes.Denoise_NLMeans),
+            };
+
 			// Right now both hqdn3d and NL-Means have the same preset choices.
 			this.denoisePresetChoices = new List<ComboChoice>
 			{
@@ -47,23 +55,23 @@ namespace VidCoder.ViewModel
 
 			this.rotationChoices = new List<RotationViewModel>
 			{
-				new RotationViewModel { Rotation = PictureRotation.None, Display = CommonRes.None },
-				new RotationViewModel { Rotation = PictureRotation.Clockwise90, Display = EncodingRes.Rotation_Clockwise90, Image = "/Icons/rotate_90_cw.png"},
-				new RotationViewModel { Rotation = PictureRotation.Clockwise270, Display = EncodingRes.Rotation_Counterclockwise90, Image = "/Icons/rotate_90_ccw.png" },
-				new RotationViewModel { Rotation = PictureRotation.Clockwise180, Display = EncodingRes.Rotation_180, Image = "/Icons/rotate_180.png" }
+				new RotationViewModel { Rotation = VCPictureRotation.None, Display = CommonRes.None },
+				new RotationViewModel { Rotation = VCPictureRotation.Clockwise90, Display = EncodingRes.Rotation_Clockwise90, Image = "/Icons/rotate_90_cw.png"},
+				new RotationViewModel { Rotation = VCPictureRotation.Clockwise270, Display = EncodingRes.Rotation_Counterclockwise90, Image = "/Icons/rotate_90_ccw.png" },
+				new RotationViewModel { Rotation = VCPictureRotation.Clockwise180, Display = EncodingRes.Rotation_180, Image = "/Icons/rotate_180.png" }
 			};
 		}
 
-		public DetelecineCombo SelectedDetelecine
+		public VCDetelecine SelectedDetelecine
 		{
 			get
 			{
-				return EnumConverter.Convert<Detelecine, DetelecineCombo>(this.Profile.Detelecine);
+			    return this.Profile.Detelecine;
 			}
 
 			set
 			{
-				this.Profile.Detelecine = EnumConverter.Convert<DetelecineCombo, Detelecine>(value);
+			    this.Profile.Detelecine = value;
 				this.RaisePropertyChanged(() => this.SelectedDetelecine);
 				this.RaisePropertyChanged(() => this.CustomDetelecineVisible);
 				this.IsModified = true;
@@ -89,24 +97,23 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.Profile.Detelecine == Detelecine.Custom;
+				return this.Profile.Detelecine == VCDetelecine.Custom;
 			}
 		}
 
-		public DeinterlaceCombo SelectedDeinterlace
+		public VCDeinterlace SelectedDeinterlace
 		{
 			get
 			{
-				return EnumConverter.Convert<Deinterlace, DeinterlaceCombo>(this.Profile.Deinterlace);
+			    return this.Profile.Deinterlace;
 			}
 
 			set
 			{
-				Deinterlace newValue = EnumConverter.Convert<DeinterlaceCombo, Deinterlace>(value);
-				this.Profile.Deinterlace = newValue;
-				if (newValue != Deinterlace.Off)
+			    this.Profile.Deinterlace = value;
+                if (value != VCDeinterlace.Off)
 				{
-					this.SelectedDecomb = DecombCombo.Off;
+					this.SelectedDecomb = VCDecomb.Off;
 				}
 
 				this.RaisePropertyChanged(() => this.SelectedDeinterlace);
@@ -136,24 +143,23 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.Profile.Deinterlace == Deinterlace.Custom;
+                return this.Profile.Deinterlace == VCDeinterlace.Custom;
 			}
 		}
 
-		public DecombCombo SelectedDecomb
+		public VCDecomb SelectedDecomb
 		{
 			get
 			{
-				return EnumConverter.Convert<Decomb, DecombCombo>(this.Profile.Decomb);
+			    return this.Profile.Decomb;
 			}
 
 			set
 			{
-				Decomb newValue = EnumConverter.Convert<DecombCombo, Decomb>(value);
-				this.Profile.Decomb = newValue;
-				if (newValue != Decomb.Off)
+				this.Profile.Decomb = value;
+                if (value != VCDecomb.Off)
 				{
-					this.SelectedDeinterlace = DeinterlaceCombo.Off;
+					this.SelectedDeinterlace = VCDeinterlace.Off;
 				}
 
 				this.RaisePropertyChanged(() => this.SelectedDecomb);
@@ -181,50 +187,32 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.Profile.Decomb == Decomb.Custom;
+                return this.Profile.Decomb == VCDecomb.Custom;
 			}
 		}
 
-		public DenoiseCombo SelectedDenoise
+	    public List<ComboChoice<VCDenoise>> DenoiseChoices
+	    {
+	        get { return this.denoiseChoices; }
+	    } 
+
+		public VCDenoise SelectedDenoise
 		{
 			get
 			{
-				switch (this.Profile.DenoiseType)
-				{
-					case Denoise.Off:
-						return DenoiseCombo.Off;
-					case Denoise.hqdn3d:
-						return DenoiseCombo.hqdn3d;
-					case Denoise.NLMeans:
-						return DenoiseCombo.NlMeans;
-					default:
-						throw new ArgumentOutOfRangeException();
-				}
+			    return this.Profile.DenoiseType;
 			}
 
 			set
 			{
-				switch (value)
-				{
-					case DenoiseCombo.Off:
-						this.Profile.DenoiseType = Denoise.Off;
-						break;
-					case DenoiseCombo.hqdn3d:
-						this.Profile.DenoiseType = Denoise.hqdn3d;
-						break;
-					case DenoiseCombo.NlMeans:
-						this.Profile.DenoiseType = Denoise.NLMeans;
-						break;
-					default:
-						throw new ArgumentOutOfRangeException("value");
-				}
+			    this.Profile.DenoiseType = value;
 
-				if (value != DenoiseCombo.Off && string.IsNullOrEmpty(this.DenoisePreset))
+				if (value != VCDenoise.Off && string.IsNullOrEmpty(this.DenoisePreset))
 				{
 					this.DenoisePreset = "medium";
 				}
 
-				if (value == DenoiseCombo.NlMeans && string.IsNullOrEmpty(this.DenoiseTune))
+                if (value == VCDenoise.NLMeans && string.IsNullOrEmpty(this.DenoiseTune))
 				{
 					this.DenoiseTune = "none";
 				}
@@ -281,7 +269,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.SelectedDenoise != DenoiseCombo.Off;
+				return this.SelectedDenoise != VCDenoise.Off;
 			}
 		}
 
@@ -312,7 +300,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.SelectedDenoise == DenoiseCombo.NlMeans && !this.Profile.UseCustomDenoise;
+				return this.SelectedDenoise == VCDenoise.NLMeans && !this.Profile.UseCustomDenoise;
 			}
 		}
 
@@ -335,7 +323,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.Profile.DenoiseType != Denoise.Off && this.Profile.UseCustomDenoise;
+				return this.Profile.DenoiseType != VCDenoise.Off && this.Profile.UseCustomDenoise;
 			}
 		}
 
@@ -404,7 +392,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public PictureRotation Rotation
+        public VCPictureRotation Rotation
 		{
 			get
 			{

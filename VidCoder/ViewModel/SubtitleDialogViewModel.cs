@@ -9,6 +9,7 @@ using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using System.IO;
+using VidCoder.Model.Encoding;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;
 
@@ -398,7 +399,7 @@ namespace VidCoder.ViewModel
 			bool textSubtitleVisible = false;
 			VCProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
 			HBContainer profileContainer = Encoders.GetContainer(profile.ContainerName);
-			if (profileContainer.DefaultExtension == "mp4" && profile.PreferredExtension == OutputExtension.Mp4)
+			if (profileContainer.DefaultExtension == "mp4" && profile.PreferredExtension == VCOutputExtension.Mp4)
 			{
 				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
 				{
