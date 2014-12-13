@@ -10,6 +10,7 @@ using VidCoder.Messages;
 using VidCoder.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using VidCoder.Model.Encoding;
 using VidCoder.Services;
 using System.Windows.Media.Imaging;
 using System.ComponentModel;
@@ -303,7 +304,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public OutputExtension PreferredExtension
+		public VCOutputExtension PreferredExtension
 		{
 			get
 			{

@@ -1,4 +1,6 @@
 ﻿
+using VidCoder.Model.Encoding;
+
 namespace VidCoder.ViewModel
 {
 	using System;
@@ -17,7 +19,7 @@ namespace VidCoder.ViewModel
 	{
 		private const int DimensionsAutoSetModulus = 2;
 
-		private List<ComboChoice<ScaleMethod>> scaleChoices; 
+        private List<ComboChoice<VCScaleMethod>> scaleChoices; 
 
 		private string outputSourceResolution;
 		private string outputPixelAspectRatio;
@@ -26,10 +28,10 @@ namespace VidCoder.ViewModel
 		public PicturePanelViewModel(EncodingViewModel encodingViewModel)
 			: base(encodingViewModel)
 		{
-			this.scaleChoices = new List<ComboChoice<ScaleMethod>>
+            this.scaleChoices = new List<ComboChoice<VCScaleMethod>>
 			{
-				new ComboChoice<ScaleMethod>(ScaleMethod.Lanczos, EncodingRes.ScaleMethod_Lanczos),
-				new ComboChoice<ScaleMethod>(ScaleMethod.Bicubic, EncodingRes.ScaleMethod_BicubicOpenCL)
+				new ComboChoice<VCScaleMethod>(VCScaleMethod.Lanczos, EncodingRes.ScaleMethod_Lanczos),
+				new ComboChoice<VCScaleMethod>(VCScaleMethod.Bicubic, EncodingRes.ScaleMethod_BicubicOpenCL)
 			};
 
 			Messenger.Default.Register<RotationChangedMessage>(
@@ -138,7 +140,7 @@ namespace VidCoder.ViewModel
 				{
 					this.Profile.Width = value;
 					this.RaisePropertyChanged(() => this.Width);
-					if (this.Profile.Anamorphic == Anamorphic.None && this.KeepDisplayAspect && this.HasSourceData && this.Height > 0 && value > 0)
+                    if (this.Profile.Anamorphic == VCAnamorphic.None && this.KeepDisplayAspect && this.HasSourceData && this.Height > 0 && value > 0)
 					{
 						var cropWidthAmount = this.CropLeft + this.CropRight;
 						var cropHeightAmount = this.CropTop + this.CropBottom;
@@ -169,7 +171,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.Profile.Anamorphic == Anamorphic.Strict)
+                if (this.Profile.Anamorphic == VCAnamorphic.Strict)
 				{
 					return false;
 				}
@@ -191,7 +193,7 @@ namespace VidCoder.ViewModel
 				{
 					this.Profile.Height = value;
 					this.RaisePropertyChanged(() => this.Height);
-					if (this.Profile.Anamorphic == Anamorphic.None && this.KeepDisplayAspect && this.HasSourceData && this.Width > 0 && value > 0)
+                    if (this.Profile.Anamorphic == VCAnamorphic.None && this.KeepDisplayAspect && this.HasSourceData && this.Width > 0 && value > 0)
 					{
 						var cropWidthAmount = this.CropLeft + this.CropRight;
 						var cropHeightAmount = this.CropTop + this.CropBottom;
@@ -222,7 +224,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.Profile.Anamorphic == Anamorphic.Strict || this.Profile.Anamorphic == Anamorphic.Loose)
+                if (this.Profile.Anamorphic == VCAnamorphic.Strict || this.Profile.Anamorphic == VCAnamorphic.Loose)
 				{
 					return false;
 				}
@@ -277,7 +279,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.Profile.Anamorphic == Anamorphic.Strict || this.Profile.Anamorphic == Anamorphic.Loose)
+                if (this.Profile.Anamorphic == VCAnamorphic.Strict || this.Profile.Anamorphic == VCAnamorphic.Loose)
 				{
 					return true;
 				}
@@ -291,7 +293,7 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.KeepDisplayAspect);
 				this.RaisePropertyChanged(() => this.PixelAspectVisibile);
 				this.RefreshOutputSize();
-				if (this.Profile.Anamorphic == Anamorphic.Custom)
+                if (this.Profile.Anamorphic == VCAnamorphic.Custom)
 				{
 					if (value && !this.UseDisplayWidth)
 					{
@@ -313,7 +315,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.Profile.Anamorphic == Anamorphic.Strict || this.Profile.Anamorphic == Anamorphic.Loose)
+                if (this.Profile.Anamorphic == VCAnamorphic.Strict || this.Profile.Anamorphic == VCAnamorphic.Loose)
 				{
 					return false;
 				}
@@ -322,7 +324,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public List<ComboChoice<ScaleMethod>> ScaleChoices
+		public List<ComboChoice<VCScaleMethod>> ScaleChoices
 		{
 			get
 			{
@@ -330,7 +332,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ScaleMethod ScaleMethod
+		public VCScaleMethod ScaleMethod
 		{
 			get
 			{
@@ -345,19 +347,18 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public AnamorphicCombo SelectedAnamorphic
+		public VCAnamorphic SelectedAnamorphic
 		{
 			get
 			{
-				return EnumConverter.Convert<Anamorphic, AnamorphicCombo>(this.Profile.Anamorphic);
+			    return this.Profile.Anamorphic;
 			}
 
 			set
 			{
-				Anamorphic newValue = EnumConverter.Convert<AnamorphicCombo, Anamorphic>(value);
-				this.Profile.Anamorphic = newValue;
+				this.Profile.Anamorphic = value;
 
-				if (newValue == Anamorphic.Strict)
+                if (value == VCAnamorphic.Strict)
 				{
 					this.Profile.Width = 0;
 					this.Profile.MaxWidth = 0;
@@ -366,7 +367,7 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(() => this.MaxWidth);
 				}
 
-				if (newValue == Anamorphic.Strict || newValue == Anamorphic.Loose)
+                if (value == VCAnamorphic.Strict || value == VCAnamorphic.Loose)
 				{
 					this.KeepDisplayAspect = true;
 
@@ -377,7 +378,7 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(() => this.MaxHeight);
 				}
 
-				if (this.Profile.Anamorphic == Anamorphic.Custom)
+				if (this.Profile.Anamorphic == VCAnamorphic.Custom)
 				{
 					this.KeepDisplayAspect = true;
 					this.UseDisplayWidth = true;
@@ -402,7 +403,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.Profile.Anamorphic == Anamorphic.Custom;
+                return this.Profile.Anamorphic == VCAnamorphic.Custom;
 			}
 		}
 
@@ -428,7 +429,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.Profile.Anamorphic == Anamorphic.Custom || this.Profile.Anamorphic == Anamorphic.Loose;
+                return this.Profile.Anamorphic == VCAnamorphic.Custom || this.Profile.Anamorphic == VCAnamorphic.Loose;
 			}
 		}
 
@@ -534,7 +535,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public CroppingType CroppingType
+		public VCCroppingType CroppingType
 		{
 			get
 			{
@@ -543,7 +544,7 @@ namespace VidCoder.ViewModel
 
 			set
 			{
-				if (value == CroppingType.Custom)
+                if (value == VCCroppingType.Custom)
 				{
 					// Set initial custom cropping values to previous values to make tweaking easier
 					this.Profile.Cropping.Left = this.CropLeft;
@@ -571,7 +572,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.CroppingType == CroppingType.Custom;
+                return this.CroppingType == VCCroppingType.Custom;
 			}
 		}
 
@@ -581,13 +582,13 @@ namespace VidCoder.ViewModel
 			{
 				switch (this.CroppingType)
 				{
-					case CroppingType.Automatic:
+                    case VCCroppingType.Automatic:
 						if (this.HasSourceData)
 						{
 							return this.SelectedTitle.AutoCropDimensions.Left;
 						}
 						break;
-					case CroppingType.Custom:
+                    case VCCroppingType.Custom:
 						return this.Profile.Cropping.Left;
 				}
 
@@ -611,13 +612,13 @@ namespace VidCoder.ViewModel
 			{
 				switch (this.CroppingType)
 				{
-					case CroppingType.Automatic:
+                    case VCCroppingType.Automatic:
 						if (this.HasSourceData)
 						{
 							return this.SelectedTitle.AutoCropDimensions.Top;
 						}
 						break;
-					case CroppingType.Custom:
+                    case VCCroppingType.Custom:
 						return this.Profile.Cropping.Top;
 				}
 
@@ -641,13 +642,13 @@ namespace VidCoder.ViewModel
 			{
 				switch (this.CroppingType)
 				{
-					case CroppingType.Automatic:
+                    case VCCroppingType.Automatic:
 						if (this.HasSourceData)
 						{
 							return this.SelectedTitle.AutoCropDimensions.Right;
 						}
 						break;
-					case CroppingType.Custom:
+                    case VCCroppingType.Custom:
 						return this.Profile.Cropping.Right;
 				}
 
@@ -671,13 +672,13 @@ namespace VidCoder.ViewModel
 			{
 				switch (this.CroppingType)
 				{
-					case CroppingType.Automatic:
+                    case VCCroppingType.Automatic:
 						if (this.HasSourceData)
 						{
 							return this.SelectedTitle.AutoCropDimensions.Bottom;
 						}
 						break;
-					case CroppingType.Custom:
+                    case VCCroppingType.Custom:
 						return this.Profile.Cropping.Bottom;
 				}
 
@@ -717,7 +718,7 @@ namespace VidCoder.ViewModel
 				int width, height, parWidth, parHeight;
 				this.MainViewModel.ScanInstance.GetSize(job.HbJob, out width, out height, out parWidth, out parHeight);
 
-				if (this.Profile.Rotation == PictureRotation.Clockwise90 || this.Profile.Rotation == PictureRotation.Clockwise270)
+                if (this.Profile.Rotation == VCPictureRotation.Clockwise90 || this.Profile.Rotation == VCPictureRotation.Clockwise270)
 				{
 					int temp = width;
 					width = height;

@@ -20,6 +20,7 @@ using HandBrake.Interop.Model;
 using HandBrake.Interop.SourceData;
 using VidCoder.Messages;
 using VidCoder.Model;
+using VidCoder.Model.Encoding;
 using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
@@ -1519,7 +1520,7 @@ namespace VidCoder.ViewModel.Components
 				FileElapsedTime = this.CurrentJob.EncodeTime,
 				FileEta = this.currentJobEta,
 				HasScanPass = this.CurrentJob.SubtitleScan,
-				TwoPass = currentProfile.VideoEncodeRateType != VideoEncodeRateType.ConstantQuality && currentProfile.TwoPass,
+                TwoPass = currentProfile.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && currentProfile.TwoPass,
 				CurrentPass = e.Pass,
 				PassProgressFraction = e.FractionComplete,
 				EncodeSpeedDetailsAvailable = this.EncodeSpeedDetailsAvailable,

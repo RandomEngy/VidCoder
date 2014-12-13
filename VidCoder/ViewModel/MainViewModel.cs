@@ -16,6 +16,7 @@ using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using VidCoder.Messages;
 using VidCoder.Model;
+using VidCoder.Model.Encoding;
 using VidCoder.Properties;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;

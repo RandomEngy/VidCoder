@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop;
-using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using VidCoder.Messages;
+using VidCoder.Model.Encoding;
 
 namespace VidCoder.ViewModel
 {

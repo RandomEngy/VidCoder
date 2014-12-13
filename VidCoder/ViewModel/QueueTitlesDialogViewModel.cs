@@ -11,6 +11,7 @@ using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using System.Collections.ObjectModel;
 using VidCoder.Model;
+using VidCoder.Model.Encoding;
 
 namespace VidCoder.ViewModel
 {

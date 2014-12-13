@@ -12,6 +12,7 @@ using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using VidCoder.Messages;
 using System.IO;
+using VidCoder.Model.Encoding;
 using VidCoder.Services;
 using System.Threading;
 using VidCoder.Model;
@@ -674,7 +675,7 @@ namespace VidCoder.ViewModel
 			this.ScanInstance.GetSize(this.job.HbJob, out width, out height, out parWidth, out parHeight);
 
 			// If we're rotating by 90 degrees, swap width and height for sizing purposes.
-			if (profile.Rotation == PictureRotation.Clockwise90 || profile.Rotation == PictureRotation.Clockwise270)
+            if (profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270)
 			{
 				int temp = width;
 				width = height;
@@ -942,7 +943,7 @@ namespace VidCoder.ViewModel
 
 					// Transform the image as per rotation and reflection settings
 					VCProfile profile = imageJob.EncodeJob.EncodingProfile;
-					if (profile.FlipHorizontal || profile.FlipVertical || profile.Rotation != PictureRotation.None)
+                    if (profile.FlipHorizontal || profile.FlipVertical || profile.Rotation != VCPictureRotation.None)
 					{
 						imageSource = CreateTransformedBitmap(imageSource, profile);
 					}
@@ -999,17 +1000,17 @@ namespace VidCoder.ViewModel
 			return transformedBitmap;
 		}
 
-		private static double ConvertRotationToDegrees(PictureRotation rotation)
+        private static double ConvertRotationToDegrees(VCPictureRotation rotation)
 		{
 			switch (rotation)
 			{
-				case PictureRotation.None:
+                case VCPictureRotation.None:
 					return 0;
-				case PictureRotation.Clockwise90:
+                case VCPictureRotation.Clockwise90:
 					return 90;
-				case PictureRotation.Clockwise180:
+                case VCPictureRotation.Clockwise180:
 					return 180;
-				case PictureRotation.Clockwise270:
+                case VCPictureRotation.Clockwise270:
 					return 270;
 			}
 

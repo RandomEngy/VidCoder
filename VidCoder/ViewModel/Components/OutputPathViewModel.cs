@@ -14,6 +14,7 @@ using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using VidCoder.Messages;
 using VidCoder.Model;
+using VidCoder.Model.Encoding;
 using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
@@ -237,7 +238,7 @@ namespace VidCoder.ViewModel.Components
 			{
 				extension = "mkv";
 			}
-			else if (container.DefaultExtension == "mp4" && profile.PreferredExtension == OutputExtension.Mp4)
+			else if (container.DefaultExtension == "mp4" && profile.PreferredExtension == VCOutputExtension.Mp4)
 			{
 				extension = "mp4";
 			}
@@ -587,13 +588,13 @@ namespace VidCoder.ViewModel.Components
 					double quality = 0;
 					switch (profile.VideoEncodeRateType)
 					{
-						case VideoEncodeRateType.ConstantQuality:
+                        case VCVideoEncodeRateType.ConstantQuality:
 							quality = profile.Quality;
 							break;
-						case VideoEncodeRateType.AverageBitrate:
+                        case VCVideoEncodeRateType.AverageBitrate:
 							quality = profile.VideoBitrate;
 							break;
-						case VideoEncodeRateType.TargetSize:
+                        case VCVideoEncodeRateType.TargetSize:
 							quality = profile.TargetSize;
 							break;
 						default:

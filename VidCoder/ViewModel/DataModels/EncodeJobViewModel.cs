@@ -13,6 +13,7 @@ using HandBrake.Interop;
 using System.Diagnostics;
 using VidCoder.Messages;
 using VidCoder.Model;
+using VidCoder.Model.Encoding;
 using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
@@ -194,7 +195,7 @@ namespace VidCoder.ViewModel
 			{
 				double cost = this.Job.Length.TotalSeconds;
 
-				if (this.Job.EncodingProfile.VideoEncodeRateType != VideoEncodeRateType.ConstantQuality && this.Job.EncodingProfile.TwoPass)
+                if (this.Job.EncodingProfile.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && this.Job.EncodingProfile.TwoPass)
 				{
 					cost += this.Job.Length.TotalSeconds;
 				}
@@ -340,11 +341,11 @@ namespace VidCoder.ViewModel
 			{
 				switch (this.Profile.VideoEncodeRateType)
 				{
-					case VideoEncodeRateType.AverageBitrate:
+					case VCVideoEncodeRateType.AverageBitrate:
 						return this.Profile.VideoBitrate + " kbps";
-					case VideoEncodeRateType.TargetSize:
+                    case VCVideoEncodeRateType.TargetSize:
 						return this.Profile.TargetSize + " MB";
-					case VideoEncodeRateType.ConstantQuality:
+                    case VCVideoEncodeRateType.ConstantQuality:
 						return "CQ " + this.Profile.Quality;
 					default:
 						break;

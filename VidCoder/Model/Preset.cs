@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using HandBrake.Interop.Model.Encoding;
+using VidCoder.Model.Encoding;
 
 namespace VidCoder.Model
 {

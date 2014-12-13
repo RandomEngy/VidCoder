@@ -5,15 +5,13 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:VidCoder"
-	xmlns:localmodel="clr-namespace:VidCoder.Model"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
-	xmlns:model="clr-namespace:HandBrake.Interop;assembly=HandBrakeInterop"
-	xmlns:prop="clr-namespace:VidCoder.Properties"
 	xmlns:res="clr-namespace:VidCoder.Resources"
-	xmlns:Encoding="clr-namespace:HandBrake.Interop.Model.Encoding;assembly=HandBrakeInterop" mc:Ignorable="d" 
+	xmlns:encoding="clr-namespace:VidCoder.Model.Encoding"
+	mc:Ignorable="d" 
 	d:DesignHeight="330" d:DesignWidth="622">
 	<UserControl.Resources>
-		<local:EnumDisplayer Type="{x:Type localmodel:AnamorphicCombo}" x:Key="AnamorphicChoices" />
+		<local:EnumDisplayer Type="{x:Type encoding:VCAnamorphic}" x:Key="AnamorphicChoices" />
 	</UserControl.Resources>
 	<Grid>
 		<Grid.RowDefinitions>

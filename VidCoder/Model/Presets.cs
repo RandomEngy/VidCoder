@@ -13,6 +13,7 @@ using System.Globalization;
 using HandBrake.Interop;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
+using VidCoder.Model.Encoding;
 
 namespace VidCoder.Model
 {
@@ -21,7 +22,7 @@ namespace VidCoder.Model
 
 	public static class Presets
 	{
-		private const int CurrentPresetVersion = 15;
+		private const int CurrentPresetVersion = 16;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
@@ -263,6 +264,16 @@ namespace VidCoder.Model
 			{
 				UpgradeEncodingProfileTo24(profile);
 			}
+
+		    if (databaseVersion < 25)
+		    {
+		        UpgradeEncodingProfileTo25(profile);
+		    }
+
+		    if (databaseVersion < 26)
+		    {
+		        UpgradeEncodingProfileTo26(profile);
+		    }
 		}
 
 		public static void UpgradeEncodingProfileTo13(VCProfile profile)
@@ -372,11 +383,11 @@ namespace VidCoder.Model
 			if (profile.CustomCropping)
 #pragma warning restore 612,618
 			{
-				profile.CroppingType = CroppingType.Custom;
+				profile.CroppingType = VCCroppingType.Custom;
 			}
 			else
 			{
-				profile.CroppingType = CroppingType.Automatic;
+                profile.CroppingType = VCCroppingType.Automatic;
 			}
 
 #pragma warning disable 612,618
@@ -481,11 +492,11 @@ namespace VidCoder.Model
 #pragma warning disable 618
 			if (profile.Denoise == null || profile.Denoise == "Off")
 			{
-				profile.DenoiseType = Denoise.Off;
+				profile.DenoiseType = VCDenoise.Off;
 			}
 			else
 			{
-				profile.DenoiseType = Denoise.hqdn3d;
+				profile.DenoiseType = VCDenoise.hqdn3d;
 			}
 
 			switch (profile.Denoise)
@@ -511,6 +522,16 @@ namespace VidCoder.Model
 			}
 #pragma warning restore 618
 		}
+
+	    public static void UpgradeEncodingProfileTo26(VCProfile profile)
+	    {
+#pragma warning disable 618
+            if (profile.DenoiseType == VCDenoise.NlMeans)
+	        {
+	            profile.DenoiseType = VCDenoise.NLMeans;
+	        }
+#pragma warning restore 618
+        }
 
 		private static void ErrorCheckPresets(List<Preset> presets)
 		{
@@ -679,6 +700,11 @@ namespace VidCoder.Model
 			{
 				return 24;
 			}
+
+		    if (presetVersion < 16)
+		    {
+		        return 25;
+		    }
 
 			return Utilities.CurrentDatabaseVersion;
 		}

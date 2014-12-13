@@ -1,10 +1,10 @@
-﻿namespace VidCoder.ViewModel.DataModels
-{
-	using HandBrake.Interop.Model.Encoding;
+﻿using VidCoder.Model.Encoding;
 
+namespace VidCoder.ViewModel.DataModels
+{
 	public class RotationViewModel
 	{
-		public PictureRotation Rotation { get; set; }
+        public VCPictureRotation Rotation { get; set; }
 		public string Image { get; set; }
 		public string Display { get; set; }
 
