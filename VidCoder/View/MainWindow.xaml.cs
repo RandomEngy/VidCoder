@@ -16,6 +16,7 @@ using System.Windows.Threading;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop.Model;
 using Hardcodet.Wpf.TaskbarNotification;
+using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.ViewModel;
 using VidCoder.Model;
@@ -101,6 +102,7 @@ namespace VidCoder.View
 
 			this.Loaded += (e, o) =>
 			{
+                this.RegisterGlobalHotkeys();
 				this.RestoredWindowState = this.WindowState;
 			};
 
@@ -589,16 +591,6 @@ namespace VidCoder.View
 				}
 			}
 		}
-
-		//private void Window_Activated(object sender, EventArgs e)
-		//{
-		//	this.RefreshRangeDetailsPopupIsOpen();
-		//}
-
-		//private void Window_Deactivated(object sender, EventArgs e)
-		//{
-		//	this.rangeDetailsPopup.IsOpen = false;
-		//}
 
 		private bool HitElement(FrameworkElement element, Point clickedPoint)
 		{

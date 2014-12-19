@@ -620,4 +620,7 @@
     <value>Incompatible database file</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
+	<data name="PickerMenuItem" xml:space="preserve">
+    <value>Picker</value>
+  </data>
 </root>

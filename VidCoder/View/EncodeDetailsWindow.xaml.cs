@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VidCoder.Extensions;
 
 namespace VidCoder.View
 {
@@ -20,7 +21,9 @@ namespace VidCoder.View
 	{
 		public EncodeDetailsWindow()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
+
+            this.RegisterGlobalHotkeys();
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)

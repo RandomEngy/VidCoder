@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using VidCoder.Messages;
+using VidCoder.Services;
 
 namespace VidCoder.ViewModel.Components
 {
@@ -19,6 +23,7 @@ namespace VidCoder.ViewModel.Components
 		private bool previewWindowOpen;
 		private bool logWindowOpen;
 		private bool encodeDetailsWindowOpen;
+	    private bool pickerWindowOpen;
 
 		public bool EncodingWindowOpen
 		{
@@ -76,6 +81,16 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
+	    public bool PickerWindowOpen
+	    {
+	        get { return this.pickerWindowOpen; }
+	        set
+	        {
+	            this.pickerWindowOpen = value;
+	            this.RaisePropertyChanged(() => this.PickerWindowOpen);
+	        }
+	    }
+
 		private ICommand openEncodingWindowCommand;
 		public ICommand OpenEncodingWindowCommand
 		{
@@ -110,6 +125,18 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
+	    private RelayCommand openPickerWindowCommand;
+	    public RelayCommand OpenPickerWindowCommand
+	    {
+	        get
+	        {
+	            return this.openPickerWindowCommand ?? (this.openPickerWindowCommand = new RelayCommand(() =>
+	            {
+					this.OpenPickerWindow();
+	            }));
+	        }
+	    }
+
 		private ICommand openLogWindowCommand;
 		public ICommand OpenLogWindowCommand
 		{
@@ -142,6 +169,36 @@ namespace VidCoder.ViewModel.Components
 					}));
 			}
 		}
+
+	    private RelayCommand openOptionsCommand;
+	    public RelayCommand OpenOptionsCommand
+	    {
+	        get
+	        {
+	            return this.openOptionsCommand ?? (this.openOptionsCommand = new RelayCommand(() =>
+	            {
+                    var optionsVM = new OptionsDialogViewModel(Ioc.Container.GetInstance<IUpdater>());
+                    WindowManager.OpenDialog(optionsVM, this);
+                    if (optionsVM.DialogResult)
+                    {
+                        Messenger.Default.Send(new OutputFolderChangedMessage());
+                    }
+	            }));
+	        }
+	    }
+
+        private RelayCommand openUpdatesCommand;
+        public RelayCommand OpenUpdatesCommand
+        {
+            get
+            {
+                return this.openUpdatesCommand ?? (this.openUpdatesCommand = new RelayCommand(() =>
+                {
+                    Config.OptionsDialogLastTab = 5;
+                    this.OpenOptionsCommand.Execute(null);
+                }));
+            }
+        }
 
 		public void OpenEncodingWindow()
 		{
@@ -229,6 +286,29 @@ namespace VidCoder.ViewModel.Components
 				WindowManager.FocusWindow(encodeDetailsWindow);
 			}
 		}
+
+	    public void OpenPickerWindow()
+	    {
+	        var pickerWindow = WindowManager.FindWindow(typeof (PickerWindowViewModel)) as PickerWindowViewModel;
+	        this.PickerWindowOpen = true;
+
+	        if (pickerWindow == null)
+	        {
+	            pickerWindow = new PickerWindowViewModel();
+	            pickerWindow.Closing = () =>
+	            {
+	                this.PickerWindowOpen = false;
+	            };
+
+                Config.PickerWindowOpen = true;
+
+	            WindowManager.OpenWindow(pickerWindow, this.main);
+	        }
+	        else
+	        {
+	            WindowManager.FocusWindow(pickerWindow);
+	        }
+	    }
 
 		public void CloseEncodeDetailsWindow()
 		{

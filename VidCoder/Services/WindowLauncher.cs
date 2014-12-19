@@ -116,7 +116,11 @@ namespace VidCoder.Services
 			else if (viewModel is ShutdownWarningViewModel)
 			{
 				windowToOpen = new ShutdownWarningWindow();
-			}
+            }
+            else if (viewModel is PickerWindowViewModel)
+            {
+                windowToOpen = new PickerWindow();
+            }
 
 			if (owner != null)
 			{

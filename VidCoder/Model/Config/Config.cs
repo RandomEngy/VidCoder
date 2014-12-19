@@ -38,10 +38,12 @@
 			AddAutoPauseProcessDialogPlacement_Field = DatabaseConfig.GetConfig("AddAutoPauseProcessDialogPlacement", "", connection);
 			OptionsDialogPlacement_Field = DatabaseConfig.GetConfig("OptionsDialogPlacement", "", connection);
 			EncodeDetailsWindowPlacement_Field = DatabaseConfig.GetConfig("EncodeDetailsWindowPlacement", "", connection);
+			PickerWindowPlacement_Field = DatabaseConfig.GetConfig("PickerWindowPlacement", "", connection);
 			EncodingWindowOpen_Field = DatabaseConfig.GetConfig("EncodingWindowOpen", false, connection);
 			PreviewWindowOpen_Field = DatabaseConfig.GetConfig("PreviewWindowOpen", false, connection);
 			LogWindowOpen_Field = DatabaseConfig.GetConfig("LogWindowOpen", false, connection);
 			EncodeDetailsWindowOpen_Field = DatabaseConfig.GetConfig("EncodeDetailsWindowOpen", false, connection);
+			PickerWindowOpen_Field = DatabaseConfig.GetConfig("PickerWindowOpen", false, connection);
 			UpdatesEnabled_Field = DatabaseConfig.GetConfig("UpdatesEnabled", true, connection);
 			PreviewSeconds_Field = DatabaseConfig.GetConfig("PreviewSeconds", 10, connection);
 			ApplicationVersion_Field = DatabaseConfig.GetConfig("ApplicationVersion", "", connection);
@@ -537,6 +539,20 @@
 				DatabaseConfig.SetConfigValue("EncodeDetailsWindowPlacement", value);
 			}
 		}
+		private static string PickerWindowPlacement_Field;
+		public static string PickerWindowPlacement
+		{
+			get
+			{
+				return PickerWindowPlacement_Field;
+			}
+			
+			set
+			{
+				PickerWindowPlacement_Field = value;
+				DatabaseConfig.SetConfigValue("PickerWindowPlacement", value);
+			}
+		}
 		private static bool EncodingWindowOpen_Field;
 		public static bool EncodingWindowOpen
 		{
@@ -591,6 +607,20 @@
 			{
 				EncodeDetailsWindowOpen_Field = value;
 				DatabaseConfig.SetConfigValue("EncodeDetailsWindowOpen", value);
+			}
+		}
+		private static bool PickerWindowOpen_Field;
+		public static bool PickerWindowOpen
+		{
+			get
+			{
+				return PickerWindowOpen_Field;
+			}
+			
+			set
+			{
+				PickerWindowOpen_Field = value;
+				DatabaseConfig.SetConfigValue("PickerWindowOpen", value);
 			}
 		}
 		private static bool UpdatesEnabled_Field;

@@ -21,7 +21,11 @@
 		<KeyBinding Key="Q" Modifiers="Control" Command="{Binding ProcessingVM.AddToQueueCommand}" />
 		<KeyBinding Key="L" Modifiers="Control" Command="{Binding WindowManagerVM.OpenLogWindowCommand}" />
 		<KeyBinding Key="P" Modifiers="Control" Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}" />
-		<KeyBinding Key="O" Modifiers="Control+Shift" Command="{Binding ProcessingVM.QueueFilesCommand}" />
+        <KeyBinding
+            Key="I"
+            Command="{Binding WindowManagerVM.OpenPickerWindowCommand}"
+            Modifiers="Control" />
+        <KeyBinding Key="O" Modifiers="Control+Shift" Command="{Binding ProcessingVM.QueueFilesCommand}" />
 		<KeyBinding Key="T" Modifiers="Control" Command="{Binding ProcessingVM.QueueTitlesCommand}" />
 		<KeyBinding Key="D" Modifiers="Control" Command="{Binding OutputPathVM.PickOutputPathCommand}" />
 

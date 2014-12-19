@@ -47,7 +47,7 @@ namespace VidCoder.Controls
 			"Text",
 			typeof(string),
 			typeof(PathTextBlock),
-			new PropertyMetadata(string.Empty));
+			new PropertyMetadata(string.Empty, OnTextChanged));
 		public string Text
 		{
 			get
@@ -60,6 +60,12 @@ namespace VidCoder.Controls
 				SetValue(TextProperty, value);
 			}
 		}
+
+	    private static void OnTextChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+	    {
+	        var block = dependencyObject as PathTextBlock;
+            block.InvalidateMeasure();
+	    }
 
 		// Refreshes the TextBlock text based on the current text and maximum text width.
 		private string GetShortText(double maxWidth)

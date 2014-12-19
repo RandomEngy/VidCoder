@@ -42,14 +42,11 @@
 		<local:EnumDisplayer Type="{x:Type localmodel:PreviewDisplay}" x:Key="DisplayChoices" />
 	</Window.Resources>
 	<Window.InputBindings>
-		<KeyBinding Key="Q" Modifiers="Control" Command="{Binding ProcessingVM.AddToQueueCommand}" />
-		<KeyBinding Key="L" Modifiers="Control" Command="{Binding WindowManagerVM.OpenLogWindowCommand}" />
-		<KeyBinding Key="N" Modifiers="Control" Command="{Binding WindowManagerVM.OpenEncodingWindowCommand}" />
-		<KeyBinding Key="O" Modifiers="Control+Shift" Command="{Binding ProcessingVM.QueueFilesCommand}" />
+        <KeyBinding Key="Q" Modifiers="Control" Command="{Binding ProcessingVM.AddToQueueCommand}" />
+        <KeyBinding Key="O" Modifiers="Control+Shift" Command="{Binding ProcessingVM.QueueFilesCommand}" />
 		<KeyBinding Key="T" Modifiers="Control" Command="{Binding ProcessingVM.QueueTitlesCommand}" />
-		<KeyBinding Key="D" Modifiers="Control" Command="{Binding OutputPathVM.PickOutputPathCommand}" />
-		<KeyBinding Key="F4" Command="{Binding MainViewModel.OpenOptionsCommand}" />
-	</Window.InputBindings>
+        <KeyBinding Key="D" Modifiers="Control" Command="{Binding OutputPathVM.PickOutputPathCommand}" />
+    </Window.InputBindings>
 	<Grid>
 		<Grid Margin="0" Name="previewImageHolder" SizeChanged="previewImageHolder_SizeChanged" Background="#666666">
 			<Image

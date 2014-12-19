@@ -34,11 +34,13 @@ QueueTitlesDialogPlacement2|string|""
 AddAutoPauseProcessDialogPlacement|string|""
 OptionsDialogPlacement|string|""
 EncodeDetailsWindowPlacement|string|""
+PickerWindowPlacement|string|""
 
 EncodingWindowOpen|bool|false
 PreviewWindowOpen|bool|false
 LogWindowOpen|bool|false
 EncodeDetailsWindowOpen|bool|false
+PickerWindowOpen|bool|false
 
 UpdatesEnabled|bool|true
 

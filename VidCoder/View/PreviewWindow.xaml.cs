@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VidCoder.Extensions;
 using VidCoder.Services;
 using VidCoder.ViewModel;
 
@@ -43,6 +44,8 @@ namespace VidCoder.View
 					{
 						this.RefreshImageSize();
 					});
+
+            this.RegisterGlobalHotkeys();
 		}
 
 		private void PreviewWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)

@@ -138,11 +138,10 @@ namespace VidCoder.Services
 				Config.UpdateInProgress = true;
 
 				var installerProcess = new Process();
-				installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons /showSuccessDialog=\"yes\"" };
+                installerProcess.StartInfo = new ProcessStartInfo { FileName = installerPath, Arguments = "/silent /noicons /showSuccessDialog=\"yes\" /dir=\"" + Utilities.ProgramFolder + "\"" };
 				installerProcess.Start();
 
-				// Let the program close on its own.
-				//Environment.Exit(0);
+				// Let the program close on its own. This method is called on exiting.
 			}
 		}
 

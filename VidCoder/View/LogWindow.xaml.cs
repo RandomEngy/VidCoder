@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Services;
 
@@ -46,6 +47,8 @@ namespace VidCoder.View
 			// Subscribe to events
 			this.logger.EntryLogged += this.OnEntryLogged;
 			this.logger.Cleared += this.OnCleared;
+
+            this.RegisterGlobalHotkeys();
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)

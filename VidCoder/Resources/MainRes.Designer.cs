@@ -857,6 +857,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Picker.
+        /// </summary>
+        public static string PickerMenuItem {
+            get {
+                return ResourceManager.GetString("PickerMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Play.
         /// </summary>
         public static string Play {
@@ -1512,24 +1521,6 @@ namespace VidCoder.Resources {
         public static string UserConfigCorrupted {
             get {
                 return ResourceManager.GetString("UserConfigCorrupted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Could not load a required user settings file; it may have become corrupt. Do you want to delete it? This will not affect your saved presets..
-        /// </summary>
-        public static string UserConfigLoadError {
-            get {
-                return ResourceManager.GetString("UserConfigLoadError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error loading settings.
-        /// </summary>
-        public static string UserConfigLoadErrorTitle {
-            get {
-                return ResourceManager.GetString("UserConfigLoadErrorTitle", resourceCulture);
             }
         }
         

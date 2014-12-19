@@ -54,10 +54,7 @@
             <Setter Property="Margin" Value="4,2,4,2" />
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
-        <Style
-            x:Key="SourceDescription"
-            BasedOn="{StaticResource PlainTitle}"
-            TargetType="TextBlock">
+        <Style x:Key="SourceDescription" TargetType="controls:PathTextBlock">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ScanningSource}" Value="True">
                     <Setter Property="Foreground" Value="{StaticResource DisabledBrush}" />
@@ -306,18 +303,6 @@
             Command="{Binding ProcessingVM.AddToQueueCommand}"
             Modifiers="Control" />
         <KeyBinding
-            Key="L"
-            Command="{Binding WindowManagerVM.OpenLogWindowCommand}"
-            Modifiers="Control" />
-        <KeyBinding
-            Key="N"
-            Command="{Binding WindowManagerVM.OpenEncodingWindowCommand}"
-            Modifiers="Control" />
-        <KeyBinding
-            Key="P"
-            Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}"
-            Modifiers="Control" />
-        <KeyBinding
             Key="O"
             Command="{Binding ProcessingVM.QueueFilesCommand}"
             Modifiers="Control+Shift" />
@@ -325,7 +310,6 @@
             Key="T"
             Command="{Binding ProcessingVM.QueueTitlesCommand}"
             Modifiers="Control" />
-        <KeyBinding Key="F4" Command="{Binding OpenOptionsCommand}" />
         <KeyBinding
             Key="W"
             Command="{Binding CloseVideoSourceCommand}"
@@ -338,18 +322,18 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <!--  Menu bar  -->
             <RowDefinition Height="Auto" />
             <!--  Source  -->
-            <RowDefinition Height="40" />
+            <RowDefinition Height="Auto" />
             <!--  Destination  -->
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="40" />
             <!--  Encoding  -->
-            <RowDefinition Height="*" />
-            <!--  Queue  -->
             <RowDefinition Height="Auto" />
+            <!--  Queue  -->
+            <RowDefinition Height="*" />
             <!--  Encode progress  -->
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <tb:TaskbarIcon
             Name="trayIcon"
@@ -432,6 +416,12 @@
                     IsCheckable="True"
                     IsChecked="{Binding WindowManagerVM.PreviewWindowOpen}" />
                 <MenuItem
+                    Command="{Binding WindowManagerVM.OpenPickerWindowCommand}" 
+                    Header="{x:Static res:MainRes.PickerMenuItem}"
+                    InputGestureText="Ctrl+I"
+                    IsCheckable="True"
+                    IsChecked="{Binding WindowManagerVM.PickerWindowOpen}" />
+                <MenuItem
                     Command="{Binding WindowManagerVM.OpenLogWindowCommand}"
                     Header="{x:Static res:MainRes.LogMenuItem}"
                     InputGestureText="Ctrl+L"
@@ -454,7 +444,7 @@
                 </MenuItem>
                 <MenuItem Command="{Binding ReportBugCommand}" Header="{x:Static res:MainRes.ReportABugMenuItem}" />
                 <Separator />
-                <MenuItem Command="{Binding OpenUpdatesCommand}" Header="{x:Static res:MainRes.UpdatesMenuItem}" />
+                <MenuItem Command="{Binding WindowManagerVM.OpenUpdatesCommand}" Header="{x:Static res:MainRes.UpdatesMenuItem}" />
                 <Separator />
                 <MenuItem Command="{Binding OpenAboutDialogCommand}" Header="{x:Static res:MainRes.AboutVidCoderMenuItem}">
                     <MenuItem.Icon>
@@ -482,15 +472,13 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <!--  Video source header  -->
-                <StackPanel
+                <Grid
                     Height="27"
                     Margin="8,4,16,0"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Orientation="Horizontal">
+                    VerticalAlignment="Top">
                     <TextBlock
                         Style="{StaticResource SectionHeader}"
                         Text="{x:Static res:MainRes.ChooseVideoSourceLabel}"
@@ -500,7 +488,8 @@
                     <Grid
                         Name="sourceLabelArea"
                         Background="Transparent"
-                        UseLayoutRounding="True">
+                        UseLayoutRounding="True"
+                        Visibility="{Binding SourcePicked, Converter={StaticResource VisibilityConverter}}">
                         <Grid.InputBindings>
                             <MouseBinding Command="{Binding ToggleSourceMenuCommand}" Gesture="LeftClick" />
                             <MouseBinding Command="{Binding ToggleSourceMenuCommand}" Gesture="LeftDoubleClick" />
@@ -538,29 +527,54 @@
                                 </LinearGradientBrush>
                             </Border.Background>
                         </Border>
-                        <StackPanel Orientation="Horizontal" Visibility="{Binding SourcePicked, Converter={StaticResource VisibilityConverter}}">
+                        <Grid Visibility="{Binding SourcePicked, Converter={StaticResource VisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
                             <TextBlock Style="{StaticResource SectionHeader}" Text="{x:Static res:MainRes.SourceLabel}" />
                             <Image
+                                Grid.Column="1"
                                 Width="16"
                                 Height="16"
                                 Margin="3.5,1,0,0"
                                 VerticalAlignment="Center"
                                 Source="{Binding SourceIcon}" />
-                            <TextBlock
+                            <controls:PathTextBlock
+                                Grid.Column="2"
                                 Margin="4,4,4,3"
+                                VerticalAlignment="Center"
                                 Style="{StaticResource SourceDescription}"
-                                Text="{Binding SourceText}" />
+                                Text="{Binding SourceText,
+                                                                   Mode=OneWay}" />
                             <Polygon
+                                Grid.Column="3"
                                 Margin="2,0,4,0"
                                 VerticalAlignment="Center"
                                 Fill="#333"
                                 Points="0,0 8,0 4,4" />
-                        </StackPanel>
+                        </Grid>
                     </Grid>
-                </StackPanel>
+                </Grid>
+
+                <!--  Picker  -->
+                <controls:SplitButton
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Height="25"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="12 0 30 0"
+                    Command="{Binding OpenPickerWindowCommand}"
+                    MenuItemsSource="{Binding PickerButtonMenuItems}">
+                    <TextBlock Text="{Binding PickerButtonText}" Margin="4 0" />
+                </controls:SplitButton>
 
                 <!--  Close video source button  -->
                 <Button
+                    Grid.Column="1"
                     Margin="5"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
@@ -667,7 +681,7 @@
 
                         <!--  Recently opened sources  -->
                         <Grid
-                            Margin="0,-16,0,0"
+                            Margin="0,0,0,0"
                             HorizontalAlignment="Center"
                             UseLayoutRounding="True"
                             Visibility="{Binding RecentSourcesVisible,

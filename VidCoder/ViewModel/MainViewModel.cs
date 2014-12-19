@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.IO;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Shell;
 using GalaSoft.MvvmLight;
@@ -611,6 +612,24 @@ namespace VidCoder.ViewModel
 				return string.Empty;
 			}
 		}
+
+	    public string PickerButtonText
+	    {
+	        get { return "Picker: None"; }
+	    }
+
+	    public Collection<object> PickerButtonMenuItems
+	    {
+	        get
+	        {
+	            return new Collection<object>
+	            {
+	                new MenuItem { Header = "test1 chapters", Command = this.OpenChaptersDialogCommand },
+                    new Separator(),
+	                new MenuItem { Header = "test1 chapters", Command = this.OpenChaptersDialogCommand }
+	            };
+	        }
+	    } 
 
 		public SourceOption SelectedSource
 		{
@@ -1823,6 +1842,18 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+	    private RelayCommand openPickerWindowCommand;
+	    public RelayCommand OpenPickerWindowCommand
+	    {
+	        get
+	        {
+	            return this.openPickerWindowCommand ?? (this.openPickerWindowCommand = new RelayCommand(() =>
+	            {
+                    this.WindowManagerVM.OpenPickerWindow();
+	            }));
+	        }
+	    }
+
 		private RelayCommand openSubtitlesDialogCommand;
 		public RelayCommand OpenSubtitlesDialogCommand
 		{
@@ -2018,23 +2049,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private RelayCommand openOptionsCommand;
-		public RelayCommand OpenOptionsCommand
-		{
-			get
-			{
-				return this.openOptionsCommand ?? (this.openOptionsCommand = new RelayCommand(() =>
-					{
-						var optionsVM = new OptionsDialogViewModel(this.updater);
-						WindowManager.OpenDialog(optionsVM, this);
-						if (optionsVM.DialogResult)
-						{
-							Messenger.Default.Send(new OutputFolderChangedMessage());
-						}
-					}));
-			}
-		}
-
 		private RelayCommand openHomepageCommand;
 		public RelayCommand OpenHomepageCommand
 		{
@@ -2055,19 +2069,6 @@ namespace VidCoder.ViewModel
 				return this.reportBugCommand ?? (this.reportBugCommand = new RelayCommand(() =>
 					{
 						FileService.Instance.LaunchUrl("http://vidcoder.codeplex.com/WorkItem/Create.aspx");
-					}));
-			}
-		}
-
-		private RelayCommand openUpdatesCommand;
-		public RelayCommand OpenUpdatesCommand
-		{
-			get
-			{
-				return this.openUpdatesCommand ?? (this.openUpdatesCommand = new RelayCommand(() =>
-					{
-						Config.OptionsDialogLastTab = 5;
-						this.OpenOptionsCommand.Execute(null);
 					}));
 			}
 		}
