@@ -623,4 +623,11 @@
 	<data name="PickerMenuItem" xml:space="preserve">
     <value>Picker</value>
   </data>
+	<data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Could not load picker: </value>
+  </data>
+	<data name="PickerNameTemplate" xml:space="preserve">
+    <value>Picker {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
 </root>

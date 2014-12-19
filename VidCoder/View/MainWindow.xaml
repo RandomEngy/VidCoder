@@ -398,7 +398,7 @@
                     IsEnabled="{Binding ProcessingVM.QueueHasItems}" />
                 <Separator />
                 <MenuItem
-                    Command="{Binding OpenOptionsCommand}"
+                    Command="{Binding WindowManagerVM.OpenOptionsCommand}"
                     Header="{x:Static res:MainRes.OptionsMenuItem}"
                     InputGestureText="F4" />
             </MenuItem>

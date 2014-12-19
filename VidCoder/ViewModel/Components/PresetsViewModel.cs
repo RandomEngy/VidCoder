@@ -213,24 +213,6 @@ namespace VidCoder.ViewModel.Components
 			}
 
 			return null;
-
-			//PresetViewModel match =
-			//	this.allPresets.SingleOrDefault(p =>
-			//		{
-			//			if (p.IsModified)
-			//			{
-			//				return false;
-			//			}
-
-			//			return string.Compare(presetName.Trim(), p.DisplayName.Trim(), ignoreCase: true, culture: CultureInfo.CurrentUICulture) == 0;
-			//		});
-
-			//if (match == null)
-			//{
-			//	return null;
-			//}
-
-			//return match.Preset;
 		}
 
 		public void SavePreset()

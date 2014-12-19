@@ -436,6 +436,10 @@
     <Compile Include="Model\Encoding\VCPictureRotation.cs" />
     <Compile Include="Model\Encoding\VCScaleMethod.cs" />
     <Compile Include="Model\Encoding\VCVideoEncodeRateType.cs" />
+    <Compile Include="Model\Picker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\Pickers.cs" />
     <Compile Include="Model\Players\VideoPlayerBase.cs" />
     <Compile Include="Model\SourcePath.cs" />
     <Compile Include="Model\UpdateInfo.cs" />

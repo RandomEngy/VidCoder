@@ -121,13 +121,63 @@ namespace VidCoder.Model
 				// Update DB schema
 				if (databaseVersion < 18)
 				{
-					Database.ExecuteNonQuery(
+					ExecuteNonQuery(
 						"CREATE TABLE workerLogs (" +
 						"workerGuid TEXT, " +
 						"message TEXT, " +
 						"level INTEGER, " +
 						"time TEXT)", connection);
 				}
+
+                if (databaseVersion < 27)
+                {
+                    ExecuteNonQuery("CREATE TABLE pickersXml (" +
+                        "xml TEXT)", connection);
+
+                    // Insert the "None" picker
+                    var nonePicker = new Picker
+                    {
+                        IsNone = true,
+                        Audio = AutoAudioType.Disabled,
+                        AudioLanguageCode = "und",
+                        Subtitle = AutoSubtitleType.Disabled,
+                        SubtitleLanguageCode = "und",
+                        SubtitleLanguageOnlyIfDifferent = true
+                    };
+
+                    Config.Initialize(connection);
+
+                    using (var pickerInsertCommand = new SQLiteCommand("INSERT INTO pickersXml (xml) VALUES (?)", connection))
+                    {
+                        var pickerParameter = new SQLiteParameter();
+                        pickerInsertCommand.Parameters.Add(pickerParameter);
+                        pickerParameter.Value = Pickers.SerializePicker(nonePicker);
+
+                        pickerInsertCommand.ExecuteNonQuery();
+
+                        // If the user has chosen some auto audio or subtitle picker options, migrate them to a new picker
+                        if (CustomConfig.AutoAudio != AutoAudioType.Disabled || CustomConfig.AutoSubtitle != AutoSubtitleType.Disabled)
+                        {
+                            var convertedPicker = new Picker
+                            {
+                                Name = string.Format(MainRes.PickerNameTemplate, 1),
+                                Audio = CustomConfig.AutoAudio,
+                                AudioLanguageCode = Config.AudioLanguageCode,
+                                AudioLanguageAll = Config.AutoAudioAll,
+                                Subtitle = CustomConfig.AutoSubtitle,
+                                SubtitleForeignBurnIn = Config.AutoSubtitleBurnIn,
+                                SubtitleLanguageCode = Config.SubtitleLanguageCode,
+                                SubtitleLanguageAll = Config.AutoSubtitleAll,
+                                SubtitleLanguageBurnIn = Config.AutoSubtitleLanguageBurnIn,
+                                SubtitleLanguageDefault = Config.AutoSubtitleLanguageDefault,
+                                SubtitleLanguageOnlyIfDifferent = Config.AutoSubtitleOnlyIfDifferent
+                            };
+
+                            pickerParameter.Value = Pickers.SerializePicker(convertedPicker);
+                            pickerInsertCommand.ExecuteNonQuery();
+                        }
+                    }
+                }
 
 				SetDatabaseVersionToLatest();
 				transaction.Commit();
@@ -239,15 +289,18 @@ namespace VidCoder.Model
 
 		public static void CreateTables(SQLiteConnection connection)
 		{
-			Database.ExecuteNonQuery("CREATE TABLE presetsXml (" +
+			ExecuteNonQuery("CREATE TABLE presetsXml (" +
 				"xml TEXT)", connection);
 
-			Database.ExecuteNonQuery(
+            ExecuteNonQuery("CREATE TABLE pickersXml (" +
+                "xml TEXT)", connection);
+
+			ExecuteNonQuery(
 				"CREATE TABLE settings (" +
 				"name TEXT, " +
 				"value TEXT)", connection);
 
-			Database.ExecuteNonQuery(
+			ExecuteNonQuery(
 				"CREATE TABLE workerLogs (" +
 				"workerGuid TEXT, " +
 				"message TEXT, " +

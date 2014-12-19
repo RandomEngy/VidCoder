@@ -243,6 +243,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not load picker: .
+        /// </summary>
+        public static string CouldNotLoadPickerMessage {
+            get {
+                return ResourceManager.GetString("CouldNotLoadPickerMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not load preset: .
         /// </summary>
         public static string CouldNotLoadPresetMessage {
@@ -862,6 +871,15 @@ namespace VidCoder.Resources {
         public static string PickerMenuItem {
             get {
                 return ResourceManager.GetString("PickerMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Picker {0}.
+        /// </summary>
+        public static string PickerNameTemplate {
+            get {
+                return ResourceManager.GetString("PickerNameTemplate", resourceCulture);
             }
         }
         

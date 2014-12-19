@@ -178,7 +178,7 @@ namespace VidCoder.ViewModel.Components
 	            return this.openOptionsCommand ?? (this.openOptionsCommand = new RelayCommand(() =>
 	            {
                     var optionsVM = new OptionsDialogViewModel(Ioc.Container.GetInstance<IUpdater>());
-                    WindowManager.OpenDialog(optionsVM, this);
+                    WindowManager.OpenDialog(optionsVM, this.main);
                     if (optionsVM.DialogResult)
                     {
                         Messenger.Default.Send(new OutputFolderChangedMessage());
