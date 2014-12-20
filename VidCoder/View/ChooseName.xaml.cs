@@ -13,14 +13,11 @@ using System.Windows.Shapes;
 
 namespace VidCoder.View
 {
-	/// <summary>
-	/// Interaction logic for ChoosePresetName.xaml
-	/// </summary>
-	public partial class ChoosePresetName : Window
+	public partial class ChooseName : Window
 	{
-		public ChoosePresetName()
+		public ChooseName()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VidCoder.Model
 {
-	public enum AutoAudioType
+	public enum AudioSelectionMode
 	{
 		Disabled,
 		Language,

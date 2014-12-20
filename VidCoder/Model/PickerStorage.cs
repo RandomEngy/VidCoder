@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
@@ -10,7 +11,10 @@ using VidCoder.Resources;
 
 namespace VidCoder.Model
 {
-    public static class Pickers
+    /// <summary>
+    /// Storage class for pickers.
+    /// </summary>
+    public static class PickerStorage
     {
         private static XmlSerializer pickerSerializer = new XmlSerializer(typeof(Picker));
 
@@ -57,9 +61,23 @@ namespace VidCoder.Model
             return null;
         }
 
+        /// <summary>
+        /// Gets or sets the stored picker list. Does not include the "None" picker.
+        /// </summary>
         public static List<Picker> PickerList
         {
             get { return GetPickerListFromDb(); }
+
+            set
+            {
+                List<string> pickerXmlList = value.Select(SerializePicker).ToList();
+
+                using (var transaction = Database.Connection.BeginTransaction())
+                {
+                    SavePickers(pickerXmlList, Database.Connection);
+                    transaction.Commit();
+                }
+            }
         }
 
         public static List<Picker> GetPickerListFromDb()
@@ -79,6 +97,20 @@ namespace VidCoder.Model
             }
 
             return result;
+        }
+
+        private static void SavePickers(List<string> pickerXmlList, SQLiteConnection connection)
+        {
+            Database.ExecuteNonQuery("DELETE FROM pickersXml", connection);
+
+            var insertCommand = new SQLiteCommand("INSERT INTO pickersXml (xml) VALUES (?)", connection);
+            SQLiteParameter insertXmlParam = insertCommand.Parameters.Add("xml", DbType.String);
+
+            foreach (string pickerXml in pickerXmlList)
+            {
+                insertXmlParam.Value = pickerXml;
+                insertCommand.ExecuteNonQuery();
+            }
         }
     }
 }

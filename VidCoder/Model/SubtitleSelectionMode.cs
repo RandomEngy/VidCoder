@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VidCoder.Model
 {
-	public enum AutoSubtitleType
+	public enum SubtitleSelectionMode
 	{
 		Disabled,
 		ForeignAudioSearch,

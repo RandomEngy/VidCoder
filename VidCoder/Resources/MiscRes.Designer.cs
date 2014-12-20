@@ -142,11 +142,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose a name for the preset:.
+        ///   Looks up a localized string similar to Choose a name for the {0}:.
         /// </summary>
-        public static string ChoosePresetName {
+        public static string ChooseName {
             get {
-                return ResourceManager.GetString("ChoosePresetName", resourceCulture);
+                return ResourceManager.GetString("ChooseName", resourceCulture);
             }
         }
         
@@ -304,6 +304,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name {0}.
+        /// </summary>
+        public static string NameDialogTitle {
+            get {
+                return ResourceManager.GetString("NameDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notice.
         /// </summary>
         public static string NoticeMessageTitle {
@@ -318,15 +327,6 @@ namespace VidCoder.Resources {
         public static string OverwriteButton {
             get {
                 return ResourceManager.GetString("OverwriteButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name Preset.
-        /// </summary>
-        public static string PresetNameDialogTitle {
-            get {
-                return ResourceManager.GetString("PresetNameDialogTitle", resourceCulture);
             }
         }
         

@@ -49,11 +49,11 @@ namespace VidCoder
 			}
 		}
 
-		public static AutoAudioType AutoAudio
+		public static AudioSelectionMode AutoAudio
 		{
 			get
 			{
-				return (AutoAudioType)Enum.Parse(typeof(AutoAudioType), Config.AutoAudio);
+				return (AudioSelectionMode)Enum.Parse(typeof(AudioSelectionMode), Config.AutoAudio);
 			}
 
 			set
@@ -62,11 +62,11 @@ namespace VidCoder
 			}
 		}
 
-		public static AutoSubtitleType AutoSubtitle
+		public static SubtitleSelectionMode AutoSubtitle
 		{
 			get
 			{
-				return (AutoSubtitleType)Enum.Parse(typeof(AutoSubtitleType), Config.AutoSubtitle);
+				return (SubtitleSelectionMode)Enum.Parse(typeof(SubtitleSelectionMode), Config.AutoSubtitle);
 			}
 
 			set

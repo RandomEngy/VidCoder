@@ -28,6 +28,7 @@
 
 			Container.Register<OutputPathViewModel>();
 			Container.Register<PresetsViewModel>();
+            Container.Register<PickersViewModel>();
 			Container.Register<ProcessingViewModel>();
 			Container.Register<WindowManagerViewModel>();
 		}

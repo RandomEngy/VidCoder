@@ -37,5 +37,10 @@ namespace VidCoder.View
         {
             Config.PickerWindowPlacement = this.GetPlacement();
         }
+
+        private void ToolBar_Loaded(object sender, RoutedEventArgs e)
+        {
+            UIUtilities.HideOverflowGrid(sender as ToolBar);
+        }
     }
 }

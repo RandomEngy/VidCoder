@@ -65,9 +65,9 @@ namespace VidCoder.Services
 			{
 				windowToOpen = new SubtitleDialog();
 			}
-			else if (viewModel is ChoosePresetNameViewModel)
+			else if (viewModel is ChooseNameViewModel)
 			{
-				windowToOpen = new ChoosePresetName();
+				windowToOpen = new ChooseName();
 			}
 			else if (viewModel is OptionsDialogViewModel)
 			{

@@ -2,11 +2,328 @@
     x:Class="VidCoder.View.PickerWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="PickerWindow"
-    Width="300"
-    Height="300"
-    Closing="PickerWindow_OnClosing">
+    xmlns:res="clr-namespace:VidCoder.Resources"
+    xmlns:viewModel="clr-namespace:VidCoder.ViewModel"
+    Title="{Binding WindowTitle}"
+    Width="500"
+    Height="450"
+    MinWidth="450"
+    MinHeight="300"
+    Closing="PickerWindow_OnClosing"
+    WindowStyle="ToolWindow">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="135" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <ListBox
+            Grid.Column="0"
+            Background="WhiteSmoke"
+            BorderThickness="0"
+            Canvas.ZIndex="3"
+            ItemsSource="{Binding PickersViewModel.Pickers}"
+            SelectedItem="{Binding PickersViewModel.SelectedPicker}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock
+                        Margin="5"
+                        FontSize="12"
+                        Text="{Binding DisplayNameWithStar}">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <ToolBarPanel
+                Grid.Row="0"
+                Margin="-5,0,-14,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                UseLayoutRounding="True"
+                Visibility="{Binding IsNone,
+                                               Converter={StaticResource VisibilityConverter},
+                                               ConverterParameter=True}">
+                <ToolBar Loaded="ToolBar_Loaded" ToolBarTray.IsLocked="True">
+                    <ToolBar.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Offset="0.0" Color="#EEE" />
+                            <GradientStop Offset="1.0" Color="#BBB" />
+                        </LinearGradientBrush>
+                    </ToolBar.Background>
+                    <Button
+                        Height="24"
+                        MinWidth="70"
+                        Margin="4 0 0 0"
+                        Command="{Binding SaveCommand}"
+                        Padding="5,0">
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="/Icons/save.png" />
+                            <TextBlock Margin="5,0,0,0" Text="{x:Static res:EncodingRes.Save}" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        Height="24"
+                        MinWidth="70"
+                        Command="{Binding SaveAsCommand}"
+                        Content="{x:Static res:EncodingRes.SaveAs}"
+                        Padding="5,0" />
+                    <Button
+                        Height="24"
+                        MinWidth="70"
+                        Command="{Binding RenameCommand}"
+                        Content="{x:Static res:EncodingRes.Rename}"
+                        Padding="5,0" />
+                    <Button
+                        Height="24"
+                        MinWidth="70"
+                        Command="{Binding DeleteCommand}"
+                        Padding="5,0"
+                        Visibility="{Binding IsModified,
+                                                 Converter={StaticResource VisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="/Icons/undo_16x16.png" />
+                            <TextBlock Margin="4,0,0,0" Text="{x:Static res:EncodingRes.Revert}" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        Height="24"
+                        MinWidth="70"
+                        Command="{Binding DeleteCommand}"
+                        Padding="5,0"
+                        Visibility="{Binding DeleteButtonVisible,
+                                                 Converter={StaticResource VisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <Grid Background="Transparent">
+                                <Rectangle
+                                    Width="14"
+                                    Height="3"
+                                    Fill="{StaticResource RedFill}">
+                                    <Rectangle.LayoutTransform>
+                                        <RotateTransform Angle="-45" />
+                                    </Rectangle.LayoutTransform>
+                                </Rectangle>
+                                <Rectangle
+                                    Width="14"
+                                    Height="3"
+                                    Fill="{StaticResource RedFill}">
+                                    <Rectangle.LayoutTransform>
+                                        <RotateTransform Angle="45" />
+                                    </Rectangle.LayoutTransform>
+                                </Rectangle>
+                            </Grid>
+                            <TextBlock Margin="4,0,0,0" Text="{x:Static res:CommonRes.Delete}" />
+                        </StackPanel>
+                    </Button>
+                </ToolBar>
+            </ToolBarPanel>
+
+            <ScrollViewer
+                Grid.Row="1"
+                Margin="12"
+                VerticalScrollBarVisibility="Auto">
+                <!--  Audio/Subtitles  -->
+                <StackPanel VerticalAlignment="Top" Orientation="Vertical">
+                    <!--  Audio selection  -->
+                    <TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.AudioSelection}" />
+                    <StackPanel Style="{StaticResource ConfigSectionStack}">
+                        <RadioButton
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="{x:Static res:CommonRes.Disabled}"
+                            GroupName="autoAudio1"
+                            IsChecked="{Binding AudioSelectionMode,
+                                                         Converter={StaticResource EnumBoolConverter},
+                                                         ConverterParameter=Disabled}"
+                            ToolTip="{x:Static res:OptionsRes.AutoAudioDisabledToolTip}" />
+                        <StackPanel
+                            Margin="0,6,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal">
+                            <RadioButton
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Content="{x:Static res:PickerRes.LanguageRadioButton}"
+                                GroupName="autoAudio2"
+                                IsChecked="{Binding AudioSelectionMode,
+                                                             Converter={StaticResource EnumBoolConverter},
+                                                             ConverterParameter=Language}" />
+                            <ComboBox
+                                Height="23"
+                                MinWidth="120"
+                                Margin="6,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                DisplayMemberPath="Display"
+                                IsEnabled="{Binding AudioSelectionMode,
+                                                          Converter={StaticResource EnumBoolConverter},
+                                                          ConverterParameter=Language}"
+                                ItemsSource="{Binding Languages}"
+                                SelectedValue="{Binding AudioLanguageCode}"
+                                SelectedValuePath="Code"
+                                Style="{StaticResource GrayOnDisabledControl}" />
+                        </StackPanel>
+
+                        <CheckBox
+                            Margin="20,6,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="{x:Static res:PickerRes.IncludeAllTracksCheckBox}"
+                            IsChecked="{Binding AudioLanguageAll}"
+                            IsEnabled="{Binding AudioSelectionMode,
+                                                      Converter={StaticResource EnumBoolConverter},
+                                                      ConverterParameter=Language}"
+                            Style="{StaticResource GrayOnDisabledControl}" />
+                        <RadioButton
+                            Margin="0,6,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="{x:Static res:CommonRes.All}"
+                            GroupName="autoAudio3"
+                            IsChecked="{Binding AudioSelectionMode,
+                                                         Converter={StaticResource EnumBoolConverter},
+                                                         ConverterParameter=All}" />
+                    </StackPanel>
+
+                    <!--  Subtitle selection  -->
+                    <TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.SubtitleSelection}" />
+                    <StackPanel Style="{StaticResource ConfigSectionStack}">
+                        <RadioButton
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="{x:Static res:CommonRes.Disabled}"
+                            GroupName="autoSubtitle1"
+                            IsChecked="{Binding SubtitleSelectionMode,
+                                                         Converter={StaticResource EnumBoolConverter},
+                                                         ConverterParameter=Disabled}"
+                            ToolTip="{x:Static res:OptionsRes.AutoSubtitleDisabledToolTip}" />
+                        <RadioButton
+                            Margin="0,6,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="{x:Static res:PickerRes.ForeignAudioSearchRadioButton}"
+                            GroupName="autoSubtitle2"
+                            IsChecked="{Binding SubtitleSelectionMode,
+                                                         Converter={StaticResource EnumBoolConverter},
+                                                         ConverterParameter=ForeignAudioSearch}"
+                            ToolTip="{x:Static res:CommonRes.ForeignAudioSearchToolTip}" />
+                        <CheckBox
+                            Margin="20,6,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="{x:Static res:PickerRes.BurnInCheckBox}"
+                            IsChecked="{Binding SubtitleForeignBurnIn}"
+                            IsEnabled="{Binding SubtitleSelectionMode,
+                                                      Converter={StaticResource EnumBoolConverter},
+                                                      ConverterParameter=ForeignAudioSearch}"
+                            Style="{StaticResource GrayOnDisabledControl}"
+                            ToolTip="{x:Static res:CommonRes.BurnedSubtitleToolTip}" />
+                        <StackPanel
+                            Margin="0,6,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal">
+                            <RadioButton
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Content="{x:Static res:PickerRes.LanguageRadioButton}"
+                                GroupName="autoSubtitle3"
+                                IsChecked="{Binding SubtitleSelectionMode,
+                                                             Converter={StaticResource EnumBoolConverter},
+                                                             ConverterParameter=Language}" />
+                            <ComboBox
+                                Height="23"
+                                MinWidth="120"
+                                Margin="6,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                DisplayMemberPath="Display"
+                                IsEnabled="{Binding SubtitleSelectionMode,
+                                                          Converter={StaticResource EnumBoolConverter},
+                                                          ConverterParameter=Language}"
+                                ItemsSource="{Binding Languages}"
+                                SelectedValue="{Binding SubtitleLanguageCode}"
+                                SelectedValuePath="Code"
+                                Style="{StaticResource GrayOnDisabledControl}" />
+                        </StackPanel>
+
+                        <CheckBox
+                            Margin="20,6,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="{x:Static res:PickerRes.OnlyIfDifferentFromAudioCheckBox}"
+                            IsChecked="{Binding SubtitleLanguageOnlyIfDifferent}"
+                            IsEnabled="{Binding SubtitleSelectionMode,
+                                                      Converter={StaticResource EnumBoolConverter},
+                                                      ConverterParameter=Language}"
+                            Style="{StaticResource GrayOnDisabledControl}" />
+                        <CheckBox
+                            Margin="20,6,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="{x:Static res:PickerRes.IncludeAllTracksCheckBox}"
+                            IsChecked="{Binding SubtitleLanguageAll}"
+                            IsEnabled="{Binding SubtitleSelectionMode,
+                                                      Converter={StaticResource EnumBoolConverter},
+                                                      ConverterParameter=Language}"
+                            Style="{StaticResource GrayOnDisabledControl}" />
+                        <CheckBox
+                            Margin="20,6,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="{x:Static res:PickerRes.DefaultCheckBox}"
+                            IsChecked="{Binding SubtitleLanguageDefault}"
+                            IsEnabled="{Binding SubtitleSelectionMode,
+                                                      Converter={StaticResource EnumBoolConverter},
+                                                      ConverterParameter=Language}"
+                            Style="{StaticResource GrayOnDisabledControl}"
+                            ToolTip="{x:Static res:CommonRes.DefaultSubtitleToolTip}" />
+                        <CheckBox
+                            Margin="20,6,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="{x:Static res:PickerRes.BurnInCheckBox}"
+                            IsChecked="{Binding SubtitleLanguageBurnIn}"
+                            IsEnabled="{Binding SubtitleSelectionMode,
+                                                      Converter={StaticResource EnumBoolConverter},
+                                                      ConverterParameter=Language}"
+                            Style="{StaticResource GrayOnDisabledControl}"
+                            ToolTip="{x:Static res:CommonRes.BurnedSubtitleToolTip}" />
+                        <RadioButton
+                            Margin="0,6,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="{x:Static res:CommonRes.All}"
+                            GroupName="autoSubtitle4"
+                            IsChecked="{Binding SubtitleSelectionMode,
+                                                         Converter={StaticResource EnumBoolConverter},
+                                                         ConverterParameter=All}" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+
     </Grid>
 </Window>

@@ -95,11 +95,6 @@ namespace VidCoder
 			return openWindows.SingleOrDefault(vm => vm is T) as T;
 		}
 
-		public static ViewModelBase FindWindow(Type viewModelType)
-		{
-			return openWindows.SingleOrDefault(vm => vm.GetType() == viewModelType);
-		}
-
 		internal static Window GetView(ViewModelBase viewModel)
 		{
 			return windowLauncher.GetView(viewModel);

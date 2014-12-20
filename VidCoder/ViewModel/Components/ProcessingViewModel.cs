@@ -1911,7 +1911,7 @@ namespace VidCoder.ViewModel.Components
 			job.ChosenAudioTracks = new List<int>();
 			switch (CustomConfig.AutoAudio)
 			{
-				case AutoAudioType.Disabled:
+				case AudioSelectionMode.Disabled:
 					if (title.AudioTracks.Count > 0)
 					{
 						if (useCurrentContext)
@@ -1941,7 +1941,7 @@ namespace VidCoder.ViewModel.Components
 					}
 
 					break;
-				case AutoAudioType.Language:
+				case AudioSelectionMode.Language:
 					List<AudioTrack> nativeTracks = title.AudioTracks.Where(track => track.LanguageCode == Config.AudioLanguageCode).ToList();
 					if (nativeTracks.Count > 0)
 					{
@@ -1958,7 +1958,7 @@ namespace VidCoder.ViewModel.Components
 						}
 					}
 					break;
-				case AutoAudioType.All:
+				case AudioSelectionMode.All:
 					foreach (AudioTrack audioTrack in title.AudioTracks)
 					{
 						job.ChosenAudioTracks.Add(audioTrack.TrackNumber);
@@ -1982,7 +1982,7 @@ namespace VidCoder.ViewModel.Components
 			job.Subtitles = new Subtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
 			switch (CustomConfig.AutoSubtitle)
 			{
-				case AutoSubtitleType.Disabled:
+				case SubtitleSelectionMode.Disabled:
 					// Only pick subtitles when we have previous context.
 					if (useCurrentContext)
 					{
@@ -2001,7 +2001,7 @@ namespace VidCoder.ViewModel.Components
 						}
 					}
 					break;
-				case AutoSubtitleType.ForeignAudioSearch:
+				case SubtitleSelectionMode.ForeignAudioSearch:
 					job.Subtitles.SourceSubtitles.Add(
 						new SourceSubtitle
 						{
@@ -2011,7 +2011,7 @@ namespace VidCoder.ViewModel.Components
 							Default = true
 						});
 					break;
-				case AutoSubtitleType.Language:
+				case SubtitleSelectionMode.Language:
 					string languageCode = Config.SubtitleLanguageCode;
 					bool audioSame = false;
 					bool burnIn = Config.AutoSubtitleLanguageBurnIn;
@@ -2055,7 +2055,7 @@ namespace VidCoder.ViewModel.Components
 					}
 
 					break;
-				case AutoSubtitleType.All:
+				case SubtitleSelectionMode.All:
 					foreach (Subtitle subtitle in title.Subtitles)
 					{
 						job.Subtitles.SourceSubtitles.Add(

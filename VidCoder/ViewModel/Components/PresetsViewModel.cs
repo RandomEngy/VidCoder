@@ -140,14 +140,14 @@ namespace VidCoder.ViewModel.Components
 
 					if (this.selectedPreset.IsBuiltIn)
 					{
-						dialogMessage = MainRes.PresetDiscardConfirmMessage;
+						dialogMessage = string.Format(MainRes.PresetDiscardConfirmMessage, MainRes.PresetWord);
 						dialogTitle = MainRes.PresetDiscardConfirmTitle;
 						buttons = MessageBoxButton.OKCancel;
 					}
 					else
 					{
-						dialogMessage = MainRes.PresetSaveConfirmMessage;
-						dialogTitle = MainRes.PresetSaveConfirmTitle;
+						dialogMessage = string.Format(MainRes.SaveConfirmMessage, MainRes.PresetWord);
+						dialogTitle = string.Format(MainRes.SaveConfirmTitle, MainRes.PresetWord);
 						buttons = MessageBoxButton.YesNoCancel;
 					}
 
@@ -184,7 +184,7 @@ namespace VidCoder.ViewModel.Components
 
 				if (changeSelectedPreset)
 				{
-					NotifySelectedPresetChanged();
+					this.NotifySelectedPresetChanged();
 
 					// If we're switching away from a temporary queue preset, remove it.
 					if (previouslySelectedPreset != null && previouslySelectedPreset.IsQueue && previouslySelectedPreset != value)
@@ -414,7 +414,7 @@ namespace VidCoder.ViewModel.Components
 		{
 			this.OutputPathVM.GenerateOutputFileName();
 
-			var encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel)) as EncodingViewModel;
+			var encodingWindow = WindowManager.FindWindow<EncodingViewModel>();
 			if (encodingWindow != null)
 			{
 				encodingWindow.EditingPreset = this.selectedPreset.Preset;

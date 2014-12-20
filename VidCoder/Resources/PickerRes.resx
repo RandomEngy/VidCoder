@@ -117,134 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddButton" xml:space="preserve">
-    <value>Add</value>
+  <data name="AudioSelection" xml:space="preserve">
+    <value>Audio selection</value>
   </data>
-  <data name="RefreshButton" xml:space="preserve">
-    <value>Refresh</value>
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>Burn in</value>
   </data>
-  <data name="ChooseFromProcessesLabel" xml:space="preserve">
-    <value>Choose from existing processes:</value>
+  <data name="DefaultCheckBox" xml:space="preserve">
+    <value>Default</value>
   </data>
-  <data name="AddAutoPauseProcessDialogTitle" xml:space="preserve">
-    <value>Add Auto Pause Process</value>
+  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
+    <value>Foreign Audio Search</value>
   </data>
-  <data name="ProcessNameLabel" xml:space="preserve">
-    <value>Process Name:</value>
+  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
+    <value>Include all tracks</value>
   </data>
-  <data name="ExceptionDialogMainText" xml:space="preserve">
-    <value>VidCoder has experienced an unexpected error.</value>
+  <data name="LanguageRadioButton" xml:space="preserve">
+    <value>Language:</value>
   </data>
-  <data name="ExceptionDialogSubText" xml:space="preserve">
-    <value>Please report this so it can be fixed in the future.</value>
+  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
+    <value>Only if different language from audio</value>
   </data>
-  <data name="ExceptionWindowTitle" xml:space="preserve">
-    <value>Exception</value>
+  <data name="SubtitleSelection" xml:space="preserve">
+    <value>Subtitle selection</value>
   </data>
-  <data name="FileConflictDialogTitle" xml:space="preserve">
-    <value>File conflict</value>
-  </data>
-  <data name="OverwriteButton" xml:space="preserve">
-    <value>Overwrite</value>
-  </data>
-  <data name="AutoRenameButton" xml:space="preserve">
-    <value>Auto-rename</value>
-  </data>
-  <data name="FileConflictWarning" xml:space="preserve">
-    <value>A file already exists at {0}. Do you want to overwrite the file, automatically find a new output path for the encode job or cancel the operation?</value>
-  </data>
-  <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>A queue job already has an output path at {0}. Do you want to overwrite the file, automatically find a new output path for the encode job or cancel the operation?</value>
-  </data>
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Queue Columns</value>
-  </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Drag and drop to add, remove or reorder columns.</value>
-  </data>
-  <data name="UnusedColumns" xml:space="preserve">
-    <value>Unused columns</value>
-  </data>
-  <data name="UsedColumns" xml:space="preserve">
-    <value>Used columns</value>
-  </data>
-  <data name="ScanMultipleWindowTitle" xml:space="preserve">
-    <value>Scanning...</value>
-  </data>
-  <data name="AboutVidCoderDialogTitle" xml:space="preserve">
-    <value>About VidCoder</value>
-  </data>
-  <data name="LicenseLabel" xml:space="preserve">
-    <value>License:</value>
-  </data>
-  <data name="Version" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="BasedOnHandBrake" xml:space="preserve">
-    <value>Based on HandBrake ({0})</value>
-  </data>
-  <data name="Copyright" xml:space="preserve">
-    <value>© {0} VidCoder Developers</value>
-  </data>
-  <data name="VersionFormat" xml:space="preserve">
-    <value>{0} ({1})</value>
-    <comment>First is version, second is architecture. For example: 1.4.2 (x64)</comment>
-  </data>
-  <data name="BetaVersionFormat" xml:space="preserve">
-    <value>{0} Beta ({1})</value>
-    <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
-  </data>
-  <data name="NameDialogTitle" xml:space="preserve">
-    <value>Name {0}</value>
-    <comment>{0} is "picker" or "preset" (or the translated word)</comment>
-  </data>
-  <data name="ChooseName" xml:space="preserve">
-    <value>Choose a name for the {0}:</value>
-    <comment>{0} is "picker" or "preset" (or the translated word)</comment>
-  </data>
-  <data name="ApplyUpdateDialogTitle" xml:space="preserve">
-    <value>Apply Update?</value>
-  </data>
-  <data name="ApplyUpdateDialogMessage" xml:space="preserve">
-    <value>An update has been downloaded. Do you want to apply it now?</value>
-  </data>
-  <data name="ViewFullChangelog" xml:space="preserve">
-    <value>View full Changelog</value>
-  </data>
-  <data name="DisableUpdatesButton" xml:space="preserve">
-    <value>Disable Updates</value>
-  </data>
-  <data name="NoticeMessageTitle" xml:space="preserve">
-    <value>Notice</value>
-  </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder is not supported on your operating system. Windows XP and Server 2003 no longer work. Please install VidCoder 1.4 or upgrade your operating system.</value>
-  </data>
-  <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
-    <value>System sleep imminent</value>
-  </data>
-  <data name="EncodeCompleteWarning_LogOffTitle" xml:space="preserve">
-    <value>Log off imminent</value>
-  </data>
-  <data name="EncodeCompleteWarning_ShutdownTitle" xml:space="preserve">
-    <value>Shutdown imminent</value>
-  </data>
-  <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
-    <value>The system will sleep in {0} seconds.</value>
-  </data>
-  <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
-    <value>You will be logged off in {0} seconds.</value>
-  </data>
-  <data name="EncodeCompleteWarning_ShutdownMessage" xml:space="preserve">
-    <value>The system will shut down in {0} seconds.</value>
-  </data>
-  <data name="EncodeCompleteWarning_Title" xml:space="preserve">
-    <value>Encoding has completed.</value>
-  </data>
-  <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
-    <value>Could not find video player for {0}.</value>
-  </data>
-  <data name="ErrorPlayingSource" xml:space="preserve">
-    <value>Error playing source.</value>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Picker: {0}</value>
   </data>
 </root>

@@ -321,7 +321,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\ChoosePresetName.xaml">
+    <Page Include="View\ChooseName.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
@@ -439,7 +439,7 @@
     <Compile Include="Model\Picker.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\Pickers.cs" />
+    <Compile Include="Model\PickerStorage.cs" />
     <Compile Include="Model\Players\VideoPlayerBase.cs" />
     <Compile Include="Model\SourcePath.cs" />
     <Compile Include="Model\UpdateInfo.cs" />
@@ -491,6 +491,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OptionsRes.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\PickerRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PickerRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\PreviewRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -525,8 +530,8 @@
     <Compile Include="Messages\StatusMessage.cs" />
     <Compile Include="Messages\VideoCodecChangedMessage.cs" />
     <Compile Include="Messages\VideoSourceChangedMessage.cs" />
-    <Compile Include="Model\AutoAudioType.cs" />
-    <Compile Include="Model\AutoSubtitleType.cs" />
+    <Compile Include="Model\AudioSelectionMode.cs" />
+    <Compile Include="Model\SubtitleSelectionMode.cs" />
     <Compile Include="Model\ComboChoice.cs" />
     <Compile Include="Model\ComboChoiceT.cs" />
     <Compile Include="Model\Config\CustomConfig.cs" />
@@ -598,6 +603,7 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="ViewModel\Components\OutputPathViewModel.cs" />
+    <Compile Include="ViewModel\Components\PickersViewModel.cs" />
     <Compile Include="ViewModel\Components\PresetsViewModel.cs" />
     <Compile Include="ViewModel\Components\ProcessingViewModel.cs" />
     <Compile Include="ViewModel\Components\WindowManagerViewModel.cs" />
@@ -605,6 +611,7 @@
     <Compile Include="ViewModel\DataModels\BitrateChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\ChapterViewModel.cs" />
     <Compile Include="ViewModel\DataModels\LevelChoiceViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\PickerViewModel.cs" />
     <Compile Include="ViewModel\DataModels\RotationViewModel.cs" />
     <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
     <Compile Include="ViewModel\EncodeDetailsViewModel.cs" />
@@ -731,7 +738,7 @@
     <Compile Include="Utilities\Utilities.cs" />
     <Compile Include="ViewModel\ChapterMarkersDialogViewModel.cs" />
     <Compile Include="ViewModel\CharCode.cs" />
-    <Compile Include="ViewModel\ChoosePresetNameViewModel.cs" />
+    <Compile Include="ViewModel\ChooseNameViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AudioEncoderViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AudioEncodingViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AudioOutputPreview.cs" />
@@ -773,8 +780,8 @@
     <Compile Include="View\ChapterMarkersDialog.xaml.cs">
       <DependentUpon>ChapterMarkersDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ChoosePresetName.xaml.cs">
-      <DependentUpon>ChoosePresetName.xaml</DependentUpon>
+    <Compile Include="View\ChooseName.xaml.cs">
+      <DependentUpon>ChooseName.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EncodingWindow.xaml.cs">
       <DependentUpon>EncodingWindow.xaml</DependentUpon>
@@ -973,6 +980,10 @@
     <EmbeddedResource Include="Resources\OptionsRes.ru.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.zh.resx" />
+    <EmbeddedResource Include="Resources\PickerRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PickerRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\PreviewRes.cs.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.de.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.es.resx" />

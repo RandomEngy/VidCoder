@@ -63,34 +63,22 @@ namespace VidCoder.ViewModel
 
 		public MainViewModel MainViewModel
 		{
-			get
-			{
-				return this.mainViewModel;
-			}
+		    get { return this.mainViewModel; }
 		}
 
 		public WindowManagerViewModel WindowManagerVM
 		{
-			get
-			{
-				return this.windowManagerVM;
-			}
+		    get { return this.windowManagerVM; }
 		}
 
 		public ProcessingViewModel ProcessingVM
 		{
-			get
-			{
-				return this.processingVM;
-			}
+		    get { return this.processingVM; }
 		}
 
 		public OutputPathViewModel OutputPathVM
 		{
-			get
-			{
-				return this.outputPathVM;
-			}
+		    get { return this.outputPathVM; }
 		}
 
 		public PicturePanelViewModel PicturePanelViewModel { get; set; }
@@ -424,13 +412,13 @@ namespace VidCoder.ViewModel
 			{
 				return this.saveAsCommand ?? (this.saveAsCommand = new RelayCommand(() =>
 					{
-						var dialogVM = new ChoosePresetNameViewModel(this.presetsViewModel.AllPresets);
-						dialogVM.PresetName = this.originalPreset.DisplayName;
+						var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.presetsViewModel.AllPresets.Where(preset => !preset.IsBuiltIn).Select(preset => preset.PresetName));
+						dialogVM.Name = this.originalPreset.DisplayName;
 						WindowManager.OpenDialog(dialogVM, this);
 
 						if (dialogVM.DialogResult)
 						{
-							string newPresetName = dialogVM.PresetName;
+							string newPresetName = dialogVM.Name;
 
 							this.presetsViewModel.SavePresetAs(newPresetName);
 
@@ -451,13 +439,13 @@ namespace VidCoder.ViewModel
 			{
 				return this.renameCommand ?? (this.renameCommand = new RelayCommand(() =>
 					{
-						var dialogVM = new ChoosePresetNameViewModel(this.presetsViewModel.AllPresets);
-						dialogVM.PresetName = this.originalPreset.DisplayName;
+						var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.presetsViewModel.AllPresets.Where(preset => !preset.IsBuiltIn).Select(preset => preset.PresetName));
+						dialogVM.Name = this.originalPreset.DisplayName;
 						WindowManager.OpenDialog(dialogVM, this);
 
 						if (dialogVM.DialogResult)
 						{
-							string newPresetName = dialogVM.PresetName;
+							string newPresetName = dialogVM.Name;
 							this.originalPreset.Name = newPresetName;
 
 							this.presetsViewModel.SavePreset();
@@ -483,7 +471,11 @@ namespace VidCoder.ViewModel
 					{
 						if (this.IsModified)
 						{
-							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.PresetRevertConfirmMessage, MainRes.PresetRevertConfirmTitle, MessageBoxButton.YesNo);
+							MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+                                this, 
+                                string.Format(MainRes.RevertConfirmMessage, MainRes.PresetWord),
+                                string.Format(MainRes.RevertConfirmTitle, MainRes.PresetWord),
+                                MessageBoxButton.YesNo);
 							if (dialogResult == MessageBoxResult.Yes)
 							{
 								this.presetsViewModel.RevertPreset(true);
@@ -493,7 +485,11 @@ namespace VidCoder.ViewModel
 						}
 						else
 						{
-							MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.PresetRemoveConfirmMessage, MainRes.PresetRemoveConfirmTitle, MessageBoxButton.YesNo);
+							MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+                                this, 
+                                string.Format(MainRes.RemoveConfirmMessage, MainRes.PresetWord), 
+                                string.Format(MainRes.RemoveConfirmTitle, MainRes.PresetWord), 
+                                MessageBoxButton.YesNo);
 							if (dialogResult == MessageBoxResult.Yes)
 							{
 								this.presetsViewModel.DeletePreset();

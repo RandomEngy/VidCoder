@@ -106,15 +106,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Audio / Subtitles.
-        /// </summary>
-        public static string AudioSubtitlesTab {
-            get {
-                return ResourceManager.GetString("AudioSubtitlesTab", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to When automatic audio selection is disabled, the last picked track is persisted..
         /// </summary>
         public static string AutoAudioDisabledToolTip {
@@ -138,24 +129,6 @@ namespace VidCoder.Resources {
         public static string AutomaticallySwitchNameRadioButton {
             get {
                 return ResourceManager.GetString("AutomaticallySwitchNameRadioButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Automatic audio selection.
-        /// </summary>
-        public static string AutomaticAudioSelection {
-            get {
-                return ResourceManager.GetString("AutomaticAudioSelection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Automatic subtitle selection.
-        /// </summary>
-        public static string AutomaticSubtitleSelection {
-            get {
-                return ResourceManager.GetString("AutomaticSubtitleSelection", resourceCulture);
             }
         }
         
@@ -219,15 +192,6 @@ namespace VidCoder.Resources {
         public static string BetaUpdatesNonBetaWarning {
             get {
                 return ResourceManager.GetString("BetaUpdatesNonBetaWarning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Burn in.
-        /// </summary>
-        public static string BurnInCheckBox {
-            get {
-                return ResourceManager.GetString("BurnInCheckBox", resourceCulture);
             }
         }
         
@@ -309,15 +273,6 @@ namespace VidCoder.Resources {
         public static string CustomVideoPlayerToolTip {
             get {
                 return ResourceManager.GetString("CustomVideoPlayerToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Default.
-        /// </summary>
-        public static string DefaultCheckBox {
-            get {
-                return ResourceManager.GetString("DefaultCheckBox", resourceCulture);
             }
         }
         
@@ -448,29 +403,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Foreign Audio Search.
-        /// </summary>
-        public static string ForeignAudioSearchRadioButton {
-            get {
-                return ResourceManager.GetString("ForeignAudioSearchRadioButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
         public static string GeneralTab {
             get {
                 return ResourceManager.GetString("GeneralTab", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Include all tracks.
-        /// </summary>
-        public static string IncludeAllTracksCheckBox {
-            get {
-                return ResourceManager.GetString("IncludeAllTracksCheckBox", resourceCulture);
             }
         }
         
@@ -498,15 +435,6 @@ namespace VidCoder.Resources {
         public static string KeepScansAfterCompletionCheckBox {
             get {
                 return ResourceManager.GetString("KeepScansAfterCompletionCheckBox", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Language:.
-        /// </summary>
-        public static string LanguageRadioButton {
-            get {
-                return ResourceManager.GetString("LanguageRadioButton", resourceCulture);
             }
         }
         
@@ -579,15 +507,6 @@ namespace VidCoder.Resources {
         public static string NewLanguageRestartDialogMessage {
             get {
                 return ResourceManager.GetString("NewLanguageRestartDialogMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Only if different language from audio.
-        /// </summary>
-        public static string OnlyIfDifferentFromAudioCheckBox {
-            get {
-                return ResourceManager.GetString("OnlyIfDifferentFromAudioCheckBox", resourceCulture);
             }
         }
         

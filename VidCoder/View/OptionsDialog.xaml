@@ -24,22 +24,12 @@
 	d:DataContext="{d:DesignInstance vm:OptionsDialogViewModel}"
 	mc:Ignorable="d">
 	<Window.Resources>
-		<Style x:Key="EmphasizedTitle" TargetType="TextBlock">
-			<Setter Property="VerticalAlignment" Value="Center" />
-			<Setter Property="Margin" Value="4,2,4,2" />
-			<Setter Property="FontWeight" Value="Bold" />
-		</Style>
-		<Style x:Key="ConfigSectionStack" TargetType="StackPanel">
-			<Setter Property="Margin" Value="20,0,0,20" />
-			<Setter Property="Orientation" Value="Vertical" />
-			<Setter Property="HorizontalAlignment" Value="Stretch" />
-		</Style>
-		<Style x:Key="ConfigSectionHeader" TargetType="TextBlock">
-			<Setter Property="FontSize" Value="14" />
-			<Setter Property="Margin" Value="0,0,0,6" />
-			<Setter Property="HorizontalAlignment" Value="Left" />
-		</Style>
-		<converters:IntVisibilityConverter x:Key="IntVisibilityConverter" />
+        <Style x:Key="EmphasizedTitle" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="4,2,4,2" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <converters:IntVisibilityConverter x:Key="IntVisibilityConverter" />
 	</Window.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
@@ -222,36 +212,36 @@
 					</StackPanel>
 
 					<!--  File naming  -->
-					<StackPanel
+                    <StackPanel
 						VerticalAlignment="Top"
 						Orientation="Vertical"
 						Visibility="{Binding SelectedTabIndex,
 					                                 Converter={StaticResource IntVisibilityConverter},
 					                                 ConverterParameter=1}">
 
-						<!--  Output folder  -->
-						<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.OutputFolderSection}" />
-						<StackPanel Style="{StaticResource ConfigSectionStack}">
-							<Grid>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition />
-									<ColumnDefinition Width="Auto" />
-								</Grid.ColumnDefinitions>
+                        <!--  Output folder  -->
+                        <TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.OutputFolderSection}" />
+                        <StackPanel Style="{StaticResource ConfigSectionStack}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-								<TextBlock
+                                <TextBlock
 									Grid.Column="0"
 									Margin="0,0,5,0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Center"
 									Text="{x:Static res:OptionsRes.DefaultFolderLabel}" />
-								<TextBox
+                                <TextBox
 									Grid.Column="1"
 									Height="23"
 									VerticalAlignment="Center"
 									VerticalContentAlignment="Center"
 									Text="{Binding DefaultPath}" />
-								<Button
+                                <Button
 									Grid.Column="2"
 									Height="23"
 									MinWidth="75"
@@ -260,15 +250,15 @@
 									VerticalAlignment="Top"
 									Command="{Binding BrowsePathCommand}"
 									Content="{x:Static res:CommonRes.Browse}" />
-							</Grid>
-							<CheckBox
+                            </Grid>
+                            <CheckBox
 								Height="16"
 								Margin="0,6,0,0"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Content="{x:Static res:OptionsRes.OutputToSourceDirCheckBox}"
 								IsChecked="{Binding OutputToSourceDirectory}" />
-							<CheckBox
+                            <CheckBox
 								Height="16"
 								Margin="0,6,0,0"
 								HorizontalAlignment="Left"
@@ -276,25 +266,25 @@
 								Content="{x:Static res:OptionsRes.PreserveFolderStructureCheckBox}"
 								IsChecked="{Binding PreserveFolderStructureInBatch}"
 								ToolTip="{x:Static res:OptionsRes.PreserveFolderStructureToolTip}" />
-							<Grid Margin="0,6,0,0">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition />
-									<ColumnDefinition Width="Auto" />
-								</Grid.ColumnDefinitions>
-								<CheckBox
+                            <Grid Margin="0,6,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <CheckBox
 									Height="16"
 									Margin="0,0,5,0"
 									VerticalAlignment="Center"
 									Content="{x:Static res:OptionsRes.CustomPreviewFolderCheckBox}"
 									IsChecked="{Binding UseCustomPreviewFolder}" />
-								<TextBox
+                                <TextBox
 									Grid.Column="1"
 									Height="22"
 									VerticalContentAlignment="Center"
 									IsEnabled="{Binding UseCustomPreviewFolder}"
 									Text="{Binding PreviewOutputFolder}" />
-								<Button
+                                <Button
 									Grid.Column="2"
 									Margin="6,0,0,0"
 									VerticalAlignment="Center"
@@ -302,54 +292,54 @@
 									Content="{x:Static res:CommonRes.Browse}"
 									IsEnabled="{Binding UseCustomPreviewFolder}"
 									Padding="3,2" />
-							</Grid>
-						</StackPanel>
+                            </Grid>
+                        </StackPanel>
 
-						<!--  Naming format  -->
-						<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.NamingFormatSection}" />
-						<StackPanel Style="{StaticResource ConfigSectionStack}">
-							<RadioButton
+                        <!--  Naming format  -->
+                        <TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.NamingFormatSection}" />
+                        <StackPanel Style="{StaticResource ConfigSectionStack}">
+                            <RadioButton
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Content="{x:Static res:OptionsRes.DefaultFormatRadioButton}"
 								IsChecked="{Binding CustomFormat,
 							                                 Converter={StaticResource InverseBoolConverter}}" />
-							<RadioButton
+                            <RadioButton
 								Margin="0,6,0,0"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Content="{x:Static res:OptionsRes.CustomFormatRadioButton}"
 								IsChecked="{Binding CustomFormat}" />
-							<TextBox
+                            <TextBox
 								Height="23"
 								Margin="0,6,0,0"
 								VerticalAlignment="Top"
 								VerticalContentAlignment="Center"
 								IsEnabled="{Binding CustomFormatStringEnabled}"
 								Text="{Binding CustomFormatString}" />
-							<TextBlock
+                            <TextBlock
 								Margin="0,6,0,0"
 								VerticalAlignment="Top"
 								Text="{Binding AvailableOptionsText}"
 								TextWrapping="Wrap" />
-						</StackPanel>
+                        </StackPanel>
 
-						<!--  When file exists  -->
-						<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.WhenFileAlreadyExists}" />
-						<StackPanel Style="{StaticResource ConfigSectionStack}">
-							<Grid HorizontalAlignment="Left" VerticalAlignment="Top">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition Width="8" />
-									<ColumnDefinition />
-								</Grid.ColumnDefinitions>
+                        <!--  When file exists  -->
+                        <TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.WhenFileAlreadyExists}" />
+                        <StackPanel Style="{StaticResource ConfigSectionStack}">
+                            <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="8" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
 
-								<TextBlock
+                                <TextBlock
 									Margin="0,0,0,0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Top"
 									Text="{x:Static res:OptionsRes.EncodingSingleFile}" />
-								<RadioButton
+                                <RadioButton
 									Height="16"
 									Margin="0,21,0,0"
 									HorizontalAlignment="Left"
@@ -359,7 +349,7 @@
 									IsChecked="{Binding WhenFileExists,
 								                                 Converter={StaticResource EnumBoolConverter},
 								                                 ConverterParameter=Prompt}" />
-								<RadioButton
+                                <RadioButton
 									Height="16"
 									Margin="0,43,0,0"
 									HorizontalAlignment="Left"
@@ -369,7 +359,7 @@
 									IsChecked="{Binding WhenFileExists,
 								                                 Converter={StaticResource EnumBoolConverter},
 								                                 ConverterParameter=Overwrite}" />
-								<RadioButton
+                                <RadioButton
 									Height="16"
 									Margin="0,65,0,0"
 									HorizontalAlignment="Left"
@@ -380,14 +370,14 @@
 								                                 Converter={StaticResource EnumBoolConverter},
 								                                 ConverterParameter=AutoRename}" />
 
-								<TextBlock
+                                <TextBlock
 									Name="textBlock2"
 									Grid.Column="2"
 									Margin="0,0,0,0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Top"
 									Text="{x:Static res:OptionsRes.EncodingBatchOfFiles}" />
-								<RadioButton
+                                <RadioButton
 									Grid.Column="2"
 									Height="16"
 									Margin="0,21,0,0"
@@ -398,7 +388,7 @@
 									IsChecked="{Binding WhenFileExistsBatch,
 								                                 Converter={StaticResource EnumBoolConverter},
 								                                 ConverterParameter=Overwrite}" />
-								<RadioButton
+                                <RadioButton
 									Grid.Column="2"
 									Height="16"
 									Margin="0,43,0,0"
@@ -409,187 +399,17 @@
 									IsChecked="{Binding WhenFileExistsBatch,
 								                                 Converter={StaticResource EnumBoolConverter},
 								                                 ConverterParameter=AutoRename}" />
-							</Grid>
-						</StackPanel>
-					</StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
 
-					<!--  Audio/Subtitles  -->
+                    <!--  Processes  -->
 					<StackPanel
 						VerticalAlignment="Top"
 						Orientation="Vertical"
 						Visibility="{Binding SelectedTabIndex,
 					                                 Converter={StaticResource IntVisibilityConverter},
 					                                 ConverterParameter=2}">
-						<!--  Audio selection  -->
-						<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.AutomaticAudioSelection}" />
-						<StackPanel Style="{StaticResource ConfigSectionStack}">
-							<RadioButton
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Content="{x:Static res:CommonRes.Disabled}"
-								GroupName="autoAudio1"
-								IsChecked="{Binding AutoAudio,
-							                                 Converter={StaticResource EnumBoolConverter},
-							                                 ConverterParameter=Disabled}"
-								ToolTip="{x:Static res:OptionsRes.AutoAudioDisabledToolTip}" />
-							<StackPanel
-								Margin="0,6,0,0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Orientation="Horizontal">
-								<RadioButton
-									HorizontalAlignment="Left"
-									VerticalAlignment="Center"
-									Content="{x:Static res:OptionsRes.LanguageRadioButton}"
-									GroupName="autoAudio2"
-									IsChecked="{Binding AutoAudio,
-								                                 Converter={StaticResource EnumBoolConverter},
-								                                 ConverterParameter=Language}" />
-								<ComboBox
-									Height="23"
-									MinWidth="120"
-									Margin="6,0,0,0"
-									HorizontalAlignment="Left"
-									VerticalAlignment="Top"
-									DisplayMemberPath="Display"
-									IsEnabled="{Binding AutoAudioLanguageSelected}"
-									ItemsSource="{Binding Languages}"
-									SelectedValue="{Binding AudioLanguageCode}"
-									SelectedValuePath="Code"
-									Style="{StaticResource GrayOnDisabledControl}" />
-							</StackPanel>
-
-							<CheckBox
-								Margin="20,6,0,0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Content="{x:Static res:OptionsRes.IncludeAllTracksCheckBox}"
-								IsChecked="{Binding AutoAudioAll}"
-								IsEnabled="{Binding AutoAudioLanguageSelected}"
-								Style="{StaticResource GrayOnDisabledControl}" />
-							<RadioButton
-								Margin="0,6,0,0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Content="{x:Static res:CommonRes.All}"
-								GroupName="autoAudio3"
-								IsChecked="{Binding AutoAudio,
-							                                 Converter={StaticResource EnumBoolConverter},
-							                                 ConverterParameter=All}" />
-						</StackPanel>
-
-						<!--  Subtitle selection  -->
-						<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.AutomaticSubtitleSelection}" />
-						<StackPanel Style="{StaticResource ConfigSectionStack}">
-							<RadioButton
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Content="{x:Static res:CommonRes.Disabled}"
-								GroupName="autoSubtitle1"
-								IsChecked="{Binding AutoSubtitle,
-							                                 Converter={StaticResource EnumBoolConverter},
-							                                 ConverterParameter=Disabled}"
-								ToolTip="{x:Static res:OptionsRes.AutoSubtitleDisabledToolTip}" />
-							<RadioButton
-								Margin="0,6,0,0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Content="{x:Static res:OptionsRes.ForeignAudioSearchRadioButton}"
-								GroupName="autoSubtitle2"
-								IsChecked="{Binding AutoSubtitle,
-							                                 Converter={StaticResource EnumBoolConverter},
-							                                 ConverterParameter=ForeignAudioSearch}"
-								ToolTip="{x:Static res:CommonRes.ForeignAudioSearchToolTip}" />
-							<CheckBox
-								Margin="20,6,0,0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Content="{x:Static res:OptionsRes.BurnInCheckBox}"
-								IsChecked="{Binding AutoSubtitleBurnIn}"
-								IsEnabled="{Binding AutoSubtitleFasSelected}"
-								Style="{StaticResource GrayOnDisabledControl}"
-								ToolTip="{x:Static res:CommonRes.BurnedSubtitleToolTip}" />
-							<StackPanel
-								Margin="0,6,0,0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Orientation="Horizontal">
-								<RadioButton
-									HorizontalAlignment="Left"
-									VerticalAlignment="Center"
-									Content="{x:Static res:OptionsRes.LanguageRadioButton}"
-									GroupName="autoSubtitle3"
-									IsChecked="{Binding AutoSubtitle,
-								                                 Converter={StaticResource EnumBoolConverter},
-								                                 ConverterParameter=Language}" />
-								<ComboBox
-									Height="23"
-									MinWidth="120"
-									Margin="6,0,0,0"
-									HorizontalAlignment="Left"
-									VerticalAlignment="Top"
-									DisplayMemberPath="Display"
-									IsEnabled="{Binding AutoSubtitleLanguageSelected}"
-									ItemsSource="{Binding Languages}"
-									SelectedValue="{Binding SubtitleLanguageCode}"
-									SelectedValuePath="Code"
-									Style="{StaticResource GrayOnDisabledControl}" />
-							</StackPanel>
-
-							<CheckBox
-								Margin="20,6,0,0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Content="{x:Static res:OptionsRes.OnlyIfDifferentFromAudioCheckBox}"
-								IsChecked="{Binding AutoSubtitleOnlyIfDifferent}"
-								IsEnabled="{Binding AutoSubtitleLanguageSelected}"
-								Style="{StaticResource GrayOnDisabledControl}" />
-							<CheckBox
-								Margin="20,6,0,0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Content="{x:Static res:OptionsRes.IncludeAllTracksCheckBox}"
-								IsChecked="{Binding AutoSubtitleAll}"
-								IsEnabled="{Binding AutoSubtitleLanguageSelected}"
-								Style="{StaticResource GrayOnDisabledControl}" />
-							<CheckBox
-								Margin="20,6,0,0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Content="{x:Static res:OptionsRes.DefaultCheckBox}"
-								IsChecked="{Binding AutoSubtitleLanguageDefault}"
-								IsEnabled="{Binding AutoSubtitleLanguageSelected}"
-								Style="{StaticResource GrayOnDisabledControl}"
-								ToolTip="{x:Static res:CommonRes.DefaultSubtitleToolTip}" />
-							<CheckBox
-								Margin="20,6,0,0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Content="{x:Static res:OptionsRes.BurnInCheckBox}"
-								IsChecked="{Binding AutoSubtitleLanguageBurnIn}"
-								IsEnabled="{Binding AutoSubtitleLanguageSelected}"
-								Style="{StaticResource GrayOnDisabledControl}"
-								ToolTip="{x:Static res:CommonRes.BurnedSubtitleToolTip}" />
-							<RadioButton
-								Name="radioButton9"
-								Margin="0,6,0,0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Content="{x:Static res:CommonRes.All}"
-								GroupName="autoSubtitle4"
-								IsChecked="{Binding AutoSubtitle,
-							                                 Converter={StaticResource EnumBoolConverter},
-							                                 ConverterParameter=All}" />
-						</StackPanel>
-					</StackPanel>
-
-					<!--  Processes  -->
-					<StackPanel
-						VerticalAlignment="Top"
-						Orientation="Vertical"
-						Visibility="{Binding SelectedTabIndex,
-					                                 Converter={StaticResource IntVisibilityConverter},
-					                                 ConverterParameter=3}">
 						<TextBlock
 							Style="{StaticResource ConfigSectionHeader}"
 							Text="{x:Static res:OptionsRes.AutoPauseLabel}"
@@ -630,7 +450,7 @@
 						Orientation="Vertical"
 						Visibility="{Binding SelectedTabIndex,
 					                                 Converter={StaticResource IntVisibilityConverter},
-					                                 ConverterParameter=4}">
+					                                 ConverterParameter=3}">
 						<!--  Advanced options  -->
 						<TextBlock
 							Style="{StaticResource ConfigSectionHeader}"
@@ -835,7 +655,7 @@
 						Orientation="Vertical"
 						Visibility="{Binding SelectedTabIndex,
 					                                 Converter={StaticResource IntVisibilityConverter},
-					                                 ConverterParameter=5}">
+					                                 ConverterParameter=4}">
 
 						<!--  Updates  -->
 						<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.UpdatesSection}" />

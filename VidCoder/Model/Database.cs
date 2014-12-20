@@ -134,37 +134,23 @@ namespace VidCoder.Model
                     ExecuteNonQuery("CREATE TABLE pickersXml (" +
                         "xml TEXT)", connection);
 
-                    // Insert the "None" picker
-                    var nonePicker = new Picker
-                    {
-                        IsNone = true,
-                        Audio = AutoAudioType.Disabled,
-                        AudioLanguageCode = "und",
-                        Subtitle = AutoSubtitleType.Disabled,
-                        SubtitleLanguageCode = "und",
-                        SubtitleLanguageOnlyIfDifferent = true
-                    };
-
                     Config.Initialize(connection);
 
-                    using (var pickerInsertCommand = new SQLiteCommand("INSERT INTO pickersXml (xml) VALUES (?)", connection))
+                    // If the user has chosen some auto audio or subtitle picker options, migrate them to a new picker
+                    if (CustomConfig.AutoAudio != AudioSelectionMode.Disabled || CustomConfig.AutoSubtitle != SubtitleSelectionMode.Disabled)
                     {
-                        var pickerParameter = new SQLiteParameter();
-                        pickerInsertCommand.Parameters.Add(pickerParameter);
-                        pickerParameter.Value = Pickers.SerializePicker(nonePicker);
-
-                        pickerInsertCommand.ExecuteNonQuery();
-
-                        // If the user has chosen some auto audio or subtitle picker options, migrate them to a new picker
-                        if (CustomConfig.AutoAudio != AutoAudioType.Disabled || CustomConfig.AutoSubtitle != AutoSubtitleType.Disabled)
+                        using (var pickerInsertCommand = new SQLiteCommand("INSERT INTO pickersXml (xml) VALUES (?)", connection))
                         {
+                            var pickerParameter = new SQLiteParameter();
+                            pickerInsertCommand.Parameters.Add(pickerParameter);
+
                             var convertedPicker = new Picker
                             {
                                 Name = string.Format(MainRes.PickerNameTemplate, 1),
-                                Audio = CustomConfig.AutoAudio,
+                                AudioSelectionMode = CustomConfig.AutoAudio,
                                 AudioLanguageCode = Config.AudioLanguageCode,
                                 AudioLanguageAll = Config.AutoAudioAll,
-                                Subtitle = CustomConfig.AutoSubtitle,
+                                SubtitleSelectionMode = CustomConfig.AutoSubtitle,
                                 SubtitleForeignBurnIn = Config.AutoSubtitleBurnIn,
                                 SubtitleLanguageCode = Config.SubtitleLanguageCode,
                                 SubtitleLanguageAll = Config.AutoSubtitleAll,
@@ -173,7 +159,7 @@ namespace VidCoder.Model
                                 SubtitleLanguageOnlyIfDifferent = Config.AutoSubtitleOnlyIfDifferent
                             };
 
-                            pickerParameter.Value = Pickers.SerializePicker(convertedPicker);
+                            pickerParameter.Value = PickerStorage.SerializePicker(convertedPicker);
                             pickerInsertCommand.ExecuteNonQuery();
                         }
                     }

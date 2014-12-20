@@ -337,6 +337,12 @@ namespace VidCoder.ViewModel
 				windowOpened = true;
 			}
 
+		    if (Config.PickerWindowOpen)
+		    {
+		        this.WindowManagerVM.OpenPickerWindow();
+		        windowOpened = true;
+		    }
+
 			if (windowOpened)
 			{
 				WindowManager.FocusWindow(this);
@@ -372,7 +378,7 @@ namespace VidCoder.ViewModel
 				//this.processingVM.CurrentJob.HandBrakeInstance.StopEncode();
 			}
 
-			ViewModelBase encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel));
+			ViewModelBase encodingWindow = WindowManager.FindWindow<EncodingViewModel>();
 			if (encodingWindow != null)
 			{
 				WindowManager.Close(encodingWindow);
@@ -389,11 +395,17 @@ namespace VidCoder.ViewModel
 				WindowManager.Close(previewWindow);
 			}
 
-			ViewModelBase logWindow = WindowManager.FindWindow(typeof(LogViewModel));
+			ViewModelBase logWindow = WindowManager.FindWindow<LogViewModel>();
 			if (logWindow != null)
 			{
 				WindowManager.Close(logWindow);
 			}
+
+		    ViewModelBase pickerWindow = WindowManager.FindWindow<PickerWindowViewModel>();
+		    if (pickerWindow != null)
+		    {
+		        WindowManager.Close(pickerWindow);
+		    }
 
 			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
 			{
@@ -807,7 +819,7 @@ namespace VidCoder.ViewModel
 					// Audio selection
 					switch (CustomConfig.AutoAudio)
 					{
-						case AutoAudioType.Disabled:
+						case AudioSelectionMode.Disabled:
 							// If no auto-selection is done, keep audio from previous selection.
 							if (this.oldTitle != null)
 							{
@@ -833,7 +845,7 @@ namespace VidCoder.ViewModel
 							}
 
 							break;
-						case AutoAudioType.Language:
+						case AudioSelectionMode.Language:
 							this.AudioChoices.Clear();
 							List<AudioTrack> nativeTracks = this.selectedTitle.AudioTracks.Where(track => track.LanguageCode == Config.AudioLanguageCode).ToList();
 							if (nativeTracks.Count > 0)
@@ -853,7 +865,7 @@ namespace VidCoder.ViewModel
 								}
 							}
 							break;
-						case AutoAudioType.All:
+						case AudioSelectionMode.All:
 							this.AudioChoices.Clear();
 							foreach (AudioTrack audioTrack in this.selectedTitle.AudioTracks)
 							{
@@ -874,7 +886,7 @@ namespace VidCoder.ViewModel
 
 					switch (CustomConfig.AutoSubtitle)
 					{
-						case AutoSubtitleType.Disabled:
+						case SubtitleSelectionMode.Disabled:
 							// If no auto-selection is done, try and keep selections from previous title
 							if (this.oldTitle != null && oldSubtitles != null)
 							{
@@ -902,7 +914,7 @@ namespace VidCoder.ViewModel
 								}
 							}
 							break;
-						case AutoSubtitleType.ForeignAudioSearch:
+						case SubtitleSelectionMode.ForeignAudioSearch:
 							this.CurrentSubtitles.SourceSubtitles.Add(
 								new SourceSubtitle
 									{
@@ -912,7 +924,7 @@ namespace VidCoder.ViewModel
 										Default = true
 									});
 							break;
-						case AutoSubtitleType.Language:
+						case SubtitleSelectionMode.Language:
 							string languageCode = Config.SubtitleLanguageCode;
 							bool audioSame = false;
 							bool burnIn = Config.AutoSubtitleLanguageBurnIn;
@@ -957,7 +969,7 @@ namespace VidCoder.ViewModel
 							}
 
 							break;
-						case AutoSubtitleType.All:
+						case SubtitleSelectionMode.All:
 							foreach (Subtitle subtitle in this.selectedTitle.Subtitles)
 							{
 								this.CurrentSubtitles.SourceSubtitles.Add(
@@ -2792,7 +2804,7 @@ namespace VidCoder.ViewModel
 
 		private void ReportLengthChanged()
 		{
-			var encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel)) as EncodingViewModel;
+			var encodingWindow = WindowManager.FindWindow<EncodingViewModel>();
 			if (encodingWindow != null)
 			{
 				encodingWindow.NotifyLengthChanged();

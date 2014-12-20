@@ -183,7 +183,13 @@ namespace VidCoder.ViewModel
 			betaInfoWorker.RunWorkerAsync();
 #endif
 
-			this.SelectedTabIndex = Config.OptionsDialogLastTab;
+		    int tabIndex = Config.OptionsDialogLastTab;
+		    if (tabIndex >= this.Tabs.Count)
+		    {
+		        tabIndex = 0;
+		    }
+
+            this.SelectedTabIndex = tabIndex;
 
 			this.RefreshUpdateStatus();
 		}
@@ -206,10 +212,9 @@ namespace VidCoder.ViewModel
 					{
 						OptionsRes.GeneralTab,			// 0
 						OptionsRes.FileNamingTab,		// 1
-						OptionsRes.AudioSubtitlesTab,	// 2
-						OptionsRes.ProcessesTab,		// 3
-						OptionsRes.AdvancedTab,			// 4
-						OptionsRes.UpdatesTab			// 5
+						OptionsRes.ProcessesTab,		// 2
+						OptionsRes.AdvancedTab,			// 3
+						OptionsRes.UpdatesTab			// 4
 					};
 			}
 		} 
@@ -659,8 +664,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private AutoAudioType autoAudio;
-		public AutoAudioType AutoAudio
+		private AudioSelectionMode autoAudio;
+		public AudioSelectionMode AutoAudio
 		{
 			get
 			{
@@ -679,7 +684,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.AutoAudio == AutoAudioType.Language;
+				return this.AutoAudio == AudioSelectionMode.Language;
 			}
 		}
 
@@ -713,8 +718,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private AutoSubtitleType autoSubtitle;
-		public AutoSubtitleType AutoSubtitle
+		private SubtitleSelectionMode autoSubtitle;
+		public SubtitleSelectionMode AutoSubtitle
 		{
 			get
 			{
@@ -734,7 +739,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.AutoSubtitle == AutoSubtitleType.ForeignAudioSearch;
+				return this.AutoSubtitle == SubtitleSelectionMode.ForeignAudioSearch;
 			}
 		}
 
@@ -742,7 +747,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.AutoSubtitle == AutoSubtitleType.Language;
+				return this.AutoSubtitle == SubtitleSelectionMode.Language;
 			}
 		}
 
@@ -851,14 +856,6 @@ namespace VidCoder.ViewModel
 
 				this.autoSubtitleAll = false;
 				this.RaisePropertyChanged(() => this.AutoSubtitleAll);
-			}
-		}
-
-		public IList<Language> Languages
-		{
-			get
-			{
-				return HandBrake.Interop.Helpers.Languages.AllLanguages;
 			}
 		}
 

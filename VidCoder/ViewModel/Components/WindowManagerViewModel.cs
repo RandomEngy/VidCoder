@@ -202,7 +202,7 @@ namespace VidCoder.ViewModel.Components
 
 		public void OpenEncodingWindow()
 		{
-			var encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel)) as EncodingViewModel;
+			var encodingWindow = WindowManager.FindWindow<EncodingViewModel>();
 			this.EncodingWindowOpen = true;
 
 			if (encodingWindow == null)
@@ -226,7 +226,7 @@ namespace VidCoder.ViewModel.Components
 
 		public void OpenPreviewWindow()
 		{
-			var previewWindow = WindowManager.FindWindow(typeof(PreviewViewModel)) as PreviewViewModel;
+			var previewWindow = WindowManager.FindWindow<PreviewViewModel>();
 			this.PreviewWindowOpen = true;
 
 			if (previewWindow == null)
@@ -246,7 +246,7 @@ namespace VidCoder.ViewModel.Components
 
 		public void OpenLogWindow()
 		{
-			var logWindow = WindowManager.FindWindow(typeof(LogViewModel)) as LogViewModel;
+			var logWindow = WindowManager.FindWindow<LogViewModel>();
 			this.LogWindowOpen = true;
 
 			if (logWindow == null)
@@ -266,7 +266,7 @@ namespace VidCoder.ViewModel.Components
 
 		public void OpenEncodeDetailsWindow()
 		{
-			var encodeDetailsWindow = WindowManager.FindWindow(typeof (EncodeDetailsViewModel)) as EncodeDetailsViewModel;
+			var encodeDetailsWindow = WindowManager.FindWindow<EncodeDetailsViewModel>();
 			this.EncodeDetailsWindowOpen = true;
 
 			if (encodeDetailsWindow == null)
@@ -289,12 +289,12 @@ namespace VidCoder.ViewModel.Components
 
 	    public void OpenPickerWindow()
 	    {
-	        var pickerWindow = WindowManager.FindWindow(typeof (PickerWindowViewModel)) as PickerWindowViewModel;
+	        var pickerWindow = WindowManager.FindWindow<PickerWindowViewModel>();
 	        this.PickerWindowOpen = true;
 
 	        if (pickerWindow == null)
 	        {
-	            pickerWindow = new PickerWindowViewModel();
+                pickerWindow = new PickerWindowViewModel(Ioc.Container.GetInstance<PickersViewModel>().SelectedPicker.Picker);
 	            pickerWindow.Closing = () =>
 	            {
 	                this.PickerWindowOpen = false;
@@ -312,7 +312,7 @@ namespace VidCoder.ViewModel.Components
 
 		public void CloseEncodeDetailsWindow()
 		{
-			var encodeDetailsWindow = WindowManager.FindWindow(typeof(EncodeDetailsViewModel)) as EncodeDetailsViewModel;
+			var encodeDetailsWindow = WindowManager.FindWindow<EncodeDetailsViewModel>();
 			if (encodeDetailsWindow != null)
 			{
 				WindowManager.Close(encodeDetailsWindow);

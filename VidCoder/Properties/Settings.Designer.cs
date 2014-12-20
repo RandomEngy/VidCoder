@@ -721,9 +721,9 @@ namespace VidCoder.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Disabled")]
-        public global::VidCoder.Model.AutoAudioType AutoAudio {
+        public global::VidCoder.Model.AudioSelectionMode AutoAudio {
             get {
-                return ((global::VidCoder.Model.AutoAudioType)(this["AutoAudio"]));
+                return ((global::VidCoder.Model.AudioSelectionMode)(this["AutoAudio"]));
             }
             set {
                 this["AutoAudio"] = value;
@@ -733,9 +733,9 @@ namespace VidCoder.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Disabled")]
-        public global::VidCoder.Model.AutoSubtitleType AutoSubtitle {
+        public global::VidCoder.Model.SubtitleSelectionMode AutoSubtitle {
             get {
-                return ((global::VidCoder.Model.AutoSubtitleType)(this["AutoSubtitle"]));
+                return ((global::VidCoder.Model.SubtitleSelectionMode)(this["AutoSubtitle"]));
             }
             set {
                 this["AutoSubtitle"] = value;

@@ -26,6 +26,7 @@
 			NativeLanguageCode_Field = DatabaseConfig.GetConfig("NativeLanguageCode", "", connection);
 			DubAudio_Field = DatabaseConfig.GetConfig("DubAudio", false, connection);
 			LastPresetIndex_Field = DatabaseConfig.GetConfig("LastPresetIndex", 0, connection);
+			LastPickerIndex_Field = DatabaseConfig.GetConfig("LastPickerIndex", 0, connection);
 			EncodingDialogLastTab_Field = DatabaseConfig.GetConfig("EncodingDialogLastTab", 0, connection);
 			OptionsDialogLastTab_Field = DatabaseConfig.GetConfig("OptionsDialogLastTab", 0, connection);
 			MainWindowPlacement_Field = DatabaseConfig.GetConfig("MainWindowPlacement", "", connection);
@@ -369,6 +370,20 @@
 			{
 				LastPresetIndex_Field = value;
 				DatabaseConfig.SetConfigValue("LastPresetIndex", value);
+			}
+		}
+		private static int LastPickerIndex_Field;
+		public static int LastPickerIndex
+		{
+			get
+			{
+				return LastPickerIndex_Field;
+			}
+			
+			set
+			{
+				LastPickerIndex_Field = value;
+				DatabaseConfig.SetConfigValue("LastPickerIndex", value);
 			}
 		}
 		private static int EncodingDialogLastTab_Field;

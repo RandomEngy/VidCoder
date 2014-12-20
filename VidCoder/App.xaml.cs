@@ -88,12 +88,12 @@ namespace VidCoder
 								if (Settings.Default.DubAudio)
 								{
 									Settings.Default.AudioLanguageCode = languageCode;
-									Settings.Default.AutoAudio = AutoAudioType.Language;
+									Settings.Default.AutoAudio = AudioSelectionMode.Language;
 								}
 								else
 								{
 									Settings.Default.SubtitleLanguageCode = languageCode;
-									Settings.Default.AutoSubtitle = AutoSubtitleType.Language;
+									Settings.Default.AutoSubtitle = SubtitleSelectionMode.Language;
 								}
 							}
 						}

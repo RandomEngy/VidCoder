@@ -884,6 +884,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to picker.
+        /// </summary>
+        public static string PickerWord {
+            get {
+                return ResourceManager.GetString("PickerWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Play.
         /// </summary>
         public static string Play {
@@ -1118,56 +1127,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to remove this preset?.
+        ///   Looks up a localized string similar to preset.
         /// </summary>
-        public static string PresetRemoveConfirmMessage {
+        public static string PresetWord {
             get {
-                return ResourceManager.GetString("PresetRemoveConfirmMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove Preset.
-        /// </summary>
-        public static string PresetRemoveConfirmTitle {
-            get {
-                return ResourceManager.GetString("PresetRemoveConfirmTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to revert all unsaved changes to this preset?.
-        /// </summary>
-        public static string PresetRevertConfirmMessage {
-            get {
-                return ResourceManager.GetString("PresetRevertConfirmMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Revert Preset.
-        /// </summary>
-        public static string PresetRevertConfirmTitle {
-            get {
-                return ResourceManager.GetString("PresetRevertConfirmTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Do you want to save changes to your current preset?.
-        /// </summary>
-        public static string PresetSaveConfirmMessage {
-            get {
-                return ResourceManager.GetString("PresetSaveConfirmMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save current preset?.
-        /// </summary>
-        public static string PresetSaveConfirmTitle {
-            get {
-                return ResourceManager.GetString("PresetSaveConfirmTitle", resourceCulture);
+                return ResourceManager.GetString("PresetWord", resourceCulture);
             }
         }
         
@@ -1300,6 +1264,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove this {0}?.
+        /// </summary>
+        public static string RemoveConfirmMessage {
+            get {
+                return ResourceManager.GetString("RemoveConfirmMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove {0}.
+        /// </summary>
+        public static string RemoveConfirmTitle {
+            get {
+                return ResourceManager.GetString("RemoveConfirmTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove from queue.
         /// </summary>
         public static string RemoveFromQueueToolTip {
@@ -1345,6 +1327,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to revert all unsaved changes to this {0}?.
+        /// </summary>
+        public static string RevertConfirmMessage {
+            get {
+                return ResourceManager.GetString("RevertConfirmMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revert {0}.
+        /// </summary>
+        public static string RevertConfirmTitle {
+            get {
+                return ResourceManager.GetString("RevertConfirmTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to save changes to your current preset?.
         /// </summary>
         public static string SaveChangesPresetMessage {
@@ -1359,6 +1359,24 @@ namespace VidCoder.Resources {
         public static string SaveChangesPresetTitle {
             get {
                 return ResourceManager.GetString("SaveChangesPresetTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save changes to your current {0}?.
+        /// </summary>
+        public static string SaveConfirmMessage {
+            get {
+                return ResourceManager.GetString("SaveConfirmMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save current {0}?.
+        /// </summary>
+        public static string SaveConfirmTitle {
+            get {
+                return ResourceManager.GetString("SaveConfirmTitle", resourceCulture);
             }
         }
         

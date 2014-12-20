@@ -192,30 +192,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>Automatically rename</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Automatic audio selection</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Audio / Subtitles</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Language:</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Include all tracks</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Automatic subtitle selection</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Foreign Audio Search</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Burn in</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Only if different language from audio</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Automatically pause encoding when any of these processes are running:</value>
   </data>
@@ -408,17 +384,13 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Preserve Created and Modified time when converting files</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Default</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
   <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
     <value>Preserve folder structure in batch encodes</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
     <value>If you encode a folder full of files the encoded versions will be put into subfolders to match the source directory structure.</value>
   </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Custom folder for previews:</value>
   </data>
 </root>

@@ -21,6 +21,7 @@ NativeLanguageCode|string|""
 DubAudio|bool|false
 
 LastPresetIndex|int|0
+LastPickerIndex|int|0
 EncodingDialogLastTab|int|0
 OptionsDialogLastTab|int|0
 

@@ -85,24 +85,10 @@
 
 		<Style x:Key="GrayNonCompatible" TargetType="ComboBoxItem">
 			<Style.Triggers>
-				<DataTrigger Binding="{Binding IsCompatible}" Value="False">
-					<Setter Property="Foreground" Value="Gray" />
-				</DataTrigger>
-				<!--<MultiDataTrigger>
-					<MultiDataTrigger.Conditions>
-						<Condition Binding="{Binding IsCompatible}" Value="False" />
-						<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="False" />
-					</MultiDataTrigger.Conditions>
-					<Setter Property="Foreground" Value="Gray" />
-				</MultiDataTrigger>
-				<MultiDataTrigger>
-					<MultiDataTrigger.Conditions>
-						<Condition Binding="{Binding IsCompatible}" Value="False" />
-						<Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource Mode=Self}}" Value="True" />
-					</MultiDataTrigger.Conditions>
-					<Setter Property="Foreground" Value="#DDDDDD" />
-				</MultiDataTrigger>-->
-			</Style.Triggers>
+                <DataTrigger Binding="{Binding IsCompatible}" Value="False">
+                    <Setter Property="Foreground" Value="Gray" />
+                </DataTrigger>
+            </Style.Triggers>
 		</Style>
 
 		<Style x:Key="SectionHeader" TargetType="TextBlock">
@@ -115,7 +101,18 @@
 			<Setter Property="BorderBrush" Value="#999999" />
 		</Style>
 
-		<SolidColorBrush x:Key="DisabledBrush" Color="#4C4C4C" />
+        <Style x:Key="ConfigSectionStack" TargetType="StackPanel">
+            <Setter Property="Margin" Value="20,0,0,20" />
+            <Setter Property="Orientation" Value="Vertical" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style>
+        <Style x:Key="ConfigSectionHeader" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="0,0,0,6" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+
+        <SolidColorBrush x:Key="DisabledBrush" Color="#4C4C4C" />
 		<Style x:Key="LongToolTip" TargetType="TextBlock">
 			<Setter Property="MaxWidth" Value="400" />
 			<Setter Property="TextWrapping" Value="Wrap" />
