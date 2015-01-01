@@ -162,6 +162,8 @@ namespace VidCoder.Model
                             pickerParameter.Value = PickerStorage.SerializePicker(convertedPicker);
                             pickerInsertCommand.ExecuteNonQuery();
                         }
+
+                        Config.LastPickerIndex = 1;
                     }
                 }
 
