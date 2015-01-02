@@ -104,7 +104,9 @@
 	<data name="QueueSectionHeader" xml:space="preserve">
     <value>Cola</value>
   </data>
-	
+	<data name="ScanPassLabel" xml:space="preserve">
+    <value>Pasada de análisis:</value>
+  </data>
 	<data name="FirstPassLabel" xml:space="preserve">
     <value>Primera pasada:</value>
   </data>

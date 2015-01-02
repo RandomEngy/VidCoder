@@ -988,6 +988,10 @@ Bicúbica: Esto es un algoritmo OpenCL de escalamiento acelerado por hardware.</
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Si la pista de entrada coincide con el códec sera pasado a traves en lugar de codificar.</value>
   </data>
-	
-	
+	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+    <value>Algoritmo de reescalado:</value>
+  </data>
+	<data name="RotationLabel" xml:space="preserve">
+    <value>Rotación:</value>
+  </data>
 </root>
