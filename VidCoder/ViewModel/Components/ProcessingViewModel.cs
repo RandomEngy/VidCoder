@@ -936,7 +936,8 @@ namespace VidCoder.ViewModel.Components
 					RangeType = VideoRangeType.All,
 					EncodingProfile = profile,
 					ChosenAudioTracks = new List<int> { 1 },
-					OutputPath = destination
+					OutputPath = destination,
+                    UseDefaultChapterNames = true
 				});
 
 			jobVM.PresetName = presetName;
