@@ -4,11 +4,11 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:dataModels="clr-namespace:VidCoder.ViewModel.DataModels"
+	xmlns:encoding="clr-namespace:VidCoder.Model.Encoding"
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:res="clr-namespace:VidCoder.Resources"
 	xmlns:viewModel="clr-namespace:VidCoder.ViewModel"
-	xmlns:encoding="clr-namespace:VidCoder.Model.Encoding"
 	d:DataContext="{d:DesignInstance viewModel:VideoFiltersPanelViewModel}"
 	d:DesignHeight="330"
 	d:DesignWidth="622"
@@ -134,10 +134,10 @@
 			<ComboBox
 				Grid.Row="3"
 				Grid.Column="1"
+				DisplayMemberPath="Display"
 				ItemsSource="{Binding DenoiseChoices}"
 				SelectedValue="{Binding SelectedDenoise}"
-                DisplayMemberPath="Display"
-                SelectedValuePath="Value"
+				SelectedValuePath="Value"
 				Style="{StaticResource NormalComboBox}" />
 
 			<StackPanel
@@ -180,7 +180,9 @@
 
 				<TextBox
 					Style="{StaticResource CustomFilterBox}"
-					Text="{Binding CustomDenoise}"
+					Text="{Binding CustomDenoise,
+				                        Mode=TwoWay,
+				                        UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding CustomDenoiseVisible,
 				                              Converter={StaticResource VisibilityConverter}}" />
 			</StackPanel>
