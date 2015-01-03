@@ -233,6 +233,12 @@ namespace VidCoder.ViewModel
                 {
                     this.picker.SubtitleLanguageAll = value;
                     this.RaisePropertyChanged(() => this.SubtitleLanguageAll);
+
+	                this.picker.SubtitleLanguageBurnIn = false;
+					this.RaisePropertyChanged(() => this.SubtitleLanguageBurnIn);
+
+	                this.picker.SubtitleLanguageDefault = false;
+					this.RaisePropertyChanged(() => this.SubtitleLanguageDefault);
                 });
             }
         }
@@ -246,6 +252,12 @@ namespace VidCoder.ViewModel
                 {
                     this.picker.SubtitleLanguageDefault = value;
                     this.RaisePropertyChanged(() => this.SubtitleLanguageDefault);
+
+					this.picker.SubtitleLanguageBurnIn = false;
+					this.RaisePropertyChanged(() => this.SubtitleLanguageBurnIn);
+
+	                this.picker.SubtitleLanguageAll = false;
+					this.RaisePropertyChanged(() => this.SubtitleLanguageAll);
                 });
             }
         }
@@ -259,6 +271,12 @@ namespace VidCoder.ViewModel
                 {
                     this.picker.SubtitleLanguageBurnIn = value;
                     this.RaisePropertyChanged(() => this.SubtitleLanguageBurnIn);
+
+					this.picker.SubtitleLanguageDefault = false;
+					this.RaisePropertyChanged(() => this.SubtitleLanguageDefault);
+
+					this.picker.SubtitleLanguageAll = false;
+					this.RaisePropertyChanged(() => this.SubtitleLanguageAll);
                 });
             }
         }

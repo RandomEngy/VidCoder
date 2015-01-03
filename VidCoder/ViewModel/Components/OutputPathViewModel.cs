@@ -221,7 +221,7 @@ namespace VidCoder.ViewModel.Components
 		/// <summary>
 		/// Gets the extension that should be used for the current encoding profile.
 		/// </summary>
-		/// <returns>The extension (with dot) that should be used for current encoding profile.</returns>
+		/// <returns>The extension that should be used for current encoding profile.</returns>
 		public string GetOutputExtension(bool includeDot = true)
 		{
 			VCProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;

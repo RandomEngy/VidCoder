@@ -94,6 +94,10 @@ ResumeEncodingOnRestart|bool|false
 UseWorkerProcess|bool|true
 RememberPreviousFiles|bool|true
 VideoFileExtensions|string|"avi, mkv, mp4, m4v, mpg, mpeg, mov, wmv"
+PreferredPlayer|string|"vlc"
+BetaUpdates|bool|false
+InterfaceLanguageCode|string|""
+
 AudioLanguageCode|string|"und"
 SubtitleLanguageCode|string|"und"
 AutoAudio|string|"Disabled"
@@ -104,6 +108,3 @@ AutoSubtitleOnlyIfDifferent|bool|true
 AutoSubtitleBurnIn|bool|true
 AutoSubtitleLanguageDefault|bool|false
 AutoSubtitleLanguageBurnIn|bool|false
-PreferredPlayer|string|"vlc"
-BetaUpdates|bool|false
-InterfaceLanguageCode|string|""

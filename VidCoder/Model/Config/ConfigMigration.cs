@@ -70,14 +70,6 @@ namespace VidCoder
 				Config.DeleteSourceFilesOnClearingCompleted = Settings.Default.DeleteSourceFilesOnClearingCompleted;
 				Config.RememberPreviousFiles = Settings.Default.RememberPreviousFiles;
 				Config.VideoFileExtensions = Settings.Default.VideoFileExtensions;
-				Config.AudioLanguageCode = Settings.Default.AudioLanguageCode;
-				Config.SubtitleLanguageCode = Settings.Default.SubtitleLanguageCode;
-				CustomConfig.AutoAudio = Settings.Default.AutoAudio;
-				CustomConfig.AutoSubtitle = Settings.Default.AutoSubtitle;
-				Config.AutoAudioAll = Settings.Default.AutoAudioAll;
-				Config.AutoSubtitleAll = Settings.Default.AutoSubtitleAll;
-				Config.AutoSubtitleOnlyIfDifferent = Settings.Default.AutoSubtitleOnlyIfDifferent;
-				Config.AutoSubtitleBurnIn = Settings.Default.AutoSubtitleBurnIn;
 				Config.PreferredPlayer = Settings.Default.PreferredPlayer;
 				Config.BetaUpdates = Settings.Default.BetaUpdates;
 				Config.InterfaceLanguageCode = Settings.Default.InterfaceLanguageCode;

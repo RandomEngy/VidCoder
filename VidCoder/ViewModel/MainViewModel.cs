@@ -42,6 +42,7 @@ namespace VidCoder.ViewModel
 		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
 		private OutputPathViewModel outputPathVM;
 		private PresetsViewModel presetsVM;
+		private PickersViewModel pickersVM;
 		private ProcessingViewModel processingVM;
 		private WindowManagerViewModel windowManagerVM;
 
@@ -101,6 +102,7 @@ namespace VidCoder.ViewModel
 			this.outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
 			this.processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
 			this.presetsVM = Ioc.Container.GetInstance<PresetsViewModel>();
+			this.pickersVM = Ioc.Container.GetInstance<PickersViewModel>();
 			this.windowManagerVM = Ioc.Container.GetInstance<WindowManagerViewModel>();
 
 			updater.CheckUpdates();
@@ -816,8 +818,10 @@ namespace VidCoder.ViewModel
 					Subtitles oldSubtitles = this.CurrentSubtitles;
 					this.CurrentSubtitles = new Subtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
 
+					Picker picker = this.pickersVM.SelectedPicker.Picker;
+
 					// Audio selection
-					switch (CustomConfig.AutoAudio)
+					switch (picker.AudioSelectionMode)
 					{
 						case AudioSelectionMode.Disabled:
 							// If no auto-selection is done, keep audio from previous selection.
@@ -847,10 +851,10 @@ namespace VidCoder.ViewModel
 							break;
 						case AudioSelectionMode.Language:
 							this.AudioChoices.Clear();
-							List<AudioTrack> nativeTracks = this.selectedTitle.AudioTracks.Where(track => track.LanguageCode == Config.AudioLanguageCode).ToList();
+							List<AudioTrack> nativeTracks = this.selectedTitle.AudioTracks.Where(track => track.LanguageCode == picker.AudioLanguageCode).ToList();
 							if (nativeTracks.Count > 0)
 							{
-								if (Config.AutoAudioAll)
+								if (picker.AudioLanguageAll)
 								{
 									foreach (AudioTrack audioTrack in nativeTracks)
 									{
@@ -884,7 +888,7 @@ namespace VidCoder.ViewModel
 						this.AudioChoices.Add(newVM);
 					}
 
-					switch (CustomConfig.AutoSubtitle)
+					switch (picker.SubtitleSelectionMode)
 					{
 						case SubtitleSelectionMode.Disabled:
 							// If no auto-selection is done, try and keep selections from previous title
@@ -919,16 +923,16 @@ namespace VidCoder.ViewModel
 								new SourceSubtitle
 									{
 										TrackNumber = 0,
-										BurnedIn = Config.AutoSubtitleBurnIn,
+										BurnedIn = picker.SubtitleForeignBurnIn,
 										Forced = true,
 										Default = true
 									});
 							break;
 						case SubtitleSelectionMode.Language:
-							string languageCode = Config.SubtitleLanguageCode;
+							string languageCode = picker.SubtitleLanguageCode;
 							bool audioSame = false;
-							bool burnIn = Config.AutoSubtitleLanguageBurnIn;
-							bool def = Config.AutoSubtitleLanguageDefault;
+							bool burnIn = picker.SubtitleLanguageBurnIn;
+							bool def = picker.SubtitleLanguageDefault;
 							if (this.AudioChoices.Count > 0)
 							{
 								if (this.selectedTitle.AudioTracks[this.AudioChoices[0].SelectedIndex].LanguageCode == languageCode)
@@ -937,12 +941,12 @@ namespace VidCoder.ViewModel
 								}
 							}
 
-							if (!Config.AutoSubtitleOnlyIfDifferent || !audioSame)
+							if (!picker.SubtitleLanguageOnlyIfDifferent || !audioSame)
 							{
 								List<Subtitle> nativeSubtitles = this.selectedTitle.Subtitles.Where(subtitle => subtitle.LanguageCode == languageCode).ToList();
 								if (nativeSubtitles.Count > 0)
 								{
-									if (Config.AutoSubtitleAll)
+									if (picker.SubtitleLanguageAll)
 									{
 										foreach (Subtitle subtitle in nativeSubtitles)
 										{
