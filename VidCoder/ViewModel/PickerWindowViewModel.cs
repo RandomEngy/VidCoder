@@ -5,10 +5,13 @@ using System.Text;
 using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop.Model;
 using Omu.ValueInjecter;
+using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
+using VidCoder.Services;
 using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
@@ -18,7 +21,6 @@ namespace VidCoder.ViewModel
         private PickersViewModel pickersViewModel = Ioc.Container.GetInstance<PickersViewModel>();
 
         private Picker picker;
-        private Picker originalPicker;
         private bool isNone;
 
         public PickerWindowViewModel(Picker picker)
@@ -34,22 +36,11 @@ namespace VidCoder.ViewModel
 
         public Picker EditingPicker
         {
-            get { return this.originalPicker; }
+            get { return this.picker; }
 
             set
             {
-                if (value.IsModified)
-                {
-                    this.picker = value;
-                }
-                else
-                {
-                    var newPicker = new Picker();
-                    newPicker.InjectFrom(value);
-                    this.picker = newPicker;
-                }
-
-                this.originalPicker = value;
+                this.picker = value;
 
                 this.IsNone = value.IsNone;
 
@@ -75,7 +66,7 @@ namespace VidCoder.ViewModel
         {
             get
             {
-                return this.originalPicker.DisplayName;
+                return this.picker.DisplayName;
             }
         }
 
@@ -111,14 +102,6 @@ namespace VidCoder.ViewModel
                 // Don't mark as modified if this is an automatic change.
                 if (!this.AutomaticChange)
                 {
-                    if (this.picker.IsModified != value)
-                    {
-                        if (value)
-                        {
-                            this.pickersViewModel.ModifyPicker(this.picker);
-                        }
-                    }
-
                     this.DeleteCommand.RaiseCanExecuteChanged();
                     this.RaisePropertyChanged(() => this.IsModified);
                     this.RaisePropertyChanged(() => this.WindowTitle);
@@ -132,6 +115,68 @@ namespace VidCoder.ViewModel
                 }
             }
         }
+
+		public bool TitleRangeSelectEnabled
+		{
+			get
+			{
+				return this.picker.TitleRangeSelectEnabled;
+			}
+
+			set
+			{
+				UpdateProperty(() =>
+				{
+					this.picker.TitleRangeSelectEnabled = value;
+					this.SendTitleRangeChangeMessage();
+					this.RaisePropertyChanged(() => this.TitleRangeSelectEnabled);
+				});
+			}
+		}
+
+		public int TitleRangeSelectStartMinutes
+		{
+			get
+			{
+				return this.picker.TitleRangeSelectStartMinutes;
+			}
+
+			set
+			{
+				UpdateProperty(() =>
+				{
+					this.picker.TitleRangeSelectStartMinutes = value;
+					if (this.TitleRangeSelectEnabled)
+					{
+						this.SendTitleRangeChangeMessage();
+					}
+
+					this.RaisePropertyChanged(() => this.TitleRangeSelectStartMinutes);
+				});
+			}
+		}
+
+		public int TitleRangeSelectEndMinutes
+		{
+			get
+			{
+				return this.picker.TitleRangeSelectEndMinutes;
+			}
+
+			set
+			{
+				UpdateProperty(() =>
+				{
+					this.picker.TitleRangeSelectEndMinutes = value;
+					if (this.TitleRangeSelectEnabled)
+					{
+						this.SendTitleRangeChangeMessage();
+					}
+
+					this.RaisePropertyChanged(() => this.TitleRangeSelectStartMinutes);
+				});
+			}
+		}
 
         public AudioSelectionMode AudioSelectionMode
         {
@@ -288,6 +333,13 @@ namespace VidCoder.ViewModel
             {
                 this.pickersViewModel.AutoCreatePicker();
             }
+			else if (!this.IsModified)
+	        {
+				// Clone the picker so we modify a different copy.
+				var newPicker = new Picker();
+				newPicker.InjectFrom(this.picker);
+				this.picker = newPicker;
+			}
 
             action();
 
@@ -297,6 +349,11 @@ namespace VidCoder.ViewModel
             }
             else
             {
+	            if (!this.IsModified)
+	            {
+					this.pickersViewModel.ModifyPicker(this.picker);
+	            }
+
                 this.IsModified = true;
             }
         }
@@ -318,11 +375,6 @@ namespace VidCoder.ViewModel
                 {
                     this.pickersViewModel.SavePicker();
                     this.IsModified = false;
-
-                    // Clone the picker so that on modifications, we're working on a new copy.
-                    var newPicker = new Picker();
-                    newPicker.InjectFrom(this.picker);
-                    this.picker = newPicker;
                 }, () =>
                 {
                     return !this.IsNone;
@@ -338,7 +390,7 @@ namespace VidCoder.ViewModel
                 return this.saveAsCommand ?? (this.saveAsCommand = new RelayCommand(() =>
                 {
                     var dialogVM = new ChooseNameViewModel(MainRes.PickerWord, this.pickersViewModel.Pickers.Skip(1).Select(p => p.Name));
-                    dialogVM.Name = this.originalPicker.DisplayName;
+                    dialogVM.Name = this.picker.DisplayName;
                     WindowManager.OpenDialog(dialogVM, this);
 
                     if (dialogVM.DialogResult)
@@ -365,13 +417,12 @@ namespace VidCoder.ViewModel
                 return this.renameCommand ?? (this.renameCommand = new RelayCommand(() =>
                 {
                     var dialogVM = new ChooseNameViewModel(MainRes.PickerWord, this.pickersViewModel.Pickers.Skip(1).Select(p => p.Name));
-                    dialogVM.Name = this.originalPicker.DisplayName;
+                    dialogVM.Name = this.picker.DisplayName;
                     WindowManager.OpenDialog(dialogVM, this);
 
                     if (dialogVM.DialogResult)
                     {
                         string newPickerName = dialogVM.Name;
-                        this.originalPicker.Name = newPickerName;
                         this.picker.Name = newPickerName;
 
                         this.pickersViewModel.SavePicker();
@@ -405,10 +456,8 @@ namespace VidCoder.ViewModel
                             MessageBoxButton.YesNo);
                         if (dialogResult == MessageBoxResult.Yes)
                         {
-                            this.pickersViewModel.RevertPicker();
+                            this.EditingPicker = this.pickersViewModel.RevertPicker();
                         }
-
-                        this.EditingPicker = this.originalPicker;
                     }
                     else
                     {
@@ -431,6 +480,14 @@ namespace VidCoder.ViewModel
             }
         }
 
+	    private void SendTitleRangeChangeMessage()
+	    {
+			DispatchService.BeginInvoke(() =>
+			{
+				Messenger.Default.Send(new TitleRangeSelectChangedMessage());
+			});
+	    }
+
         private void NotifyAllChanged()
         {
             this.AutomaticChange = true;
@@ -441,7 +498,10 @@ namespace VidCoder.ViewModel
             this.RaisePropertyChanged(() => this.DeleteButtonVisible);
             this.RaisePropertyChanged(() => this.IsModified);
 
-            this.RaisePropertyChanged(() => this.AudioSelectionMode);
+			this.RaisePropertyChanged(() => this.TitleRangeSelectEnabled);
+			this.RaisePropertyChanged(() => this.TitleRangeSelectStartMinutes);
+			this.RaisePropertyChanged(() => this.TitleRangeSelectEndMinutes);
+			this.RaisePropertyChanged(() => this.AudioSelectionMode);
             this.RaisePropertyChanged(() => this.AudioLanguageCode);
             this.RaisePropertyChanged(() => this.AudioLanguageAll);
             this.RaisePropertyChanged(() => this.SubtitleSelectionMode);

@@ -19,11 +19,11 @@ namespace VidCoder.View
 	/// <summary>
 	/// Interaction logic for MultipleTitlesDialog.xaml
 	/// </summary>
-	public partial class QueueTitlesDialog : Window
+	public partial class QueueTitlesWindow : Window
 	{
-		private QueueTitlesDialogViewModel viewModel;
+		private QueueTitlesWindowViewModel viewModel;
 
-		public QueueTitlesDialog()
+		public QueueTitlesWindow()
 		{
 			InitializeComponent();
 
@@ -38,7 +38,7 @@ namespace VidCoder.View
 
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
-			this.viewModel = this.DataContext as QueueTitlesDialogViewModel;
+			this.viewModel = this.DataContext as QueueTitlesWindowViewModel;
 			this.viewModel.PropertyChanged += this.viewModel_PropertyChanged;
 		}
 
@@ -52,7 +52,7 @@ namespace VidCoder.View
 
 		private void RefreshImageSize()
 		{
-			var previewVM = this.DataContext as QueueTitlesDialogViewModel;
+			var previewVM = this.DataContext as QueueTitlesWindowViewModel;
 			if (previewVM.SelectedTitles.Count != 1)
 			{
 				return;

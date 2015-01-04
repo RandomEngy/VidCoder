@@ -9,10 +9,10 @@ namespace VidCoder.ViewModel
 {
 	public class TitleSelectionViewModel : ViewModelBase
 	{
-		private QueueTitlesDialogViewModel titlesDialogVM;
+		private QueueTitlesWindowViewModel titlesDialogVM;
 		private bool selected;
 
-		public TitleSelectionViewModel(Title title, QueueTitlesDialogViewModel titlesDialogVM)
+		public TitleSelectionViewModel(Title title, QueueTitlesWindowViewModel titlesDialogVM)
 		{
 			this.Title = title;
 			this.titlesDialogVM = titlesDialogVM;

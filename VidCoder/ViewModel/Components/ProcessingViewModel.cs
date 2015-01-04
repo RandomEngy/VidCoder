@@ -585,8 +585,8 @@ namespace VidCoder.ViewModel.Components
 							return;
 						}
 
-						var queueTitlesDialog = new QueueTitlesDialogViewModel(this.main.SourceData.Titles);
-						WindowManager.OpenDialog(queueTitlesDialog, this.main);
+						var queueTitlesDialog = new QueueTitlesWindowViewModel();
+						WindowManager.OpenWindow(queueTitlesDialog, this.main);
 
 						if (queueTitlesDialog.DialogResult)
 						{

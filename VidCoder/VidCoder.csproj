@@ -355,7 +355,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\QueueTitlesDialog.xaml">
+    <Page Include="View\QueueTitlesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -424,7 +424,9 @@
     <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="Messages\ContainerChangedMessage.cs" />
     <Compile Include="Messages\EncodingProfileChangedMessage.cs" />
+    <Compile Include="Messages\PickerChangedMessage.cs" />
     <Compile Include="Messages\RotationChangedMessage.cs" />
+    <Compile Include="Messages\TitleRangeSelectChangedMessage.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />
     <Compile Include="Model\Encoding\VCAnamorphic.cs" />
@@ -645,7 +647,7 @@
     <Compile Include="ViewModel\LogViewModel.cs" />
     <Compile Include="ViewModel\Panels\PanelViewModel.cs" />
     <Compile Include="ViewModel\Panels\PicturePanelViewModel.cs" />
-    <Compile Include="ViewModel\QueueTitlesDialogViewModel.cs" />
+    <Compile Include="ViewModel\QueueTitlesWindowViewModel.cs" />
     <Compile Include="ViewModel\QueueColumnsViewModel.cs" />
     <Compile Include="ViewModel\ScanMultipleDialogViewModel.cs" />
     <Compile Include="ViewModel\Panels\VideoFiltersPanelViewModel.cs" />
@@ -668,8 +670,8 @@
     <Compile Include="View\Panels\PicturePanel.xaml.cs">
       <DependentUpon>PicturePanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\QueueTitlesDialog.xaml.cs">
-      <DependentUpon>QueueTitlesDialog.xaml</DependentUpon>
+    <Compile Include="View\QueueTitlesWindow.xaml.cs">
+      <DependentUpon>QueueTitlesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\QueueColumnsDialog.xaml.cs">
       <DependentUpon>QueueColumnsDialog.xaml</DependentUpon>

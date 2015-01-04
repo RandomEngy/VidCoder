@@ -6,12 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Windows.Media;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using HandBrake.Interop.Model;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using System.Collections.ObjectModel;
+using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Model.Encoding;
+using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
@@ -19,26 +22,22 @@ namespace VidCoder.ViewModel
 	using Resources;
 	using Services;
 
-	public class QueueTitlesDialogViewModel : OkCancelDialogViewModel
+	public class QueueTitlesWindowViewModel : OkCancelDialogViewModel
 	{
-		private List<TitleSelectionViewModel> titles;
+		private ObservableCollection<TitleSelectionViewModel> titles;
 		private ObservableCollection<TitleSelectionViewModel> selectedTitles;
-		private bool selectRange;
-		private int startRange;
-		private int endRange;
 		private bool titleStartOverrideEnabled;
 		private int titleStartOverride;
 
 		private MainViewModel main;
+		private PickersViewModel pickersViewModel;
 
-		public QueueTitlesDialogViewModel(List<Title> allTitles)
+		public QueueTitlesWindowViewModel()
 		{
 			this.main = Ioc.Container.GetInstance<MainViewModel>();
+			this.pickersViewModel = Ioc.Container.GetInstance<PickersViewModel>();
 
 			this.selectedTitles = new ObservableCollection<TitleSelectionViewModel>();
-			this.selectRange = Config.QueueTitlesUseRange;
-			this.startRange = Config.QueueTitlesStartTime;
-			this.endRange = Config.QueueTitlesEndTime;
 			this.titleStartOverrideEnabled = Config.QueueTitlesUseTitleOverride;
 			this.titleStartOverride = Config.QueueTitlesTitleOverride;
 			this.directoryOverrideEnabled = Config.QueueTitlesUseDirectoryOverride;
@@ -46,18 +45,29 @@ namespace VidCoder.ViewModel
 			this.nameOverrideEnabled = Config.QueueTitlesUseNameOverride;
 			this.nameOverride = Config.QueueTitlesNameOverride;
 
-			this.titles = new List<TitleSelectionViewModel>();
-			foreach (Title title in allTitles)
-			{
-				var titleVM = new TitleSelectionViewModel(title, this);
-				this.titles.Add(titleVM);
-			}
+			this.titles = new ObservableCollection<TitleSelectionViewModel>();
+			this.RefreshTitles();
 
-			// Perform range selection if enabled.
-			if (this.selectRange)
-			{
-				this.SetSelectedFromRange();
-			}
+			Messenger.Default.Register<VideoSourceChangedMessage>(
+				this,
+				message =>
+				{
+					this.RefreshTitles();
+				});
+
+			Messenger.Default.Register<TitleRangeSelectChangedMessage>(
+				this,
+				message =>
+				{
+					this.SetSelectedFromRange();
+				});
+
+			Messenger.Default.Register<PickerChangedMessage>(
+				this,
+				message =>
+				{
+					this.SetSelectedFromRange();
+				});
 
 			this.selectedTitles.CollectionChanged +=
 				(sender, args) =>
@@ -92,7 +102,7 @@ namespace VidCoder.ViewModel
 			    };
 		}
 
-		public List<TitleSelectionViewModel> Titles
+		public ObservableCollection<TitleSelectionViewModel> Titles
 		{
 			get
 			{
@@ -149,75 +159,6 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return Utilities.IsDvdFolder(this.main.SourcePath);
-			}
-		}
-
-		public bool SelectRange
-		{
-			get
-			{
-				return this.selectRange;
-			}
-
-			set
-			{
-				this.selectRange = value;
-				if (value)
-				{
-					this.SetSelectedFromRange();
-				}
-				else
-				{
-					foreach (TitleSelectionViewModel titleVM in this.titles)
-					{
-						if (titleVM.Selected)
-						{
-							titleVM.SetSelected(false);
-						}
-					}
-				}
-
-				this.RaisePropertyChanged(() => this.SelectRange);
-			}
-		}
-
-		public int StartRange
-		{
-			get
-			{
-				return this.startRange;
-			}
-
-			set
-			{
-				this.startRange = value;
-
-				if (this.SelectRange)
-				{
-					this.SetSelectedFromRange();
-				}
-
-				this.RaisePropertyChanged(() => this.StartRange);
-			}
-		}
-
-		public int EndRange
-		{
-			get
-			{
-				return this.endRange;
-			}
-
-			set
-			{
-				this.endRange = value;
-
-				if (this.SelectRange)
-				{
-					this.SetSelectedFromRange();
-				}
-
-				this.RaisePropertyChanged(() => this.EndRange);
 			}
 		}
 
@@ -368,9 +309,6 @@ namespace VidCoder.ViewModel
 		{
 			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
 			{
-				Config.QueueTitlesUseRange = this.SelectRange;
-				Config.QueueTitlesStartTime = this.StartRange;
-				Config.QueueTitlesEndTime = this.EndRange;
 				Config.QueueTitlesUseTitleOverride = this.TitleStartOverrideEnabled;
 				Config.QueueTitlesTitleOverride = this.TitleStartOverride;
 				Config.QueueTitlesUseDirectoryOverride = this.DirectoryOverrideEnabled;
@@ -398,23 +336,55 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private void RefreshTitles()
+		{
+			this.titles.Clear();
+
+			if (this.main.SourceData != null)
+			{
+				foreach (Title title in this.main.SourceData.Titles)
+				{
+					var titleVM = new TitleSelectionViewModel(title, this);
+					this.titles.Add(titleVM);
+				}
+
+				// Perform range selection if enabled.
+				this.SetSelectedFromRange();
+			}
+		}
+
 		private void SetSelectedFromRange()
 		{
-			TimeSpan lowerBound = TimeSpan.FromMinutes(this.StartRange);
-			TimeSpan upperBound = TimeSpan.FromMinutes(this.EndRange);
+			Picker picker = this.pickersViewModel.SelectedPicker.Picker;
 
-			foreach (TitleSelectionViewModel titleVM in this.titles)
+			if (picker.TitleRangeSelectEnabled)
 			{
-				if (titleVM.Title.Duration >= lowerBound && titleVM.Title.Duration <= upperBound)
+				TimeSpan lowerBound = TimeSpan.FromMinutes(picker.TitleRangeSelectStartMinutes);
+				TimeSpan upperBound = TimeSpan.FromMinutes(picker.TitleRangeSelectEndMinutes);
+
+				foreach (TitleSelectionViewModel titleVM in this.titles)
 				{
-					if (!titleVM.Selected)
+					if (titleVM.Title.Duration >= lowerBound && titleVM.Title.Duration <= upperBound)
 					{
-						titleVM.SetSelected(true);
+						if (!titleVM.Selected)
+						{
+							titleVM.SetSelected(true);
+						}
+					}
+					else if (titleVM.Selected)
+					{
+						titleVM.SetSelected(false);
 					}
 				}
-				else if (titleVM.Selected)
+			}
+			else
+			{
+				foreach (TitleSelectionViewModel titleVM in this.titles)
 				{
-					titleVM.SetSelected(false);
+					if (titleVM.Selected)
+					{
+						titleVM.SetSelected(false);
+					}
 				}
 			}
 		}

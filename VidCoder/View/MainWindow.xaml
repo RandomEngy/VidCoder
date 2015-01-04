@@ -567,9 +567,9 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Margin="12 0 30 0"
-                    Command="{Binding OpenPickerWindowCommand}"
-                    MenuItemsSource="{Binding PickerButtonMenuItems}">
-                    <TextBlock Text="{Binding PickerButtonText}" Margin="4 0" />
+                    Command="{Binding WindowManagerVM.OpenPickerWindowCommand}"
+                    MenuItemsSource="{Binding PickersVM.PickerButtonMenuItems}">
+					<TextBlock Text="{Binding PickersVM.PickerButtonText}" Margin="4 0" />
                 </controls:SplitButton>
 
                 <!--  Close video source button  -->
@@ -1293,27 +1293,11 @@
                                                     <Setter Property="Foreground" Value="#0B4BC2" />
                                                     <Setter Property="FontWeight" Value="Bold" />
                                                 </DataTrigger>
-                                                <DataTrigger Binding="{Binding IsQueue}" Value="True">
-                                                    <Setter Property="Foreground" Value="#222222" />
-                                                    <Setter Property="FontWeight" Value="Normal" />
-                                                </DataTrigger>
-                                                <!--
-                                                    <MultiDataTrigger>
-                                                    <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding IsBuiltIn}" Value="False" />
-                                                    <Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource AncestorType=ComboBoxItem}}" Value="True" />
-                                                    </MultiDataTrigger.Conditions>
-                                                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
-                                                    </MultiDataTrigger>
-                                                    <MultiDataTrigger>
-                                                    <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding IsQueue}" Value="True" />
-                                                    <Condition Binding="{Binding IsHighlighted, RelativeSource={RelativeSource AncestorType=ComboBoxItem}}" Value="True" />
-                                                    </MultiDataTrigger.Conditions>
-                                                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
-                                                    </MultiDataTrigger>
-                                                -->
-                                            </Style.Triggers>
+												<DataTrigger Binding="{Binding IsQueue}" Value="True">
+													<Setter Property="Foreground" Value="#222222" />
+													<Setter Property="FontWeight" Value="Normal" />
+												</DataTrigger>
+											</Style.Triggers>
                                         </Style>
                                     </TextBlock.Style>
                                 </TextBlock>

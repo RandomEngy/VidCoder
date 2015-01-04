@@ -6,8 +6,12 @@ using System.Linq;
 using System.Security.RightsManagement;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using Omu.ValueInjecter;
+using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -21,6 +25,7 @@ namespace VidCoder.ViewModel.Components
     public class PickersViewModel : ViewModelBase
     {
         private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
+	    private WindowManagerViewModel windowManagerViewModel = Ioc.Container.GetInstance<WindowManagerViewModel>();
 
         private PickerViewModel selectedPicker;
 
@@ -128,6 +133,51 @@ namespace VidCoder.ViewModel.Components
             }
         }
 
+		public string PickerButtonText
+		{
+			get { return string.Format(PickerRes.PickerButtonFormat, this.SelectedPicker.DisplayNameWithStar); }
+		}
+
+		public Collection<object> PickerButtonMenuItems
+		{
+			get
+			{
+				var result = new Collection<object>();
+
+				foreach (var picker in this.Pickers)
+				{
+					result.Add(new MenuItem
+					{
+						Header = picker.DisplayNameWithStar,
+						IsCheckable = true, 
+						IsChecked = picker == this.SelectedPicker,
+						Command = this.SelectPickerCommand,
+						CommandParameter = picker
+					});
+				}
+
+				result.Add(new Separator());
+				result.Add(new MenuItem { Header = MainRes.EditButton, Command = this.windowManagerViewModel.OpenPickerWindowCommand });
+
+				return result;
+			}
+		} 
+
+	    private RelayCommand<PickerViewModel> selectPickerCommand;
+		public RelayCommand<PickerViewModel> SelectPickerCommand
+	    {
+		    get
+		    {
+				return this.selectPickerCommand ?? (this.selectPickerCommand = new RelayCommand<PickerViewModel>(picker =>
+			    {
+				    if (picker != this.SelectedPicker)
+				    {
+					    this.SelectedPicker = picker;
+				    }
+			    }));
+		    }
+	    }
+
         public void SavePicker()
         {
             if (this.SelectedPicker.IsModified)
@@ -137,6 +187,7 @@ namespace VidCoder.ViewModel.Components
             }
 
             this.SelectedPicker.RefreshView();
+			this.RefreshPickerButton();
             this.SavePickersToStorage();
         }
 
@@ -159,7 +210,7 @@ namespace VidCoder.ViewModel.Components
             this.selectedPicker = null;
             this.SelectedPicker = newPickerVM;
 
-            this.SavePickersToStorage();
+			this.SavePickersToStorage();
         }
 
         public void AddPicker(Picker newPicker)
@@ -174,17 +225,18 @@ namespace VidCoder.ViewModel.Components
                 this.SelectedPicker = newPickerVM;
             }
 
-            this.SavePickersToStorage();
+			this.RefreshPickerButton();
+			this.SavePickersToStorage();
         }
 
-        public void RevertPicker()
+        public Picker RevertPicker()
         {
             Trace.Assert(this.SelectedPicker.OriginalPicker != null, "Error reverting preset: Original profile cannot be null.");
             Trace.Assert(this.SelectedPicker.OriginalPicker != this.SelectedPicker.Picker, "Error reverting preset: Original profile must be different from current profile.");
 
             if (this.SelectedPicker.OriginalPicker == null || this.SelectedPicker.OriginalPicker == this.SelectedPicker.Picker)
             {
-                return;
+                return null;
             }
 
             this.SelectedPicker.Picker = this.SelectedPicker.OriginalPicker;
@@ -192,7 +244,9 @@ namespace VidCoder.ViewModel.Components
             this.SelectedPicker.Picker.IsModified = false;
             this.SelectedPicker.RefreshView();
 
-            this.SavePickersToStorage();
+			this.SavePickersToStorage();
+
+	        return this.SelectedPicker.Picker;
         }
 
         public void DeletePicker()
@@ -201,7 +255,7 @@ namespace VidCoder.ViewModel.Components
             this.selectedPicker = null;
             this.SelectedPicker = this.Pickers[0];
 
-            this.SavePickersToStorage();
+			this.SavePickersToStorage();
         }
 
         public void AutoCreatePicker()
@@ -229,8 +283,12 @@ namespace VidCoder.ViewModel.Components
 
             this.selectedPicker = null;
             this.SelectedPicker = newPickerVM;
-        }
+		}
 
+		/// <summary>
+		/// Starts modification of the current picker, using the new passed-in picker.
+		/// </summary>
+		/// <param name="newPicker">The new picker. This should be a clone of the original, with a property modified.</param>
         public void ModifyPicker(Picker newPicker)
         {
             Trace.Assert(!this.SelectedPicker.IsModified, "Cannot start modification on already modified picker.");
@@ -245,7 +303,9 @@ namespace VidCoder.ViewModel.Components
             this.SelectedPicker.Picker = newPicker;
             this.SelectedPicker.Picker.IsModified = true;
             this.SelectedPicker.RefreshView();
-        }
+
+			this.RefreshPickerButton();
+		}
 
         public void SavePickersToStorage()
         {
@@ -280,6 +340,8 @@ namespace VidCoder.ViewModel.Components
         {
             return new Picker
             {
+				TitleRangeSelectStartMinutes = 40,
+				TitleRangeSelectEndMinutes = 50,
                 AudioSelectionMode = AudioSelectionMode.Disabled,
                 AudioLanguageCode = "und",
                 SubtitleSelectionMode = SubtitleSelectionMode.Disabled,
@@ -302,6 +364,12 @@ namespace VidCoder.ViewModel.Components
             this.Pickers.Insert(this.Pickers.Count, newPickerVM);
         }
 
+	    private void RefreshPickerButton()
+	    {
+			this.RaisePropertyChanged(() => this.PickerButtonText);
+			this.RaisePropertyChanged(() => this.PickerButtonMenuItems);
+	    }
+
         private void NotifySelectedPickerChanged()
         {
             var pickerWindow = WindowManager.FindWindow<PickerWindowViewModel>();
@@ -311,6 +379,9 @@ namespace VidCoder.ViewModel.Components
             }
 
             this.RaisePropertyChanged(() => this.SelectedPicker);
+			this.RefreshPickerButton();
+
+			Messenger.Default.Send(new PickerChangedMessage());
 
             Config.LastPickerIndex = this.Pickers.IndexOf(this.selectedPicker);
         }

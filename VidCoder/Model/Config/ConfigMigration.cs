@@ -42,9 +42,6 @@ namespace VidCoder
 				Config.LogWindowOpen = Settings.Default.LogWindowOpen;
 				Config.QueueColumns = Settings.Default.QueueColumns;
 				Config.QueueLastColumnWidth = Settings.Default.QueueLastColumnWidth;
-				Config.QueueTitlesStartTime = Settings.Default.QueueTitlesStartTime;
-				Config.QueueTitlesEndTime = Settings.Default.QueueTitlesEndTime;
-				Config.QueueTitlesUseRange = Settings.Default.QueueTitlesUseRange;
 				Config.QueueTitlesDialogPlacement = Settings.Default.QueueTitlesDialogPlacement;
 				Config.CompletedColumnWidths = Settings.Default.CompletedColumnWidths;
 				Config.LogVerbosity = Settings.Default.LogVerbosity;

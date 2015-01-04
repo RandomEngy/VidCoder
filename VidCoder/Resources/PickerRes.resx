@@ -144,4 +144,11 @@
   <data name="WindowTitle" xml:space="preserve">
     <value>Picker: {0}</value>
   </data>
+	<data name="TitleSelection" xml:space="preserve">
+    <value>Title selection</value>
+  </data>
+	<data name="PickerButtonFormat" xml:space="preserve">
+    <value>Picker: {0}</value>
+    <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
+  </data>
 </root>

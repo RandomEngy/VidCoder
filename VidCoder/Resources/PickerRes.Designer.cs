@@ -124,11 +124,29 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Picker: {0}.
+        /// </summary>
+        public static string PickerButtonFormat {
+            get {
+                return ResourceManager.GetString("PickerButtonFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Subtitle selection.
         /// </summary>
         public static string SubtitleSelection {
             get {
                 return ResourceManager.GetString("SubtitleSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title selection.
+        /// </summary>
+        public static string TitleSelection {
+            get {
+                return ResourceManager.GetString("TitleSelection", resourceCulture);
             }
         }
         

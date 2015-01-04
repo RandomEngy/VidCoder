@@ -456,34 +456,27 @@ namespace VidCoder.ViewModel
 
 		public OutputPathViewModel OutputPathVM
 		{
-			get
-			{
-				return this.outputPathVM;
-			}
+			get { return this.outputPathVM; }
 		}
 
 		public PresetsViewModel PresetsVM
 		{
-			get
-			{
-				return this.presetsVM;
-			}
+			get { return this.presetsVM; }
+		}
+
+		public PickersViewModel PickersVM
+		{
+			get { return this.pickersVM; }
 		}
 
 		public ProcessingViewModel ProcessingVM
 		{
-			get
-			{
-				return this.processingVM;
-			}
+			get { return this.processingVM; }
 		}
 
 		public WindowManagerViewModel WindowManagerVM
 		{
-			get
-			{
-				return this.windowManagerVM;
-			}
+			get { return this.windowManagerVM; }
 		}
 
 		public IList<DriveInformation> DriveCollection
@@ -502,18 +495,12 @@ namespace VidCoder.ViewModel
 
 		public ObservableCollection<SourceOptionViewModel> SourceOptions
 		{
-			get
-			{
-				return this.sourceOptions;
-			}
+			get { return this.sourceOptions; }
 		}
 
 		public ObservableCollection<SourceOptionViewModel> RecentSourceOptions
 		{
-			get
-			{
-				return this.recentSourceOptions;
-			}
+			get { return this.recentSourceOptions; }
 		} 
 
 		public bool RecentSourcesVisible
@@ -626,24 +613,6 @@ namespace VidCoder.ViewModel
 				return string.Empty;
 			}
 		}
-
-	    public string PickerButtonText
-	    {
-	        get { return "Picker: None"; }
-	    }
-
-	    public Collection<object> PickerButtonMenuItems
-	    {
-	        get
-	        {
-	            return new Collection<object>
-	            {
-	                new MenuItem { Header = "test1 chapters", Command = this.OpenChaptersDialogCommand },
-                    new Separator(),
-	                new MenuItem { Header = "test1 chapters", Command = this.OpenChaptersDialogCommand }
-	            };
-	        }
-	    } 
 
 		public SourceOption SelectedSource
 		{
@@ -1857,18 +1826,6 @@ namespace VidCoder.ViewModel
 					}));
 			}
 		}
-
-	    private RelayCommand openPickerWindowCommand;
-	    public RelayCommand OpenPickerWindowCommand
-	    {
-	        get
-	        {
-	            return this.openPickerWindowCommand ?? (this.openPickerWindowCommand = new RelayCommand(() =>
-	            {
-                    this.WindowManagerVM.OpenPickerWindow();
-	            }));
-	        }
-	    }
 
 		private RelayCommand openSubtitlesDialogCommand;
 		public RelayCommand OpenSubtitlesDialogCommand

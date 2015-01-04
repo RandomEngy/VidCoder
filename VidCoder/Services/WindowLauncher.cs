@@ -97,9 +97,9 @@ namespace VidCoder.Services
 			{
 				windowToOpen = new ScanMultipleDialog();
 			}
-			else if (viewModel is QueueTitlesDialogViewModel)
+			else if (viewModel is QueueTitlesWindowViewModel)
 			{
-				windowToOpen = new QueueTitlesDialog();
+				windowToOpen = new QueueTitlesWindow();
 			}
 			else if (viewModel is AddAutoPauseProcessDialogViewModel)
 			{

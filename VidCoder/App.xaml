@@ -3,7 +3,8 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:converters="clr-namespace:VidCoder.Converters"
 	xmlns:mwt="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
-	xmlns:s="clr-namespace:System;assembly=mscorlib">
+	xmlns:s="clr-namespace:System;assembly=mscorlib"
+	xmlns:controls="clr-namespace:VidCoder.Controls">
 	<Application.Resources>
 		<converters:VisibilityConverter x:Key="VisibilityConverter" />
 		<converters:EnumBoolConverter x:Key="EnumBoolConverter" />

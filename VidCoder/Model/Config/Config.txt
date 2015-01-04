@@ -51,9 +51,6 @@ LogWindowPlacement|string|""
 
 QueueColumns|string|"Source:200|Title:35|Range:106|Destination:200"
 QueueLastColumnWidth|double|75.0
-QueueTitlesStartTime|int|40
-QueueTitlesEndTime|int|45
-QueueTitlesUseRange|bool|false
 
 CompletedColumnWidths|string|""
 
@@ -108,3 +105,6 @@ AutoSubtitleOnlyIfDifferent|bool|true
 AutoSubtitleBurnIn|bool|true
 AutoSubtitleLanguageDefault|bool|false
 AutoSubtitleLanguageBurnIn|bool|false
+QueueTitlesStartTime|int|40
+QueueTitlesEndTime|int|45
+QueueTitlesUseRange|bool|false

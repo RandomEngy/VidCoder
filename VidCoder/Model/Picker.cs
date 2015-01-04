@@ -17,6 +17,12 @@ namespace VidCoder.Model
 
         public string Name { get; set; }
 
+		public bool TitleRangeSelectEnabled { get; set; }
+
+		public int TitleRangeSelectStartMinutes { get; set; }
+
+		public int TitleRangeSelectEndMinutes { get; set; }
+
         public AudioSelectionMode AudioSelectionMode { get; set; }
 
         // Default "und"
