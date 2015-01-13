@@ -256,16 +256,16 @@
 								Margin="0,6,0,0"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
-								Content="{x:Static res:OptionsRes.OutputToSourceDirCheckBox}"
+								Content="{x:Static res:CommonRes.OutputToSourceDirCheckBox}"
 								IsChecked="{Binding OutputToSourceDirectory}" />
                             <CheckBox
 								Height="16"
 								Margin="0,6,0,0"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
-								Content="{x:Static res:OptionsRes.PreserveFolderStructureCheckBox}"
+								Content="{x:Static res:CommonRes.PreserveFolderStructureCheckBox}"
 								IsChecked="{Binding PreserveFolderStructureInBatch}"
-								ToolTip="{x:Static res:OptionsRes.PreserveFolderStructureToolTip}" />
+								ToolTip="{x:Static res:CommonRes.PreserveFolderStructureToolTip}" />
                             <Grid Margin="0,6,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />

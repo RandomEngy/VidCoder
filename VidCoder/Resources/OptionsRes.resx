@@ -156,9 +156,6 @@
   <data name="FileFormatLabel" xml:space="preserve">
     <value>File format:</value>
   </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Output to the source directory if possible</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>Default format</value>
   </data>
@@ -383,12 +380,6 @@
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Preserve Created and Modified time when converting files</value>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Preserve folder structure in batch encodes</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>If you encode a folder full of files the encoded versions will be put into subfolders to match the source directory structure.</value>
   </data>
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Custom folder for previews:</value>

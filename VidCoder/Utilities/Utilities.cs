@@ -10,6 +10,7 @@ using System.Windows;
 using HandBrake.Interop.Model.Encoding;
 using HandBrake.Interop.SourceData;
 using Microsoft.Win32;
+using VidCoder.Model;
 using VidCoder.Services;
 
 namespace VidCoder
@@ -646,13 +647,23 @@ namespace VidCoder
 
 		public static string GetSourceName(string sourcePath)
 		{
-			if (GetSourceType(sourcePath) == SourceType.VideoFolder)
+			switch (GetSourceType(sourcePath))
 			{
-				return GetSourceNameFolder(sourcePath);
-			}
-			else
-			{
-				return GetSourceNameFile(sourcePath);
+				case SourceType.VideoFolder:
+					return GetSourceNameFolder(sourcePath);
+				case SourceType.Dvd:
+					var driveService = Ioc.Container.GetInstance<IDriveService>();
+					DriveInformation info = driveService.GetDriveInformationFromPath(sourcePath);
+					if (info != null)
+					{
+						return info.VolumeLabel;
+					}
+					else
+					{
+						return GetSourceNameFile(sourcePath);
+					}
+				default:
+					return GetSourceNameFile(sourcePath);
 			}
 		}
 

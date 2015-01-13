@@ -142,9 +142,89 @@
 
 			<ScrollViewer
 				Grid.Row="1"
-				Margin="12"
 				VerticalScrollBarVisibility="Auto">
-				<StackPanel VerticalAlignment="Top" Orientation="Vertical">
+				<StackPanel VerticalAlignment="Top" Orientation="Vertical" Margin="12">
+					<!--  Output location  -->
+					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.OutputLocation}" />
+					<StackPanel Style="{StaticResource ConfigSectionStack}">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+
+							<CheckBox
+								Grid.Column="0"
+								HorizontalAlignment="Left"
+								VerticalAlignment="Center"
+								Content="{x:Static res:PickerRes.OverrideDirectoryCheckBox}"
+								IsChecked="{Binding OutputDirectoryOverrideEnabled}" />
+
+							<TextBox
+								Grid.Column="1"
+								Height="22"
+								Margin="5,0,0,0"
+								VerticalAlignment="Center"
+								VerticalContentAlignment="Center"
+								IsEnabled="{Binding OutputDirectoryOverrideEnabled,
+							                             UpdateSourceTrigger=PropertyChanged}"
+								Text="{Binding OutputDirectoryOverride,
+							                        Mode=TwoWay,
+							                        UpdateSourceTrigger=PropertyChanged}" />
+
+							<Button
+								Grid.Column="2"
+								MinWidth="80"
+								Margin="10,0,0,0"
+								Command="{Binding PickOutputDirectoryCommand}"
+								Content="{x:Static res:CommonRes.Browse}"
+								IsEnabled="{Binding OutputDirectoryOverrideEnabled,
+							                            UpdateSourceTrigger=PropertyChanged}"
+								Padding="10,0" />
+						</Grid>
+						<Grid Margin="0,10,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+
+							<CheckBox
+								Grid.Column="0"
+								HorizontalAlignment="Left"
+								VerticalAlignment="Center"
+								Content="{x:Static res:CommonRes.OverrideNameFormatCheckBox}"
+								IsChecked="{Binding NameFormatOverrideEnabled}" />
+
+							<TextBox
+								Grid.Column="1"
+								Height="22"
+								Margin="5,0,0,0"
+								VerticalAlignment="Center"
+								VerticalContentAlignment="Center"
+								IsEnabled="{Binding NameFormatOverrideEnabled,
+							                             UpdateSourceTrigger=PropertyChanged}"
+								Text="{Binding NameFormatOverride}" />
+						</Grid>
+						<CheckBox
+							Height="16"
+							Margin="0,6,0,0"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Top"
+							Content="{x:Static res:CommonRes.OutputToSourceDirCheckBox}"
+							IsChecked="{Binding OutputToSourceDirectory}"
+							IsThreeState="True" />
+						<CheckBox
+							Height="16"
+							Margin="0,6,0,0"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Top"
+							Content="{x:Static res:CommonRes.PreserveFolderStructureCheckBox}"
+							IsChecked="{Binding PreserveFolderStructureInBatch}"
+							IsThreeState="True"
+							ToolTip="{x:Static res:CommonRes.PreserveFolderStructureToolTip}" />
+					</StackPanel>
+
 					<!--  Title selection  -->
 					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.TitleSelection}" />
 					<StackPanel Style="{StaticResource ConfigSectionStack}">

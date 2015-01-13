@@ -1,30 +1,43 @@
-﻿<UserControl 
+﻿<UserControl
 	x:Class="VidCoder.Controls.SplitButton"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	mc:Ignorable="d"
-	Loaded="SplitButton_OnLoaded">
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	Loaded="SplitButton_OnLoaded"
+	mc:Ignorable="d">
 	<UserControl.Template>
 		<ControlTemplate TargetType="{x:Type UserControl}">
-			<Button 
-				HorizontalAlignment="Left" VerticalAlignment="Top" Name="mainButton" ContextMenuService.Placement="Bottom" 
-				Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+			<Button
+				Name="mainButton"
+				Width="{TemplateBinding Width}"
+				Height="{TemplateBinding Height}"
+				Padding="0"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Top"
+				VerticalContentAlignment="Stretch"
+				ContextMenuService.Placement="Bottom">
 				<Button.Content>
 					<StackPanel Orientation="Horizontal" UseLayoutRounding="True">
-						<ContentPresenter Margin="{TemplateBinding Padding}" />
-						<Rectangle Width="1" Fill="#111111" Margin="0,2" />
+						<ContentPresenter Margin="{TemplateBinding Padding}" VerticalAlignment="Center" />
+						<Rectangle
+							Width="1"
+							Margin="0 4"
+							Fill="#111111" />
 						<Button Click="OnArrowClick">
 							<Button.Template>
 								<ControlTemplate TargetType="Button">
-									<Grid Background="Transparent" Name="buttonGrid">
+									<Grid Name="buttonGrid" Background="Transparent">
 										<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
 									</Grid>
 								</ControlTemplate>
 							</Button.Template>
 							<Button.Content>
-								<Path Data="M 0,0 L 8,0 L 4,4 Z" Fill="{TemplateBinding Foreground}" Margin="4 0 3 0" VerticalAlignment="Center"/>
+								<Path
+									Margin="4 0 3 0"
+									VerticalAlignment="Center"
+									Data="M 0,0 L 8,0 L 4,4 Z"
+									Fill="{TemplateBinding Foreground}" />
 							</Button.Content>
 						</Button>
 					</StackPanel>

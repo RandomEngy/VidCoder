@@ -30,18 +30,16 @@ namespace VidCoder.ViewModel
 		private int titleStartOverride;
 
 		private MainViewModel main;
-		private PickersViewModel pickersViewModel;
 
 		public QueueTitlesWindowViewModel()
 		{
 			this.main = Ioc.Container.GetInstance<MainViewModel>();
-			this.pickersViewModel = Ioc.Container.GetInstance<PickersViewModel>();
+			this.PickersVM = Ioc.Container.GetInstance<PickersViewModel>();
+			this.WindowManagerVM = Ioc.Container.GetInstance<WindowManagerViewModel>();
 
 			this.selectedTitles = new ObservableCollection<TitleSelectionViewModel>();
 			this.titleStartOverrideEnabled = Config.QueueTitlesUseTitleOverride;
 			this.titleStartOverride = Config.QueueTitlesTitleOverride;
-			this.directoryOverrideEnabled = Config.QueueTitlesUseDirectoryOverride;
-			this.directoryOverride = Config.QueueTitlesDirectoryOverride;
 			this.nameOverrideEnabled = Config.QueueTitlesUseNameOverride;
 			this.nameOverride = Config.QueueTitlesNameOverride;
 
@@ -101,6 +99,10 @@ namespace VidCoder.ViewModel
 					}
 			    };
 		}
+
+		public PickersViewModel PickersVM { get; private set; }
+
+		public WindowManagerViewModel WindowManagerVM { get; private set; }
 
 		public ObservableCollection<TitleSelectionViewModel> Titles
 		{
@@ -190,36 +192,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private bool directoryOverrideEnabled;
-		public bool DirectoryOverrideEnabled
-		{
-			get
-			{
-				return this.directoryOverrideEnabled;
-			}
-
-			set
-			{
-				this.directoryOverrideEnabled = value;
-				this.RaisePropertyChanged(() => this.DirectoryOverrideEnabled);
-			}
-		}
-
-		private string directoryOverride;
-		public string DirectoryOverride
-		{
-			get
-			{
-				return this.directoryOverride;
-			}
-
-			set
-			{
-				this.directoryOverride = value;
-				this.RaisePropertyChanged(() => this.DirectoryOverride);
-			}
-		}
-
 		private bool nameOverrideEnabled;
 		public bool NameOverrideEnabled
 		{
@@ -289,18 +261,26 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private RelayCommand pickDirectoryCommand;
-		public RelayCommand PickDirectoryCommand
+		private RelayCommand addToQueueCommand;
+		public RelayCommand AddToQueueCommand
 		{
 			get
 			{
-				return this.pickDirectoryCommand ?? (this.pickDirectoryCommand = new RelayCommand(() =>
+				return this.addToQueueCommand ?? (this.addToQueueCommand = new RelayCommand(() =>
 				{
-					string overrideFolder = FileService.Instance.GetFolderName(null, MainRes.OutputDirectoryPickerText);
-					if (overrideFolder != null)
-					{
-						this.DirectoryOverride = overrideFolder;
-					}
+					this.DialogResult = true;
+
+					var processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
+					processingVM.QueueTitles(
+						this.CheckedTitles, 
+						this.TitleStartOverrideEnabled ? this.TitleStartOverride : -1,
+						this.NameOverrideEnabled ? this.NameOverride : null);
+
+					WindowManager.Close(this);
+					this.OnClosing();
+				}, () =>
+				{
+					return this.CanClose;
 				}));
 			}
 		}
@@ -311,8 +291,6 @@ namespace VidCoder.ViewModel
 			{
 				Config.QueueTitlesUseTitleOverride = this.TitleStartOverrideEnabled;
 				Config.QueueTitlesTitleOverride = this.TitleStartOverride;
-				Config.QueueTitlesUseDirectoryOverride = this.DirectoryOverrideEnabled;
-				Config.QueueTitlesDirectoryOverride = this.DirectoryOverride;
 				Config.QueueTitlesUseNameOverride = this.NameOverrideEnabled;
 				Config.QueueTitlesNameOverride = this.NameOverride;
 
@@ -355,7 +333,7 @@ namespace VidCoder.ViewModel
 
 		private void SetSelectedFromRange()
 		{
-			Picker picker = this.pickersViewModel.SelectedPicker.Picker;
+			Picker picker = this.PickersVM.SelectedPicker.Picker;
 
 			if (picker.TitleRangeSelectEnabled)
 			{

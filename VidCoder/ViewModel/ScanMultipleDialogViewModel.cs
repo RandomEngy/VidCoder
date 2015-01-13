@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using HandBrake.Interop;
 using VidCoder.Services;
+using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
@@ -14,14 +15,15 @@ namespace VidCoder.ViewModel
 	/// </summary>
 	public class ScanMultipleDialogViewModel : OkCancelDialogViewModel
 	{
-		private List<EncodeJobViewModel> itemsToScan;
+		private IList<string> pathsToScan;
 		private int currentJobIndex;
 		private float currentJobProgress;
 		private object currentJobIndexLock = new object();
 
-		public ScanMultipleDialogViewModel(List<EncodeJobViewModel> itemsToScan)
+		public ScanMultipleDialogViewModel(IList<string> pathsToScan)
 		{
-			this.itemsToScan = itemsToScan;
+			this.pathsToScan = pathsToScan;
+			this.ScanResults = new List<HandBrakeInstance>();
 			this.ScanNextJob();
 		}
 
@@ -29,7 +31,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return ((this.currentJobIndex + this.currentJobProgress) * 100.0) / this.itemsToScan.Count;
+				return ((this.currentJobIndex + this.currentJobProgress) * 100.0) / this.pathsToScan.Count;
 			}
 		}
 
@@ -41,14 +43,16 @@ namespace VidCoder.ViewModel
 			{
 				lock (this.currentJobIndexLock)
 				{
-					return this.currentJobIndex >= this.itemsToScan.Count || this.CancelPending;
+					return this.currentJobIndex >= this.pathsToScan.Count || this.CancelPending;
 				}
 			}
 		}
 
+		public List<HandBrakeInstance> ScanResults { get; private set; }
+
 		public void ScanNextJob()
 		{
-			EncodeJobViewModel jobVM = itemsToScan[currentJobIndex];
+			string path = pathsToScan[currentJobIndex];
 
 			var onDemandInstance = new HandBrakeInstance();
 			onDemandInstance.Initialize(Config.LogVerbosity);
@@ -62,17 +66,18 @@ namespace VidCoder.ViewModel
 				};
 			onDemandInstance.ScanCompleted += (o, e) =>
 				{
-					jobVM.HandBrakeInstance = onDemandInstance;
+					this.ScanResults.Add(onDemandInstance);
+					//jobVM.HandBrakeInstance = onDemandInstance;
 
-					if (onDemandInstance.Titles.Count > 0)
-					{
-						Title titleToEncode = Utilities.GetFeatureTitle(onDemandInstance.Titles, onDemandInstance.FeatureTitle);
+					//if (onDemandInstance.Titles.Count > 0)
+					//{
+					//	Title titleToEncode = Utilities.GetFeatureTitle(onDemandInstance.Titles, onDemandInstance.FeatureTitle);
 
-						jobVM.Job.Title = titleToEncode.TitleNumber;
-						jobVM.Job.Length = titleToEncode.Duration;
-						jobVM.Job.ChapterStart = 1;
-						jobVM.Job.ChapterEnd = titleToEncode.Chapters.Count;
-					}
+					//	jobVM.Job.Title = titleToEncode.TitleNumber;
+					//	jobVM.Job.Length = titleToEncode.Duration;
+					//	jobVM.Job.ChapterStart = 1;
+					//	jobVM.Job.ChapterEnd = titleToEncode.Chapters.Count;
+					//}
 
 					lock (this.currentJobIndexLock)
 					{
@@ -94,7 +99,7 @@ namespace VidCoder.ViewModel
 					}
 				};
 
-			onDemandInstance.StartScan(jobVM.Job.SourcePath, Config.PreviewCount, 0);
+			onDemandInstance.StartScan(path, Config.PreviewCount, 0);
 		}
 	}
 }

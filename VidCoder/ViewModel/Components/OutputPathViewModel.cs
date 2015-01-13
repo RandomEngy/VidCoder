@@ -30,6 +30,7 @@ namespace VidCoder.ViewModel.Components
 		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
 		private ProcessingViewModel processingVM;
 		private PresetsViewModel presetsVM;
+		private PickersViewModel pickersVM;
 		private IDriveService driveService = Ioc.Container.GetInstance<IDriveService>();
 
 		private string outputPath;
@@ -71,6 +72,19 @@ namespace VidCoder.ViewModel.Components
 				}
 
 				return this.presetsVM;
+			}
+		}
+
+		public PickersViewModel PickersVM
+		{
+			get 
+			{
+				if (this.pickersVM == null)
+				{
+					this.pickersVM = Ioc.Container.GetInstance<PickersViewModel>();
+				}
+
+				return this.pickersVM;
 			}
 		}
 
@@ -314,7 +328,7 @@ namespace VidCoder.ViewModel.Components
 
 			if (!this.main.HasVideoSource)
 			{
-				string outputFolder = Config.AutoNameOutputFolder;
+				string outputFolder = this.PickerOutputFolder;
 				if (outputFolder != null)
 				{
 					this.OutputPath = outputFolder + (outputFolder.EndsWith(@"\", StringComparison.Ordinal) ? string.Empty : @"\");
@@ -354,7 +368,7 @@ namespace VidCoder.ViewModel.Components
 				this.main.FramesRangeStart,
 				this.main.FramesRangeEnd,
 				this.NameFormatOverride,
-				usesScan: true);
+				multipleTitlesOnSource: this.main.ScanInstance.Titles.Count > 1);
 
 			string extension = this.GetOutputExtension();
 
@@ -410,14 +424,29 @@ namespace VidCoder.ViewModel.Components
 			return string.Join(" ", translatedTitleWords);
 		}
 
+		// Gets the default output folder, considering the picker and config
+		public string PickerOutputFolder
+		{
+			get
+			{
+				Picker picker = this.PickersVM.SelectedPicker.Picker;
+				if (picker.OutputDirectoryOverrideEnabled)
+				{
+					return picker.OutputDirectoryOverride;
+				}
+
+				return Config.AutoNameOutputFolder;
+			}
+		}
+
 		public string GetOutputFolder(string sourcePath, string sourceParentFolder = null)
 		{
-			// Use our default output folder by default
-			string outputFolder = Config.AutoNameOutputFolder;
+			string outputFolder = this.PickerOutputFolder;
 
 			bool usedSourceDirectory = false;
 
-			if (Config.OutputToSourceDirectory)
+			Picker picker = this.PickersVM.SelectedPicker.Picker;
+			if (picker.OutputToSourceDirectory ?? Config.OutputToSourceDirectory)
 			{
 				// Use the source directory if we can
 				string sourceRoot = Path.GetPathRoot(sourcePath);
@@ -434,7 +463,8 @@ namespace VidCoder.ViewModel.Components
 				}
 			}
 
-			if (!usedSourceDirectory && sourceParentFolder != null && Config.PreserveFolderStructureInBatch)
+			bool preserveFolderStructure = picker.PreserveFolderStructureInBatch ?? Config.PreserveFolderStructureInBatch;
+			if (!usedSourceDirectory && sourceParentFolder != null && preserveFolderStructure)
 			{
 				// Tack on some subdirectories if we have a parent folder specified and it's enabled, and we didn't use the source directory
 				string sourceDirectory = Path.GetDirectoryName(sourcePath);
@@ -489,8 +519,8 @@ namespace VidCoder.ViewModel.Components
 			int title, 
 			TimeSpan titleDuration,
 			int totalChapters,
-			string nameFormatOverride = null, 
-			bool usesScan = true)
+			string nameFormatOverride = null,
+			bool multipleTitlesOnSource = false)
 		{
 			return this.BuildOutputFileName(
 				sourcePath,
@@ -506,7 +536,7 @@ namespace VidCoder.ViewModel.Components
 				0,
 				0,
 				nameFormatOverride,
-				usesScan);
+				multipleTitlesOnSource);
 		}
 
 		public string BuildOutputFileName(
@@ -523,9 +553,11 @@ namespace VidCoder.ViewModel.Components
 			int startFrame, 
 			int endFrame,
 			string nameFormatOverride, 
-			bool usesScan)
+			bool multipleTitlesOnSource)
 		{
 			string fileName;
+			Picker picker = this.PickersVM.SelectedPicker.Picker;
+
 			if (Config.AutoNameCustomFormat || !string.IsNullOrWhiteSpace(nameFormatOverride))
 			{
 				string rangeString = string.Empty;
@@ -553,6 +585,10 @@ namespace VidCoder.ViewModel.Components
 				if (!string.IsNullOrWhiteSpace(nameFormatOverride))
 				{
 					fileName = nameFormatOverride;
+				}
+				else if (picker.NameFormatOverrideEnabled)
+				{
+					fileName = picker.NameFormatOverride;
 				}
 				else
 				{
@@ -607,7 +643,7 @@ namespace VidCoder.ViewModel.Components
 			else
 			{
 				string titleSection = string.Empty;
-				if (usesScan && this.main.SelectedSource != null && this.main.SelectedSource.Type != SourceType.File)
+				if (multipleTitlesOnSource)
 				{
 					titleSection = " - Title " + title;
 				}

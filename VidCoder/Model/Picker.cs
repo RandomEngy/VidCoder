@@ -17,6 +17,18 @@ namespace VidCoder.Model
 
         public string Name { get; set; }
 
+		public bool OutputDirectoryOverrideEnabled { get; set; }
+
+		public string OutputDirectoryOverride { get; set; }
+
+		public bool NameFormatOverrideEnabled { get; set; }
+
+		public string NameFormatOverride { get; set; }
+
+		public bool? OutputToSourceDirectory { get; set; }
+
+		public bool? PreserveFolderStructureInBatch { get; set; }
+
 		public bool TitleRangeSelectEnabled { get; set; }
 
 		public int TitleRangeSelectStartMinutes { get; set; }

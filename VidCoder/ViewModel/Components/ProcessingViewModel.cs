@@ -587,82 +587,6 @@ namespace VidCoder.ViewModel.Components
 
 						var queueTitlesDialog = new QueueTitlesWindowViewModel();
 						WindowManager.OpenWindow(queueTitlesDialog, this.main);
-
-						if (queueTitlesDialog.DialogResult)
-						{
-							int currentTitleNumber = queueTitlesDialog.TitleStartOverride;
-
-							// Queue the selected titles
-							List<Title> titlesToQueue = queueTitlesDialog.CheckedTitles;
-							foreach (Title title in titlesToQueue)
-							{
-								VCProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
-								string queueSourceName = this.main.SourceName;
-								if (this.main.SelectedSource.Type == SourceType.Dvd)
-								{
-									queueSourceName = this.outputVM.TranslateDvdSourceName(queueSourceName);
-								}
-
-								int titleNumber = title.TitleNumber;
-								if (queueTitlesDialog.TitleStartOverrideEnabled)
-								{
-									titleNumber = currentTitleNumber;
-									currentTitleNumber++;
-								}
-
-								string nameFormatOverride = null;
-								if (queueTitlesDialog.NameOverrideEnabled)
-								{
-									nameFormatOverride = queueTitlesDialog.NameOverride;
-								}
-
-								string outputDirectoryOverride = null;
-								if (queueTitlesDialog.DirectoryOverrideEnabled && Directory.Exists(queueTitlesDialog.DirectoryOverride))
-								{
-									outputDirectoryOverride = queueTitlesDialog.DirectoryOverride;
-								}
-
-								var job = new VCJob
-								{
-									SourceType = this.main.SelectedSource.Type,
-									SourcePath = this.main.SourcePath,
-									EncodingProfile = profile.Clone(),
-									Title = title.TitleNumber,
-									ChapterStart = 1,
-									ChapterEnd = title.Chapters.Count,
-									UseDefaultChapterNames = true,
-									Length = title.Duration
-								};
-
-								this.AutoPickAudio(job, title, useCurrentContext: true);
-								this.AutoPickSubtitles(job, title, useCurrentContext: true);
-
-								string queueOutputFileName = this.outputVM.BuildOutputFileName(
-									this.main.SourcePath,
-									queueSourceName,
-									titleNumber,
-									title.Duration,
-									title.Chapters.Count,
-									nameFormatOverride);
-
-								string extension = this.outputVM.GetOutputExtension();
-								string queueOutputPath = this.outputVM.BuildOutputPath(queueOutputFileName, extension, sourcePath: null, outputFolder: outputDirectoryOverride);
-
-								job.OutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, isBatch: true);
-
-								var jobVM = new EncodeJobViewModel(job)
-								{
-								    HandBrakeInstance = this.main.ScanInstance,
-								    VideoSource = this.main.SourceData,
-								    VideoSourceMetadata = this.main.GetVideoSourceMetadata(),
-								    ManualOutputPath = false,
-								    NameFormatOverride = nameFormatOverride,
-									PresetName = this.presetsViewModel.SelectedPreset.DisplayName
-								};
-
-								this.Queue(jobVM);
-							}
-						}
 					},
 					() =>
 					{
@@ -929,65 +853,77 @@ namespace VidCoder.ViewModel.Components
 				throw new ArgumentException("Cannot find preset: " + presetName);
 			}
 
-			var jobVM = new EncodeJobViewModel(new VCJob
+			var scanMultipleDialog = new ScanMultipleDialogViewModel(new List<string> { source });
+			WindowManager.OpenDialog(scanMultipleDialog, this.main);
+
+			HandBrakeInstance handBrakeInstance = scanMultipleDialog.ScanResults[0];
+			List<int> titleNumbers = this.PickTitles(handBrakeInstance);
+
+			foreach (int titleNumber in titleNumbers)
+			{
+				var jobVM = new EncodeJobViewModel(new VCJob
 				{
 					SourcePath = source,
 					SourceType = Utilities.GetSourceType(source),
-					Title = 1,
+					Title = titleNumber,
 					RangeType = VideoRangeType.All,
 					EncodingProfile = profile,
 					ChosenAudioTracks = new List<int> { 1 },
 					OutputPath = destination,
-					UseDefaultChapterNames = true
+					UseDefaultChapterNames = true,
 				});
 
-			jobVM.PresetName = presetName;
-			jobVM.ManualOutputPath = !string.IsNullOrWhiteSpace(destination);
+				jobVM.HandBrakeInstance = handBrakeInstance;
+				jobVM.PresetName = presetName;
+				jobVM.ManualOutputPath = !string.IsNullOrWhiteSpace(destination);
 
-			var scanMultipleDialog = new ScanMultipleDialogViewModel(new List<EncodeJobViewModel>{ jobVM });
-			WindowManager.OpenDialog(scanMultipleDialog, this.main);
+				VCJob job = jobVM.Job;
 
-			VCJob job = jobVM.Job;
+				Title title = jobVM.HandBrakeInstance.Titles.Single(t => t.TitleNumber == titleNumber);
+				jobVM.Job.Length = title.Duration;
 
-			Title title = jobVM.HandBrakeInstance.Titles.SingleOrDefault(t => t.TitleNumber == job.Title);
-			if (title == null)
-			{
-				title = jobVM.HandBrakeInstance.Titles[0];
+				// Choose the correct audio/subtitle tracks based on settings
+				this.AutoPickAudio(job, title);
+				this.AutoPickSubtitles(job, title);
+
+				// Now that we have the title and subtitles we can determine the final output file name
+				if (string.IsNullOrWhiteSpace(destination))
+				{
+					// Exclude all current queued files if overwrite is disabled
+					HashSet<string> excludedPaths;
+					if (CustomConfig.WhenFileExistsBatch == WhenFileExists.AutoRename)
+					{
+						excludedPaths = this.GetQueuedFiles();
+					}
+					else
+					{
+						excludedPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+					}
+
+					string pathToQueue = job.SourcePath;
+
+					excludedPaths.Add(pathToQueue);
+					string outputFolder = this.outputVM.GetOutputFolder(pathToQueue);
+					string outputFileName = this.outputVM.BuildOutputFileName(
+						pathToQueue,
+						Utilities.GetSourceName(pathToQueue),
+						job.Title, 
+						title.Duration, 
+						title.Chapters.Count, 
+						multipleTitlesOnSource: handBrakeInstance.Titles.Count > 1);
+					string outputExtension = this.outputVM.GetOutputExtension();
+					string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
+					queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, excludedPaths, isBatch: true);
+
+					job.OutputPath = queueOutputPath;
+				}
+
+				this.Queue(jobVM);
 			}
 
-			// Choose the correct audio/subtitle tracks based on settings
-			this.AutoPickAudio(job, title);
-			this.AutoPickSubtitles(job, title);
+			this.logger.Log("Queued " + titleNumbers.Count + " titles from " + source);
 
-			// Now that we have the title and subtitles we can determine the final output file name
-			if (string.IsNullOrWhiteSpace(destination))
-			{
-				// Exclude all current queued files if overwrite is disabled
-				HashSet<string> excludedPaths;
-				if (CustomConfig.WhenFileExistsBatch == WhenFileExists.AutoRename)
-				{
-					excludedPaths = this.GetQueuedFiles();
-				}
-				else
-				{
-					excludedPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-				}
-
-				string pathToQueue = job.SourcePath;
-
-				excludedPaths.Add(pathToQueue);
-				string outputFolder = this.outputVM.GetOutputFolder(pathToQueue);
-				string outputFileName = this.outputVM.BuildOutputFileName(pathToQueue, Utilities.GetSourceName(pathToQueue), job.Title, title.Duration, title.Chapters.Count, usesScan: false);
-				string outputExtension = this.outputVM.GetOutputExtension();
-				string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
-				queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, excludedPaths, isBatch: true);
-
-				job.OutputPath = queueOutputPath;
-			}
-
-			this.Queue(jobVM);
-
-			if (!this.Encoding)
+			if (titleNumbers.Count > 0 && !this.Encoding)
 			{
 				this.StartEncodeQueue();
 			}
@@ -1049,6 +985,79 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
+		public void QueueTitles(List<Title> titles, int titleStartOverride, string nameFormatOverride)
+		{
+			int currentTitleNumber = titleStartOverride;
+
+			Picker picker = this.pickersViewModel.SelectedPicker.Picker;
+
+			// Queue the selected titles
+			List<Title> titlesToQueue = titles;
+			foreach (Title title in titlesToQueue)
+			{
+				VCProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
+				string queueSourceName = this.main.SourceName;
+				if (this.main.SelectedSource.Type == SourceType.Dvd)
+				{
+					queueSourceName = this.outputVM.TranslateDvdSourceName(queueSourceName);
+				}
+
+				int titleNumber = title.TitleNumber;
+				if (titleStartOverride >= 0)
+				{
+					titleNumber = currentTitleNumber;
+					currentTitleNumber++;
+				}
+
+				string outputDirectoryOverride = null;
+				if (picker.OutputDirectoryOverrideEnabled)
+				{
+					outputDirectoryOverride = picker.OutputDirectoryOverride;
+				}
+
+				var job = new VCJob
+				{
+					SourceType = this.main.SelectedSource.Type,
+					SourcePath = this.main.SourcePath,
+					EncodingProfile = profile.Clone(),
+					Title = title.TitleNumber,
+					ChapterStart = 1,
+					ChapterEnd = title.Chapters.Count,
+					UseDefaultChapterNames = true,
+					Length = title.Duration
+				};
+
+				this.AutoPickAudio(job, title, useCurrentContext: true);
+				this.AutoPickSubtitles(job, title, useCurrentContext: true);
+
+				string queueOutputFileName = this.outputVM.BuildOutputFileName(
+					this.main.SourcePath,
+					queueSourceName,
+					titleNumber,
+					title.Duration,
+					title.Chapters.Count,
+					nameFormatOverride,
+					multipleTitlesOnSource: true);
+
+				string extension = this.outputVM.GetOutputExtension();
+				string queueOutputPath = this.outputVM.BuildOutputPath(queueOutputFileName, extension, sourcePath: null, outputFolder: outputDirectoryOverride);
+
+				job.OutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, isBatch: true);
+
+				var jobVM = new EncodeJobViewModel(job)
+				{
+					HandBrakeInstance = this.main.ScanInstance,
+					VideoSource = this.main.SourceData,
+					VideoSourceMetadata = this.main.GetVideoSourceMetadata(),
+					ManualOutputPath = false,
+					NameFormatOverride = nameFormatOverride,
+					PresetName = this.presetsViewModel.SelectedPreset.DisplayName
+				};
+
+				this.Queue(jobVM);
+			}
+		}
+
 		public void QueueMultiple(IEnumerable<string> pathsToQueue)
 		{
 			this.QueueMultiple(pathsToQueue.Select(p => new SourcePath { Path = p }));
@@ -1073,66 +1082,81 @@ namespace VidCoder.ViewModel.Components
 				excludedPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 			}
 
-			var itemsToQueue = new List<EncodeJobViewModel>();
-			foreach (SourcePath sourcePath in sourcePaths)
-			{
-				var job = new VCJob
-				{
-					SourcePath = sourcePath.Path,
-					EncodingProfile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.Clone(),
-					Title = 1,
-					RangeType = VideoRangeType.All,
-					UseDefaultChapterNames = true
-				};
-
-				if (sourcePath.SourceType == SourceType.None)
-				{
-					if (Directory.Exists(sourcePath.Path))
-					{
-						job.SourceType = SourceType.VideoFolder;
-					}
-					else if (File.Exists(sourcePath.Path))
-					{
-						job.SourceType = SourceType.File;
-					}
-				}
-				else
-				{
-					job.SourceType = sourcePath.SourceType;
-				}
-
-				if (job.SourceType != SourceType.None)
-				{
-					var jobVM = new EncodeJobViewModel(job);
-					jobVM.SourceParentFolder = sourcePath.ParentFolder;
-					jobVM.ManualOutputPath = false;
-					jobVM.PresetName = this.presetsViewModel.SelectedPreset.DisplayName;
-					itemsToQueue.Add(jobVM);
-				}
-			}
+			List<SourcePath> sourcePathList = sourcePaths.ToList();
+			List<string> sourcePathStrings = sourcePathList.Select(p => p.Path).ToList();
 
 			// This dialog will scan the items in the list, calculating length.
-			var scanMultipleDialog = new ScanMultipleDialogViewModel(itemsToQueue);
+			var scanMultipleDialog = new ScanMultipleDialogViewModel(sourcePathStrings);
 			WindowManager.OpenDialog(scanMultipleDialog, this.main);
+
+			List<HandBrakeInstance> handBrakeInstances = scanMultipleDialog.ScanResults;
+
+			if (sourcePathList.Count != handBrakeInstances.Count)
+			{
+				// Scan dialog was closed before it could complete. Abort.
+				this.logger.Log("Batch scan cancelled. Aborting queue operation.");
+				return;
+			}
+
+			var itemsToQueue = new List<EncodeJobViewModel>();
+
+			for (int i = 0; i < sourcePathList.Count; i++)
+			{
+				SourcePath sourcePath = sourcePathList[i];
+				HandBrakeInstance handBrakeInstance = handBrakeInstances[i];
+
+				List<int> titleNumbers = this.PickTitles(handBrakeInstance);
+
+				foreach (int titleNumber in titleNumbers)
+				{
+					var job = new VCJob
+					{
+						SourcePath = sourcePath.Path,
+						EncodingProfile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.Clone(),
+						Title = titleNumber,
+						RangeType = VideoRangeType.All,
+						UseDefaultChapterNames = true
+					};
+
+					if (sourcePath.SourceType == SourceType.None)
+					{
+						if (Directory.Exists(sourcePath.Path))
+						{
+							job.SourceType = SourceType.VideoFolder;
+						}
+						else if (File.Exists(sourcePath.Path))
+						{
+							job.SourceType = SourceType.File;
+						}
+					}
+					else
+					{
+						job.SourceType = sourcePath.SourceType;
+					}
+
+					if (job.SourceType != SourceType.None)
+					{
+						var jobVM = new EncodeJobViewModel(job);
+						jobVM.HandBrakeInstance = handBrakeInstance;
+						jobVM.SourceParentFolder = sourcePath.ParentFolder;
+						jobVM.ManualOutputPath = false;
+						jobVM.PresetName = this.presetsViewModel.SelectedPreset.DisplayName;
+						itemsToQueue.Add(jobVM);
+					}
+				}
+			}
 
 			var failedFiles = new List<string>();
 			foreach (EncodeJobViewModel jobVM in itemsToQueue)
 			{
-				// Skip over any cancelled jobs
-				if (jobVM.HandBrakeInstance == null)
-				{
-					continue;
-				}
+				HandBrakeInstance handBrakeInstance = jobVM.HandBrakeInstance;
 
 				// Only queue items with a successful scan
-				if (jobVM.HandBrakeInstance.Titles.Count > 0)
+				if (handBrakeInstance.Titles.Count > 0)
 				{
 					VCJob job = jobVM.Job;
-					Title title = jobVM.HandBrakeInstance.Titles.SingleOrDefault(t => t.TitleNumber == job.Title);
-					if (title == null)
-					{
-						title = jobVM.HandBrakeInstance.Titles[0];
-					}
+					Title title = handBrakeInstance.Titles.Single(t => t.TitleNumber == job.Title);
+					job.Length = title.Duration;
 
 					// Choose the correct audio/subtitle tracks based on settings
 					this.AutoPickAudio(job, title);
@@ -1143,7 +1167,13 @@ namespace VidCoder.ViewModel.Components
 
 					excludedPaths.Add(fileToQueue);
 					string outputFolder = this.outputVM.GetOutputFolder(fileToQueue, jobVM.SourceParentFolder);
-					string outputFileName = this.outputVM.BuildOutputFileName(fileToQueue, Utilities.GetSourceNameFile(fileToQueue), job.Title, title.Duration, title.Chapters.Count, usesScan: false);
+					string outputFileName = this.outputVM.BuildOutputFileName(
+						fileToQueue, 
+						Utilities.GetSourceNameFile(fileToQueue),
+						job.Title, 
+						title.Duration,
+						title.Chapters.Count, 
+						multipleTitlesOnSource: handBrakeInstance.Titles.Count > 1);
 					string outputExtension = this.outputVM.GetOutputExtension();
 					string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
 					queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, excludedPaths, isBatch: true);
@@ -1882,6 +1912,38 @@ namespace VidCoder.ViewModel.Components
 				MessageBoxImage.Error);
 
 			return false;
+		}
+
+		/// <summary>
+		/// Picks title numbers to encode from a scanned instance.
+		/// </summary>
+		/// <param name="handBrakeInstance">The scanned instance.</param>
+		/// <returns>List of title numbers (1-based)</returns>
+		private List<int> PickTitles(HandBrakeInstance handBrakeInstance)
+		{
+			var result = new List<int>();
+			var picker = this.pickersViewModel.SelectedPicker.Picker;
+
+			if (picker.TitleRangeSelectEnabled)
+			{
+				TimeSpan startDuration = TimeSpan.FromMinutes(picker.TitleRangeSelectStartMinutes);
+				TimeSpan endDuration = TimeSpan.FromMinutes(picker.TitleRangeSelectEndMinutes);
+
+				foreach (Title title in handBrakeInstance.Titles)
+				{
+					if (title.Duration >= startDuration && title.Duration <= endDuration)
+					{
+						result.Add(title.TitleNumber);
+					}
+				}
+			}
+			else if (handBrakeInstance.Titles.Count > 0)
+			{
+				Title titleToEncode = Utilities.GetFeatureTitle(handBrakeInstance.Titles, handBrakeInstance.FeatureTitle);
+				result.Add(titleToEncode.TitleNumber);
+			}
+
+			return result;
 		}
 
 		private void AutoPauseEncoding(object sender, EventArgs e)

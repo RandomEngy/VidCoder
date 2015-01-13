@@ -75,7 +75,7 @@ namespace VidCoder.ViewModel.Components
                 pickerIndex = 0;
             }
 
-            this.SelectedPicker = this.pickers[pickerIndex];
+            this.selectedPicker = this.pickers[pickerIndex];
         }
 
         public ObservableCollection<PickerViewModel> Pickers
@@ -381,6 +381,7 @@ namespace VidCoder.ViewModel.Components
             this.RaisePropertyChanged(() => this.SelectedPicker);
 			this.RefreshPickerButton();
 
+			Messenger.Default.Send(new OutputFolderChangedMessage());
 			Messenger.Default.Send(new PickerChangedMessage());
 
             Config.LastPickerIndex = this.Pickers.IndexOf(this.selectedPicker);

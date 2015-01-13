@@ -538,15 +538,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Output to the source directory if possible.
-        /// </summary>
-        public static string OutputToSourceDirCheckBox {
-            get {
-                return ResourceManager.GetString("OutputToSourceDirCheckBox", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Overwrite.
         /// </summary>
         public static string OverwriteRadioButton {
@@ -597,24 +588,6 @@ namespace VidCoder.Resources {
         public static string PreferredDvdPlayerToolTip {
             get {
                 return ResourceManager.GetString("PreferredDvdPlayerToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Preserve folder structure in batch encodes.
-        /// </summary>
-        public static string PreserveFolderStructureCheckBox {
-            get {
-                return ResourceManager.GetString("PreserveFolderStructureCheckBox", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to If you encode a folder full of files the encoded versions will be put into subfolders to match the source directory structure..
-        /// </summary>
-        public static string PreserveFolderStructureToolTip {
-            get {
-                return ResourceManager.GetString("PreserveFolderStructureToolTip", resourceCulture);
             }
         }
         

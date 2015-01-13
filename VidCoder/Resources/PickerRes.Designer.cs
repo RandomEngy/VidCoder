@@ -124,6 +124,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Output location.
+        /// </summary>
+        public static string OutputLocation {
+            get {
+                return ResourceManager.GetString("OutputLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Override directory:.
+        /// </summary>
+        public static string OverrideDirectoryCheckBox {
+            get {
+                return ResourceManager.GetString("OverrideDirectoryCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Picker: {0}.
         /// </summary>
         public static string PickerButtonFormat {
