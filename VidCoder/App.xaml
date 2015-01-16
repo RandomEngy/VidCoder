@@ -14,7 +14,11 @@
 		<converters:InverseBoolConverter x:Key="InverseBoolConverter" />
 		<converters:PercentDisplayConverter x:Key="PercentDisplayConverter" />
 		<converters:DoubleDisplayConverter x:Key="DoubleDisplayConverter" />
+
+		<Color x:Key="DismissableMessageColor">#B5EDFF</Color>
+		<Color x:Key="PresetGlowColor">#1696FF</Color>
 		
+		<SolidColorBrush x:Key="DismissableMessageBrush" Color="{StaticResource DismissableMessageColor}" />
 		<SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#B8E0F3"/>
 		<SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
 		<SolidColorBrush x:Key="ProgressBarBrush" Color="#00C800" />
@@ -187,28 +191,30 @@
 			<Setter Property="Control.Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="Button">
-						<Grid Background="Transparent" Name="removeButtonGrid" Width="15" Height="15">
+						<Grid Background="Transparent" Name="removeButtonGrid">
 							<Grid.ToolTip>
 								<ContentPresenter />
 							</Grid.ToolTip>
-							<Border Name="hoverBorder" CornerRadius="3" BorderBrush="#7DA2CE" BorderThickness="1" Visibility="Collapsed">
-								<Border.Background>
-									<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-										<GradientStop Color="#DBEAFC" Offset="0.0" />
-										<GradientStop Color="#C1DBFC" Offset="1.0" />
-									</LinearGradientBrush>
-								</Border.Background>
-							</Border>
-							<Rectangle Name="rect2" Width="12" Height="2" Fill="{StaticResource BlueFill}">
-								<Rectangle.LayoutTransform>
-									<RotateTransform Angle="-45" />
-								</Rectangle.LayoutTransform>
-							</Rectangle>
-							<Rectangle Name="rect1" Width="12" Height="2" Fill="{StaticResource BlueFill}">
-								<Rectangle.LayoutTransform>
-									<RotateTransform Angle="45" />
-								</Rectangle.LayoutTransform>
-							</Rectangle>
+							<Grid Margin="{TemplateBinding Padding}" Width="15" Height="15">
+								<Border Name="hoverBorder" CornerRadius="3" BorderBrush="#7DA2CE" BorderThickness="1" Visibility="Collapsed">
+									<Border.Background>
+										<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+											<GradientStop Color="#DBEAFC" Offset="0.0" />
+											<GradientStop Color="#C1DBFC" Offset="1.0" />
+										</LinearGradientBrush>
+									</Border.Background>
+								</Border>
+								<Rectangle Name="rect2" Width="12" Height="2" Fill="{StaticResource BlueFill}">
+									<Rectangle.LayoutTransform>
+										<RotateTransform Angle="-45" />
+									</Rectangle.LayoutTransform>
+								</Rectangle>
+								<Rectangle Name="rect1" Width="12" Height="2" Fill="{StaticResource BlueFill}">
+									<Rectangle.LayoutTransform>
+										<RotateTransform Angle="45" />
+									</Rectangle.LayoutTransform>
+								</Rectangle>
+							</Grid>
 						</Grid>
 						<ControlTemplate.Triggers>
 							<Trigger Property="IsMouseOver" Value="True">

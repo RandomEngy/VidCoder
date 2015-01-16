@@ -48,12 +48,13 @@
 		<Grid Grid.Column="1">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
 				<RowDefinition />
 			</Grid.RowDefinitions>
 
 			<ToolBarPanel
 				Grid.Row="0"
-				Margin="-5,0,-14,0"
+				Margin="-5,-1,-14,-1"
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Top"
 				UseLayoutRounding="True"
@@ -140,10 +141,31 @@
 				</ToolBar>
 			</ToolBarPanel>
 
-			<ScrollViewer
+			<Grid
 				Grid.Row="1"
-				VerticalScrollBarVisibility="Auto">
-				<StackPanel VerticalAlignment="Top" Orientation="Vertical" Margin="12">
+				Background="{StaticResource DismissableMessageBrush}"
+				Visibility="{Binding ShowHelpMessage,
+			                           Converter={StaticResource VisibilityConverter}}">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<TextBlock Margin="10" Text="{x:Static res:PickerRes.PickerHelpText}" />
+				<Button
+					Grid.Column="1"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Top"
+					Command="{Binding DismissMessageCommand}"
+					Content="{x:Static res:CommonRes.DismissMessage}"
+					Padding="5"
+					Style="{StaticResource RemoveButtonStyle}" />
+			</Grid>
+
+			<ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+				<StackPanel
+					Margin="12"
+					VerticalAlignment="Top"
+					Orientation="Vertical">
 					<!--  Output location  -->
 					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.OutputLocation}" />
 					<StackPanel Style="{StaticResource ConfigSectionStack}">

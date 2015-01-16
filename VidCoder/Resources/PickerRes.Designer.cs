@@ -151,6 +151,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Automatically pick titles, audio, subtitles and destination.
+        /// </summary>
+        public static string PickerHelpText {
+            get {
+                return ResourceManager.GetString("PickerHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Subtitle selection.
         /// </summary>
         public static string SubtitleSelection {

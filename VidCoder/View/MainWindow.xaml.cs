@@ -48,6 +48,7 @@ namespace VidCoder.View
 		private bool tabsVisible = false;
 
 		private Storyboard presetGlowStoryboard;
+		private Storyboard pickerGlowStoryboard;
 
 		public static System.Windows.Threading.Dispatcher TheDispatcher;
 
@@ -64,10 +65,12 @@ namespace VidCoder.View
 			TheDispatcher = this.Dispatcher;
 
 			this.presetGlowEffect.Opacity = 0.0;
+			this.pickerGlowEffect.Opacity = 0.0;
 			this.statusText.Opacity = 0.0;
 
 			NameScope.SetNameScope(this, new NameScope());
 			this.RegisterName("PresetGlowEffect", this.presetGlowEffect);
+			this.RegisterName("PickerGlowEffect", this.pickerGlowEffect);
 			this.RegisterName("StatusText", this.statusText);
 
 			var storyboard = (Storyboard)this.FindResource("statusTextStoryboard");
@@ -99,6 +102,30 @@ namespace VidCoder.View
 			Storyboard.SetTargetProperty(presetGlowFadeUp, new PropertyPath("Opacity"));
 			Storyboard.SetTargetName(presetGlowFadeDown, "PresetGlowEffect");
 			Storyboard.SetTargetProperty(presetGlowFadeDown, new PropertyPath("Opacity"));
+
+			var pickerGlowFadeUp = new DoubleAnimation
+			{
+				From = 0.0,
+				To = 1.0,
+				Duration = new Duration(TimeSpan.FromSeconds(0.1))
+			};
+
+			var pickerGlowFadeDown = new DoubleAnimation
+			{
+				From = 1.0,
+				To = 0.0,
+				BeginTime = TimeSpan.FromSeconds(0.1),
+				Duration = new Duration(TimeSpan.FromSeconds(1.6))
+			};
+
+			this.pickerGlowStoryboard = new Storyboard();
+			this.pickerGlowStoryboard.Children.Add(pickerGlowFadeUp);
+			this.pickerGlowStoryboard.Children.Add(pickerGlowFadeDown);
+
+			Storyboard.SetTargetName(pickerGlowFadeUp, "PickerGlowEffect");
+			Storyboard.SetTargetProperty(pickerGlowFadeUp, new PropertyPath("Opacity"));
+			Storyboard.SetTargetName(pickerGlowFadeDown, "PickerGlowEffect");
+			Storyboard.SetTargetProperty(pickerGlowFadeDown, new PropertyPath("Opacity"));
 
 			this.Loaded += (e, o) =>
 			{
@@ -263,6 +290,10 @@ namespace VidCoder.View
 			if (e.Value == "PresetGlowHighlight")
 			{
 				this.presetGlowStoryboard.Begin(this);
+			}
+			else if (e.Value == "PickerGlowHighlight")
+			{
+				this.pickerGlowStoryboard.Begin(this);
 			}
 		}
 

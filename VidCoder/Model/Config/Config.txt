@@ -54,6 +54,8 @@ QueueLastColumnWidth|double|75.0
 
 CompletedColumnWidths|string|""
 
+ShowPickerWindowMessage|bool|true
+
 WorkerProcessPriority|string|"Normal"
 LogVerbosity|int|1
 CopyLogToOutputFolder|bool|false

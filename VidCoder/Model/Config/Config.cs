@@ -51,10 +51,8 @@
 			LogWindowPlacement_Field = DatabaseConfig.GetConfig("LogWindowPlacement", "", connection);
 			QueueColumns_Field = DatabaseConfig.GetConfig("QueueColumns", "Source:200|Title:35|Range:106|Destination:200", connection);
 			QueueLastColumnWidth_Field = DatabaseConfig.GetConfig("QueueLastColumnWidth", 75.0, connection);
-			QueueTitlesStartTime_Field = DatabaseConfig.GetConfig("QueueTitlesStartTime", 40, connection);
-			QueueTitlesEndTime_Field = DatabaseConfig.GetConfig("QueueTitlesEndTime", 45, connection);
-			QueueTitlesUseRange_Field = DatabaseConfig.GetConfig("QueueTitlesUseRange", false, connection);
 			CompletedColumnWidths_Field = DatabaseConfig.GetConfig("CompletedColumnWidths", "", connection);
+			ShowPickerWindowMessage_Field = DatabaseConfig.GetConfig("ShowPickerWindowMessage", true, connection);
 			WorkerProcessPriority_Field = DatabaseConfig.GetConfig("WorkerProcessPriority", "Normal", connection);
 			LogVerbosity_Field = DatabaseConfig.GetConfig("LogVerbosity", 1, connection);
 			CopyLogToOutputFolder_Field = DatabaseConfig.GetConfig("CopyLogToOutputFolder", false, connection);
@@ -92,6 +90,9 @@
 			UseWorkerProcess_Field = DatabaseConfig.GetConfig("UseWorkerProcess", true, connection);
 			RememberPreviousFiles_Field = DatabaseConfig.GetConfig("RememberPreviousFiles", true, connection);
 			VideoFileExtensions_Field = DatabaseConfig.GetConfig("VideoFileExtensions", "avi, mkv, mp4, m4v, mpg, mpeg, mov, wmv", connection);
+			PreferredPlayer_Field = DatabaseConfig.GetConfig("PreferredPlayer", "vlc", connection);
+			BetaUpdates_Field = DatabaseConfig.GetConfig("BetaUpdates", false, connection);
+			InterfaceLanguageCode_Field = DatabaseConfig.GetConfig("InterfaceLanguageCode", "", connection);
 			AudioLanguageCode_Field = DatabaseConfig.GetConfig("AudioLanguageCode", "und", connection);
 			SubtitleLanguageCode_Field = DatabaseConfig.GetConfig("SubtitleLanguageCode", "und", connection);
 			AutoAudio_Field = DatabaseConfig.GetConfig("AutoAudio", "Disabled", connection);
@@ -102,9 +103,9 @@
 			AutoSubtitleBurnIn_Field = DatabaseConfig.GetConfig("AutoSubtitleBurnIn", true, connection);
 			AutoSubtitleLanguageDefault_Field = DatabaseConfig.GetConfig("AutoSubtitleLanguageDefault", false, connection);
 			AutoSubtitleLanguageBurnIn_Field = DatabaseConfig.GetConfig("AutoSubtitleLanguageBurnIn", false, connection);
-			PreferredPlayer_Field = DatabaseConfig.GetConfig("PreferredPlayer", "vlc", connection);
-			BetaUpdates_Field = DatabaseConfig.GetConfig("BetaUpdates", false, connection);
-			InterfaceLanguageCode_Field = DatabaseConfig.GetConfig("InterfaceLanguageCode", "", connection);
+			QueueTitlesStartTime_Field = DatabaseConfig.GetConfig("QueueTitlesStartTime", 40, connection);
+			QueueTitlesEndTime_Field = DatabaseConfig.GetConfig("QueueTitlesEndTime", 45, connection);
+			QueueTitlesUseRange_Field = DatabaseConfig.GetConfig("QueueTitlesUseRange", false, connection);
 		}
 		private static bool MigratedConfigs_Field;
 		public static bool MigratedConfigs
@@ -722,48 +723,6 @@
 				DatabaseConfig.SetConfigValue("QueueLastColumnWidth", value);
 			}
 		}
-		private static int QueueTitlesStartTime_Field;
-		public static int QueueTitlesStartTime
-		{
-			get
-			{
-				return QueueTitlesStartTime_Field;
-			}
-			
-			set
-			{
-				QueueTitlesStartTime_Field = value;
-				DatabaseConfig.SetConfigValue("QueueTitlesStartTime", value);
-			}
-		}
-		private static int QueueTitlesEndTime_Field;
-		public static int QueueTitlesEndTime
-		{
-			get
-			{
-				return QueueTitlesEndTime_Field;
-			}
-			
-			set
-			{
-				QueueTitlesEndTime_Field = value;
-				DatabaseConfig.SetConfigValue("QueueTitlesEndTime", value);
-			}
-		}
-		private static bool QueueTitlesUseRange_Field;
-		public static bool QueueTitlesUseRange
-		{
-			get
-			{
-				return QueueTitlesUseRange_Field;
-			}
-			
-			set
-			{
-				QueueTitlesUseRange_Field = value;
-				DatabaseConfig.SetConfigValue("QueueTitlesUseRange", value);
-			}
-		}
 		private static string CompletedColumnWidths_Field;
 		public static string CompletedColumnWidths
 		{
@@ -776,6 +735,20 @@
 			{
 				CompletedColumnWidths_Field = value;
 				DatabaseConfig.SetConfigValue("CompletedColumnWidths", value);
+			}
+		}
+		private static bool ShowPickerWindowMessage_Field;
+		public static bool ShowPickerWindowMessage
+		{
+			get
+			{
+				return ShowPickerWindowMessage_Field;
+			}
+			
+			set
+			{
+				ShowPickerWindowMessage_Field = value;
+				DatabaseConfig.SetConfigValue("ShowPickerWindowMessage", value);
 			}
 		}
 		private static string WorkerProcessPriority_Field;
@@ -1296,6 +1269,48 @@
 				DatabaseConfig.SetConfigValue("VideoFileExtensions", value);
 			}
 		}
+		private static string PreferredPlayer_Field;
+		public static string PreferredPlayer
+		{
+			get
+			{
+				return PreferredPlayer_Field;
+			}
+			
+			set
+			{
+				PreferredPlayer_Field = value;
+				DatabaseConfig.SetConfigValue("PreferredPlayer", value);
+			}
+		}
+		private static bool BetaUpdates_Field;
+		public static bool BetaUpdates
+		{
+			get
+			{
+				return BetaUpdates_Field;
+			}
+			
+			set
+			{
+				BetaUpdates_Field = value;
+				DatabaseConfig.SetConfigValue("BetaUpdates", value);
+			}
+		}
+		private static string InterfaceLanguageCode_Field;
+		public static string InterfaceLanguageCode
+		{
+			get
+			{
+				return InterfaceLanguageCode_Field;
+			}
+			
+			set
+			{
+				InterfaceLanguageCode_Field = value;
+				DatabaseConfig.SetConfigValue("InterfaceLanguageCode", value);
+			}
+		}
 		private static string AudioLanguageCode_Field;
 		public static string AudioLanguageCode
 		{
@@ -1436,46 +1451,46 @@
 				DatabaseConfig.SetConfigValue("AutoSubtitleLanguageBurnIn", value);
 			}
 		}
-		private static string PreferredPlayer_Field;
-		public static string PreferredPlayer
+		private static int QueueTitlesStartTime_Field;
+		public static int QueueTitlesStartTime
 		{
 			get
 			{
-				return PreferredPlayer_Field;
+				return QueueTitlesStartTime_Field;
 			}
 			
 			set
 			{
-				PreferredPlayer_Field = value;
-				DatabaseConfig.SetConfigValue("PreferredPlayer", value);
+				QueueTitlesStartTime_Field = value;
+				DatabaseConfig.SetConfigValue("QueueTitlesStartTime", value);
 			}
 		}
-		private static bool BetaUpdates_Field;
-		public static bool BetaUpdates
+		private static int QueueTitlesEndTime_Field;
+		public static int QueueTitlesEndTime
 		{
 			get
 			{
-				return BetaUpdates_Field;
+				return QueueTitlesEndTime_Field;
 			}
 			
 			set
 			{
-				BetaUpdates_Field = value;
-				DatabaseConfig.SetConfigValue("BetaUpdates", value);
+				QueueTitlesEndTime_Field = value;
+				DatabaseConfig.SetConfigValue("QueueTitlesEndTime", value);
 			}
 		}
-		private static string InterfaceLanguageCode_Field;
-		public static string InterfaceLanguageCode
+		private static bool QueueTitlesUseRange_Field;
+		public static bool QueueTitlesUseRange
 		{
 			get
 			{
-				return InterfaceLanguageCode_Field;
+				return QueueTitlesUseRange_Field;
 			}
 			
 			set
 			{
-				InterfaceLanguageCode_Field = value;
-				DatabaseConfig.SetConfigValue("InterfaceLanguageCode", value);
+				QueueTitlesUseRange_Field = value;
+				DatabaseConfig.SetConfigValue("QueueTitlesUseRange", value);
 			}
 		}
 	}

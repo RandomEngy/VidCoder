@@ -191,6 +191,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dismiss message.
+        /// </summary>
+        public static string DismissMessage {
+            get {
+                return ResourceManager.GetString("DismissMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed.
         /// </summary>
         public static string Failed {

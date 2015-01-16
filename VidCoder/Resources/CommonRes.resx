@@ -264,4 +264,8 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
     <value>If you encode a folder full of files the encoded versions will be put into subfolders to match the source directory structure.</value>
   </data>
+	<data name="DismissMessage" xml:space="preserve">
+    <value>Dismiss message</value>
+    <comment>Appears as a tooltip on inline, dismissable messages</comment>
+  </data>
 </root>

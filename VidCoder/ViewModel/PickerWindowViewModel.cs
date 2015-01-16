@@ -34,6 +34,13 @@ namespace VidCoder.ViewModel
 			get { return this.pickersViewModel; }
 		}
 
+		// Should only fire when user manually closes the window, not when closed through WindowManager.
+		public override void OnClosing()
+		{
+			Config.PickerWindowOpen = false;
+			base.OnClosing();
+		}
+
 		public Picker EditingPicker
 		{
 			get { return this.picker; }
@@ -113,6 +120,20 @@ namespace VidCoder.ViewModel
 						this.pickersViewModel.SavePickersToStorage();
 					}
 				}
+			}
+		}
+
+		public bool ShowHelpMessage
+		{
+			get
+			{
+				return Config.ShowPickerWindowMessage;
+			}
+
+			set
+			{
+				Config.ShowPickerWindowMessage = value;
+				this.RaisePropertyChanged(() => this.ShowHelpMessage);
 			}
 		}
 
@@ -485,6 +506,18 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private RelayCommand dismissMessageCommand;
+		public RelayCommand DismissMessageCommand
+		{
+			get
+			{
+				return this.dismissMessageCommand ?? (this.dismissMessageCommand = new RelayCommand(() =>
+				{
+					this.ShowHelpMessage = false;
+				}));
+			}
+		}
+
 		private RelayCommand saveCommand;
 		public RelayCommand SaveCommand
 		{
@@ -606,7 +639,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.pickOutputDirectoryCommand ?? (this.pickOutputDirectoryCommand = new RelayCommand(() =>
 				{
-					string overrideFolder = FileService.Instance.GetFolderName(null, MainRes.OutputDirectoryPickerText);
+					string overrideFolder = FileService.Instance.GetFolderName(this.OutputDirectoryOverride, MainRes.OutputDirectoryPickerText);
 					if (overrideFolder != null)
 					{
 						this.OutputDirectoryOverride = overrideFolder;

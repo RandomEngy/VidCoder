@@ -189,7 +189,9 @@ namespace VidCoder.ViewModel.Components
             this.SelectedPicker.RefreshView();
 			this.RefreshPickerButton();
             this.SavePickersToStorage();
-        }
+
+			this.main.StartAnimation("PickerGlowHighlight");
+		}
 
         public void SavePickerAs(string newName)
         {
@@ -211,7 +213,9 @@ namespace VidCoder.ViewModel.Components
             this.SelectedPicker = newPickerVM;
 
 			this.SavePickersToStorage();
-        }
+
+			this.main.StartAnimation("PickerGlowHighlight");
+		}
 
         public void AddPicker(Picker newPicker)
         {
@@ -246,6 +250,8 @@ namespace VidCoder.ViewModel.Components
 
 			this.SavePickersToStorage();
 
+			this.main.StartAnimation("PickerGlowHighlight");
+
 	        return this.SelectedPicker.Picker;
         }
 
@@ -256,7 +262,9 @@ namespace VidCoder.ViewModel.Components
             this.SelectedPicker = this.Pickers[0];
 
 			this.SavePickersToStorage();
-        }
+
+			this.main.StartAnimation("PickerGlowHighlight");
+		}
 
         public void AutoCreatePicker()
         {
