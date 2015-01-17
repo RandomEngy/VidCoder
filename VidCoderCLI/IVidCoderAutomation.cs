@@ -7,7 +7,7 @@
 	{
 		[OperationContract]
 		[FaultContract(typeof(AutomationError))]
-		void Encode(string source, string destination, string preset);
+		void Encode(string source, string destination, string preset, string picker);
 
 		[OperationContract]
 		[FaultContract(typeof(AutomationError))]

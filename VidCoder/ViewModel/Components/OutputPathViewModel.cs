@@ -368,7 +368,8 @@ namespace VidCoder.ViewModel.Components
 				this.main.FramesRangeStart,
 				this.main.FramesRangeEnd,
 				this.NameFormatOverride,
-				multipleTitlesOnSource: this.main.ScanInstance.Titles.Count > 1);
+				multipleTitlesOnSource: this.main.ScanInstance.Titles.Count > 1,
+				picker: null);
 
 			string extension = this.GetOutputExtension();
 
@@ -439,13 +440,17 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
-		public string GetOutputFolder(string sourcePath, string sourceParentFolder = null)
+		public string GetOutputFolder(string sourcePath, string sourceParentFolder = null, Picker picker = null)
 		{
 			string outputFolder = this.PickerOutputFolder;
 
 			bool usedSourceDirectory = false;
 
-			Picker picker = this.PickersVM.SelectedPicker.Picker;
+			if (picker == null)
+			{
+				picker = this.PickersVM.SelectedPicker.Picker;
+			}
+
 			if (picker.OutputToSourceDirectory ?? Config.OutputToSourceDirectory)
 			{
 				// Use the source directory if we can
@@ -520,7 +525,8 @@ namespace VidCoder.ViewModel.Components
 			TimeSpan titleDuration,
 			int totalChapters,
 			string nameFormatOverride = null,
-			bool multipleTitlesOnSource = false)
+			bool multipleTitlesOnSource = false,
+			Picker picker = null)
 		{
 			return this.BuildOutputFileName(
 				sourcePath,
@@ -536,7 +542,8 @@ namespace VidCoder.ViewModel.Components
 				0,
 				0,
 				nameFormatOverride,
-				multipleTitlesOnSource);
+				multipleTitlesOnSource,
+				picker);
 		}
 
 		public string BuildOutputFileName(
@@ -553,10 +560,14 @@ namespace VidCoder.ViewModel.Components
 			int startFrame, 
 			int endFrame,
 			string nameFormatOverride, 
-			bool multipleTitlesOnSource)
+			bool multipleTitlesOnSource,
+			Picker picker)
 		{
 			string fileName;
-			Picker picker = this.PickersVM.SelectedPicker.Picker;
+			if (picker == null)
+			{
+				picker = this.PickersVM.SelectedPicker.Picker;
+			}
 
 			if (Config.AutoNameCustomFormat || !string.IsNullOrWhiteSpace(nameFormatOverride))
 			{

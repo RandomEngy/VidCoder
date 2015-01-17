@@ -22,6 +22,7 @@ using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Model.Encoding;
 using VidCoder.Services;
+using VidCoder.ViewModel.DataModels;
 
 namespace VidCoder.ViewModel.Components
 {
@@ -830,7 +831,7 @@ namespace VidCoder.ViewModel.Components
 		/// <param name="destination">The destination path for the encoded file.</param>
 		/// <param name="presetName">The name of the preset to use to encode.</param>
 		/// <returns>True if the item was successfully queued for processing.</returns>
-		public void Process(string source, string destination, string presetName)
+		public void Process(string source, string destination, string presetName, string pickerName)
 		{
 			if (string.IsNullOrWhiteSpace(source))
 			{
@@ -853,11 +854,19 @@ namespace VidCoder.ViewModel.Components
 				throw new ArgumentException("Cannot find preset: " + presetName);
 			}
 
+			PickerViewModel pickerVM = this.pickersViewModel.Pickers.FirstOrDefault(p => p.Picker.Name == pickerName);
+			Picker picker = null;
+			if (pickerVM != null)
+			{
+				picker = pickerVM.Picker;
+			}
+			
+
 			var scanMultipleDialog = new ScanMultipleDialogViewModel(new List<string> { source });
 			WindowManager.OpenDialog(scanMultipleDialog, this.main);
 
 			HandBrakeInstance handBrakeInstance = scanMultipleDialog.ScanResults[0];
-			List<int> titleNumbers = this.PickTitles(handBrakeInstance);
+			List<int> titleNumbers = this.PickTitles(handBrakeInstance, picker);
 
 			foreach (int titleNumber in titleNumbers)
 			{
@@ -903,14 +912,15 @@ namespace VidCoder.ViewModel.Components
 					string pathToQueue = job.SourcePath;
 
 					excludedPaths.Add(pathToQueue);
-					string outputFolder = this.outputVM.GetOutputFolder(pathToQueue);
+					string outputFolder = this.outputVM.GetOutputFolder(pathToQueue, null, picker);
 					string outputFileName = this.outputVM.BuildOutputFileName(
 						pathToQueue,
 						Utilities.GetSourceName(pathToQueue),
 						job.Title, 
 						title.Duration, 
 						title.Chapters.Count, 
-						multipleTitlesOnSource: handBrakeInstance.Titles.Count > 1);
+						multipleTitlesOnSource: handBrakeInstance.Titles.Count > 1,
+						picker: picker);
 					string outputExtension = this.outputVM.GetOutputExtension();
 					string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
 					queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, excludedPaths, isBatch: true);
@@ -1918,11 +1928,15 @@ namespace VidCoder.ViewModel.Components
 		/// Picks title numbers to encode from a scanned instance.
 		/// </summary>
 		/// <param name="handBrakeInstance">The scanned instance.</param>
+		/// <param name="picker">The picker to use to pick the titles.</param>
 		/// <returns>List of title numbers (1-based)</returns>
-		private List<int> PickTitles(HandBrakeInstance handBrakeInstance)
+		private List<int> PickTitles(HandBrakeInstance handBrakeInstance, Picker picker = null)
 		{
 			var result = new List<int>();
-			var picker = this.pickersViewModel.SelectedPicker.Picker;
+			if (picker == null)
+			{
+				picker = this.pickersViewModel.SelectedPicker.Picker;
+			}
 
 			if (picker.TitleRangeSelectEnabled)
 			{

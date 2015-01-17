@@ -12,13 +12,13 @@ namespace VidCoder.Automation
 
 	public class VidCoderAutomation : IVidCoderAutomation
 	{
-		public void Encode(string source, string destination, string preset)
+		public void Encode(string source, string destination, string preset, string picker)
 		{
 			var processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
 
 			try
 			{
-				processingVM.Process(source, destination, preset);
+				processingVM.Process(source, destination, preset, picker);
 			}
 			catch (Exception exception)
 			{

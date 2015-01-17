@@ -15,6 +15,7 @@
 		private static string source;
 		private static string destination;
 		private static string preset;
+		private static string picker;
 
 		public static void Main(string[] args)
 		{
@@ -65,6 +66,9 @@
 					case "preset":
 						preset = argumentDict[token];
 						break;
+					case "picker":
+						picker = argumentDict[token];
+						break;
 					default:
 						PrintUsage();
 						return;
@@ -89,7 +93,13 @@
 				return;
 			}
 
-			RunAction(a => a.Encode(source, destination, preset), "Encode started.", "Could not start encode.");
+			if (picker == string.Empty)
+			{
+				PrintUsage();
+				return;
+			}
+
+			RunAction(a => a.Encode(source, destination, preset, picker), "Encode started.", "Could not start encode.");
 		}
 
 		private static void Scan(Dictionary<string, string> argumentDict)
@@ -149,7 +159,7 @@
 		private static void PrintUsage()
 		{
 			Console.WriteLine("Usage:");
-			Console.WriteLine("VidCoderCLI encode -s[ource] \"<source path>\" [-d[estination] \"<encode file destination>\"] -p[reset] \"<preset name>\"");
+			Console.WriteLine("VidCoderCLI encode -s[ource] \"<source path>\" [-d[estination] \"<encode file destination>\"] -p[reset] \"<preset name>\" [-picker \"<picker name>\"]");
 			Console.WriteLine("VidCoderCLI scan -s[ource] \"<source path>\"");
 		}
 
