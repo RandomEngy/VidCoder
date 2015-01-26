@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using VidCoder.Extensions;
+using VidCoder.Services;
 using VidCoder.ViewModel;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -33,31 +35,14 @@ namespace VidCoder.View
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			string placement = Config.EncodingDialogPlacement;
-			if (string.IsNullOrEmpty(placement))
-			{
-				Rect workArea = SystemParameters.WorkArea;
-
-				if (workArea.Width > Constants.TotalDefaultWidth && workArea.Height > Constants.TotalDefaultHeight)
-				{
-					double widthRemaining = workArea.Width - Constants.TotalDefaultWidth;
-					double heightRemaining = workArea.Height - Constants.TotalDefaultHeight;
-
-					this.Left = workArea.Left + widthRemaining / 2;
-					this.Top = workArea.Top + heightRemaining / 2 + 452;
-				}
-			}
-			else
-			{
-				this.SetPlacement(placement);
-			}
+			this.PlaceDynamic(Config.EncodingDialogPlacement);
 		}
 
 		private void Window_Closing(object sender, CancelEventArgs e)
 		{
 			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
 			{
-				Config.EncodingDialogPlacement = this.GetPlacement();
+				Config.EncodingDialogPlacement = this.GetPlacementXml();
 				Config.EncodingDialogLastTab = this.tabControl.SelectedIndex;
 
 				transaction.Commit();

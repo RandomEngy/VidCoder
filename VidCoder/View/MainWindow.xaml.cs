@@ -55,8 +55,7 @@ namespace VidCoder.View
 		public MainWindow()
 		{
 			Ioc.Container.Register(() => this);
-
-			InitializeComponent();
+			this.InitializeComponent();
 
 			this.RefreshQueueColumns();
 			this.LoadCompletedColumnWidths();
@@ -450,32 +449,14 @@ namespace VidCoder.View
 				this.SaveQueueColumns();
 				this.SaveCompletedColumnWidths();
 
-				Config.MainWindowPlacement = this.GetPlacement();
+				Config.MainWindowPlacement = this.GetPlacementXml();
 			}
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			string placement = Config.MainWindowPlacement;
-
-			if (string.IsNullOrEmpty(placement))
-			{
-				Rect workArea = SystemParameters.WorkArea;
-
-				if (workArea.Width > Constants.TotalDefaultWidth && workArea.Height > Constants.TotalDefaultHeight)
-				{
-					double widthRemaining = workArea.Width - Constants.TotalDefaultWidth;
-					double heightRemaining = workArea.Height - Constants.TotalDefaultHeight;
-
-					this.Left = workArea.Left + widthRemaining / 2;
-					this.Top = workArea.Top + heightRemaining / 2;
-				}
-			}
-			else
-			{
-				this.SetPlacement(placement);
-			}
+			this.PlaceDynamic(Config.MainWindowPlacement);
 
 			var source = PresentationSource.FromVisual(this) as HwndSource;
 			source.AddHook(WndProc);

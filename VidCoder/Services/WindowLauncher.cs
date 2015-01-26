@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -27,8 +28,8 @@ namespace VidCoder.Services
 		// This bypasses the normal call to vm.OnClosing(). Closes the window without any prompting.
 		public void CloseWindow(ViewModelBase viewModel)
 		{
-			openWindows[viewModel].Closing -= this.OnClosing;
-			openWindows[viewModel].Close();
+			this.openWindows[viewModel].Closing -= this.OnClosing;
+			this.openWindows[viewModel].Close();
 		}
 
 		public void FocusWindow(ViewModelBase viewModel)

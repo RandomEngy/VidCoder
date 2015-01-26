@@ -2,13 +2,18 @@
 	x:Class="VidCoder.View.LogWindow"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:prop="clr-namespace:VidCoder.Properties"
-	xmlns:res="clr-namespace:VidCoder.Resources" 
-	Title="{x:Static res:LogRes.LogWindowTitle}" Height="393" Width="459"
+	xmlns:res="clr-namespace:VidCoder.Resources"
+	xmlns:vidCoder="clr-namespace:VidCoder"
+	Title="{x:Static res:LogRes.LogWindowTitle}"
+	Width="{x:Static vidCoder:WindowConstants.LogDefaultWidth}"
+	Height="{x:Static vidCoder:WindowConstants.LogDefaultHeight}"
+	MinWidth="220"
+	MinHeight="95"
+	Closing="Window_Closing"
+	ShowInTaskbar="False"
 	Style="{StaticResource NormalWindow}"
-	WindowStyle="ToolWindow" ShowInTaskbar="False" Closing="Window_Closing"
-	MinWidth="220" MinHeight="95"
-	TextOptions.TextFormattingMode="Display">
+	TextOptions.TextFormattingMode="Display"
+	WindowStyle="ToolWindow">
 	<Grid>
 		<RichTextBox
 			Name="logTextBox"
@@ -17,25 +22,37 @@
 			VerticalScrollBarVisibility="Auto">
 			<FlowDocument Name="logDocument">
 				<FlowDocument.Resources>
-					<!-- Eliminate blank line between paragraphs -->
+					<!--  Eliminate blank line between paragraphs  -->
 					<Style TargetType="{x:Type Paragraph}">
-						<Setter Property="Margin" Value="0"/>
+						<Setter Property="Margin" Value="0" />
 					</Style>
 				</FlowDocument.Resources>
 			</FlowDocument>
 		</RichTextBox>
 		<Button
-			Height="24" HorizontalAlignment="Right" Margin="0,0,127,7" Name="copyButton" VerticalAlignment="Bottom" MinWidth="68"
+			Name="copyButton"
+			Height="24"
+			MinWidth="68"
+			Margin="0,0,127,7"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Bottom"
 			Command="{Binding CopyCommand}">
-			<StackPanel Orientation="Horizontal" Margin="5,0">
-				<Image Source="/Icons/copy.png" Width="16" Height="16" />
-				<TextBlock Text="{x:Static res:CommonRes.Copy}" Margin="4,0,0,0" />
+			<StackPanel Margin="5,0" Orientation="Horizontal">
+				<Image
+					Width="16"
+					Height="16"
+					Source="/Icons/copy.png" />
+				<TextBlock Margin="4,0,0,0" Text="{x:Static res:CommonRes.Copy}" />
 			</StackPanel>
 		</Button>
 
 		<Button
-			Content="{x:Static res:LogRes.ClearButton}"
+			Height="23"
+			MinWidth="75"
+			Margin="0,0,12,7"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Bottom"
 			Command="{Binding ClearLogCommand}"
-			Height="23" HorizontalAlignment="Right" Margin="0,0,12,7" VerticalAlignment="Bottom" MinWidth="75" />
+			Content="{x:Static res:LogRes.ClearButton}" />
 	</Grid>
 </Window>

@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VidCoder.Extensions;
 
 namespace VidCoder.View
 {
@@ -33,7 +34,7 @@ namespace VidCoder.View
 
 			try
 			{
-				this.SetPlacement(Config.OptionsDialogPlacement);
+				this.SetPlacementXml(Config.OptionsDialogPlacement);
 			}
 			catch { }
 		}
@@ -45,7 +46,7 @@ namespace VidCoder.View
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			Config.OptionsDialogPlacement = this.GetPlacement();
+			Config.OptionsDialogPlacement = this.GetPlacementXml();
 		}
 
 		private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)

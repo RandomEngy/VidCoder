@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using VidCoder.Extensions;
+using VidCoder.Services;
 
 namespace VidCoder.View
 {
@@ -30,12 +31,12 @@ namespace VidCoder.View
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
-            this.SetPlacement(Config.PickerWindowPlacement);
+	        this.PlaceDynamic(Config.PickerWindowPlacement);
         }
 
         private void PickerWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            Config.PickerWindowPlacement = this.GetPlacement();
+            Config.PickerWindowPlacement = this.GetPlacementXml();
         }
 
         private void ToolBar_Loaded(object sender, RoutedEventArgs e)

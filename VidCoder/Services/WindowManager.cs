@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using GalaSoft.MvvmLight;
+using VidCoder.Model.WindowPlacer;
+using VidCoder.View;
 using VidCoder.ViewModel;
 using VidCoder.Services;
 using System.Windows;
+using VidCoder.ViewModel.DataModels;
 
 namespace VidCoder
 {
@@ -93,6 +97,40 @@ namespace VidCoder
 		public static T FindWindow<T>() where T : ViewModelBase
 		{
 			return openWindows.SingleOrDefault(vm => vm is T) as T;
+		}
+
+		public static List<WindowPosition> GetOpenedWindowPositions(Window excludeWindow = null)
+		{
+			var result = new List<WindowPosition>();
+			AddWindowPosition<MainViewModel>(result, excludeWindow);
+			AddWindowPosition<EncodingViewModel>(result, excludeWindow);
+			AddWindowPosition<PreviewViewModel>(result, excludeWindow);
+			AddWindowPosition<LogViewModel>(result, excludeWindow);
+			AddWindowPosition<PickerViewModel>(result, excludeWindow);
+			return result;
+		}
+
+		private static void AddWindowPosition<T>(List<WindowPosition> workingList, Window excludeWindow) where T : ViewModelBase
+		{
+			T windowVM = FindWindow<T>();
+			if (windowVM == null)
+			{
+				return;
+			}
+
+			Window window = windowLauncher.GetView(windowVM);
+			if (window != null && window != excludeWindow)
+			{
+				workingList.Add(new WindowPosition
+				{
+					Position = new Rect(
+						(int)window.Left,
+						(int)window.Top,
+						(int)window.ActualWidth,
+						(int)window.ActualHeight),
+					ViewModelType = typeof(T)
+				});
+			}
 		}
 
 		internal static Window GetView(ViewModelBase viewModel)

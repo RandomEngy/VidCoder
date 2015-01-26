@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using VidCoder.Extensions;
+using VidCoder.Services;
 
 namespace VidCoder.View
 {
@@ -29,12 +30,12 @@ namespace VidCoder.View
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			this.SetPlacement(Config.EncodeDetailsWindowPlacement);
+			this.PlaceDynamic(Config.EncodeDetailsWindowPlacement);
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			Config.EncodeDetailsWindowPlacement = this.GetPlacement();
+			Config.EncodeDetailsWindowPlacement = this.GetPlacementXml();
 		}
 	}
 }

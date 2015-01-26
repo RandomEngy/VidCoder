@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using HandBrake.Interop.SourceData;
+using VidCoder.Extensions;
 using VidCoder.Services;
 using VidCoder.ViewModel;
 
@@ -33,7 +34,7 @@ namespace VidCoder.View
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			this.SetPlacement(Config.QueueTitlesDialogPlacement2);
+			this.PlaceDynamic(Config.QueueTitlesDialogPlacement2);
 		}
 
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -77,7 +78,7 @@ namespace VidCoder.View
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			Config.QueueTitlesDialogPlacement2 = this.GetPlacement();
+			Config.QueueTitlesDialogPlacement2 = this.GetPlacementXml();
 		}
 
 		private void previewImageHolder_SizeChanged(object sender, SizeChangedEventArgs e)

@@ -420,6 +420,7 @@
     <Compile Include="Converters\ChapterVMConverter.cs" />
     <Compile Include="DataReaderExtensions.cs" />
     <Compile Include="EnumStringConverter.cs" />
+    <Compile Include="Extensions\RectExtensions.cs" />
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="Messages\ContainerChangedMessage.cs" />
@@ -443,11 +444,14 @@
     </Compile>
     <Compile Include="Model\PickerStorage.cs" />
     <Compile Include="Model\Players\VideoPlayerBase.cs" />
+    <Compile Include="Model\Side.cs" />
     <Compile Include="Model\SourcePath.cs" />
     <Compile Include="Model\UpdateInfo.cs" />
     <Compile Include="Model\UpdateState.cs" />
     <Compile Include="Model\Encoding\VCContainer.cs" />
     <Compile Include="Model\Encoding\VCDenoise.cs" />
+    <Compile Include="Model\WindowPlacer\WindowPlacerLocation.cs" />
+    <Compile Include="Model\WindowPlacer\WindowPosition.cs" />
     <Compile Include="Resources\ChapterMarkersRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -582,6 +586,7 @@
     <Compile Include="Services\SystemOperations.cs" />
     <Compile Include="Services\TrayService.cs" />
     <Compile Include="Model\Config\ConfigDeclaration.cs" />
+    <Compile Include="Services\WindowPlacer.cs" />
     <Compile Include="Utilities\AdvancedOptionsParsing.cs" />
     <Compile Include="Utilities\CodecUtilities.cs" />
     <Compile Include="Services\EncodeProxy\RemoteEncodeProxy.cs" />
@@ -604,6 +609,7 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="Utilities\WindowConstants.cs" />
     <Compile Include="ViewModel\Components\OutputPathViewModel.cs" />
     <Compile Include="ViewModel\Components\PickersViewModel.cs" />
     <Compile Include="ViewModel\Components\PresetsViewModel.cs" />
@@ -807,7 +813,6 @@
       <DependentUpon>VideoPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowPlacement.cs" />
-    <Compile Include="WindowPlacementWpf.cs" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.cs.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.de.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.es.resx">

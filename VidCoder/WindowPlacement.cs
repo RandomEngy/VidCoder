@@ -2,15 +2,12 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace VidCoder
 {
-	using System.ComponentModel;
-	using System.Diagnostics;
-	using System.Threading;
-
 	// RECT structure required by WINDOWPLACEMENT structure
 	[Serializable]
 	[StructLayout(LayoutKind.Sequential)]
@@ -99,24 +96,13 @@ namespace VidCoder
 				return;
 			}
 
-			WINDOWPLACEMENT placement;
-			byte[] xmlBytes = encoding.GetBytes(placementXml);
-
 			try
 			{
-				using (MemoryStream memoryStream = new MemoryStream(xmlBytes))
-				{
-					placement = (WINDOWPLACEMENT)serializer.Deserialize(memoryStream);
-				}
+				WINDOWPLACEMENT placement = ParsePlacementXml(placementXml);
 
 				placement.length = Marshal.SizeOf(typeof(WINDOWPLACEMENT));
 				placement.flags = 0;
 				placement.showCmd = (placement.showCmd == SW_SHOWMINIMIZED ? SW_SHOWNORMAL : placement.showCmd);
-
-				//if (placement.showCmd == SW_SHOWNORMAL)
-				//{
-				//	placement.showCmd = SW_SHOWNOACTIVATE;
-				//}
 
 				IntPtr closestMonitorPtr = MonitorFromRect(ref placement.normalPosition, MONITOR_DEFAULTTONEAREST);
 				MONITORINFO closestMonitorInfo = new MONITORINFO();
@@ -134,6 +120,18 @@ namespace VidCoder
 			{
 				// Parsing placement XML failed. Fail silently.
 			}
+		}
+
+		public static WINDOWPLACEMENT ParsePlacementXml(string placementXml)
+		{
+			WINDOWPLACEMENT placement;
+			byte[] xmlBytes = encoding.GetBytes(placementXml);
+			using (MemoryStream memoryStream = new MemoryStream(xmlBytes))
+			{
+				placement = (WINDOWPLACEMENT)serializer.Deserialize(memoryStream);
+			}
+
+			return placement;
 		}
 
 		public static string GetPlacement(IntPtr windowHandle)
@@ -223,6 +221,12 @@ namespace VidCoder
 			}
 
 			return windowRect;
+		}
+
+		public static Rect ToRect(this WINDOWPLACEMENT placement)
+		{
+			RECT pos = placement.normalPosition;
+			return new Rect(pos.Left, pos.Top, pos.Right - pos.Left, pos.Bottom - pos.Top);
 		}
 	}
 }

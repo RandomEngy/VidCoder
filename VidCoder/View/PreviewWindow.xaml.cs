@@ -73,17 +73,6 @@ namespace VidCoder.View
 			string placement = Config.PreviewWindowPlacement;
 			if (string.IsNullOrEmpty(placement))
 			{
-				Rect workArea = SystemParameters.WorkArea;
-
-				if (workArea.Width > Constants.TotalDefaultWidth && workArea.Height > Constants.TotalDefaultHeight)
-				{
-					double widthRemaining = workArea.Width - Constants.TotalDefaultWidth;
-					double heightRemaining = workArea.Height - Constants.TotalDefaultHeight;
-
-					this.Left = workArea.Left + widthRemaining / 2 + 676;
-					this.Top = workArea.Top + heightRemaining / 2;
-				}
-
 				// Initialize window size to fit 853x480 at native resolution.
 				double targetImageWidth = 480.0 * (16.0 / 9.0);
 				double targetImageHeight = 480.0;
@@ -91,16 +80,23 @@ namespace VidCoder.View
 				// Add some for the window borders and scale to DPI
 				this.Width = (targetImageWidth + 16.0) / ImageUtilities.DpiXFactor;
 				this.Height = (targetImageHeight + 34.0) / ImageUtilities.DpiYFactor;
+
+				Rect? placementRect = new WindowPlacer().PlaceWindow(this);
+				if (placementRect.HasValue)
+				{
+					this.Left = placementRect.Value.Left;
+					this.Top = placementRect.Value.Top;
+				}
 			}
 			else
 			{
-				this.SetPlacement(placement);
+				this.SetPlacementXml(placement);
 			}
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			Config.PreviewWindowPlacement = this.GetPlacement();
+			Config.PreviewWindowPlacement = this.GetPlacementXml();
 		}
 
 		private void previewImageHolder_SizeChanged(object sender, SizeChangedEventArgs e)

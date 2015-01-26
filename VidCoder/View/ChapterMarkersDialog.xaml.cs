@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using VidCoder.Extensions;
 
 namespace VidCoder.View
 {
@@ -30,14 +31,14 @@ namespace VidCoder.View
 
 			try
 			{
-				this.SetPlacement(Config.ChapterMarkersDialogPlacement);
+				this.SetPlacementXml(Config.ChapterMarkersDialogPlacement);
 			}
 			catch { }
 		}
 
 		private void Window_Closing(object sender, CancelEventArgs e)
 		{
-			Config.ChapterMarkersDialogPlacement = this.GetPlacement();
+			Config.ChapterMarkersDialogPlacement = this.GetPlacementXml();
 		}
 
 		private void TitleBoxGotFocus(object sender, RoutedEventArgs e)

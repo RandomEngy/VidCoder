@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VidCoder.Extensions;
 using VidCoder.ViewModel;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -134,12 +135,12 @@ namespace VidCoder.View
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			this.SetPlacement(Config.SubtitlesDialogPlacement);
+			this.SetPlacementXml(Config.SubtitlesDialogPlacement);
 		}
 
 		private void Window_Closing(object sender, CancelEventArgs e)
 		{
-			Config.SubtitlesDialogPlacement = this.GetPlacement();
+			Config.SubtitlesDialogPlacement = this.GetPlacementXml();
 		}
 	}
 }
