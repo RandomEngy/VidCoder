@@ -24,6 +24,7 @@ namespace VidCoder.View
         public PickerWindow()
         {
             this.InitializeComponent();
+			this.listColumn.Width = new GridLength(Config.PickerListPaneWidth);
 
             this.RegisterGlobalHotkeys();
         }
@@ -37,6 +38,7 @@ namespace VidCoder.View
         private void PickerWindow_OnClosing(object sender, CancelEventArgs e)
         {
             Config.PickerWindowPlacement = this.GetPlacementXml();
+			Config.PickerListPaneWidth = this.listColumn.ActualWidth;
         }
 
         private void ToolBar_Loaded(object sender, RoutedEventArgs e)

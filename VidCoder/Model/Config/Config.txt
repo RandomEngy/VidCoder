@@ -54,6 +54,8 @@ QueueLastColumnWidth|double|75.0
 
 CompletedColumnWidths|string|""
 
+PickerListPaneWidth|double|135.0
+
 ShowPickerWindowMessage|bool|true
 
 WorkerProcessPriority|string|"Normal"

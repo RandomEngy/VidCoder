@@ -6,8 +6,8 @@
 	xmlns:res="clr-namespace:VidCoder.Resources"
 	xmlns:vidCoder="clr-namespace:VidCoder"
 	Title="{Binding WindowTitle}"
-	Width="{x:Static vidCoder:WindowConstants.PickerDefaultWidth}"
-	Height="{x:Static vidCoder:WindowConstants.PickerDefaultHeight}"
+	Width="500"
+	Height="450"
 	MinWidth="450"
 	MinHeight="300"
 	Closing="PickerWindow_OnClosing"
@@ -15,12 +15,13 @@
 	WindowStyle="ToolWindow">
 	<Grid>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="Auto" MinWidth="135" />
+			<ColumnDefinition Width="135" MinWidth="70" MaxWidth="250" Name="listColumn" />
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 		<ListBox
 			Grid.Column="0"
 			Background="WhiteSmoke"
+			HorizontalAlignment="Stretch"
 			BorderThickness="0"
 			Canvas.ZIndex="3"
 			ItemsSource="{Binding PickersViewModel.Pickers}"
@@ -45,7 +46,16 @@
 			</ListBox.ItemTemplate>
 		</ListBox>
 
-		<Grid Grid.Column="1">
+		<GridSplitter
+			Grid.Column="1"
+			Width="4"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Stretch"
+			Background="#BCBCBC"
+			Canvas.ZIndex="4"
+			ShowsPreview="True" />
+
+		<Grid Grid.Column="1" Margin="4 0 0 0">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />

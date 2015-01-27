@@ -609,7 +609,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Utilities\WindowConstants.cs" />
     <Compile Include="ViewModel\Components\OutputPathViewModel.cs" />
     <Compile Include="ViewModel\Components\PickersViewModel.cs" />
     <Compile Include="ViewModel\Components\PresetsViewModel.cs" />
