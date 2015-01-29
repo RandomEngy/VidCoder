@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using VidCoder.Extensions;
+using VidCoder.Model;
 using VidCoder.Services;
 
 namespace VidCoder.View
@@ -37,8 +39,13 @@ namespace VidCoder.View
 
         private void PickerWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            Config.PickerWindowPlacement = this.GetPlacementXml();
-			Config.PickerListPaneWidth = this.listColumn.ActualWidth;
+	        using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
+	        {
+		        Config.PickerWindowPlacement = this.GetPlacementXml();
+		        Config.PickerListPaneWidth = this.listColumn.ActualWidth;
+
+				transaction.Commit();
+			}
         }
 
         private void ToolBar_Loaded(object sender, RoutedEventArgs e)

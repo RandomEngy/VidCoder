@@ -51,7 +51,7 @@
 			Width="4"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Stretch"
-			Background="#BCBCBC"
+			Background="{StaticResource SplitterBrush}"
 			Canvas.ZIndex="4"
 			ShowsPreview="True" />
 

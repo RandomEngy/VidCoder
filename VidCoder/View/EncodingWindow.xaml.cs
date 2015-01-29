@@ -29,7 +29,30 @@ namespace VidCoder.View
 	{
 		public EncodingWindow()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
+			this.listColumn.Width = new GridLength(Config.EncodingListPaneWidth);
+
+			this.DataContextChanged += this.OnDataContextChanged;
+		}
+
+		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+		{
+			var viewModel = e.NewValue as EncodingViewModel;
+
+			if (viewModel != null)
+			{
+				this.SetPanelOpenState(viewModel.PresetPanelOpen);
+				viewModel.PropertyChanged += this.OnPropertyChanged;
+			}
+		}
+
+		private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == "PresetPanelOpen")
+			{
+				var viewModel = (EncodingViewModel)this.DataContext;
+				this.SetPanelOpenState(viewModel.PresetPanelOpen);
+			}
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)
@@ -38,12 +61,27 @@ namespace VidCoder.View
 			this.PlaceDynamic(Config.EncodingDialogPlacement);
 		}
 
+		private void SetPanelOpenState(bool panelOpen)
+		{
+			if (panelOpen)
+			{
+				Grid.SetColumn(this.mainGrid, 1);
+				Grid.SetColumnSpan(this.mainGrid, 1);
+			}
+			else
+			{
+				Grid.SetColumn(this.mainGrid, 0);
+				Grid.SetColumnSpan(this.mainGrid, 2);
+			}
+		}
+
 		private void Window_Closing(object sender, CancelEventArgs e)
 		{
 			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
 			{
 				Config.EncodingDialogPlacement = this.GetPlacementXml();
 				Config.EncodingDialogLastTab = this.tabControl.SelectedIndex;
+				Config.EncodingListPaneWidth = this.listColumn.ActualWidth;
 
 				transaction.Commit();
 			}

@@ -55,6 +55,7 @@ namespace VidCoder.ViewModel
 			this.AudioPanelViewModel = new AudioPanelViewModel(this);
 			this.AdvancedPanelViewModel = new AdvancedPanelViewModel(this);
 
+			this.presetPanelOpen = Config.EncodingListPaneOpen;
 			this.EditingPreset = preset;
 			this.mainViewModel.PropertyChanged += this.OnMainPropertyChanged;
 
@@ -79,6 +80,11 @@ namespace VidCoder.ViewModel
 		public OutputPathViewModel OutputPathVM
 		{
 		    get { return this.outputPathVM; }
+		}
+
+		public PresetsViewModel PresetVM
+		{
+			get { return this.presetsViewModel; }
 		}
 
 		public PicturePanelViewModel PicturePanelViewModel { get; set; }
@@ -203,6 +209,21 @@ namespace VidCoder.ViewModel
 				this.DeletePresetCommand.RaiseCanExecuteChanged();
 				this.RaisePropertyChanged(() => this.IsBuiltIn);
 				this.RaisePropertyChanged(() => this.DeleteButtonVisible);
+			}
+		}
+
+		private bool presetPanelOpen;
+		public bool PresetPanelOpen
+		{
+			get
+			{
+				return this.presetPanelOpen;
+			}
+
+			set
+			{
+				this.presetPanelOpen = value;
+				this.RaisePropertyChanged(() => this.PresetPanelOpen);
 			}
 		}
 
@@ -383,6 +404,19 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.IncludeChapterMarkers);
 				this.IsModified = true;
 				this.mainViewModel.RefreshChapterMarkerUI();
+			}
+		}
+
+		private RelayCommand togglePresetPanelCommand;
+		public RelayCommand TogglePresetPanelCommand
+		{
+			get
+			{
+				return this.togglePresetPanelCommand ?? (this.togglePresetPanelCommand = new RelayCommand(() =>
+				{
+					this.PresetPanelOpen = !this.PresetPanelOpen;
+					Config.EncodingListPaneOpen = this.PresetPanelOpen;
+				}));
 			}
 		}
 

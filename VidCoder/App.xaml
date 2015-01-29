@@ -292,5 +292,6 @@
 				<ContentPresenter />
 			</Border>
 		</ControlTemplate>
+		<Brush x:Key="SplitterBrush">#BCBCBC</Brush>
 	</Application.Resources>
 </Application>

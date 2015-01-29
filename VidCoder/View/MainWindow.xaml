@@ -1294,7 +1294,7 @@
 											<Style.Triggers>
 												<DataTrigger Binding="{Binding IsBuiltIn}" Value="False">
 													<Setter Property="Foreground" Value="#0B4BC2" />
-													<Setter Property="FontWeight" Value="Bold" />
+													<Setter Property="FontWeight" Value="SemiBold" />
 												</DataTrigger>
 												<DataTrigger Binding="{Binding IsQueue}" Value="True">
 													<Setter Property="Foreground" Value="#222222" />

@@ -586,8 +586,7 @@ namespace VidCoder.ViewModel.Components
 							return;
 						}
 
-						var queueTitlesDialog = new QueueTitlesWindowViewModel();
-						WindowManager.OpenWindow(queueTitlesDialog, this.main);
+						Ioc.Container.GetInstance<WindowManagerViewModel>().OpenQueueTitlesWindow();
 					},
 					() =>
 					{

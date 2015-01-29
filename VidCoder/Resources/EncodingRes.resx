@@ -992,4 +992,10 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
   <data name="RotationLabel" xml:space="preserve">
     <value>Rotation:</value>
   </data>
+	<data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>Close the presets list</value>
+  </data>
+	<data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>Open the presets list</value>
+  </data>
 </root>

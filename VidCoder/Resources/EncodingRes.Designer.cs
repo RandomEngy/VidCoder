@@ -673,6 +673,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close the presets list.
+        /// </summary>
+        public static string ClosePresetsListToolTip {
+            get {
+                return ResourceManager.GetString("ClosePresetsListToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Codec:.
         /// </summary>
         public static string CodecLabel {
@@ -1373,6 +1382,15 @@ namespace VidCoder.Resources {
         public static string NoTracksPlaceholder {
             get {
                 return ResourceManager.GetString("NoTracksPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open the presets list.
+        /// </summary>
+        public static string OpenPresetsListToolTip {
+            get {
+                return ResourceManager.GetString("OpenPresetsListToolTip", resourceCulture);
             }
         }
         

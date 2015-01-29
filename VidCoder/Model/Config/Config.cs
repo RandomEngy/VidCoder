@@ -53,6 +53,8 @@
 			QueueLastColumnWidth_Field = DatabaseConfig.GetConfig("QueueLastColumnWidth", 75.0, connection);
 			CompletedColumnWidths_Field = DatabaseConfig.GetConfig("CompletedColumnWidths", "", connection);
 			PickerListPaneWidth_Field = DatabaseConfig.GetConfig("PickerListPaneWidth", 135.0, connection);
+			EncodingListPaneOpen_Field = DatabaseConfig.GetConfig("EncodingListPaneOpen", true, connection);
+			EncodingListPaneWidth_Field = DatabaseConfig.GetConfig("EncodingListPaneWidth", 150.0, connection);
 			ShowPickerWindowMessage_Field = DatabaseConfig.GetConfig("ShowPickerWindowMessage", true, connection);
 			WorkerProcessPriority_Field = DatabaseConfig.GetConfig("WorkerProcessPriority", "Normal", connection);
 			LogVerbosity_Field = DatabaseConfig.GetConfig("LogVerbosity", 1, connection);
@@ -750,6 +752,34 @@
 			{
 				PickerListPaneWidth_Field = value;
 				DatabaseConfig.SetConfigValue("PickerListPaneWidth", value);
+			}
+		}
+		private static bool EncodingListPaneOpen_Field;
+		public static bool EncodingListPaneOpen
+		{
+			get
+			{
+				return EncodingListPaneOpen_Field;
+			}
+			
+			set
+			{
+				EncodingListPaneOpen_Field = value;
+				DatabaseConfig.SetConfigValue("EncodingListPaneOpen", value);
+			}
+		}
+		private static double EncodingListPaneWidth_Field;
+		public static double EncodingListPaneWidth
+		{
+			get
+			{
+				return EncodingListPaneWidth_Field;
+			}
+			
+			set
+			{
+				EncodingListPaneWidth_Field = value;
+				DatabaseConfig.SetConfigValue("EncodingListPaneWidth", value);
 			}
 		}
 		private static bool ShowPickerWindowMessage_Field;

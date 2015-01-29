@@ -287,35 +287,49 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
-	    public void OpenPickerWindow()
-	    {
-	        var pickerWindow = WindowManager.FindWindow<PickerWindowViewModel>();
-	        this.PickerWindowOpen = true;
-
-	        if (pickerWindow == null)
-	        {
-                pickerWindow = new PickerWindowViewModel(Ioc.Container.GetInstance<PickersViewModel>().SelectedPicker.Picker);
-	            pickerWindow.Closing = () =>
-	            {
-	                this.PickerWindowOpen = false;
-	            };
-
-                Config.PickerWindowOpen = true;
-
-	            WindowManager.OpenWindow(pickerWindow, this.main);
-	        }
-	        else
-	        {
-	            WindowManager.FocusWindow(pickerWindow);
-	        }
-	    }
-
 		public void CloseEncodeDetailsWindow()
 		{
 			var encodeDetailsWindow = WindowManager.FindWindow<EncodeDetailsViewModel>();
 			if (encodeDetailsWindow != null)
 			{
 				WindowManager.Close(encodeDetailsWindow);
+			}
+		}
+
+		public void OpenPickerWindow()
+		{
+			var pickerWindow = WindowManager.FindWindow<PickerWindowViewModel>();
+			this.PickerWindowOpen = true;
+
+			if (pickerWindow == null)
+			{
+				pickerWindow = new PickerWindowViewModel(Ioc.Container.GetInstance<PickersViewModel>().SelectedPicker.Picker);
+				pickerWindow.Closing = () =>
+				{
+					this.PickerWindowOpen = false;
+				};
+
+				Config.PickerWindowOpen = true;
+
+				WindowManager.OpenWindow(pickerWindow, this.main);
+			}
+			else
+			{
+				WindowManager.FocusWindow(pickerWindow);
+			}
+		}
+
+		public void OpenQueueTitlesWindow()
+		{
+			var queueTitlesWindow = WindowManager.FindWindow<QueueTitlesWindowViewModel>();
+			if (queueTitlesWindow == null)
+			{
+				queueTitlesWindow = new QueueTitlesWindowViewModel();
+				WindowManager.OpenWindow(queueTitlesWindow, this.main);
+			}
+			else
+			{
+				WindowManager.FocusWindow(queueTitlesWindow);
 			}
 		}
 
