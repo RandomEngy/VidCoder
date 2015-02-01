@@ -981,6 +981,18 @@ namespace VidCoder.ViewModel.Components
 				this.totalQueueCost += encodeJobVM.Cost;
 			}
 
+			Picker picker = this.pickersViewModel.SelectedPicker.Picker;
+			if (picker.UseEncodingPreset && !string.IsNullOrEmpty(picker.EncodingPreset))
+			{
+				// Override the encoding preset
+				var presetViewModel = this.presetsViewModel.AllPresets.FirstOrDefault(p => p.PresetName == picker.EncodingPreset);
+				if (presetViewModel != null)
+				{
+					encodeJobVM.Job.EncodingProfile = presetViewModel.Preset.EncodingProfile.Clone();
+					encodeJobVM.PresetName = picker.EncodingPreset;
+				}
+			}
+
 			this.EncodeQueue.Add(encodeJobVM);
 
 			this.profileEditedSinceLastQueue = false;

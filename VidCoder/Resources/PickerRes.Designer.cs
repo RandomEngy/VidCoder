@@ -70,6 +70,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start encoding after scan.
+        /// </summary>
+        public static string AutoEncodeOnScanCheckBox {
+            get {
+                return ResourceManager.GetString("AutoEncodeOnScanCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically queue after scanning.
+        /// </summary>
+        public static string AutoQueueOnScanCheckBox {
+            get {
+                return ResourceManager.GetString("AutoQueueOnScanCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Burn in.
         /// </summary>
         public static string BurnInCheckBox {

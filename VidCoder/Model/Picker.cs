@@ -65,6 +65,14 @@ namespace VidCoder.Model
         // Applies only with AutoSubtitleType.Language
         public bool SubtitleLanguageBurnIn { get; set; }
 
+		public bool UseEncodingPreset { get; set; }
+
+		public string EncodingPreset { get; set; }
+
+		public bool AutoQueueOnScan { get; set; }
+
+		public bool AutoEncodeOnScan { get; set; }
+
         public string DisplayName
         {
             get

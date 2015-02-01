@@ -86,7 +86,7 @@
 					<TextBlock
 						Margin="5"
 						FontSize="12"
-						Text="{Binding DisplayName}">
+						Text="{Binding DisplayNameWithStar}">
 						<TextBlock.Style>
 							<Style TargetType="TextBlock">
 								<Style.Triggers>

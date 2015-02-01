@@ -15,13 +15,17 @@
 	WindowStyle="ToolWindow">
 	<Grid>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="135" MinWidth="70" MaxWidth="250" Name="listColumn" />
+			<ColumnDefinition
+				Name="listColumn"
+				Width="135"
+				MinWidth="70"
+				MaxWidth="250" />
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 		<ListBox
 			Grid.Column="0"
-			Background="WhiteSmoke"
 			HorizontalAlignment="Stretch"
+			Background="WhiteSmoke"
 			BorderThickness="0"
 			Canvas.ZIndex="3"
 			ItemsSource="{Binding PickersViewModel.Pickers}"
@@ -468,10 +472,37 @@
 						                                 Converter={StaticResource EnumBoolConverter},
 						                                 ConverterParameter=All}" />
 					</StackPanel>
+
+					<!--  Encoding  -->
+					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="Encoding" />
+					<StackPanel Style="{StaticResource ConfigSectionStack}">
+						<StackPanel Orientation="Horizontal">
+							<CheckBox
+								VerticalAlignment="Center"
+								Content="Use preset:"
+								IsChecked="{Binding UseEncodingPreset}" />
+
+							<ComboBox
+								Margin="6 0 0 0"
+								VerticalAlignment="Center"
+								IsEnabled="{Binding UseEncodingPreset}"
+								SelectedItem="{Binding SelectedPreset}"
+								Style="{StaticResource PresetComboStyle}" />
+						</StackPanel>
+
+						<CheckBox
+							Margin="0 6 0 0"
+							Content="{x:Static res:PickerRes.AutoQueueOnScanCheckBox}"
+							IsChecked="{Binding AutoQueueOnScan}" />
+						
+						<CheckBox
+							Margin="20 6 0 0"
+							Content="{x:Static res:PickerRes.AutoEncodeOnScanCheckBox}"
+							IsChecked="{Binding AutoEncodeOnScan}"
+							IsEnabled="{Binding AutoQueueOnScan}" />
+					</StackPanel>
 				</StackPanel>
 			</ScrollViewer>
 		</Grid>
-
-
 	</Grid>
 </Window>

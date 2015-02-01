@@ -60,6 +60,15 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public string DisplayNameWithStar
+		{
+			get
+			{
+				string suffix = this.IsModified ? " *" : string.Empty;
+				return this.preset.DisplayName + suffix;
+			}
+		}
+
 		public bool IsBuiltIn
 		{
 			get
@@ -73,6 +82,7 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.IsModified);
 			this.RaisePropertyChanged(() => this.PresetName);
 			this.RaisePropertyChanged(() => this.DisplayName);
+			this.RaisePropertyChanged(() => this.DisplayNameWithStar);
 			this.RaisePropertyChanged(() => this.IsBuiltIn);
 		}
 	}

@@ -160,4 +160,10 @@
 	<data name="PickerHelpText" xml:space="preserve">
     <value>Automatically pick titles, audio, subtitles and destination</value>
   </data>
+	<data name="AutoQueueOnScanCheckBox" xml:space="preserve">
+    <value>Automatically queue after scanning</value>
+  </data>
+	<data name="AutoEncodeOnScanCheckBox" xml:space="preserve">
+    <value>Start encoding after scan</value>
+  </data>
 </root>

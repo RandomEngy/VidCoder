@@ -35,7 +35,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return string.Format(MiscRes.Copyright, "2010-2014");
+				return string.Format(MiscRes.Copyright, "2010-2015");
 			}
 		}
 	}

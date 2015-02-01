@@ -2451,6 +2451,15 @@ namespace VidCoder.ViewModel
 							{
 								SourceHistory.AddToHistory(this.SourcePath);
 							}
+
+							Picker picker = this.pickersVM.SelectedPicker.Picker;
+							if (picker.AutoQueueOnScan)
+							{
+								if (this.processingVM.TryQueue() && picker.AutoEncodeOnScan && !this.processingVM.Encoding)
+								{
+									this.processingVM.EncodeCommand.Execute(null);
+								}
+							}
 						}
 
 						this.logger.Log("Scan completed");

@@ -19,6 +19,7 @@ namespace VidCoder.ViewModel
 	public class PickerWindowViewModel : OkCancelDialogViewModel
 	{
 		private PickersViewModel pickersViewModel = Ioc.Container.GetInstance<PickersViewModel>();
+		private PresetsViewModel presetsVM = Ioc.Container.GetInstance<PresetsViewModel>();
 
 		private Picker picker;
 		private bool isNone;
@@ -32,6 +33,11 @@ namespace VidCoder.ViewModel
 		public PickersViewModel PickersViewModel
 		{
 			get { return this.pickersViewModel; }
+		}
+
+		public PresetsViewModel PresetsVM
+		{
+			get { return this.presetsVM; }
 		}
 
 		// Should only fire when user manually closes the window, not when closed through WindowManager.
@@ -466,6 +472,87 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool UseEncodingPreset
+		{
+			get { return this.picker.UseEncodingPreset; }
+			set
+			{
+				UpdateProperty(() =>
+				{
+					this.picker.UseEncodingPreset = value;
+					this.RaisePropertyChanged(() => this.UseEncodingPreset);
+					this.RaisePropertyChanged(() => this.SelectedPreset);
+				});
+			}
+		}
+
+		public PresetViewModel SelectedPreset
+		{
+			get
+			{
+				if (!this.UseEncodingPreset)
+				{
+					return null;
+				}
+
+				return this.presetsVM.AllPresets.FirstOrDefault(p => p.PresetName == this.picker.EncodingPreset);
+			}
+
+			set
+			{
+
+				if (value != null)
+				{
+					UpdateProperty(() =>
+					{
+						this.picker.EncodingPreset = value.PresetName;
+						this.RaisePropertyChanged(() => this.SelectedPreset);
+					});
+				}
+			}
+		}
+
+		public bool AutoQueueOnScan
+		{
+			get { return this.picker.AutoQueueOnScan; }
+			set
+			{
+				UpdateProperty(() =>
+				{
+					this.picker.AutoQueueOnScan = value;
+					if (!value)
+					{
+						this.picker.AutoEncodeOnScan = false;
+					}
+
+					this.RaisePropertyChanged(() => this.AutoQueueOnScan);
+					this.RaisePropertyChanged(() => this.AutoEncodeOnScan);
+				});
+			}
+		}
+
+		public bool AutoEncodeOnScan
+		{
+			get
+			{
+				if (!this.AutoQueueOnScan)
+				{
+					return false;
+				}
+
+				return this.picker.AutoEncodeOnScan;
+			}
+
+			set
+			{
+				UpdateProperty(() =>
+				{
+					this.picker.AutoEncodeOnScan = value;
+					this.RaisePropertyChanged(() => this.AutoEncodeOnScan);
+				});
+			}
+		}
+
 		private void UpdateProperty(Action action)
 		{
 			bool createPicker = this.picker.IsNone;
@@ -685,6 +772,10 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.SubtitleLanguageAll);
 			this.RaisePropertyChanged(() => this.SubtitleLanguageDefault);
 			this.RaisePropertyChanged(() => this.SubtitleLanguageBurnIn);
+			this.RaisePropertyChanged(() => this.UseEncodingPreset);
+			this.RaisePropertyChanged(() => this.SelectedPreset);
+			this.RaisePropertyChanged(() => this.AutoQueueOnScan);
+			this.RaisePropertyChanged(() => this.AutoEncodeOnScan);
 
 			this.AutomaticChange = false;
 		}
