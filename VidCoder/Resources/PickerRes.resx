@@ -166,4 +166,8 @@
 	<data name="AutoEncodeOnScanCheckBox" xml:space="preserve">
     <value>Start encoding after scan</value>
   </data>
+	<data name="UseGlobalSettingToolTip" xml:space="preserve">
+    <value>Use global setting</value>
+    <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
+  </data>
 </root>

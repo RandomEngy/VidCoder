@@ -249,7 +249,19 @@
 							VerticalAlignment="Top"
 							Content="{x:Static res:CommonRes.OutputToSourceDirCheckBox}"
 							IsChecked="{Binding OutputToSourceDirectory}"
-							IsThreeState="True" />
+							IsThreeState="True">
+							<CheckBox.ToolTip>
+								<StackPanel Orientation="Horizontal">
+									<CheckBox
+										VerticalAlignment="Center"
+										IsChecked="{x:Null}"
+										IsHitTestVisible="False"
+										IsThreeState="True" />
+									<TextBlock VerticalAlignment="Center" Text=" - " />
+									<TextBlock VerticalAlignment="Center" Text="{x:Static res:PickerRes.UseGlobalSettingToolTip}" />
+								</StackPanel>
+							</CheckBox.ToolTip>
+						</CheckBox>
 						<CheckBox
 							Height="16"
 							Margin="0,6,0,0"
@@ -257,8 +269,22 @@
 							VerticalAlignment="Top"
 							Content="{x:Static res:CommonRes.PreserveFolderStructureCheckBox}"
 							IsChecked="{Binding PreserveFolderStructureInBatch}"
-							IsThreeState="True"
-							ToolTip="{x:Static res:CommonRes.PreserveFolderStructureToolTip}" />
+							IsThreeState="True">
+							<CheckBox.ToolTip>
+								<StackPanel Orientation="Vertical">
+									<TextBlock VerticalAlignment="Center" Text="{x:Static res:CommonRes.PreserveFolderStructureToolTip}" />
+									<StackPanel Margin="0 14 0 0" Orientation="Horizontal">
+										<CheckBox
+											VerticalAlignment="Center"
+											IsChecked="{x:Null}"
+											IsHitTestVisible="False"
+											IsThreeState="True" />
+										<TextBlock VerticalAlignment="Center" Text=" - " />
+										<TextBlock VerticalAlignment="Center" Text="{x:Static res:PickerRes.UseGlobalSettingToolTip}" />
+									</StackPanel>
+								</StackPanel>
+							</CheckBox.ToolTip>
+						</CheckBox>
 					</StackPanel>
 
 					<!--  Title selection  -->
@@ -494,7 +520,7 @@
 							Margin="0 6 0 0"
 							Content="{x:Static res:PickerRes.AutoQueueOnScanCheckBox}"
 							IsChecked="{Binding AutoQueueOnScan}" />
-						
+
 						<CheckBox
 							Margin="20 6 0 0"
 							Content="{x:Static res:PickerRes.AutoEncodeOnScanCheckBox}"

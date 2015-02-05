@@ -196,6 +196,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use global setting.
+        /// </summary>
+        public static string UseGlobalSettingToolTip {
+            get {
+                return ResourceManager.GetString("UseGlobalSettingToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Picker: {0}.
         /// </summary>
         public static string WindowTitle {
