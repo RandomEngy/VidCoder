@@ -11,7 +11,7 @@ namespace VidCoder.Model.Encoding
         hqdn3d,
         NLMeans,
 
-        [Obsolete("HandBrake had it named like this at one point and some presets got generated with it.")]
+		// This is obsolete but we cannot mark it as such
         NlMeans,
     }
 }

@@ -525,12 +525,10 @@ namespace VidCoder.Model
 
 	    public static void UpgradeEncodingProfileTo26(VCProfile profile)
 	    {
-#pragma warning disable 618
             if (profile.DenoiseType == VCDenoise.NlMeans)
 	        {
 	            profile.DenoiseType = VCDenoise.NLMeans;
 	        }
-#pragma warning restore 618
         }
 
 		private static void ErrorCheckPresets(List<Preset> presets)

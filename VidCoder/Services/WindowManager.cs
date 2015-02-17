@@ -106,7 +106,7 @@ namespace VidCoder
 			AddWindowPosition<EncodingViewModel>(result, excludeWindow);
 			AddWindowPosition<PreviewViewModel>(result, excludeWindow);
 			AddWindowPosition<LogViewModel>(result, excludeWindow);
-			AddWindowPosition<PickerViewModel>(result, excludeWindow);
+			AddWindowPosition<PickerWindowViewModel>(result, excludeWindow);
 			return result;
 		}
 

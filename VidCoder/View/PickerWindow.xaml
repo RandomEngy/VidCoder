@@ -6,7 +6,7 @@
 	xmlns:res="clr-namespace:VidCoder.Resources"
 	xmlns:vidCoder="clr-namespace:VidCoder"
 	Title="{Binding WindowTitle}"
-	Width="500"
+	Width="550"
 	Height="450"
 	MinWidth="450"
 	MinHeight="300"
