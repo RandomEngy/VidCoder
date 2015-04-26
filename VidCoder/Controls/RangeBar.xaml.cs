@@ -11,11 +11,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using VidCoder.Extensions;
 
 namespace VidCoder.Controls
 {
-	using HandBrake.Interop.SourceData;
-
 	/// <summary>
 	/// Interaction logic for ChapterBar.xaml
 	/// </summary>
@@ -128,15 +129,15 @@ namespace VidCoder.Controls
 
 		public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
 			"Title",
-			typeof (Title),
+			typeof(SourceTitle),
 			typeof (RangeBar),
 			new PropertyMetadata(OnTitleChanged));
 
-		public Title Title
+		public SourceTitle Title
 		{
 			get
 			{
-				return (Title) GetValue(TitleProperty);
+				return (SourceTitle)GetValue(TitleProperty);
 			}
 
 			set
@@ -147,7 +148,7 @@ namespace VidCoder.Controls
 
 		private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
-			var title = (Title) e.NewValue;
+			var title = (SourceTitle)e.NewValue;
 			var chapterBar = d as RangeBar;
 
 			if (title == null)
@@ -155,26 +156,26 @@ namespace VidCoder.Controls
 				return;
 			}
 
-			List<Chapter> chapters = title.Chapters;
+			List<SourceChapter> chapters = title.ChapterList;
 
 			chapterBar.markersUpdated = false;
 
-			chapterBar.totalDuration = title.Duration;
-			chapterBar.totalSeconds = HandBrake.Interop.Converters.Converters.PtsToSeconds(title.DurationPts);
+			chapterBar.totalDuration = title.Duration.ToSpan();
+			chapterBar.totalSeconds = HandBrakeUnitConversionHelpers.PtsToSeconds((ulong)title.Duration.Ticks);
 
 			ulong pts = 0;
 			chapterBar.chapterFractions = new List<double>();
-			foreach (Chapter chapter in chapters)
+			foreach (SourceChapter chapter in chapters)
 			{
-				pts += chapter.DurationPts;
-				chapterBar.chapterFractions.Add(Math.Min(HandBrake.Interop.Converters.Converters.PtsToSeconds(pts) / chapterBar.totalSeconds, 1));
+				pts += (ulong)chapter.Duration.Ticks;
+				chapterBar.chapterFractions.Add(Math.Min(HandBrakeUnitConversionHelpers.PtsToSeconds(pts) / chapterBar.totalSeconds, 1));
 			}
 
 			chapterBar.UpdateSeekBarUI();
 			chapterBar.UpdateMarkers();
 		}
 
-		public List<Chapter> Chapters
+		public List<SourceChapter> Chapters
 		{
 			get
 			{
@@ -183,7 +184,7 @@ namespace VidCoder.Controls
 					return null;
 				}
 
-				return this.Title.Chapters;
+				return this.Title.ChapterList;
 			}
 		}
 
@@ -382,12 +383,12 @@ namespace VidCoder.Controls
 				ulong pts = 0;
 				for (int i = 1; i < this.Chapters.Count - 1; i++)
 				{
-					pts += this.Chapters[i - 1].DurationPts;
+					pts += (ulong)this.Chapters[i - 1].Duration.Ticks;
 
 					var marker = new Polygon
 						{
 							Style = this.FindResource("SeekBarTick") as Style,
-							Margin = new Thickness(barWidth * (HandBrake.Interop.Converters.Converters.PtsToSeconds(pts) / this.totalSeconds) - 1, 0, 0, 0),
+							Margin = new Thickness(barWidth * (HandBrakeUnitConversionHelpers.PtsToSeconds(pts) / this.totalSeconds) - 1, 0, 0, 0),
 							HorizontalAlignment = HorizontalAlignment.Left,
 							VerticalAlignment = VerticalAlignment.Top
 						};
@@ -419,10 +420,10 @@ namespace VidCoder.Controls
 			ulong pts = 0;
 			for (int i = 1; i <= chapter; i++)
 			{
-				pts += this.Chapters[i - 1].DurationPts;
+				pts += (ulong)this.Chapters[i - 1].Duration.Ticks;
 			}
 
-			return GetBarFractionFromSeconds(HandBrake.Interop.Converters.Converters.PtsToSeconds(pts));
+			return GetBarFractionFromSeconds(HandBrakeUnitConversionHelpers.PtsToSeconds(pts));
 		}
 
 		private double GetBarFractionFromTime(TimeSpan time)

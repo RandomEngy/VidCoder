@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Media;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Input;
-using HandBrake.Interop.Model;
-using HandBrake.Interop.Model.Encoding;
+using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Messages;
 using System.IO;
 using VidCoder.Model.Encoding;
@@ -18,6 +17,7 @@ using System.Threading;
 using VidCoder.Model;
 using System.Diagnostics;
 using VidCoder.ViewModel.Components;
+using Geometry = HandBrake.ApplicationServices.Interop.Json.Shared.Geometry;
 
 namespace VidCoder.ViewModel
 {
@@ -506,7 +506,8 @@ namespace VidCoder.ViewModel
 						this.logger.Log("  Title: " + this.job.Title);
 						this.logger.Log("  Preview #: " + this.SelectedPreview);
 
-						this.encodeProxy.StartEncode(this.job, this.logger, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
+						SourceTitle encodeTitle = this.mainViewModel.ScanInstance.Titles.TitleList.Single(t => t.Index == this.job.Title);
+						this.encodeProxy.StartEncode(this.job, encodeTitle, this.logger, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
 						this.CancelPreviewCommand.RaiseCanExecuteChanged();
 					}, () =>
 					{
@@ -577,7 +578,7 @@ namespace VidCoder.ViewModel
 									player = Players.Installed[0];
 								}
 
-								player.PlayTitle(sourcePath, this.mainViewModel.SelectedTitle.TitleNumber);
+								player.PlayTitle(sourcePath, this.mainViewModel.SelectedTitle.Index);
 						    }
 						    else
 						    {
@@ -671,8 +672,12 @@ namespace VidCoder.ViewModel
 			this.job = this.mainViewModel.EncodeJob;
 			VCProfile profile = this.job.EncodingProfile;
 
-			int width, height, parWidth, parHeight;
-			this.ScanInstance.GetSize(this.job.HbJob, out width, out height, out parWidth, out parHeight);
+			Geometry outputGeometry = JsonEncodeFactory.GetAnamorphicSize(profile, this.mainViewModel.SelectedTitle);
+
+			int width = outputGeometry.Width;
+			int height = outputGeometry.Height;
+			int parWidth = outputGeometry.PAR.Num;
+			int parHeight = outputGeometry.PAR.Den;
 
 			// If we're rotating by 90 degrees, swap width and height for sizing purposes.
             if (profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270)
@@ -889,7 +894,8 @@ namespace VidCoder.ViewModel
 					UpdateVersion = updateVersion,
 					ScanInstance = this.ScanInstance,
 					PreviewNumber = previewNumber,
-					EncodeJob = this.job,
+					Profile = this.job.EncodingProfile,
+					Title = this.MainViewModel.SelectedTitle,
 					ImageFileSync = this.imageFileSync[previewNumber]
 				});
 		}
@@ -910,6 +916,16 @@ namespace VidCoder.ViewModel
 					}
 
 					imageJob = this.previewImageWorkQueue.Dequeue();
+					while (imageJob.UpdateVersion < updateVersion)
+					{
+						if (this.previewImageWorkQueue.Count == 0)
+						{
+							this.previewImageQueueProcessing = false;
+							return;
+						}
+
+						imageJob = this.previewImageWorkQueue.Dequeue();
+					}
 				}
 
 				string imagePath = Path.Combine(
@@ -936,13 +952,15 @@ namespace VidCoder.ViewModel
 					}
 				}
 
-				if (imageSource == null)
+				if (imageSource == null && !imageJob.ScanInstance.IsDisposed)
 				{
 					// Make a HandBrake call to get the image
-					imageSource = imageJob.ScanInstance.GetPreview(imageJob.EncodeJob.HbJob, imageJob.PreviewNumber);
+					imageSource = imageJob.ScanInstance.GetPreview(
+						imageJob.Profile.CreatePreviewSettings(imageJob.Title), 
+						imageJob.PreviewNumber);
 
 					// Transform the image as per rotation and reflection settings
-					VCProfile profile = imageJob.EncodeJob.EncodingProfile;
+					VCProfile profile = imageJob.Profile;
                     if (profile.FlipHorizontal || profile.FlipVertical || profile.Rotation != VCPictureRotation.None)
 					{
 						imageSource = CreateTransformedBitmap(imageSource, profile);

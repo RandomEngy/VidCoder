@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HandBrake.ApplicationServices.Interop.Model.Encoding;
 
 namespace VidCoder.ViewModel
 {
 	using System.Resources;
 	using GalaSoft.MvvmLight;
-	using HandBrake.Interop.Model.Encoding;
 	using Resources;
 
 	public class VideoEncoderViewModel : ViewModelBase

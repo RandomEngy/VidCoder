@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using HandBrake.ApplicationServices.Interop;
 using VidCoder.Model;
 using VidCoder.Properties;
 using VidCoder.Services;
@@ -12,7 +13,6 @@ using VidCoder.ViewModel;
 using System.IO.Pipes;
 using System.IO;
 using System.ComponentModel;
-using HandBrake.Interop;
 using VidCoder.View;
 
 namespace VidCoder

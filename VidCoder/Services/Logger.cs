@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop;
+using HandBrake.ApplicationServices.Interop;
 using System.IO;
+using HandBrake.ApplicationServices.Interop.EventArgs;
 using VidCoder.Messages;
 using VidCoder.Model;
 
 namespace VidCoder.Services
 {
 	using GalaSoft.MvvmLight.Ioc;
-	using HandBrake.Interop.EventArgs;
 
 	public class Logger : IDisposable, ILogger
 	{

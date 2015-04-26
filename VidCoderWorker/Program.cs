@@ -8,7 +8,6 @@ namespace VidCoderWorker
 	using System.Diagnostics;
 	using System.ServiceModel;
 	using System.Threading;
-	using HandBrake.Interop;
 
 	class Program
 	{

@@ -67,7 +67,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HandBrakeInterop">
-      <HintPath>..\Lib\$(Platform)\HandBrakeInterop.dll</HintPath>
+      <HintPath>..\Lib\$(Platform)\HandBrake.ApplicationServices.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

@@ -73,7 +73,6 @@
 			PreserveFolderStructureInBatch_Field = DatabaseConfig.GetConfig("PreserveFolderStructureInBatch", false, connection);
 			WhenFileExists_Field = DatabaseConfig.GetConfig("WhenFileExists", "Prompt", connection);
 			WhenFileExistsBatch_Field = DatabaseConfig.GetConfig("WhenFileExistsBatch", "AutoRename", connection);
-			KeepScansAfterCompletion_Field = DatabaseConfig.GetConfig("KeepScansAfterCompletion", true, connection);
 			UseCustomVideoPlayer_Field = DatabaseConfig.GetConfig("UseCustomVideoPlayer", false, connection);
 			CustomVideoPlayer_Field = DatabaseConfig.GetConfig("CustomVideoPlayer", "", connection);
 			PlaySoundOnCompletion_Field = DatabaseConfig.GetConfig("PlaySoundOnCompletion", false, connection);
@@ -1032,20 +1031,6 @@
 			{
 				WhenFileExistsBatch_Field = value;
 				DatabaseConfig.SetConfigValue("WhenFileExistsBatch", value);
-			}
-		}
-		private static bool KeepScansAfterCompletion_Field;
-		public static bool KeepScansAfterCompletion
-		{
-			get
-			{
-				return KeepScansAfterCompletion_Field;
-			}
-			
-			set
-			{
-				KeepScansAfterCompletion_Field = value;
-				DatabaseConfig.SetConfigValue("KeepScansAfterCompletion", value);
 			}
 		}
 		private static bool UseCustomVideoPlayer_Field;

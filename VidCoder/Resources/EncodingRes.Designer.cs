@@ -763,6 +763,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chapter {0}.
+        /// </summary>
+        public static string DefaultChapterName {
+            get {
+                return ResourceManager.GetString("DefaultChapterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} (Default).
         /// </summary>
         public static string DefaultFormat {

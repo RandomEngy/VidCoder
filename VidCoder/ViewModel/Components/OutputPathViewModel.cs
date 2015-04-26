@@ -9,9 +9,8 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop.Model;
-using HandBrake.Interop.Model.Encoding;
-using HandBrake.Interop.SourceData;
+using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Model.Encoding;
@@ -244,7 +243,7 @@ namespace VidCoder.ViewModel.Components
 
 		public static string GetExtensionForProfile(VCProfile profile, bool includeDot = true)
 		{
-			HBContainer container = Encoders.GetContainer(profile.ContainerName);
+			HBContainer container = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
 
 			string extension;
 
@@ -357,18 +356,18 @@ namespace VidCoder.ViewModel.Components
 			fileName = this.BuildOutputFileName(
 				this.main.SourcePath,
 				translatedSourceName,
-				this.main.SelectedTitle.TitleNumber,
-				this.main.SelectedTitle.Duration,
+				this.main.SelectedTitle.Index,
+				this.main.SelectedTitle.Duration.ToSpan(),
 				this.main.RangeType,
 				this.main.SelectedStartChapter.ChapterNumber,
 				this.main.SelectedEndChapter.ChapterNumber,
-				this.main.SelectedTitle.Chapters.Count,
+				this.main.SelectedTitle.ChapterList.Count,
 				this.main.TimeRangeStart,
 				this.main.TimeRangeEnd,
 				this.main.FramesRangeStart,
 				this.main.FramesRangeEnd,
 				this.NameFormatOverride,
-				multipleTitlesOnSource: this.main.ScanInstance.Titles.Count > 1,
+				multipleTitlesOnSource: this.main.ScanInstance.Titles.TitleList.Count > 1,
 				picker: null);
 
 			string extension = this.GetOutputExtension();

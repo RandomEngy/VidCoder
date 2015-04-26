@@ -112,14 +112,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool EditVisible
-		{
-			get
-			{
-				return this.Job.HandBrakeInstance != null;
-			}
-		}
-
 		private RelayCommand playCommand;
 		public RelayCommand PlayCommand
 		{

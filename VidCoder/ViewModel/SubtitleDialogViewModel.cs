@@ -5,10 +5,10 @@ using System.Text;
 using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using HandBrake.Interop.Model;
-using HandBrake.Interop.Model.Encoding;
-using HandBrake.Interop.SourceData;
 using System.IO;
+using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using VidCoder.Model.Encoding;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;
@@ -32,9 +32,9 @@ namespace VidCoder.ViewModel
 		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
 		private PresetsViewModel presetsViewModel = Ioc.Container.GetInstance<PresetsViewModel>();
 
-		public SubtitleDialogViewModel(Subtitles currentSubtitles)
+		public SubtitleDialogViewModel(VCSubtitles currentSubtitles)
 		{
-			this.container = Encoders.GetContainer(this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.ContainerName);
+			this.container = HandBrakeEncoderHelpers.GetContainer(this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.ContainerName);
 
 			this.sourceSubtitles = new ObservableCollection<SourceSubtitleViewModel>();
 			this.srtSubtitles = new ObservableCollection<SrtSubtitleViewModel>();
@@ -67,17 +67,17 @@ namespace VidCoder.ViewModel
 			}
 
 			// Fill in remaining unselected source subtitles
-			foreach (Subtitle subtitle in this.mainViewModel.SelectedTitle.Subtitles)
+			for (int i = 1; i <= this.mainViewModel.SelectedTitle.SubtitleList.Count; i++)
 			{
-				if (!currentSubtitles.SourceSubtitles.Any(s => s.TrackNumber == subtitle.TrackNumber))
+				if (!currentSubtitles.SourceSubtitles.Any(s => s.TrackNumber == (i + 1)))
 				{
 					var newSubtitle = new SourceSubtitle
-					    {
-					        TrackNumber = subtitle.TrackNumber,
-					        Default = false,
-					        Forced = false,
-					        BurnedIn = false
-					    };
+					{
+						TrackNumber = i,
+						Default = false,
+						Forced = false,
+						BurnedIn = false
+					};
 
 					this.sourceSubtitles.Add(new SourceSubtitleViewModel(this, newSubtitle));
 				}
@@ -110,11 +110,11 @@ namespace VidCoder.ViewModel
 			get { return this.srtSubtitles; }
 		}
 
-		public Subtitles ChosenSubtitles
+		public VCSubtitles ChosenSubtitles
 		{
 			get
 			{
-				Subtitles subtitlesModel = new Subtitles();
+				VCSubtitles subtitlesModel = new VCSubtitles();
 
 				List<SrtSubtitle> srtSubtitlesModel = new List<SrtSubtitle>();
 				foreach (SrtSubtitleViewModel srtSubtitleModel in this.srtSubtitles)
@@ -229,7 +229,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.mainViewModel.SelectedTitle == null || this.mainViewModel.SelectedTitle.Subtitles.Count == 0)
+				if (this.mainViewModel.SelectedTitle == null || this.mainViewModel.SelectedTitle.SubtitleList.Count == 0)
 				{
 					return SubtitleRes.AddSourceNoSubtitlesToolTip;
 				}
@@ -398,7 +398,7 @@ namespace VidCoder.ViewModel
 		{
 			bool textSubtitleVisible = false;
 			VCProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
-			HBContainer profileContainer = Encoders.GetContainer(profile.ContainerName);
+			HBContainer profileContainer = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
 			if (profileContainer.DefaultExtension == "mp4" && profile.PreferredExtension == VCOutputExtension.Mp4)
 			{
 				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
@@ -447,9 +447,9 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public Subtitle GetSubtitle(SourceSubtitleViewModel sourceSubtitleViewModel)
+		public SourceSubtitleTrack GetSubtitle(SourceSubtitleViewModel sourceSubtitleViewModel)
 		{
-			return this.mainViewModel.SelectedTitle.Subtitles[sourceSubtitleViewModel.TrackNumber - 1];
+			return this.mainViewModel.SelectedTitle.SubtitleList[sourceSubtitleViewModel.TrackNumber - 1];
 		}
 	}
 }

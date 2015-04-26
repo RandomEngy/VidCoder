@@ -6,7 +6,7 @@ using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop.Model;
+using HandBrake.ApplicationServices.Interop.Model;
 using Omu.ValueInjecter;
 using VidCoder.Messages;
 using VidCoder.Model;
@@ -589,7 +589,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return HandBrake.Interop.Helpers.Languages.AllLanguages;
+				return HandBrake.ApplicationServices.Interop.Languages.AllLanguages;
 			}
 		}
 

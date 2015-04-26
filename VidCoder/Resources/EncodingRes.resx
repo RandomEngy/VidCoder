@@ -998,4 +998,8 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
   <data name="OpenPresetsListToolTip" xml:space="preserve">
     <value>Open the presets list</value>
   </data>
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>Chapter {0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
 </root>

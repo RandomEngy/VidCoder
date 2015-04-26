@@ -571,12 +571,6 @@
 									Number="{Binding MinimumTitleLengthSeconds,
 								                               Mode=TwoWay}" />
 							</StackPanel>
-							<CheckBox
-								Margin="0,6,0,0"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Center"
-								Content="{x:Static res:OptionsRes.KeepScansAfterCompletionCheckBox}"
-								IsChecked="{Binding KeepScansAfterCompletion}" />
 						</StackPanel>
 
 						<!--  Logging  -->

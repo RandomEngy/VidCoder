@@ -7,17 +7,17 @@ using System.Reflection;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
-using HandBrake.Interop.Model.Encoding;
-using HandBrake.Interop.SourceData;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
 using Microsoft.Win32;
+using VidCoder.Extensions;
 using VidCoder.Model;
+using VidCoder.Model.Encoding;
 using VidCoder.Services;
 
 namespace VidCoder
 {
 	using System.ComponentModel;
 	using System.Configuration;
-	using HandBrake.Interop.Model;
 	using Properties;
 	using Resources;
 
@@ -582,24 +582,19 @@ namespace VidCoder
 			return true;
 		}
 
-		public static bool IsPassthrough(AudioEncoder encoder)
-		{
-			return encoder == AudioEncoder.Passthrough || encoder == AudioEncoder.Ac3Passthrough;
-		}
-
-		public static Title GetFeatureTitle(List<Title> titles, int hbFeatureTitle)
+		public static SourceTitle GetFeatureTitle(List<SourceTitle> titles, int hbFeatureTitle)
 		{
 			// If the feature title is supplied, find it in the list.
 			if (hbFeatureTitle > 0)
 			{
-				return titles.FirstOrDefault(title => title.TitleNumber == hbFeatureTitle);
+				return titles.FirstOrDefault(title => title.Index == hbFeatureTitle);
 			}
 
 			// Select the first title within 80% of the duration of the longest title.
-			double maxSeconds = titles.Max(title => title.Duration.TotalSeconds);
-			foreach (Title title in titles)
+			double maxSeconds = titles.Max(title => title.Duration.ToSpan().TotalSeconds);
+			foreach (SourceTitle title in titles)
 			{
-				if (title.Duration.TotalSeconds >= maxSeconds * .8)
+				if (title.Duration.ToSpan().TotalSeconds >= maxSeconds * .8)
 				{
 					return title;
 				}

@@ -4,27 +4,27 @@ using System.Linq;
 using System.Text;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop.SourceData;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Messages;
 
 namespace VidCoder.ViewModel
 {
 	public class ChapterViewModel : ViewModelBase
 	{
-		public ChapterViewModel(Chapter chapter)
+		/// <summary>
+		/// Initializes a new instance of the ChapterViewModel class.
+		/// </summary>
+		/// <param name="chapter">The raw source chapter.</param>
+		/// <param name="chapterNumber">The 1-based index of the chapter.</param>
+		public ChapterViewModel(SourceChapter chapter, int chapterNumber)
 		{
 			this.Chapter = chapter;
+			this.ChapterNumber = chapterNumber;
 		}
 
-		public Chapter Chapter { get; private set; }
+		public SourceChapter Chapter { get; private set; }
 
-		public int ChapterNumber
-		{
-			get
-			{
-				return this.Chapter.ChapterNumber;
-			}
-		}
+		public int ChapterNumber { get; private set; }
 
 		private bool isHighlighted;
 		public bool IsHighlighted

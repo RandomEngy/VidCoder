@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HandBrake.ApplicationServices.Interop;
 
 namespace VidCoder.ViewModel
 {
-	using HandBrake.Interop;
 	using Resources;
 	using Utilities = VidCoder.Utilities;
 

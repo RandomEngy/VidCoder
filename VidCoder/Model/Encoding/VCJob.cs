@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HandBrake.ApplicationServices.Interop.Json.Encode;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.ApplicationServices.Interop.Model;
+using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using HandBrake.ApplicationServices.Interop.Model.Preview;
 
 namespace VidCoder.Model.Encoding
 {
 	using System.Xml.Serialization;
-	using HandBrake.Interop.Model;
-	using HandBrake.Interop.Model.Encoding;
 	using Omu.ValueInjecter;
 
 	/// <summary>
@@ -42,29 +45,13 @@ namespace VidCoder.Model.Encoding
 		/// Gets or sets the list of chosen audio tracks (1-based)
 		/// </summary>
 		public List<int> ChosenAudioTracks { get; set; }
-		public Subtitles Subtitles { get; set; }
+		public VCSubtitles Subtitles { get; set; }
 		public bool UseDefaultChapterNames { get; set; }
 		public List<string> CustomChapterNames { get; set; }
 
 		public string OutputPath { get; set; }
 
 		public VCProfile EncodingProfile { get; set; }
-
-		public EncodeJob HbJob
-		{
-			get
-			{
-				var hbProfile = this.EncodingProfile.HbProfile;
-
-				var hbJob = new EncodeJob();
-				hbJob.InjectFrom(this);
-
-				hbJob.EncodingProfile = hbProfile;
-				hbJob.DxvaDecoding = Config.DxvaDecoding;
-
-				return hbJob;
-			}
-		}
 
 		// The length of video to encode.
 		[XmlIgnore]

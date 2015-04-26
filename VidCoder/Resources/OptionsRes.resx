@@ -207,9 +207,6 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Enable LibDVDNav (change requires program restart)</value>
   </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Keep scans after completion (allows editing completed items)</value>
-  </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Delete source files after clearing successful completed items (with confirmation)</value>
   </data>

@@ -15,6 +15,7 @@
 		<converters:InverseBoolConverter x:Key="InverseBoolConverter" />
 		<converters:PercentDisplayConverter x:Key="PercentDisplayConverter" />
 		<converters:DoubleDisplayConverter x:Key="DoubleDisplayConverter" />
+		<converters:TitleDisplayConverter x:Key="TitleDisplayConverter" />
 
 		<Color x:Key="DismissableMessageColor">#B5EDFF</Color>
 		<Color x:Key="PresetGlowColor">#1696FF</Color>

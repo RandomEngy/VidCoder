@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using VidCoder.Model.Encoding;
 
 namespace VidCoder.Model
 {
-	using HandBrake.Interop.Model;
-
 	/// <summary>
 	/// A pointer to a video source with any relevant metadata
 	/// </summary>

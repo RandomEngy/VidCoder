@@ -17,8 +17,6 @@ namespace VidCoder.ViewModel
 	using System.Data.SQLite;
 	using System.Globalization;
 	using System.Resources;
-	using HandBrake.Interop;
-	using HandBrake.Interop.Model;
 	using Resources;
 	using Utilities = VidCoder.Utilities;
 
@@ -78,7 +76,6 @@ namespace VidCoder.ViewModel
 			this.previewCount = Config.PreviewCount;
 			this.rememberPreviousFiles = Config.RememberPreviousFiles;
 			this.showAudioTrackNameField = Config.ShowAudioTrackNameField;
-			this.keepScansAfterCompletion = Config.KeepScansAfterCompletion;
 			this.dxvaDecoding = Config.DxvaDecoding;
 			this.enableLibDvdNav = Config.EnableLibDvdNav;
 			this.deleteSourceFilesOnClearingCompleted = Config.DeleteSourceFilesOnClearingCompleted;
@@ -794,21 +791,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private bool keepScansAfterCompletion;
-		public bool KeepScansAfterCompletion
-		{
-			get
-			{
-				return this.keepScansAfterCompletion;
-			}
-
-			set
-			{
-				this.keepScansAfterCompletion = value;
-				this.RaisePropertyChanged(() => this.KeepScansAfterCompletion);
-			}
-		}
-
 		private bool deleteSourceFilesOnClearingCompleted;
 		public bool DeleteSourceFilesOnClearingCompleted
 		{
@@ -963,7 +945,6 @@ namespace VidCoder.ViewModel
 							Config.ShowAudioTrackNameField = this.ShowAudioTrackNameField;
 							Config.EnableLibDvdNav = this.EnableLibDvdNav;
 							Config.DxvaDecoding = this.DxvaDecoding;
-							Config.KeepScansAfterCompletion = this.KeepScansAfterCompletion;
 							Config.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
 							Config.PreserveModifyTimeFiles = this.PreserveModifyTimeFiles;
 							Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;

@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using HandBrake.ApplicationServices.Interop.Model.Preview;
 
 namespace VidCoder.Model.Encoding
 {
-	using HandBrake.Interop.Model;
-	using HandBrake.Interop.Model.Encoding;
 	using Omu.ValueInjecter;
 
 	/// <summary>
@@ -16,7 +17,7 @@ namespace VidCoder.Model.Encoding
 	{
 		public VCProfile()
 		{
-			this.Cropping = new Cropping();
+			this.Cropping = new VCCropping();
 		}
 
 		#region Obsolete fields
@@ -48,7 +49,7 @@ namespace VidCoder.Model.Encoding
 		// CustomCropping is obsolete but marking it that way prevents the XML serializer from working. Use CroppingType instead.
 		public bool CustomCropping { get; set; }
 		public VCCroppingType CroppingType { get; set; }
-		public Cropping Cropping { get; set; }
+		public VCCropping Cropping { get; set; }
 		public VCAnamorphic Anamorphic { get; set; }
 		public bool UseDisplayWidth { get; set; }
 		public int DisplayWidth { get; set; }
@@ -100,48 +101,28 @@ namespace VidCoder.Model.Encoding
 		public List<AudioEncoding> AudioEncodings { get; set; }
 		public string AudioEncoderFallback { get; set; }
 
-		public EncodingProfile HbProfile
+		public PreviewSettings CreatePreviewSettings(SourceTitle title)
 		{
-			get
+			VCCropping cropping = JsonEncodeFactory.GetCropping(this, title);
+
+			// HB doesn't expect us to give it a 0 width and height so we need to guard against that
+			int sanitizedWidth = this.Width > 0 ? this.Width : title.Geometry.Width - cropping.Left - cropping.Right;
+			int sanitizedHeight = this.Height > 0 ? this.Height : title.Geometry.Height - cropping.Top - cropping.Bottom;
+
+			return new PreviewSettings
 			{
-				var hbProfile = new EncodingProfile();
-				hbProfile.InjectFrom(this);
-
-				if (this.UseAdvancedTab)
-				{
-					hbProfile.VideoPreset = null;
-					hbProfile.VideoProfile = null;
-					hbProfile.VideoTunes = null;
-					hbProfile.VideoLevel = null;
-				}
-
-			    switch (this.DenoiseType)
-			    {
-			        case VCDenoise.Off:
-			            hbProfile.Denoise = HandBrake.Interop.Model.Encoding.Denoise.Off;
-			            break;
-			        case VCDenoise.hqdn3d:
-			            hbProfile.Denoise = HandBrake.Interop.Model.Encoding.Denoise.hqdn3d;
-			            break;
-			        case VCDenoise.NLMeans:
-			            hbProfile.Denoise = HandBrake.Interop.Model.Encoding.Denoise.NLMeans;
-			            break;
-			        default:
-			            throw new ArgumentOutOfRangeException();
-			    }
-
-			    hbProfile.Anamorphic = EnumConverter.Convert<VCAnamorphic, Anamorphic>(this.Anamorphic);
-			    hbProfile.Decomb = EnumConverter.Convert<VCDecomb, Decomb>(this.Decomb);
-			    hbProfile.Deinterlace = EnumConverter.Convert<VCDeinterlace, Deinterlace>(this.Deinterlace);
-			    hbProfile.Detelecine = EnumConverter.Convert<VCDetelecine, Detelecine>(this.Detelecine);
-			    hbProfile.CroppingType = EnumConverter.Convert<VCCroppingType, CroppingType>(this.CroppingType);
-			    hbProfile.Rotation = EnumConverter.Convert<VCPictureRotation, PictureRotation>(this.Rotation);
-			    hbProfile.VideoEncodeRateType = EnumConverter.Convert<VCVideoEncodeRateType, VideoEncodeRateType>(this.VideoEncodeRateType);
-			    hbProfile.ScaleMethod = EnumConverter.Convert<VCScaleMethod, ScaleMethod>(this.ScaleMethod);
-			    hbProfile.PreferredExtension = EnumConverter.Convert<VCOutputExtension, OutputExtension>(this.PreferredExtension);
-
-			    return hbProfile;
-			}
+				Anamorphic = EnumConverter.Convert<VCAnamorphic, Anamorphic>(this.Anamorphic),
+				Cropping = JsonEncodeFactory.GetCropping(this, title).HbCropping,
+				Width = sanitizedWidth,
+				Height = sanitizedHeight,
+				MaxWidth = this.MaxWidth,
+				MaxHeight = this.MaxHeight,
+				KeepDisplayAspect = this.KeepDisplayAspect,
+				Modulus = this.Modulus,
+				PixelAspectX = this.PixelAspectX,
+				PixelAspectY = this.PixelAspectY,
+				TitleNumber = title.Index
+			};
 		}
 
 		public VCProfile Clone()

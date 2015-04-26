@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using HandBrake.Interop.Model;
 using System.Windows.Input;
+using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Model;
+using VidCoder.Model.Encoding;
 
 namespace VidCoder.ViewModel
 {
-	using HandBrake.Interop;
 
 	public class SrtSubtitleViewModel : ViewModelBase
 	{
@@ -84,7 +85,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return Encoders.CanBurnSrt;
+				return HandBrakeEncoderHelpers.CanBurnSrt;
 			}
 		}
 
@@ -148,7 +149,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return HandBrake.Interop.Helpers.Languages.AllLanguages;
+				return HandBrake.ApplicationServices.Interop.Languages.AllLanguages;
 			}
 		}
 

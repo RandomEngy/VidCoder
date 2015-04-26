@@ -214,9 +214,7 @@
 			</MenuItem>
 			<MenuItem
 				Command="{Binding EditCommand}"
-				Header="{x:Static res:MainRes.Edit}"
-				Visibility="{Binding EditVisible,
-			                               Converter={StaticResource VisibilityConverter}}">
+				Header="{x:Static res:MainRes.Edit}">
 				<MenuItem.Icon>
 					<Image
 						Width="16"
@@ -796,7 +794,7 @@
 										SelectedItem="{Binding SelectedTitle}">
 										<ComboBox.ItemTemplate>
 											<DataTemplate>
-												<TextBlock Style="{StaticResource PlainTitle}" Text="{Binding Display}" />
+												<TextBlock Style="{StaticResource PlainTitle}" Text="{Binding Converter={StaticResource TitleDisplayConverter}}" />
 											</DataTemplate>
 										</ComboBox.ItemTemplate>
 									</ComboBox>
@@ -971,6 +969,7 @@
 												MinWidth="180"
 												Margin="2"
 												ItemsSource="{Binding MainViewModel.InputTracks}"
+												DisplayMemberPath="Display"
 												SelectedIndex="{Binding SelectedIndex}" />
 											<Button
 												Height="23"

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GalaSoft.MvvmLight;
-using HandBrake.Interop.SourceData;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using VidCoder.Extensions;
 
 namespace VidCoder.ViewModel
 {
@@ -12,7 +13,7 @@ namespace VidCoder.ViewModel
 		private QueueTitlesWindowViewModel titlesDialogVM;
 		private bool selected;
 
-		public TitleSelectionViewModel(Title title, QueueTitlesWindowViewModel titlesDialogVM)
+		public TitleSelectionViewModel(SourceTitle title, QueueTitlesWindowViewModel titlesDialogVM)
 		{
 			this.Title = title;
 			this.titlesDialogVM = titlesDialogVM;
@@ -33,13 +34,13 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public Title Title { get; set; }
+		public SourceTitle Title { get; set; }
 
 		public string Text
 		{
 			get
 			{
-				return this.Title.Display;
+				return this.Title.GetDisplayString();
 			}
 		}
 

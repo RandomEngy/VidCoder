@@ -6,7 +6,6 @@
 	using System.Linq;
 	using System.Text;
 	using GalaSoft.MvvmLight;
-	using HandBrake.Interop.EventArgs;
 	using Messages;
 	using Resources;
 

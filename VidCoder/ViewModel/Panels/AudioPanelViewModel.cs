@@ -6,11 +6,11 @@ using System.Text;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop;
-using HandBrake.Interop.Model;
-using HandBrake.Interop.Model.Encoding;
-using HandBrake.Interop.SourceData;
+using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using VidCoder.Messages;
+using VidCoder.Model.Encoding;
 
 namespace VidCoder.ViewModel
 {
@@ -18,9 +18,6 @@ namespace VidCoder.ViewModel
 
 	public class AudioPanelViewModel : PanelViewModel
 	{
-		private string passthroughWarningText;
-		private bool passthroughWarningVisible;
-
 		private ObservableCollection<AudioEncodingViewModel> audioEncodings;
 		private ObservableCollection<AudioOutputPreview> audioOutputPreviews;
 
@@ -113,34 +110,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public string PassthroughWarningText
-		{
-			get
-			{
-				return this.passthroughWarningText;
-			}
-
-			set
-			{
-				this.passthroughWarningText = value;
-				this.RaisePropertyChanged(() => this.PassthroughWarningText);
-			}
-		}
-
-		public bool PassthroughWarningVisible
-		{
-			get
-			{
-				return this.passthroughWarningVisible;
-			}
-
-			set
-			{
-				this.passthroughWarningVisible = value;
-				this.RaisePropertyChanged(() => this.PassthroughWarningVisible);
-			}
-		}
-
 		public ICommand AddAudioEncodingCommand
 		{
 			get
@@ -152,7 +121,7 @@ namespace VidCoder.ViewModel
 						var newAudioEncoding = new AudioEncoding
 						{
 							InputNumber = 0,
-							Encoder = Encoders.AudioEncoders[0].ShortName,
+							Encoder = HandBrakeEncoderHelpers.AudioEncoders[0].ShortName,
 							Mixdown = "dpl2",
 							Bitrate = 0,
 							SampleRateRaw = 0,
@@ -188,7 +157,7 @@ namespace VidCoder.ViewModel
 				return;
 			}
 
-			HBContainer container = Encoders.GetContainer(this.EncodingViewModel.EncodingProfile.ContainerName);
+			HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.EncodingViewModel.EncodingProfile.ContainerName);
 			HBAudioEncoder oldEncoder = null;
 			if (this.selectedFallbackEncoder != null)
 			{
@@ -197,7 +166,7 @@ namespace VidCoder.ViewModel
 
 			this.fallbackEncoderChoices = new List<AudioEncoderViewModel>();
 
-			foreach (HBAudioEncoder encoder in Encoders.AudioEncoders)
+			foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
 			{
 				if ((encoder.CompatibleContainers & container.Id) > 0 && !encoder.IsPassthrough)
 				{
@@ -219,8 +188,6 @@ namespace VidCoder.ViewModel
 
 		public void RefreshAudioPreview()
 		{
-			this.PassthroughWarningVisible = false;
-
 			if (this.SelectedTitle != null && this.AudioOutputPreviews != null)
 			{
 				this.AudioOutputPreviews.Clear();
@@ -237,7 +204,7 @@ namespace VidCoder.ViewModel
 							foreach (AudioChoiceViewModel audioChoice in this.MainViewModel.AudioChoices)
 							{
 								AudioOutputPreview audioPreview = this.GetAudioPreview(
-									this.SelectedTitle.AudioTracks[audioChoice.SelectedIndex], audioVM);
+									this.SelectedTitle.AudioList[audioChoice.SelectedIndex], audioVM);
 								if (audioPreview != null)
 								{
 									outputPreviews.Add(audioPreview);
@@ -248,7 +215,7 @@ namespace VidCoder.ViewModel
 						{
 							int titleAudioIndex = chosenAudioTracks[audioVM.TargetStreamIndex - 1];
 
-							AudioOutputPreview audioPreview = this.GetAudioPreview(this.SelectedTitle.AudioTracks[titleAudioIndex - 1],
+							AudioOutputPreview audioPreview = this.GetAudioPreview(this.SelectedTitle.AudioList[titleAudioIndex - 1],
 							                                                       audioVM);
 							if (audioPreview != null)
 							{
@@ -283,32 +250,22 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public AudioOutputPreview GetAudioPreview(AudioTrack inputTrack, AudioEncodingViewModel audioVM)
+		public AudioOutputPreview GetAudioPreview(SourceAudioTrack inputTrack, AudioEncodingViewModel audioVM)
 		{
 			HBAudioEncoder encoder = audioVM.HBAudioEncoder;
 
 			var outputPreviewTrack = new AudioOutputPreview
 			{
-				Name = inputTrack.NoTrackDisplay,
+				Name = inputTrack.Description,
 				Encoder = encoder.DisplayName
 			};
 
 			if (encoder.IsPassthrough)
 			{
 				// For passthrough encodes, we need to make sure the input track is of the right type
-				if (!Encoders.AudioEncoderIsCompatible(inputTrack, encoder) && encoder.ShortName != "copy")
+				if (!HandBrakeEncoderHelpers.AudioEncoderIsCompatible(inputTrack.Codec, encoder) && encoder.ShortName != "copy")
 				{
 					return null;
-				}
-
-				HBContainer container = Encoders.GetContainer(this.Profile.ContainerName);
-
-				if (encoder.ShortName == "copy" && (inputTrack.Codec == AudioCodec.Dts || inputTrack.Codec == AudioCodec.DtsHD) && container.DefaultExtension == "mp4")
-				{
-					this.PassthroughWarningText = EncodingRes.DtsMp4Warning;
-					this.PassthroughWarningVisible = true;
-
-					return outputPreviewTrack;
 				}
 			}
 
@@ -318,21 +275,21 @@ namespace VidCoder.ViewModel
 
 			if (encoder.ShortName == "copy")
 			{
-				if (Encoders.AudioEncoderIsCompatible(inputTrack, encoder))
+				if (HandBrakeEncoderHelpers.AudioEncoderIsCompatible(inputTrack.Codec, encoder))
 				{
 					return outputPreviewTrack;
 				}
 
 				if (this.Profile.AudioEncoderFallback == null)
 				{
-					encoder = Encoders.AudioEncoders.First(a => !a.IsPassthrough);
+					encoder = HandBrakeEncoderHelpers.AudioEncoders.First(a => !a.IsPassthrough);
 				}
 				else
 				{
-					encoder = Encoders.GetAudioEncoder(this.Profile.AudioEncoderFallback);
+					encoder = HandBrakeEncoderHelpers.GetAudioEncoder(this.Profile.AudioEncoderFallback);
 				}
 
-				mixdown = Encoders.GetDefaultMixdown(encoder, inputTrack.ChannelLayout);
+				mixdown = HandBrakeEncoderHelpers.GetDefaultMixdown(encoder, (ulong)inputTrack.ChannelLayout);
 				sampleRate = 0;
 				bitrate = 0;
 
@@ -346,7 +303,7 @@ namespace VidCoder.ViewModel
 			}
 
 			HBMixdown previewMixdown;
-			previewMixdown = Encoders.SanitizeMixdown(mixdown, encoder, inputTrack.ChannelLayout);
+			previewMixdown = HandBrakeEncoderHelpers.SanitizeMixdown(mixdown, encoder, (ulong)inputTrack.ChannelLayout);
 
 			int previewSampleRate = sampleRate;
 			if (previewSampleRate == 0)
@@ -357,11 +314,11 @@ namespace VidCoder.ViewModel
 			int previewBitrate = bitrate;
 			if (previewBitrate == 0)
 			{
-				previewBitrate = Encoders.GetDefaultBitrate(encoder, previewSampleRate, previewMixdown);
+				previewBitrate = HandBrakeEncoderHelpers.GetDefaultBitrate(encoder, previewSampleRate, previewMixdown);
 			}
 			else
 			{
-				previewBitrate = Encoders.SanitizeAudioBitrate(previewBitrate, encoder, previewSampleRate, previewMixdown);
+				previewBitrate = HandBrakeEncoderHelpers.SanitizeAudioBitrate(previewBitrate, encoder, previewSampleRate, previewMixdown);
 			}
 
 			outputPreviewTrack.Mixdown = previewMixdown.DisplayName;

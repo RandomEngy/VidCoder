@@ -7,7 +7,6 @@ using System.Text;
 using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop.Model.Encoding;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Model.Encoding;

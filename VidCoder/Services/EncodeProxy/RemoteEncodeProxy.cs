@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HandBrake.ApplicationServices.Interop.EventArgs;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Model.Encoding;
 
 namespace VidCoder
@@ -15,11 +17,6 @@ namespace VidCoder
 	using System.Threading;
 	using System.Threading.Tasks;
 	using System.Xml.Serialization;
-	using HandBrake.Interop;
-	using HandBrake.Interop.EventArgs;
-	using HandBrake.Interop.Model;
-	using HandBrake.Interop.Model.Encoding;
-	using HandBrake.Interop.SourceData;
 	using Model;
 	using Services;
 	using VidCoderWorker;
@@ -76,7 +73,7 @@ namespace VidCoder
 		[XmlIgnore]
 		public bool IsEncodeStarted { get; private set; }
 
-		public void StartEncode(VCJob job, ILogger logger, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
+		public void StartEncode(VCJob job, SourceTitle title, ILogger logger, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
 		{
 			this.logger = logger;
 
@@ -115,14 +112,11 @@ namespace VidCoder
 								}
 
 								this.channel.StartEncode(
-									job.HbJob,
-									preview,
-									previewNumber,
-									previewSeconds,
-									overallSelectedLengthSeconds,
+									JsonEncodeFactory.CreateJsonObject(job, title, preview ? previewNumber : -1, previewSeconds),
 									Config.LogVerbosity,
 									Config.PreviewCount,
-									Config.EnableLibDvdNav);
+									Config.EnableLibDvdNav,
+									Config.MinimumTitleLengthSeconds);
 
 								// After we do StartEncode (which can take a while), switch the timeout down to normal level to do pings
 								var contextChannel = (IContextChannel)this.channel;

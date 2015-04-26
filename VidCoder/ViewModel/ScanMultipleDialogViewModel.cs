@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using HandBrake.Interop;
+using HandBrake.ApplicationServices.Interop;
+using VidCoder.Extensions;
+using VidCoder.Model;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
-	using HandBrake.Interop.SourceData;
-
 	/// <summary>
 	/// View model for dialog that shows when scanning multiple files.
 	/// </summary>
@@ -23,7 +23,7 @@ namespace VidCoder.ViewModel
 		public ScanMultipleDialogViewModel(IList<string> pathsToScan)
 		{
 			this.pathsToScan = pathsToScan;
-			this.ScanResults = new List<HandBrakeInstance>();
+			this.ScanResults = new List<VideoSource>();
 			this.ScanNextJob();
 		}
 
@@ -48,7 +48,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public List<HandBrakeInstance> ScanResults { get; private set; }
+		public List<VideoSource> ScanResults { get; private set; }
 
 		public void ScanNextJob()
 		{
@@ -60,24 +60,14 @@ namespace VidCoder.ViewModel
 				{
 					lock (this.currentJobIndexLock)
 					{
-						this.currentJobProgress = e.Progress;
+						this.currentJobProgress = (float)e.Progress;
 						this.RaisePropertyChanged(() => this.Progress);
 					}
 				};
 			onDemandInstance.ScanCompleted += (o, e) =>
 				{
-					this.ScanResults.Add(onDemandInstance);
-					//jobVM.HandBrakeInstance = onDemandInstance;
-
-					//if (onDemandInstance.Titles.Count > 0)
-					//{
-					//	Title titleToEncode = Utilities.GetFeatureTitle(onDemandInstance.Titles, onDemandInstance.FeatureTitle);
-
-					//	jobVM.Job.Title = titleToEncode.TitleNumber;
-					//	jobVM.Job.Length = titleToEncode.Duration;
-					//	jobVM.Job.ChapterStart = 1;
-					//	jobVM.Job.ChapterEnd = titleToEncode.Chapters.Count;
-					//}
+					this.ScanResults.Add(onDemandInstance.Titles.ToVideoSource());
+					onDemandInstance.Dispose();
 
 					lock (this.currentJobIndexLock)
 					{
@@ -99,7 +89,7 @@ namespace VidCoder.ViewModel
 					}
 				};
 
-			onDemandInstance.StartScan(path, Config.PreviewCount, 0);
+			onDemandInstance.StartScan(path, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), 0);
 		}
 	}
 }

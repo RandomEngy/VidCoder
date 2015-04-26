@@ -5,11 +5,8 @@ using System.Text;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop.Model;
-using System.Windows.Input;
-using HandBrake.Interop.Model.Encoding;
+using HandBrake.ApplicationServices.Interop;
 using VidCoder.DragDropUtils;
-using HandBrake.Interop;
 using System.Diagnostics;
 using VidCoder.Messages;
 using VidCoder.Model;
@@ -88,8 +85,6 @@ namespace VidCoder.ViewModel
 		}
 
 		public ILogger Logger { get; set; }
-
-		public HandBrakeInstance HandBrakeInstance { get; set; }
 
 		public VideoSource VideoSource { get; set; }
 
@@ -317,7 +312,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return Encoders.GetVideoEncoder(this.Profile.VideoEncoder).DisplayName;
+				return HandBrakeEncoderHelpers.GetVideoEncoder(this.Profile.VideoEncoder).DisplayName;
 			}
 		}
 
@@ -328,7 +323,7 @@ namespace VidCoder.ViewModel
 				var encodingParts = new List<string>();
 				foreach (AudioEncoding audioEncoding in this.Profile.AudioEncodings)
 				{
-					encodingParts.Add(Encoders.GetAudioEncoder(audioEncoding.Encoder).DisplayName);
+					encodingParts.Add(HandBrakeEncoderHelpers.GetAudioEncoder(audioEncoding.Encoder).DisplayName);
 				}
 
 				return string.Join(", ", encodingParts);
@@ -372,7 +367,7 @@ namespace VidCoder.ViewModel
 				var bitrateParts = new List<string>();
 				foreach (AudioEncoding audioEncoding in this.Profile.AudioEncodings)
 				{
-					if (!Encoders.GetAudioEncoder(audioEncoding.Encoder).IsPassthrough)
+					if (!HandBrakeEncoderHelpers.GetAudioEncoder(audioEncoding.Encoder).IsPassthrough)
 					{
 						if (audioEncoding.EncodeRateType == AudioEncodeRateType.Bitrate)
 						{

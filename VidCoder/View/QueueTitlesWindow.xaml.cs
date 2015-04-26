@@ -10,7 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using HandBrake.Interop.SourceData;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Extensions;
 using VidCoder.Services;
 using VidCoder.ViewModel;
@@ -61,16 +61,16 @@ namespace VidCoder.View
 
 			double widthPixels, heightPixels;
 
-			Title title = previewVM.SelectedTitles[0].Title;
-			if (title.ParVal.Width > title.ParVal.Height)
+			SourceTitle title = previewVM.SelectedTitles[0].Title;
+			if (title.Geometry.PAR.Num > title.Geometry.PAR.Den)
 			{
-				widthPixels = title.Resolution.Width * ((double)title.ParVal.Width / title.ParVal.Height);
-				heightPixels = title.Resolution.Height;
+				widthPixels = title.Geometry.Width * ((double)title.Geometry.PAR.Num / title.Geometry.PAR.Den);
+				heightPixels = title.Geometry.Height;
 			}
 			else
 			{
-				widthPixels = title.Resolution.Width;
-				heightPixels = title.Resolution.Height * ((double) title.ParVal.Height / title.ParVal.Width);
+				widthPixels = title.Geometry.Width;
+				heightPixels = title.Geometry.Height * ((double)title.Geometry.PAR.Den / title.Geometry.PAR.Num);
 			}
 
 			ImageUtilities.UpdatePreviewImageSize(this.previewImage, this.previewImageHolder, widthPixels, heightPixels);

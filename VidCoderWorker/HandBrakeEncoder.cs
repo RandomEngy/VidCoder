@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Json.Encode;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
 
 namespace VidCoderWorker
 {
 	using System.ServiceModel;
-	using HandBrake.Interop;
-	using HandBrake.Interop.Model;
-	using HandBrake.Interop.SourceData;
 
 	public class HandBrakeEncoder : IHandBrakeEncoder
 	{
@@ -19,7 +19,7 @@ namespace VidCoderWorker
 		// True if we are encoding (not scanning)
 		private EncodeState state = EncodeState.NotStarted;
 
-		public void StartEncode(EncodeJob job, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds, int verbosity, int previewCount, bool useDvdNav)
+		public void StartEncode(JsonEncodeObject encodeObject, int verbosity, int previewCount, bool useDvdNav, double minTitleDurationSeconds)
 		{
 			CurrentEncoder = this;
 			this.callback = OperationContext.Current.GetCallbackChannel<IHandBrakeEncoderCallback>();
@@ -56,13 +56,13 @@ namespace VidCoderWorker
 					{
 						try
 						{
-							Title encodeTitle = this.instance.Titles.FirstOrDefault(title => title.TitleNumber == job.Title);
+							SourceTitle encodeTitle = this.instance.Titles.TitleList.FirstOrDefault(title => title.Index == encodeObject.Source.Title);
 
 							if (encodeTitle != null)
 							{
 								lock (this.encodeLock)
 								{
-									this.instance.StartEncode(job, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds, previewCount);
+									this.instance.StartEncode(encodeObject);
 									this.callback.OnEncodeStarted();
 									this.state = EncodeState.Encoding;
 								}
@@ -84,7 +84,7 @@ namespace VidCoderWorker
 					{
 						this.StopOnException(() =>
 							{
-								this.callback.OnEncodeProgress(e.AverageFrameRate, e.CurrentFrameRate, e.EstimatedTimeLeft, e.FractionComplete, e.Pass);
+								this.callback.OnEncodeProgress((float)e.AverageFrameRate, (float)e.CurrentFrameRate, e.EstimatedTimeLeft, (float)e.FractionComplete, e.Pass);
 							});
 					};
 
@@ -106,7 +106,7 @@ namespace VidCoderWorker
 						}
 					};
 
-				this.instance.StartScan(job.SourcePath, previewCount, job.Title);
+				this.instance.StartScan(encodeObject.Source.Path, previewCount, TimeSpan.FromSeconds(minTitleDurationSeconds), encodeObject.Source.Title);
 				this.state = EncodeState.Scanning;
 			}
 			catch (Exception exception)

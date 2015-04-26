@@ -9,7 +9,6 @@ using System.Resources;
 using System.Windows.Data;
 using System.Globalization;
 using System.Collections.ObjectModel;
-using HandBrake.Interop;
 
 namespace VidCoder
 {

@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using HandBrake.Interop.Model;
-using HandBrake.Interop.SourceData;
+using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using VidCoder.Model.Encoding;
 
 namespace VidCoder.ViewModel
 {
 	using GalaSoft.MvvmLight.Messaging;
-	using HandBrake.Interop.Model.Encoding;
 	using Messages;
 	using Resources;
 
@@ -34,9 +34,9 @@ namespace VidCoder.ViewModel
 
 		public SubtitleDialogViewModel SubtitleDialogViewModel { get; set; }
 
-		public List<Subtitle> InputSubtitles
+		public List<SourceSubtitleTrack> InputSubtitles
 		{
-			get { return this.mainViewModel.SelectedTitle.Subtitles; }
+			get { return this.mainViewModel.SelectedTitle.SubtitleList; }
 		}
 
 		public SourceSubtitle Subtitle
@@ -73,7 +73,11 @@ namespace VidCoder.ViewModel
 					return SubtitleRes.ForeignAudioSearch;
 				}
 
-				return this.InputSubtitle.Display;
+				return string.Format(
+					"{0} {1} ({2})", 
+					this.TrackNumber, 
+					this.InputSubtitle.Language, 
+					HandBrakeEncoderHelpers.GetSubtitleSourceName(this.InputSubtitle.Source));
 			}
 		}
 
@@ -108,7 +112,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.TrackNumber > 0 && !this.InputSubtitle.CanSetForcedOnly)
+				if (this.TrackNumber > 0 && !HandBrakeEncoderHelpers.SubtitleCanSetForcedOnly(this.InputSubtitle.Source))
 				{
 					return false;
 				}
@@ -127,7 +131,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.TrackNumber == 0 || this.InputSubtitle.CanSetForcedOnly;
+				return this.TrackNumber == 0 || HandBrakeEncoderHelpers.SubtitleCanSetForcedOnly(this.InputSubtitle.Source);
 			}
 		}
 
@@ -211,7 +215,7 @@ namespace VidCoder.ViewModel
 					return true;
 				}
 
-				return this.InputSubtitle.CanPass(this.SubtitleDialogViewModel.Container.Id);
+				return HandBrakeEncoderHelpers.SubtitleCanPassthrough(this.InputSubtitle.Source, this.SubtitleDialogViewModel.Container.Id);
 			}
 		}
 
@@ -224,11 +228,11 @@ namespace VidCoder.ViewModel
 					return true;
 				}
 
-				return this.InputSubtitle.CanBurn;
+				return HandBrakeEncoderHelpers.SubtitleCanBurn(this.InputSubtitle.Source);
 			}
 		}
 
-		private Subtitle InputSubtitle
+		private SourceSubtitleTrack InputSubtitle
 		{
 			get
 			{

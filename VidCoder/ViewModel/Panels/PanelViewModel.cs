@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop.SourceData;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Messages;
 using VidCoder.Model.Encoding;
 
@@ -82,7 +82,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public Title SelectedTitle
+		public SourceTitle SelectedTitle
 		{
 			get
 			{

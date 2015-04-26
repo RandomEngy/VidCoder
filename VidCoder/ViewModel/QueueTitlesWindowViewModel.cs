@@ -7,10 +7,9 @@ using System.Text;
 using System.Windows.Media;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop.Model;
-using HandBrake.Interop.Model.Encoding;
-using HandBrake.Interop.SourceData;
 using System.Collections.ObjectModel;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Model.Encoding;
@@ -74,14 +73,14 @@ namespace VidCoder.ViewModel
 
 					if (this.selectedTitles.Count == 1)
 					{
-						Title title = this.selectedTitles[0].Title;
+						SourceTitle title = this.selectedTitles[0].Title;
 
 						// Do preview
 						var previewProfile =
 							new VCProfile
 							{
 								CustomCropping = true,
-								Cropping = new Cropping(),
+								Cropping = new VCCropping(),
 								VideoEncoder = "x264",
 								AudioEncodings = new List<AudioEncoding>()
 							};
@@ -90,11 +89,11 @@ namespace VidCoder.ViewModel
 							new VCJob
 							{
 								RangeType = VideoRangeType.All,
-								Title = title.TitleNumber,
+								Title = title.Index,
 								EncodingProfile = previewProfile
 							};
 
-						this.PreviewImage = this.main.ScanInstance.GetPreview(previewJob.HbJob, 2);
+						this.PreviewImage = this.main.ScanInstance.GetPreview(previewProfile.CreatePreviewSettings(title), 2);
 						this.RaisePropertyChanged(() => this.TitleText);
 					}
 			    };
@@ -137,7 +136,7 @@ namespace VidCoder.ViewModel
 					return string.Empty;
 				}
 
-				return string.Format(QueueTitlesRes.TitleFormat, this.selectedTitles[0].Title.TitleNumber);
+				return string.Format(QueueTitlesRes.TitleFormat, this.selectedTitles[0].Title.Index);
 			}
 		}
 
@@ -222,11 +221,11 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public List<Title> CheckedTitles
+		public List<SourceTitle> CheckedTitles
 		{
 			get
 			{
-				List<Title> checkedTitles = new List<Title>();
+				List<SourceTitle> checkedTitles = new List<SourceTitle>();
 				foreach (TitleSelectionViewModel titleVM in this.titles)
 				{
 					if (titleVM.Selected)
@@ -252,7 +251,7 @@ namespace VidCoder.ViewModel
 							player = Players.Installed[0];
 						}
 
-						player.PlayTitle(this.main.SourcePath, this.selectedTitles[0].Title.TitleNumber);
+						player.PlayTitle(this.main.SourcePath, this.selectedTitles[0].Title.Index);
 					},
 					() =>
 					{
@@ -320,7 +319,7 @@ namespace VidCoder.ViewModel
 
 			if (this.main.SourceData != null)
 			{
-				foreach (Title title in this.main.SourceData.Titles)
+				foreach (SourceTitle title in this.main.SourceData.Titles)
 				{
 					var titleVM = new TitleSelectionViewModel(title, this);
 					this.titles.Add(titleVM);
@@ -342,7 +341,8 @@ namespace VidCoder.ViewModel
 
 				foreach (TitleSelectionViewModel titleVM in this.titles)
 				{
-					if (titleVM.Title.Duration >= lowerBound && titleVM.Title.Duration <= upperBound)
+					TimeSpan titleDuration = titleVM.Title.Duration.ToSpan();
+					if (titleDuration >= lowerBound && titleDuration <= upperBound)
 					{
 						if (!titleVM.Selected)
 						{

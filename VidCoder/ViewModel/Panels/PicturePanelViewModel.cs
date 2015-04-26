@@ -1,20 +1,14 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using GalaSoft.MvvmLight.Messaging;
+using HandBrake.ApplicationServices.Interop.Json.Shared;
+using VidCoder.Messages;
+using VidCoder.Model;
 using VidCoder.Model.Encoding;
+using VidCoder.Resources;
 
 namespace VidCoder.ViewModel
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-	using GalaSoft.MvvmLight.Messaging;
-	using HandBrake.Interop;
-	using HandBrake.Interop.Model;
-	using HandBrake.Interop.Model.Encoding;
-	using Messages;
-	using Model;
-	using Resources;
-
 	public class PicturePanelViewModel : PanelViewModel
 	{
 		private const int DimensionsAutoSetModulus = 2;
@@ -48,7 +42,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.HasSourceData)
 				{
-					return this.SelectedTitle.Resolution.Width + " x " + this.SelectedTitle.Resolution.Height;
+					return this.SelectedTitle.Geometry.Width + " x " + this.SelectedTitle.Geometry.Height;
 				}
 
 				return string.Empty;
@@ -61,7 +55,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.HasSourceData)
 				{
-					return this.CreateParDisplayString(this.SelectedTitle.ParVal.Width, this.SelectedTitle.ParVal.Height);
+					return this.CreateParDisplayString(this.SelectedTitle.Geometry.PAR.Num, this.SelectedTitle.Geometry.PAR.Den);
 				}
 
 				return string.Empty;
@@ -74,11 +68,11 @@ namespace VidCoder.ViewModel
 			{
 				if (this.HasSourceData)
 				{
-					double pixelAspectRatio = ((double)this.SelectedTitle.ParVal.Width) / this.SelectedTitle.ParVal.Height;
-					double displayWidth = this.SelectedTitle.Resolution.Width * pixelAspectRatio;
+					double pixelAspectRatio = ((double)this.SelectedTitle.Geometry.PAR.Num) / this.SelectedTitle.Geometry.PAR.Den;
+					double displayWidth = this.SelectedTitle.Geometry.Width * pixelAspectRatio;
 					int displayWidthRounded = (int)Math.Round(displayWidth);
 
-					return displayWidthRounded + " x " + this.SelectedTitle.Resolution.Height;
+					return displayWidthRounded + " x " + this.SelectedTitle.Geometry.Height;
 				}
 
 				return string.Empty;
@@ -144,10 +138,10 @@ namespace VidCoder.ViewModel
 					{
 						var cropWidthAmount = this.CropLeft + this.CropRight;
 						var cropHeightAmount = this.CropTop + this.CropBottom;
-						var sourceWidth = this.SelectedTitle.Resolution.Width;
-						var sourceHeight = this.SelectedTitle.Resolution.Height;
-						var parWidth = this.SelectedTitle.ParVal.Width;
-						var parHeight = this.SelectedTitle.ParVal.Height;
+						var sourceWidth = this.SelectedTitle.Geometry.Width;
+						var sourceHeight = this.SelectedTitle.Geometry.Height;
+						var parWidth = this.SelectedTitle.Geometry.PAR.Num;
+						var parHeight = this.SelectedTitle.Geometry.PAR.Den;
 
 						double finalDisplayAspect = ((double)(sourceWidth - cropWidthAmount) * parWidth) / ((sourceHeight - cropHeightAmount) * parHeight);
 
@@ -197,10 +191,10 @@ namespace VidCoder.ViewModel
 					{
 						var cropWidthAmount = this.CropLeft + this.CropRight;
 						var cropHeightAmount = this.CropTop + this.CropBottom;
-						var sourceWidth = this.SelectedTitle.Resolution.Width;
-						var sourceHeight = this.SelectedTitle.Resolution.Height;
-						var parWidth = this.SelectedTitle.ParVal.Width;
-						var parHeight = this.SelectedTitle.ParVal.Height;
+						var sourceWidth = this.SelectedTitle.Geometry.Width;
+						var sourceHeight = this.SelectedTitle.Geometry.Height;
+						var parWidth = this.SelectedTitle.Geometry.PAR.Num;
+						var parHeight = this.SelectedTitle.Geometry.PAR.Den;
 
 						double finalDisplayAspect = ((double)(sourceWidth - cropWidthAmount) * parWidth) / ((sourceHeight - cropHeightAmount) * parHeight);
 
@@ -585,7 +579,7 @@ namespace VidCoder.ViewModel
                     case VCCroppingType.Automatic:
 						if (this.HasSourceData)
 						{
-							return this.SelectedTitle.AutoCropDimensions.Left;
+							return this.SelectedTitle.Crop[2];
 						}
 						break;
                     case VCCroppingType.Custom:
@@ -615,7 +609,7 @@ namespace VidCoder.ViewModel
                     case VCCroppingType.Automatic:
 						if (this.HasSourceData)
 						{
-							return this.SelectedTitle.AutoCropDimensions.Top;
+							return this.SelectedTitle.Crop[0];
 						}
 						break;
                     case VCCroppingType.Custom:
@@ -645,7 +639,7 @@ namespace VidCoder.ViewModel
                     case VCCroppingType.Automatic:
 						if (this.HasSourceData)
 						{
-							return this.SelectedTitle.AutoCropDimensions.Right;
+							return this.SelectedTitle.Crop[3];
 						}
 						break;
                     case VCCroppingType.Custom:
@@ -675,7 +669,7 @@ namespace VidCoder.ViewModel
                     case VCCroppingType.Automatic:
 						if (this.HasSourceData)
 						{
-							return this.SelectedTitle.AutoCropDimensions.Bottom;
+							return this.SelectedTitle.Crop[1];
 						}
 						break;
                     case VCCroppingType.Custom:
@@ -715,8 +709,12 @@ namespace VidCoder.ViewModel
 				VCJob job = this.MainViewModel.EncodeJob;
 				job.EncodingProfile = this.Profile;
 
-				int width, height, parWidth, parHeight;
-				this.MainViewModel.ScanInstance.GetSize(job.HbJob, out width, out height, out parWidth, out parHeight);
+				Geometry outputGeometry = JsonEncodeFactory.GetAnamorphicSize(this.Profile, this.SelectedTitle);
+
+				int width = outputGeometry.Width;
+				int height = outputGeometry.Height;
+				int parWidth = outputGeometry.PAR.Num;
+				int parHeight = outputGeometry.PAR.Den;
 
                 if (this.Profile.Rotation == VCPictureRotation.Clockwise90 || this.Profile.Rotation == VCPictureRotation.Clockwise270)
 				{
@@ -795,8 +793,8 @@ namespace VidCoder.ViewModel
 			}
 			else
 			{
-				this.Profile.PixelAspectX = this.SelectedTitle.ParVal.Width;
-				this.Profile.PixelAspectY = this.SelectedTitle.ParVal.Height;
+				this.Profile.PixelAspectX = this.SelectedTitle.Geometry.PAR.Num;
+				this.Profile.PixelAspectY = this.SelectedTitle.Geometry.PAR.Den;
 			}
 
 			this.RaisePropertyChanged(() => this.PixelAspectX);
@@ -819,7 +817,7 @@ namespace VidCoder.ViewModel
 				}
 				else
 				{
-					this.Profile.DisplayWidth = (int)Math.Round(((double)((this.SelectedTitle.Resolution.Width - this.CropLeft - this.CropRight) * this.SelectedTitle.ParVal.Width)) / this.SelectedTitle.ParVal.Height);
+					this.Profile.DisplayWidth = (int)Math.Round(((double)((this.SelectedTitle.Geometry.Width - this.CropLeft - this.CropRight) * this.SelectedTitle.Geometry.PAR.Num)) / this.SelectedTitle.Geometry.PAR.Den);
 				}
 			}
 

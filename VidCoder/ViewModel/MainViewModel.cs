@@ -1,39 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.SQLite;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Collections.ObjectModel;
 using System.Windows;
-using System.IO;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Shell;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop;
-using HandBrake.Interop.Model;
-using HandBrake.Interop.Model.Encoding;
-using HandBrake.Interop.SourceData;
+using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using VidCoder.Automation;
+using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Model.Encoding;
-using VidCoder.Properties;
+using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
-	using System.Data.SQLite;
-	using System.Diagnostics;
-	using System.Runtime.InteropServices;
-	using System.Runtime.Remoting.Messaging;
-	using Automation;
-	using HandBrake.Interop.HbLib;
-	using HandBrake.Interop.Helpers;
-	using Resources;
-	using Utilities = VidCoder.Utilities;
-
 	public class MainViewModel : ViewModelBase
 	{
 		private HandBrakeInstance scanInstance;
@@ -51,8 +40,8 @@ namespace VidCoder.ViewModel
 		private bool sourceSelectionExpanded;
 		private SourceOption selectedSource;
 
-		private Title selectedTitle;
-		private Title oldTitle;
+		private SourceTitle selectedTitle;
+		private SourceTitle oldTitle;
 		private List<int> angles;
 		private int angle;
 
@@ -72,7 +61,7 @@ namespace VidCoder.ViewModel
 
 		private ObservableCollection<AudioChoiceViewModel> audioChoices;
 
-		private Subtitles currentSubtitles;
+		private VCSubtitles currentSubtitles;
 
 		private bool useDefaultChapterNames;
 		private List<string> customChapterNames;
@@ -419,7 +408,13 @@ namespace VidCoder.ViewModel
 			}
 
 			this.driveService.Close();
-			this.ProcessingVM.CleanupHandBrakeInstances();
+
+			if (this.scanInstance != null)
+			{
+				this.scanInstance.Dispose();
+				this.scanInstance = null;
+			}
+
 			HandBrakeUtils.DisposeGlobal();
 
 			FileCleanup.CleanOldLogs();
@@ -742,7 +737,7 @@ namespace VidCoder.ViewModel
 		/// </summary>
 		public bool JobCreationAvailable { get; set; }
 
-		public List<Title> Titles
+		public List<SourceTitle> Titles
 		{
 			get
 			{
@@ -755,7 +750,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public Title SelectedTitle
+		public SourceTitle SelectedTitle
 		{
 			get
 			{
@@ -784,8 +779,8 @@ namespace VidCoder.ViewModel
 					}
 
 					// Save old subtitles
-					Subtitles oldSubtitles = this.CurrentSubtitles;
-					this.CurrentSubtitles = new Subtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
+					VCSubtitles oldSubtitles = this.CurrentSubtitles;
+					this.CurrentSubtitles = new VCSubtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
 
 					Picker picker = this.pickersVM.SelectedPicker.Picker;
 
@@ -799,8 +794,8 @@ namespace VidCoder.ViewModel
 								var keptAudioChoices = new List<AudioChoiceViewModel>();
 								foreach (AudioChoiceViewModel audioChoiceVM in this.AudioChoices)
 								{
-									if (audioChoiceVM.SelectedIndex < this.selectedTitle.AudioTracks.Count &&
-										this.oldTitle.AudioTracks[audioChoiceVM.SelectedIndex].Language == this.selectedTitle.AudioTracks[audioChoiceVM.SelectedIndex].Language)
+									if (audioChoiceVM.SelectedIndex < this.selectedTitle.AudioList.Count &&
+										this.oldTitle.AudioList[audioChoiceVM.SelectedIndex].Language == this.selectedTitle.AudioList[audioChoiceVM.SelectedIndex].Language)
 									{
 										keptAudioChoices.Add(audioChoiceVM);
 									}
@@ -820,38 +815,39 @@ namespace VidCoder.ViewModel
 							break;
 						case AudioSelectionMode.Language:
 							this.AudioChoices.Clear();
-							List<AudioTrack> nativeTracks = this.selectedTitle.AudioTracks.Where(track => track.LanguageCode == picker.AudioLanguageCode).ToList();
-							if (nativeTracks.Count > 0)
+							for (int i = 0; i < this.selectedTitle.AudioList.Count; i++)
 							{
-								if (picker.AudioLanguageAll)
+								SourceAudioTrack track = this.selectedTitle.AudioList[i];
+
+								if (track.LanguageCode == picker.AudioLanguageCode)
 								{
-									foreach (AudioTrack audioTrack in nativeTracks)
+									var newVM = new AudioChoiceViewModel { SelectedIndex = i };
+									this.AudioChoices.Add(newVM);
+
+									if (!picker.AudioLanguageAll)
 									{
-										var newVM = new AudioChoiceViewModel { SelectedIndex = audioTrack.TrackNumber - 1 };
-										this.AudioChoices.Add(newVM);
+										break;
 									}
 								}
-								else
-								{
-									var newVM = new AudioChoiceViewModel { SelectedIndex = nativeTracks[0].TrackNumber - 1 };
-									this.AudioChoices.Add(newVM);
-								}
 							}
+
 							break;
 						case AudioSelectionMode.All:
 							this.AudioChoices.Clear();
-							foreach (AudioTrack audioTrack in this.selectedTitle.AudioTracks)
+
+							for (int i = 0; i < this.selectedTitle.AudioList.Count; i++)
 							{
-								var newVM = new AudioChoiceViewModel { SelectedIndex = audioTrack.TrackNumber - 1 };
+								var newVM = new AudioChoiceViewModel { SelectedIndex = i };
 								this.AudioChoices.Add(newVM);
 							}
+
 							break;
 						default:
 							throw new ArgumentOutOfRangeException();
 					}
 
 					// If nothing got selected, add the first one.
-					if (this.selectedTitle.AudioTracks.Count > 0 && this.AudioChoices.Count == 0)
+					if (this.selectedTitle.AudioList.Count > 0 && this.AudioChoices.Count == 0)
 					{
 						var newVM = new AudioChoiceViewModel { SelectedIndex = 0 };
 						this.AudioChoices.Add(newVM);
@@ -863,7 +859,7 @@ namespace VidCoder.ViewModel
 							// If no auto-selection is done, try and keep selections from previous title
 							if (this.oldTitle != null && oldSubtitles != null)
 							{
-								if (this.selectedTitle.Subtitles.Count > 0)
+								if (this.selectedTitle.SubtitleList.Count > 0)
 								{
 									// Keep source subtitles when changing title, but not specific SRT files.
 									var keptSourceSubtitles = new List<SourceSubtitle>();
@@ -873,8 +869,8 @@ namespace VidCoder.ViewModel
 										{
 											keptSourceSubtitles.Add(sourceSubtitle);
 										}
-										else if (sourceSubtitle.TrackNumber - 1 < this.selectedTitle.Subtitles.Count &&
-											this.oldTitle.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode == this.selectedTitle.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode)
+										else if (sourceSubtitle.TrackNumber - 1 < this.selectedTitle.SubtitleList.Count &&
+											this.oldTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode == this.selectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode)
 										{
 											keptSourceSubtitles.Add(sourceSubtitle);
 										}
@@ -904,7 +900,7 @@ namespace VidCoder.ViewModel
 							bool def = picker.SubtitleLanguageDefault;
 							if (this.AudioChoices.Count > 0)
 							{
-								if (this.selectedTitle.AudioTracks[this.AudioChoices[0].SelectedIndex].LanguageCode == languageCode)
+								if (this.selectedTitle.AudioList[this.AudioChoices[0].SelectedIndex].LanguageCode == languageCode)
 								{
 									audioSame = true;
 								}
@@ -912,19 +908,21 @@ namespace VidCoder.ViewModel
 
 							if (!picker.SubtitleLanguageOnlyIfDifferent || !audioSame)
 							{
-								List<Subtitle> nativeSubtitles = this.selectedTitle.Subtitles.Where(subtitle => subtitle.LanguageCode == languageCode).ToList();
+								List<SourceSubtitleTrack> nativeSubtitles = this.selectedTitle.SubtitleList.Where(subtitle => subtitle.LanguageCode == languageCode).ToList();
 								if (nativeSubtitles.Count > 0)
 								{
 									if (picker.SubtitleLanguageAll)
 									{
-										foreach (Subtitle subtitle in nativeSubtitles)
+										for (int i = 0; i < nativeSubtitles.Count; i++)
 										{
+											SourceSubtitleTrack subtitle = nativeSubtitles[i];
+
 											this.CurrentSubtitles.SourceSubtitles.Add(new SourceSubtitle
 											{
 												BurnedIn = false,
 												Default = false,
 												Forced = false,
-												TrackNumber = subtitle.TrackNumber
+												TrackNumber = subtitle.Source
 											});
 										}
 									}
@@ -935,7 +933,7 @@ namespace VidCoder.ViewModel
 											BurnedIn = burnIn,
 											Default = def,
 											Forced = false,
-											TrackNumber = nativeSubtitles[0].TrackNumber
+											TrackNumber = nativeSubtitles[0].Source
 										});
 									}
 								}
@@ -943,15 +941,15 @@ namespace VidCoder.ViewModel
 
 							break;
 						case SubtitleSelectionMode.All:
-							foreach (Subtitle subtitle in this.selectedTitle.Subtitles)
+							foreach (SourceSubtitleTrack subtitle in this.selectedTitle.SubtitleList)
 							{
 								this.CurrentSubtitles.SourceSubtitles.Add(
 									new SourceSubtitle
 										{
-											 TrackNumber = subtitle.TrackNumber,
-											 BurnedIn = false,
-											 Default = false,
-											 Forced = false
+											TrackNumber = subtitle.Source,
+											BurnedIn = false,
+											Default = false,
+											Forced = false
 										});
 							}
 							break;
@@ -969,14 +967,14 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(() => this.SelectedEndChapter);
 
 					this.SetRangeTimeStart(TimeSpan.Zero);
-					this.SetRangeTimeEnd(this.selectedTitle.Duration);
+					this.SetRangeTimeEnd(this.selectedTitle.Duration.ToSpan());
 					this.RaisePropertyChanged(() => this.TimeRangeStart);
 					this.RaisePropertyChanged(() => this.TimeRangeStartBar);
 					this.RaisePropertyChanged(() => this.TimeRangeEnd);
 					this.RaisePropertyChanged(() => this.TimeRangeEndBar);
 
 					this.framesRangeStart = 0;
-					this.framesRangeEnd = this.selectedTitle.Frames;
+					this.framesRangeEnd = this.selectedTitle.GetEstimatedFrames();
 					this.RaisePropertyChanged(() => this.FramesRangeStart);
 					this.RaisePropertyChanged(() => this.FramesRangeEnd);
 
@@ -991,7 +989,7 @@ namespace VidCoder.ViewModel
 
 
 					// Change range type based on whether or not we have any chapters
-					if (this.selectedTitle.Chapters.Count > 1)
+					if (this.selectedTitle.ChapterList.Count > 1)
 					{
 						this.RangeType = VideoRangeType.Chapters;
 					}
@@ -1055,7 +1053,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public Subtitles CurrentSubtitles
+		public VCSubtitles CurrentSubtitles
 		{
 			get
 			{
@@ -1089,7 +1087,7 @@ namespace VidCoder.ViewModel
 					}
 					else
 					{
-						trackSummaries.Add(this.SelectedTitle.Subtitles[sourceSubtitle.TrackNumber - 1].Language);
+						trackSummaries.Add(this.SelectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].Language);
 					}
 				}
 
@@ -1295,7 +1293,7 @@ namespace VidCoder.ViewModel
 			{
 				this.timeRangeStart = value;
 
-				TimeSpan maxTime = this.SelectedTitle.Duration;
+				TimeSpan maxTime = this.SelectedTitle.Duration.ToSpan();
 				if (this.timeRangeStart > maxTime - Constants.TimeRangeBuffer)
 				{
 					this.timeRangeStart = maxTime - Constants.TimeRangeBuffer;
@@ -1338,7 +1336,7 @@ namespace VidCoder.ViewModel
 			{
 				this.timeRangeEnd = value;
 
-				TimeSpan maxTime = this.SelectedTitle.Duration;
+				TimeSpan maxTime = this.SelectedTitle.Duration.ToSpan();
 
 				if (this.timeRangeEnd > maxTime)
 				{
@@ -1387,13 +1385,7 @@ namespace VidCoder.ViewModel
 
 			set
 			{
-				int maxFrame = this.SelectedTitle.Frames;
-
 				this.framesRangeStart = value;
-				if (this.framesRangeStart >= maxFrame)
-				{
-					this.framesRangeStart = maxFrame - 1;
-				}
 
 				// Constrain from the baseline: what the other end was when we got focus
 				int idealFramesEnd = this.framesBaseline;
@@ -1425,13 +1417,7 @@ namespace VidCoder.ViewModel
 
 			set
 			{
-				int maxFrame = this.SelectedTitle.Frames;
-
 				this.framesRangeEnd = value;
-				if (this.framesRangeEnd > maxFrame)
-				{
-					this.framesRangeEnd = maxFrame;
-				}
 
 				// Constrain from the baseline: what the other end was when we got focus
 				int idealFramesStart = this.framesBaseline;
@@ -1526,7 +1512,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.SelectedTitle != null && this.RangeType == VideoRangeType.Chapters)
 				{
-					return string.Format(MainRes.ChaptersSummary, this.SelectedTitle.Chapters.Count);
+					return string.Format(MainRes.ChaptersSummary, this.SelectedTitle.ChapterList.Count);
 				}
 
 				return string.Empty;
@@ -1651,7 +1637,7 @@ namespace VidCoder.ViewModel
 					case VideoRangeType.Seconds:
 						return this.TimeRangeStart;
 					case VideoRangeType.Frames:
-						return TimeSpan.FromSeconds(this.FramesRangeStart / this.SelectedTitle.Framerate);
+						return TimeSpan.FromSeconds(this.FramesRangeStart / this.SelectedTitle.FrameRate.ToDouble());
 				}
 
 				return TimeSpan.Zero;
@@ -1670,7 +1656,7 @@ namespace VidCoder.ViewModel
 				switch (this.RangeType)
 				{
 					case VideoRangeType.All:
-						return this.SelectedTitle.Duration;
+						return this.SelectedTitle.Duration.ToSpan();
 					case VideoRangeType.Chapters:
 						if (this.SelectedStartChapter == null || this.SelectedEndChapter == null)
 						{
@@ -1699,7 +1685,7 @@ namespace VidCoder.ViewModel
 					case VideoRangeType.Seconds:
 						return this.TimeRangeEnd;
 					case VideoRangeType.Frames:
-						return TimeSpan.FromSeconds(this.FramesRangeEnd / this.SelectedTitle.Framerate);
+						return TimeSpan.FromSeconds(this.FramesRangeEnd / this.SelectedTitle.FrameRate.ToDouble());
 				}
 
 				return TimeSpan.Zero;
@@ -1739,13 +1725,21 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public List<AudioTrack> InputTracks
+		public List<AudioTrackViewModel> InputTracks
 		{
 			get
 			{
 				if (this.SourceData != null)
 				{
-					return this.SelectedTitle.AudioTracks;
+					var result = new List<AudioTrackViewModel>();
+
+					for (int i = 0; i < this.SelectedTitle.AudioList.Count; i++)
+					{
+						SourceAudioTrack track = this.SelectedTitle.AudioList[i];
+						result.Add(new AudioTrackViewModel(track, (i + 1)));
+					}
+
+					return result;
 				}
 
 				return null;
@@ -1806,7 +1800,7 @@ namespace VidCoder.ViewModel
 							return true;
 						}
 
-						return this.SelectedTitle.AudioTracks.Count > 0;
+						return this.SelectedTitle.AudioList.Count > 0;
 					}));
 			}
 		}
@@ -1855,7 +1849,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.openChaptersDialogCommand ?? (this.openChaptersDialogCommand = new RelayCommand(() =>
 					{
-						var chaptersVM = new ChapterMarkersDialogViewModel(this.SelectedTitle.Chapters, this.CustomChapterNames, this.UseDefaultChapterNames);
+						var chaptersVM = new ChapterMarkersDialogViewModel(this.SelectedTitle.ChapterList, this.CustomChapterNames, this.UseDefaultChapterNames);
 						chaptersVM.Closing = () =>
 						{
 							if (chaptersVM.DialogResult)
@@ -1956,7 +1950,7 @@ namespace VidCoder.ViewModel
 						this.scanInstance = null;
 						if (oldInstance != null)
 						{
-							this.ProcessingVM.CleanupHandBrakeInstanceIfUnused(oldInstance);
+							oldInstance.Dispose();
 						}
 					},
 					() =>
@@ -2087,7 +2081,7 @@ namespace VidCoder.ViewModel
 
 				VCProfile encodingProfile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile.Clone();
 
-				int title = this.SelectedTitle.TitleNumber;
+				int title = this.SelectedTitle.Index;
 
 				var job = new VCJob
 				{
@@ -2113,7 +2107,7 @@ namespace VidCoder.ViewModel
 						if (this.SelectedStartChapter == null || this.SelectedEndChapter == null)
 						{
 							chapterStart = 1;
-							chapterEnd = this.SelectedTitle.Chapters.Count;
+							chapterEnd = this.SelectedTitle.ChapterList.Count;
 
 							this.logger.LogError("Chapter range not selected. Using all chapters.");
 						}
@@ -2123,7 +2117,7 @@ namespace VidCoder.ViewModel
 							chapterEnd = this.SelectedEndChapter.ChapterNumber;
 						}
 
-						if (chapterStart == 1 && chapterEnd == this.SelectedTitle.Chapters.Count)
+						if (chapterStart == 1 && chapterEnd == this.SelectedTitle.ChapterList.Count)
 						{
 							job.RangeType = VideoRangeType.All;
 						}
@@ -2138,7 +2132,7 @@ namespace VidCoder.ViewModel
 						TimeSpan timeRangeStart = this.TimeRangeStart;
 						TimeSpan timeRangeEnd = this.TimeRangeEnd;
 
-						if (timeRangeStart == TimeSpan.Zero && timeRangeEnd == this.SelectedTitle.Duration)
+						if (timeRangeStart == TimeSpan.Zero && timeRangeEnd == this.SelectedTitle.Duration.ToSpan())
 						{
 							job.RangeType = VideoRangeType.All;
 						}
@@ -2183,7 +2177,6 @@ namespace VidCoder.ViewModel
 		public EncodeJobViewModel CreateEncodeJobVM()
 		{
 			var newEncodeJobVM = new EncodeJobViewModel(this.EncodeJob);
-			newEncodeJobVM.HandBrakeInstance = this.scanInstance;
 			newEncodeJobVM.VideoSource = this.SourceData;
 			newEncodeJobVM.VideoSourceMetadata = this.GetVideoSourceMetadata();
 			newEncodeJobVM.SourceParentFolder = this.OutputPathVM.SourceParentFolder;
@@ -2221,27 +2214,17 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			if (jobVM.HandBrakeInstance != null && jobVM.HandBrakeInstance == this.ScanInstance)
+			if (jobVM.VideoSource != null && jobVM.VideoSource == this.SourceData)
 			{
 				this.ApplyEncodeJobChoices(jobVM);
 				Messenger.Default.Send(new RefreshPreviewMessage());
-			}
-			else if (jobVM.VideoSource != null)
-			{
-				// Set current scan to cached scan
-				this.scanInstance = jobVM.HandBrakeInstance;
-				this.SourceData = jobVM.VideoSource;
-				this.LoadVideoSourceMetadata(job, jobVM.VideoSourceMetadata);
-
-				this.ApplyEncodeJobChoices(jobVM);
 			}
 			else
 			{
 				string jobPath = job.SourcePath;
 				string jobRoot = Path.GetPathRoot(jobPath);
 
-				// We need to reconstruct the source metadata since the program has shut down since the job
-				// was created.
+				// We need to reconstruct the source metadata since we've closed the scan since queuing.
 				var videoSourceMetadata = new VideoSourceMetadata();
 
 				switch (job.SourceType)
@@ -2379,7 +2362,7 @@ namespace VidCoder.ViewModel
 					case VideoRangeType.Frames:
 						if (this.FramesRangeEnd >= this.FramesRangeStart)
 						{
-							selectedTime = TimeSpan.FromSeconds(((double)(this.FramesRangeEnd - this.FramesRangeStart)) / this.SelectedTitle.Framerate);
+							selectedTime = TimeSpan.FromSeconds(((double)(this.FramesRangeEnd - this.FramesRangeStart)) / this.SelectedTitle.FrameRate.ToDouble());
 						}
 
 						break;
@@ -2436,7 +2419,7 @@ namespace VidCoder.ViewModel
 					}
 					else
 					{
-						this.SourceData = new VideoSource { Titles = this.scanInstance.Titles, FeatureTitle = this.scanInstance.FeatureTitle };
+						this.SourceData = new VideoSource { Titles = this.scanInstance.Titles.TitleList, FeatureTitle = this.scanInstance.FeatureTitle };
 
 						// If scan failed source data will be null.
 						if (this.sourceData != null)
@@ -2472,17 +2455,17 @@ namespace VidCoder.ViewModel
 			this.ScanError = false;
 			this.ScanningSource = true;
 			this.scanCancelledFlag = false;
-			this.scanInstance.StartScan(path, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds));
+			this.scanInstance.StartScan(path, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), 0);
 
 			if (oldInstance != null)
 			{
-				this.ProcessingVM.CleanupHandBrakeInstanceIfUnused(oldInstance);
+				oldInstance.Dispose();
 			}
 		}
 
 		private void UpdateFromNewVideoSource()
 		{
-			Title selectTitle = null;
+			SourceTitle selectTitle = null;
 
 			if (this.sourceData != null && this.sourceData.Titles != null && this.sourceData.Titles.Count > 0)
 			{
@@ -2555,7 +2538,7 @@ namespace VidCoder.ViewModel
 			VCJob job = jobVM.Job;
 
 			// Title
-			Title newTitle = this.sourceData.Titles.FirstOrDefault(t => t.TitleNumber == job.Title);
+			SourceTitle newTitle = this.sourceData.Titles.FirstOrDefault(t => t.Index == job.Title);
 			if (newTitle == null)
 			{
 				newTitle = this.sourceData.Titles[0];
@@ -2580,7 +2563,7 @@ namespace VidCoder.ViewModel
 			this.rangeType = job.RangeType;
 			if (this.rangeType == VideoRangeType.All)
 			{
-				if (this.selectedTitle.Chapters.Count > 1)
+				if (this.selectedTitle.ChapterList.Count > 1)
 				{
 					this.rangeType = VideoRangeType.Chapters;
 				}
@@ -2593,36 +2576,38 @@ namespace VidCoder.ViewModel
 			switch (this.rangeType)
 			{
 				case VideoRangeType.Chapters:
-					if (job.ChapterStart > this.selectedTitle.Chapters.Count ||
-						job.ChapterEnd > this.selectedTitle.Chapters.Count ||
+					if (job.ChapterStart > this.selectedTitle.ChapterList.Count ||
+						job.ChapterEnd > this.selectedTitle.ChapterList.Count ||
 						job.ChapterStart == 0 ||
 						job.ChapterEnd == 0)
 					{
-						this.selectedStartChapter = this.StartChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.Chapters[0]);
-						this.selectedEndChapter = this.EndChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.Chapters[this.selectedTitle.Chapters.Count - 1]);
+						this.selectedStartChapter = this.StartChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.ChapterList[0]);
+						this.selectedEndChapter = this.EndChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.ChapterList[this.selectedTitle.ChapterList.Count - 1]);
 					}
 					else
 					{
-						this.selectedStartChapter = this.StartChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.Chapters[job.ChapterStart - 1]);
-						this.selectedEndChapter = this.EndChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.Chapters[job.ChapterEnd - 1]);
+						this.selectedStartChapter = this.StartChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.ChapterList[job.ChapterStart - 1]);
+						this.selectedEndChapter = this.EndChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.ChapterList[job.ChapterEnd - 1]);
 					}
 
 					break;
 				case VideoRangeType.Seconds:
-					if (this.selectedTitle.Duration == TimeSpan.Zero)
+					TimeSpan titleDuration = this.selectedTitle.Duration.ToSpan();
+
+					if (titleDuration == TimeSpan.Zero)
 					{
 						throw new InvalidOperationException("Title's duration is 0, cannot continue.");
 					}
 
-					if (job.SecondsStart < this.selectedTitle.Duration.TotalSeconds + 1 &&
-						job.SecondsEnd < this.selectedTitle.Duration.TotalSeconds + 1)
+					if (job.SecondsStart < titleDuration.TotalSeconds + 1 &&
+						job.SecondsEnd < titleDuration.TotalSeconds + 1)
 					{
 						TimeSpan startTime = TimeSpan.FromSeconds(job.SecondsStart);
 						TimeSpan endTime = TimeSpan.FromSeconds(job.SecondsEnd);
 
-						if (endTime > this.selectedTitle.Duration)
+						if (endTime > titleDuration)
 						{
-							endTime = this.selectedTitle.Duration;
+							endTime = titleDuration;
 						}
 
 						if (startTime > endTime - Constants.TimeRangeBuffer)
@@ -2641,28 +2626,19 @@ namespace VidCoder.ViewModel
 					else
 					{
 						this.SetRangeTimeStart(TimeSpan.Zero);
-						this.SetRangeTimeEnd(this.selectedTitle.Duration);
+						this.SetRangeTimeEnd(titleDuration);
 					}
 
 					// We saw a problem with a job getting seconds 0-0 after a queue edit, add some sanity checking.
 					if (this.TimeRangeEnd == TimeSpan.Zero)
 					{
-						this.SetRangeTimeEnd(this.selectedTitle.Duration);
+						this.SetRangeTimeEnd(titleDuration);
 					}
 
 					break;
 				case VideoRangeType.Frames:
-					if (job.FramesStart < this.selectedTitle.Frames + 1 &&
-						job.FramesEnd < this.selectedTitle.Frames + 1)
-					{
-						this.framesRangeStart = job.FramesStart;
-						this.framesRangeEnd = job.FramesEnd;
-					}
-					else
-					{
-						this.framesRangeStart = 0;
-						this.framesRangeEnd = this.selectedTitle.Frames;
-					}
+					this.framesRangeStart = job.FramesStart;
+					this.framesRangeEnd = job.FramesEnd;
 
 					break;
 				default:
@@ -2673,7 +2649,7 @@ namespace VidCoder.ViewModel
 			this.AudioChoices.Clear();
 			foreach (int chosenTrack in job.ChosenAudioTracks)
 			{
-				if (chosenTrack <= this.selectedTitle.AudioTracks.Count)
+				if (chosenTrack <= this.selectedTitle.AudioList.Count)
 				{
 					this.AudioChoices.Add(new AudioChoiceViewModel { SelectedIndex = chosenTrack - 1 });
 				}
@@ -2686,7 +2662,7 @@ namespace VidCoder.ViewModel
 			{
 				foreach (SourceSubtitle sourceSubtitle in job.Subtitles.SourceSubtitles)
 				{
-					if (sourceSubtitle.TrackNumber <= this.selectedTitle.Subtitles.Count)
+					if (sourceSubtitle.TrackNumber <= this.selectedTitle.SubtitleList.Count)
 					{
 						this.CurrentSubtitles.SourceSubtitles.Add(sourceSubtitle);
 					}
@@ -2710,7 +2686,7 @@ namespace VidCoder.ViewModel
 			}
 			else
 			{
-				if (this.CustomChapterNames != null && this.selectedTitle.Chapters.Count == this.CustomChapterNames.Count)
+				if (this.CustomChapterNames != null && this.selectedTitle.ChapterList.Count == this.CustomChapterNames.Count)
 				{
 					this.CustomChapterNames = job.CustomChapterNames;
 				}
@@ -2756,10 +2732,12 @@ namespace VidCoder.ViewModel
 			this.startChapters = new List<ChapterViewModel>();
 			this.endChapters = new List<ChapterViewModel>();
 
-			foreach (Chapter chapter in this.selectedTitle.Chapters)
+			for (int i = 0; i < this.selectedTitle.ChapterList.Count; i++)
 			{
-				this.startChapters.Add(new ChapterViewModel(chapter));
-				this.endChapters.Add(new ChapterViewModel(chapter));
+				SourceChapter chapter = this.selectedTitle.ChapterList[i];
+
+				this.startChapters.Add(new ChapterViewModel(chapter, i + 1));
+				this.endChapters.Add(new ChapterViewModel(chapter, i + 1));
 			}
 		}
 
@@ -2836,7 +2814,7 @@ namespace VidCoder.ViewModel
 		{
 			List<int> unusedTracks = new List<int>();
 
-			for (int i = 0; i < this.SelectedTitle.AudioTracks.Count; i++)
+			for (int i = 0; i < this.SelectedTitle.AudioList.Count; i++)
 			{
 				unusedTracks.Add(i);
 			}
@@ -2933,7 +2911,7 @@ namespace VidCoder.ViewModel
 		private TimeSpan GetChapterRangeDuration(int startChapter, int endChapter)
 		{
 			if (startChapter > endChapter ||
-				endChapter > this.SelectedTitle.Chapters.Count ||
+				endChapter > this.SelectedTitle.ChapterList.Count ||
 				startChapter < 1)
 			{
 				return TimeSpan.Zero;
@@ -2943,7 +2921,7 @@ namespace VidCoder.ViewModel
 
 			for (int i = startChapter; i <= endChapter; i++)
 			{
-				rangeTime += this.SelectedTitle.Chapters[i - 1].Duration;
+				rangeTime += this.SelectedTitle.ChapterList[i - 1].Duration.ToSpan();
 			}
 
 			return rangeTime;

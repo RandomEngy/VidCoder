@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.EventArgs;
+using HandBrake.ApplicationServices.Interop.Json.Encode;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Model.Encoding;
 
 namespace VidCoder
 {
 	using System.Threading;
 	using System.Xml.Serialization;
-	using HandBrake.Interop;
-	using HandBrake.Interop.EventArgs;
-	using HandBrake.Interop.SourceData;
 	using Model;
 	using Services;
 
@@ -33,7 +34,7 @@ namespace VidCoder
 
 		[XmlIgnore]
 		public bool IsEncodeStarted { get; private set; }
-		public void StartEncode(VCJob job, ILogger logger, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
+		public void StartEncode(VCJob job, SourceTitle title, ILogger logger, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
 		{
 			this.logger = logger;
 			this.logger.Log("Starting encode in-process");
@@ -50,13 +51,15 @@ namespace VidCoder
 			{
 				try
 				{
-					Title encodeTitle = this.instance.Titles.FirstOrDefault(title => title.TitleNumber == job.Title);
+					//Title encodeTitle = this.instance.Titles.TitleList.FirstOrDefault(title => title.Index == job.Title);
 
-					if (encodeTitle != null)
+					if (title != null)
 					{
 						lock (this.encoderLock)
 						{
-							this.instance.StartEncode(job.HbJob, preview, previewNumber, previewSeconds, overallSelectedLengthSeconds, Config.PreviewCount);
+							JsonEncodeObject jsonEncodeObject = JsonEncodeFactory.CreateJsonObject(job, title, preview ? previewNumber : -1, previewSeconds);
+
+							this.instance.StartEncode(jsonEncodeObject);
 							this.IsEncodeStarted = true;
 							if (this.EncodeStarted != null)
 							{
@@ -114,7 +117,7 @@ namespace VidCoder
 				this.instance.Dispose();
 			};
 
-			this.instance.StartScan(job.SourcePath, Config.PreviewCount, job.Title);
+			this.instance.StartScan(job.SourcePath, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), job.Title);
 
 			this.encoding = true;
 		}

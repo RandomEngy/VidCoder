@@ -10,9 +10,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Threading;
 using System.Globalization;
-using HandBrake.Interop;
-using HandBrake.Interop.Model;
-using HandBrake.Interop.Model.Encoding;
+using HandBrake.ApplicationServices.Interop;
 using VidCoder.Model.Encoding;
 
 namespace VidCoder.Model
@@ -279,7 +277,7 @@ namespace VidCoder.Model
 		public static void UpgradeEncodingProfileTo13(VCProfile profile)
 		{
 			// Upgrade preset: translate old Enum-based values to short name strings
-			if (!Encoders.VideoEncoders.Any(e => e.ShortName == profile.VideoEncoder))
+			if (!HandBrakeEncoderHelpers.VideoEncoders.Any(e => e.ShortName == profile.VideoEncoder))
 			{
 				string newVideoEncoder = "x264";
 				switch (profile.VideoEncoder)
@@ -303,7 +301,7 @@ namespace VidCoder.Model
 
 			foreach (AudioEncoding encoding in profile.AudioEncodings)
 			{
-				if (!Encoders.AudioEncoders.Any(e => e.ShortName == encoding.Encoder))
+				if (!HandBrakeEncoderHelpers.AudioEncoders.Any(e => e.ShortName == encoding.Encoder))
 				{
 					string newAudioEncoder = UpgradeAudioEncoder(encoding.Encoder);
 					if (newAudioEncoder == null)
@@ -314,7 +312,7 @@ namespace VidCoder.Model
 					encoding.Encoder = newAudioEncoder;
 				}
 
-				if (!Encoders.Mixdowns.Any(m => m.ShortName == encoding.Mixdown))
+				if (!HandBrakeEncoderHelpers.Mixdowns.Any(m => m.ShortName == encoding.Mixdown))
 				{
 					string newMixdown = "dpl2";
 					switch (encoding.Mixdown)
@@ -410,7 +408,7 @@ namespace VidCoder.Model
 		{
 			foreach (AudioEncoding encoding in profile.AudioEncodings)
 			{
-				if (!Encoders.AudioEncoders.Any(e => e.ShortName == encoding.Encoder))
+				if (!HandBrakeEncoderHelpers.AudioEncoders.Any(e => e.ShortName == encoding.Encoder))
 				{
 					string newAudioEncoder = UpgradeAudioEncoder2(encoding.Encoder);
 					if (newAudioEncoder == null)
@@ -425,7 +423,7 @@ namespace VidCoder.Model
 
 		public static void UpgradeEncodingProfileTo20(VCProfile profile)
 		{
-			if (!Encoders.VideoEncoders.Any(e => e.ShortName == profile.VideoEncoder))
+			if (!HandBrakeEncoderHelpers.VideoEncoders.Any(e => e.ShortName == profile.VideoEncoder))
 			{
 				string newVideoEncoder = UpgradeVideoEncoder(profile.VideoEncoder);
 				if (newVideoEncoder == null)
@@ -478,7 +476,7 @@ namespace VidCoder.Model
 
 			// If QSV was the old encoder and QSV is available, use the QSV preset.
 			string videoEncoderName = profile.VideoEncoder;
-			if (Encoders.GetVideoEncoder(videoEncoderName) == null)
+			if (HandBrakeEncoderHelpers.GetVideoEncoder(videoEncoderName) == null)
 			{
 				if (videoEncoderName == "qsv_h264")
 				{
@@ -556,7 +554,7 @@ namespace VidCoder.Model
 		{
 			// mp4v2 only available on x86
 			string containerName = preset.EncodingProfile.ContainerName;
-			if (Encoders.GetContainer(containerName) == null)
+			if (HandBrakeEncoderHelpers.GetContainer(containerName) == null)
 			{
 				if (containerName == "mp4v2")
 				{
@@ -566,7 +564,7 @@ namespace VidCoder.Model
 
 			// QSV H.264 only available on systems with the right hardware.
 			string videoEncoderName = preset.EncodingProfile.VideoEncoder;
-			if (Encoders.GetVideoEncoder(videoEncoderName) == null)
+			if (HandBrakeEncoderHelpers.GetVideoEncoder(videoEncoderName) == null)
 			{
 				if (videoEncoderName == "qsv_h264")
 				{

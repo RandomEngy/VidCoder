@@ -15,20 +15,20 @@ using System.Windows.Shell;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop;
-using HandBrake.Interop.Model;
-using HandBrake.Interop.SourceData;
+using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.EventArgs;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Model.Encoding;
 using VidCoder.Services;
 using VidCoder.ViewModel.DataModels;
+using Color = System.Windows.Media.Color;
 
 namespace VidCoder.ViewModel.Components
 {
 	using System.Reflection;
-	using HandBrake.Interop.EventArgs;
-	using HandBrake.Interop.Model.Encoding;
 	using Resources;
 
 	/// <summary>
@@ -762,11 +762,6 @@ namespace VidCoder.ViewModel.Components
 
 						foreach (var removedItem in removedItems)
 						{
-							if (removedItem.Job.HandBrakeInstance != null)
-							{
-								this.CleanupHandBrakeInstanceIfUnused(removedItem.Job.HandBrakeInstance);
-							}
-
 							// Delete file if setting is enabled and item succeeded
 							if (Config.DeleteSourceFilesOnClearingCompleted && removedItem.EncodeResult.Succeeded)
 							{
@@ -864,8 +859,8 @@ namespace VidCoder.ViewModel.Components
 			var scanMultipleDialog = new ScanMultipleDialogViewModel(new List<string> { source });
 			WindowManager.OpenDialog(scanMultipleDialog, this.main);
 
-			HandBrakeInstance handBrakeInstance = scanMultipleDialog.ScanResults[0];
-			List<int> titleNumbers = this.PickTitles(handBrakeInstance, picker);
+			VideoSource videoSource = scanMultipleDialog.ScanResults[0];
+			List<int> titleNumbers = this.PickTitles(videoSource, picker);
 
 			foreach (int titleNumber in titleNumbers)
 			{
@@ -881,14 +876,14 @@ namespace VidCoder.ViewModel.Components
 					UseDefaultChapterNames = true,
 				});
 
-				jobVM.HandBrakeInstance = handBrakeInstance;
+				jobVM.VideoSource = videoSource;
 				jobVM.PresetName = presetName;
 				jobVM.ManualOutputPath = !string.IsNullOrWhiteSpace(destination);
 
 				VCJob job = jobVM.Job;
 
-				Title title = jobVM.HandBrakeInstance.Titles.Single(t => t.TitleNumber == titleNumber);
-				jobVM.Job.Length = title.Duration;
+				SourceTitle title = jobVM.VideoSource.Titles.Single(t => t.Index == titleNumber);
+				jobVM.Job.Length = title.Duration.ToSpan();
 
 				// Choose the correct audio/subtitle tracks based on settings
 				this.AutoPickAudio(job, title);
@@ -916,9 +911,9 @@ namespace VidCoder.ViewModel.Components
 						pathToQueue,
 						Utilities.GetSourceName(pathToQueue),
 						job.Title, 
-						title.Duration, 
-						title.Chapters.Count, 
-						multipleTitlesOnSource: handBrakeInstance.Titles.Count > 1,
+						title.Duration.ToSpan(), 
+						title.ChapterList.Count,
+						multipleTitlesOnSource: videoSource.Titles.Count > 1,
 						picker: picker);
 					string outputExtension = this.outputVM.GetOutputExtension();
 					string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
@@ -1006,15 +1001,15 @@ namespace VidCoder.ViewModel.Components
 			}
 		}
 
-		public void QueueTitles(List<Title> titles, int titleStartOverride, string nameFormatOverride)
+		public void QueueTitles(List<SourceTitle> titles, int titleStartOverride, string nameFormatOverride)
 		{
 			int currentTitleNumber = titleStartOverride;
 
 			Picker picker = this.pickersViewModel.SelectedPicker.Picker;
 
 			// Queue the selected titles
-			List<Title> titlesToQueue = titles;
-			foreach (Title title in titlesToQueue)
+			List<SourceTitle> titlesToQueue = titles;
+			foreach (SourceTitle title in titlesToQueue)
 			{
 				VCProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
 				string queueSourceName = this.main.SourceName;
@@ -1023,7 +1018,7 @@ namespace VidCoder.ViewModel.Components
 					queueSourceName = this.outputVM.TranslateDvdSourceName(queueSourceName);
 				}
 
-				int titleNumber = title.TitleNumber;
+				int titleNumber = title.Index;
 				if (titleStartOverride >= 0)
 				{
 					titleNumber = currentTitleNumber;
@@ -1041,11 +1036,11 @@ namespace VidCoder.ViewModel.Components
 					SourceType = this.main.SelectedSource.Type,
 					SourcePath = this.main.SourcePath,
 					EncodingProfile = profile.Clone(),
-					Title = title.TitleNumber,
+					Title = title.Index,
 					ChapterStart = 1,
-					ChapterEnd = title.Chapters.Count,
+					ChapterEnd = title.ChapterList.Count,
 					UseDefaultChapterNames = true,
-					Length = title.Duration
+					Length = title.Duration.ToSpan()
 				};
 
 				this.AutoPickAudio(job, title, useCurrentContext: true);
@@ -1055,8 +1050,8 @@ namespace VidCoder.ViewModel.Components
 					this.main.SourcePath,
 					queueSourceName,
 					titleNumber,
-					title.Duration,
-					title.Chapters.Count,
+					title.Duration.ToSpan(),
+					title.ChapterList.Count,
 					nameFormatOverride,
 					multipleTitlesOnSource: true);
 
@@ -1067,7 +1062,6 @@ namespace VidCoder.ViewModel.Components
 
 				var jobVM = new EncodeJobViewModel(job)
 				{
-					HandBrakeInstance = this.main.ScanInstance,
 					VideoSource = this.main.SourceData,
 					VideoSourceMetadata = this.main.GetVideoSourceMetadata(),
 					ManualOutputPath = false,
@@ -1110,9 +1104,9 @@ namespace VidCoder.ViewModel.Components
 			var scanMultipleDialog = new ScanMultipleDialogViewModel(sourcePathStrings);
 			WindowManager.OpenDialog(scanMultipleDialog, this.main);
 
-			List<HandBrakeInstance> handBrakeInstances = scanMultipleDialog.ScanResults;
+			List<VideoSource> videoSources = scanMultipleDialog.ScanResults;
 
-			if (sourcePathList.Count != handBrakeInstances.Count)
+			if (sourcePathList.Count != videoSources.Count)
 			{
 				// Scan dialog was closed before it could complete. Abort.
 				this.logger.Log("Batch scan cancelled. Aborting queue operation.");
@@ -1124,9 +1118,9 @@ namespace VidCoder.ViewModel.Components
 			for (int i = 0; i < sourcePathList.Count; i++)
 			{
 				SourcePath sourcePath = sourcePathList[i];
-				HandBrakeInstance handBrakeInstance = handBrakeInstances[i];
+				VideoSource videoSource = videoSources[i];
 
-				List<int> titleNumbers = this.PickTitles(handBrakeInstance);
+				List<int> titleNumbers = this.PickTitles(videoSource);
 
 				foreach (int titleNumber in titleNumbers)
 				{
@@ -1158,7 +1152,7 @@ namespace VidCoder.ViewModel.Components
 					if (job.SourceType != SourceType.None)
 					{
 						var jobVM = new EncodeJobViewModel(job);
-						jobVM.HandBrakeInstance = handBrakeInstance;
+						jobVM.VideoSource = videoSource;
 						jobVM.SourceParentFolder = sourcePath.ParentFolder;
 						jobVM.ManualOutputPath = false;
 						jobVM.PresetName = this.presetsViewModel.SelectedPreset.DisplayName;
@@ -1170,14 +1164,14 @@ namespace VidCoder.ViewModel.Components
 			var failedFiles = new List<string>();
 			foreach (EncodeJobViewModel jobVM in itemsToQueue)
 			{
-				HandBrakeInstance handBrakeInstance = jobVM.HandBrakeInstance;
+				var titles = jobVM.VideoSource.Titles;
 
 				// Only queue items with a successful scan
-				if (handBrakeInstance.Titles.Count > 0)
+				if (titles.Count > 0)
 				{
 					VCJob job = jobVM.Job;
-					Title title = handBrakeInstance.Titles.Single(t => t.TitleNumber == job.Title);
-					job.Length = title.Duration;
+					SourceTitle title = titles.Single(t => t.Index == job.Title);
+					job.Length = title.Duration.ToSpan();
 
 					// Choose the correct audio/subtitle tracks based on settings
 					this.AutoPickAudio(job, title);
@@ -1192,9 +1186,9 @@ namespace VidCoder.ViewModel.Components
 						fileToQueue, 
 						Utilities.GetSourceNameFile(fileToQueue),
 						job.Title, 
-						title.Duration,
-						title.Chapters.Count, 
-						multipleTitlesOnSource: handBrakeInstance.Titles.Count > 1);
+						title.Duration.ToSpan(),
+						title.ChapterList.Count,
+						multipleTitlesOnSource: titles.Count > 1);
 					string outputExtension = this.outputVM.GetOutputExtension();
 					string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
 					queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, excludedPaths, isBatch: true);
@@ -1299,70 +1293,6 @@ namespace VidCoder.ViewModel.Components
 			return new HashSet<string>(this.EncodeQueue.Select(j => j.Job.OutputPath), StringComparer.OrdinalIgnoreCase);
 		}
 
-		/// <summary>
-		/// Cleans up the given HandBrake instance if it's not being used anymore.
-		/// </summary>
-		/// <param name="instance">The instance to clean up.</param>
-		public void CleanupHandBrakeInstanceIfUnused(HandBrakeInstance instance)
-		{
-			foreach (EncodeJobViewModel encodeJobVM in this.EncodeQueue)
-			{
-				if (instance == encodeJobVM.HandBrakeInstance)
-				{
-					return;
-				}
-			}
-
-			foreach (EncodeResultViewModel resultVM in this.CompletedJobs)
-			{
-				if (instance == resultVM.Job.HandBrakeInstance)
-				{
-					return;
-				}
-			}
-
-			if (instance == this.main.ScanInstance)
-			{
-				return;
-			}
-
-			instance.Dispose();
-		}
-
-		/// <summary>
-		/// Cleans up all HandBrakeInstance objects it can find around the app.
-		/// </summary>
-		public void CleanupHandBrakeInstances()
-		{
-			var instances = new List<HandBrakeInstance>();
-
-			foreach (EncodeJobViewModel encodeJobVM in this.EncodeQueue)
-			{
-				if (encodeJobVM.HandBrakeInstance != null)
-				{
-					instances.Add(encodeJobVM.HandBrakeInstance);
-				}
-			}
-
-			foreach (EncodeResultViewModel resultVM in this.CompletedJobs)
-			{
-				if (resultVM.Job.HandBrakeInstance != null)
-				{
-					instances.Add(resultVM.Job.HandBrakeInstance);
-				}
-			}
-
-			if (this.main.ScanInstance != null)
-			{
-				instances.Add(this.main.ScanInstance);
-			}
-
-			foreach (HandBrakeInstance instance in instances.Distinct())
-			{
-				instance.Dispose();
-			}
-		}
-
 		public EncodeJobPersistGroup GetQueuePersistGroup()
 		{
 			var jobPersistGroup = new EncodeJobPersistGroup();
@@ -1439,7 +1369,8 @@ namespace VidCoder.ViewModel.Components
 
 			this.currentJobEta = TimeSpan.Zero;
 			this.EncodeQueue[0].ReportEncodeStart(this.totalTasks == 1);
-			this.encodeProxy.StartEncode(this.CurrentJob.Job, encodeLogger, false, 0, 0, 0);
+			SourceTitle title = this.CurrentJob.VideoSource.Titles.Single(t => t.Index == this.CurrentJob.Job.Title);
+			this.encodeProxy.StartEncode(this.CurrentJob.Job, title, encodeLogger, false, 0, 0, 0);
 
 			this.StopEncodeCommand.RaiseCanExecuteChanged();
 			this.PauseCommand.RaiseCanExecuteChanged();
@@ -1678,14 +1609,6 @@ namespace VidCoder.ViewModel.Components
 
 					this.EncodeQueue.RemoveAt(0);
 					this.RaisePropertyChanged(() => this.QueuedTabHeader);
-
-					// Wait until after it's removed from the queue before running cleanup: otherwise it will find
-					// the instance "in use" in the queue and not do removal.
-					if (!Config.KeepScansAfterCompletion)
-					{
-						this.CleanupHandBrakeInstanceIfUnused(finishedJob.HandBrakeInstance);
-						finishedJob.HandBrakeInstance = null;
-					}
 
 					encodeLogger.Log("Job completed (Elapsed Time: " + Utilities.FormatTimeSpan(finishedJob.EncodeTime) + ")");
 
@@ -1936,12 +1859,12 @@ namespace VidCoder.ViewModel.Components
 		}
 
 		/// <summary>
-		/// Picks title numbers to encode from a scanned instance.
+		/// Picks title numbers to encode from a video source.
 		/// </summary>
-		/// <param name="handBrakeInstance">The scanned instance.</param>
+		/// <param name="videoSource">The scanned instance.</param>
 		/// <param name="picker">The picker to use to pick the titles.</param>
 		/// <returns>List of title numbers (1-based)</returns>
-		private List<int> PickTitles(HandBrakeInstance handBrakeInstance, Picker picker = null)
+		private List<int> PickTitles(VideoSource videoSource, Picker picker = null)
 		{
 			var result = new List<int>();
 			if (picker == null)
@@ -1954,18 +1877,19 @@ namespace VidCoder.ViewModel.Components
 				TimeSpan startDuration = TimeSpan.FromMinutes(picker.TitleRangeSelectStartMinutes);
 				TimeSpan endDuration = TimeSpan.FromMinutes(picker.TitleRangeSelectEndMinutes);
 
-				foreach (Title title in handBrakeInstance.Titles)
+				foreach (SourceTitle title in videoSource.Titles)
 				{
-					if (title.Duration >= startDuration && title.Duration <= endDuration)
+					TimeSpan titleDuration = title.Duration.ToSpan();
+					if (titleDuration >= startDuration && titleDuration <= endDuration)
 					{
-						result.Add(title.TitleNumber);
+						result.Add(title.Index);
 					}
 				}
 			}
-			else if (handBrakeInstance.Titles.Count > 0)
+			else if (videoSource.Titles.Count > 0)
 			{
-				Title titleToEncode = Utilities.GetFeatureTitle(handBrakeInstance.Titles, handBrakeInstance.FeatureTitle);
-				result.Add(titleToEncode.TitleNumber);
+				SourceTitle titleToEncode = Utilities.GetFeatureTitle(videoSource.Titles, videoSource.FeatureTitle);
+				result.Add(titleToEncode.Index);
 			}
 
 			return result;
@@ -1995,7 +1919,7 @@ namespace VidCoder.ViewModel.Components
 
 		// Automatically pick the correct audio on the given job.
 		// Only relies on input from settings and the current title.
-		private void AutoPickAudio(VCJob job, Title title, bool useCurrentContext = false)
+		private void AutoPickAudio(VCJob job, SourceTitle title, bool useCurrentContext = false)
 		{
 			Picker picker = this.pickersViewModel.SelectedPicker.Picker;
 
@@ -2003,7 +1927,7 @@ namespace VidCoder.ViewModel.Components
 			switch (picker.AudioSelectionMode)
 			{
 				case AudioSelectionMode.Disabled:
-					if (title.AudioTracks.Count > 0)
+					if (title.AudioList.Count > 0)
 					{
 						if (useCurrentContext)
 						{
@@ -2012,7 +1936,7 @@ namespace VidCoder.ViewModel.Components
 							{
 								int audioIndex = audioVM.SelectedIndex;
 
-								if (title.AudioTracks.Count > audioIndex && this.main.SelectedTitle.AudioTracks[audioIndex].LanguageCode == title.AudioTracks[audioIndex].LanguageCode)
+								if (title.AudioList.Count > audioIndex && this.main.SelectedTitle.AudioList[audioIndex].LanguageCode == title.AudioList[audioIndex].LanguageCode)
 								{
 									job.ChosenAudioTracks.Add(audioIndex + 1);
 								}
@@ -2033,34 +1957,35 @@ namespace VidCoder.ViewModel.Components
 
 					break;
 				case AudioSelectionMode.Language:
-					List<AudioTrack> nativeTracks = title.AudioTracks.Where(track => track.LanguageCode == picker.AudioLanguageCode).ToList();
-					if (nativeTracks.Count > 0)
+					for (int i = 0; i < title.AudioList.Count; i++)
 					{
-						if (picker.AudioLanguageAll)
+						SourceAudioTrack track = title.AudioList[i];
+
+						if (track.LanguageCode == picker.AudioLanguageCode)
 						{
-							foreach (AudioTrack audioTrack in nativeTracks)
+							job.ChosenAudioTracks.Add(i);
+
+							if (!picker.AudioLanguageAll)
 							{
-								job.ChosenAudioTracks.Add(audioTrack.TrackNumber);
+								break;
 							}
 						}
-						else
-						{
-							job.ChosenAudioTracks.Add(nativeTracks[0].TrackNumber);
-						}
 					}
+
 					break;
 				case AudioSelectionMode.All:
-					foreach (AudioTrack audioTrack in title.AudioTracks)
+					for (int i = 0; i < title.AudioList.Count; i++)
 					{
-						job.ChosenAudioTracks.Add(audioTrack.TrackNumber);
+						job.ChosenAudioTracks.Add(i);
 					}
+
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
 
 			// If none get chosen, pick the first one.
-			if (job.ChosenAudioTracks.Count == 0 && title.AudioTracks.Count > 0)
+			if (job.ChosenAudioTracks.Count == 0 && title.AudioList.Count > 0)
 			{
 				job.ChosenAudioTracks.Add(1);
 			}
@@ -2068,11 +1993,11 @@ namespace VidCoder.ViewModel.Components
 
 		// Automatically pick the correct subtitles on the given job.
 		// Only relies on input from settings and the current title.
-		private void AutoPickSubtitles(VCJob job, Title title, bool useCurrentContext = false)
+		private void AutoPickSubtitles(VCJob job, SourceTitle title, bool useCurrentContext = false)
 		{
 			Picker picker = this.pickersViewModel.SelectedPicker.Picker;
 
-			job.Subtitles = new Subtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
+			job.Subtitles = new VCSubtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
 			switch (picker.SubtitleSelectionMode)
 			{
 				case SubtitleSelectionMode.Disabled:
@@ -2086,8 +2011,8 @@ namespace VidCoder.ViewModel.Components
 								job.Subtitles.SourceSubtitles.Add(sourceSubtitle.Clone());
 							}
 							else if (
-								title.Subtitles.Count > sourceSubtitle.TrackNumber - 1 &&
-								this.main.SelectedTitle.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode == title.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode)
+								title.SubtitleList.Count > sourceSubtitle.TrackNumber - 1 &&
+								this.main.SelectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode == title.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode)
 							{
 								job.Subtitles.SourceSubtitles.Add(sourceSubtitle.Clone());
 							}
@@ -2109,9 +2034,9 @@ namespace VidCoder.ViewModel.Components
 					bool audioSame = false;
 					bool burnIn = picker.SubtitleLanguageBurnIn;
 					bool def = picker.SubtitleLanguageDefault;
-					if (job.ChosenAudioTracks.Count > 0 && title.AudioTracks.Count > 0)
+					if (job.ChosenAudioTracks.Count > 0 && title.AudioList.Count > 0)
 					{
-						if (title.AudioTracks[job.ChosenAudioTracks[0] - 1].LanguageCode == languageCode)
+						if (title.AudioList[job.ChosenAudioTracks[0] - 1].LanguageCode == languageCode)
 						{
 							audioSame = true;
 						}
@@ -2119,48 +2044,57 @@ namespace VidCoder.ViewModel.Components
 
 					if (!picker.SubtitleLanguageOnlyIfDifferent || !audioSame)
 					{
-						List<Subtitle> nativeSubtitles = title.Subtitles.Where(subtitle => subtitle.LanguageCode == languageCode).ToList();
-						if (nativeSubtitles.Count > 0)
+						// 0-based indices of the subtitles with the matching language
+						var languageSubtitleIndices = new List<int>();
+						for (int i = 0; i < title.SubtitleList.Count; i++)
 						{
-							if (picker.SubtitleLanguageAll)
+							SourceSubtitleTrack subtitle = title.SubtitleList[i];
+
+							if (subtitle.LanguageCode == languageCode)
 							{
-								foreach (Subtitle subtitle in nativeSubtitles)
-								{
-									job.Subtitles.SourceSubtitles.Add(new SourceSubtitle
-									{
-										BurnedIn = false,
-										Default = false,
-										Forced = false,
-										TrackNumber = subtitle.TrackNumber
-									});
-								}
+								languageSubtitleIndices.Add(i);
 							}
-							else
+						}
+
+						if (languageSubtitleIndices.Count > 1)
+						{
+							foreach (int subtitleIndex in languageSubtitleIndices)
 							{
 								job.Subtitles.SourceSubtitles.Add(new SourceSubtitle
 								{
-									BurnedIn = burnIn,
-									Default = def,
+									BurnedIn = false,
+									Default = false,
 									Forced = false,
-									TrackNumber = nativeSubtitles[0].TrackNumber
+									TrackNumber = subtitleIndex + 1
 								});
 							}
+						}
+						else if (languageSubtitleIndices.Count > 0)
+						{
+							job.Subtitles.SourceSubtitles.Add(new SourceSubtitle
+							{
+								BurnedIn = burnIn,
+								Default = def,
+								Forced = false,
+								TrackNumber = languageSubtitleIndices[0] + 1
+							});
 						}
 					}
 
 					break;
 				case SubtitleSelectionMode.All:
-					foreach (Subtitle subtitle in title.Subtitles)
+					for (int i = 0; i < title.SubtitleList.Count; i++)
 					{
 						job.Subtitles.SourceSubtitles.Add(
 							new SourceSubtitle
 							{
-								TrackNumber = subtitle.TrackNumber,
+								TrackNumber = i + 1,
 								BurnedIn = false,
 								Default = false,
 								Forced = false
 							});
 					}
+
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

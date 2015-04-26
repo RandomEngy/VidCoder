@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop.Model.Encoding;
-using HandBrake.Interop.SourceData;
+using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using VidCoder.Messages;
 using VidCoder.Model;
 using System.Collections.ObjectModel;
@@ -14,13 +15,11 @@ using VidCoder.Model.Encoding;
 using VidCoder.Services;
 using System.Windows.Media.Imaging;
 using System.ComponentModel;
-using HandBrake.Interop;
 using System.Windows;
 using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
-	using HandBrake.Interop.Model;
 	using Resources;
 
 	public class EncodingViewModel : OkCancelDialogViewModel
@@ -44,7 +43,7 @@ namespace VidCoder.ViewModel
 		public EncodingViewModel(Preset preset)
 		{
 			this.containerChoices = new List<ComboChoice>();
-			foreach (HBContainer hbContainer in Encoders.Containers)
+			foreach (HBContainer hbContainer in HandBrakeEncoderHelpers.Containers)
 			{
 				this.containerChoices.Add(new ComboChoice(hbContainer.ShortName, hbContainer.DisplayName));
 			}
@@ -155,7 +154,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public Title SelectedTitle
+		public SourceTitle SelectedTitle
 		{
 			get
 			{
@@ -378,7 +377,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				HBContainer container = Encoders.GetContainer(this.ContainerName);
+				HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.ContainerName);
 				return container.DefaultExtension == "mp4";
 			}
 		}

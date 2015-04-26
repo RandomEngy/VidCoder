@@ -130,12 +130,6 @@
 						</Grid>
 					</Border>
 				</Grid>
-				<controls:InlineWarning
-					Margin="3,10,0,0"
-					HorizontalAlignment="Left"
-					Visibility="{Binding PassthroughWarningVisible,
-				                                             Converter={StaticResource VisibilityConverter}}"
-					WarningText="{Binding PassthroughWarningText}" />
 			</StackPanel>
 		</ScrollViewer>
 	</Grid>

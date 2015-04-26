@@ -56,7 +56,6 @@ namespace VidCoder
 				Config.OutputToSourceDirectory = Settings.Default.OutputToSourceDirectory;
 				CustomConfig.WhenFileExists = Settings.Default.WhenFileExists;
 				CustomConfig.WhenFileExistsBatch = Settings.Default.WhenFileExistsBatch;
-				Config.KeepScansAfterCompletion = Settings.Default.KeepScansAfterCompletion;
 				Config.PlaySoundOnCompletion = Settings.Default.PlaySoundOnCompletion;
 				Config.LastPlayer = Settings.Default.LastPlayer;
 				Config.QueueTitlesUseNameOverride = Settings.Default.QueueTitlesUseNameOverride;

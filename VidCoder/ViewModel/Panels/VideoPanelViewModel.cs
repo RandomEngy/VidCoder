@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop;
-using HandBrake.Interop.Model;
-using HandBrake.Interop.Model.Encoding;
+using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Model.Encoding;
@@ -48,7 +48,7 @@ namespace VidCoder.ViewModel
 			this.encoderChoices = new List<VideoEncoderViewModel>();
 
 			this.framerateChoices = new List<double> { 0 };
-			foreach (var framerate in Encoders.VideoFramerates)
+			foreach (var framerate in HandBrakeEncoderHelpers.VideoFramerates)
 			{
 				this.framerateChoices.Add(double.Parse(framerate.Name, CultureInfo.InvariantCulture));
 			}
@@ -112,7 +112,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.HasSourceData)
 				{
-					return DisplayConversions.DisplayInputType(this.SelectedTitle.InputType);
+					return DisplayConversions.DisplayTitleType((TitleType)this.SelectedTitle.Type);
 				}
 
 				return string.Empty;
@@ -125,7 +125,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.HasSourceData)
 				{
-					return DisplayConversions.DisplayVideoCodecName(this.SelectedTitle.VideoCodecName);
+					return DisplayConversions.DisplayVideoCodecName(this.SelectedTitle.VideoCodec);
 				}
 
 				return string.Empty;
@@ -138,7 +138,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.HasSourceData)
 				{
-					return string.Format(EncodingRes.FpsFormat, this.SelectedTitle.Framerate);
+					return string.Format(EncodingRes.FpsFormat, this.SelectedTitle.FrameRate.ToDouble());
 				}
 
 				return string.Empty;
@@ -486,7 +486,8 @@ namespace VidCoder.ViewModel
 				{
 					if (this.MainViewModel.HasVideoSource && this.MainViewModel.JobCreationAvailable && this.VideoBitrate > 0)
 					{
-						this.displayTargetSize = (int)Math.Round(this.MainViewModel.ScanInstance.CalculateFileSize(this.MainViewModel.EncodeJob.HbJob, this.VideoBitrate));
+						double estimatedSizeBytes = JsonEncodeFactory.CalculateFileSize(this.MainViewModel.EncodeJob, this.MainViewModel.SelectedTitle, this.VideoBitrate);
+						this.displayTargetSize = (int)Math.Round(estimatedSizeBytes);
 					}
 					else
 					{
@@ -522,7 +523,7 @@ namespace VidCoder.ViewModel
 				{
 					if (this.MainViewModel.HasVideoSource && this.MainViewModel.JobCreationAvailable && this.TargetSize > 0)
 					{
-						this.displayVideoBitrate = this.MainViewModel.ScanInstance.CalculateBitrate(this.MainViewModel.EncodeJob.HbJob, this.TargetSize);
+						this.displayVideoBitrate = JsonEncodeFactory.CalculateBitrate(this.MainViewModel.EncodeJob, this.MainViewModel.SelectedTitle, this.TargetSize);
 					}
 					else
 					{
@@ -566,7 +567,7 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return Math.Round(
-					Encoders.GetVideoQualityLimits(Encoders.GetVideoEncoder(this.Profile.VideoEncoder)).Granularity,
+					HandBrakeEncoderHelpers.GetVideoQualityLimits(HandBrakeEncoderHelpers.GetVideoEncoder(this.Profile.VideoEncoder)).Granularity,
 					2);
 			}
 		}
@@ -575,7 +576,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return Encoders.GetVideoQualityLimits(this.SelectedEncoder.Encoder).Low;
+				return HandBrakeEncoderHelpers.GetVideoQualityLimits(this.SelectedEncoder.Encoder).Low;
 			}
 		}
 
@@ -583,7 +584,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return Encoders.GetVideoQualityLimits(this.SelectedEncoder.Encoder).High;
+				return HandBrakeEncoderHelpers.GetVideoQualityLimits(this.SelectedEncoder.Encoder).High;
 			}
 		}
 
@@ -591,7 +592,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (Encoders.GetVideoQualityLimits(this.SelectedEncoder.Encoder).Ascending)
+				if (HandBrakeEncoderHelpers.GetVideoQualityLimits(this.SelectedEncoder.Encoder).Ascending)
 				{
 					return EncodingRes.LowQuality;
 				}
@@ -606,7 +607,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (Encoders.GetVideoQualityLimits(this.SelectedEncoder.Encoder).Ascending)
+				if (HandBrakeEncoderHelpers.GetVideoQualityLimits(this.SelectedEncoder.Encoder).Ascending)
 				{
 					return EncodingRes.HighQuality;
 				}
@@ -638,8 +639,8 @@ namespace VidCoder.ViewModel
 					int width, height;
 					if (this.MainViewModel.HasVideoSource && this.MainViewModel.SelectedTitle != null)
 					{
-						width = this.MainViewModel.SelectedTitle.Resolution.Width;
-						height = this.MainViewModel.SelectedTitle.Resolution.Height;
+						width = this.MainViewModel.SelectedTitle.Geometry.Width;
+						height = this.MainViewModel.SelectedTitle.Geometry.Height;
 					}
 					else
 					{
@@ -899,7 +900,7 @@ namespace VidCoder.ViewModel
 
 		private void RefreshEncoderChoices(string containerName, bool applyDefaults)
 		{
-			HBContainer container = Encoders.GetContainer(containerName);
+			HBContainer container = HandBrakeEncoderHelpers.GetContainer(containerName);
 
 			HBVideoEncoder oldEncoder = null;
 			if (this.selectedEncoder != null)
@@ -909,7 +910,7 @@ namespace VidCoder.ViewModel
 
 			this.encoderChoices = new List<VideoEncoderViewModel>();
 
-			foreach (HBVideoEncoder encoder in Encoders.VideoEncoders)
+			foreach (HBVideoEncoder encoder in HandBrakeEncoderHelpers.VideoEncoders)
 			{
 				if ((encoder.CompatibleContainers & container.Id) > 0)
 				{
@@ -1292,13 +1293,13 @@ namespace VidCoder.ViewModel
 
 						if (this.Profile.Framerate == 0)
 						{
-							fpsNumerator = main.SelectedTitle.FramerateNumerator;
-							fpsDenominator = main.SelectedTitle.FramerateDenominator;
+							fpsNumerator = main.SelectedTitle.FrameRate.Num;
+							fpsDenominator = main.SelectedTitle.FrameRate.Den;
 						}
 						else
 						{
 							fpsNumerator = 27000000;
-							fpsDenominator = HandBrake.Interop.Converters.Converters.FramerateToVrate(this.Profile.Framerate);
+							fpsDenominator = HandBrakeUnitConversionHelpers.FramerateToVrate(this.Profile.Framerate);
 						}
 
 						bool interlaced = false;
