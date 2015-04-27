@@ -69,7 +69,7 @@ namespace VidCoder.ViewModel
 			// Fill in remaining unselected source subtitles
 			for (int i = 1; i <= this.mainViewModel.SelectedTitle.SubtitleList.Count; i++)
 			{
-				if (!currentSubtitles.SourceSubtitles.Any(s => s.TrackNumber == (i + 1)))
+				if (!currentSubtitles.SourceSubtitles.Any(s => s.TrackNumber == i))
 				{
 					var newSubtitle = new SourceSubtitle
 					{

@@ -93,6 +93,11 @@ namespace VidCoder.ViewModel
 
 			set
 			{
+				if (value == null)
+				{
+					return;
+				}
+
 				this.selectedFallbackEncoder = value;
 				this.Profile.AudioEncoderFallback = this.selectedFallbackEncoder.Encoder.ShortName;
 				this.RaisePropertyChanged(() => this.SelectedFallbackEncoder);

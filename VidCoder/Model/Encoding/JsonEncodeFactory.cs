@@ -107,7 +107,7 @@ namespace VidCoder.Model.Encoding
 
 	            var audioTrack = new AudioTrack
 	            {
-		            Track = trackNumber,
+		            Track = trackNumber - 1,
 		            Encoder = (int)outputCodec,
 	            };
 
@@ -566,7 +566,7 @@ namespace VidCoder.Model.Encoding
 					throw new ArgumentOutOfRangeException();
 			}
 
-			video.Tune = string.Join(",", profile.VideoTunes);
+			video.Tune = profile.VideoTunes == null || profile.VideoTunes.Count == 0 ? null : string.Join(",", profile.VideoTunes);
 
 			return video;
 		}

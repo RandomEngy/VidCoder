@@ -917,8 +917,8 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			this.RaisePropertyChanged(() => this.AudioEncoders);
 			this.RaisePropertyChanged(() => this.PassthroughChoices);
+			this.RaisePropertyChanged(() => this.AudioEncoders);
 
 			if (oldEncoder == null)
 			{

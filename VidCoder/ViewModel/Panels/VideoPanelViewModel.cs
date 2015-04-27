@@ -802,6 +802,11 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
+				if (this.presets == null)
+				{
+					return 0;
+				}
+
 				string preset = this.Profile.VideoPreset;
 				if (string.IsNullOrWhiteSpace(preset))
 				{
@@ -824,6 +829,11 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
+				if (this.presets == null)
+				{
+					return 1;
+				}
+
 				return this.presets.Count - 1;
 			}
 		}

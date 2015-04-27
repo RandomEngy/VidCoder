@@ -119,8 +119,8 @@ namespace VidCoder.Model.Encoding
 				MaxHeight = this.MaxHeight,
 				KeepDisplayAspect = this.KeepDisplayAspect,
 				Modulus = this.Modulus,
-				PixelAspectX = this.PixelAspectX,
-				PixelAspectY = this.PixelAspectY,
+				PixelAspectX = 1,
+				PixelAspectY = 1,
 				TitleNumber = title.Index
 			};
 		}
