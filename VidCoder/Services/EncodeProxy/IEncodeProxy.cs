@@ -1,14 +1,11 @@
-﻿using HandBrake.ApplicationServices.Interop.EventArgs;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
-using VidCoder.Model.Encoding;
+﻿using System;
+using System.Xml.Serialization;
+using HandBrake.ApplicationServices.Interop.EventArgs;
+using VidCoder.Services;
+using VidCoderCommon.Model;
 
 namespace VidCoder
 {
-	using System;
-	using System.Xml.Serialization;
-	using Model;
-	using Services;
-
 	/// <summary>
 	/// Abstraction for dealing with either a worker process or a local encoder.
 	/// </summary>
@@ -29,7 +26,7 @@ namespace VidCoder
 		[XmlIgnore]
 		bool IsEncodeStarted { get; }
 
-		void StartEncode(VCJob job, SourceTitle title, ILogger logger, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds);
+		void StartEncode(VCJob job, ILogger logger, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds);
 		void PauseEncode();
 		void ResumeEncode();
 		void StopEncode();

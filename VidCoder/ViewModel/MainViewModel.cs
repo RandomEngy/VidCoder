@@ -16,10 +16,11 @@ using VidCoder.Automation;
 using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
-using VidCoder.Model.Encoding;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;
+using VidCoderCommon.Extensions;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {

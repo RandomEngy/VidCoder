@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -13,8 +11,9 @@ using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using VidCoder.Messages;
 using VidCoder.Model;
-using VidCoder.Model.Encoding;
 using VidCoder.Services;
+using VidCoderCommon.Extensions;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel.Components
 {

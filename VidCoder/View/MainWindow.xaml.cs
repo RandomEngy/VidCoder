@@ -1,40 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
-using System.Media;
+using System.Resources;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Threading;
+using System.Windows.Interop;
+using System.Windows.Media.Animation;
 using GalaSoft.MvvmLight.Messaging;
 using Hardcodet.Wpf.TaskbarNotification;
 using VidCoder.Extensions;
 using VidCoder.Messages;
-using VidCoder.Model.Encoding;
-using VidCoder.ViewModel;
 using VidCoder.Model;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+using VidCoder.Resources;
 using VidCoder.Services;
-using VidCoder.Properties;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Effects;
-using System.Resources;
-using System.IO;
+using VidCoder.ViewModel;
 using VidCoder.ViewModel.Components;
+using VidCoderCommon.Model;
 
 namespace VidCoder.View
 {
-	using System.Windows.Interop;
-	using Resources;
-
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>

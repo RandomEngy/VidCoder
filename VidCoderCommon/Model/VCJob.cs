@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using HandBrake.ApplicationServices.Interop.Json.Encode;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
-using HandBrake.ApplicationServices.Interop.Model;
-using HandBrake.ApplicationServices.Interop.Model.Encoding;
-using HandBrake.ApplicationServices.Interop.Model.Preview;
 
-namespace VidCoder.Model.Encoding
+namespace VidCoderCommon.Model
 {
 	using System.Xml.Serialization;
-	using Omu.ValueInjecter;
 
 	/// <summary>
 	/// An analogue for HBInterop's EncodingJob.

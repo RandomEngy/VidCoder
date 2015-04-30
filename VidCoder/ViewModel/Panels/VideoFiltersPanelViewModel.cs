@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VidCoder.Model.Encoding;
+﻿using System.Collections.Generic;
+using GalaSoft.MvvmLight.Messaging;
+using VidCoder.Messages;
+using VidCoder.Model;
+using VidCoder.Resources;
+using VidCoder.ViewModel.DataModels;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	using DataModels;
-	using GalaSoft.MvvmLight.Messaging;
-	using Messages;
-	using Model;
-	using Properties;
-	using Resources;
-
 	public class VideoFiltersPanelViewModel : PanelViewModel
 	{
 		private const string CustomDenoisePreset = "custom";

@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.IO;
-using System.Xml.Serialization;
+using System.Threading;
 using System.Xml;
 using System.Xml.Linq;
-using System.Threading;
-using System.Globalization;
+using System.Xml.Serialization;
 using HandBrake.ApplicationServices.Interop;
-using VidCoder.Model.Encoding;
+using VidCoder.Resources;
+using VidCoder.Services;
+using VidCoderCommon.Model;
 
 namespace VidCoder.Model
 {
-	using Resources;
-	using Services;
-
 	public static class Presets
 	{
 		private const int CurrentPresetVersion = 16;

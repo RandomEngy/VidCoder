@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using VidCoder.Model;
-using VidCoder.Model.Encoding;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {

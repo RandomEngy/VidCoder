@@ -1,4 +1,4 @@
-﻿namespace VidCoder.Model.Encoding
+﻿namespace VidCoderCommon.Model
 {
     using System.Collections.Generic;
 

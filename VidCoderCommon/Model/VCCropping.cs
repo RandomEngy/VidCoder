@@ -1,6 +1,6 @@
 ﻿using HandBrake.ApplicationServices.Interop.Model;
 
-namespace VidCoder.Model.Encoding
+namespace VidCoderCommon.Model
 {
     /// <summary>
     /// The Cropping Model

@@ -1,26 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.HbLib;
-using HandBrake.ApplicationServices.Interop.Json;
 using HandBrake.ApplicationServices.Interop.Json.Anamorphic;
 using HandBrake.ApplicationServices.Interop.Json.Encode;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Json.Shared;
-using HandBrake.ApplicationServices.Interop.Model;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
-using Omu.ValueInjecter;
-using VidCoder.Extensions;
-using VidCoder.Resources;
+using VidCoderCommon.Extensions;
 using Audio = HandBrake.ApplicationServices.Interop.Json.Encode.Audio;
 using Metadata = HandBrake.ApplicationServices.Interop.Json.Encode.Metadata;
 using Source = HandBrake.ApplicationServices.Interop.Json.Encode.Source;
 
-namespace VidCoder.Model.Encoding
+namespace VidCoderCommon.Model
 {
 	public static class JsonEncodeFactory
 	{
@@ -33,10 +27,16 @@ namespace VidCoder.Model.Encoding
 		/// </summary>
 		/// <param name="job">The encode job to convert.</param>
 		/// <param name="title">The source title.</param>
+		/// <param name="defaultChapterNameFormat">The format for a default chapter name.</param>
 		/// <param name="previewNumber">The preview number to start at (0-based). Leave off for a normal encode.</param>
 		/// <param name="previewSeconds">The number of seconds long to make the preview.</param>
 		/// <returns></returns>
-		public static JsonEncodeObject CreateJsonObject(VCJob job, SourceTitle title, int previewNumber = -1, int previewSeconds = 0)
+		public static JsonEncodeObject CreateJsonObject(
+			VCJob job,
+			SourceTitle title, 
+			string defaultChapterNameFormat,
+			int previewNumber = -1,
+			int previewSeconds = 0)
 		{
 			Geometry anamorphicSize = GetAnamorphicSize(job.EncodingProfile, title);
 			VCProfile profile = job.EncodingProfile;
@@ -45,7 +45,7 @@ namespace VidCoder.Model.Encoding
 			{
 				SequenceID = 0,
 				Audio = CreateAudio(job, title),
-				Destination = CreateDestination(job, title),
+				Destination = CreateDestination(job, title, defaultChapterNameFormat),
 				Filters = CreateFilters(profile, title, anamorphicSize),
 				Metadata = CreateMetadata(),
 				PAR = anamorphicSize.PAR,
@@ -166,7 +166,7 @@ namespace VidCoder.Model.Encoding
 			return list;
 		}
 
-		private static Destination CreateDestination(VCJob job, SourceTitle title)
+		private static Destination CreateDestination(VCJob job, SourceTitle title, string defaultChapterNameFormat)
 		{
 			VCProfile profile = job.EncodingProfile;
 
@@ -178,7 +178,7 @@ namespace VidCoder.Model.Encoding
 				{
 					for (int i = 0; i < title.ChapterList.Count; i++)
 					{
-						chapterList.Add(new Chapter { Name = CreateDefaultChapterName(i + 1) });
+						chapterList.Add(new Chapter { Name = CreateDefaultChapterName(defaultChapterNameFormat, i + 1) });
 					}
 				}
 				else
@@ -190,7 +190,7 @@ namespace VidCoder.Model.Encoding
 							string chapterName;
 							if (string.IsNullOrWhiteSpace(job.CustomChapterNames[i]))
 							{
-								chapterName = CreateDefaultChapterName(i + 1);
+								chapterName = CreateDefaultChapterName(defaultChapterNameFormat, i + 1);
 							}
 							else
 							{
@@ -219,11 +219,12 @@ namespace VidCoder.Model.Encoding
 			return destination;
 		}
 
-		private static string CreateDefaultChapterName(int chapterNumber)
+		
+		private static string CreateDefaultChapterName(string defaultChapterNameFormat, int chapterNumber)
 		{
 			return string.Format(
 				CultureInfo.CurrentCulture,
-				EncodingRes.DefaultChapterName,
+				defaultChapterNameFormat,
 				chapterNumber);
 		}
 
@@ -384,7 +385,51 @@ namespace VidCoder.Model.Encoding
 			filters.FilterList.Add(cropScale);
 
 			// Rotate
-			/* TODO  NOT SUPPORTED YET. */
+			if (profile.FlipHorizontal || profile.FlipVertical || profile.Rotation != VCPictureRotation.None)
+			{
+				bool rotate90 = false;
+				bool flipHorizontal = profile.FlipHorizontal;
+				bool flipVertical = profile.FlipVertical;
+
+				switch (profile.Rotation)
+				{
+					case VCPictureRotation.Clockwise90:
+						rotate90 = true;
+						break;
+					case VCPictureRotation.Clockwise180:
+						flipHorizontal = !flipHorizontal;
+						flipVertical = !flipVertical;
+						break;
+					case VCPictureRotation.Clockwise270:
+						rotate90 = true;
+						flipHorizontal = !flipHorizontal;
+						flipVertical = !flipVertical;
+						break;
+				}
+
+				int rotateSetting = 0;
+				if (flipVertical)
+				{
+					rotateSetting |= 1;
+				}
+
+				if (flipHorizontal)
+				{
+					rotateSetting |= 2;
+				}
+
+				if (rotate90)
+				{
+					rotateSetting |= 4;
+				}
+
+				Filter rotateFilter = new Filter
+				{
+					ID = (int)hb_filter_ids.HB_FILTER_ROTATE,
+					Settings = rotateSetting.ToString(CultureInfo.InvariantCulture)
+				};
+				filters.FilterList.Add(rotateFilter);
+			}
 
 			return filters;
 		}
@@ -536,6 +581,10 @@ namespace VidCoder.Model.Encoding
 			}
 
 			video.Encoder = videoEncoder.Id;
+			video.QSV = new QSV
+			{
+				Decode = profile.QsvDecode
+			};
 
 			if (profile.UseAdvancedTab)
 			{

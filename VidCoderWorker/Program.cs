@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
+using System.ServiceModel;
+using System.Threading;
+using VidCoderCommon;
 
 namespace VidCoderWorker
 {
-	using System.Diagnostics;
-	using System.ServiceModel;
-	using System.Threading;
-
 	class Program
 	{
 		private const double ParentCheckInterval = 5000;

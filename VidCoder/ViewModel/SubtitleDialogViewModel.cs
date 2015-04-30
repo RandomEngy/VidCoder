@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System.IO;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
-using VidCoder.Model.Encoding;
 using VidCoder.Services;
 using VidCoder.ViewModel.Components;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
 	using Resources;
-	using Model;
 
 	public class SubtitleDialogViewModel : OkCancelDialogViewModel
 	{

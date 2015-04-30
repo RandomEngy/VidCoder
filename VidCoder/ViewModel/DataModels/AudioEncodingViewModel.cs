@@ -1,28 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
+using System.Resources;
+using System.Windows.Input;
+using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Model;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using VidCoder.Messages;
-using VidCoder.Model.Encoding;
+using VidCoder.Model;
+using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoderCommon.Model;
+using Brush = System.Windows.Media.Brush;
 
 namespace VidCoder.ViewModel
 {
-	using System.Resources;
-	using System.Windows.Media;
-	using Model;
-	using Resources;
-	using Brush = System.Windows.Media.Brush;
-
 	public class AudioEncodingViewModel : ViewModelBase
 	{
 		private const int RangeRoundDigits = 5;

@@ -7,11 +7,11 @@
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:res="clr-namespace:VidCoder.Resources"
-	xmlns:encoding="clr-namespace:VidCoder.Model.Encoding"
+	xmlns:commonModel="clr-namespace:VidCoderCommon.Model;assembly=VidCoderCommon"
 	mc:Ignorable="d" 
 	d:DesignHeight="330" d:DesignWidth="622">
 	<UserControl.Resources>
-		<local:EnumDisplayer Type="{x:Type encoding:VCAnamorphic}" x:Key="AnamorphicChoices" />
+		<local:EnumDisplayer Type="{x:Type commonModel:VCAnamorphic}" x:Key="AnamorphicChoices" />
 	</UserControl.Resources>
 	<Grid>
 		<Grid.RowDefinitions>

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
+using System.Windows;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
@@ -9,19 +9,12 @@ using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using VidCoder.Messages;
 using VidCoder.Model;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using VidCoder.Model.Encoding;
-using VidCoder.Services;
-using System.Windows.Media.Imaging;
-using System.ComponentModel;
-using System.Windows;
+using VidCoder.Resources;
 using VidCoder.ViewModel.Components;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	using Resources;
-
 	public class EncodingViewModel : OkCancelDialogViewModel
 	{
 		public const int VideoTabIndex = 2;

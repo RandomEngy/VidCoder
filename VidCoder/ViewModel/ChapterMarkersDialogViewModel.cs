@@ -9,6 +9,7 @@ using HandBrake.ApplicationServices.Interop.Json.Scan;
 using System.IO;
 using VidCoder.Extensions;
 using VidCoder.Services;
+using VidCoderCommon.Extensions;
 
 namespace VidCoder.ViewModel
 {

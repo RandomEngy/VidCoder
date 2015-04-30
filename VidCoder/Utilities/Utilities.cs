@@ -11,8 +11,9 @@ using HandBrake.ApplicationServices.Interop.Json.Scan;
 using Microsoft.Win32;
 using VidCoder.Extensions;
 using VidCoder.Model;
-using VidCoder.Model.Encoding;
 using VidCoder.Services;
+using VidCoderCommon.Extensions;
+using VidCoderCommon.Model;
 
 namespace VidCoder
 {

@@ -1,4 +1,4 @@
-﻿using VidCoder.Model.Encoding;
+﻿using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel.DataModels
 {

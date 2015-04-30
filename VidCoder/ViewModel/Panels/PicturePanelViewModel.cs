@@ -4,8 +4,8 @@ using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop.Json.Shared;
 using VidCoder.Messages;
 using VidCoder.Model;
-using VidCoder.Model.Encoding;
 using VidCoder.Resources;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {

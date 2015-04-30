@@ -6,7 +6,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Messages;
-using VidCoder.Model.Encoding;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
@@ -28,7 +28,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return encodingViewModel.EncodingProfile;
+				return this.encodingViewModel.EncodingProfile;
 			}
 		}
 

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
+﻿using System.Globalization;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using VidCoder.Model;
-using VidCoder.Model.Encoding;
 
 namespace VidCoder
 {

@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
-using HandBrake.ApplicationServices.Interop.Model.Encoding;
-using HandBrake.ApplicationServices.Interop.Model.Preview;
 
-namespace VidCoder.Model.Encoding
+namespace VidCoderCommon.Model
 {
-	using Omu.ValueInjecter;
-
 	/// <summary>
 	/// An analogue for HBInterop's EncodingProfile.
 	/// </summary>
@@ -100,30 +93,6 @@ namespace VidCoder.Model.Encoding
 
 		public List<AudioEncoding> AudioEncodings { get; set; }
 		public string AudioEncoderFallback { get; set; }
-
-		public PreviewSettings CreatePreviewSettings(SourceTitle title)
-		{
-			VCCropping cropping = JsonEncodeFactory.GetCropping(this, title);
-
-			// HB doesn't expect us to give it a 0 width and height so we need to guard against that
-			int sanitizedWidth = this.Width > 0 ? this.Width : title.Geometry.Width - cropping.Left - cropping.Right;
-			int sanitizedHeight = this.Height > 0 ? this.Height : title.Geometry.Height - cropping.Top - cropping.Bottom;
-
-			return new PreviewSettings
-			{
-				Anamorphic = EnumConverter.Convert<VCAnamorphic, Anamorphic>(this.Anamorphic),
-				Cropping = JsonEncodeFactory.GetCropping(this, title).HbCropping,
-				Width = sanitizedWidth,
-				Height = sanitizedHeight,
-				MaxWidth = this.MaxWidth,
-				MaxHeight = this.MaxHeight,
-				KeepDisplayAspect = this.KeepDisplayAspect,
-				Modulus = this.Modulus,
-				PixelAspectX = 1,
-				PixelAspectY = 1,
-				TitleNumber = title.Index
-			};
-		}
 
 		public VCProfile Clone()
 		{

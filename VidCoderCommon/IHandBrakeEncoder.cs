@@ -1,16 +1,22 @@
-﻿using HandBrake.ApplicationServices.Interop.Json.Encode;
+﻿using System.ServiceModel;
+using VidCoderCommon.Model;
 
-namespace VidCoderWorker
+namespace VidCoderCommon
 {
-	using System;
-	using System.ServiceModel;
-
 	[ServiceContract(SessionMode = SessionMode.Required,
 		CallbackContract = typeof(IHandBrakeEncoderCallback))]
 	public interface IHandBrakeEncoder
 	{
 		[OperationContract]
-		void StartEncode(JsonEncodeObject encodeObject, int verbosity, int previewCount, bool useDvdNav, double minTitleDurationSeconds);
+		void StartEncode(
+			VCJob job, 
+			int previewNumber,
+			int previewSeconds,
+			int verbosity, 
+			int previewCount, 
+			bool useDvdNav, 
+			double minTitleDurationSeconds,
+			string defaultChapterNameFormat);
 
 		[OperationContract]
 		void PauseEncode();

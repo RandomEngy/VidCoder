@@ -1,31 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using System.Windows.Media.Imaging;
-using System.Windows.Input;
 using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
+using VidCoder.Extensions;
 using VidCoder.Messages;
-using System.IO;
-using VidCoder.Model.Encoding;
-using VidCoder.Services;
-using System.Threading;
 using VidCoder.Model;
-using System.Diagnostics;
+using VidCoder.Resources;
+using VidCoder.Services;
 using VidCoder.ViewModel.Components;
+using VidCoderCommon.Model;
 using Geometry = HandBrake.ApplicationServices.Interop.Json.Shared.Geometry;
 
 namespace VidCoder.ViewModel
 {
-	using System.Drawing;
-	using System.Globalization;
-	using System.Linq.Expressions;
-	using Resources;
-
 	public class PreviewViewModel : OkCancelDialogViewModel
 	{
 		private const int PreviewImageCacheDistance = 1;
@@ -506,8 +501,7 @@ namespace VidCoder.ViewModel
 						this.logger.Log("  Title: " + this.job.Title);
 						this.logger.Log("  Preview #: " + this.SelectedPreview);
 
-						SourceTitle encodeTitle = this.mainViewModel.ScanInstance.Titles.TitleList.Single(t => t.Index == this.job.Title);
-						this.encodeProxy.StartEncode(this.job, encodeTitle, this.logger, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
+						this.encodeProxy.StartEncode(this.job, this.logger, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
 						this.CancelPreviewCommand.RaiseCanExecuteChanged();
 					}, () =>
 					{

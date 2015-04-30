@@ -6,15 +6,14 @@ using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.EventArgs;
 using HandBrake.ApplicationServices.Interop.Json.Encode;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
-using VidCoder.Model.Encoding;
+using VidCoder.Resources;
+using VidCoder.Services;
+using VidCoderCommon.Model;
+using System.Threading;
+using System.Xml.Serialization;
 
 namespace VidCoder
 {
-	using System.Threading;
-	using System.Xml.Serialization;
-	using Model;
-	using Services;
-
 	public class LocalEncodeProxy : IEncodeProxy
 	{
 		private ILogger logger;
@@ -34,7 +33,7 @@ namespace VidCoder
 
 		[XmlIgnore]
 		public bool IsEncodeStarted { get; private set; }
-		public void StartEncode(VCJob job, SourceTitle title, ILogger logger, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
+		public void StartEncode(VCJob job, ILogger logger, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
 		{
 			this.logger = logger;
 			this.logger.Log("Starting encode in-process");
@@ -51,13 +50,18 @@ namespace VidCoder
 			{
 				try
 				{
-					//Title encodeTitle = this.instance.Titles.TitleList.FirstOrDefault(title => title.Index == job.Title);
+					SourceTitle title = this.instance.Titles.TitleList.FirstOrDefault(t => t.Index == job.Title);
 
 					if (title != null)
 					{
 						lock (this.encoderLock)
 						{
-							JsonEncodeObject jsonEncodeObject = JsonEncodeFactory.CreateJsonObject(job, title, preview ? previewNumber : -1, previewSeconds);
+							JsonEncodeObject jsonEncodeObject = JsonEncodeFactory.CreateJsonObject(
+								job,
+								title,
+								EncodingRes.DefaultChapterName,
+								preview ? previewNumber : -1,
+								previewSeconds);
 
 							this.instance.StartEncode(jsonEncodeObject);
 							this.IsEncodeStarted = true;

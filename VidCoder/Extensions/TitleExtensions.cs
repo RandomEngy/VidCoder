@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
-using VidCoder.Model.Encoding;
+using VidCoder.Model;
+using VidCoderCommon.Extensions;
 
 namespace VidCoder.Extensions
 {

@@ -21,16 +21,15 @@ using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
-using VidCoder.Model.Encoding;
+using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.ViewModel.DataModels;
+using VidCoderCommon.Extensions;
+using VidCoderCommon.Model;
 using Color = System.Windows.Media.Color;
 
 namespace VidCoder.ViewModel.Components
 {
-	using System.Reflection;
-	using Resources;
-
 	/// <summary>
 	/// Controls the queue and actual processing of encode jobs.
 	/// </summary>
@@ -1369,8 +1368,7 @@ namespace VidCoder.ViewModel.Components
 
 			this.currentJobEta = TimeSpan.Zero;
 			this.EncodeQueue[0].ReportEncodeStart(this.totalTasks == 1);
-			SourceTitle title = this.CurrentJob.VideoSource.Titles.Single(t => t.Index == this.CurrentJob.Job.Title);
-			this.encodeProxy.StartEncode(this.CurrentJob.Job, title, encodeLogger, false, 0, 0, 0);
+			this.encodeProxy.StartEncode(this.CurrentJob.Job, encodeLogger, false, 0, 0, 0);
 
 			this.StopEncodeCommand.RaiseCanExecuteChanged();
 			this.PauseCommand.RaiseCanExecuteChanged();

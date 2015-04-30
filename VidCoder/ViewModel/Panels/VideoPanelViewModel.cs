@@ -1,26 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
-using System.Text;
+using System.Resources;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
-using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
-using VidCoder.Model.Encoding;
+using VidCoder.Resources;
 using VidCoder.ViewModel.Components;
+using VidCoderCommon.Extensions;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	using System.ComponentModel;
-	using System.Globalization;
-	using System.Resources;
-	using System.Windows;
-	using Resources;
-	using Properties;
-
 	public class VideoPanelViewModel : PanelViewModel
 	{
 		private const int DefaultVideoBitrateKbps = 900;

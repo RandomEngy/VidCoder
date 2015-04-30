@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -10,12 +8,11 @@ using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using VidCoder.Messages;
-using VidCoder.Model.Encoding;
+using VidCoder.Resources;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	using Resources;
-
 	public class AudioPanelViewModel : PanelViewModel
 	{
 		private ObservableCollection<AudioEncodingViewModel> audioEncodings;

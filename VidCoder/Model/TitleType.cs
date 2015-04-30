@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using VidCoder.Resources;
 
-namespace VidCoder.Model.Encoding
+namespace VidCoder.Model
 {
 	public enum TitleType
 	{

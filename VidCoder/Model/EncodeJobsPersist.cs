@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Xml.Linq;
-using VidCoder.Model.Encoding;
+using VidCoder.Resources;
+using VidCoderCommon.Model;
 
 namespace VidCoder.Model
 {
-	using System.Globalization;
-	using System.Runtime.Serialization;
-	using Resources;
-
 	public static class EncodeJobsPersist
 	{
 		private static XmlSerializer oldXmlSerializer = new XmlSerializer(typeof(EncodeJobCollection));

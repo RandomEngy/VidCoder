@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
 using VidCoder.DragDropUtils;
-using System.Diagnostics;
 using VidCoder.Messages;
 using VidCoder.Model;
-using VidCoder.Model.Encoding;
 using VidCoder.ViewModel.Components;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {

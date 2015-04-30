@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Linq;
-using System.Text;
+using System.ServiceModel;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
 using HandBrake.ApplicationServices.Interop.EventArgs;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
-using VidCoder.Model.Encoding;
+using VidCoder.Model;
+using VidCoder.Resources;
+using VidCoder.Services;
+using VidCoderCommon;
+using VidCoderCommon.Model;
+using Timer = System.Timers.Timer;
 
 namespace VidCoder
 {
-	using System.ComponentModel;
-	using System.Data.SQLite;
-	using System.Diagnostics;
-	using System.Globalization;
-	using System.IO;
-	using System.ServiceModel;
-	using System.Threading;
-	using System.Threading.Tasks;
-	using System.Xml.Serialization;
-	using Model;
-	using Services;
-	using VidCoderWorker;
-
-	using Timer = System.Timers.Timer;
-
 	public class RemoteEncodeProxy : IHandBrakeEncoderCallback, IEncodeProxy
 	{
 		// Ping interval (6s) longer than timeout (5s) so we don't have two overlapping pings
@@ -73,7 +69,7 @@ namespace VidCoder
 		[XmlIgnore]
 		public bool IsEncodeStarted { get; private set; }
 
-		public void StartEncode(VCJob job, SourceTitle title, ILogger logger, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
+		public void StartEncode(VCJob job, ILogger logger, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
 		{
 			this.logger = logger;
 
@@ -112,11 +108,14 @@ namespace VidCoder
 								}
 
 								this.channel.StartEncode(
-									JsonEncodeFactory.CreateJsonObject(job, title, preview ? previewNumber : -1, previewSeconds),
+									job,
+									preview ? previewNumber : -1,
+									previewSeconds,
 									Config.LogVerbosity,
 									Config.PreviewCount,
 									Config.EnableLibDvdNav,
-									Config.MinimumTitleLengthSeconds);
+									Config.MinimumTitleLengthSeconds,
+									EncodingRes.DefaultChapterName);
 
 								// After we do StartEncode (which can take a while), switch the timeout down to normal level to do pings
 								var contextChannel = (IContextChannel)this.channel;

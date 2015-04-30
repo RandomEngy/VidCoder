@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Input;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using VidCoder.Model;
-using VidCoder.Model.Encoding;
+using VidCoder.Resources;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	using Resources;
-
 	public class SourceOptionViewModel : ViewModelBase
 	{
 		private SourceOption sourceOption;

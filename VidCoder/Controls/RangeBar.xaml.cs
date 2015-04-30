@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Extensions;
+using VidCoderCommon.Extensions;
 
 namespace VidCoder.Controls
 {

@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.ServiceModel;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Encode;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
+using VidCoderCommon;
+using VidCoderCommon.Model;
 
 namespace VidCoderWorker
 {
-	using System.ServiceModel;
-
 	public class HandBrakeEncoder : IHandBrakeEncoder
 	{
 		private IHandBrakeEncoderCallback callback;
@@ -19,7 +18,15 @@ namespace VidCoderWorker
 		// True if we are encoding (not scanning)
 		private EncodeState state = EncodeState.NotStarted;
 
-		public void StartEncode(JsonEncodeObject encodeObject, int verbosity, int previewCount, bool useDvdNav, double minTitleDurationSeconds)
+		public void StartEncode(
+			VCJob job, 
+			int previewNumber,
+			int previewSeconds,
+			int verbosity,
+			int previewCount,
+			bool useDvdNav, 
+			double minTitleDurationSeconds,
+			string defaultChapterNameFormat)
 		{
 			CurrentEncoder = this;
 			this.callback = OperationContext.Current.GetCallbackChannel<IHandBrakeEncoderCallback>();
@@ -56,7 +63,13 @@ namespace VidCoderWorker
 					{
 						try
 						{
-							SourceTitle encodeTitle = this.instance.Titles.TitleList.FirstOrDefault(title => title.Index == encodeObject.Source.Title);
+							SourceTitle encodeTitle = this.instance.Titles.TitleList.FirstOrDefault(title => title.Index == job.Title);
+							JsonEncodeObject encodeObject = JsonEncodeFactory.CreateJsonObject(
+								job,
+								encodeTitle,
+								defaultChapterNameFormat,
+								previewNumber,
+								previewSeconds);
 
 							if (encodeTitle != null)
 							{
@@ -106,7 +119,7 @@ namespace VidCoderWorker
 						}
 					};
 
-				this.instance.StartScan(encodeObject.Source.Path, previewCount, TimeSpan.FromSeconds(minTitleDurationSeconds), encodeObject.Source.Title);
+				this.instance.StartScan(job.SourcePath, previewCount, TimeSpan.FromSeconds(minTitleDurationSeconds), job.Title);
 				this.state = EncodeState.Scanning;
 			}
 			catch (Exception exception)

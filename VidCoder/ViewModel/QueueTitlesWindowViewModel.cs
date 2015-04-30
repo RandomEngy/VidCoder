@@ -1,26 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
+using System.Collections.ObjectModel;
+using System.Data.SQLite;
 using System.Linq;
-using System.Text;
 using System.Windows.Media;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using System.Collections.ObjectModel;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
-using VidCoder.Model.Encoding;
+using VidCoder.Resources;
 using VidCoder.ViewModel.Components;
+using VidCoderCommon.Extensions;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	using System.Data.SQLite;
-	using Resources;
-	using Services;
-
 	public class QueueTitlesWindowViewModel : OkCancelDialogViewModel
 	{
 		private ObservableCollection<TitleSelectionViewModel> titles;

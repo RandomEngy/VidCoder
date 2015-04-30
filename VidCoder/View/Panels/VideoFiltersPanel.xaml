@@ -4,19 +4,19 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:dataModels="clr-namespace:VidCoder.ViewModel.DataModels"
-	xmlns:encoding="clr-namespace:VidCoder.Model.Encoding"
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:res="clr-namespace:VidCoder.Resources"
 	xmlns:viewModel="clr-namespace:VidCoder.ViewModel"
+	xmlns:commonModel="clr-namespace:VidCoderCommon.Model;assembly=VidCoderCommon"
 	d:DataContext="{d:DesignInstance viewModel:VideoFiltersPanelViewModel}"
 	d:DesignHeight="330"
 	d:DesignWidth="622"
 	mc:Ignorable="d">
 	<UserControl.Resources>
-		<local:EnumDisplayer x:Key="DetelecineChoices" Type="{x:Type encoding:VCDetelecine}" />
-		<local:EnumDisplayer x:Key="DecombChoices" Type="{x:Type encoding:VCDecomb}" />
-		<local:EnumDisplayer x:Key="DeinterlaceChoices" Type="{x:Type encoding:VCDeinterlace}" />
+		<local:EnumDisplayer x:Key="DetelecineChoices" Type="{x:Type commonModel:VCDetelecine}" />
+		<local:EnumDisplayer x:Key="DecombChoices" Type="{x:Type commonModel:VCDecomb}" />
+		<local:EnumDisplayer x:Key="DeinterlaceChoices" Type="{x:Type commonModel:VCDeinterlace}" />
 		<Style x:Key="NormalComboBox" TargetType="ComboBox">
 			<Setter Property="Height" Value="22" />
 			<Setter Property="MinWidth" Value="80" />

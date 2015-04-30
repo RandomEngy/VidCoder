@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
-using VidCoder.Model.Encoding;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	using GalaSoft.MvvmLight.Messaging;
 	using Messages;
 	using Resources;
 
