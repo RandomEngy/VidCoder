@@ -51,6 +51,8 @@
 						return MiscRes.EncodeCompleteWarning_LogOffTitle;
 					case EncodeCompleteActionType.Shutdown:
 						return MiscRes.EncodeCompleteWarning_ShutdownTitle;
+					case EncodeCompleteActionType.Hibernate:
+						return MiscRes.EncodeCompleteWarning_HibernateTitle;
 					default:
 						return string.Empty;
 				}
@@ -73,6 +75,9 @@
 					case EncodeCompleteActionType.Shutdown:
 						messageFormat = MiscRes.EncodeCompleteWarning_ShutdownMessage;
 						break;
+					case EncodeCompleteActionType.Hibernate:
+						messageFormat = MiscRes.EncodeCompleteWarning_HibernateMessage;
+						break;
 				}
 
 				return string.Format(CultureInfo.CurrentCulture, messageFormat, this.secondsRemaining);
@@ -91,6 +96,9 @@
 					break;
 				case EncodeCompleteActionType.Shutdown:
 					this.systemOperations.ShutDown();
+					break;
+				case EncodeCompleteActionType.Hibernate:
+					this.systemOperations.Hibernate();
 					break;
 			}
 		}

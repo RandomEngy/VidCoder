@@ -190,6 +190,9 @@
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
     <value>Eject {0}:</value>
   </data>
+  <data name="EncodeCompleteActionType_Hibernate" xml:space="preserve">
+    <value>Hibernate</value>
+  </data>
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
     <value>Log off</value>
   </data>

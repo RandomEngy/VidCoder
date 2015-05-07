@@ -1626,7 +1626,8 @@ namespace VidCoder.ViewModel.Components
 						if (Config.PlaySoundOnCompletion &&
 							actionType != EncodeCompleteActionType.Sleep && 
 							actionType != EncodeCompleteActionType.LogOff &&
-							actionType != EncodeCompleteActionType.Shutdown)
+							actionType != EncodeCompleteActionType.Shutdown &&
+							actionType != EncodeCompleteActionType.Hibernate)
 						{
 							string soundPath = null;
 							if (Config.UseCustomCompletionSound)
@@ -1668,6 +1669,7 @@ namespace VidCoder.ViewModel.Components
 							case EncodeCompleteActionType.Sleep:
 							case EncodeCompleteActionType.LogOff:
 							case EncodeCompleteActionType.Shutdown:
+							case EncodeCompleteActionType.Hibernate:
 								WindowManager.OpenWindow(new ShutdownWarningViewModel(actionType));
 								break;
 							default:
@@ -1762,6 +1764,7 @@ namespace VidCoder.ViewModel.Components
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.DoNothing },
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Sleep },
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.LogOff },
+					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Hibernate },
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Shutdown },
 				};
 

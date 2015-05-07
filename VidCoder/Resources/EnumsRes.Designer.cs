@@ -277,6 +277,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hibernate.
+        /// </summary>
+        public static string EncodeCompleteActionType_Hibernate {
+            get {
+                return ResourceManager.GetString("EncodeCompleteActionType_Hibernate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log off.
         /// </summary>
         public static string EncodeCompleteActionType_LogOff {

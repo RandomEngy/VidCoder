@@ -113,6 +113,12 @@ namespace VidCoder.Services
 				ShutdownReason.MajorOther | ShutdownReason.MinorOther | ShutdownReason.FlagPlanned);
 		}
 
+		public void Hibernate()
+		{
+			logger.Log("Hibernating.");
+			Application.SetSuspendState(PowerState.Hibernate, true, true);
+		}
+
 		public void Eject(string driveLetter)
 		{
 			mciSendString("open " + driveLetter + ": type CDAudio alias drive" + driveLetter, null, 0, IntPtr.Zero);

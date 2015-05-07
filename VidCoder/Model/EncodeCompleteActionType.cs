@@ -22,6 +22,9 @@ namespace VidCoder.Model
 		[Display(ResourceType = typeof(EnumsRes), Name = "EncodeCompleteActionType_LogOff")]
 		LogOff,
 
+		[Display(ResourceType = typeof(EnumsRes), Name = "EncodeCompleteActionType_Hibernate")]
+		Hibernate,
+
 		[Display(ResourceType = typeof(EnumsRes), Name = "EncodeCompleteActionType_Shutdown")]
 		Shutdown
 	}

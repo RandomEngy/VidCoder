@@ -247,4 +247,10 @@
   <data name="ErrorPlayingSource" xml:space="preserve">
     <value>Error playing source.</value>
   </data>
+  <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
+    <value>The system will hibernate in {0} seconds.</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
+    <value>Hibernate imminent</value>
+  </data>
 </root>
