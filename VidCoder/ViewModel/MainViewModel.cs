@@ -35,6 +35,7 @@ namespace VidCoder.ViewModel
 		private PickersViewModel pickersVM;
 		private ProcessingViewModel processingVM;
 		private WindowManagerViewModel windowManagerVM;
+		private TaskBarProgressTracker taskBarProgressTracker;
 
 		private ObservableCollection<SourceOptionViewModel> sourceOptions;
 		private ObservableCollection<SourceOptionViewModel> recentSourceOptions; 
@@ -94,6 +95,7 @@ namespace VidCoder.ViewModel
 			this.presetsVM = Ioc.Container.GetInstance<PresetsViewModel>();
 			this.pickersVM = Ioc.Container.GetInstance<PickersViewModel>();
 			this.windowManagerVM = Ioc.Container.GetInstance<WindowManagerViewModel>();
+			this.taskBarProgressTracker = new TaskBarProgressTracker();
 
 			updater.CheckUpdates();
 
@@ -475,6 +477,11 @@ namespace VidCoder.ViewModel
 			get { return this.windowManagerVM; }
 		}
 
+		public TaskBarProgressTracker TaskBarProgressTracker
+		{
+			get { return this.taskBarProgressTracker; }
+		}
+
 		public IList<DriveInformation> DriveCollection
 		{
 			get
@@ -636,6 +643,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.scanningSource = value;
+				this.taskBarProgressTracker.SetIsScanning(value);
 				this.RaisePropertyChanged(() => this.SourceOptionsVisible);
 				this.CloseVideoSourceCommand.RaiseCanExecuteChanged();
 				this.RaisePropertyChanged(() => this.CanCloseVideoSource);
@@ -663,6 +671,12 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.ScanError);
 				this.RaisePropertyChanged(() => this.SourceOptionsVisible);
 			}
+		}
+
+		private void SetScanProgress(double scanProgressFraction)
+		{
+			this.taskBarProgressTracker.SetScanProgress(scanProgressFraction);
+			this.ScanProgress = scanProgressFraction * 100;
 		}
 
 		/// <summary>
@@ -2382,7 +2396,7 @@ namespace VidCoder.ViewModel
 		{
 			this.ClearVideoSource();
 
-			this.ScanProgress = 0;
+			this.SetScanProgress(0);
 			HandBrakeInstance oldInstance = this.scanInstance;
 
 			this.logger.Log("Starting scan: " + path);
@@ -2391,7 +2405,7 @@ namespace VidCoder.ViewModel
 			this.scanInstance.Initialize(Config.LogVerbosity);
 			this.scanInstance.ScanProgress += (o, e) =>
 			{
-				this.ScanProgress = e.Progress * 100;
+				this.SetScanProgress(e.Progress);
 			};
 			this.scanInstance.ScanCompleted += (o, e) =>
 			{

@@ -127,8 +127,6 @@ UpdateAssemblyInfo "VidCoderWorker\Properties\AssemblyInfo.cs" $versionLong
 & $DevEnv11Exe VidCoder.sln /Rebuild ($configuration + "|x64"); ExitIfFailed
 
 # Run sgen to create *.XmlSerializers.dll
-& ($NetToolsFolder + "\sgen.exe") /f /a:"Lib\x86\HandBrake.ApplicationServices.dll"; ExitIfFailed
-& ($NetToolsFolder + "\x64\sgen.exe") /f /a:"Lib\x64\HandBrake.ApplicationServices.dll"; ExitIfFailed
 & ($NetToolsFolder + "\sgen.exe") /f /a:"VidCoder\bin\x86\Release\VidCoder.exe"; ExitIfFailed
 & ($NetToolsFolder + "\x64\sgen.exe") /f /a:"VidCoder\bin\x64\Release\VidCoder.exe"; ExitIfFailed
 
@@ -169,7 +167,6 @@ CopyLibBoth "hb.dll"
 CopyLibBoth "System.Data.SQLite.dll"
 CopyLibBoth "HandBrake.ApplicationServices.dll"
 CopyLibBoth "HandBrake.ApplicationServices.pdb"
-CopyLibBoth "HandBrake.ApplicationServices.XmlSerializers.dll"
 
 # Common files
 CopyCommon ".\Lib\Ookii.Dialogs.Wpf.dll"

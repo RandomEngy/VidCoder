@@ -279,7 +279,7 @@
 		<local:RestoreWindowCommand x:Key="RestoreWindowCommand" />
 	</Window.Resources>
 	<Window.TaskbarItemInfo>
-		<TaskbarItemInfo ProgressState="{Binding ProcessingVM.EncodeProgressState}" ProgressValue="{Binding ProcessingVM.OverallEncodeProgressFraction}" />
+		<TaskbarItemInfo ProgressState="{Binding TaskBarProgressTracker.ProgressState}" ProgressValue="{Binding TaskBarProgressTracker.ProgressFraction}" />
 	</Window.TaskbarItemInfo>
 	<Window.InputBindings>
 		<KeyBinding

@@ -265,6 +265,7 @@ namespace VidCoder.ViewModel.Components
 					}
 				}
 
+				Messenger.Default.Send(new PauseChangedMessage(value));
 				this.RaisePropertyChanged(() => this.PauseVisible);
 				this.RaisePropertyChanged(() => this.ProgressBarColor);
 				this.RaisePropertyChanged(() => this.Paused);

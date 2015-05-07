@@ -433,6 +433,7 @@
     <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="Messages\ContainerChangedMessage.cs" />
     <Compile Include="Messages\EncodingProfileChangedMessage.cs" />
+    <Compile Include="Messages\PauseChangedMessage.cs" />
     <Compile Include="Messages\PickerChangedMessage.cs" />
     <Compile Include="Messages\RotationChangedMessage.cs" />
     <Compile Include="Messages\TitleRangeSelectChangedMessage.cs" />
@@ -580,6 +581,7 @@
     <Compile Include="Services\Processes.cs" />
     <Compile Include="Services\QueueImportExport.cs" />
     <Compile Include="Services\SystemOperations.cs" />
+    <Compile Include="Services\TaskBarProgressTracker.cs" />
     <Compile Include="Services\TrayService.cs" />
     <Compile Include="Model\Config\ConfigDeclaration.cs" />
     <Compile Include="Services\WindowPlacer.cs" />
