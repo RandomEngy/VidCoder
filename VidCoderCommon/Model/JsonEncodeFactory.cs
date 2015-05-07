@@ -116,6 +116,23 @@ namespace VidCoderCommon.Model
 		            audioTrack.Mixdown = HandBrakeEncoderHelpers.GetMixdown(encoding.Mixdown).Id;
 		            audioTrack.Gain = encoding.Gain;
 		            audioTrack.DRC = encoding.Drc;
+					
+		            if (encoder.SupportsCompression)
+		            {
+			            audioTrack.CompressionLevel = encoding.Compression;
+		            }
+
+		            switch (encoding.EncodeRateType)
+		            {
+			            case AudioEncodeRateType.Bitrate:
+				            audioTrack.Bitrate = encoding.Bitrate;
+				            break;
+			            case AudioEncodeRateType.Quality:
+				            audioTrack.Quality = encoding.Quality;
+				            break;
+			            default:
+				            throw new ArgumentOutOfRangeException();
+		            }
 	            }
 
 				audio.AudioList.Add(audioTrack);
