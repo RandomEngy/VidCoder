@@ -923,50 +923,43 @@ namespace VidCoder.ViewModel
 
 							if (!picker.SubtitleLanguageOnlyIfDifferent || !audioSame)
 							{
-								List<SourceSubtitleTrack> nativeSubtitles = this.selectedTitle.SubtitleList.Where(subtitle => subtitle.LanguageCode == languageCode).ToList();
-								if (nativeSubtitles.Count > 0)
+								bool multipleLanguageTracks = this.selectedTitle.SubtitleList.Count(s => s.LanguageCode == languageCode) > 1;
+								for (int i = 0; i < this.selectedTitle.SubtitleList.Count; i++)
 								{
-									if (picker.SubtitleLanguageAll)
-									{
-										for (int i = 0; i < nativeSubtitles.Count; i++)
-										{
-											SourceSubtitleTrack subtitle = nativeSubtitles[i];
+									SourceSubtitleTrack subtitle = this.selectedTitle.SubtitleList[i];
 
-											this.CurrentSubtitles.SourceSubtitles.Add(new SourceSubtitle
-											{
-												BurnedIn = false,
-												Default = false,
-												Forced = false,
-												TrackNumber = subtitle.Source
-											});
-										}
-									}
-									else
+									if (subtitle.LanguageCode == languageCode)
 									{
 										this.CurrentSubtitles.SourceSubtitles.Add(new SourceSubtitle
 										{
-											BurnedIn = burnIn,
-											Default = def,
+											BurnedIn = !multipleLanguageTracks && burnIn,
+											Default = !multipleLanguageTracks && def,
 											Forced = false,
-											TrackNumber = nativeSubtitles[0].Source
+											TrackNumber = i + 1
 										});
+
+										if (!picker.SubtitleLanguageAll)
+										{
+											break;
+										}
 									}
 								}
 							}
 
 							break;
 						case SubtitleSelectionMode.All:
-							foreach (SourceSubtitleTrack subtitle in this.selectedTitle.SubtitleList)
+							for (int i = 0; i < this.selectedTitle.SubtitleList.Count; i++)
 							{
 								this.CurrentSubtitles.SourceSubtitles.Add(
 									new SourceSubtitle
-										{
-											TrackNumber = subtitle.Source,
-											BurnedIn = false,
-											Default = false,
-											Forced = false
-										});
+									{
+										TrackNumber = i + 1,
+										BurnedIn = false,
+										Default = false,
+										Forced = false
+									});
 							}
+
 							break;
 						default:
 							throw new ArgumentOutOfRangeException();
