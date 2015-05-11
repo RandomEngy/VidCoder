@@ -1435,14 +1435,15 @@ namespace VidCoder.ViewModel.Components
 
 			double totalCompletedWork = this.completedQueueWork + currentJobCompletedWork;
 
-			this.OverallEncodeProgressFraction = totalCompletedWork / this.totalQueueCost;
+			this.OverallEncodeProgressFraction = this.totalQueueCost > 0 ? totalCompletedWork / this.totalQueueCost : 0;
 
-			double overallWorkCompletionRate = totalCompletedWork / this.elapsedQueueEncodeTime.Elapsed.TotalSeconds;
+			double queueElapsedSeconds = this.elapsedQueueEncodeTime.Elapsed.TotalSeconds;
+			double overallWorkCompletionRate = queueElapsedSeconds > 0 ? totalCompletedWork / queueElapsedSeconds : 0;
 
 			// Only update encode time every 5th update.
 			if (Interlocked.Increment(ref this.pollCount) % 5 == 1)
 			{
-				if (this.elapsedQueueEncodeTime != null && this.elapsedQueueEncodeTime.Elapsed.TotalSeconds > 0.5 && this.OverallEncodeProgressFraction != 0.0)
+				if (this.elapsedQueueEncodeTime != null && queueElapsedSeconds > 0.5 && this.OverallEncodeProgressFraction != 0.0)
 				{
 					if (this.OverallEncodeProgressFraction == 1.0)
 					{
@@ -1450,14 +1451,21 @@ namespace VidCoder.ViewModel.Components
 					}
 					else
 					{
-						try
-						{
-							this.overallEtaSpan =
-								TimeSpan.FromSeconds((long) (((1.0 - this.OverallEncodeProgressFraction) * this.elapsedQueueEncodeTime.Elapsed.TotalSeconds) / this.OverallEncodeProgressFraction));
-						}
-						catch (OverflowException)
+						if (this.OverallEncodeProgressFraction == 0)
 						{
 							this.overallEtaSpan = TimeSpan.MaxValue;
+						}
+						else
+						{
+							try
+							{
+								this.overallEtaSpan =
+									TimeSpan.FromSeconds((long)(((1.0 - this.OverallEncodeProgressFraction) * queueElapsedSeconds) / this.OverallEncodeProgressFraction));
+							}
+							catch (OverflowException)
+							{
+								this.overallEtaSpan = TimeSpan.MaxValue;
+							}
 						}
 
 						this.EstimatedTimeRemaining = Utilities.FormatTimeSpan(this.overallEtaSpan);
@@ -1465,13 +1473,20 @@ namespace VidCoder.ViewModel.Components
 
 					double currentJobRemainingWork = this.EncodeQueue[0].Cost - currentJobCompletedWork;
 
-					try
-					{
-						this.currentJobEta = TimeSpan.FromSeconds(currentJobRemainingWork / overallWorkCompletionRate);
-					}
-					catch (OverflowException)
+					if (overallWorkCompletionRate == 0)
 					{
 						this.currentJobEta = TimeSpan.MaxValue;
+					}
+					else
+					{
+						try
+						{
+							this.currentJobEta = TimeSpan.FromSeconds(currentJobRemainingWork / overallWorkCompletionRate);
+						}
+						catch (OverflowException)
+						{
+							this.currentJobEta = TimeSpan.MaxValue;
+						}
 					}
 
 					this.EncodeQueue[0].Eta = this.currentJobEta;

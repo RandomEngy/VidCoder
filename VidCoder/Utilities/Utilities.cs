@@ -473,7 +473,11 @@ namespace VidCoder
 		/// <returns>The display for the TimeSpan.</returns>
 		public static string FormatTimeSpan(TimeSpan span)
 		{
-			var etaComponents = new List<string>();
+			if (span == TimeSpan.MaxValue)
+			{
+				return "--";
+			}
+
 			if (span.TotalDays >= 1.0)
 			{
 				return string.Format("{0}d {1}h", Math.Floor(span.TotalDays), span.Hours);
