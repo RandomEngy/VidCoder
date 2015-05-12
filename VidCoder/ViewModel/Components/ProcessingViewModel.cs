@@ -1397,13 +1397,15 @@ namespace VidCoder.ViewModel.Components
 			double scanPassCost = passCost / EncodeJobViewModel.SubtitleScanCostFactor;
 			double currentJobCompletedWork = 0.0;
 
+			Debug.WriteLine("Pass id in encode progress: " + e.PassId);
 			if (this.EncodeQueue[0].SubtitleScan)
 			{
-				switch (e.Pass)
+				switch (e.PassId)
 				{
 					case -1:
 						currentJobCompletedWork += scanPassCost * e.FractionComplete;
 						break;
+					case 0:
 					case 1:
 						currentJobCompletedWork += scanPassCost;
 						currentJobCompletedWork += passCost * e.FractionComplete;
@@ -1419,8 +1421,9 @@ namespace VidCoder.ViewModel.Components
 			}
 			else
 			{
-				switch (e.Pass)
+				switch (e.PassId)
 				{
+					case 0:
 					case 1:
 						currentJobCompletedWork += passCost * e.FractionComplete;
 						break;
@@ -1519,7 +1522,7 @@ namespace VidCoder.ViewModel.Components
 				FileEta = this.currentJobEta,
 				HasScanPass = this.CurrentJob.SubtitleScan,
                 TwoPass = currentProfile.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && currentProfile.TwoPass,
-				CurrentPass = e.Pass,
+				CurrentPassId = e.PassId,
 				PassProgressFraction = e.FractionComplete,
 				EncodeSpeedDetailsAvailable = this.EncodeSpeedDetailsAvailable,
 				CurrentFps = this.CurrentFps,

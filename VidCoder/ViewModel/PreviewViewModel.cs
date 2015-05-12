@@ -24,6 +24,7 @@ namespace VidCoder.ViewModel
 	public class PreviewViewModel : OkCancelDialogViewModel
 	{
 		private const int PreviewImageCacheDistance = 1;
+		private const double SubtitleScanCost = 1 / EncodeJobViewModel.SubtitleScanCostFactor;
 
 		private static readonly TimeSpan MinPreviewImageRefreshInterval = TimeSpan.FromSeconds(0.5);
 		private static int updateVersion;
@@ -469,7 +470,70 @@ namespace VidCoder.ViewModel
 						};
 						this.encodeProxy.EncodeProgress += (o, e) =>
 						{
-							this.PreviewPercentComplete = e.FractionComplete * 100;
+							double totalWeight;
+							double completeWeight;
+							if (e.PassCount == 1)
+							{
+								// Single pass, no subtitle scan
+								totalWeight = 1;
+								completeWeight = e.FractionComplete;
+							}
+							else if (e.PassCount == 2 && e.PassId <= 0)
+							{
+								// Single pass with subtitle scan
+								totalWeight = 1 + SubtitleScanCost;
+								if (e.PassId == -1)
+								{
+									// In subtitle scan
+									completeWeight = e.FractionComplete * SubtitleScanCost;
+								}
+								else
+								{
+									// In normal pass
+									completeWeight = SubtitleScanCost + e.FractionComplete;
+								}
+							}
+							else if (e.PassCount == 2 && e.PassId >= 1)
+							{
+								// Two normal passes
+								totalWeight = 2;
+
+								if (e.PassId == 1)
+								{
+									// First pass
+									completeWeight = e.FractionComplete;
+								}
+								else
+								{
+									// Second pass
+									completeWeight = 1 + e.FractionComplete;
+								}
+							}
+							else
+							{
+								// Two normal passes with subtitle scan
+								totalWeight = 2 + SubtitleScanCost;
+
+								if (e.PassId == -1)
+								{
+									// In subtitle scan
+									completeWeight = e.FractionComplete * SubtitleScanCost;
+								}
+								else if (e.PassId == 1)
+								{
+									// First normal pass
+									completeWeight = SubtitleScanCost + e.FractionComplete;
+								}
+								else
+								{
+									// Second normal pass
+									completeWeight = SubtitleScanCost + 1 + e.FractionComplete;
+								}
+							}
+
+
+							double fractionComplete = completeWeight / totalWeight;
+							this.PreviewPercentComplete = fractionComplete * 100;
 						};
 						this.encodeProxy.EncodeCompleted += (o, e) =>
 						{

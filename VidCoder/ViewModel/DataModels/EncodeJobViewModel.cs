@@ -20,6 +20,9 @@ namespace VidCoder.ViewModel
 
 	public class EncodeJobViewModel : ViewModelBase, IDragItem
 	{
+		/// <summary>
+		/// Divide a normal pass cost by this factor to get the cost to do a subtitle scan.
+		/// </summary>
 		public const double SubtitleScanCostFactor = 5.0;
 
 		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();

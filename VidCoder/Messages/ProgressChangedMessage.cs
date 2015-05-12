@@ -39,7 +39,7 @@ namespace VidCoder.Messages
 
 		public bool TwoPass { get; set; }
 
-		public int CurrentPass { get; set; }
+		public int CurrentPassId { get; set; }
 
 		public double PassProgressFraction { get; set; }
 	}

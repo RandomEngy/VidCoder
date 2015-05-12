@@ -287,7 +287,7 @@ namespace VidCoder
 			this.encodeStartEvent.Set();
 		}
 
-		public void OnEncodeProgress(float averageFrameRate, float currentFrameRate, TimeSpan estimatedTimeLeft, float fractionComplete, int pass)
+		public void OnEncodeProgress(float averageFrameRate, float currentFrameRate, TimeSpan estimatedTimeLeft, float fractionComplete, int passId, int pass, int passCount)
 		{
 			// Dispatch to avoid deadlocks on callbacks
 			DispatchService.BeginInvoke(() =>
@@ -306,7 +306,9 @@ namespace VidCoder
 									CurrentFrameRate = currentFrameRate,
 									EstimatedTimeLeft = estimatedTimeLeft,
 									FractionComplete = fractionComplete,
-									Pass = pass
+									PassId = passId,
+									Pass = pass,
+									PassCount = passCount
 								});
 						}
 					}

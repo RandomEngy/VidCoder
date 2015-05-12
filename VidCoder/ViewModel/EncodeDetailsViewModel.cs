@@ -1,4 +1,6 @@
-﻿namespace VidCoder.ViewModel
+﻿using System.Diagnostics;
+
+namespace VidCoder.ViewModel
 {
 	using System;
 	using System.Collections.Generic;
@@ -34,21 +36,17 @@
 						if (this.ShowPassProgress)
 						{
 							this.PassProgressPercent = m.PassProgressFraction * 100;
-
-							switch (m.CurrentPass)
+							Debug.WriteLine("Pass id in encode details: " + m.CurrentPassId);
+							switch (m.CurrentPassId)
 							{
 								case -1:
 									this.PassProgressLabel = EncodeDetailsRes.ScanPassLabel;
 									break;
+								case 0:
+									this.PassProgressLabel = EncodeDetailsRes.EncodePassLabel;
+									break;
 								case 1:
-									if (m.TwoPass)
-									{
-										this.PassProgressLabel = EncodeDetailsRes.FirstPassLabel;
-									}
-									else
-									{
-										this.PassProgressLabel = EncodeDetailsRes.EncodePassLabel;
-									}
+									this.PassProgressLabel = EncodeDetailsRes.FirstPassLabel;
 									break;
 								case 2:
 									this.PassProgressLabel = EncodeDetailsRes.SecondPassLabel;
