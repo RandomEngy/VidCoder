@@ -114,6 +114,7 @@ namespace VidCoder
 									Config.LogVerbosity,
 									Config.PreviewCount,
 									Config.EnableLibDvdNav,
+									Config.DxvaDecoding,
 									Config.MinimumTitleLengthSeconds,
 									EncodingRes.DefaultChapterName);
 

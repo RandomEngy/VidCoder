@@ -14,7 +14,8 @@ namespace VidCoderCommon
 			int previewSeconds,
 			int verbosity, 
 			int previewCount, 
-			bool useDvdNav, 
+			bool useDvdNav,
+			bool dxvaDecoding,
 			double minTitleDurationSeconds,
 			string defaultChapterNameFormat);
 
