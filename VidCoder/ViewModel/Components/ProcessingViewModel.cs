@@ -1980,7 +1980,7 @@ namespace VidCoder.ViewModel.Components
 
 						if (track.LanguageCode == picker.AudioLanguageCode)
 						{
-							job.ChosenAudioTracks.Add(i);
+							job.ChosenAudioTracks.Add(i + 1);
 
 							if (!picker.AudioLanguageAll)
 							{
@@ -1993,7 +1993,7 @@ namespace VidCoder.ViewModel.Components
 				case AudioSelectionMode.All:
 					for (int i = 0; i < title.AudioList.Count; i++)
 					{
-						job.ChosenAudioTracks.Add(i);
+						job.ChosenAudioTracks.Add(i + 1);
 					}
 
 					break;
