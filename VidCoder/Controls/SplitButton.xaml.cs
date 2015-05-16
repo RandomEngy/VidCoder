@@ -24,16 +24,6 @@ namespace VidCoder.Controls
 	{
 		private Button button;
 
-        ///// <summary>
-        ///// Stores the backing collection for the ButtonMenuItemsSource property.
-        ///// </summary>
-        //private ObservableCollection<object> menuItemsSource = new ObservableCollection<object>();
-
-        ///// <summary>
-        ///// Gets the collection of items for the split button's menu.
-        ///// </summary>
-        //public Collection<object> MenuItemsSource { get { return this.menuItemsSource; } }
-
 		public SplitButton()
 		{
 			this.InitializeComponent();
@@ -50,7 +40,6 @@ namespace VidCoder.Controls
 	    public Collection<object> MenuItemsSource
 	    {
 	        get { return (Collection<object>) GetValue(MenuItemsSourceProperty); }
-
 	        set { SetValue(MenuItemsSourceProperty, value); }
 	    }
 
@@ -62,15 +51,8 @@ namespace VidCoder.Controls
 
 		public ICommand Command
 		{
-			get
-			{
-				return (ICommand) GetValue(CommandProperty);
-			}
-
-			set
-			{
-				SetValue(CommandProperty, value);
-			}
+			get { return (ICommand) GetValue(CommandProperty); }
+			set { SetValue(CommandProperty, value); }
 		}
 
 		private static void OnCommandChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)

@@ -152,12 +152,21 @@ namespace VidCoder.ViewModel.Components
 						IsCheckable = true, 
 						IsChecked = picker == this.SelectedPicker,
 						Command = this.SelectPickerCommand,
-						CommandParameter = picker
+						CommandParameter = picker,
+						HorizontalContentAlignment = HorizontalAlignment.Left,
+						VerticalContentAlignment = VerticalAlignment.Center,
 					});
 				}
 
 				result.Add(new Separator());
-				result.Add(new MenuItem { Header = MainRes.EditButton, Command = this.windowManagerViewModel.OpenPickerWindowCommand });
+				result.Add(
+					new MenuItem
+					{
+						Header = MainRes.EditButton, 
+						Command = this.windowManagerViewModel.OpenPickerWindowCommand,
+						HorizontalContentAlignment = HorizontalAlignment.Left,
+						VerticalContentAlignment = VerticalAlignment.Center,
+					});
 
 				return result;
 			}

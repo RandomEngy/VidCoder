@@ -9,6 +9,7 @@ using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
+using VidCoder.Services;
 using VidCoder.ViewModel.Components;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
@@ -20,6 +21,8 @@ namespace VidCoder.ViewModel
 		private const int DefaultVideoBitrateKbps = 900;
 		private const int DefaultTargetSizeMB = 700;
 
+		private static readonly HashSet<string> CheckBoxTunes = new HashSet<string> { "fastdecode", "zerolatency" }; 
+
 		private ResourceManager resourceManager = new ResourceManager(typeof(EncodingRes));
 
 		private OutputPathViewModel outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
@@ -27,6 +30,7 @@ namespace VidCoder.ViewModel
 		private List<VideoEncoderViewModel> encoderChoices;
 
 		private VideoEncoderViewModel selectedEncoder;
+		private bool selectedEncoderInitialized;
 		private List<double> framerateChoices;
 		private int displayTargetSize;
 		private int displayVideoBitrate;
@@ -931,7 +935,8 @@ namespace VidCoder.ViewModel
 				this.selectedEncoder = this.EncoderChoices[0];
 			}
 
-			if (this.selectedEncoder.Encoder != oldEncoder)
+			// We only want to refresh the settings if this is not startup.
+			if (this.selectedEncoderInitialized && this.selectedEncoder.Encoder != oldEncoder)
 			{
 				RefreshEncoderSettings(applyDefaults);
 				this.NotifyEncoderChanged();
@@ -1010,7 +1015,7 @@ namespace VidCoder.ViewModel
 
 				foreach (string tune in newTunes)
 				{
-					if (!this.tuneChoices.Any(t => t.Value == tune))
+					if (!this.tuneChoices.Any(t => t.Value == tune) && !CheckBoxTunes.Contains(tune))
 					{
 						this.Profile.VideoTunes = new List<string>();
 					}
@@ -1053,6 +1058,7 @@ namespace VidCoder.ViewModel
 				this.selectedEncoder = this.EncoderChoices[0];
 			}
 
+			this.selectedEncoderInitialized = true;
 			this.RefreshEncoderSettings(applyDefaults: false);
 		}
 
@@ -1158,24 +1164,7 @@ namespace VidCoder.ViewModel
 				return;
 			}
 
-			//string oldPreset = this.Profile.VideoPreset;
-
 			this.presets = this.SelectedEncoder.Encoder.Presets;
-
-			//if (this.presets != null)
-			//{
-			//	if (this.presets.Contains(oldPreset))
-			//	{
-			//		this.Profile.VideoPreset = oldPreset;
-			//	}
-			//	else
-			//	{
-			//		this.Profile.VideoPreset = GetDefaultPreset(this.SelectedEncoder.Encoder.ShortName);
-			//	}
-
-			//	this.RaisePropertyChanged(() => this.PresetIndex);
-			//	this.RaisePropertyChanged(() => this.PresetName);
-			//}
 		}
 
 		private void RefreshProfileChoices()
@@ -1236,7 +1225,7 @@ namespace VidCoder.ViewModel
 
 				foreach (string tune in tunes)
 				{
-					if (tune != "zerolatency" && tune != "fastdecode")
+					if (!CheckBoxTunes.Contains(tune))
 					{
 						this.tuneChoices.Add(new ComboChoice(tune, this.GetTuneDisplay(tune)));
 					}
