@@ -329,10 +329,21 @@ namespace VidCoder
 
 		public static void CopyDirectory(string sourceDir, string destDir)
 		{
-			// Create directories
+			// Create root directory
+			if (!Directory.Exists(destDir))
+			{
+				Directory.CreateDirectory(destDir);
+			}
+
+			// Create sub directories
 			foreach (string dirPath in Directory.GetDirectories(sourceDir, "*", SearchOption.AllDirectories))
 			{
-				Directory.CreateDirectory(dirPath.Replace(sourceDir, destDir));
+				string subdirectory = dirPath.Replace(sourceDir, destDir);
+
+				if (!Directory.Exists(subdirectory))
+				{
+					Directory.CreateDirectory(subdirectory);
+				}
 			}
 
 			// Create files
