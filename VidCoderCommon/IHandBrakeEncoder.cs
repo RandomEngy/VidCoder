@@ -1,4 +1,5 @@
 ﻿using System.ServiceModel;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoderCommon.Model;
 
 namespace VidCoderCommon
@@ -9,7 +10,8 @@ namespace VidCoderCommon
 	{
 		[OperationContract]
 		void StartEncode(
-			VCJob job, 
+			VCJob job,
+			SourceTitle encodeTitle,
 			int previewNumber,
 			int previewSeconds,
 			int verbosity, 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 using HandBrake.ApplicationServices.Interop.EventArgs;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Services;
 using VidCoderCommon.Model;
 
@@ -26,10 +27,21 @@ namespace VidCoder
 		[XmlIgnore]
 		bool IsEncodeStarted { get; }
 
-		void StartEncode(VCJob job, ILogger logger, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds);
+		void StartEncode(
+			VCJob job,
+			SourceTitle encodeTitle,
+			ILogger logger,
+			bool preview, 
+			int previewNumber, 
+			int previewSeconds, 
+			double overallSelectedLengthSeconds);
+
 		void PauseEncode();
+
 		void ResumeEncode();
+
 		void StopEncode();
+
 		void StopAndWait();
 	}
 }

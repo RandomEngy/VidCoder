@@ -31,6 +31,7 @@ namespace VidCoderCommon.Model
 		/// <param name="dxvaDecoding">True to enable DXVA decoding.</param>
 		/// <param name="previewNumber">The preview number to start at (0-based). Leave off for a normal encode.</param>
 		/// <param name="previewSeconds">The number of seconds long to make the preview.</param>
+		/// <param name="previewCount">The total number of previews.</param>
 		/// <returns></returns>
 		public static JsonEncodeObject CreateJsonObject(
 			VCJob job,
@@ -38,7 +39,8 @@ namespace VidCoderCommon.Model
 			string defaultChapterNameFormat,
 			bool dxvaDecoding,
 			int previewNumber = -1,
-			int previewSeconds = 0)
+			int previewSeconds = 0,
+			int previewCount = 0)
 		{
 			Geometry anamorphicSize = GetAnamorphicSize(job.EncodingProfile, title);
 			VCProfile profile = job.EncodingProfile;
@@ -51,7 +53,7 @@ namespace VidCoderCommon.Model
 				Filters = CreateFilters(profile, title, anamorphicSize),
 				Metadata = CreateMetadata(),
 				PAR = anamorphicSize.PAR,
-				Source = CreateSource(job, title, previewNumber, previewSeconds),
+				Source = CreateSource(job, title, previewNumber, previewSeconds, previewCount),
 				Subtitle = CreateSubtitles(job),
 				Video = CreateVideo(job, title, previewSeconds, dxvaDecoding)
 			};
@@ -475,8 +477,9 @@ namespace VidCoderCommon.Model
 		/// <param name="title">The title being encoded.</param>
 		/// <param name="previewNumber">The preview number (0-based) to use. -1 for a normal encode.</param>
 		/// <param name="previewSeconds">The number of seconds long to make the preview.</param>
+		/// <param name="previewCount">The total number of previews.</param>
 		/// <returns>The source sub-object</returns>
-		private static Source CreateSource(VCJob job, SourceTitle title, int previewNumber, int previewSeconds)
+		private static Source CreateSource(VCJob job, SourceTitle title, int previewNumber, int previewSeconds, int previewCount)
 		{
 			var range = new Range();
 
@@ -485,6 +488,7 @@ namespace VidCoderCommon.Model
 				range.Type = "preview";
 				range.Start = previewNumber + 1;
 				range.End = previewSeconds * 90000;
+				range.SeekPoints = previewCount;
 			}
 			else
 			{

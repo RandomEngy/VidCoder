@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using HandBrake.ApplicationServices.Interop.EventArgs;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -69,7 +70,14 @@ namespace VidCoder
 		[XmlIgnore]
 		public bool IsEncodeStarted { get; private set; }
 
-		public void StartEncode(VCJob job, ILogger logger, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
+		public void StartEncode(
+			VCJob job,
+			SourceTitle encodeTitle,
+			ILogger logger,
+			bool preview, 
+			int previewNumber,
+			int previewSeconds, 
+			double overallSelectedLengthSeconds)
 		{
 			this.logger = logger;
 
@@ -109,6 +117,7 @@ namespace VidCoder
 
 								this.channel.StartEncode(
 									job,
+									encodeTitle,
 									preview ? previewNumber : -1,
 									previewSeconds,
 									Config.LogVerbosity,

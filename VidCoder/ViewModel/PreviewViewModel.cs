@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
@@ -565,7 +566,8 @@ namespace VidCoder.ViewModel
 						this.logger.Log("  Title: " + this.job.Title);
 						this.logger.Log("  Preview #: " + this.SelectedPreview);
 
-						this.encodeProxy.StartEncode(this.job, this.logger, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
+						SourceTitle sourceTitle = this.mainViewModel.SourceData.Titles.FirstOrDefault(t => t.Index == this.job.Title);
+						this.encodeProxy.StartEncode(this.job, sourceTitle, this.logger, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
 						this.CancelPreviewCommand.RaiseCanExecuteChanged();
 					}, () =>
 					{

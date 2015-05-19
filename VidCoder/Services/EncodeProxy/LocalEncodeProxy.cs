@@ -33,7 +33,14 @@ namespace VidCoder
 
 		[XmlIgnore]
 		public bool IsEncodeStarted { get; private set; }
-		public void StartEncode(VCJob job, ILogger logger, bool preview, int previewNumber, int previewSeconds, double overallSelectedLengthSeconds)
+		public void StartEncode(
+			VCJob job,
+			SourceTitle encodeTitle,
+			ILogger logger,
+			bool preview, 
+			int previewNumber,
+			int previewSeconds, 
+			double overallSelectedLengthSeconds)
 		{
 			this.logger = logger;
 			this.logger.Log("Starting encode in-process");
@@ -45,51 +52,6 @@ namespace VidCoder
 
 			this.instance = new HandBrakeInstance();
 			this.instance.Initialize(Config.LogVerbosity);
-
-			this.instance.ScanCompleted += (o, e) =>
-			{
-				try
-				{
-					SourceTitle title = this.instance.Titles.TitleList.FirstOrDefault(t => t.Index == job.Title);
-
-					if (title != null)
-					{
-						lock (this.encoderLock)
-						{
-							JsonEncodeObject jsonEncodeObject = JsonEncodeFactory.CreateJsonObject(
-								job,
-								title,
-								EncodingRes.DefaultChapterName,
-								Config.DxvaDecoding,
-								preview ? previewNumber : -1,
-								previewSeconds);
-
-							this.instance.StartEncode(jsonEncodeObject);
-							this.IsEncodeStarted = true;
-							if (this.EncodeStarted != null)
-							{
-								this.EncodeStarted(this, new EventArgs());
-							}
-
-							this.encodeStartEvent.Set();
-						}
-					}
-					else
-					{
-						if (this.EncodeCompleted != null)
-						{
-							this.EncodeCompleted(this, new EncodeCompletedEventArgs { Error = true });
-						}
-
-						this.encodeStartEvent.Set();
-						this.encodeEndEvent.Set();
-					}
-				}
-				catch (Exception exception)
-				{
-					this.logger.LogError("Encoding failed. Please report this error so it can be fixed in the future:" + Environment.NewLine + exception);
-				}
-			};
 
 			this.instance.EncodeProgress += (o, e) =>
 			{
@@ -122,9 +84,68 @@ namespace VidCoder
 				this.instance.Dispose();
 			};
 
-			this.instance.StartScan(job.SourcePath, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), job.Title);
+			if (encodeTitle == null)
+			{
+				this.instance.ScanCompleted += (o, e) =>
+				{
+					encodeTitle = this.instance.Titles.TitleList.FirstOrDefault(t => t.Index == job.Title);
+					this.StartEncode(job, encodeTitle, preview, previewNumber, previewSeconds);
+				};
+
+				this.instance.StartScan(job.SourcePath, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), job.Title);
+			}
+			else
+			{
+				this.StartEncode(job, encodeTitle, preview, previewNumber, previewSeconds);
+			}
 
 			this.encoding = true;
+		}
+
+		private void StartEncode(VCJob job, SourceTitle title, bool preview, int previewNumber, int previewSeconds)
+		{
+			try
+			{
+				//SourceTitle title = this.instance.Titles.TitleList.FirstOrDefault(t => t.Index == job.Title);
+
+				if (title != null)
+				{
+					lock (this.encoderLock)
+					{
+						JsonEncodeObject jsonEncodeObject = JsonEncodeFactory.CreateJsonObject(
+							job,
+							title,
+							EncodingRes.DefaultChapterName,
+							Config.DxvaDecoding,
+							preview ? previewNumber : -1,
+							previewSeconds,
+							Config.PreviewCount);
+
+						this.instance.StartEncode(jsonEncodeObject);
+						this.IsEncodeStarted = true;
+						if (this.EncodeStarted != null)
+						{
+							this.EncodeStarted(this, new EventArgs());
+						}
+
+						this.encodeStartEvent.Set();
+					}
+				}
+				else
+				{
+					if (this.EncodeCompleted != null)
+					{
+						this.EncodeCompleted(this, new EncodeCompletedEventArgs { Error = true });
+					}
+
+					this.encodeStartEvent.Set();
+					this.encodeEndEvent.Set();
+				}
+			}
+			catch (Exception exception)
+			{
+				this.logger.LogError("Encoding failed. Please report this error so it can be fixed in the future:" + Environment.NewLine + exception);
+			}
 		}
 
 		public void PauseEncode()
