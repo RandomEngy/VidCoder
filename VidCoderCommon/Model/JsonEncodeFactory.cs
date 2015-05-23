@@ -260,7 +260,9 @@ namespace VidCoderCommon.Model
 			// Detelecine
 			if (profile.Detelecine != VCDetelecine.Off)
 			{
-				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DETELECINE, Settings = profile.CustomDetelecine };
+				string settings = profile.Detelecine == VCDetelecine.Custom ? profile.CustomDetelecine : null;
+
+				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DETELECINE, Settings = settings };
 				filters.FilterList.Add(filterItem);
 			}
 
@@ -371,16 +373,16 @@ namespace VidCoderCommon.Model
 					: hb_filter_ids.HB_FILTER_NLMEANS;
 
 				string settings;
-				if (!string.IsNullOrEmpty(profile.CustomDenoise))
+				if (profile.UseCustomDenoise)
 				{
 					settings = profile.CustomDenoise;
 				}
 				else
 				{
 					IntPtr settingsPtr = HBFunctions.hb_generate_filter_settings(
-						(int)id,
-						profile.DenoisePreset,
-						profile.DenoiseTune);
+					(int)id,
+					profile.DenoisePreset,
+					profile.DenoiseTune);
 					settings = Marshal.PtrToStringAnsi(settingsPtr);
 				}
 
