@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
@@ -85,6 +86,17 @@ namespace VidCoder.ViewModel
 			this.minimumTitleLengthSeconds = Config.MinimumTitleLengthSeconds;
 			this.autoPauseProcesses = new ObservableCollection<string>();
 			this.videoFileExtensions = Config.VideoFileExtensions;
+			this.cpuThrottlingCores = (int)Math.Round(this.CpuThrottlingMaxCores * Config.CpuThrottlingFraction);
+			if (this.cpuThrottlingCores < 1)
+			{
+				this.cpuThrottlingCores = 1;
+			}
+
+			if (this.cpuThrottlingCores > this.CpuThrottlingMaxCores)
+			{
+				this.cpuThrottlingCores = this.CpuThrottlingMaxCores;
+			}
+
 			List<string> autoPauseList = CustomConfig.AutoPauseProcesses;
 			if (autoPauseList != null)
 			{
@@ -199,7 +211,7 @@ namespace VidCoder.ViewModel
 					{
 						OptionsRes.GeneralTab,			// 0
 						OptionsRes.FileNamingTab,		// 1
-						OptionsRes.ProcessesTab,		// 2
+						OptionsRes.ProcessTab,			// 2
 						OptionsRes.AdvancedTab,			// 3
 						OptionsRes.UpdatesTab			// 4
 					};
@@ -881,6 +893,39 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private int cpuThrottlingCores;
+		public int CpuThrottlingCores
+		{
+			get
+			{
+				return this.cpuThrottlingCores;
+			}
+
+			set
+			{
+				this.cpuThrottlingCores = value;
+				this.RaisePropertyChanged(() => this.CpuThrottlingCores);
+				this.RaisePropertyChanged(() => this.CpuThrottlingDisplay);
+			}
+		}
+
+		public int CpuThrottlingMaxCores
+		{
+			get
+			{
+				return Environment.ProcessorCount;
+			}
+		}
+
+		public string CpuThrottlingDisplay
+		{
+			get
+			{
+				double currentFraction = (double)this.CpuThrottlingCores / this.CpuThrottlingMaxCores;
+				return currentFraction.ToString("p0");
+			}
+		}
+
 		private RelayCommand saveSettingsCommand;
 		public RelayCommand SaveSettingsCommand
 		{
@@ -951,6 +996,7 @@ namespace VidCoder.ViewModel
 							Config.UseWorkerProcess = this.UseWorkerProcess;
 							Config.MinimumTitleLengthSeconds = this.MinimumTitleLengthSeconds;
 							Config.VideoFileExtensions = this.VideoFileExtensions;
+							Config.CpuThrottlingFraction = (double) this.CpuThrottlingCores / this.CpuThrottlingMaxCores;
 
 							Config.PreferredPlayer = this.selectedPlayer.Id;
 

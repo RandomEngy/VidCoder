@@ -232,6 +232,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CPU throttling:.
+        /// </summary>
+        public static string CpuThrottlingLabel {
+            get {
+                return ResourceManager.GetString("CpuThrottlingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use CPU throttling to limit the number of processor cores VidCoder can use when encoding..
+        /// </summary>
+        public static string CpuThrottlingToolTip {
+            get {
+                return ResourceManager.GetString("CpuThrottlingToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Version: {0}.
         /// </summary>
         public static string CurrentVersionLabel {
@@ -646,11 +664,20 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Processes.
+        ///   Looks up a localized string similar to Process options.
         /// </summary>
-        public static string ProcessesTab {
+        public static string ProcessOptionsLabel {
             get {
-                return ResourceManager.GetString("ProcessesTab", resourceCulture);
+                return ResourceManager.GetString("ProcessOptionsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process.
+        /// </summary>
+        public static string ProcessTab {
+            get {
+                return ResourceManager.GetString("ProcessTab", resourceCulture);
             }
         }
         

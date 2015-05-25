@@ -19,7 +19,8 @@ namespace VidCoderCommon
 			bool useDvdNav,
 			bool dxvaDecoding,
 			double minTitleDurationSeconds,
-			string defaultChapterNameFormat);
+			string defaultChapterNameFormat,
+			double cpuThrottlingFraction);
 
 		[OperationContract]
 		void PauseEncode();

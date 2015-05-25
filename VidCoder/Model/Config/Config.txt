@@ -99,6 +99,7 @@ VideoFileExtensions|string|"avi, mkv, mp4, m4v, mpg, mpeg, mov, wmv"
 PreferredPlayer|string|"vlc"
 BetaUpdates|bool|false
 InterfaceLanguageCode|string|""
+CpuThrottlingFraction|double|1.0
 
 AudioLanguageCode|string|"und"
 SubtitleLanguageCode|string|"und"

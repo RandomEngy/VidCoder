@@ -95,6 +95,7 @@
 			PreferredPlayer_Field = DatabaseConfig.GetConfig("PreferredPlayer", "vlc", connection);
 			BetaUpdates_Field = DatabaseConfig.GetConfig("BetaUpdates", false, connection);
 			InterfaceLanguageCode_Field = DatabaseConfig.GetConfig("InterfaceLanguageCode", "", connection);
+			CpuThrottlingFraction_Field = DatabaseConfig.GetConfig("CpuThrottlingFraction", 1.0, connection);
 			AudioLanguageCode_Field = DatabaseConfig.GetConfig("AudioLanguageCode", "und", connection);
 			SubtitleLanguageCode_Field = DatabaseConfig.GetConfig("SubtitleLanguageCode", "und", connection);
 			AutoAudio_Field = DatabaseConfig.GetConfig("AutoAudio", "Disabled", connection);
@@ -1339,6 +1340,20 @@
 			{
 				InterfaceLanguageCode_Field = value;
 				DatabaseConfig.SetConfigValue("InterfaceLanguageCode", value);
+			}
+		}
+		private static double CpuThrottlingFraction_Field;
+		public static double CpuThrottlingFraction
+		{
+			get
+			{
+				return CpuThrottlingFraction_Field;
+			}
+			
+			set
+			{
+				CpuThrottlingFraction_Field = value;
+				DatabaseConfig.SetConfigValue("CpuThrottlingFraction", value);
 			}
 		}
 		private static string AudioLanguageCode_Field;

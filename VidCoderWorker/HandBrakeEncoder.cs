@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.ServiceModel;
 using HandBrake.ApplicationServices.Interop;
@@ -28,7 +29,8 @@ namespace VidCoderWorker
 			bool useDvdNav,
 			bool dxvaDecoding,
 			double minTitleDurationSeconds,
-			string defaultChapterNameFormat)
+			string defaultChapterNameFormat,
+			double cpuThrottlingFraction)
 		{
 			CurrentEncoder = this;
 			this.callback = OperationContext.Current.GetCallbackChannel<IHandBrakeEncoderCallback>();
@@ -38,6 +40,29 @@ namespace VidCoderWorker
 				if (this.callback == null)
 				{
 					throw new ArgumentException("Could not get callback channel.");
+				}
+
+				if (cpuThrottlingFraction < 1.0)
+				{
+					int coresToUse = (int)Math.Round(Environment.ProcessorCount * cpuThrottlingFraction);
+					if (coresToUse < 1)
+					{
+						coresToUse = 1;
+					}
+
+					if (coresToUse > Environment.ProcessorCount)
+					{
+						coresToUse = Environment.ProcessorCount;
+					}
+
+					Process process = Process.GetCurrentProcess();
+					long affinityMask = 0x0;
+					for (int i = 0; i < coresToUse; i++)
+					{
+						affinityMask |= (1 << i);
+					}
+
+					process.ProcessorAffinity = (IntPtr) affinityMask;
 				}
 
 				HandBrakeUtils.MessageLogged += (o, e) =>

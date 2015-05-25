@@ -225,8 +225,8 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Options</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>Processes</value>
+  <data name="ProcessTab" xml:space="preserve">
+    <value>Process</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>Advanced</value>
@@ -380,5 +380,15 @@
   </data>
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Custom folder for previews:</value>
+  </data>
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>Process options</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>CPU throttling:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>Use CPU throttling to limit the number of processor cores VidCoder can use when encoding.</value>
   </data>
 </root>
