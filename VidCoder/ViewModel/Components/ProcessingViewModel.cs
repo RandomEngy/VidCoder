@@ -801,7 +801,7 @@ namespace VidCoder.ViewModel.Components
 										}
 										else if (Directory.Exists(pathToDelete))
 										{
-											Utilities.DeleteDirectory(pathToDelete);
+											FileUtilities.DeleteDirectory(pathToDelete);
 										}
 									}
 									catch (IOException exception)
@@ -1595,7 +1595,7 @@ namespace VidCoder.ViewModel.Components
 					{
 						try
 						{
-							if (status != EncodeResultStatus.Failed && !Utilities.IsDirectory(finishedJob.Job.SourcePath))
+							if (status != EncodeResultStatus.Failed && !FileUtilities.IsDirectory(finishedJob.Job.SourcePath))
 							{
 								FileInfo info = new FileInfo(finishedJob.Job.SourcePath);
 

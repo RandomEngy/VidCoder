@@ -30,7 +30,7 @@ namespace VidCoder
 						{
 							try
 							{
-								Utilities.DeleteDirectory(processDirectory.FullName);
+								FileUtilities.DeleteDirectory(processDirectory.FullName);
 							}
 							catch (IOException)
 							{

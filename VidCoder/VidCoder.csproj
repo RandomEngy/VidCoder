@@ -591,6 +591,7 @@
     <Compile Include="Utilities\EnumConverter.cs" />
     <Compile Include="Utilities\FileCleanup.cs" />
     <Compile Include="Services\EncodeProxy\IEncodeProxy.cs" />
+    <Compile Include="Utilities\FileUtilities.cs" />
     <Compile Include="Utilities\ImageUtilities.cs" />
     <Compile Include="Utilities\Ioc.cs" />
     <Compile Include="Utilities\ListSynchronizer\IListItemConverter.cs" />
@@ -600,6 +601,7 @@
     <Compile Include="Utilities\ListSynchronizer\TwoListSynchronizer.cs" />
     <Compile Include="Utilities\MathUtilities.cs" />
     <Compile Include="Utilities\NativeMethods.cs" />
+    <Compile Include="Utilities\ParentProcessUtilities.cs" />
     <Compile Include="Utilities\PseudoLocalizer.cs" />
     <Compile Include="Utilities\RefireControl.cs" />
     <Compile Include="Model\Config\Config.cs">

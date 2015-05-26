@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,8 @@ namespace VidCoder.Model
 		private static ThreadLocal<SQLiteConnection> threadLocalConnection = new ThreadLocal<SQLiteConnection>();
 
 		private static long mainThreadId;
+
+		private static Lazy<string> lazyDatabaseFile = new Lazy<string>(GetDatabaseFilePath); 
 
 		static Database()
 		{
@@ -61,9 +64,9 @@ namespace VidCoder.Model
 					try
 					{
 						string newFileName = ConfigDatabaseFileWithoutExtension + "-v" + databaseVersion + ConfigDatabaseFileExtension;
-						string newFilePath = Utilities.CreateUniqueFileName(newFileName, Utilities.AppFolder, new HashSet<string>());
+						string newFilePath = FileUtilities.CreateUniqueFileName(newFileName, Utilities.AppFolder, new HashSet<string>());
 
-						File.Move(DatabaseFile, newFilePath);
+						File.Move(NonPortableDatabaseFile, newFilePath);
 						connection = null;
 						databaseVersion = DatabaseConfig.Version;
 					}
@@ -185,7 +188,73 @@ namespace VidCoder.Model
 			DatabaseConfig.SetConfigValue("Version", Utilities.CurrentDatabaseVersion, Database.Connection);
 		}
 
+		/// <summary>
+		/// Gets the database file path.
+		/// </summary>
 		public static string DatabaseFile
+		{
+			get { return lazyDatabaseFile.Value; }
+		}
+
+		private static string GetDatabaseFilePath()
+		{
+			if (Utilities.IsPortable)
+			{
+				string portableExeFolder = GetPortableExeFolder();
+				if (FileUtilities.HasWriteAccessOnFolder(portableExeFolder))
+				{
+					// Portable location for database is beside the portable exe.
+					string portableDatabasePath = Path.Combine(portableExeFolder, ConfigDatabaseFile);
+					if (File.Exists(portableDatabasePath))
+					{
+						// Use portable location for database file if it exists
+						return portableDatabasePath;
+					}
+
+					string appDataDatabaseFile = NonPortableDatabaseFile;
+					if (File.Exists(appDataDatabaseFile))
+					{
+						// If database file does exist in appdata, use it.
+						return appDataDatabaseFile;
+					}
+					else
+					{
+						// If no file could be found, use the portable location.
+						return portableDatabasePath;
+					}
+				}
+				else
+				{
+					// Fall back to non-portable path if we don't have write access to the folder.
+					return NonPortableDatabaseFile;
+				}
+			}
+			else
+			{
+				return NonPortableDatabaseFile;
+			}
+		}
+
+		/// <summary>
+		/// Gets the folder that contains the portable executable that launched us.
+		/// </summary>
+		/// <returns></returns>
+		private static string GetPortableExeFolder()
+		{
+			if (!Utilities.IsPortable)
+			{
+				throw new InvalidOperationException("Called GetPortableExeFolder on a non-portable install.");
+			}
+
+			Process parentProcess = ParentProcessUtilities.GetParentProcess();
+			return Path.GetDirectoryName(parentProcess.MainModule.FileName);
+		}
+
+		/// <summary>
+		/// Gets the database file path for a non-portable version. This may be in
+		/// the standard %appdata% folder or it may be in a user-specified directory.
+		/// </summary>
+		public static string NonPortableDatabaseFile
 		{
 			get
 			{
@@ -249,7 +318,7 @@ namespace VidCoder.Model
 				if (Utilities.Beta && Directory.Exists(Utilities.GetAppFolder(beta: false)))
 				{
 					// In beta mode if we don't have the appdata folder copy the stable appdata folder
-					Utilities.CopyDirectory(
+					FileUtilities.CopyDirectory(
 						Utilities.GetAppFolder(beta: false),
 						Utilities.GetAppFolder(beta: true));
 				}

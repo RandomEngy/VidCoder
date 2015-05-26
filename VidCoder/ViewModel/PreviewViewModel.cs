@@ -336,7 +336,7 @@ namespace VidCoder.ViewModel
 
 				try
 				{
-					if (Utilities.IsDirectory(sourcePath))
+					if (FileUtilities.IsDirectory(sourcePath))
 					{
 						// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
 						bool isDvd = Utilities.IsDvdFolder(this.mainViewModel.SourcePath);
@@ -377,7 +377,7 @@ namespace VidCoder.ViewModel
 
 				try
 				{
-					if (Utilities.IsDirectory(sourcePath))
+					if (FileUtilities.IsDirectory(sourcePath))
 					{
 						// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
 						bool isDvd = Utilities.IsDvdFolder(this.mainViewModel.SourcePath);
@@ -613,7 +613,7 @@ namespace VidCoder.ViewModel
 				}
 				catch (Exception)
 				{
-					this.previewFilePath = Utilities.CreateUniqueFileName(this.previewFilePath, new HashSet<string>());
+					this.previewFilePath = FileUtilities.CreateUniqueFileName(this.previewFilePath, new HashSet<string>());
 				}
 			}
 		}
@@ -629,7 +629,7 @@ namespace VidCoder.ViewModel
 
 					    try
 					    {
-						    if (Utilities.IsDirectory(sourcePath))
+							if (FileUtilities.IsDirectory(sourcePath))
 						    {
 								// Path is a directory
 								IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);
@@ -848,7 +848,7 @@ namespace VidCoder.ViewModel
 
 				for (int i = lowestUpdate; i <= updateVersion - 1; i++)
 				{
-					Utilities.DeleteDirectory(Path.Combine(processCacheFolder, i.ToString(CultureInfo.InvariantCulture)));
+					FileUtilities.DeleteDirectory(Path.Combine(processCacheFolder, i.ToString(CultureInfo.InvariantCulture)));
 				}
 			}
 			catch (IOException)

@@ -202,7 +202,7 @@ namespace VidCoder.ViewModel.Components
 				case WhenFileExists.Overwrite:
 					return initialOutputPath;
 				case WhenFileExists.AutoRename:
-					return Utilities.CreateUniqueFileName(initialOutputPath, queuedFiles);
+					return FileUtilities.CreateUniqueFileName(initialOutputPath, queuedFiles);
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
@@ -219,7 +219,7 @@ namespace VidCoder.ViewModel.Components
 				case FileConflictResolution.Overwrite:
 					return initialOutputPath;
 				case FileConflictResolution.AutoRename:
-					return Utilities.CreateUniqueFileName(initialOutputPath, queuedFiles);
+					return FileUtilities.CreateUniqueFileName(initialOutputPath, queuedFiles);
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
@@ -689,7 +689,7 @@ namespace VidCoder.ViewModel.Components
 				fileName = sourceName + titleSection + rangeSection;
 			}
 
-			return Utilities.CleanFileName(fileName, allowBackslashes: true);
+			return FileUtilities.CleanFileName(fileName, allowBackslashes: true);
 		}
 
 		public bool PickDefaultOutputFolder()

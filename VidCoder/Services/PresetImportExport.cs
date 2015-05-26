@@ -77,7 +77,7 @@ namespace VidCoder.Services
 			string exportFileName = this.fileService.GetFileNameSave(
 				Config.RememberPreviousFiles ? Config.LastPresetExportFolder : null,
 				MainRes.ExportPresetFilePickerText,
-				Utilities.CleanFileName(initialFileName + ".xml"),
+				FileUtilities.CleanFileName(initialFileName + ".xml"),
 				"xml",
 				Utilities.GetFilePickerFilter("xml"));
 			if (exportFileName != null)
