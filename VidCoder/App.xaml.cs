@@ -68,50 +68,6 @@ namespace VidCoder
 			// Takes about 50ms
 			Config.Initialize(Database.Connection);
 
-			if (!Config.MigratedConfigs && Directory.Exists(Utilities.LocalAppFolder))
-			{
-				// Upgrade configs from previous version before migrating
-				try
-				{
-					if (Settings.Default.ApplicationVersion != Utilities.CurrentVersion)
-					{
-						Settings.Default.Upgrade();
-						Settings.Default.ApplicationVersion = Utilities.CurrentVersion;
-
-						if (Settings.Default.NativeLanguageCode != string.Empty)
-						{
-							var languageCode = Settings.Default.NativeLanguageCode;
-							Settings.Default.NativeLanguageCode = string.Empty;
-
-							if (languageCode != "und")
-							{
-								if (Settings.Default.DubAudio)
-								{
-									Settings.Default.AudioLanguageCode = languageCode;
-									Settings.Default.AutoAudio = AudioSelectionMode.Language;
-								}
-								else
-								{
-									Settings.Default.SubtitleLanguageCode = languageCode;
-									Settings.Default.AutoSubtitle = SubtitleSelectionMode.Language;
-								}
-							}
-						}
-
-						Settings.Default.Save();
-					}
-
-					ConfigMigration.MigrateConfigSettings();
-				}
-				catch (ConfigurationErrorsException)
-				{
-					// If we had problems loading the old config we can't recover.
-					MessageBox.Show(MainRes.UserConfigCorrupted);
-
-					Config.MigratedConfigs = true;
-				}
-			}
-
 			var interfaceLanguageCode = Config.InterfaceLanguageCode;
 			if (!string.IsNullOrWhiteSpace(interfaceLanguageCode))
 			{
