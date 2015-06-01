@@ -750,7 +750,7 @@ namespace VidCoder.ViewModel
 				if (track != null)
 				{
 					int trackNumber = this.main.SelectedTitle.AudioList.IndexOf(track);
-					if (this.main.ScanInstance.CanApplyDrc(trackNumber, this.SelectedAudioEncoder.Encoder, this.main.SelectedTitle.Index))
+					if (!this.SelectedAudioEncoder.IsPassthrough && this.main.ScanInstance.CanApplyDrc(trackNumber, this.SelectedAudioEncoder.Encoder, this.main.SelectedTitle.Index))
 					{
 						return enabledBrush;
 					}
@@ -904,6 +904,11 @@ namespace VidCoder.ViewModel
 						{
 							string inputCodec = encoder.ShortName.Split(':')[1];
 							string display = resourceManager.GetString("Passthrough_" + inputCodec);
+
+							if (string.IsNullOrEmpty(display))
+							{
+								display = encoder.DisplayName;
+							}
 
 							this.passthroughChoices.Add(new ComboChoice(encoder.ShortName, display));
 						}

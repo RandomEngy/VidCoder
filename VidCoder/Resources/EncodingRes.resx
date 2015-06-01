@@ -1002,4 +1002,13 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
     <value>Chapter {0}</value>
     <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
   </data>
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
+  </data>
 </root>
