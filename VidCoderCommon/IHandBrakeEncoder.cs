@@ -11,7 +11,6 @@ namespace VidCoderCommon
 		[OperationContract]
 		void StartEncode(
 			VCJob job,
-			SourceTitle encodeTitle,
 			int previewNumber,
 			int previewSeconds,
 			int verbosity, 

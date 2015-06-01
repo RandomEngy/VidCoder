@@ -72,7 +72,6 @@ namespace VidCoder
 
 		public void StartEncode(
 			VCJob job,
-			SourceTitle encodeTitle,
 			ILogger logger,
 			bool preview, 
 			int previewNumber,
@@ -117,7 +116,6 @@ namespace VidCoder
 
 								this.channel.StartEncode(
 									job,
-									encodeTitle,
 									preview ? previewNumber : -1,
 									previewSeconds,
 									Config.LogVerbosity,

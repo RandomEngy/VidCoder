@@ -29,7 +29,6 @@ namespace VidCoder
 
 		void StartEncode(
 			VCJob job,
-			SourceTitle encodeTitle,
 			ILogger logger,
 			bool preview, 
 			int previewNumber, 

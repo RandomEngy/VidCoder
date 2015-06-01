@@ -21,7 +21,6 @@ namespace VidCoderWorker
 
 		public void StartEncode(
 			VCJob job,
-			SourceTitle encodeTitle,
 			int previewNumber,
 			int previewSeconds,
 			int verbosity,
@@ -86,6 +85,42 @@ namespace VidCoderWorker
 				this.instance = new HandBrakeInstance();
 				this.instance.Initialize(verbosity);
 
+				this.instance.ScanCompleted += (o, e) =>
+				{
+					try
+					{
+						SourceTitle encodeTitle = this.instance.Titles.TitleList.FirstOrDefault(title => title.Index == job.Title);
+						JsonEncodeObject encodeObject = JsonEncodeFactory.CreateJsonObject(
+							job,
+							encodeTitle,
+							defaultChapterNameFormat,
+							dxvaDecoding,
+							previewNumber,
+							previewSeconds,
+							previewCount);
+
+						if (encodeTitle != null)
+						{
+							lock (this.encodeLock)
+							{
+								this.instance.StartEncode(encodeObject);
+								this.callback.OnEncodeStarted();
+								this.state = EncodeState.Encoding;
+							}
+						}
+						else
+						{
+							this.callback.OnEncodeComplete(true);
+							this.CleanUpAndSignalCompletion();
+						}
+					}
+					catch (Exception exception)
+					{
+						this.callback.OnException(exception.ToString());
+						this.CleanUpAndSignalCompletion();
+					}
+				};
+
 				this.instance.EncodeProgress += (o, e) =>
 				{
 					this.StopOnException(() =>
@@ -112,69 +147,14 @@ namespace VidCoderWorker
 					}
 				};
 
-				if (encodeTitle == null)
-				{
-					this.instance.ScanCompleted += (o, e) =>
-					{
-						encodeTitle = this.instance.Titles.TitleList.FirstOrDefault(title => title.Index == job.Title);
-						this.StartEncode(job, encodeTitle, previewNumber, previewSeconds, previewCount, dxvaDecoding, defaultChapterNameFormat);
-					};
 
-					this.instance.StartScan(job.SourcePath, previewCount, TimeSpan.FromSeconds(minTitleDurationSeconds), job.Title);
-					this.state = EncodeState.Scanning;
-				}
-				else
-				{
-					this.StartEncode(job, encodeTitle, previewNumber, previewSeconds, previewCount, dxvaDecoding, defaultChapterNameFormat);
-				}
-
-				//this.instance.ScanCompleted += (o, e) =>
-				//	{
-				//		this.StartEncode(job, encodeTitle, previewNumber, previewSeconds, previewCount, dxvaDecoding, defaultChapterNameFormat);
-				//	};
-
-				//this.instance.StartScan(job.SourcePath, previewCount, TimeSpan.FromSeconds(minTitleDurationSeconds), job.Title);
-				//this.state = EncodeState.Scanning;
+				this.instance.StartScan(job.SourcePath, previewCount, TimeSpan.FromSeconds(minTitleDurationSeconds), job.Title);
+				this.state = EncodeState.Scanning;
 			}
 			catch (Exception exception)
 			{
 				this.callback.OnException(exception.ToString());
 				throw;
-			}
-		}
-
-		private void StartEncode(VCJob job, SourceTitle encodeTitle, int previewNumber, int previewSeconds, int previewCount, bool dxvaDecoding, string defaultChapterNameFormat)
-		{
-			try
-			{
-				JsonEncodeObject encodeObject = JsonEncodeFactory.CreateJsonObject(
-					job,
-					encodeTitle,
-					defaultChapterNameFormat,
-					dxvaDecoding,
-					previewNumber,
-					previewSeconds,
-					previewCount);
-
-				if (encodeTitle != null)
-				{
-					lock (this.encodeLock)
-					{
-						this.instance.StartEncode(encodeObject);
-						this.callback.OnEncodeStarted();
-						this.state = EncodeState.Encoding;
-					}
-				}
-				else
-				{
-					this.callback.OnEncodeComplete(true);
-					this.CleanUpAndSignalCompletion();
-				}
-			}
-			catch (Exception exception)
-			{
-				this.callback.OnException(exception.ToString());
-				this.CleanUpAndSignalCompletion();
 			}
 		}
 

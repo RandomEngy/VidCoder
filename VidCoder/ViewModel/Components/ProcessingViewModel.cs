@@ -1369,8 +1369,7 @@ namespace VidCoder.ViewModel.Components
 
 			this.currentJobEta = TimeSpan.Zero;
 			this.EncodeQueue[0].ReportEncodeStart(this.totalTasks == 1);
-			SourceTitle title = this.CurrentJob.VideoSource == null ? null : this.CurrentJob.VideoSource.Titles.FirstOrDefault(t => t.Index == job.Title);
-			this.encodeProxy.StartEncode(job, title, encodeLogger, false, 0, 0, 0);
+			this.encodeProxy.StartEncode(this.CurrentJob.Job, encodeLogger, false, 0, 0, 0);
 
 			this.StopEncodeCommand.RaiseCanExecuteChanged();
 			this.PauseCommand.RaiseCanExecuteChanged();
