@@ -77,7 +77,7 @@ namespace VidCoder.ViewModel
 
 						if (this.ScanFinished)
 						{
-							DispatchService.BeginInvoke(() =>
+							DispatchUtilities.BeginInvoke(() =>
 							{
 								this.CancelCommand.Execute(null);
 							});

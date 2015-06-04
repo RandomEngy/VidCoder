@@ -27,6 +27,7 @@
 						<Setter Property="Margin" Value="0" />
 					</Style>
 				</FlowDocument.Resources>
+				<Paragraph Name="logParagraph" />
 			</FlowDocument>
 		</RichTextBox>
 		<Button

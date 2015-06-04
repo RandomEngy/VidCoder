@@ -19,6 +19,9 @@ namespace VidCoderCommon
 		void OnMessageLogged(string message);
 
 		[OperationContract(IsOneWay = true)]
+		void OnVidCoderMessageLogged(string message);
+
+		[OperationContract(IsOneWay = true)]
 		void OnErrorLogged(string message);
 
 		[OperationContract(IsOneWay = true)]

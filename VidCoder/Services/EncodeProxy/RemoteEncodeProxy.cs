@@ -298,7 +298,7 @@ namespace VidCoder
 		public void OnEncodeProgress(float averageFrameRate, float currentFrameRate, TimeSpan estimatedTimeLeft, float fractionComplete, int passId, int pass, int passCount)
 		{
 			// Dispatch to avoid deadlocks on callbacks
-			DispatchService.BeginInvoke(() =>
+			DispatchUtilities.BeginInvoke(() =>
 			    {
 					lock (this.encoderLock)
 					{
@@ -339,6 +339,18 @@ namespace VidCoder
 			{
 				LogType = LogType.Message,
 				Source = LogSource.HandBrake,
+				Text = message
+			};
+
+			this.logger.AddEntry(entry);
+		}
+
+		public void OnVidCoderMessageLogged(string message)
+		{
+			var entry = new LogEntry
+			{
+				LogType = LogType.Message,
+				Source = LogSource.VidCoderWorker,
 				Text = message
 			};
 

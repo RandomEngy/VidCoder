@@ -731,7 +731,7 @@
     <Compile Include="Model\EncodeJobsPersist.cs" />
     <Compile Include="Model\Preset.cs" />
     <Compile Include="Model\Presets.cs" />
-    <Compile Include="Services\DispatchService.cs" />
+    <Compile Include="Utilities\DispatchUtilities.cs" />
     <Compile Include="Services\DriveService.cs" />
     <Compile Include="Services\Interfaces\IMessageBoxService.cs" />
     <Compile Include="Services\Interfaces\IUpdateService.cs" />

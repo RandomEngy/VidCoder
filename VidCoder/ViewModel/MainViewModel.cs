@@ -130,7 +130,7 @@ namespace VidCoder.ViewModel
 				this,
 				message =>
 					{
-						DispatchService.BeginInvoke(() => { this.AddTrackCommand.RaiseCanExecuteChanged(); });
+						DispatchUtilities.BeginInvoke(() => { this.AddTrackCommand.RaiseCanExecuteChanged(); });
 					});
 
 			Messenger.Default.Register<HighlightedChapterChangedMessage>(
@@ -1950,7 +1950,7 @@ namespace VidCoder.ViewModel
 
 						this.RefreshRecentSourceOptions();
 
-						DispatchService.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
+						DispatchUtilities.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
 						Messenger.Default.Send(new RefreshPreviewMessage());
 						this.SelectedTitle = null;
 
@@ -2402,7 +2402,7 @@ namespace VidCoder.ViewModel
 			};
 			this.scanInstance.ScanCompleted += (o, e) =>
 			{
-				DispatchService.Invoke(() =>
+				DispatchUtilities.Invoke(() =>
 				{
 					this.ScanningSource = false;
 
@@ -2502,7 +2502,7 @@ namespace VidCoder.ViewModel
 				this.ScanError = true;
 			}
 
-			DispatchService.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
+			DispatchUtilities.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
 		}
 
 		private void ClearVideoSource()
@@ -2515,7 +2515,7 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.SourceOptionsVisible);
 			this.RaisePropertyChanged(() => this.SourcePicked);
 
-			DispatchService.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
+			DispatchUtilities.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
 			Messenger.Default.Send(new RefreshPreviewMessage());
 		}
 
@@ -2769,7 +2769,7 @@ namespace VidCoder.ViewModel
 
 		private void UpdateDrives()
 		{
-			DispatchService.BeginInvoke(() =>
+			DispatchUtilities.BeginInvoke(() =>
 			{
 				// Remove all source options which do not exist in the new collection
 				for (int i = this.sourceOptions.Count - 1; i >= 0; i--)

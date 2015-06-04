@@ -459,12 +459,12 @@ namespace VidCoder.ViewModel
 							this.previewEncodeStarted = true;
 							if (this.cancelPending)
 							{
-								DispatchService.BeginInvoke(() =>
+								DispatchUtilities.BeginInvoke(() =>
 								    {
 										this.CancelPreviewEncode();
 								    });
 							}
-							DispatchService.BeginInvoke(() =>
+							DispatchUtilities.BeginInvoke(() =>
 							{
 								this.CancelPreviewCommand.RaiseCanExecuteChanged();
 							});
@@ -721,7 +721,7 @@ namespace VidCoder.ViewModel
 		{
 			this.waitingOnRefresh = false;
 			this.lastImageRefreshTime = DateTime.MinValue;
-			DispatchService.BeginInvoke(this.RefreshPreviews);
+			DispatchUtilities.BeginInvoke(this.RefreshPreviews);
 		}
 
 		private void RefreshPreviews()
@@ -1045,7 +1045,7 @@ namespace VidCoder.ViewModel
 						this.previewImageCache[imageJob.PreviewNumber] = imageSource;
 						if (this.SelectedPreview == imageJob.PreviewNumber)
 						{
-							DispatchService.BeginInvoke(() =>
+							DispatchUtilities.BeginInvoke(() =>
 							{
 								this.previewBitmapSource = imageSource;
 								this.RefreshFromBitmapImage();

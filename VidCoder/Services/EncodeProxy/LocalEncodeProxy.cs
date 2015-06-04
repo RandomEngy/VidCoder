@@ -6,6 +6,7 @@ using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.EventArgs;
 using HandBrake.ApplicationServices.Interop.Json.Encode;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
+using Newtonsoft.Json;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Model;
@@ -71,6 +72,8 @@ namespace VidCoder
 								previewSeconds,
 								Config.PreviewCount);
 
+							this.logger.Log("Encode JSON:" + Environment.NewLine + JsonConvert.SerializeObject(jsonEncodeObject, Formatting.Indented));
+
 							this.instance.StartEncode(jsonEncodeObject);
 							this.IsEncodeStarted = true;
 							if (this.EncodeStarted != null)
@@ -101,7 +104,7 @@ namespace VidCoder
 			this.instance.EncodeProgress += (o, e) =>
 			{
 				// Dispatch to avoid deadlocks on callbacks
-				DispatchService.BeginInvoke(() =>
+				DispatchUtilities.BeginInvoke(() =>
 				{
 					lock (this.encoderLock)
 					{

@@ -45,7 +45,7 @@ namespace VidCoder.Services
 
 		private void HandleDiscEvent(object sender, EventArrivedEventArgs e)
 		{
-			DispatchService.BeginInvoke(() => this.mainViewModel.UpdateDriveCollection());
+			DispatchUtilities.BeginInvoke(() => this.mainViewModel.UpdateDriveCollection());
 		}
 
 		public IList<DriveInformation> GetDiscInformation()

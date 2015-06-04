@@ -737,7 +737,7 @@ namespace VidCoder.ViewModel
 
 		private void SendTitleRangeChangeMessage()
 		{
-			DispatchService.BeginInvoke(() =>
+			DispatchUtilities.BeginInvoke(() =>
 			{
 				Messenger.Default.Send(new TitleRangeSelectChangedMessage());
 			});

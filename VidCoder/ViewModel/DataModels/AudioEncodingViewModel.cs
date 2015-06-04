@@ -841,7 +841,7 @@ namespace VidCoder.ViewModel
 
 		public void SetChosenTracks(List<int> chosenAudioTracks, SourceTitle selectedTitle)
 		{
-			DispatchService.Invoke(() =>
+			DispatchUtilities.Invoke(() =>
 			{
 				int previousIndex = this.TargetStreamIndex;
 

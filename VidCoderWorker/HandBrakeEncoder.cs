@@ -5,6 +5,7 @@ using System.ServiceModel;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Encode;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
+using Newtonsoft.Json;
 using VidCoderCommon;
 using VidCoderCommon.Model;
 
@@ -98,6 +99,8 @@ namespace VidCoderWorker
 							previewNumber,
 							previewSeconds,
 							previewCount);
+
+						this.callback.OnVidCoderMessageLogged("Encode JSON:" + Environment.NewLine + JsonConvert.SerializeObject(encodeObject, Formatting.Indented));
 
 						if (encodeTitle != null)
 						{

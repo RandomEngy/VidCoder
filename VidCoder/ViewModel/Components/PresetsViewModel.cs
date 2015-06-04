@@ -168,7 +168,7 @@ namespace VidCoder.ViewModel.Components
 						// Queue up an action to switch back to this preset.
 						int currentPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
 
-						DispatchService.BeginInvoke(() =>
+						DispatchUtilities.BeginInvoke(() =>
 						{
 							this.SelectedPreset = this.AllPresets[currentPresetIndex];
 						});

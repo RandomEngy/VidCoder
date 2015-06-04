@@ -289,7 +289,7 @@ namespace VidCoder.View
 		{
 			if (e.PropertyName == "RangeType")
 			{
-				//DispatchService.BeginInvoke(() => this.rangeDetailsPopup.IsOpen = false);
+				//DispatchUtilities.BeginInvoke(() => this.rangeDetailsPopup.IsOpen = false);
 			}
 		}
 
@@ -551,7 +551,7 @@ namespace VidCoder.View
 
 		private void ShowStatusMessage(StatusMessage message)
 		{
-			DispatchService.BeginInvoke(() =>
+			DispatchUtilities.BeginInvoke(() =>
 			    {
 			        this.statusTextBlock.Text = message.Message;
 					this.statusText.Visibility = Visibility.Visible;

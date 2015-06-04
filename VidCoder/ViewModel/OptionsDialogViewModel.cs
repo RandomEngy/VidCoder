@@ -1182,7 +1182,7 @@ namespace VidCoder.ViewModel
 
 		private void OnUpdateStateChanged(object sender, EventArgs e)
 		{
-			DispatchService.BeginInvoke(() =>
+			DispatchUtilities.BeginInvoke(() =>
 				{
 					this.RefreshUpdateStatus();
 				});

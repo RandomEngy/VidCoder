@@ -115,7 +115,7 @@ namespace VidCoder.ViewModel.Components
                         case MessageBoxResult.Cancel:
                             // Queue up action to switch back to this picker
                             int currentPickerIndex = this.Pickers.IndexOf(this.selectedPicker);
-                            DispatchService.BeginInvoke(() =>
+                            DispatchUtilities.BeginInvoke(() =>
                             {
                                 this.SelectedPicker = this.Pickers[currentPickerIndex];
                             });

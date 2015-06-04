@@ -143,7 +143,7 @@ namespace VidCoder.ViewModel.Components
 
 			if (Config.ResumeEncodingOnRestart && this.encodeQueue.Count > 0)
 			{
-				DispatchService.BeginInvoke(() =>
+				DispatchUtilities.BeginInvoke(() =>
 					{
 						this.StartEncodeQueue();
 					});
@@ -1377,7 +1377,7 @@ namespace VidCoder.ViewModel.Components
 
 		private void OnEncodeStarted(object sender, EventArgs e)
 		{
-			DispatchService.BeginInvoke(() =>
+			DispatchUtilities.BeginInvoke(() =>
 			    {
 					// After the encode has reported that it's started, we can now pause/stop it.
 					this.StopEncodeCommand.RaiseCanExecuteChanged();
@@ -1546,7 +1546,7 @@ namespace VidCoder.ViewModel.Components
 
 		private void OnEncodeCompleted(object sender, EncodeCompletedEventArgs e)
 		{
-			DispatchService.BeginInvoke(() =>
+			DispatchUtilities.BeginInvoke(() =>
 			{
 				ILogger encodeLogger = this.CurrentJob.Logger;
 				string outputPath = this.CurrentJob.Job.OutputPath;
@@ -1917,7 +1917,7 @@ namespace VidCoder.ViewModel.Components
 
 		private void AutoPauseEncoding(object sender, EventArgs e)
 		{
-			DispatchService.Invoke(() =>
+			DispatchUtilities.Invoke(() =>
 			{
 				if (this.Encoding && !this.Paused)
 				{
@@ -1928,7 +1928,7 @@ namespace VidCoder.ViewModel.Components
 
 		private void AutoResumeEncoding(object sender, EventArgs e)
 		{
-			DispatchService.Invoke(() =>
+			DispatchUtilities.Invoke(() =>
 			{
 				if (this.Encoding && this.Paused)
 				{

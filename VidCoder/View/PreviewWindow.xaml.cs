@@ -162,7 +162,7 @@ namespace VidCoder.View
 				// Intermittent bug causing this. In this case we queue it up to go again after a layout pass has been done.
 				if (!isRetry)
 				{
-					DispatchService.BeginInvoke(() =>
+					DispatchUtilities.BeginInvoke(() =>
 						{
 							UpdateCornerImage(image, imageHolder, bitmap, regionChooser, isRetry: true);
 						});
