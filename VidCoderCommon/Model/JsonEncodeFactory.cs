@@ -117,6 +117,7 @@ namespace VidCoderCommon.Model
 
 	            if (!isPassthrough)
 	            {
+		            audioTrack.Samplerate = encoding.SampleRateRaw;
 		            audioTrack.Mixdown = HandBrakeEncoderHelpers.GetMixdown(encoding.Mixdown).Id;
 		            audioTrack.Gain = encoding.Gain;
 		            audioTrack.DRC = encoding.Drc;
