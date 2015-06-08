@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Security.RightsManagement;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight;
@@ -14,24 +11,24 @@ using Omu.ValueInjecter;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
-using VidCoder.Services;
+using VidCoder.ViewModel;
 using VidCoder.ViewModel.DataModels;
 
-namespace VidCoder.ViewModel.Components
+namespace VidCoder.Services
 {
     /// <summary>
     /// Controls creation/modification/deletion/import/export of pickers.
     /// </summary>
-    public class PickersViewModel : ViewModelBase
+    public class PickersService : ObservableObject
     {
         private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
-	    private WindowManagerViewModel windowManagerViewModel = Ioc.Container.GetInstance<WindowManagerViewModel>();
+	    private WindowManagerService windowManagerService = Ioc.Container.GetInstance<WindowManagerService>();
 
         private PickerViewModel selectedPicker;
 
         private ObservableCollection<PickerViewModel> pickers;
 
-        public PickersViewModel()
+        public PickersService()
         {
             this.pickers = new ObservableCollection<PickerViewModel>();
             List<Picker> storedPickers = PickerStorage.PickerList;
@@ -163,7 +160,7 @@ namespace VidCoder.ViewModel.Components
 					new MenuItem
 					{
 						Header = MainRes.EditButton, 
-						Command = this.windowManagerViewModel.OpenPickerWindowCommand,
+						Command = this.windowManagerService.OpenPickerWindowCommand,
 						HorizontalContentAlignment = HorizontalAlignment.Left,
 						VerticalContentAlignment = VerticalAlignment.Center,
 					});

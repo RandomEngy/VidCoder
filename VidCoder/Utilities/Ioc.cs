@@ -1,13 +1,8 @@
-﻿namespace VidCoder
-{
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-	using GalaSoft.MvvmLight.Ioc;
-	using Services;
-	using ViewModel.Components;
+﻿using GalaSoft.MvvmLight.Ioc;
+using VidCoder.Services;
 
+namespace VidCoder
+{
 	public static class Ioc
 	{
 		static Ioc()
@@ -26,11 +21,11 @@
 			Container.Register(() => new TrayService());
 			Container.Register(() => new ClipboardService());
 
-			Container.Register<OutputPathViewModel>();
-			Container.Register<PresetsViewModel>();
-            Container.Register<PickersViewModel>();
-			Container.Register<ProcessingViewModel>();
-			Container.Register<WindowManagerViewModel>();
+			Container.Register<OutputPathService>();
+			Container.Register<PresetsService>();
+            Container.Register<PickersService>();
+			Container.Register<ProcessingService>();
+			Container.Register<WindowManagerService>();
 		}
 
 		public static SimpleIoc Container { get; set; }

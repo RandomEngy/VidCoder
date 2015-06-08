@@ -9,7 +9,6 @@ using HandBrake.ApplicationServices.Interop;
 using VidCoder.DragDropUtils;
 using VidCoder.Messages;
 using VidCoder.Model;
-using VidCoder.ViewModel.Components;
 using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
@@ -26,7 +25,7 @@ namespace VidCoder.ViewModel
 		public const double SubtitleScanCostFactor = 5.0;
 
 		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
-		private ProcessingViewModel processingVM;
+		private ProcessingService processingService;
 
 		private bool isSelected;
 		private bool isPaused;
@@ -73,16 +72,16 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ProcessingViewModel ProcessingVM
+		public ProcessingService ProcessingService
 		{
 			get
 			{
-				if (this.processingVM == null)
+				if (this.processingService == null)
 				{
-					this.processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
+					this.processingService = Ioc.Container.GetInstance<ProcessingService>();
 				}
 
-				return this.processingVM;
+				return this.processingService;
 			}
 		}
 
@@ -416,7 +415,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.removeQueueJobCommand ?? (this.removeQueueJobCommand = new RelayCommand(() =>
 					{
-						this.ProcessingVM.RemoveQueueJob(this);
+						this.ProcessingService.RemoveQueueJob(this);
 					},
 					() =>
 					{

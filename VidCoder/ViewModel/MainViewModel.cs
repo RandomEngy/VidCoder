@@ -18,7 +18,6 @@ using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
-using VidCoder.ViewModel.Components;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 
@@ -30,11 +29,11 @@ namespace VidCoder.ViewModel
 
 		private IUpdater updater = Ioc.Container.GetInstance<IUpdater>();
 		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
-		private OutputPathViewModel outputPathVM;
-		private PresetsViewModel presetsVM;
-		private PickersViewModel pickersVM;
-		private ProcessingViewModel processingVM;
-		private WindowManagerViewModel windowManagerVM;
+		private OutputPathService outputPathService;
+		private PresetsService presetsService;
+		private PickersService pickersService;
+		private ProcessingService processingService;
+		private WindowManagerService windowManagerService;
 		private TaskBarProgressTracker taskBarProgressTracker;
 
 		private ObservableCollection<SourceOptionViewModel> sourceOptions;
@@ -90,11 +89,11 @@ namespace VidCoder.ViewModel
 
 			Ioc.Container.Register(() => this);
 
-			this.outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
-			this.processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
-			this.presetsVM = Ioc.Container.GetInstance<PresetsViewModel>();
-			this.pickersVM = Ioc.Container.GetInstance<PickersViewModel>();
-			this.windowManagerVM = Ioc.Container.GetInstance<WindowManagerViewModel>();
+			this.outputPathService = Ioc.Container.GetInstance<OutputPathService>();
+			this.processingService = Ioc.Container.GetInstance<ProcessingService>();
+			this.presetsService = Ioc.Container.GetInstance<PresetsService>();
+			this.pickersService = Ioc.Container.GetInstance<PickersService>();
+			this.windowManagerService = Ioc.Container.GetInstance<WindowManagerService>();
 			this.taskBarProgressTracker = new TaskBarProgressTracker();
 
 			updater.CheckUpdates();
@@ -315,25 +314,25 @@ namespace VidCoder.ViewModel
 
 			if (Config.EncodingWindowOpen)
 			{
-				this.WindowManagerVM.OpenEncodingWindow();
+				this.WindowManagerService.OpenEncodingWindow();
 				windowOpened = true;
 			}
 
 			if (Config.PreviewWindowOpen)
 			{
-				this.WindowManagerVM.OpenPreviewWindow();
+				this.WindowManagerService.OpenPreviewWindow();
 				windowOpened = true;
 			}
 
 			if (Config.LogWindowOpen)
 			{
-				this.WindowManagerVM.OpenLogWindow();
+				this.WindowManagerService.OpenLogWindow();
 				windowOpened = true;
 			}
 
 		    if (Config.PickerWindowOpen)
 		    {
-		        this.WindowManagerVM.OpenPickerWindow();
+		        this.WindowManagerService.OpenPickerWindow();
 		        windowOpened = true;
 		    }
 
@@ -349,7 +348,7 @@ namespace VidCoder.ViewModel
 		/// <returns>True if the form can close.</returns>
 		public bool OnClosing()
 		{
-			if (this.processingVM.Encoding)
+			if (this.processingService.Encoding)
 			{
 				MessageBoxResult result = Utilities.MessageBox.Show(
 					this,
@@ -365,11 +364,11 @@ namespace VidCoder.ViewModel
 			}
 
 			// If we're quitting, see if the encode is still going.
-			if (this.processingVM.Encoding)
+			if (this.processingService.Encoding)
 			{
 				// If so, stop it.
-				this.processingVM.EncodeProxy.StopAndWait();
-				//this.processingVM.CurrentJob.HandBrakeInstance.StopEncode();
+				this.processingService.EncodeProxy.StopAndWait();
+				//this.processingService.CurrentJob.HandBrakeInstance.StopEncode();
 			}
 
 			ViewModelBase encodingWindow = WindowManager.FindWindow<EncodingViewModel>();
@@ -439,12 +438,12 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (!this.processingVM.Encoding)
+				if (!this.processingService.Encoding)
 				{
 					return "VidCoder";
 				}
 
-				return string.Format("VidCoder - {0:F1}%", this.processingVM.OverallEncodeProgressPercent);
+				return string.Format("VidCoder - {0:F1}%", this.processingService.OverallEncodeProgressPercent);
 			}
 		}
 
@@ -452,29 +451,29 @@ namespace VidCoder.ViewModel
 
 		public string SourceName { get; private set; }
 
-		public OutputPathViewModel OutputPathVM
+		public OutputPathService OutputPathVM
 		{
-			get { return this.outputPathVM; }
+			get { return this.outputPathService; }
 		}
 
-		public PresetsViewModel PresetsVM
+		public PresetsService PresetsService
 		{
-			get { return this.presetsVM; }
+			get { return this.presetsService; }
 		}
 
-		public PickersViewModel PickersVM
+		public PickersService PickersService
 		{
-			get { return this.pickersVM; }
+			get { return this.pickersService; }
 		}
 
-		public ProcessingViewModel ProcessingVM
+		public ProcessingService ProcessingService
 		{
-			get { return this.processingVM; }
+			get { return this.processingService; }
 		}
 
-		public WindowManagerViewModel WindowManagerVM
+		public WindowManagerService WindowManagerService
 		{
-			get { return this.windowManagerVM; }
+			get { return this.windowManagerService; }
 		}
 
 		public TaskBarProgressTracker TaskBarProgressTracker
@@ -797,7 +796,7 @@ namespace VidCoder.ViewModel
 					VCSubtitles oldSubtitles = this.CurrentSubtitles;
 					this.CurrentSubtitles = new VCSubtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
 
-					Picker picker = this.pickersVM.SelectedPicker.Picker;
+					Picker picker = this.pickersService.SelectedPicker.Picker;
 
 					// Audio selection
 					switch (picker.AudioSelectionMode)
@@ -1170,7 +1169,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.presetsVM.SelectedPreset != null && this.presetsVM.SelectedPreset.Preset.EncodingProfile.IncludeChapterMarkers;
+				return this.presetsService.SelectedPreset != null && this.presetsService.SelectedPreset.Preset.EncodingProfile.IncludeChapterMarkers;
 			}
 		}
 
@@ -2019,7 +2018,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.exportPresetCommand ?? (this.exportPresetCommand = new RelayCommand(() =>
 					{
-						Ioc.Container.GetInstance<IPresetImportExport>().ExportPreset(this.presetsVM.SelectedPreset.Preset);
+						Ioc.Container.GetInstance<IPresetImportExport>().ExportPreset(this.presetsService.SelectedPreset.Preset);
 					}));
 			}
 		}
@@ -2087,7 +2086,7 @@ namespace VidCoder.ViewModel
 
 				string outputPath = this.OutputPathVM.OutputPath;
 
-				VCProfile encodingProfile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile.Clone();
+				VCProfile encodingProfile = this.PresetsService.SelectedPreset.Preset.EncodingProfile.Clone();
 
 				int title = this.SelectedTitle.Index;
 
@@ -2190,7 +2189,7 @@ namespace VidCoder.ViewModel
 			newEncodeJobVM.SourceParentFolder = this.OutputPathVM.SourceParentFolder;
 			newEncodeJobVM.ManualOutputPath = this.OutputPathVM.ManualOutputPath;
 			newEncodeJobVM.NameFormatOverride = this.OutputPathVM.NameFormatOverride;
-			newEncodeJobVM.PresetName = this.PresetsVM.SelectedPreset.DisplayName;
+			newEncodeJobVM.PresetName = this.PresetsService.SelectedPreset.DisplayName;
 
 			return newEncodeJobVM;
 		}
@@ -2205,16 +2204,16 @@ namespace VidCoder.ViewModel
 		{
 			VCJob job = jobVM.Job;
 
-			if (this.PresetsVM.SelectedPreset.IsModified)
+			if (this.PresetsService.SelectedPreset.IsModified)
 			{
 				MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.SaveChangesPresetMessage, MainRes.SaveChangesPresetTitle, MessageBoxButton.YesNoCancel);
 				if (dialogResult == MessageBoxResult.Yes)
 				{
-					this.PresetsVM.SavePreset();
+					this.PresetsService.SavePreset();
 				}
 				else if (dialogResult == MessageBoxResult.No)
 				{
-					this.PresetsVM.RevertPreset(userInitiated: false);
+					this.PresetsService.RevertPreset(userInitiated: false);
 				}
 				else if (dialogResult == MessageBoxResult.Cancel)
 				{
@@ -2272,15 +2271,15 @@ namespace VidCoder.ViewModel
 					EncodingProfile = jobVM.Job.EncodingProfile.Clone()
 				});
 
-			this.PresetsVM.InsertQueuePreset(queuePreset);
+			this.PresetsService.InsertQueuePreset(queuePreset);
 
 			if (isQueueItem)
 			{
 				// Since it's been sent back for editing, remove the queue item
-				this.ProcessingVM.EncodeQueue.Remove(jobVM);
+				this.ProcessingService.EncodeQueue.Remove(jobVM);
 			}
 
-			this.PresetsVM.SaveUserPresets();
+			this.PresetsService.SaveUserPresets();
 		}
 
 		public void ScanFromAutoplay(string sourcePath)
@@ -2443,12 +2442,12 @@ namespace VidCoder.ViewModel
 								SourceHistory.AddToHistory(this.SourcePath);
 							}
 
-							Picker picker = this.pickersVM.SelectedPicker.Picker;
+							Picker picker = this.pickersService.SelectedPicker.Picker;
 							if (picker.AutoQueueOnScan)
 							{
-								if (this.processingVM.TryQueue() && picker.AutoEncodeOnScan && !this.processingVM.Encoding)
+								if (this.processingService.TryQueue() && picker.AutoEncodeOnScan && !this.processingService.Encoding)
 								{
-									this.processingVM.EncodeCommand.Execute(null);
+									this.processingService.EncodeCommand.Execute(null);
 								}
 							}
 						}

@@ -1,24 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ServiceModel;
+using VidCoder.Services;
+using VidCoder.ViewModel;
+using VidCoderCLI;
 
 namespace VidCoder.Automation
 {
-	using System.ServiceModel;
-	using VidCoderCLI;
-	using ViewModel;
-	using ViewModel.Components;
-
 	public class VidCoderAutomation : IVidCoderAutomation
 	{
 		public void Encode(string source, string destination, string preset, string picker)
 		{
-			var processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
+			var processingService = Ioc.Container.GetInstance<ProcessingService>();
 
 			try
 			{
-				processingVM.Process(source, destination, preset, picker);
+				processingService.Process(source, destination, preset, picker);
 			}
 			catch (Exception exception)
 			{

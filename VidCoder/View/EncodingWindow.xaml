@@ -21,27 +21,27 @@
 	<Window.InputBindings>
 		<KeyBinding
 			Key="Q"
-			Command="{Binding ProcessingVM.AddToQueueCommand}"
+			Command="{Binding ProcessingService.AddToQueueCommand}"
 			Modifiers="Control" />
 		<KeyBinding
 			Key="L"
-			Command="{Binding WindowManagerVM.OpenLogWindowCommand}"
+			Command="{Binding WindowManagerService.OpenLogWindowCommand}"
 			Modifiers="Control" />
 		<KeyBinding
 			Key="P"
-			Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}"
+			Command="{Binding WindowManagerService.OpenPreviewWindowCommand}"
 			Modifiers="Control" />
 		<KeyBinding
 			Key="I"
-			Command="{Binding WindowManagerVM.OpenPickerWindowCommand}"
+			Command="{Binding WindowManagerService.OpenPickerWindowCommand}"
 			Modifiers="Control" />
 		<KeyBinding
 			Key="O"
-			Command="{Binding ProcessingVM.QueueFilesCommand}"
+			Command="{Binding ProcessingService.QueueFilesCommand}"
 			Modifiers="Control+Shift" />
 		<KeyBinding
 			Key="T"
-			Command="{Binding ProcessingVM.QueueTitlesCommand}"
+			Command="{Binding ProcessingService.QueueTitlesCommand}"
 			Modifiers="Control" />
 		<KeyBinding
 			Key="D"
@@ -231,10 +231,10 @@
 					<Button
 						Height="24"
 						MinWidth="70"
-						Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}"
+						Command="{Binding WindowManagerService.OpenPreviewWindowCommand}"
 						IsEnabled="{Binding HasSourceData}"
 						Padding="5,0"
-						Visibility="{Binding WindowManagerVM.PreviewWindowOpen,
+						Visibility="{Binding WindowManagerService.PreviewWindowOpen,
 					                             Converter={StaticResource VisibilityConverter},
 					                             ConverterParameter=True}">
 						<StackPanel Orientation="Horizontal">

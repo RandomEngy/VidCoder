@@ -11,7 +11,7 @@ using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
-using VidCoder.ViewModel.Components;
+using VidCoder.Services;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 
@@ -29,8 +29,8 @@ namespace VidCoder.ViewModel
 		public QueueTitlesWindowViewModel()
 		{
 			this.main = Ioc.Container.GetInstance<MainViewModel>();
-			this.PickersVM = Ioc.Container.GetInstance<PickersViewModel>();
-			this.WindowManagerVM = Ioc.Container.GetInstance<WindowManagerViewModel>();
+			this.PickersService = Ioc.Container.GetInstance<PickersService>();
+			this.WindowManagerService = Ioc.Container.GetInstance<WindowManagerService>();
 
 			this.selectedTitles = new ObservableCollection<TitleSelectionViewModel>();
 			this.titleStartOverrideEnabled = Config.QueueTitlesUseTitleOverride;
@@ -95,9 +95,9 @@ namespace VidCoder.ViewModel
 			    };
 		}
 
-		public PickersViewModel PickersVM { get; private set; }
+		public PickersService PickersService { get; private set; }
 
-		public WindowManagerViewModel WindowManagerVM { get; private set; }
+		public WindowManagerService WindowManagerService { get; private set; }
 
 		public ObservableCollection<TitleSelectionViewModel> Titles
 		{
@@ -265,8 +265,8 @@ namespace VidCoder.ViewModel
 				{
 					this.DialogResult = true;
 
-					var processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
-					processingVM.QueueTitles(
+					var processingService = Ioc.Container.GetInstance<ProcessingService>();
+					processingService.QueueTitles(
 						this.CheckedTitles, 
 						this.TitleStartOverrideEnabled ? this.TitleStartOverride : -1,
 						this.NameOverrideEnabled ? this.NameOverride : null);
@@ -328,7 +328,7 @@ namespace VidCoder.ViewModel
 
 		private void SetSelectedFromRange()
 		{
-			Picker picker = this.PickersVM.SelectedPicker.Picker;
+			Picker picker = this.PickersService.SelectedPicker.Picker;
 
 			if (picker.TitleRangeSelectEnabled)
 			{

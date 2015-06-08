@@ -110,9 +110,9 @@
 				Margin="0 10 0 0"
 				HorizontalAlignment="Left"
 				VerticalAlignment="Center"
-				Command="{Binding WindowManagerVM.OpenPickerWindowCommand}"
-				MenuItemsSource="{Binding PickersVM.PickerButtonMenuItems}">
-				<TextBlock Margin="4 0" Text="{Binding PickersVM.PickerButtonText}" />
+				Command="{Binding WindowManagerService.OpenPickerWindowCommand}"
+				MenuItemsSource="{Binding PickersService.PickerButtonMenuItems}">
+				<TextBlock Margin="4 0" Text="{Binding PickersService.PickerButtonText}" />
 			</controls:SplitButton>
 
 			<CheckBox

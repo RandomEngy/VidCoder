@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Text;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using VidCoder.Model;
 using VidCoder.Services;
-using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
 	public class LogViewModel : OkCancelDialogViewModel
 	{
 		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
-		private WindowManagerViewModel windowManagerVM = Ioc.Container.GetInstance<WindowManagerViewModel>();
+		private WindowManagerService windowManagerService = Ioc.Container.GetInstance<WindowManagerService>();
 		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
 
 		private ICommand clearLogCommand;
@@ -28,11 +23,11 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public WindowManagerViewModel WindowManagerVM
+		public WindowManagerService WindowManagerService
 		{
 			get
 			{
-				return this.windowManagerVM;
+				return this.windowManagerService;
 			}
 		}
 

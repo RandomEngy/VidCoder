@@ -1,12 +1,12 @@
 <UpdateInfo>
 	<Release>
-		<Latest>2.4</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-2.4-Beta-x86.exe</DownloadLocation>
-		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/615456</ChangelogLocation>
+		<Latest>2.5</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-2.5-Beta-x86.exe</DownloadLocation>
+		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/615616</ChangelogLocation>
 	</Release>
 	<Release-x64>
-		<Latest>2.4</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-2.4-Beta-x64.exe</DownloadLocation>
-		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/615456</ChangelogLocation>
+		<Latest>2.5</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-2.5-Beta-x64.exe</DownloadLocation>
+		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/615616</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>

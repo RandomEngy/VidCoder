@@ -1,34 +1,33 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using VidCoder.Messages;
 using VidCoder.Model;
-using VidCoder.Services;
+using VidCoder.Resources;
+using VidCoder.ViewModel;
 using VidCoderCommon.Model;
 
-namespace VidCoder.ViewModel.Components
+namespace VidCoder.Services
 {
-	using System.Globalization;
-	using Resources;
-
 	/// <summary>
 	/// Controls creation/modification/deletion/import/export of presets.
 	/// </summary>
-	public class PresetsViewModel : ViewModelBase
+	public class PresetsService : ViewModelBase
 	{
 		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
-		private OutputPathViewModel outputPathVM;
+		private OutputPathService outputPathService;
 
 		private PresetViewModel selectedPreset;
 
 		private List<Preset> builtInPresets;
 		private ObservableCollection<PresetViewModel> allPresets;
 
-		public PresetsViewModel()
+		public PresetsService()
 		{
 			this.builtInPresets = Presets.BuiltInPresets;
 			List<Preset> userPresets = Presets.UserPresets;
@@ -91,16 +90,16 @@ namespace VidCoder.ViewModel.Components
 			this.SelectedPreset = this.allPresets[presetIndex];
 		}
 
-		private OutputPathViewModel OutputPathVM
+		private OutputPathService OutputPathVM
 		{
 			get
 			{
-				if (this.outputPathVM == null)
+				if (this.outputPathService == null)
 				{
-					this.outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
+					this.outputPathService = Ioc.Container.GetInstance<OutputPathService>();
 				}
 
-				return this.outputPathVM;
+				return this.outputPathService;
 			}
 		}
 

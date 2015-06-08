@@ -248,7 +248,7 @@
 				</MenuItem.Icon>
 			</MenuItem>
 			<Separator />
-			<MenuItem Command="{Binding ProcessingVM.ClearCompletedCommand}" Header="{x:Static res:MainRes.ClearCompleted}">
+			<MenuItem Command="{Binding ProcessingService.ClearCompletedCommand}" Header="{x:Static res:MainRes.ClearCompleted}">
 				<MenuItem.Icon>
 					<Image
 						Width="16"
@@ -292,15 +292,15 @@
 			Modifiers="Control" />
 		<KeyBinding
 			Key="Q"
-			Command="{Binding ProcessingVM.AddToQueueCommand}"
+			Command="{Binding ProcessingService.AddToQueueCommand}"
 			Modifiers="Control" />
 		<KeyBinding
 			Key="O"
-			Command="{Binding ProcessingVM.QueueFilesCommand}"
+			Command="{Binding ProcessingService.QueueFilesCommand}"
 			Modifiers="Control+Shift" />
 		<KeyBinding
 			Key="T"
-			Command="{Binding ProcessingVM.QueueTitlesCommand}"
+			Command="{Binding ProcessingService.QueueTitlesCommand}"
 			Modifiers="Control" />
 		<KeyBinding
 			Key="W"
@@ -360,14 +360,14 @@
 					</MenuItem.Icon>
 				</MenuItem>
 				<MenuItem
-					Command="{Binding ProcessingVM.QueueFilesCommand}"
+					Command="{Binding ProcessingService.QueueFilesCommand}"
 					Header="{x:Static res:MainRes.EnqueueMultipleFiles}"
 					InputGestureText="Ctrl+Shift+O" />
 				<MenuItem
-					Command="{Binding ProcessingVM.QueueTitlesCommand}"
+					Command="{Binding ProcessingService.QueueTitlesCommand}"
 					Header="{x:Static res:MainRes.EnqueueMultipleTitles}"
 					InputGestureText="Ctrl+T"
-					Visibility="{Binding ProcessingVM.CanEnqueueMultipleTitles,
+					Visibility="{Binding ProcessingService.CanEnqueueMultipleTitles,
 				                               Converter={StaticResource VisibilityConverter}}" />
 				<MenuItem
 					Command="{Binding CloseVideoSourceCommand}"
@@ -383,47 +383,47 @@
 				<MenuItem Command="{Binding ImportPresetCommand}" Header="{x:Static res:MainRes.ImportPreset}" />
 				<MenuItem Command="{Binding ExportPresetCommand}" Header="{x:Static res:MainRes.ExportPreset}" />
 				<Separator />
-				<MenuItem Command="{Binding ProcessingVM.ImportQueueCommand}" Header="{x:Static res:MainRes.ImportQueue}" />
+				<MenuItem Command="{Binding ProcessingService.ImportQueueCommand}" Header="{x:Static res:MainRes.ImportQueue}" />
 				<MenuItem
-					Command="{Binding ProcessingVM.ExportQueueCommand}"
+					Command="{Binding ProcessingService.ExportQueueCommand}"
 					Header="{x:Static res:MainRes.ExportQueue}"
-					IsEnabled="{Binding ProcessingVM.QueueHasItems}" />
+					IsEnabled="{Binding ProcessingService.QueueHasItems}" />
 				<Separator />
 				<MenuItem
-					Command="{Binding WindowManagerVM.OpenOptionsCommand}"
+					Command="{Binding WindowManagerService.OpenOptionsCommand}"
 					Header="{x:Static res:MainRes.OptionsMenuItem}"
 					InputGestureText="F4" />
 			</MenuItem>
 			<MenuItem Header="{x:Static res:MainRes.WindowsMenu}">
 				<MenuItem
-					Command="{Binding WindowManagerVM.OpenEncodingWindowCommand}"
+					Command="{Binding WindowManagerService.OpenEncodingWindowCommand}"
 					Header="{x:Static res:MainRes.EncodingSettingsMenuItem}"
 					InputGestureText="Ctrl+N"
 					IsCheckable="True"
-					IsChecked="{Binding WindowManagerVM.EncodingWindowOpen}" />
+					IsChecked="{Binding WindowManagerService.EncodingWindowOpen}" />
 				<MenuItem
-					Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}"
+					Command="{Binding WindowManagerService.OpenPreviewWindowCommand}"
 					Header="{x:Static res:MainRes.PreviewMenuItem}"
 					InputGestureText="Ctrl+P"
 					IsCheckable="True"
-					IsChecked="{Binding WindowManagerVM.PreviewWindowOpen}" />
+					IsChecked="{Binding WindowManagerService.PreviewWindowOpen}" />
 				<MenuItem
-					Command="{Binding WindowManagerVM.OpenPickerWindowCommand}"
+					Command="{Binding WindowManagerService.OpenPickerWindowCommand}"
 					Header="{x:Static res:MainRes.PickerMenuItem}"
 					InputGestureText="Ctrl+I"
 					IsCheckable="True"
-					IsChecked="{Binding WindowManagerVM.PickerWindowOpen}" />
+					IsChecked="{Binding WindowManagerService.PickerWindowOpen}" />
 				<MenuItem
-					Command="{Binding WindowManagerVM.OpenLogWindowCommand}"
+					Command="{Binding WindowManagerService.OpenLogWindowCommand}"
 					Header="{x:Static res:MainRes.LogMenuItem}"
 					InputGestureText="Ctrl+L"
 					IsCheckable="True"
-					IsChecked="{Binding WindowManagerVM.LogWindowOpen}" />
+					IsChecked="{Binding WindowManagerService.LogWindowOpen}" />
 				<MenuItem
-					Command="{Binding WindowManagerVM.OpenEncodeDetailsWindowCommand}"
+					Command="{Binding WindowManagerService.OpenEncodeDetailsWindowCommand}"
 					Header="{x:Static res:MainRes.EncodeDetailsMenuItem}"
 					IsCheckable="True"
-					IsChecked="{Binding WindowManagerVM.EncodeDetailsWindowOpen}" />
+					IsChecked="{Binding WindowManagerService.EncodeDetailsWindowOpen}" />
 			</MenuItem>
 			<MenuItem Header="{x:Static res:MainRes.HelpMenu}">
 				<MenuItem Command="{Binding OpenHomepageCommand}" Header="{x:Static res:MainRes.VidCoderHomepageMenuItem}">
@@ -436,7 +436,7 @@
 				</MenuItem>
 				<MenuItem Command="{Binding ReportBugCommand}" Header="{x:Static res:MainRes.ReportABugMenuItem}" />
 				<Separator />
-				<MenuItem Command="{Binding WindowManagerVM.OpenUpdatesCommand}" Header="{x:Static res:MainRes.UpdatesMenuItem}" />
+				<MenuItem Command="{Binding WindowManagerService.OpenUpdatesCommand}" Header="{x:Static res:MainRes.UpdatesMenuItem}" />
 				<Separator />
 				<MenuItem Command="{Binding OpenAboutDialogCommand}" Header="{x:Static res:MainRes.AboutVidCoderMenuItem}">
 					<MenuItem.Icon>
@@ -565,10 +565,10 @@
 						Height="25"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
-						Command="{Binding WindowManagerVM.OpenPickerWindowCommand}"
-						MenuItemsSource="{Binding PickersVM.PickerButtonMenuItems}">
+						Command="{Binding WindowManagerService.OpenPickerWindowCommand}"
+						MenuItemsSource="{Binding PickersService.PickerButtonMenuItems}">
 
-						<TextBlock Margin="4 0" Text="{Binding PickersVM.PickerButtonText}" />
+						<TextBlock Margin="4 0" Text="{Binding PickersService.PickerButtonText}" />
 					</controls:SplitButton>
 				</Grid>
 
@@ -1235,7 +1235,7 @@
 					Height="30"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
-					Command="{Binding WindowManagerVM.OpenEncodingWindowCommand}">
+					Command="{Binding WindowManagerService.OpenEncodingWindowCommand}">
 					<StackPanel Margin="5,0" Orientation="Horizontal">
 						<Image
 							Width="22"
@@ -1265,7 +1265,7 @@
 					Margin="2 0 0 0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Center"
-					SelectedItem="{Binding PresetsVM.SelectedPreset}"
+					SelectedItem="{Binding PresetsService.SelectedPreset}"
 					Style="{StaticResource PresetComboStyle}">
 					<ComboBox.Effect>
 						<DropShadowEffect
@@ -1296,11 +1296,11 @@
 					Margin="0,0,5,0"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Bottom"
-					Command="{Binding WindowManagerVM.OpenPreviewWindowCommand}"
+					Command="{Binding WindowManagerService.OpenPreviewWindowCommand}"
 					IsEnabled="{Binding HasVideoSource}"
 					Padding="5,0"
 					Style="{StaticResource GrayOnDisabledControl}"
-					Visibility="{Binding WindowManagerVM.PreviewWindowOpen,
+					Visibility="{Binding WindowManagerService.PreviewWindowOpen,
 				                             Converter={StaticResource VisibilityConverter},
 				                             ConverterParameter=True}">
 					<StackPanel Orientation="Horizontal">
@@ -1318,13 +1318,13 @@
 					Margin="0,0,5,0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Bottom"
-					Command="{Binding ProcessingVM.AddToQueueCommand}"
+					Command="{Binding ProcessingService.AddToQueueCommand}"
 					Padding="5,0"
-					Visibility="{Binding ProcessingVM.CanTryEnqueueMultipleTitles,
+					Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
 				                                           Converter={StaticResource VisibilityConverter}}">
 					<controls:SplitButton.MenuItemsSource>
-						<MenuItem Command="{Binding ProcessingVM.AddToQueueCommand}" Header="{x:Static res:MainRes.AddToQueueLabel}" />
-						<MenuItem Command="{Binding ProcessingVM.QueueTitlesCommand}" Header="{x:Static res:MainRes.AddMultipleTitlesToQueueLabel}" />
+						<MenuItem Command="{Binding ProcessingService.AddToQueueCommand}" Header="{x:Static res:MainRes.AddToQueueLabel}" />
+						<MenuItem Command="{Binding ProcessingService.QueueTitlesCommand}" Header="{x:Static res:MainRes.AddMultipleTitlesToQueueLabel}" />
 					</controls:SplitButton.MenuItemsSource>
 					<StackPanel Orientation="Horizontal">
 						<Image Height="26" Source="/Icons/downarrow_shadow.png" />
@@ -1341,10 +1341,10 @@
 					Margin="0,0,5,0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Bottom"
-					Command="{Binding ProcessingVM.AddToQueueCommand}"
+					Command="{Binding ProcessingService.AddToQueueCommand}"
 					Padding="5,0"
 					Style="{StaticResource GrayOnDisabledControl}"
-					Visibility="{Binding ProcessingVM.CanTryEnqueueMultipleTitles,
+					Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
 				                             Converter={StaticResource VisibilityConverter},
 				                             ConverterParameter=True}">
 					<StackPanel Orientation="Horizontal">
@@ -1363,9 +1363,9 @@
 					Margin="0,0,5,0"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Bottom"
-					Command="{Binding ProcessingVM.StopEncodeCommand}"
+					Command="{Binding ProcessingService.StopEncodeCommand}"
 					Padding="5,0"
-					Visibility="{Binding ProcessingVM.Encoding,
+					Visibility="{Binding ProcessingService.Encoding,
 				                             Converter={StaticResource VisibilityConverter}}">
 					<StackPanel Orientation="Horizontal">
 						<Image Source="/Icons/stop_shadow.png" />
@@ -1383,10 +1383,10 @@
 					Margin="0,0,8,0"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Bottom"
-					Command="{Binding ProcessingVM.EncodeCommand}"
+					Command="{Binding ProcessingService.EncodeCommand}"
 					Padding="5,0"
 					Style="{StaticResource GrayOnDisabledControl}"
-					Visibility="{Binding ProcessingVM.PauseVisible,
+					Visibility="{Binding ProcessingService.PauseVisible,
 				                             Converter={StaticResource VisibilityConverter},
 				                             ConverterParameter=True}">
 					<StackPanel Orientation="Horizontal">
@@ -1394,7 +1394,7 @@
 						<TextBlock
 							Margin="7,0,0,0"
 							VerticalAlignment="Center"
-							Text="{Binding ProcessingVM.EncodeButtonText}" />
+							Text="{Binding ProcessingService.EncodeButtonText}" />
 					</StackPanel>
 				</Button>
 				<Button
@@ -1404,9 +1404,9 @@
 					Margin="0,0,8,0"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Bottom"
-					Command="{Binding ProcessingVM.PauseCommand}"
+					Command="{Binding ProcessingService.PauseCommand}"
 					Padding="5,0"
-					Visibility="{Binding ProcessingVM.PauseVisible,
+					Visibility="{Binding ProcessingService.PauseVisible,
 				                             Converter={StaticResource VisibilityConverter}}">
 					<StackPanel Orientation="Horizontal">
 						<Image Height="28" Source="/Icons/pause2.png" />
@@ -1433,20 +1433,20 @@
 					Name="queueItemsTabControl"
 					BorderThickness="0"
 					Padding="0,0,0,0"
-					SelectedIndex="{Binding ProcessingVM.SelectedTabIndex}">
+					SelectedIndex="{Binding ProcessingService.SelectedTabIndex}">
 					<TabControl.Background>
 						<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
 					</TabControl.Background>
 					<TabItem Name="queueTab" Visibility="Collapsed">
 						<TabItem.Header>
-							<TextBlock Text="{Binding ProcessingVM.QueuedTabHeader}" />
+							<TextBlock Text="{Binding ProcessingService.QueuedTabHeader}" />
 						</TabItem.Header>
 						<ListView
 							Name="queueView"
 							BorderBrush="#F5F5F5"
 							BorderThickness="0"
-							ItemsSource="{Binding ProcessingVM.EncodeQueue}"
-							VidCoderDragDrop:DragDropHelper.AllowDropAtTop="{Binding ProcessingVM.Encoding,
+							ItemsSource="{Binding ProcessingService.EncodeQueue}"
+							VidCoderDragDrop:DragDropHelper.AllowDropAtTop="{Binding ProcessingService.Encoding,
 						                                                                   Converter={StaticResource InverseBoolConverter}}"
 							VidCoderDragDrop:DragDropHelper.DragDropTemplate="{StaticResource QueueDragTemplate}"
 							VidCoderDragDrop:DragDropHelper.IsDragSource="True"
@@ -1458,8 +1458,8 @@
 									<Setter Property="ContextMenu">
 										<Setter.Value>
 											<ContextMenu>
-												<MenuItem Command="{Binding ProcessingVM.MoveSelectedJobsToTopCommand}" Header="{x:Static res:MainRes.MoveToTopMenuItem}" />
-												<MenuItem Command="{Binding ProcessingVM.MoveSelectedJobsToBottomCommand}" Header="{x:Static res:MainRes.MoveToBottomMenuItem}" />
+												<MenuItem Command="{Binding ProcessingService.MoveSelectedJobsToTopCommand}" Header="{x:Static res:MainRes.MoveToTopMenuItem}" />
+												<MenuItem Command="{Binding ProcessingService.MoveSelectedJobsToBottomCommand}" Header="{x:Static res:MainRes.MoveToBottomMenuItem}" />
 												<Separator />
 												<MenuItem Command="{Binding EditQueueJobCommand}" Header="{x:Static res:MainRes.Edit}">
 													<MenuItem.Icon>
@@ -1469,7 +1469,7 @@
 															Source="/Icons/edit_16x16.png" />
 													</MenuItem.Icon>
 												</MenuItem>
-												<MenuItem Command="{Binding ProcessingVM.RemoveSelectedJobsCommand}" Header="{x:Static res:CommonRes.Delete}">
+												<MenuItem Command="{Binding ProcessingService.RemoveSelectedJobsCommand}" Header="{x:Static res:CommonRes.Delete}">
 													<MenuItem.Icon>
 														<Image
 															Width="16"
@@ -1478,11 +1478,11 @@
 													</MenuItem.Icon>
 												</MenuItem>
 												<Separator />
-												<MenuItem Command="{Binding ProcessingVM.ImportQueueCommand}" Header="{x:Static res:MainRes.ImportQueue}" />
+												<MenuItem Command="{Binding ProcessingService.ImportQueueCommand}" Header="{x:Static res:MainRes.ImportQueue}" />
 												<MenuItem
-													Command="{Binding ProcessingVM.ExportQueueCommand}"
+													Command="{Binding ProcessingService.ExportQueueCommand}"
 													Header="{x:Static res:MainRes.ExportQueue}"
-													IsEnabled="{Binding ProcessingVM.QueueHasItems}" />
+													IsEnabled="{Binding ProcessingService.QueueHasItems}" />
 											</ContextMenu>
 										</Setter.Value>
 									</Setter>
@@ -1499,21 +1499,21 @@
 								<ContextMenu>
 									<MenuItem Command="{Binding CustomizeQueueColumnsCommand}" Header="{x:Static res:MainRes.CustomizeColumnsMenuItem}" />
 									<Separator />
-									<MenuItem Command="{Binding ProcessingVM.ImportQueueCommand}" Header="{x:Static res:MainRes.ImportQueue}" />
+									<MenuItem Command="{Binding ProcessingService.ImportQueueCommand}" Header="{x:Static res:MainRes.ImportQueue}" />
 									<MenuItem
-										Command="{Binding ProcessingVM.ExportQueueCommand}"
+										Command="{Binding ProcessingService.ExportQueueCommand}"
 										Header="{x:Static res:MainRes.ExportQueue}"
-										IsEnabled="{Binding ProcessingVM.QueueHasItems}" />
+										IsEnabled="{Binding ProcessingService.QueueHasItems}" />
 								</ContextMenu>
 							</ListView.ContextMenu>
 						</ListView>
 					</TabItem>
 					<TabItem Name="completedTab" Visibility="Collapsed">
 						<TabItem.Header>
-							<TextBlock Text="{Binding ProcessingVM.CompletedTabHeader}">
+							<TextBlock Text="{Binding ProcessingService.CompletedTabHeader}">
 								<TextBlock.ContextMenu>
 									<ContextMenu>
-										<MenuItem Command="{Binding ProcessingVM.ClearCompletedCommand}" Header="{x:Static res:MainRes.ClearCompleted}">
+										<MenuItem Command="{Binding ProcessingService.ClearCompletedCommand}" Header="{x:Static res:MainRes.ClearCompleted}">
 											<MenuItem.Icon>
 												<Image
 													Width="16"
@@ -1529,7 +1529,7 @@
 							BorderBrush="#F5F5F5"
 							BorderThickness="0"
 							ItemContainerStyle="{StaticResource CompletedItemStyle}"
-							ItemsSource="{Binding ProcessingVM.CompletedJobs}">
+							ItemsSource="{Binding ProcessingService.CompletedJobs}">
 							<ListView.View>
 								<GridView x:Name="completedGridView">
 									<GridView.Columns>
@@ -1550,7 +1550,7 @@
 							</ListView.View>
 							<ListView.ContextMenu>
 								<ContextMenu>
-									<MenuItem Command="{Binding ProcessingVM.ClearCompletedCommand}" Header="{x:Static res:MainRes.ClearCompleted}">
+									<MenuItem Command="{Binding ProcessingService.ClearCompletedCommand}" Header="{x:Static res:MainRes.ClearCompleted}">
 										<MenuItem.Icon>
 											<Image
 												Width="16"
@@ -1569,7 +1569,7 @@
 					Margin="0,2,4,0"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Top"
-					Command="{Binding ProcessingVM.ClearCompletedCommand}"
+					Command="{Binding ProcessingService.ClearCompletedCommand}"
 					Style="{StaticResource RemoveButtonStyle}"
 					Visibility="Collapsed">
 					Clear completed queue items
@@ -1602,7 +1602,7 @@
 		<Grid
 			Grid.Row="5"
 			Height="28"
-			Visibility="{Binding ProcessingVM.Encoding,
+			Visibility="{Binding ProcessingService.Encoding,
 		                           Converter={StaticResource VisibilityConverter}}">
 			<Grid.Background>
 				<SolidColorBrush Color="{StaticResource SectionBackgroundBottomColor}" />
@@ -1620,19 +1620,19 @@
 				VerticalAlignment="Center"
 				MouseEnter="ProgressMouseEnter"
 				MouseLeave="ProgressMouseLeave"
-				Visibility="{Binding ProcessingVM.Encoding,
+				Visibility="{Binding ProcessingService.Encoding,
 			                           Converter={StaticResource VisibilityConverter}}">
 				<ProgressBar
 					Name="overallEncodeProgressBar"
 					Height="24"
 					VerticalAlignment="Top"
-					Foreground="{Binding ProcessingVM.ProgressBarColor}"
-					Value="{Binding ProcessingVM.OverallEncodeProgressPercent,
+					Foreground="{Binding ProcessingService.ProgressBarColor}"
+					Value="{Binding ProcessingService.OverallEncodeProgressPercent,
 				                             Mode=OneWay}" />
 				<TextBlock
 					HorizontalAlignment="Center"
 					VerticalAlignment="Center"
-					Text="{Binding ProcessingVM.OverallEncodeProgressPercent,
+					Text="{Binding ProcessingService.OverallEncodeProgressPercent,
 				                          Mode=OneWay,
 				                          Converter={StaticResource PercentDisplayConverter}}" />
 				<Popup
@@ -1661,7 +1661,7 @@
 								Grid.Row="0"
 								Grid.Column="1"
 								Style="{StaticResource EncodeDetailsText}"
-								Text="{Binding ProcessingVM.CurrentFps,
+								Text="{Binding ProcessingService.CurrentFps,
 							                          Mode=OneWay,
 							                          Converter={StaticResource DoubleDisplayConverter}}"
 								TextAlignment="Center" />
@@ -1674,7 +1674,7 @@
 								Grid.Row="1"
 								Grid.Column="1"
 								Style="{StaticResource EncodeDetailsText}"
-								Text="{Binding ProcessingVM.AverageFps,
+								Text="{Binding ProcessingService.AverageFps,
 							                          Mode=OneWay,
 							                          Converter={StaticResource DoubleDisplayConverter}}"
 								TextAlignment="Center" />
@@ -1693,15 +1693,15 @@
 					VerticalAlignment="Center"
 					Text="{x:Static res:MainRes.EtaLabel}"
 					ToolTip="{x:Static res:CommonRes.QueueEtaToolTip}"
-					Visibility="{Binding ProcessingVM.EncodeSpeedDetailsAvailable,
+					Visibility="{Binding ProcessingService.EncodeSpeedDetailsAvailable,
 				                                Converter={StaticResource VisibilityConverter}}" />
 				<TextBlock
 					Margin="3,0,0,0"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Center"
-					Text="{Binding ProcessingVM.EstimatedTimeRemaining}"
+					Text="{Binding ProcessingService.EstimatedTimeRemaining}"
 					ToolTip="{x:Static res:CommonRes.QueueEtaToolTip}"
-					Visibility="{Binding ProcessingVM.EncodeSpeedDetailsAvailable,
+					Visibility="{Binding ProcessingService.EncodeSpeedDetailsAvailable,
 				                                Converter={StaticResource VisibilityConverter}}" />
 				<TextBlock
 					Margin="8,0,3,0"
@@ -1714,8 +1714,8 @@
 					HorizontalAlignment="Right"
 					VerticalAlignment="Center"
 					DisplayMemberPath="Display"
-					ItemsSource="{Binding ProcessingVM.EncodeCompleteActions}"
-					SelectedValue="{Binding ProcessingVM.EncodeCompleteAction}" />
+					ItemsSource="{Binding ProcessingService.EncodeCompleteActions}"
+					SelectedValue="{Binding ProcessingService.EncodeCompleteAction}" />
 			</StackPanel>
 		</Grid>
 	</Grid>

@@ -1,28 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using VidCoder.Messages;
 using VidCoder.Model;
-using System.Globalization;
-using System.Windows.Input;
-using System.IO;
+using VidCoder.Resources;
 using VidCoder.Services;
-using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
-	using System.Diagnostics;
-	using Resources;
-	using Properties;
-
 	public class EncodeResultViewModel : ViewModelBase
 	{
 		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
-		private ProcessingViewModel processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
+		private ProcessingService processingService = Ioc.Container.GetInstance<ProcessingService>();
 
 		private EncodeResult encodeResult;
 		private EncodeJobViewModel job;
@@ -56,11 +49,11 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ProcessingViewModel ProcessingVM
+		public ProcessingService ProcessingService
 		{
 			get
 			{
-				return this.processingVM;
+				return this.processingService;
 			}
 		}
 

@@ -10,7 +10,7 @@ using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
-using VidCoder.ViewModel.Components;
+using VidCoder.Services;
 using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
@@ -21,10 +21,10 @@ namespace VidCoder.ViewModel
 		public const int AdvancedVideoTabIndex = 3;
 
 		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
-		private OutputPathViewModel outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
-		private PresetsViewModel presetsViewModel = Ioc.Container.GetInstance<PresetsViewModel>();
-		private WindowManagerViewModel windowManagerVM = Ioc.Container.GetInstance<WindowManagerViewModel>();
-		private ProcessingViewModel processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
+		private OutputPathService outputPathService = Ioc.Container.GetInstance<OutputPathService>();
+		private PresetsService presetsService = Ioc.Container.GetInstance<PresetsService>();
+		private WindowManagerService windowManagerService = Ioc.Container.GetInstance<WindowManagerService>();
+		private ProcessingService processingService = Ioc.Container.GetInstance<ProcessingService>();
 
 		private VCProfile profile;
 
@@ -59,24 +59,24 @@ namespace VidCoder.ViewModel
 		    get { return this.mainViewModel; }
 		}
 
-		public WindowManagerViewModel WindowManagerVM
+		public WindowManagerService WindowManagerService
 		{
-		    get { return this.windowManagerVM; }
+		    get { return this.windowManagerService; }
 		}
 
-		public ProcessingViewModel ProcessingVM
+		public ProcessingService ProcessingService
 		{
-		    get { return this.processingVM; }
+		    get { return this.processingService; }
 		}
 
-		public OutputPathViewModel OutputPathVM
+		public OutputPathService OutputPathVM
 		{
-		    get { return this.outputPathVM; }
+		    get { return this.outputPathService; }
 		}
 
-		public PresetsViewModel PresetVM
+		public PresetsService PresetVM
 		{
-			get { return this.presetsViewModel; }
+			get { return this.presetsService; }
 		}
 
 		public PicturePanelViewModel PicturePanelViewModel { get; set; }
@@ -250,7 +250,7 @@ namespace VidCoder.ViewModel
 					{
 						if (value)
 						{
-							this.presetsViewModel.ModifyPreset(this.profile);
+							this.presetsService.ModifyPreset(this.profile);
 						}
 					}
 
@@ -263,7 +263,7 @@ namespace VidCoder.ViewModel
 					// not be persisted so we don't need to save user presets when it changes.
 					if (value)
 					{
-						this.presetsViewModel.SaveUserPresets();
+						this.presetsService.SaveUserPresets();
 					}
 				}
 			}
@@ -291,7 +291,7 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.ShowMp4Choices);
 				this.RaisePropertyChanged(() => this.ShowOldMp4Choices);
 				this.IsModified = true;
-				this.outputPathVM.GenerateOutputFileName();
+				this.outputPathService.GenerateOutputFileName();
 
 				Messenger.Default.Send(new ContainerChangedMessage(value));
 			}
@@ -317,7 +317,7 @@ namespace VidCoder.ViewModel
 				this.profile.PreferredExtension = value;
 				this.RaisePropertyChanged(() => this.PreferredExtension);
 				this.IsModified = true;
-				this.outputPathVM.GenerateOutputFileName();
+				this.outputPathService.GenerateOutputFileName();
 			}
 		}
 
@@ -419,7 +419,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.saveCommand ?? (this.saveCommand = new RelayCommand(() =>
 					{
-						this.presetsViewModel.SavePreset();
+						this.presetsService.SavePreset();
 						this.IsModified = false;
 
 						// Clone the profile so that on modifications, we're working on a new copy.
@@ -438,7 +438,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.saveAsCommand ?? (this.saveAsCommand = new RelayCommand(() =>
 					{
-						var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.presetsViewModel.AllPresets.Where(preset => !preset.IsBuiltIn).Select(preset => preset.PresetName));
+						var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.presetsService.AllPresets.Where(preset => !preset.IsBuiltIn).Select(preset => preset.PresetName));
 						dialogVM.Name = this.originalPreset.DisplayName;
 						WindowManager.OpenDialog(dialogVM, this);
 
@@ -446,7 +446,7 @@ namespace VidCoder.ViewModel
 						{
 							string newPresetName = dialogVM.Name;
 
-							this.presetsViewModel.SavePresetAs(newPresetName);
+							this.presetsService.SavePresetAs(newPresetName);
 
 							this.RaisePropertyChanged(() => this.ProfileName);
 							this.RaisePropertyChanged(() => this.WindowTitle);
@@ -465,7 +465,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.renameCommand ?? (this.renameCommand = new RelayCommand(() =>
 					{
-						var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.presetsViewModel.AllPresets.Where(preset => !preset.IsBuiltIn).Select(preset => preset.PresetName));
+						var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.presetsService.AllPresets.Where(preset => !preset.IsBuiltIn).Select(preset => preset.PresetName));
 						dialogVM.Name = this.originalPreset.DisplayName;
 						WindowManager.OpenDialog(dialogVM, this);
 
@@ -474,7 +474,7 @@ namespace VidCoder.ViewModel
 							string newPresetName = dialogVM.Name;
 							this.originalPreset.Name = newPresetName;
 
-							this.presetsViewModel.SavePreset();
+							this.presetsService.SavePreset();
 
 							this.RaisePropertyChanged(() => this.ProfileName);
 							this.RaisePropertyChanged(() => this.WindowTitle);
@@ -504,7 +504,7 @@ namespace VidCoder.ViewModel
                                 MessageBoxButton.YesNo);
 							if (dialogResult == MessageBoxResult.Yes)
 							{
-								this.presetsViewModel.RevertPreset(true);
+								this.presetsService.RevertPreset(true);
 							}
 
 							this.EditingPreset = this.originalPreset;
@@ -518,7 +518,7 @@ namespace VidCoder.ViewModel
                                 MessageBoxButton.YesNo);
 							if (dialogResult == MessageBoxResult.Yes)
 							{
-								this.presetsViewModel.DeletePreset();
+								this.presetsService.DeletePreset();
 							}
 						}
 					}, () =>
@@ -528,10 +528,6 @@ namespace VidCoder.ViewModel
 					}));
 			}
 		}
-
-		#region Audio
-
-		#endregion
 
 		private void NotifyAllChanged()
 		{

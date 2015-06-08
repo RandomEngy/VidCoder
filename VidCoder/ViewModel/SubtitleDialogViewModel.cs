@@ -8,7 +8,6 @@ using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using VidCoder.Services;
-using VidCoder.ViewModel.Components;
 using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
@@ -27,11 +26,11 @@ namespace VidCoder.ViewModel
 		private bool burnedOverlapWarningVisible;
 
 		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
-		private PresetsViewModel presetsViewModel = Ioc.Container.GetInstance<PresetsViewModel>();
+		private PresetsService presetsService = Ioc.Container.GetInstance<PresetsService>();
 
 		public SubtitleDialogViewModel(VCSubtitles currentSubtitles)
 		{
-			this.container = HandBrakeEncoderHelpers.GetContainer(this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.ContainerName);
+			this.container = HandBrakeEncoderHelpers.GetContainer(this.presetsService.SelectedPreset.Preset.EncodingProfile.ContainerName);
 
 			this.sourceSubtitles = new ObservableCollection<SourceSubtitleViewModel>();
 			this.srtSubtitles = new ObservableCollection<SrtSubtitleViewModel>();
@@ -394,7 +393,7 @@ namespace VidCoder.ViewModel
 		public void UpdateWarningVisibility()
 		{
 			bool textSubtitleVisible = false;
-			VCProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
+			VCProfile profile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
 			HBContainer profileContainer = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
 			if (profileContainer.DefaultExtension == "mp4" && profile.PreferredExtension == VCOutputExtension.Mp4)
 			{

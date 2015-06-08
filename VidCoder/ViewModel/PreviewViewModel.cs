@@ -10,13 +10,11 @@ using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
-using VidCoder.ViewModel.Components;
 using VidCoderCommon.Model;
 using Geometry = HandBrake.ApplicationServices.Interop.Json.Shared.Geometry;
 
@@ -58,9 +56,9 @@ namespace VidCoder.ViewModel
 		private BitmapSource previewBitmapSource;
 
 		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
-		private OutputPathViewModel outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
-		private WindowManagerViewModel windowManagerVM = Ioc.Container.GetInstance<WindowManagerViewModel>();
-		private ProcessingViewModel processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
+		private OutputPathService outputPathService = Ioc.Container.GetInstance<OutputPathService>();
+		private WindowManagerService windowManagerService = Ioc.Container.GetInstance<WindowManagerService>();
+		private ProcessingService processingService = Ioc.Container.GetInstance<ProcessingService>();
 
 		public PreviewViewModel()
 		{
@@ -87,27 +85,27 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public WindowManagerViewModel WindowManagerVM
+		public WindowManagerService WindowManagerService
 		{
 			get
 			{
-				return this.windowManagerVM;
+				return this.windowManagerService;
 			}
 		}
 
-		public ProcessingViewModel ProcessingVM
+		public ProcessingService ProcessingService
 		{
 			get
 			{
-				return this.processingVM;
+				return this.processingService;
 			}
 		}
 
-		public OutputPathViewModel OutputPathVM
+		public OutputPathService OutputPathVM
 		{
 			get
 			{
-				return this.outputPathVM;
+				return this.outputPathService;
 			}
 		}
 
@@ -577,7 +575,7 @@ namespace VidCoder.ViewModel
 
 		private void SetPreviewFilePath()
 		{
-			string extension = OutputPathViewModel.GetExtensionForProfile(this.job.EncodingProfile);
+			string extension = OutputPathService.GetExtensionForProfile(this.job.EncodingProfile);
 
 			string previewDirectory;
 			if (Config.UseCustomPreviewFolder)

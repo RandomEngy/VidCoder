@@ -6,34 +6,30 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Media;
-using System.Text;
 using System.Threading;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shell;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.EventArgs;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
-using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
-using VidCoder.Services;
+using VidCoder.ViewModel;
 using VidCoder.ViewModel.DataModels;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 using Color = System.Windows.Media.Color;
 
-namespace VidCoder.ViewModel.Components
+namespace VidCoder.Services
 {
 	/// <summary>
 	/// Controls the queue and actual processing of encode jobs.
 	/// </summary>
-	public class ProcessingViewModel : ViewModelBase
+	public class ProcessingService : ObservableObject
 	{
 		public const int QueuedTabIndex = 0;
 		public const int CompletedTabIndex = 1;
@@ -44,9 +40,9 @@ namespace VidCoder.ViewModel.Components
 		private IProcessAutoPause autoPause = Ioc.Container.GetInstance<IProcessAutoPause>();
 		private ISystemOperations systemOperations = Ioc.Container.GetInstance<ISystemOperations>();
 		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
-		private OutputPathViewModel outputVM = Ioc.Container.GetInstance<OutputPathViewModel>();
-		private PresetsViewModel presetsViewModel = Ioc.Container.GetInstance<PresetsViewModel>();
-		private PickersViewModel pickersViewModel = Ioc.Container.GetInstance<PickersViewModel>();
+		private OutputPathService outputVM = Ioc.Container.GetInstance<OutputPathService>();
+		private PresetsService presetsService = Ioc.Container.GetInstance<PresetsService>();
+		private PickersService pickersService = Ioc.Container.GetInstance<PickersService>();
 
 		private ObservableCollection<EncodeJobViewModel> encodeQueue;
 		private bool encoding;
@@ -74,7 +70,7 @@ namespace VidCoder.ViewModel.Components
 
 		private int selectedTabIndex;
 
-		public ProcessingViewModel()
+		public ProcessingService()
 		{
 			this.encodeQueue = new ObservableCollection<EncodeJobViewModel>();
 			this.encodeQueue.CollectionChanged += (sender, e) => { this.SaveEncodeQueue(); };
@@ -225,7 +221,7 @@ namespace VidCoder.ViewModel.Components
 				this.RaisePropertyChanged(() => this.PauseVisible);
 				this.RaisePropertyChanged(() => this.Encoding);
 				this.RaisePropertyChanged(() => this.EncodeButtonText);
-				this.main.WindowManagerVM.RefreshEncoding();
+				this.main.WindowManagerService.RefreshEncoding();
 
 				if (!value)
 				{
@@ -507,9 +503,9 @@ namespace VidCoder.ViewModel.Components
 
 									foreach (EncodeJobViewModel job in this.EncodeQueue)
 									{
-										VCProfile newProfile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
+										VCProfile newProfile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
 										job.Job.EncodingProfile = newProfile;
-										job.Job.OutputPath = Path.ChangeExtension(job.Job.OutputPath, OutputPathViewModel.GetExtensionForProfile(newProfile));
+										job.Job.OutputPath = Path.ChangeExtension(job.Job.OutputPath, OutputPathService.GetExtensionForProfile(newProfile));
 
 										newJobs.Add(job);
 									}
@@ -586,7 +582,7 @@ namespace VidCoder.ViewModel.Components
 							return;
 						}
 
-						Ioc.Container.GetInstance<WindowManagerViewModel>().OpenQueueTitlesWindow();
+						Ioc.Container.GetInstance<WindowManagerService>().OpenQueueTitlesWindow();
 					},
 					() =>
 					{
@@ -842,13 +838,13 @@ namespace VidCoder.ViewModel.Components
 				throw new ArgumentException("Destination path is not valid: " + destination);
 			}
 
-			VCProfile profile = this.presetsViewModel.GetProfileByName(presetName);
+			VCProfile profile = this.presetsService.GetProfileByName(presetName);
 			if (profile == null)
 			{
 				throw new ArgumentException("Cannot find preset: " + presetName);
 			}
 
-			PickerViewModel pickerVM = this.pickersViewModel.Pickers.FirstOrDefault(p => p.Picker.Name == pickerName);
+			PickerViewModel pickerVM = this.pickersService.Pickers.FirstOrDefault(p => p.Picker.Name == pickerName);
 			Picker picker = null;
 			if (pickerVM != null)
 			{
@@ -976,11 +972,11 @@ namespace VidCoder.ViewModel.Components
 				this.totalQueueCost += encodeJobVM.Cost;
 			}
 
-			Picker picker = this.pickersViewModel.SelectedPicker.Picker;
+			Picker picker = this.pickersService.SelectedPicker.Picker;
 			if (picker.UseEncodingPreset && !string.IsNullOrEmpty(picker.EncodingPreset))
 			{
 				// Override the encoding preset
-				var presetViewModel = this.presetsViewModel.AllPresets.FirstOrDefault(p => p.PresetName == picker.EncodingPreset);
+				var presetViewModel = this.presetsService.AllPresets.FirstOrDefault(p => p.PresetName == picker.EncodingPreset);
 				if (presetViewModel != null)
 				{
 					encodeJobVM.Job.EncodingProfile = presetViewModel.Preset.EncodingProfile.Clone();
@@ -1005,13 +1001,13 @@ namespace VidCoder.ViewModel.Components
 		{
 			int currentTitleNumber = titleStartOverride;
 
-			Picker picker = this.pickersViewModel.SelectedPicker.Picker;
+			Picker picker = this.pickersService.SelectedPicker.Picker;
 
 			// Queue the selected titles
 			List<SourceTitle> titlesToQueue = titles;
 			foreach (SourceTitle title in titlesToQueue)
 			{
-				VCProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
+				VCProfile profile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
 				string queueSourceName = this.main.SourceName;
 				if (this.main.SelectedSource.Type == SourceType.Dvd)
 				{
@@ -1066,7 +1062,7 @@ namespace VidCoder.ViewModel.Components
 					VideoSourceMetadata = this.main.GetVideoSourceMetadata(),
 					ManualOutputPath = false,
 					NameFormatOverride = nameFormatOverride,
-					PresetName = this.presetsViewModel.SelectedPreset.DisplayName
+					PresetName = this.presetsService.SelectedPreset.DisplayName
 				};
 
 				this.Queue(jobVM);
@@ -1127,7 +1123,7 @@ namespace VidCoder.ViewModel.Components
 					var job = new VCJob
 					{
 						SourcePath = sourcePath.Path,
-						EncodingProfile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.Clone(),
+						EncodingProfile = this.presetsService.SelectedPreset.Preset.EncodingProfile.Clone(),
 						Title = titleNumber,
 						RangeType = VideoRangeType.All,
 						UseDefaultChapterNames = true
@@ -1155,7 +1151,7 @@ namespace VidCoder.ViewModel.Components
 						jobVM.VideoSource = videoSource;
 						jobVM.SourceParentFolder = sourcePath.ParentFolder;
 						jobVM.ManualOutputPath = false;
-						jobVM.PresetName = this.presetsViewModel.SelectedPreset.DisplayName;
+						jobVM.PresetName = this.presetsService.SelectedPreset.DisplayName;
 						itemsToQueue.Add(jobVM);
 					}
 				}
@@ -1275,7 +1271,7 @@ namespace VidCoder.ViewModel.Components
 			// User had the window open when the encode ended last time, so we re-open when starting the queue again.
 			if (Config.EncodeDetailsWindowOpen)
 			{
-				this.main.WindowManagerVM.OpenEncodeDetailsWindow();
+				this.main.WindowManagerService.OpenEncodeDetailsWindow();
 			}
 
 			Messenger.Default.Send(new ProgressChangedMessage
@@ -1702,7 +1698,7 @@ namespace VidCoder.ViewModel.Components
 
 				if (this.encodeStopped || this.EncodeQueue.Count == 0)
 				{
-					this.main.WindowManagerVM.CloseEncodeDetailsWindow();
+					this.main.WindowManagerService.CloseEncodeDetailsWindow();
 				}
 
 				string encodeLogPath = encodeLogger.LogPath;
@@ -1889,7 +1885,7 @@ namespace VidCoder.ViewModel.Components
 			var result = new List<int>();
 			if (picker == null)
 			{
-				picker = this.pickersViewModel.SelectedPicker.Picker;
+				picker = this.pickersService.SelectedPicker.Picker;
 			}
 
 			if (picker.TitleRangeSelectEnabled)
@@ -1941,7 +1937,7 @@ namespace VidCoder.ViewModel.Components
 		// Only relies on input from settings and the current title.
 		private void AutoPickAudio(VCJob job, SourceTitle title, bool useCurrentContext = false)
 		{
-			Picker picker = this.pickersViewModel.SelectedPicker.Picker;
+			Picker picker = this.pickersService.SelectedPicker.Picker;
 
 			job.ChosenAudioTracks = new List<int>();
 			switch (picker.AudioSelectionMode)
@@ -2015,7 +2011,7 @@ namespace VidCoder.ViewModel.Components
 		// Only relies on input from settings and the current title.
 		private void AutoPickSubtitles(VCJob job, SourceTitle title, bool useCurrentContext = false)
 		{
-			Picker picker = this.pickersViewModel.SelectedPicker.Picker;
+			Picker picker = this.pickersService.SelectedPicker.Picker;
 
 			job.Subtitles = new VCSubtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
 			switch (picker.SubtitleSelectionMode)

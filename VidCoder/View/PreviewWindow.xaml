@@ -51,15 +51,15 @@
 	<Window.InputBindings>
 		<KeyBinding
 			Key="Q"
-			Command="{Binding ProcessingVM.AddToQueueCommand}"
+			Command="{Binding ProcessingService.AddToQueueCommand}"
 			Modifiers="Control" />
 		<KeyBinding
 			Key="O"
-			Command="{Binding ProcessingVM.QueueFilesCommand}"
+			Command="{Binding ProcessingService.QueueFilesCommand}"
 			Modifiers="Control+Shift" />
 		<KeyBinding
 			Key="T"
-			Command="{Binding ProcessingVM.QueueTitlesCommand}"
+			Command="{Binding ProcessingService.QueueTitlesCommand}"
 			Modifiers="Control" />
 		<KeyBinding
 			Key="D"

@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using VidCoder.Services;
-using VidCoder.ViewModel.Components;
 
 namespace VidCoder.Extensions
 {
     public static class WindowExtensions
     {
-        private static WindowManagerViewModel windowManager = Ioc.Container.GetInstance<WindowManagerViewModel>();
+        private static WindowManagerService windowManager = Ioc.Container.GetInstance<WindowManagerService>();
 
         public static void RegisterGlobalHotkeys(this Window window)
         {

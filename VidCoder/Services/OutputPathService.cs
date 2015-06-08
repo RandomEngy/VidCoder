@@ -9,33 +9,32 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
-using VidCoder.Services;
+using VidCoder.Resources;
+using VidCoder.ViewModel;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 
-namespace VidCoder.ViewModel.Components
+namespace VidCoder.Services
 {
-	using Extensions;
-	using Resources;
-
 	/// <summary>
 	/// Controls automatic naming logic for the encoding output path.
 	/// </summary>
-	public class OutputPathViewModel : ViewModelBase
+	public class OutputPathService : ObservableObject
 	{
 		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
-		private ProcessingViewModel processingVM;
-		private PresetsViewModel presetsVM;
-		private PickersViewModel pickersVM;
+		private ProcessingService processingService;
+		private PresetsService presetsService;
+		private PickersService pickersService;
 		private IDriveService driveService = Ioc.Container.GetInstance<IDriveService>();
 
 		private string outputPath;
 
 		private bool editingDestination;
 
-		public OutputPathViewModel()
+		public OutputPathService()
 		{
 			Messenger.Default.Register<OutputFolderChangedMessage>(
 				this,
@@ -47,42 +46,42 @@ namespace VidCoder.ViewModel.Components
 					});
 		}
 
-		public ProcessingViewModel ProcessingVM
+		public ProcessingService ProcessingService
 		{
 			get
 			{
-				if (this.processingVM == null)
+				if (this.processingService == null)
 				{
-					this.processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
+					this.processingService = Ioc.Container.GetInstance<ProcessingService>();
 				}
 
-				return this.processingVM;
+				return this.processingService;
 			}
 		}
 
-		public PresetsViewModel PresetsVM
+		public PresetsService PresetsService
 		{
 			get
 			{
-				if (this.presetsVM == null)
+				if (this.presetsService == null)
 				{
-					this.presetsVM = Ioc.Container.GetInstance<PresetsViewModel>();
+					this.presetsService = Ioc.Container.GetInstance<PresetsService>();
 				}
 
-				return this.presetsVM;
+				return this.presetsService;
 			}
 		}
 
-		public PickersViewModel PickersVM
+		public PickersService PickersService
 		{
 			get 
 			{
-				if (this.pickersVM == null)
+				if (this.pickersService == null)
 				{
-					this.pickersVM = Ioc.Container.GetInstance<PickersViewModel>();
+					this.pickersService = Ioc.Container.GetInstance<PickersService>();
 				}
 
-				return this.pickersVM;
+				return this.pickersService;
 			}
 		}
 
@@ -227,7 +226,7 @@ namespace VidCoder.ViewModel.Components
 
 		public string ResolveOutputPathConflicts(string initialOutputPath, bool isBatch)
 		{
-			return ResolveOutputPathConflicts(initialOutputPath, this.ProcessingVM.GetQueuedFiles(), isBatch);
+			return ResolveOutputPathConflicts(initialOutputPath, this.ProcessingService.GetQueuedFiles(), isBatch);
 		}
 
 		/// <summary>
@@ -236,7 +235,7 @@ namespace VidCoder.ViewModel.Components
 		/// <returns>The extension that should be used for current encoding profile.</returns>
 		public string GetOutputExtension(bool includeDot = true)
 		{
-			VCProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
+			VCProfile profile = this.PresetsService.SelectedPreset.Preset.EncodingProfile;
 			return GetExtensionForProfile(profile, includeDot);
 		}
 
@@ -428,7 +427,7 @@ namespace VidCoder.ViewModel.Components
 		{
 			get
 			{
-				Picker picker = this.PickersVM.SelectedPicker.Picker;
+				Picker picker = this.PickersService.SelectedPicker.Picker;
 				if (picker.OutputDirectoryOverrideEnabled)
 				{
 					return picker.OutputDirectoryOverride;
@@ -446,7 +445,7 @@ namespace VidCoder.ViewModel.Components
 
 			if (picker == null)
 			{
-				picker = this.PickersVM.SelectedPicker.Picker;
+				picker = this.PickersService.SelectedPicker.Picker;
 			}
 
 			if (picker.OutputToSourceDirectory ?? Config.OutputToSourceDirectory)
@@ -564,7 +563,7 @@ namespace VidCoder.ViewModel.Components
 			string fileName;
 			if (picker == null)
 			{
-				picker = this.PickersVM.SelectedPicker.Picker;
+				picker = this.PickersService.SelectedPicker.Picker;
 			}
 
 			if (Config.AutoNameCustomFormat || !string.IsNullOrWhiteSpace(nameFormatOverride))
@@ -613,7 +612,7 @@ namespace VidCoder.ViewModel.Components
 				// {chapters} is deprecated in favor of {range} but we replace here for backwards compatibility.
 				fileName = fileName.Replace("{chapters}", rangeString);
 
-				fileName = fileName.Replace("{preset}", this.PresetsVM.SelectedPreset.Preset.Name);
+				fileName = fileName.Replace("{preset}", this.PresetsService.SelectedPreset.Preset.Name);
 				fileName = ReplaceParents(fileName, sourcePath);
 
 				DateTime now = DateTime.Now;
@@ -629,7 +628,7 @@ namespace VidCoder.ViewModel.Components
 
 				if (fileName.Contains("{quality}"))
 				{
-					VCProfile profile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile;
+					VCProfile profile = this.PresetsService.SelectedPreset.Preset.EncodingProfile;
 					double quality = 0;
 					switch (profile.VideoEncodeRateType)
 					{

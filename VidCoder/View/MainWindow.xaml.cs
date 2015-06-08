@@ -20,7 +20,6 @@ using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.ViewModel;
-using VidCoder.ViewModel.Components;
 using VidCoderCommon.Model;
 
 namespace VidCoder.View
@@ -31,8 +30,8 @@ namespace VidCoder.View
 	public partial class MainWindow : Window
 	{
 		private MainViewModel viewModel;
-		private ProcessingViewModel processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
-		private OutputPathViewModel outputVM = Ioc.Container.GetInstance<OutputPathViewModel>();
+		private ProcessingService processingService = Ioc.Container.GetInstance<ProcessingService>();
+		private OutputPathService outputVM = Ioc.Container.GetInstance<OutputPathService>();
 
 		private bool tabsVisible = false;
 
@@ -189,7 +188,7 @@ namespace VidCoder.View
 				}
 				else
 				{
-					this.processingVM.QueueMultiple(fileList);
+					this.processingService.QueueMultiple(fileList);
 				}
 			}
 		}
@@ -262,7 +261,7 @@ namespace VidCoder.View
 			this.viewModel = this.DataContext as MainViewModel;
 			this.viewModel.PropertyChanged += this.ViewModelPropertyChanged;
 			this.viewModel.AnimationStarted += this.ViewModelAnimationStarted;
-			this.processingVM.PropertyChanged += (sender2, e2) =>
+			this.processingService.PropertyChanged += (sender2, e2) =>
 			    {
 					if (e2.PropertyName == "CompletedItemsCount")
 					{
@@ -381,7 +380,7 @@ namespace VidCoder.View
 
 		private void RefreshQueueTabs()
 		{
-			if (this.processingVM.CompletedItemsCount > 0 && !this.tabsVisible)
+			if (this.processingService.CompletedItemsCount > 0 && !this.tabsVisible)
 			{
 				this.queueTab.Visibility = Visibility.Visible;
 				this.completedTab.Visibility = Visibility.Visible;
@@ -393,7 +392,7 @@ namespace VidCoder.View
 				return;
 			}
 
-			if (this.processingVM.CompletedItemsCount == 0 && this.tabsVisible)
+			if (this.processingService.CompletedItemsCount == 0 && this.tabsVisible)
 			{
 				this.queueTab.Visibility = Visibility.Collapsed;
 				this.completedTab.Visibility = Visibility.Collapsed;
@@ -401,7 +400,7 @@ namespace VidCoder.View
 				this.queueItemsTabControl.BorderThickness = new Thickness(0);
 				//this.tabsArea.Margin = new Thickness(0,6,0,0);
 
-				this.processingVM.SelectedTabIndex = ProcessingViewModel.QueuedTabIndex;
+				this.processingService.SelectedTabIndex = ProcessingService.QueuedTabIndex;
 
 				this.tabsVisible = false;
 				return;

@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using VidCoder.Messages;
-using VidCoder.Services;
+using VidCoder.ViewModel;
 
-namespace VidCoder.ViewModel.Components
+namespace VidCoder.Services
 {
 	/// <summary>
 	/// Controls opening/closing of windows.
 	/// </summary>
-	public class WindowManagerViewModel : ViewModelBase
+	public class WindowManagerService : ObservableObject
 	{
 		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
 
@@ -165,7 +160,7 @@ namespace VidCoder.ViewModel.Components
 					},
 					() =>
 					{
-						return this.main.ProcessingVM.Encoding;
+						return this.main.ProcessingService.Encoding;
 					}));
 			}
 		}
@@ -207,7 +202,7 @@ namespace VidCoder.ViewModel.Components
 
 			if (encodingWindow == null)
 			{
-				encodingWindow = new EncodingViewModel(Ioc.Container.GetInstance<PresetsViewModel>().SelectedPreset.Preset);
+				encodingWindow = new EncodingViewModel(Ioc.Container.GetInstance<PresetsService>().SelectedPreset.Preset);
 				encodingWindow.Closing = () =>
 				{
 					this.EncodingWindowOpen = false;
@@ -303,7 +298,7 @@ namespace VidCoder.ViewModel.Components
 
 			if (pickerWindow == null)
 			{
-				pickerWindow = new PickerWindowViewModel(Ioc.Container.GetInstance<PickersViewModel>().SelectedPicker.Picker);
+				pickerWindow = new PickerWindowViewModel(Ioc.Container.GetInstance<PickersService>().SelectedPicker.Picker);
 				pickerWindow.Closing = () =>
 				{
 					this.PickerWindowOpen = false;

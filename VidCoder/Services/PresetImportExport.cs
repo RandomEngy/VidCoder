@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Xml.Linq;
 using VidCoder.Model;
-using VidCoder.ViewModel;
-using VidCoder.ViewModel.Components;
 
 namespace VidCoder.Services
 {
@@ -16,7 +11,7 @@ namespace VidCoder.Services
 	{
 		private IFileService fileService;
 		private IMessageBoxService messageBoxService;
-		private PresetsViewModel presetsViewModel = Ioc.Container.GetInstance<PresetsViewModel>();
+		private PresetsService presetsService = Ioc.Container.GetInstance<PresetsService>();
 
 		public PresetImportExport(IFileService fileService, IMessageBoxService messageBoxService)
 		{
@@ -54,7 +49,7 @@ namespace VidCoder.Services
 
 			this.messageBoxService.Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
 
-			this.presetsViewModel.AddPreset(preset);
+			this.presetsService.AddPreset(preset);
 		}
 
 		public void ExportPreset(Preset preset)

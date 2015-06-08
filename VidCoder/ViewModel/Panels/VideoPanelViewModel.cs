@@ -10,7 +10,6 @@ using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
-using VidCoder.ViewModel.Components;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 
@@ -25,7 +24,7 @@ namespace VidCoder.ViewModel
 
 		private ResourceManager resourceManager = new ResourceManager(typeof(EncodingRes));
 
-		private OutputPathViewModel outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
+		private OutputPathService outputPathService = Ioc.Container.GetInstance<OutputPathService>();
 
 		private List<VideoEncoderViewModel> encoderChoices;
 
@@ -471,7 +470,7 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(() => this.VideoBitrate);
 				}
 
-				this.outputPathVM.GenerateOutputFileName();
+				this.outputPathService.GenerateOutputFileName();
 				this.IsModified = true;
 			}
 		}
@@ -503,7 +502,7 @@ namespace VidCoder.ViewModel
 				this.Profile.TargetSize = value;
 				this.RaisePropertyChanged(() => this.TargetSize);
 				this.RaisePropertyChanged(() => this.VideoBitrate);
-				this.outputPathVM.GenerateOutputFileName();
+				this.outputPathService.GenerateOutputFileName();
 				this.IsModified = true;
 			}
 		}
@@ -539,7 +538,7 @@ namespace VidCoder.ViewModel
 				this.Profile.VideoBitrate = value;
 				this.RaisePropertyChanged(() => this.VideoBitrate);
 				this.RaisePropertyChanged(() => this.TargetSize);
-				this.outputPathVM.GenerateOutputFileName();
+				this.outputPathService.GenerateOutputFileName();
 				this.IsModified = true;
 			}
 		}
@@ -555,7 +554,7 @@ namespace VidCoder.ViewModel
 			{
 				this.Profile.Quality = value;
 				this.RaisePropertyChanged(() => this.Quality);
-				this.outputPathVM.GenerateOutputFileName();
+				this.outputPathService.GenerateOutputFileName();
 				this.IsModified = true;
 			}
 		}

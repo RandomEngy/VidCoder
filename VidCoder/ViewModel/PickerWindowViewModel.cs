@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop.Model;
@@ -12,14 +10,13 @@ using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
-using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {
 	public class PickerWindowViewModel : OkCancelDialogViewModel
 	{
-		private PickersViewModel pickersViewModel = Ioc.Container.GetInstance<PickersViewModel>();
-		private PresetsViewModel presetsVM = Ioc.Container.GetInstance<PresetsViewModel>();
+		private PickersService pickersService = Ioc.Container.GetInstance<PickersService>();
+		private PresetsService presetsService = Ioc.Container.GetInstance<PresetsService>();
 
 		private Picker picker;
 		private bool isNone;
@@ -30,14 +27,14 @@ namespace VidCoder.ViewModel
 		}
 
 
-		public PickersViewModel PickersViewModel
+		public PickersService PickersService
 		{
-			get { return this.pickersViewModel; }
+			get { return this.pickersService; }
 		}
 
-		public PresetsViewModel PresetsVM
+		public PresetsService PresetsService
 		{
-			get { return this.presetsVM; }
+			get { return this.presetsService; }
 		}
 
 		// Should only fire when user manually closes the window, not when closed through WindowManager.
@@ -123,7 +120,7 @@ namespace VidCoder.ViewModel
 					// If we've made a modification, we need to save the pickers.
 					if (value)
 					{
-						this.pickersViewModel.SavePickersToStorage();
+						this.pickersService.SavePickersToStorage();
 					}
 				}
 			}
@@ -495,7 +492,7 @@ namespace VidCoder.ViewModel
 					return null;
 				}
 
-				return this.presetsVM.AllPresets.FirstOrDefault(p => p.PresetName == this.picker.EncodingPreset);
+				return this.presetsService.AllPresets.FirstOrDefault(p => p.PresetName == this.picker.EncodingPreset);
 			}
 
 			set
@@ -558,7 +555,7 @@ namespace VidCoder.ViewModel
 			bool createPicker = this.picker.IsNone;
 			if (createPicker)
 			{
-				this.pickersViewModel.AutoCreatePicker();
+				this.pickersService.AutoCreatePicker();
 			}
 			else if (!this.IsModified)
 			{
@@ -572,13 +569,13 @@ namespace VidCoder.ViewModel
 
 			if (createPicker)
 			{
-				this.pickersViewModel.SavePickersToStorage();
+				this.pickersService.SavePickersToStorage();
 			}
 			else
 			{
 				if (!this.IsModified)
 				{
-					this.pickersViewModel.ModifyPicker(this.picker);
+					this.pickersService.ModifyPicker(this.picker);
 				}
 
 				this.IsModified = true;
@@ -612,7 +609,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.saveCommand ?? (this.saveCommand = new RelayCommand(() =>
 				{
-					this.pickersViewModel.SavePicker();
+					this.pickersService.SavePicker();
 					this.IsModified = false;
 				}, () =>
 				{
@@ -628,7 +625,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.saveAsCommand ?? (this.saveAsCommand = new RelayCommand(() =>
 				{
-					var dialogVM = new ChooseNameViewModel(MainRes.PickerWord, this.pickersViewModel.Pickers.Skip(1).Select(p => p.Name));
+					var dialogVM = new ChooseNameViewModel(MainRes.PickerWord, this.pickersService.Pickers.Skip(1).Select(p => p.Name));
 					dialogVM.Name = this.picker.DisplayName;
 					WindowManager.OpenDialog(dialogVM, this);
 
@@ -636,7 +633,7 @@ namespace VidCoder.ViewModel
 					{
 						string newPickerName = dialogVM.Name;
 
-						this.pickersViewModel.SavePickerAs(newPickerName);
+						this.pickersService.SavePickerAs(newPickerName);
 
 						this.RaisePropertyChanged(() => this.PickerName);
 						this.RaisePropertyChanged(() => this.WindowTitle);
@@ -655,7 +652,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.renameCommand ?? (this.renameCommand = new RelayCommand(() =>
 				{
-					var dialogVM = new ChooseNameViewModel(MainRes.PickerWord, this.pickersViewModel.Pickers.Skip(1).Select(p => p.Name));
+					var dialogVM = new ChooseNameViewModel(MainRes.PickerWord, this.pickersService.Pickers.Skip(1).Select(p => p.Name));
 					dialogVM.Name = this.picker.DisplayName;
 					WindowManager.OpenDialog(dialogVM, this);
 
@@ -664,7 +661,7 @@ namespace VidCoder.ViewModel
 						string newPickerName = dialogVM.Name;
 						this.picker.Name = newPickerName;
 
-						this.pickersViewModel.SavePicker();
+						this.pickersService.SavePicker();
 
 						this.RaisePropertyChanged(() => this.PickerName);
 						this.RaisePropertyChanged(() => this.WindowTitle);
@@ -695,7 +692,7 @@ namespace VidCoder.ViewModel
 							MessageBoxButton.YesNo);
 						if (dialogResult == MessageBoxResult.Yes)
 						{
-							this.EditingPicker = this.pickersViewModel.RevertPicker();
+							this.EditingPicker = this.pickersService.RevertPicker();
 						}
 					}
 					else
@@ -708,7 +705,7 @@ namespace VidCoder.ViewModel
 							MessageBoxButton.YesNo);
 						if (dialogResult == MessageBoxResult.Yes)
 						{
-							this.pickersViewModel.DeletePicker();
+							this.pickersService.DeletePicker();
 						}
 					}
 				}, () =>

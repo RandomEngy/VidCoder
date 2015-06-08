@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using HandBrake.ApplicationServices.Interop;
 using VidCoder.Extensions;
 using VidCoder.Model;
-using VidCoder.Services;
-using VidCoder.ViewModel.Components;
 
 namespace VidCoder.ViewModel
 {

@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.IO;
+using VidCoder.Model;
+using VidCoder.Resources;
+using VidCoder.ViewModel;
 
 namespace VidCoder.Services
 {
-	using System.IO;
-	using Model;
-	using Resources;
-	using ViewModel;
-	using ViewModel.Components;
-
 	public class QueueImportExport : IQueueImportExport
 	{
 		private IFileService fileService;
 		private IMessageBoxService messageBoxService;
-		private ProcessingViewModel processingViewModel = Ioc.Container.GetInstance<ProcessingViewModel>();
+		private ProcessingService processingService = Ioc.Container.GetInstance<ProcessingService>();
 
 		public QueueImportExport(IFileService fileService, IMessageBoxService messageBoxService)
 		{
@@ -34,7 +29,7 @@ namespace VidCoder.Services
 
 			foreach (var job in jobs)
 			{
-				this.processingViewModel.Queue(new EncodeJobViewModel(job.Job)
+				this.processingService.Queue(new EncodeJobViewModel(job.Job)
 					{
 						SourceParentFolder = job.SourceParentFolder,
 						ManualOutputPath = job.ManualOutputPath,

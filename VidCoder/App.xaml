@@ -38,7 +38,7 @@
 			<Setter Property="MinWidth" Value="140" />
 			<Setter Property="MaxWidth" Value="220" />
 			<Setter Property="VerticalContentAlignment" Value="Center" />
-			<Setter Property="ItemsSource" Value="{Binding PresetsVM.AllPresets}" />
+			<Setter Property="ItemsSource" Value="{Binding PresetsService.AllPresets}" />
 			<Setter Property="UseLayoutRounding" Value="True" />
 			<Setter Property="ItemContainerStyle">
 				<Setter.Value>
