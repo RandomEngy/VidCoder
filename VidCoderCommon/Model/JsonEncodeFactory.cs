@@ -629,6 +629,8 @@ namespace VidCoderCommon.Model
 			{
 				case VCVideoEncodeRateType.TargetSize:
 					video.Bitrate = CalculateBitrate(job, title, profile.TargetSize, previewLengthSeconds);
+					video.TwoPass = profile.TwoPass;
+					video.Turbo = profile.TurboFirstPass;
 					break;
 				case VCVideoEncodeRateType.AverageBitrate:
 					video.Bitrate = profile.VideoBitrate;
