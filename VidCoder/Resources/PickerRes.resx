@@ -170,4 +170,7 @@
     <value>Use global setting</value>
     <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
   </data>
+	<data name="PresetOverrideToolTip" xml:space="preserve">
+    <value>This will override any preset picked in the main window.</value>
+  </data>
 </root>

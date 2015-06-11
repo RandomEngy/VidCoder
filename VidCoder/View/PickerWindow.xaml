@@ -502,7 +502,7 @@
 					<!--  Encoding  -->
 					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="Encoding" />
 					<StackPanel Style="{StaticResource ConfigSectionStack}">
-						<StackPanel Orientation="Horizontal">
+						<StackPanel Orientation="Horizontal" ToolTip="{x:Static res:PickerRes.PresetOverrideToolTip}">
 							<CheckBox
 								VerticalAlignment="Center"
 								Content="Use preset:"
