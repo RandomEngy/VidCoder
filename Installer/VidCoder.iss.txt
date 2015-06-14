@@ -172,6 +172,10 @@ var
    showSuccessDialog: String;
 begin
   case CurStep of
+    ssPostInstall:
+      begin
+        InstallFramework();
+      end;
     ssDone:
       begin
         showSuccessDialog := GetCommandLineParam('/showSuccessDialog');
