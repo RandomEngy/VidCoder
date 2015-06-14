@@ -1,5 +1,4 @@
-﻿using System;
-using VidCoder.Model;
+﻿using VidCoderCommon.Model;
 
 namespace VidCoder.Services
 {

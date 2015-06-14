@@ -11,6 +11,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using HandBrake.ApplicationServices.Interop;
+using VidCoder.Extensions;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Model;
@@ -525,8 +526,8 @@ namespace VidCoder.Model
 					presets.RemoveAt(i);
 
 					// Splash screen eats first dialog, need to show twice.
-					Ioc.Container.GetInstance<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.DisplayName + "'.");
-					Ioc.Container.GetInstance<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.DisplayName + "'.");
+					Ioc.Container.GetInstance<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.GetDisplayName() + "'.");
+					Ioc.Container.GetInstance<IMessageBoxService>().Show("Could not load corrupt preset '" + preset.GetDisplayName() + "'.");
 				}
 				else
 				{

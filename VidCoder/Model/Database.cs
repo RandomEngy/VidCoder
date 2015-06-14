@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
+using System.Threading;
+using System.Windows;
+using VidCoder.Resources;
+using VidCoder.Services;
+using VidCoderCommon.Model;
 
 namespace VidCoder.Model
 {
-	using System.Globalization;
-	using System.ServiceModel.Channels;
-	using System.Threading;
-	using System.Windows;
-	using Resources;
-	using Services;
-
 	public static class Database
 	{
 		private const string ConfigDatabaseFileWithoutExtension = "VidCoder";

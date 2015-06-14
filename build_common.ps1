@@ -80,5 +80,5 @@ function DeleteFileIfExists($fileName)
 }
 
 $DevEnv12Exe = "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.com"
-$NetToolsFolder = "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin"
+$NetToolsFolder = "C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools"
 $InnoSetupExe = "C:\Program Files (x86)\Inno Setup 5\ISCC.exe"

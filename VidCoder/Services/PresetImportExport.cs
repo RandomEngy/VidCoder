@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using VidCoder.Model;
+using VidCoderCommon.Model;
 
 namespace VidCoder.Services
 {

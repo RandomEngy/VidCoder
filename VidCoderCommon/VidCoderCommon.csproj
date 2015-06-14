@@ -79,6 +79,8 @@
     <Compile Include="Model\AudioEncodeRateType.cs" />
     <Compile Include="Model\AudioEncoding.cs" />
     <Compile Include="Model\JsonEncodeFactory.cs" />
+    <Compile Include="Model\Preset.cs" />
+    <Compile Include="Model\PresetCollection.cs" />
     <Compile Include="Model\SourceSubtitle.cs" />
     <Compile Include="Model\SourceType.cs" />
     <Compile Include="Model\SrtSubtitle.cs" />

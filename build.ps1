@@ -127,8 +127,8 @@ UpdateAssemblyInfo "VidCoderWorker\Properties\AssemblyInfo.cs" $versionLong
 & $DevEnv12Exe VidCoder.sln /Rebuild ($configuration + "|x64"); ExitIfFailed
 
 # Run sgen to create *.XmlSerializers.dll
-#& ($NetToolsFolder + "\sgen.exe") /f /a:"VidCoder\bin\x86\Release\VidCoder.exe"; ExitIfFailed
-#& ($NetToolsFolder + "\x64\sgen.exe") /f /a:"VidCoder\bin\x64\Release\VidCoder.exe"; ExitIfFailed
+& ($NetToolsFolder + "\sgen.exe") /f /a:"VidCoder\bin\x86\Release\VidCoderCommon.dll"; ExitIfFailed
+& ($NetToolsFolder + "\x64\sgen.exe") /f /a:"VidCoder\bin\x64\Release\VidCoderCommon.dll"; ExitIfFailed
 
 
 # Copy install files to staging folder
@@ -147,10 +147,10 @@ CopyBoth "VidCoder.pdb"
 CopyBoth "VidCoder.exe.config"
 CopyBoth "VidCoderCommon.dll"
 CopyBoth "VidCoderCommon.pdb"
+CopyBoth "VidCoderCommon.XmlSerializers.dll"
 CopyBoth "VidCoderWorker.exe"
 CopyBoth "VidCoderWorker.exe.config"
 CopyBoth "VidCoderWorker.pdb"
-CopyBoth "VidCoder.XmlSerializers.dll"
 CopyBoth "Omu.ValueInjecter.dll"
 CopyBoth "VidCoderCLI.exe"
 CopyBoth "VidCoderCLI.pdb"

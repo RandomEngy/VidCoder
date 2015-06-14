@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoderCommon.Model;
 
@@ -51,7 +52,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.preset.DisplayName;
+				return this.preset.GetDisplayName();
 			}
 		}
 
@@ -60,7 +61,7 @@ namespace VidCoder.ViewModel
 			get
 			{
 				string suffix = this.IsModified ? " *" : string.Empty;
-				return this.preset.DisplayName + suffix;
+				return this.preset.GetDisplayName() + suffix;
 			}
 		}
 

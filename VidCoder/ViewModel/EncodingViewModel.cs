@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -174,7 +175,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.originalPreset.DisplayName;
+				return this.originalPreset.GetDisplayName();
 			}
 		}
 
@@ -439,7 +440,7 @@ namespace VidCoder.ViewModel
 				return this.saveAsCommand ?? (this.saveAsCommand = new RelayCommand(() =>
 					{
 						var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.presetsService.AllPresets.Where(preset => !preset.IsBuiltIn).Select(preset => preset.PresetName));
-						dialogVM.Name = this.originalPreset.DisplayName;
+						dialogVM.Name = this.originalPreset.GetDisplayName();
 						WindowManager.OpenDialog(dialogVM, this);
 
 						if (dialogVM.DialogResult)
@@ -466,7 +467,7 @@ namespace VidCoder.ViewModel
 				return this.renameCommand ?? (this.renameCommand = new RelayCommand(() =>
 					{
 						var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.presetsService.AllPresets.Where(preset => !preset.IsBuiltIn).Select(preset => preset.PresetName));
-						dialogVM.Name = this.originalPreset.DisplayName;
+						dialogVM.Name = this.originalPreset.GetDisplayName();
 						WindowManager.OpenDialog(dialogVM, this);
 
 						if (dialogVM.DialogResult)
