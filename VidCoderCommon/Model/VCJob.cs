@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Omu.ValueInjecter;
 
 namespace VidCoderCommon.Model
 {
@@ -54,32 +55,6 @@ namespace VidCoderCommon.Model
 		{
 			get { return this.Length.ToString(); }
 			set { this.Length = TimeSpan.Parse(value); }
-		}
-
-		public VCJob Clone()
-		{
-			var clone = new VCJob
-			{
-				SourceType = this.SourceType,
-				SourcePath = this.SourcePath,
-				Title = this.Title,
-				Angle = this.Angle,
-				RangeType = this.RangeType,
-				ChapterStart = this.ChapterStart,
-				ChapterEnd = this.ChapterEnd,
-				SecondsStart = this.SecondsStart,
-				SecondsEnd = this.SecondsEnd,
-				FramesStart = this.FramesStart,
-				FramesEnd = this.FramesEnd,
-				ChosenAudioTracks = new List<int>(this.ChosenAudioTracks),
-				Subtitles = this.Subtitles,
-				UseDefaultChapterNames = this.UseDefaultChapterNames,
-				OutputPath = this.OutputPath,
-				EncodingProfile = this.EncodingProfile,
-				Length = this.Length
-			};
-
-			return clone;
 		}
 	}
 }

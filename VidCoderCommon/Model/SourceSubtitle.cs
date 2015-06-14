@@ -1,4 +1,6 @@
-﻿namespace VidCoderCommon.Model
+﻿using Omu.ValueInjecter;
+
+namespace VidCoderCommon.Model
 {
     public class SourceSubtitle
     {
@@ -16,15 +18,11 @@
         /// </summary>
         public int TrackNumber { get; set; }
 
-        public SourceSubtitle Clone()
-        {
-            return new SourceSubtitle
-                       {
-                           TrackNumber = this.TrackNumber, 
-                           Default = this.Default, 
-                           Forced = this.Forced, 
-                           BurnedIn = this.BurnedIn
-                       };
-        }
+		public SourceSubtitle Clone()
+		{
+			var subtitle = new SourceSubtitle();
+			subtitle.InjectFrom(this);
+			return subtitle;
+		}
     }
 }

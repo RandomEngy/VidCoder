@@ -55,20 +55,6 @@ namespace VidCoder.Model
 				{
 					var result = GetPresetListFromDb();
 
-					if (result.Count == 0 && Directory.Exists(UserPresetsFolder))
-					{
-						// If we have no DB presets, check for old .xml files in the UserPresets folder
-						string[] presetFiles = Directory.GetFiles(UserPresetsFolder);
-						foreach (string presetFile in presetFiles)
-						{
-							Preset preset = LoadPresetFile(presetFile);
-							if (preset != null)
-							{
-								result.Add(preset);
-							}
-						}
-					}
-
 					ErrorCheckPresets(result);
 
 					return result;

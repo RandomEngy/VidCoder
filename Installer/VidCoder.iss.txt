@@ -1,3 +1,5 @@
+#include ReadReg(HKEY_LOCAL_MACHINE,'Software\Sherlock Software\InnoTools\Downloader','ScriptPath','')
+
 [Setup]
 AppName=%appName%
 AppVerName=%appVerName%
@@ -55,16 +57,24 @@ Filename: "{app}\VidCoder.exe"; Description: "Run VidCoder"; Flags: postinstall 
 Type: filesandordirs; Name: "{userappdata}\%folderName%\Updates"
 Type: filesandordirs; Name: "{localappdata}\%folderName%"
 
-[CustomMessages]
-dotnetmissing=VidCoder requires Microsoft .NET Framework 4, which is not installed. Would you like to download it now?
-
 [Code]
+
+function Framework45IsNotInstalled(): Boolean;
+var
+  bSuccess: Boolean;
+  regVersion: Cardinal;
+begin
+  Result := True;
+
+  bSuccess := RegQueryDWordValue(HKLM, 'Software\Microsoft\NET Framework Setup\NDP\v4\Full', 'Release', regVersion);
+  if (True = bSuccess) and (regVersion >= 378389) then begin
+    Result := False;
+  end;
+end;
 
 function InitializeSetup(): Boolean;
 var
   Version: TWindowsVersion;
-  netFrameWorkInstalled : Boolean;
-  isInstalled: Cardinal;
   ErrorCode: Integer;
 begin
 	GetWindowsVersionEx(Version);
@@ -75,22 +85,37 @@ begin
     exit;
 	end;
 	
-  result := true;
+  Result := true;
+end;
 
-  isInstalled := 0;
-  netFrameworkInstalled := RegQueryDWordValue(HKLM, 'Software\Microsoft\NET Framework Setup\NDP\v4\Client', 'Install', isInstalled);
-  if ((netFrameworkInstalled)  and (isInstalled <> 1)) then netFrameworkInstalled := false;
-
-  if netFrameworkInstalled = false then
+procedure InitializeWizard;
+begin
+  if Framework45IsNotInstalled() then
   begin
-    if (MsgBox(ExpandConstant('{cm:dotnetmissing}'),
-        mbConfirmation, MB_YESNO) = idYes) then
+    ITD_Init;
+    ITD_AddFile('http://go.microsoft.com/fwlink/?LinkId=225702', ExpandConstant('{tmp}\dotNetFx45_Full_x86_x64.exe'));
+    ITD_DownloadAfter(wpReady);
+  end;
+end;
+
+procedure InstallFramework;
+var
+  StatusText: string;
+  ResultCode: Integer;
+begin
+  StatusText := WizardForm.StatusLabel.Caption;
+  WizardForm.StatusLabel.Caption := 'Installing .NET Framework 4.5...';
+  WizardForm.ProgressGauge.Style := npbstMarquee;
+  try
+    if not Exec(ExpandConstant('{tmp}\dotNetFx45_Full_x86_x64.exe'), '/q /norestart', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
     begin
-      ShellExec('open',
-      'http://www.microsoft.com/downloads/details.aspx?FamilyID=e5ad0459-cbcc-4b4f-97b6-fb17111cf544',
-      '','',SW_SHOWNORMAL,ewNoWait,ErrorCode);
+      MsgBox('.NET installation failed with code: ' + IntToStr(ResultCode) + '.', mbError, MB_OK);
     end;
-    result := false;
+  finally
+    WizardForm.StatusLabel.Caption := StatusText;
+    WizardForm.ProgressGauge.Style := npbstNormal;
+    
+    DeleteFile(ExpandConstant('{tmp}\dotNetFx45_Full_x86_x64.exe'));
   end;
 end;
 

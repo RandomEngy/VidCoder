@@ -1,4 +1,5 @@
 ﻿using HandBrake.ApplicationServices.Interop.Model;
+using Omu.ValueInjecter;
 
 namespace VidCoderCommon.Model
 {
@@ -49,11 +50,6 @@ namespace VidCoderCommon.Model
             this.Right = right;
         }
 
-	    public Cropping HbCropping
-	    {
-			get { return new Cropping(this.Top, this.Bottom, this.Left, this.Right); }
-	    }
-
         public int Top { get; set; }
 
         public int Bottom { get; set; }
@@ -61,16 +57,5 @@ namespace VidCoderCommon.Model
         public int Left { get; set; }
 
         public int Right { get; set; }
-
-		public VCCropping Clone()
-		{
-			return new VCCropping
-			{
-				Top = this.Top,
-				Bottom = this.Bottom,
-				Left = this.Left,
-				Right = this.Right
-			};
-		}
 	}
 }

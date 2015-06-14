@@ -59,7 +59,7 @@ namespace VidCoderWorker
 					long affinityMask = 0x0;
 					for (int i = 0; i < coresToUse; i++)
 					{
-						affinityMask |= (1 << i);
+						affinityMask |= (uint)(1 << i);
 					}
 
 					process.ProcessorAffinity = (IntPtr) affinityMask;

@@ -11,6 +11,10 @@
             method is 'true'.  This class does not allow you to accept command parameters in the
             Execute and CanExecute callback methods.
             </summary>
+            <remarks>If you are using this class in WPF4.5 or above, you need to use the 
+            GalaSoft.MvvmLight.CommandWpf namespace (instead of GalaSoft.MvvmLight.Command).
+            This will enable (or restore) the CommandManager class which handles
+            automatic enabling/disabling of controls based on the CanExecute delegate.</remarks>
         </member>
         <member name="M:GalaSoft.MvvmLight.Command.RelayCommand.#ctor(System.Action)">
             <summary>
@@ -59,6 +63,10 @@
             Execute and CanExecute callback methods.
             </summary>
             <typeparam name="T">The type of the command parameter.</typeparam>
+            <remarks>If you are using this class in WPF4.5 or above, you need to use the 
+            GalaSoft.MvvmLight.CommandWpf namespace (instead of GalaSoft.MvvmLight.Command).
+            This will enable (or restore) the CommandManager class which handles
+            automatic enabling/disabling of controls based on the CanExecute delegate.</remarks>
         </member>
         <member name="M:GalaSoft.MvvmLight.Command.RelayCommand`1.#ctor(System.Action{`0})">
             <summary>
@@ -1579,6 +1587,48 @@
             Gets or sets an instance of a <see cref="T:GalaSoft.MvvmLight.Messaging.IMessenger"/> used to
             broadcast messages to other objects. If null, this class will
             attempt to broadcast using the Messenger's default instance.
+            </summary>
+        </member>
+        <member name="T:GalaSoft.MvvmLight.Views.INavigationService">
+            <summary>
+            An interface defining how navigation between pages should
+            be performed in various frameworks such as Windows, 
+            Windows Phone, Android, iOS etc.
+            </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Views.INavigationService.GoBack">
+            <summary>
+            If possible, instructs the navigation service
+            to discard the current page and display the previous page
+            on the navigation stack.
+            </summary>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Views.INavigationService.NavigateTo(System.String)">
+            <summary>
+            Instructs the navigation service to display a new page
+            corresponding to the given key. Depending on the platforms,
+            the navigation service might have to be configured with a
+            key/page list.
+            </summary>
+            <param name="pageKey">The key corresponding to the page
+            that should be displayed.</param>
+        </member>
+        <member name="M:GalaSoft.MvvmLight.Views.INavigationService.NavigateTo(System.String,System.Object)">
+            <summary>
+            Instructs the navigation service to display a new page
+            corresponding to the given key, and passes a parameter
+            to the new page.
+            Depending on the platforms, the navigation service might 
+            have to be Configure with a key/page list.
+            </summary>
+            <param name="pageKey">The key corresponding to the page
+            that should be displayed.</param>
+            <param name="parameter">The parameter that should be passed
+            to the new page.</param>
+        </member>
+        <member name="P:GalaSoft.MvvmLight.Views.INavigationService.CurrentPageKey">
+            <summary>
+            The key corresponding to the currently displayed page.
             </summary>
         </member>
         <member name="T:GalaSoft.MvvmLight.Threading.DispatcherHelper">

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Omu.ValueInjecter;
+using VidCoderCommon.Utilities.Injection;
 
 namespace VidCoderCommon.Model
 {
@@ -96,76 +98,12 @@ namespace VidCoderCommon.Model
 
 		public VCProfile Clone()
 		{
-			var profile = new VCProfile
-			{
-#pragma warning disable 612, 618
-				OutputFormat = this.OutputFormat,
-#pragma warning restore 612, 618
-				ContainerName = this.ContainerName,
-				PreferredExtension = this.PreferredExtension,
-				IncludeChapterMarkers = this.IncludeChapterMarkers,
-				LargeFile = this.LargeFile,
-				Optimize = this.Optimize,
-				IPod5GSupport = this.IPod5GSupport,
+			var profile = new VCProfile();
+			profile.InjectFrom<FastDeepCloneInjection>(this);
 
-				Width = this.Width,
-				Height = this.Height,
-				MaxWidth = this.MaxWidth,
-				MaxHeight = this.MaxHeight,
-				ScaleMethod = this.ScaleMethod,
-				CroppingType = this.CroppingType,
-				Cropping = this.Cropping.Clone(),
-				Anamorphic = this.Anamorphic,
-				UseDisplayWidth = this.UseDisplayWidth,
-				DisplayWidth = this.DisplayWidth,
-				KeepDisplayAspect = this.KeepDisplayAspect,
-				PixelAspectX = this.PixelAspectX,
-				PixelAspectY = this.PixelAspectY,
-				Modulus = this.Modulus,
-				Rotation = this.Rotation,
-				FlipHorizontal = this.FlipHorizontal,
-				FlipVertical = this.FlipVertical,
-
-				Deinterlace = this.Deinterlace,
-				CustomDeinterlace = this.CustomDeinterlace,
-				Decomb = this.Decomb,
-				CustomDecomb = this.CustomDecomb,
-				Detelecine = this.Detelecine,
-				CustomDetelecine = this.CustomDetelecine,
-				DenoiseType = this.DenoiseType,
-				DenoisePreset = this.DenoisePreset,
-				DenoiseTune = this.DenoiseTune,
-				UseCustomDenoise = this.UseCustomDenoise,
-				CustomDenoise = this.CustomDenoise,
-				Deblock = this.Deblock,
-				Grayscale = this.Grayscale,
-
-				UseAdvancedTab = this.UseAdvancedTab,
-				X264Options = this.X264Options,
-				X264Profile = this.X264Profile,
-				X264Preset = this.X264Preset,
-				QsvPreset = this.QsvPreset,
-				X264Tunes = this.X264Tunes,
-				H264Level = this.H264Level,
-				VideoEncoder = this.VideoEncoder,
-				VideoOptions = this.VideoOptions,
-				VideoProfile = this.VideoProfile,
-				VideoPreset = this.VideoPreset,
-				VideoTunes = this.VideoTunes,
-				VideoLevel = this.VideoLevel,
-				QsvDecode = this.QsvDecode,
-				VideoEncodeRateType = this.VideoEncodeRateType,
-				Quality = this.Quality,
-				TargetSize = this.TargetSize,
-				VideoBitrate = this.VideoBitrate,
-				TwoPass = this.TwoPass,
-				TurboFirstPass = this.TurboFirstPass,
-				Framerate = this.Framerate,
-				ConstantFramerate = this.ConstantFramerate,
-
-				AudioEncodings = new List<AudioEncoding>(this.AudioEncodings),
-				AudioEncoderFallback = this.AudioEncoderFallback
-			};
+			//profile.InjectFrom(this);
+			//profile.Cropping = this.Cropping.Clone();
+			//profile.AudioEncodings = new List<AudioEncoding>(this.AudioEncodings);
 
 			return profile;
 		}

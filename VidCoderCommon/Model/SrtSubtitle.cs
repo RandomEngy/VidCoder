@@ -1,4 +1,6 @@
-﻿namespace VidCoderCommon.Model
+﻿using Omu.ValueInjecter;
+
+namespace VidCoderCommon.Model
 {
     public class SrtSubtitle
     {
@@ -22,15 +24,10 @@
 
         public SrtSubtitle Clone()
         {
-            return new SrtSubtitle
-                       {
-                           Default = this.Default,
-						   BurnedIn = this.BurnedIn,
-                           FileName = this.FileName, 
-                           LanguageCode = this.LanguageCode, 
-                           CharacterCode = this.CharacterCode, 
-                           Offset = this.Offset
-                       };
+	        var subtitle = new SrtSubtitle();
+	        subtitle.InjectFrom(this);
+
+	        return subtitle;
         }
     }
 }

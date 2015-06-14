@@ -1,10 +1,9 @@
-﻿using VidCoderCommon.Model;
+﻿using System.Resources;
+using VidCoder.Resources;
+using VidCoderCommon.Model;
 
 namespace VidCoder.Model
 {
-	using System.Resources;
-	using Resources;
-
 	public class Preset
 	{
 		private static ResourceManager manager = new ResourceManager(typeof(MainRes));
