@@ -78,7 +78,7 @@ namespace VidCoder.View
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			Config.QueueTitlesDialogPlacement2 = this.GetPlacementXml();
+			Config.QueueTitlesDialogPlacement2 = this.GetPlacementJson();
 		}
 
 		private void previewImageHolder_SizeChanged(object sender, SizeChangedEventArgs e)

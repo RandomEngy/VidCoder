@@ -1,31 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Reflection;
+using System.ComponentModel;
+using System.Configuration;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Windows;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
-using Microsoft.Win32;
-using VidCoder.Extensions;
 using VidCoder.Model;
+using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 
 namespace VidCoder
 {
-	using System.ComponentModel;
-	using System.Configuration;
-	using Properties;
-	using Resources;
-
 	public static class Utilities
 	{
 		public const string TimeFormat = @"h\:mm\:ss";
-		public const int CurrentDatabaseVersion = 27;
+		public const int CurrentDatabaseVersion = 28;
 		public const int LastUpdatedEncodingProfileDatabaseVersion = 26;
 
 		private const string AppDataFolderName = "VidCoder";

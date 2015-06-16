@@ -90,13 +90,13 @@ namespace VidCoder.View
 			}
 			else
 			{
-				this.SetPlacementXml(placement);
+				this.SetPlacementJson(placement);
 			}
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			Config.PreviewWindowPlacement = this.GetPlacementXml();
+			Config.PreviewWindowPlacement = this.GetPlacementJson();
 		}
 
 		private void previewImageHolder_SizeChanged(object sender, SizeChangedEventArgs e)

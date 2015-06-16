@@ -41,7 +41,7 @@ namespace VidCoder.View
         {
 	        using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
 	        {
-		        Config.PickerWindowPlacement = this.GetPlacementXml();
+		        Config.PickerWindowPlacement = this.GetPlacementJson();
 		        Config.PickerListPaneWidth = this.listColumn.ActualWidth;
 
 				transaction.Commit();

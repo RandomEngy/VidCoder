@@ -79,7 +79,7 @@ namespace VidCoder.View
 		{
 			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
 			{
-				Config.EncodingDialogPlacement = this.GetPlacementXml();
+				Config.EncodingDialogPlacement = this.GetPlacementJson();
 				Config.EncodingDialogLastTab = this.tabControl.SelectedIndex;
 				Config.EncodingListPaneWidth = this.listColumn.ActualWidth;
 

@@ -24,14 +24,25 @@ foreach (string line in lines)
 	}
 }
 #>
+using System.Data.SQLite;
+using VidCoder.Model;
+
 namespace VidCoder
 {
-	using System.Data.SQLite;
-	using Model;
-
 	public static class Config
 	{
-		public static void Initialize(SQLiteConnection connection)
+		private static bool initialized;
+
+		public static void EnsureInitialized(SQLiteConnection connection)
+		{
+			if (!initialized)
+			{
+				Initialize(connection);
+				initialized = true;
+			}
+		}
+
+		private static void Initialize(SQLiteConnection connection)
 		{
 <#
 foreach (var setting in settings)

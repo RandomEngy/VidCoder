@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Omu.ValueInjecter;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace VidCoderCommon.Model
 {
-	using System.Xml.Serialization;
-
 	/// <summary>
 	/// An analogue for HBInterop's EncodingJob.
 	/// </summary>
@@ -50,6 +49,7 @@ namespace VidCoderCommon.Model
 		[XmlIgnore]
 		public TimeSpan Length { get; set; }
 
+		[JsonIgnore]
 		[XmlElement("Length")]
 		public string XmlLength
 		{

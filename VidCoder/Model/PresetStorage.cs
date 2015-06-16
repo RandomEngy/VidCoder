@@ -11,6 +11,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using HandBrake.ApplicationServices.Interop;
+using Newtonsoft.Json;
 using VidCoder.Extensions;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -18,33 +19,23 @@ using VidCoderCommon.Model;
 
 namespace VidCoder.Model
 {
-	public static class Presets
+	public static class PresetStorage
 	{
 		private const int CurrentPresetVersion = 16;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
-		private static readonly string BuiltInPresetsPath = "BuiltInPresets.xml";
-		private static XmlSerializer presetListSerializer = new XmlSerializer(typeof(PresetCollection));
-		private static XmlSerializer presetSerializer = new XmlSerializer(typeof(Preset));
+		private static readonly string BuiltInPresetsPath = "BuiltInPresets.json";
 		private static object userPresetSync = new object();
 
 		// This field holds the copy of the preset list that has been most recently queued for saving.
 		private static volatile List<string> pendingSavePresetList;
 
-		static Presets()
-		{
-
-		}
-
-		public static List<Preset> BuiltInPresets
+		public static IList<Preset> BuiltInPresets
 		{
 			get
 			{
-				using (var stream = new FileStream(Path.Combine(Utilities.ProgramFolder, BuiltInPresetsPath), FileMode.Open, FileAccess.Read))
-				{
-					var presetCollection = presetListSerializer.Deserialize(stream) as PresetCollection;
-					return presetCollection.Presets;
-				}
+				string builtInPresetsPath = Path.Combine(Utilities.ProgramFolder, BuiltInPresetsPath);
+				return JsonConvert.DeserializeObject<IList<Preset>>(File.ReadAllText(builtInPresetsPath));
 			}
 		}
 
@@ -54,7 +45,7 @@ namespace VidCoder.Model
 			{
 				lock (userPresetSync)
 				{
-					var result = GetPresetListFromDb();
+					var result = GetJsonPresetListFromDb();
 
 					ErrorCheckPresets(result);
 
@@ -64,29 +55,47 @@ namespace VidCoder.Model
 
 			set
 			{
-				var presetXmlList = value.Select(SerializePreset).ToList();
+				var presetJsonList = value.Select(SerializePreset).ToList();
 
-				pendingSavePresetList = presetXmlList;
+				pendingSavePresetList = presetJsonList;
 
 				// Do the actual save asynchronously.
-				ThreadPool.QueueUserWorkItem(SaveUserPresetsBackground, presetXmlList);
+				ThreadPool.QueueUserWorkItem(SaveUserPresetsBackground, presetJsonList);
 			}
 		}
 
 		/// <summary>
-		/// Serializes a preset to XML. Does not include wrapper.
+		/// Serializes a preset to JSON.
 		/// </summary>
 		/// <param name="preset">The preset to serialize.</param>
-		/// <returns>The serialized XML of the preset.</returns>
+		/// <returns>The serialized JSON of the preset.</returns>
 		public static string SerializePreset(Preset preset)
 		{
-			var xmlBuilder = new StringBuilder();
-			using (XmlWriter writer = XmlWriter.Create(xmlBuilder))
+			return JsonConvert.SerializeObject(preset);
+		}
+
+		/// <summary>
+		/// Saves a user preset to a file.
+		/// </summary>
+		/// <param name="preset">The preset to save.</param>
+		/// <param name="filePath">The path to save the preset to.</param>
+		/// <returns>True if the save succeeded.</returns>
+		public static bool SavePresetToFile(Preset preset, string filePath)
+		{
+			try
 			{
-				presetSerializer.Serialize(writer, preset);
+				var presetWrapper = new PresetWrapper { Version = CurrentPresetVersion, Preset = preset };
+
+				File.WriteAllText(filePath, JsonConvert.SerializeObject(presetWrapper));
+
+				return true;
+			}
+			catch (Exception exception)
+			{
+				System.Windows.MessageBox.Show(string.Format(MainRes.CouldNotSavePresetMessage, preset.Name, Environment.NewLine, exception));
 			}
 
-			return xmlBuilder.ToString();
+			return false;
 		}
 
 		/// <summary>
@@ -96,31 +105,44 @@ namespace VidCoder.Model
 		/// <returns>The parsed preset from the file, or null if the preset is invalid.</returns>
 		public static Preset LoadPresetFile(string presetFile)
 		{
-			if (Path.GetExtension(presetFile).ToLowerInvariant() != ".xml")
+			string extension = Path.GetExtension(presetFile).ToLowerInvariant();
+
+			if (extension != ".xml" && extension != ".vjpreset")
 			{
 				return null;
 			}
 
 			try
 			{
-				XDocument doc = XDocument.Load(presetFile);
-				if (doc.Element("UserPreset") == null)
+				if (extension == ".xml")
 				{
-					return null;
+					XDocument doc = XDocument.Load(presetFile);
+					if (doc.Element("UserPreset") == null)
+					{
+						return null;
+					}
+
+					XElement presetElement = doc.Element("UserPreset").Element("Preset");
+					int version = int.Parse(doc.Element("UserPreset").Attribute("Version").Value);
+
+					using (XmlReader reader = presetElement.CreateReader())
+					{
+						XmlSerializer presetSerializer = new XmlSerializer(typeof(Preset));
+						var preset = presetSerializer.Deserialize(reader) as Preset;
+						UpgradeEncodingProfile(preset.EncodingProfile, PresetToDbVersion(version));
+
+						return preset;
+					}
 				}
-
-				XElement presetElement = doc.Element("UserPreset").Element("Preset");
-				int version = int.Parse(doc.Element("UserPreset").Attribute("Version").Value);
-
-				using (XmlReader reader = presetElement.CreateReader())
+				else
 				{
-					var preset = presetSerializer.Deserialize(reader) as Preset;
-					UpgradeEncodingProfile(preset.EncodingProfile, PresetToDbVersion(version));
+					PresetWrapper presetWrapper = JsonConvert.DeserializeObject<PresetWrapper>(File.ReadAllText(presetFile));
+					UpgradeEncodingProfile(presetWrapper.Preset.EncodingProfile, PresetToDbVersion(presetWrapper.Version));
 
-					return preset;
+					return presetWrapper.Preset;
 				}
 			}
-			catch (XmlException)
+			catch (Exception)
 			{
 				return null;
 			}
@@ -130,8 +152,9 @@ namespace VidCoder.Model
 		/// Load in a preset from an XML string.
 		/// </summary>
 		/// <param name="presetXml">The XML of the preset to load in (without wrapper XML).</param>
+		/// <param name="serializer">The XML serializer to use.</param>
 		/// <returns>The loaded Preset.</returns>
-		public static Preset LoadPresetXmlString(string presetXml)
+		public static Preset ParsePresetXml(string presetXml, XmlSerializer serializer)
 		{
 			try
 			{
@@ -139,7 +162,7 @@ namespace VidCoder.Model
 				{
 					using (var xmlReader = new XmlTextReader(stringReader))
 					{
-						var preset = presetSerializer.Deserialize(xmlReader) as Preset;
+						var preset = serializer.Deserialize(xmlReader) as Preset;
 
 						return preset;
 					}
@@ -159,32 +182,27 @@ namespace VidCoder.Model
 		}
 
 		/// <summary>
-		/// Saves a user preset to a file. Includes wrapper XML.
+		/// Parse a preset from an JSON string.
 		/// </summary>
-		/// <param name="preset">The preset to save.</param>
-		/// <param name="filePath">The path to save the preset to.</param>
-		/// <returns>True if the save succeeded.</returns>
-		public static bool SavePresetToFile(Preset preset, string filePath)
+		/// <param name="presetJson">The JSON of the preset to load in.</param>
+		/// <returns>The parsed Preset.</returns>
+		public static Preset ParsePresetJson(string presetJson)
 		{
 			try
 			{
-				string presetXml = SerializePreset(preset);
-
-				XElement element = XElement.Parse(presetXml);
-				var doc = new XDocument(
-					new XElement("UserPreset",
-					             new XAttribute("Version", CurrentPresetVersion.ToString(CultureInfo.InvariantCulture)),
-					             element));
-
-				doc.Save(filePath);
-				return true;
+				return JsonConvert.DeserializeObject<Preset>(presetJson);
 			}
-			catch (XmlException exception)
+			catch (Exception exception)
 			{
-				System.Windows.MessageBox.Show(string.Format(MainRes.CouldNotSavePresetMessage, preset.Name, Environment.NewLine, exception));
+				System.Windows.MessageBox.Show(
+					MainRes.CouldNotLoadPresetMessage +
+					exception +
+					Environment.NewLine +
+					Environment.NewLine +
+					presetJson);
 			}
 
-			return false;
+			return null;
 		}
 
 		public static void UpgradeEncodingProfile(VCProfile profile, int databaseVersion)
@@ -694,14 +712,14 @@ namespace VidCoder.Model
 		/// <summary>
 		/// Saves the given preset data.
 		/// </summary>
-		/// <param name="presetXmlListObject">List&lt;Tuple&lt;string, string&gt;&gt; with the file name and XML string to save.</param>
-		private static void SaveUserPresetsBackground(object presetXmlListObject)
+		/// <param name="presetJsonListObject">List&lt;Tuple&lt;string, string&gt;&gt; with the file name and JSON string to save.</param>
+		private static void SaveUserPresetsBackground(object presetJsonListObject)
 		{
 			lock (userPresetSync)
 			{
 				// If the pending save list is different from the one we've been passed, we abort.
 				// This means that another background task has been scheduled with a more recent save.
-				if (presetXmlListObject != pendingSavePresetList)
+				if (presetJsonListObject != pendingSavePresetList)
 				{
 					return;
 				}
@@ -717,45 +735,46 @@ namespace VidCoder.Model
 					Directory.Delete(UserPresetsFolder);
 				}
 
-				var presetXmlList = presetXmlListObject as List<string>;
+				var presetJsonList = presetJsonListObject as List<string>;
 
 				SQLiteConnection connection = Database.CreateConnection();
 
 				using (SQLiteTransaction transaction = connection.BeginTransaction())
 				{
-					SavePresets(presetXmlList, connection);
+					SavePresets(presetJsonList, connection);
 					transaction.Commit();
 				}
 			}
 		}
 
-		public static void SavePresets(List<string> presetXmlList, SQLiteConnection connection)
+		public static void SavePresets(List<string> presetJsonList, SQLiteConnection connection)
 		{
-			Database.ExecuteNonQuery("DELETE FROM presetsXml", connection);
+			Database.ExecuteNonQuery("DELETE FROM presetsJson", connection);
 
-			var insertCommand = new SQLiteCommand("INSERT INTO presetsXml (xml) VALUES (?)", connection);
-			SQLiteParameter insertXmlParam = insertCommand.Parameters.Add("xml", DbType.String);
+			var insertCommand = new SQLiteCommand("INSERT INTO presetsJson (json) VALUES (?)", connection);
+			SQLiteParameter insertJsonParam = insertCommand.Parameters.Add("json", DbType.String);
 
-			foreach (string presetXml in presetXmlList)
+			foreach (string presetJson in presetJsonList)
 			{
-				insertXmlParam.Value = presetXml;
+				insertJsonParam.Value = presetJson;
 				insertCommand.ExecuteNonQuery();
 			}
 		}
 
-		public static List<Preset> GetPresetListFromDb()
+		public static List<Preset> GetJsonPresetListFromDb()
 		{
 			var result = new List<Preset>();
 
-			var selectPresetsCommand = new SQLiteCommand("SELECT * FROM presetsXml", Database.Connection);
+			var selectPresetsCommand = new SQLiteCommand("SELECT * FROM presetsJson", Database.Connection);
 			using (SQLiteDataReader reader = selectPresetsCommand.ExecuteReader())
 			{
 				while (reader.Read())
 				{
-					string presetXml = reader.GetString("xml");
-					result.Add(LoadPresetXmlString(presetXml));
+					string presetJson = reader.GetString("json");
+					result.Add(ParsePresetJson(presetJson));
 				}
 			}
+
 			return result;
 		}
 	}

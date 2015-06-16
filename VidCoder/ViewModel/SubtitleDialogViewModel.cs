@@ -202,8 +202,7 @@ namespace VidCoder.ViewModel
 						string srtFile = FileService.Instance.GetFileNameLoad(
 							Config.RememberPreviousFiles ? Config.LastSrtFolder : null,
 							SubtitleRes.SrtFilePickerText,
-							"srt",
-							"SRT Files |*.srt");
+							Utilities.GetFilePickerFilter("srt"));
 
 						if (srtFile != null)
 						{

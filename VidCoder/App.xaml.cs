@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using HandBrake.ApplicationServices.Interop;
+using Newtonsoft.Json;
 using VidCoder.Model;
 using VidCoder.Properties;
 using VidCoder.Services;
@@ -65,8 +66,13 @@ namespace VidCoder
 			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
 #endif
 
+			JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+			{
+				Formatting = Formatting.Indented
+			};
+
 			// Takes about 50ms
-			Config.Initialize(Database.Connection);
+			Config.EnsureInitialized(Database.Connection);
 
 			var interfaceLanguageCode = Config.InterfaceLanguageCode;
 			if (!string.IsNullOrWhiteSpace(interfaceLanguageCode))

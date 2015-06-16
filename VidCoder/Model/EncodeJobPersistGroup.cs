@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace VidCoder.Model
 {
+	// This is only used with the old XML serialization
 	public class EncodeJobPersistGroup
 	{
 		public EncodeJobPersistGroup()

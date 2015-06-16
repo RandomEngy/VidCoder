@@ -86,7 +86,7 @@ namespace VidCoder.View
 			this.logger.EntryLogged -= this.OnEntryLogged;
 			this.logger.Cleared -= this.OnCleared;
 
-			Config.LogWindowPlacement = this.GetPlacementXml();
+			Config.LogWindowPlacement = this.GetPlacementJson();
 		}
 
 		private void OnEntryLogged(object sender, EventArgs<LogEntry> e)

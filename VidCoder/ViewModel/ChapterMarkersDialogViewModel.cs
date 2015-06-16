@@ -100,7 +100,6 @@ namespace VidCoder.ViewModel
 						string csvFile = FileService.Instance.GetFileNameLoad(
 							Config.RememberPreviousFiles ? Config.LastCsvFolder : null, 
 							"Import chapters file", 
-							"csv", 
 							"CSV Files|*.csv");
 						if (csvFile != null)
 						{

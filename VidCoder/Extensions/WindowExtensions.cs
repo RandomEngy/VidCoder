@@ -18,19 +18,19 @@ namespace VidCoder.Extensions
             window.InputBindings.Add(new InputBinding(windowManager.OpenOptionsCommand, new KeyGesture(Key.F4)));
         }
 
-		public static void SetPlacementXml(this Window window, string placementXml)
+		public static void SetPlacementJson(this Window window, string placementJson)
 		{
-			WindowPlacement.SetPlacement(new WindowInteropHelper(window).Handle, placementXml);
+			WindowPlacement.SetPlacement(new WindowInteropHelper(window).Handle, placementJson);
 		}
 
-		public static string GetPlacementXml(this Window window)
+		public static string GetPlacementJson(this Window window)
 		{
 			return WindowPlacement.GetPlacement(new WindowInteropHelper(window).Handle);
 		}
 
-	    public static bool PlaceDynamic(this Window window, string placementXml)
+	    public static bool PlaceDynamic(this Window window, string placementJson)
 	    {
-			if (string.IsNullOrEmpty(placementXml))
+			if (string.IsNullOrEmpty(placementJson))
 			{
 				Rect? placementRect = new WindowPlacer().PlaceWindow(window);
 				if (placementRect.HasValue)
@@ -45,7 +45,7 @@ namespace VidCoder.Extensions
 			}
 			else
 			{
-				window.SetPlacementXml(placementXml);
+				window.SetPlacementJson(placementJson);
 				return false;
 			}
 	    }

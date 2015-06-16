@@ -7,11 +7,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Xml.Serialization;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
+using Newtonsoft.Json;
 using VidCoder.Automation;
 using VidCoder.Extensions;
 using VidCoder.Messages;
@@ -48,9 +50,6 @@ namespace VidCoder.ViewModel
 
 		private VideoRangeType rangeType;
 		private List<ComboChoice<VideoRangeType>> rangeTypeChoices; 
-		//private double secondsRangeStart;
-		//private double secondsRangeEnd;
-		//private double secondsBaseline;
 		private TimeSpan timeBaseline;
 		private int framesRangeStart;
 		private int framesRangeEnd;
@@ -85,8 +84,6 @@ namespace VidCoder.ViewModel
 
 		public MainViewModel()
 		{
-			long affinity = (long)Process.GetCurrentProcess().ProcessorAffinity;
-
 			Ioc.Container.Register(() => this);
 
 			this.outputPathService = Ioc.Container.GetInstance<OutputPathService>();
@@ -2001,8 +1998,7 @@ namespace VidCoder.ViewModel
 						string presetFileName = FileService.Instance.GetFileNameLoad(
 							null, 
 							MainRes.ImportPresetFilePickerTitle, 
-							"xml", 
-							Utilities.GetFilePickerFilter("xml"));
+							CommonRes.PresetFileFilter + "|*.xml;*.vjpreset");
 						if (presetFileName != null)
 						{
 							Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(presetFileName);

@@ -189,6 +189,10 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FastMember, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FastMember.1.0.0.11\lib\net40\FastMember.dll</HintPath>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight, Version=5.1.1.35049, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
@@ -456,6 +460,7 @@
     <Compile Include="Messages\TitleRangeSelectChangedMessage.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />
+    <Compile Include="Model\PresetWrapper.cs" />
     <Compile Include="Model\TitleType.cs" />
     <Compile Include="Model\Picker.cs">
       <SubType>Code</SubType>
@@ -744,8 +749,8 @@
     <Compile Include="EnumDisplayer.cs" />
     <Compile Include="EventArgs.cs" />
     <Compile Include="Model\DriveInformation.cs" />
-    <Compile Include="Model\EncodeJobsPersist.cs" />
-    <Compile Include="Model\Presets.cs" />
+    <Compile Include="Model\EncodeJobStorage.cs" />
+    <Compile Include="Model\PresetStorage.cs" />
     <Compile Include="Utilities\DispatchUtilities.cs" />
     <Compile Include="Services\DriveService.cs" />
     <Compile Include="Services\Interfaces\IMessageBoxService.cs" />
@@ -1065,6 +1070,9 @@
     <EmbeddedResource Include="Resources\SubtitleRes.ru.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.zh.resx" />
+    <Content Include="BuiltInPresets.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -1098,10 +1106,6 @@
     <Resource Include="Icons\stop_shadow.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BuiltInPresets.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

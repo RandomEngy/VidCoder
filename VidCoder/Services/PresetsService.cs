@@ -24,13 +24,13 @@ namespace VidCoder.Services
 
 		private PresetViewModel selectedPreset;
 
-		private List<Preset> builtInPresets;
+		private IList<Preset> builtInPresets;
 		private ObservableCollection<PresetViewModel> allPresets;
 
 		public PresetsService()
 		{
-			this.builtInPresets = Presets.BuiltInPresets;
-			List<Preset> userPresets = Presets.UserPresets;
+			this.builtInPresets = PresetStorage.BuiltInPresets;
+			List<Preset> userPresets = PresetStorage.UserPresets;
 
 			this.allPresets = new ObservableCollection<PresetViewModel>();
 			var unmodifiedPresets = userPresets.Where(preset => !preset.IsModified);
@@ -369,7 +369,7 @@ namespace VidCoder.Services
 				}
 			}
 
-			Presets.UserPresets = userPresets;
+			PresetStorage.UserPresets = userPresets;
 		}
 
 		public void InsertQueuePreset(PresetViewModel queuePreset)

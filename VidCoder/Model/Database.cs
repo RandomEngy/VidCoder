@@ -5,8 +5,12 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Windows;
+using System.Xml;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Model;
@@ -34,53 +38,7 @@ namespace VidCoder.Model
 			int databaseVersion = DatabaseConfig.Version;
 			if (databaseVersion > Utilities.CurrentDatabaseVersion)
 			{
-				string messageLine1 = string.Format(
-					CultureInfo.CurrentCulture, 
-					MainRes.RenameDatabaseFileLine1,
-					databaseVersion,
-					Utilities.CurrentVersion,
-					Utilities.CurrentDatabaseVersion);
-
-				string messageLine2 = MainRes.RenameDatabaseFileLine2;
-
-				string message = string.Format(
-					CultureInfo.CurrentCulture,
-					"{0}{1}{1}{2}",
-					messageLine1,
-					Environment.NewLine,
-					messageLine2);
-
-				var messageService = Ioc.Container.GetInstance<IMessageBoxService>();
-				messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
-				if (messageService.Show(
-					message,
-					MainRes.IncompatibleDatabaseFileTitle,
-					MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-				{
-					Connection.Close();
-
-					try
-					{
-						string newFileName = ConfigDatabaseFileWithoutExtension + "-v" + databaseVersion + ConfigDatabaseFileExtension;
-						string newFilePath = FileUtilities.CreateUniqueFileName(newFileName, Utilities.AppFolder, new HashSet<string>());
-
-						File.Move(NonPortableDatabaseFile, newFilePath);
-						connection = null;
-						databaseVersion = DatabaseConfig.Version;
-					}
-					catch (IOException)
-					{
-						HandleCriticalFileError();
-					}
-					catch (UnauthorizedAccessException)
-					{
-						HandleCriticalFileError();
-					}
-				}
-				else
-				{
-					Environment.Exit(0);
-				}
+				databaseVersion = HandleTooHighDatabaseVersion(databaseVersion);
 			}
 
 			if (databaseVersion == Utilities.CurrentDatabaseVersion)
@@ -90,86 +48,277 @@ namespace VidCoder.Model
 
 			using (SQLiteTransaction transaction = Connection.BeginTransaction())
 			{
-				// Update encoding profiles if we need to.
-				if (databaseVersion < Utilities.LastUpdatedEncodingProfileDatabaseVersion)
-				{
-					// Upgrade encoding profiles on presets (encoder/mixdown changes)
-					var presets = Presets.GetPresetListFromDb();
-
-					foreach (Preset preset in presets)
-					{
-						Presets.UpgradeEncodingProfile(preset.EncodingProfile, databaseVersion);
-					}
-
-					var presetXmlList = presets.Select(Presets.SerializePreset).ToList();
-
-					Presets.SavePresets(presetXmlList, Connection);
-
-					// Upgrade encoding profiles on old queue items.
-					string jobsXml = Config.EncodeJobs2;
-					if (!string.IsNullOrEmpty(jobsXml))
-					{
-						EncodeJobPersistGroup persistGroup = EncodeJobsPersist.LoadJobsXmlString(jobsXml);
-						foreach (EncodeJobWithMetadata job in persistGroup.EncodeJobs)
-						{
-							Presets.UpgradeEncodingProfile(job.Job.EncodingProfile, databaseVersion);
-						}
-
-						Config.EncodeJobs2 = EncodeJobsPersist.SerializeJobs(persistGroup);
-					}
-				}
-
 				// Update DB schema
 				if (databaseVersion < 18)
 				{
-					ExecuteNonQuery(
-						"CREATE TABLE workerLogs (" +
-						"workerGuid TEXT, " +
-						"message TEXT, " +
-						"level INTEGER, " +
-						"time TEXT)", connection);
+					UpgradeDatabaseTo18();
 				}
 
                 if (databaseVersion < 27)
                 {
-                    ExecuteNonQuery("CREATE TABLE pickersXml (" +
-                        "xml TEXT)", connection);
-
-                    Config.Initialize(connection);
-
-                    // If the user has chosen some auto audio or subtitle picker options, migrate them to a new picker
-                    if (CustomConfig.AutoAudio != AudioSelectionMode.Disabled || CustomConfig.AutoSubtitle != SubtitleSelectionMode.Disabled)
-                    {
-                        using (var pickerInsertCommand = new SQLiteCommand("INSERT INTO pickersXml (xml) VALUES (?)", connection))
-                        {
-                            var pickerParameter = new SQLiteParameter();
-                            pickerInsertCommand.Parameters.Add(pickerParameter);
-
-                            var convertedPicker = new Picker
-                            {
-                                Name = string.Format(MainRes.PickerNameTemplate, 1),
-                                AudioSelectionMode = CustomConfig.AutoAudio,
-                                AudioLanguageCode = Config.AudioLanguageCode,
-                                AudioLanguageAll = Config.AutoAudioAll,
-                                SubtitleSelectionMode = CustomConfig.AutoSubtitle,
-                                SubtitleForeignBurnIn = Config.AutoSubtitleBurnIn,
-                                SubtitleLanguageCode = Config.SubtitleLanguageCode,
-                                SubtitleLanguageAll = Config.AutoSubtitleAll,
-                                SubtitleLanguageBurnIn = Config.AutoSubtitleLanguageBurnIn,
-                                SubtitleLanguageDefault = Config.AutoSubtitleLanguageDefault,
-                                SubtitleLanguageOnlyIfDifferent = Config.AutoSubtitleOnlyIfDifferent
-                            };
-
-                            pickerParameter.Value = PickerStorage.SerializePicker(convertedPicker);
-                            pickerInsertCommand.ExecuteNonQuery();
-                        }
-
-                        Config.LastPickerIndex = 1;
-                    }
+                    UpgradeDatabaseTo27();
                 }
+
+				if (databaseVersion < 28)
+				{
+					UpgradeDatabaseTo28();
+				}
+
+				// Update encoding profiles if we need to.
+				if (databaseVersion < Utilities.LastUpdatedEncodingProfileDatabaseVersion)
+				{
+					UpgradeEncodingProfiles(databaseVersion);
+				}
 
 				SetDatabaseVersionToLatest();
 				transaction.Commit();
+			}
+		}
+
+		private static int HandleTooHighDatabaseVersion(int databaseVersion)
+		{
+			string messageLine1 = string.Format(
+				CultureInfo.CurrentCulture,
+				MainRes.RenameDatabaseFileLine1,
+				databaseVersion,
+				Utilities.CurrentVersion,
+				Utilities.CurrentDatabaseVersion);
+
+			string messageLine2 = MainRes.RenameDatabaseFileLine2;
+
+			string message = string.Format(
+				CultureInfo.CurrentCulture,
+				"{0}{1}{1}{2}",
+				messageLine1,
+				Environment.NewLine,
+				messageLine2);
+
+			var messageService = Ioc.Container.GetInstance<IMessageBoxService>();
+			messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
+			if (messageService.Show(
+				message,
+				MainRes.IncompatibleDatabaseFileTitle,
+				MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+			{
+				Connection.Close();
+
+				try
+				{
+					string newFileName = ConfigDatabaseFileWithoutExtension + "-v" + databaseVersion + ConfigDatabaseFileExtension;
+					string newFilePath = FileUtilities.CreateUniqueFileName(newFileName, Utilities.AppFolder, new HashSet<string>());
+
+					File.Move(NonPortableDatabaseFile, newFilePath);
+					connection = null;
+					databaseVersion = DatabaseConfig.Version;
+				}
+				catch (IOException)
+				{
+					HandleCriticalFileError();
+				}
+				catch (UnauthorizedAccessException)
+				{
+					HandleCriticalFileError();
+				}
+			}
+			else
+			{
+				Environment.Exit(0);
+			}
+			return databaseVersion;
+		}
+
+		private static void UpgradeDatabaseTo18()
+		{
+			ExecuteNonQuery(
+				"CREATE TABLE workerLogs (" +
+				"workerGuid TEXT, " +
+				"message TEXT, " +
+				"level INTEGER, " +
+				"time TEXT)", connection);
+		}
+
+		private static void UpgradeDatabaseTo27()
+		{
+			ExecuteNonQuery("CREATE TABLE pickersXml (" +
+			                "xml TEXT)", connection);
+
+			Config.EnsureInitialized(connection);
+
+			// If the user has chosen some auto audio or subtitle picker options, migrate them to a new picker
+			if (CustomConfig.AutoAudio != AudioSelectionMode.Disabled || CustomConfig.AutoSubtitle != SubtitleSelectionMode.Disabled)
+			{
+				using (var pickerInsertCommand = new SQLiteCommand("INSERT INTO pickersXml (xml) VALUES (?)", connection))
+				{
+					var pickerParameter = new SQLiteParameter();
+					pickerInsertCommand.Parameters.Add(pickerParameter);
+
+					var convertedPicker = new Picker
+					{
+						Name = string.Format(MainRes.PickerNameTemplate, 1),
+						AudioSelectionMode = CustomConfig.AutoAudio,
+						AudioLanguageCode = Config.AudioLanguageCode,
+						AudioLanguageAll = Config.AutoAudioAll,
+						SubtitleSelectionMode = CustomConfig.AutoSubtitle,
+						SubtitleForeignBurnIn = Config.AutoSubtitleBurnIn,
+						SubtitleLanguageCode = Config.SubtitleLanguageCode,
+						SubtitleLanguageAll = Config.AutoSubtitleAll,
+						SubtitleLanguageBurnIn = Config.AutoSubtitleLanguageBurnIn,
+						SubtitleLanguageDefault = Config.AutoSubtitleLanguageDefault,
+						SubtitleLanguageOnlyIfDifferent = Config.AutoSubtitleOnlyIfDifferent
+					};
+
+					pickerParameter.Value = PickerStorage.SerializePicker(convertedPicker);
+					pickerInsertCommand.ExecuteNonQuery();
+				}
+
+				Config.LastPickerIndex = 1;
+			}
+		}
+
+		private static void UpgradeDatabaseTo28()
+		{
+			// Upgrade from XML to JSON
+			Config.EnsureInitialized(connection);
+
+			// Presets
+			ExecuteNonQuery("CREATE TABLE presetsJson (json TEXT)", connection);
+
+			var selectPresetsCommand = new SQLiteCommand("SELECT * FROM presetsXml", connection);
+
+			using (SQLiteDataReader reader = selectPresetsCommand.ExecuteReader())
+			using (var presetInsertCommand = new SQLiteCommand("INSERT INTO presetsJson(json) VALUES (?)", connection))
+			{
+				var presetParameter = new SQLiteParameter();
+				presetInsertCommand.Parameters.Add(presetParameter);
+
+				XmlSerializer presetSerializer = new XmlSerializer(typeof(Preset));
+				while (reader.Read())
+				{
+					string presetXml = reader.GetString("xml");
+					var preset = PresetStorage.ParsePresetXml(presetXml, presetSerializer);
+
+					presetParameter.Value = PresetStorage.SerializePreset(preset);
+					presetInsertCommand.ExecuteNonQuery();
+				}
+			}
+
+			ExecuteNonQuery("DROP TABLE presetsXml", connection);
+
+			// Pickers
+			ExecuteNonQuery("CREATE TABLE pickersJson (json TEXT)", connection);
+
+			var selectPickersCommand = new SQLiteCommand("SELECT * FROM pickersXml", connection);
+
+			using (SQLiteDataReader reader = selectPickersCommand.ExecuteReader())
+			using (var pickerInsertCommand = new SQLiteCommand("INSERT INTO pickersJson(json) VALUES (?)", connection))
+			{
+				var pickerParameter = new SQLiteParameter();
+				pickerInsertCommand.Parameters.Add(pickerParameter);
+
+				XmlSerializer pickerSerializer = new XmlSerializer(typeof(Picker));
+				while (reader.Read())
+				{
+					string pickerXml = reader.GetString("xml");
+					var picker = PickerStorage.ParsePickerXml(pickerXml, pickerSerializer);
+
+					pickerParameter.Value = PickerStorage.SerializePicker(picker);
+					pickerInsertCommand.ExecuteNonQuery();
+				}
+			}
+
+			ExecuteNonQuery("DROP TABLE pickersXml", connection);
+
+			// Saved jobs on queue
+			string xmlEncodeJobs = Config.EncodeJobs2;
+			if (!string.IsNullOrEmpty(xmlEncodeJobs))
+			{
+				XmlSerializer encodeJobSerializer = new XmlSerializer(typeof(EncodeJobPersistGroup));
+
+				using (var stringReader = new StringReader(xmlEncodeJobs))
+				using (var xmlReader = new XmlTextReader(stringReader))
+				{
+					IList<EncodeJobWithMetadata> convertedJobs = new List<EncodeJobWithMetadata>();
+
+					var jobPersistGroup = encodeJobSerializer.Deserialize(xmlReader) as EncodeJobPersistGroup;
+					if (jobPersistGroup != null)
+					{
+						foreach (var job in jobPersistGroup.EncodeJobs)
+						{
+							convertedJobs.Add(job);
+						}
+					}
+
+					Config.EncodeJobs2 = EncodeJobStorage.SerializeJobs(convertedJobs);
+				}
+			}
+
+			// Window placement
+			var windowPlacementKeys = new []
+			{
+				"MainWindowPlacement", 
+				"SubtitlesDialogPlacement", 
+				"EncodingDialogPlacement", 
+				"ChapterMarkersDialogPlacement", 
+				"PreviewWindowPlacement", 
+				"QueueTitlesDialogPlacement2", 
+				"AddAutoPauseProcessDialogPlacement",
+				"OptionsDialogPlacement",
+				"EncodeDetailsWindowPlacement",
+				"PickerWindowPlacement",
+				"LogWindowPlacement"
+			};
+
+			Encoding encoding = new UTF8Encoding();
+			XmlSerializer serializer = new XmlSerializer(typeof(WINDOWPLACEMENT));
+			foreach (string key in windowPlacementKeys)
+			{
+				UpgradeWindowPlacementConfig(key, encoding, serializer);
+			}
+
+			Config.Refresh(connection);
+		}
+
+		private static void UpgradeWindowPlacementConfig(string configKey, Encoding encoding, XmlSerializer serializer)
+		{
+			string oldValue = DatabaseConfig.GetConfig(configKey, string.Empty, connection);
+			if (!string.IsNullOrEmpty(oldValue))
+			{
+				WINDOWPLACEMENT placement;
+				byte[] xmlBytes = encoding.GetBytes(oldValue);
+				using (MemoryStream memoryStream = new MemoryStream(xmlBytes))
+				{
+					placement = (WINDOWPLACEMENT)serializer.Deserialize(memoryStream);
+				}
+
+				DatabaseConfig.SetConfigValue(configKey, JsonConvert.SerializeObject(placement), connection);
+			}
+		}
+
+		private static void UpgradeEncodingProfiles(int databaseVersion)
+		{
+			// Upgrade encoding profiles on presets (encoder/mixdown changes)
+			var presets = PresetStorage.GetJsonPresetListFromDb();
+
+			foreach (Preset preset in presets)
+			{
+				PresetStorage.UpgradeEncodingProfile(preset.EncodingProfile, databaseVersion);
+			}
+
+			var presetJsonList = presets.Select(PresetStorage.SerializePreset).ToList();
+
+			PresetStorage.SavePresets(presetJsonList, Connection);
+
+			// Upgrade encoding profiles on old queue items.
+			string jobsXml = Config.EncodeJobs2;
+			if (!string.IsNullOrEmpty(jobsXml))
+			{
+				IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.ParseJobsJson(jobsXml);
+				foreach (EncodeJobWithMetadata job in jobs)
+				{
+					PresetStorage.UpgradeEncodingProfile(job.Job.EncodingProfile, databaseVersion);
+				}
+
+				Config.EncodeJobs2 = EncodeJobStorage.SerializeJobs(jobs);
 			}
 		}
 
@@ -344,11 +493,11 @@ namespace VidCoder.Model
 
 		public static void CreateTables(SQLiteConnection connection)
 		{
-			ExecuteNonQuery("CREATE TABLE presetsXml (" +
-				"xml TEXT)", connection);
+			ExecuteNonQuery("CREATE TABLE presetsJson (" +
+				"json TEXT)", connection);
 
-            ExecuteNonQuery("CREATE TABLE pickersXml (" +
-                "xml TEXT)", connection);
+			ExecuteNonQuery("CREATE TABLE pickersJson (" +
+				"json TEXT)", connection);
 
 			ExecuteNonQuery(
 				"CREATE TABLE settings (" +

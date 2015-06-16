@@ -74,8 +74,8 @@ namespace VidCoder.Services
 		{
 			this.encodeQueue = new ObservableCollection<EncodeJobViewModel>();
 			this.encodeQueue.CollectionChanged += (sender, e) => { this.SaveEncodeQueue(); };
-			EncodeJobPersistGroup jobPersistGroup = EncodeJobsPersist.EncodeJobs;
-			foreach (EncodeJobWithMetadata job in jobPersistGroup.EncodeJobs)
+			IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.EncodeJobs;
+			foreach (EncodeJobWithMetadata job in jobs)
 			{
 				this.encodeQueue.Add(new EncodeJobViewModel(job.Job) { SourceParentFolder = job.SourceParentFolder, ManualOutputPath = job.ManualOutputPath, NameFormatOverride = job.NameFormatOverride, PresetName = job.PresetName});
 			}
@@ -697,7 +697,10 @@ namespace VidCoder.Services
 			{
 				return this.importQueueCommand ?? (this.importQueueCommand = new RelayCommand(() =>
 				{
-					string presetFileName = FileService.Instance.GetFileNameLoad(null, MainRes.ImportQueueFilePickerTitle, "xml", Utilities.GetFilePickerFilter("xml"));
+					string presetFileName = FileService.Instance.GetFileNameLoad(
+						null,
+						MainRes.ImportQueueFilePickerTitle,
+						CommonRes.QueueFileFilter + "|*.xml;*.vjqueue");
 					if (presetFileName != null)
 					{
 						Ioc.Container.GetInstance<IQueueImportExport>().Import(presetFileName);
@@ -1289,12 +1292,12 @@ namespace VidCoder.Services
 			return new HashSet<string>(this.EncodeQueue.Select(j => j.Job.OutputPath), StringComparer.OrdinalIgnoreCase);
 		}
 
-		public EncodeJobPersistGroup GetQueuePersistGroup()
+		public IList<EncodeJobWithMetadata> GetQueueStorageJobs()
 		{
-			var jobPersistGroup = new EncodeJobPersistGroup();
+			var jobs = new List<EncodeJobWithMetadata>();
 			foreach (EncodeJobViewModel jobVM in this.EncodeQueue)
 			{
-				jobPersistGroup.EncodeJobs.Add(
+				jobs.Add(
 					new EncodeJobWithMetadata
 					{
 						Job = jobVM.Job,
@@ -1305,7 +1308,7 @@ namespace VidCoder.Services
 					});
 			}
 
-			return jobPersistGroup;
+			return jobs;
 		}
 
 		private void EncodeNextJob()
@@ -1751,7 +1754,7 @@ namespace VidCoder.Services
 
 		private void SaveEncodeQueue()
 		{
-			EncodeJobsPersist.EncodeJobs = this.GetQueuePersistGroup();
+			EncodeJobStorage.EncodeJobs = this.GetQueueStorageJobs();
 		}
 
 		private void RefreshCanEnqueue()

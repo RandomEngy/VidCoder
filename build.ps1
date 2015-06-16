@@ -171,7 +171,7 @@ CopyLibBoth "HandBrake.ApplicationServices.pdb"
 # Common files
 CopyCommon ".\Lib\Ookii.Dialogs.Wpf.dll"
 CopyCommon ".\Lib\Ookii.Dialogs.Wpf.pdb"
-CopyCommon ".\VidCoder\BuiltInPresets.xml"
+CopyCommon ".\VidCoder\BuiltInPresets.json"
 CopyCommon ".\VidCoder\Encode_Complete.wav"
 CopyCommon ".\License.txt"
 

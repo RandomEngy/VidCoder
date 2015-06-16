@@ -135,12 +135,12 @@ namespace VidCoder.View
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			this.SetPlacementXml(Config.SubtitlesDialogPlacement);
+			this.SetPlacementJson(Config.SubtitlesDialogPlacement);
 		}
 
 		private void Window_Closing(object sender, CancelEventArgs e)
 		{
-			Config.SubtitlesDialogPlacement = this.GetPlacementXml();
+			Config.SubtitlesDialogPlacement = this.GetPlacementJson();
 		}
 	}
 }

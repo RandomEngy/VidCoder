@@ -216,13 +216,13 @@ namespace VidCoder.Services
 			return result;
 		}
 
-		private static void AddSavedWindowPosition<T>(string placementXml, List<WindowPosition> list)
+		private static void AddSavedWindowPosition<T>(string placementJson, List<WindowPosition> list)
 		{
-			if (!string.IsNullOrEmpty(placementXml))
+			if (!string.IsNullOrEmpty(placementJson))
 			{
 				list.Add(new WindowPosition
 				{
-					Position = WindowPlacement.ParsePlacementXml(placementXml).ToRect(),
+					Position = WindowPlacement.ParsePlacementJson(placementJson).ToRect(),
 					ViewModelType = typeof(T)
 				});
 			}

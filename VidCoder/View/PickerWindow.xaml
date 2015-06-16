@@ -28,8 +28,8 @@
 			Background="WhiteSmoke"
 			BorderThickness="0"
 			Canvas.ZIndex="3"
-			ItemsSource="{Binding PickersViewModel.Pickers}"
-			SelectedItem="{Binding PickersViewModel.SelectedPicker}">
+			ItemsSource="{Binding PickersService.Pickers}"
+			SelectedItem="{Binding PickersService.SelectedPicker}">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<TextBlock

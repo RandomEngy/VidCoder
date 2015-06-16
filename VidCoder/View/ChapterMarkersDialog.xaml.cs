@@ -31,14 +31,14 @@ namespace VidCoder.View
 
 			try
 			{
-				this.SetPlacementXml(Config.ChapterMarkersDialogPlacement);
+				this.SetPlacementJson(Config.ChapterMarkersDialogPlacement);
 			}
 			catch { }
 		}
 
 		private void Window_Closing(object sender, CancelEventArgs e)
 		{
-			Config.ChapterMarkersDialogPlacement = this.GetPlacementXml();
+			Config.ChapterMarkersDialogPlacement = this.GetPlacementJson();
 		}
 
 		private void TitleBoxGotFocus(object sender, RoutedEventArgs e)

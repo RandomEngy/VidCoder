@@ -1,14 +1,29 @@
-﻿namespace VidCoder
-{
-	using System.Data.SQLite;
-	using Model;
+﻿using System.Data.SQLite;
+using VidCoder.Model;
 
+namespace VidCoder
+{
 	public static class Config
 	{
-		public static void Initialize(SQLiteConnection connection)
+		private static bool initialized;
+
+		public static void EnsureInitialized(SQLiteConnection connection)
+		{
+			if (!initialized)
+			{
+				Initialize(connection);
+				initialized = true;
+			}
+		}
+
+		public static void Refresh(SQLiteConnection connection)
+		{
+			Initialize(connection);
+		}
+
+		private static void Initialize(SQLiteConnection connection)
 		{
 			MigratedConfigs_Field = DatabaseConfig.GetConfig("MigratedConfigs", false, connection);
-			EncodeJobs_Field = DatabaseConfig.GetConfig("EncodeJobs", "", connection);
 			EncodeJobs2_Field = DatabaseConfig.GetConfig("EncodeJobs2", "", connection);
 			UpdateInProgress_Field = DatabaseConfig.GetConfig("UpdateInProgress", false, connection);
 			UpdateVersion_Field = DatabaseConfig.GetConfig("UpdateVersion", "", connection);
@@ -34,12 +49,12 @@
 			EncodingDialogPlacement_Field = DatabaseConfig.GetConfig("EncodingDialogPlacement", "", connection);
 			ChapterMarkersDialogPlacement_Field = DatabaseConfig.GetConfig("ChapterMarkersDialogPlacement", "", connection);
 			PreviewWindowPlacement_Field = DatabaseConfig.GetConfig("PreviewWindowPlacement", "", connection);
-			QueueTitlesDialogPlacement_Field = DatabaseConfig.GetConfig("QueueTitlesDialogPlacement", "", connection);
 			QueueTitlesDialogPlacement2_Field = DatabaseConfig.GetConfig("QueueTitlesDialogPlacement2", "", connection);
 			AddAutoPauseProcessDialogPlacement_Field = DatabaseConfig.GetConfig("AddAutoPauseProcessDialogPlacement", "", connection);
 			OptionsDialogPlacement_Field = DatabaseConfig.GetConfig("OptionsDialogPlacement", "", connection);
 			EncodeDetailsWindowPlacement_Field = DatabaseConfig.GetConfig("EncodeDetailsWindowPlacement", "", connection);
 			PickerWindowPlacement_Field = DatabaseConfig.GetConfig("PickerWindowPlacement", "", connection);
+			LogWindowPlacement_Field = DatabaseConfig.GetConfig("LogWindowPlacement", "", connection);
 			EncodingWindowOpen_Field = DatabaseConfig.GetConfig("EncodingWindowOpen", false, connection);
 			PreviewWindowOpen_Field = DatabaseConfig.GetConfig("PreviewWindowOpen", false, connection);
 			LogWindowOpen_Field = DatabaseConfig.GetConfig("LogWindowOpen", false, connection);
@@ -48,7 +63,6 @@
 			UpdatesEnabled_Field = DatabaseConfig.GetConfig("UpdatesEnabled", true, connection);
 			PreviewSeconds_Field = DatabaseConfig.GetConfig("PreviewSeconds", 10, connection);
 			ApplicationVersion_Field = DatabaseConfig.GetConfig("ApplicationVersion", "", connection);
-			LogWindowPlacement_Field = DatabaseConfig.GetConfig("LogWindowPlacement", "", connection);
 			QueueColumns_Field = DatabaseConfig.GetConfig("QueueColumns", "Source:200|Title:35|Range:106|Destination:200", connection);
 			QueueLastColumnWidth_Field = DatabaseConfig.GetConfig("QueueLastColumnWidth", 75.0, connection);
 			CompletedColumnWidths_Field = DatabaseConfig.GetConfig("CompletedColumnWidths", "", connection);
@@ -122,20 +136,6 @@
 			{
 				MigratedConfigs_Field = value;
 				DatabaseConfig.SetConfigValue("MigratedConfigs", value);
-			}
-		}
-		private static string EncodeJobs_Field;
-		public static string EncodeJobs
-		{
-			get
-			{
-				return EncodeJobs_Field;
-			}
-			
-			set
-			{
-				EncodeJobs_Field = value;
-				DatabaseConfig.SetConfigValue("EncodeJobs", value);
 			}
 		}
 		private static string EncodeJobs2_Field;
@@ -488,20 +488,6 @@
 				DatabaseConfig.SetConfigValue("PreviewWindowPlacement", value);
 			}
 		}
-		private static string QueueTitlesDialogPlacement_Field;
-		public static string QueueTitlesDialogPlacement
-		{
-			get
-			{
-				return QueueTitlesDialogPlacement_Field;
-			}
-			
-			set
-			{
-				QueueTitlesDialogPlacement_Field = value;
-				DatabaseConfig.SetConfigValue("QueueTitlesDialogPlacement", value);
-			}
-		}
 		private static string QueueTitlesDialogPlacement2_Field;
 		public static string QueueTitlesDialogPlacement2
 		{
@@ -570,6 +556,20 @@
 			{
 				PickerWindowPlacement_Field = value;
 				DatabaseConfig.SetConfigValue("PickerWindowPlacement", value);
+			}
+		}
+		private static string LogWindowPlacement_Field;
+		public static string LogWindowPlacement
+		{
+			get
+			{
+				return LogWindowPlacement_Field;
+			}
+			
+			set
+			{
+				LogWindowPlacement_Field = value;
+				DatabaseConfig.SetConfigValue("LogWindowPlacement", value);
 			}
 		}
 		private static bool EncodingWindowOpen_Field;
@@ -682,20 +682,6 @@
 			{
 				ApplicationVersion_Field = value;
 				DatabaseConfig.SetConfigValue("ApplicationVersion", value);
-			}
-		}
-		private static string LogWindowPlacement_Field;
-		public static string LogWindowPlacement
-		{
-			get
-			{
-				return LogWindowPlacement_Field;
-			}
-			
-			set
-			{
-				LogWindowPlacement_Field = value;
-				DatabaseConfig.SetConfigValue("LogWindowPlacement", value);
 			}
 		}
 		private static string QueueColumns_Field;

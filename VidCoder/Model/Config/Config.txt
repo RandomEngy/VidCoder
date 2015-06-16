@@ -1,6 +1,5 @@
 ﻿MigratedConfigs|bool|false
 
-EncodeJobs|string|""
 EncodeJobs2|string|""
 UpdateInProgress|bool|false
 UpdateVersion|string|""
@@ -30,12 +29,12 @@ SubtitlesDialogPlacement|string|""
 EncodingDialogPlacement|string|""
 ChapterMarkersDialogPlacement|string|""
 PreviewWindowPlacement|string|""
-QueueTitlesDialogPlacement|string|""
 QueueTitlesDialogPlacement2|string|""
 AddAutoPauseProcessDialogPlacement|string|""
 OptionsDialogPlacement|string|""
 EncodeDetailsWindowPlacement|string|""
 PickerWindowPlacement|string|""
+LogWindowPlacement|string|""
 
 EncodingWindowOpen|bool|false
 PreviewWindowOpen|bool|false
@@ -47,7 +46,6 @@ UpdatesEnabled|bool|true
 
 PreviewSeconds|int|10
 ApplicationVersion|string|""
-LogWindowPlacement|string|""
 
 QueueColumns|string|"Source:200|Title:35|Range:106|Destination:200"
 QueueLastColumnWidth|double|75.0

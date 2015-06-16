@@ -151,7 +151,13 @@ namespace VidCoder.View
 					{
 						string item = itemList[0];
 
-						if (Path.GetExtension(item).ToLowerInvariant() == ".xml")
+						string extension = Path.GetExtension(item);
+						if (extension != null)
+						{
+							extension = extension.ToLowerInvariant();
+						}
+
+						if (extension == ".xml" || extension == ".vjpreset")
 						{
 							// It's a preset
 							Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(itemList[0]);
@@ -437,7 +443,7 @@ namespace VidCoder.View
 				this.SaveQueueColumns();
 				this.SaveCompletedColumnWidths();
 
-				Config.MainWindowPlacement = this.GetPlacementXml();
+				Config.MainWindowPlacement = this.GetPlacementJson();
 			}
 		}
 

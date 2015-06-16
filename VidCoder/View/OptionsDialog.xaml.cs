@@ -34,7 +34,7 @@ namespace VidCoder.View
 
 			try
 			{
-				this.SetPlacementXml(Config.OptionsDialogPlacement);
+				this.SetPlacementJson(Config.OptionsDialogPlacement);
 			}
 			catch { }
 		}
@@ -46,7 +46,7 @@ namespace VidCoder.View
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			Config.OptionsDialogPlacement = this.GetPlacementXml();
+			Config.OptionsDialogPlacement = this.GetPlacementJson();
 		}
 
 		private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)

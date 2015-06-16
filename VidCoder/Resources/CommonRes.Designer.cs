@@ -335,6 +335,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to VidCoder Preset File.
+        /// </summary>
+        public static string PresetFileFilter {
+            get {
+                return ResourceManager.GetString("PresetFileFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preview.
         /// </summary>
         public static string PreviewLabel {
@@ -439,6 +448,15 @@ namespace VidCoder.Resources {
         public static string QueueEtaToolTip {
             get {
                 return ResourceManager.GetString("QueueEtaToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VidCoder Queue File.
+        /// </summary>
+        public static string QueueFileFilter {
+            get {
+                return ResourceManager.GetString("QueueFileFilter", resourceCulture);
             }
         }
         

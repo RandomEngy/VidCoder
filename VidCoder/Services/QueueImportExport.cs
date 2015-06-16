@@ -20,7 +20,7 @@ namespace VidCoder.Services
 
 		public void Import(string queueFile)
 		{
-			IList<EncodeJobWithMetadata> jobs = EncodeJobsPersist.LoadQueueFile(queueFile);
+			IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.LoadQueueFile(queueFile);
 			if (jobs == null)
 			{
 				this.messageBoxService.Show(MainRes.QueueImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
@@ -41,16 +41,16 @@ namespace VidCoder.Services
 			this.messageBoxService.Show(MainRes.QueueImportSuccessMessage, CommonRes.Success, System.Windows.MessageBoxButton.OK);
 		}
 
-		public void Export(IList<EncodeJobWithMetadata> jobPersistGroup)
+		public void Export(IList<EncodeJobWithMetadata> jobs)
 		{
 			string initialFileName = "Queue";
 
 			string exportFileName = this.fileService.GetFileNameSave(
 				Config.RememberPreviousFiles ? Config.LastPresetExportFolder : null,
 				MainRes.ExportQueueFilePickerText,
-				FileUtilities.CleanFileName(initialFileName + ".xml"),
-				"xml",
-				Utilities.GetFilePickerFilter("xml"));
+				FileUtilities.CleanFileName(initialFileName + ".vjqueue"),
+				"vjqueue",
+				CommonRes.QueueFileFilter + "|*.vjqueue");
 			if (exportFileName != null)
 			{
 				if (Config.RememberPreviousFiles)
@@ -58,7 +58,7 @@ namespace VidCoder.Services
 					Config.LastPresetExportFolder = Path.GetDirectoryName(exportFileName);
 				}
 
-				if (EncodeJobsPersist.SaveQueueToFile(jobPersistGroup, exportFileName))
+				if (EncodeJobStorage.SaveQueueToFile(jobs, exportFileName))
 				{
 					this.messageBoxService.Show(
 						string.Format(MainRes.QueueExportSuccessMessage, exportFileName),

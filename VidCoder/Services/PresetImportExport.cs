@@ -22,7 +22,7 @@ namespace VidCoder.Services
 
 		public void ImportPreset(string presetFile)
 		{
-			Preset preset = Presets.LoadPresetFile(presetFile);
+			Preset preset = PresetStorage.LoadPresetFile(presetFile);
 			if (preset == null || string.IsNullOrWhiteSpace(preset.Name))
 			{
 				this.messageBoxService.Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
@@ -32,7 +32,7 @@ namespace VidCoder.Services
 			preset.IsBuiltIn = false;
 			preset.IsModified = false;
 
-			List<Preset> existingPresets = Presets.UserPresets;
+			List<Preset> existingPresets = PresetStorage.UserPresets;
 			if (existingPresets.Count(existingPreset => existingPreset.Name == preset.Name) > 0)
 			{
 				string proposedName;
@@ -73,9 +73,9 @@ namespace VidCoder.Services
 			string exportFileName = this.fileService.GetFileNameSave(
 				Config.RememberPreviousFiles ? Config.LastPresetExportFolder : null,
 				MainRes.ExportPresetFilePickerText,
-				FileUtilities.CleanFileName(initialFileName + ".xml"),
-				"xml",
-				Utilities.GetFilePickerFilter("xml"));
+				FileUtilities.CleanFileName(initialFileName + ".vjpreset"),
+				"vjpreset",
+				CommonRes.PresetFileFilter + "|*.vjpreset");
 			if (exportFileName != null)
 			{
 				if (Config.RememberPreviousFiles)
@@ -83,7 +83,7 @@ namespace VidCoder.Services
 					Config.LastPresetExportFolder = Path.GetDirectoryName(exportFileName);
 				}
 
-				if (Presets.SavePresetToFile(exportPreset, exportFileName))
+				if (PresetStorage.SavePresetToFile(exportPreset, exportFileName))
 				{
 					this.messageBoxService.Show(
 						string.Format(MainRes.PresetExportSuccessMessage, exportFileName),

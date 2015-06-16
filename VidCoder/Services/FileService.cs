@@ -46,7 +46,7 @@ namespace VidCoder.Services
 			return new List<string>(dialog.FileNames);
 		}
 
-		public string GetFileNameLoad(string initialDirectory = null, string title = null, string defaultExt = null, string filter = null)
+		public string GetFileNameLoad(string initialDirectory = null, string title = null, string filter = null)
 		{
 			var dialog = new Microsoft.Win32.OpenFileDialog();
 
@@ -55,16 +55,10 @@ namespace VidCoder.Services
 				dialog.Title = title;
 			}
 
-			if (defaultExt != null)
-			{
-				dialog.DefaultExt = defaultExt;
-			}
-
 			if (filter != null)
 			{
 				dialog.Filter = filter;
 			}
-
 
 			if (!string.IsNullOrEmpty(initialDirectory))
 			{

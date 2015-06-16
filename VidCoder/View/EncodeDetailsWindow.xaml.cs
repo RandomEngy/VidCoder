@@ -35,7 +35,7 @@ namespace VidCoder.View
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			Config.EncodeDetailsWindowPlacement = this.GetPlacementXml();
+			Config.EncodeDetailsWindowPlacement = this.GetPlacementJson();
 		}
 	}
 }

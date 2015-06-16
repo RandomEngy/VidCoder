@@ -4,9 +4,9 @@ using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using VidCoder.Resources;
 
 namespace VidCoder.Model
@@ -16,25 +16,18 @@ namespace VidCoder.Model
     /// </summary>
     public static class PickerStorage
     {
-        private static XmlSerializer pickerSerializer = new XmlSerializer(typeof(Picker));
-
         public static string SerializePicker(Picker picker)
         {
-            var xmlBuilder = new StringBuilder();
-            using (XmlWriter writer = XmlWriter.Create(xmlBuilder))
-            {
-                pickerSerializer.Serialize(writer, picker);
-            }
-
-            return xmlBuilder.ToString();
+	        return JsonConvert.SerializeObject(picker);
         }
 
         /// <summary>
         /// Load in a picker from an XML string.
         /// </summary>
         /// <param name="pickerXml">The XML of the picker to load in.</param>
+        /// <param name="serializer">The XML serializer to use.</param>
         /// <returns>The loaded Picker.</returns>
-        public static Picker LoadPickerXmlString(string pickerXml)
+        public static Picker ParsePickerXml(string pickerXml, XmlSerializer serializer)
         {
             try
             {
@@ -42,7 +35,7 @@ namespace VidCoder.Model
                 {
                     using (var xmlReader = new XmlTextReader(stringReader))
                     {
-                        var picker = pickerSerializer.Deserialize(xmlReader) as Picker;
+						var picker = serializer.Deserialize(xmlReader) as Picker;
 
                         return picker;
                     }
@@ -61,6 +54,30 @@ namespace VidCoder.Model
             return null;
         }
 
+		/// <summary>
+		/// Load in a picker from an JSON string.
+		/// </summary>
+		/// <param name="pickerJson">The JSON of the picker to load in.</param>
+		/// <returns>The loaded Picker.</returns>
+	    public static Picker ParsePickerJson(string pickerJson)
+	    {
+			try
+			{
+				return JsonConvert.DeserializeObject<Picker>(pickerJson);
+			}
+			catch (Exception exception)
+			{
+				System.Windows.MessageBox.Show(
+					MainRes.CouldNotLoadPickerMessage +
+					exception +
+					Environment.NewLine +
+					Environment.NewLine +
+					pickerJson);
+			}
+
+			return null;
+	    }
+
         /// <summary>
         /// Gets or sets the stored picker list. Does not include the "None" picker.
         /// </summary>
@@ -70,11 +87,11 @@ namespace VidCoder.Model
 
             set
             {
-                List<string> pickerXmlList = value.Select(SerializePicker).ToList();
+                List<string> pickerJsonList = value.Select(SerializePicker).ToList();
 
                 using (var transaction = Database.Connection.BeginTransaction())
                 {
-                    SavePickers(pickerXmlList, Database.Connection);
+					SavePickers(pickerJsonList, Database.Connection);
                     transaction.Commit();
                 }
             }
@@ -84,14 +101,14 @@ namespace VidCoder.Model
         {
             var result = new List<Picker>();
 
-            using (var selectPickersCommand = new SQLiteCommand("SELECT * FROM pickersXml", Database.Connection))
+            using (var selectPickersCommand = new SQLiteCommand("SELECT * FROM pickersJson", Database.Connection))
             {
                 using (SQLiteDataReader reader = selectPickersCommand.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        string pickerXml = reader.GetString("xml");
-                        result.Add(LoadPickerXmlString(pickerXml));
+                        string pickerJson = reader.GetString("json");
+						result.Add(ParsePickerJson(pickerJson));
                     }
                 }
             }
@@ -99,16 +116,16 @@ namespace VidCoder.Model
             return result;
         }
 
-        private static void SavePickers(List<string> pickerXmlList, SQLiteConnection connection)
+        private static void SavePickers(List<string> pickerJsonList, SQLiteConnection connection)
         {
-            Database.ExecuteNonQuery("DELETE FROM pickersXml", connection);
+            Database.ExecuteNonQuery("DELETE FROM pickersJson", connection);
 
-            var insertCommand = new SQLiteCommand("INSERT INTO pickersXml (xml) VALUES (?)", connection);
-            SQLiteParameter insertXmlParam = insertCommand.Parameters.Add("xml", DbType.String);
+			var insertCommand = new SQLiteCommand("INSERT INTO pickersJson (json) VALUES (?)", connection);
+            SQLiteParameter insertJsonParam = insertCommand.Parameters.Add("json", DbType.String);
 
-            foreach (string pickerXml in pickerXmlList)
+			foreach (string pickerJson in pickerJsonList)
             {
-                insertXmlParam.Value = pickerXml;
+				insertJsonParam.Value = pickerJson;
                 insertCommand.ExecuteNonQuery();
             }
         }
