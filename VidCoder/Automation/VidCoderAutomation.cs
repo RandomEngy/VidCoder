@@ -35,5 +35,33 @@ namespace VidCoder.Automation
 				throw new FaultException<AutomationError>(new AutomationError { Message = exception.Message });
 			}
 		}
+
+		public void ImportPreset(string filePath)
+		{
+			var presetImporter = Ioc.Container.GetInstance<IPresetImportExport>();
+
+			try
+			{
+				presetImporter.ImportPreset(filePath);
+			}
+			catch (Exception exception)
+			{
+				throw new FaultException<AutomationError>(new AutomationError { Message = exception.Message });
+			}
+		}
+
+		public void ImportQueue(string filePath)
+		{
+			var queueImporter = Ioc.Container.GetInstance<IQueueImportExport>();
+
+			try
+			{
+				queueImporter.Import(filePath);
+			}
+			catch (Exception exception)
+			{
+				throw new FaultException<AutomationError>(new AutomationError { Message = exception.Message });
+			}
+		}
 	}
 }

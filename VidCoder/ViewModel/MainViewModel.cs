@@ -2001,7 +2001,14 @@ namespace VidCoder.ViewModel
 							CommonRes.PresetFileFilter + "|*.xml;*.vjpreset");
 						if (presetFileName != null)
 						{
-							Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(presetFileName);
+							try
+							{
+								Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(presetFileName);
+							}
+							catch (Exception)
+							{
+								// PresetImportExport is responsible for showing error and success dialogs.
+							}
 						}
 					}));
 			}

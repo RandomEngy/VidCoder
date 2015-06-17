@@ -105,46 +105,48 @@ namespace VidCoder.Model
 		/// <returns>The parsed preset from the file, or null if the preset is invalid.</returns>
 		public static Preset LoadPresetFile(string presetFile)
 		{
-			string extension = Path.GetExtension(presetFile).ToLowerInvariant();
+			string extension = Path.GetExtension(presetFile);
+			if (extension != null)
+			{
+				extension = extension.ToLowerInvariant();
+			}
 
 			if (extension != ".xml" && extension != ".vjpreset")
 			{
-				return null;
+				throw new ArgumentException("File extension " + extension + " is not recognized.");
 			}
 
-			try
+			if (!File.Exists(presetFile))
 			{
-				if (extension == ".xml")
+				throw new ArgumentException("Preset file could not be found.");
+			}
+
+			if (extension == ".xml")
+			{
+				XDocument doc = XDocument.Load(presetFile);
+				if (doc.Element("UserPreset") == null)
 				{
-					XDocument doc = XDocument.Load(presetFile);
-					if (doc.Element("UserPreset") == null)
-					{
-						return null;
-					}
-
-					XElement presetElement = doc.Element("UserPreset").Element("Preset");
-					int version = int.Parse(doc.Element("UserPreset").Attribute("Version").Value);
-
-					using (XmlReader reader = presetElement.CreateReader())
-					{
-						XmlSerializer presetSerializer = new XmlSerializer(typeof(Preset));
-						var preset = presetSerializer.Deserialize(reader) as Preset;
-						UpgradeEncodingProfile(preset.EncodingProfile, PresetToDbVersion(version));
-
-						return preset;
-					}
+					throw new ArgumentException("Preset file is malformed.");
 				}
-				else
-				{
-					PresetWrapper presetWrapper = JsonConvert.DeserializeObject<PresetWrapper>(File.ReadAllText(presetFile));
-					UpgradeEncodingProfile(presetWrapper.Preset.EncodingProfile, PresetToDbVersion(presetWrapper.Version));
 
-					return presetWrapper.Preset;
+				XElement presetElement = doc.Element("UserPreset").Element("Preset");
+				int version = int.Parse(doc.Element("UserPreset").Attribute("Version").Value);
+
+				using (XmlReader reader = presetElement.CreateReader())
+				{
+					XmlSerializer presetSerializer = new XmlSerializer(typeof(Preset));
+					var preset = presetSerializer.Deserialize(reader) as Preset;
+					UpgradeEncodingProfile(preset.EncodingProfile, PresetToDbVersion(version));
+
+					return preset;
 				}
 			}
-			catch (Exception)
+			else
 			{
-				return null;
+				PresetWrapper presetWrapper = JsonConvert.DeserializeObject<PresetWrapper>(File.ReadAllText(presetFile));
+				UpgradeEncodingProfile(presetWrapper.Preset.EncodingProfile, PresetToDbVersion(presetWrapper.Version));
+
+				return presetWrapper.Preset;
 			}
 		}
 

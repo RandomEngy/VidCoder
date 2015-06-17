@@ -703,9 +703,15 @@ namespace VidCoder.Services
 						CommonRes.QueueFileFilter + "|*.xml;*.vjqueue");
 					if (presetFileName != null)
 					{
-						Ioc.Container.GetInstance<IQueueImportExport>().Import(presetFileName);
+						try
+						{
+							Ioc.Container.GetInstance<IQueueImportExport>().Import(presetFileName);
+						}
+						catch (Exception)
+						{
+							// QueueImportExport is responsible for showing error / success dialogs.
+						}
 					}
-
 				}));
 			}
 		}

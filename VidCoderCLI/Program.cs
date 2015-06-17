@@ -1,15 +1,12 @@
-﻿namespace VidCoderCLI
-{
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-	using System.Threading.Tasks;
-	using System.Diagnostics;
-	using System.IO;
-	using System.ServiceModel;
-	using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.ServiceModel;
+using System.Threading;
 
+namespace VidCoderCLI
+{
 	public class Program
 	{
 		private static string source;
@@ -31,15 +28,19 @@
 			Console.WriteLine("Action: '" + action + "'");
 			Console.WriteLine("Action length: " + action.Length);
 
-			Dictionary<string, string> argumentDict = ReadArguments(args);
-
 			switch (action)
 			{
 				case "encode":
-					Encode(argumentDict);
+					Encode(ReadArguments(args));
 					break;
 				case "scan":
-					Scan(argumentDict);
+					Scan(ReadArguments(args));
+					break;
+				case "importpreset":
+					ImportPreset(args);
+					break;
+				case "importqueue":
+					ImportQueue(args);
 					break;
 				default:
 					Console.WriteLine("Action not recognized.");
@@ -129,6 +130,34 @@
 			RunAction(a => a.Scan(source), "Scan started.", "Could not start scan.");
 		}
 
+		private static void ImportPreset(string[] args)
+		{
+			if (args.Length != 2)
+			{
+				PrintUsage();
+				return;
+			}
+
+			string filePath = args[1];
+
+			// Further checks on the file path will happen inside the app
+			RunAction(a => a.ImportPreset(filePath), "Preset imported.", "Failed to import preset.");
+		}
+
+		private static void ImportQueue(string[] args)
+		{
+			if (args.Length != 2)
+			{
+				PrintUsage();
+				return;
+			}
+
+			string filePath = args[1];
+
+			// Further checks on the file path will happen inside the app
+			RunAction(a => a.ImportQueue(filePath), "Queue imported.", "Failed to import queue.");
+		}
+
 		private static Dictionary<string, string> ReadArguments(string[] args)
 		{
 			var result = new Dictionary<string, string>();
@@ -161,6 +190,8 @@
 			Console.WriteLine("Usage:");
 			Console.WriteLine("VidCoderCLI encode -s[ource] \"<source path>\" [-d[estination] \"<encode file destination>\"] -p[reset] \"<preset name>\" [-picker \"<picker name>\"]");
 			Console.WriteLine("VidCoderCLI scan -s[ource] \"<source path>\"");
+			Console.WriteLine("VidCoderCLI importpreset \"<preset file path>\"");
+			Console.WriteLine("VidCoderCLI importqueue \"<queue file path>\"");
 		}
 
 		private static bool VidCoderIsRunning(string vidCoderExe)

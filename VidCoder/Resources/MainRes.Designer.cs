@@ -1082,7 +1082,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not import preset. Format is unrecognized..
+        ///   Looks up a localized string similar to Failed to import preset. Check log for details..
         /// </summary>
         public static string PresetImportErrorMessage {
             get {
@@ -1190,7 +1190,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not import queue. Format is unrecognized..
+        ///   Looks up a localized string similar to Failed to import queue. Check log for details..
         /// </summary>
         public static string QueueImportErrorMessage {
             get {

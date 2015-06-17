@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -11,34 +12,44 @@ namespace VidCoder.Services
 		private IFileService fileService;
 		private IMessageBoxService messageBoxService;
 		private ProcessingService processingService = Ioc.Container.GetInstance<ProcessingService>();
+		private ILogger logger;
 
-		public QueueImportExport(IFileService fileService, IMessageBoxService messageBoxService)
+		public QueueImportExport(IFileService fileService, IMessageBoxService messageBoxService, ILogger logger)
 		{
 			this.fileService = fileService;
 			this.messageBoxService = messageBoxService;
+			this.logger = logger;
 		}
 
 		public void Import(string queueFile)
 		{
-			IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.LoadQueueFile(queueFile);
-			if (jobs == null)
+			try
 			{
+				IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.LoadQueueFile(queueFile);
+				if (jobs == null)
+				{
+					throw new ArgumentException("Queue file is malformed.");
+				}
+
+				foreach (var job in jobs)
+				{
+					this.processingService.Queue(new EncodeJobViewModel(job.Job)
+						{
+							SourceParentFolder = job.SourceParentFolder,
+							ManualOutputPath = job.ManualOutputPath,
+							NameFormatOverride = job.NameFormatOverride,
+							PresetName = job.PresetName
+						});
+				}
+
+				this.messageBoxService.Show(MainRes.QueueImportSuccessMessage, CommonRes.Success, System.Windows.MessageBoxButton.OK);
+			}
+			catch (Exception exception)
+			{
+				this.logger.LogError("Queue import failed: " + exception.Message);
 				this.messageBoxService.Show(MainRes.QueueImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
-				return;
+				throw;
 			}
-
-			foreach (var job in jobs)
-			{
-				this.processingService.Queue(new EncodeJobViewModel(job.Job)
-					{
-						SourceParentFolder = job.SourceParentFolder,
-						ManualOutputPath = job.ManualOutputPath,
-						NameFormatOverride = job.NameFormatOverride,
-						PresetName = job.PresetName
-					});
-			}
-
-			this.messageBoxService.Show(MainRes.QueueImportSuccessMessage, CommonRes.Success, System.Windows.MessageBoxButton.OK);
 		}
 
 		public void Export(IList<EncodeJobWithMetadata> jobs)

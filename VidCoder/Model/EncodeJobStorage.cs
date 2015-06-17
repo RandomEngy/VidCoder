@@ -31,33 +31,40 @@ namespace VidCoder.Model
 
 		public static IList<EncodeJobWithMetadata> LoadQueueFile(string queueFile)
 		{
-			string extension = Path.GetExtension(queueFile).ToLowerInvariant();
+			string extension = Path.GetExtension(queueFile);
+			if (extension != null)
+			{
+				extension = extension.ToLowerInvariant();
+			}
 
 			if (extension != ".xml" && extension != ".vjqueue")
 			{
-				return null;
+				throw new ArgumentException("File extension '" + extension + "' is not recognized.");
 			}
 
-			try
+			if (!File.Exists(queueFile))
 			{
-				if (extension == ".xml")
-				{
-					DataContractSerializer serializer = new DataContractSerializer(typeof(EncodeJobsXml));
+				throw new ArgumentException("Queue file could not be found.");
+			}
 
-					using (var reader = XmlReader.Create(queueFile))
+			if (extension == ".xml")
+			{
+				DataContractSerializer serializer = new DataContractSerializer(typeof(EncodeJobsXml));
+
+				using (var reader = XmlReader.Create(queueFile))
+				{
+					var jobsXmlObject = serializer.ReadObject(reader) as EncodeJobsXml;
+					if (jobsXmlObject == null)
 					{
-						var jobsXmlObject = serializer.ReadObject(reader) as EncodeJobsXml;
-						return jobsXmlObject.Jobs;
+						throw new ArgumentException("Queue file is malformed.");
 					}
-				}
-				else
-				{
-					return ParseJobsJson(File.ReadAllText(queueFile));
+
+					return jobsXmlObject.Jobs;
 				}
 			}
-			catch (Exception)
+			else
 			{
-				return null;
+				return ParseJobsJson(File.ReadAllText(queueFile));
 			}
 		}
 

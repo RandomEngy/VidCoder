@@ -160,7 +160,14 @@ namespace VidCoder.View
 						if (extension == ".xml" || extension == ".vjpreset")
 						{
 							// It's a preset
-							Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(itemList[0]);
+							try
+							{
+								Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(itemList[0]);
+							}
+							catch (Exception)
+							{
+								// PresetImportExport is responsible for showing error and success dialogs.
+							}
 						}
 						else if (Utilities.IsDiscFolder(item))
 						{
