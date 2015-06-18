@@ -39,6 +39,7 @@ namespace VidCoder.Services
 		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
 		private IProcessAutoPause autoPause = Ioc.Container.GetInstance<IProcessAutoPause>();
 		private ISystemOperations systemOperations = Ioc.Container.GetInstance<ISystemOperations>();
+		private IMessageBoxService messageBoxService = Ioc.Container.GetInstance<IMessageBoxService>();
 		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
 		private OutputPathService outputVM = Ioc.Container.GetInstance<OutputPathService>();
 		private PresetsService presetsService = Ioc.Container.GetInstance<PresetsService>();
@@ -706,10 +707,11 @@ namespace VidCoder.Services
 						try
 						{
 							Ioc.Container.GetInstance<IQueueImportExport>().Import(presetFileName);
+							this.messageBoxService.Show(MainRes.QueueImportSuccessMessage, CommonRes.Success, System.Windows.MessageBoxButton.OK);
 						}
 						catch (Exception)
 						{
-							// QueueImportExport is responsible for showing error / success dialogs.
+							this.messageBoxService.Show(MainRes.QueueImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
 						}
 					}
 				}));

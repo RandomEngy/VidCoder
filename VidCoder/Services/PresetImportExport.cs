@@ -23,7 +23,7 @@ namespace VidCoder.Services
 			this.logger = logger;
 		}
 
-		public void ImportPreset(string presetFile)
+		public Preset ImportPreset(string presetFile)
 		{
 			try
 			{
@@ -58,12 +58,12 @@ namespace VidCoder.Services
 				}
 
 				this.presetsService.AddPreset(preset);
-				this.messageBoxService.Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
+
+				return preset;
 			}
 			catch (Exception exception)
 			{
 				this.logger.LogError("Preset import failed: " + exception.Message);
-				this.messageBoxService.Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
 				throw;
 			}
 		}

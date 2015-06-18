@@ -5,7 +5,7 @@
 
 	public interface IQueueImportExport
 	{
-		void Import(string queueFile);
+		IList<EncodeJobWithMetadata> Import(string queueFile);
 		void Export(IList<EncodeJobWithMetadata> jobPersistGroup);
 	}
 }

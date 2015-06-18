@@ -14,5 +14,6 @@ namespace VidCoder.Services
 		void CloseWindow(ViewModelBase viewModel);
 		void FocusWindow(ViewModelBase viewModel);
 		Window GetView(ViewModelBase viewModel);
+		void ActivateWindow(ViewModelBase viewModel);
 	}
 }

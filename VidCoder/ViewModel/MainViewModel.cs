@@ -2003,11 +2003,12 @@ namespace VidCoder.ViewModel
 						{
 							try
 							{
-								Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(presetFileName);
+								Preset preset = Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(presetFileName);
+								Ioc.Container.GetInstance<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
 							}
 							catch (Exception)
 							{
-								// PresetImportExport is responsible for showing error and success dialogs.
+								Ioc.Container.GetInstance<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
 							}
 						}
 					}));

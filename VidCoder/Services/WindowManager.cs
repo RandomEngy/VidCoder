@@ -89,6 +89,11 @@ namespace VidCoder
 			}
 		}
 
+		public static void ActivateWindow(ViewModelBase viewModel)
+		{
+			windowLauncher.ActivateWindow(viewModel);
+		}
+
 		public static void FocusWindow(ViewModelBase viewModel)
 		{
 			windowLauncher.FocusWindow(viewModel);

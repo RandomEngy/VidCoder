@@ -21,7 +21,7 @@ namespace VidCoder.Services
 			this.logger = logger;
 		}
 
-		public void Import(string queueFile)
+		public IList<EncodeJobWithMetadata> Import(string queueFile)
 		{
 			try
 			{
@@ -42,12 +42,11 @@ namespace VidCoder.Services
 						});
 				}
 
-				this.messageBoxService.Show(MainRes.QueueImportSuccessMessage, CommonRes.Success, System.Windows.MessageBoxButton.OK);
+				return jobs;
 			}
 			catch (Exception exception)
 			{
 				this.logger.LogError("Queue import failed: " + exception.Message);
-				this.messageBoxService.Show(MainRes.QueueImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
 				throw;
 			}
 		}

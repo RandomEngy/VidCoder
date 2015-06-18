@@ -43,7 +43,7 @@ namespace VidCoderCLI
 					ImportQueue(args);
 					break;
 				default:
-					Console.WriteLine("Action not recognized.");
+					WriteError("Action not recognized.");
 					PrintUsage();
 					break;
 			}
@@ -114,7 +114,7 @@ namespace VidCoderCLI
 						source = argumentDict[token];
 						break;
 					default:
-						Console.WriteLine("Argument not recognized.");
+						WriteError("Argument not recognized.");
 						PrintUsage();
 						return;
 				}
@@ -122,7 +122,7 @@ namespace VidCoderCLI
 
 			if (string.IsNullOrWhiteSpace(source))
 			{
-				Console.WriteLine("Source is missing.");
+				WriteError("Source is missing.");
 				PrintUsage();
 				return;
 			}
@@ -256,7 +256,7 @@ namespace VidCoderCLI
 				}
 			}
 
-			Console.WriteLine(failedText);
+			WriteError(failedText);
 		}
 
 		private static AutomationResult TryAction(Action<IVidCoderAutomation> action)
@@ -287,7 +287,7 @@ namespace VidCoderCLI
 			}
 			catch (FaultException<AutomationError> exception)
 			{
-				Console.WriteLine(exception.Detail.Message);
+				WriteError(exception.Detail.Message);
 				return AutomationResult.FailedInVidCoder;
 			}
 			catch (CommunicationException)
@@ -298,6 +298,13 @@ namespace VidCoderCLI
 			{
 				return AutomationResult.ConnectionFailed;
 			}
+		}
+
+		private static void WriteError(string error)
+		{
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.WriteLine(error);
+			Console.ResetColor();
 		}
 
 		private static string GetVidCoderExePath()

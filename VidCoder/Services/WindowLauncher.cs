@@ -32,6 +32,14 @@ namespace VidCoder.Services
 			this.openWindows[viewModel].Close();
 		}
 
+		public void ActivateWindow(ViewModelBase viewModel)
+		{
+			if (this.openWindows.ContainsKey(viewModel))
+			{
+				this.openWindows[viewModel].Activate();
+			}
+		}
+
 		public void FocusWindow(ViewModelBase viewModel)
 		{
 			if (this.openWindows.ContainsKey(viewModel))

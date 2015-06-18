@@ -162,11 +162,12 @@ namespace VidCoder.View
 							// It's a preset
 							try
 							{
-								Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(itemList[0]);
+								Preset preset = Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(itemList[0]);
+								Ioc.Container.GetInstance<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
 							}
 							catch (Exception)
 							{
-								// PresetImportExport is responsible for showing error and success dialogs.
+								Ioc.Container.GetInstance<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
 							}
 						}
 						else if (Utilities.IsDiscFolder(item))
