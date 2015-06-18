@@ -161,18 +161,21 @@ CopyBoth "GalaSoft.MvvmLight.Extras.dll"
 CopyBoth "Microsoft.Practices.ServiceLocation.dll"
 CopyBoth "Hardcodet.Wpf.TaskbarNotification.dll"
 CopyBoth "Newtonsoft.Json.dll"
+CopyBoth "FastMember.dll"
 
 # Architecture-specific files from Lib folder
 CopyLibBoth "hb.dll"
 CopyLibBoth "System.Data.SQLite.dll"
-CopyLibBoth "HandBrake.ApplicationServices.dll"
-CopyLibBoth "HandBrake.ApplicationServices.pdb"
 
 # Common files
+CopyCommon ".\Lib\HandBrake.ApplicationServices.dll"
+CopyCommon ".\Lib\HandBrake.ApplicationServices.pdb"
 CopyCommon ".\Lib\Ookii.Dialogs.Wpf.dll"
 CopyCommon ".\Lib\Ookii.Dialogs.Wpf.pdb"
 CopyCommon ".\VidCoder\BuiltInPresets.json"
 CopyCommon ".\VidCoder\Encode_Complete.wav"
+CopyCommon ".\VidCoder\Icons\File\VidCoderPreset.ico"
+CopyCommon ".\VidCoder\Icons\File\VidCoderQueue.ico"
 CopyCommon ".\License.txt"
 
 # Languages

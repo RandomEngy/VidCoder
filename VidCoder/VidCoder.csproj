@@ -828,6 +828,7 @@
       <DependentUpon>VideoPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowPlacement.cs" />
+    <Resource Include="Icons\Hammer.png" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.cs.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.de.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.es.resx">
@@ -1092,9 +1093,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\warning.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\tools.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\downarrow_shadow.png" />

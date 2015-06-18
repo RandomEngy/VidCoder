@@ -1240,7 +1240,7 @@
 						<Image
 							Width="22"
 							Height="22"
-							Source="/Icons/tools.png" />
+							Source="/Icons/Hammer.png" />
 						<TextBlock
 							Margin="7,0,0,0"
 							VerticalAlignment="Center"
