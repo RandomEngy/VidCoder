@@ -73,7 +73,6 @@ namespace VidCoder.ViewModel
 		private IList<DriveInformation> driveCollection;
 		private bool scanningSource;
 		private bool scanError;
-		private double scanProgress;
 		private string pendingScan;
 		private bool scanCancelledFlag;
 
@@ -639,7 +638,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.scanningSource = value;
-				this.taskBarProgressTracker.SetIsScanning(value);
+				//this.taskBarProgressTracker.SetIsScanning(value);
 				this.RaisePropertyChanged(() => this.SourceOptionsVisible);
 				this.CloseVideoSourceCommand.RaiseCanExecuteChanged();
 				this.RaisePropertyChanged(() => this.CanCloseVideoSource);
@@ -669,26 +668,22 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private void SetScanProgress(double scanProgressFraction)
-		{
-			this.taskBarProgressTracker.SetScanProgress(scanProgressFraction);
-			this.ScanProgress = scanProgressFraction * 100;
-		}
+		private double scanProgressFraction;
 
 		/// <summary>
-		/// Gets or sets the scan progress percentage.
+		/// Gets or sets the scan progress fraction.
 		/// </summary>
-		public double ScanProgress
+		public double ScanProgressFraction
 		{
 			get
 			{
-				return this.scanProgress;
+				return this.scanProgressFraction;
 			}
 
 			set
 			{
-				this.scanProgress = value;
-				this.RaisePropertyChanged(() => this.ScanProgress);
+				this.scanProgressFraction = value;
+				this.RaisePropertyChanged(() => this.ScanProgressFraction);
 			}
 		}
 
@@ -2392,7 +2387,7 @@ namespace VidCoder.ViewModel
 		{
 			this.ClearVideoSource();
 
-			this.SetScanProgress(0);
+			this.ScanProgressFraction = 0;
 			HandBrakeInstance oldInstance = this.scanInstance;
 
 			this.logger.Log("Starting scan: " + path);
@@ -2401,7 +2396,7 @@ namespace VidCoder.ViewModel
 			this.scanInstance.Initialize(Config.LogVerbosity);
 			this.scanInstance.ScanProgress += (o, e) =>
 			{
-				this.SetScanProgress(e.Progress);
+				this.ScanProgressFraction = e.Progress;
 			};
 			this.scanInstance.ScanCompleted += (o, e) =>
 			{

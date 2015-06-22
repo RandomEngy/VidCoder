@@ -262,7 +262,6 @@ namespace VidCoder.Services
 					}
 				}
 
-				Messenger.Default.Send(new PauseChangedMessage(value));
 				this.RaisePropertyChanged(() => this.PauseVisible);
 				this.RaisePropertyChanged(() => this.ProgressBarColor);
 				this.RaisePropertyChanged(() => this.Paused);
@@ -449,6 +448,13 @@ namespace VidCoder.Services
 					return new SolidColorBrush(Color.FromRgb(0, 200, 0));
 				}
 			}
+		}
+
+		private EncodeProgress encodeProgress;
+		public EncodeProgress EncodeProgress
+		{
+			get { return this.encodeProgress; }
+			set { this.Set(ref this.encodeProgress, value); }
 		}
 
 		public int SelectedTabIndex
@@ -1514,6 +1520,27 @@ namespace VidCoder.Services
 			}
 
 			VCProfile currentProfile = currentJob.EncodingProfile;
+
+			this.EncodeProgress = new EncodeProgress
+			{
+				Encoding = true,
+				OverallProgressFraction = this.OverallEncodeProgressFraction,
+				TaskNumber = this.taskNumber,
+				TotalTasks = this.totalTasks,
+				OverallElapsedTime = this.elapsedQueueEncodeTime.Elapsed,
+				OverallEta = this.overallEtaSpan,
+				FileName = Path.GetFileName(currentJob.OutputPath),
+				FileProgressFraction = currentJobFractionComplete,
+				FileElapsedTime = this.CurrentJob.EncodeTime,
+				FileEta = this.currentJobEta,
+				HasScanPass = this.CurrentJob.SubtitleScan,
+				TwoPass = currentProfile.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && currentProfile.TwoPass,
+				CurrentPassId = e.PassId,
+				PassProgressFraction = e.FractionComplete,
+				EncodeSpeedDetailsAvailable = this.EncodeSpeedDetailsAvailable,
+				CurrentFps = this.CurrentFps,
+				AverageFps = this.AverageFps
+			};
 
 			var progressChangedMessage = new ProgressChangedMessage
 			{

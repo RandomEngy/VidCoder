@@ -475,11 +475,11 @@
     <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="Messages\ContainerChangedMessage.cs" />
     <Compile Include="Messages\EncodingProfileChangedMessage.cs" />
-    <Compile Include="Messages\PauseChangedMessage.cs" />
     <Compile Include="Messages\PickerChangedMessage.cs" />
     <Compile Include="Messages\RotationChangedMessage.cs" />
     <Compile Include="Messages\TitleRangeSelectChangedMessage.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
+    <Compile Include="Model\EncodeProgress.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />
     <Compile Include="Model\PresetWrapper.cs" />
     <Compile Include="Model\TitleType.cs" />
