@@ -9,7 +9,7 @@
 	using Resources;
 	using Services;
 
-	public class ShutdownWarningViewModel : OkCancelDialogViewModel
+	public class ShutdownWarningViewModel : OkCancelDialogOldViewModel
 	{
 		private EncodeCompleteActionType actionType;
 

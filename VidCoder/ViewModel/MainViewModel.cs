@@ -385,13 +385,13 @@ namespace VidCoder.ViewModel
 				WindowManager.Close(previewWindow);
 			}
 
-			ViewModelBase logWindow = WindowManager.FindWindow<LogViewModel>();
+			object logWindow = WindowManager.FindWindow<LogViewModel>();
 			if (logWindow != null)
 			{
 				WindowManager.Close(logWindow);
 			}
 
-		    ViewModelBase pickerWindow = WindowManager.FindWindow<PickerWindowViewModel>();
+			object pickerWindow = WindowManager.FindWindow<PickerWindowViewModel>();
 		    if (pickerWindow != null)
 		    {
 		        WindowManager.Close(pickerWindow);

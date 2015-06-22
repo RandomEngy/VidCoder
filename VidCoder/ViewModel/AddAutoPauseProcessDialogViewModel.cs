@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace VidCoder.ViewModel
 {
-	public class AddAutoPauseProcessDialogViewModel : OkCancelDialogViewModel
+	public class AddAutoPauseProcessDialogViewModel : OkCancelDialogOldViewModel
 	{
 		private string processName;
 		private ObservableCollection<string> currentProcesses;

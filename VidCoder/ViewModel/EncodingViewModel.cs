@@ -16,7 +16,7 @@ using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	public class EncodingViewModel : OkCancelDialogViewModel
+	public class EncodingViewModel : OkCancelDialogOldViewModel
 	{
 		public const int VideoTabIndex = 2;
 		public const int AdvancedVideoTabIndex = 3;

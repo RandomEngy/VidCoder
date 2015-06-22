@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using VidCoder.Services;
+using ReactiveUI;
 
 namespace VidCoder.ViewModel
 {
-	public abstract class OkCancelDialogViewModel : ViewModelBase, IDialogViewModel
+	public abstract class OkCancelDialogViewModel : ReactiveObject, IDialogViewModel
 	{
 		public virtual bool CanClose
 		{

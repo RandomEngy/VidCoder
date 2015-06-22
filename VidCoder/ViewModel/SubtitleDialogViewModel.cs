@@ -14,7 +14,7 @@ namespace VidCoder.ViewModel
 {
 	using Resources;
 
-	public class SubtitleDialogViewModel : OkCancelDialogViewModel
+	public class SubtitleDialogViewModel : OkCancelDialogOldViewModel
 	{
 		private ObservableCollection<SourceSubtitleViewModel> sourceSubtitles;
 		private ObservableCollection<SrtSubtitleViewModel> srtSubtitles;

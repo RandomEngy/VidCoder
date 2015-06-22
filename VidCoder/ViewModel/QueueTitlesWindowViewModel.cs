@@ -17,7 +17,7 @@ using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	public class QueueTitlesWindowViewModel : OkCancelDialogViewModel
+	public class QueueTitlesWindowViewModel : OkCancelDialogOldViewModel
 	{
 		private ObservableCollection<TitleSelectionViewModel> titles;
 		private ObservableCollection<TitleSelectionViewModel> selectedTitles;

@@ -11,7 +11,7 @@ namespace VidCoder.ViewModel
 	using Messages;
 	using Resources;
 
-	public class EncodeDetailsViewModel : OkCancelDialogViewModel
+	public class EncodeDetailsViewModel : OkCancelDialogOldViewModel
 	{
 		public EncodeDetailsViewModel()
 		{

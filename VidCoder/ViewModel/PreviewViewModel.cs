@@ -20,7 +20,7 @@ using Geometry = HandBrake.ApplicationServices.Interop.Json.Shared.Geometry;
 
 namespace VidCoder.ViewModel
 {
-	public class PreviewViewModel : OkCancelDialogViewModel
+	public class PreviewViewModel : OkCancelDialogOldViewModel
 	{
 		private const int PreviewImageCacheDistance = 1;
 		private const double SubtitleScanCost = 1 / EncodeJobViewModel.SubtitleScanCostFactor;

@@ -21,7 +21,7 @@ namespace VidCoder.ViewModel
 	using Resources;
 	using Utilities = VidCoder.Utilities;
 
-	public class OptionsDialogViewModel : OkCancelDialogViewModel
+	public class OptionsDialogViewModel : OkCancelDialogOldViewModel
 	{
 		private double updateProgress;
 		private string defaultPath;

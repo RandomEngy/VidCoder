@@ -102,14 +102,12 @@ namespace VidCoder.Model
             var result = new List<Picker>();
 
             using (var selectPickersCommand = new SQLiteCommand("SELECT * FROM pickersJson", Database.Connection))
-            {
-                using (SQLiteDataReader reader = selectPickersCommand.ExecuteReader())
+			using (SQLiteDataReader reader = selectPickersCommand.ExecuteReader())
+			{
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        string pickerJson = reader.GetString("json");
-						result.Add(ParsePickerJson(pickerJson));
-                    }
+                    string pickerJson = reader.GetString("json");
+					result.Add(ParsePickerJson(pickerJson));
                 }
             }
 

@@ -1,89 +1,141 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
+using System.Runtime.Serialization;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using ReactiveUI;
 using VidCoder.Resources;
 
 namespace VidCoder.Model
 {
-    public class Picker
+	[JsonObject]
+    public class Picker : ReactiveObject
     {
+		public Picker()
+		{
+			this.WhenAnyValue(x => x.Name)
+				.Select(name =>
+				{
+					if (this.IsNone)
+					{
+						return CommonRes.None;
+					}
+
+					return name;
+				})
+				.ToProperty(this, x => x.DisplayName, out this.displayName);
+		}
+
         /// <summary>
         /// Gets or sets a value indicating whether this preset is the special "None" preset
         /// </summary>
-        public bool IsNone { get; set; }
+		[JsonProperty]
+		public bool IsNone { get; set; }
 
-        public bool IsModified { get; set; }
+	    private bool isModified;
 
-        public string Name { get; set; }
+		[JsonProperty]
+		public bool IsModified
+	    {
+		    get { return this.isModified; }
+			set { this.RaiseAndSetIfChanged(ref this.isModified, value); }
+	    }
 
+		private string name;
+
+		[JsonProperty]
+		public string Name
+		{
+			get { return this.name; }
+			set { this.RaiseAndSetIfChanged(ref this.name, value); }
+		}
+
+		[JsonProperty]
 		public bool OutputDirectoryOverrideEnabled { get; set; }
 
+		[JsonProperty]
 		public string OutputDirectoryOverride { get; set; }
 
+		[JsonProperty]
 		public bool NameFormatOverrideEnabled { get; set; }
 
+		[JsonProperty]
 		public string NameFormatOverride { get; set; }
 
+		[JsonProperty]
 		public bool? OutputToSourceDirectory { get; set; }
 
+		[JsonProperty]
 		public bool? PreserveFolderStructureInBatch { get; set; }
 
+		[JsonProperty]
 		public bool TitleRangeSelectEnabled { get; set; }
 
+		[JsonProperty]
 		public int TitleRangeSelectStartMinutes { get; set; }
 
+		[JsonProperty]
 		public int TitleRangeSelectEndMinutes { get; set; }
 
-        public AudioSelectionMode AudioSelectionMode { get; set; }
+		[JsonProperty]
+		public AudioSelectionMode AudioSelectionMode { get; set; }
 
         // Default "und"
-        public string AudioLanguageCode { get; set; }
+		[JsonProperty]
+		public string AudioLanguageCode { get; set; }
 
         // Applies only with AutoAudioType.Language
-        public bool AudioLanguageAll { get; set; }
+		[JsonProperty]
+		public bool AudioLanguageAll { get; set; }
 
-        public SubtitleSelectionMode SubtitleSelectionMode { get; set; }
+		[JsonProperty]
+		public SubtitleSelectionMode SubtitleSelectionMode { get; set; }
 
         // Applies only with AutoSubtitleType.ForeignAudioSearch
-        public bool SubtitleForeignBurnIn { get; set; }
+		[JsonProperty]
+		public bool SubtitleForeignBurnIn { get; set; }
 
         // Applies only with AutoSubtitleType.Language
         // Default "und"
-        public string SubtitleLanguageCode { get; set; }
+		[JsonProperty]
+		public string SubtitleLanguageCode { get; set; }
 
         // Applies only with AutoSubtitleType.Language
-        public bool SubtitleLanguageAll { get; set; }
+		[JsonProperty]
+		public bool SubtitleLanguageAll { get; set; }
 
         // Applies only with AutoSubtitleType.Language
         // Default true
-        public bool SubtitleLanguageOnlyIfDifferent { get; set; }
+		[JsonProperty]
+		public bool SubtitleLanguageOnlyIfDifferent { get; set; }
 
         // Applies only with AutoSubtitleType.Language
-        public bool SubtitleLanguageDefault { get; set; }
+		[JsonProperty]
+		public bool SubtitleLanguageDefault { get; set; }
 
         // Applies only with AutoSubtitleType.Language
-        public bool SubtitleLanguageBurnIn { get; set; }
+		[JsonProperty]
+		public bool SubtitleLanguageBurnIn { get; set; }
 
+		[JsonProperty]
 		public bool UseEncodingPreset { get; set; }
 
+		[JsonProperty]
 		public string EncodingPreset { get; set; }
 
+		[JsonProperty]
 		public bool AutoQueueOnScan { get; set; }
 
+		[JsonProperty]
 		public bool AutoEncodeOnScan { get; set; }
 
-        public string DisplayName
-        {
-            get
-            {
-                if (!this.IsNone)
-                {
-                    return this.Name;
-                }
-
-                return CommonRes.None;
-            }
-        }
+		private ObservableAsPropertyHelper<string> displayName;
+		public string DisplayName
+		{
+			get { return this.displayName.Value; }
+		}
     }
 }

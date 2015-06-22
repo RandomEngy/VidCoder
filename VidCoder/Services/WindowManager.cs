@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using GalaSoft.MvvmLight;
-using VidCoder.Model.WindowPlacer;
-using VidCoder.View;
-using VidCoder.ViewModel;
-using VidCoder.Services;
 using System.Windows;
-using VidCoder.ViewModel.DataModels;
+using VidCoder.Model.WindowPlacer;
+using VidCoder.Services;
+using VidCoder.ViewModel;
 
 namespace VidCoder
 {
 	public static class WindowManager
 	{
-		private static List<ViewModelBase> openWindows = new List<ViewModelBase>();
-		private static List<ViewModelBase> openDialogs = new List<ViewModelBase>();
+		private static List<object> openWindows = new List<object>();
+		private static List<object> openDialogs = new List<object>();
 
 		private static IWindowLauncher windowLauncher = new WindowLauncher();
 
@@ -33,7 +27,7 @@ namespace VidCoder
 			}
 		}
 
-		public static List<ViewModelBase> OpenWindows
+		public static List<object> OpenWindows
 		{
 			get
 			{
@@ -41,29 +35,29 @@ namespace VidCoder
 			}
 		}
 
-		public static void OpenWindow(ViewModelBase viewModel)
+		public static void OpenWindow(object viewModel)
 		{
 			OpenWindow(viewModel, null);
 		}
 
-		public static void OpenDialog(ViewModelBase viewModel)
+		public static void OpenDialog(object viewModel)
 		{
 			OpenDialog(viewModel, null);
 		}
 
-		public static void OpenWindow(ViewModelBase viewModel, ViewModelBase owner)
+		public static void OpenWindow(object viewModel, object owner)
 		{
 			openWindows.Add(viewModel);
 			WindowLauncher.OpenWindow(viewModel, owner);
 		}
 
-		public static void OpenDialog(ViewModelBase viewModel, ViewModelBase owner)
+		public static void OpenDialog(object viewModel, object owner)
 		{
 			openDialogs.Add(viewModel);
 			WindowLauncher.OpenDialog(viewModel, owner);
 		}
 
-		public static void Close(ViewModelBase viewModel)
+		public static void Close(object viewModel)
 		{
 			if (openWindows.Contains(viewModel))
 			{
@@ -77,7 +71,7 @@ namespace VidCoder
 			WindowLauncher.CloseWindow(viewModel);
 		}
 
-		public static void ReportClosed(ViewModelBase viewModel)
+		public static void ReportClosed(object viewModel)
 		{
 			if (openWindows.Contains(viewModel))
 			{
@@ -89,17 +83,17 @@ namespace VidCoder
 			}
 		}
 
-		public static void ActivateWindow(ViewModelBase viewModel)
+		public static void ActivateWindow(object viewModel)
 		{
 			windowLauncher.ActivateWindow(viewModel);
 		}
 
-		public static void FocusWindow(ViewModelBase viewModel)
+		public static void FocusWindow(object viewModel)
 		{
 			windowLauncher.FocusWindow(viewModel);
 		}
 
-		public static T FindWindow<T>() where T : ViewModelBase
+		public static T FindWindow<T>() where T : class
 		{
 			return openWindows.SingleOrDefault(vm => vm is T) as T;
 		}
@@ -115,7 +109,7 @@ namespace VidCoder
 			return result;
 		}
 
-		private static void AddWindowPosition<T>(List<WindowPosition> workingList, Window excludeWindow) where T : ViewModelBase
+		private static void AddWindowPosition<T>(List<WindowPosition> workingList, Window excludeWindow) where T : class
 		{
 			T windowVM = FindWindow<T>();
 			if (windowVM == null)
@@ -138,7 +132,7 @@ namespace VidCoder
 			}
 		}
 
-		internal static Window GetView(ViewModelBase viewModel)
+		internal static Window GetView(object viewModel)
 		{
 			return windowLauncher.GetView(viewModel);
 		}

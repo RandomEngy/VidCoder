@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using GalaSoft.MvvmLight;
-using VidCoder.ViewModel;
+﻿using System.Windows;
 
 namespace VidCoder.Services
 {
@@ -15,9 +9,9 @@ namespace VidCoder.Services
 			return MessageBox.Show(messageBoxText);
 		}
 
-		public MessageBoxResult Show(ViewModelBase owner, string messageBoxText)
+		public MessageBoxResult Show(object ownerViewModel, string messageBoxText)
 		{
-			Window ownerWindow = WindowManager.GetView(owner);
+			Window ownerWindow = WindowManager.GetView(ownerViewModel);
 			return MessageBox.Show(ownerWindow, messageBoxText);
 		}
 
@@ -26,9 +20,9 @@ namespace VidCoder.Services
 			return MessageBox.Show(messageBoxText, caption);
 		}
 
-		public MessageBoxResult Show(ViewModelBase owner, string messageBoxText, string caption)
+		public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption)
 		{
-			Window ownerWindow = WindowManager.GetView(owner);
+			Window ownerWindow = WindowManager.GetView(ownerViewModel);
 			return MessageBox.Show(ownerWindow, messageBoxText, caption);
 		}
 
@@ -37,9 +31,9 @@ namespace VidCoder.Services
 			return MessageBox.Show(messageBoxText, caption, button);
 		}
 
-		public MessageBoxResult Show(ViewModelBase owner, string messageBoxText, string caption, MessageBoxButton button)
+		public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption, MessageBoxButton button)
 		{
-			Window ownerWindow = WindowManager.GetView(owner);
+			Window ownerWindow = WindowManager.GetView(ownerViewModel);
 			return MessageBox.Show(ownerWindow, messageBoxText, caption, button);
 		}
 
@@ -48,9 +42,9 @@ namespace VidCoder.Services
 			return MessageBox.Show(messageBoxText, caption, button, icon);
 		}
 
-		public MessageBoxResult Show(ViewModelBase owner, string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
+		public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
 		{
-			Window ownerWindow = WindowManager.GetView(owner);
+			Window ownerWindow = WindowManager.GetView(ownerViewModel);
 			return MessageBox.Show(ownerWindow, messageBoxText, caption, button, icon);
 		}
 	}

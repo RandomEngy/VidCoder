@@ -15,7 +15,7 @@ namespace VidCoder.ViewModel
 {
 	using Resources;
 
-	public class ChapterMarkersDialogViewModel : OkCancelDialogViewModel
+	public class ChapterMarkersDialogViewModel : OkCancelDialogOldViewModel
 	{
 		private List<SourceChapter> chapters;
 

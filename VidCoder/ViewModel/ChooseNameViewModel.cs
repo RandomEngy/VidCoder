@@ -7,7 +7,7 @@ using VidCoder.Resources;
 
 namespace VidCoder.ViewModel
 {
-	public class ChooseNameViewModel : OkCancelDialogViewModel
+	public class ChooseNameViewModel : OkCancelDialogOldViewModel
 	{
         private IEnumerable<string> existingNames;
 

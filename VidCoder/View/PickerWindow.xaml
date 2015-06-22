@@ -72,7 +72,7 @@
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Top"
 				UseLayoutRounding="True"
-				Visibility="{Binding IsNone,
+				Visibility="{Binding Picker.IsNone,
 			                                   Converter={StaticResource VisibilityConverter},
 			                                   ConverterParameter=True}">
 				<ToolBar Loaded="ToolBar_Loaded" ToolBarTray.IsLocked="True">
@@ -86,7 +86,7 @@
 						Height="24"
 						MinWidth="70"
 						Margin="4 0 0 0"
-						Command="{Binding SaveCommand}"
+						Command="{Binding Save}"
 						Padding="5,0">
 						<StackPanel Orientation="Horizontal">
 							<Image
@@ -99,21 +99,21 @@
 					<Button
 						Height="24"
 						MinWidth="70"
-						Command="{Binding SaveAsCommand}"
+						Command="{Binding SaveAs}"
 						Content="{x:Static res:EncodingRes.SaveAs}"
 						Padding="5,0" />
 					<Button
 						Height="24"
 						MinWidth="70"
-						Command="{Binding RenameCommand}"
+						Command="{Binding Rename}"
 						Content="{x:Static res:EncodingRes.Rename}"
 						Padding="5,0" />
 					<Button
 						Height="24"
 						MinWidth="70"
-						Command="{Binding DeleteCommand}"
+						Command="{Binding Delete}"
 						Padding="5,0"
-						Visibility="{Binding IsModified,
+						Visibility="{Binding Picker.IsModified,
 					                             Converter={StaticResource VisibilityConverter}}">
 						<StackPanel Orientation="Horizontal">
 							<Image
@@ -126,7 +126,7 @@
 					<Button
 						Height="24"
 						MinWidth="70"
-						Command="{Binding DeleteCommand}"
+						Command="{Binding Delete}"
 						Padding="5,0"
 						Visibility="{Binding DeleteButtonVisible,
 					                             Converter={StaticResource VisibilityConverter}}">
@@ -169,7 +169,7 @@
 					Grid.Column="1"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Top"
-					Command="{Binding DismissMessageCommand}"
+					Command="{Binding DismissMessage}"
 					Content="{x:Static res:CommonRes.DismissMessage}"
 					Padding="5"
 					Style="{StaticResource RemoveButtonStyle}" />
@@ -213,7 +213,7 @@
 								Grid.Column="2"
 								MinWidth="80"
 								Margin="10,0,0,0"
-								Command="{Binding PickOutputDirectoryCommand}"
+								Command="{Binding PickOutputDirectory}"
 								Content="{x:Static res:CommonRes.Browse}"
 								IsEnabled="{Binding OutputDirectoryOverrideEnabled,
 							                            UpdateSourceTrigger=PropertyChanged}"

@@ -93,7 +93,7 @@ namespace VidCoder.Services
 
                 bool changeSelectedPicker = true;
 
-                if (this.selectedPicker != null && this.selectedPicker.IsModified)
+                if (this.selectedPicker != null && this.selectedPicker.Picker.IsModified)
                 {
                     MessageBoxResult dialogResult = Utilities.MessageBox.Show(
                         this.main,
@@ -186,13 +186,13 @@ namespace VidCoder.Services
 
         public void SavePicker()
         {
-            if (this.SelectedPicker.IsModified)
+            if (this.SelectedPicker.Picker.IsModified)
             {
                 this.SelectedPicker.OriginalPicker = null;
                 this.SelectedPicker.Picker.IsModified = false;
             }
 
-            this.SelectedPicker.RefreshView();
+			//this.SelectedPicker.RefreshView();
 			this.RefreshPickerButton();
             this.SavePickersToStorage();
 
@@ -202,17 +202,17 @@ namespace VidCoder.Services
         public void SavePickerAs(string newName)
         {
             var newPicker = new Picker();
-            newPicker.InjectFrom(this.SelectedPicker);
+            newPicker.InjectFrom(this.SelectedPicker.Picker);
             newPicker.Name = newName;
 
             var newPickerVM = new PickerViewModel(newPicker);
 
             this.InsertNewPicker(newPickerVM);
 
-            if (this.SelectedPicker.IsModified)
+            if (this.SelectedPicker.Picker.IsModified)
             {
                 this.RevertPicker();
-                this.SelectedPicker.RefreshView();
+				//this.SelectedPicker.RefreshView();
             }
 
             this.selectedPicker = null;
@@ -229,7 +229,7 @@ namespace VidCoder.Services
 
             this.InsertNewPicker(newPickerVM);
 
-            if (!this.SelectedPicker.IsModified)
+            if (!this.SelectedPicker.Picker.IsModified)
             {
                 this.selectedPicker = null;
                 this.SelectedPicker = newPickerVM;
@@ -252,7 +252,7 @@ namespace VidCoder.Services
             this.SelectedPicker.Picker = this.SelectedPicker.OriginalPicker;
             this.SelectedPicker.OriginalPicker = null;
             this.SelectedPicker.Picker.IsModified = false;
-            this.SelectedPicker.RefreshView();
+			//this.SelectedPicker.RefreshView();
 
 			this.SavePickersToStorage();
 
@@ -279,7 +279,7 @@ namespace VidCoder.Services
             for (int i = 1; i < 500; i++)
             {
                 string newName = string.Format(MainRes.PickerNameTemplate, i);
-                if (!this.Pickers.Any(p => p.Name == newName))
+                if (!this.Pickers.Any(p => p.Picker.Name == newName))
                 {
                     newPicker.Name = newName;
                     break;
@@ -305,10 +305,10 @@ namespace VidCoder.Services
 		/// <param name="newPicker">The new picker. This should be a clone of the original, with a property modified.</param>
         public void ModifyPicker(Picker newPicker)
         {
-            Trace.Assert(!this.SelectedPicker.IsModified, "Cannot start modification on already modified picker.");
-            Trace.Assert(this.SelectedPicker.OriginalPicker == null, "Picker already has OriginalProfile.");
+            Trace.Assert(!this.SelectedPicker.Picker.IsModified, "Cannot start modification on already modified picker.");
+			Trace.Assert(this.SelectedPicker.OriginalPicker == null, "Picker already has OriginalPicker.");
 
-            if (this.SelectedPicker.IsModified || this.SelectedPicker.OriginalPicker != null)
+			if (this.SelectedPicker.Picker.IsModified || this.SelectedPicker.OriginalPicker != null)
             {
                 return;
             }
@@ -316,7 +316,7 @@ namespace VidCoder.Services
             this.SelectedPicker.OriginalPicker = this.SelectedPicker.Picker;
             this.SelectedPicker.Picker = newPicker;
             this.SelectedPicker.Picker.IsModified = true;
-            this.SelectedPicker.RefreshView();
+			//this.SelectedPicker.RefreshView();
 
 			this.RefreshPickerButton();
 		}
@@ -332,7 +332,7 @@ namespace VidCoder.Services
                     storagePickers.Add(pickerVM.Picker);
 
                     // If it's modified, add the original one in as well.
-                    if (pickerVM.IsModified)
+					if (pickerVM.Picker.IsModified)
                     {
                         Trace.Assert(pickerVM.OriginalPicker != null, "Error saving pickers: Picker marked as modified but no OriginalPicker could be found.");
                         if (pickerVM.OriginalPicker != null)
@@ -389,7 +389,7 @@ namespace VidCoder.Services
             var pickerWindow = WindowManager.FindWindow<PickerWindowViewModel>();
             if (pickerWindow != null)
             {
-                pickerWindow.EditingPicker = this.selectedPicker.Picker;
+                pickerWindow.Picker = this.selectedPicker.Picker;
             }
 
             this.RaisePropertyChanged(() => this.SelectedPicker);

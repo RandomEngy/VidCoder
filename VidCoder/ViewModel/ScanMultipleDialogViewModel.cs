@@ -9,7 +9,7 @@ namespace VidCoder.ViewModel
 	/// <summary>
 	/// View model for dialog that shows when scanning multiple files.
 	/// </summary>
-	public class ScanMultipleDialogViewModel : OkCancelDialogViewModel
+	public class ScanMultipleDialogViewModel : OkCancelDialogOldViewModel
 	{
 		private IList<string> pathsToScan;
 		private int currentJobIndex;

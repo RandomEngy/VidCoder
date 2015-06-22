@@ -13,26 +13,26 @@ namespace VidCoder.Services
 {
 	public class WindowLauncher : IWindowLauncher
 	{
-		private Dictionary<ViewModelBase, Window> openWindows = new Dictionary<ViewModelBase, Window>();
+		private Dictionary<object, Window> openWindows = new Dictionary<object, Window>();
 
-		public void OpenDialog(ViewModelBase viewModel, ViewModelBase owner)
+		public void OpenDialog(object viewModel, object owner)
 		{
 			this.PrepareWindow(viewModel, owner).ShowDialog();
 		}
 
-		public void OpenWindow(ViewModelBase viewModel, ViewModelBase owner)
+		public void OpenWindow(object viewModel, object owner)
 		{
 			this.PrepareWindow(viewModel, owner).Show();
 		}
 
 		// This bypasses the normal call to vm.OnClosing(). Closes the window without any prompting.
-		public void CloseWindow(ViewModelBase viewModel)
+		public void CloseWindow(object viewModel)
 		{
 			this.openWindows[viewModel].Closing -= this.OnClosing;
 			this.openWindows[viewModel].Close();
 		}
 
-		public void ActivateWindow(ViewModelBase viewModel)
+		public void ActivateWindow(object viewModel)
 		{
 			if (this.openWindows.ContainsKey(viewModel))
 			{
@@ -40,7 +40,7 @@ namespace VidCoder.Services
 			}
 		}
 
-		public void FocusWindow(ViewModelBase viewModel)
+		public void FocusWindow(object viewModel)
 		{
 			if (this.openWindows.ContainsKey(viewModel))
 			{
@@ -48,7 +48,7 @@ namespace VidCoder.Services
 			}
 		}
 
-		public Window GetView(ViewModelBase viewModel)
+		public Window GetView(object viewModel)
 		{
 			if (this.openWindows.ContainsKey(viewModel))
 			{
@@ -58,7 +58,7 @@ namespace VidCoder.Services
 			return null;
 		}
 
-		private Window PrepareWindow(ViewModelBase viewModel, ViewModelBase owner)
+		private Window PrepareWindow(object viewModel, object owner)
 		{
 			Window windowToOpen = null;
 
