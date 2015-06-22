@@ -226,6 +226,8 @@ namespace VidCoder.Services
 
 				if (!value)
 				{
+					this.EncodeProgress = new EncodeProgress { Encoding = false };
+
 					Messenger.Default.Send(new ProgressChangedMessage { Encoding = false });
 				}
 			}
@@ -1290,6 +1292,15 @@ namespace VidCoder.Services
 			{
 				this.main.WindowManagerService.OpenEncodeDetailsWindow();
 			}
+
+			this.EncodeProgress = new EncodeProgress
+			{
+				Encoding = true,
+				OverallProgressFraction = 0,
+				TaskNumber = 1,
+				TotalTasks = this.totalTasks,
+				FileName = Path.GetFileName(this.CurrentJob.Job.OutputPath)
+			};
 
 			Messenger.Default.Send(new ProgressChangedMessage
 			{

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Linq;
 using System.Windows.Shell;
 using ReactiveUI;
 using VidCoder.ViewModel;
@@ -15,42 +16,25 @@ namespace VidCoder.Services
 			this.processingService = Ioc.Container.GetInstance<ProcessingService>();
 			this.mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
 
-			// Pipe some properties in as local properties
-			this.processingService
+			// Set up some observables for properties we care about.
+			var isEncodingObservable = this.processingService
 				.WhenAnyValue(x => x.EncodeProgress)
-				.Subscribe(encodeProgress =>
-				{
-					this.IsEncoding = encodeProgress != null && encodeProgress.Encoding;
-					this.EncodeProgressFraction = encodeProgress == null ? 0 : encodeProgress.OverallProgressFraction;
-				});
+				.Select(encodeProgress => encodeProgress != null && encodeProgress.Encoding);
 
-			this.processingService
-				.WhenAnyValue(x => x.Paused)
-				.Subscribe(paused =>
-				{
-					this.IsEncodePaused = paused;
-				});
+			var encodeProgressFractionObservable = this.processingService
+				.WhenAnyValue(x => x.EncodeProgress)
+				.Select(encodeProgress => encodeProgress == null ? 0 : encodeProgress.OverallProgressFraction);
 
-			this.mainViewModel
-				.WhenAnyValue(x => x.ScanProgressFraction)
-				.Subscribe(scanProgressFraction =>
-				{
-					this.ScanProgressFraction = scanProgressFraction;
-				});
-
-			this.mainViewModel
-				.WhenAnyValue(x => x.ScanningSource)
-				.Subscribe(scanningSource =>
-				{
-					this.IsScanning = scanningSource;
-				});
+			var isEncodePausedObservable = this.processingService.WhenAnyValue(x => x.Paused);
+			var isScanningObservable = this.mainViewModel.WhenAnyValue(x => x.ScanningSource);
+			var scanProgressFractionObservable = this.mainViewModel.WhenAnyValue(x => x.ScanProgressFraction);
 
 			// Set up output properties
-			this.WhenAnyValue(
-				x => x.IsEncoding,
-				x => x.EncodeProgressFraction,
-				x => x.IsScanning,
-				x => x.ScanProgressFraction,
+			Observable.CombineLatest(
+				isEncodingObservable,
+				encodeProgressFractionObservable,
+				isScanningObservable,
+				scanProgressFractionObservable,
 				(isEncoding, encodeProgressFraction, isScanning, scanProgressFraction) =>
 				{
 					if (isEncoding)
@@ -67,10 +51,10 @@ namespace VidCoder.Services
 					}
 				}).ToProperty(this, x => x.ProgressFraction, out this.progressFraction);
 
-			this.WhenAnyValue(
-				x => x.IsEncoding,
-				x => x.IsEncodePaused,
-				x => x.IsScanning,
+			Observable.CombineLatest(
+				isEncodingObservable,
+				isEncodePausedObservable,
+				isScanningObservable,
 				(isEncoding, isEncodePaused, isScanning) =>
 				{
 					if (isEncoding)
@@ -93,41 +77,6 @@ namespace VidCoder.Services
 						return TaskbarItemProgressState.None;
 					}
 				}).ToProperty(this, x => x.ProgressState, out this.progressState);
-		}
-
-		private bool isEncoding;
-		public bool IsEncoding
-		{
-			get { return this.isEncoding; }
-			set { this.RaiseAndSetIfChanged(ref this.isEncoding, value); }
-		}
-
-		private double encodeProgressFraction;
-		public double EncodeProgressFraction
-		{
-			get { return this.encodeProgressFraction; }
-			set { this.RaiseAndSetIfChanged(ref this.encodeProgressFraction, value); }
-		}
-
-		private bool isEncodePaused;
-		public bool IsEncodePaused
-		{
-			get { return this.isEncodePaused; }
-			set { this.RaiseAndSetIfChanged(ref this.isEncodePaused, value); }
-		}
-
-		private bool isScanning;
-		public bool IsScanning
-		{
-			get { return this.isScanning; }
-			set { this.RaiseAndSetIfChanged(ref this.isScanning, value); }
-		}
-
-		private double scanProgressFraction;
-		public double ScanProgressFraction
-		{
-			get { return this.scanProgressFraction; }
-			set { this.RaiseAndSetIfChanged(ref this.scanProgressFraction, value); }
 		}
 
 		private ObservableAsPropertyHelper<double> progressFraction;
