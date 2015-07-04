@@ -6,7 +6,7 @@ using VidCoder.Services;
 
 namespace VidCoder.ViewModel
 {
-	public class LogViewModel : OkCancelDialogViewModel
+	public class LogWindowViewModel : OkCancelDialogViewModel
 	{
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private WindowManagerService windowManagerService = Ioc.Get<WindowManagerService>();

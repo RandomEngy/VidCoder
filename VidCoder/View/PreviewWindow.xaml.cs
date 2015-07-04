@@ -28,7 +28,7 @@ namespace VidCoder.View
 	/// </summary>
 	public partial class PreviewWindow : Window
 	{
-		private PreviewViewModel viewModel;
+		private PreviewWindowViewModel viewModel;
 		private const double ZoomedPixelSize = 4;
 		private const double MarginWithScrollBar = 22;
 
@@ -51,7 +51,7 @@ namespace VidCoder.View
 
 		private void PreviewWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
-			this.viewModel = this.DataContext as PreviewViewModel;
+			this.viewModel = this.DataContext as PreviewWindowViewModel;
 			this.viewModel.PropertyChanged += viewModel_PropertyChanged;
 			this.RefreshControlMargins();
 			if (this.viewModel.InCornerDisplayMode)
@@ -117,7 +117,7 @@ namespace VidCoder.View
 
 		private void RefreshImageSize()
 		{
-			var previewVM = this.DataContext as PreviewViewModel;
+			var previewVM = this.DataContext as PreviewWindowViewModel;
 
 			if (previewVM.DisplayType == PreviewDisplay.Corners)
 			{

@@ -17,7 +17,7 @@ using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	public class EncodingViewModel : OkCancelDialogOldViewModel
+	public class EncodingWindowViewModel : OkCancelDialogOldViewModel
 	{
 		public const int VideoTabIndex = 2;
 		public const int AdvancedVideoTabIndex = 3;
@@ -35,7 +35,7 @@ namespace VidCoder.ViewModel
 		private Preset originalPreset;
 		private bool isBuiltIn;
 
-		public EncodingViewModel(Preset preset)
+		public EncodingWindowViewModel(Preset preset)
 		{
 			this.containerChoices = new List<ComboChoice>();
 			foreach (HBContainer hbContainer in HandBrakeEncoderHelpers.Containers)

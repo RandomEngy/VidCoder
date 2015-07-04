@@ -10,12 +10,14 @@ using System.Resources;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Animation;
 using GalaSoft.MvvmLight.Messaging;
 using Hardcodet.Wpf.TaskbarNotification;
+using Microsoft.Practices.Unity;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Messages;
@@ -44,7 +46,7 @@ namespace VidCoder.View
 
 		public Main()
 		{
-			Ioc.Container.Register(() => this);
+			Ioc.Container.RegisterInstance(typeof(Main), this, new ContainerControlledLifetimeManager());
 			this.InitializeComponent();
 
 			this.RefreshQueueColumns();
@@ -137,14 +139,6 @@ namespace VidCoder.View
 					{
 						this.RefreshQueueColumns();
 					});
-
-			this.RefreshWindowsMenu();
-
-			Observable.FromEventPattern(this.windowManager, "TrackedWindowChanged")
-				.Subscribe(e => this.RefreshWindowsMenu());
-			this.processingService
-				.WhenAnyValue(x => x.Encoding)
-				.Subscribe(p => this.RefreshWindowsMenu());
 		}
 
 		public WindowState RestoredWindowState { get; set; }
@@ -294,6 +288,7 @@ namespace VidCoder.View
 			    };
 
 			this.RefreshQueueTabs();
+			this.SetupWindowsMenu();
 		}
 
 		private void ViewModelAnimationStarted(object sender, EventArgs<string> e)
@@ -431,31 +426,20 @@ namespace VidCoder.View
 			}
 		}
 
-		private void RefreshWindowsMenu()
+		private void SetupWindowsMenu()
 		{
-			this.windowsMenu.Items.Clear();
-
-			foreach (var definition in WindowManager.Definitions.Where(d => d.IsOpenConfigKey != null))
+			foreach (WindowMenuItemViewModel itemViewModel in this.viewModel.WindowMenuItems)
 			{
 				MenuItem item = new MenuItem
 				{
 					IsCheckable = true,
-					IsChecked = Config.Get<bool>(definition.IsOpenConfigKey),
-					Header = definition.MenuLabel,
-					InputGestureText = definition.InputGestureText
+					Header = itemViewModel.Definition.MenuLabel,
+					InputGestureText = itemViewModel.Definition.InputGestureText,
+					Command = itemViewModel.Command
 				};
 
-				Type viewModelType = definition.ViewModelType;
-
-				item.Click += (o, e) =>
-				{
-					this.windowManager.OpenOrFocusWindow(viewModelType);
-				};
-
-				if (viewModelType == typeof (EncodeDetailsViewModel))
-				{
-					item.IsEnabled = this.processingService.Encoding;
-				}
+				item.SetBinding(MenuItem.IsCheckedProperty, MvvmUtilities.GetPropertyName(() => itemViewModel.IsOpen));
+				item.SetBinding(UIElement.IsEnabledProperty, MvvmUtilities.GetPropertyName(() => itemViewModel.CanOpen));
 
 				this.windowsMenu.Items.Add(item);
 			}

@@ -239,7 +239,7 @@ namespace VidCoder.ViewModel
 
 		private void RegisterPickerProperty<T>(Expression<Func<T>> propertyExpression, Action action = null)
 		{
-			string propertyName = GetPropertyName(propertyExpression);
+			string propertyName = MvvmUtilities.GetPropertyName(propertyExpression);
 			this.pickerProperties.Add(propertyName, action);
 		}
 
@@ -575,7 +575,7 @@ namespace VidCoder.ViewModel
 
 		private void UpdatePickerProperty<T>(Expression<Func<T>> propertyExpression, T value, bool raisePropertyChanged = true)
 		{
-			string propertyName = GetPropertyName(propertyExpression);
+			string propertyName = MvvmUtilities.GetPropertyName(propertyExpression);
 
 			if (!this.pickerProperties.ContainsKey(propertyName))
 			{
@@ -625,30 +625,6 @@ namespace VidCoder.ViewModel
 
 				this.pickersService.SavePickersToStorage();
 			}
-		}
-
-		private static string GetPropertyName<T>(Expression<Func<T>> propertyExpression)
-		{
-			if (propertyExpression == null)
-			{
-				throw new ArgumentNullException("propertyExpression");
-			}
-
-			var body = propertyExpression.Body as MemberExpression;
-
-			if (body == null)
-			{
-				throw new ArgumentException("Invalid argument", "propertyExpression");
-			}
-
-			var property = body.Member as PropertyInfo;
-
-			if (property == null)
-			{
-				throw new ArgumentException("Argument is not a property", "propertyExpression");
-			}
-
-			return property.Name;
 		}
 	}
 }

@@ -17,26 +17,26 @@ namespace VidCoder.ViewModel
 	/// </summary>
 	public abstract class PanelViewModel : ViewModelBase
 	{
-		private EncodingViewModel encodingViewModel;
+		private EncodingWindowViewModel encodingWindowViewModel;
 
-		protected PanelViewModel(EncodingViewModel encodingViewModel)
+		protected PanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 		{
-			this.encodingViewModel = encodingViewModel;
+			this.encodingWindowViewModel = encodingWindowViewModel;
 		}
 
 		public VCProfile Profile
 		{
 			get
 			{
-				return this.encodingViewModel.EncodingProfile;
+				return this.encodingWindowViewModel.EncodingProfile;
 			}
 		}
 
-		public EncodingViewModel EncodingViewModel
+		public EncodingWindowViewModel EncodingWindowViewModel
 		{
 			get
 			{
-				return this.encodingViewModel;
+				return this.encodingWindowViewModel;
 			}
 		}
 
@@ -44,12 +44,12 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.encodingViewModel.AutomaticChange;
+				return this.encodingWindowViewModel.AutomaticChange;
 			}
 
 			set
 			{
-				this.encodingViewModel.AutomaticChange = value;
+				this.encodingWindowViewModel.AutomaticChange = value;
 			}
 		}
 
@@ -57,12 +57,12 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.encodingViewModel.IsModified;
+				return this.encodingWindowViewModel.IsModified;
 			}
 
 			set
 			{
-				this.encodingViewModel.IsModified = value;
+				this.encodingWindowViewModel.IsModified = value;
 			}
 		}
 
@@ -70,7 +70,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.encodingViewModel.MainViewModel;
+				return this.encodingWindowViewModel.MainViewModel;
 			}
 		}
 
@@ -78,7 +78,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.encodingViewModel.MainViewModel.HasVideoSource;
+				return this.encodingWindowViewModel.MainViewModel.HasVideoSource;
 			}
 		}
 
@@ -86,7 +86,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.encodingViewModel.MainViewModel.SelectedTitle;
+				return this.encodingWindowViewModel.MainViewModel.SelectedTitle;
 			}
 		}
 

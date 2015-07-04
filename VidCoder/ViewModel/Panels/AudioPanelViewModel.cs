@@ -23,8 +23,8 @@ namespace VidCoder.ViewModel
 
 		private ICommand addAudioEncodingCommand;
 
-		public AudioPanelViewModel(EncodingViewModel encodingViewModel)
-			: base(encodingViewModel)
+		public AudioPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
+			: base(encodingWindowViewModel)
 		{
 			this.audioOutputPreviews = new ObservableCollection<AudioOutputPreview>();
 			this.audioEncodings = new ObservableCollection<AudioEncodingViewModel>();
@@ -131,7 +131,7 @@ namespace VidCoder.ViewModel
 							Drc = 0.0
 						};
 
-						this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this.EncodingViewModel.ContainerName, this));
+						this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this.EncodingWindowViewModel.ContainerName, this));
 						this.RaisePropertyChanged(() => this.HasAudioTracks);
 						this.RefreshAudioPreview();
 						this.UpdateAudioEncodings();
@@ -154,12 +154,12 @@ namespace VidCoder.ViewModel
 
 		private void RefreshFallbackEncoderChoices()
 		{
-			if (this.EncodingViewModel.EncodingProfile == null)
+			if (this.EncodingWindowViewModel.EncodingProfile == null)
 			{
 				return;
 			}
 
-			HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.EncodingViewModel.EncodingProfile.ContainerName);
+			HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.EncodingWindowViewModel.EncodingProfile.ContainerName);
 			HBAudioEncoder oldEncoder = null;
 			if (this.selectedFallbackEncoder != null)
 			{
@@ -397,7 +397,7 @@ namespace VidCoder.ViewModel
 			this.RefreshAudioPreview();
 			this.UpdateAudioEncodings();
 
-			this.EncodingViewModel.NotifyAudioEncodingChanged();
+			this.EncodingWindowViewModel.NotifyAudioEncodingChanged();
 		}
 
 		public void NotifyAudioInputChanged()

@@ -13,6 +13,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
+using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using VidCoder.Automation;
 using VidCoder.Extensions;
@@ -85,7 +86,7 @@ namespace VidCoder.ViewModel
 
 		public MainViewModel()
 		{
-			Ioc.Container.Register(() => this);
+			Ioc.Container.RegisterInstance(typeof(MainViewModel), this, new ContainerControlledLifetimeManager());
 
 			this.outputPathService = Ioc.Get<OutputPathService>();
 			this.processingService = Ioc.Get<ProcessingService>();
@@ -123,6 +124,12 @@ namespace VidCoder.ViewModel
 
 			this.audioChoices = new ObservableCollection<AudioChoiceViewModel>();
 			this.audioChoices.CollectionChanged += (o, e) => { Messenger.Default.Send(new AudioInputChangedMessage()); };
+
+			this.WindowMenuItems = new List<WindowMenuItemViewModel>();
+			foreach (var definition in WindowManager.Definitions.Where(d => d.InMenu))
+			{
+				this.WindowMenuItems.Add(new WindowMenuItemViewModel(definition));
+			}
 
 			Messenger.Default.Register<SelectedTitleChangedMessage>(
 				this,
@@ -427,6 +434,8 @@ namespace VidCoder.ViewModel
 				this.UpdateDrives();
 			}
 		}
+
+		public IList<WindowMenuItemViewModel> WindowMenuItems { get; private set; } 
 
 		public ObservableCollection<SourceOptionViewModel> SourceOptions
 		{
@@ -2689,7 +2698,7 @@ namespace VidCoder.ViewModel
 
 		private void ReportLengthChanged()
 		{
-			var encodingWindow = this.windowManager.Find<EncodingViewModel>();
+			var encodingWindow = this.windowManager.Find<EncodingWindowViewModel>();
 			if (encodingWindow != null)
 			{
 				encodingWindow.NotifyLengthChanged();

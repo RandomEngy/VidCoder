@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq.Expressions;
-using System.Windows.Input;
 
 namespace VidCoder.Services.Windows
 {
@@ -17,5 +15,7 @@ namespace VidCoder.Services.Windows
 		public string MenuLabel { get; set; }
 
 		public string InputGestureText { get; set; }
+
+		public IObservable<bool> CanOpen { get; set; } 
 	}
 }

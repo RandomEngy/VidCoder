@@ -37,7 +37,7 @@ namespace VidCoder.View
 
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
-			var viewModel = e.NewValue as EncodingViewModel;
+			var viewModel = e.NewValue as EncodingWindowViewModel;
 
 			if (viewModel != null)
 			{
@@ -50,7 +50,7 @@ namespace VidCoder.View
 		{
 			if (e.PropertyName == "PresetPanelOpen")
 			{
-				var viewModel = (EncodingViewModel)this.DataContext;
+				var viewModel = (EncodingWindowViewModel)this.DataContext;
 				this.SetPanelOpenState(viewModel.PresetPanelOpen);
 			}
 		}

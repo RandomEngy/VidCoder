@@ -60,16 +60,11 @@ namespace VidCoder.Services.Windows
 		void Close(object viewModel);
 
 		/// <summary>
-		/// Fires when a tracked window changes.
-		/// </summary>
-		event EventHandler TrackedWindowChanged;
-
-		/// <summary>
 		/// Creates a command to open a window.
 		/// </summary>
-		/// <typeparam name="T">The type of window viewmodel to open.</typeparam>
+		/// <param name="viewModelType">The type of window viewmodel to open.</param>
 		/// <returns>The command.</returns>
-		ICommand CreateOpenCommand<T>();
+		ICommand CreateOpenCommand(Type viewModelType);
 
 		/// <summary>
 		/// Closes the window of the given type.
@@ -98,5 +93,15 @@ namespace VidCoder.Services.Windows
 		/// <typeparam name="T">The viewmodel type.</typeparam>
 		/// <returns>The open window viewmodel.</returns>
 		T Find<T>() where T : class;
+
+		/// <summary>
+		/// Fires when a window opens.
+		/// </summary>
+		event EventHandler<EventArgs<Type>> WindowOpened;
+
+		/// <summary>
+		/// Fires when a window closes.
+		/// </summary>
+		event EventHandler<EventArgs<Type>> WindowClosed;
 	}
 }

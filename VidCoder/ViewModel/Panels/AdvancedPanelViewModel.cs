@@ -42,8 +42,8 @@ namespace VidCoder.ViewModel
 			"analyse", "8x8dct", "cabac", "trellis", "aq-strength", "psy-rd", "no-dct-decimate", "deblock"
 		};
 
-		public AdvancedPanelViewModel(EncodingViewModel encodingViewModel)
-			: base(encodingViewModel)
+		public AdvancedPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
+			: base(encodingWindowViewModel)
 		{
 			Messenger.Default.Register<AdvancedOptionsChangedMessage>(
 				this,

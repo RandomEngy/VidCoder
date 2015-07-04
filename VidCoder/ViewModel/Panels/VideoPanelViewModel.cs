@@ -39,8 +39,8 @@ namespace VidCoder.ViewModel
 		private List<LevelChoiceViewModel> levelChoices;
 		private List<ComboChoice> tuneChoices;
 
-		public VideoPanelViewModel(EncodingViewModel encodingViewModel)
-			: base(encodingViewModel)
+		public VideoPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
+			: base(encodingWindowViewModel)
 		{
 			this.encoderChoices = new List<VideoEncoderViewModel>();
 
@@ -654,7 +654,7 @@ namespace VidCoder.ViewModel
 						width,
 						height);
 
-					this.EncodingViewModel.SelectedTabIndex = EncodingViewModel.AdvancedVideoTabIndex;
+					this.EncodingWindowViewModel.SelectedTabIndex = EncodingWindowViewModel.AdvancedVideoTabIndex;
 				}
 				else
 				{
@@ -947,7 +947,7 @@ namespace VidCoder.ViewModel
 		// Refreshes preset/profile/tune/level lists.
 		private void RefreshEncoderSettings(bool applyDefaults)
 		{
-			this.EncodingViewModel.AutomaticChange = true;
+			this.EncodingWindowViewModel.AutomaticChange = true;
 
 			// Find the values we want to set to after refreshing the lists
 			string newPreset = this.Profile.VideoPreset;
@@ -1043,7 +1043,7 @@ namespace VidCoder.ViewModel
 
 			this.RaisePropertyChanged(() => this.Level);
 
-			this.EncodingViewModel.AutomaticChange = false;
+			this.EncodingWindowViewModel.AutomaticChange = false;
 		}
 
 		public void NotifyProfileChanged()
@@ -1276,8 +1276,8 @@ namespace VidCoder.ViewModel
 			{
 				if (levelChoice.Value != null)
 				{
-					var main = this.EncodingViewModel.MainViewModel;
-					var picturePanel = this.EncodingViewModel.PicturePanelViewModel;
+					var main = this.EncodingWindowViewModel.MainViewModel;
+					var picturePanel = this.EncodingWindowViewModel.PicturePanelViewModel;
 					if (main.HasVideoSource && picturePanel.StorageWidth > 0 && picturePanel.StorageHeight > 0)
 					{
 						int fpsNumerator;

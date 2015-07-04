@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -33,7 +34,7 @@ namespace VidCoder.Services.Windows
 
 				new WindowDefinition
 				{
-					ViewModelType = typeof(EncodingViewModel), 
+					ViewModelType = typeof(EncodingWindowViewModel), 
 					InMenu = true,
 					PlacementConfigKey = "EncodingDialogPlacement",
 					IsOpenConfigKey = "EncodingWindowOpen", 
@@ -43,7 +44,7 @@ namespace VidCoder.Services.Windows
 
 				new WindowDefinition
 				{
-					ViewModelType = typeof(PreviewViewModel), 
+					ViewModelType = typeof(PreviewWindowViewModel), 
 					InMenu = true,
 					PlacementConfigKey = "PreviewWindowPlacement",
 					IsOpenConfigKey = "PreviewWindowOpen", 
@@ -63,7 +64,7 @@ namespace VidCoder.Services.Windows
 
 				new WindowDefinition
 				{
-					ViewModelType = typeof(LogViewModel), 
+					ViewModelType = typeof(LogWindowViewModel), 
 					InMenu = true,
 					PlacementConfigKey = "LogWindowPlacement",
 					IsOpenConfigKey = "LogWindowOpen", 
@@ -77,7 +78,8 @@ namespace VidCoder.Services.Windows
 					InMenu = true,
 					PlacementConfigKey = "EncodeDetailsWindowPlacement",
 					IsOpenConfigKey = "EncodeDetailsWindowOpen", 
-					MenuLabel = MainRes.EncodeDetailsMenuItem
+					MenuLabel = MainRes.EncodeDetailsMenuItem,
+					CanOpen = Ioc.Get<ProcessingService>().WhenAnyValue(x => x.Encoding)
 				},
 			};
 		}
@@ -90,9 +92,14 @@ namespace VidCoder.Services.Windows
 		public static List<WindowDefinition> Definitions { get; private set; }
 
 		/// <summary>
-		/// Fires when a tracked window changes.
+		/// Fires when a window opens.
 		/// </summary>
-		public event EventHandler TrackedWindowChanged;
+		public event EventHandler<EventArgs<Type>> WindowOpened;
+
+		/// <summary>
+		/// Fires when a window closes.
+		/// </summary>
+		public event EventHandler<EventArgs<Type>> WindowClosed;
 
 		/// <summary>
 		/// Opens the viewmodel as a window.
@@ -140,9 +147,21 @@ namespace VidCoder.Services.Windows
 
 			foreach (var definition in Definitions.Where(d => d.IsOpenConfigKey != null))
 			{
-				if (Config.Get<bool>(definition.IsOpenConfigKey))
+				bool canOpen = true;
+				if (definition.CanOpen != null)
 				{
-					this.OpenWindow(Ioc.Container.GetInstance(definition.ViewModelType));
+					IDisposable disposable = definition.CanOpen.Subscribe(value =>
+					{
+						canOpen = value;
+						//Debug.WriteLine("The value is " + value);
+					});
+
+					disposable.Dispose();
+				}
+
+				if (canOpen && Config.Get<bool>(definition.IsOpenConfigKey))
+				{
+					this.OpenWindow(Ioc.Get(definition.ViewModelType));
 					windowOpened = true;
 				}
 			}
@@ -185,7 +204,7 @@ namespace VidCoder.Services.Windows
 
 			if (viewModel == null)
 			{
-				viewModel = Ioc.Container.GetInstance(viewModelType);
+				viewModel = Ioc.Get(viewModelType);
 				if (ownerViewModel == null)
 				{
 					ownerViewModel = this.mainViewModel;
@@ -223,14 +242,14 @@ namespace VidCoder.Services.Windows
 		/// <summary>
 		/// Creates a command to open a window.
 		/// </summary>
-		/// <typeparam name="T">The type of window viewmodel to open.</typeparam>
+		/// <param name="viewModelType">The type of window viewmodel to open.</param>
 		/// <returns>The command.</returns>
-		public ICommand CreateOpenCommand<T>()
+		public ICommand CreateOpenCommand(Type viewModelType)
 		{
 			var command = ReactiveCommand.Create();
 			command.Subscribe(_ =>
 			{
-				this.OpenOrFocusWindow(typeof(T));
+				this.OpenOrFocusWindow(viewModelType);
 			});
 
 			return command;
@@ -339,6 +358,12 @@ namespace VidCoder.Services.Windows
 				}
 			}
 
+			var localWindowOpened = this.WindowOpened;
+			if (localWindowOpened != null)
+			{
+				localWindowOpened(this, new EventArgs<Type>(viewModel.GetType()));
+			}
+
 			return windowToOpen;
 		}
 
@@ -402,7 +427,6 @@ namespace VidCoder.Services.Windows
 					if (windowDefinition.IsOpenConfigKey != null)
 					{
 						Config.Set(windowDefinition.IsOpenConfigKey, false);
-						this.RaiseTrackedWindowChanged();
 					}
 				}
 
@@ -411,6 +435,14 @@ namespace VidCoder.Services.Windows
 				if (window.Owner != null)
 				{
 					window.Owner.Activate();
+				}
+
+				// On app shutdown we don't broadcast this event as we don't care about UI
+				// for the Windows menu getting updated.
+				var localWindowClosed = this.WindowClosed;
+				if (localWindowClosed != null)
+				{
+					localWindowClosed(this, new EventArgs<Type>(viewModel.GetType()));
 				}
 			}
 		}
@@ -423,18 +455,6 @@ namespace VidCoder.Services.Windows
 		private object FindOpenWindowViewModel(Type viewModelType)
 		{
 			return this.openWindows.Keys.FirstOrDefault(k => k.GetType() == viewModelType);
-		}
-
-		/// <summary>
-		/// Raise the TrackedWindowChanged event.
-		/// </summary>
-		private void RaiseTrackedWindowChanged()
-		{
-			var localTrackedWindowChanged = this.TrackedWindowChanged;
-			if (localTrackedWindowChanged != null)
-			{
-				this.TrackedWindowChanged(this, new EventArgs());
-			}
 		}
 
 		/// <summary>

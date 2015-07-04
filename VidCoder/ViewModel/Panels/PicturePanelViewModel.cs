@@ -19,8 +19,8 @@ namespace VidCoder.ViewModel
 		private string outputPixelAspectRatio;
 		private string outputDisplayResolution;
 
-		public PicturePanelViewModel(EncodingViewModel encodingViewModel)
-			: base(encodingViewModel)
+		public PicturePanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
+			: base(encodingWindowViewModel)
 		{
             this.scaleChoices = new List<ComboChoice<VCScaleMethod>>
 			{

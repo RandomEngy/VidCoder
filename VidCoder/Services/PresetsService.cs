@@ -412,7 +412,7 @@ namespace VidCoder.Services
 		{
 			this.OutputPathVM.GenerateOutputFileName();
 
-			var encodingWindow = this.windowManager.Find<EncodingViewModel>();
+			var encodingWindow = this.windowManager.Find<EncodingWindowViewModel>();
 			if (encodingWindow != null)
 			{
 				encodingWindow.EditingPreset = this.selectedPreset.Preset;

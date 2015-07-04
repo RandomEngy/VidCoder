@@ -1,6 +1,9 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using System;
+using GalaSoft.MvvmLight.Ioc;
+using Microsoft.Practices.Unity;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
+using VidCoder.ViewModel;
 
 namespace VidCoder
 {
@@ -8,33 +11,49 @@ namespace VidCoder
 	{
 		static Ioc()
 		{
-			Container = new SimpleIoc();
-			Container.Register<IDriveService, DriveService>();
-			Container.Register<IUpdater, Updater>();
-			Container.Register<IMessageBoxService, MessageBoxService>();
-			Container.Register<ILogger, Logger>();
-			Container.Register<IFileService, FileService>();
-			Container.Register<IPresetImportExport, PresetImportExport>();
-			Container.Register<IQueueImportExport, QueueImportExport>();
-			Container.Register<IProcesses, Processes>();
-			Container.Register<IProcessAutoPause, ProcessAutoPause>();
-			Container.Register<ISystemOperations, SystemOperations>();
-			Container.Register<IWindowManager, WindowManager>();
-			Container.Register(() => new TrayService());
-			Container.Register(() => new ClipboardService());
+			Container = new UnityContainer();
+			Container.RegisterType<IDriveService, DriveService>(Singleton);
+			Container.RegisterType<IUpdater, Updater>(Singleton);
+			Container.RegisterType<IMessageBoxService, MessageBoxService>(Singleton);
+			Container.RegisterType<ILogger>(Singleton, new InjectionFactory(c => new Logger()));
+			Container.RegisterType<IFileService, FileService>(Singleton);
+			Container.RegisterType<IPresetImportExport, PresetImportExport>(Singleton);
+			Container.RegisterType<IQueueImportExport, QueueImportExport>(Singleton);
+			Container.RegisterType<IProcesses, Processes>(Singleton);
+			Container.RegisterType<IProcessAutoPause, ProcessAutoPause>(Singleton);
+			Container.RegisterType<ISystemOperations, SystemOperations>(Singleton);
+			Container.RegisterType<IWindowManager, WindowManager>(Singleton);
 
-			Container.Register<OutputPathService>();
-			Container.Register<PresetsService>();
-            Container.Register<PickersService>();
-			Container.Register<ProcessingService>();
-			Container.Register<WindowManagerService>();
+			Container.RegisterType<OutputPathService>(Singleton);
+			Container.RegisterType<PresetsService>(Singleton);
+			Container.RegisterType<PickersService>(Singleton);
+			Container.RegisterType<ProcessingService>(Singleton);
+			Container.RegisterType<WindowManagerService>(Singleton);
+			Container.RegisterType<EncodingWindowViewModel>(new InjectionFactory(c =>
+			{
+				var preset = c.Resolve<PresetsService>().SelectedPreset.Preset;
+				return new EncodingWindowViewModel(preset);
+			}));
 		}
 
-		public static SimpleIoc Container { get; set; }
+		public static UnityContainer Container { get; set; }
 
 		public static T Get<T>()
 		{
-			return Container.GetInstance<T>();
+			return Container.Resolve<T>();
+		}
+
+		public static object Get(Type type)
+		{
+			return Container.Resolve(type);
+		}
+
+		public static ContainerControlledLifetimeManager Singleton 
+		{
+			get
+			{
+				return new ContainerControlledLifetimeManager();
+			}
 		}
 	}
 }

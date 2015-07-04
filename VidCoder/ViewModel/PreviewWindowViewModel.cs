@@ -20,7 +20,7 @@ using Geometry = HandBrake.ApplicationServices.Interop.Json.Shared.Geometry;
 
 namespace VidCoder.ViewModel
 {
-	public class PreviewViewModel : OkCancelDialogOldViewModel
+	public class PreviewWindowViewModel : OkCancelDialogOldViewModel
 	{
 		private const int PreviewImageCacheDistance = 1;
 		private const double SubtitleScanCost = 1 / EncodeJobViewModel.SubtitleScanCostFactor;
@@ -60,7 +60,7 @@ namespace VidCoder.ViewModel
 		private WindowManagerService windowManagerService = Ioc.Get<WindowManagerService>();
 		private ProcessingService processingService = Ioc.Get<ProcessingService>();
 
-		public PreviewViewModel()
+		public PreviewWindowViewModel()
 		{
 			Messenger.Default.Register<RefreshPreviewMessage>(
 				this,

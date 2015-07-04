@@ -18,8 +18,8 @@ namespace VidCoder.ViewModel
 		private List<ComboChoice> denoiseTuneChoices; 
 		private List<RotationViewModel> rotationChoices;
 
-		public VideoFiltersPanelViewModel(EncodingViewModel encodingViewModel)
-			: base(encodingViewModel)
+		public VideoFiltersPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
+			: base(encodingWindowViewModel)
 		{
             this.denoiseChoices = new List<ComboChoice<VCDenoise>>
             {

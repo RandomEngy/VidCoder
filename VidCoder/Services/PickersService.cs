@@ -162,7 +162,7 @@ namespace VidCoder.Services
 					new MenuItem
 					{
 						Header = MainRes.EditButton, 
-						Command = this.windowManager.CreateOpenCommand<PickerWindowViewModel>(),
+						Command = this.windowManager.CreateOpenCommand(typeof(PickerWindowViewModel)),
 						HorizontalContentAlignment = HorizontalAlignment.Left,
 						VerticalContentAlignment = VerticalAlignment.Center,
 					});
