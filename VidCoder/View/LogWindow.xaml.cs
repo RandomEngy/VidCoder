@@ -21,7 +21,7 @@ namespace VidCoder.View
 		// The maximum number of lines to add to log window in a single dispatcher call
 		private const int MaxLinesPerDispatch = 100;
 
-		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
+		private ILogger logger = Ioc.Get<ILogger>();
 
 		private Queue<LogEntry> pendingEntries = new Queue<LogEntry>();
 		private bool workerRunning;

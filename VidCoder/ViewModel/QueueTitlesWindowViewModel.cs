@@ -12,6 +12,7 @@ using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoder.Services.Windows;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 
@@ -23,14 +24,16 @@ namespace VidCoder.ViewModel
 		private ObservableCollection<TitleSelectionViewModel> selectedTitles;
 		private bool titleStartOverrideEnabled;
 		private int titleStartOverride;
+		private IWindowManager windowManager;
 
 		private MainViewModel main;
 
 		public QueueTitlesWindowViewModel()
 		{
-			this.main = Ioc.Container.GetInstance<MainViewModel>();
-			this.PickersService = Ioc.Container.GetInstance<PickersService>();
-			this.WindowManagerService = Ioc.Container.GetInstance<WindowManagerService>();
+			this.main = Ioc.Get<MainViewModel>();
+			this.PickersService = Ioc.Get<PickersService>();
+			this.WindowManagerService = Ioc.Get<WindowManagerService>();
+			this.windowManager = Ioc.Get<IWindowManager>();
 
 			this.selectedTitles = new ObservableCollection<TitleSelectionViewModel>();
 			this.titleStartOverrideEnabled = Config.QueueTitlesUseTitleOverride;
@@ -265,14 +268,13 @@ namespace VidCoder.ViewModel
 				{
 					this.DialogResult = true;
 
-					var processingService = Ioc.Container.GetInstance<ProcessingService>();
+					var processingService = Ioc.Get<ProcessingService>();
 					processingService.QueueTitles(
 						this.CheckedTitles, 
 						this.TitleStartOverrideEnabled ? this.TitleStartOverride : -1,
 						this.NameOverrideEnabled ? this.NameOverride : null);
 
-					WindowManager.Close(this);
-					this.OnClosing();
+					this.windowManager.Close(this);
 				}, () =>
 				{
 					return this.CanClose;

@@ -14,8 +14,8 @@ namespace VidCoder.ViewModel
 {
 	public class EncodeResultViewModel : ViewModelBase
 	{
-		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
-		private ProcessingService processingService = Ioc.Container.GetInstance<ProcessingService>();
+		private MainViewModel main = Ioc.Get<MainViewModel>();
+		private ProcessingService processingService = Ioc.Get<ProcessingService>();
 
 		private EncodeResult encodeResult;
 		private EncodeJobViewModel job;
@@ -169,15 +169,15 @@ namespace VidCoder.ViewModel
 						{
 							string logText = File.ReadAllText(this.encodeResult.LogPath);
 
-							Ioc.Container.GetInstance<ClipboardService>().SetText(logText);
+							Ioc.Get<ClipboardService>().SetText(logText);
 						}
 						catch (IOException exception)
 						{
-							Ioc.Container.GetInstance<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+							Ioc.Get<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
 						}
 						catch (UnauthorizedAccessException exception)
 						{
-							Ioc.Container.GetInstance<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+							Ioc.Get<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
 						}
 					}));
 			}

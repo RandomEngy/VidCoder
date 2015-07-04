@@ -12,7 +12,7 @@ namespace VidCoder.ViewModel
 {
 	public class AudioChoiceViewModel : ViewModelBase
 	{
-		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
+		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private int selectedTrack;
 
 		public MainViewModel MainViewModel

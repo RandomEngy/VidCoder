@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Messaging;
 using VidCoder.Messages;
 using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using VidCoderCLI;
 using VidCoderCommon.Model;
@@ -14,7 +15,7 @@ namespace VidCoder.Automation
 	{
 		public void Encode(string source, string destination, string preset, string picker)
 		{
-			var processingService = Ioc.Container.GetInstance<ProcessingService>();
+			var processingService = Ioc.Get<ProcessingService>();
 
 			try
 			{
@@ -28,7 +29,7 @@ namespace VidCoder.Automation
 
 		public void Scan(string source)
 		{
-			var mainVM = Ioc.Container.GetInstance<MainViewModel>();
+			var mainVM = Ioc.Get<MainViewModel>();
 
 			try
 			{
@@ -42,7 +43,7 @@ namespace VidCoder.Automation
 
 		public void ImportPreset(string filePath)
 		{
-			var presetImporter = Ioc.Container.GetInstance<IPresetImportExport>();
+			var presetImporter = Ioc.Get<IPresetImportExport>();
 
 			try
 			{
@@ -58,7 +59,7 @@ namespace VidCoder.Automation
 
 		public void ImportQueue(string filePath)
 		{
-			var queueImporter = Ioc.Container.GetInstance<IQueueImportExport>();
+			var queueImporter = Ioc.Get<IQueueImportExport>();
 
 			try
 			{
@@ -75,7 +76,7 @@ namespace VidCoder.Automation
 		private void ShowMessage(string message)
 		{
 			Messenger.Default.Send(new StatusMessage { Message = message});
-			WindowManager.ActivateWindow(Ioc.Container.GetInstance<MainViewModel>());
+			Ioc.Get<IWindowManager>().Activate(Ioc.Get<MainViewModel>());
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.Data.SQLite;
+﻿using System.Collections.Generic;
+using System.Data.SQLite;
 using VidCoder.Model;
 
 namespace VidCoder
@@ -6,6 +7,7 @@ namespace VidCoder
 	public static class Config
 	{
 		private static bool initialized;
+		private static Dictionary<string, object> cache;
 
 		public static void EnsureInitialized(SQLiteConnection connection)
 		{
@@ -23,1505 +25,1418 @@ namespace VidCoder
 
 		private static void Initialize(SQLiteConnection connection)
 		{
-			MigratedConfigs_Field = DatabaseConfig.GetConfig("MigratedConfigs", false, connection);
-			EncodeJobs2_Field = DatabaseConfig.GetConfig("EncodeJobs2", "", connection);
-			UpdateInProgress_Field = DatabaseConfig.GetConfig("UpdateInProgress", false, connection);
-			UpdateVersion_Field = DatabaseConfig.GetConfig("UpdateVersion", "", connection);
-			UpdateInstallerLocation_Field = DatabaseConfig.GetConfig("UpdateInstallerLocation", "", connection);
-			UpdateChangelogLocation_Field = DatabaseConfig.GetConfig("UpdateChangelogLocation", "", connection);
-			LastOutputFolder_Field = DatabaseConfig.GetConfig("LastOutputFolder", "", connection);
-			LastInputFileFolder_Field = DatabaseConfig.GetConfig("LastInputFileFolder", "", connection);
-			LastVideoTSFolder_Field = DatabaseConfig.GetConfig("LastVideoTSFolder", "", connection);
-			LastSrtFolder_Field = DatabaseConfig.GetConfig("LastSrtFolder", "", connection);
-			LastCsvFolder_Field = DatabaseConfig.GetConfig("LastCsvFolder", "", connection);
-			LastPresetExportFolder_Field = DatabaseConfig.GetConfig("LastPresetExportFolder", "", connection);
-			AutoNameOutputFolder_Field = DatabaseConfig.GetConfig("AutoNameOutputFolder", "", connection);
-			AutoNameCustomFormat_Field = DatabaseConfig.GetConfig("AutoNameCustomFormat", false, connection);
-			AutoNameCustomFormatString_Field = DatabaseConfig.GetConfig("AutoNameCustomFormatString", "{source}-{title}", connection);
-			NativeLanguageCode_Field = DatabaseConfig.GetConfig("NativeLanguageCode", "", connection);
-			DubAudio_Field = DatabaseConfig.GetConfig("DubAudio", false, connection);
-			LastPresetIndex_Field = DatabaseConfig.GetConfig("LastPresetIndex", 0, connection);
-			LastPickerIndex_Field = DatabaseConfig.GetConfig("LastPickerIndex", 0, connection);
-			EncodingDialogLastTab_Field = DatabaseConfig.GetConfig("EncodingDialogLastTab", 0, connection);
-			OptionsDialogLastTab_Field = DatabaseConfig.GetConfig("OptionsDialogLastTab", 0, connection);
-			MainWindowPlacement_Field = DatabaseConfig.GetConfig("MainWindowPlacement", "", connection);
-			SubtitlesDialogPlacement_Field = DatabaseConfig.GetConfig("SubtitlesDialogPlacement", "", connection);
-			EncodingDialogPlacement_Field = DatabaseConfig.GetConfig("EncodingDialogPlacement", "", connection);
-			ChapterMarkersDialogPlacement_Field = DatabaseConfig.GetConfig("ChapterMarkersDialogPlacement", "", connection);
-			PreviewWindowPlacement_Field = DatabaseConfig.GetConfig("PreviewWindowPlacement", "", connection);
-			QueueTitlesDialogPlacement2_Field = DatabaseConfig.GetConfig("QueueTitlesDialogPlacement2", "", connection);
-			AddAutoPauseProcessDialogPlacement_Field = DatabaseConfig.GetConfig("AddAutoPauseProcessDialogPlacement", "", connection);
-			OptionsDialogPlacement_Field = DatabaseConfig.GetConfig("OptionsDialogPlacement", "", connection);
-			EncodeDetailsWindowPlacement_Field = DatabaseConfig.GetConfig("EncodeDetailsWindowPlacement", "", connection);
-			PickerWindowPlacement_Field = DatabaseConfig.GetConfig("PickerWindowPlacement", "", connection);
-			LogWindowPlacement_Field = DatabaseConfig.GetConfig("LogWindowPlacement", "", connection);
-			EncodingWindowOpen_Field = DatabaseConfig.GetConfig("EncodingWindowOpen", false, connection);
-			PreviewWindowOpen_Field = DatabaseConfig.GetConfig("PreviewWindowOpen", false, connection);
-			LogWindowOpen_Field = DatabaseConfig.GetConfig("LogWindowOpen", false, connection);
-			EncodeDetailsWindowOpen_Field = DatabaseConfig.GetConfig("EncodeDetailsWindowOpen", false, connection);
-			PickerWindowOpen_Field = DatabaseConfig.GetConfig("PickerWindowOpen", false, connection);
-			UpdatesEnabled_Field = DatabaseConfig.GetConfig("UpdatesEnabled", true, connection);
-			PreviewSeconds_Field = DatabaseConfig.GetConfig("PreviewSeconds", 10, connection);
-			ApplicationVersion_Field = DatabaseConfig.GetConfig("ApplicationVersion", "", connection);
-			QueueColumns_Field = DatabaseConfig.GetConfig("QueueColumns", "Source:200|Title:35|Range:106|Destination:200", connection);
-			QueueLastColumnWidth_Field = DatabaseConfig.GetConfig("QueueLastColumnWidth", 75.0, connection);
-			CompletedColumnWidths_Field = DatabaseConfig.GetConfig("CompletedColumnWidths", "", connection);
-			PickerListPaneWidth_Field = DatabaseConfig.GetConfig("PickerListPaneWidth", 135.0, connection);
-			EncodingListPaneOpen_Field = DatabaseConfig.GetConfig("EncodingListPaneOpen", true, connection);
-			EncodingListPaneWidth_Field = DatabaseConfig.GetConfig("EncodingListPaneWidth", 150.0, connection);
-			ShowPickerWindowMessage_Field = DatabaseConfig.GetConfig("ShowPickerWindowMessage", true, connection);
-			WorkerProcessPriority_Field = DatabaseConfig.GetConfig("WorkerProcessPriority", "Normal", connection);
-			LogVerbosity_Field = DatabaseConfig.GetConfig("LogVerbosity", 1, connection);
-			CopyLogToOutputFolder_Field = DatabaseConfig.GetConfig("CopyLogToOutputFolder", false, connection);
-			AutoPauseProcesses_Field = DatabaseConfig.GetConfig("AutoPauseProcesses", "", connection);
-			PreviewCount_Field = DatabaseConfig.GetConfig("PreviewCount", 10, connection);
-			PreviewDisplay_Field = DatabaseConfig.GetConfig("PreviewDisplay", "FitToWindow", connection);
-			UseCustomPreviewFolder_Field = DatabaseConfig.GetConfig("UseCustomPreviewFolder", false, connection);
-			PreviewOutputFolder_Field = DatabaseConfig.GetConfig("PreviewOutputFolder", "", connection);
-			QueueTitlesUseTitleOverride_Field = DatabaseConfig.GetConfig("QueueTitlesUseTitleOverride", false, connection);
-			QueueTitlesTitleOverride_Field = DatabaseConfig.GetConfig("QueueTitlesTitleOverride", 1, connection);
-			ShowAudioTrackNameField_Field = DatabaseConfig.GetConfig("ShowAudioTrackNameField", false, connection);
-			SourceHistory_Field = DatabaseConfig.GetConfig("SourceHistory", "", connection);
-			MinimizeToTray_Field = DatabaseConfig.GetConfig("MinimizeToTray", false, connection);
-			OutputToSourceDirectory_Field = DatabaseConfig.GetConfig("OutputToSourceDirectory", false, connection);
-			PreserveFolderStructureInBatch_Field = DatabaseConfig.GetConfig("PreserveFolderStructureInBatch", false, connection);
-			WhenFileExists_Field = DatabaseConfig.GetConfig("WhenFileExists", "Prompt", connection);
-			WhenFileExistsBatch_Field = DatabaseConfig.GetConfig("WhenFileExistsBatch", "AutoRename", connection);
-			UseCustomVideoPlayer_Field = DatabaseConfig.GetConfig("UseCustomVideoPlayer", false, connection);
-			CustomVideoPlayer_Field = DatabaseConfig.GetConfig("CustomVideoPlayer", "", connection);
-			PlaySoundOnCompletion_Field = DatabaseConfig.GetConfig("PlaySoundOnCompletion", false, connection);
-			UseCustomCompletionSound_Field = DatabaseConfig.GetConfig("UseCustomCompletionSound", false, connection);
-			CustomCompletionSound_Field = DatabaseConfig.GetConfig("CustomCompletionSound", "", connection);
-			LastPlayer_Field = DatabaseConfig.GetConfig("LastPlayer", "vlc", connection);
-			QueueTitlesUseDirectoryOverride_Field = DatabaseConfig.GetConfig("QueueTitlesUseDirectoryOverride", false, connection);
-			QueueTitlesDirectoryOverride_Field = DatabaseConfig.GetConfig("QueueTitlesDirectoryOverride", "", connection);
-			QueueTitlesUseNameOverride_Field = DatabaseConfig.GetConfig("QueueTitlesUseNameOverride", false, connection);
-			QueueTitlesNameOverride_Field = DatabaseConfig.GetConfig("QueueTitlesNameOverride", "", connection);
-			DxvaDecoding_Field = DatabaseConfig.GetConfig("DxvaDecoding", false, connection);
-			EnableLibDvdNav_Field = DatabaseConfig.GetConfig("EnableLibDvdNav", true, connection);
-			MinimumTitleLengthSeconds_Field = DatabaseConfig.GetConfig("MinimumTitleLengthSeconds", 10, connection);
-			DeleteSourceFilesOnClearingCompleted_Field = DatabaseConfig.GetConfig("DeleteSourceFilesOnClearingCompleted", false, connection);
-			PreserveModifyTimeFiles_Field = DatabaseConfig.GetConfig("PreserveModifyTimeFiles", false, connection);
-			ResumeEncodingOnRestart_Field = DatabaseConfig.GetConfig("ResumeEncodingOnRestart", false, connection);
-			UseWorkerProcess_Field = DatabaseConfig.GetConfig("UseWorkerProcess", true, connection);
-			RememberPreviousFiles_Field = DatabaseConfig.GetConfig("RememberPreviousFiles", true, connection);
-			VideoFileExtensions_Field = DatabaseConfig.GetConfig("VideoFileExtensions", "avi, mkv, mp4, m4v, mpg, mpeg, mov, wmv", connection);
-			PreferredPlayer_Field = DatabaseConfig.GetConfig("PreferredPlayer", "vlc", connection);
-			BetaUpdates_Field = DatabaseConfig.GetConfig("BetaUpdates", false, connection);
-			InterfaceLanguageCode_Field = DatabaseConfig.GetConfig("InterfaceLanguageCode", "", connection);
-			CpuThrottlingFraction_Field = DatabaseConfig.GetConfig("CpuThrottlingFraction", 1.0, connection);
-			AudioLanguageCode_Field = DatabaseConfig.GetConfig("AudioLanguageCode", "und", connection);
-			SubtitleLanguageCode_Field = DatabaseConfig.GetConfig("SubtitleLanguageCode", "und", connection);
-			AutoAudio_Field = DatabaseConfig.GetConfig("AutoAudio", "Disabled", connection);
-			AutoSubtitle_Field = DatabaseConfig.GetConfig("AutoSubtitle", "Disabled", connection);
-			AutoAudioAll_Field = DatabaseConfig.GetConfig("AutoAudioAll", false, connection);
-			AutoSubtitleAll_Field = DatabaseConfig.GetConfig("AutoSubtitleAll", false, connection);
-			AutoSubtitleOnlyIfDifferent_Field = DatabaseConfig.GetConfig("AutoSubtitleOnlyIfDifferent", true, connection);
-			AutoSubtitleBurnIn_Field = DatabaseConfig.GetConfig("AutoSubtitleBurnIn", true, connection);
-			AutoSubtitleLanguageDefault_Field = DatabaseConfig.GetConfig("AutoSubtitleLanguageDefault", false, connection);
-			AutoSubtitleLanguageBurnIn_Field = DatabaseConfig.GetConfig("AutoSubtitleLanguageBurnIn", false, connection);
-			QueueTitlesStartTime_Field = DatabaseConfig.GetConfig("QueueTitlesStartTime", 40, connection);
-			QueueTitlesEndTime_Field = DatabaseConfig.GetConfig("QueueTitlesEndTime", 45, connection);
-			QueueTitlesUseRange_Field = DatabaseConfig.GetConfig("QueueTitlesUseRange", false, connection);
+			cache = new Dictionary<string, object>();
+			cache.Add("MigratedConfigs", DatabaseConfig.Get("MigratedConfigs", false, connection));
+			cache.Add("EncodeJobs2", DatabaseConfig.Get("EncodeJobs2", "", connection));
+			cache.Add("UpdateInProgress", DatabaseConfig.Get("UpdateInProgress", false, connection));
+			cache.Add("UpdateVersion", DatabaseConfig.Get("UpdateVersion", "", connection));
+			cache.Add("UpdateInstallerLocation", DatabaseConfig.Get("UpdateInstallerLocation", "", connection));
+			cache.Add("UpdateChangelogLocation", DatabaseConfig.Get("UpdateChangelogLocation", "", connection));
+			cache.Add("LastOutputFolder", DatabaseConfig.Get("LastOutputFolder", "", connection));
+			cache.Add("LastInputFileFolder", DatabaseConfig.Get("LastInputFileFolder", "", connection));
+			cache.Add("LastVideoTSFolder", DatabaseConfig.Get("LastVideoTSFolder", "", connection));
+			cache.Add("LastSrtFolder", DatabaseConfig.Get("LastSrtFolder", "", connection));
+			cache.Add("LastCsvFolder", DatabaseConfig.Get("LastCsvFolder", "", connection));
+			cache.Add("LastPresetExportFolder", DatabaseConfig.Get("LastPresetExportFolder", "", connection));
+			cache.Add("AutoNameOutputFolder", DatabaseConfig.Get("AutoNameOutputFolder", "", connection));
+			cache.Add("AutoNameCustomFormat", DatabaseConfig.Get("AutoNameCustomFormat", false, connection));
+			cache.Add("AutoNameCustomFormatString", DatabaseConfig.Get("AutoNameCustomFormatString", "{source}-{title}", connection));
+			cache.Add("NativeLanguageCode", DatabaseConfig.Get("NativeLanguageCode", "", connection));
+			cache.Add("DubAudio", DatabaseConfig.Get("DubAudio", false, connection));
+			cache.Add("LastPresetIndex", DatabaseConfig.Get("LastPresetIndex", 0, connection));
+			cache.Add("LastPickerIndex", DatabaseConfig.Get("LastPickerIndex", 0, connection));
+			cache.Add("EncodingDialogLastTab", DatabaseConfig.Get("EncodingDialogLastTab", 0, connection));
+			cache.Add("OptionsDialogLastTab", DatabaseConfig.Get("OptionsDialogLastTab", 0, connection));
+			cache.Add("MainWindowPlacement", DatabaseConfig.Get("MainWindowPlacement", "", connection));
+			cache.Add("SubtitlesDialogPlacement", DatabaseConfig.Get("SubtitlesDialogPlacement", "", connection));
+			cache.Add("EncodingDialogPlacement", DatabaseConfig.Get("EncodingDialogPlacement", "", connection));
+			cache.Add("ChapterMarkersDialogPlacement", DatabaseConfig.Get("ChapterMarkersDialogPlacement", "", connection));
+			cache.Add("PreviewWindowPlacement", DatabaseConfig.Get("PreviewWindowPlacement", "", connection));
+			cache.Add("QueueTitlesDialogPlacement2", DatabaseConfig.Get("QueueTitlesDialogPlacement2", "", connection));
+			cache.Add("AddAutoPauseProcessDialogPlacement", DatabaseConfig.Get("AddAutoPauseProcessDialogPlacement", "", connection));
+			cache.Add("OptionsDialogPlacement", DatabaseConfig.Get("OptionsDialogPlacement", "", connection));
+			cache.Add("EncodeDetailsWindowPlacement", DatabaseConfig.Get("EncodeDetailsWindowPlacement", "", connection));
+			cache.Add("PickerWindowPlacement", DatabaseConfig.Get("PickerWindowPlacement", "", connection));
+			cache.Add("LogWindowPlacement", DatabaseConfig.Get("LogWindowPlacement", "", connection));
+			cache.Add("EncodingWindowOpen", DatabaseConfig.Get("EncodingWindowOpen", false, connection));
+			cache.Add("PreviewWindowOpen", DatabaseConfig.Get("PreviewWindowOpen", false, connection));
+			cache.Add("LogWindowOpen", DatabaseConfig.Get("LogWindowOpen", false, connection));
+			cache.Add("EncodeDetailsWindowOpen", DatabaseConfig.Get("EncodeDetailsWindowOpen", false, connection));
+			cache.Add("PickerWindowOpen", DatabaseConfig.Get("PickerWindowOpen", false, connection));
+			cache.Add("UpdatesEnabled", DatabaseConfig.Get("UpdatesEnabled", true, connection));
+			cache.Add("PreviewSeconds", DatabaseConfig.Get("PreviewSeconds", 10, connection));
+			cache.Add("ApplicationVersion", DatabaseConfig.Get("ApplicationVersion", "", connection));
+			cache.Add("QueueColumns", DatabaseConfig.Get("QueueColumns", "Source:200|Title:35|Range:106|Destination:200", connection));
+			cache.Add("QueueLastColumnWidth", DatabaseConfig.Get("QueueLastColumnWidth", 75.0, connection));
+			cache.Add("CompletedColumnWidths", DatabaseConfig.Get("CompletedColumnWidths", "", connection));
+			cache.Add("PickerListPaneWidth", DatabaseConfig.Get("PickerListPaneWidth", 135.0, connection));
+			cache.Add("EncodingListPaneOpen", DatabaseConfig.Get("EncodingListPaneOpen", true, connection));
+			cache.Add("EncodingListPaneWidth", DatabaseConfig.Get("EncodingListPaneWidth", 150.0, connection));
+			cache.Add("ShowPickerWindowMessage", DatabaseConfig.Get("ShowPickerWindowMessage", true, connection));
+			cache.Add("WorkerProcessPriority", DatabaseConfig.Get("WorkerProcessPriority", "Normal", connection));
+			cache.Add("LogVerbosity", DatabaseConfig.Get("LogVerbosity", 1, connection));
+			cache.Add("CopyLogToOutputFolder", DatabaseConfig.Get("CopyLogToOutputFolder", false, connection));
+			cache.Add("AutoPauseProcesses", DatabaseConfig.Get("AutoPauseProcesses", "", connection));
+			cache.Add("PreviewCount", DatabaseConfig.Get("PreviewCount", 10, connection));
+			cache.Add("PreviewDisplay", DatabaseConfig.Get("PreviewDisplay", "FitToWindow", connection));
+			cache.Add("UseCustomPreviewFolder", DatabaseConfig.Get("UseCustomPreviewFolder", false, connection));
+			cache.Add("PreviewOutputFolder", DatabaseConfig.Get("PreviewOutputFolder", "", connection));
+			cache.Add("QueueTitlesUseTitleOverride", DatabaseConfig.Get("QueueTitlesUseTitleOverride", false, connection));
+			cache.Add("QueueTitlesTitleOverride", DatabaseConfig.Get("QueueTitlesTitleOverride", 1, connection));
+			cache.Add("ShowAudioTrackNameField", DatabaseConfig.Get("ShowAudioTrackNameField", false, connection));
+			cache.Add("SourceHistory", DatabaseConfig.Get("SourceHistory", "", connection));
+			cache.Add("MinimizeToTray", DatabaseConfig.Get("MinimizeToTray", false, connection));
+			cache.Add("OutputToSourceDirectory", DatabaseConfig.Get("OutputToSourceDirectory", false, connection));
+			cache.Add("PreserveFolderStructureInBatch", DatabaseConfig.Get("PreserveFolderStructureInBatch", false, connection));
+			cache.Add("WhenFileExists", DatabaseConfig.Get("WhenFileExists", "Prompt", connection));
+			cache.Add("WhenFileExistsBatch", DatabaseConfig.Get("WhenFileExistsBatch", "AutoRename", connection));
+			cache.Add("UseCustomVideoPlayer", DatabaseConfig.Get("UseCustomVideoPlayer", false, connection));
+			cache.Add("CustomVideoPlayer", DatabaseConfig.Get("CustomVideoPlayer", "", connection));
+			cache.Add("PlaySoundOnCompletion", DatabaseConfig.Get("PlaySoundOnCompletion", false, connection));
+			cache.Add("UseCustomCompletionSound", DatabaseConfig.Get("UseCustomCompletionSound", false, connection));
+			cache.Add("CustomCompletionSound", DatabaseConfig.Get("CustomCompletionSound", "", connection));
+			cache.Add("LastPlayer", DatabaseConfig.Get("LastPlayer", "vlc", connection));
+			cache.Add("QueueTitlesUseDirectoryOverride", DatabaseConfig.Get("QueueTitlesUseDirectoryOverride", false, connection));
+			cache.Add("QueueTitlesDirectoryOverride", DatabaseConfig.Get("QueueTitlesDirectoryOverride", "", connection));
+			cache.Add("QueueTitlesUseNameOverride", DatabaseConfig.Get("QueueTitlesUseNameOverride", false, connection));
+			cache.Add("QueueTitlesNameOverride", DatabaseConfig.Get("QueueTitlesNameOverride", "", connection));
+			cache.Add("DxvaDecoding", DatabaseConfig.Get("DxvaDecoding", false, connection));
+			cache.Add("EnableLibDvdNav", DatabaseConfig.Get("EnableLibDvdNav", true, connection));
+			cache.Add("MinimumTitleLengthSeconds", DatabaseConfig.Get("MinimumTitleLengthSeconds", 10, connection));
+			cache.Add("DeleteSourceFilesOnClearingCompleted", DatabaseConfig.Get("DeleteSourceFilesOnClearingCompleted", false, connection));
+			cache.Add("PreserveModifyTimeFiles", DatabaseConfig.Get("PreserveModifyTimeFiles", false, connection));
+			cache.Add("ResumeEncodingOnRestart", DatabaseConfig.Get("ResumeEncodingOnRestart", false, connection));
+			cache.Add("UseWorkerProcess", DatabaseConfig.Get("UseWorkerProcess", true, connection));
+			cache.Add("RememberPreviousFiles", DatabaseConfig.Get("RememberPreviousFiles", true, connection));
+			cache.Add("VideoFileExtensions", DatabaseConfig.Get("VideoFileExtensions", "avi, mkv, mp4, m4v, mpg, mpeg, mov, wmv", connection));
+			cache.Add("PreferredPlayer", DatabaseConfig.Get("PreferredPlayer", "vlc", connection));
+			cache.Add("BetaUpdates", DatabaseConfig.Get("BetaUpdates", false, connection));
+			cache.Add("InterfaceLanguageCode", DatabaseConfig.Get("InterfaceLanguageCode", "", connection));
+			cache.Add("CpuThrottlingFraction", DatabaseConfig.Get("CpuThrottlingFraction", 1.0, connection));
+			cache.Add("AudioLanguageCode", DatabaseConfig.Get("AudioLanguageCode", "und", connection));
+			cache.Add("SubtitleLanguageCode", DatabaseConfig.Get("SubtitleLanguageCode", "und", connection));
+			cache.Add("AutoAudio", DatabaseConfig.Get("AutoAudio", "Disabled", connection));
+			cache.Add("AutoSubtitle", DatabaseConfig.Get("AutoSubtitle", "Disabled", connection));
+			cache.Add("AutoAudioAll", DatabaseConfig.Get("AutoAudioAll", false, connection));
+			cache.Add("AutoSubtitleAll", DatabaseConfig.Get("AutoSubtitleAll", false, connection));
+			cache.Add("AutoSubtitleOnlyIfDifferent", DatabaseConfig.Get("AutoSubtitleOnlyIfDifferent", true, connection));
+			cache.Add("AutoSubtitleBurnIn", DatabaseConfig.Get("AutoSubtitleBurnIn", true, connection));
+			cache.Add("AutoSubtitleLanguageDefault", DatabaseConfig.Get("AutoSubtitleLanguageDefault", false, connection));
+			cache.Add("AutoSubtitleLanguageBurnIn", DatabaseConfig.Get("AutoSubtitleLanguageBurnIn", false, connection));
+			cache.Add("QueueTitlesStartTime", DatabaseConfig.Get("QueueTitlesStartTime", 40, connection));
+			cache.Add("QueueTitlesEndTime", DatabaseConfig.Get("QueueTitlesEndTime", 45, connection));
+			cache.Add("QueueTitlesUseRange", DatabaseConfig.Get("QueueTitlesUseRange", false, connection));
 		}
-		private static bool MigratedConfigs_Field;
+
+		public static T Get<T>(string key)
+		{
+			return (T)cache[key];
+		}
+
+		public static void Set<T>(string key, T value)
+		{
+			cache[key] = value;
+			DatabaseConfig.Set(key, value);
+		}
+
 		public static bool MigratedConfigs
 		{
 			get
 			{
-				return MigratedConfigs_Field;
+				return (bool)cache["MigratedConfigs"];
 			}
 			
 			set
 			{
-				MigratedConfigs_Field = value;
-				DatabaseConfig.SetConfigValue("MigratedConfigs", value);
+				cache["MigratedConfigs"] = value;
+				DatabaseConfig.Set("MigratedConfigs", value);
 			}
 		}
-		private static string EncodeJobs2_Field;
 		public static string EncodeJobs2
 		{
 			get
 			{
-				return EncodeJobs2_Field;
+				return (string)cache["EncodeJobs2"];
 			}
 			
 			set
 			{
-				EncodeJobs2_Field = value;
-				DatabaseConfig.SetConfigValue("EncodeJobs2", value);
+				cache["EncodeJobs2"] = value;
+				DatabaseConfig.Set("EncodeJobs2", value);
 			}
 		}
-		private static bool UpdateInProgress_Field;
 		public static bool UpdateInProgress
 		{
 			get
 			{
-				return UpdateInProgress_Field;
+				return (bool)cache["UpdateInProgress"];
 			}
 			
 			set
 			{
-				UpdateInProgress_Field = value;
-				DatabaseConfig.SetConfigValue("UpdateInProgress", value);
+				cache["UpdateInProgress"] = value;
+				DatabaseConfig.Set("UpdateInProgress", value);
 			}
 		}
-		private static string UpdateVersion_Field;
 		public static string UpdateVersion
 		{
 			get
 			{
-				return UpdateVersion_Field;
+				return (string)cache["UpdateVersion"];
 			}
 			
 			set
 			{
-				UpdateVersion_Field = value;
-				DatabaseConfig.SetConfigValue("UpdateVersion", value);
+				cache["UpdateVersion"] = value;
+				DatabaseConfig.Set("UpdateVersion", value);
 			}
 		}
-		private static string UpdateInstallerLocation_Field;
 		public static string UpdateInstallerLocation
 		{
 			get
 			{
-				return UpdateInstallerLocation_Field;
+				return (string)cache["UpdateInstallerLocation"];
 			}
 			
 			set
 			{
-				UpdateInstallerLocation_Field = value;
-				DatabaseConfig.SetConfigValue("UpdateInstallerLocation", value);
+				cache["UpdateInstallerLocation"] = value;
+				DatabaseConfig.Set("UpdateInstallerLocation", value);
 			}
 		}
-		private static string UpdateChangelogLocation_Field;
 		public static string UpdateChangelogLocation
 		{
 			get
 			{
-				return UpdateChangelogLocation_Field;
+				return (string)cache["UpdateChangelogLocation"];
 			}
 			
 			set
 			{
-				UpdateChangelogLocation_Field = value;
-				DatabaseConfig.SetConfigValue("UpdateChangelogLocation", value);
+				cache["UpdateChangelogLocation"] = value;
+				DatabaseConfig.Set("UpdateChangelogLocation", value);
 			}
 		}
-		private static string LastOutputFolder_Field;
 		public static string LastOutputFolder
 		{
 			get
 			{
-				return LastOutputFolder_Field;
+				return (string)cache["LastOutputFolder"];
 			}
 			
 			set
 			{
-				LastOutputFolder_Field = value;
-				DatabaseConfig.SetConfigValue("LastOutputFolder", value);
+				cache["LastOutputFolder"] = value;
+				DatabaseConfig.Set("LastOutputFolder", value);
 			}
 		}
-		private static string LastInputFileFolder_Field;
 		public static string LastInputFileFolder
 		{
 			get
 			{
-				return LastInputFileFolder_Field;
+				return (string)cache["LastInputFileFolder"];
 			}
 			
 			set
 			{
-				LastInputFileFolder_Field = value;
-				DatabaseConfig.SetConfigValue("LastInputFileFolder", value);
+				cache["LastInputFileFolder"] = value;
+				DatabaseConfig.Set("LastInputFileFolder", value);
 			}
 		}
-		private static string LastVideoTSFolder_Field;
 		public static string LastVideoTSFolder
 		{
 			get
 			{
-				return LastVideoTSFolder_Field;
+				return (string)cache["LastVideoTSFolder"];
 			}
 			
 			set
 			{
-				LastVideoTSFolder_Field = value;
-				DatabaseConfig.SetConfigValue("LastVideoTSFolder", value);
+				cache["LastVideoTSFolder"] = value;
+				DatabaseConfig.Set("LastVideoTSFolder", value);
 			}
 		}
-		private static string LastSrtFolder_Field;
 		public static string LastSrtFolder
 		{
 			get
 			{
-				return LastSrtFolder_Field;
+				return (string)cache["LastSrtFolder"];
 			}
 			
 			set
 			{
-				LastSrtFolder_Field = value;
-				DatabaseConfig.SetConfigValue("LastSrtFolder", value);
+				cache["LastSrtFolder"] = value;
+				DatabaseConfig.Set("LastSrtFolder", value);
 			}
 		}
-		private static string LastCsvFolder_Field;
 		public static string LastCsvFolder
 		{
 			get
 			{
-				return LastCsvFolder_Field;
+				return (string)cache["LastCsvFolder"];
 			}
 			
 			set
 			{
-				LastCsvFolder_Field = value;
-				DatabaseConfig.SetConfigValue("LastCsvFolder", value);
+				cache["LastCsvFolder"] = value;
+				DatabaseConfig.Set("LastCsvFolder", value);
 			}
 		}
-		private static string LastPresetExportFolder_Field;
 		public static string LastPresetExportFolder
 		{
 			get
 			{
-				return LastPresetExportFolder_Field;
+				return (string)cache["LastPresetExportFolder"];
 			}
 			
 			set
 			{
-				LastPresetExportFolder_Field = value;
-				DatabaseConfig.SetConfigValue("LastPresetExportFolder", value);
+				cache["LastPresetExportFolder"] = value;
+				DatabaseConfig.Set("LastPresetExportFolder", value);
 			}
 		}
-		private static string AutoNameOutputFolder_Field;
 		public static string AutoNameOutputFolder
 		{
 			get
 			{
-				return AutoNameOutputFolder_Field;
+				return (string)cache["AutoNameOutputFolder"];
 			}
 			
 			set
 			{
-				AutoNameOutputFolder_Field = value;
-				DatabaseConfig.SetConfigValue("AutoNameOutputFolder", value);
+				cache["AutoNameOutputFolder"] = value;
+				DatabaseConfig.Set("AutoNameOutputFolder", value);
 			}
 		}
-		private static bool AutoNameCustomFormat_Field;
 		public static bool AutoNameCustomFormat
 		{
 			get
 			{
-				return AutoNameCustomFormat_Field;
+				return (bool)cache["AutoNameCustomFormat"];
 			}
 			
 			set
 			{
-				AutoNameCustomFormat_Field = value;
-				DatabaseConfig.SetConfigValue("AutoNameCustomFormat", value);
+				cache["AutoNameCustomFormat"] = value;
+				DatabaseConfig.Set("AutoNameCustomFormat", value);
 			}
 		}
-		private static string AutoNameCustomFormatString_Field;
 		public static string AutoNameCustomFormatString
 		{
 			get
 			{
-				return AutoNameCustomFormatString_Field;
+				return (string)cache["AutoNameCustomFormatString"];
 			}
 			
 			set
 			{
-				AutoNameCustomFormatString_Field = value;
-				DatabaseConfig.SetConfigValue("AutoNameCustomFormatString", value);
+				cache["AutoNameCustomFormatString"] = value;
+				DatabaseConfig.Set("AutoNameCustomFormatString", value);
 			}
 		}
-		private static string NativeLanguageCode_Field;
 		public static string NativeLanguageCode
 		{
 			get
 			{
-				return NativeLanguageCode_Field;
+				return (string)cache["NativeLanguageCode"];
 			}
 			
 			set
 			{
-				NativeLanguageCode_Field = value;
-				DatabaseConfig.SetConfigValue("NativeLanguageCode", value);
+				cache["NativeLanguageCode"] = value;
+				DatabaseConfig.Set("NativeLanguageCode", value);
 			}
 		}
-		private static bool DubAudio_Field;
 		public static bool DubAudio
 		{
 			get
 			{
-				return DubAudio_Field;
+				return (bool)cache["DubAudio"];
 			}
 			
 			set
 			{
-				DubAudio_Field = value;
-				DatabaseConfig.SetConfigValue("DubAudio", value);
+				cache["DubAudio"] = value;
+				DatabaseConfig.Set("DubAudio", value);
 			}
 		}
-		private static int LastPresetIndex_Field;
 		public static int LastPresetIndex
 		{
 			get
 			{
-				return LastPresetIndex_Field;
+				return (int)cache["LastPresetIndex"];
 			}
 			
 			set
 			{
-				LastPresetIndex_Field = value;
-				DatabaseConfig.SetConfigValue("LastPresetIndex", value);
+				cache["LastPresetIndex"] = value;
+				DatabaseConfig.Set("LastPresetIndex", value);
 			}
 		}
-		private static int LastPickerIndex_Field;
 		public static int LastPickerIndex
 		{
 			get
 			{
-				return LastPickerIndex_Field;
+				return (int)cache["LastPickerIndex"];
 			}
 			
 			set
 			{
-				LastPickerIndex_Field = value;
-				DatabaseConfig.SetConfigValue("LastPickerIndex", value);
+				cache["LastPickerIndex"] = value;
+				DatabaseConfig.Set("LastPickerIndex", value);
 			}
 		}
-		private static int EncodingDialogLastTab_Field;
 		public static int EncodingDialogLastTab
 		{
 			get
 			{
-				return EncodingDialogLastTab_Field;
+				return (int)cache["EncodingDialogLastTab"];
 			}
 			
 			set
 			{
-				EncodingDialogLastTab_Field = value;
-				DatabaseConfig.SetConfigValue("EncodingDialogLastTab", value);
+				cache["EncodingDialogLastTab"] = value;
+				DatabaseConfig.Set("EncodingDialogLastTab", value);
 			}
 		}
-		private static int OptionsDialogLastTab_Field;
 		public static int OptionsDialogLastTab
 		{
 			get
 			{
-				return OptionsDialogLastTab_Field;
+				return (int)cache["OptionsDialogLastTab"];
 			}
 			
 			set
 			{
-				OptionsDialogLastTab_Field = value;
-				DatabaseConfig.SetConfigValue("OptionsDialogLastTab", value);
+				cache["OptionsDialogLastTab"] = value;
+				DatabaseConfig.Set("OptionsDialogLastTab", value);
 			}
 		}
-		private static string MainWindowPlacement_Field;
 		public static string MainWindowPlacement
 		{
 			get
 			{
-				return MainWindowPlacement_Field;
+				return (string)cache["MainWindowPlacement"];
 			}
 			
 			set
 			{
-				MainWindowPlacement_Field = value;
-				DatabaseConfig.SetConfigValue("MainWindowPlacement", value);
+				cache["MainWindowPlacement"] = value;
+				DatabaseConfig.Set("MainWindowPlacement", value);
 			}
 		}
-		private static string SubtitlesDialogPlacement_Field;
 		public static string SubtitlesDialogPlacement
 		{
 			get
 			{
-				return SubtitlesDialogPlacement_Field;
+				return (string)cache["SubtitlesDialogPlacement"];
 			}
 			
 			set
 			{
-				SubtitlesDialogPlacement_Field = value;
-				DatabaseConfig.SetConfigValue("SubtitlesDialogPlacement", value);
+				cache["SubtitlesDialogPlacement"] = value;
+				DatabaseConfig.Set("SubtitlesDialogPlacement", value);
 			}
 		}
-		private static string EncodingDialogPlacement_Field;
 		public static string EncodingDialogPlacement
 		{
 			get
 			{
-				return EncodingDialogPlacement_Field;
+				return (string)cache["EncodingDialogPlacement"];
 			}
 			
 			set
 			{
-				EncodingDialogPlacement_Field = value;
-				DatabaseConfig.SetConfigValue("EncodingDialogPlacement", value);
+				cache["EncodingDialogPlacement"] = value;
+				DatabaseConfig.Set("EncodingDialogPlacement", value);
 			}
 		}
-		private static string ChapterMarkersDialogPlacement_Field;
 		public static string ChapterMarkersDialogPlacement
 		{
 			get
 			{
-				return ChapterMarkersDialogPlacement_Field;
+				return (string)cache["ChapterMarkersDialogPlacement"];
 			}
 			
 			set
 			{
-				ChapterMarkersDialogPlacement_Field = value;
-				DatabaseConfig.SetConfigValue("ChapterMarkersDialogPlacement", value);
+				cache["ChapterMarkersDialogPlacement"] = value;
+				DatabaseConfig.Set("ChapterMarkersDialogPlacement", value);
 			}
 		}
-		private static string PreviewWindowPlacement_Field;
 		public static string PreviewWindowPlacement
 		{
 			get
 			{
-				return PreviewWindowPlacement_Field;
+				return (string)cache["PreviewWindowPlacement"];
 			}
 			
 			set
 			{
-				PreviewWindowPlacement_Field = value;
-				DatabaseConfig.SetConfigValue("PreviewWindowPlacement", value);
+				cache["PreviewWindowPlacement"] = value;
+				DatabaseConfig.Set("PreviewWindowPlacement", value);
 			}
 		}
-		private static string QueueTitlesDialogPlacement2_Field;
 		public static string QueueTitlesDialogPlacement2
 		{
 			get
 			{
-				return QueueTitlesDialogPlacement2_Field;
+				return (string)cache["QueueTitlesDialogPlacement2"];
 			}
 			
 			set
 			{
-				QueueTitlesDialogPlacement2_Field = value;
-				DatabaseConfig.SetConfigValue("QueueTitlesDialogPlacement2", value);
+				cache["QueueTitlesDialogPlacement2"] = value;
+				DatabaseConfig.Set("QueueTitlesDialogPlacement2", value);
 			}
 		}
-		private static string AddAutoPauseProcessDialogPlacement_Field;
 		public static string AddAutoPauseProcessDialogPlacement
 		{
 			get
 			{
-				return AddAutoPauseProcessDialogPlacement_Field;
+				return (string)cache["AddAutoPauseProcessDialogPlacement"];
 			}
 			
 			set
 			{
-				AddAutoPauseProcessDialogPlacement_Field = value;
-				DatabaseConfig.SetConfigValue("AddAutoPauseProcessDialogPlacement", value);
+				cache["AddAutoPauseProcessDialogPlacement"] = value;
+				DatabaseConfig.Set("AddAutoPauseProcessDialogPlacement", value);
 			}
 		}
-		private static string OptionsDialogPlacement_Field;
 		public static string OptionsDialogPlacement
 		{
 			get
 			{
-				return OptionsDialogPlacement_Field;
+				return (string)cache["OptionsDialogPlacement"];
 			}
 			
 			set
 			{
-				OptionsDialogPlacement_Field = value;
-				DatabaseConfig.SetConfigValue("OptionsDialogPlacement", value);
+				cache["OptionsDialogPlacement"] = value;
+				DatabaseConfig.Set("OptionsDialogPlacement", value);
 			}
 		}
-		private static string EncodeDetailsWindowPlacement_Field;
 		public static string EncodeDetailsWindowPlacement
 		{
 			get
 			{
-				return EncodeDetailsWindowPlacement_Field;
+				return (string)cache["EncodeDetailsWindowPlacement"];
 			}
 			
 			set
 			{
-				EncodeDetailsWindowPlacement_Field = value;
-				DatabaseConfig.SetConfigValue("EncodeDetailsWindowPlacement", value);
+				cache["EncodeDetailsWindowPlacement"] = value;
+				DatabaseConfig.Set("EncodeDetailsWindowPlacement", value);
 			}
 		}
-		private static string PickerWindowPlacement_Field;
 		public static string PickerWindowPlacement
 		{
 			get
 			{
-				return PickerWindowPlacement_Field;
+				return (string)cache["PickerWindowPlacement"];
 			}
 			
 			set
 			{
-				PickerWindowPlacement_Field = value;
-				DatabaseConfig.SetConfigValue("PickerWindowPlacement", value);
+				cache["PickerWindowPlacement"] = value;
+				DatabaseConfig.Set("PickerWindowPlacement", value);
 			}
 		}
-		private static string LogWindowPlacement_Field;
 		public static string LogWindowPlacement
 		{
 			get
 			{
-				return LogWindowPlacement_Field;
+				return (string)cache["LogWindowPlacement"];
 			}
 			
 			set
 			{
-				LogWindowPlacement_Field = value;
-				DatabaseConfig.SetConfigValue("LogWindowPlacement", value);
+				cache["LogWindowPlacement"] = value;
+				DatabaseConfig.Set("LogWindowPlacement", value);
 			}
 		}
-		private static bool EncodingWindowOpen_Field;
 		public static bool EncodingWindowOpen
 		{
 			get
 			{
-				return EncodingWindowOpen_Field;
+				return (bool)cache["EncodingWindowOpen"];
 			}
 			
 			set
 			{
-				EncodingWindowOpen_Field = value;
-				DatabaseConfig.SetConfigValue("EncodingWindowOpen", value);
+				cache["EncodingWindowOpen"] = value;
+				DatabaseConfig.Set("EncodingWindowOpen", value);
 			}
 		}
-		private static bool PreviewWindowOpen_Field;
 		public static bool PreviewWindowOpen
 		{
 			get
 			{
-				return PreviewWindowOpen_Field;
+				return (bool)cache["PreviewWindowOpen"];
 			}
 			
 			set
 			{
-				PreviewWindowOpen_Field = value;
-				DatabaseConfig.SetConfigValue("PreviewWindowOpen", value);
+				cache["PreviewWindowOpen"] = value;
+				DatabaseConfig.Set("PreviewWindowOpen", value);
 			}
 		}
-		private static bool LogWindowOpen_Field;
 		public static bool LogWindowOpen
 		{
 			get
 			{
-				return LogWindowOpen_Field;
+				return (bool)cache["LogWindowOpen"];
 			}
 			
 			set
 			{
-				LogWindowOpen_Field = value;
-				DatabaseConfig.SetConfigValue("LogWindowOpen", value);
+				cache["LogWindowOpen"] = value;
+				DatabaseConfig.Set("LogWindowOpen", value);
 			}
 		}
-		private static bool EncodeDetailsWindowOpen_Field;
 		public static bool EncodeDetailsWindowOpen
 		{
 			get
 			{
-				return EncodeDetailsWindowOpen_Field;
+				return (bool)cache["EncodeDetailsWindowOpen"];
 			}
 			
 			set
 			{
-				EncodeDetailsWindowOpen_Field = value;
-				DatabaseConfig.SetConfigValue("EncodeDetailsWindowOpen", value);
+				cache["EncodeDetailsWindowOpen"] = value;
+				DatabaseConfig.Set("EncodeDetailsWindowOpen", value);
 			}
 		}
-		private static bool PickerWindowOpen_Field;
 		public static bool PickerWindowOpen
 		{
 			get
 			{
-				return PickerWindowOpen_Field;
+				return (bool)cache["PickerWindowOpen"];
 			}
 			
 			set
 			{
-				PickerWindowOpen_Field = value;
-				DatabaseConfig.SetConfigValue("PickerWindowOpen", value);
+				cache["PickerWindowOpen"] = value;
+				DatabaseConfig.Set("PickerWindowOpen", value);
 			}
 		}
-		private static bool UpdatesEnabled_Field;
 		public static bool UpdatesEnabled
 		{
 			get
 			{
-				return UpdatesEnabled_Field;
+				return (bool)cache["UpdatesEnabled"];
 			}
 			
 			set
 			{
-				UpdatesEnabled_Field = value;
-				DatabaseConfig.SetConfigValue("UpdatesEnabled", value);
+				cache["UpdatesEnabled"] = value;
+				DatabaseConfig.Set("UpdatesEnabled", value);
 			}
 		}
-		private static int PreviewSeconds_Field;
 		public static int PreviewSeconds
 		{
 			get
 			{
-				return PreviewSeconds_Field;
+				return (int)cache["PreviewSeconds"];
 			}
 			
 			set
 			{
-				PreviewSeconds_Field = value;
-				DatabaseConfig.SetConfigValue("PreviewSeconds", value);
+				cache["PreviewSeconds"] = value;
+				DatabaseConfig.Set("PreviewSeconds", value);
 			}
 		}
-		private static string ApplicationVersion_Field;
 		public static string ApplicationVersion
 		{
 			get
 			{
-				return ApplicationVersion_Field;
+				return (string)cache["ApplicationVersion"];
 			}
 			
 			set
 			{
-				ApplicationVersion_Field = value;
-				DatabaseConfig.SetConfigValue("ApplicationVersion", value);
+				cache["ApplicationVersion"] = value;
+				DatabaseConfig.Set("ApplicationVersion", value);
 			}
 		}
-		private static string QueueColumns_Field;
 		public static string QueueColumns
 		{
 			get
 			{
-				return QueueColumns_Field;
+				return (string)cache["QueueColumns"];
 			}
 			
 			set
 			{
-				QueueColumns_Field = value;
-				DatabaseConfig.SetConfigValue("QueueColumns", value);
+				cache["QueueColumns"] = value;
+				DatabaseConfig.Set("QueueColumns", value);
 			}
 		}
-		private static double QueueLastColumnWidth_Field;
 		public static double QueueLastColumnWidth
 		{
 			get
 			{
-				return QueueLastColumnWidth_Field;
+				return (double)cache["QueueLastColumnWidth"];
 			}
 			
 			set
 			{
-				QueueLastColumnWidth_Field = value;
-				DatabaseConfig.SetConfigValue("QueueLastColumnWidth", value);
+				cache["QueueLastColumnWidth"] = value;
+				DatabaseConfig.Set("QueueLastColumnWidth", value);
 			}
 		}
-		private static string CompletedColumnWidths_Field;
 		public static string CompletedColumnWidths
 		{
 			get
 			{
-				return CompletedColumnWidths_Field;
+				return (string)cache["CompletedColumnWidths"];
 			}
 			
 			set
 			{
-				CompletedColumnWidths_Field = value;
-				DatabaseConfig.SetConfigValue("CompletedColumnWidths", value);
+				cache["CompletedColumnWidths"] = value;
+				DatabaseConfig.Set("CompletedColumnWidths", value);
 			}
 		}
-		private static double PickerListPaneWidth_Field;
 		public static double PickerListPaneWidth
 		{
 			get
 			{
-				return PickerListPaneWidth_Field;
+				return (double)cache["PickerListPaneWidth"];
 			}
 			
 			set
 			{
-				PickerListPaneWidth_Field = value;
-				DatabaseConfig.SetConfigValue("PickerListPaneWidth", value);
+				cache["PickerListPaneWidth"] = value;
+				DatabaseConfig.Set("PickerListPaneWidth", value);
 			}
 		}
-		private static bool EncodingListPaneOpen_Field;
 		public static bool EncodingListPaneOpen
 		{
 			get
 			{
-				return EncodingListPaneOpen_Field;
+				return (bool)cache["EncodingListPaneOpen"];
 			}
 			
 			set
 			{
-				EncodingListPaneOpen_Field = value;
-				DatabaseConfig.SetConfigValue("EncodingListPaneOpen", value);
+				cache["EncodingListPaneOpen"] = value;
+				DatabaseConfig.Set("EncodingListPaneOpen", value);
 			}
 		}
-		private static double EncodingListPaneWidth_Field;
 		public static double EncodingListPaneWidth
 		{
 			get
 			{
-				return EncodingListPaneWidth_Field;
+				return (double)cache["EncodingListPaneWidth"];
 			}
 			
 			set
 			{
-				EncodingListPaneWidth_Field = value;
-				DatabaseConfig.SetConfigValue("EncodingListPaneWidth", value);
+				cache["EncodingListPaneWidth"] = value;
+				DatabaseConfig.Set("EncodingListPaneWidth", value);
 			}
 		}
-		private static bool ShowPickerWindowMessage_Field;
 		public static bool ShowPickerWindowMessage
 		{
 			get
 			{
-				return ShowPickerWindowMessage_Field;
+				return (bool)cache["ShowPickerWindowMessage"];
 			}
 			
 			set
 			{
-				ShowPickerWindowMessage_Field = value;
-				DatabaseConfig.SetConfigValue("ShowPickerWindowMessage", value);
+				cache["ShowPickerWindowMessage"] = value;
+				DatabaseConfig.Set("ShowPickerWindowMessage", value);
 			}
 		}
-		private static string WorkerProcessPriority_Field;
 		public static string WorkerProcessPriority
 		{
 			get
 			{
-				return WorkerProcessPriority_Field;
+				return (string)cache["WorkerProcessPriority"];
 			}
 			
 			set
 			{
-				WorkerProcessPriority_Field = value;
-				DatabaseConfig.SetConfigValue("WorkerProcessPriority", value);
+				cache["WorkerProcessPriority"] = value;
+				DatabaseConfig.Set("WorkerProcessPriority", value);
 			}
 		}
-		private static int LogVerbosity_Field;
 		public static int LogVerbosity
 		{
 			get
 			{
-				return LogVerbosity_Field;
+				return (int)cache["LogVerbosity"];
 			}
 			
 			set
 			{
-				LogVerbosity_Field = value;
-				DatabaseConfig.SetConfigValue("LogVerbosity", value);
+				cache["LogVerbosity"] = value;
+				DatabaseConfig.Set("LogVerbosity", value);
 			}
 		}
-		private static bool CopyLogToOutputFolder_Field;
 		public static bool CopyLogToOutputFolder
 		{
 			get
 			{
-				return CopyLogToOutputFolder_Field;
+				return (bool)cache["CopyLogToOutputFolder"];
 			}
 			
 			set
 			{
-				CopyLogToOutputFolder_Field = value;
-				DatabaseConfig.SetConfigValue("CopyLogToOutputFolder", value);
+				cache["CopyLogToOutputFolder"] = value;
+				DatabaseConfig.Set("CopyLogToOutputFolder", value);
 			}
 		}
-		private static string AutoPauseProcesses_Field;
 		public static string AutoPauseProcesses
 		{
 			get
 			{
-				return AutoPauseProcesses_Field;
+				return (string)cache["AutoPauseProcesses"];
 			}
 			
 			set
 			{
-				AutoPauseProcesses_Field = value;
-				DatabaseConfig.SetConfigValue("AutoPauseProcesses", value);
+				cache["AutoPauseProcesses"] = value;
+				DatabaseConfig.Set("AutoPauseProcesses", value);
 			}
 		}
-		private static int PreviewCount_Field;
 		public static int PreviewCount
 		{
 			get
 			{
-				return PreviewCount_Field;
+				return (int)cache["PreviewCount"];
 			}
 			
 			set
 			{
-				PreviewCount_Field = value;
-				DatabaseConfig.SetConfigValue("PreviewCount", value);
+				cache["PreviewCount"] = value;
+				DatabaseConfig.Set("PreviewCount", value);
 			}
 		}
-		private static string PreviewDisplay_Field;
 		public static string PreviewDisplay
 		{
 			get
 			{
-				return PreviewDisplay_Field;
+				return (string)cache["PreviewDisplay"];
 			}
 			
 			set
 			{
-				PreviewDisplay_Field = value;
-				DatabaseConfig.SetConfigValue("PreviewDisplay", value);
+				cache["PreviewDisplay"] = value;
+				DatabaseConfig.Set("PreviewDisplay", value);
 			}
 		}
-		private static bool UseCustomPreviewFolder_Field;
 		public static bool UseCustomPreviewFolder
 		{
 			get
 			{
-				return UseCustomPreviewFolder_Field;
+				return (bool)cache["UseCustomPreviewFolder"];
 			}
 			
 			set
 			{
-				UseCustomPreviewFolder_Field = value;
-				DatabaseConfig.SetConfigValue("UseCustomPreviewFolder", value);
+				cache["UseCustomPreviewFolder"] = value;
+				DatabaseConfig.Set("UseCustomPreviewFolder", value);
 			}
 		}
-		private static string PreviewOutputFolder_Field;
 		public static string PreviewOutputFolder
 		{
 			get
 			{
-				return PreviewOutputFolder_Field;
+				return (string)cache["PreviewOutputFolder"];
 			}
 			
 			set
 			{
-				PreviewOutputFolder_Field = value;
-				DatabaseConfig.SetConfigValue("PreviewOutputFolder", value);
+				cache["PreviewOutputFolder"] = value;
+				DatabaseConfig.Set("PreviewOutputFolder", value);
 			}
 		}
-		private static bool QueueTitlesUseTitleOverride_Field;
 		public static bool QueueTitlesUseTitleOverride
 		{
 			get
 			{
-				return QueueTitlesUseTitleOverride_Field;
+				return (bool)cache["QueueTitlesUseTitleOverride"];
 			}
 			
 			set
 			{
-				QueueTitlesUseTitleOverride_Field = value;
-				DatabaseConfig.SetConfigValue("QueueTitlesUseTitleOverride", value);
+				cache["QueueTitlesUseTitleOverride"] = value;
+				DatabaseConfig.Set("QueueTitlesUseTitleOverride", value);
 			}
 		}
-		private static int QueueTitlesTitleOverride_Field;
 		public static int QueueTitlesTitleOverride
 		{
 			get
 			{
-				return QueueTitlesTitleOverride_Field;
+				return (int)cache["QueueTitlesTitleOverride"];
 			}
 			
 			set
 			{
-				QueueTitlesTitleOverride_Field = value;
-				DatabaseConfig.SetConfigValue("QueueTitlesTitleOverride", value);
+				cache["QueueTitlesTitleOverride"] = value;
+				DatabaseConfig.Set("QueueTitlesTitleOverride", value);
 			}
 		}
-		private static bool ShowAudioTrackNameField_Field;
 		public static bool ShowAudioTrackNameField
 		{
 			get
 			{
-				return ShowAudioTrackNameField_Field;
+				return (bool)cache["ShowAudioTrackNameField"];
 			}
 			
 			set
 			{
-				ShowAudioTrackNameField_Field = value;
-				DatabaseConfig.SetConfigValue("ShowAudioTrackNameField", value);
+				cache["ShowAudioTrackNameField"] = value;
+				DatabaseConfig.Set("ShowAudioTrackNameField", value);
 			}
 		}
-		private static string SourceHistory_Field;
 		public static string SourceHistory
 		{
 			get
 			{
-				return SourceHistory_Field;
+				return (string)cache["SourceHistory"];
 			}
 			
 			set
 			{
-				SourceHistory_Field = value;
-				DatabaseConfig.SetConfigValue("SourceHistory", value);
+				cache["SourceHistory"] = value;
+				DatabaseConfig.Set("SourceHistory", value);
 			}
 		}
-		private static bool MinimizeToTray_Field;
 		public static bool MinimizeToTray
 		{
 			get
 			{
-				return MinimizeToTray_Field;
+				return (bool)cache["MinimizeToTray"];
 			}
 			
 			set
 			{
-				MinimizeToTray_Field = value;
-				DatabaseConfig.SetConfigValue("MinimizeToTray", value);
+				cache["MinimizeToTray"] = value;
+				DatabaseConfig.Set("MinimizeToTray", value);
 			}
 		}
-		private static bool OutputToSourceDirectory_Field;
 		public static bool OutputToSourceDirectory
 		{
 			get
 			{
-				return OutputToSourceDirectory_Field;
+				return (bool)cache["OutputToSourceDirectory"];
 			}
 			
 			set
 			{
-				OutputToSourceDirectory_Field = value;
-				DatabaseConfig.SetConfigValue("OutputToSourceDirectory", value);
+				cache["OutputToSourceDirectory"] = value;
+				DatabaseConfig.Set("OutputToSourceDirectory", value);
 			}
 		}
-		private static bool PreserveFolderStructureInBatch_Field;
 		public static bool PreserveFolderStructureInBatch
 		{
 			get
 			{
-				return PreserveFolderStructureInBatch_Field;
+				return (bool)cache["PreserveFolderStructureInBatch"];
 			}
 			
 			set
 			{
-				PreserveFolderStructureInBatch_Field = value;
-				DatabaseConfig.SetConfigValue("PreserveFolderStructureInBatch", value);
+				cache["PreserveFolderStructureInBatch"] = value;
+				DatabaseConfig.Set("PreserveFolderStructureInBatch", value);
 			}
 		}
-		private static string WhenFileExists_Field;
 		public static string WhenFileExists
 		{
 			get
 			{
-				return WhenFileExists_Field;
+				return (string)cache["WhenFileExists"];
 			}
 			
 			set
 			{
-				WhenFileExists_Field = value;
-				DatabaseConfig.SetConfigValue("WhenFileExists", value);
+				cache["WhenFileExists"] = value;
+				DatabaseConfig.Set("WhenFileExists", value);
 			}
 		}
-		private static string WhenFileExistsBatch_Field;
 		public static string WhenFileExistsBatch
 		{
 			get
 			{
-				return WhenFileExistsBatch_Field;
+				return (string)cache["WhenFileExistsBatch"];
 			}
 			
 			set
 			{
-				WhenFileExistsBatch_Field = value;
-				DatabaseConfig.SetConfigValue("WhenFileExistsBatch", value);
+				cache["WhenFileExistsBatch"] = value;
+				DatabaseConfig.Set("WhenFileExistsBatch", value);
 			}
 		}
-		private static bool UseCustomVideoPlayer_Field;
 		public static bool UseCustomVideoPlayer
 		{
 			get
 			{
-				return UseCustomVideoPlayer_Field;
+				return (bool)cache["UseCustomVideoPlayer"];
 			}
 			
 			set
 			{
-				UseCustomVideoPlayer_Field = value;
-				DatabaseConfig.SetConfigValue("UseCustomVideoPlayer", value);
+				cache["UseCustomVideoPlayer"] = value;
+				DatabaseConfig.Set("UseCustomVideoPlayer", value);
 			}
 		}
-		private static string CustomVideoPlayer_Field;
 		public static string CustomVideoPlayer
 		{
 			get
 			{
-				return CustomVideoPlayer_Field;
+				return (string)cache["CustomVideoPlayer"];
 			}
 			
 			set
 			{
-				CustomVideoPlayer_Field = value;
-				DatabaseConfig.SetConfigValue("CustomVideoPlayer", value);
+				cache["CustomVideoPlayer"] = value;
+				DatabaseConfig.Set("CustomVideoPlayer", value);
 			}
 		}
-		private static bool PlaySoundOnCompletion_Field;
 		public static bool PlaySoundOnCompletion
 		{
 			get
 			{
-				return PlaySoundOnCompletion_Field;
+				return (bool)cache["PlaySoundOnCompletion"];
 			}
 			
 			set
 			{
-				PlaySoundOnCompletion_Field = value;
-				DatabaseConfig.SetConfigValue("PlaySoundOnCompletion", value);
+				cache["PlaySoundOnCompletion"] = value;
+				DatabaseConfig.Set("PlaySoundOnCompletion", value);
 			}
 		}
-		private static bool UseCustomCompletionSound_Field;
 		public static bool UseCustomCompletionSound
 		{
 			get
 			{
-				return UseCustomCompletionSound_Field;
+				return (bool)cache["UseCustomCompletionSound"];
 			}
 			
 			set
 			{
-				UseCustomCompletionSound_Field = value;
-				DatabaseConfig.SetConfigValue("UseCustomCompletionSound", value);
+				cache["UseCustomCompletionSound"] = value;
+				DatabaseConfig.Set("UseCustomCompletionSound", value);
 			}
 		}
-		private static string CustomCompletionSound_Field;
 		public static string CustomCompletionSound
 		{
 			get
 			{
-				return CustomCompletionSound_Field;
+				return (string)cache["CustomCompletionSound"];
 			}
 			
 			set
 			{
-				CustomCompletionSound_Field = value;
-				DatabaseConfig.SetConfigValue("CustomCompletionSound", value);
+				cache["CustomCompletionSound"] = value;
+				DatabaseConfig.Set("CustomCompletionSound", value);
 			}
 		}
-		private static string LastPlayer_Field;
 		public static string LastPlayer
 		{
 			get
 			{
-				return LastPlayer_Field;
+				return (string)cache["LastPlayer"];
 			}
 			
 			set
 			{
-				LastPlayer_Field = value;
-				DatabaseConfig.SetConfigValue("LastPlayer", value);
+				cache["LastPlayer"] = value;
+				DatabaseConfig.Set("LastPlayer", value);
 			}
 		}
-		private static bool QueueTitlesUseDirectoryOverride_Field;
 		public static bool QueueTitlesUseDirectoryOverride
 		{
 			get
 			{
-				return QueueTitlesUseDirectoryOverride_Field;
+				return (bool)cache["QueueTitlesUseDirectoryOverride"];
 			}
 			
 			set
 			{
-				QueueTitlesUseDirectoryOverride_Field = value;
-				DatabaseConfig.SetConfigValue("QueueTitlesUseDirectoryOverride", value);
+				cache["QueueTitlesUseDirectoryOverride"] = value;
+				DatabaseConfig.Set("QueueTitlesUseDirectoryOverride", value);
 			}
 		}
-		private static string QueueTitlesDirectoryOverride_Field;
 		public static string QueueTitlesDirectoryOverride
 		{
 			get
 			{
-				return QueueTitlesDirectoryOverride_Field;
+				return (string)cache["QueueTitlesDirectoryOverride"];
 			}
 			
 			set
 			{
-				QueueTitlesDirectoryOverride_Field = value;
-				DatabaseConfig.SetConfigValue("QueueTitlesDirectoryOverride", value);
+				cache["QueueTitlesDirectoryOverride"] = value;
+				DatabaseConfig.Set("QueueTitlesDirectoryOverride", value);
 			}
 		}
-		private static bool QueueTitlesUseNameOverride_Field;
 		public static bool QueueTitlesUseNameOverride
 		{
 			get
 			{
-				return QueueTitlesUseNameOverride_Field;
+				return (bool)cache["QueueTitlesUseNameOverride"];
 			}
 			
 			set
 			{
-				QueueTitlesUseNameOverride_Field = value;
-				DatabaseConfig.SetConfigValue("QueueTitlesUseNameOverride", value);
+				cache["QueueTitlesUseNameOverride"] = value;
+				DatabaseConfig.Set("QueueTitlesUseNameOverride", value);
 			}
 		}
-		private static string QueueTitlesNameOverride_Field;
 		public static string QueueTitlesNameOverride
 		{
 			get
 			{
-				return QueueTitlesNameOverride_Field;
+				return (string)cache["QueueTitlesNameOverride"];
 			}
 			
 			set
 			{
-				QueueTitlesNameOverride_Field = value;
-				DatabaseConfig.SetConfigValue("QueueTitlesNameOverride", value);
+				cache["QueueTitlesNameOverride"] = value;
+				DatabaseConfig.Set("QueueTitlesNameOverride", value);
 			}
 		}
-		private static bool DxvaDecoding_Field;
 		public static bool DxvaDecoding
 		{
 			get
 			{
-				return DxvaDecoding_Field;
+				return (bool)cache["DxvaDecoding"];
 			}
 			
 			set
 			{
-				DxvaDecoding_Field = value;
-				DatabaseConfig.SetConfigValue("DxvaDecoding", value);
+				cache["DxvaDecoding"] = value;
+				DatabaseConfig.Set("DxvaDecoding", value);
 			}
 		}
-		private static bool EnableLibDvdNav_Field;
 		public static bool EnableLibDvdNav
 		{
 			get
 			{
-				return EnableLibDvdNav_Field;
+				return (bool)cache["EnableLibDvdNav"];
 			}
 			
 			set
 			{
-				EnableLibDvdNav_Field = value;
-				DatabaseConfig.SetConfigValue("EnableLibDvdNav", value);
+				cache["EnableLibDvdNav"] = value;
+				DatabaseConfig.Set("EnableLibDvdNav", value);
 			}
 		}
-		private static int MinimumTitleLengthSeconds_Field;
 		public static int MinimumTitleLengthSeconds
 		{
 			get
 			{
-				return MinimumTitleLengthSeconds_Field;
+				return (int)cache["MinimumTitleLengthSeconds"];
 			}
 			
 			set
 			{
-				MinimumTitleLengthSeconds_Field = value;
-				DatabaseConfig.SetConfigValue("MinimumTitleLengthSeconds", value);
+				cache["MinimumTitleLengthSeconds"] = value;
+				DatabaseConfig.Set("MinimumTitleLengthSeconds", value);
 			}
 		}
-		private static bool DeleteSourceFilesOnClearingCompleted_Field;
 		public static bool DeleteSourceFilesOnClearingCompleted
 		{
 			get
 			{
-				return DeleteSourceFilesOnClearingCompleted_Field;
+				return (bool)cache["DeleteSourceFilesOnClearingCompleted"];
 			}
 			
 			set
 			{
-				DeleteSourceFilesOnClearingCompleted_Field = value;
-				DatabaseConfig.SetConfigValue("DeleteSourceFilesOnClearingCompleted", value);
+				cache["DeleteSourceFilesOnClearingCompleted"] = value;
+				DatabaseConfig.Set("DeleteSourceFilesOnClearingCompleted", value);
 			}
 		}
-		private static bool PreserveModifyTimeFiles_Field;
 		public static bool PreserveModifyTimeFiles
 		{
 			get
 			{
-				return PreserveModifyTimeFiles_Field;
+				return (bool)cache["PreserveModifyTimeFiles"];
 			}
 			
 			set
 			{
-				PreserveModifyTimeFiles_Field = value;
-				DatabaseConfig.SetConfigValue("PreserveModifyTimeFiles", value);
+				cache["PreserveModifyTimeFiles"] = value;
+				DatabaseConfig.Set("PreserveModifyTimeFiles", value);
 			}
 		}
-		private static bool ResumeEncodingOnRestart_Field;
 		public static bool ResumeEncodingOnRestart
 		{
 			get
 			{
-				return ResumeEncodingOnRestart_Field;
+				return (bool)cache["ResumeEncodingOnRestart"];
 			}
 			
 			set
 			{
-				ResumeEncodingOnRestart_Field = value;
-				DatabaseConfig.SetConfigValue("ResumeEncodingOnRestart", value);
+				cache["ResumeEncodingOnRestart"] = value;
+				DatabaseConfig.Set("ResumeEncodingOnRestart", value);
 			}
 		}
-		private static bool UseWorkerProcess_Field;
 		public static bool UseWorkerProcess
 		{
 			get
 			{
-				return UseWorkerProcess_Field;
+				return (bool)cache["UseWorkerProcess"];
 			}
 			
 			set
 			{
-				UseWorkerProcess_Field = value;
-				DatabaseConfig.SetConfigValue("UseWorkerProcess", value);
+				cache["UseWorkerProcess"] = value;
+				DatabaseConfig.Set("UseWorkerProcess", value);
 			}
 		}
-		private static bool RememberPreviousFiles_Field;
 		public static bool RememberPreviousFiles
 		{
 			get
 			{
-				return RememberPreviousFiles_Field;
+				return (bool)cache["RememberPreviousFiles"];
 			}
 			
 			set
 			{
-				RememberPreviousFiles_Field = value;
-				DatabaseConfig.SetConfigValue("RememberPreviousFiles", value);
+				cache["RememberPreviousFiles"] = value;
+				DatabaseConfig.Set("RememberPreviousFiles", value);
 			}
 		}
-		private static string VideoFileExtensions_Field;
 		public static string VideoFileExtensions
 		{
 			get
 			{
-				return VideoFileExtensions_Field;
+				return (string)cache["VideoFileExtensions"];
 			}
 			
 			set
 			{
-				VideoFileExtensions_Field = value;
-				DatabaseConfig.SetConfigValue("VideoFileExtensions", value);
+				cache["VideoFileExtensions"] = value;
+				DatabaseConfig.Set("VideoFileExtensions", value);
 			}
 		}
-		private static string PreferredPlayer_Field;
 		public static string PreferredPlayer
 		{
 			get
 			{
-				return PreferredPlayer_Field;
+				return (string)cache["PreferredPlayer"];
 			}
 			
 			set
 			{
-				PreferredPlayer_Field = value;
-				DatabaseConfig.SetConfigValue("PreferredPlayer", value);
+				cache["PreferredPlayer"] = value;
+				DatabaseConfig.Set("PreferredPlayer", value);
 			}
 		}
-		private static bool BetaUpdates_Field;
 		public static bool BetaUpdates
 		{
 			get
 			{
-				return BetaUpdates_Field;
+				return (bool)cache["BetaUpdates"];
 			}
 			
 			set
 			{
-				BetaUpdates_Field = value;
-				DatabaseConfig.SetConfigValue("BetaUpdates", value);
+				cache["BetaUpdates"] = value;
+				DatabaseConfig.Set("BetaUpdates", value);
 			}
 		}
-		private static string InterfaceLanguageCode_Field;
 		public static string InterfaceLanguageCode
 		{
 			get
 			{
-				return InterfaceLanguageCode_Field;
+				return (string)cache["InterfaceLanguageCode"];
 			}
 			
 			set
 			{
-				InterfaceLanguageCode_Field = value;
-				DatabaseConfig.SetConfigValue("InterfaceLanguageCode", value);
+				cache["InterfaceLanguageCode"] = value;
+				DatabaseConfig.Set("InterfaceLanguageCode", value);
 			}
 		}
-		private static double CpuThrottlingFraction_Field;
 		public static double CpuThrottlingFraction
 		{
 			get
 			{
-				return CpuThrottlingFraction_Field;
+				return (double)cache["CpuThrottlingFraction"];
 			}
 			
 			set
 			{
-				CpuThrottlingFraction_Field = value;
-				DatabaseConfig.SetConfigValue("CpuThrottlingFraction", value);
+				cache["CpuThrottlingFraction"] = value;
+				DatabaseConfig.Set("CpuThrottlingFraction", value);
 			}
 		}
-		private static string AudioLanguageCode_Field;
 		public static string AudioLanguageCode
 		{
 			get
 			{
-				return AudioLanguageCode_Field;
+				return (string)cache["AudioLanguageCode"];
 			}
 			
 			set
 			{
-				AudioLanguageCode_Field = value;
-				DatabaseConfig.SetConfigValue("AudioLanguageCode", value);
+				cache["AudioLanguageCode"] = value;
+				DatabaseConfig.Set("AudioLanguageCode", value);
 			}
 		}
-		private static string SubtitleLanguageCode_Field;
 		public static string SubtitleLanguageCode
 		{
 			get
 			{
-				return SubtitleLanguageCode_Field;
+				return (string)cache["SubtitleLanguageCode"];
 			}
 			
 			set
 			{
-				SubtitleLanguageCode_Field = value;
-				DatabaseConfig.SetConfigValue("SubtitleLanguageCode", value);
+				cache["SubtitleLanguageCode"] = value;
+				DatabaseConfig.Set("SubtitleLanguageCode", value);
 			}
 		}
-		private static string AutoAudio_Field;
 		public static string AutoAudio
 		{
 			get
 			{
-				return AutoAudio_Field;
+				return (string)cache["AutoAudio"];
 			}
 			
 			set
 			{
-				AutoAudio_Field = value;
-				DatabaseConfig.SetConfigValue("AutoAudio", value);
+				cache["AutoAudio"] = value;
+				DatabaseConfig.Set("AutoAudio", value);
 			}
 		}
-		private static string AutoSubtitle_Field;
 		public static string AutoSubtitle
 		{
 			get
 			{
-				return AutoSubtitle_Field;
+				return (string)cache["AutoSubtitle"];
 			}
 			
 			set
 			{
-				AutoSubtitle_Field = value;
-				DatabaseConfig.SetConfigValue("AutoSubtitle", value);
+				cache["AutoSubtitle"] = value;
+				DatabaseConfig.Set("AutoSubtitle", value);
 			}
 		}
-		private static bool AutoAudioAll_Field;
 		public static bool AutoAudioAll
 		{
 			get
 			{
-				return AutoAudioAll_Field;
+				return (bool)cache["AutoAudioAll"];
 			}
 			
 			set
 			{
-				AutoAudioAll_Field = value;
-				DatabaseConfig.SetConfigValue("AutoAudioAll", value);
+				cache["AutoAudioAll"] = value;
+				DatabaseConfig.Set("AutoAudioAll", value);
 			}
 		}
-		private static bool AutoSubtitleAll_Field;
 		public static bool AutoSubtitleAll
 		{
 			get
 			{
-				return AutoSubtitleAll_Field;
+				return (bool)cache["AutoSubtitleAll"];
 			}
 			
 			set
 			{
-				AutoSubtitleAll_Field = value;
-				DatabaseConfig.SetConfigValue("AutoSubtitleAll", value);
+				cache["AutoSubtitleAll"] = value;
+				DatabaseConfig.Set("AutoSubtitleAll", value);
 			}
 		}
-		private static bool AutoSubtitleOnlyIfDifferent_Field;
 		public static bool AutoSubtitleOnlyIfDifferent
 		{
 			get
 			{
-				return AutoSubtitleOnlyIfDifferent_Field;
+				return (bool)cache["AutoSubtitleOnlyIfDifferent"];
 			}
 			
 			set
 			{
-				AutoSubtitleOnlyIfDifferent_Field = value;
-				DatabaseConfig.SetConfigValue("AutoSubtitleOnlyIfDifferent", value);
+				cache["AutoSubtitleOnlyIfDifferent"] = value;
+				DatabaseConfig.Set("AutoSubtitleOnlyIfDifferent", value);
 			}
 		}
-		private static bool AutoSubtitleBurnIn_Field;
 		public static bool AutoSubtitleBurnIn
 		{
 			get
 			{
-				return AutoSubtitleBurnIn_Field;
+				return (bool)cache["AutoSubtitleBurnIn"];
 			}
 			
 			set
 			{
-				AutoSubtitleBurnIn_Field = value;
-				DatabaseConfig.SetConfigValue("AutoSubtitleBurnIn", value);
+				cache["AutoSubtitleBurnIn"] = value;
+				DatabaseConfig.Set("AutoSubtitleBurnIn", value);
 			}
 		}
-		private static bool AutoSubtitleLanguageDefault_Field;
 		public static bool AutoSubtitleLanguageDefault
 		{
 			get
 			{
-				return AutoSubtitleLanguageDefault_Field;
+				return (bool)cache["AutoSubtitleLanguageDefault"];
 			}
 			
 			set
 			{
-				AutoSubtitleLanguageDefault_Field = value;
-				DatabaseConfig.SetConfigValue("AutoSubtitleLanguageDefault", value);
+				cache["AutoSubtitleLanguageDefault"] = value;
+				DatabaseConfig.Set("AutoSubtitleLanguageDefault", value);
 			}
 		}
-		private static bool AutoSubtitleLanguageBurnIn_Field;
 		public static bool AutoSubtitleLanguageBurnIn
 		{
 			get
 			{
-				return AutoSubtitleLanguageBurnIn_Field;
+				return (bool)cache["AutoSubtitleLanguageBurnIn"];
 			}
 			
 			set
 			{
-				AutoSubtitleLanguageBurnIn_Field = value;
-				DatabaseConfig.SetConfigValue("AutoSubtitleLanguageBurnIn", value);
+				cache["AutoSubtitleLanguageBurnIn"] = value;
+				DatabaseConfig.Set("AutoSubtitleLanguageBurnIn", value);
 			}
 		}
-		private static int QueueTitlesStartTime_Field;
 		public static int QueueTitlesStartTime
 		{
 			get
 			{
-				return QueueTitlesStartTime_Field;
+				return (int)cache["QueueTitlesStartTime"];
 			}
 			
 			set
 			{
-				QueueTitlesStartTime_Field = value;
-				DatabaseConfig.SetConfigValue("QueueTitlesStartTime", value);
+				cache["QueueTitlesStartTime"] = value;
+				DatabaseConfig.Set("QueueTitlesStartTime", value);
 			}
 		}
-		private static int QueueTitlesEndTime_Field;
 		public static int QueueTitlesEndTime
 		{
 			get
 			{
-				return QueueTitlesEndTime_Field;
+				return (int)cache["QueueTitlesEndTime"];
 			}
 			
 			set
 			{
-				QueueTitlesEndTime_Field = value;
-				DatabaseConfig.SetConfigValue("QueueTitlesEndTime", value);
+				cache["QueueTitlesEndTime"] = value;
+				DatabaseConfig.Set("QueueTitlesEndTime", value);
 			}
 		}
-		private static bool QueueTitlesUseRange_Field;
 		public static bool QueueTitlesUseRange
 		{
 			get
 			{
-				return QueueTitlesUseRange_Field;
+				return (bool)cache["QueueTitlesUseRange"];
 			}
 			
 			set
 			{
-				QueueTitlesUseRange_Field = value;
-				DatabaseConfig.SetConfigValue("QueueTitlesUseRange", value);
+				cache["QueueTitlesUseRange"] = value;
+				DatabaseConfig.Set("QueueTitlesUseRange", value);
 			}
 		}
 	}

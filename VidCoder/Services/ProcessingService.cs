@@ -18,6 +18,7 @@ using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
+using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using VidCoder.ViewModel.DataModels;
 using VidCoderCommon.Extensions;
@@ -36,14 +37,15 @@ namespace VidCoder.Services
 
 		private const double StopWarningThresholdMinutes = 5;
 
-		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
-		private IProcessAutoPause autoPause = Ioc.Container.GetInstance<IProcessAutoPause>();
-		private ISystemOperations systemOperations = Ioc.Container.GetInstance<ISystemOperations>();
-		private IMessageBoxService messageBoxService = Ioc.Container.GetInstance<IMessageBoxService>();
-		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
-		private OutputPathService outputVM = Ioc.Container.GetInstance<OutputPathService>();
-		private PresetsService presetsService = Ioc.Container.GetInstance<PresetsService>();
-		private PickersService pickersService = Ioc.Container.GetInstance<PickersService>();
+		private ILogger logger = Ioc.Get<ILogger>();
+		private IProcessAutoPause autoPause = Ioc.Get<IProcessAutoPause>();
+		private ISystemOperations systemOperations = Ioc.Get<ISystemOperations>();
+		private IMessageBoxService messageBoxService = Ioc.Get<IMessageBoxService>();
+		private MainViewModel main = Ioc.Get<MainViewModel>();
+		private OutputPathService outputVM = Ioc.Get<OutputPathService>();
+		private PresetsService presetsService = Ioc.Get<PresetsService>();
+		private PickersService pickersService = Ioc.Get<PickersService>();
+		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
 
 		private ObservableCollection<EncodeJobViewModel> encodeQueue;
 		private bool encoding;
@@ -222,7 +224,6 @@ namespace VidCoder.Services
 				this.RaisePropertyChanged(() => this.PauseVisible);
 				this.RaisePropertyChanged(() => this.Encoding);
 				this.RaisePropertyChanged(() => this.EncodeButtonText);
-				this.main.WindowManagerService.RefreshEncoding();
 
 				if (!value)
 				{
@@ -499,7 +500,7 @@ namespace VidCoder.Services
 								// If the encoding profile has changed since the last time we queued an item, we'll prompt to apply the current
 								// encoding profile to all queued items.
 
-								var messageBoxService = Ioc.Container.GetInstance<IMessageBoxService>();
+								var messageBoxService = Ioc.Get<IMessageBoxService>();
 								MessageBoxResult result = messageBoxService.Show(
 									this.main,
 									MainRes.EncodingSettingsChangedMessage,
@@ -591,7 +592,7 @@ namespace VidCoder.Services
 							return;
 						}
 
-						Ioc.Container.GetInstance<WindowManagerService>().OpenQueueTitlesWindow();
+						this.windowManager.OpenOrFocusWindow(typeof(QueueTitlesWindowViewModel));
 					},
 					() =>
 					{
@@ -714,7 +715,7 @@ namespace VidCoder.Services
 					{
 						try
 						{
-							Ioc.Container.GetInstance<IQueueImportExport>().Import(presetFileName);
+							Ioc.Get<IQueueImportExport>().Import(presetFileName);
 							this.messageBoxService.Show(MainRes.QueueImportSuccessMessage, CommonRes.Success, System.Windows.MessageBoxButton.OK);
 						}
 						catch (Exception)
@@ -747,7 +748,7 @@ namespace VidCoder.Services
 								});
 						}
 
-						Ioc.Container.GetInstance<IQueueImportExport>().Export(encodeJobs);
+						Ioc.Get<IQueueImportExport>().Export(encodeJobs);
 				}));
 			}
 		}
@@ -872,7 +873,7 @@ namespace VidCoder.Services
 			
 
 			var scanMultipleDialog = new ScanMultipleDialogViewModel(new List<string> { source });
-			WindowManager.OpenDialog(scanMultipleDialog, this.main);
+			this.windowManager.OpenDialog(scanMultipleDialog);
 
 			VideoSource videoSource = scanMultipleDialog.ScanResults[0];
 			List<int> titleNumbers = this.PickTitles(videoSource, picker);
@@ -1117,7 +1118,7 @@ namespace VidCoder.Services
 
 			// This dialog will scan the items in the list, calculating length.
 			var scanMultipleDialog = new ScanMultipleDialogViewModel(sourcePathStrings);
-			WindowManager.OpenDialog(scanMultipleDialog, this.main);
+			this.windowManager.OpenDialog(scanMultipleDialog);
 
 			List<VideoSource> videoSources = scanMultipleDialog.ScanResults;
 
@@ -1290,7 +1291,7 @@ namespace VidCoder.Services
 			// User had the window open when the encode ended last time, so we re-open when starting the queue again.
 			if (Config.EncodeDetailsWindowOpen)
 			{
-				this.main.WindowManagerService.OpenEncodeDetailsWindow();
+				this.windowManager.OpenOrFocusWindow(typeof(EncodeDetailsViewModel));
 			}
 
 			this.EncodeProgress = new EncodeProgress
@@ -1683,7 +1684,7 @@ namespace VidCoder.Services
 						this.logger.ShowStatus(MainRes.EncodeCompleted);
 						this.logger.Log("");
 
-						Ioc.Container.GetInstance<TrayService>().ShowBalloonMessage(MainRes.EncodeCompleteBalloonTitle, MainRes.EncodeCompleteBalloonMessage);
+						Ioc.Get<TrayService>().ShowBalloonMessage(MainRes.EncodeCompleteBalloonTitle, MainRes.EncodeCompleteBalloonMessage);
 
 						EncodeCompleteActionType actionType = this.EncodeCompleteAction.ActionType;
 						if (Config.PlaySoundOnCompletion &&
@@ -1733,7 +1734,7 @@ namespace VidCoder.Services
 							case EncodeCompleteActionType.LogOff:
 							case EncodeCompleteActionType.Shutdown:
 							case EncodeCompleteActionType.Hibernate:
-								WindowManager.OpenWindow(new ShutdownWarningViewModel(actionType));
+								this.windowManager.OpenWindow(new ShutdownWarningViewModel(actionType));
 								break;
 							default:
 								throw new ArgumentOutOfRangeException();
@@ -1747,7 +1748,7 @@ namespace VidCoder.Services
 
 				if (this.encodeStopped || this.EncodeQueue.Count == 0)
 				{
-					this.main.WindowManagerService.CloseEncodeDetailsWindow();
+					this.windowManager.Close<EncodeDetailsViewModel>(userInitiated: false);
 				}
 
 				string encodeLogPath = encodeLogger.LogPath;
@@ -1891,7 +1892,7 @@ namespace VidCoder.Services
 				return true;
 			}
 
-			var messageService = Ioc.Container.GetInstance<IMessageBoxService>();
+			var messageService = Ioc.Get<IMessageBoxService>();
 			var messageResult = messageService.Show(
 				this.main,
 				MainRes.OutputFolderRequiredMessage, 
@@ -1914,7 +1915,7 @@ namespace VidCoder.Services
 				return true;
 			}
 
-			Ioc.Container.GetInstance<IMessageBoxService>().Show(
+			Ioc.Get<IMessageBoxService>().Show(
 				MainRes.OutputPathNotValidMessage,
 				MainRes.OutputPathNotValidTitle, 
 				MessageBoxButton.OK,

@@ -13,7 +13,7 @@
 	{
 		private EncodeCompleteActionType actionType;
 
-		private ISystemOperations systemOperations = Ioc.Container.GetInstance<ISystemOperations>();
+		private ISystemOperations systemOperations = Ioc.Get<ISystemOperations>();
 		private int secondsRemaining = 30;
 		private DispatcherTimer timer;
 

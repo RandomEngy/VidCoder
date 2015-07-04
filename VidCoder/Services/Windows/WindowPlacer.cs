@@ -9,7 +9,7 @@ using VidCoder.Model.WindowPlacer;
 using VidCoder.ViewModel;
 using VidCoder.ViewModel.DataModels;
 
-namespace VidCoder.Services
+namespace VidCoder.Services.Windows
 {
 	/// <summary>
 	/// Places new windows. Finds open space for them dynamically.
@@ -18,6 +18,8 @@ namespace VidCoder.Services
 	{
 		private const double Spacing = 4;
 
+		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
+
 		public Rect? PlaceWindow(Window window)
 		{
 			double width = window.Width;
@@ -25,7 +27,7 @@ namespace VidCoder.Services
 
 			Size size = new Size(width, height);
 
-			List<WindowPosition> openedWindowPositions = WindowManager.GetOpenedWindowPositions(excludeWindow: window);
+			List<WindowPosition> openedWindowPositions = this.windowManager.GetOpenedWindowPositions(excludeWindow: window);
 			List<WindowPosition> savedWindowPositions = GetSavedWindowPositions();
 
 			if (openedWindowPositions.Count == 0)
@@ -208,38 +210,21 @@ namespace VidCoder.Services
 		private static List<WindowPosition> GetSavedWindowPositions()
 		{
 			var result = new List<WindowPosition>();
-			AddSavedWindowPosition<MainViewModel>(Config.MainWindowPlacement, result);
-			AddSavedWindowPosition<EncodingViewModel>(Config.EncodingDialogPlacement, result);
-			AddSavedWindowPosition<PreviewViewModel>(Config.PreviewWindowPlacement, result);
-			AddSavedWindowPosition<LogViewModel>(Config.LogWindowPlacement, result);
-			AddSavedWindowPosition<PickerViewModel>(Config.PickerWindowPlacement, result);
+			foreach (var definition in WindowManager.Definitions.Where(d => d.PlacementConfigKey != null))
+			{
+				string placementJson = Config.Get<string>(definition.PlacementConfigKey);
+				if (!string.IsNullOrEmpty(placementJson))
+				{
+					result.Add(new WindowPosition
+					{
+						Position = WindowPlacement.ParsePlacementJson(placementJson).ToRect(),
+						ViewModelType = definition.ViewModelType
+					});
+				}
+			}
+
 			return result;
 		}
-
-		private static void AddSavedWindowPosition<T>(string placementJson, List<WindowPosition> list)
-		{
-			if (!string.IsNullOrEmpty(placementJson))
-			{
-				list.Add(new WindowPosition
-				{
-					Position = WindowPlacement.ParsePlacementJson(placementJson).ToRect(),
-					ViewModelType = typeof(T)
-				});
-			}
-		}
-
-		//private static Rect GetDefaultPosition(Rect mainWindowLocation, Size size)
-		//{
-		//	double width = size.Width;
-		//	double height = size.Height;
-		//	Rect workArea = SystemParameters.WorkArea;
-		//	double centerX = (workArea.Left + workArea.Right) / 2;
-		//	double centerY = (workArea.Top + workArea.Bottom) / 2;
-
-		//	// Open in center of workarea
-		//	Rect location = new Rect(centerX - width / 2, centerY - height / 2, width, height);
-		//	return location;
-		//}
 
 		private static bool Overlaps(Rect placement, IEnumerable<Rect> openWindows)
 		{

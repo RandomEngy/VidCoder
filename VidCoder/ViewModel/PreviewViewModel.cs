@@ -31,7 +31,7 @@ namespace VidCoder.ViewModel
 		private VCJob job;
 		private HandBrakeInstance originalScanInstance;
 		private IEncodeProxy encodeProxy;
-		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
+		private ILogger logger = Ioc.Get<ILogger>();
 		private string title;
 		private int selectedPreview;
 		private bool hasPreview;
@@ -55,10 +55,10 @@ namespace VidCoder.ViewModel
 		private string imageFileCacheFolder;
 		private BitmapSource previewBitmapSource;
 
-		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
-		private OutputPathService outputPathService = Ioc.Container.GetInstance<OutputPathService>();
-		private WindowManagerService windowManagerService = Ioc.Container.GetInstance<WindowManagerService>();
-		private ProcessingService processingService = Ioc.Container.GetInstance<ProcessingService>();
+		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
+		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
+		private WindowManagerService windowManagerService = Ioc.Get<WindowManagerService>();
+		private ProcessingService processingService = Ioc.Get<ProcessingService>();
 
 		public PreviewViewModel()
 		{
@@ -75,6 +75,16 @@ namespace VidCoder.ViewModel
 			this.Title = PreviewRes.NoVideoSourceTitle;
 
 			this.RequestRefreshPreviews();
+		}
+
+		public override void OnClosing()
+		{
+			base.OnClosing();
+
+			if (this.GeneratingPreview)
+			{
+				this.StopAndWait();
+			}
 		}
 
 		public MainViewModel MainViewModel
@@ -709,7 +719,7 @@ namespace VidCoder.ViewModel
 			this.RefreshPreviews();
 		}
 
-		public void StopAndWait()
+		private void StopAndWait()
 		{
 			this.encodeCancelled = true;
 			this.encodeProxy.StopAndWait();
@@ -753,7 +763,7 @@ namespace VidCoder.ViewModel
 				this.HasPreview = false;
 				this.Title = PreviewRes.NoVideoSourceTitle;
 
-				Ioc.Container.GetInstance<ILogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
+				Ioc.Get<ILogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
 				return;
 			}
 

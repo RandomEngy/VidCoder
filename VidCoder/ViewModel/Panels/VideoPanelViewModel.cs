@@ -24,7 +24,7 @@ namespace VidCoder.ViewModel
 
 		private ResourceManager resourceManager = new ResourceManager(typeof(EncodingRes));
 
-		private OutputPathService outputPathService = Ioc.Container.GetInstance<OutputPathService>();
+		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
 
 		private List<VideoEncoderViewModel> encoderChoices;
 

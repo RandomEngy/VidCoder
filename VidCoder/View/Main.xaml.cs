@@ -4,6 +4,8 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Resources;
 using System.Text;
 using System.Windows;
@@ -14,24 +16,24 @@ using System.Windows.Interop;
 using System.Windows.Media.Animation;
 using GalaSoft.MvvmLight.Messaging;
 using Hardcodet.Wpf.TaskbarNotification;
+using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using VidCoderCommon.Model;
 
 namespace VidCoder.View
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow : Window
+	public partial class Main : Window
 	{
 		private MainViewModel viewModel;
-		private ProcessingService processingService = Ioc.Container.GetInstance<ProcessingService>();
-		private OutputPathService outputVM = Ioc.Container.GetInstance<OutputPathService>();
+		private ProcessingService processingService = Ioc.Get<ProcessingService>();
+		private OutputPathService outputVM = Ioc.Get<OutputPathService>();
+		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
 
 		private bool tabsVisible = false;
 
@@ -40,7 +42,7 @@ namespace VidCoder.View
 
 		public static System.Windows.Threading.Dispatcher TheDispatcher;
 
-		public MainWindow()
+		public Main()
 		{
 			Ioc.Container.Register(() => this);
 			this.InitializeComponent();
@@ -135,6 +137,14 @@ namespace VidCoder.View
 					{
 						this.RefreshQueueColumns();
 					});
+
+			this.RefreshWindowsMenu();
+
+			Observable.FromEventPattern(this.windowManager, "TrackedWindowChanged")
+				.Subscribe(e => this.RefreshWindowsMenu());
+			this.processingService
+				.WhenAnyValue(x => x.Encoding)
+				.Subscribe(p => this.RefreshWindowsMenu());
 		}
 
 		public WindowState RestoredWindowState { get; set; }
@@ -162,12 +172,12 @@ namespace VidCoder.View
 							// It's a preset
 							try
 							{
-								Preset preset = Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(itemList[0]);
-								Ioc.Container.GetInstance<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
+								Preset preset = Ioc.Get<IPresetImportExport>().ImportPreset(itemList[0]);
+								Ioc.Get<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
 							}
 							catch (Exception)
 							{
-								Ioc.Container.GetInstance<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
+								Ioc.Get<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
 							}
 						}
 						else if (Utilities.IsDiscFolder(item))
@@ -418,6 +428,36 @@ namespace VidCoder.View
 
 				this.tabsVisible = false;
 				return;
+			}
+		}
+
+		private void RefreshWindowsMenu()
+		{
+			this.windowsMenu.Items.Clear();
+
+			foreach (var definition in WindowManager.Definitions.Where(d => d.IsOpenConfigKey != null))
+			{
+				MenuItem item = new MenuItem
+				{
+					IsCheckable = true,
+					IsChecked = Config.Get<bool>(definition.IsOpenConfigKey),
+					Header = definition.MenuLabel,
+					InputGestureText = definition.InputGestureText
+				};
+
+				Type viewModelType = definition.ViewModelType;
+
+				item.Click += (o, e) =>
+				{
+					this.windowManager.OpenOrFocusWindow(viewModelType);
+				};
+
+				if (viewModelType == typeof (EncodeDetailsViewModel))
+				{
+					item.IsEnabled = this.processingService.Encoding;
+				}
+
+				this.windowsMenu.Items.Add(item);
 			}
 		}
 

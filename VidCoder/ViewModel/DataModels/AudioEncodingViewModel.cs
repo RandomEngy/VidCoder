@@ -28,7 +28,7 @@ namespace VidCoder.ViewModel
 		private AudioPanelViewModel audioPanelVM;
 		private bool initializing;
 
-		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
+		private MainViewModel main = Ioc.Get<MainViewModel>();
 
 		private ObservableCollection<TargetStreamViewModel> targetStreams;
 		private int targetStreamIndex;

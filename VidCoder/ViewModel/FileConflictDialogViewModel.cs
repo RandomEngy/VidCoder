@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using VidCoder.Model;
+using VidCoder.Resources;
+using VidCoder.Services.Windows;
 
 namespace VidCoder.ViewModel
 {
-	using Resources;
-
-	public class FileConflictDialogViewModel : ViewModelBase, IDialogViewModel
+	public class FileConflictDialogViewModel : ViewModelBase
 	{
+		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
+
 		private string filePath;
 		private bool isFileConflict;
 
@@ -28,14 +26,6 @@ namespace VidCoder.ViewModel
 			this.isFileConflict = isFileConflict;
 
 			this.fileConflictResolution = FileConflictResolution.Cancel;
-		}
-
-		public bool CanClose
-		{
-			get
-			{
-				return true;
-			}
 		}
 
 		public string WarningText
@@ -79,7 +69,7 @@ namespace VidCoder.ViewModel
 					this.overwriteCommand = new RelayCommand(() =>
 					{
 						this.FileConflictResolution = FileConflictResolution.Overwrite;
-						WindowManager.Close(this);
+						this.windowManager.Close(this);
 					});
 				}
 
@@ -96,7 +86,7 @@ namespace VidCoder.ViewModel
 					this.renameCommand = new RelayCommand(() =>
 					{
 						this.FileConflictResolution = FileConflictResolution.AutoRename;
-						WindowManager.Close(this);
+						this.windowManager.Close(this);
 					});
 				}
 
@@ -113,16 +103,12 @@ namespace VidCoder.ViewModel
 					this.cancelCommand = new RelayCommand(() =>
 					{
 						this.FileConflictResolution = FileConflictResolution.Cancel;
-						WindowManager.Close(this);
+						this.windowManager.Close(this);
 					});
 				}
 
 				return this.cancelCommand;
 			}
-		}
-
-		public void OnClosing()
-		{
 		}
 	}
 }

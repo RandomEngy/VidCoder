@@ -24,7 +24,7 @@ namespace VidCoder.ViewModel
 		/// </summary>
 		public const double SubtitleScanCostFactor = 5.0;
 
-		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
+		private MainViewModel main = Ioc.Get<MainViewModel>();
 		private ProcessingService processingService;
 
 		private bool isSelected;
@@ -78,7 +78,7 @@ namespace VidCoder.ViewModel
 			{
 				if (this.processingService == null)
 				{
-					this.processingService = Ioc.Container.GetInstance<ProcessingService>();
+					this.processingService = Ioc.Get<ProcessingService>();
 				}
 
 				return this.processingService;

@@ -33,7 +33,7 @@ namespace VidCoder.Model
 				string message = string.Format(
 					MiscRes.CouldNotFindVideoPlayerError,
 					this.Display);
-				Ioc.Container.GetInstance<IMessageBoxService>().Show(message);
+				Ioc.Get<IMessageBoxService>().Show(message);
 				return;
 			}
 
@@ -50,7 +50,7 @@ namespace VidCoder.Model
 			{
 				string message = 
 					MiscRes.ErrorPlayingSource + Environment.NewLine + Environment.NewLine + exception.Message;
-				Ioc.Container.GetInstance<IMessageBoxService>().Show(message);
+				Ioc.Get<IMessageBoxService>().Show(message);
 			}
 		}
 

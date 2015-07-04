@@ -36,7 +36,7 @@ namespace VidCoder.View
 
 		private void copyButton_Click(object sender, RoutedEventArgs e)
 		{
-			Ioc.Container.GetInstance<ClipboardService>().SetText(this.exception.ToString());
+			Ioc.Get<ClipboardService>().SetText(this.exception.ToString());
 		}
 	}
 }

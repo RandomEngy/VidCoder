@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using FastMember;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop.Model;
@@ -16,15 +17,16 @@ using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoder.Services.Windows;
 
 namespace VidCoder.ViewModel
 {
-	public class PickerWindowViewModel : OkCancelDialogViewModel
+	public class PickerWindowViewModel : ReactiveObject
 	{
 		private static TypeAccessor typeAccessor = TypeAccessor.Create(typeof(Picker));
 
-		private PickersService pickersService = Ioc.Container.GetInstance<PickersService>();
-		private PresetsService presetsService = Ioc.Container.GetInstance<PresetsService>();
+		private PickersService pickersService = Ioc.Get<PickersService>();
+		private PresetsService presetsService = Ioc.Get<PresetsService>();
 
 		private Dictionary<string, Action> pickerProperties;
 		private bool automaticChange;
@@ -251,12 +253,12 @@ namespace VidCoder.ViewModel
 			get { return this.presetsService; }
 		}
 
-		// Should only fire when user manually closes the window, not when closed through WindowManager.
-		public override void OnClosing()
+		public bool CanClose
 		{
-			Config.PickerWindowOpen = false;
-			base.OnClosing();
+			get { return true; }
 		}
+
+		public Action Closing { get; set; }
 
 		private Picker picker;
 		public Picker Picker
@@ -472,7 +474,7 @@ namespace VidCoder.ViewModel
 		{
 			var dialogVM = new ChooseNameViewModel(MainRes.PickerWord, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
 			dialogVM.Name = this.picker.DisplayName;
-			WindowManager.OpenDialog(dialogVM, this);
+			Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
 
 			if (dialogVM.DialogResult)
 			{
@@ -488,7 +490,7 @@ namespace VidCoder.ViewModel
 		{
 			var dialogVM = new ChooseNameViewModel(MainRes.PickerWord, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
 			dialogVM.Name = this.picker.DisplayName;
-			WindowManager.OpenDialog(dialogVM, this);
+			Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
 
 			if (dialogVM.DialogResult)
 			{

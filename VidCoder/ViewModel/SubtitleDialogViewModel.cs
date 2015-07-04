@@ -25,8 +25,8 @@ namespace VidCoder.ViewModel
 		private bool textSubtitleWarningVisible;
 		private bool burnedOverlapWarningVisible;
 
-		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
-		private PresetsService presetsService = Ioc.Container.GetInstance<PresetsService>();
+		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
+		private PresetsService presetsService = Ioc.Get<PresetsService>();
 
 		public SubtitleDialogViewModel(VCSubtitles currentSubtitles)
 		{

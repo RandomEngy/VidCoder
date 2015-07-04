@@ -55,7 +55,7 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
+		private ILogger logger = Ioc.Get<ILogger>();
 		private BackgroundWorker updateDownloader;
 		private bool processDownloadsUpdates = true;
 
@@ -105,7 +105,7 @@ namespace VidCoder.Services
 					{
 						// An update is ready, to give a prompt to apply it.
 						var updateConfirmation = new ApplyUpdateConfirmation();
-						updateConfirmation.Owner = Ioc.Container.GetInstance<View.MainWindow>();
+						updateConfirmation.Owner = Ioc.Get<View.Main>();
 						updateConfirmation.ShowDialog();
 
 						if (updateConfirmation.Result == "Yes")

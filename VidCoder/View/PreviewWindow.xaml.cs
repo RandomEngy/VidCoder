@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using VidCoder.Extensions;
 using VidCoder.Services;
+using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 
 namespace VidCoder.View
@@ -222,7 +223,7 @@ namespace VidCoder.View
 
 		private void Window_PreviewDrop(object sender, DragEventArgs e)
 		{
-			Ioc.Container.GetInstance<MainWindow>().HandleDrop(sender, e);
+			Ioc.Get<Main>().HandleDrop(sender, e);
 		}
 
 		private void Window_PreviewDragOver(object sender, DragEventArgs e)

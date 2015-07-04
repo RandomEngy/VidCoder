@@ -18,7 +18,7 @@ namespace VidCoder.Services
 		{
 			get
 			{
-				return Ioc.Container.GetInstance<IFileService>();
+				return Ioc.Get<IFileService>();
 			}
 		}
 

@@ -12,6 +12,7 @@ using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoder.Services.Windows;
 using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
@@ -21,11 +22,11 @@ namespace VidCoder.ViewModel
 		public const int VideoTabIndex = 2;
 		public const int AdvancedVideoTabIndex = 3;
 
-		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
-		private OutputPathService outputPathService = Ioc.Container.GetInstance<OutputPathService>();
-		private PresetsService presetsService = Ioc.Container.GetInstance<PresetsService>();
-		private WindowManagerService windowManagerService = Ioc.Container.GetInstance<WindowManagerService>();
-		private ProcessingService processingService = Ioc.Container.GetInstance<ProcessingService>();
+		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
+		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
+		private PresetsService presetsService = Ioc.Get<PresetsService>();
+		private WindowManagerService windowManagerService = Ioc.Get<WindowManagerService>();
+		private ProcessingService processingService = Ioc.Get<ProcessingService>();
 
 		private VCProfile profile;
 
@@ -441,7 +442,7 @@ namespace VidCoder.ViewModel
 					{
 						var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.presetsService.AllPresets.Where(preset => !preset.IsBuiltIn).Select(preset => preset.PresetName));
 						dialogVM.Name = this.originalPreset.GetDisplayName();
-						WindowManager.OpenDialog(dialogVM, this);
+						Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
 
 						if (dialogVM.DialogResult)
 						{
@@ -468,7 +469,7 @@ namespace VidCoder.ViewModel
 					{
 						var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.presetsService.AllPresets.Where(preset => !preset.IsBuiltIn).Select(preset => preset.PresetName));
 						dialogVM.Name = this.originalPreset.GetDisplayName();
-						WindowManager.OpenDialog(dialogVM, this);
+						Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
 
 						if (dialogVM.DialogResult)
 						{

@@ -13,7 +13,7 @@ namespace VidCoder.Services
 	{
 		private IFileService fileService;
 		private IMessageBoxService messageBoxService;
-		private PresetsService presetsService = Ioc.Container.GetInstance<PresetsService>();
+		private PresetsService presetsService = Ioc.Get<PresetsService>();
 		private ILogger logger;
 
 		public PresetImportExport(IFileService fileService, IMessageBoxService messageBoxService, ILogger logger)

@@ -20,6 +20,7 @@ using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoder.Services.Windows;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 
@@ -29,13 +30,14 @@ namespace VidCoder.ViewModel
 	{
 		private HandBrakeInstance scanInstance;
 
-		private IUpdater updater = Ioc.Container.GetInstance<IUpdater>();
-		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
+		private IUpdater updater = Ioc.Get<IUpdater>();
+		private ILogger logger = Ioc.Get<ILogger>();
 		private OutputPathService outputPathService;
 		private PresetsService presetsService;
 		private PickersService pickersService;
 		private ProcessingService processingService;
 		private WindowManagerService windowManagerService;
+		private IWindowManager windowManager;
 		private TaskBarProgressTracker taskBarProgressTracker;
 
 		private ObservableCollection<SourceOptionViewModel> sourceOptions;
@@ -85,11 +87,12 @@ namespace VidCoder.ViewModel
 		{
 			Ioc.Container.Register(() => this);
 
-			this.outputPathService = Ioc.Container.GetInstance<OutputPathService>();
-			this.processingService = Ioc.Container.GetInstance<ProcessingService>();
-			this.presetsService = Ioc.Container.GetInstance<PresetsService>();
-			this.pickersService = Ioc.Container.GetInstance<PickersService>();
-			this.windowManagerService = Ioc.Container.GetInstance<WindowManagerService>();
+			this.outputPathService = Ioc.Get<OutputPathService>();
+			this.processingService = Ioc.Get<ProcessingService>();
+			this.presetsService = Ioc.Get<PresetsService>();
+			this.pickersService = Ioc.Get<PickersService>();
+			this.windowManagerService = Ioc.Get<WindowManagerService>();
+			this.windowManager = Ioc.Get<IWindowManager>();
 			this.taskBarProgressTracker = new TaskBarProgressTracker();
 
 			updater.CheckUpdates();
@@ -114,7 +117,7 @@ namespace VidCoder.ViewModel
 
 			this.useDefaultChapterNames = true;
 
-			this.driveService = Ioc.Container.GetInstance<IDriveService>();
+			this.driveService = Ioc.Get<IDriveService>();
 
 			this.DriveCollection = this.driveService.GetDiscInformation();
 
@@ -235,7 +238,7 @@ namespace VidCoder.ViewModel
 				MainRes.PickDiscFolderHelpText);
 
 			// Make sure we get focus back after displaying the dialog.
-			WindowManager.FocusWindow(this);
+			this.windowManager.Focus(this);
 
 			if (folderPath != null)
 			{
@@ -306,36 +309,7 @@ namespace VidCoder.ViewModel
 
 		public void OnLoaded()
 		{
-			bool windowOpened = false;
-
-			if (Config.EncodingWindowOpen)
-			{
-				this.WindowManagerService.OpenEncodingWindow();
-				windowOpened = true;
-			}
-
-			if (Config.PreviewWindowOpen)
-			{
-				this.WindowManagerService.OpenPreviewWindow();
-				windowOpened = true;
-			}
-
-			if (Config.LogWindowOpen)
-			{
-				this.WindowManagerService.OpenLogWindow();
-				windowOpened = true;
-			}
-
-		    if (Config.PickerWindowOpen)
-		    {
-		        this.WindowManagerService.OpenPickerWindow();
-		        windowOpened = true;
-		    }
-
-			if (windowOpened)
-			{
-				WindowManager.FocusWindow(this);
-			}
+			this.windowManager.OpenTrackedWindows();
 		}
 
 		/// <summary>
@@ -364,46 +338,9 @@ namespace VidCoder.ViewModel
 			{
 				// If so, stop it.
 				this.processingService.EncodeProxy.StopAndWait();
-				//this.processingService.CurrentJob.HandBrakeInstance.StopEncode();
 			}
 
-			ViewModelBase encodingWindow = WindowManager.FindWindow<EncodingViewModel>();
-			if (encodingWindow != null)
-			{
-				WindowManager.Close(encodingWindow);
-			}
-
-			var previewWindow = WindowManager.FindWindow<PreviewViewModel>();
-			if (previewWindow != null)
-			{
-				if (previewWindow.GeneratingPreview)
-				{
-					previewWindow.StopAndWait();
-				}
-
-				WindowManager.Close(previewWindow);
-			}
-
-			object logWindow = WindowManager.FindWindow<LogViewModel>();
-			if (logWindow != null)
-			{
-				WindowManager.Close(logWindow);
-			}
-
-			object pickerWindow = WindowManager.FindWindow<PickerWindowViewModel>();
-		    if (pickerWindow != null)
-		    {
-		        WindowManager.Close(pickerWindow);
-		    }
-
-			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
-			{
-				Config.EncodingWindowOpen = encodingWindow != null;
-				Config.PreviewWindowOpen = previewWindow != null;
-				Config.LogWindowOpen = logWindow != null;
-
-				transaction.Commit();
-			}
+			this.windowManager.CloseTrackedWindows();
 
 			this.driveService.Close();
 
@@ -1828,15 +1765,12 @@ namespace VidCoder.ViewModel
 				return this.openSubtitlesDialogCommand ?? (this.openSubtitlesDialogCommand = new RelayCommand(() =>
 					{
 						var subtitleViewModel = new SubtitleDialogViewModel(this.CurrentSubtitles);
-						subtitleViewModel.Closing = () =>
-						{
-							if (subtitleViewModel.DialogResult)
-							{
-								this.CurrentSubtitles = subtitleViewModel.ChosenSubtitles;
-							}
-						};
+						this.windowManager.OpenDialog(subtitleViewModel);
 
-						WindowManager.OpenDialog(subtitleViewModel, this);
+						if (subtitleViewModel.DialogResult)
+						{
+							this.CurrentSubtitles = subtitleViewModel.ChosenSubtitles;
+						}
 					}));
 			}
 		}
@@ -1849,19 +1783,16 @@ namespace VidCoder.ViewModel
 				return this.openChaptersDialogCommand ?? (this.openChaptersDialogCommand = new RelayCommand(() =>
 					{
 						var chaptersVM = new ChapterMarkersDialogViewModel(this.SelectedTitle.ChapterList, this.CustomChapterNames, this.UseDefaultChapterNames);
-						chaptersVM.Closing = () =>
-						{
-							if (chaptersVM.DialogResult)
-							{
-								this.UseDefaultChapterNames = chaptersVM.UseDefaultNames;
-								if (!chaptersVM.UseDefaultNames)
-								{
-									this.CustomChapterNames = chaptersVM.ChapterNamesList;
-								}
-							}
-						};
+						this.windowManager.OpenDialog(chaptersVM);
 
-						WindowManager.OpenDialog(chaptersVM, this);
+						if (chaptersVM.DialogResult)
+						{
+							this.UseDefaultChapterNames = chaptersVM.UseDefaultNames;
+							if (!chaptersVM.UseDefaultNames)
+							{
+								this.CustomChapterNames = chaptersVM.ChapterNamesList;
+							}
+						}
 					}));
 			}
 		}
@@ -1873,7 +1804,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.openAboutDialogCommand ?? (this.openAboutDialogCommand = new RelayCommand(() =>
 					{
-						WindowManager.OpenDialog(new AboutDialogViewModel(), this);
+						this.windowManager.OpenDialog(new AboutDialogViewModel());
 					}));
 			}
 		}
@@ -1971,7 +1902,7 @@ namespace VidCoder.ViewModel
 
 						// Show the queue columns dialog
 						var queueDialog = new QueueColumnsViewModel();
-						WindowManager.OpenDialog(queueDialog, this);
+						this.windowManager.OpenDialog(queueDialog);
 
 						if (queueDialog.DialogResult)
 						{
@@ -1998,12 +1929,12 @@ namespace VidCoder.ViewModel
 						{
 							try
 							{
-								Preset preset = Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(presetFileName);
-								Ioc.Container.GetInstance<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
+								Preset preset = Ioc.Get<IPresetImportExport>().ImportPreset(presetFileName);
+								Ioc.Get<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
 							}
 							catch (Exception)
 							{
-								Ioc.Container.GetInstance<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
+								Ioc.Get<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
 							}
 						}
 					}));
@@ -2017,7 +1948,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.exportPresetCommand ?? (this.exportPresetCommand = new RelayCommand(() =>
 					{
-						Ioc.Container.GetInstance<IPresetImportExport>().ExportPreset(this.presetsService.SelectedPreset.Preset);
+						Ioc.Get<IPresetImportExport>().ExportPreset(this.presetsService.SelectedPreset.Preset);
 					}));
 			}
 		}
@@ -2053,7 +1984,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.exitCommand ?? (this.exitCommand = new RelayCommand(() =>
 					{
-						WindowManager.Close(this);
+						this.windowManager.Close(this);
 					}));
 			}
 		}
@@ -2239,7 +2170,7 @@ namespace VidCoder.ViewModel
 						DriveInformation driveInfo = this.DriveCollection.FirstOrDefault(d => string.Compare(d.RootDirectory, jobRoot, StringComparison.OrdinalIgnoreCase) == 0);
 						if (driveInfo == null)
 						{
-							Ioc.Container.GetInstance<IMessageBoxService>().Show(MainRes.DiscNotInDriveError);
+							Ioc.Get<IMessageBoxService>().Show(MainRes.DiscNotInDriveError);
 							return;
 						}
 
@@ -2292,7 +2223,7 @@ namespace VidCoder.ViewModel
 			//DriveInformation driveInfo = this.driveService.GetDriveInformationFromPath(sourcePath);
 			if (this.HasVideoSource && !this.ScanningSource)
 			{
-				var messageResult = Ioc.Container.GetInstance<IMessageBoxService>().Show(
+				var messageResult = Ioc.Get<IMessageBoxService>().Show(
 					this,
 					MainRes.AutoplayDiscConfirmationMessage,
 					CommonRes.ConfirmDialogTitle,
@@ -2758,7 +2689,7 @@ namespace VidCoder.ViewModel
 
 		private void ReportLengthChanged()
 		{
-			var encodingWindow = WindowManager.FindWindow<EncodingViewModel>();
+			var encodingWindow = this.windowManager.Find<EncodingViewModel>();
 			if (encodingWindow != null)
 			{
 				encodingWindow.NotifyLengthChanged();

@@ -8,9 +8,9 @@ namespace VidCoder.ViewModel
 {
 	public class LogViewModel : OkCancelDialogViewModel
 	{
-		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
-		private WindowManagerService windowManagerService = Ioc.Container.GetInstance<WindowManagerService>();
-		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
+		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
+		private WindowManagerService windowManagerService = Ioc.Get<WindowManagerService>();
+		private ILogger logger = Ioc.Get<ILogger>();
 
 		private ICommand clearLogCommand;
 		private ICommand copyCommand;
@@ -64,7 +64,7 @@ namespace VidCoder.ViewModel
 								logTextBuilder.AppendLine(entry.Text);
 							}
 
-							Ioc.Container.GetInstance<ClipboardService>().SetText(logTextBuilder.ToString());
+							Ioc.Get<ClipboardService>().SetText(logTextBuilder.ToString());
 						}
 					});
 				}

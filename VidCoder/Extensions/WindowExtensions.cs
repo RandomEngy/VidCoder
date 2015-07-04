@@ -1,21 +1,48 @@
-﻿using System.Windows;
+﻿using System;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using GalaSoft.MvvmLight.Command;
 using VidCoder.Services;
+using VidCoder.Services.Windows;
+using VidCoder.ViewModel;
 
 namespace VidCoder.Extensions
 {
     public static class WindowExtensions
     {
-        private static WindowManagerService windowManager = Ioc.Container.GetInstance<WindowManagerService>();
+        private static WindowManagerService windowManagerService = Ioc.Get<WindowManagerService>();
+	    private static IWindowManager windowManager = Ioc.Get<IWindowManager>();
 
         public static void RegisterGlobalHotkeys(this Window window)
         {
-            window.InputBindings.Add(new InputBinding(windowManager.OpenEncodingWindowCommand, new KeyGesture(Key.N, ModifierKeys.Control)));
-            window.InputBindings.Add(new InputBinding(windowManager.OpenPreviewWindowCommand, new KeyGesture(Key.P, ModifierKeys.Control)));
-            window.InputBindings.Add(new InputBinding(windowManager.OpenPickerWindowCommand, new KeyGesture(Key.I, ModifierKeys.Control)));
-            window.InputBindings.Add(new InputBinding(windowManager.OpenLogWindowCommand, new KeyGesture(Key.L, ModifierKeys.Control)));
-            window.InputBindings.Add(new InputBinding(windowManager.OpenOptionsCommand, new KeyGesture(Key.F4)));
+			var converter = new KeyConverter();
+			foreach (var definition in WindowManager.Definitions.Where(d => d.InputGestureText != null))
+	        {
+		        if (definition.InputGestureText.Contains("+"))
+		        {
+			        string[] parts = definition.InputGestureText.Split('+');
+			        if (parts.Length == 2)
+			        {
+				        Type windowViewModelType = definition.ViewModelType;
+
+				        var key = (Key)converter.ConvertFrom(parts[1]);
+						window.InputBindings.Add(new InputBinding(
+							new RelayCommand(() =>
+							{
+								windowManager.OpenOrFocusWindow(windowViewModelType);
+							}), 
+							new KeyGesture(key, ModifierKeys.Control)));
+			        }
+			        else
+			        {
+				        throw new ArgumentException("InputGestureText not recognized: " + definition.InputGestureText);
+			        }
+		        }
+	        }
+
+            window.InputBindings.Add(new InputBinding(windowManagerService.OpenOptionsCommand, new KeyGesture(Key.F4)));
         }
 
 		public static void SetPlacementJson(this Window window, string placementJson)

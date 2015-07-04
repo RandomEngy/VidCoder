@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using VidCoder.Model;
 using VidCoder.Properties;
 using VidCoder.Services;
+using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using System.IO.Pipes;
 using System.IO;
@@ -82,7 +83,7 @@ namespace VidCoder
 				Thread.CurrentThread.CurrentUICulture = cultureInfo;
 			}
 
-			var updater = Ioc.Container.GetInstance<IUpdater>();
+			var updater = Ioc.Get<IUpdater>();
 			updater.HandlePendingUpdate();
 
 			try
@@ -97,7 +98,7 @@ namespace VidCoder
 			this.GlobalInitialize();
 
 			var mainVM = new MainViewModel();
-			WindowManager.OpenWindow(mainVM);
+			Ioc.Get<IWindowManager>().OpenWindow(mainVM);
 			mainVM.OnLoaded();
 
 			if (!Utilities.IsPortable && IsPrimaryInstance)

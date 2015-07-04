@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using VidCoder.Services;
+using VidCoder.Services.Windows;
 
 namespace VidCoder.ViewModel
 {
 	public abstract class OkCancelDialogOldViewModel : ViewModelBase, IDialogViewModel
 	{
+		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
+
 		public virtual bool CanClose
 		{
 			get
@@ -21,12 +19,6 @@ namespace VidCoder.ViewModel
 
 		public virtual void OnClosing()
 		{
-			if (this.Closing != null)
-			{
-				this.Closing();
-			}
-
-			WindowManager.ReportClosed(this);
 		}
 
 		public bool DialogResult { get; set; }
@@ -40,8 +32,7 @@ namespace VidCoder.ViewModel
 				return this.cancelCommand ?? (this.cancelCommand = new RelayCommand(() =>
 				{
 					this.DialogResult = false;
-					WindowManager.Close(this);
-					this.OnClosing();
+					this.windowManager.Close(this);
 				}));
 			}
 		}
@@ -54,8 +45,7 @@ namespace VidCoder.ViewModel
 				return this.acceptCommand ?? (this.acceptCommand = new RelayCommand(() =>
 				{
 					this.DialogResult = true;
-					WindowManager.Close(this);
-					this.OnClosing();
+					this.windowManager.Close(this);
 				}, () =>
 				{
 					return this.CanClose;

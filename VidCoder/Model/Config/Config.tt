@@ -24,6 +24,7 @@ foreach (string line in lines)
 	}
 }
 #>
+using System.Collections.Generic;
 using System.Data.SQLite;
 using VidCoder.Model;
 
@@ -32,6 +33,7 @@ namespace VidCoder
 	public static class Config
 	{
 		private static bool initialized;
+		private static Dictionary<string, object> cache;
 
 		public static void EnsureInitialized(SQLiteConnection connection)
 		{
@@ -42,33 +44,50 @@ namespace VidCoder
 			}
 		}
 
+		public static void Refresh(SQLiteConnection connection)
+		{
+			Initialize(connection);
+		}
+
 		private static void Initialize(SQLiteConnection connection)
 		{
+			cache = new Dictionary<string, object>();
 <#
 foreach (var setting in settings)
 {
 #>
-			<#= setting.Name + "_Field" #> = DatabaseConfig.GetConfig("<#= setting.Name #>", <#= setting.Default #>, connection);
+			cache.Add("<#= setting.Name #>", DatabaseConfig.Get("<#= setting.Name #>", <#= setting.Default #>, connection));
 <#
 }   
 #>
 		}
+
+		public static T Get<T>(string key)
+		{
+			return (T)cache[key];
+		}
+
+		public static void Set<T>(string key, T value)
+		{
+			cache[key] = value;
+			DatabaseConfig.Set(key, value);
+		}
+
 <#
 foreach (var setting in settings)
 {
 #>
-		private static <#= setting.ValueType #> <#= setting.Name + "_Field" #>;
 		public static <#= setting.ValueType #> <#= setting.Name #>
 		{
 			get
 			{
-				return <#= setting.Name + "_Field" #>;
+				return (<#= setting.ValueType #>)cache["<#= setting.Name #>"];
 			}
 			
 			set
 			{
-				<#= setting.Name + "_Field" #> = value;
-				DatabaseConfig.SetConfigValue("<#= setting.Name #>", value);
+				cache["<#= setting.Name #>"] = value;
+				DatabaseConfig.Set("<#= setting.Name #>", value);
 			}
 		}
 <#

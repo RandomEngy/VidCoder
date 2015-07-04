@@ -1,9 +1,17 @@
 ﻿using System.Windows;
+using VidCoder.Services.Windows;
 
 namespace VidCoder.Services
 {
 	public class MessageBoxService : IMessageBoxService
 	{
+		private IWindowManager windowManager;
+
+		public MessageBoxService(IWindowManager windowManager)
+		{
+			this.windowManager = windowManager;
+		}
+
 		public MessageBoxResult Show(string messageBoxText)
 		{
 			return MessageBox.Show(messageBoxText);
@@ -11,7 +19,7 @@ namespace VidCoder.Services
 
 		public MessageBoxResult Show(object ownerViewModel, string messageBoxText)
 		{
-			Window ownerWindow = WindowManager.GetView(ownerViewModel);
+			Window ownerWindow = this.windowManager.GetView(ownerViewModel);
 			return MessageBox.Show(ownerWindow, messageBoxText);
 		}
 
@@ -22,7 +30,7 @@ namespace VidCoder.Services
 
 		public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption)
 		{
-			Window ownerWindow = WindowManager.GetView(ownerViewModel);
+			Window ownerWindow = this.windowManager.GetView(ownerViewModel);
 			return MessageBox.Show(ownerWindow, messageBoxText, caption);
 		}
 
@@ -33,7 +41,7 @@ namespace VidCoder.Services
 
 		public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption, MessageBoxButton button)
 		{
-			Window ownerWindow = WindowManager.GetView(ownerViewModel);
+			Window ownerWindow = this.windowManager.GetView(ownerViewModel);
 			return MessageBox.Show(ownerWindow, messageBoxText, caption, button);
 		}
 
@@ -44,7 +52,7 @@ namespace VidCoder.Services
 
 		public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
 		{
-			Window ownerWindow = WindowManager.GetView(ownerViewModel);
+			Window ownerWindow = this.windowManager.GetView(ownerViewModel);
 			return MessageBox.Show(ownerWindow, messageBoxText, caption, button, icon);
 		}
 	}

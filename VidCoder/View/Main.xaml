@@ -1,5 +1,5 @@
 ﻿<Window
-	x:Class="VidCoder.View.MainWindow"
+	x:Class="VidCoder.View.Main"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:VidCoderDragDrop="clr-namespace:VidCoder.DragDropUtils"
@@ -394,8 +394,8 @@
 					Header="{x:Static res:MainRes.OptionsMenuItem}"
 					InputGestureText="F4" />
 			</MenuItem>
-			<MenuItem Header="{x:Static res:MainRes.WindowsMenu}">
-				<MenuItem
+			<MenuItem Header="{x:Static res:MainRes.WindowsMenu}" Name="windowsMenu">
+				<!--<MenuItem
 					Command="{Binding WindowManagerService.OpenEncodingWindowCommand}"
 					Header="{x:Static res:MainRes.EncodingSettingsMenuItem}"
 					InputGestureText="Ctrl+N"
@@ -423,7 +423,7 @@
 					Command="{Binding WindowManagerService.OpenEncodeDetailsWindowCommand}"
 					Header="{x:Static res:MainRes.EncodeDetailsMenuItem}"
 					IsCheckable="True"
-					IsChecked="{Binding WindowManagerService.EncodeDetailsWindowOpen}" />
+					IsChecked="{Binding WindowManagerService.EncodeDetailsWindowOpen}" />-->
 			</MenuItem>
 			<MenuItem Header="{x:Static res:MainRes.HelpMenu}">
 				<MenuItem Command="{Binding OpenHomepageCommand}" Header="{x:Static res:MainRes.VidCoderHomepageMenuItem}">

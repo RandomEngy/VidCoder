@@ -11,6 +11,7 @@ using VidCoder.Model;
 using VidCoder.Services;
 using System.IO;
 using System.Collections.ObjectModel;
+using VidCoder.Services.Windows;
 
 namespace VidCoder.ViewModel
 {
@@ -944,7 +945,7 @@ namespace VidCoder.ViewModel
 							if (Config.InterfaceLanguageCode != this.InterfaceLanguage.CultureCode)
 							{
 								Config.InterfaceLanguageCode = this.InterfaceLanguage.CultureCode;
-								Ioc.Container.GetInstance<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
+								Ioc.Get<IMessageBoxService>().Show(this, OptionsRes.NewLanguageRestartDialogMessage);
 							}
 
 							Config.AutoNameOutputFolder = this.DefaultPath;
@@ -1102,7 +1103,7 @@ namespace VidCoder.ViewModel
 				return this.openAddProcessDialogCommand ?? (this.openAddProcessDialogCommand = new RelayCommand(() =>
 					{
 						var addProcessVM = new AddAutoPauseProcessDialogViewModel();
-						WindowManager.OpenDialog(addProcessVM, this);
+						Ioc.Get<IWindowManager>().OpenDialog(addProcessVM, this);
 
 						if (addProcessVM.DialogResult)
 						{

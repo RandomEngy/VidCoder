@@ -8,26 +8,23 @@ namespace VidCoder.Services
 {
 	public class TaskBarProgressTracker : ReactiveObject
 	{
-		private readonly ProcessingService processingService;
-		private readonly MainViewModel mainViewModel;
-
 		public TaskBarProgressTracker()
 		{
-			this.processingService = Ioc.Container.GetInstance<ProcessingService>();
-			this.mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
+			ProcessingService processingService = Ioc.Get<ProcessingService>();
+			MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 
 			// Set up some observables for properties we care about.
-			var isEncodingObservable = this.processingService
+			var isEncodingObservable = processingService
 				.WhenAnyValue(x => x.EncodeProgress)
 				.Select(encodeProgress => encodeProgress != null && encodeProgress.Encoding);
 
-			var encodeProgressFractionObservable = this.processingService
+			var encodeProgressFractionObservable = processingService
 				.WhenAnyValue(x => x.EncodeProgress)
 				.Select(encodeProgress => encodeProgress == null ? 0 : encodeProgress.OverallProgressFraction);
 
-			var isEncodePausedObservable = this.processingService.WhenAnyValue(x => x.Paused);
-			var isScanningObservable = this.mainViewModel.WhenAnyValue(x => x.ScanningSource);
-			var scanProgressFractionObservable = this.mainViewModel.WhenAnyValue(x => x.ScanProgressFraction);
+			var isEncodePausedObservable = processingService.WhenAnyValue(x => x.Paused);
+			var isScanningObservable = mainViewModel.WhenAnyValue(x => x.ScanningSource);
+			var scanProgressFractionObservable = mainViewModel.WhenAnyValue(x => x.ScanProgressFraction);
 
 			// Set up output properties
 			Observable.CombineLatest(

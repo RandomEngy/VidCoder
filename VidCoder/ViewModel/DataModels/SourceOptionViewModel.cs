@@ -110,7 +110,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.chooseSourceCommand ?? (this.chooseSourceCommand = new RelayCommand(() =>
 					{
-						var mainVM = Ioc.Container.GetInstance<MainViewModel>();
+						var mainVM = Ioc.Get<MainViewModel>();
 
 						switch (this.SourceOption.Type)
 						{

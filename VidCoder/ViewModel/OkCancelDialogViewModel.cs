@@ -1,11 +1,30 @@
 ﻿using System;
-using GalaSoft.MvvmLight.Command;
 using ReactiveUI;
+using VidCoder.Services.Windows;
 
 namespace VidCoder.ViewModel
 {
-	public abstract class OkCancelDialogViewModel : ReactiveObject, IDialogViewModel
+	public abstract class OkCancelDialogViewModel : ReactiveObject, IClosableWindow
 	{
+		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
+
+		protected OkCancelDialogViewModel()
+		{
+			this.CancelCommand = ReactiveCommand.Create();
+			this.CancelCommand.Subscribe(_ =>
+			{
+				this.DialogResult = false;
+				this.windowManager.Close(this);
+			});
+
+			this.AcceptCommand = ReactiveCommand.Create(this.WhenAnyValue(x => x.CanClose));
+			this.AcceptCommand.Subscribe(_ =>
+			{
+				this.DialogResult = true;
+				this.windowManager.Close(this);
+			});
+		}
+
 		public virtual bool CanClose
 		{
 			get
@@ -16,46 +35,11 @@ namespace VidCoder.ViewModel
 
 		public virtual void OnClosing()
 		{
-			if (this.Closing != null)
-			{
-				this.Closing();
-			}
-
-			WindowManager.ReportClosed(this);
 		}
 
 		public bool DialogResult { get; set; }
-		public Action Closing { get; set; }
 
-		private RelayCommand cancelCommand;
-		public RelayCommand CancelCommand
-		{
-			get
-			{
-				return this.cancelCommand ?? (this.cancelCommand = new RelayCommand(() =>
-					{
-						this.DialogResult = false;
-						WindowManager.Close(this);
-						this.OnClosing();
-					}));
-			}
-		}
-
-		private RelayCommand acceptCommand;
-		public RelayCommand AcceptCommand
-		{
-			get
-			{
-				return this.acceptCommand ?? (this.acceptCommand = new RelayCommand(() =>
-					{
-						this.DialogResult = true;
-						WindowManager.Close(this);
-						this.OnClosing();
-					}, () =>
-					{
-						return this.CanClose;
-					}));
-			}
-		}
+		public ReactiveCommand<object> CancelCommand { get; private set; }
+		public ReactiveCommand<object> AcceptCommand { get; private set; }
 	}
 }

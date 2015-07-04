@@ -9,6 +9,7 @@ using GalaSoft.MvvmLight.Messaging;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
+using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using VidCoderCommon.Model;
 
@@ -19,8 +20,9 @@ namespace VidCoder.Services
 	/// </summary>
 	public class PresetsService : ViewModelBase
 	{
-		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
+		private MainViewModel main = Ioc.Get<MainViewModel>();
 		private OutputPathService outputPathService;
+		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
 
 		private PresetViewModel selectedPreset;
 
@@ -96,7 +98,7 @@ namespace VidCoder.Services
 			{
 				if (this.outputPathService == null)
 				{
-					this.outputPathService = Ioc.Container.GetInstance<OutputPathService>();
+					this.outputPathService = Ioc.Get<OutputPathService>();
 				}
 
 				return this.outputPathService;
@@ -410,7 +412,7 @@ namespace VidCoder.Services
 		{
 			this.OutputPathVM.GenerateOutputFileName();
 
-			var encodingWindow = WindowManager.FindWindow<EncodingViewModel>();
+			var encodingWindow = this.windowManager.Find<EncodingViewModel>();
 			if (encodingWindow != null)
 			{
 				encodingWindow.EditingPreset = this.selectedPreset.Preset;

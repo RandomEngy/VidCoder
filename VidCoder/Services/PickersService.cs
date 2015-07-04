@@ -11,6 +11,7 @@ using Omu.ValueInjecter;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
+using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using VidCoder.ViewModel.DataModels;
 
@@ -21,8 +22,9 @@ namespace VidCoder.Services
     /// </summary>
     public class PickersService : ObservableObject
     {
-        private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
-	    private WindowManagerService windowManagerService = Ioc.Container.GetInstance<WindowManagerService>();
+        private MainViewModel main = Ioc.Get<MainViewModel>();
+	    private WindowManagerService windowManagerService = Ioc.Get<WindowManagerService>();
+	    private IWindowManager windowManager = Ioc.Get<IWindowManager>();
 
         private PickerViewModel selectedPicker;
 
@@ -160,7 +162,7 @@ namespace VidCoder.Services
 					new MenuItem
 					{
 						Header = MainRes.EditButton, 
-						Command = this.windowManagerService.OpenPickerWindowCommand,
+						Command = this.windowManager.CreateOpenCommand<PickerWindowViewModel>(),
 						HorizontalContentAlignment = HorizontalAlignment.Left,
 						VerticalContentAlignment = VerticalAlignment.Center,
 					});
@@ -386,7 +388,7 @@ namespace VidCoder.Services
 
         private void NotifySelectedPickerChanged()
         {
-            var pickerWindow = WindowManager.FindWindow<PickerWindowViewModel>();
+	        var pickerWindow = this.windowManager.Find<PickerWindowViewModel>();
             if (pickerWindow != null)
             {
                 pickerWindow.Picker = this.selectedPicker.Picker;

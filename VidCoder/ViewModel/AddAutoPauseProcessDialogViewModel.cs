@@ -21,7 +21,7 @@ namespace VidCoder.ViewModel
 
 		public AddAutoPauseProcessDialogViewModel()
 		{
-			this.processes = Ioc.Container.GetInstance<IProcesses>();
+			this.processes = Ioc.Get<IProcesses>();
 			this.currentProcesses = new ObservableCollection<string>();
 			this.RefreshCurrentProcesses();
 		}

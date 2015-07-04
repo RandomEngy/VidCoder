@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using VidCoder.Services;
+using VidCoder.Services.Windows;
 
 namespace VidCoder
 {
@@ -18,6 +19,7 @@ namespace VidCoder
 			Container.Register<IProcesses, Processes>();
 			Container.Register<IProcessAutoPause, ProcessAutoPause>();
 			Container.Register<ISystemOperations, SystemOperations>();
+			Container.Register<IWindowManager, WindowManager>();
 			Container.Register(() => new TrayService());
 			Container.Register(() => new ClipboardService());
 
@@ -29,5 +31,10 @@ namespace VidCoder
 		}
 
 		public static SimpleIoc Container { get; set; }
+
+		public static T Get<T>()
+		{
+			return Container.GetInstance<T>();
+		}
 	}
 }

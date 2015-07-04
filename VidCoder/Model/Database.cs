@@ -93,7 +93,7 @@ namespace VidCoder.Model
 				Environment.NewLine,
 				messageLine2);
 
-			var messageService = Ioc.Container.GetInstance<IMessageBoxService>();
+			var messageService = Ioc.Get<IMessageBoxService>();
 			messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
 			if (messageService.Show(
 				message,
@@ -275,12 +275,12 @@ namespace VidCoder.Model
 				UpgradeWindowPlacementConfig(key, encoding, serializer);
 			}
 
-			Config.Refresh(connection);
+			Config.EnsureInitialized(connection);
 		}
 
 		private static void UpgradeWindowPlacementConfig(string configKey, Encoding encoding, XmlSerializer serializer)
 		{
-			string oldValue = DatabaseConfig.GetConfig(configKey, string.Empty, connection);
+			string oldValue = DatabaseConfig.Get(configKey, string.Empty, connection);
 			if (!string.IsNullOrEmpty(oldValue))
 			{
 				WINDOWPLACEMENT placement;
@@ -290,7 +290,7 @@ namespace VidCoder.Model
 					placement = (WINDOWPLACEMENT)serializer.Deserialize(memoryStream);
 				}
 
-				DatabaseConfig.SetConfigValue(configKey, JsonConvert.SerializeObject(placement), connection);
+				DatabaseConfig.Set(configKey, JsonConvert.SerializeObject(placement), connection);
 			}
 		}
 
@@ -324,7 +324,7 @@ namespace VidCoder.Model
 
 		private static void HandleCriticalFileError()
 		{
-			var messageService = Ioc.Container.GetInstance<IMessageBoxService>();
+			var messageService = Ioc.Get<IMessageBoxService>();
 
 			messageService.Show(CommonRes.FileFailureErrorMessage, CommonRes.FileFailureErrorTitle, MessageBoxButton.OK);
 			Environment.Exit(1);
@@ -332,7 +332,7 @@ namespace VidCoder.Model
 
 		private static void SetDatabaseVersionToLatest()
 		{
-			DatabaseConfig.SetConfigValue("Version", Utilities.CurrentDatabaseVersion, Database.Connection);
+			DatabaseConfig.Set("Version", Utilities.CurrentDatabaseVersion, Database.Connection);
 		}
 
 		/// <summary>

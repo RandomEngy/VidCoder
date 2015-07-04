@@ -429,7 +429,7 @@ namespace VidCoder
 		{
 			get
 			{
-				return Ioc.Container.GetInstance<IMessageBoxService>();
+				return Ioc.Get<IMessageBoxService>();
 			}
 		}
 
@@ -516,7 +516,7 @@ namespace VidCoder
 			FileAttributes attributes = File.GetAttributes(sourcePath);
 			if ((attributes & FileAttributes.Directory) == FileAttributes.Directory)
 			{
-				var driveService = Ioc.Container.GetInstance<IDriveService>();
+				var driveService = Ioc.Get<IDriveService>();
 				if (driveService.PathIsDrive(sourcePath))
 				{
 					return SourceType.Dvd;
@@ -539,7 +539,7 @@ namespace VidCoder
 				case SourceType.VideoFolder:
 					return GetSourceNameFolder(sourcePath);
 				case SourceType.Dvd:
-					var driveService = Ioc.Container.GetInstance<IDriveService>();
+					var driveService = Ioc.Get<IDriveService>();
 					DriveInformation info = driveService.GetDriveInformationFromPath(sourcePath);
 					if (info != null)
 					{
@@ -621,7 +621,7 @@ namespace VidCoder
 			}
 			catch (UnauthorizedAccessException ex)
 			{
-				Ioc.Container.GetInstance<ILogger>().Log("Could not determine if folder was disc: " + ex);
+				Ioc.Get<ILogger>().Log("Could not determine if folder was disc: " + ex);
 				return false;
 			}
 		}

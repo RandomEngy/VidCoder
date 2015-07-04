@@ -11,7 +11,7 @@ namespace VidCoder.Services
 	{
 		private IFileService fileService;
 		private IMessageBoxService messageBoxService;
-		private ProcessingService processingService = Ioc.Container.GetInstance<ProcessingService>();
+		private ProcessingService processingService = Ioc.Get<ProcessingService>();
 		private ILogger logger;
 
 		public QueueImportExport(IFileService fileService, IMessageBoxService messageBoxService, ILogger logger)

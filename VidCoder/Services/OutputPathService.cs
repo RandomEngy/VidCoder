@@ -13,6 +13,7 @@ using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
+using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
@@ -24,11 +25,11 @@ namespace VidCoder.Services
 	/// </summary>
 	public class OutputPathService : ObservableObject
 	{
-		private MainViewModel main = Ioc.Container.GetInstance<MainViewModel>();
+		private MainViewModel main = Ioc.Get<MainViewModel>();
 		private ProcessingService processingService;
 		private PresetsService presetsService;
 		private PickersService pickersService;
-		private IDriveService driveService = Ioc.Container.GetInstance<IDriveService>();
+		private IDriveService driveService = Ioc.Get<IDriveService>();
 
 		private string outputPath;
 
@@ -52,7 +53,7 @@ namespace VidCoder.Services
 			{
 				if (this.processingService == null)
 				{
-					this.processingService = Ioc.Container.GetInstance<ProcessingService>();
+					this.processingService = Ioc.Get<ProcessingService>();
 				}
 
 				return this.processingService;
@@ -65,7 +66,7 @@ namespace VidCoder.Services
 			{
 				if (this.presetsService == null)
 				{
-					this.presetsService = Ioc.Container.GetInstance<PresetsService>();
+					this.presetsService = Ioc.Get<PresetsService>();
 				}
 
 				return this.presetsService;
@@ -78,7 +79,7 @@ namespace VidCoder.Services
 			{
 				if (this.pickersService == null)
 				{
-					this.pickersService = Ioc.Container.GetInstance<PickersService>();
+					this.pickersService = Ioc.Get<PickersService>();
 				}
 
 				return this.pickersService;
@@ -209,7 +210,7 @@ namespace VidCoder.Services
 			// Continue and prompt user for resolution
 
 			var conflictDialog = new FileConflictDialogViewModel(initialOutputPath, (bool)conflict);
-			WindowManager.OpenDialog(conflictDialog, this.main);
+			Ioc.Get<IWindowManager>().OpenDialog(conflictDialog);
 
 			switch (conflictDialog.FileConflictResolution)
 			{

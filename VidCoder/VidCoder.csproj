@@ -385,7 +385,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MainWindow.xaml">
+    <Page Include="View\Main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -610,6 +610,7 @@
     </Compile>
     <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="Services\EncodeProxy\LocalEncodeProxy.cs" />
+    <Compile Include="Services\Windows\IClosableWindow.cs" />
     <Compile Include="Services\Interfaces\ILogger.cs" />
     <Compile Include="Services\Interfaces\IPresetImportExport.cs" />
     <Compile Include="Services\Interfaces\IProcesses.cs" />
@@ -625,7 +626,10 @@
     <Compile Include="Services\TaskBarProgressTracker.cs" />
     <Compile Include="Services\TrayService.cs" />
     <Compile Include="Model\Config\ConfigDeclaration.cs" />
-    <Compile Include="Services\WindowPlacer.cs" />
+    <Compile Include="Services\Windows\IWindowManager.cs" />
+    <Compile Include="Services\Windows\WindowDefinition.cs" />
+    <Compile Include="Services\Windows\WindowManager.cs" />
+    <Compile Include="Services\Windows\WindowPlacer.cs" />
     <Compile Include="Utilities\AdvancedOptionsParsing.cs" />
     <Compile Include="Utilities\CodecUtilities.cs" />
     <Compile Include="Services\EncodeProxy\RemoteEncodeProxy.cs" />
@@ -732,8 +736,8 @@
     <Compile Include="View\ExceptionDialog.xaml.cs">
       <DependentUpon>ExceptionDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="View\Main.xaml.cs">
+      <DependentUpon>Main.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\AboutDialog.xaml">
@@ -777,14 +781,11 @@
     <Compile Include="Services\DriveService.cs" />
     <Compile Include="Services\Interfaces\IMessageBoxService.cs" />
     <Compile Include="Services\Interfaces\IUpdateService.cs" />
-    <Compile Include="Services\Interfaces\IWindowLauncher.cs" />
     <Compile Include="Services\MessageBoxService.cs" />
     <Compile Include="Services\Interfaces\IDriveService.cs" />
     <Compile Include="Services\Interfaces\IFileService.cs" />
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\Updater.cs" />
-    <Compile Include="Services\WindowLauncher.cs" />
-    <Compile Include="Services\WindowManager.cs" />
     <Compile Include="Utilities\Utilities.cs" />
     <Compile Include="ViewModel\ChapterMarkersDialogViewModel.cs" />
     <Compile Include="ViewModel\CharCode.cs" />

@@ -14,7 +14,7 @@ namespace VidCoder.ViewModel
 	{
 		private SourceSubtitle subtitle;
 
-		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
+		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 
 		public SourceSubtitleViewModel(SubtitleDialogViewModel subtitleDialogViewModel, SourceSubtitle subtitle)
 		{
