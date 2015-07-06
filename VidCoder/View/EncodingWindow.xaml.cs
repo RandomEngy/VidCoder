@@ -55,12 +55,6 @@ namespace VidCoder.View
 			}
 		}
 
-		protected override void OnSourceInitialized(EventArgs e)
-		{
-			base.OnSourceInitialized(e);
-			this.PlaceDynamic(Config.EncodingDialogPlacement);
-		}
-
 		private void SetPanelOpenState(bool panelOpen)
 		{
 			if (panelOpen)
@@ -79,7 +73,6 @@ namespace VidCoder.View
 		{
 			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
 			{
-				Config.EncodingDialogPlacement = this.GetPlacementJson();
 				Config.EncodingDialogLastTab = this.tabControl.SelectedIndex;
 				Config.EncodingListPaneWidth = this.listColumn.ActualWidth;
 

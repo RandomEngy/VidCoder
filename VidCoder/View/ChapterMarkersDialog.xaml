@@ -3,13 +3,20 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:prop="clr-namespace:VidCoder.Properties"
-	xmlns:res="clr-namespace:VidCoder.Resources" 
-	Title="{x:Static res:ChapterMarkersRes.ChapterMarkersDialogTitle}" Height="326" Width="444" WindowStartupLocation="CenterOwner" Closing="Window_Closing"
+	xmlns:res="clr-namespace:VidCoder.Resources"
+	Title="{x:Static res:ChapterMarkersRes.ChapterMarkersDialogTitle}"
+	Width="444"
+	Height="326"
+	Closed="Window_Closed"
 	Style="{StaticResource NormalWindow}"
-	TextOptions.TextFormattingMode="Display" Closed="Window_Closed">
+	TextOptions.TextFormattingMode="Display"
+	WindowStartupLocation="CenterOwner">
 	<Window.Resources>
 		<DataTemplate x:Key="TitleTemplate">
-			<TextBox Width="200" Text="{Binding Title}" GotFocus="TitleBoxGotFocus" />
+			<TextBox
+				Width="200"
+				GotFocus="TitleBoxGotFocus"
+				Text="{Binding Title}" />
 		</DataTemplate>
 		<Style x:Key="ChapterListItem" TargetType="ListViewItem">
 			<Setter Property="Template">
@@ -21,9 +28,13 @@
 								<RowDefinition />
 							</Grid.RowDefinitions>
 
-							<Rectangle Name="UpperHighlight" Visibility="Collapsed" Fill="#75FFFFFF" />
-							<GridViewRowPresenter Grid.RowSpan="2" 
-								VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+							<Rectangle
+								Name="UpperHighlight"
+								Fill="#75FFFFFF"
+								Visibility="Collapsed" />
+							<GridViewRowPresenter
+								Grid.RowSpan="2"
+								VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 						</Grid>
 
@@ -40,43 +51,77 @@
 	</Window.Resources>
 	<Grid>
 		<RadioButton
-			Height="16" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top"
+			Height="16"
+			Margin="12,12,0,0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Top"
+			Content="{x:Static res:ChapterMarkersRes.DefaultChapterNamesRadioButton}"
 			GroupName="UseDefault1"
-			IsChecked="{Binding UseDefaultNames}"
-			Content="{x:Static res:ChapterMarkersRes.DefaultChapterNamesRadioButton}" />
+			IsChecked="{Binding UseDefaultNames}" />
 		<RadioButton
-			Height="16" HorizontalAlignment="Left" Margin="12,34,0,0" VerticalAlignment="Top"
+			Height="16"
+			Margin="12,34,0,0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Top"
+			Content="{x:Static res:ChapterMarkersRes.CustomChapterNamesRadioButton}"
 			GroupName="UseDefault2"
-			IsChecked="{Binding UseDefaultNames, Converter={StaticResource InverseBoolConverter}}"
-			Content="{x:Static res:ChapterMarkersRes.CustomChapterNamesRadioButton}" />
+			IsChecked="{Binding UseDefaultNames,
+		                                 Converter={StaticResource InverseBoolConverter}}" />
 		<Button
-			Height="23" HorizontalAlignment="Right" Margin="0,27,12,0" VerticalAlignment="Top" MinWidth="108" Padding="5,0"
-			Command="{Binding ImportCsvFileCommand}" Content="{x:Static res:ChapterMarkersRes.ImportFromCsvButton}" />
+			Height="23"
+			MinWidth="108"
+			Margin="0,27,12,0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Top"
+			Command="{Binding ImportCsvFileCommand}"
+			Content="{x:Static res:ChapterMarkersRes.ImportFromCsvButton}"
+			Padding="5,0" />
 		<ListView
 			Margin="12,56,12,35"
-			IsEnabled="{Binding UseDefaultNames, Converter={StaticResource InverseBoolConverter}, Mode=OneWay}"
+			IsEnabled="{Binding UseDefaultNames,
+		                              Converter={StaticResource InverseBoolConverter},
+		                              Mode=OneWay}"
+			ItemContainerStyle="{StaticResource ChapterListItem}"
 			ItemsSource="{Binding ChapterNames}"
-			KeyboardNavigation.TabNavigation="Continue"
-			ItemContainerStyle="{StaticResource ChapterListItem}">
+			KeyboardNavigation.TabNavigation="Continue">
 			<ListView.View>
 				<GridView>
 					<GridView.Columns>
-						<GridViewColumn Header="{x:Static res:ChapterMarkersRes.NumberColumn}" Width="54" DisplayMemberBinding="{Binding Number}" />
-						<GridViewColumn Header="{x:Static res:ChapterMarkersRes.StartTimeColumn}" Width="65" DisplayMemberBinding="{Binding StartTime}" />
-						<GridViewColumn Header="{x:Static res:ChapterMarkersRes.TitleColumn}" CellTemplate="{StaticResource TitleTemplate}" />
+						<GridViewColumn
+							Width="54"
+							DisplayMemberBinding="{Binding Number}"
+							Header="{x:Static res:ChapterMarkersRes.NumberColumn}" />
+						<GridViewColumn
+							Width="65"
+							DisplayMemberBinding="{Binding StartTime}"
+							Header="{x:Static res:ChapterMarkersRes.StartTimeColumn}" />
+						<GridViewColumn CellTemplate="{StaticResource TitleTemplate}" Header="{x:Static res:ChapterMarkersRes.TitleColumn}" />
 					</GridView.Columns>
 				</GridView>
 			</ListView.View>
 		</ListView>
 		<StackPanel
-			Orientation="Horizontal"
-			HorizontalAlignment="Right" Margin="0,0,6,6" VerticalAlignment="Bottom">
+			Margin="0,0,6,6"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Bottom"
+			Orientation="Horizontal">
 			<Button
-				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsDefault="True"
-				Command="{Binding AcceptCommand}" Margin="0,0,6,0" Content="{x:Static res:CommonRes.Ok}" />
+				Height="23"
+				MinWidth="75"
+				Margin="0,0,6,0"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom"
+				Command="{Binding AcceptCommand}"
+				Content="{x:Static res:CommonRes.Ok}"
+				IsDefault="True" />
 			<Button
-				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsCancel="True"
-				Command="{Binding CancelCommand}" Content="{x:Static res:CommonRes.Cancel}" />
+				Height="23"
+				MinWidth="75"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom"
+				Command="{Binding CancelCommand}"
+				Content="{x:Static res:CommonRes.Cancel}"
+				IsCancel="True" />
 		</StackPanel>
 	</Grid>
 </Window>

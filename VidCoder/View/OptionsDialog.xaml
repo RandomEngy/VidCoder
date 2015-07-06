@@ -17,7 +17,6 @@
 	MinHeight="300"
 	Background="White"
 	Closed="Window_Closed"
-	Closing="Window_Closing"
 	Style="{StaticResource NormalWindow}"
 	TextOptions.TextFormattingMode="Display"
 	WindowStartupLocation="CenterOwner"

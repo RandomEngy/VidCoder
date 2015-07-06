@@ -73,18 +73,10 @@ namespace VidCoder.View
 			this.logger.Cleared += this.OnCleared;
 		}
 
-		protected override void OnSourceInitialized(EventArgs e)
-		{
-			base.OnSourceInitialized(e);
-			this.PlaceDynamic(Config.LogWindowPlacement);
-		}
-
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			this.logger.EntryLogged -= this.OnEntryLogged;
 			this.logger.Cleared -= this.OnCleared;
-
-			Config.LogWindowPlacement = this.GetPlacementJson();
 		}
 
 		private void OnEntryLogged(object sender, EventArgs<LogEntry> e)

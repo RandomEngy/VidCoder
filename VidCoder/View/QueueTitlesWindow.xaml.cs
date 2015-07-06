@@ -31,12 +31,6 @@ namespace VidCoder.View
 			this.DataContextChanged += this.OnDataContextChanged;
 		}
 
-		protected override void OnSourceInitialized(EventArgs e)
-		{
-			base.OnSourceInitialized(e);
-			this.PlaceDynamic(Config.QueueTitlesDialogPlacement2);
-		}
-
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
 			this.viewModel = this.DataContext as QueueTitlesWindowViewModel;
@@ -74,11 +68,6 @@ namespace VidCoder.View
 			}
 
 			ImageUtilities.UpdatePreviewImageSize(this.previewImage, this.previewImageHolder, widthPixels, heightPixels);
-		}
-
-		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			Config.QueueTitlesDialogPlacement2 = this.GetPlacementJson();
 		}
 
 		private void previewImageHolder_SizeChanged(object sender, SizeChangedEventArgs e)

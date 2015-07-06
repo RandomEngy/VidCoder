@@ -131,16 +131,5 @@ namespace VidCoder.View
 
 			column.Width = double.NaN;
 		}
-
-		protected override void OnSourceInitialized(EventArgs e)
-		{
-			base.OnSourceInitialized(e);
-			this.SetPlacementJson(Config.SubtitlesDialogPlacement);
-		}
-
-		private void Window_Closing(object sender, CancelEventArgs e)
-		{
-			Config.SubtitlesDialogPlacement = this.GetPlacementJson();
-		}
 	}
 }

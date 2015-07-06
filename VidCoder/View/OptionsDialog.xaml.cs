@@ -28,25 +28,9 @@ namespace VidCoder.View
 			InitializeComponent();
 		}
 
-		protected override void OnSourceInitialized(EventArgs e)
-		{
-			base.OnSourceInitialized(e);
-
-			try
-			{
-				this.SetPlacementJson(Config.OptionsDialogPlacement);
-			}
-			catch { }
-		}
-
 		private void Window_Closed(object sender, EventArgs e)
 		{
 			this.DataContext = null;
-		}
-
-		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			Config.OptionsDialogPlacement = this.GetPlacementJson();
 		}
 
 		private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)

@@ -25,22 +25,6 @@ namespace VidCoder.View
 			InitializeComponent();
 		}
 
-		protected override void OnSourceInitialized(EventArgs e)
-		{
-			base.OnSourceInitialized(e);
-
-			try
-			{
-				this.SetPlacementJson(Config.ChapterMarkersDialogPlacement);
-			}
-			catch { }
-		}
-
-		private void Window_Closing(object sender, CancelEventArgs e)
-		{
-			Config.ChapterMarkersDialogPlacement = this.GetPlacementJson();
-		}
-
 		private void TitleBoxGotFocus(object sender, RoutedEventArgs e)
 		{
 			TextBox titleBox = sender as TextBox;

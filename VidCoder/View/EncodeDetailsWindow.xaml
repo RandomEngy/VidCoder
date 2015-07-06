@@ -8,7 +8,6 @@
 	Height="374"
 	MinWidth="200"
 	MinHeight="300"
-	Closing="Window_Closing"
 	ShowInTaskbar="False"
 	Style="{StaticResource NormalWindow}"
 	WindowStyle="ToolWindow">

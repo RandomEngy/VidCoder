@@ -25,17 +25,6 @@ namespace VidCoder.View
 			InitializeComponent();
 		}
 
-		protected override void OnSourceInitialized(EventArgs e)
-		{
-			base.OnSourceInitialized(e);
-			this.SetPlacementJson(Config.AddAutoPauseProcessDialogPlacement);
-		}
-
-		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			Config.AddAutoPauseProcessDialogPlacement = this.GetPlacementJson();
-		}
-
 		private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
 			var viewModel = this.DataContext as AddAutoPauseProcessDialogViewModel;

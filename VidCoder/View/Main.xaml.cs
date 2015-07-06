@@ -475,15 +475,12 @@ namespace VidCoder.View
 			{
 				this.SaveQueueColumns();
 				this.SaveCompletedColumnWidths();
-
-				Config.MainWindowPlacement = this.GetPlacementJson();
 			}
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
-			this.PlaceDynamic(Config.MainWindowPlacement);
 
 			var source = PresentationSource.FromVisual(this) as HwndSource;
 			source.AddHook(WndProc);

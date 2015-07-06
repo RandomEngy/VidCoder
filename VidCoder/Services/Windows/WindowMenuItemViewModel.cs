@@ -20,10 +20,6 @@ namespace VidCoder.Services.Windows
 			else
 			{
 				definition.CanOpen().ToProperty(this, x => x.CanOpen, out this.canOpen);
-				//definition.CanOpen.Subscribe(canOpen =>
-				//{
-				//	Debug.WriteLine(canOpen);
-				//});
 			}
 
 			windowManager.WindowOpened += (o, e) =>

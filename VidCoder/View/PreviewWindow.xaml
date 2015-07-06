@@ -12,7 +12,6 @@
 	MinWidth="405"
 	MinHeight="200"
 	AllowDrop="True"
-	Closing="Window_Closing"
 	PreviewDragOver="Window_PreviewDragOver"
 	PreviewDrop="Window_PreviewDrop"
 	ShowInTaskbar="False"

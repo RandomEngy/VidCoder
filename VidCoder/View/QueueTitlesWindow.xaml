@@ -11,7 +11,6 @@
 	Height="464"
 	MinWidth="295"
 	MinHeight="220"
-	Closing="Window_Closing"
 	ShowInTaskbar="False"
 	Style="{StaticResource NormalWindow}"
 	TextOptions.TextFormattingMode="Display"

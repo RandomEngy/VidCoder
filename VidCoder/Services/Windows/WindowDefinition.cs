@@ -8,6 +8,8 @@ namespace VidCoder.Services.Windows
 
 		public string PlacementConfigKey { get; set; }
 
+		public bool ManualPlacementRestore { get; set; }
+
 		public string IsOpenConfigKey { get; set; }
 
 		public bool InMenu { get; set; }
