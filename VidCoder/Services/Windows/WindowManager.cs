@@ -24,6 +24,12 @@ namespace VidCoder.Services.Windows
 
 		static WindowManager()
 		{
+			//var canOpenObservable = Ioc.Get<ProcessingService>().WhenAnyValue(x => x.Encoding);
+			//canOpenObservable.Subscribe(canOpen =>
+			//{
+			//	Debug.WriteLine(canOpen);
+			//});
+
 			Definitions = new List<WindowDefinition>
 			{
 				new WindowDefinition
@@ -74,12 +80,12 @@ namespace VidCoder.Services.Windows
 
 				new WindowDefinition
 				{
-					ViewModelType = typeof(EncodeDetailsViewModel), 
+					ViewModelType = typeof(EncodeDetailsWindowViewModel), 
 					InMenu = true,
 					PlacementConfigKey = "EncodeDetailsWindowPlacement",
 					IsOpenConfigKey = "EncodeDetailsWindowOpen", 
 					MenuLabel = MainRes.EncodeDetailsMenuItem,
-					CanOpen = Ioc.Get<ProcessingService>().WhenAnyValue(x => x.Encoding)
+					CanOpen = () => Ioc.Get<ProcessingService>().WhenAnyValue(x => x.Encoding)
 				},
 			};
 		}
@@ -118,6 +124,7 @@ namespace VidCoder.Services.Windows
 			}
 
 			Window windowToOpen = this.PrepareWindowForOpen(viewModel, ownerViewModel, userInitiated: true);
+			windowToOpen.RegisterGlobalHotkeys();
 			windowToOpen.Show();
 		}
 
@@ -138,6 +145,16 @@ namespace VidCoder.Services.Windows
 		}
 
 		/// <summary>
+		/// Opens the viewmodel type as a dialog.
+		/// </summary>
+		/// <typeparam name="T">The type of the viewmodel.</typeparam>
+		/// <param name="ownerViewModel">The viewmodel of the owner window.</param>
+		public void OpenDialog<T>(object ownerViewModel = null)
+		{
+			this.OpenDialog(Ioc.Get<T>(), ownerViewModel);
+		}
+
+		/// <summary>
 		/// Opens all tracked windows that are open according to config.
 		/// </summary>
 		/// <remarks>Call at app startup.</remarks>
@@ -150,10 +167,9 @@ namespace VidCoder.Services.Windows
 				bool canOpen = true;
 				if (definition.CanOpen != null)
 				{
-					IDisposable disposable = definition.CanOpen.Subscribe(value =>
+					IDisposable disposable = definition.CanOpen().Subscribe(value =>
 					{
 						canOpen = value;
-						//Debug.WriteLine("The value is " + value);
 					});
 
 					disposable.Dispose();
@@ -243,13 +259,21 @@ namespace VidCoder.Services.Windows
 		/// Creates a command to open a window.
 		/// </summary>
 		/// <param name="viewModelType">The type of window viewmodel to open.</param>
+		/// <param name="openAsDialog">True to open as a dialog, false to open as a window.</param>
 		/// <returns>The command.</returns>
-		public ICommand CreateOpenCommand(Type viewModelType)
+		public ICommand CreateOpenCommand(Type viewModelType, bool openAsDialog = false)
 		{
 			var command = ReactiveCommand.Create();
 			command.Subscribe(_ =>
 			{
-				this.OpenOrFocusWindow(viewModelType);
+				if (openAsDialog)
+				{
+					this.OpenDialog(Ioc.Get(viewModelType));
+				}
+				else
+				{
+					this.OpenOrFocusWindow(viewModelType);
+				}
 			});
 
 			return command;
@@ -436,14 +460,12 @@ namespace VidCoder.Services.Windows
 				{
 					window.Owner.Activate();
 				}
+			}
 
-				// On app shutdown we don't broadcast this event as we don't care about UI
-				// for the Windows menu getting updated.
-				var localWindowClosed = this.WindowClosed;
-				if (localWindowClosed != null)
-				{
-					localWindowClosed(this, new EventArgs<Type>(viewModel.GetType()));
-				}
+			var localWindowClosed = this.WindowClosed;
+			if (localWindowClosed != null)
+			{
+				localWindowClosed(this, new EventArgs<Type>(viewModel.GetType()));
 			}
 		}
 

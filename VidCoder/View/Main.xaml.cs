@@ -120,7 +120,6 @@ namespace VidCoder.View
 
 			this.Loaded += (e, o) =>
 			{
-                this.RegisterGlobalHotkeys();
 				this.RestoredWindowState = this.WindowState;
 			};
 
@@ -437,6 +436,8 @@ namespace VidCoder.View
 					InputGestureText = itemViewModel.Definition.InputGestureText,
 					Command = itemViewModel.Command
 				};
+
+				item.DataContext = itemViewModel;
 
 				item.SetBinding(MenuItem.IsCheckedProperty, MvvmUtilities.GetPropertyName(() => itemViewModel.IsOpen));
 				item.SetBinding(UIElement.IsEnabledProperty, MvvmUtilities.GetPropertyName(() => itemViewModel.CanOpen));

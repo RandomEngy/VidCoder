@@ -1,4 +1,6 @@
-﻿using System.Reactive.Linq;
+﻿using System;
+using System.Diagnostics;
+using System.Reactive.Linq;
 using System.Windows.Input;
 using ReactiveUI;
 
@@ -17,7 +19,11 @@ namespace VidCoder.Services.Windows
 			}
 			else
 			{
-				definition.CanOpen.ToProperty(this, x => x.CanOpen, out this.canOpen);
+				definition.CanOpen().ToProperty(this, x => x.CanOpen, out this.canOpen);
+				//definition.CanOpen.Subscribe(canOpen =>
+				//{
+				//	Debug.WriteLine(canOpen);
+				//});
 			}
 
 			windowManager.WindowOpened += (o, e) =>

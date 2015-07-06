@@ -45,8 +45,6 @@ namespace VidCoder.View
 					{
 						this.RefreshImageSize();
 					});
-
-            this.RegisterGlobalHotkeys();
 		}
 
 		private void PreviewWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)

@@ -32,7 +32,6 @@ namespace VidCoder.ViewModel
 		{
 			this.main = Ioc.Get<MainViewModel>();
 			this.PickersService = Ioc.Get<PickersService>();
-			this.WindowManagerService = Ioc.Get<WindowManagerService>();
 			this.windowManager = Ioc.Get<IWindowManager>();
 
 			this.selectedTitles = new ObservableCollection<TitleSelectionViewModel>();
@@ -99,8 +98,6 @@ namespace VidCoder.ViewModel
 		}
 
 		public PickersService PickersService { get; private set; }
-
-		public WindowManagerService WindowManagerService { get; private set; }
 
 		public ObservableCollection<TitleSelectionViewModel> Titles
 		{

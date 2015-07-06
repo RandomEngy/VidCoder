@@ -71,8 +71,6 @@ namespace VidCoder.View
 			// Subscribe to events
 			this.logger.EntryLogged += this.OnEntryLogged;
 			this.logger.Cleared += this.OnCleared;
-
-            this.RegisterGlobalHotkeys();
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)

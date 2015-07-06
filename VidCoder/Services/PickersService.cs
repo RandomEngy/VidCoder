@@ -23,7 +23,6 @@ namespace VidCoder.Services
     public class PickersService : ObservableObject
     {
         private MainViewModel main = Ioc.Get<MainViewModel>();
-	    private WindowManagerService windowManagerService = Ioc.Get<WindowManagerService>();
 	    private IWindowManager windowManager = Ioc.Get<IWindowManager>();
 
         private PickerViewModel selectedPicker;

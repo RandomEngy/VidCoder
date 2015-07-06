@@ -670,7 +670,7 @@
     <Compile Include="Services\PickersService.cs" />
     <Compile Include="Services\PresetsService.cs" />
     <Compile Include="Services\ProcessingService.cs" />
-    <Compile Include="Services\WindowManagerService.cs" />
+    <Compile Include="Services\WindowXamlHelper.cs" />
     <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\DataModels\AudioTrackViewModel.cs" />
     <Compile Include="ViewModel\DataModels\BitrateChoiceViewModel.cs" />
@@ -679,7 +679,7 @@
     <Compile Include="ViewModel\DataModels\PickerViewModel.cs" />
     <Compile Include="ViewModel\DataModels\RotationViewModel.cs" />
     <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
-    <Compile Include="ViewModel\EncodeDetailsViewModel.cs" />
+    <Compile Include="ViewModel\EncodeDetailsWindowViewModel.cs" />
     <Compile Include="ViewModel\FileConflictDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />
     <Compile Include="ViewModel\OkCancelDialogOldViewModel.cs" />

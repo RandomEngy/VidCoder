@@ -12,7 +12,6 @@ namespace VidCoder.Extensions
 {
     public static class WindowExtensions
     {
-        private static WindowManagerService windowManagerService = Ioc.Get<WindowManagerService>();
 	    private static IWindowManager windowManager = Ioc.Get<IWindowManager>();
 
         public static void RegisterGlobalHotkeys(this Window window)
@@ -42,7 +41,7 @@ namespace VidCoder.Extensions
 		        }
 	        }
 
-            window.InputBindings.Add(new InputBinding(windowManagerService.OpenOptionsCommand, new KeyGesture(Key.F4)));
+            window.InputBindings.Add(new InputBinding(windowManager.CreateOpenCommand(typeof(OptionsDialogViewModel), openAsDialog: true), new KeyGesture(Key.F4)));
         }
 
 		public static void SetPlacementJson(this Window window, string placementJson)

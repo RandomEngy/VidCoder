@@ -27,8 +27,6 @@ namespace VidCoder.View
         {
             this.InitializeComponent();
 			this.listColumn.Width = new GridLength(Config.PickerListPaneWidth);
-
-            this.RegisterGlobalHotkeys();
         }
 
         protected override void OnSourceInitialized(EventArgs e)

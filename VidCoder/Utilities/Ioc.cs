@@ -28,7 +28,6 @@ namespace VidCoder
 			Container.RegisterType<PresetsService>(Singleton);
 			Container.RegisterType<PickersService>(Singleton);
 			Container.RegisterType<ProcessingService>(Singleton);
-			Container.RegisterType<WindowManagerService>(Singleton);
 			Container.RegisterType<EncodingWindowViewModel>(new InjectionFactory(c =>
 			{
 				var preset = c.Resolve<PresetsService>().SelectedPreset.Preset;

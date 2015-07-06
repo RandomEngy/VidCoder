@@ -9,7 +9,6 @@ namespace VidCoder.ViewModel
 	public class LogWindowViewModel : OkCancelDialogViewModel
 	{
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
-		private WindowManagerService windowManagerService = Ioc.Get<WindowManagerService>();
 		private ILogger logger = Ioc.Get<ILogger>();
 
 		private ICommand clearLogCommand;
@@ -20,14 +19,6 @@ namespace VidCoder.ViewModel
 			get
 			{
 				return this.mainViewModel;
-			}
-		}
-
-		public WindowManagerService WindowManagerService
-		{
-			get
-			{
-				return this.windowManagerService;
 			}
 		}
 

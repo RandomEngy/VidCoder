@@ -212,9 +212,7 @@
 						Source="/Icons/play_small.png" />
 				</MenuItem.Icon>
 			</MenuItem>
-			<MenuItem
-				Command="{Binding EditCommand}"
-				Header="{x:Static res:MainRes.Edit}">
+			<MenuItem Command="{Binding EditCommand}" Header="{x:Static res:MainRes.Edit}">
 				<MenuItem.Icon>
 					<Image
 						Width="16"
@@ -390,41 +388,11 @@
 					IsEnabled="{Binding ProcessingService.QueueHasItems}" />
 				<Separator />
 				<MenuItem
-					Command="{Binding WindowManagerService.OpenOptionsCommand}"
+					Command="{Binding OpenOptionsCommand}"
 					Header="{x:Static res:MainRes.OptionsMenuItem}"
 					InputGestureText="F4" />
 			</MenuItem>
-			<MenuItem Header="{x:Static res:MainRes.WindowsMenu}" Name="windowsMenu">
-				<!--<MenuItem
-					Command="{Binding WindowManagerService.OpenEncodingWindowCommand}"
-					Header="{x:Static res:MainRes.EncodingSettingsMenuItem}"
-					InputGestureText="Ctrl+N"
-					IsCheckable="True"
-					IsChecked="{Binding WindowManagerService.EncodingWindowOpen}" />
-				<MenuItem
-					Command="{Binding WindowManagerService.OpenPreviewWindowCommand}"
-					Header="{x:Static res:MainRes.PreviewMenuItem}"
-					InputGestureText="Ctrl+P"
-					IsCheckable="True"
-					IsChecked="{Binding WindowManagerService.PreviewWindowOpen}" />
-				<MenuItem
-					Command="{Binding WindowManagerService.OpenPickerWindowCommand}"
-					Header="{x:Static res:MainRes.PickerMenuItem}"
-					InputGestureText="Ctrl+I"
-					IsCheckable="True"
-					IsChecked="{Binding WindowManagerService.PickerWindowOpen}" />
-				<MenuItem
-					Command="{Binding WindowManagerService.OpenLogWindowCommand}"
-					Header="{x:Static res:MainRes.LogMenuItem}"
-					InputGestureText="Ctrl+L"
-					IsCheckable="True"
-					IsChecked="{Binding WindowManagerService.LogWindowOpen}" />
-				<MenuItem
-					Command="{Binding WindowManagerService.OpenEncodeDetailsWindowCommand}"
-					Header="{x:Static res:MainRes.EncodeDetailsMenuItem}"
-					IsCheckable="True"
-					IsChecked="{Binding WindowManagerService.EncodeDetailsWindowOpen}" />-->
-			</MenuItem>
+			<MenuItem Name="windowsMenu" Header="{x:Static res:MainRes.WindowsMenu}" />
 			<MenuItem Header="{x:Static res:MainRes.HelpMenu}">
 				<MenuItem Command="{Binding OpenHomepageCommand}" Header="{x:Static res:MainRes.VidCoderHomepageMenuItem}">
 					<MenuItem.Icon>
@@ -436,7 +404,7 @@
 				</MenuItem>
 				<MenuItem Command="{Binding ReportBugCommand}" Header="{x:Static res:MainRes.ReportABugMenuItem}" />
 				<Separator />
-				<MenuItem Command="{Binding WindowManagerService.OpenUpdatesCommand}" Header="{x:Static res:MainRes.UpdatesMenuItem}" />
+				<MenuItem Command="{Binding OpenUpdatesCommand}" Header="{x:Static res:MainRes.UpdatesMenuItem}" />
 				<Separator />
 				<MenuItem Command="{Binding OpenAboutDialogCommand}" Header="{x:Static res:MainRes.AboutVidCoderMenuItem}">
 					<MenuItem.Icon>
@@ -565,7 +533,8 @@
 						Height="25"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
-						Command="{Binding WindowManagerService.OpenPickerWindowCommand}"
+						Command="{Binding OpenPickerWindow,
+					                                        Source={StaticResource WindowXamlHelper}}"
 						MenuItemsSource="{Binding PickersService.PickerButtonMenuItems}">
 
 						<TextBlock Margin="4 0" Text="{Binding PickersService.PickerButtonText}" />
@@ -614,8 +583,8 @@
 						Height="22"
 						Margin="6,0,0,0"
 						VerticalAlignment="Center"
-						Minimum="0"
 						Maximum="1"
+						Minimum="0"
 						Value="{Binding ScanProgressFraction}" />
 					<Button
 						Grid.Row="1"
@@ -970,8 +939,8 @@
 											<ComboBox
 												MinWidth="180"
 												Margin="2"
-												ItemsSource="{Binding MainViewModel.InputTracks}"
 												DisplayMemberPath="Display"
+												ItemsSource="{Binding MainViewModel.InputTracks}"
 												SelectedIndex="{Binding SelectedIndex}" />
 											<Button
 												Height="23"
@@ -1237,7 +1206,7 @@
 					Height="30"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
-					Command="{Binding WindowManagerService.OpenEncodingWindowCommand}">
+					Command="{Binding OpenEncodingWindowCommand}">
 					<StackPanel Margin="5,0" Orientation="Horizontal">
 						<Image
 							Width="22"
@@ -1298,11 +1267,13 @@
 					Margin="0,0,5,0"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Bottom"
-					Command="{Binding WindowManagerService.OpenPreviewWindowCommand}"
+					Command="{Binding OpenPreviewWindow,
+				                          Source={StaticResource WindowXamlHelper}}"
 					IsEnabled="{Binding HasVideoSource}"
 					Padding="5,0"
 					Style="{StaticResource GrayOnDisabledControl}"
-					Visibility="{Binding WindowManagerService.PreviewWindowOpen,
+					Visibility="{Binding PreviewWindowOpen,
+				                             Source={StaticResource WindowXamlHelper},
 				                             Converter={StaticResource VisibilityConverter},
 				                             ConverterParameter=True}">
 					<StackPanel Orientation="Horizontal">

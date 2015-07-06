@@ -23,8 +23,6 @@ namespace VidCoder.View
 		public EncodeDetailsWindow()
 		{
 			this.InitializeComponent();
-
-            this.RegisterGlobalHotkeys();
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)

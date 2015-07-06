@@ -5,7 +5,8 @@
 	xmlns:mwt="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
 	xmlns:s="clr-namespace:System;assembly=mscorlib"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
-	xmlns:res="clr-namespace:VidCoder.Resources">
+	xmlns:res="clr-namespace:VidCoder.Resources"
+	xmlns:vidCoder="clr-namespace:VidCoder">
 	<Application.Resources>
 		<converters:VisibilityConverter x:Key="VisibilityConverter" />
 		<converters:EnumBoolConverter x:Key="EnumBoolConverter" />
@@ -17,6 +18,8 @@
 		<converters:DoubleDisplayConverter x:Key="DoubleDisplayConverter" />
 		<converters:TitleDisplayConverter x:Key="TitleDisplayConverter" />
 
+		<vidCoder:WindowXamlHelper x:Key="WindowXamlHelper" />
+		
 		<Color x:Key="DismissableMessageColor">#B5EDFF</Color>
 		<Color x:Key="PresetGlowColor">#1696FF</Color>
 		

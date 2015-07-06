@@ -110,7 +110,8 @@
 				Margin="0 10 0 0"
 				HorizontalAlignment="Left"
 				VerticalAlignment="Center"
-				Command="{Binding WindowManagerService.OpenPickerWindowCommand}"
+				Command="{Binding OpenPickerWindow,
+			                                        Source={StaticResource WindowXamlHelper}}"
 				MenuItemsSource="{Binding PickersService.PickerButtonMenuItems}">
 				<TextBlock Margin="4 0" Text="{Binding PickersService.PickerButtonText}" />
 			</controls:SplitButton>

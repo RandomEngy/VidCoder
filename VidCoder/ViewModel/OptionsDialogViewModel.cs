@@ -1,27 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Collections.ObjectModel;
+using System.Data.SQLite;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Windows.Input;
+using System.Resources;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using VidCoder.Messages;
 using VidCoder.Model;
+using VidCoder.Resources;
 using VidCoder.Services;
-using System.IO;
-using System.Collections.ObjectModel;
 using VidCoder.Services.Windows;
 
 namespace VidCoder.ViewModel
 {
-	using System.ComponentModel;
-	using System.Data.SQLite;
-	using System.Globalization;
-	using System.Resources;
-	using Resources;
-	using Utilities = VidCoder.Utilities;
-
 	public class OptionsDialogViewModel : OkCancelDialogOldViewModel
 	{
 		private double updateProgress;
@@ -200,6 +193,11 @@ namespace VidCoder.ViewModel
 			this.updater.UpdateStateChanged -= this.OnUpdateStateChanged;
 
 			Config.OptionsDialogLastTab = this.SelectedTabIndex;
+
+			if (this.DialogResult)
+			{
+				Messenger.Default.Send(new OutputFolderChangedMessage());
+			}
 
 			base.OnClosing();
 		}

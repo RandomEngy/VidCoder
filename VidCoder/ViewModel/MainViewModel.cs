@@ -37,7 +37,6 @@ namespace VidCoder.ViewModel
 		private PresetsService presetsService;
 		private PickersService pickersService;
 		private ProcessingService processingService;
-		private WindowManagerService windowManagerService;
 		private IWindowManager windowManager;
 		private TaskBarProgressTracker taskBarProgressTracker;
 
@@ -92,7 +91,6 @@ namespace VidCoder.ViewModel
 			this.processingService = Ioc.Get<ProcessingService>();
 			this.presetsService = Ioc.Get<PresetsService>();
 			this.pickersService = Ioc.Get<PickersService>();
-			this.windowManagerService = Ioc.Get<WindowManagerService>();
 			this.windowManager = Ioc.Get<IWindowManager>();
 			this.taskBarProgressTracker = new TaskBarProgressTracker();
 
@@ -409,11 +407,6 @@ namespace VidCoder.ViewModel
 		public ProcessingService ProcessingService
 		{
 			get { return this.processingService; }
-		}
-
-		public WindowManagerService WindowManagerService
-		{
-			get { return this.windowManagerService; }
 		}
 
 		public TaskBarProgressTracker TaskBarProgressTracker
@@ -1747,6 +1740,43 @@ namespace VidCoder.ViewModel
 
 						return this.SelectedTitle.AudioList.Count > 0;
 					}));
+			}
+		}
+
+		private RelayCommand openEncodingWindowCommand;
+		public RelayCommand OpenEncodingWindowCommand
+		{
+			get
+			{
+				return this.openEncodingWindowCommand ?? (this.openEncodingWindowCommand = new RelayCommand(() =>
+				{
+					this.windowManager.OpenOrFocusWindow(typeof(EncodingWindowViewModel));
+				}));
+			}
+		}
+
+		private RelayCommand openOptionsCommand;
+		public RelayCommand OpenOptionsCommand
+		{
+			get
+			{
+				return this.openOptionsCommand ?? (this.openOptionsCommand = new RelayCommand(() =>
+				{
+					this.windowManager.OpenDialog<OptionsDialogViewModel>();
+				}));
+			}
+		}
+
+		private RelayCommand openUpdatesCommand;
+		public RelayCommand OpenUpdatesCommand
+		{
+			get
+			{
+				return this.openUpdatesCommand ?? (this.openUpdatesCommand = new RelayCommand(() =>
+				{
+					Config.OptionsDialogLastTab = 5;
+					this.windowManager.OpenDialog<OptionsDialogViewModel>();
+				}));
 			}
 		}
 

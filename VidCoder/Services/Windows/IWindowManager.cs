@@ -63,8 +63,9 @@ namespace VidCoder.Services.Windows
 		/// Creates a command to open a window.
 		/// </summary>
 		/// <param name="viewModelType">The type of window viewmodel to open.</param>
+		/// <param name="openAsDialog">True to open as a dialog, false to open as a window.</param>
 		/// <returns>The command.</returns>
-		ICommand CreateOpenCommand(Type viewModelType);
+		ICommand CreateOpenCommand(Type viewModelType, bool openAsDialog = false);
 
 		/// <summary>
 		/// Closes the window of the given type.
@@ -103,5 +104,12 @@ namespace VidCoder.Services.Windows
 		/// Fires when a window closes.
 		/// </summary>
 		event EventHandler<EventArgs<Type>> WindowClosed;
+
+		/// <summary>
+		/// Opens the viewmodel type as a dialog.
+		/// </summary>
+		/// <typeparam name="T">The type of the viewmodel.</typeparam>
+		/// <param name="ownerViewModel">The viewmodel of the owner window.</param>
+		void OpenDialog<T>(object ownerViewModel = null);
 	}
 }

@@ -25,7 +25,6 @@ namespace VidCoder.ViewModel
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
 		private PresetsService presetsService = Ioc.Get<PresetsService>();
-		private WindowManagerService windowManagerService = Ioc.Get<WindowManagerService>();
 		private ProcessingService processingService = Ioc.Get<ProcessingService>();
 
 		private VCProfile profile;
@@ -59,11 +58,6 @@ namespace VidCoder.ViewModel
 		public MainViewModel MainViewModel
 		{
 		    get { return this.mainViewModel; }
-		}
-
-		public WindowManagerService WindowManagerService
-		{
-		    get { return this.windowManagerService; }
 		}
 
 		public ProcessingService ProcessingService

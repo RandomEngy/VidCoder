@@ -1,19 +1,12 @@
 ﻿using System.Diagnostics;
+using VidCoder.Messages;
+using VidCoder.Resources;
 
 namespace VidCoder.ViewModel
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Globalization;
-	using System.Linq;
-	using System.Text;
-	using GalaSoft.MvvmLight;
-	using Messages;
-	using Resources;
-
-	public class EncodeDetailsViewModel : OkCancelDialogOldViewModel
+	public class EncodeDetailsWindowViewModel : OkCancelDialogOldViewModel
 	{
-		public EncodeDetailsViewModel()
+		public EncodeDetailsWindowViewModel()
 		{
 			MessengerInstance.Register<ProgressChangedMessage>(this,
 				m =>

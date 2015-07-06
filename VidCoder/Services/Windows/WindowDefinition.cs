@@ -16,6 +16,6 @@ namespace VidCoder.Services.Windows
 
 		public string InputGestureText { get; set; }
 
-		public IObservable<bool> CanOpen { get; set; } 
+		public Func<IObservable<bool>> CanOpen { get; set; } 
 	}
 }

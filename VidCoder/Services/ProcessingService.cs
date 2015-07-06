@@ -1291,7 +1291,7 @@ namespace VidCoder.Services
 			// User had the window open when the encode ended last time, so we re-open when starting the queue again.
 			if (Config.EncodeDetailsWindowOpen)
 			{
-				this.windowManager.OpenOrFocusWindow(typeof(EncodeDetailsViewModel));
+				this.windowManager.OpenOrFocusWindow(typeof(EncodeDetailsWindowViewModel));
 			}
 
 			this.EncodeProgress = new EncodeProgress
@@ -1748,7 +1748,7 @@ namespace VidCoder.Services
 
 				if (this.encodeStopped || this.EncodeQueue.Count == 0)
 				{
-					this.windowManager.Close<EncodeDetailsViewModel>(userInitiated: false);
+					this.windowManager.Close<EncodeDetailsWindowViewModel>(userInitiated: false);
 				}
 
 				string encodeLogPath = encodeLogger.LogPath;

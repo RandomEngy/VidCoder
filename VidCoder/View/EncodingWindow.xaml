@@ -24,18 +24,6 @@
 			Command="{Binding ProcessingService.AddToQueueCommand}"
 			Modifiers="Control" />
 		<KeyBinding
-			Key="L"
-			Command="{Binding WindowManagerService.OpenLogWindowCommand}"
-			Modifiers="Control" />
-		<KeyBinding
-			Key="P"
-			Command="{Binding WindowManagerService.OpenPreviewWindowCommand}"
-			Modifiers="Control" />
-		<KeyBinding
-			Key="I"
-			Command="{Binding WindowManagerService.OpenPickerWindowCommand}"
-			Modifiers="Control" />
-		<KeyBinding
 			Key="O"
 			Command="{Binding ProcessingService.QueueFilesCommand}"
 			Modifiers="Control+Shift" />
@@ -58,7 +46,6 @@
 			Command="{Binding SaveAsCommand}"
 			Modifiers="Control+Shift" />
 		<KeyBinding Key="F2" Command="{Binding RenameCommand}" />
-		<KeyBinding Key="F4" Command="{Binding MainViewModel.OpenOptionsCommand}" />
 	</Window.InputBindings>
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -72,15 +59,15 @@
 
 		<ListBox
 			Grid.Column="0"
+			Margin="0 0 4 0"
 			HorizontalAlignment="Stretch"
 			Background="WhiteSmoke"
 			BorderThickness="0"
-			Margin="0 0 4 0"
 			Canvas.ZIndex="3"
-			Visibility="{Binding PresetPanelOpen,
-					                             Converter={StaticResource VisibilityConverter}}"
 			ItemsSource="{Binding PresetVM.AllPresets}"
-			SelectedItem="{Binding PresetVM.SelectedPreset}">
+			SelectedItem="{Binding PresetVM.SelectedPreset}"
+			Visibility="{Binding PresetPanelOpen,
+		                              Converter={StaticResource VisibilityConverter}}">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<TextBlock
@@ -115,12 +102,12 @@
 			HorizontalAlignment="Right"
 			VerticalAlignment="Stretch"
 			Background="{StaticResource SplitterBrush}"
-			Visibility="{Binding PresetPanelOpen,
-					                             Converter={StaticResource VisibilityConverter}}"
 			Canvas.ZIndex="4"
-			ShowsPreview="True" />
+			ShowsPreview="True"
+			Visibility="{Binding PresetPanelOpen,
+		                                   Converter={StaticResource VisibilityConverter}}" />
 
-		<Grid Grid.Column="1" Name="mainGrid">
+		<Grid Name="mainGrid" Grid.Column="1">
 			<ToolBarPanel
 				Margin="-5,0,-14,0"
 				HorizontalAlignment="Stretch"
@@ -231,10 +218,12 @@
 					<Button
 						Height="24"
 						MinWidth="70"
-						Command="{Binding WindowManagerService.OpenPreviewWindowCommand}"
+						Command="{Binding OpenPreviewWindow,
+					                          Source={StaticResource WindowXamlHelper}}"
 						IsEnabled="{Binding HasSourceData}"
 						Padding="5,0"
-						Visibility="{Binding WindowManagerService.PreviewWindowOpen,
+						Visibility="{Binding PreviewWindowOpen,
+					                             Source={StaticResource WindowXamlHelper},
 					                             Converter={StaticResource VisibilityConverter},
 					                             ConverterParameter=True}">
 						<StackPanel Orientation="Horizontal">
