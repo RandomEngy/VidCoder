@@ -162,6 +162,13 @@ CopyBoth "Microsoft.Practices.ServiceLocation.dll"
 CopyBoth "Hardcodet.Wpf.TaskbarNotification.dll"
 CopyBoth "Newtonsoft.Json.dll"
 CopyBoth "FastMember.dll"
+CopyBoth "Microsoft.Practices.Unity.dll"
+CopyBoth "ReactiveUI.dll"
+CopyBoth "Splat.dll"
+CopyBoth "System.Reactive.Core.dll"
+CopyBoth "System.Reactive.Interfaces.dll"
+CopyBoth "System.Reactive.Linq.dll"
+CopyBoth "System.Reactive.PlatformServices.dll"
 
 # Architecture-specific files from Lib folder
 CopyLibBoth "hb.dll"
