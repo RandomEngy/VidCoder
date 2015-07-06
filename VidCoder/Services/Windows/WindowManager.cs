@@ -336,7 +336,10 @@ namespace VidCoder.Services.Windows
 		public void Close<T>(bool userInitiated) where T : class
 		{
 			object viewModel = this.FindOpenWindowViewModel(typeof (T));
-			this.CloseInternal(viewModel, userInitiated);
+			if (viewModel != null)
+			{
+				this.CloseInternal(viewModel, userInitiated);
+			}
 		}
 
 		/// <summary>
@@ -443,6 +446,11 @@ namespace VidCoder.Services.Windows
 		/// <param name="userInitiated">True if the user specifically asked this window to close.</param>
 		private void CloseInternal(object viewModel, bool userInitiated)
 		{
+			if (!this.openWindows.ContainsKey(viewModel))
+			{
+				return;
+			}
+
 			Window window = this.openWindows[viewModel];
 
 			if (!userInitiated)

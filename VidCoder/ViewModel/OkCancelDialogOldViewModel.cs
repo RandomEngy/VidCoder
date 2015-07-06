@@ -5,7 +5,7 @@ using VidCoder.Services.Windows;
 
 namespace VidCoder.ViewModel
 {
-	public abstract class OkCancelDialogOldViewModel : ViewModelBase, IDialogViewModel
+	public abstract class OkCancelDialogOldViewModel : ViewModelBase, IClosableWindow
 	{
 		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
 
@@ -22,7 +22,6 @@ namespace VidCoder.ViewModel
 		}
 
 		public bool DialogResult { get; set; }
-		public Action Closing { get; set; }
 
 		private RelayCommand cancelCommand;
 		public RelayCommand CancelCommand

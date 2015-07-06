@@ -260,12 +260,12 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		// Should only fire when user manually closes the window, not when closed through WindowManager.
-		public override void OnClosing()
-		{
-			// Setting this config value will prevent the details window from appearing on the next encode.
-			Config.EncodeDetailsWindowOpen = false;
-			base.OnClosing();
-		}
+		//// Should only fire when user manually closes the window, not when closed through WindowManager.
+		//public override void OnClosing()
+		//{
+		//	// Setting this config value will prevent the details window from appearing on the next encode.
+		//	Config.EncodeDetailsWindowOpen = false;
+		//	base.OnClosing();
+		//}
 	}
 }
