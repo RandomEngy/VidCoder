@@ -273,7 +273,7 @@ namespace VidCoder.Services
 			this.main.StartAnimation("PickerGlowHighlight");
 		}
 
-        public void AutoCreatePicker()
+        public Picker AutoCreatePicker()
         {
             Picker newPicker = CreateDefaultPicker();
 
@@ -298,7 +298,9 @@ namespace VidCoder.Services
 
             this.selectedPicker = null;
             this.SelectedPicker = newPickerVM;
-		}
+
+			return newPicker;
+        }
 
 		/// <summary>
 		/// Starts modification of the current picker, using the new passed-in picker.

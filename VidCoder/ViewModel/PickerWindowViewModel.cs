@@ -273,31 +273,11 @@ namespace VidCoder.ViewModel
 			get { return windowTitle.Value; }
 		}
 
-		//private ObservableAsPropertyHelper<bool> isNone; 
-		//public bool IsNone
-		//{
-		//	get { return this.isNone.Value; }
-		//}
-
 		private ObservableAsPropertyHelper<bool> deleteButtonVisible; 
 		public bool DeleteButtonVisible
 		{
 			get { return this.deleteButtonVisible.Value; }
 		}
-
-		//public bool IsModified
-		//{
-		//	get
-		//	{
-		//		return this.picker.IsModified;
-		//	}
-
-		//	set
-		//	{
-		//		this.picker.IsModified = value;
-		//		this.RaisePropertyChanged();
-		//	}
-		//}
 
 		public bool ShowHelpMessage
 		{
@@ -582,12 +562,13 @@ namespace VidCoder.ViewModel
 				throw new ArgumentException("UpdatePresetProperty called on " + propertyName + " without registering.");
 			}
 
+			bool createPicker = false;
 			if (!this.automaticChange)
 			{
-				bool createPicker = this.picker.IsNone;
+				createPicker = this.picker.IsNone;
 				if (createPicker)
 				{
-					this.pickersService.AutoCreatePicker();
+					this.Picker = this.pickersService.AutoCreatePicker();
 				}
 				else if (!this.picker.IsModified)
 				{
@@ -618,7 +599,7 @@ namespace VidCoder.ViewModel
 					this.automaticChange = false;
 				}
 
-				if (!this.picker.IsModified)
+				if (!createPicker && !this.picker.IsModified)
 				{
 					this.pickersService.ModifyPicker(this.picker);
 				}
