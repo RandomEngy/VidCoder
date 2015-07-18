@@ -213,7 +213,6 @@ namespace VidCoder.Services
             if (this.SelectedPicker.Picker.IsModified)
             {
                 this.RevertPicker();
-				//this.SelectedPicker.RefreshView();
             }
 
             this.selectedPicker = null;
@@ -240,26 +239,23 @@ namespace VidCoder.Services
 			this.SavePickersToStorage();
         }
 
-        public Picker RevertPicker()
+        public void RevertPicker()
         {
             Trace.Assert(this.SelectedPicker.OriginalPicker != null, "Error reverting preset: Original profile cannot be null.");
             Trace.Assert(this.SelectedPicker.OriginalPicker != this.SelectedPicker.Picker, "Error reverting preset: Original profile must be different from current profile.");
 
             if (this.SelectedPicker.OriginalPicker == null || this.SelectedPicker.OriginalPicker == this.SelectedPicker.Picker)
             {
-                return null;
+                return;
             }
 
             this.SelectedPicker.Picker = this.SelectedPicker.OriginalPicker;
             this.SelectedPicker.OriginalPicker = null;
             this.SelectedPicker.Picker.IsModified = false;
-			//this.SelectedPicker.RefreshView();
 
 			this.SavePickersToStorage();
 
 			this.main.StartAnimation("PickerGlowHighlight");
-
-	        return this.SelectedPicker.Picker;
         }
 
         public void DeletePicker()
@@ -273,7 +269,7 @@ namespace VidCoder.Services
 			this.main.StartAnimation("PickerGlowHighlight");
 		}
 
-        public Picker AutoCreatePicker()
+        public void AutoCreatePicker()
         {
             Picker newPicker = CreateDefaultPicker();
 
@@ -298,8 +294,6 @@ namespace VidCoder.Services
 
             this.selectedPicker = null;
             this.SelectedPicker = newPickerVM;
-
-			return newPicker;
         }
 
 		/// <summary>
@@ -319,7 +313,6 @@ namespace VidCoder.Services
             this.SelectedPicker.OriginalPicker = this.SelectedPicker.Picker;
             this.SelectedPicker.Picker = newPicker;
             this.SelectedPicker.Picker.IsModified = true;
-			//this.SelectedPicker.RefreshView();
 
 			this.RefreshPickerButton();
 		}
@@ -389,12 +382,6 @@ namespace VidCoder.Services
 
         private void NotifySelectedPickerChanged()
         {
-	        var pickerWindow = this.windowManager.Find<PickerWindowViewModel>();
-            if (pickerWindow != null)
-            {
-                pickerWindow.Picker = this.selectedPicker.Picker;
-            }
-
             this.RaisePropertyChanged(() => this.SelectedPicker);
 			this.RefreshPickerButton();
 

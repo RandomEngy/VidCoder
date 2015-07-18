@@ -72,7 +72,7 @@
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Top"
 				UseLayoutRounding="True"
-				Visibility="{Binding Picker.IsNone,
+				Visibility="{Binding PickersService.SelectedPicker.Picker.IsNone,
 			                                   Converter={StaticResource VisibilityConverter},
 			                                   ConverterParameter=True}">
 				<ToolBar Loaded="ToolBar_Loaded" ToolBarTray.IsLocked="True">
@@ -113,7 +113,7 @@
 						MinWidth="70"
 						Command="{Binding Delete}"
 						Padding="5,0"
-						Visibility="{Binding Picker.IsModified,
+						Visibility="{Binding PickersService.SelectedPicker.Picker.IsModified,
 					                             Converter={StaticResource VisibilityConverter}}">
 						<StackPanel Orientation="Horizontal">
 							<Image

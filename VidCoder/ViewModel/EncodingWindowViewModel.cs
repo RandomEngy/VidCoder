@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Windows;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using Omu.ValueInjecter;
 using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
@@ -583,5 +586,60 @@ namespace VidCoder.ViewModel
 			this.VideoPanelViewModel.UpdateVideoBitrate();
 			this.VideoPanelViewModel.UpdateTargetSize();
 		}
+
+		//private void UpdatePresetProperty<T>(Expression<Func<T>> propertyExpression, T value, bool raisePropertyChanged = true)
+		//{
+		//	string propertyName = MvvmUtilities.GetPropertyName(propertyExpression);
+
+		//	if (!this.pickerProperties.ContainsKey(propertyName))
+		//	{
+		//		throw new ArgumentException("UpdatePresetProperty called on " + propertyName + " without registering.");
+		//	}
+
+		//	bool createPicker = false;
+		//	if (!this.automaticChange)
+		//	{
+		//		createPicker = this.picker.IsNone;
+		//		if (createPicker)
+		//		{
+		//			this.Picker = this.pickersService.AutoCreatePicker();
+		//		}
+		//		else if (!this.picker.IsModified)
+		//		{
+		//			// Clone the preset so we modify a different copy.
+		//			var newPicker = new Picker();
+		//			newPicker.InjectFrom(this.picker);
+		//			this.Picker = newPicker;
+		//		}
+		//	}
+
+		//	// Update the value and raise PropertyChanged
+		//	typeAccessor[this.picker, propertyName] = value;
+
+		//	if (raisePropertyChanged)
+		//	{
+		//		this.RaisePropertyChanged(propertyName);
+		//	}
+
+		//	if (!this.automaticChange)
+		//	{
+		//		// If we have an action registered to update dependent properties, do it
+		//		Action action = this.pickerProperties[propertyName];
+		//		if (action != null)
+		//		{
+		//			// Protect against update loops with a flag
+		//			this.automaticChange = true;
+		//			action();
+		//			this.automaticChange = false;
+		//		}
+
+		//		if (!createPicker && !this.picker.IsModified)
+		//		{
+		//			this.pickersService.ModifyPicker(this.picker);
+		//		}
+
+		//		this.pickersService.SavePickersToStorage();
+		//	}
+		//}
 	}
 }
