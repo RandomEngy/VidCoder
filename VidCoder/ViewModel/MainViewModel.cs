@@ -2173,7 +2173,7 @@ namespace VidCoder.ViewModel
 		{
 			VCJob job = jobVM.Job;
 
-			if (this.PresetsService.SelectedPreset.IsModified)
+			if (this.PresetsService.SelectedPreset.Preset.IsModified)
 			{
 				MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.SaveChangesPresetMessage, MainRes.SaveChangesPresetTitle, MessageBoxButton.YesNoCancel);
 				if (dialogResult == MessageBoxResult.Yes)

@@ -10,15 +10,20 @@ namespace VidCoder.Extensions
 
 		public static string GetDisplayName(this Preset preset)
 		{
-			if (!preset.IsBuiltIn)
+			return GetDisplayName(preset.Name, preset.IsBuiltIn);
+		}
+
+		public static string GetDisplayName(string name, bool isBuiltIn)
+		{
+			if (!isBuiltIn)
 			{
-				return preset.Name;
+				return name;
 			}
 
-			string displayName = manager.GetString("Preset_" + preset.Name);
+			string displayName = manager.GetString("Preset_" + name);
 			if (displayName == null)
 			{
-				return preset.Name;
+				return name;
 			}
 
 			return displayName;

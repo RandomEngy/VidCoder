@@ -36,16 +36,16 @@
 			Command="{Binding OutputPathVM.PickOutputPathCommand}"
 			Modifiers="Control" />
 
-		<KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
+		<KeyBinding Key="Esc" Command="{Binding Cancel}" />
 		<KeyBinding
 			Key="S"
-			Command="{Binding SaveCommand}"
+			Command="{Binding Save}"
 			Modifiers="Control" />
 		<KeyBinding
 			Key="S"
-			Command="{Binding SaveAsCommand}"
+			Command="{Binding SaveAs}"
 			Modifiers="Control+Shift" />
-		<KeyBinding Key="F2" Command="{Binding RenameCommand}" />
+		<KeyBinding Key="F2" Command="{Binding Rename}" />
 	</Window.InputBindings>
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -64,8 +64,8 @@
 			Background="WhiteSmoke"
 			BorderThickness="0"
 			Canvas.ZIndex="3"
-			ItemsSource="{Binding PresetVM.AllPresets}"
-			SelectedItem="{Binding PresetVM.SelectedPreset}"
+			ItemsSource="{Binding PresetsService.AllPresets}"
+			SelectedItem="{Binding PresetsService.SelectedPreset}"
 			Visibility="{Binding PresetPanelOpen,
 		                              Converter={StaticResource VisibilityConverter}}">
 			<ListBox.ItemTemplate>
@@ -77,11 +77,11 @@
 						<TextBlock.Style>
 							<Style TargetType="TextBlock">
 								<Style.Triggers>
-									<DataTrigger Binding="{Binding IsBuiltIn}" Value="False">
+									<DataTrigger Binding="{Binding Preset.IsBuiltIn}" Value="False">
 										<Setter Property="Foreground" Value="#0B4BC2" />
 										<Setter Property="FontWeight" Value="SemiBold" />
 									</DataTrigger>
-									<DataTrigger Binding="{Binding IsQueue}" Value="True">
+									<DataTrigger Binding="{Binding Preset.IsQueue}" Value="True">
 										<Setter Property="Foreground" Value="#222222" />
 										<Setter Property="FontWeight" Value="Normal" />
 									</DataTrigger>
@@ -123,7 +123,7 @@
 					<Button
 						Height="24"
 						Margin="4 0 0 0"
-						Command="{Binding TogglePresetPanelCommand}"
+						Command="{Binding TogglePresetPanel}"
 						Padding="5 0"
 						ToolTip="{x:Static res:EncodingRes.ClosePresetsListToolTip}"
 						Visibility="{Binding PresetPanelOpen,
@@ -133,7 +133,7 @@
 					<Button
 						Height="24"
 						Margin="4 0 0 0"
-						Command="{Binding TogglePresetPanelCommand}"
+						Command="{Binding TogglePresetPanel}"
 						Padding="5 0"
 						ToolTip="{x:Static res:EncodingRes.OpenPresetsListToolTip}"
 						Visibility="{Binding PresetPanelOpen,
@@ -145,7 +145,7 @@
 						Height="24"
 						MinWidth="70"
 						Margin="4 0 0 0"
-						Command="{Binding SaveCommand}"
+						Command="{Binding Save}"
 						Padding="5 0"
 						Visibility="{Binding SaveRenameButtonsVisible,
 					                             Converter={StaticResource VisibilityConverter}}">
@@ -160,13 +160,13 @@
 					<Button
 						Height="24"
 						MinWidth="70"
-						Command="{Binding SaveAsCommand}"
+						Command="{Binding SaveAs}"
 						Content="{x:Static res:EncodingRes.SaveAs}"
 						Padding="5,0" />
 					<Button
 						Height="24"
 						MinWidth="70"
-						Command="{Binding RenameCommand}"
+						Command="{Binding Rename}"
 						Content="{x:Static res:EncodingRes.Rename}"
 						Padding="5,0"
 						Visibility="{Binding SaveRenameButtonsVisible,
@@ -174,9 +174,9 @@
 					<Button
 						Height="24"
 						MinWidth="70"
-						Command="{Binding DeletePresetCommand}"
+						Command="{Binding DeletePreset}"
 						Padding="5,0"
-						Visibility="{Binding IsModified,
+						Visibility="{Binding PresetsService.SelectedPreset.Preset.IsModified,
 					                             Converter={StaticResource VisibilityConverter}}">
 						<StackPanel Orientation="Horizontal">
 							<Image
@@ -189,7 +189,7 @@
 					<Button
 						Height="24"
 						MinWidth="70"
-						Command="{Binding DeletePresetCommand}"
+						Command="{Binding DeletePreset}"
 						Padding="5,0"
 						Visibility="{Binding DeleteButtonVisible,
 					                             Converter={StaticResource VisibilityConverter}}">

@@ -54,8 +54,6 @@ namespace VidCoder.ViewModel
 				x => x.SelectedPicker.Picker.IsModified, 
 				(displayName, isModified) =>
 					{
-
-
 						string windowTitle2 = string.Format(PickerRes.WindowTitle, displayName);
 						if (isModified)
 						{
@@ -92,7 +90,7 @@ namespace VidCoder.ViewModel
 				{
 					if (useEncodingPreset)
 					{
-						PresetViewModel preset = this.presetsService.AllPresets.FirstOrDefault(p => p.PresetName == this.Picker.EncodingPreset);
+						PresetViewModel preset = this.presetsService.AllPresets.FirstOrDefault(p => p.Preset.Name == this.Picker.EncodingPreset);
 						if (preset == null)
 						{
 							preset = this.presetsService.AllPresets.First();
@@ -123,7 +121,7 @@ namespace VidCoder.ViewModel
 			this.WhenAnyValue(x => x.SelectedPreset)
 				.Subscribe(selectedPreset =>
 				{
-					string presetName = selectedPreset == null ? null : selectedPreset.PresetName;
+					string presetName = selectedPreset == null ? null : selectedPreset.Preset.Name;
 					this.UpdatePickerProperty(() => this.Picker.EncodingPreset, presetName, raisePropertyChanged: false);
 				});
 
@@ -557,7 +555,7 @@ namespace VidCoder.ViewModel
 
 			if (!this.pickerProperties.ContainsKey(propertyName))
 			{
-				throw new ArgumentException("UpdatePresetProperty called on " + propertyName + " without registering.");
+				throw new ArgumentException("UpdatePickerProperty called on " + propertyName + " without registering.");
 			}
 
 			if (!this.automaticChange)
@@ -590,8 +588,6 @@ namespace VidCoder.ViewModel
 
 			if (!this.automaticChange)
 			{
-
-
 				// If we have an action registered to update dependent properties, do it
 				Action action = this.pickerProperties[propertyName];
 				if (action != null)

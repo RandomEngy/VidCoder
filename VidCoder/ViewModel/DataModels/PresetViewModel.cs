@@ -1,17 +1,35 @@
-﻿using GalaSoft.MvvmLight;
+﻿using ReactiveUI;
 using VidCoder.Extensions;
-using VidCoder.Model;
 using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	public class PresetViewModel : ViewModelBase
+	public class PresetViewModel : ReactiveObject
 	{
 		private Preset preset;
 
 		public PresetViewModel(Preset preset)
 		{
 			this.preset = preset;
+
+			this.preset.WhenAnyValue(
+				x => x.Name,
+				x => x.IsBuiltIn,
+				(name, isBuiltIn) =>
+				{
+					return PresetExtensions.GetDisplayName(name, isBuiltIn);
+				})
+				.ToProperty(this, x => x.DisplayName, out this.displayName);
+
+			this.WhenAnyValue(
+				x => x.DisplayName,
+				x => x.Preset.IsModified,
+				(displayNameParameter, isModified) =>
+				{
+					string suffix = isModified ? " *" : string.Empty;
+					return displayNameParameter + suffix;
+				})
+				.ToProperty(this, x => x.DisplayNameWithStar, out this.displayNameWithStar);
 		}
 
 		public Preset Preset
@@ -24,62 +42,16 @@ namespace VidCoder.ViewModel
 
 		public VCProfile OriginalProfile { get; set; }
 
-		public bool IsModified
-		{
-			get
-			{
-				return this.preset.IsModified;
-			}
-		}
-
-		public bool IsQueue
-		{
-			get
-			{
-				return this.preset.IsQueue;
-			}
-		}
-
-		public string PresetName
-		{
-			get
-			{
-				return this.preset.Name;
-			}
-		}
-
+		private ObservableAsPropertyHelper<string> displayName;
 		public string DisplayName
 		{
-			get
-			{
-				return this.preset.GetDisplayName();
-			}
+			get { return this.displayName.Value; }
 		}
 
+		private ObservableAsPropertyHelper<string> displayNameWithStar;
 		public string DisplayNameWithStar
 		{
-			get
-			{
-				string suffix = this.IsModified ? " *" : string.Empty;
-				return this.preset.GetDisplayName() + suffix;
-			}
-		}
-
-		public bool IsBuiltIn
-		{
-			get
-			{
-				return this.preset.IsBuiltIn;
-			}
-		}
-
-		public void RefreshView()
-		{
-			this.RaisePropertyChanged(() => this.IsModified);
-			this.RaisePropertyChanged(() => this.PresetName);
-			this.RaisePropertyChanged(() => this.DisplayName);
-			this.RaisePropertyChanged(() => this.DisplayNameWithStar);
-			this.RaisePropertyChanged(() => this.IsBuiltIn);
+			get { return this.displayNameWithStar.Value; }
 		}
 	}
 }

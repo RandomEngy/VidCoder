@@ -4,12 +4,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
+using FastMember;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using Omu.ValueInjecter;
+using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
@@ -20,30 +22,113 @@ using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	public class EncodingWindowViewModel : OkCancelDialogOldViewModel
+	public class EncodingWindowViewModel : OkCancelDialogViewModel
 	{
 		public const int VideoTabIndex = 2;
 		public const int AdvancedVideoTabIndex = 3;
+
+		private static TypeAccessor typeAccessor = TypeAccessor.Create(typeof(VCProfile));
 
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
 		private PresetsService presetsService = Ioc.Get<PresetsService>();
 		private ProcessingService processingService = Ioc.Get<ProcessingService>();
 
-		private VCProfile profile;
+		private Dictionary<string, Action> profileProperties;
+
+		//private VCProfile profile;
 
 		private List<ComboChoice> containerChoices;
 
-		private Preset originalPreset;
-		private bool isBuiltIn;
+		//private Preset originalPreset;
+		//private bool isBuiltIn;
 
-		public EncodingWindowViewModel(Preset preset)
+		public EncodingWindowViewModel()
 		{
+			this.AutomaticChange = true;
+
+			this.RegisterProfileProperties();
+
 			this.containerChoices = new List<ComboChoice>();
 			foreach (HBContainer hbContainer in HandBrakeEncoderHelpers.Containers)
 			{
 				this.containerChoices.Add(new ComboChoice(hbContainer.ShortName, hbContainer.DisplayName));
 			}
+
+			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
+				.Subscribe(x =>
+				{
+					bool automaticChangePreviousValue = this.AutomaticChange;
+					this.AutomaticChange = true;
+					this.RaiseAllChanged();
+					this.AutomaticChange = automaticChangePreviousValue;
+				});
+
+			this.WhenAnyValue(
+				x => x.ContainerName,
+				containerName =>
+				{
+					HBContainer container = HandBrakeEncoderHelpers.GetContainer(containerName);
+					return container.DefaultExtension == "mp4";
+				})
+				.ToProperty(this, x => x.ShowMp4Choices, out this.showMp4Choices);
+
+			this.WhenAnyValue(
+				x => x.ContainerName,
+				containerName =>
+				{
+					return containerName == "mp4v2";
+				})
+				.ToProperty(this, x => x.ShowOldMp4Choices, out this.showOldMp4Choices);
+
+			this.presetsService.WhenAnyValue(x => x.SelectedPreset.DisplayNameWithStar)
+				.ToProperty(this, x => x.WindowTitle, out this.windowTitle);
+
+			this.presetsService.WhenAnyValue(
+				x => x.SelectedPreset.Preset.IsBuiltIn,
+				x => x.SelectedPreset.Preset.IsQueue,
+				(isBuiltIn, isQueue) =>
+				{
+					return !isBuiltIn && !isQueue;
+				})
+				.ToProperty(this, x => x.SaveRenameButtonsVisible, out this.saveRenameButtonsVisible);
+
+			this.presetsService.WhenAnyValue(
+				x => x.SelectedPreset.Preset.IsBuiltIn,
+				x => x.SelectedPreset.Preset.IsModified,
+				x => x.SelectedPreset.Preset.IsQueue,
+				(isBuiltIn, isModified, isQueue) =>
+				{
+					return !isBuiltIn && !isModified && !isQueue;
+				})
+				.ToProperty(this, x => x.DeleteButtonVisible, out this.deleteButtonVisible);
+
+			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.IsBuiltIn)
+				.ToProperty(this, x => x.IsBuiltIn, out this.isBuiltIn);
+
+			this.mainViewModel.WhenAnyValue(x => x.HasVideoSource)
+				.ToProperty(this, x => x.HasSourceData, out this.hasSourceData);
+
+			this.TogglePresetPanel = ReactiveCommand.Create();
+			this.TogglePresetPanel.Subscribe(_ => this.TogglePresetPanelImpl());
+
+			this.Save = ReactiveCommand.Create(this.WhenAnyValue(x => x.IsBuiltIn, isBuiltIn => !isBuiltIn));
+			this.Save.Subscribe(_ => this.SaveImpl());
+
+			this.SaveAs = ReactiveCommand.Create();
+			this.SaveAs.Subscribe(_ => this.SaveAsImpl());
+
+			this.Rename = ReactiveCommand.Create(this.WhenAnyValue(x => x.IsBuiltIn, isBuiltIn => !isBuiltIn));
+			this.Rename.Subscribe(_ => this.RenameImpl());
+
+			this.DeletePreset = ReactiveCommand.Create(this.presetsService.WhenAnyValue(
+				x => x.SelectedPreset.Preset.IsBuiltIn,
+				x => x.SelectedPreset.Preset.IsModified,
+				(isBuiltIn, isModified) =>
+				{
+					return !isBuiltIn || isModified;
+				}));
+			this.DeletePreset.Subscribe(_ => this.DeletePresetImpl());
 
 			this.PicturePanelViewModel = new PicturePanelViewModel(this);
 			this.VideoFiltersPanelViewModel = new VideoFiltersPanelViewModel(this);
@@ -52,10 +137,46 @@ namespace VidCoder.ViewModel
 			this.AdvancedPanelViewModel = new AdvancedPanelViewModel(this);
 
 			this.presetPanelOpen = Config.EncodingListPaneOpen;
-			this.EditingPreset = preset;
-			this.mainViewModel.PropertyChanged += this.OnMainPropertyChanged;
+			//this.EditingPreset = preset;
+			//this.mainViewModel.PropertyChanged += this.OnMainPropertyChanged;
 
 			this.selectedTabIndex = Config.EncodingDialogLastTab;
+
+			this.AutomaticChange = false;
+		}
+
+		private void RegisterProfileProperties()
+		{
+			this.profileProperties = new Dictionary<string, Action>();
+
+			// These actions fire when the user changes a property.
+
+			this.RegisterProfileProperty(() => this.Profile.ContainerName, () =>
+			{
+				this.outputPathService.GenerateOutputFileName();
+
+				Messenger.Default.Send(new ContainerChangedMessage(this.ContainerName));
+			});
+
+			this.RegisterProfileProperty(() => this.Profile.PreferredExtension, () =>
+			{
+				this.outputPathService.GenerateOutputFileName();
+			});
+
+			this.RegisterProfileProperty(() => this.Profile.LargeFile);
+			this.RegisterProfileProperty(() => this.Profile.Optimize);
+			this.RegisterProfileProperty(() => this.Profile.IPod5GSupport);
+
+			this.RegisterProfileProperty(() => this.IncludeChapterMarkers, () =>
+			{
+				this.mainViewModel.RefreshChapterMarkerUI();
+			});
+		}
+
+		private void RegisterProfileProperty<T>(Expression<Func<T>> propertyExpression, Action action = null)
+		{
+			string propertyName = MvvmUtilities.GetPropertyName(propertyExpression);
+			this.profileProperties.Add(propertyName, action);
 		}
 
 		public MainViewModel MainViewModel
@@ -73,7 +194,7 @@ namespace VidCoder.ViewModel
 		    get { return this.outputPathService; }
 		}
 
-		public PresetsService PresetVM
+		public PresetsService PresetsService
 		{
 			get { return this.presetsService; }
 		}
@@ -84,66 +205,68 @@ namespace VidCoder.ViewModel
 		public AudioPanelViewModel AudioPanelViewModel { get; set; }
 		public AdvancedPanelViewModel AdvancedPanelViewModel { get; set; }
 
-		public Preset EditingPreset
+		//public Preset EditingPreset
+		//{
+		//	get
+		//	{
+		//		return this.originalPreset;
+		//	}
+
+		//	set
+		//	{
+		//		if (value.IsModified || value.IsQueue)
+		//		{
+		//			// If already modified or this is the scrap queue preset, use existing profile.
+		//			this.profile = value.EncodingProfile;
+		//		}
+		//		else
+		//		{
+		//			// If not modified regular preset, clone the profile
+		//			this.profile = value.EncodingProfile.Clone();
+		//		}
+
+		//		this.originalPreset = value;
+
+		//		this.IsBuiltIn = value.IsBuiltIn;
+
+		//		if (!value.EncodingProfile.UseAdvancedTab && this.SelectedTabIndex == AdvancedVideoTabIndex)
+		//		{
+		//			this.SelectedTabIndex = VideoTabIndex;
+		//		}
+
+		//		this.VideoPanelViewModel.NotifyProfileChanged();
+		//		this.AudioPanelViewModel.NotifyProfileChanged();
+
+		//		this.PicturePanelViewModel.RefreshOutputSize();
+
+		//		this.AdvancedPanelViewModel.UpdateUIFromAdvancedOptions();
+
+		//		this.NotifyAllChanged();
+		//	}
+		//}
+
+		public Preset Preset
 		{
-			get
-			{
-				return this.originalPreset;
-			}
-
-			set
-			{
-				if (value.IsModified || value.IsQueue)
-				{
-					// If already modified or this is the scrap queue preset, use existing profile.
-					this.profile = value.EncodingProfile;
-				}
-				else
-				{
-					// If not modified regular preset, clone the profile
-					this.profile = value.EncodingProfile.Clone();
-				}
-
-				this.originalPreset = value;
-
-				this.IsBuiltIn = value.IsBuiltIn;
-
-				if (!value.EncodingProfile.UseAdvancedTab && this.SelectedTabIndex == AdvancedVideoTabIndex)
-				{
-					this.SelectedTabIndex = VideoTabIndex;
-				}
-
-				this.VideoPanelViewModel.NotifyProfileChanged();
-				this.AudioPanelViewModel.NotifyProfileChanged();
-
-				this.PicturePanelViewModel.RefreshOutputSize();
-
-				this.AdvancedPanelViewModel.UpdateUIFromAdvancedOptions();
-
-				this.NotifyAllChanged();
-			}
+			get { return this.presetsService.SelectedPreset.Preset; }
 		}
 
-		public VCProfile EncodingProfile
+		//public VCProfile EncodingProfile
+		//{
+		//	get
+		//	{
+		//		return this.profile;
+		//	}
+		//}
+
+		public VCProfile Profile
 		{
-			get
-			{
-				return this.profile;
-			}
+			get { return this.presetsService.SelectedPreset.Preset.EncodingProfile; }
 		}
 
+		private ObservableAsPropertyHelper<string> windowTitle;
 		public string WindowTitle
 		{
-			get
-			{
-				string windowTitle = string.Format(EncodingRes.EncodingWindowTitle, this.ProfileName);
-				if (this.IsModified)
-				{
-					windowTitle += " *";
-				}
-
-				return windowTitle;
-			}
+			get { return this.windowTitle.Value; }
 		}
 
 		public SourceTitle SelectedTitle
@@ -157,143 +280,96 @@ namespace VidCoder.ViewModel
 		private int selectedTabIndex;
 		public int SelectedTabIndex
 		{
-			get
-			{
-				return this.selectedTabIndex;
-			}
-
-			set
-			{
-				this.selectedTabIndex = value;
-				this.RaisePropertyChanged(() => this.SelectedTabIndex);
-			}
+			get { return this.selectedTabIndex; }
+			set { this.RaiseAndSetIfChanged(ref this.selectedTabIndex, value); }
 		}
 
-		public string ProfileName
-		{
-			get
-			{
-				return this.originalPreset.GetDisplayName();
-			}
-		}
-
+		private ObservableAsPropertyHelper<bool> saveRenameButtonsVisible;
 		public bool SaveRenameButtonsVisible
 		{
-			get
-			{
-				return !this.IsBuiltIn && !this.originalPreset.IsQueue;
-			}
+			get { return this.saveRenameButtonsVisible.Value; }
 		}
+
+		private ObservableAsPropertyHelper<bool> deleteButtonVisible;
+		public bool DeleteButtonVisible
+		{
+			get { return this.deleteButtonVisible.Value; }
+		}
+
+		private ObservableAsPropertyHelper<bool> isBuiltIn;
 
 		public bool IsBuiltIn
 		{
-			get
-			{
-				return this.isBuiltIn;
-			}
-
-			set
-			{
-				this.isBuiltIn = value;
-				this.SaveCommand.RaiseCanExecuteChanged();
-				this.RenameCommand.RaiseCanExecuteChanged();
-				this.DeletePresetCommand.RaiseCanExecuteChanged();
-				this.RaisePropertyChanged(() => this.IsBuiltIn);
-				this.RaisePropertyChanged(() => this.DeleteButtonVisible);
-			}
+			get { return this.isBuiltIn.Value; }
 		}
 
 		private bool presetPanelOpen;
 		public bool PresetPanelOpen
 		{
-			get
-			{
-				return this.presetPanelOpen;
-			}
-
-			set
-			{
-				this.presetPanelOpen = value;
-				this.RaisePropertyChanged(() => this.PresetPanelOpen);
-			}
-		}
-
-		public bool DeleteButtonVisible
-		{
-			get
-			{
-				return !this.IsBuiltIn && !this.IsModified && !this.originalPreset.IsQueue;
-			}
+			get { return this.presetPanelOpen; }
+			set { this.RaiseAndSetIfChanged(ref this.presetPanelOpen, value); }
 		}
 
 		public bool AutomaticChange { get; set; }
 
-		public bool IsModified
-		{
-			get
-			{
-				return this.originalPreset.IsModified;
-			}
+		//public bool IsModified
+		//{
+		//	get
+		//	{
+		//		return this.originalPreset.IsModified;
+		//	}
 
-			set
-			{
-				if (!this.AutomaticChange)
-				{
-					Messenger.Default.Send(new EncodingProfileChangedMessage());
-				}
+		//	set
+		//	{
+		//		if (!this.AutomaticChange)
+		//		{
+		//			Messenger.Default.Send(new EncodingProfileChangedMessage());
+		//		}
 
-				// Don't mark as modified if this is an automatic change or if it's a temporary queue preset.
-				if (!this.AutomaticChange && !this.originalPreset.IsQueue)
-				{
-					if (this.originalPreset.IsModified != value)
-					{
-						if (value)
-						{
-							this.presetsService.ModifyPreset(this.profile);
-						}
-					}
+		//		// Don't mark as modified if this is an automatic change or if it's a temporary queue preset.
+		//		if (!this.AutomaticChange && !this.originalPreset.IsQueue)
+		//		{
+		//			if (this.originalPreset.IsModified != value)
+		//			{
+		//				if (value)
+		//				{
+		//					this.presetsService.ModifyPreset(this.profile);
+		//				}
+		//			}
 
-					this.DeletePresetCommand.RaiseCanExecuteChanged();
-					this.RaisePropertyChanged(() => this.IsModified);
-					this.RaisePropertyChanged(() => this.WindowTitle);
-					this.RaisePropertyChanged(() => this.DeleteButtonVisible);
+		//			this.DeletePresetCommand.RaiseCanExecuteChanged();
+		//			this.RaisePropertyChanged(() => this.IsModified);
+		//			this.RaisePropertyChanged(() => this.WindowTitle);
+		//			this.RaisePropertyChanged(() => this.DeleteButtonVisible);
 
-					// If we've made a modification, we need to save the user presets. The temporary queue preset will
-					// not be persisted so we don't need to save user presets when it changes.
-					if (value)
-					{
-						this.presetsService.SaveUserPresets();
-					}
-				}
-			}
-		}
+		//			// If we've made a modification, we need to save the user presets. The temporary queue preset will
+		//			// not be persisted so we don't need to save user presets when it changes.
+		//			if (value)
+		//			{
+		//				this.presetsService.SaveUserPresets();
+		//			}
+		//		}
+		//	}
+		//}
 
+		private ObservableAsPropertyHelper<bool> hasSourceData;
 		public bool HasSourceData
 		{
-			get
-			{
-				return this.mainViewModel.HasVideoSource;
-			}
+			get { return this.hasSourceData.Value; }
 		}
+
+		//public bool HasSourceData
+		//{
+		//	get
+		//	{
+		//		return this.mainViewModel.HasVideoSource;
+		//	}
+		//}
 
 		public string ContainerName
 		{
-			get
-			{
-				return this.profile.ContainerName;
-			}
-
-			set
-			{
-				this.profile.ContainerName = value;
-				this.RaisePropertyChanged(() => this.ContainerName);
-				this.RaisePropertyChanged(() => this.ShowMp4Choices);
-				this.RaisePropertyChanged(() => this.ShowOldMp4Choices);
-				this.IsModified = true;
-				this.outputPathService.GenerateOutputFileName();
-
-				Messenger.Default.Send(new ContainerChangedMessage(value));
-			}
+			get { return this.Profile.ContainerName; }
+			set { this.UpdateProfileProperty(() => this.Profile.ContainerName, value); }
 		}
 
 		public List<ComboChoice> ContainerChoices
@@ -306,268 +382,162 @@ namespace VidCoder.ViewModel
 
 		public VCOutputExtension PreferredExtension
 		{
-			get
-			{
-				return this.profile.PreferredExtension;
-			}
-
-			set
-			{
-				this.profile.PreferredExtension = value;
-				this.RaisePropertyChanged(() => this.PreferredExtension);
-				this.IsModified = true;
-				this.outputPathService.GenerateOutputFileName();
-			}
+			get { return this.Profile.PreferredExtension; }
+			set { this.UpdateProfileProperty(() => this.Profile.PreferredExtension, value); }
 		}
 
 		public bool LargeFile
 		{
-			get
-			{
-				return this.profile.LargeFile;
-			}
-
-			set
-			{
-				this.profile.LargeFile = value;
-				this.RaisePropertyChanged(() => this.LargeFile);
-				this.IsModified = true;
-			}
+			get { return this.Profile.LargeFile; }
+			set { this.UpdateProfileProperty(() => this.Profile.LargeFile, value); }
 		}
 
 		public bool Optimize
 		{
-			get
-			{
-				return this.profile.Optimize;
-			}
-
-			set
-			{
-				this.profile.Optimize = value;
-				this.RaisePropertyChanged(() => this.Optimize);
-				this.IsModified = true;
-			}
+			get { return this.Profile.Optimize; }
+			set { this.UpdateProfileProperty(() => this.Profile.Optimize, value); }
 		}
 
 		public bool IPod5GSupport
 		{
-			get
-			{
-				return this.profile.IPod5GSupport;
-			}
-
-			set
-			{
-				this.profile.IPod5GSupport = value;
-				this.RaisePropertyChanged(() => this.IPod5GSupport);
-				this.IsModified = true;
-			}
+			get { return this.Profile.IPod5GSupport; }
+			set { this.UpdateProfileProperty(() => this.Profile.IPod5GSupport, value); }
 		}
 
+		private ObservableAsPropertyHelper<bool> showMp4Choices;
 		public bool ShowMp4Choices
 		{
-			get
-			{
-				HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.ContainerName);
-				return container.DefaultExtension == "mp4";
-			}
+			get { return this.showMp4Choices.Value; }
 		}
 
+		private ObservableAsPropertyHelper<bool> showOldMp4Choices;
 		public bool ShowOldMp4Choices
 		{
-			get
-			{
-				return this.ContainerName == "mp4v2";
-			}
+			get { return this.showOldMp4Choices.Value; }
 		}
 
 		public bool IncludeChapterMarkers
 		{
-			get
-			{
-				return this.profile.IncludeChapterMarkers;
-			}
+			get { return this.Profile.IncludeChapterMarkers; }
+			set { this.UpdateProfileProperty(() => this.Profile.IncludeChapterMarkers, value); }
+		}
 
-			set
+		public ReactiveCommand<object> TogglePresetPanel { get; private set; }
+
+		private void TogglePresetPanelImpl()
+		{
+			this.PresetPanelOpen = !this.PresetPanelOpen;
+			Config.EncodingListPaneOpen = this.PresetPanelOpen;
+		}
+
+		public ReactiveCommand<object> Save { get; private set; }
+
+		private void SaveImpl()
+		{
+			this.presetsService.SavePreset();
+		}
+
+		public ReactiveCommand<object> SaveAs { get; private set; }
+
+		private void SaveAsImpl()
+		{
+			var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.presetsService.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).Select(preset => preset.Preset.Name));
+			dialogVM.Name = this.presetsService.SelectedPreset.DisplayName;
+			Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
+
+			if (dialogVM.DialogResult)
 			{
-				this.profile.IncludeChapterMarkers = value;
-				this.RaisePropertyChanged(() => this.IncludeChapterMarkers);
-				this.IsModified = true;
-				this.mainViewModel.RefreshChapterMarkerUI();
+				string newPresetName = dialogVM.Name;
+
+				this.presetsService.SavePresetAs(newPresetName);
 			}
 		}
 
-		private RelayCommand togglePresetPanelCommand;
-		public RelayCommand TogglePresetPanelCommand
+		public ReactiveCommand<object> Rename { get; private set; }
+
+		private void RenameImpl()
 		{
-			get
+			var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.presetsService.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).Select(preset => preset.Preset.Name));
+			dialogVM.Name = this.presetsService.SelectedPreset.DisplayName;
+			Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
+
+			if (dialogVM.DialogResult)
 			{
-				return this.togglePresetPanelCommand ?? (this.togglePresetPanelCommand = new RelayCommand(() =>
+				string newPresetName = dialogVM.Name;
+				this.presetsService.SelectedPreset.Preset.Name = newPresetName;
+
+				this.presetsService.SavePreset();
+			}
+		}
+
+		public ReactiveCommand<object> DeletePreset { get; private set; }
+
+		private void DeletePresetImpl()
+		{
+			if (this.Preset.IsModified)
+			{
+				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+					this,
+					string.Format(MainRes.RevertConfirmMessage, MainRes.PresetWord),
+					string.Format(MainRes.RevertConfirmTitle, MainRes.PresetWord),
+					MessageBoxButton.YesNo);
+				if (dialogResult == MessageBoxResult.Yes)
 				{
-					this.PresetPanelOpen = !this.PresetPanelOpen;
-					Config.EncodingListPaneOpen = this.PresetPanelOpen;
-				}));
+					this.presetsService.RevertPreset(true);
+				}
 			}
-		}
-
-		private RelayCommand saveCommand;
-		public RelayCommand SaveCommand
-		{
-			get
+			else
 			{
-				return this.saveCommand ?? (this.saveCommand = new RelayCommand(() =>
-					{
-						this.presetsService.SavePreset();
-						this.IsModified = false;
-
-						// Clone the profile so that on modifications, we're working on a new copy.
-						this.profile = this.profile.Clone();
-					}, () =>
-					{
-						return !this.IsBuiltIn;
-					}));
+				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+					this,
+					string.Format(MainRes.RemoveConfirmMessage, MainRes.PresetWord),
+					string.Format(MainRes.RemoveConfirmTitle, MainRes.PresetWord),
+					MessageBoxButton.YesNo);
+				if (dialogResult == MessageBoxResult.Yes)
+				{
+					this.presetsService.DeletePreset();
+				}
 			}
 		}
 
-		private RelayCommand saveAsCommand;
-		public RelayCommand SaveAsCommand
-		{
-			get
-			{
-				return this.saveAsCommand ?? (this.saveAsCommand = new RelayCommand(() =>
-					{
-						var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.presetsService.AllPresets.Where(preset => !preset.IsBuiltIn).Select(preset => preset.PresetName));
-						dialogVM.Name = this.originalPreset.GetDisplayName();
-						Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
+		//private void NotifyAllChanged()
+		//{
+		//	this.AutomaticChange = true;
 
-						if (dialogVM.DialogResult)
-						{
-							string newPresetName = dialogVM.Name;
-
-							this.presetsService.SavePresetAs(newPresetName);
-
-							this.RaisePropertyChanged(() => this.ProfileName);
-							this.RaisePropertyChanged(() => this.WindowTitle);
-
-							this.IsModified = false;
-							this.IsBuiltIn = false;
-						}
-					}));
-			}
-		}
-
-		private RelayCommand renameCommand;
-		public RelayCommand RenameCommand
-		{
-			get
-			{
-				return this.renameCommand ?? (this.renameCommand = new RelayCommand(() =>
-					{
-						var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.presetsService.AllPresets.Where(preset => !preset.IsBuiltIn).Select(preset => preset.PresetName));
-						dialogVM.Name = this.originalPreset.GetDisplayName();
-						Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
-
-						if (dialogVM.DialogResult)
-						{
-							string newPresetName = dialogVM.Name;
-							this.originalPreset.Name = newPresetName;
-
-							this.presetsService.SavePreset();
-
-							this.RaisePropertyChanged(() => this.ProfileName);
-							this.RaisePropertyChanged(() => this.WindowTitle);
-
-							this.IsModified = false;
-						}
-					}, () =>
-					{
-						return !this.IsBuiltIn;
-					}));
-			}
-		}
-
-		private RelayCommand deletePresetCommand;
-		public RelayCommand DeletePresetCommand
-		{
-			get
-			{
-				return this.deletePresetCommand ?? (this.deletePresetCommand = new RelayCommand(() =>
-					{
-						if (this.IsModified)
-						{
-							MessageBoxResult dialogResult = Utilities.MessageBox.Show(
-                                this, 
-                                string.Format(MainRes.RevertConfirmMessage, MainRes.PresetWord),
-                                string.Format(MainRes.RevertConfirmTitle, MainRes.PresetWord),
-                                MessageBoxButton.YesNo);
-							if (dialogResult == MessageBoxResult.Yes)
-							{
-								this.presetsService.RevertPreset(true);
-							}
-
-							this.EditingPreset = this.originalPreset;
-						}
-						else
-						{
-							MessageBoxResult dialogResult = Utilities.MessageBox.Show(
-                                this, 
-                                string.Format(MainRes.RemoveConfirmMessage, MainRes.PresetWord), 
-                                string.Format(MainRes.RemoveConfirmTitle, MainRes.PresetWord), 
-                                MessageBoxButton.YesNo);
-							if (dialogResult == MessageBoxResult.Yes)
-							{
-								this.presetsService.DeletePreset();
-							}
-						}
-					}, () =>
-					{
-						// We can delete or revert if it's a user preset or if there have been modifications.
-						return !this.IsBuiltIn || this.IsModified;
-					}));
-			}
-		}
-
-		private void NotifyAllChanged()
-		{
-			this.AutomaticChange = true;
-
-			this.RaisePropertyChanged(() => this.WindowTitle);
-			this.RaisePropertyChanged(() => this.ProfileName);
-			this.RaisePropertyChanged(() => this.IsBuiltIn);
-			this.RaisePropertyChanged(() => this.SaveRenameButtonsVisible);
-			this.RaisePropertyChanged(() => this.DeleteButtonVisible);
-			this.RaisePropertyChanged(() => this.IsModified);
-			this.RaisePropertyChanged(() => this.ContainerName);
-			this.RaisePropertyChanged(() => this.PreferredExtension);
-			this.RaisePropertyChanged(() => this.LargeFile);
-			this.RaisePropertyChanged(() => this.Optimize);
-			this.RaisePropertyChanged(() => this.IPod5GSupport);
-			this.RaisePropertyChanged(() => this.ShowMp4Choices);
-			this.RaisePropertyChanged(() => this.ShowOldMp4Choices);
-			this.RaisePropertyChanged(() => this.IncludeChapterMarkers);
+		//	this.RaisePropertyChanged(() => this.WindowTitle);
+		//	this.RaisePropertyChanged(() => this.ProfileName);
+		//	this.RaisePropertyChanged(() => this.IsBuiltIn);
+		//	this.RaisePropertyChanged(() => this.SaveRenameButtonsVisible);
+		//	this.RaisePropertyChanged(() => this.DeleteButtonVisible);
+		//	this.RaisePropertyChanged(() => this.IsModified);
+		//	this.RaisePropertyChanged(() => this.ContainerName);
+		//	this.RaisePropertyChanged(() => this.PreferredExtension);
+		//	this.RaisePropertyChanged(() => this.LargeFile);
+		//	this.RaisePropertyChanged(() => this.Optimize);
+		//	this.RaisePropertyChanged(() => this.IPod5GSupport);
+		//	this.RaisePropertyChanged(() => this.ShowMp4Choices);
+		//	this.RaisePropertyChanged(() => this.ShowOldMp4Choices);
+		//	this.RaisePropertyChanged(() => this.IncludeChapterMarkers);
 			
-			this.PicturePanelViewModel.NotifyAllChanged();
-			this.VideoFiltersPanelViewModel.NotifyAllChanged();
-			this.VideoPanelViewModel.NotifyAllChanged();
-			this.AudioPanelViewModel.NotifyAllChanged();
-			this.AdvancedPanelViewModel.NotifyAllChanged();
+		//	this.PicturePanelViewModel.NotifyAllChanged();
+		//	this.VideoFiltersPanelViewModel.NotifyAllChanged();
+		//	this.VideoPanelViewModel.NotifyAllChanged();
+		//	this.AudioPanelViewModel.NotifyAllChanged();
+		//	this.AdvancedPanelViewModel.NotifyAllChanged();
 
-			this.AutomaticChange = false;
-		}
+		//	this.AutomaticChange = false;
+		//}
 
-		private void OnMainPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			// Refresh output and audio previews when selected title changes.
-			if (e.PropertyName == "SelectedTitle")
-			{
-				this.PicturePanelViewModel.NotifySelectedTitleChanged();
-				this.AudioPanelViewModel.NotifySelectedTitleChanged();
-				this.VideoPanelViewModel.NotifySelectedTitleChanged();
-
-				this.RaisePropertyChanged(() => this.HasSourceData);
-			}
-		}
+		//private void OnMainPropertyChanged(object sender, PropertyChangedEventArgs e)
+		//{
+		//	// Refresh output and audio previews when selected title changes.
+		//	if (e.PropertyName == "SelectedTitle")
+		//	{
+		//		this.PicturePanelViewModel.NotifySelectedTitleChanged();
+		//		this.AudioPanelViewModel.NotifySelectedTitleChanged();
+		//		this.VideoPanelViewModel.NotifySelectedTitleChanged();
+		//	}
+		//}
 
 		/// <summary>
 		/// Notify the encoding window that the length of the selected video changes.
@@ -587,59 +557,60 @@ namespace VidCoder.ViewModel
 			this.VideoPanelViewModel.UpdateTargetSize();
 		}
 
-		//private void UpdatePresetProperty<T>(Expression<Func<T>> propertyExpression, T value, bool raisePropertyChanged = true)
-		//{
-		//	string propertyName = MvvmUtilities.GetPropertyName(propertyExpression);
+		private void RaiseAllChanged()
+		{
+			foreach (string key in this.profileProperties.Keys)
+			{
+				this.RaisePropertyChanged(key);
+			}
+		}
 
-		//	if (!this.pickerProperties.ContainsKey(propertyName))
-		//	{
-		//		throw new ArgumentException("UpdatePresetProperty called on " + propertyName + " without registering.");
-		//	}
+		private void UpdateProfileProperty<T>(Expression<Func<T>> propertyExpression, T value, bool raisePropertyChanged = true)
+		{
+			string propertyName = MvvmUtilities.GetPropertyName(propertyExpression);
 
-		//	bool createPicker = false;
-		//	if (!this.automaticChange)
-		//	{
-		//		createPicker = this.picker.IsNone;
-		//		if (createPicker)
-		//		{
-		//			this.Picker = this.pickersService.AutoCreatePicker();
-		//		}
-		//		else if (!this.picker.IsModified)
-		//		{
-		//			// Clone the preset so we modify a different copy.
-		//			var newPicker = new Picker();
-		//			newPicker.InjectFrom(this.picker);
-		//			this.Picker = newPicker;
-		//		}
-		//	}
+			if (!this.profileProperties.ContainsKey(propertyName))
+			{
+				throw new ArgumentException("UpdatePresetProperty called on " + propertyName + " without registering.");
+			}
 
-		//	// Update the value and raise PropertyChanged
-		//	typeAccessor[this.picker, propertyName] = value;
+			if (!this.AutomaticChange)
+			{
+				if (!this.Preset.IsModified)
+				{
+					// Clone the profile so we modify a different copy.
+					VCProfile newProfile = new VCProfile();
+					newProfile.InjectFrom(this.Profile);
 
-		//	if (raisePropertyChanged)
-		//	{
-		//		this.RaisePropertyChanged(propertyName);
-		//	}
+					if (!this.Preset.IsModified)
+					{
+						this.presetsService.ModifyPreset(newProfile);
+					}
+				}
+			}
 
-		//	if (!this.automaticChange)
-		//	{
-		//		// If we have an action registered to update dependent properties, do it
-		//		Action action = this.pickerProperties[propertyName];
-		//		if (action != null)
-		//		{
-		//			// Protect against update loops with a flag
-		//			this.automaticChange = true;
-		//			action();
-		//			this.automaticChange = false;
-		//		}
+			// Update the value and raise PropertyChanged
+			typeAccessor[this.Profile, propertyName] = value;
 
-		//		if (!createPicker && !this.picker.IsModified)
-		//		{
-		//			this.pickersService.ModifyPicker(this.picker);
-		//		}
+			if (raisePropertyChanged)
+			{
+				this.RaisePropertyChanged(propertyName);
+			}
 
-		//		this.pickersService.SavePickersToStorage();
-		//	}
-		//}
+			if (!this.AutomaticChange)
+			{
+				// If we have an action registered to update dependent properties, do it
+				Action action = this.profileProperties[propertyName];
+				if (action != null)
+				{
+					// Protect against update loops with a flag
+					this.AutomaticChange = true;
+					action();
+					this.AutomaticChange = false;
+				}
+
+				this.presetsService.SaveUserPresets();
+			}
+		}
 	}
 }

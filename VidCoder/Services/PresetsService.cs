@@ -136,7 +136,7 @@ namespace VidCoder.Services
 					string dialogTitle;
 					MessageBoxButton buttons;
 
-					if (this.selectedPreset.IsBuiltIn)
+					if (this.selectedPreset.Preset.IsBuiltIn)
 					{
 						dialogMessage = string.Format(MainRes.PresetDiscardConfirmMessage, MainRes.PresetWord);
 						dialogTitle = MainRes.PresetDiscardConfirmTitle;
@@ -185,7 +185,7 @@ namespace VidCoder.Services
 					this.NotifySelectedPresetChanged();
 
 					// If we're switching away from a temporary queue preset, remove it.
-					if (previouslySelectedPreset != null && previouslySelectedPreset.IsQueue && previouslySelectedPreset != value)
+					if (previouslySelectedPreset != null && previouslySelectedPreset.Preset.IsQueue && previouslySelectedPreset != value)
 					{
 						this.AllPresets.Remove(previouslySelectedPreset);
 					}
@@ -199,7 +199,7 @@ namespace VidCoder.Services
 			{
 				if (string.Compare(presetName.Trim(), preset.DisplayName.Trim(), ignoreCase: true, culture: CultureInfo.CurrentUICulture) == 0)
 				{
-					if (preset.IsModified)
+					if (preset.Preset.IsModified)
 					{
 						return preset.OriginalProfile;
 					}
@@ -215,14 +215,12 @@ namespace VidCoder.Services
 
 		public void SavePreset()
 		{
-			if (this.SelectedPreset.IsModified)
+			if (this.SelectedPreset.Preset.IsModified)
 			{
 				this.SelectedPreset.OriginalProfile = null;
 				this.SelectedPreset.Preset.IsModified = false;
 			}
 
-			// Refresh view and save in case of rename.
-			this.SelectedPreset.RefreshView();
 			this.SaveUserPresets();
 
 			this.main.StartAnimation("PresetGlowHighlight");
@@ -242,10 +240,9 @@ namespace VidCoder.Services
 
 			this.InsertNewPreset(newPresetVM);
 
-			if (this.SelectedPreset.IsModified)
+			if (this.SelectedPreset.Preset.IsModified)
 			{
 				this.RevertPreset(userInitiated: false);
-				this.SelectedPreset.RefreshView();
 			}
 
 			this.selectedPreset = null;
@@ -262,7 +259,7 @@ namespace VidCoder.Services
 			this.InsertNewPreset(newPresetVM);
 
 			// Switch to the new preset if we can do it cleanly.
-			if (!this.SelectedPreset.IsModified)
+			if (!this.SelectedPreset.Preset.IsModified)
 			{
 				this.selectedPreset = null;
 				this.SelectedPreset = newPresetVM;
@@ -289,7 +286,6 @@ namespace VidCoder.Services
 			this.SelectedPreset.Preset.EncodingProfile = this.SelectedPreset.OriginalProfile;
 			this.SelectedPreset.OriginalProfile = null;
 			this.SelectedPreset.Preset.IsModified = false;
-			this.SelectedPreset.RefreshView();
 
 			if (userInitiated)
 			{
@@ -327,10 +323,10 @@ namespace VidCoder.Services
 		/// <param name="newProfile">The new encoding profile to use.</param>
 		public void ModifyPreset(VCProfile newProfile)
 		{
-			Trace.Assert(!this.SelectedPreset.IsModified, "Cannot start modification on already modified preset.");
+			Trace.Assert(!this.SelectedPreset.Preset.IsModified, "Cannot start modification on already modified preset.");
 			Trace.Assert(this.SelectedPreset.OriginalProfile == null, "Preset already has OriginalProfile.");
 
-			if (this.SelectedPreset.IsModified || this.SelectedPreset.OriginalProfile != null)
+			if (this.SelectedPreset.Preset.IsModified || this.SelectedPreset.OriginalProfile != null)
 			{
 				return;
 			}
@@ -338,7 +334,6 @@ namespace VidCoder.Services
 			this.SelectedPreset.OriginalProfile = this.SelectedPreset.Preset.EncodingProfile;
 			this.SelectedPreset.Preset.EncodingProfile = newProfile;
 			this.SelectedPreset.Preset.IsModified = true;
-			this.SelectedPreset.RefreshView();
 		}
 
 		public void SaveUserPresets()
@@ -347,7 +342,7 @@ namespace VidCoder.Services
 
 			foreach (PresetViewModel presetVM in this.AllPresets)
 			{
-				if ((!presetVM.Preset.IsBuiltIn || presetVM.Preset.IsModified) && !presetVM.IsQueue)
+				if ((!presetVM.Preset.IsBuiltIn || presetVM.Preset.IsModified) && !presetVM.Preset.IsQueue)
 				{
 					userPresets.Add(presetVM.Preset);
 				}
@@ -377,7 +372,7 @@ namespace VidCoder.Services
 		public void InsertQueuePreset(PresetViewModel queuePreset)
 		{
 			// Bring in encoding profile and put in a placeholder preset.
-			if (this.AllPresets[0].IsQueue)
+			if (this.AllPresets[0].Preset.IsQueue)
 			{
 				this.AllPresets.RemoveAt(0);
 			}
@@ -392,13 +387,13 @@ namespace VidCoder.Services
 		{
 			for (int i = 0; i < this.AllPresets.Count; i++)
 			{
-				if (this.AllPresets[i].IsBuiltIn)
+				if (this.AllPresets[i].Preset.IsBuiltIn)
 				{
 					this.AllPresets.Insert(i, presetVM);
 					return;
 				}
 
-				if (string.CompareOrdinal(presetVM.PresetName, this.AllPresets[i].PresetName) < 0)
+				if (string.CompareOrdinal(presetVM.Preset.Name, this.AllPresets[i].Preset.Name) < 0)
 				{
 					this.AllPresets.Insert(i, presetVM);
 					return;
@@ -411,12 +406,6 @@ namespace VidCoder.Services
 		private void NotifySelectedPresetChanged()
 		{
 			this.OutputPathVM.GenerateOutputFileName();
-
-			var encodingWindow = this.windowManager.Find<EncodingWindowViewModel>();
-			if (encodingWindow != null)
-			{
-				encodingWindow.EditingPreset = this.selectedPreset.Preset;
-			}
 
 			Messenger.Default.Send(new RefreshPreviewMessage());
 

@@ -28,11 +28,7 @@ namespace VidCoder
 			Container.RegisterType<PresetsService>(Singleton);
 			Container.RegisterType<PickersService>(Singleton);
 			Container.RegisterType<ProcessingService>(Singleton);
-			Container.RegisterType<EncodingWindowViewModel>(new InjectionFactory(c =>
-			{
-				var preset = c.Resolve<PresetsService>().SelectedPreset.Preset;
-				return new EncodingWindowViewModel(preset);
-			}));
+			Container.RegisterType<EncodingWindowViewModel>(Singleton);
 		}
 
 		public static UnityContainer Container { get; set; }

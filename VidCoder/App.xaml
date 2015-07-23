@@ -58,11 +58,11 @@
 								<TextBlock.Style>
 									<Style TargetType="TextBlock">
 										<Style.Triggers>
-											<DataTrigger Binding="{Binding IsBuiltIn}" Value="False">
+											<DataTrigger Binding="{Binding Preset.IsBuiltIn}" Value="False">
 												<Setter Property="Foreground" Value="#0B4BC2" />
 												<Setter Property="FontWeight" Value="SemiBold" />
 											</DataTrigger>
-											<DataTrigger Binding="{Binding IsQueue}" Value="True">
+											<DataTrigger Binding="{Binding Preset.IsQueue}" Value="True">
 												<Setter Property="Foreground" Value="#222222" />
 												<Setter Property="FontWeight" Value="Normal" />
 											</DataTrigger>
@@ -77,7 +77,7 @@
 											FontStyle="Italic"
 											Foreground="Gray"
 											Text="{x:Static res:MainRes.ModifiedAffix}"
-											Visibility="{Binding IsModified,
+											Visibility="{Binding Preset.IsModified,
 								                                Converter={StaticResource VisibilityConverter}}" />
 						</StackPanel>
 					</DataTemplate>

@@ -137,15 +137,5 @@ namespace VidCoder.Model
 		{
 			get { return this.displayName.Value; }
 		}
-
-		//public static string GetDisplayName(string pickerName, bool isNone)
-		//{
-		//	if (isNone)
-		//	{
-		//		return CommonRes.None;
-		//	}
-
-		//	return pickerName;
-		//}
     }
 }

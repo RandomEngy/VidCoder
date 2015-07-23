@@ -10,8 +10,6 @@ using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	using Model;
-
 	/// <summary>
 	/// Base class for view models of panels on the encoding settings window.
 	/// </summary>
@@ -28,7 +26,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.encodingWindowViewModel.EncodingProfile;
+				return this.encodingWindowViewModel.Profile;
 			}
 		}
 
@@ -53,16 +51,18 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		// TODO: Replace
 		public bool IsModified
 		{
 			get
 			{
-				return this.encodingWindowViewModel.IsModified;
+				return false;
+				//return this.encodingWindowViewModel.IsModified;
 			}
 
 			set
 			{
-				this.encodingWindowViewModel.IsModified = value;
+				//this.encodingWindowViewModel.IsModified = value;
 			}
 		}
 

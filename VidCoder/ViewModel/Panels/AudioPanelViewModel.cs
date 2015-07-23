@@ -154,12 +154,12 @@ namespace VidCoder.ViewModel
 
 		private void RefreshFallbackEncoderChoices()
 		{
-			if (this.EncodingWindowViewModel.EncodingProfile == null)
+			if (this.EncodingWindowViewModel.Profile == null)
 			{
 				return;
 			}
 
-			HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.EncodingWindowViewModel.EncodingProfile.ContainerName);
+			HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.EncodingWindowViewModel.Profile.ContainerName);
 			HBAudioEncoder oldEncoder = null;
 			if (this.selectedFallbackEncoder != null)
 			{

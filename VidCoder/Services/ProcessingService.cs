@@ -996,7 +996,7 @@ namespace VidCoder.Services
 			if (picker.UseEncodingPreset && !string.IsNullOrEmpty(picker.EncodingPreset))
 			{
 				// Override the encoding preset
-				var presetViewModel = this.presetsService.AllPresets.FirstOrDefault(p => p.PresetName == picker.EncodingPreset);
+				var presetViewModel = this.presetsService.AllPresets.FirstOrDefault(p => p.Preset.Name == picker.EncodingPreset);
 				if (presetViewModel != null)
 				{
 					encodeJobVM.Job.EncodingProfile = presetViewModel.Preset.EncodingProfile.Clone();

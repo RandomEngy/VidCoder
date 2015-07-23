@@ -1,11 +1,42 @@
-﻿namespace VidCoderCommon.Model
+﻿using Newtonsoft.Json;
+using ReactiveUI;
+
+namespace VidCoderCommon.Model
 {
-	public class Preset
+	[JsonObject]
+	public class Preset : ReactiveObject
 	{
-		public string Name { get; set; }
+		private string name;
+
+		[JsonProperty]
+		public string Name
+		{
+			get { return this.name; }
+			set { this.RaiseAndSetIfChanged(ref this.name, value); }
+		}
+
+		[JsonProperty]
 		public bool IsBuiltIn { get; set; }
-		public bool IsModified { get; set; }
+
+		private bool isModified;
+
+		[JsonProperty]
+		public bool IsModified
+		{
+			get { return this.isModified; }
+			set { this.RaiseAndSetIfChanged(ref this.isModified, value); }
+		}
+
+		[JsonProperty]
 		public bool IsQueue { get; set; }
-		public VCProfile EncodingProfile { get; set; }
+
+		private VCProfile encodingProfile;
+
+		[JsonProperty]
+		public VCProfile EncodingProfile
+		{
+			get { return this.encodingProfile; }
+			set { this.RaiseAndSetIfChanged(ref this.encodingProfile, value); }
+		}
 	}
 }
