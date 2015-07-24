@@ -1,4 +1,4 @@
-#include ReadReg(HKEY_LOCAL_MACHINE,'Software\Sherlock Software\InnoTools\Downloader','ScriptPath','')
+#include <idp.iss>
 
 [Setup]
 AppName=%appName%
@@ -102,9 +102,8 @@ procedure InitializeWizard;
 begin
   if Framework45IsNotInstalled() then
   begin
-    ITD_Init;
-    ITD_AddFile('http://go.microsoft.com/fwlink/?LinkId=397707', ExpandConstant('{tmp}\NetFrameworkInstaller.exe'));
-    ITD_DownloadAfter(wpReady);
+    idpAddFile('http://go.microsoft.com/fwlink/?LinkId=397707', ExpandConstant('{tmp}\NetFrameworkInstaller.exe'));
+    idpDownloadAfter(wpReady);
   end;
 end;
 
