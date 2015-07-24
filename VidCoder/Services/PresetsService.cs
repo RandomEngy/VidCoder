@@ -113,6 +113,8 @@ namespace VidCoder.Services
 			}
 		}
 
+		public bool AutomaticChange { get; set; }
+
 		public PresetViewModel SelectedPreset
 		{
 			get

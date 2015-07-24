@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
@@ -15,12 +16,13 @@ using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoder.Services.Windows;
 using VidCoderCommon.Model;
 using Geometry = HandBrake.ApplicationServices.Interop.Json.Shared.Geometry;
 
 namespace VidCoder.ViewModel
 {
-	public class PreviewWindowViewModel : OkCancelDialogOldViewModel
+	public class PreviewWindowViewModel : ViewModelBase, IClosableWindow
 	{
 		private const int PreviewImageCacheDistance = 1;
 		private const double SubtitleScanCost = 1 / EncodeJobViewModel.SubtitleScanCostFactor;
@@ -76,10 +78,8 @@ namespace VidCoder.ViewModel
 			this.RequestRefreshPreviews();
 		}
 
-		public override void OnClosing()
+		public void OnClosing()
 		{
-			base.OnClosing();
-
 			if (this.GeneratingPreview)
 			{
 				this.StopAndWait();

@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Windows;
-using FastMember;
-using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
-using Omu.ValueInjecter;
 using ReactiveUI;
-using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -22,26 +16,16 @@ using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	public class EncodingWindowViewModel : OkCancelDialogViewModel
+	public class EncodingWindowViewModel : ProfileViewModelBase
 	{
 		public const int VideoTabIndex = 2;
 		public const int AdvancedVideoTabIndex = 3;
 
-		private static TypeAccessor typeAccessor = TypeAccessor.Create(typeof(VCProfile));
-
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
-		private PresetsService presetsService = Ioc.Get<PresetsService>();
 		private ProcessingService processingService = Ioc.Get<ProcessingService>();
 
-		private Dictionary<string, Action> profileProperties;
-
-		//private VCProfile profile;
-
 		private List<ComboChoice> containerChoices;
-
-		//private Preset originalPreset;
-		//private bool isBuiltIn;
 
 		public EncodingWindowViewModel()
 		{
@@ -54,15 +38,6 @@ namespace VidCoder.ViewModel
 			{
 				this.containerChoices.Add(new ComboChoice(hbContainer.ShortName, hbContainer.DisplayName));
 			}
-
-			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
-				.Subscribe(x =>
-				{
-					bool automaticChangePreviousValue = this.AutomaticChange;
-					this.AutomaticChange = true;
-					this.RaiseAllChanged();
-					this.AutomaticChange = automaticChangePreviousValue;
-				});
 
 			this.WhenAnyValue(
 				x => x.ContainerName,
@@ -81,10 +56,10 @@ namespace VidCoder.ViewModel
 				})
 				.ToProperty(this, x => x.ShowOldMp4Choices, out this.showOldMp4Choices);
 
-			this.presetsService.WhenAnyValue(x => x.SelectedPreset.DisplayNameWithStar)
+			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.DisplayNameWithStar)
 				.ToProperty(this, x => x.WindowTitle, out this.windowTitle);
 
-			this.presetsService.WhenAnyValue(
+			this.PresetsService.WhenAnyValue(
 				x => x.SelectedPreset.Preset.IsBuiltIn,
 				x => x.SelectedPreset.Preset.IsQueue,
 				(isBuiltIn, isQueue) =>
@@ -93,7 +68,7 @@ namespace VidCoder.ViewModel
 				})
 				.ToProperty(this, x => x.SaveRenameButtonsVisible, out this.saveRenameButtonsVisible);
 
-			this.presetsService.WhenAnyValue(
+			this.PresetsService.WhenAnyValue(
 				x => x.SelectedPreset.Preset.IsBuiltIn,
 				x => x.SelectedPreset.Preset.IsModified,
 				x => x.SelectedPreset.Preset.IsQueue,
@@ -103,7 +78,7 @@ namespace VidCoder.ViewModel
 				})
 				.ToProperty(this, x => x.DeleteButtonVisible, out this.deleteButtonVisible);
 
-			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.IsBuiltIn)
+			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.IsBuiltIn)
 				.ToProperty(this, x => x.IsBuiltIn, out this.isBuiltIn);
 
 			this.mainViewModel.WhenAnyValue(x => x.HasVideoSource)
@@ -121,7 +96,7 @@ namespace VidCoder.ViewModel
 			this.Rename = ReactiveCommand.Create(this.WhenAnyValue(x => x.IsBuiltIn, isBuiltIn => !isBuiltIn));
 			this.Rename.Subscribe(_ => this.RenameImpl());
 
-			this.DeletePreset = ReactiveCommand.Create(this.presetsService.WhenAnyValue(
+			this.DeletePreset = ReactiveCommand.Create(this.PresetsService.WhenAnyValue(
 				x => x.SelectedPreset.Preset.IsBuiltIn,
 				x => x.SelectedPreset.Preset.IsModified,
 				(isBuiltIn, isModified) =>
@@ -137,8 +112,6 @@ namespace VidCoder.ViewModel
 			this.AdvancedPanelViewModel = new AdvancedPanelViewModel(this);
 
 			this.presetPanelOpen = Config.EncodingListPaneOpen;
-			//this.EditingPreset = preset;
-			//this.mainViewModel.PropertyChanged += this.OnMainPropertyChanged;
 
 			this.selectedTabIndex = Config.EncodingDialogLastTab;
 
@@ -147,8 +120,6 @@ namespace VidCoder.ViewModel
 
 		private void RegisterProfileProperties()
 		{
-			this.profileProperties = new Dictionary<string, Action>();
-
 			// These actions fire when the user changes a property.
 
 			this.RegisterProfileProperty(() => this.Profile.ContainerName, () =>
@@ -173,12 +144,6 @@ namespace VidCoder.ViewModel
 			});
 		}
 
-		private void RegisterProfileProperty<T>(Expression<Func<T>> propertyExpression, Action action = null)
-		{
-			string propertyName = MvvmUtilities.GetPropertyName(propertyExpression);
-			this.profileProperties.Add(propertyName, action);
-		}
-
 		public MainViewModel MainViewModel
 		{
 		    get { return this.mainViewModel; }
@@ -194,74 +159,11 @@ namespace VidCoder.ViewModel
 		    get { return this.outputPathService; }
 		}
 
-		public PresetsService PresetsService
-		{
-			get { return this.presetsService; }
-		}
-
 		public PicturePanelViewModel PicturePanelViewModel { get; set; }
 		public VideoFiltersPanelViewModel VideoFiltersPanelViewModel { get; set; }
 		public VideoPanelViewModel VideoPanelViewModel { get; set; }
 		public AudioPanelViewModel AudioPanelViewModel { get; set; }
 		public AdvancedPanelViewModel AdvancedPanelViewModel { get; set; }
-
-		//public Preset EditingPreset
-		//{
-		//	get
-		//	{
-		//		return this.originalPreset;
-		//	}
-
-		//	set
-		//	{
-		//		if (value.IsModified || value.IsQueue)
-		//		{
-		//			// If already modified or this is the scrap queue preset, use existing profile.
-		//			this.profile = value.EncodingProfile;
-		//		}
-		//		else
-		//		{
-		//			// If not modified regular preset, clone the profile
-		//			this.profile = value.EncodingProfile.Clone();
-		//		}
-
-		//		this.originalPreset = value;
-
-		//		this.IsBuiltIn = value.IsBuiltIn;
-
-		//		if (!value.EncodingProfile.UseAdvancedTab && this.SelectedTabIndex == AdvancedVideoTabIndex)
-		//		{
-		//			this.SelectedTabIndex = VideoTabIndex;
-		//		}
-
-		//		this.VideoPanelViewModel.NotifyProfileChanged();
-		//		this.AudioPanelViewModel.NotifyProfileChanged();
-
-		//		this.PicturePanelViewModel.RefreshOutputSize();
-
-		//		this.AdvancedPanelViewModel.UpdateUIFromAdvancedOptions();
-
-		//		this.NotifyAllChanged();
-		//	}
-		//}
-
-		public Preset Preset
-		{
-			get { return this.presetsService.SelectedPreset.Preset; }
-		}
-
-		//public VCProfile EncodingProfile
-		//{
-		//	get
-		//	{
-		//		return this.profile;
-		//	}
-		//}
-
-		public VCProfile Profile
-		{
-			get { return this.presetsService.SelectedPreset.Preset.EncodingProfile; }
-		}
 
 		private ObservableAsPropertyHelper<string> windowTitle;
 		public string WindowTitle
@@ -310,61 +212,11 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.presetPanelOpen, value); }
 		}
 
-		public bool AutomaticChange { get; set; }
-
-		//public bool IsModified
-		//{
-		//	get
-		//	{
-		//		return this.originalPreset.IsModified;
-		//	}
-
-		//	set
-		//	{
-		//		if (!this.AutomaticChange)
-		//		{
-		//			Messenger.Default.Send(new EncodingProfileChangedMessage());
-		//		}
-
-		//		// Don't mark as modified if this is an automatic change or if it's a temporary queue preset.
-		//		if (!this.AutomaticChange && !this.originalPreset.IsQueue)
-		//		{
-		//			if (this.originalPreset.IsModified != value)
-		//			{
-		//				if (value)
-		//				{
-		//					this.presetsService.ModifyPreset(this.profile);
-		//				}
-		//			}
-
-		//			this.DeletePresetCommand.RaiseCanExecuteChanged();
-		//			this.RaisePropertyChanged(() => this.IsModified);
-		//			this.RaisePropertyChanged(() => this.WindowTitle);
-		//			this.RaisePropertyChanged(() => this.DeleteButtonVisible);
-
-		//			// If we've made a modification, we need to save the user presets. The temporary queue preset will
-		//			// not be persisted so we don't need to save user presets when it changes.
-		//			if (value)
-		//			{
-		//				this.presetsService.SaveUserPresets();
-		//			}
-		//		}
-		//	}
-		//}
-
 		private ObservableAsPropertyHelper<bool> hasSourceData;
 		public bool HasSourceData
 		{
 			get { return this.hasSourceData.Value; }
 		}
-
-		//public bool HasSourceData
-		//{
-		//	get
-		//	{
-		//		return this.mainViewModel.HasVideoSource;
-		//	}
-		//}
 
 		public string ContainerName
 		{
@@ -434,22 +286,22 @@ namespace VidCoder.ViewModel
 
 		private void SaveImpl()
 		{
-			this.presetsService.SavePreset();
+			this.PresetsService.SavePreset();
 		}
 
 		public ReactiveCommand<object> SaveAs { get; private set; }
 
 		private void SaveAsImpl()
 		{
-			var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.presetsService.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).Select(preset => preset.Preset.Name));
-			dialogVM.Name = this.presetsService.SelectedPreset.DisplayName;
+			var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.PresetsService.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).Select(preset => preset.Preset.Name));
+			dialogVM.Name = this.PresetsService.SelectedPreset.DisplayName;
 			Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
 
 			if (dialogVM.DialogResult)
 			{
 				string newPresetName = dialogVM.Name;
 
-				this.presetsService.SavePresetAs(newPresetName);
+				this.PresetsService.SavePresetAs(newPresetName);
 			}
 		}
 
@@ -457,16 +309,16 @@ namespace VidCoder.ViewModel
 
 		private void RenameImpl()
 		{
-			var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.presetsService.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).Select(preset => preset.Preset.Name));
-			dialogVM.Name = this.presetsService.SelectedPreset.DisplayName;
+			var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.PresetsService.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).Select(preset => preset.Preset.Name));
+			dialogVM.Name = this.PresetsService.SelectedPreset.DisplayName;
 			Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
 
 			if (dialogVM.DialogResult)
 			{
 				string newPresetName = dialogVM.Name;
-				this.presetsService.SelectedPreset.Preset.Name = newPresetName;
+				this.PresetsService.SelectedPreset.Preset.Name = newPresetName;
 
-				this.presetsService.SavePreset();
+				this.PresetsService.SavePreset();
 			}
 		}
 
@@ -483,7 +335,7 @@ namespace VidCoder.ViewModel
 					MessageBoxButton.YesNo);
 				if (dialogResult == MessageBoxResult.Yes)
 				{
-					this.presetsService.RevertPreset(true);
+					this.PresetsService.RevertPreset(true);
 				}
 			}
 			else
@@ -495,49 +347,10 @@ namespace VidCoder.ViewModel
 					MessageBoxButton.YesNo);
 				if (dialogResult == MessageBoxResult.Yes)
 				{
-					this.presetsService.DeletePreset();
+					this.PresetsService.DeletePreset();
 				}
 			}
 		}
-
-		//private void NotifyAllChanged()
-		//{
-		//	this.AutomaticChange = true;
-
-		//	this.RaisePropertyChanged(() => this.WindowTitle);
-		//	this.RaisePropertyChanged(() => this.ProfileName);
-		//	this.RaisePropertyChanged(() => this.IsBuiltIn);
-		//	this.RaisePropertyChanged(() => this.SaveRenameButtonsVisible);
-		//	this.RaisePropertyChanged(() => this.DeleteButtonVisible);
-		//	this.RaisePropertyChanged(() => this.IsModified);
-		//	this.RaisePropertyChanged(() => this.ContainerName);
-		//	this.RaisePropertyChanged(() => this.PreferredExtension);
-		//	this.RaisePropertyChanged(() => this.LargeFile);
-		//	this.RaisePropertyChanged(() => this.Optimize);
-		//	this.RaisePropertyChanged(() => this.IPod5GSupport);
-		//	this.RaisePropertyChanged(() => this.ShowMp4Choices);
-		//	this.RaisePropertyChanged(() => this.ShowOldMp4Choices);
-		//	this.RaisePropertyChanged(() => this.IncludeChapterMarkers);
-			
-		//	this.PicturePanelViewModel.NotifyAllChanged();
-		//	this.VideoFiltersPanelViewModel.NotifyAllChanged();
-		//	this.VideoPanelViewModel.NotifyAllChanged();
-		//	this.AudioPanelViewModel.NotifyAllChanged();
-		//	this.AdvancedPanelViewModel.NotifyAllChanged();
-
-		//	this.AutomaticChange = false;
-		//}
-
-		//private void OnMainPropertyChanged(object sender, PropertyChangedEventArgs e)
-		//{
-		//	// Refresh output and audio previews when selected title changes.
-		//	if (e.PropertyName == "SelectedTitle")
-		//	{
-		//		this.PicturePanelViewModel.NotifySelectedTitleChanged();
-		//		this.AudioPanelViewModel.NotifySelectedTitleChanged();
-		//		this.VideoPanelViewModel.NotifySelectedTitleChanged();
-		//	}
-		//}
 
 		/// <summary>
 		/// Notify the encoding window that the length of the selected video changes.
@@ -555,62 +368,6 @@ namespace VidCoder.ViewModel
 		{
 			this.VideoPanelViewModel.UpdateVideoBitrate();
 			this.VideoPanelViewModel.UpdateTargetSize();
-		}
-
-		private void RaiseAllChanged()
-		{
-			foreach (string key in this.profileProperties.Keys)
-			{
-				this.RaisePropertyChanged(key);
-			}
-		}
-
-		private void UpdateProfileProperty<T>(Expression<Func<T>> propertyExpression, T value, bool raisePropertyChanged = true)
-		{
-			string propertyName = MvvmUtilities.GetPropertyName(propertyExpression);
-
-			if (!this.profileProperties.ContainsKey(propertyName))
-			{
-				throw new ArgumentException("UpdatePresetProperty called on " + propertyName + " without registering.");
-			}
-
-			if (!this.AutomaticChange)
-			{
-				if (!this.Preset.IsModified)
-				{
-					// Clone the profile so we modify a different copy.
-					VCProfile newProfile = new VCProfile();
-					newProfile.InjectFrom(this.Profile);
-
-					if (!this.Preset.IsModified)
-					{
-						this.presetsService.ModifyPreset(newProfile);
-					}
-				}
-			}
-
-			// Update the value and raise PropertyChanged
-			typeAccessor[this.Profile, propertyName] = value;
-
-			if (raisePropertyChanged)
-			{
-				this.RaisePropertyChanged(propertyName);
-			}
-
-			if (!this.AutomaticChange)
-			{
-				// If we have an action registered to update dependent properties, do it
-				Action action = this.profileProperties[propertyName];
-				if (action != null)
-				{
-					// Protect against update loops with a flag
-					this.AutomaticChange = true;
-					action();
-					this.AutomaticChange = false;
-				}
-
-				this.presetsService.SaveUserPresets();
-			}
 		}
 	}
 }

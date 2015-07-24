@@ -36,7 +36,6 @@
 			Command="{Binding OutputPathVM.PickOutputPathCommand}"
 			Modifiers="Control" />
 
-		<KeyBinding Key="Esc" Command="{Binding Cancel}" />
 		<KeyBinding
 			Key="S"
 			Command="{Binding Save}"

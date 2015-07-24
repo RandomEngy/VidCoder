@@ -1,12 +1,13 @@
 ﻿using System.Text;
 using System.Windows.Input;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using VidCoder.Model;
 using VidCoder.Services;
 
 namespace VidCoder.ViewModel
 {
-	public class LogWindowViewModel : OkCancelDialogViewModel
+	public class LogWindowViewModel : ViewModelBase
 	{
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private ILogger logger = Ioc.Get<ILogger>();

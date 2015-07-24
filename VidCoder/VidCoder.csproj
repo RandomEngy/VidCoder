@@ -684,6 +684,7 @@
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />
     <Compile Include="ViewModel\OkCancelDialogOldViewModel.cs" />
     <Compile Include="ViewModel\PickerWindowViewModel.cs" />
+    <Compile Include="ViewModel\ProfileViewModelBase.cs" />
     <Compile Include="ViewModel\ShutdownWarningViewModel.cs" />
     <Compile Include="View\EncodeDetailsWindow.xaml.cs">
       <DependentUpon>EncodeDetailsWindow.xaml</DependentUpon>

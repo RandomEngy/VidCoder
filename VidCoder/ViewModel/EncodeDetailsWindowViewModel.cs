@@ -1,10 +1,11 @@
 ﻿using System.Diagnostics;
+using GalaSoft.MvvmLight;
 using VidCoder.Messages;
 using VidCoder.Resources;
 
 namespace VidCoder.ViewModel
 {
-	public class EncodeDetailsWindowViewModel : OkCancelDialogOldViewModel
+	public class EncodeDetailsWindowViewModel : ViewModelBase
 	{
 		public EncodeDetailsWindowViewModel()
 		{
@@ -259,13 +260,5 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.PassProgressPercent);
 			}
 		}
-
-		//// Should only fire when user manually closes the window, not when closed through WindowManager.
-		//public override void OnClosing()
-		//{
-		//	// Setting this config value will prevent the details window from appearing on the next encode.
-		//	Config.EncodeDetailsWindowOpen = false;
-		//	base.OnClosing();
-		//}
 	}
 }
