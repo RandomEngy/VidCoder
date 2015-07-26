@@ -683,6 +683,7 @@
     <Compile Include="ViewModel\FileConflictDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />
     <Compile Include="ViewModel\OkCancelDialogOldViewModel.cs" />
+    <Compile Include="ViewModel\Panels\PanelViewModelOld.cs" />
     <Compile Include="ViewModel\PickerWindowViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModelBase.cs" />
     <Compile Include="ViewModel\ShutdownWarningViewModel.cs" />

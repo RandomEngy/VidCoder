@@ -13,7 +13,7 @@ using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	public class AudioPanelViewModel : PanelViewModel
+	public class AudioPanelViewModel : PanelViewModelOld
 	{
 		private ObservableCollection<AudioEncodingViewModel> audioEncodings;
 		private ObservableCollection<AudioOutputPreview> audioOutputPreviews;

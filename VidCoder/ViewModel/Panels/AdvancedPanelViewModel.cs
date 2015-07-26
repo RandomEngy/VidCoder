@@ -10,7 +10,7 @@ namespace VidCoder.ViewModel
 	using GalaSoft.MvvmLight.Messaging;
 	using Messages;
 
-	public class AdvancedPanelViewModel : PanelViewModel
+	public class AdvancedPanelViewModel : PanelViewModelOld
 	{
 		private AdvancedChoice referenceFrames;
 		private AdvancedChoice bFrames;

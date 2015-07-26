@@ -13,13 +13,21 @@ namespace VidCoder.ViewModel
 	/// <summary>
 	/// Base class for view models of panels on the encoding settings window.
 	/// </summary>
-	public abstract class PanelViewModel : ProfileViewModelBase
+	public abstract class PanelViewModelOld : ViewModelBase
 	{
 		private EncodingWindowViewModel encodingWindowViewModel;
 
-		protected PanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
+		protected PanelViewModelOld(EncodingWindowViewModel encodingWindowViewModel)
 		{
 			this.encodingWindowViewModel = encodingWindowViewModel;
+		}
+
+		public VCProfile Profile
+		{
+			get
+			{
+				return this.encodingWindowViewModel.Profile;
+			}
 		}
 
 		public EncodingWindowViewModel EncodingWindowViewModel
@@ -30,11 +38,47 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool AutomaticChange
+		{
+			get
+			{
+				return this.encodingWindowViewModel.AutomaticChange;
+			}
+
+			set
+			{
+				this.encodingWindowViewModel.AutomaticChange = value;
+			}
+		}
+
+		// TODO: Replace
+		public bool IsModified
+		{
+			get
+			{
+				return false;
+				//return this.encodingWindowViewModel.IsModified;
+			}
+
+			set
+			{
+				//this.encodingWindowViewModel.IsModified = value;
+			}
+		}
+
 		public MainViewModel MainViewModel
 		{
 			get
 			{
 				return this.encodingWindowViewModel.MainViewModel;
+			}
+		}
+
+		public bool HasSourceData
+		{
+			get
+			{
+				return this.encodingWindowViewModel.MainViewModel.HasVideoSource;
 			}
 		}
 
@@ -49,6 +93,11 @@ namespace VidCoder.ViewModel
 		public void UpdatePreviewWindow()
 		{
 			Messenger.Default.Send(new RefreshPreviewMessage());
+		}
+
+		public virtual void NotifySelectedTitleChanged()
+		{
+			this.RaisePropertyChanged(() => this.HasSourceData);
 		}
 	}
 }

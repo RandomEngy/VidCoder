@@ -8,7 +8,7 @@ using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	public class VideoFiltersPanelViewModel : PanelViewModel
+	public class VideoFiltersPanelViewModel : PanelViewModelOld
 	{
 		private const string CustomDenoisePreset = "custom";
 		private const int MinDeblock = 5;

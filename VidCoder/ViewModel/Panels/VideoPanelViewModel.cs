@@ -15,7 +15,7 @@ using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	public class VideoPanelViewModel : PanelViewModel
+	public class VideoPanelViewModel : PanelViewModelOld
 	{
 		private const int DefaultVideoBitrateKbps = 900;
 		private const int DefaultTargetSizeMB = 700;

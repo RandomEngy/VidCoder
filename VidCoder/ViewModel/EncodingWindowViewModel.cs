@@ -21,7 +21,6 @@ namespace VidCoder.ViewModel
 		public const int VideoTabIndex = 2;
 		public const int AdvancedVideoTabIndex = 3;
 
-		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
 		private ProcessingService processingService = Ioc.Get<ProcessingService>();
 
@@ -81,8 +80,7 @@ namespace VidCoder.ViewModel
 			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.IsBuiltIn)
 				.ToProperty(this, x => x.IsBuiltIn, out this.isBuiltIn);
 
-			this.mainViewModel.WhenAnyValue(x => x.HasVideoSource)
-				.ToProperty(this, x => x.HasSourceData, out this.hasSourceData);
+
 
 			this.TogglePresetPanel = ReactiveCommand.Create();
 			this.TogglePresetPanel.Subscribe(_ => this.TogglePresetPanelImpl());
@@ -140,13 +138,8 @@ namespace VidCoder.ViewModel
 
 			this.RegisterProfileProperty(() => this.IncludeChapterMarkers, () =>
 			{
-				this.mainViewModel.RefreshChapterMarkerUI();
+				this.MainViewModel.RefreshChapterMarkerUI();
 			});
-		}
-
-		public MainViewModel MainViewModel
-		{
-		    get { return this.mainViewModel; }
 		}
 
 		public ProcessingService ProcessingService
@@ -169,14 +162,6 @@ namespace VidCoder.ViewModel
 		public string WindowTitle
 		{
 			get { return this.windowTitle.Value; }
-		}
-
-		public SourceTitle SelectedTitle
-		{
-			get
-			{
-				return this.mainViewModel.SelectedTitle;
-			}
 		}
 
 		private int selectedTabIndex;
@@ -210,12 +195,6 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.presetPanelOpen; }
 			set { this.RaiseAndSetIfChanged(ref this.presetPanelOpen, value); }
-		}
-
-		private ObservableAsPropertyHelper<bool> hasSourceData;
-		public bool HasSourceData
-		{
-			get { return this.hasSourceData.Value; }
 		}
 
 		public string ContainerName

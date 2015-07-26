@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using FastMember;
 using Omu.ValueInjecter;
 using ReactiveUI;
@@ -14,8 +11,7 @@ namespace VidCoder.ViewModel
 {
 	public class ProfileViewModelBase : ReactiveObject
 	{
-		private static TypeAccessor typeAccessor = TypeAccessor.Create(typeof(VCProfile));
-
+		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private PresetsService presetsService = Ioc.Get<PresetsService>();
 
 		private Dictionary<string, Action> profileProperties;
@@ -32,11 +28,19 @@ namespace VidCoder.ViewModel
 					this.RaiseAllChanged();
 					this.AutomaticChange = automaticChangePreviousValue;
 				});
+
+			this.mainViewModel.WhenAnyValue(x => x.HasVideoSource)
+				.ToProperty(this, x => x.HasSourceData, out this.hasSourceData);
 		}
 
 		public PresetsService PresetsService
 		{
 			get { return this.presetsService; }
+		}
+
+		public MainViewModel MainViewModel
+		{
+			get { return this.mainViewModel; }
 		}
 
 		public Preset Preset
@@ -55,6 +59,12 @@ namespace VidCoder.ViewModel
 			set { this.presetsService.AutomaticChange = value; }
 		}
 
+		private ObservableAsPropertyHelper<bool> hasSourceData;
+		public bool HasSourceData
+		{
+			get { return this.hasSourceData.Value; }
+		}
+
 		protected void RegisterProfileProperty<T>(Expression<Func<T>> propertyExpression, Action action = null)
 		{
 			string propertyName = MvvmUtilities.GetPropertyName(propertyExpression);
@@ -69,13 +79,42 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Updates the profile property.
+		/// </summary>
+		/// <typeparam name="T">The type of value to update.</typeparam>
+		/// <param name="propertyExpression">Expression to get the property value.</param>
+		/// <param name="value">The new value.</param>
+		/// <param name="raisePropertyChanged">True to raise the PropertyChanged event.</param>
 		protected void UpdateProfileProperty<T>(Expression<Func<T>> propertyExpression, T value, bool raisePropertyChanged = true)
 		{
 			string propertyName = MvvmUtilities.GetPropertyName(propertyExpression);
+			this.UpdateProfileProperty(() => this.Profile, propertyName, propertyName, value, raisePropertyChanged);
+		}
 
-			if (!this.profileProperties.ContainsKey(propertyName))
+		/// <summary>
+		/// Updates the profile property (power user version).
+		/// </summary>
+		/// <typeparam name="TProperty">The type of the value to update.</typeparam>
+		/// <typeparam name="TModel">The type of the model to update it on.</typeparam>
+		/// <param name="targetFunc">Func to get the target model.</param>
+		/// <param name="propertyName">The name of the property on the model to update.</param>
+		/// <param name="raisePropertyName">The name to use when raising the PropertyChanged event.</param>
+		/// <param name="value">The new value.</param>
+		/// <param name="raisePropertyChanged">True to raise the PropertyChanged event.</param>
+		protected void UpdateProfileProperty<TProperty, TModel>(Func<TModel> targetFunc, string propertyName, string raisePropertyName, TProperty value, bool raisePropertyChanged = true)
+		{
+			TModel originalTarget = targetFunc();
+			TypeAccessor typeAccessor = TypeAccessor.Create(typeof(TModel));
+
+			if (!this.profileProperties.ContainsKey(raisePropertyName))
 			{
-				throw new ArgumentException("UpdatePresetProperty called on " + propertyName + " without registering.");
+				throw new ArgumentException("UpdatePresetProperty called on " + raisePropertyName + " without registering.");
+			}
+
+			if (((TProperty)typeAccessor[originalTarget, propertyName]).Equals(value))
+			{
+				return;
 			}
 
 			if (!this.AutomaticChange)
@@ -94,7 +133,7 @@ namespace VidCoder.ViewModel
 			}
 
 			// Update the value and raise PropertyChanged
-			typeAccessor[this.Profile, propertyName] = value;
+			typeAccessor[targetFunc(), propertyName] = value;
 
 			if (raisePropertyChanged)
 			{
@@ -104,7 +143,7 @@ namespace VidCoder.ViewModel
 			if (!this.AutomaticChange)
 			{
 				// If we have an action registered to update dependent properties, do it
-				Action action = this.profileProperties[propertyName];
+				Action action = this.profileProperties[raisePropertyName];
 				if (action != null)
 				{
 					// Protect against update loops with a flag
