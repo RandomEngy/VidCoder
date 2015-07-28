@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop.Json.Shared;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
+using VidCoder.Services;
 using VidCoderCommon.Model;
 using ReactiveUI;
 
@@ -14,7 +16,9 @@ namespace VidCoder.ViewModel
 	{
 		private const int DimensionsAutoSetModulus = 2;
 
-        private List<ComboChoice<VCScaleMethod>> scaleChoices; 
+        private List<ComboChoice<VCScaleMethod>> scaleChoices;
+
+		private OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
 
 		public PicturePanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)
@@ -109,6 +113,39 @@ namespace VidCoder.ViewModel
 				return string.Empty;
 			}).ToProperty(this, x => x.InputDisplayResolution, out this.inputDisplayResolution);
 
+			// OutputSourceResolution
+			this.outputSizeService.WhenAnyValue(x => x.Size, size =>
+			{
+				if (size == null)
+				{
+					return string.Empty;
+				}
+
+				return size.Width + " x " + size.Height;
+			}).ToProperty(this, x => x.OutputSourceResolution, out this.outputSourceResolution);
+
+			// OutputPixelAspectRatio
+			this.outputSizeService.WhenAnyValue(x => x.Size, size =>
+			{
+				if (size == null)
+				{
+					return string.Empty;
+				}
+
+				return size.PAR.Num + "/" + size.PAR.Den;
+			}).ToProperty(this, x => x.OutputPixelAspectRatio, out this.outputPixelAspectRatio);
+
+			// OutputDisplayResolution
+			this.outputSizeService.WhenAnyValue(x => x.Size, size =>
+			{
+				if (size == null)
+				{
+					return string.Empty;
+				}
+
+				return Math.Round(size.Width * (((double) size.PAR.Num) / size.PAR.Den)) + " x " + size.Height;
+			}).ToProperty(this, x => x.OutputDisplayResolution, out this.outputDisplayResolution);
+
 			// CroppingUIEnabled
 			this.WhenAnyValue(x => x.CroppingType, croppingType =>
 			{
@@ -136,8 +173,6 @@ namespace VidCoder.ViewModel
 						MvvmUtilities.GetPropertyName(() => this.CropBottom),
 						cropBottom,
 						raisePropertyChanged: false);
-
-					//this.UpdateProfileProperty(MvvmUtilities.GetPropertyName(() => this.CropBottom), () => { this.Profile.Cropping.Bottom = cropBottom; }, raisePropertyChanged: false);
 				});
 			this.WhenAnyValue(x => x.CropLeft)
 				.Subscribe(cropLeft =>
@@ -148,8 +183,6 @@ namespace VidCoder.ViewModel
 						MvvmUtilities.GetPropertyName(() => this.CropLeft),
 						cropLeft,
 						raisePropertyChanged: false);
-
-					//this.UpdateProfileProperty(MvvmUtilities.GetPropertyName(() => this.CropLeft), () => { this.Profile.Cropping.Left = cropLeft; }, raisePropertyChanged: false);
 				});
 			this.WhenAnyValue(x => x.CropRight)
 				.Subscribe(cropRight =>
@@ -160,8 +193,6 @@ namespace VidCoder.ViewModel
 						MvvmUtilities.GetPropertyName(() => this.CropRight),
 						cropRight,
 						raisePropertyChanged: false);
-
-					//this.UpdateProfileProperty(MvvmUtilities.GetPropertyName(() => this.CropRight), () => { this.Profile.Cropping.Right = cropRight; }, raisePropertyChanged: false);
 				});
 
 			// Auto-fill the cropping properties when type is Auto or None
@@ -214,13 +245,6 @@ namespace VidCoder.ViewModel
 				new ComboChoice<VCScaleMethod>(VCScaleMethod.Bicubic, EncodingRes.ScaleMethod_BicubicOpenCL)
 			};
 
-			Messenger.Default.Register<RotationChangedMessage>(
-				this,
-				message =>
-				{
-					this.RefreshOutputSize();
-				});
-
 			this.AutomaticChange = false;
 		}
 
@@ -249,7 +273,6 @@ namespace VidCoder.ViewModel
 				}
 
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
 			});
 
 			this.RegisterProfileProperty(() => this.Profile.Height, () =>
@@ -274,19 +297,16 @@ namespace VidCoder.ViewModel
 				}
 
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
 			});
 
 			this.RegisterProfileProperty(() => this.Profile.MaxWidth, () =>
 			{
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
 			});
 
 			this.RegisterProfileProperty(() => this.Profile.MaxHeight, () =>
 			{
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
 			});
 
 			this.RegisterProfileProperty(() => this.Profile.Anamorphic, () =>
@@ -330,7 +350,6 @@ namespace VidCoder.ViewModel
 				}
 
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
 			});
 
 			this.RegisterProfileProperty(() => this.Profile.ScaleMethod);
@@ -338,7 +357,6 @@ namespace VidCoder.ViewModel
 			this.RegisterProfileProperty(() => this.Profile.Modulus, () =>
 			{
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
 			});
 
 			this.RegisterProfileProperty(() => this.Profile.UseDisplayWidth, () =>
@@ -353,55 +371,47 @@ namespace VidCoder.ViewModel
 				}
 
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
 			});
+
 
 			this.RegisterProfileProperty(() => this.Profile.DisplayWidth, () =>
 			{
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
 			});
 
 			this.RegisterProfileProperty(() => this.Profile.PixelAspectX, () =>
 			{
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
 			});
 
 			this.RegisterProfileProperty(() => this.Profile.PixelAspectY, () =>
 			{
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
 			});
 
 			this.RegisterProfileProperty(() => this.Profile.CroppingType, () =>
 			{
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
 			});
 
 			this.RegisterProfileProperty(() => this.CropTop, () =>
 			{
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
 			});
 
 			this.RegisterProfileProperty(() => this.CropBottom, () =>
 			{
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
 			});
 
 			this.RegisterProfileProperty(() => this.CropLeft, () =>
 			{
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
 			});
 
 			this.RegisterProfileProperty(() => this.CropRight, () =>
 			{
 				this.RefreshOutputSize();
-				this.UpdatePreviewWindow();
 			});
 		}
 
@@ -423,25 +433,22 @@ namespace VidCoder.ViewModel
 			get { return this.inputDisplayResolution.Value; }
 		}
 
-		private string outputSourceResolution;
+		private ObservableAsPropertyHelper<string> outputSourceResolution;
 		public string OutputSourceResolution
 		{
-			get { return this.outputSourceResolution; }
-			set { this.RaiseAndSetIfChanged(ref this.outputSourceResolution, value); }
+			get { return this.outputSourceResolution.Value; }
 		}
 
-		private string outputPixelAspectRatio;
+		private ObservableAsPropertyHelper<string> outputPixelAspectRatio;
 		public string OutputPixelAspectRatio
 		{
-			get { return this.outputPixelAspectRatio; }
-			set { this.RaiseAndSetIfChanged(ref this.outputPixelAspectRatio, value); }
+			get { return this.outputPixelAspectRatio.Value; }
 		}
 
-		private string outputDisplayResolution;
+		private ObservableAsPropertyHelper<string> outputDisplayResolution;
 		public string OutputDisplayResolution
 		{
-			get { return this.outputDisplayResolution; }
-			set { this.RaiseAndSetIfChanged(ref this.outputDisplayResolution, value); }
+			get { return this.outputDisplayResolution.Value; }
 		}
 
 		public int Width
@@ -614,38 +621,7 @@ namespace VidCoder.ViewModel
 
 		public void RefreshOutputSize()
 		{
-			if (this.HasSourceData)
-			{
-				VCJob job = this.MainViewModel.EncodeJob;
-				job.EncodingProfile = this.Profile;
-
-				Geometry outputGeometry = JsonEncodeFactory.GetAnamorphicSize(this.Profile, this.SelectedTitle);
-
-				int width = outputGeometry.Width;
-				int height = outputGeometry.Height;
-				int parWidth = outputGeometry.PAR.Num;
-				int parHeight = outputGeometry.PAR.Den;
-
-                if (this.Profile.Rotation == VCPictureRotation.Clockwise90 || this.Profile.Rotation == VCPictureRotation.Clockwise270)
-				{
-					int temp = width;
-					width = height;
-					height = temp;
-
-					temp = parWidth;
-					parWidth = parHeight;
-					parHeight = temp;
-				}
-
-				this.StorageWidth = width;
-				this.StorageHeight = height;
-
-				Messenger.Default.Send(new OutputSizeChangedMessage());
-
-				this.OutputSourceResolution = width + " x " + height;
-				this.OutputPixelAspectRatio = parWidth + "/" + parHeight;
-				this.OutputDisplayResolution = Math.Round(width * (((double)parWidth) / parHeight)) + " x " + height;
-			}
+			this.outputSizeService.Refresh();
 		}
 
 		public int StorageWidth { get; set; }

@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Messaging;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
+using VidCoder.Services;
 using VidCoder.ViewModel.DataModels;
 using VidCoderCommon.Model;
 
@@ -12,6 +13,8 @@ namespace VidCoder.ViewModel
 	{
 		private const string CustomDenoisePreset = "custom";
 		private const int MinDeblock = 5;
+
+		private OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
 
         private List<ComboChoice<VCDenoise>> denoiseChoices; 
 		private List<ComboChoice> denoisePresetChoices;
@@ -114,7 +117,6 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.CustomDeinterlaceVisible);
 
 				this.IsModified = true;
-				this.UpdatePreviewWindow();
 			}
 		}
 
@@ -462,8 +464,7 @@ namespace VidCoder.ViewModel
 
 		private void NotifyRotationChanged()
 		{
-			Messenger.Default.Send(new RefreshPreviewMessage());
-			Messenger.Default.Send(new RotationChangedMessage());
+			this.outputSizeService.Refresh();
 		}
 	}
 }

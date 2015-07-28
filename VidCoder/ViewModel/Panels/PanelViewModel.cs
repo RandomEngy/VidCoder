@@ -30,25 +30,12 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public MainViewModel MainViewModel
-		{
-			get
-			{
-				return this.encodingWindowViewModel.MainViewModel;
-			}
-		}
-
 		public SourceTitle SelectedTitle
 		{
 			get
 			{
 				return this.encodingWindowViewModel.MainViewModel.SelectedTitle;
 			}
-		}
-
-		public void UpdatePreviewWindow()
-		{
-			Messenger.Default.Send(new RefreshPreviewMessage());
 		}
 	}
 }

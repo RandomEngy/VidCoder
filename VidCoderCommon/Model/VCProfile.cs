@@ -6,7 +6,7 @@ using VidCoderCommon.Utilities.Injection;
 namespace VidCoderCommon.Model
 {
 	/// <summary>
-	/// An analogue for HBInterop's EncodingProfile.
+	/// A VidCoder encoding profile.
 	/// </summary>
 	public class VCProfile
 	{
@@ -19,6 +19,7 @@ namespace VidCoderCommon.Model
 		[Obsolete("Use ContainerName instead.")]
 		public VCContainer OutputFormat { get; set; }
 		public string X264Options { get; set; }
+
 		// X264Tune is obsolete but marking it that way prevents the XML serializer from working. Use VideoTunes instead.
 		public string X264Tune { get; set; }
 		public List<string> X264Tunes { get; set; }
@@ -26,6 +27,15 @@ namespace VidCoderCommon.Model
 		public string X264Preset { get; set; }
 		public string QsvPreset { get; set; }
 		public string H264Level { get; set; }
+
+		// CustomCropping is obsolete but marking it that way prevents the XML serializer from working. Use CroppingType instead.
+		public bool CustomCropping { get; set; }
+
+		[Obsolete("This setting is obsolete. Use Framerate and ConstantFramerate instead.")]
+		public bool PeakFramerate { get; set; }
+
+		[Obsolete("Use DenoiseType instead.")]
+		public string Denoise { get; set; }
 		#endregion
 
 		public string ContainerName { get; set; }
@@ -40,9 +50,6 @@ namespace VidCoderCommon.Model
 		public int MaxWidth { get; set; }
 		public int MaxHeight { get; set; }
 		public VCScaleMethod ScaleMethod { get; set; }
-		
-		// CustomCropping is obsolete but marking it that way prevents the XML serializer from working. Use CroppingType instead.
-		public bool CustomCropping { get; set; }
 		public VCCroppingType CroppingType { get; set; }
 		public VCCropping Cropping { get; set; }
 		public VCAnamorphic Anamorphic { get; set; }
@@ -62,9 +69,6 @@ namespace VidCoderCommon.Model
 		public string CustomDecomb { get; set; }
 		public VCDetelecine Detelecine { get; set; }
 		public string CustomDetelecine { get; set; }
-
-		[Obsolete("Use DenoiseType instead.")]
-		public string Denoise { get; set; }
 		public VCDenoise DenoiseType { get; set; }
 		public string DenoisePreset { get; set; }
 		public string DenoiseTune { get; set; }
@@ -90,9 +94,6 @@ namespace VidCoderCommon.Model
 		public double Framerate { get; set; }
 		public bool ConstantFramerate { get; set; }
 
-		[Obsolete("This setting is obsolete. Use Framerate and ConstantFramerate instead.")]
-		public bool PeakFramerate { get; set; }
-
 		public List<AudioEncoding> AudioEncodings { get; set; }
 		public string AudioEncoderFallback { get; set; }
 
@@ -100,10 +101,6 @@ namespace VidCoderCommon.Model
 		{
 			var profile = new VCProfile();
 			profile.InjectFrom<FastDeepCloneInjection>(this);
-
-			//profile.InjectFrom(this);
-			//profile.Cropping = this.Cropping.Clone();
-			//profile.AudioEncodings = new List<AudioEncoding>(this.AudioEncodings);
 
 			return profile;
 		}

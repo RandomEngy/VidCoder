@@ -300,7 +300,6 @@ namespace VidCoder.Services
 			this.OutputPathVM.GenerateOutputFileName();
 
 			this.main.RefreshChapterMarkerUI();
-			Messenger.Default.Send(new RefreshPreviewMessage());
 		}
 
 		/// <summary>
@@ -316,7 +315,6 @@ namespace VidCoder.Services
 			this.SaveUserPresets();
 
 			this.main.RefreshChapterMarkerUI();
-			Messenger.Default.Send(new RefreshPreviewMessage());
 		}
 
 		/// <summary>
@@ -408,8 +406,6 @@ namespace VidCoder.Services
 		private void NotifySelectedPresetChanged()
 		{
 			this.OutputPathVM.GenerateOutputFileName();
-
-			Messenger.Default.Send(new RefreshPreviewMessage());
 
 			this.RaisePropertyChanged(() => this.SelectedPreset);
 			this.main.RefreshChapterMarkerUI();

@@ -485,7 +485,6 @@
     <Compile Include="Messages\ContainerChangedMessage.cs" />
     <Compile Include="Messages\EncodingProfileChangedMessage.cs" />
     <Compile Include="Messages\PickerChangedMessage.cs" />
-    <Compile Include="Messages\RotationChangedMessage.cs" />
     <Compile Include="Messages\TitleRangeSelectChangedMessage.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
     <Compile Include="Model\EncodeProgress.cs" />
@@ -579,7 +578,6 @@
     <Compile Include="Messages\PreviewImageChangedMessage.cs" />
     <Compile Include="Messages\ProgressChangedMessage.cs" />
     <Compile Include="Messages\RangeFocusMessage.cs" />
-    <Compile Include="Messages\RefreshPreviewMessage.cs" />
     <Compile Include="Messages\SaveQueueColumnsMessage.cs" />
     <Compile Include="Messages\ScanningChangedMessage.cs" />
     <Compile Include="Messages\SelectedTitleChangedMessage.cs" />
@@ -619,6 +617,7 @@
     </Compile>
     <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="Services\EncodeProxy\LocalEncodeProxy.cs" />
+    <Compile Include="Services\OutputSizeService.cs" />
     <Compile Include="Services\Windows\IClosableWindow.cs" />
     <Compile Include="Services\Interfaces\ILogger.cs" />
     <Compile Include="Services\Interfaces\IPresetImportExport.cs" />

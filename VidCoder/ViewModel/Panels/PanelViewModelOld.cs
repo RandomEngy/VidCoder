@@ -90,11 +90,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public void UpdatePreviewWindow()
-		{
-			Messenger.Default.Send(new RefreshPreviewMessage());
-		}
-
 		public virtual void NotifySelectedTitleChanged()
 		{
 			this.RaisePropertyChanged(() => this.HasSourceData);

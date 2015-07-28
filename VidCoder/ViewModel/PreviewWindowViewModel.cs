@@ -11,6 +11,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
+using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
@@ -59,13 +60,20 @@ namespace VidCoder.ViewModel
 
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
+		private OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
 		private ProcessingService processingService = Ioc.Get<ProcessingService>();
 
 		public PreviewWindowViewModel()
 		{
-			Messenger.Default.Register<RefreshPreviewMessage>(
-				this,
-				message =>
+			this.WhenAnyValue(
+				x => x.SelectedPreview,
+				x => x.MainViewModel.SelectedTitle,
+				x => x.MainViewModel.Angle,
+				x => x.OutputSizeService.Size,
+				(selectedPreview, selectedTitle, angle, size) =>
+				{
+					return new object();
+				}).Subscribe(x =>
 				{
 					this.RequestRefreshPreviews();
 				});
@@ -108,6 +116,11 @@ namespace VidCoder.ViewModel
 			{
 				return this.outputPathService;
 			}
+		}
+
+		private OutputSizeService OutputSizeService
+		{
+			get { return this.outputSizeService; }
 		}
 
 		public string Title
@@ -673,7 +686,7 @@ namespace VidCoder.ViewModel
 
 		public void RequestRefreshPreviews()
 		{
-			if (!this.mainViewModel.HasVideoSource)
+			if (!this.mainViewModel.HasVideoSource || this.outputSizeService.Size == null)
 			{
 				this.HasPreview = false;
 				this.Title = PreviewRes.NoVideoSourceTitle;
@@ -726,28 +739,14 @@ namespace VidCoder.ViewModel
 		private void RefreshPreviews()
 		{
 			this.originalScanInstance = this.ScanInstance;
-
 			this.job = this.mainViewModel.EncodeJob;
-			VCProfile profile = this.job.EncodingProfile;
 
-			Geometry outputGeometry = JsonEncodeFactory.GetAnamorphicSize(profile, this.mainViewModel.SelectedTitle);
+			Geometry outputGeometry = this.outputSizeService.Size;
 
 			int width = outputGeometry.Width;
 			int height = outputGeometry.Height;
 			int parWidth = outputGeometry.PAR.Num;
 			int parHeight = outputGeometry.PAR.Den;
-
-			// If we're rotating by 90 degrees, swap width and height for sizing purposes.
-            if (profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270)
-			{
-				int temp = width;
-				width = height;
-				height = temp;
-
-				temp = parWidth;
-				parWidth = parHeight;
-				parHeight = temp;
-			}
 
 			if (parWidth <= 0 || parHeight <= 0)
 			{
@@ -755,6 +754,14 @@ namespace VidCoder.ViewModel
 				this.Title = PreviewRes.NoVideoSourceTitle;
 
 				Ioc.Get<ILogger>().LogError("HandBrake returned a negative pixel aspect ratio. Cannot show preview.");
+				return;
+			}
+
+			if (width < 46 || height < 46)
+			{
+				this.HasPreview = false;
+				this.UpdateTitle(outputGeometry);
+
 				return;
 			}
 
@@ -801,9 +808,14 @@ namespace VidCoder.ViewModel
 				this.BeginBackgroundImageLoad();
 			}
 
-			if (parWidth == parHeight)
+			this.UpdateTitle(outputGeometry);
+		}
+
+		private void UpdateTitle(Geometry size)
+		{
+			if (size.PAR.Num == size.PAR.Den)
 			{
-				this.Title = string.Format(PreviewRes.PreviewWindowTitleSimple, width, height);
+				this.Title = string.Format(PreviewRes.PreviewWindowTitleSimple, size.Width, size.Height);
 			}
 			else
 			{
@@ -811,8 +823,8 @@ namespace VidCoder.ViewModel
 					PreviewRes.PreviewWindowTitleComplex,
 					Math.Round(this.PreviewDisplayWidth),
 					Math.Round(this.PreviewDisplayHeight),
-					width,
-					height);
+					size.Width,
+					size.Height);
 			}
 		}
 
@@ -1093,6 +1105,9 @@ namespace VidCoder.ViewModel
 			return 0;
 		}
 
+		/// <summary>
+		/// Refreshes the view using this.previewBitmapSource.
+		/// </summary>
 		private void RefreshFromBitmapImage()
 		{
 			if (this.previewBitmapSource == null)

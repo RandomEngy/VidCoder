@@ -34,6 +34,7 @@ namespace VidCoder.ViewModel
 		private IUpdater updater = Ioc.Get<IUpdater>();
 		private ILogger logger = Ioc.Get<ILogger>();
 		private OutputPathService outputPathService;
+		private OutputSizeService outputSizeService;
 		private PresetsService presetsService;
 		private PickersService pickersService;
 		private ProcessingService processingService;
@@ -88,6 +89,7 @@ namespace VidCoder.ViewModel
 			Ioc.Container.RegisterInstance(typeof(MainViewModel), this, new ContainerControlledLifetimeManager());
 
 			this.outputPathService = Ioc.Get<OutputPathService>();
+			this.outputSizeService = Ioc.Get<OutputSizeService>();
 			this.processingService = Ioc.Get<ProcessingService>();
 			this.presetsService = Ioc.Get<PresetsService>();
 			this.pickersService = Ioc.Get<PickersService>();
@@ -941,8 +943,6 @@ namespace VidCoder.ViewModel
 					this.JobCreationAvailable = true;
 				}
 
-				Messenger.Default.Send(new RefreshPreviewMessage());
-
 				// Custom chapter names are thrown out when switching titles.
 				this.CustomChapterNames = null;
 
@@ -954,6 +954,8 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.StartChapters);
 				this.RaisePropertyChanged(() => this.EndChapters);
 				this.RaisePropertyChanged(() => this.SelectedTitle);
+
+				this.outputSizeService.Refresh();
 
 				this.RefreshRangePreview();
 			}
@@ -985,8 +987,6 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.angle = value;
-
-				Messenger.Default.Send(new RefreshPreviewMessage());
 				this.RaisePropertyChanged(() => this.Angle);
 			}
 		}
@@ -1912,7 +1912,6 @@ namespace VidCoder.ViewModel
 						this.RefreshRecentSourceOptions();
 
 						DispatchUtilities.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
-						Messenger.Default.Send(new RefreshPreviewMessage());
 						this.SelectedTitle = null;
 
 						HandBrakeInstance oldInstance = this.scanInstance;
@@ -2127,6 +2126,8 @@ namespace VidCoder.ViewModel
 						job.FramesStart = this.FramesRangeStart;
 						job.FramesEnd = this.FramesRangeEnd;
 						break;
+					case VideoRangeType.All:
+						break;
 					default:
 						throw new ArgumentOutOfRangeException();
 				}
@@ -2193,7 +2194,6 @@ namespace VidCoder.ViewModel
 			if (jobVM.VideoSource != null && jobVM.VideoSource == this.SourceData)
 			{
 				this.ApplyEncodeJobChoices(jobVM);
-				Messenger.Default.Send(new RefreshPreviewMessage());
 			}
 			else
 			{
@@ -2484,7 +2484,6 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(() => this.SourcePicked);
 
 			DispatchUtilities.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
-			Messenger.Default.Send(new RefreshPreviewMessage());
 		}
 
 		private void LoadVideoSourceMetadata(VCJob job, VideoSourceMetadata metadata)

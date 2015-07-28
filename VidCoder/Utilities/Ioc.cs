@@ -25,6 +25,7 @@ namespace VidCoder
 			Container.RegisterType<IWindowManager, WindowManager>(Singleton);
 
 			Container.RegisterType<OutputPathService>(Singleton);
+			Container.RegisterType<OutputSizeService>(Singleton);
 			Container.RegisterType<PresetsService>(Singleton);
 			Container.RegisterType<PickersService>(Singleton);
 			Container.RegisterType<ProcessingService>(Singleton);
