@@ -137,8 +137,60 @@ namespace VidCoder.ViewModel
 
 			if (raisePropertyChanged)
 			{
-				this.RaisePropertyChanged(propertyName);
+				this.RaisePropertyChanged(raisePropertyName);
 			}
+
+			if (!this.AutomaticChange)
+			{
+				// If we have an action registered to update dependent properties, do it
+				Action action = this.profileProperties[raisePropertyName];
+				if (action != null)
+				{
+					// Protect against update loops with a flag
+					this.AutomaticChange = true;
+					action();
+					this.AutomaticChange = false;
+				}
+
+				this.presetsService.SaveUserPresets();
+			}
+		}
+
+		/// <summary>
+		/// Updates multiple profile properties.
+		/// </summary>
+		/// <typeparam name="TProperty">The type of the value to update.</typeparam>
+		/// <typeparam name="TModel">The type of the model to update it on.</typeparam>
+		/// <param name="targetFunc">Func to get the target model.</param>
+		/// <param name="updateAction">An action to perform the update on the model.</param>
+		/// <param name="raisePropertyName">The name to use when raising the PropertyChanged event.</param>
+		/// <param name="value">The new value.</param>
+		protected void UpdateProfileProperties<TProperty, TModel>(Func<TModel> targetFunc, Action<TModel, TProperty> updateAction, string raisePropertyName, TProperty value)
+		{
+			if (!this.profileProperties.ContainsKey(raisePropertyName))
+			{
+				throw new ArgumentException("UpdatePresetProperty called on " + raisePropertyName + " without registering.");
+			}
+
+			if (!this.AutomaticChange)
+			{
+				if (!this.Preset.IsModified)
+				{
+					// Clone the profile so we modify a different copy.
+					VCProfile newProfile = new VCProfile();
+					newProfile.InjectFrom(this.Profile);
+
+					if (!this.Preset.IsModified)
+					{
+						this.presetsService.ModifyPreset(newProfile);
+					}
+				}
+			}
+
+			// Update the value and raise PropertyChanged
+			updateAction(targetFunc(), value);
+
+			this.RaisePropertyChanged(raisePropertyName);
 
 			if (!this.AutomaticChange)
 			{

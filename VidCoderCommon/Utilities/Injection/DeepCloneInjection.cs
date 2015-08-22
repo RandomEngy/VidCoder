@@ -18,14 +18,20 @@ namespace VidCoderCommon.Utilities.Injection
 			var sourceVal = GetValue(mi.SourceProp, mi.Source);
 			if (sourceVal == null) return;
 
-			//for value types and string just return the value as is
+			if (mi.SourceProp.DeclaringType != null && mi.SourceProp.DeclaringType.Name == "ReactiveObject")
+			{
+				// Skip any properties on ReactiveObject.
+				return;
+			}
+
+			// For value types and string just return the value as is
 			if (mi.SourceProp.PropertyType.IsValueType || mi.SourceProp.PropertyType == typeof(string))
 			{
 				SetValue(mi.TargetProp, mi.Target, sourceVal);
 				return;
 			}
 
-			//handle arrays
+			// Handle arrays
 			if (mi.SourceProp.PropertyType.IsArray)
 			{
 				var arr = sourceVal as Array;
@@ -43,7 +49,7 @@ namespace VidCoderCommon.Utilities.Injection
 
 			if (mi.SourceProp.PropertyType.IsGenericType)
 			{
-				//handle IEnumerable<> also ICollection<> IList<> List<>
+				// Handle IEnumerable<> also ICollection<> IList<> List<>
 				if (mi.SourceProp.PropertyType.GetGenericTypeDefinition().GetInterfaces().Contains(typeof(IEnumerable)))
 				{
 					var genericArgument = mi.TargetProp.PropertyType.GetGenericArguments()[0];
@@ -69,10 +75,10 @@ namespace VidCoderCommon.Utilities.Injection
 					return;
 				}
 
-				throw new NotImplementedException(string.Format("deep clonning for generic type {0} is not implemented", mi.SourceProp.Name));
+				throw new NotImplementedException(string.Format("Deep cloning for generic type {0} is not implemented", mi.SourceProp.Name));
 			}
 
-			//for simple object types create a new instace and apply the clone injection on it
+			// For simple object types create a new instace and apply the clone injection on it
 			SetValue(mi.TargetProp, mi.Target, Activator.CreateInstance(mi.TargetProp.PropertyType).InjectFrom<DeepCloneInjection>(sourceVal));
 		}
 	}

@@ -271,17 +271,20 @@ namespace VidCoderCommon.Model
 			if (profile.Decomb != VCDecomb.Off)
 			{
 				string options;
-				if (profile.Decomb == VCDecomb.Fast)
+				switch (profile.Decomb)
 				{
-					options = "7:2:6:9:1:80";
-				}
-				else if (profile.Decomb == VCDecomb.Bob)
-				{
-					options = "455";
-				}
-				else
-				{
-					options = profile.CustomDecomb;
+					case VCDecomb.Default:
+						options = null;
+						break;
+					case VCDecomb.Fast:
+						options = "7:2:6:9:1:80";
+						break;
+					case VCDecomb.Bob:
+						options = "455";
+						break;
+					default:
+						options = profile.CustomDecomb;
+						break;
 				}
 
 				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DECOMB, Settings = options };
@@ -292,25 +295,23 @@ namespace VidCoderCommon.Model
 			if (profile.Deinterlace != VCDeinterlace.Off)
 			{
 				string options;
-				if (profile.Deinterlace == VCDeinterlace.Fast)
+				switch (profile.Deinterlace)
 				{
-					options = "0";
-				}
-				else if (profile.Deinterlace == VCDeinterlace.Slow)
-				{
-					options = "1";
-				}
-				else if (profile.Deinterlace == VCDeinterlace.Slower)
-				{
-					options = "3";
-				}
-				else if (profile.Deinterlace == VCDeinterlace.Bob)
-				{
-					options = "15";
-				}
-				else
-				{
-					options = profile.CustomDeinterlace;
+					case VCDeinterlace.Fast:
+						options = "0";
+						break;
+					case VCDeinterlace.Slow:
+						options = "1";
+						break;
+					case VCDeinterlace.Slower:
+						options = "3";
+						break;
+					case VCDeinterlace.Bob:
+						options = "15";
+						break;
+					default:
+						options = profile.CustomDeinterlace;
+						break;
 				}
 
 				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DEINTERLACE, Settings = options };

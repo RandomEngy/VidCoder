@@ -62,6 +62,7 @@ namespace VidCoder.ViewModel
 		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
 		private OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
 		private ProcessingService processingService = Ioc.Get<ProcessingService>();
+		private PresetsService presetsService = Ioc.Get<PresetsService>();
 
 		public PreviewWindowViewModel()
 		{
@@ -70,7 +71,9 @@ namespace VidCoder.ViewModel
 				x => x.MainViewModel.SelectedTitle,
 				x => x.MainViewModel.Angle,
 				x => x.OutputSizeService.Size,
-				(selectedPreview, selectedTitle, angle, size) =>
+				x => x.PresetsService.SelectedPreset.Preset.EncodingProfile.FlipHorizontal,
+				x => x.PresetsService.SelectedPreset.Preset.EncodingProfile.FlipVertical,
+				(selectedPreview, selectedTitle, angle, size, fliphorizontal, flipVertical) =>
 				{
 					return new object();
 				}).Subscribe(x =>
@@ -108,6 +111,11 @@ namespace VidCoder.ViewModel
 			{
 				return this.processingService;
 			}
+		}
+
+		public PresetsService PresetsService
+		{
+			get { return this.presetsService; }
 		}
 
 		public OutputPathService OutputPathVM

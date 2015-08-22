@@ -70,7 +70,7 @@
 				Grid.Column="1"
 				ItemsSource="{Binding DisplayNames,
 			                                Source={StaticResource DetelecineChoices}}"
-				SelectedValue="{Binding SelectedDetelecine,
+				SelectedValue="{Binding Detelecine,
 			                                  Converter={StaticResource DetelecineChoices}}"
 				Style="{StaticResource NormalComboBox}" />
 			<TextBox
@@ -92,7 +92,7 @@
 				Grid.Column="1"
 				ItemsSource="{Binding DisplayNames,
 			                                Source={StaticResource DecombChoices}}"
-				SelectedValue="{Binding SelectedDecomb,
+				SelectedValue="{Binding Decomb,
 			                                  Converter={StaticResource DecombChoices}}"
 				Style="{StaticResource NormalComboBox}" />
 			<TextBox
@@ -114,7 +114,7 @@
 				Grid.Column="1"
 				ItemsSource="{Binding DisplayNames,
 			                                Source={StaticResource DeinterlaceChoices}}"
-				SelectedValue="{Binding SelectedDeinterlace,
+				SelectedValue="{Binding Deinterlace,
 			                                  Converter={StaticResource DeinterlaceChoices}}"
 				Style="{StaticResource NormalComboBox}" />
 			<TextBox
@@ -136,7 +136,7 @@
 				Grid.Column="1"
 				DisplayMemberPath="Display"
 				ItemsSource="{Binding DenoiseChoices}"
-				SelectedValue="{Binding SelectedDenoise}"
+				SelectedValue="{Binding DenoiseType}"
 				SelectedValuePath="Value"
 				Style="{StaticResource NormalComboBox}" />
 

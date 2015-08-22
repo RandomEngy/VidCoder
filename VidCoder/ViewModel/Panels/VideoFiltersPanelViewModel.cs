@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using GalaSoft.MvvmLight.Messaging;
+using ReactiveUI;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -9,7 +11,7 @@ using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	public class VideoFiltersPanelViewModel : PanelViewModelOld
+	public class VideoFiltersPanelViewModel : PanelViewModel
 	{
 		private const string CustomDenoisePreset = "custom";
 		private const int MinDeblock = 5;
@@ -24,6 +26,10 @@ namespace VidCoder.ViewModel
 		public VideoFiltersPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)
 		{
+			this.AutomaticChange = true;
+
+			this.RegisterProfileProperties();
+
             this.denoiseChoices = new List<ComboChoice<VCDenoise>>
             {
                 new ComboChoice<VCDenoise>(VCDenoise.Off, CommonRes.Off),
@@ -57,168 +63,166 @@ namespace VidCoder.ViewModel
 				new RotationViewModel { Rotation = VCPictureRotation.Clockwise270, Display = EncodingRes.Rotation_Counterclockwise90, Image = "/Icons/rotate_90_ccw.png" },
 				new RotationViewModel { Rotation = VCPictureRotation.Clockwise180, Display = EncodingRes.Rotation_180, Image = "/Icons/rotate_180.png" }
 			};
+
+			// CustomDetelecineVisible
+			this.WhenAnyValue(x => x.Detelecine, detelecine =>
+			{
+				return detelecine == VCDetelecine.Custom;
+			}).ToProperty(this, x => x.CustomDetelecineVisible, out this.customDetelecineVisible);
+
+			// CustomDeinterlaceVisible
+			this.WhenAnyValue(x => x.Deinterlace, deinterlace =>
+			{
+				return deinterlace == VCDeinterlace.Custom;
+			}).ToProperty(this, x => x.CustomDeinterlaceVisible, out this.customDeinterlaceVisible);
+
+			// CustomDecombVisible
+			this.WhenAnyValue(x => x.Decomb, decomb =>
+			{
+				return decomb == VCDecomb.Custom;
+			}).ToProperty(this, x => x.CustomDecombVisible, out this.customDecombVisible);
+
+			// DenoisePresetVisible
+			this.WhenAnyValue(x => x.DenoiseType, denoise =>
+			{
+				return denoise != VCDenoise.Off;
+			}).ToProperty(this, x => x.DenoisePresetVisible, out this.denoisePresetVisible);
+
+			// DenoiseTuneVisible
+			this.WhenAnyValue(x => x.DenoiseType, x => x.Profile.UseCustomDenoise, (denoise, useCustomDenoise) =>
+			{
+				return denoise == VCDenoise.NLMeans && !useCustomDenoise;
+			}).ToProperty(this, x => x.DenoiseTuneVisible, out this.denoiseTuneVisible);
+
+			// CustomDenoiseVisible
+			this.WhenAnyValue(x => x.DenoiseType, x => x.Profile.UseCustomDenoise, (denoise, useCustomDenoise) =>
+			{
+				return denoise != VCDenoise.Off && useCustomDenoise;
+			}).ToProperty(this, x => x.CustomDenoiseVisible, out this.customDenoiseVisible);
+
+			// DeblockText
+			this.WhenAnyValue(x => x.Deblock, deblock =>
+			{
+				if (deblock >= MinDeblock)
+				{
+					return deblock.ToString(CultureInfo.CurrentCulture);
+				}
+
+				return CommonRes.Off;
+			}).ToProperty(this, x => x.DeblockText, out this.deblockText);
+
+			this.AutomaticChange = false;
 		}
 
-		public VCDetelecine SelectedDetelecine
+		private void RegisterProfileProperties()
 		{
-			get
-			{
-			    return this.Profile.Detelecine;
-			}
+			this.RegisterProfileProperty(() => this.Detelecine);
+			this.RegisterProfileProperty(() => this.CustomDetelecine);
 
-			set
+			this.RegisterProfileProperty(() => this.Deinterlace, () =>
 			{
-			    this.Profile.Detelecine = value;
-				this.RaisePropertyChanged(() => this.SelectedDetelecine);
-				this.RaisePropertyChanged(() => this.CustomDetelecineVisible);
-				this.IsModified = true;
-			}
+				if (this.Deinterlace != VCDeinterlace.Off)
+				{
+					this.Decomb = VCDecomb.Off;
+				}
+			});
+			this.RegisterProfileProperty(() => this.CustomDeinterlace);
+
+			this.RegisterProfileProperty(() => this.Decomb, () =>
+			{
+				if (this.Decomb != VCDecomb.Off)
+				{
+					this.Deinterlace = VCDeinterlace.Off;
+				}
+			});
+			this.RegisterProfileProperty(() => this.CustomDecomb);
+			
+			this.RegisterProfileProperty(() => this.DenoiseType, () =>
+			{
+				if (this.DenoiseType != VCDenoise.Off && string.IsNullOrEmpty(this.DenoisePreset))
+				{
+					this.DenoisePreset = "medium";
+				}
+
+				if (this.DenoiseType == VCDenoise.NLMeans && string.IsNullOrEmpty(this.DenoiseTune))
+				{
+					this.DenoiseTune = "none";
+				}
+			});
+
+			this.RegisterProfileProperty(() => this.DenoisePreset);
+			this.RegisterProfileProperty(() => this.DenoiseTune);
+			this.RegisterProfileProperty(() => this.CustomDenoise);
+			this.RegisterProfileProperty(() => this.Deblock);
+			this.RegisterProfileProperty(() => this.Grayscale);
+			this.RegisterProfileProperty(() => this.Rotation, () => this.outputSizeService.Refresh());
+			this.RegisterProfileProperty(() => this.FlipHorizontal);
+			this.RegisterProfileProperty(() => this.FlipVertical);
+		}
+
+		public VCDetelecine Detelecine
+		{
+			get { return this.Profile.Detelecine; }
+			set { this.UpdateProfileProperty(() => this.Profile.Detelecine, value); }
 		}
 
 		public string CustomDetelecine
 		{
-			get
-			{
-				return this.Profile.CustomDetelecine;
-			}
-
-			set
-			{
-				this.Profile.CustomDetelecine = value;
-				this.RaisePropertyChanged(() => this.CustomDetelecine);
-				this.IsModified = true;
-			}
+			get { return this.Profile.CustomDetelecine; }
+			set { this.UpdateProfileProperty(() => this.Profile.CustomDetelecine, value); }
 		}
 
+		private ObservableAsPropertyHelper<bool> customDetelecineVisible;
 		public bool CustomDetelecineVisible
 		{
-			get
-			{
-				return this.Profile.Detelecine == VCDetelecine.Custom;
-			}
+			get { return this.customDetelecineVisible.Value; }
 		}
 
-		public VCDeinterlace SelectedDeinterlace
+		public VCDeinterlace Deinterlace
 		{
-			get
-			{
-			    return this.Profile.Deinterlace;
-			}
-
-			set
-			{
-			    this.Profile.Deinterlace = value;
-                if (value != VCDeinterlace.Off)
-				{
-					this.SelectedDecomb = VCDecomb.Off;
-				}
-
-				this.RaisePropertyChanged(() => this.SelectedDeinterlace);
-				this.RaisePropertyChanged(() => this.CustomDeinterlaceVisible);
-
-				this.IsModified = true;
-			}
+			get { return this.Profile.Deinterlace; }
+			set { this.UpdateProfileProperty(() => this.Profile.Deinterlace, value); }
 		}
 
 		public string CustomDeinterlace
 		{
-			get
-			{
-				return this.Profile.CustomDeinterlace;
-			}
-
-			set
-			{
-				this.Profile.CustomDeinterlace = value;
-				this.RaisePropertyChanged(() => this.CustomDeinterlace);
-				this.IsModified = true;
-			}
+			get { return this.Profile.CustomDeinterlace; }
+			set { this.UpdateProfileProperty(() => this.Profile.CustomDeinterlace, value); }
 		}
 
+		private ObservableAsPropertyHelper<bool> customDeinterlaceVisible;
 		public bool CustomDeinterlaceVisible
 		{
-			get
-			{
-                return this.Profile.Deinterlace == VCDeinterlace.Custom;
-			}
+			get { return this.customDeinterlaceVisible.Value; }
 		}
 
-		public VCDecomb SelectedDecomb
+		public VCDecomb Decomb
 		{
-			get
-			{
-			    return this.Profile.Decomb;
-			}
-
-			set
-			{
-				this.Profile.Decomb = value;
-                if (value != VCDecomb.Off)
-				{
-					this.SelectedDeinterlace = VCDeinterlace.Off;
-				}
-
-				this.RaisePropertyChanged(() => this.SelectedDecomb);
-				this.RaisePropertyChanged(() => this.CustomDecombVisible);
-				this.IsModified = true;
-			}
+			get { return this.Profile.Decomb; }
+			set { this.UpdateProfileProperty(() => this.Profile.Decomb, value); }
 		}
 
 		public string CustomDecomb
 		{
-			get
-			{
-				return this.Profile.CustomDecomb;
-			}
-
-			set
-			{
-				this.Profile.CustomDecomb = value;
-				this.RaisePropertyChanged(() => this.CustomDecomb);
-				this.IsModified = true;
-			}
+			get { return this.Profile.CustomDecomb; }
+			set { this.UpdateProfileProperty(() => this.Profile.CustomDecomb, value); }
 		}
 
+		private ObservableAsPropertyHelper<bool> customDecombVisible;
 		public bool CustomDecombVisible
 		{
-			get
-			{
-                return this.Profile.Decomb == VCDecomb.Custom;
-			}
+			get { return this.customDecombVisible.Value; }
 		}
 
 	    public List<ComboChoice<VCDenoise>> DenoiseChoices
 	    {
 	        get { return this.denoiseChoices; }
-	    } 
+	    }
 
-		public VCDenoise SelectedDenoise
+		public VCDenoise DenoiseType
 		{
-			get
-			{
-			    return this.Profile.DenoiseType;
-			}
-
-			set
-			{
-			    this.Profile.DenoiseType = value;
-
-				if (value != VCDenoise.Off && string.IsNullOrEmpty(this.DenoisePreset))
-				{
-					this.DenoisePreset = "medium";
-				}
-
-                if (value == VCDenoise.NLMeans && string.IsNullOrEmpty(this.DenoiseTune))
-				{
-					this.DenoiseTune = "none";
-				}
-
-				this.RaisePropertyChanged(() => this.SelectedDenoise);
-				this.RaisePropertyChanged(() => this.DenoisePresetVisible);
-				this.RaisePropertyChanged(() => this.DenoiseTuneVisible);
-				this.RaisePropertyChanged(() => this.CustomDenoiseVisible);
-				this.IsModified = true;
-			}
+			get { return this.Profile.DenoiseType; }
+			set { this.UpdateProfileProperty(() => this.Profile.DenoiseType, value); }
 		}
 
 		public List<ComboChoice> DenoisePresetChoices
@@ -243,30 +247,36 @@ namespace VidCoder.ViewModel
 
 			set
 			{
-				if (value == CustomDenoisePreset)
-				{
-					this.Profile.DenoisePreset = null;
-					this.Profile.UseCustomDenoise = true;
-				}
-				else
-				{
-					this.Profile.DenoisePreset = value;
-					this.Profile.UseCustomDenoise = false;
-				}
-
-				this.RaisePropertyChanged(() => this.DenoisePreset);
-				this.RaisePropertyChanged(() => this.CustomDenoiseVisible);
-				this.RaisePropertyChanged(() => this.DenoiseTuneVisible);
-				this.IsModified = true;
+				this.UpdateProfileProperties(
+					() => this.Profile,
+					(profile, newValue) =>
+					{
+						if (newValue == CustomDenoisePreset)
+						{
+							this.Profile.DenoisePreset = null;
+							this.Profile.UseCustomDenoise = true;
+						}
+						else
+						{
+							this.Profile.DenoisePreset = newValue;
+							this.Profile.UseCustomDenoise = false;
+						}
+					},
+					MvvmUtilities.GetPropertyName(() => this.DenoisePreset),
+					value);
 			}
 		}
 
+		public bool UseCustomDenoise
+		{
+			get { return this.Profile.UseCustomDenoise; }
+			set { this.UpdateProfileProperty(() => this.Profile.UseCustomDenoise, value); }
+		}
+
+		private ObservableAsPropertyHelper<bool> denoisePresetVisible;
 		public bool DenoisePresetVisible
 		{
-			get
-			{
-				return this.SelectedDenoise != VCDenoise.Off;
-			}
+			get { return this.denoisePresetVisible.Value; }
 		}
 
 		public List<ComboChoice> DenoiseTuneChoices
@@ -275,109 +285,77 @@ namespace VidCoder.ViewModel
 			{
 				return this.denoiseTuneChoices;
 			}
-		} 
+		}
 
 		public string DenoiseTune
 		{
-			get
-			{
-				return this.Profile.DenoiseTune;
-			}
-
-			set
-			{
-				this.Profile.DenoiseTune = value;
-				this.RaisePropertyChanged(() => this.DenoiseTune);
-				this.IsModified = true;
-			}
+			get { return this.Profile.DenoiseTune; }
+			set { this.UpdateProfileProperty(() => this.Profile.DenoiseTune, value); }
 		}
 
+		private ObservableAsPropertyHelper<bool> denoiseTuneVisible;
 		public bool DenoiseTuneVisible
 		{
-			get
-			{
-				return this.SelectedDenoise == VCDenoise.NLMeans && !this.Profile.UseCustomDenoise;
-			}
+			get { return this.denoiseTuneVisible.Value; }
 		}
 
 		public string CustomDenoise
 		{
-			get
-			{
-				return this.Profile.CustomDenoise;
-			}
-
-			set
-			{
-				this.Profile.CustomDenoise = value;
-				this.RaisePropertyChanged(() => this.CustomDenoise);
-				this.IsModified = true;
-			}
+			get { return this.Profile.CustomDenoise; }
+			set { this.UpdateProfileProperty(() => this.Profile.CustomDenoise, value); }
 		}
 
+		private ObservableAsPropertyHelper<bool> customDenoiseVisible;
 		public bool CustomDenoiseVisible
 		{
-			get
-			{
-				return this.Profile.DenoiseType != VCDenoise.Off && this.Profile.UseCustomDenoise;
-			}
+			get { return this.customDenoiseVisible.Value; }
 		}
 
 		public int Deblock
 		{
-			get
-			{
-				if (this.Profile.Deblock >= MinDeblock)
-				{
-					return this.Profile.Deblock;
-				}
-
-				return MinDeblock - 1;
-			}
-
-			set
-			{
-				if (value < MinDeblock)
-				{
-					this.Profile.Deblock = 0;
-				}
-				else
-				{
-					this.Profile.Deblock = value;
-				}
-
-				this.RaisePropertyChanged(() => this.Deblock);
-				this.RaisePropertyChanged(() => this.DeblockText);
-				this.IsModified = true;
-			}
+			get { return this.Profile.Deblock; }
+			set { this.UpdateProfileProperty(() => this.Profile.Deblock, value); }
 		}
 
+		//public int Deblock
+		//{
+		//	get
+		//	{
+		//		if (this.Profile.Deblock >= MinDeblock)
+		//		{
+		//			return this.Profile.Deblock;
+		//		}
+
+		//		return MinDeblock - 1;
+		//	}
+
+		//	set
+		//	{
+		//		if (value < MinDeblock)
+		//		{
+		//			this.Profile.Deblock = 0;
+		//		}
+		//		else
+		//		{
+		//			this.Profile.Deblock = value;
+		//		}
+
+		//		RaisePropertyChanged(() => this.Deblock);
+		//		RaisePropertyChanged(() => this.DeblockText);
+		//		this.IsModified = true;
+		//	}
+		//}
+
+		private ObservableAsPropertyHelper<string> deblockText;
 		public string DeblockText
 		{
-			get
-			{
-				if (this.Deblock >= MinDeblock)
-				{
-					return this.Deblock.ToString();
-				}
-
-				return CommonRes.Off;
-			}
+			get { return this.deblockText.Value; }
 		}
 
 		public bool Grayscale
 		{
-			get
-			{
-				return this.Profile.Grayscale;
-			}
-
-			set
-			{
-				this.Profile.Grayscale = value;
-				this.RaisePropertyChanged(() => this.Grayscale);
-				this.IsModified = true;
-			}
+			get { return this.Profile.Grayscale; }
+			set { this.UpdateProfileProperty(() => this.Profile.Grayscale, value); }
 		}
 
 		public List<RotationViewModel> RotationChoices
@@ -388,83 +366,22 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-        public VCPictureRotation Rotation
+		public VCPictureRotation Rotation
 		{
-			get
-			{
-				return this.Profile.Rotation;
-			}
-
-			set
-			{
-				this.Profile.Rotation = value;
-				this.RaisePropertyChanged(() => this.Rotation);
-				this.IsModified = true;
-				this.NotifyRotationChanged();
-			}
+			get { return this.Profile.Rotation; }
+			set { this.UpdateProfileProperty(() => this.Profile.Rotation, value); }
 		}
 
 		public bool FlipHorizontal
 		{
-			get
-			{
-				return this.Profile.FlipHorizontal;
-			}
-
-			set
-			{
-				this.Profile.FlipHorizontal = value;
-				this.RaisePropertyChanged(() => this.FlipHorizontal);
-				this.IsModified = true;
-				this.NotifyRotationChanged();
-			}
+			get { return this.Profile.FlipHorizontal; }
+			set { this.UpdateProfileProperty(() => this.Profile.FlipHorizontal, value); }
 		}
 
 		public bool FlipVertical
 		{
-			get
-			{
-				return this.Profile.FlipVertical;
-			}
-
-			set
-			{
-				this.Profile.FlipVertical = value;
-				this.RaisePropertyChanged(() => this.FlipVertical);
-				this.IsModified = true;
-				this.NotifyRotationChanged();
-			}
-		}
-
-		public void NotifyAllChanged()
-		{
-			this.RaisePropertyChanged(() => this.SelectedDetelecine);
-			this.RaisePropertyChanged(() => this.CustomDetelecine);
-			this.RaisePropertyChanged(() => this.CustomDetelecineVisible);
-			this.RaisePropertyChanged(() => this.SelectedDeinterlace);
-			this.RaisePropertyChanged(() => this.CustomDeinterlace);
-			this.RaisePropertyChanged(() => this.CustomDeinterlaceVisible);
-			this.RaisePropertyChanged(() => this.SelectedDecomb);
-			this.RaisePropertyChanged(() => this.CustomDecomb);
-			this.RaisePropertyChanged(() => this.CustomDecombVisible);
-			this.RaisePropertyChanged(() => this.SelectedDenoise);
-			this.RaisePropertyChanged(() => this.DenoisePreset);
-			this.RaisePropertyChanged(() => this.DenoisePresetVisible);
-			this.RaisePropertyChanged(() => this.DenoiseTune);
-			this.RaisePropertyChanged(() => this.DenoiseTuneVisible);
-			this.RaisePropertyChanged(() => this.CustomDenoise);
-			this.RaisePropertyChanged(() => this.CustomDenoiseVisible);
-			this.RaisePropertyChanged(() => this.Deblock);
-			this.RaisePropertyChanged(() => this.DeblockText);
-			this.RaisePropertyChanged(() => this.Grayscale);
-			this.RaisePropertyChanged(() => this.Rotation);
-			this.RaisePropertyChanged(() => this.FlipHorizontal);
-			this.RaisePropertyChanged(() => this.FlipVertical);
-		}
-
-		private void NotifyRotationChanged()
-		{
-			this.outputSizeService.Refresh();
+			get { return this.Profile.FlipVertical; }
+			set { this.UpdateProfileProperty(() => this.Profile.FlipVertical, value); }
 		}
 	}
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using Omu.ValueInjecter;
+using ReactiveUI;
 using VidCoderCommon.Utilities.Injection;
 
 namespace VidCoderCommon.Model
@@ -8,7 +10,8 @@ namespace VidCoderCommon.Model
 	/// <summary>
 	/// A VidCoder encoding profile.
 	/// </summary>
-	public class VCProfile
+	[JsonObject]
+	public class VCProfile : ReactiveObject
 	{
 		public VCProfile()
 		{
@@ -38,63 +41,194 @@ namespace VidCoderCommon.Model
 		public string Denoise { get; set; }
 		#endregion
 
+		[JsonProperty]
 		public string ContainerName { get; set; }
+
+		[JsonProperty]
 		public VCOutputExtension PreferredExtension { get; set; }
+
+		[JsonProperty]
 		public bool IncludeChapterMarkers { get; set; }
+
+		[JsonProperty]
 		public bool LargeFile { get; set; }
+
+		[JsonProperty]
 		public bool Optimize { get; set; }
+
+		[JsonProperty]
 		public bool IPod5GSupport { get; set; }
 
-		public int Width { get; set; }
-		public int Height { get; set; }
-		public int MaxWidth { get; set; }
-		public int MaxHeight { get; set; }
-		public VCScaleMethod ScaleMethod { get; set; }
-		public VCCroppingType CroppingType { get; set; }
-		public VCCropping Cropping { get; set; }
-		public VCAnamorphic Anamorphic { get; set; }
-		public bool UseDisplayWidth { get; set; }
-		public int DisplayWidth { get; set; }
-		public bool KeepDisplayAspect { get; set; }
-		public int PixelAspectX { get; set; }
-		public int PixelAspectY { get; set; }
-		public int Modulus { get; set; }
-		public VCPictureRotation Rotation { get; set; }
-		public bool FlipHorizontal { get; set; }
-		public bool FlipVertical { get; set; }
 
+		[JsonProperty]
+		public int Width { get; set; }
+
+		[JsonProperty]
+		public int Height { get; set; }
+
+		[JsonProperty]
+		public int MaxWidth { get; set; }
+
+		[JsonProperty]
+		public int MaxHeight { get; set; }
+
+		[JsonProperty]
+		public VCScaleMethod ScaleMethod { get; set; }
+
+		[JsonProperty]
+		public VCCroppingType CroppingType { get; set; }
+
+		[JsonProperty]
+		public VCCropping Cropping { get; set; }
+
+		[JsonProperty]
+		public VCAnamorphic Anamorphic { get; set; }
+
+		[JsonProperty]
+		public bool UseDisplayWidth { get; set; }
+
+		[JsonProperty]
+		public int DisplayWidth { get; set; }
+
+		[JsonProperty]
+		public bool KeepDisplayAspect { get; set; }
+
+		[JsonProperty]
+		public int PixelAspectX { get; set; }
+
+		[JsonProperty]
+		public int PixelAspectY { get; set; }
+
+		[JsonProperty]
+		public int Modulus { get; set; }
+
+		private VCPictureRotation rotation;
+
+		[JsonProperty]
+		public VCPictureRotation Rotation
+		{
+			get { return this.rotation; }
+			set { this.RaiseAndSetIfChanged(ref this.rotation, value); }
+		}
+
+		private bool flipHorizontal;
+
+		[JsonProperty]
+		public bool FlipHorizontal
+		{
+			get { return this.flipHorizontal; }
+			set { this.RaiseAndSetIfChanged(ref this.flipHorizontal, value); }
+		}
+
+		private bool flipVertical;
+
+		[JsonProperty]
+		public bool FlipVertical
+		{
+			get { return this.flipVertical; }
+			set { this.RaiseAndSetIfChanged(ref this.flipVertical, value); }
+		}
+
+
+		[JsonProperty]
 		public VCDeinterlace Deinterlace { get; set; }
+
+		[JsonProperty]
 		public string CustomDeinterlace { get; set; }
+
+		[JsonProperty]
 		public VCDecomb Decomb { get; set; }
+
+		[JsonProperty]
 		public string CustomDecomb { get; set; }
+
+		[JsonProperty]
 		public VCDetelecine Detelecine { get; set; }
+
+		[JsonProperty]
 		public string CustomDetelecine { get; set; }
+
+		[JsonProperty]
 		public VCDenoise DenoiseType { get; set; }
+
+		[JsonProperty]
 		public string DenoisePreset { get; set; }
+
+		[JsonProperty]
 		public string DenoiseTune { get; set; }
-		public bool UseCustomDenoise { get; set; }
+
+		private bool useCustomDenoise;
+
+		[JsonProperty]
+		public bool UseCustomDenoise
+		{
+			get { return this.useCustomDenoise; }
+			set { this.RaiseAndSetIfChanged(ref this.useCustomDenoise, value); }
+		}
+
+		[JsonProperty]
 		public string CustomDenoise { get; set; }
+
+		[JsonProperty]
 		public int Deblock { get; set; }
+
+		[JsonProperty]
 		public bool Grayscale { get; set; }
 
+
+		[JsonProperty]
 		public bool UseAdvancedTab { get; set; }
+
+		[JsonProperty]
 		public string VideoEncoder { get; set; }
+
+		[JsonProperty]
 		public string VideoOptions { get; set; }
+
+		[JsonProperty]
 		public string VideoProfile { get; set; }
+
+		[JsonProperty]
 		public string VideoPreset { get; set; }
+
+		[JsonProperty]
 		public string VideoLevel { get; set; }
+
+		[JsonProperty]
 		public List<string> VideoTunes { get; set; }
+
+		[JsonProperty]
 		public bool QsvDecode { get; set; }
+
+		[JsonProperty]
 		public VCVideoEncodeRateType VideoEncodeRateType { get; set; }
+
+		[JsonProperty]
 		public double Quality { get; set; }
+
+		[JsonProperty]
 		public int TargetSize { get; set; }
+
+		[JsonProperty]
 		public int VideoBitrate { get; set; }
+
+		[JsonProperty]
 		public bool TwoPass { get; set; }
+
+		[JsonProperty]
 		public bool TurboFirstPass { get; set; }
+
+		[JsonProperty]
 		public double Framerate { get; set; }
+
+		[JsonProperty]
 		public bool ConstantFramerate { get; set; }
 
+
+		[JsonProperty]
 		public List<AudioEncoding> AudioEncodings { get; set; }
+
+		[JsonProperty]
 		public string AudioEncoderFallback { get; set; }
 
 		public VCProfile Clone()
