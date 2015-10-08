@@ -317,35 +317,6 @@ namespace VidCoder.ViewModel
 			set { this.UpdateProfileProperty(() => this.Profile.Deblock, value); }
 		}
 
-		//public int Deblock
-		//{
-		//	get
-		//	{
-		//		if (this.Profile.Deblock >= MinDeblock)
-		//		{
-		//			return this.Profile.Deblock;
-		//		}
-
-		//		return MinDeblock - 1;
-		//	}
-
-		//	set
-		//	{
-		//		if (value < MinDeblock)
-		//		{
-		//			this.Profile.Deblock = 0;
-		//		}
-		//		else
-		//		{
-		//			this.Profile.Deblock = value;
-		//		}
-
-		//		RaisePropertyChanged(() => this.Deblock);
-		//		RaisePropertyChanged(() => this.DeblockText);
-		//		this.IsModified = true;
-		//	}
-		//}
-
 		private ObservableAsPropertyHelper<string> deblockText;
 		public string DeblockText
 		{

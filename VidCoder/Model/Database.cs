@@ -290,7 +290,7 @@ namespace VidCoder.Model
 					placement = (WINDOWPLACEMENT)serializer.Deserialize(memoryStream);
 				}
 
-				DatabaseConfig.Set(configKey, JsonConvert.SerializeObject(placement), connection);
+				Config.Set(configKey, JsonConvert.SerializeObject(placement));
 			}
 		}
 

@@ -182,8 +182,14 @@ namespace VidCoderCommon.Model
 		[JsonProperty]
 		public string VideoEncoder { get; set; }
 
+		private string videoOptions;
+
 		[JsonProperty]
-		public string VideoOptions { get; set; }
+		public string VideoOptions
+		{
+			get { return this.videoOptions; }
+			set { this.RaiseAndSetIfChanged(ref this.videoOptions, value); }
+		}
 
 		[JsonProperty]
 		public string VideoProfile { get; set; }

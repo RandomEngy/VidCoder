@@ -14,11 +14,11 @@ namespace VidCoder.ViewModel
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private PresetsService presetsService = Ioc.Get<PresetsService>();
 
-		private Dictionary<string, Action> profileProperties;
+		private Dictionary<string, Action<object>> profileProperties;
 
 		protected ProfileViewModelBase()
 		{
-			this.profileProperties = new Dictionary<string, Action>();
+			this.profileProperties = new Dictionary<string, Action<object>>();
 
 			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
 				.Subscribe(x =>
@@ -65,7 +65,18 @@ namespace VidCoder.ViewModel
 			get { return this.hasSourceData.Value; }
 		}
 
-		protected void RegisterProfileProperty<T>(Expression<Func<T>> propertyExpression, Action action = null)
+		protected void RegisterProfileProperty<T>(Expression<Func<T>> propertyExpression)
+		{
+			Action<object> a = null;
+			this.RegisterProfileProperty(propertyExpression, a);
+		}
+
+		protected void RegisterProfileProperty<T>(Expression<Func<T>> propertyExpression, Action action)
+		{
+			this.RegisterProfileProperty(propertyExpression, o => action());
+		}
+
+		protected void RegisterProfileProperty<T>(Expression<Func<T>> propertyExpression, Action<object> action)
 		{
 			string propertyName = MvvmUtilities.GetPropertyName(propertyExpression);
 			this.profileProperties.Add(propertyName, action);
@@ -112,7 +123,9 @@ namespace VidCoder.ViewModel
 				throw new ArgumentException("UpdatePresetProperty called on " + raisePropertyName + " without registering.");
 			}
 
-			if (((TProperty)typeAccessor[originalTarget, propertyName]).Equals(value))
+			TProperty oldValue = (TProperty) typeAccessor[originalTarget, propertyName];
+
+			if (oldValue != null && oldValue.Equals(value))
 			{
 				return;
 			}
@@ -143,12 +156,12 @@ namespace VidCoder.ViewModel
 			if (!this.AutomaticChange)
 			{
 				// If we have an action registered to update dependent properties, do it
-				Action action = this.profileProperties[raisePropertyName];
+				Action<object> action = this.profileProperties[raisePropertyName];
 				if (action != null)
 				{
 					// Protect against update loops with a flag
 					this.AutomaticChange = true;
-					action();
+					action(oldValue);
 					this.AutomaticChange = false;
 				}
 
@@ -195,12 +208,12 @@ namespace VidCoder.ViewModel
 			if (!this.AutomaticChange)
 			{
 				// If we have an action registered to update dependent properties, do it
-				Action action = this.profileProperties[raisePropertyName];
+				Action<object> action = this.profileProperties[raisePropertyName];
 				if (action != null)
 				{
 					// Protect against update loops with a flag
 					this.AutomaticChange = true;
-					action();
+					action(null);
 					this.AutomaticChange = false;
 				}
 
