@@ -241,7 +241,6 @@ namespace VidCoder.ViewModel
 					this.targetStreamIndex = value;
 					this.RaisePropertyChanged(() => this.TargetStreamIndex);
 					this.audioPanelVM.NotifyAudioEncodingChanged();
-					this.MarkModified();
 				}
 			}
 		}
@@ -288,7 +287,6 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.AudioCompressionMaximum);
 				this.RaisePropertyChanged(() => this.AudioCompressionGranularity);
 				this.RaisePropertyChanged(() => this.AudioCompressionToolTip);
-				this.MarkModified();
 
 				this.RefreshMixdownChoices();
 				this.RefreshBitrateChoices();
@@ -722,7 +720,6 @@ namespace VidCoder.ViewModel
 				this.drc = value;
 				this.RaisePropertyChanged(() => this.Drc);
 				this.audioPanelVM.NotifyAudioEncodingChanged();
-				this.MarkModified();
 			}
 		}
 
@@ -777,7 +774,6 @@ namespace VidCoder.ViewModel
 				this.passthroughIfPossible = value;
 				this.RaisePropertyChanged(() => this.PassthroughIfPossible);
 				this.audioPanelVM.NotifyAudioEncodingChanged();
-				this.MarkModified();
 			}
 		}
 
@@ -811,7 +807,6 @@ namespace VidCoder.ViewModel
 				this.name = value;
 				this.RaisePropertyChanged(() => this.Name);
 				this.audioPanelVM.NotifyAudioEncodingChanged();
-				this.MarkModified();
 			}
 		}
 
@@ -1154,20 +1149,11 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private void MarkModified()
-		{
-			if (!this.initializing)
-			{
-				this.audioPanelVM.IsModified = true;
-			}
-		}
-
 		private void RaiseAudioEncodingChanged()
 		{
-			if (this.IsValid)
+			if (this.IsValid && !this.initializing)
 			{
 				this.audioPanelVM.NotifyAudioEncodingChanged();
-				this.MarkModified();
 			}
 		}
 

@@ -1,35 +1,46 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using ReactiveUI;
 using VidCoder.Messages;
 using VidCoder.Resources;
+using VidCoder.Services;
 using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	public class AudioPanelViewModel : PanelViewModelOld
+	public class AudioPanelViewModel : PanelViewModel
 	{
-		private ObservableCollection<AudioEncodingViewModel> audioEncodings;
-		private ObservableCollection<AudioOutputPreview> audioOutputPreviews;
+		private ReactiveList<AudioEncodingViewModel> audioEncodings;
+		private ReactiveList<AudioOutputPreview> audioOutputPreviews;
 
 		private List<AudioEncoderViewModel> fallbackEncoderChoices;
 		private AudioEncoderViewModel selectedFallbackEncoder;
+
+		private PresetsService presetsService = Ioc.Get<PresetsService>();
 
 		private ICommand addAudioEncodingCommand;
 
 		public AudioPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)
 		{
-			this.audioOutputPreviews = new ObservableCollection<AudioOutputPreview>();
-			this.audioEncodings = new ObservableCollection<AudioEncodingViewModel>();
+			this.audioOutputPreviews = new ReactiveList<AudioOutputPreview>();
+			this.audioEncodings = new ReactiveList<AudioEncodingViewModel>();
 
 			this.fallbackEncoderChoices = new List<AudioEncoderViewModel>();
+
+			// HasAudioTracks
+			this.audioOutputPreviews.CountChanged
+				.Select(c => c > 0)
+				.ToProperty(this, x => x.HasAudioTracks, out this.hasAudioTracks);
 
 			Messenger.Default.Register<AudioInputChangedMessage>(
 				this,
@@ -54,10 +65,23 @@ namespace VidCoder.ViewModel
 					// Refresh the preview as the warnings displayed may change.
 					this.RefreshAudioPreview();
 				});
+
+			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
+				.Subscribe(Observer.Create((VCProfile _) =>
+				{
+					this.OnProfileChanged();
+				}));
+
+			this.RegisterProfileProperties();
 		}
 
+		private void RegisterProfileProperties()
+		{
+			this.RegisterProfileProperty(() => this.Profile.AudioEncoderFallback);
+			this.RegisterProfileProperty(() => this.Profile.AudioEncodings);
+		}
 
-		public ObservableCollection<AudioEncodingViewModel> AudioEncodings
+		public ReactiveList<AudioEncodingViewModel> AudioEncodings
 		{
 			get
 			{
@@ -65,7 +89,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ObservableCollection<AudioOutputPreview> AudioOutputPreviews
+		public ReactiveList<AudioOutputPreview> AudioOutputPreviews
 		{
 			get
 			{
@@ -96,20 +120,16 @@ namespace VidCoder.ViewModel
 				}
 
 				this.selectedFallbackEncoder = value;
-				this.Profile.AudioEncoderFallback = this.selectedFallbackEncoder.Encoder.ShortName;
-				this.RaisePropertyChanged(() => this.SelectedFallbackEncoder);
+				this.UpdateProfileProperty(() => this.Profile.AudioEncoderFallback, this.selectedFallbackEncoder.Encoder.ShortName, raisePropertyChanged: false);
+				this.RaisePropertyChanged();
 				this.RefreshAudioPreview();
-
-				this.IsModified = true;
 			}
 		}
 
+		private ObservableAsPropertyHelper<bool> hasAudioTracks;
 		public bool HasAudioTracks
 		{
-			get
-			{
-				return this.AudioOutputPreviews.Count > 0;
-			}
+			get { return this.hasAudioTracks.Value; }
 		}
 
 		public ICommand AddAudioEncodingCommand
@@ -132,10 +152,8 @@ namespace VidCoder.ViewModel
 						};
 
 						this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this.EncodingWindowViewModel.ContainerName, this));
-						this.RaisePropertyChanged(() => this.HasAudioTracks);
 						this.RefreshAudioPreview();
 						this.UpdateAudioEncodings();
-						this.IsModified = true;
 					});
 				}
 
@@ -146,10 +164,8 @@ namespace VidCoder.ViewModel
 		public void RemoveAudioEncoding(AudioEncodingViewModel audioEncodingVM)
 		{
 			this.AudioEncodings.Remove(audioEncodingVM);
-			this.RaisePropertyChanged(() => this.HasAudioTracks);
 			this.RefreshAudioPreview();
 			this.UpdateAudioEncodings();
-			this.IsModified = true;
 		}
 
 		private void RefreshFallbackEncoderChoices()
@@ -176,7 +192,7 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			this.RaisePropertyChanged(() => this.FallbackEncoderChoices);
+			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.FallbackEncoderChoices));
 
 			this.selectedFallbackEncoder = this.FallbackEncoderChoices.FirstOrDefault(e => e.Encoder == oldEncoder);
 
@@ -185,7 +201,7 @@ namespace VidCoder.ViewModel
 				this.selectedFallbackEncoder = this.FallbackEncoderChoices[0];
 			}
 
-			this.RaisePropertyChanged(() => this.SelectedFallbackEncoder);
+			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SelectedFallbackEncoder));
 		}
 
 		public void RefreshAudioPreview()
@@ -247,8 +263,6 @@ namespace VidCoder.ViewModel
 						Modifiers = EncodingRes.Modifiers
 					});
 				}
-
-				this.RaisePropertyChanged(() => this.HasAudioTracks);
 			}
 		}
 
@@ -360,19 +374,11 @@ namespace VidCoder.ViewModel
 
 		public void UpdateAudioEncodings()
 		{
-			this.Profile.AudioEncodings = new List<AudioEncoding>();
-			foreach (AudioEncodingViewModel audioEncodingVM in this.AudioEncodings)
-			{
-				this.Profile.AudioEncodings.Add(audioEncodingVM.NewAudioEncoding);
-			}
+			var newAudioEncodings = this.AudioEncodings.Select(e => e.NewAudioEncoding).ToList();
+			this.UpdateProfileProperty(() => this.Profile.AudioEncodings, newAudioEncodings);
 		}
 
-		public void NotifyAllChanged()
-		{
-			this.RaisePropertyChanged(() => this.HasAudioTracks);
-		}
-
-		public void NotifyProfileChanged()
+		private void OnProfileChanged()
 		{
 			this.audioEncodings.Clear();
 			foreach (AudioEncoding audioEncoding in this.Profile.AudioEncodings)
@@ -382,7 +388,7 @@ namespace VidCoder.ViewModel
 
 			this.audioOutputPreviews.Clear();
 			this.RefreshAudioPreview();
-			this.UpdateAudioEncodings();
+			//this.UpdateAudioEncodings();
 			this.RefreshFallbackEncoderChoices();
 
 			this.selectedFallbackEncoder = this.FallbackEncoderChoices.SingleOrDefault(e => e.Encoder.ShortName == this.Profile.AudioEncoderFallback);

@@ -130,6 +130,8 @@ namespace VidCoder.ViewModel
 				return;
 			}
 
+			bool presetModified = false;
+
 			if (!this.AutomaticChange)
 			{
 				if (!this.Preset.IsModified)
@@ -140,7 +142,8 @@ namespace VidCoder.ViewModel
 
 					if (!this.Preset.IsModified)
 					{
-						this.presetsService.ModifyPreset(newProfile);
+						this.presetsService.PrepareModifyPreset(newProfile);
+						presetModified = true;
 					}
 				}
 			}
@@ -151,6 +154,11 @@ namespace VidCoder.ViewModel
 			if (raisePropertyChanged)
 			{
 				this.RaisePropertyChanged(raisePropertyName);
+			}
+
+			if (presetModified)
+			{
+				this.presetsService.FinalizeModifyPreset();
 			}
 
 			if (!this.AutomaticChange)
@@ -185,6 +193,8 @@ namespace VidCoder.ViewModel
 				throw new ArgumentException("UpdatePresetProperty called on " + raisePropertyName + " without registering.");
 			}
 
+			bool presetModified = false;
+
 			if (!this.AutomaticChange)
 			{
 				if (!this.Preset.IsModified)
@@ -195,7 +205,8 @@ namespace VidCoder.ViewModel
 
 					if (!this.Preset.IsModified)
 					{
-						this.presetsService.ModifyPreset(newProfile);
+						this.presetsService.PrepareModifyPreset(newProfile);
+						presetModified = true;
 					}
 				}
 			}
@@ -204,6 +215,11 @@ namespace VidCoder.ViewModel
 			updateAction(targetFunc(), value);
 
 			this.RaisePropertyChanged(raisePropertyName);
+
+			if (presetModified)
+			{
+				this.presetsService.FinalizeModifyPreset();
+			}
 
 			if (!this.AutomaticChange)
 			{

@@ -6,6 +6,16 @@ namespace VidCoderCommon.Model
 	[JsonObject]
 	public class Preset : ReactiveObject
 	{
+		public void SetEncodingProfileSilent(VCProfile profile)
+		{
+			this.encodingProfile = profile;
+		}
+
+		public void RaiseEncodingProfile()
+		{
+			this.RaisePropertyChanged("EncodingProfile");
+		}
+
 		private string name;
 
 		[JsonProperty]

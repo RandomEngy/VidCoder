@@ -318,10 +318,10 @@ namespace VidCoder.Services
 		}
 
 		/// <summary>
-		/// Modify the current preset. Called when first making a change to a preset.
+		/// Prepares to modify the current preset. Called when just before making a change to a preset.
 		/// </summary>
 		/// <param name="newProfile">The new encoding profile to use.</param>
-		public void ModifyPreset(VCProfile newProfile)
+		public void PrepareModifyPreset(VCProfile newProfile)
 		{
 			Trace.Assert(!this.SelectedPreset.Preset.IsModified, "Cannot start modification on already modified preset.");
 			Trace.Assert(this.SelectedPreset.OriginalProfile == null, "Preset already has OriginalProfile.");
@@ -332,8 +332,16 @@ namespace VidCoder.Services
 			}
 
 			this.SelectedPreset.OriginalProfile = this.SelectedPreset.Preset.EncodingProfile;
-			this.SelectedPreset.Preset.EncodingProfile = newProfile;
+			this.SelectedPreset.Preset.SetEncodingProfileSilent(newProfile);
 			this.SelectedPreset.Preset.IsModified = true;
+		}
+
+		/// <summary>
+		/// Finalizes the preset modification.
+		/// </summary>
+		public void FinalizeModifyPreset()
+		{
+			this.SelectedPreset.Preset.RaiseEncodingProfile();
 		}
 
 		public void SaveUserPresets()
