@@ -79,6 +79,6 @@ function DeleteFileIfExists($fileName)
     if (Test-Path $fileName) { Remove-Item $fileName }
 }
 
-$DevEnv12Exe = "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.com"
-$NetToolsFolder = "C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools"
+$DevEnvExe = "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.com"
+$NetToolsFolder = "C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6 Tools"
 $InnoSetupExe = "C:\Program Files (x86)\Inno Setup 5\ISCC.exe"

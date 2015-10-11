@@ -123,8 +123,8 @@ UpdateAssemblyInfo "VidCoder\Properties\AssemblyInfo.cs" $versionLong
 UpdateAssemblyInfo "VidCoderWorker\Properties\AssemblyInfo.cs" $versionLong
 
 # Build VidCoder.sln
-& $DevEnv12Exe VidCoder.sln /Rebuild ($configuration + "|x86"); ExitIfFailed
-& $DevEnv12Exe VidCoder.sln /Rebuild ($configuration + "|x64"); ExitIfFailed
+& $DevEnvExe VidCoder.sln /Rebuild ($configuration + "|x86"); ExitIfFailed
+& $DevEnvExe VidCoder.sln /Rebuild ($configuration + "|x64"); ExitIfFailed
 
 # Run sgen to create *.XmlSerializers.dll
 & ($NetToolsFolder + "\sgen.exe") /f /a:"VidCoder\bin\x86\Release\VidCoderCommon.dll"; ExitIfFailed

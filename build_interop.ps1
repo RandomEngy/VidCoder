@@ -9,7 +9,7 @@ $HandBrakeFolder = "..\HandBrakeSVN\win\CS"
 $HandBrakeSolution = $HandBrakeFolder + "\HandBrake10.sln"
 $HandBrakeAppServicesFolder = $HandBrakeFolder + "\HandBrake.ApplicationServices"
 
-& $DevEnv12Exe $HandBrakeSolution /Rebuild "Release|x64" /project "HandBrake.ApplicationServices"; ExitIfFailed
+& $DevEnvExe $HandBrakeSolution /Rebuild "Release|x64" /project "HandBrake.ApplicationServices"; ExitIfFailed
 copy ($HandBrakeAppServicesFolder + "\bin\Release\HandBrake.ApplicationServices.dll") Lib -force
 copy ($HandBrakeAppServicesFolder + "\bin\Release\HandBrake.ApplicationServices.pdb") Lib -force
 "Files copied."

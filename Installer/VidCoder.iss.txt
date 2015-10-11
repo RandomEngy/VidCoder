@@ -70,7 +70,7 @@ Type: filesandordirs; Name: "{localappdata}\%folderName%"
 
 [Code]
 
-function Framework45IsNotInstalled(): Boolean;
+function Framework46IsNotInstalled(): Boolean;
 var
   bSuccess: Boolean;
   regVersion: Cardinal;
@@ -78,7 +78,7 @@ begin
   Result := True;
 
   bSuccess := RegQueryDWordValue(HKLM, 'Software\Microsoft\NET Framework Setup\NDP\v4\Full', 'Release', regVersion);
-  if (True = bSuccess) and (regVersion >= 378389) then begin
+  if (True = bSuccess) and (regVersion >= 393295) then begin
     Result := False;
   end;
 end;
@@ -100,9 +100,9 @@ end;
 
 procedure InitializeWizard;
 begin
-  if Framework45IsNotInstalled() then
+  if Framework46IsNotInstalled() then
   begin
-    idpAddFile('http://go.microsoft.com/fwlink/?LinkId=397707', ExpandConstant('{tmp}\NetFrameworkInstaller.exe'));
+    idpAddFile('http://go.microsoft.com/fwlink/?LinkId=528222', ExpandConstant('{tmp}\NetFrameworkInstaller.exe'));
     idpDownloadAfter(wpReady);
   end;
 end;
@@ -113,7 +113,7 @@ var
   ResultCode: Integer;
 begin
   StatusText := WizardForm.StatusLabel.Caption;
-  WizardForm.StatusLabel.Caption := 'Installing .NET Framework 4.5.2. This might take a few minutes...';
+  WizardForm.StatusLabel.Caption := 'Installing .NET Framework 4.6. This might take a few minutes...';
   WizardForm.ProgressGauge.Style := npbstMarquee;
   try
     if not Exec(ExpandConstant('{tmp}\NetFrameworkInstaller.exe'), '/passive /norestart', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
@@ -183,7 +183,7 @@ begin
   case CurStep of
     ssPostInstall:
       begin
-        if Framework45IsNotInstalled() then
+        if Framework46IsNotInstalled() then
         begin
           InstallFramework();
         end;
