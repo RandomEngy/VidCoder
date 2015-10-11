@@ -348,6 +348,7 @@ namespace VidCoder.ViewModel
 					this.ReadTuneListFromProfile();
 					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.Tune));
 					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.FastDecode));
+					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.PresetIndex));
 				});
 
 			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.VideoOptions)
@@ -526,8 +527,6 @@ namespace VidCoder.ViewModel
 				{
 					this.Profile.VideoOptions = string.Empty;
 				}
-
-				Messenger.Default.Send(new AdvancedOptionsChangedMessage());
 			});
 
 			this.RegisterProfileProperty(() => this.Profile.VideoProfile);
@@ -599,13 +598,11 @@ namespace VidCoder.ViewModel
 					if (wasAdvancedTab && this.selectedEncoder.Encoder.ShortName == "x265")
 					{
 						this.Profile.VideoOptions = string.Empty;
-						Messenger.Default.Send(new AdvancedOptionsChangedMessage());
 
 						this.UseAdvancedTab = false;
 					}
 
 					this.RaisePropertyChanged();
-					Messenger.Default.Send(new VideoCodecChangedMessage());
 
 					this.SetDefaultQuality();
 				}
@@ -1009,8 +1006,6 @@ namespace VidCoder.ViewModel
 			if (this.selectedEncoderInitialized && this.selectedEncoder.Encoder != oldEncoder)
 			{
 				RefreshEncoderSettings(applyDefaults);
-
-				Messenger.Default.Send(new VideoCodecChangedMessage());
 			}
 
 			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SelectedEncoder));

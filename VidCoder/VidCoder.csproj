@@ -567,7 +567,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SubtitleRes.resx</DependentUpon>
     </Compile>
-    <Compile Include="Messages\AdvancedOptionsChangedMessage.cs" />
     <Compile Include="Messages\ApplyQueueColumnsMessage.cs" />
     <Compile Include="Messages\AudioInputChangedMessage.cs" />
     <Compile Include="Messages\FramerateChangedMessage.cs" />
@@ -583,7 +582,6 @@
     <Compile Include="Messages\SelectedTitleChangedMessage.cs" />
     <Compile Include="Messages\OptionsChangedMessage.cs" />
     <Compile Include="Messages\StatusMessage.cs" />
-    <Compile Include="Messages\VideoCodecChangedMessage.cs" />
     <Compile Include="Messages\VideoSourceChangedMessage.cs" />
     <Compile Include="Model\AudioSelectionMode.cs" />
     <Compile Include="Model\SubtitleSelectionMode.cs" />

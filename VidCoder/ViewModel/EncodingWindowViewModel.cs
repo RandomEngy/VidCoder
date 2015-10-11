@@ -81,6 +81,15 @@ namespace VidCoder.ViewModel
 				.ToProperty(this, x => x.IsBuiltIn, out this.isBuiltIn);
 
 
+			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
+				.Subscribe(encodingProfile =>
+				{
+					if (!encodingProfile.UseAdvancedTab && this.SelectedTabIndex == AdvancedVideoTabIndex)
+					{
+						this.SelectedTabIndex = VideoTabIndex;
+					}
+				});
+
 
 			this.TogglePresetPanel = ReactiveCommand.Create();
 			this.TogglePresetPanel.Subscribe(_ => this.TogglePresetPanelImpl());

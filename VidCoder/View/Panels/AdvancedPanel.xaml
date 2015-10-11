@@ -23,7 +23,7 @@
 				Text="{x:Static res:EncodingRes.AdvancedQuery}" Margin="12,6,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
 			<TextBox
 				VerticalAlignment="Top" Margin="6,24,6,0" Height="60"
-				Text="{Binding AdvancedOptionsString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
+				Text="{Binding VideoOptions, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
 		</Grid>
 
 		<!-- x264 options panel -->
@@ -457,7 +457,7 @@
 			<TextBox
 				Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
 				Margin="0,0,0,0"
-				Text="{Binding AdvancedOptionsString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
+				Text="{Binding VideoOptions, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
 		</Grid>
 	</Grid>
 </UserControl>

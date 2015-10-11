@@ -179,8 +179,14 @@ namespace VidCoderCommon.Model
 		[JsonProperty]
 		public bool UseAdvancedTab { get; set; }
 
+		private string videoEncoder;
+
 		[JsonProperty]
-		public string VideoEncoder { get; set; }
+		public string VideoEncoder
+		{
+			get { return this.videoEncoder; }
+			set { this.RaiseAndSetIfChanged(ref this.videoEncoder, value); }
+		}
 
 		private string videoOptions;
 
