@@ -660,7 +660,7 @@
     <Compile Include="Services\ProcessingService.cs" />
     <Compile Include="Services\WindowXamlHelper.cs" />
     <Compile Include="Utilities\ResourceManagerInjection.cs" />
-    <Compile Include="Utilities\VidCoderResourceManager.cs" />
+    <Compile Include="Utilities\OrganizingResourceManager.cs" />
     <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\DataModels\AudioTrackViewModel.cs" />
     <Compile Include="ViewModel\DataModels\BitrateChoiceViewModel.cs" />
