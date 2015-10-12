@@ -72,8 +72,10 @@ namespace VidCoder
 				Formatting = Formatting.Indented
 			};
 
-			// Takes about 50ms
-			Config.EnsureInitialized(Database.Connection);
+            ResourceManagerInjection.InjectResourceManager();
+
+            // Takes about 50ms
+            Config.EnsureInitialized(Database.Connection);
 
 			var interfaceLanguageCode = Config.InterfaceLanguageCode;
 			if (!string.IsNullOrWhiteSpace(interfaceLanguageCode))
@@ -81,6 +83,8 @@ namespace VidCoder
 				var cultureInfo = new CultureInfo(interfaceLanguageCode);
 				Thread.CurrentThread.CurrentCulture = cultureInfo;
 				Thread.CurrentThread.CurrentUICulture = cultureInfo;
+			    CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+			    CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 			}
 
 			var updater = Ioc.Get<IUpdater>();
