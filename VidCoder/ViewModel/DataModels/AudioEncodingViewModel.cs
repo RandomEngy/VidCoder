@@ -149,7 +149,7 @@ namespace VidCoder.ViewModel
 			// AudioCompressionVisible
 			this.WhenAnyValue(x => x.SelectedAudioEncoder, audioEncoder =>
 			{
-				return audioEncoder.Encoder.SupportsCompression;
+				return !audioEncoder.IsPassthrough && audioEncoder.Encoder.SupportsCompression;
 			}).ToProperty(this, x => x.AudioCompressionVisible, out this.audioCompressionVisible);
 
 			// PassthroughIfPossibleVisible
@@ -176,6 +176,11 @@ namespace VidCoder.ViewModel
 				x => x.EncodeRateType,
 				(audioEncoder, encoderSettingsVisible, mixdown, encodeRateType) =>
 				{
+				    if (audioEncoder.IsPassthrough)
+				    {
+				        return false;
+				    }
+
 					if (encoderSettingsVisible && mixdown != null && encodeRateType == AudioEncodeRateType.Bitrate)
 					{
 						// We only need to find out if the bitrate limits exist, so pass in some normal values for sample rate and mixdown.
@@ -189,43 +194,65 @@ namespace VidCoder.ViewModel
 			// BitrateLabelVisible
 			this.WhenAnyValue(x => x.BitrateVisible, x => x.SelectedAudioEncoder, (bitrateVisible, audioEncoder) =>
 			{
-				return bitrateVisible && !audioEncoder.Encoder.SupportsQuality;
+				return !audioEncoder.IsPassthrough && bitrateVisible && !audioEncoder.Encoder.SupportsQuality;
 			}).ToProperty(this, x => x.BitrateLabelVisible, out this.bitrateLabelVisible);
 
 			// AudioQualityVisible
 			this.WhenAnyValue(x => x.SelectedAudioEncoder, x => x.EncodeRateType, (audioEncoder, encodeRateType) =>
 			{
-				return audioEncoder.Encoder.SupportsQuality && encodeRateType == AudioEncodeRateType.Quality;
+                return !audioEncoder.IsPassthrough &&
+                    audioEncoder.Encoder.SupportsQuality &&
+                    encodeRateType == AudioEncodeRateType.Quality;
 				
 			}).ToProperty(this, x => x.AudioQualityVisible, out this.audioQualityVisible);
 
 			// AudioQualityRadioVisible
 			this.WhenAnyValue(x => x.SelectedAudioEncoder, audioEncoder =>
 			{
-				return audioEncoder.Encoder.SupportsQuality;
+				return !audioEncoder.IsPassthrough && audioEncoder.Encoder.SupportsQuality;
 			}).ToProperty(this, x => x.AudioQualityRadioVisible, out this.audioQualityRadioVisible);
 
 			// AudioQualityMinimum
 			this.WhenAnyValue(x => x.SelectedAudioEncoder, audioEncoder =>
 			{
-				return Math.Round(audioEncoder.Encoder.QualityLimits.Low, RangeRoundDigits);
+                if (audioEncoder.IsPassthrough)
+                {
+                    return 0;
+                }
+
+                return Math.Round(audioEncoder.Encoder.QualityLimits.Low, RangeRoundDigits);
 			}).ToProperty(this, x => x.AudioQualityMinimum, out this.audioQualityMinimum);
 
 			// AudioQualityMaximum
 			this.WhenAnyValue(x => x.SelectedAudioEncoder, audioEncoder =>
 			{
+			    if (audioEncoder.IsPassthrough)
+			    {
+			        return 0;
+			    }
+
 				return Math.Round(audioEncoder.Encoder.QualityLimits.High, RangeRoundDigits);
 			}).ToProperty(this, x => x.AudioQualityMaximum, out this.audioQualityMaximum);
 
 			// AudioQualityGranularity
 			this.WhenAnyValue(x => x.SelectedAudioEncoder, audioEncoder =>
 			{
-				return Math.Round(audioEncoder.Encoder.QualityLimits.Granularity, RangeRoundDigits);
+                if (audioEncoder.IsPassthrough)
+                {
+                    return 0;
+                }
+
+                return Math.Round(audioEncoder.Encoder.QualityLimits.Granularity, RangeRoundDigits);
 			}).ToProperty(this, x => x.AudioQualityGranularity, out this.audioQualityGranularity);
 
 			// AudioQualityToolTip
 			this.WhenAnyValue(x => x.SelectedAudioEncoder, audioEncoder =>
 			{
+			    if (audioEncoder.IsPassthrough)
+			    {
+			        return string.Empty;
+			    }
+
 				string directionSentence;
 				if (audioEncoder.Encoder.QualityLimits.Ascending)
 				{
@@ -246,25 +273,45 @@ namespace VidCoder.ViewModel
 			// AudioCompressionMinimum
 			this.WhenAnyValue(x => x.SelectedAudioEncoder, audioEncoder =>
 			{
-				return Math.Round(audioEncoder.Encoder.CompressionLimits.Low, RangeRoundDigits);
+                if (audioEncoder.IsPassthrough)
+                {
+                    return 0;
+                }
+
+                return Math.Round(audioEncoder.Encoder.CompressionLimits.Low, RangeRoundDigits);
 			}).ToProperty(this, x => x.AudioCompressionMinimum, out this.audioCompressionMinimum);
 
 			// AudioCompressionMaximum
 			this.WhenAnyValue(x => x.SelectedAudioEncoder, audioEncoder =>
 			{
-				return Math.Round(audioEncoder.Encoder.CompressionLimits.High, RangeRoundDigits);
+                if (audioEncoder.IsPassthrough)
+                {
+                    return 0;
+                }
+
+                return Math.Round(audioEncoder.Encoder.CompressionLimits.High, RangeRoundDigits);
 			}).ToProperty(this, x => x.AudioCompressionMaximum, out this.audioCompressionMaximum);
 
 			// AudioCompressionGranularity
 			this.WhenAnyValue(x => x.SelectedAudioEncoder, audioEncoder =>
 			{
-				return Math.Round(audioEncoder.Encoder.CompressionLimits.Granularity, RangeRoundDigits);
+                if (audioEncoder.IsPassthrough)
+                {
+                    return 0;
+                }
+
+                return Math.Round(audioEncoder.Encoder.CompressionLimits.Granularity, RangeRoundDigits);
 			}).ToProperty(this, x => x.AudioCompressionGranularity, out this.audioCompressionGranularity);
 
 			// AudioCompressionToolTip
 			this.WhenAnyValue(x => x.SelectedAudioEncoder, audioEncoder =>
 			{
-				string directionSentence;
+                if (audioEncoder.IsPassthrough)
+                {
+                    return string.Empty;
+                }
+
+                string directionSentence;
 				if (audioEncoder.Encoder.QualityLimits.Ascending)
 				{
 					directionSentence = EncodingRes.AscendingCompressionToolTip;
