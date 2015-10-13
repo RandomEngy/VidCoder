@@ -72,8 +72,6 @@ namespace VidCoder
 				Formatting = Formatting.Indented
 			};
 
-            ResourceManagerInjection.InjectResourceManager();
-
             // Takes about 50ms
             Config.EnsureInitialized(Database.Connection);
 
