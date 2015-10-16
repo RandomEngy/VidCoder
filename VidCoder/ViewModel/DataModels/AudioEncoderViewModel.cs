@@ -18,24 +18,21 @@ namespace VidCoder.ViewModel
 
 		public bool IsPassthrough { get; set; }
 
-		public string Display
-		{
-			get
-			{
-				if (this.IsPassthrough)
-				{
-					return EncodingRes.AudioEncoder_Passthrough;
-				}
+	    public override string ToString()
+	    {
+            if (this.IsPassthrough)
+            {
+                return EncodingRes.AudioEncoder_Passthrough;
+            }
 
-				string resourceString = manager.GetString("AudioEncoder_" + this.Encoder.ShortName.Replace(':', '_'));
+            string resourceString = manager.GetString("AudioEncoder_" + this.Encoder.ShortName.Replace(':', '_'));
 
-				if (string.IsNullOrWhiteSpace(resourceString))
-				{
-					return this.Encoder.DisplayName;
-				}
+            if (string.IsNullOrWhiteSpace(resourceString))
+            {
+                return this.Encoder.DisplayName;
+            }
 
-				return resourceString;
-			}
-		}
+            return resourceString;
+        }
 	}
 }

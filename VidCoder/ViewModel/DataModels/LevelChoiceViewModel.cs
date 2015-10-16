@@ -41,5 +41,10 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(() => this.IsCompatible);
 			}
 		}
+
+	    public override string ToString()
+	    {
+	        return this.Display;
+	    }
 	}
 }

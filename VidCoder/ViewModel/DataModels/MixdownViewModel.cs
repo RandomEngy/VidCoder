@@ -16,21 +16,18 @@ namespace VidCoder.ViewModel
 
 		public HBMixdown Mixdown { get; set; }
 
-		public string Display
-		{
-			get
-			{
-				string resourceString = manager.GetString("Mixdown_" + this.Mixdown.ShortName);
-
-				if (string.IsNullOrWhiteSpace(resourceString))
-				{
-					return this.Mixdown.DisplayName;
-				}
-
-				return resourceString;
-			}
-		}
-
 		public bool IsCompatible { get; set; }
+
+	    public override string ToString()
+	    {
+            string resourceString = manager.GetString("Mixdown_" + this.Mixdown.ShortName);
+
+            if (string.IsNullOrWhiteSpace(resourceString))
+            {
+                return this.Mixdown.DisplayName;
+            }
+
+            return resourceString;
+        }
 	}
 }

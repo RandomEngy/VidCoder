@@ -9,21 +9,18 @@ namespace VidCoder.ViewModel
 	{
 		public int Bitrate { get; set; }
 
-		public string Display
-		{
-			get
-			{
-				if (this.Bitrate > 0)
-				{
-					return this.Bitrate.ToString();
-				}
-				else
-				{
-					return "Auto";
-				}
-			}
-		}
-
 		public bool IsCompatible { get; set; }
+
+	    public override string ToString()
+	    {
+            if (this.Bitrate > 0)
+            {
+                return this.Bitrate.ToString();
+            }
+            else
+            {
+                return "Auto";
+            }
+        }
 	}
 }

@@ -137,7 +137,6 @@
 							HorizontalAlignment="Left"
 							VerticalAlignment="Top"
 							VerticalContentAlignment="Center"
-							DisplayMemberPath="Display"
 							ItemsSource="{Binding EncoderChoices}"
 							SelectedItem="{Binding SelectedEncoder}" />
 
@@ -483,8 +482,7 @@
 								MinWidth="120"
 								Margin="6 0 0 0"
 								VerticalContentAlignment="Center"
-								DisplayMemberPath="Display"
-								ItemsSource="{Binding TuneChoices}"
+                                ItemsSource="{Binding TuneChoices}"
 								SelectedValue="{Binding Tune}"
 								SelectedValuePath="Value" />
 						</StackPanel>
@@ -510,7 +508,6 @@
 								MinWidth="120"
 								Margin="6 0 0 0"
 								VerticalContentAlignment="Center"
-								DisplayMemberPath="Display"
 								ItemsSource="{Binding ProfileChoices}"
 								SelectedValue="{Binding VideoProfile}"
 								SelectedValuePath="Value" />
@@ -537,7 +534,6 @@
 								MinWidth="120"
 								Margin="6 0 0 0"
 								VerticalContentAlignment="Center"
-								DisplayMemberPath="Display"
 								ItemContainerStyle="{StaticResource GrayNonCompatible}"
 								ItemsSource="{Binding LevelChoices}"
 								SelectedValue="{Binding VideoLevel}"

@@ -16,19 +16,16 @@ namespace VidCoder.ViewModel
 
 		public HBVideoEncoder Encoder { get; set; }
 
-		public string Display
-		{
-			get
-			{
-				string resourceString = manager.GetString("VideoEncoder_" + this.Encoder.ShortName.Replace(':', '_'));
+	    public override string ToString()
+	    {
+            string resourceString = manager.GetString("VideoEncoder_" + this.Encoder.ShortName.Replace(':', '_'));
 
-				if (string.IsNullOrWhiteSpace(resourceString))
-				{
-					return this.Encoder.DisplayName;
-				}
+            if (string.IsNullOrWhiteSpace(resourceString))
+            {
+                return this.Encoder.DisplayName;
+            }
 
-				return resourceString;
-			}
-		}
+            return resourceString;
+        }
 	}
 }

@@ -134,7 +134,6 @@
 			<ComboBox
 				Grid.Row="3"
 				Grid.Column="1"
-				DisplayMemberPath="Display"
 				ItemsSource="{Binding DenoiseChoices}"
 				SelectedValue="{Binding DenoiseType}"
 				SelectedValuePath="Value"
@@ -155,7 +154,6 @@
 						MinWidth="70"
 						Margin="6,0,0,0"
 						VerticalAlignment="Center"
-						DisplayMemberPath="Display"
 						ItemsSource="{Binding DenoisePresetChoices}"
 						SelectedValue="{Binding DenoisePreset}"
 						SelectedValuePath="Value" />
@@ -172,7 +170,6 @@
 						MinWidth="70"
 						Margin="6,0,0,0"
 						VerticalAlignment="Center"
-						DisplayMemberPath="Display"
 						ItemsSource="{Binding DenoiseTuneChoices}"
 						SelectedValue="{Binding DenoiseTune}"
 						SelectedValuePath="Value" />

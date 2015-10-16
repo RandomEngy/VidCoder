@@ -103,7 +103,6 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         MinWidth="95"
-                        DisplayMemberPath="Display"
                         ItemsSource="{Binding AudioEncoders}"
                         SelectedItem="{Binding SelectedAudioEncoder}"
                         Style="{StaticResource AudioControl}" />
@@ -132,7 +131,6 @@
                         Grid.Row="1"
                         Grid.Column="1"
                         MinWidth="95"
-                        DisplayMemberPath="Display"
                         ItemsSource="{Binding PassthroughChoices}"
                         SelectedValue="{Binding SelectedPassthrough}"
                         SelectedValuePath="Value"
@@ -150,7 +148,6 @@
                         Grid.Row="1"
                         Grid.Column="1"
                         MinWidth="125"
-                        DisplayMemberPath="Display"
                         ItemContainerStyle="{StaticResource GrayNonCompatible}"
                         ItemsSource="{Binding MixdownChoices}"
                         SelectedItem="{Binding SelectedMixdown}"
@@ -237,7 +234,6 @@
                             Grid.Row="0"
                             Grid.Column="1"
                             MinWidth="45"
-                            DisplayMemberPath="Display"
                             ItemContainerStyle="{StaticResource GrayNonCompatible}"
                             ItemsSource="{Binding BitrateChoices}"
                             SelectedValue="{Binding SelectedBitrate}"
@@ -263,7 +259,6 @@
                             </TextBlock>
                             <ComboBox
                                 MinWidth="110"
-                                DisplayMemberPath="Display"
                                 ItemsSource="{Binding AudioPanelVM.FallbackEncoderChoices}"
                                 SelectedItem="{Binding AudioPanelVM.SelectedFallbackEncoder}"
                                 ToolTipService.ShowDuration="20000">

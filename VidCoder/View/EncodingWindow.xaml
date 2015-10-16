@@ -255,7 +255,6 @@
 					HorizontalAlignment="Left"
 					VerticalAlignment="Center"
 					VerticalContentAlignment="Center"
-					DisplayMemberPath="Display"
 					ItemsSource="{Binding ContainerChoices}"
 					SelectedValue="{Binding ContainerName}"
 					SelectedValuePath="Value" />

@@ -19,9 +19,9 @@ namespace VidCoder.ViewModel
 
 		public SourceAudioTrack AudioTrack { get; set; }
 
-		public string Display
-		{
-			get { return this.trackNumber + " " + this.AudioTrack.Description; }
-		}
+	    public override string ToString()
+	    {
+            return this.trackNumber + " " + this.AudioTrack.Description;
+        }
 	}
 }

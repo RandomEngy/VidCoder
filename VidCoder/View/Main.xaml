@@ -795,7 +795,6 @@
 										Margin="0 0 10 0"
 										HorizontalAlignment="Left"
 										VerticalAlignment="Center"
-										DisplayMemberPath="Display"
 										ItemsSource="{Binding RangeTypeChoices}"
 										SelectedValue="{Binding RangeType}"
 										SelectedValuePath="Value" />
@@ -939,7 +938,6 @@
 											<ComboBox
 												MinWidth="180"
 												Margin="2"
-												DisplayMemberPath="Display"
 												ItemsSource="{Binding MainViewModel.InputTracks}"
 												SelectedIndex="{Binding SelectedIndex}" />
 											<Button
@@ -1686,7 +1684,6 @@
 					Margin="0 0 3 0"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Center"
-					DisplayMemberPath="Display"
 					ItemsSource="{Binding ProcessingService.EncodeCompleteActions}"
 					SelectedValue="{Binding ProcessingService.EncodeCompleteAction}" />
 			</StackPanel>

@@ -10,5 +10,10 @@ namespace VidCoder.ViewModel
 		public string CultureCode { get; set; }
 
 		public string Display { get; set; }
+
+	    public override string ToString()
+	    {
+	        return this.Display;
+	    }
 	}
 }

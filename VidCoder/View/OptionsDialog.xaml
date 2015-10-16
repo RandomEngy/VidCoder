@@ -85,7 +85,6 @@
 									Height="23"
 									MinWidth="100"
 									Margin="6,0,0,0"
-									DisplayMemberPath="Display"
 									ItemsSource="{Binding LanguageChoices}"
 									SelectedItem="{Binding InterfaceLanguage}" />
 							</StackPanel>
@@ -423,7 +422,6 @@
 								<ComboBox
 									MinWidth="100"
 									Margin="6,0,0,0"
-									DisplayMemberPath="Display"
 									ItemsSource="{Binding PriorityChoices}"
 									SelectedValue="{Binding WorkerProcessPriority,
 								                                  Mode=TwoWay}"
