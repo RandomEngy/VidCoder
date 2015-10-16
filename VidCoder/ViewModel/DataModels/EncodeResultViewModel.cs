@@ -5,6 +5,7 @@ using System.IO;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using ReactiveUI;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -12,7 +13,7 @@ using VidCoder.Services;
 
 namespace VidCoder.ViewModel
 {
-	public class EncodeResultViewModel : ViewModelBase
+	public class EncodeResultViewModel : ReactiveObject
 	{
 		private MainViewModel main = Ioc.Get<MainViewModel>();
 		private ProcessingService processingService = Ioc.Get<ProcessingService>();
@@ -25,12 +26,23 @@ namespace VidCoder.ViewModel
 			this.encodeResult = result;
 			this.job = job;
 
-			Messenger.Default.Register<ScanningChangedMessage>(
-				this,
-				message =>
-					{
-						this.EditCommand.RaiseCanExecuteChanged();
-					});
+			this.Play = ReactiveCommand.Create();
+			this.Play.Subscribe(_ => this.PlayImpl());
+
+			this.OpenContainingFolder = ReactiveCommand.Create();
+			this.OpenContainingFolder.Subscribe(_ => this.OpenContainingFolderImpl());
+
+			this.Edit = ReactiveCommand.Create(this.WhenAnyValue(x => x.MainViewModel.ScanningSource, scanningSource =>
+			{
+				return !scanningSource;
+			}));
+			this.Edit.Subscribe(_ => this.EditImpl());
+
+			this.OpenLog = ReactiveCommand.Create();
+			this.OpenLog.Subscribe(_ => this.OpenLogImpl());
+
+			this.CopyLog = ReactiveCommand.Create();
+			this.CopyLog.Subscribe(_ => this.CopyLogImpl());
 		}
 
 		public MainViewModel MainViewModel
@@ -105,81 +117,48 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private RelayCommand playCommand;
-		public RelayCommand PlayCommand
+		public ReactiveCommand<object> Play { get; }
+		private void PlayImpl()
 		{
-			get
-			{
-				return this.playCommand ?? (this.playCommand = new RelayCommand(() =>
-					{
-						Messenger.Default.Send(new StatusMessage { Message = MainRes.PlayingVideoStatus });
-						FileService.Instance.PlayVideo(this.encodeResult.Destination);
-					}));
-			}
+			Messenger.Default.Send(new StatusMessage { Message = MainRes.PlayingVideoStatus });
+			FileService.Instance.PlayVideo(this.encodeResult.Destination);
 		}
 
-		private RelayCommand openContainingFolderCommand;
-		public RelayCommand OpenContainingFolderCommand
+		public ReactiveCommand<object> OpenContainingFolder { get; }
+		private void OpenContainingFolderImpl()
 		{
-			get
-			{
-				return this.openContainingFolderCommand ?? (this.openContainingFolderCommand = new RelayCommand(() =>
-					{
-						Messenger.Default.Send(new StatusMessage { Message = MainRes.OpeningFolderStatus });
-						Process.Start("explorer.exe", "/select," + this.encodeResult.Destination);
-					}));
-			}
+			Messenger.Default.Send(new StatusMessage { Message = MainRes.OpeningFolderStatus });
+			Process.Start("explorer.exe", "/select," + this.encodeResult.Destination);
 		}
 
-		private RelayCommand editCommand;
-		public RelayCommand EditCommand
+		public ReactiveCommand<object> Edit { get; }
+		private void EditImpl()
 		{
-			get
-			{
-				return this.editCommand ?? (this.editCommand = new RelayCommand(() =>
-					{
-						this.main.EditJob(this.job, isQueueItem: false);
-					}, () =>
-					{
-						return !this.main.ScanningSource;
-					}));
-			}
+			this.main.EditJob(this.job, isQueueItem: false);
 		}
 
-		private RelayCommand openLogCommand;
-		public RelayCommand OpenLogCommand
+		public ReactiveCommand<object> OpenLog { get; }
+		private void OpenLogImpl()
 		{
-			get
-			{
-				return this.openLogCommand ?? (this.openLogCommand = new RelayCommand(() =>
-					{
-						FileService.Instance.LaunchFile(this.encodeResult.LogPath);
-					}));
-			}
+			FileService.Instance.LaunchFile(this.encodeResult.LogPath);
 		}
 
-		private RelayCommand copyLogCommand;
-		public RelayCommand CopyLogCommand
+		public ReactiveCommand<object> CopyLog { get; }
+		private void CopyLogImpl()
 		{
-			get
+			try
 			{
-				return this.copyLogCommand ?? (this.copyLogCommand = new RelayCommand(() =>
-					{
-						try
-						{
-							string logText = File.ReadAllText(this.encodeResult.LogPath);
+				string logText = File.ReadAllText(this.encodeResult.LogPath);
 
-							Ioc.Get<ClipboardService>().SetText(logText);
-						}
-						catch (IOException exception)
-						{
-							Ioc.Get<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
-						}
-						catch (UnauthorizedAccessException exception)
-						{
-							Ioc.Get<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
-						}
-					}));
+				Ioc.Get<ClipboardService>().SetText(logText);
+			}
+			catch (IOException exception)
+			{
+				Ioc.Get<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
+			}
+			catch (UnauthorizedAccessException exception)
+			{
+				Ioc.Get<IMessageBoxService>().Show(this.main, string.Format(MainRes.CouldNotCopyLogError, Environment.NewLine, exception.ToString()));
 			}
 		}
 	}

@@ -1,12 +1,15 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+using System.Reactive.Linq;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	public class SourceOptionViewModel : ViewModelBase
+	public class SourceOptionViewModel : ReactiveObject
 	{
 		private SourceOption sourceOption;
 
@@ -14,6 +17,38 @@ namespace VidCoder.ViewModel
 		{
 			this.sourceOption = sourceOption;
 			this.SourcePath = sourcePath;
+
+			// Text
+			this.WhenAnyValue(x => x.VolumeLabel)
+				.Select(volumeLabel =>
+				{
+					switch (this.sourceOption.Type)
+					{
+						case SourceType.File:
+							if (this.SourcePath == null)
+							{
+								return MainRes.SourceOption_VideoFile;
+							}
+
+							return this.SourcePath;
+						case SourceType.VideoFolder:
+							if (this.SourcePath == null)
+							{
+								return MainRes.SourceOption_DiscFolder;
+							}
+
+							return this.SourcePath;
+						case SourceType.Dvd:
+							return this.sourceOption.DriveInfo.RootDirectory + " - " + volumeLabel;
+						default:
+							break;
+					}
+
+					return string.Empty;
+				}).ToProperty(this, x => x.Text, out this.text);
+
+			this.ChooseSource = ReactiveCommand.Create();
+			this.ChooseSource.Subscribe(_ => this.ChooseSourceImpl());
 		}
 
 		public string Image
@@ -51,34 +86,10 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private ObservableAsPropertyHelper<string> text;
 		public string Text
 		{
-			get
-			{
-				switch (this.sourceOption.Type)
-				{
-					case SourceType.File:
-						if (this.SourcePath == null)
-						{
-							return MainRes.SourceOption_VideoFile;
-						}
-
-						return this.SourcePath;
-					case SourceType.VideoFolder:
-						if (this.SourcePath == null)
-						{
-							return MainRes.SourceOption_DiscFolder;
-						}
-
-						return this.SourcePath;
-					case SourceType.Dvd:
-						return this.sourceOption.DriveInfo.RootDirectory + " - " + this.sourceOption.DriveInfo.VolumeLabel;
-					default:
-						break;
-				}
-
-				return string.Empty;
-			}
+			get { return this.text.Value; }
 		}
 
 		public string SourcePath { get; set; }
@@ -87,14 +98,13 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.sourceOption.DriveInfo.VolumeLabel;
+				return this.sourceOption.DriveInfo?.VolumeLabel;
 			}
 
 			set
 			{
 				this.sourceOption.DriveInfo.VolumeLabel = value;
-				this.RaisePropertyChanged(() => this.VolumeLabel);
-				this.RaisePropertyChanged(() => this.Text);
+				this.RaisePropertyChanged();
 			}
 		}
 
@@ -103,44 +113,38 @@ namespace VidCoder.ViewModel
 			get { return this.sourceOption; }
 		}
 
-		private RelayCommand chooseSourceCommand;
-		public RelayCommand ChooseSourceCommand
+		public ReactiveCommand<object> ChooseSource { get; }
+		private void ChooseSourceImpl()
 		{
-			get
-			{
-				return this.chooseSourceCommand ?? (this.chooseSourceCommand = new RelayCommand(() =>
-					{
-						var mainVM = Ioc.Get<MainViewModel>();
+			var mainVM = Ioc.Get<MainViewModel>();
 
-						switch (this.SourceOption.Type)
-						{
-							case SourceType.File:
-								if (this.SourcePath == null)
-								{
-									mainVM.SetSourceFromFile();
-								}
-								else
-								{
-									mainVM.SetSourceFromFile(this.SourcePath);
-								}
-								break;
-							case SourceType.VideoFolder:
-								if (this.SourcePath == null)
-								{
-									mainVM.SetSourceFromFolder();
-								}
-								else
-								{
-									mainVM.SetSourceFromFolder(this.SourcePath);
-								}
-								break;
-							case SourceType.Dvd:
-								mainVM.SetSourceFromDvd(this.SourceOption.DriveInfo);
-								break;
-							default:
-								break;
-						}
-					}));
+			switch (this.SourceOption.Type)
+			{
+				case SourceType.File:
+					if (this.SourcePath == null)
+					{
+						mainVM.SetSourceFromFile();
+					}
+					else
+					{
+						mainVM.SetSourceFromFile(this.SourcePath);
+					}
+					break;
+				case SourceType.VideoFolder:
+					if (this.SourcePath == null)
+					{
+						mainVM.SetSourceFromFolder();
+					}
+					else
+					{
+						mainVM.SetSourceFromFolder(this.SourcePath);
+					}
+					break;
+				case SourceType.Dvd:
+					mainVM.SetSourceFromDvd(this.SourceOption.DriveInfo);
+					break;
+				default:
+					break;
 			}
 		}
 	}

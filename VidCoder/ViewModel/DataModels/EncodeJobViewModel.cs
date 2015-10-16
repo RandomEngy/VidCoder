@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
+using ReactiveUI;
 using VidCoder.DragDropUtils;
 using VidCoder.Messages;
 using VidCoder.Model;
+using VidCoder.Resources;
+using VidCoder.Services;
 using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	using System.Globalization;
-	using Resources;
-	using Services;
-
-	public class EncodeJobViewModel : ViewModelBase, IDragItem
+	public class EncodeJobViewModel : ReactiveObject, IDragItem
 	{
 		/// <summary>
 		/// Divide a normal pass cost by this factor to get the cost to do a subtitle scan.
@@ -27,25 +27,61 @@ namespace VidCoder.ViewModel
 		private MainViewModel main = Ioc.Get<MainViewModel>();
 		private ProcessingService processingService;
 
-		private bool isSelected;
-		private bool isPaused;
 		private VCJob job;
-		private bool encoding;
-		private int percentComplete;
-		private bool isOnlyItem;
 		private Stopwatch encodeTimeStopwatch;
-		private TimeSpan eta;
 
 		public EncodeJobViewModel(VCJob job)
 		{
 			this.job = job;
 
-			Messenger.Default.Register<ScanningChangedMessage>(
-				this,
-				message =>
-					{
-						this.EditQueueJobCommand.RaiseCanExecuteChanged();
-					});
+			// ShowProgressBar
+			this.WhenAnyValue(x => x.Encoding, x => x.IsOnlyItem, (encoding, isOnlyItem) =>
+			{
+				return encoding && !isOnlyItem;
+			}).ToProperty(this, x => x.ShowProgressBar, out this.showProgressBar);
+
+			// ProgressToolTip
+			this.WhenAnyValue(x => x.Eta, eta =>
+			{
+				if (eta == TimeSpan.Zero)
+				{
+					return null;
+				}
+
+				return "Job ETA: " + Utilities.FormatTimeSpan(eta);
+			}).ToProperty(this, x => x.ProgressToolTip, out this.progressToolTip);
+
+			// ShowQueueEditButtons
+			this.WhenAnyValue(x => x.Encoding, encoding => !encoding)
+				.ToProperty(this, x => x.ShowQueueEditButtons, out this.showQueueEditButtons);
+
+			// ProgressBarColor
+			this.WhenAnyValue(x => x.IsPaused, isPaused =>
+			{
+				if (isPaused)
+				{
+					return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 230, 0));
+				}
+				else
+				{
+					return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 200, 0));
+				}
+			}).ToProperty(this, x => x.ProgressBarColor, out this.progressBarColor);
+
+			this.EditQueueJob = ReactiveCommand.Create(this.WhenAnyValue(
+				x => x.Encoding, 
+				x => x.MainViewModel.ScanningSource, 
+				(isEncoding, scanningSource) =>
+				{
+					return !isEncoding && !scanningSource;
+				}));
+			this.EditQueueJob.Subscribe(_ => this.EditQueueJobImpl());
+
+			this.RemoveQueueJob = ReactiveCommand.Create(this.WhenAnyValue(x => x.Encoding, encoding =>
+			{
+				return !encoding;
+			}));
+			this.RemoveQueueJob.Subscribe(_ => this.RemoveQueueJobImpl());
 		}
 
 		public VCJob Job
@@ -101,63 +137,38 @@ namespace VidCoder.ViewModel
 
 		public string PresetName { get; set; }
 
+		private bool isSelected;
 		public bool IsSelected
 		{
-			get
-			{
-				return this.isSelected;
-			}
-
-			set
-			{
-				this.isSelected = value;
-				this.RaisePropertyChanged(() => this.IsSelected);
-			}
+			get { return this.isSelected; }
+			set { this.RaiseAndSetIfChanged(ref this.isSelected, value); }
 		}
 
+		private bool encoding;
 		public bool Encoding
 		{
-			get
-			{
-				return this.encoding;
-			}
-
-			set
-			{
-				this.encoding = value;
-				this.EditQueueJobCommand.RaiseCanExecuteChanged();
-				this.RemoveQueueJobCommand.RaiseCanExecuteChanged();
-				this.RaisePropertyChanged(() => this.Encoding);
-			}
+			get { return this.encoding; }
+			set { this.RaiseAndSetIfChanged(ref this.encoding, value); }
 		}
 
+		private bool isPaused;
+		public bool IsPaused
+		{
+			get { return this.isPaused; }
+			private set { this.RaiseAndSetIfChanged(ref this.isPaused, value); }
+		}
+
+		private ObservableAsPropertyHelper<System.Windows.Media.Brush> progressBarColor;
 		public System.Windows.Media.Brush ProgressBarColor
 		{
-			get
-			{
-				if (this.isPaused)
-				{
-					return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 230, 0));
-				}
-				else
-				{
-					return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 200, 0));
-				}
-			}
+			get { return this.progressBarColor.Value; }
 		}
 
+		private bool isOnlyItem;
 		public bool IsOnlyItem
 		{
-			get
-			{
-				return this.isOnlyItem;
-			}
-
-			set
-			{
-				this.isOnlyItem = value;
-				this.RaisePropertyChanged(() => this.ShowProgressBar);
-			}
+			get { return this.isOnlyItem; }
+			set { this.RaiseAndSetIfChanged(ref this.isOnlyItem, value); }
 		}
 
 		/// <summary>
@@ -218,62 +229,36 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private ObservableAsPropertyHelper<bool> showQueueEditButtons;
 		public bool ShowQueueEditButtons
 		{
-			get
-			{
-				return !this.encoding;
-			}
+			get { return this.showQueueEditButtons.Value; }
 		}
 
+		private ObservableAsPropertyHelper<bool> showProgressBar;
 		public bool ShowProgressBar
 		{
-			get
-			{
-				return this.encoding && !this.IsOnlyItem;
-			}
+			get { return this.showProgressBar.Value; }
 		}
 
+		private TimeSpan eta;
 		public TimeSpan Eta
 		{
-			get
-			{
-				return this.eta;
-			}
-
-			set
-			{
-				this.eta = value;
-				this.RaisePropertyChanged(() => this.Eta);
-				this.RaisePropertyChanged(() => this.ProgressToolTip);
-			}
+			get { return this.eta; }
+			set { this.RaiseAndSetIfChanged(ref this.eta, value); }
 		}
 
+		private ObservableAsPropertyHelper<string> progressToolTip;
 		public string ProgressToolTip
 		{
-			get
-			{
-				if (this.Eta == TimeSpan.Zero)
-				{
-					return null;
-				}
-
-				return "Job ETA: " + Utilities.FormatTimeSpan(this.Eta);
-			}
+			get { return this.progressToolTip.Value; }
 		}
 
+		private int percentComplete;
 		public int PercentComplete
 		{
-			get
-			{
-				return this.percentComplete;
-			}
-
-			set
-			{
-				this.percentComplete = value;
-				this.RaisePropertyChanged(() => this.PercentComplete);
-			}
+			get { return this.percentComplete; }
+			set { this.RaiseAndSetIfChanged(ref this.percentComplete, value); }
 		}
 
 		public string RangeDisplay
@@ -392,36 +377,16 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private RelayCommand editQueueJobCommand;
-		public RelayCommand EditQueueJobCommand
+		public ReactiveCommand<object> EditQueueJob { get; }
+		private void EditQueueJobImpl()
 		{
-			get
-			{
-				return this.editQueueJobCommand ?? (this.editQueueJobCommand = new RelayCommand(() =>
-					{
-						this.main.EditJob(this);
-					},
-					() =>
-					{
-						return !this.Encoding && !this.main.ScanningSource;
-					}));
-			}
+			this.main.EditJob(this);
 		}
 
-		private RelayCommand removeQueueJobCommand;
-		public RelayCommand RemoveQueueJobCommand
+		public ReactiveCommand<object> RemoveQueueJob { get; }
+		private void RemoveQueueJobImpl()
 		{
-			get
-			{
-				return this.removeQueueJobCommand ?? (this.removeQueueJobCommand = new RelayCommand(() =>
-					{
-						this.ProcessingService.RemoveQueueJob(this);
-					},
-					() =>
-					{
-						return !this.Encoding;
-					}));
-			}
+			this.ProcessingService.RemoveQueueJob(this);
 		}
 
 		public bool CanDrag
@@ -432,35 +397,29 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public void ReportEncodeStart(bool isOnlyItem)
+		public void ReportEncodeStart(bool newIsOnlyItem)
 		{
 			this.Encoding = true;
-			this.IsOnlyItem = isOnlyItem;
+			this.IsOnlyItem = newIsOnlyItem;
 			this.encodeTimeStopwatch = Stopwatch.StartNew();
-			this.RaisePropertyChanged(() => this.ShowQueueEditButtons);
-			this.RaisePropertyChanged(() => this.ShowProgressBar);
 		}
 
 		public void ReportEncodePause()
 		{
-			this.isPaused = true;
+			this.IsPaused = true;
 			this.encodeTimeStopwatch.Stop();
-			this.RaisePropertyChanged(() => this.ProgressBarColor);
 		}
 
 		public void ReportEncodeResume()
 		{
-			this.isPaused = false;
+			this.IsPaused = false;
 			this.encodeTimeStopwatch.Start();
-			this.RaisePropertyChanged(() => this.ProgressBarColor);
 		}
 
 		public void ReportEncodeEnd()
 		{
 			this.Encoding = false;
 			this.encodeTimeStopwatch.Stop();
-			this.RaisePropertyChanged(() => this.ShowQueueEditButtons);
-			this.RaisePropertyChanged(() => this.ShowProgressBar);
 		}
 	}
 }

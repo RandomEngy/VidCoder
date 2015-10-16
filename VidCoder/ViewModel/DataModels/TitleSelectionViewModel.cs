@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using GalaSoft.MvvmLight;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
+using ReactiveUI;
 using VidCoder.Extensions;
 
 namespace VidCoder.ViewModel
 {
-	public class TitleSelectionViewModel : ViewModelBase
+	public class TitleSelectionViewModel : ReactiveObject
 	{
 		private QueueTitlesWindowViewModel titlesDialogVM;
 		private bool selected;
@@ -29,7 +30,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selected = value;
-				this.RaisePropertyChanged(() => this.Selected);
+				this.RaisePropertyChanged();
 				this.titlesDialogVM.HandleCheckChanged(this, value);
 			}
 		}
@@ -51,7 +52,7 @@ namespace VidCoder.ViewModel
 		public void SetSelected(bool newValue)
 		{
 			this.selected = newValue;
-			this.RaisePropertyChanged(() => this.Selected);
+			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.Selected));
 		}
 	}
 }

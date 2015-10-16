@@ -41,8 +41,14 @@ namespace VidCoderCommon.Model
 		public string Denoise { get; set; }
 		#endregion
 
+		private string containerName;
+
 		[JsonProperty]
-		public string ContainerName { get; set; }
+		public string ContainerName
+		{
+			get { return this.containerName; }
+			set { this.RaiseAndSetIfChanged(ref this.containerName, value); }
+		}
 
 		[JsonProperty]
 		public VCOutputExtension PreferredExtension { get; set; }

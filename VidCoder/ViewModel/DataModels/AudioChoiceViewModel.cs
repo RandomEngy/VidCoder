@@ -6,11 +6,12 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using ReactiveUI;
 using VidCoder.Messages;
 
 namespace VidCoder.ViewModel
 {
-	public class AudioChoiceViewModel : ViewModelBase
+	public class AudioChoiceViewModel : ReactiveObject
 	{
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private int selectedTrack;
@@ -36,7 +37,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedTrack = value;
-				this.RaisePropertyChanged(() => this.SelectedIndex);
+				this.RaisePropertyChanged();
 
 				Messenger.Default.Send(new AudioInputChangedMessage());
 			}

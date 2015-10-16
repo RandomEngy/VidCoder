@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using GalaSoft.MvvmLight;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using VidCoder.Resources;
 
 namespace VidCoder.ViewModel
 {
-	using System.Resources;
-	using Resources;
-
-	public class MixdownViewModel : ViewModelBase
+	public class MixdownViewModel
 	{
 		private static ResourceManager manager = new ResourceManager(typeof (EncodingRes));
 

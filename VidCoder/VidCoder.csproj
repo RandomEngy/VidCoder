@@ -574,7 +574,6 @@
     <Compile Include="Messages\ProgressChangedMessage.cs" />
     <Compile Include="Messages\RangeFocusMessage.cs" />
     <Compile Include="Messages\SaveQueueColumnsMessage.cs" />
-    <Compile Include="Messages\ScanningChangedMessage.cs" />
     <Compile Include="Messages\SelectedTitleChangedMessage.cs" />
     <Compile Include="Messages\OptionsChangedMessage.cs" />
     <Compile Include="Messages\StatusMessage.cs" />
@@ -662,6 +661,7 @@
     <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\DataModels\AudioTrackViewModel.cs" />
     <Compile Include="ViewModel\DataModels\BitrateChoiceViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\ChapterNameViewModel.cs" />
     <Compile Include="ViewModel\DataModels\ChapterViewModel.cs" />
     <Compile Include="ViewModel\DataModels\LevelChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\PickerViewModel.cs" />
@@ -794,7 +794,6 @@
     <Compile Include="ViewModel\DataModels\AudioEncoderViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AudioEncodingViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AudioOutputPreview.cs" />
-    <Compile Include="ViewModel\DataModels\ChapterNameViewModel.cs" />
     <Compile Include="ViewModel\DataModels\EncodeJobViewModel.cs" />
     <Compile Include="ViewModel\DataModels\MixdownViewModel.cs" />
     <Compile Include="ViewModel\DataModels\PresetViewModel.cs" />

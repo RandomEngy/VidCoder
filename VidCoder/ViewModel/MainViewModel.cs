@@ -589,8 +589,6 @@ namespace VidCoder.ViewModel
 				this.ToggleSourceMenuCommand.RaiseCanExecuteChanged();
 				this.OpenFileCommand.RaiseCanExecuteChanged();
 				this.OpenFolderCommand.RaiseCanExecuteChanged();
-
-				Messenger.Default.Send(new ScanningChangedMessage { Scanning = value });
 			}
 		}
 

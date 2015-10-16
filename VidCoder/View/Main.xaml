@@ -173,7 +173,7 @@
                     <Button
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Command="{Binding RemoveQueueJobCommand}"
+                        Command="{Binding RemoveQueueJob}"
                         Content="{x:Static res:MainRes.RemoveFromQueueToolTip}"
                         Style="{StaticResource RemoveButtonStyle}" />
                 </StackPanel>
@@ -204,7 +204,7 @@
             <TextBlock Text="{Binding TimeDisplay}" />
         </DataTemplate>
         <ContextMenu x:Key="CompletedItemContextMenu" d:DataContext="{d:DesignInstance viewmodel:EncodeResultViewModel}">
-            <MenuItem Command="{Binding PlayCommand}" Header="{x:Static res:MainRes.Play}">
+            <MenuItem Command="{Binding Play}" Header="{x:Static res:MainRes.Play}">
                 <MenuItem.Icon>
                     <Image
                         Width="16"
@@ -212,7 +212,7 @@
                         Source="/Icons/play_small.png" />
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Command="{Binding EditCommand}" Header="{x:Static res:MainRes.Edit}">
+            <MenuItem Command="{Binding Edit}" Header="{x:Static res:MainRes.Edit}">
                 <MenuItem.Icon>
                     <Image
                         Width="16"
@@ -220,7 +220,7 @@
                         Source="/Icons/edit_16x16.png" />
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Command="{Binding OpenContainingFolderCommand}" Header="{x:Static res:MainRes.OpenContainingFolder}">
+            <MenuItem Command="{Binding OpenContainingFolder}" Header="{x:Static res:MainRes.OpenContainingFolder}">
                 <MenuItem.Icon>
                     <Image
                         Width="16"
@@ -229,7 +229,7 @@
                 </MenuItem.Icon>
             </MenuItem>
             <Separator />
-            <MenuItem Command="{Binding OpenLogCommand}" Header="{x:Static res:MainRes.OpenLog}">
+            <MenuItem Command="{Binding OpenLog}" Header="{x:Static res:MainRes.OpenLog}">
                 <MenuItem.Icon>
                     <Image
                         Width="16"
@@ -237,7 +237,7 @@
                         Source="/Icons/text_file_16x16.png" />
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Command="{Binding CopyLogCommand}" Header="{x:Static res:MainRes.CopyLog}">
+            <MenuItem Command="{Binding CopyLog}" Header="{x:Static res:MainRes.CopyLog}">
                 <MenuItem.Icon>
                     <Image
                         Width="16"
@@ -618,7 +618,7 @@
                             <DataTemplate>
                                 <Button
                                     HorizontalContentAlignment="Left"
-                                    Command="{Binding ChooseSourceCommand}"
+                                    Command="{Binding ChooseSource}"
                                     UseLayoutRounding="True">
                                     <StackPanel Orientation="Horizontal">
                                         <Image
@@ -673,7 +673,7 @@
                                 ItemsSource="{Binding RecentSourceOptions}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Button HorizontalContentAlignment="Left" Command="{Binding ChooseSourceCommand}">
+                                        <Button HorizontalContentAlignment="Left" Command="{Binding ChooseSource}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto" />
@@ -1073,7 +1073,7 @@
                     <DataTemplate>
                         <Grid Style="{StaticResource DropDownContainer}" UseLayoutRounding="True">
                             <Grid.InputBindings>
-                                <MouseBinding Command="{Binding ChooseSourceCommand}" MouseAction="LeftClick" />
+                                <MouseBinding Command="{Binding ChooseSource}" MouseAction="LeftClick" />
                             </Grid.InputBindings>
                             <StackPanel Margin="2" Orientation="Horizontal">
                                 <Image
@@ -1432,7 +1432,7 @@
                                                 <MenuItem Command="{Binding ProcessingService.MoveSelectedJobsToTopCommand}" Header="{x:Static res:MainRes.MoveToTopMenuItem}" />
                                                 <MenuItem Command="{Binding ProcessingService.MoveSelectedJobsToBottomCommand}" Header="{x:Static res:MainRes.MoveToBottomMenuItem}" />
                                                 <Separator />
-                                                <MenuItem Command="{Binding EditQueueJobCommand}" Header="{x:Static res:MainRes.Edit}">
+                                                <MenuItem Command="{Binding EditQueueJob}" Header="{x:Static res:MainRes.Edit}">
                                                     <MenuItem.Icon>
                                                         <Image
                                                             Width="16"

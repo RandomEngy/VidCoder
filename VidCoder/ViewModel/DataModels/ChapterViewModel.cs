@@ -5,11 +5,12 @@ using System.Text;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
+using ReactiveUI;
 using VidCoder.Messages;
 
 namespace VidCoder.ViewModel
 {
-	public class ChapterViewModel : ViewModelBase
+	public class ChapterViewModel : ReactiveObject
 	{
 		/// <summary>
 		/// Initializes a new instance of the ChapterViewModel class.
@@ -37,7 +38,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.isHighlighted = value;
-				this.RaisePropertyChanged(() => this.IsHighlighted);
+				this.RaisePropertyChanged();
 				Messenger.Default.Send(new HighlightedChapterChangedMessage());
 			}
 		}

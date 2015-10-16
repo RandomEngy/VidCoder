@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using ReactiveUI;
 
 namespace VidCoder.ViewModel
 {
-	using GalaSoft.MvvmLight;
-
-	public class LevelChoiceViewModel : ViewModelBase
+	public class LevelChoiceViewModel : ReactiveObject
 	{
 		public LevelChoiceViewModel(string value)
 		{
@@ -30,16 +25,8 @@ namespace VidCoder.ViewModel
 		private bool isCompatible;
 		public bool IsCompatible
 		{
-			get
-			{
-				return this.isCompatible;
-			}
-
-			set
-			{
-				this.isCompatible = value;
-				this.RaisePropertyChanged(() => this.IsCompatible);
-			}
+			get { return this.isCompatible; }
+			set { this.RaiseAndSetIfChanged(ref this.isCompatible, value); }
 		}
 
 	    public override string ToString()

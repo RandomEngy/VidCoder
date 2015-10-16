@@ -287,7 +287,7 @@ namespace VidCoder.ViewModel
 			return this.SourceSubtitles.Count(s => s.TrackNumber == trackNumber) > 1;
 		}
 
-		public void ReportDefault(ViewModelBase viewModel)
+		public void ReportDefault(object viewModel)
 		{
 			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
 			{

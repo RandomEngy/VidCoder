@@ -1,14 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Model;
+using ReactiveUI;
 using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
 
-	public class SrtSubtitleViewModel : ViewModelBase
+	public class SrtSubtitleViewModel : ReactiveObject
 	{
 		private SrtSubtitle subtitle;
 
@@ -16,6 +18,9 @@ namespace VidCoder.ViewModel
 		{
 			this.SubtitleDialogViewModel = subtitleDialogViewModel;
 			this.subtitle = subtitle;
+
+			this.RemoveSubtitle = ReactiveCommand.Create();
+			this.RemoveSubtitle.Subscribe(_ => this.RemoveSubtitleImpl());
 		}
 
 		public SubtitleDialogViewModel SubtitleDialogViewModel { get; set; }
@@ -40,7 +45,7 @@ namespace VidCoder.ViewModel
 				if (value != this.subtitle.Default)
 				{
 					this.subtitle.Default = value;
-					this.RaisePropertyChanged(() => this.Default);
+					this.RaisePropertyChanged();
 
 					if (value)
 					{
@@ -65,7 +70,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.BurnedIn = value;
-				this.RaisePropertyChanged(() => this.BurnedIn);
+				this.RaisePropertyChanged();
 
 				if (value)
 				{
@@ -95,7 +100,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.FileName = value;
-				this.RaisePropertyChanged(() => this.FileName);
+				this.RaisePropertyChanged();
 			}
 		}
 
@@ -109,7 +114,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.LanguageCode = value;
-				this.RaisePropertyChanged(() => this.LanguageCode);
+				this.RaisePropertyChanged();
 			}
 		}
 
@@ -123,7 +128,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.CharacterCode = value;
-				this.RaisePropertyChanged(() => this.CharacterCode);
+				this.RaisePropertyChanged();
 			}
 		}
 
@@ -137,7 +142,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subtitle.Offset = value;
-				this.RaisePropertyChanged(() => this.Offset);
+				this.RaisePropertyChanged();
 			}
 		}
 
@@ -157,17 +162,10 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private RelayCommand removeSubtitleCommand;
-		public RelayCommand RemoveSubtitleCommand
+		public ReactiveCommand<object> RemoveSubtitle { get; }
+		private void RemoveSubtitleImpl()
 		{
-			get
-			{
-				return this.removeSubtitleCommand ?? (this.removeSubtitleCommand = new RelayCommand(
-					() =>
-					{
-						this.SubtitleDialogViewModel.RemoveSrtSubtitle(this);
-					}));
-			}
+			this.SubtitleDialogViewModel.RemoveSrtSubtitle(this);
 		}
 	}
 }

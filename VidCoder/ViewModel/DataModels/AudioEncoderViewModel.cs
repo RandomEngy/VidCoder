@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using GalaSoft.MvvmLight;
+﻿using System.Resources;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using ReactiveUI;
+using VidCoder.Resources;
 
 namespace VidCoder.ViewModel
 {
-	using System.Resources;
-	using Resources;
-
-	public class AudioEncoderViewModel : ViewModelBase
+    public class AudioEncoderViewModel : ReactiveObject
 	{
 		private static ResourceManager manager = new ResourceManager(typeof(EncodingRes));
 

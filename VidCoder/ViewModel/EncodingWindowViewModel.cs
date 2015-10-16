@@ -262,22 +262,20 @@ namespace VidCoder.ViewModel
 			set { this.UpdateProfileProperty(() => this.Profile.IncludeChapterMarkers, value); }
 		}
 
-		public ReactiveCommand<object> TogglePresetPanel { get; private set; }
-
+		public ReactiveCommand<object> TogglePresetPanel { get; }
 		private void TogglePresetPanelImpl()
 		{
 			this.PresetPanelOpen = !this.PresetPanelOpen;
 			Config.EncodingListPaneOpen = this.PresetPanelOpen;
 		}
 
-		public ReactiveCommand<object> Save { get; private set; }
-
+		public ReactiveCommand<object> Save { get; }
 		private void SaveImpl()
 		{
 			this.PresetsService.SavePreset();
 		}
 
-		public ReactiveCommand<object> SaveAs { get; private set; }
+		public ReactiveCommand<object> SaveAs { get; }
 
 		private void SaveAsImpl()
 		{
@@ -293,7 +291,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> Rename { get; private set; }
+		public ReactiveCommand<object> Rename { get; }
 
 		private void RenameImpl()
 		{
@@ -310,7 +308,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ReactiveCommand<object> DeletePreset { get; private set; }
+		public ReactiveCommand<object> DeletePreset { get; }
 
 		private void DeletePresetImpl()
 		{

@@ -134,7 +134,7 @@
         <DataTemplate x:Key="RemoveTemplate">
             <Button
                 VerticalAlignment="Center"
-                Command="{Binding RemoveSubtitleCommand}"
+                Command="{Binding RemoveSubtitle}"
                 Content="{x:Static res:SubtitleRes.RemoveSubtitleTrack}"
                 Style="{StaticResource RemoveButtonStyle}" />
         </DataTemplate>
@@ -142,14 +142,14 @@
             <Grid>
                 <Button
                     VerticalAlignment="Center"
-                    Command="{Binding RemoveSubtitleCommand}"
+                    Command="{Binding RemoveSubtitle}"
                     Content="{x:Static res:SubtitleRes.RemoveSubtitleTrack}"
                     Style="{StaticResource RemoveButtonStyle}"
                     Visibility="{Binding RemoveVisible,
                                          Converter={StaticResource VisibilityConverter}}" />
                 <Button
                     VerticalContentAlignment="Center"
-                    Command="{Binding DuplicateSubtitleCommand}"
+                    Command="{Binding DuplicateSubtitle}"
                     Content="{x:Static res:SubtitleRes.DuplicateSubtitleTrack}"
                     Style="{StaticResource AddButtonStyle}"
                     Visibility="{Binding DuplicateVisible,
