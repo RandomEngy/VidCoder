@@ -1,3 +1,12 @@
+# Extract files from Crowdin zip
+if (Test-Path .\ResourcesImport) {
+    Remove-Item .\ResourcesImport\* -recurse
+}
+
+Add-Type -assembly "system.io.compression.filesystem"
+[io.compression.zipfile]::ExtractToDirectory("vidcoder.zip", "ResourcesImport")
+
+# Copy files from holding directory to project directory
 $copiedFiles = New-Object System.Collections.Generic.List[System.String]
 
 function CopyLanguage($languageDir, $language) {
