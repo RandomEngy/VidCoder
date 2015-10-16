@@ -1,27 +1,56 @@
-﻿<Window 
-	x:Class="VidCoder.View.ChooseName"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:prop="clr-namespace:VidCoder.Properties"
-	xmlns:res="clr-namespace:VidCoder.Resources"
-	Style="{StaticResource NormalWindow}"
-	Title="{Binding Title}" Height="152" Width="250" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False" Loaded="Window_Loaded"
-	TextOptions.TextFormattingMode="Display">
-	<Grid>
-		<TextBlock Margin="12,12,0,0" VerticalAlignment="Top" Text="{Binding Subtitle}" HorizontalAlignment="Left" TextWrapping="Wrap"/>
-		<TextBox 
-			Margin="12,43,12,0" Name="presetNameText" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Height="23" VerticalAlignment="Top"
-			VerticalContentAlignment="Center"/>
+﻿<Window
+    x:Class="VidCoder.View.ChooseName"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prop="clr-namespace:VidCoder.Properties"
+    xmlns:res="clr-namespace:VidCoder.Resources"
+    Title="{Binding Title}"
+    Width="250"
+    Height="152"
+    Loaded="Window_Loaded"
+    ResizeMode="NoResize"
+    ShowInTaskbar="False"
+    Style="{StaticResource NormalWindow}"
+    TextOptions.TextFormattingMode="Display"
+    WindowStartupLocation="CenterOwner">
+    <Grid>
+        <TextBlock
+            Margin="12 12 0 0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="{Binding Subtitle}"
+            TextWrapping="Wrap" />
+        <TextBox
+            Name="presetNameText"
+            Height="23"
+            Margin="12 43 12 0"
+            VerticalAlignment="Top"
+            VerticalContentAlignment="Center"
+            Text="{Binding Name,
+                           UpdateSourceTrigger=PropertyChanged}" />
 
-		<StackPanel
-			Orientation="Horizontal"
-			HorizontalAlignment="Right" Margin="0,0,12,12" VerticalAlignment="Bottom">
-			<Button
-				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsDefault="True"
-				Command="{Binding AcceptCommand}" Margin="0,0,6,0" Content="{x:Static res:CommonRes.Ok}" />
-			<Button
-				Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="75" IsCancel="True"
-				Command="{Binding CancelCommand}" Content="{x:Static res:CommonRes.Cancel}" />
-		</StackPanel>
-	</Grid>
+        <StackPanel
+            Margin="0 0 12 12"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Orientation="Horizontal">
+            <Button
+                Height="23"
+                MinWidth="75"
+                Margin="0 0 6 0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Command="{Binding AcceptCommand}"
+                Content="{x:Static res:CommonRes.Ok}"
+                IsDefault="True" />
+            <Button
+                Height="23"
+                MinWidth="75"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Command="{Binding CancelCommand}"
+                Content="{x:Static res:CommonRes.Cancel}"
+                IsCancel="True" />
+        </StackPanel>
+    </Grid>
 </Window>

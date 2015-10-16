@@ -1,32 +1,58 @@
 ﻿<Window
-	x:Class="VidCoder.View.FileConflictDialog"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:res="clr-namespace:VidCoder.Resources"
-	xmlns:Properties="clr-namespace:VidCoder.Properties" Background="WhiteSmoke"
-	Title="{x:Static res:MiscRes.FileConflictDialogTitle}" Height="186" Width="377" ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
-	TextOptions.TextFormattingMode="Display">
-	<Grid>
-		<TextBlock
-			Height="71" Margin="12,12,12,0" VerticalAlignment="Top"
-			Text="{Binding WarningText}" 
-			TextWrapping="Wrap" />
-		
-		<StackPanel
-			Orientation="Horizontal"
-			HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,12,12">
-			<Button
-				Content="{x:Static res:MiscRes.OverwriteButton}" IsDefault="True"
-				Command="{Binding OverwriteCommand}"
-				Height="23" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" MinWidth="75" />
-			<Button
-				Content="{x:Static res:MiscRes.AutoRenameButton}"
-				Command="{Binding RenameCommand}"
-				Height="23" HorizontalAlignment="Right" Margin="6,0,0,0" VerticalAlignment="Bottom" MinWidth="75" Padding="6,0" />
-			<Button
-				Content="{x:Static res:CommonRes.Cancel}"
-				Command="{Binding CancelCommand}"
-				Height="23" HorizontalAlignment="Right" Margin="6,0,0,0" Name="button3" VerticalAlignment="Bottom" MinWidth="75" IsCancel="True" />
-		</StackPanel>
+    x:Class="VidCoder.View.FileConflictDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Properties="clr-namespace:VidCoder.Properties"
+    xmlns:res="clr-namespace:VidCoder.Resources"
+    Title="{x:Static res:MiscRes.FileConflictDialogTitle}"
+    Width="377"
+    Height="186"
+    Background="WhiteSmoke"
+    ResizeMode="NoResize"
+    TextOptions.TextFormattingMode="Display"
+    WindowStartupLocation="CenterOwner">
+    <Grid>
+        <TextBlock
+            Height="71"
+            Margin="12 12 12 0"
+            VerticalAlignment="Top"
+            Text="{Binding WarningText}"
+            TextWrapping="Wrap" />
 
-	</Grid>
+        <StackPanel
+            Margin="0 0 12 12"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Orientation="Horizontal">
+            <Button
+                Height="23"
+                MinWidth="75"
+                Margin="0 0 0 0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Command="{Binding OverwriteCommand}"
+                Content="{x:Static res:MiscRes.OverwriteButton}"
+                IsDefault="True" />
+            <Button
+                Height="23"
+                MinWidth="75"
+                Margin="6 0 0 0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Command="{Binding RenameCommand}"
+                Content="{x:Static res:MiscRes.AutoRenameButton}"
+                Padding="6 0" />
+            <Button
+                Name="button3"
+                Height="23"
+                MinWidth="75"
+                Margin="6 0 0 0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Command="{Binding CancelCommand}"
+                Content="{x:Static res:CommonRes.Cancel}"
+                IsCancel="True" />
+        </StackPanel>
+
+    </Grid>
 </Window>
