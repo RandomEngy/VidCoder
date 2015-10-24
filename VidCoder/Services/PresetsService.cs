@@ -298,8 +298,6 @@ namespace VidCoder.Services
 
 			// Refresh file name.
 			this.OutputPathVM.GenerateOutputFileName();
-
-			this.main.RefreshChapterMarkerUI();
 		}
 
 		/// <summary>
@@ -313,8 +311,6 @@ namespace VidCoder.Services
 
 			this.main.StartAnimation("PresetGlowHighlight");
 			this.SaveUserPresets();
-
-			this.main.RefreshChapterMarkerUI();
 		}
 
 		/// <summary>
@@ -416,7 +412,6 @@ namespace VidCoder.Services
 			this.OutputPathVM.GenerateOutputFileName();
 
 			this.RaisePropertyChanged(() => this.SelectedPreset);
-			this.main.RefreshChapterMarkerUI();
 
 			Config.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
 		}

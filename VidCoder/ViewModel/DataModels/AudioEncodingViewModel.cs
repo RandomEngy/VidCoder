@@ -1231,6 +1231,11 @@ namespace VidCoder.ViewModel
 
 		private SourceAudioTrack GetTargetAudioTrack()
 		{
+			if (this.main.SelectedTitle == null)
+			{
+				return null;
+			}
+
 			SourceAudioTrack track = null;
 			List<int> chosenAudioTracks = this.main.GetChosenAudioTracks();
 

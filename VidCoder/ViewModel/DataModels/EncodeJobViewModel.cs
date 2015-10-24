@@ -70,10 +70,10 @@ namespace VidCoder.ViewModel
 
 			this.EditQueueJob = ReactiveCommand.Create(this.WhenAnyValue(
 				x => x.Encoding, 
-				x => x.MainViewModel.ScanningSource, 
-				(isEncoding, scanningSource) =>
+				x => x.MainViewModel.VideoSourceState, 
+				(isEncoding, videoSourceState) =>
 				{
-					return !isEncoding && !scanningSource;
+					return !isEncoding && videoSourceState != VideoSourceState.Scanning;
 				}));
 			this.EditQueueJob.Subscribe(_ => this.EditQueueJobImpl());
 

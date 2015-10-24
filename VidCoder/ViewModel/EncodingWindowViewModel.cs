@@ -145,10 +145,7 @@ namespace VidCoder.ViewModel
 			this.RegisterProfileProperty(() => this.Profile.Optimize);
 			this.RegisterProfileProperty(() => this.Profile.IPod5GSupport);
 
-			this.RegisterProfileProperty(() => this.IncludeChapterMarkers, () =>
-			{
-				this.MainViewModel.RefreshChapterMarkerUI();
-			});
+			this.RegisterProfileProperty(() => this.IncludeChapterMarkers);
 		}
 
 		public ProcessingService ProcessingService

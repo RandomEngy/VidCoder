@@ -9,6 +9,7 @@
     xmlns:prop="clr-namespace:VidCoder.Properties"
     xmlns:res="clr-namespace:VidCoder.Resources"
     xmlns:viewmodel="clr-namespace:VidCoder.ViewModel"
+    xmlns:model="clr-namespace:VidCoderCommon.Model;assembly=VidCoderCommon"
     d:DesignHeight="330"
     d:DesignWidth="622"
     mc:Ignorable="d">
@@ -315,7 +316,7 @@
                                              Mode=TwoWay}"
                             Visibility="{Binding VideoEncodeRateType,
                                                  Converter={StaticResource EnumVisibilityConverter},
-                                                 ConverterParameter=ConstantQuality}">
+                                                 ConverterParameter={x:Static model:VCVideoEncodeRateType.ConstantQuality}}">
                             <controls:NumberBox.ToolTip>
                                 <TextBlock Style="{StaticResource LargeToolTip}" Text="{x:Static res:EncodingRes.Video_QualityTargetToolTip}" />
                             </controls:NumberBox.ToolTip>
@@ -357,7 +358,7 @@
                     TickPlacement="BottomRight"
                     Visibility="{Binding VideoEncodeRateType,
                                          Converter={StaticResource EnumVisibilityConverter},
-                                         ConverterParameter=ConstantQuality}"
+                                         ConverterParameter={x:Static model:VCVideoEncodeRateType.ConstantQuality}}"
                     Value="{Binding Quality}">
                     <Slider.ToolTip>
                         <TextBlock Style="{StaticResource LargeToolTip}" Text="{x:Static res:EncodingRes.Video_QualityTargetToolTip}" />
@@ -372,7 +373,7 @@
                     TextAlignment="Left"
                     Visibility="{Binding VideoEncodeRateType,
                                          Converter={StaticResource EnumVisibilityConverter},
-                                         ConverterParameter=ConstantQuality}" />
+                                         ConverterParameter={x:Static model:VCVideoEncodeRateType.ConstantQuality}}" />
                 <TextBlock
                     Height="21"
                     Margin="0 132 6 0"
@@ -382,7 +383,7 @@
                     TextAlignment="Right"
                     Visibility="{Binding VideoEncodeRateType,
                                          Converter={StaticResource EnumVisibilityConverter},
-                                         ConverterParameter=ConstantQuality}" />
+                                         ConverterParameter={x:Static model:VCVideoEncodeRateType.ConstantQuality}}" />
 
             </Grid>
         </Grid>

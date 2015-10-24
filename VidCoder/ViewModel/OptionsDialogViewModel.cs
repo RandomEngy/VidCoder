@@ -17,6 +17,8 @@ namespace VidCoder.ViewModel
 {
 	public class OptionsDialogViewModel : OkCancelDialogOldViewModel
 	{
+		public const int UpdatesTabIndex = 4;
+
 		private double updateProgress;
 		private string defaultPath;
 		private bool customFormat;

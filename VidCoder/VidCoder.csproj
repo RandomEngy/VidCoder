@@ -491,6 +491,7 @@
     <Compile Include="Model\EncodeProgress.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />
     <Compile Include="Model\PresetWrapper.cs" />
+    <Compile Include="Model\VideoSourceState.cs" />
     <Compile Include="Model\TitleType.cs" />
     <Compile Include="Model\Picker.cs">
       <SubType>Code</SubType>
@@ -671,7 +672,6 @@
     <Compile Include="ViewModel\FileConflictDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />
     <Compile Include="ViewModel\OkCancelDialogOldViewModel.cs" />
-    <Compile Include="ViewModel\Panels\PanelViewModelOld.cs" />
     <Compile Include="ViewModel\PickerWindowViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModelBase.cs" />
     <Compile Include="ViewModel\ShutdownWarningViewModel.cs" />
@@ -789,7 +789,7 @@
     <Compile Include="Services\Updater.cs" />
     <Compile Include="Utilities\Utilities.cs" />
     <Compile Include="ViewModel\ChapterMarkersDialogViewModel.cs" />
-    <Compile Include="ViewModel\CharCode.cs" />
+    <Compile Include="Model\CharCode.cs" />
     <Compile Include="ViewModel\ChooseNameViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AudioEncoderViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AudioEncodingViewModel.cs" />

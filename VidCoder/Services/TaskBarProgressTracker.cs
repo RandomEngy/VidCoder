@@ -2,6 +2,7 @@
 using System.Reactive.Linq;
 using System.Windows.Shell;
 using ReactiveUI;
+using VidCoder.Model;
 using VidCoder.ViewModel;
 
 namespace VidCoder.Services
@@ -23,22 +24,22 @@ namespace VidCoder.Services
 				.Select(encodeProgress => encodeProgress == null ? 0 : encodeProgress.OverallProgressFraction);
 
 			var isEncodePausedObservable = processingService.WhenAnyValue(x => x.Paused);
-			var isScanningObservable = mainViewModel.WhenAnyValue(x => x.ScanningSource);
+			var videoSourceStateObservable = mainViewModel.WhenAnyValue(x => x.VideoSourceState);
 			var scanProgressFractionObservable = mainViewModel.WhenAnyValue(x => x.ScanProgressFraction);
 
 			// Set up output properties
 			Observable.CombineLatest(
 				isEncodingObservable,
 				encodeProgressFractionObservable,
-				isScanningObservable,
+				videoSourceStateObservable,
 				scanProgressFractionObservable,
-				(isEncoding, encodeProgressFraction, isScanning, scanProgressFraction) =>
+				(isEncoding, encodeProgressFraction, videoSourceState, scanProgressFraction) =>
 				{
 					if (isEncoding)
 					{
 						return encodeProgressFraction;
 					}
-					else if (isScanning)
+					else if (videoSourceState == VideoSourceState.Scanning)
 					{
 						return scanProgressFraction;
 					}
@@ -51,8 +52,8 @@ namespace VidCoder.Services
 			Observable.CombineLatest(
 				isEncodingObservable,
 				isEncodePausedObservable,
-				isScanningObservable,
-				(isEncoding, isEncodePaused, isScanning) =>
+				videoSourceStateObservable,
+				(isEncoding, isEncodePaused, videoSourceState) =>
 				{
 					if (isEncoding)
 					{
@@ -65,7 +66,7 @@ namespace VidCoder.Services
 							return TaskbarItemProgressState.Normal;
 						}
 					}
-					else if (isScanning)
+					else if (videoSourceState == VideoSourceState.Scanning)
 					{
 						return TaskbarItemProgressState.Normal;
 					}

@@ -32,9 +32,9 @@ namespace VidCoder.ViewModel
 			this.OpenContainingFolder = ReactiveCommand.Create();
 			this.OpenContainingFolder.Subscribe(_ => this.OpenContainingFolderImpl());
 
-			this.Edit = ReactiveCommand.Create(this.WhenAnyValue(x => x.MainViewModel.ScanningSource, scanningSource =>
+			this.Edit = ReactiveCommand.Create(this.WhenAnyValue(x => x.MainViewModel.VideoSourceState, videoSourceState =>
 			{
-				return !scanningSource;
+				return videoSourceState != VideoSourceState.Scanning;
 			}));
 			this.Edit.Subscribe(_ => this.EditImpl());
 

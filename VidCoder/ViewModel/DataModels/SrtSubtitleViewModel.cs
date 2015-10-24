@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Command;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Model;
 using ReactiveUI;
+using VidCoder.Model;
 using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
