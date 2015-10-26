@@ -9,9 +9,6 @@ namespace VidCoder.Services
 
 	public interface IUpdater
 	{
-		event EventHandler<EventArgs<double>> UpdateDownloadProgress;
-		event EventHandler<EventArgs> UpdateStateChanged;
-
 		void CheckUpdates();
 		bool HandlePendingUpdate();
 		void PromptToApplyUpdate();
@@ -19,5 +16,6 @@ namespace VidCoder.Services
 
 		UpdateState State { get; }
 		string LatestVersion { get; }
+		double UpdateDownloadProgressFraction { get; set; }
 	}
 }

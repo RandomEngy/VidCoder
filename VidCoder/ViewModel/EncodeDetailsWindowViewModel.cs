@@ -1,264 +1,176 @@
-﻿using System.Diagnostics;
-using GalaSoft.MvvmLight;
+﻿using System;
+using System.Diagnostics;
+using System.Reactive.Linq;
+using ReactiveUI;
 using VidCoder.Messages;
+using VidCoder.Model;
 using VidCoder.Resources;
+using VidCoder.Services;
 
 namespace VidCoder.ViewModel
 {
-	public class EncodeDetailsWindowViewModel : ViewModelBase
+	public class EncodeDetailsWindowViewModel : ReactiveObject
 	{
+		private IObservable<EncodeProgress> progressObservable; 
+
 		public EncodeDetailsWindowViewModel()
 		{
-			MessengerInstance.Register<ProgressChangedMessage>(this,
-				m =>
-				{
-					if (m.Encoding)
-					{
-						this.OverallProgressPercent = m.OverallProgressFraction * 100;
-						this.TaskNumberDisplay = m.TaskNumber + "/" + m.TotalTasks;
-						this.OverallElapsedTime = Utilities.FormatTimeSpan(m.OverallElapsedTime);
-						this.OverallEta = Utilities.FormatTimeSpan(m.OverallEta);
-						this.FileName = m.FileName;
-						this.FileProgressPercent = m.FileProgressFraction * 100;
-						this.FileElapsedTime = Utilities.FormatTimeSpan(m.FileElapsedTime);
-						this.FileEta = Utilities.FormatTimeSpan(m.FileEta);
-						this.CurrentFps = m.CurrentFps;
-						this.AverageFps = m.AverageFps;
-						this.FileSize = Utilities.FormatFileSize(m.FileSizeBytes);
+			ProcessingService processingService = Ioc.Get<ProcessingService>();
+			this.progressObservable = processingService.WhenAnyValue(x => x.EncodeProgress);
 
-						this.ShowPassProgress = m.HasScanPass || m.TwoPass;
-						if (this.ShowPassProgress)
-						{
-							this.PassProgressPercent = m.PassProgressFraction * 100;
-							Debug.WriteLine("Pass id in encode details: " + m.CurrentPassId);
-							switch (m.CurrentPassId)
-							{
-								case -1:
-									this.PassProgressLabel = EncodeDetailsRes.ScanPassLabel;
-									break;
-								case 0:
-									this.PassProgressLabel = EncodeDetailsRes.EncodePassLabel;
-									break;
-								case 1:
-									this.PassProgressLabel = EncodeDetailsRes.FirstPassLabel;
-									break;
-								case 2:
-									this.PassProgressLabel = EncodeDetailsRes.SecondPassLabel;
-									break;
-							}
-						}
+			this.GetPropertyWatcher(encodeProgress => encodeProgress.OverallProgressFraction * 100)
+				.ToProperty(this, x => x.OverallProgressPercent, out this.overallProgressPercent);
+
+			this.GetPropertyWatcher(encodeProgress => encodeProgress.TaskNumber + "/" + encodeProgress.TotalTasks)
+				.ToProperty(this, x => x.TaskNumberDisplay, out this.taskNumberDisplay);
+
+			this.GetPropertyWatcher(encodeProgress => Utilities.FormatTimeSpan(encodeProgress.OverallElapsedTime))
+				.ToProperty(this, x => x.OverallElapsedTime, out this.overallElapsedTime);
+
+			this.GetPropertyWatcher(encodeProgress => Utilities.FormatTimeSpan(encodeProgress.OverallEta))
+				.ToProperty(this, x => x.OverallEta, out this.overallEta);
+
+			this.GetPropertyWatcher(encodeProgress => encodeProgress.FileName)
+				.ToProperty(this, x => x.FileName, out this.fileName);
+
+			this.GetPropertyWatcher(encodeProgress => encodeProgress.FileProgressFraction * 100)
+				.ToProperty(this, x => x.FileProgressPercent, out this.fileProgressPercent);
+
+			this.GetPropertyWatcher(encodeProgress => Utilities.FormatFileSize(encodeProgress.FileSizeBytes))
+				.ToProperty(this, x => x.FileSize, out this.fileSize);
+
+            this.GetPropertyWatcher(encodeProgress => Utilities.FormatTimeSpan(encodeProgress.FileElapsedTime))
+				.ToProperty(this, x => x.FileElapsedTime, out this.fileElapsedTime);
+
+            this.GetPropertyWatcher(encodeProgress => Utilities.FormatTimeSpan(encodeProgress.FileEta))
+				.ToProperty(this, x => x.FileEta, out this.fileEta);
+
+            this.GetPropertyWatcher(encodeProgress => encodeProgress.CurrentFps)
+				.ToProperty(this, x => x.CurrentFps, out this.currentFps);
+
+            this.GetPropertyWatcher(encodeProgress => encodeProgress.AverageFps)
+				.ToProperty(this, x => x.AverageFps, out this.averageFps);
+
+            this.GetPropertyWatcher(encodeProgress => encodeProgress.HasScanPass || encodeProgress.TwoPass)
+				.ToProperty(this, x => x.ShowPassProgress, out this.showPassProgress);
+
+            this.GetPropertyWatcher(encodeProgress => encodeProgress.PassProgressFraction * 100)
+				.ToProperty(this, x => x.PassProgressPercent, out this.passProgressPercent);
+
+			this.GetPropertyWatcher(encodeProgress =>
+			{
+				switch (encodeProgress.CurrentPassId)
+				{
+					case -1:
+						return EncodeDetailsRes.ScanPassLabel;
+					case 0:
+						return EncodeDetailsRes.EncodePassLabel;
+					case 1:
+						return EncodeDetailsRes.FirstPassLabel;
+					case 2:
+						return EncodeDetailsRes.SecondPassLabel;
+					default:
+						return null;
+				}
+			}).ToProperty(this, x => x.PassProgressLabel, out this.passProgressLabel);
+		}
+
+		private IObservable<T> GetPropertyWatcher<T>(Func<EncodeProgress, T> func)
+		{
+			return this.progressObservable
+				.Select(encodeProgress =>
+				{
+					if (encodeProgress == null)
+					{
+						return default(T);
 					}
+
+					return func(encodeProgress);
 				});
 		}
 
-		private double overallProgressPercent;
+		private ObservableAsPropertyHelper<double> overallProgressPercent;
 		public double OverallProgressPercent
 		{
-			get
-			{
-				return this.overallProgressPercent;
-			}
-
-			set
-			{
-				this.overallProgressPercent = value;
-				this.RaisePropertyChanged(() => this.OverallProgressPercent);
-			}
+			get { return this.overallProgressPercent.Value; }
 		}
 
-		private string taskNumberDisplay;
+		private ObservableAsPropertyHelper<string> taskNumberDisplay;
 		public string TaskNumberDisplay
 		{
-			get
-			{
-				return this.taskNumberDisplay;
-			}
-
-			set
-			{
-				this.taskNumberDisplay = value;
-				this.RaisePropertyChanged(() => this.TaskNumberDisplay);
-			}
+			get { return this.taskNumberDisplay.Value; }
 		}
 
-		private string overallElapsedTime;
+		private ObservableAsPropertyHelper<string> overallElapsedTime;
 		public string OverallElapsedTime
 		{
-			get
-			{
-				return this.overallElapsedTime;
-			}
-
-			set
-			{
-				this.overallElapsedTime = value;
-				this.RaisePropertyChanged(() => this.OverallElapsedTime);
-			}
+			get { return this.overallElapsedTime.Value; }
 		}
 
-		private string overallEta;
+		private ObservableAsPropertyHelper<string> overallEta;
 		public string OverallEta
 		{
-			get
-			{
-				return this.overallEta;
-			}
-
-			set
-			{
-				this.overallEta = value;
-				this.RaisePropertyChanged(() => this.OverallEta);
-			}
+			get { return this.overallEta.Value; }
 		}
 
-		private string fileName;
+		private ObservableAsPropertyHelper<string> fileName;
 		public string FileName
 		{
-			get
-			{
-				return this.fileName;
-			}
-
-			set
-			{
-				this.fileName = value;
-				this.RaisePropertyChanged(() => this.FileName);
-			}
+			get { return this.fileName.Value; }
 		}
 
-		private double fileProgressPercent;
+		private ObservableAsPropertyHelper<double> fileProgressPercent;
 		public double FileProgressPercent
 		{
-			get
-			{
-				return this.fileProgressPercent;
-			}
-
-			set
-			{
-				this.fileProgressPercent = value;
-				this.RaisePropertyChanged(() => this.FileProgressPercent);
-			}
+			get { return this.fileProgressPercent.Value; }
 		}
 
-		private string fileSize;
+		private ObservableAsPropertyHelper<string> fileSize;
 		public string FileSize
 		{
-			get
-			{
-				return this.fileSize;
-			}
-
-			set
-			{
-				this.fileSize = value;
-				this.RaisePropertyChanged(() => this.FileSize);
-			}
+			get { return this.fileSize.Value; }
 		}
 
-		private string fileElapsedTime;
+		private ObservableAsPropertyHelper<string> fileElapsedTime;
 		public string FileElapsedTime
 		{
-			get
-			{
-				return this.fileElapsedTime;
-			}
-
-			set
-			{
-				this.fileElapsedTime = value;
-				this.RaisePropertyChanged(() => this.FileElapsedTime);
-			}
+			get { return this.fileElapsedTime.Value; }
 		}
 
-		private string fileEta;
+		private ObservableAsPropertyHelper<string> fileEta;
 		public string FileEta
 		{
-			get
-			{
-				return this.fileEta;
-			}
-
-			set
-			{
-				this.fileEta = value;
-				this.RaisePropertyChanged(() => this.FileEta);
-			}
+			get { return this.fileEta.Value; }
 		}
 
-		private double currentFps;
+		private ObservableAsPropertyHelper<double> currentFps;
 		public double CurrentFps
 		{
-			get
-			{
-				return this.currentFps;
-			}
-
-			set
-			{
-				this.currentFps = value;
-				this.RaisePropertyChanged(() => this.CurrentFps);
-			}
+			get { return this.currentFps.Value; }
 		}
 
-		private double averageFps;
+		private ObservableAsPropertyHelper<double> averageFps;
 		public double AverageFps
 		{
-			get
-			{
-				return this.averageFps;
-			}
-
-			set
-			{
-				this.averageFps = value;
-				this.RaisePropertyChanged(() => this.AverageFps);
-			}
+			get { return this.averageFps.Value; }
 		}
 
-		private bool showPassProgress;
+		private ObservableAsPropertyHelper<bool> showPassProgress;
 		public bool ShowPassProgress
 		{
-			get
-			{
-				return this.showPassProgress;
-			}
-
-			set
-			{
-				this.showPassProgress = value;
-				this.RaisePropertyChanged(() => this.ShowPassProgress);
-			}
+			get { return this.showPassProgress.Value; }
 		}
 
-		private string passProgressLabel;
+		private ObservableAsPropertyHelper<string> passProgressLabel;
 		public string PassProgressLabel
 		{
-			get
-			{
-				return this.passProgressLabel;
-			}
-
-			set
-			{
-				this.passProgressLabel = value;
-				this.RaisePropertyChanged(() => this.PassProgressLabel);
-			}
+			get { return this.passProgressLabel.Value; }
 		}
 
-		private double passProgressPercent;
+		private ObservableAsPropertyHelper<double> passProgressPercent;
 		public double PassProgressPercent
 		{
-			get
-			{
-				return this.passProgressPercent;
-			}
-
-			set
-			{
-				this.passProgressPercent = value;
-				this.RaisePropertyChanged(() => this.PassProgressPercent);
-			}
+			get { return this.passProgressPercent.Value; }
 		}
 	}
 }

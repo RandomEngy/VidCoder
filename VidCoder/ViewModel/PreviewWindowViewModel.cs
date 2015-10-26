@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -23,7 +24,7 @@ using Geometry = HandBrake.ApplicationServices.Interop.Json.Shared.Geometry;
 
 namespace VidCoder.ViewModel
 {
-	public class PreviewWindowViewModel : ViewModelBase, IClosableWindow
+	public class PreviewWindowViewModel : ReactiveObject, IClosableWindow
 	{
 		private const int PreviewImageCacheDistance = 1;
 		private const double SubtitleScanCost = 1 / EncodeJobViewModel.SubtitleScanCostFactor;
@@ -35,15 +36,10 @@ namespace VidCoder.ViewModel
 		private HandBrakeInstance originalScanInstance;
 		private IEncodeProxy encodeProxy;
 		private ILogger logger = Ioc.Get<ILogger>();
-		private string title;
 		private int selectedPreview;
-		private bool hasPreview;
-		private bool previewEncodeStarted;
-		private bool generatingPreview;
 		private string previewFilePath;
 		private bool cancelPending;
 		private bool encodeCancelled;
-		private double previewPercentComplete;
 		private int previewSeconds;
 		private int previewCount;
 
@@ -59,10 +55,7 @@ namespace VidCoder.ViewModel
 		private BitmapSource previewBitmapSource;
 
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
-		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
 		private OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
-		private ProcessingService processingService = Ioc.Get<ProcessingService>();
-		private PresetsService presetsService = Ioc.Get<PresetsService>();
 
 		public PreviewWindowViewModel()
 		{
@@ -80,6 +73,118 @@ namespace VidCoder.ViewModel
 				{
 					this.RequestRefreshPreviews();
 				});
+
+			// PlayAvailable
+			this.WhenAnyValue(x => x.MainViewModel.SourcePath, x => x.HasPreview, (sourcePath, hasPreview) =>
+			{
+				if (!hasPreview || sourcePath == null)
+				{
+					return false;
+				}
+
+				try
+				{
+					if (FileUtilities.IsDirectory(sourcePath))
+					{
+						// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
+						bool isDvd = Utilities.IsDvdFolder(sourcePath);
+						bool playerInstalled = Players.Installed.Count > 0;
+
+						return isDvd && playerInstalled;
+					}
+					else
+					{
+						// Path is a file
+						return true;
+					}
+				}
+				catch (IOException)
+				{
+					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.PlaySourceToolTip));
+					return false;
+				}
+			}).ToProperty(this, x => x.PlayAvailable, out this.playAvailable);
+
+			// SeekBarEnabled
+			this.WhenAnyValue(x => x.HasPreview, x => x.GeneratingPreview, (hasPreview, generatingPreview) =>
+			{
+				return hasPreview && !generatingPreview;
+			}).ToProperty(this, x => x.SeekBarEnabled, out this.seekBarEnabled);
+
+			// PlaySourceToolTip
+			this.WhenAnyValue(x => x.HasPreview, x => x.MainViewModel.SourcePath, (hasPreview, sourcePath) =>
+			{
+				if (!hasPreview || sourcePath == null)
+				{
+					return null;
+				}
+
+				try
+				{
+					if (FileUtilities.IsDirectory(sourcePath))
+					{
+						// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
+						bool isDvd = Utilities.IsDvdFolder(sourcePath);
+						if (!isDvd)
+						{
+							return PreviewRes.PlaySourceDisabledBluRayToolTip;
+						}
+
+						bool playerInstalled = Players.Installed.Count > 0;
+						if (!playerInstalled)
+						{
+							return PreviewRes.PlaySourceDisabledNoPlayerToolTip;
+						}
+					}
+				}
+				catch (FileNotFoundException)
+				{
+					return PreviewRes.PlaySourceDisabledNotFoundToolTip;
+				}
+				catch (IOException)
+				{
+				}
+
+				return PreviewRes.PlaySourceToolTip;
+			}).ToProperty(this, x => x.PlaySourceToolTip, out this.playSourceToolTip);
+
+			// SingleFitImageVisible
+			this.WhenAnyValue(x => x.HasPreview, x => x.DisplayType, (hasPreview, displayType) =>
+			{
+				return hasPreview && displayType == PreviewDisplay.FitToWindow;
+			}).ToProperty(this, x => x.SingleFitImageVisible, out this.singleFitImageVisible);
+
+			// SingleOneToOneImageVisible
+			this.WhenAnyValue(x => x.HasPreview, x => x.DisplayType, (hasPreview, displayType) =>
+			{
+				return hasPreview && displayType == PreviewDisplay.OneToOne;
+			}).ToProperty(this, x => x.SingleOneToOneImageVisible, out this.singleOneToOneImageVisible);
+
+			// CornersImagesVisible
+			this.WhenAnyValue(x => x.HasPreview, x => x.DisplayType, (hasPreview, displayType) =>
+			{
+				return hasPreview && displayType == PreviewDisplay.Corners;
+			}).ToProperty(this, x => x.CornersImagesVisible, out this.cornersImagesVisible);
+
+			// InCornerDisplayMode
+			this.WhenAnyValue(x => x.DisplayType)
+				.Select(displayType => displayType == PreviewDisplay.Corners)
+				.ToProperty(this, x => x.InCornerDisplayMode, out this.inCornerDisplayMode);
+
+			// GeneratingPreview
+			this.WhenAnyValue(x => x.EncodeState)
+				.Select(encodeState => encodeState == PreviewEncodeState.EncodeStarting || encodeState == PreviewEncodeState.Encoding)
+				.ToProperty(this, x => x.GeneratingPreview, out this.generatingPreview);
+
+			this.PlaySource = ReactiveCommand.Create(this.WhenAnyValue(x => x.PlayAvailable));
+			this.PlaySource.Subscribe(_ => this.PlaySourceImpl());
+
+			this.GeneratePreview = ReactiveCommand.Create(this.WhenAnyValue(x => x.HasPreview));
+			this.GeneratePreview.Subscribe(_ => this.GeneratePreviewImpl());
+
+			this.CancelPreview = ReactiveCommand.Create(
+				this.WhenAnyValue(x => x.EncodeState).Select(encodeState => encodeState == PreviewEncodeState.Encoding));
+			this.CancelPreview.Subscribe(_ => this.CancelPreviewImpl());
 
 			this.previewSeconds = Config.PreviewSeconds;
 			this.displayType = CustomConfig.PreviewDisplay;
@@ -105,59 +210,29 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ProcessingService ProcessingService
-		{
-			get
-			{
-				return this.processingService;
-			}
-		}
+		public ProcessingService ProcessingService { get; } = Ioc.Get<ProcessingService>();
 
-		public PresetsService PresetsService
-		{
-			get { return this.presetsService; }
-		}
+		public PresetsService PresetsService { get; } = Ioc.Get<PresetsService>();
 
-		public OutputPathService OutputPathVM
-		{
-			get
-			{
-				return this.outputPathService;
-			}
-		}
+		public OutputPathService OutputPathVM { get; } = Ioc.Get<OutputPathService>();
 
 		private OutputSizeService OutputSizeService
 		{
 			get { return this.outputSizeService; }
 		}
 
+		private string title;
 		public string Title
 		{
-			get
-			{
-				return this.title;
-			}
-
-			set
-			{
-				this.title = value;
-				this.RaisePropertyChanged(() => this.Title);
-			}
+			get { return this.title; }
+			set { this.RaiseAndSetIfChanged(ref this.title, value); }
 		}
 
 		private ImageSource previewImage;
 		public ImageSource PreviewImage
 		{
-			get
-			{
-				return this.previewImage;
-			}
-
-			set
-			{
-				this.previewImage = value;
-				this.RaisePropertyChanged(() => this.PreviewImage);
-			}
+			get { return this.previewImage; }
+			set { this.RaiseAndSetIfChanged(ref this.previewImage, value); }
 		}
 
 		public BitmapSource PreviewBitmapSource
@@ -171,49 +246,36 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private PreviewEncodeState encodeState;
+		public PreviewEncodeState EncodeState
+		{
+			get { return this.encodeState; }
+			set { this.RaiseAndSetIfChanged(ref this.encodeState, value); }
+		}
+
+		private ObservableAsPropertyHelper<bool> generatingPreview;
 		public bool GeneratingPreview
 		{
-			get
-			{
-				return this.generatingPreview;
-			}
-
-			set
-			{
-				this.generatingPreview = value;
-				this.RaisePropertyChanged(() => this.GeneratingPreview);
-				this.RaisePropertyChanged(() => this.SeekBarEnabled);
-			}
+			get { return this.generatingPreview.Value; }
 		}
 
+		private ObservableAsPropertyHelper<bool> inCornerDisplayMode;
 		public bool InCornerDisplayMode
 		{
-			get
-			{
-				return this.DisplayType == PreviewDisplay.Corners;
-			}
+			get { return this.inCornerDisplayMode.Value; }
 		}
 
+		private ObservableAsPropertyHelper<bool> seekBarEnabled;
 		public bool SeekBarEnabled
 		{
-			get
-			{
-				return this.HasPreview && !this.GeneratingPreview;
-			}
+			get { return this.seekBarEnabled.Value; }
 		}
 
+		private double previewPercentComplete;
 		public double PreviewPercentComplete
 		{
-			get
-			{
-				return this.previewPercentComplete;
-			}
-
-			set
-			{
-				this.previewPercentComplete = value;
-				this.RaisePropertyChanged(() => this.PreviewPercentComplete);
-			}
+			get { return this.previewPercentComplete; }
+			set { this.RaiseAndSetIfChanged(ref this.previewPercentComplete, value); }
 		}
 
 		public int PreviewSeconds
@@ -226,32 +288,17 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.previewSeconds = value;
-				this.RaisePropertyChanged(() => this.PreviewSeconds);
+				this.RaisePropertyChanged();
 
 				Config.PreviewSeconds = value;
 			}
 		}
 
+		private bool hasPreview;
 		public bool HasPreview
 		{
-			get
-			{
-				return this.hasPreview;
-			}
-
-			set
-			{
-				this.hasPreview = value;
-				this.GeneratePreviewCommand.RaiseCanExecuteChanged();
-				this.PlaySourceCommand.RaiseCanExecuteChanged();
-				this.RaisePropertyChanged(() => this.PlaySourceToolTip);
-				this.RaisePropertyChanged(() => this.SeekBarEnabled);
-				this.RaisePropertyChanged(() => this.HasPreview);
-				this.RaisePropertyChanged(() => this.PlayAvailable);
-				this.RaisePropertyChanged(() => this.SingleOneToOneImageVisible);
-				this.RaisePropertyChanged(() => this.SingleFitImageVisible);
-				this.RaisePropertyChanged(() => this.CornersImagesVisible);
-			}
+			get { return this.hasPreview; }
+			set { this.RaiseAndSetIfChanged(ref this.hasPreview, value); }
 		}
 
 		public int SelectedPreview
@@ -264,7 +311,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selectedPreview = value;
-				this.RaisePropertyChanged(() => this.SelectedPreview);
+				this.RaisePropertyChanged();
 
 				if (this.DisplayType == PreviewDisplay.Corners)
 				{
@@ -283,28 +330,22 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private ObservableAsPropertyHelper<bool> singleFitImageVisible;
 		public bool SingleFitImageVisible
 		{
-			get
-			{
-				return this.HasPreview && this.DisplayType == PreviewDisplay.FitToWindow;
-			}
+			get { return this.singleFitImageVisible.Value; }
 		}
 
+		private ObservableAsPropertyHelper<bool> singleOneToOneImageVisible;
 		public bool SingleOneToOneImageVisible
 		{
-			get
-			{
-				return this.HasPreview && this.DisplayType == PreviewDisplay.OneToOne;
-			}
+			get { return this.singleOneToOneImageVisible.Value; }
 		}
 
+		private ObservableAsPropertyHelper<bool> cornersImagesVisible;
 		public bool CornersImagesVisible
 		{
-			get
-			{
-				return this.HasPreview && this.DisplayType == PreviewDisplay.Corners;
-			}
+			get { return this.cornersImagesVisible.Value; }
 		}
 
 		/// <summary>
@@ -343,80 +384,16 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private ObservableAsPropertyHelper<string> playSourceToolTip;
 		public string PlaySourceToolTip
 		{
-			get
-			{
-				if (!this.HasPreview || this.mainViewModel.SourcePath == null)
-				{
-					return null;
-				}
-
-				string sourcePath = this.mainViewModel.SourcePath;
-
-				try
-				{
-					if (FileUtilities.IsDirectory(sourcePath))
-					{
-						// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
-						bool isDvd = Utilities.IsDvdFolder(this.mainViewModel.SourcePath);
-						if (!isDvd)
-						{
-							return PreviewRes.PlaySourceDisabledBluRayToolTip;
-						}
-
-						bool playerInstalled = Players.Installed.Count > 0;
-						if (!playerInstalled)
-						{
-							return PreviewRes.PlaySourceDisabledNoPlayerToolTip;
-						}
-					}
-				}
-				catch (FileNotFoundException)
-				{
-					return PreviewRes.PlaySourceDisabledNotFoundToolTip;
-				}
-				catch (IOException)
-				{
-				}
-
-				return PreviewRes.PlaySourceToolTip;
-			}
+			get { return this.playSourceToolTip.Value; }
 		}
 
+		private ObservableAsPropertyHelper<bool> playAvailable;
 		public bool PlayAvailable
 		{
-			get
-			{
-				string sourcePath = this.mainViewModel.SourcePath;
-
-				if (!this.HasPreview || sourcePath == null)
-				{
-					return false;
-				}
-
-				try
-				{
-					if (FileUtilities.IsDirectory(sourcePath))
-					{
-						// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
-						bool isDvd = Utilities.IsDvdFolder(this.mainViewModel.SourcePath);
-						bool playerInstalled = Players.Installed.Count > 0;
-
-						return isDvd && playerInstalled;
-					}
-					else
-					{
-						// Path is a file
-						return true;
-					}
-				}
-				catch (IOException)
-				{
-					this.RaisePropertyChanged(() => this.PlaySourceToolTip);
-					return false;
-				}
-			}
+			get { return this.playAvailable.Value; }
 		}
 
 		private PreviewDisplay displayType;
@@ -432,11 +409,7 @@ namespace VidCoder.ViewModel
 				if (this.displayType != value)
 				{
 					this.displayType = value;
-					this.RaisePropertyChanged(() => this.DisplayType);
-					this.RaisePropertyChanged(() => this.SingleFitImageVisible);
-					this.RaisePropertyChanged(() => this.SingleOneToOneImageVisible);
-					this.RaisePropertyChanged(() => this.CornersImagesVisible);
-					this.RaisePropertyChanged(() => this.InCornerDisplayMode);
+					this.RaisePropertyChanged();
 
 					CustomConfig.PreviewDisplay = value;
 
@@ -453,146 +426,133 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private RelayCommand generatePreviewCommand;
-		public RelayCommand GeneratePreviewCommand
+		public ReactiveCommand<object> GeneratePreview { get; }
+		private void GeneratePreviewImpl()
 		{
-			get
+			this.job = this.mainViewModel.EncodeJob;
+
+			this.PreviewPercentComplete = 0;
+			this.EncodeState = PreviewEncodeState.EncodeStarting;
+			this.cancelPending = false;
+			this.encodeCancelled = false;
+
+			this.SetPreviewFilePath();
+
+			this.job.OutputPath = this.previewFilePath;
+
+			this.encodeProxy = Utilities.CreateEncodeProxy();
+			this.encodeProxy.EncodeStarted += (o, e) =>
 			{
-				return this.generatePreviewCommand ?? (this.generatePreviewCommand = new RelayCommand(() =>
+				DispatchUtilities.BeginInvoke(() =>
+				{
+					this.EncodeState = PreviewEncodeState.Encoding;
+					if (this.cancelPending)
 					{
-						this.job = this.mainViewModel.EncodeJob;
-
-						this.PreviewPercentComplete = 0;
-						this.GeneratingPreview = true;
-						this.cancelPending = false;
-						this.encodeCancelled = false;
-
-						this.SetPreviewFilePath();
-
-						this.job.OutputPath = this.previewFilePath;
-
-						this.previewEncodeStarted = false;
-
-						this.encodeProxy = Utilities.CreateEncodeProxy();
-						this.encodeProxy.EncodeStarted += (o, e) =>
-						{
-							this.previewEncodeStarted = true;
-							if (this.cancelPending)
-							{
-								DispatchUtilities.BeginInvoke(() =>
-								    {
-										this.CancelPreviewEncode();
-								    });
-							}
-							DispatchUtilities.BeginInvoke(() =>
-							{
-								this.CancelPreviewCommand.RaiseCanExecuteChanged();
-							});
-						};
-						this.encodeProxy.EncodeProgress += (o, e) =>
-						{
-							double totalWeight;
-							double completeWeight;
-							if (e.PassCount == 1)
-							{
-								// Single pass, no subtitle scan
-								totalWeight = 1;
-								completeWeight = e.FractionComplete;
-							}
-							else if (e.PassCount == 2 && e.PassId <= 0)
-							{
-								// Single pass with subtitle scan
-								totalWeight = 1 + SubtitleScanCost;
-								if (e.PassId == -1)
-								{
-									// In subtitle scan
-									completeWeight = e.FractionComplete * SubtitleScanCost;
-								}
-								else
-								{
-									// In normal pass
-									completeWeight = SubtitleScanCost + e.FractionComplete;
-								}
-							}
-							else if (e.PassCount == 2 && e.PassId >= 1)
-							{
-								// Two normal passes
-								totalWeight = 2;
-
-								if (e.PassId == 1)
-								{
-									// First pass
-									completeWeight = e.FractionComplete;
-								}
-								else
-								{
-									// Second pass
-									completeWeight = 1 + e.FractionComplete;
-								}
-							}
-							else
-							{
-								// Two normal passes with subtitle scan
-								totalWeight = 2 + SubtitleScanCost;
-
-								if (e.PassId == -1)
-								{
-									// In subtitle scan
-									completeWeight = e.FractionComplete * SubtitleScanCost;
-								}
-								else if (e.PassId == 1)
-								{
-									// First normal pass
-									completeWeight = SubtitleScanCost + e.FractionComplete;
-								}
-								else
-								{
-									// Second normal pass
-									completeWeight = SubtitleScanCost + 1 + e.FractionComplete;
-								}
-							}
-
-
-							double fractionComplete = completeWeight / totalWeight;
-							this.PreviewPercentComplete = fractionComplete * 100;
-						};
-						this.encodeProxy.EncodeCompleted += (o, e) =>
-						{
-							this.GeneratingPreview = false;
-
-							if (this.encodeCancelled)
-							{
-								this.logger.Log("Cancelled preview clip generation");
-							}
-							else
-							{
-								if (e.Error)
-								{
-									this.logger.Log(PreviewRes.PreviewClipGenerationFailedTitle);
-									Utilities.MessageBox.Show(PreviewRes.PreviewClipGenerationFailedMessage);
-								}
-								else
-								{
-									var previewFileInfo = new FileInfo(this.previewFilePath);
-									this.logger.Log("Finished preview clip generation. Size: " + Utilities.FormatFileSize(previewFileInfo.Length));
-
-									FileService.Instance.PlayVideo(previewFilePath);
-								}
-							}
-						};
-
-						this.logger.Log("Generating preview clip");
-						this.logger.Log("  Path: " + this.job.OutputPath);
-						this.logger.Log("  Title: " + this.job.Title);
-						this.logger.Log("  Preview #: " + this.SelectedPreview);
-
-						this.encodeProxy.StartEncode(this.job, this.logger, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
-						this.CancelPreviewCommand.RaiseCanExecuteChanged();
-					}, () =>
+						this.CancelPreviewImpl();
+					}
+				});
+			};
+			this.encodeProxy.EncodeProgress += (o, e) =>
+			{
+				double totalWeight;
+				double completeWeight;
+				if (e.PassCount == 1)
+				{
+					// Single pass, no subtitle scan
+					totalWeight = 1;
+					completeWeight = e.FractionComplete;
+				}
+				else if (e.PassCount == 2 && e.PassId <= 0)
+				{
+					// Single pass with subtitle scan
+					totalWeight = 1 + SubtitleScanCost;
+					if (e.PassId == -1)
 					{
-						return this.HasPreview;
-					}));
-			}
+						// In subtitle scan
+						completeWeight = e.FractionComplete * SubtitleScanCost;
+					}
+					else
+					{
+						// In normal pass
+						completeWeight = SubtitleScanCost + e.FractionComplete;
+					}
+				}
+				else if (e.PassCount == 2 && e.PassId >= 1)
+				{
+					// Two normal passes
+					totalWeight = 2;
+
+					if (e.PassId == 1)
+					{
+						// First pass
+						completeWeight = e.FractionComplete;
+					}
+					else
+					{
+						// Second pass
+						completeWeight = 1 + e.FractionComplete;
+					}
+				}
+				else
+				{
+					// Two normal passes with subtitle scan
+					totalWeight = 2 + SubtitleScanCost;
+
+					if (e.PassId == -1)
+					{
+						// In subtitle scan
+						completeWeight = e.FractionComplete * SubtitleScanCost;
+					}
+					else if (e.PassId == 1)
+					{
+						// First normal pass
+						completeWeight = SubtitleScanCost + e.FractionComplete;
+					}
+					else
+					{
+						// Second normal pass
+						completeWeight = SubtitleScanCost + 1 + e.FractionComplete;
+					}
+				}
+
+
+				double fractionComplete = completeWeight / totalWeight;
+				this.PreviewPercentComplete = fractionComplete * 100;
+			};
+			this.encodeProxy.EncodeCompleted += (o, e) =>
+			{
+				DispatchUtilities.BeginInvoke(() =>
+				{
+					this.EncodeState = PreviewEncodeState.NotEncoding;
+
+					if (this.encodeCancelled)
+					{
+						this.logger.Log("Cancelled preview clip generation");
+					}
+					else
+					{
+						if (e.Error)
+						{
+							this.logger.Log(PreviewRes.PreviewClipGenerationFailedTitle);
+							Utilities.MessageBox.Show(PreviewRes.PreviewClipGenerationFailedMessage);
+						}
+						else
+						{
+							var previewFileInfo = new FileInfo(this.previewFilePath);
+							this.logger.Log("Finished preview clip generation. Size: " + Utilities.FormatFileSize(previewFileInfo.Length));
+
+							FileService.Instance.PlayVideo(previewFilePath);
+						}
+					}
+				});
+			};
+
+			this.logger.Log("Generating preview clip");
+			this.logger.Log("  Path: " + this.job.OutputPath);
+			this.logger.Log("  Title: " + this.job.Title);
+			this.logger.Log("  Preview #: " + this.SelectedPreview);
+
+			this.encodeProxy.StartEncode(this.job, this.logger, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
 		}
 
 		private void SetPreviewFilePath()
@@ -637,59 +597,41 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private RelayCommand playSourceCommand;
-		public RelayCommand PlaySourceCommand
+		public ReactiveCommand<object> PlaySource { get; }
+		private void PlaySourceImpl()
 		{
-			get
+			string sourcePath = this.mainViewModel.SourcePath;
+
+			try
 			{
-				return this.playSourceCommand ?? (this.playSourceCommand = new RelayCommand(() =>
-				    {
-						string sourcePath = this.mainViewModel.SourcePath;
+				if (FileUtilities.IsDirectory(sourcePath))
+				{
+					// Path is a directory
+					IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);
+					if (player == null)
+					{
+						player = Players.Installed[0];
+					}
 
-					    try
-					    {
-							if (FileUtilities.IsDirectory(sourcePath))
-						    {
-								// Path is a directory
-								IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);
-								if (player == null)
-								{
-									player = Players.Installed[0];
-								}
-
-								player.PlayTitle(sourcePath, this.mainViewModel.SelectedTitle.Index);
-						    }
-						    else
-						    {
-								// Path is a file
-								FileService.Instance.PlayVideo(sourcePath);
-						    }
-					    }
-					    catch (IOException)
-					    {
-							this.PlaySourceCommand.RaiseCanExecuteChanged();
-					    }
-				    }, () =>
-				    {
-						return this.PlayAvailable;
-				    }));
+					player.PlayTitle(sourcePath, this.mainViewModel.SelectedTitle.Index);
+				}
+				else
+				{
+					// Path is a file
+					FileService.Instance.PlayVideo(sourcePath);
+				}
+			}
+			catch (IOException)
+			{
+				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.PlayAvailable));
 			}
 		}
 
-		private RelayCommand cancelPreviewCommand;
-		public RelayCommand CancelPreviewCommand
+		public ReactiveCommand<object> CancelPreview { get; }
+		private void CancelPreviewImpl()
 		{
-			get
-			{
-				return this.cancelPreviewCommand ?? (this.cancelPreviewCommand = new RelayCommand(() =>
-					{
-						this.CancelPreviewEncode();
-					},
-					() =>
-					{
-						return this.GeneratingPreview && this.previewEncodeStarted;
-					}));
-			}
+			this.encodeCancelled = true;
+			this.encodeProxy.StopEncode();
 		}
 
 		public void RequestRefreshPreviews()
@@ -781,10 +723,10 @@ namespace VidCoder.ViewModel
 			if (this.selectedPreview >= this.previewCount)
 			{
 				this.selectedPreview = this.previewCount - 1;
-				this.RaisePropertyChanged(() => this.SelectedPreview);
+				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SelectedPreview));
 			}
 
-			this.RaisePropertyChanged(() => this.PreviewCount);
+			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.PreviewCount));
 
 			this.HasPreview = true;
 
@@ -877,23 +819,19 @@ namespace VidCoder.ViewModel
 
 		private void TryCancelPreviewEncode()
 		{
-			if (this.GeneratingPreview)
+			switch (this.EncodeState)
 			{
-				if (this.previewEncodeStarted)
-				{
-					this.CancelPreviewEncode();
-				}
-				else
-				{
+				case PreviewEncodeState.NotEncoding:
+					break;
+				case PreviewEncodeState.EncodeStarting:
 					this.cancelPending = true;
-				}
+					break;
+				case PreviewEncodeState.Encoding:
+					this.CancelPreviewImpl();
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
 			}
-		}
-
-		private void CancelPreviewEncode()
-		{
-			this.encodeCancelled = true;
-			this.encodeProxy.StopEncode();
 		}
 
 		private void ClearOutOfRangeItems()
@@ -966,16 +904,10 @@ namespace VidCoder.ViewModel
 
 		private void EnqueueWork(int previewNumber)
 		{
-			this.previewImageWorkQueue.Enqueue(
-				new PreviewImageJob
-				{
-					UpdateVersion = updateVersion,
-					ScanInstance = this.ScanInstance,
-					PreviewNumber = previewNumber,
-					Profile = this.job.EncodingProfile,
-					Title = this.MainViewModel.SelectedTitle,
-					ImageFileSync = this.imageFileSync[previewNumber]
-				});
+			this.previewImageWorkQueue.Enqueue(new PreviewImageJob
+			{
+				UpdateVersion = updateVersion, ScanInstance = this.ScanInstance, PreviewNumber = previewNumber, Profile = this.job.EncodingProfile, Title = this.MainViewModel.SelectedTitle, ImageFileSync = this.imageFileSync[previewNumber]
+			});
 		}
 
 		private void ProcessPreviewImageWork(object state)
@@ -1006,11 +938,7 @@ namespace VidCoder.ViewModel
 					}
 				}
 
-				string imagePath = Path.Combine(
-					Utilities.ImageCacheFolder,
-					Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture),
-					imageJob.UpdateVersion.ToString(CultureInfo.InvariantCulture),
-					imageJob.PreviewNumber + ".bmp");
+				string imagePath = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture), imageJob.UpdateVersion.ToString(CultureInfo.InvariantCulture), imageJob.PreviewNumber + ".bmp");
 				BitmapSource imageSource = null;
 
 				// Check the disc cache for the image
@@ -1033,28 +961,20 @@ namespace VidCoder.ViewModel
 				if (imageSource == null && !imageJob.ScanInstance.IsDisposed)
 				{
 					// Make a HandBrake call to get the image
-					imageSource = imageJob.ScanInstance.GetPreview(
-						imageJob.Profile.CreatePreviewSettings(imageJob.Title), 
-						imageJob.PreviewNumber);
+					imageSource = imageJob.ScanInstance.GetPreview(imageJob.Profile.CreatePreviewSettings(imageJob.Title), imageJob.PreviewNumber);
 
 					// Transform the image as per rotation and reflection settings
 					VCProfile profile = imageJob.Profile;
-                    if (profile.FlipHorizontal || profile.FlipVertical || profile.Rotation != VCPictureRotation.None)
+					if (profile.FlipHorizontal || profile.FlipVertical || profile.Rotation != VCPictureRotation.None)
 					{
 						imageSource = CreateTransformedBitmap(imageSource, profile);
 					}
 
 					// Start saving the image file in the background and continue to process the queue.
-					ThreadPool.QueueUserWorkItem(
-						this.BackgroundFileSave,
-						new SaveImageJob
-						{
-							PreviewNumber = imageJob.PreviewNumber,
-							UpdateVersion = imageJob.UpdateVersion,
-							FilePath = imagePath,
-							Image = imageSource,
-							ImageFileSync = imageJob.ImageFileSync
-						});
+					ThreadPool.QueueUserWorkItem(this.BackgroundFileSave, new SaveImageJob
+					{
+						PreviewNumber = imageJob.PreviewNumber, UpdateVersion = imageJob.UpdateVersion, FilePath = imagePath, Image = imageSource, ImageFileSync = imageJob.ImageFileSync
+					});
 				}
 
 				lock (this.imageSync)
@@ -1096,17 +1016,17 @@ namespace VidCoder.ViewModel
 			return transformedBitmap;
 		}
 
-        private static double ConvertRotationToDegrees(VCPictureRotation rotation)
+		private static double ConvertRotationToDegrees(VCPictureRotation rotation)
 		{
 			switch (rotation)
 			{
-                case VCPictureRotation.None:
+				case VCPictureRotation.None:
 					return 0;
-                case VCPictureRotation.Clockwise90:
+				case VCPictureRotation.Clockwise90:
 					return 90;
-                case VCPictureRotation.Clockwise180:
+				case VCPictureRotation.Clockwise180:
 					return 180;
-                case VCPictureRotation.Clockwise270:
+				case VCPictureRotation.Clockwise270:
 					return 270;
 			}
 
@@ -1158,7 +1078,7 @@ namespace VidCoder.ViewModel
 
 						using (var fileStream = new FileStream(job.FilePath, FileMode.Create))
 						{
-							fileStream.Write(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
+							fileStream.Write(memoryStream.GetBuffer(), 0, (int) memoryStream.Length);
 						}
 					}
 				}

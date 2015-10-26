@@ -1,24 +1,20 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services.Windows;
 
 namespace VidCoder.ViewModel
 {
-	public class FileConflictDialogViewModel : ViewModelBase
+	public class FileConflictDialogViewModel : ReactiveObject
 	{
 		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
 
 		private string filePath;
 		private bool isFileConflict;
-
-		private FileConflictResolution fileConflictResolution;
-
-		private ICommand overwriteCommand;
-		private ICommand renameCommand;
-		private ICommand cancelCommand;
 
 		public FileConflictDialogViewModel(string filePath, bool isFileConflict)
 		{
@@ -26,6 +22,15 @@ namespace VidCoder.ViewModel
 			this.isFileConflict = isFileConflict;
 
 			this.fileConflictResolution = FileConflictResolution.Cancel;
+
+			this.Overwrite = ReactiveCommand.Create();
+			this.Overwrite.Subscribe(_ => this.OverwriteImpl());
+
+			this.Rename = ReactiveCommand.Create();
+			this.Rename.Subscribe(_ => this.RenameImpl());
+
+			this.Cancel = ReactiveCommand.Create();
+			this.Cancel.Subscribe(_ => this.CancelImpl());
 		}
 
 		public string WarningText
@@ -46,69 +51,32 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private FileConflictResolution fileConflictResolution;
 		public FileConflictResolution FileConflictResolution
 		{
-			get
-			{
-				return this.fileConflictResolution;
-			}
-
-			set
-			{
-				this.fileConflictResolution = value;
-				this.RaisePropertyChanged(() => this.FileConflictResolution);
-			}
+			get { return this.fileConflictResolution; }
+			set { this.RaiseAndSetIfChanged(ref this.fileConflictResolution, value); }
 		}
 
-		public ICommand OverwriteCommand
+		public ReactiveCommand<object> Overwrite { get; }
+		private void OverwriteImpl()
 		{
-			get
-			{
-				if (this.overwriteCommand == null)
-				{
-					this.overwriteCommand = new RelayCommand(() =>
-					{
-						this.FileConflictResolution = FileConflictResolution.Overwrite;
-						this.windowManager.Close(this);
-					});
-				}
-
-				return this.overwriteCommand;
-			}
+			this.FileConflictResolution = FileConflictResolution.Overwrite;
+			this.windowManager.Close(this);
 		}
 
-		public ICommand RenameCommand
+		public ReactiveCommand<object> Rename { get; }
+		private void RenameImpl()
 		{
-			get
-			{
-				if (this.renameCommand == null)
-				{
-					this.renameCommand = new RelayCommand(() =>
-					{
-						this.FileConflictResolution = FileConflictResolution.AutoRename;
-						this.windowManager.Close(this);
-					});
-				}
-
-				return this.renameCommand;
-			}
+			this.FileConflictResolution = FileConflictResolution.AutoRename;
+			this.windowManager.Close(this);
 		}
 
-		public ICommand CancelCommand
+		public ReactiveCommand<object> Cancel { get; }
+		private void CancelImpl()
 		{
-			get
-			{
-				if (this.cancelCommand == null)
-				{
-					this.cancelCommand = new RelayCommand(() =>
-					{
-						this.FileConflictResolution = FileConflictResolution.Cancel;
-						this.windowManager.Close(this);
-					});
-				}
-
-				return this.cancelCommand;
-			}
+			this.FileConflictResolution = FileConflictResolution.Cancel;
+			this.windowManager.Close(this);
 		}
 	}
 }

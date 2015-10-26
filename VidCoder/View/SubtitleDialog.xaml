@@ -233,7 +233,7 @@
                     </ListView>
                     <HandBrakeControls:InlineWarning
                         Margin="0 6 0 0"
-                        Visibility="{Binding TextSubtitleWarningVisibile,
+                        Visibility="{Binding TextSubtitleWarningVisible,
                                              Converter={StaticResource VisibilityConverter}}"
                         WarningText="{x:Static res:SubtitleRes.QuickTimeSubtitlesWarning}" />
                 </StackPanel>
@@ -284,7 +284,7 @@
                         Margin="0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
-                        Command="{Binding AddSrtSubtitleCommand}"
+                        Command="{Binding AddSrtSubtitle}"
                         Content="{x:Static res:SubtitleRes.ImportSrtButton}"
                         Padding="6 0" />
                     <HandBrakeControls:InlineWarning
@@ -309,7 +309,7 @@
                 Margin="0 0 6 0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Command="{Binding AcceptCommand}"
+                Command="{Binding Accept}"
                 Content="{x:Static res:CommonRes.Ok}"
                 IsDefault="True" />
             <Button
@@ -317,7 +317,7 @@
                 MinWidth="75"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Command="{Binding CancelCommand}"
+                Command="{Binding Cancel}"
                 Content="{x:Static res:CommonRes.Cancel}"
                 IsCancel="True" />
         </StackPanel>

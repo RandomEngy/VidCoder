@@ -144,7 +144,7 @@
                                     Grid.Column="2"
                                     Margin="6 0 0 0"
                                     VerticalAlignment="Center"
-                                    Command="{Binding BrowseVideoPlayerCommand}"
+                                    Command="{Binding BrowseVideoPlayer}"
                                     Content="{x:Static res:CommonRes.Browse}"
                                     IsEnabled="{Binding UseCustomVideoPlayer}"
                                     Padding="3 2" />
@@ -184,7 +184,7 @@
                                     Grid.Column="2"
                                     Margin="6 0 0 0"
                                     VerticalAlignment="Center"
-                                    Command="{Binding BrowseCompletionSoundCommand}"
+                                    Command="{Binding BrowseCompletionSound}"
                                     Content="{x:Static res:CommonRes.Browse}"
                                     IsEnabled="{Binding UseCustomCompletionSound}"
                                     Padding="3 2" />
@@ -246,7 +246,7 @@
                                     Margin="5 0 8 0"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
-                                    Command="{Binding BrowsePathCommand}"
+                                    Command="{Binding BrowsePath}"
                                     Content="{x:Static res:CommonRes.Browse}" />
                             </Grid>
                             <CheckBox
@@ -286,7 +286,7 @@
                                     Grid.Column="2"
                                     Margin="6 0 0 0"
                                     VerticalAlignment="Center"
-                                    Command="{Binding BrowsePreviewFolderCommand}"
+                                    Command="{Binding BrowsePreviewFolder}"
                                     Content="{x:Static res:CommonRes.Browse}"
                                     IsEnabled="{Binding UseCustomPreviewFolder}"
                                     Padding="3 2" />
@@ -313,7 +313,7 @@
                                 Margin="0 6 0 0"
                                 VerticalAlignment="Top"
                                 VerticalContentAlignment="Center"
-                                IsEnabled="{Binding CustomFormatStringEnabled}"
+                                IsEnabled="{Binding CustomFormat}"
                                 Text="{Binding CustomFormatString}" />
                             <TextBlock
                                 Margin="0 6 0 0"
@@ -473,7 +473,7 @@
                                     Margin="0 0 0 0"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
-                                    Command="{Binding OpenAddProcessDialogCommand}"
+                                    Command="{Binding OpenAddProcessDialog}"
                                     Content="{x:Static res:OptionsRes.AddEllipsesButton}" />
                                 <Button
                                     Height="23"
@@ -481,7 +481,7 @@
                                     Margin="8 0 0 0"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
-                                    Command="{Binding RemoveProcessCommand}"
+                                    Command="{Binding RemoveProcess}"
                                     Content="{x:Static res:CommonRes.Remove}" />
                             </StackPanel>
                         </StackPanel>
@@ -630,7 +630,7 @@
                             <Button
                                 Margin="0 8 0 0"
                                 HorizontalAlignment="Left"
-                                Command="{Binding OpenLogFolderCommand}"
+                                Command="{Binding OpenLogFolder}"
                                 Content="{x:Static res:OptionsRes.OpenLogFolderButton}"
                                 Padding="3" />
                         </StackPanel>
@@ -691,7 +691,7 @@
                                                      Converter={StaticResource VisibilityConverter}}" />
                             <Button
                                 HorizontalAlignment="Left"
-                                Command="{Binding CheckUpdateCommand}"
+                                Command="{Binding CheckUpdate}"
                                 Content="{x:Static res:OptionsRes.CheckNowButton}"
                                 Padding="3"
                                 Visibility="{Binding UpdatesEnabled,
@@ -712,7 +712,8 @@
                                 Margin="0 0 0 0"
                                 Visibility="{Binding UpdateDownloading,
                                                      Converter={StaticResource VisibilityConverter}}"
-                                Value="{Binding UpdateProgress}" />
+                                Value="{Binding UpdateProgressPercent,
+                                                Mode=OneWay}" />
                         </StackPanel>
 
                         <!--  Beta  -->
@@ -757,7 +758,7 @@
                 Margin="0 0 6 0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Command="{Binding SaveSettingsCommand}"
+                Command="{Binding SaveSettings}"
                 Content="{x:Static res:CommonRes.Ok}"
                 IsDefault="True" />
             <Button
@@ -765,7 +766,7 @@
                 MinWidth="75"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Command="{Binding CancelCommand}"
+                Command="{Binding Cancel}"
                 Content="{x:Static res:CommonRes.Cancel}"
                 IsCancel="True" />
         </StackPanel>

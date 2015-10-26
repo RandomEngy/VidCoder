@@ -37,7 +37,7 @@
             Margin="0 0 127 7"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Command="{Binding CopyCommand}">
+            Command="{Binding Copy}">
             <StackPanel Margin="5 0" Orientation="Horizontal">
                 <Image
                     Width="16"
@@ -53,7 +53,7 @@
             Margin="0 0 12 7"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Command="{Binding ClearLogCommand}"
+            Command="{Binding ClearLog}"
             Content="{x:Static res:LogRes.ClearButton}" />
     </Grid>
 </Window>

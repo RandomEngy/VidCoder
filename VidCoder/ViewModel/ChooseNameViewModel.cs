@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using VidCoder.Model;
 using VidCoder.Resources;
+using ReactiveUI;
 
 namespace VidCoder.ViewModel
 {
-	public class ChooseNameViewModel : OkCancelDialogOldViewModel
+	public class ChooseNameViewModel : OkCancelDialogViewModel
 	{
         private IEnumerable<string> existingNames;
 
@@ -17,35 +19,30 @@ namespace VidCoder.ViewModel
 
 		    this.Title = string.Format(MiscRes.NameDialogTitle, word);
 		    this.Subtitle = string.Format(MiscRes.ChooseName, word);
+
+			this.WhenAnyValue(x => x.Name)
+				.Select(name =>
+				{
+					if (name == null || name.Trim().Length == 0)
+					{
+						return false;
+					}
+
+					return this.existingNames.All(existingName => existingName != name);
+				}).ToProperty(this, x => x.CanClose, out this.canClose);
 		}
 
+		private ObservableAsPropertyHelper<bool> canClose; 
 		public override bool CanClose
 		{
-			get
-			{
-				if (this.Name == null || this.Name.Trim().Length == 0)
-				{
-					return false;
-				}
-
-			    return this.existingNames.All(existingName => existingName != this.Name);
-			}
+			get { return this.canClose.Value; }
 		}
 
 		private string name;
 		public string Name
 		{
-			get
-			{
-				return this.name;
-			}
-
-			set
-			{
-				this.name = value;
-				this.RaisePropertyChanged(() => this.Name);
-				this.AcceptCommand.RaiseCanExecuteChanged();
-			}
+			get { return this.name; }
+			set { this.RaiseAndSetIfChanged(ref this.name, value); }
 		}
 
         public string Title { get; private set; }

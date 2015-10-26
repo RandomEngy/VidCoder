@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Reactive.Linq;
 using System.Reflection;
 
 namespace VidCoder
@@ -29,5 +30,14 @@ namespace VidCoder
 
 			return property.Name;
 		}
+
+		public static IObservable<T> CreateConstantObservable<T>(T value)
+		{
+			return Observable.Create<T>(observer =>
+			{
+				observer.OnNext(value);
+				return () => { };
+			});
+		} 
 	}
 }

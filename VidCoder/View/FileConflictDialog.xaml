@@ -30,7 +30,7 @@
                 Margin="0 0 0 0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Command="{Binding OverwriteCommand}"
+                Command="{Binding Overwrite}"
                 Content="{x:Static res:MiscRes.OverwriteButton}"
                 IsDefault="True" />
             <Button
@@ -39,7 +39,7 @@
                 Margin="6 0 0 0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Command="{Binding RenameCommand}"
+                Command="{Binding Rename}"
                 Content="{x:Static res:MiscRes.AutoRenameButton}"
                 Padding="6 0" />
             <Button
@@ -49,7 +49,7 @@
                 Margin="6 0 0 0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Command="{Binding CancelCommand}"
+                Command="{Binding Cancel}"
                 Content="{x:Static res:CommonRes.Cancel}"
                 IsCancel="True" />
         </StackPanel>

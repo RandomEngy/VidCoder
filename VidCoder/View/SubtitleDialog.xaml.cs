@@ -15,6 +15,7 @@ using VidCoder.ViewModel;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Collections.Specialized;
+using ReactiveUI;
 
 namespace VidCoder.View
 {
@@ -23,8 +24,8 @@ namespace VidCoder.View
 	/// </summary>
 	public partial class SubtitleDialog : Window, IDialog
 	{
-		private ObservableCollection<SourceSubtitleViewModel> sourceSubtitles;
-		private ObservableCollection<SrtSubtitleViewModel> srtSubtitles;
+		private ReactiveList<SourceSubtitleViewModel> sourceSubtitles;
+		private ReactiveList<SrtSubtitleViewModel> srtSubtitles;
 
 		public SubtitleDialog()
 		{

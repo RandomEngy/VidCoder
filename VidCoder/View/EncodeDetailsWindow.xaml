@@ -63,13 +63,13 @@
                     Height="15"
                     VerticalAlignment="Center"
                     Style="{StaticResource EncodeDetailsProgress}"
-                    Value="{Binding OverallProgressPercent}" />
+                    Value="{Binding OverallProgressPercent,
+                                    Mode=OneWay}" />
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Style="{StaticResource ItemValue}"
                     Text="{Binding OverallProgressPercent,
-                                   Mode=OneWay,
                                    Converter={StaticResource PercentDisplayConverter}}" />
             </Grid>
 
@@ -129,13 +129,13 @@
                     Height="15"
                     VerticalAlignment="Center"
                     Style="{StaticResource EncodeDetailsProgress}"
-                    Value="{Binding FileProgressPercent}" />
+                    Value="{Binding FileProgressPercent,
+                                    Mode=OneWay}" />
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Style="{StaticResource ItemValue}"
                     Text="{Binding FileProgressPercent,
-                                   Mode=OneWay,
                                    Converter={StaticResource PercentDisplayConverter}}" />
             </Grid>
 
@@ -156,13 +156,13 @@
                     Height="15"
                     VerticalAlignment="Center"
                     Style="{StaticResource EncodeDetailsProgress}"
-                    Value="{Binding PassProgressPercent}" />
+                    Value="{Binding PassProgressPercent,
+                                    Mode=OneWay}" />
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Style="{StaticResource ItemValue}"
                     Text="{Binding PassProgressPercent,
-                                   Mode=OneWay,
                                    Converter={StaticResource PercentDisplayConverter}}" />
             </Grid>
 

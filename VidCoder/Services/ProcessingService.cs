@@ -228,8 +228,6 @@ namespace VidCoder.Services
 				if (!value)
 				{
 					this.EncodeProgress = new EncodeProgress { Encoding = false };
-
-					Messenger.Default.Send(new ProgressChangedMessage { Encoding = false });
 				}
 			}
 		}
@@ -1302,15 +1300,6 @@ namespace VidCoder.Services
 				TotalTasks = this.totalTasks,
 				FileName = Path.GetFileName(this.CurrentJob.Job.OutputPath)
 			};
-
-			Messenger.Default.Send(new ProgressChangedMessage
-			{
-				Encoding = true,
-				OverallProgressFraction = 0,
-				TaskNumber = 1,
-				TotalTasks = this.totalTasks,
-				FileName = Path.GetFileName(this.CurrentJob.Job.OutputPath)
-			});
 		}
 
 		public HashSet<string> GetQueuedFiles()
@@ -1533,7 +1522,7 @@ namespace VidCoder.Services
 
 			VCProfile currentProfile = currentJob.EncodingProfile;
 
-			this.EncodeProgress = new EncodeProgress
+			var newEncodeProgress = new EncodeProgress
 			{
 				Encoding = true,
 				OverallProgressFraction = this.OverallEncodeProgressFraction,
@@ -1554,31 +1543,10 @@ namespace VidCoder.Services
 				AverageFps = this.AverageFps
 			};
 
-			var progressChangedMessage = new ProgressChangedMessage
-			{
-				Encoding = true,
-				OverallProgressFraction = this.OverallEncodeProgressFraction,
-				TaskNumber = this.taskNumber,
-				TotalTasks = this.totalTasks,
-				OverallElapsedTime = this.elapsedQueueEncodeTime.Elapsed,
-				OverallEta = this.overallEtaSpan,
-				FileName = Path.GetFileName(currentJob.OutputPath),
-				FileProgressFraction = currentJobFractionComplete,
-				FileElapsedTime = this.CurrentJob.EncodeTime,
-				FileEta = this.currentJobEta,
-				HasScanPass = this.CurrentJob.SubtitleScan,
-                TwoPass = currentProfile.VideoEncodeRateType != VCVideoEncodeRateType.ConstantQuality && currentProfile.TwoPass,
-				CurrentPassId = e.PassId,
-				PassProgressFraction = e.FractionComplete,
-				EncodeSpeedDetailsAvailable = this.EncodeSpeedDetailsAvailable,
-				CurrentFps = this.CurrentFps,
-				AverageFps = this.AverageFps
-			};
-
 			try
 			{
 				var outputFileInfo = new FileInfo(currentJob.OutputPath);
-				progressChangedMessage.FileSizeBytes = outputFileInfo.Length;
+				newEncodeProgress.FileSizeBytes = outputFileInfo.Length;
 			}
 			catch (IOException)
 			{
@@ -1587,7 +1555,7 @@ namespace VidCoder.Services
 			{
 			}
 
-			Messenger.Default.Send(progressChangedMessage);
+			this.EncodeProgress = newEncodeProgress;
 		}
 
 		private void OnEncodeCompleted(object sender, EncodeCompletedEventArgs e)
@@ -1734,7 +1702,7 @@ namespace VidCoder.Services
 							case EncodeCompleteActionType.LogOff:
 							case EncodeCompleteActionType.Shutdown:
 							case EncodeCompleteActionType.Hibernate:
-								this.windowManager.OpenWindow(new ShutdownWarningViewModel(actionType));
+								this.windowManager.OpenWindow(new ShutdownWarningWindowViewModel(actionType));
 								break;
 							default:
 								throw new ArgumentOutOfRangeException();

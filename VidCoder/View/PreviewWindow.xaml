@@ -236,7 +236,7 @@
                         <Button
                             Height="23"
                             Margin="20 0 0 0"
-                            Command="{Binding GeneratePreviewCommand}"
+                            Command="{Binding GeneratePreview}"
                             Style="{StaticResource GrayOnDisabledControl}"
                             ToolTip="{x:Static res:PreviewRes.EncodePreviewClipToolTip}">
                             <StackPanel Margin="4 0" Orientation="Horizontal">
@@ -276,7 +276,7 @@
                         <Button
                             Height="23"
                             Margin="0 0 0 0"
-                            Command="{Binding PlaySourceCommand}"
+                            Command="{Binding PlaySource}"
                             Style="{StaticResource GrayOnDisabledControl}"
                             ToolTip="{Binding PlaySourceToolTip}"
                             ToolTipService.ShowOnDisabled="True">
@@ -335,10 +335,9 @@
                         MinWidth="55"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
-                        Command="{Binding CancelPreviewCommand}"
+                        Command="{Binding CancelPreview}"
                         Content="{x:Static res:CommonRes.Cancel}" />
                 </Grid>
-
             </Grid>
         </Grid>
     </Grid>

@@ -7,37 +7,32 @@ using System.Diagnostics;
 using GalaSoft.MvvmLight.Command;
 using VidCoder.Services;
 using System.Windows.Input;
+using ReactiveUI;
+using System.Reactive.Linq;
 
 namespace VidCoder.ViewModel
 {
-	public class AddAutoPauseProcessDialogViewModel : OkCancelDialogOldViewModel
+	public class AddAutoPauseProcessDialogViewModel : OkCancelDialogViewModel
 	{
-		private string processName;
 		private ObservableCollection<string> currentProcesses;
 		private string selectedProcess;
 		private IProcesses processes;
-
-		private ICommand refreshCurrentProcessesCommand;
 
 		public AddAutoPauseProcessDialogViewModel()
 		{
 			this.processes = Ioc.Get<IProcesses>();
 			this.currentProcesses = new ObservableCollection<string>();
-			this.RefreshCurrentProcesses();
+			this.RefreshCurrentProcessesImpl();
+
+			this.RefreshCurrentProcesses = ReactiveCommand.Create();
+			this.RefreshCurrentProcesses.Subscribe(_ => this.RefreshCurrentProcessesImpl());
 		}
 
+		private string processName;
 		public string ProcessName
 		{
-			get
-			{
-				return this.processName;
-			}
-
-			set
-			{
-				this.processName = value;
-				this.RaisePropertyChanged(() => this.ProcessName);
-			}
+			get { return this.processName; }
+			set { this.RaiseAndSetIfChanged(ref this.processName, value); }
 		}
 
 		public ObservableCollection<string> CurrentProcesses
@@ -59,27 +54,12 @@ namespace VidCoder.ViewModel
 			{
 				this.selectedProcess = value;
 				this.ProcessName = value;
-				this.RaisePropertyChanged(() => this.SelectedProcess);
+				this.RaisePropertyChanged();
 			}
 		}
 
-		public ICommand RefreshCurrentProcessesCommand
-		{
-			get
-			{
-				if (this.refreshCurrentProcessesCommand == null)
-				{
-					this.refreshCurrentProcessesCommand = new RelayCommand(() =>
-					{
-						this.RefreshCurrentProcesses();
-					});
-				}
-
-				return this.refreshCurrentProcessesCommand;
-			}
-		}
-
-		private void RefreshCurrentProcesses()
+		public ReactiveCommand<object> RefreshCurrentProcesses { get; }
+		private void RefreshCurrentProcessesImpl()
 		{
 			Process[] processes = this.processes.GetProcesses();
 			this.currentProcesses.Clear();

@@ -491,6 +491,7 @@
     <Compile Include="Model\EncodeProgress.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />
     <Compile Include="Model\PresetWrapper.cs" />
+    <Compile Include="Model\PreviewEncodeState.cs" />
     <Compile Include="Model\VideoSourceState.cs" />
     <Compile Include="Model\TitleType.cs" />
     <Compile Include="Model\Picker.cs">
@@ -572,7 +573,6 @@
     <Compile Include="Messages\OutputPathChangedMessage.cs" />
     <Compile Include="Messages\OutputSizeChangedMessage.cs" />
     <Compile Include="Messages\PreviewImageChangedMessage.cs" />
-    <Compile Include="Messages\ProgressChangedMessage.cs" />
     <Compile Include="Messages\RangeFocusMessage.cs" />
     <Compile Include="Messages\SaveQueueColumnsMessage.cs" />
     <Compile Include="Messages\SelectedTitleChangedMessage.cs" />
@@ -674,7 +674,7 @@
     <Compile Include="ViewModel\OkCancelDialogOldViewModel.cs" />
     <Compile Include="ViewModel\PickerWindowViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModelBase.cs" />
-    <Compile Include="ViewModel\ShutdownWarningViewModel.cs" />
+    <Compile Include="ViewModel\ShutdownWarningWindowViewModel.cs" />
     <Compile Include="View\EncodeDetailsWindow.xaml.cs">
       <DependentUpon>EncodeDetailsWindow.xaml</DependentUpon>
     </Compile>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Windows.Media;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -15,15 +16,14 @@ using VidCoder.Services;
 using VidCoder.Services.Windows;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
+using ReactiveUI;
 
 namespace VidCoder.ViewModel
 {
-	public class QueueTitlesWindowViewModel : OkCancelDialogOldViewModel
+	public class QueueTitlesWindowViewModel : OkCancelDialogViewModel
 	{
-		private ObservableCollection<TitleSelectionViewModel> titles;
-		private ObservableCollection<TitleSelectionViewModel> selectedTitles;
-		private bool titleStartOverrideEnabled;
-		private int titleStartOverride;
+		private ReactiveList<TitleSelectionViewModel> titles;
+		private ReactiveList<TitleSelectionViewModel> selectedTitles;
 		private IWindowManager windowManager;
 
 		private MainViewModel main;
@@ -34,14 +34,20 @@ namespace VidCoder.ViewModel
 			this.PickersService = Ioc.Get<PickersService>();
 			this.windowManager = Ioc.Get<IWindowManager>();
 
-			this.selectedTitles = new ObservableCollection<TitleSelectionViewModel>();
+			this.selectedTitles = new ReactiveList<TitleSelectionViewModel>();
 			this.titleStartOverrideEnabled = Config.QueueTitlesUseTitleOverride;
 			this.titleStartOverride = Config.QueueTitlesTitleOverride;
 			this.nameOverrideEnabled = Config.QueueTitlesUseNameOverride;
 			this.nameOverride = Config.QueueTitlesNameOverride;
 
-			this.titles = new ObservableCollection<TitleSelectionViewModel>();
+			this.titles = new ReactiveList<TitleSelectionViewModel>();
 			this.RefreshTitles();
+
+			this.Play = ReactiveCommand.Create(MvvmUtilities.CreateConstantObservable(Players.Installed.Count > 0));
+			this.Play.Subscribe(_ => this.PlayImpl());
+
+			this.AddToQueue = ReactiveCommand.Create();
+			this.AddToQueue.Subscribe(_ => this.AddToQueueImpl());
 
 			Messenger.Default.Register<VideoSourceChangedMessage>(
 				this,
@@ -64,11 +70,11 @@ namespace VidCoder.ViewModel
 					this.SetSelectedFromRange();
 				});
 
+			this.selectedTitles.CountChanged.Select(count => count == 1).ToProperty(this, x => x.TitleDetailsVisible, out this.titleDetailsVisible, initialValue: false);
+
 			this.selectedTitles.CollectionChanged +=
 				(sender, args) =>
 			    {
-					this.RaisePropertyChanged(() => this.TitleDetailsVisible);
-
 					if (this.selectedTitles.Count == 1)
 					{
 						SourceTitle title = this.selectedTitles[0].Title;
@@ -92,14 +98,14 @@ namespace VidCoder.ViewModel
 							};
 
 						this.PreviewImage = this.main.ScanInstance.GetPreview(previewProfile.CreatePreviewSettings(title), 2);
-						this.RaisePropertyChanged(() => this.TitleText);
+						this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TitleText));
 					}
 			    };
 		}
 
-		public PickersService PickersService { get; private set; }
+		public PickersService PickersService { get; }
 
-		public ObservableCollection<TitleSelectionViewModel> Titles
+		public ReactiveList<TitleSelectionViewModel> Titles
 		{
 			get
 			{
@@ -107,7 +113,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ObservableCollection<TitleSelectionViewModel> SelectedTitles
+		public ReactiveList<TitleSelectionViewModel> SelectedTitles
 		{
 			get
 			{
@@ -115,12 +121,10 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private ObservableAsPropertyHelper<bool> titleDetailsVisible;
 		public bool TitleDetailsVisible
 		{
-			get
-			{
-				return this.selectedTitles.Count == 1;
-			}
+			get { return this.titleDetailsVisible.Value; }
 		}
 
 		public string TitleText
@@ -139,16 +143,8 @@ namespace VidCoder.ViewModel
 		private ImageSource previewImage;
 		public ImageSource PreviewImage
 		{
-			get
-			{
-				return this.previewImage;
-			}
-
-			set
-			{
-				this.previewImage = value;
-				this.RaisePropertyChanged(() => this.PreviewImage);
-			}
+			get { return this.previewImage; }
+			set { this.RaiseAndSetIfChanged(ref this.previewImage, value); }
 		}
 
 		public bool PlayAvailable
@@ -159,62 +155,32 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private bool titleStartOverrideEnabled;
 		public bool TitleStartOverrideEnabled
 		{
-			get
-			{
-				return this.titleStartOverrideEnabled;
-			}
-
-			set
-			{
-				this.titleStartOverrideEnabled = value;
-				this.RaisePropertyChanged(() => this.TitleStartOverrideEnabled);
-			}
+			get { return this.titleStartOverrideEnabled; }
+			set { this.RaiseAndSetIfChanged(ref this.titleStartOverrideEnabled, value); }
 		}
 
+		private int titleStartOverride;
 		public int TitleStartOverride
 		{
-			get
-			{
-				return this.titleStartOverride;
-			}
-
-			set
-			{
-				this.titleStartOverride = value;
-				this.RaisePropertyChanged(() => this.TitleStartOverride);
-			}
+			get { return this.titleStartOverride; }
+			set { this.RaiseAndSetIfChanged(ref this.titleStartOverride, value); }
 		}
 
 		private bool nameOverrideEnabled;
 		public bool NameOverrideEnabled
 		{
-			get
-			{
-				return this.nameOverrideEnabled;
-			}
-
-			set
-			{
-				this.nameOverrideEnabled = value;
-				this.RaisePropertyChanged(() => this.NameOverrideEnabled);
-			}
+			get { return this.nameOverrideEnabled; }
+			set { this.RaiseAndSetIfChanged(ref this.nameOverrideEnabled, value); }
 		}
 
 		private string nameOverride;
 		public string NameOverride
 		{
-			get
-			{
-				return this.nameOverride;
-			}
-
-			set
-			{
-				this.nameOverride = value;
-				this.RaisePropertyChanged(() => this.NameOverride);
-			}
+			get { return this.nameOverride; }
+			set { this.RaiseAndSetIfChanged(ref this.nameOverride, value); }
 		}
 
 		public List<SourceTitle> CheckedTitles
@@ -234,49 +200,30 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private RelayCommand playCommand;
-		public RelayCommand PlayCommand
+		public ReactiveCommand<object> Play { get; }
+		private void PlayImpl()
 		{
-			get
+			IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);
+			if (player == null)
 			{
-				return this.playCommand ?? (this.playCommand = new RelayCommand(() =>
-					{
-						IVideoPlayer player = Players.Installed.FirstOrDefault(p => p.Id == Config.PreferredPlayer);
-						if (player == null)
-						{
-							player = Players.Installed[0];
-						}
-
-						player.PlayTitle(this.main.SourcePath, this.selectedTitles[0].Title.Index);
-					},
-					() =>
-					{
-						return Players.Installed.Count > 0;
-					}));
+				player = Players.Installed[0];
 			}
+
+			player.PlayTitle(this.main.SourcePath, this.selectedTitles[0].Title.Index);
 		}
 
-		private RelayCommand addToQueueCommand;
-		public RelayCommand AddToQueueCommand
+		public ReactiveCommand<object> AddToQueue { get; }
+		private void AddToQueueImpl()
 		{
-			get
-			{
-				return this.addToQueueCommand ?? (this.addToQueueCommand = new RelayCommand(() =>
-				{
-					this.DialogResult = true;
+			this.DialogResult = true;
 
-					var processingService = Ioc.Get<ProcessingService>();
-					processingService.QueueTitles(
-						this.CheckedTitles, 
-						this.TitleStartOverrideEnabled ? this.TitleStartOverride : -1,
-						this.NameOverrideEnabled ? this.NameOverride : null);
+			var processingService = Ioc.Get<ProcessingService>();
+			processingService.QueueTitles(
+				this.CheckedTitles,
+				this.TitleStartOverrideEnabled ? this.TitleStartOverride : -1,
+				this.NameOverrideEnabled ? this.NameOverride : null);
 
-					this.windowManager.Close(this);
-				}, () =>
-				{
-					return this.CanClose;
-				}));
-			}
+			this.windowManager.Close(this);
 		}
 
 		public override void OnClosing()

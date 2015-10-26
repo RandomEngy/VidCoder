@@ -1,19 +1,27 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Services;
 
 namespace VidCoder.ViewModel
 {
-	public class LogWindowViewModel : ViewModelBase
+	public class LogWindowViewModel : ReactiveObject
 	{
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private ILogger logger = Ioc.Get<ILogger>();
 
-		private ICommand clearLogCommand;
-		private ICommand copyCommand;
+		public LogWindowViewModel()
+		{
+			this.ClearLog = ReactiveCommand.Create();
+			this.ClearLog.Subscribe(_ => this.ClearLogImpl());
+
+			this.Copy = ReactiveCommand.Create();
+			this.Copy.Subscribe(_ => this.CopyImpl());
+		}
 
 		public MainViewModel MainViewModel
 		{
@@ -23,45 +31,25 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ICommand ClearLogCommand
+		public ReactiveCommand<object> ClearLog { get; }
+		private void ClearLogImpl()
 		{
-			get
-			{
-				if (this.clearLogCommand == null)
-				{
-					this.clearLogCommand = new RelayCommand(() =>
-					{
-						this.logger.ClearLog();
-					});
-				}
-
-				return this.clearLogCommand;
-			}
+			this.logger.ClearLog();
 		}
 
-		public ICommand CopyCommand
+		public ReactiveCommand<object> Copy { get; }
+		private void CopyImpl()
 		{
-			get
+			lock (this.logger.LogLock)
 			{
-				if (this.copyCommand == null)
+				var logTextBuilder = new StringBuilder();
+
+				foreach (LogEntry entry in this.logger.LogEntries)
 				{
-					this.copyCommand = new RelayCommand(() =>
-					{
-						lock (this.logger.LogLock)
-						{
-							var logTextBuilder = new StringBuilder();
-
-							foreach (LogEntry entry in this.logger.LogEntries)
-							{
-								logTextBuilder.AppendLine(entry.Text);
-							}
-
-							Ioc.Get<ClipboardService>().SetText(logTextBuilder.ToString());
-						}
-					});
+					logTextBuilder.AppendLine(entry.Text);
 				}
 
-				return this.copyCommand;
+				Ioc.Get<ClipboardService>().SetText(logTextBuilder.ToString());
 			}
 		}
 	}

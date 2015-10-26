@@ -26,7 +26,7 @@
             Margin="0 0 10 10"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Command="{Binding CancelOperationCommand}"
+            Command="{Binding CancelOperation}"
             Content="Cancel"
             FontSize="18"
             Padding="10 0" />

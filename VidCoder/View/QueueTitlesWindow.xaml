@@ -82,7 +82,7 @@
                                          Converter={StaticResource VisibilityConverter}}">
                     <Button
                         Height="23"
-                        Command="{Binding PlayCommand}"
+                        Command="{Binding Play}"
                         ToolTip="{x:Static res:QueueTitlesRes.PlaySourceToolTip}"
                         ToolTipService.ShowOnDisabled="True">
                         <StackPanel Margin="4 0" Orientation="Horizontal">
@@ -175,7 +175,7 @@
                 Margin="0 0 6 0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Command="{Binding AddToQueueCommand}"
+                Command="{Binding AddToQueue}"
                 Content="{x:Static res:MainRes.AddToQueueLabel}"
                 IsDefault="True"
                 Padding="6 0" />
@@ -184,7 +184,7 @@
                 MinWidth="75"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Command="{Binding CancelCommand}"
+                Command="{Binding Cancel}"
                 Content="{x:Static res:CommonRes.Cancel}"
                 IsCancel="True" />
         </StackPanel>

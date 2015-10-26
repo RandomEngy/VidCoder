@@ -10,18 +10,18 @@ using System.Net;
 using System.Windows;
 using VidCoder.Model;
 using System.Diagnostics;
+using ReactiveUI;
 
 namespace VidCoder.Services
 {
 	using Resources;
 
-	public class Updater : IUpdater
+	public class Updater : ReactiveObject, IUpdater
 	{
 		public const string UpdateInfoUrlBeta = "http://engy.us/VidCoder/latest-beta2.xml";
 		public const string UpdateInfoUrlNonBeta = "http://engy.us/VidCoder/latest.xml";
 
 		public event EventHandler<EventArgs<double>> UpdateDownloadProgress;
-		public event EventHandler<EventArgs> UpdateStateChanged;
 
 		private static bool DebugMode
 		{
@@ -62,22 +62,15 @@ namespace VidCoder.Services
 		private UpdateState state;
 		public UpdateState State
 		{
-			get
-			{
-				return this.state;
-			}
+			get { return this.state; }
+			set { this.RaiseAndSetIfChanged(ref this.state, value); }
+		}
 
-			set
-			{
-				if (value != this.state)
-				{
-					this.state = value;
-					if (this.UpdateStateChanged != null)
-					{
-						this.UpdateStateChanged(this, new EventArgs());
-					}
-				}
-			}
+		private double updateDownloadProgressFraction;
+		public double UpdateDownloadProgressFraction
+		{
+			get { return this.updateDownloadProgressFraction; }
+			set { this.RaiseAndSetIfChanged(ref this.updateDownloadProgressFraction, value); }
 		}
 
 		public string LatestVersion { get; set; }
@@ -344,6 +337,7 @@ namespace VidCoder.Services
 						this.logger.ShowStatus(message);
 
 						this.State = UpdateState.DownloadingInstaller;
+						this.UpdateDownloadProgressFraction = 0;
 
 						string downloadLocation = updateInfo.DownloadLocation;
 						string changelogLink = updateInfo.ChangelogLocation;
@@ -383,11 +377,7 @@ namespace VidCoder.Services
 								fileStream.Write(downloadBuffer, 0, bytesRead);
 								bytesProgressTotal += bytesRead;
 
-								if (this.UpdateDownloadProgress != null)
-								{
-									double completionPercentage = ((double)bytesProgressTotal * 100) / response.ContentLength;
-									this.UpdateDownloadProgress(this, new EventArgs<double>(completionPercentage));
-								}
+								this.UpdateDownloadProgressFraction = (double) bytesProgressTotal / response.ContentLength;
 							}
 
 							if (bytesRead == 0)
@@ -402,6 +392,7 @@ namespace VidCoder.Services
 								}
 
 								this.State = UpdateState.InstallerReady;
+								this.UpdateDownloadProgressFraction = 1;
 
 								message = string.Format(MainRes.NewVersionDownloadFinishedStatus, updateVersionText);
 								this.logger.Log(message);

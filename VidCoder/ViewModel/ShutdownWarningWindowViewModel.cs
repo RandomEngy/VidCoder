@@ -1,15 +1,14 @@
-﻿namespace VidCoder.ViewModel
-{
-	using System;
-	using System.Globalization;
-	using System.Windows.Threading;
-	using GalaSoft.MvvmLight;
-	using GalaSoft.MvvmLight.Command;
-	using Model;
-	using Resources;
-	using Services;
+﻿using System;
+using System.Globalization;
+using System.Windows.Threading;
+using ReactiveUI;
+using VidCoder.Model;
+using VidCoder.Resources;
+using VidCoder.Services;
 
-	public class ShutdownWarningViewModel : OkCancelDialogOldViewModel
+namespace VidCoder.ViewModel
+{
+	public class ShutdownWarningWindowViewModel : OkCancelDialogViewModel
 	{
 		private EncodeCompleteActionType actionType;
 
@@ -17,21 +16,24 @@
 		private int secondsRemaining = 30;
 		private DispatcherTimer timer;
 
-		public ShutdownWarningViewModel(EncodeCompleteActionType actionType)
+		public ShutdownWarningWindowViewModel(EncodeCompleteActionType actionType)
 		{
 			this.actionType = actionType;
+
+			this.CancelOperation = ReactiveCommand.Create();
+			this.CancelOperation.Subscribe(_ => this.CancelOperationImpl());
 
 			this.timer = new DispatcherTimer();
 			this.timer.Interval = TimeSpan.FromSeconds(1);
 			this.timer.Tick += (o, e) =>
 			{
 				secondsRemaining--;
-				this.RaisePropertyChanged(() => this.Message);
+				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.Message));
 
 				if (secondsRemaining == 0)
 				{
 					this.timer.Stop();
-					this.CancelCommand.Execute(null);
+					this.Cancel.Execute(null);
 					this.ExecuteAction();
 				}
 			};
@@ -43,7 +45,7 @@
 		{
 			get
 			{
-				switch (actionType)
+				switch (this.actionType)
 				{
 					case EncodeCompleteActionType.Sleep:
 						return MiscRes.EncodeCompleteWarning_SleepTitle;
@@ -64,7 +66,7 @@
 			get
 			{
 				string messageFormat = string.Empty;
-				switch (actionType)
+				switch (this.actionType)
 				{
 					case EncodeCompleteActionType.Sleep:
 						messageFormat = MiscRes.EncodeCompleteWarning_SleepMessage;
@@ -103,17 +105,11 @@
 			}
 		}
 
-		private RelayCommand cancelOperationCommand;
-		public RelayCommand CancelOperationCommand
+		public ReactiveCommand<object> CancelOperation { get; }
+		private void CancelOperationImpl()
 		{
-			get
-			{
-				return this.cancelOperationCommand ?? (this.cancelOperationCommand = new RelayCommand(() =>
-				{
-					this.timer.Stop();
-					this.CancelCommand.Execute(null);
-				}));
-			}
+			this.timer.Stop();
+			this.Cancel.Execute(null);
 		}
 	}
 }

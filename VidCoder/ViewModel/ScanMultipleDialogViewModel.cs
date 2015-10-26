@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using HandBrake.ApplicationServices.Interop;
 using VidCoder.Extensions;
 using VidCoder.Model;
+using ReactiveUI;
 
 namespace VidCoder.ViewModel
 {
 	/// <summary>
 	/// View model for dialog that shows when scanning multiple files.
 	/// </summary>
-	public class ScanMultipleDialogViewModel : OkCancelDialogOldViewModel
+	public class ScanMultipleDialogViewModel : OkCancelDialogViewModel
 	{
 		private IList<string> pathsToScan;
 		private int currentJobIndex;
@@ -57,7 +58,7 @@ namespace VidCoder.ViewModel
 					lock (this.currentJobIndexLock)
 					{
 						this.currentJobProgress = (float)e.Progress;
-						this.RaisePropertyChanged(() => this.Progress);
+						this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.Progress));
 					}
 				};
 			onDemandInstance.ScanCompleted += (o, e) =>
@@ -69,13 +70,13 @@ namespace VidCoder.ViewModel
 					{
 						this.currentJobIndex++;
 						this.currentJobProgress = 0;
-						this.RaisePropertyChanged(() => this.Progress);
+						this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.Progress));
 
 						if (this.ScanFinished)
 						{
 							DispatchUtilities.BeginInvoke(() =>
 							{
-								this.CancelCommand.Execute(null);
+								this.Cancel.Execute(null);
 							});
 						}
 						else
