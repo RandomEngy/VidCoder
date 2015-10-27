@@ -27,6 +27,7 @@ namespace VidCoder.ViewModel
 
 		private PickersService pickersService = Ioc.Get<PickersService>();
 		private PresetsService presetsService = Ioc.Get<PresetsService>();
+		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
 
 		private Dictionary<string, Action> pickerProperties;
 		private bool automaticChange;
@@ -166,11 +167,11 @@ namespace VidCoder.ViewModel
 					this.OutputDirectoryOverride = Config.AutoNameOutputFolder;
 				}
 
-				Messenger.Default.Send(new OutputFolderChangedMessage());
+				this.outputPathService.GenerateOutputFileName();
 			});
 			this.RegisterPickerProperty(() => this.Picker.OutputDirectoryOverride, () =>
 			{
-				Messenger.Default.Send(new OutputFolderChangedMessage());
+				this.outputPathService.GenerateOutputFileName();
 			});
 			this.RegisterPickerProperty(() => this.Picker.NameFormatOverrideEnabled, () =>
 			{

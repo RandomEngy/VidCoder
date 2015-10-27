@@ -21,15 +21,15 @@
     <Window.InputBindings>
         <KeyBinding
             Key="Q"
-            Command="{Binding ProcessingService.AddToQueueCommand}"
+            Command="{Binding ProcessingService.AddToQueue}"
             Modifiers="Control" />
         <KeyBinding
             Key="O"
-            Command="{Binding ProcessingService.QueueFilesCommand}"
+            Command="{Binding ProcessingService.QueueFiles}"
             Modifiers="Control+Shift" />
         <KeyBinding
             Key="T"
-            Command="{Binding ProcessingService.QueueTitlesCommand}"
+            Command="{Binding ProcessingService.QueueTitlesAction}"
             Modifiers="Control" />
         <KeyBinding
             Key="D"

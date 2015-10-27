@@ -24,6 +24,7 @@ namespace VidCoder.Services
     {
         private MainViewModel main = Ioc.Get<MainViewModel>();
 	    private IWindowManager windowManager = Ioc.Get<IWindowManager>();
+	    private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
 
         private PickerViewModel selectedPicker;
 
@@ -385,7 +386,7 @@ namespace VidCoder.Services
             this.RaisePropertyChanged(() => this.SelectedPicker);
 			this.RefreshPickerButton();
 
-			Messenger.Default.Send(new OutputFolderChangedMessage());
+			this.outputPathService.GenerateOutputFileName();
 			Messenger.Default.Send(new PickerChangedMessage());
 
             Config.LastPickerIndex = this.Pickers.IndexOf(this.selectedPicker);

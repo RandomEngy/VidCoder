@@ -569,8 +569,6 @@
     <Compile Include="Messages\AudioInputChangedMessage.cs" />
     <Compile Include="Messages\FramerateChangedMessage.cs" />
     <Compile Include="Messages\HighlightedChapterChangedMessage.cs" />
-    <Compile Include="Messages\OutputFolderChangedMessage.cs" />
-    <Compile Include="Messages\OutputPathChangedMessage.cs" />
     <Compile Include="Messages\OutputSizeChangedMessage.cs" />
     <Compile Include="Messages\PreviewImageChangedMessage.cs" />
     <Compile Include="Messages\RangeFocusMessage.cs" />

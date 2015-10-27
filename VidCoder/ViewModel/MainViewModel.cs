@@ -2198,7 +2198,7 @@ namespace VidCoder.ViewModel
 							{
 								if (this.processingService.TryQueue() && picker.AutoEncodeOnScan && !this.processingService.Encoding)
 								{
-									this.processingService.EncodeCommand.Execute(null);
+									this.processingService.Encode.Execute(null);
 								}
 							}
 						}

@@ -271,7 +271,7 @@ namespace VidCoder.ViewModel
 
 			if (this.DialogResult)
 			{
-				Messenger.Default.Send(new OutputFolderChangedMessage());
+				Ioc.Get<OutputPathService>().NotifyDefaultOutputFolderChanged();
 			}
 
 			base.OnClosing();

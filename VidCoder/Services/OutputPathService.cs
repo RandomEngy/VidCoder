@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
@@ -23,7 +25,7 @@ namespace VidCoder.Services
 	/// <summary>
 	/// Controls automatic naming logic for the encoding output path.
 	/// </summary>
-	public class OutputPathService : ObservableObject
+	public class OutputPathService : ReactiveObject
 	{
 		private MainViewModel main = Ioc.Get<MainViewModel>();
 		private ProcessingService processingService;
@@ -31,20 +33,19 @@ namespace VidCoder.Services
 		private PickersService pickersService;
 		private IDriveService driveService = Ioc.Get<IDriveService>();
 
-		private string outputPath;
-
-		private bool editingDestination;
-
 		public OutputPathService()
 		{
-			Messenger.Default.Register<OutputFolderChangedMessage>(
-				this,
-				message =>
-					{
-						this.RaisePropertyChanged(() => this.OutputFolderChosen);
-						this.PickOutputPathCommand.RaiseCanExecuteChanged();
-						this.GenerateOutputFileName();
-					});
+			this.defaultOutputFolder = Config.AutoNameOutputFolder;
+
+			// OutputFolderChosen
+			this.WhenAnyValue(x => x.DefaultOutputFolder)
+				.Select(defaultOutputFolder =>
+				{
+					return !string.IsNullOrEmpty(defaultOutputFolder);
+				}).ToProperty(this, x => x.OutputFolderChosen, out this.outputFolderChosen);
+
+			this.PickDefaultOutputFolder = ReactiveCommand.Create();
+			this.PickDefaultOutputFolder.Subscribe(_ => this.PickDefaultOutputFolderImpl());
 		}
 
 		public ProcessingService ProcessingService
@@ -86,20 +87,18 @@ namespace VidCoder.Services
 			}
 		}
 
+		private string outputPath;
 		public string OutputPath
 		{
-			get
-			{
-				return this.outputPath;
-			}
+			get { return this.outputPath; }
+			set { this.RaiseAndSetIfChanged(ref this.outputPath, value); }
+		}
 
-			set
-			{
-				this.outputPath = value;
-				this.RaisePropertyChanged(() => this.OutputPath);
-
-				Messenger.Default.Send(new OutputPathChangedMessage());
-			}
+		private string defaultOutputFolder;
+		private string DefaultOutputFolder
+		{
+			get { return this.defaultOutputFolder; }
+			set { this.RaiseAndSetIfChanged(ref this.defaultOutputFolder, value); }
 		}
 
 		// The parent folder for the item (if it was inside a folder of files added in a batch)
@@ -111,38 +110,31 @@ namespace VidCoder.Services
 
 		public string NameFormatOverride { get; set; }
 
+		private bool editingDestination;
 		public bool EditingDestination
 		{
-			get
-			{
-				return this.editingDestination;
-			}
-
-			set
-			{
-				this.editingDestination = value;
-				this.RaisePropertyChanged(() => this.EditingDestination);
-			}
+			get { return this.editingDestination; }
+			set { this.RaiseAndSetIfChanged(ref this.editingDestination, value); }
 		}
 
+		private ObservableAsPropertyHelper<bool> outputFolderChosen;
 		public bool OutputFolderChosen
 		{
-			get
-			{
-				return !string.IsNullOrEmpty(Config.AutoNameOutputFolder);
-			}
+			get { return this.outputFolderChosen.Value; }
 		}
 
-		private RelayCommand pickDefaultOutputFolderCommand;
-		public RelayCommand PickDefaultOutputFolderCommand
+		public ReactiveCommand<object> PickDefaultOutputFolder { get; }
+		public bool PickDefaultOutputFolderImpl()
 		{
-			get
+			string newOutputFolder = FileService.Instance.GetFolderName(null, MainRes.OutputDirectoryPickerText);
+
+			if (newOutputFolder != null)
 			{
-				return this.pickDefaultOutputFolderCommand ?? (this.pickDefaultOutputFolderCommand = new RelayCommand(() =>
-					{
-						this.PickDefaultOutputFolder();
-					}));
+				Config.AutoNameOutputFolder = newOutputFolder;
+				this.NotifyDefaultOutputFolderChanged();
 			}
+
+			return newOutputFolder != null;
 		}
 
 		private RelayCommand pickOutputPathCommand;
@@ -303,6 +295,12 @@ namespace VidCoder.Services
 					this.OutputPath = oldOutputPath;
 				}
 			}
+		}
+
+		public void NotifyDefaultOutputFolderChanged()
+		{
+			this.DefaultOutputFolder = Config.AutoNameOutputFolder;
+			this.GenerateOutputFileName();
 		}
 
 		public void GenerateOutputFileName()
@@ -690,19 +688,6 @@ namespace VidCoder.Services
 			}
 
 			return FileUtilities.CleanFileName(fileName, allowBackslashes: true);
-		}
-
-		public bool PickDefaultOutputFolder()
-		{
-			string newOutputFolder = FileService.Instance.GetFolderName(null, MainRes.OutputDirectoryPickerText);
-
-			if (newOutputFolder != null)
-			{
-				Config.AutoNameOutputFolder = newOutputFolder;
-				Messenger.Default.Send(new OutputFolderChangedMessage());
-			}
-
-			return newOutputFolder != null;
 		}
 
 		public bool PathIsValid()

@@ -292,15 +292,15 @@
             Modifiers="Control" />
         <KeyBinding
             Key="Q"
-            Command="{Binding ProcessingService.AddToQueueCommand}"
+            Command="{Binding ProcessingService.AddToQueue}"
             Modifiers="Control" />
         <KeyBinding
             Key="O"
-            Command="{Binding ProcessingService.QueueFilesCommand}"
+            Command="{Binding ProcessingService.QueueFiles}"
             Modifiers="Control+Shift" />
         <KeyBinding
             Key="T"
-            Command="{Binding ProcessingService.QueueTitlesCommand}"
+            Command="{Binding ProcessingService.QueueTitlesAction}"
             Modifiers="Control" />
         <KeyBinding
             Key="W"
@@ -360,14 +360,14 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem
-                    Command="{Binding ProcessingService.QueueFilesCommand}"
+                    Command="{Binding ProcessingService.QueueFiles}"
                     Header="{x:Static res:MainRes.EnqueueMultipleFiles}"
                     InputGestureText="Ctrl+Shift+O" />
                 <MenuItem
-                    Command="{Binding ProcessingService.QueueTitlesCommand}"
+                    Command="{Binding ProcessingService.QueueTitlesAction}"
                     Header="{x:Static res:MainRes.EnqueueMultipleTitles}"
                     InputGestureText="Ctrl+T"
-                    Visibility="{Binding ProcessingService.CanEnqueueMultipleTitles,
+                    Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
                                          Converter={StaticResource VisibilityConverter}}" />
                 <MenuItem
                     Command="{Binding CloseVideoSource}"
@@ -1154,7 +1154,7 @@
                 Margin="10 8 0 0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Command="{Binding OutputPathVM.PickDefaultOutputFolderCommand}"
+                Command="{Binding OutputPathVM.PickDefaultOutputFolder}"
                 Visibility="{Binding OutputPathVM.OutputFolderChosen,
                                      Converter={StaticResource VisibilityConverter},
                                      ConverterParameter=True}">
@@ -1289,13 +1289,13 @@
                     Margin="0 0 5 0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
-                    Command="{Binding ProcessingService.AddToQueueCommand}"
+                    Command="{Binding ProcessingService.AddToQueue}"
                     Padding="5 0"
-                    Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
+                    Visibility="{Binding HasVideoSource,
                                          Converter={StaticResource VisibilityConverter}}">
                     <controls:SplitButton.MenuItemsSource>
-                        <MenuItem Command="{Binding ProcessingService.AddToQueueCommand}" Header="{x:Static res:MainRes.AddToQueueLabel}" />
-                        <MenuItem Command="{Binding ProcessingService.QueueTitlesCommand}" Header="{x:Static res:MainRes.AddMultipleTitlesToQueueLabel}" />
+                        <MenuItem Command="{Binding ProcessingService.AddToQueue}" Header="{x:Static res:MainRes.AddToQueueLabel}" />
+                        <MenuItem Command="{Binding ProcessingService.QueueTitlesAction}" Header="{x:Static res:MainRes.AddMultipleTitlesToQueueLabel}" />
                     </controls:SplitButton.MenuItemsSource>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="26" Source="/Icons/downarrow_shadow.png" />
@@ -1312,7 +1312,7 @@
                     Margin="0 0 5 0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
-                    Command="{Binding ProcessingService.AddToQueueCommand}"
+                    Command="{Binding ProcessingService.AddToQueue}"
                     Padding="5 0"
                     Style="{StaticResource GrayOnDisabledControl}"
                     Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
@@ -1354,7 +1354,7 @@
                     Margin="0 0 8 0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
-                    Command="{Binding ProcessingService.EncodeCommand}"
+                    Command="{Binding ProcessingService.Encode}"
                     Padding="5 0"
                     Style="{StaticResource GrayOnDisabledControl}"
                     Visibility="{Binding ProcessingService.PauseVisible,
