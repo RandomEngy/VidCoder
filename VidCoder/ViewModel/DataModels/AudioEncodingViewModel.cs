@@ -345,6 +345,9 @@ namespace VidCoder.ViewModel
 				return audioEncoder.IsPassthrough;
 			}).ToProperty(this, x => x.PassthroughChoicesVisible, out this.passthroughChoicesVisible);
 
+			this.RemoveAudioEncoding = ReactiveCommand.Create();
+			this.RemoveAudioEncoding.Subscribe(_ => this.RemoveAudioEncodingImpl());
+
 			Messenger.Default.Register<SelectedTitleChangedMessage>(
 				this,
 				message =>
@@ -935,20 +938,10 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ICommand RemoveAudioEncodingCommand
+		public ReactiveCommand<object> RemoveAudioEncoding { get; }
+		private void RemoveAudioEncodingImpl()
 		{
-			get
-			{
-				if (this.removeAudioEncodingCommand == null)
-				{
-					this.removeAudioEncodingCommand = new RelayCommand(() =>
-					{
-						this.audioPanelVM.RemoveAudioEncoding(this);
-					});
-				}
-
-				return this.removeAudioEncodingCommand;
-			}
+			this.audioPanelVM.RemoveAudioEncoding(this);
 		}
 
 		public void SetChosenTracks(List<int> chosenAudioTracks, SourceTitle selectedTitle)

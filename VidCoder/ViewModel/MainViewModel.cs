@@ -387,6 +387,8 @@ namespace VidCoder.ViewModel
 			Messenger.Default.Register<RangeFocusMessage>(this, this.OnRangeControlGotFocus);
 		}
 
+		public IMainView View { get; set; }
+
 		public HandBrakeInstance ScanInstance
 		{
 			get
@@ -1754,17 +1756,17 @@ namespace VidCoder.ViewModel
 		private void CustomizeQueueColumnsImpl()
 		{
 			// Send a request that the view save the column sizes
-			Messenger.Default.Send(new SaveQueueColumnsMessage());
+			this.View.SaveQueueColumns();
 
 			// Show the queue columns dialog
-			var queueDialog = new QueueColumnsViewModel();
+			var queueDialog = new QueueColumnsDialogViewModel();
 			this.windowManager.OpenDialog(queueDialog);
 
 			if (queueDialog.DialogResult)
 			{
 				// Apply new columns
 				Config.QueueColumns = queueDialog.NewColumns;
-				Messenger.Default.Send(new ApplyQueueColumnsMessage());
+				this.View.ApplyQueueColumns();
 			}
 		}
 

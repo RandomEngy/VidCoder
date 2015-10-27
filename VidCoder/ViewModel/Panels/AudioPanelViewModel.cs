@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
@@ -41,6 +42,9 @@ namespace VidCoder.ViewModel
 			this.audioOutputPreviews.CountChanged
 				.Select(c => c > 0)
 				.ToProperty(this, x => x.HasAudioTracks, out this.hasAudioTracks);
+
+			this.AddAudioEncoding = ReactiveCommand.Create();
+			this.AddAudioEncoding.Subscribe(_ => this.AddAudioEncodingImpl());
 
 			Messenger.Default.Register<AudioInputChangedMessage>(
 				this,
@@ -132,33 +136,23 @@ namespace VidCoder.ViewModel
 			get { return this.hasAudioTracks.Value; }
 		}
 
-		public ICommand AddAudioEncodingCommand
+		public ReactiveCommand<object> AddAudioEncoding { get; }
+		private void AddAudioEncodingImpl()
 		{
-			get
+			var newAudioEncoding = new AudioEncoding
 			{
-				if (this.addAudioEncodingCommand == null)
-				{
-					this.addAudioEncodingCommand = new RelayCommand(() =>
-					{
-						var newAudioEncoding = new AudioEncoding
-						{
-							InputNumber = 0,
-							Encoder = HandBrakeEncoderHelpers.AudioEncoders[0].ShortName,
-							Mixdown = "dpl2",
-							Bitrate = 0,
-							SampleRateRaw = 0,
-							Gain = 0,
-							Drc = 0.0
-						};
+				InputNumber = 0,
+				Encoder = HandBrakeEncoderHelpers.AudioEncoders[0].ShortName,
+				Mixdown = "dpl2",
+				Bitrate = 0,
+				SampleRateRaw = 0,
+				Gain = 0,
+				Drc = 0.0
+			};
 
-						this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this.EncodingWindowViewModel.ContainerName, this));
-						this.RefreshAudioPreview();
-						this.UpdateAudioEncodings();
-					});
-				}
-
-				return this.addAudioEncodingCommand;
-			}
+			this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this.EncodingWindowViewModel.ContainerName, this));
+			this.RefreshAudioPreview();
+			this.UpdateAudioEncodings();
 		}
 
 		public void RemoveAudioEncoding(AudioEncodingViewModel audioEncodingVM)

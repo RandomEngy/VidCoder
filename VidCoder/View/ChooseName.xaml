@@ -40,7 +40,7 @@
                 Margin="0 0 6 0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Command="{Binding AcceptCommand}"
+                Command="{Binding Accept}"
                 Content="{x:Static res:CommonRes.Ok}"
                 IsDefault="True" />
             <Button
@@ -48,7 +48,7 @@
                 MinWidth="75"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Command="{Binding CancelCommand}"
+                Command="{Binding Cancel}"
                 Content="{x:Static res:CommonRes.Cancel}"
                 IsCancel="True" />
         </StackPanel>

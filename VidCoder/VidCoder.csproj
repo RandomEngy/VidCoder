@@ -565,14 +565,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SubtitleRes.resx</DependentUpon>
     </Compile>
-    <Compile Include="Messages\ApplyQueueColumnsMessage.cs" />
     <Compile Include="Messages\AudioInputChangedMessage.cs" />
     <Compile Include="Messages\FramerateChangedMessage.cs" />
     <Compile Include="Messages\HighlightedChapterChangedMessage.cs" />
     <Compile Include="Messages\OutputSizeChangedMessage.cs" />
     <Compile Include="Messages\PreviewImageChangedMessage.cs" />
     <Compile Include="Messages\RangeFocusMessage.cs" />
-    <Compile Include="Messages\SaveQueueColumnsMessage.cs" />
     <Compile Include="Messages\SelectedTitleChangedMessage.cs" />
     <Compile Include="Messages\OptionsChangedMessage.cs" />
     <Compile Include="Messages\StatusMessage.cs" />
@@ -669,7 +667,7 @@
     <Compile Include="ViewModel\EncodeDetailsWindowViewModel.cs" />
     <Compile Include="ViewModel\FileConflictDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />
-    <Compile Include="ViewModel\OkCancelDialogOldViewModel.cs" />
+    <Compile Include="ViewModel\IMainView.cs" />
     <Compile Include="ViewModel\PickerWindowViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModelBase.cs" />
     <Compile Include="ViewModel\ShutdownWarningWindowViewModel.cs" />
@@ -700,7 +698,7 @@
     <Compile Include="ViewModel\Panels\PanelViewModel.cs" />
     <Compile Include="ViewModel\Panels\PicturePanelViewModel.cs" />
     <Compile Include="ViewModel\QueueTitlesWindowViewModel.cs" />
-    <Compile Include="ViewModel\QueueColumnsViewModel.cs" />
+    <Compile Include="ViewModel\QueueColumnsDialogViewModel.cs" />
     <Compile Include="ViewModel\ScanMultipleDialogViewModel.cs" />
     <Compile Include="ViewModel\Panels\VideoFiltersPanelViewModel.cs" />
     <Compile Include="ViewModel\Panels\VideoPanelViewModel.cs" />

@@ -203,7 +203,7 @@
                             Margin="0 0 0 0"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
-                            Command="{Binding RemoveAudioEncodingCommand}"
+                            Command="{Binding RemoveAudioEncoding}"
                             Content="{x:Static res:EncodingRes.RemoveAudioEncodingToolTip}"
                             Style="{StaticResource RemoveButtonStyle}" />
 

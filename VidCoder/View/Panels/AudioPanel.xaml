@@ -45,7 +45,7 @@
                 <Button
                     Margin="3 6 0 0"
                     HorizontalAlignment="Left"
-                    Command="{Binding AddAudioEncodingCommand}">
+                    Command="{Binding AddAudioEncoding}">
                     <StackPanel Margin="2" Orientation="Horizontal">
                         <Polygon Style="{StaticResource PlusSign}" />
                         <TextBlock Text="{x:Static res:EncodingRes.AddAudioEncodingButton}" />

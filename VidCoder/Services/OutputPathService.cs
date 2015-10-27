@@ -46,6 +46,9 @@ namespace VidCoder.Services
 
 			this.PickDefaultOutputFolder = ReactiveCommand.Create();
 			this.PickDefaultOutputFolder.Subscribe(_ => this.PickDefaultOutputFolderImpl());
+
+			this.PickOutputPath = ReactiveCommand.Create(this.WhenAnyValue(x => x.OutputFolderChosen));
+			this.PickOutputPath.Subscribe(_ => this.PickOutputPathImpl());
 		}
 
 		public ProcessingService ProcessingService
@@ -137,30 +140,20 @@ namespace VidCoder.Services
 			return newOutputFolder != null;
 		}
 
-		private RelayCommand pickOutputPathCommand;
-		public RelayCommand PickOutputPathCommand
+		public ReactiveCommand<object> PickOutputPath { get; }
+		private void PickOutputPathImpl()
 		{
-			get
-			{
-				return this.pickOutputPathCommand ?? (this.pickOutputPathCommand = new RelayCommand(() =>
-					{
-						string extensionDot = this.GetOutputExtension();
-						string extension = this.GetOutputExtension(includeDot: false);
-						string extensionLabel = extension.ToUpperInvariant();
+			string extensionDot = this.GetOutputExtension();
+			string extension = this.GetOutputExtension(includeDot: false);
+			string extensionLabel = extension.ToUpperInvariant();
 
-						string newOutputPath = FileService.Instance.GetFileNameSave(
-							Config.RememberPreviousFiles ? Config.LastOutputFolder : null,
-							"Encode output location",
-							null,
-							extension,
-							string.Format("{0} Files|*{1}", extensionLabel, extensionDot));
-						this.SetManualOutputPath(newOutputPath, this.OutputPath);
-					},
-					() =>
-					{
-						return this.OutputFolderChosen;
-					}));
-			}
+			string newOutputPath = FileService.Instance.GetFileNameSave(
+				Config.RememberPreviousFiles ? Config.LastOutputFolder : null,
+				"Encode output location",
+				null,
+				extension,
+				string.Format("{0} Files|*{1}", extensionLabel, extensionDot));
+			this.SetManualOutputPath(newOutputPath, this.OutputPath);
 		}
 
 		// Resolves any conflicts for the given output path.

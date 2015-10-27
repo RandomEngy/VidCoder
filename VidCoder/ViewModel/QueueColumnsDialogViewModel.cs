@@ -6,14 +6,14 @@ using System.Collections.ObjectModel;
 
 namespace VidCoder.ViewModel
 {
-	public class QueueColumnsViewModel : OkCancelDialogViewModel
+	public class QueueColumnsDialogViewModel : OkCancelDialogViewModel
 	{
 		private ObservableCollection<ColumnViewModel> unusedColumns;
 		private ObservableCollection<ColumnViewModel> usedColumns;
 
 		private List<Tuple<string, double>> oldColumns;
 
-		public QueueColumnsViewModel()
+		public QueueColumnsDialogViewModel()
 		{
 			var unusedColumnKeys = new List<string>();
 			foreach (string columnId in Utilities.DefaultQueueColumnSizes.Keys)

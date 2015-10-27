@@ -30,7 +30,7 @@ using VidCoderCommon.Model;
 
 namespace VidCoder.View
 {
-	public partial class Main : Window
+	public partial class Main : Window, IMainView
 	{
 		private MainViewModel viewModel;
 		private ProcessingService processingService = Ioc.Get<ProcessingService>();
@@ -124,20 +124,6 @@ namespace VidCoder.View
 			};
 
 			Messenger.Default.Register<StatusMessage>(this, this.ShowStatusMessage);
-
-			Messenger.Default.Register<SaveQueueColumnsMessage>(
-				this,
-				message =>
-					{
-						this.SaveQueueColumns();
-					});
-
-			Messenger.Default.Register<ApplyQueueColumnsMessage>(
-				this,
-				message =>
-					{
-						this.RefreshQueueColumns();
-					});
 		}
 
 		public WindowState RestoredWindowState { get; set; }
@@ -278,6 +264,7 @@ namespace VidCoder.View
 			this.viewModel = this.DataContext as MainViewModel;
 			this.viewModel.PropertyChanged += this.ViewModelPropertyChanged;
 			this.viewModel.AnimationStarted += this.ViewModelAnimationStarted;
+			this.viewModel.View = this;
 			this.processingService.PropertyChanged += (sender2, e2) =>
 			    {
 					if (e2.PropertyName == "CompletedItemsCount")
@@ -310,6 +297,35 @@ namespace VidCoder.View
 			}
 		}
 
+		void IMainView.SaveQueueColumns()
+		{
+			this.SaveQueueColumns();
+		}
+
+		private void SaveQueueColumns()
+		{
+			var queueColumnsBuilder = new StringBuilder();
+			List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Config.QueueColumns);
+			for (int i = 0; i < columns.Count; i++)
+			{
+				queueColumnsBuilder.Append(columns[i].Item1);
+				queueColumnsBuilder.Append(":");
+				queueColumnsBuilder.Append(this.queueGridView.Columns[i].ActualWidth);
+
+				if (i != columns.Count - 1)
+				{
+					queueColumnsBuilder.Append("|");
+				}
+			}
+
+			Config.QueueColumns = queueColumnsBuilder.ToString();
+		}
+
+		void IMainView.ApplyQueueColumns()
+		{
+			this.RefreshQueueColumns();
+		}
+
 		private void RefreshQueueColumns()
 		{
 			this.queueGridView.Columns.Clear();
@@ -334,25 +350,6 @@ namespace VidCoder.View
 				Width = Config.QueueLastColumnWidth
 			};
 			this.queueGridView.Columns.Add(lastColumn);
-		}
-
-		private void SaveQueueColumns()
-		{
-			var queueColumnsBuilder = new StringBuilder();
-			List<Tuple<string, double>> columns = Utilities.ParseQueueColumnList(Config.QueueColumns);
-			for (int i = 0; i < columns.Count; i++)
-			{
-				queueColumnsBuilder.Append(columns[i].Item1);
-				queueColumnsBuilder.Append(":");
-				queueColumnsBuilder.Append(this.queueGridView.Columns[i].ActualWidth);
-
-				if (i != columns.Count - 1)
-				{
-					queueColumnsBuilder.Append("|");
-				}
-			}
-
-			Config.QueueColumns = queueColumnsBuilder.ToString();
 		}
 
 		private void LoadCompletedColumnWidths()

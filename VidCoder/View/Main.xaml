@@ -248,7 +248,7 @@
                 </MenuItem.Icon>
             </MenuItem>
             <Separator />
-            <MenuItem Command="{Binding ProcessingService.ClearCompletedCommand}" Header="{x:Static res:MainRes.ClearCompleted}">
+            <MenuItem Command="{Binding ProcessingService.ClearCompleted}" Header="{x:Static res:MainRes.ClearCompleted}">
                 <MenuItem.Icon>
                     <Image
                         Width="16"
@@ -308,7 +308,7 @@
             Modifiers="Control" />
         <KeyBinding
             Key="D"
-            Command="{Binding OutputPathVM.PickOutputPathCommand}"
+            Command="{Binding OutputPathVM.PickOutputPath}"
             Modifiers="Control" />
     </Window.InputBindings>
 
@@ -383,9 +383,9 @@
                 <MenuItem Command="{Binding ImportPreset}" Header="{x:Static res:MainRes.ImportPreset}" />
                 <MenuItem Command="{Binding ExportPreset}" Header="{x:Static res:MainRes.ExportPreset}" />
                 <Separator />
-                <MenuItem Command="{Binding ProcessingService.ImportQueueCommand}" Header="{x:Static res:MainRes.ImportQueue}" />
+                <MenuItem Command="{Binding ProcessingService.ImportQueue}" Header="{x:Static res:MainRes.ImportQueue}" />
                 <MenuItem
-                    Command="{Binding ProcessingService.ExportQueueCommand}"
+                    Command="{Binding ProcessingService.ExportQueue}"
                     Header="{x:Static res:MainRes.ExportQueue}"
                     IsEnabled="{Binding ProcessingService.QueueHasItems}" />
                 <Separator />
@@ -945,7 +945,7 @@
                                         <Button
                                             Height="23"
                                             Margin="2"
-                                            Command="{Binding RemoveCommand}"
+                                            Command="{Binding Remove}"
                                             Content="{x:Static res:MainRes.RemoveAudioTrackToolTip}"
                                             Style="{StaticResource RemoveButtonStyle}" />
                                     </StackPanel>
@@ -1177,7 +1177,7 @@
                 Margin="0 8 12 0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Command="{Binding OutputPathVM.PickOutputPathCommand}"
+                Command="{Binding OutputPathVM.PickOutputPath}"
                 Padding="5 0"
                 Visibility="{Binding OutputPathVM.OutputFolderChosen,
                                      Converter={StaticResource VisibilityConverter}}">
@@ -1334,7 +1334,7 @@
                     Margin="0 0 5 0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
-                    Command="{Binding ProcessingService.StopEncodeCommand}"
+                    Command="{Binding ProcessingService.StopEncode}"
                     Padding="5 0"
                     Visibility="{Binding ProcessingService.Encoding,
                                          Converter={StaticResource VisibilityConverter}}">
@@ -1375,7 +1375,7 @@
                     Margin="0 0 8 0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
-                    Command="{Binding ProcessingService.PauseCommand}"
+                    Command="{Binding ProcessingService.Pause}"
                     Padding="5 0"
                     Visibility="{Binding ProcessingService.PauseVisible,
                                          Converter={StaticResource VisibilityConverter}}">
@@ -1429,8 +1429,8 @@
                                     <Setter Property="ContextMenu">
                                         <Setter.Value>
                                             <ContextMenu>
-                                                <MenuItem Command="{Binding ProcessingService.MoveSelectedJobsToTopCommand}" Header="{x:Static res:MainRes.MoveToTopMenuItem}" />
-                                                <MenuItem Command="{Binding ProcessingService.MoveSelectedJobsToBottomCommand}" Header="{x:Static res:MainRes.MoveToBottomMenuItem}" />
+                                                <MenuItem Command="{Binding ProcessingService.MoveSelectedJobsToTop}" Header="{x:Static res:MainRes.MoveToTopMenuItem}" />
+                                                <MenuItem Command="{Binding ProcessingService.MoveSelectedJobsToBottom}" Header="{x:Static res:MainRes.MoveToBottomMenuItem}" />
                                                 <Separator />
                                                 <MenuItem Command="{Binding EditQueueJob}" Header="{x:Static res:MainRes.Edit}">
                                                     <MenuItem.Icon>
@@ -1440,7 +1440,7 @@
                                                             Source="/Icons/edit_16x16.png" />
                                                     </MenuItem.Icon>
                                                 </MenuItem>
-                                                <MenuItem Command="{Binding ProcessingService.RemoveSelectedJobsCommand}" Header="{x:Static res:CommonRes.Delete}">
+                                                <MenuItem Command="{Binding ProcessingService.RemoveSelectedJobs}" Header="{x:Static res:CommonRes.Delete}">
                                                     <MenuItem.Icon>
                                                         <Image
                                                             Width="16"
@@ -1449,9 +1449,9 @@
                                                     </MenuItem.Icon>
                                                 </MenuItem>
                                                 <Separator />
-                                                <MenuItem Command="{Binding ProcessingService.ImportQueueCommand}" Header="{x:Static res:MainRes.ImportQueue}" />
+                                                <MenuItem Command="{Binding ProcessingService.ImportQueue}" Header="{x:Static res:MainRes.ImportQueue}" />
                                                 <MenuItem
-                                                    Command="{Binding ProcessingService.ExportQueueCommand}"
+                                                    Command="{Binding ProcessingService.ExportQueue}"
                                                     Header="{x:Static res:MainRes.ExportQueue}"
                                                     IsEnabled="{Binding ProcessingService.QueueHasItems}" />
                                             </ContextMenu>
@@ -1470,9 +1470,9 @@
                                 <ContextMenu>
                                     <MenuItem Command="{Binding CustomizeQueueColumns}" Header="{x:Static res:MainRes.CustomizeColumnsMenuItem}" />
                                     <Separator />
-                                    <MenuItem Command="{Binding ProcessingService.ImportQueueCommand}" Header="{x:Static res:MainRes.ImportQueue}" />
+                                    <MenuItem Command="{Binding ProcessingService.ImportQueue}" Header="{x:Static res:MainRes.ImportQueue}" />
                                     <MenuItem
-                                        Command="{Binding ProcessingService.ExportQueueCommand}"
+                                        Command="{Binding ProcessingService.ExportQueue}"
                                         Header="{x:Static res:MainRes.ExportQueue}"
                                         IsEnabled="{Binding ProcessingService.QueueHasItems}" />
                                 </ContextMenu>
@@ -1484,7 +1484,7 @@
                             <TextBlock Text="{Binding ProcessingService.CompletedTabHeader}">
                                 <TextBlock.ContextMenu>
                                     <ContextMenu>
-                                        <MenuItem Command="{Binding ProcessingService.ClearCompletedCommand}" Header="{x:Static res:MainRes.ClearCompleted}">
+                                        <MenuItem Command="{Binding ProcessingService.ClearCompleted}" Header="{x:Static res:MainRes.ClearCompleted}">
                                             <MenuItem.Icon>
                                                 <Image
                                                     Width="16"
@@ -1521,7 +1521,7 @@
                             </ListView.View>
                             <ListView.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Command="{Binding ProcessingService.ClearCompletedCommand}" Header="{x:Static res:MainRes.ClearCompleted}">
+                                    <MenuItem Command="{Binding ProcessingService.ClearCompleted}" Header="{x:Static res:MainRes.ClearCompleted}">
                                         <MenuItem.Icon>
                                             <Image
                                                 Width="16"
@@ -1540,7 +1540,7 @@
                     Margin="0 2 4 0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
-                    Command="{Binding ProcessingService.ClearCompletedCommand}"
+                    Command="{Binding ProcessingService.ClearCompleted}"
                     Style="{StaticResource RemoveButtonStyle}"
                     Visibility="Collapsed">
                     Clear completed queue items

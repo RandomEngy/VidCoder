@@ -33,7 +33,7 @@
             Modifiers="Control" />
         <KeyBinding
             Key="D"
-            Command="{Binding OutputPathVM.PickOutputPathCommand}"
+            Command="{Binding OutputPathVM.PickOutputPath}"
             Modifiers="Control" />
 
         <KeyBinding

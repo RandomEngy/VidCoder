@@ -16,6 +16,12 @@ namespace VidCoder.ViewModel
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private int selectedTrack;
 
+		public AudioChoiceViewModel()
+		{
+			this.Remove = ReactiveCommand.Create();
+			this.Remove.Subscribe(_ => this.RemoveImpl());
+		}
+
 		public MainViewModel MainViewModel
 		{
 			get
@@ -43,16 +49,10 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private RelayCommand removeCommand;
-		public RelayCommand RemoveCommand
+		public ReactiveCommand<object> Remove { get; }
+		private void RemoveImpl()
 		{
-			get
-			{
-				return this.removeCommand ?? (this.removeCommand = new RelayCommand(() =>
-					{
-						this.mainViewModel.RemoveAudioChoice(this);
-					}));
-			}
+			this.mainViewModel.RemoveAudioChoice(this);
 		}
 	}
 }

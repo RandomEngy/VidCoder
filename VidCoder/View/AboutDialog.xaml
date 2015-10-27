@@ -74,7 +74,7 @@
             Margin="0 0 12 12"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Command="{Binding AcceptCommand}"
+            Command="{Binding Accept}"
             Content="{x:Static res:CommonRes.Ok}"
             IsCancel="True"
             IsDefault="True" />
