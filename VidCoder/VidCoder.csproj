@@ -565,13 +565,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SubtitleRes.resx</DependentUpon>
     </Compile>
-    <Compile Include="Messages\AudioInputChangedMessage.cs" />
     <Compile Include="Messages\FramerateChangedMessage.cs" />
     <Compile Include="Messages\HighlightedChapterChangedMessage.cs" />
-    <Compile Include="Messages\OutputSizeChangedMessage.cs" />
     <Compile Include="Messages\PreviewImageChangedMessage.cs" />
     <Compile Include="Messages\RangeFocusMessage.cs" />
-    <Compile Include="Messages\SelectedTitleChangedMessage.cs" />
     <Compile Include="Messages\OptionsChangedMessage.cs" />
     <Compile Include="Messages\StatusMessage.cs" />
     <Compile Include="Messages\VideoSourceChangedMessage.cs" />

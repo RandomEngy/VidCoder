@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Resources;
 using System.Windows.Media.TextFormatting;
 using GalaSoft.MvvmLight.Messaging;
@@ -27,6 +28,8 @@ namespace VidCoder.ViewModel
 		private ResourceManager resourceManager = new ResourceManager(typeof(EncodingRes));
 
 		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
+		private OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
+		private MainViewModel main = Ioc.Get<MainViewModel>();
 
 		private List<VideoEncoderViewModel> encoderChoices;
 
@@ -372,24 +375,22 @@ namespace VidCoder.ViewModel
 					this.RefreshEncoderSettings(applyDefaults: false);
 				});
 
-			Messenger.Default.Register<AudioInputChangedMessage>(
-				this,
-				message =>
-				{
-					this.NotifyAudioInputChanged();
-				});
+			this.main.AudioChoiceChanged += (o, e) =>
+			{
+				this.NotifyAudioInputChanged();
+			};
 
-			Messenger.Default.Register<SelectedTitleChangedMessage>(
-				this,
-				message =>
+			this.main.WhenAnyValue(x => x.SelectedTitle)
+				.Skip(1)
+				.Subscribe(_ =>
 				{
 					this.NotifyAudioInputChanged();
 					this.RefreshLevelCompatibility();
 				});
 
-			Messenger.Default.Register<OutputSizeChangedMessage>(
-				this,
-				message =>
+			this.outputSizeService.WhenAnyValue(x => x.Size)
+				.Skip(1)
+				.Subscribe(_ =>
 				{
 					this.RefreshLevelCompatibility();
 				});
@@ -1289,8 +1290,7 @@ namespace VidCoder.ViewModel
 				if (levelChoice.Value != null)
 				{
 					var main = this.EncodingWindowViewModel.MainViewModel;
-					var picturePanel = this.EncodingWindowViewModel.PicturePanelViewModel;
-					if (main.HasVideoSource && picturePanel.StorageWidth > 0 && picturePanel.StorageHeight > 0)
+					if (main.HasVideoSource && this.outputSizeService.Size != null && this.outputSizeService.Size.Width > 0 && this.outputSizeService.Size.Height > 0)
 					{
 						int fpsNumerator;
 						int fpsDenominator;
@@ -1324,8 +1324,8 @@ namespace VidCoder.ViewModel
 
 						levelChoice.IsCompatible = HandBrakeUtils.IsH264LevelValid(
 							levelChoice.Value,
-							picturePanel.StorageWidth,
-							picturePanel.StorageHeight,
+							this.outputSizeService.Size.Width,
+							this.outputSizeService.Size.Height,
 							fpsNumerator,
 							fpsDenominator,
 							interlaced,

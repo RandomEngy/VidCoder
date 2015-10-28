@@ -26,6 +26,8 @@ namespace VidCoder.ViewModel
 		private List<AudioEncoderViewModel> fallbackEncoderChoices;
 		private AudioEncoderViewModel selectedFallbackEncoder;
 
+		private MainViewModel main = Ioc.Get<MainViewModel>();
+
 		private PresetsService presetsService = Ioc.Get<PresetsService>();
 
 		private ICommand addAudioEncodingCommand;
@@ -46,19 +48,17 @@ namespace VidCoder.ViewModel
 			this.AddAudioEncoding = ReactiveCommand.Create();
 			this.AddAudioEncoding.Subscribe(_ => this.AddAudioEncodingImpl());
 
-			Messenger.Default.Register<AudioInputChangedMessage>(
-				this,
-				message =>
-					{
-						this.NotifyAudioInputChanged();
-					});
+			this.main.WhenAnyValue(x => x.SelectedTitle)
+				.Skip(1)
+				.Subscribe(_ =>
+				{
+					this.NotifyAudioInputChanged();
+				});
 
-			Messenger.Default.Register<SelectedTitleChangedMessage>(
-				this,
-				message =>
-					{
-						this.NotifyAudioInputChanged();
-					});
+			this.main.AudioChoiceChanged += (o, e) =>
+			{
+				this.NotifyAudioInputChanged();
+			};
 
 			Messenger.Default.Register<ContainerChangedMessage>(
 				this,

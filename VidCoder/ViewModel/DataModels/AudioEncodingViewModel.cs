@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -348,23 +349,17 @@ namespace VidCoder.ViewModel
 			this.RemoveAudioEncoding = ReactiveCommand.Create();
 			this.RemoveAudioEncoding.Subscribe(_ => this.RemoveAudioEncodingImpl());
 
-			Messenger.Default.Register<SelectedTitleChangedMessage>(
-				this,
-				message =>
-					{
-						this.RefreshMixdownChoices();
-						this.RefreshBitrateChoices();
-						this.RefreshDrc();
-					});
+			this.main.WhenAnyValue(x => x.SelectedTitle)
+				.Skip(1)
+				.Subscribe(_ =>
+				{
+					this.RefreshFromNewInput();
+				});
 
-			Messenger.Default.Register<AudioInputChangedMessage>(
-				this,
-				message =>
-					{
-						this.RefreshMixdownChoices();
-						this.RefreshBitrateChoices();
-						this.RefreshDrc();
-					});
+			this.main.AudioChoiceChanged += (o, e) =>
+			{
+				this.RefreshFromNewInput();
+			};
 
 			Messenger.Default.Register<OptionsChangedMessage>(
 				this,
@@ -382,6 +377,13 @@ namespace VidCoder.ViewModel
 					});
 
 			this.initializing = false;
+		}
+
+		private void RefreshFromNewInput()
+		{
+			this.RefreshMixdownChoices();
+			this.RefreshBitrateChoices();
+			this.RefreshDrc();
 		}
 
 		public AudioPanelViewModel AudioPanelVM

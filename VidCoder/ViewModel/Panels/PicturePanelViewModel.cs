@@ -624,9 +624,6 @@ namespace VidCoder.ViewModel
 			this.outputSizeService.Refresh();
 		}
 
-		public int StorageWidth { get; set; }
-		public int StorageHeight { get; set; }
-
 		private void PopulatePixelAspect()
 		{
 			if (this.SelectedTitle == null)

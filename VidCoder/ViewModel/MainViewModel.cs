@@ -55,7 +55,7 @@ namespace VidCoder.ViewModel
 		private TimeSpan timeBaseline;
 		private int framesBaseline;
 
-		private ObservableCollection<AudioChoiceViewModel> audioChoices;
+		private ReactiveList<AudioChoiceViewModel> audioChoices;
 
 		private IDriveService driveService;
 		private IList<DriveInformation> driveCollection;
@@ -64,6 +64,7 @@ namespace VidCoder.ViewModel
 
 		public event EventHandler<EventArgs<string>> AnimationStarted;
 		public event EventHandler ScanCancelled;
+		public event EventHandler AudioChoiceChanged;
 
 		public MainViewModel()
 		{
@@ -368,8 +369,20 @@ namespace VidCoder.ViewModel
 
 			this.DriveCollection = this.driveService.GetDiscInformation();
 
-			this.audioChoices = new ObservableCollection<AudioChoiceViewModel>();
-			this.audioChoices.CollectionChanged += (o, e) => { Messenger.Default.Send(new AudioInputChangedMessage()); };
+			this.audioChoices = new ReactiveList<AudioChoiceViewModel>();
+			this.audioChoices.ChangeTrackingEnabled = true;
+
+			this.audioChoices.Changed
+				.Subscribe(_ =>
+				{
+					this.AudioChoiceChanged?.Invoke(this, new EventArgs());
+				});
+
+			this.audioChoices.ItemChanged
+				.Subscribe(_ =>
+				{
+					this.AudioChoiceChanged?.Invoke(this, new EventArgs());
+				});
 
 			this.WindowMenuItems = new List<WindowMenuItemViewModel>();
 			foreach (var definition in WindowManager.Definitions.Where(d => d.InMenu))
@@ -781,72 +794,75 @@ namespace VidCoder.ViewModel
 					Picker picker = this.pickersService.SelectedPicker.Picker;
 
 					// Audio selection
-					switch (picker.AudioSelectionMode)
+					using (this.AudioChoices.SuppressChangeNotifications())
 					{
-						case AudioSelectionMode.Disabled:
-							// If no auto-selection is done, keep audio from previous selection.
-							if (this.oldTitle != null)
-							{
-								var keptAudioChoices = new List<AudioChoiceViewModel>();
-								foreach (AudioChoiceViewModel audioChoiceVM in this.AudioChoices)
+						switch (picker.AudioSelectionMode)
+						{
+							case AudioSelectionMode.Disabled:
+								// If no auto-selection is done, keep audio from previous selection.
+								if (this.oldTitle != null)
 								{
-									if (audioChoiceVM.SelectedIndex < this.selectedTitle.AudioList.Count &&
-										this.oldTitle.AudioList[audioChoiceVM.SelectedIndex].Language == this.selectedTitle.AudioList[audioChoiceVM.SelectedIndex].Language)
+									var keptAudioChoices = new List<AudioChoiceViewModel>();
+									foreach (AudioChoiceViewModel audioChoiceVM in this.AudioChoices)
 									{
-										keptAudioChoices.Add(audioChoiceVM);
+										if (audioChoiceVM.SelectedIndex < this.selectedTitle.AudioList.Count &&
+											this.oldTitle.AudioList[audioChoiceVM.SelectedIndex].Language == this.selectedTitle.AudioList[audioChoiceVM.SelectedIndex].Language)
+										{
+											keptAudioChoices.Add(audioChoiceVM);
+										}
+									}
+
+									this.AudioChoices.Clear();
+									foreach (AudioChoiceViewModel audioChoiceVM in keptAudioChoices)
+									{
+										this.AudioChoices.Add(audioChoiceVM);
+									}
+								}
+								else
+								{
+									this.AudioChoices.Clear();
+								}
+
+								break;
+							case AudioSelectionMode.Language:
+								this.AudioChoices.Clear();
+								for (int i = 0; i < this.selectedTitle.AudioList.Count; i++)
+								{
+									SourceAudioTrack track = this.selectedTitle.AudioList[i];
+
+									if (track.LanguageCode == picker.AudioLanguageCode)
+									{
+										var newVM = new AudioChoiceViewModel { SelectedIndex = i };
+										this.AudioChoices.Add(newVM);
+
+										if (!picker.AudioLanguageAll)
+										{
+											break;
+										}
 									}
 								}
 
+								break;
+							case AudioSelectionMode.All:
 								this.AudioChoices.Clear();
-								foreach (AudioChoiceViewModel audioChoiceVM in keptAudioChoices)
-								{
-									this.AudioChoices.Add(audioChoiceVM);
-								}
-							}
-							else
-							{
-								this.AudioChoices.Clear();
-							}
 
-							break;
-						case AudioSelectionMode.Language:
-							this.AudioChoices.Clear();
-							for (int i = 0; i < this.selectedTitle.AudioList.Count; i++)
-							{
-								SourceAudioTrack track = this.selectedTitle.AudioList[i];
-
-								if (track.LanguageCode == picker.AudioLanguageCode)
+								for (int i = 0; i < this.selectedTitle.AudioList.Count; i++)
 								{
 									var newVM = new AudioChoiceViewModel { SelectedIndex = i };
 									this.AudioChoices.Add(newVM);
-
-									if (!picker.AudioLanguageAll)
-									{
-										break;
-									}
 								}
-							}
 
-							break;
-						case AudioSelectionMode.All:
-							this.AudioChoices.Clear();
+								break;
+							default:
+								throw new ArgumentOutOfRangeException();
+						}
 
-							for (int i = 0; i < this.selectedTitle.AudioList.Count; i++)
-							{
-								var newVM = new AudioChoiceViewModel { SelectedIndex = i };
-								this.AudioChoices.Add(newVM);
-							}
-
-							break;
-						default:
-							throw new ArgumentOutOfRangeException();
-					}
-
-					// If nothing got selected, add the first one.
-					if (this.selectedTitle.AudioList.Count > 0 && this.AudioChoices.Count == 0)
-					{
-						var newVM = new AudioChoiceViewModel { SelectedIndex = 0 };
-						this.AudioChoices.Add(newVM);
+						// If nothing got selected, add the first one.
+						if (this.selectedTitle.AudioList.Count > 0 && this.AudioChoices.Count == 0)
+						{
+							var newVM = new AudioChoiceViewModel { SelectedIndex = 0 };
+							this.AudioChoices.Add(newVM);
+						}
 					}
 
 					switch (picker.SubtitleSelectionMode)
@@ -992,8 +1008,6 @@ namespace VidCoder.ViewModel
 
 				// Custom chapter names are thrown out when switching titles.
 				this.CustomChapterNames = null;
-
-				Messenger.Default.Send(new SelectedTitleChangedMessage());
 
 				this.OutputPathVM.GenerateOutputFileName();
 
@@ -1593,7 +1607,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ObservableCollection<AudioChoiceViewModel> AudioChoices
+		public ReactiveList<AudioChoiceViewModel> AudioChoices
 		{
 			get
 			{
