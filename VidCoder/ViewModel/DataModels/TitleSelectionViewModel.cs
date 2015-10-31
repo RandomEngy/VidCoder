@@ -52,7 +52,7 @@ namespace VidCoder.ViewModel
 		public void SetSelected(bool newValue)
 		{
 			this.selected = newValue;
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.Selected));
+			this.RaisePropertyChanged(nameof(this.Selected));
 		}
 	}
 }

@@ -133,9 +133,6 @@ namespace VidCoder.Model
 		public bool AutoEncodeOnScan { get; set; }
 
 		private ObservableAsPropertyHelper<string> displayName;
-		public string DisplayName
-		{
-			get { return this.displayName.Value; }
-		}
+		public string DisplayName => this.displayName.Value;
     }
 }

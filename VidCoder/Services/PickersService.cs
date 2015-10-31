@@ -377,13 +377,13 @@ namespace VidCoder.Services
 
 	    private void RefreshPickerButton()
 	    {
-			this.RaisePropertyChanged(() => this.PickerButtonText);
-			this.RaisePropertyChanged(() => this.PickerButtonMenuItems);
+			this.RaisePropertyChanged(nameof(this.PickerButtonText));
+			this.RaisePropertyChanged(nameof(this.PickerButtonMenuItems));
 	    }
 
         private void NotifySelectedPickerChanged()
         {
-            this.RaisePropertyChanged(() => this.SelectedPicker);
+            this.RaisePropertyChanged(nameof(this.SelectedPicker));
 			this.RefreshPickerButton();
 
 			this.outputPathService.GenerateOutputFileName();

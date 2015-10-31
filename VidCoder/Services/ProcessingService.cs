@@ -17,6 +17,7 @@ using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop.EventArgs;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using ReactiveUI;
+using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -89,12 +90,10 @@ namespace VidCoder.Services
 						}
 					};
 
-			Messenger.Default.Register<EncodingProfileChangedMessage>(
-				this,
-				message =>
-					{
-						this.profileEditedSinceLastQueue = true;
-					});
+			this.presetsService.PresetChanged += (o, e) =>
+			{
+				this.profileEditedSinceLastQueue = true;
+			};
 
 			this.completedJobs = new ReactiveList<EncodeResultViewModel>();
 			this.completedJobs.CollectionChanged +=
@@ -271,10 +270,7 @@ namespace VidCoder.Services
 		}
 
 		private ObservableAsPropertyHelper<int> completedItemsCount;
-		public int CompletedItemsCount
-		{
-			get { return this.completedItemsCount.Value; }
-		}
+		public int CompletedItemsCount => this.completedItemsCount.Value;
 
 		public bool Encoding
 		{
@@ -309,10 +305,7 @@ namespace VidCoder.Services
 		}
 
 		private ObservableAsPropertyHelper<bool> queueHasItems;
-		public bool QueueHasItems
-		{
-			get { return this.queueHasItems.Value; }
-		}
+		public bool QueueHasItems => this.queueHasItems.Value;
 
 		public bool Paused
 		{
@@ -342,34 +335,19 @@ namespace VidCoder.Services
 		}
 
 		private ObservableAsPropertyHelper<string> encodeButtonText;
-		public string EncodeButtonText
-		{
-			get { return this.encodeButtonText.Value; }
-		}
+		public string EncodeButtonText => this.encodeButtonText.Value;
 
 		private ObservableAsPropertyHelper<bool> pauseVisible;
-		public bool PauseVisible
-		{
-			get { return this.pauseVisible.Value; }
-		}
+		public bool PauseVisible => this.pauseVisible.Value;
 
 		private ObservableAsPropertyHelper<string> queuedTabHeader;
-		public string QueuedTabHeader
-		{
-			get { return this.queuedTabHeader.Value; }
-		}
+		public string QueuedTabHeader => this.queuedTabHeader.Value;
 
 		private ObservableAsPropertyHelper<string> completedTabHeader;
-		public string CompletedTabHeader
-		{
-			get { return this.completedTabHeader.Value; }
-		}
+		public string CompletedTabHeader => this.completedTabHeader.Value;
 
 		private ObservableAsPropertyHelper<bool> canTryEnqueueMultipleTitles;
-		public bool CanTryEnqueueMultipleTitles
-		{
-			get { return this.canTryEnqueueMultipleTitles.Value; }
-		}
+		public bool CanTryEnqueueMultipleTitles => this.canTryEnqueueMultipleTitles.Value;
 
 		private bool encodeSpeedDetailsAvailable;
 		public bool EncodeSpeedDetailsAvailable
@@ -422,10 +400,7 @@ namespace VidCoder.Services
 		}
 
 		private ObservableAsPropertyHelper<double> overallEncodeProgressPercent;
-		public double OverallEncodeProgressPercent
-		{
-			get { return this.overallEncodeProgressPercent.Value; }
-		}
+		public double OverallEncodeProgressPercent => this.overallEncodeProgressPercent.Value;
 
 		private TaskbarItemProgressState encodeProgressState;
 		public TaskbarItemProgressState EncodeProgressState
@@ -435,10 +410,7 @@ namespace VidCoder.Services
 		}
 
 		private ObservableAsPropertyHelper<Brush> progressBarColor;
-		public Brush ProgressBarColor
-		{
-			get { return this.progressBarColor.Value; }
-		}
+		public Brush ProgressBarColor => this.progressBarColor.Value;
 
 		private EncodeProgress encodeProgress;
 		public EncodeProgress EncodeProgress
@@ -1711,7 +1683,7 @@ namespace VidCoder.Services
 				this.encodeCompleteActions.Insert(1, new EncodeCompleteAction { ActionType = EncodeCompleteActionType.EjectDisc, DriveLetter = drive });
 			}
 
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.EncodeCompleteActions));
+			this.RaisePropertyChanged(nameof(this.EncodeCompleteActions));
 
 			// Transfer over the previously selected item
 			this.encodeCompleteAction = this.encodeCompleteActions[0];
@@ -1724,7 +1696,7 @@ namespace VidCoder.Services
 				}
 			}
 
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.EncodeCompleteAction));
+			this.RaisePropertyChanged(nameof(this.EncodeCompleteAction));
 		}
 
 		private bool EnsureDefaultOutputFolderSet()

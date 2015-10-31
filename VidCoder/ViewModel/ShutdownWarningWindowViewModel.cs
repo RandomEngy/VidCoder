@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows.Threading;
 using ReactiveUI;
+using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -28,7 +29,7 @@ namespace VidCoder.ViewModel
 			this.timer.Tick += (o, e) =>
 			{
 				secondsRemaining--;
-				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.Message));
+				this.RaisePropertyChanged(nameof(this.Message));
 
 				if (secondsRemaining == 0)
 				{

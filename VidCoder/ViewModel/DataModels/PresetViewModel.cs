@@ -43,15 +43,9 @@ namespace VidCoder.ViewModel
 		public VCProfile OriginalProfile { get; set; }
 
 		private ObservableAsPropertyHelper<string> displayName;
-		public string DisplayName
-		{
-			get { return this.displayName.Value; }
-		}
+		public string DisplayName => this.displayName.Value;
 
 		private ObservableAsPropertyHelper<string> displayNameWithStar;
-		public string DisplayNameWithStar
-		{
-			get { return this.displayNameWithStar.Value; }
-		}
+		public string DisplayNameWithStar => this.displayNameWithStar.Value;
 	}
 }

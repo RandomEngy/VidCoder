@@ -142,16 +142,10 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> hasSourceSubtitles;
-		public bool HasSourceSubtitles
-		{
-			get { return this.hasSourceSubtitles.Value; }
-		}
+		public bool HasSourceSubtitles => this.hasSourceSubtitles.Value;
 
 		private ObservableAsPropertyHelper<bool> hasSrtSubtitles;
-		public bool HasSrtSubtitles
-		{
-			get { return this.hasSrtSubtitles.Value; }
-		}
+		public bool HasSrtSubtitles => this.hasSrtSubtitles.Value;
 
 		private bool textSubtitleWarningVisible;
 		public bool TextSubtitleWarningVisible
@@ -197,10 +191,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<string> addSourceSubtitleToolTip;
-		public string AddSourceSubtitleToolTip
-		{
-			get { return this.addSourceSubtitleToolTip.Value; }
-		}
+		public string AddSourceSubtitleToolTip => this.addSourceSubtitleToolTip.Value;
 
 		public HBContainer Container
 		{

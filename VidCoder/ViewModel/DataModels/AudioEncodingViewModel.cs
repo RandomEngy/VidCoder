@@ -15,6 +15,7 @@ using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Model;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using ReactiveUI;
+using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -32,6 +33,7 @@ namespace VidCoder.ViewModel
 		private bool initializing;
 
 		private MainViewModel main = Ioc.Get<MainViewModel>();
+		private PresetsService presetsService = Ioc.Get<PresetsService>();
 
 		private ObservableCollection<TargetStreamViewModel> targetStreams;
 		private int targetStreamIndex;
@@ -47,10 +49,6 @@ namespace VidCoder.ViewModel
 		private double drc;
 		private string name;
 
-		private ICommand removeAudioEncodingCommand;
-
-		private string containerName;
-
 		private static List<int> allSampleRateChoices;
 
 		private List<int> currentSampleRateChoices;
@@ -64,7 +62,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public AudioEncodingViewModel(AudioEncoding audioEncoding, SourceTitle selectedTitle, List<int> chosenAudioTracks, string containerName, AudioPanelViewModel audioPanelVM)
+		public AudioEncodingViewModel(AudioEncoding audioEncoding, SourceTitle selectedTitle, List<int> chosenAudioTracks, AudioPanelViewModel audioPanelVM)
 		{
 			this.initializing = true;
 			this.audioPanelVM = audioPanelVM;
@@ -77,7 +75,6 @@ namespace VidCoder.ViewModel
 			this.audioEncoders = new List<AudioEncoderViewModel>();
 			this.mixdownChoices = new List<MixdownViewModel>();
 
-			this.containerName = containerName;
 			this.RefreshEncoderChoices();
 
 			HBAudioEncoder hbAudioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(audioEncoding.Encoder);
@@ -365,16 +362,15 @@ namespace VidCoder.ViewModel
 				this,
 				message =>
 					{
-						this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.NameVisible));
+						this.RaisePropertyChanged(nameof(this.NameVisible));
 					});
 
-			Messenger.Default.Register<ContainerChangedMessage>(
-				this,
-				message =>
-					{
-						this.containerName = message.ContainerName;
-						this.RefreshEncoderChoices();
-					});
+			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.ContainerName)
+				.Skip(1)
+				.Subscribe(_ =>
+				{
+					this.RefreshEncoderChoices();
+				});
 
 			this.initializing = false;
 		}
@@ -504,20 +500,20 @@ namespace VidCoder.ViewModel
 					if (!value.Encoder.SupportsQuality)
 					{
 						this.encodeRateType = AudioEncodeRateType.Bitrate;
-						this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.EncodeRateType));
+						this.RaisePropertyChanged(nameof(this.EncodeRateType));
 					}
 
 					// On encoder switch set default quality/compression if supported.
 					if (value.Encoder.SupportsQuality)
 					{
 						this.audioQuality = value.Encoder.DefaultQuality;
-						this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.AudioQuality));
+						this.RaisePropertyChanged(nameof(this.AudioQuality));
 					}
 
 					if (value.Encoder.SupportsCompression)
 					{
 						this.audioCompression = value.Encoder.DefaultCompression;
-						this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.AudioCompression));
+						this.RaisePropertyChanged(nameof(this.AudioCompression));
 					}
 				}
 
@@ -566,10 +562,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> encoderSettingsVisible;
-		public bool EncoderSettingsVisible
-		{
-			get { return this.encoderSettingsVisible.Value; }
-		}
+		public bool EncoderSettingsVisible => this.encoderSettingsVisible.Value;
 
 		public List<ComboChoice> PassthroughChoices
 		{
@@ -595,16 +588,10 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> passthroughChoicesVisible;
-		public bool PassthroughChoicesVisible
-		{
-			get { return this.passthroughChoicesVisible.Value; }
-		}
+		public bool PassthroughChoicesVisible => this.passthroughChoicesVisible.Value;
 
 		private ObservableAsPropertyHelper<bool> autoPassthroughSettingsVisible;
-		public bool AutoPassthroughSettingsVisible
-		{
-			get { return this.autoPassthroughSettingsVisible.Value; }
-		}
+		public bool AutoPassthroughSettingsVisible => this.autoPassthroughSettingsVisible.Value;
 
 		private AudioEncodeRateType encodeRateType;
 		public AudioEncodeRateType EncodeRateType
@@ -622,7 +609,7 @@ namespace VidCoder.ViewModel
 				if (value == AudioEncodeRateType.Quality)
 				{
 					this.audioQuality = this.HBAudioEncoder.DefaultQuality;
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.AudioQuality));
+					this.RaisePropertyChanged(nameof(this.AudioQuality));
 				}
 
 				this.RaiseAudioPropertyChanged();
@@ -630,16 +617,10 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> bitrateVisible;
-		public bool BitrateVisible
-		{
-			get { return this.bitrateVisible.Value; }
-		}
+		public bool BitrateVisible => this.bitrateVisible.Value;
 
 		private ObservableAsPropertyHelper<bool> bitrateLabelVisible;
-		public bool BitrateLabelVisible
-		{
-			get { return this.bitrateLabelVisible.Value; }
-		}
+		public bool BitrateLabelVisible => this.bitrateLabelVisible.Value;
 
 		private float audioQuality;
 		public float AudioQuality
@@ -657,40 +638,22 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> audioQualityVisible;
-		public bool AudioQualityVisible
-		{
-			get { return this.audioQualityVisible.Value; }
-		}
+		public bool AudioQualityVisible => this.audioQualityVisible.Value;
 
 		private ObservableAsPropertyHelper<bool> audioQualityRadioVisible;
-		public bool AudioQualityRadioVisible
-		{
-			get { return this.audioQualityRadioVisible.Value; }
-		}
+		public bool AudioQualityRadioVisible => this.audioQualityRadioVisible.Value;
 
 		private ObservableAsPropertyHelper<double> audioQualityMinimum;
-		public double AudioQualityMinimum
-		{
-			get { return this.audioQualityMinimum.Value; }
-		}
+		public double AudioQualityMinimum => this.audioQualityMinimum.Value;
 
 		private ObservableAsPropertyHelper<double> audioQualityMaximum;
-		public double AudioQualityMaximum
-		{
-			get { return this.audioQualityMaximum.Value; }
-		}
+		public double AudioQualityMaximum => this.audioQualityMaximum.Value;
 
 		private ObservableAsPropertyHelper<double> audioQualityGranularity;
-		public double AudioQualityGranularity
-		{
-			get { return this.audioQualityGranularity.Value; }
-		}
+		public double AudioQualityGranularity => this.audioQualityGranularity.Value;
 
 		private ObservableAsPropertyHelper<string> audioQualityToolTip;
-		public string AudioQualityToolTip
-		{
-			get { return this.audioQualityToolTip.Value; }
-		}
+		public string AudioQualityToolTip => this.audioQualityToolTip.Value;
 
 		private float audioCompression;
 		public float AudioCompression
@@ -708,34 +671,19 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> audioCompressionVisible;
-		public bool AudioCompressionVisible
-		{
-			get { return this.audioCompressionVisible.Value; }
-		}
+		public bool AudioCompressionVisible => this.audioCompressionVisible.Value;
 
 		private ObservableAsPropertyHelper<double> audioCompressionMinimum;
-		public double AudioCompressionMinimum
-		{
-			get { return this.audioCompressionMinimum.Value; }
-		}
+		public double AudioCompressionMinimum => this.audioCompressionMinimum.Value;
 
 		private ObservableAsPropertyHelper<double> audioCompressionMaximum;
-		public double AudioCompressionMaximum
-		{
-			get { return this.audioCompressionMaximum.Value; }
-		}
+		public double AudioCompressionMaximum => this.audioCompressionMaximum.Value;
 
 		private ObservableAsPropertyHelper<double> audioCompressionGranularity;
-		public double AudioCompressionGranularity
-		{
-			get { return this.audioCompressionGranularity.Value; }
-		}
+		public double AudioCompressionGranularity => this.audioCompressionGranularity.Value;
 
 		private ObservableAsPropertyHelper<string> audioCompressionToolTip;
-		public string AudioCompressionToolTip
-		{
-			get { return this.audioCompressionToolTip.Value; }
-		}
+		public string AudioCompressionToolTip => this.audioCompressionToolTip.Value;
 
 		public bool NameVisible
 		{
@@ -913,10 +861,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> passthroughIfPossibleVisible;
-		public bool PassthroughIfPossibleVisible
-		{
-			get { return this.passthroughIfPossibleVisible.Value; }
-		}
+		public bool PassthroughIfPossibleVisible => this.passthroughIfPossibleVisible.Value;
 
 		public string Name
 		{
@@ -975,10 +920,10 @@ namespace VidCoder.ViewModel
 
 				// Set to -1, then back to real index in order to force a refresh on the ComboBox
 				this.targetStreamIndex = -1;
-				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TargetStreamIndex));
+				this.RaisePropertyChanged(nameof(this.TargetStreamIndex));
 
 				this.targetStreamIndex = previousIndex;
-				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TargetStreamIndex));
+				this.RaisePropertyChanged(nameof(this.TargetStreamIndex));
 			});
 		}
 
@@ -990,7 +935,7 @@ namespace VidCoder.ViewModel
 
 		private void RefreshEncoderChoices()
 		{
-			HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.containerName);
+			HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.presetsService.SelectedPreset.Preset.EncodingProfile.ContainerName);
 			AudioEncoderViewModel oldEncoder = null;
 			string oldPassthrough = null;
 			if (this.selectedAudioEncoder != null)
@@ -1033,8 +978,8 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.PassthroughChoices));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.AudioEncoders));
+			this.RaisePropertyChanged(nameof(this.PassthroughChoices));
+			this.RaisePropertyChanged(nameof(this.AudioEncoders));
 
 			if (oldEncoder == null)
 			{
@@ -1059,8 +1004,10 @@ namespace VidCoder.ViewModel
 				this.selectedAudioEncoder = this.audioEncoders[1];
 			}
 
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SelectedAudioEncoder));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SelectedPassthrough));
+			this.RaisePropertyChanged(nameof(this.SelectedAudioEncoder));
+			this.RaisePropertyChanged(nameof(this.SelectedPassthrough));
+
+			this.RaiseAudioEncodingChanged();
 		}
 
 
@@ -1097,11 +1044,11 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.MixdownChoices));
+			this.RaisePropertyChanged(nameof(this.MixdownChoices));
 
 			this.SelectMixdown(oldMixdown);
 
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SelectedMixdown));
+			this.RaisePropertyChanged(nameof(this.SelectedMixdown));
 		}
 
 		private void RefreshBitrateChoices()
@@ -1168,7 +1115,7 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.BitrateChoices));
+			this.RaisePropertyChanged(nameof(this.BitrateChoices));
 
 			this.selectedBitrate = this.BitrateChoices.SingleOrDefault(b => b.Bitrate == oldBitrate);
 			if (this.selectedBitrate == null)
@@ -1176,7 +1123,7 @@ namespace VidCoder.ViewModel
 				this.selectedBitrate = this.BitrateChoices[0];
 			}
 
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SelectedBitrate));
+			this.RaisePropertyChanged(nameof(this.SelectedBitrate));
 		}
 
 		private void RefreshSampleRateChoices()
@@ -1215,13 +1162,13 @@ namespace VidCoder.ViewModel
 				this.sampleRate = oldSampleRate;
 			}
 
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SampleRateChoices));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SampleRate));
+			this.RaisePropertyChanged(nameof(this.SampleRateChoices));
+			this.RaisePropertyChanged(nameof(this.SampleRate));
 		}
 
 		private void RefreshDrc()
 		{
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.DrcBrush));
+			this.RaisePropertyChanged(nameof(this.DrcBrush));
 		}
 
 		private SourceAudioTrack GetTargetAudioTrack()

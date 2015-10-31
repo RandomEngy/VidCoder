@@ -60,25 +60,21 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> hasSourceData;
-		public bool HasSourceData
-		{
-			get { return this.hasSourceData.Value; }
-		}
+		public bool HasSourceData => this.hasSourceData.Value;
 
-		protected void RegisterProfileProperty<T>(Expression<Func<T>> propertyExpression)
+		protected void RegisterProfileProperty(string propertyName)
 		{
 			Action<object> a = null;
-			this.RegisterProfileProperty(propertyExpression, a);
+			this.RegisterProfileProperty(propertyName, a);
 		}
 
-		protected void RegisterProfileProperty<T>(Expression<Func<T>> propertyExpression, Action action)
+		protected void RegisterProfileProperty(string propertyName, Action action)
 		{
-			this.RegisterProfileProperty(propertyExpression, o => action());
+			this.RegisterProfileProperty(propertyName, o => action());
 		}
 
-		protected void RegisterProfileProperty<T>(Expression<Func<T>> propertyExpression, Action<object> action)
+		protected void RegisterProfileProperty(string propertyName, Action<object> action)
 		{
-			string propertyName = MvvmUtilities.GetPropertyName(propertyExpression);
 			this.profileProperties.Add(propertyName, action);
 		}
 
@@ -94,12 +90,11 @@ namespace VidCoder.ViewModel
 		/// Updates the profile property.
 		/// </summary>
 		/// <typeparam name="T">The type of value to update.</typeparam>
-		/// <param name="propertyExpression">Expression to get the property value.</param>
+		/// <param name="propertyName">The name of the property.</param>
 		/// <param name="value">The new value.</param>
 		/// <param name="raisePropertyChanged">True to raise the PropertyChanged event.</param>
-		protected void UpdateProfileProperty<T>(Expression<Func<T>> propertyExpression, T value, bool raisePropertyChanged = true)
+		protected void UpdateProfileProperty<T>(string propertyName, T value, bool raisePropertyChanged = true)
 		{
-			string propertyName = MvvmUtilities.GetPropertyName(propertyExpression);
 			this.UpdateProfileProperty(() => this.Profile, propertyName, propertyName, value, raisePropertyChanged);
 		}
 

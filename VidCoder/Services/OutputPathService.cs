@@ -121,10 +121,7 @@ namespace VidCoder.Services
 		}
 
 		private ObservableAsPropertyHelper<bool> outputFolderChosen;
-		public bool OutputFolderChosen
-		{
-			get { return this.outputFolderChosen.Value; }
-		}
+		public bool OutputFolderChosen => this.outputFolderChosen.Value;
 
 		public ReactiveCommand<object> PickDefaultOutputFolder { get; }
 		public bool PickDefaultOutputFolderImpl()
@@ -490,7 +487,7 @@ namespace VidCoder.Services
 		{
 			if (outputFolder == null)
 			{
-				outputFolder = GetOutputFolder(sourcePath);
+				outputFolder = this.GetOutputFolder(sourcePath);
 			}
 
 			if (!string.IsNullOrEmpty(outputFolder))

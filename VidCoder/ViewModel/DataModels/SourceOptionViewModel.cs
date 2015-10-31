@@ -87,10 +87,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<string> text;
-		public string Text
-		{
-			get { return this.text.Value; }
-		}
+		public string Text => this.text.Value;
 
 		public string SourcePath { get; set; }
 

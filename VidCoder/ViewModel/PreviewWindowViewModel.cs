@@ -100,7 +100,7 @@ namespace VidCoder.ViewModel
 				}
 				catch (IOException)
 				{
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.PlaySourceToolTip));
+					this.RaisePropertyChanged(nameof(this.PlaySourceToolTip));
 					return false;
 				}
 			}).ToProperty(this, x => x.PlayAvailable, out this.playAvailable);
@@ -254,22 +254,13 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> generatingPreview;
-		public bool GeneratingPreview
-		{
-			get { return this.generatingPreview.Value; }
-		}
+		public bool GeneratingPreview => this.generatingPreview.Value;
 
 		private ObservableAsPropertyHelper<bool> inCornerDisplayMode;
-		public bool InCornerDisplayMode
-		{
-			get { return this.inCornerDisplayMode.Value; }
-		}
+		public bool InCornerDisplayMode => this.inCornerDisplayMode.Value;
 
 		private ObservableAsPropertyHelper<bool> seekBarEnabled;
-		public bool SeekBarEnabled
-		{
-			get { return this.seekBarEnabled.Value; }
-		}
+		public bool SeekBarEnabled => this.seekBarEnabled.Value;
 
 		private double previewPercentComplete;
 		public double PreviewPercentComplete
@@ -331,22 +322,13 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> singleFitImageVisible;
-		public bool SingleFitImageVisible
-		{
-			get { return this.singleFitImageVisible.Value; }
-		}
+		public bool SingleFitImageVisible => this.singleFitImageVisible.Value;
 
 		private ObservableAsPropertyHelper<bool> singleOneToOneImageVisible;
-		public bool SingleOneToOneImageVisible
-		{
-			get { return this.singleOneToOneImageVisible.Value; }
-		}
+		public bool SingleOneToOneImageVisible => this.singleOneToOneImageVisible.Value;
 
 		private ObservableAsPropertyHelper<bool> cornersImagesVisible;
-		public bool CornersImagesVisible
-		{
-			get { return this.cornersImagesVisible.Value; }
-		}
+		public bool CornersImagesVisible => this.cornersImagesVisible.Value;
 
 		/// <summary>
 		/// Gets or sets the display width of the preview image in pixels.
@@ -385,16 +367,10 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<string> playSourceToolTip;
-		public string PlaySourceToolTip
-		{
-			get { return this.playSourceToolTip.Value; }
-		}
+		public string PlaySourceToolTip => this.playSourceToolTip.Value;
 
 		private ObservableAsPropertyHelper<bool> playAvailable;
-		public bool PlayAvailable
-		{
-			get { return this.playAvailable.Value; }
-		}
+		public bool PlayAvailable => this.playAvailable.Value;
 
 		private PreviewDisplay displayType;
 		public PreviewDisplay DisplayType
@@ -623,7 +599,7 @@ namespace VidCoder.ViewModel
 			}
 			catch (IOException)
 			{
-				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.PlayAvailable));
+				this.RaisePropertyChanged(nameof(this.PlayAvailable));
 			}
 		}
 
@@ -723,10 +699,10 @@ namespace VidCoder.ViewModel
 			if (this.selectedPreview >= this.previewCount)
 			{
 				this.selectedPreview = this.previewCount - 1;
-				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SelectedPreview));
+				this.RaisePropertyChanged(nameof(this.SelectedPreview));
 			}
 
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.PreviewCount));
+			this.RaisePropertyChanged(nameof(this.PreviewCount));
 
 			this.HasPreview = true;
 

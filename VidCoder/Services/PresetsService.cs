@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -22,12 +23,13 @@ namespace VidCoder.Services
 	{
 		private MainViewModel main = Ioc.Get<MainViewModel>();
 		private OutputPathService outputPathService;
-		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
 
 		private PresetViewModel selectedPreset;
 
 		private IList<Preset> builtInPresets;
 		private ObservableCollection<PresetViewModel> allPresets;
+
+		public event EventHandler PresetChanged;
 
 		public PresetsService()
 		{
@@ -371,6 +373,8 @@ namespace VidCoder.Services
 			}
 
 			PresetStorage.UserPresets = userPresets;
+
+			this.PresetChanged?.Invoke(this, new EventArgs());
 		}
 
 		public void InsertQueuePreset(PresetViewModel queuePreset)
@@ -411,7 +415,7 @@ namespace VidCoder.Services
 		{
 			this.OutputPathVM.GenerateOutputFileName();
 
-			this.RaisePropertyChanged(() => this.SelectedPreset);
+			this.RaisePropertyChanged(nameof(this.SelectedPreset));
 
 			Config.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
 		}

@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Command;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using ReactiveUI;
+using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -66,7 +67,7 @@ namespace VidCoder.ViewModel
 			// When BurnedInEnabled changes, refresh to see if it should be updated to a predetermined value.
 			this.WhenAnyValue(x => x.BurnedInEnabled).Subscribe(_ =>
 			{
-				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.BurnedIn));
+				this.RaisePropertyChanged(nameof(this.BurnedIn));
 			});
 
 			this.DuplicateSubtitle = ReactiveCommand.Create();
@@ -267,13 +268,13 @@ namespace VidCoder.ViewModel
 		public void Deselect()
 		{
 			this.selected = false;
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.Selected));
+			this.RaisePropertyChanged(nameof(this.Selected));
 		}
 
 		public void UpdateButtonVisiblity()
 		{
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.DuplicateVisible));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.RemoveVisible));
+			this.RaisePropertyChanged(nameof(this.DuplicateVisible));
+			this.RaisePropertyChanged(nameof(this.RemoveVisible));
 		}
 	}
 }

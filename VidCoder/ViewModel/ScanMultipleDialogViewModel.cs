@@ -58,7 +58,7 @@ namespace VidCoder.ViewModel
 					lock (this.currentJobIndexLock)
 					{
 						this.currentJobProgress = (float)e.Progress;
-						this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.Progress));
+						this.RaisePropertyChanged(nameof(this.Progress));
 					}
 				};
 			onDemandInstance.ScanCompleted += (o, e) =>
@@ -70,7 +70,7 @@ namespace VidCoder.ViewModel
 					{
 						this.currentJobIndex++;
 						this.currentJobProgress = 0;
-						this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.Progress));
+						this.RaisePropertyChanged(nameof(this.Progress));
 
 						if (this.ScanFinished)
 						{

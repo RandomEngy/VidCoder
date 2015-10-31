@@ -129,23 +129,21 @@ namespace VidCoder.ViewModel
 		{
 			// These actions fire when the user changes a property.
 
-			this.RegisterProfileProperty(() => this.Profile.ContainerName, () =>
-			{
-				this.outputPathService.GenerateOutputFileName();
-
-				Messenger.Default.Send(new ContainerChangedMessage(this.ContainerName));
-			});
-
-			this.RegisterProfileProperty(() => this.Profile.PreferredExtension, () =>
+			this.RegisterProfileProperty(nameof(this.Profile.ContainerName), () =>
 			{
 				this.outputPathService.GenerateOutputFileName();
 			});
 
-			this.RegisterProfileProperty(() => this.Profile.LargeFile);
-			this.RegisterProfileProperty(() => this.Profile.Optimize);
-			this.RegisterProfileProperty(() => this.Profile.IPod5GSupport);
+			this.RegisterProfileProperty(nameof(this.Profile.PreferredExtension), () =>
+			{
+				this.outputPathService.GenerateOutputFileName();
+			});
 
-			this.RegisterProfileProperty(() => this.IncludeChapterMarkers);
+			this.RegisterProfileProperty(nameof(this.Profile.LargeFile));
+			this.RegisterProfileProperty(nameof(this.Profile.Optimize));
+			this.RegisterProfileProperty(nameof(this.Profile.IPod5GSupport));
+
+			this.RegisterProfileProperty(nameof(this.IncludeChapterMarkers));
 		}
 
 		public ProcessingService ProcessingService
@@ -165,10 +163,7 @@ namespace VidCoder.ViewModel
 		public AdvancedPanelViewModel AdvancedPanelViewModel { get; set; }
 
 		private ObservableAsPropertyHelper<string> windowTitle;
-		public string WindowTitle
-		{
-			get { return this.windowTitle.Value; }
-		}
+		public string WindowTitle => this.windowTitle.Value;
 
 		private int selectedTabIndex;
 		public int SelectedTabIndex
@@ -178,23 +173,13 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> saveRenameButtonsVisible;
-		public bool SaveRenameButtonsVisible
-		{
-			get { return this.saveRenameButtonsVisible.Value; }
-		}
+		public bool SaveRenameButtonsVisible => this.saveRenameButtonsVisible.Value;
 
 		private ObservableAsPropertyHelper<bool> deleteButtonVisible;
-		public bool DeleteButtonVisible
-		{
-			get { return this.deleteButtonVisible.Value; }
-		}
+		public bool DeleteButtonVisible => this.deleteButtonVisible.Value;
 
 		private ObservableAsPropertyHelper<bool> isBuiltIn;
-
-		public bool IsBuiltIn
-		{
-			get { return this.isBuiltIn.Value; }
-		}
+		public bool IsBuiltIn => this.isBuiltIn.Value;
 
 		private bool presetPanelOpen;
 		public bool PresetPanelOpen
@@ -206,7 +191,7 @@ namespace VidCoder.ViewModel
 		public string ContainerName
 		{
 			get { return this.Profile.ContainerName; }
-			set { this.UpdateProfileProperty(() => this.Profile.ContainerName, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.ContainerName), value); }
 		}
 
 		public List<ComboChoice> ContainerChoices
@@ -220,43 +205,37 @@ namespace VidCoder.ViewModel
 		public VCOutputExtension PreferredExtension
 		{
 			get { return this.Profile.PreferredExtension; }
-			set { this.UpdateProfileProperty(() => this.Profile.PreferredExtension, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.PreferredExtension), value); }
 		}
 
 		public bool LargeFile
 		{
 			get { return this.Profile.LargeFile; }
-			set { this.UpdateProfileProperty(() => this.Profile.LargeFile, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.LargeFile), value); }
 		}
 
 		public bool Optimize
 		{
 			get { return this.Profile.Optimize; }
-			set { this.UpdateProfileProperty(() => this.Profile.Optimize, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.Optimize), value); }
 		}
 
 		public bool IPod5GSupport
 		{
 			get { return this.Profile.IPod5GSupport; }
-			set { this.UpdateProfileProperty(() => this.Profile.IPod5GSupport, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.IPod5GSupport), value); }
 		}
 
 		private ObservableAsPropertyHelper<bool> showMp4Choices;
-		public bool ShowMp4Choices
-		{
-			get { return this.showMp4Choices.Value; }
-		}
+		public bool ShowMp4Choices => this.showMp4Choices.Value;
 
 		private ObservableAsPropertyHelper<bool> showOldMp4Choices;
-		public bool ShowOldMp4Choices
-		{
-			get { return this.showOldMp4Choices.Value; }
-		}
+		public bool ShowOldMp4Choices => this.showOldMp4Choices.Value;
 
 		public bool IncludeChapterMarkers
 		{
 			get { return this.Profile.IncludeChapterMarkers; }
-			set { this.UpdateProfileProperty(() => this.Profile.IncludeChapterMarkers, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.IncludeChapterMarkers), value); }
 		}
 
 		public ReactiveCommand<object> TogglePresetPanel { get; }

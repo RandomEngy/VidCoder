@@ -35,9 +35,6 @@ namespace VidCoder.ViewModel.DataModels
         public Picker OriginalPicker { get; set; }
 
 	    private ObservableAsPropertyHelper<string> displayNameWithStar;
-	    public string DisplayNameWithStar
-	    {
-			get { return this.displayNameWithStar.Value; }
-	    }
+	    public string DisplayNameWithStar => this.displayNameWithStar.Value;
     }
 }

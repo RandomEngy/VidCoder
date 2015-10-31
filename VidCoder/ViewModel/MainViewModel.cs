@@ -390,12 +390,22 @@ namespace VidCoder.ViewModel
 				this.WindowMenuItems.Add(new WindowMenuItemViewModel(definition));
 			}
 
-			Messenger.Default.Register<HighlightedChapterChangedMessage>(
-				this,
-				message =>
-					{
-						this.RefreshRangePreview();
-					});
+			//this.StartChapters.ChangeTrackingEnabled = true;
+			//this.EndChapters.ChangeTrackingEnabled = true;
+
+			//this.StartChapters.ItemChanged
+			//	.Where(x => x.PropertyName == nameof(ChapterViewModel.IsHighlighted))
+			//	.Subscribe(_ =>
+			//	{
+			//		this.RefreshRangePreview();
+			//	});
+
+			//this.EndChapters.ItemChanged
+			//	.Where(x => x.PropertyName == nameof(ChapterViewModel.IsHighlighted))
+			//	.Subscribe(_ =>
+			//	{
+			//		this.RefreshRangePreview();
+			//	});
 
 			Messenger.Default.Register<RangeFocusMessage>(this, this.OnRangeControlGotFocus);
 		}
@@ -619,10 +629,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<string> windowTitle;
-		public string WindowTitle
-		{
-			get { return this.windowTitle.Value; }
-		}
+		public string WindowTitle => this.windowTitle.Value;
 
 		private string sourcePath;
 		public string SourcePath
@@ -707,16 +714,10 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<string> sourceIcon;
-		public string SourceIcon
-		{
-			get { return this.sourceIcon.Value; }
-		}
+		public string SourceIcon => this.sourceIcon.Value;
 
 		private ObservableAsPropertyHelper<string> sourceText;
-		public string SourceText
-		{
-			get { return this.sourceText.Value; }
-		}
+		public string SourceText => this.sourceText.Value;
 
 		private SourceOption selectedSource;
 		public SourceOption SelectedSource
@@ -737,16 +738,10 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> hasVideoSource;
-		public bool HasVideoSource
-		{
-			get { return this.hasVideoSource.Value; }
-		}
+		public bool HasVideoSource => this.hasVideoSource.Value;
 
 		private ObservableAsPropertyHelper<bool> canCloseVideoSource;
-		public bool CanCloseVideoSource
-		{
-			get { return this.canCloseVideoSource.Value; }
-		}
+		public bool CanCloseVideoSource => this.canCloseVideoSource.Value;
 
 		/// <summary>
 		/// If true, EncodeJob objects can be safely obtained from this class.
@@ -754,10 +749,7 @@ namespace VidCoder.ViewModel
 		public bool JobCreationAvailable { get; set; }
 
 		private ObservableAsPropertyHelper<List<SourceTitle>> titles;
-		public List<SourceTitle> Titles
-		{
-			get { return this.titles.Value; }
-		}
+		public List<SourceTitle> Titles => this.titles.Value;
 
 		public SourceTitle SelectedTitle
 		{
@@ -968,27 +960,27 @@ namespace VidCoder.ViewModel
 					// Soft update so as not to trigger range checking logic.
 					this.selectedStartChapter = this.StartChapters[0];
 					this.selectedEndChapter = this.EndChapters[this.EndChapters.Count - 1];
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SelectedStartChapter));
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SelectedEndChapter));
+					this.RaisePropertyChanged(nameof(this.SelectedStartChapter));
+					this.RaisePropertyChanged(nameof(this.SelectedEndChapter));
 
 					this.SetRangeTimeStart(TimeSpan.Zero);
 					this.SetRangeTimeEnd(this.selectedTitle.Duration.ToSpan());
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeStart));
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeStartBar));
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeEnd));
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeEndBar));
+					this.RaisePropertyChanged(nameof(this.TimeRangeStart));
+					this.RaisePropertyChanged(nameof(this.TimeRangeStartBar));
+					this.RaisePropertyChanged(nameof(this.TimeRangeEnd));
+					this.RaisePropertyChanged(nameof(this.TimeRangeEndBar));
 
 					this.framesRangeStart = 0;
 					this.framesRangeEnd = this.selectedTitle.GetEstimatedFrames();
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.FramesRangeStart));
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.FramesRangeEnd));
+					this.RaisePropertyChanged(nameof(this.FramesRangeStart));
+					this.RaisePropertyChanged(nameof(this.FramesRangeEnd));
 
 					this.PopulateAnglesList();
 
 					this.angle = 1;
 
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.Angles));
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.Angle));
+					this.RaisePropertyChanged(nameof(this.Angles));
+					this.RaisePropertyChanged(nameof(this.Angle));
 
 
 					// Change range type based on whether or not we have any chapters
@@ -1011,9 +1003,9 @@ namespace VidCoder.ViewModel
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.StartChapters));
-				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.EndChapters));
-				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SelectedTitle));
+				//this.RaisePropertyChanged(nameof(this.StartChapters));
+				//this.RaisePropertyChanged(nameof(this.EndChapters));
+				this.RaisePropertyChanged(nameof(this.SelectedTitle));
 
 				this.outputSizeService.Refresh();
 
@@ -1030,10 +1022,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> angleVisible;
-		public bool AngleVisible
-		{
-			get { return this.angleVisible.Value; }
-		}
+		public bool AngleVisible => this.angleVisible.Value;
 
 		private int angle;
 		public int Angle
@@ -1050,10 +1039,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<string> subtitlesSummary;
-		public string SubtitlesSummary
-		{
-			get { return this.subtitlesSummary.Value; }
-		}
+		public string SubtitlesSummary => this.subtitlesSummary.Value;
 
 		private bool useDefaultChapterNames;
 		public bool UseDefaultChapterNames
@@ -1070,16 +1056,10 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<string> chapterMarkersSummary;
-		public string ChapterMarkersSummary
-		{
-			get { return this.chapterMarkersSummary.Value; }
-		}
+		public string ChapterMarkersSummary => this.chapterMarkersSummary.Value;
 
 		private ObservableAsPropertyHelper<bool> showChapterMarkerUI;
-		public bool ShowChapterMarkerUI
-		{
-			get { return this.showChapterMarkerUI.Value; }
-		}
+		public bool ShowChapterMarkerUI => this.showChapterMarkerUI.Value;
 
 		private ObservableAsPropertyHelper<bool> titleVisible;
 		public bool TitleVisible
@@ -1117,33 +1097,23 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> usingChaptersRange;
-		public bool UsingChaptersRange
-		{
-			get { return this.usingChaptersRange.Value; }
-		}
+		public bool UsingChaptersRange => this.usingChaptersRange.Value;
 
 		private ObservableAsPropertyHelper<bool> rangeBarVisible;
-		public bool RangeBarVisible
+		public bool RangeBarVisible => this.rangeBarVisible.Value;
+
+		private ReactiveList<ChapterViewModel> startChapters;
+		public ReactiveList<ChapterViewModel> StartChapters
 		{
-			get { return this.rangeBarVisible.Value; }
+			get { return this.startChapters; }
+			set { this.RaiseAndSetIfChanged(ref this.startChapters, value); }
 		}
 
-		private List<ChapterViewModel> startChapters;
-		public List<ChapterViewModel> StartChapters
+		private ReactiveList<ChapterViewModel> endChapters;
+		public ReactiveList<ChapterViewModel> EndChapters
 		{
-			get
-			{
-				return this.startChapters;
-			}
-		}
-
-		private List<ChapterViewModel> endChapters;
-		public List<ChapterViewModel> EndChapters
-		{
-			get
-			{
-				return this.endChapters;
-			}
+			get { return this.endChapters; }
+			set { this.RaiseAndSetIfChanged(ref this.endChapters, value); }
 		}
 
 		// Properties for the range seek bar
@@ -1162,7 +1132,7 @@ namespace VidCoder.ViewModel
 				this.OutputPathVM.GenerateOutputFileName();
 
 				this.RaisePropertyChanged();
-				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeStart));
+				this.RaisePropertyChanged(nameof(this.TimeRangeStart));
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1183,7 +1153,7 @@ namespace VidCoder.ViewModel
 				this.OutputPathVM.GenerateOutputFileName();
 
 				this.RaisePropertyChanged();
-				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeEnd));
+				this.RaisePropertyChanged(nameof(this.TimeRangeEnd));
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1220,14 +1190,14 @@ namespace VidCoder.ViewModel
 				if (idealTimeEnd != this.timeRangeEnd)
 				{
 					this.SetRangeTimeEnd(idealTimeEnd);
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeEnd));
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeEndBar));
+					this.RaisePropertyChanged(nameof(this.TimeRangeEnd));
+					this.RaisePropertyChanged(nameof(this.TimeRangeEndBar));
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
 				this.RaisePropertyChanged();
-				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeStartBar));
+				this.RaisePropertyChanged(nameof(this.TimeRangeStartBar));
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1264,14 +1234,14 @@ namespace VidCoder.ViewModel
 				if (idealTimeStart != this.timeRangeStart)
 				{
 					this.SetRangeTimeEnd(idealTimeStart);
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeStart));
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeStartBar));
+					this.RaisePropertyChanged(nameof(this.TimeRangeStart));
+					this.RaisePropertyChanged(nameof(this.TimeRangeStartBar));
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
 
-				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeEnd));
-				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeEndBar));
+				this.RaisePropertyChanged(nameof(this.TimeRangeEnd));
+				this.RaisePropertyChanged(nameof(this.TimeRangeEndBar));
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1299,7 +1269,7 @@ namespace VidCoder.ViewModel
 				if (idealFramesEnd != this.framesRangeEnd)
 				{
 					this.framesRangeEnd = idealFramesEnd;
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.FramesRangeEnd));
+					this.RaisePropertyChanged(nameof(this.FramesRangeEnd));
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
@@ -1332,7 +1302,7 @@ namespace VidCoder.ViewModel
 				if (idealFramesStart != this.framesRangeStart)
 				{
 					this.framesRangeStart = idealFramesStart;
-					this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.FramesRangeStart));
+					this.RaisePropertyChanged(nameof(this.FramesRangeStart));
 				}
 
 				this.OutputPathVM.GenerateOutputFileName();
@@ -1404,10 +1374,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<string> totalChaptersText;
-		public string TotalChaptersText
-		{
-			get { return this.totalChaptersText.Value; }
-		}
+		public string TotalChaptersText => this.totalChaptersText.Value;
 
 		public int ChapterPreviewStart
 		{
@@ -2460,37 +2427,58 @@ namespace VidCoder.ViewModel
 
 			// Encode profile handled above this in EditJob
 
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SelectedSource));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SelectedTitle));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SelectedStartChapter));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SelectedEndChapter));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.StartChapters));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.EndChapters));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeStart));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeStartBar));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeEnd));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TimeRangeEndBar));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.FramesRangeStart));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.FramesRangeEnd));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.RangeType));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.Angle));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.Angles));
+			this.RaisePropertyChanged(nameof(this.SelectedSource));
+			this.RaisePropertyChanged(nameof(this.SelectedTitle));
+			this.RaisePropertyChanged(nameof(this.SelectedStartChapter));
+			this.RaisePropertyChanged(nameof(this.SelectedEndChapter));
+			//this.RaisePropertyChanged(nameof(this.StartChapters));
+			//this.RaisePropertyChanged(nameof(this.EndChapters));
+			this.RaisePropertyChanged(nameof(this.TimeRangeStart));
+			this.RaisePropertyChanged(nameof(this.TimeRangeStartBar));
+			this.RaisePropertyChanged(nameof(this.TimeRangeEnd));
+			this.RaisePropertyChanged(nameof(this.TimeRangeEndBar));
+			this.RaisePropertyChanged(nameof(this.FramesRangeStart));
+			this.RaisePropertyChanged(nameof(this.FramesRangeEnd));
+			this.RaisePropertyChanged(nameof(this.RangeType));
+			this.RaisePropertyChanged(nameof(this.Angle));
+			this.RaisePropertyChanged(nameof(this.Angles));
 
 			this.RefreshRangePreview();
 		}
 
 		private void PopulateChapterSelectLists()
 		{
-			this.startChapters = new List<ChapterViewModel>();
-			this.endChapters = new List<ChapterViewModel>();
+			var newStartChapterList = new ReactiveList<ChapterViewModel>();
+			var newEndChapterList = new ReactiveList<ChapterViewModel>();
 
 			for (int i = 0; i < this.selectedTitle.ChapterList.Count; i++)
 			{
 				SourceChapter chapter = this.selectedTitle.ChapterList[i];
 
-				this.startChapters.Add(new ChapterViewModel(chapter, i + 1));
-				this.endChapters.Add(new ChapterViewModel(chapter, i + 1));
+				newStartChapterList.Add(new ChapterViewModel(chapter, i + 1));
+				newEndChapterList.Add(new ChapterViewModel(chapter, i + 1));
 			}
+
+			newStartChapterList.ChangeTrackingEnabled = true;
+			newEndChapterList.ChangeTrackingEnabled = true;
+
+			newStartChapterList.ItemChanged
+				.Where(x => x.PropertyName == nameof(ChapterViewModel.IsHighlighted))
+				.Subscribe(_ =>
+				{
+					this.RefreshRangePreview();
+				});
+
+			newEndChapterList.ItemChanged
+				.Where(x => x.PropertyName == nameof(ChapterViewModel.IsHighlighted))
+				.Subscribe(_ =>
+				{
+					this.RefreshRangePreview();
+				});
+
+			// We can't re-use the same list because the ComboBox control flyout sizes itself once and doesn't update when items are added.
+			this.StartChapters = newStartChapterList;
+			this.EndChapters = newEndChapterList;
 		}
 
 		private void PopulateAnglesList()
@@ -2634,12 +2622,12 @@ namespace VidCoder.ViewModel
 
 		private void RefreshRangePreview()
 		{
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.ChapterPreviewStart));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.ChapterPreviewEnd));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.RangePreviewStart));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.RangePreviewEnd));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.RangePreviewText));
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.RangePreviewLengthText));
+			this.RaisePropertyChanged(nameof(this.ChapterPreviewStart));
+			this.RaisePropertyChanged(nameof(this.ChapterPreviewEnd));
+			this.RaisePropertyChanged(nameof(this.RangePreviewStart));
+			this.RaisePropertyChanged(nameof(this.RangePreviewEnd));
+			this.RaisePropertyChanged(nameof(this.RangePreviewText));
+			this.RaisePropertyChanged(nameof(this.RangePreviewLengthText));
 		}
 
 		private void RefreshRecentSourceOptions()

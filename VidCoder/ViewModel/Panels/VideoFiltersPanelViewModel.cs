@@ -116,28 +116,28 @@ namespace VidCoder.ViewModel
 
 		private void RegisterProfileProperties()
 		{
-			this.RegisterProfileProperty(() => this.Detelecine);
-			this.RegisterProfileProperty(() => this.CustomDetelecine);
+			this.RegisterProfileProperty(nameof(this.Detelecine));
+			this.RegisterProfileProperty(nameof(this.CustomDetelecine));
 
-			this.RegisterProfileProperty(() => this.Deinterlace, () =>
+			this.RegisterProfileProperty(nameof(this.Deinterlace), () =>
 			{
 				if (this.Deinterlace != VCDeinterlace.Off)
 				{
 					this.Decomb = VCDecomb.Off;
 				}
 			});
-			this.RegisterProfileProperty(() => this.CustomDeinterlace);
+			this.RegisterProfileProperty(nameof(this.CustomDeinterlace));
 
-			this.RegisterProfileProperty(() => this.Decomb, () =>
+			this.RegisterProfileProperty(nameof(this.Decomb), () =>
 			{
 				if (this.Decomb != VCDecomb.Off)
 				{
 					this.Deinterlace = VCDeinterlace.Off;
 				}
 			});
-			this.RegisterProfileProperty(() => this.CustomDecomb);
+			this.RegisterProfileProperty(nameof(this.CustomDecomb));
 			
-			this.RegisterProfileProperty(() => this.DenoiseType, () =>
+			this.RegisterProfileProperty(nameof(this.DenoiseType), () =>
 			{
 				if (this.DenoiseType != VCDenoise.Off && string.IsNullOrEmpty(this.DenoisePreset))
 				{
@@ -150,71 +150,62 @@ namespace VidCoder.ViewModel
 				}
 			});
 
-			this.RegisterProfileProperty(() => this.DenoisePreset);
-			this.RegisterProfileProperty(() => this.DenoiseTune);
-			this.RegisterProfileProperty(() => this.CustomDenoise);
-			this.RegisterProfileProperty(() => this.Deblock);
-			this.RegisterProfileProperty(() => this.Grayscale);
-			this.RegisterProfileProperty(() => this.Rotation, () => this.outputSizeService.Refresh());
-			this.RegisterProfileProperty(() => this.FlipHorizontal);
-			this.RegisterProfileProperty(() => this.FlipVertical);
+			this.RegisterProfileProperty(nameof(this.DenoisePreset));
+			this.RegisterProfileProperty(nameof(this.DenoiseTune));
+			this.RegisterProfileProperty(nameof(this.CustomDenoise));
+			this.RegisterProfileProperty(nameof(this.Deblock));
+			this.RegisterProfileProperty(nameof(this.Grayscale));
+			this.RegisterProfileProperty(nameof(this.Rotation), () => this.outputSizeService.Refresh());
+			this.RegisterProfileProperty(nameof(this.FlipHorizontal));
+			this.RegisterProfileProperty(nameof(this.FlipVertical));
 		}
 
 		public VCDetelecine Detelecine
 		{
 			get { return this.Profile.Detelecine; }
-			set { this.UpdateProfileProperty(() => this.Profile.Detelecine, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.Detelecine), value); }
 		}
 
 		public string CustomDetelecine
 		{
 			get { return this.Profile.CustomDetelecine; }
-			set { this.UpdateProfileProperty(() => this.Profile.CustomDetelecine, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.CustomDetelecine), value); }
 		}
 
 		private ObservableAsPropertyHelper<bool> customDetelecineVisible;
-		public bool CustomDetelecineVisible
-		{
-			get { return this.customDetelecineVisible.Value; }
-		}
+		public bool CustomDetelecineVisible => this.customDetelecineVisible.Value;
 
 		public VCDeinterlace Deinterlace
 		{
 			get { return this.Profile.Deinterlace; }
-			set { this.UpdateProfileProperty(() => this.Profile.Deinterlace, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.Deinterlace), value); }
 		}
 
 		public string CustomDeinterlace
 		{
 			get { return this.Profile.CustomDeinterlace; }
-			set { this.UpdateProfileProperty(() => this.Profile.CustomDeinterlace, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.CustomDeinterlace), value); }
 		}
 
 		private ObservableAsPropertyHelper<bool> customDeinterlaceVisible;
-		public bool CustomDeinterlaceVisible
-		{
-			get { return this.customDeinterlaceVisible.Value; }
-		}
+		public bool CustomDeinterlaceVisible => this.customDeinterlaceVisible.Value;
 
 		public VCDecomb Decomb
 		{
 			get { return this.Profile.Decomb; }
-			set { this.UpdateProfileProperty(() => this.Profile.Decomb, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.Decomb), value); }
 		}
 
 		public string CustomDecomb
 		{
 			get { return this.Profile.CustomDecomb; }
-			set { this.UpdateProfileProperty(() => this.Profile.CustomDecomb, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.CustomDecomb), value); }
 		}
 
 		private ObservableAsPropertyHelper<bool> customDecombVisible;
-		public bool CustomDecombVisible
-		{
-			get { return this.customDecombVisible.Value; }
-		}
+		public bool CustomDecombVisible => this.customDecombVisible.Value;
 
-	    public List<ComboChoice<VCDenoise>> DenoiseChoices
+		public List<ComboChoice<VCDenoise>> DenoiseChoices
 	    {
 	        get { return this.denoiseChoices; }
 	    }
@@ -222,7 +213,7 @@ namespace VidCoder.ViewModel
 		public VCDenoise DenoiseType
 		{
 			get { return this.Profile.DenoiseType; }
-			set { this.UpdateProfileProperty(() => this.Profile.DenoiseType, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.DenoiseType), value); }
 		}
 
 		public List<ComboChoice> DenoisePresetChoices
@@ -262,7 +253,7 @@ namespace VidCoder.ViewModel
 							this.Profile.UseCustomDenoise = false;
 						}
 					},
-					MvvmUtilities.GetPropertyName(() => this.DenoisePreset),
+					nameof(this.DenoisePreset),
 					value);
 			}
 		}
@@ -270,14 +261,11 @@ namespace VidCoder.ViewModel
 		public bool UseCustomDenoise
 		{
 			get { return this.Profile.UseCustomDenoise; }
-			set { this.UpdateProfileProperty(() => this.Profile.UseCustomDenoise, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.UseCustomDenoise), value); }
 		}
 
 		private ObservableAsPropertyHelper<bool> denoisePresetVisible;
-		public bool DenoisePresetVisible
-		{
-			get { return this.denoisePresetVisible.Value; }
-		}
+		public bool DenoisePresetVisible => this.denoisePresetVisible.Value;
 
 		public List<ComboChoice> DenoiseTuneChoices
 		{
@@ -290,43 +278,34 @@ namespace VidCoder.ViewModel
 		public string DenoiseTune
 		{
 			get { return this.Profile.DenoiseTune; }
-			set { this.UpdateProfileProperty(() => this.Profile.DenoiseTune, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.DenoiseTune), value); }
 		}
 
 		private ObservableAsPropertyHelper<bool> denoiseTuneVisible;
-		public bool DenoiseTuneVisible
-		{
-			get { return this.denoiseTuneVisible.Value; }
-		}
+		public bool DenoiseTuneVisible => this.denoiseTuneVisible.Value;
 
 		public string CustomDenoise
 		{
 			get { return this.Profile.CustomDenoise; }
-			set { this.UpdateProfileProperty(() => this.Profile.CustomDenoise, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.CustomDenoise), value); }
 		}
 
 		private ObservableAsPropertyHelper<bool> customDenoiseVisible;
-		public bool CustomDenoiseVisible
-		{
-			get { return this.customDenoiseVisible.Value; }
-		}
+		public bool CustomDenoiseVisible => this.customDenoiseVisible.Value;
 
 		public int Deblock
 		{
 			get { return this.Profile.Deblock; }
-			set { this.UpdateProfileProperty(() => this.Profile.Deblock, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.Deblock), value); }
 		}
 
 		private ObservableAsPropertyHelper<string> deblockText;
-		public string DeblockText
-		{
-			get { return this.deblockText.Value; }
-		}
+		public string DeblockText => this.deblockText.Value;
 
 		public bool Grayscale
 		{
 			get { return this.Profile.Grayscale; }
-			set { this.UpdateProfileProperty(() => this.Profile.Grayscale, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.Grayscale), value); }
 		}
 
 		public List<RotationViewModel> RotationChoices
@@ -340,19 +319,19 @@ namespace VidCoder.ViewModel
 		public VCPictureRotation Rotation
 		{
 			get { return this.Profile.Rotation; }
-			set { this.UpdateProfileProperty(() => this.Profile.Rotation, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.Rotation), value); }
 		}
 
 		public bool FlipHorizontal
 		{
 			get { return this.Profile.FlipHorizontal; }
-			set { this.UpdateProfileProperty(() => this.Profile.FlipHorizontal, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.FlipHorizontal), value); }
 		}
 
 		public bool FlipVertical
 		{
 			get { return this.Profile.FlipVertical; }
-			set { this.UpdateProfileProperty(() => this.Profile.FlipVertical, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.FlipVertical), value); }
 		}
 	}
 }

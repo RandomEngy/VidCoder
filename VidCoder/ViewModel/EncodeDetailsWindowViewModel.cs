@@ -90,87 +90,45 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<double> overallProgressPercent;
-		public double OverallProgressPercent
-		{
-			get { return this.overallProgressPercent.Value; }
-		}
+		public double OverallProgressPercent => this.overallProgressPercent.Value;
 
 		private ObservableAsPropertyHelper<string> taskNumberDisplay;
-		public string TaskNumberDisplay
-		{
-			get { return this.taskNumberDisplay.Value; }
-		}
+		public string TaskNumberDisplay => this.taskNumberDisplay.Value;
 
 		private ObservableAsPropertyHelper<string> overallElapsedTime;
-		public string OverallElapsedTime
-		{
-			get { return this.overallElapsedTime.Value; }
-		}
+		public string OverallElapsedTime => this.overallElapsedTime.Value;
 
 		private ObservableAsPropertyHelper<string> overallEta;
-		public string OverallEta
-		{
-			get { return this.overallEta.Value; }
-		}
+		public string OverallEta => this.overallEta.Value;
 
 		private ObservableAsPropertyHelper<string> fileName;
-		public string FileName
-		{
-			get { return this.fileName.Value; }
-		}
+		public string FileName => this.fileName.Value;
 
 		private ObservableAsPropertyHelper<double> fileProgressPercent;
-		public double FileProgressPercent
-		{
-			get { return this.fileProgressPercent.Value; }
-		}
+		public double FileProgressPercent => this.fileProgressPercent.Value;
 
 		private ObservableAsPropertyHelper<string> fileSize;
-		public string FileSize
-		{
-			get { return this.fileSize.Value; }
-		}
+		public string FileSize => this.fileSize.Value;
 
 		private ObservableAsPropertyHelper<string> fileElapsedTime;
-		public string FileElapsedTime
-		{
-			get { return this.fileElapsedTime.Value; }
-		}
+		public string FileElapsedTime => this.fileElapsedTime.Value;
 
 		private ObservableAsPropertyHelper<string> fileEta;
-		public string FileEta
-		{
-			get { return this.fileEta.Value; }
-		}
+		public string FileEta => this.fileEta.Value;
 
 		private ObservableAsPropertyHelper<double> currentFps;
-		public double CurrentFps
-		{
-			get { return this.currentFps.Value; }
-		}
+		public double CurrentFps => this.currentFps.Value;
 
 		private ObservableAsPropertyHelper<double> averageFps;
-		public double AverageFps
-		{
-			get { return this.averageFps.Value; }
-		}
+		public double AverageFps => this.averageFps.Value;
 
 		private ObservableAsPropertyHelper<bool> showPassProgress;
-		public bool ShowPassProgress
-		{
-			get { return this.showPassProgress.Value; }
-		}
+		public bool ShowPassProgress => this.showPassProgress.Value;
 
 		private ObservableAsPropertyHelper<string> passProgressLabel;
-		public string PassProgressLabel
-		{
-			get { return this.passProgressLabel.Value; }
-		}
+		public string PassProgressLabel => this.passProgressLabel.Value;
 
 		private ObservableAsPropertyHelper<double> passProgressPercent;
-		public double PassProgressPercent
-		{
-			get { return this.passProgressPercent.Value; }
-		}
+		public double PassProgressPercent => this.passProgressPercent.Value;
 	}
 }

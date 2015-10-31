@@ -98,7 +98,7 @@ namespace VidCoder.ViewModel
 							};
 
 						this.PreviewImage = this.main.ScanInstance.GetPreview(previewProfile.CreatePreviewSettings(title), 2);
-						this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.TitleText));
+						this.RaisePropertyChanged(nameof(this.TitleText));
 					}
 			    };
 		}
@@ -122,10 +122,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> titleDetailsVisible;
-		public bool TitleDetailsVisible
-		{
-			get { return this.titleDetailsVisible.Value; }
-		}
+		public bool TitleDetailsVisible => this.titleDetailsVisible.Value;
 
 		public string TitleText
 		{

@@ -52,9 +52,6 @@ namespace VidCoder.Services.Windows
 		}
 
 		private ObservableAsPropertyHelper<bool> canOpen;
-		public bool CanOpen
-		{
-			get { return this.canOpen.Value; }
-		}
+		public bool CanOpen => this.canOpen.Value;
 	}
 }

@@ -159,8 +159,8 @@ namespace VidCoder.ViewModel
 				{
 					this.UpdateProfileProperty(
 						() => this.Profile.Cropping,
-						MvvmUtilities.GetPropertyName(() => this.Profile.Cropping.Top),
-						MvvmUtilities.GetPropertyName(() => this.CropTop), 
+						nameof(this.Profile.Cropping.Top),
+						nameof(this.CropTop), 
 						cropTop,
 						raisePropertyChanged: false);
 				});
@@ -169,8 +169,8 @@ namespace VidCoder.ViewModel
 				{
 					this.UpdateProfileProperty(
 						() => this.Profile.Cropping,
-						MvvmUtilities.GetPropertyName(() => this.Profile.Cropping.Bottom),
-						MvvmUtilities.GetPropertyName(() => this.CropBottom),
+						nameof(this.Profile.Cropping.Bottom),
+						nameof(this.CropBottom),
 						cropBottom,
 						raisePropertyChanged: false);
 				});
@@ -179,8 +179,8 @@ namespace VidCoder.ViewModel
 				{
 					this.UpdateProfileProperty(
 						() => this.Profile.Cropping,
-						MvvmUtilities.GetPropertyName(() => this.Profile.Cropping.Left),
-						MvvmUtilities.GetPropertyName(() => this.CropLeft),
+						nameof(this.Profile.Cropping.Left),
+						nameof(this.CropLeft),
 						cropLeft,
 						raisePropertyChanged: false);
 				});
@@ -189,8 +189,8 @@ namespace VidCoder.ViewModel
 				{
 					this.UpdateProfileProperty(
 						() => this.Profile.Cropping,
-						MvvmUtilities.GetPropertyName(() => this.Profile.Cropping.Right),
-						MvvmUtilities.GetPropertyName(() => this.CropRight),
+						nameof(this.Profile.Cropping.Right),
+						nameof(this.CropRight),
 						cropRight,
 						raisePropertyChanged: false);
 				});
@@ -251,7 +251,7 @@ namespace VidCoder.ViewModel
 		private void RegisterProfileProperties()
 		{
 			// These actions fire when the user changes a property.
-			this.RegisterProfileProperty(() => this.Profile.Width, () =>
+			this.RegisterProfileProperty(nameof(this.Profile.Width), () =>
 			{
 				if (this.Profile.Anamorphic == VCAnamorphic.None && this.KeepDisplayAspect && this.HasSourceData && this.Height > 0 && this.Width > 0)
 				{
@@ -275,7 +275,7 @@ namespace VidCoder.ViewModel
 				this.RefreshOutputSize();
 			});
 
-			this.RegisterProfileProperty(() => this.Profile.Height, () =>
+			this.RegisterProfileProperty(nameof(this.Profile.Height), () =>
 			{
 				if (this.Profile.Anamorphic == VCAnamorphic.None && this.KeepDisplayAspect && this.HasSourceData && this.Width > 0 && this.Height > 0)
 				{
@@ -299,17 +299,17 @@ namespace VidCoder.ViewModel
 				this.RefreshOutputSize();
 			});
 
-			this.RegisterProfileProperty(() => this.Profile.MaxWidth, () =>
+			this.RegisterProfileProperty(nameof(this.Profile.MaxWidth), () =>
 			{
 				this.RefreshOutputSize();
 			});
 
-			this.RegisterProfileProperty(() => this.Profile.MaxHeight, () =>
+			this.RegisterProfileProperty(nameof(this.Profile.MaxHeight), () =>
 			{
 				this.RefreshOutputSize();
 			});
 
-			this.RegisterProfileProperty(() => this.Profile.Anamorphic, () =>
+			this.RegisterProfileProperty(nameof(this.Profile.Anamorphic), () =>
 			{
 				if (this.Anamorphic == VCAnamorphic.Strict)
 				{
@@ -334,7 +334,7 @@ namespace VidCoder.ViewModel
 				this.RefreshOutputSize();
 			});
 
-			this.RegisterProfileProperty(() => this.Profile.KeepDisplayAspect, () =>
+			this.RegisterProfileProperty(nameof(this.Profile.KeepDisplayAspect), () =>
 			{
 				if (this.Profile.Anamorphic == VCAnamorphic.Custom)
 				{
@@ -352,14 +352,14 @@ namespace VidCoder.ViewModel
 				this.RefreshOutputSize();
 			});
 
-			this.RegisterProfileProperty(() => this.Profile.ScaleMethod);
+			this.RegisterProfileProperty(nameof(this.Profile.ScaleMethod));
 
-			this.RegisterProfileProperty(() => this.Profile.Modulus, () =>
+			this.RegisterProfileProperty(nameof(this.Profile.Modulus), () =>
 			{
 				this.RefreshOutputSize();
 			});
 
-			this.RegisterProfileProperty(() => this.Profile.UseDisplayWidth, () =>
+			this.RegisterProfileProperty(nameof(this.Profile.UseDisplayWidth), () =>
 			{
 				if (this.UseDisplayWidth)
 				{
@@ -374,130 +374,103 @@ namespace VidCoder.ViewModel
 			});
 
 
-			this.RegisterProfileProperty(() => this.Profile.DisplayWidth, () =>
+			this.RegisterProfileProperty(nameof(this.Profile.DisplayWidth), () =>
 			{
 				this.RefreshOutputSize();
 			});
 
-			this.RegisterProfileProperty(() => this.Profile.PixelAspectX, () =>
+			this.RegisterProfileProperty(nameof(this.Profile.PixelAspectX), () =>
 			{
 				this.RefreshOutputSize();
 			});
 
-			this.RegisterProfileProperty(() => this.Profile.PixelAspectY, () =>
+			this.RegisterProfileProperty(nameof(this.Profile.PixelAspectY), () =>
 			{
 				this.RefreshOutputSize();
 			});
 
-			this.RegisterProfileProperty(() => this.Profile.CroppingType, () =>
+			this.RegisterProfileProperty(nameof(this.Profile.CroppingType), () =>
 			{
 				this.RefreshOutputSize();
 			});
 
-			this.RegisterProfileProperty(() => this.CropTop, () =>
+			this.RegisterProfileProperty(nameof(this.CropTop), () =>
 			{
 				this.RefreshOutputSize();
 			});
 
-			this.RegisterProfileProperty(() => this.CropBottom, () =>
+			this.RegisterProfileProperty(nameof(this.CropBottom), () =>
 			{
 				this.RefreshOutputSize();
 			});
 
-			this.RegisterProfileProperty(() => this.CropLeft, () =>
+			this.RegisterProfileProperty(nameof(this.CropLeft), () =>
 			{
 				this.RefreshOutputSize();
 			});
 
-			this.RegisterProfileProperty(() => this.CropRight, () =>
+			this.RegisterProfileProperty(nameof(this.CropRight), () =>
 			{
 				this.RefreshOutputSize();
 			});
 		}
 
 		private ObservableAsPropertyHelper<string> inputSourceResolution;
-		public string InputSourceResolution
-		{
-			get { return this.inputSourceResolution.Value; }
-		}
+		public string InputSourceResolution => this.inputSourceResolution.Value;
 
 		private ObservableAsPropertyHelper<string> inputPixelAspectRatio;
-		public string InputPixelAspectRatio
-		{
-			get { return this.inputPixelAspectRatio.Value; }
-		}
+		public string InputPixelAspectRatio => this.inputPixelAspectRatio.Value;
 
 		private ObservableAsPropertyHelper<string> inputDisplayResolution;
-		public string InputDisplayResolution
-		{
-			get { return this.inputDisplayResolution.Value; }
-		}
+		public string InputDisplayResolution => this.inputDisplayResolution.Value;
 
 		private ObservableAsPropertyHelper<string> outputSourceResolution;
-		public string OutputSourceResolution
-		{
-			get { return this.outputSourceResolution.Value; }
-		}
+		public string OutputSourceResolution => this.outputSourceResolution.Value;
 
 		private ObservableAsPropertyHelper<string> outputPixelAspectRatio;
-		public string OutputPixelAspectRatio
-		{
-			get { return this.outputPixelAspectRatio.Value; }
-		}
+		public string OutputPixelAspectRatio => this.outputPixelAspectRatio.Value;
 
 		private ObservableAsPropertyHelper<string> outputDisplayResolution;
-		public string OutputDisplayResolution
-		{
-			get { return this.outputDisplayResolution.Value; }
-		}
+		public string OutputDisplayResolution => this.outputDisplayResolution.Value;
 
 		public int Width
 		{
 			get { return this.Profile.Width; }
-			set { this.UpdateProfileProperty(() => this.Profile.Width, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.Width), value); }
 		}
 
 		private ObservableAsPropertyHelper<bool> widthEnabled;
-		public bool WidthEnabled
-		{
-			get { return this.widthEnabled.Value; }
-		}
+		public bool WidthEnabled => this.widthEnabled.Value;
 
 		public int Height
 		{
 			get { return this.Profile.Height; }
-			set { this.UpdateProfileProperty(() => this.Profile.Height, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.Height), value); }
 		}
 
 		private ObservableAsPropertyHelper<bool> heightEnabled;
-		public bool HeightEnabled
-		{
-			get { return this.heightEnabled.Value; }
-		}
+		public bool HeightEnabled => this.heightEnabled.Value;
 
 		public int MaxWidth
 		{
 			get { return this.Profile.MaxWidth; }
-			set { this.UpdateProfileProperty(() => this.Profile.MaxWidth, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.MaxWidth), value); }
 		}
 
 		public int MaxHeight
 		{
 			get { return this.Profile.MaxHeight; }
-			set { this.UpdateProfileProperty(() => this.Profile.MaxHeight, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.MaxHeight), value); }
 		}
 
 		public bool KeepDisplayAspect
 		{
 			get { return this.Profile.KeepDisplayAspect; }
-			set { this.UpdateProfileProperty(() => this.Profile.KeepDisplayAspect, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.KeepDisplayAspect), value); }
 		}
 
 		private ObservableAsPropertyHelper<bool> keepDisplayAspectEnabled;
-		public bool KeepDisplayAspectEnabled
-		{
-			get { return this.keepDisplayAspectEnabled.Value; }
-		}
+		public bool KeepDisplayAspectEnabled => this.keepDisplayAspectEnabled.Value;
 
 		public List<ComboChoice<VCScaleMethod>> ScaleChoices
 		{
@@ -510,74 +483,62 @@ namespace VidCoder.ViewModel
 		public VCScaleMethod ScaleMethod
 		{
 			get { return this.Profile.ScaleMethod; }
-			set { this.UpdateProfileProperty(() => this.Profile.ScaleMethod, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.ScaleMethod), value); }
 		}
 
 		public VCAnamorphic Anamorphic
 		{
 			get { return this.Profile.Anamorphic; }
-			set { this.UpdateProfileProperty(() => this.Profile.Anamorphic, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.Anamorphic), value); }
 		}
 
 		private ObservableAsPropertyHelper<bool> customAnamorphicFieldsVisible;
-		public bool CustomAnamorphicFieldsVisible
-		{
-			get { return this.customAnamorphicFieldsVisible.Value; }
-		}
+		public bool CustomAnamorphicFieldsVisible => this.customAnamorphicFieldsVisible.Value;
 
 		public int Modulus
 		{
 			get { return this.Profile.Modulus; }
-			set { this.UpdateProfileProperty(() => this.Profile.Modulus, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.Modulus), value); }
 		}
 
 		private ObservableAsPropertyHelper<bool> modulusVisible;
-		public bool ModulusVisible
-		{
-			get { return this.modulusVisible.Value; }
-		}
+		public bool ModulusVisible => this.modulusVisible.Value;
 
 		public bool UseDisplayWidth
 		{
 			get { return this.Profile.UseDisplayWidth; }
-			set { this.UpdateProfileProperty(() => this.Profile.UseDisplayWidth, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.UseDisplayWidth), value); }
 		}
 
 		public int DisplayWidth
 		{
 			get { return this.Profile.DisplayWidth; }
-			set { this.UpdateProfileProperty(() => this.Profile.DisplayWidth, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.DisplayWidth), value); }
 		}
 
 		private ObservableAsPropertyHelper<bool> pixelAspectVisible;
-		public bool PixelAspectVisible
-		{
-			get { return this.pixelAspectVisible.Value; }
-		}
+		public bool PixelAspectVisible => this.pixelAspectVisible.Value;
 
 		public int PixelAspectX
 		{
 			get { return this.Profile.PixelAspectX; }
-			set { this.UpdateProfileProperty(() => this.Profile.PixelAspectX, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.PixelAspectX), value); }
 		}
 
 		public int PixelAspectY
 		{
 			get { return this.Profile.PixelAspectY; }
-			set { this.UpdateProfileProperty(() => this.Profile.PixelAspectY, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.PixelAspectY), value); }
 		}
 
 		public VCCroppingType CroppingType
 		{
 			get { return this.Profile.CroppingType; }
-			set { this.UpdateProfileProperty(() => this.Profile.CroppingType, value); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.CroppingType), value); }
 		}
 
 		private ObservableAsPropertyHelper<bool> croppingUIEnabled;
-		public bool CroppingUIEnabled
-		{
-			get { return this.croppingUIEnabled.Value; }
-		}
+		public bool CroppingUIEnabled => this.croppingUIEnabled.Value;
 
 		private int cropTop;
 		public int CropTop

@@ -236,8 +236,14 @@ namespace VidCoderCommon.Model
 		[JsonProperty]
 		public bool TurboFirstPass { get; set; }
 
+		private double framerate;
+
 		[JsonProperty]
-		public double Framerate { get; set; }
+		public double Framerate
+		{
+			get { return this.framerate; }
+			set { this.RaiseAndSetIfChanged(ref this.framerate, value); }
+		}
 
 		[JsonProperty]
 		public bool ConstantFramerate { get; set; }

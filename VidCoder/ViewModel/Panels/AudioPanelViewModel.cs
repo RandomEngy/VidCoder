@@ -11,6 +11,7 @@ using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using ReactiveUI;
+using VidCoder.Extensions;
 using VidCoder.Messages;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -29,8 +30,6 @@ namespace VidCoder.ViewModel
 		private MainViewModel main = Ioc.Get<MainViewModel>();
 
 		private PresetsService presetsService = Ioc.Get<PresetsService>();
-
-		private ICommand addAudioEncodingCommand;
 
 		public AudioPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)
@@ -60,14 +59,11 @@ namespace VidCoder.ViewModel
 				this.NotifyAudioInputChanged();
 			};
 
-			Messenger.Default.Register<ContainerChangedMessage>(
-				this,
-				message =>
+			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.ContainerName)
+				.Skip(1)
+				.Subscribe(_ =>
 				{
 					this.RefreshFallbackEncoderChoices();
-
-					// Refresh the preview as the warnings displayed may change.
-					this.RefreshAudioPreview();
 				});
 
 			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
@@ -81,8 +77,8 @@ namespace VidCoder.ViewModel
 
 		private void RegisterProfileProperties()
 		{
-			this.RegisterProfileProperty(() => this.Profile.AudioEncoderFallback);
-			this.RegisterProfileProperty(() => this.Profile.AudioEncodings);
+			this.RegisterProfileProperty(nameof(this.Profile.AudioEncoderFallback));
+			this.RegisterProfileProperty(nameof(this.Profile.AudioEncodings));
 		}
 
 		public ReactiveList<AudioEncodingViewModel> AudioEncodings
@@ -124,17 +120,14 @@ namespace VidCoder.ViewModel
 				}
 
 				this.selectedFallbackEncoder = value;
-				this.UpdateProfileProperty(() => this.Profile.AudioEncoderFallback, this.selectedFallbackEncoder.Encoder.ShortName, raisePropertyChanged: false);
+				this.UpdateProfileProperty(nameof(this.Profile.AudioEncoderFallback), this.selectedFallbackEncoder.Encoder.ShortName, raisePropertyChanged: false);
 				this.RaisePropertyChanged();
 				this.RefreshAudioPreview();
 			}
 		}
 
 		private ObservableAsPropertyHelper<bool> hasAudioTracks;
-		public bool HasAudioTracks
-		{
-			get { return this.hasAudioTracks.Value; }
-		}
+		public bool HasAudioTracks => this.hasAudioTracks.Value;
 
 		public ReactiveCommand<object> AddAudioEncoding { get; }
 		private void AddAudioEncodingImpl()
@@ -150,7 +143,7 @@ namespace VidCoder.ViewModel
 				Drc = 0.0
 			};
 
-			this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this.EncodingWindowViewModel.ContainerName, this));
+			this.AudioEncodings.Add(new AudioEncodingViewModel(newAudioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this));
 			this.RefreshAudioPreview();
 			this.UpdateAudioEncodings();
 		}
@@ -186,7 +179,7 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.FallbackEncoderChoices));
+			this.RaisePropertyChanged(nameof(this.FallbackEncoderChoices));
 
 			this.selectedFallbackEncoder = this.FallbackEncoderChoices.FirstOrDefault(e => e.Encoder == oldEncoder);
 
@@ -195,7 +188,7 @@ namespace VidCoder.ViewModel
 				this.selectedFallbackEncoder = this.FallbackEncoderChoices[0];
 			}
 
-			this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.SelectedFallbackEncoder));
+			this.RaisePropertyChanged(nameof(this.SelectedFallbackEncoder));
 		}
 
 		public void RefreshAudioPreview()
@@ -369,7 +362,7 @@ namespace VidCoder.ViewModel
 		public void UpdateAudioEncodings()
 		{
 			var newAudioEncodings = this.AudioEncodings.Select(e => e.NewAudioEncoding).ToList();
-			this.UpdateProfileProperty(() => this.Profile.AudioEncodings, newAudioEncodings);
+			this.UpdateProfileProperty(nameof(this.Profile.AudioEncodings), newAudioEncodings);
 		}
 
 		private void OnProfileChanged()
@@ -377,7 +370,7 @@ namespace VidCoder.ViewModel
 			this.audioEncodings.Clear();
 			foreach (AudioEncoding audioEncoding in this.Profile.AudioEncodings)
 			{
-				this.audioEncodings.Add(new AudioEncodingViewModel(audioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this.Profile.ContainerName, this));
+				this.audioEncodings.Add(new AudioEncodingViewModel(audioEncoding, this.MainViewModel.SelectedTitle, this.MainViewModel.GetChosenAudioTracks(), this));
 			}
 
 			this.audioOutputPreviews.Clear();

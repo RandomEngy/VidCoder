@@ -33,10 +33,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> canClose; 
-		public override bool CanClose
-		{
-			get { return this.canClose.Value; }
-		}
+		public override bool CanClose => this.canClose.Value;
 
 		private string name;
 		public string Name

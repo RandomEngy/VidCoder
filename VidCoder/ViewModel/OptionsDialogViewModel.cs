@@ -250,8 +250,8 @@ namespace VidCoder.ViewModel
 						}
 					}
 
-					this.RaisePropertyChanged(() => this.BetaChangelogUrl);
-					this.RaisePropertyChanged(() => this.BetaSectionVisible);
+					this.RaisePropertyChanged(nameof(this.BetaChangelogUrl));
+					this.RaisePropertyChanged(nameof(this.BetaSectionVisible));
 				};
 			betaInfoWorker.RunWorkerAsync();
 #endif
@@ -338,10 +338,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> updatesEnabled;
-		public bool UpdatesEnabled
-		{
-			get { return this.updatesEnabled.Value; }
-		}
+		public bool UpdatesEnabled => this.updatesEnabled.Value;
 
 		public bool BuildSupportsUpdates
 		{
@@ -352,22 +349,13 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<string> updateStatus;
-		public string UpdateStatus
-		{
-			get { return this.updateStatus.Value; }
-		}
+		public string UpdateStatus => this.updateStatus.Value;
 
 		private ObservableAsPropertyHelper<bool> updateDownloading;
-		public bool UpdateDownloading
-		{
-			get { return this.updateDownloading.Value; }
-		}
+		public bool UpdateDownloading => this.updateDownloading.Value;
 
 		private ObservableAsPropertyHelper<double> updateProgressPercent;
-		public double UpdateProgressPercent
-		{
-			get { return this.updateProgressPercent.Value; }
-		}
+		public double UpdateProgressPercent => this.updateProgressPercent.Value;
 
 		public string BetaUpdatesText
 		{
@@ -675,10 +663,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<string> cpuThrottlingDisplay;
-		public string CpuThrottlingDisplay
-		{
-			get { return this.cpuThrottlingDisplay.Value; }
-		}
+		public string CpuThrottlingDisplay => this.cpuThrottlingDisplay.Value;
 
 		public ReactiveCommand<object> SaveSettings { get; }
 		private void SaveSettingsImpl()

@@ -78,15 +78,9 @@ namespace VidCoder.Services
 		}
 
 		private ObservableAsPropertyHelper<double> progressFraction;
-		public double ProgressFraction
-		{
-			get { return this.progressFraction.Value; }
-		}
+		public double ProgressFraction => this.progressFraction.Value;
 
 		private ObservableAsPropertyHelper<TaskbarItemProgressState> progressState;
-		public TaskbarItemProgressState ProgressState
-		{
-			get { return this.progressState.Value; }
-		}
+		public TaskbarItemProgressState ProgressState => this.progressState.Value;
 	}
 }

@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using HandBrake.ApplicationServices.Interop;
 using ReactiveUI;
+using VidCoder.Extensions;
 using VidCoder.Services;
 
 namespace VidCoder.ViewModel
@@ -95,20 +96,17 @@ namespace VidCoder.ViewModel
 				{
 					if (!this.updatingLocalVideoOptions)
 					{
-						this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.VideoOptions));
+						this.RaisePropertyChanged(nameof(this.VideoOptions));
 					}
 
 					this.UpdateUIFromAdvancedOptions();
 				});
 
-			this.RegisterProfileProperty(() => this.Profile.VideoOptions);
+			this.RegisterProfileProperty(nameof(this.Profile.VideoOptions));
 		}
 
 		private ObservableAsPropertyHelper<bool> x264CodecSelected;
-		public bool X264CodecSelected
-		{
-			get { return this.x264CodecSelected.Value; }
-		}
+		public bool X264CodecSelected => this.x264CodecSelected.Value;
 
 		public AdvancedChoice ReferenceFrames
 		{
@@ -139,10 +137,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> bFramesOptionsVisible;
-		public bool BFramesOptionsVisible
-		{
-			get { return this.bFramesOptionsVisible.Value; }
-		}
+		public bool BFramesOptionsVisible => this.bFramesOptionsVisible.Value;
 
 		public AdvancedChoice AdaptiveBFrames
 		{
@@ -201,10 +196,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> pyramidalBFramesVisible;
-		public bool PyramidalBFramesVisible
-		{
-			get { return this.pyramidalBFramesVisible.Value; }
-		}
+		public bool PyramidalBFramesVisible => this.pyramidalBFramesVisible.Value;
 
 		public AdvancedChoice MotionEstimationMethod
 		{
@@ -217,7 +209,7 @@ namespace VidCoder.ViewModel
 			{
 				this.motionEstimationMethod = value;
 				this.CheckMotionEstimationRange();
-				this.RaisePropertyChanged(MvvmUtilities.GetPropertyName(() => this.MotionEstimationRange));
+				this.RaisePropertyChanged(nameof(this.MotionEstimationRange));
 
 				this.UpdateAdvancedProperty();
 			}
@@ -295,10 +287,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> eightByEightDctVisible;
-		public bool EightByEightDctVisible
-		{
-			get { return this.eightByEightDctVisible.Value; }
-		}
+		public bool EightByEightDctVisible => this.eightByEightDctVisible.Value;
 
 		public bool CabacEntropyCoding
 		{
@@ -370,10 +359,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> psychovisualTrellisVisible;
-		public bool PsychovisualTrellisVisible
-		{
-			get { return this.psychovisualTrellisVisible.Value; }
-		}
+		public bool PsychovisualTrellisVisible => this.psychovisualTrellisVisible.Value;
 
 		public AdvancedChoice DeblockingStrength
 		{
@@ -425,7 +411,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.updatingLocalVideoOptions = true;
-				this.UpdateProfileProperty(() => this.Profile.VideoOptions, value);
+				this.UpdateProfileProperty(nameof(this.Profile.VideoOptions), value);
 				this.updatingLocalVideoOptions = false;
 			}
 		}

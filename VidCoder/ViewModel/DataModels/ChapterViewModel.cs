@@ -30,17 +30,8 @@ namespace VidCoder.ViewModel
 		private bool isHighlighted;
 		public bool IsHighlighted
 		{
-			get
-			{
-				return this.isHighlighted;
-			}
-
-			set
-			{
-				this.isHighlighted = value;
-				this.RaisePropertyChanged();
-				Messenger.Default.Send(new HighlightedChapterChangedMessage());
-			}
+			get { return this.isHighlighted; }
+			set { this.RaiseAndSetIfChanged(ref this.isHighlighted, value); }
 		}
 	}
 }

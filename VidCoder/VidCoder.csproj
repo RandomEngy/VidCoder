@@ -483,8 +483,6 @@
     <Compile Include="Extensions\VCCroppingExtensions.cs" />
     <Compile Include="Extensions\VCProfileExtensions.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
-    <Compile Include="Messages\ContainerChangedMessage.cs" />
-    <Compile Include="Messages\EncodingProfileChangedMessage.cs" />
     <Compile Include="Messages\PickerChangedMessage.cs" />
     <Compile Include="Messages\TitleRangeSelectChangedMessage.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
@@ -565,8 +563,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SubtitleRes.resx</DependentUpon>
     </Compile>
-    <Compile Include="Messages\FramerateChangedMessage.cs" />
-    <Compile Include="Messages\HighlightedChapterChangedMessage.cs" />
     <Compile Include="Messages\PreviewImageChangedMessage.cs" />
     <Compile Include="Messages\RangeFocusMessage.cs" />
     <Compile Include="Messages\OptionsChangedMessage.cs" />

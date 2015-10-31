@@ -159,10 +159,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<System.Windows.Media.Brush> progressBarColor;
-		public System.Windows.Media.Brush ProgressBarColor
-		{
-			get { return this.progressBarColor.Value; }
-		}
+		public System.Windows.Media.Brush ProgressBarColor => this.progressBarColor.Value;
 
 		private bool isOnlyItem;
 		public bool IsOnlyItem
@@ -230,16 +227,10 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<bool> showQueueEditButtons;
-		public bool ShowQueueEditButtons
-		{
-			get { return this.showQueueEditButtons.Value; }
-		}
+		public bool ShowQueueEditButtons => this.showQueueEditButtons.Value;
 
 		private ObservableAsPropertyHelper<bool> showProgressBar;
-		public bool ShowProgressBar
-		{
-			get { return this.showProgressBar.Value; }
-		}
+		public bool ShowProgressBar => this.showProgressBar.Value;
 
 		private TimeSpan eta;
 		public TimeSpan Eta
@@ -249,10 +240,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<string> progressToolTip;
-		public string ProgressToolTip
-		{
-			get { return this.progressToolTip.Value; }
-		}
+		public string ProgressToolTip => this.progressToolTip.Value;
 
 		private int percentComplete;
 		public int PercentComplete

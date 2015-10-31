@@ -262,7 +262,6 @@ namespace VidCoder.View
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
 			this.viewModel = this.DataContext as MainViewModel;
-			this.viewModel.PropertyChanged += this.ViewModelPropertyChanged;
 			this.viewModel.AnimationStarted += this.ViewModelAnimationStarted;
 			this.viewModel.View = this;
 			this.processingService.PropertyChanged += (sender2, e2) =>
@@ -286,14 +285,6 @@ namespace VidCoder.View
 			else if (e.Value == "PickerGlowHighlight")
 			{
 				this.pickerGlowStoryboard.Begin(this);
-			}
-		}
-
-		private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName == "RangeType")
-			{
-				//DispatchUtilities.BeginInvoke(() => this.rangeDetailsPopup.IsOpen = false);
 			}
 		}
 
@@ -436,8 +427,8 @@ namespace VidCoder.View
 
 				item.DataContext = itemViewModel;
 
-				item.SetBinding(MenuItem.IsCheckedProperty, MvvmUtilities.GetPropertyName(() => itemViewModel.IsOpen));
-				item.SetBinding(UIElement.IsEnabledProperty, MvvmUtilities.GetPropertyName(() => itemViewModel.CanOpen));
+				item.SetBinding(MenuItem.IsCheckedProperty, nameof(itemViewModel.IsOpen));
+				item.SetBinding(UIElement.IsEnabledProperty, nameof(itemViewModel.CanOpen));
 
 				this.windowsMenu.Items.Add(item);
 			}

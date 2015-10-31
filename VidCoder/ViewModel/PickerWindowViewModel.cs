@@ -73,6 +73,10 @@ namespace VidCoder.ViewModel
 					{
 						this.OutputDirectoryOverride = Config.AutoNameOutputFolder;
 					}
+					else
+					{
+						this.OutputDirectoryOverride = this.Picker.OutputDirectoryOverride;
+					}
 				});
 
 			// Whenever the name format override is disabled, used the config.
@@ -82,6 +86,10 @@ namespace VidCoder.ViewModel
 					if (!nameFormatOverrideEnabled)
 					{
 						this.NameFormatOverride = AutoNameCustomFormat;
+					}
+					else
+					{
+						this.NameFormatOverride = this.Picker.NameFormatOverride;
 					}
 				});
 
@@ -108,22 +116,24 @@ namespace VidCoder.ViewModel
 			// Update the underlying picker when our local properties change.
 			// Don't need to raise another changed event as our local property setter already raises it.
 			this.WhenAnyValue(x => x.OutputDirectoryOverride)
+				.Skip(1)
 				.Subscribe(directoryOverride =>
 				{
-					this.UpdatePickerProperty(() => this.Picker.OutputDirectoryOverride, directoryOverride, raisePropertyChanged: false);
+					this.UpdatePickerProperty(nameof(this.Picker.OutputDirectoryOverride), directoryOverride, raisePropertyChanged: false);
 				});
 
 			this.WhenAnyValue(x => x.NameFormatOverride)
+				.Skip(1)
 				.Subscribe(nameFormatOverride =>
 				{
-					this.UpdatePickerProperty(() => this.Picker.NameFormatOverride, nameFormatOverride, raisePropertyChanged: false);
+					this.UpdatePickerProperty(nameof(this.Picker.NameFormatOverride), nameFormatOverride, raisePropertyChanged: false);
 				});
 
 			this.WhenAnyValue(x => x.SelectedPreset)
 				.Subscribe(selectedPreset =>
 				{
 					string presetName = selectedPreset == null ? null : selectedPreset.Preset.Name;
-					this.UpdatePickerProperty(() => this.Picker.EncodingPreset, presetName, raisePropertyChanged: false);
+					this.UpdatePickerProperty(nameof(this.Picker.EncodingPreset), presetName, raisePropertyChanged: false);
 				});
 
 			this.DismissMessage = ReactiveCommand.Create();
@@ -159,7 +169,7 @@ namespace VidCoder.ViewModel
 
 			// These actions fire when the user changes a property.
 
-			this.RegisterPickerProperty(() => this.Picker.OutputDirectoryOverrideEnabled, () =>
+			this.RegisterPickerProperty(nameof(this.Picker.OutputDirectoryOverrideEnabled), () =>
 			{
 				// When enabled, default to the global output folder.
 				if (this.OutputDirectoryOverrideEnabled)
@@ -169,11 +179,11 @@ namespace VidCoder.ViewModel
 
 				this.outputPathService.GenerateOutputFileName();
 			});
-			this.RegisterPickerProperty(() => this.Picker.OutputDirectoryOverride, () =>
+			this.RegisterPickerProperty(nameof(this.Picker.OutputDirectoryOverride), () =>
 			{
 				this.outputPathService.GenerateOutputFileName();
 			});
-			this.RegisterPickerProperty(() => this.Picker.NameFormatOverrideEnabled, () =>
+			this.RegisterPickerProperty(nameof(this.Picker.NameFormatOverrideEnabled), () =>
 			{
 				// When enabled, default global name format.
 				if (this.NameFormatOverrideEnabled)
@@ -181,64 +191,63 @@ namespace VidCoder.ViewModel
 					this.NameFormatOverride = AutoNameCustomFormat;
 				}
 			});
-			this.RegisterPickerProperty(() => this.Picker.NameFormatOverride);
-			this.RegisterPickerProperty(() => this.Picker.OutputToSourceDirectory);
-			this.RegisterPickerProperty(() => this.Picker.PreserveFolderStructureInBatch);
-			this.RegisterPickerProperty(() => this.Picker.TitleRangeSelectEnabled, () =>
+			this.RegisterPickerProperty(nameof(this.Picker.NameFormatOverride));
+			this.RegisterPickerProperty(nameof(this.Picker.OutputToSourceDirectory));
+			this.RegisterPickerProperty(nameof(this.Picker.PreserveFolderStructureInBatch));
+			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEnabled), () =>
 			{
 				this.SendTitleRangeChangeMessage();
 			});
-			this.RegisterPickerProperty(() => this.Picker.TitleRangeSelectStartMinutes, () =>
+			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectStartMinutes), () =>
 			{
 				if (this.TitleRangeSelectEnabled)
 				{
 					this.SendTitleRangeChangeMessage();
 				}
 			});
-			this.RegisterPickerProperty(() => this.Picker.TitleRangeSelectEndMinutes, () =>
+			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEndMinutes), () =>
 			{
 				if (this.TitleRangeSelectEnabled)
 				{
 					this.SendTitleRangeChangeMessage();
 				}
 			});
-			this.RegisterPickerProperty(() => this.Picker.AudioSelectionMode);
-			this.RegisterPickerProperty(() => this.Picker.AudioLanguageCode);
-			this.RegisterPickerProperty(() => this.Picker.AudioLanguageAll);
-			this.RegisterPickerProperty(() => this.Picker.SubtitleSelectionMode);
-			this.RegisterPickerProperty(() => this.Picker.SubtitleForeignBurnIn);
-			this.RegisterPickerProperty(() => this.Picker.SubtitleLanguageCode);
-			this.RegisterPickerProperty(() => this.Picker.SubtitleLanguageOnlyIfDifferent);
-			this.RegisterPickerProperty(() => this.Picker.SubtitleLanguageAll, () =>
+			this.RegisterPickerProperty(nameof(this.Picker.AudioSelectionMode));
+			this.RegisterPickerProperty(nameof(this.Picker.AudioLanguageCode));
+			this.RegisterPickerProperty(nameof(this.Picker.AudioLanguageAll));
+			this.RegisterPickerProperty(nameof(this.Picker.SubtitleSelectionMode));
+			this.RegisterPickerProperty(nameof(this.Picker.SubtitleForeignBurnIn));
+			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageCode));
+			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageOnlyIfDifferent));
+			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageAll), () =>
 			{
 				this.SubtitleForeignBurnIn = false;
 				this.SubtitleLanguageDefault = false;
 			});
-			this.RegisterPickerProperty(() => this.Picker.SubtitleLanguageBurnIn, () =>
+			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageBurnIn), () =>
 			{
 				this.SubtitleLanguageAll = false;
 				this.SubtitleLanguageBurnIn = false;
 			});
-			this.RegisterPickerProperty(() => this.Picker.SubtitleLanguageDefault, () =>
+			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageDefault), () =>
 			{
 				this.SubtitleLanguageAll = false;
 				this.SubtitleLanguageBurnIn = false;
 			});
-			this.RegisterPickerProperty(() => this.Picker.UseEncodingPreset);
-			this.RegisterPickerProperty(() => this.Picker.EncodingPreset);
-			this.RegisterPickerProperty(() => this.Picker.AutoQueueOnScan, () =>
+			this.RegisterPickerProperty(nameof(this.Picker.UseEncodingPreset));
+			this.RegisterPickerProperty(nameof(this.Picker.EncodingPreset));
+			this.RegisterPickerProperty(nameof(this.Picker.AutoQueueOnScan), () =>
 			{
 				if (!this.AutoQueueOnScan)
 				{
 					this.AutoEncodeOnScan = false;
 				}
 			});
-			this.RegisterPickerProperty(() => this.Picker.AutoEncodeOnScan);
+			this.RegisterPickerProperty(nameof(this.Picker.AutoEncodeOnScan));
 		}
 
-		private void RegisterPickerProperty<T>(Expression<Func<T>> propertyExpression, Action action = null)
+		private void RegisterPickerProperty(string propertyName, Action action = null)
 		{
-			string propertyName = MvvmUtilities.GetPropertyName(propertyExpression);
 			this.pickerProperties.Add(propertyName, action);
 		}
 
@@ -265,16 +274,10 @@ namespace VidCoder.ViewModel
 		}
 
 		private ObservableAsPropertyHelper<string> windowTitle; 
-		public string WindowTitle
-		{
-			get { return windowTitle.Value; }
-		}
+		public string WindowTitle => this.windowTitle.Value;
 
 		private ObservableAsPropertyHelper<bool> deleteButtonVisible; 
-		public bool DeleteButtonVisible
-		{
-			get { return this.deleteButtonVisible.Value; }
-		}
+		public bool DeleteButtonVisible => this.deleteButtonVisible.Value;
 
 		public bool ShowHelpMessage
 		{
@@ -293,7 +296,7 @@ namespace VidCoder.ViewModel
 		public bool OutputDirectoryOverrideEnabled
 		{
 			get { return this.Picker.OutputDirectoryOverrideEnabled; }
-			set { this.UpdatePickerProperty(() => this.Picker.OutputDirectoryOverrideEnabled, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.OutputDirectoryOverrideEnabled), value); }
 		}
 
 		// Local property that can hold placeholder values when OutputDirectoryOverrideEnabled is false.
@@ -307,7 +310,7 @@ namespace VidCoder.ViewModel
 		public bool NameFormatOverrideEnabled
 		{
 			get { return this.Picker.NameFormatOverrideEnabled; }
-			set { this.UpdatePickerProperty(() => this.Picker.NameFormatOverrideEnabled, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.NameFormatOverrideEnabled), value); }
 		}
 
 		// Local property that can hold placeholder values when NameFormatOverrideEnabled is false.
@@ -321,97 +324,97 @@ namespace VidCoder.ViewModel
 		public bool? OutputToSourceDirectory
 		{
 			get { return this.Picker.OutputToSourceDirectory; }
-			set { this.UpdatePickerProperty(() => this.Picker.OutputToSourceDirectory, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.OutputToSourceDirectory), value); }
 		}
 
 		public bool? PreserveFolderStructureInBatch
 		{
 			get { return this.Picker.PreserveFolderStructureInBatch; }
-			set { this.UpdatePickerProperty(() => this.Picker.PreserveFolderStructureInBatch, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.PreserveFolderStructureInBatch), value); }
 		}
 
 		public bool TitleRangeSelectEnabled
 		{
 			get { return this.Picker.TitleRangeSelectEnabled; }
-			set { this.UpdatePickerProperty(() => this.Picker.TitleRangeSelectEnabled, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.TitleRangeSelectEnabled), value); }
 		}
 
 		public int TitleRangeSelectStartMinutes
 		{
 			get { return this.Picker.TitleRangeSelectStartMinutes; }
-			set { this.UpdatePickerProperty(() => this.Picker.TitleRangeSelectStartMinutes, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.TitleRangeSelectStartMinutes), value); }
 		}
 
 		public int TitleRangeSelectEndMinutes
 		{
 			get { return this.Picker.TitleRangeSelectEndMinutes; }
-			set { this.UpdatePickerProperty(() => this.Picker.TitleRangeSelectEndMinutes, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.TitleRangeSelectEndMinutes), value); }
 		}
 
 		public AudioSelectionMode AudioSelectionMode
 		{
 			get { return this.Picker.AudioSelectionMode; }
-			set { this.UpdatePickerProperty(() => this.Picker.AudioSelectionMode, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.AudioSelectionMode), value); }
 		}
 
 		public string AudioLanguageCode
 		{
 			get { return this.Picker.AudioLanguageCode; }
-			set { this.UpdatePickerProperty(() => this.Picker.AudioLanguageCode, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.AudioLanguageCode), value); }
 		}
 
 		public bool AudioLanguageAll
 		{
 			get { return this.Picker.AudioLanguageAll; }
-			set { this.UpdatePickerProperty(() => this.Picker.AudioLanguageAll, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.AudioLanguageAll), value); }
 		}
 
 		public SubtitleSelectionMode SubtitleSelectionMode
 		{
 			get { return this.Picker.SubtitleSelectionMode; }
-			set { this.UpdatePickerProperty(() => this.Picker.SubtitleSelectionMode, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleSelectionMode), value); }
 		}
 
 		public bool SubtitleForeignBurnIn
 		{
 			get { return this.Picker.SubtitleForeignBurnIn; }
-			set { this.UpdatePickerProperty(() => this.Picker.SubtitleForeignBurnIn, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleForeignBurnIn), value); }
 		}
 
 		public string SubtitleLanguageCode
 		{
 			get { return this.Picker.SubtitleLanguageCode; }
-			set { this.UpdatePickerProperty(() => this.Picker.SubtitleLanguageCode, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleLanguageCode), value); }
 		}
 
 		public bool SubtitleLanguageOnlyIfDifferent
 		{
 			get { return this.Picker.SubtitleLanguageOnlyIfDifferent; }
-			set { this.UpdatePickerProperty(() => this.Picker.SubtitleLanguageOnlyIfDifferent, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleLanguageOnlyIfDifferent), value); }
 		}
 
 		public bool SubtitleLanguageAll
 		{
 			get { return this.Picker.SubtitleLanguageAll; }
-			set { this.UpdatePickerProperty(() => this.Picker.SubtitleLanguageAll, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleLanguageAll), value); }
 		}
 
 		public bool SubtitleLanguageDefault
 		{
 			get { return this.Picker.SubtitleLanguageDefault; }
-			set { this.UpdatePickerProperty(() => this.Picker.SubtitleLanguageDefault, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleLanguageDefault), value); }
 		}
 
 		public bool SubtitleLanguageBurnIn
 		{
 			get { return this.Picker.SubtitleLanguageBurnIn; }
-			set { this.UpdatePickerProperty(() => this.Picker.SubtitleLanguageBurnIn, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleLanguageBurnIn), value); }
 		}
 
 		public bool UseEncodingPreset
 		{
 			get { return this.Picker.UseEncodingPreset; }
-			set { this.UpdatePickerProperty(() => this.Picker.UseEncodingPreset, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.UseEncodingPreset), value); }
 		}
 
 		private PresetViewModel selectedPreset;
@@ -424,13 +427,13 @@ namespace VidCoder.ViewModel
 		public bool AutoQueueOnScan
 		{
 			get { return this.Picker.AutoQueueOnScan; }
-			set { this.UpdatePickerProperty(() => this.Picker.AutoQueueOnScan, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.AutoQueueOnScan), value); }
 		}
 
 		public bool AutoEncodeOnScan
 		{
 			get { return this.Picker.AutoEncodeOnScan; }
-			set { this.UpdatePickerProperty(() => this.Picker.AutoEncodeOnScan, value); }
+			set { this.UpdatePickerProperty(nameof(this.Picker.AutoEncodeOnScan), value); }
 		}
 
 		public IList<Language> Languages
@@ -550,10 +553,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private void UpdatePickerProperty<T>(Expression<Func<T>> propertyExpression, T value, bool raisePropertyChanged = true)
+		private void UpdatePickerProperty<T>(string propertyName, T value, bool raisePropertyChanged = true)
 		{
-			string propertyName = MvvmUtilities.GetPropertyName(propertyExpression);
-
 			if (!this.pickerProperties.ContainsKey(propertyName))
 			{
 				throw new ArgumentException("UpdatePickerProperty called on " + propertyName + " without registering.");
