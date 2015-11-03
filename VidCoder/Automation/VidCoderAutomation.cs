@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ServiceModel;
-using GalaSoft.MvvmLight.Messaging;
-using VidCoder.Messages;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
@@ -75,7 +73,7 @@ namespace VidCoder.Automation
 
 		private void ShowMessage(string message)
 		{
-			Messenger.Default.Send(new StatusMessage { Message = message});
+			Ioc.Get<StatusService>().Show(message);
 			Ioc.Get<IWindowManager>().Activate(Ioc.Get<MainViewModel>());
 		}
 	}

@@ -1,14 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using Omu.ValueInjecter;
-using VidCoder.Messages;
+using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services.Windows;
@@ -20,7 +18,7 @@ namespace VidCoder.Services
     /// <summary>
     /// Controls creation/modification/deletion/import/export of pickers.
     /// </summary>
-    public class PickersService : ObservableObject
+    public class PickersService : ReactiveObject
     {
         private MainViewModel main = Ioc.Get<MainViewModel>();
 	    private IWindowManager windowManager = Ioc.Get<IWindowManager>();
@@ -145,13 +143,14 @@ namespace VidCoder.Services
 
 				foreach (var picker in this.Pickers)
 				{
+					var selectPickerCommand = this.CreateSelectPickerCommand(picker);
+
 					result.Add(new MenuItem
 					{
 						Header = picker.DisplayNameWithStar,
 						IsCheckable = true, 
 						IsChecked = picker == this.SelectedPicker,
-						Command = this.SelectPickerCommand,
-						CommandParameter = picker,
+						Command = selectPickerCommand,
 						HorizontalContentAlignment = HorizontalAlignment.Left,
 						VerticalContentAlignment = VerticalAlignment.Center,
 					});
@@ -169,21 +168,20 @@ namespace VidCoder.Services
 
 				return result;
 			}
-		} 
+		}
 
-	    private RelayCommand<PickerViewModel> selectPickerCommand;
-		public RelayCommand<PickerViewModel> SelectPickerCommand
+	    public ReactiveCommand<object> CreateSelectPickerCommand(PickerViewModel picker)
 	    {
-		    get
-		    {
-				return this.selectPickerCommand ?? (this.selectPickerCommand = new RelayCommand<PickerViewModel>(picker =>
-			    {
-				    if (picker != this.SelectedPicker)
-				    {
-					    this.SelectedPicker = picker;
-				    }
-			    }));
-		    }
+		    var selectPickerCommand = ReactiveCommand.Create();
+		    selectPickerCommand.Subscribe(_ => 
+			{
+				if (picker != this.SelectedPicker)
+				{
+					this.SelectedPicker = picker;
+				}
+			});
+
+			return selectPickerCommand;
 	    }
 
         public void SavePicker()
@@ -387,7 +385,6 @@ namespace VidCoder.Services
 			this.RefreshPickerButton();
 
 			this.outputPathService.GenerateOutputFileName();
-			Messenger.Default.Send(new PickerChangedMessage());
 
             Config.LastPickerIndex = this.Pickers.IndexOf(this.selectedPicker);
         }

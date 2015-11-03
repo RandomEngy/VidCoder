@@ -2,11 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using ReactiveUI;
-using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -120,14 +116,14 @@ namespace VidCoder.ViewModel
 		public ReactiveCommand<object> Play { get; }
 		private void PlayImpl()
 		{
-			Messenger.Default.Send(new StatusMessage { Message = MainRes.PlayingVideoStatus });
+			Ioc.Get<StatusService>().Show(MainRes.PlayingVideoStatus);
 			FileService.Instance.PlayVideo(this.encodeResult.Destination);
 		}
 
 		public ReactiveCommand<object> OpenContainingFolder { get; }
 		private void OpenContainingFolderImpl()
 		{
-			Messenger.Default.Send(new StatusMessage { Message = MainRes.OpeningFolderStatus });
+			Ioc.Get<StatusService>().Show(MainRes.OpeningFolderStatus);
 			Process.Start("explorer.exe", "/select," + this.encodeResult.Destination);
 		}
 

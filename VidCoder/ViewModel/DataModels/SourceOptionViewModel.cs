@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Reactive.Linq;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Resources;

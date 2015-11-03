@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using GalaSoft.MvvmLight.Command;
 using VidCoder.Services;
 using System.Windows.Input;
 using ReactiveUI;

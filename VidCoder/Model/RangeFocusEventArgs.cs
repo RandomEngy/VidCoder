@@ -1,8 +1,9 @@
-﻿using VidCoderCommon.Model;
+﻿using System;
+using VidCoderCommon.Model;
 
-namespace VidCoder.Messages
+namespace VidCoder.Model
 {
-	public class RangeFocusMessage
+	public class RangeFocusEventArgs : EventArgs
 	{
 		public VideoRangeType RangeType { get; set; }
 

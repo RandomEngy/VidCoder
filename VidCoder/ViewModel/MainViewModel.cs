@@ -9,9 +9,6 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Windows;
 using System.Xml.Serialization;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using Microsoft.Practices.Unity;
@@ -19,7 +16,6 @@ using Newtonsoft.Json;
 using ReactiveUI;
 using VidCoder.Automation;
 using VidCoder.Extensions;
-using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -389,28 +385,17 @@ namespace VidCoder.ViewModel
 			{
 				this.WindowMenuItems.Add(new WindowMenuItemViewModel(definition));
 			}
-
-			//this.StartChapters.ChangeTrackingEnabled = true;
-			//this.EndChapters.ChangeTrackingEnabled = true;
-
-			//this.StartChapters.ItemChanged
-			//	.Where(x => x.PropertyName == nameof(ChapterViewModel.IsHighlighted))
-			//	.Subscribe(_ =>
-			//	{
-			//		this.RefreshRangePreview();
-			//	});
-
-			//this.EndChapters.ItemChanged
-			//	.Where(x => x.PropertyName == nameof(ChapterViewModel.IsHighlighted))
-			//	.Subscribe(_ =>
-			//	{
-			//		this.RefreshRangePreview();
-			//	});
-
-			Messenger.Default.Register<RangeFocusMessage>(this, this.OnRangeControlGotFocus);
 		}
 
-		public IMainView View { get; set; }
+		public IMainView View
+		{
+			get { return this.view; }
+			set
+			{
+				this.view = value;
+				this.view.RangeControlGotFocus += this.OnRangeControlGotFocus;
+			}
+		}
 
 		public HandBrakeInstance ScanInstance
 		{
@@ -1612,6 +1597,8 @@ namespace VidCoder.ViewModel
 		}
 
 		private bool showTrayIcon;
+		private IMainView view;
+
 		public bool ShowTrayIcon
 		{
 			get { return this.showTrayIcon; }
@@ -1715,22 +1702,18 @@ namespace VidCoder.ViewModel
 		public ReactiveCommand<object> CloseVideoSource { get; }
 		private void CloseVideoSourceImpl()
 		{
-			this.sourceData = null;
 			this.VideoSourceState = VideoSourceState.Choices;
+			this.SourceData = null;
 			this.SelectedSource = null;
 			this.SourceSelectionExpanded = false;
 
 			this.RefreshRecentSourceOptions();
 
-			DispatchUtilities.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
 			this.SelectedTitle = null;
 
 			HandBrakeInstance oldInstance = this.scanInstance;
 			this.scanInstance = null;
-			if (oldInstance != null)
-			{
-				oldInstance.Dispose();
-			}
+			oldInstance?.Dispose();
 		}
 
 		public ReactiveCommand<object> CustomizeQueueColumns { get; }
@@ -2226,16 +2209,12 @@ namespace VidCoder.ViewModel
 				// Raise error
 				Ioc.Get<IMessageBoxService>().Show(this, MainRes.ScanErrorLabel);
 			}
-
-			DispatchUtilities.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
 		}
 
 		private void ClearVideoSource()
 		{
 			this.SourceData = null;
 			this.SourceSelectionExpanded = false;
-
-			DispatchUtilities.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
 		}
 
 		private void LoadVideoSourceMetadata(VCJob job, VideoSourceMetadata metadata)
@@ -2575,16 +2554,16 @@ namespace VidCoder.ViewModel
 			return 0;
 		}
 
-		private void OnRangeControlGotFocus(RangeFocusMessage message)
+		private void OnRangeControlGotFocus(object sender, RangeFocusEventArgs eventArgs)
 		{
-			if (!message.GotFocus)
+			if (!eventArgs.GotFocus)
 			{
 				return;
 			}
 
-			if (message.RangeType == VideoRangeType.Seconds)
+			if (eventArgs.RangeType == VideoRangeType.Seconds)
 			{
-				if (message.Start)
+				if (eventArgs.Start)
 				{
 					this.timeBaseline = this.TimeRangeEnd;
 				}
@@ -2593,9 +2572,9 @@ namespace VidCoder.ViewModel
 					this.timeBaseline = this.TimeRangeStart;
 				}
 			}
-			else if (message.RangeType == VideoRangeType.Frames)
+			else if (eventArgs.RangeType == VideoRangeType.Frames)
 			{
-				if (message.Start)
+				if (eventArgs.Start)
 				{
 					this.framesBaseline = this.FramesRangeEnd;
 				}

@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
 using System.IO;
 using HandBrake.ApplicationServices.Interop.EventArgs;
-using VidCoder.Messages;
 using VidCoder.Model;
 
 namespace VidCoder.Services
 {
-	using GalaSoft.MvvmLight.Ioc;
-
 	public class Logger : IDisposable, ILogger
 	{
 		private List<LogEntry> logEntries = new List<LogEntry>();
@@ -26,7 +22,6 @@ namespace VidCoder.Services
 		public event EventHandler<EventArgs<LogEntry>> EntryLogged;
 		public event EventHandler Cleared;
 
-		[PreferredConstructor]
 		public Logger() : this(null, null)
 		{
 		}
@@ -146,7 +141,7 @@ namespace VidCoder.Services
 
 		public void ShowStatus(string message)
 		{
-			Messenger.Default.Send(new StatusMessage {Message = message});
+			Ioc.Get<StatusService>().Show(message);
 		}
 
 		/// <summary>

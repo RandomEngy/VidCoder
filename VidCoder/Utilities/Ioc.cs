@@ -1,5 +1,4 @@
 ﻿using System;
-using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.Unity;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
@@ -30,6 +29,7 @@ namespace VidCoder
 			Container.RegisterType<PickersService>(Singleton);
 			Container.RegisterType<ProcessingService>(Singleton);
 			Container.RegisterType<EncodingWindowViewModel>(Singleton);
+			Container.RegisterType<StatusService>(Singleton);
 		}
 
 		public static UnityContainer Container { get; set; }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using VidCoder.Model;
 
@@ -8,6 +9,7 @@ namespace VidCoder
 	{
 		private static bool initialized;
 		private static Dictionary<string, object> cache;
+		private static Dictionary<string, object> observableCache;
 
 		public static void EnsureInitialized(SQLiteConnection connection)
 		{
@@ -25,6 +27,7 @@ namespace VidCoder
 
 		private static void Initialize(SQLiteConnection connection)
 		{
+			observableCache = new Dictionary<string, object>();
 			cache = new Dictionary<string, object>();
 			cache.Add("MigratedConfigs", DatabaseConfig.Get("MigratedConfigs", false, connection));
 			cache.Add("EncodeJobs2", DatabaseConfig.Get("EncodeJobs2", "", connection));
@@ -137,1306 +140,629 @@ namespace VidCoder
 		{
 			cache[key] = value;
 			DatabaseConfig.Set(key, value);
+
+			object observableObject;
+			if (observableCache.TryGetValue(key, out observableObject))
+			{
+				var observable = (ConfigObservable<T>)observableObject;
+				observable.OnNext(value);
+			}
 		}
 
 		public static bool MigratedConfigs
 		{
-			get
-			{
-				return (bool)cache["MigratedConfigs"];
-			}
-			
-			set
-			{
-				cache["MigratedConfigs"] = value;
-				DatabaseConfig.Set("MigratedConfigs", value);
-			}
+			get { return (bool)cache["MigratedConfigs"]; }
+			set { Set("MigratedConfigs", value); }
 		}
 		public static string EncodeJobs2
 		{
-			get
-			{
-				return (string)cache["EncodeJobs2"];
-			}
-			
-			set
-			{
-				cache["EncodeJobs2"] = value;
-				DatabaseConfig.Set("EncodeJobs2", value);
-			}
+			get { return (string)cache["EncodeJobs2"]; }
+			set { Set("EncodeJobs2", value); }
 		}
 		public static bool UpdateInProgress
 		{
-			get
-			{
-				return (bool)cache["UpdateInProgress"];
-			}
-			
-			set
-			{
-				cache["UpdateInProgress"] = value;
-				DatabaseConfig.Set("UpdateInProgress", value);
-			}
+			get { return (bool)cache["UpdateInProgress"]; }
+			set { Set("UpdateInProgress", value); }
 		}
 		public static string UpdateVersion
 		{
-			get
-			{
-				return (string)cache["UpdateVersion"];
-			}
-			
-			set
-			{
-				cache["UpdateVersion"] = value;
-				DatabaseConfig.Set("UpdateVersion", value);
-			}
+			get { return (string)cache["UpdateVersion"]; }
+			set { Set("UpdateVersion", value); }
 		}
 		public static string UpdateInstallerLocation
 		{
-			get
-			{
-				return (string)cache["UpdateInstallerLocation"];
-			}
-			
-			set
-			{
-				cache["UpdateInstallerLocation"] = value;
-				DatabaseConfig.Set("UpdateInstallerLocation", value);
-			}
+			get { return (string)cache["UpdateInstallerLocation"]; }
+			set { Set("UpdateInstallerLocation", value); }
 		}
 		public static string UpdateChangelogLocation
 		{
-			get
-			{
-				return (string)cache["UpdateChangelogLocation"];
-			}
-			
-			set
-			{
-				cache["UpdateChangelogLocation"] = value;
-				DatabaseConfig.Set("UpdateChangelogLocation", value);
-			}
+			get { return (string)cache["UpdateChangelogLocation"]; }
+			set { Set("UpdateChangelogLocation", value); }
 		}
 		public static string LastOutputFolder
 		{
-			get
-			{
-				return (string)cache["LastOutputFolder"];
-			}
-			
-			set
-			{
-				cache["LastOutputFolder"] = value;
-				DatabaseConfig.Set("LastOutputFolder", value);
-			}
+			get { return (string)cache["LastOutputFolder"]; }
+			set { Set("LastOutputFolder", value); }
 		}
 		public static string LastInputFileFolder
 		{
-			get
-			{
-				return (string)cache["LastInputFileFolder"];
-			}
-			
-			set
-			{
-				cache["LastInputFileFolder"] = value;
-				DatabaseConfig.Set("LastInputFileFolder", value);
-			}
+			get { return (string)cache["LastInputFileFolder"]; }
+			set { Set("LastInputFileFolder", value); }
 		}
 		public static string LastVideoTSFolder
 		{
-			get
-			{
-				return (string)cache["LastVideoTSFolder"];
-			}
-			
-			set
-			{
-				cache["LastVideoTSFolder"] = value;
-				DatabaseConfig.Set("LastVideoTSFolder", value);
-			}
+			get { return (string)cache["LastVideoTSFolder"]; }
+			set { Set("LastVideoTSFolder", value); }
 		}
 		public static string LastSrtFolder
 		{
-			get
-			{
-				return (string)cache["LastSrtFolder"];
-			}
-			
-			set
-			{
-				cache["LastSrtFolder"] = value;
-				DatabaseConfig.Set("LastSrtFolder", value);
-			}
+			get { return (string)cache["LastSrtFolder"]; }
+			set { Set("LastSrtFolder", value); }
 		}
 		public static string LastCsvFolder
 		{
-			get
-			{
-				return (string)cache["LastCsvFolder"];
-			}
-			
-			set
-			{
-				cache["LastCsvFolder"] = value;
-				DatabaseConfig.Set("LastCsvFolder", value);
-			}
+			get { return (string)cache["LastCsvFolder"]; }
+			set { Set("LastCsvFolder", value); }
 		}
 		public static string LastPresetExportFolder
 		{
-			get
-			{
-				return (string)cache["LastPresetExportFolder"];
-			}
-			
-			set
-			{
-				cache["LastPresetExportFolder"] = value;
-				DatabaseConfig.Set("LastPresetExportFolder", value);
-			}
+			get { return (string)cache["LastPresetExportFolder"]; }
+			set { Set("LastPresetExportFolder", value); }
 		}
 		public static string AutoNameOutputFolder
 		{
-			get
-			{
-				return (string)cache["AutoNameOutputFolder"];
-			}
-			
-			set
-			{
-				cache["AutoNameOutputFolder"] = value;
-				DatabaseConfig.Set("AutoNameOutputFolder", value);
-			}
+			get { return (string)cache["AutoNameOutputFolder"]; }
+			set { Set("AutoNameOutputFolder", value); }
 		}
 		public static bool AutoNameCustomFormat
 		{
-			get
-			{
-				return (bool)cache["AutoNameCustomFormat"];
-			}
-			
-			set
-			{
-				cache["AutoNameCustomFormat"] = value;
-				DatabaseConfig.Set("AutoNameCustomFormat", value);
-			}
+			get { return (bool)cache["AutoNameCustomFormat"]; }
+			set { Set("AutoNameCustomFormat", value); }
 		}
 		public static string AutoNameCustomFormatString
 		{
-			get
-			{
-				return (string)cache["AutoNameCustomFormatString"];
-			}
-			
-			set
-			{
-				cache["AutoNameCustomFormatString"] = value;
-				DatabaseConfig.Set("AutoNameCustomFormatString", value);
-			}
+			get { return (string)cache["AutoNameCustomFormatString"]; }
+			set { Set("AutoNameCustomFormatString", value); }
 		}
 		public static string NativeLanguageCode
 		{
-			get
-			{
-				return (string)cache["NativeLanguageCode"];
-			}
-			
-			set
-			{
-				cache["NativeLanguageCode"] = value;
-				DatabaseConfig.Set("NativeLanguageCode", value);
-			}
+			get { return (string)cache["NativeLanguageCode"]; }
+			set { Set("NativeLanguageCode", value); }
 		}
 		public static bool DubAudio
 		{
-			get
-			{
-				return (bool)cache["DubAudio"];
-			}
-			
-			set
-			{
-				cache["DubAudio"] = value;
-				DatabaseConfig.Set("DubAudio", value);
-			}
+			get { return (bool)cache["DubAudio"]; }
+			set { Set("DubAudio", value); }
 		}
 		public static int LastPresetIndex
 		{
-			get
-			{
-				return (int)cache["LastPresetIndex"];
-			}
-			
-			set
-			{
-				cache["LastPresetIndex"] = value;
-				DatabaseConfig.Set("LastPresetIndex", value);
-			}
+			get { return (int)cache["LastPresetIndex"]; }
+			set { Set("LastPresetIndex", value); }
 		}
 		public static int LastPickerIndex
 		{
-			get
-			{
-				return (int)cache["LastPickerIndex"];
-			}
-			
-			set
-			{
-				cache["LastPickerIndex"] = value;
-				DatabaseConfig.Set("LastPickerIndex", value);
-			}
+			get { return (int)cache["LastPickerIndex"]; }
+			set { Set("LastPickerIndex", value); }
 		}
 		public static int EncodingDialogLastTab
 		{
-			get
-			{
-				return (int)cache["EncodingDialogLastTab"];
-			}
-			
-			set
-			{
-				cache["EncodingDialogLastTab"] = value;
-				DatabaseConfig.Set("EncodingDialogLastTab", value);
-			}
+			get { return (int)cache["EncodingDialogLastTab"]; }
+			set { Set("EncodingDialogLastTab", value); }
 		}
 		public static int OptionsDialogLastTab
 		{
-			get
-			{
-				return (int)cache["OptionsDialogLastTab"];
-			}
-			
-			set
-			{
-				cache["OptionsDialogLastTab"] = value;
-				DatabaseConfig.Set("OptionsDialogLastTab", value);
-			}
+			get { return (int)cache["OptionsDialogLastTab"]; }
+			set { Set("OptionsDialogLastTab", value); }
 		}
 		public static string MainWindowPlacement
 		{
-			get
-			{
-				return (string)cache["MainWindowPlacement"];
-			}
-			
-			set
-			{
-				cache["MainWindowPlacement"] = value;
-				DatabaseConfig.Set("MainWindowPlacement", value);
-			}
+			get { return (string)cache["MainWindowPlacement"]; }
+			set { Set("MainWindowPlacement", value); }
 		}
 		public static string SubtitlesDialogPlacement
 		{
-			get
-			{
-				return (string)cache["SubtitlesDialogPlacement"];
-			}
-			
-			set
-			{
-				cache["SubtitlesDialogPlacement"] = value;
-				DatabaseConfig.Set("SubtitlesDialogPlacement", value);
-			}
+			get { return (string)cache["SubtitlesDialogPlacement"]; }
+			set { Set("SubtitlesDialogPlacement", value); }
 		}
 		public static string EncodingDialogPlacement
 		{
-			get
-			{
-				return (string)cache["EncodingDialogPlacement"];
-			}
-			
-			set
-			{
-				cache["EncodingDialogPlacement"] = value;
-				DatabaseConfig.Set("EncodingDialogPlacement", value);
-			}
+			get { return (string)cache["EncodingDialogPlacement"]; }
+			set { Set("EncodingDialogPlacement", value); }
 		}
 		public static string ChapterMarkersDialogPlacement
 		{
-			get
-			{
-				return (string)cache["ChapterMarkersDialogPlacement"];
-			}
-			
-			set
-			{
-				cache["ChapterMarkersDialogPlacement"] = value;
-				DatabaseConfig.Set("ChapterMarkersDialogPlacement", value);
-			}
+			get { return (string)cache["ChapterMarkersDialogPlacement"]; }
+			set { Set("ChapterMarkersDialogPlacement", value); }
 		}
 		public static string PreviewWindowPlacement
 		{
-			get
-			{
-				return (string)cache["PreviewWindowPlacement"];
-			}
-			
-			set
-			{
-				cache["PreviewWindowPlacement"] = value;
-				DatabaseConfig.Set("PreviewWindowPlacement", value);
-			}
+			get { return (string)cache["PreviewWindowPlacement"]; }
+			set { Set("PreviewWindowPlacement", value); }
 		}
 		public static string QueueTitlesDialogPlacement2
 		{
-			get
-			{
-				return (string)cache["QueueTitlesDialogPlacement2"];
-			}
-			
-			set
-			{
-				cache["QueueTitlesDialogPlacement2"] = value;
-				DatabaseConfig.Set("QueueTitlesDialogPlacement2", value);
-			}
+			get { return (string)cache["QueueTitlesDialogPlacement2"]; }
+			set { Set("QueueTitlesDialogPlacement2", value); }
 		}
 		public static string AddAutoPauseProcessDialogPlacement
 		{
-			get
-			{
-				return (string)cache["AddAutoPauseProcessDialogPlacement"];
-			}
-			
-			set
-			{
-				cache["AddAutoPauseProcessDialogPlacement"] = value;
-				DatabaseConfig.Set("AddAutoPauseProcessDialogPlacement", value);
-			}
+			get { return (string)cache["AddAutoPauseProcessDialogPlacement"]; }
+			set { Set("AddAutoPauseProcessDialogPlacement", value); }
 		}
 		public static string OptionsDialogPlacement
 		{
-			get
-			{
-				return (string)cache["OptionsDialogPlacement"];
-			}
-			
-			set
-			{
-				cache["OptionsDialogPlacement"] = value;
-				DatabaseConfig.Set("OptionsDialogPlacement", value);
-			}
+			get { return (string)cache["OptionsDialogPlacement"]; }
+			set { Set("OptionsDialogPlacement", value); }
 		}
 		public static string EncodeDetailsWindowPlacement
 		{
-			get
-			{
-				return (string)cache["EncodeDetailsWindowPlacement"];
-			}
-			
-			set
-			{
-				cache["EncodeDetailsWindowPlacement"] = value;
-				DatabaseConfig.Set("EncodeDetailsWindowPlacement", value);
-			}
+			get { return (string)cache["EncodeDetailsWindowPlacement"]; }
+			set { Set("EncodeDetailsWindowPlacement", value); }
 		}
 		public static string PickerWindowPlacement
 		{
-			get
-			{
-				return (string)cache["PickerWindowPlacement"];
-			}
-			
-			set
-			{
-				cache["PickerWindowPlacement"] = value;
-				DatabaseConfig.Set("PickerWindowPlacement", value);
-			}
+			get { return (string)cache["PickerWindowPlacement"]; }
+			set { Set("PickerWindowPlacement", value); }
 		}
 		public static string LogWindowPlacement
 		{
-			get
-			{
-				return (string)cache["LogWindowPlacement"];
-			}
-			
-			set
-			{
-				cache["LogWindowPlacement"] = value;
-				DatabaseConfig.Set("LogWindowPlacement", value);
-			}
+			get { return (string)cache["LogWindowPlacement"]; }
+			set { Set("LogWindowPlacement", value); }
 		}
 		public static bool EncodingWindowOpen
 		{
-			get
-			{
-				return (bool)cache["EncodingWindowOpen"];
-			}
-			
-			set
-			{
-				cache["EncodingWindowOpen"] = value;
-				DatabaseConfig.Set("EncodingWindowOpen", value);
-			}
+			get { return (bool)cache["EncodingWindowOpen"]; }
+			set { Set("EncodingWindowOpen", value); }
 		}
 		public static bool PreviewWindowOpen
 		{
-			get
-			{
-				return (bool)cache["PreviewWindowOpen"];
-			}
-			
-			set
-			{
-				cache["PreviewWindowOpen"] = value;
-				DatabaseConfig.Set("PreviewWindowOpen", value);
-			}
+			get { return (bool)cache["PreviewWindowOpen"]; }
+			set { Set("PreviewWindowOpen", value); }
 		}
 		public static bool LogWindowOpen
 		{
-			get
-			{
-				return (bool)cache["LogWindowOpen"];
-			}
-			
-			set
-			{
-				cache["LogWindowOpen"] = value;
-				DatabaseConfig.Set("LogWindowOpen", value);
-			}
+			get { return (bool)cache["LogWindowOpen"]; }
+			set { Set("LogWindowOpen", value); }
 		}
 		public static bool EncodeDetailsWindowOpen
 		{
-			get
-			{
-				return (bool)cache["EncodeDetailsWindowOpen"];
-			}
-			
-			set
-			{
-				cache["EncodeDetailsWindowOpen"] = value;
-				DatabaseConfig.Set("EncodeDetailsWindowOpen", value);
-			}
+			get { return (bool)cache["EncodeDetailsWindowOpen"]; }
+			set { Set("EncodeDetailsWindowOpen", value); }
 		}
 		public static bool PickerWindowOpen
 		{
-			get
-			{
-				return (bool)cache["PickerWindowOpen"];
-			}
-			
-			set
-			{
-				cache["PickerWindowOpen"] = value;
-				DatabaseConfig.Set("PickerWindowOpen", value);
-			}
+			get { return (bool)cache["PickerWindowOpen"]; }
+			set { Set("PickerWindowOpen", value); }
 		}
 		public static bool UpdatesEnabled
 		{
-			get
-			{
-				return (bool)cache["UpdatesEnabled"];
-			}
-			
-			set
-			{
-				cache["UpdatesEnabled"] = value;
-				DatabaseConfig.Set("UpdatesEnabled", value);
-			}
+			get { return (bool)cache["UpdatesEnabled"]; }
+			set { Set("UpdatesEnabled", value); }
 		}
 		public static int PreviewSeconds
 		{
-			get
-			{
-				return (int)cache["PreviewSeconds"];
-			}
-			
-			set
-			{
-				cache["PreviewSeconds"] = value;
-				DatabaseConfig.Set("PreviewSeconds", value);
-			}
+			get { return (int)cache["PreviewSeconds"]; }
+			set { Set("PreviewSeconds", value); }
 		}
 		public static string ApplicationVersion
 		{
-			get
-			{
-				return (string)cache["ApplicationVersion"];
-			}
-			
-			set
-			{
-				cache["ApplicationVersion"] = value;
-				DatabaseConfig.Set("ApplicationVersion", value);
-			}
+			get { return (string)cache["ApplicationVersion"]; }
+			set { Set("ApplicationVersion", value); }
 		}
 		public static string QueueColumns
 		{
-			get
-			{
-				return (string)cache["QueueColumns"];
-			}
-			
-			set
-			{
-				cache["QueueColumns"] = value;
-				DatabaseConfig.Set("QueueColumns", value);
-			}
+			get { return (string)cache["QueueColumns"]; }
+			set { Set("QueueColumns", value); }
 		}
 		public static double QueueLastColumnWidth
 		{
-			get
-			{
-				return (double)cache["QueueLastColumnWidth"];
-			}
-			
-			set
-			{
-				cache["QueueLastColumnWidth"] = value;
-				DatabaseConfig.Set("QueueLastColumnWidth", value);
-			}
+			get { return (double)cache["QueueLastColumnWidth"]; }
+			set { Set("QueueLastColumnWidth", value); }
 		}
 		public static string CompletedColumnWidths
 		{
-			get
-			{
-				return (string)cache["CompletedColumnWidths"];
-			}
-			
-			set
-			{
-				cache["CompletedColumnWidths"] = value;
-				DatabaseConfig.Set("CompletedColumnWidths", value);
-			}
+			get { return (string)cache["CompletedColumnWidths"]; }
+			set { Set("CompletedColumnWidths", value); }
 		}
 		public static double PickerListPaneWidth
 		{
-			get
-			{
-				return (double)cache["PickerListPaneWidth"];
-			}
-			
-			set
-			{
-				cache["PickerListPaneWidth"] = value;
-				DatabaseConfig.Set("PickerListPaneWidth", value);
-			}
+			get { return (double)cache["PickerListPaneWidth"]; }
+			set { Set("PickerListPaneWidth", value); }
 		}
 		public static bool EncodingListPaneOpen
 		{
-			get
-			{
-				return (bool)cache["EncodingListPaneOpen"];
-			}
-			
-			set
-			{
-				cache["EncodingListPaneOpen"] = value;
-				DatabaseConfig.Set("EncodingListPaneOpen", value);
-			}
+			get { return (bool)cache["EncodingListPaneOpen"]; }
+			set { Set("EncodingListPaneOpen", value); }
 		}
 		public static double EncodingListPaneWidth
 		{
-			get
-			{
-				return (double)cache["EncodingListPaneWidth"];
-			}
-			
-			set
-			{
-				cache["EncodingListPaneWidth"] = value;
-				DatabaseConfig.Set("EncodingListPaneWidth", value);
-			}
+			get { return (double)cache["EncodingListPaneWidth"]; }
+			set { Set("EncodingListPaneWidth", value); }
 		}
 		public static bool ShowPickerWindowMessage
 		{
-			get
-			{
-				return (bool)cache["ShowPickerWindowMessage"];
-			}
-			
-			set
-			{
-				cache["ShowPickerWindowMessage"] = value;
-				DatabaseConfig.Set("ShowPickerWindowMessage", value);
-			}
+			get { return (bool)cache["ShowPickerWindowMessage"]; }
+			set { Set("ShowPickerWindowMessage", value); }
 		}
 		public static string WorkerProcessPriority
 		{
-			get
-			{
-				return (string)cache["WorkerProcessPriority"];
-			}
-			
-			set
-			{
-				cache["WorkerProcessPriority"] = value;
-				DatabaseConfig.Set("WorkerProcessPriority", value);
-			}
+			get { return (string)cache["WorkerProcessPriority"]; }
+			set { Set("WorkerProcessPriority", value); }
 		}
 		public static int LogVerbosity
 		{
-			get
-			{
-				return (int)cache["LogVerbosity"];
-			}
-			
-			set
-			{
-				cache["LogVerbosity"] = value;
-				DatabaseConfig.Set("LogVerbosity", value);
-			}
+			get { return (int)cache["LogVerbosity"]; }
+			set { Set("LogVerbosity", value); }
 		}
 		public static bool CopyLogToOutputFolder
 		{
-			get
-			{
-				return (bool)cache["CopyLogToOutputFolder"];
-			}
-			
-			set
-			{
-				cache["CopyLogToOutputFolder"] = value;
-				DatabaseConfig.Set("CopyLogToOutputFolder", value);
-			}
+			get { return (bool)cache["CopyLogToOutputFolder"]; }
+			set { Set("CopyLogToOutputFolder", value); }
 		}
 		public static string AutoPauseProcesses
 		{
-			get
-			{
-				return (string)cache["AutoPauseProcesses"];
-			}
-			
-			set
-			{
-				cache["AutoPauseProcesses"] = value;
-				DatabaseConfig.Set("AutoPauseProcesses", value);
-			}
+			get { return (string)cache["AutoPauseProcesses"]; }
+			set { Set("AutoPauseProcesses", value); }
 		}
 		public static int PreviewCount
 		{
-			get
-			{
-				return (int)cache["PreviewCount"];
-			}
-			
-			set
-			{
-				cache["PreviewCount"] = value;
-				DatabaseConfig.Set("PreviewCount", value);
-			}
+			get { return (int)cache["PreviewCount"]; }
+			set { Set("PreviewCount", value); }
 		}
 		public static string PreviewDisplay
 		{
-			get
-			{
-				return (string)cache["PreviewDisplay"];
-			}
-			
-			set
-			{
-				cache["PreviewDisplay"] = value;
-				DatabaseConfig.Set("PreviewDisplay", value);
-			}
+			get { return (string)cache["PreviewDisplay"]; }
+			set { Set("PreviewDisplay", value); }
 		}
 		public static bool UseCustomPreviewFolder
 		{
-			get
-			{
-				return (bool)cache["UseCustomPreviewFolder"];
-			}
-			
-			set
-			{
-				cache["UseCustomPreviewFolder"] = value;
-				DatabaseConfig.Set("UseCustomPreviewFolder", value);
-			}
+			get { return (bool)cache["UseCustomPreviewFolder"]; }
+			set { Set("UseCustomPreviewFolder", value); }
 		}
 		public static string PreviewOutputFolder
 		{
-			get
-			{
-				return (string)cache["PreviewOutputFolder"];
-			}
-			
-			set
-			{
-				cache["PreviewOutputFolder"] = value;
-				DatabaseConfig.Set("PreviewOutputFolder", value);
-			}
+			get { return (string)cache["PreviewOutputFolder"]; }
+			set { Set("PreviewOutputFolder", value); }
 		}
 		public static bool QueueTitlesUseTitleOverride
 		{
-			get
-			{
-				return (bool)cache["QueueTitlesUseTitleOverride"];
-			}
-			
-			set
-			{
-				cache["QueueTitlesUseTitleOverride"] = value;
-				DatabaseConfig.Set("QueueTitlesUseTitleOverride", value);
-			}
+			get { return (bool)cache["QueueTitlesUseTitleOverride"]; }
+			set { Set("QueueTitlesUseTitleOverride", value); }
 		}
 		public static int QueueTitlesTitleOverride
 		{
-			get
-			{
-				return (int)cache["QueueTitlesTitleOverride"];
-			}
-			
-			set
-			{
-				cache["QueueTitlesTitleOverride"] = value;
-				DatabaseConfig.Set("QueueTitlesTitleOverride", value);
-			}
+			get { return (int)cache["QueueTitlesTitleOverride"]; }
+			set { Set("QueueTitlesTitleOverride", value); }
 		}
 		public static bool ShowAudioTrackNameField
 		{
-			get
-			{
-				return (bool)cache["ShowAudioTrackNameField"];
-			}
-			
-			set
-			{
-				cache["ShowAudioTrackNameField"] = value;
-				DatabaseConfig.Set("ShowAudioTrackNameField", value);
-			}
+			get { return (bool)cache["ShowAudioTrackNameField"]; }
+			set { Set("ShowAudioTrackNameField", value); }
 		}
 		public static string SourceHistory
 		{
-			get
-			{
-				return (string)cache["SourceHistory"];
-			}
-			
-			set
-			{
-				cache["SourceHistory"] = value;
-				DatabaseConfig.Set("SourceHistory", value);
-			}
+			get { return (string)cache["SourceHistory"]; }
+			set { Set("SourceHistory", value); }
 		}
 		public static bool MinimizeToTray
 		{
-			get
-			{
-				return (bool)cache["MinimizeToTray"];
-			}
-			
-			set
-			{
-				cache["MinimizeToTray"] = value;
-				DatabaseConfig.Set("MinimizeToTray", value);
-			}
+			get { return (bool)cache["MinimizeToTray"]; }
+			set { Set("MinimizeToTray", value); }
 		}
 		public static bool OutputToSourceDirectory
 		{
-			get
-			{
-				return (bool)cache["OutputToSourceDirectory"];
-			}
-			
-			set
-			{
-				cache["OutputToSourceDirectory"] = value;
-				DatabaseConfig.Set("OutputToSourceDirectory", value);
-			}
+			get { return (bool)cache["OutputToSourceDirectory"]; }
+			set { Set("OutputToSourceDirectory", value); }
 		}
 		public static bool PreserveFolderStructureInBatch
 		{
-			get
-			{
-				return (bool)cache["PreserveFolderStructureInBatch"];
-			}
-			
-			set
-			{
-				cache["PreserveFolderStructureInBatch"] = value;
-				DatabaseConfig.Set("PreserveFolderStructureInBatch", value);
-			}
+			get { return (bool)cache["PreserveFolderStructureInBatch"]; }
+			set { Set("PreserveFolderStructureInBatch", value); }
 		}
 		public static string WhenFileExists
 		{
-			get
-			{
-				return (string)cache["WhenFileExists"];
-			}
-			
-			set
-			{
-				cache["WhenFileExists"] = value;
-				DatabaseConfig.Set("WhenFileExists", value);
-			}
+			get { return (string)cache["WhenFileExists"]; }
+			set { Set("WhenFileExists", value); }
 		}
 		public static string WhenFileExistsBatch
 		{
-			get
-			{
-				return (string)cache["WhenFileExistsBatch"];
-			}
-			
-			set
-			{
-				cache["WhenFileExistsBatch"] = value;
-				DatabaseConfig.Set("WhenFileExistsBatch", value);
-			}
+			get { return (string)cache["WhenFileExistsBatch"]; }
+			set { Set("WhenFileExistsBatch", value); }
 		}
 		public static bool UseCustomVideoPlayer
 		{
-			get
-			{
-				return (bool)cache["UseCustomVideoPlayer"];
-			}
-			
-			set
-			{
-				cache["UseCustomVideoPlayer"] = value;
-				DatabaseConfig.Set("UseCustomVideoPlayer", value);
-			}
+			get { return (bool)cache["UseCustomVideoPlayer"]; }
+			set { Set("UseCustomVideoPlayer", value); }
 		}
 		public static string CustomVideoPlayer
 		{
-			get
-			{
-				return (string)cache["CustomVideoPlayer"];
-			}
-			
-			set
-			{
-				cache["CustomVideoPlayer"] = value;
-				DatabaseConfig.Set("CustomVideoPlayer", value);
-			}
+			get { return (string)cache["CustomVideoPlayer"]; }
+			set { Set("CustomVideoPlayer", value); }
 		}
 		public static bool PlaySoundOnCompletion
 		{
-			get
-			{
-				return (bool)cache["PlaySoundOnCompletion"];
-			}
-			
-			set
-			{
-				cache["PlaySoundOnCompletion"] = value;
-				DatabaseConfig.Set("PlaySoundOnCompletion", value);
-			}
+			get { return (bool)cache["PlaySoundOnCompletion"]; }
+			set { Set("PlaySoundOnCompletion", value); }
 		}
 		public static bool UseCustomCompletionSound
 		{
-			get
-			{
-				return (bool)cache["UseCustomCompletionSound"];
-			}
-			
-			set
-			{
-				cache["UseCustomCompletionSound"] = value;
-				DatabaseConfig.Set("UseCustomCompletionSound", value);
-			}
+			get { return (bool)cache["UseCustomCompletionSound"]; }
+			set { Set("UseCustomCompletionSound", value); }
 		}
 		public static string CustomCompletionSound
 		{
-			get
-			{
-				return (string)cache["CustomCompletionSound"];
-			}
-			
-			set
-			{
-				cache["CustomCompletionSound"] = value;
-				DatabaseConfig.Set("CustomCompletionSound", value);
-			}
+			get { return (string)cache["CustomCompletionSound"]; }
+			set { Set("CustomCompletionSound", value); }
 		}
 		public static string LastPlayer
 		{
-			get
-			{
-				return (string)cache["LastPlayer"];
-			}
-			
-			set
-			{
-				cache["LastPlayer"] = value;
-				DatabaseConfig.Set("LastPlayer", value);
-			}
+			get { return (string)cache["LastPlayer"]; }
+			set { Set("LastPlayer", value); }
 		}
 		public static bool QueueTitlesUseDirectoryOverride
 		{
-			get
-			{
-				return (bool)cache["QueueTitlesUseDirectoryOverride"];
-			}
-			
-			set
-			{
-				cache["QueueTitlesUseDirectoryOverride"] = value;
-				DatabaseConfig.Set("QueueTitlesUseDirectoryOverride", value);
-			}
+			get { return (bool)cache["QueueTitlesUseDirectoryOverride"]; }
+			set { Set("QueueTitlesUseDirectoryOverride", value); }
 		}
 		public static string QueueTitlesDirectoryOverride
 		{
-			get
-			{
-				return (string)cache["QueueTitlesDirectoryOverride"];
-			}
-			
-			set
-			{
-				cache["QueueTitlesDirectoryOverride"] = value;
-				DatabaseConfig.Set("QueueTitlesDirectoryOverride", value);
-			}
+			get { return (string)cache["QueueTitlesDirectoryOverride"]; }
+			set { Set("QueueTitlesDirectoryOverride", value); }
 		}
 		public static bool QueueTitlesUseNameOverride
 		{
-			get
-			{
-				return (bool)cache["QueueTitlesUseNameOverride"];
-			}
-			
-			set
-			{
-				cache["QueueTitlesUseNameOverride"] = value;
-				DatabaseConfig.Set("QueueTitlesUseNameOverride", value);
-			}
+			get { return (bool)cache["QueueTitlesUseNameOverride"]; }
+			set { Set("QueueTitlesUseNameOverride", value); }
 		}
 		public static string QueueTitlesNameOverride
 		{
-			get
-			{
-				return (string)cache["QueueTitlesNameOverride"];
-			}
-			
-			set
-			{
-				cache["QueueTitlesNameOverride"] = value;
-				DatabaseConfig.Set("QueueTitlesNameOverride", value);
-			}
+			get { return (string)cache["QueueTitlesNameOverride"]; }
+			set { Set("QueueTitlesNameOverride", value); }
 		}
 		public static bool DxvaDecoding
 		{
-			get
-			{
-				return (bool)cache["DxvaDecoding"];
-			}
-			
-			set
-			{
-				cache["DxvaDecoding"] = value;
-				DatabaseConfig.Set("DxvaDecoding", value);
-			}
+			get { return (bool)cache["DxvaDecoding"]; }
+			set { Set("DxvaDecoding", value); }
 		}
 		public static bool EnableLibDvdNav
 		{
-			get
-			{
-				return (bool)cache["EnableLibDvdNav"];
-			}
-			
-			set
-			{
-				cache["EnableLibDvdNav"] = value;
-				DatabaseConfig.Set("EnableLibDvdNav", value);
-			}
+			get { return (bool)cache["EnableLibDvdNav"]; }
+			set { Set("EnableLibDvdNav", value); }
 		}
 		public static int MinimumTitleLengthSeconds
 		{
-			get
-			{
-				return (int)cache["MinimumTitleLengthSeconds"];
-			}
-			
-			set
-			{
-				cache["MinimumTitleLengthSeconds"] = value;
-				DatabaseConfig.Set("MinimumTitleLengthSeconds", value);
-			}
+			get { return (int)cache["MinimumTitleLengthSeconds"]; }
+			set { Set("MinimumTitleLengthSeconds", value); }
 		}
 		public static bool DeleteSourceFilesOnClearingCompleted
 		{
-			get
-			{
-				return (bool)cache["DeleteSourceFilesOnClearingCompleted"];
-			}
-			
-			set
-			{
-				cache["DeleteSourceFilesOnClearingCompleted"] = value;
-				DatabaseConfig.Set("DeleteSourceFilesOnClearingCompleted", value);
-			}
+			get { return (bool)cache["DeleteSourceFilesOnClearingCompleted"]; }
+			set { Set("DeleteSourceFilesOnClearingCompleted", value); }
 		}
 		public static bool PreserveModifyTimeFiles
 		{
-			get
-			{
-				return (bool)cache["PreserveModifyTimeFiles"];
-			}
-			
-			set
-			{
-				cache["PreserveModifyTimeFiles"] = value;
-				DatabaseConfig.Set("PreserveModifyTimeFiles", value);
-			}
+			get { return (bool)cache["PreserveModifyTimeFiles"]; }
+			set { Set("PreserveModifyTimeFiles", value); }
 		}
 		public static bool ResumeEncodingOnRestart
 		{
-			get
-			{
-				return (bool)cache["ResumeEncodingOnRestart"];
-			}
-			
-			set
-			{
-				cache["ResumeEncodingOnRestart"] = value;
-				DatabaseConfig.Set("ResumeEncodingOnRestart", value);
-			}
+			get { return (bool)cache["ResumeEncodingOnRestart"]; }
+			set { Set("ResumeEncodingOnRestart", value); }
 		}
 		public static bool UseWorkerProcess
 		{
-			get
-			{
-				return (bool)cache["UseWorkerProcess"];
-			}
-			
-			set
-			{
-				cache["UseWorkerProcess"] = value;
-				DatabaseConfig.Set("UseWorkerProcess", value);
-			}
+			get { return (bool)cache["UseWorkerProcess"]; }
+			set { Set("UseWorkerProcess", value); }
 		}
 		public static bool RememberPreviousFiles
 		{
-			get
-			{
-				return (bool)cache["RememberPreviousFiles"];
-			}
-			
-			set
-			{
-				cache["RememberPreviousFiles"] = value;
-				DatabaseConfig.Set("RememberPreviousFiles", value);
-			}
+			get { return (bool)cache["RememberPreviousFiles"]; }
+			set { Set("RememberPreviousFiles", value); }
 		}
 		public static string VideoFileExtensions
 		{
-			get
-			{
-				return (string)cache["VideoFileExtensions"];
-			}
-			
-			set
-			{
-				cache["VideoFileExtensions"] = value;
-				DatabaseConfig.Set("VideoFileExtensions", value);
-			}
+			get { return (string)cache["VideoFileExtensions"]; }
+			set { Set("VideoFileExtensions", value); }
 		}
 		public static string PreferredPlayer
 		{
-			get
-			{
-				return (string)cache["PreferredPlayer"];
-			}
-			
-			set
-			{
-				cache["PreferredPlayer"] = value;
-				DatabaseConfig.Set("PreferredPlayer", value);
-			}
+			get { return (string)cache["PreferredPlayer"]; }
+			set { Set("PreferredPlayer", value); }
 		}
 		public static bool BetaUpdates
 		{
-			get
-			{
-				return (bool)cache["BetaUpdates"];
-			}
-			
-			set
-			{
-				cache["BetaUpdates"] = value;
-				DatabaseConfig.Set("BetaUpdates", value);
-			}
+			get { return (bool)cache["BetaUpdates"]; }
+			set { Set("BetaUpdates", value); }
 		}
 		public static string InterfaceLanguageCode
 		{
-			get
-			{
-				return (string)cache["InterfaceLanguageCode"];
-			}
-			
-			set
-			{
-				cache["InterfaceLanguageCode"] = value;
-				DatabaseConfig.Set("InterfaceLanguageCode", value);
-			}
+			get { return (string)cache["InterfaceLanguageCode"]; }
+			set { Set("InterfaceLanguageCode", value); }
 		}
 		public static double CpuThrottlingFraction
 		{
-			get
-			{
-				return (double)cache["CpuThrottlingFraction"];
-			}
-			
-			set
-			{
-				cache["CpuThrottlingFraction"] = value;
-				DatabaseConfig.Set("CpuThrottlingFraction", value);
-			}
+			get { return (double)cache["CpuThrottlingFraction"]; }
+			set { Set("CpuThrottlingFraction", value); }
 		}
 		public static string AudioLanguageCode
 		{
-			get
-			{
-				return (string)cache["AudioLanguageCode"];
-			}
-			
-			set
-			{
-				cache["AudioLanguageCode"] = value;
-				DatabaseConfig.Set("AudioLanguageCode", value);
-			}
+			get { return (string)cache["AudioLanguageCode"]; }
+			set { Set("AudioLanguageCode", value); }
 		}
 		public static string SubtitleLanguageCode
 		{
-			get
-			{
-				return (string)cache["SubtitleLanguageCode"];
-			}
-			
-			set
-			{
-				cache["SubtitleLanguageCode"] = value;
-				DatabaseConfig.Set("SubtitleLanguageCode", value);
-			}
+			get { return (string)cache["SubtitleLanguageCode"]; }
+			set { Set("SubtitleLanguageCode", value); }
 		}
 		public static string AutoAudio
 		{
-			get
-			{
-				return (string)cache["AutoAudio"];
-			}
-			
-			set
-			{
-				cache["AutoAudio"] = value;
-				DatabaseConfig.Set("AutoAudio", value);
-			}
+			get { return (string)cache["AutoAudio"]; }
+			set { Set("AutoAudio", value); }
 		}
 		public static string AutoSubtitle
 		{
-			get
-			{
-				return (string)cache["AutoSubtitle"];
-			}
-			
-			set
-			{
-				cache["AutoSubtitle"] = value;
-				DatabaseConfig.Set("AutoSubtitle", value);
-			}
+			get { return (string)cache["AutoSubtitle"]; }
+			set { Set("AutoSubtitle", value); }
 		}
 		public static bool AutoAudioAll
 		{
-			get
-			{
-				return (bool)cache["AutoAudioAll"];
-			}
-			
-			set
-			{
-				cache["AutoAudioAll"] = value;
-				DatabaseConfig.Set("AutoAudioAll", value);
-			}
+			get { return (bool)cache["AutoAudioAll"]; }
+			set { Set("AutoAudioAll", value); }
 		}
 		public static bool AutoSubtitleAll
 		{
-			get
-			{
-				return (bool)cache["AutoSubtitleAll"];
-			}
-			
-			set
-			{
-				cache["AutoSubtitleAll"] = value;
-				DatabaseConfig.Set("AutoSubtitleAll", value);
-			}
+			get { return (bool)cache["AutoSubtitleAll"]; }
+			set { Set("AutoSubtitleAll", value); }
 		}
 		public static bool AutoSubtitleOnlyIfDifferent
 		{
-			get
-			{
-				return (bool)cache["AutoSubtitleOnlyIfDifferent"];
-			}
-			
-			set
-			{
-				cache["AutoSubtitleOnlyIfDifferent"] = value;
-				DatabaseConfig.Set("AutoSubtitleOnlyIfDifferent", value);
-			}
+			get { return (bool)cache["AutoSubtitleOnlyIfDifferent"]; }
+			set { Set("AutoSubtitleOnlyIfDifferent", value); }
 		}
 		public static bool AutoSubtitleBurnIn
 		{
-			get
-			{
-				return (bool)cache["AutoSubtitleBurnIn"];
-			}
-			
-			set
-			{
-				cache["AutoSubtitleBurnIn"] = value;
-				DatabaseConfig.Set("AutoSubtitleBurnIn", value);
-			}
+			get { return (bool)cache["AutoSubtitleBurnIn"]; }
+			set { Set("AutoSubtitleBurnIn", value); }
 		}
 		public static bool AutoSubtitleLanguageDefault
 		{
-			get
-			{
-				return (bool)cache["AutoSubtitleLanguageDefault"];
-			}
-			
-			set
-			{
-				cache["AutoSubtitleLanguageDefault"] = value;
-				DatabaseConfig.Set("AutoSubtitleLanguageDefault", value);
-			}
+			get { return (bool)cache["AutoSubtitleLanguageDefault"]; }
+			set { Set("AutoSubtitleLanguageDefault", value); }
 		}
 		public static bool AutoSubtitleLanguageBurnIn
 		{
-			get
-			{
-				return (bool)cache["AutoSubtitleLanguageBurnIn"];
-			}
-			
-			set
-			{
-				cache["AutoSubtitleLanguageBurnIn"] = value;
-				DatabaseConfig.Set("AutoSubtitleLanguageBurnIn", value);
-			}
+			get { return (bool)cache["AutoSubtitleLanguageBurnIn"]; }
+			set { Set("AutoSubtitleLanguageBurnIn", value); }
 		}
 		public static int QueueTitlesStartTime
 		{
-			get
-			{
-				return (int)cache["QueueTitlesStartTime"];
-			}
-			
-			set
-			{
-				cache["QueueTitlesStartTime"] = value;
-				DatabaseConfig.Set("QueueTitlesStartTime", value);
-			}
+			get { return (int)cache["QueueTitlesStartTime"]; }
+			set { Set("QueueTitlesStartTime", value); }
 		}
 		public static int QueueTitlesEndTime
 		{
-			get
-			{
-				return (int)cache["QueueTitlesEndTime"];
-			}
-			
-			set
-			{
-				cache["QueueTitlesEndTime"] = value;
-				DatabaseConfig.Set("QueueTitlesEndTime", value);
-			}
+			get { return (int)cache["QueueTitlesEndTime"]; }
+			set { Set("QueueTitlesEndTime", value); }
 		}
 		public static bool QueueTitlesUseRange
 		{
-			get
+			get { return (bool)cache["QueueTitlesUseRange"]; }
+			set { Set("QueueTitlesUseRange", value); }
+		}
+		public static class Observables
+		{
+			public static IObservable<bool> MigratedConfigs => GetObservable<bool>("MigratedConfigs");
+			public static IObservable<string> EncodeJobs2 => GetObservable<string>("EncodeJobs2");
+			public static IObservable<bool> UpdateInProgress => GetObservable<bool>("UpdateInProgress");
+			public static IObservable<string> UpdateVersion => GetObservable<string>("UpdateVersion");
+			public static IObservable<string> UpdateInstallerLocation => GetObservable<string>("UpdateInstallerLocation");
+			public static IObservable<string> UpdateChangelogLocation => GetObservable<string>("UpdateChangelogLocation");
+			public static IObservable<string> LastOutputFolder => GetObservable<string>("LastOutputFolder");
+			public static IObservable<string> LastInputFileFolder => GetObservable<string>("LastInputFileFolder");
+			public static IObservable<string> LastVideoTSFolder => GetObservable<string>("LastVideoTSFolder");
+			public static IObservable<string> LastSrtFolder => GetObservable<string>("LastSrtFolder");
+			public static IObservable<string> LastCsvFolder => GetObservable<string>("LastCsvFolder");
+			public static IObservable<string> LastPresetExportFolder => GetObservable<string>("LastPresetExportFolder");
+			public static IObservable<string> AutoNameOutputFolder => GetObservable<string>("AutoNameOutputFolder");
+			public static IObservable<bool> AutoNameCustomFormat => GetObservable<bool>("AutoNameCustomFormat");
+			public static IObservable<string> AutoNameCustomFormatString => GetObservable<string>("AutoNameCustomFormatString");
+			public static IObservable<string> NativeLanguageCode => GetObservable<string>("NativeLanguageCode");
+			public static IObservable<bool> DubAudio => GetObservable<bool>("DubAudio");
+			public static IObservable<int> LastPresetIndex => GetObservable<int>("LastPresetIndex");
+			public static IObservable<int> LastPickerIndex => GetObservable<int>("LastPickerIndex");
+			public static IObservable<int> EncodingDialogLastTab => GetObservable<int>("EncodingDialogLastTab");
+			public static IObservable<int> OptionsDialogLastTab => GetObservable<int>("OptionsDialogLastTab");
+			public static IObservable<string> MainWindowPlacement => GetObservable<string>("MainWindowPlacement");
+			public static IObservable<string> SubtitlesDialogPlacement => GetObservable<string>("SubtitlesDialogPlacement");
+			public static IObservable<string> EncodingDialogPlacement => GetObservable<string>("EncodingDialogPlacement");
+			public static IObservable<string> ChapterMarkersDialogPlacement => GetObservable<string>("ChapterMarkersDialogPlacement");
+			public static IObservable<string> PreviewWindowPlacement => GetObservable<string>("PreviewWindowPlacement");
+			public static IObservable<string> QueueTitlesDialogPlacement2 => GetObservable<string>("QueueTitlesDialogPlacement2");
+			public static IObservable<string> AddAutoPauseProcessDialogPlacement => GetObservable<string>("AddAutoPauseProcessDialogPlacement");
+			public static IObservable<string> OptionsDialogPlacement => GetObservable<string>("OptionsDialogPlacement");
+			public static IObservable<string> EncodeDetailsWindowPlacement => GetObservable<string>("EncodeDetailsWindowPlacement");
+			public static IObservable<string> PickerWindowPlacement => GetObservable<string>("PickerWindowPlacement");
+			public static IObservable<string> LogWindowPlacement => GetObservable<string>("LogWindowPlacement");
+			public static IObservable<bool> EncodingWindowOpen => GetObservable<bool>("EncodingWindowOpen");
+			public static IObservable<bool> PreviewWindowOpen => GetObservable<bool>("PreviewWindowOpen");
+			public static IObservable<bool> LogWindowOpen => GetObservable<bool>("LogWindowOpen");
+			public static IObservable<bool> EncodeDetailsWindowOpen => GetObservable<bool>("EncodeDetailsWindowOpen");
+			public static IObservable<bool> PickerWindowOpen => GetObservable<bool>("PickerWindowOpen");
+			public static IObservable<bool> UpdatesEnabled => GetObservable<bool>("UpdatesEnabled");
+			public static IObservable<int> PreviewSeconds => GetObservable<int>("PreviewSeconds");
+			public static IObservable<string> ApplicationVersion => GetObservable<string>("ApplicationVersion");
+			public static IObservable<string> QueueColumns => GetObservable<string>("QueueColumns");
+			public static IObservable<double> QueueLastColumnWidth => GetObservable<double>("QueueLastColumnWidth");
+			public static IObservable<string> CompletedColumnWidths => GetObservable<string>("CompletedColumnWidths");
+			public static IObservable<double> PickerListPaneWidth => GetObservable<double>("PickerListPaneWidth");
+			public static IObservable<bool> EncodingListPaneOpen => GetObservable<bool>("EncodingListPaneOpen");
+			public static IObservable<double> EncodingListPaneWidth => GetObservable<double>("EncodingListPaneWidth");
+			public static IObservable<bool> ShowPickerWindowMessage => GetObservable<bool>("ShowPickerWindowMessage");
+			public static IObservable<string> WorkerProcessPriority => GetObservable<string>("WorkerProcessPriority");
+			public static IObservable<int> LogVerbosity => GetObservable<int>("LogVerbosity");
+			public static IObservable<bool> CopyLogToOutputFolder => GetObservable<bool>("CopyLogToOutputFolder");
+			public static IObservable<string> AutoPauseProcesses => GetObservable<string>("AutoPauseProcesses");
+			public static IObservable<int> PreviewCount => GetObservable<int>("PreviewCount");
+			public static IObservable<string> PreviewDisplay => GetObservable<string>("PreviewDisplay");
+			public static IObservable<bool> UseCustomPreviewFolder => GetObservable<bool>("UseCustomPreviewFolder");
+			public static IObservable<string> PreviewOutputFolder => GetObservable<string>("PreviewOutputFolder");
+			public static IObservable<bool> QueueTitlesUseTitleOverride => GetObservable<bool>("QueueTitlesUseTitleOverride");
+			public static IObservable<int> QueueTitlesTitleOverride => GetObservable<int>("QueueTitlesTitleOverride");
+			public static IObservable<bool> ShowAudioTrackNameField => GetObservable<bool>("ShowAudioTrackNameField");
+			public static IObservable<string> SourceHistory => GetObservable<string>("SourceHistory");
+			public static IObservable<bool> MinimizeToTray => GetObservable<bool>("MinimizeToTray");
+			public static IObservable<bool> OutputToSourceDirectory => GetObservable<bool>("OutputToSourceDirectory");
+			public static IObservable<bool> PreserveFolderStructureInBatch => GetObservable<bool>("PreserveFolderStructureInBatch");
+			public static IObservable<string> WhenFileExists => GetObservable<string>("WhenFileExists");
+			public static IObservable<string> WhenFileExistsBatch => GetObservable<string>("WhenFileExistsBatch");
+			public static IObservable<bool> UseCustomVideoPlayer => GetObservable<bool>("UseCustomVideoPlayer");
+			public static IObservable<string> CustomVideoPlayer => GetObservable<string>("CustomVideoPlayer");
+			public static IObservable<bool> PlaySoundOnCompletion => GetObservable<bool>("PlaySoundOnCompletion");
+			public static IObservable<bool> UseCustomCompletionSound => GetObservable<bool>("UseCustomCompletionSound");
+			public static IObservable<string> CustomCompletionSound => GetObservable<string>("CustomCompletionSound");
+			public static IObservable<string> LastPlayer => GetObservable<string>("LastPlayer");
+			public static IObservable<bool> QueueTitlesUseDirectoryOverride => GetObservable<bool>("QueueTitlesUseDirectoryOverride");
+			public static IObservable<string> QueueTitlesDirectoryOverride => GetObservable<string>("QueueTitlesDirectoryOverride");
+			public static IObservable<bool> QueueTitlesUseNameOverride => GetObservable<bool>("QueueTitlesUseNameOverride");
+			public static IObservable<string> QueueTitlesNameOverride => GetObservable<string>("QueueTitlesNameOverride");
+			public static IObservable<bool> DxvaDecoding => GetObservable<bool>("DxvaDecoding");
+			public static IObservable<bool> EnableLibDvdNav => GetObservable<bool>("EnableLibDvdNav");
+			public static IObservable<int> MinimumTitleLengthSeconds => GetObservable<int>("MinimumTitleLengthSeconds");
+			public static IObservable<bool> DeleteSourceFilesOnClearingCompleted => GetObservable<bool>("DeleteSourceFilesOnClearingCompleted");
+			public static IObservable<bool> PreserveModifyTimeFiles => GetObservable<bool>("PreserveModifyTimeFiles");
+			public static IObservable<bool> ResumeEncodingOnRestart => GetObservable<bool>("ResumeEncodingOnRestart");
+			public static IObservable<bool> UseWorkerProcess => GetObservable<bool>("UseWorkerProcess");
+			public static IObservable<bool> RememberPreviousFiles => GetObservable<bool>("RememberPreviousFiles");
+			public static IObservable<string> VideoFileExtensions => GetObservable<string>("VideoFileExtensions");
+			public static IObservable<string> PreferredPlayer => GetObservable<string>("PreferredPlayer");
+			public static IObservable<bool> BetaUpdates => GetObservable<bool>("BetaUpdates");
+			public static IObservable<string> InterfaceLanguageCode => GetObservable<string>("InterfaceLanguageCode");
+			public static IObservable<double> CpuThrottlingFraction => GetObservable<double>("CpuThrottlingFraction");
+			public static IObservable<string> AudioLanguageCode => GetObservable<string>("AudioLanguageCode");
+			public static IObservable<string> SubtitleLanguageCode => GetObservable<string>("SubtitleLanguageCode");
+			public static IObservable<string> AutoAudio => GetObservable<string>("AutoAudio");
+			public static IObservable<string> AutoSubtitle => GetObservable<string>("AutoSubtitle");
+			public static IObservable<bool> AutoAudioAll => GetObservable<bool>("AutoAudioAll");
+			public static IObservable<bool> AutoSubtitleAll => GetObservable<bool>("AutoSubtitleAll");
+			public static IObservable<bool> AutoSubtitleOnlyIfDifferent => GetObservable<bool>("AutoSubtitleOnlyIfDifferent");
+			public static IObservable<bool> AutoSubtitleBurnIn => GetObservable<bool>("AutoSubtitleBurnIn");
+			public static IObservable<bool> AutoSubtitleLanguageDefault => GetObservable<bool>("AutoSubtitleLanguageDefault");
+			public static IObservable<bool> AutoSubtitleLanguageBurnIn => GetObservable<bool>("AutoSubtitleLanguageBurnIn");
+			public static IObservable<int> QueueTitlesStartTime => GetObservable<int>("QueueTitlesStartTime");
+			public static IObservable<int> QueueTitlesEndTime => GetObservable<int>("QueueTitlesEndTime");
+			public static IObservable<bool> QueueTitlesUseRange => GetObservable<bool>("QueueTitlesUseRange");
+			private static IObservable<T> GetObservable<T>(string configName)
 			{
-				return (bool)cache["QueueTitlesUseRange"];
-			}
-			
-			set
-			{
-				cache["QueueTitlesUseRange"] = value;
-				DatabaseConfig.Set("QueueTitlesUseRange", value);
+				object observableObject;
+				if (observableCache.TryGetValue(configName, out observableObject))
+				{
+					return (ConfigObservable<T>)observableObject;
+				}
+
+				var newObservable = new ConfigObservable<T>(configName);
+				observableCache.Add(configName, newObservable);
+
+				return newObservable;
 			}
 		}
 	}

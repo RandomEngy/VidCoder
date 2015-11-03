@@ -11,22 +11,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using VidCoder.Extensions;
+using VidCoder.Model;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 
 namespace VidCoder.View
 {
-	using GalaSoft.MvvmLight.Messaging;
-	using Messages;
-	using Model;
-
 	public delegate Int32Rect RegionChooser(int imageWidth, int imageHeight, int regionWidth, int regionHeight);
 
 	/// <summary>
 	/// Interaction logic for PreviewWindow.xaml
 	/// </summary>
-	public partial class PreviewWindow : Window
+	public partial class PreviewWindow : Window, IPreviewView
 	{
 		private PreviewWindowViewModel viewModel;
 		private const double ZoomedPixelSize = 4;
@@ -38,18 +35,12 @@ namespace VidCoder.View
 
 			this.previewControls.Opacity = 0.0;
 			this.DataContextChanged += PreviewWindow_DataContextChanged;
-
-			Messenger.Default.Register<PreviewImageChangedMessage>(
-				this,
-				message =>
-					{
-						this.RefreshImageSize();
-					});
 		}
 
 		private void PreviewWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
 			this.viewModel = this.DataContext as PreviewWindowViewModel;
+			this.viewModel.View = this;
 			this.viewModel.PropertyChanged += viewModel_PropertyChanged;
 			this.RefreshControlMargins();
 			if (this.viewModel.InCornerDisplayMode)
@@ -108,7 +99,7 @@ namespace VidCoder.View
 			this.RefreshControlMargins();
 		}
 
-		private void RefreshImageSize()
+		public void RefreshImageSize()
 		{
 			var previewVM = this.DataContext as PreviewWindowViewModel;
 

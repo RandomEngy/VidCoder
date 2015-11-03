@@ -194,16 +194,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\FastMember.1.0.0.11\lib\net40\FastMember.dll</HintPath>
     </Reference>
-    <Reference Include="GalaSoft.MvvmLight, Version=5.1.1.35049, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
-    </Reference>
-    <Reference Include="GalaSoft.MvvmLight.Extras">
-      <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
-    </Reference>
-    <Reference Include="GalaSoft.MvvmLight.Platform">
-      <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
-    </Reference>
     <Reference Include="HandBrake.ApplicationServices, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\HandBrake.ApplicationServices.dll</HintPath>
@@ -275,9 +265,6 @@
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -483,8 +470,7 @@
     <Compile Include="Extensions\VCCroppingExtensions.cs" />
     <Compile Include="Extensions\VCProfileExtensions.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
-    <Compile Include="Messages\PickerChangedMessage.cs" />
-    <Compile Include="Messages\TitleRangeSelectChangedMessage.cs" />
+    <Compile Include="Model\Config\ConfigObservable.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />
     <Compile Include="Model\EncodeProgress.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />
@@ -563,11 +549,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SubtitleRes.resx</DependentUpon>
     </Compile>
-    <Compile Include="Messages\PreviewImageChangedMessage.cs" />
-    <Compile Include="Messages\RangeFocusMessage.cs" />
-    <Compile Include="Messages\OptionsChangedMessage.cs" />
-    <Compile Include="Messages\StatusMessage.cs" />
-    <Compile Include="Messages\VideoSourceChangedMessage.cs" />
+    <Compile Include="Model\RangeFocusEventArgs.cs" />
     <Compile Include="Model\AudioSelectionMode.cs" />
     <Compile Include="Model\SubtitleSelectionMode.cs" />
     <Compile Include="Model\ComboChoice.cs" />
@@ -596,6 +578,7 @@
     <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="Services\EncodeProxy\LocalEncodeProxy.cs" />
     <Compile Include="Services\OutputSizeService.cs" />
+    <Compile Include="Services\StatusService.cs" />
     <Compile Include="Services\Windows\IClosableWindow.cs" />
     <Compile Include="Services\Interfaces\ILogger.cs" />
     <Compile Include="Services\Interfaces\IPresetImportExport.cs" />
@@ -661,6 +644,7 @@
     <Compile Include="ViewModel\FileConflictDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />
     <Compile Include="ViewModel\IMainView.cs" />
+    <Compile Include="ViewModel\IPreviewView.cs" />
     <Compile Include="ViewModel\PickerWindowViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModelBase.cs" />
     <Compile Include="ViewModel\ShutdownWarningWindowViewModel.cs" />
@@ -907,7 +891,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <AppDesigner Include="Properties\" />
     <None Include="Model\Config\Config.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

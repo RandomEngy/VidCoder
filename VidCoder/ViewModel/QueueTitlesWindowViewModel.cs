@@ -5,11 +5,8 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Media;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Extensions;
-using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -49,23 +46,30 @@ namespace VidCoder.ViewModel
 			this.AddToQueue = ReactiveCommand.Create();
 			this.AddToQueue.Subscribe(_ => this.AddToQueueImpl());
 
-			Messenger.Default.Register<VideoSourceChangedMessage>(
-				this,
-				message =>
+			this.main.WhenAnyValue(x => x.SourceData)
+				.Skip(1)
+				.Subscribe(_ =>
 				{
 					this.RefreshTitles();
 				});
 
-			Messenger.Default.Register<TitleRangeSelectChangedMessage>(
-				this,
-				message =>
+			this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker.TitleRangeSelectEnabled)
+				.Skip(1)
+				.Subscribe(_ =>
 				{
 					this.SetSelectedFromRange();
 				});
 
-			Messenger.Default.Register<PickerChangedMessage>(
-				this,
-				message =>
+			this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker.TitleRangeSelectStartMinutes)
+				.Skip(1)
+				.Subscribe(_ =>
+				{
+					this.SetSelectedFromRange();
+				});
+
+			this.PickersService.WhenAnyValue(x => x.SelectedPicker.Picker.TitleRangeSelectEndMinutes)
+				.Skip(1)
+				.Subscribe(_ =>
 				{
 					this.SetSelectedFromRange();
 				});

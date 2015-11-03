@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
-using GalaSoft.MvvmLight.Messaging;
 using ReactiveUI;
-using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;

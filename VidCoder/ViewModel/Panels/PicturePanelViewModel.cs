@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop.Json.Shared;
-using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;

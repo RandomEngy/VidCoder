@@ -7,13 +7,9 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using FastMember;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop.Model;
 using Omu.ValueInjecter;
 using ReactiveUI;
-using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -194,24 +190,9 @@ namespace VidCoder.ViewModel
 			this.RegisterPickerProperty(nameof(this.Picker.NameFormatOverride));
 			this.RegisterPickerProperty(nameof(this.Picker.OutputToSourceDirectory));
 			this.RegisterPickerProperty(nameof(this.Picker.PreserveFolderStructureInBatch));
-			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEnabled), () =>
-			{
-				this.SendTitleRangeChangeMessage();
-			});
-			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectStartMinutes), () =>
-			{
-				if (this.TitleRangeSelectEnabled)
-				{
-					this.SendTitleRangeChangeMessage();
-				}
-			});
-			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEndMinutes), () =>
-			{
-				if (this.TitleRangeSelectEnabled)
-				{
-					this.SendTitleRangeChangeMessage();
-				}
-			});
+			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEnabled));
+			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectStartMinutes));
+			this.RegisterPickerProperty(nameof(this.Picker.TitleRangeSelectEndMinutes));
 			this.RegisterPickerProperty(nameof(this.Picker.AudioSelectionMode));
 			this.RegisterPickerProperty(nameof(this.Picker.AudioLanguageCode));
 			this.RegisterPickerProperty(nameof(this.Picker.AudioLanguageAll));
@@ -535,14 +516,6 @@ namespace VidCoder.ViewModel
 
 				return string.Empty;
 			}
-		}
-
-		private void SendTitleRangeChangeMessage()
-		{
-			DispatchUtilities.BeginInvoke(() =>
-			{
-				Messenger.Default.Send(new TitleRangeSelectChangedMessage());
-			});
 		}
 
 		private void RaiseAllChanged()

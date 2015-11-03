@@ -7,16 +7,12 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows.Media;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Model;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using ReactiveUI;
 using VidCoder.Extensions;
-using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -358,12 +354,7 @@ namespace VidCoder.ViewModel
 				this.RefreshFromNewInput();
 			};
 
-			Messenger.Default.Register<OptionsChangedMessage>(
-				this,
-				message =>
-					{
-						this.RaisePropertyChanged(nameof(this.NameVisible));
-					});
+			Config.Observables.ShowAudioTrackNameField.ToProperty(this, x => x.NameVisible, out this.nameVisible);
 
 			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.ContainerName)
 				.Skip(1)
@@ -685,13 +676,8 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> audioCompressionToolTip;
 		public string AudioCompressionToolTip => this.audioCompressionToolTip.Value;
 
-		public bool NameVisible
-		{
-			get
-			{
-				return Config.ShowAudioTrackNameField;
-			}
-		}
+		private ObservableAsPropertyHelper<bool> nameVisible;
+		public bool NameVisible => this.nameVisible.Value;
 
 		public List<MixdownViewModel> MixdownChoices
 		{

@@ -5,9 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
-using VidCoder.Messages;
+using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services.Windows;
@@ -19,7 +17,7 @@ namespace VidCoder.Services
 	/// <summary>
 	/// Controls creation/modification/deletion/import/export of presets.
 	/// </summary>
-	public class PresetsService : ViewModelBase
+	public class PresetsService : ReactiveObject
 	{
 		private MainViewModel main = Ioc.Get<MainViewModel>();
 		private OutputPathService outputPathService;

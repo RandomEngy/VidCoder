@@ -8,13 +8,9 @@ using System.Reactive.Linq;
 using System.Threading;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using HandBrake.ApplicationServices.Interop;
 using ReactiveUI;
 using VidCoder.Extensions;
-using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -193,6 +189,8 @@ namespace VidCoder.ViewModel
 
 			this.RequestRefreshPreviews();
 		}
+
+		public IPreviewView View { get; set; }
 
 		public void OnClosing()
 		{
@@ -1025,7 +1023,7 @@ namespace VidCoder.ViewModel
 			}
 
 			// In the Corners display mode, the view code will react to the message and read from this.previewBitmapSource.
-			Messenger.Default.Send(new PreviewImageChangedMessage());
+			this.View.RefreshImageSize();
 		}
 
 		private void BackgroundFileSave(object state)

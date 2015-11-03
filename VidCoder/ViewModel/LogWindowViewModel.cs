@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Text;
 using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Services;

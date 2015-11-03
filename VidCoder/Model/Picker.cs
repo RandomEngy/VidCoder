@@ -71,14 +71,29 @@ namespace VidCoder.Model
 		[JsonProperty]
 		public bool? PreserveFolderStructureInBatch { get; set; }
 
+		private bool titleRangeSelectEnabled;
 		[JsonProperty]
-		public bool TitleRangeSelectEnabled { get; set; }
+		public bool TitleRangeSelectEnabled
+		{
+			get { return this.titleRangeSelectEnabled; }
+			set { this.RaiseAndSetIfChanged(ref this.titleRangeSelectEnabled, value); }
+		}
 
+		private int titleRangeSelectStartMinutes;
 		[JsonProperty]
-		public int TitleRangeSelectStartMinutes { get; set; }
+		public int TitleRangeSelectStartMinutes
+		{
+			get { return this.titleRangeSelectStartMinutes; }
+			set { this.RaiseAndSetIfChanged(ref this.titleRangeSelectStartMinutes, value); }
+		}
 
+		private int titleRangeSelectEndMinutes;
 		[JsonProperty]
-		public int TitleRangeSelectEndMinutes { get; set; }
+		public int TitleRangeSelectEndMinutes
+		{
+			get { return this.titleRangeSelectEndMinutes; }
+			set { this.RaiseAndSetIfChanged(ref this.titleRangeSelectEndMinutes, value); }
+		}
 
 		[JsonProperty]
 		public AudioSelectionMode AudioSelectionMode { get; set; }

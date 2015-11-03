@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Reactive.Linq;
 using ReactiveUI;
-using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;

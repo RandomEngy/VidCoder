@@ -15,12 +15,10 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Animation;
-using GalaSoft.MvvmLight.Messaging;
 using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Practices.Unity;
 using ReactiveUI;
 using VidCoder.Extensions;
-using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -35,7 +33,7 @@ namespace VidCoder.View
 		private MainViewModel viewModel;
 		private ProcessingService processingService = Ioc.Get<ProcessingService>();
 		private OutputPathService outputVM = Ioc.Get<OutputPathService>();
-		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
+		private StatusService statusService = Ioc.Get<StatusService>();
 
 		private bool tabsVisible = false;
 
@@ -43,6 +41,8 @@ namespace VidCoder.View
 		private Storyboard pickerGlowStoryboard;
 
 		public static System.Windows.Threading.Dispatcher TheDispatcher;
+
+		public event EventHandler<RangeFocusEventArgs> RangeControlGotFocus;
 
 		public Main()
 		{
@@ -123,7 +123,10 @@ namespace VidCoder.View
 				this.RestoredWindowState = this.WindowState;
 			};
 
-			Messenger.Default.Register<StatusMessage>(this, this.ShowStatusMessage);
+			this.statusService.MessageShown += (o, e) =>
+			{
+				this.ShowStatusMessage(e.Value);
+			};
 		}
 
 		public WindowState RestoredWindowState { get; set; }
@@ -443,7 +446,7 @@ namespace VidCoder.View
 
 				if (File.Exists(resultFile))
 				{
-					this.ShowStatusMessage(new StatusMessage { Message = MainRes.PlayingVideoMessage });
+					this.ShowStatusMessage(MainRes.PlayingVideoMessage);
 					FileService.Instance.PlayVideo(encodeResultVM.EncodeResult.Destination);
 				}
 				else
@@ -491,22 +494,22 @@ namespace VidCoder.View
 
 		private void StartTimeGotFocus(object sender, RoutedEventArgs e)
 		{
-			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = true });
+			this.RangeControlGotFocus?.Invoke(this, new RangeFocusEventArgs { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = true });
 		}
 
 		private void EndTimeGotFocus(object sender, RoutedEventArgs e)
 		{
-			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = false });
+			this.RangeControlGotFocus?.Invoke(this, new RangeFocusEventArgs { GotFocus = true, RangeType = VideoRangeType.Seconds, Start = false });
 		}
 
 		private void FramesStartGotFocus(object sender, RoutedEventArgs e)
 		{
-			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = true });
+			this.RangeControlGotFocus?.Invoke(this, new RangeFocusEventArgs { GotFocus = true, RangeType = VideoRangeType.Frames, Start = true });
 		}
 
 		private void FramesEndGotFocus(object sender, RoutedEventArgs e)
 		{
-			Messenger.Default.Send(new RangeFocusMessage { GotFocus = true, RangeType = VideoRangeType.Frames, Start = false });
+			this.RangeControlGotFocus?.Invoke(this, new RangeFocusEventArgs { GotFocus = true, RangeType = VideoRangeType.Frames, Start = false });
 		}
 
 		private void DestinationReadCoverMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -572,11 +575,11 @@ namespace VidCoder.View
 			this.outputVM.SetManualOutputPath(this.outputVM.OutputPath, this.outputVM.OldOutputPath);
 		}
 
-		private void ShowStatusMessage(StatusMessage message)
+		private void ShowStatusMessage(string message)
 		{
 			DispatchUtilities.BeginInvoke(() =>
 			    {
-			        this.statusTextBlock.Text = message.Message;
+			        this.statusTextBlock.Text = message;
 					this.statusText.Visibility = Visibility.Visible;
 			        var storyboard = (Storyboard) this.FindResource("statusTextStoryboard");
 					storyboard.Stop();

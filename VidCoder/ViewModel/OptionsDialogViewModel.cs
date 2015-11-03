@@ -7,9 +7,6 @@ using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Resources;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
-using VidCoder.Messages;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -737,8 +734,6 @@ namespace VidCoder.ViewModel
 
 				transaction.Commit();
 			}
-
-			Messenger.Default.Send(new OptionsChangedMessage());
 
 			this.Accept.Execute(null);
 		}

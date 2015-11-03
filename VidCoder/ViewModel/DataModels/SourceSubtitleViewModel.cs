@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using ReactiveUI;
 using VidCoder.Extensions;
-using VidCoder.Messages;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Model;

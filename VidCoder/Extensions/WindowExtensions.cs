@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using GalaSoft.MvvmLight.Command;
+using ReactiveUI;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
@@ -27,11 +27,15 @@ namespace VidCoder.Extensions
 				        Type windowViewModelType = definition.ViewModelType;
 
 				        var key = (Key)converter.ConvertFrom(parts[1]);
+
+				        ReactiveCommand<object> openCommand = ReactiveCommand.Create();
+				        openCommand.Subscribe(_ =>
+				        {
+							windowManager.OpenOrFocusWindow(windowViewModelType);
+						});
+
 						window.InputBindings.Add(new InputBinding(
-							new RelayCommand(() =>
-							{
-								windowManager.OpenOrFocusWindow(windowViewModelType);
-							}), 
+							openCommand, 
 							new KeyGesture(key, ModifierKeys.Control)));
 			        }
 			        else
