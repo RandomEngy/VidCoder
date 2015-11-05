@@ -5,7 +5,7 @@
     xmlns:prop="clr-namespace:VidCoder.Properties"
     xmlns:res="clr-namespace:VidCoder.Resources"
     Title="{x:Static res:MiscRes.AboutVidCoderDialogTitle}"
-    Width="474"
+    Width="480"
     Height="425"
     ResizeMode="NoResize"
     Style="{StaticResource NormalWindow}"
@@ -20,41 +20,41 @@
             VerticalAlignment="Top"
             Source="/Icons/VidCoder.png"
             Stretch="Fill" />
-        <TextBlock
-            Height="46"
-            Margin="153 13 0 0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            FontSize="34"
-            Text="VidCoder" />
-        <StackPanel
-            Height="20"
-            Margin="171 57 0 0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Orientation="Horizontal">
+        <StackPanel Margin="153 13 0 0" Orientation="Vertical">
             <TextBlock
-                Name="versionLabel"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Text="{x:Static res:MiscRes.Version}" />
+                FontSize="34"
+                Text="VidCoder" />
+
+            <StackPanel
+                Margin="0 0 0 6"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Orientation="Horizontal">
+                <TextBlock
+                    Name="versionLabel"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Text="{x:Static res:MiscRes.Version}" />
+                <TextBlock
+                    Name="versionText"
+                    Margin="5 0 0 0"
+                    Text="{Binding Version}" />
+            </StackPanel>
+
             <TextBlock
-                Name="versionText"
-                Margin="5 0 0 0"
-                Text="{Binding Version}" />
+                Margin="0 0 0 6"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Text="{Binding BasedOnHandBrake}"
+                TextWrapping="Wrap" />
+            <TextBlock
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Text="{Binding Copyright}" />
         </StackPanel>
-        <TextBlock
-            Height="23"
-            Margin="171 79 0 0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Text="{Binding BasedOnHandBrake}" />
-        <TextBlock
-            Height="23"
-            Margin="171 108 0 0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Text="{Binding Copyright}" />
+
         <Label
             Name="label1"
             Height="28"

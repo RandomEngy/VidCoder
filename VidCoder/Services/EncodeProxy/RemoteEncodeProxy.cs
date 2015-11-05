@@ -308,16 +308,7 @@ namespace VidCoder
 						{
 							this.EncodeProgress(
 								this,
-								new EncodeProgressEventArgs
-								{
-									AverageFrameRate = averageFrameRate,
-									CurrentFrameRate = currentFrameRate,
-									EstimatedTimeLeft = estimatedTimeLeft,
-									FractionComplete = fractionComplete,
-									PassId = passId,
-									Pass = pass,
-									PassCount = passCount
-								});
+								new EncodeProgressEventArgs(fractionComplete, currentFrameRate, averageFrameRate, estimatedTimeLeft, passId, pass, passCount));
 						}
 					}
 			    });
@@ -400,10 +391,7 @@ namespace VidCoder
 				{
 					this.EncodeCompleted(
 						this,
-						new EncodeCompletedEventArgs
-							{
-								Error = error
-							});
+						new EncodeCompletedEventArgs(error));
 				}
 
 				if (this.pingTimer != null)

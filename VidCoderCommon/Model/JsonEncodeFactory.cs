@@ -255,7 +255,7 @@ namespace VidCoderCommon.Model
 			Filters filters = new Filters
 			{
 				FilterList = new List<Filter>(),
-				Grayscale = profile.Grayscale
+				//Grayscale = profile.Grayscale
 			};
 
 			// Detelecine
@@ -389,6 +389,12 @@ namespace VidCoderCommon.Model
 				}
 
 				Filter filterItem = new Filter { ID = (int)id, Settings = settings };
+				filters.FilterList.Add(filterItem);
+			}
+
+			if (profile.Grayscale)
+			{
+				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_GRAYSCALE, Settings = null };
 				filters.FilterList.Add(filterItem);
 			}
 

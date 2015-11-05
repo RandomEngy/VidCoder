@@ -88,7 +88,7 @@ namespace VidCoder
 					{
 						if (this.EncodeCompleted != null)
 						{
-							this.EncodeCompleted(this, new EncodeCompletedEventArgs { Error = true });
+							this.EncodeCompleted(this, new EncodeCompletedEventArgs(error: true));
 						}
 
 						this.encodeStartEvent.Set();

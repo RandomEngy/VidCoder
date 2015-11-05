@@ -1,1 +1,15 @@
 Installer/BuiltInstallers/*
+Flags/*
+misc/*
+packages/*
+ResourcesImport/*
+Screenshots/*
+TestFiles/*
+*.pdn
+*/bin/*
+*/obj/*
+*gen.iss
+*.suo
+*.csproj.user
+*.user
+Installer/Files/*

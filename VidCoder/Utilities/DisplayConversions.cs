@@ -6,14 +6,8 @@ namespace VidCoder
 {
 	public static class DisplayConversions
 	{
-		private static EnumStringConverter<AudioEncoder> audioConverter = new EnumStringConverter<AudioEncoder>();
 		private static EnumStringConverter<Mixdown> mixdownConverter = new EnumStringConverter<Mixdown>();
 		private static EnumStringConverter<TitleType> titleTypeConverter = new EnumStringConverter<TitleType>();
-
-		public static string DisplayAudioEncoder(AudioEncoder audioEncoder)
-		{
-			return audioConverter.Convert(audioEncoder);
-		}
 
 		public static string DisplayMixdown(Mixdown mixdown)
 		{

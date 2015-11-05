@@ -49,7 +49,7 @@ namespace VidCoder
 					break;
 			}
 
-			return new BitrateLimits { Low = low, High = high };
+			return new BitrateLimits(low, high);
 		}
 	}
 }

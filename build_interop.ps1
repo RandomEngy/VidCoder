@@ -4,9 +4,9 @@
 . ./build_common.ps1
 
 # Change this to the folder containing HandBrake10.sln
-$HandBrakeFolder = "..\HandBrakeSVN\win\CS"
+$HandBrakeFolder = "..\HandBrakeGit\win\CS"
 
-$HandBrakeSolution = $HandBrakeFolder + "\HandBrake10.sln"
+$HandBrakeSolution = $HandBrakeFolder + "\HandBrake.sln"
 $HandBrakeAppServicesFolder = $HandBrakeFolder + "\HandBrake.ApplicationServices"
 
 & $DevEnvExe $HandBrakeSolution /Rebuild "Release|x64" /project "HandBrake.ApplicationServices"; ExitIfFailed
