@@ -372,7 +372,6 @@ namespace VidCoder.ViewModel
 
 			this.audioOutputPreviews.Clear();
 			this.RefreshAudioPreview();
-			//this.UpdateAudioEncodings();
 			this.RefreshFallbackEncoderChoices();
 
 			this.selectedFallbackEncoder = this.FallbackEncoderChoices.SingleOrDefault(e => e.Encoder.ShortName == this.Profile.AudioEncoderFallback);

@@ -681,7 +681,7 @@ namespace VidCoder.ViewModel
 				return;
 			}
 
-			if (width < 46 || height < 46)
+			if (width < 100 || height < 100)
 			{
 				this.HasPreview = false;
 				this.UpdateTitle(outputGeometry);

@@ -1291,7 +1291,7 @@
                     VerticalAlignment="Bottom"
                     Command="{Binding ProcessingService.AddToQueue}"
                     Padding="5 0"
-                    Visibility="{Binding HasVideoSource,
+                    Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
                                          Converter={StaticResource VisibilityConverter}}">
                     <controls:SplitButton.MenuItemsSource>
                         <MenuItem Command="{Binding ProcessingService.AddToQueue}" Header="{x:Static res:MainRes.AddToQueueLabel}" />

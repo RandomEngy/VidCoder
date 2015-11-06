@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reactive.Linq;
 using HandBrake.ApplicationServices.Interop.Json.Shared;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -153,6 +154,7 @@ namespace VidCoder.ViewModel
 			// Update the underlying profile when our local Crop properties change. This only applies for
 			// CroppingType.Custom
 			this.WhenAnyValue(x => x.CropTop)
+				.Skip(1)
 				.Subscribe(cropTop =>
 				{
 					this.UpdateProfileProperty(
@@ -163,6 +165,7 @@ namespace VidCoder.ViewModel
 						raisePropertyChanged: false);
 				});
 			this.WhenAnyValue(x => x.CropBottom)
+				.Skip(1)
 				.Subscribe(cropBottom =>
 				{
 					this.UpdateProfileProperty(
@@ -173,6 +176,7 @@ namespace VidCoder.ViewModel
 						raisePropertyChanged: false);
 				});
 			this.WhenAnyValue(x => x.CropLeft)
+				.Skip(1)
 				.Subscribe(cropLeft =>
 				{
 					this.UpdateProfileProperty(
@@ -183,6 +187,7 @@ namespace VidCoder.ViewModel
 						raisePropertyChanged: false);
 				});
 			this.WhenAnyValue(x => x.CropRight)
+				.Skip(1)
 				.Subscribe(cropRight =>
 				{
 					this.UpdateProfileProperty(
@@ -203,19 +208,18 @@ namespace VidCoder.ViewModel
 				})
 				.Subscribe(x =>
 				{
+					bool oldAutoValue = this.AutomaticChange;
+
 					if (x.croppingType == VCCroppingType.None)
 					{
-						bool oldAutoValue = this.AutomaticChange;
 						this.AutomaticChange = true;
 						this.CropTop = 0;
 						this.CropBottom = 0;
 						this.CropLeft = 0;
 						this.CropRight = 0;
-						this.AutomaticChange = oldAutoValue;
 					}
 					else if (x.croppingType == VCCroppingType.Automatic)
 					{
-						bool oldAutoValue = this.AutomaticChange;
 						this.AutomaticChange = true;
 
 						if (x.selectedTitle == null)
@@ -232,12 +236,29 @@ namespace VidCoder.ViewModel
 							this.CropLeft = x.selectedTitle.Crop[2];
 							this.CropRight = x.selectedTitle.Crop[3];
 						}
+					}
 
+					this.AutomaticChange = oldAutoValue;
+				});
+
+			// When the preset changes, update the local crop values for Custom.
+			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
+				.Subscribe(_ =>
+				{
+					if (this.PresetsService.SelectedPreset.Preset.EncodingProfile.CroppingType == VCCroppingType.Custom)
+					{
+						bool oldAutoValue = this.AutomaticChange;
+						this.AutomaticChange = true;
+						var cropping = this.PresetsService.SelectedPreset.Preset.EncodingProfile.Cropping;
+						this.CropLeft = cropping.Left;
+						this.CropTop = cropping.Top;
+						this.CropRight = cropping.Right;
+						this.CropBottom = cropping.Bottom;
 						this.AutomaticChange = oldAutoValue;
 					}
 				});
 
-            this.scaleChoices = new List<ComboChoice<VCScaleMethod>>
+			this.scaleChoices = new List<ComboChoice<VCScaleMethod>>
 			{
 				new ComboChoice<VCScaleMethod>(VCScaleMethod.Lanczos, EncodingRes.ScaleMethod_Lanczos),
 				new ComboChoice<VCScaleMethod>(VCScaleMethod.Bicubic, EncodingRes.ScaleMethod_BicubicOpenCL)

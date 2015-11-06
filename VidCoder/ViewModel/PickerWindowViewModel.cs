@@ -14,6 +14,7 @@ using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
+using VidCoderCommon.Utilities.Injection;
 
 namespace VidCoder.ViewModel
 {
@@ -544,7 +545,7 @@ namespace VidCoder.ViewModel
 				{
 					// Clone the picker so we modify a different copy.
 					Picker newPicker = new Picker();
-					newPicker.InjectFrom(this.Picker);
+					newPicker.InjectFrom<FastDeepCloneInjection>(this.Picker);
 
 					if (!newPicker.IsModified)
 					{

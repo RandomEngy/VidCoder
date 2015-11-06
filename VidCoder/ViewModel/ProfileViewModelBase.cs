@@ -6,6 +6,7 @@ using Omu.ValueInjecter;
 using ReactiveUI;
 using VidCoder.Services;
 using VidCoderCommon.Model;
+using VidCoderCommon.Utilities.Injection;
 
 namespace VidCoder.ViewModel
 {
@@ -133,7 +134,7 @@ namespace VidCoder.ViewModel
 				{
 					// Clone the profile so we modify a different copy.
 					VCProfile newProfile = new VCProfile();
-					newProfile.InjectFrom(this.Profile);
+					newProfile.InjectFrom<FastDeepCloneInjection>(this.Profile);
 
 					if (!this.Preset.IsModified)
 					{
@@ -196,7 +197,7 @@ namespace VidCoder.ViewModel
 				{
 					// Clone the profile so we modify a different copy.
 					VCProfile newProfile = new VCProfile();
-					newProfile.InjectFrom(this.Profile);
+					newProfile.InjectFrom<FastDeepCloneInjection>(this.Profile);
 
 					if (!this.Preset.IsModified)
 					{

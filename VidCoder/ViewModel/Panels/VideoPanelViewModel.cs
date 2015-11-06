@@ -296,7 +296,7 @@ namespace VidCoder.ViewModel
 				}
 
 				string currentPresetName = null;
-				if (this.presets != null && presetIndex < this.presets.Count)
+				if (this.presets != null && presetIndex >= 0 && presetIndex < this.presets.Count)
 				{
 					currentPresetName = this.presets[presetIndex];
 				}

@@ -992,8 +992,6 @@ namespace VidCoder.ViewModel
 
 			this.RaisePropertyChanged(nameof(this.SelectedAudioEncoder));
 			this.RaisePropertyChanged(nameof(this.SelectedPassthrough));
-
-			this.RaiseAudioEncodingChanged();
 		}
 
 

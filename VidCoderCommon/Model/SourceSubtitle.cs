@@ -1,4 +1,5 @@
 ﻿using Omu.ValueInjecter;
+using VidCoderCommon.Utilities.Injection;
 
 namespace VidCoderCommon.Model
 {
@@ -21,7 +22,7 @@ namespace VidCoderCommon.Model
 		public SourceSubtitle Clone()
 		{
 			var subtitle = new SourceSubtitle();
-			subtitle.InjectFrom(this);
+			subtitle.InjectFrom<FastDeepCloneInjection>(this);
 			return subtitle;
 		}
     }

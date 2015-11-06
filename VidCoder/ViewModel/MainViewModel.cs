@@ -187,28 +187,24 @@ namespace VidCoder.ViewModel
 				return null;
 			}).ToProperty(this, x => x.SourceIcon, out this.sourceIcon);
 
-			// SourceText
-			this.WhenAnyValue(x => x.SelectedSource, x => x.SelectedSource.DriveInfo.Empty, x => x.SourcePath, (selectedSource, empty, sourcePath) =>
+			this.WhenAnyValue(x => x.SelectedSource.DriveInfo.Empty).Subscribe(observable =>
 			{
-				if (selectedSource == null)
-				{
-					return string.Empty;
-				}
+				Debug.WriteLine(observable);
+			});
 
-				switch (selectedSource.Type)
+			// SourceText
+			this.WhenAnyValue(x => x.SelectedSource, x => x.SourcePath)
+				.Skip(1)
+				.Subscribe(_ =>
 				{
-					case SourceType.File:
-						return sourcePath;
-					case SourceType.VideoFolder:
-						return sourcePath;
-					case SourceType.Dvd:
-						return selectedSource.DriveInfo.DisplayText;
-					default:
-						break;
-				}
+					this.RaisePropertyChanged(nameof(this.SourceText));
+				});
 
-				return string.Empty;
-			}).ToProperty(this, x => x.SourceText, out this.sourceText);
+			this.WhenAnyValue(x => x.SelectedSource.DriveInfo.Empty)
+				.Subscribe(_ =>
+				{
+					this.RaisePropertyChanged(nameof(this.SourceText));
+				});
 
 			// AngleVisible
 			this.WhenAnyValue(x => x.SelectedTitle)
@@ -701,8 +697,30 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> sourceIcon;
 		public string SourceIcon => this.sourceIcon.Value;
 
-		private ObservableAsPropertyHelper<string> sourceText;
-		public string SourceText => this.sourceText.Value;
+		public string SourceText
+		{
+			get
+			{
+				if (this.SelectedSource == null)
+				{
+					return string.Empty;
+				}
+
+				switch (this.SelectedSource.Type)
+				{
+					case SourceType.File:
+						return this.SourcePath;
+					case SourceType.VideoFolder:
+						return this.SourcePath;
+					case SourceType.Dvd:
+						return this.SelectedSource.DriveInfo.DisplayText;
+					default:
+						break;
+				}
+
+				return string.Empty;
+			}
+		}
 
 		private SourceOption selectedSource;
 		public SourceOption SelectedSource

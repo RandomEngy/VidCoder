@@ -166,7 +166,7 @@ namespace VidCoder.Services
 			// CanTryEnqueueMultipleTitles
 			this.main.WhenAnyValue(x => x.HasVideoSource, x => x.SourceData, (hasVideoSource, sourceData) =>
 			{
-				return hasVideoSource && sourceData.Titles.Count > 1;
+				return hasVideoSource && sourceData != null && sourceData.Titles.Count > 1;
 			}).ToProperty(this, x => x.CanTryEnqueueMultipleTitles, out this.canTryEnqueueMultipleTitles);
 
 			var completedCountObservable = this.completedJobs.CountChanged.StartWith(this.completedJobs.Count);

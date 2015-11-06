@@ -105,7 +105,6 @@
     <Compile Include="Model\VCVideoEncodeRateType.cs" />
     <Compile Include="Model\VideoRangeType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\Injection\DeepCloneInjection.cs" />
     <Compile Include="Utilities\Injection\FastDeepCloneInjection.cs" />
     <Compile Include="Utilities\Injection\SmartConventionInfo.cs" />
     <Compile Include="Utilities\Injection\SmartConventionInjection.cs" />

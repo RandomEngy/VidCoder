@@ -35,7 +35,7 @@ namespace VidCoderCommon.Utilities.Injection
 
 		protected virtual void ExecuteMatch(SmartMatchInfo mi)
 		{
-			SetValue(mi.TargetProp, mi.Target, GetValue(mi.SourceProp, mi.Source));
+			this.SetValue(mi.TargetProp, mi.Target, this.GetValue(mi.SourceProp, mi.Source));
 		}
 
 		private Path Learn(object source, object target)
@@ -59,7 +59,7 @@ namespace VidCoderCommon.Utilities.Injection
 					var targetProp = targetProps[j];
 					smartConventionInfo.TargetProp = targetProp;
 
-					if (!Match(smartConventionInfo)) continue;
+					if (!this.Match(smartConventionInfo)) continue;
 					if (path == null)
 						path = new Path
 						{
@@ -76,9 +76,9 @@ namespace VidCoderCommon.Utilities.Injection
 			var sourceProps = source.GetProps();
 			var targetProps = target.GetProps();
 
-			var cacheEntry = WasLearned.GetOrAdd(GetType(), new ConcurrentDictionary<KeyValuePair<Type, Type>, Path>());
+			var cacheEntry = WasLearned.GetOrAdd(this.GetType(), new ConcurrentDictionary<KeyValuePair<Type, Type>, Path>());
 
-			var path = cacheEntry.GetOrAdd(new KeyValuePair<Type, Type>(source.GetType(), target.GetType()), pair => Learn(source, target));
+			var path = cacheEntry.GetOrAdd(new KeyValuePair<Type, Type>(source.GetType(), target.GetType()), pair => this.Learn(source, target));
 
 			if (path == null) return;
 
@@ -86,7 +86,7 @@ namespace VidCoderCommon.Utilities.Injection
 			{
 				var sourceProp = sourceProps.First(p => p.Name == pair.Key);
 				var targetProp = targetProps.First(p => p.Name == pair.Value);
-				ExecuteMatch(new SmartMatchInfo
+				this.ExecuteMatch(new SmartMatchInfo
 				{
 					Source = source,
 					Target = target,
