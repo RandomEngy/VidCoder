@@ -52,7 +52,7 @@ namespace VidCoder.View
 			this.RefreshQueueColumns();
 			this.LoadCompletedColumnWidths();
 
-			this.DataContextChanged += OnDataContextChanged;
+			this.DataContextChanged += this.OnDataContextChanged;
 			TheDispatcher = this.Dispatcher;
 
 			this.presetGlowEffect.Opacity = 0.0;
@@ -469,14 +469,6 @@ namespace VidCoder.View
 			}
 		}
 
-		protected override void OnSourceInitialized(EventArgs e)
-		{
-			base.OnSourceInitialized(e);
-
-			var source = PresentationSource.FromVisual(this) as HwndSource;
-			source.AddHook(WndProc);
-		}
-
 		private void Window_PreviewDragOver(object sender, DragEventArgs e)
 		{
 			Utilities.SetDragIcon(e);
@@ -626,18 +618,6 @@ namespace VidCoder.View
 			return
 				clickedPoint.X >= relativePoint.X && clickedPoint.X <= relativePoint.X + element.ActualWidth &&
 				clickedPoint.Y >= relativePoint.Y && clickedPoint.Y <= relativePoint.Y + element.ActualHeight;
-		}
-
-		// Handle native window messages. 
-		private IntPtr WndProc(IntPtr hwnd, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
-		{
-			if (message == NativeMethods.WM_SHOWME)
-			{
-				// This is a message from a second instance trying to start up. Bring window to foreground when this happens.
-				this.Activate();
-			}
-
-			return IntPtr.Zero;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -9,15 +10,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VidCoder.Extensions;
 
 namespace VidCoder.View
 {
-	using System.Diagnostics;
-	using System.Windows.Navigation;
-	using ViewModel;
-
 	/// <summary>
 	/// Interaction logic for OptionsDialog.xaml
 	/// </summary>
@@ -25,7 +23,7 @@ namespace VidCoder.View
 	{
 		public OptionsDialog()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		private void Window_Closed(object sender, EventArgs e)
