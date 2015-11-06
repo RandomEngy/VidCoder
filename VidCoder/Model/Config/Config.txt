@@ -58,7 +58,7 @@ EncodingListPaneWidth|double|150.0
 
 ShowPickerWindowMessage|bool|true
 
-WorkerProcessPriority|string|"Normal"
+WorkerProcessPriority|string|"BelowNormal"
 LogVerbosity|int|1
 CopyLogToOutputFolder|bool|false
 AutoPauseProcesses|string|""

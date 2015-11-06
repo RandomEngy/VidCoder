@@ -76,7 +76,7 @@ namespace VidCoder
 			cache.Add("EncodingListPaneOpen", DatabaseConfig.Get("EncodingListPaneOpen", true, connection));
 			cache.Add("EncodingListPaneWidth", DatabaseConfig.Get("EncodingListPaneWidth", 150.0, connection));
 			cache.Add("ShowPickerWindowMessage", DatabaseConfig.Get("ShowPickerWindowMessage", true, connection));
-			cache.Add("WorkerProcessPriority", DatabaseConfig.Get("WorkerProcessPriority", "Normal", connection));
+			cache.Add("WorkerProcessPriority", DatabaseConfig.Get("WorkerProcessPriority", "BelowNormal", connection));
 			cache.Add("LogVerbosity", DatabaseConfig.Get("LogVerbosity", 1, connection));
 			cache.Add("CopyLogToOutputFolder", DatabaseConfig.Get("CopyLogToOutputFolder", false, connection));
 			cache.Add("AutoPauseProcesses", DatabaseConfig.Get("AutoPauseProcesses", "", connection));

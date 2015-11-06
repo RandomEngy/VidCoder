@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using VidCoder.Model;
 
 namespace VidCoder
 {
-	using System.Diagnostics;
-	using Model;
-
 	public static class CustomConfig
 	{
 		public static List<string> AutoPauseProcesses
