@@ -33,7 +33,7 @@ namespace VidCoder.ViewModel
 			this.containerChoices = new List<ComboChoice>();
 			foreach (HBContainer hbContainer in HandBrakeEncoderHelpers.Containers)
 			{
-				this.containerChoices.Add(new ComboChoice(hbContainer.ShortName, hbContainer.DisplayName));
+				this.containerChoices.Add(new ComboChoice(hbContainer.ShortName, hbContainer.DefaultExtension.ToUpperInvariant()));
 			}
 
 			this.WhenAnyValue(

@@ -6,7 +6,7 @@
     xmlns:vidCoder="clr-namespace:VidCoder"
     xmlns:view="clr-namespace:VidCoder.View"
     Title="{Binding WindowTitle}"
-    Width="671"
+    Width="700"
     Height="467"
     MinWidth="588"
     MinHeight="467"
@@ -241,7 +241,7 @@
 
             <StackPanel
                 Height="32"
-                Margin="20 37 0 0"
+                Margin="3 37 0 0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Orientation="Horizontal">
@@ -251,7 +251,7 @@
                     Content="{x:Static res:EncodingRes.ContainerLabel}" />
                 <ComboBox
                     Height="23"
-                    MinWidth="136"
+                    MinWidth="60"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     VerticalContentAlignment="Center"
