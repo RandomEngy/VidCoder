@@ -78,6 +78,42 @@ namespace VidCoderCommon.Model
 		[JsonProperty]
 		public int MaxHeight { get; set; }
 
+		public int CappedWidth
+		{
+			get
+			{
+				if (this.Width == 0)
+				{
+					return 0;
+				}
+
+				if (this.MaxWidth != 0 && this.Width > this.MaxWidth)
+				{
+					return this.MaxWidth;
+				}
+
+				return this.Width;
+			}
+		}
+
+		public int CappedHeight
+		{
+			get
+			{
+				if (this.Height == 0)
+				{
+					return 0;
+				}
+
+				if (this.MaxHeight != 0 && this.Height > this.MaxHeight)
+				{
+					return this.MaxHeight;
+				}
+
+				return this.Height;
+			}
+		}
+
 		[JsonProperty]
 		public VCScaleMethod ScaleMethod { get; set; }
 

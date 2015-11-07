@@ -50,12 +50,7 @@ namespace VidCoder.ViewModel
 			// KeepDisplayAspectEnabled
 			this.WhenAnyValue(x => x.Anamorphic, anamorphic =>
 			{
-				if (anamorphic == VCAnamorphic.Strict || anamorphic == VCAnamorphic.Loose)
-				{
-					return false;
-				}
-
-				return true;
+				return anamorphic == VCAnamorphic.None;
 			}).ToProperty(this, x => x.KeepDisplayAspectEnabled, out this.keepDisplayAspectEnabled);
 
 			// CustomAnamorphicFieldsVisible
@@ -63,17 +58,6 @@ namespace VidCoder.ViewModel
 			{
 				return anamorphic == VCAnamorphic.Custom;
 			}).ToProperty(this, x => x.CustomAnamorphicFieldsVisible, out this.customAnamorphicFieldsVisible);
-
-			// PixelAspectVisible
-			this.WhenAnyValue(x => x.Anamorphic, x => x.KeepDisplayAspect, (anamorphic, keepDisplayAspect) =>
-			{
-				if (anamorphic != VCAnamorphic.Custom)
-				{
-					return false;
-				}
-
-				return !keepDisplayAspect;
-			}).ToProperty(this, x => x.PixelAspectVisible, out this.pixelAspectVisible);
 
 			// InputSourceResolution
 			this.MainViewModel.WhenAnyValue(x => x.SelectedTitle, selectedTitle =>
@@ -346,8 +330,13 @@ namespace VidCoder.ViewModel
 
 				if (this.Profile.Anamorphic == VCAnamorphic.Custom)
 				{
-					this.KeepDisplayAspect = true;
+					this.KeepDisplayAspect = false;
 					this.UseDisplayWidth = true;
+
+					if (this.DisplayWidth == 0)
+					{
+						this.PopulateDisplayWidth();
+					}
 				}
 
 				this.RefreshOutputSize();
@@ -355,19 +344,6 @@ namespace VidCoder.ViewModel
 
 			this.RegisterProfileProperty(nameof(this.Profile.KeepDisplayAspect), () =>
 			{
-				if (this.Profile.Anamorphic == VCAnamorphic.Custom)
-				{
-					if (this.KeepDisplayAspect && !this.UseDisplayWidth)
-					{
-						this.UseDisplayWidth = true;
-					}
-
-					if (this.UseDisplayWidth && this.DisplayWidth == 0)
-					{
-						this.PopulateDisplayWidth();
-					}
-				}
-
 				this.RefreshOutputSize();
 			});
 
@@ -534,9 +510,6 @@ namespace VidCoder.ViewModel
 			get { return this.Profile.DisplayWidth; }
 			set { this.UpdateProfileProperty(nameof(this.Profile.DisplayWidth), value); }
 		}
-
-		private ObservableAsPropertyHelper<bool> pixelAspectVisible;
-		public bool PixelAspectVisible => this.pixelAspectVisible.Value;
 
 		public int PixelAspectX
 		{

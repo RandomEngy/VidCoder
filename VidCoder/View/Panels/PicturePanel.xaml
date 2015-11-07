@@ -261,9 +261,7 @@
                         GroupName="useDisplayWidth2"
                         IsChecked="{Binding UseDisplayWidth,
                                             Converter={StaticResource InverseBoolConverter}}"
-                        ToolTip="{x:Static res:EncodingRes.PixelAspectRatioToolTip}"
-                        Visibility="{Binding PixelAspectVisible,
-                                             Converter={StaticResource VisibilityConverter}}" />
+                        ToolTip="{x:Static res:EncodingRes.PixelAspectRatioToolTip}" />
                     <controls:NumberBox
                         Grid.Row="1"
                         Grid.Column="1"
@@ -277,18 +275,14 @@
                         Minimum="1"
                         Number="{Binding PixelAspectX,
                                          Mode=TwoWay}"
-                        ToolTip="{x:Static res:EncodingRes.PixelAspectRatioToolTip}"
-                        Visibility="{Binding PixelAspectVisible,
-                                             Converter={StaticResource VisibilityConverter}}" />
+                        ToolTip="{x:Static res:EncodingRes.PixelAspectRatioToolTip}" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="1"
                         Margin="50 0 0 0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="/"
-                        Visibility="{Binding PixelAspectVisible,
-                                             Converter={StaticResource VisibilityConverter}}" />
+                        Text="/" />
                     <controls:NumberBox
                         Grid.Row="1"
                         Grid.Column="1"
@@ -303,9 +297,7 @@
                         Minimum="1"
                         Number="{Binding PixelAspectY,
                                          Mode=TwoWay}"
-                        ToolTip="{x:Static res:EncodingRes.PixelAspectRatioToolTip}"
-                        Visibility="{Binding PixelAspectVisible,
-                                             Converter={StaticResource VisibilityConverter}}" />
+                        ToolTip="{x:Static res:EncodingRes.PixelAspectRatioToolTip}" />
                 </Grid>
 
                 <StackPanel

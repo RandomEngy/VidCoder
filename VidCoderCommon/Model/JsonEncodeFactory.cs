@@ -873,8 +873,6 @@ namespace VidCoderCommon.Model
 				modulus = 2;
 			}
 
-			bool suppressKeepAspect = false;
-
 			VCCropping cropping = GetCropping(profile, title);
 			List<int> croppingList = new List<int> { cropping.Top, cropping.Bottom, cropping.Left, cropping.Right };
 
@@ -891,58 +889,26 @@ namespace VidCoderCommon.Model
 				if (profile.UseDisplayWidth)
 				{
 					// We want to manually pick PAR when targeting display width. Suppress HB's auto-pick.
-					suppressKeepAspect = true;
 
 					// Pick a PAR and optionally pick width/height to get display width
-					if (profile.Width == 0 && profile.Height == 0)
+					if (profile.Width > 0)
 					{
-						par = new PAR { Num = profile.DisplayWidth, Den = sourceCroppedWidth };
-
-						if (profile.KeepDisplayAspect)
-						{
-							outputStorageHeight = (int) (sourceCroppedHeight * ((double) sourceCroppedWidth / profile.DisplayWidth));
-						}
-					}
-					else if (profile.Height == 0)
-					{
-						par = new PAR { Num = profile.DisplayWidth, Den = profile.Width };
-
-						if (profile.KeepDisplayAspect)
-						{
-							outputStorageHeight = (sourceCroppedHeight * profile.DisplayWidth * title.Geometry.PAR.Num) / (profile.Width * title.Geometry.PAR.Den);
-						}
-					}
-					else if (profile.Width == 0)
-					{
-						if (profile.KeepDisplayAspect)
-						{
-							// Ignore display width. When setting height and keeping AR you can't also set display width.
-							par = new PAR
-							{
-								Num = title.Geometry.PAR.Num * profile.Height,
-								Den = sourceCroppedHeight * title.Geometry.PAR.Den
-							};
-						}
-						else
-						{
-							par = new PAR { Num = profile.DisplayWidth, Den = sourceCroppedWidth };
-						}
+						par = new PAR { Num = profile.DisplayWidth, Den = profile.CappedWidth };
 					}
 					else
 					{
-						if (profile.KeepDisplayAspect)
+						int cappedWidth;
+
+						if (profile.MaxWidth != 0 && sourceCroppedWidth > profile.MaxWidth)
 						{
-							// Ignore display width. When setting width, height and keeping AR you can't also set display width.
-							par = new PAR
-							{
-								Num = sourceCroppedWidth * title.Geometry.PAR.Num * profile.Height,
-								Den = sourceCroppedHeight * title.Geometry.PAR.Den * profile.Width
-							};
+							cappedWidth = profile.MaxWidth;
 						}
 						else
 						{
-							par = new PAR { Num = profile.DisplayWidth, Den = profile.Width};
+							cappedWidth = sourceCroppedWidth;
 						}
+
+						par = new PAR { Num = profile.DisplayWidth, Den = cappedWidth };
 					}
 				}
 				else
@@ -970,7 +936,7 @@ namespace VidCoderCommon.Model
 			}
 
 			int keepValue = 0;
-			if (profile.KeepDisplayAspect && !suppressKeepAspect)
+			if (profile.KeepDisplayAspect && profile.Anamorphic != VCAnamorphic.Custom)
 			{
 				keepValue = keepValue | NativeConstants.HB_KEEP_DISPLAY_ASPECT;
 
