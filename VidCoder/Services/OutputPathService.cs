@@ -222,6 +222,11 @@ namespace VidCoder.Services
 		{
 			HBContainer container = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
 
+			if (container == null)
+			{
+				throw new ArgumentException("Could not find container with name " + profile.ContainerName, nameof(profile));
+			}
+
 			string extension;
 
 			if (container.DefaultExtension == "mkv")

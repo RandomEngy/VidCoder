@@ -879,18 +879,12 @@ namespace VidCoderCommon.Model
 			int sourceCroppedWidth = title.Geometry.Width - cropping.Left - cropping.Right;
 			int sourceCroppedHeight = title.Geometry.Height - cropping.Top - cropping.Bottom;
 
-			int outputStorageWidth = profile.Width;
-			int outputStorageHeight = profile.Height;
-
 			PAR par;
-
 			if (profile.Anamorphic == VCAnamorphic.Custom)
 			{
 				if (profile.UseDisplayWidth)
 				{
-					// We want to manually pick PAR when targeting display width. Suppress HB's auto-pick.
-
-					// Pick a PAR and optionally pick width/height to get display width
+					// Figure PAR to hit the desired display width.
 					if (profile.Width > 0)
 					{
 						par = new PAR { Num = profile.DisplayWidth, Den = profile.CappedWidth };
@@ -925,6 +919,8 @@ namespace VidCoderCommon.Model
 			par.Simplify();
 
 			// HB doesn't expect us to give it a 0 width and height so we need to guard against that
+			int outputStorageWidth = profile.Width;
+			int outputStorageHeight = profile.Height;
 			if (outputStorageWidth == 0)
 			{
 				outputStorageWidth = sourceCroppedWidth;

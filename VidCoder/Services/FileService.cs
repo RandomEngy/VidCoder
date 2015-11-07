@@ -29,11 +29,18 @@ namespace VidCoder.Services
 
 			if (!string.IsNullOrEmpty(initialDirectory))
 			{
-				string fullDirectory = Path.GetFullPath(initialDirectory);
-
-				if (Directory.Exists(fullDirectory))
+				try
 				{
-					dialog.InitialDirectory = fullDirectory;
+					string fullDirectory = Path.GetFullPath(initialDirectory);
+
+					if (Directory.Exists(fullDirectory))
+					{
+						dialog.InitialDirectory = fullDirectory;
+					}
+				}
+				catch (NotSupportedException)
+				{
+					Ioc.Get<ILogger>().Log("Could not recognize initial directory " + initialDirectory);
 				}
 			}
 
