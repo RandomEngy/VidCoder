@@ -17,16 +17,30 @@ namespace VidCoder.Extensions
 			string playlistPortion = string.Empty;
 			if (title.Type == (int)TitleType.Bluray)
 			{
-				playlistPortion = string.Format(" {0:d5}.MPLS", title.Playlist);
+				playlistPortion = $" {title.Playlist:d5}.MPLS";
+			}
+
+			int hours, minutes, seconds;
+			if (title.Duration != null)
+			{
+				hours = title.Duration.Hours;
+				minutes = title.Duration.Minutes;
+				seconds = title.Duration.Seconds;
+			}
+			else
+			{
+				hours = 0;
+				minutes = 0;
+				seconds = 0;
 			}
 
 			return string.Format(
 				"{0}{1} ({2:00}:{3:00}:{4:00})",
 				title.Index,
 				playlistPortion,
-				title.Duration.Hours,
-				title.Duration.Minutes,
-				title.Duration.Seconds);
+				hours,
+				minutes,
+				seconds);
 		}
 	}
 }

@@ -873,13 +873,117 @@ namespace VidCoderCommon.Model
 				modulus = 2;
 			}
 
-			int keepValue = profile.KeepDisplayAspect ? 0x04 : 0;
+			bool suppressKeepAspect = false;
+
 			VCCropping cropping = GetCropping(profile, title);
 			List<int> croppingList = new List<int> { cropping.Top, cropping.Bottom, cropping.Left, cropping.Right };
 
+			int sourceCroppedWidth = title.Geometry.Width - cropping.Left - cropping.Right;
+			int sourceCroppedHeight = title.Geometry.Height - cropping.Top - cropping.Bottom;
+
+			int outputStorageWidth = profile.Width;
+			int outputStorageHeight = profile.Height;
+
+			PAR par;
+
+			if (profile.Anamorphic == VCAnamorphic.Custom)
+			{
+				if (profile.UseDisplayWidth)
+				{
+					// We want to manually pick PAR when targeting display width. Suppress HB's auto-pick.
+					suppressKeepAspect = true;
+
+					// Pick a PAR and optionally pick width/height to get display width
+					if (profile.Width == 0 && profile.Height == 0)
+					{
+						par = new PAR { Num = profile.DisplayWidth, Den = sourceCroppedWidth };
+
+						if (profile.KeepDisplayAspect)
+						{
+							outputStorageHeight = (int) (sourceCroppedHeight * ((double) sourceCroppedWidth / profile.DisplayWidth));
+						}
+					}
+					else if (profile.Height == 0)
+					{
+						par = new PAR { Num = profile.DisplayWidth, Den = profile.Width };
+
+						if (profile.KeepDisplayAspect)
+						{
+							outputStorageHeight = (sourceCroppedHeight * profile.DisplayWidth * title.Geometry.PAR.Num) / (profile.Width * title.Geometry.PAR.Den);
+						}
+					}
+					else if (profile.Width == 0)
+					{
+						if (profile.KeepDisplayAspect)
+						{
+							// Ignore display width. When setting height and keeping AR you can't also set display width.
+							par = new PAR
+							{
+								Num = title.Geometry.PAR.Num * profile.Height,
+								Den = sourceCroppedHeight * title.Geometry.PAR.Den
+							};
+						}
+						else
+						{
+							par = new PAR { Num = profile.DisplayWidth, Den = sourceCroppedWidth };
+						}
+					}
+					else
+					{
+						if (profile.KeepDisplayAspect)
+						{
+							// Ignore display width. When setting width, height and keeping AR you can't also set display width.
+							par = new PAR
+							{
+								Num = sourceCroppedWidth * title.Geometry.PAR.Num * profile.Height,
+								Den = sourceCroppedHeight * title.Geometry.PAR.Den * profile.Width
+							};
+						}
+						else
+						{
+							par = new PAR { Num = profile.DisplayWidth, Den = profile.Width};
+						}
+					}
+				}
+				else
+				{
+					// User has manually specified PAR.
+					par = new PAR { Num = profile.PixelAspectX, Den = profile.PixelAspectY };
+				}
+			}
+			else
+			{
+				par = new PAR { Num = title.Geometry.PAR.Num, Den = title.Geometry.PAR.Den };
+			}
+
+			par.Simplify();
+
 			// HB doesn't expect us to give it a 0 width and height so we need to guard against that
-			int sanitizedWidth = profile.Width > 0 ? profile.Width : title.Geometry.Width - cropping.Left - cropping.Right;
-			int sanitizedHeight = profile.Height > 0 ? profile.Height : title.Geometry.Height - cropping.Top - cropping.Bottom;
+			if (outputStorageWidth == 0)
+			{
+				outputStorageWidth = sourceCroppedWidth;
+			}
+
+			if (outputStorageHeight == 0)
+			{
+				outputStorageHeight = sourceCroppedHeight;
+			}
+
+			int keepValue = 0;
+			if (profile.KeepDisplayAspect && !suppressKeepAspect)
+			{
+				keepValue = keepValue | NativeConstants.HB_KEEP_DISPLAY_ASPECT;
+
+				if (profile.Width > 0 && profile.Height == 0)
+				{
+					keepValue = keepValue | NativeConstants.HB_KEEP_WIDTH;
+				}
+
+				if (profile.Height > 0 && profile.Width == 0)
+				{
+					keepValue = keepValue | NativeConstants.HB_KEEP_HEIGHT;
+				}
+			}
 
 			AnamorphicGeometry anamorphicGeometry = new AnamorphicGeometry
 			{
@@ -889,13 +993,9 @@ namespace VidCoderCommon.Model
 					AnamorphicMode = (int)profile.Anamorphic,
 					Geometry = new Geometry
 					{
-						Width = sanitizedWidth,
-						Height = sanitizedHeight,
-						PAR = new PAR
-						{
-							Num = profile.Anamorphic == VCAnamorphic.Custom ? profile.PixelAspectX : title.Geometry.PAR.Num,
-							Den = profile.Anamorphic == VCAnamorphic.Custom ? profile.PixelAspectY : title.Geometry.PAR.Den
-						},
+						Width = outputStorageWidth,
+						Height = outputStorageHeight,
+						PAR = par,
 					},
 					Keep = keepValue,
 					Crop = croppingList,

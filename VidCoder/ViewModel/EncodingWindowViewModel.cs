@@ -45,14 +45,6 @@ namespace VidCoder.ViewModel
 				})
 				.ToProperty(this, x => x.ShowMp4Choices, out this.showMp4Choices);
 
-			this.WhenAnyValue(
-				x => x.ContainerName,
-				containerName =>
-				{
-					return containerName == "mp4v2";
-				})
-				.ToProperty(this, x => x.ShowOldMp4Choices, out this.showOldMp4Choices);
-
 			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.DisplayNameWithStar)
 				.ToProperty(this, x => x.WindowTitle, out this.windowTitle);
 
@@ -226,9 +218,6 @@ namespace VidCoder.ViewModel
 
 		private ObservableAsPropertyHelper<bool> showMp4Choices;
 		public bool ShowMp4Choices => this.showMp4Choices.Value;
-
-		private ObservableAsPropertyHelper<bool> showOldMp4Choices;
-		public bool ShowOldMp4Choices => this.showOldMp4Choices.Value;
 
 		public bool IncludeChapterMarkers
 		{

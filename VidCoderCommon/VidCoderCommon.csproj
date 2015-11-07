@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Extensions\FrameRateExtensions.cs" />
     <Compile Include="Extensions\JsonDurationExtensions.cs" />
+    <Compile Include="Extensions\ParExtensions.cs" />
     <Compile Include="IHandBrakeEncoder.cs" />
     <Compile Include="IHandBrakeEncoderCallback.cs" />
     <Compile Include="Model\AudioEncodeRateType.cs" />

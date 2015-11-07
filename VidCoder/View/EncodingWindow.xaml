@@ -294,7 +294,10 @@
                     </RadioButton>
                 </StackPanel>
 
-                <StackPanel Margin="10 0 0 0" Orientation="Vertical">
+                <StackPanel
+                    Margin="10 0 0 0"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
                     <CheckBox
                         VerticalAlignment="Center"
                         Content="{x:Static res:EncodingRes.IncludeChapterMarkersCheckBox}"
@@ -320,14 +323,6 @@
                         IsChecked="{Binding IPod5GSupport}"
                         ToolTip="{x:Static res:EncodingRes.IPod5GSupportToolTip}"
                         Visibility="{Binding ShowMp4Choices,
-                                             Converter={StaticResource VisibilityConverter}}" />
-                    <CheckBox
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Content="{x:Static res:EncodingRes.LargeFileSizeCheckBox}"
-                        IsChecked="{Binding LargeFile}"
-                        ToolTip="{x:Static res:EncodingRes.LargeFileSizeToolTip}"
-                        Visibility="{Binding ShowOldMp4Choices,
                                              Converter={StaticResource VisibilityConverter}}" />
                 </StackPanel>
             </StackPanel>
