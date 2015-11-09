@@ -509,6 +509,7 @@ namespace VidCoder.ViewModel
 			this.RegisterProfileProperty(nameof(this.Profile.VideoProfile));
 			this.RegisterProfileProperty(nameof(this.Profile.VideoLevel));
 			this.RegisterProfileProperty(nameof(this.Profile.VideoPreset));
+			this.RegisterProfileProperty(nameof(this.Profile.VideoOptions));
 			this.RegisterProfileProperty(nameof(this.Profile.QsvDecode));
 			this.RegisterProfileProperty(nameof(this.Profile.TargetSize), () =>
 			{
