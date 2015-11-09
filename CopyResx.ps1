@@ -47,30 +47,3 @@ CopyLanguage "ja" "ja"
 CopyLanguage "cs" "cs"
 CopyLanguage "ru" "ru"
 CopyLanguage "pl" "pl"
-
-# Update project file
-$projectPath = ".\VidCoder\VidCoder.csproj"
-$projectXml = $xml = [xml](Get-Content $projectPath)
-
-# Remove old project items
-$resourceElements = $projectXml.Project.ItemGroup.EmbeddedResource | where {$_.Include -and $_.Include.StartsWith("Resources\Translations\")}
-
-$itemGroup = $resourceElements[0].ParentNode
-
-foreach($resourceElement in $resourceElements) {
-    $resourceElement.ParentNode.RemoveChild($resourceElement) | Out-Null
-}
-
-# Add new project items with ManifestResourceName overrides
-foreach($copiedFile in $copiedFiles) {
-    $newResourceElement = $xml.CreateElement("EmbeddedResource", $xml.Project.NamespaceURI)
-    $newResourceElement.SetAttribute("Include", "Resources\Translations\" + $copiedFile)
-
-    $manifestElement = $xml.CreateElement("ManifestResourceName", $xml.Project.NamespaceURI)
-    $manifestElement.InnerText = '$(TargetName).Resources.%(Filename)'
-    $newResourceElement.AppendChild($manifestElement) | Out-Null
-
-    $itemGroup.AppendChild($newResourceElement) | Out-Null
-}
-
-$xml.Save($projectPath)
