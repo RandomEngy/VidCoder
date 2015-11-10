@@ -91,28 +91,37 @@ namespace VidCoder.ViewModel
 			// SubtitlesSummary
 			this.WhenAnyValue(x => x.VideoSourceState, x => x.CurrentSubtitles, x => x.SelectedTitle, (videoSourceState, currentSubtitles, selectedTitle) =>
 			{
-				if (videoSourceState != VideoSourceState.ScannedSource || currentSubtitles == null || (currentSubtitles.SourceSubtitles.Count == 0 && currentSubtitles.SrtSubtitles.Count == 0))
+				if (videoSourceState != VideoSourceState.ScannedSource ||
+					currentSubtitles == null || 
+					((currentSubtitles.SourceSubtitles == null || currentSubtitles.SourceSubtitles.Count == 0) && 
+						(currentSubtitles.SrtSubtitles == null || currentSubtitles.SrtSubtitles.Count == 0)))
 				{
 					return MainRes.NoneParen;
 				}
 
 				List<string> trackSummaries = new List<string>();
 
-				foreach (SourceSubtitle sourceSubtitle in currentSubtitles.SourceSubtitles)
+				if (currentSubtitles.SourceSubtitles != null)
 				{
-					if (sourceSubtitle.TrackNumber == 0)
+					foreach (SourceSubtitle sourceSubtitle in currentSubtitles.SourceSubtitles)
 					{
-						trackSummaries.Add(MainRes.ForeignAudioSearch);
-					}
-					else
-					{
-						trackSummaries.Add(selectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].Language);
+						if (sourceSubtitle.TrackNumber == 0)
+						{
+							trackSummaries.Add(MainRes.ForeignAudioSearch);
+						}
+						else
+						{
+							trackSummaries.Add(selectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].Language);
+						}
 					}
 				}
 
-				foreach (SrtSubtitle srtSubtitle in currentSubtitles.SrtSubtitles)
+				if (currentSubtitles.SrtSubtitles != null)
 				{
-					trackSummaries.Add(Languages.Get(srtSubtitle.LanguageCode).EnglishName);
+					foreach (SrtSubtitle srtSubtitle in currentSubtitles.SrtSubtitles)
+					{
+						trackSummaries.Add(Languages.Get(srtSubtitle.LanguageCode).EnglishName);
+					}
 				}
 
 				if (trackSummaries.Count > 3)
