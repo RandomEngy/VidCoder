@@ -341,12 +341,21 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.PresetName, out this.presetName);
 
 			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
-				.Subscribe(x =>
+				.Subscribe(_ =>
 				{
 					this.ReadTuneListFromProfile();
 					this.RaisePropertyChanged(nameof(this.Tune));
 					this.RaisePropertyChanged(nameof(this.FastDecode));
 					this.RaisePropertyChanged(nameof(this.PresetIndex));
+				});
+
+			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.VideoEncoder)
+				.Subscribe(_ =>
+				{
+					if (!this.userVideoEncoderChange)
+					{
+						this.RefreshEncoderChoices(this.PresetsService.SelectedPreset.Preset.EncodingProfile.ContainerName, EncoderChoicesRefreshSource.ProfileChange);
+					}
 				});
 
 			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.VideoOptions)
@@ -359,9 +368,10 @@ namespace VidCoder.ViewModel
 				});
 
 			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.ContainerName)
+				.Skip(1)
 				.Subscribe(containerName =>
 				{
-					this.RefreshEncoderChoices(containerName, applyDefaults: false);
+					this.RefreshEncoderChoices(containerName, EncoderChoicesRefreshSource.ContainerChange);
 				});
 
 			this.WhenAnyValue(x => x.SelectedEncoder.Encoder.ShortName)
@@ -380,14 +390,6 @@ namespace VidCoder.ViewModel
 				.Subscribe(_ =>
 				{
 					this.NotifyAudioInputChanged();
-				});
-
-			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.ContainerName)
-				.Skip(1)
-				.Subscribe(containerName =>
-				{
-					// If the encoder changes due to a profile change, we'll want to apply default settings for the encoder.
-					this.RefreshEncoderChoices(containerName, applyDefaults: true);
 				});
 
 			this.AutomaticChange = false;
@@ -543,6 +545,9 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		// True if a VideoEncoder change was done by a user explicitly on the combobox.
+		private bool userVideoEncoderChange;
+
 		public VideoEncoderViewModel SelectedEncoder
 		{
 			get
@@ -558,7 +563,9 @@ namespace VidCoder.ViewModel
 
 					this.selectedEncoder = value;
 
+					this.userVideoEncoderChange = true;
 					this.UpdateProfileProperty(nameof(this.Profile.VideoEncoder), this.selectedEncoder.Encoder.ShortName, raisePropertyChanged: false);
+					this.userVideoEncoderChange = false;
 
 					// Refresh preset/profile/tune/level choices and values
 					this.RefreshEncoderSettings(applyDefaults: false);
@@ -894,7 +901,16 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private void RefreshEncoderChoices(string containerName, bool applyDefaults)
+		private enum EncoderChoicesRefreshSource
+		{
+			// The selected container changed, requiring the list to be rebuilt
+			ContainerChange,
+
+			// The profile changed, bringing with a new selected value
+			ProfileChange
+		}
+
+		private void RefreshEncoderChoices(string containerName, EncoderChoicesRefreshSource refreshSource)
 		{
 			HBContainer container = HandBrakeEncoderHelpers.GetContainer(containerName);
 
@@ -915,8 +931,22 @@ namespace VidCoder.ViewModel
 			}
 
 			this.RaisePropertyChanged(nameof(this.EncoderChoices));
+			
+			HBVideoEncoder targetEncoder;
 
-			this.selectedEncoder = this.EncoderChoices.FirstOrDefault(e => e.Encoder == oldEncoder);
+			switch (refreshSource)
+			{
+				case EncoderChoicesRefreshSource.ContainerChange:
+					targetEncoder = oldEncoder;
+					break;
+				case EncoderChoicesRefreshSource.ProfileChange:
+					targetEncoder = HandBrakeEncoderHelpers.GetVideoEncoder(this.Profile.VideoEncoder);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(refreshSource), refreshSource, null);
+			}
+
+			this.selectedEncoder = this.EncoderChoices.FirstOrDefault(e => e.Encoder == targetEncoder);
 
 			if (this.selectedEncoder == null)
 			{
@@ -924,9 +954,10 @@ namespace VidCoder.ViewModel
 			}
 
 			// We only want to refresh the settings if this is not startup.
-			if (this.selectedEncoderInitialized && this.selectedEncoder.Encoder != oldEncoder)
+			if (this.selectedEncoderInitialized && this.selectedEncoder.Encoder != targetEncoder)
 			{
-				RefreshEncoderSettings(applyDefaults);
+				// TODO: Investigate what applyDefaults was for
+				this.RefreshEncoderSettings(false);
 			}
 
 			this.RaisePropertyChanged(nameof(this.SelectedEncoder));
@@ -1032,27 +1063,12 @@ namespace VidCoder.ViewModel
 			this.EncodingWindowViewModel.AutomaticChange = false;
 		}
 
-		public void NotifyProfileChanged()
-		{
-			this.RefreshEncoderChoices(this.Profile.ContainerName, applyDefaults: false);
-
-			this.selectedEncoder = this.EncoderChoices.SingleOrDefault(e => e.Encoder.ShortName == this.Profile.VideoEncoder);
-
-			if (this.selectedEncoder == null)
-			{
-				this.selectedEncoder = this.EncoderChoices[0];
-			}
-
-			this.selectedEncoderInitialized = true;
-			this.RefreshEncoderSettings(applyDefaults: false);
-		}
-
 		/// <summary>
 		/// Re-calculates video bitrate if needed.
 		/// </summary>
 		public void UpdateVideoBitrate()
 		{
-            if (this.VideoEncodeRateType == VCVideoEncodeRateType.TargetSize)
+			if (this.VideoEncodeRateType == VCVideoEncodeRateType.TargetSize)
 			{
 				this.RaisePropertyChanged(nameof(this.VideoBitrate));
 			}
@@ -1063,7 +1079,7 @@ namespace VidCoder.ViewModel
 		/// </summary>
 		public void UpdateTargetSize()
 		{
-            if (this.VideoEncodeRateType == VCVideoEncodeRateType.AverageBitrate)
+			if (this.VideoEncodeRateType == VCVideoEncodeRateType.AverageBitrate)
 			{
 				this.RaisePropertyChanged(nameof(this.TargetSize));
 			}
