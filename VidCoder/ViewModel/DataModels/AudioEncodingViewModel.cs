@@ -137,6 +137,11 @@ namespace VidCoder.ViewModel
 					return false;
 				}
 
+				if (passthrough == null)
+				{
+					return false;
+				}
+
 				return !GetHBAudioEncoder(audioEncoder, passthrough).IsPassthrough;
 			}).ToProperty(this, x => x.EncoderSettingsVisible, out this.encoderSettingsVisible);
 
@@ -326,6 +331,11 @@ namespace VidCoder.ViewModel
 			this.WhenAnyValue(x => x.SelectedAudioEncoder, x => x.SelectedPassthrough, (audioEncoder, passthrough) =>
 			{
 				if (audioEncoder == null)
+				{
+					return false;
+				}
+
+				if (passthrough == null)
 				{
 					return false;
 				}
@@ -867,7 +877,13 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.HBAudioEncoder.IsPassthrough || this.SelectedMixdown != null && this.SelectedBitrate != null && this.SelectedAudioEncoder != null;
+				HBAudioEncoder audioEncoder = this.HBAudioEncoder;
+				if (audioEncoder == null)
+				{
+					return false;
+				}
+
+				return audioEncoder.IsPassthrough || this.SelectedMixdown != null && this.SelectedBitrate != null && this.SelectedAudioEncoder != null;
 			}
 		}
 

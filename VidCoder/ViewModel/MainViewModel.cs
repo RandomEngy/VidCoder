@@ -93,6 +93,7 @@ namespace VidCoder.ViewModel
 			{
 				if (videoSourceState != VideoSourceState.ScannedSource ||
 					currentSubtitles == null || 
+					selectedTitle == null ||
 					((currentSubtitles.SourceSubtitles == null || currentSubtitles.SourceSubtitles.Count == 0) && 
 						(currentSubtitles.SrtSubtitles == null || currentSubtitles.SrtSubtitles.Count == 0)))
 				{
@@ -109,7 +110,7 @@ namespace VidCoder.ViewModel
 						{
 							trackSummaries.Add(MainRes.ForeignAudioSearch);
 						}
-						else
+						else if (selectedTitle.SubtitleList != null && sourceSubtitle.TrackNumber <= selectedTitle.SubtitleList.Count)
 						{
 							trackSummaries.Add(selectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].Language);
 						}
