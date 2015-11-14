@@ -51,7 +51,7 @@ namespace VidCoder.View
 
 		private void viewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName == "DisplayType")
+			if (e.PropertyName == nameof(this.viewModel.DisplayType))
 			{
 				this.RefreshControlMargins();
 			}

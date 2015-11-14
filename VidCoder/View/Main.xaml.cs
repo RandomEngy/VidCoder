@@ -269,7 +269,7 @@ namespace VidCoder.View
 			this.viewModel.View = this;
 			this.processingService.PropertyChanged += (sender2, e2) =>
 			    {
-					if (e2.PropertyName == "CompletedItemsCount")
+					if (e2.PropertyName == nameof(this.processingService.CompletedItemsCount))
 					{
 						this.RefreshQueueTabs();
 					}

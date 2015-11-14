@@ -95,7 +95,9 @@ namespace VidCoder.View
 
 		private void sourceVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName == "Selected")
+			var vm = sender as SourceSubtitleViewModel;
+
+			if (e.PropertyName == nameof(vm.Selected))
 			{
 				ResizeGridViewColumn(this.nameColumn);
 				ResizeGridViewColumn(this.sourceDefaultColumn);
@@ -106,11 +108,13 @@ namespace VidCoder.View
 
 		private void srtVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName == "CharacterCode")
+			var vm = sender as SrtSubtitleViewModel;
+
+			if (e.PropertyName == nameof(vm.CharacterCode))
 			{
 				ResizeGridViewColumn(this.srtCharCodeColumn);
 			}
-			else if (e.PropertyName == "LanguageCode")
+			else if (e.PropertyName == nameof(vm.LanguageCode))
 			{
 				ResizeGridViewColumn(this.srtLanguageColumn);
 			}

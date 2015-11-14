@@ -1,12 +1,12 @@
 <UpdateInfo>
 	<Release>
-		<Latest>2.8</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-2.8-Beta-x86.exe</DownloadLocation>
-		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/618369</ChangelogLocation>
+		<Latest>2.9</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-2.9-Beta-x86.exe</DownloadLocation>
+		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/618441</ChangelogLocation>
 	</Release>
 	<Release-x64>
-		<Latest>2.8</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-2.8-Beta-x64.exe</DownloadLocation>
-		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/618369</ChangelogLocation>
+		<Latest>2.9</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-2.9-Beta-x64.exe</DownloadLocation>
+		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/618441</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>

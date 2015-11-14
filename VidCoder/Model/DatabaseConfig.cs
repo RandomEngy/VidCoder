@@ -125,6 +125,10 @@ namespace VidCoder.Model
 			{
 				configValue = value.ToString();
 			}
+			else if (value == null)
+			{
+				configValue = null;
+			}
 			else
 			{
 				throw new ArgumentException("Unrecognized type passed to SetConfigValue: " + typeof(T).Name);

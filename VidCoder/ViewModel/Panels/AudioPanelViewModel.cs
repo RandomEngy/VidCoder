@@ -204,65 +204,69 @@ namespace VidCoder.ViewModel
 		{
 			if (this.SelectedTitle != null)
 			{
-				this.AudioOutputPreviews.SuppressChangeNotifications();
-
-				this.AudioOutputPreviews.Clear();
-
-				List<int> chosenAudioTracks = this.MainViewModel.GetChosenAudioTracks();
-				var outputPreviews = new List<AudioOutputPreview>();
-
-				foreach (AudioEncodingViewModel audioVM in this.AudioEncodings)
+				using (this.AudioOutputPreviews.SuppressChangeNotifications())
 				{
-					if (audioVM.IsValid)
+					this.AudioOutputPreviews.Clear();
+
+					List<int> chosenAudioTracks = this.MainViewModel.GetChosenAudioTracks();
+					var outputPreviews = new List<AudioOutputPreview>();
+
+					foreach (AudioEncodingViewModel audioVM in this.AudioEncodings)
 					{
-						if (audioVM.TargetStreamIndex == 0)
+						if (audioVM.IsValid)
 						{
-							foreach (AudioChoiceViewModel audioChoice in this.MainViewModel.AudioChoices)
+							if (audioVM.TargetStreamIndex == 0)
 							{
-								AudioOutputPreview audioPreview = this.GetAudioPreview(
-									this.SelectedTitle.AudioList[audioChoice.SelectedIndex], audioVM);
+								foreach (AudioChoiceViewModel audioChoice in this.MainViewModel.AudioChoices)
+								{
+									AudioOutputPreview audioPreview = this.GetAudioPreview(
+										this.SelectedTitle.AudioList[audioChoice.SelectedIndex], audioVM);
+									if (audioPreview != null)
+									{
+										outputPreviews.Add(audioPreview);
+									}
+								}
+							}
+							else if (audioVM.TargetStreamIndex - 1 < chosenAudioTracks.Count)
+							{
+								int titleAudioIndex = chosenAudioTracks[audioVM.TargetStreamIndex - 1];
+
+								AudioOutputPreview audioPreview = this.GetAudioPreview(this.SelectedTitle.AudioList[titleAudioIndex - 1],
+																					   audioVM);
 								if (audioPreview != null)
 								{
 									outputPreviews.Add(audioPreview);
 								}
 							}
 						}
-						else if (audioVM.TargetStreamIndex - 1 < chosenAudioTracks.Count)
-						{
-							int titleAudioIndex = chosenAudioTracks[audioVM.TargetStreamIndex - 1];
+					}
 
-							AudioOutputPreview audioPreview = this.GetAudioPreview(this.SelectedTitle.AudioList[titleAudioIndex - 1],
-							                                                       audioVM);
-							if (audioPreview != null)
-							{
-								outputPreviews.Add(audioPreview);
-							}
-						}
+					for (int i = 0; i < outputPreviews.Count; i++)
+					{
+						outputPreviews[i].TrackNumber = "#" + (i + 1);
+						this.AudioOutputPreviews.Add(outputPreviews[i]);
+					}
+
+					// Add the header row
+					if (this.AudioOutputPreviews.Count > 0)
+					{
+						this.AudioOutputPreviews.Insert(0, new AudioOutputPreview
+						{
+							TrackNumber = EncodingRes.Track,
+							Name = EncodingRes.Source,
+							Encoder = EncodingRes.Encoder,
+							Mixdown = EncodingRes.ChannelLayout,
+							SampleRate = EncodingRes.SampleRate,
+							Quality = EncodingRes.Quality,
+							Modifiers = EncodingRes.Modifiers
+						});
 					}
 				}
 
-				for (int i = 0; i < outputPreviews.Count; i++)
-				{
-					outputPreviews[i].TrackNumber = "#" + (i + 1);
-					this.AudioOutputPreviews.Add(outputPreviews[i]);
-				}
+				//this.AudioOutputPreviews.SuppressChangeNotifications();
 
-				// Add the header row
-				if (this.AudioOutputPreviews.Count > 0)
-				{
-					this.AudioOutputPreviews.Insert(0, new AudioOutputPreview
-					{
-						TrackNumber = EncodingRes.Track,
-						Name = EncodingRes.Source,
-						Encoder = EncodingRes.Encoder,
-						Mixdown = EncodingRes.ChannelLayout,
-						SampleRate = EncodingRes.SampleRate,
-						Quality = EncodingRes.Quality,
-						Modifiers = EncodingRes.Modifiers
-					});
-				}
 
-				this.AudioOutputPreviews.Reset();
+				//this.AudioOutputPreviews.Reset();
 			}
 		}
 

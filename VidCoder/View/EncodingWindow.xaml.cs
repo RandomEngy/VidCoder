@@ -48,9 +48,10 @@ namespace VidCoder.View
 
 		private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName == "PresetPanelOpen")
+			var viewModel = this.DataContext as EncodingWindowViewModel;
+
+			if (viewModel != null && e.PropertyName == nameof(viewModel.PresetPanelOpen))
 			{
-				var viewModel = (EncodingWindowViewModel)this.DataContext;
 				this.SetPanelOpenState(viewModel.PresetPanelOpen);
 			}
 		}
@@ -87,6 +88,12 @@ namespace VidCoder.View
 
 		private void Window_Closed(object sender, EventArgs e)
 		{
+			var viewModel = this.DataContext as EncodingWindowViewModel;
+			if (viewModel != null)
+			{
+				viewModel.PropertyChanged -= this.OnPropertyChanged;
+			}
+
 			this.DataContext = null;
 		}
 	}
