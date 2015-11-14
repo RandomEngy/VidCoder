@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Windows.Input;
 using HandBrake.ApplicationServices.Interop;
@@ -36,10 +37,12 @@ namespace VidCoder.ViewModel
 
 			this.fallbackEncoderChoices = new List<AudioEncoderViewModel>();
 
-			// HasAudioTracks
 			this.audioOutputPreviews.CountChanged
 				.Select(c => c > 0)
-				.ToProperty(this, x => x.HasAudioTracks, out this.hasAudioTracks);
+				.Subscribe(hasAudioTracks =>
+				{
+					this.HasAudioTracks = hasAudioTracks;
+				});
 
 			this.AddAudioEncoding = ReactiveCommand.Create();
 			this.AddAudioEncoding.Subscribe(_ => this.AddAudioEncodingImpl());
@@ -77,6 +80,8 @@ namespace VidCoder.ViewModel
 			this.RegisterProfileProperty(nameof(this.Profile.AudioEncoderFallback));
 			this.RegisterProfileProperty(nameof(this.Profile.AudioEncodings));
 		}
+
+		public bool SuppressProfileEdits { get; set; }
 
 		public ReactiveList<AudioEncodingViewModel> AudioEncodings
 		{
@@ -123,8 +128,13 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private ObservableAsPropertyHelper<bool> hasAudioTracks;
-		public bool HasAudioTracks => this.hasAudioTracks.Value;
+		// This would normally be an output property but a bug is stopping this from working. May be fixed in Reactive UI 7
+		private bool hasAudioTracks;
+		public bool HasAudioTracks
+		{
+			get { return this.hasAudioTracks; }
+			set { this.RaiseAndSetIfChanged(ref this.hasAudioTracks, value); }
+		}
 
 		public ReactiveCommand<object> AddAudioEncoding { get; }
 		private void AddAudioEncodingImpl()
@@ -148,6 +158,8 @@ namespace VidCoder.ViewModel
 		public void RemoveAudioEncoding(AudioEncodingViewModel audioEncodingVM)
 		{
 			this.AudioEncodings.Remove(audioEncodingVM);
+			audioEncodingVM.Dispose();
+
 			this.RefreshAudioPreview();
 			this.UpdateAudioEncodings();
 		}
@@ -190,8 +202,10 @@ namespace VidCoder.ViewModel
 
 		public void RefreshAudioPreview()
 		{
-			if (this.SelectedTitle != null && this.AudioOutputPreviews != null)
+			if (this.SelectedTitle != null)
 			{
+				this.AudioOutputPreviews.SuppressChangeNotifications();
+
 				this.AudioOutputPreviews.Clear();
 
 				List<int> chosenAudioTracks = this.MainViewModel.GetChosenAudioTracks();
@@ -247,6 +261,8 @@ namespace VidCoder.ViewModel
 						Modifiers = EncodingRes.Modifiers
 					});
 				}
+
+				this.AudioOutputPreviews.Reset();
 			}
 		}
 
@@ -358,12 +374,20 @@ namespace VidCoder.ViewModel
 
 		public void UpdateAudioEncodings()
 		{
-			var newAudioEncodings = this.AudioEncodings.Select(e => e.NewAudioEncoding).ToList();
-			this.UpdateProfileProperty(nameof(this.Profile.AudioEncodings), newAudioEncodings);
+			if (!this.SuppressProfileEdits)
+			{
+				var newAudioEncodings = this.AudioEncodings.Select(e => e.NewAudioEncoding).ToList();
+				this.UpdateProfileProperty(nameof(this.Profile.AudioEncodings), newAudioEncodings);
+			}
 		}
 
 		private void OnProfileChanged()
 		{
+			foreach (var audioEncodingViewModel in this.audioEncodings)
+			{
+				audioEncodingViewModel.Dispose();
+			}
+
 			this.audioEncodings.Clear();
 			foreach (AudioEncoding audioEncoding in this.Profile.AudioEncodings)
 			{

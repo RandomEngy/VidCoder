@@ -21,7 +21,7 @@ using Brush = System.Windows.Media.Brush;
 
 namespace VidCoder.ViewModel
 {
-	public class AudioEncodingViewModel : ReactiveObject
+	public class AudioEncodingViewModel : ReactiveObject, IDisposable
 	{
 		private const int RangeRoundDigits = 5;
 
@@ -49,6 +49,10 @@ namespace VidCoder.ViewModel
 
 		private List<int> currentSampleRateChoices;
 
+		private IDisposable containerSubscription;
+		private IDisposable presetChangeSubscription;
+		private IDisposable selectedTitleSubscrption;
+
 		static AudioEncodingViewModel()
 		{
 			allSampleRateChoices = new List<int> { 0 };
@@ -72,6 +76,23 @@ namespace VidCoder.ViewModel
 			this.mixdownChoices = new List<MixdownViewModel>();
 
 			this.RefreshEncoderChoices();
+
+			this.presetChangeSubscription = this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
+				.Subscribe(profile =>
+				{
+					this.containerSubscription?.Dispose();
+
+					this.containerSubscription = profile.WhenAnyValue(x => x.ContainerName)
+						.Skip(1)
+						.Subscribe(_ =>
+						{
+							this.RefreshEncoderChoices();
+						});
+
+					this.audioPanelVM.SuppressProfileEdits = true;
+					this.RefreshEncoderChoices();
+					this.audioPanelVM.SuppressProfileEdits = false;
+				});
 
 			HBAudioEncoder hbAudioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(audioEncoding.Encoder);
 			if (hbAudioEncoder.IsPassthrough)
@@ -352,28 +373,37 @@ namespace VidCoder.ViewModel
 			this.RemoveAudioEncoding = ReactiveCommand.Create();
 			this.RemoveAudioEncoding.Subscribe(_ => this.RemoveAudioEncodingImpl());
 
-			this.main.WhenAnyValue(x => x.SelectedTitle)
+			this.selectedTitleSubscrption = this.main.WhenAnyValue(x => x.SelectedTitle)
 				.Skip(1)
 				.Subscribe(_ =>
 				{
 					this.RefreshFromNewInput();
 				});
 
-			this.main.AudioChoiceChanged += (o, e) =>
-			{
-				this.RefreshFromNewInput();
-			};
+			this.main.AudioChoiceChanged += this.OnMainAudioChoiceChanged;
 
 			Config.Observables.ShowAudioTrackNameField.ToProperty(this, x => x.NameVisible, out this.nameVisible);
 
-			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.ContainerName)
-				.Skip(1)
-				.Subscribe(_ =>
-				{
-					this.RefreshEncoderChoices();
-				});
-
 			this.initializing = false;
+		}
+
+		public void Dispose()
+		{
+			this.main.AudioChoiceChanged -= this.OnMainAudioChoiceChanged;
+
+			this.containerSubscription?.Dispose();
+			this.containerSubscription = null;
+
+			this.presetChangeSubscription?.Dispose();
+			this.presetChangeSubscription = null;
+
+			this.selectedTitleSubscrption?.Dispose();
+			this.selectedTitleSubscrption = null;
+		}
+
+		private void OnMainAudioChoiceChanged(object sender, EventArgs args)
+		{
+			this.RefreshFromNewInput();
 		}
 
 		private void RefreshFromNewInput()

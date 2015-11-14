@@ -74,7 +74,9 @@ namespace VidCoder.ViewModel
 					this.SetSelectedFromRange();
 				});
 
-			this.selectedTitles.CountChanged.Select(count => count == 1).ToProperty(this, x => x.TitleDetailsVisible, out this.titleDetailsVisible, initialValue: false);
+			this.selectedTitles.CountChanged
+				.Select(count => count == 1)
+				.ToProperty(this, x => x.TitleDetailsVisible, out this.titleDetailsVisible, initialValue: false);
 
 			this.selectedTitles.CollectionChanged +=
 				(sender, args) =>
