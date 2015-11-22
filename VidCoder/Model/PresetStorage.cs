@@ -21,7 +21,7 @@ namespace VidCoder.Model
 {
 	public static class PresetStorage
 	{
-		private const int CurrentPresetVersion = 16;
+		private const int CurrentPresetVersion = 17;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.json";
@@ -207,77 +207,43 @@ namespace VidCoder.Model
 			return null;
 		}
 
-		public static void UpgradeEncodingProfile(VCProfile profile, int databaseVersion)
+		public static void UpgradeEncodingProfile(VCProfile profile, int oldDatabaseVersion, int? targetDatabaseVersion = null)
 		{
-			if (databaseVersion >= Utilities.CurrentDatabaseVersion)
+			if (oldDatabaseVersion >= Utilities.CurrentDatabaseVersion)
 			{
 				return;
 			}
 
-			if (databaseVersion < 13)
+			List<EncodingProfileUpgrade> upgrades = new List<EncodingProfileUpgrade>
 			{
-				UpgradeEncodingProfileTo13(profile);
-			}
+				new EncodingProfileUpgrade(13, UpgradeEncodingProfileTo13),
+				new EncodingProfileUpgrade(14, UpgradeEncodingProfileTo14),
+				new EncodingProfileUpgrade(15, UpgradeEncodingProfileTo15),
+				new EncodingProfileUpgrade(16, UpgradeEncodingProfileTo16),
+				new EncodingProfileUpgrade(17, UpgradeEncodingProfileTo17),
+				new EncodingProfileUpgrade(19, UpgradeEncodingProfileTo19),
+				new EncodingProfileUpgrade(20, UpgradeEncodingProfileTo20),
+				new EncodingProfileUpgrade(21, UpgradeEncodingProfileTo21),
+				new EncodingProfileUpgrade(22, UpgradeEncodingProfileTo22),
+				new EncodingProfileUpgrade(23, UpgradeEncodingProfileTo23),
+				new EncodingProfileUpgrade(24, UpgradeEncodingProfileTo24),
+				new EncodingProfileUpgrade(25, UpgradeEncodingProfileTo25),
+				new EncodingProfileUpgrade(26, UpgradeEncodingProfileTo26),
+				new EncodingProfileUpgrade(26, UpgradeEncodingProfileTo29),
+			};
 
-			if (databaseVersion < 14)
+			foreach (EncodingProfileUpgrade upgrade in upgrades)
 			{
-				UpgradeEncodingProfileTo14(profile);
+				if (targetDatabaseVersion.HasValue && upgrade.TargetDatabaseVersion > targetDatabaseVersion.Value)
+				{
+					break;
+				}
+
+				if (oldDatabaseVersion < upgrade.TargetDatabaseVersion)
+				{
+					upgrade.UpgradeAction(profile);
+				}
 			}
-
-			if (databaseVersion < 15)
-			{
-				UpgradeEncodingProfileTo15(profile);
-			}
-
-			if (databaseVersion < 16)
-			{
-				UpgradeEncodingProfileTo16(profile);
-			}
-
-			if (databaseVersion < 17)
-			{
-				UpgradeEncodingProfileTo17(profile);
-			}
-
-			if (databaseVersion < 19)
-			{
-				UpgradeEncodingProfileTo19(profile);
-			}
-
-			if (databaseVersion < 20)
-			{
-				UpgradeEncodingProfileTo20(profile);
-			}
-
-			if (databaseVersion < 21)
-			{
-				UpgradeEncodingProfileTo21(profile);
-			}
-
-			if (databaseVersion < 22)
-			{
-				UpgradeEncodingProfileTo22(profile);
-			}
-
-			if (databaseVersion < 23)
-			{
-				UpgradeEncodingProfileTo23(profile);
-			}
-
-			if (databaseVersion < 24)
-			{
-				UpgradeEncodingProfileTo24(profile);
-			}
-
-		    if (databaseVersion < 25)
-		    {
-		        UpgradeEncodingProfileTo25(profile);
-		    }
-
-		    if (databaseVersion < 26)
-		    {
-		        UpgradeEncodingProfileTo26(profile);
-		    }
 		}
 
 		public static void UpgradeEncodingProfileTo13(VCProfile profile)
@@ -351,12 +317,12 @@ namespace VidCoder.Model
 			}
 		}
 
-		public static void UpgradeEncodingProfileTo14(VCProfile profile)
+		private static void UpgradeEncodingProfileTo14(VCProfile profile)
 		{
 			profile.AudioEncoderFallback = UpgradeAudioEncoder(profile.AudioEncoderFallback);
 		}
 
-		public static void UpgradeEncodingProfileTo15(VCProfile profile)
+		private static void UpgradeEncodingProfileTo15(VCProfile profile)
 		{
 			if (profile.Framerate == 0)
 			{
@@ -381,7 +347,7 @@ namespace VidCoder.Model
 			}
 		}
 
-		public static void UpgradeEncodingProfileTo16(VCProfile profile)
+		private static void UpgradeEncodingProfileTo16(VCProfile profile)
 		{
 #pragma warning disable 612,618
 			if (profile.CustomCropping)
@@ -402,7 +368,7 @@ namespace VidCoder.Model
 #pragma warning restore 612,618
 		}
 
-		public static void UpgradeEncodingProfileTo17(VCProfile profile)
+		private static void UpgradeEncodingProfileTo17(VCProfile profile)
 		{
 			if (profile.X264Profile == "high444")
 			{
@@ -410,7 +376,7 @@ namespace VidCoder.Model
 			}
 		}
 
-		public static void UpgradeEncodingProfileTo19(VCProfile profile)
+		private static void UpgradeEncodingProfileTo19(VCProfile profile)
 		{
 			foreach (AudioEncoding encoding in profile.AudioEncodings)
 			{
@@ -427,7 +393,7 @@ namespace VidCoder.Model
 			}
 		}
 
-		public static void UpgradeEncodingProfileTo20(VCProfile profile)
+		private static void UpgradeEncodingProfileTo20(VCProfile profile)
 		{
 			if (!HandBrakeEncoderHelpers.VideoEncoders.Any(e => e.ShortName == profile.VideoEncoder))
 			{
@@ -441,7 +407,7 @@ namespace VidCoder.Model
 			}
 		}
 
-		public static void UpgradeEncodingProfileTo21(VCProfile profile)
+		private static void UpgradeEncodingProfileTo21(VCProfile profile)
 		{
 #pragma warning disable 612,618
 			if (profile.OutputFormat == VCContainer.Mp4)
@@ -455,12 +421,12 @@ namespace VidCoder.Model
 #pragma warning restore 612,618
 		}
 
-		public static void UpgradeEncodingProfileTo22(VCProfile profile)
+		private static void UpgradeEncodingProfileTo22(VCProfile profile)
 		{
 			profile.QsvDecode = true;
 		}
 
-		public static void UpgradeEncodingProfileTo23(VCProfile profile)
+		private static void UpgradeEncodingProfileTo23(VCProfile profile)
 		{
 			if (profile.ContainerName == "mp4v2")
 			{
@@ -472,7 +438,7 @@ namespace VidCoder.Model
 			}
 		}
 
-		public static void UpgradeEncodingProfileTo24(VCProfile profile)
+		private static void UpgradeEncodingProfileTo24(VCProfile profile)
 		{
 			profile.VideoOptions = profile.X264Options;
 			profile.VideoTunes = profile.X264Tunes;
@@ -491,7 +457,7 @@ namespace VidCoder.Model
 			}
 		}
 
-		public static void UpgradeEncodingProfileTo25(VCProfile profile)
+		private static void UpgradeEncodingProfileTo25(VCProfile profile)
 		{
 #pragma warning disable 618
 			if (profile.Denoise == null || profile.Denoise == "Off")
@@ -527,13 +493,22 @@ namespace VidCoder.Model
 #pragma warning restore 618
 		}
 
-	    public static void UpgradeEncodingProfileTo26(VCProfile profile)
+		private static void UpgradeEncodingProfileTo26(VCProfile profile)
 	    {
             if (profile.DenoiseType == VCDenoise.NlMeans)
 	        {
 	            profile.DenoiseType = VCDenoise.NLMeans;
 	        }
         }
+
+		private static void UpgradeEncodingProfileTo29(VCProfile profile)
+		{
+			// Earlier versions had an issue where they might wipe the container name.
+			if (profile.ContainerName == null)
+			{
+				profile.ContainerName = "av_mp4";
+			}
+		}
 
 		private static void ErrorCheckPresets(List<Preset> presets)
 		{
@@ -708,6 +683,11 @@ namespace VidCoder.Model
 		        return 25;
 		    }
 
+			if (presetVersion < 17)
+			{
+				return 26;
+			}
+
 			return Utilities.CurrentDatabaseVersion;
 		}
 
@@ -778,6 +758,19 @@ namespace VidCoder.Model
 			}
 
 			return result;
+		}
+
+		private class EncodingProfileUpgrade
+		{
+			public EncodingProfileUpgrade(int targetDatabaseVersion, Action<VCProfile> upgradeAction)
+			{
+				this.TargetDatabaseVersion = targetDatabaseVersion;
+				this.UpgradeAction = upgradeAction;
+			}
+
+			public int TargetDatabaseVersion { get; private set; }
+
+			public Action<VCProfile> UpgradeAction { get; private set; }
 		}
 	}
 }

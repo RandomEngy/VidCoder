@@ -19,7 +19,6 @@ namespace VidCoderCommon.Model
 		}
 
 		#region Obsolete fields
-		[Obsolete("Use ContainerName instead.")]
 		public VCContainer OutputFormat { get; set; }
 		public string X264Options { get; set; }
 

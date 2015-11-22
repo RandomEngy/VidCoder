@@ -61,13 +61,14 @@ namespace VidCoder.Model
 
 				if (databaseVersion < 28)
 				{
-					UpgradeDatabaseTo28();
+					UpgradeDatabaseTo28(oldDatabaseVersion: databaseVersion);
 				}
 
-				// Update encoding profiles if we need to.
-				if (databaseVersion < Utilities.LastUpdatedEncodingProfileDatabaseVersion)
+				// Update encoding profiles if we need to. Everything is at least 28 now from the JSON upgrade.
+				int oldDatabaseVersion = Math.Max(databaseVersion, 28);
+                if (oldDatabaseVersion < Utilities.LastUpdatedEncodingProfileDatabaseVersion)
 				{
-					UpgradeEncodingProfiles(databaseVersion);
+					UpgradeEncodingProfiles(oldDatabaseVersion);
 				}
 
 				SetDatabaseVersionToLatest();
@@ -175,7 +176,7 @@ namespace VidCoder.Model
 			}
 		}
 
-		private static void UpgradeDatabaseTo28()
+		private static void UpgradeDatabaseTo28(int oldDatabaseVersion)
 		{
 			// Upgrade from XML to JSON
 			Config.EnsureInitialized(connection);
@@ -196,6 +197,9 @@ namespace VidCoder.Model
 				{
 					string presetXml = reader.GetString("xml");
 					var preset = PresetStorage.ParsePresetXml(presetXml, presetSerializer);
+
+					// Bring them all up to 28. The preset upgrade will cover them after that.
+					PresetStorage.UpgradeEncodingProfile(preset.EncodingProfile, oldDatabaseVersion, 28);
 
 					presetParameter.Value = PresetStorage.SerializePreset(preset);
 					presetInsertCommand.ExecuteNonQuery();
