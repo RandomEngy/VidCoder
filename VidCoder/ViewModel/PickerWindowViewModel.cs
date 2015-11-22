@@ -28,6 +28,9 @@ namespace VidCoder.ViewModel
 
 		private Dictionary<string, Action> pickerProperties;
 		private bool automaticChange;
+		private bool userModifyingOutputDirectory;
+		private bool userModifyingNameFormat;
+		private bool userModifyingEncodingPreset;
 
 		public PickerWindowViewModel()
 		{
@@ -41,6 +44,23 @@ namespace VidCoder.ViewModel
 					bool automaticChangePreviousValue = this.automaticChange;
 					this.automaticChange = true;
 					this.RaiseAllChanged();
+
+					// When we are swapping active pickers, update the local properties.
+					if (!this.userModifyingOutputDirectory)
+					{
+						this.OutputDirectoryOverride = this.Picker.OutputDirectoryOverride;
+					}
+
+					if (!this.userModifyingNameFormat)
+					{
+						this.NameFormatOverride = this.Picker.NameFormatOverride;
+					}
+
+					if (!this.userModifyingEncodingPreset)
+					{
+						this.PopulateEncodingPreset(this.Picker.UseEncodingPreset);
+					}
+
 					this.automaticChange = automaticChangePreviousValue;
 				});
 
@@ -94,20 +114,7 @@ namespace VidCoder.ViewModel
 			this.WhenAnyValue(x => x.UseEncodingPreset)
 				.Subscribe(useEncodingPreset =>
 				{
-					if (useEncodingPreset)
-					{
-						PresetViewModel preset = this.presetsService.AllPresets.FirstOrDefault(p => p.Preset.Name == this.Picker.EncodingPreset);
-						if (preset == null)
-						{
-							preset = this.presetsService.AllPresets.First();
-						}
-
-						this.SelectedPreset = preset;
-					}
-					else
-					{
-						this.SelectedPreset = null;
-					}
+					this.PopulateEncodingPreset(useEncodingPreset);
 				});
 
 			// Update the underlying picker when our local properties change.
@@ -116,21 +123,27 @@ namespace VidCoder.ViewModel
 				.Skip(1)
 				.Subscribe(directoryOverride =>
 				{
+					this.userModifyingOutputDirectory = true;
 					this.UpdatePickerProperty(nameof(this.Picker.OutputDirectoryOverride), directoryOverride, raisePropertyChanged: false);
+					this.userModifyingOutputDirectory = false;
 				});
 
 			this.WhenAnyValue(x => x.NameFormatOverride)
 				.Skip(1)
 				.Subscribe(nameFormatOverride =>
 				{
+					this.userModifyingNameFormat = true;
 					this.UpdatePickerProperty(nameof(this.Picker.NameFormatOverride), nameFormatOverride, raisePropertyChanged: false);
+					this.userModifyingNameFormat = false;
 				});
 
 			this.WhenAnyValue(x => x.SelectedPreset)
 				.Subscribe(selectedPreset =>
 				{
+					this.userModifyingEncodingPreset = true;
 					string presetName = selectedPreset == null ? null : selectedPreset.Preset.Name;
 					this.UpdatePickerProperty(nameof(this.Picker.EncodingPreset), presetName, raisePropertyChanged: false);
+					this.userModifyingEncodingPreset = false;
 				});
 
 			this.DismissMessage = ReactiveCommand.Create();
@@ -158,6 +171,24 @@ namespace VidCoder.ViewModel
 			this.PickOutputDirectory.Subscribe(_ => this.PickOutputDirectoryImpl());
 
 			this.automaticChange = false;
+		}
+
+		private void PopulateEncodingPreset(bool useEncodingPreset)
+		{
+			if (useEncodingPreset)
+			{
+				PresetViewModel preset = this.presetsService.AllPresets.FirstOrDefault(p => p.Preset.Name == this.Picker.EncodingPreset);
+				if (preset == null)
+				{
+					preset = this.presetsService.AllPresets.First();
+				}
+
+				this.SelectedPreset = preset;
+			}
+			else
+			{
+				this.SelectedPreset = null;
+			}
 		}
 
 		private void RegisterPickerProperties()
