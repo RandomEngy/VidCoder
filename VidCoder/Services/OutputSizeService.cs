@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HandBrake.ApplicationServices.Interop.Json.Shared;
@@ -18,6 +19,13 @@ namespace VidCoder.Services
 		public OutputSizeService()
 		{
 			this.Refresh();
+
+			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
+				.Skip(1)
+				.Subscribe(_ =>
+				{
+					this.Refresh();
+				});
 		}
 
 		private Geometry size;
