@@ -1,9 +1,7 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ output extension=".cs" #>
-<#@ assembly name="$(TargetPath)" #>
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="VidCoder" #>
 <#
 string fileName = this.Host.ResolvePath("Config.txt");
 var settings = new List<ConfigDeclaration>();
@@ -121,3 +119,13 @@ foreach (var setting in settings)
 		}
 	}
 }
+<#+
+
+public class ConfigDeclaration
+{
+	public string Name { get; set; }
+	public string ValueType { get; set; }
+	public string Default { get; set; }
+}
+
+#>

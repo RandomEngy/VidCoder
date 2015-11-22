@@ -594,7 +594,6 @@
     <Compile Include="Services\SystemOperations.cs" />
     <Compile Include="Services\TaskBarProgressTracker.cs" />
     <Compile Include="Services\TrayService.cs" />
-    <Compile Include="Model\Config\ConfigDeclaration.cs" />
     <Compile Include="Services\Windows\IWindowManager.cs" />
     <Compile Include="Services\Windows\WindowDefinition.cs" />
     <Compile Include="Services\Windows\WindowManager.cs" />
