@@ -313,6 +313,7 @@ namespace VidCoder.Model
 			PresetStorage.SavePresets(presetJsonList, Connection);
 
 			// Upgrade encoding profiles on old queue items.
+			Config.EnsureInitialized(Connection);
 			string jobsXml = Config.EncodeJobs2;
 			if (!string.IsNullOrEmpty(jobsXml))
 			{

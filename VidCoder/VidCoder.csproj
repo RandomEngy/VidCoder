@@ -396,6 +396,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Preview\PreviewCorners.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Preview\PreviewCreationControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Preview\PreviewStillFit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Preview\PreviewStillOneToOne.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\QueueTitlesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -476,6 +492,7 @@
     <Compile Include="Model\EncodeResultStatus.cs" />
     <Compile Include="Model\PresetWrapper.cs" />
     <Compile Include="Model\PreviewEncodeState.cs" />
+    <Compile Include="Model\PreviewMainDisplay.cs" />
     <Compile Include="Model\VideoSourceState.cs" />
     <Compile Include="Model\TitleType.cs" />
     <Compile Include="Model\Picker.cs">
@@ -658,6 +675,18 @@
     </Compile>
     <Compile Include="View\PickerWindow.xaml.cs">
       <DependentUpon>PickerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Preview\PreviewCorners.xaml.cs">
+      <DependentUpon>PreviewCorners.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Preview\PreviewCreationControls.xaml.cs">
+      <DependentUpon>PreviewCreationControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Preview\PreviewStillFit.xaml.cs">
+      <DependentUpon>PreviewStillFit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Preview\PreviewStillOneToOne.xaml.cs">
+      <DependentUpon>PreviewStillOneToOne.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RestoreWindowCommand.cs" />
     <Compile Include="Utilities\SourceHistory.cs" />

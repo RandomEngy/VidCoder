@@ -144,6 +144,47 @@ namespace VidCoder.ViewModel
 				return PreviewRes.PlaySourceToolTip;
 			}).ToProperty(this, x => x.PlaySourceToolTip, out this.playSourceToolTip);
 
+			var hasPreviewObservable = this.WhenAnyValue(x => x.HasPreview);
+
+			var displayTypeObservable = this.WhenAnyValue(x => x.DisplayType);
+
+			var playingPreviewObservable = this.WhenAnyValue(x => x.PlayingPreview);
+
+			Observable.CombineLatest(hasPreviewObservable, displayTypeObservable, playingPreviewObservable, (hasPreview, displayType, playingPreview) =>
+			{
+				return true;
+			});
+
+			// MainDisplay
+			this.MainDisplayObservable = this.WhenAnyValue(x => x.HasPreview, x => x.DisplayType, x => x.PlayingPreview, (hasPreview, displayType, playingPreview) =>
+			{
+				if (playingPreview)
+				{
+					return PreviewMainDisplay.Video;
+				}
+
+				if (!hasPreview)
+				{
+					return PreviewMainDisplay.None;
+				}
+
+				switch (displayType)
+				{
+					case PreviewDisplay.Default:
+						return PreviewMainDisplay.StillDefault;
+					case PreviewDisplay.FitToWindow:
+						return PreviewMainDisplay.StillFitToWindow;
+					case PreviewDisplay.OneToOne:
+						return PreviewMainDisplay.StillOneToOne;
+					case PreviewDisplay.Corners:
+						return PreviewMainDisplay.StillCorners;
+					default:
+						throw new ArgumentOutOfRangeException(nameof(displayType), displayType, null);
+				}
+			});
+
+			this.MainDisplayObservable.ToProperty(this, x => x.MainDisplay, out this.mainDisplay);
+
 			// SingleFitImageVisible
 			this.WhenAnyValue(x => x.HasPreview, x => x.DisplayType, (hasPreview, displayType) =>
 			{
@@ -171,7 +212,6 @@ namespace VidCoder.ViewModel
 			this.WhenAnyValue(x => x.EncodeState)
 				.Select(encodeState => encodeState == PreviewEncodeState.EncodeStarting || encodeState == PreviewEncodeState.Encoding)
 				.ToProperty(this, x => x.GeneratingPreview, out this.generatingPreview);
-
 			this.PlaySource = ReactiveCommand.Create(this.WhenAnyValue(x => x.PlayAvailable));
 			this.PlaySource.Subscribe(_ => this.PlaySourceImpl());
 
@@ -202,10 +242,7 @@ namespace VidCoder.ViewModel
 
 		public MainViewModel MainViewModel
 		{
-			get
-			{
-				return this.mainViewModel;
-			}
+			get { return this.mainViewModel; }
 		}
 
 		public ProcessingService ProcessingService { get; } = Ioc.Get<ProcessingService>();
@@ -220,36 +257,47 @@ namespace VidCoder.ViewModel
 		}
 
 		private string title;
+
 		public string Title
 		{
 			get { return this.title; }
 			set { this.RaiseAndSetIfChanged(ref this.title, value); }
 		}
 
-		private ImageSource previewImage;
-		public ImageSource PreviewImage
-		{
-			get { return this.previewImage; }
-			set { this.RaiseAndSetIfChanged(ref this.previewImage, value); }
-		}
+		private BitmapSource previewImage;
 
-		public BitmapSource PreviewBitmapSource
+		public BitmapSource PreviewImage
 		{
 			get
 			{
 				lock (this.imageSync)
 				{
-					return this.previewBitmapSource;
+					return this.previewImage;
 				}
 			}
+			set { this.RaiseAndSetIfChanged(ref this.previewImage, value); }
 		}
 
 		private PreviewEncodeState encodeState;
+
 		public PreviewEncodeState EncodeState
 		{
 			get { return this.encodeState; }
 			set { this.RaiseAndSetIfChanged(ref this.encodeState, value); }
 		}
+
+		private bool playingPreview;
+
+		public bool PlayingPreview
+		{
+			get { return this.playingPreview; }
+			set { this.RaiseAndSetIfChanged(ref this.playingPreview, value); }
+		}
+
+		public IObservable<PreviewMainDisplay> MainDisplayObservable { get; private set; }
+
+		private ObservableAsPropertyHelper<PreviewMainDisplay> mainDisplay;
+		public PreviewMainDisplay MainDisplay => this.mainDisplay.Value;
 
 		private ObservableAsPropertyHelper<bool> generatingPreview;
 		public bool GeneratingPreview => this.generatingPreview.Value;
@@ -261,6 +309,7 @@ namespace VidCoder.ViewModel
 		public bool SeekBarEnabled => this.seekBarEnabled.Value;
 
 		private double previewPercentComplete;
+
 		public double PreviewPercentComplete
 		{
 			get { return this.previewPercentComplete; }
@@ -269,10 +318,7 @@ namespace VidCoder.ViewModel
 
 		public int PreviewSeconds
 		{
-			get
-			{
-				return this.previewSeconds;
-			}
+			get { return this.previewSeconds; }
 
 			set
 			{
@@ -284,6 +330,7 @@ namespace VidCoder.ViewModel
 		}
 
 		private bool hasPreview;
+
 		public bool HasPreview
 		{
 			get { return this.hasPreview; }
@@ -292,10 +339,7 @@ namespace VidCoder.ViewModel
 
 		public int SelectedPreview
 		{
-			get
-			{
-				return this.selectedPreview;
-			}
+			get { return this.selectedPreview; }
 
 			set
 			{
@@ -371,12 +415,10 @@ namespace VidCoder.ViewModel
 		public bool PlayAvailable => this.playAvailable.Value;
 
 		private PreviewDisplay displayType;
+
 		public PreviewDisplay DisplayType
 		{
-			get
-			{
-				return this.displayType;
-			}
+			get { return this.displayType; }
 
 			set
 			{
@@ -394,13 +436,11 @@ namespace VidCoder.ViewModel
 
 		public HandBrakeInstance ScanInstance
 		{
-			get
-			{
-				return this.mainViewModel.ScanInstance;
-			}
+			get { return this.mainViewModel.ScanInstance; }
 		}
 
 		public ReactiveCommand<object> GeneratePreview { get; }
+
 		private void GeneratePreviewImpl()
 		{
 			this.job = this.mainViewModel.EncodeJob;
@@ -692,6 +732,7 @@ namespace VidCoder.ViewModel
 			this.PreviewDisplayHeight = height;
 			this.PreviewDisplayWidth = width * ((double)parWidth / parHeight);
 
+
 			// Update the number of previews.
 			this.previewCount = this.ScanInstance.PreviewCount;
 			if (this.selectedPreview >= this.previewCount)
@@ -712,9 +753,10 @@ namespace VidCoder.ViewModel
 				// Clear main work queue.
 				this.previewImageWorkQueue.Clear();
 
-				this.imageFileCacheFolder = Path.Combine(Utilities.ImageCacheFolder,
-														 Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture),
-														 updateVersion.ToString(CultureInfo.InvariantCulture));
+				this.imageFileCacheFolder = Path.Combine(
+					Utilities.ImageCacheFolder, 
+					Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture), 
+					updateVersion.ToString(CultureInfo.InvariantCulture));
 				if (!Directory.Exists(this.imageFileCacheFolder))
 				{
 					Directory.CreateDirectory(this.imageFileCacheFolder);
@@ -730,6 +772,8 @@ namespace VidCoder.ViewModel
 				}
 
 				this.BeginBackgroundImageLoad();
+
+				this.View.RefreshImageSize();
 			}
 
 			this.UpdateTitle(outputGeometry);
@@ -745,9 +789,9 @@ namespace VidCoder.ViewModel
 			{
 				this.Title = string.Format(
 					PreviewRes.PreviewWindowTitleComplex,
-					Math.Round(this.PreviewDisplayWidth),
+					Math.Round(this.PreviewDisplayWidth), 
 					Math.Round(this.PreviewDisplayHeight),
-					size.Width,
+					size.Width, 
 					size.Height);
 			}
 		}
@@ -880,7 +924,12 @@ namespace VidCoder.ViewModel
 		{
 			this.previewImageWorkQueue.Enqueue(new PreviewImageJob
 			{
-				UpdateVersion = updateVersion, ScanInstance = this.ScanInstance, PreviewNumber = previewNumber, Profile = this.job.EncodingProfile, Title = this.MainViewModel.SelectedTitle, ImageFileSync = this.imageFileSync[previewNumber]
+				UpdateVersion = updateVersion,
+				ScanInstance = this.ScanInstance,
+				PreviewNumber = previewNumber,
+				Profile = this.job.EncodingProfile,
+				Title = this.MainViewModel.SelectedTitle,
+				ImageFileSync = this.imageFileSync[previewNumber]
 			});
 		}
 
@@ -947,7 +996,11 @@ namespace VidCoder.ViewModel
 					// Start saving the image file in the background and continue to process the queue.
 					ThreadPool.QueueUserWorkItem(this.BackgroundFileSave, new SaveImageJob
 					{
-						PreviewNumber = imageJob.PreviewNumber, UpdateVersion = imageJob.UpdateVersion, FilePath = imagePath, Image = imageSource, ImageFileSync = imageJob.ImageFileSync
+						PreviewNumber = imageJob.PreviewNumber,
+						UpdateVersion = imageJob.UpdateVersion,
+						FilePath = imagePath,
+						Image = imageSource,
+						ImageFileSync = imageJob.ImageFileSync
 					});
 				}
 
@@ -1017,13 +1070,7 @@ namespace VidCoder.ViewModel
 				return;
 			}
 
-			if (this.DisplayType != PreviewDisplay.Corners)
-			{
-				this.PreviewImage = this.previewBitmapSource;
-			}
-
-			// In the Corners display mode, the view code will react to the message and read from this.previewBitmapSource.
-			this.View.RefreshImageSize();
+			this.PreviewImage = this.previewBitmapSource;
 		}
 
 		private void BackgroundFileSave(object state)
@@ -1052,7 +1099,7 @@ namespace VidCoder.ViewModel
 
 						using (var fileStream = new FileStream(job.FilePath, FileMode.Create))
 						{
-							fileStream.Write(memoryStream.GetBuffer(), 0, (int) memoryStream.Length);
+							fileStream.Write(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
 						}
 					}
 				}

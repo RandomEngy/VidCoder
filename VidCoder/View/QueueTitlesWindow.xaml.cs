@@ -67,7 +67,7 @@ namespace VidCoder.View
 				heightPixels = title.Geometry.Height * ((double)title.Geometry.PAR.Den / title.Geometry.PAR.Num);
 			}
 
-			ImageUtilities.UpdatePreviewImageSize(this.previewImage, this.previewImageHolder, widthPixels, heightPixels);
+			ImageUtilities.UpdatePreviewHolderSize(this.previewImage, this.previewImageHolder, widthPixels, heightPixels, showOneToOneWhenSmaller: true);
 		}
 
 		private void previewImageHolder_SizeChanged(object sender, SizeChangedEventArgs e)

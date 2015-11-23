@@ -14,6 +14,7 @@ using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
+using VidCoder.View.Preview;
 using VidCoder.ViewModel;
 
 namespace VidCoder.View
@@ -26,35 +27,63 @@ namespace VidCoder.View
 	public partial class PreviewWindow : Window, IPreviewView
 	{
 		private PreviewWindowViewModel viewModel;
-		private const double ZoomedPixelSize = 4;
-		private const double MarginWithScrollBar = 22;
 
 		public PreviewWindow()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 
-			this.previewControls.Opacity = 0.0;
-			this.DataContextChanged += PreviewWindow_DataContextChanged;
+			this.DataContextChanged += this.OnDataContextChanged;
 		}
 
-		private void PreviewWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
-			this.viewModel = this.DataContext as PreviewWindowViewModel;
+			this.viewModel = (PreviewWindowViewModel)this.DataContext;
 			this.viewModel.View = this;
-			this.viewModel.PropertyChanged += viewModel_PropertyChanged;
-			this.RefreshControlMargins();
-			if (this.viewModel.InCornerDisplayMode)
-			{
-				this.previewControls.Opacity = 1.0;
-			}
+			this.viewModel.MainDisplayObservable.Subscribe(this.OnMainDisplayUpdate);
 		}
 
-		private void viewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		private void OnMainDisplayUpdate(PreviewMainDisplay mainDisplay)
 		{
-			if (e.PropertyName == nameof(this.viewModel.DisplayType))
+			switch (mainDisplay)
 			{
-				this.RefreshControlMargins();
+				case PreviewMainDisplay.None:
+					this.previewArea.Children.Clear();
+					break;
+				case PreviewMainDisplay.StillDefault:
+					if (!(this.MainContent is PreviewStillFit))
+					{
+						this.MainContent = new PreviewStillFit();
+					}
+
+					break;
+				case PreviewMainDisplay.StillFitToWindow:
+					if (!(this.MainContent is PreviewStillFit))
+					{
+						this.MainContent = new PreviewStillFit();
+					}
+
+					break;
+				case PreviewMainDisplay.StillOneToOne:
+					if (!(this.MainContent is PreviewStillOneToOne))
+					{
+						this.MainContent = new PreviewStillOneToOne();
+					}
+
+					break;
+				case PreviewMainDisplay.StillCorners:
+					if (!(this.MainContent is PreviewCorners))
+					{
+						this.MainContent = new PreviewCorners();
+					}
+
+					break;
+				case PreviewMainDisplay.Video:
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
 			}
+
+			this.RefreshImageSize();
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)
@@ -84,125 +113,68 @@ namespace VidCoder.View
 			}
 		}
 
-		private void previewImageHolder_SizeChanged(object sender, SizeChangedEventArgs e)
+		private UIElement MainContent
+		{
+			get
+			{
+				if (this.previewArea.Children.Count == 0)
+				{
+					return null;
+				}
+
+				return this.previewArea.Children[0];
+			}
+
+			set
+			{
+				this.previewArea.Children.Clear();
+				this.previewArea.Children.Add(value);
+			}
+		}
+
+		private void PreviewArea_OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			this.RefreshImageSize();
 		}
 
-		private void previewImageScrollViewer_SizeChanged(object sender, SizeChangedEventArgs e)
-		{
-			this.RefreshControlMargins();
-		}
-
-		private void previewImageOneToOne_SizeChanged(object sender, SizeChangedEventArgs e)
-		{
-			this.RefreshControlMargins();
-		}
-
 		public void RefreshImageSize()
 		{
-			var previewVM = this.DataContext as PreviewWindowViewModel;
+			var previewVM = (PreviewWindowViewModel) this.DataContext;
+			PreviewStillFit stillFitControl;
 
-			if (previewVM.DisplayType == PreviewDisplay.Corners)
+			switch (previewVM.MainDisplay)
 			{
-				var bitmap = previewVM.PreviewBitmapSource;
-				
-				if (bitmap != null)
-				{
-					// Top left
-					UpdateCornerImage(
-						this.topLeftImage,
-						this.topLeftImageHolder,
-						bitmap, 
-						(imageWidth, imageHeight, regionWidth, regionHeight) => new Int32Rect(0, 0, regionWidth, regionHeight));
+				case PreviewMainDisplay.StillDefault:
+					stillFitControl = this.MainContent as PreviewStillFit;
+					stillFitControl?.ResizeHolder(
+						this.previewArea,
+						previewVM.PreviewDisplayWidth,
+						previewVM.PreviewDisplayHeight,
+						showOneToOneWhenSmaller: true);
 
-					// Bottom right
-					UpdateCornerImage(
-						this.bottomRightImage,
-						this.bottomRightImageHolder,
-						bitmap,
-						(imageWidth, imageHeight, regionWidth, regionHeight) => new Int32Rect(imageWidth - regionWidth, imageHeight - regionHeight, regionWidth, regionHeight));
-				}
+					break;
+				case PreviewMainDisplay.StillFitToWindow:
+					stillFitControl = this.MainContent as PreviewStillFit;
+					stillFitControl?.ResizeHolder(
+						this.previewArea,
+						previewVM.PreviewDisplayWidth,
+						previewVM.PreviewDisplayHeight,
+						showOneToOneWhenSmaller: false);
+
+					break;
+				case PreviewMainDisplay.StillOneToOne:
+					var oneToOneControl = this.MainContent as PreviewStillOneToOne;
+					oneToOneControl?.ResizeHolder(previewVM.PreviewDisplayWidth, previewVM.PreviewDisplayHeight);
+
+					break;
+				case PreviewMainDisplay.StillCorners:
+					var cornersControl = this.MainContent as PreviewCorners;
+					cornersControl?.UpdateCornerImages();
+
+					break;
+				//case PreviewMainDisplay.Video:
+				//	break;
 			}
-			else
-			{
-				double widthPixels = previewVM.PreviewDisplayWidth;
-				double heightPixels = previewVM.PreviewDisplayHeight;
-
-				ImageUtilities.UpdatePreviewImageSize(this.previewImage, this.previewImageHolder, widthPixels, heightPixels);
-			}
-		}
-
-		private static void UpdateCornerImage(Image image, Grid imageHolder, BitmapSource bitmap, RegionChooser regionChooser, bool isRetry = false)
-		{
-			// Image dimensions
-			int imageWidth = bitmap.PixelWidth;
-			int imageHeight = bitmap.PixelHeight;
-
-			double availableWidth = imageHolder.ActualWidth;
-			double availableHeight = imageHolder.ActualHeight;
-
-			if (availableWidth == 0 || availableHeight == 0)
-			{
-				// Intermittent bug causing this. In this case we queue it up to go again after a layout pass has been done.
-				if (!isRetry)
-				{
-					DispatchUtilities.BeginInvoke(() =>
-						{
-							UpdateCornerImage(image, imageHolder, bitmap, regionChooser, isRetry: true);
-						});
-				}
-
-				return;
-			}
-
-			int cornerWidthPixels = (int)(availableWidth / ZoomedPixelSize);
-			int cornerHeightPixels = (int)(availableHeight / ZoomedPixelSize);
-
-			// Make sure the subsection of the image is not larger than the image itself
-			cornerWidthPixels = Math.Min(cornerWidthPixels, imageWidth);
-			cornerHeightPixels = Math.Min(cornerHeightPixels, imageHeight);
-
-			double cornerWidth = cornerWidthPixels * ZoomedPixelSize;
-			double cornerHeight = cornerHeightPixels * ZoomedPixelSize;
-
-			var croppedBitmap = new CroppedBitmap();
-			croppedBitmap.BeginInit();
-			croppedBitmap.SourceRect = regionChooser(imageWidth, imageHeight, cornerWidthPixels, cornerHeightPixels);
-			croppedBitmap.Source = bitmap;
-			croppedBitmap.EndInit();
-
-			image.Source = croppedBitmap;
-			image.Width = cornerWidth;
-			image.Height = cornerHeight;
-		}
-
-		private void RefreshControlMargins()
-		{
-			if (this.viewModel == null)
-			{
-				return;
-			}
-
-			var margin = new Thickness(6, 0, 6, 6);
-
-			if (!this.viewModel.SingleOneToOneImageVisible)
-			{
-				this.previewControls.Margin = margin;
-				return;
-			}
-
-			if (this.previewImageScrollViewer.ComputedHorizontalScrollBarVisibility == Visibility.Visible)
-			{
-				margin.Right = MarginWithScrollBar;
-			}
-
-			if (this.previewImageScrollViewer.ComputedVerticalScrollBarVisibility == Visibility.Visible)
-			{
-				margin.Bottom = MarginWithScrollBar;
-			}
-
-			this.previewControls.Margin = margin;
 		}
 
 		private void Window_PreviewDrop(object sender, DragEventArgs e)

@@ -1,0 +1,97 @@
+﻿<UserControl
+    x:Class="VidCoder.View.Preview.PreviewCorners"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:VidCoder.View.Preview"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:res="clr-namespace:VidCoder.Resources"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="MarginText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect
+                        BlurRadius="10"
+                        Opacity="0.9"
+                        ShadowDepth="0" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid UseLayoutRounding="True">
+        <Grid.Background>
+            <ImageBrush
+                ImageSource="/Icons/crop_bg_tile_12x12.png"
+                TileMode="Tile"
+                Viewport="0,0,12,12"
+                ViewportUnits="Absolute" />
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!--  Top left  -->
+        <Grid>
+            <TextBlock
+                Margin="0 4 0 0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Style="{StaticResource MarginText}"
+                Text="{x:Static res:PreviewRes.TopMargin}" />
+            <TextBlock
+                Margin="4 0 0 0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Style="{StaticResource MarginText}"
+                Text="{x:Static res:PreviewRes.LeftMargin}">
+                <TextBlock.LayoutTransform>
+                    <RotateTransform Angle="270" />
+                </TextBlock.LayoutTransform>
+            </TextBlock>
+            <Grid Name="topLeftImageHolder" Margin="24 24 0 0">
+                <Image
+                    Name="topLeftImage"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    RenderOptions.BitmapScalingMode="NearestNeighbor" />
+            </Grid>
+        </Grid>
+
+        <!--  Divider  -->
+        <Grid Grid.Column="1" Background="#111" />
+
+        <!--  Bottom right  -->
+        <Grid Grid.Column="2">
+            <Grid Name="bottomRightImageHolder" Margin="0 0 24 24">
+                <Image
+                    Name="bottomRightImage"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    RenderOptions.BitmapScalingMode="NearestNeighbor" />
+            </Grid>
+            <TextBlock
+                Margin="0 0 4 0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Style="{StaticResource MarginText}"
+                Text="{x:Static res:PreviewRes.RightMargin}">
+                <TextBlock.LayoutTransform>
+                    <RotateTransform Angle="270" />
+                </TextBlock.LayoutTransform>
+            </TextBlock>
+            <TextBlock
+                Margin="0 0 0 4"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Style="{StaticResource MarginText}"
+                Text="{x:Static res:PreviewRes.BottomMargin}" />
+        </Grid>
+    </Grid>
+</UserControl>

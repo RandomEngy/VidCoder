@@ -21,7 +21,7 @@ namespace VidCoder.Controls
 	{
 		public SeekBar()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 
 			this.UpdateSeekBarUI();
 			this.UpdateMarkers();
@@ -137,15 +137,6 @@ namespace VidCoder.Controls
 
 			this.filledColumn.Width = new GridLength(this.Slot, GridUnitType.Star);
 			this.emptyColumn.Width = new GridLength(this.NumSlots - this.Slot - 1, GridUnitType.Star);
-
-			if (this.Slot == this.NumSlots - 1)
-			{
-				this.seekBarFilledBorder.CornerRadius = new CornerRadius(5);
-			}
-			else
-			{
-				this.seekBarFilledBorder.CornerRadius = new CornerRadius(5,0,0,5);
-			}
 		}
 
 		private void UpdateMarkers()
