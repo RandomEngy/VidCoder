@@ -169,24 +169,6 @@ namespace VidCoder.ViewModel
 
 			this.MainDisplayObservable.ToProperty(this, x => x.MainDisplay, out this.mainDisplay);
 
-			// SingleFitImageVisible
-			this.WhenAnyValue(x => x.HasPreview, x => x.DisplayType, (hasPreview, displayType) =>
-			{
-				return hasPreview && displayType == PreviewDisplay.FitToWindow;
-			}).ToProperty(this, x => x.SingleFitImageVisible, out this.singleFitImageVisible);
-
-			// SingleOneToOneImageVisible
-			this.WhenAnyValue(x => x.HasPreview, x => x.DisplayType, (hasPreview, displayType) =>
-			{
-				return hasPreview && displayType == PreviewDisplay.OneToOne;
-			}).ToProperty(this, x => x.SingleOneToOneImageVisible, out this.singleOneToOneImageVisible);
-
-			// CornersImagesVisible
-			this.WhenAnyValue(x => x.HasPreview, x => x.DisplayType, (hasPreview, displayType) =>
-			{
-				return hasPreview && displayType == PreviewDisplay.Corners;
-			}).ToProperty(this, x => x.CornersImagesVisible, out this.cornersImagesVisible);
-
 			// InCornerDisplayMode
 			this.WhenAnyValue(x => x.DisplayType)
 				.Select(displayType => displayType == PreviewDisplay.Corners)
@@ -346,15 +328,6 @@ namespace VidCoder.ViewModel
 				}
 			}
 		}
-
-		private ObservableAsPropertyHelper<bool> singleFitImageVisible;
-		public bool SingleFitImageVisible => this.singleFitImageVisible.Value;
-
-		private ObservableAsPropertyHelper<bool> singleOneToOneImageVisible;
-		public bool SingleOneToOneImageVisible => this.singleOneToOneImageVisible.Value;
-
-		private ObservableAsPropertyHelper<bool> cornersImagesVisible;
-		public bool CornersImagesVisible => this.cornersImagesVisible.Value;
 
 		/// <summary>
 		/// Gets or sets the display width of the preview image in pixels.
