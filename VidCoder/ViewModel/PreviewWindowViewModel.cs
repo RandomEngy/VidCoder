@@ -144,25 +144,9 @@ namespace VidCoder.ViewModel
 				return PreviewRes.PlaySourceToolTip;
 			}).ToProperty(this, x => x.PlaySourceToolTip, out this.playSourceToolTip);
 
-			var hasPreviewObservable = this.WhenAnyValue(x => x.HasPreview);
-
-			var displayTypeObservable = this.WhenAnyValue(x => x.DisplayType);
-
-			var playingPreviewObservable = this.WhenAnyValue(x => x.PlayingPreview);
-
-			Observable.CombineLatest(hasPreviewObservable, displayTypeObservable, playingPreviewObservable, (hasPreview, displayType, playingPreview) =>
-			{
-				return true;
-			});
-
 			// MainDisplay
 			this.MainDisplayObservable = this.WhenAnyValue(x => x.HasPreview, x => x.DisplayType, x => x.PlayingPreview, (hasPreview, displayType, playingPreview) =>
 			{
-				if (playingPreview)
-				{
-					return PreviewMainDisplay.Video;
-				}
-
 				if (!hasPreview)
 				{
 					return PreviewMainDisplay.None;
@@ -171,13 +155,13 @@ namespace VidCoder.ViewModel
 				switch (displayType)
 				{
 					case PreviewDisplay.Default:
-						return PreviewMainDisplay.StillDefault;
+						return PreviewMainDisplay.Default;
 					case PreviewDisplay.FitToWindow:
-						return PreviewMainDisplay.StillFitToWindow;
+						return PreviewMainDisplay.FitToWindow;
 					case PreviewDisplay.OneToOne:
-						return PreviewMainDisplay.StillOneToOne;
+						return PreviewMainDisplay.OneToOne;
 					case PreviewDisplay.Corners:
-						return PreviewMainDisplay.StillCorners;
+						return playingPreview ? PreviewMainDisplay.Default : PreviewMainDisplay.StillCorners;
 					default:
 						throw new ArgumentOutOfRangeException(nameof(displayType), displayType, null);
 				}

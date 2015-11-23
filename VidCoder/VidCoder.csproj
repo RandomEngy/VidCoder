@@ -404,11 +404,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Preview\PreviewStillFit.xaml">
+    <Page Include="View\Preview\PreviewFit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Preview\PreviewStillOneToOne.xaml">
+    <Page Include="View\Preview\PreviewOneToOne.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -676,17 +676,18 @@
     <Compile Include="View\PickerWindow.xaml.cs">
       <DependentUpon>PickerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\IPreviewHolder.cs" />
     <Compile Include="View\Preview\PreviewCorners.xaml.cs">
       <DependentUpon>PreviewCorners.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Preview\PreviewCreationControls.xaml.cs">
       <DependentUpon>PreviewCreationControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Preview\PreviewStillFit.xaml.cs">
-      <DependentUpon>PreviewStillFit.xaml</DependentUpon>
+    <Compile Include="View\Preview\PreviewFit.xaml.cs">
+      <DependentUpon>PreviewFit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Preview\PreviewStillOneToOne.xaml.cs">
-      <DependentUpon>PreviewStillOneToOne.xaml</DependentUpon>
+    <Compile Include="View\Preview\PreviewOneToOne.xaml.cs">
+      <DependentUpon>PreviewOneToOne.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RestoreWindowCommand.cs" />
     <Compile Include="Utilities\SourceHistory.cs" />

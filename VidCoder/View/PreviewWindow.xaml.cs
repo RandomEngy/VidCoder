@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Services;
@@ -39,34 +41,53 @@ namespace VidCoder.View
 		{
 			this.viewModel = (PreviewWindowViewModel)this.DataContext;
 			this.viewModel.View = this;
-			this.viewModel.MainDisplayObservable.Subscribe(this.OnMainDisplayUpdate);
+
+			Observable.CombineLatest(
+				this.viewModel.MainDisplayObservable, 
+				this.viewModel.WhenAnyValue(x => x.PlayingPreview),
+				(mainDisplay, playingPreview) =>
+				{
+					return new { mainDisplay, playingPreview };
+				})
+				.Subscribe(x =>
+				{
+					this.OnMainDisplayUpdate(x.mainDisplay, x.playingPreview);
+				});
 		}
 
-		private void OnMainDisplayUpdate(PreviewMainDisplay mainDisplay)
+		private object OnMainDisplayUpdate(PreviewMainDisplay mainDisplay, bool playingPreview)
+		{
+			this.RefreshMainContent(mainDisplay, playingPreview);
+			this.RefreshImageSize();
+
+			return null;
+		}
+
+		private void RefreshMainContent(PreviewMainDisplay mainDisplay, bool playingPreview)
 		{
 			switch (mainDisplay)
 			{
 				case PreviewMainDisplay.None:
 					this.previewArea.Children.Clear();
 					break;
-				case PreviewMainDisplay.StillDefault:
-					if (!(this.MainContent is PreviewStillFit))
+				case PreviewMainDisplay.Default:
+					if (!(this.MainContent is PreviewFit))
 					{
-						this.MainContent = new PreviewStillFit();
+						this.MainContent = new PreviewFit();
 					}
 
 					break;
-				case PreviewMainDisplay.StillFitToWindow:
-					if (!(this.MainContent is PreviewStillFit))
+				case PreviewMainDisplay.FitToWindow:
+					if (!(this.MainContent is PreviewFit))
 					{
-						this.MainContent = new PreviewStillFit();
+						this.MainContent = new PreviewFit();
 					}
 
 					break;
-				case PreviewMainDisplay.StillOneToOne:
-					if (!(this.MainContent is PreviewStillOneToOne))
+				case PreviewMainDisplay.OneToOne:
+					if (!(this.MainContent is PreviewOneToOne))
 					{
-						this.MainContent = new PreviewStillOneToOne();
+						this.MainContent = new PreviewOneToOne();
 					}
 
 					break;
@@ -77,13 +98,33 @@ namespace VidCoder.View
 					}
 
 					break;
-				case PreviewMainDisplay.Video:
-					break;
+
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
 
-			this.RefreshImageSize();
+			var previewholder = this.MainContent as IPreviewHolder;
+			if (previewholder != null)
+			{
+				if (playingPreview)
+				{
+
+				}
+				else
+				{
+					if (!(previewholder.PreviewContent is Image))
+					{
+						var image = new Image
+						{
+							Stretch = Stretch.Fill
+						};
+
+						image.SetBinding(Image.SourceProperty, nameof(this.viewModel.PreviewImage));
+
+						previewholder.PreviewContent = image;
+					}
+				}
+			}
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)
@@ -140,30 +181,30 @@ namespace VidCoder.View
 		public void RefreshImageSize()
 		{
 			var previewVM = (PreviewWindowViewModel) this.DataContext;
-			PreviewStillFit stillFitControl;
+			PreviewFit fitControl;
 
 			switch (previewVM.MainDisplay)
 			{
-				case PreviewMainDisplay.StillDefault:
-					stillFitControl = this.MainContent as PreviewStillFit;
-					stillFitControl?.ResizeHolder(
+				case PreviewMainDisplay.Default:
+					fitControl = this.MainContent as PreviewFit;
+					fitControl?.ResizeHolder(
 						this.previewArea,
 						previewVM.PreviewDisplayWidth,
 						previewVM.PreviewDisplayHeight,
 						showOneToOneWhenSmaller: true);
 
 					break;
-				case PreviewMainDisplay.StillFitToWindow:
-					stillFitControl = this.MainContent as PreviewStillFit;
-					stillFitControl?.ResizeHolder(
+				case PreviewMainDisplay.FitToWindow:
+					fitControl = this.MainContent as PreviewFit;
+					fitControl?.ResizeHolder(
 						this.previewArea,
 						previewVM.PreviewDisplayWidth,
 						previewVM.PreviewDisplayHeight,
 						showOneToOneWhenSmaller: false);
 
 					break;
-				case PreviewMainDisplay.StillOneToOne:
-					var oneToOneControl = this.MainContent as PreviewStillOneToOne;
+				case PreviewMainDisplay.OneToOne:
+					var oneToOneControl = this.MainContent as PreviewOneToOne;
 					oneToOneControl?.ResizeHolder(previewVM.PreviewDisplayWidth, previewVM.PreviewDisplayHeight);
 
 					break;

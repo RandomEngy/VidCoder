@@ -16,19 +16,35 @@ using VidCoder.Model;
 
 namespace VidCoder.View.Preview
 {
-	/// <summary>
-	/// Interaction logic for PreviewStillFit.xaml
-	/// </summary>
-	public partial class PreviewStillFit : UserControl
+	public partial class PreviewFit : UserControl, IPreviewHolder
 	{
-		public PreviewStillFit()
+		public PreviewFit()
 		{
 			this.InitializeComponent();
 		}
 
+		public UIElement PreviewContent
+		{
+			get
+			{
+				if (this.previewHolder.Children.Count == 0)
+				{
+					return null;
+				}
+
+				return this.previewHolder.Children[0];
+			}
+
+			set
+			{
+				this.previewHolder.Children.Clear();
+				this.previewHolder.Children.Add(value);
+			}
+		}
+
 		public void ResizeHolder(Grid previewArea, double widthPixels, double heightPixels, bool showOneToOneWhenSmaller)
 		{
-			ImageUtilities.UpdatePreviewHolderSize(this.previewImage, previewArea, widthPixels, heightPixels, showOneToOneWhenSmaller);
+			ImageUtilities.UpdatePreviewHolderSize(this.previewHolder, previewArea, widthPixels, heightPixels, showOneToOneWhenSmaller);
 		}
 	}
 }

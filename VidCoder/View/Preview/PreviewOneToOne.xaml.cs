@@ -16,20 +16,36 @@ using VidCoder.Model;
 
 namespace VidCoder.View.Preview
 {
-	/// <summary>
-	/// Interaction logic for PreviewStillOneToOne.xaml
-	/// </summary>
-	public partial class PreviewStillOneToOne : UserControl
+	public partial class PreviewOneToOne : UserControl, IPreviewHolder
 	{
-		public PreviewStillOneToOne()
+		public PreviewOneToOne()
 		{
 			this.InitializeComponent();
 		}
 
+		public UIElement PreviewContent
+		{
+			get
+			{
+				if (this.previewHolder.Children.Count == 0)
+				{
+					return null;
+				}
+
+				return this.previewHolder.Children[0];
+			}
+
+			set
+			{
+				this.previewHolder.Children.Clear();
+				this.previewHolder.Children.Add(value);
+			}
+		}
+
 		public void ResizeHolder(double widthPixels, double heightPixels)
 		{
-			this.previewImageOneToOne.Width = widthPixels / ImageUtilities.DpiXFactor;
-			this.previewImageOneToOne.Height = heightPixels / ImageUtilities.DpiYFactor;
+			this.previewHolder.Width = widthPixels / ImageUtilities.DpiXFactor;
+			this.previewHolder.Height = heightPixels / ImageUtilities.DpiYFactor;
 		}
 	}
 }
