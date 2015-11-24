@@ -6,9 +6,9 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	d:DesignHeight="41"
 	d:DesignWidth="748"
-	MouseLeftButtonDown="UserControl_MouseLeftButtonDown"
-	MouseLeftButtonUp="UserControl_MouseLeftButtonUp"
-	MouseMove="UserControl_MouseMove"
+	MouseLeftButtonDown="OnMouseLeftButtonDown"
+	MouseLeftButtonUp="OnMouseLeftButtonUp"
+	MouseMove="OnMouseMove"
 	mc:Ignorable="d">
 	<UserControl.Resources>
 		<Style x:Key="SeekBarMarker" TargetType="Polygon">

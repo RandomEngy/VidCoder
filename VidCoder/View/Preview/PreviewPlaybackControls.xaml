@@ -13,7 +13,7 @@
 	<StackPanel Background="WhiteSmoke" Orientation="Vertical" UseLayoutRounding="True">
 		<controls:VideoSeekBar
 			Height="24"
-			Position="{Binding PreviewVideoPosition}"
+			Position="{Binding PreviewVideoPosition, Mode=TwoWay}"
 			VideoDuration="{Binding PreviewVideoDuration}" />
 		<WrapPanel Margin="4" HorizontalAlignment="Center">
 			<Button

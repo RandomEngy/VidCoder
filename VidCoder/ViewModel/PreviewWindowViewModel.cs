@@ -51,6 +51,7 @@ namespace VidCoder.ViewModel
 		private string imageFileCacheFolder;
 		private BitmapSource previewBitmapSource;
 		private DispatcherTimer seekBarUpdateTimer;
+		private bool positionSetByNonUser;
 
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
@@ -70,6 +71,16 @@ namespace VidCoder.ViewModel
 				}).Subscribe(x =>
 				{
 					this.RequestRefreshPreviews();
+				});
+
+			this.mainViewModel.WhenAnyValue(x => x.SourceData)
+				.Skip(1)
+				.Subscribe(_ =>
+				{
+					if (this.PlayingPreview)
+					{
+						this.PlayingPreview = false;
+					}
 				});
 
 			// PlayAvailable
@@ -291,7 +302,15 @@ namespace VidCoder.ViewModel
 		public bool PlayingPreview
 		{
 			get { return this.playingPreview; }
-			set { this.RaiseAndSetIfChanged(ref this.playingPreview, value); }
+			set
+			{
+				this.RaiseAndSetIfChanged(ref this.playingPreview, value);
+				if (!value && this.seekBarUpdateTimer != null && this.seekBarUpdateTimer.IsEnabled)
+				{
+					this.seekBarUpdateTimer.Stop();
+					this.seekBarUpdateTimer = null;
+				}
+			}
 		}
 
 		private bool previewPaused;
@@ -305,7 +324,22 @@ namespace VidCoder.ViewModel
 		public TimeSpan PreviewVideoPosition
 		{
 			get { return this.previewVideoPosition; }
-			set { this.RaiseAndSetIfChanged(ref this.previewVideoPosition, value); }
+			set
+			{
+				this.RaiseAndSetIfChanged(ref this.previewVideoPosition, value);
+				if (!this.positionSetByNonUser)
+				{
+					this.View.SeekToViewModelPosition(value);
+				}
+			}
+		}
+
+		// When the video playback progresses naturally or is reset by system
+		public void SetVideoPositionFromNonUser(TimeSpan position)
+		{
+			this.positionSetByNonUser = true;
+			this.PreviewVideoPosition = position;
+			this.positionSetByNonUser = false;
 		}
 
 		private TimeSpan previewVideoDuration;
@@ -578,7 +612,7 @@ namespace VidCoder.ViewModel
 							else
 							{
 								this.PlayingPreview = true;
-								this.PreviewVideoPosition = TimeSpan.Zero;
+								this.SetVideoPositionFromNonUser(TimeSpan.Zero);
 								this.PreviewPaused = false;
 
 								this.seekBarUpdateTimer = new DispatcherTimer();

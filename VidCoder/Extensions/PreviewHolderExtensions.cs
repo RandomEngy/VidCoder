@@ -62,6 +62,7 @@ namespace VidCoder.Extensions
 			var viewModel = (PreviewWindowViewModel) previewHolder.Holder.DataContext;
 			mediaElement.SetBinding(MediaElement.SourceProperty, nameof(viewModel.PreviewFilePath));
 			mediaElement.LoadedBehavior = MediaState.Manual;
+			mediaElement.ScrubbingEnabled = true;
 			mediaElement.MediaOpened += (sender, args) =>
 			{
 				if (mediaElement.NaturalDuration.HasTimeSpan)

@@ -72,5 +72,51 @@ namespace VidCoder.Controls
 		{
 			this.RefreshBar();
 		}
+
+		private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			this.HandleMouseEvent(e);
+			this.CaptureMouse();
+		}
+
+		private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		{
+			this.ReleaseMouseCapture();
+		}
+
+		private void OnMouseMove(object sender, MouseEventArgs e)
+		{
+			if (e.LeftButton == MouseButtonState.Pressed)
+			{
+				this.HandleMouseEvent(e);
+			}
+		}
+
+		private void HandleMouseEvent(MouseEventArgs e)
+		{
+			if (this.VideoDuration <= TimeSpan.Zero)
+			{
+				return;
+			}
+
+
+			Point location = e.GetPosition(this);
+
+			double fractionOfBar = location.X / this.ActualWidth;
+			if (fractionOfBar < 0)
+			{
+				fractionOfBar = 0;
+			}
+
+			if (fractionOfBar > 1)
+			{
+				fractionOfBar = 1;
+			}
+
+			int newPositionTicks = (int)(this.VideoDuration.Ticks * fractionOfBar);
+			TimeSpan newPosition = TimeSpan.FromTicks(newPositionTicks);
+
+			this.Position = newPosition;
+		}
 	}
 }

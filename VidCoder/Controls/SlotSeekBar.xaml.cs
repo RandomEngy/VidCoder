@@ -81,18 +81,18 @@ namespace VidCoder.Controls
 			}
 		}
 
-		private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			this.HandleMouseEvent(e);
 			this.CaptureMouse();
 		}
 
-		private void UserControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
 			this.ReleaseMouseCapture();
 		}
 
-		private void UserControl_MouseMove(object sender, MouseEventArgs e)
+		private void OnMouseMove(object sender, MouseEventArgs e)
 		{
 			if (e.LeftButton == MouseButtonState.Pressed)
 			{

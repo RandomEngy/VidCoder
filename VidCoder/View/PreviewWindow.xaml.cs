@@ -43,7 +43,7 @@ namespace VidCoder.View
 			if (previewholder != null)
 			{
 				TimeSpan position = previewholder.GetVideoPosition();
-				this.viewModel.PreviewVideoPosition = position;
+				this.viewModel.SetVideoPositionFromNonUser(position);
 			}
 		}
 

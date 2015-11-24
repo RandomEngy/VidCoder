@@ -7,6 +7,9 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	d:DesignHeight="300"
 	d:DesignWidth="300"
+	MouseLeftButtonDown="OnMouseLeftButtonDown"
+	MouseLeftButtonUp="OnMouseLeftButtonUp"
+	MouseMove="OnMouseMove"
 	mc:Ignorable="d">
 	<Grid
 		Background="Black"
