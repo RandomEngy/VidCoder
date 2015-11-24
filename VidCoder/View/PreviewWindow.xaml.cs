@@ -155,7 +155,7 @@ namespace VidCoder.View
 			{
 				if (playingPreview)
 				{
-					previewholder.SetVideo(this.OnVideoCompleted);
+					previewholder.SetVideo(this.OnVideoCompleted, this.viewModel.WhenAnyValue(x => x.Volume));
 				}
 				else
 				{

@@ -275,5 +275,14 @@ namespace VidCoder.Resources {
                 return ResourceManager.GetString("ViewLabel", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume.
+        /// </summary>
+        public static string VolumeSliderLabel {
+            get {
+                return ResourceManager.GetString("VolumeSliderLabel", resourceCulture);
+            }
+        }
     }
 }

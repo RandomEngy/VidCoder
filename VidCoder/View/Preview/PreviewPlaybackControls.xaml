@@ -10,12 +10,30 @@
 	d:DesignHeight="300"
 	d:DesignWidth="300"
 	mc:Ignorable="d">
-	<StackPanel Background="WhiteSmoke" Orientation="Vertical" UseLayoutRounding="True">
+	<StackPanel
+		Background="WhiteSmoke"
+		Orientation="Vertical"
+		UseLayoutRounding="True">
 		<controls:VideoSeekBar
 			Height="24"
-			Position="{Binding PreviewVideoPosition, Mode=TwoWay}"
+			Position="{Binding PreviewVideoPosition,
+			                   Mode=TwoWay}"
 			VideoDuration="{Binding PreviewVideoDuration}" />
 		<WrapPanel Margin="4" HorizontalAlignment="Center">
+			<StackPanel Margin="0 0 20 0" Orientation="Horizontal">
+				<TextBlock
+					VerticalAlignment="Center"
+					Foreground="Black"
+					Text="{x:Static res:PreviewRes.VolumeSliderLabel}" />
+				<Slider
+					Width="100"
+					Margin="3 0 0 0"
+					VerticalAlignment="Center"
+					Maximum="1"
+					Minimum="0"
+					Value="{Binding Volume}" />
+			</StackPanel>
+
 			<Button
 				Height="23"
 				Margin="0 4"
@@ -52,31 +70,37 @@
 				</StackPanel>
 			</Button>
 
-            <Button Height="23" Margin="20 4 0 4" Command="{Binding OpenInSystemPlayer}">
-                <StackPanel Margin="4 0" Orientation="Horizontal">
-                    <Image
+			<Button
+				Height="23"
+				Margin="20 4 0 4"
+				Command="{Binding OpenInSystemPlayer}">
+				<StackPanel Margin="4 0" Orientation="Horizontal">
+					<Image
 						Height="16"
 						VerticalAlignment="Center"
 						Source="/Icons/video-file.png" />
-                    <TextBlock
+					<TextBlock
 						Margin="5 0 0 0"
 						VerticalAlignment="Center"
 						Text="{x:Static res:PreviewRes.OpenInSystemPlayerButton}" />
-                </StackPanel>
-            </Button>
+				</StackPanel>
+			</Button>
 
-            <Button Height="23" Margin="20 4 0 4" Command="{Binding CloseVideo}">
-                <StackPanel Margin="4 0" Orientation="Horizontal">
-                    <Image
+			<Button
+				Height="23"
+				Margin="20 4 0 4"
+				Command="{Binding CloseVideo}">
+				<StackPanel Margin="4 0" Orientation="Horizontal">
+					<Image
 						Height="15"
 						VerticalAlignment="Center"
 						Source="/Icons/delete.png" />
-                    <TextBlock
+					<TextBlock
 						Margin="5 0 0 0"
 						VerticalAlignment="Center"
 						Text="{x:Static res:PreviewRes.CloseVideoButton}" />
-                </StackPanel>
-            </Button>
+				</StackPanel>
+			</Button>
 		</WrapPanel>
 	</StackPanel>
 </UserControl>

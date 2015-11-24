@@ -99,6 +99,7 @@ BetaUpdates|bool|false
 InterfaceLanguageCode|string|""
 CpuThrottlingFraction|double|1.0
 UseBuiltInPlayerForPreviews|bool|true
+PreviewVolume|double|0.5
 
 AudioLanguageCode|string|"und"
 SubtitleLanguageCode|string|"und"

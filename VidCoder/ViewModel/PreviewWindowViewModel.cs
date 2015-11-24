@@ -349,6 +349,17 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.previewVideoDuration, value); }
 		}
 
+		private double volume = Config.PreviewVolume;
+		public double Volume
+		{
+			get { return this.volume; }
+			set
+			{
+				this.RaiseAndSetIfChanged(ref this.volume, value);
+				Config.PreviewVolume = value;
+			}
+		}
+
 		public IObservable<PreviewMainDisplay> MainDisplayObservable { get; private set; }
 
 		private ObservableAsPropertyHelper<PreviewMainDisplay> mainDisplay;
@@ -868,7 +879,7 @@ namespace VidCoder.ViewModel
 
 				this.BeginBackgroundImageLoad();
 
-				this.View.RefreshImageSize();
+				this.View?.RefreshImageSize();
 			}
 
 			this.UpdateTitle(outputGeometry);

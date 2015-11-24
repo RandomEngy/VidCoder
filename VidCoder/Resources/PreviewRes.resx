@@ -190,4 +190,7 @@
   <data name="OpenInSystemPlayerButton" xml:space="preserve">
     <value>Open in System Player</value>
   </data>
+  <data name="VolumeSliderLabel" xml:space="preserve">
+    <value>Volume</value>
+  </data>
 </root>
