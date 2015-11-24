@@ -193,4 +193,7 @@
   <data name="VolumeSliderLabel" xml:space="preserve">
     <value>Volume</value>
   </data>
+  <data name="ReplayPreviewButton" xml:space="preserve">
+    <value>Replay Preview</value>
+  </data>
 </root>

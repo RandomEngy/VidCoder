@@ -875,6 +875,7 @@
       <DependentUpon>VideoPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowPlacement.cs" />
+    <Resource Include="Icons\redo.png" />
     <Resource Include="Icons\Hammer.png" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

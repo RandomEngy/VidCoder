@@ -1,107 +1,125 @@
 ﻿<UserControl
-    x:Class="VidCoder.View.Preview.PreviewCreationControls"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:VidCoder.Controls"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:VidCoder"
-    xmlns:localmodel="clr-namespace:VidCoder.Model"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:res="clr-namespace:VidCoder.Resources"
-    d:DesignHeight="300"
-    d:DesignWidth="300"
-    mc:Ignorable="d">
-    <UserControl.Resources>
-        <local:EnumDisplayer x:Key="DisplayChoices" Type="{x:Type localmodel:PreviewDisplay}" />
-        <Style x:Key="PreviewText" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="Black" />
-        </Style>
-    </UserControl.Resources>
-    <StackPanel Background="WhiteSmoke" Orientation="Vertical">
-        <controls:SlotSeekBar
-            Height="24"
-            HorizontalAlignment="Stretch"
-            IsEnabled="{Binding SeekBarEnabled}"
-            NumSlots="{Binding PreviewCount,
-                               Mode=OneWay}"
-            Slot="{Binding SelectedPreview,
-                           Mode=TwoWay}" />
-        <WrapPanel
-            Margin="4"
-            HorizontalAlignment="Center"
-            Orientation="Horizontal">
+	x:Class="VidCoder.View.Preview.PreviewCreationControls"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:controls="clr-namespace:VidCoder.Controls"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:VidCoder"
+	xmlns:localmodel="clr-namespace:VidCoder.Model"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:res="clr-namespace:VidCoder.Resources"
+	d:DesignHeight="300"
+	d:DesignWidth="300"
+	mc:Ignorable="d">
+	<UserControl.Resources>
+		<local:EnumDisplayer x:Key="DisplayChoices" Type="{x:Type localmodel:PreviewDisplay}" />
+		<Style x:Key="PreviewText" TargetType="TextBlock">
+			<Setter Property="Foreground" Value="Black" />
+		</Style>
+	</UserControl.Resources>
+	<StackPanel Background="WhiteSmoke" Orientation="Vertical">
+		<controls:SlotSeekBar
+			Height="24"
+			HorizontalAlignment="Stretch"
+			IsEnabled="{Binding SeekBarEnabled}"
+			NumSlots="{Binding PreviewCount,
+			                   Mode=OneWay}"
+			Slot="{Binding SelectedPreview,
+			               Mode=TwoWay}" />
+		<WrapPanel
+			Margin="4"
+			HorizontalAlignment="Center"
+			Orientation="Horizontal">
+			<Button
+				Height="23"
+				Margin="4 4 0 4"
+				Command="{Binding GeneratePreview}"
+				Style="{StaticResource GrayOnDisabledControl}"
+				ToolTip="{x:Static res:PreviewRes.EncodePreviewClipToolTip}">
+				<StackPanel Margin="4 0" Orientation="Horizontal">
+					<Image
+						Height="15"
+						VerticalAlignment="Center"
+						Source="/Icons/play_clip.png" />
+					<TextBlock
+						Margin="5 0 0 0"
+						VerticalAlignment="Center"
+						Text="{x:Static res:PreviewRes.EncodePreviewClipButton}" />
+				</StackPanel>
+			</Button>
+
+			<StackPanel Orientation="Horizontal">
+				<ComboBox
+					Width="45"
+					Height="22"
+					Margin="10 4 0 4"
+					SelectedValue="{Binding PreviewSeconds}"
+					SelectedValuePath="Content">
+					<ComboBoxItem>5</ComboBoxItem>
+					<ComboBoxItem>10</ComboBoxItem>
+					<ComboBoxItem>15</ComboBoxItem>
+					<ComboBoxItem>30</ComboBoxItem>
+					<ComboBoxItem>60</ComboBoxItem>
+					<ComboBoxItem>120</ComboBoxItem>
+				</ComboBox>
+				<TextBlock
+					Margin="7 4 0 4"
+					VerticalAlignment="Center"
+					Style="{StaticResource PreviewText}"
+					Text="{x:Static res:PreviewRes.Seconds}" />
+			</StackPanel>
+
             <Button
-                Height="23"
-                Margin="4 4 0 4"
-                Command="{Binding GeneratePreview}"
-                Style="{StaticResource GrayOnDisabledControl}"
-                ToolTip="{x:Static res:PreviewRes.EncodePreviewClipToolTip}">
+				Height="23"
+				Margin="20 4 0 4"
+				Command="{Binding ReopenPreview}"
+				Visibility="{Binding PreviewAvailable,
+				                     Converter={StaticResource VisibilityConverter}}">
                 <StackPanel Margin="4 0" Orientation="Horizontal">
                     <Image
-                        Height="15"
-                        VerticalAlignment="Center"
-                        Source="/Icons/play_clip.png" />
+						Height="16"
+						VerticalAlignment="Center"
+						Source="/Icons/redo.png" />
                     <TextBlock
-                        Margin="5 0 0 0"
-                        VerticalAlignment="Center"
-                        Text="{x:Static res:PreviewRes.EncodePreviewClipButton}" />
+						Margin="5 0 0 0"
+						VerticalAlignment="Center"
+						Text="{x:Static res:PreviewRes.ReplayPreviewButton}" />
                 </StackPanel>
             </Button>
 
             <StackPanel Orientation="Horizontal">
-                <ComboBox
-                    Width="45"
-                    Height="22"
-                    Margin="10 4 0 4"
-                    SelectedValue="{Binding PreviewSeconds}"
-                    SelectedValuePath="Content">
-                    <ComboBoxItem>5</ComboBoxItem>
-                    <ComboBoxItem>10</ComboBoxItem>
-                    <ComboBoxItem>15</ComboBoxItem>
-                    <ComboBoxItem>30</ComboBoxItem>
-                    <ComboBoxItem>60</ComboBoxItem>
-                    <ComboBoxItem>120</ComboBoxItem>
-                </ComboBox>
-                <TextBlock
-                    Margin="7 4 0 4"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource PreviewText}"
-                    Text="{x:Static res:PreviewRes.Seconds}" />
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal">
-                <TextBlock
-                    Margin="20 4 0 4"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource PreviewText}"
-                    Text="{x:Static res:PreviewRes.ViewLabel}" />
-                <ComboBox
-                    MinWidth="100"
-                    Margin="6 4 0 4"
-                    ItemsSource="{Binding DisplayNames,
-                                          Source={StaticResource DisplayChoices}}"
-                    SelectedValue="{Binding DisplayType,
-                                            Converter={StaticResource DisplayChoices}}" />
-            </StackPanel>
+				<TextBlock
+					Margin="20 4 0 4"
+					VerticalAlignment="Center"
+					Style="{StaticResource PreviewText}"
+					Text="{x:Static res:PreviewRes.ViewLabel}" />
+				<ComboBox
+					MinWidth="100"
+					Margin="6 4 0 4"
+					ItemsSource="{Binding DisplayNames,
+					                      Source={StaticResource DisplayChoices}}"
+					SelectedValue="{Binding DisplayType,
+					                        Converter={StaticResource DisplayChoices}}" />
+			</StackPanel>
 
             <Button
-                Height="23"
-                Margin="20 4 0 4"
-                Command="{Binding PlaySource}"
-                Style="{StaticResource GrayOnDisabledControl}"
-                ToolTip="{Binding PlaySourceToolTip}"
-                ToolTipService.ShowOnDisabled="True">
+				Height="23"
+				Margin="20 4 0 4"
+				Command="{Binding PlaySource}"
+				Style="{StaticResource GrayOnDisabledControl}"
+				ToolTip="{Binding PlaySourceToolTip}"
+				ToolTipService.ShowOnDisabled="True">
                 <StackPanel Margin="4 0" Orientation="Horizontal">
                     <Image
-                        Height="15"
-                        VerticalAlignment="Center"
-                        Source="/Icons/blue_play_80.png" />
+						Height="15"
+						VerticalAlignment="Center"
+						Source="/Icons/blue_play_80.png" />
                     <TextBlock
-                        Margin="5 0 0 0"
-                        VerticalAlignment="Center"
-                        Text="{x:Static res:PreviewRes.PlaySourceButton}" />
+						Margin="5 0 0 0"
+						VerticalAlignment="Center"
+						Text="{x:Static res:PreviewRes.PlaySourceButton}" />
                 </StackPanel>
             </Button>
         </WrapPanel>
-    </StackPanel>
+	</StackPanel>
 </UserControl>

@@ -157,6 +157,11 @@ namespace VidCoder.ViewModel
 				return PreviewRes.PlaySourceToolTip;
 			}).ToProperty(this, x => x.PlaySourceToolTip, out this.playSourceToolTip);
 
+			// PreviewAvailable
+			this.WhenAnyValue(x => x.PreviewFilePath)
+				.Select(path => path != null)
+				.ToProperty(this, x => x.PreviewAvailable, out this.previewAvailable);
+
 			// MainDisplay
 			this.MainDisplayObservable = this.WhenAnyValue(x => x.HasPreview, x => x.DisplayType, x => x.PlayingPreview, (hasPreview, displayType, playingPreview) =>
 			{
@@ -212,6 +217,9 @@ namespace VidCoder.ViewModel
 
 			this.PlaySource = ReactiveCommand.Create(this.WhenAnyValue(x => x.PlayAvailable));
 			this.PlaySource.Subscribe(_ => this.PlaySourceImpl());
+
+			this.ReopenPreview = ReactiveCommand.Create();
+			this.ReopenPreview.Subscribe(_ => this.ReopenPreviewImpl());
 
 			this.GeneratePreview = ReactiveCommand.Create(this.WhenAnyValue(x => x.HasPreview));
 			this.GeneratePreview.Subscribe(_ => this.GeneratePreviewImpl());
@@ -616,25 +624,7 @@ namespace VidCoder.ViewModel
 							var previewFileInfo = new FileInfo(this.previewFilePath);
 							this.logger.Log("Finished preview clip generation. Size: " + Utilities.FormatFileSize(previewFileInfo.Length));
 
-							if (!Config.UseBuiltInPlayerForPreviews || this.DisplayType == PreviewDisplay.Corners)
-							{
-								FileService.Instance.PlayVideo(this.previewFilePath);
-							}
-							else
-							{
-								this.PlayingPreview = true;
-								this.SetVideoPositionFromNonUser(TimeSpan.Zero);
-								this.PreviewPaused = false;
-
-								this.seekBarUpdateTimer = new DispatcherTimer();
-								this.seekBarUpdateTimer.Interval = TimeSpan.FromMilliseconds(250);
-								this.seekBarUpdateTimer.Tick += (sender, args) =>
-								{
-									this.View.RefreshViewModelFromMediaElement();
-								};
-
-								this.seekBarUpdateTimer.Start();
-							}
+							this.PlayPreview();
 						}
 					}
 				});
@@ -646,6 +636,26 @@ namespace VidCoder.ViewModel
 			this.logger.Log("  Preview #: " + this.SelectedPreview);
 
 			this.encodeProxy.StartEncode(this.job, this.logger, true, this.SelectedPreview, this.PreviewSeconds, this.job.Length.TotalSeconds);
+		}
+
+		private void PlayPreview()
+		{
+			if (!Config.UseBuiltInPlayerForPreviews || this.DisplayType == PreviewDisplay.Corners)
+			{
+				FileService.Instance.PlayVideo(this.previewFilePath);
+			}
+			else
+			{
+				this.PlayingPreview = true;
+				this.SetVideoPositionFromNonUser(TimeSpan.Zero);
+				this.PreviewPaused = false;
+
+				this.seekBarUpdateTimer = new DispatcherTimer();
+				this.seekBarUpdateTimer.Interval = TimeSpan.FromMilliseconds(250);
+				this.seekBarUpdateTimer.Tick += (sender, args) => { this.View.RefreshViewModelFromMediaElement(); };
+
+				this.seekBarUpdateTimer.Start();
+			}
 		}
 
 		private void SetPreviewFilePath()
@@ -721,6 +731,15 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(nameof(this.PlayAvailable));
 			}
 		}
+
+		public ReactiveCommand<object> ReopenPreview { get; }
+		private void ReopenPreviewImpl()
+		{
+			this.PlayPreview();
+		}
+
+		private ObservableAsPropertyHelper<bool> previewAvailable;
+		public bool PreviewAvailable => this.previewAvailable.Value;
 
 		public ReactiveCommand<object> CancelPreview { get; }
 		private void CancelPreviewImpl()

@@ -241,6 +241,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Replay Preview.
+        /// </summary>
+        public static string ReplayPreviewButton {
+            get {
+                return ResourceManager.GetString("ReplayPreviewButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Right Margin.
         /// </summary>
         public static string RightMargin {
