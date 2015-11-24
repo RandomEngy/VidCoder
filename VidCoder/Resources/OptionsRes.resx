@@ -391,4 +391,7 @@
   <data name="CpuThrottlingToolTip" xml:space="preserve">
     <value>Use CPU throttling to limit the number of processor cores VidCoder can use when encoding.</value>
   </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>Use built-in player for previews</value>
+  </data>
 </root>

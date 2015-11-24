@@ -70,6 +70,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close Video.
+        /// </summary>
+        public static string CloseVideoButton {
+            get {
+                return ResourceManager.GetString("CloseVideoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encode Preview Clip.
         /// </summary>
         public static string EncodePreviewClipButton {
@@ -111,6 +120,15 @@ namespace VidCoder.Resources {
         public static string NoVideoSourceTitle {
             get {
                 return ResourceManager.GetString("NoVideoSourceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open in System Player.
+        /// </summary>
+        public static string OpenInSystemPlayerButton {
+            get {
+                return ResourceManager.GetString("OpenInSystemPlayerButton", resourceCulture);
             }
         }
         

@@ -799,6 +799,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use built-in player for previews.
+        /// </summary>
+        public static string UseBuiltInPlayerForPreviewsCheckBox {
+            get {
+                return ResourceManager.GetString("UseBuiltInPlayerForPreviewsCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use custom .wav file:.
         /// </summary>
         public static string UseCustomWavLabel {

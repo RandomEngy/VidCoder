@@ -18,7 +18,7 @@
         </Style>
     </UserControl.Resources>
     <StackPanel Background="WhiteSmoke" Orientation="Vertical">
-        <controls:SeekBar
+        <controls:SlotSeekBar
             Height="24"
             HorizontalAlignment="Stretch"
             IsEnabled="{Binding SeekBarEnabled}"
@@ -29,10 +29,7 @@
         <WrapPanel
             Margin="4"
             HorizontalAlignment="Center"
-            Orientation="Horizontal"
-            Visibility="{Binding GeneratingPreview,
-                                 Converter={StaticResource VisibilityConverter},
-                                 ConverterParameter=True}">
+            Orientation="Horizontal">
             <Button
                 Height="23"
                 Margin="4 4 0 4"
@@ -106,38 +103,5 @@
                 </StackPanel>
             </Button>
         </WrapPanel>
-
-        <Grid
-            Margin="12 8"
-            VerticalAlignment="Center"
-            Visibility="{Binding GeneratingPreview,
-                                 Converter={StaticResource VisibilityConverter}}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <TextBlock
-                Grid.Column="0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Style="{StaticResource PreviewText}"
-                Text="{x:Static res:PreviewRes.GeneratingPreview}" />
-            <ProgressBar
-                Grid.Column="1"
-                Height="20"
-                Margin="10 0 10 0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Bottom"
-                Value="{Binding PreviewPercentComplete}" />
-            <Button
-                Grid.Column="2"
-                Height="23"
-                MinWidth="55"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Command="{Binding CancelPreview}"
-                Content="{x:Static res:CommonRes.Cancel}" />
-        </Grid>
     </StackPanel>
 </UserControl>

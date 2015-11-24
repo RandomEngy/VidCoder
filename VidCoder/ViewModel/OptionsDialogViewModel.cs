@@ -139,6 +139,7 @@ namespace VidCoder.ViewModel
 			this.minimizeToTray = Config.MinimizeToTray;
 			this.useCustomVideoPlayer = Config.UseCustomVideoPlayer;
 			this.customVideoPlayer = Config.CustomVideoPlayer;
+			this.useBuiltInPlayerForPreviews = Config.UseBuiltInPlayerForPreviews;
 			this.playSoundOnCompletion = Config.PlaySoundOnCompletion;
 			this.useCustomCompletionSound = Config.UseCustomCompletionSound;
 			this.customCompletionSound = Config.CustomCompletionSound;
@@ -431,6 +432,13 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.customVideoPlayer, value); }
 		}
 
+		private bool useBuiltInPlayerForPreviews;
+		public bool UseBuiltInPlayerForPreviews
+		{
+			get { return this.useBuiltInPlayerForPreviews; }
+			set { this.RaiseAndSetIfChanged(ref this.useBuiltInPlayerForPreviews, value); }
+		}
+
 		private string defaultPath;
 		public string DefaultPath
 		{
@@ -691,6 +699,7 @@ namespace VidCoder.ViewModel
 				Config.MinimizeToTray = this.MinimizeToTray;
 				Config.UseCustomVideoPlayer = this.UseCustomVideoPlayer;
 				Config.CustomVideoPlayer = this.CustomVideoPlayer;
+				Config.UseBuiltInPlayerForPreviews = this.UseBuiltInPlayerForPreviews;
 				Config.PlaySoundOnCompletion = this.PlaySoundOnCompletion;
 				Config.UseCustomCompletionSound = this.UseCustomCompletionSound;
 				Config.CustomCompletionSound = this.CustomCompletionSound;

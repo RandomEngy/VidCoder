@@ -1,9 +1,10 @@
 using System.Windows;
+using System.Windows.Controls;
 
 namespace VidCoder.Model
 {
 	public interface IPreviewHolder
 	{
-		UIElement PreviewContent { get; set; }
+		Grid Holder { get; }
 	}
 }

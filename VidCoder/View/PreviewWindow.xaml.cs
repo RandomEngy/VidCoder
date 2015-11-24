@@ -37,6 +37,25 @@ namespace VidCoder.View
 			this.DataContextChanged += this.OnDataContextChanged;
 		}
 
+		public void RefreshViewModelFromMediaElement()
+		{
+			var previewholder = this.MainContent as IPreviewHolder;
+			if (previewholder != null)
+			{
+				TimeSpan position = previewholder.GetVideoPosition();
+				this.viewModel.PreviewVideoPosition = position;
+			}
+		}
+
+		public void SeekToViewModelPosition(TimeSpan position)
+		{
+			var previewholder = this.MainContent as IPreviewHolder;
+			if (previewholder != null)
+			{
+				previewholder.SetVideoPosition(this.viewModel.PreviewVideoPosition);
+			}
+		}
+
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
 			this.viewModel = (PreviewWindowViewModel)this.DataContext;
@@ -53,18 +72,46 @@ namespace VidCoder.View
 				{
 					this.OnMainDisplayUpdate(x.mainDisplay, x.playingPreview);
 				});
+
+			this.viewModel.ControlsObservable
+				.Subscribe(controls =>
+				{
+					this.OnControlsUpdate(controls);
+				});
+
+			this.viewModel.WhenAnyValue(x => x.PreviewPaused)
+				.Subscribe(paused =>
+				{
+					var previewholder = this.MainContent as IPreviewHolder;
+					if (previewholder != null)
+					{
+						if (paused)
+						{
+							previewholder.Pause();
+						}
+						else
+						{
+							previewholder.Play();
+						}
+					}
+				});
 		}
 
-		private object OnMainDisplayUpdate(PreviewMainDisplay mainDisplay, bool playingPreview)
+		private void OnMainDisplayUpdate(PreviewMainDisplay mainDisplay, bool playingPreview)
 		{
 			this.RefreshMainContent(mainDisplay, playingPreview);
 			this.RefreshImageSize();
-
-			return null;
 		}
 
 		private void RefreshMainContent(PreviewMainDisplay mainDisplay, bool playingPreview)
 		{
+			// Close the video if we're swapping it out.
+			var previewholder = this.MainContent as IPreviewHolder;
+			if (!playingPreview && previewholder != null)
+			{
+				previewholder.CloseVideo();
+			}
+
 			switch (mainDisplay)
 			{
 				case PreviewMainDisplay.None:
@@ -103,28 +150,53 @@ namespace VidCoder.View
 					throw new ArgumentOutOfRangeException();
 			}
 
-			var previewholder = this.MainContent as IPreviewHolder;
+			previewholder = this.MainContent as IPreviewHolder;
 			if (previewholder != null)
 			{
 				if (playingPreview)
 				{
-
+					previewholder.SetVideo(this.OnVideoCompleted);
 				}
 				else
 				{
-					if (!(previewholder.PreviewContent is Image))
-					{
-						var image = new Image
-						{
-							Stretch = Stretch.Fill
-						};
-
-						image.SetBinding(Image.SourceProperty, nameof(this.viewModel.PreviewImage));
-
-						previewholder.PreviewContent = image;
-					}
+					previewholder.SetImage();
 				}
 			}
+		}
+
+		private void OnControlsUpdate(PreviewControls controls)
+		{
+			switch (controls)
+			{
+				case PreviewControls.Creation:
+					if (!(this.ControlsContent is PreviewCreationControls))
+					{
+						this.ControlsContent = new PreviewCreationControls();
+					}
+
+					break;
+				case PreviewControls.Generation:
+					if (!(this.ControlsContent is PreviewGeneratingControls))
+					{
+						this.ControlsContent = new PreviewGeneratingControls();
+					}
+
+					break;
+				case PreviewControls.Playback:
+					if (!(this.ControlsContent is PreviewPlaybackControls))
+					{
+						this.ControlsContent = new PreviewPlaybackControls();
+					}
+
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(controls), controls, null);
+			}
+		}
+
+		private void OnVideoCompleted()
+		{
+			this.viewModel.OnVideoCompleted();
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)
@@ -173,6 +245,25 @@ namespace VidCoder.View
 			}
 		}
 
+		private UIElement ControlsContent
+		{
+			get
+			{
+				if (this.previewControls.Children.Count == 0)
+				{
+					return null;
+				}
+
+				return this.previewControls.Children[0];
+			}
+
+			set
+			{
+				this.previewControls.Children.Clear();
+				this.previewControls.Children.Add(value);
+			}
+		}
+
 		private void PreviewArea_OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			this.RefreshImageSize();
@@ -187,20 +278,12 @@ namespace VidCoder.View
 			{
 				case PreviewMainDisplay.Default:
 					fitControl = this.MainContent as PreviewFit;
-					fitControl?.ResizeHolder(
-						this.previewArea,
-						previewVM.PreviewDisplayWidth,
-						previewVM.PreviewDisplayHeight,
-						showOneToOneWhenSmaller: true);
+					fitControl?.ResizeHolder(this.previewArea, previewVM.PreviewDisplayWidth, previewVM.PreviewDisplayHeight, showOneToOneWhenSmaller: true);
 
 					break;
 				case PreviewMainDisplay.FitToWindow:
 					fitControl = this.MainContent as PreviewFit;
-					fitControl?.ResizeHolder(
-						this.previewArea,
-						previewVM.PreviewDisplayWidth,
-						previewVM.PreviewDisplayHeight,
-						showOneToOneWhenSmaller: false);
+					fitControl?.ResizeHolder(this.previewArea, previewVM.PreviewDisplayWidth, previewVM.PreviewDisplayHeight, showOneToOneWhenSmaller: false);
 
 					break;
 				case PreviewMainDisplay.OneToOne:
@@ -213,8 +296,6 @@ namespace VidCoder.View
 					cornersControl?.UpdateCornerImages();
 
 					break;
-				//case PreviewMainDisplay.Video:
-				//	break;
 			}
 		}
 
@@ -226,6 +307,18 @@ namespace VidCoder.View
 		private void Window_PreviewDragOver(object sender, DragEventArgs e)
 		{
 			Utilities.SetDragIcon(e);
+		}
+
+		private void OnVideoClick(object sender, MouseButtonEventArgs e)
+		{
+			if (this.viewModel.PreviewPaused)
+			{
+				this.viewModel.Play.Execute(null);
+			}
+			else
+			{
+				this.viewModel.Pause.Execute(null);
+			}
 		}
 	}
 }

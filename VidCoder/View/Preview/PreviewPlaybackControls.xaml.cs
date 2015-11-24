@@ -12,22 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using VidCoder.Model;
 
 namespace VidCoder.View.Preview
 {
-	public partial class PreviewFit : UserControl, IPreviewHolder
+	/// <summary>
+	/// Interaction logic for PreviewPlaybackControls.xaml
+	/// </summary>
+	public partial class PreviewPlaybackControls : UserControl
 	{
-		public PreviewFit()
+		public PreviewPlaybackControls()
 		{
-			this.InitializeComponent();
-		}
-
-		public Grid Holder => this.previewHolder;
-
-		public void ResizeHolder(Grid previewArea, double widthPixels, double heightPixels, bool showOneToOneWhenSmaller)
-		{
-			ImageUtilities.UpdatePreviewHolderSize(this.previewHolder, previewArea, widthPixels, heightPixels, showOneToOneWhenSmaller);
+			InitializeComponent();
 		}
 	}
 }

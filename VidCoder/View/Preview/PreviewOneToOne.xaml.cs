@@ -23,24 +23,7 @@ namespace VidCoder.View.Preview
 			this.InitializeComponent();
 		}
 
-		public UIElement PreviewContent
-		{
-			get
-			{
-				if (this.previewHolder.Children.Count == 0)
-				{
-					return null;
-				}
-
-				return this.previewHolder.Children[0];
-			}
-
-			set
-			{
-				this.previewHolder.Children.Clear();
-				this.previewHolder.Children.Add(value);
-			}
-		}
+		public Grid Holder => this.previewHolder;
 
 		public void ResizeHolder(double widthPixels, double heightPixels)
 		{

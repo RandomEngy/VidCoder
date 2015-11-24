@@ -314,7 +314,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\SeekBar.xaml">
+    <Page Include="Controls\SlotSeekBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -323,6 +323,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\TimeBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\VideoSeekBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -408,7 +412,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Preview\PreviewGeneratingControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Preview\PreviewOneToOne.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Preview\PreviewPlaybackControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -459,14 +471,17 @@
     <Compile Include="Controls\PathTextBlock.xaml.cs">
       <DependentUpon>PathTextBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SeekBar.xaml.cs">
-      <DependentUpon>SeekBar.xaml</DependentUpon>
+    <Compile Include="Controls\SlotSeekBar.xaml.cs">
+      <DependentUpon>SlotSeekBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\SplitButton.xaml.cs">
       <DependentUpon>SplitButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\TimeBox.xaml.cs">
       <DependentUpon>TimeBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\VideoSeekBar.xaml.cs">
+      <DependentUpon>VideoSeekBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\DoubleDisplayConverter.cs" />
     <Compile Include="Converters\EnumVisibilityConverter.cs" />
@@ -480,6 +495,7 @@
     <Compile Include="EnumStringConverter.cs" />
     <Compile Include="Extensions\JsonScanObjectExtensions.cs" />
     <Compile Include="Extensions\PresetExtensions.cs" />
+    <Compile Include="Extensions\PreviewHolderExtensions.cs" />
     <Compile Include="Extensions\RectExtensions.cs" />
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="Extensions\TitleExtensions.cs" />
@@ -491,6 +507,7 @@
     <Compile Include="Model\EncodeProgress.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />
     <Compile Include="Model\PresetWrapper.cs" />
+    <Compile Include="Model\PreviewControls.cs" />
     <Compile Include="Model\PreviewEncodeState.cs" />
     <Compile Include="Model\PreviewMainDisplay.cs" />
     <Compile Include="Model\VideoSourceState.cs" />
@@ -686,8 +703,14 @@
     <Compile Include="View\Preview\PreviewFit.xaml.cs">
       <DependentUpon>PreviewFit.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Preview\PreviewGeneratingControls.xaml.cs">
+      <DependentUpon>PreviewGeneratingControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Preview\PreviewOneToOne.xaml.cs">
       <DependentUpon>PreviewOneToOne.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Preview\PreviewPlaybackControls.xaml.cs">
+      <DependentUpon>PreviewPlaybackControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RestoreWindowCommand.cs" />
     <Compile Include="Utilities\SourceHistory.cs" />

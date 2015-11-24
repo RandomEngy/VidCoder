@@ -8,6 +8,7 @@ using System.Reactive.Linq;
 using System.Threading;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using HandBrake.ApplicationServices.Interop;
 using ReactiveUI;
 using VidCoder.Extensions;
@@ -49,6 +50,7 @@ namespace VidCoder.ViewModel
 		private List<object> imageFileSync;
 		private string imageFileCacheFolder;
 		private BitmapSource previewBitmapSource;
+		private DispatcherTimer seekBarUpdateTimer;
 
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
@@ -169,6 +171,24 @@ namespace VidCoder.ViewModel
 
 			this.MainDisplayObservable.ToProperty(this, x => x.MainDisplay, out this.mainDisplay);
 
+			// Controls
+			this.ControlsObservable = this.WhenAnyValue(x => x.GeneratingPreview, x => x.PlayingPreview, (generatingPreview, playingPreview) =>
+			{
+				if (playingPreview)
+				{
+					return PreviewControls.Playback;
+				}
+
+				if (generatingPreview)
+				{
+					return PreviewControls.Generation;
+				}
+
+				return PreviewControls.Creation;
+			});
+
+			this.ControlsObservable.ToProperty(this, x => x.Controls, out this.controls);
+
 			// InCornerDisplayMode
 			this.WhenAnyValue(x => x.DisplayType)
 				.Select(displayType => displayType == PreviewDisplay.Corners)
@@ -178,6 +198,7 @@ namespace VidCoder.ViewModel
 			this.WhenAnyValue(x => x.EncodeState)
 				.Select(encodeState => encodeState == PreviewEncodeState.EncodeStarting || encodeState == PreviewEncodeState.Encoding)
 				.ToProperty(this, x => x.GeneratingPreview, out this.generatingPreview);
+
 			this.PlaySource = ReactiveCommand.Create(this.WhenAnyValue(x => x.PlayAvailable));
 			this.PlaySource.Subscribe(_ => this.PlaySourceImpl());
 
@@ -187,6 +208,18 @@ namespace VidCoder.ViewModel
 			this.CancelPreview = ReactiveCommand.Create(
 				this.WhenAnyValue(x => x.EncodeState).Select(encodeState => encodeState == PreviewEncodeState.Encoding));
 			this.CancelPreview.Subscribe(_ => this.CancelPreviewImpl());
+
+			this.Pause = ReactiveCommand.Create();
+			this.Pause.Subscribe(_ => this.PauseImpl());
+
+			this.Play = ReactiveCommand.Create();
+			this.Play.Subscribe(_ => this.PlayImpl());
+
+			this.OpenInSystemPlayer = ReactiveCommand.Create();
+			this.OpenInSystemPlayer.Subscribe(_ => this.OpenInSystemPlayerImpl());
+
+			this.CloseVideo = ReactiveCommand.Create();
+			this.CloseVideo.Subscribe(_ => this.CloseVideoImpl());
 
 			this.previewSeconds = Config.PreviewSeconds;
 			this.displayType = CustomConfig.PreviewDisplay;
@@ -244,6 +277,8 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.previewImage, value); }
 		}
 
+		public string PreviewFilePath => this.previewFilePath;
+
 		private PreviewEncodeState encodeState;
 
 		public PreviewEncodeState EncodeState
@@ -253,17 +288,42 @@ namespace VidCoder.ViewModel
 		}
 
 		private bool playingPreview;
-
 		public bool PlayingPreview
 		{
 			get { return this.playingPreview; }
 			set { this.RaiseAndSetIfChanged(ref this.playingPreview, value); }
 		}
 
+		private bool previewPaused;
+		public bool PreviewPaused
+		{
+			get { return this.previewPaused; }
+			set { this.RaiseAndSetIfChanged(ref this.previewPaused, value); }
+		}
+
+		private TimeSpan previewVideoPosition;
+		public TimeSpan PreviewVideoPosition
+		{
+			get { return this.previewVideoPosition; }
+			set { this.RaiseAndSetIfChanged(ref this.previewVideoPosition, value); }
+		}
+
+		private TimeSpan previewVideoDuration;
+		public TimeSpan PreviewVideoDuration
+		{
+			get { return this.previewVideoDuration; }
+			set { this.RaiseAndSetIfChanged(ref this.previewVideoDuration, value); }
+		}
+
 		public IObservable<PreviewMainDisplay> MainDisplayObservable { get; private set; }
 
 		private ObservableAsPropertyHelper<PreviewMainDisplay> mainDisplay;
 		public PreviewMainDisplay MainDisplay => this.mainDisplay.Value;
+
+		public IObservable<PreviewControls> ControlsObservable { get; private set; } 
+
+		private ObservableAsPropertyHelper<PreviewControls> controls;
+		public PreviewControls Controls => this.controls.Value;
 
 		private ObservableAsPropertyHelper<bool> generatingPreview;
 		public bool GeneratingPreview => this.generatingPreview.Value;
@@ -397,7 +457,6 @@ namespace VidCoder.ViewModel
 		}
 
 		public ReactiveCommand<object> GeneratePreview { get; }
-
 		private void GeneratePreviewImpl()
 		{
 			this.job = this.mainViewModel.EncodeJob;
@@ -512,7 +571,25 @@ namespace VidCoder.ViewModel
 							var previewFileInfo = new FileInfo(this.previewFilePath);
 							this.logger.Log("Finished preview clip generation. Size: " + Utilities.FormatFileSize(previewFileInfo.Length));
 
-							FileService.Instance.PlayVideo(previewFilePath);
+							if (!Config.UseBuiltInPlayerForPreviews || this.DisplayType == PreviewDisplay.Corners)
+							{
+								FileService.Instance.PlayVideo(this.previewFilePath);
+							}
+							else
+							{
+								this.PlayingPreview = true;
+								this.PreviewVideoPosition = TimeSpan.Zero;
+								this.PreviewPaused = false;
+
+								this.seekBarUpdateTimer = new DispatcherTimer();
+								this.seekBarUpdateTimer.Interval = TimeSpan.FromMilliseconds(250);
+								this.seekBarUpdateTimer.Tick += (sender, args) =>
+								{
+									this.View.RefreshViewModelFromMediaElement();
+								};
+
+								this.seekBarUpdateTimer.Start();
+							}
 						}
 					}
 				});
@@ -566,6 +643,8 @@ namespace VidCoder.ViewModel
 					this.previewFilePath = FileUtilities.CreateUniqueFileName(this.previewFilePath, new HashSet<string>());
 				}
 			}
+
+			this.RaisePropertyChanged(nameof(this.PreviewFilePath));
 		}
 
 		public ReactiveCommand<object> PlaySource { get; }
@@ -603,6 +682,31 @@ namespace VidCoder.ViewModel
 		{
 			this.encodeCancelled = true;
 			this.encodeProxy.StopEncode();
+		}
+
+		public ReactiveCommand<object> Pause { get; }
+		private void PauseImpl()
+		{
+			this.PreviewPaused = true;
+		}
+
+		public ReactiveCommand<object> Play { get; }
+		private void PlayImpl()
+		{
+			this.PreviewPaused = false;
+		}
+
+		public ReactiveCommand<object> OpenInSystemPlayer { get; }
+		private void OpenInSystemPlayerImpl()
+		{
+			this.PlayingPreview = false;
+			FileService.Instance.PlayVideo(this.previewFilePath);
+		}
+
+		public ReactiveCommand<object> CloseVideo { get; }
+		private void CloseVideoImpl()
+		{
+			this.PlayingPreview = false;
 		}
 
 		public void RequestRefreshPreviews()
@@ -1065,6 +1169,11 @@ namespace VidCoder.ViewModel
 					// Directory may have been deleted. Ignore.
 				}
 			}
+		}
+
+		public void OnVideoCompleted()
+		{
+			this.PlayingPreview = false;
 		}
 	}
 }

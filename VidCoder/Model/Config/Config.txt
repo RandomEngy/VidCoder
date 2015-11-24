@@ -98,6 +98,7 @@ PreferredPlayer|string|"vlc"
 BetaUpdates|bool|false
 InterfaceLanguageCode|string|""
 CpuThrottlingFraction|double|1.0
+UseBuiltInPlayerForPreviews|bool|true
 
 AudioLanguageCode|string|"und"
 SubtitleLanguageCode|string|"und"

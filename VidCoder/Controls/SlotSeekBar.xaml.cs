@@ -14,12 +14,9 @@ using System.Windows.Shapes;
 
 namespace VidCoder.Controls
 {
-	/// <summary>
-	/// Interaction logic for SeekBar.xaml
-	/// </summary>
-	public partial class SeekBar : UserControl
+	public partial class SlotSeekBar : UserControl
 	{
-		public SeekBar()
+		public SlotSeekBar()
 		{
 			this.InitializeComponent();
 
@@ -30,36 +27,36 @@ namespace VidCoder.Controls
 		public static readonly DependencyProperty SlotProperty = DependencyProperty.Register(
 			"Slot",
 			typeof(int),
-			typeof(SeekBar),
+			typeof(SlotSeekBar),
 			new PropertyMetadata(new PropertyChangedCallback(OnSlotChanged)));
 		public int Slot
 		{
 			get
 			{
-				return (int)GetValue(SlotProperty);
+				return (int)this.GetValue(SlotProperty);
 			}
 
 			set
 			{
-				SetValue(SlotProperty, value);
+				this.SetValue(SlotProperty, value);
 			}
 		}
 
 		public static readonly DependencyProperty NumSlotsProperty = DependencyProperty.Register(
 			"NumSlots",
 			typeof(int),
-			typeof(SeekBar),
+			typeof(SlotSeekBar),
 			new PropertyMetadata(new PropertyChangedCallback(OnNumSlotsChanged)));
 		public int NumSlots
 		{
 			get
 			{
-				return (int)GetValue(NumSlotsProperty);
+				return (int)this.GetValue(NumSlotsProperty);
 			}
 
 			set
 			{
-				SetValue(NumSlotsProperty, value);
+				this.SetValue(NumSlotsProperty, value);
 			}
 		}
 
@@ -67,7 +64,7 @@ namespace VidCoder.Controls
 		{
 			if (eventArgs.NewValue != eventArgs.OldValue)
 			{
-				var seekBar = dependencyObject as SeekBar;
+				var seekBar = (SlotSeekBar)dependencyObject;
 
 				seekBar.UpdateSeekBarUI();
 			}
@@ -77,7 +74,7 @@ namespace VidCoder.Controls
 		{
 			if (eventArgs.NewValue != eventArgs.OldValue)
 			{
-				var seekBar = dependencyObject as SeekBar;
+				var seekBar = (SlotSeekBar)dependencyObject;
 
 				seekBar.UpdateSeekBarUI();
 				seekBar.UpdateMarkers();

@@ -116,6 +116,7 @@ namespace VidCoder
 			cache.Add("BetaUpdates", DatabaseConfig.Get("BetaUpdates", false, connection));
 			cache.Add("InterfaceLanguageCode", DatabaseConfig.Get("InterfaceLanguageCode", "", connection));
 			cache.Add("CpuThrottlingFraction", DatabaseConfig.Get("CpuThrottlingFraction", 1.0, connection));
+			cache.Add("UseBuiltInPlayerForPreviews", DatabaseConfig.Get("UseBuiltInPlayerForPreviews", true, connection));
 			cache.Add("AudioLanguageCode", DatabaseConfig.Get("AudioLanguageCode", "und", connection));
 			cache.Add("SubtitleLanguageCode", DatabaseConfig.Get("SubtitleLanguageCode", "und", connection));
 			cache.Add("AutoAudio", DatabaseConfig.Get("AutoAudio", "Disabled", connection));
@@ -584,6 +585,11 @@ namespace VidCoder
 			get { return (double)cache["CpuThrottlingFraction"]; }
 			set { Set("CpuThrottlingFraction", value); }
 		}
+		public static bool UseBuiltInPlayerForPreviews
+		{
+			get { return (bool)cache["UseBuiltInPlayerForPreviews"]; }
+			set { Set("UseBuiltInPlayerForPreviews", value); }
+		}
 		public static string AudioLanguageCode
 		{
 			get { return (string)cache["AudioLanguageCode"]; }
@@ -738,6 +744,7 @@ namespace VidCoder
 			public static IObservable<bool> BetaUpdates => GetObservable<bool>("BetaUpdates");
 			public static IObservable<string> InterfaceLanguageCode => GetObservable<string>("InterfaceLanguageCode");
 			public static IObservable<double> CpuThrottlingFraction => GetObservable<double>("CpuThrottlingFraction");
+			public static IObservable<bool> UseBuiltInPlayerForPreviews => GetObservable<bool>("UseBuiltInPlayerForPreviews");
 			public static IObservable<string> AudioLanguageCode => GetObservable<string>("AudioLanguageCode");
 			public static IObservable<string> SubtitleLanguageCode => GetObservable<string>("SubtitleLanguageCode");
 			public static IObservable<string> AutoAudio => GetObservable<string>("AutoAudio");
