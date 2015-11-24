@@ -277,6 +277,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not play video with built-in player. Would you like to open with the system player?.
+        /// </summary>
+        public static string VideoErrorMessage {
+            get {
+                return ResourceManager.GetString("VideoErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video Error.
+        /// </summary>
+        public static string VideoErrorTitle {
+            get {
+                return ResourceManager.GetString("VideoErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to View:.
         /// </summary>
         public static string ViewLabel {

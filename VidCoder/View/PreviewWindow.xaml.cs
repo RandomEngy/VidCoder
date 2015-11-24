@@ -155,7 +155,7 @@ namespace VidCoder.View
 			{
 				if (playingPreview)
 				{
-					previewholder.SetVideo(this.OnVideoCompleted, this.viewModel.WhenAnyValue(x => x.Volume));
+					previewholder.SetVideo(this.viewModel.OnVideoCompleted, this.viewModel.OnVideoFailed, this.viewModel.WhenAnyValue(x => x.Volume));
 				}
 				else
 				{
@@ -192,11 +192,6 @@ namespace VidCoder.View
 				default:
 					throw new ArgumentOutOfRangeException(nameof(controls), controls, null);
 			}
-		}
-
-		private void OnVideoCompleted()
-		{
-			this.viewModel.OnVideoCompleted();
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)

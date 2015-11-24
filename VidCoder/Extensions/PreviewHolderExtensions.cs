@@ -38,7 +38,7 @@ namespace VidCoder.Extensions
 			previewHolder.Holder.Children.Add(image);
 		}
 
-		public static void SetVideo(this IPreviewHolder previewHolder, Action onCompleted, IObservable<double> volume)
+		public static void SetVideo(this IPreviewHolder previewHolder, Action onCompleted, Action onFailed, IObservable<double> volume)
 		{
 			Grid holder = previewHolder.Holder;
 
@@ -82,6 +82,11 @@ namespace VidCoder.Extensions
 					OnVideoPlaying(holder);
 					mediaElement.Play();
 				});
+			};
+
+			mediaElement.MediaFailed += (sender, args) =>
+			{
+				onFailed();
 			};
 
 			mediaElement.MediaEnded += (sender, args) =>

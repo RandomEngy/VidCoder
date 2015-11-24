@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -1238,6 +1239,16 @@ namespace VidCoder.ViewModel
 		public void OnVideoCompleted()
 		{
 			this.PlayingPreview = false;
+		}
+
+		public void OnVideoFailed()
+		{
+			this.PlayingPreview = false;
+			MessageBoxResult result = Ioc.Get<IMessageBoxService>().Show(this, PreviewRes.VideoErrorMessage, PreviewRes.VideoErrorTitle, MessageBoxButton.YesNo);
+			if (result == MessageBoxResult.Yes)
+			{
+				FileService.Instance.PlayVideo(this.previewFilePath);
+			}
 		}
 	}
 }
