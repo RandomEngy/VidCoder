@@ -1,12 +1,12 @@
 <UpdateInfo>
 	<Release>
-		<Latest>2.10</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-2.10-Beta-x86.exe</DownloadLocation>
-		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/618452</ChangelogLocation>
+		<Latest>2.11</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-2.11-Beta-x86.exe</DownloadLocation>
+		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/618634</ChangelogLocation>
 	</Release>
 	<Release-x64>
-		<Latest>2.10</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-2.10-Beta-x64.exe</DownloadLocation>
-		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/618452</ChangelogLocation>
+		<Latest>2.11</Latest>
+		<DownloadLocation>http://engy.us/VidCoder/VidCoder-2.11-Beta-x64.exe</DownloadLocation>
+		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/618634</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>

@@ -106,6 +106,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encoding.
+        /// </summary>
+        public static string EncodingSection {
+            get {
+                return ResourceManager.GetString("EncodingSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Foreign Audio Search.
         /// </summary>
         public static string ForeignAudioSearchRadioButton {
@@ -178,11 +187,47 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arguments:.
+        /// </summary>
+        public static string PostEncodeArgumentsLabel {
+            get {
+                return ResourceManager.GetString("PostEncodeArgumentsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The arguments to pass to the program. Use {file} for the file output path..
+        /// </summary>
+        public static string PostEncodeArgumentsToolTip {
+            get {
+                return ResourceManager.GetString("PostEncodeArgumentsToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post-encoding.
+        /// </summary>
+        public static string PostEncodingSection {
+            get {
+                return ResourceManager.GetString("PostEncodingSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This will override any preset picked in the main window..
         /// </summary>
         public static string PresetOverrideToolTip {
             get {
                 return ResourceManager.GetString("PresetOverrideToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send file to:.
+        /// </summary>
+        public static string SendFileToLabel {
+            get {
+                return ResourceManager.GetString("SendFileToLabel", resourceCulture);
             }
         }
         

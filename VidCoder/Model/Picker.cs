@@ -79,7 +79,7 @@ namespace VidCoder.Model
 			set { this.RaiseAndSetIfChanged(ref this.titleRangeSelectEnabled, value); }
 		}
 
-		private int titleRangeSelectStartMinutes;
+		private int titleRangeSelectStartMinutes = 40;
 		[JsonProperty]
 		public int TitleRangeSelectStartMinutes
 		{
@@ -87,7 +87,7 @@ namespace VidCoder.Model
 			set { this.RaiseAndSetIfChanged(ref this.titleRangeSelectStartMinutes, value); }
 		}
 
-		private int titleRangeSelectEndMinutes;
+		private int titleRangeSelectEndMinutes = 50;
 		[JsonProperty]
 		public int TitleRangeSelectEndMinutes
 		{
@@ -96,27 +96,27 @@ namespace VidCoder.Model
 		}
 
 		[JsonProperty]
-		public AudioSelectionMode AudioSelectionMode { get; set; }
+		public AudioSelectionMode AudioSelectionMode { get; set; } = AudioSelectionMode.Disabled;
 
         // Default "und"
 		[JsonProperty]
-		public string AudioLanguageCode { get; set; }
+		public string AudioLanguageCode { get; set; } = "und";
 
         // Applies only with AutoAudioType.Language
 		[JsonProperty]
 		public bool AudioLanguageAll { get; set; }
 
 		[JsonProperty]
-		public SubtitleSelectionMode SubtitleSelectionMode { get; set; }
+		public SubtitleSelectionMode SubtitleSelectionMode { get; set; } = SubtitleSelectionMode.Disabled;
 
-        // Applies only with AutoSubtitleType.ForeignAudioSearch
+		// Applies only with AutoSubtitleType.ForeignAudioSearch
 		[JsonProperty]
 		public bool SubtitleForeignBurnIn { get; set; }
 
         // Applies only with AutoSubtitleType.Language
         // Default "und"
 		[JsonProperty]
-		public string SubtitleLanguageCode { get; set; }
+		public string SubtitleLanguageCode { get; set; } = "und";
 
         // Applies only with AutoSubtitleType.Language
 		[JsonProperty]
@@ -125,7 +125,7 @@ namespace VidCoder.Model
         // Applies only with AutoSubtitleType.Language
         // Default true
 		[JsonProperty]
-		public bool SubtitleLanguageOnlyIfDifferent { get; set; }
+		public bool SubtitleLanguageOnlyIfDifferent { get; set; } = true;
 
         // Applies only with AutoSubtitleType.Language
 		[JsonProperty]
@@ -146,6 +146,15 @@ namespace VidCoder.Model
 
 		[JsonProperty]
 		public bool AutoEncodeOnScan { get; set; }
+
+		[JsonProperty]
+		public bool PostEncodeActionEnabled { get; set; }
+
+		[JsonProperty]
+		public string PostEncodeExecutable { get; set; }
+
+		[JsonProperty]
+		public string PostEncodeArguments { get; set; } = "\"{file}\"";
 
 		private ObservableAsPropertyHelper<string> displayName;
 		public string DisplayName => this.displayName.Value;

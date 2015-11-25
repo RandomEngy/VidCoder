@@ -173,4 +173,24 @@
   <data name="PresetOverrideToolTip" xml:space="preserve">
     <value>This will override any preset picked in the main window.</value>
   </data>
+  <data name="EncodingSection" xml:space="preserve">
+    <value>Encoding</value>
+    <comment>The header for the Encoding section in the Picker window.</comment>
+  </data>
+  <data name="PostEncodingSection" xml:space="preserve">
+    <value>Post-encoding</value>
+    <comment>Header for the post-encoding section in the picker window.</comment>
+  </data>
+  <data name="SendFileToLabel" xml:space="preserve">
+    <value>Send file to:</value>
+    <comment>Label for the option to run a program after encoding each file.</comment>
+  </data>
+  <data name="PostEncodeArgumentsLabel" xml:space="preserve">
+    <value>Arguments:</value>
+    <comment>The label for the arguments to pass to the post-encode executable.</comment>
+  </data>
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>The arguments to pass to the program. Use {file} for the file output path.</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
 </root>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Media;
@@ -1491,6 +1492,19 @@ namespace VidCoder.Services
 						finishedJob));
 
 					this.EncodeQueue.RemoveAt(0);
+
+					var picker = this.pickersService.SelectedPicker.Picker;
+					if (status == EncodeResultStatus.Succeeded && picker.PostEncodeActionEnabled && !string.IsNullOrWhiteSpace(picker.PostEncodeExecutable))
+					{
+						string arguments = picker.PostEncodeArguments.Replace("{file}", outputPath);
+
+						var process = new ProcessStartInfo(
+							picker.PostEncodeExecutable,
+							arguments);
+						System.Diagnostics.Process.Start(process);
+
+						encodeLogger.Log($"Started post-encode action. Executable: {picker.PostEncodeExecutable} , Arguments: {arguments}");
+					}
 
 					encodeLogger.Log("Job completed (Elapsed Time: " + Utilities.FormatTimeSpan(finishedJob.EncodeTime) + ")");
 

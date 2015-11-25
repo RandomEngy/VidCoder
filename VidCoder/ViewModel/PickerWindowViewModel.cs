@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reactive.Linq;
@@ -170,6 +171,9 @@ namespace VidCoder.ViewModel
 			this.PickOutputDirectory = ReactiveCommand.Create();
 			this.PickOutputDirectory.Subscribe(_ => this.PickOutputDirectoryImpl());
 
+			this.PickPostEncodeExecutable = ReactiveCommand.Create();
+			this.PickPostEncodeExecutable.Subscribe(_ => this.PickPostEncodeExecutableImpl());
+
 			this.automaticChange = false;
 		}
 
@@ -257,6 +261,9 @@ namespace VidCoder.ViewModel
 				}
 			});
 			this.RegisterPickerProperty(nameof(this.Picker.AutoEncodeOnScan));
+			this.RegisterPickerProperty(nameof(this.Picker.PostEncodeActionEnabled));
+			this.RegisterPickerProperty(nameof(this.Picker.PostEncodeExecutable));
+			this.RegisterPickerProperty(nameof(this.Picker.PostEncodeArguments));
 		}
 
 		private void RegisterPickerProperty(string propertyName, Action action = null)
@@ -449,6 +456,24 @@ namespace VidCoder.ViewModel
 			set { this.UpdatePickerProperty(nameof(this.Picker.AutoEncodeOnScan), value); }
 		}
 
+		public bool PostEncodeActionEnabled
+		{
+			get { return this.Picker.PostEncodeActionEnabled; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.PostEncodeActionEnabled), value); }
+		}
+
+		public string PostEncodeExecutable
+		{
+			get { return this.Picker.PostEncodeExecutable; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.PostEncodeExecutable), value); }
+		}
+
+		public string PostEncodeArguments
+		{
+			get { return this.Picker.PostEncodeArguments; }
+			set { this.UpdatePickerProperty(nameof(this.Picker.PostEncodeArguments), value); }
+		}
+
 		public IList<Language> Languages
 		{
 			get
@@ -462,7 +487,6 @@ namespace VidCoder.ViewModel
 		public ReactiveCommand<object> Save { get; private set; }
 
 		public ReactiveCommand<object> SaveAs { get; private set; }
-
 		private void SaveAsImpl()
 		{
 			var dialogVM = new ChooseNameViewModel(MainRes.PickerWord, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
@@ -478,7 +502,6 @@ namespace VidCoder.ViewModel
 		}
 
 		public ReactiveCommand<object> Rename { get; private set; }
-
 		private void RenameImpl()
 		{
 			var dialogVM = new ChooseNameViewModel(MainRes.PickerWord, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
@@ -495,7 +518,6 @@ namespace VidCoder.ViewModel
 		}
 
 		public ReactiveCommand<object> Delete { get; private set; }
-
 		private void DeleteImpl()
 		{
 			if (this.Picker.IsModified)
@@ -527,13 +549,35 @@ namespace VidCoder.ViewModel
 		}
 
 		public ReactiveCommand<object> PickOutputDirectory { get; private set; }
-
 		private void PickOutputDirectoryImpl()
 		{
 			string overrideFolder = FileService.Instance.GetFolderName(this.OutputDirectoryOverride, MainRes.OutputDirectoryPickerText);
 			if (overrideFolder != null)
 			{
 				this.OutputDirectoryOverride = overrideFolder;
+			}
+		}
+
+		public ReactiveCommand<object> PickPostEncodeExecutable { get; }
+		private void PickPostEncodeExecutableImpl()
+		{
+			string initialDirectory = null;
+			if (!string.IsNullOrEmpty(this.PostEncodeExecutable))
+			{
+				try
+				{
+					initialDirectory = Path.GetDirectoryName(this.PostEncodeExecutable);
+				}
+				catch (Exception)
+				{
+					// Ignore and use null
+				}
+			}
+
+			string executablePath = FileService.Instance.GetFileNameLoad(initialDirectory: initialDirectory);
+			if (executablePath != null)
+			{
+				this.PostEncodeExecutable = executablePath;
 			}
 		}
 

@@ -37,7 +37,7 @@ namespace VidCoder.Services
             Picker modifiedPicker = storedPickers.FirstOrDefault(picker => picker.IsModified);
             int modifiedPickerIndex = -1;
 
-            Picker nonePicker = CreateDefaultPicker();
+            Picker nonePicker = new Picker();
             nonePicker.IsNone = true;
             this.pickers.Add(new PickerViewModel(nonePicker));
 
@@ -271,7 +271,7 @@ namespace VidCoder.Services
 
         public void AutoCreatePicker()
         {
-            Picker newPicker = CreateDefaultPicker();
+            Picker newPicker = new Picker();
 
             for (int i = 1; i < 500; i++)
             {
@@ -344,20 +344,6 @@ namespace VidCoder.Services
             }
 
             PickerStorage.PickerList = storagePickers;
-        }
-
-        private static Picker CreateDefaultPicker()
-        {
-            return new Picker
-            {
-				TitleRangeSelectStartMinutes = 40,
-				TitleRangeSelectEndMinutes = 50,
-                AudioSelectionMode = AudioSelectionMode.Disabled,
-                AudioLanguageCode = "und",
-                SubtitleSelectionMode = SubtitleSelectionMode.Disabled,
-                SubtitleLanguageCode = "und",
-                SubtitleLanguageOnlyIfDifferent = true
-            };
         }
 
         private void InsertNewPicker(PickerViewModel newPickerVM)
