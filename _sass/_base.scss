@@ -193,3 +193,10 @@ pre {
     background: -moz-linear-gradient(top, #1f7229, #1f7229);
     background: linear-gradient(to bottom, #1f7229, #1f7229);
 }
+.button:visited {
+    color: #ffffff;
+}
+
+.secondaryInstallLink {
+    margin-left: 20px;
+}

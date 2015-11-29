@@ -19,10 +19,7 @@ VidCoder is a DVD/Blu-ray ripping and video transcoding application for Windows.
 {% capture installerUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ tag }}/VidCoder-{{ version }}-x64.exe{% endcapture %}
 {% capture portableUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ tag }}/VidCoder-{{ version }}-x64-Portable.exe{% endcapture %}
 
-<a class="button" href="{{ installerUrl }}">Download Installer</a>
-
-[Portable (.exe)]({{ portableUrl }})
-[Source (.zip)]({{ sourceUrl }})
+<a class="button" href="{{ installerUrl }}">Download Installer</a> <a href="{{ portableUrl }}" class="secondaryInstallLink">Portable (.exe)</a> <a href="{{ sourceUrl }}" class="secondaryInstallLink">Source (.zip)</a>
 
 ![Main UI screenshot]({{ site.baseurl }}/images/main.png)
 
