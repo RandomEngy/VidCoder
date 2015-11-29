@@ -8,11 +8,21 @@ header_xl: images/BannerLarge.png
 VidCoder is a DVD/Blu-ray ripping and video transcoding application for Windows. It uses [HandBrake](http://handbrake.fr/) as its encoding engine.
 
 {% for release in site.github.releases %}
-{% unless release.tag_name contains 'beta' %}
-  {{ release.body }}
+{% unless release.prerelease %}
+  {% assign releaseNotes = release.body %}
+  {% assign sourceUrl = release.zipball_url %}
+  {% assign tag = release.tag_name %}
   {% break %}
 {% endunless %}
 {% endfor %}
+{% assign version = tag | remove: "v" %}
+{% capture installerUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ tag }}/VidCoder-{{ version }}-x64.exe{% endcapture %}
+{% capture portableUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ tag }}/VidCoder-{{ version }}-x64-Portable.exe{% endcapture %}
+
+<a class="button" href="{{ installerUrl }}">Download Installer</a>
+
+[Portable (.exe)]({{ portableUrl }})
+[Source (.zip)]({{ sourceUrl }})
 
 ![Main UI screenshot]({{ site.baseurl }}/images/main.png)
 
