@@ -19,7 +19,26 @@ VidCoder is a DVD/Blu-ray ripping and video transcoding application for Windows.
 {% capture installerUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ tag }}/VidCoder-{{ version }}-x64.exe{% endcapture %}
 {% capture portableUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ tag }}/VidCoder-{{ version }}-x64-Portable.exe{% endcapture %}
 
-<a class="button" href="{{ installerUrl }}">Download Installer</a> <a href="{{ portableUrl }}" class="secondaryInstallLink">Portable (.exe)</a> <a href="{{ sourceUrl }}" class="secondaryInstallLink">Source (.zip)</a>
+{% for release in site.github.releases %}
+{% if release.prerelease %}
+  {% assign betaReleaseNotes = release.body %}
+  {% assign betaSourceUrl = release.zipball_url %}
+  {% assign betaTag = release.tag_name %}
+  {% break %}
+{% endif %}
+{% endfor %}
+{% assign betaVersion = betaTag | remove: "v" | remove: "-beta" %}
+{% capture betaInstallerUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ betaTag }}/VidCoder-{{ betaVersion }}-Beta-x64.exe{% endcapture %}
+{% capture betaPortableUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ betaTag }}/VidCoder-{{ betaVersion }}-Beta-x64-Portable.exe{% endcapture %}
+
+<table>
+<tr>
+<td><a class="button" href="{{ installerUrl }}">Download Installer</a></td><td><a href="{{ portableUrl }}" class="secondaryInstallLink">Portable (.exe)</a></td><td><a href="{{ sourceUrl }}" class="secondaryInstallLink">Source (.zip)</a></td>
+</tr>
+<tr>
+<td class="betaCell"><a href="{{ betaInstallerUrl }}">Beta Installer (.exe)</a></td><td class="betaCell"><a href="{{ betaPortableUrl }}" class="secondaryInstallLink">Beta Portable (.exe)</a></td><td class="betaCell"><a href="{{ betaSourceUrl }}" class="secondaryInstallLink">Beta Source (.zip)</a></td>
+</tr>
+</table>
 
 ![Main UI screenshot]({{ site.baseurl }}/images/main.png)
 
