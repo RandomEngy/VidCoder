@@ -1,0 +1,34 @@
+.center {
+  display: block;
+  margin: 0 auto;
+} 
+
+.blocky {
+  position: relative;
+  overflow: hidden;
+}
+
+.center-text {
+   text-align: center;
+}
+
+// Hide for large screens
+@media screen and (min-width:481px) {
+    .hide-for-large {
+      display:none 
+    }
+}
+
+@media screen and (max-width: 768px) {
+  .hide-for-small {
+    display: none;
+  }
+}
+
+.schedule {
+  background-color: #76a6a6;
+}
+
+.pad-lr-15 {
+  padding: 0 15px; 
+}

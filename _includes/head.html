@@ -1,0 +1,25 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  
+  <title>{% if page.title %}{{ page.title }} | {{ site.name }}{% else %}{{ site.name }}{% endif %}</title>
+  {% if site.author %}
+    <meta name="author" content="{{ site.author }}">
+  {% endif %}
+  {% capture description %}{% if page.description %}{{ page.description }}{% elsif site.description %}{{ site.description }}{%else%}{{ content | raw_content }}{% endif %}{% endcapture %}
+  <meta name="description" content="{{ description | strip_html | condense_spaces | truncate:150 }}">
+  {% if page.keywords %}
+    <meta name="keywords" content="{{ page.keywords }}">
+  {%else%}
+    <meta name="keywords" content="{{ site.keywords }}">
+  {% endif %}
+    
+  <link href="{{ site.baseurl }}/css/main.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link rel="canonical" href="{{ site.baseurl }}{{ page.url }}">
+  <link href="{{ site.baseurl }}/favicon.ico" rel="icon">
+  <link rel="alternate" type="application/atom+xml" title="{{ site.name }}" href="{{ site.baseurl }}/atom.xml"/>
+  
+  {% include metadata.html %}
+  {% include google_analytics.html %} 
+</head>

@@ -1,0 +1,39 @@
+# Site settings
+name: VidCoder
+email: 
+author: RandomEngy
+
+keywords: blu-ray, rip, video, stuffthings
+description: > # this means to ignore newlines until "baseurl:"
+  Witty description here.
+
+#baseurl: /slim-pickins-jekyll-theme
+#url: https://chrisanthropic.github.io
+
+# Exclude our ruby stuff
+exclude: [.bundle, bin, vendor, Gemfile, Gemfile.lock, Rakefile, s3_website.yml, .last_optimized]
+
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+
+destination: _site
+
+gems:
+  - jekyll-feed
+
+feed:
+  path: atom.xml
+  
+# Compress our Css
+#sass:
+#    style: :compressed
+
+permalink: /blog/:year/:title
+
+#### SEO Stuff
+# Google Analytics
+google_universal_analytics: 
+google_universal_analytics_cookiedomain: auto

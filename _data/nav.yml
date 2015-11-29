@@ -1,0 +1,28 @@
+- title: "home"
+  href: "/"
+
+- title: "documentation"
+  subcategories:
+    - subtitle: "sass"
+      subhref: "/documentation/sass.html"
+    - subtitle: "grid"
+      subhref: "/documentation/grid.html"
+    - subtitle: "navigation"
+      subhref: "/documentation/nav.html"
+    - subtitle: "banner"
+      subhref: "/documentation/banner.html"
+    - subtitle: "sticky footer"
+      subhref: "/documentation/footer.html"
+    - subtitle: "rakefile"
+      subhref: "/documentation/rakefile.html"
+    - subtitle: "image_optim"
+      subhref: "/documentation/image-optim.html"
+    - subtitle: "SEO"
+      subhref: "/documentation/seo.html"
+      
+- title: "Issues"
+  external: "https://github.com/RandomEngy/VidCoder/issues"
+
+- title: "Past releases"
+  external: "https://github.com/RandomEngy/VidCoder/releases"
+  

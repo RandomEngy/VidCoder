@@ -1,0 +1,13 @@
+{% if page.header%}
+  <header role="banner">
+      <a href="{{ site.baseurl }}"><img src="{{ site.baseurl }}/{{ page.header_xl }}" alt="{{ site.name }} banner image" title="{{ site.name }} banner image" class="center"></a>
+  </header>
+  
+  {% elsif site.header %}
+    <header role="banner">
+      <a href="{{ site.baseurl }}"><img src="{{ site.baseurl }}/{{ site.header_xl }}" alt="{{ site.name }} banner image" title="{{ site.name }} banner image" class="center"></a>
+    </header>
+  
+  {% else %}
+
+{% endif %}

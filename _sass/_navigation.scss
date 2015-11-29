@@ -1,0 +1,275 @@
+//Reset
+#nav, #nav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#nav #toggleMenu, #nav #hideMenu {
+	display: none;
+}
+
+// Navbar wrap
+.navbar {
+  height: $navbar-height;
+  background-color: $navbar-color;
+}
+
+// Main navigation bar
+#nav .primary-nav{
+	z-index: 2;
+	position: relative;
+	display: block;
+}
+
+#nav >.primary-nav>li {
+	display: block;
+	float: left;
+	position: relative;
+}
+
+// Alignment of Social Icons
+#nav>.primary-nav>.right>a {
+    padding: 0px;
+}
+
+
+// Main navigation links
+#nav>.primary-nav>li>a {
+	/* Layout */
+	line-height: $navbar-height;
+	display: block;
+	padding: 0 22px;
+	border-color: #aaa;
+
+	/* Typography */
+	font-family: $navbar-font-family;
+	font-size: $navbar-font-size;
+	font-weight: 700;
+	color: $secondary-color;
+	text-transform: uppercase;
+	text-decoration: none;
+	
+	/* Transitions */
+	-webkit-transition: color .2s ease-in, border-top-color .2s ease-in;
+	-ms-transition: color .2s ease-in, border-top-color .2s ease-in;
+	-moz-transition: color .2s ease-in, border-top-color .2s ease-in;
+	-o-transition: color .2s ease-in, border-top-color .2s ease-in;
+	transition: color .2s ease-in, border-top-color .2s ease-in;
+}
+
+// Hover state of the links
+#nav>.primary-nav>li:hover>a {
+	color: $navbar-hover-color;
+	border-top-color: #fff;
+}
+
+// Active state of the links
+#nav>.primary-nav>li.active {
+	background-color: $navbar-active-color;
+}
+
+#nav>.primary-nav>li.dropdown>a {
+	padding-right: 28px;
+}
+
+// Dropdown menu arrow
+.dropdown>a::after {
+	position: absolute;
+	display: block;
+	content: "";
+	height: 0;
+	width: 0;
+	border: 4px solid transparent;
+	border-top-color: inherit;
+	right: 11px;
+	top: ($navbar-height / 2);
+}
+
+// Submenus
+#nav .primary-nav ul {
+	z-index: auto;
+	display: block;
+	position: absolute;
+	top: $navbar-height;
+	left: -9999px;
+	opacity: 0;
+	background: $navbar-color;
+	cursor: pointer;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	-webkit-transition: opacity .22s ease-in;
+	-ms-transition: opacity .22s ease-in;
+	-moz-transition: opacity .22s ease-in;
+	-o-transition: opacity .22s ease-in;
+	transition: opacity .22s ease-in;
+}
+
+#nav .primary-nav ul li {
+	display: block;
+	position: absolute;
+	height: 0px;
+	-webkit-transition: height .15s ease-in;
+	-ms-transition: height .15s ease-in;
+	-moz-transition: height .15s ease-in;
+	-o-transition: height .15s ease-in;
+	transition: height .15s ease-in;
+}
+
+// Submenu appears when its parent is hovered
+#nav>.primary-nav>li:hover>ul {
+	left: 0px;
+	opacity: 1;
+}
+
+#nav .primary-nav li:hover>ul>li {
+	position: relative;
+	height: 31px;
+}
+
+// Submenu links
+#nav .primary-nav ul li a {
+	/* Layout */
+	display: block;
+	padding: 7px 12px 7px 22px;
+	width: 200px;
+
+	/* Typography */
+	font-family: $navbar-font-family;
+	font-size: ($navbar-font-size * .92);
+	text-decoration: none;
+	color: $secondary-color;
+	font-weight: 400;
+	
+	/* Background & effects */
+	background: $navbar-color;
+	-webkit-transition: color .2s ease-in, border-left-color .2s ease-in;;
+	-ms-transition: color .2s ease-in, border-left-color .2s ease-in;;
+	-moz-transition: color .2s ease-in, border-left-color .2s ease-in;;
+	-o-transition: color .2s ease-in, border-left-color .2s ease-in;;
+	transition: color .2s ease-in, border-left-color .2s ease-in;;
+}
+
+// Change the link color on hover
+#nav .primary-nav ul li:hover>a {
+	color: $navbar-hover-color;
+}
+
+.nav ul ul {
+	display: none;
+}
+
+
+// Styling for mobile devices
+@media screen and (max-width: 768px) {
+	#nav .primary-nav{
+		width: 100%;
+		max-width: 768px;
+		height: auto;
+		background: $navbar-color;
+	}
+
+	#nav .primary-nav li {
+		float: none;
+		padding: 0 10px;
+		display: none;
+	}
+
+	#nav>.primary-nav>li>a {
+		line-height: 45px;
+		padding: 0 10px;
+	}
+
+	.dropdown>a::after {
+		display: none;
+	}
+
+	#nav .primary-nav ul {
+		position: relative;
+		top: 0px;
+		left: 0px;
+		right: auto;
+		opacity: 1;
+		clear: both;
+	}
+
+	#nav .primary-nav ul li, #nav>.primary-nav>li:hover>ul>li {
+		height: auto;
+		position: relative;
+
+	}
+
+	#nav .primary-nav ul li a {
+		padding: 5px 10px;
+		width: auto;
+	}
+
+	#nav #toggleMenu {
+		display: block;
+		padding-left: 15px;
+	}
+
+	#nav #toggleMenu>a, #nav #hideMenu>a {
+		padding: 0px 10px;
+		z-index: 1;
+		line-height: 45px;
+	}
+
+	#nav:target li {
+		display: block;
+	}
+
+	#nav:target #toggleMenu {
+		display: none;
+	}
+
+	#nav:target #hideMenu {
+		display: block;
+		background: rgba(0, 0, 0, .3);
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+		padding-left: 25px;
+		padding: 0 15px 0 15px;
+	}
+
+	#nav #hideMenu>a {
+		color: $secondary-color;
+	}
+
+	#toggleMenu>a::after, #hideMenu>a::after {
+		position: absolute;
+		content: "";
+		right: 35px;
+		top: 21px;
+		height: 9px;
+		width: 20px;
+		border-top: 2px solid $secondary-color;
+		border-bottom: 2px solid $secondary-color;
+		z-index: 1;
+	}
+
+	#toggleMenu>a::before, #hideMenu>a::before {
+		position: absolute;
+		content: "";
+		right: 35px;
+		top: 13px;
+		height: 3px;
+		width: 20px;
+		border-bottom: 2px solid $secondary-color;
+		z-index: 1;
+	}
+
+	#hideMenu>a::after, #hideMenu>a::before {
+		border-color: $secondary-color;
+	}
+	
+	.navbar {
+	  background-color: $navbar-color;
+	  height: 44px;
+	  display: inline;
+	}
+ 
+	#nav>.right.primary-nav  {
+	  background-color: lighten($navbar-color, 10%);
+	}
+} 

@@ -1,0 +1,10 @@
+<aside class="small-12 large-4 columns page-content recent-posts">
+  <h2>Recent Posts</h2>
+  <ul>
+    {% for post in site.posts limit:5 site.recent_posts %}
+      <li>
+        <a href="{{ site.baseurl }}{{ post.url }}">{% if site.titlecase %}{{ post.title | titlecase }}{% else %}{{ post.title }}{% endif %}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</aside>

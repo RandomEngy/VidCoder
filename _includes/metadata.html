@@ -1,0 +1,22 @@
+<!-- Social media content metadata -->
+{% if site.facebook_app_id %}
+<meta property="fb:app_id" content="{{ site.facebook_app_id }}" />
+<meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.name }}{% endif %}" />
+<meta property="og:site_name" content="{{ site.name }}" />
+<meta property="og:url" content="{% if canonical %}{{ canonical }}{% else %}{{ site.baseurl }}{% endif %}/" />
+<meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}" />
+<meta property="og:author" content="{{ site.facebook_page }}" />
+<meta property="og:locale" content="{{ site.facebook_locale }}" />
+<meta property="og:type" content="{% if page.facebook_type %}{{ page.facebook_type }}{% else %}article{% endif %}" />
+{% if page.facebook_image %}<meta property="og:image" content="{{ site.baseurl }}{{ page.facebook_image }}" />{% else %}<meta property="og:image" content="{{ site.facebook_image }}" />{% endif %}
+{% endif %}
+{% if site.twitter_card == true %}
+<meta property="twitter:card" content="{% if page.twitter_card.type %}{{ page.twitter_card.type}}{% else %}summary{% endif %}" />
+<meta property="twitter:site" content="{{ site.twitter_user }}" />
+<meta property="twitter:url" content="{% if canonical %}{{ canonical }}{% else %}{{ site.baseurl }}{% endif %}" />
+<meta property="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.name }}{% endif %}" />
+<meta property="twitter:description" content="{% if page.description %}{{ page.description | strip_html | condense_spaces | truncate:200}}{% else %}{{ site.description | strip_html | condense_spaces | truncate:200 }}{% endif %}" />
+<meta property="twitter:creator" content="{% if page.twitter_card.creator %}{{ page.twitter_card.creator }}{% else %}{{ site.twitter_user }}{% endif %}" />
+{% if page.twitter_card.image %}<meta property="twitter:image:src" content="{{ page.twitter_image }}" />{% else %}<meta property="twitter:image:src" content="{{ site.twitter_image }}" />{% endif %}
+{% else %}
+{% endif %}
