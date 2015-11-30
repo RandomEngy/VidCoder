@@ -13,6 +13,9 @@ baseurl: /VidCoder
 # Exclude our ruby stuff
 exclude: [.bundle, bin, vendor, Gemfile, Gemfile.lock, Rakefile, s3_website.yml, .last_optimized]
 
+# Header
+header: yes
+header_xl: images/BannerLarge.png
 
 # Build settings
 markdown: kramdown

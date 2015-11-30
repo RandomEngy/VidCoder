@@ -1,7 +1,7 @@
 // Base Colors
 $primary-color: #015D05;
 $secondary-color: #fff;
-$complimentary-color: #fff;
+$complimentary-color: #ccc;
 $body-bg: #fdfdfd;
 $body-font-color: #222;
 
@@ -22,7 +22,7 @@ $navbar-height: 44px;
 $navbar-color: $primary-color;
 $navbar-text-color: $secondary-color;
 $navbar-hover-color: $complimentary-color;
-$navbar-active-color: lighten($primary-color, 10%);
+$navbar-active-color: lighten($primary-color, 20%);
 $navbar-font-size: 13px;
 $navbar-font-family: "Open Sans", Helvetica, Arial, sans-serif;
 

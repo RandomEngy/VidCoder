@@ -1,11 +1,9 @@
 ---
 layout: home
 title: Home
-header: yes
-header_xl: images/BannerLarge.png
 ---
 
-VidCoder is a DVD/Blu-ray ripping and video transcoding application for Windows. It uses [HandBrake](http://handbrake.fr/) as its encoding engine.
+VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application for Windows. It uses [HandBrake](http://handbrake.fr/) as its encoding engine.
 
 {% for release in site.github.releases %}
 {% unless release.prerelease %}
@@ -104,5 +102,3 @@ It runs on Windows 7, 8, Vista, Server 2008 and Server 2012.
 
 The VidCoder UI (and C# interop) is written by RandomEngy.
 The core encoding engine is written by the amazing HandBrake team. j45 in particular has been a huge help in getting this together.
-
-[VidCoder is on Facebook](https://www.facebook.com/VidCoderSoftware). Give it a like.
