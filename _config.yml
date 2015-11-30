@@ -7,8 +7,9 @@ keywords: blu-ray, rip, video, stuffthings
 description: > # this means to ignore newlines until "baseurl:"
   Witty description here.
 
-baseurl: /VidCoder
-#url: https://chrisanthropic.github.io
+baseurl: ""
+#baseurl: /VidCoder
+#url: https://vidcoder.net/
 
 # Exclude our ruby stuff
 exclude: [.bundle, bin, vendor, Gemfile, Gemfile.lock, Rakefile, s3_website.yml, .last_optimized]
