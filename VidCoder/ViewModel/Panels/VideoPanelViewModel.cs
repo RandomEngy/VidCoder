@@ -31,7 +31,6 @@ namespace VidCoder.ViewModel
 		private List<VideoEncoderViewModel> encoderChoices;
 
 		private VideoEncoderViewModel selectedEncoder;
-		private bool selectedEncoderInitialized;
 		private List<double> framerateChoices;
 		private int displayTargetSize;
 		private int displayVideoBitrate;
@@ -951,13 +950,6 @@ namespace VidCoder.ViewModel
 			if (this.selectedEncoder == null)
 			{
 				this.selectedEncoder = this.EncoderChoices[0];
-			}
-
-			// We only want to refresh the settings if this is not startup.
-			if (this.selectedEncoderInitialized && this.selectedEncoder.Encoder != targetEncoder)
-			{
-				// TODO: Investigate what applyDefaults was for
-				this.RefreshEncoderSettings(false);
 			}
 
 			this.RaisePropertyChanged(nameof(this.SelectedEncoder));

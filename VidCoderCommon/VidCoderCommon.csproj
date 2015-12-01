@@ -45,28 +45,34 @@
     <Reference Include="Omu.ValueInjecter">
       <HintPath>..\packages\valueinjecter.3.0.1.1\lib\net45\Omu.ValueInjecter.dll</HintPath>
     </Reference>
-    <Reference Include="ReactiveUI">
+    <Reference Include="ReactiveUI, Version=6.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\reactiveui-core.6.5.0\lib\Net45\ReactiveUI.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Splat">
       <HintPath>..\packages\Splat.1.6.2\lib\Net45\Splat.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Reactive.Core">
+    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="System.Reactive.Interfaces">
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="System.Reactive.Linq">
+    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="System.Reactive.PlatformServices">
+    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="System.Reactive.Windows.Threading">
+    <Reference Include="System.Reactive.Windows.Threading, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Rx-XAML.2.2.5\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />

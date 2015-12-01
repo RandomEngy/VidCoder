@@ -1792,13 +1792,13 @@ namespace VidCoder.ViewModel
 		public ReactiveCommand<object> OpenHomepage { get; }
 		private void OpenHomepageImpl()
 		{
-			FileService.Instance.LaunchUrl("http://vidcoder.codeplex.com/");
+			FileService.Instance.LaunchUrl("http://vidcoder.net/");
 		}
 
 		public ReactiveCommand<object> ReportBug { get; }
 		private void ReportBugImpl()
 		{
-			FileService.Instance.LaunchUrl("http://vidcoder.codeplex.com/WorkItem/Create.aspx");
+			FileService.Instance.LaunchUrl("https://github.com/RandomEngy/VidCoder/issues/new");
 		}
 
 		public ReactiveCommand<object> Exit { get; }

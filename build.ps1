@@ -214,6 +214,8 @@ if ($beta) {
     $betaNameSection = ""
 }
 
+New-Item -ItemType Directory -Force -Path ".\Installer\BuiltInstallers"
+
 $portableExeWithoutExtension86 = ".\Installer\BuiltInstallers\VidCoder-$versionShort$betaNameSection-x86-Portable"
 $portableExeWithoutExtension64 = ".\Installer\BuiltInstallers\VidCoder-$versionShort$betaNameSection-x64-Portable"
 
@@ -241,6 +243,7 @@ else
 $fileContent = Get-Content $latestFile
 $fileContent = $fileContent -replace "<Latest>[\d.]+</Latest>", ("<Latest>" + $versionShort + "</Latest>")
 $fileContent = $fileContent -replace "(VidCoder-)[\d.]+((?:-Beta)?-x\d{2})", ("`${1}" + $versionShort + "`${2}")
+$fileContent = $fileContent -replace "/v[\d.]+((?:-beta)?[/<])", ("/v" + $versionShort + "`${1}")
 Set-Content $latestFile $fileContent
 
 # Create x86/x64 .iss files in the correct configuration
