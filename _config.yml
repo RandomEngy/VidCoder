@@ -3,9 +3,9 @@ name: VidCoder
 email: 
 author: RandomEngy
 
-keywords: blu-ray, rip, video, stuffthings
+keywords: blu-ray, rip, video, handbrake, encoding, transcoding
 description: > # this means to ignore newlines until "baseurl:"
-  Witty description here.
+  VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application for Windows. It uses HandBrake as its encoding engine.
 
 baseurl: ""
 #baseurl: /VidCoder
