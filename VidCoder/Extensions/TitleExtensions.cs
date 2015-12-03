@@ -14,6 +14,11 @@ namespace VidCoder.Extensions
 
 		public static string GetDisplayString(this SourceTitle title)
 		{
+			if (title == null)
+			{
+				return string.Empty;
+			}
+
 			string playlistPortion = string.Empty;
 			if (title.Type == (int)TitleType.Bluray)
 			{
