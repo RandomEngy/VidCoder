@@ -98,50 +98,28 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	<data name="EncodeDetailsWindowTitle" xml:space="preserve">
-    <value>Detalles de codificacion</value>
+  <data name="ChapterMarkersDialogTitle">
+    <value xml:space="preserve">Bölüm İşaretleri</value>
   </data>
-	<data name="QueueSectionHeader" xml:space="preserve">
-    <value>Cola</value>
+  <data name="DefaultChapterNamesRadioButton">
+    <value xml:space="preserve">Varsayılan bölüm adlarını kullan</value>
   </data>
-	<data name="ScanPassLabel" xml:space="preserve">
-    <value>Pasada de escaneado:</value>
+  <data name="CustomChapterNamesRadioButton">
+    <value xml:space="preserve">Özel bölüm adları kullan:</value>
   </data>
-	<data name="FirstPassLabel" xml:space="preserve">
-    <value>Primera pasada:</value>
+  <data name="ImportFromCsvButton">
+    <value xml:space="preserve">.csv'den içe aktar...</value>
   </data>
-	<data name="SecondPassLabel" xml:space="preserve">
-    <value>Segunda pasada:</value>
+  <data name="NumberColumn">
+    <value xml:space="preserve">Sayı</value>
   </data>
-	<data name="EncodePassLabel" xml:space="preserve">
-    <value>Pasada codificando:</value>
+  <data name="StartTimeColumn">
+    <value xml:space="preserve">Başlangıç Zamanı</value>
   </data>
-	<data name="JobLabel" xml:space="preserve">
-    <value>Trabajo:</value>
+  <data name="TitleColumn">
+    <value xml:space="preserve">Başlık</value>
   </data>
-	<data name="ProgressLabel" xml:space="preserve">
-    <value>Progreso:</value>
-  </data>
-	<data name="ElapsedTimeLabel" xml:space="preserve">
-    <value>Tiempo transcurrido:</value>
-  </data>
-	<data name="EtaLabel" xml:space="preserve">
-    <value>ETA:</value>
-  </data>
-	<data name="FileProgressLabel" xml:space="preserve">
-    <value>Progreso del archivo:</value>
-    <comment>Label on the encode details window for % progress on the current file.</comment>
-  </data>
-	<data name="FileSizeLabel" xml:space="preserve">
-    <value>Tamaño del archivo:</value>
-    <comment>Label for current file size on encode details window.</comment>
-  </data>
-	<data name="CurrentFpsLabel" xml:space="preserve">
-    <value>FPS actuales:</value>
-    <comment>Label for the current encoding rate in frames per second.</comment>
-  </data>
-	<data name="AverageFpsLabel" xml:space="preserve">
-    <value>FPS promedio:</value>
-    <comment>Label for the average encoding rate in frames per second.</comment>
+  <data name="CouldNotReadFileMessage">
+    <value xml:space="preserve">Dosya okunamadı.</value>
   </data>
 </root>

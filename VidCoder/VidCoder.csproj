@@ -807,6 +807,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ChapterMarkersRes.ru.resx" />
+    <EmbeddedResource Include="Resources\ChapterMarkersRes.tr.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.zh.resx" />
     <EmbeddedResource Include="Resources\CommonRes.cs.resx" />
@@ -820,6 +821,7 @@
     <EmbeddedResource Include="Resources\CommonRes.pt-BR.resx" />
     <EmbeddedResource Include="Resources\CommonRes.pt.resx" />
     <EmbeddedResource Include="Resources\CommonRes.ru.resx" />
+    <EmbeddedResource Include="Resources\CommonRes.tr.resx" />
     <EmbeddedResource Include="Resources\CommonRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\CommonRes.zh.resx" />
     <EmbeddedResource Include="Resources\EncodeDetailsRes.cs.resx" />
@@ -839,6 +841,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\EncodeDetailsRes.ru.resx" />
+    <EmbeddedResource Include="Resources\EncodeDetailsRes.tr.resx" />
     <EmbeddedResource Include="Resources\EncodeDetailsRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\EncodeDetailsRes.zh.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.cs.resx" />
@@ -858,6 +861,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\EncodingRes.ru.resx" />
+    <EmbeddedResource Include="Resources\EncodingRes.tr.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\EncodingRes.zh.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.cs.resx" />
@@ -879,6 +883,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\EnumsRes.ru.resx" />
+    <EmbeddedResource Include="Resources\EnumsRes.tr.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\EnumsRes.zh.resx" />
     <EmbeddedResource Include="Resources\LogRes.cs.resx" />
@@ -897,6 +902,7 @@
       <LastGenOutput>LogRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\LogRes.ru.resx" />
+    <EmbeddedResource Include="Resources\LogRes.tr.resx" />
     <EmbeddedResource Include="Resources\LogRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\LogRes.zh.resx" />
     <EmbeddedResource Include="Resources\MainRes.cs.resx" />
@@ -920,6 +926,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\MainRes.ru.resx" />
+    <EmbeddedResource Include="Resources\MainRes.tr.resx" />
     <EmbeddedResource Include="Resources\MainRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\MainRes.zh.resx" />
     <EmbeddedResource Include="Resources\MiscRes.cs.resx" />
@@ -939,6 +946,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\MiscRes.ru.resx" />
+    <EmbeddedResource Include="Resources\MiscRes.tr.resx" />
     <EmbeddedResource Include="Resources\MiscRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\MiscRes.zh.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.cs.resx" />
@@ -958,6 +966,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\OptionsRes.ru.resx" />
+    <EmbeddedResource Include="Resources\OptionsRes.tr.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\OptionsRes.zh.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.cs.resx" />
@@ -976,6 +985,7 @@
       <LastGenOutput>PreviewRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\PreviewRes.ru.resx" />
+    <EmbeddedResource Include="Resources\PreviewRes.tr.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\PreviewRes.zh.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.cs.resx" />
@@ -994,6 +1004,7 @@
       <LastGenOutput>QueueTitlesRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\QueueTitlesRes.ru.resx" />
+    <EmbeddedResource Include="Resources\QueueTitlesRes.tr.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\QueueTitlesRes.zh.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.cs.resx" />
@@ -1022,6 +1033,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\SubtitleRes.ru.resx" />
+    <EmbeddedResource Include="Resources\SubtitleRes.tr.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.zh-Hant.resx" />
     <EmbeddedResource Include="Resources\SubtitleRes.zh.resx" />
     <None Include="App.config">

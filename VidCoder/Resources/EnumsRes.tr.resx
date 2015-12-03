@@ -118,97 +118,97 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Anamorphic_Custom" xml:space="preserve">
-    <value>Personalizar</value>
+    <value>Özel</value>
   </data>
   <data name="Anamorphic_Loose" xml:space="preserve">
-    <value>Loose</value>
+    <value>Gevşek</value>
   </data>
   <data name="Anamorphic_None" xml:space="preserve">
-    <value>Ninguno</value>
+    <value>Hiçbiri</value>
   </data>
   <data name="Anamorphic_Strict" xml:space="preserve">
-    <value>Strict</value>
+    <value>Sıkı</value>
   </data>
   <data name="Custom" xml:space="preserve">
-    <value>Personalizar</value>
+    <value>Özel</value>
   </data>
   <data name="Decomb_Bob" xml:space="preserve">
     <value>Bob</value>
   </data>
   <data name="Decomb_Fast" xml:space="preserve">
-    <value>Fast</value>
+    <value>Hızlı</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>Predeterminado</value>
+    <value>Varsayılan</value>
   </data>
   <data name="Deinterlace_Bob" xml:space="preserve">
     <value>Bob</value>
     <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
   </data>
   <data name="Deinterlace_Fast" xml:space="preserve">
-    <value>Fast</value>
+    <value>Hızlı</value>
   </data>
   <data name="Deinterlace_Slow" xml:space="preserve">
-    <value>Slow</value>
+    <value>Yavaş</value>
   </data>
   <data name="Deinterlace_Slower" xml:space="preserve">
-    <value>Slower</value>
+    <value>Daha Yavaş</value>
   </data>
   <data name="DenoisePreset_Light" xml:space="preserve">
-    <value>Ligero</value>
+    <value>Hafif</value>
   </data>
   <data name="DenoisePreset_Medium" xml:space="preserve">
-    <value>Medio</value>
+    <value>Orta</value>
   </data>
   <data name="DenoisePreset_Strong" xml:space="preserve">
-    <value>Intenso</value>
+    <value>Güçlü</value>
   </data>
   <data name="DenoisePreset_Ultralight" xml:space="preserve">
-    <value>Ultrasuave</value>
+    <value>Ultra hafif</value>
   </data>
   <data name="DenoiseTune_Animation" xml:space="preserve">
-    <value>Animación</value>
+    <value>Animasyon</value>
   </data>
   <data name="DenoiseTune_Film" xml:space="preserve">
-    <value>Película</value>
+    <value>Film</value>
   </data>
   <data name="DenoiseTune_Grain" xml:space="preserve">
-    <value>Grano</value>
+    <value>Granül</value>
   </data>
   <data name="DenoiseTune_HighMotion" xml:space="preserve">
-    <value>Alto movimiento</value>
+    <value>Yüksek Devinim</value>
   </data>
   <data name="Denoise_HQDN3D" xml:space="preserve">
-    <value>HQDN3D</value>
+    <value>hqdn3d filtresi</value>
   </data>
   <data name="Denoise_NLMeans" xml:space="preserve">
-    <value>Promedio no local (NL-Means)</value>
+    <value>NL-Means filtresi</value>
   </data>
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
-    <value>No hacer nada</value>
+    <value>Hiçbir Şey Yapma</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
-    <value>Expulsar {0}:</value>
+    <value>Çıkar {0}:</value>
   </data>
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
-    <value>Log off</value>
+    <value>Oturumu Kapat</value>
   </data>
   <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
-    <value>Apagar</value>
+    <value>Kapat</value>
   </data>
   <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
-    <value>Suspender</value>
+    <value>Uyku</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>Desactivado</value>
+    <value>Kapalı</value>
   </data>
   <data name="VideoRangeType_Chapters" xml:space="preserve">
-    <value>Capitulos</value>
+    <value>Bölüm</value>
   </data>
   <data name="VideoRangeType_Frames" xml:space="preserve">
-    <value>Fotogramas</value>
+    <value>Kare</value>
   </data>
   <data name="VideoRangeType_Seconds" xml:space="preserve">
-    <value>Intervalo de tiempo</value>
+    <value>Zaman Aralığı</value>
   </data>
 </root>
