@@ -2042,7 +2042,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.openHomepageCommand ?? (this.openHomepageCommand = new RelayCommand(() =>
 					{
-						FileService.Instance.LaunchUrl("http://vidcoder.codeplex.com/");
+						FileService.Instance.LaunchUrl("http://vidcoder.net/");
 					}));
 			}
 		}
@@ -2054,7 +2054,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.reportBugCommand ?? (this.reportBugCommand = new RelayCommand(() =>
 					{
-						FileService.Instance.LaunchUrl("http://vidcoder.codeplex.com/WorkItem/Create.aspx");
+						FileService.Instance.LaunchUrl("https://github.com/RandomEngy/VidCoder/issues/new");
 					}));
 			}
 		}
