@@ -1,0 +1,10 @@
+Installer/BuiltInstallers/*
+packages/*
+ResourcesImport/*
+*/bin/*
+*/obj/*
+*gen.iss
+*.suo
+*.csproj.user
+*.user
+Installer/Files/*
