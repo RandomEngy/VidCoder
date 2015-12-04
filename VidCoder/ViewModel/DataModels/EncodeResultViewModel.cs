@@ -136,12 +136,20 @@ namespace VidCoder.ViewModel
 		public ReactiveCommand<object> OpenLog { get; }
 		private void OpenLogImpl()
 		{
-			FileService.Instance.LaunchFile(this.encodeResult.LogPath);
+			if (this.encodeResult.LogPath != null)
+			{
+				FileService.Instance.LaunchFile(this.encodeResult.LogPath);
+			}
 		}
 
 		public ReactiveCommand<object> CopyLog { get; }
 		private void CopyLogImpl()
 		{
+			if (this.encodeResult.LogPath == null)
+			{
+				return;
+			}
+
 			try
 			{
 				string logText = File.ReadAllText(this.encodeResult.LogPath);

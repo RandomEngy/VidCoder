@@ -50,7 +50,16 @@ namespace VidCoder.Services
 			}
 
 			this.LogPath = Path.Combine(logFolder, logFileNamePrefix + DateTimeOffset.Now.ToString("yyyy-MM-dd HH.mm.ss") + ".txt");
-			this.logFile = new StreamWriter(this.LogPath);
+
+			try
+			{
+				this.logFile = new StreamWriter(this.LogPath);
+			}
+			catch (PathTooLongException)
+			{
+				parent.LogError("Could not create logger for encode. File path was too long.");
+				// We won't have an underlying log file.
+			}
 
 			var initialEntry = new LogEntry
 			{
@@ -154,7 +163,7 @@ namespace VidCoder.Services
 				if (!this.disposed)
 				{
 					this.disposed = true;
-					this.logFile.Close();
+					this.logFile?.Close();
 				}
 			}
 		}
@@ -181,8 +190,8 @@ namespace VidCoder.Services
 
 			try
 			{
-				this.logFile.WriteLine(entry.Text);
-				this.logFile.Flush();
+				this.logFile?.WriteLine(entry.Text);
+				this.logFile?.Flush();
 
 				if (this.parent != null && logParent)
 				{

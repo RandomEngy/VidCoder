@@ -1587,7 +1587,7 @@ namespace VidCoder.Services
 				string encodeLogPath = encodeLogger.LogPath;
 				encodeLogger.Dispose();
 
-				if (Config.CopyLogToOutputFolder)
+				if (Config.CopyLogToOutputFolder && encodeLogPath != null)
 				{
 					string logCopyPath = Path.Combine(Path.GetDirectoryName(outputPath), Path.GetFileName(encodeLogPath));
 
