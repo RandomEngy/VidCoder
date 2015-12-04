@@ -9,3 +9,4 @@ ResourcesImport/*
 *.user
 Installer/Files/*
 vidcoder.zip
+*.XmlSerializers.dll
