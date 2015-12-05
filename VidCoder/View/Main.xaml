@@ -1136,8 +1136,7 @@
                     MouseLeftButtonDown="DestinationReadCoverMouseLeftButtonDown"
                     ToolTip="{x:Static res:MainRes.DestinationToolTip}"
                     Visibility="{Binding OutputPathVM.EditingDestination,
-                                         Converter={StaticResource VisibilityConverter},
-                                         ConverterParameter=True}">
+                                         Converter={StaticResource InverseVisibilityConverter}}">
                     <Image
                         Height="20"
                         Margin="0 0 4 0"
@@ -1156,8 +1155,7 @@
                 VerticalAlignment="Top"
                 Command="{Binding OutputPathVM.PickDefaultOutputFolder}"
                 Visibility="{Binding OutputPathVM.OutputFolderChosen,
-                                     Converter={StaticResource VisibilityConverter},
-                                     ConverterParameter=True}">
+                                     Converter={StaticResource InverseVisibilityConverter}}">
                 <StackPanel Margin="4 2" Orientation="Horizontal">
                     <Image
                         Width="16"
@@ -1272,8 +1270,7 @@
                     Style="{StaticResource GrayOnDisabledControl}"
                     Visibility="{Binding PreviewWindowOpen,
                                          Source={StaticResource WindowXamlHelper},
-                                         Converter={StaticResource VisibilityConverter},
-                                         ConverterParameter=True}">
+                                         Converter={StaticResource InverseVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <Image Height="26" Source="/Icons/preview.png" />
                         <TextBlock
@@ -1316,8 +1313,7 @@
                     Padding="5 0"
                     Style="{StaticResource GrayOnDisabledControl}"
                     Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
-                                         Converter={StaticResource VisibilityConverter},
-                                         ConverterParameter=True}">
+                                         Converter={StaticResource InverseVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <Image Height="26" Source="/Icons/downarrow_shadow.png" />
                         <TextBlock
@@ -1358,8 +1354,7 @@
                     Padding="5 0"
                     Style="{StaticResource GrayOnDisabledControl}"
                     Visibility="{Binding ProcessingService.PauseVisible,
-                                         Converter={StaticResource VisibilityConverter},
-                                         ConverterParameter=True}">
+                                         Converter={StaticResource InverseVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <Image Height="26" Source="/Icons/encode_160.png" />
                         <TextBlock

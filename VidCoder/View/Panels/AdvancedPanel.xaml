@@ -19,7 +19,7 @@
     </UserControl.Resources>
     <Grid>
         <!--  non-x264 options panel  -->
-        <Grid Visibility="{Binding X264CodecSelected, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
+		<Grid Visibility="{Binding X264CodecSelected, Converter={StaticResource InverseVisibilityConverter}}">
             <TextBlock
                 Margin="12 6 0 0"
                 HorizontalAlignment="Left"

@@ -457,7 +457,7 @@
                         TextAlignment="Center" />
                 </Grid>
 
-                <Grid Margin="0 24 0 0" Visibility="{Binding UseAdvancedTab, Converter={StaticResource VisibilityConverter}, ConverterParameter=True}">
+				<Grid Margin="0 24 0 0" Visibility="{Binding UseAdvancedTab, Converter={StaticResource InverseVisibilityConverter}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />

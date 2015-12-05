@@ -136,8 +136,7 @@
                         Padding="5 0"
                         ToolTip="{x:Static res:EncodingRes.OpenPresetsListToolTip}"
                         Visibility="{Binding PresetPanelOpen,
-                                             Converter={StaticResource VisibilityConverter},
-                                             ConverterParameter=True}">
+                                             Converter={StaticResource InverseVisibilityConverter}}">
                         <Path Data="M 1,0 L 9,8 L 1,16 L 0,15 L 7,8 L 0,1 Z" Fill="Black" />
                     </Button>
                     <Button
@@ -223,8 +222,7 @@
                         Padding="5 0"
                         Visibility="{Binding PreviewWindowOpen,
                                              Source={StaticResource WindowXamlHelper},
-                                             Converter={StaticResource VisibilityConverter},
-                                             ConverterParameter=True}">
+                                             Converter={StaticResource InverseVisibilityConverter}}">
                         <StackPanel Orientation="Horizontal">
                             <Image
                                 Width="16"

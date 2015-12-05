@@ -12,6 +12,8 @@ namespace VidCoder.Converters
 	/// </summary>
 	public class VisibilityConverter : IValueConverter
 	{
+		public bool Inverse { get; set; }
+
 		/// <summary>
 		/// Converts a boolean to a Visibility enum.
 		/// </summary>
@@ -27,7 +29,7 @@ namespace VidCoder.Converters
 			bool visibility = (bool)value;
 
 			// If we are given a parameter, reverse it
-			if (parameter != null)
+			if (this.Inverse)
 			{
 				visibility = !visibility;
 			}
@@ -50,7 +52,7 @@ namespace VidCoder.Converters
 			Visibility visibility = (Visibility)value;
 			bool result = visibility == Visibility.Visible;
 
-			if (parameter != null)
+			if (this.Inverse)
 			{
 				result = !result;
 			}

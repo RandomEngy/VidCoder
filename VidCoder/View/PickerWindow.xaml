@@ -73,8 +73,7 @@
 				VerticalAlignment="Top"
 				UseLayoutRounding="True"
 				Visibility="{Binding PickersService.SelectedPicker.Picker.IsNone,
-				                     Converter={StaticResource VisibilityConverter},
-				                     ConverterParameter=True}">
+				                     Converter={StaticResource InverseVisibilityConverter}}">
 				<ToolBar Loaded="ToolBar_Loaded" ToolBarTray.IsLocked="True">
 					<ToolBar.Background>
 						<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">

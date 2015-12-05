@@ -74,8 +74,7 @@
                                     Style="{StaticResource DescriptiveText}"
                                     Text="{x:Static res:EncodingRes.NoTracksPlaceholder}"
                                     Visibility="{Binding HasAudioTracks,
-                                                         Converter={StaticResource VisibilityConverter},
-                                                         ConverterParameter=True}" />
+                                                         Converter={StaticResource InverseVisibilityConverter}}" />
                                 <ItemsControl
                                     Grid.IsSharedSizeScope="True"
                                     ItemsSource="{Binding AudioOutputPreviews}"

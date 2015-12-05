@@ -39,8 +39,7 @@
 				Margin="0 4"
 				Command="{Binding Pause}"
 				Visibility="{Binding PreviewPaused,
-				                     Converter={StaticResource VisibilityConverter},
-				                     ConverterParameter=True}">
+				                     Converter={StaticResource InverseVisibilityConverter}}">
 				<StackPanel Margin="4 0" Orientation="Horizontal">
 					<Image
 						Height="15"
