@@ -218,7 +218,9 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Załączenie rozdziałów z wejściowego wideo do zakodowanego wideo.</value>
   </data>
   
-  
+  <data name="LargeFileSizeToolTip" xml:space="preserve">
+    <value>Pozwala na pliki powyżej 4GB. Gdy włączone, używa 64-bitowego kodowania. Niektóre urządzenia jak iPod i PS3 są niekompatybilne z tą opcją.</value>
+  </data>
   
   
   

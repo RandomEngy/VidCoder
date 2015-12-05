@@ -496,7 +496,7 @@
     <value>Eliminar Preset</value>
   </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>La configuración estaba dañada y no se pudo cargar. Algunos de los ajustes pueden haber sido restaurados.</value>
+    <value>La configuración estaba dañada y no se pudo cargar. Algunos de los ajustes pueden haber sido reiniciados.</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
     <value>Elija el directorio de salida para archivos codificados.</value>

@@ -166,10 +166,18 @@
   <data name="DenoisePreset_Ultralight" xml:space="preserve">
     <value>微弱</value>
   </data>
-  
-  
-  
-  
+  <data name="DenoiseTune_Animation" xml:space="preserve">
+    <value>アニメーション</value>
+  </data>
+  <data name="DenoiseTune_Film" xml:space="preserve">
+    <value>フィルム</value>
+  </data>
+  <data name="DenoiseTune_Grain" xml:space="preserve">
+    <value>粒子</value>
+  </data>
+  <data name="DenoiseTune_HighMotion" xml:space="preserve">
+    <value>ハイモーション</value>
+  </data>
   <data name="Denoise_HQDN3D" xml:space="preserve">
     <value>hqdn3d</value>
   </data>
