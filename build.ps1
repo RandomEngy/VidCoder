@@ -258,4 +258,3 @@ CreateIssFile $versionShort $beta "x64"
 WriteSuccess
 
 Write-Host
-Pause

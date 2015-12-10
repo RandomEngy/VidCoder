@@ -3,7 +3,7 @@
 
 . ./build_common.ps1
 
-# Change this to the folder containing HandBrake10.sln
+# Change this to the folder containing HandBrake.sln
 $HandBrakeFolder = "..\HandBrakeGit\win\CS"
 
 $HandBrakeSolution = $HandBrakeFolder + "\HandBrake.sln"

@@ -60,5 +60,4 @@ namespace VidCoder.Converters
 			return result;
 		}
 	}
-
 }
