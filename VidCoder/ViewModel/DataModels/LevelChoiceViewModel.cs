@@ -38,6 +38,9 @@ namespace VidCoder.ViewModel
 				this.outputSizeService.WhenAnyValue(x => x.Size),
 				(hasVideoSource, titleFramerate, profileFramerate, videoOptions, outputSize) =>
 				{
+					// Checking H264 level is no longer possible in HB. It may come back in the future.
+					return true;
+
 					if (this.Value == null || !hasVideoSource || outputSize == null || outputSize.Width == 0 || outputSize.Height == 0)
 					{
 						return true;

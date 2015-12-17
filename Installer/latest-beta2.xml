@@ -1,12 +1,12 @@
 <UpdateInfo>
 	<Release>
-		<Latest>2.13</Latest>
-		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v2.13-beta/VidCoder-2.13-Beta-x86.exe</DownloadLocation>
-		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v2.13-beta</ChangelogLocation>
+		<Latest>2.14</Latest>
+		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v2.14-beta/VidCoder-2.14-Beta-x86.exe</DownloadLocation>
+		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v2.14-beta</ChangelogLocation>
 	</Release>
 	<Release-x64>
-		<Latest>2.13</Latest>
-		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v2.13-beta/VidCoder-2.13-Beta-x64.exe</DownloadLocation>
-		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v2.13-beta</ChangelogLocation>
+		<Latest>2.14</Latest>
+		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v2.14-beta/VidCoder-2.14-Beta-x64.exe</DownloadLocation>
+		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v2.14-beta</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>
