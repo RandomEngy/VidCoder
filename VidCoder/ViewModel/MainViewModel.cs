@@ -337,7 +337,7 @@ namespace VidCoder.ViewModel
 					return "VidCoder";
 				}
 
-				return string.Format("VidCoder - {0:P1}%", progressFraction);
+				return $"VidCoder - {progressFraction:P1}";
 			}).ToProperty(this, x => x.WindowTitle, out this.windowTitle);
 
 			// ShowChapterMarkerUI
