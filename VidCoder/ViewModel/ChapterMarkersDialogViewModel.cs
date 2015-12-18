@@ -6,22 +6,15 @@ using System.IO;
 using VidCoder.Services;
 using VidCoderCommon.Extensions;
 using ReactiveUI;
+using VidCoder.Resources;
 
 namespace VidCoder.ViewModel
 {
-	using Resources;
-
 	public class ChapterMarkersDialogViewModel : OkCancelDialogViewModel
 	{
 		private List<SourceChapter> chapters;
 
 		private ObservableCollection<ChapterNameViewModel> chapterNames;
-
-		public ChapterMarkersDialogViewModel()
-		{
-			this.ImportCsvFile = ReactiveCommand.Create();
-			this.ImportCsvFile.Subscribe(_ => this.ImportCsvFileImpl());
-		}
 
 		public ChapterMarkersDialogViewModel(List<SourceChapter> chapters, List<string> currentNames, bool useDefaultNames)
 		{
@@ -50,6 +43,9 @@ namespace VidCoder.ViewModel
 			}
 
 			this.useDefaultNames = useDefaultNames;
+
+			this.ImportCsvFile = ReactiveCommand.Create();
+			this.ImportCsvFile.Subscribe(_ => this.ImportCsvFileImpl());
 		}
 
 		private bool useDefaultNames;
