@@ -17,6 +17,7 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 {% assign version = tag | remove: "v" %}
 {% capture installerUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ tag }}/VidCoder-{{ version }}-x64.exe{% endcapture %}
 {% capture portableUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ tag }}/VidCoder-{{ version }}-x64-Portable.exe{% endcapture %}
+{% capture notesUrl %}https://github.com/RandomEngy/VidCoder/releases/tag/{{ tag }}{% endcapture %}
 
 {% for release in site.github.releases %}
 {% if release.prerelease %}
@@ -29,13 +30,20 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 {% assign betaVersion = betaTag | remove: "v" | remove: "-beta" %}
 {% capture betaInstallerUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ betaTag }}/VidCoder-{{ betaVersion }}-Beta-x64.exe{% endcapture %}
 {% capture betaPortableUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ betaTag }}/VidCoder-{{ betaVersion }}-Beta-x64-Portable.exe{% endcapture %}
+{% capture betaNotesUrl %}https://github.com/RandomEngy/VidCoder/releases/tag/{{ tag }}{% endcapture %}
 
-<table>
+<table class="releasesTable">
+<tr><td colspan="4">
+<h2 class="versionHeader">Latest Stable: {{ version }}</h2>
+</td></tr>
 <tr>
-<td><a class="button" href="{{ installerUrl }}">Download Installer</a></td><td><a href="{{ portableUrl }}" class="secondaryInstallLink">Portable (.exe)</a></td><td><a href="{{ sourceUrl }}" class="secondaryInstallLink">Source (.zip)</a></td>
+<td><a class="button" href="{{ installerUrl }}">Download Installer</a></td><td><a href="{{ portableUrl }}" class="secondaryInstallLink">Portable (.exe)</a></td><td><a href="{{ sourceUrl }}" class="secondaryInstallLink">Source (.zip)</a></td><td><a href="{{ notesUrl }}" class="secondaryInstallLink">Release Notes</a></td>
 </tr>
+<tr><td colspan="4">
+<h2 class="versionHeader betaVersionHeader">Latest Beta: {{ betaVersion }}</h2>
+</td></tr>
 <tr>
-<td class="betaCell"><a href="{{ betaInstallerUrl }}">Beta Installer (.exe)</a></td><td class="betaCell"><a href="{{ betaPortableUrl }}" class="secondaryInstallLink">Beta Portable (.exe)</a></td><td class="betaCell"><a href="{{ betaSourceUrl }}" class="secondaryInstallLink">Beta Source (.zip)</a></td>
+<td><a href="{{ betaInstallerUrl }}">Installer (.exe)</a></td><td><a href="{{ betaPortableUrl }}" class="secondaryInstallLink">Portable (.exe)</a></td><td><a href="{{ betaSourceUrl }}" class="secondaryInstallLink">Source (.zip)</a></td><td><a href="{{ betaNotesUrl }}" class="secondaryInstallLink">Release Notes</a></td>
 </tr>
 </table>
 
