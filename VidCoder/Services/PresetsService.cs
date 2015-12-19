@@ -92,7 +92,7 @@ namespace VidCoder.Services
 			this.SelectedPreset = this.allPresets[presetIndex];
 		}
 
-		private OutputPathService OutputPathVM
+		private OutputPathService OutputPathService
 		{
 			get
 			{
@@ -297,7 +297,7 @@ namespace VidCoder.Services
 			this.SaveUserPresets();
 
 			// Refresh file name.
-			this.OutputPathVM.GenerateOutputFileName();
+			this.OutputPathService.GenerateOutputFileName();
 		}
 
 		/// <summary>
@@ -411,7 +411,7 @@ namespace VidCoder.Services
 
 		private void NotifySelectedPresetChanged()
 		{
-			this.OutputPathVM.GenerateOutputFileName();
+			this.OutputPathService.GenerateOutputFileName();
 
 			this.RaisePropertyChanged(nameof(this.SelectedPreset));
 

@@ -214,6 +214,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Picker has specified the encoding preset..
+        /// </summary>
+        public static string PresetDisabledForPickerToolTip {
+            get {
+                return ResourceManager.GetString("PresetDisabledForPickerToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This will override any preset picked in the main window..
         /// </summary>
         public static string PresetOverrideToolTip {

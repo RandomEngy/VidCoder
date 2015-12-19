@@ -268,7 +268,7 @@ namespace VidCoder.ViewModel
 
 		public PresetsService PresetsService { get; } = Ioc.Get<PresetsService>();
 
-		public OutputPathService OutputPathVM { get; } = Ioc.Get<OutputPathService>();
+		public OutputPathService OutputPathService { get; } = Ioc.Get<OutputPathService>();
 
 		private OutputSizeService OutputSizeService
 		{

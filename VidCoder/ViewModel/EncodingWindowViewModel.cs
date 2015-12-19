@@ -19,9 +19,6 @@ namespace VidCoder.ViewModel
 		public const int VideoTabIndex = 2;
 		public const int AdvancedVideoTabIndex = 3;
 
-		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
-		private ProcessingService processingService = Ioc.Get<ProcessingService>();
-
 		private List<ComboChoice> containerChoices;
 
 		public EncodingWindowViewModel()
@@ -121,12 +118,12 @@ namespace VidCoder.ViewModel
 
 			this.RegisterProfileProperty(nameof(this.Profile.ContainerName), () =>
 			{
-				this.outputPathService.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 			});
 
 			this.RegisterProfileProperty(nameof(this.Profile.PreferredExtension), () =>
 			{
-				this.outputPathService.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 			});
 
 			this.RegisterProfileProperty(nameof(this.Profile.LargeFile));
@@ -136,15 +133,9 @@ namespace VidCoder.ViewModel
 			this.RegisterProfileProperty(nameof(this.IncludeChapterMarkers));
 		}
 
-		public ProcessingService ProcessingService
-		{
-		    get { return this.processingService; }
-		}
-
-		public OutputPathService OutputPathVM
-		{
-		    get { return this.outputPathService; }
-		}
+		public ProcessingService ProcessingService { get; } = Ioc.Get<ProcessingService>();
+		public OutputPathService OutputPathService { get; } = Ioc.Get<OutputPathService>();
+		public PickersService PickersService { get; } = Ioc.Get<PickersService>();
 
 		public PicturePanelViewModel PicturePanelViewModel { get; set; }
 		public VideoFiltersPanelViewModel VideoFiltersPanelViewModel { get; set; }

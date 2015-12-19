@@ -49,6 +49,13 @@ namespace VidCoder.Services
 		        })
 		        .ToProperty(this, x => x.PickerButtonText, out this.pickerButtonText);
 
+			this.WhenAnyValue(x => x.SelectedPicker.Picker.UseEncodingPreset)
+				.Select(useEncodingPreset =>
+				{
+					return useEncodingPreset ? PickerRes.PresetDisabledForPickerToolTip : null;
+				})
+				.ToProperty(this, x => x.PresetDisabledToolTip, out this.presetDisabledToolTip);
+
             foreach (Picker storedPicker in unmodifiedPickers)
             {
                 PickerViewModel pickerVM;
@@ -141,6 +148,9 @@ namespace VidCoder.Services
 
 	    private ObservableAsPropertyHelper<string> pickerButtonText;
 	    public string PickerButtonText => this.pickerButtonText.Value;
+
+	    private ObservableAsPropertyHelper<string> presetDisabledToolTip;
+	    public string PresetDisabledToolTip => this.presetDisabledToolTip.Value;
 
 		public Collection<object> PickerButtonMenuItems
 		{

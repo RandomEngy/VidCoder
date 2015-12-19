@@ -118,6 +118,16 @@ namespace VidCoder.ViewModel
 					this.PopulateEncodingPreset(useEncodingPreset);
 				});
 
+			// When the picker preset changes, we need to update the selected preset.
+			this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.EncodingPreset)
+				.Subscribe(pickerPreset =>
+				{
+					if (this.SelectedPreset != null)
+					{
+						this.presetsService.SelectedPreset = this.SelectedPreset;
+					}
+				});
+
 			// Update the underlying picker when our local properties change.
 			// Don't need to raise another changed event as our local property setter already raises it.
 			this.WhenAnyValue(x => x.OutputDirectoryOverride)

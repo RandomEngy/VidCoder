@@ -631,7 +631,7 @@ namespace VidCoder.ViewModel
 
 		public string SourceName { get; private set; }
 
-		public OutputPathService OutputPathVM
+		public OutputPathService OutputPathService
 		{
 			get { return this.outputPathService; }
 		}
@@ -787,9 +787,9 @@ namespace VidCoder.ViewModel
 					// Re-enable auto-naming when switching titles.
 					if (this.oldTitle != null)
 					{
-						this.OutputPathVM.ManualOutputPath = false;
-						this.OutputPathVM.NameFormatOverride = null;
-						this.OutputPathVM.SourceParentFolder = null;
+						this.OutputPathService.ManualOutputPath = false;
+						this.OutputPathService.NameFormatOverride = null;
+						this.OutputPathService.SourceParentFolder = null;
 					}
 
 					// Save old subtitles
@@ -1014,7 +1014,7 @@ namespace VidCoder.ViewModel
 				// Custom chapter names are thrown out when switching titles.
 				this.CustomChapterNames = null;
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
 				//this.RaisePropertyChanged(nameof(this.StartChapters));
 				//this.RaisePropertyChanged(nameof(this.EndChapters));
@@ -1093,7 +1093,7 @@ namespace VidCoder.ViewModel
 				{
 					this.rangeType = value;
 
-					this.OutputPathVM.GenerateOutputFileName();
+					this.OutputPathService.GenerateOutputFileName();
 					this.RaisePropertyChanged();
 					this.RefreshRangePreview();
 					this.ReportLengthChanged();
@@ -1142,7 +1142,7 @@ namespace VidCoder.ViewModel
 			{
 				this.SetRangeTimeStart(value);
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
 				this.RaisePropertyChanged();
 				this.RaisePropertyChanged(nameof(this.TimeRangeStart));
@@ -1163,7 +1163,7 @@ namespace VidCoder.ViewModel
 			{
 				this.SetRangeTimeEnd(value);
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
 				this.RaisePropertyChanged();
 				this.RaisePropertyChanged(nameof(this.TimeRangeEnd));
@@ -1207,7 +1207,7 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(nameof(this.TimeRangeEndBar));
 				}
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
 				this.RaisePropertyChanged();
 				this.RaisePropertyChanged(nameof(this.TimeRangeStartBar));
@@ -1251,7 +1251,7 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(nameof(this.TimeRangeStartBar));
 				}
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
 				this.RaisePropertyChanged(nameof(this.TimeRangeEnd));
 				this.RaisePropertyChanged(nameof(this.TimeRangeEndBar));
@@ -1285,7 +1285,7 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(nameof(this.FramesRangeEnd));
 				}
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
 				this.RaisePropertyChanged();
 				this.RefreshRangePreview();
@@ -1318,7 +1318,7 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(nameof(this.FramesRangeStart));
 				}
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
 				this.RaisePropertyChanged();
 				this.RefreshRangePreview();
@@ -1348,7 +1348,7 @@ namespace VidCoder.ViewModel
 					this.SelectedEndChapter = this.EndChapters.FirstOrDefault(c => c.ChapterNumber == this.selectedStartChapter.ChapterNumber);
 				}
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
 				this.RaisePropertyChanged();
 				this.RefreshRangePreview();
@@ -1378,7 +1378,7 @@ namespace VidCoder.ViewModel
 					this.SelectedStartChapter = this.StartChapters.FirstOrDefault(c => c.ChapterNumber == this.selectedEndChapter.ChapterNumber);
 				}
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
 				this.RaisePropertyChanged();
 				this.RefreshRangePreview();
@@ -1832,7 +1832,7 @@ namespace VidCoder.ViewModel
 
 				SourceType type = this.SelectedSource.Type;
 
-				string outputPath = this.OutputPathVM.OutputPath;
+				string outputPath = this.OutputPathService.OutputPath;
 
 				VCProfile encodingProfile = this.PresetsService.SelectedPreset.Preset.EncodingProfile.Clone();
 
@@ -1936,9 +1936,9 @@ namespace VidCoder.ViewModel
 			var newEncodeJobVM = new EncodeJobViewModel(this.EncodeJob);
 			newEncodeJobVM.VideoSource = this.SourceData;
 			newEncodeJobVM.VideoSourceMetadata = this.GetVideoSourceMetadata();
-			newEncodeJobVM.SourceParentFolder = this.OutputPathVM.SourceParentFolder;
-			newEncodeJobVM.ManualOutputPath = this.OutputPathVM.ManualOutputPath;
-			newEncodeJobVM.NameFormatOverride = this.OutputPathVM.NameFormatOverride;
+			newEncodeJobVM.SourceParentFolder = this.OutputPathService.SourceParentFolder;
+			newEncodeJobVM.ManualOutputPath = this.OutputPathService.ManualOutputPath;
+			newEncodeJobVM.NameFormatOverride = this.OutputPathService.NameFormatOverride;
 			newEncodeJobVM.PresetName = this.PresetsService.SelectedPreset.DisplayName;
 
 			return newEncodeJobVM;
@@ -2427,10 +2427,10 @@ namespace VidCoder.ViewModel
 			}
 
 			// Output path
-			this.OutputPathVM.OutputPath = job.OutputPath;
-			this.OutputPathVM.SourceParentFolder = jobVM.SourceParentFolder;
-			this.OutputPathVM.ManualOutputPath = jobVM.ManualOutputPath;
-			this.OutputPathVM.NameFormatOverride = jobVM.NameFormatOverride;
+			this.OutputPathService.OutputPath = job.OutputPath;
+			this.OutputPathService.SourceParentFolder = jobVM.SourceParentFolder;
+			this.OutputPathService.ManualOutputPath = jobVM.ManualOutputPath;
+			this.OutputPathService.NameFormatOverride = jobVM.NameFormatOverride;
 
 			// Encode profile handled above this in EditJob
 

@@ -193,4 +193,7 @@
     <value>The arguments to pass to the program. Use {file} for the file output path.</value>
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
+  <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
+    <value>Picker has specified the encoding preset.</value>
+  </data>
 </root>

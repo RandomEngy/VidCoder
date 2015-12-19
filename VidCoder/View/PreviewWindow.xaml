@@ -30,7 +30,7 @@
 			Modifiers="Control" />
 		<KeyBinding
 			Key="D"
-			Command="{Binding OutputPathVM.PickOutputPath}"
+			Command="{Binding OutputPathService.PickOutputPath}"
 			Modifiers="Control" />
 	</Window.InputBindings>
 	<Grid>

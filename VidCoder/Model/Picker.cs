@@ -135,11 +135,21 @@ namespace VidCoder.Model
 		[JsonProperty]
 		public bool SubtitleLanguageBurnIn { get; set; }
 
+		private bool useEncodingPreset;
 		[JsonProperty]
-		public bool UseEncodingPreset { get; set; }
+		public bool UseEncodingPreset
+		{
+			get { return this.useEncodingPreset; }
+			set { this.RaiseAndSetIfChanged(ref this.useEncodingPreset, value); }
+		}
 
+		private string encodingPreset;
 		[JsonProperty]
-		public string EncodingPreset { get; set; }
+		public string EncodingPreset
+		{
+			get { return this.encodingPreset; }
+			set { this.RaiseAndSetIfChanged(ref this.encodingPreset, value); }
+		}
 
 		[JsonProperty]
 		public bool AutoQueueOnScan { get; set; }
