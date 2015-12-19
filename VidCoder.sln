@@ -1,16 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VidCoder", "VidCoder\VidCoder.csproj", "{F912FA33-DC57-4272-915A-EEDB212BB860}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VidCoderWorker", "VidCoderWorker\VidCoderWorker.csproj", "{63452895-7AA1-45EC-A0D8-3F30CCFA6D0D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B47E189A-66B4-4B81-9BC7-CD37B6C4E2DD}"
-	ProjectSection(SolutionItems) = preProject
-		version.txt = version.txt
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VidCoderCLI", "VidCoderCLI\VidCoderCLI.csproj", "{847F9E68-0EA8-4AB1-A1E6-9C327612A0AB}"
 EndProject

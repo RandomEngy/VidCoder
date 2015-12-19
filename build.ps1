@@ -1,3 +1,9 @@
+[CmdletBinding()]
+Param(
+  [Parameter(Mandatory=$True)]
+  [string]$versionShort
+)
+
 . ./build_common.ps1
 
 function ReplaceTokens($inputFile, $outputFile, $replacements) {
@@ -115,7 +121,6 @@ if ($beta) {
 }
 
 # Get master version number
-$versionShort = Get-Content "version.txt"
 $versionLong = $versionShort + ".0"
 
 # Put version numbers into AssemblyInfo.cs files
