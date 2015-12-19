@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.SQLite;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -12,6 +14,7 @@ using VidCoder.Model;
 using VidCoder.Model.WindowPlacer;
 using VidCoder.Resources;
 using VidCoder.ViewModel;
+using VidCoderCommon.Model;
 
 namespace VidCoder.Services.Windows
 {
@@ -416,12 +419,9 @@ namespace VidCoder.Services.Windows
 
 			if (userInitiated)
 			{
-				if (windowDefinition != null)
+				if (windowDefinition?.IsOpenConfigKey != null)
 				{
-					if (windowDefinition.IsOpenConfigKey != null)
-					{
-						Config.Set(windowDefinition.IsOpenConfigKey, true);
-					}
+					Config.Set(windowDefinition.IsOpenConfigKey, true);
 				}
 			}
 
@@ -434,9 +434,139 @@ namespace VidCoder.Services.Windows
 			if (!isDialog)
 			{
 				windowToOpen.RegisterGlobalHotkeys();
+				windowToOpen.AllowDrop = true;
+				windowToOpen.PreviewDragOver += OnPreviewDragOver;
+				windowToOpen.PreviewDrop += OnPreviewDrop;
 			}
 
 			return windowToOpen;
+		}
+
+		private static void OnPreviewDragOver(object sender, DragEventArgs dragEventArgs)
+		{
+			Utilities.SetDragIcon(dragEventArgs);
+		}
+
+		private static void OnPreviewDrop(object sender, DragEventArgs dragEventArgs)
+		{
+			var data = dragEventArgs.Data as DataObject;
+			if (data != null && data.ContainsFileDropList())
+			{
+				StringCollection itemList = data.GetFileDropList();
+				if (itemList.Count > 0)
+				{
+					if (itemList.Count == 1)
+					{
+						string item = itemList[0];
+
+						string extension = Path.GetExtension(item);
+						if (extension != null)
+						{
+							extension = extension.ToLowerInvariant();
+						}
+
+						if (extension == ".xml" || extension == ".vjpreset")
+						{
+							// It's a preset
+							try
+							{
+								Preset preset = Ioc.Get<IPresetImportExport>().ImportPreset(itemList[0]);
+								Ioc.Get<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
+							}
+							catch (Exception)
+							{
+								Ioc.Get<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
+							}
+						}
+						else if (Utilities.IsDiscFolder(item))
+						{
+							// It's a disc folder or disc
+							Ioc.Get<MainViewModel>().SetSource(item);
+						}
+						else
+						{
+							// It is a video file or folder full of video files
+							HandleDropAsPaths(itemList);
+						}
+					}
+					else
+					{
+						// With multiple items, treat it as a list video files/disc folders or folders full of those items
+						HandleDropAsPaths(itemList);
+					}
+				}
+			}
+		}
+
+		private static void HandleDropAsPaths(StringCollection itemList)
+		{
+			List<SourcePath> fileList = GetPathList(itemList);
+			if (fileList.Count > 0)
+			{
+				if (fileList.Count == 1)
+				{
+					Ioc.Get<MainViewModel>().SetSourceFromFile(fileList[0].Path);
+				}
+				else
+				{
+					Ioc.Get<ProcessingService>().QueueMultiple(fileList);
+				}
+			}
+		}
+
+		// Gets a file/video folder list from a list of files/directories
+		private static List<SourcePath> GetPathList(StringCollection itemList)
+		{
+			var videoExtensions = new List<string>();
+			string extensionsString = Config.VideoFileExtensions;
+			string[] rawExtensions = extensionsString.Split(',', ';');
+			foreach (string rawExtension in rawExtensions)
+			{
+				string extension = rawExtension.Trim();
+				if (extension.Length > 0)
+				{
+					if (!extension.StartsWith("."))
+					{
+						extension = "." + extension;
+					}
+
+					videoExtensions.Add(extension);
+				}
+			}
+
+			var pathList = new List<SourcePath>();
+			foreach (string item in itemList)
+			{
+				var fileAttributes = File.GetAttributes(item);
+				if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
+				{
+					// Path is a directory
+					if (Utilities.IsDiscFolder(item))
+					{
+						// If it's a disc folder, add it
+						pathList.Add(new SourcePath { Path = item, SourceType = SourceType.VideoFolder });
+					}
+					else
+					{
+						string parentFolder = Path.GetDirectoryName(item);
+						pathList.AddRange(
+							Utilities.GetFilesOrVideoFolders(item, videoExtensions)
+							.Select(p => new SourcePath
+							{
+								Path = p,
+								ParentFolder = parentFolder,
+								SourceType = SourceType.None
+							}));
+					}
+				}
+				else
+				{
+					// Path is a file
+					pathList.Add(new SourcePath { Path = item, SourceType = SourceType.File });
+				}
+			}
+
+			return pathList;
 		}
 
 		/// <summary>

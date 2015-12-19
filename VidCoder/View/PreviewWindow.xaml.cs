@@ -294,16 +294,6 @@ namespace VidCoder.View
 			}
 		}
 
-		private void Window_PreviewDrop(object sender, DragEventArgs e)
-		{
-			Ioc.Get<Main>().HandleDrop(sender, e);
-		}
-
-		private void Window_PreviewDragOver(object sender, DragEventArgs e)
-		{
-			Utilities.SetDragIcon(e);
-		}
-
 		private void OnVideoClick(object sender, MouseButtonEventArgs e)
 		{
 			if (this.viewModel.PreviewPaused)

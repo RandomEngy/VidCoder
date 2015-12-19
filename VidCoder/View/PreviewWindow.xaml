@@ -12,9 +12,6 @@
 	Height="514"
 	MinWidth="405"
 	MinHeight="200"
-	AllowDrop="True"
-	PreviewDragOver="Window_PreviewDragOver"
-	PreviewDrop="Window_PreviewDrop"
 	ShowInTaskbar="False"
 	TextOptions.TextFormattingMode="Display"
 	WindowStyle="ToolWindow">

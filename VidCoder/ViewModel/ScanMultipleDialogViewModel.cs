@@ -49,7 +49,7 @@ namespace VidCoder.ViewModel
 
 		public void ScanNextJob()
 		{
-			string path = pathsToScan[currentJobIndex];
+			string path = this.pathsToScan[this.currentJobIndex];
 
 			var onDemandInstance = new HandBrakeInstance();
 			onDemandInstance.Initialize(Config.LogVerbosity);
