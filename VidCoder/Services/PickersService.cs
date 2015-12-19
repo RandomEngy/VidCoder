@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Omu.ValueInjecter;
@@ -40,6 +41,13 @@ namespace VidCoder.Services
             Picker nonePicker = new Picker();
             nonePicker.IsNone = true;
             this.pickers.Add(new PickerViewModel(nonePicker));
+
+	        this.WhenAnyValue(x => x.SelectedPicker.DisplayNameWithStar)
+		        .Select(displayName =>
+		        {
+			        return string.Format(PickerRes.PickerButtonFormat, displayName);
+		        })
+		        .ToProperty(this, x => x.PickerButtonText, out this.pickerButtonText);
 
             foreach (Picker storedPicker in unmodifiedPickers)
             {
@@ -131,10 +139,8 @@ namespace VidCoder.Services
             }
         }
 
-		public string PickerButtonText
-		{
-			get { return string.Format(PickerRes.PickerButtonFormat, this.SelectedPicker.DisplayNameWithStar); }
-		}
+	    private ObservableAsPropertyHelper<string> pickerButtonText;
+	    public string PickerButtonText => this.pickerButtonText.Value;
 
 		public Collection<object> PickerButtonMenuItems
 		{
@@ -362,7 +368,6 @@ namespace VidCoder.Services
 
 	    private void RefreshPickerButton()
 	    {
-			this.RaisePropertyChanged(nameof(this.PickerButtonText));
 			this.RaisePropertyChanged(nameof(this.PickerButtonMenuItems));
 	    }
 

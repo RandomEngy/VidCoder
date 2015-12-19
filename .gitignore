@@ -1,10 +1,7 @@
 Installer/BuiltInstallers/*
 Flags/*
-misc/*
 packages/*
 ResourcesImport/*
-Screenshots/*
-TestFiles/*
 *.pdn
 */bin/*
 */obj/*
