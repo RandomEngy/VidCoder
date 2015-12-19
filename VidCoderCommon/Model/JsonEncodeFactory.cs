@@ -667,12 +667,20 @@ namespace VidCoderCommon.Model
 		/// <returns>The video bitrate in kbps.</returns>
 		public static int CalculateBitrate(VCJob job, SourceTitle title, int sizeMB, double overallSelectedLengthSeconds = 0)
 		{
+			bool isPreview = overallSelectedLengthSeconds > 0;
+
+			double titleLengthSeconds = GetJobLength(job, title).TotalSeconds;
+
+
 			long availableBytes = ((long)sizeMB) * 1024 * 1024;
+			if (isPreview)
+			{
+				availableBytes = (long)(availableBytes * (overallSelectedLengthSeconds / titleLengthSeconds));
+			}
 
 			VCProfile profile = job.EncodingProfile;
 
-			double lengthSeconds = overallSelectedLengthSeconds > 0 ? overallSelectedLengthSeconds : GetJobLength(job, title).TotalSeconds;
-			lengthSeconds += 1.5;
+			double lengthSeconds = isPreview ? overallSelectedLengthSeconds : titleLengthSeconds;
 
 			double outputFramerate;
 			if (profile.Framerate == 0)

@@ -425,11 +425,7 @@ namespace VidCoder.Services.Windows
 				}
 			}
 
-			var localWindowOpened = this.WindowOpened;
-			if (localWindowOpened != null)
-			{
-				localWindowOpened(this, new EventArgs<Type>(viewModel.GetType()));
-			}
+			this.WindowOpened?.Invoke(this, new EventArgs<Type>(viewModel.GetType()));
 
 			if (!isDialog)
 			{
