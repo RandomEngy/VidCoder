@@ -87,13 +87,13 @@ namespace VidCoder.ViewModel
 			}).ToProperty(this, x => x.DenoisePresetVisible, out this.denoisePresetVisible);
 
 			// DenoiseTuneVisible
-			this.WhenAnyValue(x => x.DenoiseType, x => x.Profile.UseCustomDenoise, (denoise, useCustomDenoise) =>
+			this.WhenAnyValue(x => x.DenoiseType, x => x.PresetsService.SelectedPreset.Preset.EncodingProfile.UseCustomDenoise, (denoise, useCustomDenoise) =>
 			{
 				return denoise == VCDenoise.NLMeans && !useCustomDenoise;
 			}).ToProperty(this, x => x.DenoiseTuneVisible, out this.denoiseTuneVisible);
 
 			// CustomDenoiseVisible
-			this.WhenAnyValue(x => x.DenoiseType, x => x.Profile.UseCustomDenoise, (denoise, useCustomDenoise) =>
+			this.WhenAnyValue(x => x.DenoiseType, x => x.PresetsService.SelectedPreset.Preset.EncodingProfile.UseCustomDenoise, (denoise, useCustomDenoise) =>
 			{
 				return denoise != VCDenoise.Off && useCustomDenoise;
 			}).ToProperty(this, x => x.CustomDenoiseVisible, out this.customDenoiseVisible);
