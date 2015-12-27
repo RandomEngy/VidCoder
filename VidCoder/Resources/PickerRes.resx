@@ -129,11 +129,11 @@
   <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
     <value>Foreign Audio Search</value>
   </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Include all tracks</value>
+  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
+    <value>All tracks</value>
   </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Language:</value>
+  <data name="LanguagesRadioButton" xml:space="preserve">
+    <value>Language(s)</value>
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
     <value>Only if different language from audio</value>
@@ -195,5 +195,54 @@
   </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Picker has specified the encoding preset.</value>
+  </data>
+  <data name="AddLanguageButton" xml:space="preserve">
+    <value>Add Language</value>
+  </data>
+  <data name="AllTracksForTheseLanguagesRadioButton" xml:space="preserve">
+    <value>All tracks for these languages</value>
+  </data>
+  <data name="AllTracksForThisLanguageRadioButton" xml:space="preserve">
+    <value>All tracks for this language</value>
+  </data>
+  <data name="FirstTrackOfEachLanguageRadioButton" xml:space="preserve">
+    <value>First track of each language</value>
+  </data>
+  <data name="FirstTrackRadioButton" xml:space="preserve">
+    <value>First track</value>
+  </data>
+  <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
+    <value>Mark the subtitle track as default, so it will show up automatically when playing the video.</value>
+  </data>
+  <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
+    <value>Mark the first subtitle track as default, so it shows up automatically when playing the video.</value>
+  </data>
+  <data name="FirstAsDefaultCheckBox" xml:space="preserve">
+    <value>Mark first as default</value>
+    <comment>Label for checkbox to mark the first subtitle as default.</comment>
+  </data>
+  <data name="AllSubtitlesToolTip" xml:space="preserve">
+    <value>Include all subtitles.</value>
+  </data>
+  <data name="SubtitleNoneToolTip" xml:space="preserve">
+    <value>No subtitles are included.</value>
+  </data>
+  <data name="AudioFirstToolTip" xml:space="preserve">
+    <value>Include only the first audio track.</value>
+  </data>
+  <data name="AudioAllToolTip" xml:space="preserve">
+    <value>Include all audio tracks.</value>
+  </data>
+  <data name="SubtitleFirstToolTip" xml:space="preserve">
+    <value>Include only the first subtitle.</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Use preset:</value>
+  </data>
+  <data name="RemoveLanguageToolTip" xml:space="preserve">
+    <value>Remove this language.</value>
+  </data>
+  <data name="SortLanguagesLabel" xml:space="preserve">
+    <value>Sort language(s) to top:</value>
   </data>
 </root>

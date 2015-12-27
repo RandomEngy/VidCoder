@@ -276,4 +276,7 @@ A full copy of the GNU General Public License has been included along with this 
     <value>VidCoder Queue File</value>
     <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
   </data>
+  <data name="First" xml:space="preserve">
+    <value>First</value>
+  </data>
 </root>

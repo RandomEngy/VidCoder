@@ -7,8 +7,9 @@ namespace VidCoder.Model
 {
 	public enum AudioSelectionMode
 	{
-		Disabled,
-		Language,
-		All
+		Disabled = 0,
+		First = 3,
+		Language = 1,
+		All = 2,
 	}
 }

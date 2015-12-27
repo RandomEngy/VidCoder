@@ -3,8 +3,8 @@
     public enum VCAnamorphic
     {
 		None = 0,
-		Strict,
-		Loose,
-		Custom
+		Strict = 1,
+		Loose = 2,
+		Custom = 3
     }
 }

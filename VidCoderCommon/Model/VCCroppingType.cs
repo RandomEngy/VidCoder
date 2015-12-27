@@ -2,8 +2,8 @@
 {
     public enum VCCroppingType
     {
-        Automatic,
-        None,
-        Custom
+        Automatic = 0,
+        None = 1,
+        Custom = 2
     }
 }

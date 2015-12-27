@@ -483,6 +483,7 @@
     <Compile Include="Controls\VideoSeekBar.xaml.cs">
       <DependentUpon>VideoSeekBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoolRadioConverter.cs" />
     <Compile Include="Converters\DoubleDisplayConverter.cs" />
     <Compile Include="Converters\EnumVisibilityConverter.cs" />
     <Compile Include="Converters\EnumVisibilityInverseConverter.cs" />
@@ -642,6 +643,7 @@
     <Compile Include="Utilities\FileUtilities.cs" />
     <Compile Include="Utilities\ImageUtilities.cs" />
     <Compile Include="Utilities\Ioc.cs" />
+    <Compile Include="Utilities\LanguageUtilities.cs" />
     <Compile Include="Utilities\ListSynchronizer\IListItemConverter.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Utilities\ListSynchronizer\MultiSelectorBehaviors.cs" />
@@ -669,6 +671,7 @@
     <Compile Include="ViewModel\DataModels\BitrateChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\ChapterNameViewModel.cs" />
     <Compile Include="ViewModel\DataModels\ChapterViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\LanguageViewModel.cs" />
     <Compile Include="ViewModel\DataModels\LevelChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\PickerViewModel.cs" />
     <Compile Include="ViewModel\DataModels\RotationViewModel.cs" />

@@ -21,7 +21,7 @@ namespace VidCoder.Converters
 				return value.ToString();
 			}
 
-			return string.Compare(value.ToString(), (string)parameter, StringComparison.InvariantCultureIgnoreCase) == 0;
+			return string.Compare(value.ToString(), parameter.ToString(), StringComparison.InvariantCultureIgnoreCase) == 0;
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -36,17 +36,12 @@ namespace VidCoder.Converters
 				throw new ArgumentException("EnumBoolConverter can only convert value to an Enum Type.");
 			}
 
-			if (value.GetType() == typeof(string))
+			if (!(bool)value)
 			{
-				return Enum.Parse(targetType, (string)value, true);
+				return null;
 			}
 
-			if ((bool)value)
-			{
-				return Enum.Parse(targetType, (string)parameter, true);
-			}
-
-			return null;
+			return parameter;
 		}
 	}
 }

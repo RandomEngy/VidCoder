@@ -16,6 +16,7 @@ using System.IO.Pipes;
 using System.IO;
 using System.ComponentModel;
 using VidCoder.View;
+using VidCoderCommon.Utilities;
 
 namespace VidCoder
 {
@@ -67,10 +68,7 @@ namespace VidCoder
 			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
 #endif
 
-			JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-			{
-				Formatting = Formatting.Indented
-			};
+			JsonSettings.SetDefaultSerializationSettings();
 
             // Takes about 50ms
             Config.EnsureInitialized(Database.Connection);

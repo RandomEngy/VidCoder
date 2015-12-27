@@ -3,10 +3,10 @@
     public enum VCDeinterlace
     {
 		Off = 0,
-		Fast,
-		Slow,
-		Slower,
-		Bob,
-		Custom
+		Fast = 1,
+		Slow = 2,
+		Slower = 3,
+		Bob = 4,
+		Custom = 5
     }
 }

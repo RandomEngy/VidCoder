@@ -114,7 +114,35 @@ namespace VidCoder.Model
             return result;
         }
 
-        private static void SavePickers(List<string> pickerJsonList, SQLiteConnection connection)
+	    public static void UpgradePicker(Picker picker, int oldDatabaseVersion)
+	    {
+		    if (oldDatabaseVersion < 30)
+		    {
+			    UpgradePickerTo30(picker);
+		    }
+	    }
+
+	    private static void UpgradePickerTo30(Picker picker)
+	    {
+		    if (picker.AudioSelectionMode == AudioSelectionMode.Language)
+		    {
+			    picker.AudioLanguageCodes = new List<string> { picker.AudioLanguageCode };
+		    }
+
+		    if (picker.SubtitleSelectionMode == SubtitleSelectionMode.Language)
+		    {
+			    picker.SubtitleLanguageCodes = new List<string> { picker.SubtitleLanguageCode };
+			    picker.SubtitleBurnIn = picker.SubtitleLanguageBurnIn;
+			    picker.SubtitleDefault = picker.SubtitleLanguageDefault;
+		    }
+
+		    if (picker.SubtitleSelectionMode == SubtitleSelectionMode.ForeignAudioSearch)
+		    {
+			    picker.SubtitleBurnIn = picker.SubtitleForeignBurnIn;
+		    }
+	    }
+
+        public static void SavePickers(List<string> pickerJsonList, SQLiteConnection connection)
         {
             Database.ExecuteNonQuery("DELETE FROM pickersJson", connection);
 

@@ -2,7 +2,7 @@
 {
     public enum VCOutputExtension
     {
-        Mp4,
-        M4v
+        Mp4 = 0,
+        M4v = 1
     }
 }

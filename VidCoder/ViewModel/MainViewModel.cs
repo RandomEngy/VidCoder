@@ -172,7 +172,7 @@ namespace VidCoder.ViewModel
 			{
 				if (selectedSource == null)
 				{
-					return null;
+					return "/Icons/video-file.png";
 				}
 
 				switch (selectedSource.Type)
@@ -196,6 +196,11 @@ namespace VidCoder.ViewModel
 
 				return null;
 			}).ToProperty(this, x => x.SourceIcon, out this.sourceIcon);
+
+			// SourceIconVisible
+			this.WhenAnyValue(x => x.SelectedSource)
+				.Select(source => source != null)
+				.ToProperty(this, x => x.SourceIconVisible, out this.sourceIconVisible);
 
 			this.WhenAnyValue(x => x.SelectedSource.DriveInfo.Empty).Subscribe(observable =>
 			{
@@ -707,6 +712,9 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> sourceIcon;
 		public string SourceIcon => this.sourceIcon.Value;
 
+		private ObservableAsPropertyHelper<bool> sourceIconVisible;
+		public bool SourceIconVisible => this.sourceIconVisible.Value;
+
 		public string SourceText
 		{
 			get
@@ -829,33 +837,13 @@ namespace VidCoder.ViewModel
 								}
 
 								break;
+							case AudioSelectionMode.First:
 							case AudioSelectionMode.Language:
-								this.AudioChoices.Clear();
-								for (int i = 0; i < this.selectedTitle.AudioList.Count; i++)
-								{
-									SourceAudioTrack track = this.selectedTitle.AudioList[i];
-
-									if (track.LanguageCode == picker.AudioLanguageCode)
-									{
-										var newVM = new AudioChoiceViewModel { SelectedIndex = i };
-										this.AudioChoices.Add(newVM);
-
-										if (!picker.AudioLanguageAll)
-										{
-											break;
-										}
-									}
-								}
-
-								break;
 							case AudioSelectionMode.All:
 								this.AudioChoices.Clear();
-
-								for (int i = 0; i < this.selectedTitle.AudioList.Count; i++)
-								{
-									var newVM = new AudioChoiceViewModel { SelectedIndex = i };
-									this.AudioChoices.Add(newVM);
-								}
+								this.AudioChoices.AddRange(ProcessingService
+									.ChooseAudioTracks(this.selectedTitle.AudioList, picker)
+									.Select(i => new AudioChoiceViewModel(i)));
 
 								break;
 							default:
@@ -865,8 +853,7 @@ namespace VidCoder.ViewModel
 						// If nothing got selected, add the first one.
 						if (this.selectedTitle.AudioList.Count > 0 && this.AudioChoices.Count == 0)
 						{
-							var newVM = new AudioChoiceViewModel { SelectedIndex = 0 };
-							this.AudioChoices.Add(newVM);
+							this.AudioChoices.Add(new AudioChoiceViewModel(0));
 						}
 					}
 
@@ -900,69 +887,17 @@ namespace VidCoder.ViewModel
 								}
 							}
 							break;
+						case SubtitleSelectionMode.None:
+						case SubtitleSelectionMode.First:
 						case SubtitleSelectionMode.ForeignAudioSearch:
-							this.CurrentSubtitles.SourceSubtitles.Add(
-								new SourceSubtitle
-								{
-									TrackNumber = 0,
-									BurnedIn = picker.SubtitleForeignBurnIn,
-									Forced = true,
-									Default = true
-								});
-							break;
 						case SubtitleSelectionMode.Language:
-							string languageCode = picker.SubtitleLanguageCode;
-							bool audioSame = false;
-							bool burnIn = picker.SubtitleLanguageBurnIn;
-							bool def = picker.SubtitleLanguageDefault;
-							if (this.AudioChoices.Count > 0)
-							{
-								if (this.selectedTitle.AudioList[this.AudioChoices[0].SelectedIndex].LanguageCode == languageCode)
-								{
-									audioSame = true;
-								}
-							}
-
-							if (!picker.SubtitleLanguageOnlyIfDifferent || !audioSame)
-							{
-								bool multipleLanguageTracks = this.selectedTitle.SubtitleList.Count(s => s.LanguageCode == languageCode) > 1;
-								for (int i = 0; i < this.selectedTitle.SubtitleList.Count; i++)
-								{
-									SourceSubtitleTrack subtitle = this.selectedTitle.SubtitleList[i];
-
-									if (subtitle.LanguageCode == languageCode)
-									{
-										this.CurrentSubtitles.SourceSubtitles.Add(new SourceSubtitle
-										{
-											BurnedIn = !multipleLanguageTracks && burnIn,
-											Default = !multipleLanguageTracks && def,
-											Forced = false,
-											TrackNumber = i + 1
-										});
-
-										if (!picker.SubtitleLanguageAll)
-										{
-											break;
-										}
-									}
-								}
-							}
-
-							break;
 						case SubtitleSelectionMode.All:
-							for (int i = 0; i < this.selectedTitle.SubtitleList.Count; i++)
-							{
-								this.CurrentSubtitles.SourceSubtitles.Add(
-									new SourceSubtitle
-									{
-										TrackNumber = i + 1,
-										BurnedIn = false,
-										Default = false,
-										Forced = false
-									});
-							}
-
+							this.CurrentSubtitles.SourceSubtitles.AddRange(ProcessingService.ChooseSubtitles(
+								this.selectedTitle,
+								picker,
+								this.AudioChoices.Count > 0 ? this.AudioChoices[0].SelectedIndex + 1 : -1));
 							break;
+
 						default:
 							throw new ArgumentOutOfRangeException();
 					}
@@ -1644,8 +1579,7 @@ namespace VidCoder.ViewModel
 		public ReactiveCommand<object> AddTrack { get; }
 		private void AddTrackImpl()
 		{
-			var newAudioChoice = new AudioChoiceViewModel();
-			newAudioChoice.SelectedIndex = this.GetFirstUnusedAudioTrack();
+			var newAudioChoice = new AudioChoiceViewModel(this.GetFirstUnusedAudioTrack());
 			this.AudioChoices.Add(newAudioChoice);
 		}
 
@@ -2385,7 +2319,7 @@ namespace VidCoder.ViewModel
 			{
 				if (chosenTrack <= this.selectedTitle.AudioList.Count)
 				{
-					this.AudioChoices.Add(new AudioChoiceViewModel { SelectedIndex = chosenTrack - 1 });
+					this.AudioChoices.Add(new AudioChoiceViewModel(chosenTrack - 1 ));
 				}
 			}
 

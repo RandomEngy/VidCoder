@@ -502,7 +502,9 @@
 								Height="16"
 								Margin="3.5 1 0 0"
 								VerticalAlignment="Center"
-								Source="{Binding SourceIcon}" />
+								Source="{Binding SourceIcon}"
+								Visibility="{Binding SourceIconVisible,
+								                     ConverterParameter={StaticResource VisibilityConverter}}" />
 							<controls:PathTextBlock
 								Grid.Column="2"
 								Margin="4 4 4 3"

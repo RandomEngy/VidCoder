@@ -352,7 +352,7 @@
 									GroupName="fileExists1"
 									IsChecked="{Binding WhenFileExists,
 									                    Converter={StaticResource EnumBoolConverter},
-									                    ConverterParameter=Prompt}" />
+									                    ConverterParameter={x:Static Model:WhenFileExists.Prompt}}" />
 								<RadioButton
 									Height="16"
 									Margin="0 43 0 0"
@@ -362,7 +362,7 @@
 									GroupName="fileExists2"
 									IsChecked="{Binding WhenFileExists,
 									                    Converter={StaticResource EnumBoolConverter},
-									                    ConverterParameter=Overwrite}" />
+									                    ConverterParameter={x:Static Model:WhenFileExists.Overwrite}}" />
 								<RadioButton
 									Height="16"
 									Margin="0 65 0 0"
@@ -372,7 +372,7 @@
 									GroupName="fileExists3"
 									IsChecked="{Binding WhenFileExists,
 									                    Converter={StaticResource EnumBoolConverter},
-									                    ConverterParameter=AutoRename}" />
+									                    ConverterParameter={x:Static Model:WhenFileExists.AutoRename}}" />
 
 								<TextBlock
 									Name="textBlock2"
@@ -391,7 +391,7 @@
 									GroupName="fileExistsBatch1"
 									IsChecked="{Binding WhenFileExistsBatch,
 									                    Converter={StaticResource EnumBoolConverter},
-									                    ConverterParameter=Overwrite}" />
+									                    ConverterParameter={x:Static Model:WhenFileExists.Overwrite}}" />
 								<RadioButton
 									Grid.Column="2"
 									Height="16"
@@ -402,7 +402,7 @@
 									GroupName="fileExistsBatch2"
 									IsChecked="{Binding WhenFileExistsBatch,
 									                    Converter={StaticResource EnumBoolConverter},
-									                    ConverterParameter=AutoRename}" />
+									                    ConverterParameter={x:Static Model:WhenFileExists.AutoRename}}" />
 							</Grid>
 						</StackPanel>
 					</StackPanel>

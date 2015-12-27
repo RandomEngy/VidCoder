@@ -116,6 +116,7 @@
     <Compile Include="Utilities\Injection\SmartConventionInfo.cs" />
     <Compile Include="Utilities\Injection\SmartConventionInjection.cs" />
     <Compile Include="Utilities\Injection\SmartMatchInfo.cs" />
+    <Compile Include="Utilities\JsonSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

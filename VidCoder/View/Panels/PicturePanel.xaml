@@ -482,7 +482,7 @@
             GroupName="cropping1"
             IsChecked="{Binding CroppingType,
                                 Converter={StaticResource EnumBoolConverter},
-                                ConverterParameter=Automatic}" />
+                                ConverterParameter={x:Static commonModel:VCCroppingType.Automatic}}" />
         <RadioButton
             Grid.Row="0"
             Grid.Column="1"
@@ -493,7 +493,7 @@
             GroupName="cropping2"
             IsChecked="{Binding CroppingType,
                                 Converter={StaticResource EnumBoolConverter},
-                                ConverterParameter=None}" />
+                                ConverterParameter={x:Static commonModel:VCCroppingType.None}}" />
         <RadioButton
             Grid.Row="0"
             Grid.Column="1"
@@ -504,7 +504,7 @@
             GroupName="cropping3"
             IsChecked="{Binding CroppingType,
                                 Converter={StaticResource EnumBoolConverter},
-                                ConverterParameter=Custom}" />
+                                ConverterParameter={x:Static commonModel:VCCroppingType.Custom}}" />
         <Grid
             Grid.Row="0"
             Grid.Column="1"

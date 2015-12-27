@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Threading;
 using VidCoderCommon;
+using VidCoderCommon.Utilities;
 
 namespace VidCoderWorker
 {
@@ -30,6 +31,8 @@ namespace VidCoderWorker
 					PrintUsage();
 					return;
 				}
+
+				JsonSettings.SetDefaultSerializationSettings();
 
 				PipeName = args[1];
 

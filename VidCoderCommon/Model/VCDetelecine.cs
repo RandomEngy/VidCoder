@@ -3,7 +3,7 @@
     public enum VCDetelecine
     {
         Off = 0,
-        Default,
-        Custom
+        Default = 1,
+        Custom = 2
     }
 }

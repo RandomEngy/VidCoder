@@ -71,6 +71,11 @@ namespace VidCoder.Model
 					UpgradeEncodingProfiles(oldDatabaseVersion);
 				}
 
+				if (oldDatabaseVersion < Utilities.LastUpdatedPickerDatabaseVersion)
+				{
+					UpgradePickers(oldDatabaseVersion);
+				}
+
 				SetDatabaseVersionToLatest();
 				transaction.Commit();
 			}
@@ -325,6 +330,20 @@ namespace VidCoder.Model
 
 				Config.EncodeJobs2 = EncodeJobStorage.SerializeJobs(jobs);
 			}
+		}
+
+		private static void UpgradePickers(int databaseVersion)
+		{
+			var pickers = PickerStorage.GetPickerListFromDb();
+
+			foreach (Picker picker in pickers)
+			{
+				PickerStorage.UpgradePicker(picker, databaseVersion);
+			}
+
+			var pickerJsonList = pickers.Select(PickerStorage.SerializePicker).ToList();
+
+			PickerStorage.SavePickers(pickerJsonList, Connection);
 		}
 
 		private static void HandleCriticalFileError()

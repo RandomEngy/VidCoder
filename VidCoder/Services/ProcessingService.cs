@@ -1846,28 +1846,10 @@ namespace VidCoder.Services
 					}
 
 					break;
+				case AudioSelectionMode.First:
 				case AudioSelectionMode.Language:
-					for (int i = 0; i < title.AudioList.Count; i++)
-					{
-						SourceAudioTrack track = title.AudioList[i];
-
-						if (track.LanguageCode == picker.AudioLanguageCode)
-						{
-							job.ChosenAudioTracks.Add(i + 1);
-
-							if (!picker.AudioLanguageAll)
-							{
-								break;
-							}
-						}
-					}
-
-					break;
 				case AudioSelectionMode.All:
-					for (int i = 0; i < title.AudioList.Count; i++)
-					{
-						job.ChosenAudioTracks.Add(i + 1);
-					}
+					job.ChosenAudioTracks.AddRange(ChooseAudioTracks(title.AudioList, picker).Select(i => i + 1));
 
 					break;
 				default:
@@ -1879,6 +1861,102 @@ namespace VidCoder.Services
 			{
 				job.ChosenAudioTracks.Add(1);
 			}
+		}
+
+		/// <summary>
+		/// Returns the 0-based track indices that should be included. Valid for all modes but Disabled.
+		/// </summary>
+		/// <param name="audioTracks">The audio tracks on the input video.</param>
+		/// <param name="picker">The picker to use.</param>
+		/// <returns>The 0-based track indices that should be included.</returns>
+		public static IList<int> ChooseAudioTracks(IList<SourceAudioTrack> audioTracks, Picker picker)
+		{
+			var result = new List<int>();
+			IList<int> chosenAudioTrackIndices;
+			switch (picker.AudioSelectionMode)
+			{
+				case AudioSelectionMode.Disabled:
+					throw new ArgumentException("Disabled is an invalid mode.");
+				case AudioSelectionMode.First:
+					if (audioTracks.Count > 0)
+					{
+						result.Add(0);
+					}
+
+					break;
+				case AudioSelectionMode.Language:
+					chosenAudioTrackIndices = ChooseAudioTracksFromLanguages(audioTracks, picker.AudioLanguageCodes, picker.AudioLanguageAll);
+					result.AddRange(chosenAudioTrackIndices);
+
+					break;
+				case AudioSelectionMode.All:
+					if (picker.AudioLanguageCodes != null && picker.AudioLanguageCodes.Count > 0)
+					{
+						// All tracks with certain languages first
+						chosenAudioTrackIndices = ChooseAudioTracksFromLanguages(audioTracks, picker.AudioLanguageCodes, includeAllTracks: true);
+						result.AddRange(chosenAudioTrackIndices);
+
+						for (int i = 0; i < audioTracks.Count; i++)
+						{
+							if (!chosenAudioTrackIndices.Contains(i))
+							{
+								result.Add(i);
+							}
+						}
+					}
+					else
+					{
+						// All tracks, no ordering on language
+						for (int i = 0; i < audioTracks.Count; i++)
+						{
+							result.Add(i);
+						}
+					}
+
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(picker), picker, null);
+			}
+
+			// If none are chosen, add the first one.
+			if (result.Count == 0 && audioTracks.Count > 0)
+			{
+				result.Add(0);
+			}
+
+			return result;
+		}
+
+		/// <summary>
+		/// Returns the 0-based indices of tracks chosen.
+		/// </summary>
+		/// <param name="audioTracks">The list of audio tracks to look in.</param>
+		/// <param name="languageCodes">The codes for the languages to include.</param>
+		/// <param name="includeAllTracks">True if all tracks should be included rather than just the first.</param>
+		/// <returns></returns>
+		private static IList<int> ChooseAudioTracksFromLanguages(IList<SourceAudioTrack> audioTracks, IList<string> languageCodes, bool includeAllTracks)
+		{
+			var result = new List<int>();
+
+			foreach (string code in languageCodes)
+			{
+				for (int i = 0; i < audioTracks.Count; i++)
+				{
+					SourceAudioTrack track = audioTracks[i];
+
+					if (track.LanguageCode == code)
+					{
+						result.Add(i);
+
+						if (!includeAllTracks)
+						{
+							break;
+						}
+					}
+				}
+			}
+
+			return result;
 		}
 
 		// Automatically pick the correct subtitles on the given job.
@@ -1900,95 +1978,192 @@ namespace VidCoder.Services
 							{
 								job.Subtitles.SourceSubtitles.Add(sourceSubtitle.Clone());
 							}
-							else if (
-								title.SubtitleList.Count > sourceSubtitle.TrackNumber - 1 &&
-								this.main.SelectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode == title.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode)
+							else if (title.SubtitleList.Count > sourceSubtitle.TrackNumber - 1 && this.main.SelectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode == title.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode)
 							{
 								job.Subtitles.SourceSubtitles.Add(sourceSubtitle.Clone());
 							}
 						}
 					}
 					break;
+				case SubtitleSelectionMode.None:
+				case SubtitleSelectionMode.First:
 				case SubtitleSelectionMode.ForeignAudioSearch:
-					job.Subtitles.SourceSubtitles.Add(
-						new SourceSubtitle
-						{
-							TrackNumber = 0,
-							BurnedIn = picker.SubtitleForeignBurnIn,
-							Forced = true,
-							Default = true
-						});
-					break;
 				case SubtitleSelectionMode.Language:
-					string languageCode = picker.SubtitleLanguageCode;
-					bool audioSame = false;
-					bool burnIn = picker.SubtitleLanguageBurnIn;
-					bool def = picker.SubtitleLanguageDefault;
-					if (job.ChosenAudioTracks.Count > 0 && title.AudioList.Count > 0)
-					{
-						if (title.AudioList[job.ChosenAudioTracks[0] - 1].LanguageCode == languageCode)
-						{
-							audioSame = true;
-						}
-					}
-
-					if (!picker.SubtitleLanguageOnlyIfDifferent || !audioSame)
-					{
-						// 0-based indices of the subtitles with the matching language
-						var languageSubtitleIndices = new List<int>();
-						for (int i = 0; i < title.SubtitleList.Count; i++)
-						{
-							SourceSubtitleTrack subtitle = title.SubtitleList[i];
-
-							if (subtitle.LanguageCode == languageCode)
-							{
-								languageSubtitleIndices.Add(i);
-							}
-						}
-
-						if (languageSubtitleIndices.Count > 1)
-						{
-							foreach (int subtitleIndex in languageSubtitleIndices)
-							{
-								job.Subtitles.SourceSubtitles.Add(new SourceSubtitle
-								{
-									BurnedIn = false,
-									Default = false,
-									Forced = false,
-									TrackNumber = subtitleIndex + 1
-								});
-							}
-						}
-						else if (languageSubtitleIndices.Count > 0)
-						{
-							job.Subtitles.SourceSubtitles.Add(new SourceSubtitle
-							{
-								BurnedIn = burnIn,
-								Default = def,
-								Forced = false,
-								TrackNumber = languageSubtitleIndices[0] + 1
-							});
-						}
-					}
-
-					break;
 				case SubtitleSelectionMode.All:
-					for (int i = 0; i < title.SubtitleList.Count; i++)
-					{
-						job.Subtitles.SourceSubtitles.Add(
-							new SourceSubtitle
-							{
-								TrackNumber = i + 1,
-								BurnedIn = false,
-								Default = false,
-								Forced = false
-							});
-					}
+					job.Subtitles.SourceSubtitles.AddRange(ChooseSubtitles(
+						title, 
+						picker, 
+						job.ChosenAudioTracks.Count > 0 ? job.ChosenAudioTracks[0] : -1));
 
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
 		}
+
+		/// <summary>
+		/// Returns all the source subtitles that should be included.
+		/// </summary>
+		/// <param name="title">The title to pick from.</param>
+		/// <param name="picker">The picker to use.</param>
+		/// <param name="chosenAudioTrack">The (1-based) main audio track currently selected.</param>
+		/// <returns></returns>
+		public static IList<SourceSubtitle> ChooseSubtitles(SourceTitle title, Picker picker, int chosenAudioTrack)
+		{
+			var result = new List<SourceSubtitle>();
+
+			IList<int> chosenSubtitleIndices;
+
+			switch (picker.SubtitleSelectionMode)
+			{
+				case SubtitleSelectionMode.Disabled:
+					throw new ArgumentException("Disabled is an invalid mode.");
+				case SubtitleSelectionMode.None:
+					break;
+				case SubtitleSelectionMode.First:
+					if (title.SubtitleList.Count > 0)
+					{
+						result.Add(new SourceSubtitle
+						{
+							TrackNumber = 1,
+							BurnedIn = picker.SubtitleBurnIn,
+							Forced = false,
+							Default = picker.SubtitleDefault
+						});
+					}
+					
+					break;
+				case SubtitleSelectionMode.ForeignAudioSearch:
+					result.Add(new SourceSubtitle
+					{
+						TrackNumber = 0,
+						BurnedIn = picker.SubtitleBurnIn,
+						Forced = true,
+						Default = picker.SubtitleDefault
+					});
+
+					break;
+				case SubtitleSelectionMode.Language:
+					chosenSubtitleIndices = ChooseSubtitlesFromLanguages(title, chosenAudioTrack, picker.SubtitleLanguageCodes, picker.SubtitleLanguageAll, picker.SubtitleLanguageOnlyIfDifferent);
+					if (chosenSubtitleIndices.Count > 1)
+					{
+						// Multiple
+
+						// First track
+						result.Add(new SourceSubtitle
+						{
+							TrackNumber = chosenSubtitleIndices[0] + 1,
+							BurnedIn = false,
+							Forced = false,
+							Default = picker.SubtitleDefault
+						});
+
+						// The rest
+						result.AddRange(chosenSubtitleIndices.Skip(1).Select(i => new SourceSubtitle
+						{
+							TrackNumber = i + 1,
+							BurnedIn = false,
+							Forced = false,
+							Default = false
+						}));
+					}
+					else if (chosenSubtitleIndices.Count > 0)
+					{
+						// Single
+						result.Add(new SourceSubtitle
+						{
+							TrackNumber = chosenSubtitleIndices[0] + 1,
+							BurnedIn = picker.SubtitleBurnIn,
+							Forced = false,
+							Default = picker.SubtitleDefault
+						});
+					}
+
+					break;
+				case SubtitleSelectionMode.All:
+					if (picker.SubtitleLanguageCodes != null && picker.SubtitleLanguageCodes.Count > 0)
+					{
+						chosenSubtitleIndices = ChooseSubtitlesFromLanguages(title, chosenAudioTrack, picker.SubtitleLanguageCodes, includeAllTracks: true, onlyIfDifferentFromAudio: false);
+						
+						for (int i = 0; i < title.SubtitleList.Count; i++)
+						{
+							if (!chosenSubtitleIndices.Contains(i))
+							{
+								chosenSubtitleIndices.Add(i);
+							}
+						}
+					}
+					else
+					{
+						chosenSubtitleIndices = new List<int>();
+
+						for (int i = 0; i < title.SubtitleList.Count; i++)
+						{
+							chosenSubtitleIndices.Add(i);
+						}
+					}
+
+					if (chosenSubtitleIndices.Count > 0)
+					{
+						// First track
+						result.Add(new SourceSubtitle
+						{
+							TrackNumber = chosenSubtitleIndices[0] + 1,
+							BurnedIn = false,
+							Forced = false,
+							Default = picker.SubtitleDefault
+						});
+
+						// The rest
+						result.AddRange(chosenSubtitleIndices.Skip(1).Select(i => new SourceSubtitle
+						{
+							TrackNumber = i + 1,
+							BurnedIn = false,
+							Forced = false,
+							Default = false
+						}));
+					}
+
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
+			return result;
+		}
+
+		private static IList<int> ChooseSubtitlesFromLanguages(SourceTitle title, int chosenAudioTrack, IList<string> languageCodes, bool includeAllTracks, bool onlyIfDifferentFromAudio)
+		{
+			var result = new List<int>();
+			string audioLanguageCode = null;
+
+			if (chosenAudioTrack > 0 && title.AudioList.Count > 0)
+			{
+				audioLanguageCode = title.AudioList[chosenAudioTrack - 1].LanguageCode;
+			}
+
+			foreach (string code in languageCodes)
+			{
+				if (!onlyIfDifferentFromAudio || code != audioLanguageCode)
+				{
+					for (int i = 0; i < title.SubtitleList.Count; i++)
+					{
+						SourceSubtitleTrack track = title.SubtitleList[i];
+
+						if (track.LanguageCode == code)
+						{
+							result.Add(i);
+
+							if (!includeAllTracks)
+							{
+								break;
+							}
+						}
+					}
+				}
+			}
+
+			return result;
+		} 
 	}
 }

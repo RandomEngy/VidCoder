@@ -229,7 +229,7 @@ namespace VidCoder.Model
 				new EncodingProfileUpgrade(24, UpgradeEncodingProfileTo24),
 				new EncodingProfileUpgrade(25, UpgradeEncodingProfileTo25),
 				new EncodingProfileUpgrade(26, UpgradeEncodingProfileTo26),
-				new EncodingProfileUpgrade(26, UpgradeEncodingProfileTo29),
+				new EncodingProfileUpgrade(29, UpgradeEncodingProfileTo29),
 			};
 
 			foreach (EncodingProfileUpgrade upgrade in upgrades)
@@ -495,10 +495,12 @@ namespace VidCoder.Model
 
 		private static void UpgradeEncodingProfileTo26(VCProfile profile)
 	    {
-            if (profile.DenoiseType == VCDenoise.NlMeans)
-	        {
-	            profile.DenoiseType = VCDenoise.NLMeans;
-	        }
+			// Suppress this for now, JSON serializer doesn't know how to handle two enum values with different caps
+
+			//if (profile.DenoiseType == VCDenoise.NlMeans)
+			//{
+			//    profile.DenoiseType = VCDenoise.NLMeans;
+			//}
         }
 
 		private static void UpgradeEncodingProfileTo29(VCProfile profile)

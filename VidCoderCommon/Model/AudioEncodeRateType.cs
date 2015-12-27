@@ -2,7 +2,7 @@
 {
     public enum AudioEncodeRateType
 	{
-		Bitrate,
-		Quality
+		Bitrate = 0,
+		Quality = 1
 	}
 }

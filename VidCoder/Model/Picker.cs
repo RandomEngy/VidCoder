@@ -98,27 +98,32 @@ namespace VidCoder.Model
 		[JsonProperty]
 		public AudioSelectionMode AudioSelectionMode { get; set; } = AudioSelectionMode.Disabled;
 
-        // Default "und"
+		// Applies only with AutoAudioType.Language
+		private IList<string> audioLanguageCodes;
 		[JsonProperty]
-		public string AudioLanguageCode { get; set; } = "und";
+		public IList<string> AudioLanguageCodes
+		{
+			get { return this.audioLanguageCodes; }
+			set { this.RaiseAndSetIfChanged(ref this.audioLanguageCodes, value); }
+		}
 
-        // Applies only with AutoAudioType.Language
+		// Applies only with AutoAudioType.Language
 		[JsonProperty]
 		public bool AudioLanguageAll { get; set; }
 
 		[JsonProperty]
 		public SubtitleSelectionMode SubtitleSelectionMode { get; set; } = SubtitleSelectionMode.Disabled;
 
-		// Applies only with AutoSubtitleType.ForeignAudioSearch
+		// Applies only with AutoSubtitleType.Language
+		private IList<string> subtitleLanguageCodes;
 		[JsonProperty]
-		public bool SubtitleForeignBurnIn { get; set; }
+		public IList<string> SubtitleLanguageCodes
+		{
+			get { return this.subtitleLanguageCodes; }
+			set { this.RaiseAndSetIfChanged(ref this.subtitleLanguageCodes, value); }
+		}
 
-        // Applies only with AutoSubtitleType.Language
-        // Default "und"
-		[JsonProperty]
-		public string SubtitleLanguageCode { get; set; } = "und";
-
-        // Applies only with AutoSubtitleType.Language
+		// Applies only with AutoSubtitleType.Language
 		[JsonProperty]
 		public bool SubtitleLanguageAll { get; set; }
 
@@ -127,13 +132,13 @@ namespace VidCoder.Model
 		[JsonProperty]
 		public bool SubtitleLanguageOnlyIfDifferent { get; set; } = true;
 
-        // Applies only with AutoSubtitleType.Language
+		// Applies when at least 1 subtitle can be picked.
 		[JsonProperty]
-		public bool SubtitleLanguageDefault { get; set; }
+		public bool SubtitleDefault { get; set; }
 
-        // Applies only with AutoSubtitleType.Language
+		// Applies when 0-1 subtitles can be picked.
 		[JsonProperty]
-		public bool SubtitleLanguageBurnIn { get; set; }
+		public bool SubtitleBurnIn { get; set; }
 
 		private bool useEncodingPreset;
 		[JsonProperty]
@@ -168,5 +173,29 @@ namespace VidCoder.Model
 
 		private ObservableAsPropertyHelper<string> displayName;
 		public string DisplayName => this.displayName.Value;
-    }
+
+		#region Obsolete
+
+		// Obsolete. use AudioLanguageCodes instead.
+		[JsonProperty]
+		public string AudioLanguageCode { get; set; } = "und";
+
+		// Obsolete. Use SubtitleLanguageCodes instead.
+		[JsonProperty]
+		public string SubtitleLanguageCode { get; set; } = "und";
+
+		// Obsolete. Use SubtitleDefault instead.
+		[JsonProperty]
+		public bool SubtitleLanguageDefault { get; set; }
+
+		// Obsolete. Use SubtitleBurnIn instead.
+		[JsonProperty]
+		public bool SubtitleForeignBurnIn { get; set; }
+
+		// Obsolete. Use SubtitleBurnIn instead.
+		[JsonProperty]
+		public bool SubtitleLanguageBurnIn { get; set; }
+
+		#endregion
+	}
 }

@@ -2,8 +2,8 @@
 {
     public enum VCVideoEncodeRateType
     {
-        TargetSize,
-        AverageBitrate,
-        ConstantQuality
+        TargetSize = 0,
+        AverageBitrate = 1,
+        ConstantQuality = 2
     }
 }

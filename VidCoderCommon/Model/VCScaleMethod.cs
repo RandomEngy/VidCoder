@@ -5,11 +5,11 @@
         /// <summary>
         /// Standard software scaling. Highest quality.
         /// </summary>
-        Lanczos,
+        Lanczos = 0,
 
         /// <summary>
         /// OpenCL-assisted bicubic scaling.
         /// </summary>
-        Bicubic
+        Bicubic = 1
     }
 }

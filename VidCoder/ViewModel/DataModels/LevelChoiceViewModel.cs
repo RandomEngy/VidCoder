@@ -41,49 +41,49 @@ namespace VidCoder.ViewModel
 					// Checking H264 level is no longer possible in HB. It may come back in the future.
 					return true;
 
-					if (this.Value == null || !hasVideoSource || outputSize == null || outputSize.Width == 0 || outputSize.Height == 0)
-					{
-						return true;
-					}
+					////if (this.Value == null || !hasVideoSource || outputSize == null || outputSize.Width == 0 || outputSize.Height == 0)
+					////{
+					////	return true;
+					////}
 
-					int fpsNumerator;
-					int fpsDenominator;
+					////int fpsNumerator;
+					////int fpsDenominator;
 
-					if (profileFramerate == 0)
-					{
-						fpsNumerator = titleFramerate.Num;
-						fpsDenominator = titleFramerate.Den;
-					}
-					else
-					{
-						fpsNumerator = 27000000;
-						fpsDenominator = HandBrakeUnitConversionHelpers.FramerateToVrate(profileFramerate);
-					}
+					////if (profileFramerate == 0)
+					////{
+					////	fpsNumerator = titleFramerate.Num;
+					////	fpsDenominator = titleFramerate.Den;
+					////}
+					////else
+					////{
+					////	fpsNumerator = 27000000;
+					////	fpsDenominator = HandBrakeUnitConversionHelpers.FramerateToVrate(profileFramerate);
+					////}
 
-					bool interlaced = false;
-					bool fakeInterlaced = false;
+					////bool interlaced = false;
+					////bool fakeInterlaced = false;
 
-					Dictionary<string, string> advancedOptions = AdvancedOptionsParsing.ParseOptions(videoOptions);
-					if (advancedOptions.ContainsKey("interlaced") && advancedOptions["interlaced"] == "1" ||
-						advancedOptions.ContainsKey("tff") && advancedOptions["tff"] == "1" ||
-						advancedOptions.ContainsKey("bff") && advancedOptions["bff"] == "1")
-					{
-						interlaced = true;
-					}
+					////Dictionary<string, string> advancedOptions = AdvancedOptionsParsing.ParseOptions(videoOptions);
+					////if (advancedOptions.ContainsKey("interlaced") && advancedOptions["interlaced"] == "1" ||
+					////	advancedOptions.ContainsKey("tff") && advancedOptions["tff"] == "1" ||
+					////	advancedOptions.ContainsKey("bff") && advancedOptions["bff"] == "1")
+					////{
+					////	interlaced = true;
+					////}
 
-					if (advancedOptions.ContainsKey("fake-interlaced") && advancedOptions["fake-interlaced"] == "1")
-					{
-						fakeInterlaced = true;
-					}
+					////if (advancedOptions.ContainsKey("fake-interlaced") && advancedOptions["fake-interlaced"] == "1")
+					////{
+					////	fakeInterlaced = true;
+					////}
 
-					return HandBrakeUtils.IsH264LevelValid(
-						this.Value,
-						outputSize.Width,
-						outputSize.Height,
-						fpsNumerator,
-						fpsDenominator,
-						interlaced,
-						fakeInterlaced);
+					////return HandBrakeUtils.IsH264LevelValid(
+					////	this.Value,
+					////	outputSize.Width,
+					////	outputSize.Height,
+					////	fpsNumerator,
+					////	fpsDenominator,
+					////	interlaced,
+					////	fakeInterlaced);
 				}).ToProperty(this, x => x.IsCompatible, out this.isCompatible);
 		}
 

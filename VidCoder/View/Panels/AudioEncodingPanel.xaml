@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:res="clr-namespace:VidCoder.Resources"
     xmlns:viewModel="clr-namespace:VidCoder.ViewModel"
+    xmlns:model="clr-namespace:VidCoderCommon.Model;assembly=VidCoderCommon"
     d:DesignHeight="80"
     d:DesignWidth="300"
     mc:Ignorable="d">
@@ -227,7 +228,7 @@
                                 Content="{x:Static res:EncodingRes.Bitrate}"
                                 IsChecked="{Binding EncodeRateType,
                                                     Converter={StaticResource EnumBoolConverter},
-                                                    ConverterParameter=Bitrate}" />
+                                                    ConverterParameter={x:Static model:AudioEncodeRateType.Bitrate}}" />
                         </Grid>
 
                         <ComboBox
@@ -281,7 +282,7 @@
                                 Content="{x:Static res:EncodingRes.Quality}"
                                 IsChecked="{Binding EncodeRateType,
                                                     Converter={StaticResource EnumBoolConverter},
-                                                    ConverterParameter=Quality}" />
+                                                    ConverterParameter={x:Static model:AudioEncodeRateType.Quality}}" />
                         </Grid>
                         <controls:NumberBox
                             Grid.Row="1"

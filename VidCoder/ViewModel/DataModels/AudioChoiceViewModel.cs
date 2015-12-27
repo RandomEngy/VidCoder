@@ -7,8 +7,10 @@ namespace VidCoder.ViewModel
 	{
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 
-		public AudioChoiceViewModel()
+		public AudioChoiceViewModel(int selectedIndex)
 		{
+			this.selectedIndex = selectedIndex;
+
 			this.Remove = ReactiveCommand.Create();
 			this.Remove.Subscribe(_ => this.RemoveImpl());
 		}

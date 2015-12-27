@@ -5,6 +5,7 @@
 	xmlns:res="clr-namespace:VidCoder.Resources"
 	xmlns:vidCoder="clr-namespace:VidCoder"
 	xmlns:view="clr-namespace:VidCoder.View"
+	xmlns:model="clr-namespace:VidCoderCommon.Model;assembly=VidCoderCommon"
 	Title="{Binding WindowTitle}"
 	Width="700"
 	Height="467"
@@ -277,7 +278,7 @@
 						VerticalAlignment="Top"
 						IsChecked="{Binding PreferredExtension,
 						                    Converter={StaticResource EnumBoolConverter},
-						                    ConverterParameter=Mp4}"
+						                    ConverterParameter={x:Static model:VCOutputExtension.Mp4}}"
 						Visibility="{Binding ShowMp4Choices,
 						                     Converter={StaticResource VisibilityConverter}}">
 						.mp4
@@ -289,7 +290,7 @@
 						VerticalAlignment="Top"
 						IsChecked="{Binding PreferredExtension,
 						                    Converter={StaticResource EnumBoolConverter},
-						                    ConverterParameter=M4v}"
+						                    ConverterParameter={x:Static model:VCOutputExtension.M4v}}"
 						Visibility="{Binding ShowMp4Choices,
 						                     Converter={StaticResource VisibilityConverter}}">
 						.m4v

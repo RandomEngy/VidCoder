@@ -2,11 +2,8 @@
 {
     public enum VCDenoise
     {
-        Off,
-        hqdn3d,
-        NLMeans,
-
-		// This is obsolete but we cannot mark it as such
-        NlMeans,
+        Off = 0,
+        hqdn3d = 1,
+        NLMeans = 2,
     }
 }

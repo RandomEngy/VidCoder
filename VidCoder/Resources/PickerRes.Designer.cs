@@ -61,6 +61,60 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Language.
+        /// </summary>
+        public static string AddLanguageButton {
+            get {
+                return ResourceManager.GetString("AddLanguageButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include all subtitles..
+        /// </summary>
+        public static string AllSubtitlesToolTip {
+            get {
+                return ResourceManager.GetString("AllSubtitlesToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All tracks for these languages.
+        /// </summary>
+        public static string AllTracksForTheseLanguagesRadioButton {
+            get {
+                return ResourceManager.GetString("AllTracksForTheseLanguagesRadioButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All tracks for this language.
+        /// </summary>
+        public static string AllTracksForThisLanguageRadioButton {
+            get {
+                return ResourceManager.GetString("AllTracksForThisLanguageRadioButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include all audio tracks..
+        /// </summary>
+        public static string AudioAllToolTip {
+            get {
+                return ResourceManager.GetString("AudioAllToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include only the first audio track..
+        /// </summary>
+        public static string AudioFirstToolTip {
+            get {
+                return ResourceManager.GetString("AudioFirstToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Audio selection.
         /// </summary>
         public static string AudioSelection {
@@ -115,6 +169,33 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mark first as default.
+        /// </summary>
+        public static string FirstAsDefaultCheckBox {
+            get {
+                return ResourceManager.GetString("FirstAsDefaultCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First track of each language.
+        /// </summary>
+        public static string FirstTrackOfEachLanguageRadioButton {
+            get {
+                return ResourceManager.GetString("FirstTrackOfEachLanguageRadioButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First track.
+        /// </summary>
+        public static string FirstTrackRadioButton {
+            get {
+                return ResourceManager.GetString("FirstTrackRadioButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Foreign Audio Search.
         /// </summary>
         public static string ForeignAudioSearchRadioButton {
@@ -124,20 +205,29 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Include all tracks.
+        ///   Looks up a localized string similar to All tracks.
         /// </summary>
-        public static string IncludeAllTracksCheckBox {
+        public static string IncludeAllTracksRadioButton {
             get {
-                return ResourceManager.GetString("IncludeAllTracksCheckBox", resourceCulture);
+                return ResourceManager.GetString("IncludeAllTracksRadioButton", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Language:.
+        ///   Looks up a localized string similar to Language(s).
         /// </summary>
-        public static string LanguageRadioButton {
+        public static string LanguagesRadioButton {
             get {
-                return ResourceManager.GetString("LanguageRadioButton", resourceCulture);
+                return ResourceManager.GetString("LanguagesRadioButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark the first subtitle track as default, so it shows up automatically when playing the video..
+        /// </summary>
+        public static string MultipleSubtitleDefaultToolTip {
+            get {
+                return ResourceManager.GetString("MultipleSubtitleDefaultToolTip", resourceCulture);
             }
         }
         
@@ -223,6 +313,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use preset:.
+        /// </summary>
+        public static string PresetLabel {
+            get {
+                return ResourceManager.GetString("PresetLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This will override any preset picked in the main window..
         /// </summary>
         public static string PresetOverrideToolTip {
@@ -232,11 +331,56 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove this language..
+        /// </summary>
+        public static string RemoveLanguageToolTip {
+            get {
+                return ResourceManager.GetString("RemoveLanguageToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send file to:.
         /// </summary>
         public static string SendFileToLabel {
             get {
                 return ResourceManager.GetString("SendFileToLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark the subtitle track as default, so it will show up automatically when playing the video..
+        /// </summary>
+        public static string SingleSubtitleDefaultToolTip {
+            get {
+                return ResourceManager.GetString("SingleSubtitleDefaultToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort language(s) to top:.
+        /// </summary>
+        public static string SortLanguagesLabel {
+            get {
+                return ResourceManager.GetString("SortLanguagesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include only the first subtitle..
+        /// </summary>
+        public static string SubtitleFirstToolTip {
+            get {
+                return ResourceManager.GetString("SubtitleFirstToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No subtitles are included..
+        /// </summary>
+        public static string SubtitleNoneToolTip {
+            get {
+                return ResourceManager.GetString("SubtitleNoneToolTip", resourceCulture);
             }
         }
         

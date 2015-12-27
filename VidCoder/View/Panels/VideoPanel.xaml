@@ -233,7 +233,7 @@
                             GroupName="VideoQuality"
                             IsChecked="{Binding VideoEncodeRateType,
                                                 Converter={StaticResource EnumBoolConverter},
-                                                ConverterParameter=TargetSize}" />
+                                                ConverterParameter={x:Static model:VCVideoEncodeRateType.TargetSize}}" />
                         <controls:NumberBox
                             Grid.Row="0"
                             Grid.Column="1"
@@ -245,14 +245,14 @@
                             AllowEmpty="False"
                             IsEnabled="{Binding VideoEncodeRateType,
                                                 Converter={StaticResource EnumBoolConverter},
-                                                ConverterParameter=TargetSize}"
+                                                ConverterParameter={x:Static model:VCVideoEncodeRateType.TargetSize}}"
                             Minimum="0"
                             Number="{Binding TargetSize,
                                              Mode=TwoWay}"
                             ShowIncrementButtons="False"
                             Visibility="{Binding VideoEncodeRateType,
                                                  Converter={StaticResource EnumVisibilityInverseConverter},
-                                                 ConverterParameter=ConstantQuality}" />
+                                                 ConverterParameter={x:Static model:VCVideoEncodeRateType.ConstantQuality}}" />
 
                         <RadioButton
                             Grid.Row="1"
@@ -264,7 +264,7 @@
                             GroupName="VideoQuality"
                             IsChecked="{Binding VideoEncodeRateType,
                                                 Converter={StaticResource EnumBoolConverter},
-                                                ConverterParameter=AverageBitrate}" />
+                                                ConverterParameter={x:Static model:VCVideoEncodeRateType.AverageBitrate}}" />
                         <controls:NumberBox
                             Grid.Row="1"
                             Grid.Column="1"
@@ -276,14 +276,14 @@
                             AllowEmpty="False"
                             IsEnabled="{Binding VideoEncodeRateType,
                                                 Converter={StaticResource EnumBoolConverter},
-                                                ConverterParameter=AverageBitrate}"
+                                                ConverterParameter={x:Static model:VCVideoEncodeRateType.AverageBitrate}}"
                             Minimum="100"
                             Number="{Binding VideoBitrate,
                                              Mode=TwoWay}"
                             ShowIncrementButtons="False"
                             Visibility="{Binding VideoEncodeRateType,
                                                  Converter={StaticResource EnumVisibilityInverseConverter},
-                                                 ConverterParameter=ConstantQuality}" />
+                                                 ConverterParameter={x:Static model:VCVideoEncodeRateType.ConstantQuality}}" />
 
                         <RadioButton
                             Grid.Row="2"
@@ -295,7 +295,7 @@
                             GroupName="VideoQuality"
                             IsChecked="{Binding VideoEncodeRateType,
                                                 Converter={StaticResource EnumBoolConverter},
-                                                ConverterParameter=ConstantQuality}">
+                                                ConverterParameter={x:Static model:VCVideoEncodeRateType.ConstantQuality}}">
                             <RadioButton.ToolTip>
                                 <TextBlock Style="{StaticResource LargeToolTip}" Text="{x:Static res:EncodingRes.Video_QualityTargetToolTip}" />
                             </RadioButton.ToolTip>
@@ -333,7 +333,7 @@
                         IsEnabled="{Binding TwoPassEnabled}"
                         Visibility="{Binding VideoEncodeRateType,
                                              Converter={StaticResource EnumVisibilityInverseConverter},
-                                             ConverterParameter=ConstantQuality}" />
+                                             ConverterParameter={x:Static model:VCVideoEncodeRateType.ConstantQuality}}" />
                     <CheckBox
                         Grid.Column="1"
                         Margin="36 26 0 0"
