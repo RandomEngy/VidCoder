@@ -2,6 +2,7 @@ Installer/BuiltInstallers/*
 Flags/*
 packages/*
 ResourcesImport/*
+.vs
 *.pdn
 */bin/*
 */obj/*
