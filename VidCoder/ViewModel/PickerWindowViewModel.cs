@@ -403,8 +403,6 @@ namespace VidCoder.ViewModel
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageCodes));
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageOnlyIfDifferent));
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageAll));
-			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageBurnIn));
-			this.RegisterPickerProperty(nameof(this.Picker.SubtitleLanguageDefault));
 			this.RegisterPickerProperty(nameof(this.Picker.SubtitleDefault), () =>
 			{
 				if (!this.HasMultipleSubtitleLanguages && this.SubtitleDefault && this.SubtitleBurnIn)
@@ -544,12 +542,6 @@ namespace VidCoder.ViewModel
 			set { this.UpdatePickerProperty(nameof(this.Picker.AudioSelectionMode), value); }
 		}
 
-		public string AudioLanguageCode
-		{
-			get { return this.Picker.AudioLanguageCode; }
-			set { this.UpdatePickerProperty(nameof(this.Picker.AudioLanguageCode), value); }
-		}
-
 		public ReactiveList<LanguageViewModel> AudioLanguages { get; } = new ReactiveList<LanguageViewModel>();
 
 		private ObservableAsPropertyHelper<bool> hasMultipleAudioLanguages;
@@ -574,12 +566,6 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.Picker.SubtitleSelectionMode; }
 			set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleSelectionMode), value); }
-		}
-
-		public string SubtitleLanguageCode
-		{
-			get { return this.Picker.SubtitleLanguageCode; }
-			set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleLanguageCode), value); }
 		}
 
 		public ReactiveList<LanguageViewModel> SubtitleLanguages { get; } = new ReactiveList<LanguageViewModel>();
