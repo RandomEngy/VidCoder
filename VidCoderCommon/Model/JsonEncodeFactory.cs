@@ -563,7 +563,7 @@ namespace VidCoderCommon.Model
 					subtitles.Search.Enable = true;
 					subtitles.Search.Burn = sourceSubtitle.BurnedIn;
 					subtitles.Search.Default = sourceSubtitle.Default;
-					subtitles.Search.Forced = sourceSubtitle.Forced;
+					subtitles.Search.Forced = sourceSubtitle.ForcedOnly;
 				}
 				else
 				{
@@ -571,7 +571,7 @@ namespace VidCoderCommon.Model
 					{
 						Burn = sourceSubtitle.BurnedIn,
 						Default = sourceSubtitle.Default,
-						Forced = sourceSubtitle.Forced,
+						Forced = sourceSubtitle.ForcedOnly,
 						ID = sourceSubtitle.TrackNumber,
 						Track = (sourceSubtitle.TrackNumber - 1)
 					};

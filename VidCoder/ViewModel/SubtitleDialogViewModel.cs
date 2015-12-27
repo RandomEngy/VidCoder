@@ -41,7 +41,7 @@ namespace VidCoder.ViewModel
 								{
 									TrackNumber = 0,
 									BurnedIn = false,
-									Forced = false,
+									ForcedOnly = false,
 									Default = false
 								}));
 				}
@@ -66,7 +66,7 @@ namespace VidCoder.ViewModel
 					{
 						TrackNumber = i,
 						Default = false,
-						Forced = false,
+						ForcedOnly = false,
 						BurnedIn = false
 					};
 
@@ -222,7 +222,7 @@ namespace VidCoder.ViewModel
 					{
 						BurnedIn = false,
 						Default = false,
-						Forced = !sourceSubtitleViewModel.ForcedOnly,
+						ForcedOnly = !sourceSubtitleViewModel.ForcedOnly,
 						TrackNumber = sourceSubtitleViewModel.TrackNumber
 					});
 			newSubtitle.Selected = true;

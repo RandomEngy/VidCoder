@@ -159,12 +159,12 @@ namespace VidCoder.ViewModel
 					return false;
 				}
 
-				return this.subtitle.Forced;
+				return this.subtitle.ForcedOnly;
 			}
 
 			set
 			{
-				this.subtitle.Forced = value;
+				this.subtitle.ForcedOnly = value;
 				this.RaisePropertyChanged();
 			}
 		}
