@@ -912,7 +912,11 @@ namespace VidCoder.ViewModel
 					this.RaisePropertyChanged(nameof(this.SelectedEndChapter));
 
 					this.SetRangeTimeStart(TimeSpan.Zero);
-					this.SetRangeTimeEnd(this.selectedTitle.Duration.ToSpan());
+
+					TimeSpan titleDuration = this.selectedTitle.Duration.ToSpan();
+					this.timeRangeEndBar = titleDuration;
+					this.timeRangeEnd = TimeSpan.FromSeconds(Math.Floor(titleDuration.TotalSeconds));
+					//this.SetRangeTimeEnd(this.selectedTitle.Duration.ToSpan());
 					this.RaisePropertyChanged(nameof(this.TimeRangeStart));
 					this.RaisePropertyChanged(nameof(this.TimeRangeStartBar));
 					this.RaisePropertyChanged(nameof(this.TimeRangeEnd));
@@ -1820,8 +1824,12 @@ namespace VidCoder.ViewModel
 					case VideoRangeType.Seconds:
 						TimeSpan timeRangeStart = this.TimeRangeStart;
 						TimeSpan timeRangeEnd = this.TimeRangeEnd;
+						TimeSpan titleDuration = this.SelectedTitle.Duration.ToSpan();
 
-						if (timeRangeStart == TimeSpan.Zero && timeRangeEnd == this.SelectedTitle.Duration.ToSpan())
+						// We start the range end on a whole second value so if it's within 1 second of the title duration, count it as being exactly at the end.
+						bool rangeAtEnd = timeRangeEnd == titleDuration || (titleDuration - timeRangeEnd < TimeSpan.FromSeconds(1) && timeRangeEnd.Milliseconds == 0);
+
+						if (timeRangeStart == TimeSpan.Zero && rangeAtEnd)
 						{
 							job.RangeType = VideoRangeType.All;
 						}
@@ -1833,7 +1841,7 @@ namespace VidCoder.ViewModel
 							}
 
 							job.SecondsStart = timeRangeStart.TotalSeconds;
-							job.SecondsEnd = timeRangeEnd.TotalSeconds;
+							job.SecondsEnd = rangeAtEnd ? titleDuration.TotalSeconds : timeRangeEnd.TotalSeconds;
 						}
 						break;
 					case VideoRangeType.Frames:

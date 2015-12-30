@@ -247,64 +247,6 @@ namespace VidCoder.Controls
 			}
 		}
 
-		//public static readonly DependencyProperty StartSecondsProperty = DependencyProperty.Register(
-		//	"StartSeconds",
-		//	typeof (double),
-		//	typeof (RangeBar),
-		//	new PropertyMetadata(OnStartSecondsChanged));
-
-		//public double StartSeconds
-		//{
-		//	get
-		//	{
-		//		return (double) GetValue(StartSecondsProperty);
-		//	}
-
-		//	set
-		//	{
-		//		SetValue(StartSecondsProperty, value);
-		//	}
-		//}
-
-		//private static void OnStartSecondsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-		//{
-		//	if (e.NewValue != e.OldValue)
-		//	{
-		//		var chapterBar = d as RangeBar;
-		//		chapterBar.UpdateSeekBarUI();
-		//		chapterBar.UpdateMarkers();
-		//	}
-		//}
-
-		//public static readonly DependencyProperty EndSecondsProperty = DependencyProperty.Register(
-		//	"EndSeconds",
-		//	typeof (double),
-		//	typeof (RangeBar),
-		//	new PropertyMetadata(OnEndSecondsChanged));
-
-		//public double EndSeconds
-		//{
-		//	get
-		//	{
-		//		return (double) GetValue(EndSecondsProperty);
-		//	}
-
-		//	set
-		//	{
-		//		SetValue(EndSecondsProperty, value);
-		//	}
-		//}
-
-		//private static void OnEndSecondsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-		//{
-		//	if (e.NewValue != e.OldValue)
-		//	{
-		//		var chapterBar = d as RangeBar;
-		//		chapterBar.UpdateSeekBarUI();
-		//		chapterBar.UpdateMarkers();
-		//	}
-		//}
-
 		private void UpdateSeekBarUI()
 		{
 			if (this.ChaptersEnabled)
@@ -609,13 +551,10 @@ namespace VidCoder.Controls
 			double rawSeconds = this.totalSeconds * fraction;
 
 			TimeSpan startTime, endTime;
-			//double secondsStart, secondsEnd;
 			if (start)
 			{
 				startTime = TimeSpan.FromSeconds(Math.Round(rawSeconds));
 				endTime = this.EndTime;
-				//secondsStart = Math.Round(rawSeconds);
-				//secondsEnd = this.EndSeconds;
 
 				if (startTime > this.totalDuration - Constants.TimeRangeBuffer)
 				{
@@ -627,32 +566,17 @@ namespace VidCoder.Controls
 					endTime = startTime + Constants.TimeRangeBuffer;
 				}
 
-				if (endTime > this.totalDuration)
+				TimeSpan maxDuration = TimeSpan.FromSeconds(Math.Floor(this.totalDuration.TotalSeconds));
+
+				if (endTime > maxDuration)
 				{
-					endTime = this.totalDuration;
+					endTime = maxDuration;
 				}
-
-				//if (secondsStart > this.totalSeconds - Constants.SecondsRangeBuffer)
-				//{
-				//	secondsStart = this.totalSeconds - Constants.SecondsRangeBuffer;
-				//}
-
-				//if (secondsEnd < secondsStart + Constants.SecondsRangeBuffer)
-				//{
-				//	secondsEnd = secondsStart + Constants.SecondsRangeBuffer;
-				//}
-
-				//if (secondsEnd > this.totalSeconds)
-				//{
-				//	secondsEnd = totalSeconds;
-				//}
 			}
 			else
 			{
 				startTime = this.StartTime;
-				endTime = fraction == 1 ? this.totalDuration : TimeSpan.FromSeconds(Math.Round(rawSeconds));
-				//secondsStart = this.StartSeconds;
-				//secondsEnd = fraction == 1 ? rawSeconds : Math.Round(rawSeconds);
+				endTime = fraction == 1 ? TimeSpan.FromSeconds(Math.Floor(this.totalDuration.TotalSeconds)) : TimeSpan.FromSeconds(Math.Round(rawSeconds));
 
 				if (endTime < Constants.TimeRangeBuffer)
 				{
@@ -668,21 +592,6 @@ namespace VidCoder.Controls
 				{
 					startTime = TimeSpan.Zero;
 				}
-
-				//if (secondsEnd < Constants.SecondsRangeBuffer)
-				//{
-				//	secondsEnd = Constants.SecondsRangeBuffer;
-				//}
-
-				//if (secondsStart > secondsEnd - Constants.SecondsRangeBuffer)
-				//{
-				//	secondsStart = secondsEnd - Constants.SecondsRangeBuffer;
-				//}
-
-				//if (secondsStart < 0)
-				//{
-				//	secondsStart = 0;
-				//}
 			}
 
 			this.StartTime = startTime;

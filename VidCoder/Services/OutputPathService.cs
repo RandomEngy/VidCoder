@@ -664,7 +664,7 @@ namespace VidCoder.Services
 
 						break;
 					case VideoRangeType.Seconds:
-						if (startTime > TimeSpan.Zero || endTime < titleDuration)
+						if (startTime > TimeSpan.Zero || (endTime < titleDuration && (titleDuration - endTime >= TimeSpan.FromSeconds(1) || endTime.Milliseconds != 0)))
 						{
 							rangeSection = " - " + startTime.ToFileName() + "-" + endTime.ToFileName();
 						}
