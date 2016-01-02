@@ -99,9 +99,9 @@ namespace VidCoder.Model
 		public AudioSelectionMode AudioSelectionMode { get; set; } = AudioSelectionMode.Disabled;
 
 		// Applies only with AutoAudioType.Language
-		private IList<string> audioLanguageCodes;
+		private List<string> audioLanguageCodes;
 		[JsonProperty]
-		public IList<string> AudioLanguageCodes
+		public List<string> AudioLanguageCodes
 		{
 			get { return this.audioLanguageCodes; }
 			set { this.RaiseAndSetIfChanged(ref this.audioLanguageCodes, value); }
@@ -115,9 +115,9 @@ namespace VidCoder.Model
 		public SubtitleSelectionMode SubtitleSelectionMode { get; set; } = SubtitleSelectionMode.Disabled;
 
 		// Applies only with AutoSubtitleType.Language
-		private IList<string> subtitleLanguageCodes;
+		private List<string> subtitleLanguageCodes;
 		[JsonProperty]
-		public IList<string> SubtitleLanguageCodes
+		public List<string> SubtitleLanguageCodes
 		{
 			get { return this.subtitleLanguageCodes; }
 			set { this.RaiseAndSetIfChanged(ref this.subtitleLanguageCodes, value); }
