@@ -135,6 +135,10 @@ namespace VidCoder.Model
 			    picker.SubtitleBurnIn = picker.SubtitleLanguageBurnIn;
 			    picker.SubtitleDefault = picker.SubtitleLanguageDefault;
 		    }
+		    else if (picker.SubtitleSelectionMode == SubtitleSelectionMode.All)
+		    {
+			    picker.SubtitleLanguageCodes = new List<string>();
+		    }
 
 		    if (picker.SubtitleSelectionMode == SubtitleSelectionMode.ForeignAudioSearch)
 		    {

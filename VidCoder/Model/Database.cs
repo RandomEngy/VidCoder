@@ -145,15 +145,14 @@ namespace VidCoder.Model
 
 		private static void UpgradeDatabaseTo27()
 		{
-			ExecuteNonQuery("CREATE TABLE pickersXml (" +
-			                "xml TEXT)", connection);
+			ExecuteNonQuery("CREATE TABLE pickersJson (json TEXT)", connection);
 
 			Config.EnsureInitialized(connection);
 
 			// If the user has chosen some auto audio or subtitle picker options, migrate them to a new picker
 			if (CustomConfig.AutoAudio != AudioSelectionMode.Disabled || CustomConfig.AutoSubtitle != SubtitleSelectionMode.Disabled)
 			{
-				using (var pickerInsertCommand = new SQLiteCommand("INSERT INTO pickersXml (xml) VALUES (?)", connection))
+				using (var pickerInsertCommand = new SQLiteCommand("INSERT INTO pickersJson(json) VALUES (?)", connection))
 				{
 					var pickerParameter = new SQLiteParameter();
 					pickerInsertCommand.Parameters.Add(pickerParameter);
@@ -214,28 +213,31 @@ namespace VidCoder.Model
 			ExecuteNonQuery("DROP TABLE presetsXml", connection);
 
 			// Pickers
-			ExecuteNonQuery("CREATE TABLE pickersJson (json TEXT)", connection);
-
-			var selectPickersCommand = new SQLiteCommand("SELECT * FROM pickersXml", connection);
-
-			using (SQLiteDataReader reader = selectPickersCommand.ExecuteReader())
-			using (var pickerInsertCommand = new SQLiteCommand("INSERT INTO pickersJson(json) VALUES (?)", connection))
+			if (oldDatabaseVersion >= 27)
 			{
-				var pickerParameter = new SQLiteParameter();
-				pickerInsertCommand.Parameters.Add(pickerParameter);
+				ExecuteNonQuery("CREATE TABLE pickersJson (json TEXT)", connection);
 
-				XmlSerializer pickerSerializer = new XmlSerializer(typeof(Picker));
-				while (reader.Read())
+				var selectPickersCommand = new SQLiteCommand("SELECT * FROM pickersXml", connection);
+
+				using (SQLiteDataReader reader = selectPickersCommand.ExecuteReader())
+				using (var pickerInsertCommand = new SQLiteCommand("INSERT INTO pickersJson(json) VALUES (?)", connection))
 				{
-					string pickerXml = reader.GetString("xml");
-					var picker = PickerStorage.ParsePickerXml(pickerXml, pickerSerializer);
+					var pickerParameter = new SQLiteParameter();
+					pickerInsertCommand.Parameters.Add(pickerParameter);
 
-					pickerParameter.Value = PickerStorage.SerializePicker(picker);
-					pickerInsertCommand.ExecuteNonQuery();
+					XmlSerializer pickerSerializer = new XmlSerializer(typeof(Picker));
+					while (reader.Read())
+					{
+						string pickerXml = reader.GetString("xml");
+						var picker = PickerStorage.ParsePickerXml(pickerXml, pickerSerializer);
+
+						pickerParameter.Value = PickerStorage.SerializePicker(picker);
+						pickerInsertCommand.ExecuteNonQuery();
+					}
 				}
-			}
 
-			ExecuteNonQuery("DROP TABLE pickersXml", connection);
+				ExecuteNonQuery("DROP TABLE pickersXml", connection);
+			}
 
 			// Saved jobs on queue
 			string xmlEncodeJobs = Config.EncodeJobs2;
