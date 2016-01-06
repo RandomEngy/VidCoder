@@ -1417,6 +1417,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} other titles have a duration close to this one..
+        /// </summary>
+        public static string SimilarTitlesToolTip {
+            get {
+                return ResourceManager.GetString("SimilarTitlesToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Source:.
         /// </summary>
         public static string SourceLabel {

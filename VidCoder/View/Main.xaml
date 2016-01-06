@@ -771,6 +771,16 @@
 										</DataTemplate>
 									</ComboBox.ItemTemplate>
 								</ComboBox>
+
+								<Image
+									Height="18"
+									Visibility="{Binding TitleWarningVisible, Converter={StaticResource VisibilityConverter}}"
+									Margin="6 0 0 0"
+									VerticalAlignment="Center"
+									Source="/Icons/warning.png"
+									ToolTip="{Binding TitleWarning}"
+									ToolTipService.InitialShowDelay="0" />
+
 								<Polygon Style="{StaticResource ArrowSeparator}" />
 							</StackPanel>
 

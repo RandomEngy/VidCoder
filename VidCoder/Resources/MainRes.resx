@@ -644,4 +644,7 @@
     <value>preset</value>
     <comment>Will be inserted into sentences that refer to a preset</comment>
   </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} other titles have a duration close to this one.</value>
+  </data>
 </root>

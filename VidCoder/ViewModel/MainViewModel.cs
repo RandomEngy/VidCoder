@@ -75,8 +75,7 @@ namespace VidCoder.ViewModel
 				}).ToProperty(this, x => x.HasVideoSource, out this.hasVideoSource);
 
 			// Titles
-			this
-				.WhenAnyValue(x => x.SourceData)
+			this.WhenAnyValue(x => x.SourceData)
 				.Select(sourceData =>
 				{
 					return sourceData?.Titles;
@@ -87,6 +86,45 @@ namespace VidCoder.ViewModel
 			{
 				return hasVideoSource && sourceData != null && sourceData.Titles.Count > 1;
 			}).ToProperty(this, x => x.TitleVisible, out this.titleVisible);
+
+			IObservable<int> similarTitlesObservable = this.WhenAnyValue(x => x.Titles, x => x.SelectedTitle, (titles, selectedTitle) =>
+			{
+				if (titles == null || selectedTitle == null)
+				{
+					return 0;
+				}
+
+				int similarTitles = 0;
+
+				TimeSpan duration = selectedTitle.Duration.ToSpan();
+				foreach (var title in titles)
+				{
+					if (title == selectedTitle)
+					{
+						continue;
+					}
+
+					TimeSpan difference = duration - title.Duration.ToSpan();
+					if (Math.Abs(difference.TotalMinutes) <= 5)
+					{
+						similarTitles++;
+					}
+				}
+
+				return similarTitles;
+			});
+
+			// TitleWarning
+			similarTitlesObservable.Select(similarTitles =>
+			{
+				return string.Format(MainRes.SimilarTitlesToolTip, similarTitles);
+			}).ToProperty(this, x => x.TitleWarning, out this.titleWarning);
+
+			// TitleWarningVisible
+			similarTitlesObservable.Select(similarTitles =>
+			{
+				return similarTitles > 12;
+			}).ToProperty(this, x => x.TitleWarningVisible, out this.titleWarningVisible);
 
 			// SubtitlesSummary
 			this.WhenAnyValue(x => x.VideoSourceState, x => x.CurrentSubtitles, x => x.SelectedTitle, (videoSourceState, currentSubtitles, selectedTitle) =>
@@ -964,6 +1002,12 @@ namespace VidCoder.ViewModel
 				this.RefreshRangePreview();
 			}
 		}
+
+		private ObservableAsPropertyHelper<bool> titleWarningVisible;
+		public bool TitleWarningVisible => this.titleWarningVisible.Value;
+
+		private ObservableAsPropertyHelper<string> titleWarning;
+		public string TitleWarning => this.titleWarning.Value;
 
 		public List<int> Angles
 		{
