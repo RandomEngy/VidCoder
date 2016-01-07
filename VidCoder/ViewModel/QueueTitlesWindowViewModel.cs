@@ -220,11 +220,29 @@ namespace VidCoder.ViewModel
 		{
 			this.DialogResult = true;
 
+			string nameOverrideLocal;
+			if (this.NameOverrideEnabled)
+			{
+				nameOverrideLocal = this.NameOverride;
+			}
+			else
+			{
+				var picker = this.PickersService.SelectedPicker.Picker;
+				if (picker.NameFormatOverrideEnabled)
+				{
+					nameOverrideLocal = picker.NameFormatOverride;
+				}
+				else
+				{
+					nameOverrideLocal = null;
+				}
+			}
+
 			var processingService = Ioc.Get<ProcessingService>();
 			processingService.QueueTitles(
 				this.CheckedTitles,
 				this.TitleStartOverrideEnabled ? this.TitleStartOverride : -1,
-				this.NameOverrideEnabled ? this.NameOverride : null);
+				nameOverrideLocal);
 
 			this.windowManager.Close(this);
 		}
