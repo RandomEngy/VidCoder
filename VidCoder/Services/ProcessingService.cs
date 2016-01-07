@@ -1521,6 +1521,7 @@ namespace VidCoder.Services
 
 						EncodeCompleteActionType actionType = this.EncodeCompleteAction.ActionType;
 						if (Config.PlaySoundOnCompletion &&
+							actionType != EncodeCompleteActionType.CloseProgram && 
 							actionType != EncodeCompleteActionType.Sleep && 
 							actionType != EncodeCompleteActionType.LogOff &&
 							actionType != EncodeCompleteActionType.Shutdown &&
@@ -1562,6 +1563,9 @@ namespace VidCoder.Services
 								break;
 							case EncodeCompleteActionType.EjectDisc:
 								this.systemOperations.Eject(this.EncodeCompleteAction.DriveLetter);
+								break;
+							case EncodeCompleteActionType.CloseProgram:
+								this.windowManager.Close(this.main);
 								break;
 							case EncodeCompleteActionType.Sleep:
 							case EncodeCompleteActionType.LogOff:
@@ -1650,6 +1654,7 @@ namespace VidCoder.Services
 				new List<EncodeCompleteAction>
 				{
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.DoNothing },
+					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.CloseProgram },
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Sleep },
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.LogOff },
 					new EncodeCompleteAction { ActionType = EncodeCompleteActionType.Hibernate },

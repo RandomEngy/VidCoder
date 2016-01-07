@@ -259,6 +259,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close VidCoder.
+        /// </summary>
+        public static string EncodeCompleteActionType_CloseProgram {
+            get {
+                return ResourceManager.GetString("EncodeCompleteActionType_CloseProgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do nothing.
         /// </summary>
         public static string EncodeCompleteActionType_DoNothing {
