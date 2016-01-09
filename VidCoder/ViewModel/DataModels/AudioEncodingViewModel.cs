@@ -348,22 +348,6 @@ namespace VidCoder.ViewModel
 					audioEncoder.Encoder.CompressionLimits.High);
 			}).ToProperty(this, x => x.AudioCompressionToolTip, out this.audioCompressionToolTip);
 
-			// AutoPassthroughSettingsVisible
-			this.WhenAnyValue(x => x.SelectedAudioEncoder, x => x.SelectedPassthrough, (audioEncoder, passthrough) =>
-			{
-				if (audioEncoder == null)
-				{
-					return false;
-				}
-
-				if (passthrough == null)
-				{
-					return false;
-				}
-
-				return GetHBAudioEncoder(audioEncoder, passthrough).ShortName == "copy";
-			}).ToProperty(this, x => x.AutoPassthroughSettingsVisible, out this.autoPassthroughSettingsVisible);
-
 			// PassthroughChoicesVisible
 			this.WhenAnyValue(x => x.SelectedAudioEncoder, audioEncoder =>
 			{
@@ -620,9 +604,6 @@ namespace VidCoder.ViewModel
 
 		private ObservableAsPropertyHelper<bool> passthroughChoicesVisible;
 		public bool PassthroughChoicesVisible => this.passthroughChoicesVisible.Value;
-
-		private ObservableAsPropertyHelper<bool> autoPassthroughSettingsVisible;
-		public bool AutoPassthroughSettingsVisible => this.autoPassthroughSettingsVisible.Value;
 
 		private AudioEncodeRateType encodeRateType;
 		public AudioEncodeRateType EncodeRateType

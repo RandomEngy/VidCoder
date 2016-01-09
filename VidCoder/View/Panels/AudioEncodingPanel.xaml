@@ -231,7 +231,7 @@
                                                     ConverterParameter={x:Static model:AudioEncodeRateType.Bitrate}}" />
                         </Grid>
 
-                        <ComboBox
+						<ComboBox
                             Grid.Row="0"
                             Grid.Column="1"
                             MinWidth="45"
@@ -242,34 +242,7 @@
                             Visibility="{Binding BitrateVisible,
                                                  Converter={StaticResource VisibilityConverter}}" />
 
-                        <!--  Auto-passthrough fallback  -->
-                        <StackPanel
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Margin="0 0 0 4"
-                            Orientation="Horizontal"
-                            Visibility="{Binding AutoPassthroughSettingsVisible,
-                                                 Converter={StaticResource VisibilityConverter}}">
-                            <TextBlock
-                                Style="{StaticResource AudioLabelLeft}"
-                                Text="{x:Static res:EncodingRes.AutoPassthroughFallbackLabel}"
-                                ToolTipService.ShowDuration="20000">
-                                <TextBlock.ToolTip>
-                                    <TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.AutoPassthroughFallbackToolTip}" />
-                                </TextBlock.ToolTip>
-                            </TextBlock>
-                            <ComboBox
-                                MinWidth="110"
-                                ItemsSource="{Binding AudioPanelVM.FallbackEncoderChoices}"
-                                SelectedItem="{Binding AudioPanelVM.SelectedFallbackEncoder}"
-                                ToolTipService.ShowDuration="20000">
-                                <ComboBox.ToolTip>
-                                    <TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.AutoPassthroughFallbackToolTip}" />
-                                </ComboBox.ToolTip>
-                            </ComboBox>
-                        </StackPanel>
-
-                        <!--  Audio quality  -->
+						<!--  Audio quality  -->
                         <Grid
                             Grid.Row="1"
                             Grid.Column="0"

@@ -1539,6 +1539,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Passthrough Settings.
+        /// </summary>
+        public static string PassthroughSettingsLabel {
+            get {
+                return ResourceManager.GetString("PassthroughSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pixel Aspect Ratio:.
         /// </summary>
         public static string PixelAspectRatioLabel {

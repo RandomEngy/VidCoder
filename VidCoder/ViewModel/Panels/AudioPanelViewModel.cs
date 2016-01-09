@@ -23,17 +23,20 @@ namespace VidCoder.ViewModel
 		private ReactiveList<AudioOutputPreview> audioOutputPreviews;
 
 		private List<AudioEncoderViewModel> fallbackEncoderChoices;
-		private AudioEncoderViewModel selectedFallbackEncoder;
+		private AudioEncoderViewModel audioEncoderFallback;
 
 		private MainViewModel main = Ioc.Get<MainViewModel>();
 
 		private PresetsService presetsService = Ioc.Get<PresetsService>();
+
+		private bool userUpdatingFallbackEncoder;
 
 		public AudioPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)
 		{
 			this.audioOutputPreviews = new ReactiveList<AudioOutputPreview>();
 			this.audioEncodings = new ReactiveList<AudioEncodingViewModel>();
+			this.audioEncodings.ChangeTrackingEnabled = true;
 
 			this.fallbackEncoderChoices = new List<AudioEncoderViewModel>();
 
@@ -72,6 +75,30 @@ namespace VidCoder.ViewModel
 					this.OnProfileChanged();
 				}));
 
+			// AutoPassthroughSettingsVisible
+			AudioEncodingViewModel audioEncodingViewModel;
+			this.audioEncodings.ItemChanged
+				.Where(x => x.PropertyName == nameof(audioEncodingViewModel.SelectedAudioEncoder) || x.PropertyName == nameof(audioEncodingViewModel.SelectedPassthrough))
+				.Subscribe(_ =>
+				{
+					this.RaisePropertyChanged(nameof(this.AutoPassthroughSettingsVisible));
+				});
+			this.audioEncodings.Changed
+				.Subscribe(_ =>
+				{
+					this.RaisePropertyChanged(nameof(this.AutoPassthroughSettingsVisible));
+				});
+
+			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.AudioEncoderFallback)
+				.Subscribe(audioEncoderFallback =>
+				{
+					if (!this.userUpdatingFallbackEncoder)
+					{
+						this.audioEncoderFallback = this.fallbackEncoderChoices.First(c => c.Encoder.ShortName == audioEncoderFallback);
+						this.RaisePropertyChanged(nameof(this.AudioEncoderFallback));
+					}
+				});
+
 			this.RegisterProfileProperties();
 		}
 
@@ -107,11 +134,11 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public AudioEncoderViewModel SelectedFallbackEncoder
+		public AudioEncoderViewModel AudioEncoderFallback
 		{
 			get
 			{
-				return this.selectedFallbackEncoder;
+				return this.audioEncoderFallback;
 			}
 
 			set
@@ -121,10 +148,20 @@ namespace VidCoder.ViewModel
 					return;
 				}
 
-				this.selectedFallbackEncoder = value;
-				this.UpdateProfileProperty(nameof(this.Profile.AudioEncoderFallback), this.selectedFallbackEncoder.Encoder.ShortName, raisePropertyChanged: false);
+				this.userUpdatingFallbackEncoder = true;
+				this.audioEncoderFallback = value;
+				this.UpdateProfileProperty(nameof(this.Profile.AudioEncoderFallback), this.audioEncoderFallback.Encoder.ShortName, raisePropertyChanged: false);
 				this.RaisePropertyChanged();
 				this.RefreshAudioPreview();
+				this.userUpdatingFallbackEncoder = false;
+			}
+		}
+
+		public bool AutoPassthroughSettingsVisible
+		{
+			get
+			{
+				return this.audioEncodings.Any(a => a.SelectedAudioEncoder.IsPassthrough && a.SelectedPassthrough == "copy");
 			}
 		}
 
@@ -173,9 +210,9 @@ namespace VidCoder.ViewModel
 
 			HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.EncodingWindowViewModel.Profile.ContainerName);
 			HBAudioEncoder oldEncoder = null;
-			if (this.selectedFallbackEncoder != null)
+			if (this.audioEncoderFallback != null)
 			{
-				oldEncoder = this.selectedFallbackEncoder.Encoder;
+				oldEncoder = this.audioEncoderFallback.Encoder;
 			}
 
 			this.fallbackEncoderChoices = new List<AudioEncoderViewModel>();
@@ -190,14 +227,14 @@ namespace VidCoder.ViewModel
 
 			this.RaisePropertyChanged(nameof(this.FallbackEncoderChoices));
 
-			this.selectedFallbackEncoder = this.FallbackEncoderChoices.FirstOrDefault(e => e.Encoder == oldEncoder);
+			this.audioEncoderFallback = this.FallbackEncoderChoices.FirstOrDefault(e => e.Encoder == oldEncoder);
 
-			if (this.selectedFallbackEncoder == null)
+			if (this.audioEncoderFallback == null)
 			{
-				this.selectedFallbackEncoder = this.FallbackEncoderChoices[0];
+				this.audioEncoderFallback = this.FallbackEncoderChoices[0];
 			}
 
-			this.RaisePropertyChanged(nameof(this.SelectedFallbackEncoder));
+			this.RaisePropertyChanged(nameof(this.AudioEncoderFallback));
 		}
 
 		public void RefreshAudioPreview()
@@ -262,11 +299,6 @@ namespace VidCoder.ViewModel
 						});
 					}
 				}
-
-				//this.AudioOutputPreviews.SuppressChangeNotifications();
-
-
-				//this.AudioOutputPreviews.Reset();
 			}
 		}
 
@@ -402,10 +434,10 @@ namespace VidCoder.ViewModel
 			this.RefreshAudioPreview();
 			this.RefreshFallbackEncoderChoices();
 
-			this.selectedFallbackEncoder = this.FallbackEncoderChoices.SingleOrDefault(e => e.Encoder.ShortName == this.Profile.AudioEncoderFallback);
-			if (this.selectedFallbackEncoder == null)
+			this.audioEncoderFallback = this.FallbackEncoderChoices.SingleOrDefault(e => e.Encoder.ShortName == this.Profile.AudioEncoderFallback);
+			if (this.audioEncoderFallback == null)
 			{
-				this.selectedFallbackEncoder = this.FallbackEncoderChoices[0];
+				this.audioEncoderFallback = this.FallbackEncoderChoices[0];
 			}
 		}
 

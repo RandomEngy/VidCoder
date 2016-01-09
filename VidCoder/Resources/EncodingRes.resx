@@ -1011,4 +1011,7 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>Passthrough Settings</value>
+  </data>
 </root>
