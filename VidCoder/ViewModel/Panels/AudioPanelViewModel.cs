@@ -97,7 +97,12 @@ namespace VidCoder.ViewModel
 				{
 					if (!this.userUpdatingFallbackEncoder)
 					{
-						this.audioEncoderFallback = this.fallbackEncoderChoices.First(c => c.Encoder.ShortName == audioEncoderFallback);
+						this.audioEncoderFallback = this.fallbackEncoderChoices.FirstOrDefault(c => c.Encoder.ShortName == audioEncoderFallback);
+						if (this.audioEncoderFallback == null)
+						{
+							this.audioEncoderFallback = this.fallbackEncoderChoices[0];
+						}
+
 						this.RaisePropertyChanged(nameof(this.AudioEncoderFallback));
 					}
 				});
@@ -431,11 +436,6 @@ namespace VidCoder.ViewModel
 				{
 					return outputPreviewTrack;
 				}
-
-				//if (HandBrakeEncoderHelpers.AudioEncoderIsCompatible(inputTrack.Codec, encoder))
-				//{
-				//	return outputPreviewTrack;
-				//}
 
 				if (this.Profile.AudioEncoderFallback == null)
 				{
