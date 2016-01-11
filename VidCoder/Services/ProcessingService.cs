@@ -1565,7 +1565,10 @@ namespace VidCoder.Services
 								this.systemOperations.Eject(this.EncodeCompleteAction.DriveLetter);
 								break;
 							case EncodeCompleteActionType.CloseProgram:
-								this.windowManager.Close(this.main);
+								if (this.CompletedJobs.All(job => job.EncodeResult.Succeeded))
+								{
+									this.windowManager.Close(this.main);
+								}
 								break;
 							case EncodeCompleteActionType.Sleep:
 							case EncodeCompleteActionType.LogOff:
