@@ -341,6 +341,20 @@ namespace VidCoder.Services
 				translatedSourceName = this.TranslateDvdSourceName(this.main.SourceName);
 			}
 
+			string nameFormat = null;
+			if (this.NameFormatOverride != null)
+			{
+				nameFormat = this.NameFormatOverride;
+			}
+			else
+			{
+				var picker = this.pickersService.SelectedPicker.Picker;
+				if (picker.NameFormatOverrideEnabled)
+				{
+					nameFormat = picker.NameFormatOverride;
+				}
+			}
+
 			fileName = this.BuildOutputFileName(
 				this.main.SourcePath,
 				translatedSourceName,
@@ -354,7 +368,7 @@ namespace VidCoder.Services
 				this.main.TimeRangeEnd,
 				this.main.FramesRangeStart,
 				this.main.FramesRangeEnd,
-				this.NameFormatOverride,
+				nameFormat,
 				multipleTitlesOnSource: this.main.ScanInstance.Titles.TitleList.Count > 1,
 				picker: null);
 
