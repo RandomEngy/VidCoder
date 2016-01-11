@@ -1,4 +1,6 @@
-﻿namespace VidCoderCommon.Model
+﻿using System.Collections.Generic;
+
+namespace VidCoderCommon.Model
 {
 	using System;
 

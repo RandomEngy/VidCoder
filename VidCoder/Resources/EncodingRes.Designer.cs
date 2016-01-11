@@ -1449,11 +1449,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Any.
+        ///   Looks up a localized string similar to Auto.
         /// </summary>
-        public static string Passthrough_any {
+        public static string Passthrough_auto {
             get {
-                return ResourceManager.GetString("Passthrough_any", resourceCulture);
+                return ResourceManager.GetString("Passthrough_auto", resourceCulture);
             }
         }
         
@@ -1526,6 +1526,15 @@ namespace VidCoder.Resources {
         public static string PassthroughIfPossibleToolTip {
             get {
                 return ResourceManager.GetString("PassthroughIfPossibleToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow passthrough for:.
+        /// </summary>
+        public static string PassthroughMaskLabel {
+            get {
+                return ResourceManager.GetString("PassthroughMaskLabel", resourceCulture);
             }
         }
         
@@ -1997,15 +2006,6 @@ namespace VidCoder.Resources {
         public static string ScalingAlgorithmLabel {
             get {
                 return ResourceManager.GetString("ScalingAlgorithmLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scope:.
-        /// </summary>
-        public static string ScopeLabel {
-            get {
-                return ResourceManager.GetString("ScopeLabel", resourceCulture);
             }
         }
         

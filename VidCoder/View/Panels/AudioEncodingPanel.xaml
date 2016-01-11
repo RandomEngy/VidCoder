@@ -113,7 +113,7 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         Style="{StaticResource AudioLabel}"
-                        Text="{x:Static res:EncodingRes.ScopeLabel}"
+                        Text="{x:Static res:EncodingRes.TypeLabel}"
                         ToolTipService.ShowDuration="20000"
                         Visibility="{Binding PassthroughChoicesVisible,
                                              Converter={StaticResource VisibilityConverter}}">

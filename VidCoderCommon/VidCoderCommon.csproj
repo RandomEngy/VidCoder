@@ -90,6 +90,7 @@
     <Compile Include="IHandBrakeEncoderCallback.cs" />
     <Compile Include="Model\AudioEncodeRateType.cs" />
     <Compile Include="Model\AudioEncoding.cs" />
+    <Compile Include="Model\CopyMaskChoice.cs" />
     <Compile Include="Model\JsonEncodeFactory.cs" />
     <Compile Include="Model\Preset.cs" />
     <Compile Include="Model\SourceSubtitle.cs" />

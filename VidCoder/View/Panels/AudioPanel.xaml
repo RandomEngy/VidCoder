@@ -59,21 +59,43 @@
 					                     Converter={StaticResource VisibilityConverter}}">
 					<TextBlock Style="{StaticResource SectionHeader}" Text="{x:Static res:EncodingRes.PassthroughSettingsLabel}" />
 
-					<StackPanel Margin="20 4 0 0" Orientation="Horizontal">
-						<TextBlock Text="{x:Static res:EncodingRes.AutoPassthroughFallbackLabel}" ToolTipService.ShowDuration="20000" VerticalAlignment="Center" Margin="0 0 6 0">
-							<TextBlock.ToolTip>
-								<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.AutoPassthroughFallbackToolTip}" />
-							</TextBlock.ToolTip>
-						</TextBlock>
-						<ComboBox
-							MinWidth="110"
-							ItemsSource="{Binding FallbackEncoderChoices}"
-							SelectedItem="{Binding AudioEncoderFallback}"
-							ToolTipService.ShowDuration="20000">
-							<ComboBox.ToolTip>
-								<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.AutoPassthroughFallbackToolTip}" />
-							</ComboBox.ToolTip>
-						</ComboBox>
+					<StackPanel Margin="20 4 0 0" Orientation="Vertical">
+						<TextBlock Text="{x:Static res:EncodingRes.PassthroughMaskLabel}" />
+						<ItemsControl Margin="0 4 0 0" ItemsSource="{Binding CopyMaskChoices}">
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<WrapPanel />
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<CheckBox
+										Margin="0 0 6 0"
+										Content="{Binding Display}"
+										IsChecked="{Binding Enabled}" />
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+						<StackPanel Margin="0 10 0 0" Orientation="Horizontal">
+							<TextBlock
+								Margin="0 0 6 0"
+								VerticalAlignment="Center"
+								Text="{x:Static res:EncodingRes.AutoPassthroughFallbackLabel}"
+								ToolTipService.ShowDuration="20000">
+								<TextBlock.ToolTip>
+									<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.AutoPassthroughFallbackToolTip}" />
+								</TextBlock.ToolTip>
+							</TextBlock>
+							<ComboBox
+								MinWidth="110"
+								ItemsSource="{Binding FallbackEncoderChoices}"
+								SelectedItem="{Binding AudioEncoderFallback}"
+								ToolTipService.ShowDuration="20000">
+								<ComboBox.ToolTip>
+									<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.AutoPassthroughFallbackToolTip}" />
+								</ComboBox.ToolTip>
+							</ComboBox>
+						</StackPanel>
 					</StackPanel>
 				</StackPanel>
 

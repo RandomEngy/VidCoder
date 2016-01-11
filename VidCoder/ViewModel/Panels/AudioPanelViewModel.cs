@@ -13,6 +13,7 @@ using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoder.ViewModel.DataModels;
 using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
@@ -30,6 +31,7 @@ namespace VidCoder.ViewModel
 		private PresetsService presetsService = Ioc.Get<PresetsService>();
 
 		private bool userUpdatingFallbackEncoder;
+		private bool userUpdatingCopyMask;
 
 		public AudioPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)
@@ -67,6 +69,7 @@ namespace VidCoder.ViewModel
 				.Subscribe(_ =>
 				{
 					this.RefreshFallbackEncoderChoices();
+					this.RefreshCopyMaskChoices();
 				});
 
 			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
@@ -99,6 +102,58 @@ namespace VidCoder.ViewModel
 					}
 				});
 
+			// Make user updates change the profile
+			CopyMaskChoiceViewModel copyMaskChoiceViewModel;
+			this.CopyMaskChoices.ChangeTrackingEnabled = true;
+			this.CopyMaskChoices.ItemChanged
+				.Where(x => x.PropertyName == nameof(copyMaskChoiceViewModel.Enabled))
+				.Subscribe(_ =>
+				{
+					this.userUpdatingCopyMask = true;
+					this.SaveCopyMasksToProfile();
+					this.userUpdatingCopyMask = false;
+
+					this.RefreshAudioPreview();
+				});
+
+			// Make profile changes update the local mask choices
+			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.AudioCopyMask)
+				.Subscribe(audioCopyMask =>
+				{
+					if (this.userUpdatingCopyMask)
+					{
+						return;
+					}
+
+					using (this.CopyMaskChoices.SuppressChangeNotifications())
+					{
+						this.CopyMaskChoices.Clear();
+
+						HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.EncodingWindowViewModel.Profile.ContainerName);
+						foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
+						{
+							if ((encoder.CompatibleContainers & container.Id) > 0 && encoder.IsPassthrough && encoder.ShortName != AudioEncodingViewModel.AutoPassthroughEncoder)
+							{
+								bool enabled = true;
+								string codec = encoder.ShortName.Substring(5);
+
+								if (audioCopyMask != null)
+								{
+									CopyMaskChoice profileMaskChoice = audioCopyMask.FirstOrDefault(choice => choice.Codec == codec);
+									if (profileMaskChoice != null)
+									{
+										enabled = profileMaskChoice.Enabled;
+									}
+								}
+
+								this.CopyMaskChoices.Add(new CopyMaskChoiceViewModel(codec, enabled));
+							}
+						}
+					}
+
+					this.RefreshAudioPreview();
+				});
+
 			this.RegisterProfileProperties();
 		}
 
@@ -106,6 +161,7 @@ namespace VidCoder.ViewModel
 		{
 			this.RegisterProfileProperty(nameof(this.Profile.AudioEncoderFallback));
 			this.RegisterProfileProperty(nameof(this.Profile.AudioEncodings));
+			this.RegisterProfileProperty(nameof(this.Profile.AudioCopyMask));
 		}
 
 		public bool SuppressProfileEdits { get; set; }
@@ -161,9 +217,11 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return this.audioEncodings.Any(a => a.SelectedAudioEncoder.IsPassthrough && a.SelectedPassthrough == "copy");
+				return this.audioEncodings.Any(a => a.SelectedAudioEncoder.IsPassthrough && a.SelectedPassthrough == AudioEncodingViewModel.AutoPassthroughEncoder);
 			}
 		}
+
+		public ReactiveList<CopyMaskChoiceViewModel> CopyMaskChoices { get; } = new ReactiveList<CopyMaskChoiceViewModel>();
 
 		// This would normally be an output property but a bug is stopping this from working. May be fixed in Reactive UI 7
 		private bool hasAudioTracks;
@@ -235,6 +293,39 @@ namespace VidCoder.ViewModel
 			}
 
 			this.RaisePropertyChanged(nameof(this.AudioEncoderFallback));
+		}
+
+		private void RefreshCopyMaskChoices()
+		{
+			List<CopyMaskChoiceViewModel> oldChoices = new List<CopyMaskChoiceViewModel>(this.CopyMaskChoices);
+
+			using (this.CopyMaskChoices.SuppressChangeNotifications())
+			{
+				this.CopyMaskChoices.Clear();
+
+				HBContainer container = HandBrakeEncoderHelpers.GetContainer(this.EncodingWindowViewModel.Profile.ContainerName);
+				foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
+				{
+					if ((encoder.CompatibleContainers & container.Id) > 0 && encoder.IsPassthrough && encoder.ShortName != AudioEncodingViewModel.AutoPassthroughEncoder)
+					{
+						bool enabled = true;
+						string codec = encoder.ShortName.Substring(5);
+						CopyMaskChoiceViewModel oldChoice = oldChoices.FirstOrDefault(choice => choice.Codec == codec);
+						if (oldChoice != null)
+						{
+							enabled = oldChoice.Enabled;
+						}
+
+						this.CopyMaskChoices.Add(new CopyMaskChoiceViewModel(codec, enabled));
+					}
+				}
+			}
+		}
+
+		private void SaveCopyMasksToProfile()
+		{
+			List<CopyMaskChoice> choices = this.CopyMaskChoices.Select(choice => new CopyMaskChoice { Codec = choice.Codec, Enabled = choice.Enabled }).ToList();
+			this.UpdateProfileProperty(nameof(this.Profile.AudioCopyMask), choices, raisePropertyChanged: false);
 		}
 
 		public void RefreshAudioPreview()
@@ -327,10 +418,24 @@ namespace VidCoder.ViewModel
 
 			if (encoder.ShortName == "copy")
 			{
-				if (HandBrakeEncoderHelpers.AudioEncoderIsCompatible(inputTrack.Codec, encoder))
+				if (this.CopyMaskChoices.Any(
+					choice =>
+					{
+						if (!choice.Enabled)
+						{
+							return false;
+						}
+
+						return (HandBrakeEncoderHelpers.GetAudioEncoder("copy:" + choice.Codec).Id & inputTrack.Codec) > 0;
+					}))
 				{
 					return outputPreviewTrack;
 				}
+
+				//if (HandBrakeEncoderHelpers.AudioEncoderIsCompatible(inputTrack.Codec, encoder))
+				//{
+				//	return outputPreviewTrack;
+				//}
 
 				if (this.Profile.AudioEncoderFallback == null)
 				{
@@ -433,6 +538,7 @@ namespace VidCoder.ViewModel
 			this.audioOutputPreviews.Clear();
 			this.RefreshAudioPreview();
 			this.RefreshFallbackEncoderChoices();
+			this.RefreshCopyMaskChoices();
 
 			this.audioEncoderFallback = this.FallbackEncoderChoices.SingleOrDefault(e => e.Encoder.ShortName == this.Profile.AudioEncoderFallback);
 			if (this.audioEncoderFallback == null)

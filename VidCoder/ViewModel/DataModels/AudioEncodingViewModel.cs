@@ -24,6 +24,7 @@ namespace VidCoder.ViewModel
 	public class AudioEncodingViewModel : ReactiveObject, IDisposable
 	{
 		private const int RangeRoundDigits = 5;
+		public const string AutoPassthroughEncoder = "copy";
 
 		private AudioPanelViewModel audioPanelVM;
 		private bool initializing;
@@ -540,17 +541,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.SelectedAudioEncoder == null)
-				{
-					return null;
-				}
-
-				if (this.SelectedAudioEncoder.IsPassthrough)
-				{
-					return HandBrakeEncoderHelpers.GetAudioEncoder(this.SelectedPassthrough);
-				}
-
-				return this.SelectedAudioEncoder.Encoder;
+				return GetHBAudioEncoder(this.SelectedAudioEncoder, this.SelectedPassthrough);
 			}
 		}
 
@@ -963,7 +954,7 @@ namespace VidCoder.ViewModel
 			this.audioEncoders.Add(new AudioEncoderViewModel { IsPassthrough = true });
 
 			this.passthroughChoices = new List<ComboChoice>();
-			this.passthroughChoices.Add(new ComboChoice("copy", EncodingRes.Passthrough_any));
+			this.passthroughChoices.Add(new ComboChoice(AutoPassthroughEncoder, EncodingRes.Passthrough_auto));
 
 			foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
 			{
@@ -1020,8 +1011,6 @@ namespace VidCoder.ViewModel
 			this.RaisePropertyChanged(nameof(this.SelectedAudioEncoder));
 			this.RaisePropertyChanged(nameof(this.SelectedPassthrough));
 		}
-
-
 
 		private void RefreshMixdownChoices()
 		{

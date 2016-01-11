@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.InteropServices;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.HbLib;
@@ -76,10 +77,20 @@ namespace VidCoderCommon.Model
                     throw new ArgumentException("Unrecognized fallback audio encoder: " + profile.AudioEncoderFallback);
                 }
 
-				audio.FallbackEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(profile.AudioEncoderFallback).Id;
+				audio.FallbackEncoder = audioEncoder.Id;
             }
 
-			audio.CopyMask = new uint[] { NativeConstants.HB_ACODEC_ANY };
+			if (profile.AudioCopyMask != null)
+			{
+				audio.CopyMask = profile.AudioCopyMask
+					.Where(choice => choice.Enabled)
+					.Select(choice => (uint) HandBrakeEncoderHelpers.GetAudioEncoder("copy:" + choice.Codec).Id).ToArray();
+			}
+			else
+			{
+				audio.CopyMask = new uint[] { NativeConstants.HB_ACODEC_ANY };
+			}
+
 			audio.AudioList = new List<AudioTrack>();
 
             foreach (Tuple<AudioEncoding, int> outputTrack in outputTrackList)

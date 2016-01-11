@@ -671,6 +671,7 @@
     <Compile Include="ViewModel\DataModels\BitrateChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\ChapterNameViewModel.cs" />
     <Compile Include="ViewModel\DataModels\ChapterViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\CopyMaskChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\LanguageViewModel.cs" />
     <Compile Include="ViewModel\DataModels\LevelChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\PickerViewModel.cs" />

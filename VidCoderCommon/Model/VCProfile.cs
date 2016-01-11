@@ -287,6 +287,18 @@ namespace VidCoderCommon.Model
 		[JsonProperty]
 		public List<AudioEncoding> AudioEncodings { get; set; }
 
+		private List<CopyMaskChoice> audioCopyMask = new List<CopyMaskChoice>();
+
+		/// <summary>
+		/// Gets or sets the codecs that can be passed through for auto passthrough.
+		/// </summary>
+		[JsonProperty]
+		public List<CopyMaskChoice> AudioCopyMask
+		{
+			get { return this.audioCopyMask; }
+			set { this.audioCopyMask = value; }
+		}
+
 		[JsonProperty]
 		public string AudioEncoderFallback { get; set; }
 
