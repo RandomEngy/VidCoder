@@ -82,9 +82,26 @@ namespace VidCoderCommon.Model
 
 			if (profile.AudioCopyMask != null)
 			{
-				audio.CopyMask = profile.AudioCopyMask
-					.Where(choice => choice.Enabled)
-					.Select(choice => (uint) HandBrakeEncoderHelpers.GetAudioEncoder("copy:" + choice.Codec).Id).ToArray();
+				audio.CopyMask = HandBrakeEncoderHelpers.AudioEncoders
+					.Where(e =>
+					{
+						if (!e.IsPassthrough || !e.ShortName.Contains(":"))
+						{
+							return false;
+						}
+
+						string codecName = e.ShortName.Substring(5);
+
+						CopyMaskChoice profileChoice = profile.AudioCopyMask.FirstOrDefault(choice => choice.Codec == codecName);
+						if (profileChoice == null)
+						{
+							return true;
+						}
+
+						return profileChoice.Enabled;
+					})
+					.Select(e => (uint)e.Id)
+					.ToArray();
 			}
 			else
 			{
