@@ -272,16 +272,22 @@ namespace VidCoder
 		public void StopAndWait()
 		{
 			this.encodeStartEvent.Wait();
+			bool connected;
 
 			lock (this.encoderLock)
 			{
-				if (this.encoding)
+				connected = this.channel != null;
+
+				if (this.encoding && connected)
 				{
 					this.channel.StopEncode();
 				}
 			}
 
-			this.encodeEndEvent.Wait();
+			if (connected)
+			{
+				this.encodeEndEvent.Wait();
+			}
 		}
 
 		public void OnEncodeStarted()
