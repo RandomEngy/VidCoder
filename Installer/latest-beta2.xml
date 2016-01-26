@@ -1,12 +1,12 @@
 <UpdateInfo>
 	<Release>
-		<Latest>2.21</Latest>
-		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v2.21-beta/VidCoder-2.21-Beta-x86.exe</DownloadLocation>
-		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v2.21-beta</ChangelogLocation>
+		<Latest>2.22</Latest>
+		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v2.22-beta/VidCoder-2.22-Beta-x86.exe</DownloadLocation>
+		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v2.22-beta</ChangelogLocation>
 	</Release>
 	<Release-x64>
-		<Latest>2.21</Latest>
-		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v2.21-beta/VidCoder-2.21-Beta-x64.exe</DownloadLocation>
-		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v2.21-beta</ChangelogLocation>
+		<Latest>2.22</Latest>
+		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v2.22-beta/VidCoder-2.22-Beta-x64.exe</DownloadLocation>
+		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v2.22-beta</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>
