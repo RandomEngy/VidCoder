@@ -60,6 +60,10 @@ namespace VidCoder.Services
 				parent.LogError("Could not create logger for encode. File path was too long.");
 				// We won't have an underlying log file.
 			}
+			catch (IOException exception)
+			{
+				this.LogError("Could not open file for logger." + Environment.NewLine + exception);
+			}
 
 			var initialEntry = new LogEntry
 			{
