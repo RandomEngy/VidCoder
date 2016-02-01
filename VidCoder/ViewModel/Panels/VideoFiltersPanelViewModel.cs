@@ -15,6 +15,7 @@ namespace VidCoder.ViewModel
 		private const int MinDeblock = 5;
 
 		private OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
+		private PreviewUpdateService previewUpdateService = Ioc.Get<PreviewUpdateService>();
 
         private List<ComboChoice<VCDenoise>> denoiseChoices; 
 		private List<ComboChoice> denoisePresetChoices;
@@ -153,9 +154,13 @@ namespace VidCoder.ViewModel
 			this.RegisterProfileProperty(nameof(this.CustomDenoise));
 			this.RegisterProfileProperty(nameof(this.Deblock));
 			this.RegisterProfileProperty(nameof(this.Grayscale));
-			this.RegisterProfileProperty(nameof(this.Rotation), () => this.outputSizeService.Refresh());
-			this.RegisterProfileProperty(nameof(this.FlipHorizontal));
-			this.RegisterProfileProperty(nameof(this.FlipVertical));
+			this.RegisterProfileProperty(nameof(this.Rotation), () =>
+			{
+				this.outputSizeService.Refresh();
+				this.previewUpdateService.RefreshPreview();
+			});
+			this.RegisterProfileProperty(nameof(this.FlipHorizontal), () => this.previewUpdateService.RefreshPreview());
+			this.RegisterProfileProperty(nameof(this.FlipVertical), () => this.previewUpdateService.RefreshPreview());
 		}
 
 		public VCDetelecine Detelecine

@@ -613,6 +613,7 @@
     <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="Services\EncodeProxy\LocalEncodeProxy.cs" />
     <Compile Include="Services\OutputSizeService.cs" />
+    <Compile Include="Services\PreviewUpdateService.cs" />
     <Compile Include="Services\StatusService.cs" />
     <Compile Include="Services\Windows\IClosableWindow.cs" />
     <Compile Include="Services\Interfaces\ILogger.cs" />

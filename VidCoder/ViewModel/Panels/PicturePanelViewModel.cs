@@ -18,6 +18,7 @@ namespace VidCoder.ViewModel
         private List<ComboChoice<VCScaleMethod>> scaleChoices;
 
 		private OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
+		private PreviewUpdateService previewUpdateService = Ioc.Get<PreviewUpdateService>();
 
 		public PicturePanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)
@@ -575,6 +576,7 @@ namespace VidCoder.ViewModel
 		public void RefreshOutputSize()
 		{
 			this.outputSizeService.Refresh();
+			this.previewUpdateService.RefreshPreview();
 		}
 
 		private void PopulatePixelAspect()

@@ -41,6 +41,8 @@ namespace VidCoder.ViewModel
 		private int previewSeconds;
 		private int previewCount;
 
+		private IDisposable presetsSubscription;
+
 		private DateTime lastImageRefreshTime;
 		private System.Timers.Timer previewImageRefreshTimer;
 		private bool waitingOnRefresh;
@@ -56,23 +58,16 @@ namespace VidCoder.ViewModel
 
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
+		private PreviewUpdateService previewUpdateService = Ioc.Get<PreviewUpdateService>();
 
 		public PreviewWindowViewModel()
 		{
-			this.WhenAnyValue(
-				x => x.SelectedPreview,
-				x => x.MainViewModel.SelectedTitle,
-				x => x.MainViewModel.Angle,
-				x => x.OutputSizeService.Size,
-				x => x.PresetsService.SelectedPreset.Preset.EncodingProfile.FlipHorizontal,
-				x => x.PresetsService.SelectedPreset.Preset.EncodingProfile.FlipVertical,
-				(selectedPreview, selectedTitle, angle, size, fliphorizontal, flipVertical) =>
-				{
-					return new object();
-				}).Subscribe(x =>
-				{
-					this.RequestRefreshPreviews();
-				});
+			this.previewUpdateService.PreviewInputChanged += this.OnPreviewInputChanged;
+
+			this.presetsSubscription = this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile).Skip(1).Subscribe(x =>
+			{
+				this.RequestRefreshPreviews();
+			});
 
 			this.mainViewModel.WhenAnyValue(x => x.SourceData)
 				.Skip(1)
@@ -249,10 +244,18 @@ namespace VidCoder.ViewModel
 			this.RequestRefreshPreviews();
 		}
 
+		private void OnPreviewInputChanged(object sender, EventArgs eventArgs)
+		{
+			this.RequestRefreshPreviews();
+		}
+
 		public IPreviewView View { get; set; }
 
 		public void OnClosing()
 		{
+			this.previewUpdateService.PreviewInputChanged -= this.OnPreviewInputChanged;
+			this.presetsSubscription.Dispose();
+
 			if (this.GeneratingPreview)
 			{
 				this.StopAndWait();
@@ -774,7 +777,7 @@ namespace VidCoder.ViewModel
 			this.PlayingPreview = false;
 		}
 
-		public void RequestRefreshPreviews()
+		private void RequestRefreshPreviews()
 		{
 			if (!this.mainViewModel.HasVideoSource || this.outputSizeService.Size == null)
 			{

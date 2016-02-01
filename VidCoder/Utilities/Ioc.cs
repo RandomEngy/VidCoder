@@ -30,6 +30,7 @@ namespace VidCoder
 			Container.RegisterType<ProcessingService>(Singleton);
 			Container.RegisterType<EncodingWindowViewModel>(Singleton);
 			Container.RegisterType<StatusService>(Singleton);
+			Container.RegisterType<PreviewUpdateService>(Singleton);
 		}
 
 		public static UnityContainer Container { get; set; }

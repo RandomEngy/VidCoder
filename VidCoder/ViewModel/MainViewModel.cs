@@ -35,6 +35,7 @@ namespace VidCoder.ViewModel
 		private OutputSizeService outputSizeService;
 		private PresetsService presetsService;
 		private PickersService pickersService;
+		private PreviewUpdateService previewUpdateService;
 		private ProcessingService processingService;
 		private IWindowManager windowManager;
 		private TaskBarProgressTracker taskBarProgressTracker;
@@ -370,6 +371,7 @@ namespace VidCoder.ViewModel
 			this.presetsService = Ioc.Get<PresetsService>();
 			this.pickersService = Ioc.Get<PickersService>();
 			this.windowManager = Ioc.Get<IWindowManager>();
+			this.previewUpdateService = Ioc.Get<PreviewUpdateService>();
 			this.taskBarProgressTracker = new TaskBarProgressTracker();
 
 			// WindowTitle
@@ -993,11 +995,10 @@ namespace VidCoder.ViewModel
 
 				this.OutputPathService.GenerateOutputFileName();
 
-				//this.RaisePropertyChanged(nameof(this.StartChapters));
-				//this.RaisePropertyChanged(nameof(this.EndChapters));
 				this.RaisePropertyChanged(nameof(this.SelectedTitle));
 
 				this.outputSizeService.Refresh();
+				this.previewUpdateService.RefreshPreview();
 
 				this.RefreshRangePreview();
 			}
@@ -1024,7 +1025,11 @@ namespace VidCoder.ViewModel
 		public int Angle
 		{
 			get { return this.angle; }
-			set { this.RaiseAndSetIfChanged(ref this.angle, value); }
+			set
+			{
+				this.previewUpdateService.RefreshPreview();
+				this.RaiseAndSetIfChanged(ref this.angle, value);
+			}
 		}
 
 		private VCSubtitles currentSubtitles;
