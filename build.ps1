@@ -173,6 +173,7 @@ CopyBoth "System.Reactive.Interfaces.dll"
 CopyBoth "System.Reactive.Linq.dll"
 CopyBoth "System.Reactive.PlatformServices.dll"
 CopyBoth "System.Reactive.Windows.Threading.dll"
+CopyBoth "Ude.dll"
 
 # Architecture-specific files from Lib folder
 CopyLibBoth "hb.dll"

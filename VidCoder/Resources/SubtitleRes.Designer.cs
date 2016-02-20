@@ -214,6 +214,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not detect the encoding of the subtitle file. To make sure the subtitles show up correctly, re-save the file as UTF-8..
+        /// </summary>
+        public static string SubtitleCharsetDetectionFailedMessage {
+            get {
+                return ResourceManager.GetString("SubtitleCharsetDetectionFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Subtitles from source:.
         /// </summary>
         public static string SubtitlesFromSourceLabel {

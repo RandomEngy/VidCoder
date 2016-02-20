@@ -10,6 +10,7 @@ using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Model;
 using ReactiveUI;
+using VidCoder.Model;
 
 namespace VidCoder.ViewModel
 {
@@ -182,7 +183,35 @@ namespace VidCoder.ViewModel
 					Config.LastSrtFolder = Path.GetDirectoryName(srtFile);
 				}
 
-				SrtSubtitle newSubtitle = new SrtSubtitle { FileName = srtFile, Default = false, CharacterCode = "UTF-8", LanguageCode = LanguageUtilities.GetDefaultLanguageCode(), Offset = 0 };
+				string characterCode = null;
+				using (FileStream srtFileStream = File.OpenRead(srtFile))
+				{
+					Ude.CharsetDetector detector = new Ude.CharsetDetector();
+					detector.Feed(srtFileStream);
+					detector.DataEnd();
+					if (detector.Charset != null)
+					{
+						Ioc.Get<ILogger>().Log($"Detected encoding {detector.Charset} for {srtFile} with confidence {detector.Confidence}.");
+						characterCode = CharCode.FromUdeCode(detector.Charset);
+
+						if (characterCode == null)
+						{
+							Ioc.Get<ILogger>().Log("Detected encoding does not match with any available encoding.");
+						}
+						else
+						{
+							Ioc.Get<ILogger>().Log("Picked encoding " + characterCode);
+						}
+					}
+
+					if (characterCode == null)
+					{
+						Ioc.Get<IMessageBoxService>().Show(this, SubtitleRes.SubtitleCharsetDetectionFailedMessage);
+						characterCode = "UTF-8";
+					}
+				}
+
+				SrtSubtitle newSubtitle = new SrtSubtitle { FileName = srtFile, Default = false, CharacterCode = characterCode, LanguageCode = LanguageUtilities.GetDefaultLanguageCode(), Offset = 0 };
 				this.srtSubtitles.Add(new SrtSubtitleViewModel(this, newSubtitle));
 			}
 
