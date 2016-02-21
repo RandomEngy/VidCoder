@@ -23,6 +23,7 @@ namespace VidCoder.ViewModel
 
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private PresetsService presetsService = Ioc.Get<PresetsService>();
+		private ILogger logger = Ioc.Get<ILogger>();
 
 		public SubtitleDialogViewModel(VCSubtitles currentSubtitles)
 		{
@@ -191,16 +192,16 @@ namespace VidCoder.ViewModel
 					detector.DataEnd();
 					if (detector.Charset != null)
 					{
-						Ioc.Get<ILogger>().Log($"Detected encoding {detector.Charset} for {srtFile} with confidence {detector.Confidence}.");
+						this.logger.Log($"Detected encoding {detector.Charset} for {srtFile} with confidence {detector.Confidence}.");
 						characterCode = CharCode.FromUdeCode(detector.Charset);
 
 						if (characterCode == null)
 						{
-							Ioc.Get<ILogger>().Log("Detected encoding does not match with any available encoding.");
+							this.logger.Log("Detected encoding does not match with any available encoding.");
 						}
 						else
 						{
-							Ioc.Get<ILogger>().Log("Picked encoding " + characterCode);
+							this.logger.Log("Picked encoding " + characterCode);
 						}
 					}
 

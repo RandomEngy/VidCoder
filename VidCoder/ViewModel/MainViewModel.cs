@@ -651,6 +651,7 @@ namespace VidCoder.ViewModel
 
 			FileCleanup.CleanOldLogs();
 			FileCleanup.CleanPreviewFileCache();
+			FileCleanup.CleanHandBrakeTempFiles();
 
 			if (!Utilities.IsPortable)
 			{
