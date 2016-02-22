@@ -148,7 +148,7 @@ namespace VidCoder.Services
 
 			if (this.Cleared != null)
 			{
-				this.Cleared(this, new EventArgs());
+				this.Cleared(this, EventArgs.Empty);
 			}
 		}
 

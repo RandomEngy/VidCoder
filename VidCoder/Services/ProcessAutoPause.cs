@@ -113,7 +113,7 @@ namespace VidCoder.Services
 
 							if (this.ResumeEncoding != null)
 							{
-								this.ResumeEncoding(this, new EventArgs());
+								this.ResumeEncoding(this, EventArgs.Empty);
 							}
 						}
 					}
@@ -125,7 +125,7 @@ namespace VidCoder.Services
 							this.logger.Log("Automatically pausing, process detected: " + autoPauseProcess);
 							if (this.PauseEncoding != null)
 							{
-								this.PauseEncoding(this, new EventArgs());
+								this.PauseEncoding(this, EventArgs.Empty);
 							}
 						}
 					}

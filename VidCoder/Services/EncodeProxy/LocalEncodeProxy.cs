@@ -78,7 +78,7 @@ namespace VidCoder
 							this.IsEncodeStarted = true;
 							if (this.EncodeStarted != null)
 							{
-								this.EncodeStarted(this, new EventArgs());
+								this.EncodeStarted(this, EventArgs.Empty);
 							}
 
 							this.encodeStartEvent.Set();

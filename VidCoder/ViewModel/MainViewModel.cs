@@ -422,13 +422,13 @@ namespace VidCoder.ViewModel
 			this.audioChoices.Changed
 				.Subscribe(_ =>
 				{
-					this.AudioChoiceChanged?.Invoke(this, new EventArgs());
+					this.AudioChoiceChanged?.Invoke(this, EventArgs.Empty);
 				});
 
 			this.audioChoices.ItemChanged
 				.Subscribe(_ =>
 				{
-					this.AudioChoiceChanged?.Invoke(this, new EventArgs());
+					this.AudioChoiceChanged?.Invoke(this, EventArgs.Empty);
 				});
 
 			this.WindowMenuItems = new List<WindowMenuItemViewModel>();
@@ -2145,7 +2145,7 @@ namespace VidCoder.ViewModel
 
 						if (this.ScanCancelled != null)
 						{
-							this.ScanCancelled(this, new EventArgs());
+							this.ScanCancelled(this, EventArgs.Empty);
 						}
 
 						this.logger.Log("Scan cancelled");

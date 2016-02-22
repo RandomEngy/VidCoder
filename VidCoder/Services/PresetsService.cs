@@ -372,7 +372,7 @@ namespace VidCoder.Services
 
 			PresetStorage.UserPresets = userPresets;
 
-			this.PresetChanged?.Invoke(this, new EventArgs());
+			this.PresetChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		public void InsertQueuePreset(PresetViewModel queuePreset)

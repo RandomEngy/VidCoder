@@ -12,7 +12,7 @@ namespace VidCoder.Services
 
 		public void RefreshPreview()
 		{
-			this.PreviewInputChanged?.Invoke(this, new EventArgs());
+			this.PreviewInputChanged?.Invoke(this, EventArgs.Empty);
 		}
 	}
 }
