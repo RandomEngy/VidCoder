@@ -56,7 +56,17 @@ namespace VidCoder.Services
 				})
 				.ToProperty(this, x => x.PresetDisabledToolTip, out this.presetDisabledToolTip);
 
-            foreach (Picker storedPicker in unmodifiedPickers)
+			// When the picker preset changes, we need to update the selected preset.
+			this.WhenAnyValue(x => x.SelectedPicker.Picker.EncodingPreset).Subscribe(pickerPreset =>
+			{
+				if (pickerPreset != null)
+				{
+					var presetsService = Ioc.Get<PresetsService>();
+					presetsService.SelectedPreset = presetsService.AllPresets.First(p => p.Preset.Name == pickerPreset);
+				}
+			});
+
+			foreach (Picker storedPicker in unmodifiedPickers)
             {
                 PickerViewModel pickerVM;
                 if (modifiedPicker != null && modifiedPicker.Name == storedPicker.Name)
