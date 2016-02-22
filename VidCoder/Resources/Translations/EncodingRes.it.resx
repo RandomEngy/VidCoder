@@ -923,6 +923,10 @@ x264 può, con un lieve rallentamento (ed un piccolo vantaggio in compressione),
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Se all'ingresso della pista corrisponde il codec, verrà passato attraverso anziché codificato.</value>
   </data>
-	
-	
+	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+    <value>Algoritmo di ridimensionamento:</value>
+  </data>
+	<data name="RotationLabel" xml:space="preserve">
+    <value>Rotazione:</value>
+  </data>
 </root>

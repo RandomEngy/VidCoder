@@ -154,16 +154,36 @@
   <data name="Deinterlace_Slower" xml:space="preserve">
     <value>Più lento</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="DenoisePreset_Light" xml:space="preserve">
+    <value>Leggero</value>
+  </data>
+  <data name="DenoisePreset_Medium" xml:space="preserve">
+    <value>Medio</value>
+  </data>
+  <data name="DenoisePreset_Strong" xml:space="preserve">
+    <value>Forte</value>
+  </data>
+  <data name="DenoisePreset_Ultralight" xml:space="preserve">
+    <value>Ultra leggero</value>
+  </data>
+  <data name="DenoiseTune_Animation" xml:space="preserve">
+    <value>Animazione</value>
+  </data>
+  <data name="DenoiseTune_Film" xml:space="preserve">
+    <value>Film</value>
+  </data>
+  <data name="DenoiseTune_Grain" xml:space="preserve">
+    <value>Grana</value>
+  </data>
+  <data name="DenoiseTune_HighMotion" xml:space="preserve">
+    <value>Movimento rapido</value>
+  </data>
+  <data name="Denoise_HQDN3D" xml:space="preserve">
+    <value>hqdn3D</value>
+  </data>
+  <data name="Denoise_NLMeans" xml:space="preserve">
+    <value>NL-Means</value>
+  </data>
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
     <value>Non fare nulla</value>
   </data>

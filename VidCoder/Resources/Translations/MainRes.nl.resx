@@ -118,283 +118,283 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
-    <value>Başlık:</value>
+    <value>Titel:</value>
   </data>
   <data name="SettingsLabel" xml:space="preserve">
-    <value>Ayarlar</value>
+    <value>Instellingen</value>
   </data>
   <data name="AddToQueueLabel" xml:space="preserve">
-    <value>Kuyruğa Ekle</value>
+    <value>Voeg toe aan wachtrij</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
-    <value>Kuyruğa Birden Çok Başlık Ekle...</value>
+    <value>Voeg meerdere titels toe aan wachtrij...</value>
   </data>
   <data name="FileMenu" xml:space="preserve">
-    <value>Dosya</value>
+    <value>Bestand</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
-    <value>Video Dosyası Aç...</value>
+    <value>Open video bestand...</value>
   </data>
   <data name="OpenDiscFolder" xml:space="preserve">
-    <value>DVD/Blu-ray Klasörü Aç...</value>
+    <value>DVD/Blu-ray map openen...</value>
   </data>
   <data name="EnqueueMultipleFiles" xml:space="preserve">
-    <value>Birden Çok Dosyayı Kuyruğa Al...</value>
+    <value>Zet meerdere bestanden in wachtrij...</value>
   </data>
   <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Birden Çok Dosyayı Kuyruğa Al...</value>
+    <value>Zet meerdere titels in wachtrij...</value>
   </data>
   <data name="ToolsMenu" xml:space="preserve">
-    <value>Araçlar</value>
+    <value>Hulpprogramma's</value>
   </data>
   <data name="ImportPreset" xml:space="preserve">
-    <value>Hazır Ayarı İçe Aktar...</value>
+    <value>Voorkeursinstelling importeren...</value>
   </data>
   <data name="ExportPreset" xml:space="preserve">
-    <value>Hazır Ayarı Dışa Aktar...</value>
+    <value>Voorkeursinstelling exporteren...</value>
   </data>
   <data name="OptionsMenuItem" xml:space="preserve">
-    <value>Seçenekler...</value>
+    <value>Opties...</value>
   </data>
   <data name="Play" xml:space="preserve">
-    <value>Oynat</value>
+    <value>Afspelen</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Düzenle</value>
+    <value>Bewerken</value>
   </data>
   <data name="OpenContainingFolder" xml:space="preserve">
-    <value>Bulunduğu Klasörü Aç</value>
+    <value>Open bevattende map</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
-    <value>Tamamlananları Kaldır</value>
+    <value>Wis voltooide</value>
   </data>
   <data name="ExitMenuItem" xml:space="preserve">
-    <value>Çık</value>
+    <value>Afsluiten</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Windows</value>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
-    <value>Kodlama Ayarları</value>
+    <value>Coderingsinstellingen</value>
   </data>
   <data name="PreviewMenuItem" xml:space="preserve">
-    <value>Önizleme</value>
+    <value>Voorbeeld</value>
   </data>
   <data name="LogMenuItem" xml:space="preserve">
-    <value>İşlem Kaydı</value>
+    <value>Log</value>
   </data>
   <data name="HelpMenu" xml:space="preserve">
-    <value>Yardım</value>
+    <value>Help</value>
   </data>
   <data name="VidCoderHomepageMenuItem" xml:space="preserve">
-    <value>VidCoder Web Sitesi</value>
+    <value>VidCoder Home pagina</value>
   </data>
   <data name="ReportABugMenuItem" xml:space="preserve">
-    <value>Hata Bildir</value>
+    <value>Rapporteer een fout</value>
   </data>
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
-    <value>VidCoder Hakkında...</value>
+    <value>Over VidCoder...</value>
   </data>
   <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>Bir video kaynağı seçin:</value>
+    <value>Kies een videobron:</value>
   </data>
   <data name="SourceLabel" xml:space="preserve">
-    <value>Kaynak:</value>
+    <value>Bron:</value>
   </data>
   <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Kaynak inceleniyor...</value>
+    <value>Bron scannen...</value>
   </data>
   <data name="Recent" xml:space="preserve">
-    <value>Son</value>
+    <value>Recent</value>
   </data>
   <data name="DragFilesHereLabel" xml:space="preserve">
-    <value>(Ya da video dosyalarını veya klasörleri buraya sürükleyin)</value>
+    <value>(Of sleep videobestanden of mappen hier naar toe)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
-    <value>İnceleme sırasında bir hata oluştu.</value>
+    <value>Er is een fout opgetreden tijdens het scannen.</value>
   </data>
   <data name="AudioLabel" xml:space="preserve">
-    <value>Ses:</value>
+    <value>Audio:</value>
   </data>
   <data name="VideoLabel" xml:space="preserve">
     <value>Video:</value>
   </data>
   <data name="SubtitlesLabel" xml:space="preserve">
-    <value>Altyazılar:</value>
+    <value>Ondertitels:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
-    <value>Parça Ekle</value>
+    <value>Spoor toevoegen</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
-    <value>Bölüm İşaretleri:</value>
+    <value>Hoofdstukmarkering:</value>
   </data>
   <data name="EditButton" xml:space="preserve">
-    <value>Düzenle...</value>
+    <value>Bewerken...</value>
   </data>
   <data name="DestinationLabel" xml:space="preserve">
-    <value>Hedef:</value>
+    <value>Bestemming:</value>
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
-    <value>Kodlama hedef yerini düzenlemek için tıklayın.</value>
+    <value>Klik om de bestemming aan te passen.</value>
   </data>
   <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>Çıkış yolunu seçin...</value>
+    <value>Selecteer de doel map...</value>
   </data>
   <data name="EncodingLabel" xml:space="preserve">
-    <value>Kodlanıyor:</value>
+    <value>Codering:</value>
   </data>
   <data name="Stop" xml:space="preserve">
-    <value>Durdur</value>
+    <value>Stoppen</value>
   </data>
   <data name="Pause" xml:space="preserve">
-    <value>Duraklat</value>
+    <value>Pauze</value>
   </data>
   <data name="MoveToTopMenuItem" xml:space="preserve">
-    <value>En Üste Taşı</value>
+    <value>Verplaats naar boven</value>
   </data>
   <data name="MoveToBottomMenuItem" xml:space="preserve">
-    <value>En Alta Taşı</value>
+    <value>Verplaats naar beneden</value>
   </data>
   <data name="CustomizeColumnsMenuItem" xml:space="preserve">
-    <value>Sütunları özelleştir...</value>
+    <value>Kolommen aanpassen...</value>
   </data>
   <data name="CurrentFpsLabel" xml:space="preserve">
-    <value>Geçerli kare/sn:</value>
+    <value>Huidige FPS:</value>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>Ortalama kare/sn:</value>
+    <value>Gemiddelde FPS:</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
-    <value>Bir DVD ya da Blu-ray klasörü seçin.</value>
+    <value>Een DVD of Blu-ray map kiezen.</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
-    <value>Hala dönüştürülen dosyalar var. Çıkmak istediğinizden emin misiniz?</value>
+    <value>Er wordt nog gecodeerd. Weet u zeker dat u wilt afsluiten?</value>
   </data>
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
-    <value>Devam eden dönüştürmeler</value>
+    <value>Bezig met coderingen</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Yabancı Ses Araması</value>
+    <value>Buitenlandse Audio zoeken</value>
   </data>
   <data name="NoneParen" xml:space="preserve">
-    <value>(Yok)</value>
+    <value>(Geen)</value>
   </data>
   <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} parça</value>
+    <value>{0} sporen</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
-    <value>Değişiklikleri mevcut ön ayara kaydetmek istiyor musunuz?</value>
+    <value>Wilt u wijzigingen in uw huidige voorkeursinstelling opslaan?</value>
   </data>
   <data name="SaveChangesPresetTitle" xml:space="preserve">
-    <value>Mevcut ayarlar kaydedilsin mi?</value>
+    <value>Huidige voorkeursinstelling opslaan?</value>
   </data>
   <data name="DiscNotInDriveError" xml:space="preserve">
-    <value>Düzenleme için yükleme yapılamıyor. Disk sürücü içerisinde mevcut değil.</value>
+    <value>Kan niet laden om te bewerken. De schijf is niet langer in het station.</value>
   </data>
   <data name="PresetNameRestoredFromQueue" xml:space="preserve">
-    <value>Sıralamadan geri yüklendi</value>
+    <value>Hersteld uit wachtrij</value>
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
-    <value>Tamamlanmış görevlerden geri yüklendi</value>
+    <value>Hersteld vanaf voltooid</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Hazır Ayar:</value>
+    <value>Voorkeursinstelling:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
-    <value>Hedef</value>
+    <value>Bestemming</value>
   </data>
   <data name="StatusColumnHeader" xml:space="preserve">
-    <value>Durum</value>
+    <value>Status</value>
   </data>
   <data name="ElapsedTimeColumnHeader" xml:space="preserve">
-    <value>Geçen süre</value>
+    <value>Verstreken tijd</value>
   </data>
   <data name="PlayingVideoMessage" xml:space="preserve">
-    <value>Video oynatılırken...</value>
+    <value>Video aan het afspelen...</value>
   </data>
   <data name="FileDoesNotExist" xml:space="preserve">
-    <value>{0} bulunamadı.</value>
+    <value>{0} bestaat niet.</value>
   </data>
   <data name="AngleLabel" xml:space="preserve">
-    <value>Açı:</value>
+    <value>Hoek:</value>
   </data>
   <data name="ChaptersSummary" xml:space="preserve">
-    <value>{0}</value>
+    <value>van {0}</value>
   </data>
   <data name="Queued" xml:space="preserve">
-    <value>Sıraya alındı</value>
+    <value>In de wachtrij</value>
   </data>
   <data name="QueuedWithTotal" xml:space="preserve">
-    <value>Sıraya alınan ({0})</value>
+    <value>In de wachtrij ({0})</value>
   </data>
   <data name="CompletedWithTotal" xml:space="preserve">
-    <value>Tamamlanan ({0})</value>
+    <value>Voltooid ({0})</value>
   </data>
   <data name="StoppedEncoding" xml:space="preserve">
-    <value>Kodlama durduruldu.</value>
+    <value>Codering gestopt.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>{0} kaynak dosyayı() / klasörü() silmek istediğinize emin misiniz?</value>
+    <value>Weet u zeker dat u {0} bron bestanden/mappen wilt verwijderen?</value>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
-    <value>Silmeyi Onayla</value>
+    <value>Verwijderen bevestigen</value>
   </data>
   <data name="CouldNotDeleteFile" xml:space="preserve">
-    <value>{0} silinemedi
+    <value>Kan {0} niet verwijderen
 
 {1}</value>
   </data>
   <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>Aşağıdaki dosya(lar) tanımlanamadı ve görev sıralamasına eklenmedi: 
+    <value>De volgende bestanden werden niet herkend en werden niet toegevoegd aan de wachtrij:
 
 {0}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
-    <value>Video dosyası() tarama hatası</value>
+    <value>Probleem bij het scannen van video bestand(en)</value>
   </data>
   <data name="StartedEncoding" xml:space="preserve">
-    <value>Kodlama başlatıldı.</value>
+    <value>Begonnen met codering.</value>
   </data>
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
-    <value>Çıktı dizini oluşturulamadı. Hata ayrıntıları: 
+    <value>Kan de doel map niet maken. Details:
 
 {0}</value>
   </data>
   <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>Dizin oluşturma hatası</value>
+    <value>Probleem bij het maken van map</value>
   </data>
   <data name="EncodeCompleted" xml:space="preserve">
-    <value>Kodlama tamamlandı.</value>
+    <value>Coderen voltooid.</value>
   </data>
   <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
-    <value>Kodlama tamamlandı</value>
+    <value>Codering voltooid</value>
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
-    <value>VidCoder kuyruktaki tüm dosyaları dönüştürdü.</value>
+    <value>VidCoder is klaar met alle coderingstaken in de wachtrij.</value>
   </data>
   <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>Kaydedilecek klasör belirlenmeden kodlama görevleri eklenemez. Bir konum seçmek için Tamam'a basınız.</value>
+    <value>Kan geen coderingstaak toevoegen zonder een standaard doel map. Klik op OK om er één te kiezen.</value>
   </data>
   <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>Varsayılan Çıktı Klasörü Gerekli</value>
+    <value>Standaard doel map vereist</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
-    <value>Çıktı yolu geçerli değil.</value>
+    <value>Pad naar doel map is niet geldig.</value>
   </data>
   <data name="OutputPathNotValidTitle" xml:space="preserve">
-    <value>Yol geçerli değil</value>
+    <value>Pad niet geldig</value>
   </data>
   <data name="Encode" xml:space="preserve">
-    <value>Kodlama</value>
+    <value>Coderen</value>
   </data>
   <data name="Resume" xml:space="preserve">
-    <value>Devam Ettir</value>
+    <value>Hervatten</value>
   </data>
   <data name="EtaLabel" xml:space="preserve">
-    <value>TAHMİNİ TAMAMLANMA SÜRESİ:</value>
+    <value>ETA:</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Bittiğinde:</value>
+    <value>Zodra alles voltooid:</value>
   </data>
   <data name="Preset_AndroidTablet" xml:space="preserve">
     <value>Android Tablet</value>
@@ -424,206 +424,206 @@
     <value>AppleTV 3</value>
   </data>
   <data name="Preset_Universal" xml:space="preserve">
-    <value>Çok Amaçlı</value>
+    <value>Universeel</value>
   </data>
   <data name="Preset_HighProfile" xml:space="preserve">
-    <value>Yüksek Profil</value>
+    <value>Hoog profiel</value>
   </data>
   <data name="Preset_Normal" xml:space="preserve">
-    <value>Normal</value>
+    <value>Normaal</value>
   </data>
   <data name="Preset_WindowsPhone7" xml:space="preserve">
     <value>Windows Phone 7</value>
   </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
-    <value>Video Dosyası...</value>
+    <value>Video bestand...</value>
   </data>
   <data name="SourceOption_DiscFolder" xml:space="preserve">
-    <value>DVD/Blu-ray klasörü...</value>
+    <value>DVD/Blu-ray map...</value>
   </data>
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
-    <value>{0} sürümü hazır. Güncelleştirmek için karşıdan yükleme başlatıldı.</value>
+    <value>Versie {0} is beschikbaar. Download van de update is gestart.</value>
   </data>
   <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>{0} sürümü karşıdan yüklendi, program kapatılınca kurulacak.</value>
+    <value>Versie {0} is gedownload en zal installeren bij afsluiten.</value>
   </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
-    <value>Sürüm güncelleştirme uygulanamadı. Siz iptal etmediyseniz, el ile yüklemeyi deneyin.</value>
+    <value>De update is niet toegepast. Als u niet heeft geannuleerd probeer het dan handmatig te installeren.</value>
   </data>
   <data name="CouldNotLoadPresetMessage" xml:space="preserve">
-    <value>Hazır ayarlar yüklenemedi: </value>
+    <value>Kan voorkeursinstelling niet laden: </value>
   </data>
   <data name="CouldNotSavePresetMessage" xml:space="preserve">
-    <value>Hazır ayar '{0}' kaydedilemedi: {1}{2}</value>
+    <value>Kan voorkeursinstelling niet opslaan '{0}':{1}{2}</value>
   </data>
   <data name="CouldNotCopyTextError" xml:space="preserve">
-    <value>Metin kopyalanamıyor.</value>
+    <value>Kan tekst niet kopiëren.</value>
   </data>
   <data name="LaunchUrlError" xml:space="preserve">
-    <value>URL başlatma hatası: {0}</value>
+    <value>Probleem bij openen URL: {0}</value>
   </data>
   <data name="UserConfigLoadError" xml:space="preserve">
-    <value>Gerekli kullanıcı ayarları dosyası yüklenemedi; bozulmuş olabilir. Silmek istiyor musunuz? Bu kaydedilmiş hazır ayarlarınızı etkilemez.</value>
+    <value>Kan een vereist bestand met gebruikersinstellingen niet laden; misschien is het corrupt geraakt. Wilt u het verwijderen? Dit zal geen invloed hebben op uw opgeslagen voorkeursinstellingen.</value>
   </data>
   <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>Hata yükleme ayarları</value>
+    <value>Probleem bij het laden van instellingen</value>
   </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Hazır ayar alınamadı. Biçim tanımlanamıyor.</value>
+    <value>Kan voorkeursinstellingen niet importeren. Bestandsindeling wordt niet herkend.</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
-    <value>İçe Aktarma Hatası</value>
+    <value>Importfout</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
-    <value>Başarıyla içe aktarılan hazır ayar {0}.</value>
+    <value>Voorkeursinstelling {0} met succes geïmporteerd.</value>
   </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
-    <value>{0} hazır ayar başarıyla dışa aktarıldı</value>
+    <value>Voorkeurinstelling met succes geëxporteerd naar {0}</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
-    <value>Hazır Ayarı Dışa Aktar</value>
+    <value>Voorkeursinstelling exporteren</value>
   </data>
   <data name="PresetSaveConfirmMessage" xml:space="preserve">
-    <value>Değişiklikleri mevcut ön ayarlarınıza kaydetmek istiyor musunuz?</value>
+    <value>Wilt u wijzigingen in uw huidige voorkeursinstelling opslaan?</value>
   </data>
   <data name="PresetSaveConfirmTitle" xml:space="preserve">
-    <value>Mevcut ayarlar kaydedilsin mi?</value>
+    <value>Huidige voorkeursinstelling opslaan?</value>
   </data>
   <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>Tüm kaydedilmemiş değişiklikleri seçili ön ayarlarınıza geri döndürmek istiyor musunuz?</value>
+    <value>Weet u zeker dat u alle niet-opgeslagen wijzigingen wilt wijzigen naar deze voorkeursinstelling?</value>
   </data>
   <data name="PresetRevertConfirmTitle" xml:space="preserve">
-    <value>Hazır Ayarı Geri Döndür</value>
+    <value>Voorkeursinstelling herstellen</value>
   </data>
   <data name="PresetRemoveConfirmMessage" xml:space="preserve">
-    <value>Bu ön ayarı kaldırmak istediğinize emin misiniz?</value>
+    <value>Weet u zeker dat u deze voorkeursinstelling wilt verwijderen?</value>
   </data>
   <data name="PresetRemoveConfirmTitle" xml:space="preserve">
-    <value>Hazır Ayarı Kaldır</value>
+    <value>Voorkeursinstelling verwijderen</value>
   </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>Yapılandırma dosyası bozulmuş ve yüklenemedi. Bazı ayarlarınız sıfırlanmış olabilir.</value>
+    <value>Configuratie was beschadigd en kon niet worden geladen. Sommige van uw instellingen kunnen verloren zijn gegaan.</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
-    <value>Dönüştürülmüş video dosyaları için çıkış dizini seçin.</value>
+    <value>Kies de doel map voor de gecodeerde video-bestanden.</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
     <value>({0})</value>
   </data>
   <data name="ModifiedAffix" xml:space="preserve">
-    <value>(Değiştirilmiş)</value>
+    <value>(Gewijzigd)</value>
   </data>
   <data name="PlayingVideoStatus" xml:space="preserve">
-    <value>Video oynatılırken...</value>
+    <value>Video aan het afspelen...</value>
   </data>
   <data name="OpeningFolderStatus" xml:space="preserve">
-    <value>Klasör açılıyor...</value>
+    <value>Map aan het openen...</value>
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
-    <value>Kaynak videoyu kapat</value>
+    <value>Afsluiten video bron</value>
   </data>
   <data name="CloseVideoSourceMenuItem" xml:space="preserve">
-    <value>Kaynak Videoyu Kapat</value>
+    <value>Afsluiten video bron</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
-    <value>Güncelleştirmeler...</value>
+    <value>Updates...</value>
   </data>
   <data name="CbrAuto" xml:space="preserve">
-    <value>CBR otomatik</value>
+    <value>CBR Auto</value>
   </data>
   <data name="RangeBarToolTip" xml:space="preserve">
-    <value>Başlangıç zamanını ayarlamak için sol, bitiş zamanını ayarlamak için sağ tıklayın.</value>
+    <value>Klik met de linkermuisknop om de begintijd in te stellen en met de rechtermuisknop om de eindtijd in te stellen.</value>
   </data>
   <data name="Preset_WindowsPhone8" xml:space="preserve">
     <value>Windows Phone 8</value>
   </data>
   <data name="QueueFormat_Chapters" xml:space="preserve">
-    <value>Kanal {0}</value>
+    <value>Hfd {0}</value>
   </data>
   <data name="QueueFormat_Frames" xml:space="preserve">
-    <value>Kare {0}-{1}</value>
+    <value>Fr {0}-{1}</value>
   </data>
   <data name="QueueRangeAll" xml:space="preserve">
-    <value>Tümü</value>
+    <value>Alle</value>
   </data>
   <data name="CouldNotCopyLogError" xml:space="preserve">
-    <value>İşlem kaydı kopyalanamadı. Hata kodu:{0}{0}{1}</value>
+    <value>Kan log niet kopiëren:{0}{0}{1}</value>
   </data>
   <data name="OpenLog" xml:space="preserve">
-    <value>İşlem Kaydını Aç</value>
+    <value>Logboek openen</value>
   </data>
   <data name="CopyLog" xml:space="preserve">
-    <value>İşlem Kaydını Kopyala</value>
+    <value>Log kopiëren</value>
   </data>
   <data name="PresetDiscardConfirmMessage" xml:space="preserve">
-    <value>Kaydedilmemiş değişiklikler var. Bir hazır ayara geçerek, bu değişiklikleri silmek istediğinizden emin misiniz?</value>
+    <value>U hebt niet-opgeslagen wijzigingen. Weet u zeker dat u deze wijzigingen wilt negeren door over te schakelen naar een andere voorkeursinstelling?</value>
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
-    <value>Değişiklikler Silinsin mi?</value>
+    <value>Wijzigingen negeren?</value>
   </data>
   <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>Sesi kaldır</value>
+    <value>Audio spoor verwijderen</value>
   </data>
   <data name="Preset_Xbox360" xml:space="preserve">
     <value>Xbox 360</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
-    <value>Görev sıralamasından çıkar</value>
+    <value>Verwijderen uit wachtrij</value>
   </data>
   <data name="CouldNotSaveQueueMessage" xml:space="preserve">
-    <value>Görev sırası: {0} {1} kaydedilemedi</value>
+    <value>Kan wachtrij niet opslaan:{0}{1}</value>
   </data>
   <data name="ExportQueue" xml:space="preserve">
-    <value>Görev sıralamasını dışa aktar...</value>
+    <value>Exporteer wachtrij...</value>
   </data>
   <data name="ExportQueueFilePickerText" xml:space="preserve">
-    <value>Görev sıralamasını dışa aktar</value>
+    <value>Exporteren van wachtrij</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>Görev sıralaması içe aktarılamadı. Biçim tanımlanamıyor.</value>
+    <value>Wachtrij kan niet worden geïmporteerd. Indeling wordt niet herkend.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
-    <value>Hazır ayar dosyasını içe aktar</value>
+    <value>Importeer instellingen bestand</value>
   </data>
   <data name="ImportQueueFilePickerTitle" xml:space="preserve">
-    <value>Görev sıralama dosyasını içe aktar</value>
+    <value>Wachtrij-bestand importeren</value>
   </data>
   <data name="ImportQueue" xml:space="preserve">
-    <value>Kuyruğa Al...</value>
+    <value>Importeren van wachtrij...</value>
   </data>
   <data name="QueueExportSuccessMessage" xml:space="preserve">
-    <value>Görev sıralaması başarıyla {0} a aktarıldı</value>
+    <value>Wachtrij succesvol geëxporteerd naar {0}</value>
   </data>
   <data name="QueueImportSuccessMessage" xml:space="preserve">
-    <value>Görev sıralaması başarıyla içe aktarıldı.</value>
+    <value>Wachtrij succesvol geïmporteerd.</value>
   </data>
   <data name="StopEncodeConfirmationTitle" xml:space="preserve">
-    <value>Kodlama işlemini durdur?</value>
+    <value>Stop coderen?</value>
   </data>
   <data name="StopEncodeConfirmationMessage" xml:space="preserve">
-    <value>Kodlama işlemini durdurmak istediğinizden emin misiniz?</value>
+    <value>Weet u zeker dat u wilt stoppen met het coderen?</value>
   </data>
   <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
-    <value>Mevcut dosyayı kapat ve diski aç?</value>
+    <value>Het huidige bestand sluiten en de disc openen?</value>
   </data>
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
-    <value>Kodlama Ayrıntıları</value>
+    <value>Encodeer details</value>
   </data>
 	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>En son görev sıralamasına bir öğe eklemenizden sonra kodlama işlem ayarları değişmiş. Görev sıralamasındaki tüm öğeler için mevcut kodlama işlem ayarlarını uygulamak istiyor musunuz?</value>
+    <value>Instellingen voor encodering zijn veranderd sinds de laatste keer dat je iets aan de wachtrij hebt toegevoegd. Wil je de huidige encoderingsinstellingen toepassen op alles in de wachtrij?</value>
   </data>
 	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>Ayarlar değiştirildi</value>
+    <value>Instellingen zijn veranderd</value>
   </data>
 	<data name="RenameDatabaseFileLine2" xml:space="preserve">
-    <value>Varolan dosyayı yeniden adlandırmak ve yeni bir dosyayla işleme başlamak istiyor musunuz?</value>
+    <value>Wil je het bestaande bestand hernoemen en beginnen met een nieuwe?</value>
   </data>
 	<data name="RenameDatabaseFileLine1" xml:space="preserve">
-    <value>Sürüm {0} veritabanı dosyası okunamıyor. VidCoder {1} tarafından tanınan en yüksek sürüm versiyonu {2}</value>
+    <value>Kan versie {0} van het database bestand niet lezen. De hoogste versie die VidCoder {1} aankan is {2}</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
 	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
-    <value>Uyumsuz veritabanı dosyası</value>
+    <value>Database bestand is niet compatibel</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
 </root>

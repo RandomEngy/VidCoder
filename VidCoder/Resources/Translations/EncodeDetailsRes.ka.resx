@@ -99,49 +99,49 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<data name="EncodeDetailsWindowTitle" xml:space="preserve">
-    <value>Kodlama İşlemi Detayları</value>
+    <value>კოდირების დეტალები</value>
   </data>
 	<data name="QueueSectionHeader" xml:space="preserve">
-    <value>Görev Sıralaması</value>
+    <value>რიგი</value>
   </data>
 	<data name="ScanPassLabel" xml:space="preserve">
-    <value>Tarama geçişi:</value>
+    <value>სკანირების პროცესი:</value>
   </data>
 	<data name="FirstPassLabel" xml:space="preserve">
-    <value>İlk geçiş:</value>
+    <value>პირველადი პროცესი:</value>
   </data>
 	<data name="SecondPassLabel" xml:space="preserve">
-    <value>İkinci geçiş:</value>
+    <value>მეორადი პროცესი:</value>
   </data>
 	<data name="EncodePassLabel" xml:space="preserve">
-    <value>Kodlama geçişi:</value>
+    <value>კოდირების პროცესი:</value>
   </data>
 	<data name="JobLabel" xml:space="preserve">
-    <value>Görev:</value>
+    <value>დავალება:</value>
   </data>
 	<data name="ProgressLabel" xml:space="preserve">
-    <value>İlerleme durumu:</value>
+    <value>პროგრესი:</value>
   </data>
 	<data name="ElapsedTimeLabel" xml:space="preserve">
-    <value>Geçen süre:</value>
+    <value>გამოყენებული დრო:</value>
   </data>
 	<data name="EtaLabel" xml:space="preserve">
-    <value>TAHMİNİ TAMAMLANMA SÜRESİ:</value>
+    <value>სავარაუდო დრო:</value>
   </data>
 	<data name="FileProgressLabel" xml:space="preserve">
-    <value>Dosya ilerleme durumu:</value>
+    <value>ფაილის პროგრესი:</value>
     <comment>Label on the encode details window for % progress on the current file.</comment>
   </data>
 	<data name="FileSizeLabel" xml:space="preserve">
-    <value>Dosya Boyutu:</value>
+    <value>ფაილის ზომა:</value>
     <comment>Label for current file size on encode details window.</comment>
   </data>
 	<data name="CurrentFpsLabel" xml:space="preserve">
-    <value>Mevcut kare/sn:</value>
+    <value>აქტუალური FPS:</value>
     <comment>Label for the current encoding rate in frames per second.</comment>
   </data>
 	<data name="AverageFpsLabel" xml:space="preserve">
-    <value>Ortalama kare/sn:</value>
+    <value>ცვლადი FPS:</value>
     <comment>Label for the average encoding rate in frames per second.</comment>
   </data>
 </root>

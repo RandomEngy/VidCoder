@@ -118,138 +118,138 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
-    <value>Bu program ücretsiz bir yazılımdır; Ücretsiz Yazılım Vakfı (Free Software Foundation) tarafından yayımlandığı gibi, GNU Genel Kamu Lisansı (General Public License) sürüm 2 şartları altında yeniden dağıtabilir ve/veya değiştirebilirsiniz.
+    <value>ეს არის თავისუფალი პროგრამა; თქვენ შეგიძლიათ გავრცელება და/ან მოდიფიცირება "GNU" ძირითადი სახალხო ლიცენზიის პირობების გათვალისწინებით, როგორც გამოქვეყნებულია თავისუფალი პროგრამის ფონდის მიერ; ლიცენზიის II ვერსიით, ან (თქვენი არჩევით) მომდევნო ერსიით.
 
-Bu program faydalı olacağı umuduyla dağıtılmaktadır ama HERHANGİ BİR GARANTİSİ YOKTUR; BELİRLİ BİR AMACA veya TİCARETE UYGUNLUĞUNUN dolaylı bile garantisi yoktur. Daha fazla ayrıntı için GNU General Public License’a bakın.
+ეს პროგრამა გავრცელებულია იმის იმედით, რომ იქნება გამოსადეგარი, მაგრამ ყველანაირი გარანტიის გარეშე!; აგრეთვე კომერციალიზირების ან კონკრეტული პირადი მიზნის გამოყენების გარანტიის გარეშე. დამატებითი ინფორმაციისთვის იხილეთ "GNU" ძირითადი სახალხო ლიცენზიის პირობები.
 
-GNU General Public License kopyası bu programa dahil edilmiştir.</value>
+ეს პროგრამა შეიცავს "GNU" ძირითადი სახალხო ლიცენზიის პირობების სრულ კოპიას.</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>Altyazıyı resmin üzerine yaz. Gömülü altyazılı film izlenirken altyazı devre dışı bırakılamaz.</value>
+    <value>ტიტრის ვიდეოზე კოდირება. კოდირებული ტიტრით, მისი დეაქტივირება ვერ მოხერხდება.</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Bu altyazıyı varsayılan olarak seç. Çalma esnasında başka bir altyazı seçilene kadar bu altyazı gösterilecektir.</value>
+    <value>ამ ტიტრის სტანდარტად არჩევა. ეს ტიტრი იქნება წარმოსახული ავტომატურად სანამ სხვა არ აირჩევა ხელით.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Sadece zorunlu altyazıları göster. Bu genellikle az miktarda bulunan yabancı konuşmalar için kullanılır.</value>
+    <value>წყაროდან მხოლოდ იძულებითი ტიტრის ჩვენება. როგორც წესი ნიშნავს, პატარა ფრაგმენტებს, სადაც უცხო ენაზეა დიალოგი.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
-    <value>Seçili altyazıların gösterimini öne  alma ya da  geciktirme süresi miktarı.</value>
+    <value>ტიტრის მართვა, დროის წარმოსახვის დასაჩქარებლად ან შესაყოვნებლად.</value>
   </data>
   <data name="QueueColumnNameRange" xml:space="preserve">
-    <value>Aralık</value>
+    <value>დიაპაზონი</value>
     <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
   </data>
   <data name="QueueColumnNameDestination" xml:space="preserve">
-    <value>Hedef</value>
+    <value>შენახვის ადგილი</value>
   </data>
   <data name="QueueColumnNameSource" xml:space="preserve">
-    <value>Kaynak</value>
+    <value>წყარო</value>
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
-    <value>Başlık</value>
+    <value>ფაილი</value>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>Ses Kalitesi</value>
+    <value>აუდიო ხარისხი</value>
   </data>
   <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>Ses Kodlayıcı</value>
+    <value>აუდიო კოდიფიკადორი</value>
   </data>
   <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Video Kodlayıcı</value>
+    <value>ვიდეო კოდიფიკადორი</value>
   </data>
   <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Video Kalitesi</value>
+    <value>ვიდეო ხარისხი</value>
   </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>Kuyruktaki tüm işleri tamamlamak için kalan tahmini süre.</value>
+    <value>ყველა დავალების სავარაუდო დასრულების დრო.</value>
   </data>
   <data name="QueueColumnNameDuration" xml:space="preserve">
-    <value>Süre</value>
+    <value>ხანგრძლივობა</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Altyazı içerisindeki muhtemel yabancı diyalog parçalarını arar. Özellikle kendi ana dilinizde olan filmler için uygundur.</value>
+    <value>ეძებს ტიტრის წყაროს რომელიც სავარაუდოდ შეიცავს უცხო ენის დიალოგის პატარა ფრაგმენტებს. რეკომენდირებულია ფილმებისთვის თქვენს ენაზე.</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>Varsayılan</value>
+    <value>სტანდარტი</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="Custom" xml:space="preserve">
-    <value>Özel</value>
+    <value>პერსონალური</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="Browse" xml:space="preserve">
-    <value>Gözat...</value>
+    <value>მოძიება...</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Sil</value>
+    <value>წაშლა</value>
   </data>
   <data name="PreviewLabel" xml:space="preserve">
-    <value>Önizleme</value>
+    <value>ჩვეება</value>
   </data>
   <data name="Automatic" xml:space="preserve">
-    <value>Otomatik</value>
+    <value>ავტომატური</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>Kapalı</value>
+    <value>გამორთვა</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="All" xml:space="preserve">
-    <value>Tümü</value>
+    <value>ყველა</value>
   </data>
   <data name="StreamChoice" xml:space="preserve">
-    <value>Stream {0}</value>
+    <value>ნაკადი {0}</value>
     <comment>Used in the encoding settings dialog to mark which audio stream an audio encoding is targeting. By default the encoding works on all streams but you can target it to affect only the first stream, in which case it would label it "Stream 1"</comment>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>Tamam</value>
+    <value>დათანხმება</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>İptal</value>
+    <value>შეწყვეტა</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>Devre Dışı</value>
+    <value>დეაქტივირებულია</value>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>Kaldır</value>
+    <value>წაშლა</value>
   </data>
   <data name="Copy" xml:space="preserve">
-    <value>Kopyala</value>
+    <value>კოპირება</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Evet</value>
+    <value>დიახ</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>Hayır</value>
+    <value>არა</value>
   </data>
   <data name="CouldNotAccessDirectoriesError" xml:space="preserve">
-    <value>Aşağıdaki dizinlere erişilemedi:</value>
+    <value>შემდეგი ფოლდერი მიუწვდომელია:</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>Hiçbiri</value>
+    <value>არანაირი</value>
   </data>
   <data name="Succeeded" xml:space="preserve">
-    <value>Başarılı Oldu</value>
+    <value>წარმატებულია</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>Başarısız Oldu</value>
+    <value>წარუმატებულია</value>
   </data>
   <data name="FilePickerExtTemplate" xml:space="preserve">
-    <value>{0} Dosya</value>
+    <value>{0} ფაილი</value>
   </data>
   <data name="QueueColumnNamePreset" xml:space="preserve">
-    <value>Hazır Ayar</value>
+    <value>შაბლონი</value>
   </data>
   <data name="Success" xml:space="preserve">
-    <value>Başarılı</value>
+    <value>წარმატებულია</value>
   </data>
   <data name="ConfirmDialogTitle" xml:space="preserve">
-    <value>Onayla</value>
+    <value>დათანხმება</value>
   </data>
   <data name="FileFailureErrorMessage" xml:space="preserve">
-    <value>Dosya işlemi tamamlanamadı.</value>
+    <value>ოპერაციის დასრულება წარუმატებულია.</value>
   </data>
   <data name="FileFailureErrorTitle" xml:space="preserve">
-    <value>Dosya işlemi hatası</value>
+    <value>ოპერაცია წარუმატებულია</value>
   </data>
 </root>

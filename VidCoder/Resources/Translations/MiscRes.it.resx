@@ -160,7 +160,7 @@
     <value>Colonne di coda</value>
   </data>
   <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Drag &amp;amp; drop per aggiungere, rimuovere o riordinare le colonne.</value>
+    <value>Drag &amp; drop per aggiungere, rimuovere o riordinare le colonne.</value>
   </data>
   <data name="UnusedColumns" xml:space="preserve">
     <value>Colonne inutilizzate</value>
@@ -245,6 +245,10 @@
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
     <value>Ha completato la codifica.</value>
   </data>
-	
-	
+	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+    <value>Impossibile trovare un riproduttore video per {0}.</value>
+  </data>
+	<data name="ErrorPlayingSource" xml:space="preserve">
+    <value>Errore nella riproduzione della sorgente.</value>
+  </data>
 </root>

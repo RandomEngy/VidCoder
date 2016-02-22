@@ -99,49 +99,49 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<data name="EncodeDetailsWindowTitle" xml:space="preserve">
-    <value>Kodlama İşlemi Detayları</value>
+    <value>Codeergegevens</value>
   </data>
 	<data name="QueueSectionHeader" xml:space="preserve">
-    <value>Görev Sıralaması</value>
+    <value>Wachtrij</value>
   </data>
 	<data name="ScanPassLabel" xml:space="preserve">
-    <value>Tarama geçişi:</value>
+    <value>Controle:</value>
   </data>
 	<data name="FirstPassLabel" xml:space="preserve">
-    <value>İlk geçiş:</value>
+    <value>Eerste stap:</value>
   </data>
 	<data name="SecondPassLabel" xml:space="preserve">
-    <value>İkinci geçiş:</value>
+    <value>Tweede stap:</value>
   </data>
 	<data name="EncodePassLabel" xml:space="preserve">
-    <value>Kodlama geçişi:</value>
+    <value>Coderen:</value>
   </data>
 	<data name="JobLabel" xml:space="preserve">
-    <value>Görev:</value>
+    <value>Taak:</value>
   </data>
 	<data name="ProgressLabel" xml:space="preserve">
-    <value>İlerleme durumu:</value>
+    <value>Vooruitgang:</value>
   </data>
 	<data name="ElapsedTimeLabel" xml:space="preserve">
-    <value>Geçen süre:</value>
+    <value>Verstreken tijd:</value>
   </data>
 	<data name="EtaLabel" xml:space="preserve">
-    <value>TAHMİNİ TAMAMLANMA SÜRESİ:</value>
+    <value>Klaar in:</value>
   </data>
 	<data name="FileProgressLabel" xml:space="preserve">
-    <value>Dosya ilerleme durumu:</value>
+    <value>Vooruitgang:</value>
     <comment>Label on the encode details window for % progress on the current file.</comment>
   </data>
 	<data name="FileSizeLabel" xml:space="preserve">
-    <value>Dosya Boyutu:</value>
+    <value>Bestandsgrootte:</value>
     <comment>Label for current file size on encode details window.</comment>
   </data>
 	<data name="CurrentFpsLabel" xml:space="preserve">
-    <value>Mevcut kare/sn:</value>
+    <value>Huidig aantal beelden/s:</value>
     <comment>Label for the current encoding rate in frames per second.</comment>
   </data>
 	<data name="AverageFpsLabel" xml:space="preserve">
-    <value>Ortalama kare/sn:</value>
+    <value>Gemiddeld aantal beelden/s:</value>
     <comment>Label for the average encoding rate in frames per second.</comment>
   </data>
 </root>

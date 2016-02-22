@@ -118,309 +118,307 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>Quando la selezione audio automatica è disattivata, viene mantenuto l'ultimo brano scelto.</value>
+    <value>Als automatische audio selectie is uitgeschakeld wordt het laatst gekozen spoor behouden.</value>
   </data>
   <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>Quando la selezione automatica dei sottotitoli è disabilitato, i sottotitoli ultimi raccolti sono persistenti.</value>
+    <value>Wanneer automatische ondertitel selectie is uitgeschakeld blijven de laatst gekozen ondertitels gehandhaafd.</value>
   </data>
   <data name="GeneralTab" xml:space="preserve">
-    <value>Generale</value>
+    <value>Algemeen</value>
   </data>
   <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
-    <value>Ridurre al minimo la barra delle applicazioni</value>
+    <value>Minimaliseren op taakbalk</value>
   </data>
   <data name="MinimizeToSystemTrayRadioButton" xml:space="preserve">
-    <value>Minimizzare al vassoio di sistema</value>
+    <value>Minimaliseren naar systeemvak</value>
   </data>
   <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
-    <value>Riprodurre l'audio sul completamento della coda</value>
+    <value>Na voltooïng van de wachtrij een geluid afspelen</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
-    <value>Lettore di DVD preferito:</value>
+    <value>Voorkeur DVD-speler:</value>
   </data>
   <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
-    <value>Scegli il giocatore che si desidera utilizzare per le fonti di DVD.</value>
+    <value>Kies de speler die u wilt gebruiken voor DVD bronnen.</value>
   </data>
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
-    <value>Aggiornamenti automatici</value>
+    <value>Automatische updates</value>
   </data>
   <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Unire la traccia di aggiornamento Beta</value>
+    <value>Kies voor het Beta update track</value>
   </data>
   <data name="FileNamingTab" xml:space="preserve">
-    <value>Denominazione file</value>
+    <value>Bestandsnamen</value>
   </data>
   <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>Cartella predefinita:</value>
+    <value>Standaardmap:</value>
   </data>
   <data name="FileFormatLabel" xml:space="preserve">
-    <value>Formato file:</value>
+    <value>Bestandsindeling:</value>
   </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Uscita alla directory sorgente se possibile</value>
+    <value>Uitvoer naar de bronmap indien mogelijk</value>
   </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Formato predefinito</value>
+    <value>Standaardindeling</value>
   </data>
   <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Formato personalizzato:</value>
+    <value>Aangepaste indeling:</value>
   </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>Opzioni disponibili: {0}</value>
+    <value>Beschikbare opties: {0}</value>
   </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
-    <value>Quando un file esiste già...</value>
+    <value>Als een bestand al bestaat...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
-    <value>Codifica file singolo:</value>
+    <value>Enkel bestand coderen:</value>
   </data>
   <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Chiederà se si desidera sovrascriverlo</value>
+    <value>Vragen of u het wilt overschrijven</value>
   </data>
   <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Sovrascrivere il file senza chiedere conferma</value>
+    <value>Het bestand zonder waarschuwing overschrijven</value>
   </data>
   <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Passare automaticamente a un nome diverso</value>
+    <value>Automatisch een andere naam kiezen</value>
   </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
-    <value>Codifica batch di file:</value>
+    <value>Een groep bestanden coderen:</value>
   </data>
   <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Sovrascrivi</value>
+    <value>Overschrijven</value>
   </data>
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Rinominare automaticamente</value>
+    <value>Automatisch hernoemen</value>
   </data>
   <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Selezione automatica audio</value>
+    <value>Automatische audio keuze</value>
   </data>
   <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Audio / sottotitoli</value>
+    <value>Audio / Ondertitels</value>
   </data>
   <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Lingua:</value>
+    <value>Taal:</value>
   </data>
   <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Includono tutte le canzoni</value>
+    <value>Alle sporen meenemen</value>
   </data>
   <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Selezione automatica dei sottotitoli</value>
+    <value>Automatische ondertitel keuze</value>
   </data>
   <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Ricerca Audio Straniero</value>
+    <value>Buitenlandse Audio zoeken</value>
   </data>
   <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Scrivi in</value>
+    <value>Integreren met beeld</value>
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Solo se una lingua diversa dall'audio</value>
+    <value>Alleen als de taal verschilt van het audio spoor</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
-    <value>Pausa automaticamente codifica quando uno qualsiasi di questi processi sono in esecuzione:</value>
+    <value>Pauzeer codering automatisch als een van deze processen wordt uitgevoerd:</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
-    <value>Aggiungi...</value>
+    <value>Voeg toe...</value>
   </data>
   <data name="PreviewCountLabel" xml:space="preserve">
-    <value>Numero di anteprime di foto a scansione:</value>
+    <value>Aantal preview beelden om te scannen:</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
-    <value>Ricordate di cartelle e file usati in precedenza</value>
+    <value>Onthou eerder gebruikte bestanden en mappen</value>
   </data>
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Consentono l'impostazione nome personalizzato sulle tracce audio (supporto limitato giocatore)</value>
+    <value>Sta aangepaste naamgeving toe voor audiosporen (beperkte ondersteuning)</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Abilitare LibDVDNav (cambiamento richiede il riavvio del programma)</value>
+    <value>Schakel LibDVDNav in (herstart van programma vereist)</value>
   </data>
   <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Mantenere scansioni dopo completamento (permette di modificare gli elementi completati)</value>
+    <value>Sla scans na afloop op (maakt het bewerken van voltooide items mogelijk)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Eliminare i file di origine al termine compensazione successo oggetti (con conferma)</value>
+    <value>Bronbestanden verwijderen na succesvol omzetten (met bevestiging)</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
-    <value>Livello di dettaglio registrazione:</value>
+    <value>Hoe uitgebreid zijn de logs:</value>
   </data>
   <data name="MinScanLengthLabel" xml:space="preserve">
-    <value>Lunghezza minima del titolo per la scansione (secondi):</value>
+    <value>Minimale duur van de te scannen titel (seconden):</value>
   </data>
   <data name="RecognizedExtensionsLabel" xml:space="preserve">
-    <value>Estensioni riconosciute:</value>
+    <value>Ondersteunde Extensies:</value>
   </data>
   <data name="RecognizedExtensionsToolTip" xml:space="preserve">
-    <value>Durante la scansione di cartelle per i file video, aggiungere file con queste estensioni. (Separati da virgola)</value>
+    <value>Bij het scannen van mappen voor video bestanden, bestanden met deze extensies toevoegen. (Komma gescheiden)</value>
   </data>
   <data name="OptionsDialogTitle" xml:space="preserve">
-    <value>Opzioni</value>
+    <value>Instellingen</value>
   </data>
   <data name="ProcessesTab" xml:space="preserve">
-    <value>Processi</value>
+    <value>Processen</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
-    <value>Avanzato</value>
+    <value>Geavanceerd</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Si sta eseguendo la versione Beta. Questo può funzionare a fianco con la versione stabile.</value>
+    <value>U gebruikt de bètaversie. Die kan tegelijkertijd met de stabiele versie draaien.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
-    <value>Unisci la traccia Beta per aggiornamenti più frequenti</value>
+    <value>Deelnemen aan bèta programma om vaker updates te krijgen</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Aggiornare {0} pronto. Quando si esce il programma verrà installato.</value>
+    <value>Update {0} klaar. De update wordt geïnstalleerd wanneer u het programma afsluit.</value>
   </data>
   <data name="DownloadingStatus" xml:space="preserve">
-    <value>Download aggiornamento {0}:</value>
+    <value>Update downloaden {0}:</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
-    <value>VidCoder è aggiornato.</value>
+    <value>VidCoder is up-to-date.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>Scegliere la directory di output predefinito per i file video codificati.</value>
+    <value>Kies de standaard uitvoermap voor gecodeerde videobestanden.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
-    <value>Interfaccia lingua:</value>
+    <value>Interfacetaal:</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
-    <value>La nuova lingua sarà effettive dopo uscire e riavviare VidCoder.</value>
+    <value>De nieuwe taal wordt van kracht na het afsluiten en herstarten van Video der.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
-    <value>Utilizzare la lingua del sistema operativo</value>
+    <value>Gebruik OS taal</value>
   </data>
   <data name="UpdatesTab" xml:space="preserve">
-    <value>Aggiornamenti</value>
+    <value>Updates</value>
   </data>
   <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Trovare la versione più recente...</value>
+    <value>De nieuwste versie zoeken...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
-    <value>Controllo dell'aggiornamento non riuscito.</value>
+    <value>Update controle mislukt.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>Scegliere il file wav che si desidera utilizzare per il suono di completamento.</value>
+    <value>Kies het .wav-bestand dat u wilt gebruiken voor het geluid van de voltooiing.</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
-    <value>Versione corrente: {0}</value>
+    <value>Huidige versie: {0}</value>
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
-    <value>Attenzione: questa versione è più probabile avere bug e crash.</value>
+    <value>Let op: deze versie heeft waarschijnlijk meer bugs en crashes.</value>
   </data>
   <data name="LanguagesSection" xml:space="preserve">
-    <value>Lingue</value>
+    <value>Taalinstellingen</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
-    <value>Suonatori
-	
-</value>
+    <value>Afspelers</value>
   </data>
   <data name="SoundSection" xml:space="preserve">
-    <value>Suono</value>
+    <value>Geluid</value>
   </data>
   <data name="SystemTraySection" xml:space="preserve">
-    <value>Vassoio di sistema</value>
+    <value>Systeemvak</value>
   </data>
   <data name="OutputFolderSection" xml:space="preserve">
-    <value>Cartella di output</value>
+    <value>Uitvoermap</value>
   </data>
   <data name="NamingFormatSection" xml:space="preserve">
-    <value>Formato di denominazione</value>
+    <value>Naamgeving van formaat</value>
   </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
-    <value>Opzioni avanzate</value>
+    <value>Geavanceerde opties</value>
   </data>
   <data name="ScanningSection" xml:space="preserve">
-    <value>Ricerca in corso</value>
+    <value>Scannen</value>
   </data>
   <data name="LoggingSection" xml:space="preserve">
-    <value>Registrazione</value>
+    <value>Logboekregistratie</value>
   </data>
   <data name="DvdReadingSection" xml:space="preserve">
-    <value>Lettura DVD</value>
+    <value>DVD lezen</value>
   </data>
   <data name="UpdatesSection" xml:space="preserve">
-    <value>Aggiornamenti</value>
+    <value>Updates</value>
   </data>
   <data name="UpdateStatusSection" xml:space="preserve">
-    <value>Stato</value>
+    <value>Status</value>
   </data>
   <data name="BetaSection" xml:space="preserve">
     <value>Beta</value>
   </data>
   <data name="UseCustomWavLabel" xml:space="preserve">
-    <value>Usa file WAV personalizzato:</value>
+    <value>Gebruik aangepast .wav-bestand:</value>
   </data>
   <data name="CheckNowButton" xml:space="preserve">
-    <value>Controlla ora</value>
+    <value>Nu Controleren</value>
   </data>
   <data name="UseSystemPlayer" xml:space="preserve">
-    <value>Utilizza suonatore di sistema</value>
+    <value>Gebruik systeem speler</value>
   </data>
   <data name="VideoFilesLabel" xml:space="preserve">
-    <value>File video:</value>
+    <value>Videobestanden:</value>
   </data>
   <data name="CustomVideoPlayerToolTip" xml:space="preserve">
-    <value>Specificare il percorso per il lettore video che si desidera utilizzare per i file.</value>
+    <value>Geef het pad op naar de video-speler die u wilt gebruiken voor bestanden.</value>
   </data>
   <data name="VideoPlayerFilePickTitle" xml:space="preserve">
-    <value>Scegliere il Suonatore da utilizzare per i file video.</value>
+    <value>Kies de speler voor videobestanden.</value>
   </data>
   <data name="CustomPlayerLabel" xml:space="preserve">
-    <value>Suonatore personalizzato:</value>
+    <value>Aangepaste speler:</value>
   </data>
   <data name="Priority_High" xml:space="preserve">
-    <value>Elevata</value>
+    <value>Hoog</value>
   </data>
   <data name="Priority_AboveNormal" xml:space="preserve">
-    <value>Superiore al normale</value>
+    <value>Boven normaal</value>
   </data>
   <data name="Priority_Normal" xml:space="preserve">
-    <value>Normale</value>
+    <value>Normaal</value>
   </data>
   <data name="Priority_BelowNormal" xml:space="preserve">
-    <value>Inferiore al normale</value>
+    <value>Onder normaal</value>
   </data>
   <data name="WorkerProcessPriorityLabel" xml:space="preserve">
-    <value>Priorità del processo di lavoro:</value>
+    <value>Prioriteit werk proces:</value>
   </data>
   <data name="Priority_Idle" xml:space="preserve">
-    <value>Basso</value>
+    <value>Laag</value>
   </data>
   <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>Copia codifica log nella stessa directory come il codifica video</value>
+    <value>De codeer-log kopiëren naar dezelfde map als de gecodeerde video</value>
   </data>
   <data name="OpenLogFolderButton" xml:space="preserve">
-    <value>Cartella di registro aperto</value>
+    <value>De logboek map openen</value>
   </data>
   <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
-    <value>Riprendere automaticamente la codifica al riavvio</value>
+    <value>Automatisch codering hervatten na herstart</value>
   </data>
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
-    <value>Utilizzare il processo di lavoro per la codifica</value>
+    <value>Werkproces wordt gebruikt om te coderen</value>
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>Video</value>
   </data>
   <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>Abilitare decodifica Hardware DXVA</value>
+    <value>Inschakelen van DXVA hardwareversnelling decoderen</value>
   </data>
   <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>Questa opzione è soltanto adatta a sistemi più lenti. Decodificatori hardware attualmente sono progettati per la riproduzione, non per la ri-codifica video così sarà probabile strozzatura sui sistemi più veloci.</value>
+    <value>Deze optie is alleen geschikt voor langzamere systemen. Hardwaredecoders zijn momenteel ontworpen voor afspelen, niet voor het opnieuw encoderen van video dus zal waarschijnlijk knelpunt zijn op snellere systemen.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
-    <value>Preservare il tempo creata e modificata quando conversione file</value>
+    <value>Behoud Gemaakte en Aangepaste tijd wanneer u bestanden converteert</value>
   </data>
   <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Default</value>
+    <value>Standaard</value>
     <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
   </data>
   <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Preservare la struttura della codifica delle cartelle in modalità batch</value>
+    <value>Behoud mappenstructuur in batch coderingen</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Se si codifica una cartella piena di file saranno messe le versioni codificate in sottocartelle per abbinare la struttura di directory di origine.</value>
+    <value>Als u een map vol bestanden codeert zullen de gecodeerde versies in submappen komen die overeenkomen met de structuur van de bron-map.</value>
   </data>
 	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
-    <value>Cartella personalizzata per le anteprime:</value>
+    <value>Aangepaste map voor previews:</value>
   </data>
 </root>

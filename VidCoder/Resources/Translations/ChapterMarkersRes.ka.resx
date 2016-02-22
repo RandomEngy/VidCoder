@@ -98,50 +98,28 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	<data name="EncodeDetailsWindowTitle" xml:space="preserve">
-    <value>Kodlama İşlemi Detayları</value>
+  <data name="ChapterMarkersDialogTitle">
+    <value xml:space="preserve">თავის მნიშვნელი</value>
   </data>
-	<data name="QueueSectionHeader" xml:space="preserve">
-    <value>Görev Sıralaması</value>
+  <data name="DefaultChapterNamesRadioButton">
+    <value xml:space="preserve">სტანდარტული თავის სახელის გამოყენება</value>
   </data>
-	<data name="ScanPassLabel" xml:space="preserve">
-    <value>Tarama geçişi:</value>
+  <data name="CustomChapterNamesRadioButton">
+    <value xml:space="preserve">პერსონალური თავის სახელის გამოყენება:</value>
   </data>
-	<data name="FirstPassLabel" xml:space="preserve">
-    <value>İlk geçiş:</value>
+  <data name="ImportFromCsvButton">
+    <value xml:space="preserve">.csv...-იდან შემოტანა</value>
   </data>
-	<data name="SecondPassLabel" xml:space="preserve">
-    <value>İkinci geçiş:</value>
+  <data name="NumberColumn">
+    <value xml:space="preserve">ნომერი</value>
   </data>
-	<data name="EncodePassLabel" xml:space="preserve">
-    <value>Kodlama geçişi:</value>
+  <data name="StartTimeColumn">
+    <value xml:space="preserve">საწყისი დრო</value>
   </data>
-	<data name="JobLabel" xml:space="preserve">
-    <value>Görev:</value>
+  <data name="TitleColumn">
+    <value xml:space="preserve">ფაილი</value>
   </data>
-	<data name="ProgressLabel" xml:space="preserve">
-    <value>İlerleme durumu:</value>
-  </data>
-	<data name="ElapsedTimeLabel" xml:space="preserve">
-    <value>Geçen süre:</value>
-  </data>
-	<data name="EtaLabel" xml:space="preserve">
-    <value>TAHMİNİ TAMAMLANMA SÜRESİ:</value>
-  </data>
-	<data name="FileProgressLabel" xml:space="preserve">
-    <value>Dosya ilerleme durumu:</value>
-    <comment>Label on the encode details window for % progress on the current file.</comment>
-  </data>
-	<data name="FileSizeLabel" xml:space="preserve">
-    <value>Dosya Boyutu:</value>
-    <comment>Label for current file size on encode details window.</comment>
-  </data>
-	<data name="CurrentFpsLabel" xml:space="preserve">
-    <value>Mevcut kare/sn:</value>
-    <comment>Label for the current encoding rate in frames per second.</comment>
-  </data>
-	<data name="AverageFpsLabel" xml:space="preserve">
-    <value>Ortalama kare/sn:</value>
-    <comment>Label for the average encoding rate in frames per second.</comment>
+  <data name="CouldNotReadFileMessage">
+    <value xml:space="preserve">ფაილის წაკითხვა ვერ ხერხდება.</value>
   </data>
 </root>

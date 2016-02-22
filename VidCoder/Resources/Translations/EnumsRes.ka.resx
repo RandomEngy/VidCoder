@@ -117,138 +117,98 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddButton" xml:space="preserve">
-    <value>Ekle</value>
+  <data name="Anamorphic_Custom" xml:space="preserve">
+    <value>პერსონალური</value>
   </data>
-  <data name="RefreshButton" xml:space="preserve">
-    <value>Yenile</value>
+  <data name="Anamorphic_Loose" xml:space="preserve">
+    <value>თავისუფალი</value>
   </data>
-  <data name="ChooseFromProcessesLabel" xml:space="preserve">
-    <value>Varolan işlemleri seçin:</value>
+  <data name="Anamorphic_None" xml:space="preserve">
+    <value>არანაირი</value>
   </data>
-  <data name="AddAutoPauseProcessDialogTitle" xml:space="preserve">
-    <value>Otomatik Duraklatma İşlemi Ekle</value>
+  <data name="Anamorphic_Strict" xml:space="preserve">
+    <value>ზუსტი</value>
   </data>
-  <data name="ProcessNameLabel" xml:space="preserve">
-    <value>İşlem Adı:</value>
+  <data name="Custom" xml:space="preserve">
+    <value>პერსონალური</value>
   </data>
-  <data name="ExceptionDialogMainText" xml:space="preserve">
-    <value>VidCoder beklenmeyen bir hatayla karşılaştı.</value>
+  <data name="Decomb_Bob" xml:space="preserve">
+    <value>Bob</value>
   </data>
-  <data name="ExceptionDialogSubText" xml:space="preserve">
-    <value>Hatanın giderilebilmesi için lütfen bu sorunu bize bildirin.</value>
+  <data name="Decomb_Fast" xml:space="preserve">
+    <value>ჩქარი</value>
   </data>
-  <data name="ExceptionWindowTitle" xml:space="preserve">
-    <value>Özel Durum</value>
+  <data name="Default" xml:space="preserve">
+    <value>სტანდარტი</value>
   </data>
-  <data name="FileConflictDialogTitle" xml:space="preserve">
-    <value>Dosya çakışması</value>
+  <data name="Deinterlace_Bob" xml:space="preserve">
+    <value>Bob</value>
+    <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
   </data>
-  <data name="OverwriteButton" xml:space="preserve">
-    <value>Üzerine yaz</value>
+  <data name="Deinterlace_Fast" xml:space="preserve">
+    <value>ჩქარი</value>
   </data>
-  <data name="AutoRenameButton" xml:space="preserve">
-    <value>Otomatik yeniden adlandır</value>
+  <data name="Deinterlace_Slow" xml:space="preserve">
+    <value>ნელი</value>
   </data>
-  <data name="FileConflictWarning" xml:space="preserve">
-    <value>Bir dosya zaten {0} konumunda mevcut. Dosyanın üzerine yazmak mı, otomatik olarak kodlama işi için yeni bir dizin bulmak mı veya işlemi iptal etmek mi istersiniz?</value>
+  <data name="Deinterlace_Slower" xml:space="preserve">
+    <value>უფრო ნელი</value>
   </data>
-  <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>Bir görev sırası işi  {0} dizin konumunda zaten mevcut. Dosyanın üzerine yazmak mı, otomatik olarak kodlama işi için yeni bir dizin bulmak mı veya işlemi iptal etmek mi istersiniz?</value>
+  <data name="DenoisePreset_Light" xml:space="preserve">
+    <value>მსუბუქი</value>
   </data>
-  <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>Görev Listesi Kolonları</value>
+  <data name="DenoisePreset_Medium" xml:space="preserve">
+    <value>საშუალო</value>
   </data>
-  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>Sütunları eklemek, çıkarmak ya da yeniden sıralamak için sürükleyip bırakın.</value>
+  <data name="DenoisePreset_Strong" xml:space="preserve">
+    <value>მძლავრი</value>
   </data>
-  <data name="UnusedColumns" xml:space="preserve">
-    <value>Kullanılmayan sütunlar</value>
+  <data name="DenoisePreset_Ultralight" xml:space="preserve">
+    <value>ულტრა მსუბუქი</value>
   </data>
-  <data name="UsedColumns" xml:space="preserve">
-    <value>Kullanılan sütunlar</value>
+  <data name="DenoiseTune_Animation" xml:space="preserve">
+    <value>ანიმაცია</value>
   </data>
-  <data name="ScanMultipleWindowTitle" xml:space="preserve">
-    <value>Taranıyor...</value>
+  <data name="DenoiseTune_Film" xml:space="preserve">
+    <value>ფილმი</value>
   </data>
-  <data name="UpdateSuccessDialogTitle" xml:space="preserve">
-    <value>Başarılı</value>
+  <data name="DenoiseTune_Grain" xml:space="preserve">
+    <value>მარცვალი</value>
   </data>
-  <data name="UpdateSuccessDialogMessage" xml:space="preserve">
-    <value>VidCoder başarıyla güncelleştirildi.</value>
+  <data name="DenoiseTune_HighMotion" xml:space="preserve">
+    <value>სწრაფი მოძრაობა</value>
   </data>
-  <data name="AboutVidCoderDialogTitle" xml:space="preserve">
-    <value>VidCoder Hakkında</value>
+  <data name="Denoise_HQDN3D" xml:space="preserve">
+    <value>hqdn3d</value>
   </data>
-  <data name="LicenseLabel" xml:space="preserve">
-    <value>Lisans:</value>
+  <data name="Denoise_NLMeans" xml:space="preserve">
+    <value>NL-Means</value>
   </data>
-  <data name="Version" xml:space="preserve">
-    <value>Sürüm</value>
+  <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
+    <value>არ მოიმოქმედო</value>
   </data>
-  <data name="BasedOnHandBrake" xml:space="preserve">
-    <value>HandBrake ({0}) sürümü tabanlı</value>
+  <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
+    <value>გახსნა {0}:</value>
   </data>
-  <data name="Copyright" xml:space="preserve">
-    <value>© {0} VidCoder Geliştiricileri</value>
+  <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
+    <value>გამოსვლა</value>
   </data>
-  <data name="VersionFormat" xml:space="preserve">
-    <value>{0} ({1})</value>
-    <comment>First is version, second is architecture. For example: 1.4.2 (x64)</comment>
+  <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
+    <value>გამორთვა</value>
   </data>
-  <data name="BetaVersionFormat" xml:space="preserve">
-    <value>{0} Beta ({1})</value>
-    <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
+  <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
+    <value>ძილის რეჟიმი</value>
   </data>
-  <data name="PresetNameDialogTitle" xml:space="preserve">
-    <value>Hazır Ayar Adlandırma</value>
+  <data name="Off" xml:space="preserve">
+    <value>გამორთვა</value>
   </data>
-  <data name="ChoosePresetName" xml:space="preserve">
-    <value>Hazır ayar için bir ad seçin:</value>
+  <data name="VideoRangeType_Chapters" xml:space="preserve">
+    <value>თავი</value>
   </data>
-  <data name="ApplyUpdateDialogTitle" xml:space="preserve">
-    <value>Güncelleme Uygulansın mı?</value>
+  <data name="VideoRangeType_Frames" xml:space="preserve">
+    <value>კადრი</value>
   </data>
-  <data name="ApplyUpdateDialogMessage" xml:space="preserve">
-    <value>Bir güncelleme indirildi. Şimdi uygulamak ister misiniz?</value>
-  </data>
-  <data name="ViewFullChangelog" xml:space="preserve">
-    <value>Tüm değişim günlüğünü göster</value>
-  </data>
-  <data name="DisableUpdatesButton" xml:space="preserve">
-    <value>Güncellemeleri Devre Dışı Bırak</value>
-  </data>
-  <data name="NoticeMessageTitle" xml:space="preserve">
-    <value>Uyarı</value>
-  </data>
-  <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder işletim sisteminizde desteklenmiyor; Windows XP ve Server 2003'de artık çalışmaz. Lütfen VidCoder 1.4 yükleyin ya da işletim sisteminizi yükseltin.</value>
-  </data>
-  <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
-    <value>Sistem uyku moduna geçmek üzere</value>
-  </data>
-  <data name="EncodeCompleteWarning_LogOffTitle" xml:space="preserve">
-    <value>Oturum kapatılmak üzere</value>
-  </data>
-  <data name="EncodeCompleteWarning_ShutdownTitle" xml:space="preserve">
-    <value>Sistem kapatılmak üzere</value>
-  </data>
-  <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
-    <value>Sistem {0} saniye içinde uyku moduna geçecek.</value>
-  </data>
-  <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
-    <value>{0} saniye içinde oturumunuz kapatılacak.</value>
-  </data>
-  <data name="EncodeCompleteWarning_ShutdownMessage" xml:space="preserve">
-    <value>Sistem {0} saniye içinde kapatılacak.</value>
-  </data>
-  <data name="EncodeCompleteWarning_Title" xml:space="preserve">
-    <value>Kodlama tamamladı.</value>
-  </data>
-	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
-    <value>{0} için video oynatıcı bulunamadı.</value>
-  </data>
-	<data name="ErrorPlayingSource" xml:space="preserve">
-    <value>Kaynak oynatılırken hata oluştu.</value>
+  <data name="VideoRangeType_Seconds" xml:space="preserve">
+    <value>დროის ინტერვალი</value>
   </data>
 </root>

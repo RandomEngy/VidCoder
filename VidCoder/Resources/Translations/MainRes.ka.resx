@@ -118,283 +118,283 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
-    <value>Başlık:</value>
+    <value>ფაილი:</value>
   </data>
   <data name="SettingsLabel" xml:space="preserve">
-    <value>Ayarlar</value>
+    <value>პარამეტრები</value>
   </data>
   <data name="AddToQueueLabel" xml:space="preserve">
-    <value>Kuyruğa Ekle</value>
+    <value>დავალების დამატება</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
-    <value>Kuyruğa Birden Çok Başlık Ekle...</value>
+    <value>მრავალი ფაილის დამატება...</value>
   </data>
   <data name="FileMenu" xml:space="preserve">
-    <value>Dosya</value>
+    <value>ფაილი</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
-    <value>Video Dosyası Aç...</value>
+    <value>ვიდეოფაილის გახსნა...</value>
   </data>
   <data name="OpenDiscFolder" xml:space="preserve">
-    <value>DVD/Blu-ray Klasörü Aç...</value>
+    <value>DVD/Blu-Ray ფოლდერის გახსნა...</value>
   </data>
   <data name="EnqueueMultipleFiles" xml:space="preserve">
-    <value>Birden Çok Dosyayı Kuyruğa Al...</value>
+    <value>მრავალი ფაილის დავალებებში დამატება...</value>
   </data>
   <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Birden Çok Dosyayı Kuyruğa Al...</value>
+    <value>მრავალი ფაილის დავალებებში დამატება...</value>
   </data>
   <data name="ToolsMenu" xml:space="preserve">
-    <value>Araçlar</value>
+    <value>ხელსაწყოები</value>
   </data>
   <data name="ImportPreset" xml:space="preserve">
-    <value>Hazır Ayarı İçe Aktar...</value>
+    <value>შაბლონის შემოტანა...</value>
   </data>
   <data name="ExportPreset" xml:space="preserve">
-    <value>Hazır Ayarı Dışa Aktar...</value>
+    <value>შაბლონის გატანა...</value>
   </data>
   <data name="OptionsMenuItem" xml:space="preserve">
-    <value>Seçenekler...</value>
+    <value>პარამეტრები...</value>
   </data>
   <data name="Play" xml:space="preserve">
-    <value>Oynat</value>
+    <value>რეპროდუქცია</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Düzenle</value>
+    <value>შეცვლა</value>
   </data>
   <data name="OpenContainingFolder" xml:space="preserve">
-    <value>Bulunduğu Klasörü Aç</value>
+    <value>ფოლდერის გახსნა</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
-    <value>Tamamlananları Kaldır</value>
+    <value>დასრულებულის გასუფთავება</value>
   </data>
   <data name="ExitMenuItem" xml:space="preserve">
-    <value>Çık</value>
+    <value>დასრულება</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
-    <value>Windows</value>
+    <value>ფანჯრები</value>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
-    <value>Kodlama Ayarları</value>
+    <value>კოდირების პარამეტრები</value>
   </data>
   <data name="PreviewMenuItem" xml:space="preserve">
-    <value>Önizleme</value>
+    <value>ჩვეება</value>
   </data>
   <data name="LogMenuItem" xml:space="preserve">
-    <value>İşlem Kaydı</value>
+    <value>პროტოკოლი</value>
   </data>
   <data name="HelpMenu" xml:space="preserve">
-    <value>Yardım</value>
+    <value>დახმარება</value>
   </data>
   <data name="VidCoderHomepageMenuItem" xml:space="preserve">
-    <value>VidCoder Web Sitesi</value>
+    <value>VidCoder-ის ვებგვერდი</value>
   </data>
   <data name="ReportABugMenuItem" xml:space="preserve">
-    <value>Hata Bildir</value>
+    <value>პრობლემის შეტყობინება</value>
   </data>
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
-    <value>VidCoder Hakkında...</value>
+    <value>VidCoder-ის შესახებ...</value>
   </data>
   <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>Bir video kaynağı seçin:</value>
+    <value>აირჩიეთ ვიდეო:</value>
   </data>
   <data name="SourceLabel" xml:space="preserve">
-    <value>Kaynak:</value>
+    <value>წყარო:</value>
   </data>
   <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Kaynak inceleniyor...</value>
+    <value>წყაროს სკანირება...</value>
   </data>
   <data name="Recent" xml:space="preserve">
-    <value>Son</value>
+    <value>ბოლოს გახსნილი</value>
   </data>
   <data name="DragFilesHereLabel" xml:space="preserve">
-    <value>(Ya da video dosyalarını veya klasörleri buraya sürükleyin)</value>
+    <value>(ან გადმოიტანეთ ვიდეოფაილი ან ფოლდერი აქ)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
-    <value>İnceleme sırasında bir hata oluştu.</value>
+    <value>სკანირებისას შეცდომა დაფიქსირდა.</value>
   </data>
   <data name="AudioLabel" xml:space="preserve">
-    <value>Ses:</value>
+    <value>აუდიო:</value>
   </data>
   <data name="VideoLabel" xml:space="preserve">
-    <value>Video:</value>
+    <value>ვიდეო:</value>
   </data>
   <data name="SubtitlesLabel" xml:space="preserve">
-    <value>Altyazılar:</value>
+    <value>ტიტრი:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
-    <value>Parça Ekle</value>
+    <value>წყაროს დამატება</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
-    <value>Bölüm İşaretleri:</value>
+    <value>თავის მნიშვნელი:</value>
   </data>
   <data name="EditButton" xml:space="preserve">
-    <value>Düzenle...</value>
+    <value>შეცვლა...</value>
   </data>
   <data name="DestinationLabel" xml:space="preserve">
-    <value>Hedef:</value>
+    <value>შენახვის ადგილი:</value>
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
-    <value>Kodlama hedef yerini düzenlemek için tıklayın.</value>
+    <value>დააწაქით შენახვის ადგილის შესაცვლელად.</value>
   </data>
   <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>Çıkış yolunu seçin...</value>
+    <value>დასამახსოვრებელი ადგილი...</value>
   </data>
   <data name="EncodingLabel" xml:space="preserve">
-    <value>Kodlanıyor:</value>
+    <value>კოდირება:</value>
   </data>
   <data name="Stop" xml:space="preserve">
-    <value>Durdur</value>
+    <value>შეწყვეტა</value>
   </data>
   <data name="Pause" xml:space="preserve">
-    <value>Duraklat</value>
+    <value>პაუზა</value>
   </data>
   <data name="MoveToTopMenuItem" xml:space="preserve">
-    <value>En Üste Taşı</value>
+    <value>თავში გადანაცვლება</value>
   </data>
   <data name="MoveToBottomMenuItem" xml:space="preserve">
-    <value>En Alta Taşı</value>
+    <value>ბოლოში გადანაცვლება</value>
   </data>
   <data name="CustomizeColumnsMenuItem" xml:space="preserve">
-    <value>Sütunları özelleştir...</value>
+    <value>მწკრივის პერსონალიზირება...</value>
   </data>
   <data name="CurrentFpsLabel" xml:space="preserve">
-    <value>Geçerli kare/sn:</value>
+    <value>აქტუალური FPS:</value>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>Ortalama kare/sn:</value>
+    <value>ცვლადი FPS:</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
-    <value>Bir DVD ya da Blu-ray klasörü seçin.</value>
+    <value>აირჩიეთ DVD ან Blu-Ray ფოლდერი.</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
-    <value>Hala dönüştürülen dosyalar var. Çıkmak istediğinizden emin misiniz?</value>
+    <value>კოდირება მიმდინარეობს. გსურთ შეწყვეტა და პროგრამიდან გასვლა?</value>
   </data>
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
-    <value>Devam eden dönüştürmeler</value>
+    <value>კოდირება მიმდინარეობს</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Yabancı Ses Araması</value>
+    <value>უცხოენის აუდიოს მოძიება</value>
   </data>
   <data name="NoneParen" xml:space="preserve">
-    <value>(Yok)</value>
+    <value>(არანაირი)</value>
   </data>
   <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} parça</value>
+    <value>{0} წყარო</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
-    <value>Değişiklikleri mevcut ön ayara kaydetmek istiyor musunuz?</value>
+    <value>გსურთ აქტუალური შაბლონის ცვილებების დამახსოვრება?</value>
   </data>
   <data name="SaveChangesPresetTitle" xml:space="preserve">
-    <value>Mevcut ayarlar kaydedilsin mi?</value>
+    <value>დაიმახსოვროს აქტუალური შაბლონი?</value>
   </data>
   <data name="DiscNotInDriveError" xml:space="preserve">
-    <value>Düzenleme için yükleme yapılamıyor. Disk sürücü içerisinde mevcut değil.</value>
+    <value>ვერ ტვირთავს დასამუშავებლად. დისკის წამკითხველი ცარიელია.</value>
   </data>
   <data name="PresetNameRestoredFromQueue" xml:space="preserve">
-    <value>Sıralamadan geri yüklendi</value>
+    <value>აღდგენილია სიიდან</value>
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
-    <value>Tamamlanmış görevlerden geri yüklendi</value>
+    <value>აღდგენილია დასრულებულებიდან</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Hazır Ayar:</value>
+    <value>შაბლონი:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
-    <value>Hedef</value>
+    <value>შენახვის ადგილი</value>
   </data>
   <data name="StatusColumnHeader" xml:space="preserve">
-    <value>Durum</value>
+    <value>სტატუსი</value>
   </data>
   <data name="ElapsedTimeColumnHeader" xml:space="preserve">
-    <value>Geçen süre</value>
+    <value>გამოყენებული დრო</value>
   </data>
   <data name="PlayingVideoMessage" xml:space="preserve">
-    <value>Video oynatılırken...</value>
+    <value>ვიდეოს რეპროდუქცია...</value>
   </data>
   <data name="FileDoesNotExist" xml:space="preserve">
-    <value>{0} bulunamadı.</value>
+    <value>{0} არ არსებობს.</value>
   </data>
   <data name="AngleLabel" xml:space="preserve">
-    <value>Açı:</value>
+    <value>კუთხე:</value>
   </data>
   <data name="ChaptersSummary" xml:space="preserve">
-    <value>{0}</value>
+    <value>{0}-იდან</value>
   </data>
   <data name="Queued" xml:space="preserve">
-    <value>Sıraya alındı</value>
+    <value>სიაშია</value>
   </data>
   <data name="QueuedWithTotal" xml:space="preserve">
-    <value>Sıraya alınan ({0})</value>
+    <value>სიაშია ({0})</value>
   </data>
   <data name="CompletedWithTotal" xml:space="preserve">
-    <value>Tamamlanan ({0})</value>
+    <value>დასრულებულია ({0})</value>
   </data>
   <data name="StoppedEncoding" xml:space="preserve">
-    <value>Kodlama durduruldu.</value>
+    <value>კოდირება შეწყდა.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>{0} kaynak dosyayı() / klasörü() silmek istediğinize emin misiniz?</value>
+    <value>ნამდვილად გსურთ წაშალოთ {0} ფაილი(ები)/ფოლდერი(ები)?</value>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
-    <value>Silmeyi Onayla</value>
+    <value>გსურთ წაშლა?</value>
   </data>
   <data name="CouldNotDeleteFile" xml:space="preserve">
-    <value>{0} silinemedi
+    <value>წაშლა ვერ მოხერხდა {0}
 
 {1}</value>
   </data>
   <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>Aşağıdaki dosya(lar) tanımlanamadı ve görev sıralamasına eklenmedi: 
+    <value>შემდეგი ფაილი(ები) ამოუცნობია და დავალების სიაში არ დაემატება:
 
 {0}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
-    <value>Video dosyası() tarama hatası</value>
+    <value>ვიდეოფაილის(ების) სკანირების შეცდომა</value>
   </data>
   <data name="StartedEncoding" xml:space="preserve">
-    <value>Kodlama başlatıldı.</value>
+    <value>კოდირება დაწყებულია.</value>
   </data>
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
-    <value>Çıktı dizini oluşturulamadı. Hata ayrıntıları: 
+    <value>დასამახსოვრებელი ფოლდერის შექმნა შეუძლებელია. შეცდომის დეტალებია:
 
 {0}</value>
   </data>
   <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>Dizin oluşturma hatası</value>
+    <value>ფოლდერის შექმნა შეუძლებელია</value>
   </data>
   <data name="EncodeCompleted" xml:space="preserve">
-    <value>Kodlama tamamlandı.</value>
+    <value>კოდირება დასრულებულია.</value>
   </data>
   <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
-    <value>Kodlama tamamlandı</value>
+    <value>კოდირება დასრულებულია</value>
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
-    <value>VidCoder kuyruktaki tüm dosyaları dönüştürdü.</value>
+    <value>VidCoder-მა სიის ყველა სამუშაო დაასრულა.</value>
   </data>
   <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>Kaydedilecek klasör belirlenmeden kodlama görevleri eklenemez. Bir konum seçmek için Tamam'a basınız.</value>
+    <value>სტანდარტული დასამახსოვრებელი ადგილის გარეშე, კოდირების დავალების დამატება შეუძლებელია. ასარჩევად დააწექით დათანხმებას.</value>
   </data>
   <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>Varsayılan Çıktı Klasörü Gerekli</value>
+    <value>მოითხოვს სტანდარტულ დასამახსოვრებელ ადგილს</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
-    <value>Çıktı yolu geçerli değil.</value>
+    <value>დასამახსოვრებელ ადგილად არ გამოდგება.</value>
   </data>
   <data name="OutputPathNotValidTitle" xml:space="preserve">
-    <value>Yol geçerli değil</value>
+    <value>ადგილი არ გამოდგება</value>
   </data>
   <data name="Encode" xml:space="preserve">
-    <value>Kodlama</value>
+    <value>კოდირება</value>
   </data>
   <data name="Resume" xml:space="preserve">
-    <value>Devam Ettir</value>
+    <value>გაგრძელება</value>
   </data>
   <data name="EtaLabel" xml:space="preserve">
-    <value>TAHMİNİ TAMAMLANMA SÜRESİ:</value>
+    <value>სავარაუდო დრო:</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Bittiğinde:</value>
+    <value>დასრულებისას:</value>
   </data>
   <data name="Preset_AndroidTablet" xml:space="preserve">
     <value>Android Tablet</value>
@@ -424,206 +424,206 @@
     <value>AppleTV 3</value>
   </data>
   <data name="Preset_Universal" xml:space="preserve">
-    <value>Çok Amaçlı</value>
+    <value>უნივერსალური</value>
   </data>
   <data name="Preset_HighProfile" xml:space="preserve">
-    <value>Yüksek Profil</value>
+    <value>მაღალი პროპილი</value>
   </data>
   <data name="Preset_Normal" xml:space="preserve">
-    <value>Normal</value>
+    <value>ნორმალური</value>
   </data>
   <data name="Preset_WindowsPhone7" xml:space="preserve">
     <value>Windows Phone 7</value>
   </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
-    <value>Video Dosyası...</value>
+    <value>ვიდეო ფაილი...</value>
   </data>
   <data name="SourceOption_DiscFolder" xml:space="preserve">
-    <value>DVD/Blu-ray klasörü...</value>
+    <value>DVD/Blu-ray ფოლდერი...</value>
   </data>
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
-    <value>{0} sürümü hazır. Güncelleştirmek için karşıdan yükleme başlatıldı.</value>
+    <value>ხელმისაწვდომია {0} ვერსია. აქტუალიზირების ჩამოტვირთვა დაწყებულია.</value>
   </data>
   <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>{0} sürümü karşıdan yüklendi, program kapatılınca kurulacak.</value>
+    <value>{0} ვერსიის ჩამოტვირთვა დასრულებულია, აქტუალიზირდება პროგრამიდან გასვლისა შემდეგ.</value>
   </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
-    <value>Sürüm güncelleştirme uygulanamadı. Siz iptal etmediyseniz, el ile yüklemeyi deneyin.</value>
+    <value>აქტუალიზირება წარუმატებელია. თუ თვითონ არ შეწყვიტეთ, სინჯეთ ხელახლა თქვენთითონ.</value>
   </data>
   <data name="CouldNotLoadPresetMessage" xml:space="preserve">
-    <value>Hazır ayarlar yüklenemedi: </value>
+    <value>შაბლონის ჩატვირთვა ვერ ხერხდება: </value>
   </data>
   <data name="CouldNotSavePresetMessage" xml:space="preserve">
-    <value>Hazır ayar '{0}' kaydedilemedi: {1}{2}</value>
+    <value>შაბლონის დამახსოვრება ვერ ხერხდება '{0}':{1}{2}</value>
   </data>
   <data name="CouldNotCopyTextError" xml:space="preserve">
-    <value>Metin kopyalanamıyor.</value>
+    <value>ტექსტის კოპირება ვერ ხერხდება.</value>
   </data>
   <data name="LaunchUrlError" xml:space="preserve">
-    <value>URL başlatma hatası: {0}</value>
+    <value>ბმულის გახსნა წარუმატებელია: {0}</value>
   </data>
   <data name="UserConfigLoadError" xml:space="preserve">
-    <value>Gerekli kullanıcı ayarları dosyası yüklenemedi; bozulmuş olabilir. Silmek istiyor musunuz? Bu kaydedilmiş hazır ayarlarınızı etkilemez.</value>
+    <value>პირადი პარამეტრების ფაილის ჩატვირთვა ვერ ხერხდება; შეიძლება დაზიანებულია. გსურთ წაშლა? არ იმოქმედებს პირად შაბლონებზე.</value>
   </data>
   <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>Hata yükleme ayarları</value>
+    <value>პარამეტრების ჩატვირთვა წარუმატებელია</value>
   </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Hazır ayar alınamadı. Biçim tanımlanamıyor.</value>
+    <value>შაბლონის შემოტანა ვერ ხერხდება. ფორმატი ამოუცნობია.</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
-    <value>İçe Aktarma Hatası</value>
+    <value>შემოტანა წარუმატებელია</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
-    <value>Başarıyla içe aktarılan hazır ayar {0}.</value>
+    <value>{0} შაბლონი წარმატებით შემოიტანა.</value>
   </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
-    <value>{0} hazır ayar başarıyla dışa aktarıldı</value>
+    <value>შაბლონი წარმატებით გაიტანილია {0}</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
-    <value>Hazır Ayarı Dışa Aktar</value>
+    <value>შაბლონის გატანა</value>
   </data>
   <data name="PresetSaveConfirmMessage" xml:space="preserve">
-    <value>Değişiklikleri mevcut ön ayarlarınıza kaydetmek istiyor musunuz?</value>
+    <value>გსურთ აქტუალური შაბლონის ცვილებების დამახსოვრება?</value>
   </data>
   <data name="PresetSaveConfirmTitle" xml:space="preserve">
-    <value>Mevcut ayarlar kaydedilsin mi?</value>
+    <value>დაიმახსოვროს აქტუალური შაბლონი?</value>
   </data>
   <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>Tüm kaydedilmemiş değişiklikleri seçili ön ayarlarınıza geri döndürmek istiyor musunuz?</value>
+    <value>ნამდვილად გსურთ ამ შაბლონის ყველა დაუმახსოვრებელი ცვილებების აღდგენა?</value>
   </data>
   <data name="PresetRevertConfirmTitle" xml:space="preserve">
-    <value>Hazır Ayarı Geri Döndür</value>
+    <value>შაბლონის აღდგენა</value>
   </data>
   <data name="PresetRemoveConfirmMessage" xml:space="preserve">
-    <value>Bu ön ayarı kaldırmak istediğinize emin misiniz?</value>
+    <value>ნამდვილად გსურთ ამ შაბლონის წაშლა?</value>
   </data>
   <data name="PresetRemoveConfirmTitle" xml:space="preserve">
-    <value>Hazır Ayarı Kaldır</value>
+    <value>შაბლონის წაშლა</value>
   </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>Yapılandırma dosyası bozulmuş ve yüklenemedi. Bazı ayarlarınız sıfırlanmış olabilir.</value>
+    <value>დაზიანებული კონფიგურაციის გამო ჩატვირთვა ვერ მოხერხდა. ზოგი პარამეტრები სტანდარტზე აღდგება.</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
-    <value>Dönüştürülmüş video dosyaları için çıkış dizini seçin.</value>
+    <value>კოდირებული ვიდეოფაილებისთვის აირჩეთ დასამახსოვრებელი ადგილი.</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
     <value>({0})</value>
   </data>
   <data name="ModifiedAffix" xml:space="preserve">
-    <value>(Değiştirilmiş)</value>
+    <value>(შეცვლილი)</value>
   </data>
   <data name="PlayingVideoStatus" xml:space="preserve">
-    <value>Video oynatılırken...</value>
+    <value>ვიდეოს რეპროდუქცია...</value>
   </data>
   <data name="OpeningFolderStatus" xml:space="preserve">
-    <value>Klasör açılıyor...</value>
+    <value>ფოლდერის გახსნა...</value>
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
-    <value>Kaynak videoyu kapat</value>
+    <value>ვიდეოს დახურვა</value>
   </data>
   <data name="CloseVideoSourceMenuItem" xml:space="preserve">
-    <value>Kaynak Videoyu Kapat</value>
+    <value>ვიდეოს დახურვა</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
-    <value>Güncelleştirmeler...</value>
+    <value>აქტუალიზირება...</value>
   </data>
   <data name="CbrAuto" xml:space="preserve">
-    <value>CBR otomatik</value>
+    <value>CBR ავტო</value>
   </data>
   <data name="RangeBarToolTip" xml:space="preserve">
-    <value>Başlangıç zamanını ayarlamak için sol, bitiş zamanını ayarlamak için sağ tıklayın.</value>
+    <value>მაუსის მარცხენა ღილაკით აირჩეთ საწყისი და მარჯვენა ღილაკით კი არიჩიეთ დასასრული დრო.</value>
   </data>
   <data name="Preset_WindowsPhone8" xml:space="preserve">
     <value>Windows Phone 8</value>
   </data>
   <data name="QueueFormat_Chapters" xml:space="preserve">
-    <value>Kanal {0}</value>
+    <value>Ch {0}</value>
   </data>
   <data name="QueueFormat_Frames" xml:space="preserve">
-    <value>Kare {0}-{1}</value>
+    <value>Fr {0}-{1}</value>
   </data>
   <data name="QueueRangeAll" xml:space="preserve">
-    <value>Tümü</value>
+    <value>ყველა</value>
   </data>
   <data name="CouldNotCopyLogError" xml:space="preserve">
-    <value>İşlem kaydı kopyalanamadı. Hata kodu:{0}{0}{1}</value>
+    <value>პროტოკოლის კოპირება ვერ ხერხდება:{0}{0}{1}</value>
   </data>
   <data name="OpenLog" xml:space="preserve">
-    <value>İşlem Kaydını Aç</value>
+    <value>პროტოკოლის გახსნა</value>
   </data>
   <data name="CopyLog" xml:space="preserve">
-    <value>İşlem Kaydını Kopyala</value>
+    <value>პროტოკოლის კოპირება</value>
   </data>
   <data name="PresetDiscardConfirmMessage" xml:space="preserve">
-    <value>Kaydedilmemiş değişiklikler var. Bir hazır ayara geçerek, bu değişiklikleri silmek istediğinizden emin misiniz?</value>
+    <value>განახორციელეთ დაუმახსოვრებელი ცვილებები. ნამდვილად გსურთ ცვილებების გაუქმება ახალი შაბლონის არჩევით?</value>
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
-    <value>Değişiklikler Silinsin mi?</value>
+    <value>გსურთ ცვილებების გაუქმება?</value>
   </data>
   <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>Sesi kaldır</value>
+    <value>აუდიო წყაროს წაშლა</value>
   </data>
   <data name="Preset_Xbox360" xml:space="preserve">
     <value>Xbox 360</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
-    <value>Görev sıralamasından çıkar</value>
+    <value>დავალების სიიდან წაშლა</value>
   </data>
   <data name="CouldNotSaveQueueMessage" xml:space="preserve">
-    <value>Görev sırası: {0} {1} kaydedilemedi</value>
+    <value>დავალების სიის შენახვა ვერ ხერხდება:{0}{1}</value>
   </data>
   <data name="ExportQueue" xml:space="preserve">
-    <value>Görev sıralamasını dışa aktar...</value>
+    <value>დავალების სიის გატანა...</value>
   </data>
   <data name="ExportQueueFilePickerText" xml:space="preserve">
-    <value>Görev sıralamasını dışa aktar</value>
+    <value>დავალების სიის გატანა</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>Görev sıralaması içe aktarılamadı. Biçim tanımlanamıyor.</value>
+    <value>შაბლონის შემოტანა ვერ ხერხდება. ფორმატი ამოუცნობია.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
-    <value>Hazır ayar dosyasını içe aktar</value>
+    <value>შაბლონის ფაილის შემოტანა</value>
   </data>
   <data name="ImportQueueFilePickerTitle" xml:space="preserve">
-    <value>Görev sıralama dosyasını içe aktar</value>
+    <value>დავალების სიის ფაილის შემოიტანა</value>
   </data>
   <data name="ImportQueue" xml:space="preserve">
-    <value>Kuyruğa Al...</value>
+    <value>დავალების სიის შემოიტანა...</value>
   </data>
   <data name="QueueExportSuccessMessage" xml:space="preserve">
-    <value>Görev sıralaması başarıyla {0} a aktarıldı</value>
+    <value>დავალების სია წარმატებით გაიტანილია {0}</value>
   </data>
   <data name="QueueImportSuccessMessage" xml:space="preserve">
-    <value>Görev sıralaması başarıyla içe aktarıldı.</value>
+    <value>დავალების სია წარმატებით შემოტანილია.</value>
   </data>
   <data name="StopEncodeConfirmationTitle" xml:space="preserve">
-    <value>Kodlama işlemini durdur?</value>
+    <value>შეწყდეს კოდირება?</value>
   </data>
   <data name="StopEncodeConfirmationMessage" xml:space="preserve">
-    <value>Kodlama işlemini durdurmak istediğinizden emin misiniz?</value>
+    <value>ნამდვილად გსურთ კოდირების შეწყვეტა?</value>
   </data>
   <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
-    <value>Mevcut dosyayı kapat ve diski aç?</value>
+    <value>გსურთ აქტუალური ფაილის დახურვა და დისკის გახსნა?</value>
   </data>
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
-    <value>Kodlama Ayrıntıları</value>
+    <value>კოდირების დეტალები</value>
   </data>
 	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>En son görev sıralamasına bir öğe eklemenizden sonra kodlama işlem ayarları değişmiş. Görev sıralamasındaki tüm öğeler için mevcut kodlama işlem ayarlarını uygulamak istiyor musunuz?</value>
+    <value>კოდირების პარამეტრები შეიცვალა ბოლო ფაილის დავალების სიაში დამატებისას. გსურთ აქტუალური კოდირების პარამეტრების გამოყენება, დავალების სიაში არსებულ ყველა ფაილისთვის?</value>
   </data>
 	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>Ayarlar değiştirildi</value>
+    <value>პარამეტრები შეიცვალა</value>
   </data>
 	<data name="RenameDatabaseFileLine2" xml:space="preserve">
-    <value>Varolan dosyayı yeniden adlandırmak ve yeni bir dosyayla işleme başlamak istiyor musunuz?</value>
+    <value>გსურთ არსებული ფაილის სახელის შეცვლა და სხვა ახალის დაწყება?</value>
   </data>
 	<data name="RenameDatabaseFileLine1" xml:space="preserve">
-    <value>Sürüm {0} veritabanı dosyası okunamıyor. VidCoder {1} tarafından tanınan en yüksek sürüm versiyonu {2}</value>
+    <value>ფაილის ვერსიის {0} წაკითხვა ვერ ხერხდება. VidCoder-ის მიერ {1} უმაღლესი ამოცნობილი ვერსიაა {2}</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
 	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
-    <value>Uyumsuz veritabanı dosyası</value>
+    <value>შეუთავსებელი ფაილი</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
 </root>

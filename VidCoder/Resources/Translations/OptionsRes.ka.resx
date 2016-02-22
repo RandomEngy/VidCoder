@@ -118,309 +118,307 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>Quando la selezione audio automatica è disattivata, viene mantenuto l'ultimo brano scelto.</value>
+    <value>თუ აუდიოენის ავტომატური ამოცნობა დეაქტივირებულია, ბოლოს არჩეული აუდიოენა შენარჩუნდება.</value>
   </data>
   <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>Quando la selezione automatica dei sottotitoli è disabilitato, i sottotitoli ultimi raccolti sono persistenti.</value>
+    <value>თუ ტიტრის ავტომატური ამოცნობა დეაქტივირებულია, ბოლოს არჩეული ტიტრის ენა შენარჩუნდება.</value>
   </data>
   <data name="GeneralTab" xml:space="preserve">
-    <value>Generale</value>
+    <value>ძირითადი</value>
   </data>
   <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
-    <value>Ridurre al minimo la barra delle applicazioni</value>
+    <value>დავალების პანელზში ჩაკეცვა</value>
   </data>
   <data name="MinimizeToSystemTrayRadioButton" xml:space="preserve">
-    <value>Minimizzare al vassoio di sistema</value>
+    <value>სისტემის არეში ჩაკეცვა</value>
   </data>
   <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
-    <value>Riprodurre l'audio sul completamento della coda</value>
+    <value>აუდიო დავალების დასრულებისას</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
-    <value>Lettore di DVD preferito:</value>
+    <value>სასურველი DVD რეპროდუქტორი:</value>
   </data>
   <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
-    <value>Scegli il giocatore che si desidera utilizzare per le fonti di DVD.</value>
+    <value>აირჩეთ DVD-სთვის სასურველი რეპროდუქტორი.</value>
   </data>
   <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
-    <value>Aggiornamenti automatici</value>
+    <value>ავტომატური აქტუალიზირება</value>
   </data>
   <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Unire la traccia di aggiornamento Beta</value>
+    <value>ბეტა პროექტში მონაწილეობის მიღება</value>
   </data>
   <data name="FileNamingTab" xml:space="preserve">
-    <value>Denominazione file</value>
+    <value>ფაილის სახელი</value>
   </data>
   <data name="DefaultFolderLabel" xml:space="preserve">
-    <value>Cartella predefinita:</value>
+    <value>სტანდარტი ფოლდერი:</value>
   </data>
   <data name="FileFormatLabel" xml:space="preserve">
-    <value>Formato file:</value>
+    <value>ფაილის ფორმატი:</value>
   </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Uscita alla directory sorgente se possibile</value>
+    <value>შეძლებისდაგვარად ოროგინალის ფოლდერში დამახსოვრება</value>
   </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>Formato predefinito</value>
+    <value>სტანდარტული ფორმატი</value>
   </data>
   <data name="CustomFormatRadioButton" xml:space="preserve">
-    <value>Formato personalizzato:</value>
+    <value>პერსონალური ფორმატი:</value>
   </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>Opzioni disponibili: {0}</value>
+    <value>დაშვებული პარამეტრებია: {0}</value>
   </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
-    <value>Quando un file esiste già...</value>
+    <value>არსებობის შემთხვევაში...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
-    <value>Codifica file singolo:</value>
+    <value>ცალკეული ფაილის კოდირებისას:</value>
   </data>
   <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Chiederà se si desidera sovrascriverlo</value>
+    <value>გადაწერის შეკითხვა</value>
   </data>
   <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Sovrascrivere il file senza chiedere conferma</value>
+    <value>ფაილის გადაწერა შეუკითხავად</value>
   </data>
   <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Passare automaticamente a un nome diverso</value>
+    <value>ავტომატურად სხვა სახელის მინიჭება</value>
   </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
-    <value>Codifica batch di file:</value>
+    <value>მასიური კოდირებისას:</value>
   </data>
   <data name="OverwriteRadioButton" xml:space="preserve">
-    <value>Sovrascrivi</value>
+    <value>გადაწერა</value>
   </data>
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Rinominare automaticamente</value>
+    <value>ავტომატურად სახელის შეცვლა</value>
   </data>
   <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Selezione automatica audio</value>
+    <value>ენის ავტომატური ამოცნობა</value>
   </data>
   <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Audio / sottotitoli</value>
+    <value>აუდიო / ტიტრი</value>
   </data>
   <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Lingua:</value>
+    <value>ენა:</value>
   </data>
   <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Includono tutte le canzoni</value>
+    <value>ყველა წყაროს გამოყენება</value>
   </data>
   <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Selezione automatica dei sottotitoli</value>
+    <value>ტიტრის ავტომატური არჩევა</value>
   </data>
   <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Ricerca Audio Straniero</value>
+    <value>უცხოენის აუდიოს მოძიება</value>
   </data>
   <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Scrivi in</value>
+    <value>ტიტრის კოდირება</value>
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Solo se una lingua diversa dall'audio</value>
+    <value>მხოლოდ თუ აუდიო ნაგსხვავებულ ენაზეა</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
-    <value>Pausa automaticamente codifica quando uno qualsiasi di questi processi sono in esecuzione:</value>
+    <value>ავტომატურად კოდირების შეჩერება, რომელიმე ჩამოთვლილი პროცესის მუშაობისას:</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
-    <value>Aggiungi...</value>
+    <value>დამატება...</value>
   </data>
   <data name="PreviewCountLabel" xml:space="preserve">
-    <value>Numero di anteprime di foto a scansione:</value>
+    <value>კადრის რაოდენობის სკანირება წარმოსახვისთვის:</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
-    <value>Ricordate di cartelle e file usati in precedenza</value>
+    <value>ბოლოს გამოყენებული ფაილის და ფილდერის დამახსოვრება</value>
   </data>
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Consentono l'impostazione nome personalizzato sulle tracce audio (supporto limitato giocatore)</value>
+    <value>პერსონალური სახელი აუდოზე (რეპროდუქტორების მხარდაჭერა შეზღუდულია)</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Abilitare LibDVDNav (cambiamento richiede il riavvio del programma)</value>
+    <value>LibDVDNav-ის ჩართვა (საჭიროებს პროგრამის გადატვირთვას)</value>
   </data>
   <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Mantenere scansioni dopo completamento (permette di modificare gli elementi completati)</value>
+    <value>დასრულებისას სკანირების შენარჩუნება (შესაძლებელია დასრულებული ფაილის დამუშავება)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Eliminare i file di origine al termine compensazione successo oggetti (con conferma)</value>
+    <value>ორიგინალი ფაილის წაშლა წარმატებული კოდირებისას (თანხმობით)</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
-    <value>Livello di dettaglio registrazione:</value>
+    <value>დაწვრილებითი პროტოკოლი:</value>
   </data>
   <data name="MinScanLengthLabel" xml:space="preserve">
-    <value>Lunghezza minima del titolo per la scansione (secondi):</value>
+    <value>ფაილის სკანირების მინიმალური ხანგრძლივობა (წამებში):</value>
   </data>
   <data name="RecognizedExtensionsLabel" xml:space="preserve">
-    <value>Estensioni riconosciute:</value>
+    <value>ამოსაცნობი გაფართეობები:</value>
   </data>
   <data name="RecognizedExtensionsToolTip" xml:space="preserve">
-    <value>Durante la scansione di cartelle per i file video, aggiungere file con queste estensioni. (Separati da virgola)</value>
+    <value>ფოლდერის სკანირებისას, შემდეგი გაფართეობების ვიდეოს დამატება. (გამოყავით მძიმით)</value>
   </data>
   <data name="OptionsDialogTitle" xml:space="preserve">
-    <value>Opzioni</value>
+    <value>პარამეტრები</value>
   </data>
   <data name="ProcessesTab" xml:space="preserve">
-    <value>Processi</value>
+    <value>პროცესები</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
-    <value>Avanzato</value>
+    <value>დამატებითი პარამეტრები</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Si sta eseguendo la versione Beta. Questo può funzionare a fianco con la versione stabile.</value>
+    <value>თქვენ ხმარობთ ბეტა ვერსიას. აგრეთვე ერთდოულად სტაბილური ვერსიის გამოყენებაც შეგიძლიათ.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
-    <value>Unisci la traccia Beta per aggiornamenti più frequenti</value>
+    <value>მიიღეთ ბეტა პროექტში მონაწილეობა, ხშირი აქტუალიზირებებისთვის</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Aggiornare {0} pronto. Quando si esce il programma verrà installato.</value>
+    <value>აქტუალიზირება {0} მზადაა. აქტუალიზირდება პროგრამიდან გასვლისა შემდეგ.</value>
   </data>
   <data name="DownloadingStatus" xml:space="preserve">
-    <value>Download aggiornamento {0}:</value>
+    <value>აქტუალიზირება {0} იტვირთება:</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
-    <value>VidCoder è aggiornato.</value>
+    <value>იყენებთ VidCoder-ის აქტუალურ ვერსიას.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>Scegliere la directory di output predefinito per i file video codificati.</value>
+    <value>კოდირებული ვიდეოფაილებისთვის აირჩეთ სტანდარტი დასამახსოვრებელი ადგილი.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
-    <value>Interfaccia lingua:</value>
+    <value>პროგრამის ენა:</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
-    <value>La nuova lingua sarà effettive dopo uscire e riavviare VidCoder.</value>
+    <value>არჩეული ენა ძალაში შევა პროგრამის გადატვირტვის შემდეგ.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
-    <value>Utilizzare la lingua del sistema operativo</value>
+    <value>ოპერატიული სისტემის ენა</value>
   </data>
   <data name="UpdatesTab" xml:space="preserve">
-    <value>Aggiornamenti</value>
+    <value>აქტუალიზირებები</value>
   </data>
   <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Trovare la versione più recente...</value>
+    <value>უახლესი ვერსიის ძებნა...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
-    <value>Controllo dell'aggiornamento non riuscito.</value>
+    <value>აქტუალიზირების შემოწმება წარუმატებელია.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>Scegliere il file wav che si desidera utilizzare per il suono di completamento.</value>
+    <value>აირჩეთ .wav ფაილი, თუ გსურთ კოდირების დასრულებისას აუდიო შეტყობინება.</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
-    <value>Versione corrente: {0}</value>
+    <value>აქტუალური ვერსია: {0}</value>
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
-    <value>Attenzione: questa versione è più probabile avere bug e crash.</value>
+    <value>გაფრთხილება: ეს ვერსია ხშირად პრობლემურია.</value>
   </data>
   <data name="LanguagesSection" xml:space="preserve">
-    <value>Lingue</value>
+    <value>ენა</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
-    <value>Suonatori
-	
-</value>
+    <value>რეპროდუქტორი</value>
   </data>
   <data name="SoundSection" xml:space="preserve">
-    <value>Suono</value>
+    <value>აუდიო</value>
   </data>
   <data name="SystemTraySection" xml:space="preserve">
-    <value>Vassoio di sistema</value>
+    <value>სისტემის არე</value>
   </data>
   <data name="OutputFolderSection" xml:space="preserve">
-    <value>Cartella di output</value>
+    <value>დასამახსოვრებელი ადგილი</value>
   </data>
   <data name="NamingFormatSection" xml:space="preserve">
-    <value>Formato di denominazione</value>
+    <value>სახელის ფორმატი</value>
   </data>
   <data name="AdvancedOptionsSection" xml:space="preserve">
-    <value>Opzioni avanzate</value>
+    <value>დამატებითი პარამეტრები</value>
   </data>
   <data name="ScanningSection" xml:space="preserve">
-    <value>Ricerca in corso</value>
+    <value>სკანირება</value>
   </data>
   <data name="LoggingSection" xml:space="preserve">
-    <value>Registrazione</value>
+    <value>პროტოკოლი</value>
   </data>
   <data name="DvdReadingSection" xml:space="preserve">
-    <value>Lettura DVD</value>
+    <value>DVD-ის წაკითხვა</value>
   </data>
   <data name="UpdatesSection" xml:space="preserve">
-    <value>Aggiornamenti</value>
+    <value>აქტუალიზირებები</value>
   </data>
   <data name="UpdateStatusSection" xml:space="preserve">
-    <value>Stato</value>
+    <value>სტატუსი</value>
   </data>
   <data name="BetaSection" xml:space="preserve">
-    <value>Beta</value>
+    <value>ბეტა</value>
   </data>
   <data name="UseCustomWavLabel" xml:space="preserve">
-    <value>Usa file WAV personalizzato:</value>
+    <value>.wav ფაილი:</value>
   </data>
   <data name="CheckNowButton" xml:space="preserve">
-    <value>Controlla ora</value>
+    <value>შემოწმება</value>
   </data>
   <data name="UseSystemPlayer" xml:space="preserve">
-    <value>Utilizza suonatore di sistema</value>
+    <value>სისტემის რეპროდუქტორი</value>
   </data>
   <data name="VideoFilesLabel" xml:space="preserve">
-    <value>File video:</value>
+    <value>ვიდეო ფაილი:</value>
   </data>
   <data name="CustomVideoPlayerToolTip" xml:space="preserve">
-    <value>Specificare il percorso per il lettore video che si desidera utilizzare per i file.</value>
+    <value>მიუნიშნეთ რეპროდუქტორის ადგილსამყოფელი.</value>
   </data>
   <data name="VideoPlayerFilePickTitle" xml:space="preserve">
-    <value>Scegliere il Suonatore da utilizzare per i file video.</value>
+    <value>აირჩეთ რეპროდუქტორი.</value>
   </data>
   <data name="CustomPlayerLabel" xml:space="preserve">
-    <value>Suonatore personalizzato:</value>
+    <value>რეპროდუქტორი:</value>
   </data>
   <data name="Priority_High" xml:space="preserve">
-    <value>Elevata</value>
+    <value>მაღალი</value>
   </data>
   <data name="Priority_AboveNormal" xml:space="preserve">
-    <value>Superiore al normale</value>
+    <value>ნორმალურზე მაღალი</value>
   </data>
   <data name="Priority_Normal" xml:space="preserve">
-    <value>Normale</value>
+    <value>ნორმალური</value>
   </data>
   <data name="Priority_BelowNormal" xml:space="preserve">
-    <value>Inferiore al normale</value>
+    <value>ნორმალურზე დაბალი</value>
   </data>
   <data name="WorkerProcessPriorityLabel" xml:space="preserve">
-    <value>Priorità del processo di lavoro:</value>
+    <value>მუშაობის პროცესის პრიორიტეტი:</value>
   </data>
   <data name="Priority_Idle" xml:space="preserve">
-    <value>Basso</value>
+    <value>დაბალი</value>
   </data>
   <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>Copia codifica log nella stessa directory come il codifica video</value>
+    <value>პროტოკოლის კოპირება კოდირებული ვიდეოს ფოლდერში</value>
   </data>
   <data name="OpenLogFolderButton" xml:space="preserve">
-    <value>Cartella di registro aperto</value>
+    <value>პროტოკოლის ფოლდერის გახსნა</value>
   </data>
   <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
-    <value>Riprendere automaticamente la codifica al riavvio</value>
+    <value>გადატვირთვისას, ავტომატურად კოდირების გაგრძელება</value>
   </data>
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
-    <value>Utilizzare il processo di lavoro per la codifica</value>
+    <value>კოდირებისთვის სამუშაო პროცესის გამოყენება</value>
   </data>
   <data name="VideoSection" xml:space="preserve">
-    <value>Video</value>
+    <value>ვიდეო</value>
   </data>
   <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>Abilitare decodifica Hardware DXVA</value>
+    <value>DXVA ტექნიკით დაჩქარებული კოდირება</value>
   </data>
   <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>Questa opzione è soltanto adatta a sistemi più lenti. Decodificatori hardware attualmente sono progettati per la riproduzione, non per la ri-codifica video così sarà probabile strozzatura sui sistemi più veloci.</value>
+    <value>ეს პარამეტრი განკუთვნილია მხოლოდ ნელი სისტემისთვის. ტექნიკით დაჩქარება მხოლოდ გამოიყენება რეპროდუქციისთვის და არა ვიდეოს კოდირებისთვის, ეს პარამეტრი სწრაფი სისტემისთვის შემაყოვნებელია.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
-    <value>Preservare il tempo creata e modificata quando conversione file</value>
+    <value>შექმნის და მოდიფიცირების დროის შენარჩუნება კოდირებისას</value>
   </data>
   <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Default</value>
+    <value>სტანდარტი</value>
     <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
   </data>
   <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Preservare la struttura della codifica delle cartelle in modalità batch</value>
+    <value>ფოლდერის სტრუქტურის შენარჩუნება მასიური კოდირებისას</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Se si codifica una cartella piena di file saranno messe le versioni codificate in sottocartelle per abbinare la struttura di directory di origine.</value>
+    <value>ვიდეოს ფოლდერის კოდირებისას, ფაილების კოდირებული ვერსია დამახსოვრება ქვე ფოლდერში, ორიგინალი ფოლდერის სტრუქტურის შესანარჩუნებლად.</value>
   </data>
 	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
-    <value>Cartella personalizzata per le anteprime:</value>
+    <value>პერსონალური ფოლდერი წარმოსახვისთვის:</value>
   </data>
 </root>
