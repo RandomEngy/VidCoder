@@ -191,6 +191,8 @@ CopyLanguage "ja"
 CopyLanguage "pl"
 CopyLanguage "ru"
 CopyLanguage "tr"
+CopyLanguage "nl"
+CopyLanguage "ka"
 
 
 # fonts folder for subtitles

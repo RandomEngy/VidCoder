@@ -1,12 +1,12 @@
 <UpdateInfo>
 	<Release>
-		<Latest>1.5.33</Latest>
-		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v1.5.33/VidCoder-1.5.33-x86.exe</DownloadLocation>
-		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v1.5.33</ChangelogLocation>
+		<Latest>1.5.34</Latest>
+		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v1.5.34/VidCoder-1.5.34-x86.exe</DownloadLocation>
+		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v1.5.34</ChangelogLocation>
 	</Release>
 	<Release-x64>
-		<Latest>1.5.33</Latest>
-		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v1.5.33/VidCoder-1.5.33-x64.exe</DownloadLocation>
-		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v1.5.33</ChangelogLocation>
+		<Latest>1.5.34</Latest>
+		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v1.5.34/VidCoder-1.5.34-x64.exe</DownloadLocation>
+		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v1.5.34</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>

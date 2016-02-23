@@ -1,0 +1,629 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>ფაილი:</value>
+  </data>
+  <data name="SettingsLabel" xml:space="preserve">
+    <value>პარამეტრები</value>
+  </data>
+  <data name="AddToQueueLabel" xml:space="preserve">
+    <value>დავალების დამატება</value>
+  </data>
+  <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
+    <value>მრავალი ფაილის დამატება...</value>
+  </data>
+  <data name="FileMenu" xml:space="preserve">
+    <value>ფაილი</value>
+  </data>
+  <data name="OpenVideoFile" xml:space="preserve">
+    <value>ვიდეოფაილის გახსნა...</value>
+  </data>
+  <data name="OpenDiscFolder" xml:space="preserve">
+    <value>DVD/Blu-Ray ფოლდერის გახსნა...</value>
+  </data>
+  <data name="EnqueueMultipleFiles" xml:space="preserve">
+    <value>მრავალი ფაილის დავალებებში დამატება...</value>
+  </data>
+  <data name="EnqueueMultipleTitles" xml:space="preserve">
+    <value>მრავალი ფაილის დავალებებში დამატება...</value>
+  </data>
+  <data name="ToolsMenu" xml:space="preserve">
+    <value>ხელსაწყოები</value>
+  </data>
+  <data name="ImportPreset" xml:space="preserve">
+    <value>შაბლონის შემოტანა...</value>
+  </data>
+  <data name="ExportPreset" xml:space="preserve">
+    <value>შაბლონის გატანა...</value>
+  </data>
+  <data name="OptionsMenuItem" xml:space="preserve">
+    <value>პარამეტრები...</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>რეპროდუქცია</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>შეცვლა</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>ფოლდერის გახსნა</value>
+  </data>
+  <data name="ClearCompleted" xml:space="preserve">
+    <value>დასრულებულის გასუფთავება</value>
+  </data>
+  <data name="ExitMenuItem" xml:space="preserve">
+    <value>დასრულება</value>
+  </data>
+  <data name="WindowsMenu" xml:space="preserve">
+    <value>ფანჯრები</value>
+  </data>
+  <data name="EncodingSettingsMenuItem" xml:space="preserve">
+    <value>კოდირების პარამეტრები</value>
+  </data>
+  <data name="PreviewMenuItem" xml:space="preserve">
+    <value>ჩვეება</value>
+  </data>
+  <data name="LogMenuItem" xml:space="preserve">
+    <value>პროტოკოლი</value>
+  </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>დახმარება</value>
+  </data>
+  <data name="VidCoderHomepageMenuItem" xml:space="preserve">
+    <value>VidCoder-ის ვებგვერდი</value>
+  </data>
+  <data name="ReportABugMenuItem" xml:space="preserve">
+    <value>პრობლემის შეტყობინება</value>
+  </data>
+  <data name="AboutVidCoderMenuItem" xml:space="preserve">
+    <value>VidCoder-ის შესახებ...</value>
+  </data>
+  <data name="ChooseVideoSourceLabel" xml:space="preserve">
+    <value>აირჩიეთ ვიდეო:</value>
+  </data>
+  <data name="SourceLabel" xml:space="preserve">
+    <value>წყარო:</value>
+  </data>
+  <data name="ScanningSourceLabel" xml:space="preserve">
+    <value>წყაროს სკანირება...</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>ბოლოს გახსნილი</value>
+  </data>
+  <data name="DragFilesHereLabel" xml:space="preserve">
+    <value>(ან გადმოიტანეთ ვიდეოფაილი ან ფოლდერი აქ)</value>
+  </data>
+  <data name="ScanErrorLabel" xml:space="preserve">
+    <value>სკანირებისას შეცდომა დაფიქსირდა.</value>
+  </data>
+  <data name="AudioLabel" xml:space="preserve">
+    <value>აუდიო:</value>
+  </data>
+  <data name="VideoLabel" xml:space="preserve">
+    <value>ვიდეო:</value>
+  </data>
+  <data name="SubtitlesLabel" xml:space="preserve">
+    <value>ტიტრი:</value>
+  </data>
+  <data name="AddTrackButton" xml:space="preserve">
+    <value>წყაროს დამატება</value>
+  </data>
+  <data name="ChapterMarkersLabel" xml:space="preserve">
+    <value>თავის მნიშვნელი:</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>შეცვლა...</value>
+  </data>
+  <data name="DestinationLabel" xml:space="preserve">
+    <value>შენახვის ადგილი:</value>
+  </data>
+  <data name="DestinationToolTip" xml:space="preserve">
+    <value>დააწაქით შენახვის ადგილის შესაცვლელად.</value>
+  </data>
+  <data name="SelectOutputPathButton" xml:space="preserve">
+    <value>დასამახსოვრებელი ადგილი...</value>
+  </data>
+  <data name="EncodingLabel" xml:space="preserve">
+    <value>კოდირება:</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>შეწყვეტა</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>პაუზა</value>
+  </data>
+  <data name="MoveToTopMenuItem" xml:space="preserve">
+    <value>თავში გადანაცვლება</value>
+  </data>
+  <data name="MoveToBottomMenuItem" xml:space="preserve">
+    <value>ბოლოში გადანაცვლება</value>
+  </data>
+  <data name="CustomizeColumnsMenuItem" xml:space="preserve">
+    <value>მწკრივის პერსონალიზირება...</value>
+  </data>
+  <data name="CurrentFpsLabel" xml:space="preserve">
+    <value>აქტუალური FPS:</value>
+  </data>
+  <data name="AverageFpsLabel" xml:space="preserve">
+    <value>ცვლადი FPS:</value>
+  </data>
+  <data name="PickDiscFolderHelpText" xml:space="preserve">
+    <value>აირჩიეთ DVD ან Blu-Ray ფოლდერი.</value>
+  </data>
+  <data name="EncodesInProgressExitWarning" xml:space="preserve">
+    <value>კოდირება მიმდინარეობს. გსურთ შეწყვეტა და პროგრამიდან გასვლა?</value>
+  </data>
+  <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
+    <value>კოდირება მიმდინარეობს</value>
+  </data>
+  <data name="ForeignAudioSearch" xml:space="preserve">
+    <value>უცხოენის აუდიოს მოძიება</value>
+  </data>
+  <data name="NoneParen" xml:space="preserve">
+    <value>(არანაირი)</value>
+  </data>
+  <data name="TracksSummaryMultiple" xml:space="preserve">
+    <value>{0} წყარო</value>
+  </data>
+  <data name="SaveChangesPresetMessage" xml:space="preserve">
+    <value>გსურთ აქტუალური შაბლონის ცვილებების დამახსოვრება?</value>
+  </data>
+  <data name="SaveChangesPresetTitle" xml:space="preserve">
+    <value>დაიმახსოვროს აქტუალური შაბლონი?</value>
+  </data>
+  <data name="DiscNotInDriveError" xml:space="preserve">
+    <value>ვერ ტვირთავს დასამუშავებლად. დისკის წამკითხველი ცარიელია.</value>
+  </data>
+  <data name="PresetNameRestoredFromQueue" xml:space="preserve">
+    <value>აღდგენილია სიიდან</value>
+  </data>
+  <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
+    <value>აღდგენილია დასრულებულებიდან</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>შაბლონი:</value>
+  </data>
+  <data name="DestinationColumnHeader" xml:space="preserve">
+    <value>შენახვის ადგილი</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>სტატუსი</value>
+  </data>
+  <data name="ElapsedTimeColumnHeader" xml:space="preserve">
+    <value>გამოყენებული დრო</value>
+  </data>
+  <data name="PlayingVideoMessage" xml:space="preserve">
+    <value>ვიდეოს რეპროდუქცია...</value>
+  </data>
+  <data name="FileDoesNotExist" xml:space="preserve">
+    <value>{0} არ არსებობს.</value>
+  </data>
+  <data name="AngleLabel" xml:space="preserve">
+    <value>კუთხე:</value>
+  </data>
+  <data name="ChaptersSummary" xml:space="preserve">
+    <value>{0}-იდან</value>
+  </data>
+  <data name="Queued" xml:space="preserve">
+    <value>სიაშია</value>
+  </data>
+  <data name="QueuedWithTotal" xml:space="preserve">
+    <value>სიაშია ({0})</value>
+  </data>
+  <data name="CompletedWithTotal" xml:space="preserve">
+    <value>დასრულებულია ({0})</value>
+  </data>
+  <data name="StoppedEncoding" xml:space="preserve">
+    <value>კოდირება შეწყდა.</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
+    <value>ნამდვილად გსურთ წაშალოთ {0} ფაილი(ები)/ფოლდერი(ები)?</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
+    <value>გსურთ წაშლა?</value>
+  </data>
+  <data name="CouldNotDeleteFile" xml:space="preserve">
+    <value>წაშლა ვერ მოხერხდა {0}
+
+{1}</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>შემდეგი ფაილი(ები) ამოუცნობია და დავალების სიაში არ დაემატება:
+
+{0}</value>
+  </data>
+  <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
+    <value>ვიდეოფაილის(ების) სკანირების შეცდომა</value>
+  </data>
+  <data name="StartedEncoding" xml:space="preserve">
+    <value>კოდირება დაწყებულია.</value>
+  </data>
+  <data name="DirectoryCreateErrorMessage" xml:space="preserve">
+    <value>დასამახსოვრებელი ფოლდერის შექმნა შეუძლებელია. შეცდომის დეტალებია:
+
+{0}</value>
+  </data>
+  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
+    <value>ფოლდერის შექმნა შეუძლებელია</value>
+  </data>
+  <data name="EncodeCompleted" xml:space="preserve">
+    <value>კოდირება დასრულებულია.</value>
+  </data>
+  <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
+    <value>კოდირება დასრულებულია</value>
+  </data>
+  <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
+    <value>VidCoder-მა სიის ყველა სამუშაო დაასრულა.</value>
+  </data>
+  <data name="OutputFolderRequiredMessage" xml:space="preserve">
+    <value>სტანდარტული დასამახსოვრებელი ადგილის გარეშე, კოდირების დავალების დამატება შეუძლებელია. ასარჩევად დააწექით დათანხმებას.</value>
+  </data>
+  <data name="OutputFolderRequiredTitle" xml:space="preserve">
+    <value>მოითხოვს სტანდარტულ დასამახსოვრებელ ადგილს</value>
+  </data>
+  <data name="OutputPathNotValidMessage" xml:space="preserve">
+    <value>დასამახსოვრებელ ადგილად არ გამოდგება.</value>
+  </data>
+  <data name="OutputPathNotValidTitle" xml:space="preserve">
+    <value>ადგილი არ გამოდგება</value>
+  </data>
+  <data name="Encode" xml:space="preserve">
+    <value>კოდირება</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>გაგრძელება</value>
+  </data>
+  <data name="EtaLabel" xml:space="preserve">
+    <value>სავარაუდო დრო:</value>
+  </data>
+  <data name="WhenDoneLabel" xml:space="preserve">
+    <value>დასრულებისას:</value>
+  </data>
+  <data name="Preset_AndroidTablet" xml:space="preserve">
+    <value>Android Tablet</value>
+  </data>
+  <data name="Preset_Android" xml:space="preserve">
+    <value>Android</value>
+  </data>
+  <data name="Preset_AppleiPad" xml:space="preserve">
+    <value>Apple iPad</value>
+  </data>
+  <data name="Preset_AppleiPhone4" xml:space="preserve">
+    <value>Apple iPhone 4</value>
+  </data>
+  <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
+    <value>Apple iPhone/Touch</value>
+  </data>
+  <data name="Preset_AppleiPod" xml:space="preserve">
+    <value>Apple iPod</value>
+  </data>
+  <data name="Preset_AppleTV" xml:space="preserve">
+    <value>AppleTV</value>
+  </data>
+  <data name="Preset_AppleTV2" xml:space="preserve">
+    <value>AppleTV 2</value>
+  </data>
+  <data name="Preset_AppleTV3" xml:space="preserve">
+    <value>AppleTV 3</value>
+  </data>
+  <data name="Preset_Universal" xml:space="preserve">
+    <value>უნივერსალური</value>
+  </data>
+  <data name="Preset_HighProfile" xml:space="preserve">
+    <value>მაღალი პროპილი</value>
+  </data>
+  <data name="Preset_Normal" xml:space="preserve">
+    <value>ნორმალური</value>
+  </data>
+  <data name="Preset_WindowsPhone7" xml:space="preserve">
+    <value>Windows Phone 7</value>
+  </data>
+  <data name="SourceOption_VideoFile" xml:space="preserve">
+    <value>ვიდეო ფაილი...</value>
+  </data>
+  <data name="SourceOption_DiscFolder" xml:space="preserve">
+    <value>DVD/Blu-ray ფოლდერი...</value>
+  </data>
+  <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
+    <value>ხელმისაწვდომია {0} ვერსია. აქტუალიზირების ჩამოტვირთვა დაწყებულია.</value>
+  </data>
+  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
+    <value>{0} ვერსიის ჩამოტვირთვა დასრულებულია, აქტუალიზირდება პროგრამიდან გასვლისა შემდეგ.</value>
+  </data>
+  <data name="UpdateNotAppliedError" xml:space="preserve">
+    <value>აქტუალიზირება წარუმატებელია. თუ თვითონ არ შეწყვიტეთ, სინჯეთ ხელახლა თქვენთითონ.</value>
+  </data>
+  <data name="CouldNotLoadPresetMessage" xml:space="preserve">
+    <value>შაბლონის ჩატვირთვა ვერ ხერხდება: </value>
+  </data>
+  <data name="CouldNotSavePresetMessage" xml:space="preserve">
+    <value>შაბლონის დამახსოვრება ვერ ხერხდება '{0}':{1}{2}</value>
+  </data>
+  <data name="CouldNotCopyTextError" xml:space="preserve">
+    <value>ტექსტის კოპირება ვერ ხერხდება.</value>
+  </data>
+  <data name="LaunchUrlError" xml:space="preserve">
+    <value>ბმულის გახსნა წარუმატებელია: {0}</value>
+  </data>
+  <data name="UserConfigLoadError" xml:space="preserve">
+    <value>პირადი პარამეტრების ფაილის ჩატვირთვა ვერ ხერხდება; შეიძლება დაზიანებულია. გსურთ წაშლა? არ იმოქმედებს პირად შაბლონებზე.</value>
+  </data>
+  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
+    <value>პარამეტრების ჩატვირთვა წარუმატებელია</value>
+  </data>
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>შაბლონის შემოტანა ვერ ხერხდება. ფორმატი ამოუცნობია.</value>
+  </data>
+  <data name="ImportErrorTitle" xml:space="preserve">
+    <value>შემოტანა წარუმატებელია</value>
+  </data>
+  <data name="PresetImportSuccessMessage" xml:space="preserve">
+    <value>{0} შაბლონი წარმატებით შემოიტანა.</value>
+  </data>
+  <data name="PresetExportSuccessMessage" xml:space="preserve">
+    <value>შაბლონი წარმატებით გაიტანილია {0}</value>
+  </data>
+  <data name="ExportPresetFilePickerText" xml:space="preserve">
+    <value>შაბლონის გატანა</value>
+  </data>
+  <data name="PresetSaveConfirmMessage" xml:space="preserve">
+    <value>გსურთ აქტუალური შაბლონის ცვილებების დამახსოვრება?</value>
+  </data>
+  <data name="PresetSaveConfirmTitle" xml:space="preserve">
+    <value>დაიმახსოვროს აქტუალური შაბლონი?</value>
+  </data>
+  <data name="PresetRevertConfirmMessage" xml:space="preserve">
+    <value>ნამდვილად გსურთ ამ შაბლონის ყველა დაუმახსოვრებელი ცვილებების აღდგენა?</value>
+  </data>
+  <data name="PresetRevertConfirmTitle" xml:space="preserve">
+    <value>შაბლონის აღდგენა</value>
+  </data>
+  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
+    <value>ნამდვილად გსურთ ამ შაბლონის წაშლა?</value>
+  </data>
+  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
+    <value>შაბლონის წაშლა</value>
+  </data>
+  <data name="UserConfigCorrupted" xml:space="preserve">
+    <value>დაზიანებული კონფიგურაციის გამო ჩატვირთვა ვერ მოხერხდა. ზოგი პარამეტრები სტანდარტზე აღდგება.</value>
+  </data>
+  <data name="OutputDirectoryPickerText" xml:space="preserve">
+    <value>კოდირებული ვიდეოფაილებისთვის აირჩეთ დასამახსოვრებელი ადგილი.</value>
+  </data>
+  <data name="LengthPreviewLabel" xml:space="preserve">
+    <value>({0})</value>
+  </data>
+  <data name="ModifiedAffix" xml:space="preserve">
+    <value>(შეცვლილი)</value>
+  </data>
+  <data name="PlayingVideoStatus" xml:space="preserve">
+    <value>ვიდეოს რეპროდუქცია...</value>
+  </data>
+  <data name="OpeningFolderStatus" xml:space="preserve">
+    <value>ფოლდერის გახსნა...</value>
+  </data>
+  <data name="CloseVideoSourceToolTip" xml:space="preserve">
+    <value>ვიდეოს დახურვა</value>
+  </data>
+  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
+    <value>ვიდეოს დახურვა</value>
+  </data>
+  <data name="UpdatesMenuItem" xml:space="preserve">
+    <value>აქტუალიზირება...</value>
+  </data>
+  <data name="CbrAuto" xml:space="preserve">
+    <value>CBR ავტო</value>
+  </data>
+  <data name="RangeBarToolTip" xml:space="preserve">
+    <value>მაუსის მარცხენა ღილაკით აირჩეთ საწყისი და მარჯვენა ღილაკით კი არიჩიეთ დასასრული დრო.</value>
+  </data>
+  <data name="Preset_WindowsPhone8" xml:space="preserve">
+    <value>Windows Phone 8</value>
+  </data>
+  <data name="QueueFormat_Chapters" xml:space="preserve">
+    <value>Ch {0}</value>
+  </data>
+  <data name="QueueFormat_Frames" xml:space="preserve">
+    <value>Fr {0}-{1}</value>
+  </data>
+  <data name="QueueRangeAll" xml:space="preserve">
+    <value>ყველა</value>
+  </data>
+  <data name="CouldNotCopyLogError" xml:space="preserve">
+    <value>პროტოკოლის კოპირება ვერ ხერხდება:{0}{0}{1}</value>
+  </data>
+  <data name="OpenLog" xml:space="preserve">
+    <value>პროტოკოლის გახსნა</value>
+  </data>
+  <data name="CopyLog" xml:space="preserve">
+    <value>პროტოკოლის კოპირება</value>
+  </data>
+  <data name="PresetDiscardConfirmMessage" xml:space="preserve">
+    <value>განახორციელეთ დაუმახსოვრებელი ცვილებები. ნამდვილად გსურთ ცვილებების გაუქმება ახალი შაბლონის არჩევით?</value>
+  </data>
+  <data name="PresetDiscardConfirmTitle" xml:space="preserve">
+    <value>გსურთ ცვილებების გაუქმება?</value>
+  </data>
+  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
+    <value>აუდიო წყაროს წაშლა</value>
+  </data>
+  <data name="Preset_Xbox360" xml:space="preserve">
+    <value>Xbox 360</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>დავალების სიიდან წაშლა</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>დავალების სიის შენახვა ვერ ხერხდება:{0}{1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>დავალების სიის გატანა...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>დავალების სიის გატანა</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>შაბლონის შემოტანა ვერ ხერხდება. ფორმატი ამოუცნობია.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>შაბლონის ფაილის შემოტანა</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>დავალების სიის ფაილის შემოიტანა</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>დავალების სიის შემოიტანა...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>დავალების სია წარმატებით გაიტანილია {0}</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>დავალების სია წარმატებით შემოტანილია.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>შეწყდეს კოდირება?</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>ნამდვილად გსურთ კოდირების შეწყვეტა?</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>გსურთ აქტუალური ფაილის დახურვა და დისკის გახსნა?</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>კოდირების დეტალები</value>
+  </data>
+	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+    <value>კოდირების პარამეტრები შეიცვალა ბოლო ფაილის დავალების სიაში დამატებისას. გსურთ აქტუალური კოდირების პარამეტრების გამოყენება, დავალების სიაში არსებულ ყველა ფაილისთვის?</value>
+  </data>
+	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+    <value>პარამეტრები შეიცვალა</value>
+  </data>
+	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>გსურთ არსებული ფაილის სახელის შეცვლა და სხვა ახალის დაწყება?</value>
+  </data>
+	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>ფაილის ვერსიის {0} წაკითხვა ვერ ხერხდება. VidCoder-ის მიერ {1} უმაღლესი ამოცნობილი ვერსიაა {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>შეუთავსებელი ფაილი</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+</root>
