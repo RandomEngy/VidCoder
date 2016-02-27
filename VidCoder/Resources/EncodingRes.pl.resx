@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -127,16 +127,16 @@
     <value>Przywróć</value>
   </data>
   <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x264 ma wiele algorytmów, które decydują kiedy i jak wiele ramek B należy użyć.  
+    <value>x264 ma wiele algorytmów, które decydują kiedy i jak wiele klatek B należy użyć.  
 
-Tryb szybki zajmuje mniej więcej taką samą ilość czasu, niezależnie od tego jak wiele ramek B zostanie określone.  Pomimo swojej zalety jaką jest szybkość działania często zdarza się, że podejmowane decyzje są nieoptymalne.
+Tryb szybki zabiera mniej więcej taką samą ilość czasu, niezależnie od tego, jak wiele klatek B zostanie określone. Pomimo tej zalety, jaką jest szybkość działania, często zdarza się, że podejmowane decyzje są nieoptymalne.
 
-Tryb optymalny staje się wolniejszy wraz ze wzrostem ramek B, ale podejmuje znacznie bardziej trafne decyzje, zwłaszcza w połączeniu z funkcją "Piramida B".</value>
+Tryb optymalny staje się wolniejszy wraz ze wzrostem klatek B, ale podejmuje znacznie bardziej trafne decyzje, zwłaszcza w połączeniu z funkcją "Piramida B".</value>
   </data>
   <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264 pozwala na użycie w ramkach B dwóch trybów przewidywania, przestrzennego i czasowego.  
+    <value>H.264 pozwala na użycie w klatkach B dwóch trybów przewidywania: przestrzennego i czasowego.  
 
-Przestrzenne (domyślne) jest prawie zawsze najlepsze, ale zdarza się, że czasowe bywa również przydatne.  
+Przestrzenne (domyślne) jest prawie zawsze najlepsze, ale zdarza się, że czasowe jest przydatne.  
 
 x264 może automatycznie wybrać sposób przewidywania dla poszczególnych klatek, co przekłada się na nieznaczne zwiększenie kompresji. Związane jest to jednak z niewielką utratą prędkości.</value>
   </data>
@@ -145,33 +145,33 @@ x264 może automatycznie wybrać sposób przewidywania dla poszczególnych klate
 Wyższe wartości używają więcej bitów oddalonych od krawędzi i złożonych obszarów do poprawy bardziej szczegółowych detali.</value>
   </data>
   <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>Tryb decyzja wybiera z dużego wachlarza opcji, aby móc podjąć decyzję: Ta opcja decyduje jakie one będą. 
+    <value>Tryb decyzja wybiera z dużego wachlarza opcji, aby móc podjąć decyzję. Ta opcja decyduje jakie one będą. 
 Mniej partycji do sprawdzenia oznacza szybsze enkodowanie, kosztem gorszych decyzji, ponieważ najlepszym rozwiązaniem mogła być opcja, która właśnie została wyłączona.</value>
   </data>
   <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>Rozsądne wartości to ~ 2-5.  
-Określa maksymalną liczbę kolejnych ramek B, które enkoder możne używać. 
-Duże wartości zazwyczaj nie pomagają chyba, że adaptacyjne ramki B są ustawione na wartość Optymalne.  
+    <value>Rozsądne wartości to ok. 2-5.  
+Określa maksymalną liczbę kolejnych klatek B, które enkoder możne używać. 
+Duże wartości zazwyczaj nie pomagają chyba, że adaptacyjne klatki B są ustawione na wartość Optymalne.  
 Animowane materiały źródłowe i Piramida B również znacząco zwiększają przydatność użycia dużych wartości.  
-Profil podstawowy, jak wymagają iPody i podobne urządzenia, wymaga ustawienia ramek B na 0 (wyłączone).</value>
+Profil podstawowy, którego wymagają iPody i podobne urządzenia, wymaga ustawienia klatek B na 0 (wyłączone).</value>
   </data>
   <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>Po wykonaniu swojej pracy enkoder ma dane, które muszą zostać skompresowane bezstratnie, podobnie do ZIP lub RAR. H.264 zapewnia dwie opcje do tego: CAVLC i CABAC.  CABAC enkoduje dużo wolniej ale kompresuje znacznie lepiej (10-30%), zwłaszcza na niższych bitrate. Jeśli chcesz zminimalizować wymagania dotyczące procesora dla odtwarzania wideo, należy wyłączyć tę opcję. Profil podstawowy stosowany dla iPodów i podobnych urządzeń, wymaga wyłączenia opcji CABAC.</value>
+    <value>Po wykonaniu swojej pracy, enkoder posiada dane, które muszą zostać skompresowane bezstratnie - podobnie jak w plikach ZIP lub RAR. H.264 zapewnia dwie opcje do tego: CAVLC i CABAC. CABAC enkoduje dużo wolniej ale kompresuje znacznie lepiej (10-30%), zwłaszcza przy niższych wartościach bitrate. Jeśli chcesz zminimalizować wymagania dotyczące procesora dla odtwarzania wideo, należy wyłączyć tę opcję. Profil podstawowy stosowany dla iPodów i podobnych urządzeń, wymaga wyłączenia opcji CABAC.</value>
   </data>
   <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>H.264 ma wbudowany filtr odblokowujący, który wygładza blokujące artefakty po dekodowaniu każdej klatki.  To nie tylko poprawia jakość obrazu, ale także znacznie zwiększa kompresję.
-Filtr odblokowujący zajmuje dużo mocy obliczeniowej procesora, więc jeśli chcesz zminimalizować wymagania dotyczące procesora dla odtwarzania wideo - wyłącz go. 
+    <value>H.264 ma wbudowany filtr usuwający bloki, który wygładza artefakty blokowe po dekodowaniu każdej klatki. Nie tylko poprawia to jakość obrazu, ale także znacznie zwiększa kompresję.
+Filtr usuwający bloki zużywa dużo mocy obliczeniowej procesora, więc jeśli chcesz zminimalizować wymagania dotyczące procesora dla odtwarzania wideo - wyłącz go. 
 
-Filtr odblokowujący ma dwa regulowane parametry "siła" i "próg". 
-Pierwszy kontroluje jak silny jest filtr, a drugi określa do ilu odnosi się krawędzi.
-Niższe wartości oznaczają mniej odblokowania, wyższe wartości oznaczają więcej odblokowania. Wartością domyślną jest 0 (siła normalna) dla obu parametrów.</value>
+Filtr usuwający bloki ma dwa regulowane parametry "siła" i "próg". 
+Pierwszy kontroluje jak silny jest filtr, a drugi określa próg, kiedy zaczyna być stosowany.
+Niższe wartości oznaczają mniej usuwania bloków, wyższe - przeciwnie. Wartością domyślną jest 0 (siła normalna) dla obu parametrów.</value>
   </data>
   <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>Transformacja 8x8 jest jedną z najbardziej przydatnych funkcji x264 w "kompresji do szybkości".   Poprawia kompresję o co najmniej 5% za cenę bardzo małego zmniejszenia prędkości i może dostarczyć niezwykle wysoką jakość wizualną w porównaniu do wzmocnienia kompresji. Jednak wymaga to wysokiego profilu, który może nie być obsługiwany przez wszystkie urządzenia.</value>
+    <value>Transformata 8x8 jest jedną z najbardziej przydatnych funkcji x264 w kategorii szybkości kompresji w stosunku do jej jakości. Poprawia kompresję o co najmniej 5% za cenę niewielkiego zmniejszenia prędkości i może powodować niezwykle wysoką jakość wizualną w porównaniu do wzmocnienia kompresji. Jednak wymaga to wysokiego profilu, który może nie być obsługiwany przez wszystkie urządzenia.</value>
   </data>
   <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>Określa metodę szacowania ruchu. Szacowanie ruchu to sposób w jaki koder szacuje, jak każdy blok pikseli w klatce się poruszył.
-Polepszenie metody wyszukiwania ruchu poprawia stopień kompresji kosztem szybkości. 
+    <value>Określa metodę szacowania ruchu. Szacowanie ruchu to sposób w jaki enkoder szacuje, jak każdy blok pikseli w klatce się poruszył.
+Polepszenie metody wyszukiwania ruchu poprawia stopień kompresji kosztem jej szybkości. 
 
 Diament: wykonuje bardzo szybkie i proste wyszukiwanie przy użyciu wzorów diamentowych. 
 
@@ -179,32 +179,32 @@ Sześciokąt: wykonuje nieco bardziej skuteczne, ale wolniejsze wyszukiwanie prz
 
 Nierówne Multi-Hex: wykonuje bardzo szerokie wyszukiwanie przy użyciu różnych wzorów, dokładniej przechwytuje złożony ruch.  
 
-Wyczerpująca: wykonuje "głupie" wyszukiwanie każdego piksela na dużym obszarze.  Znacznie wolniejsza a zysk z kompresji jest niewielki.  
+Wyczerpująca: wykonuje "głupie" wyszukiwanie każdego piksela na dużym obszarze. Znacznie wolniejsza a zysk z kompresji jest niewielki.  
 
 Wyczerpująca przekształcona: Jak Wyczerpująca, ale podejmuje bardziej trafne decyzje. W związku z tym nieco wolniejsza, ale również daje tylko niewielką poprawę.</value>
   </data>
   <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
-    <value>To jest odległość w której x264 wyszukuje najbardziej prawdopodobnego ruchu bloku aby spróbować znaleźć rzeczywisty ruch.
+    <value>Jest to odległość, dla której x264 wyszukuje najbardziej prawdopodobny ruchu bloku, aby spróbować znaleźć rzeczywisty ruch.
 
 Wartość domyślna jest dobra dla większości treści, ale niezwykle wysoki ruch wideo, zwłaszcza w rozdzielczości HD, może być efektywniejszy na wyższych zakresach, jednakże za cenę prędkości.
 
-Prawidłowe wartości to 4-16 dla metody Diamentowej i Sześciokątnej oraz 4-64 dla innych metod.</value>
+Prawidłowe wartości to 4-16 dla metody diamentowej i sześciokątnej oraz 4-64 dla innych metod.</value>
   </data>
   <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x 264 zwykle zeruje prawie puste bloki danych aby oszczędzać bity, które lepiej wykorzystać na inne cele w wideo.
+    <value>x264 zwykle zeruje niemalże puste bloki danych aby oszczędzać bity, które lepiej wykorzystać na inne cele w wideo.
 Jednak czasami może to mieć niewielkie negatywne skutki w postaci ziarnistości lub szumów.
 Nie zmieniaj ustawień, chyba że występują problemy z utrzymaniem niskiego szumu.</value>
   </data>
   <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
-    <value>Psychowizualna zmiana prędkości oznacza, że x264 stara się zachować szczegóły, dla lepszej jakości dla ludzkiego oka, a nie zmaksymalizować jakość w sposób jaki rozumie to komputer, poprzez stosunek sygnału do szumu, które mają problemy z odróżnieniem od siebie drobnych szczegóły i zakłóceń.</value>
+    <value>Psychowizualna zmiana prędkości oznacza, że x264 stara się zachować szczegóły, dla lepszej jakości dla ludzkiego oka, a nie zmaksymalizować jakość w sposób jaki rozumie to komputer, który ma problemy z odróżnieniem od siebie drobnych szczegółów i zakłóceń (poprzez stosunek sygnału do szumu).</value>
   </data>
   <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
     <value>Psychowizualizacja trellis próbuje zachować większą ostrość i szczegółowość, ale może powodować artefakty. 
 Ustawienie to jest uważane za eksperymentalne i dlatego jest domyślnie wyłączone. Dobre wartości to 0,1 do 0,2.</value>
   </data>
   <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
-    <value>B-piramidy tworzą strukturę piramidy (stąd nazwa) z ramek B-frames, pozwala to na tworzenie odnośników pomiędzy ramkami B-frames co poprawia kompresję.
-Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-frames są zalecane dla osiągnięcia pełnej kompresji.</value>
+    <value>Piramidy B tworzą strukturę piramidy (stąd nazwa) z klatek B. Pozwala to na tworzenie odnośników pomiędzy klatkami B, co poprawia kompresję.
+Wymaga ustawienia klatek B większego niż 1; optymalnie adaptacyjne klatki B są zalecane dla osiągnięcia pełnej kompresji.</value>
   </data>
   
   
@@ -212,14 +212,14 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
   
   
   <data name="Audio_GainToolTip" xml:space="preserve">
-    <value>Wzmocnienie lub stłumienie dźwięku przed kodowaniem. Prawidłowe wartości to: -20 to +20 db.</value>
+    <value>Wzmocnienie lub stłumienie dźwięku przed kodowaniem. Prawidłowe wartości to od -20 do +20 db.</value>
   </data>
   <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
     <value>Załączenie rozdziałów z wejściowego wideo do zakodowanego wideo.</value>
   </data>
   
   <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Pozwala na pliki powyżej 4GB. Gdy włączone, używa 64-bitowego kodowania. Niektóre urządzenia jak iPod i PS3 są niekompatybilne z tą opcją.</value>
+    <value>Pozwala na pliki większe niż 4 GB. Gdy włączone, używa 64-bitowego kodowania. Niektóre urządzenia jak iPod i PS3 są niekompatybilne z tą opcją.</value>
   </data>
   
   
@@ -237,7 +237,7 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Duży rozmiar pliku</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
-    <value>Zoptymalizowane dla sieci Web</value>
+    <value>Zoptymalizowane dla sieci web</value>
   </data>
   <data name="Ipod5GSupportCheckBox" xml:space="preserve">
     <value>wsparcie iPod 5G</value>
@@ -279,7 +279,7 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Proporcje pikseli:</value>
   </data>
   <data name="DisplayResolutionLabel" xml:space="preserve">
-    <value>Rozdzielczość wyświetlacza:</value>
+    <value>Rozdzielczość wyświetlania:</value>
   </data>
   <data name="SizingLabel" xml:space="preserve">
     <value>Dobór rozmiaru</value>
@@ -306,7 +306,7 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Modułowy:</value>
   </data>
   <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Szerokość Wyświetlacza:</value>
+    <value>Szerokość wyświetlania:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Wyjście</value>
@@ -339,7 +339,7 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Odszumianie:</value>
   </data>
   <data name="DeblockLabel" xml:space="preserve">
-    <value>Deblock:</value>
+    <value>Usuwanie bloków:</value>
   </data>
   <data name="GrayscaleCheckBox" xml:space="preserve">
     <value>Kodowanie w skali odcieni szarości</value>
@@ -366,31 +366,31 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>2-przebiegowe kodowanie</value>
   </data>
   <data name="TurboFirstPassCheckBox" xml:space="preserve">
-    <value>Turbo pierwsze przejście</value>
+    <value>Pierwsze przejście błyskawiczne</value>
   </data>
   <data name="TargetSizeRadioButton" xml:space="preserve">
     <value>Docelowy rozmiar (MB)</value>
   </data>
   <data name="AverageBitrateRadioButton" xml:space="preserve">
-    <value>Średni Bitrate (KB/s)</value>
+    <value>Średni bitrate (kB/s)</value>
   </data>
   <data name="ConstantQualityRadioButton" xml:space="preserve">
     <value>Stała jakość</value>
   </data>
   <data name="X264BasicSettings" xml:space="preserve">
-    <value>Ustawienia Podstawowe x264</value>
+    <value>Ustawienia podstawowe x264</value>
   </data>
   <data name="ProfileLabel" xml:space="preserve">
     <value>Profil:</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Ustawienia zdefiniowane:</value>
+    <value>Szablony:</value>
   </data>
   <data name="TuneLabel" xml:space="preserve">
-    <value>Melodia:</value>
+    <value>Tuning:</value>
   </data>
   <data name="Profile_baseline" xml:space="preserve">
-    <value>Odniesienie</value>
+    <value>Podstawowy</value>
   </data>
   <data name="Profile_main" xml:space="preserve">
     <value>Główny</value>
@@ -399,13 +399,13 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Wysoki</value>
   </data>
   <data name="Preset_UltraFast" xml:space="preserve">
-    <value>Ultra Szybki</value>
+    <value>Ultraszybki</value>
   </data>
   <data name="Preset_SuperFast" xml:space="preserve">
-    <value>Super Szybki</value>
+    <value>Superszybki</value>
   </data>
   <data name="Preset_VeryFast" xml:space="preserve">
-    <value>Bardzo Szybki</value>
+    <value>Bardzo szybki</value>
   </data>
   <data name="Preset_Faster" xml:space="preserve">
     <value>Szybszy</value>
@@ -450,7 +450,7 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Szybkie dekodowanie</value>
   </data>
   <data name="Tune_zerolatency" xml:space="preserve">
-    <value>Opóźnienie zerowe</value>
+    <value>Zerowe opóźnienie</value>
   </data>
   <data name="FpsFormat" xml:space="preserve">
     <value>{0:0.###} FPS</value>
@@ -480,7 +480,7 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Niska jakość</value>
   </data>
   <data name="SameAsSource" xml:space="preserve">
-    <value>Tak samo jak źródło</value>
+    <value>Tak samo, jak źródło</value>
   </data>
   <data name="AddAudioEncodingButton" xml:space="preserve">
     <value>Dodaj enkodowanie dźwięku</value>
@@ -492,7 +492,7 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Strumień docelowy</value>
   </data>
   <data name="MixdownLabel" xml:space="preserve">
-    <value>Miksowanie:</value>
+    <value>Zmniejszenie kanałów:</value>
   </data>
   <data name="SampleRateLabel" xml:space="preserve">
     <value>Częstotliwość próbkowania:</value>
@@ -504,7 +504,7 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Kompresja:</value>
   </data>
   <data name="GainLabel" xml:space="preserve">
-    <value>Zysk (dB):</value>
+    <value>Wzmacnianie (dB):</value>
   </data>
   <data name="DrcLabel" xml:space="preserve">
     <value>DRC:</value>
@@ -550,7 +550,7 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Vorbis</value>
   </data>
   <data name="Mixdown_5point1" xml:space="preserve">
-    <value>Kanał 5.1</value>
+    <value>5.1</value>
   </data>
   <data name="Mixdown_5_2_lfe" xml:space="preserve">
     <value>7.1 (5F, 2R, LFE)</value>
@@ -580,22 +580,22 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Enkodowanie</value>
   </data>
   <data name="ReferenceFramesLabel" xml:space="preserve">
-    <value>Ramki Referencyjne:</value>
+    <value>Klatki referencyjne:</value>
   </data>
   <data name="MaxBFramesLabel" xml:space="preserve">
-    <value>Maksymalnie Ramek-B:</value>
+    <value>Maksymalnie klatek B:</value>
   </data>
   <data name="CabacLabel" xml:space="preserve">
     <value>CABAC:</value>
   </data>
   <data name="EightByEightTransformLabel" xml:space="preserve">
-    <value>Transformacja 8x8:</value>
+    <value>Transformata 8x8:</value>
   </data>
   <data name="WeightedPFramesLabel" xml:space="preserve">
-    <value>Ważone Ramki-P:</value>
+    <value>Ważone klatki P:</value>
   </data>
   <data name="PyramidalBFramesLabel" xml:space="preserve">
-    <value>Piramidalne Ramki-B:</value>
+    <value>Piramidalne klatki B:</value>
   </data>
   <data name="NoDctDecimateLabel" xml:space="preserve">
     <value>Brak DCT-Decimate:</value>
@@ -604,7 +604,7 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Analiza</value>
   </data>
   <data name="AdaptiveBFramesLabel" xml:space="preserve">
-    <value>Adaptacyjne ramki B:</value>
+    <value>Adaptacyjne klatki B:</value>
   </data>
   <data name="AdaptiveDirectModeLabel" xml:space="preserve">
     <value>Tryb adaptacyjny bezpośredni:</value>
@@ -613,7 +613,7 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Metoda szacowania ruchu:</value>
   </data>
   <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
-    <value>Metoda szacowania ruchu subpixela:</value>
+    <value>Metoda szacowania ruchu subpiksela:</value>
   </data>
   <data name="MotionEstimationRangeLabel" xml:space="preserve">
     <value>Zakres szacowania ruchu:</value>
@@ -667,7 +667,7 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
   
   
   <data name="SubpixelMotionEstimation_0" xml:space="preserve">
-    <value>0: SAD, no subpel (super szybkie!)</value>
+    <value>0: SAD, no subpel (superszybkie!)</value>
   </data>
   <data name="SubpixelMotionEstimation_1" xml:space="preserve">
     <value>1: SAD, qpel</value>
@@ -685,13 +685,13 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>5: SATD, multi-qpel na wszystkie</value>
   </data>
   <data name="SubpixelMotionEstimation_6" xml:space="preserve">
-    <value>6: RD in I/P-frames</value>
+    <value>6: RD na klatki I/P</value>
   </data>
   <data name="SubpixelMotionEstimation_7" xml:space="preserve">
-    <value>7: RD na wszystkie ramki</value>
+    <value>7: RD na wszystkie klatki</value>
   </data>
   <data name="SubpixelMotionEstimation_8" xml:space="preserve">
-    <value>8: RD udoskonalone w I/P-frames</value>
+    <value>8: RD udoskonalone na klatki I/P</value>
   </data>
   <data name="SubpixelMotionEstimation_9" xml:space="preserve">
     <value>9: RD udoskonalone we wszystkich ramkach</value>
@@ -725,10 +725,10 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
   </data>
   
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
-    <value>Dodatkowe zaawansowane opcje x264:</value>
+    <value>Dodatkowe, zaawansowane opcje x264:</value>
   </data>
   <data name="LevelToolTip" xml:space="preserve">
-    <value>Ustawia i zapewnia zgodność z określonym poziomem enkodera.  Zastępuje wszystkie inne ustawienia.</value>
+    <value>Ustawia i zapewnia zgodność z określonym poziomem enkodera. Zastępuje wszystkie inne ustawienia.</value>
   </data>
   <data name="Profile_high444" xml:space="preserve">
     <value>High 4:4:4 Predictive</value>
@@ -749,7 +749,7 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Większość</value>
   </data>
   <data name="AdvancedQuery" xml:space="preserve">
-    <value>Zaawansowane kwerendy</value>
+    <value>Zaawansowane zapytania</value>
   </data>
   <data name="Video" xml:space="preserve">
     <value>Wideo</value>
@@ -782,7 +782,7 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Modyfikatory</value>
   </data>
   <data name="DtsMp4Warning" xml:space="preserve">
-    <value>Tylko kilka odtwarzaczy obsługuje DTS audio w pojemnikach MP4. MKV jest zalecane dla DTS audio.</value>
+    <value>Tylko kilka odtwarzaczy obsługuje DTS audio w kontenerach MP4. MKV jest zalecane dla DTS audio.</value>
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24-bit</value>
@@ -820,7 +820,7 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Awaryjne:</value>
   </data>
   <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
-    <value>Przekazywanie nie działa ze wszystkimi kodekami audio. To określa jaki zastosować enkoder, jeśli ścieżka nie może być przekazana bezpośrednio.</value>
+    <value>Przekazywanie nie działa ze wszystkimi kodekami audio. Określa to jaki zastosować enkoder, jeśli ścieżka nie może być przekazana bezpośrednio.</value>
   </data>
   <data name="EncoderSettings" xml:space="preserve">
     <value>Ustawienia enkodera</value>
@@ -832,7 +832,7 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Lanczos</value>
   </data>
   <data name="ScaleMethod_BicubicOpenCL" xml:space="preserve">
-    <value>Bicubic (OpenCL)</value>
+    <value>Dwuliniowy (OpenCL)</value>
   </data>
   <data name="QsvPreset_Speed" xml:space="preserve">
     <value>Prędkość</value>
@@ -844,11 +844,11 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Jakość</value>
   </data>
   <data name="PresetToolTip" xml:space="preserve">
-    <value>Zmień opcje aby zamienić proporcje: wydajności enkodowania do szybkości enkodowania.</value>
+    <value>Zmień opcje aby zamienić proporcje wydajności enkodowania do szybkości enkodowania.</value>
   </data>
   <data name="ScaleMethodToolTip" xml:space="preserve">
     <value>Lanczos: Jest to domyślny skaler z najlepszą jakością. 
-Bicubic: To OpenCL sprzętowo przyspieszony algorytm skalowania.</value>
+Dwuliniowy: sprzętowo (OpenCL) przyspieszony algorytm skalowania.</value>
   </data>
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Przekazywanie</value>
@@ -876,7 +876,7 @@ Bicubic: To OpenCL sprzętowo przyspieszony algorytm skalowania.</value>
     <value>Zakres:</value>
   </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
-    <value>Określa, do których wejściowych kodeków ma zastosowanie funkcja przekazywanie.</value>
+    <value>Określa, do których wejściowych kodeków ma zastosowanie funkcja przekazywania.</value>
   </data>
   <data name="FlipHorizontalCheckBox" xml:space="preserve">
     <value>Przerzuć w poziomie</value>
