@@ -50,7 +50,7 @@ namespace VidCoder.Services
 		private ReactiveList<EncodeJobViewModel> encodeQueue;
 		private bool encoding;
 		private bool paused;
-		private bool encodeStopped;
+		private EncodeCompleteReason encodeCompleteReason;
 		private int totalTasks;
 		private int taskNumber;
 		private Stopwatch elapsedQueueEncodeTime;
@@ -536,11 +536,7 @@ namespace VidCoder.Services
 				}
 			}
 
-			// Signify that we stopped the encode manually rather than it completing.
-			this.encodeStopped = true;
-			this.encodeProxy.StopEncode();
-
-			this.logger.ShowStatus(MainRes.StoppedEncoding);
+			this.Stop(EncodeCompleteReason.Manual);
 		}
 
 		public ReactiveCommand<object> MoveSelectedJobsToTop { get; }
@@ -1129,7 +1125,9 @@ namespace VidCoder.Services
 			this.pollCount = 0;
 			this.Encoding = true;
 			this.Paused = false;
-			this.encodeStopped = false;
+
+			// If the encode is stopped we will change
+			this.encodeCompleteReason = EncodeCompleteReason.Succeeded;
 			this.autoPause.ReportStart();
 
 			this.EncodeNextJob();
@@ -1153,6 +1151,27 @@ namespace VidCoder.Services
 		public HashSet<string> GetQueuedFiles()
 		{
 			return new HashSet<string>(this.EncodeQueue.Select(j => j.Job.OutputPath), StringComparer.OrdinalIgnoreCase);
+		}
+
+		public void Stop(EncodeCompleteReason reason)
+		{
+			if (reason == EncodeCompleteReason.Succeeded)
+			{
+				throw new ArgumentOutOfRangeException(nameof(reason));
+			}
+
+			this.encodeCompleteReason = reason;
+
+			if (reason == EncodeCompleteReason.AppExit)
+			{
+				this.encodeProxy.StopAndWait();
+			}
+			else
+			{
+				this.encodeProxy.StopEncode();
+
+				this.logger.ShowStatus(MainRes.StoppedEncoding);
+			}
 		}
 
 		public IList<EncodeJobWithMetadata> GetQueueStorageJobs()
@@ -1420,13 +1439,13 @@ namespace VidCoder.Services
 
 				this.CanPauseOrStop = false;
 
-				if (this.encodeStopped)
+				if (this.encodeCompleteReason != EncodeCompleteReason.Succeeded)
 				{
 					// If the encode was stopped manually
 					this.StopEncodingAndReport();
 					this.CurrentJob.ReportEncodeEnd();
 
-					if (this.totalTasks == 1)
+					if (this.totalTasks == 1 && this.encodeCompleteReason == EncodeCompleteReason.Manual)
 					{
 						this.EncodeQueue.Clear();
 					}
@@ -1586,7 +1605,7 @@ namespace VidCoder.Services
 					}
 				}
 
-				if (this.encodeStopped || this.EncodeQueue.Count == 0)
+				if (this.encodeCompleteReason == EncodeCompleteReason.Manual || this.EncodeQueue.Count == 0)
 				{
 					this.windowManager.Close<EncodeDetailsWindowViewModel>(userInitiated: false);
 				}
