@@ -233,7 +233,7 @@ namespace VidCoder.ViewModel
 
 		private void SaveAsImpl()
 		{
-			var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.PresetsService.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).Select(preset => preset.Preset.Name));
+			var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePreset, this.PresetsService.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).Select(preset => preset.Preset.Name));
 			dialogVM.Name = this.PresetsService.SelectedPreset.DisplayName;
 			Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
 
@@ -249,7 +249,7 @@ namespace VidCoder.ViewModel
 
 		private void RenameImpl()
 		{
-			var dialogVM = new ChooseNameViewModel(MainRes.PresetWord, this.PresetsService.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).Select(preset => preset.Preset.Name));
+			var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePreset, this.PresetsService.AllPresets.Where(preset => !preset.Preset.IsBuiltIn).Select(preset => preset.Preset.Name));
 			dialogVM.Name = this.PresetsService.SelectedPreset.DisplayName;
 			Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
 
@@ -270,8 +270,8 @@ namespace VidCoder.ViewModel
 			{
 				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
 					this,
-					string.Format(MainRes.RevertConfirmMessage, MainRes.PresetWord),
-					string.Format(MainRes.RevertConfirmTitle, MainRes.PresetWord),
+					MainRes.RevertConfirmMessage,
+					MainRes.RevertConfirmTitle,
 					MessageBoxButton.YesNo);
 				if (dialogResult == MessageBoxResult.Yes)
 				{
@@ -282,8 +282,8 @@ namespace VidCoder.ViewModel
 			{
 				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
 					this,
-					string.Format(MainRes.RemoveConfirmMessage, MainRes.PresetWord),
-					string.Format(MainRes.RemoveConfirmTitle, MainRes.PresetWord),
+					MainRes.RemoveConfirmMessage,
+					MainRes.RemoveConfirmTitle,
 					MessageBoxButton.YesNo);
 				if (dialogResult == MessageBoxResult.Yes)
 				{

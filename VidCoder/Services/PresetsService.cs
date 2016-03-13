@@ -140,14 +140,14 @@ namespace VidCoder.Services
 
 					if (this.selectedPreset.Preset.IsBuiltIn)
 					{
-						dialogMessage = string.Format(MainRes.PresetDiscardConfirmMessage, MainRes.PresetWord);
+						dialogMessage = MainRes.PresetDiscardConfirmMessage;
 						dialogTitle = MainRes.PresetDiscardConfirmTitle;
 						buttons = MessageBoxButton.OKCancel;
 					}
 					else
 					{
-						dialogMessage = string.Format(MainRes.SaveConfirmMessage, MainRes.PresetWord);
-						dialogTitle = string.Format(MainRes.SaveConfirmTitle, MainRes.PresetWord);
+						dialogMessage = MainRes.SaveChangesPresetMessage;
+						dialogTitle = MainRes.SaveChangesPresetTitle;
 						buttons = MessageBoxButton.YesNoCancel;
 					}
 

@@ -137,6 +137,7 @@
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
     <value>Only if different language from audio</value>
+    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the audio track.</comment>
   </data>
   <data name="SubtitleSelection" xml:space="preserve">
     <value>Subtitle selection</value>

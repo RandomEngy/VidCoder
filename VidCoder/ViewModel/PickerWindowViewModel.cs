@@ -652,7 +652,7 @@ namespace VidCoder.ViewModel
 
 		private void SaveAsImpl()
 		{
-			var dialogVM = new ChooseNameViewModel(MainRes.PickerWord, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
+			var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePicker, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
 			dialogVM.Name = this.Picker.DisplayName;
 			Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
 
@@ -668,7 +668,7 @@ namespace VidCoder.ViewModel
 
 		private void RenameImpl()
 		{
-			var dialogVM = new ChooseNameViewModel(MainRes.PickerWord, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
+			var dialogVM = new ChooseNameViewModel(MiscRes.ChooseNamePicker, this.pickersService.Pickers.Skip(1).Select(p => p.Picker.Name));
 			dialogVM.Name = this.Picker.DisplayName;
 			Ioc.Get<IWindowManager>().OpenDialog(dialogVM, this);
 
@@ -688,7 +688,7 @@ namespace VidCoder.ViewModel
 			if (this.Picker.IsModified)
 			{
 				// Revert
-				MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, string.Format(MainRes.RevertConfirmMessage, MainRes.PickerWord), string.Format(MainRes.RevertConfirmTitle, MainRes.PickerWord), MessageBoxButton.YesNo);
+				MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.RevertConfirmMessage, MainRes.RevertConfirmTitle, MessageBoxButton.YesNo);
 				if (dialogResult == MessageBoxResult.Yes)
 				{
 					this.pickersService.RevertPicker();
@@ -697,7 +697,7 @@ namespace VidCoder.ViewModel
 			else
 			{
 				// Delete
-				MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, string.Format(MainRes.RemoveConfirmMessage, MainRes.PickerWord), string.Format(MainRes.RemoveConfirmTitle, MainRes.PickerWord), MessageBoxButton.YesNo);
+				MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.RemoveConfirmMessage, MainRes.RemoveConfirmTitle, MessageBoxButton.YesNo);
 				if (dialogResult == MessageBoxResult.Yes)
 				{
 					this.pickersService.DeletePicker();

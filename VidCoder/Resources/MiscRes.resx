@@ -195,12 +195,11 @@
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
   <data name="NameDialogTitle" xml:space="preserve">
-    <value>Name {0}</value>
-    <comment>{0} is "picker" or "preset" (or the translated word)</comment>
+    <value>Name</value>
+    <comment>Title for dialog when  naming a preset or  picker</comment>
   </data>
-  <data name="ChooseName" xml:space="preserve">
-    <value>Choose a name for the {0}:</value>
-    <comment>{0} is "picker" or "preset" (or the translated word)</comment>
+  <data name="ChooseNamePreset" xml:space="preserve">
+    <value>Choose a name for the preset:</value>
   </data>
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>Apply Update?</value>
@@ -252,5 +251,8 @@
   </data>
   <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
     <value>Hibernate imminent</value>
+  </data>
+  <data name="ChooseNamePicker" xml:space="preserve">
+    <value>Choose a name for the picker:</value>
   </data>
 </root>

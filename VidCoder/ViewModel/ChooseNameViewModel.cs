@@ -13,12 +13,12 @@ namespace VidCoder.ViewModel
 	{
         private IEnumerable<string> existingNames;
 
-		public ChooseNameViewModel(string word, IEnumerable<string> existingNames)
+		public ChooseNameViewModel(string message, IEnumerable<string> existingNames)
 		{
             this.existingNames = existingNames;
 
-		    this.Title = string.Format(MiscRes.NameDialogTitle, word);
-		    this.Subtitle = string.Format(MiscRes.ChooseName, word);
+		    this.Title = MiscRes.NameDialogTitle;
+		    this.Subtitle = message;
 
 			this.WhenAnyValue(x => x.Name)
 				.Select(name =>

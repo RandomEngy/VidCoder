@@ -123,8 +123,8 @@ namespace VidCoder.Services
                 {
                     MessageBoxResult dialogResult = Utilities.MessageBox.Show(
                         this.main,
-                        string.Format(MainRes.SaveConfirmMessage, MainRes.PickerWord),
-                        string.Format(MainRes.SaveConfirmTitle, MainRes.PickerWord),
+                        MainRes.SaveChangesPickerMessage,
+                        MainRes.SaveChangesPickerTitle,
                         MessageBoxButton.YesNoCancel);
 
                     switch (dialogResult)

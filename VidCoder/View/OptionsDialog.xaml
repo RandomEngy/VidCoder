@@ -434,14 +434,14 @@
 									SelectedValuePath="Value" />
 							</StackPanel>
 
-							<Grid Margin="0 6 0 0">
+							<Grid Margin="0 6 0 0" ToolTip="{x:Static res:OptionsRes.CpuThrottlingToolTip}">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="Auto" />
 									<ColumnDefinition />
 									<ColumnDefinition Width="Auto" />
 								</Grid.ColumnDefinitions>
 
-								<TextBlock Text="{x:Static res:OptionsRes.CpuThrottlingLabel}" ToolTip="{x:Static res:OptionsRes.CpuThrottlingToolTip}" />
+								<TextBlock Text="{x:Static res:OptionsRes.CpuThrottlingLabel}" />
 								<Slider
 									Grid.Column="1"
 									Margin="10 0 0 0"

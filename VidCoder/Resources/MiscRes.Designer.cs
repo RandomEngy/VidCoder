@@ -142,11 +142,20 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose a name for the {0}:.
+        ///   Looks up a localized string similar to Choose a name for the picker:.
         /// </summary>
-        public static string ChooseName {
+        public static string ChooseNamePicker {
             get {
-                return ResourceManager.GetString("ChooseName", resourceCulture);
+                return ResourceManager.GetString("ChooseNamePicker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a name for the preset:.
+        /// </summary>
+        public static string ChooseNamePreset {
+            get {
+                return ResourceManager.GetString("ChooseNamePreset", resourceCulture);
             }
         }
         
@@ -322,7 +331,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name {0}.
+        ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string NameDialogTitle {
             get {
