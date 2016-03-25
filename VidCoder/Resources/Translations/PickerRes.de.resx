@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AudioSelection" xml:space="preserve">
+    <value>Audioauswahl</value>
+  </data>
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>Einbrennen</value>
+  </data>
+  <data name="DefaultCheckBox" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
+    <value>Ausländische Dialoge extrahieren</value>
+  </data>
+  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
+    <value>Alle Spuren</value>
+  </data>
+  <data name="LanguagesRadioButton" xml:space="preserve">
+    <value>Sprache(n)</value>
+  </data>
+  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
+    <value>Nur wenn es keine Tonspur in dieser Sprache gibt</value>
+    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the audio track.</comment>
+  </data>
+  <data name="SubtitleSelection" xml:space="preserve">
+    <value>Untertitelauswahl</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Auswähler: {0}</value>
+  </data>
+  <data name="TitleSelection" xml:space="preserve">
+    <value>Titelauswahl</value>
+  </data>
+  <data name="PickerButtonFormat" xml:space="preserve">
+    <value>Auswähler: {0}</value>
+    <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
+  </data>
+  <data name="OutputLocation" xml:space="preserve">
+    <value>Ausgabeverzeichnis</value>
+  </data>
+  <data name="OverrideDirectoryCheckBox" xml:space="preserve">
+    <value>Verzeichnis überschreiben:</value>
+  </data>
+  <data name="PickerHelpText" xml:space="preserve">
+    <value>Automatisch Titel, Ton, Untertitel und Zielverzeichnis auswählen</value>
+  </data>
+  <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
+    <value>Automatisch nach dem Scannen in die Warteschlange einreihen</value>
+  </data>
+  <data name="AutoEncodeOnScanCheckBox" xml:space="preserve">
+    <value>Encodierung nach dem Scannen starten</value>
+  </data>
+  <data name="UseGlobalSettingToolTip" xml:space="preserve">
+    <value>Globale Einstellung verwenden</value>
+    <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
+  </data>
+  <data name="PresetOverrideToolTip" xml:space="preserve">
+    <value>Dies überschreibt jede Auswahl für eine Voreinstellung, die im Hauptfenster getroffen wird.</value>
+  </data>
+  <data name="EncodingSection" xml:space="preserve">
+    <value>Encodierung</value>
+    <comment>The header for the Encoding section in the Picker window.</comment>
+  </data>
+  <data name="PostEncodingSection" xml:space="preserve">
+    <value>Nach der Encodierung</value>
+    <comment>Header for the post-encoding section in the picker window.</comment>
+  </data>
+  <data name="SendFileToLabel" xml:space="preserve">
+    <value>Datei weiterverarbeiten mit:</value>
+    <comment>Label for the option to run a program after encoding each file.</comment>
+  </data>
+  <data name="PostEncodeArgumentsLabel" xml:space="preserve">
+    <value>Argumente:</value>
+    <comment>The label for the arguments to pass to the post-encode executable.</comment>
+  </data>
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>Die Argumente, welche dem Programm übergeben werden. {file} steht für den Dateiausgabepfad.</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
+  <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
+    <value>Der Auswähler hat eine Encodierungsvoreinstellung festgelegt.</value>
+  </data>
+  <data name="AddLanguageButton" xml:space="preserve">
+    <value>Sprache hinzufügen</value>
+  </data>
+  <data name="AllTracksForTheseLanguagesRadioButton" xml:space="preserve">
+    <value>Alle Spuren dieser Sprachen</value>
+  </data>
+  <data name="AllTracksForThisLanguageRadioButton" xml:space="preserve">
+    <value>Alle Spuren dieser Sprache</value>
+  </data>
+  <data name="FirstTrackOfEachLanguageRadioButton" xml:space="preserve">
+    <value>Jeweils die erste Spur von jeder Sprache</value>
+  </data>
+  <data name="FirstTrackRadioButton" xml:space="preserve">
+    <value>Erste Spur</value>
+  </data>
+  <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
+    <value>Markieren Sie die Untertitelspur als Standard, damit sie bei der Wiedergabe später automatisch mitangezeigt wird.</value>
+  </data>
+  <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
+    <value>Markieren Sie die erste Untertitelspur als Standard, damit sie bei der Wiedergabe später automatisch mitangezeigt wird.</value>
+  </data>
+  <data name="FirstAsDefaultCheckBox" xml:space="preserve">
+    <value>Erste als Standard markieren</value>
+    <comment>Label for checkbox to mark the first subtitle as default.</comment>
+  </data>
+  <data name="AllSubtitlesToolTip" xml:space="preserve">
+    <value>Alle Untertitel übernehmen.</value>
+  </data>
+  <data name="SubtitleNoneToolTip" xml:space="preserve">
+    <value>Keine Untertitel werden übernommen.</value>
+  </data>
+  <data name="AudioFirstToolTip" xml:space="preserve">
+    <value>Nur die erste Tonspur übernehmen.</value>
+  </data>
+  <data name="AudioAllToolTip" xml:space="preserve">
+    <value>Alle Tonspuren übernehmen.</value>
+  </data>
+  <data name="SubtitleFirstToolTip" xml:space="preserve">
+    <value>Nur die erste Untertitelspur übernehmen.</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Voreinstellung verwenden:</value>
+  </data>
+  <data name="RemoveLanguageToolTip" xml:space="preserve">
+    <value>Diese Sprache entfernen.</value>
+  </data>
+  <data name="SortLanguagesLabel" xml:space="preserve">
+    <value>Sprache(n) nach oben sortieren:</value>
+  </data>
+</root>
