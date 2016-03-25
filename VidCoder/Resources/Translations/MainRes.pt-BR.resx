@@ -456,14 +456,8 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>Erro ao iniciar o URL: {0}</value>
   </data>
-  <data name="UserConfigLoadError" xml:space="preserve">
-    <value>Não foi possível carregar um arquivo necessário com as configurações do utilizador. Pode estar corrompido. Deseja excluí-lo? Isto não afetará os pré-ajustes já guardados.</value>
-  </data>
-  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>Erro ao ler configurações</value>
-  </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Não foi possível importar o pré-ajuste. Formato não reconhecido.</value>
+    <value>Falha ao importar a predefinição. Verifique o log para detalhes.</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>Erro de importação</value>
@@ -477,24 +471,12 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Exportar Pré-ajustes</value>
   </data>
-  <data name="PresetSaveConfirmMessage" xml:space="preserve">
-    <value>Deseja guardar as alterações do pré-ajuste atual?</value>
-  </data>
-  <data name="PresetSaveConfirmTitle" xml:space="preserve">
-    <value>Guardar pré-ajuste atual?</value>
-  </data>
-  <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>Tem certeza que deseja reverter todas as alterações não guardadas neste pré-ajuste?</value>
-  </data>
-  <data name="PresetRevertConfirmTitle" xml:space="preserve">
-    <value>Reverter o pré-ajuste</value>
-  </data>
-  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
-    <value>Tem certeza que deseja remover este pré-ajuste?</value>
-  </data>
-  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
-    <value>Remover o pré-ajuste</value>
-  </data>
+  
+  
+  
+  
+  
+  
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>A configuração está corrompida e não pode ser carregada. Algumas das suas configurações podem ter sido apagadas.</value>
   </data>
@@ -574,7 +556,7 @@
     <value>Exportar tarefa</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>Não foi possível importar o pré-ajuste. Formato não reconhecido.</value>
+    <value>Falha ao importar a fila. Verifique o log para detalhes.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>Importar arquivo predefinido</value>
@@ -603,21 +585,35 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Detalhes da codificação</value>
   </data>
-	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
     <value>As configurações de codificação mudaram desde o último item adicionado à lista de tarefas. Você quer aplicar as configurações de codificação atuais para todos os itens na lista?</value>
   </data>
-	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
     <value>As configurações foram alteradas</value>
   </data>
-	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Você quer renomear o arquivo existente e começar um novo?</value>
   </data>
-	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
     <value>Não foi possível ler a versão {0} do arquivo do banco de dados. A versão mais recente reconhecida pelo VidCoder {1} é {2}</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
-	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
     <value>Arquivo do banco de dados incompatível</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>Seletor</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Não foi possível carregar o seletor: </value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>Seletor {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} outros títulos têm duração semelhante.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
 </root>

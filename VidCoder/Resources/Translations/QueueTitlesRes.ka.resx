@@ -141,19 +141,13 @@
     <value>წუთი</value>
     <comment>Goes after the second number box in the length range specification.</comment>
   </data>
-  <data name="OverrideTitleCheckBox">
-    <value xml:space="preserve">ფაილის გადაწერა #: იწყება</value>
+  <data name="OverrideTitleCheckBox" xml:space="preserve">
+    <value>ფაილის გადაწერა #: იწყება</value>
   </data>
-  <data name="OverrideNameFormatCheckBox">
-    <value xml:space="preserve">გადასაწერი სახელის ფორმატი:</value>
+  <data name="QueueTitlesDialogTitle" xml:space="preserve">
+    <value>მრავალი ფაილის დავალებში დამატება</value>
   </data>
-  <data name="QueueTitlesDialogTitle">
-    <value xml:space="preserve">მრავალი ფაილის დავალებში დამატება</value>
-  </data>
-  <data name="TitleFormat">
-    <value xml:space="preserve">ფაილი {0}</value>
-  </data>
-	<data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>ფოლდერის გადაწერა:</value>
+  <data name="TitleFormat" xml:space="preserve">
+    <value>ფაილი {0}</value>
   </data>
 </root>

@@ -156,9 +156,6 @@
   <data name="FileFormatLabel" xml:space="preserve">
     <value>ファイル形式：</value>
   </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>可能であればソースと同じフォルダに出力する</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>既定の形式</value>
   </data>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>自動的に名前を変更します。</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>音声の自動選択</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>音声/字幕</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>言語:</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>すべてのトラックを含める</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>字幕の自動選択</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>外部オーディオ検索</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>焼きこむ</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>音声と言語が違う場合のみ</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>これらのプロセスのいずれかを実行しているときに、エンコーディングを自動的に一時停止します。</value>
   </data>
@@ -233,9 +206,6 @@
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>LibDVDNavを有効にする(要再起動)</value>
-  </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>完了後スキャン結果を保持します。（完了したアイテムを編集することができます）</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>問題なく完了したアイテムをクリアする際にソースファイルを削除します（確認あり）</value>
@@ -255,7 +225,7 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>設定</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
+  <data name="ProcessTab" xml:space="preserve">
     <value>プロセス</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
@@ -408,17 +378,20 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>ファイル変換時に作成日時と更新日時を保持します。</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>デフォルト</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>バッチ処理時にフォルダ構造を保持します。</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>フォルダ中のすべてのファイルをエンコードする場合にエンコードしたファイルは元のディレクトリ構造と同じフォルダに保存されます。</value>
-  </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>プレビュー用のフォルダを指定:</value>
+  </data>
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>プロセスオプション</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>CPU利用率：</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>エンコード時に使用するプロセッサーコアの数を制限する設定</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>プレビューに内蔵のプレーヤーを使用する</value>
   </data>
 </root>

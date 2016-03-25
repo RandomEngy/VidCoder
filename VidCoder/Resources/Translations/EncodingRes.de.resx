@@ -788,7 +788,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>{0} (Standard)</value>
   </data>
   <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Voreinstellung: {0}</value>
+    <value>Encodierungs-Voreinstellung: {0}</value>
   </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>Zusätzliche, erweiterte x264 Optionen:</value>
@@ -885,10 +885,11 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Voreinstellung für Tonspur entfernen</value>
   </data>
   <data name="AutoPassthroughFallbackLabel" xml:space="preserve">
-    <value>Rückfall:</value>
+    <value>Ersatzcodec:</value>
   </data>
   <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
-    <value>Nicht jeder Audiocodec lässt sich durschschleifen. Dies legt den Encodierer fest, auf den zurückgegriffen wird, falls die Tonspur nicht durchgeschliffen werden kann.</value>
+    <value>Nicht jeder Audiocodec lässt sich durchschleifen.
+Hiermit legen Sie den Encodierer fest, auf den zurückgegriffen wird, falls die Tonspur nicht durchgeschliffen werden kann.</value>
   </data>
   <data name="EncoderSettings" xml:space="preserve">
     <value>Encodierereinstellungen</value>
@@ -921,27 +922,8 @@ Bikubisch: Dies ist ein durch OpenCL-Hardware beschleunigter Skalierungsalgorith
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Durchschleifen</value>
   </data>
-  <data name="Passthrough_aac" xml:space="preserve">
-    <value>AAC</value>
-  </data>
-  <data name="Passthrough_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="Passthrough_any" xml:space="preserve">
-    <value>Jeder</value>
-    <comment>Choice for a passthrough which accepts any input codec.</comment>
-  </data>
-  <data name="Passthrough_dts" xml:space="preserve">
-    <value>DTS</value>
-  </data>
-  <data name="Passthrough_dtshd" xml:space="preserve">
-    <value>DTS-HD</value>
-  </data>
-  <data name="Passthrough_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
-  <data name="ScopeLabel" xml:space="preserve">
-    <value>Anwendungsbereich:</value>
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>Automatisch</value>
   </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>Legt fest, welche Eingangscodecs durchgeschliffen werden.</value>
@@ -976,10 +958,50 @@ Bikubisch: Dies ist ein durch OpenCL-Hardware beschleunigter Skalierungsalgorith
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Wenn der Eingangscodec diesem Codec entspricht, wird er durchgeschliffen statt encodiert.</value>
   </data>
-	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+  <data name="ScalingAlgorithmLabel" xml:space="preserve">
     <value>Skalierungsalgorithmus:</value>
   </data>
-	<data name="RotationLabel" xml:space="preserve">
+  <data name="RotationLabel" xml:space="preserve">
     <value>Drehung:</value>
+  </data>
+  <data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>Voreinstellungsliste schließen</value>
+  </data>
+  <data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>Voreinstellungsliste öffnen</value>
+  </data>
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>Kapitel {0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>Einstellungen fürs Durchschleifen</value>
+  </data>
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>Durchschleifen erlauben für:</value>
+  </data>
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
   </data>
 </root>

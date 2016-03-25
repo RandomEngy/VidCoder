@@ -174,4 +174,7 @@
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
     <value>Duplikálja ezt a sávot</value>
   </data>
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>A felirat fájl kódolása nem érzékelhető. A feliratok helyes megjelenéséhez kérlek mentsd el újra UTF-8 kódolással.</value>
+  </data>
 </root>

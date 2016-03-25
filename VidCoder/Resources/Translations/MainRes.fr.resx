@@ -458,15 +458,7 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>Erreur de lancement de l'URL : {0}</value>
   </data>
-  <data name="UserConfigLoadError" xml:space="preserve">
-    <value>Impossible de charger le fichier de paramètres utilisateur; Il peut être endommagé. Vous voulez le supprimer ? Cela n'affectera pas vos pré-réglages sauvegardés.</value>
-  </data>
-  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>Erreur de chargement des réglages</value>
-  </data>
-  <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Ne peut pas importer le pré-réglage. Son format n'est pas reconnu.</value>
-  </data>
+  
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>Erreur d'importation</value>
   </data>
@@ -479,24 +471,12 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Exporter un Pré-réglage</value>
   </data>
-  <data name="PresetSaveConfirmMessage" xml:space="preserve">
-    <value>Voulez-vous enregistrer les modifications apportées à votre pré-réglage en cours ?</value>
-  </data>
-  <data name="PresetSaveConfirmTitle" xml:space="preserve">
-    <value>Enregistrer le pré-réglage actuel ?</value>
-  </data>
-  <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>Êtes-vous sûr de vouloir annuler toutes les modifications, non enregistrées, de ce pré-réglage ?</value>
-  </data>
-  <data name="PresetRevertConfirmTitle" xml:space="preserve">
-    <value>Restaurer le pré-réglage</value>
-  </data>
-  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
-    <value>Êtes-vous sûr de que vouloir supprimer ce pré-réglage?</value>
-  </data>
-  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
-    <value>Supprimer le pré-réglage</value>
-  </data>
+  
+  
+  
+  
+  
+  
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>La configuration a été altérée et ne peut pas être chargée. Certains de vos paramètres peuvent avoir été réinitialisées.</value>
   </data>
@@ -575,9 +555,7 @@
   <data name="ExportQueueFilePickerText" xml:space="preserve">
     <value>Exporter la file d'attente</value>
   </data>
-  <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>Impossible d'importer la file d'attente. Le format n'est pas reconnu.</value>
-  </data>
+  
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>Importer un Pré-réglage</value>
   </data>
@@ -605,21 +583,25 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Détails d'encodage</value>
   </data>
-	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
     <value>Les paramètres d'encodage sont changés depuis votre dernier ajout d'élément à la file d'attente. Vous voulez appliquer les paramètres d'encodage actuels à tous les éléments dans la file d'attente ?</value>
   </data>
-	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
     <value>Les paramètres ont été modifiés</value>
   </data>
-	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Voulez-vous renommer le fichier existant et démarrer avec un nouveau ?</value>
   </data>
-	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
     <value>Impossible de lire le fichier de base de données version {0}. La version la plus récente reconnue par VidCoder {1} est {2}</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
-	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
     <value>Fichier de base de données incompatible</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
+  
+  
+  
+  
 </root>

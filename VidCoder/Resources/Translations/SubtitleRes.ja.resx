@@ -174,4 +174,7 @@
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
     <value>このトラックを複製します</value>
   </data>
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>字幕ファイルの文字コードを検出できませんでした。字幕が正しく表示されていることを確認し、UTF-8でファイルを保存してください。</value>
+  </data>
 </root>

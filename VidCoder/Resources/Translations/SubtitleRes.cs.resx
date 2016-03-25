@@ -174,4 +174,7 @@
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
     <value>Duplikovat tuto stopu</value>
   </data>
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>Nelze rozpoznat kódování souboru titulků. Aby se titulky zobrazovaly správně, znovu uložte soubor jako UTF-8.</value>
+  </data>
 </root>

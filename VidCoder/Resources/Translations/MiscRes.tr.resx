@@ -171,12 +171,6 @@
   <data name="ScanMultipleWindowTitle" xml:space="preserve">
     <value>Taranıyor...</value>
   </data>
-  <data name="UpdateSuccessDialogTitle" xml:space="preserve">
-    <value>Başarılı</value>
-  </data>
-  <data name="UpdateSuccessDialogMessage" xml:space="preserve">
-    <value>VidCoder başarıyla güncelleştirildi.</value>
-  </data>
   <data name="AboutVidCoderDialogTitle" xml:space="preserve">
     <value>VidCoder Hakkında</value>
   </data>
@@ -200,12 +194,8 @@
     <value>{0} Beta ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
-  <data name="PresetNameDialogTitle" xml:space="preserve">
-    <value>Hazır Ayar Adlandırma</value>
-  </data>
-  <data name="ChoosePresetName" xml:space="preserve">
-    <value>Hazır ayar için bir ad seçin:</value>
-  </data>
+  
+  
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>Güncelleme Uygulansın mı?</value>
   </data>
@@ -245,10 +235,13 @@
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
     <value>Kodlama tamamladı.</value>
   </data>
-	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+  <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
     <value>{0} için video oynatıcı bulunamadı.</value>
   </data>
-	<data name="ErrorPlayingSource" xml:space="preserve">
+  <data name="ErrorPlayingSource" xml:space="preserve">
     <value>Kaynak oynatılırken hata oluştu.</value>
   </data>
+  
+  
+  
 </root>

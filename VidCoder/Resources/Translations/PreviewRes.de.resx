@@ -183,4 +183,23 @@
 	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
     <value>Quelldatei konnte nicht gefunden werden.</value>
   </data>
+  <data name="CloseVideoButton" xml:space="preserve">
+    <value>Video schließen</value>
+    <comment>Button to close the preview video clip.</comment>
+  </data>
+  <data name="OpenInSystemPlayerButton" xml:space="preserve">
+    <value>Im Standard Wiedergabe-Programm öffnen</value>
+  </data>
+  <data name="VolumeSliderLabel" xml:space="preserve">
+    <value>Lautstärke</value>
+  </data>
+  <data name="ReplayPreviewButton" xml:space="preserve">
+    <value>Wiederholungsvorschau</value>
+  </data>
+  <data name="VideoErrorMessage" xml:space="preserve">
+    <value>Konnte das Video nicht mit dem eingebauten Wiedergabe-Programm abspielen. Möchten Sie es stattdessen mit dem Standard Wiedergabe-Programm öffnen?</value>
+  </data>
+  <data name="VideoErrorTitle" xml:space="preserve">
+    <value>Videofehler</value>
+  </data>
 </root>

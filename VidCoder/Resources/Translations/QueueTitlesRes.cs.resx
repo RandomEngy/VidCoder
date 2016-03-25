@@ -141,19 +141,13 @@
     <value>minuty</value>
     <comment>Goes after the second number box in the length range specification.</comment>
   </data>
-  <data name="OverrideTitleCheckBox">
-    <value xml:space="preserve">Přepsat titul #: začíná u</value>
+  <data name="OverrideTitleCheckBox" xml:space="preserve">
+    <value>Přepsat titul #: začíná u</value>
   </data>
-  <data name="OverrideNameFormatCheckBox">
-    <value xml:space="preserve">Přepsat formát pojmenování:</value>
+  <data name="QueueTitlesDialogTitle" xml:space="preserve">
+    <value>Více titulů do fronty</value>
   </data>
-  <data name="QueueTitlesDialogTitle">
-    <value xml:space="preserve">Více titulů do fronty</value>
-  </data>
-  <data name="TitleFormat">
-    <value xml:space="preserve">Titul {0}</value>
-  </data>
-	<data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>Přepsat adresář:</value>
+  <data name="TitleFormat" xml:space="preserve">
+    <value>Titul {0}</value>
   </data>
 </root>

@@ -141,19 +141,13 @@
     <value>分钟</value>
     <comment>Goes after the second number box in the length range specification.</comment>
   </data>
-  <data name="OverrideTitleCheckBox">
-    <value xml:space="preserve">覆写标题 #: 起始于</value>
+  <data name="OverrideTitleCheckBox" xml:space="preserve">
+    <value>覆写标题 #: 起始于</value>
   </data>
-  <data name="OverrideNameFormatCheckBox">
-    <value xml:space="preserve">覆写命名格式:</value>
+  <data name="QueueTitlesDialogTitle" xml:space="preserve">
+    <value>新增多个章节标题至工作队列</value>
   </data>
-  <data name="QueueTitlesDialogTitle">
-    <value xml:space="preserve">新增多个章节标题至工作队列</value>
-  </data>
-  <data name="TitleFormat">
-    <value xml:space="preserve">标题 {0}</value>
-  </data>
-	<data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>覆盖目录：</value>
+  <data name="TitleFormat" xml:space="preserve">
+    <value>标题 {0}</value>
   </data>
 </root>

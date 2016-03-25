@@ -794,7 +794,7 @@ Akkor érdemes beállítani, ha tudod, hogy a lejátszó eszköz csak egy bizony
     <value>{0} (Alapért.)</value>
   </data>
   <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Séma: {0}</value>
+    <value>Kódolási séma: {0}</value>
   </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>További haladó x264 beállítások:</value>
@@ -927,27 +927,8 @@ Kettős köbös: Ez egy OpenCL hardveres gyorsítású méretezési algoritmus.<
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Menetek</value>
   </data>
-  <data name="Passthrough_aac" xml:space="preserve">
-    <value>AAC</value>
-  </data>
-  <data name="Passthrough_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="Passthrough_any" xml:space="preserve">
-    <value>Bármelyik</value>
-    <comment>Choice for a passthrough which accepts any input codec.</comment>
-  </data>
-  <data name="Passthrough_dts" xml:space="preserve">
-    <value>DTS</value>
-  </data>
-  <data name="Passthrough_dtshd" xml:space="preserve">
-    <value>DTS-HD</value>
-  </data>
-  <data name="Passthrough_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
-  <data name="ScopeLabel" xml:space="preserve">
-    <value>Hatókör:</value>
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>Aut.</value>
   </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>Itt adható meg, hogy melyik bemeneti kodekekre érvényes a menet.</value>
@@ -982,10 +963,50 @@ Kettős köbös: Ez egy OpenCL hardveres gyorsítású méretezési algoritmus.<
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Ha a bemeneti sáv megegyezik a kodekével, nem kerül konvertálásra.</value>
   </data>
-	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+  <data name="ScalingAlgorithmLabel" xml:space="preserve">
     <value>Méretezési algoritmus:</value>
   </data>
-	<data name="RotationLabel" xml:space="preserve">
+  <data name="RotationLabel" xml:space="preserve">
     <value>Elforgatás:</value>
+  </data>
+  <data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>Sémalista bezárása</value>
+  </data>
+  <data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>Sémalista megnyitása</value>
+  </data>
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>{0}. fejezet</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>Átadó beállítások</value>
+  </data>
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>Lehetővé teszi az átadást eddig:</value>
+  </data>
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
   </data>
 </root>

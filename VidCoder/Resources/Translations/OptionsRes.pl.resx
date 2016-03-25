@@ -156,9 +156,6 @@
   <data name="FileFormatLabel" xml:space="preserve">
     <value>Format pliku:</value>
   </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Zapisz do katalogu źródłowego, jeśli to możliwe</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>Domyślny format</value>
   </data>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>Automatyczna zmiana nazwy</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Automatyczny wybór dźwięku</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Audio / napisy</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Język:</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Dołącz wszystkie ścieżki</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Automatyczny wybór napisów</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Wyszukiwanie Zagranicznych Ścieżek Audio</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Nałóż</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Tylko wtedy, gdy jest inny język w audio</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Automatycznie wstrzymaj enkodowanie, gdy którykolwiek z tych procesów jest uruchomiony:</value>
   </data>
@@ -233,9 +206,6 @@
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Włącz LibDVDNav (zmiana wymaga ponownego uruchomienia programu)</value>
-  </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Zachować skany po zakończeniu (umożliwia edycję ukończonych elementów)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Usuń pliki źródłowe po wyczyszczeniu zakończonych pomyślnie zadań (z potwierdzeniem)</value>
@@ -255,9 +225,7 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Opcje</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>Procesy</value>
-  </data>
+  
   <data name="AdvancedTab" xml:space="preserve">
     <value>Zaawansowane</value>
   </data>
@@ -408,17 +376,11 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Zachowaj czasy Utworzono i Zmodyfikowano podczas konwersji plików</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Domyślne</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Zachowaj strukturę katalogów przy enkodowaniu wielu plików</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Jeśli enkodujesz folder pełen plików,  ich wersje będą umieszczone w podfolderach, aby dopasować strukturę do katalogu źródłowego.</value>
-  </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Niestandardowy folder dla podglądu:</value>
   </data>
+  
+  
+  
+  
 </root>

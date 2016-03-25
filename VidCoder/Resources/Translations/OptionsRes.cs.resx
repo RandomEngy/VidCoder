@@ -156,9 +156,6 @@
   <data name="FileFormatLabel" xml:space="preserve">
     <value>Formát souboru:</value>
   </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Výstup do zdrojového adresáře pokud to je možné</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>Výchozí formát</value>
   </data>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>Automaticky přejmenovat</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Automatický výběr audia</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Audio / Titulky</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Jazyk:</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Zahrnout všechny stopy</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Automatický výběr titulků</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Hledání cizí audio stopy</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Vypálit</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Pouze pokud je jazyk jiný než jazyk audia</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Automaticky pozastavit enkódování pokud jsou některé tyto procesy spuštěny:</value>
   </data>
@@ -233,9 +206,6 @@
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Povolit LibDVDNav (změna vyžaduje restart programu)</value>
-  </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Zachovat informace o načtení po úspěšném dokončení (pro editaci již hotových položek)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Smazat zdrojové soubory po vymazání úspěšně dokončené položky (musí být potvrzeno)</value>
@@ -255,8 +225,8 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Možnosti</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>Procesy</value>
+  <data name="ProcessTab" xml:space="preserve">
+    <value>Proces</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>Pokročilé</value>
@@ -408,17 +378,20 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Při převodu souborů zachovat vytvořený a změněný čas</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Výchozí</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Zachovat strukturu složky při enkódování v dávce</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Jestliže enkódujete složku zaplněnou soubory budou enkódované verze umístěny do podsložek tak aby odpovídaly struktuře zdrojového adresáře.</value>
-  </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Vlastní složka pro náhledy:</value>
+  </data>
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>Možnosti procesu</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>Výkon CPU:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>Použít řízení výkonu CPU k omezení počtu procesorových jader který může VidCoder použít při enkódování.</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>Použít vestavěný přehrávač pro náhledy</value>
   </data>
 </root>

@@ -164,12 +164,14 @@
   
   
   
+  
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
     <value>不执行任何操作</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
     <value>弹出 {0}：</value>
   </data>
+  
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
     <value>注销</value>
   </data>
@@ -182,6 +184,9 @@
   <data name="Off" xml:space="preserve">
     <value>关闭</value>
   </data>
+  
+  
+  
   <data name="VideoRangeType_Chapters" xml:space="preserve">
     <value>章节</value>
   </data>

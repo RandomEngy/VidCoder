@@ -133,7 +133,7 @@
     <value>In den Infobereich minimieren</value>
   </data>
   <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
-    <value>Signal nach Vollendung der Warteschlange ausgeben</value>
+    <value>Akustisches Signal am Ende der Warteschlange abspielen</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
     <value>Bevorzugter DVD-Player:</value>
@@ -155,9 +155,6 @@
   </data>
   <data name="FileFormatLabel" xml:space="preserve">
     <value>Dateiformat:</value>
-  </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Wenn möglich Quellverzeichnis zur Ausgabe verwenden</value>
   </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>Standardformat</value>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>Automatisch umbenennen</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Automatische Audio-Auswahl</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Audio / Untertitel</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Sprache:</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Alle Spuren übernehmen</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Automatische Untertitel-Auswahl</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Suche nach ausländischem Ton</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Einbrennen</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Nur wenn sich die Sprache von der Sprache der Tonspur unterscheidet</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Encodierung automatisch pausieren, wenn einer der folgenden Prozesse läuft:</value>
   </data>
@@ -234,11 +207,8 @@
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>LibDVDNav einschalten (Erfordert Neustart des Programms)</value>
   </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Scans nach Fertigstellung behalten (ermöglicht es abgeschlossene Aufträge zu bearbeiten)</value>
-  </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Ürsprüngliche Dateien löschen, nachdem die erfolgreich abgeschlossen Aufträge aus der Liste entfernt wurden (mit Bestätigung)</value>
+    <value>Ursprüngliche Dateien löschen, nachdem die erfolgreich abgeschlossen Aufträge aus der Liste entfernt wurden (mit Bestätigung)</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
     <value>Ausführlichkeit der Protokollierung:</value>
@@ -255,8 +225,8 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Optionen</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>Prozesse</value>
+  <data name="ProcessTab" xml:space="preserve">
+    <value>Prozess</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>Erweitert</value>
@@ -352,7 +322,7 @@
     <value>Jetzt überprüfen</value>
   </data>
   <data name="UseSystemPlayer" xml:space="preserve">
-    <value>Benutze Standard Wiedergabe-Programm (System)</value>
+    <value>Standard Wiedergabe-Programm (System)</value>
   </data>
   <data name="VideoFilesLabel" xml:space="preserve">
     <value>Video-Dateien:</value>
@@ -391,7 +361,7 @@
     <value>Öffne Protokollordner</value>
   </data>
   <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
-    <value>Encodierung beim Neustart automatisch fortsetzen</value>
+    <value>Encodierung automatisch nach Neustart fortsetzen</value>
   </data>
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Arbeiter-Prozess zum Encodieren verwenden</value>
@@ -408,17 +378,20 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Erstellungs- und Änderungsdatum beim Konvertieren von Dateien erhalten</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Standard</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Ordnerstruktur bei Stapelencodierungen erhalten</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Wenn Sie einen mit Dateien gefüllten Ordner encodieren, werden die encodierten Versionen in Unterordner gepackt, um der Struktur des Quellordners zu entsprechen.</value>
-  </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Benutzerdefinierter Ordner für Vorschauvideos:</value>
+  </data>
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>Prozesseinstellungen</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>CPU Drosselung:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>Drosseln Sie Ihre CPU, um die Anzahl an Prozessorkernen zu begrenzen, die VidCoder zur Encodierung verwenden kann.</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>Eingebautes Wiedergabe-Programm für die Vorschau verwenden</value>
   </data>
 </root>

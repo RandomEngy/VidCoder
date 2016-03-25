@@ -174,4 +174,7 @@
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
     <value>წყაროს დუბლირება</value>
   </data>
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>ტიტრის ფაილის კოდირება ვერ დადგინდა. ტიტრის უხარვეზო წარმოსახვისთვის ხელახლა შეინახეთ UTF-8 ფაილად.</value>
+  </data>
 </root>

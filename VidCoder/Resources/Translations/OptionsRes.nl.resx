@@ -156,9 +156,6 @@
   <data name="FileFormatLabel" xml:space="preserve">
     <value>Bestandsindeling:</value>
   </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Uitvoer naar de bronmap indien mogelijk</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>Standaardindeling</value>
   </data>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>Automatisch hernoemen</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Automatische audio keuze</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Audio / Ondertitels</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Taal:</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Alle sporen meenemen</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Automatische ondertitel keuze</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Buitenlandse Audio zoeken</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Integreren met beeld</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Alleen als de taal verschilt van het audio spoor</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Pauzeer codering automatisch als een van deze processen wordt uitgevoerd:</value>
   </data>
@@ -233,9 +206,6 @@
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Schakel LibDVDNav in (herstart van programma vereist)</value>
-  </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Sla scans na afloop op (maakt het bewerken van voltooide items mogelijk)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Bronbestanden verwijderen na succesvol omzetten (met bevestiging)</value>
@@ -255,9 +225,7 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Instellingen</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>Processen</value>
-  </data>
+  
   <data name="AdvancedTab" xml:space="preserve">
     <value>Geavanceerd</value>
   </data>
@@ -408,17 +376,11 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Behoud Gemaakte en Aangepaste tijd wanneer u bestanden converteert</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Standaard</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Behoud mappenstructuur in batch coderingen</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Als u een map vol bestanden codeert zullen de gecodeerde versies in submappen komen die overeenkomen met de structuur van de bron-map.</value>
-  </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Aangepaste map voor previews:</value>
   </data>
+  
+  
+  
+  
 </root>

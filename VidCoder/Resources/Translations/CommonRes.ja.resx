@@ -252,4 +252,32 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>ファイルの操作エラー</value>
   </data>
+  <data name="OverrideNameFormatCheckBox" xml:space="preserve">
+    <value>ファイル名形式の変更：</value>
+  </data>
+  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
+    <value>可能であればソースと同じフォルダに出力する</value>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>バッチ処理時にフォルダ構造を保持します。</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>フォルダ中のすべてのファイルをエンコードする場合にエンコードしたファイルは元のディレクトリ構造と同じフォルダに保存されます。</value>
+  </data>
+  <data name="DismissMessage" xml:space="preserve">
+    <value>メッセージを閉じます</value>
+    <comment>Appears as a tooltip on inline, dismissable messages</comment>
+  </data>
+  <data name="PresetFileFilter" xml:space="preserve">
+    <value>VidCoder プリセット ファイル</value>
+    <comment>File dialog description of a .vjpreset file: JSON file that stores an exported preset.</comment>
+  </data>
+  <data name="QueueFileFilter" xml:space="preserve">
+    <value>VidCoder キュー ファイル</value>
+    <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>最初</value>
+    <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
 </root>

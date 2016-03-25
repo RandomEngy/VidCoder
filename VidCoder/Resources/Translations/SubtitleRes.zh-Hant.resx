@@ -174,4 +174,7 @@
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
     <value>複製此軌</value>
   </data>
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>無法偵測字幕檔的編碼，為確保字幕可正確顯示，請將檔案編碼改為 UTF-8 儲存。</value>
+  </data>
 </root>

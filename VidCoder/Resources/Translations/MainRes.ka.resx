@@ -208,7 +208,7 @@
     <value>ბოლოს გახსნილი</value>
   </data>
   <data name="DragFilesHereLabel" xml:space="preserve">
-    <value>(ან გადმოიტანეთ ვიდეოფაილი ან ფოლდერი აქ)</value>
+    <value>(ან გადმოიტანეთ ვიდეოფაილი / ფოლდერი აქ)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>სკანირებისას შეცდომა დაფიქსირდა.</value>
@@ -462,14 +462,8 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>ბმულის გახსნა წარუმატებელია: {0}</value>
   </data>
-  <data name="UserConfigLoadError" xml:space="preserve">
-    <value>პირადი პარამეტრების ფაილის ჩატვირთვა ვერ ხერხდება; შეიძლება დაზიანებულია. გსურთ წაშლა? არ იმოქმედებს პირად შაბლონებზე.</value>
-  </data>
-  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>პარამეტრების ჩატვირთვა წარუმატებელია</value>
-  </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>შაბლონის შემოტანა ვერ ხერხდება. ფორმატი ამოუცნობია.</value>
+    <value>შაბლონის შემოტანა წარუმატებელა. დაწვრილებითი ინფორმაციისთვის გადაამოწმეთ პროტოკოლი.</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>შემოტანა წარუმატებელია</value>
@@ -483,23 +477,23 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>შაბლონის გატანა</value>
   </data>
-  <data name="PresetSaveConfirmMessage" xml:space="preserve">
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
     <value>გსურთ აქტუალური შაბლონის ცვილებების დამახსოვრება?</value>
   </data>
-  <data name="PresetSaveConfirmTitle" xml:space="preserve">
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
     <value>დაიმახსოვროს აქტუალური შაბლონი?</value>
   </data>
-  <data name="PresetRevertConfirmMessage" xml:space="preserve">
+  <data name="RevertConfirmMessage" xml:space="preserve">
     <value>ნამდვილად გსურთ ამ შაბლონის ყველა დაუმახსოვრებელი ცვილებების აღდგენა?</value>
   </data>
-  <data name="PresetRevertConfirmTitle" xml:space="preserve">
-    <value>შაბლონის აღდგენა</value>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>აღდგენა</value>
   </data>
-  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
-    <value>ნამდვილად გსურთ ამ შაბლონის წაშლა?</value>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>ნამდვილად გსურთ წაშლა?</value>
   </data>
-  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
-    <value>შაბლონის წაშლა</value>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>წაშლა</value>
   </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>დაზიანებული კონფიგურაციის გამო ჩატვირთვა ვერ მოხერხდა. ზოგი პარამეტრები სტანდარტზე აღდგება.</value>
@@ -580,7 +574,7 @@
     <value>დავალების სიის გატანა</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>შაბლონის შემოტანა ვერ ხერხდება. ფორმატი ამოუცნობია.</value>
+    <value>დავალების დამატების შემოტანა წარუმატებელა. დაწვრილებითი ინფორმაციისთვის გადაამოწმეთ პროტოკოლი.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>შაბლონის ფაილის შემოტანა</value>
@@ -609,21 +603,35 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>კოდირების დეტალები</value>
   </data>
-	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
     <value>კოდირების პარამეტრები შეიცვალა ბოლო ფაილის დავალების სიაში დამატებისას. გსურთ აქტუალური კოდირების პარამეტრების გამოყენება, დავალების სიაში არსებულ ყველა ფაილისთვის?</value>
   </data>
-	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
     <value>პარამეტრები შეიცვალა</value>
   </data>
-	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>გსურთ არსებული ფაილის სახელის შეცვლა და სხვა ახალის დაწყება?</value>
   </data>
-	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
     <value>ფაილის ვერსიის {0} წაკითხვა ვერ ხერხდება. VidCoder-ის მიერ {1} უმაღლესი ამოცნობილი ვერსიაა {2}</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
-	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
     <value>შეუთავსებელი ფაილი</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>ამომრჩევი</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>ამომრჩევის ჩატვირთვა ვერ ხერხდება: </value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>{0} ამომრჩევი</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>სხვა ფაილი {0} არსებობს მსგავსი ხანგრძლივობით.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
 </root>

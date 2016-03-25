@@ -174,4 +174,7 @@
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
     <value>Duplica questa traccia</value>
   </data>
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>Non riesco a rilevare la codifica del file dei sottotitoli. Per vedere correttamente i sottotitoli, ri-salvare il file come UTF-8.</value>
+  </data>
 </root>

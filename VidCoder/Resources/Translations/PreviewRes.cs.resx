@@ -145,7 +145,7 @@
     <value>Vytvoření náhledu z video klipu se nezdařilo</value>
   </data>
   <data name="PreviewWindowTitleSimple" xml:space="preserve">
-    <value>Náhled: {0} x {1}</value>
+    <value>Náhled: {0}x{1}</value>
   </data>
   <data name="PreviewWindowTitleComplex" xml:space="preserve">
     <value>Náhled: Zobrazení {0}x{1} - Uložení {2}x{3}</value>
@@ -182,5 +182,24 @@
   </data>
 	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
     <value>Zdrojový soubor nebyl nalezen.</value>
+  </data>
+  <data name="CloseVideoButton" xml:space="preserve">
+    <value>Zavřít video</value>
+    <comment>Button to close the preview video clip.</comment>
+  </data>
+  <data name="OpenInSystemPlayerButton" xml:space="preserve">
+    <value>Otevřít s přehrávačem systému</value>
+  </data>
+  <data name="VolumeSliderLabel" xml:space="preserve">
+    <value>Hlasitost</value>
+  </data>
+  <data name="ReplayPreviewButton" xml:space="preserve">
+    <value>Znovu přehrát náhled</value>
+  </data>
+  <data name="VideoErrorMessage" xml:space="preserve">
+    <value>Video nelze přehrát s vestavěným přehrávačem. Chtěl by jste použít přehrávač systému?</value>
+  </data>
+  <data name="VideoErrorTitle" xml:space="preserve">
+    <value>Chyba videa</value>
   </data>
 </root>

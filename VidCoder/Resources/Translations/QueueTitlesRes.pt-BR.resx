@@ -141,19 +141,13 @@
     <value>minutos</value>
     <comment>Goes after the second number box in the length range specification.</comment>
   </data>
-  <data name="OverrideTitleCheckBox">
-    <value xml:space="preserve">Substituir o título #: começar em</value>
+  <data name="OverrideTitleCheckBox" xml:space="preserve">
+    <value>Substituir o título #: começar em</value>
   </data>
-  <data name="OverrideNameFormatCheckBox">
-    <value xml:space="preserve">Substituir o formato de nomes:</value>
+  <data name="QueueTitlesDialogTitle" xml:space="preserve">
+    <value>Enfileirar múltiplos títulos</value>
   </data>
-  <data name="QueueTitlesDialogTitle">
-    <value xml:space="preserve">Enfileirar múltiplos títulos</value>
-  </data>
-  <data name="TitleFormat">
-    <value xml:space="preserve">Título {0}</value>
-  </data>
-	<data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>Substituir o diretório:</value>
+  <data name="TitleFormat" xml:space="preserve">
+    <value>Título {0}</value>
   </data>
 </root>

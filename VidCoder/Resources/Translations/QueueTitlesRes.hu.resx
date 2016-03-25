@@ -141,19 +141,13 @@
     <value>perc</value>
     <comment>Goes after the second number box in the length range specification.</comment>
   </data>
-  <data name="OverrideTitleCheckBox">
-    <value xml:space="preserve"># cím felülírása: kezdés itt:</value>
+  <data name="OverrideTitleCheckBox" xml:space="preserve">
+    <value># cím felülírása: kezdés itt:</value>
   </data>
-  <data name="OverrideNameFormatCheckBox">
-    <value xml:space="preserve">Felülíró elnevezésformátum:</value>
+  <data name="QueueTitlesDialogTitle" xml:space="preserve">
+    <value>Több cím sorbaállítása</value>
   </data>
-  <data name="QueueTitlesDialogTitle">
-    <value xml:space="preserve">Több cím sorbaállítása</value>
-  </data>
-  <data name="TitleFormat">
-    <value xml:space="preserve">Cím {0}</value>
-  </data>
-	<data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>Felülírási mappa:</value>
+  <data name="TitleFormat" xml:space="preserve">
+    <value>Cím {0}</value>
   </data>
 </root>

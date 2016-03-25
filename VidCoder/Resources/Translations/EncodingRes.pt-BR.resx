@@ -743,7 +743,7 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
     <value>{0} (Padrão)</value>
   </data>
   <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Pré-ajuste: {0}</value>
+    <value>Codificação de predefinição: {0}</value>
   </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>Opções avançadas adicionais x264:</value>
@@ -873,27 +873,8 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>PassThrough</value>
   </data>
-  <data name="Passthrough_aac" xml:space="preserve">
-    <value>AAC</value>
-  </data>
-  <data name="Passthrough_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="Passthrough_any" xml:space="preserve">
-    <value>Qualquer</value>
-    <comment>Choice for a passthrough which accepts any input codec.</comment>
-  </data>
-  <data name="Passthrough_dts" xml:space="preserve">
-    <value>DTS</value>
-  </data>
-  <data name="Passthrough_dtshd" xml:space="preserve">
-    <value>DTS-HD</value>
-  </data>
-  <data name="Passthrough_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
-  <data name="ScopeLabel" xml:space="preserve">
-    <value>Escopo:</value>
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>Automático</value>
   </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>Especifica qual codecs de entrada serão aplicadas ao passthrough.</value>
@@ -928,10 +909,50 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Se a faixa de entrada coincidir com o codec, será copiado ao invés de codificado.</value>
   </data>
-	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+  <data name="ScalingAlgorithmLabel" xml:space="preserve">
     <value>Algoritmo de escalonamento:</value>
   </data>
-	<data name="RotationLabel" xml:space="preserve">
+  <data name="RotationLabel" xml:space="preserve">
     <value>Rotação:</value>
+  </data>
+  <data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>Fechar a lista de predefinições</value>
+  </data>
+  <data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>Abra a lista de predefinições</value>
+  </data>
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>Capítulo {0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>Configurações de Passagem</value>
+  </data>
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>Permitir a passagem para:</value>
+  </data>
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
   </data>
 </root>

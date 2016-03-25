@@ -456,15 +456,7 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>Ошибка при открытии URL: {0}</value>
   </data>
-  <data name="UserConfigLoadError" xml:space="preserve">
-    <value>Не удалось загрузить нужный файл пользовательских настроек, он, возможно, поврежден. Хотите удалить его? Это не повлияет на ваши сохраненные конфигурации.</value>
-  </data>
-  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>Ошибка загрузки параметров</value>
-  </data>
-  <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Не удалось импортировать конфигурации. Формат неизвестен.</value>
-  </data>
+  
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>Ошибка импорта</value>
   </data>
@@ -477,24 +469,12 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Сохранить профиль</value>
   </data>
-  <data name="PresetSaveConfirmMessage" xml:space="preserve">
-    <value>Вы хотите сохранить изменения в текущий конфигурации?</value>
-  </data>
-  <data name="PresetSaveConfirmTitle" xml:space="preserve">
-    <value>Сохранение текущей конфигурации?</value>
-  </data>
-  <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>Вы уверены, что вы хотите отменить все не сохраненные изменения к этой конфигурации?</value>
-  </data>
-  <data name="PresetRevertConfirmTitle" xml:space="preserve">
-    <value>Вернуть конфигурации</value>
-  </data>
-  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
-    <value>Вы уверены, что хотите удалить эту преднастройку?</value>
-  </data>
-  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
-    <value>Удалить конфигурацию</value>
-  </data>
+  
+  
+  
+  
+  
+  
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>Конфигурация была повреждена и не может быть загружена. Некоторые из ваших настроек, возможно, были сброшены.</value>
   </data>
@@ -573,9 +553,7 @@
   <data name="ExportQueueFilePickerText" xml:space="preserve">
     <value>Экспорт очереди</value>
   </data>
-  <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>Не удалось импортировать конфигурации. Формат неизвестен.</value>
-  </data>
+  
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>Задать файл конфигурации</value>
   </data>
@@ -603,21 +581,25 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Детали Кодирования</value>
   </data>
-	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
     <value>Настройки кодирования были изменены с момента последнего добавленный элементов в очередь. Вы хотите применить текущие настройки кодирования для всех элементов в очереди?</value>
   </data>
-	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
     <value>Изменение параметров</value>
   </data>
-	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Вы хотите переименовать существующий файл или начать с нового?</value>
   </data>
-	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
     <value>Не удается прочитать файл базы данных версии {0}. Самую старшую версию, признанные VidCoder {1} является {2}</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
-	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
     <value>Файл базы данных несовместим</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
+  
+  
+  
+  
 </root>

@@ -252,4 +252,15 @@ GNU General Public License kopyası bu programa dahil edilmiştir.</value>
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Dosya işlemi hatası</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  <data name="First" xml:space="preserve">
+    <value>İlk</value>
+    <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
 </root>

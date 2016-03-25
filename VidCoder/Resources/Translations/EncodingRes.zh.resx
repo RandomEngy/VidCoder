@@ -794,9 +794,7 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} （默认值）</value>
   </data>
-  <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>预设值: {0}</value>
-  </data>
+  
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>额外的高级 x264 选项:</value>
   </data>
@@ -926,28 +924,7 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>直接复制</value>
   </data>
-  <data name="Passthrough_aac" xml:space="preserve">
-    <value>AAC</value>
-  </data>
-  <data name="Passthrough_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="Passthrough_any" xml:space="preserve">
-    <value>任何</value>
-    <comment>Choice for a passthrough which accepts any input codec.</comment>
-  </data>
-  <data name="Passthrough_dts" xml:space="preserve">
-    <value>DTS</value>
-  </data>
-  <data name="Passthrough_dtshd" xml:space="preserve">
-    <value>DTS-HD</value>
-  </data>
-  <data name="Passthrough_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
-  <data name="ScopeLabel" xml:space="preserve">
-    <value>范围:</value>
-  </data>
+  
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>指定哪些输入值将应用于编解码器。</value>
   </data>
@@ -981,6 +958,29 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>如果输入的Track不匹配它将在编码解码时被忽略。</value>
   </data>
-	
-	
+  
+  
+  
+  
+  
+  
+  
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  
+  
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  
 </root>

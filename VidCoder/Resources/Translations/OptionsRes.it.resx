@@ -156,9 +156,6 @@
   <data name="FileFormatLabel" xml:space="preserve">
     <value>Formato file:</value>
   </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Uscita alla directory sorgente se possibile</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>Formato predefinito</value>
   </data>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>Rinominare automaticamente</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Selezione automatica audio</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Audio / sottotitoli</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Lingua:</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Includono tutte le canzoni</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Selezione automatica dei sottotitoli</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Ricerca Audio Straniero</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Scrivi in</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Solo se una lingua diversa dall'audio</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Pausa automaticamente codifica quando uno qualsiasi di questi processi sono in esecuzione:</value>
   </data>
@@ -233,9 +206,6 @@
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Abilitare LibDVDNav (cambiamento richiede il riavvio del programma)</value>
-  </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Mantenere scansioni dopo completamento (permette di modificare gli elementi completati)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Eliminare i file di origine al termine compensazione successo oggetti (con conferma)</value>
@@ -255,9 +225,7 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Opzioni</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>Processi</value>
-  </data>
+  
   <data name="AdvancedTab" xml:space="preserve">
     <value>Avanzato</value>
   </data>
@@ -410,17 +378,11 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Preservare il tempo creata e modificata quando conversione file</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Default</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Preservare la struttura della codifica delle cartelle in modalità batch</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Se si codifica una cartella piena di file saranno messe le versioni codificate in sottocartelle per abbinare la struttura di directory di origine.</value>
-  </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Cartella personalizzata per le anteprime:</value>
   </data>
+  
+  
+  
+  
 </root>

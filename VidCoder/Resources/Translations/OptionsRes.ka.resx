@@ -133,7 +133,7 @@
     <value>სისტემის არეში ჩაკეცვა</value>
   </data>
   <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
-    <value>აუდიო დავალების დასრულებისას</value>
+    <value>აუდიოს რეპროდუქცია დავალების დასრულებისას</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
     <value>სასურველი DVD რეპროდუქტორი:</value>
@@ -155,9 +155,6 @@
   </data>
   <data name="FileFormatLabel" xml:space="preserve">
     <value>ფაილის ფორმატი:</value>
-  </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>შეძლებისდაგვარად ოროგინალის ფოლდერში დამახსოვრება</value>
   </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>სტანდარტული ფორმატი</value>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>ავტომატურად სახელის შეცვლა</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>ენის ავტომატური ამოცნობა</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>აუდიო / ტიტრი</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>ენა:</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>ყველა წყაროს გამოყენება</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>ტიტრის ავტომატური არჩევა</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>უცხოენის აუდიოს მოძიება</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>ტიტრის კოდირება</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>მხოლოდ თუ აუდიო ნაგსხვავებულ ენაზეა</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>ავტომატურად კოდირების შეჩერება, რომელიმე ჩამოთვლილი პროცესის მუშაობისას:</value>
   </data>
@@ -233,9 +206,6 @@
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>LibDVDNav-ის ჩართვა (საჭიროებს პროგრამის გადატვირთვას)</value>
-  </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>დასრულებისას სკანირების შენარჩუნება (შესაძლებელია დასრულებული ფაილის დამუშავება)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>ორიგინალი ფაილის წაშლა წარმატებული კოდირებისას (თანხმობით)</value>
@@ -255,8 +225,8 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>პარამეტრები</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>პროცესები</value>
+  <data name="ProcessTab" xml:space="preserve">
+    <value>პროცესი</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>დამატებითი პარამეტრები</value>
@@ -274,7 +244,7 @@
     <value>აქტუალიზირება {0} იტვირთება:</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
-    <value>იყენებთ VidCoder-ის აქტუალურ ვერსიას.</value>
+    <value>თქვენ იყენებთ VidCoder-ის აქტუალურ ვერსიას.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
     <value>კოდირებული ვიდეოფაილებისთვის აირჩეთ სტანდარტი დასამახსოვრებელი ადგილი.</value>
@@ -408,17 +378,20 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>შექმნის და მოდიფიცირების დროის შენარჩუნება კოდირებისას</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>სტანდარტი</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>ფოლდერის სტრუქტურის შენარჩუნება მასიური კოდირებისას</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>ვიდეოს ფოლდერის კოდირებისას, ფაილების კოდირებული ვერსია დამახსოვრება ქვე ფოლდერში, ორიგინალი ფოლდერის სტრუქტურის შესანარჩუნებლად.</value>
-  </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>პერსონალური ფოლდერი წარმოსახვისთვის:</value>
+  </data>
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>პროცესის პარამეტრები</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>პროცესორის დატვირთვა:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>გამოიყენბს პროცესორის ბირთვის დატვირთვის ლიმიტს, რომელსაც VidCoder-ი მოიხმარს კოდირებისას.</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>წარმოსახვისთვის დაშენებული რეპროდუქტორის გამოყენება</value>
   </data>
 </root>

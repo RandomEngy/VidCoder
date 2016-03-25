@@ -156,9 +156,6 @@
   <data name="FileFormatLabel" xml:space="preserve">
     <value>Формат файла:</value>
   </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Вывод в исходный каталог, если это возможно</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>Формат по умолчанию</value>
   </data>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>Автоматическое переименование</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Автоматический выбор аудио</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Аудио / субтитры</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Язык:</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Включить все треки</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Автоматический выбор субтитров</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>По поиску иностранного звука</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Записать в</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Только если другой язык аудио</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Автоматически пауза кодирования, если любой из этих процессов запущен:</value>
   </data>
@@ -233,9 +206,6 @@
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Включить LibDVDNav (Требуется перезапуск программы)</value>
-  </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Хранить сканы после завершения (позволяет редактировать завершенные пункты)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Удалить исходные файлы после очистки успешно завершенных пунктов (с подтверждением)</value>
@@ -255,9 +225,7 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Параметры</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>Процессы</value>
-  </data>
+  
   <data name="AdvancedTab" xml:space="preserve">
     <value>Дополнительно</value>
   </data>
@@ -408,17 +376,11 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Заповедник создан и изменен время при преобразовании файлов</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>По умолчанию</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Сохранить структуру папок в кодируемом пакете</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Если вы кодируете папку с файлами закодированной версии поместит в подпапки в соответствии со структурой исходного каталога.</value>
-  </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Папка для просмотра:</value>
   </data>
+  
+  
+  
+  
 </root>

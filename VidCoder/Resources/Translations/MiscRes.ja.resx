@@ -171,12 +171,6 @@
   <data name="ScanMultipleWindowTitle" xml:space="preserve">
     <value>スキャン中...</value>
   </data>
-  <data name="UpdateSuccessDialogTitle" xml:space="preserve">
-    <value>成功</value>
-  </data>
-  <data name="UpdateSuccessDialogMessage" xml:space="preserve">
-    <value>Vidcoderは正しく更新されました。</value>
-  </data>
   <data name="AboutVidCoderDialogTitle" xml:space="preserve">
     <value>VidCoderについて</value>
   </data>
@@ -200,12 +194,8 @@
     <value>{0} ベータ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
-  <data name="PresetNameDialogTitle" xml:space="preserve">
-    <value>プリセット名</value>
-  </data>
-  <data name="ChoosePresetName" xml:space="preserve">
-    <value>プリセット名を選択します：</value>
-  </data>
+  
+  
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>更新しますか？</value>
   </data>
@@ -245,10 +235,17 @@
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
     <value>エンコードが完了しました</value>
   </data>
-	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+  <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
     <value>{0} のビデオ プレーヤーを見つけられませんでした。</value>
   </data>
-	<data name="ErrorPlayingSource" xml:space="preserve">
+  <data name="ErrorPlayingSource" xml:space="preserve">
     <value>ソースファイルの再生エラー</value>
   </data>
+  <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
+    <value>{0} 秒で休止状態になります</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
+    <value>まもなく休止状態になります</value>
+  </data>
+  
 </root>

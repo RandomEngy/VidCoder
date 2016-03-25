@@ -156,9 +156,6 @@
   <data name="FileFormatLabel" xml:space="preserve">
     <value>Agiri heuskarria:</value>
   </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Irteera iturburu zuzenbidera ahal bada</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>Berezko heuskarria</value>
   </data>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>Berezgaitasunez berrizendatu</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Berezgaitasunezko audio hautapena</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Audioa / Azpidatziak</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Hizkuntza:</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Barneratu bide guztiak</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Berezgaitasunezko azpidatzi hautapena</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Beste Hizkuntza Audio Bilaketa</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Erre</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Audiotik hizkuntza ezberdina bada bakarrik</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Berezgaitasunez pausatu kodeaketa prozesu hauetako bat ekinean dagoenean:</value>
   </data>
@@ -233,9 +206,6 @@
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Gaitu LibDVDNav (aldaketak programa berrabiaraztea behar du)</value>
-  </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Heutsi mihaketei osatu ondoren (osatutako gaiak editatzea ahalbidetzen du)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Ezabatu iturburu agiriak ongi osatutako gaiak garbitu ondoren (baieztapenarekin)</value>
@@ -255,8 +225,8 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Aukerak</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>Garapenak</value>
+  <data name="ProcessTab" xml:space="preserve">
+    <value>Prozesua</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>Aurreratua</value>
@@ -408,17 +378,20 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Heutsi Sortutako eta Aldatutako denbora agiriak bihurtzerakoan</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Berezkoa</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Heutsi agiritegi egiturari multzo kodeaketan</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Agiritegi bateko agiri guztiak kodeatzen badituzu kodeatutako bertsioak azpiagiritegietan jarriko dira iturburu zuzenbide egiturarekin bat etortzeko.</value>
-  </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Norbere agiritegia aurreikuspenetarako:</value>
+  </data>
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>Prozesu aukerak</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>CPU itopena:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>Erabili CPU itopena VidCoder-ek kodeatzerakoan erabili ditzakeen prozesagailu nukleo zenbatekoa mugatzeko.</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>Erabili barne-bildutako irakurgailua aurreikuspenetarako</value>
   </data>
 </root>

@@ -184,12 +184,14 @@
   <data name="Denoise_NLMeans" xml:space="preserve">
     <value>NL-Means</value>
   </data>
+  
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
     <value>Ничего не делать</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
     <value>Извлечь {0}:</value>
   </data>
+  
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
     <value>Выйти</value>
   </data>
@@ -202,6 +204,9 @@
   <data name="Off" xml:space="preserve">
     <value>Выкл</value>
   </data>
+  
+  
+  
   <data name="VideoRangeType_Chapters" xml:space="preserve">
     <value>Главы</value>
   </data>

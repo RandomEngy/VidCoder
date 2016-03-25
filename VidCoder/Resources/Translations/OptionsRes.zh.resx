@@ -156,9 +156,6 @@
   <data name="FileFormatLabel" xml:space="preserve">
     <value>文件格式：</value>
   </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>若可行，将输出文件夹指向源数据文件夹</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>默认的格式</value>
   </data>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>自动重命名</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>自动音频选择</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>音频/字幕</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>语言：</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>包括所有轨道</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>自动选择字幕</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>外语音频搜索</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>内嵌</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>仅选取与音频不同的语言</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>当以下处理程序执行时自动暂停编码:</value>
   </data>
@@ -233,9 +206,6 @@
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>启用的 LibDVDNav （更改需要重新启动程序）</value>
-  </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>完成后保留扫描结果 (可编辑完成项目)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>清除完成项目后删除来源文件 (会弹出确认对话窗口)</value>
@@ -255,9 +225,7 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>选项</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>进程</value>
-  </data>
+  
   <data name="AdvancedTab" xml:space="preserve">
     <value>高级设置</value>
   </data>
@@ -408,15 +376,9 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>保存转换文件的创建和修改时间</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>默认</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>在批处理中保留文件夹结构进行编码</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>如果你完全对一个文件夹的文件进行编码到子文件夹中要匹配的源目录结构将是已编码的版本。</value>
-  </data>
-	
+  
+  
+  
+  
+  
 </root>

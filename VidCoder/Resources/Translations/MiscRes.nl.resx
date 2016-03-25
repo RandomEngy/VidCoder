@@ -171,12 +171,6 @@
   <data name="ScanMultipleWindowTitle" xml:space="preserve">
     <value>Aan het scannen...</value>
   </data>
-  <data name="UpdateSuccessDialogTitle" xml:space="preserve">
-    <value>Gelukt</value>
-  </data>
-  <data name="UpdateSuccessDialogMessage" xml:space="preserve">
-    <value>VidCoder is vernieuwd.</value>
-  </data>
   <data name="AboutVidCoderDialogTitle" xml:space="preserve">
     <value>Over VidCoder</value>
   </data>
@@ -200,12 +194,8 @@
     <value>{0} Beta ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
-  <data name="PresetNameDialogTitle" xml:space="preserve">
-    <value>Naam voorkeursinstelling</value>
-  </data>
-  <data name="ChoosePresetName" xml:space="preserve">
-    <value>Kies een naam voor de voorkeursinstelling:</value>
-  </data>
+  
+  
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>Update toepassen?</value>
   </data>
@@ -245,10 +235,13 @@
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
     <value>Encodering is voltooid.</value>
   </data>
-	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+  <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
     <value>Kon geen video speler vinden voor {0}.</value>
   </data>
-	<data name="ErrorPlayingSource" xml:space="preserve">
+  <data name="ErrorPlayingSource" xml:space="preserve">
     <value>Probleem bij het afspelen van bron.</value>
   </data>
+  
+  
+  
 </root>

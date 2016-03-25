@@ -141,19 +141,13 @@
     <value>分</value>
     <comment>Goes after the second number box in the length range specification.</comment>
   </data>
-  <data name="OverrideTitleCheckBox">
-    <value xml:space="preserve">タイトルを次の数字からに変更：</value>
+  <data name="OverrideTitleCheckBox" xml:space="preserve">
+    <value>タイトルを次の数字からに変更：</value>
   </data>
-  <data name="OverrideNameFormatCheckBox">
-    <value xml:space="preserve">ファイル名形式の変更：</value>
+  <data name="QueueTitlesDialogTitle" xml:space="preserve">
+    <value>複数タイトルのキュー登録</value>
   </data>
-  <data name="QueueTitlesDialogTitle">
-    <value xml:space="preserve">複数タイトルのキュー登録</value>
-  </data>
-  <data name="TitleFormat">
-    <value xml:space="preserve">タイトル {0}</value>
-  </data>
-	<data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>出力先の変更：</value>
+  <data name="TitleFormat" xml:space="preserve">
+    <value>タイトル {0}</value>
   </data>
 </root>

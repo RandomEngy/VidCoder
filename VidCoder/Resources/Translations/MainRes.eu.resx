@@ -462,14 +462,8 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>Akatsa URL-a abiarazterakoan: {0}</value>
   </data>
-  <data name="UserConfigLoadError" xml:space="preserve">
-    <value>Ezinezkoa beharrezko erabiltzaile ezarpenen agiria gertatzea; badaiteke hondatuta egotea. Ezabatzea nahi duzu? Honek ez die eragingo gordetako zure aurrezarpenei.</value>
-  </data>
-  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>Akatsa ezarpenak gertatzerakoan</value>
-  </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Ezinezkoa aurrezarpena inporatzea. Heuskarria ez da ezagutzen.</value>
+    <value>Hutsegitea aurrezarpena inportatzerakoan. Ikusi oharra xehetasunetarako.</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>Inportazio Akatsa</value>
@@ -483,24 +477,12 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Esportatu Aurrezarpena</value>
   </data>
-  <data name="PresetSaveConfirmMessage" xml:space="preserve">
-    <value>Aldaketak zure oraingo aurrezarpenean gordetzea nahi dituzu?</value>
-  </data>
-  <data name="PresetSaveConfirmTitle" xml:space="preserve">
-    <value>Gorde oraingo aurrezarpena?</value>
-  </data>
-  <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>Zihur zaude gorde gabeko aldaketa guztiak aurrezarpen honetara leheneratzea nahi dituzula?</value>
-  </data>
-  <data name="PresetRevertConfirmTitle" xml:space="preserve">
-    <value>Leheneratu Aurrezarpena</value>
-  </data>
-  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
-    <value>Zihur zaude aurrezarpen hau kentzea nahi duzula?</value>
-  </data>
-  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
-    <value>Kendu Aurrezarpena</value>
-  </data>
+  
+  
+  
+  
+  
+  
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>Itxurapena hondatuta zegoen eta ezin izan da gertatu. Badaiteke zure zenbait ezarpen berrezarriak izana.</value>
   </data>
@@ -580,7 +562,7 @@
     <value>Esportatu lerroa</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>Ezinezkoa aurrezarpena inporatzea. Heuskarria ez da ezagutzen.</value>
+    <value>Hutsegitea lerroa inportatzerakoan. Ikusi oharra xehetasunetarako.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>Inportatu aurrezarpen agiria</value>
@@ -609,21 +591,35 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Kodeaketa Xehetasunak</value>
   </data>
-	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
     <value>Kodeaketa ezarpenak aldatu egin dira lerrora gai bat gehitu zenuenetik. Nahi duzu oraingo kodeaketa ezarpenak ezartzea lerroko gai guztiei?</value>
   </data>
-	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
     <value>Ezarpenak aldatu egin dira</value>
   </data>
-	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Dagoen agiria berrizendatzea eta berri batekin nahi duzu?</value>
   </data>
-	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
     <value>Ezin da datubase agiria {0} bertsioa irakurri. VidCoder {1}-ek ezagutzen duen bertsio handiena {2} da</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
-	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
     <value>Datubase agiri bateraezina</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>Hautatzailea</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Ezinezkoa hautatzailea gertatzea: </value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>Hautatzailea {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>beste {0} izenburuk honen antzeko iraupena dute.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
 </root>

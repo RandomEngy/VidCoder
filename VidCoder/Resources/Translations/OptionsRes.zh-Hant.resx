@@ -156,9 +156,6 @@
   <data name="FileFormatLabel" xml:space="preserve">
     <value>檔案格式:</value>
   </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>若可行，將輸出資料夾指向來源資料夾</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>預設格式</value>
   </data>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>自動重新命名</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>自動音訊選擇</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>音訊 / 字幕</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>語言:</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>包含所有軌道</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>自動選擇字幕</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>外語音訊搜尋</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>內嵌</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>僅選取與音訊相異的語言</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>當以下處理程序執行時自動暫停編碼:</value>
   </data>
@@ -233,9 +206,6 @@
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>啟用 LibDVDNav (需重新啟動程式套用變更)</value>
-  </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>完成後保留掃描結果 (可編輯完成項目)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>清除完成項目後刪除來源檔案 (會彈出確認對話視窗)</value>
@@ -255,8 +225,8 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>選項</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>處理程序</value>
+  <data name="ProcessTab" xml:space="preserve">
+    <value>處理</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>進階</value>
@@ -408,17 +378,20 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>轉換檔案時保留建立及修改時間</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>預設</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>批次編碼時保留資料夾結構</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>若您以資料夾為單位進行編碼，編碼後的版本將置於與來源資料夾結構相同的子目錄下。</value>
-  </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>自訂預覽資料夾:</value>
+  </data>
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>處理選項</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>CPU 限制:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>使用 CPU 限制控制 VidCoder 編碼時可使用的處理器核心數目。</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>使用內建播放器預覽</value>
   </data>
 </root>

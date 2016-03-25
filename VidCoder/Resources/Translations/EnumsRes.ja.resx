@@ -184,11 +184,17 @@
   <data name="Denoise_NLMeans" xml:space="preserve">
     <value>NL-Means</value>
   </data>
+  <data name="EncodeCompleteActionType_CloseProgram" xml:space="preserve">
+    <value>VidCoder を閉じる</value>
+  </data>
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
     <value>何もしない</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
     <value>取り出し {0}：</value>
+  </data>
+  <data name="EncodeCompleteActionType_Hibernate" xml:space="preserve">
+    <value>休止状態</value>
   </data>
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
     <value>ログオフ</value>
@@ -201,6 +207,18 @@
   </data>
   <data name="Off" xml:space="preserve">
     <value>オフ</value>
+  </data>
+  <data name="TitleType_Bluray" xml:space="preserve">
+    <value>ブルーレイ</value>
+    <comment>What to display when the source is a Blu-ray</comment>
+  </data>
+  <data name="TitleType_Dvd" xml:space="preserve">
+    <value>DVD</value>
+    <comment>What to display when the source is a DVD</comment>
+  </data>
+  <data name="TitleType_Stream" xml:space="preserve">
+    <value>ファイル</value>
+    <comment>What to display when the source is a file</comment>
   </data>
   <data name="VideoRangeType_Chapters" xml:space="preserve">
     <value>チャプター</value>

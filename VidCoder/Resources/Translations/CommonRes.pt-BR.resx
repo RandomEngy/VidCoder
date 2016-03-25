@@ -252,4 +252,32 @@ Uma cópia completa da Licença Pública Geral GNU foi incluída neste programa.
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Erro de operação do arquivo</value>
   </data>
+  <data name="OverrideNameFormatCheckBox" xml:space="preserve">
+    <value>Substituir o formato de nomes:</value>
+  </data>
+  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
+    <value>Usar o diretório de origem, se possível</value>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Preservar a estrutura de pastas nas codificações por lote</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Se você codificar uma pasta inteira de arquivos, as versões codificadas serão colocados em subpastas, para coincidir com a estrutura do diretório de origem.</value>
+  </data>
+  <data name="DismissMessage" xml:space="preserve">
+    <value>Rejeitar mensagem</value>
+    <comment>Appears as a tooltip on inline, dismissable messages</comment>
+  </data>
+  <data name="PresetFileFilter" xml:space="preserve">
+    <value>Arquivo de Predefinição do VidCoder</value>
+    <comment>File dialog description of a .vjpreset file: JSON file that stores an exported preset.</comment>
+  </data>
+  <data name="QueueFileFilter" xml:space="preserve">
+    <value>Arquivo de Enfileiramento do VidCoder</value>
+    <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>Primeiro</value>
+    <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
 </root>

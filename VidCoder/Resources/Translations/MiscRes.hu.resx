@@ -171,12 +171,6 @@
   <data name="ScanMultipleWindowTitle" xml:space="preserve">
     <value>Keresés...</value>
   </data>
-  <data name="UpdateSuccessDialogTitle" xml:space="preserve">
-    <value>Siker</value>
-  </data>
-  <data name="UpdateSuccessDialogMessage" xml:space="preserve">
-    <value>VidCoder sikeresen frissítve.</value>
-  </data>
   <data name="AboutVidCoderDialogTitle" xml:space="preserve">
     <value>VidCoder névjegye</value>
   </data>
@@ -200,12 +194,8 @@
     <value>{0} Béta ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
-  <data name="PresetNameDialogTitle" xml:space="preserve">
-    <value>Névséma</value>
-  </data>
-  <data name="ChoosePresetName" xml:space="preserve">
-    <value>Válassz egy nevet a sémának:</value>
-  </data>
+  
+  
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>Alkalmazod a frissítést?</value>
   </data>
@@ -245,10 +235,17 @@
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
     <value>A kódolás befejeződött.</value>
   </data>
-	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+  <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
     <value>Nem található videólejátszó {0} formátumhoz.</value>
   </data>
-	<data name="ErrorPlayingSource" xml:space="preserve">
+  <data name="ErrorPlayingSource" xml:space="preserve">
     <value>Hiba történt a forrás lejátszása közben.</value>
   </data>
+  <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
+    <value>A rendszer {0} másodperc múlva hibernál.</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
+    <value>Hibernálás hamarosan</value>
+  </data>
+  
 </root>

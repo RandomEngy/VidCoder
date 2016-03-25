@@ -156,9 +156,6 @@
   <data name="FileFormatLabel" xml:space="preserve">
     <value>Formato de ficheiro:</value>
   </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Saída para o diretório de origem, se possível</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>Formato padrão</value>
   </data>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>Renomear automaticamente</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Seleccionar áudio automáticamente</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Áudio / Legendas</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Idioma:</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Incluir todas as pistas</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Selecção automática de legendas</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Pesquisa de áudio externa</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Gravar</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Apenas se diferente do áudio</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Pausa automática quando um destes processos é iniciado:</value>
   </data>
@@ -233,9 +206,6 @@
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Activa LibDVDNav (requer reinicialização do programa)</value>
-  </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Manter pesquisas após a conclusão (permite a edição de itens concluídos)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Excluir ficheiros de origem após limpar a lista de itens concluídos com sucesso (com confirmação)</value>
@@ -255,9 +225,7 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Opções</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>Processos</value>
-  </data>
+  
   <data name="AdvancedTab" xml:space="preserve">
     <value>Avançadas</value>
   </data>
@@ -408,17 +376,11 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Preservar as datas de criação e modificação na conversão de ficheiros</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Predefinição</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Preservar a estrutura de pastas em codificação em lote</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Se codificar uma pasta cheia de ficheiros, as versões codificadas serão colocadas em sub-pastas que  coincidem com a estrutura de directório de origem.</value>
-  </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Pasta personalizada para pré-visualizações:</value>
   </data>
+  
+  
+  
+  
 </root>

@@ -183,4 +183,23 @@
 	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
     <value>ソース ファイルが見つかりませんでした。</value>
   </data>
+  <data name="CloseVideoButton" xml:space="preserve">
+    <value>ビデオを閉じる</value>
+    <comment>Button to close the preview video clip.</comment>
+  </data>
+  <data name="OpenInSystemPlayerButton" xml:space="preserve">
+    <value>システム既定のプレーヤーで開く</value>
+  </data>
+  <data name="VolumeSliderLabel" xml:space="preserve">
+    <value>音量</value>
+  </data>
+  <data name="ReplayPreviewButton" xml:space="preserve">
+    <value>プレビューを再生</value>
+  </data>
+  <data name="VideoErrorMessage" xml:space="preserve">
+    <value>内蔵のプレーヤーで動画再生できませんでした。システム既定のプレーヤで開きますか？</value>
+  </data>
+  <data name="VideoErrorTitle" xml:space="preserve">
+    <value>ビデオエラー</value>
+  </data>
 </root>

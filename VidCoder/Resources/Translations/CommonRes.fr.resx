@@ -254,4 +254,32 @@ Traduit en Français par TheCrazyRabbit...</value>
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Erreur d'opération de fichier</value>
   </data>
+  <data name="OverrideNameFormatCheckBox" xml:space="preserve">
+    <value>Substituer le formatage du nom:</value>
+  </data>
+  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
+    <value>Sortie dans le répertoire source si possible</value>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Garder la structure de dossiers dans l'encodage par lots</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Si vous encodez un dossier plein de fichiers, ils seront encodés dans des sous-dossiers en gardant la même structure du dossiers source.</value>
+  </data>
+  <data name="DismissMessage" xml:space="preserve">
+    <value>Rejeter le message</value>
+    <comment>Appears as a tooltip on inline, dismissable messages</comment>
+  </data>
+  <data name="PresetFileFilter" xml:space="preserve">
+    <value>Fichier de préconfiguration VidCoder</value>
+    <comment>File dialog description of a .vjpreset file: JSON file that stores an exported preset.</comment>
+  </data>
+  <data name="QueueFileFilter" xml:space="preserve">
+    <value>File d'attente VidCoder</value>
+    <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>Premièr</value>
+    <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
 </root>

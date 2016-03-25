@@ -163,7 +163,7 @@
     <value>Andere Untertitelspuren werden die eingebrannten Untertitel überlagern.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>Suche nach ausländischem Ton</value>
+    <value>Ausländische Dialoge extrahieren</value>
   </data>
   <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
     <value>Das ursprüngliche Video enthält keine Untertitel.</value>
@@ -173,5 +173,8 @@
   </data>
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
     <value>Diese Untertitelspur duplizieren</value>
+  </data>
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>Konnte die Encodierung der Untertiteldatei nicht erkennen. Versuchen Sie die Datei erneut abzuspeichern und zwar als UTF-8.</value>
   </data>
 </root>

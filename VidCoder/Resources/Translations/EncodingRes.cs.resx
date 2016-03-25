@@ -792,7 +792,7 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
     <value>{0} (Výchozí)</value>
   </data>
   <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Přednastavení: {0}</value>
+    <value>Enkódování přednastavení: {0}</value>
   </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>Další pokročilé x264 možnosti:</value>
@@ -925,27 +925,8 @@ Bicubic: Toto je metoda hardwarově urychleného algoritmu OpenCL.</value>
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Přímý průchod</value>
   </data>
-  <data name="Passthrough_aac" xml:space="preserve">
-    <value>AAC</value>
-  </data>
-  <data name="Passthrough_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="Passthrough_any" xml:space="preserve">
-    <value>Jakýkoliv</value>
-    <comment>Choice for a passthrough which accepts any input codec.</comment>
-  </data>
-  <data name="Passthrough_dts" xml:space="preserve">
-    <value>DTS</value>
-  </data>
-  <data name="Passthrough_dtshd" xml:space="preserve">
-    <value>DTS-HD</value>
-  </data>
-  <data name="Passthrough_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
-  <data name="ScopeLabel" xml:space="preserve">
-    <value>Rozsah:</value>
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>Auto</value>
   </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>Určit na které vstupní kodeky se bude vztahovat přímý průchod.</value>
@@ -980,10 +961,50 @@ Bicubic: Toto je metoda hardwarově urychleného algoritmu OpenCL.</value>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Odpovídá-li vstupní stopa kodeku tak dojde k přímému průchodu bez enkódování.</value>
   </data>
-	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+  <data name="ScalingAlgorithmLabel" xml:space="preserve">
     <value>Interpolační algoritmus:</value>
   </data>
-	<data name="RotationLabel" xml:space="preserve">
+  <data name="RotationLabel" xml:space="preserve">
     <value>Otočení:</value>
+  </data>
+  <data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>Zavřete seznam přednastavení</value>
+  </data>
+  <data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>Otevřete seznam přednastavení</value>
+  </data>
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>Kapitola {0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>Nastavení přímého průchodu</value>
+  </data>
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>Povolit přímý průchod pro:</value>
+  </data>
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
   </data>
 </root>

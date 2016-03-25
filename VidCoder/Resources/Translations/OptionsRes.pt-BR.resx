@@ -156,9 +156,6 @@
   <data name="FileFormatLabel" xml:space="preserve">
     <value>Formato do arquivo:</value>
   </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Usar o diretório de origem, se possível</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>Formato padrão</value>
   </data>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>Renomear automaticamente</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Seleção automática de áudio</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Áudio / legendas</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Idioma:</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Incluem todas as faixas</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Seleção automática de legendas</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Pesquisa de áudio externo</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Embutida</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Somente se outro idioma de áudio</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Pausa automática quando um destes processos for iniciado:</value>
   </data>
@@ -233,9 +206,6 @@
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Habilitar LibDVDNav (Alteração requer reinicialização do programa)</value>
-  </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Manter pesquisas após a conclusão (permite a edição de itens concluídos)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Excluir arquivos de origem após limpeza dos itens concluídos (com confirmação)</value>
@@ -255,8 +225,8 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Opções</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>Processos</value>
+  <data name="ProcessTab" xml:space="preserve">
+    <value>Processar</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>Avançadas</value>
@@ -408,17 +378,20 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Preservar o tempo criado e modificado na conversão de arquivos</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Padrão</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Preservar a estrutura de pastas ao converter lista</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Se você codificar uma pasta cheia de arquivos, os arquivos convertidos serão colocados em subpastas, para coincidir com a estrutura de diretório de origem.</value>
-  </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Pasta personalizada para visualização:</value>
+  </data>
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>Opções de processo</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>Otimização de CPU:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>Use a otimização de CPU para limitar o número de núcleos de processador que o VidCoder pode usar na codificação.</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>Use o reprodutor embutido para pré-visualizações</value>
   </data>
 </root>

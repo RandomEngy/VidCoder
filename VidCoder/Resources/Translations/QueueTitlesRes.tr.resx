@@ -141,19 +141,13 @@
     <value>dakika</value>
     <comment>Goes after the second number box in the length range specification.</comment>
   </data>
-  <data name="OverrideTitleCheckBox">
-    <value xml:space="preserve">Genel geçer başlık #: başlangıç</value>
+  <data name="OverrideTitleCheckBox" xml:space="preserve">
+    <value>Genel geçer başlık #: başlangıç</value>
   </data>
-  <data name="OverrideNameFormatCheckBox">
-    <value xml:space="preserve">Genel geçer adlandırma biçimi:</value>
+  <data name="QueueTitlesDialogTitle" xml:space="preserve">
+    <value>Çoklu Başlığı Görev Sırasına Al</value>
   </data>
-  <data name="QueueTitlesDialogTitle">
-    <value xml:space="preserve">Çoklu Başlığı Görev Sırasına Al</value>
-  </data>
-  <data name="TitleFormat">
-    <value xml:space="preserve">Başlık {0}</value>
-  </data>
-	<data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>Genel geçer dizin:</value>
+  <data name="TitleFormat" xml:space="preserve">
+    <value>Başlık {0}</value>
   </data>
 </root>

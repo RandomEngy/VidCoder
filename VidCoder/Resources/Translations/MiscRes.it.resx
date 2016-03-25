@@ -171,12 +171,6 @@
   <data name="ScanMultipleWindowTitle" xml:space="preserve">
     <value>Ricerca in corso...</value>
   </data>
-  <data name="UpdateSuccessDialogTitle" xml:space="preserve">
-    <value>Fatto</value>
-  </data>
-  <data name="UpdateSuccessDialogMessage" xml:space="preserve">
-    <value>VidCoder è stato aggiornato con successo.</value>
-  </data>
   <data name="AboutVidCoderDialogTitle" xml:space="preserve">
     <value>Info su VidCoder</value>
   </data>
@@ -200,12 +194,8 @@
     <value>{0} Beta ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
-  <data name="PresetNameDialogTitle" xml:space="preserve">
-    <value>Nome Preset</value>
-  </data>
-  <data name="ChoosePresetName" xml:space="preserve">
-    <value>Scegliere un nome per la preimpostazione:</value>
-  </data>
+  
+  
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>Applicare l'aggiornamento?</value>
   </data>
@@ -245,10 +235,13 @@
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
     <value>Ha completato la codifica.</value>
   </data>
-	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+  <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
     <value>Impossibile trovare un riproduttore video per {0}.</value>
   </data>
-	<data name="ErrorPlayingSource" xml:space="preserve">
+  <data name="ErrorPlayingSource" xml:space="preserve">
     <value>Errore nella riproduzione della sorgente.</value>
   </data>
+  
+  
+  
 </root>

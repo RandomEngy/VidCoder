@@ -184,11 +184,17 @@
   <data name="Denoise_NLMeans" xml:space="preserve">
     <value>NL-Means</value>
   </data>
+  <data name="EncodeCompleteActionType_CloseProgram" xml:space="preserve">
+    <value>VidCoder-იდან გასვლა</value>
+  </data>
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
-    <value>არ მოიმოქმედო</value>
+    <value>მოქმედების გარეშე</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
     <value>გახსნა {0}:</value>
+  </data>
+  <data name="EncodeCompleteActionType_Hibernate" xml:space="preserve">
+    <value>ჰიბერნაცია</value>
   </data>
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
     <value>გამოსვლა</value>
@@ -201,6 +207,18 @@
   </data>
   <data name="Off" xml:space="preserve">
     <value>გამორთვა</value>
+  </data>
+  <data name="TitleType_Bluray" xml:space="preserve">
+    <value>Blu-ray</value>
+    <comment>What to display when the source is a Blu-ray</comment>
+  </data>
+  <data name="TitleType_Dvd" xml:space="preserve">
+    <value>DVD</value>
+    <comment>What to display when the source is a DVD</comment>
+  </data>
+  <data name="TitleType_Stream" xml:space="preserve">
+    <value>ფაილი</value>
+    <comment>What to display when the source is a file</comment>
   </data>
   <data name="VideoRangeType_Chapters" xml:space="preserve">
     <value>თავი</value>

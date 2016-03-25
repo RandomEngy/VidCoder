@@ -458,14 +458,8 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>URL の起動エラー: {0}</value>
   </data>
-  <data name="UserConfigLoadError" xml:space="preserve">
-    <value>設定ファイルを読み込めません。ファイルが壊れている可能性があります。削除しますか？保存したプリセットには影響しません。</value>
-  </data>
-  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>設定読み込みエラー</value>
-  </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>プリセットをインポートできません。不明なファイル形式です。</value>
+    <value>プリセットをインポートできませんでした。詳細についてはログを確認してください。</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>インポートエラー</value>
@@ -479,24 +473,12 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>プリセットをエクスポート</value>
   </data>
-  <data name="PresetSaveConfirmMessage" xml:space="preserve">
-    <value>プリセットの変更を保存しますか？</value>
-  </data>
-  <data name="PresetSaveConfirmTitle" xml:space="preserve">
-    <value>現在のプリセットを保存しますか？</value>
-  </data>
-  <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>このプリセットは変更されています。変更を破棄しますか？</value>
-  </data>
-  <data name="PresetRevertConfirmTitle" xml:space="preserve">
-    <value>プリセットを元に戻す</value>
-  </data>
-  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
-    <value>このプリセットを本当に消去しますか？</value>
-  </data>
-  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
-    <value>プリセットを削除</value>
-  </data>
+  
+  
+  
+  
+  
+  
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>設定ファイルが壊れているため読み込めません。一部の設定はリセットされています。</value>
   </data>
@@ -576,7 +558,7 @@
     <value>キューをエクスポート</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>プリセットをインポートできません。不明なファイル形式です。</value>
+    <value>キューのインポートに失敗しました。詳細についてはログを確認してください。</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>インポートするプリセットファイルを選択</value>
@@ -605,21 +587,35 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>エンコードの詳細</value>
   </data>
-	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
     <value>キューに追加後にエンコードの設定が変更されています。現在の設定をキュー内のすべてのアイテムに適用しますか？</value>
   </data>
-	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
     <value>設定が変更されました</value>
   </data>
-	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>既存のファイルの名前を変更し、新しいファイルを作成しますか？</value>
   </data>
-	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
     <value>バージョン {0} データベース ファイルを読み取ることができません。VidCoder {1} によって認識される最高のバージョンは {2}です。</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
-	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
     <value>対応していないデータベースファイル形式です</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>ピッカー</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>ピッカーを読み込めませんでした： </value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>ピッカー {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>これと似たような時間のタイトルが {0} 個あります</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
 </root>

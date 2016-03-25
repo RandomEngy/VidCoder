@@ -131,7 +131,7 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
     <value>Untertitelspur als Wiedergabestandard festlegen, damit sie angezeigt wird bis eine andere ausgewählt wird.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Nur erzwungene Untertitel aus der Spur anzeigen. Diese enthalten in der Regel nur die Stellen, in denen die Charaktere in einer fremden Sprache reden.</value>
+    <value>Nur erzwungene Untertitel aus der Spur anzeigen. Das sind meistens kurze Dialoge in einer Fremdsprache.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>Zeitspanne, um die der gewählten Untertitel vorgezogen oder verzögert angezeigt wird.</value>
@@ -168,7 +168,7 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
     <value>Dauer</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Sucht nach Untertitelspuren, welche ausländische Dialoge enthalten könnten. Gut für Filme in Ihrer Muttersprache.</value>
+    <value>Durchsucht und filtert Untertitelspuren, welche ausländische Dialoge enthalten könnten. Gut für Filme in Ihrer Muttersprache.</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Standard</value>
@@ -251,5 +251,33 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
   </data>
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Fehler beim Dateivorgang</value>
+  </data>
+  <data name="OverrideNameFormatCheckBox" xml:space="preserve">
+    <value>Namensformat überschreiben:</value>
+  </data>
+  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
+    <value>Nach Möglichkeit immer ins Quellverzeichnis speichern</value>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Ordnerstruktur bei Stapelencodierungen beibehalten</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Wenn Sie einen ganzen Ordner voller Dateien encodieren, landen die encodierten Versionen in Unterordnern entsprechend der Quellverzeichnisstruktur.</value>
+  </data>
+  <data name="DismissMessage" xml:space="preserve">
+    <value>Nachricht ausblenden</value>
+    <comment>Appears as a tooltip on inline, dismissable messages</comment>
+  </data>
+  <data name="PresetFileFilter" xml:space="preserve">
+    <value>VidCoder Voreinstellungsdatei</value>
+    <comment>File dialog description of a .vjpreset file: JSON file that stores an exported preset.</comment>
+  </data>
+  <data name="QueueFileFilter" xml:space="preserve">
+    <value>VidCoder Warteschlangendatei</value>
+    <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>Erste Spur</value>
+    <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
 </root>

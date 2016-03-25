@@ -729,9 +729,7 @@
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (По умолчанию)</value>
   </data>
-  <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Установка: {0}</value>
-  </data>
+  
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>Дополнительные расширенные опции x 264:</value>
   </data>
@@ -862,28 +860,7 @@
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Зацикливание</value>
   </data>
-  <data name="Passthrough_aac" xml:space="preserve">
-    <value>AAC</value>
-  </data>
-  <data name="Passthrough_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="Passthrough_any" xml:space="preserve">
-    <value>Любое</value>
-    <comment>Choice for a passthrough which accepts any input codec.</comment>
-  </data>
-  <data name="Passthrough_dts" xml:space="preserve">
-    <value>DTS</value>
-  </data>
-  <data name="Passthrough_dtshd" xml:space="preserve">
-    <value>DTS-HD</value>
-  </data>
-  <data name="Passthrough_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
-  <data name="ScopeLabel" xml:space="preserve">
-    <value>Область применения:</value>
-  </data>
+  
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>Определяет, какими ввода кодеки, проходящее будет применяться к.</value>
   </data>
@@ -917,10 +894,33 @@
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Если вводу трека соответствует кодек, который будет передаваться через него вместо кодируемого.</value>
   </data>
-	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+  <data name="ScalingAlgorithmLabel" xml:space="preserve">
     <value>Алгоритм масштабирования:</value>
   </data>
-	<data name="RotationLabel" xml:space="preserve">
+  <data name="RotationLabel" xml:space="preserve">
     <value>Поворот экрана:</value>
   </data>
+  
+  
+  
+  
+  
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  
+  
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  
 </root>

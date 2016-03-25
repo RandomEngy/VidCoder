@@ -252,4 +252,32 @@
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>檔案處理錯誤</value>
   </data>
+  <data name="OverrideNameFormatCheckBox" xml:space="preserve">
+    <value>覆寫命名格式:</value>
+  </data>
+  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
+    <value>若可行，輸出至來源資料夾</value>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>批次編碼時保留資料夾結構</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>若您以資料夾為單位進行編碼，編碼後的版本將置於與來源資料夾結構相同的子目錄下。</value>
+  </data>
+  <data name="DismissMessage" xml:space="preserve">
+    <value>關閉訊息</value>
+    <comment>Appears as a tooltip on inline, dismissable messages</comment>
+  </data>
+  <data name="PresetFileFilter" xml:space="preserve">
+    <value>VidCoder 預設檔</value>
+    <comment>File dialog description of a .vjpreset file: JSON file that stores an exported preset.</comment>
+  </data>
+  <data name="QueueFileFilter" xml:space="preserve">
+    <value>VidCoder 佇列檔</value>
+    <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>首個</value>
+    <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
 </root>

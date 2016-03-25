@@ -796,7 +796,7 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
     <value>{0} (預設值)</value>
   </data>
   <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>設定值: {0}</value>
+    <value>編碼預設: {0}</value>
   </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>額外的進階 x264 選項:</value>
@@ -929,27 +929,8 @@ Bicubic: OpenCL 硬體加速縮放演算法。</value>
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>直接複製</value>
   </data>
-  <data name="Passthrough_aac" xml:space="preserve">
-    <value>AAC</value>
-  </data>
-  <data name="Passthrough_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="Passthrough_any" xml:space="preserve">
-    <value>任何</value>
-    <comment>Choice for a passthrough which accepts any input codec.</comment>
-  </data>
-  <data name="Passthrough_dts" xml:space="preserve">
-    <value>DTS</value>
-  </data>
-  <data name="Passthrough_dtshd" xml:space="preserve">
-    <value>DTS-HD</value>
-  </data>
-  <data name="Passthrough_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
-  <data name="ScopeLabel" xml:space="preserve">
-    <value>範圍:</value>
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>自動</value>
   </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>指定將直接複製的輸入編碼。</value>
@@ -984,10 +965,50 @@ Bicubic: OpenCL 硬體加速縮放演算法。</value>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>若輸入軌道符合指定編碼將直接複製而不進行編碼。</value>
   </data>
-	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+  <data name="ScalingAlgorithmLabel" xml:space="preserve">
     <value>縮放演算法:</value>
   </data>
-	<data name="RotationLabel" xml:space="preserve">
+  <data name="RotationLabel" xml:space="preserve">
     <value>旋轉:</value>
+  </data>
+  <data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>關閉預設清單</value>
+  </data>
+  <data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>開啟預設清單</value>
+  </data>
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>章節 {0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>直通設定</value>
+  </data>
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>允許直接複製:</value>
+  </data>
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
   </data>
 </root>

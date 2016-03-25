@@ -799,9 +799,7 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (Por defecto)</value>
   </data>
-  <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Preselección: {0}</value>
-  </data>
+  
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>Opciones avanzadas adicionales de x 264:</value>
   </data>
@@ -933,28 +931,7 @@ Bicúbica: Esto es un algoritmo OpenCL de escalamiento acelerado por hardware.</
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Passthrough</value>
   </data>
-  <data name="Passthrough_aac" xml:space="preserve">
-    <value>AAC</value>
-  </data>
-  <data name="Passthrough_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="Passthrough_any" xml:space="preserve">
-    <value>Cualquier</value>
-    <comment>Choice for a passthrough which accepts any input codec.</comment>
-  </data>
-  <data name="Passthrough_dts" xml:space="preserve">
-    <value>DTS</value>
-  </data>
-  <data name="Passthrough_dtshd" xml:space="preserve">
-    <value>DTS-HD</value>
-  </data>
-  <data name="Passthrough_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
-  <data name="ScopeLabel" xml:space="preserve">
-    <value>Alcance:</value>
-  </data>
+  
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>Especifica que el Passthough se aplicará a los codecs de entrada.</value>
   </data>
@@ -988,10 +965,33 @@ Bicúbica: Esto es un algoritmo OpenCL de escalamiento acelerado por hardware.</
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Si la pista de entrada coincide con el códec sera pasado a traves en lugar de codificar.</value>
   </data>
-	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+  <data name="ScalingAlgorithmLabel" xml:space="preserve">
     <value>Algoritmo de reescalado:</value>
   </data>
-	<data name="RotationLabel" xml:space="preserve">
+  <data name="RotationLabel" xml:space="preserve">
     <value>Rotación:</value>
   </data>
+  
+  
+  
+  
+  
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  
+  
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  
 </root>

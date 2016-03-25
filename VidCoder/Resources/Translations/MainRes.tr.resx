@@ -462,14 +462,8 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>URL başlatma hatası: {0}</value>
   </data>
-  <data name="UserConfigLoadError" xml:space="preserve">
-    <value>Gerekli kullanıcı ayarları dosyası yüklenemedi; bozulmuş olabilir. Silmek istiyor musunuz? Bu kaydedilmiş hazır ayarlarınızı etkilemez.</value>
-  </data>
-  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>Hata yükleme ayarları</value>
-  </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Hazır ayar alınamadı. Biçim tanımlanamıyor.</value>
+    <value>Hazır ayar içe aktarılamadı. Ayrıntılar için günlüğe bakın.</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>İçe Aktarma Hatası</value>
@@ -483,24 +477,12 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Hazır Ayarı Dışa Aktar</value>
   </data>
-  <data name="PresetSaveConfirmMessage" xml:space="preserve">
-    <value>Değişiklikleri mevcut ön ayarlarınıza kaydetmek istiyor musunuz?</value>
-  </data>
-  <data name="PresetSaveConfirmTitle" xml:space="preserve">
-    <value>Mevcut ayarlar kaydedilsin mi?</value>
-  </data>
-  <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>Tüm kaydedilmemiş değişiklikleri seçili ön ayarlarınıza geri döndürmek istiyor musunuz?</value>
-  </data>
-  <data name="PresetRevertConfirmTitle" xml:space="preserve">
-    <value>Hazır Ayarı Geri Döndür</value>
-  </data>
-  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
-    <value>Bu ön ayarı kaldırmak istediğinize emin misiniz?</value>
-  </data>
-  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
-    <value>Hazır Ayarı Kaldır</value>
-  </data>
+  
+  
+  
+  
+  
+  
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>Yapılandırma dosyası bozulmuş ve yüklenemedi. Bazı ayarlarınız sıfırlanmış olabilir.</value>
   </data>
@@ -580,7 +562,7 @@
     <value>Görev sıralamasını dışa aktar</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>Görev sıralaması içe aktarılamadı. Biçim tanımlanamıyor.</value>
+    <value>Sıraya alınamadı. Ayrıntılar için günlüğe bakın.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>Hazır ayar dosyasını içe aktar</value>
@@ -609,21 +591,25 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Kodlama Ayrıntıları</value>
   </data>
-	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
     <value>En son görev sıralamasına bir öğe eklemenizden sonra kodlama işlem ayarları değişmiş. Görev sıralamasındaki tüm öğeler için mevcut kodlama işlem ayarlarını uygulamak istiyor musunuz?</value>
   </data>
-	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
     <value>Ayarlar değiştirildi</value>
   </data>
-	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Varolan dosyayı yeniden adlandırmak ve yeni bir dosyayla işleme başlamak istiyor musunuz?</value>
   </data>
-	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
     <value>Sürüm {0} veritabanı dosyası okunamıyor. VidCoder {1} tarafından tanınan en yüksek sürüm versiyonu {2}</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
-	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
     <value>Uyumsuz veritabanı dosyası</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
+  
+  
+  
+  
 </root>

@@ -156,9 +156,6 @@
   <data name="FileFormatLabel" xml:space="preserve">
     <value>Dosya biçimi:</value>
   </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Eğer mümkünse çıktıyı kaynak dizine kaydet</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>Varsayılan biçim</value>
   </data>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>Otomatik olarak yeniden adlandır</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Otomatik ses seçimi</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Ses / Altyazı</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Dil:</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Bütün parçaları dahil et</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Otomatik altyazı seçimi</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Yabancı Ses Araması</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Gömülü altyazıyı ekle</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Sadece seslendirmeden farklı bir dilde ise</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Şu işlemlerden herhangi biri çalıştırken otomatik olarak kodlamayı duraklat:</value>
   </data>
@@ -233,9 +206,6 @@
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>LibDVDNav'ı etkinleştir (programı yeniden başlatma gerektirir)</value>
-  </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Taramaları tamamlanmadan sonra sakla (tamamlanan öğeleri düzenleme imkanı sağlar)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Başarıyla tamamlanan öğelerin kaynak dosyalarını sil (teyit ile)</value>
@@ -255,8 +225,8 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Seçenekler</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>İşlemler</value>
+  <data name="ProcessTab" xml:space="preserve">
+    <value>İşlem</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>Gelişmiş</value>
@@ -408,17 +378,11 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Dosyaları dönüştürürken Oluşturulma ve Değiştirilme zamanlarını koru</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Varsayılan</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Dizi kodlamalarda klasör yapısını koru</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Eğer içi dosya dolu bir klasörü kodlarsanız, kodlanmış versiyonlar kaynak klasörün dizin yapısına uygun olarak alt klasörlere konulacaktır.</value>
-  </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Önizlemeler için özel klasör:</value>
   </data>
+  
+  
+  
+  
 </root>

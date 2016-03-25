@@ -174,4 +174,7 @@
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
     <value>Bu altyazı hattını çoğalt</value>
   </data>
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>Altyazı dosyasının karakter kodlaması algılanamadı. Altyazıların doğru gösterileceğinden emin olmak için dosyayı UTF-8 olarak yeniden kaydedin.</value>
+  </data>
 </root>

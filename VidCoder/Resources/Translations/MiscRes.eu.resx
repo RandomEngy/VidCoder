@@ -171,12 +171,6 @@
   <data name="ScanMultipleWindowTitle" xml:space="preserve">
     <value>Mihatzen...</value>
   </data>
-  <data name="UpdateSuccessDialogTitle" xml:space="preserve">
-    <value>Ongi</value>
-  </data>
-  <data name="UpdateSuccessDialogMessage" xml:space="preserve">
-    <value>VidCoder ongi eguneratu da.</value>
-  </data>
   <data name="AboutVidCoderDialogTitle" xml:space="preserve">
     <value>VidCoder Buruz</value>
   </data>
@@ -200,12 +194,8 @@
     <value>{0} Beta ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
-  <data name="PresetNameDialogTitle" xml:space="preserve">
-    <value>Aurrezarpen Izena</value>
-  </data>
-  <data name="ChoosePresetName" xml:space="preserve">
-    <value>Hautatu izen bat aurrezarpenarentzat:</value>
-  </data>
+  
+  
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>Ezarri Eguneraketa?</value>
   </data>
@@ -245,10 +235,17 @@
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
     <value>Kodeaketa osatu da.</value>
   </data>
-	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+  <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
     <value>Ezin da bideo irakurgailurik aurkitu {0}-rako.</value>
   </data>
-	<data name="ErrorPlayingSource" xml:space="preserve">
+  <data name="ErrorPlayingSource" xml:space="preserve">
     <value>Akatsa iturburua irakurtzerakoan.</value>
   </data>
+  <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
+    <value>Sistema neguratu egingo da {0} segundu barru.</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
+    <value>Neguratzea berehala</value>
+  </data>
+  
 </root>

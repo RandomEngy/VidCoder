@@ -156,9 +156,6 @@
   <data name="FileFormatLabel" xml:space="preserve">
     <value>Format de fichier :</value>
   </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Sortie dans le répertoire source si possible</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>Format par défaut</value>
   </data>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>Renommer automatiquement</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Sélection audio automatique</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Audio / sous-titres</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Langue :</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Inclure toutes les pistes</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Sélection automatique de sous-titres</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Recherche de piste audio étrangère</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Incruster</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Uniquement si une langue différente de l'audio</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Mettre en pause automatiquement l'encodage lorsque n'importe lequel de ces processus est en cours d'exécution :</value>
   </data>
@@ -233,9 +206,6 @@
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Activez LibDVDNav (si changement, nécessite un redémarrage du programme)</value>
-  </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Garder les analyses après l'achèvement (permet d'éditer les articles terminés)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Supprimer les fichiers sources une fois les articles nettoyés (avec confirmation)</value>
@@ -255,9 +225,7 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Options</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>Processus</value>
-  </data>
+  
   <data name="AdvancedTab" xml:space="preserve">
     <value>Avancé</value>
   </data>
@@ -408,17 +376,11 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Conserver l'horodatage lors de la conversion des fichiers</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Par défaut</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Garder la structure de dossiers dans l'encodage par lots</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Si vous encodez un dossier plein de fichiers, ils seront encodés dans des sous-dossiers en gardant la même structure du dossiers source.</value>
-  </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Dossier personnalisé pour les prévisualisations :</value>
   </data>
+  
+  
+  
+  
 </root>

@@ -462,15 +462,7 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>Probleem bij openen URL: {0}</value>
   </data>
-  <data name="UserConfigLoadError" xml:space="preserve">
-    <value>Kan een vereist bestand met gebruikersinstellingen niet laden; misschien is het corrupt geraakt. Wilt u het verwijderen? Dit zal geen invloed hebben op uw opgeslagen voorkeursinstellingen.</value>
-  </data>
-  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>Probleem bij het laden van instellingen</value>
-  </data>
-  <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Kan voorkeursinstellingen niet importeren. Bestandsindeling wordt niet herkend.</value>
-  </data>
+  
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>Importfout</value>
   </data>
@@ -483,24 +475,12 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Voorkeursinstelling exporteren</value>
   </data>
-  <data name="PresetSaveConfirmMessage" xml:space="preserve">
-    <value>Wilt u wijzigingen in uw huidige voorkeursinstelling opslaan?</value>
-  </data>
-  <data name="PresetSaveConfirmTitle" xml:space="preserve">
-    <value>Huidige voorkeursinstelling opslaan?</value>
-  </data>
-  <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>Weet u zeker dat u alle niet-opgeslagen wijzigingen wilt wijzigen naar deze voorkeursinstelling?</value>
-  </data>
-  <data name="PresetRevertConfirmTitle" xml:space="preserve">
-    <value>Voorkeursinstelling herstellen</value>
-  </data>
-  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
-    <value>Weet u zeker dat u deze voorkeursinstelling wilt verwijderen?</value>
-  </data>
-  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
-    <value>Voorkeursinstelling verwijderen</value>
-  </data>
+  
+  
+  
+  
+  
+  
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>Configuratie was beschadigd en kon niet worden geladen. Sommige van uw instellingen kunnen verloren zijn gegaan.</value>
   </data>
@@ -579,9 +559,7 @@
   <data name="ExportQueueFilePickerText" xml:space="preserve">
     <value>Exporteren van wachtrij</value>
   </data>
-  <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>Wachtrij kan niet worden geïmporteerd. Indeling wordt niet herkend.</value>
-  </data>
+  
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>Importeer instellingen bestand</value>
   </data>
@@ -609,21 +587,25 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Encodeer details</value>
   </data>
-	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
     <value>Instellingen voor encodering zijn veranderd sinds de laatste keer dat je iets aan de wachtrij hebt toegevoegd. Wil je de huidige encoderingsinstellingen toepassen op alles in de wachtrij?</value>
   </data>
-	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
     <value>Instellingen zijn veranderd</value>
   </data>
-	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Wil je het bestaande bestand hernoemen en beginnen met een nieuwe?</value>
   </data>
-	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
     <value>Kan versie {0} van het database bestand niet lezen. De hoogste versie die VidCoder {1} aankan is {2}</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
-	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
     <value>Database bestand is niet compatibel</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
+  
+  
+  
+  
 </root>

@@ -174,4 +174,7 @@
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
     <value>Duplicar esta faixa</value>
   </data>
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>Não foi possível detectar a codificação do arquivo de legenda. Para assegurar que as legendas apareçam corretamente, converta o arquivo para o formato UTF-8.</value>
+  </data>
 </root>

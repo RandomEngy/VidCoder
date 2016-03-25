@@ -709,9 +709,7 @@
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (Padrão)</value>
   </data>
-  <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Pré-ajuste: {0}</value>
-  </data>
+  
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>Opções avançadas adicionais x264:</value>
   </data>
@@ -839,28 +837,7 @@ Bicubic: É um algoritmo de dimensionamento acelerado para hardware OpenCL.</val
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Passagem directa</value>
   </data>
-  <data name="Passthrough_aac" xml:space="preserve">
-    <value>AAC</value>
-  </data>
-  <data name="Passthrough_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="Passthrough_any" xml:space="preserve">
-    <value>Qualquer</value>
-    <comment>Choice for a passthrough which accepts any input codec.</comment>
-  </data>
-  <data name="Passthrough_dts" xml:space="preserve">
-    <value>DTS</value>
-  </data>
-  <data name="Passthrough_dtshd" xml:space="preserve">
-    <value>DTS-HD</value>
-  </data>
-  <data name="Passthrough_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
-  <data name="ScopeLabel" xml:space="preserve">
-    <value>Âmbito</value>
-  </data>
+  
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>Especifica para qual codec se aplica a passagem directa.</value>
   </data>
@@ -894,10 +871,33 @@ Bicubic: É um algoritmo de dimensionamento acelerado para hardware OpenCL.</val
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Se a faixa de origem coincidir com o codec, será passada automaticamente em vez de codificada.</value>
   </data>
-	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+  <data name="ScalingAlgorithmLabel" xml:space="preserve">
     <value>Algoritmo de escalonamento:</value>
   </data>
-	<data name="RotationLabel" xml:space="preserve">
+  <data name="RotationLabel" xml:space="preserve">
     <value>Rotação:</value>
   </data>
+  
+  
+  
+  
+  
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  
+  
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  
 </root>

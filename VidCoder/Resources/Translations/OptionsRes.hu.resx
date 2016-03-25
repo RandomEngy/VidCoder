@@ -156,9 +156,6 @@
   <data name="FileFormatLabel" xml:space="preserve">
     <value>Fájlformátum:</value>
   </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Kimenet a forrásmappába, ha lehetséges</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>Alapértelmezett formátum</value>
   </data>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>Automatikus átnevezés</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Automatikus hangkiválasztása</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Hang / Feliratok</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Nyelv:</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Összes sáv használata</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Automatikus feliratválasztás</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Idegen hangkeresés</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Ráégetés</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Csak ha a nyelv különbözik a hangtól</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Automatikusan szüneteltesse a kódolást, ha a következő folyamatok egyike is fut:</value>
   </data>
@@ -233,9 +206,6 @@
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>LibDVDNav engedélyezése (a változás a program újraindítását igénylit)</value>
-  </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Szkennelések megtartása a befejezés után (lehetővé teszi a befejezett elemek szerkesztését)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Forrásfájlok törlése, miután eltávolítottad a befejezett elemeket (megerősítéssel)</value>
@@ -255,8 +225,8 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Beállítások</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>Folyamatok</value>
+  <data name="ProcessTab" xml:space="preserve">
+    <value>Folyamat</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>Haladó</value>
@@ -408,17 +378,20 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Fájlok Létrehozva és Módosítva értékeinek megőrzése a konvertálás során</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Alapértelmezett</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Mappa struktúra megőrzése a sorozatkódolás során</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Ha egy fájlokkal teli mappát kódolsz át, a kódolt verziók külön almappákba kerülnek, hogy tükrözzék a forrásmappa struktúráját.</value>
-  </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Egyéni mappa az előnézetekhez:</value>
+  </data>
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>Folyamat beállításai</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>CPU elfojtás:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>CPU elfojtás használata a VidCoder által, a kódoláskor használt processzormagok számának korlátozásához.</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>Beépített lejátszó használata az előnézetekhez</value>
   </data>
 </root>

@@ -174,4 +174,7 @@
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
     <value>Bikoiztu bide hau</value>
   </data>
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>Ezin da azpidatzi agiriaren kodeaketa atzeman. Azpidatziak zuzen erakusten direla zihurtatzeko, gorde berriro agiria UTF-8 bezala.</value>
+  </data>
 </root>

@@ -795,9 +795,7 @@ Bunu yalnızca belirli bir profili desteklediğini bildiğiniz çalma aygıtın�
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (Varsayılan)</value>
   </data>
-  <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Hazır Ayar: {0}</value>
-  </data>
+  
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>İlave gelişmiş x264 seçenekleri:</value>
   </data>
@@ -929,27 +927,8 @@ Bicubic: OpenCL donanım hızlandırmalı ölçeklendirme algoritmasıdır.</val
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>DirekGeçiş</value>
   </data>
-  <data name="Passthrough_aac" xml:space="preserve">
-    <value>AAC</value>
-  </data>
-  <data name="Passthrough_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="Passthrough_any" xml:space="preserve">
-    <value>Herhangi</value>
-    <comment>Choice for a passthrough which accepts any input codec.</comment>
-  </data>
-  <data name="Passthrough_dts" xml:space="preserve">
-    <value>DTS</value>
-  </data>
-  <data name="Passthrough_dtshd" xml:space="preserve">
-    <value>DTS-HD</value>
-  </data>
-  <data name="Passthrough_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
-  <data name="ScopeLabel" xml:space="preserve">
-    <value>Kapsam:</value>
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>Otomatik</value>
   </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>Hangi giriş codec'lerine direk geçiş uygulanacağını belirler.</value>
@@ -984,10 +963,43 @@ Bicubic: OpenCL donanım hızlandırmalı ölçeklendirme algoritmasıdır.</val
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Eğer giriş hattı codec ile uyuşursa bu ses hattı kodlanma işlemi olmadan direk geçer.</value>
   </data>
-	<data name="ScalingAlgorithmLabel" xml:space="preserve">
+  <data name="ScalingAlgorithmLabel" xml:space="preserve">
     <value>Ölçekleme Algoritması:</value>
   </data>
-	<data name="RotationLabel" xml:space="preserve">
+  <data name="RotationLabel" xml:space="preserve">
     <value>Döndürme:</value>
+  </data>
+  <data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>Hazır ayarlar listesini kapat</value>
+  </data>
+  <data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>Hazır ayarlar listesini aç</value>
+  </data>
+  
+  
+  
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
   </data>
 </root>

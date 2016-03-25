@@ -151,10 +151,10 @@
     <value>ავტომატური სახელის შეცვლა</value>
   </data>
   <data name="FileConflictWarning" xml:space="preserve">
-    <value>ფაილი არსებობს ფოლდერში {0}. გსურთ ფაილის გადაწერა, ავტომატურად მოძებნის ახალ დასამახსოვრებელ ადგილს კოდირების დავალების შესასრულებლად ან შეწყვეტავს ოპერაციას?</value>
+    <value>ფაილი არსებობს {0}. შეგიძლიათ გადააწეროთ ან ავტომატურად შეარჩევინოთ ახალი სახელი და ადგილი, აგრეთვე შეწყვეტოთ ოპერაცია.</value>
   </data>
   <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>დავალების სიის არსებული დასამახსოვრებელი ადგილია {0}. გსურთ ფაილის გადაწერა, ავტომატურად მოძებნის ახალ დასამახსოვრებელ ადგილს კოდირების დავალების შესასრულებლად ან შეწყვეტავს ოპერაციას?</value>
+    <value>დავალების სია არსებობს {0}. შეგიძლიათ გადააწეროთ ან ავტომატურად შეარჩევინოთ ახალი სახელი და ადგილი, აგრეთვე შეწყვეტოთ ოპერაცია.</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>დავალების სიის მწკრივები</value>
@@ -171,12 +171,6 @@
   <data name="ScanMultipleWindowTitle" xml:space="preserve">
     <value>სკანირება...</value>
   </data>
-  <data name="UpdateSuccessDialogTitle" xml:space="preserve">
-    <value>წარმატებულია</value>
-  </data>
-  <data name="UpdateSuccessDialogMessage" xml:space="preserve">
-    <value>VidCoder-ი აქტუალიზირება წარმატებულია.</value>
-  </data>
   <data name="AboutVidCoderDialogTitle" xml:space="preserve">
     <value>VidCoder-ის შესახებ</value>
   </data>
@@ -190,7 +184,7 @@
     <value>დაფუძნებულია HandBrake ({0})-ზე</value>
   </data>
   <data name="Copyright" xml:space="preserve">
-    <value>© {0} VidCoder-ის შენქმნელები</value>
+    <value>© {0} VidCoder-ის შემქმნელები</value>
   </data>
   <data name="VersionFormat" xml:space="preserve">
     <value>{0} ({1})</value>
@@ -200,10 +194,11 @@
     <value>{0} ბეტა ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
-  <data name="PresetNameDialogTitle" xml:space="preserve">
-    <value>შაბლონის სახელი</value>
+  <data name="NameDialogTitle" xml:space="preserve">
+    <value>სახელი</value>
+    <comment>Title for dialog when  naming a preset or  picker</comment>
   </data>
-  <data name="ChoosePresetName" xml:space="preserve">
+  <data name="ChooseNamePreset" xml:space="preserve">
     <value>აირჩიეთ სახელი შაბლონისთვის:</value>
   </data>
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
@@ -234,7 +229,7 @@
     <value>სისტემის პროგრამირებული გათიშვა</value>
   </data>
   <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
-    <value>სისტემა ძილის რეჟიმში გადავა {0} წამში.</value>
+    <value>სისტემის ძილის რეჟიმი განხორციენდება {0} წამში.</value>
   </data>
   <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
     <value>თქვენ გამოხვალთ სისტემიდან {0} წამში.</value>
@@ -245,10 +240,19 @@
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
     <value>კოდირება დასრულებულია.</value>
   </data>
-	<data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+  <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
     <value>{0}-ისთვის რეპროდუქტორი ვერ მოიძებნა.</value>
   </data>
-	<data name="ErrorPlayingSource" xml:space="preserve">
+  <data name="ErrorPlayingSource" xml:space="preserve">
     <value>რეპროდუქცია წარუმატებელია.</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
+    <value>სისტემის ჰიბერნაცია განხორციენდება {0} წამში.</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
+    <value>გარდაუვალი ჰიბერნაცია</value>
+  </data>
+  <data name="ChooseNamePicker" xml:space="preserve">
+    <value>აირჩიეთ სახელი ამომრჩევისთვის:</value>
   </data>
 </root>

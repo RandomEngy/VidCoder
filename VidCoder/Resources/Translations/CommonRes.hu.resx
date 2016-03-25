@@ -252,4 +252,32 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Fájlműveleti hiba</value>
   </data>
+  <data name="OverrideNameFormatCheckBox" xml:space="preserve">
+    <value>Felülíró elnevezésformátum:</value>
+  </data>
+  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
+    <value>Kimenet a forrásmappába, ha lehetséges</value>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Mappa struktúra megőrzése a sorozatkódolás során</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Ha egy fájlokkal teli mappát kódolsz át, a kódolt verziók külön almappákba kerülnek, hogy tükrözzék a forrásmappa struktúráját.</value>
+  </data>
+  <data name="DismissMessage" xml:space="preserve">
+    <value>Üzenet bezárása</value>
+    <comment>Appears as a tooltip on inline, dismissable messages</comment>
+  </data>
+  <data name="PresetFileFilter" xml:space="preserve">
+    <value>VidCoder sémafájl</value>
+    <comment>File dialog description of a .vjpreset file: JSON file that stores an exported preset.</comment>
+  </data>
+  <data name="QueueFileFilter" xml:space="preserve">
+    <value>VidCoder várólista-fájl</value>
+    <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>Első</value>
+    <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
 </root>

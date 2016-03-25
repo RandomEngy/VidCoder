@@ -283,10 +283,10 @@
     <value>{0} stopy</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
-    <value>Chcete uložit změny do aktuální předvolby?</value>
+    <value>Chcete uložit změny do aktuálního přednastavení?</value>
   </data>
   <data name="SaveChangesPresetTitle" xml:space="preserve">
-    <value>Uložit aktuální předvolbu?</value>
+    <value>Uložit aktuální přednastavení?</value>
   </data>
   <data name="DiscNotInDriveError" xml:space="preserve">
     <value>Nelze načíst a upravit. V jednotce není disk.</value>
@@ -448,7 +448,7 @@
     <value>Přednastavení nelze načíst: </value>
   </data>
   <data name="CouldNotSavePresetMessage" xml:space="preserve">
-    <value>Přednastavení nelze uložit {0}: {1} {2}</value>
+    <value>Přednastavení nelze uložit '{0}':{1}{2}</value>
   </data>
   <data name="CouldNotCopyTextError" xml:space="preserve">
     <value>Text nelze kopírovat.</value>
@@ -456,20 +456,14 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>Chyba při spouštění URL: {0}</value>
   </data>
-  <data name="UserConfigLoadError" xml:space="preserve">
-    <value>Požadovaný soubor uživatele s nastavením nelze načíst; může být poškozen. Chcete ho smazat? Vaše uložené přednastavení to neovlivní.</value>
-  </data>
-  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>Chyba při načítání nastavení</value>
-  </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Přednastavení nelze importovat. Formát neznámý.</value>
+    <value>Importovat přednastavení se nezdařilo. Zkontrolujte log pro podrobnosti.</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>Chyba při importu</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
-    <value>Přednastavení bylo úspěšně importováno {0}.</value>
+    <value>Přednastavení bylo úspěšně importováno {0}</value>
   </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
     <value>Přednastavení bylo úspěšně exportováno do {0}</value>
@@ -477,23 +471,23 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Exportovat přednastavení</value>
   </data>
-  <data name="PresetSaveConfirmMessage" xml:space="preserve">
-    <value>Chcete uložit změny do aktuálního přednastavení?</value>
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>Chcete uložit změny do aktuálního selektoru?</value>
   </data>
-  <data name="PresetSaveConfirmTitle" xml:space="preserve">
-    <value>Uložit aktuální přednastavení?</value>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>Uložit aktuální selektor?</value>
   </data>
-  <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>Opravdu chcete vrátit všechny neuložené změny tohoto přednastavení?</value>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Opravdu chcete vrátit zpět všechny neuložené změny?</value>
   </data>
-  <data name="PresetRevertConfirmTitle" xml:space="preserve">
-    <value>Vrátit přednastavení</value>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>Vrátit zpět</value>
   </data>
-  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
-    <value>Opravdu chcete odstranit toto přednastavení?</value>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Opravdu to chcete odstranit?</value>
   </data>
-  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
-    <value>Odstranit přednastavení</value>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Odstranit</value>
   </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>Konfigurace byla poškozena a nelze ji načíst. Některá z nastavení mohla být obnovena.</value>
@@ -544,10 +538,10 @@
     <value>Nelze zkopírovat log:{0}{0}{1}</value>
   </data>
   <data name="OpenLog" xml:space="preserve">
-    <value>Otevřít Log</value>
+    <value>Otevřít log</value>
   </data>
   <data name="CopyLog" xml:space="preserve">
-    <value>Kopírovat Log</value>
+    <value>Kopírovat log</value>
   </data>
   <data name="PresetDiscardConfirmMessage" xml:space="preserve">
     <value>Vaše změny nejsou uloženy. Opravdu chcete tyto změny zahodit přepnutím na jiné přednastavení?</value>
@@ -574,7 +568,7 @@
     <value>Exportovat frontu</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>Frontu nelze importovat. Formát je neznámý.</value>
+    <value>Importovat frontu se nezdařilo. Zkontrolujte log pro podrobnosti.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>Importovat soubor přednastavení</value>
@@ -603,21 +597,35 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Detaily enkódování</value>
   </data>
-	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
     <value>Nastavení enkódování bylo změněno od posledního přidání položky do fronty. Chcete použít stávající nastavení enkódování pro všechny položky ve frontě?</value>
   </data>
-	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
     <value>Došlo ke změně nastavení</value>
   </data>
-	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Chcete přejmenovat existující soubor a začít s novým?</value>
   </data>
-	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
     <value>Databázový soubor verze {0} nelze načíst. Nejvyšší verze kterou podporuje VidCoder {1} je {2}</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
-	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
     <value>Databázový soubor není kompatibilní</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>Selektor</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Selektor nelze načíst: </value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>Selektor {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} další tituly mají dobu trvání blízkou k tomuhle.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
 </root>

@@ -184,12 +184,14 @@
   <data name="Denoise_NLMeans" xml:space="preserve">
     <value>Promedio no local (NL-Means)</value>
   </data>
+  
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
     <value>No hacer nada</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
     <value>Expulsar {0}:</value>
   </data>
+  
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
     <value>Log off</value>
   </data>
@@ -202,6 +204,9 @@
   <data name="Off" xml:space="preserve">
     <value>Desactivado</value>
   </data>
+  
+  
+  
   <data name="VideoRangeType_Chapters" xml:space="preserve">
     <value>Capitulos</value>
   </data>

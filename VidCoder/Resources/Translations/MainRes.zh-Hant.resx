@@ -456,14 +456,8 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>開啟 URL 時發生錯誤: {0}</value>
   </data>
-  <data name="UserConfigLoadError" xml:space="preserve">
-    <value>無法載入所需的使用者設定檔，檔案可能已毀損。您想要刪除設定檔嗎? 此動作不會影響到您已儲存的設定值。</value>
-  </data>
-  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>載入設定時發生錯誤</value>
-  </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>無法匯入設定值，無法辨識格式。</value>
+    <value>匯入預設檔失敗，請至日誌檢查詳細資訊。</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>匯入錯誤</value>
@@ -477,24 +471,12 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>匯出設定值</value>
   </data>
-  <data name="PresetSaveConfirmMessage" xml:space="preserve">
-    <value>您想要儲存目前設定值的變更嗎?</value>
-  </data>
-  <data name="PresetSaveConfirmTitle" xml:space="preserve">
-    <value>儲存目前的設定值?</value>
-  </data>
-  <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>您想要還原此設定值所有未儲存的變更嗎?</value>
-  </data>
-  <data name="PresetRevertConfirmTitle" xml:space="preserve">
-    <value>還原設定值</value>
-  </data>
-  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
-    <value>您確定要移除此設定值嗎?</value>
-  </data>
-  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
-    <value>移除設定值</value>
-  </data>
+  
+  
+  
+  
+  
+  
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>設定檔損毀無法載入，您的部分設定可能會被重置。</value>
   </data>
@@ -574,7 +556,7 @@
     <value>匯出佇列</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>無法匯出佇列，格式無法辨識。</value>
+    <value>匯入佇列檔失敗，請至日誌檢查詳細資訊。</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>匯入設定檔</value>
@@ -603,21 +585,35 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>編碼詳細資訊</value>
   </data>
-	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
     <value>自您新增項目至佇列後編碼設定已變更，您想要將目前的編碼設定套用至所有佇列中的項目嗎?</value>
   </data>
-	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
     <value>設定已變更</value>
   </data>
-	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>您想要重新命名既有檔案並以原檔名開始新工作嗎?</value>
   </data>
-	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
     <value>無法讀取資料庫檔案版本 {0}。VidCoder {1} 支援的最新版本為 {2}</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
-	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
     <value>不相容的資料庫檔案</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>選取器</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>無法載入選取器:</value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>選取器 {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} 個其他標題的時間長度與此接近。</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
 </root>

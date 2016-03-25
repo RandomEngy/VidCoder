@@ -456,15 +456,7 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>Błąd uruchomienia adresu URL: {0}</value>
   </data>
-  <data name="UserConfigLoadError" xml:space="preserve">
-    <value>Nie można załadować wymaganego pliku ustawień użytkownika; może być uszkodzony. Czy chcesz go usunąć? Nie wpłynie to na inne zapisane ustawienia.</value>
-  </data>
-  <data name="UserConfigLoadErrorTitle" xml:space="preserve">
-    <value>Błąd ładowania ustawień</value>
-  </data>
-  <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Nie można zaimportować ustawień. Format nierozpoznany.</value>
-  </data>
+  
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>Błąd importowania</value>
   </data>
@@ -477,24 +469,12 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Eksportuj Ustawienia</value>
   </data>
-  <data name="PresetSaveConfirmMessage" xml:space="preserve">
-    <value>Czy chcesz zapisać zmiany w ustawieniach?</value>
-  </data>
-  <data name="PresetSaveConfirmTitle" xml:space="preserve">
-    <value>Zapisz aktualne ustawienia?</value>
-  </data>
-  <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>Czy na pewno chcesz anulować wszystkie niezapisane zmiany w ustawieniach?</value>
-  </data>
-  <data name="PresetRevertConfirmTitle" xml:space="preserve">
-    <value>Przywróć ustawienia</value>
-  </data>
-  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
-    <value>Czy na pewno chcesz usunąć to ustawienie?</value>
-  </data>
-  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
-    <value>Usuń ustawienie</value>
-  </data>
+  
+  
+  
+  
+  
+  
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>Konfiguracja jest uszkodzona i nie może być załadowana. Niektóre ustawienia mogą być zresetowane.</value>
   </data>
@@ -573,9 +553,7 @@
   <data name="ExportQueueFilePickerText" xml:space="preserve">
     <value>Wyeksportuj kolejkę</value>
   </data>
-  <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>Nie można zaimportować kolejki. Format nierozpoznany.</value>
-  </data>
+  
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>Importuj plik z ustawieniami domyślnymi</value>
   </data>
@@ -603,21 +581,25 @@
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
     <value>Szczegóły kompresji</value>
   </data>
-	<data name="EncodingSettingsChangedMessage" xml:space="preserve">
+  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
     <value>Ustawienia enkodowania uległy zmianie od ostatnio dodanego elementu kolejki. Czy chcesz zastosować bieżące ustawienia kodowania dla wszystkich elementów w kolejce?</value>
   </data>
-	<data name="EncodingSettingsChangedTitle" xml:space="preserve">
+  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
     <value>Ustawienia zostały zmienione</value>
   </data>
-	<data name="RenameDatabaseFileLine2" xml:space="preserve">
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>Czy chcesz zmienić nazwę istniejącego pliku i rozpocząć z nowym?</value>
   </data>
-	<data name="RenameDatabaseFileLine1" xml:space="preserve">
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
     <value>Nie można odczytać wersji {0} pliku bazy danych. Najwyższą wersją rozpoznawalną przez VidCoder {1} jest {2}</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
-	<data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
     <value>Niekompatybilny plik bazy danych</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
+  
+  
+  
+  
 </root>

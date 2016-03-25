@@ -184,12 +184,14 @@
   <data name="Denoise_NLMeans" xml:space="preserve">
     <value>NL-Means</value>
   </data>
+  
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
     <value>Doe niets</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
     <value>Uitwerpen {0}:</value>
   </data>
+  
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
     <value>Afmelden</value>
   </data>
@@ -202,6 +204,9 @@
   <data name="Off" xml:space="preserve">
     <value>Uit</value>
   </data>
+  
+  
+  
   <data name="VideoRangeType_Chapters" xml:space="preserve">
     <value>Hoofdstukken</value>
   </data>
