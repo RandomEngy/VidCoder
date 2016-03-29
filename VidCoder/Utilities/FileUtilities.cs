@@ -12,6 +12,9 @@ namespace VidCoder
 	{
 		private static List<string> disallowedCharacters = new List<string> { "\\", "/", "\"", ":", "*", "?", "<", ">", "|" };
 
+		public static bool OverrideTempFolder { get; set; }
+		public static string TempFolderOverride { get; set; }
+
 		public static bool HasWriteAccessOnFolder(string folder)
 		{
 			try

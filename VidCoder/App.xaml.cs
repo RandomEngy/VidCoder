@@ -83,6 +83,13 @@ namespace VidCoder
 			    CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 			}
 
+			if (Config.UseCustomPreviewFolder && FileUtilities.HasWriteAccessOnFolder(Config.PreviewOutputFolder))
+			{
+				Environment.SetEnvironmentVariable("TMP", Config.PreviewOutputFolder, EnvironmentVariableTarget.Process);
+				FileUtilities.OverrideTempFolder = true;
+				FileUtilities.TempFolderOverride = Config.PreviewOutputFolder;
+			}
+
 			var updater = Ioc.Get<IUpdater>();
 			updater.HandlePendingUpdate();
 

@@ -124,7 +124,8 @@ namespace VidCoder
 									Config.DxvaDecoding,
 									Config.MinimumTitleLengthSeconds,
 									EncodingRes.DefaultChapterName,
-									Config.CpuThrottlingFraction);
+									Config.CpuThrottlingFraction,
+									FileUtilities.OverrideTempFolder ? FileUtilities.TempFolderOverride : null);
 
 								// After we do StartEncode (which can take a while), switch the timeout down to normal level to do pings
 								var contextChannel = (IContextChannel)this.channel;

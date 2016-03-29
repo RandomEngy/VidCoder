@@ -19,7 +19,8 @@ namespace VidCoderCommon
 			bool dxvaDecoding,
 			double minTitleDurationSeconds,
 			string defaultChapterNameFormat,
-			double cpuThrottlingFraction);
+			double cpuThrottlingFraction,
+			string tempFolder);
 
 		[OperationContract]
 		void PauseEncode();

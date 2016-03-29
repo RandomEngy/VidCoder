@@ -30,8 +30,14 @@ namespace VidCoderWorker
 			bool dxvaDecoding,
 			double minTitleDurationSeconds,
 			string defaultChapterNameFormat,
-			double cpuThrottlingFraction)
+			double cpuThrottlingFraction,
+			string tempFolder)
 		{
+			if (!string.IsNullOrEmpty(tempFolder))
+			{
+				Environment.SetEnvironmentVariable("TMP", tempFolder, EnvironmentVariableTarget.Process);
+			}
+
 			CurrentEncoder = this;
 			this.callback = OperationContext.Current.GetCallbackChannel<IHandBrakeEncoderCallback>();
 
