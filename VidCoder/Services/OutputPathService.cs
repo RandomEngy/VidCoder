@@ -570,7 +570,7 @@ namespace VidCoder.Services
 				picker = this.PickersService.SelectedPicker.Picker;
 			}
 
-			if (Config.AutoNameCustomFormat || !string.IsNullOrWhiteSpace(nameFormatOverride))
+			if (Config.AutoNameCustomFormat || !string.IsNullOrWhiteSpace(nameFormatOverride) || picker.NameFormatOverrideEnabled)
 			{
 				string rangeString = string.Empty;
 				switch (rangeType)
