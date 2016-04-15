@@ -223,6 +223,7 @@ namespace VidCoder.DragDropUtils
 					}
 					catch (COMException exception)
 					{
+						// Not sure what's going on here, can't reproduce. Hopefully this will allow the next drag operation to succeed.
 						Ioc.Get<ILogger>().LogError("Error during drag operation:" + Environment.NewLine + Environment.NewLine + exception);
 						this.draggedData = null;
 

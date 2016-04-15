@@ -208,7 +208,7 @@
     <value>ბოლოს გახსნილი</value>
   </data>
   <data name="DragFilesHereLabel" xml:space="preserve">
-    <value>(ან გადმოიტანეთ ვიდეოფაილი / ფოლდერი აქ)</value>
+    <value>(კოდირებისთვის გადმოიტანეთ ვიდეოფაილი / ფოლდერი აქ)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>სკანირებისას შეცდომა დაფიქსირდა.</value>
@@ -439,13 +439,13 @@
     <value>ვიდეო ფაილი...</value>
   </data>
   <data name="SourceOption_DiscFolder" xml:space="preserve">
-    <value>DVD/Blu-ray ფოლდერი...</value>
+    <value>DVD/Blu-Ray ფოლდერი...</value>
   </data>
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>ხელმისაწვდომია {0} ვერსია. აქტუალიზირების ჩამოტვირთვა დაწყებულია.</value>
   </data>
   <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>{0} ვერსიის ჩამოტვირთვა დასრულებულია, აქტუალიზირდება პროგრამიდან გასვლისა შემდეგ.</value>
+    <value>{0} ვერსიის ჩამოტვირთვა დასრულებულია, აქტუალიზირდება პროგრამიდან გასვლის შემდეგ.</value>
   </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
     <value>აქტუალიზირება წარუმატებელია. თუ თვითონ არ შეწყვიტეთ, სინჯეთ ხელახლა თქვენთითონ.</value>
@@ -472,7 +472,7 @@
     <value>{0} შაბლონი წარმატებით შემოიტანა.</value>
   </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
-    <value>შაბლონი წარმატებით გაიტანილია {0}</value>
+    <value>შაბლონი წარმატებით გატანილია {0}</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>შაბლონის გატანა</value>
@@ -550,7 +550,7 @@
     <value>პროტოკოლის კოპირება</value>
   </data>
   <data name="PresetDiscardConfirmMessage" xml:space="preserve">
-    <value>განახორციელეთ დაუმახსოვრებელი ცვილებები. ნამდვილად გსურთ ცვილებების გაუქმება ახალი შაბლონის არჩევით?</value>
+    <value>დაფიქსირდა დაუმახსოვრებელი ცვილებები. ნამდვილად გსურთ ცვილებების გაუქმება ახალი შაბლონის არჩევით?</value>
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>გსურთ ცვილებების გაუქმება?</value>
@@ -586,7 +586,7 @@
     <value>დავალების სიის შემოიტანა...</value>
   </data>
   <data name="QueueExportSuccessMessage" xml:space="preserve">
-    <value>დავალების სია წარმატებით გაიტანილია {0}</value>
+    <value>დავალების სია წარმატებით გატანილია {0}</value>
   </data>
   <data name="QueueImportSuccessMessage" xml:space="preserve">
     <value>დავალების სია წარმატებით შემოტანილია.</value>

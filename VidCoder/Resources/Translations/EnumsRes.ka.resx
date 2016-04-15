@@ -197,10 +197,10 @@
     <value>ჰიბერნაცია</value>
   </data>
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
-    <value>გამოსვლა</value>
+    <value>სისტემიდან გამოსვლა</value>
   </data>
   <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
-    <value>გამორთვა</value>
+    <value>სისტემიის გამორთვა</value>
   </data>
   <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
     <value>ძილის რეჟიმი</value>

@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="OverrideTitleNumberToolTip" xml:space="preserve">
-    <value>თუ არჩეულია, ეს გადააწერს ნორმალურ ფაილს, იმ მიზნისთ, რომ შექმნას საბოლოო დასამახსოვრებელი ფაილის სახელი. მაგალითად ფაილები 2, 3, 4 და 7-ის გადააწერისას მიენიჭება სახელი 7, 8 და 9. შეიძლება გამოსადეგი იყოს ტელესერიალის DVD დისკის გადასაწერად.</value>
+    <value>თუ არჩეულია, ეს გადააწერს ნორმალურ ფაილს, იმ მიზნით, რომ შექმნას საბოლოო დასამახსოვრებელი ფაილის სახელი. მაგალითად ფაილები 2, 3, 4 და 7-ის გადაწერისას მიენიჭება სახელი 7, 8 და 9. შეიძლება გამოსადეგი იყოს ტელესერიალის DVD დისკის გადასაწერად.</value>
   </data>
   <data name="QueueTitlesWindowHeader" xml:space="preserve">
     <value>აირჩიეთ მრავალი ფაილი დავალების სიაში დასამატებლად.</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
-    <value>თუ სათანადო DVD რეპროდუქტორი დააყენებულია (VLC ან Media Player Classic Home Cinema), თქვენ შეძლებთ DVD-ის ინდივიდუალურ ფაილის წარმოსახვას</value>
+    <value>თუ სათანადო DVD რეპროდუქტორი დაყენებულია (VLC ან Media Player Classic Home Cinema), თქვენ შეძლებთ DVD-ის ინდივიდუალური ფაილის წარმოსახვას</value>
   </data>
   <data name="PlaySourceButton" xml:space="preserve">
     <value>რეპროდუქცია</value>

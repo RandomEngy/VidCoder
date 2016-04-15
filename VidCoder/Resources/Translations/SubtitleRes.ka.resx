@@ -127,7 +127,7 @@
     <value>ტიტრი წყაროდან:</value>
   </data>
   <data name="QuickTimeSubtitlesWarning" xml:space="preserve">
-    <value>Quicktime ვერ წარმოსახავს ტიტრს, თუ გაფართოება .m4v არ იქნება გამოყენებული.</value>
+    <value>Quicktime ვერ წარმოსახავს ტიტრს, თუ .m4v გაფართოება არ იქნება გამოყენებული.</value>
   </data>
   <data name="NameColumn" xml:space="preserve">
     <value>სახელი</value>
@@ -136,7 +136,7 @@
     <value>სტანდარტი</value>
   </data>
   <data name="ForcedOnlyColumn" xml:space="preserve">
-    <value>მხოლოდ იძულებითი</value>
+    <value>მხოლოდ დაძალებული</value>
   </data>
   <data name="BurnedInColumn" xml:space="preserve">
     <value>კოდირება</value>

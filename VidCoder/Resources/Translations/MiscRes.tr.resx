@@ -194,7 +194,10 @@
     <value>{0} Beta ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
-  
+  <data name="NameDialogTitle" xml:space="preserve">
+    <value>Ad</value>
+    <comment>Title for dialog when  naming a preset or  picker</comment>
+  </data>
   
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>Güncelleme Uygulansın mı?</value>

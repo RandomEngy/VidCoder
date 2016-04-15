@@ -116,7 +116,7 @@ namespace VidCoder.ViewModel
 					return string.Empty;
 				}
 
-				return size.PAR.Num + "/" + size.PAR.Den;
+				return this.CreateParDisplayString(size.PAR.Num, size.PAR.Den);
 			}).ToProperty(this, x => x.OutputPixelAspectRatio, out this.outputPixelAspectRatio);
 
 			// OutputDisplayResolution

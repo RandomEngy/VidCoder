@@ -502,24 +502,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AAC (FDK).
-        /// </summary>
-        public static string AudioEncoder_fdk_aac {
-            get {
-                return ResourceManager.GetString("AudioEncoder_fdk_aac", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HE-AAC (FDK).
-        /// </summary>
-        public static string AudioEncoder_fdk_haac {
-            get {
-                return ResourceManager.GetString("AudioEncoder_fdk_haac", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to FLAC 16-bit.
         /// </summary>
         public static string AudioEncoder_flac16 {

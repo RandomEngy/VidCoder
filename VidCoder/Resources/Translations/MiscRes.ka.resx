@@ -205,7 +205,7 @@
     <value>გსურთ აქტუალიზირება?</value>
   </data>
   <data name="ApplyUpdateDialogMessage" xml:space="preserve">
-    <value>აქტუალიზირება ჩამოიტვირთულია, გსურთ დაყენება?</value>
+    <value>აქტუალიზირება ჩამოტვირთულია, გსურთ დაყენება?</value>
   </data>
   <data name="ViewFullChangelog" xml:space="preserve">
     <value>სრული ცვილებების ნახვა</value>
@@ -217,7 +217,7 @@
     <value>გაფრთხილება</value>
   </data>
   <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder-ი არ მუშაობს თქვენ ოპერატუილ სისტემაზე. Windows XP და Server 2003-ზე დიდი ხანია არ მუშაობს. დააყენეთ VidCoder-ის 1.4 ვესია, ან განაახლეთ ოპერატუილი სისტემა.</value>
+    <value>VidCoder-ის თქვენი ოპერატუილი სისტემის მხარდაჭერა შეწყვეტილია. Windows XP და Server 2003-ზე დიდი ხანია არ მუშაობს. დააყენეთ VidCoder-ის 1.4 ვესია, ან განაახლეთ ოპერატუილი სისტემა.</value>
   </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
     <value>სისტემის პროგრამირებული ძილის რეჟიმი</value>
@@ -229,7 +229,7 @@
     <value>სისტემის პროგრამირებული გათიშვა</value>
   </data>
   <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
-    <value>სისტემის ძილის რეჟიმი განხორციენდება {0} წამში.</value>
+    <value>სისტემის ძილის რეჟიმი განხორციელდება {0} წამში.</value>
   </data>
   <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
     <value>თქვენ გამოხვალთ სისტემიდან {0} წამში.</value>
@@ -247,7 +247,7 @@
     <value>რეპროდუქცია წარუმატებელია.</value>
   </data>
   <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
-    <value>სისტემის ჰიბერნაცია განხორციენდება {0} წამში.</value>
+    <value>სისტემის ჰიბერნაცია განხორციელდება {0} წამში.</value>
   </data>
   <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
     <value>გარდაუვალი ჰიბერნაცია</value>

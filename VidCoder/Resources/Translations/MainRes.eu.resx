@@ -477,12 +477,24 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Esportatu Aurrezarpena</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>Aldaketak zure oraingo hautatzailean gordetzea nahi dituzu?</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>Gorde oraingo hautatzailea?</value>
+  </data>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Zihur zaude gorde gabeko aldaketa guztiak leheneratzea nahi dituzula?</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>Leheneratu</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Ziur zaude hau kendu nahi duzula?</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Kendu</value>
+  </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>Itxurapena hondatuta zegoen eta ezin izan da gertatu. Badaiteke zure zenbait ezarpen berrezarriak izana.</value>
   </data>

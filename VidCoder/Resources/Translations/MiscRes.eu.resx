@@ -194,8 +194,13 @@
     <value>{0} Beta ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
-  
-  
+  <data name="NameDialogTitle" xml:space="preserve">
+    <value>Izena</value>
+    <comment>Title for dialog when  naming a preset or  picker</comment>
+  </data>
+  <data name="ChooseNamePreset" xml:space="preserve">
+    <value>Hautatu izen bat aurrezarpenarentzat:</value>
+  </data>
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>Ezarri Eguneraketa?</value>
   </data>
@@ -247,5 +252,7 @@
   <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
     <value>Neguratzea berehala</value>
   </data>
-  
+  <data name="ChooseNamePicker" xml:space="preserve">
+    <value>Hautatu izen bat hautatzailearentzat:</value>
+  </data>
 </root>

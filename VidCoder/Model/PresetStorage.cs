@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
@@ -21,7 +22,7 @@ namespace VidCoder.Model
 {
 	public static class PresetStorage
 	{
-		private const int CurrentPresetVersion = 17;
+		private const int CurrentPresetVersion = 18;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.json";
@@ -230,6 +231,7 @@ namespace VidCoder.Model
 				new EncodingProfileUpgrade(25, UpgradeEncodingProfileTo25),
 				new EncodingProfileUpgrade(26, UpgradeEncodingProfileTo26),
 				new EncodingProfileUpgrade(29, UpgradeEncodingProfileTo29),
+				new EncodingProfileUpgrade(31, UpgradeEncodingProfileTo31),
 			};
 
 			foreach (EncodingProfileUpgrade upgrade in upgrades)
@@ -512,6 +514,25 @@ namespace VidCoder.Model
 			}
 		}
 
+		private static void UpgradeEncodingProfileTo31(VCProfile profile)
+		{
+			if (profile.AudioEncodings != null)
+			{
+				foreach (var audioEncoding in profile.AudioEncodings)
+				{
+					if (audioEncoding.Encoder == "fdk_aac" || audioEncoding.Encoder == "fdk_haac")
+					{
+						audioEncoding.Encoder = "av_aac";
+					}
+				}
+			}
+
+			if (profile.AudioEncoderFallback == "fdk_aac" || profile.AudioEncoderFallback == "fdk_haac")
+			{
+				profile.AudioEncoderFallback = "av_aac";
+			}
+		}
+
 		private static void ErrorCheckPresets(List<Preset> presets)
 		{
 			for (int i = presets.Count - 1; i >= 0; i--)
@@ -688,6 +709,11 @@ namespace VidCoder.Model
 			if (presetVersion < 17)
 			{
 				return 26;
+			}
+
+			if (presetVersion < 18)
+			{
+				return 29;
 			}
 
 			return Utilities.CurrentDatabaseVersion;

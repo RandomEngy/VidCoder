@@ -471,12 +471,24 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Exportar Pré-ajustes</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>Deseja salvar as alterações do seletor atual?</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>Salvar o seletor atual?</value>
+  </data>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Tem certeza que deseja reverter todas as alterações não salvas?</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>Reverter</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Tem certeza que deseja remover isto?</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Remover</value>
+  </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>A configuração está corrompida e não pode ser carregada. Algumas das suas configurações podem ter sido apagadas.</value>
   </data>

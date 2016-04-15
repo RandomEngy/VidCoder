@@ -133,16 +133,16 @@
     <value>Blu-Ray როგორც წარმოსახვის წყარო, ჯერ ვერ ხერხდება.</value>
   </data>
   <data name="PlaySourceDisabledNoPlayerToolTip" xml:space="preserve">
-    <value>სათანადო DVD რეპროდუქტორი ვერ მოიძებნა. გთხოვთ დააყენეთ VLC ან MPC-HC ამ ფუნქციია გამოსაყენებლად.</value>
+    <value>სათანადო DVD რეპროდუქტორი ვერ მოიძებნა. გთხოვთ დააყენეთ VLC ან MPC-HC ამ ფუნქციის გამოსაყენებლად.</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
     <value>ოროგინალი ფაილის რეპროდუქცია.</value>
   </data>
   <data name="PreviewClipGenerationFailedMessage" xml:space="preserve">
-    <value>წარმოსახვის მოზადება წარუმატებელია. დაწვრილებითი ინფორმაციისთვის იხილეთ სრული პროტოკოლი.</value>
+    <value>წარმოსახვის მომზადება წარუმატებელია. დაწვრილებითი ინფორმაციისთვის იხილეთ სრული პროტოკოლი.</value>
   </data>
   <data name="PreviewClipGenerationFailedTitle" xml:space="preserve">
-    <value>წარმოსახვის მოზადება წარუმატებელია</value>
+    <value>წარმოსახვის მომზადება წარუმატებელია</value>
   </data>
   <data name="PreviewWindowTitleSimple" xml:space="preserve">
     <value>ჩვეება: {0}x{1}</value>

@@ -121,7 +121,7 @@
     <value>თუ აუდიოენის ავტომატური ამოცნობა დეაქტივირებულია, ბოლოს არჩეული აუდიოენა შენარჩუნდება.</value>
   </data>
   <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>თუ ტიტრის ავტომატური ამოცნობა დეაქტივირებულია, ბოლოს არჩეული ტიტრის ენა შენარჩუნდება.</value>
+    <value>თუ ტიტრის ავტომატური ამოცნობა დეაქტივირებულია, ბოლოს არჩეული ტიტრის ენის შენარჩუნდება.</value>
   </data>
   <data name="GeneralTab" xml:space="preserve">
     <value>ძირითადი</value>
@@ -238,7 +238,7 @@
     <value>მიიღეთ ბეტა პროექტში მონაწილეობა, ხშირი აქტუალიზირებებისთვის</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>აქტუალიზირება {0} მზადაა. აქტუალიზირდება პროგრამიდან გასვლისა შემდეგ.</value>
+    <value>აქტუალიზირება {0} მზადაა. აქტუალიზირდება პროგრამიდან გასვლის შემდეგ.</value>
   </data>
   <data name="DownloadingStatus" xml:space="preserve">
     <value>აქტუალიზირება {0} იტვირთება:</value>
