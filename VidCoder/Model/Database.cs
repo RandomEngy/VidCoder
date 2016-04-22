@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Xml;
@@ -13,12 +14,15 @@ using System.Xml.Serialization;
 using Newtonsoft.Json;
 using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoder.Services.Windows;
+using VidCoder.ViewModel;
 using VidCoderCommon.Model;
 
 namespace VidCoder.Model
 {
 	public static class Database
 	{
+		private const string BackupFolderName = "Backups";
 		private const string ConfigDatabaseFileWithoutExtension = "VidCoder";
 		private const string ConfigDatabaseFileExtension = ".sqlite";
 		private const string ConfigDatabaseFile = ConfigDatabaseFileWithoutExtension + ConfigDatabaseFileExtension;
@@ -45,6 +49,8 @@ namespace VidCoder.Model
 			{
 				return;
 			}
+
+			BackupDatabaseFile(databaseVersion);
 
 			using (SQLiteTransaction transaction = Connection.BeginTransaction())
 			{
@@ -90,47 +96,164 @@ namespace VidCoder.Model
 				Utilities.CurrentVersion,
 				Utilities.CurrentDatabaseVersion);
 
-			string messageLine2 = MainRes.RenameDatabaseFileLine2;
-
-			string message = string.Format(
-				CultureInfo.CurrentCulture,
-				"{0}{1}{1}{2}",
-				messageLine1,
-				Environment.NewLine,
-				messageLine2);
-
-			var messageService = Ioc.Get<IMessageBoxService>();
-			messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
-			if (messageService.Show(
-				message,
-				MainRes.IncompatibleDatabaseFileTitle,
-				MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+			// See if we have a backup with the correct version
+			int backupVersion = FindBackupDatabaseFile();
+			if (backupVersion >= 0)
 			{
-				Connection.Close();
+				string messageLine2 = string.Format(
+					CultureInfo.CurrentCulture,
+					MainRes.UseBackupDatabaseLine,
+					backupVersion);
 
-				try
-				{
-					string newFileName = ConfigDatabaseFileWithoutExtension + "-v" + databaseVersion + ConfigDatabaseFileExtension;
-					string newFilePath = FileUtilities.CreateUniqueFileName(newFileName, Utilities.AppFolder, new HashSet<string>());
+				string message = string.Format(
+					CultureInfo.CurrentCulture,
+					"{0}{1}{1}{2}",
+					messageLine1,
+					Environment.NewLine,
+					messageLine2);
 
-					File.Move(NonPortableDatabaseFile, newFilePath);
-					connection = null;
-					databaseVersion = DatabaseConfig.Version;
-				}
-				catch (IOException)
+				var messageService = Ioc.Get<IMessageBoxService>();
+				messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
+
+				if (messageService.Show(
+					message,
+					MainRes.IncompatibleDatabaseFileTitle,
+					MessageBoxButton.YesNo) == MessageBoxResult.Yes)
 				{
-					HandleCriticalFileError();
+					try
+					{
+						Connection.Close();
+						connection = null;
+
+						MoveCurrentDatabaseFile(databaseVersion);
+						string backupFilePath = GetBackupDatabaseFilePath(backupVersion);
+						File.Copy(backupFilePath, DatabaseFile);
+
+						databaseVersion = backupVersion;
+					}
+					catch (IOException)
+					{
+						HandleCriticalFileError();
+					}
+					catch (UnauthorizedAccessException)
+					{
+						HandleCriticalFileError();
+					}
 				}
-				catch (UnauthorizedAccessException)
+				else
 				{
-					HandleCriticalFileError();
+					Environment.Exit(0);
 				}
 			}
 			else
 			{
-				Environment.Exit(0);
+				string messageLine2 = MainRes.RenameDatabaseFileLine2;
+
+				string message = string.Format(
+					CultureInfo.CurrentCulture,
+					"{0}{1}{1}{2}",
+					messageLine1,
+					Environment.NewLine,
+					messageLine2);
+
+				var messageService = Ioc.Get<IMessageBoxService>();
+				messageService.Show(message, MainRes.IncompatibleDatabaseFileTitle, MessageBoxButton.YesNo);
+				if (messageService.Show(
+					message,
+					MainRes.IncompatibleDatabaseFileTitle,
+					MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+				{
+					Connection.Close();
+
+					try
+					{
+						MoveCurrentDatabaseFile(databaseVersion);
+						connection = null;
+						databaseVersion = DatabaseConfig.Version;
+					}
+					catch (IOException)
+					{
+						HandleCriticalFileError();
+					}
+					catch (UnauthorizedAccessException)
+					{
+						HandleCriticalFileError();
+					}
+				}
+				else
+				{
+					Environment.Exit(0);
+				}
 			}
+
 			return databaseVersion;
+		}
+
+		private static void MoveCurrentDatabaseFile(int databaseVersion)
+		{
+			string newFileName = GetBackupDatabaseFileName(databaseVersion);
+			string newFilePath = FileUtilities.CreateUniqueFileName(newFileName, BackupDatabaseFolder, new HashSet<string>());
+
+			File.Move(DatabaseFile, newFilePath);
+		}
+
+		private static void BackupDatabaseFile(int databaseVersion)
+		{
+			Connection.Close();
+			connection = null;
+
+			try
+			{
+				string backupFilePath = GetBackupDatabaseFilePath(databaseVersion);
+				Directory.CreateDirectory(BackupDatabaseFolder);
+
+				File.Copy(DatabaseFile, backupFilePath, overwrite: true);
+			}
+			catch (Exception exception)
+			{
+				Ioc.Get<ILogger>().Log("Could not backup database file:" + Environment.NewLine + exception);
+			}
+		}
+
+		private static string BackupDatabaseFolder => Path.Combine(Utilities.AppFolder, BackupFolderName);
+
+		private static int FindBackupDatabaseFile()
+		{
+			DirectoryInfo backupDirectoryInfo = new DirectoryInfo(BackupDatabaseFolder);
+			FileInfo[] backupFiles = backupDirectoryInfo.GetFiles();
+			Regex regex = new Regex(@"^VidCoder-v(?<version>\d+)\.sqlite$");
+
+			int bestCandidate = -1;
+			foreach (FileInfo backupFile in backupFiles)
+			{
+				Match match = regex.Match(backupFile.Name);
+				if (match.Success)
+				{
+					string versionString = match.Groups["version"].Captures[0].Value;
+					int version;
+					if (int.TryParse(versionString, out version))
+					{
+						if (version <= Utilities.CurrentDatabaseVersion && version > bestCandidate)
+						{
+							bestCandidate = version;
+						}
+					}
+				}
+			}
+
+			return bestCandidate;
+		}
+
+		private static string GetBackupDatabaseFilePath(int databaseVersion)
+		{
+			string backupFileName = GetBackupDatabaseFileName(databaseVersion);
+			string backupFileFolder = BackupDatabaseFolder;
+			return Path.Combine(backupFileFolder, backupFileName);
+		}
+
+		private static string GetBackupDatabaseFileName(int databaseVersion)
+		{
+			return ConfigDatabaseFileWithoutExtension + "-v" + databaseVersion + ConfigDatabaseFileExtension;
 		}
 
 		private static void UpgradeDatabaseTo18()

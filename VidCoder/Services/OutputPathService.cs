@@ -186,11 +186,30 @@ namespace VidCoder.Services
 			}
 
 			// Continue and prompt user for resolution
+			string dialogMessageTemplate;
+			if ((bool)conflict)
+			{
+				dialogMessageTemplate = MiscRes.FileConflictWarning;
+			}
+			else
+			{
+				dialogMessageTemplate = MiscRes.QueueFileConflictWarning;
+			}
 
-			var conflictDialog = new FileConflictDialogViewModel(initialOutputPath, (bool)conflict);
+			string dialogMessage = string.Format(dialogMessageTemplate, initialOutputPath);
+			var conflictDialog = new CustomMessageDialogViewModel<FileConflictResolution>(
+				MiscRes.FileConflictDialogTitle,
+				dialogMessage,
+				new List<CustomDialogButton<FileConflictResolution>>
+				{
+					new CustomDialogButton<FileConflictResolution>(FileConflictResolution.Overwrite, MiscRes.OverwriteButton, ButtonType.Default),
+					new CustomDialogButton<FileConflictResolution>(FileConflictResolution.AutoRename, MiscRes.AutoRenameButton),
+					new CustomDialogButton<FileConflictResolution>(FileConflictResolution.Cancel, CommonRes.Cancel, ButtonType.Cancel),
+				});
+
 			Ioc.Get<IWindowManager>().OpenDialog(conflictDialog);
 
-			switch (conflictDialog.FileConflictResolution)
+			switch (conflictDialog.Result)
 			{
 				case FileConflictResolution.Cancel:
 					return null;

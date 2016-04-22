@@ -18,28 +18,6 @@ namespace VidCoderCommon.Model
 			this.Cropping = new VCCropping();
 		}
 
-		#region Obsolete fields
-		public VCContainer OutputFormat { get; set; }
-		public string X264Options { get; set; }
-
-		// X264Tune is obsolete but marking it that way prevents the XML serializer from working. Use VideoTunes instead.
-		public string X264Tune { get; set; }
-		public List<string> X264Tunes { get; set; }
-		public string X264Profile { get; set; }
-		public string X264Preset { get; set; }
-		public string QsvPreset { get; set; }
-		public string H264Level { get; set; }
-
-		// CustomCropping is obsolete but marking it that way prevents the XML serializer from working. Use CroppingType instead.
-		public bool CustomCropping { get; set; }
-
-		[Obsolete("This setting is obsolete. Use Framerate and ConstantFramerate instead.")]
-		public bool PeakFramerate { get; set; }
-
-		[Obsolete("Use DenoiseType instead.")]
-		public string Denoise { get; set; }
-		#endregion
-
 		private string containerName;
 
 		[JsonProperty]
@@ -172,22 +150,28 @@ namespace VidCoderCommon.Model
 
 
 		[JsonProperty]
-		public VCDeinterlace Deinterlace { get; set; }
+		public string Detelecine { get; set; }
+
+		[JsonProperty]
+		public string CustomDetelecine { get; set; }
+
+
+		[JsonProperty]
+		public VCDeinterlace DeinterlaceType { get; set; }
+
+		[JsonProperty]
+		public string DeinterlacePreset { get; set; }
 
 		[JsonProperty]
 		public string CustomDeinterlace { get; set; }
 
-		[JsonProperty]
-		public VCDecomb Decomb { get; set; }
 
 		[JsonProperty]
-		public string CustomDecomb { get; set; }
+		public string CombDetect { get; set; }
 
 		[JsonProperty]
-		public VCDetelecine Detelecine { get; set; }
+		public string CustomCombDetect { get; set; }
 
-		[JsonProperty]
-		public string CustomDetelecine { get; set; }
 
 		[JsonProperty]
 		public VCDenoise DenoiseType { get; set; }
@@ -198,20 +182,13 @@ namespace VidCoderCommon.Model
 		[JsonProperty]
 		public string DenoiseTune { get; set; }
 
-		private bool useCustomDenoise;
-
-		[JsonProperty]
-		public bool UseCustomDenoise
-		{
-			get { return this.useCustomDenoise; }
-			set { this.RaiseAndSetIfChanged(ref this.useCustomDenoise, value); }
-		}
-
 		[JsonProperty]
 		public string CustomDenoise { get; set; }
 
+
 		[JsonProperty]
 		public int Deblock { get; set; }
+
 
 		[JsonProperty]
 		public bool Grayscale { get; set; }
@@ -301,6 +278,44 @@ namespace VidCoderCommon.Model
 
 		[JsonProperty]
 		public string AudioEncoderFallback { get; set; }
+
+		#region Obsolete fields
+		public VCContainer OutputFormat { get; set; }
+		public string X264Options { get; set; }
+
+		// X264Tune is obsolete but marking it that way prevents the XML serializer from working. Use VideoTunes instead.
+		public string X264Tune { get; set; }
+		public List<string> X264Tunes { get; set; }
+		public string X264Profile { get; set; }
+		public string X264Preset { get; set; }
+		public string QsvPreset { get; set; }
+		public string H264Level { get; set; }
+
+		// CustomCropping is obsolete but marking it that way prevents the XML serializer from working. Use CroppingType instead.
+		public bool CustomCropping { get; set; }
+
+		[Obsolete("This setting is obsolete. Use Framerate and ConstantFramerate instead.")]
+		public bool PeakFramerate { get; set; }
+
+		// Obsolete. Use DeinterlaceType instead.
+		[JsonProperty]
+		public string Deinterlace { get; set; }
+
+		// Obsolete. DenoisePreset should be "custom" when this is true.
+		[JsonProperty]
+		public bool UseCustomDenoise { get; set; }
+
+		// Obsolete. Use DeinterlacePreset instead.
+		[JsonProperty]
+		public string Decomb { get; set; }
+
+		// Obsolete. Use CustomDeinterlace instead.
+		[JsonProperty]
+		public string CustomDecomb { get; set; }
+
+		[Obsolete("Use DenoiseType instead.")]
+		public string Denoise { get; set; }
+		#endregion
 
 		public VCProfile Clone()
 		{

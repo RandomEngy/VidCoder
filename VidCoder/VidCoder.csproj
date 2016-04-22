@@ -338,11 +338,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\EncodeDetailsWindow.xaml">
+    <Page Include="View\CustomMessageDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\FileConflictDialog.xaml">
+    <Page Include="View\EncodeDetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -512,6 +512,7 @@
     <Compile Include="Model\EncodeProgress.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />
     <Compile Include="Model\EncodeCompleteReason.cs" />
+    <Compile Include="Model\IncompatibleDatabaseResolution.cs" />
     <Compile Include="Model\PresetWrapper.cs" />
     <Compile Include="Model\PreviewControls.cs" />
     <Compile Include="Model\PreviewEncodeState.cs" />
@@ -672,6 +673,7 @@
     <Compile Include="Services\PresetsService.cs" />
     <Compile Include="Services\ProcessingService.cs" />
     <Compile Include="Services\WindowXamlHelper.cs" />
+    <Compile Include="ViewModel\CustomMessageDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\DataModels\AudioTrackViewModel.cs" />
     <Compile Include="ViewModel\DataModels\BitrateChoiceViewModel.cs" />
@@ -684,18 +686,17 @@
     <Compile Include="ViewModel\DataModels\RotationViewModel.cs" />
     <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
     <Compile Include="ViewModel\EncodeDetailsWindowViewModel.cs" />
-    <Compile Include="ViewModel\FileConflictDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />
     <Compile Include="ViewModel\IMainView.cs" />
     <Compile Include="ViewModel\IPreviewView.cs" />
     <Compile Include="ViewModel\PickerWindowViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModelBase.cs" />
     <Compile Include="ViewModel\ShutdownWarningWindowViewModel.cs" />
+    <Compile Include="View\CustomMessageDialog.xaml.cs">
+      <DependentUpon>CustomMessageDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EncodeDetailsWindow.xaml.cs">
       <DependentUpon>EncodeDetailsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FileConflictDialog.xaml.cs">
-      <DependentUpon>FileConflictDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Panels\AudioEncodingPanel.xaml.cs">
       <DependentUpon>AudioEncodingPanel.xaml</DependentUpon>
@@ -1055,6 +1056,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Xaml\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

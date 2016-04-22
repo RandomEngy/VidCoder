@@ -634,4 +634,8 @@
     <value>{0} other titles have a duration close to this one.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>You have a backed up version {0} file. Would you like to use it?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
 </root>

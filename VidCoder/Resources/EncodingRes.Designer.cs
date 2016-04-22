@@ -1060,6 +1060,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Interlace Detection:.
+        /// </summary>
+        public static string InterlaceDetectionLabel {
+            get {
+                return ResourceManager.GetString("InterlaceDetectionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to iPod 5G support.
         /// </summary>
         public static string Ipod5GSupportCheckBox {

@@ -680,6 +680,12 @@ namespace VidCoder.Services.Windows
 		private static Window CreateWindow(Type viewModelType)
 		{
 			string typeName = viewModelType.Name;
+			int backTickIndex = typeName.IndexOf('`');
+			if (backTickIndex > 0)
+			{
+				typeName = typeName.Substring(0, backTickIndex);
+			}
+
 			string baseName;
 			string suffix;
 

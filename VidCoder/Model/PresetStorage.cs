@@ -8,10 +8,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Windows.Markup.Localizer;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.HbLib;
 using Newtonsoft.Json;
 using VidCoder.Extensions;
 using VidCoder.Resources;
@@ -22,7 +24,7 @@ namespace VidCoder.Model
 {
 	public static class PresetStorage
 	{
-		private const int CurrentPresetVersion = 18;
+		private const int CurrentPresetVersion = 19;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.json";
@@ -232,6 +234,7 @@ namespace VidCoder.Model
 				new EncodingProfileUpgrade(26, UpgradeEncodingProfileTo26),
 				new EncodingProfileUpgrade(29, UpgradeEncodingProfileTo29),
 				new EncodingProfileUpgrade(31, UpgradeEncodingProfileTo31),
+				new EncodingProfileUpgrade(32, UpgradeEncodingProfileTo32),
 			};
 
 			foreach (EncodingProfileUpgrade upgrade in upgrades)
@@ -533,6 +536,207 @@ namespace VidCoder.Model
 			}
 		}
 
+		private static void UpgradeEncodingProfileTo32(VCProfile profile)
+		{
+			if (profile.Detelecine != null)
+			{
+				profile.Detelecine = profile.Detelecine.ToLowerInvariant();
+			}
+
+			if (!string.IsNullOrEmpty(profile.CustomDetelecine))
+			{
+				profile.CustomDetelecine = UpgradeCustomFilter(profile.CustomDetelecine, hb_filter_ids.HB_FILTER_DETELECINE);
+			}
+
+			if (!string.IsNullOrEmpty(profile.Decomb) && profile.Decomb != "Off")
+			{
+				profile.DeinterlaceType = VCDeinterlace.Decomb;
+
+				switch (profile.Decomb)
+				{
+					case "Fast":
+						profile.DeinterlacePreset = "default";
+						profile.CombDetect = "fast";
+						break;
+					case "Bob":
+					case "Default":
+						profile.DeinterlacePreset = profile.Decomb.ToLowerInvariant();
+						profile.CombDetect = "default";
+						break;
+					case "Custom":
+						List<string> filterValues = GetFilterValuesFromOldCustomFilter(profile.CustomDecomb ?? string.Empty);
+						List<string> parameterNames = GetFilterParameterNames(hb_filter_ids.HB_FILTER_DECOMB);
+						Dictionary<string, string> filterParameterDictionary = CreateFilterParameterDictionary(filterValues, parameterNames);
+
+						int mode = ExtractInt(filterParameterDictionary, "mode", 7);
+						int spatialMetric = ExtractInt(filterParameterDictionary, "spatial-metric", 2);
+						int motionThreshold = ExtractInt(filterParameterDictionary, "motion-thresh", 3);
+						int spatialThreshold = ExtractInt(filterParameterDictionary, "spatial-thresh", 3);
+						int filterMode = ExtractInt(filterParameterDictionary, "filter-mode", 2);
+						int blockThreshold = ExtractInt(filterParameterDictionary, "block-thresh", 40);
+						int blockWidth = ExtractInt(filterParameterDictionary, "block-width", 16);
+						int blockHeight = ExtractInt(filterParameterDictionary, "block-height", 16);
+						int magnitudeThreshold = ExtractInt(filterParameterDictionary, "magnitude-thresh", 10);
+						int varianceThreshold = ExtractInt(filterParameterDictionary, "variance-thresh", 20);
+						int laplacianThreshold = ExtractInt(filterParameterDictionary, "laplacian-thresh", 20);
+						int dilationThreshold = ExtractInt(filterParameterDictionary, "dilation-thresh", 4);
+						int erosionThreshold = ExtractInt(filterParameterDictionary, "erosion-thresh", 2);
+						int noiseThreshold = ExtractInt(filterParameterDictionary, "noise-thresh", 50);
+						int maximumSearchDistance = ExtractInt(filterParameterDictionary, "search-distance", 24);
+						int postProcessing = ExtractInt(filterParameterDictionary, "postproc", 1);
+						int parity = ExtractInt(filterParameterDictionary, "parity", -1);
+
+						int yadif = (mode & 1) == 0 ? 0 : 1;
+						int blend = (mode & 2) == 0 ? 0 : 1;
+						int cubic = (mode & 4) == 0 ? 0 : 1;
+						int eedi2 = (mode & 8) == 0 ? 0 : 1;
+						int mask = (mode & 32) == 0 ? 0 : 1;
+						int bob = (mode & 64) == 0 ? 0 : 1;
+						int gamma = (mode & 128) == 0 ? 0 : 1;
+						int filter = (mode & 256) == 0 ? 0 : 1;
+						int composite = (mode & 512) == 0 ? 0 : 1;
+
+						int detectMode = gamma + filter * 2 + mask * 4 + composite * 8;
+						int decombMode = yadif + blend * 2 + cubic * 4 + eedi2 * 8 + bob * 16;
+
+						string combDetectCustom =
+							$"mode={detectMode}:spatial-metric={spatialMetric}:motion-thresh={motionThreshold}:spatial-thresh={spatialThreshold}:" +
+							$"filter-mode={filterMode}:block-thresh={blockThreshold}:block-width={blockWidth}:block-height={blockHeight}";
+						profile.CombDetect = "custom";
+						profile.CustomCombDetect = combDetectCustom;
+
+						string decombCustom =
+							$"mode={decombMode}:magnitude-thresh={magnitudeThreshold}:variance-thresh={varianceThreshold}:laplacian-thresh={laplacianThreshold}:dilation-thresh={dilationThreshold}:" +
+							$"erosion-thresh={erosionThreshold}:noise-thresh={noiseThreshold}:search-distance={maximumSearchDistance}:postproc={postProcessing}:parity={parity}";
+						profile.DeinterlacePreset = "custom";
+						profile.CustomDeinterlace = decombCustom;
+
+						break;
+					default:
+						break;
+				}
+			}
+			else if (!string.IsNullOrEmpty(profile.Deinterlace) && profile.Deinterlace != "Off")
+			{
+				profile.DeinterlaceType = VCDeinterlace.Yadif;
+
+				switch (profile.Deinterlace)
+				{
+					case "Fast":
+					case "Slow":
+						profile.DeinterlacePreset = "skip-spatial";
+						break;
+					case "Bob":
+						profile.DeinterlacePreset = "bob";
+						break;
+					default:
+						profile.DeinterlacePreset = "default";
+						break;
+				}
+
+				if (!string.IsNullOrEmpty(profile.CustomDeinterlace))
+				{
+					profile.CustomDeinterlace = UpgradeCustomFilter(profile.CustomDeinterlace, hb_filter_ids.HB_FILTER_DEINTERLACE);
+				}
+
+				profile.CombDetect = "off";
+			}
+
+			if (profile.UseCustomDenoise)
+			{
+				profile.DenoisePreset = "custom";
+
+				if (profile.DenoiseType != VCDenoise.Off && !string.IsNullOrEmpty(profile.CustomDenoise))
+				{
+					hb_filter_ids denoiseFilterid = profile.DenoiseType == VCDenoise.hqdn3d ? hb_filter_ids.HB_FILTER_HQDN3D : hb_filter_ids.HB_FILTER_NLMEANS;
+					profile.CustomDenoise = UpgradeCustomFilter(profile.CustomDenoise, denoiseFilterid);
+				}
+				else
+				{
+					profile.CustomDenoise = string.Empty;
+				}
+			}
+			else
+			{
+				profile.CustomDenoise = string.Empty;
+			}
+		}
+
+#region For v31 upgrade
+		private static string UpgradeCustomFilter(string custom, hb_filter_ids filterId)
+		{
+			List<string> filterValues = GetFilterValuesFromOldCustomFilter(custom);
+			List<string> parameterNames = GetFilterParameterNames(filterId);
+
+			Dictionary<string, string> filterParameterDictionary = CreateFilterParameterDictionary(filterValues, parameterNames);
+			return CreateCustomFilterStringFromDictionary(filterParameterDictionary);
+		}
+
+		private static List<string> GetFilterValuesFromOldCustomFilter(string oldCustomFilter)
+		{
+			return oldCustomFilter.Split(':').ToList();
+		}
+
+		private static List<string> GetFilterParameterNames(hb_filter_ids filterId)
+		{
+			switch (filterId)
+			{
+				case hb_filter_ids.HB_FILTER_DETELECINE:
+					return new List<string> { "skip-left", "skip-right", "skip-top", "skip-bottom", "strict-breaks", "plane", "parity", "disable" };
+				case hb_filter_ids.HB_FILTER_DEINTERLACE:
+					return new List<string> { "mode", "parity" };
+				case hb_filter_ids.HB_FILTER_DECOMB:
+					return new List<string> { "mode", "magnitude-thresh", "variance-thresh", "laplacian-thresh", "dilation-thresh", "erosion-thresh", "noise-thresh", "search-distance", "postproc", "parity" };
+				case hb_filter_ids.HB_FILTER_HQDN3D:
+					return new List<string> { "y-spatial", "cb-spatial", "cr-spatial", "y-temporal", "cb-temporal", "cr-temporal" };
+				case hb_filter_ids.HB_FILTER_NLMEANS:
+					return new List<string> { "y-strength", "y-origin-tune", "y-patch-size", "y-range", "y-frame-count", "y-prefilter", "cb-strength", "cb-origin-tune", "cb-patch-size", "cb-range", "cb-frame-count", "cb-prefilter", "cr-strength", "cr-origin-tune", "cr-patch-size", "cr-range", "cr-frame-count", "cr-prefilter" };
+				default:
+					throw new ArgumentException("Filter id not recognized: " + filterId);
+			}
+		}
+
+		private static Dictionary<string, string> CreateFilterParameterDictionary(List<string> filterValues, List<string> parameterNames)
+		{
+			var result = new Dictionary<string, string>();
+			for (int i = 0; i < filterValues.Count; i++)
+			{
+				if (i < parameterNames.Count)
+				{
+					result.Add(parameterNames[i], filterValues[i]);
+				}
+			}
+
+			return result;
+		}
+
+		private static string CreateCustomFilterStringFromDictionary(IDictionary<string, string> dictionary)
+		{
+			return string.Join(":", dictionary.Select(pair => $"{pair.Key}={pair.Value}"));
+		}
+
+		private static int ExtractInt(Dictionary<string, string> dictionary, string parameterName, int defaultValue)
+		{
+			string valueString;
+			if (dictionary.TryGetValue(parameterName, out valueString))
+			{
+				int value;
+				if (int.TryParse(valueString, out value))
+				{
+					return value;
+				}
+				else
+				{
+					return defaultValue;
+				}
+			}
+			else
+			{
+				return defaultValue;
+			}
+		}
+#endregion
+
 		private static void ErrorCheckPresets(List<Preset> presets)
 		{
 			for (int i = presets.Count - 1; i >= 0; i--)
@@ -701,10 +905,10 @@ namespace VidCoder.Model
 				return 24;
 			}
 
-		    if (presetVersion < 16)
-		    {
-		        return 25;
-		    }
+			if (presetVersion < 16)
+			{
+				return 25;
+			}
 
 			if (presetVersion < 17)
 			{
@@ -714,6 +918,11 @@ namespace VidCoder.Model
 			if (presetVersion < 18)
 			{
 				return 29;
+			}
+
+			if (presetVersion < 19)
+			{
+				return 31;
 			}
 
 			return Utilities.CurrentDatabaseVersion;

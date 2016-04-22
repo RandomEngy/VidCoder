@@ -1543,6 +1543,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have a backed up version {0} file. Would you like to use it?.
+        /// </summary>
+        public static string UseBackupDatabaseLine {
+            get {
+                return ResourceManager.GetString("UseBackupDatabaseLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configuration was corrupted and could not be loaded. Some of your settings may have been reset..
         /// </summary>
         public static string UserConfigCorrupted {

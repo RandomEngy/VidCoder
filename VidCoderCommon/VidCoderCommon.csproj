@@ -101,10 +101,8 @@
     <Compile Include="Model\VCContainer.cs" />
     <Compile Include="Model\VCCropping.cs" />
     <Compile Include="Model\VCCroppingType.cs" />
-    <Compile Include="Model\VCDecomb.cs" />
     <Compile Include="Model\VCDeinterlace.cs" />
     <Compile Include="Model\VCDenoise.cs" />
-    <Compile Include="Model\VCDetelecine.cs" />
     <Compile Include="Model\VCJob.cs" />
     <Compile Include="Model\VCOutputExtension.cs" />
     <Compile Include="Model\VCPictureRotation.cs" />

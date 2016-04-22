@@ -10,6 +10,7 @@ using HandBrake.ApplicationServices.Interop.Json.Encode;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Json.Shared;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using Newtonsoft.Json.Linq;
 using VidCoderCommon.Extensions;
 using Audio = HandBrake.ApplicationServices.Interop.Json.Encode.Audio;
 using Metadata = HandBrake.ApplicationServices.Interop.Json.Encode.Metadata;
@@ -283,68 +284,92 @@ namespace VidCoderCommon.Model
 			Filters filters = new Filters
 			{
 				FilterList = new List<Filter>(),
-				//Grayscale = profile.Grayscale
 			};
 
 			// Detelecine
-			if (profile.Detelecine != VCDetelecine.Off)
+			if (!string.IsNullOrEmpty(profile.Detelecine) && profile.Detelecine != "off")
 			{
-				string settings = profile.Detelecine == VCDetelecine.Custom ? profile.CustomDetelecine : null;
+				string settingsString = profile.Detelecine == "custom" ? profile.CustomDetelecine : null;
+				string presetString = profile.Detelecine == "custom" ? "custom" : "default";
 
-				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DETELECINE, Settings = settings };
-				filters.FilterList.Add(filterItem);
-			}
-
-			// Decomb
-			if (profile.Decomb != VCDecomb.Off)
-			{
-				string options;
-				switch (profile.Decomb)
+				Filter filterItem = new Filter
 				{
-					case VCDecomb.Default:
-						options = null;
-						break;
-					case VCDecomb.Fast:
-						options = "7:2:6:9:1:80";
-						break;
-					case VCDecomb.Bob:
-						options = "455";
-						break;
-					default:
-						options = profile.CustomDecomb;
-						break;
-				}
-
-				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DECOMB, Settings = options };
+					ID = (int)hb_filter_ids.HB_FILTER_DETELECINE,
+					Settings = GetFilterSettings(hb_filter_ids.HB_FILTER_DETELECINE, presetString, settingsString)
+				};
 				filters.FilterList.Add(filterItem);
 			}
 
 			// Deinterlace
-			if (profile.Deinterlace != VCDeinterlace.Off)
+			if (profile.DeinterlaceType != VCDeinterlace.Off)
 			{
-				string options;
-				switch (profile.Deinterlace)
+				hb_filter_ids filterId = profile.DeinterlaceType == VCDeinterlace.Yadif
+					? hb_filter_ids.HB_FILTER_DEINTERLACE
+					: hb_filter_ids.HB_FILTER_DECOMB;
+
+				JToken settings;
+				if (profile.DeinterlacePreset == "custom")
 				{
-					case VCDeinterlace.Fast:
-						options = "0";
-						break;
-					case VCDeinterlace.Slow:
-						options = "1";
-						break;
-					case VCDeinterlace.Slower:
-						options = "3";
-						break;
-					case VCDeinterlace.Bob:
-						options = "15";
-						break;
-					default:
-						options = profile.CustomDeinterlace;
-						break;
+					settings = GetFilterSettings(filterId, "custom", profile.CustomDeinterlace);
+				}
+				else
+				{
+					settings = GetFilterSettings(filterId, profile.DeinterlacePreset, null);
 				}
 
-				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DEINTERLACE, Settings = options };
+				Filter filterItem = new Filter { ID = (int)filterId, Settings = settings };
 				filters.FilterList.Add(filterItem);
 			}
+
+			//if (profile.Decomb != VCDecomb.Off)
+			//{
+			//	string options;
+			//	switch (profile.Decomb)
+			//	{
+			//		case VCDecomb.Default:
+			//			options = null;
+			//			break;
+			//		case VCDecomb.Fast:
+			//			options = "7:2:6:9:1:80";
+			//			break;
+			//		case VCDecomb.Bob:
+			//			options = "455";
+			//			break;
+			//		default:
+			//			options = profile.CustomDecomb;
+			//			break;
+			//	}
+
+			//	Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DECOMB, Settings = options };
+			//	filters.FilterList.Add(filterItem);
+			//}
+
+			//// Deinterlace
+			//if (profile.Deinterlace != VCDeinterlaceOld.Off)
+			//{
+			//	string options;
+			//	switch (profile.Deinterlace)
+			//	{
+			//		case VCDeinterlaceOld.Fast:
+			//			options = "0";
+			//			break;
+			//		case VCDeinterlaceOld.Slow:
+			//			options = "1";
+			//			break;
+			//		case VCDeinterlaceOld.Slower:
+			//			options = "3";
+			//			break;
+			//		case VCDeinterlaceOld.Bob:
+			//			options = "15";
+			//			break;
+			//		default:
+			//			options = profile.CustomDeinterlace;
+			//			break;
+			//	}
+
+			//	Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DEINTERLACE, Settings = options };
+			//	filters.FilterList.Add(filterItem);
+			//}
 
 			// VFR / CFR
 
@@ -398,25 +423,21 @@ namespace VidCoderCommon.Model
 			// Denoise
 			if (profile.DenoiseType != VCDenoise.Off)
 			{
-				hb_filter_ids id = profile.DenoiseType == VCDenoise.hqdn3d
+				hb_filter_ids filterId = profile.DenoiseType == VCDenoise.hqdn3d
 					? hb_filter_ids.HB_FILTER_HQDN3D
 					: hb_filter_ids.HB_FILTER_NLMEANS;
 
-				string settings;
+				JToken settings;
 				if (profile.UseCustomDenoise)
 				{
-					settings = profile.CustomDenoise;
+					settings = GetFilterSettings(filterId, "custom", profile.CustomDenoise);
 				}
 				else
 				{
-					IntPtr settingsPtr = HBFunctions.hb_generate_filter_settings(
-					(int)id,
-					profile.DenoisePreset,
-					profile.DenoiseTune);
-					settings = Marshal.PtrToStringAnsi(settingsPtr);
+					settings = GetFilterSettings(filterId, profile.DenoisePreset, profile.DenoiseTune);
 				}
 
-				Filter filterItem = new Filter { ID = (int)id, Settings = settings };
+				Filter filterItem = new Filter { ID = (int)filterId, Settings = settings };
 				filters.FilterList.Add(filterItem);
 			}
 
@@ -491,6 +512,18 @@ namespace VidCoderCommon.Model
 			}
 
 			return filters;
+		}
+
+		private static JToken GetFilterSettings(hb_filter_ids filter, string preset, string custom)
+		{
+			return GetFilterSettings(filter, preset, null, custom);
+		}
+
+		private static JToken GetFilterSettings(hb_filter_ids filter, string preset, string tune, string custom)
+		{
+			IntPtr settingsPtr = HBFunctions.hb_generate_filter_settings_json((int)filter, preset, tune, custom);
+			string unparsedJson = Marshal.PtrToStringAnsi(settingsPtr);
+			return JObject.Parse(unparsedJson);
 		}
 
 		private static string GetFramerateSettings(int framerateMode, int framerateNumerator, int framerateDenominator)
