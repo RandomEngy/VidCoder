@@ -74,7 +74,8 @@
 				Grid.Column="2"
 				Margin="6 2 0 2"
 				Style="{StaticResource CustomFilterBox}"
-				Text="{Binding CustomDetelecine}"
+				Text="{Binding CustomDetelecine,
+				               UpdateSourceTrigger=PropertyChanged}"
 				Visibility="{Binding CustomDetelecineVisible,
 				                     Converter={StaticResource VisibilityConverter}}" />
 
@@ -139,7 +140,8 @@
 						<TextBox
 							Margin="0 2 0 0"
 							Style="{StaticResource CustomFilterBox}"
-							Text="{Binding CustomDeinterlace}"
+							Text="{Binding CustomDeinterlace,
+							               UpdateSourceTrigger=PropertyChanged}"
 							Visibility="{Binding CustomDeinterlaceVisible,
 							                     Converter={StaticResource VisibilityConverter}}" />
 					</StackPanel>
@@ -162,7 +164,8 @@
 						<TextBox
 							Margin="0 2 0 0"
 							Style="{StaticResource CustomFilterBox}"
-							Text="{Binding CustomCombDetect}"
+							Text="{Binding CustomCombDetect,
+							               UpdateSourceTrigger=PropertyChanged}"
 							Visibility="{Binding CustomCombDetectVisible,
 							                     Converter={StaticResource VisibilityConverter}}" />
 					</StackPanel>
@@ -223,7 +226,6 @@
 				<TextBox
 					Style="{StaticResource CustomFilterBox}"
 					Text="{Binding CustomDenoise,
-					               Mode=TwoWay,
 					               UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding CustomDenoiseVisible,
 					                     Converter={StaticResource VisibilityConverter}}" />

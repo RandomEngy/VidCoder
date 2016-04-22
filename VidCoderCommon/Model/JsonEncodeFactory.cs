@@ -321,102 +321,68 @@ namespace VidCoderCommon.Model
 				filters.FilterList.Add(filterItem);
 			}
 
-			//if (profile.Decomb != VCDecomb.Off)
-			//{
-			//	string options;
-			//	switch (profile.Decomb)
-			//	{
-			//		case VCDecomb.Default:
-			//			options = null;
-			//			break;
-			//		case VCDecomb.Fast:
-			//			options = "7:2:6:9:1:80";
-			//			break;
-			//		case VCDecomb.Bob:
-			//			options = "455";
-			//			break;
-			//		default:
-			//			options = profile.CustomDecomb;
-			//			break;
-			//	}
+			// Comb detect
+			if (profile.DeinterlaceType != VCDeinterlace.Off && !string.IsNullOrEmpty(profile.CombDetect) && profile.CombDetect != "off")
+			{
+				JToken settings;
+				if (profile.CombDetect == "custom")
+				{
+					settings = GetFilterSettings(hb_filter_ids.HB_FILTER_COMB_DETECT, "custom", profile.CustomCombDetect);
+				}
+				else
+				{
+					settings = GetFilterSettings(hb_filter_ids.HB_FILTER_COMB_DETECT, profile.CombDetect, null);
+				}
 
-			//	Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DECOMB, Settings = options };
-			//	filters.FilterList.Add(filterItem);
-			//}
-
-			//// Deinterlace
-			//if (profile.Deinterlace != VCDeinterlaceOld.Off)
-			//{
-			//	string options;
-			//	switch (profile.Deinterlace)
-			//	{
-			//		case VCDeinterlaceOld.Fast:
-			//			options = "0";
-			//			break;
-			//		case VCDeinterlaceOld.Slow:
-			//			options = "1";
-			//			break;
-			//		case VCDeinterlaceOld.Slower:
-			//			options = "3";
-			//			break;
-			//		case VCDeinterlaceOld.Bob:
-			//			options = "15";
-			//			break;
-			//		default:
-			//			options = profile.CustomDeinterlace;
-			//			break;
-			//	}
-
-			//	Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DEINTERLACE, Settings = options };
-			//	filters.FilterList.Add(filterItem);
-			//}
+				Filter filterItem = new Filter { ID = (int) hb_filter_ids.HB_FILTER_COMB_DETECT, Settings = settings };
+				filters.FilterList.Add(filterItem);
+			}
 
 			// VFR / CFR
 
 			// 0 - True VFR, 1 - Constant framerate, 2 - VFR with peak framerate
-			string framerateSettings;
-			if (profile.Framerate == 0)
+			if (profile.Framerate > 0 || profile.ConstantFramerate)
 			{
-				if (profile.ConstantFramerate)
+				JToken framerateSettings;
+				if (profile.Framerate == 0)
 				{
 					// CFR with "Same as Source". Use the title rate
 					framerateSettings = GetFramerateSettings(1, title.FrameRate.Num, title.FrameRate.Den);
 				}
 				else
 				{
-					// Pure VFR "Same as Source"
-					framerateSettings = "0";
+					int framerateMode;
+
+					// Specified framerate
+					if (profile.ConstantFramerate)
+					{
+						// Mark as pure CFR
+						framerateMode = 1;
+					}
+					else
+					{
+						// Mark as peak framerate
+						framerateMode = 2;
+					}
+
+					framerateSettings = GetFramerateSettings(
+						framerateMode,
+						27000000,
+						HandBrakeUnitConversionHelpers.FramerateToVrate(profile.Framerate));
 				}
+
+				Filter framerateShaper = new Filter { ID = (int)hb_filter_ids.HB_FILTER_VFR, Settings = framerateSettings };
+				filters.FilterList.Add(framerateShaper);
 			}
-			else
-			{
-				int framerateMode;
-
-				// Specified framerate
-				if (profile.ConstantFramerate)
-				{
-					// Mark as pure CFR
-					framerateMode = 1;
-				}
-				else
-				{
-					// Mark as peak framerate
-					framerateMode = 2;
-				}
-
-				framerateSettings = GetFramerateSettings(
-					framerateMode,
-					27000000,
-					HandBrakeUnitConversionHelpers.FramerateToVrate(profile.Framerate));
-			}
-
-			Filter framerateShaper = new Filter { ID = (int)hb_filter_ids.HB_FILTER_VFR, Settings = framerateSettings };
-			filters.FilterList.Add(framerateShaper);
 
 			// Deblock
 			if (profile.Deblock >= 5)
 			{
-				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DEBLOCK, Settings = profile.Deblock.ToString(CultureInfo.InvariantCulture) };
+				JToken settings = GetFilterSettings(
+					hb_filter_ids.HB_FILTER_DEBLOCK,
+					string.Format(CultureInfo.InvariantCulture, "qp={0}", profile.Deblock));
+
+				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_DEBLOCK, Settings = settings };
 				filters.FilterList.Add(filterItem);
 			}
 
@@ -441,6 +407,7 @@ namespace VidCoderCommon.Model
 				filters.FilterList.Add(filterItem);
 			}
 
+			// Grayscale
 			if (profile.Grayscale)
 			{
 				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_GRAYSCALE, Settings = null };
@@ -449,69 +416,67 @@ namespace VidCoderCommon.Model
 
 			// CropScale Filter
 			VCCropping cropping = GetCropping(profile, title);
+			JToken cropFilterSettings = GetFilterSettings(
+				hb_filter_ids.HB_FILTER_CROP_SCALE,
+				string.Format(
+					CultureInfo.InvariantCulture,
+					"width={0}:height={1}:crop-top={2}:crop-bottom={3}:crop-left={4}:crop-right={5}",
+					anamorphicSize.Width,
+					anamorphicSize.Height,
+					cropping.Top,
+					cropping.Bottom,
+					cropping.Left,
+					cropping.Right));
+
 			Filter cropScale = new Filter
 			{
 				ID = (int)hb_filter_ids.HB_FILTER_CROP_SCALE,
-				Settings =
-					string.Format(
-						"{0}:{1}:{2}:{3}:{4}:{5}",
-						anamorphicSize.Width,
-						anamorphicSize.Height,
-						cropping.Top,
-						cropping.Bottom,
-						cropping.Left,
-						cropping.Right)
+				Settings = cropFilterSettings
 			};
 			filters.FilterList.Add(cropScale);
 
 			// Rotate
 			if (profile.FlipHorizontal || profile.FlipVertical || profile.Rotation != VCPictureRotation.None)
 			{
-				bool rotate90 = false;
-				bool flipHorizontal = profile.FlipHorizontal;
-				bool flipVertical = profile.FlipVertical;
+				int rotateDegrees = (int)profile.Rotation;
+				bool flipHorizontal = false;
 
-				switch (profile.Rotation)
+				if (profile.FlipHorizontal && profile.FlipVertical)
 				{
-					case VCPictureRotation.Clockwise90:
-						rotate90 = true;
-						break;
-					case VCPictureRotation.Clockwise180:
-						flipHorizontal = !flipHorizontal;
-						flipVertical = !flipVertical;
-						break;
-					case VCPictureRotation.Clockwise270:
-						rotate90 = true;
-						flipHorizontal = !flipHorizontal;
-						flipVertical = !flipVertical;
-						break;
+					rotateDegrees = (rotateDegrees + 180) % 360;
+				}
+				else if (profile.FlipHorizontal)
+				{
+					flipHorizontal = true;
+				}
+				else if (profile.FlipVertical)
+				{
+					rotateDegrees = (rotateDegrees + 180) % 360;
+					flipHorizontal = true;
 				}
 
-				int rotateSetting = 0;
-				if (flipVertical)
-				{
-					rotateSetting |= 1;
-				}
-
-				if (flipHorizontal)
-				{
-					rotateSetting |= 2;
-				}
-
-				if (rotate90)
-				{
-					rotateSetting |= 4;
-				}
+				JToken rotateSettings = GetFilterSettings(
+					hb_filter_ids.HB_FILTER_ROTATE,
+					string.Format(
+						CultureInfo.InvariantCulture,
+						"angle={0}:hflip={1}",
+						rotateDegrees,
+						flipHorizontal ? 1 : 0));
 
 				Filter rotateFilter = new Filter
 				{
 					ID = (int)hb_filter_ids.HB_FILTER_ROTATE,
-					Settings = rotateSetting.ToString(CultureInfo.InvariantCulture)
+					Settings = rotateSettings
 				};
 				filters.FilterList.Add(rotateFilter);
 			}
 
 			return filters;
+		}
+
+		private static JToken GetFilterSettings(hb_filter_ids filter, string custom)
+		{
+			return GetFilterSettings(filter, null, null, custom);
 		}
 
 		private static JToken GetFilterSettings(hb_filter_ids filter, string preset, string custom)
@@ -526,14 +491,16 @@ namespace VidCoderCommon.Model
 			return JObject.Parse(unparsedJson);
 		}
 
-		private static string GetFramerateSettings(int framerateMode, int framerateNumerator, int framerateDenominator)
+		private static JToken GetFramerateSettings(int framerateMode, int framerateNumerator, int framerateDenominator)
 		{
-			return string.Format(
-				CultureInfo.InvariantCulture,
-				"{0}:{1}:{2}",
-				framerateMode,
-				framerateNumerator,
-				framerateDenominator);
+			return GetFilterSettings(
+				hb_filter_ids.HB_FILTER_VFR, 
+				string.Format(
+					CultureInfo.InvariantCulture,
+					"mode={0}:rate={1}/{2}",
+					framerateMode,
+					framerateNumerator,
+					framerateDenominator));
 		}
 
 		private static Metadata CreateMetadata()

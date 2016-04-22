@@ -607,7 +607,12 @@ namespace VidCoder.Model
 
 						string decombCustom =
 							$"mode={decombMode}:magnitude-thresh={magnitudeThreshold}:variance-thresh={varianceThreshold}:laplacian-thresh={laplacianThreshold}:dilation-thresh={dilationThreshold}:" +
-							$"erosion-thresh={erosionThreshold}:noise-thresh={noiseThreshold}:search-distance={maximumSearchDistance}:postproc={postProcessing}:parity={parity}";
+							$"erosion-thresh={erosionThreshold}:noise-thresh={noiseThreshold}:search-distance={maximumSearchDistance}:postproc={postProcessing}";
+						if (parity >= 0)
+						{
+							decombCustom += ":parity" + parity;
+						}
+
 						profile.DeinterlacePreset = "custom";
 						profile.CustomDeinterlace = decombCustom;
 
@@ -628,6 +633,9 @@ namespace VidCoder.Model
 						break;
 					case "Bob":
 						profile.DeinterlacePreset = "bob";
+						break;
+					case "Custom":
+						profile.DeinterlacePreset = "custom";
 						break;
 					default:
 						profile.DeinterlacePreset = "default";
@@ -686,7 +694,7 @@ namespace VidCoder.Model
 				case hb_filter_ids.HB_FILTER_DEINTERLACE:
 					return new List<string> { "mode", "parity" };
 				case hb_filter_ids.HB_FILTER_DECOMB:
-					return new List<string> { "mode", "magnitude-thresh", "variance-thresh", "laplacian-thresh", "dilation-thresh", "erosion-thresh", "noise-thresh", "search-distance", "postproc", "parity" };
+					return new List<string> { "mode", "spatial-metric", "motion-thresh", "spatial-thresh", "block-threshold", "block-width", "block-height", "magnitude-thresh", "variance-thresh", "laplacian-thresh", "dilation-thresh", "erosion-thresh", "noise-thresh", "search-distance", "postproc", "parity" };
 				case hb_filter_ids.HB_FILTER_HQDN3D:
 					return new List<string> { "y-spatial", "cb-spatial", "cr-spatial", "y-temporal", "cb-temporal", "cr-temporal" };
 				case hb_filter_ids.HB_FILTER_NLMEANS:
@@ -705,6 +713,11 @@ namespace VidCoder.Model
 				{
 					result.Add(parameterNames[i], filterValues[i]);
 				}
+			}
+
+			if (result.ContainsKey("parity") && result["parity"] == "-1")
+			{
+				result.Remove("parity");
 			}
 
 			return result;
