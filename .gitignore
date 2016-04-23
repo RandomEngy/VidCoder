@@ -1,7 +1,7 @@
 Installer/BuiltInstallers/*
 Flags/*
 packages/*
-ResourcesImport/*
+Import/*
 .vs
 *.pdn
 */bin/*

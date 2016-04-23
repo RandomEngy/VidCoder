@@ -1,16 +1,16 @@
 # Extract files from Crowdin zip
-if (Test-Path .\ResourcesImport) {
-    Remove-Item .\ResourcesImport\* -recurse
+if (Test-Path .\Import\Resources) {
+    Remove-Item .\Import\Resources\* -recurse
 }
 
 Add-Type -assembly "system.io.compression.filesystem"
-[io.compression.zipfile]::ExtractToDirectory("vidcoder.zip", "ResourcesImport")
+[io.compression.zipfile]::ExtractToDirectory("vidcoder.zip", "Import\Resources")
 
 # Copy files from holding directory to project directory
 $copiedFiles = New-Object System.Collections.Generic.List[System.String]
 
 function CopyLanguage($languageDir, $language) {
-    $fileEntries = [IO.Directory]::GetFiles(".\ResourcesImport\" + $languageDir)
+    $fileEntries = [IO.Directory]::GetFiles(".\Import\Resources\" + $languageDir)
     foreach($fullFileName in $fileEntries) 
     {
         $lastSlash = $fullFileName.LastIndexOf("\")
@@ -22,7 +22,7 @@ function CopyLanguage($languageDir, $language) {
             $destFileName = $sourceFileName
         }
 
-        $sourcePath = ".\ResourcesImport\" + $languageDir + "\" + $sourceFileName
+        $sourcePath = ".\Import\Resources\" + $languageDir + "\" + $sourceFileName
         $destPath = ".\VidCoder\Resources\Translations\" + $destFileName
         copy $sourcePath $destPath
         Write-Host "Copied $sourcePath to $destPath"
