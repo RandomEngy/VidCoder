@@ -25,14 +25,21 @@ namespace VidCoder
 		// Ping interval (6s) longer than timeout (5s) so we don't have two overlapping pings
 		private const double PingTimerIntervalMs = 6000;
 
-		private const double PipeTimeoutSeconds = 5;
 
 		private const int ConnectionRetryIntervalMs = 1000;
 		private const int ConnectionRetries = 10;
+#if DEBUG_REMOTE
+		private static readonly TimeSpan OperationTimeout = TimeSpan.FromSeconds(500000);
+		private static readonly TimeSpan PipeTimeout = TimeSpan.FromSeconds(100000);
+		private static readonly TimeSpan LastUpdateTimeoutWindow = TimeSpan.FromSeconds(200000);
+#else
+		private static readonly TimeSpan OperationTimeout = TimeSpan.FromSeconds(5);
+		private static readonly TimeSpan PipeTimeout = TimeSpan.FromSeconds(10);
+		private static readonly TimeSpan LastUpdateTimeoutWindow = TimeSpan.FromSeconds(20); // Do not check in
+#endif
 
 		private const string PipeNamePrefix = "VidCoderWorker.";
 
-		private static readonly TimeSpan LastUpdateTimeoutWindow = TimeSpan.FromSeconds(20);
 
 		public event EventHandler EncodeStarted;
 
@@ -129,7 +136,7 @@ namespace VidCoder
 
 								// After we do StartEncode (which can take a while), switch the timeout down to normal level to do pings
 								var contextChannel = (IContextChannel)this.channel;
-								contextChannel.OperationTimeout = TimeSpan.FromSeconds(PipeTimeoutSeconds);
+								contextChannel.OperationTimeout = OperationTimeout;
 							});
 					}
 
@@ -192,10 +199,10 @@ namespace VidCoder
 				{
 					var binding = new NetNamedPipeBinding
 						{
-							OpenTimeout = TimeSpan.FromSeconds(10),
-							CloseTimeout = TimeSpan.FromSeconds(10),
-							SendTimeout = TimeSpan.FromSeconds(10),
-							ReceiveTimeout = TimeSpan.FromSeconds(10)
+							OpenTimeout = PipeTimeout,
+							CloseTimeout = PipeTimeout,
+							SendTimeout = PipeTimeout,
+							ReceiveTimeout = PipeTimeout
 						};
 
 					this.pipeFactory = new DuplexChannelFactory<IHandBrakeEncoder>(

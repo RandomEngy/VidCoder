@@ -393,15 +393,15 @@ namespace VidCoder.ViewModel
 
 		private List<ComboChoice> GetFilterPresetChoices(hb_filter_ids filter, string resourcePrefix = null)
 		{
-			return ConvertParameterListToComboChoices(HandBrakeEncoderHelpers.GetFilterPresets((int) filter), resourcePrefix);
+			return ConvertParameterListToComboChoices(HandBrakeFilterHelpers.GetFilterPresets((int) filter), resourcePrefix);
 		}
 
 		private List<ComboChoice> GetFilterTuneChoices(hb_filter_ids filter, string resourcePrefix = null)
 		{
-			return ConvertParameterListToComboChoices(HandBrakeEncoderHelpers.GetFilterTunes((int) filter), resourcePrefix);
+			return ConvertParameterListToComboChoices(HandBrakeFilterHelpers.GetFilterTunes((int) filter), resourcePrefix);
 		}
 
-		private static List<ComboChoice> ConvertParameterListToComboChoices(IList<FilterParameter> parameters, string resourcePrefix)
+		private static List<ComboChoice> ConvertParameterListToComboChoices(IList<HBPresetTune> parameters, string resourcePrefix)
 		{
 			return parameters.Select(p =>
 			{

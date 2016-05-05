@@ -33,6 +33,10 @@ namespace VidCoderWorker
 			double cpuThrottlingFraction,
 			string tempFolder)
 		{
+#if DEBUG_REMOTE
+			Debugger.Launch();
+#endif
+
 			if (!string.IsNullOrEmpty(tempFolder))
 			{
 				Environment.SetEnvironmentVariable("TMP", tempFolder, EnvironmentVariableTarget.Process);
