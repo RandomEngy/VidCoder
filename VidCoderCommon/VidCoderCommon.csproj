@@ -91,6 +91,7 @@
     <Compile Include="Model\AudioEncodeRateType.cs" />
     <Compile Include="Model\AudioEncoding.cs" />
     <Compile Include="Model\CopyMaskChoice.cs" />
+    <Compile Include="Model\DeserializeOnlyAttribute.cs" />
     <Compile Include="Model\JsonEncodeFactory.cs" />
     <Compile Include="Model\Preset.cs" />
     <Compile Include="Model\SourceSubtitle.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Model\VCProfile.cs" />
     <Compile Include="Model\VCScaleMethod.cs" />
     <Compile Include="Model\VCVideoEncodeRateType.cs" />
+    <Compile Include="Model\VidCoderContractResolver.cs" />
     <Compile Include="Model\VideoRangeType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Injection\FastDeepCloneInjection.cs" />
