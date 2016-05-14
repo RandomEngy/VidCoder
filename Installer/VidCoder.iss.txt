@@ -68,6 +68,10 @@ Filename: "{app}\VidCoder.exe"; Description: "Run VidCoder"; Flags: postinstall 
 Type: filesandordirs; Name: "{userappdata}\%folderName%\Updates"
 Type: filesandordirs; Name: "{localappdata}\%folderName%"
 
+[CustomMessages]
+IDP_DownloadFailed=Download of .NET Framework 4.6.1 failed. .NET Framework 4.6 is required to run VidCoder.
+IDP_RetryCancel=Click 'Retry' to try downloading the files again, or click 'Cancel' to terminate setup.
+
 [Code]
 
 function Framework46IsNotInstalled(): Boolean;

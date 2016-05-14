@@ -1,12 +1,12 @@
 <UpdateInfo>
 	<Release>
-		<Latest>2.28</Latest>
-		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v2.28-beta/VidCoder-2.28-Beta-x86.exe</DownloadLocation>
-		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v2.28-beta</ChangelogLocation>
+		<Latest>2.29</Latest>
+		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v2.29-beta/VidCoder-2.29-Beta-x86.exe</DownloadLocation>
+		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v2.29-beta</ChangelogLocation>
 	</Release>
 	<Release-x64>
-		<Latest>2.28</Latest>
-		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v2.28-beta/VidCoder-2.28-Beta-x64.exe</DownloadLocation>
-		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v2.28-beta</ChangelogLocation>
+		<Latest>2.29</Latest>
+		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v2.29-beta/VidCoder-2.29-Beta-x64.exe</DownloadLocation>
+		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v2.29-beta</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>
