@@ -108,6 +108,11 @@ namespace VidCoder
 			Ioc.Get<IWindowManager>().OpenWindow(mainVM);
 			mainVM.OnLoaded();
 
+		    if (e.Args.Length > 0)
+		    {
+                mainVM.HandlePaths(new List<string> { e.Args[0] });
+		    }
+
 			if (!Utilities.IsPortable && IsPrimaryInstance)
 			{
 				AutomationHost.StartListening();
