@@ -229,7 +229,19 @@ namespace VidCoderCommon.Model
 				{
 					for (int i = 0; i < title.ChapterList.Count; i++)
 					{
-						chapterList.Add(new Chapter { Name = CreateDefaultChapterName(defaultChapterNameFormat, i + 1) });
+						SourceChapter sourceChapter = title.ChapterList[i];
+
+						string chapterName;
+						if (string.IsNullOrWhiteSpace(sourceChapter.Name))
+						{
+							chapterName = CreateDefaultChapterName(defaultChapterNameFormat, i + 1);
+						}
+						else
+						{
+							chapterName = sourceChapter.Name;
+						}
+
+						chapterList.Add(new Chapter { Name = chapterName });
 					}
 				}
 				else

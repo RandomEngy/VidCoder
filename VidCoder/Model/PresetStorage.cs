@@ -15,10 +15,12 @@ using System.Xml.Serialization;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.HbLib;
 using Newtonsoft.Json;
+using Omu.ValueInjecter;
 using VidCoder.Extensions;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoderCommon.Model;
+using VidCoderCommon.Utilities.Injection;
 
 namespace VidCoder.Model
 {
@@ -31,7 +33,7 @@ namespace VidCoder.Model
 		private static object userPresetSync = new object();
 
 		// This field holds the copy of the preset list that has been most recently queued for saving.
-		private static volatile List<string> pendingSavePresetList;
+		private static volatile List<Preset> pendingSavePresetList;
 
 		public static IList<Preset> BuiltInPresets
 		{
@@ -58,12 +60,18 @@ namespace VidCoder.Model
 
 			set
 			{
-				var presetJsonList = value.Select(SerializePreset).ToList();
+				var clonedList = value.Select(p =>
+				{
+					Preset newPreset = new Preset();
+					newPreset.InjectFrom<FastDeepCloneInjection>(p);
 
-				pendingSavePresetList = presetJsonList;
+					return newPreset;
+				}).ToList();
+
+				pendingSavePresetList = clonedList;
 
 				// Do the actual save asynchronously.
-				ThreadPool.QueueUserWorkItem(SaveUserPresetsBackground, presetJsonList);
+				ThreadPool.QueueUserWorkItem(SaveUserPresetsBackground, clonedList);
 			}
 		}
 
@@ -944,7 +952,7 @@ namespace VidCoder.Model
 		/// <summary>
 		/// Saves the given preset data.
 		/// </summary>
-		/// <param name="presetJsonListObject">List&lt;Tuple&lt;string, string&gt;&gt; with the file name and JSON string to save.</param>
+		/// <param name="presetJsonListObject">List&lt;Preset&gt; to save.</param>
 		private static void SaveUserPresetsBackground(object presetJsonListObject)
 		{
 			lock (userPresetSync)
@@ -967,7 +975,8 @@ namespace VidCoder.Model
 					Directory.Delete(UserPresetsFolder);
 				}
 
-				var presetJsonList = presetJsonListObject as List<string>;
+				var presetList = (List<Preset>)presetJsonListObject;
+				var presetJsonList = presetList.Select(SerializePreset).ToList();
 
 				SQLiteConnection connection = Database.CreateConnection();
 

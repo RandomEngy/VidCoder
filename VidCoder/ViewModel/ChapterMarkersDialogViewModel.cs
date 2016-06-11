@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using System.IO;
 using VidCoder.Services;
@@ -32,9 +33,16 @@ namespace VidCoder.ViewModel
 				{
 					viewModel.Title = currentNames[i];
 				}
+				else if (!string.IsNullOrWhiteSpace(chapter.Name))
+				{
+					viewModel.Title = chapter.Name;
+				}
 				else
 				{
-					viewModel.Title = "Chapter " + (i + 1);
+					viewModel.Title = string.Format(
+						CultureInfo.CurrentCulture,
+						EncodingRes.DefaultChapterName,
+						i + 1);
 				}
 
 				this.chapterNames.Add(viewModel);

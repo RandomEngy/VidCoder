@@ -76,20 +76,14 @@ namespace VidCoder
 
 							this.instance.StartEncode(jsonEncodeObject);
 							this.IsEncodeStarted = true;
-							if (this.EncodeStarted != null)
-							{
-								this.EncodeStarted(this, EventArgs.Empty);
-							}
+							this.EncodeStarted?.Invoke(this, EventArgs.Empty);
 
 							this.encodeStartEvent.Set();
 						}
 					}
 					else
 					{
-						if (this.EncodeCompleted != null)
-						{
-							this.EncodeCompleted(this, new EncodeCompletedEventArgs(error: true));
-						}
+						this.EncodeCompleted?.Invoke(this, new EncodeCompletedEventArgs(error: true));
 
 						this.encodeStartEvent.Set();
 						this.encodeEndEvent.Set();

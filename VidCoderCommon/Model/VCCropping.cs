@@ -1,7 +1,4 @@
-﻿using HandBrake.ApplicationServices.Interop.Model;
-using Omu.ValueInjecter;
-
-namespace VidCoderCommon.Model
+﻿namespace VidCoderCommon.Model
 {
     /// <summary>
     /// The Cropping Model

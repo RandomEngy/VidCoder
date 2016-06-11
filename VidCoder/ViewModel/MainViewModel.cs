@@ -2263,10 +2263,7 @@ namespace VidCoder.ViewModel
 					{
 						this.SelectedSource = null;
 
-						if (this.ScanCancelled != null)
-						{
-							this.ScanCancelled(this, EventArgs.Empty);
-						}
+						this.ScanCancelled?.Invoke(this, EventArgs.Empty);
 
 						this.logger.Log("Scan cancelled");
 
