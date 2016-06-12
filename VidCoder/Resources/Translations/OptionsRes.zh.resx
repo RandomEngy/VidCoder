@@ -225,7 +225,9 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>选项</value>
   </data>
-  
+  <data name="ProcessTab" xml:space="preserve">
+    <value>进程</value>
+  </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>高级设置</value>
   </data>
@@ -376,9 +378,20 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>保存转换文件的创建和修改时间</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+    <value>自定义预览目录</value>
+  </data>
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>进程选项</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>CPU 限制:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>使用 CPU 限制功能来限制 VidCoder 可以在编码时使用的处理器核心的数量。</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>使用内置播放器进行预览</value>
+  </data>
 </root>

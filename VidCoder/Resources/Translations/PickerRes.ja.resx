@@ -190,7 +190,10 @@
     <value>引数：</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>プログラムに渡す引数。ファイル出力パスに {file} を使用します。</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   
   <data name="AddLanguageButton" xml:space="preserve">
     <value>言語を追加</value>

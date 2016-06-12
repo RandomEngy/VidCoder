@@ -458,7 +458,9 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>Erreur de lancement de l'URL : {0}</value>
   </data>
-  
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Impossible d’importer la préconfiguration. Consultez le journal pour plus de détails.</value>
+  </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>Erreur d'importation</value>
   </data>
@@ -471,12 +473,24 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Exporter un Pré-réglage</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>Voulez-vous enregistrer les modifications apportées à votre pré-réglage en cours ?</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>Enregistrer le pré-réglage actuel ?</value>
+  </data>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir annuler toutes les modifications, non enregistrées, de ce pré-réglage ?</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>Revenir</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Êtes-vous sûr(e) de vouloir supprimer ?</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>La configuration a été altérée et ne peut pas être chargée. Certains de vos paramètres peuvent avoir été réinitialisées.</value>
   </data>
@@ -555,7 +569,9 @@
   <data name="ExportQueueFilePickerText" xml:space="preserve">
     <value>Exporter la file d'attente</value>
   </data>
-  
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Impossible d’importer la file d’attente. Consultez le journal pour plus de détails.</value>
+  </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>Importer un Pré-réglage</value>
   </data>
@@ -600,8 +616,18 @@
     <value>Fichier de base de données incompatible</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
-  
-  
-  
-  
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>Sélecteur</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Impossible de charger le pré-réglage : </value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>Sélecteur {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} autres titres ont une durée proche de celui-ci.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
 </root>

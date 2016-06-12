@@ -174,5 +174,7 @@
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
     <value>Dupliquer cette piste</value>
   </data>
-  
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>Ne pouvait pas détecter l’encodage du fichier sous-titre. Pour s’assurer que les sous-titres apparaissent correctement, ré-enregistrez le fichier au format UTF-8.</value>
+  </data>
 </root>

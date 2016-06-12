@@ -4,7 +4,7 @@ if (Test-Path .\Import\Resources) {
 }
 
 Add-Type -assembly "system.io.compression.filesystem"
-[io.compression.zipfile]::ExtractToDirectory("vidcoder.zip", "Import\Resources")
+[io.compression.zipfile]::ExtractToDirectory(".\Import\VidCoderResources.zip", "Import\Resources")
 
 # Copy files from holding directory to project directory
 $copiedFiles = New-Object System.Collections.Generic.List[System.String]

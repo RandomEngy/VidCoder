@@ -457,7 +457,9 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>打开 URL 时出错: {0}</value>
   </data>
-  
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>无法导入预设。请检查日志的详细信息。</value>
+  </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>导入错误</value>
   </data>
@@ -470,12 +472,24 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>导出预设</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>你想要将更改保存到您当前的选取器吗？</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>保存当前选取器吗？</value>
+  </data>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>确定要重置所有未保存的更改吗？</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>确定移除？</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>移除</value>
+  </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>配置已损坏，无法加载。您的某些设置可能会被重置。</value>
   </data>
@@ -554,7 +568,9 @@
   <data name="ExportQueueFilePickerText" xml:space="preserve">
     <value>导出队列...</value>
   </data>
-  
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>无法导入队列。请检查日志的详细信息。</value>
+  </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>导入预设的文件</value>
   </data>
@@ -599,8 +615,18 @@
     <value>不兼容的数据库文件</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
-  
-  
-  
-  
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>选取器</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>无法加载选取器: </value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>选取器 {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} 其他标题具有与此相似的长度。</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
 </root>

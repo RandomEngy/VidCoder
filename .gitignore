@@ -11,4 +11,4 @@ Import/*
 *.csproj.user
 *.user
 Installer/Files/*
-vidcoder.zip
+DownloadAndCopyResx.ps1

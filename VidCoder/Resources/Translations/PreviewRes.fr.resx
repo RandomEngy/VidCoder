@@ -183,10 +183,23 @@
 	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
     <value>Fichier source introuvable.</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="CloseVideoButton" xml:space="preserve">
+    <value>Fermer la vidéo</value>
+    <comment>Button to close the preview video clip.</comment>
+  </data>
+  <data name="OpenInSystemPlayerButton" xml:space="preserve">
+    <value>Ouvrir dans le lecteur système</value>
+  </data>
+  <data name="VolumeSliderLabel" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="ReplayPreviewButton" xml:space="preserve">
+    <value>Aperçu de la relecture</value>
+  </data>
+  <data name="VideoErrorMessage" xml:space="preserve">
+    <value>Ne pouvant pas lire la vidéo avec le lecteur intégré. Souhaitez-vous ouvrir avec le lecteur système ?</value>
+  </data>
+  <data name="VideoErrorTitle" xml:space="preserve">
+    <value>Erreur vidéo</value>
+  </data>
 </root>

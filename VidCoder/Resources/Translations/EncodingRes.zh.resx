@@ -794,7 +794,9 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} （默认值）</value>
   </data>
-  
+  <data name="EncodingWindowTitle" xml:space="preserve">
+    <value>编码预设: {0}</value>
+  </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>额外的高级 x264 选项:</value>
   </data>
@@ -924,7 +926,9 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>直接复制</value>
   </data>
-  
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>自动</value>
+  </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>指定哪些输入值将应用于编解码器。</value>
   </data>
@@ -958,13 +962,28 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>如果输入的Track不匹配它将在编码解码时被忽略。</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
+  <data name="ScalingAlgorithmLabel" xml:space="preserve">
+    <value>缩放算法:</value>
+  </data>
+  <data name="RotationLabel" xml:space="preserve">
+    <value>旋转:</value>
+  </data>
+  <data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>关闭预设列表</value>
+  </data>
+  <data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>打开预设列表</value>
+  </data>
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>章节{0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>通道设置</value>
+  </data>
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>允许通道为:</value>
+  </data>
   <data name="Passthrough_aac" xml:space="preserve">
     <value>AAC</value>
   </data>
@@ -977,10 +996,16 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
   <data name="Passthrough_dtshd" xml:space="preserve">
     <value>DTS-HD</value>
   </data>
-  
-  
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
   <data name="Passthrough_mp3" xml:space="preserve">
     <value>MP3</value>
   </data>
-  
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
+  </data>
 </root>

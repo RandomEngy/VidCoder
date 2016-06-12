@@ -194,8 +194,13 @@
     <value>{0} Beta ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
-  
-  
+  <data name="NameDialogTitle" xml:space="preserve">
+    <value>名称</value>
+    <comment>Title for dialog when  naming a preset or  picker</comment>
+  </data>
+  <data name="ChooseNamePreset" xml:space="preserve">
+    <value>为预设取一个名称:</value>
+  </data>
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>应用更新吗？</value>
   </data>
@@ -235,9 +240,19 @@
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
     <value>编码已完成。</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+    <value>找不到 {0} 的视频播放器。</value>
+  </data>
+  <data name="ErrorPlayingSource" xml:space="preserve">
+    <value>错误播放源。</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
+    <value>该系统将在 {0} 秒后休眠</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
+    <value>立即休眠</value>
+  </data>
+  <data name="ChooseNamePicker" xml:space="preserve">
+    <value>为选取器取一个名称:</value>
+  </data>
 </root>

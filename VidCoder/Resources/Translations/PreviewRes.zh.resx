@@ -183,10 +183,23 @@
 	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
     <value>找不到源文件。</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="CloseVideoButton" xml:space="preserve">
+    <value>关闭视频</value>
+    <comment>Button to close the preview video clip.</comment>
+  </data>
+  <data name="OpenInSystemPlayerButton" xml:space="preserve">
+    <value>在系统播放器中打开</value>
+  </data>
+  <data name="VolumeSliderLabel" xml:space="preserve">
+    <value>音量</value>
+  </data>
+  <data name="ReplayPreviewButton" xml:space="preserve">
+    <value>重播预览</value>
+  </data>
+  <data name="VideoErrorMessage" xml:space="preserve">
+    <value>内置播放器无法播放。用系统播放器打开吗？</value>
+  </data>
+  <data name="VideoErrorTitle" xml:space="preserve">
+    <value>视频错误</value>
+  </data>
 </root>

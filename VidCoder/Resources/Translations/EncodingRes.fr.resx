@@ -794,7 +794,9 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   <data name="DefaultFormat" xml:space="preserve">
     <value>(Par défaut): {0}</value>
   </data>
-  
+  <data name="EncodingWindowTitle" xml:space="preserve">
+    <value>Préréglage de codage : {0}</value>
+  </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>options x264 additionnelles avancée :</value>
   </data>
@@ -926,7 +928,9 @@ Bicubique : Algorithme de mise à l'échelle basé sur l'accéléré matériel O
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Ignorer</value>
   </data>
-  
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>Détection automatique</value>
+  </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>Spécifie quel codec d'entrée qui s'appliquera pour ignorer.</value>
   </data>
@@ -966,11 +970,22 @@ Bicubique : Algorithme de mise à l'échelle basé sur l'accéléré matériel O
   <data name="RotationLabel" xml:space="preserve">
     <value>Rotation :</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>Fermer la liste des présets</value>
+  </data>
+  <data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>Ouvrez la liste des présets</value>
+  </data>
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>Chapitre {0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>Paramètres de relais</value>
+  </data>
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>Autoriser le relais pour :</value>
+  </data>
   <data name="Passthrough_aac" xml:space="preserve">
     <value>AAC</value>
   </data>
@@ -983,10 +998,16 @@ Bicubique : Algorithme de mise à l'échelle basé sur l'accéléré matériel O
   <data name="Passthrough_dtshd" xml:space="preserve">
     <value>DTS-HD</value>
   </data>
-  
-  
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
   <data name="Passthrough_mp3" xml:space="preserve">
     <value>MP3</value>
   </data>
-  
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
+  </data>
 </root>
