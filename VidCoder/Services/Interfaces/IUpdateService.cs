@@ -15,7 +15,7 @@ namespace VidCoder.Services
 		void HandleUpdatedSettings(bool updatesEnabled);
 
 		UpdateState State { get; }
-		string LatestVersion { get; }
+		Version LatestVersion { get; }
 		double UpdateDownloadProgressFraction { get; set; }
 	}
 }

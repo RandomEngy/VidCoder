@@ -93,7 +93,7 @@ namespace VidCoder.Model
 				CultureInfo.CurrentCulture,
 				MainRes.RenameDatabaseFileLine1,
 				databaseVersion,
-				Utilities.CurrentVersion,
+				Utilities.VersionString,
 				Utilities.CurrentDatabaseVersion);
 
 			// See if we have a backup with the correct version

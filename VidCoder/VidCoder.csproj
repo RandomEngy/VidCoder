@@ -506,6 +506,7 @@
     <Compile Include="Extensions\TitleExtensions.cs" />
     <Compile Include="Extensions\VCCroppingExtensions.cs" />
     <Compile Include="Extensions\VCProfileExtensions.cs" />
+    <Compile Include="Extensions\VersionExtensions.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="Model\Config\ConfigObservable.cs" />
     <Compile Include="Model\EncodeJobsXml.cs" />

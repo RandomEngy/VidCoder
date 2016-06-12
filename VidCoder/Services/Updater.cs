@@ -11,6 +11,7 @@ using System.Windows;
 using VidCoder.Model;
 using System.Diagnostics;
 using ReactiveUI;
+using VidCoder.Extensions;
 
 namespace VidCoder.Services
 {
@@ -20,8 +21,6 @@ namespace VidCoder.Services
 	{
 		public const string UpdateInfoUrlBeta = "http://engy.us/VidCoder/latest-beta2.xml";
 		public const string UpdateInfoUrlNonBeta = "http://engy.us/VidCoder/latest.xml";
-
-		public event EventHandler<EventArgs<double>> UpdateDownloadProgress;
 
 		private static bool DebugMode
 		{
@@ -73,7 +72,7 @@ namespace VidCoder.Services
 			set { this.RaiseAndSetIfChanged(ref this.updateDownloadProgressFraction, value); }
 		}
 
-		public string LatestVersion { get; set; }
+		public Version LatestVersion { get; set; }
 
 		public void PromptToApplyUpdate()
 		{
@@ -83,8 +82,8 @@ namespace VidCoder.Services
 				if (Config.UpdatesEnabled && Utilities.CurrentProcessInstances == 1)
 				{
 					// See if the user has already applied the update manually
-					string updateVersion = Config.UpdateVersion;
-					if (!string.IsNullOrEmpty(updateVersion) && Utilities.CompareVersions(updateVersion, Utilities.CurrentVersion) <= 0)
+					Version updateVersion;
+					if (Version.TryParse(Config.UpdateVersion, out updateVersion) && updateVersion <= Utilities.CurrentVersion)
 					{
 						// If we already have the newer version clear all the update info and cancel
 						ClearUpdateMetadata();
@@ -168,8 +167,8 @@ namespace VidCoder.Services
 			bool updateInProgress = Config.UpdateInProgress;
 			if (updateInProgress)
 			{
-				string targetUpdateVersion = Config.UpdateVersion;
-				bool updateSucceeded = Utilities.CompareVersions(targetUpdateVersion, Utilities.CurrentVersion) == 0;
+				Version targetUpdateVersion = Version.Parse(Config.UpdateVersion);
+				bool updateSucceeded = targetUpdateVersion == Utilities.CurrentVersion;
 
 				using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
 				{
@@ -304,10 +303,10 @@ namespace VidCoder.Services
 					return;
 				}
 
-				string updateVersion = updateInfo.LatestVersion;
+				Version updateVersion = updateInfo.LatestVersion;
 				this.LatestVersion = updateVersion;
 
-				if (Utilities.CompareVersions(updateVersion, Utilities.CurrentVersion) > 0)
+				if (updateVersion > Utilities.CurrentVersion)
 				{
 					// If an update is reported to be ready but the installer doesn't exist, clear out all the
 					// installer info and redownload.
@@ -327,7 +326,7 @@ namespace VidCoder.Services
 					// If we have not finished the download update yet, start/resume the download.
 					if (Config.UpdateInstallerLocation == string.Empty)
 					{
-						string updateVersionText = updateVersion;
+						string updateVersionText = updateVersion.ToShortString();
 #if BETA
 						updateVersionText += " Beta";
 #endif
@@ -384,7 +383,7 @@ namespace VidCoder.Services
 							{
 								using (SQLiteTransaction transaction = connection.BeginTransaction())
 								{
-									Config.UpdateVersion = updateVersion;
+									Config.UpdateVersion = updateVersion.ToString();
 									Config.UpdateInstallerLocation = installerFilePath;
 									Config.UpdateChangelogLocation = changelogLink;
 
@@ -469,11 +468,11 @@ namespace VidCoder.Services
 				}
 
 				return new UpdateInfo
-					{
-						LatestVersion = latestElement.Value,
-						DownloadLocation = downloadElement.Value,
-						ChangelogLocation = changelogLinkElement.Value
-					};
+				{
+					LatestVersion = Version.Parse(latestElement.Value),
+					DownloadLocation = downloadElement.Value,
+					ChangelogLocation = changelogLinkElement.Value
+				};
 			}
 			catch (WebException)
 			{

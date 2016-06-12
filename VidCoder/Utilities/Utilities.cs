@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
+using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
@@ -63,23 +64,23 @@ namespace VidCoder
 			}
 		}
 
-		public static string CurrentVersion
+		public static Version CurrentVersion
 		{
-			get
-			{
-				return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-			}
+			get { return Assembly.GetExecutingAssembly().GetName().Version; }
 		}
 
+		/// <summary>
+		/// Displays version number with architecture and optional Beta marker.
+		/// </summary>
 		public static string VersionString
 		{
 			get
 			{
 #pragma warning disable 162
 #if BETA
-				return string.Format(MiscRes.BetaVersionFormat, CurrentVersion, Architecture);
+				return string.Format(MiscRes.BetaVersionFormat, CurrentVersion.ToShortString(), Architecture);
 #endif
-				return string.Format(MiscRes.VersionFormat, CurrentVersion, Architecture);
+				return string.Format(MiscRes.VersionFormat, CurrentVersion.ToShortString(), Architecture);
 #pragma warning restore 162
 			}
 		}

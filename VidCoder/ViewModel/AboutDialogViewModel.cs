@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HandBrake.ApplicationServices.Interop;
+using VidCoder.Extensions;
 
 namespace VidCoder.ViewModel
 {
@@ -11,13 +12,7 @@ namespace VidCoder.ViewModel
 
 	public class AboutDialogViewModel : OkCancelDialogViewModel
 	{
-		public string Version
-		{
-			get
-			{
-				return Utilities.VersionString;
-			}
-		}
+		public string Version => Utilities.VersionString;
 
 		public string BasedOnHandBrake
 		{

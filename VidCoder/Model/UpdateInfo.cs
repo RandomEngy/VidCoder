@@ -7,7 +7,7 @@ namespace VidCoder.Model
 {
 	public class UpdateInfo
 	{
-		public string LatestVersion { get; set; }
+		public Version LatestVersion { get; set; }
 		public string DownloadLocation { get; set; }
 		public string ChangelogLocation { get; set; }
 	}

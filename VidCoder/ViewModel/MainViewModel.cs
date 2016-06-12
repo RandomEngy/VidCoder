@@ -1746,7 +1746,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return "VidCoder " + Utilities.CurrentVersion;
+				return "VidCoder " + Utilities.CurrentVersion.ToShortString();
 			}
 		}
 

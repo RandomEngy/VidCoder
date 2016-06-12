@@ -69,7 +69,7 @@ namespace VidCoder.Services
 			{
 				LogType = LogType.Message,
 				Source = LogSource.VidCoder,
-				Text = "## VidCoder " + Utilities.CurrentVersion + " (" + Utilities.Architecture + ")"
+				Text = "## VidCoder " + Utilities.VersionString
 			};
 
 			this.AddEntry(initialEntry);
