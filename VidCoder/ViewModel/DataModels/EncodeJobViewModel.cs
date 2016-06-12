@@ -117,7 +117,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ILogger Logger { get; set; }
+		public IAppLogger Logger { get; set; }
 
 		public VideoSource VideoSource { get; set; }
 

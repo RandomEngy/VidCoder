@@ -108,7 +108,8 @@ namespace VidCoderWorker
 							dxvaDecoding,
 							previewNumber,
 							previewSeconds,
-							previewCount);
+							previewCount,
+							new WorkerLogger(this.callback));
 
 						this.callback.OnVidCoderMessageLogged("Encode JSON:" + Environment.NewLine + JsonConvert.SerializeObject(encodeObject, Formatting.Indented));
 
@@ -152,7 +153,7 @@ namespace VidCoderWorker
 					}
 					catch (CommunicationException exception)
 					{
-						WorkerLogger.Log("Got exception when reporting completion: " + exception, isError: true);
+						WorkerErrorLogger.LogError("Got exception when reporting completion: " + exception, isError: true);
 					}
 					finally
 					{
@@ -246,7 +247,7 @@ namespace VidCoderWorker
 			}
 			catch (CommunicationException exception)
 			{
-				WorkerLogger.Log("Got exception: " + exception, isError: true);
+				WorkerErrorLogger.LogError("Got exception: " + exception, isError: true);
 
 				this.StopEncodeIfPossible();
 			}

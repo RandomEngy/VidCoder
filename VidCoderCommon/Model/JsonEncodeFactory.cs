@@ -12,6 +12,7 @@ using HandBrake.ApplicationServices.Interop.Json.Shared;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using Newtonsoft.Json.Linq;
 using VidCoderCommon.Extensions;
+using VidCoderCommon.Services;
 using Audio = HandBrake.ApplicationServices.Interop.Json.Encode.Audio;
 using Metadata = HandBrake.ApplicationServices.Interop.Json.Encode.Metadata;
 using Source = HandBrake.ApplicationServices.Interop.Json.Encode.Source;
@@ -34,6 +35,7 @@ namespace VidCoderCommon.Model
 		/// <param name="previewNumber">The preview number to start at (0-based). Leave off for a normal encode.</param>
 		/// <param name="previewSeconds">The number of seconds long to make the preview.</param>
 		/// <param name="previewCount">The total number of previews.</param>
+		/// <param name="logger">The logger to use.</param>
 		/// <returns></returns>
 		public static JsonEncodeObject CreateJsonObject(
 			VCJob job,
@@ -42,7 +44,8 @@ namespace VidCoderCommon.Model
 			bool dxvaDecoding,
 			int previewNumber = -1,
 			int previewSeconds = 0,
-			int previewCount = 0)
+			int previewCount = 0,
+			ILogger logger = null)
 		{
 			Geometry anamorphicSize = GetAnamorphicSize(job.EncodingProfile, title);
 			VCProfile profile = job.EncodingProfile;
@@ -57,7 +60,7 @@ namespace VidCoderCommon.Model
 				PAR = anamorphicSize.PAR,
 				Source = CreateSource(job, title, previewNumber, previewSeconds, previewCount),
 				Subtitle = CreateSubtitles(job),
-				Video = CreateVideo(job, title, previewSeconds, dxvaDecoding)
+				Video = CreateVideo(job, title, previewSeconds, dxvaDecoding, logger)
 			};
 
 			return encode;
@@ -642,7 +645,7 @@ namespace VidCoderCommon.Model
 			return subtitles;
 		}
 
-		private static Video CreateVideo(VCJob job, SourceTitle title, int previewLengthSeconds, bool dxvaDecoding)
+		private static Video CreateVideo(VCJob job, SourceTitle title, int previewLengthSeconds, bool dxvaDecoding, ILogger logger)
 		{
 			Video video = new Video();
 			VCProfile profile = job.EncodingProfile;
@@ -675,7 +678,7 @@ namespace VidCoderCommon.Model
 			switch (profile.VideoEncodeRateType)
 			{
 				case VCVideoEncodeRateType.TargetSize:
-					video.Bitrate = CalculateBitrate(job, title, profile.TargetSize, previewLengthSeconds);
+					video.Bitrate = CalculateBitrate(job, title, profile.TargetSize, previewLengthSeconds, logger);
 					video.TwoPass = profile.TwoPass;
 					video.Turbo = profile.TurboFirstPass;
 					break;
@@ -701,22 +704,31 @@ namespace VidCoderCommon.Model
 		/// </summary>
 		/// <param name="job">The encode job.</param>
 		/// <param name="title">The title being encoded.</param>
-		/// <param name="sizeMB">The target size in MB.</param>
+		/// <param name="sizeMb">The target size in MB.</param>
 		/// <param name="overallSelectedLengthSeconds">The currently selected encode length. Used in preview
 		/// for calculating bitrate when the target size would be wrong.</param>
+		/// <param name="logger">The logger to use.</param>
 		/// <returns>The video bitrate in kbps.</returns>
-		public static int CalculateBitrate(VCJob job, SourceTitle title, int sizeMB, double overallSelectedLengthSeconds = 0)
+		public static int CalculateBitrate(VCJob job, SourceTitle title, int sizeMb, double overallSelectedLengthSeconds = 0, ILogger logger = null)
 		{
 			bool isPreview = overallSelectedLengthSeconds > 0;
 
 			double titleLengthSeconds = GetJobLength(job, title).TotalSeconds;
 
+			logger?.Log($"Calculating bitrate - Title length: {titleLengthSeconds} seconds");
 
-			long availableBytes = ((long)sizeMB) * 1024 * 1024;
+			if (overallSelectedLengthSeconds > 0)
+			{
+				logger?.Log($"Calculating bitrate - Selected value length: {overallSelectedLengthSeconds} seconds");
+			}
+
+			long availableBytes = ((long)sizeMb) * 1024 * 1024;
 			if (isPreview)
 			{
 				availableBytes = (long)(availableBytes * (overallSelectedLengthSeconds / titleLengthSeconds));
 			}
+
+			logger?.Log($"Calculating bitrate - Available bytes: {availableBytes}");
 
 			VCProfile profile = job.EncodingProfile;
 
@@ -734,12 +746,21 @@ namespace VidCoderCommon.Model
 				outputFramerate = profile.Framerate;
 			}
 
+			logger?.Log($"Calculating bitrate - Output framerate: {outputFramerate}");
+
 			long frames = (long)(lengthSeconds * outputFramerate);
 
-			availableBytes -= frames * ContainerOverheadBytesPerFrame;
+			long containerOverheadBytes = frames * ContainerOverheadBytesPerFrame;
+			logger?.Log($"Calculating bitrate - Container overhead: {containerOverheadBytes} bytes");
+
+			availableBytes -= containerOverheadBytes;
 
 			List<Tuple<AudioEncoding, int>> outputTrackList = GetOutputTracks(job, title);
-			availableBytes -= GetAudioSize(job, lengthSeconds, title, outputTrackList);
+			long audioSizeBytes = GetAudioSize(lengthSeconds, title, outputTrackList, logger);
+			logger?.Log($"Calculating bitrate - Audio size: {audioSizeBytes} bytes");
+			availableBytes -= audioSizeBytes;
+
+			logger?.Log($"Calculating bitrate - Available bytes minus container and audio: {availableBytes}");
 
 			if (availableBytes < 0)
 			{
@@ -748,7 +769,10 @@ namespace VidCoderCommon.Model
 
 			// Video bitrate is in kilobits per second, or where 1 kbps is 1000 bits per second.
 			// So 1 kbps is 125 bytes per second.
-			return (int)(availableBytes / (125 * lengthSeconds));
+			int resultBitrateKilobitsPerSecond = (int)(availableBytes / (125 * lengthSeconds));
+
+			logger?.Log($"Calculating bitrate - Bitrate result (kbps): {resultBitrateKilobitsPerSecond}");
+			return resultBitrateKilobitsPerSecond;
 		}
 
 		/// <summary>
@@ -785,7 +809,7 @@ namespace VidCoderCommon.Model
 			totalBytes += frames * ContainerOverheadBytesPerFrame;
 
 			List<Tuple<AudioEncoding, int>> outputTrackList = GetOutputTracks(job, title);
-			totalBytes += GetAudioSize(job, lengthSeconds, title, outputTrackList);
+			totalBytes += GetAudioSize(lengthSeconds, title, outputTrackList);
 
 			return (double)totalBytes / 1024 / 1024;
 		}
@@ -822,14 +846,15 @@ namespace VidCoderCommon.Model
 		/// <summary>
 		/// Gets the size in bytes for the audio with the given parameters.
 		/// </summary>
-		/// <param name="job">The encode job.</param>
 		/// <param name="lengthSeconds">The length of the encode in seconds.</param>
 		/// <param name="title">The title to encode.</param>
 		/// <param name="outputTrackList">The list of tracks to encode.</param>
+		/// <param name="logger">The logger to use.</param>
 		/// <returns>The size in bytes for the audio with the given parameters.</returns>
-		private static long GetAudioSize(VCJob job, double lengthSeconds, SourceTitle title, List<Tuple<AudioEncoding, int>> outputTrackList)
+		private static long GetAudioSize(double lengthSeconds, SourceTitle title, List<Tuple<AudioEncoding, int>> outputTrackList, ILogger logger = null)
 		{
 			long audioBytes = 0;
+			int outputTrackNumber = 1;
 
 			foreach (Tuple<AudioEncoding, int> outputTrack in outputTrackList)
 			{
@@ -845,11 +870,15 @@ namespace VidCoderCommon.Model
 				{
 					// Input bitrate is in bits/second.
 					audioBitrate = track.BitRate / 8;
+
+					logger?.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is passthrough. {audioBitrate} bytes/second");
 				}
 				else if (encoding.EncodeRateType == AudioEncodeRateType.Quality)
 				{
 					// Can't predict size of quality targeted audio encoding.
 					audioBitrate = 0;
+
+					logger?.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is quality targeted. Assuming 0 byte overhead.");
 				}
 				else
 				{
@@ -857,6 +886,8 @@ namespace VidCoderCommon.Model
 					if (encoding.Bitrate > 0)
 					{
 						outputBitrate = encoding.Bitrate;
+
+						logger?.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Output bitrate set at {outputBitrate} kbps");
 					}
 					else
 					{
@@ -864,16 +895,26 @@ namespace VidCoderCommon.Model
 							audioEncoder,
 							encoding.SampleRateRaw == 0 ? track.SampleRate : encoding.SampleRateRaw,
 							HandBrakeEncoderHelpers.SanitizeMixdown(HandBrakeEncoderHelpers.GetMixdown(encoding.Mixdown), audioEncoder, (ulong)track.ChannelLayout));
+
+						logger?.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Output bitrate is Auto, will be {outputBitrate} kbps");
 					}
 
 					// Output bitrate is in kbps.
 					audioBitrate = outputBitrate * 1000 / 8;
+
+					logger?.Log($"Calculating bitrate - Audio track {outputTrackNumber} - {audioBitrate} bytes/second");
 				}
 
-				audioBytes += (long)(lengthSeconds * audioBitrate);
+				long audioTrackBytes = (long)(lengthSeconds * audioBitrate);
+				logger?.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Audio data is {audioTrackBytes} bytes");
+				audioBytes += audioTrackBytes;
 
 				// Audio overhead
-				audioBytes += encoding.SampleRateRaw * ContainerOverheadBytesPerFrame / samplesPerFrame;
+				long audioTrackOverheadBytes = encoding.SampleRateRaw * ContainerOverheadBytesPerFrame / samplesPerFrame;
+				logger?.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Overhead is {audioTrackOverheadBytes} bytes");
+				audioBytes += audioTrackOverheadBytes;
+
+				outputTrackNumber++;
 			}
 
 			return audioBytes;

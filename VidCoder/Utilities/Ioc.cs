@@ -14,7 +14,7 @@ namespace VidCoder
 			Container.RegisterType<IDriveService, DriveService>(Singleton);
 			Container.RegisterType<IUpdater, Updater>(Singleton);
 			Container.RegisterType<IMessageBoxService, MessageBoxService>(Singleton);
-			Container.RegisterType<ILogger>(Singleton, new InjectionFactory(c => new Logger()));
+			Container.RegisterType<IAppLogger>(Singleton, new InjectionFactory(c => new AppLogger()));
 			Container.RegisterType<IFileService, FileService>(Singleton);
 			Container.RegisterType<IPresetImportExport, PresetImportExport>(Singleton);
 			Container.RegisterType<IQueueImportExport, QueueImportExport>(Singleton);

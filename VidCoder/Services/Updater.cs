@@ -55,7 +55,7 @@ namespace VidCoder.Services
 			}
 		}
 
-		private ILogger logger = Ioc.Get<ILogger>();
+		private IAppLogger logger = Ioc.Get<IAppLogger>();
 		private BackgroundWorker updateDownloader;
 		private bool processDownloadsUpdates = true;
 

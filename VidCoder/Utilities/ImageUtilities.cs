@@ -29,7 +29,7 @@ namespace VidCoder
 			else
 			{
 				// Sometimes this can return a matrix with 0s. Fall back to assuming normal DPI in this case.
-				Ioc.Get<ILogger>().Log("Could not read DPI. Assuming default DPI.");
+				Ioc.Get<IAppLogger>().Log("Could not read DPI. Assuming default DPI.");
 				dpiXFactor = 1;
 				dpiYFactor = 1;
 			}

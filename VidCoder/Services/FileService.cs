@@ -40,7 +40,7 @@ namespace VidCoder.Services
 				}
 				catch (NotSupportedException)
 				{
-					Ioc.Get<ILogger>().Log("Could not recognize initial directory " + initialDirectory);
+					Ioc.Get<IAppLogger>().Log("Could not recognize initial directory " + initialDirectory);
 				}
 			}
 

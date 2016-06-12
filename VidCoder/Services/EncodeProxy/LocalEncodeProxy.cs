@@ -17,7 +17,7 @@ namespace VidCoder
 {
 	public class LocalEncodeProxy : IEncodeProxy
 	{
-		private ILogger logger;
+		private IAppLogger logger;
 
 		// Instance and lock only used when doing in-process encode (for debugging)
 		private HandBrakeInstance instance;
@@ -36,7 +36,7 @@ namespace VidCoder
 		public bool IsEncodeStarted { get; private set; }
 		public void StartEncode(
 			VCJob job,
-			ILogger logger,
+			IAppLogger logger,
 			bool preview, 
 			int previewNumber, 
 			int previewSeconds, 
@@ -70,7 +70,8 @@ namespace VidCoder
 								Config.DxvaDecoding,
 								preview ? previewNumber : -1,
 								previewSeconds,
-								Config.PreviewCount);
+								Config.PreviewCount,
+								this.logger);
 
 							this.logger.Log("Encode JSON:" + Environment.NewLine + JsonConvert.SerializeObject(jsonEncodeObject, Formatting.Indented));
 

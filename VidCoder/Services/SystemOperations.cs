@@ -14,7 +14,7 @@ namespace VidCoder.Services
 {
 	public class SystemOperations : ISystemOperations
 	{
-		private static ILogger logger = Ioc.Get<ILogger>();
+		private static IAppLogger logger = Ioc.Get<IAppLogger>();
 
 		[Flags]
 		private enum ExitWindows : uint

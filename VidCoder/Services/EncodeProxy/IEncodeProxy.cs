@@ -29,7 +29,7 @@ namespace VidCoder
 
 		void StartEncode(
 			VCJob job,
-			ILogger logger,
+			IAppLogger logger,
 			bool preview, 
 			int previewNumber, 
 			int previewSeconds, 

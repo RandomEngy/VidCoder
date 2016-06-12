@@ -30,7 +30,7 @@ namespace VidCoder.ViewModel
 		private HandBrakeInstance scanInstance;
 
 		private IUpdater updater = Ioc.Get<IUpdater>();
-		private ILogger logger = Ioc.Get<ILogger>();
+		private IAppLogger logger = Ioc.Get<IAppLogger>();
 		private OutputPathService outputPathService;
 		private OutputSizeService outputSizeService;
 		private PresetsService presetsService;

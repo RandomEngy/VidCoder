@@ -13,7 +13,7 @@ namespace VidCoder.Services
 		private const double ProcessPollIntervalMsec = 2000;
 
 		private IProcesses processes;
-		private ILogger logger;
+		private IAppLogger logger;
 
 		private HashSet<string> startingProcesses;
 
@@ -24,7 +24,7 @@ namespace VidCoder.Services
 
 		private object syncLock = new object();
 
-		public ProcessAutoPause(IProcesses processes, ILogger logger)
+		public ProcessAutoPause(IProcesses processes, IAppLogger logger)
 		{
 			this.processes = processes;
 			this.logger = logger;

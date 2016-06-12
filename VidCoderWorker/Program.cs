@@ -57,7 +57,7 @@ namespace VidCoderWorker
 						}
 						catch (Exception exception)
 						{
-							WorkerLogger.Log("Exception in parentCheckTimer.Elapsed: " + exception.ToString(), isError: true);
+							WorkerErrorLogger.LogError("Exception in parentCheckTimer.Elapsed: " + exception.ToString(), isError: true);
 							throw;
 						}
 					};
@@ -84,7 +84,7 @@ namespace VidCoderWorker
 				}
 				catch (CommunicationException exception)
 				{
-					WorkerLogger.Log("Exception when trying to establish pipe service: " + exception, isError: true);
+					WorkerErrorLogger.LogError("Exception when trying to establish pipe service: " + exception, isError: true);
 					if (host != null)
 					{
 						host.Abort();
@@ -92,7 +92,7 @@ namespace VidCoderWorker
 				}
 				catch (TimeoutException exception)
 				{
-					WorkerLogger.Log("Exception when trying to establish pipe service: " + exception, isError: true);
+					WorkerErrorLogger.LogError("Exception when trying to establish pipe service: " + exception, isError: true);
 					if (host != null)
 					{
 						host.Abort();
@@ -110,7 +110,7 @@ namespace VidCoderWorker
 			}
 			catch (Exception exception)
 			{
-				WorkerLogger.Log("Exception in Main: " + exception, isError: true);
+				WorkerErrorLogger.LogError("Exception in Main: " + exception, isError: true);
 				throw;
 			}
 		}

@@ -37,7 +37,7 @@ namespace VidCoder.Services
 
 		private const double StopWarningThresholdMinutes = 5;
 
-		private ILogger logger = Ioc.Get<ILogger>();
+		private IAppLogger logger = Ioc.Get<IAppLogger>();
 		private IProcessAutoPause autoPause = Ioc.Get<IProcessAutoPause>();
 		private ISystemOperations systemOperations = Ioc.Get<ISystemOperations>();
 		private IMessageBoxService messageBoxService = Ioc.Get<IMessageBoxService>();
@@ -1203,7 +1203,7 @@ namespace VidCoder.Services
 		{
 			VCJob job = this.CurrentJob.Job;
 
-			var encodeLogger = new Logger(this.logger, Path.GetFileName(job.OutputPath));
+			var encodeLogger = new AppLogger(this.logger, Path.GetFileName(job.OutputPath));
 			this.CurrentJob.Logger = encodeLogger;
 
 			encodeLogger.Log("Starting job " + this.taskNumber + "/" + this.totalTasks);
@@ -1434,7 +1434,7 @@ namespace VidCoder.Services
 		{
 			DispatchUtilities.BeginInvoke(() =>
 			{
-				ILogger encodeLogger = this.CurrentJob.Logger;
+				IAppLogger encodeLogger = this.CurrentJob.Logger;
 				string outputPath = this.CurrentJob.Job.OutputPath;
 
 				this.CanPauseOrStop = false;

@@ -23,7 +23,7 @@ namespace VidCoder.ViewModel
 
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private PresetsService presetsService = Ioc.Get<PresetsService>();
-		private ILogger logger = Ioc.Get<ILogger>();
+		private IAppLogger logger = Ioc.Get<IAppLogger>();
 
 		public SubtitleDialogViewModel(VCSubtitles currentSubtitles)
 		{

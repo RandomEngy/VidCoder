@@ -10,7 +10,7 @@ namespace VidCoder.ViewModel
 	public class LogWindowViewModel : ReactiveObject
 	{
 		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
-		private ILogger logger = Ioc.Get<ILogger>();
+		private IAppLogger logger = Ioc.Get<IAppLogger>();
 
 		public LogWindowViewModel()
 		{

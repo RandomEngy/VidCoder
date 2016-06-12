@@ -621,7 +621,7 @@
     <Compile Include="Services\PreviewUpdateService.cs" />
     <Compile Include="Services\StatusService.cs" />
     <Compile Include="Services\Windows\IClosableWindow.cs" />
-    <Compile Include="Services\Interfaces\ILogger.cs" />
+    <Compile Include="Services\Interfaces\IAppLogger.cs" />
     <Compile Include="Services\Interfaces\IPresetImportExport.cs" />
     <Compile Include="Services\Interfaces\IProcesses.cs" />
     <Compile Include="Services\Interfaces\IProcessAutoPause.cs" />
@@ -651,7 +651,7 @@
     <Compile Include="Utilities\Ioc.cs" />
     <Compile Include="Utilities\LanguageUtilities.cs" />
     <Compile Include="Utilities\ListSynchronizer\IListItemConverter.cs" />
-    <Compile Include="Services\Logger.cs" />
+    <Compile Include="Services\AppLogger.cs" />
     <Compile Include="Utilities\ListSynchronizer\MultiSelectorBehaviors.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Utilities\ListSynchronizer\TwoListSynchronizer.cs" />

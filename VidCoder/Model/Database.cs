@@ -211,7 +211,7 @@ namespace VidCoder.Model
 			}
 			catch (Exception exception)
 			{
-				Ioc.Get<ILogger>().Log("Could not backup database file:" + Environment.NewLine + exception);
+				Ioc.Get<IAppLogger>().Log("Could not backup database file:" + Environment.NewLine + exception);
 			}
 		}
 

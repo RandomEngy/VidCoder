@@ -622,7 +622,7 @@ namespace VidCoder
 			}
 			catch (UnauthorizedAccessException ex)
 			{
-				Ioc.Get<ILogger>().Log("Could not determine if folder was disc: " + ex);
+				Ioc.Get<IAppLogger>().Log("Could not determine if folder was disc: " + ex);
 				return false;
 			}
 		}

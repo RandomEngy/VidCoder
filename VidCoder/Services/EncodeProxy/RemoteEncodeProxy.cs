@@ -58,7 +58,7 @@ namespace VidCoder
 		private DuplexChannelFactory<IHandBrakeEncoder> pipeFactory;
 		private string pipeName;
 		private IHandBrakeEncoder channel;
-		private ILogger logger;
+		private IAppLogger logger;
 		private bool crashLogged;
 
 		private Process worker;
@@ -79,7 +79,7 @@ namespace VidCoder
 
 		public void StartEncode(
 			VCJob job,
-			ILogger logger,
+			IAppLogger logger,
 			bool preview, 
 			int previewNumber,
 			int previewSeconds, 

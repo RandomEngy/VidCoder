@@ -21,7 +21,7 @@ namespace VidCoder.View
 		// The maximum number of lines to add to log window in a single dispatcher call
 		private const int MaxLinesPerDispatch = 100;
 
-		private ILogger logger = Ioc.Get<ILogger>();
+		private IAppLogger logger = Ioc.Get<IAppLogger>();
 
 		private Queue<LogEntry> pendingEntries = new Queue<LogEntry>();
 		private bool workerRunning;
@@ -73,7 +73,7 @@ namespace VidCoder.View
 			this.logger.Cleared += this.OnCleared;
 		}
 
-		private void	Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			this.logger.EntryLogged -= this.OnEntryLogged;
 			this.logger.Cleared -= this.OnCleared;
@@ -87,7 +87,7 @@ namespace VidCoder.View
 				if (!this.workerRunning)
 				{
 					this.workerRunning = true;
-					Dispatcher.BeginInvoke(new Action(this.ProcessPendingEntries));
+					this.Dispatcher.BeginInvoke(new Action(this.ProcessPendingEntries));
 				}
 			}
 		}
@@ -101,11 +101,14 @@ namespace VidCoder.View
 			{
 				if (this.pendingEntries.Count == 0)
 				{
-					// if there are no items left, schedule a scroll to the end and bail
-					this.Dispatcher.BeginInvoke(new Action(() =>
+					// If there are no items left, scroll to the end if we're already there, then bail
+					if (this.logTextBox.VerticalOffset + this.logTextBox.ViewportHeight >= this.logTextBox.ExtentHeight)
 					{
-						this.logTextBox.ScrollToEnd();
-					}));
+						this.Dispatcher.BeginInvoke(new Action(() =>
+						{
+							this.logTextBox.ScrollToEnd();
+						}));
+					}
 
 					this.workerRunning = false;
 					return;

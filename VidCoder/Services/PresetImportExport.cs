@@ -14,9 +14,9 @@ namespace VidCoder.Services
 		private IFileService fileService;
 		private IMessageBoxService messageBoxService;
 		private PresetsService presetsService = Ioc.Get<PresetsService>();
-		private ILogger logger;
+		private IAppLogger logger;
 
-		public PresetImportExport(IFileService fileService, IMessageBoxService messageBoxService, ILogger logger)
+		public PresetImportExport(IFileService fileService, IMessageBoxService messageBoxService, IAppLogger logger)
 		{
 			this.fileService = fileService;
 			this.messageBoxService = messageBoxService;
