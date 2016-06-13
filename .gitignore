@@ -11,4 +11,3 @@ Import/*
 *.csproj.user
 *.user
 Installer/Files/*
-DownloadAndCopyResx.ps1
