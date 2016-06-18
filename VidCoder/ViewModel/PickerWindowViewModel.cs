@@ -25,285 +25,278 @@ namespace VidCoder.ViewModel
 	{
 		private static TypeAccessor typeAccessor = TypeAccessor.Create(typeof(Picker));
 
-		private PickersService pickersService = Ioc.Get<PickersService>();
-		private PresetsService presetsService = Ioc.Get<PresetsService>();
-		private OutputPathService outputPathService = Ioc.Get<OutputPathService>();
+		private readonly PickersService pickersService = Ioc.Get<PickersService>();
+		private readonly PresetsService presetsService = Ioc.Get<PresetsService>();
+		private readonly OutputPathService outputPathService = Ioc.Get<OutputPathService>();
+
+		private AutoChangeTracker autoChangeTracker = new AutoChangeTracker();
 
 		private Dictionary<string, Action> pickerProperties;
-		private bool automaticChange;
 		private bool userModifyingOutputDirectory;
 		private bool userModifyingNameFormat;
 		private bool userModifyingEncodingPreset;
 
 		public PickerWindowViewModel()
 		{
-			this.automaticChange = true;
+			using (this.autoChangeTracker.TrackAutoChange())
+			{
+				this.RegisterPickerProperties();
 
-			this.RegisterPickerProperties();
+				this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker)
+					.Subscribe(x =>
+					{
+						using (this.autoChangeTracker.TrackAutoChange())
+						{
+							this.RaiseAllChanged();
 
-			this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker)
-				.Subscribe(x =>
+							// When we are swapping active pickers, update the local properties.
+							if (!this.userModifyingOutputDirectory)
+							{
+								this.OutputDirectoryOverride = this.Picker.OutputDirectoryOverride;
+							}
+
+							if (!this.userModifyingNameFormat)
+							{
+								this.NameFormatOverride = this.Picker.NameFormatOverride;
+							}
+
+							if (!this.userModifyingEncodingPreset)
+							{
+								this.PopulateEncodingPreset(this.Picker.UseEncodingPreset);
+							}
+						}
+					});
+
+				this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.AudioLanguageCodes).Subscribe(audioLanguageCodes =>
 				{
-					bool automaticChangePreviousValue = this.automaticChange;
-					this.automaticChange = true;
-					this.RaiseAllChanged();
+					using (this.autoChangeTracker.TrackAutoChange())
+					{
+						using (this.AudioLanguages.SuppressChangeNotifications())
+						{
+							this.AudioLanguages.Clear();
 
-					// When we are swapping active pickers, update the local properties.
-					if (!this.userModifyingOutputDirectory)
+							if (audioLanguageCodes == null)
+							{
+								this.AudioLanguages.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode() });
+								return;
+							}
+
+							this.AudioLanguages.AddRange(audioLanguageCodes.Select(l => new LanguageViewModel(this) { Code = l }));
+						}
+					}
+				});
+
+				this.AudioLanguages.ChangeTrackingEnabled = true;
+				this.AudioLanguages.ItemChanged
+					.Subscribe(_ =>
+					{
+						if (!this.autoChangeTracker.OperationInProgress)
+						{
+							this.HandleAudioLanguageUpdate();
+						}
+					});
+
+				this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.SubtitleLanguageCodes).Subscribe(subtitleLanguageCodes =>
+				{
+					using (this.autoChangeTracker.TrackAutoChange())
+					using (this.SubtitleLanguages.SuppressChangeNotifications())
+					{
+						this.SubtitleLanguages.Clear();
+
+						if (subtitleLanguageCodes == null)
+						{
+							this.SubtitleLanguages.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode() });
+							return;
+						}
+
+						this.SubtitleLanguages.AddRange(subtitleLanguageCodes.Select(l => new LanguageViewModel(this) { Code = l }));
+					}
+				});
+
+				this.SubtitleLanguages.ChangeTrackingEnabled = true;
+				this.SubtitleLanguages.ItemChanged
+					.Subscribe(_ =>
+					{
+						if (!this.autoChangeTracker.OperationInProgress)
+						{
+							this.HandleSubtitleLanguageUpdate();
+						}
+					});
+
+				// HasMultipleAudioLanguages
+				IObservable<int> audioLanguageCountObservable = this.AudioLanguages.CountChanged
+					.StartWith(this.AudioLanguages.Count);
+				IObservable<bool> hasMultipleAudioLanguagesObservable = audioLanguageCountObservable
+					.Select(count => count > 1);
+				hasMultipleAudioLanguagesObservable.ToProperty(this, x => x.HasMultipleAudioLanguages, out this.hasMultipleAudioLanguages);
+
+				// AudioFirstTrackLabel
+				hasMultipleAudioLanguagesObservable
+					.Select(hasMultipleAudioLanguages =>
+					{
+						return hasMultipleAudioLanguages ? PickerRes.FirstTrackOfEachLanguageRadioButton : PickerRes.FirstTrackRadioButton;
+					})
+					.ToProperty(this, x => x.AudioFirstTrackLabel, out this.audioFirstTrackLabel);
+
+				// AudioAllTracksLabel
+				hasMultipleAudioLanguagesObservable
+					.Select(hasMultipleAudioLanguages =>
+					{
+						return hasMultipleAudioLanguages ? PickerRes.AllTracksForTheseLanguagesRadioButton : PickerRes.AllTracksForThisLanguageRadioButton;
+					})
+					.ToProperty(this, x => x.AudioAllTracksLabel, out this.audioAllTracksLabel);
+
+				// HasNoAudioLanguages
+				audioLanguageCountObservable
+					.Select(count => count == 0)
+					.ToProperty(this, x => x.HasNoAudioLanguages, out this.hasNoAudioLanguages);
+
+				// HasMultipleSubtitleLanguages
+				IObservable<int> subtitleLanguageCountObservable = this.SubtitleLanguages.CountChanged
+					.StartWith(this.SubtitleLanguages.Count);
+				IObservable<bool> hasMultipleSubtitleLanguagesObservable = subtitleLanguageCountObservable
+					.Select(count => count > 1);
+				hasMultipleSubtitleLanguagesObservable.ToProperty(this, x => x.HasMultipleSubtitleLanguages, out this.hasMultipleSubtitleLanguages);
+
+				// SubtitleFirstTrackLabel
+				hasMultipleSubtitleLanguagesObservable
+					.Select(hasMultipleSubtitleLanguages =>
+					{
+						return hasMultipleSubtitleLanguages ? PickerRes.FirstTrackOfEachLanguageRadioButton : PickerRes.FirstTrackRadioButton;
+					})
+					.ToProperty(this, x => x.SubtitleFirstTrackLabel, out this.subtitleFirstTrackLabel);
+
+				// SubtitleAllTracksLabel
+				hasMultipleSubtitleLanguagesObservable
+					.Select(hasMultipleSubtitleLanguages =>
+					{
+						return hasMultipleSubtitleLanguages ? PickerRes.AllTracksForTheseLanguagesRadioButton : PickerRes.AllTracksForThisLanguageRadioButton;
+					})
+					.ToProperty(this, x => x.SubtitleAllTracksLabel, out this.subtitleAllTracksLabel);
+
+				// HasNoSubtitleLanguages
+				subtitleLanguageCountObservable
+					.Select(count => count == 0)
+					.ToProperty(this, x => x.HasNoSubtitleLanguages, out this.hasNoSubtitleLanguages);
+
+				// SubtitleModChoices
+				this.WhenAnyValue(x => x.SubtitleSelectionMode, x => x.HasMultipleSubtitleLanguages, x => x.SubtitleLanguageAll, (selectionMode, hasMultipleLanguages, subtitleLanguageAll) =>
+				{
+					switch (selectionMode)
+					{
+						case SubtitleSelectionMode.Disabled:
+						case SubtitleSelectionMode.None:
+							return SubtitleModifierChoices.None;
+						case SubtitleSelectionMode.First:
+						case SubtitleSelectionMode.ForeignAudioSearch:
+							return SubtitleModifierChoices.Single;
+						case SubtitleSelectionMode.Language:
+							if (hasMultipleLanguages)
+							{
+								return SubtitleModifierChoices.Multiple;
+							}
+
+							return subtitleLanguageAll ? SubtitleModifierChoices.Multiple : SubtitleModifierChoices.Single;
+						case SubtitleSelectionMode.All:
+							return SubtitleModifierChoices.Multiple;
+						default:
+							throw new ArgumentOutOfRangeException(nameof(selectionMode), selectionMode, null);
+					}
+				}).ToProperty(this, x => x.SubtitleModChoices, out this.subtitleModChoices);
+
+				this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsNone, x => x.SelectedPicker.Picker.IsModified, (isNone, isModified) => !isNone && !isModified).ToProperty(this, x => x.DeleteButtonVisible, out this.deleteButtonVisible);
+
+				this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.DisplayName, x => x.SelectedPicker.Picker.IsModified, (displayName, isModified) =>
+				{
+					string windowTitle2 = string.Format(PickerRes.WindowTitle, displayName);
+					if (isModified)
+					{
+						windowTitle2 += " *";
+					}
+
+					return windowTitle2;
+				}).ToProperty(this, x => x.WindowTitle, out this.windowTitle);
+
+				// Whenever the output directory override is disabled, used the config.
+				this.WhenAnyValue(x => x.OutputDirectoryOverrideEnabled).Subscribe(directoryOverrideEnabled =>
+				{
+					if (!directoryOverrideEnabled)
+					{
+						this.OutputDirectoryOverride = Config.AutoNameOutputFolder;
+					}
+					else
 					{
 						this.OutputDirectoryOverride = this.Picker.OutputDirectoryOverride;
 					}
+				});
 
-					if (!this.userModifyingNameFormat)
+				// Whenever the name format override is disabled, used the config.
+				this.WhenAnyValue(x => x.NameFormatOverrideEnabled).Subscribe(nameFormatOverrideEnabled =>
+				{
+					if (!nameFormatOverrideEnabled)
+					{
+						this.NameFormatOverride = AutoNameCustomFormat;
+					}
+					else
 					{
 						this.NameFormatOverride = this.Picker.NameFormatOverride;
 					}
-
-					if (!this.userModifyingEncodingPreset)
-					{
-						this.PopulateEncodingPreset(this.Picker.UseEncodingPreset);
-					}
-
-					this.automaticChange = automaticChangePreviousValue;
 				});
 
-			this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.AudioLanguageCodes).Subscribe(audioLanguageCodes =>
-			{
-				bool automaticChangePreviousValue = this.automaticChange;
-				this.automaticChange = true;
+				// Whenever UseEncodingPreset is false, set the selected VM to null.
+				this.WhenAnyValue(x => x.UseEncodingPreset).Subscribe(useEncodingPreset => { this.PopulateEncodingPreset(useEncodingPreset); });
 
-				using (this.AudioLanguages.SuppressChangeNotifications())
+				// Update the underlying picker when our local properties change.
+				// Don't need to raise another changed event as our local property setter already raises it.
+				this.WhenAnyValue(x => x.OutputDirectoryOverride).Skip(1).Subscribe(directoryOverride =>
 				{
-					this.AudioLanguages.Clear();
-
-					if (audioLanguageCodes == null)
-					{
-						this.AudioLanguages.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode() });
-						return;
-					}
-
-					this.AudioLanguages.AddRange(audioLanguageCodes.Select(l => new LanguageViewModel(this) { Code = l }));
-				}
-
-				this.automaticChange = automaticChangePreviousValue;
-			});
-
-			this.AudioLanguages.ChangeTrackingEnabled = true;
-			this.AudioLanguages.ItemChanged
-				.Subscribe(_ =>
-				{
-					if (!this.automaticChange)
-					{
-						this.HandleAudioLanguageUpdate();
-					}
+					this.userModifyingOutputDirectory = true;
+					this.UpdatePickerProperty(nameof(this.Picker.OutputDirectoryOverride), directoryOverride, raisePropertyChanged: false);
+					this.userModifyingOutputDirectory = false;
 				});
 
-			this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.SubtitleLanguageCodes).Subscribe(subtitleLanguageCodes =>
-			{
-				bool automaticChangePreviousValue = this.automaticChange;
-				this.automaticChange = true;
-
-				using (this.SubtitleLanguages.SuppressChangeNotifications())
+				this.WhenAnyValue(x => x.NameFormatOverride).Skip(1).Subscribe(nameFormatOverride =>
 				{
-					this.SubtitleLanguages.Clear();
-
-					if (subtitleLanguageCodes == null)
-					{
-						this.SubtitleLanguages.Add(new LanguageViewModel(this) { Code = LanguageUtilities.GetDefaultLanguageCode() });
-						return;
-					}
-
-					this.SubtitleLanguages.AddRange(subtitleLanguageCodes.Select(l => new LanguageViewModel(this) { Code = l }));
-				}
-
-				this.automaticChange = automaticChangePreviousValue;
-			});
-
-			this.SubtitleLanguages.ChangeTrackingEnabled = true;
-			this.SubtitleLanguages.ItemChanged
-				.Subscribe(_ =>
-				{
-					if (!this.automaticChange)
-					{
-						this.HandleSubtitleLanguageUpdate();
-					}
+					this.userModifyingNameFormat = true;
+					this.UpdatePickerProperty(nameof(this.Picker.NameFormatOverride), nameFormatOverride, raisePropertyChanged: false);
+					this.userModifyingNameFormat = false;
 				});
 
-			// HasMultipleAudioLanguages
-			IObservable<int> audioLanguageCountObservable = this.AudioLanguages.CountChanged
-				.StartWith(this.AudioLanguages.Count);
-			IObservable<bool> hasMultipleAudioLanguagesObservable = audioLanguageCountObservable
-				.Select(count => count > 1);
-			hasMultipleAudioLanguagesObservable.ToProperty(this, x => x.HasMultipleAudioLanguages, out this.hasMultipleAudioLanguages);
-
-			// AudioFirstTrackLabel
-			hasMultipleAudioLanguagesObservable
-				.Select(hasMultipleAudioLanguages =>
+				this.WhenAnyValue(x => x.SelectedPreset).Subscribe(selectedPreset =>
 				{
-					return hasMultipleAudioLanguages ? PickerRes.FirstTrackOfEachLanguageRadioButton : PickerRes.FirstTrackRadioButton;
-				})
-				.ToProperty(this, x => x.AudioFirstTrackLabel, out this.audioFirstTrackLabel);
+					this.userModifyingEncodingPreset = true;
+					string presetName = selectedPreset == null ? null : selectedPreset.Preset.Name;
+					this.UpdatePickerProperty(nameof(this.Picker.EncodingPreset), presetName, raisePropertyChanged: false);
+					this.userModifyingEncodingPreset = false;
+				});
 
-			// AudioAllTracksLabel
-			hasMultipleAudioLanguagesObservable
-				.Select(hasMultipleAudioLanguages =>
-				{
-					return hasMultipleAudioLanguages ? PickerRes.AllTracksForTheseLanguagesRadioButton : PickerRes.AllTracksForThisLanguageRadioButton;
-				})
-				.ToProperty(this, x => x.AudioAllTracksLabel, out this.audioAllTracksLabel);
+				this.DismissMessage = ReactiveCommand.Create();
+				this.DismissMessage.Subscribe(_ => { this.ShowHelpMessage = false; });
 
-			// HasNoAudioLanguages
-			audioLanguageCountObservable
-				.Select(count => count == 0)
-				.ToProperty(this, x => x.HasNoAudioLanguages, out this.hasNoAudioLanguages);
+				this.Save = ReactiveCommand.Create(this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsNone).Select(isNone => !isNone));
+				this.Save.Subscribe(_ => { this.pickersService.SavePicker(); });
 
-			// HasMultipleSubtitleLanguages
-			IObservable<int> subtitleLanguageCountObservable = this.SubtitleLanguages.CountChanged
-				.StartWith(this.SubtitleLanguages.Count);
-			IObservable<bool> hasMultipleSubtitleLanguagesObservable = subtitleLanguageCountObservable
-				.Select(count => count > 1);
-			hasMultipleSubtitleLanguagesObservable.ToProperty(this, x => x.HasMultipleSubtitleLanguages, out this.hasMultipleSubtitleLanguages);
+				this.SaveAs = ReactiveCommand.Create();
+				this.SaveAs.Subscribe(_ => this.SaveAsImpl());
 
-			// SubtitleFirstTrackLabel
-			hasMultipleSubtitleLanguagesObservable
-				.Select(hasMultipleSubtitleLanguages =>
-				{
-					return hasMultipleSubtitleLanguages ? PickerRes.FirstTrackOfEachLanguageRadioButton : PickerRes.FirstTrackRadioButton;
-				})
-				.ToProperty(this, x => x.SubtitleFirstTrackLabel, out this.subtitleFirstTrackLabel);
+				this.Rename = ReactiveCommand.Create();
+				this.Rename.Subscribe(_ => this.RenameImpl());
 
-			// SubtitleAllTracksLabel
-			hasMultipleSubtitleLanguagesObservable
-				.Select(hasMultipleSubtitleLanguages =>
-				{
-					return hasMultipleSubtitleLanguages ? PickerRes.AllTracksForTheseLanguagesRadioButton : PickerRes.AllTracksForThisLanguageRadioButton;
-				})
-				.ToProperty(this, x => x.SubtitleAllTracksLabel, out this.subtitleAllTracksLabel);
+				this.Delete = ReactiveCommand.Create(this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsModified, x => x.SelectedPicker.Picker.IsNone, (isModified, isNone) => isModified || !isNone));
+				this.Delete.Subscribe(_ => this.DeleteImpl());
 
-			// HasNoSubtitleLanguages
-			subtitleLanguageCountObservable
-				.Select(count => count == 0)
-				.ToProperty(this, x => x.HasNoSubtitleLanguages, out this.hasNoSubtitleLanguages);
+				this.PickOutputDirectory = ReactiveCommand.Create();
+				this.PickOutputDirectory.Subscribe(_ => this.PickOutputDirectoryImpl());
 
-			// SubtitleModChoices
-			this.WhenAnyValue(x => x.SubtitleSelectionMode, x => x.HasMultipleSubtitleLanguages, x => x.SubtitleLanguageAll, (selectionMode, hasMultipleLanguages, subtitleLanguageAll) =>
-			{
-				switch (selectionMode)
-				{
-					case SubtitleSelectionMode.Disabled:
-					case SubtitleSelectionMode.None:
-						return SubtitleModifierChoices.None;
-					case SubtitleSelectionMode.First:
-					case SubtitleSelectionMode.ForeignAudioSearch:
-						return SubtitleModifierChoices.Single;
-					case SubtitleSelectionMode.Language:
-						if (hasMultipleLanguages)
-						{
-							return SubtitleModifierChoices.Multiple;
-						}
+				this.AddAudioLanguage = ReactiveCommand.Create();
+				this.AddAudioLanguage.Subscribe(_ => this.AddAudioLanguageImpl());
 
-						return subtitleLanguageAll ? SubtitleModifierChoices.Multiple : SubtitleModifierChoices.Single;
-					case SubtitleSelectionMode.All:
-						return SubtitleModifierChoices.Multiple;
-					default:
-						throw new ArgumentOutOfRangeException(nameof(selectionMode), selectionMode, null);
-				}
-			}).ToProperty(this, x => x.SubtitleModChoices, out this.subtitleModChoices);
+				this.AddSubtitleLanguage = ReactiveCommand.Create();
+				this.AddSubtitleLanguage.Subscribe(_ => this.AddSubtitleLanguageImpl());
 
-			this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsNone, x => x.SelectedPicker.Picker.IsModified, (isNone, isModified) => !isNone && !isModified).ToProperty(this, x => x.DeleteButtonVisible, out this.deleteButtonVisible);
-
-			this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.DisplayName, x => x.SelectedPicker.Picker.IsModified, (displayName, isModified) =>
-			{
-				string windowTitle2 = string.Format(PickerRes.WindowTitle, displayName);
-				if (isModified)
-				{
-					windowTitle2 += " *";
-				}
-
-				return windowTitle2;
-			}).ToProperty(this, x => x.WindowTitle, out this.windowTitle);
-
-			// Whenever the output directory override is disabled, used the config.
-			this.WhenAnyValue(x => x.OutputDirectoryOverrideEnabled).Subscribe(directoryOverrideEnabled =>
-			{
-				if (!directoryOverrideEnabled)
-				{
-					this.OutputDirectoryOverride = Config.AutoNameOutputFolder;
-				}
-				else
-				{
-					this.OutputDirectoryOverride = this.Picker.OutputDirectoryOverride;
-				}
-			});
-
-			// Whenever the name format override is disabled, used the config.
-			this.WhenAnyValue(x => x.NameFormatOverrideEnabled).Subscribe(nameFormatOverrideEnabled =>
-			{
-				if (!nameFormatOverrideEnabled)
-				{
-					this.NameFormatOverride = AutoNameCustomFormat;
-				}
-				else
-				{
-					this.NameFormatOverride = this.Picker.NameFormatOverride;
-				}
-			});
-
-			// Whenever UseEncodingPreset is false, set the selected VM to null.
-			this.WhenAnyValue(x => x.UseEncodingPreset).Subscribe(useEncodingPreset => { this.PopulateEncodingPreset(useEncodingPreset); });
-
-			// Update the underlying picker when our local properties change.
-			// Don't need to raise another changed event as our local property setter already raises it.
-			this.WhenAnyValue(x => x.OutputDirectoryOverride).Skip(1).Subscribe(directoryOverride =>
-			{
-				this.userModifyingOutputDirectory = true;
-				this.UpdatePickerProperty(nameof(this.Picker.OutputDirectoryOverride), directoryOverride, raisePropertyChanged: false);
-				this.userModifyingOutputDirectory = false;
-			});
-
-			this.WhenAnyValue(x => x.NameFormatOverride).Skip(1).Subscribe(nameFormatOverride =>
-			{
-				this.userModifyingNameFormat = true;
-				this.UpdatePickerProperty(nameof(this.Picker.NameFormatOverride), nameFormatOverride, raisePropertyChanged: false);
-				this.userModifyingNameFormat = false;
-			});
-
-			this.WhenAnyValue(x => x.SelectedPreset).Subscribe(selectedPreset =>
-			{
-				this.userModifyingEncodingPreset = true;
-				string presetName = selectedPreset == null ? null : selectedPreset.Preset.Name;
-				this.UpdatePickerProperty(nameof(this.Picker.EncodingPreset), presetName, raisePropertyChanged: false);
-				this.userModifyingEncodingPreset = false;
-			});
-
-			this.DismissMessage = ReactiveCommand.Create();
-			this.DismissMessage.Subscribe(_ => { this.ShowHelpMessage = false; });
-
-			this.Save = ReactiveCommand.Create(this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsNone).Select(isNone => !isNone));
-			this.Save.Subscribe(_ => { this.pickersService.SavePicker(); });
-
-			this.SaveAs = ReactiveCommand.Create();
-			this.SaveAs.Subscribe(_ => this.SaveAsImpl());
-
-			this.Rename = ReactiveCommand.Create();
-			this.Rename.Subscribe(_ => this.RenameImpl());
-
-			this.Delete = ReactiveCommand.Create(this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsModified, x => x.SelectedPicker.Picker.IsNone, (isModified, isNone) => isModified || !isNone));
-			this.Delete.Subscribe(_ => this.DeleteImpl());
-
-			this.PickOutputDirectory = ReactiveCommand.Create();
-			this.PickOutputDirectory.Subscribe(_ => this.PickOutputDirectoryImpl());
-
-			this.AddAudioLanguage = ReactiveCommand.Create();
-			this.AddAudioLanguage.Subscribe(_ => this.AddAudioLanguageImpl());
-
-			this.AddSubtitleLanguage = ReactiveCommand.Create();
-			this.AddSubtitleLanguage.Subscribe(_ => this.AddSubtitleLanguageImpl());
-
-			this.PickPostEncodeExecutable = ReactiveCommand.Create();
-			this.PickPostEncodeExecutable.Subscribe(_ => this.PickPostEncodeExecutableImpl());
-
-			this.automaticChange = false;
+				this.PickPostEncodeExecutable = ReactiveCommand.Create();
+				this.PickPostEncodeExecutable.Subscribe(_ => this.PickPostEncodeExecutableImpl());
+			}
 		}
 
 		private void PopulateEncodingPreset(bool useEncodingPreset)
@@ -818,7 +811,7 @@ namespace VidCoder.ViewModel
 				throw new ArgumentException("UpdatePickerProperty called on " + propertyName + " without registering.");
 			}
 
-			if (!this.automaticChange)
+			if (!this.autoChangeTracker.OperationInProgress)
 			{
 				bool createPicker = this.Picker.IsNone;
 				if (createPicker)
@@ -846,16 +839,17 @@ namespace VidCoder.ViewModel
 				this.RaisePropertyChanged(propertyName);
 			}
 
-			if (!this.automaticChange)
+			if (!this.autoChangeTracker.OperationInProgress)
 			{
 				// If we have an action registered to update dependent properties, do it
 				Action action = this.pickerProperties[propertyName];
 				if (action != null)
 				{
-					// Protect against update loops with a flag
-					this.automaticChange = true;
-					action();
-					this.automaticChange = false;
+					// Protect against update loops
+					using (this.autoChangeTracker.TrackAutoChange())
+					{
+						action();
+					}
 				}
 
 				this.pickersService.SavePickersToStorage();

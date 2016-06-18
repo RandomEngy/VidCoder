@@ -616,9 +616,11 @@
     <Compile Include="Model\VideoSourceMetadata.cs" />
     <Compile Include="Model\Players\VlcPlayer.cs" />
     <Compile Include="Model\WhenFileExists.cs" />
+    <Compile Include="Services\AutoChangeTracker.cs" />
     <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="Services\EncodeProxy\LocalEncodeProxy.cs" />
     <Compile Include="Services\OutputSizeService.cs" />
+    <Compile Include="Services\PendingAutoChange.cs" />
     <Compile Include="Services\PreviewUpdateService.cs" />
     <Compile Include="Services\StatusService.cs" />
     <Compile Include="Services\Windows\IClosableWindow.cs" />
