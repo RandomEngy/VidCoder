@@ -101,20 +101,20 @@ namespace VidCoderWorker
 					try
 					{
 						SourceTitle encodeTitle = this.instance.Titles.TitleList.FirstOrDefault(title => title.Index == job.Title);
-						JsonEncodeObject encodeObject = JsonEncodeFactory.CreateJsonObject(
-							job,
-							encodeTitle,
-							defaultChapterNameFormat,
-							dxvaDecoding,
-							previewNumber,
-							previewSeconds,
-							previewCount,
-							new WorkerLogger(this.callback));
-
-						this.callback.OnVidCoderMessageLogged("Encode JSON:" + Environment.NewLine + JsonConvert.SerializeObject(encodeObject, Formatting.Indented));
-
 						if (encodeTitle != null)
 						{
+							JsonEncodeObject encodeObject = JsonEncodeFactory.CreateJsonObject(
+								job,
+								encodeTitle,
+								defaultChapterNameFormat,
+								dxvaDecoding,
+								previewNumber,
+								previewSeconds,
+								previewCount,
+								new WorkerLogger(this.callback));
+
+							this.callback.OnVidCoderMessageLogged("Encode JSON:" + Environment.NewLine + JsonConvert.SerializeObject(encodeObject, Formatting.Indented));
+
 							lock (this.encodeLock)
 							{
 								this.instance.StartEncode(encodeObject);
@@ -124,7 +124,7 @@ namespace VidCoderWorker
 						}
 						else
 						{
-							this.callback.OnEncodeComplete(true);
+							this.callback.OnEncodeComplete(error: true);
 							this.CleanUpAndSignalCompletion();
 						}
 					}

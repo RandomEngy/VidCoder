@@ -47,8 +47,23 @@ namespace VidCoderCommon.Model
 			int previewCount = 0,
 			ILogger logger = null)
 		{
+			if (job == null)
+			{
+				throw new ArgumentNullException(nameof(job));
+			}
+
+			if (title == null)
+			{
+				throw new ArgumentNullException(nameof(title));
+			}
+
 			Geometry anamorphicSize = GetAnamorphicSize(job.EncodingProfile, title);
 			VCProfile profile = job.EncodingProfile;
+
+			if (profile == null)
+			{
+				throw new ArgumentException("job must have enoding profile.", nameof(job));
+			}
 
 			JsonEncodeObject encode = new JsonEncodeObject
 			{
@@ -952,6 +967,16 @@ namespace VidCoderCommon.Model
 
 		public static Geometry GetAnamorphicSize(VCProfile profile, SourceTitle title)
 		{
+			if (profile == null)
+			{
+				throw new ArgumentNullException(nameof(profile));
+			}
+
+			if (title == null)
+			{
+				throw new ArgumentNullException(nameof(title));
+			}
+
 			int modulus;
 			if (profile.Anamorphic == VCAnamorphic.Loose || profile.Anamorphic == VCAnamorphic.Custom)
 			{
