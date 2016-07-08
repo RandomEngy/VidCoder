@@ -252,6 +252,7 @@ namespace VidCoder.ViewModel
 				{
 					this.userModifyingOutputDirectory = true;
 					this.UpdatePickerProperty(nameof(this.Picker.OutputDirectoryOverride), directoryOverride, raisePropertyChanged: false);
+					this.outputPathService.GenerateOutputFileName();
 					this.userModifyingOutputDirectory = false;
 				});
 
@@ -259,6 +260,7 @@ namespace VidCoder.ViewModel
 				{
 					this.userModifyingNameFormat = true;
 					this.UpdatePickerProperty(nameof(this.Picker.NameFormatOverride), nameFormatOverride, raisePropertyChanged: false);
+					this.outputPathService.GenerateOutputFileName();
 					this.userModifyingNameFormat = false;
 				});
 
