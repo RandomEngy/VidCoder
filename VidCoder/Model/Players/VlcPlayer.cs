@@ -13,12 +13,9 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				if (RegKey == null)
-				{
-					return null;
-				}
+				var regKey = RegKey;
 
-				return RegKey.GetValue(string.Empty) as string;
+				return regKey?.GetValue(string.Empty) as string;
 			}
 		}
 
@@ -67,8 +64,19 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				return Registry.LocalMachine.OpenSubKey(Utilities.Wow64RegistryKey + @"\VideoLAN\VLC");
+				RegistryKey key = RegKey64;
+
+				if (key != null)
+				{
+					return key;
+				}
+
+				return RegKey32;
 			}
 		}
+
+		private static RegistryKey RegKey32 => Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\VideoLAN\VLC");
+
+		private static RegistryKey RegKey64 => Registry.LocalMachine.OpenSubKey(@"SOFTWARE\VideoLAN\VLC");
 	}
 }
