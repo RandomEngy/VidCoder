@@ -16,12 +16,8 @@ namespace VidCoder.Model
 		{
 			get
 			{
-				if (RegKey == null)
-				{
-					return null;
-				}
-
-				return RegKey.GetValue("ExePath") as string;
+				RegistryKey key = NewRegKey ?? OldRegKey;
+				return key?.GetValue("ExePath") as string;
 			}
 		}
 
@@ -38,28 +34,12 @@ namespace VidCoder.Model
 			process.Start();
 		}
 
-		public override string Id
-		{
-			get
-			{
-				return "mpchc";
-			}
-		}
+		public override string Id => "mpchc";
 
-		public override string Display
-		{
-			get
-			{
-				return "MPC-HC";
-			}
-		}
+		public override string Display => "MPC-HC";
 
-		private static RegistryKey RegKey
-		{
-			get
-			{
-				return Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Gabest\Media Player Classic");
-			}
-		}
+		private static RegistryKey OldRegKey => Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Gabest\Media Player Classic");
+
+		private static RegistryKey NewRegKey => Registry.CurrentUser.OpenSubKey(@"SOFTWARE\MPC-HC\MPC-HC");
 	}
 }

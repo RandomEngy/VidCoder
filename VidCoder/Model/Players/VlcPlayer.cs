@@ -44,34 +44,16 @@ namespace VidCoder.Model
 			process.Start();
 		}
 
-		public override string Id
-		{
-			get
-			{
-				return "vlc";
-			}
-		}
+		public override string Id => "vlc";
 
-		public override string Display
-		{
-			get
-			{
-				return "VLC";
-			}
-		}
+		public override string Display => "VLC";
 
 		private static RegistryKey RegKey
 		{
 			get
 			{
 				RegistryKey key = RegKey64;
-
-				if (key != null)
-				{
-					return key;
-				}
-
-				return RegKey32;
+				return key ?? RegKey32;
 			}
 		}
 
