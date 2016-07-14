@@ -638,4 +638,11 @@
     <value>You have a backed up version {0} file. Would you like to use it?</value>
     <comment>{0} is the version of the database file you have a backup for.</comment>
   </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Error playing video.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>Custom video player could not be found at {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
 </root>

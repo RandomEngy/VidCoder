@@ -297,6 +297,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom video player could not be found at {0}..
+        /// </summary>
+        public static string CustomVideoPlayerError {
+            get {
+                return ResourceManager.GetString("CustomVideoPlayerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete {0} source file(s)/folder(s)?.
         /// </summary>
         public static string DeleteSourceFilesConfirmationMessage {
@@ -1575,6 +1584,15 @@ namespace VidCoder.Resources {
         public static string VideoLabel {
             get {
                 return ResourceManager.GetString("VideoLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error playing video..
+        /// </summary>
+        public static string VideoPlayError {
+            get {
+                return ResourceManager.GetString("VideoPlayError", resourceCulture);
             }
         }
         

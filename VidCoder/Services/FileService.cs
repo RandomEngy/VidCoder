@@ -178,7 +178,21 @@ namespace VidCoder.Services
 		{
 			if (Config.UseCustomVideoPlayer && !string.IsNullOrWhiteSpace(Config.CustomVideoPlayer))
 			{
-				Process.Start(Config.CustomVideoPlayer, "\"" + fileName + "\"");
+				if (File.Exists(Config.CustomVideoPlayer))
+				{
+					try
+					{
+						Process.Start(Config.CustomVideoPlayer, "\"" + fileName + "\"");
+					}
+					catch (Win32Exception)
+					{
+						MessageBox.Show(MainRes.VideoPlayError);
+					}
+				}
+				else
+				{
+					MessageBox.Show(string.Format(MainRes.CustomVideoPlayerError, Config.CustomVideoPlayer));
+				}
 			}
 			else
 			{
