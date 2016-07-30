@@ -113,7 +113,7 @@ namespace VidCoderWorker
 								previewCount,
 								new WorkerLogger(this.callback));
 
-							this.callback.OnVidCoderMessageLogged("Encode JSON:" + Environment.NewLine + JsonConvert.SerializeObject(encodeObject, Formatting.Indented));
+							////this.callback.OnVidCoderMessageLogged("Encode JSON:" + Environment.NewLine + JsonConvert.SerializeObject(encodeObject, Formatting.Indented));
 
 							lock (this.encodeLock)
 							{

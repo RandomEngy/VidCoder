@@ -73,7 +73,7 @@ namespace VidCoder
 								Config.PreviewCount,
 								this.logger);
 
-							this.logger.Log("Encode JSON:" + Environment.NewLine + JsonConvert.SerializeObject(jsonEncodeObject, Formatting.Indented));
+							////this.logger.Log("Encode JSON:" + Environment.NewLine + JsonConvert.SerializeObject(jsonEncodeObject, Formatting.Indented));
 
 							this.instance.StartEncode(jsonEncodeObject);
 							this.IsEncodeStarted = true;
