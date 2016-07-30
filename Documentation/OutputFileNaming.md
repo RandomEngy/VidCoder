@@ -30,8 +30,8 @@ For example, a format of
 could result in a file:
 MySource - Title 04 - CRF 20 (2011-01-15 16.27.12).mkv
 
-You can include "\" in the format string to create subdirectories. For example:
-{parent}\{source}-{title}
+You can include "\\" in the format string to create subdirectories. For example:
+{parent}\\{source}-{title}
 
 ## Manually name
 You can click on the output path on the main form and edit the name. In this case the auto-naming will be overridden.
