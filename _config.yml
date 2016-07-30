@@ -19,7 +19,9 @@ header: yes
 header_xl: images/BannerLarge.png
 
 # Build settings
-markdown: redcarpet
+markdown: kramdown
+kramdown:
+  input: GFM
 
 destination: _site
 
