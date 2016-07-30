@@ -30,7 +30,7 @@ Those are very good as they tell me exactly what's wrong and when they're report
 There's another type of crash that doesn't give those nice details, and that usually means it crashed down somewhere in the unmanaged HandBrake core. For these, a good thing to find out would be: Does it also crash in the [lastest nighly of the official HandBrake GUI](https://handbrake.fr/nightly.php)? If it does you can report the problem to them for them to fix. If it doesn't, then there might be something wrong on my end. In that case since I don't have any information about why the crash happened, I'll need more information.
 
 ## Helpful information
-1. The file you're trying to encode (or part of the file). [µTorrent](http://www.utorrent.com/) is a good option for sending large files.
+1. The file you're trying to encode (or part of the file). You can use [pCloud Transfer](https://transfer.pcloud.com/) and send to david.rickard@gmail.com
 2. The exported preset that you're using (Tools -> Export Preset)
 3. An encode log (Windows -> Log -> Copy, then post to [Pastebin](http://pastebin.com/))
 
