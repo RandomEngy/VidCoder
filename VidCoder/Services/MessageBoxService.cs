@@ -20,7 +20,15 @@ namespace VidCoder.Services
 		public MessageBoxResult Show(object ownerViewModel, string messageBoxText)
 		{
 			Window ownerWindow = this.windowManager.GetView(ownerViewModel);
-			return MessageBox.Show(ownerWindow, messageBoxText);
+
+			if (ownerWindow == null)
+			{
+				return MessageBox.Show(messageBoxText);
+			}
+			else
+			{
+				return MessageBox.Show(ownerWindow, messageBoxText);
+			}
 		}
 
 		public MessageBoxResult Show(string messageBoxText, string caption)
@@ -31,7 +39,15 @@ namespace VidCoder.Services
 		public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption)
 		{
 			Window ownerWindow = this.windowManager.GetView(ownerViewModel);
-			return MessageBox.Show(ownerWindow, messageBoxText, caption);
+
+			if (ownerWindow == null)
+			{
+				return MessageBox.Show(messageBoxText, caption);
+			}
+			else
+			{
+				return MessageBox.Show(ownerWindow, messageBoxText, caption);
+			}
 		}
 
 		public MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button)
@@ -42,7 +58,15 @@ namespace VidCoder.Services
 		public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption, MessageBoxButton button)
 		{
 			Window ownerWindow = this.windowManager.GetView(ownerViewModel);
-			return MessageBox.Show(ownerWindow, messageBoxText, caption, button);
+
+			if (ownerWindow == null)
+			{
+				return MessageBox.Show(messageBoxText, caption, button);
+			}
+			else
+			{
+				return MessageBox.Show(ownerWindow, messageBoxText, caption, button);
+			}
 		}
 
 		public MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
@@ -53,7 +77,15 @@ namespace VidCoder.Services
 		public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
 		{
 			Window ownerWindow = this.windowManager.GetView(ownerViewModel);
-			return MessageBox.Show(ownerWindow, messageBoxText, caption, button, icon);
+
+			if (ownerWindow == null)
+			{
+				return MessageBox.Show(messageBoxText, caption, button, icon);
+			}
+			else
+			{
+				return MessageBox.Show(ownerWindow, messageBoxText, caption, button, icon);
+			}
 		}
 	}
 }

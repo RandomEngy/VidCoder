@@ -274,10 +274,16 @@ namespace VidCoder.Services.Windows
 		/// Gets the view for the given viewmodel.
 		/// </summary>
 		/// <param name="viewModel">The viewmodel.</param>
-		/// <returns>The view for the given viewmodel.</returns>
+		/// <returns>The view for the given viewmodel, or null if the window could not be found.</returns>
 		public Window GetView(object viewModel)
 		{
-			return this.openWindows[viewModel];
+			Window window;
+			if (this.openWindows.TryGetValue(viewModel, out window))
+			{
+				return window;
+			}
+
+			return null;
 		}
 
 		/// <summary>
