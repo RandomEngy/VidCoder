@@ -183,10 +183,23 @@
 	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
     <value>Не удалось найти исходный файл.</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="CloseVideoButton" xml:space="preserve">
+    <value>Закрыть видео</value>
+    <comment>Button to close the preview video clip.</comment>
+  </data>
+  <data name="OpenInSystemPlayerButton" xml:space="preserve">
+    <value>Открыть в проигрывателе системы</value>
+  </data>
+  <data name="VolumeSliderLabel" xml:space="preserve">
+    <value>Громкость</value>
+  </data>
+  <data name="ReplayPreviewButton" xml:space="preserve">
+    <value>Предварительный просмотр шаблона</value>
+  </data>
+  <data name="VideoErrorMessage" xml:space="preserve">
+    <value>Не может играть видео с встроенным плеером. Вы хотели бы открыть с системном плеере?</value>
+  </data>
+  <data name="VideoErrorTitle" xml:space="preserve">
+    <value>Ошибка Видео</value>
+  </data>
 </root>

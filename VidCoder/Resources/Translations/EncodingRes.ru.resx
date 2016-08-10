@@ -729,7 +729,9 @@
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (По умолчанию)</value>
   </data>
-  
+  <data name="EncodingWindowTitle" xml:space="preserve">
+    <value>Предустановка кодирования: {0}</value>
+  </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>Дополнительные расширенные опции x 264:</value>
   </data>
@@ -860,7 +862,9 @@
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Зацикливание</value>
   </data>
-  
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>Автонастройка</value>
+  </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>Определяет, какими ввода кодеки, проходящее будет применяться к.</value>
   </data>
@@ -900,11 +904,22 @@
   <data name="RotationLabel" xml:space="preserve">
     <value>Поворот экрана:</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>Закройте список пресетов</value>
+  </data>
+  <data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>Откройте список пресетов</value>
+  </data>
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>Глава {0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>Passthrough параметры</value>
+  </data>
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>Разрешить передачу для:</value>
+  </data>
   <data name="Passthrough_aac" xml:space="preserve">
     <value>AAC</value>
   </data>
@@ -917,10 +932,16 @@
   <data name="Passthrough_dtshd" xml:space="preserve">
     <value>DTS-HD</value>
   </data>
-  
-  
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
   <data name="Passthrough_mp3" xml:space="preserve">
     <value>MP3</value>
   </data>
-  
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
+  </data>
 </root>

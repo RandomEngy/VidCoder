@@ -174,5 +174,7 @@
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
     <value>Дублируйте этот трек</value>
   </data>
-  
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>Не удалось обнаружить кодировку файла субтитров. Чтобы убедиться, что субтитры отображаются корректно, повторно сохранить файл как UTF-8.</value>
+  </data>
 </root>

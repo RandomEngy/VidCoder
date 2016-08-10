@@ -99,25 +99,25 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
   <data name="ChapterMarkersDialogTitle">
-    <value xml:space="preserve">Indicadores de capitulo</value>
+    <value xml:space="preserve">Marcadores de capítulo</value>
   </data>
   <data name="DefaultChapterNamesRadioButton">
-    <value xml:space="preserve">Usar nombres de capitulo predeterminados</value>
+    <value xml:space="preserve">Utilizar nombres de capítulo predeterminados</value>
   </data>
   <data name="CustomChapterNamesRadioButton">
-    <value xml:space="preserve">Utilice nombres de capitulo personalizado:</value>
+    <value xml:space="preserve">Utilizar nombres de capítulo personalizados:</value>
   </data>
   <data name="ImportFromCsvButton">
-    <value xml:space="preserve">Importar de archivo CSV...</value>
+    <value xml:space="preserve">Importar de archivo .csv...</value>
   </data>
   <data name="NumberColumn">
-    <value xml:space="preserve">Numero</value>
+    <value xml:space="preserve">Número</value>
   </data>
   <data name="StartTimeColumn">
-    <value xml:space="preserve">Hora de inicio</value>
+    <value xml:space="preserve">Tiempo de Inicio</value>
   </data>
   <data name="TitleColumn">
-    <value xml:space="preserve">Titulo</value>
+    <value xml:space="preserve">Título</value>
   </data>
   <data name="CouldNotReadFileMessage">
     <value xml:space="preserve">No se pudo leer el archivo.</value>

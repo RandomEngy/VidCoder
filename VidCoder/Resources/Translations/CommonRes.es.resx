@@ -125,13 +125,13 @@ Este programa se distribuye con la esperanza de que sea util, pero SIN GARANTIA 
 Una copia completa de la Licencia Publica General de GNU se ha incluido junto con este programa.</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>"Pega" los subtitulos en la imagen. Los subtitulos pegados no pueden ser deshabilidatos durante la reproduccion del video.</value>
+    <value>Pega los subtítulos en la imagen. Los subtítulos pegados no pueden ser deshabilitados durante la reproducción del video.</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>Define este subtitulo como predeterminado. Se mostrara durante la reproduccion hasta que otra pista sea elegida.</value>
+    <value>Define este subtítulo como predeterminado. Se mostrará durante la reproducción hasta que otra pista sea elegida.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Muestra solamente los subtitulos forzados en la pista data. Normalmente significa pequeños fragmentos de dialogo extranjero.</value>
+    <value>Muestra solamente los subtítulos forzados de la pista dada. Éstos suelen ser pequeños fragmentos de diálogo en idiomas extranjeros.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>La cantidad de tiempo a adelantar o atrasar la aparicion de los subtitulos.</value>
@@ -147,7 +147,7 @@ Una copia completa de la Licencia Publica General de GNU se ha incluido junto co
     <value>Fuente</value>
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
-    <value>Titulo</value>
+    <value>Título</value>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
     <value>Calidad de audio</value>
@@ -156,42 +156,42 @@ Una copia completa de la Licencia Publica General de GNU se ha incluido junto co
     <value>Codificador de audio</value>
   </data>
   <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>Codificador de video</value>
+    <value>Codificador de vídeo</value>
   </data>
   <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>Calidad de video</value>
+    <value>Calidad de vídeo</value>
   </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>Tiempo estimado restante de todos los trabajos en cola para completar.</value>
+    <value>Estimación del tiempo restante para que finalicen todos los trabajos en cola.</value>
   </data>
   <data name="QueueColumnNameDuration" xml:space="preserve">
-    <value>Duracion</value>
+    <value>Duración</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Busca pista de subtitulos que es probable contenga fragmentos de dialogo extranjero. Bueno para las peliculas que se encuentran principalmente en su lengua materna.</value>
+    <value>Busca la pista de subtitulo que contenga fragmentos de dialogo extranjero. Se recomienda para peliculas que se encuentran principalmente en su idioma original.</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Predeterminado</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="Custom" xml:space="preserve">
-    <value>Personalizar</value>
+    <value>Personalizado</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="Browse" xml:space="preserve">
-    <value>Explorar...</value>
+    <value>Examinar...</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Borrar</value>
+    <value>Eliminar</value>
   </data>
   <data name="PreviewLabel" xml:space="preserve">
-    <value>Preview</value>
+    <value>Vista previa</value>
   </data>
   <data name="Automatic" xml:space="preserve">
-    <value>Automatico</value>
+    <value>Automático</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>Apagado</value>
+    <value>Desactivado</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="All" xml:space="preserve">
@@ -202,7 +202,7 @@ Una copia completa de la Licencia Publica General de GNU se ha incluido junto co
     <comment>Used in the encoding settings dialog to mark which audio stream an audio encoding is targeting. By default the encoding works on all streams but you can target it to affect only the first stream, in which case it would label it "Stream 1"</comment>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>OK</value>
+    <value>Aceptar</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
@@ -217,7 +217,7 @@ Una copia completa de la Licencia Publica General de GNU se ha incluido junto co
     <value>Copiar</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Si</value>
+    <value>Sí</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
@@ -229,7 +229,7 @@ Una copia completa de la Licencia Publica General de GNU se ha incluido junto co
     <value>Ninguno</value>
   </data>
   <data name="Succeeded" xml:space="preserve">
-    <value>Exitoso</value>
+    <value>Completado</value>
   </data>
   <data name="Failed" xml:space="preserve">
     <value>Fallido</value>
@@ -241,7 +241,7 @@ Una copia completa de la Licencia Publica General de GNU se ha incluido junto co
     <value>Preset</value>
   </data>
   <data name="Success" xml:space="preserve">
-    <value>Correcto</value>
+    <value>Completado</value>
   </data>
   <data name="ConfirmDialogTitle" xml:space="preserve">
     <value>Confirmar</value>
@@ -250,14 +250,34 @@ Una copia completa de la Licencia Publica General de GNU se ha incluido junto co
     <value>No se pudo completar la operación del archivo.</value>
   </data>
   <data name="FileFailureErrorTitle" xml:space="preserve">
-    <value>Error en el funcionamiento del archivo</value>
+    <value>Error en la operación con el archivo</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="OverrideNameFormatCheckBox" xml:space="preserve">
+    <value>Reemplazar el formato de nomenclatura:</value>
+  </data>
+  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
+    <value>Guardar en el directorio de origen si es posible</value>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Conservar el árbol de carpetas durante la codificación en lote</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Si codifica una carpeta repleta de archivos, la version resultante sera guardada en sub carpetas conservando la estructura del directorio origen.</value>
+  </data>
+  <data name="DismissMessage" xml:space="preserve">
+    <value>Descartar mensaje</value>
+    <comment>Appears as a tooltip on inline, dismissable messages</comment>
+  </data>
+  <data name="PresetFileFilter" xml:space="preserve">
+    <value>Archivo Preset de VidCoder</value>
+    <comment>File dialog description of a .vjpreset file: JSON file that stores an exported preset.</comment>
+  </data>
+  <data name="QueueFileFilter" xml:space="preserve">
+    <value>Cola de trabajo de VidCoder</value>
+    <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>Primero</value>
+    <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
 </root>

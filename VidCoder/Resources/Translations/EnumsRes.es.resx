@@ -121,13 +121,13 @@
     <value>Personalizar</value>
   </data>
   <data name="Anamorphic_Loose" xml:space="preserve">
-    <value>Loose</value>
+    <value>Flexible</value>
   </data>
   <data name="Anamorphic_None" xml:space="preserve">
     <value>Ninguno</value>
   </data>
   <data name="Anamorphic_Strict" xml:space="preserve">
-    <value>Strict</value>
+    <value>Estricto</value>
   </data>
   <data name="Custom" xml:space="preserve">
     <value>Personalizar</value>
@@ -136,7 +136,7 @@
     <value>Bob</value>
   </data>
   <data name="Decomb_Fast" xml:space="preserve">
-    <value>Fast</value>
+    <value>Rápido</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Predeterminado</value>
@@ -146,16 +146,16 @@
     <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
   </data>
   <data name="Deinterlace_Fast" xml:space="preserve">
-    <value>Fast</value>
+    <value>Rápido</value>
   </data>
   <data name="Deinterlace_Slow" xml:space="preserve">
-    <value>Slow</value>
+    <value>Lento</value>
   </data>
   <data name="Deinterlace_Slower" xml:space="preserve">
-    <value>Slower</value>
+    <value>Más lento</value>
   </data>
   <data name="DenoisePreset_Light" xml:space="preserve">
-    <value>Ligero</value>
+    <value>Suave</value>
   </data>
   <data name="DenoisePreset_Medium" xml:space="preserve">
     <value>Medio</value>
@@ -164,7 +164,7 @@
     <value>Intenso</value>
   </data>
   <data name="DenoisePreset_Ultralight" xml:space="preserve">
-    <value>Ultraligero</value>
+    <value>Ultrasuave</value>
   </data>
   <data name="DenoiseTune_Animation" xml:space="preserve">
     <value>Animación</value>
@@ -184,16 +184,20 @@
   <data name="Denoise_NLMeans" xml:space="preserve">
     <value>Promedio no local (NL-Means)</value>
   </data>
-  
+  <data name="EncodeCompleteActionType_CloseProgram" xml:space="preserve">
+    <value>Cerrar Vidcoder</value>
+  </data>
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
     <value>No hacer nada</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
     <value>Expulsar {0}:</value>
   </data>
-  
+  <data name="EncodeCompleteActionType_Hibernate" xml:space="preserve">
+    <value>Hibernar</value>
+  </data>
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
-    <value>Log off</value>
+    <value>Cerrar sesión</value>
   </data>
   <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
     <value>Apagar</value>
@@ -204,11 +208,20 @@
   <data name="Off" xml:space="preserve">
     <value>Desactivado</value>
   </data>
-  
-  
-  
+  <data name="TitleType_Bluray" xml:space="preserve">
+    <value>Blu-ray</value>
+    <comment>What to display when the source is a Blu-ray</comment>
+  </data>
+  <data name="TitleType_Dvd" xml:space="preserve">
+    <value>DVD</value>
+    <comment>What to display when the source is a DVD</comment>
+  </data>
+  <data name="TitleType_Stream" xml:space="preserve">
+    <value>Archivo</value>
+    <comment>What to display when the source is a file</comment>
+  </data>
   <data name="VideoRangeType_Chapters" xml:space="preserve">
-    <value>Capitulos</value>
+    <value>Capítulos</value>
   </data>
   <data name="VideoRangeType_Frames" xml:space="preserve">
     <value>Fotogramas</value>

@@ -118,23 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="OverrideTitleNumberToolTip" xml:space="preserve">
-    <value>Cuando Eliges, Esto anulará el título normal para los fines de crear el nombre del archivo de salida. Por ejemplo con títulos de 2, 3 y 4 y un reemplazo de 7, serán marcados como 7, 8 y 9. Puede ser útil para ripear un disco de una serie de televisión.</value>
+    <value>Al estar activado, se anulará el título normal para crear el nombre del archivo de salida. Por ejemplo, si están los títulos 2, 3, 4 y una anulación de 7, serán nombrados como 7, 8 y 9. Puede ser útil para extraer un disco de una serie de televisión.</value>
   </data>
   <data name="QueueTitlesWindowHeader" xml:space="preserve">
-    <value>Recoger múltiples títulos para agregar a la cola.</value>
+    <value>Seleccionar múltiples títulos para agregar a la cola.</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
-    <value>Si hay un reproductor instalado soportado (VLC o Media Player Classic Home Cinema), puedes escuchar los títulos individuales de DVDs</value>
+    <value>Si está instalado un reproductor compatible (VLC o Media Player Classic Home Cinema), pueden previsualizarse títulos individuales de los DVD</value>
   </data>
   <data name="PlaySourceButton" xml:space="preserve">
-    <value>Reproducir origen</value>
+    <value>Reproducir fuente</value>
   </data>
   <data name="LengthRangePre" xml:space="preserve">
     <value>Todos los títulos de</value>
     <comment>Goes before the first number box in the length range specification.</comment>
   </data>
   <data name="LengthRangeMid" xml:space="preserve">
-    <value>Para</value>
+    <value>hasta</value>
     <comment>Goes in between the two number boxes in the length range specification.</comment>
   </data>
   <data name="LengthRangePost" xml:space="preserve">
@@ -145,7 +145,7 @@
     <value>Desautorizar el título #: desde</value>
   </data>
   <data name="QueueTitlesDialogTitle" xml:space="preserve">
-    <value>Cola múltiples títulos</value>
+    <value>Poner en cola múltiples títulos</value>
   </data>
   <data name="TitleFormat" xml:space="preserve">
     <value>Título {0}</value>

@@ -248,12 +248,32 @@
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Ошибка файловой операции</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="OverrideNameFormatCheckBox" xml:space="preserve">
+    <value>Переопределить формат имен:</value>
+  </data>
+  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
+    <value>Вывод в исходный каталог, если это возможно</value>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Сохранить структуру папок в кодируемом пакете</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Если вы кодируете папку с файлами закодированной версии поместит в подпапки в соответствии со структурой исходного каталога.</value>
+  </data>
+  <data name="DismissMessage" xml:space="preserve">
+    <value>Отклонить сообщение</value>
+    <comment>Appears as a tooltip on inline, dismissable messages</comment>
+  </data>
+  <data name="PresetFileFilter" xml:space="preserve">
+    <value>VidCoder заданный файл</value>
+    <comment>File dialog description of a .vjpreset file: JSON file that stores an exported preset.</comment>
+  </data>
+  <data name="QueueFileFilter" xml:space="preserve">
+    <value>VidCoder заданный файл</value>
+    <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>В начало</value>
+    <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
 </root>

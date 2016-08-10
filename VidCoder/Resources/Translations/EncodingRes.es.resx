@@ -124,72 +124,72 @@
     <value>Guardar como...</value>
   </data>
   <data name="Revert" xml:space="preserve">
-    <value>Revertir</value>
+    <value>Deshacer</value>
   </data>
   <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x 264 tiene una variedad de algoritmos para decidir cuando utilizar B-frames y cuántos a utilizar.
+    <value>x264 tiene una variedad de algoritmos para decidir cuándo y cuántos B-frames utilizar.
 
-El modo FAST toma aproximadamente la misma cantidad de tiempo sin importar cuantos B-Frames se especifiquen. Sin embargo, al mismo tiempo rápido, sus decisiones a menudo son suboptimas.
+El modo FAST toma aproximadamente la misma cantidad de tiempo sin importar cuántos B-Frames se especifiquen. Sin embargo, aunque es rápido, sus decisiones tienden a ser poco óptimas.
 
-El modo OPTIMAL se pone mas lento mientras mas B-Frames se especifiquen, pero toma decisiones mucho mas precisas, especialmente cuando se utiliza con B-pyramid.</value>
+El modo OPTIMAL se pone mas lento mientras más B-Frames se especifiquen, pero toma decisiones mucho más precisas, especialmente cuando se utiliza con B-pyramid.</value>
   </data>
   <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264 permite dos modos de predicción diferentes, SPATIAL y TEMPORAL, en B-frames.
+    <value>H.264 permite dos modos de predicción diferentes: SPATIAL y TEMPORAL, en B-frames.
 
-El modo SPATIAL, es el predeterminado y casi siempre es mejor, pero temporal es a veces util también.
+El modo SPATIAL es el predeterminado y casi siempre es el mejor, pero TEMPORAL también puede ser útil de vez en cuando.
 
-El modo AUTOMATIC puede, a costa de una pequeña cantidad de velocidad (y por consiguiente una pequeña ganancia de compresion), seleccionar de manera adaptativa cual es mejor para fotograma en particular.</value>
+El modo AUTOMATIC puede, a costa de una pequeña cantidad de velocidad (y por consiguiente una pequeña ganancia de compresión), seleccionar de manera adaptativa cuál es mejor para cada fotograma en particular.</value>
   </data>
   <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>ADAPTIVE QUANTIZATION controla como el codificador distribuye los bits en el fotograma.
+    <value>ADAPTIVE QUANTIZATION controla cómo el codificador distribuye los bits en el fotograma.
 
-Los valores mas altos toman mas bits de los bordes y areas complejas para mejorar las areas con mas detalle.</value>
+Los valores más altos toman más bits de los bordes y areas complejas para mejorar las areas con más detalle.</value>
   </data>
   <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>Modo de toma de decisión de una variedad de opciones para tomar su decisión: esta opción elige qué opciones son.  
-Menos particiones para comprobar significan codificación más rápida, a costa de las peores decisiones, ya que podría haber sido la mejor opción que se apagó.</value>
+    <value>El modo de toma de decisión escoge de una variedad de opciones para tomar su decisión: esta opción elige cuáles opciones.  
+Comprobar menos particiones conlleva una codificación más rápida a costa de peores decisiones, ya que podría haber sido la mejor opción la que quedó sin utilizarse.</value>
   </data>
   <data name="Advanced_BFramesToolTip" xml:space="preserve">
     <value>Valores seguros: ~2-5.
 
-Esto espcifica el numero maximo de B-frames en secuencia que el codificador puede usar.
+Esto especifica el numero máximo de B-frames consecutivos que el codificador puede usar.
 
-Numeros grandes generalmente no ayudan significativamente a menos que ADAPTATIVE B-FRAMES se encuentre configurado en OPTIMAL.
+Ingresar números grandes no suele ayudar mucho, excepto si la función ADAPTATIVE B-FRAMES se encuentra configurada en OPTIMAL.
 
-Animaciones a base de celuloide (Caricaturas) y el B-PYRAMID tambien aumentan significativamente la utilidad de los valores mas grandes.
+Material de origen como animación y el B-PYRAMID también aumentan significativamente la utilidad de los valores más grandes.
 
 El perfil BASELINE, requerido por iPods y dispositivos similares, requiere que los B-FRAMES sean 0, es decir, apagado.</value>
   </data>
   <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>Despues que el codificador ha hecho su trabajo, tiene un monto de datos que necesitan ser comprimidos sin "perdida", similar a ZIP o RAR. H.264 provee dos opciones para esto: CAVLC y CABAC. Decodificar CABAC es mucho mas lento pero comprime significativamente mejor (10-30%), especialmente a bitrates bajos. Si lo que se busca es reducir el uso del CPU para reproducir un video, deshabilite esta opcion. El perfil BASELINE, requerido por iPods y dispositivos similares, requiere que CABAC este deshabilitado.</value>
+    <value>Cuando el codificador termina su trabajo, tiene un montón de datos que necesitan ser comprimidos sin pérdida, similar a la compresión ZIP o RAR. H.264 provee dos opciones para esto: CAVLC y CABAC. Decodificar CABAC es mucho más lento, pero comprime significativamente mejor (10-30%), especialmente a velocidades de bits bajas. Si lo que se busca es reducir el uso del CPU para reproducir un video, deshabilite esta opción. El perfil BASELINE, requerido por iPods y dispositivos similares, requiere que CABAC este deshabilitado.</value>
   </data>
   <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>H.264 tiene un filtro de desbloqueo integrado que suaviza bloqueo artefactos después de descodificar cada fotograma.
-Esto no sólo mejora la calidad visual, sino que también ayuda comprimiendo significativamente. 
-El filtro de desbloqueo toma mucho poder de la CPU, así que si estas buscando reducir al mínimo los requisitos de CPU para reproducción de vídeo, desactívalo.  
+    <value>H.264 tiene un filtro de desbloqueo integrado que suaviza el pixelado después de descodificar cada fotograma.
+Esto no sólo mejora la calidad visual, sino que también mejora mucho la compresión. 
+El filtro de desbloqueo requiere mucha potencia de procesamiento, así que si estás buscando reducir al mínimo los requisitos de procesador para la reproducción del vídeo, desactívalo.
 
-El filtro de desbloqueo tiene dos parámetros ajustables, "fuerza" y "umbral".  
-Los controles anteriores cómo fuertes (o débiles) es el deblocker, mientras que el último controla cuántos (o algunos) bordes se aplican.  
-Valores más bajos significan menos valores de desbloqueo, mayores significan más desbloqueo. El valor predeterminado es 0 (fuerza normal) para ambos parámetros.</value>
+El filtro de desbloqueo tiene dos parámetros ajustables: "fuerza" y "umbral".  
+El primero controla qué tan fuerte (o débil) es el filtro de desbloqueo, mientras que el último controla a cuántos bordes se aplica.
+Valores más bajos implican menor desbloqueo, mayores significan más desbloqueo. El valor predeterminado es 0 (fuerza normal) para ambos parámetros.</value>
   </data>
   <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>La transformación de 8 x 8 es la característica singular más útil de x 264 en términos de velocidad-por-compresión. 
- Mejora la compresión al menos el 5% a un costo de velocidad muy pequeña y puede proporcionar un inusual beneficio de alta calidad visual en comparación con la ganancia de la compresión.  
-Como sea, se requiere de alto perfil, que muchos dispositivos pueden no soportar.</value>
+    <value>La transformación de 8x8 es la característica singular más útil de x 264 en términos de velocidad y compresión. 
+Mejora la compresión al menos un 5% a un costo de velocidad muy pequeño, y puede proporcionar un inusual beneficio de calidad visual en comparación con la ganancia de la compresión.  
+Como sea, requiere la opción de perfil alto, incompatible con muchos dispositivos.</value>
   </data>
   <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>Controla el método de estimación de movimiento. Estimación de movimiento es cómo el codificador estima cómo ha movido cada bloque de píxeles de un fotograma.   
+    <value>Controla el método de estimación de movimiento. La estimación de movimiento es cómo el codificador estima el movimiento de cada bloque de píxeles de un fotograma.   
 Un mejor método de búsqueda de movimiento mejora la compresión a costo de velocidad.  
 
 Diamante: realiza una búsqueda muy rápida y sencilla utilizando un patrón de diamante.  
 
-Hexágono: realiza una búsqueda más eficaz pero ligeramente más lenta usando un patrón hexagonal. 
+Hexágonal: realiza una búsqueda más eficaz pero ligeramente más lenta usando un patrón hexagonal. 
 
-Multi-Hex desigual: realiza una búsqueda muy amplia con una variedad de patrones, capturando con mayor precisión el movimiento complejo.  
+Multihexagonal desigual: realiza una búsqueda muy amplia con una variedad de patrones, capturando con mayor precisión el movimiento complejo.  
 
-Exhaustiva: realiza una búsqueda "muda" de cada píxel en una zona amplia.  Significativamente más lenta para sólo una pequeña ganancia de compresión.  
+Exhaustiva: realiza una búsqueda ciega de cada píxel en una zona amplia.  Significativamente más lenta para sólo una pequeña ganancia de compresión.  
 
-Transformada Exhaustiva: Como exhaustiva, pero toma decisiones más precisas. Por consiguiente, algo más lento, también para sólo una pequeña mejora.</value>
+Transformada exhaustiva: Como la exhaustiva, pero toma decisiones más precisas. Por consiguiente, algo más lento, también para sólo una pequeña mejora.</value>
   </data>
   <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
     <value>Esta es la busqueda de distancias de x 264 de su mejor suposicion en el movimiento de un bloque para tratar de encontrar su actual movimiento en orden.
@@ -288,7 +288,7 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Contenedor:</value>
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
-    <value>Extension:</value>
+    <value>Extensión:</value>
   </data>
   <data name="LargeFileSizeCheckBox" xml:space="preserve">
     <value>Tamaño de archivo grande</value>
@@ -306,7 +306,7 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Imagen</value>
   </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
-    <value>Filtros de Video</value>
+    <value>Filtros de vídeo</value>
   </data>
   <data name="TabHeader_Video" xml:space="preserve">
     <value>Video</value>
@@ -369,7 +369,7 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Salida</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
-    <value>Cultivo</value>
+    <value>Recorte</value>
   </data>
   <data name="Top" xml:space="preserve">
     <value>Cima</value>
@@ -378,10 +378,10 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Izquierda</value>
   </data>
   <data name="Bottom" xml:space="preserve">
-    <value>Fondo</value>
+    <value>Abajo</value>
   </data>
   <data name="Right" xml:space="preserve">
-    <value>Derecho</value>
+    <value>Derecha</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
@@ -399,20 +399,20 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Desbloquear:</value>
   </data>
   <data name="GrayscaleCheckBox" xml:space="preserve">
-    <value>Codificación de escala de grises</value>
+    <value>Codificación en escala de grises</value>
   </data>
   <data name="TypeLabel" xml:space="preserve">
     <value>Tipo:
 </value>
   </data>
   <data name="ShortFramerateLabel" xml:space="preserve">
-    <value>Framerate:</value>
+    <value>Cuadros por segundo:</value>
   </data>
   <data name="CodecLabel" xml:space="preserve">
-    <value>Codec:</value>
+    <value>Códec:</value>
   </data>
   <data name="FramerateLabel" xml:space="preserve">
-    <value>Imágenes por segundo (FPS):</value>
+    <value>Cuadros por segundo (FPS):</value>
   </data>
   <data name="ConstantFramerateRadioButton" xml:space="preserve">
     <value>Framerate constante</value>
@@ -421,16 +421,16 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Calidad</value>
   </data>
   <data name="TwoPassEncodingCheckBox" xml:space="preserve">
-    <value>Pasar una 2da codificada</value>
+    <value>Codificación en dos pasos</value>
   </data>
   <data name="TurboFirstPassCheckBox" xml:space="preserve">
-    <value>Primera pasada turbo</value>
+    <value>Usar "Turbo" en la Primera pasada</value>
   </data>
   <data name="TargetSizeRadioButton" xml:space="preserve">
-    <value>Tamaño del objetivo (MB)</value>
+    <value>Tamaño específico (MB)</value>
   </data>
   <data name="AverageBitrateRadioButton" xml:space="preserve">
-    <value>AVG Bitrate (kbps)</value>
+    <value>Bitrate Promedio (kbps)</value>
   </data>
   <data name="ConstantQualityRadioButton" xml:space="preserve">
     <value>Calidad constante</value>
@@ -442,16 +442,16 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Perfil:</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Preselección:</value>
+    <value>Preajuste:</value>
   </data>
   <data name="TuneLabel" xml:space="preserve">
-    <value>Melodía:</value>
+    <value>Calibración:</value>
   </data>
   <data name="Profile_baseline" xml:space="preserve">
     <value>Línea base</value>
   </data>
   <data name="Profile_main" xml:space="preserve">
-    <value>Main</value>
+    <value>Principal</value>
   </data>
   <data name="Profile_high" xml:space="preserve">
     <value>Arriba</value>
@@ -460,7 +460,7 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Ultra rápido</value>
   </data>
   <data name="Preset_SuperFast" xml:space="preserve">
-    <value>Super rapido</value>
+    <value>Súper rápido</value>
   </data>
   <data name="Preset_VeryFast" xml:space="preserve">
     <value>Muy rápido</value>
@@ -487,7 +487,7 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Placebo</value>
   </data>
   <data name="Tune_film" xml:space="preserve">
-    <value>Pelicula</value>
+    <value>Película</value>
   </data>
   <data name="Tune_animation" xml:space="preserve">
     <value>Animación</value>
@@ -547,7 +547,7 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>(Sin pistas)</value>
   </data>
   <data name="TargetStream" xml:space="preserve">
-    <value>Arroyo blanco</value>
+    <value>Flujo objetivo</value>
   </data>
   <data name="MixdownLabel" xml:space="preserve">
     <value>Mezcla:</value>
@@ -556,7 +556,7 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Frecuencia de muestreo:</value>
   </data>
   <data name="BitrateLabel" xml:space="preserve">
-    <value>Bitrate:</value>
+    <value>Tasa de bits:</value>
   </data>
   <data name="CompressionLabel" xml:space="preserve">
     <value>Compresión:</value>
@@ -586,7 +586,7 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Valores bajos significan alta compresión: mejor calidad/tamaño mas pequeño pero toma mas tiempo en codificar.</value>
   </data>
   <data name="AudioCompressionToolTip" xml:space="preserve">
-    <value>La cantidad de compresión para aplicar. {0} Los valores válidos son de {1} a {2}.</value>
+    <value>La cantidad de compresión a aplicar. {0} Los valores válidos son de {1} a {2}.</value>
   </data>
   <data name="AudioEncoder_faac" xml:space="preserve">
     <value>AAC (FAAC)</value>
@@ -620,13 +620,13 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Dolby Pro Logic II</value>
   </data>
   <data name="Mixdown_left_only" xml:space="preserve">
-    <value>Mono (Solo izquierda)</value>
+    <value>Mono (sólo canal izquierdo)</value>
   </data>
   <data name="Mixdown_mono" xml:space="preserve">
     <value>Mono</value>
   </data>
   <data name="Mixdown_right_only" xml:space="preserve">
-    <value>Mono (Solo derecha)</value>
+    <value>Mono (sólo canal derecho)</value>
   </data>
   <data name="Mixdown_stereo" xml:space="preserve">
     <value>Estéreo</value>
@@ -641,13 +641,13 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Marcos de referencia:</value>
   </data>
   <data name="MaxBFramesLabel" xml:space="preserve">
-    <value>Máximos B-Frames:</value>
+    <value>B-Frames Máximos:</value>
   </data>
   <data name="CabacLabel" xml:space="preserve">
     <value>CABAC:</value>
   </data>
   <data name="EightByEightTransformLabel" xml:space="preserve">
-    <value>Transformación de 8 x 8:</value>
+    <value>Transformación de 8x8:</value>
   </data>
   <data name="WeightedPFramesLabel" xml:space="preserve">
     <value>Weighted P-Frames:</value>
@@ -799,7 +799,9 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (Por defecto)</value>
   </data>
-  
+  <data name="EncodingWindowTitle" xml:space="preserve">
+    <value>Preset de codificación: {0}</value>
+  </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>Opciones avanzadas adicionales de x 264:</value>
   </data>
@@ -931,7 +933,9 @@ Bicúbica: Esto es un algoritmo OpenCL de escalamiento acelerado por hardware.</
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Passthrough</value>
   </data>
-  
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>Auto</value>
+  </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>Especifica que el Passthough se aplicará a los codecs de entrada.</value>
   </data>
@@ -971,11 +975,22 @@ Bicúbica: Esto es un algoritmo OpenCL de escalamiento acelerado por hardware.</
   <data name="RotationLabel" xml:space="preserve">
     <value>Rotación:</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>Cerrar la lista de presets</value>
+  </data>
+  <data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>Abrir la lista de presets</value>
+  </data>
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>Capítulo {0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>Configuración de copia directa</value>
+  </data>
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>Permitir copia directa a:</value>
+  </data>
   <data name="Passthrough_aac" xml:space="preserve">
     <value>AAC</value>
   </data>
@@ -988,10 +1003,16 @@ Bicúbica: Esto es un algoritmo OpenCL de escalamiento acelerado por hardware.</
   <data name="Passthrough_dtshd" xml:space="preserve">
     <value>DTS-HD</value>
   </data>
-  
-  
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
   <data name="Passthrough_mp3" xml:space="preserve">
     <value>MP3</value>
   </data>
-  
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
+  </data>
 </root>

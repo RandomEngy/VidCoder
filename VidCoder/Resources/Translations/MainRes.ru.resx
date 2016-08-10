@@ -456,7 +456,9 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>Ошибка при открытии URL: {0}</value>
   </data>
-  
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Не удалось импортировать пресет. Проверьте журнал для деталей.</value>
+  </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>Ошибка импорта</value>
   </data>
@@ -469,12 +471,24 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Сохранить профиль</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>Вы хотите сохранить изменения в текущий конфигурации?</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>Сохранение текущей конфигурации?</value>
+  </data>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Вы уверены, что вы хотите отменить все не сохраненные изменения к этой конфигурации?</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Вы уверены, что вы хотите это сделать?</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>Конфигурация была повреждена и не может быть загружена. Некоторые из ваших настроек, возможно, были сброшены.</value>
   </data>
@@ -553,7 +567,9 @@
   <data name="ExportQueueFilePickerText" xml:space="preserve">
     <value>Экспорт очереди</value>
   </data>
-  
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Не удалось импортировать пресет. Проверьте журнал для деталей.</value>
+  </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>Задать файл конфигурации</value>
   </data>
@@ -598,8 +614,18 @@
     <value>Файл базы данных несовместим</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
-  
-  
-  
-  
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>Выбор</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Не удалось загрузить конфигурацию: </value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>Выбор {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} у других названий есть продолжительность близкая к этой.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
 </root>

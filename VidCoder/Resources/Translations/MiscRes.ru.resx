@@ -194,8 +194,13 @@
     <value>{0} Beta ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
-  
-  
+  <data name="NameDialogTitle" xml:space="preserve">
+    <value>Имя</value>
+    <comment>Title for dialog when  naming a preset or  picker</comment>
+  </data>
+  <data name="ChooseNamePreset" xml:space="preserve">
+    <value>Выбирать имя для конфигурации:</value>
+  </data>
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>Применить обновление?</value>
   </data>
@@ -241,7 +246,13 @@
   <data name="ErrorPlayingSource" xml:space="preserve">
     <value>Ошибка проигрывания источника.</value>
   </data>
-  
-  
-  
+  <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
+    <value>Система Войдет в спящий режим через {0} секунд.</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
+    <value>Принудительный Режим Гибернации</value>
+  </data>
+  <data name="ChooseNamePicker" xml:space="preserve">
+    <value>Выбирать имя для конфигурации:</value>
+  </data>
 </root>

@@ -225,7 +225,9 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Параметры</value>
   </data>
-  
+  <data name="ProcessTab" xml:space="preserve">
+    <value>Процесс</value>
+  </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>Дополнительно</value>
   </data>
@@ -379,8 +381,17 @@
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Папка для просмотра:</value>
   </data>
-  
-  
-  
-  
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>Настройки процессов</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>ЦП регулирования:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>Использование ЦП, регулирования для ограничения числа процессорных ядер, VidCoder можно использовать при кодировании.</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>Использовать встроенный проигрыватель для просмотра</value>
+  </data>
 </root>
