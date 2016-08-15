@@ -108,7 +108,7 @@ VidCoder is free software. If you like VidCoder and want to express your appreci
 
 ## Other info
 VidCoder is built on .NET 4 Client Profile/WPF in C#.
-It runs on Windows 7, 8, Vista, Server 2008 and Server 2012.
+It runs on Windows 7, 8, 10, Vista, Server 2008 and Server 2012.
 
 The VidCoder UI (and C# interop) is written by RandomEngy.
 The core encoding engine is written by the amazing HandBrake team. j45 in particular has been a huge help in getting this together.
