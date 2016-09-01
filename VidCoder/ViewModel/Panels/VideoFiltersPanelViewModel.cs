@@ -129,10 +129,16 @@ namespace VidCoder.ViewModel
 				}).ToProperty(this, x => x.DenoisePresetChoices, out this.denoisePresetChoices);
 
 			// DenoiseTuneVisible
-			this.WhenAnyValue(x => x.DenoiseType, x => x.PresetsService.SelectedPreset.Preset.EncodingProfile.UseCustomDenoise, (denoise, useCustomDenoise) => { return denoise == VCDenoise.NLMeans && !useCustomDenoise; }).ToProperty(this, x => x.DenoiseTuneVisible, out this.denoiseTuneVisible);
+			this.WhenAnyValue(x => x.DenoiseType, x => x.DenoisePreset, (denoiseType, denoisePreset) =>
+			{
+				return denoiseType == VCDenoise.NLMeans && denoisePreset != "custom";
+			}).ToProperty(this, x => x.DenoiseTuneVisible, out this.denoiseTuneVisible);
 
 			// CustomDenoiseVisible
-			this.WhenAnyValue(x => x.DenoiseType, x => x.PresetsService.SelectedPreset.Preset.EncodingProfile.UseCustomDenoise, (denoise, useCustomDenoise) => { return denoise != VCDenoise.Off && useCustomDenoise; }).ToProperty(this, x => x.CustomDenoiseVisible, out this.customDenoiseVisible);
+			this.WhenAnyValue(x => x.DenoiseType, x => x.DenoisePreset, (denoiseType, denoisePreset) =>
+			{
+				return denoiseType != VCDenoise.Off && denoisePreset == "custom";
+			}).ToProperty(this, x => x.CustomDenoiseVisible, out this.customDenoiseVisible);
 
 			// DeblockText
 			this.WhenAnyValue(x => x.Deblock, deblock =>
