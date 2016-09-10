@@ -124,7 +124,7 @@ namespace VidCoder.ViewModel
 		private void OpenContainingFolderImpl()
 		{
 			Ioc.Get<StatusService>().Show(MainRes.OpeningFolderStatus);
-			Process.Start("explorer.exe", "/select," + this.encodeResult.Destination);
+			FileUtilities.OpenFolderAndSelectItem(this.encodeResult.Destination);
 		}
 
 		public ReactiveCommand<object> Edit { get; }

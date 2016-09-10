@@ -2,15 +2,65 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
 using System.Text;
+using VidCoderCommon.Services;
 
 namespace VidCoder
 {
 	public static class FileUtilities
 	{
-		private static List<string> disallowedCharacters = new List<string> { "\\", "/", "\"", ":", "*", "?", "<", ">", "|" };
+		[DllImport("shell32.dll", SetLastError = true)]
+		public static extern int SHOpenFolderAndSelectItems(IntPtr pidlFolder, uint cidl, [In, MarshalAs(UnmanagedType.LPArray)] IntPtr[] apidl, uint dwFlags);
+
+		[DllImport("shell32.dll", SetLastError = true)]
+		public static extern void SHParseDisplayName([MarshalAs(UnmanagedType.LPWStr)] string name, IntPtr bindingContext, [Out] out IntPtr pidl, uint sfgaoIn, [Out] out uint psfgaoOut);
+
+		public static void OpenFolderAndSelectItem(string filePath)
+		{
+			OpenFolderAndSelectItem(Path.GetDirectoryName(filePath), Path.GetFileName(filePath));
+		}
+
+		public static void OpenFolderAndSelectItem(string folderPath, string file)
+		{
+			IntPtr nativeFolder;
+			uint psfgaoOut;
+			SHParseDisplayName(folderPath, IntPtr.Zero, out nativeFolder, 0, out psfgaoOut);
+
+			if (nativeFolder == IntPtr.Zero)
+			{
+				Ioc.Get<ILogger>().LogError($"Could not find folder {folderPath}");
+
+				return;
+			}
+
+			IntPtr nativeFile;
+			SHParseDisplayName(Path.Combine(folderPath, file), IntPtr.Zero, out nativeFile, 0, out psfgaoOut);
+
+			IntPtr[] fileArray;
+			if (nativeFile == IntPtr.Zero)
+			{
+				Ioc.Get<ILogger>().LogError($"Could not find file {Path.Combine(folderPath, file)}");
+
+				fileArray = new IntPtr[0];
+			}
+			else
+			{
+				fileArray = new IntPtr[] { nativeFile };
+			}
+
+			SHOpenFolderAndSelectItems(nativeFolder, (uint)fileArray.Length, fileArray, 0);
+
+			Marshal.FreeCoTaskMem(nativeFolder);
+			if (nativeFile != IntPtr.Zero)
+			{
+				Marshal.FreeCoTaskMem(nativeFile);
+			}
+		}
+
+		private static readonly List<string> DisallowedCharacters = new List<string> { "\\", "/", "\"", ":", "*", "?", "<", ">", "|" };
 
 		public static bool OverrideTempFolder { get; set; }
 		public static string TempFolderOverride { get; set; }
@@ -103,7 +153,7 @@ namespace VidCoder
 		public static string CleanFileName(string fileName, bool allowBackslashes = false)
 		{
 			string cleanName = fileName;
-			foreach (string disallowedChar in disallowedCharacters)
+			foreach (string disallowedChar in DisallowedCharacters)
 			{
 				if (disallowedChar != @"\" || !allowBackslashes)
 				{

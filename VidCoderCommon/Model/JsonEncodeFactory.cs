@@ -124,7 +124,16 @@ namespace VidCoderCommon.Model
 			}
 			else
 			{
-				audio.CopyMask = new uint[] { NativeConstants.HB_ACODEC_ANY };
+				int anyCodec = 0;
+				foreach (var audioEncoder in HandBrakeEncoderHelpers.AudioEncoders)
+				{
+					if (audioEncoder.IsPassthrough && audioEncoder.ShortName.Contains(":"))
+					{
+						anyCodec |= audioEncoder.Id;
+					}
+				}
+
+				audio.CopyMask = new uint[] { (uint) anyCodec };
 			}
 
 			audio.AudioList = new List<AudioTrack>();
@@ -146,11 +155,20 @@ namespace VidCoderCommon.Model
 				uint outputCodec = (uint)encoder.Id;
 				bool isPassthrough = encoder.IsPassthrough;
 
+	            int passMask = 0;
+	            foreach (var audioEncoder in HandBrakeEncoderHelpers.AudioEncoders)
+	            {
+		            if (audioEncoder.IsPassthrough && audioEncoder.ShortName.Contains(":"))
+		            {
+			            passMask |= audioEncoder.Id;
+		            }
+	            }
+
 				if (encoding.PassthroughIfPossible && 
 					(encoder.Id == scanAudioTrack.Codec || 
 						inputCodec != null && (inputCodec.ShortName.ToLowerInvariant().Contains("aac") && encoder.ShortName.ToLowerInvariant().Contains("aac") ||
 						inputCodec.ShortName.ToLowerInvariant().Contains("mp3") && encoder.ShortName.ToLowerInvariant().Contains("mp3"))) &&
-					(inputCodec.Id & NativeConstants.HB_ACODEC_PASS_MASK) > 0)
+					(inputCodec.Id & passMask) > 0)
 				{
 					outputCodec = (uint)scanAudioTrack.Codec | NativeConstants.HB_ACODEC_PASS_FLAG;
 					isPassthrough = true;

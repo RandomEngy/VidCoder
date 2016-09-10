@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows.Media;
 using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.HbLib;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Model;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
@@ -181,7 +182,7 @@ namespace VidCoder.ViewModel
 					return false;
 				}
 
-				if (HandBrakeEncoderHelpers.CanPassthroughAudio(audioEncoder.Encoder.Id))
+				if (HandBrakeEncoderHelpers.AudioEncoders.Any(e => e.Id == (NativeConstants.HB_ACODEC_PASS_FLAG | audioEncoder.Encoder.Id)))
 				{
 					return true;
 				}
