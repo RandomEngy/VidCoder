@@ -683,7 +683,7 @@ namespace VidCoder.Services
 								FileUtilities.DeleteDirectory(pathToDelete);
 							}
 						}
-						catch (IOException exception)
+						catch (Exception exception)
 						{
 							Utilities.MessageBox.Show(string.Format(MainRes.CouldNotDeleteFile, pathToDelete, exception));
 						}

@@ -958,7 +958,7 @@ namespace VidCoder.ViewModel
 					FileUtilities.DeleteDirectory(Path.Combine(processCacheFolder, i.ToString(CultureInfo.InvariantCulture)));
 				}
 			}
-			catch (IOException)
+			catch (Exception)
 			{
 				// Ignore. Later checks will clear the cache.
 			}

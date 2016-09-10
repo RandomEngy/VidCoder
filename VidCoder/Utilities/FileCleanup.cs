@@ -33,7 +33,7 @@ namespace VidCoder
 							{
 								FileUtilities.DeleteDirectory(processDirectory.FullName);
 							}
-							catch (IOException)
+							catch (Exception)
 							{
 								// Ignore failed cleanup. Move on to the next folder.
 							}
@@ -41,7 +41,7 @@ namespace VidCoder
 					}
 				}
 			}
-			catch (IOException)
+			catch (Exception)
 			{
 				// Ignore failed cleanup. Will get done some other time.
 			}
