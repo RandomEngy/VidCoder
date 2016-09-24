@@ -63,17 +63,16 @@ namespace VidCoder
 					{
 						lock (this.encoderLock)
 						{
-							JsonEncodeObject jsonEncodeObject = JsonEncodeFactory.CreateJsonObject(
+							JsonEncodeFactory factory = new JsonEncodeFactory(logger);
+
+							JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
 								job,
 								title,
 								EncodingRes.DefaultChapterName,
 								Config.DxvaDecoding,
 								preview ? previewNumber : -1,
 								previewSeconds,
-								Config.PreviewCount,
-								this.logger);
-
-							////this.logger.Log("Encode JSON:" + Environment.NewLine + JsonConvert.SerializeObject(jsonEncodeObject, Formatting.Indented));
+								Config.PreviewCount);
 
 							this.instance.StartEncode(jsonEncodeObject);
 							this.IsEncodeStarted = true;

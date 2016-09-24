@@ -5,9 +5,12 @@ using System.ServiceModel;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Encode;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
+using Microsoft.Practices.ServiceLocation;
+using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using VidCoderCommon;
 using VidCoderCommon.Model;
+using VidCoderCommon.Services;
 
 namespace VidCoderWorker
 {
@@ -44,6 +47,8 @@ namespace VidCoderWorker
 
 			CurrentEncoder = this;
 			this.callback = OperationContext.Current.GetCallbackChannel<IHandBrakeEncoderCallback>();
+
+			Ioc.Container.RegisterInstance<ILogger>(new WorkerLogger(this.callback));
 
 			try
 			{
@@ -103,15 +108,16 @@ namespace VidCoderWorker
 						SourceTitle encodeTitle = this.instance.Titles.TitleList.FirstOrDefault(title => title.Index == job.Title);
 						if (encodeTitle != null)
 						{
-							JsonEncodeObject encodeObject = JsonEncodeFactory.CreateJsonObject(
+							JsonEncodeFactory factory = new JsonEncodeFactory(ServiceLocator.Current.GetInstance<ILogger>());
+
+							JsonEncodeObject encodeObject = factory.CreateJsonObject(
 								job,
 								encodeTitle,
 								defaultChapterNameFormat,
 								dxvaDecoding,
 								previewNumber,
 								previewSeconds,
-								previewCount,
-								new WorkerLogger(this.callback));
+								previewCount);
 
 							////this.callback.OnVidCoderMessageLogged("Encode JSON:" + Environment.NewLine + JsonConvert.SerializeObject(encodeObject, Formatting.Indented));
 

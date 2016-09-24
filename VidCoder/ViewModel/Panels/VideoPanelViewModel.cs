@@ -660,7 +660,9 @@ namespace VidCoder.ViewModel
 				{
 					if (this.MainViewModel.HasVideoSource && this.MainViewModel.JobCreationAvailable && this.VideoBitrate > 0)
 					{
-						double estimatedSizeBytes = JsonEncodeFactory.CalculateFileSize(this.MainViewModel.EncodeJob, this.MainViewModel.SelectedTitle, this.VideoBitrate);
+						JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
+
+						double estimatedSizeBytes = factory.CalculateFileSize(this.MainViewModel.EncodeJob, this.MainViewModel.SelectedTitle, this.VideoBitrate);
 						this.displayTargetSize = (int)Math.Round(estimatedSizeBytes);
 					}
 					else
@@ -693,7 +695,8 @@ namespace VidCoder.ViewModel
 				{
 					if (this.MainViewModel.HasVideoSource && this.MainViewModel.JobCreationAvailable && this.TargetSize > 0)
 					{
-						this.displayVideoBitrate = JsonEncodeFactory.CalculateBitrate(this.MainViewModel.EncodeJob, this.MainViewModel.SelectedTitle, this.TargetSize);
+						JsonEncodeFactory factory = new JsonEncodeFactory(new StubLogger());
+						this.displayVideoBitrate = factory.CalculateBitrate(this.MainViewModel.EncodeJob, this.MainViewModel.SelectedTitle, this.TargetSize);
 					}
 					else
 					{
