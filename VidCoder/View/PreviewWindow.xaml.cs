@@ -39,7 +39,7 @@ namespace VidCoder.View
 
 		public void RefreshViewModelFromMediaElement()
 		{
-			var previewholder = this.MainContent as IPreviewHolder;
+			var previewholder = this.MainContent as IPreviewFrame;
 			if (previewholder != null)
 			{
 				TimeSpan position = previewholder.GetVideoPosition();
@@ -49,7 +49,7 @@ namespace VidCoder.View
 
 		public void SeekToViewModelPosition(TimeSpan position)
 		{
-			var previewholder = this.MainContent as IPreviewHolder;
+			var previewholder = this.MainContent as IPreviewFrame;
 			if (previewholder != null)
 			{
 				previewholder.SetVideoPosition(this.viewModel.PreviewVideoPosition);
@@ -82,7 +82,7 @@ namespace VidCoder.View
 			this.viewModel.WhenAnyValue(x => x.PreviewPaused)
 				.Subscribe(paused =>
 				{
-					var previewholder = this.MainContent as IPreviewHolder;
+					var previewholder = this.MainContent as IPreviewFrame;
 					if (previewholder != null)
 					{
 						if (paused)
@@ -106,10 +106,10 @@ namespace VidCoder.View
 		private void RefreshMainContent(PreviewMainDisplay mainDisplay, bool playingPreview)
 		{
 			// Close the video if we're swapping it out.
-			var previewholder = this.MainContent as IPreviewHolder;
-			if (!playingPreview && previewholder != null)
+			var previewFrame = this.MainContent as IPreviewFrame;
+			if (!playingPreview && previewFrame != null)
 			{
-				previewholder.CloseVideo();
+				previewFrame.CloseVideo();
 			}
 
 			switch (mainDisplay)
@@ -150,16 +150,16 @@ namespace VidCoder.View
 					throw new ArgumentOutOfRangeException();
 			}
 
-			previewholder = this.MainContent as IPreviewHolder;
-			if (previewholder != null)
+			previewFrame = this.MainContent as IPreviewFrame;
+			if (previewFrame != null)
 			{
 				if (playingPreview)
 				{
-					previewholder.SetVideo(this.viewModel.OnVideoCompleted, this.viewModel.OnVideoFailed, this.viewModel.WhenAnyValue(x => x.Volume));
+					previewFrame.SetVideo(this.viewModel.OnVideoCompleted, this.viewModel.OnVideoFailed, this.viewModel.WhenAnyValue(x => x.Volume));
 				}
 				else
 				{
-					previewholder.SetImage();
+					previewFrame.SetImage();
 				}
 			}
 		}

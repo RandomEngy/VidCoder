@@ -16,7 +16,7 @@ using VidCoder.Model;
 
 namespace VidCoder.View.Preview
 {
-	public partial class PreviewFit : UserControl, IPreviewHolder
+	public partial class PreviewFit : UserControl, IPreviewFrame
 	{
 		public PreviewFit()
 		{

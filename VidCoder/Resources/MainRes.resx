@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Windows</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>Encoding Settings</value>
@@ -644,5 +645,8 @@
   <data name="CustomVideoPlayerError" xml:space="preserve">
     <value>Custom video player could not be found at {0}.</value>
     <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>Warning: The sizing interface has been overhauled for 2.0, so your presets may have changed. You may want to inspect them and ensure that they are still set up correctly.</value>
   </data>
 </root>

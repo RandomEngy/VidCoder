@@ -46,9 +46,6 @@
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
@@ -78,28 +75,6 @@
 				               UpdateSourceTrigger=PropertyChanged}"
 				Visibility="{Binding CustomDetelecineVisible,
 				                     Converter={StaticResource VisibilityConverter}}" />
-
-			<!--  Decomb  -->
-			<!--<TextBlock
-				Grid.Row="1"
-				Grid.Column="0"
-				Style="{StaticResource FilterLabel}"
-				Text="{x:Static res:EncodingRes.DecombLabel}" />
-			<ComboBox
-				Grid.Row="1"
-				Grid.Column="1"
-				ItemsSource="{Binding DisplayNames,
-				                      Source={StaticResource DecombChoices}}"
-				SelectedValue="{Binding Decomb,
-				                        Converter={StaticResource DecombChoices}}"
-				Style="{StaticResource NormalComboBox}" />
-			<TextBox
-				Grid.Row="1"
-				Grid.Column="2"
-				Style="{StaticResource CustomFilterBox}"
-				Text="{Binding CustomDecomb}"
-				Visibility="{Binding CustomDecombVisible,
-				                     Converter={StaticResource VisibilityConverter}}" />-->
 
 			<!--  Deinterlace  -->
 			<TextBlock
@@ -258,76 +233,8 @@
 					Value="{Binding Deblock}" />
 			</StackPanel>
 
-			<!--  Rotation  -->
-			<TextBlock
+			<CheckBox
 				Grid.Row="4"
-				Grid.Column="0"
-				Style="{StaticResource FilterLabel}"
-				Text="{x:Static res:EncodingRes.RotationLabel}"
-				ToolTipService.ShowDuration="20000">
-				<TextBlock.ToolTip>
-					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.RotationToolTip}" />
-				</TextBlock.ToolTip>
-			</TextBlock>
-			<ComboBox
-				Grid.Row="4"
-				Grid.Column="1"
-				Grid.ColumnSpan="2"
-				MinWidth="140"
-				Margin="3"
-				HorizontalAlignment="Left"
-				VerticalAlignment="Center"
-				ItemsSource="{Binding RotationChoices}"
-				SelectedValue="{Binding Rotation}"
-				SelectedValuePath="Rotation"
-				Style="{StaticResource LongToolTipHolder}">
-				<ComboBox.ItemTemplate>
-					<DataTemplate>
-						<StackPanel d:DataContext="{d:DesignInstance dataModels:RotationViewModel}" Orientation="Horizontal">
-							<Image
-								Width="20"
-								Height="20"
-								Source="{Binding Image}"
-								Visibility="{Binding ShowImage,
-								                     Converter={StaticResource VisibilityConverter}}" />
-							<TextBlock
-								Margin="6 0 0 0"
-								VerticalAlignment="Center"
-								Text="{Binding Display}" />
-						</StackPanel>
-					</DataTemplate>
-				</ComboBox.ItemTemplate>
-				<ComboBox.ToolTip>
-					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.RotationToolTip}" />
-				</ComboBox.ToolTip>
-			</ComboBox>
-			<CheckBox
-				Grid.Row="5"
-				Grid.Column="1"
-				Grid.ColumnSpan="2"
-				Margin="3"
-				Content="{x:Static res:EncodingRes.FlipHorizontalCheckBox}"
-				IsChecked="{Binding FlipHorizontal}"
-				Style="{StaticResource LongToolTipHolder}">
-				<CheckBox.ToolTip>
-					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.FlipHorizontalToolTip}" />
-				</CheckBox.ToolTip>
-			</CheckBox>
-			<CheckBox
-				Grid.Row="6"
-				Grid.Column="1"
-				Grid.ColumnSpan="2"
-				Margin="3"
-				Content="{x:Static res:EncodingRes.FlipVerticalCheckBox}"
-				IsChecked="{Binding FlipVertical}"
-				Style="{StaticResource LongToolTipHolder}">
-				<CheckBox.ToolTip>
-					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.FlipVerticalToolTip}" />
-				</CheckBox.ToolTip>
-			</CheckBox>
-
-			<CheckBox
-				Grid.Row="7"
 				Grid.Column="1"
 				Grid.ColumnSpan="2"
 				Margin="3 10 3 3"

@@ -70,6 +70,11 @@ namespace VidCoder.Model
 					UpgradeDatabaseTo28(oldDatabaseVersion: databaseVersion);
 				}
 
+				if (databaseVersion < 33)
+				{
+					UpgradeDatabaseTo33();
+				}
+
 				// Update encoding profiles if we need to. Everything is at least 28 now from the JSON upgrade.
 				int oldDatabaseVersion = Math.Max(databaseVersion, 28);
                 if (oldDatabaseVersion < Utilities.LastUpdatedEncodingProfileDatabaseVersion)
@@ -410,6 +415,13 @@ namespace VidCoder.Model
 			}
 
 			Config.EnsureInitialized(connection);
+		}
+
+		private static void UpgradeDatabaseTo33()
+		{
+			string message = MainRes.SizingPresetUpgradeWarning;
+			Ioc.Get<IMessageBoxService>().Show(message);
+			Ioc.Get<IMessageBoxService>().Show(message);
 		}
 
 		private static void UpgradeWindowPlacementConfig(string configKey, Encoding encoding, XmlSerializer serializer)

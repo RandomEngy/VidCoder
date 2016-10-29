@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HandBrake.ApplicationServices.Interop.Json.Shared;
+using VidCoderCommon.Utilities;
 
 namespace VidCoderCommon.Extensions
 {
@@ -16,33 +17,9 @@ namespace VidCoderCommon.Extensions
 				return;
 			}
 
-			int gcd = Gcd(par.Num, par.Den);
+			int gcd = MathUtilities.Gcd(par.Num, par.Den);
 			par.Num /= gcd;
 			par.Den /= gcd;
-		}
-
-		private static int Gcd(int a, int b)
-		{
-			while (a != 0 && b != 0)
-			{
-				if (a > b)
-				{
-					a %= b;
-				}
-				else
-				{
-					b %= a;
-				}
-			}
-
-			if (a == 0)
-			{
-				return b;
-			}
-			else
-			{
-				return a;
-			}
 		}
 	}
 }

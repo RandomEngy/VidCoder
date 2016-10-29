@@ -91,6 +91,7 @@
     <Compile Include="Extensions\FrameRateExtensions.cs" />
     <Compile Include="Extensions\JsonDurationExtensions.cs" />
     <Compile Include="Extensions\ParExtensions.cs" />
+    <Compile Include="Extensions\ScalingModeExtensions.cs" />
     <Compile Include="IHandBrakeEncoder.cs" />
     <Compile Include="IHandBrakeEncoderCallback.cs" />
     <Compile Include="Model\AudioEncodeRateType.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Model\CopyMaskChoice.cs" />
     <Compile Include="Model\DeserializeOnlyAttribute.cs" />
     <Compile Include="Model\JsonEncodeFactory.cs" />
+    <Compile Include="Model\OutputSizeInfo.cs" />
     <Compile Include="Model\Preset.cs" />
     <Compile Include="Model\SourceSubtitle.cs" />
     <Compile Include="Model\SourceType.cs" />
@@ -111,14 +113,19 @@
     <Compile Include="Model\VCDenoise.cs" />
     <Compile Include="Model\VCJob.cs" />
     <Compile Include="Model\VCOutputExtension.cs" />
+    <Compile Include="Model\VCPadding.cs" />
+    <Compile Include="Model\VCPaddingMode.cs" />
     <Compile Include="Model\VCPictureRotation.cs" />
     <Compile Include="Model\VCProfile.cs" />
     <Compile Include="Model\VCScaleMethod.cs" />
+    <Compile Include="Model\VCScalingMode.cs" />
+    <Compile Include="Model\VCSizingMode.cs" />
     <Compile Include="Model\VCVideoEncodeRateType.cs" />
     <Compile Include="Model\VidCoderContractResolver.cs" />
     <Compile Include="Model\VideoRangeType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ILogger.cs" />
+    <Compile Include="Utilities\MathUtilities.cs" />
     <Compile Include="Utilities\Injection\FastDeepCloneInjection.cs" />
     <Compile Include="Utilities\Injection\SmartConventionInfo.cs" />
     <Compile Include="Utilities\Injection\SmartConventionInjection.cs" />

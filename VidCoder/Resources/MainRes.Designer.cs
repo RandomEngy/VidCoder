@@ -1417,6 +1417,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Warning: The sizing interface has been overhauled for 2.0, so your presets may have changed. You may want to inspect them and ensure that they are still set up correctly..
+        /// </summary>
+        public static string SizingPresetUpgradeWarning {
+            get {
+                return ResourceManager.GetString("SizingPresetUpgradeWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Source:.
         /// </summary>
         public static string SourceLabel {

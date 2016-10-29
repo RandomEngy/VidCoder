@@ -372,6 +372,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allow upscaling.
+        /// </summary>
+        public static string AllowUpscalingCheckbox {
+            get {
+                return ResourceManager.GetString("AllowUpscalingCheckbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Analysis.
         /// </summary>
         public static string Analysis {
@@ -417,11 +426,20 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anamorphic:.
+        ///   Looks up a localized string similar to Use Anamorphic.
         /// </summary>
-        public static string AnamorphicLabel {
+        public static string AnamorphicCheckbox {
             get {
-                return ResourceManager.GetString("AnamorphicLabel", resourceCulture);
+                return ResourceManager.GetString("AnamorphicCheckbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With Anamorphic enabled, non-square pixels are allowed. This can result in more efficient storage, but not all players support this..
+        /// </summary>
+        public static string AnamorphicToolTip {
+            get {
+                return ResourceManager.GetString("AnamorphicToolTip", resourceCulture);
             }
         }
         
@@ -610,15 +628,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bottom.
-        /// </summary>
-        public static string Bottom {
-            get {
-                return ResourceManager.GetString("Bottom", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to CABAC:.
         /// </summary>
         public static string CabacLabel {
@@ -669,6 +678,33 @@ namespace VidCoder.Resources {
         public static string CodecLabel {
             get {
                 return ResourceManager.GetString("CodecLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced.
+        /// </summary>
+        public static string ColorPickerAdvancedButton {
+            get {
+                return ResourceManager.GetString("ColorPickerAdvancedButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standard.
+        /// </summary>
+        public static string ColorPickerStandardButton {
+            get {
+                return ResourceManager.GetString("ColorPickerStandardButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standard colors.
+        /// </summary>
+        public static string ColorPickerStandardColorsHeader {
+            get {
+                return ResourceManager.GetString("ColorPickerStandardColorsHeader", resourceCulture);
             }
         }
         
@@ -849,24 +885,6 @@ namespace VidCoder.Resources {
         public static string DisplayResolutionLabel {
             get {
                 return ResourceManager.GetString("DisplayResolutionLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Display Width:.
-        /// </summary>
-        public static string DisplayWidthRadioButton {
-            get {
-                return ResourceManager.GetString("DisplayWidthRadioButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The desired display width of the video. Other parameters such as the Pixel Aspect Ratio will be changed to achieve this..
-        /// </summary>
-        public static string DisplayWidthToolTip {
-            get {
-                return ResourceManager.GetString("DisplayWidthToolTip", resourceCulture);
             }
         }
         
@@ -1087,15 +1105,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Keep Aspect Ratio.
-        /// </summary>
-        public static string KeepAspectRatioCheckBox {
-            get {
-                return ResourceManager.GetString("KeepAspectRatioCheckBox", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Large file size.
         /// </summary>
         public static string LargeFileSizeCheckBox {
@@ -1110,15 +1119,6 @@ namespace VidCoder.Resources {
         public static string LargeFileSizeToolTip {
             get {
                 return ResourceManager.GetString("LargeFileSizeToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Left.
-        /// </summary>
-        public static string Left {
-            get {
-                return ResourceManager.GetString("Left", resourceCulture);
             }
         }
         
@@ -1256,6 +1256,15 @@ namespace VidCoder.Resources {
         public static string MixdownLabel {
             get {
                 return ResourceManager.GetString("MixdownLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mode:.
+        /// </summary>
+        public static string ModeLabel {
+            get {
+                return ResourceManager.GetString("ModeLabel", resourceCulture);
             }
         }
         
@@ -1409,6 +1418,42 @@ namespace VidCoder.Resources {
         public static string OutputLabel {
             get {
                 return ResourceManager.GetString("OutputLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color:.
+        /// </summary>
+        public static string PadColorLabel {
+            get {
+                return ResourceManager.GetString("PadColorLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fill.
+        /// </summary>
+        public static string PaddingMode_Fill {
+            get {
+                return ResourceManager.GetString("PaddingMode_Fill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Height.
+        /// </summary>
+        public static string PaddingMode_Height {
+            get {
+                return ResourceManager.GetString("PaddingMode_Height", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        public static string PaddingMode_Width {
+            get {
+                return ResourceManager.GetString("PaddingMode_Width", resourceCulture);
             }
         }
         
@@ -1856,20 +1901,20 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resolution:.
+        /// </summary>
+        public static string ResolutionLabel {
+            get {
+                return ResourceManager.GetString("ResolutionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Revert.
         /// </summary>
         public static string Revert {
             get {
                 return ResourceManager.GetString("Revert", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Right.
-        /// </summary>
-        public static string Right {
-            get {
-                return ResourceManager.GetString("Right", resourceCulture);
             }
         }
         
@@ -1992,11 +2037,38 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scaling Algorithm:.
+        ///   Looks up a localized string similar to Scaling algorithm:.
         /// </summary>
         public static string ScalingAlgorithmLabel {
             get {
                 return ResourceManager.GetString("ScalingAlgorithmLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downscale only.
+        /// </summary>
+        public static string ScalingMode_DownscaleOnly {
+            get {
+                return ResourceManager.GetString("ScalingMode_DownscaleOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scale up/down to target.
+        /// </summary>
+        public static string ScalingMode_Fill {
+            get {
+                return ResourceManager.GetString("ScalingMode_Fill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scaling mode:.
+        /// </summary>
+        public static string ScalingModeLabel {
+            get {
+                return ResourceManager.GetString("ScalingModeLabel", resourceCulture);
             }
         }
         
@@ -2015,6 +2087,15 @@ namespace VidCoder.Resources {
         public static string SizingLabel {
             get {
                 return ResourceManager.GetString("SizingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manual.
+        /// </summary>
+        public static string SizingModeManual {
+            get {
+                return ResourceManager.GetString("SizingModeManual", resourceCulture);
             }
         }
         
@@ -2163,29 +2244,29 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Audio.
+        ///   Looks up a localized string similar to Audio Encoding.
         /// </summary>
-        public static string TabHeader_Audio {
+        public static string TabHeader_AudioEncoding {
             get {
-                return ResourceManager.GetString("TabHeader_Audio", resourceCulture);
+                return ResourceManager.GetString("TabHeader_AudioEncoding", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Picture.
+        ///   Looks up a localized string similar to Sizing.
         /// </summary>
-        public static string TabHeader_Picture {
+        public static string TabHeader_Sizing {
             get {
-                return ResourceManager.GetString("TabHeader_Picture", resourceCulture);
+                return ResourceManager.GetString("TabHeader_Sizing", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Video.
+        ///   Looks up a localized string similar to Video Encoding.
         /// </summary>
-        public static string TabHeader_Video {
+        public static string TabHeader_VideoEncoding {
             get {
-                return ResourceManager.GetString("TabHeader_Video", resourceCulture);
+                return ResourceManager.GetString("TabHeader_VideoEncoding", resourceCulture);
             }
         }
         
@@ -2195,6 +2276,15 @@ namespace VidCoder.Resources {
         public static string TabHeader_VideoFilters {
             get {
                 return ResourceManager.GetString("TabHeader_VideoFilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target Height:.
+        /// </summary>
+        public static string TargetHeightLabel {
+            get {
+                return ResourceManager.GetString("TargetHeightLabel", resourceCulture);
             }
         }
         
@@ -2217,11 +2307,11 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Top.
+        ///   Looks up a localized string similar to Target Width:.
         /// </summary>
-        public static string Top {
+        public static string TargetWidthLabel {
             get {
-                return ResourceManager.GetString("Top", resourceCulture);
+                return ResourceManager.GetString("TargetWidthLabel", resourceCulture);
             }
         }
         
@@ -2375,6 +2465,15 @@ namespace VidCoder.Resources {
         public static string TypeLabel {
             get {
                 return ResourceManager.GetString("TypeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upscale {0}x max.
+        /// </summary>
+        public static string UpscaleMaxFormat {
+            get {
+                return ResourceManager.GetString("UpscaleMaxFormat", resourceCulture);
             }
         }
         

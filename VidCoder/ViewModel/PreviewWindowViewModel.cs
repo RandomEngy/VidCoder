@@ -300,6 +300,22 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.previewImage, value); }
 		}
 
+		private OutputSizeInfo outputSizeInfo;
+
+		public OutputSizeInfo OutputSizeInfo
+		{
+			get { return this.outputSizeInfo; }
+			set { this.RaiseAndSetIfChanged(ref this.outputSizeInfo, value); }
+		}
+
+		private Color padColor;
+
+		public Color PadColor
+		{
+			get { return this.padColor; }
+			set { this.RaiseAndSetIfChanged(ref this.padColor, value); }
+		}
+
 		public string PreviewFilePath => this.previewFilePath;
 
 		private PreviewEncodeState encodeState;
@@ -834,12 +850,12 @@ namespace VidCoder.ViewModel
 			this.originalScanInstance = this.ScanInstance;
 			this.job = this.mainViewModel.EncodeJob;
 
-			Geometry outputGeometry = this.outputSizeService.Size;
+			OutputSizeInfo newOutputSizeInfo = this.outputSizeService.Size;
 
-			int width = outputGeometry.Width;
-			int height = outputGeometry.Height;
-			int parWidth = outputGeometry.PAR.Num;
-			int parHeight = outputGeometry.PAR.Den;
+			int width = newOutputSizeInfo.OutputWidth;
+			int height = newOutputSizeInfo.OutputHeight;
+			int parWidth = newOutputSizeInfo.Par.Num;
+			int parHeight = newOutputSizeInfo.Par.Den;
 
 			if (parWidth <= 0 || parHeight <= 0)
 			{
@@ -853,7 +869,7 @@ namespace VidCoder.ViewModel
 			if (width < 100 || height < 100)
 			{
 				this.HasPreview = false;
-				this.UpdateTitle(outputGeometry);
+				this.UpdateTitle(newOutputSizeInfo);
 
 				return;
 			}
@@ -861,6 +877,10 @@ namespace VidCoder.ViewModel
 			this.PreviewDisplayHeight = height;
 			this.PreviewDisplayWidth = width * ((double)parWidth / parHeight);
 
+			this.OutputSizeInfo = newOutputSizeInfo;
+
+			var profile = this.PresetsService.SelectedPreset.Preset.EncodingProfile;
+			this.PadColor = ColorUtilities.ToWindowsColor(profile.PadColor);
 
 			// Update the number of previews.
 			this.previewCount = this.ScanInstance.PreviewCount;
@@ -905,14 +925,14 @@ namespace VidCoder.ViewModel
 				this.View?.RefreshImageSize();
 			}
 
-			this.UpdateTitle(outputGeometry);
+			this.UpdateTitle(newOutputSizeInfo);
 		}
 
-		private void UpdateTitle(Geometry size)
+		private void UpdateTitle(OutputSizeInfo size)
 		{
-			if (size.PAR.Num == size.PAR.Den)
+			if (size.Par.Num == size.Par.Den)
 			{
-				this.Title = string.Format(PreviewRes.PreviewWindowTitleSimple, size.Width, size.Height);
+				this.Title = string.Format(PreviewRes.PreviewWindowTitleSimple, size.OutputWidth, size.OutputHeight);
 			}
 			else
 			{
@@ -920,8 +940,8 @@ namespace VidCoder.ViewModel
 					PreviewRes.PreviewWindowTitleComplex,
 					Math.Round(this.PreviewDisplayWidth), 
 					Math.Round(this.PreviewDisplayHeight),
-					size.Width, 
-					size.Height);
+					size.OutputWidth, 
+					size.OutputHeight);
 			}
 		}
 

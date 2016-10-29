@@ -23,11 +23,6 @@ namespace VidCoder.ViewModel
 
 		private static readonly ResourceManager EnumResourceManager = new ResourceManager(typeof(EnumsRes));
 
-		private OutputSizeService outputSizeService = Ioc.Get<OutputSizeService>();
-		private PreviewUpdateService previewUpdateService = Ioc.Get<PreviewUpdateService>();
-
-		private List<RotationViewModel> rotationChoices;
-
 		public VideoFiltersPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)
 		{
@@ -55,13 +50,7 @@ namespace VidCoder.ViewModel
 
 			this.DenoiseTuneChoices = this.GetFilterTuneChoices(hb_filter_ids.HB_FILTER_NLMEANS, "DenoiseTune_");
 
-			this.rotationChoices = new List<RotationViewModel>
-			{
-				new RotationViewModel { Rotation = VCPictureRotation.None, Display = CommonRes.None },
-				new RotationViewModel { Rotation = VCPictureRotation.Clockwise90, Display = EncodingRes.Rotation_Clockwise90, Image = "/Icons/rotate_90_cw.png"},
-				new RotationViewModel { Rotation = VCPictureRotation.Clockwise270, Display = EncodingRes.Rotation_Counterclockwise90, Image = "/Icons/rotate_90_ccw.png" },
-				new RotationViewModel { Rotation = VCPictureRotation.Clockwise180, Display = EncodingRes.Rotation_180, Image = "/Icons/rotate_180.png" }
-			};
+
 
 			// CustomDetelecineVisible
 			this.WhenAnyValue(x => x.Detelecine, detelecine =>
@@ -216,13 +205,6 @@ namespace VidCoder.ViewModel
 			this.RegisterProfileProperty(nameof(this.CustomDenoise));
 			this.RegisterProfileProperty(nameof(this.Deblock));
 			this.RegisterProfileProperty(nameof(this.Grayscale));
-			this.RegisterProfileProperty(nameof(this.Rotation), () =>
-			{
-				this.outputSizeService.Refresh();
-				this.previewUpdateService.RefreshPreview();
-			});
-			this.RegisterProfileProperty(nameof(this.FlipHorizontal), () => this.previewUpdateService.RefreshPreview());
-			this.RegisterProfileProperty(nameof(this.FlipVertical), () => this.previewUpdateService.RefreshPreview());
 		}
 
 		public List<ComboChoice> DetelecineChoices { get; }
@@ -372,29 +354,6 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.Profile.Grayscale; }
 			set { this.UpdateProfileProperty(nameof(this.Profile.Grayscale), value); }
-		}
-
-		public List<RotationViewModel> RotationChoices
-		{
-			get { return this.rotationChoices; }
-		}
-
-		public VCPictureRotation Rotation
-		{
-			get { return this.Profile.Rotation; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.Rotation), value); }
-		}
-
-		public bool FlipHorizontal
-		{
-			get { return this.Profile.FlipHorizontal; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.FlipHorizontal), value); }
-		}
-
-		public bool FlipVertical
-		{
-			get { return this.Profile.FlipVertical; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.FlipVertical), value); }
 		}
 
 		private List<ComboChoice> GetFilterPresetChoices(hb_filter_ids filter, string resourcePrefix = null)

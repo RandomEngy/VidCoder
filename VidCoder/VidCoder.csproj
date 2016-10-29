@@ -293,6 +293,30 @@
     <Reference Include="PresentationFramework">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -301,6 +325,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\PaddingFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\RangeBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -399,7 +427,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Panels\PicturePanel.xaml">
+    <Page Include="View\Panels\SizingPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -471,6 +499,9 @@
     </Compile>
     <Compile Include="Automation\AutomationHost.cs" />
     <Compile Include="Automation\VidCoderAutomation.cs" />
+    <Compile Include="Controls\PaddingFrame.xaml.cs">
+      <DependentUpon>PaddingFrame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RangeBar.xaml.cs">
       <DependentUpon>RangeBar.xaml</DependentUpon>
     </Compile>
@@ -503,7 +534,7 @@
     <Compile Include="EnumStringConverter.cs" />
     <Compile Include="Extensions\JsonScanObjectExtensions.cs" />
     <Compile Include="Extensions\PresetExtensions.cs" />
-    <Compile Include="Extensions\PreviewHolderExtensions.cs" />
+    <Compile Include="Extensions\PreviewFrameExtensions.cs" />
     <Compile Include="Extensions\RectExtensions.cs" />
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="Extensions\TitleExtensions.cs" />
@@ -650,6 +681,7 @@
     <Compile Include="Utilities\AdvancedOptionsParsing.cs" />
     <Compile Include="Utilities\CodecUtilities.cs" />
     <Compile Include="Services\EncodeProxy\RemoteEncodeProxy.cs" />
+    <Compile Include="Utilities\ColorUtilities.cs" />
     <Compile Include="Utilities\EnumConverter.cs" />
     <Compile Include="Utilities\FileCleanup.cs" />
     <Compile Include="Services\EncodeProxy\IEncodeProxy.cs" />
@@ -690,6 +722,7 @@
     <Compile Include="ViewModel\DataModels\LevelChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\PickerViewModel.cs" />
     <Compile Include="ViewModel\DataModels\RotationViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\SizingPreviewLineViewModel.cs" />
     <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
     <Compile Include="ViewModel\EncodeDetailsWindowViewModel.cs" />
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />
@@ -710,7 +743,7 @@
     <Compile Include="View\PickerWindow.xaml.cs">
       <DependentUpon>PickerWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\IPreviewHolder.cs" />
+    <Compile Include="Model\IPreviewFrame.cs" />
     <Compile Include="View\Preview\PreviewCorners.xaml.cs">
       <DependentUpon>PreviewCorners.xaml</DependentUpon>
     </Compile>
@@ -742,7 +775,7 @@
     <Compile Include="ViewModel\DataModels\TitleSelectionViewModel.cs" />
     <Compile Include="ViewModel\LogWindowViewModel.cs" />
     <Compile Include="ViewModel\Panels\PanelViewModel.cs" />
-    <Compile Include="ViewModel\Panels\PicturePanelViewModel.cs" />
+    <Compile Include="ViewModel\Panels\SizingPanelViewModel.cs" />
     <Compile Include="ViewModel\QueueTitlesWindowViewModel.cs" />
     <Compile Include="ViewModel\QueueColumnsDialogViewModel.cs" />
     <Compile Include="ViewModel\ScanMultipleDialogViewModel.cs" />
@@ -763,8 +796,8 @@
     <Compile Include="View\LogWindow.xaml.cs">
       <DependentUpon>LogWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Panels\PicturePanel.xaml.cs">
-      <DependentUpon>PicturePanel.xaml</DependentUpon>
+    <Compile Include="View\Panels\SizingPanel.xaml.cs">
+      <DependentUpon>SizingPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\QueueTitlesWindow.xaml.cs">
       <DependentUpon>QueueTitlesWindow.xaml</DependentUpon>
@@ -892,6 +925,7 @@
       <DependentUpon>VideoPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowPlacement.cs" />
+    <Resource Include="Icons\Empty.png" />
     <Resource Include="Icons\redo.png" />
     <Resource Include="Icons\Hammer.png" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.resx">
@@ -906,7 +940,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\EncodingRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>EncodingRes.Designer.cs</LastGenOutput>
+	  <LastGenOutput>EncodingRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\EnumsRes.resx">

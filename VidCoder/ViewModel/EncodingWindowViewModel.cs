@@ -99,7 +99,7 @@ namespace VidCoder.ViewModel
 				}));
 			this.DeletePreset.Subscribe(_ => this.DeletePresetImpl());
 
-			this.PicturePanelViewModel = new PicturePanelViewModel(this);
+			this.SizingPanelViewModel = new SizingPanelViewModel(this);
 			this.VideoFiltersPanelViewModel = new VideoFiltersPanelViewModel(this);
 			this.VideoPanelViewModel = new VideoPanelViewModel(this);
 			this.AudioPanelViewModel = new AudioPanelViewModel(this);
@@ -137,7 +137,7 @@ namespace VidCoder.ViewModel
 		public OutputPathService OutputPathService { get; } = Ioc.Get<OutputPathService>();
 		public PickersService PickersService { get; } = Ioc.Get<PickersService>();
 
-		public PicturePanelViewModel PicturePanelViewModel { get; set; }
+		public SizingPanelViewModel SizingPanelViewModel { get; set; }
 		public VideoFiltersPanelViewModel VideoFiltersPanelViewModel { get; set; }
 		public VideoPanelViewModel VideoPanelViewModel { get; set; }
 		public AudioPanelViewModel AudioPanelViewModel { get; set; }

@@ -12,10 +12,6 @@
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VCCropping"/> class.
-        /// Copy Constructor
-        /// </summary>
         public VCCropping(VCCropping cropping)
         {
             this.Top = cropping.Top;
@@ -24,21 +20,6 @@
             this.Right = cropping.Right;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VCCropping"/> class. 
-        /// </summary>
-        /// <param name="top">
-        /// The Top Value
-        /// </param>
-        /// <param name="bottom">
-        /// The Bottom Value
-        /// </param>
-        /// <param name="left">
-        /// The Left Value
-        /// </param>
-        /// <param name="right">
-        /// The Right Value
-        /// </param>
 		public VCCropping(int top, int bottom, int left, int right)
         {
             this.Top = top;

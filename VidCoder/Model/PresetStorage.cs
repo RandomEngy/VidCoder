@@ -26,7 +26,7 @@ namespace VidCoder.Model
 {
 	public static class PresetStorage
 	{
-		private const int CurrentPresetVersion = 19;
+		private const int CurrentPresetVersion = 20;
 
 		private static readonly string UserPresetsFolder = Path.Combine(Utilities.AppFolder, "UserPresets");
 		private static readonly string BuiltInPresetsPath = "BuiltInPresets.json";
@@ -243,6 +243,7 @@ namespace VidCoder.Model
 				new EncodingProfileUpgrade(29, UpgradeEncodingProfileTo29),
 				new EncodingProfileUpgrade(31, UpgradeEncodingProfileTo31),
 				new EncodingProfileUpgrade(32, UpgradeEncodingProfileTo32),
+				new EncodingProfileUpgrade(33, UpgradeEncodingProfileTo33),
 			};
 
 			foreach (EncodingProfileUpgrade upgrade in upgrades)
@@ -678,6 +679,36 @@ namespace VidCoder.Model
 			}
 		}
 
+		private static void UpgradeEncodingProfileTo33(VCProfile profile)
+		{
+			profile.PaddingMode = VCPaddingMode.None;
+
+			if (profile.Width > 0 && profile.Height > 0 && !profile.KeepDisplayAspect)
+			{
+				profile.SizingMode = VCSizingMode.Manual;
+				if (profile.Anamorphic != VCAnamorphic.Custom || profile.UseDisplayWidth)
+				{
+					profile.PixelAspectX = 1;
+					profile.PixelAspectY = 1;
+				}
+			}
+			else if (profile.Width > 0 && profile.Height > 0)
+			{
+				profile.SizingMode = VCSizingMode.Automatic;
+				profile.ScalingMode = VCScalingMode.UpscaleFill;
+			}
+			else
+			{
+				profile.SizingMode = VCSizingMode.Automatic;
+				profile.ScalingMode = VCScalingMode.DownscaleOnly;
+
+				profile.Width = profile.MaxWidth;
+				profile.Height = profile.MaxHeight;
+			}
+
+			profile.UseAnamorphic = profile.Anamorphic != VCAnamorphic.None;
+		}
+
 #region For v31 upgrade
 		private static string UpgradeCustomFilter(string custom, hb_filter_ids filterId)
 		{
@@ -944,6 +975,11 @@ namespace VidCoder.Model
 			if (presetVersion < 19)
 			{
 				return 31;
+			}
+
+			if (presetVersion < 20)
+			{
+				return 32;
 			}
 
 			return Utilities.CurrentDatabaseVersion;

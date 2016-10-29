@@ -16,6 +16,7 @@ namespace VidCoderCommon.Model
 		public VCProfile()
 		{
 			this.Cropping = new VCCropping();
+			this.Padding = new VCPadding();
 		}
 
 		private string containerName;
@@ -42,54 +43,14 @@ namespace VidCoderCommon.Model
 		[JsonProperty]
 		public bool IPod5GSupport { get; set; }
 
+		[JsonProperty]
+		public VCSizingMode SizingMode { get; set; }
 
 		[JsonProperty]
 		public int Width { get; set; }
 
 		[JsonProperty]
 		public int Height { get; set; }
-
-		[JsonProperty]
-		public int MaxWidth { get; set; }
-
-		[JsonProperty]
-		public int MaxHeight { get; set; }
-
-		public int CappedWidth
-		{
-			get
-			{
-				if (this.Width == 0)
-				{
-					return 0;
-				}
-
-				if (this.MaxWidth != 0 && this.Width > this.MaxWidth)
-				{
-					return this.MaxWidth;
-				}
-
-				return this.Width;
-			}
-		}
-
-		public int CappedHeight
-		{
-			get
-			{
-				if (this.Height == 0)
-				{
-					return 0;
-				}
-
-				if (this.MaxHeight != 0 && this.Height > this.MaxHeight)
-				{
-					return this.MaxHeight;
-				}
-
-				return this.Height;
-			}
-		}
 
 		[JsonProperty]
 		public VCScaleMethod ScaleMethod { get; set; }
@@ -100,17 +61,26 @@ namespace VidCoderCommon.Model
 		[JsonProperty]
 		public VCCropping Cropping { get; set; }
 
+		private VCPadding padding;
 		[JsonProperty]
-		public VCAnamorphic Anamorphic { get; set; }
+		public VCPadding Padding
+		{
+			get { return this.padding; }
+
+			set { this.padding = value ?? new VCPadding(); }
+		}
 
 		[JsonProperty]
-		public bool UseDisplayWidth { get; set; }
+		public string PadColor { get; set; }
 
 		[JsonProperty]
-		public int DisplayWidth { get; set; }
+		public VCPaddingMode PaddingMode { get; set; }
 
 		[JsonProperty]
-		public bool KeepDisplayAspect { get; set; }
+		public bool UseAnamorphic { get; set; }
+
+		[JsonProperty]
+		public VCScalingMode ScalingMode { get; set; }
 
 		[JsonProperty]
 		public int PixelAspectX { get; set; }
@@ -280,6 +250,24 @@ namespace VidCoderCommon.Model
 		public string AudioEncoderFallback { get; set; }
 
 		#region Obsolete fields
+		[DeserializeOnly]
+		public int MaxWidth { get; set; }
+
+		[DeserializeOnly]
+		public int MaxHeight { get; set; }
+
+		[DeserializeOnly]
+		public VCAnamorphic Anamorphic { get; set; }
+
+		[DeserializeOnly]
+		public bool UseDisplayWidth { get; set; }
+
+		[DeserializeOnly]
+		public int DisplayWidth { get; set; }
+
+		[DeserializeOnly]
+		public bool KeepDisplayAspect { get; set; }
+
 		[DeserializeOnly]
 		public VCContainer OutputFormat { get; set; }
 

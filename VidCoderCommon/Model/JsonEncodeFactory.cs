@@ -14,6 +14,7 @@ using Microsoft.Practices.ServiceLocation;
 using Newtonsoft.Json.Linq;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Services;
+using VidCoderCommon.Utilities;
 using Audio = HandBrake.ApplicationServices.Interop.Json.Encode.Audio;
 using Metadata = HandBrake.ApplicationServices.Interop.Json.Encode.Metadata;
 using Source = HandBrake.ApplicationServices.Interop.Json.Encode.Source;
@@ -64,7 +65,7 @@ namespace VidCoderCommon.Model
 				throw new ArgumentNullException(nameof(title));
 			}
 
-			Geometry anamorphicSize = GetAnamorphicSize(job.EncodingProfile, title);
+			OutputSizeInfo outputSize = GetOutputSize(job.EncodingProfile, title);
 			VCProfile profile = job.EncodingProfile;
 
 			if (profile == null)
@@ -77,9 +78,9 @@ namespace VidCoderCommon.Model
 				SequenceID = 0,
 				Audio = this.CreateAudio(job, title),
 				Destination = this.CreateDestination(job, title, defaultChapterNameFormat),
-				Filters = this.CreateFilters(profile, title, anamorphicSize),
+				Filters = this.CreateFilters(profile, title, outputSize),
 				Metadata = this.CreateMetadata(),
-				PAR = anamorphicSize.PAR,
+				PAR = outputSize.Par,
 				Source = this.CreateSource(job, title, previewNumber, previewSeconds, previewCount),
 				Subtitle = this.CreateSubtitles(job),
 				Video = this.CreateVideo(job, title, previewSeconds, dxvaDecoding)
@@ -334,7 +335,7 @@ namespace VidCoderCommon.Model
 				chapterNumber);
 		}
 
-		private Filters CreateFilters(VCProfile profile, SourceTitle title, Geometry anamorphicSize)
+		private Filters CreateFilters(VCProfile profile, SourceTitle title, OutputSizeInfo outputSizeInfo)
 		{
 			Filters filters = new Filters
 			{
@@ -471,13 +472,6 @@ namespace VidCoderCommon.Model
 				}
 			}
 
-			// Grayscale
-			if (profile.Grayscale)
-			{
-				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_GRAYSCALE, Settings = null };
-				filters.FilterList.Add(filterItem);
-			}
-
 			// CropScale Filter
 			VCCropping cropping = GetCropping(profile, title);
 			JToken cropFilterSettings = this.GetFilterSettings(
@@ -485,8 +479,8 @@ namespace VidCoderCommon.Model
 				string.Format(
 					CultureInfo.InvariantCulture,
 					"width={0}:height={1}:crop-top={2}:crop-bottom={3}:crop-left={4}:crop-right={5}",
-					anamorphicSize.Width,
-					anamorphicSize.Height,
+					outputSizeInfo.ScaleWidth,
+					outputSizeInfo.ScaleHeight,
 					cropping.Top,
 					cropping.Bottom,
 					cropping.Left,
@@ -533,6 +527,25 @@ namespace VidCoderCommon.Model
 					Settings = rotateSettings
 				};
 				filters.FilterList.Add(rotateFilter);
+			}
+
+			// Grayscale
+			if (profile.Grayscale)
+			{
+				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_GRAYSCALE, Settings = null };
+				filters.FilterList.Add(filterItem);
+			}
+
+			// Padding
+			if (outputSizeInfo.Padding != null && !outputSizeInfo.Padding.IsZero)
+			{
+				var padColor = !string.IsNullOrEmpty(profile.PadColor) ? profile.PadColor : "000000";
+
+				JToken padSettings = this.GetFilterSettings(
+					hb_filter_ids.HB_FILTER_PAD,
+					$"width={outputSizeInfo.OutputWidth}:height={outputSizeInfo.OutputHeight}:x={outputSizeInfo.Padding.Left}:y={outputSizeInfo.Padding.Top}:color=0x{padColor}");
+				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_PAD, Settings = padSettings };
+				filters.FilterList.Add(filterItem);
 			}
 
 			return filters;
@@ -1005,124 +1018,298 @@ namespace VidCoderCommon.Model
 			return 1536;
 		}
 
-		public static Geometry GetAnamorphicSize(VCProfile profile, SourceTitle title)
+		public static OutputSizeInfo GetOutputSize(VCProfile profile, SourceTitle title)
 		{
-			if (profile == null)
+			if (profile.SizingMode == VCSizingMode.Manual)
 			{
-				throw new ArgumentNullException(nameof(profile));
-			}
-
-			if (title == null)
-			{
-				throw new ArgumentNullException(nameof(title));
-			}
-
-			int modulus;
-			if (profile.Anamorphic == VCAnamorphic.Loose || profile.Anamorphic == VCAnamorphic.Custom)
-			{
-				modulus = profile.Modulus;
-			}
-			else
-			{
-				modulus = 2;
-			}
-
-			VCCropping cropping = GetCropping(profile, title);
-			List<int> croppingList = new List<int> { cropping.Top, cropping.Bottom, cropping.Left, cropping.Right };
-
-			int sourceCroppedWidth = title.Geometry.Width - cropping.Left - cropping.Right;
-			int sourceCroppedHeight = title.Geometry.Height - cropping.Top - cropping.Bottom;
-
-			PAR par;
-			if (profile.Anamorphic == VCAnamorphic.Custom)
-			{
-				if (profile.UseDisplayWidth)
+				int manualOutputWidth, manualOutputHeight;
+				if (profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270)
 				{
-					// Figure PAR to hit the desired display width.
-					if (profile.Width > 0)
-					{
-						par = new PAR { Num = profile.DisplayWidth, Den = profile.CappedWidth };
-					}
-					else
-					{
-						int cappedWidth;
-
-						if (profile.MaxWidth != 0 && sourceCroppedWidth > profile.MaxWidth)
-						{
-							cappedWidth = profile.MaxWidth;
-						}
-						else
-						{
-							cappedWidth = sourceCroppedWidth;
-						}
-
-						par = new PAR { Num = profile.DisplayWidth, Den = cappedWidth };
-					}
+					manualOutputWidth = profile.Height;
+					manualOutputHeight = profile.Width;
 				}
 				else
 				{
-					// User has manually specified PAR.
-					par = new PAR { Num = profile.PixelAspectX, Den = profile.PixelAspectY };
+					manualOutputWidth = profile.Width;
+					manualOutputHeight = profile.Height;
 				}
+
+				manualOutputWidth += profile.Padding.Left + profile.Padding.Right;
+				manualOutputHeight += profile.Padding.Top + profile.Padding.Bottom;
+
+				return new OutputSizeInfo
+				{
+					ScaleWidth = profile.Width,
+					ScaleHeight = profile.Height,
+					OutputWidth = manualOutputWidth,
+					OutputHeight = manualOutputHeight,
+					Par = new PAR { Num = profile.PixelAspectX, Den = profile.PixelAspectY },
+					Padding = new VCPadding(profile.Padding)
+				};
+			}
+
+			// Someday this may be exposed in the UI
+			const int modulus = 2;
+
+			int sourceWidth = title.Geometry.Width;
+			int sourceHeight = title.Geometry.Height;
+
+			int sourceParWidth = title.Geometry.PAR.Num;
+			int sourceParHeight = title.Geometry.PAR.Den;
+
+			VCCropping cropping = GetCropping(profile, title);
+			int croppedSourceWidth = sourceWidth - cropping.Left - cropping.Right;
+			int croppedSourceHeight = sourceHeight - cropping.Top - cropping.Bottom;
+
+			double sourceAspect = (double)croppedSourceWidth / croppedSourceHeight;
+
+			int adjustedSourceWidth, adjustedSourceHeight;
+			if (profile.UseAnamorphic)
+			{
+				adjustedSourceWidth = croppedSourceWidth;
+				adjustedSourceHeight = croppedSourceHeight;
 			}
 			else
 			{
-				par = new PAR { Num = title.Geometry.PAR.Num, Den = title.Geometry.PAR.Den };
-			}
-
-			par.Simplify();
-
-			// HB doesn't expect us to give it a 0 width and height so we need to guard against that
-			int outputStorageWidth = profile.Width;
-			int outputStorageHeight = profile.Height;
-			if (outputStorageWidth == 0)
-			{
-				outputStorageWidth = sourceCroppedWidth;
-			}
-
-			if (outputStorageHeight == 0)
-			{
-				outputStorageHeight = sourceCroppedHeight;
-			}
-
-			int keepValue = 0;
-			if (profile.KeepDisplayAspect && profile.Anamorphic != VCAnamorphic.Custom)
-			{
-				keepValue = keepValue | NativeConstants.HB_KEEP_DISPLAY_ASPECT;
-
-				if (profile.Width > 0 && profile.Height == 0)
+				if (sourceParWidth > sourceParHeight)
 				{
-					keepValue = keepValue | NativeConstants.HB_KEEP_WIDTH;
+					adjustedSourceWidth = (int)Math.Round(croppedSourceWidth * ((double)sourceParWidth / sourceParHeight));
+					adjustedSourceHeight = croppedSourceHeight;
 				}
-
-				if (profile.Height > 0 && profile.Width == 0)
+				else
 				{
-					keepValue = keepValue | NativeConstants.HB_KEEP_HEIGHT;
+					adjustedSourceWidth = croppedSourceWidth;
+					adjustedSourceHeight = (int)Math.Round(croppedSourceHeight * ((double)sourceParHeight / sourceParWidth));
 				}
 			}
 
-			AnamorphicGeometry anamorphicGeometry = new AnamorphicGeometry
+			int? maxPictureWidth = null, maxPictureHeight = null;
+			if (profile.Width > 0)
 			{
-				SourceGeometry = title.Geometry,
-				DestSettings = new DestSettings
+				maxPictureWidth = profile.Width;
+			}
+
+			if (profile.Height > 0)
+			{
+				maxPictureHeight = profile.Height;
+			}
+
+			int scalingMultipleCap = profile.ScalingMode.UpscalingMultipleCap();
+			if (scalingMultipleCap > 0)
+			{
+				int maxWidthFromScalingXCap = adjustedSourceWidth * scalingMultipleCap;
+				maxPictureWidth = maxPictureWidth.HasValue ? Math.Min(maxWidthFromScalingXCap, maxPictureWidth.Value) : maxWidthFromScalingXCap;
+
+				int maxHeightFromScalingXCap = adjustedSourceHeight * scalingMultipleCap;
+				maxPictureHeight = maxPictureHeight.HasValue ? Math.Min(maxHeightFromScalingXCap, maxPictureHeight.Value) : maxHeightFromScalingXCap;
+			}
+
+			// How big the picture will be, before padding
+			int pictureOutputWidth, pictureOutputHeight;
+			if (maxPictureWidth == null && maxPictureHeight == null)
+			{
+				throw new InvalidOperationException("No width or height limits were found.");
+			}
+
+			double scaleFactor;
+			if (maxPictureHeight == null || sourceAspect > (double)maxPictureWidth.Value / maxPictureHeight.Value)
+			{
+				scaleFactor = (double)maxPictureWidth.Value / adjustedSourceWidth;
+			}
+			else
+			{
+				scaleFactor = (double)maxPictureHeight.Value / adjustedSourceHeight;
+			}
+
+			if (scalingMultipleCap > 0 && scaleFactor > scalingMultipleCap)
+			{
+				scaleFactor = scalingMultipleCap;
+			}
+
+			pictureOutputWidth = (int)Math.Round(adjustedSourceWidth * scaleFactor);
+			pictureOutputHeight = (int)Math.Round(adjustedSourceHeight * scaleFactor);
+
+			int scaleWidth = pictureOutputWidth;
+			int scaleHeight = pictureOutputHeight;
+
+			// Rotation happens before padding.
+			if (profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270)
+			{
+				int swapDimension = pictureOutputWidth;
+				pictureOutputWidth = pictureOutputHeight;
+				pictureOutputHeight = swapDimension;
+			}
+
+			int outputWidth, outputHeight;
+			VCPadding padding;
+			switch (profile.PaddingMode)
+			{
+				case VCPaddingMode.None:
+					outputWidth = pictureOutputWidth;
+					outputHeight = pictureOutputHeight;
+
+					padding = new VCPadding();
+
+					break;
+				case VCPaddingMode.Custom:
+					outputWidth = pictureOutputWidth + profile.Padding.Left + profile.Padding.Right;
+					outputHeight = pictureOutputHeight + profile.Padding.Top + profile.Padding.Bottom;
+
+					padding = new VCPadding(profile.Padding);
+
+					break;
+				case VCPaddingMode.Fill:
+					outputWidth = profile.Width;
+					outputHeight = profile.Height;
+
+					int horizontalPadding = (profile.Width - pictureOutputWidth) / 2;
+					int verticalPadding = (profile.Height - pictureOutputHeight) / 2;
+
+					padding = new VCPadding(verticalPadding, verticalPadding, horizontalPadding, horizontalPadding);
+
+					break;
+				case VCPaddingMode.Width:
+					outputWidth = profile.Width;
+					outputHeight = pictureOutputHeight;
+
+					horizontalPadding = (profile.Width - pictureOutputWidth) / 2;
+
+					padding = new VCPadding(0, 0, horizontalPadding, horizontalPadding);
+
+					break;
+				case VCPaddingMode.Height:
+					outputWidth = pictureOutputWidth;
+					outputHeight = profile.Height;
+
+					verticalPadding = (profile.Height - pictureOutputHeight) / 2;
+
+					padding = new VCPadding(verticalPadding, verticalPadding, 0, 0);
+
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
+			int roundedOutputWidth = MathUtilities.RoundToModulus(outputWidth, modulus);
+			int roundedOutputHeight = MathUtilities.RoundToModulus(outputHeight, modulus);
+
+			// Adjust padding to preserve picture size from rounded output
+			if ((padding.Left > 0 || padding.Right > 0) && roundedOutputWidth != outputWidth)
+			{
+				int horizontalPaddingDelta = roundedOutputWidth - outputWidth;
+				if (horizontalPaddingDelta > 0)
 				{
-					AnamorphicMode = (int)profile.Anamorphic,
-					Geometry = new Geometry
+					int leftPaddingDelta = horizontalPaddingDelta / 2;
+					int rightPaddingDelta = horizontalPaddingDelta - leftPaddingDelta;
+
+					padding.Left += leftPaddingDelta;
+					padding.Right += rightPaddingDelta;
+				}
+				else
+				{
+					int paddingDecrease = -horizontalPaddingDelta;
+
+					// Remove half the difference from the left side
+					int leftPaddingDecrease = Math.Min(padding.Left, paddingDecrease / 2);
+					int remainingPaddingDecrease = paddingDecrease - leftPaddingDecrease;
+
+					// Try to remove the rest from the right
+					int rightPaddingDecrease = Math.Min(padding.Right, remainingPaddingDecrease);
+					remainingPaddingDecrease -= rightPaddingDecrease;
+
+					// Try to remove anything remaining from the left
+					if (remainingPaddingDecrease > 0 && leftPaddingDecrease < padding.Left)
 					{
-						Width = outputStorageWidth,
-						Height = outputStorageHeight,
-						PAR = par,
-					},
-					Keep = keepValue,
-					Crop = croppingList,
-					Modulus = modulus,
-					MaxWidth = profile.MaxWidth,
-					MaxHeight = profile.MaxHeight,
-					ItuPAR = false
-				}
-			};
+						leftPaddingDecrease = Math.Min(padding.Left, leftPaddingDecrease + remainingPaddingDecrease);
+					}
 
-			return HandBrakeUtils.GetAnamorphicSize(anamorphicGeometry);
+					padding.Left -= leftPaddingDecrease;
+					padding.Right -= rightPaddingDecrease;
+				}
+			}
+
+			if ((padding.Top > 0 || padding.Bottom > 0) && roundedOutputHeight != outputHeight)
+			{
+				int verticalPaddingDelta = roundedOutputHeight - outputHeight;
+				if (verticalPaddingDelta > 0)
+				{
+					int topPaddingDelta = verticalPaddingDelta / 2;
+					int bottomPaddingDelta = verticalPaddingDelta - topPaddingDelta;
+
+					padding.Top += topPaddingDelta;
+					padding.Bottom += bottomPaddingDelta;
+				}
+				else
+				{
+					int paddingDecrease = -verticalPaddingDelta;
+
+					// Remove half the difference from the top
+					int topPaddingDecrease = Math.Min(padding.Top, paddingDecrease / 2);
+					int remainingPaddingDecrease = paddingDecrease - topPaddingDecrease;
+
+					// Try to remove the rest from the bottom
+					int bottomPaddingDecrease = Math.Min(padding.Bottom, remainingPaddingDecrease);
+					remainingPaddingDecrease -= bottomPaddingDecrease;
+
+					// Try to remove anything remaining from the bottom
+					if (remainingPaddingDecrease > 0 && topPaddingDecrease < padding.Top)
+					{
+						topPaddingDecrease = Math.Min(padding.Top, topPaddingDecrease + remainingPaddingDecrease);
+					}
+
+					padding.Top -= topPaddingDecrease;
+					padding.Bottom -= bottomPaddingDecrease;
+				}
+			}
+
+			// Picture size may have changed due to modulus rounding
+			if (padding.Left == 0 && padding.Right == 0)
+			{
+				pictureOutputWidth = roundedOutputWidth;
+			}
+
+			if (padding.Top == 0 && padding.Bottom == 0)
+			{
+				pictureOutputHeight = roundedOutputHeight;
+			}
+
+			PAR outputPar;
+			if (profile.UseAnamorphic)
+			{
+				// Calculate PAR from final picture size
+				if (profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270)
+				{
+					outputPar = new PAR
+					{
+						Num = croppedSourceHeight * sourceParHeight * pictureOutputHeight,
+						Den = croppedSourceWidth * sourceParWidth * pictureOutputWidth
+					};
+				}
+				else
+				{
+					outputPar = new PAR
+					{
+						Num = croppedSourceWidth * sourceParWidth * pictureOutputHeight,
+						Den = croppedSourceHeight * sourceParHeight * pictureOutputWidth
+					};
+				}
+
+				outputPar.Simplify();
+			}
+			else
+			{
+				outputPar = new PAR { Num = 1, Den = 1 };
+			}
+
+			return new OutputSizeInfo
+			{
+				ScaleWidth = scaleWidth,
+				ScaleHeight = scaleHeight,
+				OutputWidth = roundedOutputWidth,
+				OutputHeight = roundedOutputHeight,
+				Padding = padding,
+				Par = outputPar
+			};
 		}
 
 		public static VCCropping GetCropping(VCProfile profile, SourceTitle title)

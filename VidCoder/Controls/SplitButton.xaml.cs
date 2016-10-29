@@ -39,8 +39,8 @@ namespace VidCoder.Controls
 
 	    public Collection<object> MenuItemsSource
 	    {
-	        get { return (Collection<object>) GetValue(MenuItemsSourceProperty); }
-	        set { SetValue(MenuItemsSourceProperty, value); }
+	        get { return (Collection<object>)this.GetValue(MenuItemsSourceProperty); }
+	        set { this.SetValue(MenuItemsSourceProperty, value); }
 	    }
 
 		public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
@@ -51,8 +51,8 @@ namespace VidCoder.Controls
 
 		public ICommand Command
 		{
-			get { return (ICommand) GetValue(CommandProperty); }
-			set { SetValue(CommandProperty, value); }
+			get { return (ICommand)this.GetValue(CommandProperty); }
+			set { this.SetValue(CommandProperty, value); }
 		}
 
 		private static void OnCommandChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)

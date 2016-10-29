@@ -174,6 +174,7 @@ CopyBoth "System.Reactive.Linq.dll"
 CopyBoth "System.Reactive.PlatformServices.dll"
 CopyBoth "System.Reactive.Windows.Threading.dll"
 CopyBoth "Ude.dll"
+CopyBoth "Xceed.Wpf.Toolkit.dll"
 
 # Architecture-specific files from Lib folder
 CopyLibBoth "hb.dll"

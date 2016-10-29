@@ -334,19 +334,19 @@
 				Name="tabControl"
 				Margin="0 73 0 0"
 				SelectedIndex="{Binding SelectedTabIndex}">
-				<TabItem Header="{x:Static res:EncodingRes.TabHeader_Picture}">
-					<view:PicturePanel DataContext="{Binding PicturePanelViewModel}" />
+				<TabItem Header="{x:Static res:EncodingRes.TabHeader_Sizing}">
+					<view:SizingPanel DataContext="{Binding SizingPanelViewModel}" />
 				</TabItem>
 				<TabItem Header="{x:Static res:EncodingRes.TabHeader_VideoFilters}">
 					<view:VideoFiltersPanel DataContext="{Binding VideoFiltersPanelViewModel}" />
 				</TabItem>
-				<TabItem Header="{x:Static res:EncodingRes.TabHeader_Video}">
+				<TabItem Header="{x:Static res:EncodingRes.TabHeader_VideoEncoding}">
 					<view:VideoPanel DataContext="{Binding VideoPanelViewModel}" />
 				</TabItem>
 				<TabItem Header="{x:Static res:EncodingRes.TabHeader_Advanced}" Visibility="{Binding VideoPanelViewModel.UseAdvancedTab, Converter={StaticResource VisibilityConverter}}">
 					<view:AdvancedPanel DataContext="{Binding AdvancedPanelViewModel}" />
 				</TabItem>
-				<TabItem Header="{x:Static res:EncodingRes.TabHeader_Audio}">
+				<TabItem Header="{x:Static res:EncodingRes.TabHeader_AudioEncoding}">
 					<view:AudioPanel DataContext="{Binding AudioPanelViewModel}" />
 				</TabItem>
 			</TabControl>

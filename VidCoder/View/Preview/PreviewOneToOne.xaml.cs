@@ -16,7 +16,7 @@ using VidCoder.Model;
 
 namespace VidCoder.View.Preview
 {
-	public partial class PreviewOneToOne : UserControl, IPreviewHolder
+	public partial class PreviewOneToOne : UserControl, IPreviewFrame
 	{
 		public PreviewOneToOne()
 		{
