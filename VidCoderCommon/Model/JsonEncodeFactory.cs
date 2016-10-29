@@ -107,6 +107,20 @@ namespace VidCoderCommon.Model
 				audio.FallbackEncoder = audioEncoder.Id;
 			}
 
+			// If using auto-passthrough and we don't have a fallback set, pick the first compatible one
+			if (profile.AudioEncodings.Any(e => e.Encoder == "copy") && audio.FallbackEncoder == 0)
+			{
+				HBContainer container = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
+				foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
+				{
+					if ((encoder.CompatibleContainers & container.Id) > 0 && !encoder.IsPassthrough)
+					{
+						audio.FallbackEncoder = encoder.Id;
+						break;
+					}
+				}
+			}
+
 			if (profile.AudioCopyMask != null)
 			{
 				audio.CopyMask = HandBrakeEncoderHelpers.AudioEncoders
