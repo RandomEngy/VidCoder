@@ -447,54 +447,8 @@ namespace VidCoder.ViewModel
 		private void RegisterProfileProperties()
 		{
 			// These actions fire when the user changes a property.
-			this.RegisterProfileProperty(nameof(this.Profile.Width), () =>
-			{
-				//if (this.Profile.Anamorphic == VCAnamorphic.None && this.HasSourceData && this.Height > 0 && this.Width > 0)
-				//{
-				//	var cropWidthAmount = this.CropLeft + this.CropRight;
-				//	var cropHeightAmount = this.CropTop + this.CropBottom;
-				//	var sourceWidth = this.SelectedTitle.Geometry.Width;
-				//	var sourceHeight = this.SelectedTitle.Geometry.Height;
-				//	var parWidth = this.SelectedTitle.Geometry.PAR.Num;
-				//	var parHeight = this.SelectedTitle.Geometry.PAR.Den;
-
-				//	double finalDisplayAspect = ((double)(sourceWidth - cropWidthAmount) * parWidth) / ((sourceHeight - cropHeightAmount) * parHeight);
-
-				//	int newHeight = (int)(this.Width / finalDisplayAspect);
-				//	newHeight = GetNearestValue(newHeight, DimensionsAutoSetModulus);
-				//	if (newHeight > 0)
-				//	{
-				//		this.Height = newHeight;
-				//	}
-				//}
-
-				this.RefreshOutputSize();
-			});
-
-			this.RegisterProfileProperty(nameof(this.Profile.Height), () =>
-			{
-				//if (this.Profile.Anamorphic == VCAnamorphic.None && this.HasSourceData && this.Width > 0 && this.Height > 0)
-				//{
-				//	var cropWidthAmount = this.CropLeft + this.CropRight;
-				//	var cropHeightAmount = this.CropTop + this.CropBottom;
-				//	var sourceWidth = this.SelectedTitle.Geometry.Width;
-				//	var sourceHeight = this.SelectedTitle.Geometry.Height;
-				//	var parWidth = this.SelectedTitle.Geometry.PAR.Num;
-				//	var parHeight = this.SelectedTitle.Geometry.PAR.Den;
-
-				//	double finalDisplayAspect = ((double)(sourceWidth - cropWidthAmount) * parWidth) / ((sourceHeight - cropHeightAmount) * parHeight);
-
-				//	int newWidth = (int)(this.Height * finalDisplayAspect);
-				//	newWidth = GetNearestValue(newWidth, DimensionsAutoSetModulus);
-				//	if (newWidth > 0)
-				//	{
-				//		this.Width = newWidth;
-				//	}
-				//}
-
-				this.RefreshOutputSize();
-			});
-
+			this.RegisterProfileProperty(nameof(this.Profile.Width), this.RefreshOutputSize);
+			this.RegisterProfileProperty(nameof(this.Profile.Height), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.ScaleMethod));
 			this.RegisterProfileProperty(nameof(this.Profile.Modulus), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.PixelAspectX), this.RefreshOutputSize);
@@ -513,8 +467,8 @@ namespace VidCoder.ViewModel
 				{
 					if (this.Width == 0 || this.Height == 0)
 					{
-						this.Width = 1920;
-						this.Height = 1080;
+						this.Width = JsonEncodeFactory.DefaultMaxWidth;
+						this.Height = JsonEncodeFactory.DefaultMaxHeight;
 					}
 
 					this.PixelAspectX = 1;
@@ -760,8 +714,8 @@ namespace VidCoder.ViewModel
 		{
 			if (!this.AllowEmptyResolution && (this.Width == 0 || this.Height == 0))
 			{
-				this.Width = 1920;
-				this.Height = 1080;
+				this.Width = JsonEncodeFactory.DefaultMaxWidth;
+				this.Height = JsonEncodeFactory.DefaultMaxHeight;
 			}
 		}
 

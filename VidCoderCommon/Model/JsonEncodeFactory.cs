@@ -23,6 +23,9 @@ namespace VidCoderCommon.Model
 {
 	public class JsonEncodeFactory
 	{
+		public const int DefaultMaxWidth = 1920;
+		public const int DefaultMaxHeight = 1080;
+
 		private const int ContainerOverheadBytesPerFrame = 6;
 
 		private const int PtsPerSecond = 90000;
@@ -1122,7 +1125,10 @@ namespace VidCoderCommon.Model
 			int pictureOutputWidth, pictureOutputHeight;
 			if (maxPictureWidth == null && maxPictureHeight == null)
 			{
-				throw new InvalidOperationException("No width or height limits were found.");
+				// This is not technically valid for a preset to leave both off but it can happen in an intermediate stage.
+				// Cover so we don't crash.
+				maxPictureWidth = DefaultMaxWidth;
+				maxPictureHeight = DefaultMaxHeight;
 			}
 
 			double scaleFactor;
@@ -1280,11 +1286,13 @@ namespace VidCoderCommon.Model
 			if (padding.Left == 0 && padding.Right == 0)
 			{
 				pictureOutputWidth = roundedOutputWidth;
+				scaleWidth = roundedOutputWidth;
 			}
 
 			if (padding.Top == 0 && padding.Bottom == 0)
 			{
 				pictureOutputHeight = roundedOutputHeight;
+				scaleHeight = roundedOutputHeight;
 			}
 
 			PAR outputPar;

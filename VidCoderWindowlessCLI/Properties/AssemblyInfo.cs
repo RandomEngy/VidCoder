@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("VidCoderWindowlessCLI")]
-[assembly: AssemblyCopyright("Copyright © 2013-2015")]
+[assembly: AssemblyCopyright("Copyright © 2013-2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
