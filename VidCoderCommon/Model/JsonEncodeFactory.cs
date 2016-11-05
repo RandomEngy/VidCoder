@@ -580,6 +580,8 @@ namespace VidCoderCommon.Model
 
 		private JToken GetFilterSettings(hb_filter_ids filter, string preset, string tune, string custom)
 		{
+			custom = custom?.Trim();
+
 			IntPtr settingsPtr = HBFunctions.hb_generate_filter_settings_json((int)filter, preset, tune, custom);
 			string unparsedJson = Marshal.PtrToStringAnsi(settingsPtr);
 

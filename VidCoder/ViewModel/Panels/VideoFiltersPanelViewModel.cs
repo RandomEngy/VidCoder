@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Resources;
+using System.Text;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.HbLib;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
@@ -251,8 +252,8 @@ namespace VidCoder.ViewModel
 
 		public string CustomDeinterlace
 		{
-			get { return this.Profile.CustomDeinterlace; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.CustomDeinterlace), value); }
+			get { return AddSpacesAfterColons(this.Profile.CustomDeinterlace); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.CustomDeinterlace), RemoveSpacesAfterColons(value)); }
 		}
 
 		private ObservableAsPropertyHelper<bool> deinterlacePresetVisible;
@@ -271,8 +272,8 @@ namespace VidCoder.ViewModel
 
 		public string CustomCombDetect
 		{
-			get { return this.Profile.CustomCombDetect; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.CustomCombDetect), value); }
+			get { return AddSpacesAfterColons(this.Profile.CustomCombDetect); }
+			set { this.UpdateProfileProperty(nameof(this.Profile.CustomCombDetect), RemoveSpacesAfterColons(value)); }
 		}
 
 		private ObservableAsPropertyHelper<bool> customCombDetectVisible;
@@ -364,6 +365,49 @@ namespace VidCoder.ViewModel
 		private List<ComboChoice> GetFilterTuneChoices(hb_filter_ids filter, string resourcePrefix = null)
 		{
 			return ConvertParameterListToComboChoices(HandBrakeFilterHelpers.GetFilterTunes((int) filter), resourcePrefix);
+		}
+
+		private static string AddSpacesAfterColons(string input)
+		{
+			if (input == null)
+			{
+				return null;
+			}
+
+			return input.Replace(":", ": ");
+		}
+
+		private static string RemoveSpacesAfterColons(string input)
+		{
+			if (input == null)
+			{
+				return null;
+			}
+
+			var result = new StringBuilder();
+			bool lastCharWasColon = false;
+
+			for (int i = 0; i < input.Length; i++)
+			{
+				char c = input[i];
+				if (c == ':')
+				{
+					lastCharWasColon = true;
+					result.Append(c);
+				}
+				else
+				{
+					if (c != ' ' || !lastCharWasColon || i == input.Length - 1)
+					{
+						result.Append(c);
+					}
+
+					lastCharWasColon = false;
+				}
+
+			}
+
+			return result.ToString();
 		}
 
 		private static List<ComboChoice> ConvertParameterListToComboChoices(IList<HBPresetTune> parameters, string resourcePrefix)

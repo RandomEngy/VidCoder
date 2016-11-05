@@ -696,20 +696,6 @@ namespace VidCoder.ViewModel
 			this.previewUpdateService.RefreshPreview();
 		}
 
-		private void PopulatePixelAspect()
-		{
-			if (this.SelectedTitle == null)
-			{
-				this.PixelAspectX = 1;
-				this.PixelAspectY = 1;
-			}
-			else
-			{
-				this.PixelAspectX = this.SelectedTitle.Geometry.PAR.Num;
-				this.PixelAspectY = this.SelectedTitle.Geometry.PAR.Den;
-			}
-		}
-
 		private void EnsureResolutionPopulatedIfRequired()
 		{
 			if (!this.AllowEmptyResolution && (this.Width == 0 || this.Height == 0))

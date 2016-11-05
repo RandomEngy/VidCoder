@@ -23,12 +23,24 @@
 			<Setter Property="VerticalAlignment" Value="Center" />
 		</Style>
 		<Style x:Key="CustomFilterBox" TargetType="TextBox">
-			<Setter Property="Height" Value="23" />
-			<Setter Property="Width" Value="120" />
 			<Setter Property="Margin" Value="6 0 0 0" />
 			<Setter Property="VerticalAlignment" Value="Center" />
-			<Setter Property="HorizontalAlignment" Value="Left" />
+		</Style>
+		<Style
+			x:Key="OneLineCustomFilterBox"
+			BasedOn="{StaticResource CustomFilterBox}"
+			TargetType="TextBox">
+			<Setter Property="Height" Value="23" />
 			<Setter Property="VerticalContentAlignment" Value="Center" />
+		</Style>
+		<Style
+			x:Key="MultiLineCustomFilterBox"
+			BasedOn="{StaticResource CustomFilterBox}"
+			TargetType="TextBox">
+			<Setter Property="HorizontalAlignment" Value="Left" />
+			<Setter Property="Width" Value="190" />
+			<Setter Property="Height" Value="80" />
+			<Setter Property="TextWrapping" Value="Wrap" />
 		</Style>
 		<Style x:Key="FilterLabel" TargetType="TextBlock">
 			<Setter Property="VerticalAlignment" Value="Center" />
@@ -37,8 +49,8 @@
 	</UserControl.Resources>
 	<Grid>
 		<Grid
-			Margin="15 16 0 0"
-			HorizontalAlignment="Left"
+			Margin="15 16 15 0"
+			HorizontalAlignment="Stretch"
 			VerticalAlignment="Top">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
@@ -69,43 +81,59 @@
 			<TextBox
 				Grid.Row="0"
 				Grid.Column="2"
-				Margin="6 2 0 2"
-				Style="{StaticResource CustomFilterBox}"
+				Margin="6 3 0 3"
+				Style="{StaticResource OneLineCustomFilterBox}"
 				Text="{Binding CustomDetelecine,
-				               UpdateSourceTrigger=PropertyChanged}"
+							   UpdateSourceTrigger=PropertyChanged}"
 				Visibility="{Binding CustomDetelecineVisible,
-				                     Converter={StaticResource VisibilityConverter}}" />
+									 Converter={StaticResource VisibilityConverter}}" />
 
 			<!--  Deinterlace  -->
 			<TextBlock
 				Grid.Row="1"
 				Grid.Column="0"
+				Margin="0 5 6 0"
+				VerticalAlignment="Top"
 				Style="{StaticResource FilterLabel}"
 				Text="{x:Static res:EncodingRes.DeinterlaceLabel}" />
 			<ComboBox
 				Grid.Row="1"
 				Grid.Column="1"
+				VerticalAlignment="Top"
 				ItemsSource="{Binding DisplayNames,
-				                      Source={StaticResource DeinterlaceChoices}}"
+									  Source={StaticResource DeinterlaceChoices}}"
 				SelectedValue="{Binding DeinterlaceType,
-				                        Converter={StaticResource DeinterlaceChoices}}"
+										Converter={StaticResource DeinterlaceChoices}}"
 				Style="{StaticResource NormalComboBox}" />
 			<StackPanel
 				Grid.Row="1"
 				Grid.Column="2"
-				Margin="0 2"
+				Margin="0 3"
 				Orientation="Horizontal">
 				<StackPanel
 					Margin="12 0 0 0"
 					Orientation="Horizontal"
 					Visibility="{Binding DeinterlacePresetVisible,
-					                     Converter={StaticResource VisibilityConverter}}">
-					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.PresetLabel}" />
-					<StackPanel
-						Margin="6 0 0 0"
-						VerticalAlignment="Center"
-						Orientation="Vertical">
+										 Converter={StaticResource VisibilityConverter}}">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+						<TextBlock
+							Grid.Row="0"
+							Grid.Column="0"
+							Margin="0 2 6 0"
+							VerticalAlignment="Top"
+							Text="{x:Static res:EncodingRes.PresetLabel}" />
+
 						<ComboBox
+							Grid.Row="0"
+							Grid.Column="1"
 							MinWidth="70"
 							VerticalAlignment="Center"
 							ItemsSource="{Binding DeinterlacePresetChoices}"
@@ -113,23 +141,37 @@
 							SelectedValuePath="Value" />
 
 						<TextBox
+							Grid.Row="1"
+							Grid.Column="0"
+							Grid.ColumnSpan="2"
 							Margin="0 2 0 0"
-							Style="{StaticResource CustomFilterBox}"
+							Style="{StaticResource MultiLineCustomFilterBox}"
 							Text="{Binding CustomDeinterlace,
-							               UpdateSourceTrigger=PropertyChanged}"
+										   UpdateSourceTrigger=PropertyChanged}"
 							Visibility="{Binding CustomDeinterlaceVisible,
-							                     Converter={StaticResource VisibilityConverter}}" />
-					</StackPanel>
+												 Converter={StaticResource VisibilityConverter}}" />
+					</Grid>
 
-					<TextBlock
-						Margin="12 0 0 0"
-						VerticalAlignment="Center"
-						Text="{x:Static res:EncodingRes.InterlaceDetectionLabel}" />
-					<StackPanel
-						Margin="6 0 0 0"
-						VerticalAlignment="Center"
-						Orientation="Vertical">
+					<Grid Margin="12 0 0 0">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+
+						<TextBlock
+							Grid.Row="0"
+							Grid.Column="0"
+							Margin="0 2 6 0"
+							VerticalAlignment="Top"
+							Text="{x:Static res:EncodingRes.InterlaceDetectionLabel}" />
+
 						<ComboBox
+							Grid.Row="0"
+							Grid.Column="1"
 							MinWidth="70"
 							VerticalAlignment="Center"
 							ItemsSource="{Binding CombDetectChoices}"
@@ -137,13 +179,42 @@
 							SelectedValuePath="Value" />
 
 						<TextBox
+							Grid.Row="1"
+							Grid.Column="0"
+							Grid.ColumnSpan="2"
 							Margin="0 2 0 0"
-							Style="{StaticResource CustomFilterBox}"
+							Style="{StaticResource MultiLineCustomFilterBox}"
 							Text="{Binding CustomCombDetect,
-							               UpdateSourceTrigger=PropertyChanged}"
+										   UpdateSourceTrigger=PropertyChanged}"
 							Visibility="{Binding CustomCombDetectVisible,
-							                     Converter={StaticResource VisibilityConverter}}" />
-					</StackPanel>
+												 Converter={StaticResource VisibilityConverter}}" />
+					</Grid>
+
+					<!--<StackPanel Orientation="Horizontal">
+						<TextBlock
+							Margin="12 2 0 0"
+							VerticalAlignment="Top"
+							Text="{x:Static res:EncodingRes.InterlaceDetectionLabel}" />
+						<StackPanel
+							Margin="6 0 0 0"
+							VerticalAlignment="Top"
+							Orientation="Vertical">
+							<ComboBox
+								MinWidth="70"
+								VerticalAlignment="Center"
+								ItemsSource="{Binding CombDetectChoices}"
+								SelectedValue="{Binding CombDetect}"
+								SelectedValuePath="Value" />
+
+							<TextBox
+								Margin="0 2 0 0"
+								Style="{StaticResource MultiLineCustomFilterBox}"
+								Text="{Binding CustomCombDetect,
+											   UpdateSourceTrigger=PropertyChanged}"
+								Visibility="{Binding CustomCombDetectVisible,
+													 Converter={StaticResource VisibilityConverter}}" />
+						</StackPanel>
+					</StackPanel>-->
 				</StackPanel>
 			</StackPanel>
 
@@ -161,16 +232,22 @@
 				SelectedValuePath="Value"
 				Style="{StaticResource NormalComboBox}" />
 
-			<StackPanel
+			<Grid
 				Grid.Row="2"
 				Grid.Column="2"
-				Margin="0 2"
-				Orientation="Horizontal">
+				Margin="0 2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+
 				<StackPanel
+					Grid.Column="0"
 					Margin="12 0 0 0"
 					Orientation="Horizontal"
 					Visibility="{Binding DenoisePresetVisible,
-					                     Converter={StaticResource VisibilityConverter}}">
+										 Converter={StaticResource VisibilityConverter}}">
 					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.PresetLabel}" />
 
 					<ComboBox
@@ -183,10 +260,11 @@
 				</StackPanel>
 
 				<StackPanel
+					Grid.Column="1"
 					Margin="12 0 0 0"
 					Orientation="Horizontal"
 					Visibility="{Binding DenoiseTuneVisible,
-					                     Converter={StaticResource VisibilityConverter}}">
+										 Converter={StaticResource VisibilityConverter}}">
 					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.TuneLabel}" />
 
 					<ComboBox
@@ -199,12 +277,13 @@
 				</StackPanel>
 
 				<TextBox
-					Style="{StaticResource CustomFilterBox}"
+					Grid.Column="2"
+					Style="{StaticResource OneLineCustomFilterBox}"
 					Text="{Binding CustomDenoise,
-					               UpdateSourceTrigger=PropertyChanged}"
+								   UpdateSourceTrigger=PropertyChanged}"
 					Visibility="{Binding CustomDenoiseVisible,
-					                     Converter={StaticResource VisibilityConverter}}" />
-			</StackPanel>
+										 Converter={StaticResource VisibilityConverter}}" />
+			</Grid>
 
 			<!--  Deblock  -->
 			<TextBlock
