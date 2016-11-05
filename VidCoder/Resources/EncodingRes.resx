@@ -1047,4 +1047,12 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
     <value>Resolution:</value>
     <comment>Label for a video resolution in pixels.</comment>
   </data>
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>Format: key1=value1:key2=value2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
+  <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
+    <value>Keys:</value>
+    <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
 </root>

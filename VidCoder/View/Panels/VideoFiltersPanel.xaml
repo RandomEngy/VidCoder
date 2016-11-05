@@ -25,6 +25,7 @@
 		<Style x:Key="CustomFilterBox" TargetType="TextBox">
 			<Setter Property="Margin" Value="6 0 0 0" />
 			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="ToolTipService.ShowDuration" Value="20000" />
 		</Style>
 		<Style
 			x:Key="OneLineCustomFilterBox"
@@ -85,6 +86,7 @@
 				Style="{StaticResource OneLineCustomFilterBox}"
 				Text="{Binding CustomDetelecine,
 							   UpdateSourceTrigger=PropertyChanged}"
+				ToolTip="{Binding CustomDetelecineToolTip}"
 				Visibility="{Binding CustomDetelecineVisible,
 									 Converter={StaticResource VisibilityConverter}}" />
 
@@ -148,6 +150,7 @@
 							Style="{StaticResource MultiLineCustomFilterBox}"
 							Text="{Binding CustomDeinterlace,
 										   UpdateSourceTrigger=PropertyChanged}"
+							ToolTip="{Binding CustomDeinterlaceToolTip}"
 							Visibility="{Binding CustomDeinterlaceVisible,
 												 Converter={StaticResource VisibilityConverter}}" />
 					</Grid>
@@ -186,6 +189,7 @@
 							Style="{StaticResource MultiLineCustomFilterBox}"
 							Text="{Binding CustomCombDetect,
 										   UpdateSourceTrigger=PropertyChanged}"
+							ToolTip="{Binding CustomCombDetectToolTip}"
 							Visibility="{Binding CustomCombDetectVisible,
 												 Converter={StaticResource VisibilityConverter}}" />
 					</Grid>
@@ -281,6 +285,7 @@
 					Style="{StaticResource OneLineCustomFilterBox}"
 					Text="{Binding CustomDenoise,
 								   UpdateSourceTrigger=PropertyChanged}"
+					ToolTip="{Binding CustomDenoiseToolTip}"
 					Visibility="{Binding CustomDenoiseVisible,
 										 Converter={StaticResource VisibilityConverter}}" />
 			</Grid>

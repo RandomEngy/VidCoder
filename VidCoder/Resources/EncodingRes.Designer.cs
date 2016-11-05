@@ -754,6 +754,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Format: key1=value1:key2=value2:....
+        /// </summary>
+        public static string CustomFilterToolTipFormatPart {
+            get {
+                return ResourceManager.GetString("CustomFilterToolTipFormatPart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keys:.
+        /// </summary>
+        public static string CustomFilterToolTipKeysLabel {
+            get {
+                return ResourceManager.GetString("CustomFilterToolTipKeysLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deblocking:.
         /// </summary>
         public static string DeblockingLabel {

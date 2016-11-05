@@ -63,17 +63,12 @@ namespace VidCoder.ViewModel
 			this.WhenAnyValue(x => x.DeinterlaceType)
 				.Select(deinterlaceType =>
 				{
-					switch (deinterlaceType)
+					if (deinterlaceType == VCDeinterlace.Off)
 					{
-						case VCDeinterlace.Off:
-							return new List<ComboChoice>();
-						case VCDeinterlace.Yadif:
-							return this.GetFilterPresetChoices(hb_filter_ids.HB_FILTER_DEINTERLACE, "DeinterlacePreset_");
-						case VCDeinterlace.Decomb:
-							return this.GetFilterPresetChoices(hb_filter_ids.HB_FILTER_DECOMB, "DeinterlacePreset_");
-						default:
-							throw new ArgumentException("Unrecognized deinterlace type: " + deinterlaceType);
+						return new List<ComboChoice>();
 					}
+
+					return this.GetFilterPresetChoices(GetDeinterlaceFilter(deinterlaceType), "DeinterlacePreset_");
 				}).ToProperty(this, x => x.DeinterlacePresetChoices, out this.deinterlacePresetChoices);
 
 			// DeinterlacePresetVisible
@@ -88,6 +83,17 @@ namespace VidCoder.ViewModel
 			{
 				return deinterlaceType != VCDeinterlace.Off && deinterlacePreset == "custom";
 			}).ToProperty(this, x => x.CustomDeinterlaceVisible, out this.customDeinterlaceVisible);
+
+			// CustomDeinterlaceToolTip
+			this.WhenAnyValue(x => x.DeinterlaceType, deinterlaceType =>
+			{
+				if (deinterlaceType == VCDeinterlace.Off)
+				{
+					return string.Empty;
+				}
+
+				return GetCustomFilterToolTip(GetDeinterlaceFilter(deinterlaceType));
+			}).ToProperty(this, x => x.CustomDeinterlaceToolTip, out this.customDeinterlaceToolTip);
 
 			// CustomCombDetectVisible
 			this.WhenAnyValue(x => x.CombDetect, combDetect =>
@@ -105,17 +111,12 @@ namespace VidCoder.ViewModel
 			this.WhenAnyValue(x => x.DenoiseType)
 				.Select(denoiseType =>
 				{
-					switch (denoiseType)
+					if (denoiseType == VCDenoise.Off)
 					{
-						case VCDenoise.Off:
-							return new List<ComboChoice>();
-						case VCDenoise.hqdn3d:
-							return this.GetFilterPresetChoices(hb_filter_ids.HB_FILTER_HQDN3D, "DenoisePreset_");
-						case VCDenoise.NLMeans:
-							return this.GetFilterPresetChoices(hb_filter_ids.HB_FILTER_NLMEANS, "DenoisePreset_");
-						default:
-							throw new ArgumentOutOfRangeException(nameof(denoiseType), denoiseType, null);
+						return new List<ComboChoice>();
 					}
+
+					return this.GetFilterPresetChoices(GetDenoiseFilter(denoiseType), "DenoisePreset_");
 				}).ToProperty(this, x => x.DenoisePresetChoices, out this.denoisePresetChoices);
 
 			// DenoiseTuneVisible
@@ -129,6 +130,17 @@ namespace VidCoder.ViewModel
 			{
 				return denoiseType != VCDenoise.Off && denoisePreset == "custom";
 			}).ToProperty(this, x => x.CustomDenoiseVisible, out this.customDenoiseVisible);
+
+			// CustomDenoiseToolTip
+			this.WhenAnyValue(x => x.DenoiseType, denoiseType =>
+			{
+				if (denoiseType == VCDenoise.Off)
+				{
+					return string.Empty;
+				}
+
+				return GetCustomFilterToolTip(GetDenoiseFilter(denoiseType));
+			}).ToProperty(this, x => x.CustomDenoiseToolTip, out this.customDenoiseToolTip);
 
 			// DeblockText
 			this.WhenAnyValue(x => x.Deblock, deblock =>
@@ -165,7 +177,13 @@ namespace VidCoder.ViewModel
 
 		private void RegisterProfileProperties()
 		{
-			this.RegisterProfileProperty(nameof(this.Detelecine));
+			this.RegisterProfileProperty(nameof(this.Detelecine), () =>
+			{
+				if (this.Detelecine == "custom" && string.IsNullOrWhiteSpace(this.CustomDetelecine))
+				{
+					this.CustomDetelecine = GetDefaultCustomFilterString(hb_filter_ids.HB_FILTER_DETELECINE);
+				}
+			});
 			this.RegisterProfileProperty(nameof(this.CustomDetelecine));
 
 			this.RegisterProfileProperty(nameof(this.DeinterlaceType), () =>
@@ -183,9 +201,26 @@ namespace VidCoder.ViewModel
 					}
 				}
 			});
-			this.RegisterProfileProperty(nameof(this.DeinterlacePreset));
+			this.RegisterProfileProperty(nameof(this.DeinterlacePreset), () =>
+			{
+				if (this.DeinterlacePreset == "custom" && string.IsNullOrWhiteSpace(this.CustomDeinterlace))
+				{
+					if (this.DeinterlaceType == VCDeinterlace.Off)
+					{
+						return;
+					}
+
+					this.CustomDeinterlace = GetDefaultCustomFilterString(GetDeinterlaceFilter(this.DeinterlaceType));
+				}
+			});
 			this.RegisterProfileProperty(nameof(this.CustomDeinterlace));
-			this.RegisterProfileProperty(nameof(this.CombDetect));
+			this.RegisterProfileProperty(nameof(this.CombDetect), () =>
+			{
+				if (this.CombDetect == "custom" && string.IsNullOrWhiteSpace(this.CustomCombDetect))
+				{
+					this.CustomCombDetect = GetDefaultCustomFilterString(hb_filter_ids.HB_FILTER_COMB_DETECT);
+				}
+			});
 			this.RegisterProfileProperty(nameof(this.CustomCombDetect));
 
 			this.RegisterProfileProperty(nameof(this.DenoiseType), () =>
@@ -201,7 +236,18 @@ namespace VidCoder.ViewModel
 				}
 			});
 
-			this.RegisterProfileProperty(nameof(this.DenoisePreset));
+			this.RegisterProfileProperty(nameof(this.DenoisePreset), () =>
+			{
+				if (this.DenoisePreset == "custom" && string.IsNullOrWhiteSpace(this.CustomDenoise))
+				{
+					if (this.DenoiseType == VCDenoise.Off)
+					{
+						return;
+					}
+
+					this.CustomDenoise = GetDefaultCustomFilterString(GetDenoiseFilter(this.DenoiseType));
+				}
+			});
 			this.RegisterProfileProperty(nameof(this.DenoiseTune));
 			this.RegisterProfileProperty(nameof(this.CustomDenoise));
 			this.RegisterProfileProperty(nameof(this.Deblock));
@@ -224,6 +270,8 @@ namespace VidCoder.ViewModel
 
 		private ObservableAsPropertyHelper<bool> customDetelecineVisible;
 		public bool CustomDetelecineVisible => this.customDetelecineVisible.Value;
+
+		public string CustomDetelecineToolTip => GetCustomFilterToolTip(hb_filter_ids.HB_FILTER_DETELECINE);
 
 		public List<ComboChoice<VCDeinterlace>> DeinterlaceChoices { get; }
 
@@ -262,6 +310,9 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> customDeinterlaceVisible;
 		public bool CustomDeinterlaceVisible => this.customDeinterlaceVisible.Value;
 
+		private ObservableAsPropertyHelper<string> customDeinterlaceToolTip;
+		public string CustomDeinterlaceToolTip => this.customDeinterlaceToolTip.Value;
+
 		public List<ComboChoice> CombDetectChoices { get; }
 
 		public string CombDetect
@@ -278,6 +329,8 @@ namespace VidCoder.ViewModel
 
 		private ObservableAsPropertyHelper<bool> customCombDetectVisible;
 		public bool CustomCombDetectVisible => this.customCombDetectVisible.Value;
+
+		public string CustomCombDetectToolTip => GetCustomFilterToolTip(hb_filter_ids.HB_FILTER_COMB_DETECT);
 
 		public List<ComboChoice<VCDenoise>> DenoiseChoices { get; }
 
@@ -313,12 +366,6 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool UseCustomDenoise
-		{
-			get { return this.Profile.UseCustomDenoise; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.UseCustomDenoise), value); }
-		}
-
 		private ObservableAsPropertyHelper<bool> denoisePresetVisible;
 		public bool DenoisePresetVisible => this.denoisePresetVisible.Value;
 
@@ -342,6 +389,9 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> customDenoiseVisible;
 		public bool CustomDenoiseVisible => this.customDenoiseVisible.Value;
 
+		private ObservableAsPropertyHelper<string> customDenoiseToolTip;
+		public string CustomDenoiseToolTip => this.customDenoiseToolTip.Value;
+
 		public int Deblock
 		{
 			get { return this.Profile.Deblock; }
@@ -359,12 +409,12 @@ namespace VidCoder.ViewModel
 
 		private List<ComboChoice> GetFilterPresetChoices(hb_filter_ids filter, string resourcePrefix = null)
 		{
-			return ConvertParameterListToComboChoices(HandBrakeFilterHelpers.GetFilterPresets((int) filter), resourcePrefix);
+			return ConvertParameterListToComboChoices(HandBrakeFilterHelpers.GetFilterPresets((int)filter), resourcePrefix);
 		}
 
 		private List<ComboChoice> GetFilterTuneChoices(hb_filter_ids filter, string resourcePrefix = null)
 		{
-			return ConvertParameterListToComboChoices(HandBrakeFilterHelpers.GetFilterTunes((int) filter), resourcePrefix);
+			return ConvertParameterListToComboChoices(HandBrakeFilterHelpers.GetFilterTunes((int)filter), resourcePrefix);
 		}
 
 		private static string AddSpacesAfterColons(string input)
@@ -404,10 +454,64 @@ namespace VidCoder.ViewModel
 
 					lastCharWasColon = false;
 				}
-
 			}
 
 			return result.ToString();
+		}
+
+		private static string GetDefaultCustomFilterString(hb_filter_ids filter)
+		{
+			IDictionary<string, string> customDictionary = HandBrakeFilterHelpers.GetDefaultCustomSettings((int)filter);
+			List<string> keyValuePairList = new List<string>();
+			foreach (KeyValuePair<string, string> keyValuePair in customDictionary)
+			{
+				keyValuePairList.Add(keyValuePair.Key + "=" + keyValuePair.Value);
+			}
+
+			return string.Join(":", keyValuePairList);
+		}
+
+		private static string GetCustomFilterToolTip(hb_filter_ids filter)
+		{
+			var builder = new StringBuilder(EncodingRes.CustomFilterToolTipFormatPart);
+			builder.AppendLine();
+			builder.Append(EncodingRes.CustomFilterToolTipKeysLabel);
+
+			IList<string> keys = HandBrakeFilterHelpers.GetFilterKeys((int)filter);
+			foreach (string key in keys)
+			{
+				builder.AppendLine();
+				builder.Append("    ");
+				builder.Append(key);
+			}
+
+			return builder.ToString();
+		}
+
+		private static hb_filter_ids GetDeinterlaceFilter(VCDeinterlace deinterlaceType)
+		{
+			switch (deinterlaceType)
+			{
+				case VCDeinterlace.Yadif:
+					return hb_filter_ids.HB_FILTER_DEINTERLACE;
+				case VCDeinterlace.Decomb:
+					return hb_filter_ids.HB_FILTER_DECOMB;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(deinterlaceType), $"Could not find filter for deinterlace type {deinterlaceType}.");
+			}
+		}
+
+		private static hb_filter_ids GetDenoiseFilter(VCDenoise denoiseType)
+		{
+			switch (denoiseType)
+			{
+				case VCDenoise.hqdn3d:
+					return hb_filter_ids.HB_FILTER_HQDN3D;
+				case VCDenoise.NLMeans:
+					return hb_filter_ids.HB_FILTER_NLMEANS;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(denoiseType), $"Could not find filter for denoise type {denoiseType}.");
+			}
 		}
 
 		private static List<ComboChoice> ConvertParameterListToComboChoices(IList<HBPresetTune> parameters, string resourcePrefix)
