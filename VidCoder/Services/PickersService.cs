@@ -231,6 +231,7 @@ namespace VidCoder.Services
             var newPicker = new Picker();
             newPicker.InjectFrom<FastDeepCloneInjection>(this.SelectedPicker.Picker);
             newPicker.Name = newName;
+	        newPicker.IsModified = false;
 
             var newPickerVM = new PickerViewModel(newPicker);
 
