@@ -1081,12 +1081,15 @@ namespace VidCoderCommon.Model
 			int croppedSourceHeight = sourceHeight - cropping.Top - cropping.Bottom;
 
 			double sourceAspect = (double)croppedSourceWidth / croppedSourceHeight;
+			double adjustedSourceAspect; // Source aspect, adjusted for PAR
 
 			int adjustedSourceWidth, adjustedSourceHeight;
 			if (profile.UseAnamorphic)
 			{
 				adjustedSourceWidth = croppedSourceWidth;
 				adjustedSourceHeight = croppedSourceHeight;
+
+				adjustedSourceAspect = sourceAspect;
 			}
 			else
 			{
@@ -1100,6 +1103,8 @@ namespace VidCoderCommon.Model
 					adjustedSourceWidth = croppedSourceWidth;
 					adjustedSourceHeight = (int)Math.Round(croppedSourceHeight * ((double)sourceParHeight / sourceParWidth));
 				}
+
+				adjustedSourceAspect = sourceAspect * sourceParWidth / sourceParHeight;
 			}
 
 			int? maxPictureWidth = null, maxPictureHeight = null;
@@ -1134,7 +1139,7 @@ namespace VidCoderCommon.Model
 			}
 
 			double scaleFactor;
-			if (maxPictureHeight == null || sourceAspect > (double)maxPictureWidth.Value / maxPictureHeight.Value)
+			if (maxPictureHeight == null || adjustedSourceAspect > (double)maxPictureWidth.Value / maxPictureHeight.Value)
 			{
 				scaleFactor = (double)maxPictureWidth.Value / adjustedSourceWidth;
 			}
