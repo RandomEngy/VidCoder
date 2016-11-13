@@ -74,12 +74,27 @@ namespace VidCoderCommon.Model
 			}
 
 			return this.OutputWidth == otherOutputSize.OutputWidth &&
-			       this.OutputHeight == otherOutputSize.OutputHeight &&
+				   this.OutputHeight == otherOutputSize.OutputHeight &&
 				   this.ScaleWidth == otherOutputSize.ScaleWidth &&
 				   this.ScaleHeight == otherOutputSize.ScaleHeight &&
-			       this.Par.Num == otherOutputSize.Par.Num &&
-			       this.Par.Den == otherOutputSize.Par.Den &&
-			       this.Padding == otherOutputSize.Padding;
+				   this.Par.Num == otherOutputSize.Par.Num &&
+				   this.Par.Den == otherOutputSize.Par.Den &&
+				   this.Padding == otherOutputSize.Padding;
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				var hashCode = this.ScaleWidth;
+				hashCode = (hashCode * 397) ^ this.ScaleHeight;
+				hashCode = (hashCode * 397) ^ this.OutputWidth;
+				hashCode = (hashCode * 397) ^ this.OutputHeight;
+				hashCode = (hashCode * 397) ^ this.Par.Num;
+				hashCode = (hashCode * 397) ^ this.Par.Den;
+				hashCode = (hashCode * 397) ^ (this.Padding?.GetHashCode() ?? 0);
+				return hashCode;
+			}
 		}
 	}
 }

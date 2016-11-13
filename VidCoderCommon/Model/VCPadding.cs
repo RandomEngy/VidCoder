@@ -51,5 +51,17 @@ namespace VidCoderCommon.Model
 			       this.Left == otherPadding.Left &&
 			       this.Right == otherPadding.Right;
 		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				var hashCode = this.Top;
+				hashCode = (hashCode * 397) ^ this.Bottom;
+				hashCode = (hashCode * 397) ^ this.Left;
+				hashCode = (hashCode * 397) ^ this.Right;
+				return hashCode;
+			}
+		}
 	}
 }
