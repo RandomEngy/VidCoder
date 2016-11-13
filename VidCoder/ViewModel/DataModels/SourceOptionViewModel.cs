@@ -29,14 +29,14 @@ namespace VidCoder.ViewModel
 							}
 
 							return this.SourcePath;
-						case SourceType.VideoFolder:
+						case SourceType.DiscVideoFolder:
 							if (this.SourcePath == null)
 							{
 								return MainRes.SourceOption_DiscFolder;
 							}
 
 							return this.SourcePath;
-						case SourceType.Dvd:
+						case SourceType.Disc:
 							return this.sourceOption.DriveInfo.RootDirectory + " - " + volumeLabel;
 						default:
 							break;
@@ -57,9 +57,9 @@ namespace VidCoder.ViewModel
 				{
 					case SourceType.File:
 						return "/Icons/video-file.png";
-					case SourceType.VideoFolder:
-						return "/Icons/folder.png";
-					case SourceType.Dvd:
+					case SourceType.DiscVideoFolder:
+						return "/Icons/dvd_folder.png";
+					case SourceType.Disc:
 						if (this.sourceOption.DriveInfo.DiscType == DiscType.Dvd)
 						{
 							return "/Icons/disc.png";
@@ -125,7 +125,7 @@ namespace VidCoder.ViewModel
 						mainVM.SetSourceFromFile(this.SourcePath);
 					}
 					break;
-				case SourceType.VideoFolder:
+				case SourceType.DiscVideoFolder:
 					if (this.SourcePath == null)
 					{
 						mainVM.SetSourceFromFolder();
@@ -135,7 +135,7 @@ namespace VidCoder.ViewModel
 						mainVM.SetSourceFromFolder(this.SourcePath);
 					}
 					break;
-				case SourceType.Dvd:
+				case SourceType.Disc:
 					mainVM.SetSourceFromDvd(this.SourceOption.DriveInfo);
 					break;
 				default:

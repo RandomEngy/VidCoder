@@ -925,6 +925,8 @@
       <DependentUpon>VideoPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowPlacement.cs" />
+    <Resource Include="Icons\dvd_folder.png" />
+    <Resource Include="Icons\video_files_folder.png" />
     <Resource Include="Icons\Empty.png" />
     <Resource Include="Icons\redo.png" />
     <Resource Include="Icons\Hammer.png" />
@@ -940,7 +942,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\EncodingRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-	  <LastGenOutput>EncodingRes.Designer.cs</LastGenOutput>
+      <LastGenOutput>EncodingRes.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\EnumsRes.resx">

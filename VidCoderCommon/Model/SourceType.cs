@@ -4,7 +4,7 @@
     {
         None = 0,
         File,
-        VideoFolder,
-        Dvd
+        DiscVideoFolder,
+        Disc
     }
 }

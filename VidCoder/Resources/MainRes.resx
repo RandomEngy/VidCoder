@@ -649,4 +649,7 @@
   <data name="SizingPresetUpgradeWarning" xml:space="preserve">
     <value>Warning: The sizing interface has been overhauled for 2.0, so your presets may have changed. You may want to inspect them and ensure that they are still set up correctly.</value>
   </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Enqueue Folder of Video Files...</value>
+  </data>
 </root>

@@ -521,11 +521,11 @@ namespace VidCoder
 				var driveService = Ioc.Get<IDriveService>();
 				if (driveService.PathIsDrive(sourcePath))
 				{
-					return SourceType.Dvd;
+					return SourceType.Disc;
 				}
 				else
 				{
-					return SourceType.VideoFolder;
+					return SourceType.DiscVideoFolder;
 				}
 			}
 			else
@@ -538,9 +538,9 @@ namespace VidCoder
 		{
 			switch (GetSourceType(sourcePath))
 			{
-				case SourceType.VideoFolder:
+				case SourceType.DiscVideoFolder:
 					return GetSourceNameFolder(sourcePath);
-				case SourceType.Dvd:
+				case SourceType.Disc:
 					var driveService = Ioc.Get<IDriveService>();
 					DriveInformation info = driveService.GetDriveInformationFromPath(sourcePath);
 					if (info != null)

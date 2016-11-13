@@ -886,9 +886,9 @@ namespace VidCoder.Services
 			{
 				VCProfile profile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
 				string queueSourceName = this.main.SourceName;
-				if (this.main.SelectedSource.Type == SourceType.Dvd)
+				if (this.main.SelectedSource.Type == SourceType.Disc)
 				{
-					queueSourceName = this.outputVM.TranslateDvdSourceName(queueSourceName);
+					queueSourceName = this.outputVM.TranslateDiscSourceName(queueSourceName);
 				}
 
 				int titleNumber = title.Index;
@@ -1010,7 +1010,7 @@ namespace VidCoder.Services
 					{
 						if (Directory.Exists(sourcePath.Path))
 						{
-							job.SourceType = SourceType.VideoFolder;
+							job.SourceType = SourceType.DiscVideoFolder;
 						}
 						else if (File.Exists(sourcePath.Path))
 						{
@@ -1687,7 +1687,7 @@ namespace VidCoder.Services
 			var applicableDrives = new HashSet<string>();
 			foreach (EncodeJobViewModel job in this.EncodeQueue)
 			{
-				if (job.Job.SourceType == SourceType.Dvd)
+				if (job.Job.SourceType == SourceType.Disc)
 				{
 					string driveLetter = job.Job.SourcePath.Substring(0, 1).ToUpperInvariant();
 					if (!applicableDrives.Contains(driveLetter))
@@ -1699,7 +1699,7 @@ namespace VidCoder.Services
 
 			foreach (EncodeResultViewModel result in this.CompletedJobs)
 			{
-				if (result.Job.Job.SourceType == SourceType.Dvd)
+				if (result.Job.Job.SourceType == SourceType.Disc)
 				{
 					string driveLetter = result.Job.Job.SourcePath.Substring(0, 1).ToUpperInvariant();
 					if (!applicableDrives.Contains(driveLetter))

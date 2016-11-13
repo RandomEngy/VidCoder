@@ -218,9 +218,9 @@ namespace VidCoder.ViewModel
 				{
 					case SourceType.File:
 						return "/Icons/video-file.png";
-					case SourceType.VideoFolder:
-						return "/Icons/folder.png";
-					case SourceType.Dvd:
+					case SourceType.DiscVideoFolder:
+						return "/Icons/dvd_folder.png";
+					case SourceType.Disc:
 						if (selectedSource.DriveInfo.DiscType == DiscType.Dvd)
 						{
 							return "/Icons/disc.png";
@@ -397,7 +397,7 @@ namespace VidCoder.ViewModel
 			this.sourceOptions = new ObservableCollection<SourceOptionViewModel>
 			{
 				new SourceOptionViewModel(new SourceOption { Type = SourceType.File }),
-				new SourceOptionViewModel(new SourceOption { Type = SourceType.VideoFolder })
+				new SourceOptionViewModel(new SourceOption { Type = SourceType.DiscVideoFolder })
 			};
 
 			this.rangeTypeChoices = new List<ComboChoice<VideoRangeType>>
@@ -462,7 +462,7 @@ namespace VidCoder.ViewModel
 			IList<DriveInformation> newDriveCollection = this.driveService.GetDiscInformation();
 
 			// If our currently selected source is a DVD drive, see if it needs to be updated
-			if (this.SelectedSource != null && this.SelectedSource.Type == SourceType.Dvd)
+			if (this.SelectedSource != null && this.SelectedSource.Type == SourceType.Disc)
 			{
 				string currentRootDirectory = this.SelectedSource.DriveInfo.RootDirectory;
 				bool currentDrivePresent = newDriveCollection.Any(driveInfo => driveInfo.RootDirectory == currentRootDirectory);
@@ -584,7 +584,7 @@ namespace VidCoder.ViewModel
                     if (Utilities.IsDiscFolder(item))
                     {
                         // If it's a disc folder, add it
-                        pathList.Add(new SourcePath { Path = item, SourceType = SourceType.VideoFolder });
+                        pathList.Add(new SourcePath { Path = item, SourceType = SourceType.DiscVideoFolder });
                     }
                     else
                     {
@@ -659,7 +659,9 @@ namespace VidCoder.ViewModel
 
 			if (folderPath != null)
 			{
-				this.SetSourceFromFolder(folderPath);
+				// Could be a disc folder or a folder of video files
+				this.HandlePaths(new List<string> { folderPath });
+
 				return true;
 			}
 
@@ -678,7 +680,7 @@ namespace VidCoder.ViewModel
 			this.StartScan(videoFolder);
 
 			this.SourcePath = videoFolder;
-			this.SelectedSource = new SourceOption { Type = SourceType.VideoFolder };
+			this.SelectedSource = new SourceOption { Type = SourceType.DiscVideoFolder };
 		}
 
 		public bool SetSourceFromDvd(DriveInformation driveInfo)
@@ -696,7 +698,7 @@ namespace VidCoder.ViewModel
 			this.SourceName = driveInfo.VolumeLabel;
 			this.SourcePath = driveInfo.RootDirectory;
 
-			this.SelectedSource = new SourceOption { Type = SourceType.Dvd, DriveInfo = driveInfo };
+			this.SelectedSource = new SourceOption { Type = SourceType.Disc, DriveInfo = driveInfo };
 			this.StartScan(this.SourcePath);
 
 			return true;
@@ -710,10 +712,10 @@ namespace VidCoder.ViewModel
 				case SourceType.File:
 					this.SetSourceFromFile(sourcePath);
 					break;
-				case SourceType.VideoFolder:
+				case SourceType.DiscVideoFolder:
 					this.SetSourceFromFolder(sourcePath);
 					break;
-				case SourceType.Dvd:
+				case SourceType.Disc:
 					DriveInformation driveInfo = this.driveService.GetDriveInformationFromPath(sourcePath);
 					if (driveInfo != null)
 					{
@@ -889,9 +891,9 @@ namespace VidCoder.ViewModel
 				{
 					case SourceType.File:
 						return this.SourcePath;
-					case SourceType.VideoFolder:
+					case SourceType.DiscVideoFolder:
 						return this.SourcePath;
-					case SourceType.Dvd:
+					case SourceType.Disc:
 						return this.SelectedSource.DriveInfo.DisplayText;
 					default:
 						break;
@@ -2035,7 +2037,7 @@ namespace VidCoder.ViewModel
 				Name = this.SourceName
 			};
 
-			if (this.SelectedSource.Type == SourceType.Dvd)
+			if (this.SelectedSource.Type == SourceType.Disc)
 			{
 				metadata.DriveInfo = this.SelectedSource.DriveInfo;
 			}
@@ -2097,7 +2099,7 @@ namespace VidCoder.ViewModel
 
 				switch (job.SourceType)
 				{
-					case SourceType.Dvd:
+					case SourceType.Disc:
 						DriveInformation driveInfo = this.DriveCollection.FirstOrDefault(d => string.Compare(d.RootDirectory, jobRoot, StringComparison.OrdinalIgnoreCase) == 0);
 						if (driveInfo == null)
 						{
@@ -2111,7 +2113,7 @@ namespace VidCoder.ViewModel
 					case SourceType.File:
 						videoSourceMetadata.Name = Utilities.GetSourceNameFile(job.SourcePath);
 						break;
-					case SourceType.VideoFolder:
+					case SourceType.DiscVideoFolder:
 						videoSourceMetadata.Name = Utilities.GetSourceNameFolder(job.SourcePath);
 						break;
 				}
@@ -2291,7 +2293,7 @@ namespace VidCoder.ViewModel
 							}
 
 							if (jobVM == null && this.SelectedSource != null &&
-								(this.SelectedSource.Type == SourceType.File || this.SelectedSource.Type == SourceType.VideoFolder))
+								(this.SelectedSource.Type == SourceType.File || this.SelectedSource.Type == SourceType.DiscVideoFolder))
 							{
 								SourceHistory.AddToHistory(this.SourcePath);
 							}
@@ -2359,9 +2361,9 @@ namespace VidCoder.ViewModel
 			this.SourceName = metadata.Name;
 			this.SourcePath = job.SourcePath;
 
-			if (job.SourceType == SourceType.Dvd)
+			if (job.SourceType == SourceType.Disc)
 			{
-				this.SelectedSource = new SourceOption { Type = SourceType.Dvd, DriveInfo = metadata.DriveInfo };
+				this.SelectedSource = new SourceOption { Type = SourceType.Disc, DriveInfo = metadata.DriveInfo };
 			}
 			else
 			{
@@ -2622,7 +2624,7 @@ namespace VidCoder.ViewModel
 				// Remove all source options which do not exist in the new collection
 				for (int i = this.sourceOptions.Count - 1; i >= 0; i--)
 				{
-					if (this.sourceOptions[i].SourceOption.Type == SourceType.Dvd)
+					if (this.sourceOptions[i].SourceOption.Type == SourceType.Disc)
 					{
 						if (!this.DriveCollection.Any(driveInfo => driveInfo.RootDirectory == this.sourceOptions[i].SourceOption.DriveInfo.RootDirectory))
 						{
@@ -2634,17 +2636,17 @@ namespace VidCoder.ViewModel
 				// Update or add new options
 				foreach (DriveInformation drive in this.DriveCollection)
 				{
-					SourceOptionViewModel currentOption = this.sourceOptions.SingleOrDefault(sourceOptionVM => sourceOptionVM.SourceOption.Type == SourceType.Dvd && sourceOptionVM.SourceOption.DriveInfo.RootDirectory == drive.RootDirectory);
+					SourceOptionViewModel currentOption = this.sourceOptions.SingleOrDefault(sourceOptionVM => sourceOptionVM.SourceOption.Type == SourceType.Disc && sourceOptionVM.SourceOption.DriveInfo.RootDirectory == drive.RootDirectory);
 
 					if (currentOption == null)
 					{
 						// The device is new, add it
-						var newSourceOptionVM = new SourceOptionViewModel(new SourceOption { Type = SourceType.Dvd, DriveInfo = drive });
+						var newSourceOptionVM = new SourceOptionViewModel(new SourceOption { Type = SourceType.Disc, DriveInfo = drive });
 
 						bool added = false;
 						for (int i = 0; i < this.sourceOptions.Count; i++)
 						{
-							if (this.sourceOptions[i].SourceOption.Type == SourceType.Dvd && string.CompareOrdinal(drive.RootDirectory, this.sourceOptions[i].SourceOption.DriveInfo.RootDirectory) < 0)
+							if (this.sourceOptions[i].SourceOption.Type == SourceType.Disc && string.CompareOrdinal(drive.RootDirectory, this.sourceOptions[i].SourceOption.DriveInfo.RootDirectory) < 0)
 							{
 								this.sourceOptions.Insert(i, newSourceOptionVM);
 								added = true;
@@ -2759,7 +2761,7 @@ namespace VidCoder.ViewModel
 				}
 				else if (Directory.Exists(recentSourcePath))
 				{
-					this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.VideoFolder }, recentSourcePath));
+					this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.DiscVideoFolder }, recentSourcePath));
 				}
 			}
 		}

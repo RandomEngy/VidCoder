@@ -355,9 +355,9 @@ namespace VidCoder.Services
 
 			// Change casing on DVD titles to be a little more friendly
 			string translatedSourceName = this.main.SourceName;
-			if ((this.main.SelectedSource.Type == SourceType.Dvd || this.main.SelectedSource.Type == SourceType.VideoFolder) && !string.IsNullOrWhiteSpace(this.main.SourceName))
+			if ((this.main.SelectedSource.Type == SourceType.Disc || this.main.SelectedSource.Type == SourceType.DiscVideoFolder) && !string.IsNullOrWhiteSpace(this.main.SourceName))
 			{
-				translatedSourceName = this.TranslateDvdSourceName(this.main.SourceName);
+				translatedSourceName = this.TranslateDiscSourceName(this.main.SourceName);
 			}
 
 			string nameFormat = null;
@@ -408,7 +408,7 @@ namespace VidCoder.Services
 		/// </summary>
 		/// <param name="dvdSourceName">The source name of the DVD.</param>
 		/// <returns>Cleaned up version of the source name.</returns>
-		public string TranslateDvdSourceName(string dvdSourceName)
+		public string TranslateDiscSourceName(string dvdSourceName)
 		{
 			if (dvdSourceName.Any(char.IsLower))
 			{

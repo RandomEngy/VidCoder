@@ -515,6 +515,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enqueue Folder of Video Files....
+        /// </summary>
+        public static string EnqueueFolderOfVideoFiles {
+            get {
+                return ResourceManager.GetString("EnqueueFolderOfVideoFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enqueue Multiple Files....
         /// </summary>
         public static string EnqueueMultipleFiles {
