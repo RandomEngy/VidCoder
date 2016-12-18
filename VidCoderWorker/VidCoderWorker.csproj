@@ -98,7 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EncodeState.cs" />
-    <Compile Include="HandBrakeEncoder.cs" />
+    <Compile Include="HandBrakeWorker.cs" />
     <Compile Include="Ioc.cs" />
     <Compile Include="PreviewImage.cs" />
     <Compile Include="Program.cs" />

@@ -9,18 +9,21 @@ namespace VidCoderCommon
 	public interface IHandBrakeWorker
 	{
 		[OperationContract]
+		void SetUpWorker(
+			int verbosity,
+			int previewCount,
+			bool useDvdNav,
+			double minTitleDurationSeconds,
+			double cpuThrottlingFraction,
+			string tempFolder);
+
+		[OperationContract]
 		void StartEncode(
 			VCJob job,
 			int previewNumber,
 			int previewSeconds,
-			int verbosity, 
-			int previewCount, 
-			bool useDvdNav,
 			bool dxvaDecoding,
-			double minTitleDurationSeconds,
-			string defaultChapterNameFormat,
-			double cpuThrottlingFraction,
-			string tempFolder);
+			string defaultChapterNameFormat);
 
 		[OperationContract]
 		void PauseEncode();

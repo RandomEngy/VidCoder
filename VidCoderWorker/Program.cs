@@ -47,7 +47,7 @@ namespace VidCoderWorker
 							{
 								// If we couldn't stop the process, just wait until next tick. May have not started yet or may
 								// already be in the process of closing.
-								if (HandBrakeEncoder.CurrentEncoder != null && HandBrakeEncoder.CurrentEncoder.StopEncodeIfPossible())
+								if (HandBrakeWorker.CurrentWorker != null && HandBrakeWorker.CurrentWorker.StopEncodeIfPossible())
 								{
 									// If we are able to stop the encode, we will do so. Cleanup should
 									// happen with the encode complete callback.
@@ -67,7 +67,7 @@ namespace VidCoderWorker
 				ServiceHost host = null;
 				try
 				{
-					host = new ServiceHost(typeof (HandBrakeEncoder));
+					host = new ServiceHost(typeof (HandBrakeWorker));
 
 					host.AddServiceEndpoint(
 						typeof (IHandBrakeWorker),

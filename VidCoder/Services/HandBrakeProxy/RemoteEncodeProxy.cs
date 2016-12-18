@@ -59,14 +59,8 @@ namespace VidCoder
 					job,
 					preview ? previewNumber : -1,
 					previewSeconds,
-					Config.LogVerbosity,
-					Config.PreviewCount,
-					Config.EnableLibDvdNav,
 					Config.DxvaDecoding,
-					Config.MinimumTitleLengthSeconds,
-					EncodingRes.DefaultChapterName,
-					Config.CpuThrottlingFraction,
-					FileUtilities.OverrideTempFolder ? FileUtilities.TempFolderOverride : null);
+					EncodingRes.DefaultChapterName);
 			});
 		}
 

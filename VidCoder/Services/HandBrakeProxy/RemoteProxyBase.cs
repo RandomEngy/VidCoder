@@ -249,6 +249,14 @@ namespace VidCoder
 							return;
 						}
 
+						this.Channel.SetUpWorker(
+							Config.LogVerbosity,
+							Config.PreviewCount,
+							Config.EnableLibDvdNav,
+							Config.MinimumTitleLengthSeconds,
+							Config.CpuThrottlingFraction,
+							FileUtilities.OverrideTempFolder ? FileUtilities.TempFolderOverride : null);
+
 						action(this.Channel);
 
 						// After we do StartEncode (which can take a while), switch the timeout down to normal level to do pings
