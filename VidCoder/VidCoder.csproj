@@ -652,7 +652,8 @@
     <Compile Include="Model\WhenFileExists.cs" />
     <Compile Include="Services\AutoChangeTracker.cs" />
     <Compile Include="Services\ClipboardService.cs" />
-    <Compile Include="Services\EncodeProxy\LocalEncodeProxy.cs" />
+    <Compile Include="Services\HandBrakeProxy\LocalEncodeProxy.cs" />
+    <Compile Include="Services\HandBrakeProxy\RemoteProxyBase.cs" />
     <Compile Include="Services\OutputSizeService.cs" />
     <Compile Include="Services\PendingAutoChange.cs" />
     <Compile Include="Services\PreviewUpdateService.cs" />
@@ -680,11 +681,11 @@
     <Compile Include="Services\Windows\WindowPlacer.cs" />
     <Compile Include="Utilities\AdvancedOptionsParsing.cs" />
     <Compile Include="Utilities\CodecUtilities.cs" />
-    <Compile Include="Services\EncodeProxy\RemoteEncodeProxy.cs" />
+    <Compile Include="Services\HandBrakeProxy\RemoteEncodeProxy.cs" />
     <Compile Include="Utilities\ColorUtilities.cs" />
     <Compile Include="Utilities\EnumConverter.cs" />
     <Compile Include="Utilities\FileCleanup.cs" />
-    <Compile Include="Services\EncodeProxy\IEncodeProxy.cs" />
+    <Compile Include="Services\HandBrakeProxy\IEncodeProxy.cs" />
     <Compile Include="Utilities\FileUtilities.cs" />
     <Compile Include="Utilities\ImageUtilities.cs" />
     <Compile Include="Utilities\Ioc.cs" />

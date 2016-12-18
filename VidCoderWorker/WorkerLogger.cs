@@ -10,9 +10,9 @@ namespace VidCoderWorker
 {
 	public class WorkerLogger : ILogger
 	{
-		private readonly IHandBrakeEncoderCallback callback;
+		private readonly IHandBrakeWorkerCallback callback;
 
-		public WorkerLogger(IHandBrakeEncoderCallback callback)
+		public WorkerLogger(IHandBrakeWorkerCallback callback)
 		{
 			this.callback = callback;
 		}

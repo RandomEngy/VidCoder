@@ -92,8 +92,8 @@
     <Compile Include="Extensions\JsonDurationExtensions.cs" />
     <Compile Include="Extensions\ParExtensions.cs" />
     <Compile Include="Extensions\ScalingModeExtensions.cs" />
-    <Compile Include="IHandBrakeEncoder.cs" />
-    <Compile Include="IHandBrakeEncoderCallback.cs" />
+    <Compile Include="IHandBrakeWorker.cs" />
+    <Compile Include="IHandBrakeWorkerCallback.cs" />
     <Compile Include="Model\AudioEncodeRateType.cs" />
     <Compile Include="Model\AudioEncoding.cs" />
     <Compile Include="Model\CopyMaskChoice.cs" />

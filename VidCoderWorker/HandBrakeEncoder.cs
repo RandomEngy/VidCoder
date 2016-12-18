@@ -14,9 +14,9 @@ using VidCoderCommon.Services;
 
 namespace VidCoderWorker
 {
-	public class HandBrakeEncoder : IHandBrakeEncoder
+	public class HandBrakeEncoder : IHandBrakeWorker
 	{
-		private IHandBrakeEncoderCallback callback;
+		private IHandBrakeWorkerCallback callback;
 		private HandBrakeInstance instance;
 		private object encodeLock = new object();
 
@@ -46,7 +46,7 @@ namespace VidCoderWorker
 			}
 
 			CurrentEncoder = this;
-			this.callback = OperationContext.Current.GetCallbackChannel<IHandBrakeEncoderCallback>();
+			this.callback = OperationContext.Current.GetCallbackChannel<IHandBrakeWorkerCallback>();
 
 			Ioc.Container.RegisterInstance<ILogger>(new WorkerLogger(this.callback));
 

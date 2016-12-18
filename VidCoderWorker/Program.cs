@@ -70,7 +70,7 @@ namespace VidCoderWorker
 					host = new ServiceHost(typeof (HandBrakeEncoder));
 
 					host.AddServiceEndpoint(
-						typeof (IHandBrakeEncoder),
+						typeof (IHandBrakeWorker),
 						new NetNamedPipeBinding(),
 						"net.pipe://localhost/" + PipeName);
 
