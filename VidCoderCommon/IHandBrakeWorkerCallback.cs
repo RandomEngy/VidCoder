@@ -1,4 +1,5 @@
 ﻿using System;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
 
 namespace VidCoderCommon
 {
@@ -6,6 +7,12 @@ namespace VidCoderCommon
 
 	public interface IHandBrakeWorkerCallback
 	{
+		[OperationContract(IsOneWay = true)]
+		void OnScanComplete(string scanJson);
+
+	    [OperationContract(IsOneWay = true)]
+	    void OnScanProgress(float fractionComplete);
+
 		[OperationContract(IsOneWay = true)]
 		void OnEncodeStarted();
 

@@ -731,11 +731,20 @@ namespace VidCoder.Services
 			}
 			
 
-			var scanMultipleDialog = new ScanMultipleDialogViewModel(new List<string> { source });
+			var scanMultipleDialog = new ScanMultipleDialogViewModel(new List<SourcePath> { new SourcePath { Path = source } });
 			this.windowManager.OpenDialog(scanMultipleDialog);
 
-			VideoSource videoSource = scanMultipleDialog.ScanResults[0];
-			List<int> titleNumbers = this.PickTitles(videoSource, picker);
+			VideoSource videoSource = scanMultipleDialog.ScanResults[0].VideoSource;
+
+		    List<int> titleNumbers;
+            if (videoSource != null)
+		    {
+		        titleNumbers = this.PickTitles(videoSource, picker);
+		    }
+		    else
+		    {
+		        titleNumbers = new List<int>();
+		    }
 
 			foreach (int titleNumber in titleNumbers)
 			{
@@ -971,111 +980,112 @@ namespace VidCoder.Services
 			}
 
 			List<SourcePath> sourcePathList = sourcePaths.ToList();
-			List<string> sourcePathStrings = sourcePathList.Select(p => p.Path).ToList();
+			//List<string> sourcePathStrings = sourcePathList.Select(p => p.Path).ToList();
 
 			// This dialog will scan the items in the list, calculating length.
-			var scanMultipleDialog = new ScanMultipleDialogViewModel(sourcePathStrings);
+			var scanMultipleDialog = new ScanMultipleDialogViewModel(sourcePathList);
 			this.windowManager.OpenDialog(scanMultipleDialog);
 
-			List<VideoSource> videoSources = scanMultipleDialog.ScanResults;
-
-			if (sourcePathList.Count != videoSources.Count)
+			if (scanMultipleDialog.CancelPending)
 			{
 				// Scan dialog was closed before it could complete. Abort.
 				this.logger.Log("Batch scan cancelled. Aborting queue operation.");
 				return;
 			}
 
-			var itemsToQueue = new List<EncodeJobViewModel>();
+            List<ScanMultipleDialogViewModel.ScanResult> scanResults = scanMultipleDialog.ScanResults;
 
-			for (int i = 0; i < sourcePathList.Count; i++)
+            var itemsToQueue = new List<EncodeJobViewModel>();
+			var failedFiles = new List<string>();
+
+			foreach (ScanMultipleDialogViewModel.ScanResult scanResult in scanResults)
 			{
-				SourcePath sourcePath = sourcePathList[i];
-				VideoSource videoSource = videoSources[i];
+			    SourcePath sourcePath = scanResult.SourcePath;
 
-				List<int> titleNumbers = this.PickTitles(videoSource);
+			    if (scanResult.VideoSource?.Titles != null && scanResult.VideoSource.Titles.Count > 0)
+			    {
+			        VideoSource videoSource = scanResult.VideoSource;
 
-				foreach (int titleNumber in titleNumbers)
-				{
-					var job = new VCJob
-					{
-						SourcePath = sourcePath.Path,
-						EncodingProfile = this.presetsService.SelectedPreset.Preset.EncodingProfile.Clone(),
-						Title = titleNumber,
-						RangeType = VideoRangeType.All,
-						UseDefaultChapterNames = true
-					};
+			        List<int> titleNumbers = this.PickTitles(videoSource);
 
-					if (sourcePath.SourceType == SourceType.None)
-					{
-						if (Directory.Exists(sourcePath.Path))
-						{
-							job.SourceType = SourceType.DiscVideoFolder;
-						}
-						else if (File.Exists(sourcePath.Path))
-						{
-							job.SourceType = SourceType.File;
-						}
-					}
-					else
-					{
-						job.SourceType = sourcePath.SourceType;
-					}
+			        foreach (int titleNumber in titleNumbers)
+			        {
+			            var job = new VCJob
+			            {
+			                SourcePath = sourcePath.Path,
+			                EncodingProfile = this.presetsService.SelectedPreset.Preset.EncodingProfile.Clone(),
+			                Title = titleNumber,
+			                RangeType = VideoRangeType.All,
+			                UseDefaultChapterNames = true
+			            };
 
-					if (job.SourceType != SourceType.None)
-					{
-						var jobVM = new EncodeJobViewModel(job);
-						jobVM.VideoSource = videoSource;
-						jobVM.SourceParentFolder = sourcePath.ParentFolder;
-						jobVM.ManualOutputPath = false;
-						jobVM.PresetName = this.presetsService.SelectedPreset.DisplayName;
-						itemsToQueue.Add(jobVM);
-					}
-				}
+			            if (sourcePath.SourceType == SourceType.None)
+			            {
+			                if (Directory.Exists(sourcePath.Path))
+			                {
+			                    job.SourceType = SourceType.DiscVideoFolder;
+			                }
+			                else if (File.Exists(sourcePath.Path))
+			                {
+			                    job.SourceType = SourceType.File;
+			                }
+			            }
+			            else
+			            {
+			                job.SourceType = sourcePath.SourceType;
+			            }
+
+			            if (job.SourceType != SourceType.None)
+			            {
+			                var jobVM = new EncodeJobViewModel(job);
+			                jobVM.VideoSource = videoSource;
+			                jobVM.SourceParentFolder = sourcePath.ParentFolder;
+			                jobVM.ManualOutputPath = false;
+			                jobVM.PresetName = this.presetsService.SelectedPreset.DisplayName;
+			                itemsToQueue.Add(jobVM);
+			            }
+			        }
+			    }
+			    else
+			    {
+                    // If the scan call failed outright or has no titles, mark as failed.
+			        failedFiles.Add(sourcePath.Path);
+			    }
 			}
 
-			var failedFiles = new List<string>();
 			foreach (EncodeJobViewModel jobVM in itemsToQueue)
 			{
 				var titles = jobVM.VideoSource.Titles;
 
-				// Only queue items with a successful scan
-				if (titles.Count > 0)
-				{
-					VCJob job = jobVM.Job;
-					SourceTitle title = titles.Single(t => t.Index == job.Title);
-					job.Length = title.Duration.ToSpan();
+				VCJob job = jobVM.Job;
+				SourceTitle title = titles.Single(t => t.Index == job.Title);
+				job.Length = title.Duration.ToSpan();
 
-					// Choose the correct audio/subtitle tracks based on settings
-					this.AutoPickAudio(job, title);
-					this.AutoPickSubtitles(job, title);
+				// Choose the correct audio/subtitle tracks based on settings
+				this.AutoPickAudio(job, title);
+				this.AutoPickSubtitles(job, title);
 
-					// Now that we have the title and subtitles we can determine the final output file name
-					string fileToQueue = job.SourcePath;
+				// Now that we have the title and subtitles we can determine the final output file name
+				string fileToQueue = job.SourcePath;
 
-					excludedPaths.Add(fileToQueue);
-					string outputFolder = this.outputVM.GetOutputFolder(fileToQueue, jobVM.SourceParentFolder);
-					string outputFileName = this.outputVM.BuildOutputFileName(
-						fileToQueue, 
-						Utilities.GetSourceNameFile(fileToQueue),
-						job.Title, 
-						title.Duration.ToSpan(),
-						title.ChapterList.Count,
-						multipleTitlesOnSource: titles.Count > 1);
-					string outputExtension = this.outputVM.GetOutputExtension();
-					string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
-					queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, excludedPaths, isBatch: true);
+				excludedPaths.Add(fileToQueue);
+				string outputFolder = this.outputVM.GetOutputFolder(fileToQueue, jobVM.SourceParentFolder);
+				string outputFileName = this.outputVM.BuildOutputFileName(
+					fileToQueue, 
+					Utilities.GetSourceNameFile(fileToQueue),
+					job.Title, 
+					title.Duration.ToSpan(),
+					title.ChapterList.Count,
+					multipleTitlesOnSource: titles.Count > 1);
+				string outputExtension = this.outputVM.GetOutputExtension();
+				string queueOutputPath = Path.Combine(outputFolder, outputFileName + outputExtension);
+				queueOutputPath = this.outputVM.ResolveOutputPathConflicts(queueOutputPath, excludedPaths, isBatch: true);
 
-					job.OutputPath = queueOutputPath;
+				job.OutputPath = queueOutputPath;
 
-					excludedPaths.Add(queueOutputPath);
+				excludedPaths.Add(queueOutputPath);
 
-					this.Queue(jobVM);
-				}
-				else
-				{
-					failedFiles.Add(jobVM.Job.SourcePath);
-				}
+				this.Queue(jobVM);
 			}
 
 			if (failedFiles.Count > 0)

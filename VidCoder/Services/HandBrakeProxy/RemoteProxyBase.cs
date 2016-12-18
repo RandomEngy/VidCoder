@@ -104,8 +104,10 @@ namespace VidCoder
 			}
 		}
 
+		// TODO: Is this only needed for encoding?
 		protected abstract void OnOperationEnd(bool error);
 
+		// TODO: Is this only needed for encoding?
 		public abstract void StopAndWait();
 
 		private void HandleWorkerCommunicationError(Exception exception)

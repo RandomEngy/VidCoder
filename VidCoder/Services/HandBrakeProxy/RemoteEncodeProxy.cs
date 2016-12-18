@@ -64,8 +64,6 @@ namespace VidCoder
 			});
 		}
 
-
-
 		public void PauseEncode()
 		{
 			this.ExecuteWorkerCall(channel => channel.PauseEncode());
@@ -104,7 +102,17 @@ namespace VidCoder
 			}
 		}
 
-		public void OnEncodeStarted()
+        public void OnScanProgress(float fractionComplete)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnScanComplete(string scanJson)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public void OnEncodeStarted()
 		{
 			this.IsEncodeStarted = true;
 			this.EncodeStarted?.Invoke(this, EventArgs.Empty);

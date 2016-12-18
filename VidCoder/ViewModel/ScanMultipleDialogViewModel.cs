@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using Newtonsoft.Json;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using ReactiveUI;
+using VidCoder.Services;
+using VidCoder.Services.HandBrakeProxy;
 
 namespace VidCoder.ViewModel
 {
@@ -12,15 +16,15 @@ namespace VidCoder.ViewModel
 	/// </summary>
 	public class ScanMultipleDialogViewModel : OkCancelDialogViewModel
 	{
-		private IList<string> pathsToScan;
+		private IList<SourcePath> pathsToScan;
 		private int currentJobIndex;
 		private float currentJobProgress;
 		private object currentJobIndexLock = new object();
 
-		public ScanMultipleDialogViewModel(IList<string> pathsToScan)
+		public ScanMultipleDialogViewModel(IList<SourcePath> pathsToScan)
 		{
 			this.pathsToScan = pathsToScan;
-			this.ScanResults = new List<VideoSource>();
+			this.ScanResults = new List<ScanResult>();
 			this.ScanNextJob();
 		}
 
@@ -45,48 +49,62 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public List<VideoSource> ScanResults { get; private set; }
+		public List<ScanResult> ScanResults { get; private set; }
 
 		public void ScanNextJob()
 		{
-			string path = this.pathsToScan[this.currentJobIndex];
+			SourcePath path = this.pathsToScan[this.currentJobIndex];
 
-			var onDemandInstance = new HandBrakeInstance();
-			onDemandInstance.Initialize(Config.LogVerbosity);
-			onDemandInstance.ScanProgress += (o, e) =>
-				{
-					lock (this.currentJobIndexLock)
-					{
-						this.currentJobProgress = (float)e.Progress;
-						this.RaisePropertyChanged(nameof(this.Progress));
-					}
-				};
-			onDemandInstance.ScanCompleted += (o, e) =>
-				{
-					this.ScanResults.Add(onDemandInstance.Titles.ToVideoSource());
-					onDemandInstance.Dispose();
+		    IScanProxy scanProxy = Utilities.CreateScanProxy();
+		    scanProxy.ScanProgress += (sender, args) =>
+		    {
+                lock (this.currentJobIndexLock)
+                {
+                    this.currentJobProgress = args.Value;
+                    this.RaisePropertyChanged(nameof(this.Progress));
+                }
+            };
 
-					lock (this.currentJobIndexLock)
-					{
-						this.currentJobIndex++;
-						this.currentJobProgress = 0;
-						this.RaisePropertyChanged(nameof(this.Progress));
+		    scanProxy.ScanCompleted += (sender, args) =>
+		    {
+		        if (args.Value != null)
+		        {
+		            JsonScanObject scanObject = JsonConvert.DeserializeObject<JsonScanObject>(args.Value);
+		            this.ScanResults.Add(new ScanResult { SourcePath = path, VideoSource = scanObject.ToVideoSource() });
+		        }
+		        else
+		        {
+                    this.ScanResults.Add(new ScanResult { SourcePath = path });
+		        }
 
-						if (this.ScanFinished)
-						{
-							DispatchUtilities.BeginInvoke(() =>
-							{
-								this.Cancel.Execute(null);
-							});
-						}
-						else
-						{
-							this.ScanNextJob();
-						}
-					}
-				};
+                lock (this.currentJobIndexLock)
+                {
+                    this.currentJobIndex++;
+                    this.currentJobProgress = 0;
+                    this.RaisePropertyChanged(nameof(this.Progress));
 
-			onDemandInstance.StartScan(path, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), 0);
+                    if (this.ScanFinished)
+                    {
+                        DispatchUtilities.BeginInvoke(() =>
+                        {
+                            this.Cancel.Execute(null);
+                        });
+                    }
+                    else
+                    {
+                        this.ScanNextJob();
+                    }
+                }
+            };
+
+            scanProxy.StartScan(path.Path, Ioc.Get<IAppLogger>());
 		}
+
+	    public class ScanResult
+	    {
+            public SourcePath SourcePath { get; set; }
+
+            public VideoSource VideoSource { get; set; }
+	    }
 	}
 }

@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Linq;
 using System.ServiceModel;
+using System.Threading;
+using System.Threading.Tasks;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Encode;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
@@ -36,6 +38,10 @@ namespace VidCoderWorker
 			double cpuThrottlingFraction,
 			string tempFolder)
 		{
+#if DEBUG_REMOTE
+			Debugger.Launch();
+#endif
+
 			this.passedVerbosity = verbosity;
 			this.passedPreviewCount = previewCount;
 			this.passedMinTitleDurationSeconds = minTitleDurationSeconds;
@@ -106,6 +112,33 @@ namespace VidCoderWorker
 			}
 		}
 
+		public void StartScan(string path)
+		{
+			this.instance = new HandBrakeInstance();
+            this.instance.Initialize(this.passedVerbosity);
+            this.instance.ScanProgress += (o, e) =>
+			{
+                this.callback.OnScanProgress((float)e.Progress);
+			};
+            this.instance.ScanCompleted += (o, e) =>
+			{
+			    try
+			    {
+			        this.callback.OnScanComplete(this.instance.TitlesJson);
+			    }
+			    catch (Exception exception)
+			    {
+                    WorkerErrorLogger.LogError("Got exception when reporting completion: " + exception, isError: true);
+			    }
+			    finally
+			    {
+			        this.CleanUpAndSignalCompletion();
+                }
+            };
+
+            this.instance.StartScan(path, this.passedPreviewCount, TimeSpan.FromSeconds(this.passedMinTitleDurationSeconds), 0);
+		}
+
 		public void StartEncode(
 			VCJob job,
 			int previewNumber,
@@ -113,10 +146,6 @@ namespace VidCoderWorker
 			bool dxvaDecoding,
 			string defaultChapterNameFormat)
 		{
-#if DEBUG_REMOTE
-			Debugger.Launch();
-#endif
-
 			try
 			{
 				this.instance = new HandBrakeInstance();

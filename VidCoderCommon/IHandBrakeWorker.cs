@@ -1,4 +1,6 @@
 ﻿using System.ServiceModel;
+using System.Threading;
+using System.Threading.Tasks;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoderCommon.Model;
 
@@ -16,6 +18,10 @@ namespace VidCoderCommon
 			double minTitleDurationSeconds,
 			double cpuThrottlingFraction,
 			string tempFolder);
+
+		[OperationContract]
+		void StartScan(
+			string path);
 
 		[OperationContract]
 		void StartEncode(

@@ -1208,7 +1208,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following file(s) could not be recognized and were not added to the queue:
+        ///   Looks up a localized string similar to There were errors scanning some files and they were not added to the queue:
         ///
         ///{0}.
         /// </summary>

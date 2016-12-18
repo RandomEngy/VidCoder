@@ -652,8 +652,11 @@
     <Compile Include="Model\WhenFileExists.cs" />
     <Compile Include="Services\AutoChangeTracker.cs" />
     <Compile Include="Services\ClipboardService.cs" />
+    <Compile Include="Services\HandBrakeProxy\IScanProxy.cs" />
     <Compile Include="Services\HandBrakeProxy\LocalEncodeProxy.cs" />
+    <Compile Include="Services\HandBrakeProxy\LocalScanProxy.cs" />
     <Compile Include="Services\HandBrakeProxy\RemoteProxyBase.cs" />
+    <Compile Include="Services\HandBrakeProxy\RemoteScanProxy.cs" />
     <Compile Include="Services\OutputSizeService.cs" />
     <Compile Include="Services\PendingAutoChange.cs" />
     <Compile Include="Services\PreviewUpdateService.cs" />

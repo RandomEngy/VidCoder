@@ -14,6 +14,7 @@ using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoder.Services.HandBrakeProxy;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 
@@ -316,6 +317,18 @@ namespace VidCoder
 			}
 		}
 
+
+	    public static IScanProxy CreateScanProxy()
+	    {
+	        if (Config.UseWorkerProcess)
+	        {
+	            return new RemoteScanProxy();
+	        }
+	        else
+	        {
+                return new LocalScanProxy();
+	        }
+	    }
 
 
 
