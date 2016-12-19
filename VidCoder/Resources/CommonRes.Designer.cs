@@ -245,7 +245,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only display forced subtitles from the given track. Usually this means small bits of foreign dialogue..
+        ///   Looks up a localized string similar to Only display forced subtitles from the subtitle track(s). Usually this means small bits of foreign dialogue..
         /// </summary>
         public static string ForcedSubtitleToolTip {
             get {

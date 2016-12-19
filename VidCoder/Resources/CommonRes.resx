@@ -131,7 +131,7 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Mark this subtitle track as the default. This will show up during playback until another track is picked.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Only display forced subtitles from the given track. Usually this means small bits of foreign dialogue.</value>
+    <value>Only display forced subtitles from the subtitle track(s). Usually this means small bits of foreign dialogue.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>The amount of time to push forward or delay the appearance of the given subtitles.</value>

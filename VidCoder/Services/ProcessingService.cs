@@ -2064,7 +2064,7 @@ namespace VidCoder.Services
 						{
 							TrackNumber = 1,
 							BurnedIn = picker.SubtitleBurnIn,
-							ForcedOnly = false,
+							ForcedOnly = picker.SubtitleForcedOnly,
 							Default = picker.SubtitleDefault
 						});
 					}
@@ -2075,7 +2075,7 @@ namespace VidCoder.Services
 					{
 						TrackNumber = 0,
 						BurnedIn = picker.SubtitleBurnIn,
-						ForcedOnly = true,
+						ForcedOnly = picker.SubtitleForcedOnly,
 						Default = picker.SubtitleDefault
 					});
 
@@ -2091,7 +2091,7 @@ namespace VidCoder.Services
 						{
 							TrackNumber = chosenSubtitleIndices[0] + 1,
 							BurnedIn = false,
-							ForcedOnly = false,
+							ForcedOnly = picker.SubtitleForcedOnly,
 							Default = picker.SubtitleDefault
 						});
 
@@ -2100,7 +2100,7 @@ namespace VidCoder.Services
 						{
 							TrackNumber = i + 1,
 							BurnedIn = false,
-							ForcedOnly = false,
+							ForcedOnly = picker.SubtitleForcedOnly,
 							Default = false
 						}));
 					}
@@ -2111,7 +2111,7 @@ namespace VidCoder.Services
 						{
 							TrackNumber = chosenSubtitleIndices[0] + 1,
 							BurnedIn = picker.SubtitleBurnIn,
-							ForcedOnly = false,
+							ForcedOnly = picker.SubtitleForcedOnly,
 							Default = picker.SubtitleDefault
 						});
 					}
@@ -2147,7 +2147,7 @@ namespace VidCoder.Services
 						{
 							TrackNumber = chosenSubtitleIndices[0] + 1,
 							BurnedIn = false,
-							ForcedOnly = false,
+							ForcedOnly = picker.SubtitleForcedOnly,
 							Default = picker.SubtitleDefault
 						});
 
@@ -2156,7 +2156,7 @@ namespace VidCoder.Services
 						{
 							TrackNumber = i + 1,
 							BurnedIn = false,
-							ForcedOnly = false,
+							ForcedOnly = picker.SubtitleForcedOnly,
 							Default = false
 						}));
 					}

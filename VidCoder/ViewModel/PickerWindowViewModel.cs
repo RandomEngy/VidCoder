@@ -403,6 +403,7 @@ namespace VidCoder.ViewModel
 					this.SubtitleDefault = false;
 				}
 			});
+			this.RegisterPickerProperty(nameof(this.Picker.SubtitleForcedOnly));
 			this.RegisterPickerProperty(nameof(this.Picker.UseEncodingPreset));
 			this.RegisterPickerProperty(nameof(this.Picker.EncodingPreset));
 			this.RegisterPickerProperty(nameof(this.Picker.AutoQueueOnScan), () =>
@@ -588,6 +589,12 @@ namespace VidCoder.ViewModel
 			get { return this.Picker.SubtitleDefault; }
 			set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleDefault), value); }
 		}
+
+	    public bool SubtitleForcedOnly
+	    {
+	        get { return this.Picker.SubtitleForcedOnly; }
+	        set { this.UpdatePickerProperty(nameof(this.Picker.SubtitleForcedOnly), value); }
+	    }
 
 		public bool SubtitleBurnIn
 		{

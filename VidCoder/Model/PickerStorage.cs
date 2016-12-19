@@ -120,6 +120,11 @@ namespace VidCoder.Model
 		    {
 			    UpgradePickerTo30(picker);
 		    }
+
+	        if (oldDatabaseVersion < 34)
+	        {
+	            UpgradePickerTo34(picker);
+	        }
 	    }
 
 	    private static void UpgradePickerTo30(Picker picker)
@@ -145,6 +150,14 @@ namespace VidCoder.Model
 			    picker.SubtitleBurnIn = picker.SubtitleForeignBurnIn;
 		    }
 	    }
+
+        private static void UpgradePickerTo34(Picker picker)
+        {
+            if (picker.SubtitleSelectionMode == SubtitleSelectionMode.ForeignAudioSearch)
+            {
+                picker.SubtitleForcedOnly = true;
+            }
+        }
 
         public static void SavePickers(List<string> pickerJsonList, SQLiteConnection connection)
         {

@@ -678,12 +678,22 @@
 							</Button>
 						</StackPanel>
 
+						<CheckBox
+							Margin="0 15 0 0"
+							Content="{x:Static res:PickerRes.ForcedOnlyCheckBox}"
+							IsChecked="{Binding SubtitleForcedOnly}"
+							ToolTip="{x:Static res:CommonRes.ForcedSubtitleToolTip}"
+							Visibility="{Binding SubtitleModChoices,
+												 Converter={StaticResource EnumVisibilityInverseConverter},
+												 ConverterParameter={x:Static viewModel:SubtitleModifierChoices.None}}" />
+
 						<StackPanel Orientation="Vertical" Visibility="{Binding SubtitleModChoices, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static viewModel:SubtitleModifierChoices.Single}}">
 							<CheckBox
-								Margin="0 15 0 0"
+								Margin="0 6 0 0"
 								Content="{x:Static res:PickerRes.DefaultCheckBox}"
 								IsChecked="{Binding SubtitleDefault}"
 								ToolTip="{x:Static res:PickerRes.SingleSubtitleDefaultToolTip}" />
+
 							<CheckBox
 								Margin="0 6 0 0"
 								Content="{x:Static res:PickerRes.BurnInCheckBox}"
@@ -692,7 +702,7 @@
 						</StackPanel>
 
 						<CheckBox
-							Margin="0 15 0 0"
+							Margin="0 6 0 0"
 							Content="{x:Static res:PickerRes.FirstAsDefaultCheckBox}"
 							IsChecked="{Binding SubtitleDefault}"
 							ToolTip="{x:Static res:PickerRes.MultipleSubtitleDefaultToolTip}"

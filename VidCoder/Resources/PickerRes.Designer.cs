@@ -196,6 +196,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forced only.
+        /// </summary>
+        public static string ForcedOnlyCheckBox {
+            get {
+                return ResourceManager.GetString("ForcedOnlyCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Foreign Audio Search.
         /// </summary>
         public static string ForeignAudioSearchRadioButton {

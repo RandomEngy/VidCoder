@@ -246,4 +246,7 @@
   <data name="SortLanguagesLabel" xml:space="preserve">
     <value>Sort language(s) to top:</value>
   </data>
+  <data name="ForcedOnlyCheckBox" xml:space="preserve">
+    <value>Forced only</value>
+  </data>
 </root>

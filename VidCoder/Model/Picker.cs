@@ -136,8 +136,12 @@ namespace VidCoder.Model
 		[JsonProperty]
 		public bool SubtitleDefault { get; set; }
 
-		// Applies when 0-1 subtitles can be picked.
-		[JsonProperty]
+        // Applies when any subtitles can be picked.
+        [JsonProperty]
+        public bool SubtitleForcedOnly { get; set; }
+
+        // Applies when 0-1 subtitles can be picked.
+        [JsonProperty]
 		public bool SubtitleBurnIn { get; set; }
 
 		private bool useEncodingPreset;
