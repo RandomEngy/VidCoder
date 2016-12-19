@@ -22,5 +22,14 @@ namespace VidCoder.Extensions
 
 			return version.ToString();
 		}
+
+	    public static Version FillInWithZeroes(this Version version)
+	    {
+            return new Version(
+                version.Major,
+                version.Minor >= 0 ? version.Minor : 0,
+                version.Build >= 0 ? version.Build : 0,
+                version.Revision >= 0 ? version.Revision : 0);
+        }
 	}
 }

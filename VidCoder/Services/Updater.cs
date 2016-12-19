@@ -162,12 +162,15 @@ namespace VidCoder.Services
 
 		public bool HandlePendingUpdate()
 		{
-			// This flag signifies VidCoder is being run by the installer after an update.
+			// This flag signifies VidCoder was closed to install an update.
 			// In this case we report success, delete the installer, clean up the update flags and exit.
 			bool updateInProgress = Config.UpdateInProgress;
 			if (updateInProgress)
 			{
 				Version targetUpdateVersion = Version.Parse(Config.UpdateVersion);
+
+                // Fill in with zeroes for Build and Revision
+			    targetUpdateVersion = targetUpdateVersion.FillInWithZeroes();
 				bool updateSucceeded = targetUpdateVersion == Utilities.CurrentVersion;
 
 				using (SQLiteTransaction transaction = Database.Connection.BeginTransaction())
@@ -204,6 +207,9 @@ namespace VidCoder.Services
 					// If the target version is different from the currently running version,
 					// this means the attempted upgrade failed. We give an error message but
 					// continue with the program.
+					MessageBox.Show(MainRes.UpdateNotAppliedError);
+
+                    // Need to show it twice since the first dialog is automatically dismissed if opened during splash screen.
 					MessageBox.Show(MainRes.UpdateNotAppliedError);
 				}
 			}
