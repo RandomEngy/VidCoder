@@ -67,6 +67,7 @@ namespace VidCoder
 			cache.Add("EncodeDetailsWindowOpen", DatabaseConfig.Get("EncodeDetailsWindowOpen", false, connection));
 			cache.Add("PickerWindowOpen", DatabaseConfig.Get("PickerWindowOpen", false, connection));
 			cache.Add("UpdatesEnabled", DatabaseConfig.Get("UpdatesEnabled", true, connection));
+			cache.Add("UpdatesDisabled32BitOSWarningDisplayed", DatabaseConfig.Get("UpdatesDisabled32BitOSWarningDisplayed", false, connection));
 			cache.Add("PreviewSeconds", DatabaseConfig.Get("PreviewSeconds", 10, connection));
 			cache.Add("ApplicationVersion", DatabaseConfig.Get("ApplicationVersion", "", connection));
 			cache.Add("QueueColumns", DatabaseConfig.Get("QueueColumns", "Source:200|Title:35|Range:106|Destination:200", connection));
@@ -340,6 +341,11 @@ namespace VidCoder
 		{
 			get { return (bool)cache["UpdatesEnabled"]; }
 			set { Set("UpdatesEnabled", value); }
+		}
+		public static bool UpdatesDisabled32BitOSWarningDisplayed
+		{
+			get { return (bool)cache["UpdatesDisabled32BitOSWarningDisplayed"]; }
+			set { Set("UpdatesDisabled32BitOSWarningDisplayed", value); }
 		}
 		public static int PreviewSeconds
 		{
@@ -701,6 +707,7 @@ namespace VidCoder
 			public static IObservable<bool> EncodeDetailsWindowOpen => GetObservable<bool>("EncodeDetailsWindowOpen");
 			public static IObservable<bool> PickerWindowOpen => GetObservable<bool>("PickerWindowOpen");
 			public static IObservable<bool> UpdatesEnabled => GetObservable<bool>("UpdatesEnabled");
+			public static IObservable<bool> UpdatesDisabled32BitOSWarningDisplayed => GetObservable<bool>("UpdatesDisabled32BitOSWarningDisplayed");
 			public static IObservable<int> PreviewSeconds => GetObservable<int>("PreviewSeconds");
 			public static IObservable<string> ApplicationVersion => GetObservable<string>("ApplicationVersion");
 			public static IObservable<string> QueueColumns => GetObservable<string>("QueueColumns");

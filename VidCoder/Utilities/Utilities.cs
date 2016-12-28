@@ -15,6 +15,7 @@ using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.HandBrakeProxy;
+using VidCoderCommon;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 
@@ -53,18 +54,6 @@ namespace VidCoder
 			{"Preset", 120}
 		};
 
-		public static bool Beta
-		{
-			get
-			{
-#if BETA
-				return true;
-#else
-				return false;
-#endif
-			}
-		}
-
 		public static Version CurrentVersion
 		{
 			get { return Assembly.GetExecutingAssembly().GetName().Version; }
@@ -77,13 +66,15 @@ namespace VidCoder
 		{
 			get
 			{
-#pragma warning disable 162
-#if BETA
-				return string.Format(MiscRes.BetaVersionFormat, CurrentVersion.ToShortString(), Architecture);
-#endif
-				return string.Format(MiscRes.VersionFormat, CurrentVersion.ToShortString(), Architecture);
-#pragma warning restore 162
-			}
+			    if (CommonUtilities.Beta)
+			    {
+                    return string.Format(MiscRes.BetaVersionFormat, CurrentVersion.ToShortString(), Architecture);
+                }
+                else
+			    {
+				    return string.Format(MiscRes.VersionFormat, CurrentVersion.ToShortString(), Architecture);
+                }
+            }
 		}
 
 		public static string Architecture
@@ -195,7 +186,7 @@ namespace VidCoder
 		{
 			get
 			{
-				return GetAppFolder(Beta);
+				return GetAppFolder(CommonUtilities.Beta);
 			}
 		}
 
@@ -207,9 +198,10 @@ namespace VidCoder
 					Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
 					LocalAppDataFolderName);
 
-#if BETA
-				folder += "-Beta";
-#endif
+			    if (CommonUtilities.Beta)
+			    {
+				    folder += "-Beta";
+			    }
 
 				return folder;
 			}

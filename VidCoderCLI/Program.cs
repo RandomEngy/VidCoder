@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.ServiceModel;
 using System.Threading;
+using VidCoderCommon;
 
 namespace VidCoderCLI
 {
@@ -272,9 +273,10 @@ namespace VidCoderCLI
 				};
 
 				string betaString = string.Empty;
-#if BETA
-				betaString = "Beta";
-#endif
+			    if (CommonUtilities.Beta)
+			    {
+				    betaString = "Beta";
+			    }
 
 				var pipeFactory = new ChannelFactory<IVidCoderAutomation>(
 					binding,

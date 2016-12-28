@@ -708,9 +708,9 @@
 						<TextBlock
 							Style="{StaticResource ConfigSectionHeader}"
 							Text="{x:Static res:OptionsRes.UpdateStatusSection}"
-							Visibility="{Binding UpdatesEnabled,
+							Visibility="{Binding ShowUpdateStatus,
 							                     Converter={StaticResource VisibilityConverter}}" />
-						<StackPanel Style="{StaticResource ConfigSectionStack}" Visibility="{Binding UpdatesEnabled, Converter={StaticResource VisibilityConverter}}">
+						<StackPanel Style="{StaticResource ConfigSectionStack}" Visibility="{Binding ShowUpdateStatus, Converter={StaticResource VisibilityConverter}}">
 							<TextBlock Margin="0 0 0 3" Text="{Binding UpdateStatus}" />
 							<ProgressBar
 								Grid.Column="1"

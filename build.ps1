@@ -1,7 +1,8 @@
 [CmdletBinding()]
 Param(
   [Parameter(Mandatory=$True)]
-  [string]$versionShort
+  [string]$versionShort,
+  [switch]$debugBuild = $false
 )
 
 . ./build_common.ps1
@@ -16,11 +17,12 @@ function ReplaceTokens($inputFile, $outputFile, $replacements) {
     Set-Content $outputFile $fileContent
 }
 
-function CreateIssFile($version, $beta, $arch) {
+function CreateIssFile($version, $beta, $debugBuild, $arch) {
     $tokens = @{}
 
     if ($arch -eq "x86") {
         $tokens["x64Directives"] = ""
+        $tokens["x86UninstallLine"] = ""
         
         if ($beta) {
             $appId = "VidCoder-Beta-x86"
@@ -29,6 +31,7 @@ function CreateIssFile($version, $beta, $arch) {
         }
     } else {
         $tokens["x64Directives"] = "ArchitecturesAllowed=x64`r`nArchitecturesInstallIn64BitMode=x64"
+        $tokens["x86UninstallLine"] = "UninstallX86Version();"
 
         if ($beta) {
             $appId = "VidCoder-Beta-x64"
@@ -54,6 +57,13 @@ function CreateIssFile($version, $beta, $arch) {
         $tokens["outputBaseFileName"] = "VidCoder-" + $version + "-" + $arch
         $tokens["appVerName"] = "VidCoder " + $version + " (" + $arch + ")"
     }
+
+    if ($debugBuild) {
+        $tokens["outputDirectory"] = "BuiltInstallers\Test"
+    } else {
+        $tokens["outputDirectory"] = "BuiltInstallers"
+    }
+
     ReplaceTokens "Installer\VidCoder.iss.txt" ("Installer\VidCoder-" + $arch + "-gen.iss") $tokens
 }
 
@@ -70,12 +80,12 @@ function UpdateAssemblyInfo($fileName, $version) {
     Move-Item $tmpFile $fileName -force
 }
 
-function CopyBoth($fileName) {
+function CopyBoth($fileName, $buildFlavor) {
     $dest86 = ".\Installer\Files\x86\"
     $dest64 = ".\Installer\Files\x64\"
 
-    $source86 = ".\VidCoder\bin\x86\Release\"
-    $source64 = ".\VidCoder\bin\x64\Release\"
+    $source86 = ".\VidCoder\bin\x86\$buildFlavor\"
+    $source64 = ".\VidCoder\bin\x64\$buildFlavor\"
 
     copy ($source86 + $fileName) ($dest86 + $fileName); ExitIfFailed
     copy ($source64 + $fileName) ($dest64 + $fileName); ExitIfFailed
@@ -100,12 +110,12 @@ function CopyCommon($fileName) {
     copy $fileName $dest64; ExitIfFailed
 }
 
-function CopyLanguage($language) {
+function CopyLanguage($language, $buildFlavor) {
     $dest86 = ".\Installer\Files\x86\"
     $dest64 = ".\Installer\Files\x64\"
 
-    $source86 = ".\VidCoder\bin\x86\Release\"
-    $source64 = ".\VidCoder\bin\x64\Release\"
+    $source86 = ".\VidCoder\bin\x86\$buildFlavor\"
+    $source64 = ".\VidCoder\bin\x64\$buildFlavor\"
 
     copy ($source86 + $language) ($dest86 + $language) -recurse; ExitIfFailed
     copy ($source64 + $language) ($dest64 + $language) -recurse; ExitIfFailed
@@ -114,10 +124,16 @@ function CopyLanguage($language) {
 # Master switch for if this branch is beta
 $beta = $true
 
-if ($beta) {
-    $configuration = "Release-Beta"
+if ($debugBuild) {
+    $buildFlavor = "Debug"
 } else {
-    $configuration = "Release"
+    $buildFlavor = "Release"
+}
+
+if ($beta) {
+    $configuration = $buildFlavor + "-Beta"
+} else {
+    $configuration = $buildFlavor
 }
 
 # Get master version number
@@ -132,8 +148,8 @@ UpdateAssemblyInfo "VidCoderWorker\Properties\AssemblyInfo.cs" $versionLong
 & $DevEnvExe VidCoder.sln /Rebuild ($configuration + "|x64"); ExitIfFailed
 
 # Run sgen to create *.XmlSerializers.dll
-& ($NetToolsFolder + "\sgen.exe") /f /a:"VidCoder\bin\x86\Release\VidCoderCommon.dll"; ExitIfFailed
-& ($NetToolsFolder + "\x64\sgen.exe") /f /a:"VidCoder\bin\x64\Release\VidCoderCommon.dll"; ExitIfFailed
+& ($NetToolsFolder + "\sgen.exe") /f /a:"VidCoder\bin\x86\$buildFlavor\VidCoderCommon.dll"; ExitIfFailed
+& ($NetToolsFolder + "\x64\sgen.exe") /f /a:"VidCoder\bin\x64\$buildFlavor\VidCoderCommon.dll"; ExitIfFailed
 
 
 # Copy install files to staging folder
@@ -143,72 +159,86 @@ $dest64 = ".\Installer\Files\x64"
 ClearFolder $dest86; ExitIfFailed
 ClearFolder $dest64; ExitIfFailed
 
-$source86 = ".\VidCoder\bin\x86\Release\"
-$source64 = ".\VidCoder\bin\x64\Release\"
+$source86 = ".\VidCoder\bin\x86\$buildFlavor\"
+$source64 = ".\VidCoder\bin\x64\$buildFlavor\"
 
 # Files from the main output directory (some architecture-specific)
-CopyBoth "VidCoder.exe"
-CopyBoth "VidCoder.pdb"
-CopyBoth "VidCoder.exe.config"
-CopyBoth "VidCoderCommon.dll"
-CopyBoth "VidCoderCommon.pdb"
-CopyBoth "VidCoderCommon.XmlSerializers.dll"
-CopyBoth "VidCoderWorker.exe"
-CopyBoth "VidCoderWorker.exe.config"
-CopyBoth "VidCoderWorker.pdb"
-CopyBoth "Omu.ValueInjecter.dll"
-CopyBoth "VidCoderCLI.exe"
-CopyBoth "VidCoderCLI.pdb"
-CopyBoth "VidCoderWindowlessCLI.exe"
-CopyBoth "VidCoderWindowlessCLI.pdb"
-CopyBoth "Microsoft.Practices.ServiceLocation.dll"
-CopyBoth "Hardcodet.Wpf.TaskbarNotification.dll"
-CopyBoth "Newtonsoft.Json.dll"
-CopyBoth "FastMember.dll"
-CopyBoth "Microsoft.Practices.Unity.dll"
-CopyBoth "ReactiveUI.dll"
-CopyBoth "Splat.dll"
-CopyBoth "System.Reactive.Core.dll"
-CopyBoth "System.Reactive.Interfaces.dll"
-CopyBoth "System.Reactive.Linq.dll"
-CopyBoth "System.Reactive.PlatformServices.dll"
-CopyBoth "System.Reactive.Windows.Threading.dll"
-CopyBoth "Ude.dll"
-CopyBoth "Xceed.Wpf.Toolkit.dll"
+$outputDirectoryFiles = @(
+    "VidCoder.exe",
+    "VidCoder.pdb",
+    "VidCoder.exe.config",
+    "VidCoderCommon.dll",
+    "VidCoderCommon.pdb",
+    "VidCoderCommon.XmlSerializers.dll",
+    "VidCoderWorker.exe",
+    "VidCoderWorker.exe.config",
+    "VidCoderWorker.pdb",
+    "Omu.ValueInjecter.dll",
+    "VidCoderCLI.exe",
+    "VidCoderCLI.pdb",
+    "VidCoderWindowlessCLI.exe",
+    "VidCoderWindowlessCLI.pdb",
+    "Microsoft.Practices.ServiceLocation.dll",
+    "Hardcodet.Wpf.TaskbarNotification.dll",
+    "Newtonsoft.Json.dll",
+    "FastMember.dll",
+    "Microsoft.Practices.Unity.dll",
+    "ReactiveUI.dll",
+    "Splat.dll",
+    "System.Reactive.Core.dll",
+    "System.Reactive.Interfaces.dll",
+    "System.Reactive.Linq.dll",
+    "System.Reactive.PlatformServices.dll",
+    "System.Reactive.Windows.Threading.dll",
+    "Ude.dll",
+    "Xceed.Wpf.Toolkit.dll")
+
+foreach ($outputDirectoryFile in $outputDirectoryFiles) {
+    CopyBoth $outputDirectoryFile $buildFlavor
+}
 
 # Architecture-specific files from Lib folder
 CopyLibBoth "hb.dll"
 CopyLibBoth "System.Data.SQLite.dll"
 
 # Common files
-CopyCommon ".\Lib\HandBrake.ApplicationServices.dll"
-CopyCommon ".\Lib\HandBrake.ApplicationServices.pdb"
-CopyCommon ".\Lib\Ookii.Dialogs.Wpf.dll"
-CopyCommon ".\Lib\Ookii.Dialogs.Wpf.pdb"
-CopyCommon ".\VidCoder\BuiltInPresets.json"
-CopyCommon ".\VidCoder\Encode_Complete.wav"
-CopyCommon ".\VidCoder\Icons\File\VidCoderPreset.ico"
-CopyCommon ".\VidCoder\Icons\File\VidCoderQueue.ico"
-CopyCommon ".\License.txt"
+$commonFiles = @(
+    ".\Lib\HandBrake.ApplicationServices.dll",
+    ".\Lib\HandBrake.ApplicationServices.pdb",
+    ".\Lib\Ookii.Dialogs.Wpf.dll",
+    ".\Lib\Ookii.Dialogs.Wpf.pdb",
+    ".\VidCoder\BuiltInPresets.json",
+    ".\VidCoder\Encode_Complete.wav",
+    ".\VidCoder\Icons\File\VidCoderPreset.ico",
+    ".\VidCoder\Icons\File\VidCoderQueue.ico",
+    ".\License.txt")
+
+foreach ($commonFile in $commonFiles) {
+    CopyCommon $commonFile
+}
 
 # Languages
-CopyLanguage "hu"
-CopyLanguage "es"
-CopyLanguage "eu"
-CopyLanguage "pt"
-CopyLanguage "pt-BR"
-CopyLanguage "fr"
-CopyLanguage "de"
-CopyLanguage "zh"
-CopyLanguage "zh-Hant"
-CopyLanguage "it"
-CopyLanguage "cs"
-CopyLanguage "ja"
-CopyLanguage "pl"
-CopyLanguage "ru"
-CopyLanguage "nl"
-CopyLanguage "ka"
+$languages = @(
+    "hu",
+    "es",
+    "eu",
+    "pt",
+    "pt-BR",
+    "fr",
+    "de",
+    "zh",
+    "zh-Hant",
+    "it",
+    "cs",
+    "ja",
+    "pl",
+    "ru",
+    "nl",
+    "ka")
 
+foreach ($language in $languages) {
+    CopyLanguage $language $buildFlavor
+}
 
 # fonts folder for subtitles
 copy ".\Lib\fonts" ".\Installer\Files\x86" -Recurse
@@ -223,10 +253,16 @@ if ($beta) {
     $betaNameSection = ""
 }
 
-New-Item -ItemType Directory -Force -Path ".\Installer\BuiltInstallers"
+if ($debugBuild) {
+    $builtInstallerFolder = "Installer\BuiltInstallers\Test"
+} else {
+    $builtInstallerFolder = "Installer\BuiltInstallers"
+}
 
-$portableExeWithoutExtension86 = ".\Installer\BuiltInstallers\VidCoder-$versionShort$betaNameSection-x86-Portable"
-$portableExeWithoutExtension64 = ".\Installer\BuiltInstallers\VidCoder-$versionShort$betaNameSection-x64-Portable"
+New-Item -ItemType Directory -Force -Path ".\$builtInstallerFolder"
+
+$portableExeWithoutExtension86 = ".\$builtInstallerFolder\VidCoder-$versionShort$betaNameSection-x86-Portable"
+$portableExeWithoutExtension64 = ".\$builtInstallerFolder\VidCoder-$versionShort$betaNameSection-x64-Portable"
 
 DeleteFileIfExists ($portableExeWithoutExtension86 + ".exe")
 DeleteFileIfExists ($portableExeWithoutExtension64 + ".exe")
@@ -256,8 +292,8 @@ $fileContent = $fileContent -replace "/v[\d.]+((?:-beta)?[/<])", ("/v" + $versio
 Set-Content $latestFile $fileContent
 
 # Create x86/x64 .iss files in the correct configuration
-CreateIssFile $versionShort $beta "x86"
-CreateIssFile $versionShort $beta "x64"
+CreateIssFile $versionShort $beta $debugBuild "x86"
+CreateIssFile $versionShort $beta $debugBuild "x64"
 
 # Build the installers
 & $InnoSetupExe Installer\VidCoder-x86-gen.iss; ExitIfFailed

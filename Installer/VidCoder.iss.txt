@@ -15,7 +15,7 @@ SolidCompression=yes
 SetupIconFile=VidCoder_Setup.ico
 ChangesAssociations=yes
 
-OutputDir=BuiltInstallers
+OutputDir=%outputDirectory%
 OutputBaseFilename=%outputBaseFileName%
 
 AppId=%appId%
@@ -172,6 +172,8 @@ procedure DeleteUserFiles();
 var
   iAns: Integer;
 begin
+  if UninstallSilent() then exit;
+  
   iAns := MsgBox('Do you want to delete your settings and presets as well?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2);
 
   if iAns = IDYES then
@@ -180,11 +182,57 @@ begin
   end; 
 end;
 
+// Gets the registry key path for the x86 version uninstall.
+function GetX86UninstallRegistryKey(): String;
+var
+  sUninstPath: String;
+  sUninstallString: String;
+begin
+  sUninstPath := ExpandConstant('Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\VidCoder-Beta-x86_is1');
+  sUninstallString := '';
+  if not RegQueryStringValue(HKLM, sUninstPath, 'UninstallString', sUninstallString) then
+    RegQueryStringValue(HKCU, sUninstPath, 'UninstallString', sUninstallString);
+  Result := sUninstallString;
+end;
+
+// Uninstalls the old x86 version.
+function UninstallX86Version(): Integer;
+var
+  sUninstallString: String;
+  iResultCode: Integer;
+begin
+// Return Values:
+// 1 - uninstall string is empty
+// 2 - error executing the UninstallString
+// 3 - successfully executed the UninstallString
+
+  // default return value
+  Result := 0;
+
+  // get the uninstall string of the old app
+  sUninstallString := GetX86UninstallRegistryKey();
+  if sUninstallString <> '' then begin
+    sUninstallString := RemoveQuotes(sUninstallString);
+    if Exec(sUninstallString, '/SILENT /NORESTART /SUPPRESSMSGBOXES','', SW_HIDE, ewWaitUntilTerminated, iResultCode) then
+      Result := 3
+    else
+      Result := 2;
+  end else
+    Result := 1;
+end;
+
 procedure CurStepChanged(CurStep: TSetupStep);
 var
    showSuccessDialog: String;
 begin
   case CurStep of
+    ssInstall:
+      begin
+	    if (GetX86UninstallRegistryKey() <> '') then
+		begin
+		  %x86UninstallLine%
+		end;
+	  end;
     ssPostInstall:
       begin
         if Framework46IsNotInstalled() then

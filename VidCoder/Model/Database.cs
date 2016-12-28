@@ -16,6 +16,7 @@ using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
+using VidCoderCommon;
 using VidCoderCommon.Model;
 
 namespace VidCoder.Model
@@ -623,7 +624,7 @@ namespace VidCoder.Model
 		{
 			if (!Directory.Exists(Utilities.AppFolder))
 			{
-				if (Utilities.Beta && Directory.Exists(Utilities.GetAppFolder(beta: false)))
+				if (CommonUtilities.Beta && Directory.Exists(Utilities.GetAppFolder(beta: false)))
 				{
 					// In beta mode if we don't have the appdata folder copy the stable appdata folder
 					FileUtilities.CopyDirectory(

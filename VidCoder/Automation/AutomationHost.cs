@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VidCoderCommon;
 
 namespace VidCoder.Automation
 {
@@ -23,7 +24,7 @@ namespace VidCoder.Automation
 				host.AddServiceEndpoint(
 					typeof(IVidCoderAutomation),
 					new NetNamedPipeBinding(),
-					"net.pipe://localhost/VidCoderAutomation" + (Utilities.Beta ? "Beta" : string.Empty));
+					"net.pipe://localhost/VidCoderAutomation" + (CommonUtilities.Beta ? "Beta" : string.Empty));
 
 				await Task.Factory.FromAsync(host.BeginOpen, host.EndOpen, null);
 			});

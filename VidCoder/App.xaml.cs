@@ -16,6 +16,7 @@ using System.IO.Pipes;
 using System.IO;
 using System.ComponentModel;
 using VidCoder.View;
+using VidCoderCommon;
 using VidCoderCommon.Utilities;
 
 namespace VidCoder
@@ -32,11 +33,19 @@ namespace VidCoder
 	{
 		public static bool IsPrimaryInstance { get; private set; }
 
-#if BETA
-		static Mutex mutex = new Mutex(true, "VidCoderBetaPrimaryInstanceMutex");
-#else
-		static Mutex mutex = new Mutex(true, "VidCoderPrimaryInstanceMutex");
-#endif
+	    private static Mutex mutex;
+
+	    static App()
+	    {
+	        if (CommonUtilities.Beta)
+	        {
+	            mutex = new Mutex(true, "VidCoderBetaPrimaryInstanceMutex");
+	        }
+	        else
+	        {
+	            mutex = new Mutex(true, "VidCoderPrimaryInstanceMutex");
+            }
+	    }
 
 		protected override void OnStartup(StartupEventArgs e)
 		{

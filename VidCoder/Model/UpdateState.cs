@@ -12,6 +12,7 @@ namespace VidCoder.Model
 		DownloadingInstaller,
 		UpToDate,
 		InstallerReady,
-		Failed
+		Failed,
+        NotSupported32BitOS
 	}
 }

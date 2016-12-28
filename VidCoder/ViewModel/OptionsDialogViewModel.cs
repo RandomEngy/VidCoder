@@ -8,11 +8,14 @@ using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Resources;
+using System.Threading.Tasks;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
 using ReactiveUI;
+using VidCoder.Extensions;
+using VidCoderCommon;
 
 namespace VidCoder.ViewModel
 {
@@ -37,20 +40,37 @@ namespace VidCoder.ViewModel
 		{
 			this.updater = updateService;
 
-			// UpdatesEnabled
-			this.WhenAnyValue(x => x.UpdatesEnabledConfig)
-				.Select(updatesEnabledConfig =>
-				{
-					if (Utilities.IsPortable)
-					{
-						return false;
-					}
+            // UpdatesEnabled
+            this.WhenAnyValue(x => x.UpdatesEnabledConfig)
+                .Select(updatesEnabledConfig =>
+                {
+                    if (Utilities.IsPortable)
+                    {
+                        return false;
+                    }
 
-					return updatesEnabledConfig;
-				}).ToProperty(this, x => x.UpdatesEnabled, out this.updatesEnabled);
+                    return updatesEnabledConfig;
+                }).ToProperty(this, x => x.UpdatesEnabled, out this.updatesEnabled);
 
-			// UpdateStatus
-			this.updater
+            // ShowUpdateStatus
+		    this.WhenAnyValue(x => x.UpdatesEnabledConfig)
+		        .Select(updatesEnabledConfig =>
+		        {
+		            if (Utilities.IsPortable)
+		            {
+		                return false;
+		            }
+
+		            if (!Environment.Is64BitOperatingSystem)
+		            {
+		                return true;
+                    }
+
+                    return updatesEnabledConfig;
+		        }).ToProperty(this, x => x.ShowUpdateStatus, out this.showUpdateStatus);;
+
+            // UpdateStatus
+            this.updater
 				.WhenAnyValue(x => x.State)
 				.Select(state =>
 				{
@@ -68,6 +88,8 @@ namespace VidCoder.ViewModel
 							return string.Format(OptionsRes.UpdateReadyStatus, this.updater.LatestVersion);
 						case UpdateState.Failed:
 							return OptionsRes.UpdateFailedStatus;
+                        case UpdateState.NotSupported32BitOS:
+					        return CommonRes.UpdatesDisabled32BitOSMessage;
 						default:
 							throw new ArgumentOutOfRangeException();
 					}
@@ -121,9 +143,9 @@ namespace VidCoder.ViewModel
 			this.CheckUpdate = ReactiveCommand.Create(this.updater.WhenAnyValue(x => x.State).Select(state =>
 			{
 				return Config.UpdatesEnabled &&
-					(this.updater.State == UpdateState.Failed ||
-					this.updater.State == UpdateState.NotStarted ||
-					this.updater.State == UpdateState.UpToDate);
+					(state == UpdateState.Failed ||
+					state == UpdateState.NotStarted ||
+					state == UpdateState.UpToDate);
 			}));
 			this.CheckUpdate.Subscribe(_ => this.CheckUpdateImpl());
 
@@ -235,28 +257,28 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-#if !BETA
-			var betaInfoWorker = new BackgroundWorker();
-			betaInfoWorker.DoWork += (o, e) =>
-				{
-					this.betaInfo = Updater.GetUpdateInfo(true);
-				};
-			betaInfoWorker.RunWorkerCompleted += (o, e) =>
-				{
-					this.betaInfoAvailable = false;
-					if (this.betaInfo != null)
-					{
-						if (Utilities.CompareVersions(this.betaInfo.LatestVersion, Utilities.CurrentVersion) > 0)
-						{
-							this.betaInfoAvailable = true;
-						}
-					}
+		    if (!CommonUtilities.Beta)
+		    {
+		        Task.Run(async () =>
+		        {
+                    this.betaInfo = await Updater.GetUpdateInfoAsync(beta: true);
 
-					this.RaisePropertyChanged(nameof(this.BetaChangelogUrl));
-					this.RaisePropertyChanged(nameof(this.BetaSectionVisible));
-				};
-			betaInfoWorker.RunWorkerAsync();
-#endif
+                    this.betaInfoAvailable = false;
+                    if (this.betaInfo != null)
+                    {
+                        if (this.betaInfo.LatestVersion.FillInWithZeroes() > Utilities.CurrentVersion)
+                        {
+                            this.betaInfoAvailable = true;
+                        }
+                    }
+
+		            await DispatchUtilities.InvokeAsync(() =>
+		            {
+                        this.RaisePropertyChanged(nameof(this.BetaChangelogUrl));
+                        this.RaisePropertyChanged(nameof(this.BetaSectionVisible));
+                    });
+                });
+            }
 
 		    int tabIndex = Config.OptionsDialogLastTab;
 		    if (tabIndex >= this.Tabs.Count)
@@ -342,12 +364,15 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> updatesEnabled;
 		public bool UpdatesEnabled => this.updatesEnabled.Value;
 
+	    private ObservableAsPropertyHelper<bool> showUpdateStatus;
+	    public bool ShowUpdateStatus => this.showUpdateStatus.Value;
+
 		public bool BuildSupportsUpdates
 		{
 			get
 			{
-				return !Utilities.IsPortable;
-			}
+                return !Utilities.IsPortable && Environment.Is64BitOperatingSystem;
+            }
 		}
 
 		private ObservableAsPropertyHelper<string> updateStatus;
@@ -359,63 +384,17 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<double> updateProgressPercent;
 		public double UpdateProgressPercent => this.updateProgressPercent.Value;
 
-		public string BetaUpdatesText
-		{
-			get
-			{
-#if BETA
-				return OptionsRes.BetaUpdatesInBeta;
-#else
-				return OptionsRes.BetaUpdatesNonBeta;
-#endif
-			}
-		}
+		public string BetaUpdatesText => CommonUtilities.Beta ? OptionsRes.BetaUpdatesInBeta : OptionsRes.BetaUpdatesNonBeta;
 
-		public string BetaChangelogUrl
-		{
-			get
-			{
-#if BETA
-				return string.Empty;
-#else
-				return this.betaInfo.ChangelogLocation;
-#endif
-			}
-		}
+	    public string BetaChangelogUrl => CommonUtilities.Beta ? string.Empty : this.betaInfo.ChangelogUrl;
 
-		public bool BetaSectionVisible
-		{
-			get
-			{
-#if BETA
-				return true;
-#else
-				return this.betaInfoAvailable;
-#endif
-			}
-		}
+	    public bool BetaSectionVisible => CommonUtilities.Beta || this.betaInfoAvailable;
 
-		public bool InBeta
-		{
-			get
-			{
-#if BETA
-				return true;
-#else
-				return false;
-#endif
-			}
-		}
+	    public bool InBeta => CommonUtilities.Beta;
 
-		public List<IVideoPlayer> PlayerChoices
-		{
-			get
-			{
-				return this.playerChoices;
-			}
-		}
+	    public List<IVideoPlayer> PlayerChoices => this.playerChoices;
 
-		private IVideoPlayer selectedPlayer;
+	    private IVideoPlayer selectedPlayer;
 		public IVideoPlayer SelectedPlayer
 		{
 			get { return this.selectedPlayer; }
@@ -839,7 +818,7 @@ namespace VidCoder.ViewModel
 		public ReactiveCommand<object> CheckUpdate { get; }
 		private void CheckUpdateImpl()
 		{
-			this.updater.CheckUpdates();
-		}
+            this.updater.CheckUpdates();
+        }
 	}
 }
