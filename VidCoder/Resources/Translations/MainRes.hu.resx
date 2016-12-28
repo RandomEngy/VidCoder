@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Windows</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>Kódolási beállítások</value>
@@ -343,11 +344,6 @@
     <value>{0}
 
 {1} törlése nem lehetséges</value>
-  </data>
-  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>A következő fájlokat nem sikerült felismerni és ezért nem állíthatók sorba:
-
-{0}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Hiba történt a videófájl(ok) vizsgálata során</value>
@@ -633,5 +629,27 @@
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>További {0} cím rendelkezik ehhez hasonló lejátszási idővel.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>Létezi kegy {0} verziójú elmentett fájl. Szeretnéd használni?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Hiba a videó lejátszása közben.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>Egyéni videólejátszó nem található itt: {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>Figyelem: A kezelőfelületet a 2.0-ás verzióhoz módosítottam, ezért a sémák megváltozhattak. Ajánlott átnézni őket, és megbizonyosodni róla, hogy megfelelően be vannak állítva.</value>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Videófájlok felsorakoztató mappája...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Hiba történt néhány fájl vizsgálata közben, és nem kerültek hozzáadásra a sorhoz:
+
+{0}</value>
   </data>
 </root>

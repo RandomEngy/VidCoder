@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>自动字幕选择停用时，自动选取上次的选择。</value>
+    <value>当禁用了音频自动选择时，保留最后选择的音轨。</value>
   </data>
   <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>自动字幕选择停用时，自动选取上次的选项。</value>
+    <value>当禁用了字幕自动选择时，保留最后选择的字幕。</value>
   </data>
   <data name="GeneralTab" xml:space="preserve">
-    <value>一般设置</value>
+    <value>常规​​​​​</value>
   </data>
   <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
     <value>最小化到任务栏</value>
@@ -136,7 +136,7 @@
     <value>队列完成播放声音</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
-    <value>首选的 DVD 播放机：</value>
+    <value>首选 DVD 播放设备：</value>
   </data>
   <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
     <value>选择您想用来使用 DVD 的播放器。</value>
@@ -157,19 +157,19 @@
     <value>文件格式：</value>
   </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
-    <value>默认的格式</value>
+    <value>默认格式</value>
   </data>
   <data name="CustomFormatRadioButton" xml:space="preserve">
     <value>自定义格式：</value>
   </data>
   <data name="FileNameFormatOptions" xml:space="preserve">
-    <value>可用的选项: {0}</value>
+    <value>可用选项：{0}</value>
   </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
     <value>当文件已存在时......</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
-    <value>单个文件的编码：</value>
+    <value>单个文件编码：</value>
   </data>
   <data name="AskOverwriteRadioButton" xml:space="preserve">
     <value>覆盖文件时询问</value>
@@ -178,7 +178,7 @@
     <value>覆盖文件不提示</value>
   </data>
   <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>自动切换到一个不同的名称</value>
+    <value>自动换用其他名称</value>
   </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
     <value>批量编码文件：</value>
@@ -190,13 +190,13 @@
     <value>自动重命名</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
-    <value>当以下处理程序执行时自动暂停编码:</value>
+    <value>当以下进程运行时自动暂停编码：</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
     <value>添加...</value>
   </data>
   <data name="PreviewCountLabel" xml:space="preserve">
-    <value>预览画面扫描数:</value>
+    <value>预览画面扫描数量：</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>记住以前使用过的文件和文件夹</value>
@@ -205,7 +205,7 @@
     <value>允许音轨设定自定义名称 (非所有播放器都支持)</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>启用的 LibDVDNav （更改需要重新启动程序）</value>
+    <value>启用 LibDVDNav （更改需重启程序）</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>清除完成项目后删除来源文件 (会弹出确认对话窗口)</value>
@@ -214,10 +214,10 @@
     <value>日志记录的详细程信息：</value>
   </data>
   <data name="MinScanLengthLabel" xml:space="preserve">
-    <value>最小扫描长度 (秒):</value>
+    <value>标题的最小扫描长度 (秒)：</value>
   </data>
   <data name="RecognizedExtensionsLabel" xml:space="preserve">
-    <value>允许的扩展名:</value>
+    <value>可识别扩展名：</value>
   </data>
   <data name="RecognizedExtensionsToolTip" xml:space="preserve">
     <value>搜寻文件夹时新增列表中扩展名的文件。 (以半角逗点分隔)</value>
@@ -241,7 +241,7 @@
     <value>更新 {0} 准备好了。将在退出该程序时安装。</value>
   </data>
   <data name="DownloadingStatus" xml:space="preserve">
-    <value>正在下载更新 {0}:</value>
+    <value>正在下载 {0} 更新：</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder 已是最新版本。</value>
@@ -253,7 +253,7 @@
     <value>界面语言：</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
-    <value>新的语言将在您退出并重新启动 VidCoder 后生效。</value>
+    <value>新的语言将在您重启 VidCoder 后生效。</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
     <value>使用操作系统语言</value>
@@ -268,13 +268,13 @@
     <value>检查更新失败。</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>选择您想要用于完成声音的.wav 文件。</value>
+    <value>选择完成通知音效的 .wav 文件。</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
-    <value>当前版本: {0}</value>
+    <value>当前版本：{0}</value>
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
-    <value>注意： 此版本是更有可能有 bug 和崩溃。</value>
+    <value>注意： 此版本更可能出现 bug 或崩溃。</value>
   </data>
   <data name="LanguagesSection" xml:space="preserve">
     <value>语言</value>
@@ -316,7 +316,7 @@
     <value>Beta</value>
   </data>
   <data name="UseCustomWavLabel" xml:space="preserve">
-    <value>使用自定义.wav 文件:</value>
+    <value>使用自定义 .wav 文件：</value>
   </data>
   <data name="CheckNowButton" xml:space="preserve">
     <value>立即检查</value>
@@ -389,7 +389,7 @@
     <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
   </data>
   <data name="CpuThrottlingToolTip" xml:space="preserve">
-    <value>使用 CPU 限制功能来限制 VidCoder 可以在编码时使用的处理器核心的数量。</value>
+    <value>使用 CPU 限制功能来限制 VidCoder 编码时可使用的处理器核心数量。</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
     <value>使用内置播放器进行预览</value>

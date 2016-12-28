@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Windows</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>Coderingsinstellingen</value>
@@ -343,11 +344,6 @@
     <value>Kan {0} niet verwijderen
 
 {1}</value>
-  </data>
-  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>De volgende bestanden werden niet herkend en werden niet toegevoegd aan de wachtrij:
-
-{0}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Probleem bij het scannen van video bestand(en)</value>
@@ -604,6 +600,12 @@
     <value>Database bestand is niet compatibel</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
+  
+  
+  
+  
+  
+  
   
   
   

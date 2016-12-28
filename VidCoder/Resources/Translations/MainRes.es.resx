@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Mostrar</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>Ajustes de Codificacion</value>
@@ -341,9 +342,6 @@
   </data>
   <data name="CouldNotDeleteFile" xml:space="preserve">
     <value>No se pudo eliminar {0} {1}</value>
-  </data>
-  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>Los siguientes archivo(s) no pueden ser reconocidos y no se añadieron a la cola: {0}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Error al analizar el archivo(s) de vídeo</value>
@@ -627,5 +625,25 @@
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>{0} otros títulos tienen una duración similar a éste.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>Tienes una copia de archivo de versión {0}. ¿Quieres utilizarlo?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Error de reproducción de vídeo.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>El reproductor de vídeo personalizado no puede encontrarse en {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>Advertencia: La interfaz de tamaño ha sido revisada para 2.0, por lo que sus valores pueden haber cambiado. Puede que desee inspeccionarlos y asegurarse están configuradas correctamente.</value>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Poner carpeta de archivos de vídeo en cola...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Hubo errores de análisis en algunos archivos y no fueron agregados a la cola:{0}</value>
   </data>
 </root>

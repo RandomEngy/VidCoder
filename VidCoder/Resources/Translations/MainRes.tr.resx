@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Windows</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>Kodlama Ayarları</value>
@@ -344,11 +345,6 @@
 
 {1}</value>
   </data>
-  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>Aşağıdaki dosya(lar) tanımlanamadı ve görev sıralamasına eklenmedi: 
-
-{0}</value>
-  </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Video dosyası() tarama hatası</value>
   </data>
@@ -479,10 +475,14 @@
   </data>
   
   
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Tüm kaydedilmemiş değişiklikleri iptal etmek istediğinize emin misiniz?</value>
+  </data>
   
   
-  
-  
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>Yapılandırma dosyası bozulmuş ve yüklenemedi. Bazı ayarlarınız sıfırlanmış olabilir.</value>
   </data>
@@ -608,6 +608,12 @@
     <value>Uyumsuz veritabanı dosyası</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
+  
+  
+  
+  
+  
+  
   
   
   

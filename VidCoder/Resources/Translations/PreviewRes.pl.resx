@@ -183,10 +183,23 @@
 	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
     <value>Nie można znaleźć pliku źródłowego.</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="CloseVideoButton" xml:space="preserve">
+    <value>Zamknij wideo</value>
+    <comment>Button to close the preview video clip.</comment>
+  </data>
+  <data name="OpenInSystemPlayerButton" xml:space="preserve">
+    <value>Otwórz w odtwarzaczu systemowym</value>
+  </data>
+  <data name="VolumeSliderLabel" xml:space="preserve">
+    <value>Głośność</value>
+  </data>
+  <data name="ReplayPreviewButton" xml:space="preserve">
+    <value>Odtwórz ponownie podgląd</value>
+  </data>
+  <data name="VideoErrorMessage" xml:space="preserve">
+    <value>Nie można odtworzyć wideo przy użyciu wbudowanego odtwarzacza. Czy chcesz otworzyć systemowy?</value>
+  </data>
+  <data name="VideoErrorTitle" xml:space="preserve">
+    <value>Błąd wideo</value>
+  </data>
 </root>

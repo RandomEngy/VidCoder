@@ -133,11 +133,11 @@
     <value>Todas las pistas</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
-    <value>Idioma (s)</value>
+    <value>Idioma(s)</value>
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
     <value>Solo si el lenguaje es diferente del audio</value>
-    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the audio track.</comment>
+    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
   <data name="SubtitleSelection" xml:space="preserve">
     <value>Selección de subtítulos</value>
@@ -149,7 +149,7 @@
     <value>Selección de título</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
-    <value>Selector: {0}</value>
+    <value>Slección: {0}</value>
     <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
   </data>
   <data name="OutputLocation" xml:space="preserve">
@@ -213,13 +213,13 @@
     <value>Primera pista</value>
   </data>
   <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Seleccione la pista de subtítulos por defecto; estos se mostrarán automáticamente al reproducir el video.</value>
+    <value>Selecciona la pista de subtítulos por defecto; estos se mostrarán automáticamente al reproducir el video.</value>
   </data>
   <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
     <value>Seleccione la primera pista de subtítulos por defecto; estos se mostrarán automáticamente al reproducir el video.</value>
   </data>
   <data name="FirstAsDefaultCheckBox" xml:space="preserve">
-    <value>Marque el primero como predeterminado</value>
+    <value>Selecciona el primero como predeterminado</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
   </data>
   <data name="AllSubtitlesToolTip" xml:space="preserve">
@@ -232,7 +232,7 @@
     <value>Incluir sólo la primera pista de audio.</value>
   </data>
   <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Incluir todas las pistas.</value>
+    <value>Incluir todas las pistas de audio.</value>
   </data>
   <data name="SubtitleFirstToolTip" xml:space="preserve">
     <value>Incluir sólo el primer subtítulo.</value>
@@ -241,9 +241,12 @@
     <value>Preset utilizado:</value>
   </data>
   <data name="RemoveLanguageToolTip" xml:space="preserve">
-    <value>Quitar éste idioma.</value>
+    <value>Quita éste idioma.</value>
   </data>
   <data name="SortLanguagesLabel" xml:space="preserve">
     <value>Ordenar idioma(s) al principio:</value>
+  </data>
+  <data name="ForcedOnlyCheckBox" xml:space="preserve">
+    <value>Sólo forzados</value>
   </data>
 </root>

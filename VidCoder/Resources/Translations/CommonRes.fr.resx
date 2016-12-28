@@ -132,9 +132,7 @@ Traduit en Français par TheCrazyRabbit...</value>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
     <value>Marquer cette piste de sous-titre par défaut. Cela sera visible pendant la lecture jusqu'à ce qu'une autre piste soit choisie.</value>
   </data>
-  <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Affichage forcé des sous-titres depuis la piste donnée. Concrètement, cela représente des petits morceaux en langue étrangère.</value>
-  </data>
+  
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>La quantité de temps pour faire avancer ou retarder l'apparition des sous-titres donnés.</value>
   </data>
@@ -282,4 +280,5 @@ Traduit en Français par TheCrazyRabbit...</value>
     <value>Premièr</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
+  
 </root>

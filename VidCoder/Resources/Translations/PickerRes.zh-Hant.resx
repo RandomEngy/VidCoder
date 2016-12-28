@@ -137,7 +137,7 @@
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
     <value>僅於與音訊語言不同時</value>
-    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the audio track.</comment>
+    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
   <data name="SubtitleSelection" xml:space="preserve">
     <value>字幕選擇</value>
@@ -245,5 +245,8 @@
   </data>
   <data name="SortLanguagesLabel" xml:space="preserve">
     <value>排序語言至頂端:</value>
+  </data>
+  <data name="ForcedOnlyCheckBox" xml:space="preserve">
+    <value>僅強制</value>
   </data>
 </root>

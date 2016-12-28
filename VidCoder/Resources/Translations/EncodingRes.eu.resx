@@ -277,9 +277,6 @@ Hau ezarri beharra duzu zure irakurketa gailuak profil zehatz bat bakarrik soste
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>Sintonizazio aukerak zure sarrera edukiarekin gehiago egokitzeko. Sintonizazio bat adierazten baduzu, aldaketak Aurrezarpenaren ondoren baina beste parametro guztien aurretik ezarriko dira.</value>
   </data>
-  <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>Desiraturiko bideoaren erakuspen zabalera. Beste parametro batzuk Pixel Ikuspegi Maila bezalakoak aldatuko dira hau lortzeko.</value>
-  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Edukiontzia:</value>
   </data>
@@ -298,18 +295,12 @@ Hau ezarri beharra duzu zure irakurketa gailuak profil zehatz bat bakarrik soste
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Barneratu atal markatzaileak</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>Irudia</value>
-  </data>
+  
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Bideo Iragazkiak</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>Bideoa</value>
-  </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>Audioa</value>
-  </data>
+  
+  
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>Bideo Aurreratua</value>
   </data>
@@ -349,35 +340,14 @@ Hau ezarri beharra duzu zure irakurketa gailuak profil zehatz bat bakarrik soste
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Geh. Garaiera:</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>Heutsi Ikuspegi Mailari</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>Anamorfikoa:</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>Moduloak:</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Erakuspen Zabalera:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Irteera</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
     <value>Mozketa</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>Goian</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>Ezker</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>Behean</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>Eskuin</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
@@ -865,12 +835,6 @@ Beste ezarpen guztiak ezeztatzen ditu.</value>
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Psikoikuspena</value>
   </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
-  </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>Ohinarrizkoa</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
@@ -1010,4 +974,26 @@ Bikubikoa: Hau OpenCL hardwarez bizkorturiko neurriratze algoritmo bat da.</valu
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

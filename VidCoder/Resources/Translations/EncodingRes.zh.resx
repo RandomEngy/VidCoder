@@ -127,73 +127,69 @@
     <value>还原</value>
   </data>
   <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x264 拥有多种算法去决定何时要使用 B-frames 及要使用多少数量。
+    <value>x264 拥有多种算法去决定何时使用及使用多少 B-frames。
 
-快速模式下不管你指定多少 B-frames，所耗费的时间都大致相同。然而当处于快速模式，往往在处理时所做的决定通常都不理想。
+快速模式下不管你指定多少 B-frames，所耗费的时间都大致相同。然而快速模式的判断通常都不理想。
 
-优化模式下所耗费的时间与 B-Frames 的最大数量成正比，但是在处理时所做的决定会更加准确,尤其是在与 B-pyramid 一起使用时。</value>
+优化模式下所耗费的时间与 B-Frames 的最大数量成正比，但处理时的判断会更加准确，尤其是与 B-pyramid 同时使用时。</value>
   </data>
   <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264 允许 B-画格 使用空间性及时间性两种不同的预测模式。
+    <value>H.264 启用B-frames特性时可选择空间或时间两种不同的预测模式。
 
-默认值空间性在大部分情形下皆是较佳的选择，但在部份情况时间性能产生较佳的结果。
+默认的空间模式在大部分情形下较好，但时间模式常常同样有效。
 
-x264 可在耗费小量时间 (可争取到小幅度的压缩增益) 的情况下适应性为每个画格选择较佳的模式。</value>
+x264 仅耗费少量时间 (可获得小幅压缩增益) 为每帧画面选择更好的模式。</value>
   </data>
   <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>适应性量化能控制编码器如何分配整个画格的位分布量。
-高设定值会将原本分配于边缘的部分位数用来加强复杂的区域。</value>
+    <value>自适应量化控制编码器如何分配帧的比特流。设置更高的值将使边缘和复杂区域的比特流用于更精微的细节。</value>
   </data>
   <data name="Advanced_AnalysisToolTip" xml:space="preserve">
     <value>此选项可调整动态搜寻的各种模式。
 开启越多的选项表示您可用更长的编码时间换取更好的编码效果。</value>
   </data>
   <data name="Advanced_BFramesToolTip" xml:space="preserve">
-    <value>合理的值为 2 至 5。
-此选项可控制编码器可连续使用的 B-画格最大数。
-除非适应性 B-画格设定已优化，否则调大此数值并无帮助。
-赛璐璐动画片及锥状 B-画格能在较高数值的情况下获得更好的效果。
-Baseline 规模的设定无法使用 B-画格。 (通常使用在 iPod 或其他可携装置)</value>
+    <value>合理值为 2 至 5。  
+此项控制编码器可连续使用的 B-frames 最大值。
+ 除非 B-frames 适应性设定为优化模式，否则调大此数值并无明显帮助。 
+赛璐璐动画素材及 B-pyramid 更导致了无需设置较高数值。 
+iPod 等设备所使用的Baseline 模式需将 B-frames 设置为0 (off)。</value>
   </data>
   <data name="Advanced_CabacToolTip" xml:space="preserve">
-    <value>编码器完成工作后需完整保留部分信息，H.264 提供两种方法压缩这类信息: CAVLC 及 CABAC。
-CABAC 译码速度较慢但压缩率较佳 (10% 至 30%)，于低比特率时压缩的差异更明显。
-若您想降低译码的硬件需求，请停用此选项。
-Baseline 规模的设定无法使用 CABAC。 (通常使用在 iPod 或其他可携装置)</value>
+    <value>编码器完成工作后，有大量数据需像 ZIP 或 RAR 一样被无损压缩。H.264 提供了两种压缩方式：CAVLC 及 CABAC。CABAC 解码速度较慢但压缩率较好 (10% 至 30%)，特别是低比特率视频。若您想降低解码时的 CPU 占用，请停用此选项。iPod 或其设备需要的 Baseline 模式需禁用 CABAC。</value>
   </data>
   <data name="Advanced_DeblockingToolTip" xml:space="preserve">
-    <value>H.264 内建译码去块滤镜以柔化压缩时产生的人工噪声，此技巧不但能改善视觉质量，也能大幅改善压缩率。
-译码去块需耗费大量的运算，若您想最小化译码的硬件需求，请停用此选项。
+    <value>H.264 内建的去块滤镜对每帧的方块效应进行平滑处理。这不仅能提高视觉质量，也能大幅改善压缩率。
+去块滤镜占用大量 CPU 资源，若您想最小化视频播放时的 CPU 占用，请停用此选项。
 
-解码去块滤镜有两个参数可供调整:「强度」及「起始」。
-前者可调整解碼去块器的强度，后者可调整柔化区块边缘的范围。
-值越大表示译码去块的效果越强，两个参数的默认值皆为 0 (一般强度)。</value>
+去块滤镜有两个可调整参数，“强度”和“阈值”。 
+前者控制去块器的强弱，后者控制平滑区块边缘的范围。 
+值越小表示越少去块，值越大表示越多去块。两个参数的默认值皆为 0 (一般强度)。</value>
   </data>
   <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>8x8 转换为 x264 最有效的压缩技巧。
-此方法可耗费少量时间提升至少 5% 压缩率，且得到非常佳的画面质量。
-但此方法需符合 High 规模，许多装置并不支持。</value>
+    <value>8x8 转换是最最有效的 x264 压缩速率。 
+此方法仅需少量时间便可提升至少 5% 压缩率，并在其压缩比基础上取得非常好的视觉质量。
+但此方法需使用配置“高”，许多设备可能并不支持。</value>
   </data>
   <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>此选项控制动态搜寻的方法，动态搜寻为编码器预测像素区块于画格中移动的方法。
-较佳的搜寻方法耗费较多的时间，但可改善压缩效果。
+    <value>此选项控制运动预测的方式。运动预测是编码器预测每帧中像素移动的方法。 
+较佳的预测方式减低速度以改善压缩率。
 
-菱形: 使用菱形模式快速搜寻。
+菱形：使用菱形模式进行十分简单快速的搜寻。
 
-六角形: 使用六角形模式搜寻，较菱形方法慢但压缩效果较佳。
+六边形：使用六边形模式进行更有效但较菱形模式稍慢的搜寻。
 
-非均匀多重六角形: 利用各种不同模式搜寻，在动作复杂的影片中可得到较佳的效果。
+非均匀多重六边形：利用各种不同形状进行大范围搜寻，在复杂动作影片中更加精准。
 
-彻底: 于广域中搜寻每个像素，耗费极多时间但仅可提高少部分压缩效果。
+彻底：于广域中完整搜寻每个像素。非常慢但仅提高很少压缩比。
 
-转换彻底: 较精确的彻底搜寻，比彻底方法更慢且也仅能再提高少部分压缩效果。</value>
+变种彻底：类似彻底模式，但更加精确。比彻底模式更慢但也只能提高少许效果。</value>
   </data>
   <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
-    <value>此值为 x264 尝试找出区块移动的像素距离范围。
+    <value>此值为 x264 尝试搜寻区块实际移动较最佳预测的距离范围。 
 
-默认值可适用大多数的影片，但运动极端剧烈的影片 (尤其是高分辨率) 可在较大范围的设定下得到更佳的效果，但也需更长的搜寻时间。
+默认值可适用大多数的影片，尤其是高清分辨率的激烈动作片，在设置较大范围时可取得更佳的效果，尽管有很大的速度损失。
 
-菱形搜寻及六角形搜寻的有效值为 4 至 16、其他搜寻方法的有效值为 4 至 64。</value>
+菱形模式及六边形模式有效值为 4 至 16、其他搜寻模式的有效值为 4 至 64。</value>
   </data>
   <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
     <value>x264 通常会将接近空白的数据区块全数归零以节省位、改善输出视频质量。
@@ -271,13 +267,12 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
     <value>针对渐进式下载的播放优化。</value>
   </data>
   <data name="ProfileToolTip" xml:space="preserve">
-    <value>限制的配置文件的输出流。如果您指定一个配置文件，它将覆盖所有其他设置，因此如果你使用它，你将会得到保证兼容的流。您应该设置如果您知道您的播放设备只支持某个配置文件。</value>
+    <value>限制输出流配置。如果您指定一个配置文件，将覆盖所有其他设置。若您启用此选项，您需确保选择可兼容的流。
+
+当您确认您的播放设备只支持某个配置文件时再启用此选项。</value>
   </data>
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>依输入内容微调选项以优化编码结果，若您指定微调设置，将于参考设定值后调整微调设置，再套用其他参数。</value>
-  </data>
-  <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>视频所需的显示宽度，其他参数如像素长宽比将依照此值自动调整。</value>
   </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>封装格式</value>
@@ -297,23 +292,23 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>包含章节标记</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>影像</value>
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>调整尺寸</value>
   </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>视频滤镜</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>视频</value>
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>视频编码</value>
   </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>音频</value>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>音频编码</value>
   </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>高级视频</value>
   </data>
   <data name="Rename" xml:space="preserve">
-    <value>重新命名</value>
+    <value>重命名</value>
   </data>
   <data name="Input" xml:space="preserve">
     <value>输入</value>
@@ -325,7 +320,7 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
     <value>(无)</value>
   </data>
   <data name="StorageResolutionLabel" xml:space="preserve">
-    <value>原始解析度:</value>
+    <value>存储分辨率：</value>
   </data>
   <data name="PixelAspectRatioLabel" xml:space="preserve">
     <value>像素长宽比：</value>
@@ -334,13 +329,13 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
     <value>显示分辨率：</value>
   </data>
   <data name="SizingLabel" xml:space="preserve">
-    <value>调整大小</value>
+    <value>调整尺寸</value>
   </data>
   <data name="WidthLabel" xml:space="preserve">
     <value>宽度：</value>
   </data>
   <data name="HeightLabel" xml:space="preserve">
-    <value>高度:</value>
+    <value>高度：</value>
   </data>
   <data name="MaxWidthLabel" xml:space="preserve">
     <value>最大宽度：</value>
@@ -348,17 +343,8 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>最大高度：</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>保持长宽比</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>失真：</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
-    <value>模数:</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>显示宽度：</value>
+    <value>模数：</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>输出</value>
@@ -366,23 +352,11 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
   <data name="CroppingLabel" xml:space="preserve">
     <value>裁剪</value>
   </data>
-  <data name="Top" xml:space="preserve">
-    <value>顶端</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>左侧</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>底部</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>右侧</value>
-  </data>
   <data name="DetelecineLabel" xml:space="preserve">
-    <value>反电视残影:</value>
+    <value>反胶卷过带：</value>
   </data>
   <data name="DecombLabel" xml:space="preserve">
-    <value>反梳状:</value>
+    <value>反交错：</value>
   </data>
   <data name="DeinterlaceLabel" xml:space="preserve">
     <value>逐行扫描：</value>
@@ -391,7 +365,7 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
     <value>降噪：</value>
   </data>
   <data name="DeblockLabel" xml:space="preserve">
-    <value>解碼去块:</value>
+    <value>解码去块：</value>
   </data>
   <data name="GrayscaleCheckBox" xml:space="preserve">
     <value>灰度编码</value>
@@ -400,13 +374,13 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
     <value>类型：</value>
   </data>
   <data name="ShortFramerateLabel" xml:space="preserve">
-    <value>画面更新率:</value>
+    <value>帧率：</value>
   </data>
   <data name="CodecLabel" xml:space="preserve">
     <value>编码格式：</value>
   </data>
   <data name="FramerateLabel" xml:space="preserve">
-    <value>画面更新率 (FPS):</value>
+    <value>帧率 (FPS):</value>
   </data>
   <data name="ConstantFramerateRadioButton" xml:space="preserve">
     <value>固定画面更新率</value>
@@ -430,13 +404,13 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
     <value>固定品质</value>
   </data>
   <data name="X264BasicSettings" xml:space="preserve">
-    <value>x 264 基本设置</value>
+    <value>x264 基本设置</value>
   </data>
   <data name="ProfileLabel" xml:space="preserve">
     <value>配置文件：</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>预设值：</value>
+    <value>预设：</value>
   </data>
   <data name="TuneLabel" xml:space="preserve">
     <value>微调：</value>
@@ -448,7 +422,7 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
     <value>Main</value>
   </data>
   <data name="Profile_high" xml:space="preserve">
-    <value>High</value>
+    <value>高</value>
   </data>
   <data name="Preset_UltraFast" xml:space="preserve">
     <value>最快</value>
@@ -466,7 +440,7 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
     <value>快速</value>
   </data>
   <data name="Preset_Medium" xml:space="preserve">
-    <value>中等 （默认值）</value>
+    <value>中等 (默认)</value>
   </data>
   <data name="Preset_Slow" xml:space="preserve">
     <value>缓慢</value>
@@ -490,7 +464,7 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
     <value>胶片颗粒</value>
   </data>
   <data name="Tune_stillimage" xml:space="preserve">
-    <value>静止影像</value>
+    <value>静止图像</value>
   </data>
   <data name="Tune_psnr" xml:space="preserve">
     <value>PSNR</value>
@@ -786,13 +760,13 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
     <value>关闭</value>
   </data>
   <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>只有进行编码</value>
+    <value>仅编码</value>
   </data>
   <data name="Trellis_Always" xml:space="preserve">
-    <value>总是</value>
+    <value>始终</value>
   </data>
   <data name="DefaultFormat" xml:space="preserve">
-    <value>{0} （默认值）</value>
+    <value>{0} (默认)</value>
   </data>
   <data name="EncodingWindowTitle" xml:space="preserve">
     <value>编码预设: {0}</value>
@@ -817,7 +791,7 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
     <value>MPEG-4 (Libav)</value>
   </data>
   <data name="VideoEncoder_x264" xml:space="preserve">
-    <value>H.264 (264)</value>
+    <value>H.264 (x264)</value>
   </data>
   <data name="Analysis_Most" xml:space="preserve">
     <value>大部分</value>
@@ -829,19 +803,19 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
     <value>视频</value>
   </data>
   <data name="X264Settings" xml:space="preserve">
-    <value>x 264 设置</value>
+    <value>x264 设置</value>
   </data>
   <data name="LevelLabel" xml:space="preserve">
     <value>级别：</value>
   </data>
   <data name="MoreSettingsLabel" xml:space="preserve">
-    <value>更多的设置：</value>
+    <value>更多设置：</value>
   </data>
   <data name="Track" xml:space="preserve">
     <value>音轨</value>
   </data>
   <data name="Source" xml:space="preserve">
-    <value>来源</value>
+    <value>源文件</value>
   </data>
   <data name="Encoder" xml:space="preserve">
     <value>编码器</value>
@@ -862,13 +836,7 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
     <value>FLAC 24 位</value>
   </data>
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
-    <value>Psychovisual</value>
-  </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
+    <value>视觉</value>
   </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>基本</value>
@@ -888,7 +856,7 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
     <value>Theora</value>
   </data>
   <data name="RemoveAudioEncodingToolTip" xml:space="preserve">
-    <value>删除音频编码</value>
+    <value>移除音频编码</value>
   </data>
   <data name="AutoPassthroughFallbackLabel" xml:space="preserve">
     <value>回退：</value>
@@ -912,7 +880,7 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
     <value>速度</value>
   </data>
   <data name="QsvPreset_Balanced" xml:space="preserve">
-    <value>平衡</value>
+    <value>均衡</value>
   </data>
   <data name="QsvPreset_Quality" xml:space="preserve">
     <value>品质</value>
@@ -1008,4 +976,73 @@ Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>隔行扫描检测：</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>模式：</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>使用形变</value>
+  </data>
+  <data name="AllowUpscalingCheckbox" xml:space="preserve">
+    <value>允许缩放</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>手动</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>最大缩放 {0}x</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>仅缩小</value>
+  </data>
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>缩放至目标大小</value>
+  </data>
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>缩放模式：</value>
+  </data>
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>填充</value>
+  </data>
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>宽度</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>高度</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>目标宽度：</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>目标高度：</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>颜色：</value>
+  </data>
+  <data name="ColorPickerAdvancedButton" xml:space="preserve">
+    <value>高级选项</value>
+  </data>
+  <data name="ColorPickerStandardButton" xml:space="preserve">
+    <value>标准</value>
+  </data>
+  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
+    <value>标准颜色</value>
+  </data>
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>当使用形变并允许非正方形像素时可高效存储，但并非所有播放器都支持这种模式。</value>
+  </data>
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>分辨率：</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>格式： key1=value1:key2=value2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
+  
 </root>

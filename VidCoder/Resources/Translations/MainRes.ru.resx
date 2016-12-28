@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Окна</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>Настройки кодирования</value>
@@ -341,9 +342,6 @@
   </data>
   <data name="CouldNotDeleteFile" xml:space="preserve">
     <value>{0} {1} не может быть удален.</value>
-  </data>
-  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>Следующий файл(ы) невозможно распознать и они не были добавлены в очередь: {0}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Ошибка сканирования видео файла(ов)</value>
@@ -628,4 +626,10 @@
     <value>{0} у других названий есть продолжительность близкая к этой.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
+  
+  
+  
+  
+  
+  
 </root>

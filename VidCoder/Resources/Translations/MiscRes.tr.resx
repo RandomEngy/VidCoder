@@ -244,7 +244,9 @@
   <data name="ErrorPlayingSource" xml:space="preserve">
     <value>Kaynak oynatılırken hata oluştu.</value>
   </data>
-  
+  <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
+    <value>Sistem {0} saniye içinde hazırda beklemeye girecek.</value>
+  </data>
   
   
 </root>

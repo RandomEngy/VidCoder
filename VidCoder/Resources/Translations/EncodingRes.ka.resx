@@ -273,9 +273,6 @@ iPod-ი და მსგავსი ხელსაწყოები ძი�
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>აირჩიეთ ოპტომირების პარამეტრი სამომავლო ოპტომირებისთვის. თუ აირჩევთ ოპტიმირებას, ცვლილება მოხდება შაბლონის შემდეგ, მაგრამ ყველა სხვა პარამეტრებამდე.</value>
   </data>
-  <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>ვიდეოს სასურველი წარმოსახვის სიგანე. სხვა პარამეტრი როგორიცაა დიაპაზონი შეიცვლება ამ შედეგის მისაღწევად.</value>
-  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>შემცველობა:</value>
   </data>
@@ -294,18 +291,12 @@ iPod-ი და მსგავსი ხელსაწყოები ძი�
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>თავის მნიშვნელის გამოყენება</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>კადრი</value>
-  </data>
+  
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>ვიდეოფილტრი</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>ვიდეო</value>
-  </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>აუდიო</value>
-  </data>
+  
+  
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>დამატებითი პარამეტრები</value>
   </data>
@@ -345,35 +336,14 @@ iPod-ი და მსგავსი ხელსაწყოები ძი�
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>მაქს. სიმაღლე:</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>დიაპაზონის შენარჩუნება</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>ანამორფული:</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>მოდული:</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>კადრის სიგანე:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>შედეგი</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
     <value>შემოჭრა</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>ზევით</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>მარცხნივ</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>ქვევით</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>მარჯვნივ</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>დეტელესინი:</value>
@@ -861,12 +831,6 @@ iPod-ი და მსგავსი ხელსაწყოები ძი�
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>ფსიქოვიზუალური</value>
   </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
-  </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>ძირითადი</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
@@ -1006,4 +970,26 @@ iPod-ი და მსგავსი ხელსაწყოები ძი�
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

@@ -278,9 +278,6 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>依輸入內容微調選項以最佳化編碼結果，若您指定微調設定，將於參考設定值後調整微調設定，再套用其他參數。</value>
   </data>
-  <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>視訊所需的顯示寬度，其他參數如像素長寬比將依照此值自動調整。</value>
-  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>封裝格式:</value>
   </data>
@@ -299,17 +296,17 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>包含章節標記</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>影像</value>
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>調整大小</value>
   </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>視訊濾鏡</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>視訊</value>
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>影像編碼</value>
   </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>音訊</value>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>音訊編碼</value>
   </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>進階視訊</value>
@@ -350,35 +347,14 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>最大高度:</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>保持長寬比</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>變形:</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>模數:</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>顯示寬度:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>輸出</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
     <value>裁剪</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>頂端</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>左緣</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>底部</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>右緣</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>反電視殘影:</value>
@@ -866,12 +842,6 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>心理視覺</value>
   </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
-  </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>Basic</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
@@ -1010,5 +980,77 @@ Bicubic: OpenCL 硬體加速縮放演算法。</value>
   </data>
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
+  </data>
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>交錯偵測:</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>模式:</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>使用變形</value>
+  </data>
+  <data name="AllowUpscalingCheckbox" xml:space="preserve">
+    <value>允許放大</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>手動</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>最高放大 {0} 倍</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>僅縮小</value>
+  </data>
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>縮放至目標大小</value>
+  </data>
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>縮放模式:</value>
+  </data>
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>填滿</value>
+  </data>
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>寬度</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>高度</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>目標寬度:</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>目標高度:</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>色彩:</value>
+  </data>
+  <data name="ColorPickerAdvancedButton" xml:space="preserve">
+    <value>進階</value>
+  </data>
+  <data name="ColorPickerStandardButton" xml:space="preserve">
+    <value>標準</value>
+  </data>
+  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
+    <value>標準色</value>
+  </data>
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>變形啟用時允許使用非正方形像素，可更有效儲存影像，但並非所有播放器都支援。</value>
+  </data>
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>解析度:</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>格式: key1=value1:key2=value2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
+  <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
+    <value>Keys:</value>
+    <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
 </root>

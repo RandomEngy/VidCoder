@@ -129,6 +129,8 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Strikt</value>
   </data>
+  
+  
   <data name="Custom" xml:space="preserve">
     <value>Aangepast</value>
   </data>
@@ -141,43 +143,20 @@
   <data name="Default" xml:space="preserve">
     <value>Standaard</value>
   </data>
-  <data name="Deinterlace_Bob" xml:space="preserve">
-    <value>Bob</value>
-    <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
-  </data>
-  <data name="Deinterlace_Fast" xml:space="preserve">
-    <value>Snel</value>
-  </data>
-  <data name="Deinterlace_Slow" xml:space="preserve">
-    <value>Langzaam</value>
-  </data>
-  <data name="Deinterlace_Slower" xml:space="preserve">
-    <value>Langzamer</value>
-  </data>
-  <data name="DenoisePreset_Light" xml:space="preserve">
-    <value>Licht</value>
-  </data>
-  <data name="DenoisePreset_Medium" xml:space="preserve">
-    <value>Medium</value>
-  </data>
-  <data name="DenoisePreset_Strong" xml:space="preserve">
-    <value>Sterk</value>
-  </data>
-  <data name="DenoisePreset_Ultralight" xml:space="preserve">
-    <value>Ultralicht</value>
-  </data>
-  <data name="DenoiseTune_Animation" xml:space="preserve">
-    <value>Animatie</value>
-  </data>
-  <data name="DenoiseTune_Film" xml:space="preserve">
-    <value>Film</value>
-  </data>
-  <data name="DenoiseTune_Grain" xml:space="preserve">
-    <value>Korrelig</value>
-  </data>
-  <data name="DenoiseTune_HighMotion" xml:space="preserve">
-    <value>Veel beweging</value>
-  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <data name="Denoise_HQDN3D" xml:space="preserve">
     <value>hqdn3d</value>
   </data>

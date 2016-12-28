@@ -225,7 +225,9 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Opcje</value>
   </data>
-  
+  <data name="ProcessTab" xml:space="preserve">
+    <value>Proces</value>
+  </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>Zaawansowane</value>
   </data>
@@ -379,8 +381,17 @@
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Niestandardowy folder dla podglądu:</value>
   </data>
-  
-  
-  
-  
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>Opcje procesu</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>Wykorzystanie mocy CPU:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>Użyj opcji wykorzystania mocy procesora, aby ograniczyć liczbę używanych rdzeni procesora, przez VidCoder podczas kodowania.</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>Użyj wbudowanego odtwarzacza dla podglądów</value>
+  </data>
 </root>

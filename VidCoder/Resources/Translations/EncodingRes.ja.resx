@@ -266,9 +266,6 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>各ソースの種類に最適なチューニングを行います。チューニングによるオプションの指定は、プリセットよりも優先されます。他のパラメーターの変更した場合にはそちらが優先されます。</value>
   </data>
-  <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>表示する際の表示幅。表示幅を変更すると、ピクセルの縦横比は変更されます。</value>
-  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>コンテナ:</value>
   </data>
@@ -287,18 +284,12 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>チャプター マーカーを含める</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>画面</value>
-  </data>
+  
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>映像フィルター</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>映像</value>
-  </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>音声</value>
-  </data>
+  
+  
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>高度なビデオ</value>
   </data>
@@ -338,35 +329,14 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>最大高さ：</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>縦横比維持</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>アナモルフィック：</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>最小単位ピクセル：</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>表示幅：</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>出力</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
     <value>クロップ</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>上</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>左</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>下</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>右</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>逆テレシネ：</value>
@@ -852,12 +822,6 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Psychovisual</value>
   </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
-  </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>簡易</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
@@ -997,4 +961,26 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

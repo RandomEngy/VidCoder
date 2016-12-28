@@ -131,7 +131,7 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Feliratsáv megjelelölése alapértelmezettként. Ez fog megjelenni lejátszáskor, amíg egy másik sáv nem kerül kiválasztásra.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Csak a kényszerített feliratok jelenítse meg az adott sávról. Általában ez néhány idegen szöveget jelent.</value>
+    <value>Csak a kényszerített feliratok jelenítse meg a felirat sáv(ok)ról. Általában ez néhány idegen szöveget jelent.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>Az idő mértéke, amennyivel előre vagy hátra tolja a megadott feliratokat.</value>
@@ -279,5 +279,8 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="First" xml:space="preserve">
     <value>Első</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
+  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
+    <value>A frissítések le vannak tiltva, mert az új verziók már nem támogatják a 32 bites operációs rendszereket.</value>
   </data>
 </root>

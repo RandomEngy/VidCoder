@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Fenster</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>Encodierungseinstellungen</value>
@@ -341,9 +342,6 @@
   </data>
   <data name="CouldNotDeleteFile" xml:space="preserve">
     <value>{0} {1} konnte nicht gelöscht werden.</value>
-  </data>
-  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>Die folgende(n) Datei(en) konnte(n) nicht erkannt werden und wurde(n) der Warteschlange deshalb nicht hinzugefügt: {0}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Fehler beim Scannen der Video-Dateien</value>
@@ -628,4 +626,12 @@
     <value>{0} andere Titel dauern fast genauso lang wie dieser.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
+  
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Video Abspielfehler.</value>
+  </data>
+  
+  
+  
+  
 </root>

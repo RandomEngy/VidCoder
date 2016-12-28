@@ -277,9 +277,6 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>Ajuster les options pour les optimiser pour le contenu de votre entrée. Si vous spécifiez une mise au point, les modifications s'appliqueront après la présélection mais avant tous les autres paramètres.</value>
   </data>
-  <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>La largeur d'affichage souhaitée de la vidéo. Les autres paramètres tels que le format des pixels seront modifiés pour y parvenir.</value>
-  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Conteneur :</value>
   </data>
@@ -298,18 +295,12 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Inclure les marqueurs de chapitre</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>Image</value>
-  </data>
+  
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Filtres vidéo</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>Vidéo</value>
-  </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>Audio</value>
-  </data>
+  
+  
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>Vidéo Avancée</value>
   </data>
@@ -349,35 +340,14 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Hauteur max :</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>Conserver les proportions</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>Anamorphique :</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>Modulo :</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Largeur d'affichage :</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Sortie</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
     <value>Recadrage</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>Haut</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>Gauche</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>Bas</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>Droite</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Dé-téléciné :</value>
@@ -865,12 +835,6 @@ Remplace tous les autres réglages.</value>
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Psychovisuel</value>
   </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
-  </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>Basique</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
@@ -1010,4 +974,26 @@ Bicubique : Algorithme de mise à l'échelle basé sur l'accéléré matériel O
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

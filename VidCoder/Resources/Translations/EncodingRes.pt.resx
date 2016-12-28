@@ -150,15 +150,33 @@
   <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
     <value>A transformação de 8x8 é o recurso mais útil do x264 em termos de velocidade-por-compressão.   Melhora a compressão pelo menos 5% a  custo de uma perca de velocidade muito pequena, e pode fornecer um beneficio invulgarmente elevado de qualidade visual em relação ao seu ganho de compressão.   No entanto, exige que o "Perfil H.264" esteja definido como "Alto", o que muitos dispositivos poderão não suportar.</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
+    <value>Controla o método de estimativa de movimento. Estimativa de movimento é a forma como o codificador estima como cada bloco de pixels se move num frame. Um melhor método de pesquisa de movimento melhora a compressão à custa da velocidade.  Diamante: realiza uma pesquisa extremamente rápida e simples, usando um padrão de diamante.  Hexágono: executa uma pesquisa um pouco mais eficaz mas um pouco mais lenta, usando um padrão de hexágono.  Multi-Hexágono irregular: realiza uma pesquisa muito ampla, usando uma variedade de padrões, realizando uma captação mais precisa de movimentos complexos.  Exaustivo: Executa uma busca "muda" de cada pixel numa área larga. Significativamente mais lento, apenas para um pequeno ganho de compressão.  Transformação Exaustiva (TESA): O mesmo que o método Exaustivo, mas toma decisões ainda mais precisas. Por conseguinte, um pouco mais lento, mas também apenas para uma pequena melhoria.</value>
+  </data>
+  <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
+    <value>Esta é as distância de pesquisa do codec x264 para o movimento de um bloco, com o objectivo de tentar encontrar o seu movimento real. O padrão é bom para a maioria dos conteúdos, mas movimento de vídeo rápidos e em resoluções HD, pode beneficiar de gamas superiores, embora a custo de velocidade.  Os valores válidos são 4-16 para os métodos de Diamante e de Hexágono e 4-64 por os outros métodos.</value>
+  </data>
+  <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
+    <value>O codec x264 normalmente substitui por zero, os blocos de dados quase vazios, para salvar bits, e para ser melhor utilizado para algum outro propósito no vídeo. No entanto, isso pode às vezes ter leves efeitos negativos na retenção de grãos subtis e pontilhamento.   Não toque nisto a menos que esteja a ter problemas de aparecimentos de linhas, ou outros casos onde esteja a ter problemas para diminuir o ruído da imagem.</value>
+  </data>
+  <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
+    <value>A taxa de distorção Psychovisual significa que o codec x264 tenta manter o detalhe, para melhorar a qualidade ao olho humano, em vez de tentar maximizar a qualidade como um computador entende, através de racionamento de ruído de sinais que têm problemas de ruído e detalhes finos separados.</value>
+  </data>
+  <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
+    <value>Psychovisual Trellis tenta reter mais nitidez e detalhe, mas pode criar artefactos. É considerado experimental, e é por isso que está desactivado por padrão. Os valores ideais são 0.1 a 0.2.</value>
+  </data>
+  <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
+    <value>B-pirâmide cria uma estrutura piramidal (daí o nome) de B-frames, permitindo B-frames fazer referência um ao outro para melhorar a compressão. Requer "B-Frames máximo" maiores que 1; "B-Frames adaptáveis" em Óptimo, são altamente recomendados para um benefício de compressão completo.</value>
+  </data>
+  <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
+    <value>Valores normais são entre 1 e 6. Quanto mais adicionar, melhor é a compressão, mas mais lento é a codificação. Animação tende a beneficiar de mais Frames de referência do que o conteúdo de um filme. Note que muitos dispositivos de hardware têm limitações no suporte dos número de Frames de referência. Se estiver codificando para um leitor portátil ou autónomo, não toque nisto a menos que tenha a certeza absoluta de que sabe o que está a fazer!</value>
+  </data>
+  <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
+    <value>Esta configuração controla ambos os métodos de decisão de estimativa e método de movimento de precisão do subpixel. Esta estimativa de movimento do subpixel é usada para refinar as estimativas de movimento além da precisão do pixel simples, melhorando a compressão. Decisão de modo é o método usado para escolher como codificar cada bloco do Frame: uma decisão muito importante. SAD é o método mais rápido, seguido por SATD, RD, RD refinado e o mais lento, QPRD. 6 ou superior é altamente recomendável: Psy-RD, uma optimização de psy muito poderosa que ajuda a reter detalhes, requer RD. 10, a opção mais poderosa e mais lenta, requer trellis=2 (opção sempre).</value>
+  </data>
+  <data name="Advanced_TrellisToolTip" xml:space="preserve">
+    <value>Trellis afina o arredondamento dos coeficientes de transformação para ganhar entre 3 a 5% mais compressão à custa de alguma velocidade. "Sempre" utilize a trellis não só durante o processo de codificação, mas também durante a análise, o que melhora a compressão ainda mais, embora a custo de muita velocidade. Trellis demora mais em bitrates mais altos.</value>
+  </data>
   <data name="Advanced_WeightPToolTip" xml:space="preserve">
     <value>Realiza uma análise extra para decidir sobre a ponderação de parâmetros para cada frame. Isto melhora ligeiramente a compressão geral e melhora a qualidade dos fades significativamente. O perfil "Baixo", necessário para iPods e dispositivos similares, requer que esta opção (P-Frames ponderados) seja desactivada. Note que alguns dispositivos e leitores, mesmo aqueles que suportam o perfil "base", podem ter problemas com esta opção: O Apple TV, por exemplo, é completamente incompatível com isto.</value>
   </data>
@@ -192,9 +210,6 @@
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>Ajuste opções adicionais para optimizar o seu conteúdo de entrada. Se especificar um ajuste, as alterações serão aplicadas depois da predefinição, mas antes de todos os outros parâmetros.  Por defeito: Nenhum</value>
   </data>
-  <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>A largura de vídeo desejada para exibição. Outros parâmetros tais como a "Aspect Ratio" do Pixel serão alterados para alcançar este objectivo.</value>
-  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Contentor:</value>
   </data>
@@ -213,17 +228,17 @@
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Incluir capítulos</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>Imagem</value>
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>Redimensionamento</value>
   </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Filtros de vídeo</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>Vídeo</value>
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>Codificação de vídeo</value>
   </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>Áudio</value>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>Codificação de áudio</value>
   </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>Configurações Avançadas</value>
@@ -264,35 +279,14 @@
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Altura máxima:</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>Manter proporção - Aspect Ratio</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>Anamórfico:</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>Modulus:</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Largura da exibição:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Saída</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
     <value>Corte</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>Cimo</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>Esquerda</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>Fundo</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>Direita</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
@@ -709,14 +703,18 @@
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (Padrão)</value>
   </data>
-  
+  <data name="EncodingWindowTitle" xml:space="preserve">
+    <value>Pré-ajuste de codificação: {0}</value>
+  </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>Opções avançadas adicionais x264:</value>
   </data>
   <data name="LevelToolTip" xml:space="preserve">
     <value>Define e garante a conformidade com o nível H.264 especificado.  Substitui todas as outras configurações.</value>
   </data>
-  
+  <data name="Profile_high444" xml:space="preserve">
+    <value>Alto 4:4:4 Preditivo</value>
+  </data>
   <data name="VideoCodecLabel" xml:space="preserve">
     <value>Codec de vídeo:</value>
   </data>
@@ -773,12 +771,6 @@
   </data>
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Psychovisual</value>
-  </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
   </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>Básico</value>
@@ -837,7 +829,9 @@ Bicubic: É um algoritmo de dimensionamento acelerado para hardware OpenCL.</val
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Passagem directa</value>
   </data>
-  
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>Automático</value>
+  </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>Especifica para qual codec se aplica a passagem directa.</value>
   </data>
@@ -877,11 +871,22 @@ Bicubic: É um algoritmo de dimensionamento acelerado para hardware OpenCL.</val
   <data name="RotationLabel" xml:space="preserve">
     <value>Rotação:</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>Fechar a lista de pre-ajustes</value>
+  </data>
+  <data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>Abra a lista de pre-ajustes</value>
+  </data>
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>Capítulo {0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>Definições de Passagem Directa</value>
+  </data>
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>Permitir passagem directa para:</value>
+  </data>
   <data name="Passthrough_aac" xml:space="preserve">
     <value>AAC</value>
   </data>
@@ -894,10 +899,88 @@ Bicubic: É um algoritmo de dimensionamento acelerado para hardware OpenCL.</val
   <data name="Passthrough_dtshd" xml:space="preserve">
     <value>DTS-HD</value>
   </data>
-  
-  
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
   <data name="Passthrough_mp3" xml:space="preserve">
     <value>MP3</value>
   </data>
-  
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
+  </data>
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>Detenção de Entrelaçamento:</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Modo:</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>Usar anamórfico</value>
+  </data>
+  <data name="AllowUpscalingCheckbox" xml:space="preserve">
+    <value>Permitir "upscaling"</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>Manualmente</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>Upscale {0}x máximo</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>Apenas Downscale</value>
+  </data>
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>Dimensionar para cima/baixo</value>
+  </data>
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>Modo de dimensionamento:</value>
+  </data>
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>Preencher</value>
+  </data>
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>Largura</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>Altura</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>Largura do alvo:</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>Altura do alvo:</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>Côr:</value>
+  </data>
+  <data name="ColorPickerAdvancedButton" xml:space="preserve">
+    <value>Avançado</value>
+  </data>
+  <data name="ColorPickerStandardButton" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
+    <value>Cores padrão</value>
+  </data>
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>Com Anamorphic activo, pixels não quadrados são permitidos. Isso pode resultar em um armazenamento mais eficiente, mas nem todos os leitores suportam isto.</value>
+  </data>
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>Resolução:</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>Formato: key1 = value1:key2 = value2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
+  <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
+    <value>Chaves:</value>
+    <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
 </root>

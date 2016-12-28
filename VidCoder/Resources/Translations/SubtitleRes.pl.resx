@@ -174,5 +174,7 @@
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
     <value>Duplikuj ścieżkę</value>
   </data>
-  
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>Nie można wykryć kodowania napisów dialogowych. Aby upewnić się, że napisy są wyświetlane poprawnie, należy ponownie zapisać plik jako UTF-8.</value>
+  </data>
 </root>

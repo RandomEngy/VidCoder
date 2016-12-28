@@ -129,6 +129,8 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Zorrotza</value>
   </data>
+  
+  
   <data name="Custom" xml:space="preserve">
     <value>Norberea</value>
   </data>
@@ -141,43 +143,20 @@
   <data name="Default" xml:space="preserve">
     <value>Berezkoa</value>
   </data>
-  <data name="Deinterlace_Bob" xml:space="preserve">
-    <value>Bob</value>
-    <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
-  </data>
-  <data name="Deinterlace_Fast" xml:space="preserve">
-    <value>Azkarra</value>
-  </data>
-  <data name="Deinterlace_Slow" xml:space="preserve">
-    <value>Astiroa</value>
-  </data>
-  <data name="Deinterlace_Slower" xml:space="preserve">
-    <value>Astiroagoa</value>
-  </data>
-  <data name="DenoisePreset_Light" xml:space="preserve">
-    <value>Arina</value>
-  </data>
-  <data name="DenoisePreset_Medium" xml:space="preserve">
-    <value>Ertaina</value>
-  </data>
-  <data name="DenoisePreset_Strong" xml:space="preserve">
-    <value>Gogorra</value>
-  </data>
-  <data name="DenoisePreset_Ultralight" xml:space="preserve">
-    <value>Oso-arina</value>
-  </data>
-  <data name="DenoiseTune_Animation" xml:space="preserve">
-    <value>Animazioa</value>
-  </data>
-  <data name="DenoiseTune_Film" xml:space="preserve">
-    <value>Filma</value>
-  </data>
-  <data name="DenoiseTune_Grain" xml:space="preserve">
-    <value>Garaua</value>
-  </data>
-  <data name="DenoiseTune_HighMotion" xml:space="preserve">
-    <value>Mugimendu Handia</value>
-  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <data name="Denoise_HQDN3D" xml:space="preserve">
     <value>hqdn3d</value>
   </data>

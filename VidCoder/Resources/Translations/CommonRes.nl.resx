@@ -128,9 +128,7 @@ Dit programma is gedistribueerd in de hoop dat het nuttig zal zijn, maar zonder 
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
     <value>Dit ondertitelspoor markeren als standaard. Dit spoor zal verschijnen tijdens het afspelen tenzij een ander ondertitel spoor wordt gekozen.</value>
   </data>
-  <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Alleen 'gedwongen ondertitels' van het gegeven spoor tonen. Gewoonlijk zijn dit kleine stukjes buitenlandse dialoog.</value>
-  </data>
+  
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>De tijdsduur waarmee het tonen van ondertitels wordt vervroegd of vertraagd.</value>
   </data>
@@ -250,6 +248,7 @@ Dit programma is gedistribueerd in de hoop dat het nuttig zal zijn, maar zonder 
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Bestandsbewerking niet gelukt</value>
   </data>
+  
   
   
   

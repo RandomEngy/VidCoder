@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Janelas</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>Opções de Codificação</value>
@@ -341,9 +342,6 @@
   </data>
   <data name="CouldNotDeleteFile" xml:space="preserve">
     <value>Não foi possível eliminar {0} {1}</value>
-  </data>
-  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>O(s) seguinte(s) ficheiro(s) não é/são reconhecido(s) e não foi/foram adicionado(s) à lista de tarefas: {0}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Erro ao analizar o(s) arquivos(s) de vídeo</value>
@@ -628,4 +626,10 @@
     <value>{0} outros títulos têm duração semelhante.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
+  
+  
+  
+  
+  
+  
 </root>

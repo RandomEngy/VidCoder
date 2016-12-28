@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Fenêtres</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>Paramètres d'encodage</value>
@@ -341,9 +342,6 @@
   </data>
   <data name="CouldNotDeleteFile" xml:space="preserve">
     <value>Ne peut pas supprimer {0} {1}</value>
-  </data>
-  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>Le(s) fichier(s) suivant(s) pourrai(en)t ne pas être reconnu(s) et n'a (n'ont) pas été ajouté(s) à la file d'attente : {0}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Erreur d'analyse du/des fichier(s) vidéo</value>
@@ -630,4 +628,10 @@
     <value>{0} autres titres ont une durée proche de celui-ci.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
+  
+  
+  
+  
+  
+  
 </root>

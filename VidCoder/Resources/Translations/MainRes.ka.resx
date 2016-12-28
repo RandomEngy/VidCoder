@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>ფანჯრები</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>კოდირების პარამეტრები</value>
@@ -343,11 +344,6 @@
     <value>წაშლა ვერ მოხერხდა {0}
 
 {1}</value>
-  </data>
-  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>შემდეგი ფაილი(ები) ამოუცნობია და დავალების სიაში არ დაემატება:
-
-{0}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>ვიდეოფაილის(ების) სკანირების შეცდომა</value>
@@ -634,4 +630,10 @@
     <value>სხვა ფაილი {0} არსებობს მსგავსი ხანგრძლივობით.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
+  
+  
+  
+  
+  
+  
 </root>

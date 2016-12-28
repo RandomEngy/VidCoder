@@ -270,9 +270,6 @@ Stel dit in als je weet dat een apparaat waarvoor je dit doet niet alle profiele
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>Fijnafstemming opties ten behoeve van specifiek bronnen. Als je fijnafstemming instelt zullen de wijzigingen worden doorgevoerd na de Voorinstelling maar vóór alle andere instellingen.</value>
   </data>
-  <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>De gewenste beeld breedte van de video. Andere parameters zoals de Pixel Aspect Ration zal worden aangepast om deze breedte te realiseren.</value>
-  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Container:</value>
   </data>
@@ -291,18 +288,12 @@ Stel dit in als je weet dat een apparaat waarvoor je dit doet niet alle profiele
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Hoofdstukmarkeringen meenemen</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>Beeld</value>
-  </data>
+  
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Videofilters</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>Video</value>
-  </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>Audio</value>
-  </data>
+  
+  
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>Geavanceerde Video</value>
   </data>
@@ -342,35 +333,14 @@ Stel dit in als je weet dat een apparaat waarvoor je dit doet niet alle profiele
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Max hoogte:</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>Hoogte-breedteverhouding behouden</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>Anamorf:</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>Modulus:</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Weergavebreedte:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Resultaat</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
     <value>Bijsnijden</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>Boven</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>Links</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>Onder</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>Rechts</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
@@ -856,12 +826,6 @@ Vervangt alle andere instellingen.</value>
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Psychovisual</value>
   </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
-  </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>Basis</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
@@ -981,5 +945,27 @@ Bikubisch: Dit is een OpenCL schaalmethode die gebruik kan maken van hardware ve
   <data name="Passthrough_mp3" xml:space="preserve">
     <value>MP3</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
 </root>

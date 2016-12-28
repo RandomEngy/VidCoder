@@ -118,23 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="EncodeDetailsWindowTitle" xml:space="preserve">
-    <value>进行编码的详细信息</value>
+    <value>编码详情</value>
   </data>
   <data name="QueueSectionHeader" xml:space="preserve">
     <value>队列</value>
   </data>
   <data name="ScanPassLabel" xml:space="preserve">
-    <value>扫描编码</value>
+    <value>扫描中：</value>
     <comment>This is the label for progress during the "scanning" pass of encoding. When you choose automatic subtitles it first needs to make a quick scan through the file to see which subtitles apply.</comment>
   </data>
   <data name="FirstPassLabel" xml:space="preserve">
-    <value>初次编码：</value>
+    <value>首次编码：</value>
   </data>
   <data name="SecondPassLabel" xml:space="preserve">
     <value>二次编码：</value>
   </data>
   <data name="EncodePassLabel" xml:space="preserve">
-    <value>编码次数：</value>
+    <value>编码中：</value>
   </data>
   <data name="JobLabel" xml:space="preserve">
     <value>作业：</value>
@@ -153,7 +153,7 @@
     <comment>Label on the encode details window for % progress on the current file.</comment>
   </data>
   <data name="FileSizeLabel" xml:space="preserve">
-    <value>文件大小:</value>
+    <value>文件大小：</value>
     <comment>Label for current file size on encode details window.</comment>
   </data>
   <data name="CurrentFpsLabel" xml:space="preserve">

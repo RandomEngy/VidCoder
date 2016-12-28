@@ -124,10 +124,10 @@
     <value>设置</value>
   </data>
   <data name="AddToQueueLabel" xml:space="preserve">
-    <value>将添加到队列</value>
+    <value>添加到队列</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
-    <value>新增多个章节标题至工作队列...</value>
+    <value>将多个标题添加至队列...</value>
   </data>
   <data name="FileMenu" xml:space="preserve">
     <value>文件</value>
@@ -136,16 +136,16 @@
     <value>打开视频文件...</value>
   </data>
   <data name="OpenDiscFolder" xml:space="preserve">
-    <value>打开 DVD 蓝光文件夹...</value>
+    <value>打开 DVD/Blu-ray 文件夹...</value>
   </data>
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>加入多个文件至工作队列...</value>
   </data>
   <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>新增多个章节标题至工作队列...</value>
+    <value>多个标题添加至队列...</value>
   </data>
   <data name="ToolsMenu" xml:space="preserve">
-    <value>工具：</value>
+    <value>工具</value>
   </data>
   <data name="ImportPreset" xml:space="preserve">
     <value>导入预设...</value>
@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>窗口</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>编码设置</value>
@@ -187,7 +188,7 @@
     <value>帮助</value>
   </data>
   <data name="VidCoderHomepageMenuItem" xml:space="preserve">
-    <value>VidCoder主页</value>
+    <value>VidCoder 主页</value>
   </data>
   <data name="ReportABugMenuItem" xml:space="preserve">
     <value>报告 Bug</value>
@@ -196,7 +197,7 @@
     <value>关于 VidCoder......</value>
   </data>
   <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>选择一个视频源：</value>
+    <value>选择视频源：</value>
   </data>
   <data name="SourceLabel" xml:space="preserve">
     <value>来源：</value>
@@ -208,10 +209,10 @@
     <value>最近使用项目</value>
   </data>
   <data name="DragFilesHereLabel" xml:space="preserve">
-    <value>(或拖拉视频文件/文件夹至此)</value>
+    <value>(或拖拽视频文件/文件夹至此)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
-    <value>扫描时出现一个错误。</value>
+    <value>扫描时出现错误。</value>
   </data>
   <data name="AudioLabel" xml:space="preserve">
     <value>音频：</value>
@@ -232,7 +233,7 @@
     <value>编辑...</value>
   </data>
   <data name="DestinationLabel" xml:space="preserve">
-    <value>输入位置:</value>
+    <value>输出位置：</value>
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
     <value>点击以编辑编码文件输出位置。</value>
@@ -265,7 +266,7 @@
     <value>平均 FPS：</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
-    <value>选 DVD 或蓝光的文件夹。</value>
+    <value>选择 DVD 或 Blu-ray 文件夹。</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
     <value>仍有编码工作进行中，您确定要退出吗?</value>
@@ -298,7 +299,7 @@
     <value>从完成队列中还原</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>预设值：</value>
+    <value>预设：</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
     <value>输出位置:</value>
@@ -342,9 +343,6 @@
   <data name="CouldNotDeleteFile" xml:space="preserve">
     <value>无法删除 {0} {1}</value>
   </data>
-  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>下列文件因无法辨识并未加入工作队列: {0}</value>
-  </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>扫描视频文件时出现错误</value>
   </data>
@@ -386,7 +384,7 @@
     <value>继续</value>
   </data>
   <data name="EtaLabel" xml:space="preserve">
-    <value>ETA:</value>
+    <value>预估完成时间：</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
     <value>当完成时：</value>
@@ -434,7 +432,7 @@
     <value>视频文件...</value>
   </data>
   <data name="SourceOption_DiscFolder" xml:space="preserve">
-    <value>DVD 蓝光文件夹...</value>
+    <value>DVD/Blu-ray 文件夹...</value>
   </data>
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
     <value>版本 {0} 可使用，已开始下载更新文件。</value>
@@ -452,7 +450,7 @@
     <value>不能保存预设值 '{0}': {1} {2}</value>
   </data>
   <data name="CouldNotCopyTextError" xml:space="preserve">
-    <value>无法复制的文本。</value>
+    <value>无法复制文本。</value>
   </data>
   <data name="LaunchUrlError" xml:space="preserve">
     <value>打开 URL 时出错: {0}</value>
@@ -467,7 +465,7 @@
     <value>成功导入预设值 {0}。</value>
   </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
-    <value>已成功导出到 {0} 预设</value>
+    <value>成功导出预设 {0}</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>导出预设</value>
@@ -482,7 +480,7 @@
     <value>确定要重置所有未保存的更改吗？</value>
   </data>
   <data name="RevertConfirmTitle" xml:space="preserve">
-    <value>重置</value>
+    <value>还原</value>
   </data>
   <data name="RemoveConfirmMessage" xml:space="preserve">
     <value>确定移除？</value>
@@ -491,10 +489,10 @@
     <value>移除</value>
   </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>配置已损坏，无法加载。您的某些设置可能会被重置。</value>
+    <value>配置损坏无法加载。您的部分设置可能会被重置。</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
-    <value>选择已编码的视频文件的输出目录。</value>
+    <value>选择编码视频文件的输出目录。</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
     <value>({0})</value>
@@ -521,7 +519,7 @@
     <value>自动CBR</value>
   </data>
   <data name="RangeBarToolTip" xml:space="preserve">
-    <value>左键单击要设置的开始时间，用鼠标右键单击要设置的结束时间。</value>
+    <value>左键单击设置开始时间，右键单击设置结束时间。</value>
   </data>
   <data name="Preset_WindowsPhone8" xml:space="preserve">
     <value>Windows Phone 8</value>
@@ -551,16 +549,16 @@
     <value>放弃更改吗？</value>
   </data>
   <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>删除音频轨</value>
+    <value>删除音轨</value>
   </data>
   <data name="Preset_Xbox360" xml:space="preserve">
     <value>Xbox 360</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
-    <value>从队列中删除</value>
+    <value>从队列中移除</value>
   </data>
   <data name="CouldNotSaveQueueMessage" xml:space="preserve">
-    <value>不能保存队列： {0} {1}</value>
+    <value>无法保存队列： {0} {1}</value>
   </data>
   <data name="ExportQueue" xml:space="preserve">
     <value>导出队列...</value>
@@ -572,7 +570,7 @@
     <value>无法导入队列。请检查日志的详细信息。</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
-    <value>导入预设的文件</value>
+    <value>导入预设文件</value>
   </data>
   <data name="ImportQueueFilePickerTitle" xml:space="preserve">
     <value>导入队列文件</value>
@@ -599,7 +597,7 @@
     <value>编码的详细信息</value>
   </data>
   <data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>最后向队列中添加一个项目编码设置已经更改。你想要将当前编码设置应用到队列中的所有项目吗？</value>
+    <value>上一次添加队列项目后编码设置已更改。您想将当前编码设置应用到队列中的所有项目吗？</value>
   </data>
   <data name="EncodingSettingsChangedTitle" xml:space="preserve">
     <value>设置已更改</value>
@@ -626,7 +624,27 @@
     <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
   </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
-    <value>{0} 其他标题具有与此相似的长度。</value>
+    <value>其他 {0} 个标题具有与此相似的长度。</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>您已备份了 {0} 版本文件。你想要使用它吗？</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>播放视频时出错。</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>在 {0} 找不到自定义的视频播放器。</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>警告： 尺寸调整界面已更新至 2.0 版本，因此您的预设可能已发生变化。您可检查并确保其仍正确设置。</value>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>视频队列文件夹...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>以下文件因扫描错误未被加入到队列：{0}</value>
   </data>
 </root>

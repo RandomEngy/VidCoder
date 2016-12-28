@@ -212,9 +212,6 @@
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>Настройте опции для дальнейшей оптимизации их для ввода содержимого. Если указать настройки, изменения будут применены после пресета, но до всех остальных параметров.</value>
   </data>
-  <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>Ширина желаемого отображения видео. Другие параметры, такие как соотношение пикселов будут изменены для достижения этой цели.</value>
-  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Контейнер:</value>
   </data>
@@ -233,18 +230,12 @@
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Включить маркеры</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>Картинка</value>
-  </data>
+  
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Видео фильтры</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>Видео</value>
-  </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>Аудио</value>
-  </data>
+  
+  
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>Расширенный</value>
   </data>
@@ -284,35 +275,14 @@
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Макс. высота:</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>Сохранить пропорции</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>Анаморфное:</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>Модуль:</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Ширина дисплея:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Вывод</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
     <value>Обрезка</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>Вверх</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>Слева</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>Внизу</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>Справа</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
@@ -800,12 +770,6 @@
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Психовизуально</value>
   </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
-  </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>Основной</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
@@ -944,4 +908,26 @@
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

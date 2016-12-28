@@ -225,9 +225,6 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>Ajuste opções adicionais para melhorar o seu conteúdo de entrada. Se especificar um ajuste, as alterações serão aplicadas depois da predefinição, mas antes de todos os outros parâmetros. Por padrão: Nenhum.</value>
   </data>
-  <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>A largura desejada para exibição do vídeo. Outros parâmetros tais como a relação de aspecto do Pixel serão alterados para conseguir isso.</value>
-  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Contentor:</value>
   </data>
@@ -246,18 +243,12 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Incluir capítulos</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>Miniatura</value>
-  </data>
+  
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Filtros de vídeo</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>Vídeo</value>
-  </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>Áudio</value>
-  </data>
+  
+  
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>Vídeo avançado</value>
   </data>
@@ -297,35 +288,14 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Altura máxima:</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>Manter proporção - Aspect Ratio</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>Anamórfico:</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>Módulos:</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Largura da exibição:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Saída</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
     <value>Corte</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>Topo</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>Esquerda</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>Fundo</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>Direita</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
@@ -811,12 +781,6 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Psychovisual</value>
   </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
-  </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>Básico</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
@@ -955,4 +919,26 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

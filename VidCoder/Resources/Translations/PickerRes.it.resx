@@ -126,7 +126,9 @@
   <data name="DefaultCheckBox" xml:space="preserve">
     <value>Default</value>
   </data>
-  
+  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
+    <value>Ricerca audio stranieri</value>
+  </data>
   <data name="IncludeAllTracksRadioButton" xml:space="preserve">
     <value>Tutte le canzoni</value>
   </data>
@@ -135,7 +137,7 @@
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
     <value>Solo se una lingua diversa dall'audio</value>
-    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the audio track.</comment>
+    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
   <data name="SubtitleSelection" xml:space="preserve">
     <value>Selezione dei sottotitoli</value>
@@ -153,15 +155,25 @@
   <data name="OutputLocation" xml:space="preserve">
     <value>Percorso di output</value>
   </data>
-  
-  
-  
-  
+  <data name="OverrideDirectoryCheckBox" xml:space="preserve">
+    <value>Cartella imposta:</value>
+  </data>
+  <data name="PickerHelpText" xml:space="preserve">
+    <value>Scegliere automaticamente titoli, audio, sottotitoli e destinazione</value>
+  </data>
+  <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
+    <value>Metti in coda automaticamente dopo la scansione</value>
+  </data>
+  <data name="AutoEncodeOnScanCheckBox" xml:space="preserve">
+    <value>Avviare la codifica dopo la scansione</value>
+  </data>
   <data name="UseGlobalSettingToolTip" xml:space="preserve">
     <value>Usa impostazione globale</value>
     <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
   </data>
-  
+  <data name="PresetOverrideToolTip" xml:space="preserve">
+    <value>Questa sostituirà qualsiasi preselezione nella finestra principale.</value>
+  </data>
   <data name="EncodingSection" xml:space="preserve">
     <value>Codifica</value>
     <comment>The header for the Encoding section in the Picker window.</comment>
@@ -216,7 +228,9 @@
   <data name="SubtitleNoneToolTip" xml:space="preserve">
     <value>Nessun sottotitolo incluso.</value>
   </data>
-  
+  <data name="AudioFirstToolTip" xml:space="preserve">
+    <value>Includi solo la prima traccia audio.</value>
+  </data>
   <data name="AudioAllToolTip" xml:space="preserve">
     <value>Includere tutte le tracce audio.</value>
   </data>
@@ -231,5 +245,8 @@
   </data>
   <data name="SortLanguagesLabel" xml:space="preserve">
     <value>Ordina lingua(e) verso l'alto:</value>
+  </data>
+  <data name="ForcedOnlyCheckBox" xml:space="preserve">
+    <value>Solo Forzati</value>
   </data>
 </root>

@@ -183,10 +183,23 @@
 	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
     <value>Não foi possível encontrar o ficheiro de origem.</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="CloseVideoButton" xml:space="preserve">
+    <value>Fechar vídeo</value>
+    <comment>Button to close the preview video clip.</comment>
+  </data>
+  <data name="OpenInSystemPlayerButton" xml:space="preserve">
+    <value>Abrir no leitor predefinido do sistema</value>
+  </data>
+  <data name="VolumeSliderLabel" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="ReplayPreviewButton" xml:space="preserve">
+    <value>Repetir a Pré-visualização</value>
+  </data>
+  <data name="VideoErrorMessage" xml:space="preserve">
+    <value>Não é possível abrir o vídeo com o leitor embutido. Gostaria de o abrir com o leitor predefinido do sistema?</value>
+  </data>
+  <data name="VideoErrorTitle" xml:space="preserve">
+    <value>Erro no Vídeo</value>
+  </data>
 </root>

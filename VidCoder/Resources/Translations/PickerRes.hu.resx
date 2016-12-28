@@ -137,7 +137,7 @@
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
     <value>Csak ha a nyelv különbözik a hangtól</value>
-    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the audio track.</comment>
+    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
   <data name="SubtitleSelection" xml:space="preserve">
     <value>Felirat kiválasztása</value>
@@ -245,5 +245,8 @@
   </data>
   <data name="SortLanguagesLabel" xml:space="preserve">
     <value>Nyelv(ek) rendezése felülről:</value>
+  </data>
+  <data name="ForcedOnlyCheckBox" xml:space="preserve">
+    <value>Csak kényszerített</value>
   </data>
 </root>

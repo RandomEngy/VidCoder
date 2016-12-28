@@ -137,7 +137,7 @@
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
     <value>Audiotik hizkuntza ezberdina bada bakarrik</value>
-    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the audio track.</comment>
+    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
   <data name="SubtitleSelection" xml:space="preserve">
     <value>Azpidatzi hautapena</value>
@@ -246,4 +246,5 @@
   <data name="SortLanguagesLabel" xml:space="preserve">
     <value>Antolatu hizkuntza(k) gorantz:</value>
   </data>
+  
 </root>

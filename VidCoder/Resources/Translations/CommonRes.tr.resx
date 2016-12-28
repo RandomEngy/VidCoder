@@ -130,9 +130,7 @@ GNU General Public License kopyası bu programa dahil edilmiştir.</value>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
     <value>Bu altyazıyı varsayılan olarak seç. Çalma esnasında başka bir altyazı seçilene kadar bu altyazı gösterilecektir.</value>
   </data>
-  <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Sadece zorunlu altyazıları göster. Bu genellikle az miktarda bulunan yabancı konuşmalar için kullanılır.</value>
-  </data>
+  
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>Seçili altyazıların gösterimini öne  alma ya da  geciktirme süresi miktarı.</value>
   </data>
@@ -253,14 +251,20 @@ GNU General Public License kopyası bu programa dahil edilmiştir.</value>
     <value>Dosya işlemi hatası</value>
   </data>
   
+  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
+    <value>Mümkünse kaynak dizine çıktıla</value>
+  </data>
   
   
-  
-  
+  <data name="DismissMessage" xml:space="preserve">
+    <value>İletiyi kapat</value>
+    <comment>Appears as a tooltip on inline, dismissable messages</comment>
+  </data>
   
   
   <data name="First" xml:space="preserve">
     <value>İlk</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
+  
 </root>

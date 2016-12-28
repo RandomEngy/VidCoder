@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>視窗</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>編碼設定</value>
@@ -342,9 +343,6 @@
   <data name="CouldNotDeleteFile" xml:space="preserve">
     <value>無法刪除 {0} {1}</value>
   </data>
-  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>下列檔案因無法辨識並未加入工作佇列: {0}</value>
-  </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>掃描視訊檔時出現錯誤</value>
   </data>
@@ -471,12 +469,24 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>匯出設定值</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>您想要儲存目前選取器的變更嗎?</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>儲存目前的選取器?</value>
+  </data>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>您想要還原所有未儲存的變更嗎?</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>還原</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>您確定要刪除此項目嗎?</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>移除</value>
+  </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>設定檔損毀無法載入，您的部分設定可能會被重置。</value>
   </data>
@@ -615,5 +625,27 @@
   <data name="SimilarTitlesToolTip" xml:space="preserve">
     <value>{0} 個其他標題的時間長度與此接近。</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>您已備份了版本 {0} 檔，你想要使用它嗎?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>播放影片時發生錯誤。</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>無法在 {0} 找到自訂視訊播放器。</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>警告: 縮放值超過 2.0，您的設定已被變更，您可能需要檢視並確保設定是否正確。</value>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>排入視訊檔案資料夾...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>某些掃描時發現錯誤的檔案未加入佇列:
+
+{0}</value>
   </data>
 </root>

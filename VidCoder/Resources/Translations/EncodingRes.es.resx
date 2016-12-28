@@ -127,26 +127,26 @@
     <value>Deshacer</value>
   </data>
   <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
-    <value>x264 tiene una variedad de algoritmos para decidir cuándo y cuántos B-frames utilizar.
+    <value>x264 tiene una variedad de algoritmos para decidir cuando y como utilizar B-frames.
 
-El modo FAST toma aproximadamente la misma cantidad de tiempo sin importar cuántos B-Frames se especifiquen. Sin embargo, aunque es rápido, sus decisiones tienden a ser poco óptimas.
+El modo FAST o rapido, toma aproximadamente la misma cantidad de tiempo sin importar cuantos B-Frames se especifiquen. Sin embargo, aunque es rápido, sus decisiones tienden a ser poco optimas.
 
-El modo OPTIMAL se pone mas lento mientras más B-Frames se especifiquen, pero toma decisiones mucho más precisas, especialmente cuando se utiliza con B-pyramid.</value>
+El modo OPTIMAL u optimo, es más lento mientras más B-Frames se especifiquen, pero toma decisiones mucho mas precisas, especialmente cuando se utiliza con B-Pyramid.</value>
   </data>
   <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
-    <value>H.264 permite dos modos de predicción diferentes: SPATIAL y TEMPORAL, en B-frames.
+    <value>H.264 permite dos modos de predicción diferentes en cuanto a B-frames se refiere: SPATIAL y TEMPORAL.
 
-El modo SPATIAL es el predeterminado y casi siempre es el mejor, pero TEMPORAL también puede ser útil de vez en cuando.
+El modo SPATIAL o espacial, es el predeterminado y casi siempre es mejor, pero TEMPORAL puede ser util de vez en cuando.
 
-El modo AUTOMATIC puede, a costa de una pequeña cantidad de velocidad (y por consiguiente una pequeña ganancia de compresión), seleccionar de manera adaptativa cuál es mejor para cada fotograma en particular.</value>
+El modo AUTOMATIC o automático puede, a costa de una pequeña reducción en la velocidad de codificación (y por consiguiente una pequeña ganancia en compresión), seleccionar de manera adaptativa cual es mejor para cada fotograma en particular.</value>
   </data>
   <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
     <value>ADAPTIVE QUANTIZATION controla cómo el codificador distribuye los bits en el fotograma.
 
-Los valores más altos toman más bits de los bordes y areas complejas para mejorar las areas con más detalle.</value>
+Los valores más altos toman más bits de los bordes y áreas complejas para mejorar las áreas con más detalle.</value>
   </data>
   <data name="Advanced_AnalysisToolTip" xml:space="preserve">
-    <value>El modo de toma de decisión escoge de una variedad de opciones para tomar su decisión: esta opción elige cuáles opciones.  
+    <value>El modo de toma de decisión elije de una variedad de opciones, para tomar su decisión: esta opción elige cuáles opciones. 
 Comprobar menos particiones conlleva una codificación más rápida a costa de peores decisiones, ya que podría haber sido la mejor opción la que quedó sin utilizarse.</value>
   </data>
   <data name="Advanced_BFramesToolTip" xml:space="preserve">
@@ -173,9 +173,9 @@ El primero controla qué tan fuerte (o débil) es el filtro de desbloqueo, mient
 Valores más bajos implican menor desbloqueo, mayores significan más desbloqueo. El valor predeterminado es 0 (fuerza normal) para ambos parámetros.</value>
   </data>
   <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
-    <value>La transformación de 8x8 es la característica singular más útil de x 264 en términos de velocidad y compresión. 
+    <value>La transformación de 8x8 es la característica singular más útil del x264 en términos de velocidad y compresión. 
 Mejora la compresión al menos un 5% a un costo de velocidad muy pequeño, y puede proporcionar un inusual beneficio de calidad visual en comparación con la ganancia de la compresión.  
-Como sea, requiere la opción de perfil alto, incompatible con muchos dispositivos.</value>
+Como sea, requiere la opción de HIGH PROFILE o perfil alto, el cual es incompatible con muchos dispositivos.</value>
   </data>
   <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
     <value>Controla el método de estimación de movimiento. La estimación de movimiento es cómo el codificador estima el movimiento de cada bloque de píxeles de un fotograma.   
@@ -192,21 +192,22 @@ Exhaustiva: realiza una búsqueda ciega de cada píxel en una zona amplia.  Sign
 Transformada exhaustiva: Como la exhaustiva, pero toma decisiones más precisas. Por consiguiente, algo más lento, también para sólo una pequeña mejora.</value>
   </data>
   <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
-    <value>Esta es la busqueda de distancias de x 264 de su mejor suposicion en el movimiento de un bloque para tratar de encontrar su actual movimiento en orden.
+    <value>Esta es la búsqueda de distancias de x264 de su mejor suposición en el movimiento de un bloque para tratar de encontrar su actual movimiento en orden.
 
- El valor predeterminado está bien para la mayoría de contenido, pero extremadamente con movimiento de vídeo elevado, especialmente en resoluciones HD, puede beneficiarse de las gamas más altas, aunque a un costo de alta velocidad.  
+El valor predeterminado está bien para la mayoría de contenido, pero en videos con mucho movimiento, especialmente en resoluciones HD, pueden beneficiarse de los valores más altos, sacrificando la velocidad de codificación.  
 
 Los valores válidos son de 4-16 para métodos de diamante y hexágono y 4-64 para otros métodos.</value>
   </data>
   <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
-    <value>x 264 normalmente ceros afuera de bloques de datos casi vacios para reducir bits para ser mejor usados para otros propositos en el video.   
-Sin embargo, a veces esto puede tener efectos negativos leves en la retención del grano sutil y tramado.   No toques esto a menos que estes teniendo problemas de bandas u otros casos donde estas teniendo problemas mateniendo bien el ruido.</value>
+    <value>x264 pone a ceros los bloques de datos casi vacíos para salvar bits y ser usados para mejorar otras partes del video.
+Sin embargo, a veces esto puede tener leves efectos negativos en la retención del grano del video.
+No toques esto a menos que estés teniendo problemas de 'banding' o problemas de retención de grano fino.</value>
   </data>
   <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
-    <value>La tasa de distorsión psicovisual quiere decir que x264 trata de retener detalle, para mejor calidad al ojo humano, en vez de tratar de maximizar la calidad en la que una computadora pueda entender, a travez de proporciones señal-a-ruido que tienen problemas apartando bien los detalles y ruidos.</value>
+    <value>Psychovisual Rate Distortion significa que x264 trata de retener detalle, para una mejor calidad perceptible por el ojo humano, en vez de tratar de maximizar la calidad en la que una computadora pueda entender, a través de proporciones señal-a-ruido que tienen problemas para diferenciar los detalles de el ruidos.</value>
   </data>
   <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
-    <value>El enrejado psicovisual intenta retener más nitidez y detalle, pero puede causar artifacting. 
+    <value>Psychovisual Trellis intenta retener más nitidez y detalle, pero puede causar artefactos visuales. 
 Se considera experimental, es por ello que está desactivada por defecto. Buenos valores son de 0.1 a 0.2.</value>
   </data>
   <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
@@ -220,9 +221,9 @@ Este requiere Maximos B-frames mayores que 1; la adaptavidad optima de B-frames 
 
 Si agregas mas, consigues una mejor compresión, pero el codificado es mas lento.
 
-Animación de cel tiende a aprovechar más los marcos de referencia mucho más que el contenido de la película.  
+Las animaciones de celuloide tiende a aprovechar más los marcos de referencia mucho más que el contenido de la película. 
 
-Nota: Ten en cuenta que muchos de los dispositivos tienen limitaciones en el número de marcos de referencia compatibles, así que si estás codifcando para un reproductor portátil o independiente, no lo toques a menos que estes absolutamente seguro de que sabes lo que estás haciendo!</value>
+Nota: Ten en cuenta que muchos de los dispositivos tienen limitaciones en el número de marcos de referencia compatibles, así que si estás codificando para un reproductor portátil o independiente, no lo toques a menos que estés absolutamente seguro de que sabes lo que estás haciendo!</value>
   </data>
   <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
     <value>Esta configuración controla ambos métodos de decisión de estimación y modo de movimiento de precisión de los subpíxeles.  
@@ -281,9 +282,6 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>Ajustar opciones para optimizar aún más los de los contenidos de entrada. Si especificas una sintonía, los cambios se aplicarán después de la programación, pero antes de los demás parámetros.</value>
   </data>
-  <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>El ancho deseado de la pantalla del vídeo. Otros parámetros como la relación de aspecto de píxeles se cambiará para lograrlo.</value>
-  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Contenedor:</value>
   </data>
@@ -302,17 +300,17 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Incluir marcadores de capítulo</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>Imagen</value>
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>Tamaño</value>
   </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Filtros de vídeo</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>Video</value>
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>Codificación de vídeo</value>
   </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>Audio</value>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>Codificación de audio</value>
   </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>Video avanzado</value>
@@ -353,35 +351,14 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Máxima Altura:</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>Mantener la relación de aspecto</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>Anamórfico:</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>Módulo:</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Ancho de la pantalla:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Salida</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
     <value>Recorte</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>Cima</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>Izquierda</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>Abajo</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>Derecha</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
@@ -870,12 +847,6 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Psicovisual</value>
   </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
-  </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>Básico</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
@@ -1014,5 +985,77 @@ Bicúbica: Esto es un algoritmo OpenCL de escalamiento acelerado por hardware.</
   </data>
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
+  </data>
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>Detección de entrelazado:</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Modalidad:</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>Utilizar Anamórfico</value>
+  </data>
+  <data name="AllowUpscalingCheckbox" xml:space="preserve">
+    <value>Permitir ampliación</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>Manual</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>Ampliar {0}x max</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>Reducir solamente</value>
+  </data>
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>Ajustar arriba/abajo</value>
+  </data>
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>Modo de ajuste:</value>
+  </data>
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>Rellenar</value>
+  </data>
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>Ancho</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>Alto</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>Ancho deseado:</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>Alto deseado:</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>Color:</value>
+  </data>
+  <data name="ColorPickerAdvancedButton" xml:space="preserve">
+    <value>Avanzado</value>
+  </data>
+  <data name="ColorPickerStandardButton" xml:space="preserve">
+    <value>Estándar</value>
+  </data>
+  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
+    <value>Colores estándar</value>
+  </data>
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>Con el Anamórfico activo, se permiten pixeles no cuadrados. Esto puede resultar en un almacenamiento más eficiente, pero no todos los reproductores de video soportan esta característica.</value>
+  </data>
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>Resolución:</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>Formato: parametro1 = valor1:parametro2 = valor2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
+  <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
+    <value>Claves:</value>
+    <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
 </root>

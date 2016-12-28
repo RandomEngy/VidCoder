@@ -278,9 +278,6 @@ Bunu yalnızca belirli bir profili desteklediğini bildiğiniz çalma aygıtın�
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>İnce ayar seçenekleri girdi içeriğiniz için daha öte optimizasyon sağlar. Eğer bir ince ayar yaptıysanız değişiklikler hazır ayarlardan sonra ama diğer bütün parametrelerden önce uygulanır.</value>
   </data>
-  <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>Video için istenen ekran genişliği. Bu genişiği sağlamak için piksel en boy oranı gibi diğer parametreler değiştirilir.</value>
-  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Konteyner:</value>
   </data>
@@ -299,18 +296,12 @@ Bunu yalnızca belirli bir profili desteklediğini bildiğiniz çalma aygıtın�
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Bölüm işaretçilerini dahil et</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>Resim</value>
-  </data>
+  
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Video filtreleri</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>Video</value>
-  </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>Ses</value>
-  </data>
+  
+  
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>Gelişmiş Video</value>
   </data>
@@ -350,35 +341,14 @@ Bunu yalnızca belirli bir profili desteklediğini bildiğiniz çalma aygıtın�
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>En Fazla Yükseklik:</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>En boy oranını koru</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>Anamorfik:</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>Modül:</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Ekran genişliği:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Çıktı</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
     <value>Kırpma</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>Üst</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>Sol</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>Alt</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>Sağ</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
@@ -864,12 +834,6 @@ Diğer tüm ayarları geçersiz kılar.</value>
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Psychovisual</value>
   </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
-  </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>Temel</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
@@ -1002,4 +966,26 @@ Bicubic: OpenCL donanım hızlandırmalı ölçeklendirme algoritmasıdır.</val
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

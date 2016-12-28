@@ -127,7 +127,7 @@
     <value>Segna questa traccia dei sottotitoli come predefinita. Questa verrà visualizzata durante la riproduzione fino a quando un altra traccia verrà scelta.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Visualizzare solo i sottotitoli forzati dalla traccia dati. Di solito questo significa che piccole parti di dialogo straniere verranno tradotte.</value>
+    <value>Visualizza solo i "sottotitoli forzati" dalla traccie dei sottotitoli. Di solito questo significa una dimensione minore per i dialoghi in lingua straniera.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>La quantità di tempo per spingere in avanti o ritardare la comparsa dei sottotitoli.</value>
@@ -219,7 +219,7 @@
     <value>No</value>
   </data>
   <data name="CouldNotAccessDirectoriesError" xml:space="preserve">
-    <value>Non ho potuto accedere alle seguenti cartelle:</value>
+    <value>Impossibile accedere alle seguenti cartelle:</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>Nessuno</value>
@@ -231,7 +231,7 @@
     <value>Non riuscito</value>
   </data>
   <data name="FilePickerExtTemplate" xml:space="preserve">
-    <value>File: {0}</value>
+    <value>{0} file</value>
   </data>
   <data name="QueueColumnNamePreset" xml:space="preserve">
     <value>Preimpostato</value>
@@ -275,5 +275,8 @@
   <data name="First" xml:space="preserve">
     <value>Primo</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
+  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
+    <value>Gli aggiornamenti sono stati disabilitati perché le nuove versioni non supportano i sistemi operativi a 32-bit.</value>
   </data>
 </root>

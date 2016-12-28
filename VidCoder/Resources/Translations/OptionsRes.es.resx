@@ -133,7 +133,7 @@
     <value>Minimizar a la bandeja del sistema</value>
   </data>
   <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
-    <value>Reproducir un sonido en la terminación de la cola</value>
+    <value>Reproducir un sonido al finalizar la cola</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
     <value>Reproductor de DVD preferido:</value>
@@ -190,10 +190,10 @@
     <value>Renombrar automaticamente</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
-    <value>Pausar automaticamente la codificacion cuando alguno de estos procesos se estan ejecutando:</value>
+    <value>Pausar automáticamente la codificación cuando alguno de estos procesos se estén ejecutando:</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
-    <value>Añadir...</value>
+    <value>Agregar...</value>
   </data>
   <data name="PreviewCountLabel" xml:space="preserve">
     <value>Número de vistas previas de la imagen a escanear:</value>
@@ -247,13 +247,13 @@
     <value>VidCoder esta al día.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>Elige el directorio por defecto para codificacion de archivos de video.</value>
+    <value>Elige el directorio de salida para los videos codificados.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>Idioma de la interfaz:</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
-    <value>El nuevo idioma tomara efecto después de salir y reiniciar VidCoder.</value>
+    <value>El nuevo idioma surtirá efecto después de salir y reiniciar VidCoder.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
     <value>Usar lenguaje OS</value>
@@ -265,10 +265,10 @@
     <value>Encontrando la ultima version...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
-    <value>Falló la comprobacion de la actualizacion.</value>
+    <value>Falló la comprobación de las actualizaciones.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>Escoge el archivo .wav que deseas usar para la terminacion del sonido.</value>
+    <value>Elije el archivo .wav que deseas usar.</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
     <value>Versión actual: {0}</value>
@@ -316,22 +316,22 @@
     <value>Beta</value>
   </data>
   <data name="UseCustomWavLabel" xml:space="preserve">
-    <value>Usar archivo .wav personalizado:</value>
+    <value>Usar un archivo .wav personalizado:</value>
   </data>
   <data name="CheckNowButton" xml:space="preserve">
     <value>Comprobar ahora</value>
   </data>
   <data name="UseSystemPlayer" xml:space="preserve">
-    <value>Usar reproductor del sistema</value>
+    <value>Usar el reproductor del sistema</value>
   </data>
   <data name="VideoFilesLabel" xml:space="preserve">
-    <value>Archivos de vídeo:</value>
+    <value>Archivos de video:</value>
   </data>
   <data name="CustomVideoPlayerToolTip" xml:space="preserve">
-    <value>Especifica la ruta que el reproductor de vídeo desea utilizar para los archivos.</value>
+    <value>Especifica la ruta del reproductor de video que deseas usar.</value>
   </data>
   <data name="VideoPlayerFilePickTitle" xml:space="preserve">
-    <value>Elije el reproductor para archivos de video.</value>
+    <value>Elije el reproductor de video a utilizar con los archivos de video.</value>
   </data>
   <data name="CustomPlayerLabel" xml:space="preserve">
     <value>Reproductor personalizado:</value>
@@ -355,28 +355,28 @@
     <value>Bajo</value>
   </data>
   <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>Copiar registro en el mismo directorio que el vídeo codificado</value>
+    <value>Copiar registro en el mismo directorio que el video codificado</value>
   </data>
   <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Abrir carpeta de registro</value>
   </data>
   <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
-    <value>Resumir automaticamente la codificacion despues de reiniciar</value>
+    <value>Reanudar automaticamente la codificacion despues de reiniciar</value>
   </data>
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>Utilizar el proceso de trabajo para codificar</value>
   </data>
   <data name="VideoSection" xml:space="preserve">
-    <value>Vídeo</value>
+    <value>Video</value>
   </data>
   <data name="DxvaDecodingCheckBox" xml:space="preserve">
     <value>Habilitar decodificación DXVA de aceleración por Hardware</value>
   </data>
   <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>Esta opción sólo es adecuada para sistemas más lentos. Decodificadores de hardware actualmente están diseñados para la reproducción, no para volver a codificar vídeo entonces esta opcion será un cuello de botella en sistemas más rápidos.</value>
+    <value>Esta opción sólo es adecuada para sistemas más lentos. Los decodificadores por hardware actualmente están diseñados para la reproducción, no para volver a codificar vídeo entonces, esta opción será un cuello de botella en sistemas más rápidos.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
-    <value>Mantener tiempo creado y modificado cuando se conviertan archivos</value>
+    <value>Conservar el tiempo de creación y modificación cuando se conviertan archivos</value>
   </data>
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Carpeta personalizada para las previsualizaciones:</value>
@@ -392,6 +392,6 @@
     <value>Limita el número de núcleos del procesador que VidCoder puede utilizar durante la codificación.</value>
   </data>
   <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
-    <value>Utilizar el reproductor interno para las pre visualizaciones</value>
+    <value>Utilizar el reproductor interno para las previsualizaciones</value>
   </data>
 </root>

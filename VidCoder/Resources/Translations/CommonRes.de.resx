@@ -131,7 +131,7 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
     <value>Untertitelspur als Wiedergabestandard festlegen, damit sie angezeigt wird bis eine andere ausgewählt wird.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Nur erzwungene Untertitel aus der Spur anzeigen. Das sind meistens kurze Dialoge in einer Fremdsprache.</value>
+    <value>Nur erzwungene Untertitel aus den Untertitel Spur(en) zeigen. Gewöhnlich sind dies kurze Fremdsprachen Dialoge.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>Zeitspanne, um die der gewählten Untertitel vorgezogen oder verzögert angezeigt wird.</value>
@@ -279,5 +279,8 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
   <data name="First" xml:space="preserve">
     <value>Erste Spur</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
+  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
+    <value>Die Updates wurden deaktiviert da die neuen Versionen kein 32-Bit Betriebssystem mehr unterstützen.</value>
   </data>
 </root>

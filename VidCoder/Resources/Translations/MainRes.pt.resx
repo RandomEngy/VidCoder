@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Windows</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>Configurações de codificação</value>
@@ -342,9 +343,6 @@
   <data name="CouldNotDeleteFile" xml:space="preserve">
     <value>Não foi possível eliminar {0} {1}</value>
   </data>
-  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>Os seguinte(s) ficheiro(s) não é/são reconhecido(s) e não foi/foram adicionado(s) à lista de tarefas: {0}</value>
-  </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Erro ao analizar o(s) ficheiro(s) de vídeo</value>
   </data>
@@ -456,7 +454,9 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>Erro ao iniciar o URL: {0}</value>
   </data>
-  
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Falha ao importar o pré-ajuste. Verifique o relatório para obter detalhes.</value>
+  </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>Erro na importação</value>
   </data>
@@ -469,12 +469,24 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Exportar Pré-ajustes</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>Deseja guardar as alterações no selector actual?</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>Guardar o selector actual?</value>
+  </data>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Tem certeza que deseja reverter todas as alterações?</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>Reverter alterações</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Tem certeza que deseja remover isto?</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Remover</value>
+  </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>Configuração está corrompida e não pode ser carregada. Algumas das suas configurações podem ter sido repostas.</value>
   </data>
@@ -553,7 +565,9 @@
   <data name="ExportQueueFilePickerText" xml:space="preserve">
     <value>Exportar lista de tarefas</value>
   </data>
-  
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Falha ao importar lista de tarefas. Verifique o relatório para obter detalhes.</value>
+  </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>Importar ficheiro de pré-ajustes</value>
   </data>
@@ -598,8 +612,38 @@
     <value>Ficheiro da base de dados incompatível</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
-  
-  
-  
-  
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>Selector</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Não foi possível carregar o selector: </value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>Selector {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} outros títulos têm uma duração idêntica a este.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>Tem um backup da versão {0} do ficheiro. Gostaria de usá-lo?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Erro a ler o vídeo.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>Leitos de vídeo personalizado não foi encontrado em {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>Aviso: A interface de dimensionamento foi reajustada para 2.0, as suas predefinições podem ter mudado. Pode querer inspeccioná-las e certifique-se de que elas ainda estão configurados correctamente.</value>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Adicionar pasta ou ficheiros de vídeo...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Existem erros na leitura de alguns ficheiros. Os mesmos não foram adicionados à lista de tarefas:{0}</value>
+  </data>
 </root>

@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Finestre</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>Impostazioni di codifica</value>
@@ -342,9 +343,6 @@
   <data name="CouldNotDeleteFile" xml:space="preserve">
     <value>Impossibile eliminare {0} {1}</value>
   </data>
-  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>I seguenti files potrebbero non essere riconosciuti e non sono stati aggiunti alla coda: {0}</value>
-  </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Errore di analisi file video</value>
   </data>
@@ -456,7 +454,9 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>Errore avvio URL: {0}</value>
   </data>
-  
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Impossibile importare il profilo. Controllare il registro per i dettagli.</value>
+  </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>Errore di importazione</value>
   </data>
@@ -469,12 +469,24 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Esporta Preimpostazioni</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>Vuoi salvare le modifiche della tua Selezione attuale?</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>Salvalre la selezione corrente?</value>
+  </data>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Sei sicuro di che voler ripristinare tutte le modifiche non salvate?</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>Annulla modifiche</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Sei sicuro di che volerlo eliminare?</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>Configurazione è stato danneggiato e non può essere caricato. Alcune impostazioni potrebbero essere state ripristinate.</value>
   </data>
@@ -553,7 +565,9 @@
   <data name="ExportQueueFilePickerText" xml:space="preserve">
     <value>Esportare la coda</value>
   </data>
-  
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Impossibile importare la coda. Controllare il registro per i dettagli.</value>
+  </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>Importa file preimpostati</value>
   </data>
@@ -598,8 +612,40 @@
     <value>File di database incompatibili</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
-  
-  
-  
-  
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>Selezione</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Impossibile caricare il selettore: </value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>Selezione {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} altri titoli hanno una durata vicino a questo.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>Avete una copia del file in versione {0}. Vuoi usarla?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Errore di riproduzione del video.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>Il riproduttore video personalizzato potrebbe non essere presente in {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>Attenzione: il ridimensionamento dell'interfaccia è stato aumentato a 2.0, quindi il tuo profilo può essere stato cambiato. È possibile controllarli per essere sicuri che siano ancora impostati correttamente.</value>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Cartella di accodamento per i file video...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Si sono presentati degli errori durante la scansione di alcuni file e non sono stati aggiunti alla coda:
+
+{0}</value>
+  </data>
 </root>

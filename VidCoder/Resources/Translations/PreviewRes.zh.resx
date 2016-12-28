@@ -118,22 +118,22 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="PlaySourceButton" xml:space="preserve">
-    <value>播放来源影片</value>
+    <value>播放源文件</value>
   </data>
   <data name="EncodePreviewClipButton" xml:space="preserve">
-    <value>编码预览影片</value>
+    <value>编码预览片段</value>
   </data>
   <data name="EncodePreviewClipToolTip" xml:space="preserve">
-    <value>使用目前的编码设定将选择的影片编码为小段的预览影片后播放。</value>
+    <value>从选定的画面编码并播放预览片段。使用当前编码设定。</value>
   </data>
   <data name="GeneratingPreview" xml:space="preserve">
     <value>正在生成预览...</value>
   </data>
   <data name="PlaySourceDisabledBluRayToolTip" xml:space="preserve">
-    <value>目前暂不支持蓝光影片的预览功能</value>
+    <value>尚不支持 Blu-ray 源文件预览。</value>
   </data>
   <data name="PlaySourceDisabledNoPlayerToolTip" xml:space="preserve">
-    <value>找不到支持的 DVD 播放器，请安装 VLC 或 MPC-HC 以使用这个功能。</value>
+    <value>找不到支持的 DVD 播放器。安装 VLC 或 MPC-HC 以使用此功能。</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
     <value>播放源视频。</value>
@@ -142,16 +142,16 @@
     <value>预览剪辑生成失败。请参阅日志窗口中的详细信息。</value>
   </data>
   <data name="PreviewClipGenerationFailedTitle" xml:space="preserve">
-    <value>预览剪辑生成失败</value>
+    <value>预览片段生成失败</value>
   </data>
   <data name="PreviewWindowTitleSimple" xml:space="preserve">
-    <value>预览: {0} x {1}</value>
+    <value>预览：{0} x {1}</value>
   </data>
   <data name="PreviewWindowTitleComplex" xml:space="preserve">
-    <value>预览: 显示 {0} x {1}-存储 {2} x {3}</value>
+    <value>预览： 显示 {0} x {1} - 存储 {2} x {3}</value>
   </data>
   <data name="NoVideoSourceTitle" xml:space="preserve">
-    <value>预览: 没有视频源</value>
+    <value>预览： 无视频源</value>
   </data>
   <data name="Seconds" xml:space="preserve">
     <value>秒</value>
@@ -166,7 +166,7 @@
     <value>1:1</value>
   </data>
   <data name="ViewLabel" xml:space="preserve">
-    <value>查看</value>
+    <value>查看：</value>
   </data>
   <data name="TopMargin" xml:space="preserve">
     <value>顶端</value>

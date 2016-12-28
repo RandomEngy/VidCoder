@@ -274,9 +274,6 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>Konfigurace možností pro další optimalizaci vstupního obsahu. Zadáte-li změny tak ty budou použity až po přednastavení avšak před všemi ostatními parametry.</value>
   </data>
-  <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>Požadovaná šířka zobrazení videa. Ostatní parametry jako je poměr stran bodů bude změněn pro dosažení tohoto cíle.</value>
-  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Kontejner:</value>
   </data>
@@ -295,17 +292,17 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Zahrnout kapitoly</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>Obraz</value>
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>Velikost rozhraní</value>
   </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Video filtry</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>Video</value>
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>Video enkódování</value>
   </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>Audio</value>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>Audio enkódování</value>
   </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>Pokročilé video</value>
@@ -346,35 +343,14 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Max výška:</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>Zachovat poměr stran</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>Anamorfní:</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>Modul:</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Zobrazit šířku:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Výstup</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
     <value>Oříznutí</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>Nahoře</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>Vlevo</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>Dole</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>Vpravo</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
@@ -862,12 +838,6 @@ Přepíše všechna ostatní nastavení.</value>
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Psychovizuální</value>
   </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
-  </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>Základní</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
@@ -1006,5 +976,77 @@ Bicubic: Toto je metoda hardwarově urychleného algoritmu OpenCL.</value>
   </data>
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
+  </data>
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>Detekce prokládaní:</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Režim:</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>Použit anamorfní</value>
+  </data>
+  <data name="AllowUpscalingCheckbox" xml:space="preserve">
+    <value>Povolit škálování nahoru</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>Ručně</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>Škálovat nahoru {0}x max</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>Škálovat pouze dolů</value>
+  </data>
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>Škálovat nahoru/dolů pro výstup</value>
+  </data>
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>Škálovací režim:</value>
+  </data>
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>Vyplnit</value>
+  </data>
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>Šířka</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>Výška</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>Cílová šířka:</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>Cílová výška:</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>Barva:</value>
+  </data>
+  <data name="ColorPickerAdvancedButton" xml:space="preserve">
+    <value>Pokročilé</value>
+  </data>
+  <data name="ColorPickerStandardButton" xml:space="preserve">
+    <value>Základní</value>
+  </data>
+  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
+    <value>Základní barvy</value>
+  </data>
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>Pokud je anamorfní nastavení umožněno, tak jsou povoleny obdélníkové pixely. To může mít za následek mnohem efektivnější úložný prostor, ale ne všechny přehrávače to podporují.</value>
+  </data>
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>Rozlišení:</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>Formát: klíč1=hodnota1:klíč2=hodnota2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
+  <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
+    <value>Klíče:</value>
+    <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
 </root>

@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Leihoak</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>Kodeaketa Ezarpenak</value>
@@ -343,11 +344,6 @@
     <value>Ezinezkoa ezabatzea {0}
 
 {1}</value>
-  </data>
-  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>Hurrengo agiria(k) ezin d(ir)a ezagutu eta ez dira lerrora gehitu:
-
-{0}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Akatsa bideo agiria(k) mihatzerakoan</value>
@@ -634,4 +630,10 @@
     <value>beste {0} izenburuk honen antzeko iraupena dute.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
+  
+  
+  
+  
+  
+  
 </root>

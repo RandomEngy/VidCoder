@@ -280,4 +280,7 @@ Tento program je rozšiřován v naději že bude užitečný, ale BEZ JAKÉKOLI
     <value>První</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
+  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
+    <value>Aktualizace byly zakázány protože nové verze již nepodporují 32-bitové operační systémy.</value>
+  </data>
 </root>

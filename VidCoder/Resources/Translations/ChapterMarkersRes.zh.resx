@@ -99,7 +99,7 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
   <data name="ChapterMarkersDialogTitle">
-    <value xml:space="preserve">章节编辑器</value>
+    <value xml:space="preserve">章节标记</value>
   </data>
   <data name="DefaultChapterNamesRadioButton">
     <value xml:space="preserve">使用默认章节名称</value>
@@ -108,7 +108,7 @@
     <value xml:space="preserve">使用自定义章节名称：</value>
   </data>
   <data name="ImportFromCsvButton">
-    <value xml:space="preserve">从.csv 文件导入...</value>
+    <value xml:space="preserve">从 .csv 文件导入...</value>
   </data>
   <data name="NumberColumn">
     <value xml:space="preserve">编号</value>

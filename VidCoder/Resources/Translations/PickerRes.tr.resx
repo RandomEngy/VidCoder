@@ -188,10 +188,21 @@
   <data name="SubtitleNoneToolTip" xml:space="preserve">
     <value>Altyazı dahil edilmedi.</value>
   </data>
-  
-  
-  
-  
+  <data name="AudioFirstToolTip" xml:space="preserve">
+    <value>Sadece ilk sesi dahil et.</value>
+  </data>
+  <data name="AudioAllToolTip" xml:space="preserve">
+    <value>Tüm sesleri dahil et.</value>
+  </data>
+  <data name="SubtitleFirstToolTip" xml:space="preserve">
+    <value>Sadece ilk alt yazıyı dahil et.</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Hazır ayar kullan:</value>
+  </data>
+  <data name="RemoveLanguageToolTip" xml:space="preserve">
+    <value>Bu dili kaldır.</value>
+  </data>
   
   
 </root>

@@ -118,23 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
-    <value>本程序是自由软件，您可以遵照自由软件基金会 (Free Software Foundation) 出版的 GNU 通用公共许可证条款 (GNU General Public License) 第二版修改及重新发布此程序，或自由选择使用任何更新的版本。 
+    <value>本程序是免费软件，您可以遵照自由软件基金会 (Free Software Foundation) 出版的 GNU 通用公共许可证 (GNU General Public License) 第二版或更新版本修改及重新发布本程序。 
 
-此程序在没有任何保证的前提下发布供大众使用，亦不保证程序可能涉及之商业行为或特定用途。细节请参阅 GNU 通用公共许可证。 
+本程序的发布意在供大众使用，但不提供任何保证，亦不保证程序可能用作商业行为或其他特定用途。有关细节请参阅 GNU 通用公共许可证。 
 
-程序随附 GNU 通用公共许可证的完整副本以供参考。</value>
+本程序随附 GNU 通用公共许可证的完整副本以供参考。</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>将字幕烙印至画面上。若使用内嵌字幕，播放时无法选择取消字幕。</value>
+    <value>将字幕嵌入画面。若使用内嵌字幕，播放时将无法取消字幕。</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>将此字幕轨标记为默认值。此字幕轨将在播放时默认为显示字幕。</value>
+    <value>标记此字幕轨为默认。此字幕轨播放时将默认显示直到选中另一条字幕轨。</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>仅从特定轨强制显示字幕。通常用于少量外语对话。</value>
+    <value>仅从特定轨(s) 强制显示字幕。通常用于少量外语对话。</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
-    <value>提前或延迟指定字幕的显示时间点。</value>
+    <value>提前或退后给定字幕出现时间的值。</value>
   </data>
   <data name="QueueColumnNameRange" xml:space="preserve">
     <value>范围</value>
@@ -144,7 +144,7 @@
     <value>目标</value>
   </data>
   <data name="QueueColumnNameSource" xml:space="preserve">
-    <value>源</value>
+    <value>源文件</value>
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
     <value>标题</value>
@@ -195,7 +195,7 @@
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="All" xml:space="preserve">
-    <value>所有</value>
+    <value>全部</value>
   </data>
   <data name="StreamChoice" xml:space="preserve">
     <value>流{0}</value>
@@ -217,7 +217,7 @@
     <value>复制</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>是</value>
+    <value>确定</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>否</value>
@@ -235,7 +235,7 @@
     <value>失败</value>
   </data>
   <data name="FilePickerExtTemplate" xml:space="preserve">
-    <value>{0} 文件</value>
+    <value>{0} 个文件</value>
   </data>
   <data name="QueueColumnNamePreset" xml:space="preserve">
     <value>预设</value>
@@ -244,7 +244,7 @@
     <value>成功</value>
   </data>
   <data name="ConfirmDialogTitle" xml:space="preserve">
-    <value>确认 </value>
+    <value>确认</value>
   </data>
   <data name="FileFailureErrorMessage" xml:space="preserve">
     <value>无法完成文件操作。</value>
@@ -253,7 +253,7 @@
     <value>文件处理出错</value>
   </data>
   <data name="OverrideNameFormatCheckBox" xml:space="preserve">
-    <value>重命名格式:</value>
+    <value>覆写命名格式：</value>
   </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
     <value>可行则输出至源目录</value>
@@ -269,7 +269,7 @@
     <comment>Appears as a tooltip on inline, dismissable messages</comment>
   </data>
   <data name="PresetFileFilter" xml:space="preserve">
-    <value>VidCoder 预置文件</value>
+    <value>VidCoder 预设文件</value>
     <comment>File dialog description of a .vjpreset file: JSON file that stores an exported preset.</comment>
   </data>
   <data name="QueueFileFilter" xml:space="preserve">
@@ -279,5 +279,8 @@
   <data name="First" xml:space="preserve">
     <value>第一项</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
+  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
+    <value>更新已被禁用，因为新版本不再支持 32 位操作系统。</value>
   </data>
 </root>

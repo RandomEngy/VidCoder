@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>ウィンドウ</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>エンコード設定</value>
@@ -343,9 +344,6 @@
     <value>{0}を削除できませんでした。
 
 {1}</value>
-  </data>
-  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>以下のフアイルは識別できなかったため、キューに追加されませんでした：{0}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>ビデオ ファイルのスキャン中にエラー</value>
@@ -618,4 +616,10 @@
     <value>これと似たような時間のタイトルが {0} 個あります</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
+  
+  
+  
+  
+  
+  
 </root>

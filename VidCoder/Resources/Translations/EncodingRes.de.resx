@@ -270,9 +270,6 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>Wählen Sie die Art des Ausgangsmaterials aus, um die Enkodierung weiter zu optimieren. Wenn Sie einen Typ auswählen, werden die Änderungen nach der Voreinstellung, aber vor allen anderen Parametern angewendet werden.</value>
   </data>
-  <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>Die gewünschte Video-Breite. Andere Parameter wie das Seitenverhältnis der Pixel werden angepasst, um dies zu erreichen.</value>
-  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Container:</value>
   </data>
@@ -291,18 +288,12 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Kapitelmarkierungen übernehmen</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>Bild</value>
-  </data>
+  
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Videofilter</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>Video</value>
-  </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>Audio</value>
-  </data>
+  
+  
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>Erweiterte Videoeinstellungen</value>
   </data>
@@ -342,35 +333,14 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Max Höhe:</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>Seitenverhältnis beibehalten</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>Anamorph:</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>Modulus:</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Bildschirmbreite:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Ausgabe</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
     <value>Beschneiden</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>Oben</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>Links</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>Unten</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>Rechts</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
@@ -858,12 +828,6 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Psychovisuell</value>
   </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
-  </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>Grundlegend</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
@@ -1004,4 +968,57 @@ Bikubisch: Dies ist ein durch OpenCL-Hardware beschleunigter Skalierungsalgorith
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>Zeilensprung Erkennung:</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Modus:</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>Benutze Anamorph</value>
+  </data>
+  <data name="AllowUpscalingCheckbox" xml:space="preserve">
+    <value>Erlaube hochskalierung</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>Manuell</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  
+  
+  
+  
+  
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>Breite</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>Höhe</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>Ziel Größe:</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>Ziel Höhe:</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>Farbe:</value>
+  </data>
+  <data name="ColorPickerAdvancedButton" xml:space="preserve">
+    <value>Fortgeschritten</value>
+  </data>
+  <data name="ColorPickerStandardButton" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
+    <value>Standard Farben</value>
+  </data>
+  
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>Auflösung:</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  
+  
 </root>

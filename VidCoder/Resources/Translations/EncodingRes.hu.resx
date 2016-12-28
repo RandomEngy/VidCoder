@@ -276,9 +276,6 @@ Akkor érdemes beállítani, ha tudod, hogy a lejátszó eszköz csak egy bizony
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>Beállítások további optimalizálása a bemeneti tartalmakhoz. Ha megadsz egy módosítást, a változások a Séma után, de a többi paraméter előtt kerülnek érvényesítésre.</value>
   </data>
-  <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>A videó kívánt megjelenítési szélessége. Egyéb paraméterek, mint például a Pixel képarány megváloztatásra kerülnek a hatás érdekében.</value>
-  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Tároló:</value>
   </data>
@@ -297,17 +294,17 @@ Akkor érdemes beállítani, ha tudod, hogy a lejátszó eszköz csak egy bizony
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Fejezetjelzők használata</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>Kép</value>
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>Méretezés</value>
   </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Videószűrők</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>Videó</value>
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>Videó kódolás</value>
   </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>Hang</value>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>Audió kódolás</value>
   </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>Haladó videó</value>
@@ -348,35 +345,14 @@ Akkor érdemes beállítani, ha tudod, hogy a lejátszó eszköz csak egy bizony
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Max magasság:</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>Képarány</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>Anamorfikus:</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>Modulus:</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Megjelenítési szélesség:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Kimenet</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
     <value>Levágás</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>Felül</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>Balra</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>Lent</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>Jobbra</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
@@ -864,12 +840,6 @@ Felülírja az összes többi beállítást.</value>
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Pszichovizuális</value>
   </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
-  </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>Alap</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
@@ -1008,5 +978,77 @@ Kettős köbös: Ez egy OpenCL hardveres gyorsítású méretezési algoritmus.<
   </data>
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
+  </data>
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>Interlace észlelése:</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Mód:</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>Anamorfikus használata</value>
+  </data>
+  <data name="AllowUpscalingCheckbox" xml:space="preserve">
+    <value>Felkonvertálás engedélyezése</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>Kézi</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>Felkonvertálás max. {0}x</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>Csak lekonvertálás</value>
+  </data>
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>Fel/lekonvertálás a céltulajdonsághoz</value>
+  </data>
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>Konvertálási mód:</value>
+  </data>
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>Kitöltés</value>
+  </data>
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>Szélesség</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>Magasság</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>Cél szélessége:</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>Cél magassága:</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>Szín:</value>
+  </data>
+  <data name="ColorPickerAdvancedButton" xml:space="preserve">
+    <value>Haladó</value>
+  </data>
+  <data name="ColorPickerStandardButton" xml:space="preserve">
+    <value>Szabványos</value>
+  </data>
+  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
+    <value>Szabványos szűrők</value>
+  </data>
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>Az anamorfikus engedélyezésével a nem négyzetes pixelek is engedélyezettek. Ez hatékonyabb tárhely kitöltést eredményezhet, de nem mindegyik lejátszó támogatja.</value>
+  </data>
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>Felbontás:</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>Formátum: kulcs1=érték1:kulcs2=érték2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
+  <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
+    <value>Kulcsok:</value>
+    <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
 </root>

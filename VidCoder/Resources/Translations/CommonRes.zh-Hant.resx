@@ -131,7 +131,7 @@
     <value>將此字幕軌標記為預設值。此字幕軌將在播放時預設為顯示字幕。</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>僅從特定軌強制顯示字幕。通常用於少量外語對話。</value>
+    <value>僅顯示字幕軌中的強制字幕，通常僅包含少量外語對話。</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>提前或延遲指定字幕的顯示時間點。</value>
@@ -279,5 +279,8 @@
   <data name="First" xml:space="preserve">
     <value>首個</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
+  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
+    <value>因新版本不再支援 32 位元作業系統，更新已被停用。</value>
   </data>
 </root>

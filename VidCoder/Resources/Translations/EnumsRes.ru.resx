@@ -129,6 +129,8 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Точно</value>
   </data>
+  
+  
   <data name="Custom" xml:space="preserve">
     <value>Пользовательский</value>
   </data>
@@ -141,43 +143,20 @@
   <data name="Default" xml:space="preserve">
     <value>По умолчанию</value>
   </data>
-  <data name="Deinterlace_Bob" xml:space="preserve">
-    <value>Bob</value>
-    <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
-  </data>
-  <data name="Deinterlace_Fast" xml:space="preserve">
-    <value>Быстрая</value>
-  </data>
-  <data name="Deinterlace_Slow" xml:space="preserve">
-    <value>Медленная</value>
-  </data>
-  <data name="Deinterlace_Slower" xml:space="preserve">
-    <value>Медленнее</value>
-  </data>
-  <data name="DenoisePreset_Light" xml:space="preserve">
-    <value>Лёгкий</value>
-  </data>
-  <data name="DenoisePreset_Medium" xml:space="preserve">
-    <value>Средний</value>
-  </data>
-  <data name="DenoisePreset_Strong" xml:space="preserve">
-    <value>Сильно</value>
-  </data>
-  <data name="DenoisePreset_Ultralight" xml:space="preserve">
-    <value>Ультралайт</value>
-  </data>
-  <data name="DenoiseTune_Animation" xml:space="preserve">
-    <value>Анимация</value>
-  </data>
-  <data name="DenoiseTune_Film" xml:space="preserve">
-    <value>Фильм</value>
-  </data>
-  <data name="DenoiseTune_Grain" xml:space="preserve">
-    <value>Зерна</value>
-  </data>
-  <data name="DenoiseTune_HighMotion" xml:space="preserve">
-    <value>Высокое движение</value>
-  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <data name="Denoise_HQDN3D" xml:space="preserve">
     <value>hqdn3d</value>
   </data>

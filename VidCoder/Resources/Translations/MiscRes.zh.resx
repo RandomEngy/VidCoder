@@ -124,22 +124,22 @@
     <value>刷新</value>
   </data>
   <data name="ChooseFromProcessesLabel" xml:space="preserve">
-    <value>从现有的处理程序中选择：</value>
+    <value>从已有进程中选取：</value>
   </data>
   <data name="AddAutoPauseProcessDialogTitle" xml:space="preserve">
-    <value>添加自动暂停处理程序</value>
+    <value>添加自动暂停进程</value>
   </data>
   <data name="ProcessNameLabel" xml:space="preserve">
     <value>进程名称：</value>
   </data>
   <data name="ExceptionDialogMainText" xml:space="preserve">
-    <value>VidCoder 遇到意外的错误</value>
+    <value>VidCoder 发生意外错误。</value>
   </data>
   <data name="ExceptionDialogSubText" xml:space="preserve">
     <value>请发送出错误报告以便开发者修正。</value>
   </data>
   <data name="ExceptionWindowTitle" xml:space="preserve">
-    <value>异常</value>
+    <value>例外</value>
   </data>
   <data name="FileConflictDialogTitle" xml:space="preserve">
     <value>文件冲突</value>
@@ -151,7 +151,7 @@
     <value>自动重命名</value>
   </data>
   <data name="FileConflictWarning" xml:space="preserve">
-    <value>{0} 已有同名文件，您想要覆盖该文件、自动改变输出路径，还是取消编码作业?</value>
+    <value>{0} 已有同名文件，您想要覆盖该文件、自动变更编码输出路径，还是取消操作?</value>
   </data>
   <data name="QueueFileConflictWarning" xml:space="preserve">
     <value>队列中的作业在 {0} 已有同名的输出文件。你想要覆盖文件、 自动改变输出路径或取消操作？</value>
@@ -166,7 +166,7 @@
     <value>未使用的列</value>
   </data>
   <data name="UsedColumns" xml:space="preserve">
-    <value>使用的列</value>
+    <value>已使用列</value>
   </data>
   <data name="ScanMultipleWindowTitle" xml:space="preserve">
     <value>正在扫描...</value>
@@ -199,10 +199,10 @@
     <comment>Title for dialog when  naming a preset or  picker</comment>
   </data>
   <data name="ChooseNamePreset" xml:space="preserve">
-    <value>为预设取一个名称:</value>
+    <value>为预设取名：</value>
   </data>
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
-    <value>应用更新吗？</value>
+    <value>应用更新？</value>
   </data>
   <data name="ApplyUpdateDialogMessage" xml:space="preserve">
     <value>更新文件已下载完成。您想要现在应用更新吗？</value>
@@ -238,7 +238,7 @@
     <value>系统将在 {0} 秒后关闭。</value>
   </data>
   <data name="EncodeCompleteWarning_Title" xml:space="preserve">
-    <value>编码已完成。</value>
+    <value>编码完成。</value>
   </data>
   <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
     <value>找不到 {0} 的视频播放器。</value>
@@ -253,6 +253,6 @@
     <value>立即休眠</value>
   </data>
   <data name="ChooseNamePicker" xml:space="preserve">
-    <value>为选取器取一个名称:</value>
+    <value>为选取器取名：</value>
   </data>
 </root>

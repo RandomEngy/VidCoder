@@ -130,9 +130,7 @@ Uma cópia completa da Licença Pública Geral GNU foi incluída neste programa.
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
     <value>Marcar esta faixa de legenda como a padrão. Esta será apresentada durante a reprodução até que outra legenda seja escolhida.</value>
   </data>
-  <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Exibir apenas legendas forçadas da faixa determinada. Geralmente são pequenos pedaços de diálogo estrangeiro.</value>
-  </data>
+  
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>A quantidade de tempo para avançar ou atrasar a exibição de uma legenda.</value>
   </data>
@@ -280,4 +278,5 @@ Uma cópia completa da Licença Pública Geral GNU foi incluída neste programa.
     <value>Primeiro</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
+  
 </root>

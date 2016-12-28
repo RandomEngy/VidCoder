@@ -129,6 +129,12 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>嚴格</value>
   </data>
+  <data name="CombDetect_fast" xml:space="preserve">
+    <value>快速</value>
+  </data>
+  <data name="CombDetect_permissive" xml:space="preserve">
+    <value>較不敏感</value>
+  </data>
   <data name="Custom" xml:space="preserve">
     <value>自訂</value>
   </data>
@@ -141,41 +147,47 @@
   <data name="Default" xml:space="preserve">
     <value>預設</value>
   </data>
-  <data name="Deinterlace_Bob" xml:space="preserve">
+  <data name="DeinterlacePreset_bob" xml:space="preserve">
     <value>Bob</value>
     <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
   </data>
-  <data name="Deinterlace_Fast" xml:space="preserve">
-    <value>快速</value>
+  <data name="DeinterlacePreset_eedi2" xml:space="preserve">
+    <value>EEDI2</value>
   </data>
-  <data name="Deinterlace_Slow" xml:space="preserve">
-    <value>緩慢</value>
+  <data name="DeinterlacePreset_eedi2bob" xml:space="preserve">
+    <value>EEDI2 Bob</value>
   </data>
-  <data name="Deinterlace_Slower" xml:space="preserve">
-    <value>較慢</value>
+  <data name="DeinterlacePreset_skipspatial" xml:space="preserve">
+    <value>跳過空間檢查</value>
   </data>
-  <data name="DenoisePreset_Light" xml:space="preserve">
+  <data name="Deinterlace_Decomb" xml:space="preserve">
+    <value>反梳狀</value>
+  </data>
+  <data name="Deinterlace_Yadif" xml:space="preserve">
+    <value>Yadif</value>
+  </data>
+  <data name="DenoisePreset_light" xml:space="preserve">
     <value>輕</value>
   </data>
-  <data name="DenoisePreset_Medium" xml:space="preserve">
+  <data name="DenoisePreset_medium" xml:space="preserve">
     <value>中</value>
   </data>
-  <data name="DenoisePreset_Strong" xml:space="preserve">
+  <data name="DenoisePreset_strong" xml:space="preserve">
     <value>重</value>
   </data>
-  <data name="DenoisePreset_Ultralight" xml:space="preserve">
+  <data name="DenoisePreset_ultralight" xml:space="preserve">
     <value>極輕</value>
   </data>
-  <data name="DenoiseTune_Animation" xml:space="preserve">
+  <data name="DenoiseTune_animation" xml:space="preserve">
     <value>動畫</value>
   </data>
-  <data name="DenoiseTune_Film" xml:space="preserve">
+  <data name="DenoiseTune_film" xml:space="preserve">
     <value>電影</value>
   </data>
-  <data name="DenoiseTune_Grain" xml:space="preserve">
+  <data name="DenoiseTune_grain" xml:space="preserve">
     <value>膠片顆粒</value>
   </data>
-  <data name="DenoiseTune_HighMotion" xml:space="preserve">
+  <data name="DenoiseTune_highmotion" xml:space="preserve">
     <value>高動態</value>
   </data>
   <data name="Denoise_HQDN3D" xml:space="preserve">

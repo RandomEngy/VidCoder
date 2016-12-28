@@ -121,19 +121,19 @@
     <value>字幕</value>
   </data>
   <data name="RemoveSubtitleTrack" xml:space="preserve">
-    <value>删除此轨</value>
+    <value>移除字幕</value>
   </data>
   <data name="SubtitlesFromSourceLabel" xml:space="preserve">
     <value>字幕来源：</value>
   </data>
   <data name="QuickTimeSubtitlesWarning" xml:space="preserve">
-    <value>除非m4v 扩展名，否则文字字幕可能无法于 Quicktime 正常显示。</value>
+    <value>文本字幕不会在 Quicktime 中显示，除非使用 .m4v 扩展名。</value>
   </data>
   <data name="NameColumn" xml:space="preserve">
     <value>名称</value>
   </data>
   <data name="DefaultColumn" xml:space="preserve">
-    <value>默认值</value>
+    <value>默认</value>
   </data>
   <data name="ForcedOnlyColumn" xml:space="preserve">
     <value>仅强制</value>
@@ -142,7 +142,7 @@
     <value>嵌入</value>
   </data>
   <data name="ExternalSubtitlesLabel" xml:space="preserve">
-    <value>外部字幕：</value>
+    <value>外挂字幕：</value>
   </data>
   <data name="FileColumn" xml:space="preserve">
     <value>文件</value>
@@ -157,7 +157,7 @@
     <value>偏移量(毫秒)</value>
   </data>
   <data name="ImportSrtButton" xml:space="preserve">
-    <value>导入.srt 文件...</value>
+    <value>导入 .srt 文件...</value>
   </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
     <value>其他字幕轨将与内嵌字幕重迭。</value>

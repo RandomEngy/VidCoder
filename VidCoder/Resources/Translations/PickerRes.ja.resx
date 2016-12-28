@@ -137,7 +137,7 @@
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
     <value>音声と言語が違う場合のみ</value>
-    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the audio track.</comment>
+    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
   <data name="SubtitleSelection" xml:space="preserve">
     <value>字幕の選択</value>
@@ -210,6 +210,7 @@
   <data name="FirstTrackRadioButton" xml:space="preserve">
     <value>最初のトラック</value>
   </data>
+  
   
   
   

@@ -381,8 +381,17 @@
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Önizlemeler için özel klasör:</value>
   </data>
-  
-  
-  
-  
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>İşlem seçenekleri</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>İşlemci kısıtlama:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>VidCoder'ın dönüştürme yaparken kullanacabileceği çekirdek sayısını sınırlamak için işlemci kısıtlamayı kullan.</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>Önizlemeler için yerleşik oynatıcıyı kullan</value>
+  </data>
 </root>

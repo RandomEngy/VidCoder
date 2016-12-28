@@ -226,7 +226,6 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
   
   
   
-  
   <data name="ContainerLabel" xml:space="preserve">
     <value>Kontener:</value>
   </data>
@@ -245,18 +244,12 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Dołącz znaczniki rozdziałów</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>Obraz</value>
-  </data>
+  
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Filtry wideo</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>Wideo</value>
-  </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>Audio</value>
-  </data>
+  
+  
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>Zaawansowane Wideo</value>
   </data>
@@ -296,35 +289,14 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Maksymalna wysokość:</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>Zachowaj proporcje</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>Anamorficzny:</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>Modułowy:</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Szerokość Wyświetlacza:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Wyjście</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
     <value>Kadrowanie</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>Góra</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>Lewa strona</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>Dół</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>Prawa strona</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
@@ -790,12 +762,6 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Psychowisualne</value>
   </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
-  </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>Podstawowy</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
@@ -873,7 +839,9 @@ Bicubic: To OpenCL sprzętowo przyspieszony algorytm skalowania.</value>
   
   
   
-  
+  <data name="PassthroughIfPossibleCheckBox" xml:space="preserve">
+    <value>Passthrough Jeśli możliwe</value>
+  </data>
   
   <data name="ScalingAlgorithmLabel" xml:space="preserve">
     <value>Algorytm skalowania:</value>
@@ -881,11 +849,22 @@ Bicubic: To OpenCL sprzętowo przyspieszony algorytm skalowania.</value>
   <data name="RotationLabel" xml:space="preserve">
     <value>Obrót:</value>
   </data>
-  
-  
-  
-  
-  
+  <data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>Zamknij listę ustawień predefiniowanych</value>
+  </data>
+  <data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>Otwórz listę ustawień predefiniowanych</value>
+  </data>
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>Rozdział {0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>Ustawienia Passthrough</value>
+  </data>
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>Pozwól na passthrough dla:</value>
+  </data>
   <data name="Passthrough_aac" xml:space="preserve">
     <value>AAC</value>
   </data>
@@ -898,10 +877,38 @@ Bicubic: To OpenCL sprzętowo przyspieszony algorytm skalowania.</value>
   <data name="Passthrough_dtshd" xml:space="preserve">
     <value>DTS-HD</value>
   </data>
-  
-  
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
   <data name="Passthrough_mp3" xml:space="preserve">
     <value>MP3</value>
   </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
 </root>
