@@ -6,30 +6,30 @@ using System.Threading.Tasks;
 
 namespace VidCoderCommon
 {
-    public static class CommonUtilities
-    {
-        public static bool Beta
-        {
-            get
-            {
+	public static class CommonUtilities
+	{
+		public static bool Beta
+		{
+			get
+			{
 #if BETA
 				return true;
 #else
-                return false;
+				return false;
 #endif
-            }
-        }
+			}
+		}
 
-        public static bool DebugMode
-        {
-            get
-            {
+		public static bool DebugMode
+		{
+			get
+			{
 #if DEBUG
 				return true;
 #else
-                return false;
+				return false;
 #endif
-            }
-        }
-    }
+			}
+		}
+	}
 }

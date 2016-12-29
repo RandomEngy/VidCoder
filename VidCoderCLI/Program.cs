@@ -273,10 +273,10 @@ namespace VidCoderCLI
 				};
 
 				string betaString = string.Empty;
-			    if (CommonUtilities.Beta)
-			    {
-				    betaString = "Beta";
-			    }
+				if (CommonUtilities.Beta)
+				{
+					betaString = "Beta";
+				}
 
 				var pipeFactory = new ChannelFactory<IVidCoderAutomation>(
 					binding,

@@ -33,19 +33,19 @@ namespace VidCoder
 	{
 		public static bool IsPrimaryInstance { get; private set; }
 
-	    private static Mutex mutex;
+		private static Mutex mutex;
 
-	    static App()
-	    {
-	        if (CommonUtilities.Beta)
-	        {
-	            mutex = new Mutex(true, "VidCoderBetaPrimaryInstanceMutex");
-	        }
-	        else
-	        {
-	            mutex = new Mutex(true, "VidCoderPrimaryInstanceMutex");
-            }
-	    }
+		static App()
+		{
+			if (CommonUtilities.Beta)
+			{
+				mutex = new Mutex(true, "VidCoderBetaPrimaryInstanceMutex");
+			}
+			else
+			{
+				mutex = new Mutex(true, "VidCoderPrimaryInstanceMutex");
+			}
+		}
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
@@ -54,14 +54,14 @@ namespace VidCoder
 #endif
 			base.OnStartup(e);
 
-			OperatingSystem OS = Environment.OSVersion; 
-			if (OS.Version.Major <= 5) 
+			OperatingSystem OS = Environment.OSVersion;
+			if (OS.Version.Major <= 5)
 			{
 				MessageBox.Show(MiscRes.UnsupportedOSError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
 				MessageBox.Show(MiscRes.UnsupportedOSError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
-				this.Shutdown(); 
-				return; 
-			} 
+				this.Shutdown();
+				return;
+			}
 
 #if PSEUDOLOCALIZER_ENABLED
 			Delay.PseudoLocalizer.Enable(typeof(CommonRes));
@@ -79,8 +79,8 @@ namespace VidCoder
 
 			JsonSettings.SetDefaultSerializationSettings();
 
-            // Takes about 50ms
-            Config.EnsureInitialized(Database.Connection);
+			// Takes about 50ms
+			Config.EnsureInitialized(Database.Connection);
 
 			var interfaceLanguageCode = Config.InterfaceLanguageCode;
 			if (!string.IsNullOrWhiteSpace(interfaceLanguageCode))
@@ -88,8 +88,8 @@ namespace VidCoder
 				var cultureInfo = new CultureInfo(interfaceLanguageCode);
 				Thread.CurrentThread.CurrentCulture = cultureInfo;
 				Thread.CurrentThread.CurrentUICulture = cultureInfo;
-			    CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-			    CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+				CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+				CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 			}
 
 			if (Config.UseCustomPreviewFolder && FileUtilities.HasWriteAccessOnFolder(Config.PreviewOutputFolder))
@@ -117,10 +117,10 @@ namespace VidCoder
 			Ioc.Get<IWindowManager>().OpenWindow(mainVM);
 			mainVM.OnLoaded();
 
-		    if (e.Args.Length > 0)
-		    {
-                mainVM.HandlePaths(new List<string> { e.Args[0] });
-		    }
+			if (e.Args.Length > 0)
+			{
+				mainVM.HandlePaths(new List<string> { e.Args[0] });
+			}
 
 			if (!Utilities.IsPortable && IsPrimaryInstance)
 			{

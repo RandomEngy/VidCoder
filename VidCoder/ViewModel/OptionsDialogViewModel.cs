@@ -27,7 +27,7 @@ namespace VidCoder.ViewModel
 
 		private List<IVideoPlayer> playerChoices;
 		private List<InterfaceLanguage> languageChoices;
-		private List<ComboChoice> priorityChoices; 
+		private List<ComboChoice> priorityChoices;
 
 #pragma warning disable 169
 		private UpdateInfo betaInfo;
@@ -40,37 +40,37 @@ namespace VidCoder.ViewModel
 		{
 			this.updater = updateService;
 
-            // UpdatesEnabled
-            this.WhenAnyValue(x => x.UpdatesEnabledConfig)
-                .Select(updatesEnabledConfig =>
-                {
-                    if (Utilities.IsPortable)
-                    {
-                        return false;
-                    }
+			// UpdatesEnabled
+			this.WhenAnyValue(x => x.UpdatesEnabledConfig)
+				.Select(updatesEnabledConfig =>
+				{
+					if (Utilities.IsPortable)
+					{
+						return false;
+					}
 
-                    return updatesEnabledConfig;
-                }).ToProperty(this, x => x.UpdatesEnabled, out this.updatesEnabled);
+					return updatesEnabledConfig;
+				}).ToProperty(this, x => x.UpdatesEnabled, out this.updatesEnabled);
 
-            // ShowUpdateStatus
-		    this.WhenAnyValue(x => x.UpdatesEnabledConfig)
-		        .Select(updatesEnabledConfig =>
-		        {
-		            if (Utilities.IsPortable)
-		            {
-		                return false;
-		            }
+			// ShowUpdateStatus
+			this.WhenAnyValue(x => x.UpdatesEnabledConfig)
+				.Select(updatesEnabledConfig =>
+				{
+					if (Utilities.IsPortable)
+					{
+						return false;
+					}
 
-		            if (!Environment.Is64BitOperatingSystem)
-		            {
-		                return true;
-                    }
+					if (!Environment.Is64BitOperatingSystem)
+					{
+						return true;
+					}
 
-                    return updatesEnabledConfig;
-		        }).ToProperty(this, x => x.ShowUpdateStatus, out this.showUpdateStatus);;
+					return updatesEnabledConfig;
+				}).ToProperty(this, x => x.ShowUpdateStatus, out this.showUpdateStatus); ;
 
-            // UpdateStatus
-            this.updater
+			// UpdateStatus
+			this.updater
 				.WhenAnyValue(x => x.State)
 				.Select(state =>
 				{
@@ -88,8 +88,8 @@ namespace VidCoder.ViewModel
 							return string.Format(OptionsRes.UpdateReadyStatus, this.updater.LatestVersion);
 						case UpdateState.Failed:
 							return OptionsRes.UpdateFailedStatus;
-                        case UpdateState.NotSupported32BitOS:
-					        return CommonRes.UpdatesDisabled32BitOSMessage;
+						case UpdateState.NotSupported32BitOS:
+							return CommonRes.UpdatesDisabled32BitOSMessage;
 						default:
 							throw new ArgumentOutOfRangeException();
 					}
@@ -137,7 +137,7 @@ namespace VidCoder.ViewModel
 			this.RemoveProcess.Subscribe(_ => this.RemoveProcessImpl());
 
 			bool logFolderExists = Directory.Exists(Utilities.LogsFolder);
-            this.OpenLogFolder = ReactiveCommand.Create(MvvmUtilities.CreateConstantObservable(logFolderExists));
+			this.OpenLogFolder = ReactiveCommand.Create(MvvmUtilities.CreateConstantObservable(logFolderExists));
 			this.OpenLogFolder.Subscribe(_ => this.OpenLogFolderImpl());
 
 			this.CheckUpdate = ReactiveCommand.Create(this.updater.WhenAnyValue(x => x.State).Select(state =>
@@ -257,36 +257,36 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-		    if (!CommonUtilities.Beta)
-		    {
-		        Task.Run(async () =>
-		        {
-                    this.betaInfo = await Updater.GetUpdateInfoAsync(beta: true);
+			if (!CommonUtilities.Beta)
+			{
+				Task.Run(async () =>
+				{
+					this.betaInfo = await Updater.GetUpdateInfoAsync(beta: true);
 
-                    this.betaInfoAvailable = false;
-                    if (this.betaInfo != null)
-                    {
-                        if (this.betaInfo.LatestVersion.FillInWithZeroes() > Utilities.CurrentVersion)
-                        {
-                            this.betaInfoAvailable = true;
-                        }
-                    }
+					this.betaInfoAvailable = false;
+					if (this.betaInfo != null)
+					{
+						if (this.betaInfo.LatestVersion.FillInWithZeroes() > Utilities.CurrentVersion)
+						{
+							this.betaInfoAvailable = true;
+						}
 
-		            await DispatchUtilities.InvokeAsync(() =>
-		            {
-                        this.RaisePropertyChanged(nameof(this.BetaChangelogUrl));
-                        this.RaisePropertyChanged(nameof(this.BetaSectionVisible));
-                    });
-                });
-            }
+						await DispatchUtilities.InvokeAsync(() =>
+						{
+							this.RaisePropertyChanged(nameof(this.BetaChangelogUrl));
+							this.RaisePropertyChanged(nameof(this.BetaSectionVisible));
+						});
+					}
+				});
+			}
 
-		    int tabIndex = Config.OptionsDialogLastTab;
-		    if (tabIndex >= this.Tabs.Count)
-		    {
-		        tabIndex = 0;
-		    }
+			int tabIndex = Config.OptionsDialogLastTab;
+			if (tabIndex >= this.Tabs.Count)
+			{
+				tabIndex = 0;
+			}
 
-            this.SelectedTabIndex = tabIndex;
+			this.SelectedTabIndex = tabIndex;
 		}
 
 		public override void OnClosing()
@@ -314,7 +314,7 @@ namespace VidCoder.ViewModel
 						OptionsRes.UpdatesTab			// 4
 					};
 			}
-		} 
+		}
 
 		private int selectedTabIndex;
 		public int SelectedTabIndex
@@ -337,7 +337,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.priorityChoices;
 			}
-		} 
+		}
 
 		private InterfaceLanguage interfaceLanguage;
 		public InterfaceLanguage InterfaceLanguage
@@ -364,15 +364,15 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> updatesEnabled;
 		public bool UpdatesEnabled => this.updatesEnabled.Value;
 
-	    private ObservableAsPropertyHelper<bool> showUpdateStatus;
-	    public bool ShowUpdateStatus => this.showUpdateStatus.Value;
+		private ObservableAsPropertyHelper<bool> showUpdateStatus;
+		public bool ShowUpdateStatus => this.showUpdateStatus.Value;
 
 		public bool BuildSupportsUpdates
 		{
 			get
 			{
-                return !Utilities.IsPortable && Environment.Is64BitOperatingSystem;
-            }
+				return !Utilities.IsPortable && Environment.Is64BitOperatingSystem;
+			}
 		}
 
 		private ObservableAsPropertyHelper<string> updateStatus;
@@ -386,15 +386,15 @@ namespace VidCoder.ViewModel
 
 		public string BetaUpdatesText => CommonUtilities.Beta ? OptionsRes.BetaUpdatesInBeta : OptionsRes.BetaUpdatesNonBeta;
 
-	    public string BetaChangelogUrl => CommonUtilities.Beta ? string.Empty : this.betaInfo.ChangelogUrl;
+		public string BetaChangelogUrl => CommonUtilities.Beta ? string.Empty : (this.betaInfo?.ChangelogUrl ?? string.Empty);
 
-	    public bool BetaSectionVisible => CommonUtilities.Beta || this.betaInfoAvailable;
+		public bool BetaSectionVisible => CommonUtilities.Beta || this.betaInfoAvailable;
 
-	    public bool InBeta => CommonUtilities.Beta;
+		public bool InBeta => CommonUtilities.Beta;
 
-	    public List<IVideoPlayer> PlayerChoices => this.playerChoices;
+		public List<IVideoPlayer> PlayerChoices => this.playerChoices;
 
-	    private IVideoPlayer selectedPlayer;
+		private IVideoPlayer selectedPlayer;
 		public IVideoPlayer SelectedPlayer
 		{
 			get { return this.selectedPlayer; }
@@ -447,7 +447,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				var manager = new ResourceManager(typeof (OptionsRes));
+				var manager = new ResourceManager(typeof(OptionsRes));
 				return string.Format(manager.GetString("FileNameFormatOptions"), "{source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}");
 			}
 		}
@@ -818,7 +818,7 @@ namespace VidCoder.ViewModel
 		public ReactiveCommand<object> CheckUpdate { get; }
 		private void CheckUpdateImpl()
 		{
-            this.updater.CheckUpdates();
-        }
+			this.updater.CheckUpdates();
+		}
 	}
 }

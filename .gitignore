@@ -2,6 +2,7 @@ Installer/BuiltInstallers/*
 Flags/*
 packages/*
 Import/*
+HandBrakeInterop.XmlSerializers.dll
 .vs
 *.pdn
 */bin/*

@@ -66,15 +66,15 @@ namespace VidCoder
 		{
 			get
 			{
-			    if (CommonUtilities.Beta)
-			    {
-                    return string.Format(MiscRes.BetaVersionFormat, CurrentVersion.ToShortString(), Architecture);
-                }
-                else
-			    {
-				    return string.Format(MiscRes.VersionFormat, CurrentVersion.ToShortString(), Architecture);
-                }
-            }
+				if (CommonUtilities.Beta)
+				{
+					return string.Format(MiscRes.BetaVersionFormat, CurrentVersion.ToShortString(), Architecture);
+				}
+				else
+				{
+					return string.Format(MiscRes.VersionFormat, CurrentVersion.ToShortString(), Architecture);
+				}
+			}
 		}
 
 		public static string Architecture
@@ -198,10 +198,10 @@ namespace VidCoder
 					Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
 					LocalAppDataFolderName);
 
-			    if (CommonUtilities.Beta)
-			    {
-				    folder += "-Beta";
-			    }
+				if (CommonUtilities.Beta)
+				{
+					folder += "-Beta";
+				}
 
 				return folder;
 			}
@@ -310,17 +310,17 @@ namespace VidCoder
 		}
 
 
-	    public static IScanProxy CreateScanProxy()
-	    {
-	        if (Config.UseWorkerProcess)
-	        {
-	            return new RemoteScanProxy();
-	        }
-	        else
-	        {
-                return new LocalScanProxy();
-	        }
-	    }
+		public static IScanProxy CreateScanProxy()
+		{
+			if (Config.UseWorkerProcess)
+			{
+				return new RemoteScanProxy();
+			}
+			else
+			{
+				return new LocalScanProxy();
+			}
+		}
 
 
 
@@ -411,7 +411,7 @@ namespace VidCoder
 				return megabytes.ToString(GetFormatForFilesize(megabytes)) + " MB";
 			}
 
-			double gigabytes = ((double) bytes) / 1073741824;
+			double gigabytes = ((double)bytes) / 1073741824;
 
 			return gigabytes.ToString(GetFormatForFilesize(gigabytes)) + " GB";
 		}
