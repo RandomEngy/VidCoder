@@ -10,6 +10,7 @@ using VidCoder.Model;
 using VidCoder.Services;
 using System.IO;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace VidCoder.ViewModel
 {
@@ -41,7 +42,7 @@ namespace VidCoder.ViewModel
 
 		private List<IVideoPlayer> playerChoices;
 		private List<InterfaceLanguage> languageChoices;
-		private List<ComboChoice> priorityChoices; 
+		private List<ComboChoice> priorityChoices;
 
 #pragma warning disable 169
 		private UpdateInfo betaInfo;
@@ -164,26 +165,25 @@ namespace VidCoder.ViewModel
 			}
 
 #if !BETA
-			var betaInfoWorker = new BackgroundWorker();
-			betaInfoWorker.DoWork += (o, e) =>
+			Task.Factory.StartNew(async () =>
+			{
+				this.betaInfo = await Updater.GetUpdateInfoAsync(beta: true);
+
+				this.betaInfoAvailable = false;
+				if (this.betaInfo != null)
 				{
-					this.betaInfo = Updater.GetUpdateInfo(true);
-				};
-			betaInfoWorker.RunWorkerCompleted += (o, e) =>
-				{
-					this.betaInfoAvailable = false;
-					if (this.betaInfo != null)
+					if (Utilities.CompareVersions(this.betaInfo.LatestVersion, Utilities.CurrentVersion) > 0)
 					{
-						if (Utilities.CompareVersions(this.betaInfo.LatestVersion, Utilities.CurrentVersion) > 0)
-						{
-							this.betaInfoAvailable = true;
-						}
+						this.betaInfoAvailable = true;
 					}
 
-					this.RaisePropertyChanged(() => this.BetaChangelogUrl);
-					this.RaisePropertyChanged(() => this.BetaSectionVisible);
-				};
-			betaInfoWorker.RunWorkerAsync();
+					DispatchService.BeginInvoke(() =>
+					{
+						this.RaisePropertyChanged(nameof(this.BetaChangelogUrl));
+						this.RaisePropertyChanged(nameof(this.BetaSectionVisible));
+					});
+				}
+			});
 #endif
 
 			this.SelectedTabIndex = Config.OptionsDialogLastTab;
@@ -215,7 +215,7 @@ namespace VidCoder.ViewModel
 						OptionsRes.UpdatesTab			// 5
 					};
 			}
-		} 
+		}
 
 		private int selectedTabIndex;
 		public int SelectedTabIndex
@@ -246,7 +246,7 @@ namespace VidCoder.ViewModel
 			{
 				return this.priorityChoices;
 			}
-		} 
+		}
 
 		public InterfaceLanguage InterfaceLanguage
 		{
@@ -283,6 +283,7 @@ namespace VidCoder.ViewModel
 				this.updatesEnabledConfig = value;
 				this.RaisePropertyChanged(() => this.UpdatesEnabledConfig);
 				this.RaisePropertyChanged(() => this.UpdatesEnabled);
+				this.RaisePropertyChanged(() => this.ShowUpdateStatus);
 			}
 		}
 
@@ -299,11 +300,29 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public bool ShowUpdateStatus
+		{
+			get
+			{
+				if (Utilities.IsPortable)
+				{
+					return false;
+				}
+
+				if (!Environment.Is64BitOperatingSystem)
+				{
+					return true;
+				}
+
+				return this.updatesEnabledConfig;
+			}
+		}
+
 		public bool BuildSupportsUpdates
 		{
 			get
 			{
-				return !Utilities.IsPortable;
+				return !Utilities.IsPortable && Environment.Is64BitOperatingSystem;
 			}
 		}
 
@@ -325,6 +344,8 @@ namespace VidCoder.ViewModel
 						return string.Format(OptionsRes.UpdateReadyStatus, this.updater.LatestVersion);
 					case UpdateState.Failed:
 						return OptionsRes.UpdateFailedStatus;
+					case UpdateState.NotSupported32BitOS:
+						return CommonRes.UpdatesDisabled32BitOSMessage;
 					default:
 						throw new ArgumentOutOfRangeException();
 				}
@@ -372,7 +393,7 @@ namespace VidCoder.ViewModel
 #if BETA
 				return string.Empty;
 #else
-				return this.betaInfo.ChangelogLocation;
+				return this.betaInfo?.ChangelogUrl;
 #endif
 			}
 		}
@@ -510,7 +531,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				var manager = new ResourceManager(typeof (OptionsRes));
+				var manager = new ResourceManager(typeof(OptionsRes));
 				return string.Format(manager.GetString("FileNameFormatOptions"), "{source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}");
 			}
 		}
@@ -1236,8 +1257,8 @@ namespace VidCoder.ViewModel
 				return this.browseCompletionSoundCommand ?? (this.browseCompletionSoundCommand = new RelayCommand(() =>
 					{
 						string fileName = FileService.Instance.GetFileNameLoad(
-							title: OptionsRes.CompletionWavFilePickTitle, 
-							defaultExt: "wav", 
+							title: OptionsRes.CompletionWavFilePickTitle,
+							defaultExt: "wav",
 							filter: Utilities.GetFilePickerFilter("wav"));
 
 						if (fileName != null)
@@ -1360,8 +1381,8 @@ namespace VidCoder.ViewModel
 					() =>
 					{
 						return Config.UpdatesEnabled &&
-							(this.updater.State == UpdateState.Failed || 
-							this.updater.State == UpdateState.NotStarted || 
+							(this.updater.State == UpdateState.Failed ||
+							this.updater.State == UpdateState.NotStarted ||
 							this.updater.State == UpdateState.UpToDate);
 					}));
 			}

@@ -134,6 +134,8 @@ procedure DeleteUserFiles();
 var
   iAns: Integer;
 begin
+  if UninstallSilent() then exit;
+  
   iAns := MsgBox('Do you want to delete your settings and presets as well?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2);
 
   if iAns = IDYES then

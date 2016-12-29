@@ -43,6 +43,7 @@
 			LogWindowOpen_Field = DatabaseConfig.GetConfig("LogWindowOpen", false, connection);
 			EncodeDetailsWindowOpen_Field = DatabaseConfig.GetConfig("EncodeDetailsWindowOpen", false, connection);
 			UpdatesEnabled_Field = DatabaseConfig.GetConfig("UpdatesEnabled", true, connection);
+			UpdatesDisabled32BitOSWarningDisplayed_Field = DatabaseConfig.GetConfig("UpdatesDisabled32BitOSWarningDisplayed", false, connection);
 			PreviewSeconds_Field = DatabaseConfig.GetConfig("PreviewSeconds", 10, connection);
 			ApplicationVersion_Field = DatabaseConfig.GetConfig("ApplicationVersion", "", connection);
 			LogWindowPlacement_Field = DatabaseConfig.GetConfig("LogWindowPlacement", "", connection);
@@ -605,6 +606,22 @@
 			{
 				UpdatesEnabled_Field = value;
 				DatabaseConfig.SetConfigValue("UpdatesEnabled", value);
+			}
+		}
+
+		private static bool UpdatesDisabled32BitOSWarningDisplayed_Field;
+
+		public static bool UpdatesDisabled32BitOSWarningDisplayed
+		{
+			get
+			{
+				return UpdatesDisabled32BitOSWarningDisplayed_Field;
+			}
+
+			set
+			{
+				UpdatesDisabled32BitOSWarningDisplayed_Field = value;
+				DatabaseConfig.SetConfigValue("UpdatesDisabled32BitOSWarningDisplayed", value);
 			}
 		}
 		private static int PreviewSeconds_Field;

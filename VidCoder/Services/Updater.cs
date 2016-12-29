@@ -10,6 +10,11 @@ using System.Net;
 using System.Windows;
 using VidCoder.Model;
 using System.Diagnostics;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace VidCoder.Services
 {
@@ -17,8 +22,10 @@ namespace VidCoder.Services
 
 	public class Updater : IUpdater
 	{
-		public const string UpdateInfoUrlBeta = "http://engy.us/VidCoder/latest-beta2.xml";
-		public const string UpdateInfoUrlNonBeta = "http://engy.us/VidCoder/latest.xml";
+		public const string UpdateInfoUrlBeta = "http://engy.us/VidCoder/latest-beta.json";
+		public const string UpdateInfoUrlNonBeta = "http://engy.us/VidCoder/latest.json";
+
+		private CancellationTokenSource updateDownloadCancellationTokenSource;
 
 		public event EventHandler<EventArgs<double>> UpdateDownloadProgress;
 		public event EventHandler<EventArgs> UpdateStateChanged;
@@ -51,12 +58,11 @@ namespace VidCoder.Services
 		{
 			get
 			{
-				return !DebugMode && !Utilities.IsPortable;
+				return !Utilities.IsPortable;
 			}
 		}
 
 		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
-		private BackgroundWorker updateDownloader;
 		private bool processDownloadsUpdates = true;
 
 		private UpdateState state;
@@ -119,10 +125,7 @@ namespace VidCoder.Services
 					}
 					else
 					{
-						if (updateDownloader != null)
-						{
-							updateDownloader.CancelAsync();
-						}
+						this.updateDownloadCancellationTokenSource?.Cancel();
 					}
 				}
 			}
@@ -160,11 +163,7 @@ namespace VidCoder.Services
 				}
 				else
 				{
-					if (updateDownloader != null)
-					{
-						// If we have just turned off updates, cancel any pending downloads.
-						updateDownloader.CancelAsync();
-					}
+					this.updateDownloadCancellationTokenSource?.Cancel();
 				}
 			}
 		}
@@ -220,18 +219,6 @@ namespace VidCoder.Services
 			return false;
 		}
 
-		private static string UpdateInfoUrl
-		{
-			get
-			{
-#if BETA
-				return UpdateInfoUrlBeta;
-#else
-				return UpdateInfoUrlNonBeta;
-#endif
-			}
-		}
-
 		private static void DeleteUpdatesFolder()
 		{
 			if (Directory.Exists(Utilities.UpdatesFolder))
@@ -275,10 +262,25 @@ namespace VidCoder.Services
 				return;
 			}
 
+			if (!Environment.Is64BitOperatingSystem)
+			{
+				if (!Config.UpdatesDisabled32BitOSWarningDisplayed)
+				{
+					// Need to show twice as the first one is automatically closed.
+					Ioc.Container.GetInstance<IMessageBoxService>().Show(CommonRes.UpdatesDisabled32BitOSMessage);
+					Ioc.Container.GetInstance<IMessageBoxService>().Show(CommonRes.UpdatesDisabled32BitOSMessage);
+
+					Config.UpdatesDisabled32BitOSWarningDisplayed = true;
+				}
+
+				this.State = UpdateState.NotSupported32BitOS;
+				return;
+			}
+
 			this.StartBackgroundUpdate();
 		}
 
-		private void StartBackgroundUpdate()
+		private async void StartBackgroundUpdate()
 		{
 			if (this.State != UpdateState.NotStarted && this.State != UpdateState.Failed && this.State != UpdateState.UpToDate)
 			{
@@ -288,205 +290,173 @@ namespace VidCoder.Services
 
 			this.State = UpdateState.DownloadingInfo;
 
-			this.updateDownloader = new BackgroundWorker { WorkerSupportsCancellation = true };
-			this.updateDownloader.DoWork += CheckAndDownloadUpdate;
-			this.updateDownloader.RunWorkerCompleted += (o, e) =>
+			this.updateDownloadCancellationTokenSource = new CancellationTokenSource();
+
+			await Task.Factory.StartNew(async () =>
 			{
-			};
-			this.updateDownloader.RunWorkerAsync();
-		}
-
-		private void CheckAndDownloadUpdate(object sender, DoWorkEventArgs e)
-		{
-			var updateDownloader = sender as BackgroundWorker;
-			SQLiteConnection connection = Database.ThreadLocalConnection;
-
-			try
-			{
-				UpdateInfo updateInfo = GetUpdateInfo(Beta);
-
-				if (updateInfo == null)
+				try
 				{
-					this.State = UpdateState.Failed;
-					this.logger.Log("Update download failed. Unable to get update info.");
-					return;
-				}
+					UpdateInfo updateInfo = await GetUpdateInfoAsync(Beta);
 
-				string updateVersion = updateInfo.LatestVersion;
-				this.LatestVersion = updateVersion;
-
-				if (Utilities.CompareVersions(updateVersion, Utilities.CurrentVersion) > 0)
-				{
-					// If an update is reported to be ready but the installer doesn't exist, clear out all the
-					// installer info and redownload.
-					string updateInstallerLocation = Config.UpdateInstallerLocation;
-					if (updateInstallerLocation != string.Empty && !File.Exists(updateInstallerLocation))
+					if (updateInfo == null)
 					{
-						using (SQLiteTransaction transaction = connection.BeginTransaction())
-						{
-							ClearUpdateMetadata();
-
-							transaction.Commit();
-						}
-
-						this.logger.Log("Downloaded update (" + updateInstallerLocation + ") could not be found. Re-downloading it.");
+						this.State = UpdateState.Failed;
+						this.logger.Log("Update download failed. Unable to get update info.");
+						return;
 					}
 
-					// If we have not finished the download update yet, start/resume the download.
-					if (Config.UpdateInstallerLocation == string.Empty)
+					string updateVersion = updateInfo.LatestVersion;
+					this.LatestVersion = updateVersion;
+					
+					if (Utilities.CompareVersions(updateVersion, Utilities.CurrentVersion) > 0)
 					{
-						string updateVersionText = updateVersion;
+						// If an update is reported to be ready but the installer doesn't exist, clear out all the
+						// installer info and redownload.
+						string updateInstallerLocation = Config.UpdateInstallerLocation;
+						if (updateInstallerLocation != string.Empty && !File.Exists(updateInstallerLocation))
+						{
+							using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
+							{
+								ClearUpdateMetadata();
+
+								transaction.Commit();
+							}
+
+							this.logger.Log("Downloaded update (" + updateInstallerLocation + ") could not be found. Re-downloading it.");
+						}
+
+						// If we have not finished the download update yet, start/resume the download.
+						if (Config.UpdateInstallerLocation == string.Empty)
+						{
+							string updateVersionText = updateVersion;
 #if BETA
-						updateVersionText += " Beta";
+							updateVersionText += " Beta";
 #endif
 
-						string message = string.Format(MainRes.NewVersionDownloadStartedStatus, updateVersionText);
-						this.logger.Log(message);
-						this.logger.ShowStatus(message);
+							string message = string.Format(MainRes.NewVersionDownloadStartedStatus, updateVersionText);
+							this.logger.Log(message);
+							this.logger.ShowStatus(message);
 
-						this.State = UpdateState.DownloadingInstaller;
+							this.State = UpdateState.DownloadingInstaller;
 
-						string downloadLocation = updateInfo.DownloadLocation;
-						string changelogLink = updateInfo.ChangelogLocation;
-						string installerFileName = Path.GetFileName(downloadLocation);
-						string installerFilePath = Path.Combine(Utilities.UpdatesFolder, installerFileName);
+							string downloadLocation = updateInfo.DownloadUrl;
+							string changelogLink = updateInfo.ChangelogUrl;
+							string installerFileName = Path.GetFileName(downloadLocation);
+							string installerFilePath = Path.Combine(Utilities.UpdatesFolder, installerFileName);
 
-						Stream responseStream = null;
-						FileStream fileStream = null;
+							Stream responseStream = null;
+							FileStream fileStream = null;
 
-						try
-						{
-							var request = (HttpWebRequest)WebRequest.Create(downloadLocation);
-							int bytesProgressTotal = 0;
-
-							if (File.Exists(installerFilePath))
+							try
 							{
-								var fileInfo = new FileInfo(installerFilePath);
+								var request = (HttpWebRequest)WebRequest.Create(downloadLocation);
+								int bytesProgressTotal = 0;
 
-								request.AddRange((int)fileInfo.Length);
-								bytesProgressTotal = (int)fileInfo.Length;
-
-								fileStream = new FileStream(installerFilePath, FileMode.Append, FileAccess.Write, FileShare.None);
-							}
-							else
-							{
-								fileStream = new FileStream(installerFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
-							}
-
-							var response = (HttpWebResponse)request.GetResponse();
-							responseStream = response.GetResponseStream();
-
-							byte[] downloadBuffer = new byte[2048];
-							int bytesRead;
-
-							while ((bytesRead = responseStream.Read(downloadBuffer, 0, downloadBuffer.Length)) > 0 && !updateDownloader.CancellationPending)
-							{
-								fileStream.Write(downloadBuffer, 0, bytesRead);
-								bytesProgressTotal += bytesRead;
-
-								if (this.UpdateDownloadProgress != null)
+								if (File.Exists(installerFilePath))
 								{
-									double completionPercentage = ((double)bytesProgressTotal * 100) / response.ContentLength;
-									this.UpdateDownloadProgress(this, new EventArgs<double>(completionPercentage));
+									var fileInfo = new FileInfo(installerFilePath);
+
+									request.AddRange((int)fileInfo.Length);
+									bytesProgressTotal = (int)fileInfo.Length;
+
+									fileStream = new FileStream(installerFilePath, FileMode.Append, FileAccess.Write, FileShare.None);
 								}
-							}
-
-							if (bytesRead == 0)
-							{
-								using (SQLiteTransaction transaction = connection.BeginTransaction())
+								else
 								{
-									Config.UpdateVersion = updateVersion;
-									Config.UpdateInstallerLocation = installerFilePath;
-									Config.UpdateChangelogLocation = changelogLink;
-
-									transaction.Commit();
+									fileStream = new FileStream(installerFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
 								}
 
-								this.State = UpdateState.InstallerReady;
+								var response = (HttpWebResponse)request.GetResponse();
+								responseStream = response.GetResponseStream();
 
-								message = string.Format(MainRes.NewVersionDownloadFinishedStatus, updateVersionText);
-								this.logger.Log(message);
-								this.logger.ShowStatus(message);
+								byte[] downloadBuffer = new byte[2048];
+								int bytesRead;
+
+								while ((bytesRead = responseStream.Read(downloadBuffer, 0, downloadBuffer.Length)) > 0 && !this.updateDownloadCancellationTokenSource.Token.IsCancellationRequested)
+								{
+									fileStream.Write(downloadBuffer, 0, bytesRead);
+									bytesProgressTotal += bytesRead;
+
+									if (this.UpdateDownloadProgress != null)
+									{
+										double completionPercentage = ((double)bytesProgressTotal * 100) / response.ContentLength;
+										this.UpdateDownloadProgress(this, new EventArgs<double>(completionPercentage));
+									}
+								}
+
+								if (bytesRead == 0)
+								{
+									using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
+									{
+										Config.UpdateVersion = updateVersion;
+										Config.UpdateInstallerLocation = installerFilePath;
+										Config.UpdateChangelogLocation = changelogLink;
+
+										transaction.Commit();
+									}
+
+									this.State = UpdateState.InstallerReady;
+
+									message = string.Format(MainRes.NewVersionDownloadFinishedStatus, updateVersionText);
+									this.logger.Log(message);
+									this.logger.ShowStatus(message);
+								}
+								else
+								{
+									// In this case the download must have been cancelled.
+									this.State = UpdateState.NotStarted;
+								}
 							}
-							else
+							finally
 							{
-								// In this case the download must have been cancelled.
-								this.State = UpdateState.NotStarted;
+								if (responseStream != null)
+								{
+									responseStream.Close();
+								}
+
+								if (fileStream != null)
+								{
+									fileStream.Close();
+								}
 							}
 						}
-						finally
+						else
 						{
-							if (responseStream != null)
-							{
-								responseStream.Close();
-							}
-
-							if (fileStream != null)
-							{
-								fileStream.Close();
-							}
+							this.State = UpdateState.InstallerReady;
 						}
 					}
 					else
 					{
-						this.State = UpdateState.InstallerReady;
+						this.State = UpdateState.UpToDate;
 					}
 				}
-				else
+				catch (Exception exception)
 				{
-					this.State = UpdateState.UpToDate;
+					this.State = UpdateState.Failed;
+					this.logger.Log("Update download failed: " + exception.Message);
 				}
-			}
-			catch (Exception exception)
-			{
-				this.State = UpdateState.Failed;
-				this.logger.Log("Update download failed: " + exception.Message);
-			}
+			});
 		}
 
-		internal static UpdateInfo GetUpdateInfo(bool beta)
+		internal static async Task<UpdateInfo> GetUpdateInfoAsync(bool beta)
 		{
 			string url = beta ? UpdateInfoUrlBeta : UpdateInfoUrlNonBeta;
 
 			try
 			{
-				XDocument document = XDocument.Load(url);
-				XElement root = document.Root;
+				HttpClient client = new HttpClient();
+				string updateJson = await client.GetStringAsync(url);
 
-				string configurationElementName;
-				if (IntPtr.Size == 4)
-				{
-					configurationElementName = "Release";
-				}
-				else
-				{
-					configurationElementName = "Release-x64";
-				}
+				JsonSerializerSettings settings = new JsonSerializerSettings();
+				settings.Converters.Add(new VersionConverter());
 
-				XElement configurationElement = root.Element(configurationElementName);
-				if (configurationElement == null)
-				{
-					return null;
-				}
-
-				XElement latestElement = configurationElement.Element("Latest");
-				XElement downloadElement = configurationElement.Element("DownloadLocation");
-				XElement changelogLinkElement = configurationElement.Element("ChangelogLocation");
-
-				if (latestElement == null || downloadElement == null || changelogLinkElement == null)
-				{
-					return null;
-				}
-
-				return new UpdateInfo
-					{
-						LatestVersion = latestElement.Value,
-						DownloadLocation = downloadElement.Value,
-						ChangelogLocation = changelogLinkElement.Value
-					};
+				UpdateInfo updateInfo = JsonConvert.DeserializeObject<UpdateInfo>(updateJson, settings);
+				return updateInfo;
 			}
-			catch (WebException)
+			catch (Exception exception)
 			{
+				Ioc.Container.GetInstance<ILogger>().Log("Could not get update info." + Environment.NewLine + exception);
+
 				return null;
 			}
 		}

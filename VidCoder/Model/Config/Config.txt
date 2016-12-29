@@ -41,6 +41,7 @@ LogWindowOpen|bool|false
 EncodeDetailsWindowOpen|bool|false
 
 UpdatesEnabled|bool|true
+UpdatesDisabled32BitOSWarningDisplayed|bool|false
 
 PreviewSeconds|int|10
 ApplicationVersion|string|""

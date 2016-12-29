@@ -1,6 +1,10 @@
 Installer/BuiltInstallers/*
+HandBrakeInterop.XmlSerializers.dll
+Flags/*
 packages/*
-ResourcesImport/*
+Import/*
+.vs
+*.pdn
 */bin/*
 */obj/*
 *gen.iss
@@ -8,5 +12,3 @@ ResourcesImport/*
 *.csproj.user
 *.user
 Installer/Files/*
-vidcoder.zip
-*.XmlSerializers.dll
