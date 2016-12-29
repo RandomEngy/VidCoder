@@ -230,18 +230,34 @@ ExitIfFailed
 # Update latest.xml files with version
 if ($beta)
 {
-    $latestFile = "Installer\latest-beta2.xml"
+    $versionTag = "v$versionShort-beta"
+    $installerFile = "VidCoder-$versionShort-Beta.exe"
+
+    if ($debugBuild) {
+        $latestFile = "Installer\Test\latest-beta.json"
+    } else {
+        $latestFile = "Installer\latest-beta.json"
+    }
 }
 else
 {
-    $latestFile = "Installer\latest.xml"
+    $versionTag = "v$versionShort"
+    $installerFile = "VidCoder-$versionShort.exe"
+
+    if ($debugBuild) {
+        $latestFile = "Installer\Test\latest.json"
+    } else {
+        $latestFile = "Installer\latest.xml"
+    }
 }
 
-$fileContent = Get-Content $latestFile
-$fileContent = $fileContent -replace "<Latest>[\d.]+</Latest>", ("<Latest>" + $versionShort + "</Latest>")
-$fileContent = $fileContent -replace "(VidCoder-)[\d.]+((?:-Beta)?-x\d{2})", ("`${1}" + $versionShort + "`${2}")
-$fileContent = $fileContent -replace "/v[\d.]+((?:-beta)?[/<])", ("/v" + $versionShort + "`${1}")
-Set-Content $latestFile $fileContent
+$latestJsonObject = Get-Content -Raw -Path $latestFile | ConvertFrom-Json
+
+$latestJsonObject.LatestVersion = $versionShort
+$latestJsonObject.DownloadUrl = "https://github.com/RandomEngy/VidCoder/releases/download/$versionTag/$installerFile"
+$latestJsonObject.ChangelogUrl = "https://github.com/RandomEngy/VidCoder/releases/tag/$versionTag"
+
+$latestJsonObject | ConvertTo-Json | Out-File $latestFile
 
 # Create .iss file in the correct configuration
 CreateIssFile $versionShort $beta $debugBuild
