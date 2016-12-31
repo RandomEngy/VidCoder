@@ -43,9 +43,9 @@ namespace VidCoder
 		public void StartEncode(
 			VCJob job,
 			IAppLogger logger,
-			bool preview, 
+			bool preview,
 			int previewNumber,
-			int previewSeconds, 
+			int previewSeconds,
 			double overallSelectedLengthSeconds)
 		{
 			this.Logger = logger;
@@ -61,6 +61,20 @@ namespace VidCoder
 					previewSeconds,
 					Config.DxvaDecoding,
 					EncodingRes.DefaultChapterName);
+			});
+		}
+
+		// Used for debug testing of encode JSON.
+		public void StartEncode(string encodeJson, IAppLogger logger)
+		{
+			this.Logger = logger;
+
+			this.encodeStartEvent = new ManualResetEventSlim(false);
+			this.encodeEndEvent = new ManualResetEventSlim(false);
+
+			this.StartOperation(channel =>
+			{
+				channel.StartEncode(encodeJson);
 			});
 		}
 
@@ -102,17 +116,17 @@ namespace VidCoder
 			}
 		}
 
-        public void OnScanProgress(float fractionComplete)
-        {
-            throw new NotImplementedException();
-        }
+		public void OnScanProgress(float fractionComplete)
+		{
+			throw new NotImplementedException();
+		}
 
-        public void OnScanComplete(string scanJson)
-	    {
-	        throw new NotImplementedException();
-	    }
+		public void OnScanComplete(string scanJson)
+		{
+			throw new NotImplementedException();
+		}
 
-	    public void OnEncodeStarted()
+		public void OnEncodeStarted()
 		{
 			this.IsEncodeStarted = true;
 			this.EncodeStarted?.Invoke(this, EventArgs.Empty);
@@ -124,7 +138,7 @@ namespace VidCoder
 		{
 			// Dispatch to avoid deadlocks on callbacks
 			DispatchUtilities.BeginInvoke(() =>
-			    {
+				{
 					lock (this.ProcessLock)
 					{
 						this.LastWorkerCommunication = DateTimeOffset.UtcNow;
@@ -136,7 +150,7 @@ namespace VidCoder
 								new EncodeProgressEventArgs(fractionComplete, currentFrameRate, averageFrameRate, estimatedTimeLeft, passId, pass, passCount));
 						}
 					}
-			    });
+				});
 		}
 
 		public void OnEncodeComplete(bool error)

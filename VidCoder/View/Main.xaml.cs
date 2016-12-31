@@ -15,8 +15,10 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Animation;
+using HandBrake.ApplicationServices.Interop.Json.Encode;
 using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Practices.Unity;
+using Newtonsoft.Json;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -24,6 +26,7 @@ using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
+using VidCoderCommon;
 using VidCoderCommon.Model;
 
 namespace VidCoder.View
@@ -51,6 +54,38 @@ namespace VidCoder.View
 
 			this.RefreshQueueColumns();
 			this.LoadCompletedColumnWidths();
+
+			if (CommonUtilities.DebugMode)
+			{
+				MenuItem queueFromJsonItem = new MenuItem {Header = "Queue job from JSON..."};
+				queueFromJsonItem.Click += (sender, args) =>
+				{
+					EncodeJobViewModel jobViewModel = this.viewModel.CreateEncodeJobVM();
+					DebugEncodeJsonDialog dialog = new DebugEncodeJsonDialog();
+					dialog.ShowDialog();
+
+					if (!string.IsNullOrWhiteSpace(dialog.EncodeJson))
+					{
+						try
+						{
+							JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(dialog.EncodeJson);
+
+							jobViewModel.DebugEncodeJsonOverride = dialog.EncodeJson;
+							jobViewModel.Job.OutputPath = encodeObject.Destination.File;
+							jobViewModel.Job.SourcePath = encodeObject.Source.Path;
+
+							this.processingService.Queue(jobViewModel);
+						}
+						catch (Exception exception)
+						{
+							MessageBox.Show(this, "Could not parse encode JSON:" + Environment.NewLine + Environment.NewLine + exception.ToString());
+						}
+					}
+				};
+
+				this.toolsMenu.Items.Add(new Separator());
+				this.toolsMenu.Items.Add(queueFromJsonItem);
+			}
 
 			this.DataContextChanged += this.OnDataContextChanged;
 			TheDispatcher = this.Dispatcher;

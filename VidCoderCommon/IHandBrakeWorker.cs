@@ -31,7 +31,13 @@ namespace VidCoderCommon
 			bool dxvaDecoding,
 			string defaultChapterNameFormat);
 
-		[OperationContract]
+        /// <summary>
+        /// Starts an encode with the given encode JSON.
+        /// </summary>
+        /// <param name="encodeJson">The encode JSON.</param>
+        void StartEncode(string encodeJson);
+
+        [OperationContract]
 		void PauseEncode();
 
 		[OperationContract]

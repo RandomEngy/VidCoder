@@ -47,7 +47,6 @@ namespace VidCoderCommon.Model
 		/// <param name="previewNumber">The preview number to start at (0-based). Leave off for a normal encode.</param>
 		/// <param name="previewSeconds">The number of seconds long to make the preview.</param>
 		/// <param name="previewCount">The total number of previews.</param>
-		/// <param name="logger">The logger to use.</param>
 		/// <returns></returns>
 		public JsonEncodeObject CreateJsonObject(
 			VCJob job,
@@ -748,7 +747,7 @@ namespace VidCoderCommon.Model
 			video.HWDecode = dxvaDecoding;
 			video.QSV = new QSV
 			{
-				Decode = profile.QsvDecode
+				Decode = profile.QsvDecode && profile.VideoEncoder == "qsv_h264"
 			};
 
 			if (profile.UseAdvancedTab)

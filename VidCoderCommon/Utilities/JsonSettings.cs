@@ -23,5 +23,16 @@ namespace VidCoderCommon.Utilities
 				ContractResolver = new VidCoderContractResolver()
 			};
 		}
+
+		public static JsonSerializerSettings HandBrakeJsonSerializerSettings
+		{
+			get
+			{
+				return new JsonSerializerSettings
+				{
+					NullValueHandling = NullValueHandling.Ignore,
+				};
+			}
+		}
 	}
 }

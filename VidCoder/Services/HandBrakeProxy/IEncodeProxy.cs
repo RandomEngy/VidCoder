@@ -42,5 +42,6 @@ namespace VidCoder
 		void StopEncode();
 
 		void StopAndWait();
+		void StartEncode(string encodeJson, IAppLogger logger);
 	}
 }

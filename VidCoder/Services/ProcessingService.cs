@@ -844,7 +844,7 @@ namespace VidCoder.Services
 		}
 
 		/// <summary>
-		/// Queues the given Job. Assumed that the job has an associated HandBrake instance and populated Length.
+		/// Queues the given Job. Assumed that the job has a populated Length.
 		/// </summary>
 		/// <param name="encodeJobVM">The job to add.</param>
 		public void Queue(EncodeJobViewModel encodeJobVM)
@@ -1262,7 +1262,15 @@ namespace VidCoder.Services
 
 			this.currentJobEta = TimeSpan.Zero;
 			this.EncodeQueue[0].ReportEncodeStart(this.totalTasks == 1);
-			this.encodeProxy.StartEncode(this.CurrentJob.Job, encodeLogger, false, 0, 0, 0);
+
+			if (!string.IsNullOrWhiteSpace(this.CurrentJob.DebugEncodeJsonOverride))
+			{
+				this.encodeProxy.StartEncode(this.CurrentJob.DebugEncodeJsonOverride, encodeLogger);
+			}
+			else
+			{
+				this.encodeProxy.StartEncode(this.CurrentJob.Job, encodeLogger, false, 0, 0, 0);
+			}
 		}
 
 		private bool canPauseOrStop;

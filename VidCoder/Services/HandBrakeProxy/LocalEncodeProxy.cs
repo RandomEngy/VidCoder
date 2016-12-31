@@ -12,6 +12,7 @@ using VidCoder.Services;
 using VidCoderCommon.Model;
 using System.Threading;
 using System.Xml.Serialization;
+using VidCoderCommon.Utilities;
 
 namespace VidCoder
 {
@@ -43,6 +44,47 @@ namespace VidCoder
 			double overallSelectedLengthSeconds)
 		{
 			this.logger = logger;
+
+			this.StartEncodeInternal(
+				job.SourcePath,
+				job.Title,
+				scanObject =>
+				{
+					SourceTitle encodeTitle = scanObject.TitleList.FirstOrDefault(title => title.Index == job.Title);
+					if (encodeTitle != null)
+					{
+						JsonEncodeFactory factory = new JsonEncodeFactory(logger);
+
+						JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
+							job,
+							encodeTitle,
+							EncodingRes.DefaultChapterName,
+							Config.DxvaDecoding,
+							preview ? previewNumber : -1,
+							previewSeconds,
+							Config.PreviewCount);
+
+						return JsonConvert.SerializeObject(jsonEncodeObject, JsonSettings.HandBrakeJsonSerializerSettings);
+					}
+					else
+					{
+						return null;
+					}
+				});
+		}
+
+		public void StartEncode(string encodeJson, IAppLogger logger)
+		{
+			this.logger = logger;
+
+			// Extract the scan title and path from the encode JSON.
+			JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(encodeJson);
+
+			this.StartEncodeInternal(encodeObject.Source.Path, encodeObject.Source.Title, scanObject => encodeJson);
+		}
+
+		private void StartEncodeInternal(string scanPath, int titleNumber, Func<JsonScanObject, string> jsonFunc)
+		{
 			this.logger.Log("Starting encode in-process");
 
 			this.encoding = true;
@@ -57,24 +99,12 @@ namespace VidCoder
 			{
 				try
 				{
-					SourceTitle title = this.instance.Titles.TitleList.FirstOrDefault(t => t.Index == job.Title);
-
-					if (title != null)
+					string encodeJson = jsonFunc(this.instance.Titles);
+					if (encodeJson != null)
 					{
 						lock (this.encoderLock)
 						{
-							JsonEncodeFactory factory = new JsonEncodeFactory(logger);
-
-							JsonEncodeObject jsonEncodeObject = factory.CreateJsonObject(
-								job,
-								title,
-								EncodingRes.DefaultChapterName,
-								Config.DxvaDecoding,
-								preview ? previewNumber : -1,
-								previewSeconds,
-								Config.PreviewCount);
-
-							this.instance.StartEncode(jsonEncodeObject);
+							this.instance.StartEncode(encodeJson);
 							this.IsEncodeStarted = true;
 							this.EncodeStarted?.Invoke(this, EventArgs.Empty);
 
@@ -102,9 +132,9 @@ namespace VidCoder
 				{
 					lock (this.encoderLock)
 					{
-						if (this.encoding && this.EncodeProgress != null)
+						if (this.encoding)
 						{
-							this.EncodeProgress(this, e);
+							this.EncodeProgress?.Invoke(this, e);
 						}
 					}
 				});
@@ -114,10 +144,7 @@ namespace VidCoder
 			{
 				if (this.encoding)
 				{
-					if (this.EncodeCompleted != null)
-					{
-						this.EncodeCompleted(this, e);
-					}
+					this.EncodeCompleted?.Invoke(this, e);
 
 					this.encoding = false;
 				}
@@ -126,7 +153,7 @@ namespace VidCoder
 				this.instance.Dispose();
 			};
 
-			this.instance.StartScan(job.SourcePath, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), job.Title);
+			this.instance.StartScan(scanPath, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), titleNumber);
 
 			this.encoding = true;
 		}

@@ -96,6 +96,9 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		// Set when the job should be overridden with the given JSON.
+		public string DebugEncodeJsonOverride { get; set; }
+
 		public MainViewModel MainViewModel
 		{
 			get
@@ -171,17 +174,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.Job.Subtitles == null)
-				{
-					return false;
-				}
-
-				if (this.Job.Subtitles.SourceSubtitles == null)
-				{
-					return false;
-				}
-
-				return this.Job.Subtitles.SourceSubtitles.Count(item => item.TrackNumber == 0) > 0;
+				return this.Job.Subtitles?.SourceSubtitles?.Count(item => item.TrackNumber == 0) > 0;
 			}
 		}
 

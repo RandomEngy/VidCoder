@@ -386,7 +386,7 @@
 					Header="{x:Static res:MainRes.ExitMenuItem}"
 					InputGestureText="Alt+F4" />
 			</MenuItem>
-			<MenuItem Header="{x:Static res:MainRes.ToolsMenu}">
+			<MenuItem Header="{x:Static res:MainRes.ToolsMenu}" Name="toolsMenu">
 				<MenuItem Command="{Binding ImportPreset}" Header="{x:Static res:MainRes.ImportPreset}" />
 				<MenuItem Command="{Binding ExportPreset}" Header="{x:Static res:MainRes.ExportPreset}" />
 				<Separator />

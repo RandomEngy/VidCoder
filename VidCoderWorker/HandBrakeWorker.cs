@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using VidCoderCommon;
 using VidCoderCommon.Model;
 using VidCoderCommon.Services;
+using VidCoderCommon.Utilities;
 
 namespace VidCoderWorker
 {
@@ -139,6 +140,14 @@ namespace VidCoderWorker
             this.instance.StartScan(path, this.passedPreviewCount, TimeSpan.FromSeconds(this.passedMinTitleDurationSeconds), 0);
 		}
 
+        /// <summary>
+        /// Starts an encode, given a VidCoder job and some extra data.
+        /// </summary>
+        /// <param name="job">The VidCoder job to run.</param>
+        /// <param name="previewNumber">The preview number to run.</param>
+        /// <param name="previewSeconds">The number of seconds the preview should be.</param>
+        /// <param name="dxvaDecoding">True if we should use hardware decoding.</param>
+        /// <param name="defaultChapterNameFormat">The default format for chapter names.</param>
 		public void StartEncode(
 			VCJob job,
 			int previewNumber,
@@ -146,87 +155,123 @@ namespace VidCoderWorker
 			bool dxvaDecoding,
 			string defaultChapterNameFormat)
 		{
-			try
-			{
-				this.instance = new HandBrakeInstance();
-				this.instance.Initialize(this.passedVerbosity);
+            this.StartEncodeInternal(
+                job.SourcePath,
+                job.Title,
+                scanObject =>
+                {
+                    SourceTitle encodeTitle = scanObject.TitleList.FirstOrDefault(title => title.Index == job.Title);
+                    if (encodeTitle != null)
+                    {
+                        JsonEncodeFactory factory = new JsonEncodeFactory(ServiceLocator.Current.GetInstance<ILogger>());
 
-				this.instance.ScanCompleted += (o, e) =>
-				{
-					try
-					{
-						SourceTitle encodeTitle = this.instance.Titles.TitleList.FirstOrDefault(title => title.Index == job.Title);
-						if (encodeTitle != null)
-						{
-							JsonEncodeFactory factory = new JsonEncodeFactory(ServiceLocator.Current.GetInstance<ILogger>());
+                        JsonEncodeObject encodeObject = factory.CreateJsonObject(
+                            job,
+                            encodeTitle,
+                            defaultChapterNameFormat,
+                            dxvaDecoding,
+                            previewNumber,
+                            previewSeconds,
+                            this.passedPreviewCount);
 
-							JsonEncodeObject encodeObject = factory.CreateJsonObject(
-								job,
-								encodeTitle,
-								defaultChapterNameFormat,
-								dxvaDecoding,
-								previewNumber,
-								previewSeconds,
-								this.passedPreviewCount);
-
-							////this.callback.OnVidCoderMessageLogged("Encode JSON:" + Environment.NewLine + JsonConvert.SerializeObject(encodeObject, Formatting.Indented));
-
-							lock (this.encodeLock)
-							{
-								this.instance.StartEncode(encodeObject);
-								this.callback.OnEncodeStarted();
-								this.state = EncodeState.Encoding;
-							}
-						}
-						else
-						{
-							this.callback.OnEncodeComplete(error: true);
-							this.CleanUpAndSignalCompletion();
-						}
-					}
-					catch (Exception exception)
-					{
-						this.callback.OnException(exception.ToString());
-						this.CleanUpAndSignalCompletion();
-					}
-				};
-
-				this.instance.EncodeProgress += (o, e) =>
-				{
-					this.StopOnException(() =>
-					{
-						this.callback.OnEncodeProgress((float)e.AverageFrameRate, (float)e.CurrentFrameRate, e.EstimatedTimeLeft, (float)e.FractionComplete, e.PassId, e.Pass, e.PassCount);
-					});
-				};
-
-				this.instance.EncodeCompleted += (o, e) =>
-				{
-					this.state = EncodeState.Finished;
-
-					try
-					{
-						this.callback.OnEncodeComplete(e.Error);
-					}
-					catch (CommunicationException exception)
-					{
-						WorkerErrorLogger.LogError("Got exception when reporting completion: " + exception, isError: true);
-					}
-					finally
-					{
-						this.CleanUpAndSignalCompletion();
-					}
-				};
-
-
-				this.instance.StartScan(job.SourcePath, this.passedPreviewCount, TimeSpan.FromSeconds(this.passedMinTitleDurationSeconds), job.Title);
-				this.state = EncodeState.Scanning;
-			}
-			catch (Exception exception)
-			{
-				this.callback.OnException(exception.ToString());
-				throw;
-			}
+						return JsonConvert.SerializeObject(encodeObject, JsonSettings.HandBrakeJsonSerializerSettings);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                });
 		}
+
+        /// <summary>
+        /// Starts an encode with the given encode JSON.
+        /// </summary>
+        /// <param name="encodeJson">The encode JSON.</param>
+        /// <remarks>Used for debug testing of raw encode JSON.</remarks>
+	    public void StartEncode(string encodeJson)
+	    {
+            // Extract the scan title and path from the encode JSON.
+	        JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(encodeJson);
+
+	        this.StartEncodeInternal(encodeObject.Source.Path, encodeObject.Source.Title, scanObject => encodeJson);
+	    }
+
+        /// <summary>
+        /// Starts an encode.
+        /// </summary>
+        /// <param name="scanPath">The path to scan.</param>
+        /// <param name="titleNumber">The title number to scan.</param>
+        /// <param name="jsonFunc">A function to pick the encode JSON given the scan.</param>
+	    private void StartEncodeInternal(string scanPath, int titleNumber, Func<JsonScanObject, string> jsonFunc)
+	    {
+            try
+            {
+                this.instance = new HandBrakeInstance();
+                this.instance.Initialize(this.passedVerbosity);
+
+                this.instance.ScanCompleted += (o, e) =>
+                {
+                    try
+                    {
+                        string encodeJson = jsonFunc(this.instance.Titles);
+                        if (encodeJson != null)
+                        {
+                            lock (this.encodeLock)
+                            {
+                                this.instance.StartEncode(encodeJson);
+                                this.callback.OnEncodeStarted();
+                                this.state = EncodeState.Encoding;
+                            }
+                        }
+                        else
+                        {
+                            this.callback.OnEncodeComplete(error: true);
+                            this.CleanUpAndSignalCompletion();
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        this.callback.OnException(exception.ToString());
+                        this.CleanUpAndSignalCompletion();
+                    }
+                };
+
+                this.instance.EncodeProgress += (o, e) =>
+                {
+                    this.StopOnException(() =>
+                    {
+                        this.callback.OnEncodeProgress((float)e.AverageFrameRate, (float)e.CurrentFrameRate, e.EstimatedTimeLeft, (float)e.FractionComplete, e.PassId, e.Pass, e.PassCount);
+                    });
+                };
+
+                this.instance.EncodeCompleted += (o, e) =>
+                {
+                    this.state = EncodeState.Finished;
+
+                    try
+                    {
+                        this.callback.OnEncodeComplete(e.Error);
+                    }
+                    catch (CommunicationException exception)
+                    {
+                        WorkerErrorLogger.LogError("Got exception when reporting completion: " + exception, isError: true);
+                    }
+                    finally
+                    {
+                        this.CleanUpAndSignalCompletion();
+                    }
+                };
+
+
+                this.instance.StartScan(scanPath, this.passedPreviewCount, TimeSpan.FromSeconds(this.passedMinTitleDurationSeconds), titleNumber);
+                this.state = EncodeState.Scanning;
+            }
+            catch (Exception exception)
+            {
+                this.callback.OnException(exception.ToString());
+                throw;
+            }
+        }
 
 		public static HandBrakeWorker CurrentWorker { get; private set; }
 
