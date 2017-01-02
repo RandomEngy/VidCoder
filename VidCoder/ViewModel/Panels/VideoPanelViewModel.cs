@@ -112,7 +112,7 @@ namespace VidCoder.ViewModel
 
 				string videoEncoder = selectedEncoder.Encoder.ShortName;
 
-				return videoEncoder == "qsv_h264";
+				return videoEncoder.StartsWith("qsv_", StringComparison.OrdinalIgnoreCase);
 			}).ToProperty(this, x => x.QsvSettingsVisible, out this.qsvSettingsVisible);
 
 			// EncoderSettingsVisible
@@ -125,7 +125,11 @@ namespace VidCoder.ViewModel
 
 				string videoEncoder = selectedEncoder.Encoder.ShortName;
 
-				return videoEncoder == "x264" || videoEncoder == "x265" || videoEncoder == "qsv_h264";
+				return 
+					videoEncoder.StartsWith("x264", StringComparison.OrdinalIgnoreCase) || 
+					videoEncoder.StartsWith("x265", StringComparison.OrdinalIgnoreCase) || 
+					videoEncoder == "qsv_h264" || 
+					videoEncoder == "qsv_h265";
 			}).ToProperty(this, x => x.EncoderSettingsVisible, out this.encoderSettingsVisible);
 
 			// BasicEncoderSettingsVisible
