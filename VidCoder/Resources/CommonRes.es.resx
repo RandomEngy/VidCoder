@@ -252,4 +252,7 @@ Una copia completa de la Licencia Publica General de GNU se ha incluido junto co
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Error en el funcionamiento del archivo</value>
   </data>
+  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
+    <value>Se deshabilitaron las actualizaciones ya que nuevas versiones no admiten sistemas operativos de 32 bits.</value>
+  </data>
 </root>

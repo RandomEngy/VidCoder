@@ -252,4 +252,7 @@ A full copy of the GNU General Public License has been included along with this 
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Fájlműveleti hiba</value>
   </data>
+  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
+    <value>A frissítések le vannak tiltva, mert az új verziók már nem támogatják a 32 bites operációs rendszereket.</value>
+  </data>
 </root>

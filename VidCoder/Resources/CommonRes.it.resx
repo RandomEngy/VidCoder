@@ -248,4 +248,7 @@
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Errore operazione di file</value>
   </data>
+  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
+    <value>Gli aggiornamenti sono stati disabilitati perché le nuove versioni non supportano i sistemi operativi a 32-bit.</value>
+  </data>
 </root>

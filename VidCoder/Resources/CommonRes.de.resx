@@ -252,4 +252,7 @@ Diesem Programm wurde eine vollständige Kopie der GNU General Public beigelegt.
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Fehler beim Dateivorgang</value>
   </data>
+  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
+    <value>Die Updates wurden deaktiviert da die neuen Versionen kein 32-Bit Betriebssystem mehr unterstützen.</value>
+  </data>
 </root>

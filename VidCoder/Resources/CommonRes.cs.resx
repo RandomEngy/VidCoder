@@ -252,4 +252,7 @@ Tento program je rozšiřován v naději že bude užitečný, ale BEZ JAKÉKOLI
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Chyba při operaci s tímto souborem</value>
   </data>
+  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
+    <value>Aktualizace byly zakázány protože nové verze již nepodporují 32-bitové operační systémy.</value>
+  </data>
 </root>

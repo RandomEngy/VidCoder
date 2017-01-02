@@ -252,4 +252,7 @@ Pełna kopia licencji GNU General Public została dołączona do tego programu.<
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Błąd operacji na pliku</value>
   </data>
+  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
+    <value>Aktualizacje zostały wyłączone, ponieważ nowe wersje nie obsługują 32-bitowych systemów operacyjnych.</value>
+  </data>
 </root>

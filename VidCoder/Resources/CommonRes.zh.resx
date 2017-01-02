@@ -252,4 +252,7 @@
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>文件处理出错</value>
   </data>
+  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
+    <value>更新已被禁用，因为新版本不再支持 32 位操作系统。</value>
+  </data>
 </root>
