@@ -108,7 +108,7 @@
     <value xml:space="preserve">Utilizzare i nomi personalizzati del capitolo:</value>
   </data>
   <data name="ImportFromCsvButton">
-    <value xml:space="preserve">Importazione da CSV...</value>
+    <value xml:space="preserve">Importazione da .CSV...</value>
   </data>
   <data name="NumberColumn">
     <value xml:space="preserve">Numero</value>

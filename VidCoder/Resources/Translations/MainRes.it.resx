@@ -133,25 +133,25 @@
     <value>File</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
-    <value>Aprire il File Video...</value>
+    <value>Apri file video...</value>
   </data>
   <data name="OpenDiscFolder" xml:space="preserve">
-    <value>Aprire la cartella DVD/Blu-ray...</value>
+    <value>Apri cartella DVD/Blu-ray...</value>
   </data>
   <data name="EnqueueMultipleFiles" xml:space="preserve">
-    <value>Accodare più file...</value>
+    <value>Accoda più file...</value>
   </data>
   <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Accodare più titoli...</value>
+    <value>Accoda più titoli...</value>
   </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>Strumenti</value>
   </data>
   <data name="ImportPreset" xml:space="preserve">
-    <value>Importa Preimpostazioni...</value>
+    <value>Importa preimpostazione...</value>
   </data>
   <data name="ExportPreset" xml:space="preserve">
-    <value>Esporta Preimpostazioni...</value>
+    <value>Esporta preimpostazione...</value>
   </data>
   <data name="OptionsMenuItem" xml:space="preserve">
     <value>Opzioni...</value>
@@ -185,13 +185,13 @@
     <value>Registro</value>
   </data>
   <data name="HelpMenu" xml:space="preserve">
-    <value>Guida</value>
+    <value>?</value>
   </data>
   <data name="VidCoderHomepageMenuItem" xml:space="preserve">
-    <value>VidCoder Homepage</value>
+    <value>Sito WEB di VidCoder</value>
   </data>
   <data name="ReportABugMenuItem" xml:space="preserve">
-    <value>Segnala un Bug</value>
+    <value>Segnala un problema</value>
   </data>
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
     <value>Info su VidCoder...</value>
@@ -284,22 +284,22 @@
     <value>Tracce: {0}</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
-    <value>Vuoi salvare le modifiche preimpostate attualmente?</value>
+    <value>Vuoi salvare le modifiche alla preimpostazione corrente?</value>
   </data>
   <data name="SaveChangesPresetTitle" xml:space="preserve">
-    <value>Salva preimpostazione corrente?</value>
+    <value>Salva la preimpostazione corrente?</value>
   </data>
   <data name="DiscNotInDriveError" xml:space="preserve">
     <value>Impossibile caricare per la modifica. Il disco non è più nell'unità.</value>
   </data>
   <data name="PresetNameRestoredFromQueue" xml:space="preserve">
-    <value>Ripristinato dalla Coda</value>
+    <value>Ripristinato dalla coda</value>
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
     <value>Ripristinato da completato</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Preimpostato:</value>
+    <value>Preimpostazione:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
     <value>Destinazione</value>
@@ -377,7 +377,7 @@
     <value>Percorso non valido</value>
   </data>
   <data name="Encode" xml:space="preserve">
-    <value>Codifica</value>
+    <value>Converti</value>
   </data>
   <data name="Resume" xml:space="preserve">
     <value>Riprendi</value>
@@ -419,7 +419,7 @@
     <value>Universale</value>
   </data>
   <data name="Preset_HighProfile" xml:space="preserve">
-    <value>Alto profilo</value>
+    <value>Profilo alto</value>
   </data>
   <data name="Preset_Normal" xml:space="preserve">
     <value>Normale</value>
@@ -455,19 +455,19 @@
     <value>Errore avvio URL: {0}</value>
   </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Impossibile importare il profilo. Controllare il registro per i dettagli.</value>
+    <value>Impossibile importare la preimpostazione. Controllare il registro per i dettagli.</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>Errore di importazione</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
-    <value>Preimpostazione Importata correttamente {0}.</value>
+    <value>Preimpostazione importata correttamente {0}</value>
   </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
-    <value>Preimpostazione esportata con successo a {0}</value>
+    <value>Preimpostazione esportata con successo in {0}</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
-    <value>Esporta Preimpostazioni</value>
+    <value>Esporta preimpostazione</value>
   </data>
   <data name="SaveChangesPickerMessage" xml:space="preserve">
     <value>Vuoi salvare le modifiche della tua Selezione attuale?</value>
@@ -542,7 +542,7 @@
     <value>Copia Registro</value>
   </data>
   <data name="PresetDiscardConfirmMessage" xml:space="preserve">
-    <value>Si hanno modifiche non salvate. Sei sicuro di che voler eliminare questi cambiamenti passando a un altra preimpostazione?</value>
+    <value>Hai delle modifiche non salvate. Sei sicuro di volere eliminare questi cambiamenti passando ad un altra preimpostazione?</value>
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Ignorare le modifiche?</value>
@@ -569,13 +569,13 @@
     <value>Impossibile importare la coda. Controllare il registro per i dettagli.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
-    <value>Importa file preimpostati</value>
+    <value>Importazione file di preimpostazione</value>
   </data>
   <data name="ImportQueueFilePickerTitle" xml:space="preserve">
     <value>Importa file di coda</value>
   </data>
   <data name="ImportQueue" xml:space="preserve">
-    <value>Coda di importazione...</value>
+    <value>Importa una coda...</value>
   </data>
   <data name="QueueExportSuccessMessage" xml:space="preserve">
     <value>Coda esportato correttamente a {0}</value>
@@ -638,7 +638,7 @@
     <comment>{0} is the path to the custom video player.</comment>
   </data>
   <data name="SizingPresetUpgradeWarning" xml:space="preserve">
-    <value>Attenzione: il ridimensionamento dell'interfaccia è stato aumentato a 2.0, quindi il tuo profilo può essere stato cambiato. È possibile controllarli per essere sicuri che siano ancora impostati correttamente.</value>
+    <value>Attenzione: il ridimensionamento dell'interfaccia è stato aumentato a 2.0, quindi le tue preimpostazioni possono essere state cambiate. È possibile controllarle per essere sicuri che siano ancora impostate correttamente.</value>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
     <value>Cartella di accodamento per i file video...</value>

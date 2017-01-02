@@ -117,136 +117,89 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>Seleção de áudio</value>
+  <data name="PlaySourceButton" xml:space="preserve">
+    <value>소스 재생하기</value>
   </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Gravar em</value>
+  <data name="EncodePreviewClipButton" xml:space="preserve">
+    <value>미리보기 클립 인코드하기</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Padrão</value>
+  <data name="EncodePreviewClipToolTip" xml:space="preserve">
+    <value>선택한 화면의 작은 미리보기를 인코드 후 재생합니다. 현재 인코딩 설정을 사용합니다.</value>
   </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Pesquisa de Áudio Externo</value>
+  <data name="GeneratingPreview" xml:space="preserve">
+    <value>미리보기 생성 중...</value>
   </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>Todas as faixas</value>
+  <data name="PlaySourceDisabledBluRayToolTip" xml:space="preserve">
+    <value>블루레이 소스 미리보기는 아직 지원하지 않습니다.</value>
   </data>
-  <data name="LanguagesRadioButton" xml:space="preserve">
-    <value>Idioma(s)</value>
+  <data name="PlaySourceDisabledNoPlayerToolTip" xml:space="preserve">
+    <value>지원되는 DVD 재생기를 찾지 못했습니다. 이 기능을 사용하려면 VLC나 MPC-HC를 설치하세요.</value>
   </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Somente se outro idioma de áudio</value>
-    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
+  <data name="PlaySourceToolTip" xml:space="preserve">
+    <value>소스 비디오를 재생합니다.</value>
   </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>Seleção de legendas</value>
+  <data name="PreviewClipGenerationFailedMessage" xml:space="preserve">
+    <value>미리보기 클립 생성에 실패했습니다. 자세한 내용은 로그 창을 보세요.</value>
   </data>
-  <data name="WindowTitle" xml:space="preserve">
-    <value>Seletor: {0}</value>
+  <data name="PreviewClipGenerationFailedTitle" xml:space="preserve">
+    <value>미리보기 클립 생성에 실패했습니다</value>
   </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>Seleção de título</value>
+  <data name="PreviewWindowTitleSimple" xml:space="preserve">
+    <value>미리보기: {0}x{1}</value>
   </data>
-  <data name="PickerButtonFormat" xml:space="preserve">
-    <value>Seletor: {0}</value>
-    <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
+  <data name="PreviewWindowTitleComplex" xml:space="preserve">
+    <value>미리보기: 출력 {0}x{1} - 저장 {2}x{3}</value>
   </data>
-  <data name="OutputLocation" xml:space="preserve">
-    <value>Local de saída</value>
+  <data name="NoVideoSourceTitle" xml:space="preserve">
+    <value>미리보기: 비디오 소스 없음</value>
   </data>
-  <data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>Substituir o diretório:</value>
+  <data name="Seconds" xml:space="preserve">
+    <value>초</value>
   </data>
-  <data name="PickerHelpText" xml:space="preserve">
-    <value>Escolhe automaticamente títulos, áudio, legendas e destino</value>
+  <data name="PreviewDisplay_Corners" xml:space="preserve">
+    <value>모서리</value>
   </data>
-  <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
-    <value>Enfileira automaticamente após a verificação</value>
+  <data name="PreviewDisplay_FitToWindow" xml:space="preserve">
+    <value>창에 맞추기</value>
   </data>
-  <data name="AutoEncodeOnScanCheckBox" xml:space="preserve">
-    <value>Iniciar codificação após a verificação</value>
+  <data name="PreviewDisplay_OneToOne" xml:space="preserve">
+    <value>1:1</value>
   </data>
-  <data name="UseGlobalSettingToolTip" xml:space="preserve">
-    <value>Use configuração global</value>
-    <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
+  <data name="ViewLabel" xml:space="preserve">
+    <value>보기:</value>
   </data>
-  <data name="PresetOverrideToolTip" xml:space="preserve">
-    <value>Isto substituirá qualquer predefinição escolhida na janela principal.</value>
+  <data name="TopMargin" xml:space="preserve">
+    <value>위쪽 여백</value>
   </data>
-  <data name="EncodingSection" xml:space="preserve">
-    <value>Codificando</value>
-    <comment>The header for the Encoding section in the Picker window.</comment>
+  <data name="LeftMargin" xml:space="preserve">
+    <value>왼쪽 여백</value>
   </data>
-  <data name="PostEncodingSection" xml:space="preserve">
-    <value>Pós-codificação</value>
-    <comment>Header for the post-encoding section in the picker window.</comment>
+  <data name="RightMargin" xml:space="preserve">
+    <value>오른쪽 여백</value>
   </data>
-  <data name="SendFileToLabel" xml:space="preserve">
-    <value>Envie arquivo para:</value>
-    <comment>Label for the option to run a program after encoding each file.</comment>
+  <data name="BottomMargin" xml:space="preserve">
+    <value>아래쪽 여백</value>
   </data>
-  <data name="PostEncodeArgumentsLabel" xml:space="preserve">
-    <value>Argumentos:</value>
-    <comment>The label for the arguments to pass to the post-encode executable.</comment>
+	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
+    <value>소스 파일을 찾을 수 없습니다.</value>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Os argumentos para passar para o programa. Use o {file} para o caminho de saída do arquivo.</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  <data name="CloseVideoButton" xml:space="preserve">
+    <value>비디오 닫기</value>
+    <comment>Button to close the preview video clip.</comment>
   </data>
-  <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
-    <value>Seletor especificou a predefinição de codificação.</value>
+  <data name="OpenInSystemPlayerButton" xml:space="preserve">
+    <value>시스템 재생기에서 열기</value>
   </data>
-  <data name="AddLanguageButton" xml:space="preserve">
-    <value>Adicionar idioma</value>
+  <data name="VolumeSliderLabel" xml:space="preserve">
+    <value>볼륨</value>
   </data>
-  <data name="AllTracksForTheseLanguagesRadioButton" xml:space="preserve">
-    <value>Todas as faixas para estes idiomas</value>
+  <data name="ReplayPreviewButton" xml:space="preserve">
+    <value>미리보기 다시 보기</value>
   </data>
-  <data name="AllTracksForThisLanguageRadioButton" xml:space="preserve">
-    <value>Todas as faixas para este idioma</value>
+  <data name="VideoErrorMessage" xml:space="preserve">
+    <value>내장 재생기로 비디오를 재생할 수 없습니다. 시스템 재생기로 열어 볼까요?</value>
   </data>
-  <data name="FirstTrackOfEachLanguageRadioButton" xml:space="preserve">
-    <value>Primeira faixa de cada idioma</value>
-  </data>
-  <data name="FirstTrackRadioButton" xml:space="preserve">
-    <value>Primeira faixa</value>
-  </data>
-  <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Marque a faixa de legenda como padrão, que ela aparecerá automaticamente durante a reprodução do vídeo.</value>
-  </data>
-  <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Marque a primeira faixa de legenda como padrão, que ela aparecerá automaticamente durante a reprodução do vídeo.</value>
-  </data>
-  <data name="FirstAsDefaultCheckBox" xml:space="preserve">
-    <value>Marcar primeiro como padrão</value>
-    <comment>Label for checkbox to mark the first subtitle as default.</comment>
-  </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>Inclua todas as legendas.</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>Nenhuma legenda é incluída.</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>Inclui somente a primeira faixa de áudio.</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Inclui todas as faixas de áudio.</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>Inclui apenas a primeira legenda.</value>
-  </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>Usar a predefinição:</value>
-  </data>
-  <data name="RemoveLanguageToolTip" xml:space="preserve">
-    <value>Remova este idioma.</value>
-  </data>
-  <data name="SortLanguagesLabel" xml:space="preserve">
-    <value>Classificar o idioma(s) para o topo:</value>
-  </data>
-  <data name="ForcedOnlyCheckBox" xml:space="preserve">
-    <value>Somente forçada</value>
+  <data name="VideoErrorTitle" xml:space="preserve">
+    <value>비디오 오류</value>
   </data>
 </root>

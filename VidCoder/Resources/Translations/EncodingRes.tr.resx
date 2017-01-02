@@ -296,12 +296,18 @@ Bunu yalnızca belirli bir profili desteklediğini bildiğiniz çalma aygıtın�
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Bölüm işaretçilerini dahil et</value>
   </data>
-  
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>Boyutlandırma</value>
+  </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Video filtreleri</value>
   </data>
-  
-  
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>Video Kodlaması</value>
+  </data>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>Ses Kodlaması</value>
+  </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>Gelişmiş Video</value>
   </data>
@@ -765,7 +771,9 @@ Bunu yalnızca belirli bir profili desteklediğini bildiğiniz çalma aygıtın�
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (Varsayılan)</value>
   </data>
-  
+  <data name="EncodingWindowTitle" xml:space="preserve">
+    <value>Kodlama ön ayarları: {0}</value>
+  </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>İlave gelişmiş x264 seçenekleri:</value>
   </data>
@@ -939,8 +947,13 @@ Bicubic: OpenCL donanım hızlandırmalı ölçeklendirme algoritmasıdır.</val
   <data name="OpenPresetsListToolTip" xml:space="preserve">
     <value>Hazır ayarlar listesini aç</value>
   </data>
-  
-  
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>Bölüm {0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>Geçiş ayarları</value>
+  </data>
   
   <data name="Passthrough_aac" xml:space="preserve">
     <value>AAC</value>
@@ -966,26 +979,72 @@ Bicubic: OpenCL donanım hızlandırmalı ölçeklendirme algoritmasıdır.</val
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>Geçişme Algılama:</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Mod:</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>Anamorfik Kullan</value>
+  </data>
+  <data name="AllowUpscalingCheckbox" xml:space="preserve">
+    <value>Ölçeği büyütmeye izin ver</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>El ile</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>En fazla {0}x ölçeği büyüt</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>Sadece ölçeği küçült</value>
+  </data>
   
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>Ölçekleme modu:</value>
+  </data>
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>Doldur</value>
+  </data>
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>Genişlik</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>Yükseklik</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>Hedef Genişlik:</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>Hedef yükseklik:</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>Renk:</value>
+  </data>
+  <data name="ColorPickerAdvancedButton" xml:space="preserve">
+    <value>Gelişmiş</value>
+  </data>
+  <data name="ColorPickerStandardButton" xml:space="preserve">
+    <value>Standart</value>
+  </data>
+  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
+    <value>Standart renkler</value>
+  </data>
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>Çözünürlük:</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>Biçim: anahtar1=değer1:anahtar2=değer2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
+  <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
+    <value>Tuşlar:</value>
+    <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
 </root>

@@ -243,12 +243,18 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Incluir capítulos</value>
   </data>
-  
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>Dimensionamento</value>
+  </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Filtros de vídeo</value>
   </data>
-  
-  
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>Codificação de vídeo</value>
+  </data>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>Codificação de áudio</value>
+  </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>Vídeo avançado</value>
   </data>
@@ -919,26 +925,71 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>Detenção de entrelaçamento:</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Modo:</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>Usar anamórfico</value>
+  </data>
+  <data name="AllowUpscalingCheckbox" xml:space="preserve">
+    <value>Permitir "upscaling"</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>Manual</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>Upscale {0}x máximo</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>Apenas Downscale</value>
+  </data>
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>Dimensionar para cima/baixo</value>
+  </data>
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>Modo de dimensionamento:</value>
+  </data>
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>Preencher</value>
+  </data>
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>Largura</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>Altura</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>Largura pretendida:</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>Altura pretendida:</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>Cores:</value>
+  </data>
+  <data name="ColorPickerAdvancedButton" xml:space="preserve">
+    <value>Avançado</value>
+  </data>
+  <data name="ColorPickerStandardButton" xml:space="preserve">
+    <value>Padrão</value>
+  </data>
+  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
+    <value>Cores padrão</value>
+  </data>
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>Resolução:</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>Formato: key1=value1:key2=value2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
   
 </root>

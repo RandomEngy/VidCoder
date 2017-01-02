@@ -291,12 +291,18 @@ iPod-ი და მსგავსი ხელსაწყოები ძი�
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>თავის მნიშვნელის გამოყენება</value>
   </data>
-  
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>განზომილება</value>
+  </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>ვიდეოფილტრი</value>
   </data>
-  
-  
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>ვიდეო კოდიფიკადორი</value>
+  </data>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>აუდიო კოდიფიკადორი</value>
+  </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>დამატებითი პარამეტრები</value>
   </data>
@@ -970,26 +976,76 @@ iPod-ი და მსგავსი ხელსაწყოები ძი�
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>ინთერლეისის დადგენა:</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>რეჟიმი:</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>ანამორფული</value>
+  </data>
+  <data name="AllowUpscalingCheckbox" xml:space="preserve">
+    <value>განზომილების გადიდება</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>პერსონალური</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>განზომილების x{0} გადიდება</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>მხოლოდ შემცირება</value>
+  </data>
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>სკალირების გაზრდა/შემცირება</value>
+  </data>
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>სკალირების რეჟიმი:</value>
+  </data>
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>შევსება</value>
+  </data>
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>სიგანე</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>სიმაღლე</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>მაქს. სიგანე:</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>მაქს. სიმაღლე:</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>ფერი:</value>
+  </data>
+  <data name="ColorPickerAdvancedButton" xml:space="preserve">
+    <value>დამატებითი პარამეტრები</value>
+  </data>
+  <data name="ColorPickerStandardButton" xml:space="preserve">
+    <value>სტანდარტი</value>
+  </data>
+  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
+    <value>სტანდარტი ფერები</value>
+  </data>
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>აქტივირებული ანამორფულით, არაკვადრატული პიქსელი ნებადართულია. შეიძლებელია ეფექტური შენახვა, მაგრამ შეუთავსებელია ზოგი რეპროდუქტორისთვის.</value>
+  </data>
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>განზომილება:</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>ფორმატი: პარამეტრი1=ეკვივალენტი1:პარამეტრი2=ეკვივალენტი2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
+  <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
+    <value>პარამეტრი:</value>
+    <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
 </root>

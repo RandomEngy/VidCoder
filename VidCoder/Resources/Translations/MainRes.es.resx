@@ -197,7 +197,7 @@
     <value>Acerca de VidCoder...</value>
   </data>
   <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>Elija una fuente de video:</value>
+    <value>Elegir una fuente de video:</value>
   </data>
   <data name="SourceLabel" xml:space="preserve">
     <value>Fuente:</value>
@@ -239,7 +239,7 @@
     <value>Haga clic para editar la ruta y el nombre del archivo final.</value>
   </data>
   <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>Elija la ruta de salida...</value>
+    <value>Selecciona la ruta de salida...</value>
   </data>
   <data name="EncodingLabel" xml:space="preserve">
     <value>Codificando:</value>
@@ -266,10 +266,10 @@
     <value>FPS promedio:</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
-    <value>Elija una carpeta de DVD o Blu-ray.</value>
+    <value>Elije una carpeta de DVD o Blu-ray.</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
-    <value>Hay codificaciones en progreso. ¿Esta seguro de que desea salir?</value>
+    <value>Hay codificaciones en progreso. ¿Estás seguro que quieres salir?</value>
   </data>
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
     <value>Codificaciones en progreso</value>
@@ -284,10 +284,10 @@
     <value>{0} pistas</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
-    <value>¿Desea guardar los cambios en su preset actual?</value>
+    <value>¿Quieres guardar los cambios en tu preset actual?</value>
   </data>
   <data name="SaveChangesPresetTitle" xml:space="preserve">
-    <value>¿Desea guardar el preset actual?</value>
+    <value>¿Quieres guardar el preset actual?</value>
   </data>
   <data name="DiscNotInDriveError" xml:space="preserve">
     <value>No se puede cargar para su edición. El disco ya no está en la unidad.</value>
@@ -329,22 +329,22 @@
     <value>En cola ({0})</value>
   </data>
   <data name="CompletedWithTotal" xml:space="preserve">
-    <value>Terminados ({0})</value>
+    <value>Terminado ({0})</value>
   </data>
   <data name="StoppedEncoding" xml:space="preserve">
     <value>La codificación se ha detenido.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>¿Está seguro de que desea borrar {0} archivo(s)/carpeta(s) de origen?</value>
+    <value>¿Estás seguro de que desea borrar {0} archivo(s)/carpeta(s) fuente?</value>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
-    <value>Confirmar borrar</value>
+    <value>Confirma para borrar</value>
   </data>
   <data name="CouldNotDeleteFile" xml:space="preserve">
     <value>No se pudo eliminar {0} {1}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
-    <value>Error al analizar el archivo(s) de vídeo</value>
+    <value>Error al analizar el(los) archivo(s) de vídeo</value>
   </data>
   <data name="StartedEncoding" xml:space="preserve">
     <value>Codificación iniciada.</value>
@@ -356,10 +356,10 @@
     <value>Error al crear directorio</value>
   </data>
   <data name="EncodeCompleted" xml:space="preserve">
-    <value>Codificacion completada.</value>
+    <value>Codificación completada.</value>
   </data>
   <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
-    <value>Codificacion completada</value>
+    <value>Codificación completada</value>
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
     <value>VidCoder ha terminado todos los trabajos en cola.</value>
@@ -440,7 +440,7 @@
     <value>La versión {0} ha terminado de descargar y se instalará al salir.</value>
   </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
-    <value>La actualización no se aplicó. Si usted no la canceló, trate de instalarla manualmente.</value>
+    <value>La actualización no se aplicó. Si no la cancelaste, trata de instalarla manualmente.</value>
   </data>
   <data name="CouldNotLoadPresetMessage" xml:space="preserve">
     <value>No se pudo cargar el preset: </value>
@@ -470,19 +470,19 @@
     <value>Exportar Preset</value>
   </data>
   <data name="SaveChangesPickerMessage" xml:space="preserve">
-    <value>¿Desea guardar los cambios a su selección actual?</value>
+    <value>¿Quieres guardar los cambios a tu selección actual?</value>
   </data>
   <data name="SaveChangesPickerTitle" xml:space="preserve">
     <value>¿Guardar selección actual?</value>
   </data>
   <data name="RevertConfirmMessage" xml:space="preserve">
-    <value>¿Está seguro que desea deshacer todos los cambios no guardados?</value>
+    <value>¿Estás seguro de deshacer todos los cambios no guardados?</value>
   </data>
   <data name="RevertConfirmTitle" xml:space="preserve">
     <value>Deshacer</value>
   </data>
   <data name="RemoveConfirmMessage" xml:space="preserve">
-    <value>¿Está seguro que desea eliminar este?</value>
+    <value>¿Estás seguro de eliminar esto?</value>
   </data>
   <data name="RemoveConfirmTitle" xml:space="preserve">
     <value>Quitar</value>
@@ -491,7 +491,7 @@
     <value>La configuración estaba dañada y no se pudo cargar. Algunos de los ajustes pueden haber sido reiniciados.</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
-    <value>Elija el directorio de salida para archivos codificados.</value>
+    <value>Elije el directorio de salida para archivos codificados.</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
     <value>({0})</value>
@@ -542,10 +542,10 @@
     <value>Copiar Log</value>
   </data>
   <data name="PresetDiscardConfirmMessage" xml:space="preserve">
-    <value>Hay cambios sin guardar. ¿Está seguro de que desea descartar estos cambios al cambiar a otro preset?</value>
+    <value>Vas a cambiar de preset. ¿Estás seguro de descartar los cambios no guardados?</value>
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
-    <value>¿Desea descartar los cambios?</value>
+    <value>¿Quieres descartar los cambios?</value>
   </data>
   <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>Eliminar la pista de audio</value>
@@ -554,7 +554,7 @@
     <value>Xbox 360</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
-    <value>Remover de la cola</value>
+    <value>Quitar de la cola</value>
   </data>
   <data name="CouldNotSaveQueueMessage" xml:space="preserve">
     <value>No se pudo guardar la cola: {0} {1}</value>
@@ -569,10 +569,10 @@
     <value>Ocurrió un error al importar la cola. Revise el archivo log para mayor referencia.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
-    <value>Importar archivo preestablecido</value>
+    <value>Importar preset</value>
   </data>
   <data name="ImportQueueFilePickerTitle" xml:space="preserve">
-    <value>Importar archivo de cola</value>
+    <value>Importar cola</value>
   </data>
   <data name="ImportQueue" xml:space="preserve">
     <value>Importar cola...</value>
@@ -587,7 +587,7 @@
     <value>¿Detener codificación?</value>
   </data>
   <data name="StopEncodeConfirmationMessage" xml:space="preserve">
-    <value>¿Está seguro que deseas detener la codificación?</value>
+    <value>¿Estás seguro de detener la codificación?</value>
   </data>
   <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
     <value>¿Cerrar el archivo actual y abrir el disco?</value>
@@ -599,13 +599,13 @@
     <value>Los ajustes de codificación han cambiado desde la última vez que se agregó un elemento a la cola. ¿Quieres aplicar la configuración actual de codificación a todos los elementos en la cola?</value>
   </data>
   <data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>Los ajustes han sido cambiados</value>
+    <value>Los ajustes han cambiado</value>
   </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
     <value>¿Quieres renombrar el archivo existente y empezar con uno nuevo?</value>
   </data>
   <data name="RenameDatabaseFileLine1" xml:space="preserve">
-    <value>No puede leer la versión {0} de la base de datos de archivos. La versión más alta reconocida por VidCoder {1} es {2}</value>
+    <value>No puede leer la versión {0} de la base de datos de archivos. La versión más actual reconocida por VidCoder {1} es {2}</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
   <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
@@ -631,10 +631,10 @@
     <comment>{0} is the version of the database file you have a backup for.</comment>
   </data>
   <data name="VideoPlayError" xml:space="preserve">
-    <value>Error de reproducción de vídeo.</value>
+    <value>Error al reproducir el vídeo.</value>
   </data>
   <data name="CustomVideoPlayerError" xml:space="preserve">
-    <value>El reproductor de vídeo personalizado no puede encontrarse en {0}.</value>
+    <value>El reproductor de vídeo personalizado no se encuentra en {0}.</value>
     <comment>{0} is the path to the custom video player.</comment>
   </data>
   <data name="SizingPresetUpgradeWarning" xml:space="preserve">

@@ -243,15 +243,17 @@ SAD es el método más rápido, seguido de SATD, RD, refinamiento de RD y los m�
 El enrejado toma mas velocidad en altas de tasas de bits(mas lento) .</value>
   </data>
   <data name="Advanced_WeightPToolTip" xml:space="preserve">
-    <value>Realiza análisis adicionales para decidir sobre la ponderación de parámetros para cada fotograma.   
-Esto mejora la compresión ligeramente y mejora grandemente la calidad de los desvanecientos.  
-El perfil básico, según sea necesario para iPods y dispositivos similares, requiere predicción ponderada de P-frame que esté deshabilitada.   
-Nota que algunos dispositivos y los reproductores, incluso aquellos que apoyan el perfil principal, pueden tener problemas con la predicción ponderada P-frame: Por ejemplo, Apple TV es totalmente incompatible con este.</value>
+    <value>Realiza análisis adicionales para decidir sobre la ponderación de parámetros para cada fotograma. 
+Esto mejora la compresión ligeramente y mejora notablemente la calidad de los degradados. 
+El perfil BASELINE, utilizado por iPods y dispositivos similares, requiere que WEIGHTED P-FRAMES esté deshabilitado.
+Nota que algunos dispositivos y reproductores de video, incluso aquellos que soportan el perfil MAIN, pueden tener problemas con la opcion WEIGHTED P-FRAMES: Por ejemplo, Apple TV es totalmente incompatible con esta opción.</value>
   </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
-    <value>Rango de compresión dinamico. Los valores válidos son de 0 a 4.  
+    <value>Dynamic Range Compression. Los valores válidos son de 0 a 4.  
 
-Para el audio de origen que tiene un rango dinámico amplio (secuencias muy fuertes y muy suaves), DRC permite "comprimir" el rango haciendo fuertes las secciones más blandas y las suaves más fuerte.</value>
+Para fuentes de audio con rango dinámico amplio (secuencias muy fuertes y muy suaves), DRC permite "comprimir" el rango haciendo fuertes las secciones más blandas y las suaves más fuerte.
+
+Esta opción funciona solamente con fuentes de audio de tipo AC3.</value>
   </data>
   <data name="Audio_GainToolTip" xml:space="preserve">
     <value>Amplifica o atenua el audio antes de codificarlo. Los valores válidos son de -20 a + 20 dB.</value>
@@ -263,24 +265,24 @@ Para el audio de origen que tiene un rango dinámico amplio (secuencias muy fuer
     <value>Aplica un marcador al archivo que iPods mas viejos requieren antes que permitieran sincronizacion de video H.264.</value>
   </data>
   <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Permite que los archivos mayores de 4GB. Cuando está activado, usa números de 64 bits de codificación. Algunos dispositivos como el iPod y la PS3 son incompatibles con esta opción.</value>
+    <value>Permite archivos mayores a 4GB. Cuando está activado, usa números de 64 bits de codificación. Algunos dispositivos como el iPod y la PS3 son incompatibles con esta opción.</value>
   </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
-    <value>Especificar manualmente una proporción de aspecto de píxeles.</value>
+    <value>Especificar manualmente una proporción de aspecto de pixeles.</value>
   </data>
   <data name="Video_QualityTargetToolTip" xml:space="preserve">
-    <value>Establece el factor de la calidad deseada. La escala utilizada por cada codificador de vídeo es diferente.</value>
+    <value>Establece el factor de calidad deseada. La escala utilizada por cada codificador de vídeo es diferente.</value>
   </data>
   <data name="WebOptimizedToolTip" xml:space="preserve">
-    <value>Organizar el archivo para reproducir mejor como una descarga progresiva.</value>
+    <value>Organizar el archivo para una mejor reproducir, como una descarga progresiva.</value>
   </data>
   <data name="ProfileToolTip" xml:space="preserve">
-    <value>Limitar el perfil de la secuencia de salida. Si especificas un perfil, reemplazara todas las otras configuraciones, así que si la utilizas, Garatizaras un flujo compatible.  
+    <value>Limitar el perfil del archivo de salida. Si especificas un perfil, reemplazará todas las otras configuraciones, así que si la utilizas, estás garantizando un archivo compatible.  
 
-Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es compatible con un perfil determinado.</value>
+Debes elegir esta opción solo si conoces que tú dispositivo de reproducción es compatible con un perfil determinado.</value>
   </data>
   <data name="X264TuneToolTip" xml:space="preserve">
-    <value>Ajustar opciones para optimizar aún más los de los contenidos de entrada. Si especificas una sintonía, los cambios se aplicarán después de la programación, pero antes de los demás parámetros.</value>
+    <value>La opción TUNE, sirve para optimizar aún más los parámetros en base al tipo de video. Si especificas un 'ajuste', los cambios se aplicarán después del PRESET, pero antes de los demás parámetros.</value>
   </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Contenedor:</value>
@@ -331,7 +333,7 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Resolución de almacenamiento:</value>
   </data>
   <data name="PixelAspectRatioLabel" xml:space="preserve">
-    <value>Proporción de aspecto de píxeles:</value>
+    <value>Proporción de aspecto de pixeles:</value>
   </data>
   <data name="DisplayResolutionLabel" xml:space="preserve">
     <value>Resolución de pantalla:</value>
@@ -398,7 +400,7 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Calidad</value>
   </data>
   <data name="TwoPassEncodingCheckBox" xml:space="preserve">
-    <value>Codificación en dos pasos</value>
+    <value>Codificación en dos pasadas</value>
   </data>
   <data name="TurboFirstPassCheckBox" xml:space="preserve">
     <value>Usar "Turbo" en la Primera pasada</value>
@@ -416,61 +418,61 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Ajustes básicos de x264</value>
   </data>
   <data name="ProfileLabel" xml:space="preserve">
-    <value>Perfil:</value>
+    <value>Profile:</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Preajuste:</value>
+    <value>Preset:</value>
   </data>
   <data name="TuneLabel" xml:space="preserve">
-    <value>Calibración:</value>
+    <value>Tune:</value>
   </data>
   <data name="Profile_baseline" xml:space="preserve">
-    <value>Línea base</value>
+    <value>Baseline</value>
   </data>
   <data name="Profile_main" xml:space="preserve">
-    <value>Principal</value>
+    <value>Main</value>
   </data>
   <data name="Profile_high" xml:space="preserve">
-    <value>Arriba</value>
+    <value>High</value>
   </data>
   <data name="Preset_UltraFast" xml:space="preserve">
-    <value>Ultra rápido</value>
+    <value>Ultra Fast</value>
   </data>
   <data name="Preset_SuperFast" xml:space="preserve">
-    <value>Súper rápido</value>
+    <value>Super Fast</value>
   </data>
   <data name="Preset_VeryFast" xml:space="preserve">
-    <value>Muy rápido</value>
+    <value>Very Fast</value>
   </data>
   <data name="Preset_Faster" xml:space="preserve">
-    <value>Más rápido</value>
+    <value>Faster</value>
   </data>
   <data name="Preset_Fast" xml:space="preserve">
-    <value>Rápido</value>
+    <value>Fast</value>
   </data>
   <data name="Preset_Medium" xml:space="preserve">
-    <value>Medio (por defecto)</value>
+    <value>Medium (Predeterminado)</value>
   </data>
   <data name="Preset_Slow" xml:space="preserve">
-    <value>Lento</value>
+    <value>Slow</value>
   </data>
   <data name="Preset_Slower" xml:space="preserve">
-    <value>Más lento</value>
+    <value>Slower</value>
   </data>
   <data name="Preset_VerySlow" xml:space="preserve">
-    <value>Muy lento</value>
+    <value>Very Slow</value>
   </data>
   <data name="Preset_Placebo" xml:space="preserve">
     <value>Placebo</value>
   </data>
   <data name="Tune_film" xml:space="preserve">
-    <value>Película</value>
+    <value>Film</value>
   </data>
   <data name="Tune_animation" xml:space="preserve">
-    <value>Animación</value>
+    <value>Animation</value>
   </data>
   <data name="Tune_grain" xml:space="preserve">
-    <value>Grano</value>
+    <value>Grain</value>
   </data>
   <data name="Tune_stillimage" xml:space="preserve">
     <value>Imagen fija</value>
@@ -482,7 +484,7 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>SSIM</value>
   </data>
   <data name="Tune_fastdecode" xml:space="preserve">
-    <value>Decodificar rápidamente</value>
+    <value>Decodificación Rápida</value>
   </data>
   <data name="Tune_zerolatency" xml:space="preserve">
     <value>Cero latencia</value>
@@ -491,22 +493,22 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>{0:0. ###} FPS</value>
   </data>
   <data name="CfrSameAsSourceToolTip" xml:space="preserve">
-    <value>Utiliza el framerate enumerado en el título de la fuente para una constante velocidad de fotogramas.</value>
+    <value>Utiliza el framerate indicado en el video fuente, para mantener la velocidad de fotogramas constante.</value>
   </data>
   <data name="CfrToolTip" xml:space="preserve">
     <value>Utiliza una velocidad constante de fotogramas.</value>
   </data>
   <data name="VfrSameAsSourceToolTip" xml:space="preserve">
-    <value>Permite una velocidad de fotogramas variable. Si el de origen tiene una velocidad variable, esta configuración se conservará. Ten en cuenta que algunos reproductores no son compatibles con las velocidades de fotogramas variables.</value>
+    <value>Permite una velocidad de fotogramas variable. Si el video origen tiene una velocidad de fotograma variable, esta configuración lo conservará. Ten en cuenta que algunos reproductores no son compatibles con las velocidades de fotogramas variables.</value>
   </data>
   <data name="VfrPeakFramerateToolTip" xml:space="preserve">
-    <value>Permite una velocidad de fotogramas variable y usar una tasa especificada como un pico. Si el de origen tiene una velocidad variable de fotogramas, esta configuración la conservará. Nota: Ten en cuenta que algunos reproductores no soportan las velocidades de fotogramas variables.</value>
+    <value>Permite una velocidad de fotogramas variable y usa la tasa especificada como tope Si el video origen tiene una velocidad variable de fotogramas, esta configuración lo conservará. Nota: Ten en cuenta que algunos reproductores no soportan las velocidades de fotogramas variables.</value>
   </data>
   <data name="VfrChoice" xml:space="preserve">
     <value>Framerate variable</value>
   </data>
   <data name="VfrPeakChoice" xml:space="preserve">
-    <value>Pico Framerate (VFR)</value>
+    <value>Framerate Tope (VFR)</value>
   </data>
   <data name="HighQuality" xml:space="preserve">
     <value>Alta calidad</value>
@@ -548,16 +550,16 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Nombre:</value>
   </data>
   <data name="AscendingQualityToolTip" xml:space="preserve">
-    <value>Los valores altos significan alta calidad.</value>
+    <value>Valores altos significan alta calidad.</value>
   </data>
   <data name="DescendingQualityToolTip" xml:space="preserve">
     <value>Valores bajos significan alta calidad.</value>
   </data>
   <data name="AudioQualityToolTip" xml:space="preserve">
-    <value>El objetivo de la calidad de audio. {0} Los valores válidos son de {1} a {2}.</value>
+    <value>La calidad de audio elegida. {0} Los valores válidos son de {1} a {2}.</value>
   </data>
   <data name="AscendingCompressionToolTip" xml:space="preserve">
-    <value>Altos valores significan alta compresión: mejor calidad/tamaño mas pequeño pero con tiempo mas largo de codificacion.</value>
+    <value>Altos valores significan alta compresión: mejor calidad/tamaño mas pequeño pero toma más tiempo en codificar.</value>
   </data>
   <data name="DescendingCompressionToolTip" xml:space="preserve">
     <value>Valores bajos significan alta compresión: mejor calidad/tamaño mas pequeño pero toma mas tiempo en codificar.</value>
@@ -639,64 +641,65 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Análisis</value>
   </data>
   <data name="AdaptiveBFramesLabel" xml:space="preserve">
-    <value>Adaptación B-Frames:</value>
+    <value>Adaptative B-Frames:</value>
   </data>
   <data name="AdaptiveDirectModeLabel" xml:space="preserve">
-    <value>Modo adaptación directa:</value>
+    <value>Adaptive Direct Mode:</value>
   </data>
   <data name="MotionEstimationMethodLabel" xml:space="preserve">
-    <value>Método de estimación de movimiento:</value>
+    <value>Motion Estimation Method:</value>
   </data>
   <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
-    <value>Estimación de movimiento de subpíxeles:</value>
+    <value>Subpixel Motion Estimation:</value>
   </data>
   <data name="MotionEstimationRangeLabel" xml:space="preserve">
-    <value>Rango de estimación de movimiento:</value>
+    <value>Motion Estimation Range:</value>
   </data>
   <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
-    <value>Fuerza de cuantización adaptable:</value>
+    <value>Adaptive Quantization Strength:</value>
   </data>
   <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
-    <value>Tasa de distorcion Psicovisual:</value>
+    <value>Psychovisual Rate Distortion:</value>
   </data>
   <data name="PsychovisualTrellisLabel" xml:space="preserve">
-    <value>Enrejado de Psicovisual:</value>
+    <value>
+Psychovisual Trellis:</value>
   </data>
   <data name="DeblockingLabel" xml:space="preserve">
-    <value>Desbloqueo:</value>
+    <value>Deblocking:</value>
   </data>
   <data name="PartitionTypeLabel" xml:space="preserve">
-    <value>Tipo de partición:</value>
+    <value>Partition Type:</value>
   </data>
   <data name="TrellisLabel" xml:space="preserve">
-    <value>Enrejado:</value>
+    <value>Trellis:</value>
   </data>
   <data name="OptionsString" xml:space="preserve">
-    <value>Opciones de cadena</value>
+    <value>Parámetros adicionales:</value>
   </data>
   <data name="PyramidalBFrames_Off" xml:space="preserve">
-    <value>Apagado</value>
+    <value>Inactivo</value>
   </data>
   <data name="PyramidalBFrames_Normal" xml:space="preserve">
     <value>Normal</value>
   </data>
   <data name="PyramidalBFrames_Strict" xml:space="preserve">
-    <value>Estricto</value>
+    <value>Strict</value>
   </data>
   <data name="AdaptiveBFrames_Off" xml:space="preserve">
-    <value>Apagado</value>
+    <value>Inactivo</value>
   </data>
   <data name="AdaptiveBFrames_Fast" xml:space="preserve">
-    <value>Rápido</value>
+    <value>Fast</value>
   </data>
   <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
-    <value>Óptimo</value>
+    <value>Optimal</value>
   </data>
   <data name="DirectPrediction_None" xml:space="preserve">
     <value>Ninguno</value>
   </data>
   <data name="DirectPrediction_Spatial" xml:space="preserve">
-    <value>Espacial</value>
+    <value>Spatial</value>
   </data>
   <data name="DirectPrediction_Temporal" xml:space="preserve">
     <value>Temporal</value>
@@ -705,19 +708,19 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Automatico</value>
   </data>
   <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
-    <value>Diamante</value>
+    <value>Diamond</value>
   </data>
   <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
-    <value>Hexágono</value>
+    <value>Hexagon</value>
   </data>
   <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
-    <value>Multi-hexagono desigual</value>
+    <value>Uneven Multi-Hexagon</value>
   </data>
   <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
-    <value>Exhaustivo</value>
+    <value>Exhaustive</value>
   </data>
   <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
-    <value>Transformada exhaustiva</value>
+    <value>Transformed Exhaustive</value>
   </data>
   <data name="SubpixelMotionEstimation_0" xml:space="preserve">
     <value>0: SAD, no subpel (super rápido!)</value>
@@ -738,40 +741,40 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>5: SATD, multi-qpel en todos</value>
   </data>
   <data name="SubpixelMotionEstimation_6" xml:space="preserve">
-    <value>6: RD en I/P-fotogramas</value>
+    <value>6: RD en I/P-frames</value>
   </data>
   <data name="SubpixelMotionEstimation_7" xml:space="preserve">
-    <value>7: RD en todos los marcos</value>
+    <value>7: RD en todos los cuadros</value>
   </data>
   <data name="SubpixelMotionEstimation_8" xml:space="preserve">
-    <value>8: Refinar RD en I/P-fotogramas</value>
+    <value>8: RD refinado en I/P-frames</value>
   </data>
   <data name="SubpixelMotionEstimation_9" xml:space="preserve">
-    <value>9: Refinar RD en todos los marcos</value>
+    <value>9: RD refinado en todos los cuadros</value>
   </data>
   <data name="SubpixelMotionEstimation_10" xml:space="preserve">
-    <value>10: QPRD en todos los marcos</value>
+    <value>10: QPRD en todos los cuadros</value>
   </data>
   <data name="SubpixelMotionEstimation_11" xml:space="preserve">
-    <value>11: No terminaciones tempranas en análisis</value>
+    <value>11: Sin terminaciones tempranas en análisis</value>
   </data>
   <data name="Analysis_None" xml:space="preserve">
-    <value>Ninguno</value>
+    <value>Ninguna</value>
   </data>
   <data name="Analysis_Some" xml:space="preserve">
-    <value>Alguno</value>
+    <value>Algunas</value>
   </data>
   <data name="Analysis_All" xml:space="preserve">
-    <value>Todo</value>
+    <value>Todas</value>
   </data>
   <data name="Trellis_Off" xml:space="preserve">
-    <value>Apagado</value>
+    <value>Inactivo</value>
   </data>
   <data name="Trellis_EncodeOnly" xml:space="preserve">
-    <value>Codificar sólo</value>
+    <value>Encode Only</value>
   </data>
   <data name="Trellis_Always" xml:space="preserve">
-    <value>Siempre</value>
+    <value>Always</value>
   </data>
   <data name="DefaultFormat" xml:space="preserve">
     <value>{0} (Por defecto)</value>
@@ -780,12 +783,12 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Preset de codificación: {0}</value>
   </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
-    <value>Opciones avanzadas adicionales de x 264:</value>
+    <value>Opciones avanzadas adicionales de x264:</value>
   </data>
   <data name="LevelToolTip" xml:space="preserve">
     <value>Establece y garantiza el cumplimiento con el nivel especificado del codificador. 
 
- Este anula todas demas configuraciones.</value>
+ Este anula las demás configuraciones.</value>
   </data>
   <data name="Profile_high444" xml:space="preserve">
     <value>High 4:4:4 Predictive</value>
@@ -803,7 +806,7 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>H.264 (x264)</value>
   </data>
   <data name="Analysis_Most" xml:space="preserve">
-    <value>La mayor parte</value>
+    <value>Most</value>
   </data>
   <data name="AdvancedQuery" xml:space="preserve">
     <value>Consulta avanzada</value>
@@ -812,7 +815,7 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Video</value>
   </data>
   <data name="X264Settings" xml:space="preserve">
-    <value>x 264 ajustes</value>
+    <value>Opciones de x264</value>
   </data>
   <data name="LevelLabel" xml:space="preserve">
     <value>Nivel:</value>
@@ -839,20 +842,20 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Modificadores</value>
   </data>
   <data name="DtsMp4Warning" xml:space="preserve">
-    <value>Pocos reproductores soportan  la reproduccion de audio DTS en contenedores MP3. El audio DTS esta recomendado para MKV.</value>
+    <value>Pocos reproductores soportan  la reproducción de audio DTS en contenedores MP4. Se recomienda el contenedor MKV para pistas de audio DTS.</value>
   </data>
   <data name="AudioEncoder_flac24" xml:space="preserve">
     <value>FLAC 24 bits</value>
   </data>
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
-    <value>Psicovisual</value>
+    <value>Psychovisual</value>
   </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>Básico</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
   </data>
   <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
-    <value>Ficha avanzada</value>
+    <value>Avanzado</value>
     <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
   </data>
   <data name="VideoEncoder_mpeg2" xml:space="preserve">
@@ -871,7 +874,7 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Fallback:</value>
   </data>
   <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
-    <value>Passthrough no funciona en todos los códecs de audio. Este especifica al codificador retroceder si la pista no puede ser pasada a través.</value>
+    <value>PASSTHROUGH o copia directa, no funciona con todos los codecs de audio. Este especifica al codificador retroceder si la pista no puede ser pasada a través.</value>
   </data>
   <data name="EncoderSettings" xml:space="preserve">
     <value>Configuración del codificador</value>
@@ -895,11 +898,11 @@ Debes elegir esta opcion solo si sabes si tú dispositivo de reproducción es co
     <value>Calidad</value>
   </data>
   <data name="PresetToolTip" xml:space="preserve">
-    <value>Cambiar las opciones para la perdida de eficiencia de compresión contra la velocidad de codificación.</value>
+    <value>Ajusta las opciones compensando la eficiencia de compresión contra la velocidad de codificación.</value>
   </data>
   <data name="ScaleMethodToolTip" xml:space="preserve">
-    <value>Lanczos: Éste es el escalador por defecto con la mejor calidad. 
-Bicúbica: Esto es un algoritmo OpenCL de escalamiento acelerado por hardware.</value>
+    <value>LANCZOS: Éste es el escalado por defecto con la mejor calidad. 
+BICUBIC: Esté es un algoritmo OpenCL de escalamiento acelerado por hardware.</value>
   </data>
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Passthrough</value>
@@ -908,7 +911,7 @@ Bicúbica: Esto es un algoritmo OpenCL de escalamiento acelerado por hardware.</
     <value>Auto</value>
   </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
-    <value>Especifica que el Passthough se aplicará a los codecs de entrada.</value>
+    <value>Especifica a que codecs de entrada se aplicará PASSTHROUGH o copia directa.</value>
   </data>
   <data name="FlipHorizontalCheckBox" xml:space="preserve">
     <value>Girar horizontalmente</value>
@@ -917,31 +920,31 @@ Bicúbica: Esto es un algoritmo OpenCL de escalamiento acelerado por hardware.</
     <value>Girar verticalmente</value>
   </data>
   <data name="Rotation_Clockwise90" xml:space="preserve">
-    <value>Clockwise 90°</value>
+    <value>Hacia la derecha 90°</value>
   </data>
   <data name="Rotation_Counterclockwise90" xml:space="preserve">
-    <value>Counterclockwise 90°</value>
+    <value>Hacia la izquierda 90°</value>
   </data>
   <data name="Rotation_180" xml:space="preserve">
     <value>180°</value>
   </data>
   <data name="RotationToolTip" xml:space="preserve">
-    <value>Rotar la imagen. Esta se aplicada después de todo tamaño y de cultivo.</value>
+    <value>Rotar la imagen. Este efecto es aplicado después del escalado y recorte.</value>
   </data>
   <data name="FlipHorizontalToolTip" xml:space="preserve">
-    <value>Girar la imagen horizontalmente. Esto es aplicado antes de cualquier rotación.</value>
+    <value>Girar la imagen horizontalmente. Esté efecto es aplicado antes de cualquier efecto de rotación.</value>
   </data>
   <data name="FlipVerticalToolTip" xml:space="preserve">
-    <value>Girar la imagen verticalmente. Esto es aplicado antes de cualquier rotación.</value>
+    <value>Girar la imagen verticalmente. Este efecto es aplicado antes de cualquier efecto de rotación.</value>
   </data>
   <data name="PassthroughIfPossibleCheckBox" xml:space="preserve">
-    <value>Passthrough si es posible</value>
+    <value>De ser posible, se utiliza PASSTHROUGH o copia directa</value>
   </data>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
-    <value>Si la pista de entrada coincide con el códec sera pasado a traves en lugar de codificar.</value>
+    <value>Si la pista de entrada coincide con el codec, esta será 'pasada' directamente sin codificar.</value>
   </data>
   <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Algoritmo de reescalado:</value>
+    <value>Algoritmo de escalado:</value>
   </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Rotación:</value>
@@ -1014,7 +1017,7 @@ Bicúbica: Esto es un algoritmo OpenCL de escalamiento acelerado por hardware.</
     <value>Ajustar arriba/abajo</value>
   </data>
   <data name="ScalingModeLabel" xml:space="preserve">
-    <value>Modo de ajuste:</value>
+    <value>Modo de escalado:</value>
   </data>
   <data name="PaddingMode_Fill" xml:space="preserve">
     <value>Rellenar</value>
@@ -1044,7 +1047,7 @@ Bicúbica: Esto es un algoritmo OpenCL de escalamiento acelerado por hardware.</
     <value>Colores estándar</value>
   </data>
   <data name="AnamorphicToolTip" xml:space="preserve">
-    <value>Con el Anamórfico activo, se permiten pixeles no cuadrados. Esto puede resultar en un almacenamiento más eficiente, pero no todos los reproductores de video soportan esta característica.</value>
+    <value>Con el Anamórfico activo, se permiten pixeles no cuadrados. Esto puede resultar en un almacenamiento más eficiente, pero no todos los reproductores soportan esta característica.</value>
   </data>
   <data name="ResolutionLabel" xml:space="preserve">
     <value>Resolución:</value>

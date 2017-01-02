@@ -208,10 +208,10 @@
     <value>Habilitar LibDVDNav (requiere reiniciar el programa)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Eliminar archivos de origen despues de limpiar la lista de objetos completados (con confirmacion)</value>
+    <value>Eliminar archivos de origen después de limpiar la lista de objetos completados (con confirmación)</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
-    <value>Registro de verbosidad:</value>
+    <value>Nivel de detalle del Log:</value>
   </data>
   <data name="MinScanLengthLabel" xml:space="preserve">
     <value>Longitud mínima del título para escanear (segundos):</value>
@@ -226,25 +226,25 @@
     <value>Opciones</value>
   </data>
   <data name="ProcessTab" xml:space="preserve">
-    <value>Procesar</value>
+    <value>Procesos</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>Avanzado</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Estas ejecutando la versión Beta. Esta se puede ejecutar de lado con la versión estable.</value>
+    <value>Estás ejecutando la versión Beta. Esta se puede ejecutar al mismo tiempo con la versión estable.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
     <value>Únete a la pista Beta para obtener las actualizaciones más frecuentes</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Actualizacion {0} lista. Se Instalará cuando salgas del programa.</value>
+    <value>Actualización {0} lista. Se Instalará cuando salgas del programa.</value>
   </data>
   <data name="DownloadingStatus" xml:space="preserve">
-    <value>Descargar actualización {0}:</value>
+    <value>Descargando actualización {0}:</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
-    <value>VidCoder esta al día.</value>
+    <value>VidCoder esta actualizado.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
     <value>Elige el directorio de salida para los videos codificados.</value>
@@ -256,13 +256,13 @@
     <value>El nuevo idioma surtirá efecto después de salir y reiniciar VidCoder.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
-    <value>Usar lenguaje OS</value>
+    <value>Usar Idioma del SO</value>
   </data>
   <data name="UpdatesTab" xml:space="preserve">
     <value>Actualizaciones</value>
   </data>
   <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Encontrando la ultima version...</value>
+    <value>Buscando la ultima versión...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Falló la comprobación de las actualizaciones.</value>
@@ -274,7 +274,7 @@
     <value>Versión actual: {0}</value>
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
-    <value>Atención: esta versión es más probable que tenga errores y accidentes.</value>
+    <value>Atención: ésta versión es inestable, puede contener errores o fallar inesperadamente.</value>
   </data>
   <data name="LanguagesSection" xml:space="preserve">
     <value>Idiomas</value>
@@ -364,16 +364,16 @@
     <value>Reanudar automaticamente la codificacion despues de reiniciar</value>
   </data>
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
-    <value>Utilizar el proceso de trabajo para codificar</value>
+    <value>Utilizar 'workers' para codificar</value>
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>Video</value>
   </data>
   <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>Habilitar decodificación DXVA de aceleración por Hardware</value>
+    <value>Habilitar la decodificación aceleración por Hardware DXVA</value>
   </data>
   <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>Esta opción sólo es adecuada para sistemas más lentos. Los decodificadores por hardware actualmente están diseñados para la reproducción, no para volver a codificar vídeo entonces, esta opción será un cuello de botella en sistemas más rápidos.</value>
+    <value>Esta opción sólo es adecuada para sistemas más lentos. Los decodificadores por hardware actualmente están diseñados para la reproducción, no para volver a codificar vídeo, entonces, esta opción será un cuello de botella en sistemas más rápidos.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Conservar el tiempo de creación y modificación cuando se conviertan archivos</value>

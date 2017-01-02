@@ -117,136 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>Audio hautapena</value>
+  <data name="OverrideTitleNumberToolTip" xml:space="preserve">
+    <value>선택하면, 이것은 출력 파일명을 만들기 위해 정상적인 타이틀을 무시할 것입니다. 예를 들어 타이틀 2, 3 및 4가 있고 7을 무시하고 재정의하면 이 타이틀은 7, 8 및 9로 기록될 것입니다. TV 시리즈의 디스크를 리핑할 때 유용할 수 있습니다.</value>
   </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Erre</value>
+  <data name="QueueTitlesWindowHeader" xml:space="preserve">
+    <value>대기열에 추가할 다수의 타이틀을 선택합니다.</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Berezkoa</value>
+  <data name="PlaySourceToolTip" xml:space="preserve">
+    <value>지원하는 재생기(VLC나 MPC-HC)가 설치되어 있으면, DVD의 개별 타이틀을 미리 볼 수 있습니다.</value>
   </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Beste Hizkuntzako Audio Bilaketa</value>
+  <data name="PlaySourceButton" xml:space="preserve">
+    <value>소스 재생하기</value>
   </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>Bide guztiak</value>
+  <data name="LengthRangePre" xml:space="preserve">
+    <value>모든 타이틀, 다음에서:</value>
+    <comment>Goes before the first number box in the length range specification.</comment>
   </data>
-  <data name="LanguagesRadioButton" xml:space="preserve">
-    <value>Hizkuntza(k)</value>
+  <data name="LengthRangeMid" xml:space="preserve">
+    <value>다음까지:</value>
+    <comment>Goes in between the two number boxes in the length range specification.</comment>
   </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Audiotik hizkuntza ezberdina bada bakarrik</value>
-    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
+  <data name="LengthRangePost" xml:space="preserve">
+    <value>분</value>
+    <comment>Goes after the second number box in the length range specification.</comment>
   </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>Azpidatzi hautapena</value>
+  <data name="OverrideTitleCheckBox" xml:space="preserve">
+    <value>타이틀 # 무시하고 시작하기:</value>
   </data>
-  <data name="WindowTitle" xml:space="preserve">
-    <value>Hautatzailea: {0}</value>
+  <data name="QueueTitlesDialogTitle" xml:space="preserve">
+    <value>다수의 타이들 대기열에 넣기</value>
   </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>Izenburu hautapena</value>
-  </data>
-  <data name="PickerButtonFormat" xml:space="preserve">
-    <value>Hautatzailea: {0}</value>
-    <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
-  </data>
-  <data name="OutputLocation" xml:space="preserve">
-    <value>Irteera kokapena</value>
-  </data>
-  <data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>Ezeztatu zuzenbidea:</value>
-  </data>
-  <data name="PickerHelpText" xml:space="preserve">
-    <value>Berezgaitasunez hautatu izenburuak, audioa, azpidatziak eta helmuga</value>
-  </data>
-  <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
-    <value>Berezgaitasunez lerrokatu mihatu ondoren</value>
-  </data>
-  <data name="AutoEncodeOnScanCheckBox" xml:space="preserve">
-    <value>Hasi kodeaketa mihatu ondoren</value>
-  </data>
-  <data name="UseGlobalSettingToolTip" xml:space="preserve">
-    <value>Erabili ezarpen orokorra</value>
-    <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
-  </data>
-  <data name="PresetOverrideToolTip" xml:space="preserve">
-    <value>Honek leiho nagusian hautatutako edozein aurrezarpen ezeztatuko du.</value>
-  </data>
-  <data name="EncodingSection" xml:space="preserve">
-    <value>Kodeaketa</value>
-    <comment>The header for the Encoding section in the Picker window.</comment>
-  </data>
-  <data name="PostEncodingSection" xml:space="preserve">
-    <value>Kodeaketa-ondoren</value>
-    <comment>Header for the post-encoding section in the picker window.</comment>
-  </data>
-  <data name="SendFileToLabel" xml:space="preserve">
-    <value>Bidali agiria hona:</value>
-    <comment>Label for the option to run a program after encoding each file.</comment>
-  </data>
-  <data name="PostEncodeArgumentsLabel" xml:space="preserve">
-    <value>Argumentuak:</value>
-    <comment>The label for the arguments to pass to the post-encode executable.</comment>
-  </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Programari igarotzeko argumentuak. erabili {file} agiriaren irteera helbururako.</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
-  <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
-    <value>Hautatzaileak adierazi du kodeaketa aurrezarpena.</value>
-  </data>
-  <data name="AddLanguageButton" xml:space="preserve">
-    <value>Gehitu Hizkuntza</value>
-  </data>
-  <data name="AllTracksForTheseLanguagesRadioButton" xml:space="preserve">
-    <value>Bide guztiak hizkuntza hauentzat</value>
-  </data>
-  <data name="AllTracksForThisLanguageRadioButton" xml:space="preserve">
-    <value>Bide guztiak hizkuntza honentzat</value>
-  </data>
-  <data name="FirstTrackOfEachLanguageRadioButton" xml:space="preserve">
-    <value>Hizkuntza bakoitzeko lehen bidea</value>
-  </data>
-  <data name="FirstTrackRadioButton" xml:space="preserve">
-    <value>Lehen bidea</value>
-  </data>
-  <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Markatu azpidatzi bidea berezkoa bezala, hortaz berezgaitasunez erakutsiko da bideoa irakurtzerakoan.</value>
-  </data>
-  <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Markatu lehen azpidatzi bidea berezkoa bezala, hortaz berezgaitasunez erakutsiko da bideoa irakurtzerakoan.</value>
-  </data>
-  <data name="FirstAsDefaultCheckBox" xml:space="preserve">
-    <value>Markatu lehena berezkoa bezala</value>
-    <comment>Label for checkbox to mark the first subtitle as default.</comment>
-  </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>Barneratu azpidatzi guztiak.</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>Ez da azpidatzirik barneratu.</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>Barneratu lehen audio bidea bakarrik.</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Barneratu audio bide guztiak.</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>Barneratu lehen azpidatzia bakarrik.</value>
-  </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>Erabili aurrezarpena:</value>
-  </data>
-  <data name="RemoveLanguageToolTip" xml:space="preserve">
-    <value>Kendu hizkuntza hau.</value>
-  </data>
-  <data name="SortLanguagesLabel" xml:space="preserve">
-    <value>Antolatu hizkuntza(k) gorantz:</value>
-  </data>
-  <data name="ForcedOnlyCheckBox" xml:space="preserve">
-    <value>Behartua bakarrik</value>
+  <data name="TitleFormat" xml:space="preserve">
+    <value>타이틀 {0}</value>
   </data>
 </root>

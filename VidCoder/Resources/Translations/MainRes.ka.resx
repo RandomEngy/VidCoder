@@ -630,10 +630,26 @@
     <value>სხვა ფაილი {0} არსებობს მსგავსი ხანგრძლივობით.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>გაქვთ ფაილის აღსადგენი {0} ვერსია. გსურთ გამოყენება?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>რეპროდუქცია წარუმატებელია.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>პერსონალური რეპროდუქტორი {0}-ში ვერ მოიძებნა.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>გაფრთხილება: ინტერფეისის განზომილება შეიცვალა 2.0-ისთვის, შესაძლებელია შეიცვალა თქვენი შაბლონები და გსურთ პარამეტრების შემოწმება.</value>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>ვიდეოფაილების ფოლდერის დავალებებში დამატება...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>სკანირებისას დაფიქსირდა შეცდომა და ზოგი ფაილი არ დაემატა დავალებებში:
+
+{0}</value>
+  </data>
 </root>

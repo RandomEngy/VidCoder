@@ -130,7 +130,7 @@
     <value>Ridurre al minimo la barra delle applicazioni</value>
   </data>
   <data name="MinimizeToSystemTrayRadioButton" xml:space="preserve">
-    <value>Minimizzare al vassoio di sistema</value>
+    <value>Riduci ad icona sull'area di notifica</value>
   </data>
   <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
     <value>Riprodurre l'audio sul completamento della coda</value>
@@ -145,7 +145,7 @@
     <value>Aggiornamenti automatici</value>
   </data>
   <data name="JoinBetaTrackCheckBox" xml:space="preserve">
-    <value>Unire la traccia di aggiornamento Beta</value>
+    <value>Iscriviti al programma di aggiornamento Beta</value>
   </data>
   <data name="FileNamingTab" xml:space="preserve">
     <value>Denominazione file</value>
@@ -199,7 +199,7 @@
     <value>Numero di anteprime di foto a scansione:</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
-    <value>Ricordate di cartelle e file usati in precedenza</value>
+    <value>Ricorda cartelle e file utilizzati in precedenza</value>
   </data>
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
     <value>Consentono l'impostazione nome personalizzato sulle tracce audio (supporto limitato giocatore)</value>
@@ -232,10 +232,10 @@
     <value>Avanzato</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>Si sta eseguendo la versione Beta. Questo può funzionare a fianco con la versione stabile.</value>
+    <value>State eseguendo una versione Beta. Questa può funzionare contemporaneamente alla versione stabile.</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
-    <value>Unisci la traccia Beta per aggiornamenti più frequenti</value>
+    <value>Iscriviti al programma Beta per ottenre aggiornamenti più frequenti</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
     <value>Aggiornare {0} pronto. Quando si esce il programma verrà installato.</value>
@@ -250,10 +250,10 @@
     <value>Scegliere la directory di output predefinito per i file video codificati.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
-    <value>Interfaccia lingua:</value>
+    <value>Lingua dell'interfaccia:</value>
   </data>
   <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
-    <value>La nuova lingua sarà effettive dopo uscire e riavviare VidCoder.</value>
+    <value>La nuova lingua sarà utilizzata dopo il riavvio di VidCoder.</value>
   </data>
   <data name="UseOSLanguage" xml:space="preserve">
     <value>Utilizzare la lingua del sistema operativo</value>
@@ -274,21 +274,19 @@
     <value>Versione corrente: {0}</value>
   </data>
   <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
-    <value>Attenzione: questa versione è più probabile avere bug e crash.</value>
+    <value>Attenzione: è probabile che questa versione sia affetta da problemi e blocchi.</value>
   </data>
   <data name="LanguagesSection" xml:space="preserve">
-    <value>Lingue</value>
+    <value>Lingua</value>
   </data>
   <data name="PlayersSection" xml:space="preserve">
-    <value>Suonatori
-	
-</value>
+    <value>Riproduttori</value>
   </data>
   <data name="SoundSection" xml:space="preserve">
     <value>Suono</value>
   </data>
   <data name="SystemTraySection" xml:space="preserve">
-    <value>Vassoio di sistema</value>
+    <value>Area di notifica</value>
   </data>
   <data name="OutputFolderSection" xml:space="preserve">
     <value>Cartella di output</value>
@@ -324,7 +322,7 @@
     <value>Controlla ora</value>
   </data>
   <data name="UseSystemPlayer" xml:space="preserve">
-    <value>Utilizza suonatore di sistema</value>
+    <value>Utilizza riproduttore di sistema</value>
   </data>
   <data name="VideoFilesLabel" xml:space="preserve">
     <value>File video:</value>
@@ -336,7 +334,7 @@
     <value>Scegliere il Suonatore da utilizzare per i file video.</value>
   </data>
   <data name="CustomPlayerLabel" xml:space="preserve">
-    <value>Suonatore personalizzato:</value>
+    <value>Riproduttore personalizzato:</value>
   </data>
   <data name="Priority_High" xml:space="preserve">
     <value>Elevata</value>

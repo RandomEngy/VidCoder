@@ -1,0 +1,1056 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Save" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="SaveAs" xml:space="preserve">
+    <value>다른 이름으로 저장...</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>되돌리기</value>
+  </data>
+  <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
+    <value>x264에는 B-프레임을 언제 얼마나 많이 사용할지 결정할 수 있는 다양한 알고리즘이 있습니다.
+
+고속 모드는 B-프레임을 얼마나 많이 지정하는지에 상관 없이 대략 비슷한 시간이 걸립니다. 그러나, 빠른 반면에 그 결정은 흔히 차선책입니다.
+
+최적 모드는 B-프레임의 최대 수가 증가하면서 더 느려지지만, 특히 B-피라미드와 함께 사용했을 때, 훨씬 더 정확한 결정을 내립니다.</value>
+  </data>
+  <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
+    <value>H.264는 B-프레임에서 공간과 시간의 두 가지 다른 예측 모드를 사용할 수 있습니다.
+
+기본값은 공간 예측 모드로 거의 항상 더 좋지만 때로는 시간 예측 모드 또한 유용합니다.
+
+x264는 작은 양의 속도를 희생하여(그런 이유로 작은 압축 이득), 각 특정한 프레임에 대해 어떤 것이 더 나은지 적절하게 선택할 수 있습니다.</value>
+  </data>
+  <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
+    <value>적응형 양자화는 인코더가 프레임 전체에 걸쳐 비트를 배포하는 방법을 제어합니다.
+값이 높을수록 미세한 세부 영영을 개선하기 위해 가장자리와 복잡한 영역에서 비트를 더 제거합니다.</value>
+  </data>
+  <data name="Advanced_AnalysisToolTip" xml:space="preserve">
+    <value>모드 결정은 그 결정을 내리기 위해 다양한 옵션에서 선택합니다: 이 옵션은 그것들이 무슨 옵션인지 선택합니다.
+최고의 옵션은 아예 그것을 꺼버리는 것이기 때문에, 더 적은 파티션 검사는 나쁜 결정을 대가로 빠른 인코딩을 의미합니다.</value>
+  </data>
+  <data name="Advanced_BFramesToolTip" xml:space="preserve">
+    <value>정상 값은 2~5입니다.
+이것은 인코더가 사용할 수 있는 순차 B-프레임의 최대 수를 지정합니다.
+적응형 B-프레임을 최적으로 설정하지 않는 한, 큰 수는 일반적으로 두드러지게 도움이 되지 않습니다.
+셀 애니메이션 소스 재료와 B-피라미드에서는 큰 값이 상당히 유용합니다.
+Baseline 프로파일은, 아이팟과 유사 기기에서 요구하는 것처럼, B-프레임을 0(끔)으로 설정해야 합니다.</value>
+  </data>
+  <data name="Advanced_CabacToolTip" xml:space="preserve">
+    <value>인코더가 작업을 완료한 후에, ZIP이나 RAR과 유사한 무손실 압축이 필요한 데이터가 많이 있습니다.  H.264는 이를 위해 두 가지 옵션을 제공합니다: CAVLC와 CABAC. CABAC는 많이 느리게 디코딩을 하지만, 특히 낮은 비트레이트에서 압축률이 상당히 더 좋습니다(10~30%). 비디오 재생시에 CPU 요구 사항을 최소화하려면, 이 옵션을 해제하세요. Baseline 프로파일은, 아이팟과 유사 기기에서 요구하는 것처럼, CABAC를 비활성화해야 합니다.</value>
+  </data>
+  <data name="Advanced_DeblockingToolTip" xml:space="preserve">
+    <value>H.264는 각 프레임을 디코딩한 후에 생기는 깍두기 결함을 부드럽게 만들어 주는 깍두기 제거(deblocking) 필터를 내장하고 있습니다. 이 필터는 시각적인 품질을 개선하고 압축에도 큰 도움이 됩니다.
+깍두기 제거 필터는 CPU를 많이 사용하기 때문에, 만약 비디오 재생시 CPU 사용률을 최소화하고 싶다면 이 필터를 비활성화하시기 바랍니다.
+
+깍두기 제거 필터는 두 개의 조정 가능한 변수인, "강도"와 "임계값"이 있습니다.
+전자는 깍두기 제거 강도에 관한 것이고 후자는 얼마나 많은(적은) 경계에 적용할 것인지에 대한 것입니다.
+값이 낮을수록 깍두기 제거를 덜하고 높을수록 깍두기 제거를 더 합니다. 기본값은 두 변수 모두 0입니다(0=보통 강도).</value>
+  </data>
+  <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
+    <value>8x8 변환은 압축당 속도의 측면에서 x264의 가장 유용한 단 하나의 기능입니다.
+이것은 속도가 아주 소폭 떨어지지만  적어도 5% 이상의 압축률의 이득을 볼 수 있고, 그 이득에 비교했을 때 현저히 높은 시각적인 화면  품질의 혜택을 누릴 수 있습니다.
+그러나, 그것은 많은 기기들에서 지원하지 않는 High 프로파일을 필요로 합니다.</value>
+  </data>
+  <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
+    <value>모션 추정 방법을 제어합니다. 모션 추정은 인코더가 프레임에서 각 픽셀의 블럭이 어떻게 움직이는지 추정하는 방법입니다.
+더 좋은 모션 검색 방법은 속도 대비 압축률을 향상시킵니다.
+
+다이아몬드: 다이아몬드 패턴을 이용하여 극단적으로 빠르고 간단한 검색을 수행합니다.
+
+육각형 Hexagon: 육각형 패턴을 이용하여 조금 더 효과적이지만 약간 더 느린 검색을 수행합니다.
+
+홀수의 다중 육각형: 복잡한 모션을 더 정확하게 캡처하는 다양한 패턴을 이용하여 매우 넓은 검색을 수행합니다.
+
+철저하게 Exhaustive: 넓은 영역에서 모든 픽셀의 "말없는" 검색을 수행합니다. 작은 압축 이득만을 위해 상당히 더 느립니다.
+
+변형된 철저하게: 철처하게와 같지만 훨씬 더 정확한 결정을 내립니다. 그래서 더 느리고 또한 역시 소폭의 향상만 있습니다.</value>
+  </data>
+  <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
+    <value>이것은 x264가 그 실제 모션을 찾으려는 시도를 위한 블럭의 모션에서  최선의 추측으로 검색하는 거리입니다.
+
+대부분의 컨텐츠에서 기본값은 괜찮지만, 매우 높은 모션 비디오는, 특히 HD 해상도에서, 더 높은 범위에서 혜택을 누릴 수 있습니다. 물론 속도가 떨어집니다.
+
+유효한 값은 다이아몬드와 육각형 방법은 4~16, 다른 방법은 4~64입니다.</value>
+  </data>
+  <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
+    <value>x264는 비디오에서  더 나은 다른 용도로 사용할 수 있도록 비트를 절약하기 위해 보통 거의 빈 데이터 블럭을 삭제합니다.
+그러나, 이것은 간혹 미세한 입자와 디더의 보존에 약간 부정적인 효과가 나타날 수 있습니다.
+밴딩 문제나 미세 잡음을 유지하는데 문제가 있는 그런 다른 경우가 아닌 한 이것을 만지지 마시기 바랍니다.</value>
+  </data>
+  <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
+    <value>시각심리 비율 왜곡은 미세한 세부 사항과 잡음을 구별하기 어려운 신호대 잡음비를 통해 컴퓨터가 그것을 이해하는 방식으로 품질을 최대화하려는 것과는 반대로, 
+x264가 인간의 눈에 더 나는 품질을 위해 세부 사항을 유지하려는 것을 의미합니다.</value>
+  </data>
+  <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
+    <value>시각심리 격자는 선명도와 세부 사항을 더 유지하려고 하지만, 인위적인 결함을 야기할 수 있습니다. 기본값이 꺼져 있는 실험적인 기능입니다. 좋은 값은 0.1~0.2 입니다.</value>
+  </data>
+  <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
+    <value>B 피라미드는 B 프레임의 피라미드 구조(이름대로)를 만듭니다.
+이것은 B 프레임이 압축을 개선하기 위해 상호 참조를 허용합니다.
+
+최대 B 프레임은 1 이상이 필요합니다; 전체 압축 이득을 위해 최적의 적응형 B 프레임을 강력히 추천합니다.</value>
+  </data>
+  <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
+    <value>정상 값은 1~6입니다.
+
+더 추가할 수록 압축이 더 좋아지지만 인코딩 속도는 느려집니다.
+
+셀 애니메이션은 필름 컨텐츠보다 훨씬 더 추가적인 기준 프레임에서 이득을 볼 수 있습니다.
+
+많은 하드웨어 장치들에서 지원하는 기준 프레임의 개수에 제한이 있음을 유의하세요. 그래서 만약 휴대용이나 독립적인 재생기용으로 인코딩하려면, 이것이 뭔지 정확히 모른다면 이것을 건드리지 마시길 바랍니다.</value>
+  </data>
+  <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
+    <value>이 설정은 하위 픽셀 모션 추정과 모드 결정 방법을 제어합니다.
+
+하위 픽셀 모션 추정은 압축을 향상시키고 단순한 픽셀 정확도 이상의 모션 추정을 개선하기 위해 사용됩니다.
+
+모드 결정은 프레임의 각 블럭을 어떻게 인코딩할 것인지 선택하기 위해 사용되는 방법입니다: 아우 중요함.
+
+SAD는 가장 빠른 방법이고, 그 다음으로 SATD, RD, RD 개선 모드와 가장 느린 QPRD가 있습니다.
+6 이상을 강력히 추천합니다: Psy-RD는 세부 사항 유지에 도움이 되는 아주 강력한 Psy 최적화로 RD가 필요합니다.
+10은 가장 강력하고 느린 옵션으로 격자=2가 필요합니다.</value>
+  </data>
+  <data name="Advanced_TrellisToolTip" xml:space="preserve">
+    <value>격자는 약간의 속도를 희생하여 3~5%의 추가적인 압축을 짜내기 위해 변환 계수의 반올림을 미세 조정합니다.
+"항상"은 메인 인코딩을 처리하는 동안뿐 아니라, 압축을 훨씬 더 향상시키는, 분석하는 동안(속도가 많이 떨어짐)에도 격자를 사용합니다.
+
+격자는 높은 비트레이트에서 속도가 더 떨어집니다.</value>
+  </data>
+  <data name="Advanced_WeightPToolTip" xml:space="preserve">
+    <value>각 프레임에 대해 가중치 변수를 결정하기 위해 추가 분석을 수행합니다.
+이것은 전체적인 압축을 약간 향상시키고 페이드 품질을 크게 개선합니다.
+Baseline 프로파일은, 아이팟과 유사 기기에서 요구되는 것처럼, 가중된 P-프레임 예측을 비활성화해야 합니다.
+몇몇 기기와 재생기에서, Main 프로파일을 지원하는 것들조차, 가중된 P-프레임 예측과 문제가 생길 수 있습니다: 예를 들어 애플 TV는 이것과 완전히 호환되지 않습니다.</value>
+  </data>
+  <data name="Audio_DrcToolTip" xml:space="preserve">
+    <value>동적 범위 압축입니다. 유효한 값은 0~4입니다.
+
+넓은 동적 범위(소리가 매우 크고 매우 작은 시퀀스)의 소스 오디오에 대해, DRC는 큰 구간은 더 작게, 작은 구간은 더 크게 만들어서 그 범위를 "압축"할 수 있게게 해 줍니다.
+
+이것은 AC3 소스에서만 동작합니다.</value>
+  </data>
+  <data name="Audio_GainToolTip" xml:space="preserve">
+    <value>인코딩 전 오디오를 증폭 또는 감쇄합니다. 유효한 값은 -20에서 +20dB입니다.</value>
+  </data>
+  <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
+    <value>인코딩한 비디오의 입력 비디오에서 챕터 마커를 포함합니다.</value>
+  </data>
+  <data name="IPod5GSupportToolTip" xml:space="preserve">
+    <value>이전의 아이팟이 H.264 비디오의 동기화를 허용하기 전에 요구하는 파일에 마커를 적용합니다.</value>
+  </data>
+  <data name="LargeFileSizeToolTip" xml:space="preserve">
+    <value>4기가 이상의 파일을 허용합니다. 이 옵션 사용시, 인코딩에 64비트 수를 사용합니다. 아이팟과 PS3같은 몇몇 기기는 이 옵션과 호환되지 않습니다.</value>
+  </data>
+  <data name="PixelAspectRatioToolTip" xml:space="preserve">
+    <value>픽셀 종횡비를 직접 지정합니다.</value>
+  </data>
+  <data name="Video_QualityTargetToolTip" xml:space="preserve">
+    <value>원하는 품질 계수를 설정하세요. 각 비디오 인코더마다 사용하는 값이 다릅니다.</value>
+  </data>
+  <data name="WebOptimizedToolTip" xml:space="preserve">
+    <value>프로그레시브 다운로드로 더 나은 재생을 위해 파일을 정렬합니다.</value>
+  </data>
+  <data name="ProfileToolTip" xml:space="preserve">
+    <value>출력 스트림의 프로파일을 제한합니다. 프로파일을 지정하면, 다른 모든 설정보다 우선 적용되므로 사용시 호환 스트림을 보장받을 수 있을 것입니다.
+
+당신의 재생기기가 특정 프로파일만 지원한다면 이것을 설정해야 합니다.</value>
+  </data>
+  <data name="X264TuneToolTip" xml:space="preserve">
+    <value>입력 컨텐츠를 더 최적화하려면 옵션을 조정하세요. 튜닝을 지정하면, 변경사항은 프리셋 이후에, 그러나 다른 모두 변수 이전에 적용될 것입니다.</value>
+  </data>
+  <data name="ContainerLabel" xml:space="preserve">
+    <value>컨테이너:</value>
+  </data>
+  <data name="ExtensionLabel" xml:space="preserve">
+    <value>확장자:</value>
+  </data>
+  <data name="LargeFileSizeCheckBox" xml:space="preserve">
+    <value>큰 파일 크기</value>
+  </data>
+  <data name="WebOptimizedCheckBox" xml:space="preserve">
+    <value>웹 최적화</value>
+  </data>
+  <data name="Ipod5GSupportCheckBox" xml:space="preserve">
+    <value>아이팟 5G 지원</value>
+  </data>
+  <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
+    <value>챕터 표시 포함</value>
+  </data>
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>크기 조절</value>
+  </data>
+  <data name="TabHeader_VideoFilters" xml:space="preserve">
+    <value>비디오 필터</value>
+  </data>
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>비디오 인코딩</value>
+  </data>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>오디오 인코딩</value>
+  </data>
+  <data name="TabHeader_Advanced" xml:space="preserve">
+    <value>고급 비디오</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>이름변경</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>입력</value>
+  </data>
+  <data name="AutoCaption" xml:space="preserve">
+    <value>(자동)</value>
+  </data>
+  <data name="NoneCaption" xml:space="preserve">
+    <value>(없음)</value>
+  </data>
+  <data name="StorageResolutionLabel" xml:space="preserve">
+    <value>저장 해상도:</value>
+  </data>
+  <data name="PixelAspectRatioLabel" xml:space="preserve">
+    <value>픽셀 종횡 비율:</value>
+  </data>
+  <data name="DisplayResolutionLabel" xml:space="preserve">
+    <value>출력 해상도:</value>
+  </data>
+  <data name="SizingLabel" xml:space="preserve">
+    <value>크기 조절</value>
+  </data>
+  <data name="WidthLabel" xml:space="preserve">
+    <value>너비:</value>
+  </data>
+  <data name="HeightLabel" xml:space="preserve">
+    <value>높이:</value>
+  </data>
+  <data name="MaxWidthLabel" xml:space="preserve">
+    <value>최대 너비:</value>
+  </data>
+  <data name="MaxHeightLabel" xml:space="preserve">
+    <value>최대 높이:</value>
+  </data>
+  <data name="ModulusLabel" xml:space="preserve">
+    <value>계수:</value>
+  </data>
+  <data name="OutputLabel" xml:space="preserve">
+    <value>출력</value>
+  </data>
+  <data name="CroppingLabel" xml:space="preserve">
+    <value>잘라내기</value>
+  </data>
+  <data name="DetelecineLabel" xml:space="preserve">
+    <value>역텔레시네:</value>
+  </data>
+  <data name="DecombLabel" xml:space="preserve">
+    <value>Decomb:</value>
+  </data>
+  <data name="DeinterlaceLabel" xml:space="preserve">
+    <value>디인터레이스:</value>
+  </data>
+  <data name="DenoiseLabel" xml:space="preserve">
+    <value>노이즈 제거:</value>
+  </data>
+  <data name="DeblockLabel" xml:space="preserve">
+    <value>깍두기 제거:</value>
+  </data>
+  <data name="GrayscaleCheckBox" xml:space="preserve">
+    <value>그레이스케일 인코딩</value>
+  </data>
+  <data name="TypeLabel" xml:space="preserve">
+    <value>형식:</value>
+  </data>
+  <data name="ShortFramerateLabel" xml:space="preserve">
+    <value>프레임 속도:</value>
+  </data>
+  <data name="CodecLabel" xml:space="preserve">
+    <value>코덱:</value>
+  </data>
+  <data name="FramerateLabel" xml:space="preserve">
+    <value>프레임 속도 (FPS):</value>
+  </data>
+  <data name="ConstantFramerateRadioButton" xml:space="preserve">
+    <value>일정한 프레임 속도</value>
+  </data>
+  <data name="Quality" xml:space="preserve">
+    <value>품질</value>
+  </data>
+  <data name="TwoPassEncodingCheckBox" xml:space="preserve">
+    <value>2 패스 인코딩</value>
+  </data>
+  <data name="TurboFirstPassCheckBox" xml:space="preserve">
+    <value>터보 첫 번째 패스</value>
+  </data>
+  <data name="TargetSizeRadioButton" xml:space="preserve">
+    <value>대상 크기 (MB)</value>
+  </data>
+  <data name="AverageBitrateRadioButton" xml:space="preserve">
+    <value>평균 비트 전송률 (kbps)</value>
+  </data>
+  <data name="ConstantQualityRadioButton" xml:space="preserve">
+    <value>일정한 품질</value>
+  </data>
+  <data name="X264BasicSettings" xml:space="preserve">
+    <value>x264 기본 설정</value>
+  </data>
+  <data name="ProfileLabel" xml:space="preserve">
+    <value>프로파일:</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>프리셋:</value>
+  </data>
+  <data name="TuneLabel" xml:space="preserve">
+    <value>조정:</value>
+  </data>
+  <data name="Profile_baseline" xml:space="preserve">
+    <value>Baseline</value>
+  </data>
+  <data name="Profile_main" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="Profile_high" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="Preset_UltraFast" xml:space="preserve">
+    <value>극도로 빠르게</value>
+  </data>
+  <data name="Preset_SuperFast" xml:space="preserve">
+    <value>최고로 빠르게</value>
+  </data>
+  <data name="Preset_VeryFast" xml:space="preserve">
+    <value>매우 빠르게</value>
+  </data>
+  <data name="Preset_Faster" xml:space="preserve">
+    <value>더 빠르게</value>
+  </data>
+  <data name="Preset_Fast" xml:space="preserve">
+    <value>빠르게</value>
+  </data>
+  <data name="Preset_Medium" xml:space="preserve">
+    <value>보통 (기본값)</value>
+  </data>
+  <data name="Preset_Slow" xml:space="preserve">
+    <value>느리게</value>
+  </data>
+  <data name="Preset_Slower" xml:space="preserve">
+    <value>더 느리게</value>
+  </data>
+  <data name="Preset_VerySlow" xml:space="preserve">
+    <value>매우 느리게</value>
+  </data>
+  <data name="Preset_Placebo" xml:space="preserve">
+    <value>플라시보</value>
+  </data>
+  <data name="Tune_film" xml:space="preserve">
+    <value>필름</value>
+  </data>
+  <data name="Tune_animation" xml:space="preserve">
+    <value>애니메이션</value>
+  </data>
+  <data name="Tune_grain" xml:space="preserve">
+    <value>그레인</value>
+  </data>
+  <data name="Tune_stillimage" xml:space="preserve">
+    <value>정지 화상</value>
+  </data>
+  <data name="Tune_psnr" xml:space="preserve">
+    <value>PSNR</value>
+  </data>
+  <data name="Tune_ssim" xml:space="preserve">
+    <value>SSIM</value>
+  </data>
+  <data name="Tune_fastdecode" xml:space="preserve">
+    <value>고속 디코드</value>
+  </data>
+  <data name="Tune_zerolatency" xml:space="preserve">
+    <value>레이턴시 없음</value>
+  </data>
+  <data name="FpsFormat" xml:space="preserve">
+    <value>{0:0.###} FPS</value>
+  </data>
+  <data name="CfrSameAsSourceToolTip" xml:space="preserve">
+    <value>일정한 프레임 속도에 대해, 소스 타이틀에서 나열된 프레임 속도를 사용합니다.</value>
+  </data>
+  <data name="CfrToolTip" xml:space="preserve">
+    <value>일정한 프레임 속도를 사용합니다.</value>
+  </data>
+  <data name="VfrSameAsSourceToolTip" xml:space="preserve">
+    <value>가변 프레임임 속도를 허용합니다. 소스가 가변 프레임 속도로 되어 있으면, 이 설정은 그것을 유지할 것입니다. 참고로 일부 재생기는 가변 프레임 속도를 지원하지 않습니다.</value>
+  </data>
+  <data name="VfrPeakFramerateToolTip" xml:space="preserve">
+    <value>가변 프레임 속도를 허용하고 지정한 값을 최대 속도로 사용합니다. 소스가 가변 프레임 속도로 되어 있으면, 이 설정은 그것을 유지할 것입니다. 참고로 일부 재생기는 가변 프레임 속도를 지원하지 않습니다.</value>
+  </data>
+  <data name="VfrChoice" xml:space="preserve">
+    <value>가변 프레임 속도</value>
+  </data>
+  <data name="VfrPeakChoice" xml:space="preserve">
+    <value>최대 프레임 속도 (VFR)</value>
+  </data>
+  <data name="HighQuality" xml:space="preserve">
+    <value>높은 품질</value>
+  </data>
+  <data name="LowQuality" xml:space="preserve">
+    <value>낮은 품질</value>
+  </data>
+  <data name="SameAsSource" xml:space="preserve">
+    <value>소스와 동일</value>
+  </data>
+  <data name="AddAudioEncodingButton" xml:space="preserve">
+    <value>오디오 인코딩 추가</value>
+  </data>
+  <data name="NoTracksPlaceholder" xml:space="preserve">
+    <value>(트랙 없음)</value>
+  </data>
+  <data name="TargetStream" xml:space="preserve">
+    <value>대상 스트림</value>
+  </data>
+  <data name="MixdownLabel" xml:space="preserve">
+    <value>믹스 다운:</value>
+  </data>
+  <data name="SampleRateLabel" xml:space="preserve">
+    <value>샘플 레이트:</value>
+  </data>
+  <data name="BitrateLabel" xml:space="preserve">
+    <value>비트 전송률:</value>
+  </data>
+  <data name="CompressionLabel" xml:space="preserve">
+    <value>압축:</value>
+  </data>
+  <data name="GainLabel" xml:space="preserve">
+    <value>이득 (dB):</value>
+  </data>
+  <data name="DrcLabel" xml:space="preserve">
+    <value>DRC:</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>이름:</value>
+  </data>
+  <data name="AscendingQualityToolTip" xml:space="preserve">
+    <value>높은 값은 높은 품질을 뜻합니다.</value>
+  </data>
+  <data name="DescendingQualityToolTip" xml:space="preserve">
+    <value>낮은 값은 낮은 품질을 뜻합니다.</value>
+  </data>
+  <data name="AudioQualityToolTip" xml:space="preserve">
+    <value>오디오 품질 대상입니다. {0} 유효한 값은 {1}에서 {2}입니다.</value>
+  </data>
+  <data name="AscendingCompressionToolTip" xml:space="preserve">
+    <value>높은 값은 높은 압축을 의미합니다: 더 좋은 품질과 더 작은 크기를 얻을 수 있지만 인코딩 시간이 더 오래 걸립니다.</value>
+  </data>
+  <data name="DescendingCompressionToolTip" xml:space="preserve">
+    <value>낮은 값은 높은 압축을 의미합니다: 더 좋은 품질과 더 작은 크기를 얻을 수 있지만 인코딩 시간이 더 오래 걸립니다.</value>
+  </data>
+  <data name="AudioCompressionToolTip" xml:space="preserve">
+    <value>적용할 압축의 양입니다. {0} 유효한 값은 {1}에서 {2}입니다.</value>
+  </data>
+  <data name="AudioEncoder_faac" xml:space="preserve">
+    <value>AAC (FAAC)</value>
+    <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
+  </data>
+  <data name="AudioEncoder_av_aac" xml:space="preserve">
+    <value>AAC (avcodec)</value>
+  </data>
+  <data name="AudioEncoder_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="AudioEncoder_flac16" xml:space="preserve">
+    <value>FLAC 16 비트</value>
+  </data>
+  <data name="AudioEncoder_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="AudioEncoder_vorbis" xml:space="preserve">
+    <value>Vorbis</value>
+  </data>
+  <data name="Mixdown_5point1" xml:space="preserve">
+    <value>5.1 채널</value>
+  </data>
+  <data name="Mixdown_5_2_lfe" xml:space="preserve">
+    <value>7.1 (5F/2R/LFE)</value>
+  </data>
+  <data name="Mixdown_dpl1" xml:space="preserve">
+    <value>돌비 서라운드</value>
+  </data>
+  <data name="Mixdown_dpl2" xml:space="preserve">
+    <value>돌비 프로 로직 II</value>
+  </data>
+  <data name="Mixdown_left_only" xml:space="preserve">
+    <value>모노 (왼쪽만)</value>
+  </data>
+  <data name="Mixdown_mono" xml:space="preserve">
+    <value>모노</value>
+  </data>
+  <data name="Mixdown_right_only" xml:space="preserve">
+    <value>모노 (오른쪽만)</value>
+  </data>
+  <data name="Mixdown_stereo" xml:space="preserve">
+    <value>스테레오</value>
+  </data>
+  <data name="Bitrate" xml:space="preserve">
+    <value>비트 전송률</value>
+  </data>
+  <data name="Encoding" xml:space="preserve">
+    <value>인코딩</value>
+  </data>
+  <data name="ReferenceFramesLabel" xml:space="preserve">
+    <value>참조 프레임:</value>
+  </data>
+  <data name="MaxBFramesLabel" xml:space="preserve">
+    <value>최대 B 프레임:</value>
+  </data>
+  <data name="CabacLabel" xml:space="preserve">
+    <value>CABAC:</value>
+  </data>
+  <data name="EightByEightTransformLabel" xml:space="preserve">
+    <value>8 x 8 변환:</value>
+  </data>
+  <data name="WeightedPFramesLabel" xml:space="preserve">
+    <value>가중된 P-프레임:</value>
+  </data>
+  <data name="PyramidalBFramesLabel" xml:space="preserve">
+    <value>피라미드 B-프레임:</value>
+  </data>
+  <data name="NoDctDecimateLabel" xml:space="preserve">
+    <value>DCT 블럭 소거 안 함:</value>
+  </data>
+  <data name="Analysis" xml:space="preserve">
+    <value>분석</value>
+  </data>
+  <data name="AdaptiveBFramesLabel" xml:space="preserve">
+    <value>적응형 B-프레임:</value>
+  </data>
+  <data name="AdaptiveDirectModeLabel" xml:space="preserve">
+    <value>적응형 직접 모드:</value>
+  </data>
+  <data name="MotionEstimationMethodLabel" xml:space="preserve">
+    <value>모션 추정 방법:</value>
+  </data>
+  <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
+    <value>하위 픽셀 모션 추정:</value>
+  </data>
+  <data name="MotionEstimationRangeLabel" xml:space="preserve">
+    <value>모션 추정 범위:</value>
+  </data>
+  <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
+    <value>적응형 양자화 강도:</value>
+  </data>
+  <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
+    <value>시각심리 비율 왜곡:</value>
+  </data>
+  <data name="PsychovisualTrellisLabel" xml:space="preserve">
+    <value>시각심리 격자:</value>
+  </data>
+  <data name="DeblockingLabel" xml:space="preserve">
+    <value>깍두기 제거:</value>
+  </data>
+  <data name="PartitionTypeLabel" xml:space="preserve">
+    <value>파티션 형식:</value>
+  </data>
+  <data name="TrellisLabel" xml:space="preserve">
+    <value>격자:</value>
+  </data>
+  <data name="OptionsString" xml:space="preserve">
+    <value>옵션 문자열</value>
+  </data>
+  <data name="PyramidalBFrames_Off" xml:space="preserve">
+    <value>끄기</value>
+  </data>
+  <data name="PyramidalBFrames_Normal" xml:space="preserve">
+    <value>보통</value>
+  </data>
+  <data name="PyramidalBFrames_Strict" xml:space="preserve">
+    <value>엄격한</value>
+  </data>
+  <data name="AdaptiveBFrames_Off" xml:space="preserve">
+    <value>끄기</value>
+  </data>
+  <data name="AdaptiveBFrames_Fast" xml:space="preserve">
+    <value>빠르게</value>
+  </data>
+  <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
+    <value>최적의</value>
+  </data>
+  <data name="DirectPrediction_None" xml:space="preserve">
+    <value>없음</value>
+  </data>
+  <data name="DirectPrediction_Spatial" xml:space="preserve">
+    <value>공간의 Spatial</value>
+  </data>
+  <data name="DirectPrediction_Temporal" xml:space="preserve">
+    <value>시간의 Temporal</value>
+  </data>
+  <data name="DirectPrediction_Automatic" xml:space="preserve">
+    <value>자동으로</value>
+  </data>
+  <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
+    <value>마름모꼴 Diamond</value>
+  </data>
+  <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
+    <value>육각형 Hexagon</value>
+  </data>
+  <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
+    <value>홀수의 다중 육각형 Uneven Multi-Hexagon</value>
+  </data>
+  <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
+    <value>철저하게 Exhaustive</value>
+  </data>
+  <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
+    <value>변형된 철저하게 Transformed Exhaustive</value>
+  </data>
+  <data name="SubpixelMotionEstimation_0" xml:space="preserve">
+    <value>0: SAD, no subpel (초고속!)</value>
+  </data>
+  <data name="SubpixelMotionEstimation_1" xml:space="preserve">
+    <value>1: SAD, qpel</value>
+  </data>
+  <data name="SubpixelMotionEstimation_2" xml:space="preserve">
+    <value>2: SATD, qpel</value>
+  </data>
+  <data name="SubpixelMotionEstimation_3" xml:space="preserve">
+    <value>3: SATD, multi-qpel</value>
+  </data>
+  <data name="SubpixelMotionEstimation_4" xml:space="preserve">
+    <value>4: SATD, qpel on all</value>
+  </data>
+  <data name="SubpixelMotionEstimation_5" xml:space="preserve">
+    <value>5: SATD, multi-qpel on all</value>
+  </data>
+  <data name="SubpixelMotionEstimation_6" xml:space="preserve">
+    <value>6: RD in I/P-frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_7" xml:space="preserve">
+    <value>7: RD in all frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_8" xml:space="preserve">
+    <value>8: RD refine in I/P-frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_9" xml:space="preserve">
+    <value>9: RD refine in all frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_10" xml:space="preserve">
+    <value>10: QPRD in all frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_11" xml:space="preserve">
+    <value>11: 분석에서 초기 종료 없음</value>
+  </data>
+  <data name="Analysis_None" xml:space="preserve">
+    <value>없음</value>
+  </data>
+  <data name="Analysis_Some" xml:space="preserve">
+    <value>일부</value>
+  </data>
+  <data name="Analysis_All" xml:space="preserve">
+    <value>전부</value>
+  </data>
+  <data name="Trellis_Off" xml:space="preserve">
+    <value>끄기</value>
+  </data>
+  <data name="Trellis_EncodeOnly" xml:space="preserve">
+    <value>인코드만</value>
+  </data>
+  <data name="Trellis_Always" xml:space="preserve">
+    <value>항상</value>
+  </data>
+  <data name="DefaultFormat" xml:space="preserve">
+    <value>{0} (기본값값)</value>
+  </data>
+  <data name="EncodingWindowTitle" xml:space="preserve">
+    <value>인코딩 프리셋: {0}</value>
+  </data>
+  <data name="AdvancedOptionsStringLabel" xml:space="preserve">
+    <value>추가 고급 x264 옵션:</value>
+  </data>
+  <data name="LevelToolTip" xml:space="preserve">
+    <value>지정한 인코더 수준을 준수하도록 설정하고 보장합니다.
+
+다른 모든 설정보다 우선합니다.</value>
+  </data>
+  <data name="Profile_high444" xml:space="preserve">
+    <value>높은 4:4:4 예측</value>
+  </data>
+  <data name="VideoCodecLabel" xml:space="preserve">
+    <value>비디오 코덱:</value>
+  </data>
+  <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
+    <value>MPEG-2 (Libav)</value>
+  </data>
+  <data name="VideoEncoder_ffmpeg4" xml:space="preserve">
+    <value>MPEG-4 (Libav)</value>
+  </data>
+  <data name="VideoEncoder_x264" xml:space="preserve">
+    <value>H.264 (x264)</value>
+  </data>
+  <data name="Analysis_Most" xml:space="preserve">
+    <value>대부분</value>
+  </data>
+  <data name="AdvancedQuery" xml:space="preserve">
+    <value>고급 질의</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>비디오</value>
+  </data>
+  <data name="X264Settings" xml:space="preserve">
+    <value>x264 설정</value>
+  </data>
+  <data name="LevelLabel" xml:space="preserve">
+    <value>수준:</value>
+  </data>
+  <data name="MoreSettingsLabel" xml:space="preserve">
+    <value>추가 설정:</value>
+  </data>
+  <data name="Track" xml:space="preserve">
+    <value>트랙</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>소스</value>
+  </data>
+  <data name="Encoder" xml:space="preserve">
+    <value>인코더</value>
+  </data>
+  <data name="ChannelLayout" xml:space="preserve">
+    <value>채널 레이아웃</value>
+  </data>
+  <data name="SampleRate" xml:space="preserve">
+    <value>샘플 레이트</value>
+  </data>
+  <data name="Modifiers" xml:space="preserve">
+    <value>변경자</value>
+  </data>
+  <data name="DtsMp4Warning" xml:space="preserve">
+    <value>MP4 컨테이너의 DTS 오디오 재생을 지원하는 재생기는 거의 없습니다. DTS 오디오는 MKV를 추천합니다.</value>
+  </data>
+  <data name="AudioEncoder_flac24" xml:space="preserve">
+    <value>FLAC 24 비트</value>
+  </data>
+  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
+    <value>시각심리</value>
+  </data>
+  <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
+    <value>기본</value>
+    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
+  </data>
+  <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
+    <value>고급 탭</value>
+    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
+  </data>
+  <data name="VideoEncoder_mpeg2" xml:space="preserve">
+    <value>MPEG-2</value>
+  </data>
+  <data name="VideoEncoder_mpeg4" xml:space="preserve">
+    <value>MPEG-4</value>
+  </data>
+  <data name="VideoEncoder_theora" xml:space="preserve">
+    <value>Theora</value>
+  </data>
+  <data name="RemoveAudioEncodingToolTip" xml:space="preserve">
+    <value>오디오 인코딩 제거</value>
+  </data>
+  <data name="AutoPassthroughFallbackLabel" xml:space="preserve">
+    <value>대체:</value>
+  </data>
+  <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
+    <value>패스쓰루는 모든 오디오 코덱에서 동작하지 않습니다. 이것은 트랙을 패스쓰루할 수 없는 경우에 대체할 인코더를 지정합니다.</value>
+  </data>
+  <data name="EncoderSettings" xml:space="preserve">
+    <value>인코딩 설정</value>
+  </data>
+  <data name="QsvDecodingLabel" xml:space="preserve">
+    <value>QSV 디코딩</value>
+  </data>
+  <data name="ScaleMethod_Lanczos" xml:space="preserve">
+    <value>Lanczos</value>
+  </data>
+  <data name="ScaleMethod_BicubicOpenCL" xml:space="preserve">
+    <value>Bicubic (OpenCL)</value>
+  </data>
+  <data name="QsvPreset_Speed" xml:space="preserve">
+    <value>속도</value>
+  </data>
+  <data name="QsvPreset_Balanced" xml:space="preserve">
+    <value>균형</value>
+  </data>
+  <data name="QsvPreset_Quality" xml:space="preserve">
+    <value>품질</value>
+  </data>
+  <data name="PresetToolTip" xml:space="preserve">
+    <value>옵션을 변경하여 인코딩 속도와 압축 효율 사이의 균형을 유지하세요.</value>
+  </data>
+  <data name="ScaleMethodToolTip" xml:space="preserve">
+    <value>란초스Lanczos: 품질이 가장 좋은 기본 스케일러입니다.
+바이큐빅Bicubic: OpenCL 하드웨어 가속 스케일링 알고리즘입니다.</value>
+  </data>
+  <data name="AudioEncoder_Passthrough" xml:space="preserve">
+    <value>패스쓰루</value>
+  </data>
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>자동</value>
+  </data>
+  <data name="PassthroughScopeToolTip" xml:space="preserve">
+    <value>패스쓰루를 적용할 입력 코덱을 지정합니다.</value>
+  </data>
+  <data name="FlipHorizontalCheckBox" xml:space="preserve">
+    <value>수평 뒤집기</value>
+  </data>
+  <data name="FlipVerticalCheckBox" xml:space="preserve">
+    <value>수직 뒤집기</value>
+  </data>
+  <data name="Rotation_Clockwise90" xml:space="preserve">
+    <value>시계 방향으로 90 °</value>
+  </data>
+  <data name="Rotation_Counterclockwise90" xml:space="preserve">
+    <value>시계 반대 방향으로 90 °</value>
+  </data>
+  <data name="Rotation_180" xml:space="preserve">
+    <value>180 °</value>
+  </data>
+  <data name="RotationToolTip" xml:space="preserve">
+    <value>그림을 회전합니다. 크기조절과 잘라내기를 모두 한 이후에 적용됩니다.</value>
+  </data>
+  <data name="FlipHorizontalToolTip" xml:space="preserve">
+    <value>그림을 가로로 뒤집습니다. 회전하기 동작 이전에 적용됩니다.</value>
+  </data>
+  <data name="FlipVerticalToolTip" xml:space="preserve">
+    <value>그림을 세로로 뒤집습니다. 회전하기 동작 이전에 적용됩니다.</value>
+  </data>
+  <data name="PassthroughIfPossibleCheckBox" xml:space="preserve">
+    <value>가능하면 패스쓰루</value>
+  </data>
+  <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
+    <value>입력 트랙이 코덱과 일치하면 입력 트랙을 인코딩하지 않고 패스쓰루할 것입니다.</value>
+  </data>
+  <data name="ScalingAlgorithmLabel" xml:space="preserve">
+    <value>스케일링 알고리즘:</value>
+  </data>
+  <data name="RotationLabel" xml:space="preserve">
+    <value>회전:</value>
+  </data>
+  <data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>프리셋 목록 닫기</value>
+  </data>
+  <data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>프리셋 목록 열기</value>
+  </data>
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>챕터 {0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>패스쓰루 설정</value>
+  </data>
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>패스쓰루 허용:</value>
+  </data>
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
+  </data>
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>인터레이스 감지:</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>모드:</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>아나모픽 사용</value>
+  </data>
+  <data name="AllowUpscalingCheckbox" xml:space="preserve">
+    <value>업스케일링 허용</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>수동</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>최대 {0}x 업스케일하기</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>다운스케일만</value>
+  </data>
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>대상으로 업/다운케일하기</value>
+  </data>
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>스케일링 모드:</value>
+  </data>
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>채우기</value>
+  </data>
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>너비</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>높이</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>대상 너비:</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>대상 높이:</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>색상:</value>
+  </data>
+  <data name="ColorPickerAdvancedButton" xml:space="preserve">
+    <value>고급</value>
+  </data>
+  <data name="ColorPickerStandardButton" xml:space="preserve">
+    <value>표준</value>
+  </data>
+  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
+    <value>표준 색상</value>
+  </data>
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>아나모픽 활성화시, 정사각형이 아닌 픽셀을 사용할 수 있습니다. 저장 공간을 더 효율적으로 사용할 수 있지만 모든 재생기가 아나모픽을 지원하지는 않습니다.</value>
+  </data>
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>해상도:</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>형식:키1=값1:키2=값2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
+  <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
+    <value>키:</value>
+    <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
+</root>

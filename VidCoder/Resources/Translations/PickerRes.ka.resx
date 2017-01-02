@@ -246,5 +246,7 @@
   <data name="SortLanguagesLabel" xml:space="preserve">
     <value>ენის(ების) თავში გადანაცვლება:</value>
   </data>
-  
+  <data name="ForcedOnlyCheckBox" xml:space="preserve">
+    <value>მხოლოდ დაძალებული</value>
+  </data>
 </root>

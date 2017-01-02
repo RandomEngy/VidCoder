@@ -295,12 +295,18 @@ Hau ezarri beharra duzu zure irakurketa gailuak profil zehatz bat bakarrik soste
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Barneratu atal markatzaileak</value>
   </data>
-  
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>Neurriraketa</value>
+  </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Bideo Iragazkiak</value>
   </data>
-  
-  
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>Bideo Kodeaketa</value>
+  </data>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>Audio Kodeaketa</value>
+  </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>Bideo Aurreratua</value>
   </data>
@@ -974,26 +980,76 @@ Bikubikoa: Hau OpenCL hardwarez bizkorturiko neurriratze algoritmo bat da.</valu
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>Elkarlotura Atzematea:</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Modua:</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>Erabili Anamorfikoa</value>
+  </data>
+  <data name="AllowUpscalingCheckbox" xml:space="preserve">
+    <value>Ahalbidetu gora-eskalatzea</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>Eskuz</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>Gora-eskalatzea {0}x geh</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>Behera-eskalatzea bakarrik</value>
+  </data>
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>Eskalatu gora/behera xedera</value>
+  </data>
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>Eskalatze modua:</value>
+  </data>
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>Bete</value>
+  </data>
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>Zabalera</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>Garaiera</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>Xede Zabalera:</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>Xede Garaiera:</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>Margoa:</value>
+  </data>
+  <data name="ColorPickerAdvancedButton" xml:space="preserve">
+    <value>Aurreratua</value>
+  </data>
+  <data name="ColorPickerStandardButton" xml:space="preserve">
+    <value>Estandarra</value>
+  </data>
+  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
+    <value>Margo estandarrak</value>
+  </data>
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>Anamorfikoa gaituta dagoela, pixel ez-laukituak ahalbidetzen dira. Honek biltegiratze emaitza eraginkorragoak eman ditzake, baina ez dute irakurgailu guztiek sostengatzen.</value>
+  </data>
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>Bereizmena:</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>Heuskarria: key1=value1:key2=value2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
+  <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
+    <value>Gakoak:</value>
+    <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
 </root>

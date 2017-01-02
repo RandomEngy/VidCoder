@@ -151,10 +151,10 @@
     <value>Auto-renombrar</value>
   </data>
   <data name="FileConflictWarning" xml:space="preserve">
-    <value>Ya existe un archivo en {0}. ¿Desea sobrescribir el archivo, encontrar automaticamente una nueva ruta de salida para el trabajo o cancelar la operacion?</value>
+    <value>Ya existe un archivo en {0}. ¿Quieres sobrescribir el archivo, encontrar automáticamente una nueva ruta de salida para el trabajo o cancelar la operación?</value>
   </data>
   <data name="QueueFileConflictWarning" xml:space="preserve">
-    <value>Un trabajo en cola ya tiene una ruta de salida en {0}. ¿Desea sobrescribir el archivo, encontrar automaticamente una nueva ruta de salida para el trabajo o cancelar la operacion?</value>
+    <value>Un trabajo en cola ya tiene una ruta de salida en {0}. ¿Quieres sobrescribir el archivo, encontrar automáticamente una nueva ruta de salida para el trabajo o cancelar la operación?</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
     <value>Columnas de cola</value>
@@ -169,7 +169,7 @@
     <value>Columnas usadas</value>
   </data>
   <data name="ScanMultipleWindowTitle" xml:space="preserve">
-    <value>Escaneando...</value>
+    <value>Analizando...</value>
   </data>
   <data name="AboutVidCoderDialogTitle" xml:space="preserve">
     <value>Acerca de VidCoder</value>
@@ -199,13 +199,13 @@
     <comment>Title for dialog when  naming a preset or  picker</comment>
   </data>
   <data name="ChooseNamePreset" xml:space="preserve">
-    <value>Elija un nombre para el preset:</value>
+    <value>Elije un nombre para el preset:</value>
   </data>
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
-    <value>¿Aplicar la actualizacion?</value>
+    <value>¿Aplicar la actualización?</value>
   </data>
   <data name="ApplyUpdateDialogMessage" xml:space="preserve">
-    <value>Se ha descargado una actualizacion. ¿Desea aplicar ahora?</value>
+    <value>Se ha descargado una actualización. ¿Quieres aplicarla ahora?</value>
   </data>
   <data name="ViewFullChangelog" xml:space="preserve">
     <value>Ver la lista completa de cambios</value>
@@ -214,7 +214,7 @@
     <value>Desactivar las actualizaciones</value>
   </data>
   <data name="NoticeMessageTitle" xml:space="preserve">
-    <value>¡Aviso</value>
+    <value>¡Aviso!</value>
   </data>
   <data name="UnsupportedOSError" xml:space="preserve">
     <value>VidCoder no es compatible con tú sistema operativo. Vidcoder no funciona en Windows XP y Server 2003 . Por favor Instala VidCoder 1.4 o actualiza tú sistema operativo.</value>
@@ -253,6 +253,6 @@
     <value>Hibernación inminente</value>
   </data>
   <data name="ChooseNamePicker" xml:space="preserve">
-    <value>Elija un nombre para el selector:</value>
+    <value>Elije un nombre para el selector:</value>
   </data>
 </root>

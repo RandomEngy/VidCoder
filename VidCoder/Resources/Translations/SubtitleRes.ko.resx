@@ -117,136 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>Seleção de áudio</value>
+  <data name="SubtitlesWindowTitle" xml:space="preserve">
+    <value>자막</value>
   </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Gravar em</value>
+  <data name="RemoveSubtitleTrack" xml:space="preserve">
+    <value>이 트랙 제거하기</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Padrão</value>
+  <data name="SubtitlesFromSourceLabel" xml:space="preserve">
+    <value>소스의 자막:</value>
   </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Pesquisa de Áudio Externo</value>
+  <data name="QuickTimeSubtitlesWarning" xml:space="preserve">
+    <value>퀵타임에서 텍스트 자막을 보려면 .m4v 확장자를 사용해야 합니다.</value>
   </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>Todas as faixas</value>
+  <data name="NameColumn" xml:space="preserve">
+    <value>이름</value>
   </data>
-  <data name="LanguagesRadioButton" xml:space="preserve">
-    <value>Idioma(s)</value>
+  <data name="DefaultColumn" xml:space="preserve">
+    <value>기본값</value>
   </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Somente se outro idioma de áudio</value>
-    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
+  <data name="ForcedOnlyColumn" xml:space="preserve">
+    <value>강제 출력만</value>
   </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>Seleção de legendas</value>
+  <data name="BurnedInColumn" xml:space="preserve">
+    <value>기기</value>
   </data>
-  <data name="WindowTitle" xml:space="preserve">
-    <value>Seletor: {0}</value>
+  <data name="ExternalSubtitlesLabel" xml:space="preserve">
+    <value>외부 자막:</value>
   </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>Seleção de título</value>
+  <data name="FileColumn" xml:space="preserve">
+    <value>파일</value>
   </data>
-  <data name="PickerButtonFormat" xml:space="preserve">
-    <value>Seletor: {0}</value>
-    <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
+  <data name="LanguageColumn" xml:space="preserve">
+    <value>언어</value>
   </data>
-  <data name="OutputLocation" xml:space="preserve">
-    <value>Local de saída</value>
+  <data name="CharCodeColumn" xml:space="preserve">
+    <value>문자 코드</value>
   </data>
-  <data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>Substituir o diretório:</value>
+  <data name="OffsetColumn" xml:space="preserve">
+    <value>오프셋 (ms)</value>
   </data>
-  <data name="PickerHelpText" xml:space="preserve">
-    <value>Escolhe automaticamente títulos, áudio, legendas e destino</value>
+  <data name="ImportSrtButton" xml:space="preserve">
+    <value>.srt 파일 가져오기...</value>
   </data>
-  <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
-    <value>Enfileira automaticamente após a verificação</value>
+  <data name="BurnedOverlapWarning" xml:space="preserve">
+    <value>다른 자막 트랙이 입혀진 자막 위에 겹쳐서 나올 것입니다.</value>
   </data>
-  <data name="AutoEncodeOnScanCheckBox" xml:space="preserve">
-    <value>Iniciar codificação após a verificação</value>
+  <data name="ForeignAudioSearch" xml:space="preserve">
+    <value>외국어 오디오 검색</value>
   </data>
-  <data name="UseGlobalSettingToolTip" xml:space="preserve">
-    <value>Use configuração global</value>
-    <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
+  <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
+    <value>소스 비디오에 자막이 없습니다.</value>
   </data>
-  <data name="PresetOverrideToolTip" xml:space="preserve">
-    <value>Isto substituirá qualquer predefinição escolhida na janela principal.</value>
+  <data name="SrtFilePickerText" xml:space="preserve">
+    <value>자막 파일 추가하기</value>
   </data>
-  <data name="EncodingSection" xml:space="preserve">
-    <value>Codificando</value>
-    <comment>The header for the Encoding section in the Picker window.</comment>
+	<data name="DuplicateSubtitleTrack" xml:space="preserve">
+    <value>이 트랙 복제하기</value>
   </data>
-  <data name="PostEncodingSection" xml:space="preserve">
-    <value>Pós-codificação</value>
-    <comment>Header for the post-encoding section in the picker window.</comment>
-  </data>
-  <data name="SendFileToLabel" xml:space="preserve">
-    <value>Envie arquivo para:</value>
-    <comment>Label for the option to run a program after encoding each file.</comment>
-  </data>
-  <data name="PostEncodeArgumentsLabel" xml:space="preserve">
-    <value>Argumentos:</value>
-    <comment>The label for the arguments to pass to the post-encode executable.</comment>
-  </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Os argumentos para passar para o programa. Use o {file} para o caminho de saída do arquivo.</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
-  <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
-    <value>Seletor especificou a predefinição de codificação.</value>
-  </data>
-  <data name="AddLanguageButton" xml:space="preserve">
-    <value>Adicionar idioma</value>
-  </data>
-  <data name="AllTracksForTheseLanguagesRadioButton" xml:space="preserve">
-    <value>Todas as faixas para estes idiomas</value>
-  </data>
-  <data name="AllTracksForThisLanguageRadioButton" xml:space="preserve">
-    <value>Todas as faixas para este idioma</value>
-  </data>
-  <data name="FirstTrackOfEachLanguageRadioButton" xml:space="preserve">
-    <value>Primeira faixa de cada idioma</value>
-  </data>
-  <data name="FirstTrackRadioButton" xml:space="preserve">
-    <value>Primeira faixa</value>
-  </data>
-  <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Marque a faixa de legenda como padrão, que ela aparecerá automaticamente durante a reprodução do vídeo.</value>
-  </data>
-  <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Marque a primeira faixa de legenda como padrão, que ela aparecerá automaticamente durante a reprodução do vídeo.</value>
-  </data>
-  <data name="FirstAsDefaultCheckBox" xml:space="preserve">
-    <value>Marcar primeiro como padrão</value>
-    <comment>Label for checkbox to mark the first subtitle as default.</comment>
-  </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>Inclua todas as legendas.</value>
-  </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>Nenhuma legenda é incluída.</value>
-  </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>Inclui somente a primeira faixa de áudio.</value>
-  </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Inclui todas as faixas de áudio.</value>
-  </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>Inclui apenas a primeira legenda.</value>
-  </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>Usar a predefinição:</value>
-  </data>
-  <data name="RemoveLanguageToolTip" xml:space="preserve">
-    <value>Remova este idioma.</value>
-  </data>
-  <data name="SortLanguagesLabel" xml:space="preserve">
-    <value>Classificar o idioma(s) para o topo:</value>
-  </data>
-  <data name="ForcedOnlyCheckBox" xml:space="preserve">
-    <value>Somente forçada</value>
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>자막 파일의 인코딩을 감지할 수 없습니다. 자막이 바르게 나오는지 확인하려면, 자막 파일을 UTF-8로 다시 저장하세요.</value>
   </data>
 </root>

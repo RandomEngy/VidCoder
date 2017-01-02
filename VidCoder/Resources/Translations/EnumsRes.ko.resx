@@ -117,136 +117,128 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AudioSelection" xml:space="preserve">
-    <value>Seleção de áudio</value>
+  <data name="Anamorphic_Custom" xml:space="preserve">
+    <value>사용자 정의</value>
   </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Gravar em</value>
+  <data name="Anamorphic_Loose" xml:space="preserve">
+    <value>느슨한</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Padrão</value>
+  <data name="Anamorphic_None" xml:space="preserve">
+    <value>없음</value>
   </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Pesquisa de Áudio Externo</value>
+  <data name="Anamorphic_Strict" xml:space="preserve">
+    <value>엄격한</value>
   </data>
-  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>Todas as faixas</value>
+  <data name="CombDetect_fast" xml:space="preserve">
+    <value>빠르게</value>
   </data>
-  <data name="LanguagesRadioButton" xml:space="preserve">
-    <value>Idioma(s)</value>
+  <data name="CombDetect_permissive" xml:space="preserve">
+    <value>덜 민감한</value>
   </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Somente se outro idioma de áudio</value>
-    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
+  <data name="Custom" xml:space="preserve">
+    <value>사용자 정의</value>
   </data>
-  <data name="SubtitleSelection" xml:space="preserve">
-    <value>Seleção de legendas</value>
+  <data name="Decomb_Bob" xml:space="preserve">
+    <value>Bob</value>
   </data>
-  <data name="WindowTitle" xml:space="preserve">
-    <value>Seletor: {0}</value>
+  <data name="Decomb_Fast" xml:space="preserve">
+    <value>빠르게</value>
   </data>
-  <data name="TitleSelection" xml:space="preserve">
-    <value>Seleção de título</value>
+  <data name="Default" xml:space="preserve">
+    <value>기본값</value>
   </data>
-  <data name="PickerButtonFormat" xml:space="preserve">
-    <value>Seletor: {0}</value>
-    <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
+  <data name="DeinterlacePreset_bob" xml:space="preserve">
+    <value>Bob</value>
+    <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
   </data>
-  <data name="OutputLocation" xml:space="preserve">
-    <value>Local de saída</value>
+  <data name="DeinterlacePreset_eedi2" xml:space="preserve">
+    <value>EEDI2</value>
   </data>
-  <data name="OverrideDirectoryCheckBox" xml:space="preserve">
-    <value>Substituir o diretório:</value>
+  <data name="DeinterlacePreset_eedi2bob" xml:space="preserve">
+    <value>EEDI2 Bob</value>
   </data>
-  <data name="PickerHelpText" xml:space="preserve">
-    <value>Escolhe automaticamente títulos, áudio, legendas e destino</value>
+  <data name="DeinterlacePreset_skipspatial" xml:space="preserve">
+    <value>공간 검사 건너뛰기</value>
   </data>
-  <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
-    <value>Enfileira automaticamente após a verificação</value>
+  <data name="Deinterlace_Decomb" xml:space="preserve">
+    <value>Decomb</value>
   </data>
-  <data name="AutoEncodeOnScanCheckBox" xml:space="preserve">
-    <value>Iniciar codificação após a verificação</value>
+  <data name="Deinterlace_Yadif" xml:space="preserve">
+    <value>Yadif</value>
   </data>
-  <data name="UseGlobalSettingToolTip" xml:space="preserve">
-    <value>Use configuração global</value>
-    <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
+  <data name="DenoisePreset_light" xml:space="preserve">
+    <value>가볍게</value>
   </data>
-  <data name="PresetOverrideToolTip" xml:space="preserve">
-    <value>Isto substituirá qualquer predefinição escolhida na janela principal.</value>
+  <data name="DenoisePreset_medium" xml:space="preserve">
+    <value>중간</value>
   </data>
-  <data name="EncodingSection" xml:space="preserve">
-    <value>Codificando</value>
-    <comment>The header for the Encoding section in the Picker window.</comment>
+  <data name="DenoisePreset_strong" xml:space="preserve">
+    <value>강하게</value>
   </data>
-  <data name="PostEncodingSection" xml:space="preserve">
-    <value>Pós-codificação</value>
-    <comment>Header for the post-encoding section in the picker window.</comment>
+  <data name="DenoisePreset_ultralight" xml:space="preserve">
+    <value>매우 가볍게</value>
   </data>
-  <data name="SendFileToLabel" xml:space="preserve">
-    <value>Envie arquivo para:</value>
-    <comment>Label for the option to run a program after encoding each file.</comment>
+  <data name="DenoiseTune_animation" xml:space="preserve">
+    <value>애니메이션</value>
   </data>
-  <data name="PostEncodeArgumentsLabel" xml:space="preserve">
-    <value>Argumentos:</value>
-    <comment>The label for the arguments to pass to the post-encode executable.</comment>
+  <data name="DenoiseTune_film" xml:space="preserve">
+    <value>필름</value>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Os argumentos para passar para o programa. Use o {file} para o caminho de saída do arquivo.</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  <data name="DenoiseTune_grain" xml:space="preserve">
+    <value>그레인</value>
   </data>
-  <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
-    <value>Seletor especificou a predefinição de codificação.</value>
+  <data name="DenoiseTune_highmotion" xml:space="preserve">
+    <value>높은 모션</value>
   </data>
-  <data name="AddLanguageButton" xml:space="preserve">
-    <value>Adicionar idioma</value>
+  <data name="Denoise_HQDN3D" xml:space="preserve">
+    <value>hqdn3d</value>
   </data>
-  <data name="AllTracksForTheseLanguagesRadioButton" xml:space="preserve">
-    <value>Todas as faixas para estes idiomas</value>
+  <data name="Denoise_NLMeans" xml:space="preserve">
+    <value>NL-Means</value>
   </data>
-  <data name="AllTracksForThisLanguageRadioButton" xml:space="preserve">
-    <value>Todas as faixas para este idioma</value>
+  <data name="EncodeCompleteActionType_CloseProgram" xml:space="preserve">
+    <value>VidCoder 닫기</value>
   </data>
-  <data name="FirstTrackOfEachLanguageRadioButton" xml:space="preserve">
-    <value>Primeira faixa de cada idioma</value>
+  <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
+    <value>아무것도 안 함</value>
   </data>
-  <data name="FirstTrackRadioButton" xml:space="preserve">
-    <value>Primeira faixa</value>
+  <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
+    <value>{0} 꺼내기:</value>
   </data>
-  <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Marque a faixa de legenda como padrão, que ela aparecerá automaticamente durante a reprodução do vídeo.</value>
+  <data name="EncodeCompleteActionType_Hibernate" xml:space="preserve">
+    <value>최대절전모드</value>
   </data>
-  <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>Marque a primeira faixa de legenda como padrão, que ela aparecerá automaticamente durante a reprodução do vídeo.</value>
+  <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
+    <value>로그아웃</value>
   </data>
-  <data name="FirstAsDefaultCheckBox" xml:space="preserve">
-    <value>Marcar primeiro como padrão</value>
-    <comment>Label for checkbox to mark the first subtitle as default.</comment>
+  <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
+    <value>시스템 종료</value>
   </data>
-  <data name="AllSubtitlesToolTip" xml:space="preserve">
-    <value>Inclua todas as legendas.</value>
+  <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
+    <value>절전모드</value>
   </data>
-  <data name="SubtitleNoneToolTip" xml:space="preserve">
-    <value>Nenhuma legenda é incluída.</value>
+  <data name="Off" xml:space="preserve">
+    <value>끄기</value>
   </data>
-  <data name="AudioFirstToolTip" xml:space="preserve">
-    <value>Inclui somente a primeira faixa de áudio.</value>
+  <data name="TitleType_Bluray" xml:space="preserve">
+    <value>블루레이</value>
+    <comment>What to display when the source is a Blu-ray</comment>
   </data>
-  <data name="AudioAllToolTip" xml:space="preserve">
-    <value>Inclui todas as faixas de áudio.</value>
+  <data name="TitleType_Dvd" xml:space="preserve">
+    <value>DVD</value>
+    <comment>What to display when the source is a DVD</comment>
   </data>
-  <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>Inclui apenas a primeira legenda.</value>
+  <data name="TitleType_Stream" xml:space="preserve">
+    <value>파일</value>
+    <comment>What to display when the source is a file</comment>
   </data>
-  <data name="PresetLabel" xml:space="preserve">
-    <value>Usar a predefinição:</value>
+  <data name="VideoRangeType_Chapters" xml:space="preserve">
+    <value>챕터</value>
   </data>
-  <data name="RemoveLanguageToolTip" xml:space="preserve">
-    <value>Remova este idioma.</value>
+  <data name="VideoRangeType_Frames" xml:space="preserve">
+    <value>프레임</value>
   </data>
-  <data name="SortLanguagesLabel" xml:space="preserve">
-    <value>Classificar o idioma(s) para o topo:</value>
-  </data>
-  <data name="ForcedOnlyCheckBox" xml:space="preserve">
-    <value>Somente forçada</value>
+  <data name="VideoRangeType_Seconds" xml:space="preserve">
+    <value>시간 범위</value>
   </data>
 </root>

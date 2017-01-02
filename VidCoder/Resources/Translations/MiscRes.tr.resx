@@ -198,7 +198,9 @@
     <value>Ad</value>
     <comment>Title for dialog when  naming a preset or  picker</comment>
   </data>
-  
+  <data name="ChooseNamePreset" xml:space="preserve">
+    <value>Ön ayar için bir ad seçin:</value>
+  </data>
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>Güncelleme Uygulansın mı?</value>
   </data>
@@ -247,6 +249,8 @@
   <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
     <value>Sistem {0} saniye içinde hazırda beklemeye girecek.</value>
   </data>
-  
+  <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
+    <value>Hazırda bekletme yaklaşıyor</value>
+  </data>
   
 </root>

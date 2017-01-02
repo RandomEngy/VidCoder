@@ -124,7 +124,7 @@
     <value>Salva come...</value>
   </data>
   <data name="Revert" xml:space="preserve">
-    <value>Ripristinare</value>
+    <value>Ripristina</value>
   </data>
   <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
     <value>x264 ha una varietà di algoritmi per decidere quando utilizzare i fotogrammi B e quanti da utilizzare.  

@@ -222,6 +222,7 @@ namespace VidCoder.ViewModel
 						new InterfaceLanguage { CultureCode = "tr-TR", Display = "Türkçe / Turkish" },
 						new InterfaceLanguage { CultureCode = "ka-GE", Display = "ქართული / Georgian" },
 						new InterfaceLanguage { CultureCode = "ru-RU", Display = "русский / Russian" },
+						new InterfaceLanguage { CultureCode = "ko-KO", Display = "한국어 / Korean" },
 						new InterfaceLanguage { CultureCode = "zh-Hans", Display = "中文(简体) / Chinese (Simplified)" },
 						new InterfaceLanguage { CultureCode = "zh-Hant", Display = "中文(繁體) / Chinese (Traditional)" },
 						new InterfaceLanguage { CultureCode =  "ja-JP", Display = "日本語 / Japanese" },

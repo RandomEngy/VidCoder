@@ -118,31 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Anamorphic_Custom" xml:space="preserve">
-    <value>Personalizar</value>
+    <value>Personalizado</value>
   </data>
   <data name="Anamorphic_Loose" xml:space="preserve">
-    <value>Flexible</value>
+    <value>Loose</value>
   </data>
   <data name="Anamorphic_None" xml:space="preserve">
     <value>Ninguno</value>
   </data>
   <data name="Anamorphic_Strict" xml:space="preserve">
-    <value>Estricto</value>
+    <value>Strict</value>
   </data>
   <data name="CombDetect_fast" xml:space="preserve">
-    <value>Rápido</value>
+    <value>Fast</value>
   </data>
   <data name="CombDetect_permissive" xml:space="preserve">
     <value>Menos sensible</value>
   </data>
   <data name="Custom" xml:space="preserve">
-    <value>Personalizar</value>
+    <value>Personalizado</value>
   </data>
   <data name="Decomb_Bob" xml:space="preserve">
     <value>Bob</value>
   </data>
   <data name="Decomb_Fast" xml:space="preserve">
-    <value>Rápido</value>
+    <value>Fast</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Predeterminado</value>
@@ -167,32 +167,34 @@
     <value>Yadif</value>
   </data>
   <data name="DenoisePreset_light" xml:space="preserve">
-    <value>Bajo</value>
+    <value>Light</value>
   </data>
   <data name="DenoisePreset_medium" xml:space="preserve">
-    <value>Medio</value>
+    <value>Medium</value>
   </data>
   <data name="DenoisePreset_strong" xml:space="preserve">
-    <value>Intenso</value>
+    <value>Strong</value>
   </data>
-  
+  <data name="DenoisePreset_ultralight" xml:space="preserve">
+    <value>Ultralight</value>
+  </data>
   <data name="DenoiseTune_animation" xml:space="preserve">
-    <value>Animación</value>
+    <value>Animation</value>
   </data>
   <data name="DenoiseTune_film" xml:space="preserve">
-    <value>Película</value>
+    <value>Film</value>
   </data>
   <data name="DenoiseTune_grain" xml:space="preserve">
-    <value>Grano</value>
+    <value>Grain</value>
   </data>
   <data name="DenoiseTune_highmotion" xml:space="preserve">
-    <value>Alto movimiento</value>
+    <value>Mucho movimiento</value>
   </data>
   <data name="Denoise_HQDN3D" xml:space="preserve">
     <value>HQDN3D</value>
   </data>
   <data name="Denoise_NLMeans" xml:space="preserve">
-    <value>Promedio no local (NL-Means)</value>
+    <value>NL-Means</value>
   </data>
   <data name="EncodeCompleteActionType_CloseProgram" xml:space="preserve">
     <value>Cerrar Vidcoder</value>

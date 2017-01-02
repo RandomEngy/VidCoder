@@ -139,7 +139,7 @@
     <value>Sólo forzados</value>
   </data>
   <data name="BurnedInColumn" xml:space="preserve">
-    <value>Pegados</value>
+    <value>'Pegados'</value>
   </data>
   <data name="ExternalSubtitlesLabel" xml:space="preserve">
     <value>Subtítulos externos:</value>
@@ -160,13 +160,13 @@
     <value>Importar archivo .srt...</value>
   </data>
   <data name="BurnedOverlapWarning" xml:space="preserve">
-    <value>Otras pistas de subtitulos superpondran los subtitulos pegados.</value>
+    <value>Otras pistas de subtítulos se superpondrán a los subtítulos pegados.</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
     <value>Busqueda de Audio Externo</value>
   </data>
   <data name="AddSourceNoSubtitlesToolTip" xml:space="preserve">
-    <value>El vídeo de origen no tiene subtítulos.</value>
+    <value>La fuente de video no tiene subtítulos.</value>
   </data>
   <data name="SrtFilePickerText" xml:space="preserve">
     <value>Agregar archivo de subtítulos</value>
@@ -175,6 +175,6 @@
     <value>Duplicar esta pista</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
-    <value>No se pudo detectar la codificación del archivo de subtítulos. Para asegurarse de que los subtítulos aparecen correctamente, vuelva a guardar el archivo como UTF-8.</value>
+    <value>No se pudo detectar la codificación del archivo de subtítulos. Para asegurarse de que los subtítulos aparecen correctamente, vuelva a guardar el archivo con formato UTF-8.</value>
   </data>
 </root>

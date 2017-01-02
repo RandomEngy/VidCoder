@@ -194,13 +194,13 @@
     <value>hqdn3d</value>
   </data>
   <data name="Denoise_NLMeans" xml:space="preserve">
-    <value>NL-Means算法</value>
+    <value>NL-Means</value>
   </data>
   <data name="EncodeCompleteActionType_CloseProgram" xml:space="preserve">
     <value>关闭 VidCoder</value>
   </data>
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
-    <value>不执行任何操作</value>
+    <value>无操作</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
     <value>弹出 {0}：</value>
@@ -215,7 +215,7 @@
     <value>关机</value>
   </data>
   <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
-    <value>休眠</value>
+    <value>睡眠</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>关闭</value>

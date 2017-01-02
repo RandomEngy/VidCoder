@@ -130,7 +130,9 @@ GNU General Public License kopyası bu programa dahil edilmiştir.</value>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
     <value>Bu altyazıyı varsayılan olarak seç. Çalma esnasında başka bir altyazı seçilene kadar bu altyazı gösterilecektir.</value>
   </data>
-  
+  <data name="ForcedSubtitleToolTip" xml:space="preserve">
+    <value>Altyazı parçlarından sadece zorunlu altyazıları göster. Bu genellikle az miktarda yabancı diyalog demektir.</value>
+  </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>Seçili altyazıların gösterimini öne  alma ya da  geciktirme süresi miktarı.</value>
   </data>
@@ -250,21 +252,35 @@ GNU General Public License kopyası bu programa dahil edilmiştir.</value>
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Dosya işlemi hatası</value>
   </data>
-  
+  <data name="OverrideNameFormatCheckBox" xml:space="preserve">
+    <value>Genel geçer adlandırma biçimi:</value>
+  </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
     <value>Mümkünse kaynak dizine çıktıla</value>
   </data>
-  
-  
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Toplu kodlamalarda klasör yapısını koru</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Eğer içi dosya dolu bir klasörü kodlarsanız, kodlanmış sürümler kaynak klasörün dizin yapısına uygun olarak alt klasörlere konulacaktır.</value>
+  </data>
   <data name="DismissMessage" xml:space="preserve">
     <value>İletiyi kapat</value>
     <comment>Appears as a tooltip on inline, dismissable messages</comment>
   </data>
-  
-  
+  <data name="PresetFileFilter" xml:space="preserve">
+    <value>VidCoder Ön Ayar Dosyası</value>
+    <comment>File dialog description of a .vjpreset file: JSON file that stores an exported preset.</comment>
+  </data>
+  <data name="QueueFileFilter" xml:space="preserve">
+    <value>Vidcoder Kuyruk Dosyası</value>
+    <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
+  </data>
   <data name="First" xml:space="preserve">
     <value>İlk</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
-  
+  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
+    <value>Yeni sürümler artık 32-bit işletim sistemlerini desteklemediğinden güncellemeler devre dışı bırakıldı.</value>
+  </data>
 </root>
