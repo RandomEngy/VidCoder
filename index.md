@@ -15,8 +15,8 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 {% endunless %}
 {% endfor %}
 {% assign version = tag | remove: "v" %}
-{% capture installerUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ tag }}/VidCoder-{{ version }}-x64.exe{% endcapture %}
-{% capture portableUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ tag }}/VidCoder-{{ version }}-x64-Portable.exe{% endcapture %}
+{% capture installerUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ tag }}/VidCoder-{{ version }}.exe{% endcapture %}
+{% capture portableUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ tag }}/VidCoder-{{ version }}-Portable.exe{% endcapture %}
 {% capture notesUrl %}https://github.com/RandomEngy/VidCoder/releases/tag/{{ tag }}{% endcapture %}
 
 {% for release in site.github.releases %}
