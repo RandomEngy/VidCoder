@@ -1,0 +1,649 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>Titul:</value>
+  </data>
+  <data name="SettingsLabel" xml:space="preserve">
+    <value>Nastavení</value>
+  </data>
+  <data name="AddToQueueLabel" xml:space="preserve">
+    <value>Přidat do fronty</value>
+  </data>
+  <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
+    <value>Přidat více titulů do fronty...</value>
+  </data>
+  <data name="FileMenu" xml:space="preserve">
+    <value>Soubor</value>
+  </data>
+  <data name="OpenVideoFile" xml:space="preserve">
+    <value>Otevřít video soubor...</value>
+  </data>
+  <data name="OpenDiscFolder" xml:space="preserve">
+    <value>Otevřít DVD/Blu-ray složku...</value>
+  </data>
+  <data name="EnqueueMultipleFiles" xml:space="preserve">
+    <value>Přiřadit více souborů...</value>
+  </data>
+  <data name="EnqueueMultipleTitles" xml:space="preserve">
+    <value>Přiřadit více titulů...</value>
+  </data>
+  <data name="ToolsMenu" xml:space="preserve">
+    <value>Nástroje</value>
+  </data>
+  <data name="ImportPreset" xml:space="preserve">
+    <value>Importovat přednastavení...</value>
+  </data>
+  <data name="ExportPreset" xml:space="preserve">
+    <value>Exportovat přednastavení...</value>
+  </data>
+  <data name="OptionsMenuItem" xml:space="preserve">
+    <value>Možnosti...</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Přehrát</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>Otevřít příslušnou složku</value>
+  </data>
+  <data name="ClearCompleted" xml:space="preserve">
+    <value>Odstranění dokončeno</value>
+  </data>
+  <data name="ExitMenuItem" xml:space="preserve">
+    <value>Ukončit</value>
+  </data>
+  <data name="WindowsMenu" xml:space="preserve">
+    <value>Okna</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
+  </data>
+  <data name="EncodingSettingsMenuItem" xml:space="preserve">
+    <value>Nastavení enkódování</value>
+  </data>
+  <data name="PreviewMenuItem" xml:space="preserve">
+    <value>Náhled</value>
+  </data>
+  <data name="LogMenuItem" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>Nápověda</value>
+  </data>
+  <data name="VidCoderHomepageMenuItem" xml:space="preserve">
+    <value>VidCoder domovská stránka</value>
+  </data>
+  <data name="ReportABugMenuItem" xml:space="preserve">
+    <value>Oznámit chybu</value>
+  </data>
+  <data name="AboutVidCoderMenuItem" xml:space="preserve">
+    <value>O programu VidCoder...</value>
+  </data>
+  <data name="ChooseVideoSourceLabel" xml:space="preserve">
+    <value>Zvolte zdroj videa:</value>
+  </data>
+  <data name="SourceLabel" xml:space="preserve">
+    <value>Zdroj:</value>
+  </data>
+  <data name="ScanningSourceLabel" xml:space="preserve">
+    <value>Načítání zdroje...</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Nedávné</value>
+  </data>
+  <data name="DragFilesHereLabel" xml:space="preserve">
+    <value>(Nebo přetáhnout video soubory nebo složky sem)</value>
+  </data>
+  <data name="ScanErrorLabel" xml:space="preserve">
+    <value>Při načítání došlo k chybě.</value>
+  </data>
+  <data name="AudioLabel" xml:space="preserve">
+    <value>Audio:</value>
+  </data>
+  <data name="VideoLabel" xml:space="preserve">
+    <value>Video:</value>
+  </data>
+  <data name="SubtitlesLabel" xml:space="preserve">
+    <value>Titulky:</value>
+  </data>
+  <data name="AddTrackButton" xml:space="preserve">
+    <value>Přidat stopu</value>
+  </data>
+  <data name="ChapterMarkersLabel" xml:space="preserve">
+    <value>Kapitoly:</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Upravit...</value>
+  </data>
+  <data name="DestinationLabel" xml:space="preserve">
+    <value>Cílová složka:</value>
+  </data>
+  <data name="DestinationToolTip" xml:space="preserve">
+    <value>Kliknutím upravíte cílovou složku pro enkódování.</value>
+  </data>
+  <data name="SelectOutputPathButton" xml:space="preserve">
+    <value>Vybrat výstupní cestu...</value>
+  </data>
+  <data name="EncodingLabel" xml:space="preserve">
+    <value>Enkódování:</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Pozastavit</value>
+  </data>
+  <data name="MoveToTopMenuItem" xml:space="preserve">
+    <value>Přesunout nahoru</value>
+  </data>
+  <data name="MoveToBottomMenuItem" xml:space="preserve">
+    <value>Přesunout dolů</value>
+  </data>
+  <data name="CustomizeColumnsMenuItem" xml:space="preserve">
+    <value>Nastavit sloupce...</value>
+  </data>
+  <data name="CurrentFpsLabel" xml:space="preserve">
+    <value>Aktuální obrazová frekvence:</value>
+  </data>
+  <data name="AverageFpsLabel" xml:space="preserve">
+    <value>Průměrná obrazová frekvence:</value>
+  </data>
+  <data name="PickDiscFolderHelpText" xml:space="preserve">
+    <value>Vyberte DVD nebo Blu-ray složku.</value>
+  </data>
+  <data name="EncodesInProgressExitWarning" xml:space="preserve">
+    <value>Probíhá enkódování. Jste si jist že chcete program ukončit?</value>
+  </data>
+  <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
+    <value>Probíhá enkódování</value>
+  </data>
+  <data name="ForeignAudioSearch" xml:space="preserve">
+    <value>Hledání cizí audio stopy</value>
+  </data>
+  <data name="NoneParen" xml:space="preserve">
+    <value>(Žádné)</value>
+  </data>
+  <data name="TracksSummaryMultiple" xml:space="preserve">
+    <value>{0} stopy</value>
+  </data>
+  <data name="SaveChangesPresetMessage" xml:space="preserve">
+    <value>Chcete uložit změny do aktuálního přednastavení?</value>
+  </data>
+  <data name="SaveChangesPresetTitle" xml:space="preserve">
+    <value>Uložit aktuální přednastavení?</value>
+  </data>
+  <data name="DiscNotInDriveError" xml:space="preserve">
+    <value>Nelze načíst a upravit. V jednotce není disk.</value>
+  </data>
+  <data name="PresetNameRestoredFromQueue" xml:space="preserve">
+    <value>Obnoveno z fronty</value>
+  </data>
+  <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
+    <value>Obnoveno z dokončeného</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Přednastavení:</value>
+  </data>
+  <data name="DestinationColumnHeader" xml:space="preserve">
+    <value>Cílová složka</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="ElapsedTimeColumnHeader" xml:space="preserve">
+    <value>Uplynulý čas</value>
+  </data>
+  <data name="PlayingVideoMessage" xml:space="preserve">
+    <value>Přehrávání videa...</value>
+  </data>
+  <data name="FileDoesNotExist" xml:space="preserve">
+    <value>{0} neexistuje.</value>
+  </data>
+  <data name="AngleLabel" xml:space="preserve">
+    <value>Úhel:</value>
+  </data>
+  <data name="ChaptersSummary" xml:space="preserve">
+    <value>ze {0}</value>
+  </data>
+  <data name="Queued" xml:space="preserve">
+    <value>Zařazeno do fronty</value>
+  </data>
+  <data name="QueuedWithTotal" xml:space="preserve">
+    <value>Zařazeno do fronty ({0})</value>
+  </data>
+  <data name="CompletedWithTotal" xml:space="preserve">
+    <value>Dokončeno ({0})</value>
+  </data>
+  <data name="StoppedEncoding" xml:space="preserve">
+    <value>Enkódování zastaveno.</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
+    <value>Opravdu chcete odstranit {0} zdrojový soubor(y)/složku(y)?</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
+    <value>Potvrdit odstranění</value>
+  </data>
+  <data name="CouldNotDeleteFile" xml:space="preserve">
+    <value>Nelze odstranit {0} {1}</value>
+  </data>
+  <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
+    <value>Chyba při načítání video souboru</value>
+  </data>
+  <data name="StartedEncoding" xml:space="preserve">
+    <value>Enkódování začalo.</value>
+  </data>
+  <data name="DirectoryCreateErrorMessage" xml:space="preserve">
+    <value>Výstupní adresář nelze vytvořit. Podrobnosti o chybě: {0}</value>
+  </data>
+  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
+    <value>Adresář nelze vytvořit</value>
+  </data>
+  <data name="EncodeCompleted" xml:space="preserve">
+    <value>Enkódování je dokončeno.</value>
+  </data>
+  <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
+    <value>Enkódování je dokončeno</value>
+  </data>
+  <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
+    <value>VidCoder dokončil z fronty všechny úlohy enkódování.</value>
+  </data>
+  <data name="OutputFolderRequiredMessage" xml:space="preserve">
+    <value>Bez výchozí výstupní složky nelze zadat úkol pro enkódování. Stisknutím tlačítka OK vyberte složku.</value>
+  </data>
+  <data name="OutputFolderRequiredTitle" xml:space="preserve">
+    <value>Výchozí výstupní složka je povinná</value>
+  </data>
+  <data name="OutputPathNotValidMessage" xml:space="preserve">
+    <value>Výstupní cesta je neplatná.</value>
+  </data>
+  <data name="OutputPathNotValidTitle" xml:space="preserve">
+    <value>Cesta není platná</value>
+  </data>
+  <data name="Encode" xml:space="preserve">
+    <value>Enkódovat</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Pokračovat</value>
+  </data>
+  <data name="EtaLabel" xml:space="preserve">
+    <value>ETA:</value>
+  </data>
+  <data name="WhenDoneLabel" xml:space="preserve">
+    <value>Po dokončení:</value>
+  </data>
+  <data name="Preset_AndroidTablet" xml:space="preserve">
+    <value>Android Tablet</value>
+  </data>
+  <data name="Preset_Android" xml:space="preserve">
+    <value>Android</value>
+  </data>
+  <data name="Preset_AppleiPad" xml:space="preserve">
+    <value>Apple iPad</value>
+  </data>
+  <data name="Preset_AppleiPhone4" xml:space="preserve">
+    <value>Apple iPhone 4</value>
+  </data>
+  <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
+    <value>Apple iPhone/Touch</value>
+  </data>
+  <data name="Preset_AppleiPod" xml:space="preserve">
+    <value>Apple iPod</value>
+  </data>
+  <data name="Preset_AppleTV" xml:space="preserve">
+    <value>AppleTV</value>
+  </data>
+  <data name="Preset_AppleTV2" xml:space="preserve">
+    <value>AppleTV 2</value>
+  </data>
+  <data name="Preset_AppleTV3" xml:space="preserve">
+    <value>AppleTV 3</value>
+  </data>
+  <data name="Preset_Universal" xml:space="preserve">
+    <value>Univerzální</value>
+  </data>
+  <data name="Preset_HighProfile" xml:space="preserve">
+    <value>Vysoký profil</value>
+  </data>
+  <data name="Preset_Normal" xml:space="preserve">
+    <value>Normální</value>
+  </data>
+  <data name="Preset_WindowsPhone7" xml:space="preserve">
+    <value>Windows Phone 7</value>
+  </data>
+  <data name="SourceOption_VideoFile" xml:space="preserve">
+    <value>Video soubor...</value>
+  </data>
+  <data name="SourceOption_DiscFolder" xml:space="preserve">
+    <value>DVD/Blu-ray složka...</value>
+  </data>
+  <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
+    <value>Verze {0} je k dispozici. Stahování aktualizace bylo zahájeno.</value>
+  </data>
+  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
+    <value>Stahování verze {0} bylo dokončeno a nainstaluje se při ukončení aplikace.</value>
+  </data>
+  <data name="UpdateNotAppliedError" xml:space="preserve">
+    <value>Aktualizace nebyla uskutečněna. Pokud jste ji nezrušili tak ji můžete nainstalovat manuálně.</value>
+  </data>
+  <data name="CouldNotLoadPresetMessage" xml:space="preserve">
+    <value>Přednastavení nelze načíst: </value>
+  </data>
+  <data name="CouldNotSavePresetMessage" xml:space="preserve">
+    <value>Přednastavení nelze uložit '{0}':{1}{2}</value>
+  </data>
+  <data name="CouldNotCopyTextError" xml:space="preserve">
+    <value>Text nelze kopírovat.</value>
+  </data>
+  <data name="LaunchUrlError" xml:space="preserve">
+    <value>Chyba při spouštění URL: {0}</value>
+  </data>
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Importovat přednastavení se nezdařilo. Zkontrolujte log pro podrobnosti.</value>
+  </data>
+  <data name="ImportErrorTitle" xml:space="preserve">
+    <value>Chyba při importu</value>
+  </data>
+  <data name="PresetImportSuccessMessage" xml:space="preserve">
+    <value>Přednastavení bylo úspěšně importováno {0}</value>
+  </data>
+  <data name="PresetExportSuccessMessage" xml:space="preserve">
+    <value>Přednastavení bylo úspěšně exportováno do {0}</value>
+  </data>
+  <data name="ExportPresetFilePickerText" xml:space="preserve">
+    <value>Exportovat přednastavení</value>
+  </data>
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>Chcete uložit změny do aktuálního selektoru?</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>Uložit aktuální selektor?</value>
+  </data>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Opravdu chcete vrátit zpět všechny neuložené změny?</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>Vrátit zpět</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Opravdu to chcete odstranit?</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="UserConfigCorrupted" xml:space="preserve">
+    <value>Konfigurace byla poškozena a nelze ji načíst. Některá z nastavení mohla být obnovena.</value>
+  </data>
+  <data name="OutputDirectoryPickerText" xml:space="preserve">
+    <value>Zvolte výstupní adresář pro soubory enkódovaného videa.</value>
+  </data>
+  <data name="LengthPreviewLabel" xml:space="preserve">
+    <value>({0})</value>
+  </data>
+  <data name="ModifiedAffix" xml:space="preserve">
+    <value>(Změněno)</value>
+  </data>
+  <data name="PlayingVideoStatus" xml:space="preserve">
+    <value>Přehrávání videa...</value>
+  </data>
+  <data name="OpeningFolderStatus" xml:space="preserve">
+    <value>Otevírání složky...</value>
+  </data>
+  <data name="CloseVideoSourceToolTip" xml:space="preserve">
+    <value>Zavřít zdroj videa</value>
+  </data>
+  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
+    <value>Zavřít zdroj videa</value>
+  </data>
+  <data name="UpdatesMenuItem" xml:space="preserve">
+    <value>Aktualizace...</value>
+  </data>
+  <data name="CbrAuto" xml:space="preserve">
+    <value>CBR Auto</value>
+  </data>
+  <data name="RangeBarToolTip" xml:space="preserve">
+    <value>Levým tlačítkem myši nastavit čas začátku a pravým tlačítkem nastavit čas ukončení.</value>
+  </data>
+  <data name="Preset_WindowsPhone8" xml:space="preserve">
+    <value>Windows Phone 8</value>
+  </data>
+  <data name="QueueFormat_Chapters" xml:space="preserve">
+    <value>Kapitoly {0}</value>
+  </data>
+  <data name="QueueFormat_Frames" xml:space="preserve">
+    <value>Snímky {0}-{1}</value>
+  </data>
+  <data name="QueueRangeAll" xml:space="preserve">
+    <value>Vše</value>
+  </data>
+  <data name="CouldNotCopyLogError" xml:space="preserve">
+    <value>Nelze zkopírovat log:{0}{0}{1}</value>
+  </data>
+  <data name="OpenLog" xml:space="preserve">
+    <value>Otevřít log</value>
+  </data>
+  <data name="CopyLog" xml:space="preserve">
+    <value>Kopírovat log</value>
+  </data>
+  <data name="PresetDiscardConfirmMessage" xml:space="preserve">
+    <value>Vaše změny nejsou uloženy. Opravdu chcete tyto změny zahodit přepnutím na jiné přednastavení?</value>
+  </data>
+  <data name="PresetDiscardConfirmTitle" xml:space="preserve">
+    <value>Zrušit změny?</value>
+  </data>
+  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
+    <value>Odebrat audio stopu</value>
+  </data>
+  <data name="Preset_Xbox360" xml:space="preserve">
+    <value>Xbox 360</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>Odebrat z fronty</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>Frontu nelze uložit:{0}{1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>Exportovat frontu...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>Exportovat frontu</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Importovat frontu se nezdařilo. Zkontrolujte log pro podrobnosti.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>Importovat soubor přednastavení</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>Importovat soubor fronty</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>Importovat frontu...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>Fronta byla úspěšně exportována do {0}</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>Fronta byla úspěšně importována.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>Zastavit enkódování?</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>Opravdu chcete zastavit enkódování?</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>Zavřít současný soubor a otevřít disk?</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>Detaily enkódování</value>
+  </data>
+  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
+    <value>Nastavení enkódování bylo změněno od posledního přidání položky do fronty. Chcete použít stávající nastavení enkódování pro všechny položky ve frontě?</value>
+  </data>
+  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
+    <value>Došlo ke změně nastavení</value>
+  </data>
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>Chcete přejmenovat existující soubor a začít s novým?</value>
+  </data>
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>Databázový soubor verze {0} nelze načíst. Nejvyšší verze kterou podporuje VidCoder {1} je {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>Databázový soubor není kompatibilní</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>Selektor</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Selektor nelze načíst: </value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>Selektor {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} další tituly mají dobu trvání blízkou k tomuhle.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>Máte zálohovanou verzi {0} souboru. Chcete ji používat?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Při přehrávání videa došlo k chybě.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>Vlastní video přehrávač nebyl nalezen v {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>Varování: Velikost rozhraní bylo přepracováno pro verzi 2.0 a tak se vaše přednastavení mohlo změnti. Můžete to zkontrolovat a ujistit se že je to stále správně nastaveno.</value>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Přiřadit složku video souborů...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Došlo k chybě při načítání některých souborů a nebyly přidány do fronty: {0}</value>
+  </data>
+</root>

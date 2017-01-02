@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
+using System.ServiceModel;
+using System.Threading;
+using VidCoderCommon;
+using VidCoderCommon.Utilities;
 
 namespace VidCoderWorker
 {
-	using System.Diagnostics;
-	using System.ServiceModel;
-	using System.Threading;
-	using HandBrake.Interop;
-
 	class Program
 	{
 		private const double ParentCheckInterval = 5000;
@@ -34,6 +32,8 @@ namespace VidCoderWorker
 					return;
 				}
 
+				JsonSettings.SetDefaultSerializationSettings();
+
 				PipeName = args[1];
 
 				parentCheckTimer = new System.Timers.Timer();
@@ -47,7 +47,7 @@ namespace VidCoderWorker
 							{
 								// If we couldn't stop the process, just wait until next tick. May have not started yet or may
 								// already be in the process of closing.
-								if (HandBrakeEncoder.CurrentEncoder != null && HandBrakeEncoder.CurrentEncoder.StopEncodeIfPossible())
+								if (HandBrakeWorker.CurrentWorker != null && HandBrakeWorker.CurrentWorker.StopEncodeIfPossible())
 								{
 									// If we are able to stop the encode, we will do so. Cleanup should
 									// happen with the encode complete callback.
@@ -57,7 +57,7 @@ namespace VidCoderWorker
 						}
 						catch (Exception exception)
 						{
-							WorkerLogger.Log("Exception in parentCheckTimer.Elapsed: " + exception.ToString(), isError: true);
+							WorkerErrorLogger.LogError("Exception in parentCheckTimer.Elapsed: " + exception.ToString(), isError: true);
 							throw;
 						}
 					};
@@ -67,10 +67,10 @@ namespace VidCoderWorker
 				ServiceHost host = null;
 				try
 				{
-					host = new ServiceHost(typeof (HandBrakeEncoder));
+					host = new ServiceHost(typeof (HandBrakeWorker));
 
 					host.AddServiceEndpoint(
-						typeof (IHandBrakeEncoder),
+						typeof (IHandBrakeWorker),
 						new NetNamedPipeBinding(),
 						"net.pipe://localhost/" + PipeName);
 
@@ -84,7 +84,7 @@ namespace VidCoderWorker
 				}
 				catch (CommunicationException exception)
 				{
-					WorkerLogger.Log("Exception when trying to establish pipe service: " + exception, isError: true);
+					WorkerErrorLogger.LogError("Exception when trying to establish pipe service: " + exception, isError: true);
 					if (host != null)
 					{
 						host.Abort();
@@ -92,7 +92,7 @@ namespace VidCoderWorker
 				}
 				catch (TimeoutException exception)
 				{
-					WorkerLogger.Log("Exception when trying to establish pipe service: " + exception, isError: true);
+					WorkerErrorLogger.LogError("Exception when trying to establish pipe service: " + exception, isError: true);
 					if (host != null)
 					{
 						host.Abort();
@@ -110,7 +110,7 @@ namespace VidCoderWorker
 			}
 			catch (Exception exception)
 			{
-				WorkerLogger.Log("Exception in Main: " + exception, isError: true);
+				WorkerErrorLogger.LogError("Exception in Main: " + exception, isError: true);
 				throw;
 			}
 		}

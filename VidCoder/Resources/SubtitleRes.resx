@@ -174,4 +174,7 @@
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
     <value>Duplicate this track</value>
   </data>
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>Could not detect the encoding of the subtitle file. To make sure the subtitles show up correctly, re-save the file as UTF-8.</value>
+  </data>
 </root>

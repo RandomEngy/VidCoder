@@ -1,37 +1,56 @@
-﻿namespace VidCoder
-{
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-	using GalaSoft.MvvmLight.Ioc;
-	using Services;
-	using ViewModel.Components;
+﻿using System;
+using Microsoft.Practices.ServiceLocation;
+using Microsoft.Practices.Unity;
+using VidCoder.Services;
+using VidCoder.Services.Windows;
+using VidCoder.ViewModel;
+using VidCoderCommon.Services;
 
+namespace VidCoder
+{
 	public static class Ioc
 	{
 		static Ioc()
 		{
-			Container = new SimpleIoc();
-			Container.Register<IDriveService, DriveService>();
-			Container.Register<IUpdater, Updater>();
-			Container.Register<IMessageBoxService, MessageBoxService>();
-			Container.Register<ILogger, Logger>();
-			Container.Register<IFileService, FileService>();
-			Container.Register<IPresetImportExport, PresetImportExport>();
-			Container.Register<IQueueImportExport, QueueImportExport>();
-			Container.Register<IProcesses, Processes>();
-			Container.Register<IProcessAutoPause, ProcessAutoPause>();
-			Container.Register<ISystemOperations, SystemOperations>();
-			Container.Register(() => new TrayService());
-			Container.Register(() => new ClipboardService());
+			Container = new UnityContainer();
+			Container.RegisterType<IDriveService, DriveService>(Singleton);
+			Container.RegisterType<IUpdater, Updater>(Singleton);
+			Container.RegisterType<IMessageBoxService, MessageBoxService>(Singleton);
+			Container.RegisterType<AppLogger>(Singleton, new InjectionFactory(c => new AppLogger()));
+			Container.RegisterType<IAppLogger, AppLogger>(Singleton);
+			Container.RegisterType<ILogger, AppLogger>(Singleton);
+			Container.RegisterType<IFileService, FileService>(Singleton);
+			Container.RegisterType<IPresetImportExport, PresetImportExport>(Singleton);
+			Container.RegisterType<IQueueImportExport, QueueImportExport>(Singleton);
+			Container.RegisterType<IProcesses, Processes>(Singleton);
+			Container.RegisterType<IProcessAutoPause, ProcessAutoPause>(Singleton);
+			Container.RegisterType<ISystemOperations, SystemOperations>(Singleton);
+			Container.RegisterType<IWindowManager, WindowManager>(Singleton);
 
-			Container.Register<OutputPathViewModel>();
-			Container.Register<PresetsViewModel>();
-			Container.Register<ProcessingViewModel>();
-			Container.Register<WindowManagerViewModel>();
+			Container.RegisterType<OutputPathService>(Singleton);
+			Container.RegisterType<OutputSizeService>(Singleton);
+			Container.RegisterType<PresetsService>(Singleton);
+			Container.RegisterType<PickersService>(Singleton);
+			Container.RegisterType<ProcessingService>(Singleton);
+			Container.RegisterType<EncodingWindowViewModel>(Singleton);
+			Container.RegisterType<StatusService>(Singleton);
+			Container.RegisterType<PreviewUpdateService>(Singleton);
+
+			ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(Container));
 		}
 
-		public static SimpleIoc Container { get; set; }
+		public static UnityContainer Container { get; set; }
+
+		public static T Get<T>()
+		{
+			return Container.Resolve<T>();
+		}
+
+		public static object Get(Type type)
+		{
+			return Container.Resolve(type);
+		}
+
+		public static ContainerControlledLifetimeManager Singleton => new ContainerControlledLifetimeManager();
 	}
 }

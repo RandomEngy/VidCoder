@@ -1,4 +1,4 @@
-﻿using VidCoder.Model.Encoding;
+﻿using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel.DataModels
 {
@@ -8,12 +8,6 @@ namespace VidCoder.ViewModel.DataModels
 		public string Image { get; set; }
 		public string Display { get; set; }
 
-		public bool ShowImage
-		{
-			get
-			{
-				return this.Image != null;
-			}
-		}
+		public bool ShowImage { get; set; } = true;
 	}
 }

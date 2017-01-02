@@ -10,10 +10,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VidCoder.Extensions;
 using VidCoder.ViewModel;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Collections.Specialized;
+using ReactiveUI;
 
 namespace VidCoder.View
 {
@@ -22,8 +24,8 @@ namespace VidCoder.View
 	/// </summary>
 	public partial class SubtitleDialog : Window, IDialog
 	{
-		private ObservableCollection<SourceSubtitleViewModel> sourceSubtitles;
-		private ObservableCollection<SrtSubtitleViewModel> srtSubtitles;
+		private ReactiveList<SourceSubtitleViewModel> sourceSubtitles;
+		private ReactiveList<SrtSubtitleViewModel> srtSubtitles;
 
 		public SubtitleDialog()
 		{
@@ -93,7 +95,9 @@ namespace VidCoder.View
 
 		private void sourceVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName == "Selected")
+			var vm = sender as SourceSubtitleViewModel;
+
+			if (e.PropertyName == nameof(vm.Selected))
 			{
 				ResizeGridViewColumn(this.nameColumn);
 				ResizeGridViewColumn(this.sourceDefaultColumn);
@@ -104,11 +108,13 @@ namespace VidCoder.View
 
 		private void srtVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName == "CharacterCode")
+			var vm = sender as SrtSubtitleViewModel;
+
+			if (e.PropertyName == nameof(vm.CharacterCode))
 			{
 				ResizeGridViewColumn(this.srtCharCodeColumn);
 			}
-			else if (e.PropertyName == "LanguageCode")
+			else if (e.PropertyName == nameof(vm.LanguageCode))
 			{
 				ResizeGridViewColumn(this.srtLanguageColumn);
 			}
@@ -129,17 +135,6 @@ namespace VidCoder.View
 			}
 
 			column.Width = double.NaN;
-		}
-
-		protected override void OnSourceInitialized(EventArgs e)
-		{
-			base.OnSourceInitialized(e);
-			this.SetPlacement(Config.SubtitlesDialogPlacement);
-		}
-
-		private void Window_Closing(object sender, CancelEventArgs e)
-		{
-			Config.SubtitlesDialogPlacement = this.GetPlacement();
 		}
 	}
 }

@@ -1,9 +1,7 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ output extension=".cs" #>
-<#@ assembly name="$(TargetPath)" #>
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="VidCoder" #>
 <#
 string fileName = this.Host.ResolvePath("Config.txt");
 var settings = new List<ConfigDeclaration>();
@@ -24,44 +22,110 @@ foreach (string line in lines)
 	}
 }
 #>
+using System;
+using System.Collections.Generic;
+using System.Data.SQLite;
+using VidCoder.Model;
+
 namespace VidCoder
 {
-	using System.Data.SQLite;
-	using Model;
-
 	public static class Config
 	{
-		public static void Initialize(SQLiteConnection connection)
+		private static bool initialized;
+		private static Dictionary<string, object> cache;
+		private static Dictionary<string, object> observableCache;
+
+		public static void EnsureInitialized(SQLiteConnection connection)
 		{
+			if (!initialized)
+			{
+				Initialize(connection);
+				initialized = true;
+			}
+		}
+
+		public static void Refresh(SQLiteConnection connection)
+		{
+			Initialize(connection);
+		}
+
+		private static void Initialize(SQLiteConnection connection)
+		{
+			observableCache = new Dictionary<string, object>();
+			cache = new Dictionary<string, object>();
 <#
 foreach (var setting in settings)
 {
 #>
-			<#= setting.Name + "_Field" #> = DatabaseConfig.GetConfig("<#= setting.Name #>", <#= setting.Default #>, connection);
+			cache.Add("<#= setting.Name #>", DatabaseConfig.Get("<#= setting.Name #>", <#= setting.Default #>, connection));
 <#
 }   
 #>
 		}
+
+		public static T Get<T>(string key)
+		{
+			return (T)cache[key];
+		}
+
+		public static void Set<T>(string key, T value)
+		{
+			cache[key] = value;
+			DatabaseConfig.Set(key, value);
+
+			object observableObject;
+			if (observableCache.TryGetValue(key, out observableObject))
+			{
+				var observable = (ConfigObservable<T>)observableObject;
+				observable.OnNext(value);
+			}
+		}
+
 <#
 foreach (var setting in settings)
 {
 #>
-		private static <#= setting.ValueType #> <#= setting.Name + "_Field" #>;
 		public static <#= setting.ValueType #> <#= setting.Name #>
 		{
-			get
-			{
-				return <#= setting.Name + "_Field" #>;
-			}
-			
-			set
-			{
-				<#= setting.Name + "_Field" #> = value;
-				DatabaseConfig.SetConfigValue("<#= setting.Name #>", value);
-			}
+			get { return (<#= setting.ValueType #>)cache["<#= setting.Name #>"]; }
+			set { Set("<#= setting.Name #>", value); }
 		}
 <#
 }   
 #>
+		public static class Observables
+		{
+<#
+foreach (var setting in settings)
+{
+#>
+			public static IObservable<<#= setting.ValueType #>> <#= setting.Name #> => GetObservable<<#= setting.ValueType #>>("<#= setting.Name #>");
+<#
+}   
+#>
+			private static IObservable<T> GetObservable<T>(string configName)
+			{
+				object observableObject;
+				if (observableCache.TryGetValue(configName, out observableObject))
+				{
+					return (ConfigObservable<T>)observableObject;
+				}
+
+				var newObservable = new ConfigObservable<T>(configName);
+				observableCache.Add(configName, newObservable);
+
+				return newObservable;
+			}
+		}
 	}
 }
+<#+
+
+public class ConfigDeclaration
+{
+	public string Name { get; set; }
+	public string ValueType { get; set; }
+	public string Default { get; set; }
+}
+
+#>

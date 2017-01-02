@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Data;
 using System.Globalization;
+using HandBrake.ApplicationServices.Interop;
 
 namespace VidCoder.Converters
 {
-	using HandBrake.Interop.Model;
 	using Resources;
 
 	public class SampleRateDisplayConverter : IValueConverter
@@ -17,7 +17,7 @@ namespace VidCoder.Converters
 		static SampleRateDisplayConverter()
 		{
 			rateDisplayTable = new Dictionary<int, string> { { 0, EncodingRes.SameAsSource } };
-			foreach (var audioSampleRate in Encoders.AudioSampleRates)
+			foreach (var audioSampleRate in HandBrakeEncoderHelpers.AudioSampleRates)
 			{
 				rateDisplayTable.Add(audioSampleRate.Rate, audioSampleRate.Name + " kHz");
 			}

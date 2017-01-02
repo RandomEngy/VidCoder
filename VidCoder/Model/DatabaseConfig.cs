@@ -1,68 +1,66 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using VidCoder.Services;
+using System.Globalization;
 
 namespace VidCoder.Model
 {
-	using System.Globalization;
-	using System.Threading;
-
+	/// <summary>
+	/// Accesses config values in database directly without any local caching.
+	/// </summary>
 	public static class DatabaseConfig
 	{
 		public static int Version
 		{
 			get
 			{
-				return GetConfig("Version", Utilities.CurrentDatabaseVersion, Database.ThreadLocalConnection);
+				return Get("Version", Utilities.CurrentDatabaseVersion, Database.ThreadLocalConnection);
 			}
 		}
 
-		public static bool GetConfig(string configName, bool defaultValue, SQLiteConnection connection)
+		/// <summary>
+		/// Gets a config value from the database.
+		/// </summary>
+		/// <typeparam name="T">The type of configuration value. (bool, string, int, double)</typeparam>
+		/// <param name="configName">The configuration key.</param>
+		/// <param name="defaultValue">The default value to use if it's not set.</param>
+		/// <param name="connection">The connection to use.</param>
+		/// <returns>The </returns>
+		public static T Get<T>(string configName, T defaultValue, SQLiteConnection connection = null)
 		{
-			string configValue = GetConfigStringRaw(configName, connection);
-			if (configValue != null)
+			if (connection == null)
 			{
-				return bool.Parse(configValue);
+				connection = Database.ThreadLocalConnection;
 			}
 
-			return defaultValue;
-		}
-
-		public static int GetConfig(string configName, int defaultValue, SQLiteConnection connection)
-		{
 			string configValue = GetConfigStringRaw(configName, connection);
-			if (configValue != null)
+			if (configValue == null)
 			{
-				return int.Parse(configValue);
+				return defaultValue;
 			}
 
-			return defaultValue;
-		}
-
-		public static double GetConfig(string configName, double defaultValue, SQLiteConnection connection)
-		{
-			string configValue = GetConfigStringRaw(configName, connection);
-			if (configValue != null)
+			Type type = typeof (T);
+			if (type == typeof (bool))
 			{
-				return double.Parse(configValue, CultureInfo.InvariantCulture);
+				return (T)(object)bool.Parse(configValue);
 			}
 
-			return defaultValue;
-		}
-
-		public static string GetConfig(string configName, string defaultValue, SQLiteConnection connection)
-		{
-			string configValue = GetConfigStringRaw(configName, connection);
-			if (configValue != null)
+			if (type == typeof (int))
 			{
-				return configValue;
+				return (T)(object)int.Parse(configValue);
 			}
 
-			return defaultValue;
+			if (type == typeof (double))
+			{
+				return (T)(object)double.Parse(configValue, CultureInfo.InvariantCulture);
+			}
+
+			if (type == typeof (string))
+			{
+				return (T)(object)configValue;
+			}
+
+			throw new ArgumentException("Unrecognized type passed to GetConfig: " + typeof(T).Name);
 		}
 
 		private static string GetConfigStringRaw(string configName, SQLiteConnection connection)
@@ -98,37 +96,48 @@ namespace VidCoder.Model
 			}
 		}
 
-		public static void SetConfigValue(string configName, bool value, SQLiteConnection connection)
+		/// <summary>
+		/// Sets a configuration value.
+		/// </summary>
+		/// <typeparam name="T">The type of configuration value. (bool, string, int, double)</typeparam>
+		/// <param name="configName">The configuration key.</param>
+		/// <param name="value">The value to set.</param>
+		/// <param name="connection">The connection to save to.</param>
+		public static void Set<T>(string configName, T value, SQLiteConnection connection = null)
 		{
-			SetConfigValue(configName, value.ToString(CultureInfo.InvariantCulture), connection);
+			if (connection == null)
+			{
+				connection = Database.ThreadLocalConnection;
+			}
+
+			string configValue;
+			if (value is double)
+			{
+				double typedValue = (double) Convert.ChangeType(value, typeof (double));
+				configValue = typedValue.ToString(CultureInfo.InvariantCulture);
+			}
+			else if (value is int)
+			{
+				int typedValue = (int) Convert.ChangeType(value, typeof (int));
+				configValue = typedValue.ToString(CultureInfo.InvariantCulture);
+			}
+			else if (value is string || value is bool)
+			{
+				configValue = value.ToString();
+			}
+			else if (value == null)
+			{
+				configValue = null;
+			}
+			else
+			{
+				throw new ArgumentException("Unrecognized type passed to SetConfigValue: " + typeof(T).Name);
+			}
+
+			SetInternal(configName, configValue, connection);
 		}
 
-		public static void SetConfigValue(string configName, bool value)
-		{
-			SetConfigValue(configName, value, Database.ThreadLocalConnection);
-		}
-
-		public static void SetConfigValue(string configName, int value, SQLiteConnection connection)
-		{
-			SetConfigValue(configName, value.ToString(CultureInfo.InvariantCulture), connection);
-		}
-
-		public static void SetConfigValue(string configName, int value)
-		{
-			SetConfigValue(configName, value, Database.ThreadLocalConnection);
-		}
-
-		public static void SetConfigValue(string configName, double value, SQLiteConnection connection)
-		{
-			SetConfigValue(configName, value.ToString(CultureInfo.InvariantCulture), connection);
-		}
-
-		public static void SetConfigValue(string configName, double value)
-		{
-			SetConfigValue(configName, value, Database.ThreadLocalConnection);
-		}
-
-		public static void SetConfigValue(string configName, string configValue, SQLiteConnection connection)
+		public static void SetInternal(string configName, string configValue, SQLiteConnection connection)
 		{
 			var command = new SQLiteCommand("UPDATE settings SET value = ? WHERE name = ?", connection);
 			command.Parameters.Add("value", DbType.String).Value = configValue;
@@ -139,11 +148,6 @@ namespace VidCoder.Model
 				// If the setting did not exist, add it
 				AddConfigValue(configName, configValue, connection);
 			}
-		}
-
-		public static void SetConfigValue(string configName, string configValue)
-		{
-			SetConfigValue(configName, configValue, Database.ThreadLocalConnection);
 		}
 	}
 }

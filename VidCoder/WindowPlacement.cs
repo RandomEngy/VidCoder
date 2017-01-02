@@ -1,16 +1,10 @@
 ﻿using System;
-using System.IO;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
+using System.Windows;
+using Newtonsoft.Json;
 
 namespace VidCoder
 {
-	using System.ComponentModel;
-	using System.Diagnostics;
-	using System.Threading;
-
 	// RECT structure required by WINDOWPLACEMENT structure
 	[Serializable]
 	[StructLayout(LayoutKind.Sequential)]
@@ -69,9 +63,6 @@ namespace VidCoder
 
 	public static class WindowPlacement
 	{
-		private static Encoding encoding = new UTF8Encoding();
-		private static XmlSerializer serializer = new XmlSerializer(typeof(WINDOWPLACEMENT));
-
 		[DllImport("user32.dll")]
 		private static extern bool SetWindowPlacement(IntPtr hWnd, [In] ref WINDOWPLACEMENT lpwndpl);
 
@@ -92,31 +83,20 @@ namespace VidCoder
 		private const uint MONITOR_DEFAULTTOPRIMARY = 0x00000001;
 		private const uint MONITOR_DEFAULTTONEAREST = 0x00000002;
 
-		public static void SetPlacement(IntPtr windowHandle, string placementXml)
+		public static void SetPlacement(IntPtr windowHandle, string placementJson)
 		{
-			if (string.IsNullOrEmpty(placementXml))
+			if (string.IsNullOrEmpty(placementJson))
 			{
 				return;
 			}
 
-			WINDOWPLACEMENT placement;
-			byte[] xmlBytes = encoding.GetBytes(placementXml);
-
 			try
 			{
-				using (MemoryStream memoryStream = new MemoryStream(xmlBytes))
-				{
-					placement = (WINDOWPLACEMENT)serializer.Deserialize(memoryStream);
-				}
+				WINDOWPLACEMENT placement = ParsePlacementJson(placementJson);
 
 				placement.length = Marshal.SizeOf(typeof(WINDOWPLACEMENT));
 				placement.flags = 0;
 				placement.showCmd = (placement.showCmd == SW_SHOWMINIMIZED ? SW_SHOWNORMAL : placement.showCmd);
-
-				//if (placement.showCmd == SW_SHOWNORMAL)
-				//{
-				//	placement.showCmd = SW_SHOWNOACTIVATE;
-				//}
 
 				IntPtr closestMonitorPtr = MonitorFromRect(ref placement.normalPosition, MONITOR_DEFAULTTONEAREST);
 				MONITORINFO closestMonitorInfo = new MONITORINFO();
@@ -130,10 +110,15 @@ namespace VidCoder
 
 				SetWindowPlacement(windowHandle, ref placement);
 			}
-			catch (InvalidOperationException)
+			catch (JsonException)
 			{
-				// Parsing placement XML failed. Fail silently.
+				// Parsing placement JSON failed. Fail silently.
 			}
+		}
+
+		public static WINDOWPLACEMENT ParsePlacementJson(string placementJson)
+		{
+			return JsonConvert.DeserializeObject<WINDOWPLACEMENT>(placementJson);
 		}
 
 		public static string GetPlacement(IntPtr windowHandle)
@@ -141,15 +126,7 @@ namespace VidCoder
 			WINDOWPLACEMENT placement = new WINDOWPLACEMENT();
 			GetWindowPlacement(windowHandle, out placement);
 
-			using (MemoryStream memoryStream = new MemoryStream())
-			{
-				using (XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8))
-				{
-					serializer.Serialize(xmlTextWriter, placement);
-					byte[] xmlBytes = memoryStream.ToArray();
-					return encoding.GetString(xmlBytes);
-				}
-			}
+			return JsonConvert.SerializeObject(placement);
 		}
 
 		private static bool RectanglesIntersect(RECT a, RECT b)
@@ -223,6 +200,12 @@ namespace VidCoder
 			}
 
 			return windowRect;
+		}
+
+		public static Rect ToRect(this WINDOWPLACEMENT placement)
+		{
+			RECT pos = placement.normalPosition;
+			return new Rect(pos.Left, pos.Top, pos.Right - pos.Left, pos.Bottom - pos.Top);
 		}
 	}
 }

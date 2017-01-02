@@ -12,7 +12,7 @@ namespace VidCoder.Converters
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			return string.Compare(value.ToString(), (string)parameter, StringComparison.InvariantCultureIgnoreCase) == 0 ? Visibility.Visible : Visibility.Collapsed;
+			return string.Compare(value.ToString(), parameter.ToString(), StringComparison.InvariantCultureIgnoreCase) == 0 ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

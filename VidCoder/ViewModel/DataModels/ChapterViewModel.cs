@@ -2,44 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop.SourceData;
-using VidCoder.Messages;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using ReactiveUI;
 
 namespace VidCoder.ViewModel
 {
-	public class ChapterViewModel : ViewModelBase
+	public class ChapterViewModel : ReactiveObject
 	{
-		public ChapterViewModel(Chapter chapter)
+		/// <summary>
+		/// Initializes a new instance of the ChapterViewModel class.
+		/// </summary>
+		/// <param name="chapter">The raw source chapter.</param>
+		/// <param name="chapterNumber">The 1-based index of the chapter.</param>
+		public ChapterViewModel(SourceChapter chapter, int chapterNumber)
 		{
 			this.Chapter = chapter;
+			this.ChapterNumber = chapterNumber;
 		}
 
-		public Chapter Chapter { get; private set; }
+		public SourceChapter Chapter { get; private set; }
 
-		public int ChapterNumber
-		{
-			get
-			{
-				return this.Chapter.ChapterNumber;
-			}
-		}
+		public int ChapterNumber { get; private set; }
 
 		private bool isHighlighted;
 		public bool IsHighlighted
 		{
-			get
-			{
-				return this.isHighlighted;
-			}
-
-			set
-			{
-				this.isHighlighted = value;
-				this.RaisePropertyChanged(() => this.IsHighlighted);
-				Messenger.Default.Send(new HighlightedChapterChangedMessage());
-			}
+			get { return this.isHighlighted; }
+			set { this.RaiseAndSetIfChanged(ref this.isHighlighted, value); }
 		}
 	}
 }

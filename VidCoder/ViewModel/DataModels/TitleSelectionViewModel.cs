@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using GalaSoft.MvvmLight;
-using HandBrake.Interop.SourceData;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using ReactiveUI;
+using VidCoder.Extensions;
 
 namespace VidCoder.ViewModel
 {
-	public class TitleSelectionViewModel : ViewModelBase
+	public class TitleSelectionViewModel : ReactiveObject
 	{
-		private QueueTitlesDialogViewModel titlesDialogVM;
+		private QueueTitlesWindowViewModel titlesDialogVM;
 		private bool selected;
 
-		public TitleSelectionViewModel(Title title, QueueTitlesDialogViewModel titlesDialogVM)
+		public TitleSelectionViewModel(SourceTitle title, QueueTitlesWindowViewModel titlesDialogVM)
 		{
 			this.Title = title;
 			this.titlesDialogVM = titlesDialogVM;
@@ -28,18 +29,18 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.selected = value;
-				this.RaisePropertyChanged(() => this.Selected);
+				this.RaisePropertyChanged();
 				this.titlesDialogVM.HandleCheckChanged(this, value);
 			}
 		}
 
-		public Title Title { get; set; }
+		public SourceTitle Title { get; set; }
 
 		public string Text
 		{
 			get
 			{
-				return this.Title.Display;
+				return this.Title.GetDisplayString();
 			}
 		}
 
@@ -50,7 +51,7 @@ namespace VidCoder.ViewModel
 		public void SetSelected(bool newValue)
 		{
 			this.selected = newValue;
-			this.RaisePropertyChanged(() => this.Selected);
+			this.RaisePropertyChanged(nameof(this.Selected));
 		}
 	}
 }

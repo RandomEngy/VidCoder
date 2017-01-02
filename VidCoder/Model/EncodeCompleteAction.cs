@@ -11,23 +11,20 @@ namespace VidCoder.Model
 
 		public string DriveLetter { get; set; }
 
-		public string Display
-		{
-			get
-			{
-				var converter = new EnumStringConverter<EncodeCompleteActionType>();
-				string displayString = converter.Convert(this.ActionType);
+	    public override string ToString()
+	    {
+            var converter = new EnumStringConverter<EncodeCompleteActionType>();
+            string displayString = converter.Convert(this.ActionType);
 
-				if (this.ActionType == EncodeCompleteActionType.EjectDisc)
-				{
-					displayString = string.Format(displayString, this.DriveLetter);
-				}
+            if (this.ActionType == EncodeCompleteActionType.EjectDisc)
+            {
+                displayString = string.Format(displayString, this.DriveLetter);
+            }
 
-				return displayString;
-			}
-		}
+            return displayString;
+        }
 
-		public bool Equals(EncodeCompleteAction action2)
+	    public bool Equals(EncodeCompleteAction action2)
 		{
 			return action2 != null && this.ActionType == action2.ActionType && this.DriveLetter == action2.DriveLetter;
 		}

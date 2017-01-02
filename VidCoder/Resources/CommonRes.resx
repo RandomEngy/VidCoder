@@ -131,7 +131,7 @@ A full copy of the GNU General Public License has been included along with this 
     <value>Mark this subtitle track as the default. This will show up during playback until another track is picked.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Only display forced subtitles from the given track. Usually this means small bits of foreign dialogue.</value>
+    <value>Only display forced subtitles from the subtitle track(s). Usually this means small bits of foreign dialogue.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>The amount of time to push forward or delay the appearance of the given subtitles.</value>
@@ -251,6 +251,34 @@ A full copy of the GNU General Public License has been included along with this 
   </data>
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>File operation error</value>
+  </data>
+  <data name="OverrideNameFormatCheckBox" xml:space="preserve">
+    <value>Override naming format:</value>
+  </data>
+  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
+    <value>Output to the source directory if possible</value>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Preserve folder structure in batch encodes</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>If you encode a folder full of files the encoded versions will be put into subfolders to match the source directory structure.</value>
+  </data>
+  <data name="DismissMessage" xml:space="preserve">
+    <value>Dismiss message</value>
+    <comment>Appears as a tooltip on inline, dismissable messages</comment>
+  </data>
+  <data name="PresetFileFilter" xml:space="preserve">
+    <value>VidCoder Preset File</value>
+    <comment>File dialog description of a .vjpreset file: JSON file that stores an exported preset.</comment>
+  </data>
+  <data name="QueueFileFilter" xml:space="preserve">
+    <value>VidCoder Queue File</value>
+    <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>First</value>
+    <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
   <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
     <value>Updates have been disabled since new versions no longer support 32-bit operating systems.</value>

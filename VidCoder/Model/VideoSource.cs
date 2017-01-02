@@ -1,13 +1,7 @@
-/*  VideoSource.cs $
-
-	This file is part of the HandBrake source code.
-	Homepage: <http://handbrake.fr>.
-	It may be used under the terms of the GNU General Public License. */
-
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
-using HandBrake.Interop.SourceData;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Services;
 
 namespace VidCoder.Model
@@ -22,13 +16,13 @@ namespace VidCoder.Model
 		/// </summary>
 		public VideoSource()
 		{
-			this.Titles = new List<Title>();
+			this.Titles = new List<SourceTitle>();
 		}
 
 		/// <summary>
 		/// Collection of Titles associated with this DVD
 		/// </summary>
-		public List<Title> Titles { get; set; }
+		public List<SourceTitle> Titles { get; set; }
 
 		/// <summary>
 		/// The feature title.

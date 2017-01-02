@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Resources;
-using GalaSoft.MvvmLight;
+using ReactiveUI;
 using VidCoder.Properties;
 
 namespace VidCoder.ViewModel
 {
 	using Resources;
 
-	public class ColumnViewModel : ViewModelBase
+	public class ColumnViewModel : ReactiveObject
 	{
 		private static ResourceManager resources = new ResourceManager("VidCoder.Resources.CommonRes", typeof(CommonRes).Assembly);
 

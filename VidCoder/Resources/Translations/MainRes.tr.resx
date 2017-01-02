@@ -1,0 +1,621 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>Başlık:</value>
+  </data>
+  <data name="SettingsLabel" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="AddToQueueLabel" xml:space="preserve">
+    <value>Kuyruğa Ekle</value>
+  </data>
+  <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
+    <value>Kuyruğa Birden Çok Başlık Ekle...</value>
+  </data>
+  <data name="FileMenu" xml:space="preserve">
+    <value>Dosya</value>
+  </data>
+  <data name="OpenVideoFile" xml:space="preserve">
+    <value>Video Dosyası Aç...</value>
+  </data>
+  <data name="OpenDiscFolder" xml:space="preserve">
+    <value>DVD/Blu-ray Klasörü Aç...</value>
+  </data>
+  <data name="EnqueueMultipleFiles" xml:space="preserve">
+    <value>Birden Çok Dosyayı Kuyruğa Al...</value>
+  </data>
+  <data name="EnqueueMultipleTitles" xml:space="preserve">
+    <value>Birden Çok Dosyayı Kuyruğa Al...</value>
+  </data>
+  <data name="ToolsMenu" xml:space="preserve">
+    <value>Araçlar</value>
+  </data>
+  <data name="ImportPreset" xml:space="preserve">
+    <value>Hazır Ayarı İçe Aktar...</value>
+  </data>
+  <data name="ExportPreset" xml:space="preserve">
+    <value>Hazır Ayarı Dışa Aktar...</value>
+  </data>
+  <data name="OptionsMenuItem" xml:space="preserve">
+    <value>Seçenekler...</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Oynat</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>Bulunduğu Klasörü Aç</value>
+  </data>
+  <data name="ClearCompleted" xml:space="preserve">
+    <value>Tamamlananları Kaldır</value>
+  </data>
+  <data name="ExitMenuItem" xml:space="preserve">
+    <value>Çık</value>
+  </data>
+  <data name="WindowsMenu" xml:space="preserve">
+    <value>Windows</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
+  </data>
+  <data name="EncodingSettingsMenuItem" xml:space="preserve">
+    <value>Kodlama Ayarları</value>
+  </data>
+  <data name="PreviewMenuItem" xml:space="preserve">
+    <value>Önizleme</value>
+  </data>
+  <data name="LogMenuItem" xml:space="preserve">
+    <value>İşlem Kaydı</value>
+  </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>Yardım</value>
+  </data>
+  <data name="VidCoderHomepageMenuItem" xml:space="preserve">
+    <value>VidCoder Web Sitesi</value>
+  </data>
+  <data name="ReportABugMenuItem" xml:space="preserve">
+    <value>Hata Bildir</value>
+  </data>
+  <data name="AboutVidCoderMenuItem" xml:space="preserve">
+    <value>VidCoder Hakkında...</value>
+  </data>
+  <data name="ChooseVideoSourceLabel" xml:space="preserve">
+    <value>Bir video kaynağı seçin:</value>
+  </data>
+  <data name="SourceLabel" xml:space="preserve">
+    <value>Kaynak:</value>
+  </data>
+  <data name="ScanningSourceLabel" xml:space="preserve">
+    <value>Kaynak inceleniyor...</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Son</value>
+  </data>
+  <data name="DragFilesHereLabel" xml:space="preserve">
+    <value>(Ya da video dosyalarını veya klasörleri buraya sürükleyin)</value>
+  </data>
+  <data name="ScanErrorLabel" xml:space="preserve">
+    <value>İnceleme sırasında bir hata oluştu.</value>
+  </data>
+  <data name="AudioLabel" xml:space="preserve">
+    <value>Ses:</value>
+  </data>
+  <data name="VideoLabel" xml:space="preserve">
+    <value>Video:</value>
+  </data>
+  <data name="SubtitlesLabel" xml:space="preserve">
+    <value>Altyazılar:</value>
+  </data>
+  <data name="AddTrackButton" xml:space="preserve">
+    <value>Parça Ekle</value>
+  </data>
+  <data name="ChapterMarkersLabel" xml:space="preserve">
+    <value>Bölüm İşaretleri:</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Düzenle...</value>
+  </data>
+  <data name="DestinationLabel" xml:space="preserve">
+    <value>Hedef:</value>
+  </data>
+  <data name="DestinationToolTip" xml:space="preserve">
+    <value>Kodlama hedef yerini düzenlemek için tıklayın.</value>
+  </data>
+  <data name="SelectOutputPathButton" xml:space="preserve">
+    <value>Çıkış yolunu seçin...</value>
+  </data>
+  <data name="EncodingLabel" xml:space="preserve">
+    <value>Kodlanıyor:</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Durdur</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Duraklat</value>
+  </data>
+  <data name="MoveToTopMenuItem" xml:space="preserve">
+    <value>En Üste Taşı</value>
+  </data>
+  <data name="MoveToBottomMenuItem" xml:space="preserve">
+    <value>En Alta Taşı</value>
+  </data>
+  <data name="CustomizeColumnsMenuItem" xml:space="preserve">
+    <value>Sütunları özelleştir...</value>
+  </data>
+  <data name="CurrentFpsLabel" xml:space="preserve">
+    <value>Geçerli kare/sn:</value>
+  </data>
+  <data name="AverageFpsLabel" xml:space="preserve">
+    <value>Ortalama kare/sn:</value>
+  </data>
+  <data name="PickDiscFolderHelpText" xml:space="preserve">
+    <value>Bir DVD ya da Blu-ray klasörü seçin.</value>
+  </data>
+  <data name="EncodesInProgressExitWarning" xml:space="preserve">
+    <value>Hala dönüştürülen dosyalar var. Çıkmak istediğinizden emin misiniz?</value>
+  </data>
+  <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
+    <value>Devam eden dönüştürmeler</value>
+  </data>
+  <data name="ForeignAudioSearch" xml:space="preserve">
+    <value>Yabancı Ses Araması</value>
+  </data>
+  <data name="NoneParen" xml:space="preserve">
+    <value>(Yok)</value>
+  </data>
+  <data name="TracksSummaryMultiple" xml:space="preserve">
+    <value>{0} parça</value>
+  </data>
+  <data name="SaveChangesPresetMessage" xml:space="preserve">
+    <value>Değişiklikleri mevcut ön ayara kaydetmek istiyor musunuz?</value>
+  </data>
+  <data name="SaveChangesPresetTitle" xml:space="preserve">
+    <value>Mevcut ayarlar kaydedilsin mi?</value>
+  </data>
+  <data name="DiscNotInDriveError" xml:space="preserve">
+    <value>Düzenleme için yükleme yapılamıyor. Disk sürücü içerisinde mevcut değil.</value>
+  </data>
+  <data name="PresetNameRestoredFromQueue" xml:space="preserve">
+    <value>Sıralamadan geri yüklendi</value>
+  </data>
+  <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
+    <value>Tamamlanmış görevlerden geri yüklendi</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Hazır Ayar:</value>
+  </data>
+  <data name="DestinationColumnHeader" xml:space="preserve">
+    <value>Hedef</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="ElapsedTimeColumnHeader" xml:space="preserve">
+    <value>Geçen süre</value>
+  </data>
+  <data name="PlayingVideoMessage" xml:space="preserve">
+    <value>Video oynatılırken...</value>
+  </data>
+  <data name="FileDoesNotExist" xml:space="preserve">
+    <value>{0} bulunamadı.</value>
+  </data>
+  <data name="AngleLabel" xml:space="preserve">
+    <value>Açı:</value>
+  </data>
+  <data name="ChaptersSummary" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="Queued" xml:space="preserve">
+    <value>Sıraya alındı</value>
+  </data>
+  <data name="QueuedWithTotal" xml:space="preserve">
+    <value>Sıraya alınan ({0})</value>
+  </data>
+  <data name="CompletedWithTotal" xml:space="preserve">
+    <value>Tamamlanan ({0})</value>
+  </data>
+  <data name="StoppedEncoding" xml:space="preserve">
+    <value>Kodlama durduruldu.</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
+    <value>{0} kaynak dosyayı() / klasörü() silmek istediğinize emin misiniz?</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
+    <value>Silmeyi Onayla</value>
+  </data>
+  <data name="CouldNotDeleteFile" xml:space="preserve">
+    <value>{0} silinemedi
+
+{1}</value>
+  </data>
+  <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
+    <value>Video dosyası() tarama hatası</value>
+  </data>
+  <data name="StartedEncoding" xml:space="preserve">
+    <value>Kodlama başlatıldı.</value>
+  </data>
+  <data name="DirectoryCreateErrorMessage" xml:space="preserve">
+    <value>Çıktı dizini oluşturulamadı. Hata ayrıntıları: 
+
+{0}</value>
+  </data>
+  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
+    <value>Dizin oluşturma hatası</value>
+  </data>
+  <data name="EncodeCompleted" xml:space="preserve">
+    <value>Kodlama tamamlandı.</value>
+  </data>
+  <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
+    <value>Kodlama tamamlandı</value>
+  </data>
+  <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
+    <value>VidCoder kuyruktaki tüm dosyaları dönüştürdü.</value>
+  </data>
+  <data name="OutputFolderRequiredMessage" xml:space="preserve">
+    <value>Kaydedilecek klasör belirlenmeden kodlama görevleri eklenemez. Bir konum seçmek için Tamam'a basınız.</value>
+  </data>
+  <data name="OutputFolderRequiredTitle" xml:space="preserve">
+    <value>Varsayılan Çıktı Klasörü Gerekli</value>
+  </data>
+  <data name="OutputPathNotValidMessage" xml:space="preserve">
+    <value>Çıktı yolu geçerli değil.</value>
+  </data>
+  <data name="OutputPathNotValidTitle" xml:space="preserve">
+    <value>Yol geçerli değil</value>
+  </data>
+  <data name="Encode" xml:space="preserve">
+    <value>Kodlama</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Devam Ettir</value>
+  </data>
+  <data name="EtaLabel" xml:space="preserve">
+    <value>TAHMİNİ TAMAMLANMA SÜRESİ:</value>
+  </data>
+  <data name="WhenDoneLabel" xml:space="preserve">
+    <value>Bittiğinde:</value>
+  </data>
+  <data name="Preset_AndroidTablet" xml:space="preserve">
+    <value>Android Tablet</value>
+  </data>
+  <data name="Preset_Android" xml:space="preserve">
+    <value>Android</value>
+  </data>
+  <data name="Preset_AppleiPad" xml:space="preserve">
+    <value>Apple iPad</value>
+  </data>
+  <data name="Preset_AppleiPhone4" xml:space="preserve">
+    <value>Apple iPhone 4</value>
+  </data>
+  <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
+    <value>Apple iPhone/Touch</value>
+  </data>
+  <data name="Preset_AppleiPod" xml:space="preserve">
+    <value>Apple iPod</value>
+  </data>
+  <data name="Preset_AppleTV" xml:space="preserve">
+    <value>AppleTV</value>
+  </data>
+  <data name="Preset_AppleTV2" xml:space="preserve">
+    <value>AppleTV 2</value>
+  </data>
+  <data name="Preset_AppleTV3" xml:space="preserve">
+    <value>AppleTV 3</value>
+  </data>
+  <data name="Preset_Universal" xml:space="preserve">
+    <value>Çok Amaçlı</value>
+  </data>
+  <data name="Preset_HighProfile" xml:space="preserve">
+    <value>Yüksek Profil</value>
+  </data>
+  <data name="Preset_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Preset_WindowsPhone7" xml:space="preserve">
+    <value>Windows Phone 7</value>
+  </data>
+  <data name="SourceOption_VideoFile" xml:space="preserve">
+    <value>Video Dosyası...</value>
+  </data>
+  <data name="SourceOption_DiscFolder" xml:space="preserve">
+    <value>DVD/Blu-ray klasörü...</value>
+  </data>
+  <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
+    <value>{0} sürümü hazır. Güncelleştirmek için karşıdan yükleme başlatıldı.</value>
+  </data>
+  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
+    <value>{0} sürümü karşıdan yüklendi, program kapatılınca kurulacak.</value>
+  </data>
+  <data name="UpdateNotAppliedError" xml:space="preserve">
+    <value>Sürüm güncelleştirme uygulanamadı. Siz iptal etmediyseniz, el ile yüklemeyi deneyin.</value>
+  </data>
+  <data name="CouldNotLoadPresetMessage" xml:space="preserve">
+    <value>Hazır ayarlar yüklenemedi: </value>
+  </data>
+  <data name="CouldNotSavePresetMessage" xml:space="preserve">
+    <value>Hazır ayar '{0}' kaydedilemedi: {1}{2}</value>
+  </data>
+  <data name="CouldNotCopyTextError" xml:space="preserve">
+    <value>Metin kopyalanamıyor.</value>
+  </data>
+  <data name="LaunchUrlError" xml:space="preserve">
+    <value>URL başlatma hatası: {0}</value>
+  </data>
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Hazır ayar içe aktarılamadı. Ayrıntılar için günlüğe bakın.</value>
+  </data>
+  <data name="ImportErrorTitle" xml:space="preserve">
+    <value>İçe Aktarma Hatası</value>
+  </data>
+  <data name="PresetImportSuccessMessage" xml:space="preserve">
+    <value>Başarıyla içe aktarılan hazır ayar {0}.</value>
+  </data>
+  <data name="PresetExportSuccessMessage" xml:space="preserve">
+    <value>{0} hazır ayar başarıyla dışa aktarıldı</value>
+  </data>
+  <data name="ExportPresetFilePickerText" xml:space="preserve">
+    <value>Hazır Ayarı Dışa Aktar</value>
+  </data>
+  
+  
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Tüm kaydedilmemiş değişiklikleri iptal etmek istediğinize emin misiniz?</value>
+  </data>
+  
+  
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
+  <data name="UserConfigCorrupted" xml:space="preserve">
+    <value>Yapılandırma dosyası bozulmuş ve yüklenemedi. Bazı ayarlarınız sıfırlanmış olabilir.</value>
+  </data>
+  <data name="OutputDirectoryPickerText" xml:space="preserve">
+    <value>Dönüştürülmüş video dosyaları için çıkış dizini seçin.</value>
+  </data>
+  <data name="LengthPreviewLabel" xml:space="preserve">
+    <value>({0})</value>
+  </data>
+  <data name="ModifiedAffix" xml:space="preserve">
+    <value>(Değiştirilmiş)</value>
+  </data>
+  <data name="PlayingVideoStatus" xml:space="preserve">
+    <value>Video oynatılırken...</value>
+  </data>
+  <data name="OpeningFolderStatus" xml:space="preserve">
+    <value>Klasör açılıyor...</value>
+  </data>
+  <data name="CloseVideoSourceToolTip" xml:space="preserve">
+    <value>Kaynak videoyu kapat</value>
+  </data>
+  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
+    <value>Kaynak Videoyu Kapat</value>
+  </data>
+  <data name="UpdatesMenuItem" xml:space="preserve">
+    <value>Güncelleştirmeler...</value>
+  </data>
+  <data name="CbrAuto" xml:space="preserve">
+    <value>CBR otomatik</value>
+  </data>
+  <data name="RangeBarToolTip" xml:space="preserve">
+    <value>Başlangıç zamanını ayarlamak için sol, bitiş zamanını ayarlamak için sağ tıklayın.</value>
+  </data>
+  <data name="Preset_WindowsPhone8" xml:space="preserve">
+    <value>Windows Phone 8</value>
+  </data>
+  <data name="QueueFormat_Chapters" xml:space="preserve">
+    <value>Kanal {0}</value>
+  </data>
+  <data name="QueueFormat_Frames" xml:space="preserve">
+    <value>Kare {0}-{1}</value>
+  </data>
+  <data name="QueueRangeAll" xml:space="preserve">
+    <value>Tümü</value>
+  </data>
+  <data name="CouldNotCopyLogError" xml:space="preserve">
+    <value>İşlem kaydı kopyalanamadı. Hata kodu:{0}{0}{1}</value>
+  </data>
+  <data name="OpenLog" xml:space="preserve">
+    <value>İşlem Kaydını Aç</value>
+  </data>
+  <data name="CopyLog" xml:space="preserve">
+    <value>İşlem Kaydını Kopyala</value>
+  </data>
+  <data name="PresetDiscardConfirmMessage" xml:space="preserve">
+    <value>Kaydedilmemiş değişiklikler var. Bir hazır ayara geçerek, bu değişiklikleri silmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="PresetDiscardConfirmTitle" xml:space="preserve">
+    <value>Değişiklikler Silinsin mi?</value>
+  </data>
+  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
+    <value>Sesi kaldır</value>
+  </data>
+  <data name="Preset_Xbox360" xml:space="preserve">
+    <value>Xbox 360</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>Görev sıralamasından çıkar</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>Görev sırası: {0} {1} kaydedilemedi</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>Görev sıralamasını dışa aktar...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>Görev sıralamasını dışa aktar</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Sıraya alınamadı. Ayrıntılar için günlüğe bakın.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>Hazır ayar dosyasını içe aktar</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>Görev sıralama dosyasını içe aktar</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>Kuyruğa Al...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>Görev sıralaması başarıyla {0} a aktarıldı</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>Görev sıralaması başarıyla içe aktarıldı.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>Kodlama işlemini durdur?</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>Kodlama işlemini durdurmak istediğinizden emin misiniz?</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>Mevcut dosyayı kapat ve diski aç?</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>Kodlama Ayrıntıları</value>
+  </data>
+  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
+    <value>En son görev sıralamasına bir öğe eklemenizden sonra kodlama işlem ayarları değişmiş. Görev sıralamasındaki tüm öğeler için mevcut kodlama işlem ayarlarını uygulamak istiyor musunuz?</value>
+  </data>
+  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
+    <value>Ayarlar değiştirildi</value>
+  </data>
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>Varolan dosyayı yeniden adlandırmak ve yeni bir dosyayla işleme başlamak istiyor musunuz?</value>
+  </data>
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>Sürüm {0} veritabanı dosyası okunamıyor. VidCoder {1} tarafından tanınan en yüksek sürüm versiyonu {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>Uyumsuz veritabanı dosyası</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</root>

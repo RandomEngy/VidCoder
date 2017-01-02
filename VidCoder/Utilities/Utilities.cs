@@ -1,30 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Reflection;
+using System.ComponentModel;
+using System.Configuration;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Windows;
-using HandBrake.Interop.Model.Encoding;
-using HandBrake.Interop.SourceData;
-using Microsoft.Win32;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using VidCoder.Extensions;
+using VidCoder.Model;
+using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoder.Services.HandBrakeProxy;
+using VidCoderCommon;
+using VidCoderCommon.Extensions;
+using VidCoderCommon.Model;
 
 namespace VidCoder
 {
-	using System.ComponentModel;
-	using System.Configuration;
-	using HandBrake.Interop.Model;
-	using Properties;
-	using Resources;
-
 	public static class Utilities
 	{
 		public const string TimeFormat = @"h\:mm\:ss";
-		public const int CurrentDatabaseVersion = 26;
-		public const int LastUpdatedEncodingProfileDatabaseVersion = 26;
+		public const int CurrentDatabaseVersion = 34;
+		public const int LastUpdatedEncodingProfileDatabaseVersion = 33;
+		public const int LastUpdatedPickerDatabaseVersion = 34;
 
 		private const string AppDataFolderName = "VidCoder";
 		private const string LocalAppDataFolderName = "VidCoder";
@@ -37,8 +39,6 @@ namespace VidCoder
 			isPortable = Directory.GetCurrentDirectory().Contains("Temp");
 			settingsDirectory = ConfigurationManager.AppSettings["SettingsDirectory"];
 		}
-
-		private static List<string> disallowedCharacters = new List<string> { "\\", "/", "\"", ":", "*", "?", "<", ">", "|" };
 
 		private static Dictionary<string, double> defaultQueueColumnSizes = new Dictionary<string, double>
 		{
@@ -54,36 +54,26 @@ namespace VidCoder
 			{"Preset", 120}
 		};
 
-		public static bool Beta
+		public static Version CurrentVersion
 		{
-			get
-			{
-#if BETA
-				return true;
-#else
-				return false;
-#endif
-			}
+			get { return Assembly.GetExecutingAssembly().GetName().Version; }
 		}
 
-		public static string CurrentVersion
-		{
-			get
-			{
-				return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-			}
-		}
-
+		/// <summary>
+		/// Displays version number with architecture and optional Beta marker.
+		/// </summary>
 		public static string VersionString
 		{
 			get
 			{
-#pragma warning disable 162
-#if BETA
-				return string.Format(MiscRes.BetaVersionFormat, CurrentVersion, Architecture);
-#endif
-				return string.Format(MiscRes.VersionFormat, CurrentVersion, Architecture);
-#pragma warning restore 162
+				if (CommonUtilities.Beta)
+				{
+					return string.Format(MiscRes.BetaVersionFormat, CurrentVersion.ToShortString(), Architecture);
+				}
+				else
+				{
+					return string.Format(MiscRes.VersionFormat, CurrentVersion.ToShortString(), Architecture);
+				}
 			}
 		}
 
@@ -196,7 +186,7 @@ namespace VidCoder
 		{
 			get
 			{
-				return GetAppFolder(Beta);
+				return GetAppFolder(CommonUtilities.Beta);
 			}
 		}
 
@@ -208,9 +198,10 @@ namespace VidCoder
 					Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
 					LocalAppDataFolderName);
 
-#if BETA
-				folder += "-Beta";
-#endif
+				if (CommonUtilities.Beta)
+				{
+					folder += "-Beta";
+				}
 
 				return folder;
 			}
@@ -319,114 +310,19 @@ namespace VidCoder
 		}
 
 
-		public static bool IsDirectory(string filePath)
+		public static IScanProxy CreateScanProxy()
 		{
-			var fileAttributes = File.GetAttributes(filePath);
-			return (fileAttributes & FileAttributes.Directory) == FileAttributes.Directory;
-		}
-
-		public static void CopyDirectory(string sourceDir, string destDir)
-		{
-			// Create directories
-			foreach (string dirPath in Directory.GetDirectories(sourceDir, "*", SearchOption.AllDirectories))
+			if (Config.UseWorkerProcess)
 			{
-				Directory.CreateDirectory(dirPath.Replace(sourceDir, destDir));
+				return new RemoteScanProxy();
 			}
-
-			// Create files
-			foreach (string newPath in Directory.GetFiles(sourceDir, "*.*", SearchOption.AllDirectories))
+			else
 			{
-				File.Copy(newPath, newPath.Replace(sourceDir, destDir));
+				return new LocalScanProxy();
 			}
 		}
 
-		public static void DeleteDirectory(string path)
-		{
-			var directory = new DirectoryInfo(path);
-			FileInfo[] files = directory.GetFiles();
-			foreach (FileInfo file in files)
-			{
-				File.Delete(file.FullName);
-			}
 
-			DirectoryInfo[] subdirectories = directory.GetDirectories();
-			foreach (DirectoryInfo subdirectory in subdirectories)
-			{
-				DeleteDirectory(subdirectory.FullName);
-			}
-
-			Directory.Delete(path);
-		}
-
-		public static void ClearFiles(string path)
-		{
-			var directory = new DirectoryInfo(path);
-			FileInfo[] files = directory.GetFiles();
-			foreach (FileInfo file in files)
-			{
-				File.Delete(file.FullName);
-			}
-
-			DirectoryInfo[] subdirectories = directory.GetDirectories();
-			foreach (DirectoryInfo subdirectory in subdirectories)
-			{
-				ClearFiles(subdirectory.FullName);
-			}
-		}
-
-		public static string CleanFileName(string fileName, bool allowBackslashes = false)
-		{
-			string cleanName = fileName;
-			foreach (string disallowedChar in disallowedCharacters)
-			{
-				if (disallowedChar != @"\" || !allowBackslashes)
-				{
-					cleanName = cleanName.Replace(disallowedChar, "_");
-				}
-			}
-
-			return cleanName;
-		}
-
-		/// <summary>
-		/// Creates a unique file name with the given constraints.
-		/// </summary>
-		/// <param name="baseName">The base file name to work with.</param>
-		/// <param name="outputDirectory">The directory the file should be written to.</param>
-		/// <param name="excludedPaths">Any paths to be excluded. Collection is expected to have StringComparer.OrdinalIgnoreCase.</param>
-		/// <returns>A file name that does not exist and does not match any of the given paths.</returns>
-		public static string CreateUniqueFileName(string baseName, string outputDirectory, HashSet<string> excludedPaths)
-		{
-			string candidateFilePath = Path.Combine(outputDirectory, baseName);
-			if (!File.Exists(candidateFilePath) && !IsExcluded(candidateFilePath, excludedPaths))
-			{
-				return candidateFilePath;
-			}
-
-			string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(baseName);
-			string extension = Path.GetExtension(baseName);
-
-			for (int i = 1; i < 1000; i++)
-			{
-				string candidateFileName = fileNameWithoutExtension + "-" + i + extension;
-				candidateFilePath = Path.Combine(outputDirectory, candidateFileName);
-
-				if (!IsExcluded(candidateFilePath, excludedPaths))
-				{
-					if (!File.Exists(candidateFilePath))
-					{
-						return candidateFilePath;
-					}
-				}
-			}
-
-			return null;
-		}
-
-		public static string CreateUniqueFileName(string filePath, HashSet<string> excludedPaths)
-		{
-			return CreateUniqueFileName(Path.GetFileName(filePath), Path.GetDirectoryName(filePath), excludedPaths);
-		}
 
 		/// <summary>
 		/// Parse a size list in the format {column id 1}:{width 1}|{column id 2}:{width 2}|...
@@ -471,7 +367,11 @@ namespace VidCoder
 		/// <returns>The display for the TimeSpan.</returns>
 		public static string FormatTimeSpan(TimeSpan span)
 		{
-			var etaComponents = new List<string>();
+			if (span == TimeSpan.MaxValue)
+			{
+				return "--";
+			}
+
 			if (span.TotalDays >= 1.0)
 			{
 				return string.Format("{0}d {1}h", Math.Floor(span.TotalDays), span.Hours);
@@ -511,7 +411,7 @@ namespace VidCoder
 				return megabytes.ToString(GetFormatForFilesize(megabytes)) + " MB";
 			}
 
-			double gigabytes = ((double) bytes) / 1073741824;
+			double gigabytes = ((double)bytes) / 1073741824;
 
 			return gigabytes.ToString(GetFormatForFilesize(gigabytes)) + " GB";
 		}
@@ -536,7 +436,7 @@ namespace VidCoder
 		{
 			get
 			{
-				return Ioc.Container.GetInstance<IMessageBoxService>();
+				return Ioc.Get<IMessageBoxService>();
 			}
 		}
 
@@ -581,24 +481,19 @@ namespace VidCoder
 			return true;
 		}
 
-		public static bool IsPassthrough(AudioEncoder encoder)
-		{
-			return encoder == AudioEncoder.Passthrough || encoder == AudioEncoder.Ac3Passthrough;
-		}
-
-		public static Title GetFeatureTitle(List<Title> titles, int hbFeatureTitle)
+		public static SourceTitle GetFeatureTitle(List<SourceTitle> titles, int hbFeatureTitle)
 		{
 			// If the feature title is supplied, find it in the list.
 			if (hbFeatureTitle > 0)
 			{
-				return titles.FirstOrDefault(title => title.TitleNumber == hbFeatureTitle);
+				return titles.FirstOrDefault(title => title.Index == hbFeatureTitle);
 			}
 
 			// Select the first title within 80% of the duration of the longest title.
-			double maxSeconds = titles.Max(title => title.Duration.TotalSeconds);
-			foreach (Title title in titles)
+			double maxSeconds = titles.Max(title => title.Duration.ToSpan().TotalSeconds);
+			foreach (SourceTitle title in titles)
 			{
-				if (title.Duration.TotalSeconds >= maxSeconds * .8)
+				if (title.Duration.ToSpan().TotalSeconds >= maxSeconds * .8)
 				{
 					return title;
 				}
@@ -628,14 +523,14 @@ namespace VidCoder
 			FileAttributes attributes = File.GetAttributes(sourcePath);
 			if ((attributes & FileAttributes.Directory) == FileAttributes.Directory)
 			{
-				var driveService = Ioc.Container.GetInstance<IDriveService>();
+				var driveService = Ioc.Get<IDriveService>();
 				if (driveService.PathIsDrive(sourcePath))
 				{
-					return SourceType.Dvd;
+					return SourceType.Disc;
 				}
 				else
 				{
-					return SourceType.VideoFolder;
+					return SourceType.DiscVideoFolder;
 				}
 			}
 			else
@@ -646,13 +541,23 @@ namespace VidCoder
 
 		public static string GetSourceName(string sourcePath)
 		{
-			if (GetSourceType(sourcePath) == SourceType.VideoFolder)
+			switch (GetSourceType(sourcePath))
 			{
-				return GetSourceNameFolder(sourcePath);
-			}
-			else
-			{
-				return GetSourceNameFile(sourcePath);
+				case SourceType.DiscVideoFolder:
+					return GetSourceNameFolder(sourcePath);
+				case SourceType.Disc:
+					var driveService = Ioc.Get<IDriveService>();
+					DriveInformation info = driveService.GetDriveInformationFromPath(sourcePath);
+					if (info != null)
+					{
+						return info.VolumeLabel;
+					}
+					else
+					{
+						return GetSourceNameFile(sourcePath);
+					}
+				default:
+					return GetSourceNameFile(sourcePath);
 			}
 		}
 
@@ -723,7 +628,7 @@ namespace VidCoder
 			}
 			catch (UnauthorizedAccessException ex)
 			{
-				Ioc.Container.GetInstance<ILogger>().Log("Could not determine if folder was disc: " + ex);
+				Ioc.Get<IAppLogger>().Log("Could not determine if folder was disc: " + ex);
 				return false;
 			}
 		}
@@ -861,11 +766,6 @@ namespace VidCoder
 			{
 				accessErrors.Add(directory);
 			}
-		}
-
-		private static bool IsExcluded(string candidate, HashSet<string> exclusionList)
-		{
-			return exclusionList.Contains(candidate);
 		}
 	}
 }

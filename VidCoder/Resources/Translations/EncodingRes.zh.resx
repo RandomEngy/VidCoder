@@ -1,0 +1,1048 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SaveAs" xml:space="preserve">
+    <value>另存为...</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>还原</value>
+  </data>
+  <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
+    <value>x264 拥有多种算法去决定何时使用及使用多少 B-frames。
+
+快速模式下不管你指定多少 B-frames，所耗费的时间都大致相同。然而快速模式的判断通常都不理想。
+
+优化模式下所耗费的时间与 B-Frames 的最大数量成正比，但处理时的判断会更加准确，尤其是与 B-pyramid 同时使用时。</value>
+  </data>
+  <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
+    <value>H.264 启用B-frames特性时可选择空间或时间两种不同的预测模式。
+
+默认的空间模式在大部分情形下较好，但时间模式常常同样有效。
+
+x264 仅耗费少量时间 (可获得小幅压缩增益) 为每帧画面选择更好的模式。</value>
+  </data>
+  <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
+    <value>自适应量化控制编码器如何分配帧的比特流。设置更高的值将使边缘和复杂区域的比特流用于更精微的细节。</value>
+  </data>
+  <data name="Advanced_AnalysisToolTip" xml:space="preserve">
+    <value>此选项可调整动态搜寻的各种模式。
+开启越多的选项表示您可用更长的编码时间换取更好的编码效果。</value>
+  </data>
+  <data name="Advanced_BFramesToolTip" xml:space="preserve">
+    <value>合理值为 2 至 5。  
+此项控制编码器可连续使用的 B-frames 最大值。
+ 除非 B-frames 适应性设定为优化模式，否则调大此数值并无明显帮助。 
+赛璐璐动画素材及 B-pyramid 更导致了无需设置较高数值。 
+iPod 等设备所使用的Baseline 模式需将 B-frames 设置为0 (off)。</value>
+  </data>
+  <data name="Advanced_CabacToolTip" xml:space="preserve">
+    <value>编码器完成工作后，有大量数据需像 ZIP 或 RAR 一样被无损压缩。H.264 提供了两种压缩方式：CAVLC 及 CABAC。CABAC 解码速度较慢但压缩率较好 (10% 至 30%)，特别是低比特率视频。若您想降低解码时的 CPU 占用，请停用此选项。iPod 或其设备需要的 Baseline 模式需禁用 CABAC。</value>
+  </data>
+  <data name="Advanced_DeblockingToolTip" xml:space="preserve">
+    <value>H.264 内建的去块滤镜对每帧的方块效应进行平滑处理。这不仅能提高视觉质量，也能大幅改善压缩率。
+去块滤镜占用大量 CPU 资源，若您想最小化视频播放时的 CPU 占用，请停用此选项。
+
+去块滤镜有两个可调整参数，“强度”和“阈值”。 
+前者控制去块器的强弱，后者控制平滑区块边缘的范围。 
+值越小表示越少去块，值越大表示越多去块。两个参数的默认值皆为 0 (一般强度)。</value>
+  </data>
+  <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
+    <value>8x8 转换是最最有效的 x264 压缩速率。 
+此方法仅需少量时间便可提升至少 5% 压缩率，并在其压缩比基础上取得非常好的视觉质量。
+但此方法需使用配置“高”，许多设备可能并不支持。</value>
+  </data>
+  <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
+    <value>此选项控制运动预测的方式。运动预测是编码器预测每帧中像素移动的方法。 
+较佳的预测方式减低速度以改善压缩率。
+
+菱形：使用菱形模式进行十分简单快速的搜寻。
+
+六边形：使用六边形模式进行更有效但较菱形模式稍慢的搜寻。
+
+非均匀多重六边形：利用各种不同形状进行大范围搜寻，在复杂动作影片中更加精准。
+
+彻底：于广域中完整搜寻每个像素。非常慢但仅提高很少压缩比。
+
+变种彻底：类似彻底模式，但更加精确。比彻底模式更慢但也只能提高少许效果。</value>
+  </data>
+  <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
+    <value>此值为 x264 尝试搜寻区块实际移动较最佳预测的距离范围。 
+
+默认值可适用大多数的影片，尤其是高清分辨率的激烈动作片，在设置较大范围时可取得更佳的效果，尽管有很大的速度损失。
+
+菱形模式及六边形模式有效值为 4 至 16、其他搜寻模式的有效值为 4 至 64。</value>
+  </data>
+  <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
+    <value>x264 通常会将接近空白的数据区块全数归零以节省位、改善输出视频质量。
+但此特性在保留轻微颗粒感及抖动效果上会产生负面影响。
+除非您遇到条纹问题或无法保留良噪，否则不建议更改此设定。</value>
+  </data>
+  <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
+    <value>心理视觉码率失真法能使 x264 仿真在人眼视觉中，透过调整讯噪比保留更多细节以改善质量，而非单纯由计算机计算出最佳质量。</value>
+  </data>
+  <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
+    <value>心理视觉格状编码会尝试保留更高的清晰度及细节，但会产生人造噪声。
+由于仍在实验阶段，此选项默认为关闭状态。合理的值为 0.1 ~ 0.2。</value>
+  </data>
+  <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
+    <value>锥状 B-画格藉由建立原始 B-画格的锥状架构，使 B-画格可交互参照以提高压缩率。
+
+B-画格最大数需大于 1 以启用此功能，建议搭配优化适应性 B-画格以得到最佳的压缩效果。</value>
+  </data>
+  <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
+    <value>合理的值为 1 ~ 6。
+
+值越大压缩率越高，但编码时间越长。
+
+赛璐璐动画于使用更多参考画格的设定下编码结果将比电影内容更佳。
+
+请注意许多硬件支持的参考画格数有限，若您要为手持装置或独立播放器编码档案，除非您了解此项目细节，否则不建议更改此选项。</value>
+  </data>
+  <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
+    <value>此选项控制次像素的精确动态侦测及模式决策。
+
+次像素动态侦测能提高一般动态侦测的精确度及改善压缩率。
+
+模式决策用来决定编码每个区块: 决策方式影响甚大。
+
+SAD 速度最快，接着是 SATD、RD、RD (精密)，及最慢的 QPRD。
+建议设定 6 以上的值: 心理视觉 RD 为可帮助保留细节的心理视觉优化方法，需搭配 RD。
+10 为最有效但最慢的的选项，需搭配格状编码 = 2。</value>
+  </data>
+  <data name="Advanced_TrellisToolTip" xml:space="preserve">
+    <value>格状编码可藉由微调转换系数，多花费部分编码时间，提高 3% 至 5% 的压缩率。
+「必要」选项会在分析与编码时皆使用格状编码，虽可改善压缩率但会耗费相当多的时间。
+
+格状编码于高比特率设定时需耗费更多编码时间。</value>
+  </data>
+  <data name="Advanced_WeightPToolTip" xml:space="preserve">
+    <value>进行额外分析调整每个画格的权重。
+此选项可稍微提升压缩率，且能大幅改善画面淡入淡出的效果。
+Baseline 规模的设定无法使用加权 P-画格。 (通常使用在 iPod 或其他可携装置)
+请注意部分装置或播放器即使支持 Main 规模，处理加权 P-画格时仍可能产生问题。 (如 Apple TV 无法兼容加权 P-画格)</value>
+  </data>
+  <data name="Audio_DrcToolTip" xml:space="preserve">
+    <value>动态范围压缩，有效值为 0 ~ 4。
+
+若来源音频的动态范围非常大 (同时含有极大声和极小声的连续片段)，DRC 能协助您减弱极大声部分、增强极小声部分以达到压缩效果。</value>
+  </data>
+  <data name="Audio_GainToolTip" xml:space="preserve">
+    <value>编码前增强或减弱音频源音量，有效值为 -20 ~ +20 dB。</value>
+  </data>
+  <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
+    <value>嵌入来源视频的章节标记至编码视频中。</value>
+  </data>
+  <data name="IPod5GSupportToolTip" xml:space="preserve">
+    <value>应用特殊标记使文件能支持旧的 iPod之前需要他们允许 H.264 视频同步。</value>
+  </data>
+  <data name="LargeFileSizeToolTip" xml:space="preserve">
+    <value>允许文件超过 4GB。启用此选项时将使用 64 位编码，部分装置如 iPod 及 PS3 不兼容此选项。</value>
+  </data>
+  <data name="PixelAspectRatioToolTip" xml:space="preserve">
+    <value>手动指定像素长宽比。</value>
+  </data>
+  <data name="Video_QualityTargetToolTip" xml:space="preserve">
+    <value>设定质量参数，每个视讯编码器使用的参数量级不尽相同。</value>
+  </data>
+  <data name="WebOptimizedToolTip" xml:space="preserve">
+    <value>针对渐进式下载的播放优化。</value>
+  </data>
+  <data name="ProfileToolTip" xml:space="preserve">
+    <value>限制输出流配置。如果您指定一个配置文件，将覆盖所有其他设置。若您启用此选项，您需确保选择可兼容的流。
+
+当您确认您的播放设备只支持某个配置文件时再启用此选项。</value>
+  </data>
+  <data name="X264TuneToolTip" xml:space="preserve">
+    <value>依输入内容微调选项以优化编码结果，若您指定微调设置，将于参考设定值后调整微调设置，再套用其他参数。</value>
+  </data>
+  <data name="ContainerLabel" xml:space="preserve">
+    <value>封装格式</value>
+  </data>
+  <data name="ExtensionLabel" xml:space="preserve">
+    <value>扩展：</value>
+  </data>
+  <data name="LargeFileSizeCheckBox" xml:space="preserve">
+    <value>大容量文件</value>
+  </data>
+  <data name="WebOptimizedCheckBox" xml:space="preserve">
+    <value>网络优化</value>
+  </data>
+  <data name="Ipod5GSupportCheckBox" xml:space="preserve">
+    <value>iPod 5 G 支持</value>
+  </data>
+  <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
+    <value>包含章节标记</value>
+  </data>
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>调整尺寸</value>
+  </data>
+  <data name="TabHeader_VideoFilters" xml:space="preserve">
+    <value>视频滤镜</value>
+  </data>
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>视频编码</value>
+  </data>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>音频编码</value>
+  </data>
+  <data name="TabHeader_Advanced" xml:space="preserve">
+    <value>高级视频</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>重命名</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>输入</value>
+  </data>
+  <data name="AutoCaption" xml:space="preserve">
+    <value>（自动）</value>
+  </data>
+  <data name="NoneCaption" xml:space="preserve">
+    <value>(无)</value>
+  </data>
+  <data name="StorageResolutionLabel" xml:space="preserve">
+    <value>存储分辨率：</value>
+  </data>
+  <data name="PixelAspectRatioLabel" xml:space="preserve">
+    <value>像素长宽比：</value>
+  </data>
+  <data name="DisplayResolutionLabel" xml:space="preserve">
+    <value>显示分辨率：</value>
+  </data>
+  <data name="SizingLabel" xml:space="preserve">
+    <value>调整尺寸</value>
+  </data>
+  <data name="WidthLabel" xml:space="preserve">
+    <value>宽度：</value>
+  </data>
+  <data name="HeightLabel" xml:space="preserve">
+    <value>高度：</value>
+  </data>
+  <data name="MaxWidthLabel" xml:space="preserve">
+    <value>最大宽度：</value>
+  </data>
+  <data name="MaxHeightLabel" xml:space="preserve">
+    <value>最大高度：</value>
+  </data>
+  <data name="ModulusLabel" xml:space="preserve">
+    <value>模数：</value>
+  </data>
+  <data name="OutputLabel" xml:space="preserve">
+    <value>输出</value>
+  </data>
+  <data name="CroppingLabel" xml:space="preserve">
+    <value>裁剪</value>
+  </data>
+  <data name="DetelecineLabel" xml:space="preserve">
+    <value>反胶卷过带：</value>
+  </data>
+  <data name="DecombLabel" xml:space="preserve">
+    <value>反交错：</value>
+  </data>
+  <data name="DeinterlaceLabel" xml:space="preserve">
+    <value>逐行扫描：</value>
+  </data>
+  <data name="DenoiseLabel" xml:space="preserve">
+    <value>降噪：</value>
+  </data>
+  <data name="DeblockLabel" xml:space="preserve">
+    <value>解码去块：</value>
+  </data>
+  <data name="GrayscaleCheckBox" xml:space="preserve">
+    <value>灰度编码</value>
+  </data>
+  <data name="TypeLabel" xml:space="preserve">
+    <value>类型：</value>
+  </data>
+  <data name="ShortFramerateLabel" xml:space="preserve">
+    <value>帧率：</value>
+  </data>
+  <data name="CodecLabel" xml:space="preserve">
+    <value>编码格式：</value>
+  </data>
+  <data name="FramerateLabel" xml:space="preserve">
+    <value>帧率 (FPS):</value>
+  </data>
+  <data name="ConstantFramerateRadioButton" xml:space="preserve">
+    <value>固定画面更新率</value>
+  </data>
+  <data name="Quality" xml:space="preserve">
+    <value>品质</value>
+  </data>
+  <data name="TwoPassEncodingCheckBox" xml:space="preserve">
+    <value>2 次编码</value>
+  </data>
+  <data name="TurboFirstPassCheckBox" xml:space="preserve">
+    <value>加速首次编码</value>
+  </data>
+  <data name="TargetSizeRadioButton" xml:space="preserve">
+    <value>目标大小 (MB)</value>
+  </data>
+  <data name="AverageBitrateRadioButton" xml:space="preserve">
+    <value>平均位元率 (kbps)</value>
+  </data>
+  <data name="ConstantQualityRadioButton" xml:space="preserve">
+    <value>固定品质</value>
+  </data>
+  <data name="X264BasicSettings" xml:space="preserve">
+    <value>x264 基本设置</value>
+  </data>
+  <data name="ProfileLabel" xml:space="preserve">
+    <value>配置文件：</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>预设：</value>
+  </data>
+  <data name="TuneLabel" xml:space="preserve">
+    <value>微调：</value>
+  </data>
+  <data name="Profile_baseline" xml:space="preserve">
+    <value>Baseline</value>
+  </data>
+  <data name="Profile_main" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="Profile_high" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="Preset_UltraFast" xml:space="preserve">
+    <value>最快</value>
+  </data>
+  <data name="Preset_SuperFast" xml:space="preserve">
+    <value>超快</value>
+  </data>
+  <data name="Preset_VeryFast" xml:space="preserve">
+    <value>很快</value>
+  </data>
+  <data name="Preset_Faster" xml:space="preserve">
+    <value>较快</value>
+  </data>
+  <data name="Preset_Fast" xml:space="preserve">
+    <value>快速</value>
+  </data>
+  <data name="Preset_Medium" xml:space="preserve">
+    <value>中等 (默认)</value>
+  </data>
+  <data name="Preset_Slow" xml:space="preserve">
+    <value>缓慢</value>
+  </data>
+  <data name="Preset_Slower" xml:space="preserve">
+    <value>较慢</value>
+  </data>
+  <data name="Preset_VerySlow" xml:space="preserve">
+    <value>很慢</value>
+  </data>
+  <data name="Preset_Placebo" xml:space="preserve">
+    <value>最慢</value>
+  </data>
+  <data name="Tune_film" xml:space="preserve">
+    <value>电影</value>
+  </data>
+  <data name="Tune_animation" xml:space="preserve">
+    <value>动画</value>
+  </data>
+  <data name="Tune_grain" xml:space="preserve">
+    <value>胶片颗粒</value>
+  </data>
+  <data name="Tune_stillimage" xml:space="preserve">
+    <value>静止图像</value>
+  </data>
+  <data name="Tune_psnr" xml:space="preserve">
+    <value>PSNR</value>
+  </data>
+  <data name="Tune_ssim" xml:space="preserve">
+    <value>SSIM</value>
+  </data>
+  <data name="Tune_fastdecode" xml:space="preserve">
+    <value>快速解码</value>
+  </data>
+  <data name="Tune_zerolatency" xml:space="preserve">
+    <value>零延迟</value>
+  </data>
+  <data name="FpsFormat" xml:space="preserve">
+    <value>{0:0.###} FPS</value>
+  </data>
+  <data name="CfrSameAsSourceToolTip" xml:space="preserve">
+    <value>使用来源标题所列之固定更新率。</value>
+  </data>
+  <data name="CfrToolTip" xml:space="preserve">
+    <value>使用固定画面更新率。</value>
+  </data>
+  <data name="VfrSameAsSourceToolTip" xml:space="preserve">
+    <value>允许动态画面更新率。若来源为动态画面更新率，此设定能保留原始画面更新率。请注意并非所有播放器皆支持动态画面更新率。</value>
+  </data>
+  <data name="VfrPeakFramerateToolTip" xml:space="preserve">
+    <value>允许动态画面更新率并使用指定更新率为其最大值。若来源为动态画面更新率，此设定能保留原始画面更新率。请注意并非所有播放器皆支持动态画面更新率。</value>
+  </data>
+  <data name="VfrChoice" xml:space="preserve">
+    <value>动态画面更新率</value>
+  </data>
+  <data name="VfrPeakChoice" xml:space="preserve">
+    <value>最高画面更新率 (VFR)</value>
+  </data>
+  <data name="HighQuality" xml:space="preserve">
+    <value>高质量</value>
+  </data>
+  <data name="LowQuality" xml:space="preserve">
+    <value>低质量</value>
+  </data>
+  <data name="SameAsSource" xml:space="preserve">
+    <value>与来源相同</value>
+  </data>
+  <data name="AddAudioEncodingButton" xml:space="preserve">
+    <value>新增音频编码</value>
+  </data>
+  <data name="NoTracksPlaceholder" xml:space="preserve">
+    <value>(无音轨)</value>
+  </data>
+  <data name="TargetStream" xml:space="preserve">
+    <value>目标串流</value>
+  </data>
+  <data name="MixdownLabel" xml:space="preserve">
+    <value>缩混:</value>
+  </data>
+  <data name="SampleRateLabel" xml:space="preserve">
+    <value>采样率：</value>
+  </data>
+  <data name="BitrateLabel" xml:space="preserve">
+    <value>位元率:</value>
+  </data>
+  <data name="CompressionLabel" xml:space="preserve">
+    <value>压缩率：</value>
+  </data>
+  <data name="GainLabel" xml:space="preserve">
+    <value>增益 （dB）：</value>
+  </data>
+  <data name="DrcLabel" xml:space="preserve">
+    <value>DRC:</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>名称：</value>
+  </data>
+  <data name="AscendingQualityToolTip" xml:space="preserve">
+    <value>值越高质量越好。</value>
+  </data>
+  <data name="DescendingQualityToolTip" xml:space="preserve">
+    <value>值越低质量越好。</value>
+  </data>
+  <data name="AudioQualityToolTip" xml:space="preserve">
+    <value>目标音频质量。 {0} 有效值范围为 {1} 至 {2}。</value>
+  </data>
+  <data name="AscendingCompressionToolTip" xml:space="preserve">
+    <value>值越高表示压缩率越高: 质量越高/容量越小，但编码时间越长。</value>
+  </data>
+  <data name="DescendingCompressionToolTip" xml:space="preserve">
+    <value>值越低表示压缩率越高: 质量越高/容量越小，但编码时间越长。</value>
+  </data>
+  <data name="AudioCompressionToolTip" xml:space="preserve">
+    <value>欲套用的压缩率。 {0} 有效值范围为 {1} 至 {2}。</value>
+  </data>
+  <data name="AudioEncoder_faac" xml:space="preserve">
+    <value>AAC (FAAC)</value>
+    <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
+  </data>
+  <data name="AudioEncoder_av_aac" xml:space="preserve">
+    <value>AAC (avcodec)</value>
+  </data>
+  <data name="AudioEncoder_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="AudioEncoder_flac16" xml:space="preserve">
+    <value>FLAC 16 位</value>
+  </data>
+  <data name="AudioEncoder_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="AudioEncoder_vorbis" xml:space="preserve">
+    <value>Vorbis</value>
+  </data>
+  <data name="Mixdown_5point1" xml:space="preserve">
+    <value>5.1 声道</value>
+  </data>
+  <data name="Mixdown_5_2_lfe" xml:space="preserve">
+    <value>7.1 (5F/2R/LFE)</value>
+  </data>
+  <data name="Mixdown_dpl1" xml:space="preserve">
+    <value>杜比环绕声</value>
+  </data>
+  <data name="Mixdown_dpl2" xml:space="preserve">
+    <value>Dolby Pro Logic II</value>
+  </data>
+  <data name="Mixdown_left_only" xml:space="preserve">
+    <value>单声道 （仅左声道）</value>
+  </data>
+  <data name="Mixdown_mono" xml:space="preserve">
+    <value>单声道</value>
+  </data>
+  <data name="Mixdown_right_only" xml:space="preserve">
+    <value>单声道 （仅右声道）</value>
+  </data>
+  <data name="Mixdown_stereo" xml:space="preserve">
+    <value>立体声</value>
+  </data>
+  <data name="Bitrate" xml:space="preserve">
+    <value>位元率</value>
+  </data>
+  <data name="Encoding" xml:space="preserve">
+    <value>编码</value>
+  </data>
+  <data name="ReferenceFramesLabel" xml:space="preserve">
+    <value>参考画格:</value>
+  </data>
+  <data name="MaxBFramesLabel" xml:space="preserve">
+    <value>最大 B-画格:</value>
+  </data>
+  <data name="CabacLabel" xml:space="preserve">
+    <value>CABAC:</value>
+  </data>
+  <data name="EightByEightTransformLabel" xml:space="preserve">
+    <value>8 x 8 转换：</value>
+  </data>
+  <data name="WeightedPFramesLabel" xml:space="preserve">
+    <value>加权 P-画格:</value>
+  </data>
+  <data name="PyramidalBFramesLabel" xml:space="preserve">
+    <value>锥状 B-画格:</value>
+  </data>
+  <data name="NoDctDecimateLabel" xml:space="preserve">
+    <value>无 DCT-过滤</value>
+  </data>
+  <data name="Analysis" xml:space="preserve">
+    <value>分析</value>
+  </data>
+  <data name="AdaptiveBFramesLabel" xml:space="preserve">
+    <value>适应性 B-画格:</value>
+  </data>
+  <data name="AdaptiveDirectModeLabel" xml:space="preserve">
+    <value>适应性直接模式:</value>
+  </data>
+  <data name="MotionEstimationMethodLabel" xml:space="preserve">
+    <value>动态侦测模式:</value>
+  </data>
+  <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
+    <value>动态侦测范围:</value>
+  </data>
+  <data name="MotionEstimationRangeLabel" xml:space="preserve">
+    <value>动态侦测范围:</value>
+  </data>
+  <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
+    <value>适应性量化强度:
+</value>
+  </data>
+  <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
+    <value>心理视觉码率失真:</value>
+  </data>
+  <data name="PsychovisualTrellisLabel" xml:space="preserve">
+    <value>心理视觉格状:</value>
+  </data>
+  <data name="DeblockingLabel" xml:space="preserve">
+    <value>解码去块：</value>
+  </data>
+  <data name="PartitionTypeLabel" xml:space="preserve">
+    <value>分割类型:</value>
+  </data>
+  <data name="TrellisLabel" xml:space="preserve">
+    <value>格状:</value>
+  </data>
+  <data name="OptionsString" xml:space="preserve">
+    <value>选项字符串</value>
+  </data>
+  <data name="PyramidalBFrames_Off" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="PyramidalBFrames_Normal" xml:space="preserve">
+    <value>标准</value>
+  </data>
+  <data name="PyramidalBFrames_Strict" xml:space="preserve">
+    <value>严格</value>
+  </data>
+  <data name="AdaptiveBFrames_Off" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="AdaptiveBFrames_Fast" xml:space="preserve">
+    <value>快速</value>
+  </data>
+  <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
+    <value>最佳化</value>
+  </data>
+  <data name="DirectPrediction_None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="DirectPrediction_Spatial" xml:space="preserve">
+    <value>空间性</value>
+  </data>
+  <data name="DirectPrediction_Temporal" xml:space="preserve">
+    <value>时间性</value>
+  </data>
+  <data name="DirectPrediction_Automatic" xml:space="preserve">
+    <value>自动</value>
+  </data>
+  <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
+    <value>菱形</value>
+  </data>
+  <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
+    <value>六角形</value>
+  </data>
+  <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
+    <value>不均匀的多六角形</value>
+  </data>
+  <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
+    <value>彻底</value>
+  </data>
+  <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
+    <value>转换彻底</value>
+  </data>
+  <data name="SubpixelMotionEstimation_0" xml:space="preserve">
+    <value>0: SAD，无次像素 (超快!)</value>
+  </data>
+  <data name="SubpixelMotionEstimation_1" xml:space="preserve">
+    <value>1: SAD，1/4 像素</value>
+  </data>
+  <data name="SubpixelMotionEstimation_2" xml:space="preserve">
+    <value>2: SATD，1/4 像素</value>
+  </data>
+  <data name="SubpixelMotionEstimation_3" xml:space="preserve">
+    <value>3: SATD，多重 1/4 像素</value>
+  </data>
+  <data name="SubpixelMotionEstimation_4" xml:space="preserve">
+    <value>4: SATD，所有 1/4 像素</value>
+  </data>
+  <data name="SubpixelMotionEstimation_5" xml:space="preserve">
+    <value>5: SATD，所有多重 1/4 像素</value>
+  </data>
+  <data name="SubpixelMotionEstimation_6" xml:space="preserve">
+    <value>6: RD 于 I/P-画格</value>
+  </data>
+  <data name="SubpixelMotionEstimation_7" xml:space="preserve">
+    <value>7: RD 于所有画格</value>
+  </data>
+  <data name="SubpixelMotionEstimation_8" xml:space="preserve">
+    <value>8: RD (精密) 于 I/P-画格</value>
+  </data>
+  <data name="SubpixelMotionEstimation_9" xml:space="preserve">
+    <value>9: RD (精密) 于所有画格</value>
+  </data>
+  <data name="SubpixelMotionEstimation_10" xml:space="preserve">
+    <value>10: QPRD 于所有画格</value>
+  </data>
+  <data name="SubpixelMotionEstimation_11" xml:space="preserve">
+    <value>11: 不提前终止分析</value>
+  </data>
+  <data name="Analysis_None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="Analysis_Some" xml:space="preserve">
+    <value>部分</value>
+  </data>
+  <data name="Analysis_All" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="Trellis_Off" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="Trellis_EncodeOnly" xml:space="preserve">
+    <value>仅编码</value>
+  </data>
+  <data name="Trellis_Always" xml:space="preserve">
+    <value>始终</value>
+  </data>
+  <data name="DefaultFormat" xml:space="preserve">
+    <value>{0} (默认)</value>
+  </data>
+  <data name="EncodingWindowTitle" xml:space="preserve">
+    <value>编码预设: {0}</value>
+  </data>
+  <data name="AdvancedOptionsStringLabel" xml:space="preserve">
+    <value>额外的高级 x264 选项:</value>
+  </data>
+  <data name="LevelToolTip" xml:space="preserve">
+    <value>设定能确保编码符合指定的 H.264 等级规范。
+此设定会覆盖其他设定。</value>
+  </data>
+  <data name="Profile_high444" xml:space="preserve">
+    <value>高度 4:4:4 预测</value>
+  </data>
+  <data name="VideoCodecLabel" xml:space="preserve">
+    <value>视频编码：</value>
+  </data>
+  <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
+    <value>MPEG-2 (Libav)</value>
+  </data>
+  <data name="VideoEncoder_ffmpeg4" xml:space="preserve">
+    <value>MPEG-4 (Libav)</value>
+  </data>
+  <data name="VideoEncoder_x264" xml:space="preserve">
+    <value>H.264 (x264)</value>
+  </data>
+  <data name="Analysis_Most" xml:space="preserve">
+    <value>大部分</value>
+  </data>
+  <data name="AdvancedQuery" xml:space="preserve">
+    <value>高级查询</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>视频</value>
+  </data>
+  <data name="X264Settings" xml:space="preserve">
+    <value>x264 设置</value>
+  </data>
+  <data name="LevelLabel" xml:space="preserve">
+    <value>级别：</value>
+  </data>
+  <data name="MoreSettingsLabel" xml:space="preserve">
+    <value>更多设置：</value>
+  </data>
+  <data name="Track" xml:space="preserve">
+    <value>音轨</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>源文件</value>
+  </data>
+  <data name="Encoder" xml:space="preserve">
+    <value>编码器</value>
+  </data>
+  <data name="ChannelLayout" xml:space="preserve">
+    <value>频道布局</value>
+  </data>
+  <data name="SampleRate" xml:space="preserve">
+    <value>采样率：</value>
+  </data>
+  <data name="Modifiers" xml:space="preserve">
+    <value>修改器</value>
+  </data>
+  <data name="DtsMp4Warning" xml:space="preserve">
+    <value>仅少部分播放器支持 MP4 中内嵌的 DTS 音频，使用 DTS 音频时建议采用 MKV。</value>
+  </data>
+  <data name="AudioEncoder_flac24" xml:space="preserve">
+    <value>FLAC 24 位</value>
+  </data>
+  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
+    <value>视觉</value>
+  </data>
+  <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
+    <value>基本</value>
+    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
+  </data>
+  <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
+    <value>高级选项卡</value>
+    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
+  </data>
+  <data name="VideoEncoder_mpeg2" xml:space="preserve">
+    <value>MPEG-2</value>
+  </data>
+  <data name="VideoEncoder_mpeg4" xml:space="preserve">
+    <value>MPEG-4</value>
+  </data>
+  <data name="VideoEncoder_theora" xml:space="preserve">
+    <value>Theora</value>
+  </data>
+  <data name="RemoveAudioEncodingToolTip" xml:space="preserve">
+    <value>移除音频编码</value>
+  </data>
+  <data name="AutoPassthroughFallbackLabel" xml:space="preserve">
+    <value>回退：</value>
+  </data>
+  <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
+    <value>不能直接对所有音频进行编解码。如果不能通过，此参数指定的编码器将回退。</value>
+  </data>
+  <data name="EncoderSettings" xml:space="preserve">
+    <value>编码设置</value>
+  </data>
+  <data name="QsvDecodingLabel" xml:space="preserve">
+    <value>QSV 解码</value>
+  </data>
+  <data name="ScaleMethod_Lanczos" xml:space="preserve">
+    <value>Lanczos</value>
+  </data>
+  <data name="ScaleMethod_BicubicOpenCL" xml:space="preserve">
+    <value>Bicubic (OpenCL)</value>
+  </data>
+  <data name="QsvPreset_Speed" xml:space="preserve">
+    <value>速度</value>
+  </data>
+  <data name="QsvPreset_Balanced" xml:space="preserve">
+    <value>均衡</value>
+  </data>
+  <data name="QsvPreset_Quality" xml:space="preserve">
+    <value>品质</value>
+  </data>
+  <data name="PresetToolTip" xml:space="preserve">
+    <value>更改选项，关闭压缩效率对编码速度的设置。</value>
+  </data>
+  <data name="ScaleMethodToolTip" xml:space="preserve">
+    <value>Lanczos： 这是默认缩放器最好的质量。Bicubic： 这是一种 OpenCL 硬件加速缩放算法。</value>
+  </data>
+  <data name="AudioEncoder_Passthrough" xml:space="preserve">
+    <value>直接复制</value>
+  </data>
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>自动</value>
+  </data>
+  <data name="PassthroughScopeToolTip" xml:space="preserve">
+    <value>指定哪些输入值将应用于编解码器。</value>
+  </data>
+  <data name="FlipHorizontalCheckBox" xml:space="preserve">
+    <value>水平翻转</value>
+  </data>
+  <data name="FlipVerticalCheckBox" xml:space="preserve">
+    <value>垂直翻转</value>
+  </data>
+  <data name="Rotation_Clockwise90" xml:space="preserve">
+    <value>顺时针旋转 90 °</value>
+  </data>
+  <data name="Rotation_Counterclockwise90" xml:space="preserve">
+    <value>逆时针旋转 90 °</value>
+  </data>
+  <data name="Rotation_180" xml:space="preserve">
+    <value>180°</value>
+  </data>
+  <data name="RotationToolTip" xml:space="preserve">
+    <value>旋转图片。将被应用于所有尺寸和裁剪。</value>
+  </data>
+  <data name="FlipHorizontalToolTip" xml:space="preserve">
+    <value>水平翻转图片。之前任何旋转被应用。</value>
+  </data>
+  <data name="FlipVerticalToolTip" xml:space="preserve">
+    <value>垂直翻转图片。之前任何旋转被应用。</value>
+  </data>
+  <data name="PassthroughIfPossibleCheckBox" xml:space="preserve">
+    <value>若可能直接复制</value>
+  </data>
+  <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
+    <value>如果输入的Track不匹配它将在编码解码时被忽略。</value>
+  </data>
+  <data name="ScalingAlgorithmLabel" xml:space="preserve">
+    <value>缩放算法:</value>
+  </data>
+  <data name="RotationLabel" xml:space="preserve">
+    <value>旋转:</value>
+  </data>
+  <data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>关闭预设列表</value>
+  </data>
+  <data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>打开预设列表</value>
+  </data>
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>章节{0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>通道设置</value>
+  </data>
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>允许通道为:</value>
+  </data>
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
+  </data>
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>隔行扫描检测：</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>模式：</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>使用形变</value>
+  </data>
+  <data name="AllowUpscalingCheckbox" xml:space="preserve">
+    <value>允许缩放</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>手动</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>最大缩放 {0}x</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>仅缩小</value>
+  </data>
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>缩放至目标大小</value>
+  </data>
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>缩放模式：</value>
+  </data>
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>填充</value>
+  </data>
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>宽度</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>高度</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>目标宽度：</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>目标高度：</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>颜色：</value>
+  </data>
+  <data name="ColorPickerAdvancedButton" xml:space="preserve">
+    <value>高级选项</value>
+  </data>
+  <data name="ColorPickerStandardButton" xml:space="preserve">
+    <value>标准</value>
+  </data>
+  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
+    <value>标准颜色</value>
+  </data>
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>当使用形变并允许非正方形像素时可高效存储，但并非所有播放器都支持这种模式。</value>
+  </data>
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>分辨率：</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>格式： key1=value1:key2=value2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
+  
+</root>

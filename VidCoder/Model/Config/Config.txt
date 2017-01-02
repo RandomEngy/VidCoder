@@ -1,6 +1,5 @@
 ﻿MigratedConfigs|bool|false
 
-EncodeJobs|string|""
 EncodeJobs2|string|""
 UpdateInProgress|bool|false
 UpdateVersion|string|""
@@ -21,6 +20,7 @@ NativeLanguageCode|string|""
 DubAudio|bool|false
 
 LastPresetIndex|int|0
+LastPickerIndex|int|0
 EncodingDialogLastTab|int|0
 OptionsDialogLastTab|int|0
 
@@ -29,33 +29,37 @@ SubtitlesDialogPlacement|string|""
 EncodingDialogPlacement|string|""
 ChapterMarkersDialogPlacement|string|""
 PreviewWindowPlacement|string|""
-QueueTitlesDialogPlacement|string|""
 QueueTitlesDialogPlacement2|string|""
 AddAutoPauseProcessDialogPlacement|string|""
 OptionsDialogPlacement|string|""
 EncodeDetailsWindowPlacement|string|""
+PickerWindowPlacement|string|""
+LogWindowPlacement|string|""
 
 EncodingWindowOpen|bool|false
 PreviewWindowOpen|bool|false
 LogWindowOpen|bool|false
 EncodeDetailsWindowOpen|bool|false
+PickerWindowOpen|bool|false
 
 UpdatesEnabled|bool|true
 UpdatesDisabled32BitOSWarningDisplayed|bool|false
 
 PreviewSeconds|int|10
 ApplicationVersion|string|""
-LogWindowPlacement|string|""
 
 QueueColumns|string|"Source:200|Title:35|Range:106|Destination:200"
 QueueLastColumnWidth|double|75.0
-QueueTitlesStartTime|int|40
-QueueTitlesEndTime|int|45
-QueueTitlesUseRange|bool|false
 
 CompletedColumnWidths|string|""
 
-WorkerProcessPriority|string|"Normal"
+PickerListPaneWidth|double|135.0
+EncodingListPaneOpen|bool|true
+EncodingListPaneWidth|double|150.0
+
+ShowPickerWindowMessage|bool|true
+
+WorkerProcessPriority|string|"BelowNormal"
 LogVerbosity|int|1
 CopyLogToOutputFolder|bool|false
 AutoPauseProcesses|string|""
@@ -72,7 +76,6 @@ OutputToSourceDirectory|bool|false
 PreserveFolderStructureInBatch|bool|false
 WhenFileExists|string|"Prompt"
 WhenFileExistsBatch|string|"AutoRename"
-KeepScansAfterCompletion|bool|true
 UseCustomVideoPlayer|bool|false
 CustomVideoPlayer|string|""
 PlaySoundOnCompletion|bool|false
@@ -92,6 +95,13 @@ ResumeEncodingOnRestart|bool|false
 UseWorkerProcess|bool|true
 RememberPreviousFiles|bool|true
 VideoFileExtensions|string|"avi, mkv, mp4, m4v, mpg, mpeg, mov, wmv"
+PreferredPlayer|string|"vlc"
+BetaUpdates|bool|false
+InterfaceLanguageCode|string|""
+CpuThrottlingFraction|double|1.0
+UseBuiltInPlayerForPreviews|bool|true
+PreviewVolume|double|0.5
+
 AudioLanguageCode|string|"und"
 SubtitleLanguageCode|string|"und"
 AutoAudio|string|"Disabled"
@@ -102,6 +112,6 @@ AutoSubtitleOnlyIfDifferent|bool|true
 AutoSubtitleBurnIn|bool|true
 AutoSubtitleLanguageDefault|bool|false
 AutoSubtitleLanguageBurnIn|bool|false
-PreferredPlayer|string|"vlc"
-BetaUpdates|bool|false
-InterfaceLanguageCode|string|""
+QueueTitlesStartTime|int|40
+QueueTitlesEndTime|int|45
+QueueTitlesUseRange|bool|false

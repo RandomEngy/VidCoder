@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using GalaSoft.MvvmLight;
-using HandBrake.Interop.Model.Encoding;
+﻿using System.Resources;
+using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using ReactiveUI;
+using VidCoder.Resources;
 
 namespace VidCoder.ViewModel
 {
-	using System.Resources;
-	using Resources;
-
-	public class AudioEncoderViewModel : ViewModelBase
+    public class AudioEncoderViewModel : ReactiveObject
 	{
 		private static ResourceManager manager = new ResourceManager(typeof(EncodingRes));
 
@@ -18,24 +13,21 @@ namespace VidCoder.ViewModel
 
 		public bool IsPassthrough { get; set; }
 
-		public string Display
-		{
-			get
-			{
-				if (this.IsPassthrough)
-				{
-					return EncodingRes.AudioEncoder_Passthrough;
-				}
+	    public override string ToString()
+	    {
+            if (this.IsPassthrough)
+            {
+                return EncodingRes.AudioEncoder_Passthrough;
+            }
 
-				string resourceString = manager.GetString("AudioEncoder_" + this.Encoder.ShortName.Replace(':', '_'));
+            string resourceString = manager.GetString("AudioEncoder_" + this.Encoder.ShortName.Replace(':', '_'));
 
-				if (string.IsNullOrWhiteSpace(resourceString))
-				{
-					return this.Encoder.DisplayName;
-				}
+            if (string.IsNullOrWhiteSpace(resourceString))
+            {
+                return this.Encoder.DisplayName;
+            }
 
-				return resourceString;
-			}
-		}
+            return resourceString;
+        }
 	}
 }

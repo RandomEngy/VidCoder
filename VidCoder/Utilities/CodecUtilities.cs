@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HandBrake.ApplicationServices.Interop.Model;
+using HandBrake.ApplicationServices.Interop.Model.Encoding;
 
 namespace VidCoder
 {
-	using HandBrake.Interop.Model;
-	using HandBrake.Interop.Model.Encoding;
-
 	public class CodecUtilities
 	{
 		/// <summary>
@@ -50,7 +49,7 @@ namespace VidCoder
 					break;
 			}
 
-			return new BitrateLimits { Low = low, High = high };
+			return new BitrateLimits(low, high);
 		}
 	}
 }

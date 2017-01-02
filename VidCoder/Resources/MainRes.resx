@@ -173,6 +173,7 @@
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Windows</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
     <value>Encoding Settings</value>
@@ -344,11 +345,6 @@
 
 {1}</value>
   </data>
-  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>The following file(s) could not be recognized and were not added to the queue:
-
-{0}</value>
-  </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
     <value>Error scanning video file(s)</value>
   </data>
@@ -463,7 +459,7 @@
     <value>Error launching URL: {0}</value>
   </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Could not import preset. Format is unrecognized.</value>
+    <value>Failed to import preset. Check log for details.</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>Import Error</value>
@@ -477,23 +473,23 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Export preset</value>
   </data>
-  <data name="PresetSaveConfirmMessage" xml:space="preserve">
-    <value>Do you want to save changes to your current preset?</value>
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>Do you want to save changes to your current picker?</value>
   </data>
-  <data name="PresetSaveConfirmTitle" xml:space="preserve">
-    <value>Save current preset?</value>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>Save current picker?</value>
   </data>
-  <data name="PresetRevertConfirmMessage" xml:space="preserve">
-    <value>Are you sure you want to revert all unsaved changes to this preset?</value>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Are you sure you want to revert all unsaved changes?</value>
   </data>
-  <data name="PresetRevertConfirmTitle" xml:space="preserve">
-    <value>Revert Preset</value>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>Revert</value>
   </data>
-  <data name="PresetRemoveConfirmMessage" xml:space="preserve">
-    <value>Are you sure you want to remove this preset?</value>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Are you sure you want to remove this?</value>
   </data>
-  <data name="PresetRemoveConfirmTitle" xml:space="preserve">
-    <value>Remove Preset</value>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Remove</value>
   </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>Configuration was corrupted and could not be loaded. Some of your settings may have been reset.</value>
@@ -574,7 +570,7 @@
     <value>Export queue</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>Could not import queue. Format is unrecognized.</value>
+    <value>Failed to import queue. Check log for details.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>Import preset file</value>
@@ -619,5 +615,41 @@
   <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
     <value>Incompatible database file</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>Picker</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Could not load picker: </value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>Picker {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} other titles have a duration close to this one.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>You have a backed up version {0} file. Would you like to use it?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Error playing video.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>Custom video player could not be found at {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>Warning: The sizing interface has been overhauled for 2.0, so your presets may have changed. You may want to inspect them and ensure that they are still set up correctly.</value>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Enqueue Folder of Video Files...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>There were errors scanning some files and they were not added to the queue:
+
+{0}</value>
   </data>
 </root>

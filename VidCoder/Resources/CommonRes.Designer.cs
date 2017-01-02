@@ -191,6 +191,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dismiss message.
+        /// </summary>
+        public static string DismissMessage {
+            get {
+                return ResourceManager.GetString("DismissMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed.
         /// </summary>
         public static string Failed {
@@ -227,7 +236,16 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only display forced subtitles from the given track. Usually this means small bits of foreign dialogue..
+        ///   Looks up a localized string similar to First.
+        /// </summary>
+        public static string First {
+            get {
+                return ResourceManager.GetString("First", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only display forced subtitles from the subtitle track(s). Usually this means small bits of foreign dialogue..
         /// </summary>
         public static string ForcedSubtitleToolTip {
             get {
@@ -286,6 +304,51 @@ namespace VidCoder.Resources {
         public static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output to the source directory if possible.
+        /// </summary>
+        public static string OutputToSourceDirCheckBox {
+            get {
+                return ResourceManager.GetString("OutputToSourceDirCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Override naming format:.
+        /// </summary>
+        public static string OverrideNameFormatCheckBox {
+            get {
+                return ResourceManager.GetString("OverrideNameFormatCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preserve folder structure in batch encodes.
+        /// </summary>
+        public static string PreserveFolderStructureCheckBox {
+            get {
+                return ResourceManager.GetString("PreserveFolderStructureCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you encode a folder full of files the encoded versions will be put into subfolders to match the source directory structure..
+        /// </summary>
+        public static string PreserveFolderStructureToolTip {
+            get {
+                return ResourceManager.GetString("PreserveFolderStructureToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VidCoder Preset File.
+        /// </summary>
+        public static string PresetFileFilter {
+            get {
+                return ResourceManager.GetString("PresetFileFilter", resourceCulture);
             }
         }
         
@@ -394,6 +457,15 @@ namespace VidCoder.Resources {
         public static string QueueEtaToolTip {
             get {
                 return ResourceManager.GetString("QueueEtaToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VidCoder Queue File.
+        /// </summary>
+        public static string QueueFileFilter {
+            get {
+                return ResourceManager.GetString("QueueFileFilter", resourceCulture);
             }
         }
         

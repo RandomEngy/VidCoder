@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ReactiveUI;
 
 namespace VidCoder.Model
 {
@@ -11,9 +12,15 @@ namespace VidCoder.Model
 		BluRay
 	}
 
-	public class DriveInformation
+	public class DriveInformation : ReactiveObject
 	{
-		public bool Empty { get; set; }
+		private bool empty;
+		public bool Empty
+		{
+			get { return this.empty; }
+			set { this.RaiseAndSetIfChanged(ref this.empty, value); }
+		}
+
 		public string RootDirectory { get; set; }
 		public string VolumeLabel { get; set; }
 		public DiscType DiscType { get; set; }

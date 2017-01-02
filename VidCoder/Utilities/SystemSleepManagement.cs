@@ -24,7 +24,7 @@ namespace VidCoder
 
 		public static void PreventSleep()
 		{
-			DispatchService.BeginInvoke(() =>
+			DispatchUtilities.BeginInvoke(() =>
 			{
 				SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_SYSTEM_REQUIRED);
 			});
@@ -32,7 +32,7 @@ namespace VidCoder
 
 		public static void AllowSleep()
 		{
-			DispatchService.BeginInvoke(() =>
+			DispatchUtilities.BeginInvoke(() =>
 			{
 				SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS);
 			});

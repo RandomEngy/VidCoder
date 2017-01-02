@@ -5,15 +5,19 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using HandBrake.ApplicationServices.Interop;
+using Newtonsoft.Json;
 using VidCoder.Model;
 using VidCoder.Properties;
 using VidCoder.Services;
+using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using System.IO.Pipes;
 using System.IO;
 using System.ComponentModel;
-using HandBrake.Interop;
 using VidCoder.View;
+using VidCoderCommon;
+using VidCoderCommon.Utilities;
 
 namespace VidCoder
 {
@@ -29,11 +33,19 @@ namespace VidCoder
 	{
 		public static bool IsPrimaryInstance { get; private set; }
 
-#if BETA
-		static Mutex mutex = new Mutex(true, "VidCoderBetaPrimaryInstanceMutex");
-#else
-		static Mutex mutex = new Mutex(true, "VidCoderPrimaryInstanceMutex");
-#endif
+		private static Mutex mutex;
+
+		static App()
+		{
+			if (CommonUtilities.Beta)
+			{
+				mutex = new Mutex(true, "VidCoderBetaPrimaryInstanceMutex");
+			}
+			else
+			{
+				mutex = new Mutex(true, "VidCoderPrimaryInstanceMutex");
+			}
+		}
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
@@ -42,14 +54,14 @@ namespace VidCoder
 #endif
 			base.OnStartup(e);
 
-			OperatingSystem OS = Environment.OSVersion; 
-			if (OS.Version.Major <= 5) 
+			OperatingSystem OS = Environment.OSVersion;
+			if (OS.Version.Major <= 5)
 			{
 				MessageBox.Show(MiscRes.UnsupportedOSError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
 				MessageBox.Show(MiscRes.UnsupportedOSError, MiscRes.NoticeMessageTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
-				this.Shutdown(); 
-				return; 
-			} 
+				this.Shutdown();
+				return;
+			}
 
 #if PSEUDOLOCALIZER_ENABLED
 			Delay.PseudoLocalizer.Enable(typeof(CommonRes));
@@ -65,52 +77,10 @@ namespace VidCoder
 			Delay.PseudoLocalizer.Enable(typeof(MiscRes));
 #endif
 
+			JsonSettings.SetDefaultSerializationSettings();
+
 			// Takes about 50ms
-			Config.Initialize(Database.Connection);
-
-			if (!Config.MigratedConfigs && Directory.Exists(Utilities.LocalAppFolder))
-			{
-				// Upgrade configs from previous version before migrating
-				try
-				{
-					if (Settings.Default.ApplicationVersion != Utilities.CurrentVersion)
-					{
-						Settings.Default.Upgrade();
-						Settings.Default.ApplicationVersion = Utilities.CurrentVersion;
-
-						if (Settings.Default.NativeLanguageCode != string.Empty)
-						{
-							var languageCode = Settings.Default.NativeLanguageCode;
-							Settings.Default.NativeLanguageCode = string.Empty;
-
-							if (languageCode != "und")
-							{
-								if (Settings.Default.DubAudio)
-								{
-									Settings.Default.AudioLanguageCode = languageCode;
-									Settings.Default.AutoAudio = AutoAudioType.Language;
-								}
-								else
-								{
-									Settings.Default.SubtitleLanguageCode = languageCode;
-									Settings.Default.AutoSubtitle = AutoSubtitleType.Language;
-								}
-							}
-						}
-
-						Settings.Default.Save();
-					}
-
-					ConfigMigration.MigrateConfigSettings();
-				}
-				catch (ConfigurationErrorsException)
-				{
-					// If we had problems loading the old config we can't recover.
-					MessageBox.Show(MainRes.UserConfigCorrupted);
-
-					Config.MigratedConfigs = true;
-				}
-			}
+			Config.EnsureInitialized(Database.Connection);
 
 			var interfaceLanguageCode = Config.InterfaceLanguageCode;
 			if (!string.IsNullOrWhiteSpace(interfaceLanguageCode))
@@ -118,9 +88,18 @@ namespace VidCoder
 				var cultureInfo = new CultureInfo(interfaceLanguageCode);
 				Thread.CurrentThread.CurrentCulture = cultureInfo;
 				Thread.CurrentThread.CurrentUICulture = cultureInfo;
+				CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+				CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 			}
 
-			var updater = Ioc.Container.GetInstance<IUpdater>();
+			if (Config.UseCustomPreviewFolder && FileUtilities.HasWriteAccessOnFolder(Config.PreviewOutputFolder))
+			{
+				Environment.SetEnvironmentVariable("TMP", Config.PreviewOutputFolder, EnvironmentVariableTarget.Process);
+				FileUtilities.OverrideTempFolder = true;
+				FileUtilities.TempFolderOverride = Config.PreviewOutputFolder;
+			}
+
+			var updater = Ioc.Get<IUpdater>();
 			updater.HandlePendingUpdate();
 
 			try
@@ -135,8 +114,13 @@ namespace VidCoder
 			this.GlobalInitialize();
 
 			var mainVM = new MainViewModel();
-			WindowManager.OpenWindow(mainVM);
+			Ioc.Get<IWindowManager>().OpenWindow(mainVM);
 			mainVM.OnLoaded();
+
+			if (e.Args.Length > 0)
+			{
+				mainVM.HandlePaths(new List<string> { e.Args[0] });
+			}
 
 			if (!Utilities.IsPortable && IsPrimaryInstance)
 			{

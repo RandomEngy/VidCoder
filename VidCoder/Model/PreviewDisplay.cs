@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
+using VidCoder.Resources;
 
 namespace VidCoder.Model
 {
-	using System.ComponentModel.DataAnnotations;
-	using Resources;
-
 	public enum PreviewDisplay
 	{
+		[Display(ResourceType = typeof(CommonRes), Name = "Default")]
+		Default,
+
 		[Display(ResourceType = typeof(PreviewRes), Name = "PreviewDisplay_FitToWindow")]
 		FitToWindow,
 

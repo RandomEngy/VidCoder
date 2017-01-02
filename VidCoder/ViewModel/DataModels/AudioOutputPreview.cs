@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace VidCoder.ViewModel
+﻿namespace VidCoder.ViewModel
 {
-	public class AudioOutputPreview
+    public class AudioOutputPreview
 	{
 		/// <summary>
 		/// Gets or sets the 1-based output track label.

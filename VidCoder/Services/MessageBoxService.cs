@@ -1,24 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using GalaSoft.MvvmLight;
-using VidCoder.ViewModel;
+﻿using System.Windows;
+using VidCoder.Services.Windows;
 
 namespace VidCoder.Services
 {
 	public class MessageBoxService : IMessageBoxService
 	{
+		private IWindowManager windowManager;
+
+		public MessageBoxService(IWindowManager windowManager)
+		{
+			this.windowManager = windowManager;
+		}
+
 		public MessageBoxResult Show(string messageBoxText)
 		{
 			return MessageBox.Show(messageBoxText);
 		}
 
-		public MessageBoxResult Show(ViewModelBase owner, string messageBoxText)
+		public MessageBoxResult Show(object ownerViewModel, string messageBoxText)
 		{
-			Window ownerWindow = WindowManager.GetView(owner);
-			return MessageBox.Show(ownerWindow, messageBoxText);
+			Window ownerWindow = this.windowManager.GetView(ownerViewModel);
+
+			if (ownerWindow == null)
+			{
+				return MessageBox.Show(messageBoxText);
+			}
+			else
+			{
+				return MessageBox.Show(ownerWindow, messageBoxText);
+			}
 		}
 
 		public MessageBoxResult Show(string messageBoxText, string caption)
@@ -26,10 +36,18 @@ namespace VidCoder.Services
 			return MessageBox.Show(messageBoxText, caption);
 		}
 
-		public MessageBoxResult Show(ViewModelBase owner, string messageBoxText, string caption)
+		public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption)
 		{
-			Window ownerWindow = WindowManager.GetView(owner);
-			return MessageBox.Show(ownerWindow, messageBoxText, caption);
+			Window ownerWindow = this.windowManager.GetView(ownerViewModel);
+
+			if (ownerWindow == null)
+			{
+				return MessageBox.Show(messageBoxText, caption);
+			}
+			else
+			{
+				return MessageBox.Show(ownerWindow, messageBoxText, caption);
+			}
 		}
 
 		public MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button)
@@ -37,10 +55,18 @@ namespace VidCoder.Services
 			return MessageBox.Show(messageBoxText, caption, button);
 		}
 
-		public MessageBoxResult Show(ViewModelBase owner, string messageBoxText, string caption, MessageBoxButton button)
+		public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption, MessageBoxButton button)
 		{
-			Window ownerWindow = WindowManager.GetView(owner);
-			return MessageBox.Show(ownerWindow, messageBoxText, caption, button);
+			Window ownerWindow = this.windowManager.GetView(ownerViewModel);
+
+			if (ownerWindow == null)
+			{
+				return MessageBox.Show(messageBoxText, caption, button);
+			}
+			else
+			{
+				return MessageBox.Show(ownerWindow, messageBoxText, caption, button);
+			}
 		}
 
 		public MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
@@ -48,10 +74,18 @@ namespace VidCoder.Services
 			return MessageBox.Show(messageBoxText, caption, button, icon);
 		}
 
-		public MessageBoxResult Show(ViewModelBase owner, string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
+		public MessageBoxResult Show(object ownerViewModel, string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
 		{
-			Window ownerWindow = WindowManager.GetView(owner);
-			return MessageBox.Show(ownerWindow, messageBoxText, caption, button, icon);
+			Window ownerWindow = this.windowManager.GetView(ownerViewModel);
+
+			if (ownerWindow == null)
+			{
+				return MessageBox.Show(messageBoxText, caption, button, icon);
+			}
+			else
+			{
+				return MessageBox.Show(ownerWindow, messageBoxText, caption, button, icon);
+			}
 		}
 	}
 }

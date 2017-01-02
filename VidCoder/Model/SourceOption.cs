@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using HandBrake.Interop.Model;
+﻿using VidCoderCommon.Model;
 
 namespace VidCoder.Model
 {

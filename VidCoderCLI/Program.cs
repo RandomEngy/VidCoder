@@ -1,20 +1,19 @@
-﻿namespace VidCoderCLI
-{
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-	using System.Threading.Tasks;
-	using System.Diagnostics;
-	using System.IO;
-	using System.ServiceModel;
-	using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.ServiceModel;
+using System.Threading;
+using VidCoderCommon;
 
+namespace VidCoderCLI
+{
 	public class Program
 	{
 		private static string source;
 		private static string destination;
 		private static string preset;
+		private static string picker;
 
 		public static void Main(string[] args)
 		{
@@ -30,18 +29,22 @@
 			Console.WriteLine("Action: '" + action + "'");
 			Console.WriteLine("Action length: " + action.Length);
 
-			Dictionary<string, string> argumentDict = ReadArguments(args);
-
 			switch (action)
 			{
 				case "encode":
-					Encode(argumentDict);
+					Encode(ReadArguments(args));
 					break;
 				case "scan":
-					Scan(argumentDict);
+					Scan(ReadArguments(args));
+					break;
+				case "importpreset":
+					ImportPreset(args);
+					break;
+				case "importqueue":
+					ImportQueue(args);
 					break;
 				default:
-					Console.WriteLine("Action not recognized.");
+					WriteError("Action not recognized.");
 					PrintUsage();
 					break;
 			}
@@ -64,6 +67,9 @@
 					case "p":
 					case "preset":
 						preset = argumentDict[token];
+						break;
+					case "picker":
+						picker = argumentDict[token];
 						break;
 					default:
 						PrintUsage();
@@ -89,7 +95,13 @@
 				return;
 			}
 
-			RunAction(a => a.Encode(source, destination, preset), "Encode started.", "Could not start encode.");
+			if (picker == string.Empty)
+			{
+				PrintUsage();
+				return;
+			}
+
+			RunAction(a => a.Encode(source, destination, preset, picker), "Encode started.", "Could not start encode.");
 		}
 
 		private static void Scan(Dictionary<string, string> argumentDict)
@@ -103,7 +115,7 @@
 						source = argumentDict[token];
 						break;
 					default:
-						Console.WriteLine("Argument not recognized.");
+						WriteError("Argument not recognized.");
 						PrintUsage();
 						return;
 				}
@@ -111,12 +123,40 @@
 
 			if (string.IsNullOrWhiteSpace(source))
 			{
-				Console.WriteLine("Source is missing.");
+				WriteError("Source is missing.");
 				PrintUsage();
 				return;
 			}
 
 			RunAction(a => a.Scan(source), "Scan started.", "Could not start scan.");
+		}
+
+		private static void ImportPreset(string[] args)
+		{
+			if (args.Length != 2)
+			{
+				PrintUsage();
+				return;
+			}
+
+			string filePath = args[1];
+
+			// Further checks on the file path will happen inside the app
+			RunAction(a => a.ImportPreset(filePath), "Preset imported.", "Failed to import preset.");
+		}
+
+		private static void ImportQueue(string[] args)
+		{
+			if (args.Length != 2)
+			{
+				PrintUsage();
+				return;
+			}
+
+			string filePath = args[1];
+
+			// Further checks on the file path will happen inside the app
+			RunAction(a => a.ImportQueue(filePath), "Queue imported.", "Failed to import queue.");
 		}
 
 		private static Dictionary<string, string> ReadArguments(string[] args)
@@ -149,8 +189,10 @@
 		private static void PrintUsage()
 		{
 			Console.WriteLine("Usage:");
-			Console.WriteLine("VidCoderCLI encode -s[ource] \"<source path>\" [-d[estination] \"<encode file destination>\"] -p[reset] \"<preset name>\"");
+			Console.WriteLine("VidCoderCLI encode -s[ource] \"<source path>\" [-d[estination] \"<encode file destination>\"] -p[reset] \"<preset name>\" [-picker \"<picker name>\"]");
 			Console.WriteLine("VidCoderCLI scan -s[ource] \"<source path>\"");
+			Console.WriteLine("VidCoderCLI importpreset \"<preset file path>\"");
+			Console.WriteLine("VidCoderCLI importqueue \"<queue file path>\"");
 		}
 
 		private static bool VidCoderIsRunning(string vidCoderExe)
@@ -215,7 +257,7 @@
 				}
 			}
 
-			Console.WriteLine(failedText);
+			WriteError(failedText);
 		}
 
 		private static AutomationResult TryAction(Action<IVidCoderAutomation> action)
@@ -231,9 +273,10 @@
 				};
 
 				string betaString = string.Empty;
-#if BETA
-				betaString = "Beta";
-#endif
+				if (CommonUtilities.Beta)
+				{
+					betaString = "Beta";
+				}
 
 				var pipeFactory = new ChannelFactory<IVidCoderAutomation>(
 					binding,
@@ -246,7 +289,7 @@
 			}
 			catch (FaultException<AutomationError> exception)
 			{
-				Console.WriteLine(exception.Detail.Message);
+				WriteError(exception.Detail.Message);
 				return AutomationResult.FailedInVidCoder;
 			}
 			catch (CommunicationException)
@@ -257,6 +300,13 @@
 			{
 				return AutomationResult.ConnectionFailed;
 			}
+		}
+
+		private static void WriteError(string error)
+		{
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.WriteLine(error);
+			Console.ResetColor();
 		}
 
 		private static string GetVidCoderExePath()

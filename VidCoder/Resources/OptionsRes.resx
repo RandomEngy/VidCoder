@@ -156,9 +156,6 @@
   <data name="FileFormatLabel" xml:space="preserve">
     <value>File format:</value>
   </data>
-  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Output to the source directory if possible</value>
-  </data>
   <data name="DefaultFormatRadioButton" xml:space="preserve">
     <value>Default format</value>
   </data>
@@ -192,30 +189,6 @@
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
     <value>Automatically rename</value>
   </data>
-  <data name="AutomaticAudioSelection" xml:space="preserve">
-    <value>Automatic audio selection</value>
-  </data>
-  <data name="AudioSubtitlesTab" xml:space="preserve">
-    <value>Audio / Subtitles</value>
-  </data>
-  <data name="LanguageRadioButton" xml:space="preserve">
-    <value>Language:</value>
-  </data>
-  <data name="IncludeAllTracksCheckBox" xml:space="preserve">
-    <value>Include all tracks</value>
-  </data>
-  <data name="AutomaticSubtitleSelection" xml:space="preserve">
-    <value>Automatic subtitle selection</value>
-  </data>
-  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
-    <value>Foreign Audio Search</value>
-  </data>
-  <data name="BurnInCheckBox" xml:space="preserve">
-    <value>Burn in</value>
-  </data>
-  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>Only if different language from audio</value>
-  </data>
   <data name="AutoPauseLabel" xml:space="preserve">
     <value>Automatically pause encoding when any of these processes are running:</value>
   </data>
@@ -233,9 +206,6 @@
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
     <value>Enable LibDVDNav (change requires program restart)</value>
-  </data>
-  <data name="KeepScansAfterCompletionCheckBox" xml:space="preserve">
-    <value>Keep scans after completion (allows editing completed items)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
     <value>Delete source files after clearing successful completed items (with confirmation)</value>
@@ -255,8 +225,8 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Options</value>
   </data>
-  <data name="ProcessesTab" xml:space="preserve">
-    <value>Processes</value>
+  <data name="ProcessTab" xml:space="preserve">
+    <value>Process</value>
   </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>Advanced</value>
@@ -408,17 +378,20 @@
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Preserve Created and Modified time when converting files</value>
   </data>
-  <data name="DefaultCheckBox" xml:space="preserve">
-    <value>Default</value>
-    <comment>Label for the check box to mark an automatically chosen subtitle as "Default"</comment>
-  </data>
-  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Preserve folder structure in batch encodes</value>
-  </data>
-  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>If you encode a folder full of files the encoded versions will be put into subfolders to match the source directory structure.</value>
-  </data>
-	<data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Custom folder for previews:</value>
+  </data>
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>Process options</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>CPU throttling:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>Use CPU throttling to limit the number of processor cores VidCoder can use when encoding.</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>Use built-in player for previews</value>
   </data>
 </root>

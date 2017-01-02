@@ -194,10 +194,11 @@
     <value>{0} Beta ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
-  <data name="PresetNameDialogTitle" xml:space="preserve">
-    <value>Name Preset</value>
+  <data name="NameDialogTitle" xml:space="preserve">
+    <value>Name</value>
+    <comment>Title for dialog when  naming a preset or  picker</comment>
   </data>
-  <data name="ChoosePresetName" xml:space="preserve">
+  <data name="ChooseNamePreset" xml:space="preserve">
     <value>Choose a name for the preset:</value>
   </data>
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
@@ -244,5 +245,14 @@
   </data>
   <data name="ErrorPlayingSource" xml:space="preserve">
     <value>Error playing source.</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
+    <value>The system will hibernate in {0} seconds.</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
+    <value>Hibernate imminent</value>
+  </data>
+  <data name="ChooseNamePicker" xml:space="preserve">
+    <value>Choose a name for the picker:</value>
   </data>
 </root>

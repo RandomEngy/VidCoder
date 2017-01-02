@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Xml.Linq;
 using VidCoder.Model;
-using VidCoder.ViewModel;
-using VidCoder.ViewModel.Components;
+using VidCoderCommon.Model;
 
 namespace VidCoder.Services
 {
@@ -16,45 +13,59 @@ namespace VidCoder.Services
 	{
 		private IFileService fileService;
 		private IMessageBoxService messageBoxService;
-		private PresetsViewModel presetsViewModel = Ioc.Container.GetInstance<PresetsViewModel>();
+		private PresetsService presetsService = Ioc.Get<PresetsService>();
+		private IAppLogger logger;
 
-		public PresetImportExport(IFileService fileService, IMessageBoxService messageBoxService)
+		public PresetImportExport(IFileService fileService, IMessageBoxService messageBoxService, IAppLogger logger)
 		{
 			this.fileService = fileService;
 			this.messageBoxService = messageBoxService;
+			this.logger = logger;
 		}
 
-		public void ImportPreset(string presetFile)
+		public Preset ImportPreset(string presetFile)
 		{
-			Preset preset = Presets.LoadPresetFile(presetFile);
-			if (preset == null || string.IsNullOrWhiteSpace(preset.Name))
+			try
 			{
-				this.messageBoxService.Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
-				return;
-			}
-
-			preset.IsBuiltIn = false;
-			preset.IsModified = false;
-
-			List<Preset> existingPresets = Presets.UserPresets;
-			if (existingPresets.Count(existingPreset => existingPreset.Name == preset.Name) > 0)
-			{
-				string proposedName;
-
-				for (int i = 2; i < 100; i++)
+				if (string.IsNullOrWhiteSpace(presetFile))
 				{
-					proposedName = preset.Name + " (" + i + ")";
-					if (existingPresets.Count(existingPreset => existingPreset.Name == proposedName) == 0)
+					throw new ArgumentException("Preset file path is required.");
+				}
+
+				Preset preset = PresetStorage.LoadPresetFile(presetFile);
+				if (preset == null || string.IsNullOrWhiteSpace(preset.Name))
+				{
+					throw new ArgumentException("Preset file was invalid.");
+				}
+
+				preset.IsBuiltIn = false;
+				preset.IsModified = false;
+
+				List<Preset> existingPresets = PresetStorage.UserPresets;
+				if (existingPresets.Count(existingPreset => existingPreset.Name == preset.Name) > 0)
+				{
+					string proposedName;
+
+					for (int i = 2; i < 100; i++)
 					{
-						preset.Name = proposedName;
-						break;
+						proposedName = preset.Name + " (" + i + ")";
+						if (existingPresets.Count(existingPreset => existingPreset.Name == proposedName) == 0)
+						{
+							preset.Name = proposedName;
+							break;
+						}
 					}
 				}
+
+				this.presetsService.AddPreset(preset);
+
+				return preset;
 			}
-
-			this.messageBoxService.Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
-
-			this.presetsViewModel.AddPreset(preset);
+			catch (Exception exception)
+			{
+				this.logger.LogError("Preset import failed: " + exception.Message);
+				throw;
+			}
 		}
 
 		public void ExportPreset(Preset preset)
@@ -77,9 +88,9 @@ namespace VidCoder.Services
 			string exportFileName = this.fileService.GetFileNameSave(
 				Config.RememberPreviousFiles ? Config.LastPresetExportFolder : null,
 				MainRes.ExportPresetFilePickerText,
-				Utilities.CleanFileName(initialFileName + ".xml"),
-				"xml",
-				Utilities.GetFilePickerFilter("xml"));
+				FileUtilities.CleanFileName(initialFileName + ".vjpreset"),
+				"vjpreset",
+				CommonRes.PresetFileFilter + "|*.vjpreset");
 			if (exportFileName != null)
 			{
 				if (Config.RememberPreviousFiles)
@@ -87,7 +98,7 @@ namespace VidCoder.Services
 					Config.LastPresetExportFolder = Path.GetDirectoryName(exportFileName);
 				}
 
-				if (Presets.SavePresetToFile(exportPreset, exportFileName))
+				if (PresetStorage.SavePresetToFile(exportPreset, exportFileName))
 				{
 					this.messageBoxService.Show(
 						string.Format(MainRes.PresetExportSuccessMessage, exportFileName),

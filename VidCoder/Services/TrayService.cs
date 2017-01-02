@@ -10,7 +10,7 @@ namespace VidCoder.Services
 	{
 		public void ShowBalloonMessage(string title, string message)
 		{
-			Ioc.Container.GetInstance<MainWindow>().ShowBalloonMessage(title, message);
+			Ioc.Get<Main>().ShowBalloonMessage(title, message);
 		}
 	}
 }

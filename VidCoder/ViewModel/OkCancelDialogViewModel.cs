@@ -1,16 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using VidCoder.Services;
+using ReactiveUI;
+using VidCoder.Services.Windows;
 
 namespace VidCoder.ViewModel
 {
-	public abstract class OkCancelDialogViewModel : ViewModelBase, IDialogViewModel
+	public abstract class OkCancelDialogViewModel : ReactiveObject, IClosableWindow
 	{
+		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
+
+		protected OkCancelDialogViewModel()
+		{
+			this.Cancel = ReactiveCommand.Create();
+			this.Cancel.Subscribe(_ =>
+			{
+				this.DialogResult = false;
+				this.windowManager.Close(this);
+			});
+
+			this.Accept = ReactiveCommand.Create(this.WhenAnyValue(x => x.CanClose));
+			this.Accept.Subscribe(_ =>
+			{
+				this.DialogResult = true;
+				this.windowManager.Close(this);
+			});
+		}
+
 		public virtual bool CanClose
 		{
 			get
@@ -21,46 +35,11 @@ namespace VidCoder.ViewModel
 
 		public virtual void OnClosing()
 		{
-			if (this.Closing != null)
-			{
-				this.Closing();
-			}
-
-			WindowManager.ReportClosed(this);
 		}
 
 		public bool DialogResult { get; set; }
-		public Action Closing { get; set; }
 
-		private RelayCommand cancelCommand;
-		public RelayCommand CancelCommand
-		{
-			get
-			{
-				return this.cancelCommand ?? (this.cancelCommand = new RelayCommand(() =>
-					{
-						this.DialogResult = false;
-						WindowManager.Close(this);
-						this.OnClosing();
-					}));
-			}
-		}
-
-		private RelayCommand acceptCommand;
-		public RelayCommand AcceptCommand
-		{
-			get
-			{
-				return this.acceptCommand ?? (this.acceptCommand = new RelayCommand(() =>
-					{
-						this.DialogResult = true;
-						WindowManager.Close(this);
-						this.OnClosing();
-					}, () =>
-					{
-						return this.CanClose;
-					}));
-			}
-		}
+		public ReactiveCommand<object> Cancel { get; private set; }
+		public ReactiveCommand<object> Accept { get; private set; }
 	}
 }

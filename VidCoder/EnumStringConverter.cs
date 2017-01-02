@@ -4,8 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Reflection;
-using HandBrake.Interop;
-using System.Collections;
 using System.Resources;
 
 namespace VidCoder

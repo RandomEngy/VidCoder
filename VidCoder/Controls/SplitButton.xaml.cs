@@ -24,20 +24,24 @@ namespace VidCoder.Controls
 	{
 		private Button button;
 
-		/// <summary>
-		/// Stores the backing collection for the ButtonMenuItemsSource property.
-		/// </summary>
-		private ObservableCollection<object> menuItemsSource = new ObservableCollection<object>();
-
-		/// <summary>
-		/// Gets the collection of items for the split button's menu.
-		/// </summary>
-		public Collection<object> MenuItemsSource { get { return this.menuItemsSource; } }
-
 		public SplitButton()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
+
+            this.SetValue(MenuItemsSourceProperty, new Collection<object>());
 		}
+
+	    public static readonly DependencyProperty MenuItemsSourceProperty = DependencyProperty.Register(
+	        "MenuItemsSource",
+	        typeof (Collection<object>),
+	        typeof (SplitButton),
+	        new UIPropertyMetadata(null));
+
+	    public Collection<object> MenuItemsSource
+	    {
+	        get { return (Collection<object>)this.GetValue(MenuItemsSourceProperty); }
+	        set { this.SetValue(MenuItemsSourceProperty, value); }
+	    }
 
 		public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
 			"Command",
@@ -47,15 +51,8 @@ namespace VidCoder.Controls
 
 		public ICommand Command
 		{
-			get
-			{
-				return (ICommand) GetValue(CommandProperty);
-			}
-
-			set
-			{
-				SetValue(CommandProperty, value);
-			}
+			get { return (ICommand)this.GetValue(CommandProperty); }
+			set { this.SetValue(CommandProperty, value); }
 		}
 
 		private static void OnCommandChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
@@ -75,7 +72,7 @@ namespace VidCoder.Controls
 		{
 			var buttonMenu = ContextMenuService.GetContextMenu(this.button);
 
-			if (this.menuItemsSource.Count > 0 && buttonMenu != null)
+            if (this.MenuItemsSource.Count > 0 && buttonMenu != null)
 			{
 				buttonMenu.IsOpen = !buttonMenu.IsOpen;
 				buttonMenu.PlacementTarget = this.button;

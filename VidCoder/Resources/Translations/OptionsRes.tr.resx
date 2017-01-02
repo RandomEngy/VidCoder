@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
+    <value>Otomatik ses seçimi devre dışı bırakıldığında, son seçilen ses yolu geçerlidir.</value>
+  </data>
+  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
+    <value>Otomatik altyazı seçimi devre dışı bırakıldığında son seçilen altyazı geçerlidir.</value>
+  </data>
+  <data name="GeneralTab" xml:space="preserve">
+    <value>Genel</value>
+  </data>
+  <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
+    <value>Görev çubuğuna küçült</value>
+  </data>
+  <data name="MinimizeToSystemTrayRadioButton" xml:space="preserve">
+    <value>Sistem tepsisine küçült</value>
+  </data>
+  <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
+    <value>Sıra tamamlanınca ses çal</value>
+  </data>
+  <data name="PreferredDvdPlayerLabel" xml:space="preserve">
+    <value>Tercih edilen DVD oynatıcı:</value>
+  </data>
+  <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
+    <value>DVD kaynakları için kullanmak istediğiniz oynatıcıyı seçin.</value>
+  </data>
+  <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
+    <value>Otomatik güncellemeler</value>
+  </data>
+  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
+    <value>Beta güncelleme hattına katılın</value>
+  </data>
+  <data name="FileNamingTab" xml:space="preserve">
+    <value>Dosya adlandırma</value>
+  </data>
+  <data name="DefaultFolderLabel" xml:space="preserve">
+    <value>Varsayılan klasör:</value>
+  </data>
+  <data name="FileFormatLabel" xml:space="preserve">
+    <value>Dosya biçimi:</value>
+  </data>
+  <data name="DefaultFormatRadioButton" xml:space="preserve">
+    <value>Varsayılan biçim</value>
+  </data>
+  <data name="CustomFormatRadioButton" xml:space="preserve">
+    <value>Özel biçim:</value>
+  </data>
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Kullanılabilir seçenekler: {0}</value>
+  </data>
+  <data name="WhenFileAlreadyExists" xml:space="preserve">
+    <value>Dosya zaten varsa...</value>
+  </data>
+  <data name="EncodingSingleFile" xml:space="preserve">
+    <value>Tek bir dosya kodlama:</value>
+  </data>
+  <data name="AskOverwriteRadioButton" xml:space="preserve">
+    <value>Üzerine yazmak isteyip istemediğimi sor</value>
+  </data>
+  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
+    <value>Dosya üzerine sormadan yaz</value>
+  </data>
+  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
+    <value>Otomatik olarak isimlendir</value>
+  </data>
+  <data name="EncodingBatchOfFiles" xml:space="preserve">
+    <value>Dosyaları topluca kodla:</value>
+  </data>
+  <data name="OverwriteRadioButton" xml:space="preserve">
+    <value>Üzerine yaz</value>
+  </data>
+  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
+    <value>Otomatik olarak yeniden adlandır</value>
+  </data>
+  <data name="AutoPauseLabel" xml:space="preserve">
+    <value>Şu işlemlerden herhangi biri çalıştırken otomatik olarak kodlamayı duraklat:</value>
+  </data>
+  <data name="AddEllipsesButton" xml:space="preserve">
+    <value>Ekle...</value>
+  </data>
+  <data name="PreviewCountLabel" xml:space="preserve">
+    <value>Taranacak resim önizlemeleri sayısı:</value>
+  </data>
+  <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
+    <value>Daha önce kullanılan dosya ve klasörleri hatırla</value>
+  </data>
+  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
+    <value>Ses izlerinde özel adlandırmaya (sınırlı oynatıcı desteği) izin ver</value>
+  </data>
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>LibDVDNav'ı etkinleştir (programı yeniden başlatma gerektirir)</value>
+  </data>
+  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
+    <value>Başarıyla tamamlanan öğelerin kaynak dosyalarını sil (teyit ile)</value>
+  </data>
+  <data name="LoggingVerbosityLabel" xml:space="preserve">
+    <value>Günlük Detayı:</value>
+  </data>
+  <data name="MinScanLengthLabel" xml:space="preserve">
+    <value>Başlığın taranacak kısmının en az uzunluğu (saniye):</value>
+  </data>
+  <data name="RecognizedExtensionsLabel" xml:space="preserve">
+    <value>Tanınan Uzantılar:</value>
+  </data>
+  <data name="RecognizedExtensionsToolTip" xml:space="preserve">
+    <value>Video dosyaları için klasör taranırken aşağıdaki uzantılara sahip dosyaları ekle. (Virgülle ayrılmış)</value>
+  </data>
+  <data name="OptionsDialogTitle" xml:space="preserve">
+    <value>Seçenekler</value>
+  </data>
+  <data name="ProcessTab" xml:space="preserve">
+    <value>İşlem</value>
+  </data>
+  <data name="AdvancedTab" xml:space="preserve">
+    <value>Gelişmiş</value>
+  </data>
+  <data name="BetaUpdatesInBeta" xml:space="preserve">
+    <value>Beta sürümünü çalıştırıyorsunuz. Bu versiyon kararlı sürüm ile yan yana çalışabilir.</value>
+  </data>
+  <data name="BetaUpdatesNonBeta" xml:space="preserve">
+    <value>Güncelleştirmeleri daha sık almak için Beta hattına katılın</value>
+  </data>
+  <data name="UpdateReadyStatus" xml:space="preserve">
+    <value>Güncelleştirme {0} hazır. Programdan çıktığınızda güncelleme yüklenecektir.</value>
+  </data>
+  <data name="DownloadingStatus" xml:space="preserve">
+    <value>Güncelleme {0} indiriliyor:</value>
+  </data>
+  <data name="UpToDateStatus" xml:space="preserve">
+    <value>VidCoder güncel durumda.</value>
+  </data>
+  <data name="ChooseDefaultOutputFolder" xml:space="preserve">
+    <value>Kodlanmış video dosyaları için varsayılan çıkış dizinini seçin.</value>
+  </data>
+  <data name="InterfaceLanguageLabel" xml:space="preserve">
+    <value>Arayüz Dili:</value>
+  </data>
+  <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
+    <value>Yeni dil seçeneği VidCoder kapatılıp tekrar başlatılınca etkinleşir.</value>
+  </data>
+  <data name="UseOSLanguage" xml:space="preserve">
+    <value>İşletim sisteminin dilini kullan</value>
+  </data>
+  <data name="UpdatesTab" xml:space="preserve">
+    <value>Güncelleştirmeler</value>
+  </data>
+  <data name="DownloadingInfoStatus" xml:space="preserve">
+    <value>En son sürüm bulunuyor...</value>
+  </data>
+  <data name="UpdateFailedStatus" xml:space="preserve">
+    <value>Güncelleştirme denetimi başarısız oldu.</value>
+  </data>
+  <data name="CompletionWavFilePickTitle" xml:space="preserve">
+    <value>Tamamlama sesi için kullanmak istediğiniz .wav dosyasını seçin.</value>
+  </data>
+  <data name="CurrentVersionLabel" xml:space="preserve">
+    <value>Mevcut sürüm: {0}</value>
+  </data>
+  <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
+    <value>Dikkat: Bu sürümün hataya sahip olma ve çökme olasılığı daha yüksektir.</value>
+  </data>
+  <data name="LanguagesSection" xml:space="preserve">
+    <value>Diller</value>
+  </data>
+  <data name="PlayersSection" xml:space="preserve">
+    <value>Oynatıcılar</value>
+  </data>
+  <data name="SoundSection" xml:space="preserve">
+    <value>Ses</value>
+  </data>
+  <data name="SystemTraySection" xml:space="preserve">
+    <value>Sistem tepsisi</value>
+  </data>
+  <data name="OutputFolderSection" xml:space="preserve">
+    <value>Çıktı klasörü</value>
+  </data>
+  <data name="NamingFormatSection" xml:space="preserve">
+    <value>Adlandırma biçimi</value>
+  </data>
+  <data name="AdvancedOptionsSection" xml:space="preserve">
+    <value>Gelişmiş Seçenekler</value>
+  </data>
+  <data name="ScanningSection" xml:space="preserve">
+    <value>Taranıyor</value>
+  </data>
+  <data name="LoggingSection" xml:space="preserve">
+    <value>Günlüğe kaydediyor</value>
+  </data>
+  <data name="DvdReadingSection" xml:space="preserve">
+    <value>DVD okuma</value>
+  </data>
+  <data name="UpdatesSection" xml:space="preserve">
+    <value>Güncelleştirmeler</value>
+  </data>
+  <data name="UpdateStatusSection" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="BetaSection" xml:space="preserve">
+    <value>Beta</value>
+  </data>
+  <data name="UseCustomWavLabel" xml:space="preserve">
+    <value>Özel .wav dosyası kullan:</value>
+  </data>
+  <data name="CheckNowButton" xml:space="preserve">
+    <value>Şimdi kontrol et</value>
+  </data>
+  <data name="UseSystemPlayer" xml:space="preserve">
+    <value>Sistemin oynatıcısını kullan</value>
+  </data>
+  <data name="VideoFilesLabel" xml:space="preserve">
+    <value>Video Dosyaları:</value>
+  </data>
+  <data name="CustomVideoPlayerToolTip" xml:space="preserve">
+    <value>Dosyalar için kullanmak istediğiniz video oynatıcı yolunu belirleyin.</value>
+  </data>
+  <data name="VideoPlayerFilePickTitle" xml:space="preserve">
+    <value>Video dosyaları için kullanılacak oynatıcıyı seçin.</value>
+  </data>
+  <data name="CustomPlayerLabel" xml:space="preserve">
+    <value>Özel oynatıcı:</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Yüksek</value>
+  </data>
+  <data name="Priority_AboveNormal" xml:space="preserve">
+    <value>Normalin üstünde</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Priority_BelowNormal" xml:space="preserve">
+    <value>Normalin Altında</value>
+  </data>
+  <data name="WorkerProcessPriorityLabel" xml:space="preserve">
+    <value>İşlem önceliği:</value>
+  </data>
+  <data name="Priority_Idle" xml:space="preserve">
+    <value>Düşük</value>
+  </data>
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+    <value>İşlem kaydını dönüştürülen video ile aynı klasöre kopyala</value>
+  </data>
+  <data name="OpenLogFolderButton" xml:space="preserve">
+    <value>İşlem Kaydı Klasörünü Aç</value>
+  </data>
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+    <value>Yeniden başlatıldığında kodlamaya devam et</value>
+  </data>
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
+    <value>Kodlama için görev sürecini kullan</value>
+  </data>
+  <data name="VideoSection" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="DxvaDecodingCheckBox" xml:space="preserve">
+    <value>DXVA Donanım Hızlandırmalı Kod Çözücüyü Etkinleştir</value>
+  </data>
+  <data name="DxvaDecodingToolTip" xml:space="preserve">
+    <value>Bu seçenek yalnızca yavaş sistemler için uygundur. Donanım kod çözücüleri şu anda video oynatma işi için geliştirilmiştir, videoyu yeniden kodlama için değil, bu nedenle daha hızlı sistemlerde büyük olasılıkla darboğaza neden olacaktır.</value>
+  </data>
+  <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+    <value>Dosyaları dönüştürürken Oluşturulma ve Değiştirilme zamanlarını koru</value>
+  </data>
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+    <value>Önizlemeler için özel klasör:</value>
+  </data>
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>İşlem seçenekleri</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>İşlemci kısıtlama:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>VidCoder'ın dönüştürme yaparken kullanacabileceği çekirdek sayısını sınırlamak için işlemci kısıtlamayı kullan.</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>Önizlemeler için yerleşik oynatıcıyı kullan</value>
+  </data>
+</root>

@@ -14,7 +14,7 @@
 	mc:Ignorable="d">
 	<UserControl.Resources>
 		<Style x:Key="AudioOutputPreview" TargetType="TextBlock">
-			<Setter Property="Margin" Value="9,0,9,2" />
+			<Setter Property="Margin" Value="9 0 9 2" />
 		</Style>
 	</UserControl.Resources>
 	<Grid>
@@ -43,44 +43,90 @@
 				</ItemsControl>
 
 				<Button
-					Margin="3,6,0,0"
+					Margin="3 6 0 0"
 					HorizontalAlignment="Left"
-					Command="{Binding AddAudioEncodingCommand}">
+					Command="{Binding AddAudioEncoding}">
 					<StackPanel Margin="2" Orientation="Horizontal">
 						<Polygon Style="{StaticResource PlusSign}" />
 						<TextBlock Text="{x:Static res:EncodingRes.AddAudioEncodingButton}" />
 					</StackPanel>
 				</Button>
 
+				<StackPanel
+					Margin="7 10 0 0"
+					Orientation="Vertical"
+					Visibility="{Binding AutoPassthroughSettingsVisible,
+					                     Converter={StaticResource VisibilityConverter}}">
+					<TextBlock Style="{StaticResource SectionHeader}" Text="{x:Static res:EncodingRes.PassthroughSettingsLabel}" />
+
+					<StackPanel Margin="20 4 0 0" Orientation="Vertical">
+						<TextBlock Text="{x:Static res:EncodingRes.PassthroughMaskLabel}" />
+						<ItemsControl Margin="0 4 0 0" ItemsSource="{Binding CopyMaskChoices}">
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<WrapPanel />
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<CheckBox
+										Margin="0 0 6 0"
+										Content="{Binding Display}"
+										IsChecked="{Binding Enabled}" />
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+						<StackPanel Margin="0 10 0 0" Orientation="Horizontal">
+							<TextBlock
+								Margin="0 0 6 0"
+								VerticalAlignment="Center"
+								Text="{x:Static res:EncodingRes.AutoPassthroughFallbackLabel}"
+								ToolTipService.ShowDuration="20000">
+								<TextBlock.ToolTip>
+									<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.AutoPassthroughFallbackToolTip}" />
+								</TextBlock.ToolTip>
+							</TextBlock>
+							<ComboBox
+								MinWidth="110"
+								ItemsSource="{Binding FallbackEncoderChoices}"
+								SelectedItem="{Binding AudioEncoderFallback}"
+								ToolTipService.ShowDuration="20000">
+								<ComboBox.ToolTip>
+									<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.AutoPassthroughFallbackToolTip}" />
+								</ComboBox.ToolTip>
+							</ComboBox>
+						</StackPanel>
+					</StackPanel>
+				</StackPanel>
+
 				<Grid
-					Margin="3,10,0,0"
+					Margin="3 10 0 0"
 					HorizontalAlignment="Left"
 					Visibility="{Binding HasSourceData,
-				                           Converter={StaticResource VisibilityConverter}}">
+					                     Converter={StaticResource VisibilityConverter}}">
 					<Border
-						Margin="0,0,0,0"
+						Margin="0 0 0 0"
 						Background="{StaticResource OutputBrush}"
 						Effect="{StaticResource InfoBoxShadow}"
 						Style="{StaticResource InputOutputInfoSection}">
 						<Grid Margin="2">
 							<TextBlock
-								Margin="2,0,0,0"
+								Margin="2 0 0 0"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Style="{StaticResource SectionHeader}"
 								Text="{x:Static res:EncodingRes.OutputLabel}" />
-							<StackPanel Margin="0,20,0,0" Orientation="Vertical">
+							<StackPanel Margin="0 20 0 0" Orientation="Vertical">
 								<TextBlock
 									Style="{StaticResource DescriptiveText}"
 									Text="{x:Static res:EncodingRes.NoTracksPlaceholder}"
 									Visibility="{Binding HasAudioTracks,
-								                                Converter={StaticResource VisibilityConverter},
-								                                ConverterParameter=True}" />
+									                     Converter={StaticResource InverseVisibilityConverter}}" />
 								<ItemsControl
 									Grid.IsSharedSizeScope="True"
 									ItemsSource="{Binding AudioOutputPreviews}"
 									Visibility="{Binding HasAudioTracks,
-								                                   Converter={StaticResource VisibilityConverter}}">
+									                     Converter={StaticResource VisibilityConverter}}">
 									<ItemsControl.ItemTemplate>
 										<DataTemplate>
 											<Grid>
@@ -130,12 +176,6 @@
 						</Grid>
 					</Border>
 				</Grid>
-				<controls:InlineWarning
-					Margin="3,10,0,0"
-					HorizontalAlignment="Left"
-					Visibility="{Binding PassthroughWarningVisible,
-				                                             Converter={StaticResource VisibilityConverter}}"
-					WarningText="{Binding PassthroughWarningText}" />
 			</StackPanel>
 		</ScrollViewer>
 	</Grid>

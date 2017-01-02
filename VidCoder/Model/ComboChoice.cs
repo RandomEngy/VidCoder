@@ -21,5 +21,10 @@ namespace VidCoder.Model
 
 		public string Value { get; set; }
 		public string Display { get; set; }
-	}
+
+        public override string ToString()
+        {
+            return this.Display;
+        }
+    }
 }

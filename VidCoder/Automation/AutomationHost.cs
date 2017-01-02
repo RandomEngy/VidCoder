@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using VidCoderCommon;
 
 namespace VidCoder.Automation
 {
@@ -14,22 +17,22 @@ namespace VidCoder.Automation
 
 		public static void StartListening()
 		{
-			host = new ServiceHost(typeof (VidCoderAutomation));
+			Task.Run(async () =>
+			{
+				host = new ServiceHost(typeof(VidCoderAutomation));
 
-			host.AddServiceEndpoint(
-				typeof (IVidCoderAutomation),
-				new NetNamedPipeBinding(),
-				"net.pipe://localhost/VidCoderAutomation" + (Utilities.Beta ? "Beta" : string.Empty));
+				host.AddServiceEndpoint(
+					typeof(IVidCoderAutomation),
+					new NetNamedPipeBinding(),
+					"net.pipe://localhost/VidCoderAutomation" + (CommonUtilities.Beta ? "Beta" : string.Empty));
 
-			host.Open();
+				await Task.Factory.FromAsync(host.BeginOpen, host.EndOpen, null);
+			});
 		}
 
 		public static void StopListening()
 		{
-			if (host != null)
-			{
-				host.Close();
-			}
+			host?.Close();
 		}
 	}
 }

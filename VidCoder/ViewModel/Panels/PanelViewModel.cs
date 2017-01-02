@@ -1,103 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop.SourceData;
-using VidCoder.Messages;
-using VidCoder.Model.Encoding;
+﻿using HandBrake.ApplicationServices.Interop.Json.Scan;
 
 namespace VidCoder.ViewModel
 {
-	using Model;
-
 	/// <summary>
 	/// Base class for view models of panels on the encoding settings window.
 	/// </summary>
-	public abstract class PanelViewModel : ViewModelBase
+	public abstract class PanelViewModel : ProfileViewModelBase
 	{
-		private EncodingViewModel encodingViewModel;
+		private EncodingWindowViewModel encodingWindowViewModel;
 
-		protected PanelViewModel(EncodingViewModel encodingViewModel)
+		protected PanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 		{
-			this.encodingViewModel = encodingViewModel;
+			this.encodingWindowViewModel = encodingWindowViewModel;
 		}
 
-		public VCProfile Profile
+		public EncodingWindowViewModel EncodingWindowViewModel
 		{
 			get
 			{
-				return encodingViewModel.EncodingProfile;
+				return this.encodingWindowViewModel;
 			}
 		}
 
-		public EncodingViewModel EncodingViewModel
+		public SourceTitle SelectedTitle
 		{
 			get
 			{
-				return this.encodingViewModel;
+				return this.encodingWindowViewModel.MainViewModel.SelectedTitle;
 			}
-		}
-
-		public bool AutomaticChange
-		{
-			get
-			{
-				return this.encodingViewModel.AutomaticChange;
-			}
-
-			set
-			{
-				this.encodingViewModel.AutomaticChange = value;
-			}
-		}
-
-		public bool IsModified
-		{
-			get
-			{
-				return this.encodingViewModel.IsModified;
-			}
-
-			set
-			{
-				this.encodingViewModel.IsModified = value;
-			}
-		}
-
-		public MainViewModel MainViewModel
-		{
-			get
-			{
-				return this.encodingViewModel.MainViewModel;
-			}
-		}
-
-		public bool HasSourceData
-		{
-			get
-			{
-				return this.encodingViewModel.MainViewModel.HasVideoSource;
-			}
-		}
-
-		public Title SelectedTitle
-		{
-			get
-			{
-				return this.encodingViewModel.MainViewModel.SelectedTitle;
-			}
-		}
-
-		public void UpdatePreviewWindow()
-		{
-			Messenger.Default.Send(new RefreshPreviewMessage());
-		}
-
-		public virtual void NotifySelectedTitleChanged()
-		{
-			this.RaisePropertyChanged(() => this.HasSourceData);
 		}
 	}
 }

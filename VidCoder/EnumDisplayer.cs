@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
 using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Reflection;
 using System.Resources;
 using System.Windows.Data;
-using System.Globalization;
-using System.Collections.ObjectModel;
-using HandBrake.Interop;
+using VidCoder.Resources;
 
 namespace VidCoder
 {
@@ -18,7 +16,20 @@ namespace VidCoder
 		private Type type;
 		private IDictionary displayValues;
 		private IDictionary reverseValues;
-		private List<EnumDisplayEntry> overriddenDisplayEntries;
+		private static Dictionary<string, string> overriddenDisplayEntries = new Dictionary<string, string>
+		{
+			{ "Off", EnumsRes.Off },
+			{ "Default", EnumsRes.Default },
+			{ "Custom", EnumsRes.Custom },
+		};
+		private static Dictionary<string, string> resourceAliases = new Dictionary<string, string>
+		{
+			{ "VCAnamorphic", "Anamorphic" },
+			{ "VCDeinterlace", "Deinterlace" },
+			{ "VCDecomb", "Decomb" },
+		};
+
+		private static ResourceManager enumResourceManager = new ResourceManager(typeof(EnumsRes));
 
 		public EnumDisplayer()
 		{
@@ -58,13 +69,21 @@ namespace VidCoder
 					DisplayAttribute[] a = (DisplayAttribute[])
 												field.GetCustomAttributes(typeof(DisplayAttribute), false);
 
-					string displayString = GetDisplayStringValue(a);
+					string displayString = GetAttributeDisplayString(a);
 					object enumValue = field.GetValue(null);
+					string enumValueString = null;
 
 					if (displayString == null)
 					{
-						displayString = GetBackupDisplayStringValue(enumValue);
+						enumValueString = Enum.GetName(this.type, enumValue);
+						displayString = GetResourceDisplayString(this.type.Name, enumValueString);
 					}
+
+					if (displayString == null)
+					{
+						displayString = GetBackupDisplayString(enumValueString);
+					}
+
 					if (displayString != null)
 					{
 						displayValues.Add(enumValue, displayString);
@@ -82,10 +101,10 @@ namespace VidCoder
 			}
 		}
 
-		private string GetDisplayStringValue(DisplayAttribute[] a)
+		private string GetAttributeDisplayString(DisplayAttribute[] attributes)
 		{
-			if (a == null || a.Length == 0) return null;
-			DisplayAttribute displayAttribute = a[0];
+			if (attributes == null || attributes.Length == 0) return null;
+			DisplayAttribute displayAttribute = attributes[0];
 			if (displayAttribute.ResourceType != null)
 			{
 				ResourceManager resourceManager = new ResourceManager(displayAttribute.ResourceType);
@@ -93,6 +112,26 @@ namespace VidCoder
 			}
 
 			return displayAttribute.Name;
+		}
+
+		private string GetResourceDisplayString(string enumType, string enumValue)
+		{
+			if (resourceAliases.ContainsKey(enumType))
+			{
+				enumType = resourceAliases[enumType];
+			}
+
+			return enumResourceManager.GetString(enumType + " " + enumValue);
+		}
+
+		private string GetBackupDisplayString(string enumValueString)
+		{
+			if (overriddenDisplayEntries != null && overriddenDisplayEntries.ContainsKey(enumValueString))
+			{
+				return overriddenDisplayEntries[enumValueString];
+			}
+
+			return enumValueString;
 		}
 
 		object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -104,45 +143,5 @@ namespace VidCoder
 		{
 			return reverseValues[value];
 		}
-
-		private string GetBackupDisplayStringValue(object enumValue)
-		{
-			if (overriddenDisplayEntries != null && overriddenDisplayEntries.Count > 0)
-			{
-				EnumDisplayEntry foundEntry = overriddenDisplayEntries.Find(delegate(EnumDisplayEntry entry)
-				{
-					object e = Enum.Parse(type, entry.EnumValue);
-					return enumValue.Equals(e);
-				});
-				if (foundEntry != null)
-				{
-					if (foundEntry.ExcludeFromDisplay) return null;
-					return foundEntry.DisplayString;
-
-				}
-			}
-
-			return Enum.GetName(type, enumValue);
-		}
-
-		public List<EnumDisplayEntry> OverriddenDisplayEntries
-		{
-			get
-			{
-				if (overriddenDisplayEntries == null)
-				{
-					overriddenDisplayEntries = new List<EnumDisplayEntry>();
-				}
-
-				return overriddenDisplayEntries;
-			}
-		}
-	}
-
-	public class EnumDisplayEntry
-	{
-		public string EnumValue { get; set; }
-		public string DisplayString { get; set; }
-		public bool ExcludeFromDisplay { get; set; }
 	}
 }

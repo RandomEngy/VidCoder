@@ -1,19 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
-using VidCoder.Messages;
+using ReactiveUI;
 
 namespace VidCoder.ViewModel
 {
-	public class AudioChoiceViewModel : ViewModelBase
+	public class AudioChoiceViewModel : ReactiveObject
 	{
-		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
-		private int selectedTrack;
+		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
+
+		public AudioChoiceViewModel(int selectedIndex)
+		{
+			this.selectedIndex = selectedIndex;
+
+			this.Remove = ReactiveCommand.Create();
+			this.Remove.Subscribe(_ => this.RemoveImpl());
+		}
 
 		public MainViewModel MainViewModel
 		{
@@ -26,32 +26,17 @@ namespace VidCoder.ViewModel
 		/// <summary>
 		/// Gets or sets the 0-based index for the selected audio track.
 		/// </summary>
+		private int selectedIndex;
 		public int SelectedIndex
 		{
-			get
-			{
-				return this.selectedTrack;
-			}
-
-			set
-			{
-				this.selectedTrack = value;
-				this.RaisePropertyChanged(() => this.SelectedIndex);
-
-				Messenger.Default.Send(new AudioInputChangedMessage());
-			}
+			get { return this.selectedIndex; }
+			set { this.RaiseAndSetIfChanged(ref this.selectedIndex, value); }
 		}
 
-		private RelayCommand removeCommand;
-		public RelayCommand RemoveCommand
+		public ReactiveCommand<object> Remove { get; }
+		private void RemoveImpl()
 		{
-			get
-			{
-				return this.removeCommand ?? (this.removeCommand = new RelayCommand(() =>
-					{
-						this.mainViewModel.RemoveAudioChoice(this);
-					}));
-			}
+			this.mainViewModel.RemoveAudioChoice(this);
 		}
 	}
 }

@@ -13,7 +13,7 @@ namespace VidCoder.Services
 
 	public class DriveService : IDriveService
 	{
-		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
+		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
 		private ManagementEventWatcher watcher;
 
 		public DriveService()
@@ -45,7 +45,7 @@ namespace VidCoder.Services
 
 		private void HandleDiscEvent(object sender, EventArrivedEventArgs e)
 		{
-			DispatchService.BeginInvoke(() => this.mainViewModel.UpdateDriveCollection());
+			DispatchUtilities.BeginInvoke(() => this.mainViewModel.UpdateDriveCollection());
 		}
 
 		public IList<DriveInformation> GetDiscInformation()

@@ -1,12 +1,12 @@
 <UpdateInfo>
 	<Release>
-		<Latest>1.5.27</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.5.27-Beta-x86.exe</DownloadLocation>
-		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/137989</ChangelogLocation>
+		<Latest>2.41</Latest>
+		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v2.41-beta/VidCoder-2.41-Beta-x86.exe</DownloadLocation>
+		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v2.41-beta</ChangelogLocation>
 	</Release>
 	<Release-x64>
-		<Latest>1.5.27</Latest>
-		<DownloadLocation>http://engy.us/VidCoder/VidCoder-1.5.27-Beta-x64.exe</DownloadLocation>
-		<ChangelogLocation>https://vidcoder.codeplex.com/releases/view/137989</ChangelogLocation>
+		<Latest>2.41</Latest>
+		<DownloadLocation>https://github.com/RandomEngy/VidCoder/releases/download/v2.41-beta/VidCoder-2.41-Beta-x64.exe</DownloadLocation>
+		<ChangelogLocation>https://github.com/RandomEngy/VidCoder/releases/tag/v2.41-beta</ChangelogLocation>
 	</Release-x64>
 </UpdateInfo>

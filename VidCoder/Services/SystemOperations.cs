@@ -14,7 +14,7 @@ namespace VidCoder.Services
 {
 	public class SystemOperations : ISystemOperations
 	{
-		private static ILogger logger = Ioc.Container.GetInstance<ILogger>();
+		private static IAppLogger logger = Ioc.Get<IAppLogger>();
 
 		[Flags]
 		private enum ExitWindows : uint
@@ -111,6 +111,12 @@ namespace VidCoder.Services
 				false, 
 				false, 
 				ShutdownReason.MajorOther | ShutdownReason.MinorOther | ShutdownReason.FlagPlanned);
+		}
+
+		public void Hibernate()
+		{
+			logger.Log("Hibernating.");
+			Application.SetSuspendState(PowerState.Hibernate, true, true);
 		}
 
 		public void Eject(string driveLetter)

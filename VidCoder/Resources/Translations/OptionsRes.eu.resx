@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
+    <value>Berezgaitasunezko audio hautapena ezgaitua dagoenean, hautaturiko azken bideari heusten zaio.</value>
+  </data>
+  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
+    <value>Berezgaitasunezko azpidatzi hautapen ezgaituta dagoenean, hautaturiko azken azpidatziari heusten zaio.</value>
+  </data>
+  <data name="GeneralTab" xml:space="preserve">
+    <value>Orokorra</value>
+  </data>
+  <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
+    <value>Txikiendu eginkizun barrara</value>
+  </data>
+  <data name="MinimizeToSystemTrayRadioButton" xml:space="preserve">
+    <value>Txikiendu sistema erretilura</value>
+  </data>
+  <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
+    <value>Jo soinu bat lerroa osatutakoan</value>
+  </data>
+  <data name="PreferredDvdPlayerLabel" xml:space="preserve">
+    <value>Hobetsitako DVD irakurgailua:</value>
+  </data>
+  <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
+    <value>Hautatu DVD iturburuentzako erabiltzea nahi duzun irakurgailua.</value>
+  </data>
+  <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
+    <value>Berezgaitasunezko eguneraketak</value>
+  </data>
+  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
+    <value>Batu Beta eguneraketa bidea</value>
+  </data>
+  <data name="FileNamingTab" xml:space="preserve">
+    <value>Agiri Izendapena</value>
+  </data>
+  <data name="DefaultFolderLabel" xml:space="preserve">
+    <value>Berezko agiritegia:</value>
+  </data>
+  <data name="FileFormatLabel" xml:space="preserve">
+    <value>Agiri heuskarria:</value>
+  </data>
+  <data name="DefaultFormatRadioButton" xml:space="preserve">
+    <value>Berezko heuskarria</value>
+  </data>
+  <data name="CustomFormatRadioButton" xml:space="preserve">
+    <value>Norbere heuskarria:</value>
+  </data>
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Aukera eskuragarriak: {0}</value>
+  </data>
+  <data name="WhenFileAlreadyExists" xml:space="preserve">
+    <value>Agiri bat jadanik badagoenean...</value>
+  </data>
+  <data name="EncodingSingleFile" xml:space="preserve">
+    <value>Agiri bakar kodeaketa:</value>
+  </data>
+  <data name="AskOverwriteRadioButton" xml:space="preserve">
+    <value>Galdetu gainidaztea nahi duzun</value>
+  </data>
+  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
+    <value>Gainidatzi agiria galdetu gabe</value>
+  </data>
+  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
+    <value>Berezgaitasunez aldatu izen ezberdin batera</value>
+  </data>
+  <data name="EncodingBatchOfFiles" xml:space="preserve">
+    <value>Agiri multzo kodeaketa:</value>
+  </data>
+  <data name="OverwriteRadioButton" xml:space="preserve">
+    <value>Gainidatzi</value>
+  </data>
+  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
+    <value>Berezgaitasunez berrizendatu</value>
+  </data>
+  <data name="AutoPauseLabel" xml:space="preserve">
+    <value>Berezgaitasunez pausatu kodeaketa prozesu hauetako bat ekinean dagoenean:</value>
+  </data>
+  <data name="AddEllipsesButton" xml:space="preserve">
+    <value>Gehitu...</value>
+  </data>
+  <data name="PreviewCountLabel" xml:space="preserve">
+    <value>Mihatu beharreko aurreikuspen irudi zenbatekoa:</value>
+  </data>
+  <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
+    <value>Gogoratu aurretik erabilitako agiriak eta agiritegiak</value>
+  </data>
+  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
+    <value>Ahalbidetu norbere izena ezartzea audio bideetan (irakurgailu sostengu mugatua)</value>
+  </data>
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>Gaitu LibDVDNav (aldaketak programa berrabiaraztea behar du)</value>
+  </data>
+  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
+    <value>Ezabatu iturburu agiriak ongi osatutako gaiak garbitu ondoren (baieztapenarekin)</value>
+  </data>
+  <data name="LoggingVerbosityLabel" xml:space="preserve">
+    <value>Ohar Berritsukeria:</value>
+  </data>
+  <data name="MinScanLengthLabel" xml:space="preserve">
+    <value>Izenburu mihaketaren gutxienezko luzera (segundutan):</value>
+  </data>
+  <data name="RecognizedExtensionsLabel" xml:space="preserve">
+    <value>Luzapen Ezagutuak:</value>
+  </data>
+  <data name="RecognizedExtensionsToolTip" xml:space="preserve">
+    <value>Agiritegiak mihatzerakoan bideo agiri bila, gehitu luzapen hau duten agiriak. (Kakotxaz bananduta)</value>
+  </data>
+  <data name="OptionsDialogTitle" xml:space="preserve">
+    <value>Aukerak</value>
+  </data>
+  <data name="ProcessTab" xml:space="preserve">
+    <value>Prozesua</value>
+  </data>
+  <data name="AdvancedTab" xml:space="preserve">
+    <value>Aurreratua</value>
+  </data>
+  <data name="BetaUpdatesInBeta" xml:space="preserve">
+    <value>Beta bertsioa ari zara erabiltzen. Honek bertsio egonkorrarekin batera lan egin dezake.</value>
+  </data>
+  <data name="BetaUpdatesNonBeta" xml:space="preserve">
+    <value>Batu Beta bidera eguneraketak sarriago lortzeko</value>
+  </data>
+  <data name="UpdateReadyStatus" xml:space="preserve">
+    <value>{0} eguneraketa gertu. Programatik irtetzen zarenean ezarriko da.</value>
+  </data>
+  <data name="DownloadingStatus" xml:space="preserve">
+    <value>Eguneraketa jeisten {0}:</value>
+  </data>
+  <data name="UpToDateStatus" xml:space="preserve">
+    <value>VidCoder eguneratuta dago.</value>
+  </data>
+  <data name="ChooseDefaultOutputFolder" xml:space="preserve">
+    <value>Hautatu kodeatutako bideo agirientzako berezko irteera zuzenbidea.</value>
+  </data>
+  <data name="InterfaceLanguageLabel" xml:space="preserve">
+    <value>Interfaze Hizkuntza:</value>
+  </data>
+  <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
+    <value>Hizkuntza berriak irten eta VidCoder berrabiarazi ondoren izango du eragina.</value>
+  </data>
+  <data name="UseOSLanguage" xml:space="preserve">
+    <value>Erabili SE Hizkuntza</value>
+  </data>
+  <data name="UpdatesTab" xml:space="preserve">
+    <value>Eguneraketak</value>
+  </data>
+  <data name="DownloadingInfoStatus" xml:space="preserve">
+    <value>Azken bertsioa bilatzen...</value>
+  </data>
+  <data name="UpdateFailedStatus" xml:space="preserve">
+    <value>Eguneraketa egiaztapen hutsegitea.</value>
+  </data>
+  <data name="CompletionWavFilePickTitle" xml:space="preserve">
+    <value>Hautatu soinua osatzeko erabiltzea nahi duzun .wav agiria.</value>
+  </data>
+  <data name="CurrentVersionLabel" xml:space="preserve">
+    <value>Oraingo bertsioa: {0}</value>
+  </data>
+  <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
+    <value>Kontuz: zihurragoa da bertsio honek akatsak eta matxurak izatea.</value>
+  </data>
+  <data name="LanguagesSection" xml:space="preserve">
+    <value>Hizkuntzak</value>
+  </data>
+  <data name="PlayersSection" xml:space="preserve">
+    <value>Irakurgailuak</value>
+  </data>
+  <data name="SoundSection" xml:space="preserve">
+    <value>Soinua</value>
+  </data>
+  <data name="SystemTraySection" xml:space="preserve">
+    <value>Sistema erretilua</value>
+  </data>
+  <data name="OutputFolderSection" xml:space="preserve">
+    <value>Irteera agiritegia</value>
+  </data>
+  <data name="NamingFormatSection" xml:space="preserve">
+    <value>Izendapen heuskarria</value>
+  </data>
+  <data name="AdvancedOptionsSection" xml:space="preserve">
+    <value>Aukera aurreratuak</value>
+  </data>
+  <data name="ScanningSection" xml:space="preserve">
+    <value>Mihaketa</value>
+  </data>
+  <data name="LoggingSection" xml:space="preserve">
+    <value>Oharrak</value>
+  </data>
+  <data name="DvdReadingSection" xml:space="preserve">
+    <value>DVD irakurketa</value>
+  </data>
+  <data name="UpdatesSection" xml:space="preserve">
+    <value>Eguneraketak</value>
+  </data>
+  <data name="UpdateStatusSection" xml:space="preserve">
+    <value>Egoera</value>
+  </data>
+  <data name="BetaSection" xml:space="preserve">
+    <value>Beta</value>
+  </data>
+  <data name="UseCustomWavLabel" xml:space="preserve">
+    <value>Erabili norbere .wav agiria:</value>
+  </data>
+  <data name="CheckNowButton" xml:space="preserve">
+    <value>Egiaztatu Orain</value>
+  </data>
+  <data name="UseSystemPlayer" xml:space="preserve">
+    <value>Erabili sistemaren irakurgailua</value>
+  </data>
+  <data name="VideoFilesLabel" xml:space="preserve">
+    <value>Bideo Agiriak:</value>
+  </data>
+  <data name="CustomVideoPlayerToolTip" xml:space="preserve">
+    <value>Adierazi agirientzako erabiltzea nahi duzun bideo irakurgailuaren helburua.</value>
+  </data>
+  <data name="VideoPlayerFilePickTitle" xml:space="preserve">
+    <value>Hautatu bideo agiriekin erabiltzeko irakurgailua.</value>
+  </data>
+  <data name="CustomPlayerLabel" xml:space="preserve">
+    <value>Norbere irakurgailua:</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Handia</value>
+  </data>
+  <data name="Priority_AboveNormal" xml:space="preserve">
+    <value>Arruntetik Gora</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Arrunta</value>
+  </data>
+  <data name="Priority_BelowNormal" xml:space="preserve">
+    <value>Arruntetik Behera</value>
+  </data>
+  <data name="WorkerProcessPriorityLabel" xml:space="preserve">
+    <value>Lan garapen lehentasuna:</value>
+  </data>
+  <data name="Priority_Idle" xml:space="preserve">
+    <value>Apala</value>
+  </data>
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+    <value>Kopiatu kodeaketa oharra kodeatutako bideoaren zuzenbide berera</value>
+  </data>
+  <data name="OpenLogFolderButton" xml:space="preserve">
+    <value>Ireki Ohar Agiritegia</value>
+  </data>
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+    <value>Berezgaitasunez berrekin kodeaketa hasterakoan</value>
+  </data>
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
+    <value>Erabili langile garapena kodeatzeko</value>
+  </data>
+  <data name="VideoSection" xml:space="preserve">
+    <value>Bideoa</value>
+  </data>
+  <data name="DxvaDecodingCheckBox" xml:space="preserve">
+    <value>Gaitu DXVA Hardware Bizkorpen Dekodeaketa</value>
+  </data>
+  <data name="DxvaDecodingToolTip" xml:space="preserve">
+    <value>Aukera hau sistema geldoenentzat bakarrik da baliagarria. Hardware dekodeatzaileak irakurketarako diseinatuak daude, ez bideo ber-kodeaketarako hortaz botilalepoa eragin dezake sistema azkarretan.</value>
+  </data>
+  <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+    <value>Heutsi Sortutako eta Aldatutako denbora agiriak bihurtzerakoan</value>
+  </data>
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+    <value>Norbere agiritegia aurreikuspenetarako:</value>
+  </data>
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>Prozesu aukerak</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>CPU itopena:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>Erabili CPU itopena VidCoder-ek kodeatzerakoan erabili ditzakeen prozesagailu nukleo zenbatekoa mugatzeko.</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>Erabili barne-bildutako irakurgailua aurreikuspenetarako</value>
+  </data>
+</root>

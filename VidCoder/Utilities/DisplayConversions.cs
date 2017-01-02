@@ -1,33 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using HandBrake.Interop.Model.Encoding;
-using HandBrake.Interop.SourceData;
+﻿using System.Globalization;
+using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using VidCoder.Model;
-using HandBrake.Interop;
 
 namespace VidCoder
 {
 	public static class DisplayConversions
 	{
-		private static EnumStringConverter<AudioEncoder> audioConverter = new EnumStringConverter<AudioEncoder>();
-		private static EnumStringConverter<Mixdown> mixdownConverter = new EnumStringConverter<Mixdown>();
-		private static EnumStringConverter<InputType> inputTypeConverter = new EnumStringConverter<InputType>();
+		private static EnumStringConverter<TitleType> titleTypeConverter = new EnumStringConverter<TitleType>();
 
-		public static string DisplayAudioEncoder(AudioEncoder audioEncoder)
+		public static string DisplayTitleType(TitleType titleType)
 		{
-			return audioConverter.Convert(audioEncoder);
-		}
-
-		public static string DisplayMixdown(Mixdown mixdown)
-		{
-			return mixdownConverter.Convert(mixdown);
-		}
-
-		public static string DisplayInputType(InputType inputType)
-		{
-			return inputTypeConverter.Convert(inputType);
+			return titleTypeConverter.Convert(titleType);
 		}
 
 		public static string DisplayVideoCodecName(string videoCodecName)
@@ -68,7 +51,7 @@ namespace VidCoder
 					return "8 kHz";
 			}
 
-			return sampleRate.ToString();
+			return sampleRate.ToString(CultureInfo.InvariantCulture);
 		}
 	}
 }

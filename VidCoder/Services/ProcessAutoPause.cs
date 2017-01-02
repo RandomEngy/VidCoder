@@ -13,7 +13,7 @@ namespace VidCoder.Services
 		private const double ProcessPollIntervalMsec = 2000;
 
 		private IProcesses processes;
-		private ILogger logger;
+		private IAppLogger logger;
 
 		private HashSet<string> startingProcesses;
 
@@ -24,7 +24,7 @@ namespace VidCoder.Services
 
 		private object syncLock = new object();
 
-		public ProcessAutoPause(IProcesses processes, ILogger logger)
+		public ProcessAutoPause(IProcesses processes, IAppLogger logger)
 		{
 			this.processes = processes;
 			this.logger = logger;
@@ -113,7 +113,7 @@ namespace VidCoder.Services
 
 							if (this.ResumeEncoding != null)
 							{
-								this.ResumeEncoding(this, new EventArgs());
+								this.ResumeEncoding(this, EventArgs.Empty);
 							}
 						}
 					}
@@ -125,7 +125,7 @@ namespace VidCoder.Services
 							this.logger.Log("Automatically pausing, process detected: " + autoPauseProcess);
 							if (this.PauseEncoding != null)
 							{
-								this.PauseEncoding(this, new EventArgs());
+								this.PauseEncoding(this, EventArgs.Empty);
 							}
 						}
 					}

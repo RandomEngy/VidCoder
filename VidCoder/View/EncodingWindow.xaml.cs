@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using VidCoder.Extensions;
+using VidCoder.Services;
 using VidCoder.ViewModel;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -27,29 +29,44 @@ namespace VidCoder.View
 	{
 		public EncodingWindow()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
+			this.listColumn.Width = new GridLength(Config.EncodingListPaneWidth);
+
+			this.DataContextChanged += this.OnDataContextChanged;
 		}
 
-		protected override void OnSourceInitialized(EventArgs e)
+		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
-			base.OnSourceInitialized(e);
-			string placement = Config.EncodingDialogPlacement;
-			if (string.IsNullOrEmpty(placement))
+			var viewModel = e.NewValue as EncodingWindowViewModel;
+
+			if (viewModel != null)
 			{
-				Rect workArea = SystemParameters.WorkArea;
+				this.SetPanelOpenState(viewModel.PresetPanelOpen);
+				viewModel.PropertyChanged += this.OnPropertyChanged;
+			}
+		}
 
-				if (workArea.Width > Constants.TotalDefaultWidth && workArea.Height > Constants.TotalDefaultHeight)
-				{
-					double widthRemaining = workArea.Width - Constants.TotalDefaultWidth;
-					double heightRemaining = workArea.Height - Constants.TotalDefaultHeight;
+		private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			var viewModel = this.DataContext as EncodingWindowViewModel;
 
-					this.Left = workArea.Left + widthRemaining / 2;
-					this.Top = workArea.Top + heightRemaining / 2 + 452;
-				}
+			if (viewModel != null && e.PropertyName == nameof(viewModel.PresetPanelOpen))
+			{
+				this.SetPanelOpenState(viewModel.PresetPanelOpen);
+			}
+		}
+
+		private void SetPanelOpenState(bool panelOpen)
+		{
+			if (panelOpen)
+			{
+				Grid.SetColumn(this.mainGrid, 1);
+				Grid.SetColumnSpan(this.mainGrid, 1);
 			}
 			else
 			{
-				this.SetPlacement(placement);
+				Grid.SetColumn(this.mainGrid, 0);
+				Grid.SetColumnSpan(this.mainGrid, 2);
 			}
 		}
 
@@ -57,8 +74,8 @@ namespace VidCoder.View
 		{
 			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
 			{
-				Config.EncodingDialogPlacement = this.GetPlacement();
 				Config.EncodingDialogLastTab = this.tabControl.SelectedIndex;
+				Config.EncodingListPaneWidth = this.listColumn.ActualWidth;
 
 				transaction.Commit();
 			}
@@ -71,6 +88,12 @@ namespace VidCoder.View
 
 		private void Window_Closed(object sender, EventArgs e)
 		{
+			var viewModel = this.DataContext as EncodingWindowViewModel;
+			if (viewModel != null)
+			{
+				viewModel.PropertyChanged -= this.OnPropertyChanged;
+			}
+
 			this.DataContext = null;
 		}
 	}

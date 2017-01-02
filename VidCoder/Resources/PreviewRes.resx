@@ -183,4 +183,23 @@
 	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
     <value>Could not find source file.</value>
   </data>
+  <data name="CloseVideoButton" xml:space="preserve">
+    <value>Close Video</value>
+    <comment>Button to close the preview video clip.</comment>
+  </data>
+  <data name="OpenInSystemPlayerButton" xml:space="preserve">
+    <value>Open in System Player</value>
+  </data>
+  <data name="VolumeSliderLabel" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="ReplayPreviewButton" xml:space="preserve">
+    <value>Replay Preview</value>
+  </data>
+  <data name="VideoErrorMessage" xml:space="preserve">
+    <value>Could not play video with built-in player. Would you like to open with the system player?</value>
+  </data>
+  <data name="VideoErrorTitle" xml:space="preserve">
+    <value>Video Error</value>
+  </data>
 </root>

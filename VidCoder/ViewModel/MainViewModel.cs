@@ -1,115 +1,403 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Collections.ObjectModel;
-using System.Windows;
+using System.Data.SQLite;
+using System.Diagnostics;
 using System.IO;
-using System.Windows.Input;
-using System.Windows.Shell;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
-using HandBrake.Interop;
-using HandBrake.Interop.Model;
-using HandBrake.Interop.Model.Encoding;
-using HandBrake.Interop.SourceData;
-using VidCoder.Messages;
+using System.Linq;
+using System.Reactive.Linq;
+using System.Text;
+using System.Windows;
+using System.Xml.Serialization;
+using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using Microsoft.Practices.Unity;
+using Newtonsoft.Json;
+using ReactiveUI;
+using VidCoder.Automation;
+using VidCoder.Extensions;
 using VidCoder.Model;
-using VidCoder.Model.Encoding;
-using VidCoder.Properties;
+using VidCoder.Resources;
 using VidCoder.Services;
-using VidCoder.ViewModel.Components;
+using VidCoder.Services.Windows;
+using VidCoderCommon.Extensions;
+using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	using System.Data.SQLite;
-	using System.Diagnostics;
-	using System.Runtime.InteropServices;
-	using System.Runtime.Remoting.Messaging;
-	using Automation;
-	using HandBrake.Interop.HbLib;
-	using HandBrake.Interop.Helpers;
-	using Resources;
-	using Utilities = VidCoder.Utilities;
-
-	public class MainViewModel : ViewModelBase
+	public class MainViewModel : ReactiveObject
 	{
 		private HandBrakeInstance scanInstance;
 
-		private IUpdater updater = Ioc.Container.GetInstance<IUpdater>();
-		private ILogger logger = Ioc.Container.GetInstance<ILogger>();
-		private OutputPathViewModel outputPathVM;
-		private PresetsViewModel presetsVM;
-		private ProcessingViewModel processingVM;
-		private WindowManagerViewModel windowManagerVM;
+		private IUpdater updater = Ioc.Get<IUpdater>();
+		private IAppLogger logger = Ioc.Get<IAppLogger>();
+		private OutputPathService outputPathService;
+		private OutputSizeService outputSizeService;
+		private PresetsService presetsService;
+		private PickersService pickersService;
+		private PreviewUpdateService previewUpdateService;
+		private ProcessingService processingService;
+		private IWindowManager windowManager;
+		private TaskBarProgressTracker taskBarProgressTracker;
 
 		private ObservableCollection<SourceOptionViewModel> sourceOptions;
-		private ObservableCollection<SourceOptionViewModel> recentSourceOptions; 
-		private bool sourceSelectionExpanded;
-		private SourceOption selectedSource;
+		private ObservableCollection<SourceOptionViewModel> recentSourceOptions;
 
-		private Title selectedTitle;
-		private Title oldTitle;
+		private SourceTitle selectedTitle;
+		private SourceTitle oldTitle;
 		private List<int> angles;
-		private int angle;
 
 		private VideoRangeType rangeType;
-		private List<ComboChoice<VideoRangeType>> rangeTypeChoices; 
-		//private double secondsRangeStart;
-		//private double secondsRangeEnd;
-		//private double secondsBaseline;
+		private List<ComboChoice<VideoRangeType>> rangeTypeChoices;
 		private TimeSpan timeBaseline;
-		private int framesRangeStart;
-		private int framesRangeEnd;
 		private int framesBaseline;
-		private List<ChapterViewModel> startChapters;
-		private List<ChapterViewModel> endChapters;
-		private ChapterViewModel selectedStartChapter;
-		private ChapterViewModel selectedEndChapter;
 
-		private ObservableCollection<AudioChoiceViewModel> audioChoices;
-
-		private Subtitles currentSubtitles;
-
-		private bool useDefaultChapterNames;
-		private List<string> customChapterNames;
-
-		// sourceData is populated when a scan has finished and cleared out when a new scan starts.
-		private VideoSource sourceData;
+		private ReactiveList<AudioChoiceViewModel> audioChoices;
 
 		private IDriveService driveService;
 		private IList<DriveInformation> driveCollection;
-		private bool scanningSource;
-		private bool scanError;
-		private double scanProgress;
 		private string pendingScan;
 		private bool scanCancelledFlag;
 
-		private bool showTrayIcon;
-
 		public event EventHandler<EventArgs<string>> AnimationStarted;
 		public event EventHandler ScanCancelled;
+		public event EventHandler AudioChoiceChanged;
 
 		public MainViewModel()
 		{
-			long affinity = (long)Process.GetCurrentProcess().ProcessorAffinity;
+			Ioc.Container.RegisterInstance(typeof(MainViewModel), this, new ContainerControlledLifetimeManager());
 
-			Ioc.Container.Register(() => this);
+			// HasVideoSource
+			this.WhenAnyValue(
+				x => x.VideoSourceState,
+				(videoSourceState) =>
+				{
+					return videoSourceState == VideoSourceState.ScannedSource;
+				}).ToProperty(this, x => x.HasVideoSource, out this.hasVideoSource);
 
-			this.outputPathVM = Ioc.Container.GetInstance<OutputPathViewModel>();
-			this.processingVM = Ioc.Container.GetInstance<ProcessingViewModel>();
-			this.presetsVM = Ioc.Container.GetInstance<PresetsViewModel>();
-			this.windowManagerVM = Ioc.Container.GetInstance<WindowManagerViewModel>();
+			// Titles
+			this.WhenAnyValue(x => x.SourceData)
+				.Select(sourceData =>
+				{
+					return sourceData?.Titles;
+				}).ToProperty(this, x => x.Titles, out this.titles);
 
-			updater.CheckUpdates();
+			// TitleVisible
+			this.WhenAnyValue(x => x.HasVideoSource, x => x.SourceData, (hasVideoSource, sourceData) =>
+			{
+				return hasVideoSource && sourceData != null && sourceData.Titles.Count > 1;
+			}).ToProperty(this, x => x.TitleVisible, out this.titleVisible);
+
+			IObservable<int> similarTitlesObservable = this.WhenAnyValue(x => x.Titles, x => x.SelectedTitle, (titles, selectedTitle) =>
+			{
+				if (titles == null || selectedTitle == null)
+				{
+					return 0;
+				}
+
+				int similarTitles = 0;
+
+				TimeSpan duration = selectedTitle.Duration.ToSpan();
+				foreach (var title in titles)
+				{
+					if (title == selectedTitle)
+					{
+						continue;
+					}
+
+					TimeSpan difference = duration - title.Duration.ToSpan();
+					if (Math.Abs(difference.TotalMinutes) <= 5)
+					{
+						similarTitles++;
+					}
+				}
+
+				return similarTitles;
+			});
+
+			// TitleWarning
+			similarTitlesObservable.Select(similarTitles =>
+			{
+				return string.Format(MainRes.SimilarTitlesToolTip, similarTitles);
+			}).ToProperty(this, x => x.TitleWarning, out this.titleWarning);
+
+			// TitleWarningVisible
+			similarTitlesObservable.Select(similarTitles =>
+			{
+				return similarTitles > 12;
+			}).ToProperty(this, x => x.TitleWarningVisible, out this.titleWarningVisible);
+
+			// SubtitlesSummary
+			this.WhenAnyValue(x => x.VideoSourceState, x => x.CurrentSubtitles, x => x.SelectedTitle, (videoSourceState, currentSubtitles, selectedTitle) =>
+			{
+				if (videoSourceState != VideoSourceState.ScannedSource ||
+					currentSubtitles == null || 
+					selectedTitle == null ||
+					((currentSubtitles.SourceSubtitles == null || currentSubtitles.SourceSubtitles.Count == 0) && 
+						(currentSubtitles.SrtSubtitles == null || currentSubtitles.SrtSubtitles.Count == 0)))
+				{
+					return MainRes.NoneParen;
+				}
+
+				List<string> trackSummaries = new List<string>();
+
+				if (currentSubtitles.SourceSubtitles != null)
+				{
+					foreach (SourceSubtitle sourceSubtitle in currentSubtitles.SourceSubtitles)
+					{
+						if (sourceSubtitle.TrackNumber == 0)
+						{
+							trackSummaries.Add(MainRes.ForeignAudioSearch);
+						}
+						else if (selectedTitle.SubtitleList != null && sourceSubtitle.TrackNumber <= selectedTitle.SubtitleList.Count)
+						{
+							trackSummaries.Add(selectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].Language);
+						}
+					}
+				}
+
+				if (currentSubtitles.SrtSubtitles != null)
+				{
+					foreach (SrtSubtitle srtSubtitle in currentSubtitles.SrtSubtitles)
+					{
+						trackSummaries.Add(Languages.Get(srtSubtitle.LanguageCode).EnglishName);
+					}
+				}
+
+				if (trackSummaries.Count > 3)
+				{
+					return string.Format(MainRes.TracksSummaryMultiple, trackSummaries.Count);
+				}
+
+				StringBuilder summaryBuilder = new StringBuilder();
+				for (int i = 0; i < trackSummaries.Count; i++)
+				{
+					summaryBuilder.Append(trackSummaries[i]);
+
+					if (i != trackSummaries.Count - 1)
+					{
+						summaryBuilder.Append(", ");
+					}
+				}
+
+				return summaryBuilder.ToString();
+			}).ToProperty(this, x => x.SubtitlesSummary, out this.subtitlesSummary);
+
+			// UsingChaptersRange
+			this.WhenAnyValue(x => x.RangeType, rangeType =>
+			{
+				return rangeType == VideoRangeType.Chapters;
+			}).ToProperty(this, x => x.UsingChaptersRange, out this.usingChaptersRange);
+
+			// RangeBarVisible
+			this.WhenAnyValue(x => x.RangeType, rangeType =>
+			{
+				return rangeType == VideoRangeType.Chapters || rangeType == VideoRangeType.Seconds;
+			}).ToProperty(this, x => x.RangeBarVisible, out this.rangeBarVisible);
+
+			// ChapterMarkersSummary
+			this.WhenAnyValue(x => x.UseDefaultChapterNames, useDefaultChapterNames =>
+			{
+				if (useDefaultChapterNames)
+				{
+					return CommonRes.Default;
+				}
+
+				return CommonRes.Custom;
+			}).ToProperty(this, x => x.ChapterMarkersSummary, out this.chapterMarkersSummary);
+
+			// SourceIcon
+			this.WhenAnyValue(x => x.SelectedSource, selectedSource =>
+			{
+				if (selectedSource == null)
+				{
+					return "/Icons/video-file.png";
+				}
+
+				switch (selectedSource.Type)
+				{
+					case SourceType.File:
+						return "/Icons/video-file.png";
+					case SourceType.DiscVideoFolder:
+						return "/Icons/dvd_folder.png";
+					case SourceType.Disc:
+						if (selectedSource.DriveInfo.DiscType == DiscType.Dvd)
+						{
+							return "/Icons/disc.png";
+						}
+						else
+						{
+							return "/Icons/bludisc.png";
+						}
+					default:
+						break;
+				}
+
+				return null;
+			}).ToProperty(this, x => x.SourceIcon, out this.sourceIcon);
+
+			// SourceIconVisible
+			this.WhenAnyValue(x => x.SelectedSource)
+				.Select(source => source != null)
+				.ToProperty(this, x => x.SourceIconVisible, out this.sourceIconVisible);
+
+			this.WhenAnyValue(x => x.SelectedSource.DriveInfo.Empty).Subscribe(observable =>
+			{
+				Debug.WriteLine(observable);
+			});
+
+			// SourceText
+			this.WhenAnyValue(x => x.SelectedSource, x => x.SourcePath)
+				.Skip(1)
+				.Subscribe(_ =>
+				{
+					this.RaisePropertyChanged(nameof(this.SourceText));
+				});
+
+			this.WhenAnyValue(x => x.SelectedSource.DriveInfo.Empty)
+				.Subscribe(_ =>
+				{
+					this.RaisePropertyChanged(nameof(this.SourceText));
+				});
+
+			// AngleVisible
+			this.WhenAnyValue(x => x.SelectedTitle)
+				.Select(selectedTitle =>
+				{
+					return selectedTitle != null && this.SelectedTitle.AngleCount > 1;
+				}).ToProperty(this, x => x.AngleVisible, out this.angleVisible);
+
+			// TotalChaptersText
+			this.WhenAnyValue(x => x.SelectedTitle, x => x.RangeType, (selectedTitle, rangeType) =>
+			{
+				if (selectedTitle != null && rangeType == VideoRangeType.Chapters)
+				{
+					return string.Format(MainRes.ChaptersSummary, selectedTitle.ChapterList.Count);
+				}
+
+				return string.Empty;
+			}).ToProperty(this, x => x.TotalChaptersText, out this.totalChaptersText);
+
+			// CanCloseVideoSource
+			IObservable<bool> canCloseVideoSourceObservable = this.WhenAnyValue(x => x.SelectedSource, x => x.VideoSourceState, (selectedSource, videoSourceState) =>
+			{
+				if (selectedSource == null)
+				{
+					return false;
+				}
+
+				if (videoSourceState == VideoSourceState.Scanning)
+				{
+					return false;
+				}
+
+				return true;
+			});
+
+			canCloseVideoSourceObservable.ToProperty(this, x => x.CanCloseVideoSource, out this.canCloseVideoSource);
+
+			this.CloseVideoSource = ReactiveCommand.Create(canCloseVideoSourceObservable);
+			this.CloseVideoSource.Subscribe(_ => this.CloseVideoSourceImpl());
+
+			this.AddTrack = ReactiveCommand.Create(this
+				.WhenAnyValue(x => x.SelectedTitle)
+				.Select(selectedTitle =>
+				{
+					if (selectedTitle == null)
+					{
+						return true;
+					}
+
+					return selectedTitle.AudioList.Count > 0;
+				}));
+			this.AddTrack.Subscribe(_ => this.AddTrackImpl());
+
+			this.OpenEncodingWindow = ReactiveCommand.Create();
+			this.OpenEncodingWindow.Subscribe(_ => this.OpenEncodingWindowImpl());
+
+			this.OpenOptions = ReactiveCommand.Create();
+			this.OpenOptions.Subscribe(_ => this.OpenOptionsImpl());
+
+			this.OpenUpdates = ReactiveCommand.Create();
+			this.OpenUpdates.Subscribe(_ => this.OpenUpdatesImpl());
+
+			this.ToggleSourceMenu = ReactiveCommand.Create(this
+				.WhenAnyValue(x => x.VideoSourceState)
+				.Select(videoSourceState => videoSourceState != VideoSourceState.Scanning));
+			this.ToggleSourceMenu.Subscribe(_ => this.ToggleSourceMenuImpl());
+
+			this.OpenSubtitlesDialog = ReactiveCommand.Create();
+			this.OpenSubtitlesDialog.Subscribe(_ => this.OpenSubtitlesDialogImpl());
+
+			this.OpenChaptersDialog = ReactiveCommand.Create();
+			this.OpenChaptersDialog.Subscribe(_ => this.OpenChaptersDialogImpl());
+
+			this.OpenAboutDialog = ReactiveCommand.Create();
+			this.OpenAboutDialog.Subscribe(_ => this.OpenAboutDialogImpl());
+
+			this.CancelScan = ReactiveCommand.Create();
+			this.CancelScan.Subscribe(_ => this.CancelScanImpl());
+
+			var notScanningObservable = this
+				.WhenAnyValue(x => x.VideoSourceState)
+				.Select(videoSourceState => videoSourceState != VideoSourceState.Scanning);
+			this.OpenFile = ReactiveCommand.Create(notScanningObservable);
+			this.OpenFile.Subscribe(_ => this.OpenFileImpl());
+
+			this.OpenFolder = ReactiveCommand.Create(notScanningObservable);
+			this.OpenFolder.Subscribe(_ => this.OpenFolderImpl());
+
+			this.CustomizeQueueColumns = ReactiveCommand.Create();
+			this.CustomizeQueueColumns.Subscribe(_ => this.CustomizeQueueColumnsImpl());
+
+			this.ImportPreset = ReactiveCommand.Create();
+			this.ImportPreset.Subscribe(_ => this.ImportPresetImpl());
+
+			this.ExportPreset = ReactiveCommand.Create();
+			this.ExportPreset.Subscribe(_ => this.ExportPresetImpl());
+
+			this.OpenHomepage = ReactiveCommand.Create();
+			this.OpenHomepage.Subscribe(_ => this.OpenHomepageImpl());
+
+			this.ReportBug = ReactiveCommand.Create();
+			this.ReportBug.Subscribe(_ => this.ReportBugImpl());
+
+			this.Exit = ReactiveCommand.Create();
+			this.Exit.Subscribe(_ => this.ExitImpl());
+			
+			this.outputPathService = Ioc.Get<OutputPathService>();
+			this.outputSizeService = Ioc.Get<OutputSizeService>();
+			this.processingService = Ioc.Get<ProcessingService>();
+			this.presetsService = Ioc.Get<PresetsService>();
+			this.pickersService = Ioc.Get<PickersService>();
+			this.windowManager = Ioc.Get<IWindowManager>();
+			this.previewUpdateService = Ioc.Get<PreviewUpdateService>();
+			this.taskBarProgressTracker = new TaskBarProgressTracker();
+
+			// WindowTitle
+			this.processingService.WhenAnyValue(x => x.Encoding, x => x.OverallEncodeProgressFraction, (encoding, progressFraction) =>
+			{
+				if (!encoding)
+				{
+					return "VidCoder";
+				}
+
+				return $"VidCoder - {progressFraction:P1}";
+			}).ToProperty(this, x => x.WindowTitle, out this.windowTitle);
+
+			// ShowChapterMarkerUI
+			this.presetsService
+				.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.IncludeChapterMarkers)
+				.ToProperty(this, x => x.ShowChapterMarkerUI, out this.showChapterMarkerUI);
+
+			this.updater.CheckUpdates();
 
 			this.JobCreationAvailable = false;
 
 			this.sourceOptions = new ObservableCollection<SourceOptionViewModel>
 			{
 				new SourceOptionViewModel(new SourceOption { Type = SourceType.File }),
-				new SourceOptionViewModel(new SourceOption { Type = SourceType.VideoFolder })
+				new SourceOptionViewModel(new SourceOption { Type = SourceType.DiscVideoFolder })
 			};
 
 			this.rangeTypeChoices = new List<ComboChoice<VideoRangeType>>
@@ -124,35 +412,40 @@ namespace VidCoder.ViewModel
 
 			this.useDefaultChapterNames = true;
 
-			this.driveService = Ioc.Container.GetInstance<IDriveService>();
+			this.driveService = Ioc.Get<IDriveService>();
 
 			this.DriveCollection = this.driveService.GetDiscInformation();
 
-			this.audioChoices = new ObservableCollection<AudioChoiceViewModel>();
-			this.audioChoices.CollectionChanged += (o, e) => { Messenger.Default.Send(new AudioInputChangedMessage()); };
+			this.audioChoices = new ReactiveList<AudioChoiceViewModel>();
+			this.audioChoices.ChangeTrackingEnabled = true;
 
-			Messenger.Default.Register<SelectedTitleChangedMessage>(
-				this,
-				message =>
-					{
-						DispatchService.BeginInvoke(() => { this.AddTrackCommand.RaiseCanExecuteChanged(); });
-					});
+			this.audioChoices.Changed
+				.Subscribe(_ =>
+				{
+					this.AudioChoiceChanged?.Invoke(this, EventArgs.Empty);
+				});
 
-			Messenger.Default.Register<HighlightedChapterChangedMessage>(
-				this,
-				message =>
-					{
-						this.RefreshRangePreview();
-					});
+			this.audioChoices.ItemChanged
+				.Subscribe(_ =>
+				{
+					this.AudioChoiceChanged?.Invoke(this, EventArgs.Empty);
+				});
 
-			Messenger.Default.Register<ProgressChangedMessage>(
-				this,
-				message =>
-					{
-						this.RaisePropertyChanged(() => this.WindowTitle);
-					});
+			this.WindowMenuItems = new List<WindowMenuItemViewModel>();
+			foreach (var definition in WindowManager.Definitions.Where(d => d.InMenu))
+			{
+				this.WindowMenuItems.Add(new WindowMenuItemViewModel(definition));
+			}
+		}
 
-			Messenger.Default.Register<RangeFocusMessage>(this, this.OnRangeControlGotFocus);
+		public IMainView View
+		{
+			get { return this.view; }
+			set
+			{
+				this.view = value;
+				this.view.RangeControlGotFocus += this.OnRangeControlGotFocus;
+			}
 		}
 
 		public HandBrakeInstance ScanInstance
@@ -169,7 +462,7 @@ namespace VidCoder.ViewModel
 			IList<DriveInformation> newDriveCollection = this.driveService.GetDiscInformation();
 
 			// If our currently selected source is a DVD drive, see if it needs to be updated
-			if (this.SelectedSource != null && this.SelectedSource.Type == SourceType.Dvd)
+			if (this.SelectedSource != null && this.SelectedSource.Type == SourceType.Disc)
 			{
 				string currentRootDirectory = this.SelectedSource.DriveInfo.RootDirectory;
 				bool currentDrivePresent = newDriveCollection.Any(driveInfo => driveInfo.RootDirectory == currentRootDirectory);
@@ -180,8 +473,6 @@ namespace VidCoder.ViewModel
 					this.SelectedSource.DriveInfo.Empty = false;
 					this.SelectedSource.DriveInfo.VolumeLabel = newDriveCollection.Single(driveInfo => driveInfo.RootDirectory == currentRootDirectory).VolumeLabel;
 					this.SetSourceFromDvd(this.SelectedSource.DriveInfo);
-					this.RaisePropertyChanged(() => this.HasVideoSource);
-					this.RaisePropertyChanged(() => this.SourceText);
 				}
 				else if (!this.SelectedSource.DriveInfo.Empty && !currentDrivePresent)
 				{
@@ -189,17 +480,136 @@ namespace VidCoder.ViewModel
 					DriveInformation emptyDrive = this.SelectedSource.DriveInfo;
 					emptyDrive.Empty = true;
 
-					this.sourceData = null;
+					this.VideoSourceState = VideoSourceState.EmptyDrive;
+					this.SourceData = null;
 					this.SelectedTitle = null;
-					this.RaisePropertyChanged(() => this.HasVideoSource);
-					this.RaisePropertyChanged(() => this.SourceText);
 				}
 			}
 
 			this.DriveCollection = newDriveCollection;
 		}
 
-		public bool SetSourceFromFile()
+        /// <summary>
+        /// Handles a list of paths given by drag/drop
+        /// </summary>
+        /// <param name="paths">The paths to process.</param>
+	    public void HandlePaths(IList<string> paths)
+	    {
+            if (paths.Count > 0)
+            {
+                if (paths.Count == 1)
+                {
+                    string item = paths[0];
+
+                    string extension = Path.GetExtension(item);
+                    if (extension != null)
+                    {
+                        extension = extension.ToLowerInvariant();
+                    }
+
+                    if (extension == ".xml" || extension == ".vjpreset")
+                    {
+                        // It's a preset
+                        try
+                        {
+                            Preset preset = Ioc.Get<IPresetImportExport>().ImportPreset(paths[0]);
+                            Ioc.Get<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
+                        }
+                        catch (Exception)
+                        {
+                            Ioc.Get<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
+                        }
+                    }
+                    else if (Utilities.IsDiscFolder(item))
+                    {
+                        // It's a disc folder or disc
+                        this.SetSource(item);
+                    }
+                    else
+                    {
+                        // It is a video file or folder full of video files
+                        this.HandleDropAsPaths(paths);
+                    }
+                }
+                else
+                {
+                    // With multiple items, treat it as a list video files/disc folders or folders full of those items
+                    this.HandleDropAsPaths(paths);
+                }
+            }
+        }
+
+        private void HandleDropAsPaths(IList<string> itemList)
+        {
+            List<SourcePath> fileList = GetPathList(itemList);
+            if (fileList.Count > 0)
+            {
+                if (fileList.Count == 1)
+                {
+                    this.SetSourceFromFile(fileList[0].Path);
+                }
+                else
+                {
+                    Ioc.Get<ProcessingService>().QueueMultiple(fileList);
+                }
+            }
+        }
+
+        private static List<SourcePath> GetPathList(IList<string> itemList)
+        {
+            var videoExtensions = new List<string>();
+            string extensionsString = Config.VideoFileExtensions;
+            string[] rawExtensions = extensionsString.Split(',', ';');
+            foreach (string rawExtension in rawExtensions)
+            {
+                string extension = rawExtension.Trim();
+                if (extension.Length > 0)
+                {
+                    if (!extension.StartsWith("."))
+                    {
+                        extension = "." + extension;
+                    }
+
+                    videoExtensions.Add(extension);
+                }
+            }
+
+            var pathList = new List<SourcePath>();
+            foreach (string item in itemList)
+            {
+                var fileAttributes = File.GetAttributes(item);
+                if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
+                {
+                    // Path is a directory
+                    if (Utilities.IsDiscFolder(item))
+                    {
+                        // If it's a disc folder, add it
+                        pathList.Add(new SourcePath { Path = item, SourceType = SourceType.DiscVideoFolder });
+                    }
+                    else
+                    {
+                        string parentFolder = Path.GetDirectoryName(item);
+                        pathList.AddRange(
+                            Utilities.GetFilesOrVideoFolders(item, videoExtensions)
+                            .Select(p => new SourcePath
+                            {
+                                Path = p,
+                                ParentFolder = parentFolder,
+                                SourceType = SourceType.None
+                            }));
+                    }
+                }
+                else
+                {
+                    // Path is a file
+                    pathList.Add(new SourcePath { Path = item, SourceType = SourceType.File });
+                }
+            }
+
+            return pathList;
+        }
+
+        public bool SetSourceFromFile()
 		{
 			if (this.SourceSelectionExpanded)
 			{
@@ -207,7 +617,7 @@ namespace VidCoder.ViewModel
 			}
 
 			string videoFile = FileService.Instance.GetFileNameLoad(
-				Config.RememberPreviousFiles ? Config.LastInputFileFolder : null, 
+				Config.RememberPreviousFiles ? Config.LastInputFileFolder : null,
 				"Load video file");
 
 			if (videoFile != null)
@@ -241,15 +651,17 @@ namespace VidCoder.ViewModel
 			}
 
 			string folderPath = FileService.Instance.GetFolderName(
-				Config.RememberPreviousFiles ? Config.LastVideoTSFolder : null, 
+				Config.RememberPreviousFiles ? Config.LastVideoTSFolder : null,
 				MainRes.PickDiscFolderHelpText);
 
 			// Make sure we get focus back after displaying the dialog.
-			WindowManager.FocusWindow(this);
+			this.windowManager.Focus(this);
 
 			if (folderPath != null)
 			{
-				this.SetSourceFromFolder(folderPath);
+				// Could be a disc folder or a folder of video files
+				this.HandlePaths(new List<string> { folderPath });
+
 				return true;
 			}
 
@@ -268,7 +680,7 @@ namespace VidCoder.ViewModel
 			this.StartScan(videoFolder);
 
 			this.SourcePath = videoFolder;
-			this.SelectedSource = new SourceOption { Type = SourceType.VideoFolder };
+			this.SelectedSource = new SourceOption { Type = SourceType.DiscVideoFolder };
 		}
 
 		public bool SetSourceFromDvd(DriveInformation driveInfo)
@@ -286,7 +698,7 @@ namespace VidCoder.ViewModel
 			this.SourceName = driveInfo.VolumeLabel;
 			this.SourcePath = driveInfo.RootDirectory;
 
-			this.SelectedSource = new SourceOption { Type = SourceType.Dvd, DriveInfo = driveInfo };
+			this.SelectedSource = new SourceOption { Type = SourceType.Disc, DriveInfo = driveInfo };
 			this.StartScan(this.SourcePath);
 
 			return true;
@@ -300,10 +712,10 @@ namespace VidCoder.ViewModel
 				case SourceType.File:
 					this.SetSourceFromFile(sourcePath);
 					break;
-				case SourceType.VideoFolder:
+				case SourceType.DiscVideoFolder:
 					this.SetSourceFromFolder(sourcePath);
 					break;
-				case SourceType.Dvd:
+				case SourceType.Disc:
 					DriveInformation driveInfo = this.driveService.GetDriveInformationFromPath(sourcePath);
 					if (driveInfo != null)
 					{
@@ -316,30 +728,7 @@ namespace VidCoder.ViewModel
 
 		public void OnLoaded()
 		{
-			bool windowOpened = false;
-
-			if (Config.EncodingWindowOpen)
-			{
-				this.WindowManagerVM.OpenEncodingWindow();
-				windowOpened = true;
-			}
-
-			if (Config.PreviewWindowOpen)
-			{
-				this.WindowManagerVM.OpenPreviewWindow();
-				windowOpened = true;
-			}
-
-			if (Config.LogWindowOpen)
-			{
-				this.WindowManagerVM.OpenLogWindow();
-				windowOpened = true;
-			}
-
-			if (windowOpened)
-			{
-				WindowManager.FocusWindow(this);
-			}
+			this.windowManager.OpenTrackedWindows();
 		}
 
 		/// <summary>
@@ -348,7 +737,7 @@ namespace VidCoder.ViewModel
 		/// <returns>True if the form can close.</returns>
 		public bool OnClosing()
 		{
-			if (this.processingVM.Encoding)
+			if (this.processingService.Encoding)
 			{
 				MessageBoxResult result = Utilities.MessageBox.Show(
 					this,
@@ -364,51 +753,27 @@ namespace VidCoder.ViewModel
 			}
 
 			// If we're quitting, see if the encode is still going.
-			if (this.processingVM.Encoding)
+			if (this.processingService.Encoding)
 			{
 				// If so, stop it.
-				this.processingVM.EncodeProxy.StopAndWait();
-				//this.processingVM.CurrentJob.HandBrakeInstance.StopEncode();
+				this.processingService.Stop(EncodeCompleteReason.AppExit);
 			}
 
-			ViewModelBase encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel));
-			if (encodingWindow != null)
-			{
-				WindowManager.Close(encodingWindow);
-			}
-
-			var previewWindow = WindowManager.FindWindow<PreviewViewModel>();
-			if (previewWindow != null)
-			{
-				if (previewWindow.GeneratingPreview)
-				{
-					previewWindow.StopAndWait();
-				}
-
-				WindowManager.Close(previewWindow);
-			}
-
-			ViewModelBase logWindow = WindowManager.FindWindow(typeof(LogViewModel));
-			if (logWindow != null)
-			{
-				WindowManager.Close(logWindow);
-			}
-
-			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
-			{
-				Config.EncodingWindowOpen = encodingWindow != null;
-				Config.PreviewWindowOpen = previewWindow != null;
-				Config.LogWindowOpen = logWindow != null;
-
-				transaction.Commit();
-			}
+			this.windowManager.CloseTrackedWindows();
 
 			this.driveService.Close();
-			this.ProcessingVM.CleanupHandBrakeInstances();
+
+			if (this.scanInstance != null)
+			{
+				this.scanInstance.Dispose();
+				this.scanInstance = null;
+			}
+
 			HandBrakeUtils.DisposeGlobal();
 
 			FileCleanup.CleanOldLogs();
 			FileCleanup.CleanPreviewFileCache();
+			FileCleanup.CleanHandBrakeTempFiles();
 
 			if (!Utilities.IsPortable)
 			{
@@ -422,53 +787,41 @@ namespace VidCoder.ViewModel
 			return true;
 		}
 
-		public string WindowTitle
+		private ObservableAsPropertyHelper<string> windowTitle;
+		public string WindowTitle => this.windowTitle.Value;
+
+		private string sourcePath;
+		public string SourcePath
 		{
-			get
-			{
-				if (!this.processingVM.Encoding)
-				{
-					return "VidCoder";
-				}
-
-				return string.Format("VidCoder - {0:F1}%", this.processingVM.OverallEncodeProgressPercent);
-			}
+			get { return this.sourcePath; }
+			private set { this.RaiseAndSetIfChanged(ref this.sourcePath, value); }
 		}
-
-		public string SourcePath { get; private set; }
 
 		public string SourceName { get; private set; }
 
-		public OutputPathViewModel OutputPathVM
+		public OutputPathService OutputPathService
 		{
-			get
-			{
-				return this.outputPathVM;
-			}
+			get { return this.outputPathService; }
 		}
 
-		public PresetsViewModel PresetsVM
+		public PresetsService PresetsService
 		{
-			get
-			{
-				return this.presetsVM;
-			}
+			get { return this.presetsService; }
 		}
 
-		public ProcessingViewModel ProcessingVM
+		public PickersService PickersService
 		{
-			get
-			{
-				return this.processingVM;
-			}
+			get { return this.pickersService; }
 		}
 
-		public WindowManagerViewModel WindowManagerVM
+		public ProcessingService ProcessingService
 		{
-			get
-			{
-				return this.windowManagerVM;
-			}
+			get { return this.processingService; }
+		}
+
+		public TaskBarProgressTracker TaskBarProgressTracker
+		{
+			get { return this.taskBarProgressTracker; }
 		}
 
 		public IList<DriveInformation> DriveCollection
@@ -485,21 +838,17 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public IList<WindowMenuItemViewModel> WindowMenuItems { get; private set; }
+
 		public ObservableCollection<SourceOptionViewModel> SourceOptions
 		{
-			get
-			{
-				return this.sourceOptions;
-			}
+			get { return this.sourceOptions; }
 		}
 
 		public ObservableCollection<SourceOptionViewModel> RecentSourceOptions
 		{
-			get
-			{
-				return this.recentSourceOptions;
-			}
-		} 
+			get { return this.recentSourceOptions; }
+		}
 
 		public bool RecentSourcesVisible
 		{
@@ -509,83 +858,25 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private VideoSourceState videoSourceState;
+		public VideoSourceState VideoSourceState
+		{
+			get { return this.videoSourceState; }
+			set { this.RaiseAndSetIfChanged(ref this.videoSourceState, value); }
+		}
+
+		private bool sourceSelectionExpanded;
 		public bool SourceSelectionExpanded
 		{
-			get
-			{
-				return this.sourceSelectionExpanded;
-			}
-
-			set
-			{
-				this.sourceSelectionExpanded = value;
-				this.RaisePropertyChanged(() => this.SourceSelectionExpanded);
-				this.RaisePropertyChanged(() => this.SourceOptionsVisible);
-			}
+			get { return this.sourceSelectionExpanded; }
+			set { this.RaiseAndSetIfChanged(ref this.sourceSelectionExpanded, value); }
 		}
 
-		public bool SourceOptionsVisible
-		{
-			get
-			{
-				if (this.ScanningSource)
-				{
-					return false;
-				}
+		private ObservableAsPropertyHelper<string> sourceIcon;
+		public string SourceIcon => this.sourceIcon.Value;
 
-				if (this.ScanError)
-				{
-					return false;
-				}
-
-				if (this.SelectedSource != null && this.SelectedSource.Type == SourceType.Dvd && this.SelectedSource.DriveInfo.Empty)
-				{
-					return false;
-				}
-
-				return this.sourceData == null;
-			}
-		}
-
-		public bool SourcePicked
-		{
-			get
-			{
-				return this.sourceData != null || this.SelectedSource != null;
-			}
-		}
-
-		public string SourceIcon
-		{
-			get
-			{
-				if (this.SelectedSource == null)
-				{
-					return null;
-				}
-
-				switch (this.SelectedSource.Type)
-				{
-					case SourceType.File:
-						return "/Icons/video-file.png";
-					case SourceType.VideoFolder:
-						return "/Icons/folder.png";
-					case SourceType.Dvd:
-						if (this.SelectedSource.DriveInfo.DiscType == DiscType.Dvd)
-						{
-							return "/Icons/disc.png";
-						}
-						else
-						{
-							return "/Icons/bludisc.png";
-						}
-					default:
-						break;
-				}
-
-				return null;
-			}
-		}
+		private ObservableAsPropertyHelper<bool> sourceIconVisible;
+		public bool SourceIconVisible => this.sourceIconVisible.Value;
 
 		public string SourceText
 		{
@@ -600,9 +891,9 @@ namespace VidCoder.ViewModel
 				{
 					case SourceType.File:
 						return this.SourcePath;
-					case SourceType.VideoFolder:
+					case SourceType.DiscVideoFolder:
 						return this.SourcePath;
-					case SourceType.Dvd:
+					case SourceType.Disc:
 						return this.SelectedSource.DriveInfo.DisplayText;
 					default:
 						break;
@@ -612,148 +903,39 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		private SourceOption selectedSource;
 		public SourceOption SelectedSource
 		{
-			get
-			{
-				return this.selectedSource;
-			}
-
-			set
-			{
-				this.selectedSource = value;
-				this.RaisePropertyChanged(() => this.SourcePicked);
-				this.RaisePropertyChanged(() => this.SourceIcon);
-				this.RaisePropertyChanged(() => this.SourceText);
-			}
+			get { return this.selectedSource; }
+			set { this.RaiseAndSetIfChanged(ref this.selectedSource, value); }
 		}
 
-		public bool ScanningSource
-		{
-			get
-			{
-				return this.scanningSource;
-			}
-
-			set
-			{
-				this.scanningSource = value;
-				this.RaisePropertyChanged(() => this.SourceOptionsVisible);
-				this.CloseVideoSourceCommand.RaiseCanExecuteChanged();
-				this.RaisePropertyChanged(() => this.CanCloseVideoSource);
-				this.RaisePropertyChanged(() => this.HasVideoSource);
-				this.RaisePropertyChanged(() => this.ScanningSource);
-
-				this.ToggleSourceMenuCommand.RaiseCanExecuteChanged();
-				this.OpenFileCommand.RaiseCanExecuteChanged();
-				this.OpenFolderCommand.RaiseCanExecuteChanged();
-
-				Messenger.Default.Send(new ScanningChangedMessage { Scanning = value });
-			}
-		}
-
-		public bool ScanError
-		{
-			get
-			{
-				return this.scanError;
-			}
-
-			set
-			{
-				this.scanError = value;
-				this.RaisePropertyChanged(() => this.ScanError);
-				this.RaisePropertyChanged(() => this.SourceOptionsVisible);
-			}
-		}
+		private double scanProgressFraction;
 
 		/// <summary>
-		/// Gets or sets the scan progress percentage.
+		/// Gets or sets the scan progress fraction.
 		/// </summary>
-		public double ScanProgress
+		public double ScanProgressFraction
 		{
-			get
-			{
-				return this.scanProgress;
-			}
-
-			set
-			{
-				this.scanProgress = value;
-				this.RaisePropertyChanged(() => this.ScanProgress);
-			}
+			get { return this.scanProgressFraction; }
+			set { this.RaiseAndSetIfChanged(ref this.scanProgressFraction, value); }
 		}
 
-		public bool HasVideoSource
-		{
-			get
-			{
-				if (this.SelectedSource == null)
-				{
-					return false;
-				}
+		private ObservableAsPropertyHelper<bool> hasVideoSource;
+		public bool HasVideoSource => this.hasVideoSource.Value;
 
-				if (this.SelectedSource.Type == SourceType.Dvd && this.SelectedSource.DriveInfo.Empty)
-				{
-					return false;
-				}
-
-				if (this.ScanningSource)
-				{
-					return false;
-				}
-
-				if (this.sourceData == null)
-				{
-					return false;
-				}
-
-				if (this.sourceData.Titles.Count == 0)
-				{
-					return false;
-				}
-
-				return true;
-			}
-		}
-
-		public bool CanCloseVideoSource
-		{
-			get
-			{
-				if (this.SelectedSource == null)
-				{
-					return false;
-				}
-
-				if (this.ScanningSource)
-				{
-					return false;
-				}
-
-				return true;
-			}
-		}
+		private ObservableAsPropertyHelper<bool> canCloseVideoSource;
+		public bool CanCloseVideoSource => this.canCloseVideoSource.Value;
 
 		/// <summary>
 		/// If true, EncodeJob objects can be safely obtained from this class.
 		/// </summary>
 		public bool JobCreationAvailable { get; set; }
 
-		public List<Title> Titles
-		{
-			get
-			{
-				if (this.sourceData != null)
-				{
-					return this.sourceData.Titles;
-				}
+		private ObservableAsPropertyHelper<List<SourceTitle>> titles;
+		public List<SourceTitle> Titles => this.titles.Value;
 
-				return null;
-			}
-		}
-
-		public Title SelectedTitle
+		public SourceTitle SelectedTitle
 		{
 			get
 			{
@@ -776,90 +958,75 @@ namespace VidCoder.ViewModel
 					// Re-enable auto-naming when switching titles.
 					if (this.oldTitle != null)
 					{
-						this.OutputPathVM.ManualOutputPath = false;
-						this.OutputPathVM.NameFormatOverride = null;
-						this.OutputPathVM.SourceParentFolder = null;
+						this.OutputPathService.ManualOutputPath = false;
+						this.OutputPathService.NameFormatOverride = null;
+						this.OutputPathService.SourceParentFolder = null;
 					}
 
 					// Save old subtitles
-					Subtitles oldSubtitles = this.CurrentSubtitles;
-					this.CurrentSubtitles = new Subtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
+					VCSubtitles oldSubtitles = this.CurrentSubtitles;
+					this.CurrentSubtitles = new VCSubtitles { SourceSubtitles = new List<SourceSubtitle>(), SrtSubtitles = new List<SrtSubtitle>() };
+
+					Picker picker = this.pickersService.SelectedPicker.Picker;
 
 					// Audio selection
-					switch (CustomConfig.AutoAudio)
+					using (this.AudioChoices.SuppressChangeNotifications())
 					{
-						case AutoAudioType.Disabled:
-							// If no auto-selection is done, keep audio from previous selection.
-							if (this.oldTitle != null)
-							{
-								var keptAudioChoices = new List<AudioChoiceViewModel>();
-								foreach (AudioChoiceViewModel audioChoiceVM in this.AudioChoices)
+						switch (picker.AudioSelectionMode)
+						{
+							case AudioSelectionMode.Disabled:
+								// If no auto-selection is done, keep audio from previous selection.
+								if (this.oldTitle != null)
 								{
-									if (audioChoiceVM.SelectedIndex < this.selectedTitle.AudioTracks.Count &&
-										this.oldTitle.AudioTracks[audioChoiceVM.SelectedIndex].Language == this.selectedTitle.AudioTracks[audioChoiceVM.SelectedIndex].Language)
+									var keptAudioChoices = new List<AudioChoiceViewModel>();
+									foreach (AudioChoiceViewModel audioChoiceVM in this.AudioChoices)
 									{
-										keptAudioChoices.Add(audioChoiceVM);
+										if (audioChoiceVM.SelectedIndex < this.selectedTitle.AudioList.Count &&
+											this.oldTitle.AudioList[audioChoiceVM.SelectedIndex].Language == this.selectedTitle.AudioList[audioChoiceVM.SelectedIndex].Language)
+										{
+											keptAudioChoices.Add(audioChoiceVM);
+										}
 									}
-								}
 
-								this.AudioChoices.Clear();
-								foreach (AudioChoiceViewModel audioChoiceVM in keptAudioChoices)
-								{
-									this.AudioChoices.Add(audioChoiceVM);
-								}
-							}
-							else
-							{
-								this.AudioChoices.Clear();
-							}
-
-							break;
-						case AutoAudioType.Language:
-							this.AudioChoices.Clear();
-							List<AudioTrack> nativeTracks = this.selectedTitle.AudioTracks.Where(track => track.LanguageCode == Config.AudioLanguageCode).ToList();
-							if (nativeTracks.Count > 0)
-							{
-								if (Config.AutoAudioAll)
-								{
-									foreach (AudioTrack audioTrack in nativeTracks)
+									this.AudioChoices.Clear();
+									foreach (AudioChoiceViewModel audioChoiceVM in keptAudioChoices)
 									{
-										var newVM = new AudioChoiceViewModel { SelectedIndex = audioTrack.TrackNumber - 1 };
-										this.AudioChoices.Add(newVM);
+										this.AudioChoices.Add(audioChoiceVM);
 									}
 								}
 								else
 								{
-									var newVM = new AudioChoiceViewModel { SelectedIndex = nativeTracks[0].TrackNumber - 1 };
-									this.AudioChoices.Add(newVM);
+									this.AudioChoices.Clear();
 								}
-							}
-							break;
-						case AutoAudioType.All:
-							this.AudioChoices.Clear();
-							foreach (AudioTrack audioTrack in this.selectedTitle.AudioTracks)
-							{
-								var newVM = new AudioChoiceViewModel { SelectedIndex = audioTrack.TrackNumber - 1 };
-								this.AudioChoices.Add(newVM);
-							}
-							break;
-						default:
-							throw new ArgumentOutOfRangeException();
+
+								break;
+							case AudioSelectionMode.First:
+							case AudioSelectionMode.Language:
+							case AudioSelectionMode.All:
+								this.AudioChoices.Clear();
+								this.AudioChoices.AddRange(ProcessingService
+									.ChooseAudioTracks(this.selectedTitle.AudioList, picker)
+									.Select(i => new AudioChoiceViewModel(i)));
+
+								break;
+							default:
+								throw new ArgumentOutOfRangeException();
+						}
+
+						// If nothing got selected, add the first one.
+						if (this.selectedTitle.AudioList.Count > 0 && this.AudioChoices.Count == 0)
+						{
+							this.AudioChoices.Add(new AudioChoiceViewModel(0));
+						}
 					}
 
-					// If nothing got selected, add the first one.
-					if (this.selectedTitle.AudioTracks.Count > 0 && this.AudioChoices.Count == 0)
+					switch (picker.SubtitleSelectionMode)
 					{
-						var newVM = new AudioChoiceViewModel { SelectedIndex = 0 };
-						this.AudioChoices.Add(newVM);
-					}
-
-					switch (CustomConfig.AutoSubtitle)
-					{
-						case AutoSubtitleType.Disabled:
+						case SubtitleSelectionMode.Disabled:
 							// If no auto-selection is done, try and keep selections from previous title
 							if (this.oldTitle != null && oldSubtitles != null)
 							{
-								if (this.selectedTitle.Subtitles.Count > 0)
+								if (this.selectedTitle.SubtitleList.Count > 0)
 								{
 									// Keep source subtitles when changing title, but not specific SRT files.
 									var keptSourceSubtitles = new List<SourceSubtitle>();
@@ -869,8 +1036,8 @@ namespace VidCoder.ViewModel
 										{
 											keptSourceSubtitles.Add(sourceSubtitle);
 										}
-										else if (sourceSubtitle.TrackNumber - 1 < this.selectedTitle.Subtitles.Count &&
-											this.oldTitle.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode == this.selectedTitle.Subtitles[sourceSubtitle.TrackNumber - 1].LanguageCode)
+										else if (sourceSubtitle.TrackNumber - 1 < this.selectedTitle.SubtitleList.Count &&
+											this.oldTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode == this.selectedTitle.SubtitleList[sourceSubtitle.TrackNumber - 1].LanguageCode)
 										{
 											keptSourceSubtitles.Add(sourceSubtitle);
 										}
@@ -883,74 +1050,17 @@ namespace VidCoder.ViewModel
 								}
 							}
 							break;
-						case AutoSubtitleType.ForeignAudioSearch:
-							this.CurrentSubtitles.SourceSubtitles.Add(
-								new SourceSubtitle
-									{
-										TrackNumber = 0,
-										BurnedIn = Config.AutoSubtitleBurnIn,
-										Forced = true,
-										Default = true
-									});
+						case SubtitleSelectionMode.None:
+						case SubtitleSelectionMode.First:
+						case SubtitleSelectionMode.ForeignAudioSearch:
+						case SubtitleSelectionMode.Language:
+						case SubtitleSelectionMode.All:
+							this.CurrentSubtitles.SourceSubtitles.AddRange(ProcessingService.ChooseSubtitles(
+								this.selectedTitle,
+								picker,
+								this.AudioChoices.Count > 0 ? this.AudioChoices[0].SelectedIndex + 1 : -1));
 							break;
-						case AutoSubtitleType.Language:
-							string languageCode = Config.SubtitleLanguageCode;
-							bool audioSame = false;
-							bool burnIn = Config.AutoSubtitleLanguageBurnIn;
-							bool def = Config.AutoSubtitleLanguageDefault;
-							if (this.AudioChoices.Count > 0)
-							{
-								if (this.selectedTitle.AudioTracks[this.AudioChoices[0].SelectedIndex].LanguageCode == languageCode)
-								{
-									audioSame = true;
-								}
-							}
 
-							if (!Config.AutoSubtitleOnlyIfDifferent || !audioSame)
-							{
-								List<Subtitle> nativeSubtitles = this.selectedTitle.Subtitles.Where(subtitle => subtitle.LanguageCode == languageCode).ToList();
-								if (nativeSubtitles.Count > 0)
-								{
-									if (Config.AutoSubtitleAll)
-									{
-										foreach (Subtitle subtitle in nativeSubtitles)
-										{
-											this.CurrentSubtitles.SourceSubtitles.Add(new SourceSubtitle
-											{
-												BurnedIn = false,
-												Default = false,
-												Forced = false,
-												TrackNumber = subtitle.TrackNumber
-											});
-										}
-									}
-									else
-									{
-										this.CurrentSubtitles.SourceSubtitles.Add(new SourceSubtitle
-										{
-											BurnedIn = burnIn,
-											Default = def,
-											Forced = false,
-											TrackNumber = nativeSubtitles[0].TrackNumber
-										});
-									}
-								}
-							}
-
-							break;
-						case AutoSubtitleType.All:
-							foreach (Subtitle subtitle in this.selectedTitle.Subtitles)
-							{
-								this.CurrentSubtitles.SourceSubtitles.Add(
-									new SourceSubtitle
-										{
-											 TrackNumber = subtitle.TrackNumber,
-											 BurnedIn = false,
-											 Default = false,
-											 Forced = false
-										});
-							}
-							break;
 						default:
 							throw new ArgumentOutOfRangeException();
 					}
@@ -961,33 +1071,35 @@ namespace VidCoder.ViewModel
 					// Soft update so as not to trigger range checking logic.
 					this.selectedStartChapter = this.StartChapters[0];
 					this.selectedEndChapter = this.EndChapters[this.EndChapters.Count - 1];
-					this.RaisePropertyChanged(() => this.SelectedStartChapter);
-					this.RaisePropertyChanged(() => this.SelectedEndChapter);
+					this.RaisePropertyChanged(nameof(this.SelectedStartChapter));
+					this.RaisePropertyChanged(nameof(this.SelectedEndChapter));
 
 					this.SetRangeTimeStart(TimeSpan.Zero);
-					this.SetRangeTimeEnd(this.selectedTitle.Duration);
-					this.RaisePropertyChanged(() => this.TimeRangeStart);
-					this.RaisePropertyChanged(() => this.TimeRangeStartBar);
-					this.RaisePropertyChanged(() => this.TimeRangeEnd);
-					this.RaisePropertyChanged(() => this.TimeRangeEndBar);
+
+					TimeSpan titleDuration = this.selectedTitle.Duration.ToSpan();
+					this.timeRangeEndBar = titleDuration;
+					this.timeRangeEnd = TimeSpan.FromSeconds(Math.Floor(titleDuration.TotalSeconds));
+					//this.SetRangeTimeEnd(this.selectedTitle.Duration.ToSpan());
+					this.RaisePropertyChanged(nameof(this.TimeRangeStart));
+					this.RaisePropertyChanged(nameof(this.TimeRangeStartBar));
+					this.RaisePropertyChanged(nameof(this.TimeRangeEnd));
+					this.RaisePropertyChanged(nameof(this.TimeRangeEndBar));
 
 					this.framesRangeStart = 0;
-					this.framesRangeEnd = this.selectedTitle.Frames;
-					this.RaisePropertyChanged(() => this.FramesRangeStart);
-					this.RaisePropertyChanged(() => this.FramesRangeEnd);
+					this.framesRangeEnd = this.selectedTitle.GetEstimatedFrames();
+					this.RaisePropertyChanged(nameof(this.FramesRangeStart));
+					this.RaisePropertyChanged(nameof(this.FramesRangeEnd));
 
 					this.PopulateAnglesList();
 
 					this.angle = 1;
 
-					this.RaisePropertyChanged(() => this.Angles);
-					this.RaisePropertyChanged(() => this.Angle);
-					this.RaisePropertyChanged(() => this.AngleVisible);
-					this.RaisePropertyChanged(() => this.TotalChaptersText);
+					this.RaisePropertyChanged(nameof(this.Angles));
+					this.RaisePropertyChanged(nameof(this.Angle));
 
 
 					// Change range type based on whether or not we have any chapters
-					if (this.selectedTitle.Chapters.Count > 1)
+					if (this.selectedTitle.ChapterList.Count > 1)
 					{
 						this.RangeType = VideoRangeType.Chapters;
 					}
@@ -1001,23 +1113,25 @@ namespace VidCoder.ViewModel
 					this.JobCreationAvailable = true;
 				}
 
-				Messenger.Default.Send(new RefreshPreviewMessage());
-
 				// Custom chapter names are thrown out when switching titles.
 				this.CustomChapterNames = null;
 
-				this.RaisePropertyChanged(() => this.SubtitlesSummary);
-				Messenger.Default.Send(new SelectedTitleChangedMessage());
+				this.OutputPathService.GenerateOutputFileName();
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.RaisePropertyChanged(nameof(this.SelectedTitle));
 
-				this.RaisePropertyChanged(() => this.StartChapters);
-				this.RaisePropertyChanged(() => this.EndChapters);
-				this.RaisePropertyChanged(() => this.SelectedTitle);
+				this.outputSizeService.Refresh();
+				this.previewUpdateService.RefreshPreview();
 
 				this.RefreshRangePreview();
 			}
 		}
+
+		private ObservableAsPropertyHelper<bool> titleWarningVisible;
+		public bool TitleWarningVisible => this.titleWarningVisible.Value;
+
+		private ObservableAsPropertyHelper<string> titleWarning;
+		public string TitleWarning => this.titleWarning.Value;
 
 		public List<int> Angles
 		{
@@ -1027,146 +1141,54 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool AngleVisible
-		{
-			get
-			{
-				return this.SelectedTitle != null && this.SelectedTitle.AngleCount > 1;
-			}
-		}
+		private ObservableAsPropertyHelper<bool> angleVisible;
+		public bool AngleVisible => this.angleVisible.Value;
 
+		private int angle;
 		public int Angle
 		{
-			get
-			{
-				return this.angle;
-			}
-
+			get { return this.angle; }
 			set
 			{
-				this.angle = value;
-
-				Messenger.Default.Send(new RefreshPreviewMessage());
-				this.RaisePropertyChanged(() => this.Angle);
+				this.previewUpdateService.RefreshPreview();
+				this.RaiseAndSetIfChanged(ref this.angle, value);
 			}
 		}
 
-		public Subtitles CurrentSubtitles
+		private VCSubtitles currentSubtitles;
+		public VCSubtitles CurrentSubtitles
 		{
-			get
-			{
-				return this.currentSubtitles;
-			}
-
-			set
-			{
-				this.currentSubtitles = value;
-				this.RaisePropertyChanged(() => this.CurrentSubtitles);
-				this.RaisePropertyChanged(() => this.SubtitlesSummary);
-			}
+			get { return this.currentSubtitles; }
+			set { this.RaiseAndSetIfChanged(ref this.currentSubtitles, value); }
 		}
 
-		public string SubtitlesSummary
-		{
-			get
-			{
-				if (!this.HasVideoSource || this.CurrentSubtitles == null || (this.CurrentSubtitles.SourceSubtitles.Count == 0 && this.CurrentSubtitles.SrtSubtitles.Count == 0))
-				{
-					return MainRes.NoneParen;
-				}
+		private ObservableAsPropertyHelper<string> subtitlesSummary;
+		public string SubtitlesSummary => this.subtitlesSummary.Value;
 
-				List<string> trackSummaries = new List<string>();
-
-				foreach (SourceSubtitle sourceSubtitle in this.CurrentSubtitles.SourceSubtitles)
-				{
-					if (sourceSubtitle.TrackNumber == 0)
-					{
-						trackSummaries.Add(MainRes.ForeignAudioSearch);
-					}
-					else
-					{
-						trackSummaries.Add(this.SelectedTitle.Subtitles[sourceSubtitle.TrackNumber - 1].Language);
-					}
-				}
-
-				foreach (SrtSubtitle srtSubtitle in this.currentSubtitles.SrtSubtitles)
-				{
-					trackSummaries.Add(Languages.Get(srtSubtitle.LanguageCode).EnglishName);
-				}
-
-				if (trackSummaries.Count > 3)
-				{
-					return string.Format(MainRes.TracksSummaryMultiple, trackSummaries.Count);
-				}
-
-				StringBuilder summaryBuilder = new StringBuilder();
-				for (int i = 0; i < trackSummaries.Count; i++)
-				{
-					summaryBuilder.Append(trackSummaries[i]);
-
-					if (i != trackSummaries.Count - 1)
-					{
-						summaryBuilder.Append(", ");
-					}
-				}
-
-				return summaryBuilder.ToString();
-			}
-		}
-
+		private bool useDefaultChapterNames;
 		public bool UseDefaultChapterNames
 		{
-			get
-			{
-				return this.useDefaultChapterNames;
-			}
-
-			set
-			{
-				this.useDefaultChapterNames = value;
-				this.RaisePropertyChanged(() => this.UseDefaultChapterNames);
-				this.RaisePropertyChanged(() => this.ChapterMarkersSummary);
-			}
+			get { return this.useDefaultChapterNames; }
+			set { this.RaiseAndSetIfChanged(ref this.useDefaultChapterNames, value); }
 		}
 
+		private List<string> customChapterNames;
 		public List<string> CustomChapterNames
 		{
-			get
-			{
-				return this.customChapterNames;
-			}
-
-			set
-			{
-				this.customChapterNames = value;
-				this.RaisePropertyChanged(() => this.CustomChapterNames);
-			}
+			get { return this.customChapterNames; }
+			set { this.RaiseAndSetIfChanged(ref this.customChapterNames, value); }
 		}
 
-		public string ChapterMarkersSummary
-		{
-			get
-			{
-				if (this.UseDefaultChapterNames)
-				{
-					return CommonRes.Default;
-				}
+		private ObservableAsPropertyHelper<string> chapterMarkersSummary;
+		public string ChapterMarkersSummary => this.chapterMarkersSummary.Value;
 
-				return CommonRes.Custom;
-			}
-		}
+		private ObservableAsPropertyHelper<bool> showChapterMarkerUI;
+		public bool ShowChapterMarkerUI => this.showChapterMarkerUI.Value;
 
-		public bool ShowChapterMarkerUI
-		{
-			get
-			{
-				return this.presetsVM.SelectedPreset != null && this.presetsVM.SelectedPreset.Preset.EncodingProfile.IncludeChapterMarkers;
-			}
-		}
-
+		private ObservableAsPropertyHelper<bool> titleVisible;
 		public bool TitleVisible
 		{
-			get { return this.HasVideoSource && this.SourceData.Titles.Count > 1; }
+			get { return this.titleVisible.Value; }
 		}
 
 		public VideoRangeType RangeType
@@ -1182,13 +1204,8 @@ namespace VidCoder.ViewModel
 				{
 					this.rangeType = value;
 
-					this.OutputPathVM.GenerateOutputFileName();
-					this.RaisePropertyChanged(() => this.RangeType);
-					this.RaisePropertyChanged(() => this.SecondsRangeVisible);
-					this.RaisePropertyChanged(() => this.FramesRangeVisible);
-					this.RaisePropertyChanged(() => this.TotalChaptersText);
-					this.RaisePropertyChanged(() => this.UsingChaptersRange);
-					this.RaisePropertyChanged(() => this.RangeBarVisible);
+					this.OutputPathService.GenerateOutputFileName();
+					this.RaisePropertyChanged();
 					this.RefreshRangePreview();
 					this.ReportLengthChanged();
 				}
@@ -1203,36 +1220,24 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool UsingChaptersRange
+		private ObservableAsPropertyHelper<bool> usingChaptersRange;
+		public bool UsingChaptersRange => this.usingChaptersRange.Value;
+
+		private ObservableAsPropertyHelper<bool> rangeBarVisible;
+		public bool RangeBarVisible => this.rangeBarVisible.Value;
+
+		private ReactiveList<ChapterViewModel> startChapters;
+		public ReactiveList<ChapterViewModel> StartChapters
 		{
-			get
-			{
-				return this.RangeType == VideoRangeType.Chapters;
-			}
+			get { return this.startChapters; }
+			set { this.RaiseAndSetIfChanged(ref this.startChapters, value); }
 		}
 
-		public bool RangeBarVisible
+		private ReactiveList<ChapterViewModel> endChapters;
+		public ReactiveList<ChapterViewModel> EndChapters
 		{
-			get
-			{
-				return this.RangeType == VideoRangeType.Chapters || this.RangeType == VideoRangeType.Seconds;
-			}
-		}
-
-		public List<ChapterViewModel> StartChapters
-		{
-			get
-			{
-				return this.startChapters;
-			}
-		} 
-
-		public List<ChapterViewModel> EndChapters
-		{
-			get
-			{
-				return this.endChapters;
-			}
+			get { return this.endChapters; }
+			set { this.RaiseAndSetIfChanged(ref this.endChapters, value); }
 		}
 
 		// Properties for the range seek bar
@@ -1248,10 +1253,10 @@ namespace VidCoder.ViewModel
 			{
 				this.SetRangeTimeStart(value);
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
-				this.RaisePropertyChanged(() => this.TimeRangeStartBar);
-				this.RaisePropertyChanged(() => this.TimeRangeStart);
+				this.RaisePropertyChanged();
+				this.RaisePropertyChanged(nameof(this.TimeRangeStart));
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1269,10 +1274,10 @@ namespace VidCoder.ViewModel
 			{
 				this.SetRangeTimeEnd(value);
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
-				this.RaisePropertyChanged(() => this.TimeRangeEndBar);
-				this.RaisePropertyChanged(() => this.TimeRangeEnd);
+				this.RaisePropertyChanged();
+				this.RaisePropertyChanged(nameof(this.TimeRangeEnd));
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1291,7 +1296,7 @@ namespace VidCoder.ViewModel
 			{
 				this.timeRangeStart = value;
 
-				TimeSpan maxTime = this.SelectedTitle.Duration;
+				TimeSpan maxTime = this.SelectedTitle.Duration.ToSpan();
 				if (this.timeRangeStart > maxTime - Constants.TimeRangeBuffer)
 				{
 					this.timeRangeStart = maxTime - Constants.TimeRangeBuffer;
@@ -1309,14 +1314,14 @@ namespace VidCoder.ViewModel
 				if (idealTimeEnd != this.timeRangeEnd)
 				{
 					this.SetRangeTimeEnd(idealTimeEnd);
-					this.RaisePropertyChanged(() => this.TimeRangeEnd);
-					this.RaisePropertyChanged(() => this.TimeRangeEndBar);
+					this.RaisePropertyChanged(nameof(this.TimeRangeEnd));
+					this.RaisePropertyChanged(nameof(this.TimeRangeEndBar));
 				}
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
-				this.RaisePropertyChanged(() => this.TimeRangeStart);
-				this.RaisePropertyChanged(() => this.TimeRangeStartBar);
+				this.RaisePropertyChanged();
+				this.RaisePropertyChanged(nameof(this.TimeRangeStartBar));
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
@@ -1334,7 +1339,7 @@ namespace VidCoder.ViewModel
 			{
 				this.timeRangeEnd = value;
 
-				TimeSpan maxTime = this.SelectedTitle.Duration;
+				TimeSpan maxTime = this.SelectedTitle.Duration.ToSpan();
 
 				if (this.timeRangeEnd > maxTime)
 				{
@@ -1353,27 +1358,20 @@ namespace VidCoder.ViewModel
 				if (idealTimeStart != this.timeRangeStart)
 				{
 					this.SetRangeTimeEnd(idealTimeStart);
-					this.RaisePropertyChanged(() => this.TimeRangeStart);
-					this.RaisePropertyChanged(() => this.TimeRangeStartBar);
+					this.RaisePropertyChanged(nameof(this.TimeRangeStart));
+					this.RaisePropertyChanged(nameof(this.TimeRangeStartBar));
 				}
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
-				this.RaisePropertyChanged(() => this.TimeRangeEnd);
-				this.RaisePropertyChanged(() => this.TimeRangeEndBar);
+				this.RaisePropertyChanged(nameof(this.TimeRangeEnd));
+				this.RaisePropertyChanged(nameof(this.TimeRangeEndBar));
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
 		}
 
-		public bool SecondsRangeVisible
-		{
-			get
-			{
-				return this.RangeType == VideoRangeType.Seconds;
-			}
-		}
-
+		private int framesRangeStart;
 		public int FramesRangeStart
 		{
 			get
@@ -1383,13 +1381,7 @@ namespace VidCoder.ViewModel
 
 			set
 			{
-				int maxFrame = this.SelectedTitle.Frames;
-
 				this.framesRangeStart = value;
-				if (this.framesRangeStart >= maxFrame)
-				{
-					this.framesRangeStart = maxFrame - 1;
-				}
 
 				// Constrain from the baseline: what the other end was when we got focus
 				int idealFramesEnd = this.framesBaseline;
@@ -1401,17 +1393,18 @@ namespace VidCoder.ViewModel
 				if (idealFramesEnd != this.framesRangeEnd)
 				{
 					this.framesRangeEnd = idealFramesEnd;
-					this.RaisePropertyChanged(() => this.FramesRangeEnd);
+					this.RaisePropertyChanged(nameof(this.FramesRangeEnd));
 				}
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
-				this.RaisePropertyChanged(() => this.FramesRangeStart);
+				this.RaisePropertyChanged();
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
 		}
 
+		private int framesRangeEnd;
 		public int FramesRangeEnd
 		{
 			get
@@ -1421,13 +1414,7 @@ namespace VidCoder.ViewModel
 
 			set
 			{
-				int maxFrame = this.SelectedTitle.Frames;
-
 				this.framesRangeEnd = value;
-				if (this.framesRangeEnd > maxFrame)
-				{
-					this.framesRangeEnd = maxFrame;
-				}
 
 				// Constrain from the baseline: what the other end was when we got focus
 				int idealFramesStart = this.framesBaseline;
@@ -1439,25 +1426,18 @@ namespace VidCoder.ViewModel
 				if (idealFramesStart != this.framesRangeStart)
 				{
 					this.framesRangeStart = idealFramesStart;
-					this.RaisePropertyChanged(() => this.FramesRangeStart);
+					this.RaisePropertyChanged(nameof(this.FramesRangeStart));
 				}
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
-				this.RaisePropertyChanged(() => this.FramesRangeEnd);
+				this.RaisePropertyChanged();
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
 		}
 
-		public bool FramesRangeVisible
-		{
-			get
-			{
-				return this.RangeType == VideoRangeType.Frames;
-			}
-		}
-
+		private ChapterViewModel selectedStartChapter;
 		public ChapterViewModel SelectedStartChapter
 		{
 			get
@@ -1479,14 +1459,15 @@ namespace VidCoder.ViewModel
 					this.SelectedEndChapter = this.EndChapters.FirstOrDefault(c => c.ChapterNumber == this.selectedStartChapter.ChapterNumber);
 				}
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
-				this.RaisePropertyChanged(() => this.SelectedStartChapter);
+				this.RaisePropertyChanged();
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
 		}
 
+		private ChapterViewModel selectedEndChapter;
 		public ChapterViewModel SelectedEndChapter
 		{
 			get
@@ -1508,26 +1489,16 @@ namespace VidCoder.ViewModel
 					this.SelectedStartChapter = this.StartChapters.FirstOrDefault(c => c.ChapterNumber == this.selectedEndChapter.ChapterNumber);
 				}
 
-				this.OutputPathVM.GenerateOutputFileName();
+				this.OutputPathService.GenerateOutputFileName();
 
-				this.RaisePropertyChanged(() => this.SelectedEndChapter);
+				this.RaisePropertyChanged();
 				this.RefreshRangePreview();
 				this.ReportLengthChanged();
 			}
 		}
 
-		public string TotalChaptersText
-		{
-			get
-			{
-				if (this.SelectedTitle != null && this.RangeType == VideoRangeType.Chapters)
-				{
-					return string.Format(MainRes.ChaptersSummary, this.SelectedTitle.Chapters.Count);
-				}
-
-				return string.Empty;
-			}
-		}
+		private ObservableAsPropertyHelper<string> totalChaptersText;
+		public string TotalChaptersText => this.totalChaptersText.Value;
 
 		public int ChapterPreviewStart
 		{
@@ -1647,7 +1618,7 @@ namespace VidCoder.ViewModel
 					case VideoRangeType.Seconds:
 						return this.TimeRangeStart;
 					case VideoRangeType.Frames:
-						return TimeSpan.FromSeconds(this.FramesRangeStart / this.SelectedTitle.Framerate);
+						return TimeSpan.FromSeconds(this.FramesRangeStart / this.SelectedTitle.FrameRate.ToDouble());
 				}
 
 				return TimeSpan.Zero;
@@ -1666,7 +1637,7 @@ namespace VidCoder.ViewModel
 				switch (this.RangeType)
 				{
 					case VideoRangeType.All:
-						return this.SelectedTitle.Duration;
+						return this.SelectedTitle.Duration.ToSpan();
 					case VideoRangeType.Chapters:
 						if (this.SelectedStartChapter == null || this.SelectedEndChapter == null)
 						{
@@ -1695,7 +1666,7 @@ namespace VidCoder.ViewModel
 					case VideoRangeType.Seconds:
 						return this.TimeRangeEnd;
 					case VideoRangeType.Frames:
-						return TimeSpan.FromSeconds(this.FramesRangeEnd / this.SelectedTitle.Framerate);
+						return TimeSpan.FromSeconds(this.FramesRangeEnd / this.SelectedTitle.FrameRate.ToDouble());
 				}
 
 				return TimeSpan.Zero;
@@ -1727,7 +1698,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public ObservableCollection<AudioChoiceViewModel> AudioChoices
+		public ReactiveList<AudioChoiceViewModel> AudioChoices
 		{
 			get
 			{
@@ -1735,353 +1706,215 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public List<AudioTrack> InputTracks
+		public List<AudioTrackViewModel> InputTracks
 		{
 			get
 			{
 				if (this.SourceData != null)
 				{
-					return this.SelectedTitle.AudioTracks;
+					var result = new List<AudioTrackViewModel>();
+
+					for (int i = 0; i < this.SelectedTitle.AudioList.Count; i++)
+					{
+						SourceAudioTrack track = this.SelectedTitle.AudioList[i];
+						result.Add(new AudioTrackViewModel(track, (i + 1)));
+					}
+
+					return result;
 				}
 
 				return null;
 			}
 		}
 
+		// Populated when a scan finishes and cleared out when a new scan starts
+		private VideoSource sourceData;
 		public VideoSource SourceData
 		{
-			get
-			{
-				return this.sourceData;
-			}
-
-			set
-			{
-				this.sourceData = value;
-				this.UpdateFromNewVideoSource();
-			}
+			get { return this.sourceData; }
+			set { this.RaiseAndSetIfChanged(ref this.sourceData, value); }
 		}
+
+		private bool showTrayIcon;
+		private IMainView view;
 
 		public bool ShowTrayIcon
 		{
-			get
-			{
-				return this.showTrayIcon;
-			}
-
-			set
-			{
-				this.showTrayIcon = value;
-				this.RaisePropertyChanged(() => this.ShowTrayIcon);
-			}
+			get { return this.showTrayIcon; }
+			set { this.RaiseAndSetIfChanged(ref this.showTrayIcon, value); }
 		}
 
 		public string TrayIconToolTip
 		{
 			get
 			{
-				return "VidCoder " + Utilities.CurrentVersion;
+				return "VidCoder " + Utilities.CurrentVersion.ToShortString();
 			}
 		}
 
-		private RelayCommand addTrackCommand;
-		public RelayCommand AddTrackCommand
+		public ReactiveCommand<object> AddTrack { get; }
+		private void AddTrackImpl()
 		{
-			get
-			{
-				return this.addTrackCommand ?? (this.addTrackCommand = new RelayCommand(() =>
-					{
-						var newAudioChoice = new AudioChoiceViewModel();
-						newAudioChoice.SelectedIndex = this.GetFirstUnusedAudioTrack();
-						this.AudioChoices.Add(newAudioChoice);
-					},
-					() =>
-					{
-						if (this.SelectedTitle == null)
-						{
-							return true;
-						}
+			var newAudioChoice = new AudioChoiceViewModel(this.GetFirstUnusedAudioTrack());
+			this.AudioChoices.Add(newAudioChoice);
+		}
 
-						return this.SelectedTitle.AudioTracks.Count > 0;
-					}));
+		public ReactiveCommand<object> OpenEncodingWindow { get; }
+		private void OpenEncodingWindowImpl()
+		{
+			this.windowManager.OpenOrFocusWindow(typeof(EncodingWindowViewModel));
+		}
+
+		public ReactiveCommand<object> OpenOptions { get; }
+		private void OpenOptionsImpl()
+		{
+			this.windowManager.OpenDialog<OptionsDialogViewModel>();
+		}
+
+		public ReactiveCommand<object> OpenUpdates { get; }
+		private void OpenUpdatesImpl()
+		{
+			Config.OptionsDialogLastTab = OptionsDialogViewModel.UpdatesTabIndex;
+			this.windowManager.OpenDialog<OptionsDialogViewModel>();
+		}
+
+		public ReactiveCommand<object> ToggleSourceMenu { get; }
+		private void ToggleSourceMenuImpl()
+		{
+			this.SourceSelectionExpanded = !this.SourceSelectionExpanded;
+		}
+
+		public ReactiveCommand<object> OpenSubtitlesDialog { get; }
+		private void OpenSubtitlesDialogImpl()
+		{
+			var subtitleViewModel = new SubtitleDialogViewModel(this.CurrentSubtitles);
+			this.windowManager.OpenDialog(subtitleViewModel);
+
+			if (subtitleViewModel.DialogResult)
+			{
+				this.CurrentSubtitles = subtitleViewModel.ChosenSubtitles;
 			}
 		}
 
-		private RelayCommand toggleSourceMenuCommand;
-		public RelayCommand ToggleSourceMenuCommand
+		public ReactiveCommand<object> OpenChaptersDialog { get; }
+		private void OpenChaptersDialogImpl()
 		{
-			get
+			var chaptersVM = new ChapterMarkersDialogViewModel(this.SelectedTitle.ChapterList, this.CustomChapterNames, this.UseDefaultChapterNames);
+			this.windowManager.OpenDialog(chaptersVM);
+
+			if (chaptersVM.DialogResult)
 			{
-				return this.toggleSourceMenuCommand ?? (this.toggleSourceMenuCommand = new RelayCommand(() =>
-					{
-						this.SourceSelectionExpanded = !this.SourceSelectionExpanded;
-					},
-					() =>
-					{
-						return !this.ScanningSource;
-					}));
+				this.UseDefaultChapterNames = chaptersVM.UseDefaultNames;
+				if (!chaptersVM.UseDefaultNames)
+				{
+					this.CustomChapterNames = chaptersVM.ChapterNamesList;
+				}
 			}
 		}
 
-		private RelayCommand openSubtitlesDialogCommand;
-		public RelayCommand OpenSubtitlesDialogCommand
+		public ReactiveCommand<object> OpenAboutDialog { get; }
+		private void OpenAboutDialogImpl()
 		{
-			get
-			{
-				return this.openSubtitlesDialogCommand ?? (this.openSubtitlesDialogCommand = new RelayCommand(() =>
-					{
-						var subtitleViewModel = new SubtitleDialogViewModel(this.CurrentSubtitles);
-						subtitleViewModel.Closing = () =>
-						{
-							if (subtitleViewModel.DialogResult)
-							{
-								this.CurrentSubtitles = subtitleViewModel.ChosenSubtitles;
-							}
-						};
+			this.windowManager.OpenDialog(new AboutDialogViewModel());
+		}
 
-						WindowManager.OpenDialog(subtitleViewModel, this);
-					}));
+		public ReactiveCommand<object> CancelScan { get; }
+		private void CancelScanImpl()
+		{
+			this.scanCancelledFlag = true;
+			this.ScanInstance.StopScan();
+		}
+
+		public ReactiveCommand<object> OpenFile { get; }
+		private void OpenFileImpl()
+		{
+			this.SetSourceFromFile();
+		}
+
+		public ReactiveCommand<object> OpenFolder { get; }
+		private void OpenFolderImpl()
+		{
+			this.SetSourceFromFolder();
+		}
+
+		public ReactiveCommand<object> CloseVideoSource { get; }
+		private void CloseVideoSourceImpl()
+		{
+			this.VideoSourceState = VideoSourceState.Choices;
+			this.SourceData = null;
+			this.SelectedSource = null;
+			this.SourceSelectionExpanded = false;
+
+			this.RefreshRecentSourceOptions();
+
+			this.SelectedTitle = null;
+
+			HandBrakeInstance oldInstance = this.scanInstance;
+			this.scanInstance = null;
+			oldInstance?.Dispose();
+		}
+
+		public ReactiveCommand<object> CustomizeQueueColumns { get; }
+		private void CustomizeQueueColumnsImpl()
+		{
+			// Send a request that the view save the column sizes
+			this.View.SaveQueueColumns();
+
+			// Show the queue columns dialog
+			var queueDialog = new QueueColumnsDialogViewModel();
+			this.windowManager.OpenDialog(queueDialog);
+
+			if (queueDialog.DialogResult)
+			{
+				// Apply new columns
+				Config.QueueColumns = queueDialog.NewColumns;
+				this.View.ApplyQueueColumns();
 			}
 		}
 
-		private RelayCommand openChaptersDialogCommand;
-		public RelayCommand OpenChaptersDialogCommand
+		public ReactiveCommand<object> ImportPreset { get; }
+		private void ImportPresetImpl()
 		{
-			get
+			string presetFileName = FileService.Instance.GetFileNameLoad(
+				null,
+				MainRes.ImportPresetFilePickerTitle,
+				CommonRes.PresetFileFilter + "|*.xml;*.vjpreset");
+			if (presetFileName != null)
 			{
-				return this.openChaptersDialogCommand ?? (this.openChaptersDialogCommand = new RelayCommand(() =>
-					{
-						var chaptersVM = new ChapterMarkersDialogViewModel(this.SelectedTitle.Chapters, this.CustomChapterNames, this.UseDefaultChapterNames);
-						chaptersVM.Closing = () =>
-						{
-							if (chaptersVM.DialogResult)
-							{
-								this.UseDefaultChapterNames = chaptersVM.UseDefaultNames;
-								if (!chaptersVM.UseDefaultNames)
-								{
-									this.CustomChapterNames = chaptersVM.ChapterNamesList;
-								}
-							}
-						};
-
-						WindowManager.OpenDialog(chaptersVM, this);
-					}));
+				try
+				{
+					Preset preset = Ioc.Get<IPresetImportExport>().ImportPreset(presetFileName);
+					Ioc.Get<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
+				}
+				catch (Exception)
+				{
+					Ioc.Get<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
+				}
 			}
 		}
 
-		private RelayCommand openAboutDialogCommand;
-		public RelayCommand OpenAboutDialogCommand
+		public ReactiveCommand<object> ExportPreset { get; }
+		private void ExportPresetImpl()
 		{
-			get
-			{
-				return this.openAboutDialogCommand ?? (this.openAboutDialogCommand = new RelayCommand(() =>
-					{
-						WindowManager.OpenDialog(new AboutDialogViewModel(), this);
-					}));
-			}
+			Ioc.Get<IPresetImportExport>().ExportPreset(this.presetsService.SelectedPreset.Preset);
 		}
 
-		private RelayCommand cancelScanCommand;
-		public RelayCommand CancelScanCommand
+		public ReactiveCommand<object> OpenHomepage { get; }
+		private void OpenHomepageImpl()
 		{
-			get
-			{
-				return this.cancelScanCommand ?? (this.cancelScanCommand = new RelayCommand(() =>
-					{
-						this.scanCancelledFlag = true;
-						this.ScanInstance.StopScan();
-					}));
-			}
+			FileService.Instance.LaunchUrl("http://vidcoder.net/");
 		}
 
-		private RelayCommand openFileCommand;
-		public RelayCommand OpenFileCommand
+		public ReactiveCommand<object> ReportBug { get; }
+		private void ReportBugImpl()
 		{
-			get
-			{
-				return this.openFileCommand ?? (this.openFileCommand = new RelayCommand(() =>
-					{
-						this.SetSourceFromFile();
-					},
-					() =>
-					{
-						return !this.ScanningSource;
-					}));
-			}
+			FileService.Instance.LaunchUrl("https://github.com/RandomEngy/VidCoder/issues/new");
 		}
 
-		private RelayCommand openFolderCommand;
-		public RelayCommand OpenFolderCommand
+		public ReactiveCommand<object> Exit { get; }
+		private void ExitImpl()
 		{
-			get
-			{
-				return this.openFolderCommand ?? (this.openFolderCommand = new RelayCommand(() =>
-					{
-						this.SetSourceFromFolder();
-					},
-					() =>
-					{
-						return !this.ScanningSource;
-					}));
-			}
-		}
-
-		private RelayCommand closeVideoSourceCommand;
-		public RelayCommand CloseVideoSourceCommand
-		{
-			get
-			{
-				return this.closeVideoSourceCommand ?? (this.closeVideoSourceCommand = new RelayCommand(() =>
-					{
-						this.sourceData = null;
-						this.SelectedSource = null;
-						this.SourceSelectionExpanded = false;
-						this.CloseVideoSourceCommand.RaiseCanExecuteChanged();
-						this.RaisePropertyChanged(() => this.CanCloseVideoSource);
-						this.RaisePropertyChanged(() => this.HasVideoSource);
-						this.RaisePropertyChanged(() => this.SourceOptionsVisible);
-						this.RaisePropertyChanged(() => this.SourcePicked);
-
-						this.RefreshRecentSourceOptions();
-
-						DispatchService.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
-						Messenger.Default.Send(new RefreshPreviewMessage());
-						this.SelectedTitle = null;
-
-						HandBrakeInstance oldInstance = this.scanInstance;
-						this.scanInstance = null;
-						if (oldInstance != null)
-						{
-							this.ProcessingVM.CleanupHandBrakeInstanceIfUnused(oldInstance);
-						}
-					},
-					() =>
-					{
-						return this.CanCloseVideoSource;
-					}));
-			}
-		}
-
-		private RelayCommand customizeQueueColumnsCommand;
-		public RelayCommand CustomizeQueueColumnsCommand
-		{
-			get
-			{
-				return this.customizeQueueColumnsCommand ?? (this.customizeQueueColumnsCommand = new RelayCommand(() =>
-					{
-						// Send a request that the view save the column sizes
-						Messenger.Default.Send(new SaveQueueColumnsMessage());
-
-						// Show the queue columns dialog
-						var queueDialog = new QueueColumnsViewModel();
-						WindowManager.OpenDialog(queueDialog, this);
-
-						if (queueDialog.DialogResult)
-						{
-							// Apply new columns
-							Config.QueueColumns = queueDialog.NewColumns;
-							Messenger.Default.Send(new ApplyQueueColumnsMessage());
-						}
-					}));
-			}
-		}
-
-		private RelayCommand importPresetCommand;
-		public RelayCommand ImportPresetCommand
-		{
-			get
-			{
-				return this.importPresetCommand ?? (this.importPresetCommand = new RelayCommand(() =>
-					{
-						string presetFileName = FileService.Instance.GetFileNameLoad(
-							null, 
-							MainRes.ImportPresetFilePickerTitle, 
-							"xml", 
-							Utilities.GetFilePickerFilter("xml"));
-						if (presetFileName != null)
-						{
-							Ioc.Container.GetInstance<IPresetImportExport>().ImportPreset(presetFileName);
-						}
-					}));
-			}
-		}
-
-		private RelayCommand exportPresetCommand;
-		public RelayCommand ExportPresetCommand
-		{
-			get
-			{
-				return this.exportPresetCommand ?? (this.exportPresetCommand = new RelayCommand(() =>
-					{
-						Ioc.Container.GetInstance<IPresetImportExport>().ExportPreset(this.presetsVM.SelectedPreset.Preset);
-					}));
-			}
-		}
-
-		private RelayCommand openOptionsCommand;
-		public RelayCommand OpenOptionsCommand
-		{
-			get
-			{
-				return this.openOptionsCommand ?? (this.openOptionsCommand = new RelayCommand(() =>
-					{
-						var optionsVM = new OptionsDialogViewModel(this.updater);
-						WindowManager.OpenDialog(optionsVM, this);
-						if (optionsVM.DialogResult)
-						{
-							Messenger.Default.Send(new OutputFolderChangedMessage());
-						}
-					}));
-			}
-		}
-
-		private RelayCommand openHomepageCommand;
-		public RelayCommand OpenHomepageCommand
-		{
-			get
-			{
-				return this.openHomepageCommand ?? (this.openHomepageCommand = new RelayCommand(() =>
-					{
-						FileService.Instance.LaunchUrl("http://vidcoder.net/");
-					}));
-			}
-		}
-
-		private RelayCommand reportBugCommand;
-		public RelayCommand ReportBugCommand
-		{
-			get
-			{
-				return this.reportBugCommand ?? (this.reportBugCommand = new RelayCommand(() =>
-					{
-						FileService.Instance.LaunchUrl("https://github.com/RandomEngy/VidCoder/issues/new");
-					}));
-			}
-		}
-
-		private RelayCommand openUpdatesCommand;
-		public RelayCommand OpenUpdatesCommand
-		{
-			get
-			{
-				return this.openUpdatesCommand ?? (this.openUpdatesCommand = new RelayCommand(() =>
-					{
-						Config.OptionsDialogLastTab = 5;
-						this.OpenOptionsCommand.Execute(null);
-					}));
-			}
-		}
-
-		private RelayCommand exitCommand;
-		public RelayCommand ExitCommand
-		{
-			get
-			{
-				return this.exitCommand ?? (this.exitCommand = new RelayCommand(() =>
-					{
-						WindowManager.Close(this);
-					}));
-			}
+			this.windowManager.Close(this);
 		}
 
 		public void StartAnimation(string animationKey)
@@ -2109,11 +1942,11 @@ namespace VidCoder.ViewModel
 
 				SourceType type = this.SelectedSource.Type;
 
-				string outputPath = this.OutputPathVM.OutputPath;
+				string outputPath = this.OutputPathService.OutputPath;
 
-				VCProfile encodingProfile = this.PresetsVM.SelectedPreset.Preset.EncodingProfile.Clone();
+				VCProfile encodingProfile = this.PresetsService.SelectedPreset.Preset.EncodingProfile.Clone();
 
-				int title = this.SelectedTitle.TitleNumber;
+				int title = this.SelectedTitle.Index;
 
 				var job = new VCJob
 				{
@@ -2139,7 +1972,7 @@ namespace VidCoder.ViewModel
 						if (this.SelectedStartChapter == null || this.SelectedEndChapter == null)
 						{
 							chapterStart = 1;
-							chapterEnd = this.SelectedTitle.Chapters.Count;
+							chapterEnd = this.SelectedTitle.ChapterList.Count;
 
 							this.logger.LogError("Chapter range not selected. Using all chapters.");
 						}
@@ -2149,7 +1982,7 @@ namespace VidCoder.ViewModel
 							chapterEnd = this.SelectedEndChapter.ChapterNumber;
 						}
 
-						if (chapterStart == 1 && chapterEnd == this.SelectedTitle.Chapters.Count)
+						if (chapterStart == 1 && chapterEnd == this.SelectedTitle.ChapterList.Count)
 						{
 							job.RangeType = VideoRangeType.All;
 						}
@@ -2163,8 +1996,12 @@ namespace VidCoder.ViewModel
 					case VideoRangeType.Seconds:
 						TimeSpan timeRangeStart = this.TimeRangeStart;
 						TimeSpan timeRangeEnd = this.TimeRangeEnd;
+						TimeSpan titleDuration = this.SelectedTitle.Duration.ToSpan();
 
-						if (timeRangeStart == TimeSpan.Zero && timeRangeEnd == this.SelectedTitle.Duration)
+						// We start the range end on a whole second value so if it's within 1 second of the title duration, count it as being exactly at the end.
+						bool rangeAtEnd = timeRangeEnd == titleDuration || (titleDuration - timeRangeEnd < TimeSpan.FromSeconds(1) && timeRangeEnd.Milliseconds == 0);
+
+						if (timeRangeStart == TimeSpan.Zero && rangeAtEnd)
 						{
 							job.RangeType = VideoRangeType.All;
 						}
@@ -2176,12 +2013,14 @@ namespace VidCoder.ViewModel
 							}
 
 							job.SecondsStart = timeRangeStart.TotalSeconds;
-							job.SecondsEnd = timeRangeEnd.TotalSeconds;
+							job.SecondsEnd = rangeAtEnd ? titleDuration.TotalSeconds : timeRangeEnd.TotalSeconds;
 						}
 						break;
 					case VideoRangeType.Frames:
 						job.FramesStart = this.FramesRangeStart;
 						job.FramesEnd = this.FramesRangeEnd;
+						break;
+					case VideoRangeType.All:
 						break;
 					default:
 						throw new ArgumentOutOfRangeException();
@@ -2198,7 +2037,7 @@ namespace VidCoder.ViewModel
 				Name = this.SourceName
 			};
 
-			if (this.SelectedSource.Type == SourceType.Dvd)
+			if (this.SelectedSource.Type == SourceType.Disc)
 			{
 				metadata.DriveInfo = this.SelectedSource.DriveInfo;
 			}
@@ -2209,13 +2048,12 @@ namespace VidCoder.ViewModel
 		public EncodeJobViewModel CreateEncodeJobVM()
 		{
 			var newEncodeJobVM = new EncodeJobViewModel(this.EncodeJob);
-			newEncodeJobVM.HandBrakeInstance = this.scanInstance;
 			newEncodeJobVM.VideoSource = this.SourceData;
 			newEncodeJobVM.VideoSourceMetadata = this.GetVideoSourceMetadata();
-			newEncodeJobVM.SourceParentFolder = this.OutputPathVM.SourceParentFolder;
-			newEncodeJobVM.ManualOutputPath = this.OutputPathVM.ManualOutputPath;
-			newEncodeJobVM.NameFormatOverride = this.OutputPathVM.NameFormatOverride;
-			newEncodeJobVM.PresetName = this.PresetsVM.SelectedPreset.DisplayName;
+			newEncodeJobVM.SourceParentFolder = this.OutputPathService.SourceParentFolder;
+			newEncodeJobVM.ManualOutputPath = this.OutputPathService.ManualOutputPath;
+			newEncodeJobVM.NameFormatOverride = this.OutputPathService.NameFormatOverride;
+			newEncodeJobVM.PresetName = this.PresetsService.SelectedPreset.DisplayName;
 
 			return newEncodeJobVM;
 		}
@@ -2230,16 +2068,16 @@ namespace VidCoder.ViewModel
 		{
 			VCJob job = jobVM.Job;
 
-			if (this.PresetsVM.SelectedPreset.IsModified)
+			if (this.PresetsService.SelectedPreset.Preset.IsModified)
 			{
 				MessageBoxResult dialogResult = Utilities.MessageBox.Show(this, MainRes.SaveChangesPresetMessage, MainRes.SaveChangesPresetTitle, MessageBoxButton.YesNoCancel);
 				if (dialogResult == MessageBoxResult.Yes)
 				{
-					this.PresetsVM.SavePreset();
+					this.PresetsService.SavePreset();
 				}
 				else if (dialogResult == MessageBoxResult.No)
 				{
-					this.PresetsVM.RevertPreset(userInitiated: false);
+					this.PresetsService.RevertPreset(userInitiated: false);
 				}
 				else if (dialogResult == MessageBoxResult.Cancel)
 				{
@@ -2247,18 +2085,8 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			if (jobVM.HandBrakeInstance != null && jobVM.HandBrakeInstance == this.ScanInstance)
+			if (jobVM.VideoSource != null && jobVM.VideoSource == this.SourceData)
 			{
-				this.ApplyEncodeJobChoices(jobVM);
-				Messenger.Default.Send(new RefreshPreviewMessage());
-			}
-			else if (jobVM.VideoSource != null)
-			{
-				// Set current scan to cached scan
-				this.scanInstance = jobVM.HandBrakeInstance;
-				this.SourceData = jobVM.VideoSource;
-				this.LoadVideoSourceMetadata(job, jobVM.VideoSourceMetadata);
-
 				this.ApplyEncodeJobChoices(jobVM);
 			}
 			else
@@ -2266,17 +2094,16 @@ namespace VidCoder.ViewModel
 				string jobPath = job.SourcePath;
 				string jobRoot = Path.GetPathRoot(jobPath);
 
-				// We need to reconstruct the source metadata since the program has shut down since the job
-				// was created.
+				// We need to reconstruct the source metadata since we've closed the scan since queuing.
 				var videoSourceMetadata = new VideoSourceMetadata();
 
 				switch (job.SourceType)
 				{
-					case SourceType.Dvd:
+					case SourceType.Disc:
 						DriveInformation driveInfo = this.DriveCollection.FirstOrDefault(d => string.Compare(d.RootDirectory, jobRoot, StringComparison.OrdinalIgnoreCase) == 0);
 						if (driveInfo == null)
 						{
-							Ioc.Container.GetInstance<IMessageBoxService>().Show(MainRes.DiscNotInDriveError);
+							Ioc.Get<IMessageBoxService>().Show(MainRes.DiscNotInDriveError);
 							return;
 						}
 
@@ -2286,7 +2113,7 @@ namespace VidCoder.ViewModel
 					case SourceType.File:
 						videoSourceMetadata.Name = Utilities.GetSourceNameFile(job.SourcePath);
 						break;
-					case SourceType.VideoFolder:
+					case SourceType.DiscVideoFolder:
 						videoSourceMetadata.Name = Utilities.GetSourceNameFolder(job.SourcePath);
 						break;
 				}
@@ -2307,29 +2134,28 @@ namespace VidCoder.ViewModel
 					EncodingProfile = jobVM.Job.EncodingProfile.Clone()
 				});
 
-			this.PresetsVM.InsertQueuePreset(queuePreset);
+			this.PresetsService.InsertQueuePreset(queuePreset);
 
 			if (isQueueItem)
 			{
 				// Since it's been sent back for editing, remove the queue item
-				this.ProcessingVM.EncodeQueue.Remove(jobVM);
+				this.ProcessingService.EncodeQueue.Remove(jobVM);
 			}
 
-			this.PresetsVM.SaveUserPresets();
+			this.PresetsService.SaveUserPresets();
 		}
 
 		public void ScanFromAutoplay(string sourcePath)
 		{
-			if ((this.HasVideoSource || this.ScanningSource) && string.Compare(this.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0)
+			if ((this.VideoSourceState == VideoSourceState.Scanning || this.VideoSourceState == VideoSourceState.ScannedSource) && string.Compare(this.SourcePath, sourcePath, StringComparison.OrdinalIgnoreCase) == 0)
 			{
 				// We're already on this disc. Return.
 				return;
 			}
 
-			//DriveInformation driveInfo = this.driveService.GetDriveInformationFromPath(sourcePath);
-			if (this.HasVideoSource && !this.ScanningSource)
+			if (this.VideoSourceState == VideoSourceState.ScannedSource)
 			{
-				var messageResult = Ioc.Container.GetInstance<IMessageBoxService>().Show(
+				var messageResult = Ioc.Get<IMessageBoxService>().Show(
 					this,
 					MainRes.AutoplayDiscConfirmationMessage,
 					CommonRes.ConfirmDialogTitle,
@@ -2340,21 +2166,16 @@ namespace VidCoder.ViewModel
 					this.SetSource(sourcePath);
 				}
 			}
-			else if (this.ScanningSource)
+			else if (this.VideoSourceState == VideoSourceState.Scanning)
 			{
 				// If we're scanning already, cancel the scan and set a pending scan for the new path.
 				this.pendingScan = sourcePath;
-				this.CancelScanCommand.Execute(null);
+				this.CancelScanImpl();
 			}
 			else
 			{
 				this.SetSource(sourcePath);
 			}
-		}
-
-		public void RefreshChapterMarkerUI()
-		{
-			this.RaisePropertyChanged(() => this.ShowChapterMarkerUI);
 		}
 
 		public void RefreshTrayIcon(bool minimized)
@@ -2405,7 +2226,7 @@ namespace VidCoder.ViewModel
 					case VideoRangeType.Frames:
 						if (this.FramesRangeEnd >= this.FramesRangeStart)
 						{
-							selectedTime = TimeSpan.FromSeconds(((double)(this.FramesRangeEnd - this.FramesRangeStart)) / this.SelectedTitle.Framerate);
+							selectedTime = TimeSpan.FromSeconds(((double)(this.FramesRangeEnd - this.FramesRangeStart)) / this.SelectedTitle.FrameRate.ToDouble());
 						}
 
 						break;
@@ -2422,9 +2243,10 @@ namespace VidCoder.ViewModel
 		/// <param name="jobVM">The encode job choice to apply after the scan is finished.</param>
 		private void StartScan(string path, EncodeJobViewModel jobVM = null)
 		{
+			this.VideoSourceState = VideoSourceState.Scanning;
 			this.ClearVideoSource();
 
-			this.ScanProgress = 0;
+			this.ScanProgressFraction = 0;
 			HandBrakeInstance oldInstance = this.scanInstance;
 
 			this.logger.Log("Starting scan: " + path);
@@ -2433,23 +2255,17 @@ namespace VidCoder.ViewModel
 			this.scanInstance.Initialize(Config.LogVerbosity);
 			this.scanInstance.ScanProgress += (o, e) =>
 			{
-				this.ScanProgress = e.Progress * 100;
+				this.ScanProgressFraction = e.Progress;
 			};
 			this.scanInstance.ScanCompleted += (o, e) =>
 			{
-				DispatchService.Invoke(() =>
+				DispatchUtilities.Invoke(() =>
 				{
-					this.ScanningSource = false;
-
 					if (this.scanCancelledFlag)
 					{
 						this.SelectedSource = null;
-						this.RaisePropertyChanged(() => this.SourcePicked);
 
-						if (this.ScanCancelled != null)
-						{
-							this.ScanCancelled(this, new EventArgs());
-						}
+						this.ScanCancelled?.Invoke(this, EventArgs.Empty);
 
 						this.logger.Log("Scan cancelled");
 
@@ -2459,10 +2275,14 @@ namespace VidCoder.ViewModel
 
 							this.pendingScan = null;
 						}
+						else
+						{
+							this.VideoSourceState = VideoSourceState.Choices;
+						}
 					}
 					else
 					{
-						this.SourceData = new VideoSource { Titles = this.scanInstance.Titles, FeatureTitle = this.scanInstance.FeatureTitle };
+						this.UpdateFromNewVideoSource(new VideoSource { Titles = this.scanInstance.Titles.TitleList, FeatureTitle = this.scanInstance.FeatureTitle });
 
 						// If scan failed source data will be null.
 						if (this.sourceData != null)
@@ -2473,9 +2293,18 @@ namespace VidCoder.ViewModel
 							}
 
 							if (jobVM == null && this.SelectedSource != null &&
-							    (this.SelectedSource.Type == SourceType.File || this.SelectedSource.Type == SourceType.VideoFolder))
+								(this.SelectedSource.Type == SourceType.File || this.SelectedSource.Type == SourceType.DiscVideoFolder))
 							{
 								SourceHistory.AddToHistory(this.SourcePath);
+							}
+
+							Picker picker = this.pickersService.SelectedPicker.Picker;
+							if (picker.AutoQueueOnScan)
+							{
+								if (this.processingService.TryQueue() && picker.AutoEncodeOnScan && !this.processingService.Encoding)
+								{
+									this.processingService.Encode.Execute(null);
+								}
 							}
 						}
 
@@ -2486,63 +2315,45 @@ namespace VidCoder.ViewModel
 				});
 			};
 
-			this.ScanError = false;
-			this.ScanningSource = true;
 			this.scanCancelledFlag = false;
-			this.scanInstance.StartScan(path, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds));
+			this.scanInstance.StartScan(path, Config.PreviewCount, TimeSpan.FromSeconds(Config.MinimumTitleLengthSeconds), 0);
 
 			if (oldInstance != null)
 			{
-				this.ProcessingVM.CleanupHandBrakeInstanceIfUnused(oldInstance);
+				oldInstance.Dispose();
 			}
 		}
 
-		private void UpdateFromNewVideoSource()
+		private void UpdateFromNewVideoSource(VideoSource videoSource)
 		{
-			Title selectTitle = null;
+			SourceTitle selectTitle = null;
 
-			if (this.sourceData != null && this.sourceData.Titles != null && this.sourceData.Titles.Count > 0)
+			if (videoSource != null && videoSource.Titles != null && videoSource.Titles.Count > 0)
 			{
-				selectTitle = Utilities.GetFeatureTitle(this.sourceData.Titles, this.sourceData.FeatureTitle);
+				selectTitle = Utilities.GetFeatureTitle(videoSource.Titles, videoSource.FeatureTitle);
 			}
 
 			if (selectTitle != null)
 			{
-				this.ScanError = false;
+				this.SourceData = videoSource;
+				this.VideoSourceState = VideoSourceState.ScannedSource;
+
 				this.SelectedTitle = selectTitle;
-				this.RaisePropertyChanged(() => this.Titles);
-				this.RaisePropertyChanged(() => this.TitleVisible);
-				this.CloseVideoSourceCommand.RaiseCanExecuteChanged();
-				this.RaisePropertyChanged(() => this.CanCloseVideoSource);
-				this.RaisePropertyChanged(() => this.HasVideoSource);
-				this.RaisePropertyChanged(() => this.SourceOptionsVisible);
 			}
 			else
 			{
-				this.sourceData = null;
-				this.CloseVideoSourceCommand.RaiseCanExecuteChanged();
-				this.RaisePropertyChanged(() => this.CanCloseVideoSource);
-				this.RaisePropertyChanged(() => this.HasVideoSource);
-				this.RaisePropertyChanged(() => this.SourceOptionsVisible);
-				this.RaisePropertyChanged(() => this.SourcePicked);
-				this.ScanError = true;
-			}
+				this.SourceData = null;
+				this.VideoSourceState = VideoSourceState.Choices;
 
-			DispatchService.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
+				// Raise error
+				Ioc.Get<IMessageBoxService>().Show(this, MainRes.ScanErrorLabel);
+			}
 		}
 
 		private void ClearVideoSource()
 		{
-			this.sourceData = null;
+			this.SourceData = null;
 			this.SourceSelectionExpanded = false;
-			this.CloseVideoSourceCommand.RaiseCanExecuteChanged();
-			this.RaisePropertyChanged(() => this.CanCloseVideoSource);
-			this.RaisePropertyChanged(() => this.HasVideoSource);
-			this.RaisePropertyChanged(() => this.SourceOptionsVisible);
-			this.RaisePropertyChanged(() => this.SourcePicked);
-
-			DispatchService.BeginInvoke(() => Messenger.Default.Send(new VideoSourceChangedMessage()));
-			Messenger.Default.Send(new RefreshPreviewMessage());
 		}
 
 		private void LoadVideoSourceMetadata(VCJob job, VideoSourceMetadata metadata)
@@ -2550,9 +2361,9 @@ namespace VidCoder.ViewModel
 			this.SourceName = metadata.Name;
 			this.SourcePath = job.SourcePath;
 
-			if (job.SourceType == SourceType.Dvd)
+			if (job.SourceType == SourceType.Disc)
 			{
-				this.SelectedSource = new SourceOption { Type = SourceType.Dvd, DriveInfo = metadata.DriveInfo };
+				this.SelectedSource = new SourceOption { Type = SourceType.Disc, DriveInfo = metadata.DriveInfo };
 			}
 			else
 			{
@@ -2572,7 +2383,7 @@ namespace VidCoder.ViewModel
 			VCJob job = jobVM.Job;
 
 			// Title
-			Title newTitle = this.sourceData.Titles.FirstOrDefault(t => t.TitleNumber == job.Title);
+			SourceTitle newTitle = this.sourceData.Titles.FirstOrDefault(t => t.Index == job.Title);
 			if (newTitle == null)
 			{
 				newTitle = this.sourceData.Titles[0];
@@ -2597,7 +2408,7 @@ namespace VidCoder.ViewModel
 			this.rangeType = job.RangeType;
 			if (this.rangeType == VideoRangeType.All)
 			{
-				if (this.selectedTitle.Chapters.Count > 1)
+				if (this.selectedTitle.ChapterList.Count > 1)
 				{
 					this.rangeType = VideoRangeType.Chapters;
 				}
@@ -2610,36 +2421,38 @@ namespace VidCoder.ViewModel
 			switch (this.rangeType)
 			{
 				case VideoRangeType.Chapters:
-					if (job.ChapterStart > this.selectedTitle.Chapters.Count ||
-						job.ChapterEnd > this.selectedTitle.Chapters.Count ||
+					if (job.ChapterStart > this.selectedTitle.ChapterList.Count ||
+						job.ChapterEnd > this.selectedTitle.ChapterList.Count ||
 						job.ChapterStart == 0 ||
 						job.ChapterEnd == 0)
 					{
-						this.selectedStartChapter = this.StartChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.Chapters[0]);
-						this.selectedEndChapter = this.EndChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.Chapters[this.selectedTitle.Chapters.Count - 1]);
+						this.selectedStartChapter = this.StartChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.ChapterList[0]);
+						this.selectedEndChapter = this.EndChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.ChapterList[this.selectedTitle.ChapterList.Count - 1]);
 					}
 					else
 					{
-						this.selectedStartChapter = this.StartChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.Chapters[job.ChapterStart - 1]);
-						this.selectedEndChapter = this.EndChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.Chapters[job.ChapterEnd - 1]);
+						this.selectedStartChapter = this.StartChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.ChapterList[job.ChapterStart - 1]);
+						this.selectedEndChapter = this.EndChapters.FirstOrDefault(c => c.Chapter == this.selectedTitle.ChapterList[job.ChapterEnd - 1]);
 					}
 
 					break;
 				case VideoRangeType.Seconds:
-					if (this.selectedTitle.Duration == TimeSpan.Zero)
+					TimeSpan titleDuration = this.selectedTitle.Duration.ToSpan();
+
+					if (titleDuration == TimeSpan.Zero)
 					{
 						throw new InvalidOperationException("Title's duration is 0, cannot continue.");
 					}
 
-					if (job.SecondsStart < this.selectedTitle.Duration.TotalSeconds + 1 &&
-						job.SecondsEnd < this.selectedTitle.Duration.TotalSeconds + 1)
+					if (job.SecondsStart < titleDuration.TotalSeconds + 1 &&
+						job.SecondsEnd < titleDuration.TotalSeconds + 1)
 					{
 						TimeSpan startTime = TimeSpan.FromSeconds(job.SecondsStart);
 						TimeSpan endTime = TimeSpan.FromSeconds(job.SecondsEnd);
 
-						if (endTime > this.selectedTitle.Duration)
+						if (endTime > titleDuration)
 						{
-							endTime = this.selectedTitle.Duration;
+							endTime = titleDuration;
 						}
 
 						if (startTime > endTime - Constants.TimeRangeBuffer)
@@ -2658,28 +2471,19 @@ namespace VidCoder.ViewModel
 					else
 					{
 						this.SetRangeTimeStart(TimeSpan.Zero);
-						this.SetRangeTimeEnd(this.selectedTitle.Duration);
+						this.SetRangeTimeEnd(titleDuration);
 					}
 
 					// We saw a problem with a job getting seconds 0-0 after a queue edit, add some sanity checking.
 					if (this.TimeRangeEnd == TimeSpan.Zero)
 					{
-						this.SetRangeTimeEnd(this.selectedTitle.Duration);
+						this.SetRangeTimeEnd(titleDuration);
 					}
 
 					break;
 				case VideoRangeType.Frames:
-					if (job.FramesStart < this.selectedTitle.Frames + 1 &&
-						job.FramesEnd < this.selectedTitle.Frames + 1)
-					{
-						this.framesRangeStart = job.FramesStart;
-						this.framesRangeEnd = job.FramesEnd;
-					}
-					else
-					{
-						this.framesRangeStart = 0;
-						this.framesRangeEnd = this.selectedTitle.Frames;
-					}
+					this.framesRangeStart = job.FramesStart;
+					this.framesRangeEnd = job.FramesEnd;
 
 					break;
 				default:
@@ -2690,9 +2494,9 @@ namespace VidCoder.ViewModel
 			this.AudioChoices.Clear();
 			foreach (int chosenTrack in job.ChosenAudioTracks)
 			{
-				if (chosenTrack <= this.selectedTitle.AudioTracks.Count)
+				if (chosenTrack <= this.selectedTitle.AudioList.Count)
 				{
-					this.AudioChoices.Add(new AudioChoiceViewModel { SelectedIndex = chosenTrack - 1 });
+					this.AudioChoices.Add(new AudioChoiceViewModel(chosenTrack - 1 ));
 				}
 			}
 
@@ -2703,7 +2507,7 @@ namespace VidCoder.ViewModel
 			{
 				foreach (SourceSubtitle sourceSubtitle in job.Subtitles.SourceSubtitles)
 				{
-					if (sourceSubtitle.TrackNumber <= this.selectedTitle.Subtitles.Count)
+					if (sourceSubtitle.TrackNumber <= this.selectedTitle.SubtitleList.Count)
 					{
 						this.CurrentSubtitles.SourceSubtitles.Add(sourceSubtitle);
 					}
@@ -2727,57 +2531,72 @@ namespace VidCoder.ViewModel
 			}
 			else
 			{
-				if (this.CustomChapterNames != null && this.selectedTitle.Chapters.Count == this.CustomChapterNames.Count)
+				if (this.CustomChapterNames != null && this.selectedTitle.ChapterList.Count == this.CustomChapterNames.Count)
 				{
 					this.CustomChapterNames = job.CustomChapterNames;
 				}
 			}
 
 			// Output path
-			this.OutputPathVM.OutputPath = job.OutputPath;
-			this.OutputPathVM.SourceParentFolder = jobVM.SourceParentFolder;
-			this.OutputPathVM.ManualOutputPath = jobVM.ManualOutputPath;
-			this.OutputPathVM.NameFormatOverride = jobVM.NameFormatOverride;
+			this.OutputPathService.OutputPath = job.OutputPath;
+			this.OutputPathService.SourceParentFolder = jobVM.SourceParentFolder;
+			this.OutputPathService.ManualOutputPath = jobVM.ManualOutputPath;
+			this.OutputPathService.NameFormatOverride = jobVM.NameFormatOverride;
 
 			// Encode profile handled above this in EditJob
 
-			this.RaisePropertyChanged(() => this.SourceIcon);
-			this.RaisePropertyChanged(() => this.SourceText);
-			this.RaisePropertyChanged(() => this.SelectedTitle);
-			this.RaisePropertyChanged(() => this.SelectedStartChapter);
-			this.RaisePropertyChanged(() => this.SelectedEndChapter);
-			this.RaisePropertyChanged(() => this.StartChapters);
-			this.RaisePropertyChanged(() => this.EndChapters);
-			this.RaisePropertyChanged(() => this.TimeRangeStart);
-			this.RaisePropertyChanged(() => this.TimeRangeStartBar);
-			this.RaisePropertyChanged(() => this.TimeRangeEnd);
-			this.RaisePropertyChanged(() => this.TimeRangeEndBar);
-			this.RaisePropertyChanged(() => this.FramesRangeStart);
-			this.RaisePropertyChanged(() => this.FramesRangeEnd);
-			this.RaisePropertyChanged(() => this.RangeType);
-			this.RaisePropertyChanged(() => this.UsingChaptersRange);
-			this.RaisePropertyChanged(() => this.RangeBarVisible);
-			this.RaisePropertyChanged(() => this.SecondsRangeVisible);
-			this.RaisePropertyChanged(() => this.FramesRangeVisible);
-			this.RaisePropertyChanged(() => this.SubtitlesSummary);
-			this.RaisePropertyChanged(() => this.ChapterMarkersSummary);
-			this.RaisePropertyChanged(() => this.ShowChapterMarkerUI);
-			this.RaisePropertyChanged(() => this.Angle);
-			this.RaisePropertyChanged(() => this.Angles);
+			this.RaisePropertyChanged(nameof(this.SelectedSource));
+			this.RaisePropertyChanged(nameof(this.SelectedTitle));
+			this.RaisePropertyChanged(nameof(this.SelectedStartChapter));
+			this.RaisePropertyChanged(nameof(this.SelectedEndChapter));
+			//this.RaisePropertyChanged(nameof(this.StartChapters));
+			//this.RaisePropertyChanged(nameof(this.EndChapters));
+			this.RaisePropertyChanged(nameof(this.TimeRangeStart));
+			this.RaisePropertyChanged(nameof(this.TimeRangeStartBar));
+			this.RaisePropertyChanged(nameof(this.TimeRangeEnd));
+			this.RaisePropertyChanged(nameof(this.TimeRangeEndBar));
+			this.RaisePropertyChanged(nameof(this.FramesRangeStart));
+			this.RaisePropertyChanged(nameof(this.FramesRangeEnd));
+			this.RaisePropertyChanged(nameof(this.RangeType));
+			this.RaisePropertyChanged(nameof(this.Angle));
+			this.RaisePropertyChanged(nameof(this.Angles));
 
 			this.RefreshRangePreview();
 		}
 
 		private void PopulateChapterSelectLists()
 		{
-			this.startChapters = new List<ChapterViewModel>();
-			this.endChapters = new List<ChapterViewModel>();
+			var newStartChapterList = new ReactiveList<ChapterViewModel>();
+			var newEndChapterList = new ReactiveList<ChapterViewModel>();
 
-			foreach (Chapter chapter in this.selectedTitle.Chapters)
+			for (int i = 0; i < this.selectedTitle.ChapterList.Count; i++)
 			{
-				this.startChapters.Add(new ChapterViewModel(chapter));
-				this.endChapters.Add(new ChapterViewModel(chapter));
+				SourceChapter chapter = this.selectedTitle.ChapterList[i];
+
+				newStartChapterList.Add(new ChapterViewModel(chapter, i + 1));
+				newEndChapterList.Add(new ChapterViewModel(chapter, i + 1));
 			}
+
+			newStartChapterList.ChangeTrackingEnabled = true;
+			newEndChapterList.ChangeTrackingEnabled = true;
+
+			newStartChapterList.ItemChanged
+				.Where(x => x.PropertyName == nameof(ChapterViewModel.IsHighlighted))
+				.Subscribe(_ =>
+				{
+					this.RefreshRangePreview();
+				});
+
+			newEndChapterList.ItemChanged
+				.Where(x => x.PropertyName == nameof(ChapterViewModel.IsHighlighted))
+				.Subscribe(_ =>
+				{
+					this.RefreshRangePreview();
+				});
+
+			// We can't re-use the same list because the ComboBox control flyout sizes itself once and doesn't update when items are added.
+			this.StartChapters = newStartChapterList;
+			this.EndChapters = newEndChapterList;
 		}
 
 		private void PopulateAnglesList()
@@ -2791,7 +2610,7 @@ namespace VidCoder.ViewModel
 
 		private void ReportLengthChanged()
 		{
-			var encodingWindow = WindowManager.FindWindow(typeof(EncodingViewModel)) as EncodingViewModel;
+			var encodingWindow = this.windowManager.Find<EncodingWindowViewModel>();
 			if (encodingWindow != null)
 			{
 				encodingWindow.NotifyLengthChanged();
@@ -2800,12 +2619,12 @@ namespace VidCoder.ViewModel
 
 		private void UpdateDrives()
 		{
-			DispatchService.BeginInvoke(() =>
+			DispatchUtilities.BeginInvoke(() =>
 			{
 				// Remove all source options which do not exist in the new collection
 				for (int i = this.sourceOptions.Count - 1; i >= 0; i--)
 				{
-					if (this.sourceOptions[i].SourceOption.Type == SourceType.Dvd)
+					if (this.sourceOptions[i].SourceOption.Type == SourceType.Disc)
 					{
 						if (!this.DriveCollection.Any(driveInfo => driveInfo.RootDirectory == this.sourceOptions[i].SourceOption.DriveInfo.RootDirectory))
 						{
@@ -2817,17 +2636,17 @@ namespace VidCoder.ViewModel
 				// Update or add new options
 				foreach (DriveInformation drive in this.DriveCollection)
 				{
-					SourceOptionViewModel currentOption = this.sourceOptions.SingleOrDefault(sourceOptionVM => sourceOptionVM.SourceOption.Type == SourceType.Dvd && sourceOptionVM.SourceOption.DriveInfo.RootDirectory == drive.RootDirectory);
+					SourceOptionViewModel currentOption = this.sourceOptions.SingleOrDefault(sourceOptionVM => sourceOptionVM.SourceOption.Type == SourceType.Disc && sourceOptionVM.SourceOption.DriveInfo.RootDirectory == drive.RootDirectory);
 
 					if (currentOption == null)
 					{
 						// The device is new, add it
-						var newSourceOptionVM = new SourceOptionViewModel(new SourceOption { Type = SourceType.Dvd, DriveInfo = drive });
+						var newSourceOptionVM = new SourceOptionViewModel(new SourceOption { Type = SourceType.Disc, DriveInfo = drive });
 
 						bool added = false;
 						for (int i = 0; i < this.sourceOptions.Count; i++)
 						{
-							if (this.sourceOptions[i].SourceOption.Type == SourceType.Dvd && string.CompareOrdinal(drive.RootDirectory, this.sourceOptions[i].SourceOption.DriveInfo.RootDirectory) < 0)
+							if (this.sourceOptions[i].SourceOption.Type == SourceType.Disc && string.CompareOrdinal(drive.RootDirectory, this.sourceOptions[i].SourceOption.DriveInfo.RootDirectory) < 0)
 							{
 								this.sourceOptions.Insert(i, newSourceOptionVM);
 								added = true;
@@ -2853,7 +2672,7 @@ namespace VidCoder.ViewModel
 		{
 			List<int> unusedTracks = new List<int>();
 
-			for (int i = 0; i < this.SelectedTitle.AudioTracks.Count; i++)
+			for (int i = 0; i < this.SelectedTitle.AudioList.Count; i++)
 			{
 				unusedTracks.Add(i);
 			}
@@ -2874,16 +2693,16 @@ namespace VidCoder.ViewModel
 			return 0;
 		}
 
-		private void OnRangeControlGotFocus(RangeFocusMessage message)
+		private void OnRangeControlGotFocus(object sender, RangeFocusEventArgs eventArgs)
 		{
-			if (!message.GotFocus)
+			if (!eventArgs.GotFocus)
 			{
 				return;
 			}
 
-			if (message.RangeType == VideoRangeType.Seconds)
+			if (eventArgs.RangeType == VideoRangeType.Seconds)
 			{
-				if (message.Start)
+				if (eventArgs.Start)
 				{
 					this.timeBaseline = this.TimeRangeEnd;
 				}
@@ -2892,9 +2711,9 @@ namespace VidCoder.ViewModel
 					this.timeBaseline = this.TimeRangeStart;
 				}
 			}
-			else if (message.RangeType == VideoRangeType.Frames)
+			else if (eventArgs.RangeType == VideoRangeType.Frames)
 			{
-				if (message.Start)
+				if (eventArgs.Start)
 				{
 					this.framesBaseline = this.FramesRangeEnd;
 				}
@@ -2921,12 +2740,12 @@ namespace VidCoder.ViewModel
 
 		private void RefreshRangePreview()
 		{
-			this.RaisePropertyChanged(() => this.ChapterPreviewStart);
-			this.RaisePropertyChanged(() => this.ChapterPreviewEnd);
-			this.RaisePropertyChanged(() => this.RangePreviewStart);
-			this.RaisePropertyChanged(() => this.RangePreviewEnd);
-			this.RaisePropertyChanged(() => this.RangePreviewText);
-			this.RaisePropertyChanged(() => this.RangePreviewLengthText);
+			this.RaisePropertyChanged(nameof(this.ChapterPreviewStart));
+			this.RaisePropertyChanged(nameof(this.ChapterPreviewEnd));
+			this.RaisePropertyChanged(nameof(this.RangePreviewStart));
+			this.RaisePropertyChanged(nameof(this.RangePreviewEnd));
+			this.RaisePropertyChanged(nameof(this.RangePreviewText));
+			this.RaisePropertyChanged(nameof(this.RangePreviewLengthText));
 		}
 
 		private void RefreshRecentSourceOptions()
@@ -2942,7 +2761,7 @@ namespace VidCoder.ViewModel
 				}
 				else if (Directory.Exists(recentSourcePath))
 				{
-					this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.VideoFolder }, recentSourcePath));
+					this.recentSourceOptions.Add(new SourceOptionViewModel(new SourceOption { Type = SourceType.DiscVideoFolder }, recentSourcePath));
 				}
 			}
 		}
@@ -2950,7 +2769,7 @@ namespace VidCoder.ViewModel
 		private TimeSpan GetChapterRangeDuration(int startChapter, int endChapter)
 		{
 			if (startChapter > endChapter ||
-				endChapter > this.SelectedTitle.Chapters.Count ||
+				endChapter > this.SelectedTitle.ChapterList.Count ||
 				startChapter < 1)
 			{
 				return TimeSpan.Zero;
@@ -2960,7 +2779,7 @@ namespace VidCoder.ViewModel
 
 			for (int i = startChapter; i <= endChapter; i++)
 			{
-				rangeTime += this.SelectedTitle.Chapters[i - 1].Duration;
+				rangeTime += this.SelectedTitle.ChapterList[i - 1].Duration.ToSpan();
 			}
 
 			return rangeTime;

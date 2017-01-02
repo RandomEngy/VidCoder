@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutLicense" xml:space="preserve">
+    <value>ეს არის თავისუფალი პროგრამა. თქვენ შეგიძლიათ გავრცელება და/ან მოდიფიცირება "GNU" ძირითადი სახალხო ლიცენზიის პირობების გათვალისწინებით, როგორც გამოქვეყნებულია თავისუფალი პროგრამის ფონდის მიერ. ლიცენზიის II ვერსიით, ან (თქვენი არჩევით) მომდევნო ვერსიით.
+
+ეს პროგრამა გავრცელებულია იმის იმედით, რომ იქნება გამოსადეგარი, მაგრამ ყველანაირი გარანტიის გარეშე!. აგრეთვე კომერციალიზირების ან კონკრეტული პირადი მიზნის გამოყენების გარანტიის გარეშე. დამატებითი ინფორმაციისთვის იხილეთ "GNU" ძირითადი სახალხო ლიცენზიის პირობები.
+
+პროგრამა შეიცავს "GNU" ძირითადი სახალხო ლიცენზიის პირობების კოპიას.</value>
+  </data>
+  <data name="BurnedSubtitleToolTip" xml:space="preserve">
+    <value>ტიტრის ვიდეოზე კოდირება. კოდირებული ტიტრით, მისი დეაქტივირება ვერ მოხერხდება.</value>
+  </data>
+  <data name="DefaultSubtitleToolTip" xml:space="preserve">
+    <value>ამ ტიტრის სტანდარტად არჩევა. ეს ტიტრი იქნება წარმოსახული ავტომატურად სანამ სხვა არ აირჩევა პერსონალურად.</value>
+  </data>
+  
+  <data name="OffsetSubtitleToolTip" xml:space="preserve">
+    <value>ტიტრის მართვა, დროის წარმოსახვის დასაჩქარებლად ან შესაყოვნებლად.</value>
+  </data>
+  <data name="QueueColumnNameRange" xml:space="preserve">
+    <value>დიაპაზონი</value>
+    <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
+  </data>
+  <data name="QueueColumnNameDestination" xml:space="preserve">
+    <value>შენახვის ადგილი</value>
+  </data>
+  <data name="QueueColumnNameSource" xml:space="preserve">
+    <value>წყარო</value>
+  </data>
+  <data name="QueueColumnNameTitle" xml:space="preserve">
+    <value>ფაილი</value>
+  </data>
+  <data name="QueueColumnNameAudioQuality" xml:space="preserve">
+    <value>აუდიო ხარისხი</value>
+  </data>
+  <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
+    <value>აუდიო კოდიფიკადორი</value>
+  </data>
+  <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
+    <value>ვიდეო კოდიფიკადორი</value>
+  </data>
+  <data name="QueueColumnNameVideoQuality" xml:space="preserve">
+    <value>ვიდეო ხარისხი</value>
+  </data>
+  <data name="QueueEtaToolTip" xml:space="preserve">
+    <value>ყველა დავალების სავარაუდო დასრულების დრო.</value>
+  </data>
+  <data name="QueueColumnNameDuration" xml:space="preserve">
+    <value>ხანგრძლივობა</value>
+  </data>
+  <data name="ForeignAudioSearchToolTip" xml:space="preserve">
+    <value>ეძებს ტიტრის წყაროს რომელიც სავარაუდოდ შეიცავს უცხო ენის დიალოგის პატარა ფრაგმენტებს. რეკომენდირებულია ფილმებისთვის თქვენს ენაზე.</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>სტანდარტი</value>
+    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>პერსონალური</value>
+    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>მოძიება...</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>წაშლა</value>
+  </data>
+  <data name="PreviewLabel" xml:space="preserve">
+    <value>ჩვეება</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>ავტომატური</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>გამორთვა</value>
+    <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>ყველა</value>
+  </data>
+  <data name="StreamChoice" xml:space="preserve">
+    <value>ნაკადი {0}</value>
+    <comment>Used in the encoding settings dialog to mark which audio stream an audio encoding is targeting. By default the encoding works on all streams but you can target it to affect only the first stream, in which case it would label it "Stream 1"</comment>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>დათანხმება</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>გაუქმება</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>დეაქტივირებულია</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>წაშლა</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>კოპირება</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>დიახ</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>არა</value>
+  </data>
+  <data name="CouldNotAccessDirectoriesError" xml:space="preserve">
+    <value>შემდეგი ფოლდერი მიუწვდომელია:</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>არანაირი</value>
+  </data>
+  <data name="Succeeded" xml:space="preserve">
+    <value>წარმატებულია</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>წარუმატებულია</value>
+  </data>
+  <data name="FilePickerExtTemplate" xml:space="preserve">
+    <value>{0} ფაილი</value>
+  </data>
+  <data name="QueueColumnNamePreset" xml:space="preserve">
+    <value>შაბლონი</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>წარმატებულია</value>
+  </data>
+  <data name="ConfirmDialogTitle" xml:space="preserve">
+    <value>დათანხმება</value>
+  </data>
+  <data name="FileFailureErrorMessage" xml:space="preserve">
+    <value>ოპერაციის დასრულება წარუმატებულია.</value>
+  </data>
+  <data name="FileFailureErrorTitle" xml:space="preserve">
+    <value>ოპერაცია წარუმატებულია</value>
+  </data>
+  <data name="OverrideNameFormatCheckBox" xml:space="preserve">
+    <value>გადასაწერი სახელის ფორმატი:</value>
+  </data>
+  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
+    <value>შეძლებისდაგვარად ოროგინალის ფოლდერში დამახსოვრება</value>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>ფოლდერის სტრუქტურის შენარჩუნება მასიური კოდირებისას</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>ვიდეოს ფოლდერის კოდირებისას, ფაილების კოდირებული ვერსია დამახსოვრდება ქვე ფოლდერში, ორიგინალი ფოლდერის სტრუქტურის შესანარჩუნებლად.</value>
+  </data>
+  <data name="DismissMessage" xml:space="preserve">
+    <value>შეტყობინების დამალვა</value>
+    <comment>Appears as a tooltip on inline, dismissable messages</comment>
+  </data>
+  <data name="PresetFileFilter" xml:space="preserve">
+    <value>VidCoder-ის შაბლონის ფაილი</value>
+    <comment>File dialog description of a .vjpreset file: JSON file that stores an exported preset.</comment>
+  </data>
+  <data name="QueueFileFilter" xml:space="preserve">
+    <value>VidCoder-ის დავალების ფაილი</value>
+    <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>პირველი</value>
+    <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
+  
+</root>

@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="RefreshButton" xml:space="preserve">
+    <value>Odśwież</value>
+  </data>
+  <data name="ChooseFromProcessesLabel" xml:space="preserve">
+    <value>Wybierz z istniejących procesów:</value>
+  </data>
+  <data name="AddAutoPauseProcessDialogTitle" xml:space="preserve">
+    <value>Dodaj proces, przy którym nastąpi automatyczna pauza</value>
+  </data>
+  <data name="ProcessNameLabel" xml:space="preserve">
+    <value>Nazwa procesu:</value>
+  </data>
+  <data name="ExceptionDialogMainText" xml:space="preserve">
+    <value>Program VidCoder doświadczył nieoczekiwanego błędu.</value>
+  </data>
+  <data name="ExceptionDialogSubText" xml:space="preserve">
+    <value>Proszę zgłosić to, aby można to naprawić w przyszłości.</value>
+  </data>
+  <data name="ExceptionWindowTitle" xml:space="preserve">
+    <value>Wyjątek</value>
+  </data>
+  <data name="FileConflictDialogTitle" xml:space="preserve">
+    <value>Konflikt pliku</value>
+  </data>
+  <data name="OverwriteButton" xml:space="preserve">
+    <value>Nadpisz</value>
+  </data>
+  <data name="AutoRenameButton" xml:space="preserve">
+    <value>Automatyczna zmiana nazwy</value>
+  </data>
+  <data name="FileConflictWarning" xml:space="preserve">
+    <value>Plik już istnieje w {0}. Czy chcesz zastąpić plik, automatycznie znaleźć nową ścieżkę wyjściową do pracy kodowania lub anulować operację?</value>
+  </data>
+  <data name="QueueFileConflictWarning" xml:space="preserve">
+    <value>Zadanie kolejki już istnieje w ścieżce wyjściowej {0}. Czy chcesz zastąpić plik, automatycznie znaleźć nową ścieżkę wyjściową do pracy kodowania lub anulować operację?</value>
+  </data>
+  <data name="QueueColumnsDialogTitle" xml:space="preserve">
+    <value>Kolumny kolejki</value>
+  </data>
+  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
+    <value>Przeciągnij i upuść, aby dodać, usunąć lub zmienić kolejność kolumn.</value>
+  </data>
+  <data name="UnusedColumns" xml:space="preserve">
+    <value>Nieużywane kolumny</value>
+  </data>
+  <data name="UsedColumns" xml:space="preserve">
+    <value>Używane kolumny</value>
+  </data>
+  <data name="ScanMultipleWindowTitle" xml:space="preserve">
+    <value>Skanowanie...</value>
+  </data>
+  <data name="AboutVidCoderDialogTitle" xml:space="preserve">
+    <value>O programie VidCoder</value>
+  </data>
+  <data name="LicenseLabel" xml:space="preserve">
+    <value>Licencja:</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Wersja</value>
+  </data>
+  <data name="BasedOnHandBrake" xml:space="preserve">
+    <value>Oparty na HandBrake({0})</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>© {0} VidCoder Developers</value>
+  </data>
+  <data name="VersionFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
+    <comment>First is version, second is architecture. For example: 1.4.2 (x64)</comment>
+  </data>
+  <data name="BetaVersionFormat" xml:space="preserve">
+    <value>{0} Beta ({1})</value>
+    <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
+  </data>
+  <data name="NameDialogTitle" xml:space="preserve">
+    <value>Nazwa</value>
+    <comment>Title for dialog when  naming a preset or  picker</comment>
+  </data>
+  <data name="ChooseNamePreset" xml:space="preserve">
+    <value>Wybierz nazwę dla ustawień:</value>
+  </data>
+  <data name="ApplyUpdateDialogTitle" xml:space="preserve">
+    <value>Zastosowanie aktualizacji?</value>
+  </data>
+  <data name="ApplyUpdateDialogMessage" xml:space="preserve">
+    <value>Aktualizacja została pobrana. Czy chcesz ją zainstalować?</value>
+  </data>
+  <data name="ViewFullChangelog" xml:space="preserve">
+    <value>Zobacz pełną listę zmian</value>
+  </data>
+  <data name="DisableUpdatesButton" xml:space="preserve">
+    <value>Wyłącz aktualizacje</value>
+  </data>
+  <data name="NoticeMessageTitle" xml:space="preserve">
+    <value>Powiadomienie</value>
+  </data>
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>VidCoder nie jest obsługiwany w twoim systemie operacyjnym. Windows XP i Server 2003 przestały działać. Proszę zainstalować VidCoder 1.4 lub uaktualnij system operacyjny.</value>
+  </data>
+  <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
+    <value>Nadchodzące uśpienie</value>
+  </data>
+  <data name="EncodeCompleteWarning_LogOffTitle" xml:space="preserve">
+    <value>Nadchodzące wylogowanie</value>
+  </data>
+  <data name="EncodeCompleteWarning_ShutdownTitle" xml:space="preserve">
+    <value>Nadchodzące zamknięcie</value>
+  </data>
+  <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
+    <value>System zostanie uśpiony za {0} sekund.</value>
+  </data>
+  <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
+    <value>Zostaniesz wylogowany za {0} sekund.</value>
+  </data>
+  <data name="EncodeCompleteWarning_ShutdownMessage" xml:space="preserve">
+    <value>System zostanie zamknięty za {0} sekund.</value>
+  </data>
+  <data name="EncodeCompleteWarning_Title" xml:space="preserve">
+    <value>Enkodowanie zostało ukończone.</value>
+  </data>
+  <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+    <value>Nie można odnaleźć odtwarzacza wideo dla {0}.</value>
+  </data>
+  <data name="ErrorPlayingSource" xml:space="preserve">
+    <value>Błąd odtwarzania źródła.</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
+    <value>System przejdzie w stan hibernacji za {0} sekund(y).</value>
+  </data>
+  
+  <data name="ChooseNamePicker" xml:space="preserve">
+    <value>Wybierz nazwę dla próbnika:</value>
+  </data>
+</root>

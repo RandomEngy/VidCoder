@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
+    <value>Když je automatická volba audio stopy vypnuta, je použita naposledy vybraná varianta.</value>
+  </data>
+  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
+    <value>Když je automatická volba titulků vypnuta, tak je použita naposledy vybraná varianta.</value>
+  </data>
+  <data name="GeneralTab" xml:space="preserve">
+    <value>Obecné</value>
+  </data>
+  <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
+    <value>Minimalizovat do lišty úloh</value>
+  </data>
+  <data name="MinimizeToSystemTrayRadioButton" xml:space="preserve">
+    <value>Minimalizovat do oznamovací oblasti</value>
+  </data>
+  <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
+    <value>Přehrát zvuk po dokončení úloh ve frontě</value>
+  </data>
+  <data name="PreferredDvdPlayerLabel" xml:space="preserve">
+    <value>Preferovaný DVD přehrávač:</value>
+  </data>
+  <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
+    <value>Vyberte si přehrávač který chcete použít jako zdroj pro DVD.</value>
+  </data>
+  <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
+    <value>Automatická aktualizace</value>
+  </data>
+  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
+    <value>Připojte se k aktualizacím Beta verze</value>
+  </data>
+  <data name="FileNamingTab" xml:space="preserve">
+    <value>Pojmenovávání souborů</value>
+  </data>
+  <data name="DefaultFolderLabel" xml:space="preserve">
+    <value>Výchozí složka:</value>
+  </data>
+  <data name="FileFormatLabel" xml:space="preserve">
+    <value>Formát souboru:</value>
+  </data>
+  <data name="DefaultFormatRadioButton" xml:space="preserve">
+    <value>Výchozí formát</value>
+  </data>
+  <data name="CustomFormatRadioButton" xml:space="preserve">
+    <value>Vlastní formát:</value>
+  </data>
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Dostupné možnosti: {0}</value>
+  </data>
+  <data name="WhenFileAlreadyExists" xml:space="preserve">
+    <value>Pokud soubor již existuje...</value>
+  </data>
+  <data name="EncodingSingleFile" xml:space="preserve">
+    <value>Enkódování jednoho souboru:</value>
+  </data>
+  <data name="AskOverwriteRadioButton" xml:space="preserve">
+    <value>Zeptejte se jestli to chcete přepsat</value>
+  </data>
+  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
+    <value>Přepsat soubor bez výzvy</value>
+  </data>
+  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
+    <value>Automaticky přepnout na jiný název</value>
+  </data>
+  <data name="EncodingBatchOfFiles" xml:space="preserve">
+    <value>Enkódování skupiny souborů:</value>
+  </data>
+  <data name="OverwriteRadioButton" xml:space="preserve">
+    <value>Přepsat</value>
+  </data>
+  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
+    <value>Automaticky přejmenovat</value>
+  </data>
+  <data name="AutoPauseLabel" xml:space="preserve">
+    <value>Automaticky pozastavit enkódování pokud jsou některé tyto procesy spuštěny:</value>
+  </data>
+  <data name="AddEllipsesButton" xml:space="preserve">
+    <value>Přidat...</value>
+  </data>
+  <data name="PreviewCountLabel" xml:space="preserve">
+    <value>Počet obrázků pro náhled:</value>
+  </data>
+  <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
+    <value>Pamatovat dříve použité soubory a složky</value>
+  </data>
+  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
+    <value>Povolit nastavení vlastního názvu audio stop (omezená podpora přehrávačů)</value>
+  </data>
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>Povolit LibDVDNav (změna vyžaduje restart programu)</value>
+  </data>
+  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
+    <value>Smazat zdrojové soubory po vymazání úspěšně dokončené položky (musí být potvrzeno)</value>
+  </data>
+  <data name="LoggingVerbosityLabel" xml:space="preserve">
+    <value>Úroveň logování:</value>
+  </data>
+  <data name="MinScanLengthLabel" xml:space="preserve">
+    <value>Minimální délka videa pro načtení (sekundy):</value>
+  </data>
+  <data name="RecognizedExtensionsLabel" xml:space="preserve">
+    <value>Přípustné přípony souborů:</value>
+  </data>
+  <data name="RecognizedExtensionsToolTip" xml:space="preserve">
+    <value>Při načítání složky s video soubory přidat soubory s touto příponou. (Oddělené čárkou)</value>
+  </data>
+  <data name="OptionsDialogTitle" xml:space="preserve">
+    <value>Možnosti</value>
+  </data>
+  <data name="ProcessTab" xml:space="preserve">
+    <value>Proces</value>
+  </data>
+  <data name="AdvancedTab" xml:space="preserve">
+    <value>Pokročilé</value>
+  </data>
+  <data name="BetaUpdatesInBeta" xml:space="preserve">
+    <value>Používáte Beta verzi kterou lze používat součastně se stabilní verzi.</value>
+  </data>
+  <data name="BetaUpdatesNonBeta" xml:space="preserve">
+    <value>Připojte se k testování Beta verzí s vyšší frekvencí aktualizací</value>
+  </data>
+  <data name="UpdateReadyStatus" xml:space="preserve">
+    <value>Aktualizace {0} připravena. Instalace bude zahájena po ukončení programu.</value>
+  </data>
+  <data name="DownloadingStatus" xml:space="preserve">
+    <value>Stahování aktualizace {0}:</value>
+  </data>
+  <data name="UpToDateStatus" xml:space="preserve">
+    <value>VidCoder je aktualizován.</value>
+  </data>
+  <data name="ChooseDefaultOutputFolder" xml:space="preserve">
+    <value>Zvolte výchozí adresář pro uložení enkódovaných video souborů.</value>
+  </data>
+  <data name="InterfaceLanguageLabel" xml:space="preserve">
+    <value>Jazyk rozhraní:</value>
+  </data>
+  <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
+    <value>Nastavení nového Jazyka se projeví až po restartování aplikace VidCoder.</value>
+  </data>
+  <data name="UseOSLanguage" xml:space="preserve">
+    <value>Použít jazyk OS</value>
+  </data>
+  <data name="UpdatesTab" xml:space="preserve">
+    <value>Aktualizace</value>
+  </data>
+  <data name="DownloadingInfoStatus" xml:space="preserve">
+    <value>Zjištění poslední verze...</value>
+  </data>
+  <data name="UpdateFailedStatus" xml:space="preserve">
+    <value>Kontrola aktualizace se nezdařila.</value>
+  </data>
+  <data name="CompletionWavFilePickTitle" xml:space="preserve">
+    <value>Vyberte .wav soubor který chcete použit pro konečnou zvukovou stopu.</value>
+  </data>
+  <data name="CurrentVersionLabel" xml:space="preserve">
+    <value>Aktuální verze: {0}</value>
+  </data>
+  <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
+    <value>Upozornění: Tato verze může obsahovat chyby vedoucí až k pádu aplikace.</value>
+  </data>
+  <data name="LanguagesSection" xml:space="preserve">
+    <value>Jazyky</value>
+  </data>
+  <data name="PlayersSection" xml:space="preserve">
+    <value>Přehrávače</value>
+  </data>
+  <data name="SoundSection" xml:space="preserve">
+    <value>Zvuk</value>
+  </data>
+  <data name="SystemTraySection" xml:space="preserve">
+    <value>Oznamovací oblast</value>
+  </data>
+  <data name="OutputFolderSection" xml:space="preserve">
+    <value>Výstupní složka</value>
+  </data>
+  <data name="NamingFormatSection" xml:space="preserve">
+    <value>Formát pojmenování</value>
+  </data>
+  <data name="AdvancedOptionsSection" xml:space="preserve">
+    <value>Pokročilé možnosti</value>
+  </data>
+  <data name="ScanningSection" xml:space="preserve">
+    <value>Načítání</value>
+  </data>
+  <data name="LoggingSection" xml:space="preserve">
+    <value>Logování</value>
+  </data>
+  <data name="DvdReadingSection" xml:space="preserve">
+    <value>Čtení DVD</value>
+  </data>
+  <data name="UpdatesSection" xml:space="preserve">
+    <value>Aktualizace</value>
+  </data>
+  <data name="UpdateStatusSection" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="BetaSection" xml:space="preserve">
+    <value>Beta</value>
+  </data>
+  <data name="UseCustomWavLabel" xml:space="preserve">
+    <value>Použít vlastní .wav soubor:</value>
+  </data>
+  <data name="CheckNowButton" xml:space="preserve">
+    <value>Nyní zkontrolovat</value>
+  </data>
+  <data name="UseSystemPlayer" xml:space="preserve">
+    <value>Použít přehrávač systému</value>
+  </data>
+  <data name="VideoFilesLabel" xml:space="preserve">
+    <value>Video soubory:</value>
+  </data>
+  <data name="CustomVideoPlayerToolTip" xml:space="preserve">
+    <value>Zadejte cestu k přehrávači videa který chcete používat pro tyto soubory.</value>
+  </data>
+  <data name="VideoPlayerFilePickTitle" xml:space="preserve">
+    <value>Vyberte si přehrávač pro video soubory.</value>
+  </data>
+  <data name="CustomPlayerLabel" xml:space="preserve">
+    <value>Vlastní přehrávač:</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Vysoká</value>
+  </data>
+  <data name="Priority_AboveNormal" xml:space="preserve">
+    <value>Vyšší než normální</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Normální</value>
+  </data>
+  <data name="Priority_BelowNormal" xml:space="preserve">
+    <value>Nižší než normální</value>
+  </data>
+  <data name="WorkerProcessPriorityLabel" xml:space="preserve">
+    <value>Priorita pracovního procesu:</value>
+  </data>
+  <data name="Priority_Idle" xml:space="preserve">
+    <value>Nízká</value>
+  </data>
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+    <value>Zkopírovat log enkódování do stejného adresáře jako enkódované video</value>
+  </data>
+  <data name="OpenLogFolderButton" xml:space="preserve">
+    <value>Otevřít složku logu</value>
+  </data>
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+    <value>Automaticky obnovit enkódování při restartu</value>
+  </data>
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
+    <value>Použit pracovní proces pro enkódování</value>
+  </data>
+  <data name="VideoSection" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="DxvaDecodingCheckBox" xml:space="preserve">
+    <value>Povolit DXVA dekódování s hardwarovým urychlením</value>
+  </data>
+  <data name="DxvaDecodingToolTip" xml:space="preserve">
+    <value>Tato možnost je vhodná pouze pro pomalejší systémy. Hardwarové dekodéry jsou v současnosti navrženy pro přehrávání a ne pro re-enkódování videa a tak na rychlejších systémech může docházet k chybám.</value>
+  </data>
+  <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+    <value>Při převodu souborů zachovat vytvořený a změněný čas</value>
+  </data>
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+    <value>Vlastní složka pro náhledy:</value>
+  </data>
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>Možnosti procesu</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>Výkon CPU:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>Použít řízení výkonu CPU k omezení počtu procesorových jader který může VidCoder použít při enkódování.</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>Použít vestavěný přehrávač pro náhledy</value>
+  </data>
+</root>

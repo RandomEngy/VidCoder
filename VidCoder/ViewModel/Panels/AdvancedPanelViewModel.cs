@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
-using HandBrake.Interop;
+using HandBrake.ApplicationServices.Interop;
+using ReactiveUI;
+using VidCoder.Extensions;
+using VidCoder.Services;
 
 namespace VidCoder.ViewModel
 {
-	using GalaSoft.MvvmLight.Messaging;
-	using Messages;
-
 	public class AdvancedPanelViewModel : PanelViewModel
 	{
+		private PresetsService presetsService = Ioc.Get<PresetsService>();
+
 		private AdvancedChoice referenceFrames;
 		private AdvancedChoice bFrames;
 		private AdvancedChoice adaptiveBFrames;
@@ -31,8 +34,6 @@ namespace VidCoder.ViewModel
 		private AdvancedChoice deblockingThreshold;
 		private bool noDctDecimate;
 
-		private bool suppressUIUpdate;
-
 		/// <summary>
 		/// X264 options that have UI elements that correspond to them.
 		/// </summary>
@@ -42,36 +43,70 @@ namespace VidCoder.ViewModel
 			"analyse", "8x8dct", "cabac", "trellis", "aq-strength", "psy-rd", "no-dct-decimate", "deblock"
 		};
 
-		public AdvancedPanelViewModel(EncodingViewModel encodingViewModel)
-			: base(encodingViewModel)
+		public AdvancedPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
+			: base(encodingWindowViewModel)
 		{
-			Messenger.Default.Register<AdvancedOptionsChangedMessage>(
-				this,
-				message =>
-					{
-						if (!this.suppressUIUpdate)
-						{
-							this.UpdateUIFromAdvancedOptions();
-						}
-
-						this.RaisePropertyChanged(() => this.AdvancedOptionsString);
-					});
-
-			Messenger.Default.Register<VideoCodecChangedMessage>(
-				this,
-				message =>
-					{
-						this.RaisePropertyChanged(() => this.X264CodecSelected);
-					});
-		}
-
-		public bool X264CodecSelected
-		{
-			get
+			// X264CodecSelected
+			this.presetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.VideoEncoder, videoEncoder =>
 			{
-				return this.Profile.VideoEncoder == "x264";
-			}
+				return videoEncoder == "x264";
+			}).ToProperty(this, x => x.X264CodecSelected, out this.x264CodecSelected);
+
+			// BFramesOptionsVisible
+			this.WhenAnyValue(x => x.BFrames, bFrames =>
+			{
+				if (bFrames == null)
+				{
+					return false;
+				}
+
+				return bFrames.Value != "0";
+			}).ToProperty(this, x => x.BFramesOptionsVisible, out this.bFramesOptionsVisible);
+
+			// PyramidalBFramesVisible
+			this.WhenAnyValue(x => x.BFrames, bFrames =>
+			{
+				if (bFrames == null)
+				{
+					return false;
+				}
+
+				return int.Parse(bFrames.Value) > 1;
+			}).ToProperty(this, x => x.PyramidalBFramesVisible, out this.pyramidalBFramesVisible);
+
+			// EightByEightDctVisible
+			this.WhenAnyValue(x => x.Analysis, analysis =>
+			{
+				if (analysis == null)
+				{
+					return false;
+				}
+
+				return analysis.Value != "none";
+			}).ToProperty(this, x => x.EightByEightDctVisible, out this.eightByEightDctVisible);
+
+			// PsychovisualTrellisVisible
+			this.WhenAnyValue(x => x.CabacEntropyCoding, x => x.Trellis, (cabacEntropyCoding, trellis) =>
+			{
+				return cabacEntropyCoding && trellis.Value != "0";
+			}).ToProperty(this, x => x.PsychovisualTrellisVisible, out this.psychovisualTrellisVisible);
+
+			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.VideoOptions)
+				.Subscribe(_ =>
+				{
+					if (!this.updatingLocalVideoOptions)
+					{
+						this.RaisePropertyChanged(nameof(this.VideoOptions));
+					}
+
+					this.UpdateUIFromAdvancedOptions();
+				});
+
+			this.RegisterProfileProperty(nameof(this.Profile.VideoOptions));
 		}
+
+		private ObservableAsPropertyHelper<bool> x264CodecSelected;
+		public bool X264CodecSelected => this.x264CodecSelected.Value;
 
 		public AdvancedChoice ReferenceFrames
 		{
@@ -83,8 +118,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.referenceFrames = value;
-				this.RaisePropertyChanged(() => this.ReferenceFrames);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
@@ -98,20 +132,12 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.bFrames = value;
-				this.RaisePropertyChanged(() => this.BFrames);
-				this.RaisePropertyChanged(() => this.BFramesOptionsVisible);
-				this.RaisePropertyChanged(() => this.PyramidalBFramesVisible);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
-		public bool BFramesOptionsVisible
-		{
-			get
-			{
-				return this.BFrames.Value != "0";
-			}
-		}
+		private ObservableAsPropertyHelper<bool> bFramesOptionsVisible;
+		public bool BFramesOptionsVisible => this.bFramesOptionsVisible.Value;
 
 		public AdvancedChoice AdaptiveBFrames
 		{
@@ -123,8 +149,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.adaptiveBFrames = value;
-				this.RaisePropertyChanged(() => this.AdaptiveBFrames);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
@@ -138,8 +163,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.directPrediction = value;
-				this.RaisePropertyChanged(() => this.DirectPrediction);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
@@ -153,8 +177,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.weightedPFrames = value;
-				this.RaisePropertyChanged(() => this.WeightedPFrames);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
@@ -168,18 +191,12 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.pyramidalBFrames = value;
-				this.RaisePropertyChanged(() => this.PyramidalBFrames);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
-		public bool PyramidalBFramesVisible
-		{
-			get
-			{
-				return int.Parse(this.BFrames.Value) > 1;
-			}
-		}
+		private ObservableAsPropertyHelper<bool> pyramidalBFramesVisible;
+		public bool PyramidalBFramesVisible => this.pyramidalBFramesVisible.Value;
 
 		public AdvancedChoice MotionEstimationMethod
 		{
@@ -192,9 +209,9 @@ namespace VidCoder.ViewModel
 			{
 				this.motionEstimationMethod = value;
 				this.CheckMotionEstimationRange();
-				this.RaisePropertyChanged(() => this.MotionEstimationMethod);
-				this.RaisePropertyChanged(() => this.MotionEstimationRange);
-				this.UpdateOptionsString();
+				this.RaisePropertyChanged(nameof(this.MotionEstimationRange));
+
+				this.UpdateAdvancedProperty();
 			}
 		}
 
@@ -208,8 +225,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.subpixelMotionEstimation = value;
-				this.RaisePropertyChanged(() => this.SubpixelMotionEstimation);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
@@ -226,8 +242,7 @@ namespace VidCoder.ViewModel
 				this.motionEstimationRange = value;
 				this.CheckMotionEstimationRange();
 
-				this.RaisePropertyChanged(() => this.MotionEstimationRange);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
@@ -253,9 +268,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.analysis = value;
-				this.RaisePropertyChanged(() => this.Analysis);
-				this.RaisePropertyChanged(() => this.EightByEightDctVisible);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
@@ -269,18 +282,12 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.eightByEightDct = value;
-				this.RaisePropertyChanged(() => this.EightByEightDct);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
-		public bool EightByEightDctVisible
-		{
-			get
-			{
-				return this.Analysis.Value != "none";
-			}
-		}
+		private ObservableAsPropertyHelper<bool> eightByEightDctVisible;
+		public bool EightByEightDctVisible => this.eightByEightDctVisible.Value;
 
 		public bool CabacEntropyCoding
 		{
@@ -292,9 +299,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.cabacEntropyCoding = value;
-				this.RaisePropertyChanged(() => this.CabacEntropyCoding);
-				this.RaisePropertyChanged(() => this.PsychovisualTrellisVisible);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
@@ -308,9 +313,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.trellis = value;
-				this.RaisePropertyChanged(() => this.Trellis);
-				this.RaisePropertyChanged(() => this.PsychovisualTrellisVisible);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
@@ -323,8 +326,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.adaptiveQuantizationStrength = value;
-				this.RaisePropertyChanged(() => this.AdaptiveQuantizationStrength);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
@@ -338,8 +340,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.psychovisualRateDistortion = value;
-				this.RaisePropertyChanged(() => this.PsychovisualRateDistortion);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
@@ -353,18 +354,12 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.psychovisualTrellis = value;
-				this.RaisePropertyChanged(() => this.PsychovisualTrellis);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
-		public bool PsychovisualTrellisVisible
-		{
-			get
-			{
-				return this.CabacEntropyCoding && this.Trellis.Value != "0";
-			}
-		}
+		private ObservableAsPropertyHelper<bool> psychovisualTrellisVisible;
+		public bool PsychovisualTrellisVisible => this.psychovisualTrellisVisible.Value;
 
 		public AdvancedChoice DeblockingStrength
 		{
@@ -376,8 +371,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.deblockingStrength = value;
-				this.RaisePropertyChanged(() => this.DeblockingStrength);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
@@ -391,8 +385,7 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.deblockingThreshold = value;
-				this.RaisePropertyChanged(() => this.DeblockingThreshold);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
@@ -406,29 +399,24 @@ namespace VidCoder.ViewModel
 			set
 			{
 				this.noDctDecimate = value;
-				this.RaisePropertyChanged(() => this.NoDctDecimate);
-				this.UpdateOptionsString();
+				this.UpdateAdvancedProperty();
 			}
 		}
 
-		public string AdvancedOptionsString
-		{
-			get
-			{
-				return this.Profile.VideoOptions;
-			}
+		private bool updatingLocalVideoOptions;
 
+		public string VideoOptions
+		{
+			get { return this.Profile.VideoOptions; }
 			set
 			{
-				this.Profile.VideoOptions = value;
-
-				// UI update and property notification will happen in response to the message
-				Messenger.Default.Send(new AdvancedOptionsChangedMessage());
-				this.IsModified = true;
+				this.updatingLocalVideoOptions = true;
+				this.UpdateProfileProperty(nameof(this.Profile.VideoOptions), value);
+				this.updatingLocalVideoOptions = false;
 			}
 		}
 
-		public void UpdateUIFromAdvancedOptions()
+		private void UpdateUIFromAdvancedOptions()
 		{
 			this.AutomaticChange = true;
 
@@ -656,6 +644,12 @@ namespace VidCoder.ViewModel
 			this.NoDctDecimate = false;
 		}
 
+		private void UpdateAdvancedProperty([CallerMemberName] string callerName = null)
+		{
+			this.RaisePropertyChanged(callerName);
+			this.UpdateOptionsString();
+		}
+
 		/// <summary>
 		/// Update the x264 options string from a UI change.
 		/// </summary>
@@ -669,9 +663,9 @@ namespace VidCoder.ViewModel
 			List<string> newOptions = new List<string>();
 
 			// First add any parts of the options string that don't correspond to the UI
-			if (this.AdvancedOptionsString != null)
+			if (this.VideoOptions != null)
 			{
-				string[] existingSegments = this.AdvancedOptionsString.Split(':');
+				string[] existingSegments = this.VideoOptions.Split(':');
 				foreach (string existingSegment in existingSegments)
 				{
 					string optionName = existingSegment;
@@ -783,20 +777,7 @@ namespace VidCoder.ViewModel
 				newOptions.Add("deblock=" + this.DeblockingStrength.Value + "," + this.DeblockingThreshold.Value);
 			}
 
-			this.Profile.VideoOptions = string.Join(":", newOptions);
-
-			// Send the message about the advanced options changing, but suppress any UI updates from it.
-			this.suppressUIUpdate = true;
-			Messenger.Default.Send(new AdvancedOptionsChangedMessage());
-			//this.RaisePropertyChanged(() => this.AdvancedOptionsString);
-			this.suppressUIUpdate = false;
-
-			this.IsModified = true;
-		}
-
-		public void NotifyAllChanged()
-		{
-			this.RaisePropertyChanged(() => this.AdvancedOptionsString);
+			this.VideoOptions = string.Join(":", newOptions);
 		}
 	}
 }

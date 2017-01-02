@@ -1,61 +1,66 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
+using VidCoder.Model;
+using VidCoder.Resources;
+using VidCoder.ViewModel;
 
 namespace VidCoder.Services
 {
-	using System.IO;
-	using Model;
-	using Resources;
-	using ViewModel;
-	using ViewModel.Components;
-
 	public class QueueImportExport : IQueueImportExport
 	{
 		private IFileService fileService;
 		private IMessageBoxService messageBoxService;
-		private ProcessingViewModel processingViewModel = Ioc.Container.GetInstance<ProcessingViewModel>();
+		private ProcessingService processingService = Ioc.Get<ProcessingService>();
+		private IAppLogger logger;
 
-		public QueueImportExport(IFileService fileService, IMessageBoxService messageBoxService)
+		public QueueImportExport(IFileService fileService, IMessageBoxService messageBoxService, IAppLogger logger)
 		{
 			this.fileService = fileService;
 			this.messageBoxService = messageBoxService;
+			this.logger = logger;
 		}
 
-		public void Import(string queueFile)
+		public IList<EncodeJobWithMetadata> Import(string queueFile)
 		{
-			IList<EncodeJobWithMetadata> jobs = EncodeJobsPersist.LoadQueueFile(queueFile);
-			if (jobs == null)
+			try
 			{
-				this.messageBoxService.Show(MainRes.QueueImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
-				return;
-			}
+				IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.LoadQueueFile(queueFile);
+				if (jobs == null)
+				{
+					throw new ArgumentException("Queue file is malformed.");
+				}
 
-			foreach (var job in jobs)
+				foreach (var job in jobs)
+				{
+					this.processingService.Queue(new EncodeJobViewModel(job.Job)
+						{
+							SourceParentFolder = job.SourceParentFolder,
+							ManualOutputPath = job.ManualOutputPath,
+							NameFormatOverride = job.NameFormatOverride,
+							PresetName = job.PresetName
+						});
+				}
+
+				return jobs;
+			}
+			catch (Exception exception)
 			{
-				this.processingViewModel.Queue(new EncodeJobViewModel(job.Job)
-					{
-						SourceParentFolder = job.SourceParentFolder,
-						ManualOutputPath = job.ManualOutputPath,
-						NameFormatOverride = job.NameFormatOverride,
-						PresetName = job.PresetName
-					});
+				this.logger.LogError("Queue import failed: " + exception.Message);
+				throw;
 			}
-
-			this.messageBoxService.Show(MainRes.QueueImportSuccessMessage, CommonRes.Success, System.Windows.MessageBoxButton.OK);
 		}
 
-		public void Export(IList<EncodeJobWithMetadata> jobPersistGroup)
+		public void Export(IList<EncodeJobWithMetadata> jobs)
 		{
 			string initialFileName = "Queue";
 
 			string exportFileName = this.fileService.GetFileNameSave(
 				Config.RememberPreviousFiles ? Config.LastPresetExportFolder : null,
 				MainRes.ExportQueueFilePickerText,
-				Utilities.CleanFileName(initialFileName + ".xml"),
-				"xml",
-				Utilities.GetFilePickerFilter("xml"));
+				FileUtilities.CleanFileName(initialFileName + ".vjqueue"),
+				"vjqueue",
+				CommonRes.QueueFileFilter + "|*.vjqueue");
 			if (exportFileName != null)
 			{
 				if (Config.RememberPreviousFiles)
@@ -63,7 +68,7 @@ namespace VidCoder.Services
 					Config.LastPresetExportFolder = Path.GetDirectoryName(exportFileName);
 				}
 
-				if (EncodeJobsPersist.SaveQueueToFile(jobPersistGroup, exportFileName))
+				if (EncodeJobStorage.SaveQueueToFile(jobs, exportFileName))
 				{
 					this.messageBoxService.Show(
 						string.Format(MainRes.QueueExportSuccessMessage, exportFileName),

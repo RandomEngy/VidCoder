@@ -2,44 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using VidCoderCommon;
+using VidCoderCommon.Services;
 
 namespace VidCoderWorker
 {
-	using System.Diagnostics;
-	using System.IO;
-
-	public class WorkerLogger
+	public class WorkerLogger : ILogger
 	{
-		private static object logLock = new object();
-		private static bool initialized;
+		private readonly IHandBrakeWorkerCallback callback;
 
-		public static void Log(string message, bool isError)
+		public WorkerLogger(IHandBrakeWorkerCallback callback)
 		{
-			lock (logLock)
-			{
-				var workerLogsDirectory = Path.Combine(Path.GetTempPath(), "VidCoderWorkerLogs");
-				if (!Directory.Exists(workerLogsDirectory))
-				{
-					Directory.CreateDirectory(workerLogsDirectory);
-				}
+			this.callback = callback;
+		}
 
-				var logFileName = Path.Combine(workerLogsDirectory, Process.GetCurrentProcess().Id + ".txt");
+		public void Log(string message)
+		{
+			this.callback.OnMessageLogged(message);
+		}
 
-				if (!initialized)
-				{
-					if (File.Exists(logFileName))
-					{
-						File.Delete(logFileName);
-					}
-
-					initialized = true;
-				}
-
-				using (var writer = new StreamWriter(logFileName, append: true))
-				{
-					writer.WriteLine("[" + DateTimeOffset.UtcNow.ToString("o") + "] " + message);
-				}
-			}
+		public void LogError(string message)
+		{
+			this.callback.OnErrorLogged(message);
 		}
 	}
 }

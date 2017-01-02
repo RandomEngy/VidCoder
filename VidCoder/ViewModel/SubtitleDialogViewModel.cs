@@ -1,43 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using HandBrake.Interop.Model;
-using HandBrake.Interop.Model.Encoding;
-using HandBrake.Interop.SourceData;
 using System.IO;
-using VidCoder.Model.Encoding;
+using System.Linq;
+using System.Reactive.Linq;
+using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using VidCoder.Resources;
 using VidCoder.Services;
-using VidCoder.ViewModel.Components;
+using VidCoderCommon.Model;
+using ReactiveUI;
+using VidCoder.Model;
 
 namespace VidCoder.ViewModel
 {
-	using Resources;
-	using Model;
-
 	public class SubtitleDialogViewModel : OkCancelDialogViewModel
 	{
-		private ObservableCollection<SourceSubtitleViewModel> sourceSubtitles;
-		private ObservableCollection<SrtSubtitleViewModel> srtSubtitles;
+		private ReactiveList<SourceSubtitleViewModel> sourceSubtitles;
+		private ReactiveList<SrtSubtitleViewModel> srtSubtitles;
 
 		private HBContainer container;
-		private bool defaultsEnabled;
 
-		private bool textSubtitleWarningVisible;
-		private bool burnedOverlapWarningVisible;
+		private MainViewModel mainViewModel = Ioc.Get<MainViewModel>();
+		private PresetsService presetsService = Ioc.Get<PresetsService>();
+		private IAppLogger logger = Ioc.Get<IAppLogger>();
 
-		private MainViewModel mainViewModel = Ioc.Container.GetInstance<MainViewModel>();
-		private PresetsViewModel presetsViewModel = Ioc.Container.GetInstance<PresetsViewModel>();
-
-		public SubtitleDialogViewModel(Subtitles currentSubtitles)
+		public SubtitleDialogViewModel(VCSubtitles currentSubtitles)
 		{
-			this.container = Encoders.GetContainer(this.presetsViewModel.SelectedPreset.Preset.EncodingProfile.ContainerName);
+			this.container = HandBrakeEncoderHelpers.GetContainer(this.presetsService.SelectedPreset.Preset.EncodingProfile.ContainerName);
 
-			this.sourceSubtitles = new ObservableCollection<SourceSubtitleViewModel>();
-			this.srtSubtitles = new ObservableCollection<SrtSubtitleViewModel>();
+			this.sourceSubtitles = new ReactiveList<SourceSubtitleViewModel>();
+			this.srtSubtitles = new ReactiveList<SrtSubtitleViewModel>();
 
 			if (currentSubtitles != null)
 			{
@@ -50,7 +43,7 @@ namespace VidCoder.ViewModel
 								{
 									TrackNumber = 0,
 									BurnedIn = false,
-									Forced = false,
+									ForcedOnly = false,
 									Default = false
 								}));
 				}
@@ -67,54 +60,65 @@ namespace VidCoder.ViewModel
 			}
 
 			// Fill in remaining unselected source subtitles
-			foreach (Subtitle subtitle in this.mainViewModel.SelectedTitle.Subtitles)
+			for (int i = 1; i <= this.mainViewModel.SelectedTitle.SubtitleList.Count; i++)
 			{
-				if (!currentSubtitles.SourceSubtitles.Any(s => s.TrackNumber == subtitle.TrackNumber))
+				if (!currentSubtitles.SourceSubtitles.Any(s => s.TrackNumber == i))
 				{
 					var newSubtitle = new SourceSubtitle
-					    {
-					        TrackNumber = subtitle.TrackNumber,
-					        Default = false,
-					        Forced = false,
-					        BurnedIn = false
-					    };
+					{
+						TrackNumber = i,
+						Default = false,
+						ForcedOnly = false,
+						BurnedIn = false
+					};
 
 					this.sourceSubtitles.Add(new SourceSubtitleViewModel(this, newSubtitle));
 				}
 			}
 
-			this.sourceSubtitles.CollectionChanged += this.SourceCollectionChanged;
-			this.srtSubtitles.CollectionChanged += this.SrtCollectionChanged;
+			// HasSourceSubtitles
+			this.sourceSubtitles.CountChanged.Select(count => count > 0)
+				.ToProperty(this, x => x.HasSourceSubtitles, out this.hasSourceSubtitles, initialValue: this.sourceSubtitles.Count > 0);
+
+			// AddSourceSubtitleToolTip
+			this.mainViewModel
+				.WhenAnyValue(x => x.SelectedTitle)
+				.Select(selectedTitle =>
+				{
+					if (selectedTitle == null || selectedTitle.SubtitleList.Count == 0)
+					{
+						return SubtitleRes.AddSourceNoSubtitlesToolTip;
+					}
+
+					return null;
+				})
+				.ToProperty(this, x => x.AddSourceSubtitleToolTip, out this.addSourceSubtitleToolTip);
+
+			// HasSrtSubtitles
+			this.srtSubtitles.CountChanged.Select(count => count > 0)
+				.ToProperty(this, x => x.HasSrtSubtitles, out this.hasSrtSubtitles, initialValue: this.srtSubtitles.Count > 0);
+
+			this.AddSrtSubtitle = ReactiveCommand.Create();
+			this.AddSrtSubtitle.Subscribe(_ => this.AddSrtSubtitleImpl());
 
 			this.UpdateBoxes();
 		}
 
-		private void SourceCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-		{
-			this.RaisePropertyChanged(() => this.HasSourceSubtitles);
-			this.RaisePropertyChanged(() => this.AddSourceSubtitleToolTip);
-		}
-
-		private void SrtCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-		{
-			this.RaisePropertyChanged(() => this.HasSrtSubtitles);
-		}
-
-		public ObservableCollection<SourceSubtitleViewModel> SourceSubtitles
+		public ReactiveList<SourceSubtitleViewModel> SourceSubtitles
 		{
 			get { return this.sourceSubtitles; }
 		}
 
-		public ObservableCollection<SrtSubtitleViewModel> SrtSubtitles
+		public ReactiveList<SrtSubtitleViewModel> SrtSubtitles
 		{
 			get { return this.srtSubtitles; }
 		}
 
-		public Subtitles ChosenSubtitles
+		public VCSubtitles ChosenSubtitles
 		{
 			get
 			{
-				Subtitles subtitlesModel = new Subtitles();
+				VCSubtitles subtitlesModel = new VCSubtitles();
 
 				List<SrtSubtitle> srtSubtitlesModel = new List<SrtSubtitle>();
 				foreach (SrtSubtitleViewModel srtSubtitleModel in this.srtSubtitles)
@@ -138,105 +142,85 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public bool HasSourceSubtitles
+		private ObservableAsPropertyHelper<bool> hasSourceSubtitles;
+		public bool HasSourceSubtitles => this.hasSourceSubtitles.Value;
+
+		private ObservableAsPropertyHelper<bool> hasSrtSubtitles;
+		public bool HasSrtSubtitles => this.hasSrtSubtitles.Value;
+
+		private bool textSubtitleWarningVisible;
+		public bool TextSubtitleWarningVisible
 		{
-			get
-			{
-				return this.sourceSubtitles.Count > 0;
-			}
+			get { return this.textSubtitleWarningVisible; }
+			set { this.RaiseAndSetIfChanged(ref this.textSubtitleWarningVisible, value); }
 		}
 
-		public bool HasSrtSubtitles
-		{
-			get
-			{
-				return this.srtSubtitles.Count > 0;
-			}
-		}
-
-		public bool TextSubtitleWarningVisibile
-		{
-			get
-			{
-				return this.textSubtitleWarningVisible;
-			}
-
-			set
-			{
-				this.textSubtitleWarningVisible = value;
-				this.RaisePropertyChanged(() => this.TextSubtitleWarningVisibile);
-			}
-		}
-
+		private bool burnedOverlapWarningVisible;
 		public bool BurnedOverlapWarningVisible
 		{
-			get
-			{
-				return this.burnedOverlapWarningVisible;
-			}
-
-			set
-			{
-				this.burnedOverlapWarningVisible = value;
-				this.RaisePropertyChanged(() => this.BurnedOverlapWarningVisible);
-			}
+			get { return this.burnedOverlapWarningVisible; }
+			set { this.RaiseAndSetIfChanged(ref this.burnedOverlapWarningVisible, value); }
 		}
 
+		private bool defaultsEnabled;
 		public bool DefaultsEnabled
 		{
-			get
-			{
-				return this.defaultsEnabled;
-			}
-
-			set
-			{
-				this.defaultsEnabled = value;
-				this.RaisePropertyChanged(() => this.DefaultsEnabled);
-			}
+			get { return this.defaultsEnabled; }
+			set { this.RaiseAndSetIfChanged(ref this.defaultsEnabled, value); }
 		}
 
-		private RelayCommand addSrtSubtitleCommand;
-		public RelayCommand AddSrtSubtitleCommand
+		public ReactiveCommand<object> AddSrtSubtitle { get; }
+		private void AddSrtSubtitleImpl()
 		{
-			get
+			string srtFile = FileService.Instance.GetFileNameLoad(
+				Config.RememberPreviousFiles ? Config.LastSrtFolder : null,
+				SubtitleRes.SrtFilePickerText,
+				Utilities.GetFilePickerFilter("srt"));
+
+			if (srtFile != null)
 			{
-				return this.addSrtSubtitleCommand ?? (this.addSrtSubtitleCommand = new RelayCommand(() =>
-					{
-						string srtFile = FileService.Instance.GetFileNameLoad(
-							Config.RememberPreviousFiles ? Config.LastSrtFolder : null,
-							SubtitleRes.SrtFilePickerText,
-							"srt",
-							"SRT Files |*.srt");
-
-						if (srtFile != null)
-						{
-							if (Config.RememberPreviousFiles)
-							{
-								Config.LastSrtFolder = Path.GetDirectoryName(srtFile);
-							}
-
-							SrtSubtitle newSubtitle = new SrtSubtitle { FileName = srtFile, Default = false, CharacterCode = "UTF-8", LanguageCode = "eng", Offset = 0 };
-							this.srtSubtitles.Add(new SrtSubtitleViewModel(this, newSubtitle));
-						}
-
-						this.UpdateWarningVisibility();
-					}));
-			}
-		}
-
-		public string AddSourceSubtitleToolTip
-		{
-			get
-			{
-				if (this.mainViewModel.SelectedTitle == null || this.mainViewModel.SelectedTitle.Subtitles.Count == 0)
+				if (Config.RememberPreviousFiles)
 				{
-					return SubtitleRes.AddSourceNoSubtitlesToolTip;
+					Config.LastSrtFolder = Path.GetDirectoryName(srtFile);
 				}
 
-				return null;
+				string characterCode = null;
+				using (FileStream srtFileStream = File.OpenRead(srtFile))
+				{
+					Ude.CharsetDetector detector = new Ude.CharsetDetector();
+					detector.Feed(srtFileStream);
+					detector.DataEnd();
+					if (detector.Charset != null)
+					{
+						this.logger.Log($"Detected encoding {detector.Charset} for {srtFile} with confidence {detector.Confidence}.");
+						characterCode = CharCode.FromUdeCode(detector.Charset);
+
+						if (characterCode == null)
+						{
+							this.logger.Log("Detected encoding does not match with any available encoding.");
+						}
+						else
+						{
+							this.logger.Log("Picked encoding " + characterCode);
+						}
+					}
+
+					if (characterCode == null)
+					{
+						Ioc.Get<IMessageBoxService>().Show(this, SubtitleRes.SubtitleCharsetDetectionFailedMessage);
+						characterCode = "UTF-8";
+					}
+				}
+
+				SrtSubtitle newSubtitle = new SrtSubtitle { FileName = srtFile, Default = false, CharacterCode = characterCode, LanguageCode = LanguageUtilities.GetDefaultLanguageCode(), Offset = 0 };
+				this.srtSubtitles.Add(new SrtSubtitleViewModel(this, newSubtitle));
 			}
+
+			this.UpdateWarningVisibility();
 		}
+
+		private ObservableAsPropertyHelper<string> addSourceSubtitleToolTip;
+		public string AddSourceSubtitleToolTip => this.addSourceSubtitleToolTip.Value;
 
 		public HBContainer Container
 		{
@@ -268,7 +252,7 @@ namespace VidCoder.ViewModel
 					{
 						BurnedIn = false,
 						Default = false,
-						Forced = !sourceSubtitleViewModel.ForcedOnly,
+						ForcedOnly = !sourceSubtitleViewModel.ForcedOnly,
 						TrackNumber = sourceSubtitleViewModel.TrackNumber
 					});
 			newSubtitle.Selected = true;
@@ -292,7 +276,7 @@ namespace VidCoder.ViewModel
 			return this.SourceSubtitles.Count(s => s.TrackNumber == trackNumber) > 1;
 		}
 
-		public void ReportDefault(ViewModelBase viewModel)
+		public void ReportDefault(object viewModel)
 		{
 			foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
 			{
@@ -397,8 +381,8 @@ namespace VidCoder.ViewModel
 		public void UpdateWarningVisibility()
 		{
 			bool textSubtitleVisible = false;
-			VCProfile profile = this.presetsViewModel.SelectedPreset.Preset.EncodingProfile;
-			HBContainer profileContainer = Encoders.GetContainer(profile.ContainerName);
+			VCProfile profile = this.presetsService.SelectedPreset.Preset.EncodingProfile;
+			HBContainer profileContainer = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
 			if (profileContainer.DefaultExtension == "mp4" && profile.PreferredExtension == VCOutputExtension.Mp4)
 			{
 				foreach (SourceSubtitleViewModel sourceVM in this.SourceSubtitles)
@@ -411,7 +395,7 @@ namespace VidCoder.ViewModel
 				}
 			}
 
-			this.TextSubtitleWarningVisibile = textSubtitleVisible;
+			this.TextSubtitleWarningVisible = textSubtitleVisible;
 
 			bool anyBurned = false;
 			int totalTracks = 0;
@@ -447,9 +431,9 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public Subtitle GetSubtitle(SourceSubtitleViewModel sourceSubtitleViewModel)
+		public SourceSubtitleTrack GetSubtitle(SourceSubtitleViewModel sourceSubtitleViewModel)
 		{
-			return this.mainViewModel.SelectedTitle.Subtitles[sourceSubtitleViewModel.TrackNumber - 1];
+			return this.mainViewModel.SelectedTitle.SubtitleList[sourceSubtitleViewModel.TrackNumber - 1];
 		}
 	}
 }

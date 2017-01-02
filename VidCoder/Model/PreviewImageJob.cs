@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using HandBrake.Interop;
-using HandBrake.Interop.Model;
-using VidCoder.Model.Encoding;
+﻿using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Json.Scan;
+using VidCoderCommon.Model;
 
 namespace VidCoder.Model
 {
@@ -21,6 +17,8 @@ namespace VidCoder.Model
 		/// </summary>
 		public object ImageFileSync { get; set; }
 
-		public VCJob EncodeJob { get; set; }
+		public VCProfile Profile { get; set; }
+
+		public SourceTitle Title { get; set; }
 	}
 }

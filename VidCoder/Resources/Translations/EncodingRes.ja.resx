@@ -1,0 +1,986 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SaveAs" xml:space="preserve">
+    <value>名前を付けて保存...</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>元に戻す</value>
+  </data>
+  <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
+    <value>x264ではBフレームをいつどのくらい使うか決める様々なアルゴリズムがあります。
+
+高速モードではBフレームの数の指定にかかわらず時間あたり同じ量を用います。高速ですが最適ではない場合があります。
+
+最適モードでは最大のBフレーム数が増えるに連れ遅くなりますが、特にBピラミッドを使用する場合、より品質を維持できます。</value>
+  </data>
+  <data name="Advanced_AdaptiveDirectModeToolTip" xml:space="preserve">
+    <value>H.264にはBフレームの予測方法として2つの異なるモード（空間的か時間的）が有ります。
+
+既定の空間的予測方法では、大体において優れていますが、時間的予測が良好な結果となる場合もあります。
+
+X264では、多少のスピード遅くなり、圧縮率も少し悪くなりますが、各フレームどちらが最適か適宜判断することができます。</value>
+  </data>
+  <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
+    <value>適応量子化フレームはエンコード時のフレーム内でのビット数の配分を制御します。
+値を高くすると動きの激しい部分のビットレートは高くなりますが、その分外の部分のビットレートが下がります。
+</value>
+  </data>
+  <data name="Advanced_AnalysisToolTip" xml:space="preserve">
+    <value>様々な種類の中からどの程度の種類のパーテーションを選択するか指定します。
+少なくするとと選択すると処理時間は短くなりますが、判断が悪くなります。そのためNoneにすることも最良の選択肢の1つです。</value>
+  </data>
+  <data name="Advanced_BFramesToolTip" xml:space="preserve">
+    <value>推奨値は3－6
+エンコード時に参照する連続したBフレーム数を指定します。
+Adaptive Bフレーム参照を最適にしない限り値を大きくしてもあまり効果がありません。
+アニメ素材やBピラミッドを用いると値を大きくした際の効果が高くなります。
+Baselineプロファイル（iPod等で再生可能なプロファイル）では値を0（オフ）にする必要があります。</value>
+  </data>
+  <data name="Advanced_CabacToolTip" xml:space="preserve">
+    <value>エンコード後のデータを最終的に圧縮する方式を指定します。H.264ではCAVLCとCABACの2方式が選択できます。CABACは低速ですが圧縮率がよく（10-30%）、特に低ビットレートファイルに対し有効です。再生に必要なCPU要件を最小限にしたい場合はこのオプションを無効にします。Baselineプロファイル（iPod等で再生可能なプロファイル）ではCABACを無効にする必要があります。</value>
+  </data>
+  <data name="Advanced_DeblockingToolTip" xml:space="preserve">
+    <value>各フレームをデコードした後に不自然さを解消するデブロッキングフィルタを内蔵しています。品質だけではなく圧縮率にも大きく影響します。
+デブロッキングフィルタは再生時にCPUパワーを必要とするため、低パワーなCPUでも再生したい場合は無効にしてください。
+
+強度（Strength)と閾値(Threshold)で制御します。
+強度はフィルタをどの程度強く（あるいは弱く）掛けるか、閾値はどれだけ多い（あるいは少ない）エッジにフィルタを掛けるか制御します。
+少ない値は効果を弱め、大きい値ほど効果が強くなります。両方とも0（標準の強さ）が標準です。</value>
+  </data>
+  <data name="Advanced_EightByEightDctToolTip" xml:space="preserve">
+    <value>8x8DCT変換は圧縮に対する処理速度において最も有用な単一の機能です。
+少しだけ処理時間がかかりますが少なくともファイルサイズを5%小さくでき、画質の劣化は少なく高画質になります。
+しかし、Highプロファイルが必須となり、再生できないデバイスもあります。
+</value>
+  </data>
+  <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
+    <value>動き予測アルゴリズムを指定します。動き予測は、フレーム内の各ピクセルブロックがどのように動くか予測します。
+高度な動き検索方法になるに連れて圧縮率は向上しますが、処理に時間がかかります。。
+
+Diamond：ダイアモンドパターンを用いた方法。非常に高速だが単純
+Hexagon：六角形パターンを用いた方法。少し遅いが標準的
+Uneven Multi-Hexagon：いろいろなパターンで幅広く検索します。複雑な動きもより正確に捉えます。
+Exhaustive：幅広くすべてのピクセルを調べる馬鹿げた方法。大幅に遅くなるが少ししか圧縮率は向上しません。
+Transformed Exhaustive：Exhaustiveと同様だがちょっとだけ精度が上がります。更に遅くなります。圧縮率もさほど向上しません。
+</value>
+  </data>
+  <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
+    <value>実際の動きをを分析するため、ブロックの動きをより良く推測する動き探索の最大範囲を指定する。 
+標準の16は多くのコンテンツで良い結果が得られるが、 動きの激しい動画、特にHD解像度等では、さらに高い値を指定したほうが、より良い結果が得られる場合があります、ただし遅くなります。
+動き予測アルゴリズムでDiamond、Hexagonを選択した場合は4から16が指定でき、それ以外の方法では4-64が指定できます。
+</value>
+  </data>
+  <data name="Advanced_NoDctDecimateToolTip" xml:space="preserve">
+    <value>x264では、通常ほとんどデータがないブロックは0に丸めデータを節約しその他の部分に割り振ります。
+しかし、これによってグレインノイズやディザーが発生する場合があります。チェックをするとこれが無効になります。
+グレインノイズを保持したい、またはバンディングが出るなどの問題がない限り、無効にしないでください。</value>
+  </data>
+  <data name="Advanced_PsychovisualRateDistortionToolTip" xml:space="preserve">
+    <value>細部かノイズか分離が困難なS/N比を使って数値的に高品質にするのではなく、視覚心理的に高品質になるように細部を維持しようとします。</value>
+  </data>
+  <data name="Advanced_PsychovisualTrellisToolTip" xml:space="preserve">
+    <value>シャープネスとディテールを維持するようにしますが、アーティファクトが発生する可能性があります。
+まだ実験的であり、そのため標準ではOFF。有効にする場合の推奨値は0.1から0.2程度。</value>
+  </data>
+  <data name="Advanced_PyramidalBFramesToolTip" xml:space="preserve">
+    <value>Bフレームをお互いに参照して圧縮率を向上させます。
+Bフレーム参照距離は1以上である必要があります。効果を発揮するために適応的Bフレーム挿入をOptimalにすることを推奨します。</value>
+  </data>
+  <data name="Advanced_ReferenceFramesToolTip" xml:space="preserve">
+    <value>通常は1~6
+値を大きくすると圧縮率は向上しますが、処理時間がかかります。
+アニメでは値を大きくすることで、実写よりも効果が高くなります。
+注意：多くのデバイスでは参照フレーム数に制限があります。携帯プレーヤーなどで再生する場合には、よく分からなければ変更しては行けません。</value>
+  </data>
+  <data name="Advanced_SubpixelMotionEstimationToolTip" xml:space="preserve">
+    <value>サブピクセルの高精度な動き予測とモード決定方法を指定します。
+サブピクセル動き予測はピクセルより細かく動きを予測することにより圧縮率を向上させいます。
+モード決定方法はフレーム中のブロックをどうやってエンコードするか決定する非常に重要な決定です。
+SADが最も早く、SATD→RD→RD refinement→QPRDの順に遅くなります。
+6以上に設定することを強く推奨します。心理視覚ひずみレート（細部を維持する強力な心理的最適化）がRDでは必要です。
+10（最も強力だが時間がかかる）では格子をAlwaysにする必要があります。</value>
+  </data>
+  <data name="Advanced_TrellisToolTip" xml:space="preserve">
+    <value>少しだけ速度を犠牲にして、格子を微調整して3－5%の圧縮率を絞りだします。
+"Always"ではエンコード時だけではなく、分析時にも格子を用います。圧縮率は向上しますが、大幅に遅くなります。
+格子は、ビットレートが高いほど処理に時間がかかります。</value>
+  </data>
+  <data name="Advanced_WeightPToolTip" xml:space="preserve">
+    <value>各フレームの重み付け補正を決定する追加の分析を行います。
+若干圧縮率が向上し、フェードイン・フェードアウトの画質が大幅に向上します。
+Baselineプロファイルでは重み付きPフレーム予測は無効にする必要があります。
+Mainプロファイルに対応したデバイスやプレーヤーでも重み付きPフレーム予測を有効にすると再生できない場合があります。
+例えばApple TVは完全に対応していません。</value>
+  </data>
+  <data name="Audio_DrcToolTip" xml:space="preserve">
+    <value>ダイナミックレンジを圧縮します。値の有効な範囲は0－4です。
+ソースの音声のダイナミックレンジ（シーンによる音量の差が激しい）場合に、音量の差を少なくすることができます。
+音声形式がAC3の場合にのみ有効です。</value>
+  </data>
+  <data name="Audio_GainToolTip" xml:space="preserve">
+    <value>エンコードする前に、音量を変更することができます。
+有効な値は -20~＋20dBです。</value>
+  </data>
+  <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
+    <value>ソースのチャプターを含めます</value>
+  </data>
+  <data name="IPod5GSupportToolTip" xml:space="preserve">
+    <value>古いiPod（第5世代）に対応した形式にします</value>
+  </data>
+  <data name="LargeFileSizeToolTip" xml:space="preserve">
+    <value>4GB以上のファイルサイズに対応します。有効にするとエンコードを64bitで行います。出力されたファイルは、いくつかの機器（iPodやPS3）では再生できません。</value>
+  </data>
+  <data name="PixelAspectRatioToolTip" xml:space="preserve">
+    <value>ピクセル縦横比を手動設定します</value>
+  </data>
+  <data name="Video_QualityTargetToolTip" xml:space="preserve">
+    <value>品質係数を設定します。各コーデック毎にスケールは異なります。</value>
+  </data>
+  <data name="WebOptimizedToolTip" xml:space="preserve">
+    <value>プログレッシブダウンロードに対応したファイルで出力します</value>
+  </data>
+  <data name="ProfileToolTip" xml:space="preserve">
+    <value>出力ストリームのプロファイルを制限します。プロファイルを指定すると、他の設定を無視します。そのため、確実に互換性の有るストリームを指定することができます。
+再生デバイスが限られたプロファイルにしか対応していない場合に使用します。</value>
+  </data>
+  <data name="X264TuneToolTip" xml:space="preserve">
+    <value>各ソースの種類に最適なチューニングを行います。チューニングによるオプションの指定は、プリセットよりも優先されます。他のパラメーターの変更した場合にはそちらが優先されます。</value>
+  </data>
+  <data name="ContainerLabel" xml:space="preserve">
+    <value>コンテナ:</value>
+  </data>
+  <data name="ExtensionLabel" xml:space="preserve">
+    <value>拡張子:</value>
+  </data>
+  <data name="LargeFileSizeCheckBox" xml:space="preserve">
+    <value>大きなサイズのファイル</value>
+  </data>
+  <data name="WebOptimizedCheckBox" xml:space="preserve">
+    <value>WEB最適化</value>
+  </data>
+  <data name="Ipod5GSupportCheckBox" xml:space="preserve">
+    <value>iPod 5Gのサポート</value>
+  </data>
+  <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
+    <value>チャプター マーカーを含める</value>
+  </data>
+  
+  <data name="TabHeader_VideoFilters" xml:space="preserve">
+    <value>映像フィルター</value>
+  </data>
+  
+  
+  <data name="TabHeader_Advanced" xml:space="preserve">
+    <value>高度なビデオ</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>名前の変更</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>入力</value>
+  </data>
+  <data name="AutoCaption" xml:space="preserve">
+    <value>(自動)</value>
+  </data>
+  <data name="NoneCaption" xml:space="preserve">
+    <value>(指定なし)</value>
+  </data>
+  <data name="StorageResolutionLabel" xml:space="preserve">
+    <value>ファイル解像度：</value>
+  </data>
+  <data name="PixelAspectRatioLabel" xml:space="preserve">
+    <value>ピクセル縦横比:</value>
+  </data>
+  <data name="DisplayResolutionLabel" xml:space="preserve">
+    <value>表示時の解像度：</value>
+  </data>
+  <data name="SizingLabel" xml:space="preserve">
+    <value>サイズ変更</value>
+  </data>
+  <data name="WidthLabel" xml:space="preserve">
+    <value>幅：</value>
+  </data>
+  <data name="HeightLabel" xml:space="preserve">
+    <value>高さ：</value>
+  </data>
+  <data name="MaxWidthLabel" xml:space="preserve">
+    <value>最大幅：</value>
+  </data>
+  <data name="MaxHeightLabel" xml:space="preserve">
+    <value>最大高さ：</value>
+  </data>
+  <data name="ModulusLabel" xml:space="preserve">
+    <value>最小単位ピクセル：</value>
+  </data>
+  <data name="OutputLabel" xml:space="preserve">
+    <value>出力</value>
+  </data>
+  <data name="CroppingLabel" xml:space="preserve">
+    <value>クロップ</value>
+  </data>
+  <data name="DetelecineLabel" xml:space="preserve">
+    <value>逆テレシネ：</value>
+  </data>
+  <data name="DecombLabel" xml:space="preserve">
+    <value>縞除去：</value>
+  </data>
+  <data name="DeinterlaceLabel" xml:space="preserve">
+    <value>インターレース解除:</value>
+  </data>
+  <data name="DenoiseLabel" xml:space="preserve">
+    <value>ノイズ除去:</value>
+  </data>
+  <data name="DeblockLabel" xml:space="preserve">
+    <value>ブロックノイズ低減：</value>
+  </data>
+  <data name="GrayscaleCheckBox" xml:space="preserve">
+    <value>グレースケールエンコーディング</value>
+  </data>
+  <data name="TypeLabel" xml:space="preserve">
+    <value>種類：</value>
+  </data>
+  <data name="ShortFramerateLabel" xml:space="preserve">
+    <value>フレームレート:</value>
+  </data>
+  <data name="CodecLabel" xml:space="preserve">
+    <value>コーデック:</value>
+  </data>
+  <data name="FramerateLabel" xml:space="preserve">
+    <value>フレームレート(FPS):</value>
+  </data>
+  <data name="ConstantFramerateRadioButton" xml:space="preserve">
+    <value>固定フレームレート</value>
+  </data>
+  <data name="Quality" xml:space="preserve">
+    <value>品質</value>
+  </data>
+  <data name="TwoPassEncodingCheckBox" xml:space="preserve">
+    <value>2パスエンコード</value>
+  </data>
+  <data name="TurboFirstPassCheckBox" xml:space="preserve">
+    <value>高速ファーストパス</value>
+  </data>
+  <data name="TargetSizeRadioButton" xml:space="preserve">
+    <value>指定サイズ(MB)</value>
+  </data>
+  <data name="AverageBitrateRadioButton" xml:space="preserve">
+    <value>平均ビットレート(kbps)</value>
+  </data>
+  <data name="ConstantQualityRadioButton" xml:space="preserve">
+    <value>固定品質</value>
+  </data>
+  <data name="X264BasicSettings" xml:space="preserve">
+    <value>x264基本設定</value>
+  </data>
+  <data name="ProfileLabel" xml:space="preserve">
+    <value>プロファイル:</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>速度：</value>
+  </data>
+  <data name="TuneLabel" xml:space="preserve">
+    <value>チューニング：</value>
+  </data>
+  <data name="Profile_baseline" xml:space="preserve">
+    <value>Baseline</value>
+  </data>
+  <data name="Profile_main" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="Profile_high" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="Preset_UltraFast" xml:space="preserve">
+    <value>Ultra Fast</value>
+  </data>
+  <data name="Preset_SuperFast" xml:space="preserve">
+    <value>Super Fast</value>
+  </data>
+  <data name="Preset_VeryFast" xml:space="preserve">
+    <value>Very Fast</value>
+  </data>
+  <data name="Preset_Faster" xml:space="preserve">
+    <value>Faster</value>
+  </data>
+  <data name="Preset_Fast" xml:space="preserve">
+    <value>Fast</value>
+  </data>
+  <data name="Preset_Medium" xml:space="preserve">
+    <value>Medium (Default)</value>
+  </data>
+  <data name="Preset_Slow" xml:space="preserve">
+    <value>Slow</value>
+  </data>
+  <data name="Preset_Slower" xml:space="preserve">
+    <value>Slower</value>
+  </data>
+  <data name="Preset_VerySlow" xml:space="preserve">
+    <value>Very Slow</value>
+  </data>
+  <data name="Preset_Placebo" xml:space="preserve">
+    <value>Placebo</value>
+  </data>
+  <data name="Tune_film" xml:space="preserve">
+    <value>Film</value>
+  </data>
+  <data name="Tune_animation" xml:space="preserve">
+    <value>Animation</value>
+  </data>
+  <data name="Tune_grain" xml:space="preserve">
+    <value>Grain</value>
+  </data>
+  <data name="Tune_stillimage" xml:space="preserve">
+    <value>Still Image</value>
+  </data>
+  <data name="Tune_psnr" xml:space="preserve">
+    <value>PSNR</value>
+  </data>
+  <data name="Tune_ssim" xml:space="preserve">
+    <value>SSIM</value>
+  </data>
+  <data name="Tune_fastdecode" xml:space="preserve">
+    <value>高速デコード</value>
+  </data>
+  <data name="Tune_zerolatency" xml:space="preserve">
+    <value>遅延無し</value>
+  </data>
+  <data name="FpsFormat" xml:space="preserve">
+    <value>{0:0.###} FPS</value>
+  </data>
+  <data name="CfrSameAsSourceToolTip" xml:space="preserve">
+    <value>ソースのフレームレートを維持します</value>
+  </data>
+  <data name="CfrToolTip" xml:space="preserve">
+    <value>フレームレート一定</value>
+  </data>
+  <data name="VfrSameAsSourceToolTip" xml:space="preserve">
+    <value>可変フレームレートを許可。ソースが可変の場合、この設定が保持されます。注意：いくつかのプレーヤーは可変フレームレートをサポートしません。</value>
+  </data>
+  <data name="VfrPeakFramerateToolTip" xml:space="preserve">
+    <value>可変フレームレートを許可し、指定したレートを最大とします。ソースが可変フレームレートの場合、この設定は保持されます。注意：いくつかのプレーヤーは可変フレームレートをサポートしません。</value>
+  </data>
+  <data name="VfrChoice" xml:space="preserve">
+    <value>可変フレームレート</value>
+  </data>
+  <data name="VfrPeakChoice" xml:space="preserve">
+    <value>ピークフレームレート（可変フレームレート）</value>
+  </data>
+  <data name="HighQuality" xml:space="preserve">
+    <value>高品質</value>
+  </data>
+  <data name="LowQuality" xml:space="preserve">
+    <value>低品質</value>
+  </data>
+  <data name="SameAsSource" xml:space="preserve">
+    <value>ソースと同じ</value>
+  </data>
+  <data name="AddAudioEncodingButton" xml:space="preserve">
+    <value>音声のエンコードを追加</value>
+  </data>
+  <data name="NoTracksPlaceholder" xml:space="preserve">
+    <value>（トラック無し）</value>
+  </data>
+  <data name="TargetStream" xml:space="preserve">
+    <value>対象のストリーム</value>
+  </data>
+  <data name="MixdownLabel" xml:space="preserve">
+    <value>ミックスダウン：</value>
+  </data>
+  <data name="SampleRateLabel" xml:space="preserve">
+    <value>サンプルレート：</value>
+  </data>
+  <data name="BitrateLabel" xml:space="preserve">
+    <value>ビットレート：</value>
+  </data>
+  <data name="CompressionLabel" xml:space="preserve">
+    <value>圧縮：</value>
+  </data>
+  <data name="GainLabel" xml:space="preserve">
+    <value>ゲイン (dB)：</value>
+  </data>
+  <data name="DrcLabel" xml:space="preserve">
+    <value>DRC：</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>名前：</value>
+  </data>
+  <data name="AscendingQualityToolTip" xml:space="preserve">
+    <value>値が大きいほど高品質です。</value>
+  </data>
+  <data name="DescendingQualityToolTip" xml:space="preserve">
+    <value>値が小さいほど高品質です。</value>
+  </data>
+  <data name="AudioQualityToolTip" xml:space="preserve">
+    <value>オーディオの品質目標。{0} の有効な値は {1} ～ {2} です。</value>
+  </data>
+  <data name="AscendingCompressionToolTip" xml:space="preserve">
+    <value>値が大きほど高圧縮です：より良い品質とファイルサイズを小さくできますがエンコード時間が長くなります。</value>
+  </data>
+  <data name="DescendingCompressionToolTip" xml:space="preserve">
+    <value>値が小さいほど高圧縮です：より良い品質とファイルサイズを小さくできますがエンコード時間が長くなります。</value>
+  </data>
+  <data name="AudioCompressionToolTip" xml:space="preserve">
+    <value>適用する圧縮の値：{0} 有効な値は {1}~{2}です。</value>
+  </data>
+  <data name="AudioEncoder_faac" xml:space="preserve">
+    <value>AAC (FAAC)</value>
+    <comment>Leaving this blank will mean we rely on the friendly name from HandBrake. The short name is used for the key (: gets replaced by _)</comment>
+  </data>
+  <data name="AudioEncoder_av_aac" xml:space="preserve">
+    <value>AAC (avcodec)</value>
+  </data>
+  <data name="AudioEncoder_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="AudioEncoder_flac16" xml:space="preserve">
+    <value>FLAC 16-bit</value>
+  </data>
+  <data name="AudioEncoder_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="AudioEncoder_vorbis" xml:space="preserve">
+    <value>Vorbis</value>
+  </data>
+  <data name="Mixdown_5point1" xml:space="preserve">
+    <value>5.1 チャンネル</value>
+  </data>
+  <data name="Mixdown_5_2_lfe" xml:space="preserve">
+    <value>7.1 (5F/2R/LFE)</value>
+  </data>
+  <data name="Mixdown_dpl1" xml:space="preserve">
+    <value>ドルビーサラウンド</value>
+  </data>
+  <data name="Mixdown_dpl2" xml:space="preserve">
+    <value>Dolby Pro Logic II</value>
+  </data>
+  <data name="Mixdown_left_only" xml:space="preserve">
+    <value>モノラル (左のみ)</value>
+  </data>
+  <data name="Mixdown_mono" xml:space="preserve">
+    <value>モノラル</value>
+  </data>
+  <data name="Mixdown_right_only" xml:space="preserve">
+    <value>モノラル （右のみ）</value>
+  </data>
+  <data name="Mixdown_stereo" xml:space="preserve">
+    <value>ステレオ</value>
+  </data>
+  <data name="Bitrate" xml:space="preserve">
+    <value>ビットレート</value>
+  </data>
+  <data name="Encoding" xml:space="preserve">
+    <value>エンコード</value>
+  </data>
+  <data name="ReferenceFramesLabel" xml:space="preserve">
+    <value>参照距離:</value>
+  </data>
+  <data name="MaxBFramesLabel" xml:space="preserve">
+    <value>最大連続 B フレーム数:</value>
+  </data>
+  <data name="CabacLabel" xml:space="preserve">
+    <value>CABAC:</value>
+  </data>
+  <data name="EightByEightTransformLabel" xml:space="preserve">
+    <value>8x8 DTC変換：</value>
+  </data>
+  <data name="WeightedPFramesLabel" xml:space="preserve">
+    <value>重み付きPフレーム:</value>
+  </data>
+  <data name="PyramidalBFramesLabel" xml:space="preserve">
+    <value>ピラミッド参照：</value>
+  </data>
+  <data name="NoDctDecimateLabel" xml:space="preserve">
+    <value>DCT係数間引き：</value>
+  </data>
+  <data name="Analysis" xml:space="preserve">
+    <value>分析</value>
+  </data>
+  <data name="AdaptiveBFramesLabel" xml:space="preserve">
+    <value>適応的Bフレーム挿入：</value>
+  </data>
+  <data name="AdaptiveDirectModeLabel" xml:space="preserve">
+    <value>動き予測方式：</value>
+  </data>
+  <data name="MotionEstimationMethodLabel" xml:space="preserve">
+    <value>動き予測アルゴリズム：</value>
+  </data>
+  <data name="SubpixelMotionEstimationLabel" xml:space="preserve">
+    <value>サブピクセル動き予測：</value>
+  </data>
+  <data name="MotionEstimationRangeLabel" xml:space="preserve">
+    <value>動き検索範囲：</value>
+  </data>
+  <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
+    <value>AQ強さ：</value>
+  </data>
+  <data name="PsychoVisualRateDistortionLabel" xml:space="preserve">
+    <value>Psy-Rd RDO:</value>
+  </data>
+  <data name="PsychovisualTrellisLabel" xml:space="preserve">
+    <value>Psy-Rd Trellis:</value>
+  </data>
+  <data name="DeblockingLabel" xml:space="preserve">
+    <value>Deblocking:</value>
+  </data>
+  <data name="PartitionTypeLabel" xml:space="preserve">
+    <value>Partition Type:</value>
+  </data>
+  <data name="TrellisLabel" xml:space="preserve">
+    <value>Trellis:</value>
+  </data>
+  <data name="OptionsString" xml:space="preserve">
+    <value>追加設定</value>
+  </data>
+  <data name="PyramidalBFrames_Off" xml:space="preserve">
+    <value>オフ</value>
+  </data>
+  <data name="PyramidalBFrames_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="PyramidalBFrames_Strict" xml:space="preserve">
+    <value>Strict</value>
+  </data>
+  <data name="AdaptiveBFrames_Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="AdaptiveBFrames_Fast" xml:space="preserve">
+    <value>Fast</value>
+  </data>
+  <data name="AdaptiveBFrames_Optimal" xml:space="preserve">
+    <value>Optimal</value>
+  </data>
+  <data name="DirectPrediction_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="DirectPrediction_Spatial" xml:space="preserve">
+    <value>Spatial</value>
+  </data>
+  <data name="DirectPrediction_Temporal" xml:space="preserve">
+    <value>Temporal</value>
+  </data>
+  <data name="DirectPrediction_Automatic" xml:space="preserve">
+    <value>自動</value>
+  </data>
+  <data name="MotionEstimationMethod_Diamond" xml:space="preserve">
+    <value>Diamond</value>
+  </data>
+  <data name="MotionEstimationMethod_Hexagon" xml:space="preserve">
+    <value>Hexagon</value>
+  </data>
+  <data name="MotionEstimationMethod_UnevenMultiHexagon" xml:space="preserve">
+    <value>Uneven Multi-Hexagon</value>
+  </data>
+  <data name="MotionEstimationMethod_Exhaustive" xml:space="preserve">
+    <value>Exhaustive</value>
+  </data>
+  <data name="MotionEstimationMethod_TransformedExhaustive" xml:space="preserve">
+    <value>Transformed Exhaustive</value>
+  </data>
+  <data name="SubpixelMotionEstimation_0" xml:space="preserve">
+    <value>0: SAD, no subpel (super fast!)</value>
+  </data>
+  <data name="SubpixelMotionEstimation_1" xml:space="preserve">
+    <value>1: SAD, qpel</value>
+  </data>
+  <data name="SubpixelMotionEstimation_2" xml:space="preserve">
+    <value>2: SATD, qpel</value>
+  </data>
+  <data name="SubpixelMotionEstimation_3" xml:space="preserve">
+    <value>3: SATD, multi-qpel</value>
+  </data>
+  <data name="SubpixelMotionEstimation_4" xml:space="preserve">
+    <value>4: SATD, qpel on all</value>
+  </data>
+  <data name="SubpixelMotionEstimation_5" xml:space="preserve">
+    <value>5: SATD, multi-qpel on all</value>
+  </data>
+  <data name="SubpixelMotionEstimation_6" xml:space="preserve">
+    <value>6: RD in I/P-frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_7" xml:space="preserve">
+    <value>7: RD in all frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_8" xml:space="preserve">
+    <value>8: RD refine in I/P-frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_9" xml:space="preserve">
+    <value>9: RD refine in all frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_10" xml:space="preserve">
+    <value>10: QPRD in all frames</value>
+  </data>
+  <data name="SubpixelMotionEstimation_11" xml:space="preserve">
+    <value>11: No early terminations in analysis</value>
+  </data>
+  <data name="Analysis_None" xml:space="preserve">
+    <value>無し</value>
+  </data>
+  <data name="Analysis_Some" xml:space="preserve">
+    <value>いくつか</value>
+  </data>
+  <data name="Analysis_All" xml:space="preserve">
+    <value>全て</value>
+  </data>
+  <data name="Trellis_Off" xml:space="preserve">
+    <value>無し</value>
+  </data>
+  <data name="Trellis_EncodeOnly" xml:space="preserve">
+    <value>エンコードのみ</value>
+  </data>
+  <data name="Trellis_Always" xml:space="preserve">
+    <value>常時</value>
+  </data>
+  <data name="DefaultFormat" xml:space="preserve">
+    <value>{0} (デフォルト)</value>
+  </data>
+  <data name="EncodingWindowTitle" xml:space="preserve">
+    <value>エンコードプリセット: {0}</value>
+  </data>
+  <data name="AdvancedOptionsStringLabel" xml:space="preserve">
+    <value>x246高度な追加オプション:</value>
+  </data>
+  <data name="LevelToolTip" xml:space="preserve">
+    <value>指定したエンコーダーのレベルへの準拠を保証します。その他の設定よりも優先されます。</value>
+  </data>
+  <data name="Profile_high444" xml:space="preserve">
+    <value>High 4:4:4 Predictive</value>
+  </data>
+  <data name="VideoCodecLabel" xml:space="preserve">
+    <value>ビデオコーデック：</value>
+  </data>
+  <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
+    <value>MPEG-2 (Libav)</value>
+  </data>
+  <data name="VideoEncoder_ffmpeg4" xml:space="preserve">
+    <value>MPEG-4 (Libav)</value>
+  </data>
+  <data name="VideoEncoder_x264" xml:space="preserve">
+    <value>H.264 (x264)</value>
+  </data>
+  <data name="Analysis_Most" xml:space="preserve">
+    <value>Most</value>
+  </data>
+  <data name="AdvancedQuery" xml:space="preserve">
+    <value>高度なクエリ</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="X264Settings" xml:space="preserve">
+    <value>x 264 の設定</value>
+  </data>
+  <data name="LevelLabel" xml:space="preserve">
+    <value>H.264 レベル:</value>
+  </data>
+  <data name="MoreSettingsLabel" xml:space="preserve">
+    <value>追加設定：</value>
+  </data>
+  <data name="Track" xml:space="preserve">
+    <value>トラック</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>入力元</value>
+  </data>
+  <data name="Encoder" xml:space="preserve">
+    <value>エンコーダー</value>
+  </data>
+  <data name="ChannelLayout" xml:space="preserve">
+    <value>チャンネルレイアウト</value>
+  </data>
+  <data name="SampleRate" xml:space="preserve">
+    <value>サンプル レート</value>
+  </data>
+  <data name="Modifiers" xml:space="preserve">
+    <value>調整</value>
+  </data>
+  <data name="DtsMp4Warning" xml:space="preserve">
+    <value>MP4形式ではDTSを再生できる動画プレーヤーは少ないのでMKV形式を推奨します。</value>
+  </data>
+  <data name="AudioEncoder_flac24" xml:space="preserve">
+    <value>FLAC 24-bit</value>
+  </data>
+  <data name="Advanced_PsychovisualLabel" xml:space="preserve">
+    <value>Psychovisual</value>
+  </data>
+  <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
+    <value>簡易</value>
+    <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
+  </data>
+  <data name="X264SettingsRadioButtonAdvanced" xml:space="preserve">
+    <value>詳細</value>
+    <comment>Label for radio button to choose advanced x264 settings on a separate tab.</comment>
+  </data>
+  <data name="VideoEncoder_mpeg2" xml:space="preserve">
+    <value>MPEG-2</value>
+  </data>
+  <data name="VideoEncoder_mpeg4" xml:space="preserve">
+    <value>MPEG-4</value>
+  </data>
+  <data name="VideoEncoder_theora" xml:space="preserve">
+    <value>Theora</value>
+  </data>
+  <data name="RemoveAudioEncodingToolTip" xml:space="preserve">
+    <value>オーディオのエンコードを削除します。</value>
+  </data>
+  <data name="AutoPassthroughFallbackLabel" xml:space="preserve">
+    <value>フォールバック:</value>
+  </data>
+  <data name="AutoPassthroughFallbackToolTip" xml:space="preserve">
+    <value>パススルーはすべてのオーディオ形式に対応していません。パススルーできない場合にエンコードに用いるオーディオ形式を指定します。</value>
+  </data>
+  <data name="EncoderSettings" xml:space="preserve">
+    <value>Encoder Settings</value>
+  </data>
+  <data name="QsvDecodingLabel" xml:space="preserve">
+    <value>QSVでデコードする</value>
+  </data>
+  <data name="ScaleMethod_Lanczos" xml:space="preserve">
+    <value>Lanczos</value>
+  </data>
+  <data name="ScaleMethod_BicubicOpenCL" xml:space="preserve">
+    <value>Bicubic (OpenCL)</value>
+  </data>
+  <data name="QsvPreset_Speed" xml:space="preserve">
+    <value>速度優先</value>
+  </data>
+  <data name="QsvPreset_Balanced" xml:space="preserve">
+    <value>標準</value>
+  </data>
+  <data name="QsvPreset_Quality" xml:space="preserve">
+    <value>品質優先</value>
+  </data>
+  <data name="PresetToolTip" xml:space="preserve">
+    <value>速度を優先にすると圧縮効率が低下します。品質優先にすると圧縮効率は高くなりますが遅くなります。</value>
+  </data>
+  <data name="ScaleMethodToolTip" xml:space="preserve">
+    <value>ランチョス： これは最高の品質で標準のリサイズ方法
+バイキュービック法: OpenCLのハードウェア支援リサイズ アルゴリズム</value>
+  </data>
+  <data name="AudioEncoder_Passthrough" xml:space="preserve">
+    <value>パススルー</value>
+  </data>
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>自動</value>
+  </data>
+  <data name="PassthroughScopeToolTip" xml:space="preserve">
+    <value>どのコーデックをパススルーにするか指定します</value>
+  </data>
+  <data name="FlipHorizontalCheckBox" xml:space="preserve">
+    <value>上下反転</value>
+  </data>
+  <data name="FlipVerticalCheckBox" xml:space="preserve">
+    <value>左右反転</value>
+  </data>
+  <data name="Rotation_Clockwise90" xml:space="preserve">
+    <value>90度右回転</value>
+  </data>
+  <data name="Rotation_Counterclockwise90" xml:space="preserve">
+    <value>90度左回転</value>
+  </data>
+  <data name="Rotation_180" xml:space="preserve">
+    <value>180度回転</value>
+  </data>
+  <data name="RotationToolTip" xml:space="preserve">
+    <value>画像を回転します。サイズ変更やクロップ後に適用されます。</value>
+  </data>
+  <data name="FlipHorizontalToolTip" xml:space="preserve">
+    <value>画像を左右反転します。画像の回転より前に適用されます。</value>
+  </data>
+  <data name="FlipVerticalToolTip" xml:space="preserve">
+    <value>画像を上下反転します。画像の回転より前に適用されます。</value>
+  </data>
+  <data name="PassthroughIfPossibleCheckBox" xml:space="preserve">
+    <value>可能であればパススルーにする</value>
+  </data>
+  <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
+    <value>入力トラックがパススルーが可能な場合エンコードしません</value>
+  </data>
+  <data name="ScalingAlgorithmLabel" xml:space="preserve">
+    <value>リサイズ方法：</value>
+  </data>
+  <data name="RotationLabel" xml:space="preserve">
+    <value>回転：</value>
+  </data>
+  <data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>プリセット リストを閉じる</value>
+  </data>
+  <data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>プリセット リストを開く</value>
+  </data>
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>チャプター {0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>パススルーの設定</value>
+  </data>
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>許可するパススルー：</value>
+  </data>
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</root>

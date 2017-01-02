@@ -280,9 +280,6 @@ You should set this if you know your playback device only supports a certain pro
   <data name="X264TuneToolTip" xml:space="preserve">
     <value>Tune options to further optimize them for your input content. If you specify a tuning, the changes will be applied after the Preset but before all other parameters.</value>
   </data>
-  <data name="DisplayWidthToolTip" xml:space="preserve">
-    <value>The desired display width of the video. Other parameters such as the Pixel Aspect Ratio will be changed to achieve this.</value>
-  </data>
   <data name="ContainerLabel" xml:space="preserve">
     <value>Container:</value>
   </data>
@@ -301,17 +298,17 @@ You should set this if you know your playback device only supports a certain pro
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>Include chapter markers</value>
   </data>
-  <data name="TabHeader_Picture" xml:space="preserve">
-    <value>Picture</value>
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>Sizing</value>
   </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>Video Filters</value>
   </data>
-  <data name="TabHeader_Video" xml:space="preserve">
-    <value>Video</value>
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>Video Encoding</value>
   </data>
-  <data name="TabHeader_Audio" xml:space="preserve">
-    <value>Audio</value>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>Audio Encoding</value>
   </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>Advanced Video</value>
@@ -352,35 +349,14 @@ You should set this if you know your playback device only supports a certain pro
   <data name="MaxHeightLabel" xml:space="preserve">
     <value>Max Height:</value>
   </data>
-  <data name="KeepAspectRatioCheckBox" xml:space="preserve">
-    <value>Keep Aspect Ratio</value>
-  </data>
-  <data name="AnamorphicLabel" xml:space="preserve">
-    <value>Anamorphic:</value>
-  </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>Modulus:</value>
-  </data>
-  <data name="DisplayWidthRadioButton" xml:space="preserve">
-    <value>Display Width:</value>
   </data>
   <data name="OutputLabel" xml:space="preserve">
     <value>Output</value>
   </data>
   <data name="CroppingLabel" xml:space="preserve">
     <value>Cropping</value>
-  </data>
-  <data name="Top" xml:space="preserve">
-    <value>Top</value>
-  </data>
-  <data name="Left" xml:space="preserve">
-    <value>Left</value>
-  </data>
-  <data name="Bottom" xml:space="preserve">
-    <value>Bottom</value>
-  </data>
-  <data name="Right" xml:space="preserve">
-    <value>Right</value>
   </data>
   <data name="DetelecineLabel" xml:space="preserve">
     <value>Detelecine:</value>
@@ -798,7 +774,7 @@ You should set this if you know your playback device only supports a certain pro
     <value>{0} (Default)</value>
   </data>
   <data name="EncodingWindowTitle" xml:space="preserve">
-    <value>Preset: {0}</value>
+    <value>Encoding preset: {0}</value>
   </data>
   <data name="AdvancedOptionsStringLabel" xml:space="preserve">
     <value>Additional advanced x264 options:</value>
@@ -868,12 +844,6 @@ Overrides all other settings.</value>
   <data name="Advanced_PsychovisualLabel" xml:space="preserve">
     <value>Psychovisual</value>
   </data>
-  <data name="AudioEncoder_fdk_aac" xml:space="preserve">
-    <value>AAC (FDK)</value>
-  </data>
-  <data name="AudioEncoder_fdk_haac" xml:space="preserve">
-    <value>HE-AAC (FDK)</value>
-  </data>
   <data name="X264SettingsRadioButtonBasic" xml:space="preserve">
     <value>Basic</value>
     <comment>Label for radio button to choose basic x264 settings: Preset, Profile, Tune, Level.</comment>
@@ -931,27 +901,8 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
   <data name="AudioEncoder_Passthrough" xml:space="preserve">
     <value>Passthrough</value>
   </data>
-  <data name="Passthrough_aac" xml:space="preserve">
-    <value>AAC</value>
-  </data>
-  <data name="Passthrough_ac3" xml:space="preserve">
-    <value>AC3</value>
-  </data>
-  <data name="Passthrough_any" xml:space="preserve">
-    <value>Any</value>
-    <comment>Choice for a passthrough which accepts any input codec.</comment>
-  </data>
-  <data name="Passthrough_dts" xml:space="preserve">
-    <value>DTS</value>
-  </data>
-  <data name="Passthrough_dtshd" xml:space="preserve">
-    <value>DTS-HD</value>
-  </data>
-  <data name="Passthrough_mp3" xml:space="preserve">
-    <value>MP3</value>
-  </data>
-  <data name="ScopeLabel" xml:space="preserve">
-    <value>Scope:</value>
+  <data name="Passthrough_auto" xml:space="preserve">
+    <value>Auto</value>
   </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
     <value>Specifies which input codecs the passthrough will apply to.</value>
@@ -986,10 +937,122 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>If the input track matches the codec it will be passed through instead of encoded.</value>
   </data>
-	<data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Scaling Algorithm:</value>
+  <data name="ScalingAlgorithmLabel" xml:space="preserve">
+    <value>Scaling algorithm:</value>
   </data>
-	<data name="RotationLabel" xml:space="preserve">
+  <data name="RotationLabel" xml:space="preserve">
     <value>Rotation:</value>
+  </data>
+  <data name="ClosePresetsListToolTip" xml:space="preserve">
+    <value>Close the presets list</value>
+  </data>
+  <data name="OpenPresetsListToolTip" xml:space="preserve">
+    <value>Open the presets list</value>
+  </data>
+  <data name="DefaultChapterName" xml:space="preserve">
+    <value>Chapter {0}</value>
+    <comment>What a chapter will be named when not given a custom name. {0} is the chapter number.</comment>
+  </data>
+  <data name="PassthroughSettingsLabel" xml:space="preserve">
+    <value>Passthrough Settings</value>
+  </data>
+  <data name="PassthroughMaskLabel" xml:space="preserve">
+    <value>Allow passthrough for:</value>
+  </data>
+  <data name="Passthrough_aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Passthrough_ac3" xml:space="preserve">
+    <value>AC3</value>
+  </data>
+  <data name="Passthrough_dts" xml:space="preserve">
+    <value>DTS</value>
+  </data>
+  <data name="Passthrough_dtshd" xml:space="preserve">
+    <value>DTS-HD</value>
+  </data>
+  <data name="Passthrough_eac3" xml:space="preserve">
+    <value>E-AC3</value>
+  </data>
+  <data name="Passthrough_flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Passthrough_mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="Passthrough_truehd" xml:space="preserve">
+    <value>TrueHD</value>
+  </data>
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>Interlace Detection:</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Mode:</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>Use Anamorphic</value>
+  </data>
+  <data name="AllowUpscalingCheckbox" xml:space="preserve">
+    <value>Allow upscaling</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>Manual</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>Upscale {0}x max</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>Downscale only</value>
+  </data>
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>Scale up/down to target</value>
+  </data>
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>Scaling mode:</value>
+  </data>
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>Fill</value>
+  </data>
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>Height</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>Target Width:</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>Target Height:</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>Color:</value>
+  </data>
+  <data name="ColorPickerAdvancedButton" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="ColorPickerStandardButton" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
+    <value>Standard colors</value>
+  </data>
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>With Anamorphic enabled, non-square pixels are allowed. This can result in more efficient storage, but not all players support this.</value>
+  </data>
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>Resolution:</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>Format: key1=value1:key2=value2:...</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
+  <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
+    <value>Keys:</value>
+    <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
 </root>

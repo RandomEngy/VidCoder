@@ -1,34 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using System.Text;
+using HandBrake.ApplicationServices.Interop.Model.Encoding;
+using VidCoder.Resources;
 
 namespace VidCoder.ViewModel
 {
-	using System.Resources;
-	using GalaSoft.MvvmLight;
-	using HandBrake.Interop.Model.Encoding;
-	using Resources;
-
-	public class VideoEncoderViewModel : ViewModelBase
+	public class VideoEncoderViewModel
 	{
 		private static ResourceManager manager = new ResourceManager(typeof(EncodingRes));
 
 		public HBVideoEncoder Encoder { get; set; }
 
-		public string Display
-		{
-			get
-			{
-				string resourceString = manager.GetString("VideoEncoder_" + this.Encoder.ShortName.Replace(':', '_'));
+	    public override string ToString()
+	    {
+            string resourceString = manager.GetString("VideoEncoder_" + this.Encoder.ShortName.Replace(':', '_'));
 
-				if (string.IsNullOrWhiteSpace(resourceString))
-				{
-					return this.Encoder.DisplayName;
-				}
+            if (string.IsNullOrWhiteSpace(resourceString))
+            {
+                return this.Encoder.DisplayName;
+            }
 
-				return resourceString;
-			}
-		}
+            return resourceString;
+        }
 	}
 }

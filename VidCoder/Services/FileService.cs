@@ -18,7 +18,7 @@ namespace VidCoder.Services
 		{
 			get
 			{
-				return Ioc.Container.GetInstance<IFileService>();
+				return Ioc.Get<IFileService>();
 			}
 		}
 
@@ -29,11 +29,18 @@ namespace VidCoder.Services
 
 			if (!string.IsNullOrEmpty(initialDirectory))
 			{
-				string fullDirectory = Path.GetFullPath(initialDirectory);
-
-				if (Directory.Exists(fullDirectory))
+				try
 				{
-					dialog.InitialDirectory = fullDirectory;
+					string fullDirectory = Path.GetFullPath(initialDirectory);
+
+					if (Directory.Exists(fullDirectory))
+					{
+						dialog.InitialDirectory = fullDirectory;
+					}
+				}
+				catch (NotSupportedException)
+				{
+					Ioc.Get<IAppLogger>().Log("Could not recognize initial directory " + initialDirectory);
 				}
 			}
 
@@ -46,7 +53,7 @@ namespace VidCoder.Services
 			return new List<string>(dialog.FileNames);
 		}
 
-		public string GetFileNameLoad(string initialDirectory = null, string title = null, string defaultExt = null, string filter = null)
+		public string GetFileNameLoad(string initialDirectory = null, string title = null, string filter = null)
 		{
 			var dialog = new Microsoft.Win32.OpenFileDialog();
 
@@ -55,16 +62,10 @@ namespace VidCoder.Services
 				dialog.Title = title;
 			}
 
-			if (defaultExt != null)
-			{
-				dialog.DefaultExt = defaultExt;
-			}
-
 			if (filter != null)
 			{
 				dialog.Filter = filter;
 			}
-
 
 			if (!string.IsNullOrEmpty(initialDirectory))
 			{
@@ -175,13 +176,27 @@ namespace VidCoder.Services
 
 		public void PlayVideo(string fileName)
 		{
-			if (Config.UseCustomVideoPlayer && !string.IsNullOrWhiteSpace(Config.CustomVideoPlayer))
+			try
 			{
-				Process.Start(Config.CustomVideoPlayer, "\"" + fileName + "\"");
+				if (Config.UseCustomVideoPlayer && !string.IsNullOrWhiteSpace(Config.CustomVideoPlayer))
+				{
+					if (File.Exists(Config.CustomVideoPlayer))
+					{
+						Process.Start(Config.CustomVideoPlayer, "\"" + fileName + "\"");
+					}
+					else
+					{
+						MessageBox.Show(string.Format(MainRes.CustomVideoPlayerError, Config.CustomVideoPlayer));
+					}
+				}
+				else
+				{
+					this.LaunchFile(fileName);
+				}
 			}
-			else
+			catch (Win32Exception)
 			{
-				this.LaunchFile(fileName);
+				MessageBox.Show(MainRes.VideoPlayError);
 			}
 		}
 	}

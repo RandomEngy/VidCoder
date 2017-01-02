@@ -1,294 +1,329 @@
 ﻿<UserControl
-    x:Class="VidCoder.View.VideoFiltersPanel"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:dataModels="clr-namespace:VidCoder.ViewModel.DataModels"
-    xmlns:encoding="clr-namespace:VidCoder.Model.Encoding"
-    xmlns:local="clr-namespace:VidCoder"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:res="clr-namespace:VidCoder.Resources"
-    xmlns:viewModel="clr-namespace:VidCoder.ViewModel"
-    d:DataContext="{d:DesignInstance viewModel:VideoFiltersPanelViewModel}"
-    d:DesignHeight="330"
-    d:DesignWidth="622"
-    mc:Ignorable="d">
-    <UserControl.Resources>
-        <local:EnumDisplayer x:Key="DetelecineChoices" Type="{x:Type encoding:VCDetelecine}" />
-        <local:EnumDisplayer x:Key="DecombChoices" Type="{x:Type encoding:VCDecomb}" />
-        <local:EnumDisplayer x:Key="DeinterlaceChoices" Type="{x:Type encoding:VCDeinterlace}" />
-        <Style x:Key="NormalComboBox" TargetType="ComboBox">
-            <Setter Property="Height" Value="22" />
-            <Setter Property="MinWidth" Value="80" />
-            <Setter Property="Margin" Value="0,3" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
-        <Style x:Key="CustomFilterBox" TargetType="TextBox">
-            <Setter Property="Height" Value="23" />
-            <Setter Property="Width" Value="120" />
-            <Setter Property="Margin" Value="6,0,0,0" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-        </Style>
-        <Style x:Key="FilterLabel" TargetType="TextBlock">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="0,0,6,0" />
-        </Style>
-    </UserControl.Resources>
-    <Grid>
-        <Grid
-            Margin="15,16,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+	x:Class="VidCoder.View.VideoFiltersPanel"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:commonModel="clr-namespace:VidCoderCommon.Model;assembly=VidCoderCommon"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:dataModels="clr-namespace:VidCoder.ViewModel.DataModels"
+	xmlns:local="clr-namespace:VidCoder"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:res="clr-namespace:VidCoder.Resources"
+	xmlns:viewModel="clr-namespace:VidCoder.ViewModel"
+	d:DataContext="{d:DesignInstance viewModel:VideoFiltersPanelViewModel}"
+	d:DesignHeight="330"
+	d:DesignWidth="622"
+	mc:Ignorable="d">
+	<UserControl.Resources>
+		<local:EnumDisplayer x:Key="DeinterlaceChoices" Type="{x:Type commonModel:VCDeinterlace}" />
+		<Style x:Key="NormalComboBox" TargetType="ComboBox">
+			<Setter Property="Height" Value="22" />
+			<Setter Property="MinWidth" Value="80" />
+			<Setter Property="Margin" Value="0 3" />
+			<Setter Property="HorizontalAlignment" Value="Left" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+		<Style x:Key="CustomFilterBox" TargetType="TextBox">
+			<Setter Property="Margin" Value="6 0 0 0" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="ToolTipService.ShowDuration" Value="20000" />
+		</Style>
+		<Style
+			x:Key="OneLineCustomFilterBox"
+			BasedOn="{StaticResource CustomFilterBox}"
+			TargetType="TextBox">
+			<Setter Property="Height" Value="23" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+		</Style>
+		<Style
+			x:Key="MultiLineCustomFilterBox"
+			BasedOn="{StaticResource CustomFilterBox}"
+			TargetType="TextBox">
+			<Setter Property="HorizontalAlignment" Value="Left" />
+			<Setter Property="Width" Value="190" />
+			<Setter Property="Height" Value="80" />
+			<Setter Property="TextWrapping" Value="Wrap" />
+		</Style>
+		<Style x:Key="FilterLabel" TargetType="TextBlock">
+			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="Margin" Value="0 0 6 0" />
+		</Style>
+	</UserControl.Resources>
+	<Grid>
+		<Grid
+			Margin="15 16 15 0"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Top">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
 
-            <!--  Detelecine  -->
-            <TextBlock
-                Grid.Row="0"
-                Grid.Column="0"
-                Style="{StaticResource FilterLabel}"
-                Text="{x:Static res:EncodingRes.DetelecineLabel}" />
-            <ComboBox
-                Grid.Row="0"
-                Grid.Column="1"
-                ItemsSource="{Binding DisplayNames,
-                                            Source={StaticResource DetelecineChoices}}"
-                SelectedValue="{Binding SelectedDetelecine,
-                                              Converter={StaticResource DetelecineChoices}}"
-                Style="{StaticResource NormalComboBox}" />
-            <TextBox
-                Grid.Row="0"
-                Grid.Column="2"
-                Style="{StaticResource CustomFilterBox}"
-                Text="{Binding CustomDetelecine}"
-                Visibility="{Binding CustomDetelecineVisible,
-                                          Converter={StaticResource VisibilityConverter}}" />
+			<!--  Detelecine  -->
+			<TextBlock
+				Grid.Row="0"
+				Grid.Column="0"
+				Style="{StaticResource FilterLabel}"
+				Text="{x:Static res:EncodingRes.DetelecineLabel}" />
+			<ComboBox
+				Grid.Row="0"
+				Grid.Column="1"
+				ItemsSource="{Binding DetelecineChoices}"
+				SelectedValue="{Binding Detelecine}"
+				SelectedValuePath="Value"
+				Style="{StaticResource NormalComboBox}" />
+			<TextBox
+				Grid.Row="0"
+				Grid.Column="2"
+				Margin="6 3 0 3"
+				Style="{StaticResource OneLineCustomFilterBox}"
+				Text="{Binding CustomDetelecine,
+							   UpdateSourceTrigger=PropertyChanged}"
+				ToolTip="{Binding CustomDetelecineToolTip}"
+				Visibility="{Binding CustomDetelecineVisible,
+									 Converter={StaticResource VisibilityConverter}}" />
 
-            <!--  Decomb  -->
-            <TextBlock
-                Grid.Row="1"
-                Grid.Column="0"
-                Style="{StaticResource FilterLabel}"
-                Text="{x:Static res:EncodingRes.DecombLabel}" />
-            <ComboBox
-                Grid.Row="1"
-                Grid.Column="1"
-                ItemsSource="{Binding DisplayNames,
-                                            Source={StaticResource DecombChoices}}"
-                SelectedValue="{Binding SelectedDecomb,
-                                              Converter={StaticResource DecombChoices}}"
-                Style="{StaticResource NormalComboBox}" />
-            <TextBox
-                Grid.Row="1"
-                Grid.Column="2"
-                Style="{StaticResource CustomFilterBox}"
-                Text="{Binding CustomDecomb}"
-                Visibility="{Binding CustomDecombVisible,
-                                          Converter={StaticResource VisibilityConverter}}" />
+			<!--  Deinterlace  -->
+			<TextBlock
+				Grid.Row="1"
+				Grid.Column="0"
+				Margin="0 5 6 0"
+				VerticalAlignment="Top"
+				Style="{StaticResource FilterLabel}"
+				Text="{x:Static res:EncodingRes.DeinterlaceLabel}" />
+			<ComboBox
+				Grid.Row="1"
+				Grid.Column="1"
+				VerticalAlignment="Top"
+				ItemsSource="{Binding DisplayNames,
+									  Source={StaticResource DeinterlaceChoices}}"
+				SelectedValue="{Binding DeinterlaceType,
+										Converter={StaticResource DeinterlaceChoices}}"
+				Style="{StaticResource NormalComboBox}" />
+			<StackPanel
+				Grid.Row="1"
+				Grid.Column="2"
+				Margin="0 3"
+				Orientation="Horizontal">
+				<StackPanel
+					Margin="12 0 0 0"
+					Orientation="Horizontal"
+					Visibility="{Binding DeinterlacePresetVisible,
+										 Converter={StaticResource VisibilityConverter}}">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+						<TextBlock
+							Grid.Row="0"
+							Grid.Column="0"
+							Margin="0 2 6 0"
+							VerticalAlignment="Top"
+							Text="{x:Static res:EncodingRes.PresetLabel}" />
 
-            <!--  Deinterlace  -->
-            <TextBlock
-                Grid.Row="2"
-                Grid.Column="0"
-                Style="{StaticResource FilterLabel}"
-                Text="{x:Static res:EncodingRes.DeinterlaceLabel}" />
-            <ComboBox
-                Grid.Row="2"
-                Grid.Column="1"
-                ItemsSource="{Binding DisplayNames,
-                                            Source={StaticResource DeinterlaceChoices}}"
-                SelectedValue="{Binding SelectedDeinterlace,
-                                              Converter={StaticResource DeinterlaceChoices}}"
-                Style="{StaticResource NormalComboBox}" />
-            <TextBox
-                Grid.Row="2"
-                Grid.Column="2"
-                Style="{StaticResource CustomFilterBox}"
-                Text="{Binding CustomDeinterlace}"
-                Visibility="{Binding CustomDeinterlaceVisible,
-                                          Converter={StaticResource VisibilityConverter}}" />
+						<ComboBox
+							Grid.Row="0"
+							Grid.Column="1"
+							MinWidth="70"
+							VerticalAlignment="Center"
+							ItemsSource="{Binding DeinterlacePresetChoices}"
+							SelectedValue="{Binding DeinterlacePreset}"
+							SelectedValuePath="Value" />
 
-            <!--  Denoise  -->
-            <TextBlock
-                Grid.Row="3"
-                Grid.Column="0"
-                Style="{StaticResource FilterLabel}"
-                Text="{x:Static res:EncodingRes.DenoiseLabel}" />
-            <ComboBox
-                Grid.Row="3"
-                Grid.Column="1"
-                DisplayMemberPath="Display"
-                ItemsSource="{Binding DenoiseChoices}"
-                SelectedValue="{Binding SelectedDenoise}"
-                SelectedValuePath="Value"
-                Style="{StaticResource NormalComboBox}" />
+						<TextBox
+							Grid.Row="1"
+							Grid.Column="0"
+							Grid.ColumnSpan="2"
+							Margin="0 2 0 0"
+							Style="{StaticResource MultiLineCustomFilterBox}"
+							Text="{Binding CustomDeinterlace,
+										   UpdateSourceTrigger=PropertyChanged}"
+							ToolTip="{Binding CustomDeinterlaceToolTip}"
+							Visibility="{Binding CustomDeinterlaceVisible,
+												 Converter={StaticResource VisibilityConverter}}" />
+					</Grid>
 
-            <StackPanel
-                Grid.Row="3"
-                Grid.Column="2"
-                Orientation="Horizontal">
-                <StackPanel
-                    Margin="12,0,0,0"
-                    Orientation="Horizontal"
-                    Visibility="{Binding DenoisePresetVisible,
-                                                 Converter={StaticResource VisibilityConverter}}">
-                    <TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.PresetLabel}" />
+					<Grid Margin="12 0 0 0">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
 
-                    <ComboBox
-                        MinWidth="70"
-                        Margin="6,0,0,0"
-                        VerticalAlignment="Center"
-                        DisplayMemberPath="Display"
-                        ItemsSource="{Binding DenoisePresetChoices}"
-                        SelectedValue="{Binding DenoisePreset}"
-                        SelectedValuePath="Value" />
-                </StackPanel>
+						<TextBlock
+							Grid.Row="0"
+							Grid.Column="0"
+							Margin="0 2 6 0"
+							VerticalAlignment="Top"
+							Text="{x:Static res:EncodingRes.InterlaceDetectionLabel}" />
 
-                <StackPanel
-                    Margin="12,0,0,0"
-                    Orientation="Horizontal"
-                    Visibility="{Binding DenoiseTuneVisible,
-                                                 Converter={StaticResource VisibilityConverter}}">
-                    <TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.TuneLabel}" />
+						<ComboBox
+							Grid.Row="0"
+							Grid.Column="1"
+							MinWidth="70"
+							VerticalAlignment="Center"
+							ItemsSource="{Binding CombDetectChoices}"
+							SelectedValue="{Binding CombDetect}"
+							SelectedValuePath="Value" />
 
-                    <ComboBox
-                        MinWidth="70"
-                        Margin="6,0,0,0"
-                        VerticalAlignment="Center"
-                        DisplayMemberPath="Display"
-                        ItemsSource="{Binding DenoiseTuneChoices}"
-                        SelectedValue="{Binding DenoiseTune}"
-                        SelectedValuePath="Value" />
-                </StackPanel>
+						<TextBox
+							Grid.Row="1"
+							Grid.Column="0"
+							Grid.ColumnSpan="2"
+							Margin="0 2 0 0"
+							Style="{StaticResource MultiLineCustomFilterBox}"
+							Text="{Binding CustomCombDetect,
+										   UpdateSourceTrigger=PropertyChanged}"
+							ToolTip="{Binding CustomCombDetectToolTip}"
+							Visibility="{Binding CustomCombDetectVisible,
+												 Converter={StaticResource VisibilityConverter}}" />
+					</Grid>
 
-                <TextBox
-                    Style="{StaticResource CustomFilterBox}"
-                    Text="{Binding CustomDenoise,
-                                        Mode=TwoWay,
-                                        UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding CustomDenoiseVisible,
-                                              Converter={StaticResource VisibilityConverter}}" />
-            </StackPanel>
+					<!--<StackPanel Orientation="Horizontal">
+						<TextBlock
+							Margin="12 2 0 0"
+							VerticalAlignment="Top"
+							Text="{x:Static res:EncodingRes.InterlaceDetectionLabel}" />
+						<StackPanel
+							Margin="6 0 0 0"
+							VerticalAlignment="Top"
+							Orientation="Vertical">
+							<ComboBox
+								MinWidth="70"
+								VerticalAlignment="Center"
+								ItemsSource="{Binding CombDetectChoices}"
+								SelectedValue="{Binding CombDetect}"
+								SelectedValuePath="Value" />
 
-            <!--  Deblock  -->
-            <TextBlock
-                Grid.Row="4"
-                Grid.Column="0"
-                Style="{StaticResource FilterLabel}"
-                Text="{x:Static res:EncodingRes.DeblockLabel}" />
-            <StackPanel
-                Grid.Row="4"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                Margin="0,4"
-                Orientation="Horizontal">
-                <TextBlock
-                    MinWidth="34"
-                    VerticalAlignment="Center"
-                    Text="{Binding DeblockText}"
-                    TextAlignment="Center" />
-                <Slider
-                    Width="155"
-                    IsSnapToTickEnabled="True"
-                    Maximum="15"
-                    Minimum="4"
-                    TickFrequency="1"
-                    TickPlacement="BottomRight"
-                    Value="{Binding Deblock}" />
-            </StackPanel>
+							<TextBox
+								Margin="0 2 0 0"
+								Style="{StaticResource MultiLineCustomFilterBox}"
+								Text="{Binding CustomCombDetect,
+											   UpdateSourceTrigger=PropertyChanged}"
+								Visibility="{Binding CustomCombDetectVisible,
+													 Converter={StaticResource VisibilityConverter}}" />
+						</StackPanel>
+					</StackPanel>-->
+				</StackPanel>
+			</StackPanel>
 
-            <!--  Rotation  -->
-            <TextBlock
-                Grid.Row="5"
-                Grid.Column="0"
-                Style="{StaticResource FilterLabel}"
-                Text="{x:Static res:EncodingRes.RotationLabel}"
-                ToolTipService.ShowDuration="20000">
-                <TextBlock.ToolTip>
-                    <TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.RotationToolTip}" />
-                </TextBlock.ToolTip>
-            </TextBlock>
-            <ComboBox
-                Grid.Row="5"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                MinWidth="140"
-                Margin="3"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                ItemsSource="{Binding RotationChoices}"
-                SelectedValue="{Binding Rotation}"
-                SelectedValuePath="Rotation"
-                Style="{StaticResource LongToolTipHolder}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal" d:DataContext="{d:DesignInstance dataModels:RotationViewModel}">
-                            <Image
-                                Width="20"
-                                Height="20"
-                                Source="{Binding Image}"
-                                Visibility="{Binding ShowImage,
-                                                        Converter={StaticResource VisibilityConverter}}" />
-                            <TextBlock
-                                Margin="6,0,0,0"
-                                VerticalAlignment="Center"
-                                Text="{Binding Display}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-                <ComboBox.ToolTip>
-                    <TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.RotationToolTip}" />
-                </ComboBox.ToolTip>
-            </ComboBox>
-            <CheckBox
-                Grid.Row="6"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                Margin="3"
-                Content="{x:Static res:EncodingRes.FlipHorizontalCheckBox}"
-                IsChecked="{Binding FlipHorizontal}"
-                Style="{StaticResource LongToolTipHolder}">
-                <CheckBox.ToolTip>
-                    <TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.FlipHorizontalToolTip}" />
-                </CheckBox.ToolTip>
-            </CheckBox>
-            <CheckBox
-                Grid.Row="7"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                Margin="3"
-                Content="{x:Static res:EncodingRes.FlipVerticalCheckBox}"
-                IsChecked="{Binding FlipVertical}"
-                Style="{StaticResource LongToolTipHolder}">
-                <CheckBox.ToolTip>
-                    <TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.FlipVerticalToolTip}" />
-                </CheckBox.ToolTip>
-            </CheckBox>
+			<!--  Denoise  -->
+			<TextBlock
+				Grid.Row="2"
+				Grid.Column="0"
+				Style="{StaticResource FilterLabel}"
+				Text="{x:Static res:EncodingRes.DenoiseLabel}" />
+			<ComboBox
+				Grid.Row="2"
+				Grid.Column="1"
+				ItemsSource="{Binding DenoiseChoices}"
+				SelectedValue="{Binding DenoiseType}"
+				SelectedValuePath="Value"
+				Style="{StaticResource NormalComboBox}" />
 
-            <CheckBox
-                Grid.Row="8"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                Margin="3,10,3,3"
-                Content="{x:Static res:EncodingRes.GrayscaleCheckBox}"
-                IsChecked="{Binding Grayscale}" />
-        </Grid>
-    </Grid>
+			<Grid
+				Grid.Row="2"
+				Grid.Column="2"
+				Margin="0 2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+
+				<StackPanel
+					Grid.Column="0"
+					Margin="12 0 0 0"
+					Orientation="Horizontal"
+					Visibility="{Binding DenoisePresetVisible,
+										 Converter={StaticResource VisibilityConverter}}">
+					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.PresetLabel}" />
+
+					<ComboBox
+						MinWidth="70"
+						Margin="6 0 0 0"
+						VerticalAlignment="Center"
+						ItemsSource="{Binding DenoisePresetChoices}"
+						SelectedValue="{Binding DenoisePreset}"
+						SelectedValuePath="Value" />
+				</StackPanel>
+
+				<StackPanel
+					Grid.Column="1"
+					Margin="12 0 0 0"
+					Orientation="Horizontal"
+					Visibility="{Binding DenoiseTuneVisible,
+										 Converter={StaticResource VisibilityConverter}}">
+					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.TuneLabel}" />
+
+					<ComboBox
+						MinWidth="70"
+						Margin="6 0 0 0"
+						VerticalAlignment="Center"
+						ItemsSource="{Binding DenoiseTuneChoices}"
+						SelectedValue="{Binding DenoiseTune}"
+						SelectedValuePath="Value" />
+				</StackPanel>
+
+				<TextBox
+					Grid.Column="2"
+					Style="{StaticResource OneLineCustomFilterBox}"
+					Text="{Binding CustomDenoise,
+								   UpdateSourceTrigger=PropertyChanged}"
+					ToolTip="{Binding CustomDenoiseToolTip}"
+					Visibility="{Binding CustomDenoiseVisible,
+										 Converter={StaticResource VisibilityConverter}}" />
+			</Grid>
+
+			<!--  Deblock  -->
+			<TextBlock
+				Grid.Row="3"
+				Grid.Column="0"
+				Style="{StaticResource FilterLabel}"
+				Text="{x:Static res:EncodingRes.DeblockLabel}" />
+			<StackPanel
+				Grid.Row="3"
+				Grid.Column="1"
+				Grid.ColumnSpan="2"
+				Margin="0 4"
+				Orientation="Horizontal">
+				<TextBlock
+					MinWidth="34"
+					VerticalAlignment="Center"
+					Text="{Binding DeblockText}"
+					TextAlignment="Center" />
+				<Slider
+					Width="155"
+					IsSnapToTickEnabled="True"
+					Maximum="15"
+					Minimum="4"
+					TickFrequency="1"
+					TickPlacement="BottomRight"
+					Value="{Binding Deblock}" />
+			</StackPanel>
+
+			<CheckBox
+				Grid.Row="4"
+				Grid.Column="1"
+				Grid.ColumnSpan="2"
+				Margin="3 10 3 3"
+				Content="{x:Static res:EncodingRes.GrayscaleCheckBox}"
+				IsChecked="{Binding Grayscale}" />
+		</Grid>
+	</Grid>
 </UserControl>

@@ -12,7 +12,7 @@ namespace VidCoder
 	{
 		public void Execute(object parameter)
 		{
-			var mainWindow = Ioc.Container.GetInstance<MainWindow>();
+			var mainWindow = Ioc.Get<Main>();
 			mainWindow.Show();
 
 			mainWindow.Dispatcher.BeginInvoke(new Action(() =>
