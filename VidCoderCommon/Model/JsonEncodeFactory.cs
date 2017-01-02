@@ -43,7 +43,6 @@ namespace VidCoderCommon.Model
 		/// <param name="job">The encode job to convert.</param>
 		/// <param name="title">The source title.</param>
 		/// <param name="defaultChapterNameFormat">The format for a default chapter name.</param>
-		/// <param name="dxvaDecoding">True to enable DXVA decoding.</param>
 		/// <param name="previewNumber">The preview number to start at (0-based). Leave off for a normal encode.</param>
 		/// <param name="previewSeconds">The number of seconds long to make the preview.</param>
 		/// <param name="previewCount">The total number of previews.</param>
@@ -52,7 +51,6 @@ namespace VidCoderCommon.Model
 			VCJob job,
 			SourceTitle title,
 			string defaultChapterNameFormat,
-			bool dxvaDecoding,
 			int previewNumber = -1,
 			int previewSeconds = 0,
 			int previewCount = 0)
@@ -85,7 +83,7 @@ namespace VidCoderCommon.Model
 				PAR = outputSize.Par,
 				Source = this.CreateSource(job, title, previewNumber, previewSeconds, previewCount),
 				Subtitle = this.CreateSubtitles(job),
-				Video = this.CreateVideo(job, title, previewSeconds, dxvaDecoding)
+				Video = this.CreateVideo(job, title, previewSeconds)
 			};
 
 			return encode;
@@ -732,7 +730,7 @@ namespace VidCoderCommon.Model
 			return subtitles;
 		}
 
-		private Video CreateVideo(VCJob job, SourceTitle title, int previewLengthSeconds, bool dxvaDecoding)
+		private Video CreateVideo(VCJob job, SourceTitle title, int previewLengthSeconds)
 		{
 			Video video = new Video();
 			VCProfile profile = job.EncodingProfile;
@@ -744,7 +742,7 @@ namespace VidCoderCommon.Model
 			}
 
 			video.Encoder = videoEncoder.Id;
-			video.HWDecode = dxvaDecoding;
+			video.HWDecode = false;
 			video.QSV = new QSV
 			{
 				Decode = profile.QsvDecode && profile.VideoEncoder == "qsv_h264"

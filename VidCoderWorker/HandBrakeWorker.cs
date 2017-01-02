@@ -146,13 +146,11 @@ namespace VidCoderWorker
         /// <param name="job">The VidCoder job to run.</param>
         /// <param name="previewNumber">The preview number to run.</param>
         /// <param name="previewSeconds">The number of seconds the preview should be.</param>
-        /// <param name="dxvaDecoding">True if we should use hardware decoding.</param>
         /// <param name="defaultChapterNameFormat">The default format for chapter names.</param>
 		public void StartEncode(
 			VCJob job,
 			int previewNumber,
 			int previewSeconds,
-			bool dxvaDecoding,
 			string defaultChapterNameFormat)
 		{
             this.StartEncodeInternal(
@@ -169,7 +167,6 @@ namespace VidCoderWorker
                             job,
                             encodeTitle,
                             defaultChapterNameFormat,
-                            dxvaDecoding,
                             previewNumber,
                             previewSeconds,
                             this.passedPreviewCount);

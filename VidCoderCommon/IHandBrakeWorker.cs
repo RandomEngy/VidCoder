@@ -28,7 +28,6 @@ namespace VidCoderCommon
 			VCJob job,
 			int previewNumber,
 			int previewSeconds,
-			bool dxvaDecoding,
 			string defaultChapterNameFormat);
 
         /// <summary>

@@ -59,7 +59,6 @@ namespace VidCoder
 					job,
 					preview ? previewNumber : -1,
 					previewSeconds,
-					Config.DxvaDecoding,
 					EncodingRes.DefaultChapterName);
 			});
 		}
