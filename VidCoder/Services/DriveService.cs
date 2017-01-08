@@ -57,7 +57,8 @@ namespace VidCoder.Services
 			{
 				if (driveInfo.DriveType == DriveType.CDRom && driveInfo.IsReady)
 				{
-					if (File.Exists(driveInfo.RootDirectory + @"VIDEO_TS\VIDEO_TS.IFO"))
+					FolderType folderType = Utilities.GetFolderType(driveInfo.RootDirectory.ToString());
+					if (folderType == FolderType.Dvd)
 					{
 						driveList.Add(new DriveInformation
 						{
@@ -66,7 +67,7 @@ namespace VidCoder.Services
 							DiscType = DiscType.Dvd
 						});
 					}
-					else if (Directory.Exists(driveInfo.RootDirectory + "BDMV"))
+					else if (folderType == FolderType.BluRay)
 					{
 						driveList.Add(new DriveInformation
 						{

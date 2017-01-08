@@ -443,6 +443,7 @@
     <Compile Include="Model\EncodeProgress.cs" />
     <Compile Include="Model\EncodeResultStatus.cs" />
     <Compile Include="Model\EncodeCompleteReason.cs" />
+    <Compile Include="Model\FolderType.cs" />
     <Compile Include="Model\PresetWrapper.cs" />
     <Compile Include="Model\PreviewControls.cs" />
     <Compile Include="Model\PreviewEncodeState.cs" />
