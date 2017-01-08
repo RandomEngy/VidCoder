@@ -437,7 +437,7 @@
                                 Height="23"
                                 Margin="0"
                                 VerticalContentAlignment="Center"
-                                Text="{Binding Name}"
+                                Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                                 Visibility="{Binding NameVisible,
                                                      Converter={StaticResource VisibilityConverter}}" />
                         </Grid>

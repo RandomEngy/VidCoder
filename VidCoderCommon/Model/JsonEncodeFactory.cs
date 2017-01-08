@@ -202,6 +202,11 @@ namespace VidCoderCommon.Model
 					Encoder = (int)outputCodec,
 				};
 
+				if (!string.IsNullOrEmpty(encoding.Name))
+				{
+					audioTrack.Name = encoding.Name;
+				}
+
 				if (!isPassthrough)
 				{
 					audioTrack.Samplerate = encoding.SampleRateRaw;
