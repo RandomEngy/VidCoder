@@ -249,7 +249,7 @@ else
     if ($debugBuild) {
         $latestFile = "Installer\Test\latest.json"
     } else {
-        $latestFile = "Installer\latest.xml"
+        $latestFile = "Installer\latest.json"
     }
 }
 
