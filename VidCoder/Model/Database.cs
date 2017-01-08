@@ -76,6 +76,11 @@ namespace VidCoder.Model
 					UpgradeDatabaseTo33();
 				}
 
+				if (databaseVersion < 35)
+				{
+					UpgradeDatabaseTo35();
+				}
+
 				// Update encoding profiles if we need to. Everything is at least 28 now from the JSON upgrade.
 				int oldDatabaseVersion = Math.Max(databaseVersion, 28);
                 if (oldDatabaseVersion < Utilities.LastUpdatedEncodingProfileDatabaseVersion)
@@ -425,6 +430,19 @@ namespace VidCoder.Model
 			Ioc.Get<IMessageBoxService>().Show(message);
 		}
 
+		private static void UpgradeDatabaseTo35()
+		{
+			// Move settings into a new table with PRIMARY KEY constraint on name
+			ExecuteNonQuery("ALTER TABLE settings RENAME TO settingsOld", connection);
+			ExecuteNonQuery(
+				"CREATE TABLE settings (" +
+				"name TEXT PRIMARY KEY, " +
+				"value TEXT)", connection);
+
+			ExecuteNonQuery("INSERT INTO settings SELECT * FROM settingsOld", connection);
+			ExecuteNonQuery("DROP TABLE settingsOld", connection);
+		}
+
 		private static void UpgradeWindowPlacementConfig(string configKey, Encoding encoding, XmlSerializer serializer)
 		{
 			string oldValue = DatabaseConfig.Get(configKey, string.Empty, connection);
@@ -663,7 +681,7 @@ namespace VidCoder.Model
 
 			ExecuteNonQuery(
 				"CREATE TABLE settings (" +
-				"name TEXT, " +
+				"name TEXT PRIMARY KEY, " +
 				"value TEXT)", connection);
 
 			ExecuteNonQuery(
