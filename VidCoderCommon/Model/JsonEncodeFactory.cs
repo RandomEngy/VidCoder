@@ -1157,7 +1157,8 @@ namespace VidCoderCommon.Model
 			int scaleHeight = pictureOutputHeight;
 
 			// Rotation happens before padding.
-			if (profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270)
+			bool swapDimensionsFromRotation = profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270;
+			if (swapDimensionsFromRotation)
 			{
 				int swapDimension = pictureOutputWidth;
 				pictureOutputWidth = pictureOutputHeight;
@@ -1290,13 +1291,17 @@ namespace VidCoderCommon.Model
 			if (padding.Left == 0 && padding.Right == 0)
 			{
 				pictureOutputWidth = roundedOutputWidth;
-				scaleWidth = roundedOutputWidth;
+				
+				// The output dimensions at this point are after rotation, so we need to swap to get the pre-rotation sizing dimensions.
+				scaleWidth = swapDimensionsFromRotation ? roundedOutputHeight : roundedOutputWidth;
 			}
 
 			if (padding.Top == 0 && padding.Bottom == 0)
 			{
 				pictureOutputHeight = roundedOutputHeight;
-				scaleHeight = roundedOutputHeight;
+
+				// The output dimensions at this point are after rotation, so we need to swap to get the pre-rotation sizing dimensions.
+				scaleHeight = swapDimensionsFromRotation ? roundedOutputWidth : roundedOutputHeight;
 			}
 
 			PAR outputPar;
