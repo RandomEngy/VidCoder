@@ -497,45 +497,48 @@ namespace VidCoder.ViewModel
 	    {
             if (paths.Count > 0)
             {
-                if (paths.Count == 1)
-                {
-                    string item = paths[0];
+				DispatchUtilities.BeginInvoke(() =>
+				{
+					if (paths.Count == 1)
+					{
+						string item = paths[0];
 
-                    string extension = Path.GetExtension(item);
-                    if (extension != null)
-                    {
-                        extension = extension.ToLowerInvariant();
-                    }
+						string extension = Path.GetExtension(item);
+						if (extension != null)
+						{
+							extension = extension.ToLowerInvariant();
+						}
 
-                    if (extension == ".xml" || extension == ".vjpreset")
-                    {
-                        // It's a preset
-                        try
-                        {
-                            Preset preset = Ioc.Get<IPresetImportExport>().ImportPreset(paths[0]);
-                            Ioc.Get<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
-                        }
-                        catch (Exception)
-                        {
-                            Ioc.Get<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
-                        }
-                    }
-                    else if (Utilities.IsDiscFolder(item))
-                    {
-                        // It's a disc folder or disc
-                        this.SetSource(item);
-                    }
-                    else
-                    {
-                        // It is a video file or folder full of video files
-                        this.HandleDropAsPaths(paths);
-                    }
-                }
-                else
-                {
-                    // With multiple items, treat it as a list video files/disc folders or folders full of those items
-                    this.HandleDropAsPaths(paths);
-                }
+						if (extension == ".xml" || extension == ".vjpreset")
+						{
+							// It's a preset
+							try
+							{
+								Preset preset = Ioc.Get<IPresetImportExport>().ImportPreset(paths[0]);
+								Ioc.Get<IMessageBoxService>().Show(string.Format(MainRes.PresetImportSuccessMessage, preset.Name), CommonRes.Success, System.Windows.MessageBoxButton.OK);
+							}
+							catch (Exception)
+							{
+								Ioc.Get<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
+							}
+						}
+						else if (Utilities.IsDiscFolder(item))
+						{
+							// It's a disc folder or disc
+							this.SetSource(item);
+						}
+						else
+						{
+							// It is a video file or folder full of video files
+							this.HandleDropAsPaths(paths);
+						}
+					}
+					else
+					{
+						// With multiple items, treat it as a list video files/disc folders or folders full of those items
+						this.HandleDropAsPaths(paths);
+					}
+				});
             }
         }
 
