@@ -41,15 +41,6 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 </tr>
 </table>
 
-<table class="releasesTable">
-<tr><td colspan="4">
-<h2 class="versionHeader betaVersionHeader">Latest Beta: {{ betaVersion }}</h2>
-</td></tr>
-<tr>
-<td><a href="{{ betaInstallerUrl }}">Installer (.exe)</a></td><td><a href="{{ betaPortableUrl }}" class="secondaryInstallLink">Portable (.exe)</a></td><td><a href="{{ betaSourceUrl }}" class="secondaryInstallLink">Source (.zip)</a></td><td><a href="{{ betaNotesUrl }}" class="secondaryInstallLink">Release Notes</a></td>
-</tr>
-</table>
-
 ![Main UI screenshot]({{ site.baseurl }}/images/main.png)
 
 <iframe width="814" height="480" src="https://www.youtube.com/embed/5YEZHZghj0k" frameborder="0" allowfullscreen></iframe>
@@ -98,8 +89,8 @@ VidCoder does not defeat AACS or BD+ Blu-ray encryption. There are a couple opti
 If you encounter any bugs with encoding, please see if they happen with the official HandBrake client as well. If the problem is reproducible on HandBrake, submit the issue to them. If it's only VidCoder that has the problem, submit it here.
 
 ## Languages
-![English]({{ site.baseurl }}/images/flags/english.png) ![Spanish]({{ site.baseurl }}/images/flags/spanish.png) ![German]({{ site.baseurl }}/images/flags/german.png) ![French]({{ site.baseurl }}/images/flags/french.png) ![Italian]({{ site.baseurl }}/images/flags/italian.png) ![Portuguese]({{ site.baseurl }}/images/flags/portuguese.png) ![Brazilian Portuguese]({{ site.baseurl }}/images/flags/portuguese_brazilian.png) ![Dutch]({{ site.baseurl }}/images/flags/dutch.png) ![Turkish]({{ site.baseurl }}/images/flags/turkish.png) ![Czech]({{ site.baseurl }}/images/flags/czech.png) ![Polish]({{ site.baseurl }}/images/flags/polish.png) ![Russian]({{ site.baseurl }}/images/flags/russian.png) ![Chinese Simplified]({{ site.baseurl }}/images/flags/chinese_simplified.png) ![Chinese Traditional]({{ site.baseurl }}/images/flags/chinese_traditional.png) ![Japanese]({{ site.baseurl }}/images/flags/japanese.png) ![Hungarian]({{ site.baseurl }}/images/flags/hungarian.png) ![Georgian]({{ site.baseurl }}/images/flags/georgian.png) ![Basque]({{ site.baseurl }}/images/flags/basque.png)
-VidCoder includes English, Spanish, German, French, Italian, Portuguese, Brazilian Portuguese, Dutch, Turkish, Czech, Polish, Russian, Chinese Simplified, Chinese Traditional, Japanese, Hungarian, Georgian and Basque translations. The correct language will be selected automatically based on your OS language, or it can be selected manually.
+![English]({{ site.baseurl }}/images/flags/english.png){:class="flagImage"} ![Spanish]({{ site.baseurl }}/images/flags/spanish.png){:class="flagImage"} ![German]({{ site.baseurl }}/images/flags/german.png){:class="flagImage"} ![French]({{ site.baseurl }}/images/flags/french.png){:class="flagImage"} ![Italian]({{ site.baseurl }}/images/flags/italian.png){:class="flagImage"} ![Portuguese]({{ site.baseurl }}/images/flags/portuguese.png){:class="flagImage"} ![Brazilian Portuguese]({{ site.baseurl }}/images/flags/portuguese_brazilian.png){:class="flagImage"} ![Dutch]({{ site.baseurl }}/images/flags/dutch.png){:class="flagImage"} ![Turkish]({{ site.baseurl }}/images/flags/turkish.png){:class="flagImage"} ![Bosnian]({{ site.baseurl }}/images/flags/bosnian.png){:class="flagImage"} ![Korean]({{ site.baseurl }}/images/flags/korean.png){:class="flagImage"} ![Czech]({{ site.baseurl }}/images/flags/czech.png){:class="flagImage"} ![Polish]({{ site.baseurl }}/images/flags/polish.png){:class="flagImage"} ![Russian]({{ site.baseurl }}/images/flags/russian.png){:class="flagImage"} ![Chinese Simplified]({{ site.baseurl }}/images/flags/chinese_simplified.png){:class="flagImage"} ![Chinese Traditional]({{ site.baseurl }}/images/flags/chinese_traditional.png){:class="flagImage"} ![Japanese]({{ site.baseurl }}/images/flags/japanese.png){:class="flagImage"} ![Hungarian]({{ site.baseurl }}/images/flags/hungarian.png){:class="flagImage"} ![Georgian]({{ site.baseurl }}/images/flags/georgian.png){:class="flagImage"} ![Basque]({{ site.baseurl }}/images/flags/basque.png){:class="flagImage"}
+VidCoder includes English, Spanish, German, French, Italian, Portuguese, Brazilian Portuguese, Dutch, Turkish, Bosnian, Korean, Czech, Polish, Russian, Chinese Simplified, Chinese Traditional, Japanese, Hungarian, Georgian and Basque translations. The correct language will be selected automatically based on your OS language, or it can be selected manually.
 
 Interested in translating VidCoder to your own language? [Help out on Crowdin](http://crowdin.net/project/vidcoder).
 
