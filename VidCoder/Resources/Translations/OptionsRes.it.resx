@@ -133,7 +133,7 @@
     <value>Riduci ad icona sull'area di notifica</value>
   </data>
   <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
-    <value>Riprodurre l'audio sul completamento della coda</value>
+    <value>Riproduci suono al completamento della coda</value>
   </data>
   <data name="PreferredDvdPlayerLabel" xml:space="preserve">
     <value>Lettore di DVD preferito:</value>
@@ -172,25 +172,25 @@
     <value>Codifica file singolo:</value>
   </data>
   <data name="AskOverwriteRadioButton" xml:space="preserve">
-    <value>Chiederà se si desidera sovrascriverlo</value>
+    <value>Chiedi se vuoi sovrascriverlo</value>
   </data>
   <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
-    <value>Sovrascrivere il file senza chiedere conferma</value>
+    <value>Sovrascrivi il file senza chiedere conferma</value>
   </data>
   <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
-    <value>Passare automaticamente a un nome diverso</value>
+    <value>Imposta automaticamente un nome diverso</value>
   </data>
   <data name="EncodingBatchOfFiles" xml:space="preserve">
-    <value>Codifica batch di file:</value>
+    <value>Codifica non-interattiva di file:</value>
   </data>
   <data name="OverwriteRadioButton" xml:space="preserve">
     <value>Sovrascrivi</value>
   </data>
   <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
-    <value>Rinominare automaticamente</value>
+    <value>Rinomina automaticamente</value>
   </data>
   <data name="AutoPauseLabel" xml:space="preserve">
-    <value>Pausa automaticamente codifica quando uno qualsiasi di questi processi sono in esecuzione:</value>
+    <value>Metti in pausa la codifica automaticamente quando uno qualsiasi di questi processi sono in esecuzione:</value>
   </data>
   <data name="AddEllipsesButton" xml:space="preserve">
     <value>Aggiungi...</value>
@@ -247,7 +247,7 @@
     <value>VidCoder è aggiornato.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>Scegliere la directory di output predefinito per i file video codificati.</value>
+    <value>Scegliere la cartella di output predefinita per i file video codificati.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>Lingua dell'interfaccia:</value>
@@ -268,7 +268,7 @@
     <value>Controllo dell'aggiornamento non riuscito.</value>
   </data>
   <data name="CompletionWavFilePickTitle" xml:space="preserve">
-    <value>Scegliere il file wav che si desidera utilizzare per il suono di completamento.</value>
+    <value>Scegli il file .wav che desideri utilizzare per il suono di completamento.</value>
   </data>
   <data name="CurrentVersionLabel" xml:space="preserve">
     <value>Versione corrente: {0}</value>
@@ -349,13 +349,13 @@
     <value>Inferiore al normale</value>
   </data>
   <data name="WorkerProcessPriorityLabel" xml:space="preserve">
-    <value>Priorità del processo di lavoro:</value>
+    <value>Priorità del processo di codifica:</value>
   </data>
   <data name="Priority_Idle" xml:space="preserve">
     <value>Basso</value>
   </data>
   <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>Copia codifica log nella stessa directory come il codifica video</value>
+    <value>Copia il registro di codifica nella stessa cartella del video codificato</value>
   </data>
   <data name="OpenLogFolderButton" xml:space="preserve">
     <value>Cartella di registro aperto</value>

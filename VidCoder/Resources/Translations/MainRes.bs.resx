@@ -118,537 +118,535 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TitleLabel" xml:space="preserve">
-    <value>제목:</value>
+    <value>Naslov:</value>
   </data>
   <data name="SettingsLabel" xml:space="preserve">
-    <value>설정</value>
+    <value>Postavke</value>
   </data>
   <data name="AddToQueueLabel" xml:space="preserve">
-    <value>대기열에 추가</value>
+    <value>Dodaj u Red</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
-    <value>대기열에 여러 타이틀 추가하기...</value>
+    <value>Dodaj više naslova u Red...</value>
   </data>
   <data name="FileMenu" xml:space="preserve">
-    <value>파일</value>
+    <value>Fajl</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
-    <value>비디오 파일 열기...</value>
+    <value>Otvorite video datoteku...</value>
   </data>
   <data name="OpenDiscFolder" xml:space="preserve">
-    <value>DVD/블루레이 폴더 일기...</value>
+    <value>Otvori folder DVD/Blu-ray...</value>
   </data>
   <data name="EnqueueMultipleFiles" xml:space="preserve">
-    <value>여러 파일 대기열에 넣기...</value>
+    <value>Dodaj višestruke fajlove u red...</value>
   </data>
   <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>여러 타이틀 대기열에 넣기...</value>
+    <value>Dodaj višestruke naslove u red...</value>
   </data>
   <data name="ToolsMenu" xml:space="preserve">
-    <value>도구</value>
+    <value>Alati</value>
   </data>
   <data name="ImportPreset" xml:space="preserve">
-    <value>프리셋 가져오기...</value>
+    <value>Uvezi šablon...</value>
   </data>
   <data name="ExportPreset" xml:space="preserve">
-    <value>프리셋 내보내기...</value>
+    <value>Izvezi šablon...</value>
   </data>
   <data name="OptionsMenuItem" xml:space="preserve">
-    <value>설정...</value>
+    <value>Opcije...</value>
   </data>
   <data name="Play" xml:space="preserve">
-    <value>재생</value>
+    <value>Reproduciraj</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>편집</value>
+    <value>Uredi</value>
   </data>
   <data name="OpenContainingFolder" xml:space="preserve">
-    <value>포함하는 폴더 열기</value>
+    <value>Otvori sadržavajući folder</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
-    <value>완료항목 지우기</value>
+    <value>Ukloni završene</value>
   </data>
   <data name="ExitMenuItem" xml:space="preserve">
-    <value>종료</value>
+    <value>Izlaz</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
-    <value>윈도우</value>
+    <value>Prozori</value>
     <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
-    <value>인코딩 설정</value>
+    <value>Postavke enkodiranja</value>
   </data>
   <data name="PreviewMenuItem" xml:space="preserve">
-    <value>미리보기</value>
+    <value>Pregled</value>
   </data>
   <data name="LogMenuItem" xml:space="preserve">
-    <value>로그</value>
+    <value>Zapisnik</value>
   </data>
   <data name="HelpMenu" xml:space="preserve">
-    <value>도움말</value>
+    <value>Pomoć</value>
   </data>
   <data name="VidCoderHomepageMenuItem" xml:space="preserve">
-    <value>VidCoder 홈페이지</value>
+    <value>Stranica VidCoder-a</value>
   </data>
   <data name="ReportABugMenuItem" xml:space="preserve">
-    <value>버그 보고하기</value>
+    <value>Prijavi Grešku</value>
   </data>
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
-    <value>정보...</value>
+    <value>O VidCoder-u...</value>
   </data>
   <data name="ChooseVideoSourceLabel" xml:space="preserve">
-    <value>비디오 소스 선택:</value>
+    <value>Odaberite izvora videa:</value>
   </data>
   <data name="SourceLabel" xml:space="preserve">
-    <value>소스:</value>
+    <value>Izvor:</value>
   </data>
   <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>검색 소스...</value>
+    <value>Skeniranje izvora...</value>
   </data>
   <data name="Recent" xml:space="preserve">
-    <value>최근</value>
+    <value>Nedavni</value>
   </data>
   <data name="DragFilesHereLabel" xml:space="preserve">
-    <value>(여기에 비디오 파일/폴더를 끌어오세요)</value>
+    <value>(ili prevucite video fajlove ili foldere ovdje)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
-    <value>검색하는 동안 오류가 발생했습니다.</value>
+    <value>Tokom skeniranje došlo je do greške.</value>
   </data>
   <data name="AudioLabel" xml:space="preserve">
-    <value>오디오:</value>
+    <value>Audio:</value>
   </data>
   <data name="VideoLabel" xml:space="preserve">
-    <value>비디오:</value>
+    <value>Video:</value>
   </data>
   <data name="SubtitlesLabel" xml:space="preserve">
-    <value>자막:</value>
+    <value>Podnaslovi:</value>
   </data>
   <data name="AddTrackButton" xml:space="preserve">
-    <value>트랙 추가</value>
+    <value>Dodan zapis</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
-    <value>챕터 표시:</value>
+    <value>Oznake poglavlja:</value>
   </data>
   <data name="EditButton" xml:space="preserve">
-    <value>편집...</value>
+    <value>Uredi...</value>
   </data>
   <data name="DestinationLabel" xml:space="preserve">
-    <value>대상:</value>
+    <value>Odredište:</value>
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
-    <value>인코딩 대상을 수정하려면 클릭하세요.</value>
+    <value>Kliknite za uređivanje odredišta enkodiranja.</value>
   </data>
   <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>출력 경로 선택...</value>
+    <value>Odaberite izlaznu putanju...</value>
   </data>
   <data name="EncodingLabel" xml:space="preserve">
-    <value>인코딩:</value>
+    <value>Enkodiranje:</value>
   </data>
   <data name="Stop" xml:space="preserve">
-    <value>중지</value>
+    <value>Zaustavi</value>
   </data>
   <data name="Pause" xml:space="preserve">
-    <value>일시정지</value>
+    <value>Pauziraj</value>
   </data>
   <data name="MoveToTopMenuItem" xml:space="preserve">
-    <value>맨 위로 이동</value>
+    <value>Premjesti na vrh</value>
   </data>
   <data name="MoveToBottomMenuItem" xml:space="preserve">
-    <value>아래로 이동</value>
+    <value>Premjesti na dno</value>
   </data>
   <data name="CustomizeColumnsMenuItem" xml:space="preserve">
-    <value>사용자 열 지정...</value>
+    <value>Uredi kolone...</value>
   </data>
   <data name="CurrentFpsLabel" xml:space="preserve">
-    <value>현재 FPS:</value>
+    <value>Trenutni FPS:</value>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>평균 FPS:</value>
+    <value>Prosječan FPS:</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
-    <value>DVD나 블루레이 폴더를 선택하세요.</value>
+    <value>Odaberite DVD ili Blu-Ray folder.</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
-    <value>인코딩 작업 중입니다. 그래도 종료할까요?</value>
+    <value>Imate enkodiranja u toku. Da li zbilja želite izaći?</value>
   </data>
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
-    <value>진행 중인 인코딩</value>
+    <value>Enkodiranja u toku</value>
   </data>
   <data name="ForeignAudioSearch" xml:space="preserve">
-    <value>외국어 오디오 검색</value>
+    <value>Traženje stranog audia</value>
   </data>
   <data name="NoneParen" xml:space="preserve">
-    <value>(없음)</value>
+    <value>(Ništa)</value>
   </data>
   <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} 트랙</value>
+    <value>{0} zapisa</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
-    <value>변경한 내용을 현재 프리셋에 저장할까요?</value>
+    <value>Želite li spremiti promjene u vaš trenutni šablon?</value>
   </data>
   <data name="SaveChangesPresetTitle" xml:space="preserve">
-    <value>현재 프리셋을 저장할까요?</value>
+    <value>Spremiti trenutni šablon?</value>
   </data>
   <data name="DiscNotInDriveError" xml:space="preserve">
-    <value>편집을 위해 불러올 수 없습니다. 디스크가 드라이브에 없습니다.</value>
+    <value>Nije moguće učitati za uređivanje. Disk se više ne nalazi u drive-u.</value>
   </data>
   <data name="PresetNameRestoredFromQueue" xml:space="preserve">
-    <value>대기열에서 복원됨</value>
+    <value>Vraćeno iz reda</value>
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
-    <value>완료 항목에서 복원됨</value>
+    <value>Vraćeno iz završenog</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>프리셋:</value>
+    <value>Šablon:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
-    <value>대상</value>
+    <value>Odredište</value>
   </data>
   <data name="StatusColumnHeader" xml:space="preserve">
-    <value>상태</value>
+    <value>Status</value>
   </data>
   <data name="ElapsedTimeColumnHeader" xml:space="preserve">
-    <value>진행 시간</value>
+    <value>Proteklo vrijeme</value>
   </data>
   <data name="PlayingVideoMessage" xml:space="preserve">
-    <value>비디오 재생...</value>
+    <value>Reprodukcija videa...</value>
   </data>
   <data name="FileDoesNotExist" xml:space="preserve">
-    <value>{0} 이 없습니다.</value>
+    <value>{0} ne postoji.</value>
   </data>
   <data name="AngleLabel" xml:space="preserve">
-    <value>각도:</value>
+    <value>Ugao:</value>
   </data>
   <data name="ChaptersSummary" xml:space="preserve">
-    <value>/ {0}</value>
+    <value>od {0}</value>
   </data>
   <data name="Queued" xml:space="preserve">
-    <value>대기</value>
+    <value>Dodano u red</value>
   </data>
   <data name="QueuedWithTotal" xml:space="preserve">
-    <value>대기: ({0})</value>
+    <value>Dodano u red ({0})</value>
   </data>
   <data name="CompletedWithTotal" xml:space="preserve">
-    <value>완료: ({0})</value>
+    <value>Završeno ({0})</value>
   </data>
   <data name="StoppedEncoding" xml:space="preserve">
-    <value>인코딩 중단.</value>
+    <value>Enkodiranje zaustavljeno.</value>
   </data>
   <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
-    <value>소스 파일/폴더 {0} 을 삭제할까요?</value>
+    <value>Jeste li sigurni da želite izbrisati {0} izvorni(e) fajl(ove)/folder(e)?</value>
   </data>
   <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
-    <value>삭제 확인</value>
+    <value>Potvrdite brisanje</value>
   </data>
   <data name="CouldNotDeleteFile" xml:space="preserve">
-    <value>{0} 을 삭제할 수 없습니다다
+    <value>Nije moguće obrisati {0}
 
 {1}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
-    <value>비디오 파일 스캔 중 오류</value>
+    <value>Greška kod skeniranja video zapis(a)</value>
   </data>
   <data name="StartedEncoding" xml:space="preserve">
-    <value>인코딩을 시작했습니다.</value>
+    <value>Enkodiranje započeto.</value>
   </data>
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
-    <value>출력 폴더를 만들 수 없습니다. 오류 상세 내역:
-
-{0}</value>
+    <value>Nije moguće napraviti izlazni direktorij. Detalji greške: {0}</value>
   </data>
   <data name="DirectoryCreateErrorTitle" xml:space="preserve">
-    <value>폴더 생성 오류</value>
+    <value>Greška kod pravljenje direktorija</value>
   </data>
   <data name="EncodeCompleted" xml:space="preserve">
-    <value>인코드 완료.</value>
+    <value>Enkodiranje završeno.</value>
   </data>
   <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
-    <value>인코딩 완료</value>
+    <value>Enkodiranje završeno</value>
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
-    <value>VidCoder는 대기열의 모든 인코드 작업을 끝냈습니다.</value>
+    <value>VidCoder je završio sve poslove enkodiranja u redu.</value>
   </data>
   <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>기본 출력 폴더 없이 인코드 작업을 추가할 수 없습니다. 하나를 지정하려면 확인을 누르세요.</value>
+    <value>Nije moguće dodati poslove enkodiranja bez zadanog izlaznog foldera. Pritisnite OK da izaberete neki.</value>
   </data>
   <data name="OutputFolderRequiredTitle" xml:space="preserve">
-    <value>기본 출력 폴더 필요함</value>
+    <value>Zadani odredišni folder je obavezan</value>
   </data>
   <data name="OutputPathNotValidMessage" xml:space="preserve">
-    <value>출력 경로가 맞지 않습니다.</value>
+    <value>Izlazna putanja nije važeća.</value>
   </data>
   <data name="OutputPathNotValidTitle" xml:space="preserve">
-    <value>잘못된 경로</value>
+    <value>Putanja nije važeća</value>
   </data>
   <data name="Encode" xml:space="preserve">
-    <value>인코드</value>
+    <value>Enkodiraj</value>
   </data>
   <data name="Resume" xml:space="preserve">
-    <value>다시 시작</value>
+    <value>Nastavi</value>
   </data>
   <data name="EtaLabel" xml:space="preserve">
-    <value>남은 시간:</value>
+    <value>Preostalo vrijeme:</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
-    <value>완료시 동작:</value>
+    <value>Kada završi:</value>
   </data>
   <data name="Preset_AndroidTablet" xml:space="preserve">
-    <value>안드로이드 태블릿</value>
+    <value>Android Tablet</value>
   </data>
   <data name="Preset_Android" xml:space="preserve">
-    <value>안드로이드</value>
+    <value>Android</value>
   </data>
   <data name="Preset_AppleiPad" xml:space="preserve">
-    <value>애플 아이패드</value>
+    <value>Apple iPad</value>
   </data>
   <data name="Preset_AppleiPhone4" xml:space="preserve">
-    <value>애플 아이폰 4</value>
+    <value>Apple iPhone 4</value>
   </data>
   <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
-    <value>애플 아이폰/터치</value>
+    <value>Apple iPhone/Touch</value>
   </data>
   <data name="Preset_AppleiPod" xml:space="preserve">
-    <value>애플 아이팟</value>
+    <value>Apple iPod</value>
   </data>
   <data name="Preset_AppleTV" xml:space="preserve">
-    <value>애플TV</value>
+    <value>AppleTV</value>
   </data>
   <data name="Preset_AppleTV2" xml:space="preserve">
-    <value>애플TV 2</value>
+    <value>AppleTV 2</value>
   </data>
   <data name="Preset_AppleTV3" xml:space="preserve">
-    <value>애플TV 3</value>
+    <value>AppleTV 3</value>
   </data>
   <data name="Preset_Universal" xml:space="preserve">
-    <value>일반적인</value>
+    <value>Univerzalno</value>
   </data>
   <data name="Preset_HighProfile" xml:space="preserve">
-    <value>높은 프로파일</value>
+    <value>Visoki Profil</value>
   </data>
   <data name="Preset_Normal" xml:space="preserve">
-    <value>보통</value>
+    <value>Normalno</value>
   </data>
   <data name="Preset_WindowsPhone7" xml:space="preserve">
-    <value>윈도우 폰 7</value>
+    <value>Windows Phone 7</value>
   </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
-    <value>비디오 파일...</value>
+    <value>Video datoteka...</value>
   </data>
   <data name="SourceOption_DiscFolder" xml:space="preserve">
-    <value>DVD/블루레이 폴더...</value>
+    <value>DVD/Blu-Ray folder...</value>
   </data>
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
-    <value>새 버전 {0}이 나왔습니다. 업데이트 다운로드를 시작했습니다.</value>
+    <value>Verzija {0} je dostupna. Preuzimanje ažuriranja je započeto.</value>
   </data>
   <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
-    <value>{0} 버전의 다운로드를 완료하고 종료시 설치할 것입니다.</value>
+    <value>Verzija {0} je preuzeta i biti će instalirana prilikom izlaska.</value>
   </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
-    <value>업데이트가 적용되지 않았습니다. 직접 취소한 것이 아니면, 수동으로 설치해 보세요.</value>
+    <value>Ažuriranje nije uspješno primjenjeno. Ukoliko ga niste sami otkazali, pokušajte instalirati ručno.</value>
   </data>
   <data name="CouldNotLoadPresetMessage" xml:space="preserve">
-    <value>프리셋을 불러올 수 없음: </value>
+    <value>Nije moguće učitati šablon: </value>
   </data>
   <data name="CouldNotSavePresetMessage" xml:space="preserve">
-    <value>'{0}':{1}{2} 프리셋을 저장하지 못했습니다</value>
+    <value>Nije moguće spremiti šablon '{0}':{1}{2}</value>
   </data>
   <data name="CouldNotCopyTextError" xml:space="preserve">
-    <value>텍스트를 복사할 수 없습니다.</value>
+    <value>Kopiranje tekst nije uspjelo.</value>
   </data>
   <data name="LaunchUrlError" xml:space="preserve">
-    <value>URL 시작하는 중 오류: {0}</value>
+    <value>Greška pri pokretanju adrese: {0}</value>
   </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>프리셋 가져오기 실패. 자세한 내용은 로그를 확인하세요.</value>
+    <value>Uvoz šablona nije uspio. Provjerite zapisnik za detalje.</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
-    <value>가져오기 오류</value>
+    <value>Greška kod uvoza</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
-    <value>성공적으로 {0} 프리셋을 가져왔습니다</value>
+    <value>Uspješno uvezen šablon {0}</value>
   </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
-    <value>성공적으로 프리셋을 {0}으로 내보냈습니다</value>
+    <value>Uspješno izvezen šablon u {0}</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
-    <value>프리셋 내보내기</value>
+    <value>Izvezi šablon</value>
   </data>
   <data name="SaveChangesPickerMessage" xml:space="preserve">
-    <value>변경 사항을 현재 선택기에 저장할까요?</value>
+    <value>Želite li spremiti promjene u vaš trenutni izabirač?</value>
   </data>
   <data name="SaveChangesPickerTitle" xml:space="preserve">
-    <value>현재 선택기를 저장할까요?</value>
+    <value>Spremiti trenutni izabirač?</value>
   </data>
   <data name="RevertConfirmMessage" xml:space="preserve">
-    <value>정말로 저장되지 않은 모든 변경 사항을 되돌릴까요?</value>
+    <value>Jeste li sigurni da želite vratiti sve nespremljene promjene?</value>
   </data>
   <data name="RevertConfirmTitle" xml:space="preserve">
-    <value>되돌리기</value>
+    <value>Vrati</value>
   </data>
   <data name="RemoveConfirmMessage" xml:space="preserve">
-    <value>정말로 이것을 삭제할까요?</value>
+    <value>Jeste li sigurni da želite ukloniti ovo?</value>
   </data>
   <data name="RemoveConfirmTitle" xml:space="preserve">
-    <value>삭제하기</value>
+    <value>Ukloni</value>
   </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
-    <value>설정이 손상되서 불러올 수 없었습니다. 당신의 설정 일부가 초기화되었을지 모릅니다.</value>
+    <value>Konfiguracija je oštećena i ne može biti učitana. Neke od vaših postavki su možda resetovane.</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
-    <value>인코드된 비디오 파일의 출력 폴더를 선택하세요.</value>
+    <value>Izaberite odredišni direktorij za enkodirane video fajlove.</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
     <value>({0})</value>
   </data>
   <data name="ModifiedAffix" xml:space="preserve">
-    <value>(변경됨)</value>
+    <value>(Izmjenjeno)</value>
   </data>
   <data name="PlayingVideoStatus" xml:space="preserve">
-    <value>비디오 재생 중...</value>
+    <value>Reprodukcija videa...</value>
   </data>
   <data name="OpeningFolderStatus" xml:space="preserve">
-    <value>폴더 여는 중...</value>
+    <value>Otvaranje foldera...</value>
   </data>
   <data name="CloseVideoSourceToolTip" xml:space="preserve">
-    <value>비디오 소스 닫기</value>
+    <value>Zatvori izvor videa</value>
   </data>
   <data name="CloseVideoSourceMenuItem" xml:space="preserve">
-    <value>비디오 소스 닫기</value>
+    <value>Zatvori Izvor Videa</value>
   </data>
   <data name="UpdatesMenuItem" xml:space="preserve">
-    <value>업데이트...</value>
+    <value>Ažuriranja...</value>
   </data>
   <data name="CbrAuto" xml:space="preserve">
-    <value>CBR 자동</value>
+    <value>CBR Automatski</value>
   </data>
   <data name="RangeBarToolTip" xml:space="preserve">
-    <value>시작 시작 설정은 왼쪽 클릭, 종료 시간 설정은 오른쪽 클릭입니다.</value>
+    <value>Kliknite lijevom tipkom da postavite početno vrijeme i desnom tipkom da postavite završno vrijeme.</value>
   </data>
   <data name="Preset_WindowsPhone8" xml:space="preserve">
-    <value>윈도우 폰 8</value>
+    <value>Windows Phone 8</value>
   </data>
   <data name="QueueFormat_Chapters" xml:space="preserve">
-    <value>Ch {0}</value>
+    <value>Poglavlje {0}</value>
   </data>
   <data name="QueueFormat_Frames" xml:space="preserve">
-    <value>Fr {0}-{1}</value>
+    <value>Frejm {0}-{1}</value>
   </data>
   <data name="QueueRangeAll" xml:space="preserve">
-    <value>전체</value>
+    <value>Sve</value>
   </data>
   <data name="CouldNotCopyLogError" xml:space="preserve">
-    <value>로그를 복사할 수 없음:{0}{0}{1}</value>
+    <value>Nije moguće kopirati zapisnik:{0}{0}{1}</value>
   </data>
   <data name="OpenLog" xml:space="preserve">
-    <value>로그 열기</value>
+    <value>Otvori zapisnik</value>
   </data>
   <data name="CopyLog" xml:space="preserve">
-    <value>로그 복사</value>
+    <value>Kopiraj zapisnik</value>
   </data>
   <data name="PresetDiscardConfirmMessage" xml:space="preserve">
-    <value>저장되지 않은 변경 사항이 있습니다. 다른 프리셋으로 전환해서 이 변경 사항을 정말 취소할까요?</value>
+    <value>Imate nespremljene promjene. Jeste li sigurni da želite odbaciti ove promjene prebacivanjem na drugi šablon?</value>
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
-    <value>변경 사항을 취소할까요?</value>
+    <value>Odbaciti promjene?</value>
   </data>
   <data name="RemoveAudioTrackToolTip" xml:space="preserve">
-    <value>오디오 트랙 제거하기</value>
+    <value>Ukloni audio zapis</value>
   </data>
   <data name="Preset_Xbox360" xml:space="preserve">
     <value>Xbox 360</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
-    <value>대기열에서 제거하기</value>
+    <value>Ukloni iz reda</value>
   </data>
   <data name="CouldNotSaveQueueMessage" xml:space="preserve">
-    <value>대기열을 저장하지 못함:{0}{1}</value>
+    <value>Nije moguće spremiti red:{0}{1}</value>
   </data>
   <data name="ExportQueue" xml:space="preserve">
-    <value>대기열 내보내기...</value>
+    <value>Izvezi red...</value>
   </data>
   <data name="ExportQueueFilePickerText" xml:space="preserve">
-    <value>대기열 내보내기</value>
+    <value>Izvezi red</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>대기열 가져오기 실패. 자세한 내용은 로그를 확인하세요.</value>
+    <value>Uvoz reda nije uspio. Provjerite zapisnik za detalje.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
-    <value>프리셋 파일 가져오기</value>
+    <value>Uvezi fajl sa šablonom</value>
   </data>
   <data name="ImportQueueFilePickerTitle" xml:space="preserve">
-    <value>대기열 파일 가져오기</value>
+    <value>Uvezi fajla sa redom</value>
   </data>
   <data name="ImportQueue" xml:space="preserve">
-    <value>대기열 가져오기...</value>
+    <value>Uvezi red...</value>
   </data>
   <data name="QueueExportSuccessMessage" xml:space="preserve">
-    <value>성공적으로 대기열을 {0}으로 내보냈습니다.</value>
+    <value>Red uspješno izvezen u {0}</value>
   </data>
   <data name="QueueImportSuccessMessage" xml:space="preserve">
-    <value>성공적으로 대기열을 가져왔습니다.</value>
+    <value>Red uspješno uvezen.</value>
   </data>
   <data name="StopEncodeConfirmationTitle" xml:space="preserve">
-    <value>인코드를 중단할까요?</value>
+    <value>Zaustavi enkodiranje?</value>
   </data>
   <data name="StopEncodeConfirmationMessage" xml:space="preserve">
-    <value>정말로 인코드를 중단할까요?</value>
+    <value>Jeste li sigurni za želite zaustaviti enkodiranje?</value>
   </data>
   <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
-    <value>현재 파일을 닫고 디스크를 열까요?</value>
+    <value>Zatvori trenutni fajl i otvori disk?</value>
   </data>
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
-    <value>인코드 세부 사항</value>
+    <value>Detalji enkodiranja</value>
   </data>
   <data name="EncodingSettingsChangedMessage" xml:space="preserve">
-    <value>대기열에 항목을 마지막으로 추가한 이후 인코딩 설정이 변경되었습니다. 현재 인코딩 설정을 대기열의 모든 항목에 적용할까요?</value>
+    <value>Postavke enkodiranja su se promjenile od kad ste dodali stavku u red. Da li želite koristiti trenutne postavke enkodiranja za sve stavke u redu?</value>
   </data>
   <data name="EncodingSettingsChangedTitle" xml:space="preserve">
-    <value>설정을 변경했습니다다</value>
+    <value>Postavke su promjenjene</value>
   </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
-    <value>기존 파일의 이름을 바꾸고 새 이름으로 시작할까요?</value>
+    <value>Želite li preimenovati postojeći fajl ili započeti sa novim?</value>
   </data>
   <data name="RenameDatabaseFileLine1" xml:space="preserve">
-    <value>버전 {0} 데이터베이스 파일을 읽을 수 없습니다. VidCoder {1}이 인식하는 가장 높은 버전은 {2}입니다</value>
+    <value>Nije moguće čitati verziju {0} baze podataka. Najviša verzija koju VidCover {1} prepoznaje je {2}</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
   <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
-    <value>비호환 데이터베이스 파일</value>
+    <value>Nekompatibilan fajl s bazom podataka</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
   <data name="PickerMenuItem" xml:space="preserve">
-    <value>선택기</value>
+    <value>Izabirač</value>
   </data>
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
-    <value>선택기를 불러올 수 없음: </value>
+    <value>Nije moguće učitati izabirač: </value>
   </data>
   <data name="PickerNameTemplate" xml:space="preserve">
-    <value>선택기 {0}</value>
+    <value>Izabirač {0}</value>
     <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
   </data>
   <data name="SimilarTitlesToolTip" xml:space="preserve">
-    <value>{0}개의 다른 타이틀은 이 타이틀과 지속 시간이 비슷합니다.</value>
+    <value>{0} drugih zapisa ima dužina približnu ovoj.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
   <data name="UseBackupDatabaseLine" xml:space="preserve">
-    <value>버전 {0} 의 백업 파일이 있습니다. 그것을 사용할까요?</value>
+    <value>Imate sigurnosnu kopiju verzije {0} fajla. Želite li je upotrijebiti?</value>
     <comment>{0} is the version of the database file you have a backup for.</comment>
   </data>
   <data name="VideoPlayError" xml:space="preserve">
-    <value>비디오 재생 오류.</value>
+    <value>Greška kod izvođenja videa.</value>
   </data>
   <data name="CustomVideoPlayerError" xml:space="preserve">
-    <value>사용자 정의한 비디오 재생기를 {0}에서 찾을 수 없습니다.</value>
+    <value>Odabrani video plejer nije pronađen u {0}.</value>
     <comment>{0} is the path to the custom video player.</comment>
   </data>
   <data name="SizingPresetUpgradeWarning" xml:space="preserve">
-    <value>경고: 2.0에서 크기 조절 인터페이스를 고쳐서 당신의 프리셋이 변경되었을지도 모릅니다. 설정이 여전히 맞게 되어 있는지 점검해 보시기 바랍니다.</value>
+    <value>Upozorenje: Interfejs za određivanje veličine je izmjenjen u 2.0, te je moglo doći do promjene vaših šablona. Provjerite ih i utvrdite da su namješteni ispravno.</value>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
-    <value>비디오 파일의 폴더를 대기열에 넣기...</value>
+    <value>Dodaj folder sa video zapisima u red...</value>
   </data>
   <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
-    <value>몇몇 파일 검사 중에 오류가 있었는데 이것들은 대기열에 추가되지 않았습니다:
+    <value>Pronađene su greške prilikom skeniranje nekih fajlove i oni nisu dodani u listu:
 
 {0}</value>
   </data>

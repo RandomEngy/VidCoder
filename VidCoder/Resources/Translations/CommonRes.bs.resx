@@ -118,169 +118,169 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutLicense" xml:space="preserve">
-    <value>이 프로그램은 자유 소프트웨어입니다; 자유 소프트웨어 재단에서 발행한 GNU 일반 공중 사용 허가서의 조건 하에서 재배포하거나 수정할 수 있습니다; 버전 2나 (옵션으로) 그 이후 버전의 라이센스.
+    <value>Ovaj program je besplatni software; možete ga dijeliti i/ili izmijeniti pod uslovima GNU General Public Licence koja je izdana od Free Software Foundation; verziju 2 licence, ili (po vašem izboru) bilo koji kasniju verziju.                    
 
-이 프로그램은 유용하게 사용할 목적으로 배포하지만 어떤 보증도 제공하지 않습니다; 상품이나 특정한 목적에 부합하는 묵시적인 보증도 없습니다. 자세한 내용은 GNU 일반 공중 사용 허가서를 확인하십시오.
+Ovaj program je podjeljen u nadi da će biti od koristi, ali BEZ IKAKVE GARANCIJE; uključujući i garanciju TRŽIŠNE VRIJEDNOSTI ili SPOSOBNOSTI DA ISPUNJAVA ODREĐENU SVRHU. Molimo pogledajte GNU General Public Licence za više detalja.                    
 
-GNU 일반 공중 사용 허가서의 사본이 이 프로그램에 포함되어 있습니다.</value>
+Kompletna kopija GNU General Public License dolazi sa ovim programom.</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>화면에 자막을 입힙니다. 이렇게 입힌 자막은 재생중에 끌 수 없습니다.</value>
+    <value>Urežite podnaslove na sliku. Urezani podnaslovi se ne mogu isključiti prilikom reprodukcije.</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
-    <value>이 자막 트랙을 기본으로 표시합니다. 재생 중에 다른 자막 트랙을 선택하기 전에는 이 자막을 출력합니다.</value>
+    <value>Označi ovaj zapis s podnaslovima kao zadani. Ovo će se prikazati tokom reprodukcije dok ne izaberete drugi zapis.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>자막 트랙에서 강제 자막 트랙만 표시합니다. 보통 이것은 작은 분량의 외국어 대화를 뜻합니다.</value>
+    <value>Samo prikazuj obavezne podnaslove iz zapisa podnaslova. Ovo može da uključuje manje dijelove stranog dijaloga.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
-    <value>해당 자막을 앞으로 밀거나 뒤로 당길 때 사용할 시간입니다.</value>
+    <value>Željeno vrijeme za pomicanje naprijed ili kašnjenje pojavljivanja danih podnaslova.</value>
   </data>
   <data name="QueueColumnNameRange" xml:space="preserve">
-    <value>범위</value>
+    <value>Raspon</value>
     <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
   </data>
   <data name="QueueColumnNameDestination" xml:space="preserve">
-    <value>대상</value>
+    <value>Odredište</value>
   </data>
   <data name="QueueColumnNameSource" xml:space="preserve">
-    <value>소스</value>
+    <value>Izvor</value>
   </data>
   <data name="QueueColumnNameTitle" xml:space="preserve">
-    <value>제목</value>
+    <value>Naslov</value>
   </data>
   <data name="QueueColumnNameAudioQuality" xml:space="preserve">
-    <value>오디오 품질</value>
+    <value>Kvaliteta audia</value>
   </data>
   <data name="QueueColumnNameAudioEncoder" xml:space="preserve">
-    <value>오디오 인코더</value>
+    <value>Enkoder audia</value>
   </data>
   <data name="QueueColumnNameVideoEncoder" xml:space="preserve">
-    <value>비디오 인코더</value>
+    <value>Enkoder videa</value>
   </data>
   <data name="QueueColumnNameVideoQuality" xml:space="preserve">
-    <value>비디오 품질</value>
+    <value>Kvaliteta videa</value>
   </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>대기열의 모든 작업을 완료하는데 남은 예상 시간</value>
+    <value>Preostalo vrijeme za završetak svih poslova u redu.</value>
   </data>
   <data name="QueueColumnNameDuration" xml:space="preserve">
-    <value>걸린 시간</value>
+    <value>Trajanje</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>외국어 대화를 포함하고 있는 자막 트랙 검색. 주로 자국어로 된 영화에 좋습니다.</value>
+    <value>Pretrage za zapisom s podnaslovima koji može da sadrži dijelove stranog dijaloga. Preporučljivo za filmove koji su većinom na vašem maternjem jeziku.</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>기본값</value>
+    <value>Zadano</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="Custom" xml:space="preserve">
-    <value>사용자 정의</value>
+    <value>Prilagođeno</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="Browse" xml:space="preserve">
-    <value>찾아보기...</value>
+    <value>Traži...</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>삭제하기</value>
+    <value>Ukloni</value>
   </data>
   <data name="PreviewLabel" xml:space="preserve">
-    <value>미리보기</value>
+    <value>Pregled</value>
   </data>
   <data name="Automatic" xml:space="preserve">
-    <value>자동</value>
+    <value>Automatski</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>끄기</value>
+    <value>Isključeno</value>
     <comment>Usually used in settings, when there is a default option. For example for Decomb there is Off, Default, Fast, Bob and Custom.</comment>
   </data>
   <data name="All" xml:space="preserve">
-    <value>모두</value>
+    <value>Sve</value>
   </data>
   <data name="StreamChoice" xml:space="preserve">
-    <value>스트림 {0}</value>
+    <value>Zapis {0}</value>
     <comment>Used in the encoding settings dialog to mark which audio stream an audio encoding is targeting. By default the encoding works on all streams but you can target it to affect only the first stream, in which case it would label it "Stream 1"</comment>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>예</value>
+    <value>OK</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>취소</value>
+    <value>Otkaži</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>비활성화</value>
+    <value>Onemogućeno</value>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>삭제하기</value>
+    <value>Ukloni</value>
   </data>
   <data name="Copy" xml:space="preserve">
-    <value>복사하기</value>
+    <value>Kopiraj</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>예</value>
+    <value>Da</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>아니요</value>
+    <value>Ne</value>
   </data>
   <data name="CouldNotAccessDirectoriesError" xml:space="preserve">
-    <value>다음 폴더에 액세스할 수 없습니다;</value>
+    <value>Nije moguće pristupiti naredni folderima:</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>없음</value>
+    <value>Ništa</value>
   </data>
   <data name="Succeeded" xml:space="preserve">
-    <value>성공했습니다</value>
+    <value>Uspjelo</value>
   </data>
   <data name="Failed" xml:space="preserve">
-    <value>실패했습니다</value>
+    <value>Nije uspjelo</value>
   </data>
   <data name="FilePickerExtTemplate" xml:space="preserve">
-    <value>{0} 파일</value>
+    <value>{0} Fajlova</value>
   </data>
   <data name="QueueColumnNamePreset" xml:space="preserve">
-    <value>프리셋</value>
+    <value>Šablon</value>
   </data>
   <data name="Success" xml:space="preserve">
-    <value>성공</value>
+    <value>Uspjeh</value>
   </data>
   <data name="ConfirmDialogTitle" xml:space="preserve">
-    <value>확인</value>
+    <value>Potvrdi</value>
   </data>
   <data name="FileFailureErrorMessage" xml:space="preserve">
-    <value>파일 작업을 완료할 수 없습니다.</value>
+    <value>Rad na fajlu nije uspio.</value>
   </data>
   <data name="FileFailureErrorTitle" xml:space="preserve">
-    <value>파일 작업 오류</value>
+    <value>Greška u radu s fajlom</value>
   </data>
   <data name="OverrideNameFormatCheckBox" xml:space="preserve">
-    <value>이름 정의 형식 무시:</value>
+    <value>Ignoriraj format nazivanja:</value>
   </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>가능하면 소스 폴더에 출력하기</value>
+    <value>Izvezi u izvorni direktorij ako je moguće</value>
   </data>
   <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>일괄 인코드시 폴더 구조 보존하기</value>
+    <value>Zadrži strukturu foldera kod serijskih enkodiranja</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>폴더 내의 전체 파일을 인코딩하는 경우 인코딩이 완료된 파일은 소스 폴더 구조와 일치하는 하위 폴더에 저장이 될 것입니다.</value>
+    <value>Ukoliko enkodirate folder pun fajlova, enkodirane verzije će biti stavljene u podfoldere koji odgovaraju strukturi izvornog direktorija.</value>
   </data>
   <data name="DismissMessage" xml:space="preserve">
-    <value>메시지 지우기</value>
+    <value>Odbaci poruku</value>
     <comment>Appears as a tooltip on inline, dismissable messages</comment>
   </data>
   <data name="PresetFileFilter" xml:space="preserve">
-    <value>VidCoder 프리셋 파일</value>
+    <value>Fajla s VidCoder šablonom</value>
     <comment>File dialog description of a .vjpreset file: JSON file that stores an exported preset.</comment>
   </data>
   <data name="QueueFileFilter" xml:space="preserve">
-    <value>VidCoder 큐 파일</value>
+    <value>Fajl s VidCoder redom</value>
     <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
   </data>
   <data name="First" xml:space="preserve">
-    <value>처음</value>
+    <value>Prvi</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
   <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
-    <value>새 버전이 더 이상 32비트 운영 체계를 지원하지 않아서 업데이트를 비활성화했습니다.</value>
+    <value>Osvježavanja su onemogućena jer nove verzije više ne podržavaju 32-bitne sisteme.</value>
   </data>
 </root>

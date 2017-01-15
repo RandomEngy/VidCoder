@@ -942,7 +942,7 @@ x264 può, con un lieve rallentamento (ed un piccolo vantaggio in compressione),
     <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
   </data>
   <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
-    <value>Solo Downscale</value>
+    <value>Solo iposcala</value>
   </data>
   <data name="ScalingMode_Fill" xml:space="preserve">
     <value>Scala per adattarsi all'obiettivo</value>

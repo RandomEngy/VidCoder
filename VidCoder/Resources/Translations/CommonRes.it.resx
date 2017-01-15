@@ -252,13 +252,13 @@
     <value>Trascura il formato di denominazione:</value>
   </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Manda alla directory originale se possibile</value>
+    <value>Salva nella cartella originale se possibile</value>
   </data>
   <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Preserva la struttura delle cartelle in modalità batch</value>
+    <value>Preserva la struttura delle cartelle in modalità non-interattiva</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Se codifichi una cartella piena di files, le versioni ottenute verranno messi in sotto-cartelle con la medesima struttura dell'originale.</value>
+    <value>Se codifichi una cartella con molti file, le versioni ricodificate verranno messe in sotto-cartelle con la medesima struttura dell'originale.</value>
   </data>
   <data name="DismissMessage" xml:space="preserve">
     <value>Chiudi il messaggio</value>

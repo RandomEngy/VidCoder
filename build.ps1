@@ -194,7 +194,8 @@ $languages = @(
     "nl",
     "ka",
     "tr",
-    "ko")
+    "ko",
+    "bs")
 
 foreach ($language in $languages) {
     CopyLanguage $language $buildFlavor
