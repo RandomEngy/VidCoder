@@ -21,14 +21,13 @@ OutputBaseFilename=%outputBaseFileName%
 AppId=%appId%
 UsePreviousAppDir=yes
 
-ArchitecturesAllowed=x64
-ArchitecturesInstallIn64BitMode=x64
+%x64Directives%
 
 [Languages]
 Name: "en"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "Files\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
+Source: "Files\%arch%\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
 
 [Registry]
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlers\PlayBluRayOnArrival"; ValueType: string; ValueName: "%appNameNoSpace%RipDriveOnArrival"; ValueData: ""; Flags: uninsdeletevalue
@@ -231,7 +230,7 @@ begin
       begin
 	    if (GetX86UninstallRegistryKey() <> '') then
 		begin
-		  UninstallX86Version();
+		  %x86UninstallLine%
 		end;
 	  end;
     ssPostInstall:

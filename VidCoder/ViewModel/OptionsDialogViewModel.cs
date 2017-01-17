@@ -61,11 +61,6 @@ namespace VidCoder.ViewModel
 						return false;
 					}
 
-					if (!Environment.Is64BitOperatingSystem)
-					{
-						return true;
-					}
-
 					return updatesEnabledConfig;
 				}).ToProperty(this, x => x.ShowUpdateStatus, out this.showUpdateStatus); ;
 
@@ -372,7 +367,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return !Utilities.IsPortable && Environment.Is64BitOperatingSystem;
+				return !Utilities.IsPortable;
 			}
 		}
 
