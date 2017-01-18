@@ -98,34 +98,55 @@ namespace VidCoder.Model
 				connection = Database.ThreadLocalConnection;
 			}
 
-			string configValue;
-			if (value is double)
-			{
-				double typedValue = (double) Convert.ChangeType(value, typeof (double));
-				configValue = typedValue.ToString(CultureInfo.InvariantCulture);
-			}
-			else if (value is int)
-			{
-				int typedValue = (int) Convert.ChangeType(value, typeof (int));
-				configValue = typedValue.ToString(CultureInfo.InvariantCulture);
-			}
-			else if (value is string || value is bool)
-			{
-				configValue = value.ToString();
-			}
-			else if (value == null)
-			{
-				configValue = null;
-			}
-			else
-			{
-				throw new ArgumentException("Unrecognized type passed to SetConfigValue: " + typeof(T).Name);
-			}
-
+			string configValue = GetConfigValue(value);
 			SetInternal(configName, configValue, connection);
 		}
 
-		public static void SetInternal(string configName, string configValue, SQLiteConnection connection)
+		/// <summary>
+		/// Sets a configuration value to a legacy DB (pre version 35). Used only when upgrading the DB before that point.
+		/// </summary>
+		/// <typeparam name="T">The type of configuration value. (bool, string, int, double)</typeparam>
+		/// <param name="configName">The configuration key.</param>
+		/// <param name="value">The value to set.</param>
+		/// <param name="connection">The connection to save to.</param>
+		public static void SetLegacy<T>(string configName, T value, SQLiteConnection connection = null)
+		{
+			if (connection == null)
+			{
+				connection = Database.ThreadLocalConnection;
+			}
+
+			string configValue = GetConfigValue(value);
+			SetInternalLegacy(configName, configValue, connection);
+		}
+
+		private static string GetConfigValue<T>(T value)
+		{
+			if (value is double)
+			{
+				double typedValue = (double)Convert.ChangeType(value, typeof(double));
+				return typedValue.ToString(CultureInfo.InvariantCulture);
+			}
+			else if (value is int)
+			{
+				int typedValue = (int)Convert.ChangeType(value, typeof(int));
+				return typedValue.ToString(CultureInfo.InvariantCulture);
+			}
+			else if (value is string || value is bool)
+			{
+				return value.ToString();
+			}
+			else if (value == null)
+			{
+				return null;
+			}
+			else
+			{
+				throw new ArgumentException("Unrecognized type passed to Set: " + typeof(T).Name);
+			}
+		}
+
+		private static void SetInternal(string configName, string configValue, SQLiteConnection connection)
 		{
 			using (var settingsInsert = new SQLiteCommand(connection))
 			{
@@ -134,6 +155,26 @@ namespace VidCoder.Model
 				settingsInsert.Parameters.Add("value", DbType.String).Value = configValue;
 
 				settingsInsert.ExecuteNonQuery();
+			}
+		}
+
+		public static void SetInternalLegacy(string configName, string configValue, SQLiteConnection connection)
+		{
+			var command = new SQLiteCommand("UPDATE settings SET value = ? WHERE name = ?", connection);
+			command.Parameters.Add("value", DbType.String).Value = configValue;
+			command.Parameters.Add("name", DbType.String).Value = configName;
+
+			if (command.ExecuteNonQuery() == 0)
+			{
+				// If the setting did not exist, add it
+				using (var settingsInsert = new SQLiteCommand(connection))
+				{
+					settingsInsert.CommandText = "INSERT INTO settings (name, value) VALUES (?, ?)";
+					settingsInsert.Parameters.Add("name", DbType.String).Value = configName;
+					settingsInsert.Parameters.Add("value", DbType.String).Value = configValue;
+
+					settingsInsert.ExecuteNonQuery();
+				}
 			}
 		}
 	}

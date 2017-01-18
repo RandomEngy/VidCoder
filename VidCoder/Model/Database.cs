@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.Globalization;
@@ -393,7 +394,7 @@ namespace VidCoder.Model
 						}
 					}
 
-					Config.EncodeJobs2 = EncodeJobStorage.SerializeJobs(convertedJobs);
+					Config.SetLegacy("EncodeJobs2", EncodeJobStorage.SerializeJobs(convertedJobs));
 				}
 			}
 
@@ -455,7 +456,7 @@ namespace VidCoder.Model
 					placement = (WINDOWPLACEMENT)serializer.Deserialize(memoryStream);
 				}
 
-				Config.Set(configKey, JsonConvert.SerializeObject(placement));
+				Config.SetLegacy(configKey, JsonConvert.SerializeObject(placement));
 			}
 		}
 
@@ -475,10 +476,10 @@ namespace VidCoder.Model
 
 			// Upgrade encoding profiles on old queue items.
 			Config.EnsureInitialized(Connection);
-			string jobsXml = Config.EncodeJobs2;
-			if (!string.IsNullOrEmpty(jobsXml))
+			string jobsJson = Config.EncodeJobs2;
+			if (!string.IsNullOrEmpty(jobsJson))
 			{
-				IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.ParseJobsJson(jobsXml);
+				IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.ParseJobsJson(jobsJson);
 				foreach (EncodeJobWithMetadata job in jobs)
 				{
 					PresetStorage.UpgradeEncodingProfile(job.Job.EncodingProfile, databaseVersion);
