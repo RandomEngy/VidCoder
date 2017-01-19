@@ -15,8 +15,8 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 {% endunless %}
 {% endfor %}
 {% assign version = tag | remove: "v" %}
-{% capture installerUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ tag }}/VidCoder-{{ version }}.exe{% endcapture %}
-{% capture portableUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ tag }}/VidCoder-{{ version }}-Portable.exe{% endcapture %}
+{% capture installerUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ tag }}/VidCoder-{{ version }}-x64.exe{% endcapture %}
+{% capture portableUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ tag }}/VidCoder-{{ version }}-x64-Portable.exe{% endcapture %}
 {% capture notesUrl %}https://github.com/RandomEngy/VidCoder/releases/tag/{{ tag }}{% endcapture %}
 
 {% for release in site.github.releases %}
@@ -28,8 +28,8 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 {% endif %}
 {% endfor %}
 {% assign betaVersion = betaTag | remove: "v" | remove: "-beta" %}
-{% capture betaInstallerUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ betaTag }}/VidCoder-{{ betaVersion }}-Beta.exe{% endcapture %}
-{% capture betaPortableUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ betaTag }}/VidCoder-{{ betaVersion }}-Beta-Portable.exe{% endcapture %}
+{% capture betaInstallerUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ betaTag }}/VidCoder-{{ betaVersion }}-Beta-x64.exe{% endcapture %}
+{% capture betaPortableUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ betaTag }}/VidCoder-{{ betaVersion }}-Beta-x64-Portable.exe{% endcapture %}
 {% capture betaNotesUrl %}https://github.com/RandomEngy/VidCoder/releases/tag/{{ betaTag }}{% endcapture %}
 
 <table class="releasesTable">
