@@ -650,12 +650,12 @@ namespace VidCoderCommon.Model
 					case VideoRangeType.Seconds:
 						range.Type = "time";
 						range.Start = (int)(job.SecondsStart * PtsPerSecond);
-						range.End = (int)((job.SecondsEnd - job.SecondsStart) * PtsPerSecond);
+						range.End = (int)(job.SecondsEnd * PtsPerSecond);
 						break;
 					case VideoRangeType.Frames:
 						range.Type = "frame";
-						range.Start = job.FramesStart;
-						range.End = job.FramesEnd;
+						range.Start = job.FramesStart + 1; // VidCoder uses 0-based frame numbering, but HB expects 1-based frame numbering
+						range.End = job.FramesEnd + 1;
 						break;
 					default:
 						throw new ArgumentOutOfRangeException();
