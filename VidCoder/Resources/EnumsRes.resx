@@ -134,6 +134,7 @@
   </data>
   <data name="CombDetect_permissive" xml:space="preserve">
     <value>Less Sensitive</value>
+    <comment>This mode allows higher levels of combing before triggering.</comment>
   </data>
   <data name="Custom" xml:space="preserve">
     <value>Custom</value>

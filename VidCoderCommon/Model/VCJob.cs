@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using VidCoderCommon.JsonConverters;
 
 namespace VidCoderCommon.Model
 {
@@ -10,6 +11,15 @@ namespace VidCoderCommon.Model
 	/// </summary>
 	public class VCJob
 	{
+		[JsonIgnore]
+		[XmlElement("SourceType")]
+		public string XmlSourceType
+		{
+			get { return this.SourceType.ToString(); }
+			set { this.SourceType = SourceTypeConverter.ParseSourceTypeString(value); }
+		}
+
+		[XmlIgnore]
 		public SourceType SourceType { get; set; }
 		public string SourcePath { get; set; }
 

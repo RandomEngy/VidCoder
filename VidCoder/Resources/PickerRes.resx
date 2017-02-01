@@ -248,5 +248,6 @@
   </data>
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
     <value>Forced only</value>
+    <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
 </root>
