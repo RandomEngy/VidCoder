@@ -982,7 +982,9 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
     <value>Cores padrão</value>
   </data>
-  
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>Com o Anamórfico habilitado, pixels não quadrados são permitidos. Isso pode resultar em um armazenamento mais eficiente, mas nem todos os reprodutores suportam isto.</value>
+  </data>
   <data name="ResolutionLabel" xml:space="preserve">
     <value>Resolução:</value>
     <comment>Label for a video resolution in pixels.</comment>
@@ -991,5 +993,8 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
     <value>Formato: key1=value1:key2=value2:...</value>
     <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
   </data>
-  
+  <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
+    <value>Chaves:</value>
+    <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
 </root>

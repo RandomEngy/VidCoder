@@ -626,12 +626,26 @@
     <value>{0} andere Titel dauern fast genauso lang wie dieser.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
-  
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>Es existiert eine gesicherte Datei der Version {0}. Möchten Sie diese verwenden?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
   <data name="VideoPlayError" xml:space="preserve">
     <value>Video Abspielfehler.</value>
   </data>
-  
-  
-  
-  
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>Das benutzerdefinierte Wiedergabe-Programm konnte am angegebenen Pfad nicht gefunden werden: {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>Warnung: Der Reiter Größe wurde für Version 2.0 überholt, Ihre Voreinstellungen haben sich also möglicherweise verändert. Sie sollten sie am besten überprüfen und sicherstellen, dass alles korrekt eingestellt ist.</value>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Einen Ordner von Videodateien in Warteschlange einreihen...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Es gab Fehler beim Scannen einiger Dateien, weswegen sie nicht zur Warteschlange hinzugefügt wurden:
+
+{0}</value>
+  </data>
 </root>

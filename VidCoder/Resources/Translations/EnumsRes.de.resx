@@ -129,8 +129,12 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>Strikt</value>
   </data>
-  
-  
+  <data name="CombDetect_fast" xml:space="preserve">
+    <value>Schnell</value>
+  </data>
+  <data name="CombDetect_permissive" xml:space="preserve">
+    <value>Weniger empfindlich</value>
+  </data>
   <data name="Custom" xml:space="preserve">
     <value>Benutzerdefiniert</value>
   </data>
@@ -147,9 +151,15 @@
     <value>Bob</value>
     <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
   </data>
-  
-  
-  
+  <data name="DeinterlacePreset_eedi2" xml:space="preserve">
+    <value>EEDI2</value>
+  </data>
+  <data name="DeinterlacePreset_eedi2bob" xml:space="preserve">
+    <value>EEDI2 Bob</value>
+  </data>
+  <data name="DeinterlacePreset_skipspatial" xml:space="preserve">
+    <value>Räumliche Überprüfung überspringen</value>
+  </data>
   <data name="Deinterlace_Decomb" xml:space="preserve">
     <value>Decomb</value>
   </data>
@@ -168,12 +178,18 @@
   <data name="DenoisePreset_ultralight" xml:space="preserve">
     <value>Sehr Leicht</value>
   </data>
-  
-  
-  <data name="DenoiseTune_grain" xml:space="preserve">
-    <value>Körnung</value>
+  <data name="DenoiseTune_animation" xml:space="preserve">
+    <value>Zeichentrick</value>
   </data>
-  
+  <data name="DenoiseTune_film" xml:space="preserve">
+    <value>Film</value>
+  </data>
+  <data name="DenoiseTune_grain" xml:space="preserve">
+    <value>Körnung/Rauschen</value>
+  </data>
+  <data name="DenoiseTune_highmotion" xml:space="preserve">
+    <value>Starke Bewegung</value>
+  </data>
   <data name="Denoise_HQDN3D" xml:space="preserve">
     <value>hqdn3d</value>
   </data>

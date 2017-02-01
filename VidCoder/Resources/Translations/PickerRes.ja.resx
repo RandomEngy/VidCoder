@@ -221,5 +221,7 @@
   
   
   
-  
+  <data name="ForcedOnlyCheckBox" xml:space="preserve">
+    <value>強制字幕のみ</value>
+  </data>
 </root>

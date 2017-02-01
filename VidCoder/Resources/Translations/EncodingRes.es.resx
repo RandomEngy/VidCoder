@@ -178,18 +178,19 @@ Mejora la compresión al menos un 5% a un costo de velocidad muy pequeño, y pue
 Como sea, requiere la opción de HIGH PROFILE o perfil alto, el cual es incompatible con muchos dispositivos.</value>
   </data>
   <data name="Advanced_MotionEstimationMethodToolTip" xml:space="preserve">
-    <value>Controla el método de estimación de movimiento. La estimación de movimiento es cómo el codificador estima el movimiento de cada bloque de píxeles de un fotograma.   
-Un mejor método de búsqueda de movimiento mejora la compresión a costo de velocidad.  
+    <value>Controla el método de estimación de movimiento. La estimación de movimiento es cómo el codificador estima el movimiento de cada bloque de píxeles de un fotograma.
 
-Diamante: realiza una búsqueda muy rápida y sencilla utilizando un patrón de diamante.  
+Un mejor método de búsqueda de movimiento mejora la compresión a costa de reducir la velocidad de codificación.  
 
-Hexágonal: realiza una búsqueda más eficaz pero ligeramente más lenta usando un patrón hexagonal. 
+DIAMOND: Realiza una búsqueda muy rápida y sencilla utilizando un patrón de diamante.  
 
-Multihexagonal desigual: realiza una búsqueda muy amplia con una variedad de patrones, capturando con mayor precisión el movimiento complejo.  
+HEXAGON: Realiza una búsqueda más eficaz pero ligeramente más lenta usando un patrón hexagonal. 
 
-Exhaustiva: realiza una búsqueda ciega de cada píxel en una zona amplia.  Significativamente más lenta para sólo una pequeña ganancia de compresión.  
+UNEVEN MULTI-HEX: Realiza una búsqueda muy amplia con una variedad de patrones, capturando con mayor precisión el movimiento complejo.  
 
-Transformada exhaustiva: Como la exhaustiva, pero toma decisiones más precisas. Por consiguiente, algo más lento, también para sólo una pequeña mejora.</value>
+EXHAUSTIVE: Realiza una búsqueda ciega de cada píxel en una zona amplia.  Significativamente más lenta para sólo una pequeña ganancia de compresión.  
+
+TRANSFORMED EXHAUSTIVE: Como la exhaustiva, pero toma decisiones más precisas. Por consiguiente, algo más lento, también para sólo una pequeña mejora.</value>
   </data>
   <data name="Advanced_MotionEstimationRangeToolTip" xml:space="preserve">
     <value>Esta es la búsqueda de distancias de x264 de su mejor suposición en el movimiento de un bloque para tratar de encontrar su actual movimiento en orden.

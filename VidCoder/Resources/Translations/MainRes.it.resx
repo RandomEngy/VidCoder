@@ -176,7 +176,7 @@
     <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
-    <value>Impostazioni di codifica</value>
+    <value>Configurazione codifica</value>
   </data>
   <data name="PreviewMenuItem" xml:space="preserve">
     <value>Anteprima</value>
@@ -209,7 +209,7 @@
     <value>Recenti</value>
   </data>
   <data name="DragFilesHereLabel" xml:space="preserve">
-    <value>(Trascinare cartelle o file video qui)</value>
+    <value>(Trascinare QUI cartelle o file video)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Si è verificato un errore durante la scansione.</value>
