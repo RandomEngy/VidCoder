@@ -35,9 +35,6 @@ namespace VidCoderCommon.Model
 		public bool IncludeChapterMarkers { get; set; }
 
 		[JsonProperty]
-		public bool LargeFile { get; set; }
-
-		[JsonProperty]
 		public bool Optimize { get; set; }
 
 		[JsonProperty]

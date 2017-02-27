@@ -126,7 +126,6 @@ namespace VidCoder.ViewModel
 				this.OutputPathService.GenerateOutputFileName();
 			});
 
-			this.RegisterProfileProperty(nameof(this.Profile.LargeFile));
 			this.RegisterProfileProperty(nameof(this.Profile.Optimize));
 			this.RegisterProfileProperty(nameof(this.Profile.IPod5GSupport));
 
@@ -187,12 +186,6 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.Profile.PreferredExtension; }
 			set { this.UpdateProfileProperty(nameof(this.Profile.PreferredExtension), value); }
-		}
-
-		public bool LargeFile
-		{
-			get { return this.Profile.LargeFile; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.LargeFile), value); }
 		}
 
 		public bool Optimize

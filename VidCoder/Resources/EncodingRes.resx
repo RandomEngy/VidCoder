@@ -260,9 +260,6 @@ This only works with AC3 sources.</value>
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Applies a marker to the file that older iPods require before they'll allow H.264 video to sync.</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Allows files over 4GB. When enabled, uses 64-bit numbers in encoding. Some devices such as the iPod and PS3 are incompatible with this option.</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>Manually specify a Pixel Aspect Ratio.</value>
   </data>
@@ -285,9 +282,6 @@ You should set this if you know your playback device only supports a certain pro
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Extension:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Large file size</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>Web optimized</value>
