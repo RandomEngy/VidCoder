@@ -47,7 +47,7 @@ namespace VidCoder.Model
 
 			if (type == typeof (int))
 			{
-				return (T)(object)int.Parse(configValue);
+				return (T)(object)int.Parse(configValue, CultureInfo.InvariantCulture);
 			}
 
 			if (type == typeof (double))

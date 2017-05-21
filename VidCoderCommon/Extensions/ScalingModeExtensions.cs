@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace VidCoderCommon.Extensions
 				return 0;
 			}
 
-			return int.Parse(enumString.Substring(enumString.Length - 2, 1));
+			return int.Parse(enumString.Substring(enumString.Length - 2, 1), CultureInfo.InvariantCulture);
 		}
 	}
 }

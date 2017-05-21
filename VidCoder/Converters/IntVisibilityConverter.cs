@@ -19,7 +19,7 @@
 
 			int intValue = (int) value;
 			string stringParam = (string)parameter;
-			int intParam = int.Parse(stringParam);
+			int intParam = int.Parse(stringParam, CultureInfo.InvariantCulture);
 
 			return intValue == intParam ? Visibility.Visible : Visibility.Collapsed;
 		}

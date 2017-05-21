@@ -116,12 +116,12 @@ namespace VidCoder
 
 			for (int i = 0; i < intPartsA.Length; i++)
 			{
-				intPartsA[i] = int.Parse(stringPartsA[i]);
+				intPartsA[i] = int.Parse(stringPartsA[i], CultureInfo.InvariantCulture);
 			}
 
 			for (int i = 0; i < intPartsB.Length; i++)
 			{
-				intPartsB[i] = int.Parse(stringPartsB[i]);
+				intPartsB[i] = int.Parse(stringPartsB[i], CultureInfo.InvariantCulture);
 			}
 
 			int compareLength = Math.Min(intPartsA.Length, intPartsB.Length);

@@ -731,7 +731,7 @@ namespace VidCoder.Services
 				int replaceIndex = capture.Index - 7;
 				int replaceLength = capture.Length + 8;
 
-				int digits = int.Parse(capture.Value);
+				int digits = int.Parse(capture.Value, CultureInfo.InvariantCulture);
 
 				if (digits > 0 && digits <= 10)
 				{
@@ -773,7 +773,7 @@ namespace VidCoder.Services
 				int replaceIndex = capture.Index - 8;
 				int replaceLength = capture.Length + 9;
 
-				inputString = inputString.Substring(0, replaceIndex) + FindParent(path, int.Parse(capture.Value)) + inputString.Substring(replaceIndex + replaceLength);
+				inputString = inputString.Substring(0, replaceIndex) + FindParent(path, int.Parse(capture.Value, CultureInfo.InvariantCulture)) + inputString.Substring(replaceIndex + replaceLength);
 			}
 
 			return inputString;

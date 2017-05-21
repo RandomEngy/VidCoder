@@ -71,7 +71,7 @@ namespace VidCoder.ViewModel
 					return false;
 				}
 
-				return int.Parse(bFrames.Value) > 1;
+				return int.Parse(bFrames.Value, CultureInfo.InvariantCulture) > 1;
 			}).ToProperty(this, x => x.PyramidalBFramesVisible, out this.pyramidalBFramesVisible);
 
 			// EightByEightDctVisible
