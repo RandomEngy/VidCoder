@@ -200,10 +200,10 @@
     <value>Chiudi VidCoder</value>
   </data>
   <data name="EncodeCompleteActionType_DoNothing" xml:space="preserve">
-    <value>Non fare nulla</value>
+    <value>Nessuna azione</value>
   </data>
   <data name="EncodeCompleteActionType_EjectDisc" xml:space="preserve">
-    <value>Espellere {0}:</value>
+    <value>Espelli {0}:</value>
   </data>
   <data name="EncodeCompleteActionType_Hibernate" xml:space="preserve">
     <value>Iberna</value>
@@ -212,10 +212,10 @@
     <value>Disconnetti</value>
   </data>
   <data name="EncodeCompleteActionType_Shutdown" xml:space="preserve">
-    <value>Spegni</value>
+    <value>Spegni PC</value>
   </data>
   <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
-    <value>Sospensione</value>
+    <value>Sospendi</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>Spento</value>

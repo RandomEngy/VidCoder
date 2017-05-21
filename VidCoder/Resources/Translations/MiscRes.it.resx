@@ -163,7 +163,7 @@
     <value>Drag &amp; drop per aggiungere, rimuovere o riordinare le colonne.</value>
   </data>
   <data name="UnusedColumns" xml:space="preserve">
-    <value>Colonne inutilizzate</value>
+    <value>Colonne disponibili</value>
   </data>
   <data name="UsedColumns" xml:space="preserve">
     <value>Colonne usate</value>
@@ -172,7 +172,7 @@
     <value>Ricerca in corso...</value>
   </data>
   <data name="AboutVidCoderDialogTitle" xml:space="preserve">
-    <value>Info su VidCoder</value>
+    <value>Informazioni su VidCoder</value>
   </data>
   <data name="LicenseLabel" xml:space="preserve">
     <value>Licenza:</value>
@@ -205,10 +205,10 @@
     <value>Applicare l'aggiornamento?</value>
   </data>
   <data name="ApplyUpdateDialogMessage" xml:space="preserve">
-    <value>Un aggiornamento è stato scaricato. Si desidera applicarla ora?</value>
+    <value>È stato scaricato un aggiornamento. Si desidera applicarlo ora?</value>
   </data>
   <data name="ViewFullChangelog" xml:space="preserve">
-    <value>Vedi Changelog completo</value>
+    <value>Vedi il registro completo dei cambiamenti</value>
   </data>
   <data name="DisableUpdatesButton" xml:space="preserve">
     <value>Disattivare gli aggiornamenti</value>

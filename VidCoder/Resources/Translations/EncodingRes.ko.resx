@@ -769,7 +769,7 @@ Baseline 프로파일은, 아이팟과 유사 기기에서 요구되는 것처�
     <value>항상</value>
   </data>
   <data name="DefaultFormat" xml:space="preserve">
-    <value>{0} (기본값값)</value>
+    <value>{0} (기본값)</value>
   </data>
   <data name="EncodingWindowTitle" xml:space="preserve">
     <value>인코딩 프리셋: {0}</value>

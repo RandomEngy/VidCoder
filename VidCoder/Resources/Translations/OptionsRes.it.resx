@@ -196,25 +196,25 @@
     <value>Aggiungi...</value>
   </data>
   <data name="PreviewCountLabel" xml:space="preserve">
-    <value>Numero di anteprime di foto a scansione:</value>
+    <value>Numero di anteprime delle foto durante la scansione:</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
     <value>Ricorda cartelle e file utilizzati in precedenza</value>
   </data>
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>Consentono l'impostazione nome personalizzato sulle tracce audio (supporto limitato giocatore)</value>
+    <value>Consenti l'impostazione personalizzata del nome sulle tracce audio (supporto del riproduttore limitato)</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>Abilitare LibDVDNav (cambiamento richiede il riavvio del programma)</value>
+    <value>Abilita LibDVDNav (il cambiamento richiede il riavvio del programma)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>Eliminare i file di origine al termine compensazione successo oggetti (con conferma)</value>
+    <value>Elimina i file di origine dopo la cancellazione degli elementi dall'elenco di quelli "Completati" con successo (con conferma)</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
-    <value>Livello di dettaglio registrazione:</value>
+    <value>Livello di dettaglio dei registri:</value>
   </data>
   <data name="MinScanLengthLabel" xml:space="preserve">
-    <value>Lunghezza minima del titolo per la scansione (secondi):</value>
+    <value>Lunghezza minima del titolo da scansionare (secondi):</value>
   </data>
   <data name="RecognizedExtensionsLabel" xml:space="preserve">
     <value>Estensioni riconosciute:</value>
@@ -238,16 +238,16 @@
     <value>Iscriviti al programma Beta per ottenre aggiornamenti più frequenti</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Aggiornare {0} pronto. Quando si esce il programma verrà installato.</value>
+    <value>Aggiornamento {0} pronto. Verrà installato quando si esce dal programma.</value>
   </data>
   <data name="DownloadingStatus" xml:space="preserve">
-    <value>Download aggiornamento {0}:</value>
+    <value>Prelievo aggiornamento {0}:</value>
   </data>
   <data name="UpToDateStatus" xml:space="preserve">
     <value>VidCoder è aggiornato.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>Scegliere la cartella di output predefinita per i file video codificati.</value>
+    <value>Scegliere la cartella di salvataggio predefinita per i file video codificati.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>Lingua dell'interfaccia:</value>
@@ -262,7 +262,7 @@
     <value>Aggiornamenti</value>
   </data>
   <data name="DownloadingInfoStatus" xml:space="preserve">
-    <value>Trovare la versione più recente...</value>
+    <value>Trova la versione più recente...</value>
   </data>
   <data name="UpdateFailedStatus" xml:space="preserve">
     <value>Controllo dell'aggiornamento non riuscito.</value>
@@ -289,7 +289,7 @@
     <value>Area di notifica</value>
   </data>
   <data name="OutputFolderSection" xml:space="preserve">
-    <value>Cartella di output</value>
+    <value>Cartella di salvataggio</value>
   </data>
   <data name="NamingFormatSection" xml:space="preserve">
     <value>Formato di denominazione</value>
@@ -298,10 +298,10 @@
     <value>Opzioni avanzate</value>
   </data>
   <data name="ScanningSection" xml:space="preserve">
-    <value>Ricerca in corso</value>
+    <value>Scansione</value>
   </data>
   <data name="LoggingSection" xml:space="preserve">
-    <value>Registrazione</value>
+    <value>Registro</value>
   </data>
   <data name="DvdReadingSection" xml:space="preserve">
     <value>Lettura DVD</value>
@@ -358,13 +358,13 @@
     <value>Copia il registro di codifica nella stessa cartella del video codificato</value>
   </data>
   <data name="OpenLogFolderButton" xml:space="preserve">
-    <value>Cartella di registro aperto</value>
+    <value>Apri cartella di registro</value>
   </data>
   <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
-    <value>Riprendere automaticamente la codifica al riavvio</value>
+    <value>Riprendere automaticamente la codifica al riavvio del programma</value>
   </data>
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
-    <value>Utilizzare il processo di lavoro per la codifica</value>
+    <value>Utilizza il processo di lavoro per la codifica</value>
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>Video</value>
@@ -376,7 +376,7 @@
     <value>Questa opzione è soltanto adatta a sistemi più lenti. Decodificatori hardware attualmente sono progettati per la riproduzione, non per la ri-codifica video così sarà probabile strozzatura sui sistemi più veloci.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
-    <value>Preservare il tempo creata e modificata quando conversione file</value>
+    <value>Preservare l'orario originale di Creazione e Modifica quando si converte un file</value>
   </data>
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Cartella personalizzata per le anteprime:</value>

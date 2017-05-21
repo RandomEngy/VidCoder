@@ -127,7 +127,7 @@
     <value>Aggiungi alla coda</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
-    <value>Aggiungere più titoli di coda...</value>
+    <value>Aggiungere più titoli all coda...</value>
   </data>
   <data name="FileMenu" xml:space="preserve">
     <value>File</value>
@@ -166,7 +166,7 @@
     <value>Apri contenuto cartella</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
-    <value>Cancella completate</value>
+    <value>Pulisci elenco processi completati</value>
   </data>
   <data name="ExitMenuItem" xml:space="preserve">
     <value>Esci</value>
@@ -194,7 +194,7 @@
     <value>Segnala un problema</value>
   </data>
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
-    <value>Info su VidCoder...</value>
+    <value>Informazioni su VidCoder...</value>
   </data>
   <data name="ChooseVideoSourceLabel" xml:space="preserve">
     <value>Scegli una sorgente video:</value>
@@ -203,7 +203,7 @@
     <value>Origine:</value>
   </data>
   <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Scansione Origine...</value>
+    <value>Scansione sorgente...</value>
   </data>
   <data name="Recent" xml:space="preserve">
     <value>Recenti</value>
@@ -239,7 +239,7 @@
     <value>Fare clic per modificare la destinazione di codifica.</value>
   </data>
   <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>Selezionare il percorso di uscita...</value>
+    <value>Selezionare il percorso di salvataggio...</value>
   </data>
   <data name="EncodingLabel" xml:space="preserve">
     <value>Codifica:</value>
@@ -263,13 +263,13 @@
     <value>FPS attuali:</value>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>FPS Media:</value>
+    <value>Media FPS:</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
     <value>Scegliere una cartella DVD o Blu-ray.</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
-    <value>Ci sono codifiche in corso. Sei sicuro di che voler uscire?</value>
+    <value>Ci sono codifiche in corso. Sei sicuro di volere uscire?</value>
   </data>
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
     <value>Codifica in corso</value>
@@ -383,10 +383,10 @@
     <value>Riprendi</value>
   </data>
   <data name="EtaLabel" xml:space="preserve">
-    <value>ETA:</value>
+    <value>Rimanente:</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Quando fatto:</value>
+    <value>Quando concluso:</value>
   </data>
   <data name="Preset_AndroidTablet" xml:space="preserve">
     <value>Tablet Android</value>
@@ -434,13 +434,13 @@
     <value>Cartella DVD/Blu-ray...</value>
   </data>
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
-    <value>Versione {0} è disponibile. Download aggiornamento iniziato.</value>
+    <value>Versione {0} disponibile. Prelievo aggiornamento iniziato.</value>
   </data>
   <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
     <value>Versione {0} finita di scaricare e installare sull'uscita.</value>
   </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
-    <value>L'aggiornamento non è stato applicato. Se non l'avete fatto annullare, provare a installarlo manualmente.</value>
+    <value>L'aggiornamento non è stato applicato. Se non l'hai cancellato, prova ad installarlo manualmente.</value>
   </data>
   <data name="CouldNotLoadPresetMessage" xml:space="preserve">
     <value>Impossibile caricare la preimpostazione: </value>
@@ -593,7 +593,7 @@
     <value>Chiudere il file corrente e aprire il disco?</value>
   </data>
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
-    <value>Codifica i dettagli</value>
+    <value>Dettagli di codifica</value>
   </data>
   <data name="EncodingSettingsChangedMessage" xml:space="preserve">
     <value>Impostazioni di codifica sono cambiate da quando l'ultima aggiunto un elemento alla coda. Si desidera applicare le impostazioni di codifica corrente a tutti gli elementi nella coda?</value>

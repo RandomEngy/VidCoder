@@ -133,7 +133,7 @@
     <value>La quantità di tempo per spingere in avanti o ritardare la comparsa dei sottotitoli.</value>
   </data>
   <data name="QueueColumnNameRange" xml:space="preserve">
-    <value>Gamma</value>
+    <value>Intervallo</value>
     <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
   </data>
   <data name="QueueColumnNameDestination" xml:space="preserve">
@@ -225,7 +225,7 @@
     <value>Nessuno</value>
   </data>
   <data name="Succeeded" xml:space="preserve">
-    <value>È riuscito</value>
+    <value>Completato con successo</value>
   </data>
   <data name="Failed" xml:space="preserve">
     <value>Non riuscito</value>

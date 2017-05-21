@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="EncodeDetailsWindowTitle" xml:space="preserve">
-    <value>Codifica i dettagli</value>
+    <value>Dettagli di codifica</value>
   </data>
   <data name="QueueSectionHeader" xml:space="preserve">
-    <value>Coda</value>
+    <value>Tutti i file in coda</value>
   </data>
   <data name="ScanPassLabel" xml:space="preserve">
     <value>Scansione pass:</value>
@@ -137,7 +137,7 @@
     <value>Codificare Pass:</value>
   </data>
   <data name="JobLabel" xml:space="preserve">
-    <value>Lavoro:</value>
+    <value>Processo:</value>
   </data>
   <data name="ProgressLabel" xml:space="preserve">
     <value>Progresso:</value>
@@ -146,10 +146,10 @@
     <value>Tempo trascorso:</value>
   </data>
   <data name="EtaLabel" xml:space="preserve">
-    <value>ETA:</value>
+    <value>Rimanente:</value>
   </data>
   <data name="FileProgressLabel" xml:space="preserve">
-    <value>File progressi:</value>
+    <value>Progresso file:</value>
     <comment>Label on the encode details window for % progress on the current file.</comment>
   </data>
   <data name="FileSizeLabel" xml:space="preserve">
@@ -161,7 +161,7 @@
     <comment>Label for the current encoding rate in frames per second.</comment>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>FPS Media:</value>
+    <value>Media FPS:</value>
     <comment>Label for the average encoding rate in frames per second.</comment>
   </data>
 </root>
