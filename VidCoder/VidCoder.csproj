@@ -1041,9 +1041,6 @@
     <Copy SourceFiles="..\Lib\$(Platform)\hb.dll" DestinationFolder="$(OutDir)" />
     <Copy SourceFiles="..\Lib\HandBrake.ApplicationServices.pdb" DestinationFolder="$(OutDir)" />
   </Target>
-  <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)..\Lib\fonts" "$(TargetDir)fonts" /e /y /i /r</PostBuildEvent>
-  </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.105.1\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.105.1\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
