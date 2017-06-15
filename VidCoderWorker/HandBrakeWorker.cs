@@ -185,7 +185,7 @@ namespace VidCoderWorker
         /// </summary>
         /// <param name="encodeJson">The encode JSON.</param>
         /// <remarks>Used for debug testing of raw encode JSON.</remarks>
-	    public void StartEncode(string encodeJson)
+	    public void StartEncodeFromJson(string encodeJson)
 	    {
             // Extract the scan title and path from the encode JSON.
 	        JsonEncodeObject encodeObject = JsonConvert.DeserializeObject<JsonEncodeObject>(encodeJson);

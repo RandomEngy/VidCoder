@@ -37,7 +37,7 @@ namespace VidCoder
 		static Utilities()
 		{
 			isPortable = Directory.GetCurrentDirectory().Contains("Temp");
-			settingsDirectory = ConfigurationManager.AppSettings["SettingsDirectory"];
+			settingsDirectory = Path.GetFullPath(ConfigurationManager.AppSettings["SettingsDirectory"]);
 		}
 
 		private static Dictionary<string, double> defaultQueueColumnSizes = new Dictionary<string, double>

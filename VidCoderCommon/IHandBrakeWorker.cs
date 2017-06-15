@@ -34,7 +34,8 @@ namespace VidCoderCommon
         /// Starts an encode with the given encode JSON.
         /// </summary>
         /// <param name="encodeJson">The encode JSON.</param>
-        void StartEncode(string encodeJson);
+		[OperationContract]
+        void StartEncodeFromJson(string encodeJson);
 
         [OperationContract]
 		void PauseEncode();

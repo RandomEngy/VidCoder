@@ -73,7 +73,7 @@ namespace VidCoder
 
 			this.StartOperation(channel =>
 			{
-				channel.StartEncode(encodeJson);
+				channel.StartEncodeFromJson(encodeJson);
 			});
 		}
 
