@@ -215,7 +215,7 @@
     <value>Herunterfahren</value>
   </data>
   <data name="EncodeCompleteActionType_Sleep" xml:space="preserve">
-    <value>Ruhezustand</value>
+    <value>Standbymodus</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>Aus</value>

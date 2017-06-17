@@ -183,10 +183,23 @@
 	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
     <value>Kan het bronbestand niet vinden.</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="CloseVideoButton" xml:space="preserve">
+    <value>Video sluiten</value>
+    <comment>Button to close the preview video clip.</comment>
+  </data>
+  <data name="OpenInSystemPlayerButton" xml:space="preserve">
+    <value>Openen met de standaard mediaspeler</value>
+  </data>
+  <data name="VolumeSliderLabel" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="ReplayPreviewButton" xml:space="preserve">
+    <value>Voorbeeld opnieuw afspelen</value>
+  </data>
+  <data name="VideoErrorMessage" xml:space="preserve">
+    <value>De ingebouwde speler kan de video niet weergeven. Wilt u het openen met de systeem-mediaspeler?</value>
+  </data>
+  <data name="VideoErrorTitle" xml:space="preserve">
+    <value>Fout in video</value>
+  </data>
 </root>

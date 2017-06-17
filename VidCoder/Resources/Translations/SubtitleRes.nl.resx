@@ -174,5 +174,7 @@
 	<data name="DuplicateSubtitleTrack" xml:space="preserve">
     <value>Dupliceer dit spoor</value>
   </data>
-  
+  <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
+    <value>De codering van het ondertitelbestand kon niet worden gedetecteerd. Om er zeker van te zijn dat de ondertitels correct worden weergegeven, moet het bestand worden opgeslagen als UTF-8.</value>
+  </data>
 </root>

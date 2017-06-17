@@ -225,7 +225,9 @@
   <data name="OptionsDialogTitle" xml:space="preserve">
     <value>Instellingen</value>
   </data>
-  
+  <data name="ProcessTab" xml:space="preserve">
+    <value>Verwerking</value>
+  </data>
   <data name="AdvancedTab" xml:space="preserve">
     <value>Geavanceerd</value>
   </data>
@@ -379,8 +381,17 @@
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>Aangepaste map voor previews:</value>
   </data>
-  
-  
-  
-  
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>Verwerkingsopties</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>CPU-regulering:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>Gebruik CPU-regulering om het aantal CPU-cores te beperken dat VidCoder's kan gebruiken in het coderingsproces.</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>Gebruik de ingebouwde mediaspeler</value>
+  </data>
 </root>
