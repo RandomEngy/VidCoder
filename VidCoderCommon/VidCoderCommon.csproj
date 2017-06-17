@@ -118,6 +118,7 @@
     <Compile Include="Model\CopyMaskChoice.cs" />
     <Compile Include="Model\DeserializeOnlyAttribute.cs" />
     <Compile Include="Model\JsonEncodeFactory.cs" />
+    <Compile Include="Model\OutputAudioTrackInfo.cs" />
     <Compile Include="Model\OutputSizeInfo.cs" />
     <Compile Include="Model\Preset.cs" />
     <Compile Include="Model\SourceSubtitle.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Model\VideoRangeType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ILogger.cs" />
+    <Compile Include="Utilities\AudioUtilities.cs" />
     <Compile Include="Utilities\CommonUtilities.cs" />
     <Compile Include="Utilities\MathUtilities.cs" />
     <Compile Include="Utilities\Injection\FastDeepCloneInjection.cs" />

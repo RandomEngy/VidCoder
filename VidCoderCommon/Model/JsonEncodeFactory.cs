@@ -207,7 +207,28 @@ namespace VidCoderCommon.Model
 					audioTrack.Name = encoding.Name;
 				}
 
-				if (!isPassthrough)
+			    if (isPassthrough)
+			    {
+                    // If it's passthrough, find the settings for the fallback encoder and apply those, since they will be picked up if the passthrough doesn't work
+			        OutputAudioTrackInfo fallbackSettings = AudioUtilities.GetDefaultSettings(scanAudioTrack, HandBrakeEncoderHelpers.GetAudioEncoder(audio.FallbackEncoder));
+
+			        audioTrack.Samplerate = fallbackSettings.SampleRate;
+			        audioTrack.Mixdown = fallbackSettings.Mixdown.Id;
+			        audioTrack.CompressionLevel = fallbackSettings.CompressionLevel;
+
+			        if (fallbackSettings.EncodeRateType == AudioEncodeRateType.Bitrate)
+			        {
+			            audioTrack.Bitrate = fallbackSettings.Bitrate;
+			        }
+			        else
+			        {
+			            audioTrack.Quality = fallbackSettings.Quality;
+			        }
+
+			        audioTrack.Gain = fallbackSettings.Gain;
+			        audioTrack.DRC = fallbackSettings.Drc;
+                }
+				else
 				{
 					audioTrack.Samplerate = encoding.SampleRateRaw;
 					audioTrack.Mixdown = HandBrakeEncoderHelpers.GetMixdown(encoding.Mixdown).Id;
