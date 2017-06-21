@@ -15,6 +15,16 @@ namespace VidCoderCommon
     {
         public static OutputAudioTrackInfo GetDefaultSettings(SourceAudioTrack source, HBAudioEncoder encoder)
         {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (encoder == null)
+            {
+                throw new ArgumentNullException(nameof(encoder));
+            }
+
             var result = new OutputAudioTrackInfo
             {   
                 Encoder = encoder,

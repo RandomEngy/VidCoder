@@ -207,10 +207,11 @@ namespace VidCoderCommon.Model
 					audioTrack.Name = encoding.Name;
 				}
 
-			    if (isPassthrough)
+			    HBAudioEncoder fallbackAudioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(audio.FallbackEncoder);
+                if (isPassthrough && fallbackAudioEncoder != null)
 			    {
                     // If it's passthrough, find the settings for the fallback encoder and apply those, since they will be picked up if the passthrough doesn't work
-			        OutputAudioTrackInfo fallbackSettings = AudioUtilities.GetDefaultSettings(scanAudioTrack, HandBrakeEncoderHelpers.GetAudioEncoder(audio.FallbackEncoder));
+			        OutputAudioTrackInfo fallbackSettings = AudioUtilities.GetDefaultSettings(scanAudioTrack, fallbackAudioEncoder);
 
 			        audioTrack.Samplerate = fallbackSettings.SampleRate;
 			        audioTrack.Mixdown = fallbackSettings.Mixdown.Id;
