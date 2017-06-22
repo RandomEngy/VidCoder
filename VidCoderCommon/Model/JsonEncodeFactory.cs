@@ -229,7 +229,7 @@ namespace VidCoderCommon.Model
 			        audioTrack.Gain = fallbackSettings.Gain;
 			        audioTrack.DRC = fallbackSettings.Drc;
                 }
-				else
+				else if (!isPassthrough)
 				{
 					audioTrack.Samplerate = encoding.SampleRateRaw;
 					audioTrack.Mixdown = HandBrakeEncoderHelpers.GetMixdown(encoding.Mixdown).Id;
