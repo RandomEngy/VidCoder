@@ -377,6 +377,20 @@ namespace VidCoder.ViewModel
 					this.RefreshEncoderChoices(containerName, EncoderChoicesRefreshSource.ContainerChange);
 				});
 
+		    this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.AudioCopyMask)
+		        .Skip(1)
+		        .Subscribe(copyMask =>
+		        {
+                    this.NotifyAudioChanged();
+		        });
+
+			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.AudioEncodings)
+				.Skip(1)
+				.Subscribe(copyMask =>
+				{
+					this.NotifyAudioChanged();
+				});
+
 			this.WhenAnyValue(x => x.SelectedEncoder.Encoder.ShortName)
 				.Subscribe(videoEncoder =>
 				{
@@ -385,14 +399,14 @@ namespace VidCoder.ViewModel
 
 			this.main.AudioChoiceChanged += (o, e) =>
 			{
-				this.NotifyAudioInputChanged();
+				this.NotifyAudioChanged();
 			};
 
 			this.main.WhenAnyValue(x => x.SelectedTitle)
 				.Skip(1)
 				.Subscribe(_ =>
 				{
-					this.NotifyAudioInputChanged();
+					this.NotifyAudioChanged();
 				});
 
 			this.AutomaticChange = false;
@@ -1097,7 +1111,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		private void NotifyAudioInputChanged()
+		private void NotifyAudioChanged()
 		{
 			this.UpdateVideoBitrate();
 			this.UpdateTargetSize();

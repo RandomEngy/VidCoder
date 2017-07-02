@@ -96,29 +96,10 @@ namespace VidCoderCommon.Model
 			VCProfile profile = job.EncodingProfile;
 			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job, title);
 
-			if (!string.IsNullOrEmpty(profile.AudioEncoderFallback))
+			// If using auto-passthrough, set the fallback
+			if (profile.AudioEncodings.Any(e => e.Encoder == "copy"))
 			{
-				HBAudioEncoder audioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(profile.AudioEncoderFallback);
-				if (audioEncoder == null)
-				{
-					throw new ArgumentException("Unrecognized fallback audio encoder: " + profile.AudioEncoderFallback);
-				}
-
-				audio.FallbackEncoder = audioEncoder.Id;
-			}
-
-			// If using auto-passthrough and we don't have a fallback set, pick the first compatible one
-			if (profile.AudioEncodings.Any(e => e.Encoder == "copy") && audio.FallbackEncoder == 0)
-			{
-				HBContainer container = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
-				foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
-				{
-					if ((encoder.CompatibleContainers & container.Id) > 0 && !encoder.IsPassthrough)
-					{
-						audio.FallbackEncoder = encoder.Id;
-						break;
-					}
-				}
+			    audio.FallbackEncoder = GetFallbackAudioEncoder(profile).Id;
 			}
 
 			if (profile.AudioCopyMask != null)
@@ -868,7 +849,7 @@ namespace VidCoderCommon.Model
 			availableBytes -= containerOverheadBytes;
 
 			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job, title);
-			long audioSizeBytes = this.GetAudioSize(lengthSeconds, title, outputTrackList);
+			long audioSizeBytes = this.GetAudioSize(lengthSeconds, title, outputTrackList, GetFallbackAudioEncoder(job.EncodingProfile), job.EncodingProfile.AudioCopyMask);
 			this.logger.Log($"Calculating bitrate - Audio size: {audioSizeBytes} bytes");
 			availableBytes -= audioSizeBytes;
 
@@ -921,7 +902,7 @@ namespace VidCoderCommon.Model
 			totalBytes += frames * ContainerOverheadBytesPerFrame;
 
 			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job, title);
-			totalBytes += this.GetAudioSize(lengthSeconds, title, outputTrackList);
+			totalBytes += this.GetAudioSize(lengthSeconds, title, outputTrackList, GetFallbackAudioEncoder(job.EncodingProfile), job.EncodingProfile.AudioCopyMask);
 
 			return (double)totalBytes / 1024 / 1024;
 		}
@@ -955,14 +936,16 @@ namespace VidCoderCommon.Model
 			return TimeSpan.Zero;
 		}
 
-		/// <summary>
-		/// Gets the size in bytes for the audio with the given parameters.
-		/// </summary>
-		/// <param name="lengthSeconds">The length of the encode in seconds.</param>
-		/// <param name="title">The title to encode.</param>
-		/// <param name="outputTrackList">The list of tracks to encode.</param>
-		/// <returns>The size in bytes for the audio with the given parameters.</returns>
-		private long GetAudioSize(double lengthSeconds, SourceTitle title, List<Tuple<AudioEncoding, int>> outputTrackList)
+	    /// <summary>
+	    /// Gets the size in bytes for the audio with the given parameters.
+	    /// </summary>
+	    /// <param name="lengthSeconds">The length of the encode in seconds.</param>
+	    /// <param name="title">The title to encode.</param>
+	    /// <param name="outputTrackList">The list of tracks to encode.</param>
+	    /// <param name="audioEncoderFallback">The fallback audio encoder for the job.</param>
+	    /// <param name="copyMask">The audio copy mask for the job.</param>
+	    /// <returns>The size in bytes for the audio with the given parameters.</returns>
+	    private long GetAudioSize(double lengthSeconds, SourceTitle title, List<Tuple<AudioEncoding, int>> outputTrackList, HBAudioEncoder audioEncoderFallback, List<CopyMaskChoice> copyMask)
 		{
 			long audioBytes = 0;
 			int outputTrackNumber = 1;
@@ -979,17 +962,60 @@ namespace VidCoderCommon.Model
 
 				if (audioEncoder.IsPassthrough)
 				{
-					// Input bitrate is in bits/second.
-					audioBitrate = track.BitRate / 8;
+				    if (audioEncoder.ShortName == "copy")
+				    {
+                        // Auto-passthrough
 
-					this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is passthrough. {audioBitrate} bytes/second");
+				        if (TrackIsEligibleForPassthrough(track, copyMask))
+				        {
+				            // Input bitrate is in bits/second.
+				            audioBitrate = track.BitRate / 8;
+
+				            this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is auto passthrough. {audioBitrate} bytes/second");
+				        }
+				        else
+				        {
+				            OutputAudioTrackInfo outputTrackInfo = AudioUtilities.GetDefaultSettings(track, audioEncoderFallback);
+				            if (outputTrackInfo.EncodeRateType == AudioEncodeRateType.Quality)
+				            {
+				                audioBitrate = 0;
+
+						        this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Fallback track for auto-passthrough is quality targeted. Assuming 0 byte size.");
+				            }
+                            else
+				            {
+				                audioBitrate = outputTrackInfo.Bitrate;
+
+						        this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Fallback track for auto-passthrough has {audioBitrate} bytes/second");
+				            }
+                        }
+				    }
+				    else
+				    {
+                        // Passthrough for specific codec
+
+				        if (HandBrakeEncoderHelpers.AudioEncoderIsCompatible(track.Codec, audioEncoder))
+				        {
+				            // Input bitrate is in bits/second.
+				            audioBitrate = track.BitRate / 8;
+
+				            this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is passthrough via {audioEncoder.ShortName}. {audioBitrate} bytes/second");
+				        }
+				        else
+				        {
+				            // Track will be dropped
+				            audioBitrate = 0;
+
+						    this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track will be dropped due to non compatible passthrough.");
+                        }
+                    }
 				}
 				else if (encoding.EncodeRateType == AudioEncodeRateType.Quality)
 				{
 					// Can't predict size of quality targeted audio encoding.
 					audioBitrate = 0;
 
-					this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is quality targeted. Assuming 0 byte overhead.");
+					this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is quality targeted. Assuming 0 byte size.");
 				}
 				else
 				{
@@ -1030,6 +1056,47 @@ namespace VidCoderCommon.Model
 
 			return audioBytes;
 		}
+
+	    private static HBAudioEncoder GetFallbackAudioEncoder(VCProfile profile)
+	    {
+	        if (!string.IsNullOrEmpty(profile.AudioEncoderFallback))
+	        {
+	            HBAudioEncoder audioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(profile.AudioEncoderFallback);
+	            if (audioEncoder == null)
+	            {
+	                throw new ArgumentException("Unrecognized fallback audio encoder: " + profile.AudioEncoderFallback);
+	            }
+
+	            return audioEncoder;
+	        }
+
+            HBContainer container = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
+	        foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
+	        {
+	            if ((encoder.CompatibleContainers & container.Id) > 0 && !encoder.IsPassthrough)
+	            {
+	                return encoder;
+	            }
+	        }
+
+            throw new ArgumentException("Cannot find fallback audio encoder for profile.");
+        }
+
+	    private static bool TrackIsEligibleForPassthrough(SourceAudioTrack track, List<CopyMaskChoice> copyMask)
+	    {
+	        foreach (CopyMaskChoice maskChoice in copyMask)
+	        {
+	            if (maskChoice.Enabled)
+	            {
+	                if ((HandBrakeEncoderHelpers.GetAudioEncoder("copy:" + maskChoice.Codec).Id & track.Codec) > 0)
+	                {
+	                    return true;
+	                }
+                }
+	        }
+
+	        return false;
+	    }
 
 		/// <summary>
 		/// Gets the number of audio samples used per frame for the given audio encoder.
