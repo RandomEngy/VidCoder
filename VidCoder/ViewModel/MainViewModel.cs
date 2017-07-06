@@ -25,7 +25,7 @@ using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
-	public class MainViewModel : ReactiveObject
+	public class MainViewModel : ReactiveObject, IClosableWindow
 	{
 		private HandBrakeInstance scanInstance;
 
@@ -754,6 +754,10 @@ namespace VidCoder.ViewModel
 					return false;
 				}
 			}
+
+			// Call to view to save column widths
+			this.view.SaveQueueColumns();
+			this.view.SaveCompletedColumnWidths();
 
 			// If we're quitting, see if the encode is still going.
 			if (this.processingService.Encoding)

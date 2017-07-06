@@ -477,7 +477,10 @@ namespace VidCoder.Services.Windows
 			if (!userInitiated)
 			{
 				window.Closing -= this.OnClosingHandler;
-				this.OnClosing(window, userInitiated: false);
+				if (!this.OnClosing(window, userInitiated: false))
+				{
+					return;
+				}
 			}
 
 			window.Close();
@@ -493,7 +496,10 @@ namespace VidCoder.Services.Windows
 		private void OnClosingHandler(object sender, CancelEventArgs e)
 		{
 			var closingWindow = (Window)sender;
-			this.OnClosing(closingWindow, userInitiated: true);
+			if (!this.OnClosing(closingWindow, userInitiated: true))
+			{
+				e.Cancel = true;
+			}
 		}
 
 		/// <summary>
@@ -502,14 +508,17 @@ namespace VidCoder.Services.Windows
 		/// <param name="window">The window.</param>
 		/// <param name="userInitiated">True if the close was initated by the user, false if this
 		/// was initiated by the system as part of app shutdown.</param>
-		private void OnClosing(Window window, bool userInitiated)
+		/// <returns>True if the window closed, false if it was stopped by the user.</returns>
+		private bool OnClosing(Window window, bool userInitiated)
 		{
 			object viewModel = window.DataContext;
 			var closableWindow = viewModel as IClosableWindow;
 			if (closableWindow != null)
 			{
-				var dialogVM = closableWindow;
-				dialogVM.OnClosing();
+				if (!closableWindow.OnClosing())
+				{
+					return false;
+				}
 			}
 
 			WindowDefinition windowDefinition = GetWindowDefinition(viewModel);
@@ -528,16 +537,14 @@ namespace VidCoder.Services.Windows
 
 			this.openWindows.Remove(viewModel);
 
-			if (userInitiated && window.Owner != null)
+			if (userInitiated)
 			{
-				window.Owner.Activate();
+				window.Owner?.Activate();
 			}
 
-			var localWindowClosed = this.WindowClosed;
-			if (localWindowClosed != null)
-			{
-				localWindowClosed(this, new EventArgs<Type>(viewModel.GetType()));
-			}
+			this.WindowClosed?.Invoke(this, new EventArgs<Type>(viewModel.GetType()));
+
+			return true;
 		}
 
 		/// <summary>

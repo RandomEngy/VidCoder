@@ -251,7 +251,7 @@ namespace VidCoder.ViewModel
 
 		public IPreviewView View { get; set; }
 
-		public void OnClosing()
+		public bool OnClosing()
 		{
 			this.previewUpdateService.PreviewInputChanged -= this.OnPreviewInputChanged;
 			this.presetsSubscription.Dispose();
@@ -260,6 +260,8 @@ namespace VidCoder.ViewModel
 			{
 				this.StopAndWait();
 			}
+
+			return true;
 		}
 
 		public MainViewModel MainViewModel

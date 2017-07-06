@@ -283,6 +283,11 @@ namespace VidCoder.View
 			}
 		}
 
+		void IMainView.SaveCompletedColumnWidths()
+		{
+			this.SaveCompletedColumnWidths();
+		}
+
 		private void SaveCompletedColumnWidths()
 		{
 			var completedColumnsBuilder = new StringBuilder();
@@ -365,19 +370,6 @@ namespace VidCoder.View
 				{
 					MessageBox.Show(string.Format(MainRes.FileDoesNotExist, resultFile));
 				}
-			}
-		}
-
-		private void Window_Closing(object sender, CancelEventArgs e)
-		{
-			if (!this.viewModel.OnClosing())
-			{
-				e.Cancel = true;
-			}
-			else
-			{
-				this.SaveQueueColumns();
-				this.SaveCompletedColumnWidths();
 			}
 		}
 

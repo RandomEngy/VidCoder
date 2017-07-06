@@ -19,7 +19,6 @@
 	MinWidth="617"
 	MinHeight="445"
 	d:DataContext="{d:DesignInstance viewmodel:MainViewModel}"
-	Closing="Window_Closing"
 	MouseDown="Window_MouseDown"
 	StateChanged="Window_StateChanged"
 	Style="{StaticResource NormalWindow}"

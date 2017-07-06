@@ -285,7 +285,7 @@ namespace VidCoder.ViewModel
 			this.SelectedTabIndex = tabIndex;
 		}
 
-		public override void OnClosing()
+		public override bool OnClosing()
 		{
 			Config.OptionsDialogLastTab = this.SelectedTabIndex;
 
@@ -294,7 +294,7 @@ namespace VidCoder.ViewModel
 				Ioc.Get<OutputPathService>().NotifyDefaultOutputFolderChanged();
 			}
 
-			base.OnClosing();
+			return base.OnClosing();
 		}
 
 		public IList<string> Tabs

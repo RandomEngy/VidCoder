@@ -247,7 +247,7 @@ namespace VidCoder.ViewModel
 			this.windowManager.Close(this);
 		}
 
-		public override void OnClosing()
+		public override bool OnClosing()
 		{
 			using (SQLiteTransaction transaction = Database.ThreadLocalConnection.BeginTransaction())
 			{
@@ -259,7 +259,7 @@ namespace VidCoder.ViewModel
 				transaction.Commit();
 			}
 
-			base.OnClosing();
+			return base.OnClosing();
 		}
 
 		public void HandleCheckChanged(TitleSelectionViewModel changedTitleVM, bool newValue)
