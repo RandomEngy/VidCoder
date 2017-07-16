@@ -102,7 +102,7 @@ namespace VidCoderCommon.Model
 			    audio.FallbackEncoder = GetFallbackAudioEncoder(profile).Id;
 			}
 
-			if (profile.AudioCopyMask != null)
+			if (profile.AudioCopyMask != null && profile.AudioCopyMask.Any())
 			{
 				audio.CopyMask = HandBrakeEncoderHelpers.AudioEncoders
 					.Where(e =>
@@ -1084,6 +1084,11 @@ namespace VidCoderCommon.Model
 
 	    private static bool TrackIsEligibleForPassthrough(SourceAudioTrack track, List<CopyMaskChoice> copyMask)
 	    {
+		    if (copyMask == null || !copyMask.Any())
+		    {
+			    return true;
+		    }
+
 	        foreach (CopyMaskChoice maskChoice in copyMask)
 	        {
 	            if (maskChoice.Enabled)
