@@ -628,7 +628,18 @@ namespace VidCoder.Services
 				if (jobVM.IsSelected && !jobVM.Encoding)
 				{
 					this.EncodeQueue.RemoveAt(i);
+
+					if (this.Encoding)
+					{
+						this.totalTasks--;
+						this.totalQueueCost -= jobVM.Cost;
+					}
 				}
+			}
+
+			if (this.Encoding && this.totalTasks == 1)
+			{
+				this.EncodeQueue[0].IsOnlyItem = true;
 			}
 		}
 
