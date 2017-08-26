@@ -234,11 +234,16 @@ namespace VidCoder.ViewModel
 				{
 					this.DenoiseTune = "none";
 				}
+
+				if (this.DenoiseType != VCDenoise.Off && this.DenoisePreset == "custom")
+				{
+					this.CustomDenoise = GetDefaultCustomFilterString(GetDenoiseFilter(this.DenoiseType));
+				}
 			});
 
 			this.RegisterProfileProperty(nameof(this.DenoisePreset), () =>
 			{
-				if (this.DenoisePreset == "custom" && string.IsNullOrWhiteSpace(this.CustomDenoise))
+				if (this.DenoisePreset == "custom")
 				{
 					if (this.DenoiseType == VCDenoise.Off)
 					{
