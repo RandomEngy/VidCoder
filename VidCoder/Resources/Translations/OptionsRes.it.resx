@@ -238,7 +238,7 @@
     <value>Iscriviti al programma Beta per ottenre aggiornamenti più frequenti</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>Aggiornamento {0} pronto. Verrà installato quando si esce dal programma.</value>
+    <value>Aggiornamento alla {0} pronto. Verrà installato quando si esce dal programma.</value>
   </data>
   <data name="DownloadingStatus" xml:space="preserve">
     <value>Prelievo aggiornamento {0}:</value>

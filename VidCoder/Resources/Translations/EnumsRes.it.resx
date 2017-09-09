@@ -206,7 +206,7 @@
     <value>Espelli {0}:</value>
   </data>
   <data name="EncodeCompleteActionType_Hibernate" xml:space="preserve">
-    <value>Iberna</value>
+    <value>Iberna il PC</value>
   </data>
   <data name="EncodeCompleteActionType_LogOff" xml:space="preserve">
     <value>Disconnetti</value>
