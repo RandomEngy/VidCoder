@@ -107,8 +107,8 @@ namespace VidCoder.Services
 			InitiateSystemShutdownEx(
 				null, 
 				null, 
-				0, 
-				false, 
+				0,
+				true, 
 				false, 
 				ShutdownReason.MajorOther | ShutdownReason.MinorOther | ShutdownReason.FlagPlanned);
 		}
