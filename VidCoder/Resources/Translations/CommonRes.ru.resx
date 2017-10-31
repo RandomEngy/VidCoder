@@ -126,7 +126,9 @@
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
     <value>Отметьте трек субтитров в качестве стандарта воспроизведения. Он будет отображаться, пока не выбран другой.</value>
   </data>
-  
+  <data name="ForcedSubtitleToolTip" xml:space="preserve">
+    <value>Показывать только форсированные субтитры из трека. Они обычно содержат небольшие кусочки иностранного диалога.</value>
+  </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>Период времени, чтобы подтолкнуть вперед или отсрочить появление данных субтитров.</value>
   </data>
@@ -274,5 +276,7 @@
     <value>В начало</value>
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
-  
+  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
+    <value>Обновления были отключены, так как новые версии больше не поддерживают 32-разрядных операционных систем.</value>
+  </data>
 </root>

@@ -626,10 +626,24 @@
     <value>{0} у других названий есть продолжительность близкая к этой.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>У вас есть резервная копия файла версии {0}. Вы хотели бы использовать её?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Ошибка при воспроизведении видео.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>Пользовательский проигрыватель видео не удалось найти на {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>Предупреждение: Интерфейс калибровки был пересмотрен для 2.0, так что ваши пресеты могут быть изменены. Вы можете проверить их и убедиться, что они по-прежнему настроены правильно.</value>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Папка видеофайлов в очереди...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Обнаружены ошибки при сканировании некоторых файлов и они не были добавлены в очередь:{0}</value>
+  </data>
 </root>

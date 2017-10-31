@@ -458,7 +458,9 @@
   <data name="LaunchUrlError" xml:space="preserve">
     <value>Probleem bij openen URL: {0}</value>
   </data>
-  
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Het is niet gelukt om de voorinstelling te importeren. Controleer het logboek voor details.</value>
+  </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>Importfout</value>
   </data>
@@ -471,8 +473,12 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>Voorkeursinstelling exporteren</value>
   </data>
-  
-  
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>Wil je je veranderingen opslaan van je momentele voorkeurinstelling?</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>Sla momentele voorkeursinstelling op?</value>
+  </data>
   
   
   
