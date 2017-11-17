@@ -46,7 +46,7 @@ namespace VidCoderCommon.Model
 		/// <param name="previewNumber">The preview number to start at (0-based). Leave off for a normal encode.</param>
 		/// <param name="previewSeconds">The number of seconds long to make the preview.</param>
 		/// <param name="previewCount">The total number of previews.</param>
-		/// <returns></returns>
+		/// <returns>The JSON encode object.</returns>
 		public JsonEncodeObject CreateJsonObject(
 			VCJob job,
 			SourceTitle title,
@@ -1047,7 +1047,7 @@ namespace VidCoderCommon.Model
 				audioBytes += audioTrackBytes;
 
 				// Audio overhead
-				long audioTrackOverheadBytes = encoding.SampleRateRaw * ContainerOverheadBytesPerFrame / samplesPerFrame;
+				long audioTrackOverheadBytes = (encoding.SampleRateRaw == 0 ? track.SampleRate : encoding.SampleRateRaw) * ContainerOverheadBytesPerFrame / samplesPerFrame;
 				this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Overhead is {audioTrackOverheadBytes} bytes");
 				audioBytes += audioTrackOverheadBytes;
 
