@@ -97,19 +97,23 @@ namespace VidCoder
 		public override void StopAndWait()
 		{
 			this.encodeStartEvent.Wait();
-			bool connected;
+			bool waitForEnd;
 
 			lock (this.ProcessLock)
 			{
-				connected = this.Channel != null;
+				bool connected = this.Channel != null;
+				waitForEnd = connected;
 
 				if (this.Running && connected)
 				{
-					this.Channel.StopEncode();
+					this.ExecuteProxyOperation(() => this.Channel.StopEncode());
+
+					// If stopping the encode failed, don't wait for the encode to end.
+					waitForEnd = this.Running;
 				}
 			}
 
-			if (connected)
+			if (waitForEnd)
 			{
 				this.encodeEndEvent.Wait();
 			}
