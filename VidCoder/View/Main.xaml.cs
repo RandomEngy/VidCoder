@@ -450,6 +450,14 @@ namespace VidCoder.View
 			}
 		}
 
+		private void OnWindowDeactivated(object sender, EventArgs e)
+		{
+			if (this.outputVM.EditingDestination)
+			{
+				this.StopEditing();
+			}
+		}
+
 		private void StopEditing()
 		{
 			this.destinationEditBox.SelectionStart = 0;
