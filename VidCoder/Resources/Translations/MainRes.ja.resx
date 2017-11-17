@@ -471,12 +471,24 @@
   <data name="ExportPresetFilePickerText" xml:space="preserve">
     <value>プリセットをエクスポート</value>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>ピッカーの変更を保存しますか？</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>現在のピッカーを保存しますか？</value>
+  </data>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>未保存のすべての変更を元に戻しますか？</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>元に戻す</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>削除してもよろしいですか？</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>削除</value>
+  </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>設定ファイルが壊れているため読み込めません。一部の設定はリセットされています。</value>
   </data>
@@ -616,10 +628,20 @@
     <value>これと似たような時間のタイトルが {0} 個あります</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
-  
-  
-  
-  
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>バージョン {0} のバックアップがあります。それを使用しますか？</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>ビデオの再生でエラーが発生しました。</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>カスタムのビデオ プレーヤーは、{0} に見つかりませんでした。</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>警告: Ver2.0でサイズ変更の設定画面が変更ました。そのためプリセットも変更された可能性があります。チェックし正しく設定されているか確認してください。</value>
+  </data>
   
   
 </root>

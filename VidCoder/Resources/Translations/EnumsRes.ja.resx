@@ -129,8 +129,12 @@
   <data name="Anamorphic_Strict" xml:space="preserve">
     <value>厳密</value>
   </data>
-  
-  
+  <data name="CombDetect_fast" xml:space="preserve">
+    <value>Fast</value>
+  </data>
+  <data name="CombDetect_permissive" xml:space="preserve">
+    <value>弱く</value>
+  </data>
   <data name="Custom" xml:space="preserve">
     <value>カスタム</value>
   </data>
@@ -143,20 +147,49 @@
   <data name="Default" xml:space="preserve">
     <value>既定</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="DeinterlacePreset_bob" xml:space="preserve">
+    <value>Bob</value>
+    <comment>A deinterlace method named "Bob". The original name most likely refers to an object bobbing up and down.</comment>
+  </data>
+  <data name="DeinterlacePreset_eedi2" xml:space="preserve">
+    <value>EEDI2</value>
+  </data>
+  <data name="DeinterlacePreset_eedi2bob" xml:space="preserve">
+    <value>EEDI2 Bob</value>
+  </data>
+  <data name="DeinterlacePreset_skipspatial" xml:space="preserve">
+    <value>空間のチェックをスキップ</value>
+  </data>
+  <data name="Deinterlace_Decomb" xml:space="preserve">
+    <value>縞除去：</value>
+  </data>
+  <data name="Deinterlace_Yadif" xml:space="preserve">
+    <value>Yadif</value>
+  </data>
+  <data name="DenoisePreset_light" xml:space="preserve">
+    <value>弱</value>
+  </data>
+  <data name="DenoisePreset_medium" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="DenoisePreset_strong" xml:space="preserve">
+    <value>強</value>
+  </data>
+  <data name="DenoisePreset_ultralight" xml:space="preserve">
+    <value>微弱</value>
+  </data>
+  <data name="DenoiseTune_animation" xml:space="preserve">
+    <value>アニメ</value>
+  </data>
+  <data name="DenoiseTune_film" xml:space="preserve">
+    <value>映画</value>
+  </data>
+  <data name="DenoiseTune_grain" xml:space="preserve">
+    <value>粒子</value>
+  </data>
+  <data name="DenoiseTune_highmotion" xml:space="preserve">
+    <value>激しい動き</value>
+  </data>
   <data name="Denoise_HQDN3D" xml:space="preserve">
     <value>hqdn3d</value>
   </data>

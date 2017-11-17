@@ -194,7 +194,9 @@
     <value>プログラムに渡す引数。ファイル出力パスに {file} を使用します。</value>
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
-  
+  <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
+    <value>ピッカーはエンコードのプリセットを指定しています。</value>
+  </data>
   <data name="AddLanguageButton" xml:space="preserve">
     <value>言語を追加</value>
   </data>
@@ -210,17 +212,40 @@
   <data name="FirstTrackRadioButton" xml:space="preserve">
     <value>最初のトラック</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
+    <value>字幕トラックを既定にセットします。再生すると自動的に表示されます。</value>
+  </data>
+  <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
+    <value>最初の字幕トラックを既定にセットします。再生すると自動的に表示されます。</value>
+  </data>
+  <data name="FirstAsDefaultCheckBox" xml:space="preserve">
+    <value>最初を既定としてマークします</value>
+    <comment>Label for checkbox to mark the first subtitle as default.</comment>
+  </data>
+  <data name="AllSubtitlesToolTip" xml:space="preserve">
+    <value>すべての字幕を含める</value>
+  </data>
+  <data name="SubtitleNoneToolTip" xml:space="preserve">
+    <value>字幕を含めない</value>
+  </data>
+  <data name="AudioFirstToolTip" xml:space="preserve">
+    <value>最初の音声トラックのみを含める</value>
+  </data>
+  <data name="AudioAllToolTip" xml:space="preserve">
+    <value>すべての音声トラックを含める</value>
+  </data>
+  <data name="SubtitleFirstToolTip" xml:space="preserve">
+    <value>最初の字幕だけを含める</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>使用するプリセット:</value>
+  </data>
+  <data name="RemoveLanguageToolTip" xml:space="preserve">
+    <value>この言語を削除</value>
+  </data>
+  <data name="SortLanguagesLabel" xml:space="preserve">
+    <value>言語を並び替える:</value>
+  </data>
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
     <value>強制字幕のみ</value>
   </data>
