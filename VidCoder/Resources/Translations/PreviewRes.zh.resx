@@ -169,16 +169,16 @@
     <value>查看：</value>
   </data>
   <data name="TopMargin" xml:space="preserve">
-    <value>顶端</value>
+    <value>上边距</value>
   </data>
   <data name="LeftMargin" xml:space="preserve">
-    <value>左侧</value>
+    <value>左边距</value>
   </data>
   <data name="RightMargin" xml:space="preserve">
-    <value>右侧</value>
+    <value>右边距</value>
   </data>
   <data name="BottomMargin" xml:space="preserve">
-    <value>底部</value>
+    <value>底边距</value>
   </data>
 	<data name="PlaySourceDisabledNotFoundToolTip" xml:space="preserve">
     <value>找不到源文件。</value>

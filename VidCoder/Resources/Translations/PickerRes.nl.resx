@@ -117,6 +117,41 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AudioSelection" xml:space="preserve">
+    <value>Keuze audiokanaal</value>
+  </data>
+  <data name="BurnInCheckBox" xml:space="preserve">
+    <value>Integreren met beeld</value>
+  </data>
+  <data name="DefaultCheckBox" xml:space="preserve">
+    <value>Standaard</value>
+  </data>
+  <data name="ForeignAudioSearchRadioButton" xml:space="preserve">
+    <value>Buitenlandse Audio zoeken</value>
+  </data>
+  <data name="IncludeAllTracksRadioButton" xml:space="preserve">
+    <value>Alle sporen</value>
+  </data>
+  <data name="LanguagesRadioButton" xml:space="preserve">
+    <value>Talen</value>
+  </data>
+  <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
+    <value>Alleen als de taal verschilt van het audiospoor</value>
+    <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
+  </data>
+  <data name="SubtitleSelection" xml:space="preserve">
+    <value>Keuze ondertiteling</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Kleurkiezer: {0}</value>
+  </data>
+  <data name="TitleSelection" xml:space="preserve">
+    <value>Keuze titel</value>
+  </data>
+  <data name="PickerButtonFormat" xml:space="preserve">
+    <value>Kleurkiezer: {0}</value>
+    <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
+  </data>
   
   
   
@@ -124,38 +159,64 @@
   
   
   
+  <data name="EncodingSection" xml:space="preserve">
+    <value>Codering</value>
+    <comment>The header for the Encoding section in the Picker window.</comment>
+  </data>
+  <data name="PostEncodingSection" xml:space="preserve">
+    <value>Nabewerking</value>
+    <comment>Header for the post-encoding section in the picker window.</comment>
+  </data>
+  <data name="SendFileToLabel" xml:space="preserve">
+    <value>Verzend het bestaan aan:</value>
+    <comment>Label for the option to run a program after encoding each file.</comment>
+  </data>
+  <data name="PostEncodeArgumentsLabel" xml:space="preserve">
+    <value>Parameters:</value>
+    <comment>The label for the arguments to pass to the post-encode executable.</comment>
+  </data>
+  
+  
+  <data name="AddLanguageButton" xml:space="preserve">
+    <value>Taal toevoegen</value>
+  </data>
   
   
   
+  <data name="FirstTrackRadioButton" xml:space="preserve">
+    <value>Eerste spoor</value>
+  </data>
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="FirstAsDefaultCheckBox" xml:space="preserve">
+    <value>Eerst als standaard markeren</value>
+    <comment>Label for checkbox to mark the first subtitle as default.</comment>
+  </data>
+  <data name="AllSubtitlesToolTip" xml:space="preserve">
+    <value>Alle ondertitels.</value>
+  </data>
+  <data name="SubtitleNoneToolTip" xml:space="preserve">
+    <value>Geen ondertitels.</value>
+  </data>
+  <data name="AudioFirstToolTip" xml:space="preserve">
+    <value>Alleen het eerste audiospoor.</value>
+  </data>
+  <data name="AudioAllToolTip" xml:space="preserve">
+    <value>Alle sporen meenemen.</value>
+  </data>
+  <data name="SubtitleFirstToolTip" xml:space="preserve">
+    <value>Alleen de eerste ondertitel.</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Voorinstelling gebruiken:</value>
+  </data>
+  <data name="RemoveLanguageToolTip" xml:space="preserve">
+    <value>Taal verwijderen.</value>
+  </data>
+  <data name="SortLanguagesLabel" xml:space="preserve">
+    <value>Taal/talen sorteren:</value>
+  </data>
+  <data name="ForcedOnlyCheckBox" xml:space="preserve">
+    <value>Alleen 'gedwongen'</value>
+  </data>
 </root>

@@ -125,16 +125,16 @@ Este programa se distribuye con la esperanza de que sea util, pero SIN GARANTIA 
 Una copia completa de la Licencia Publica General de GNU se ha incluido junto con este programa.</value>
   </data>
   <data name="BurnedSubtitleToolTip" xml:space="preserve">
-    <value>Pega los subtítulos en la imagen. Los subtítulos pegados no pueden ser deshabilitados durante la reproducción del video.</value>
+    <value>'Pega' los subtítulos en la imagen. Los subtítulos 'pegados' no pueden ser deshabilitados durante la reproducción del video.</value>
   </data>
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
     <value>Define este subtítulo como predeterminado. Se mostrará durante la reproducción hasta que otra pista sea elegida.</value>
   </data>
   <data name="ForcedSubtitleToolTip" xml:space="preserve">
-    <value>Muestra solamente los subtítulos forzados de la(s) pista(s) dada(s). Éstos suelen ser pequeños fragmentos de diálogo en idiomas extranjeros.</value>
+    <value>Solo muestra los subtítulos forzados de la lista de subtítulos. Éstos suelen ser pequeños fragmentos de diálogo en idiomas extranjeros.</value>
   </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
-    <value>La cantidad de tiempo a adelantar o atrasar la aparicion de los subtitulos.</value>
+    <value>La cantidad de tiempo a adelantar o atrasar la aparición de los subtítulos.</value>
   </data>
   <data name="QueueColumnNameRange" xml:space="preserve">
     <value>Rango</value>
@@ -168,7 +168,7 @@ Una copia completa de la Licencia Publica General de GNU se ha incluido junto co
     <value>Duración</value>
   </data>
   <data name="ForeignAudioSearchToolTip" xml:space="preserve">
-    <value>Busca la pista de subtitulo que contenga fragmentos de dialogo extranjero. Se recomienda para peliculas que se encuentran principalmente en su idioma original.</value>
+    <value>Busca la pista de subtítulo que contenga fragmentos de dialogo extranjero. Se recomienda para películas que se estén principalmente en su idioma original.</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Predeterminado</value>
@@ -262,7 +262,7 @@ Una copia completa de la Licencia Publica General de GNU se ha incluido junto co
     <value>Conservar el árbol de carpetas durante la codificación en lote</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Si codifica una carpeta repleta de archivos, la version resultante sera guardada en sub carpetas conservando la estructura del directorio origen.</value>
+    <value>Si codifica una carpeta repleta de archivos, la versión resultante sera guardada en sub carpetas conservando la estructura del directorio origen.</value>
   </data>
   <data name="DismissMessage" xml:space="preserve">
     <value>Descartar mensaje</value>
@@ -281,6 +281,6 @@ Una copia completa de la Licencia Publica General de GNU se ha incluido junto co
     <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
   </data>
   <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
-    <value>Se deshabilitaron las actualizaciones ya que nuevas versiones no admiten sistemas operativos de 32 bits.</value>
+    <value>Se deshabilitaron las actualizaciones ya que, nuevas versiones no admiten sistemas operativos de 32 bits.</value>
   </data>
 </root>

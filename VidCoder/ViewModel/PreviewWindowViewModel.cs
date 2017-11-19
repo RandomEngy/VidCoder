@@ -251,7 +251,7 @@ namespace VidCoder.ViewModel
 
 		public IPreviewView View { get; set; }
 
-		public void OnClosing()
+		public bool OnClosing()
 		{
 			this.previewUpdateService.PreviewInputChanged -= this.OnPreviewInputChanged;
 			this.presetsSubscription.Dispose();
@@ -260,6 +260,8 @@ namespace VidCoder.ViewModel
 			{
 				this.StopAndWait();
 			}
+
+			return true;
 		}
 
 		public MainViewModel MainViewModel
@@ -1110,7 +1112,11 @@ namespace VidCoder.ViewModel
 					}
 				}
 
-				string imagePath = Path.Combine(Utilities.ImageCacheFolder, Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture), imageJob.UpdateVersion.ToString(CultureInfo.InvariantCulture), imageJob.PreviewNumber + ".bmp");
+				string imagePath = Path.Combine(
+                    Utilities.ImageCacheFolder,
+                    Process.GetCurrentProcess().Id.ToString(CultureInfo.InvariantCulture), 
+                    imageJob.UpdateVersion.ToString(CultureInfo.InvariantCulture), 
+                    imageJob.PreviewNumber.ToString(CultureInfo.InvariantCulture) + ".bmp");
 				BitmapSource imageSource = null;
 
 				// Check the disc cache for the image
@@ -1118,15 +1124,23 @@ namespace VidCoder.ViewModel
 				{
 					if (File.Exists(imagePath))
 					{
-						// When we read from disc cache the image is already transformed.
-						var bitmapImage = new BitmapImage();
-						bitmapImage.BeginInit();
-						bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-						bitmapImage.UriSource = new Uri(imagePath);
-						bitmapImage.EndInit();
-						bitmapImage.Freeze();
+					    Uri imageUri;
+					    if (Uri.TryCreate(imagePath, UriKind.Absolute, out imageUri))
+					    {
+					        // When we read from disc cache the image is already transformed.
+					        var bitmapImage = new BitmapImage();
+					        bitmapImage.BeginInit();
+					        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+					        bitmapImage.UriSource = imageUri;
+					        bitmapImage.EndInit();
+					        bitmapImage.Freeze();
 
-						imageSource = bitmapImage;
+					        imageSource = bitmapImage;
+					    }
+					    else
+					    {
+					        Ioc.Get<IAppLogger>().LogError($"Could not load cached preview image from {imagePath} . Did not parse as a URI.");
+					    }
 					}
 				}
 

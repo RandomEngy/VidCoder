@@ -144,6 +144,19 @@ namespace VidCoder
 			cache[key] = value;
 			DatabaseConfig.Set(key, value);
 
+			NotifyObservable(key, value);
+		}
+
+		public static void SetLegacy<T>(string key, T value)
+		{
+			cache[key] = value;
+			DatabaseConfig.SetLegacy(key, value);
+
+			NotifyObservable(key, value);
+		}
+
+		private static void NotifyObservable<T>(string key, T value)
+		{
 			object observableObject;
 			if (observableCache.TryGetValue(key, out observableObject))
 			{

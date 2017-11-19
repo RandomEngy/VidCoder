@@ -626,10 +626,26 @@
     <value>{0} outros títulos têm duração semelhante.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
-  
-  
-  
-  
-  
-  
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>Tem um backup da versão {0} do arquivo. Gostaria de usá-lo?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Erro ao reproduzir o vídeo.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>O reprodutor de vídeo personalizado não pôde ser encontrado em {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>Aviso: A interface de dimensionamento foi reajustada para 2.0, por isso suas predefinições podem ter mudado. Você pode querer inspecioná-las e certificar-se de que elas ainda estão configuradas corretamente.</value>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Enfileirar Pasta de Arquivos de Vídeo...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Houve erros na leitura de alguns arquivos e os mesmos não foram adicionados à fila:
+
+{0}</value>
+  </data>
 </root>

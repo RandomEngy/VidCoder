@@ -194,8 +194,13 @@
     <value>{0} Beta ({1})</value>
     <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
   </data>
-  
-  
+  <data name="NameDialogTitle" xml:space="preserve">
+    <value>Naam</value>
+    <comment>Title for dialog when  naming a preset or  picker</comment>
+  </data>
+  <data name="ChooseNamePreset" xml:space="preserve">
+    <value>Kies een naam voor de voorinstelling:</value>
+  </data>
   <data name="ApplyUpdateDialogTitle" xml:space="preserve">
     <value>Update toepassen?</value>
   </data>
@@ -241,7 +246,13 @@
   <data name="ErrorPlayingSource" xml:space="preserve">
     <value>Probleem bij het afspelen van bron.</value>
   </data>
-  
-  
-  
+  <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
+    <value>Het systeem gaat over {0} seconden in slaapstand.</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
+    <value>Slaapstand volgt binnenkort</value>
+  </data>
+  <data name="ChooseNamePicker" xml:space="preserve">
+    <value>Kies een naam voor de kiezer:</value>
+  </data>
 </root>

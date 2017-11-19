@@ -139,7 +139,7 @@
     <value>打开 DVD/Blu-ray 文件夹...</value>
   </data>
   <data name="EnqueueMultipleFiles" xml:space="preserve">
-    <value>加入多个文件至工作队列...</value>
+    <value>将多个文件加入队列...</value>
   </data>
   <data name="EnqueueMultipleTitles" xml:space="preserve">
     <value>多个标题添加至队列...</value>
@@ -182,7 +182,7 @@
     <value>预览</value>
   </data>
   <data name="LogMenuItem" xml:space="preserve">
-    <value>记录</value>
+    <value>日志</value>
   </data>
   <data name="HelpMenu" xml:space="preserve">
     <value>帮助</value>
@@ -194,7 +194,7 @@
     <value>报告 Bug</value>
   </data>
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
-    <value>关于 VidCoder......</value>
+    <value>关于 VidCoder...</value>
   </data>
   <data name="ChooseVideoSourceLabel" xml:space="preserve">
     <value>选择视频源：</value>
@@ -227,7 +227,7 @@
     <value>新增音轨</value>
   </data>
   <data name="ChapterMarkersLabel" xml:space="preserve">
-    <value>章节编辑器：</value>
+    <value>章节标记：</value>
   </data>
   <data name="EditButton" xml:space="preserve">
     <value>编辑...</value>
@@ -236,7 +236,7 @@
     <value>输出位置：</value>
   </data>
   <data name="DestinationToolTip" xml:space="preserve">
-    <value>点击以编辑编码文件输出位置。</value>
+    <value>点击以编辑编码输出位置。</value>
   </data>
   <data name="SelectOutputPathButton" xml:space="preserve">
     <value>选择输出路径...</value>
@@ -257,7 +257,7 @@
     <value>移至底部</value>
   </data>
   <data name="CustomizeColumnsMenuItem" xml:space="preserve">
-    <value>自定义字段...</value>
+    <value>自定义列...</value>
   </data>
   <data name="CurrentFpsLabel" xml:space="preserve">
     <value>当前 FPS：</value>
@@ -281,16 +281,16 @@
     <value>(无)</value>
   </data>
   <data name="TracksSummaryMultiple" xml:space="preserve">
-    <value>{0} 轨</value>
+    <value>{0} 个轨道</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
-    <value>你想要将更改保存到您当前预设吗？</value>
+    <value>保存更改到当前预设吗？</value>
   </data>
   <data name="SaveChangesPresetTitle" xml:space="preserve">
-    <value>保存当前预设值？</value>
+    <value>保存当前预设？</value>
   </data>
   <data name="DiscNotInDriveError" xml:space="preserve">
-    <value>盘片已移除，无法加载供编辑。</value>
+    <value>光盘已移除，无法加载供编辑。</value>
   </data>
   <data name="PresetNameRestoredFromQueue" xml:space="preserve">
     <value>从队列中恢复</value>
@@ -323,7 +323,7 @@
     <value>/ {0}</value>
   </data>
   <data name="Queued" xml:space="preserve">
-    <value>队列</value>
+    <value>已加入队列</value>
   </data>
   <data name="QueuedWithTotal" xml:space="preserve">
     <value>工作队列 ({0})</value>
@@ -341,32 +341,35 @@
     <value>确认删除</value>
   </data>
   <data name="CouldNotDeleteFile" xml:space="preserve">
-    <value>无法删除 {0} {1}</value>
+    <value>无法删除 {0}
+
+{1}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
-    <value>扫描视频文件时出现错误</value>
+    <value>扫描视频文件时出错</value>
   </data>
   <data name="StartedEncoding" xml:space="preserve">
     <value>编码已开始</value>
   </data>
   <data name="DirectoryCreateErrorMessage" xml:space="preserve">
-    <value>无法建立输出文件夹，错误详情:
+    <value>无法建立输出文件夹。错误详情：
+
  {0}</value>
   </data>
   <data name="DirectoryCreateErrorTitle" xml:space="preserve">
     <value>创建目录时出错</value>
   </data>
   <data name="EncodeCompleted" xml:space="preserve">
-    <value>编码已完成</value>
+    <value>编码完成。</value>
   </data>
   <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
-    <value>编码已完成</value>
+    <value>编码完成</value>
   </data>
   <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
-    <value>VidCoder 已完成编码队列中的所有作业。</value>
+    <value>VidCoder 已完编码队列。</value>
   </data>
   <data name="OutputFolderRequiredMessage" xml:space="preserve">
-    <value>未设定默认输出文件夹无法新增编码工作，请点选确定选择文件夹。</value>
+    <value>添加编码任务未设定默认输出文件夹，请点击确定选择文件夹。</value>
   </data>
   <data name="OutputFolderRequiredTitle" xml:space="preserve">
     <value>必须设置默认输出文件夹</value>
@@ -387,7 +390,7 @@
     <value>预估完成时间：</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
-    <value>当完成时：</value>
+    <value>完成时：</value>
   </data>
   <data name="Preset_AndroidTablet" xml:space="preserve">
     <value>Android 平板</value>
@@ -420,7 +423,7 @@
     <value>通用</value>
   </data>
   <data name="Preset_HighProfile" xml:space="preserve">
-    <value>High Profile</value>
+    <value>高配置</value>
   </data>
   <data name="Preset_Normal" xml:space="preserve">
     <value>标准</value>
@@ -435,19 +438,19 @@
     <value>DVD/Blu-ray 文件夹...</value>
   </data>
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
-    <value>版本 {0} 可使用，已开始下载更新文件。</value>
+    <value>版本 {0} 已上线。开始下载更新。</value>
   </data>
   <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
     <value>版本 {0} 已下载完成，将在程序退出时安装。</value>
   </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
-    <value>更新并未被应用，若您非手动取消更新，请尝试手动安装更新。</value>
+    <value>未应用更新。若您并非手动取消更新，请尝试手动安装。</value>
   </data>
   <data name="CouldNotLoadPresetMessage" xml:space="preserve">
-    <value>不能加载预设值：</value>
+    <value>无法加载预设: </value>
   </data>
   <data name="CouldNotSavePresetMessage" xml:space="preserve">
-    <value>不能保存预设值 '{0}': {1} {2}</value>
+    <value>不能保存预设 '{0}': {1} {2}</value>
   </data>
   <data name="CouldNotCopyTextError" xml:space="preserve">
     <value>无法复制文本。</value>
@@ -456,13 +459,13 @@
     <value>打开 URL 时出错: {0}</value>
   </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>无法导入预设。请检查日志的详细信息。</value>
+    <value>无法导入预设。请检查日志详情。</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>导入错误</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
-    <value>成功导入预设值 {0}。</value>
+    <value>成功导入预设 {0}</value>
   </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
     <value>成功导出预设 {0}</value>
@@ -471,13 +474,13 @@
     <value>导出预设</value>
   </data>
   <data name="SaveChangesPickerMessage" xml:space="preserve">
-    <value>你想要将更改保存到您当前的选取器吗？</value>
+    <value>保存更改到当前选取器吗？</value>
   </data>
   <data name="SaveChangesPickerTitle" xml:space="preserve">
     <value>保存当前选取器吗？</value>
   </data>
   <data name="RevertConfirmMessage" xml:space="preserve">
-    <value>确定要重置所有未保存的更改吗？</value>
+    <value>确定重置所有未保存的更改吗？</value>
   </data>
   <data name="RevertConfirmTitle" xml:space="preserve">
     <value>还原</value>
@@ -498,7 +501,7 @@
     <value>({0})</value>
   </data>
   <data name="ModifiedAffix" xml:space="preserve">
-    <value>（已修改）</value>
+    <value>(已修改)</value>
   </data>
   <data name="PlayingVideoStatus" xml:space="preserve">
     <value>播放视频中...</value>
@@ -543,7 +546,7 @@
     <value>复制日志</value>
   </data>
   <data name="PresetDiscardConfirmMessage" xml:space="preserve">
-    <value>你有未保存的更改。你确定你要放弃这些更改通过切换到其它预设值吗？</value>
+    <value>您有更改未保存。确定要放弃这些更改并切换到其它预设吗？</value>
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>放弃更改吗？</value>
@@ -567,7 +570,7 @@
     <value>导出队列...</value>
   </data>
   <data name="QueueImportErrorMessage" xml:space="preserve">
-    <value>无法导入队列。请检查日志的详细信息。</value>
+    <value>无法导入队列。请检查日志详情。</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>导入预设文件</value>
@@ -579,22 +582,22 @@
     <value>导入队列...</value>
   </data>
   <data name="QueueExportSuccessMessage" xml:space="preserve">
-    <value>成功的导出队列到{0}</value>
+    <value>成功导出队列到{0}</value>
   </data>
   <data name="QueueImportSuccessMessage" xml:space="preserve">
-    <value>成功的导入队列</value>
+    <value>成功导入队列。</value>
   </data>
   <data name="StopEncodeConfirmationTitle" xml:space="preserve">
     <value>停止编码?</value>
   </data>
   <data name="StopEncodeConfirmationMessage" xml:space="preserve">
-    <value>你确定你想要停止编码吗？</value>
+    <value>确定停止编码吗？</value>
   </data>
   <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
     <value>关闭当前文件并打开光盘吗？</value>
   </data>
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
-    <value>编码的详细信息</value>
+    <value>编码详情</value>
   </data>
   <data name="EncodingSettingsChangedMessage" xml:space="preserve">
     <value>上一次添加队列项目后编码设置已更改。您想将当前编码设置应用到队列中的所有项目吗？</value>
@@ -603,10 +606,10 @@
     <value>设置已更改</value>
   </data>
   <data name="RenameDatabaseFileLine2" xml:space="preserve">
-    <value>你想要重命名现有的文件并启动一个新的吗？</value>
+    <value>重命名现有文件并开始一个新的吗？</value>
   </data>
   <data name="RenameDatabaseFileLine1" xml:space="preserve">
-    <value>无法读取数据库文件版本 {0}。VidCoder {1} 支持的最高版本是 {2}</value>
+    <value>无法读取版本{0} 数据库文件。VidCoder {1} 支持的最高版本是 {2}</value>
     <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
   </data>
   <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">

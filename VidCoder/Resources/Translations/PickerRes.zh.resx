@@ -130,7 +130,7 @@
     <value>搜索外语音频</value>
   </data>
   <data name="IncludeAllTracksRadioButton" xml:space="preserve">
-    <value>所有音轨</value>
+    <value>所有轨道</value>
   </data>
   <data name="LanguagesRadioButton" xml:space="preserve">
     <value>语言(s)</value>
@@ -172,7 +172,7 @@
     <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
   </data>
   <data name="PresetOverrideToolTip" xml:space="preserve">
-    <value>这将覆盖在主窗口中选择的任何预设。</value>
+    <value>这将覆盖主窗口中已选取的预设。</value>
   </data>
   <data name="EncodingSection" xml:space="preserve">
     <value>编码</value>
@@ -201,22 +201,22 @@
     <value>添加语言</value>
   </data>
   <data name="AllTracksForTheseLanguagesRadioButton" xml:space="preserve">
-    <value>这些语言的所有音轨</value>
+    <value>这些语言的所有轨道</value>
   </data>
   <data name="AllTracksForThisLanguageRadioButton" xml:space="preserve">
-    <value>该语言的所有音轨</value>
+    <value>此语言的所有轨道</value>
   </data>
   <data name="FirstTrackOfEachLanguageRadioButton" xml:space="preserve">
-    <value>每种语言的第一条音轨</value>
+    <value>每种语言的第一条轨道</value>
   </data>
   <data name="FirstTrackRadioButton" xml:space="preserve">
-    <value>第一条音轨</value>
+    <value>第一条轨道</value>
   </data>
   <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>标记该字幕轨道为默认，以使播放视频时自动显示。</value>
+    <value>标记该字幕轨道为默认，播放视频时就自动显示。</value>
   </data>
   <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
-    <value>标记第一条字幕轨道为默认，以使播放视频时自动显示。</value>
+    <value>标记第一条字幕轨道为默认，播放视频时将自动显示。</value>
   </data>
   <data name="FirstAsDefaultCheckBox" xml:space="preserve">
     <value>将第一项作为默认</value>
@@ -235,7 +235,7 @@
     <value>包含所有音轨</value>
   </data>
   <data name="SubtitleFirstToolTip" xml:space="preserve">
-    <value>仅包含第一轨道字幕</value>
+    <value>仅包含第一条字幕。</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
     <value>使用预设：</value>

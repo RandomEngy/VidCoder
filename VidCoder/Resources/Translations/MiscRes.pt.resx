@@ -148,7 +148,7 @@
     <value>Substituir</value>
   </data>
   <data name="AutoRenameButton" xml:space="preserve">
-    <value>Renomar automáticamente</value>
+    <value>Renomear automaticamente</value>
   </data>
   <data name="FileConflictWarning" xml:space="preserve">
     <value>Já existe um ficheiro em {0}. Deseja substituir o ficheiro, renomear automaticamente ou cancelar a operação?</value>
@@ -208,7 +208,7 @@
     <value>Uma actualização foi transferida. Deseja instala-la agora?</value>
   </data>
   <data name="ViewFullChangelog" xml:space="preserve">
-    <value>Vizualizar relatório de alterações completo</value>
+    <value>Visualizar relatório de alterações completo</value>
   </data>
   <data name="DisableUpdatesButton" xml:space="preserve">
     <value>Desativar atualizações</value>

@@ -283,6 +283,11 @@ namespace VidCoder.View
 			}
 		}
 
+		void IMainView.SaveCompletedColumnWidths()
+		{
+			this.SaveCompletedColumnWidths();
+		}
+
 		private void SaveCompletedColumnWidths()
 		{
 			var completedColumnsBuilder = new StringBuilder();
@@ -368,19 +373,6 @@ namespace VidCoder.View
 			}
 		}
 
-		private void Window_Closing(object sender, CancelEventArgs e)
-		{
-			if (!this.viewModel.OnClosing())
-			{
-				e.Cancel = true;
-			}
-			else
-			{
-				this.SaveQueueColumns();
-				this.SaveCompletedColumnWidths();
-			}
-		}
-
 		private void ProgressMouseEnter(object sender, MouseEventArgs e)
 		{
 			this.encodeProgressDetailsPopup.IsOpen = true;
@@ -453,6 +445,14 @@ namespace VidCoder.View
 		private void DestinationEditBoxPreviewKeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.Key == Key.Enter)
+			{
+				this.StopEditing();
+			}
+		}
+
+		private void OnWindowDeactivated(object sender, EventArgs e)
+		{
+			if (this.outputVM.EditingDestination)
 			{
 				this.StopEditing();
 			}

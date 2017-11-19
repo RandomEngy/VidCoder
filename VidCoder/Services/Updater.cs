@@ -27,8 +27,6 @@ namespace VidCoder.Services
 	public class Updater : ReactiveObject, IUpdater
 	{
 		private const string UpdateInfoUrlBase = "http://engy.us/VidCoder";
-		private const string UpdateInfoFileStable = "latest.json";
-		private const string UpdateInfoFileBeta = "latest-beta.json";
 
 		private CancellationTokenSource updateDownloadCancellationTokenSource;
 
@@ -233,21 +231,6 @@ namespace VidCoder.Services
 				return;
 			}
 
-			if (!Environment.Is64BitOperatingSystem)
-			{
-				if (!Config.UpdatesDisabled32BitOSWarningDisplayed)
-				{
-					// Need to show twice as the first one is automatically closed.
-					Ioc.Get<IMessageBoxService>().Show(CommonRes.UpdatesDisabled32BitOSMessage);
-					Ioc.Get<IMessageBoxService>().Show(CommonRes.UpdatesDisabled32BitOSMessage);
-
-					Config.UpdatesDisabled32BitOSWarningDisplayed = true;
-				}
-
-				this.State = UpdateState.NotSupported32BitOS;
-				return;
-			}
-
 			this.StartBackgroundUpdate();
 		}
 
@@ -306,9 +289,13 @@ namespace VidCoder.Services
 								updateVersionText += " Beta";
 							}
 
-							string message = string.Format(MainRes.NewVersionDownloadStartedStatus, updateVersionText);
-							this.logger.Log(message);
-							this.logger.ShowStatus(message);
+							string newVersionStartedMessage = string.Format(MainRes.NewVersionDownloadStartedStatus, updateVersionText);
+							this.logger.Log(newVersionStartedMessage);
+
+							DispatchUtilities.BeginInvoke(() =>
+							{
+								this.logger.ShowStatus(newVersionStartedMessage);
+							});
 
 							this.State = UpdateState.DownloadingInstaller;
 							this.UpdateDownloadProgressFraction = 0;
@@ -370,7 +357,7 @@ namespace VidCoder.Services
 									this.State = UpdateState.InstallerReady;
 									this.UpdateDownloadProgressFraction = 1;
 
-									message = string.Format(MainRes.NewVersionDownloadFinishedStatus, updateVersionText);
+									string message = string.Format(MainRes.NewVersionDownloadFinishedStatus, updateVersionText);
 									this.logger.Log(message);
 									this.logger.ShowStatus(message);
 								}
@@ -442,10 +429,30 @@ namespace VidCoder.Services
 
 		private static string GetUpdateUrl(bool beta)
 		{
-			string updateInfoFile = beta ? UpdateInfoFileBeta : UpdateInfoFileStable;
+			bool is64Bit = Environment.Is64BitOperatingSystem;
+			string updateInfoFile = GetUpdateFilename(beta, is64Bit);
+
 			string testPortion = CommonUtilities.DebugMode ? "/Test" : string.Empty;
 
 			return UpdateInfoUrlBase + testPortion + "/" + updateInfoFile;
+		}
+
+		private static string GetUpdateFilename(bool beta, bool is64Bit)
+		{
+			var fileNameBuilder = new StringBuilder("latest");
+			if (beta)
+			{
+				fileNameBuilder.Append("-beta");
+			}
+
+			if (!is64Bit)
+			{
+				fileNameBuilder.Append("-x86");
+			}
+
+			fileNameBuilder.Append(".json");
+
+			return fileNameBuilder.ToString();
 		}
 	}
 }

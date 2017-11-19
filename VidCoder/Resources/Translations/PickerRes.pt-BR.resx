@@ -246,5 +246,7 @@
   <data name="SortLanguagesLabel" xml:space="preserve">
     <value>Classificar o idioma(s) para o topo:</value>
   </data>
-  
+  <data name="ForcedOnlyCheckBox" xml:space="preserve">
+    <value>Somente forçada</value>
+  </data>
 </root>

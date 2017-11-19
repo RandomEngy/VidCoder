@@ -24,7 +24,7 @@ namespace VidCoder
 	public static class Utilities
 	{
 		public const string TimeFormat = @"h\:mm\:ss";
-		public const int CurrentDatabaseVersion = 34;
+		public const int CurrentDatabaseVersion = 35;
 		public const int LastUpdatedEncodingProfileDatabaseVersion = 33;
 		public const int LastUpdatedPickerDatabaseVersion = 34;
 
@@ -37,7 +37,11 @@ namespace VidCoder
 		static Utilities()
 		{
 			isPortable = Directory.GetCurrentDirectory().Contains("Temp");
-			settingsDirectory = ConfigurationManager.AppSettings["SettingsDirectory"];
+		    string settingsDirectorySetting = ConfigurationManager.AppSettings["SettingsDirectory"];
+		    if (settingsDirectorySetting != null)
+		    {
+                settingsDirectory = Path.GetFullPath(settingsDirectorySetting);
+		    }
 		}
 
 		private static Dictionary<string, double> defaultQueueColumnSizes = new Dictionary<string, double>
@@ -116,12 +120,12 @@ namespace VidCoder
 
 			for (int i = 0; i < intPartsA.Length; i++)
 			{
-				intPartsA[i] = int.Parse(stringPartsA[i]);
+				intPartsA[i] = int.Parse(stringPartsA[i], CultureInfo.InvariantCulture);
 			}
 
 			for (int i = 0; i < intPartsB.Length; i++)
 			{
-				intPartsB[i] = int.Parse(stringPartsB[i]);
+				intPartsB[i] = int.Parse(stringPartsB[i], CultureInfo.InvariantCulture);
 			}
 
 			int compareLength = Math.Min(intPartsA.Length, intPartsB.Length);
@@ -599,38 +603,38 @@ namespace VidCoder
 			return Path.GetFileName(directory) == "VIDEO_TS" || Directory.Exists(Path.Combine(directory, "VIDEO_TS"));
 		}
 
-		public static bool IsDiscFolder(string directory)
+		public static FolderType GetFolderType(string directory)
 		{
 			try
 			{
 				var directoryInfo = new DirectoryInfo(directory);
 				if (!directoryInfo.Exists)
 				{
-					return false;
+					return FolderType.NonExistent;
 				}
 
-				if (directoryInfo.Name == "VIDEO_TS")
+				if (File.Exists(Path.Combine(directory, @"VIDEO_TS.IFO")) || File.Exists(Path.Combine(directory, @"VIDEO_TS\VIDEO_TS.IFO")))
 				{
-					return true;
-				}
-
-				if (Directory.Exists(Path.Combine(directory, "VIDEO_TS")))
-				{
-					return true;
+					return FolderType.Dvd;
 				}
 
 				if (Directory.Exists(Path.Combine(directory, "BDMV")))
 				{
-					return true;
+					return FolderType.BluRay;
 				}
-
-				return false;
 			}
 			catch (UnauthorizedAccessException ex)
 			{
-				Ioc.Get<IAppLogger>().Log("Could not determine if folder was disc: " + ex);
-				return false;
+				Ioc.Get<IAppLogger>().Log("Could not determine folder type: " + ex);
 			}
+
+			return FolderType.VideoFiles;
+		}
+
+		public static bool IsDiscFolder(string directory)
+		{
+			FolderType folderType = GetFolderType(directory);
+			return folderType == FolderType.Dvd || folderType == FolderType.BluRay;
 		}
 
 		public static string Wow64RegistryKey

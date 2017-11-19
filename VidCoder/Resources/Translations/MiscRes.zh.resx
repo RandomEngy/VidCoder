@@ -157,10 +157,10 @@
     <value>队列中的作业在 {0} 已有同名的输出文件。你想要覆盖文件、 自动改变输出路径或取消操作？</value>
   </data>
   <data name="QueueColumnsDialogTitle" xml:space="preserve">
-    <value>队列字段</value>
+    <value>队列栏目</value>
   </data>
   <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>拖动以新增、移除或移动字段。</value>
+    <value>拖拽以新增、移除或重排字段。</value>
   </data>
   <data name="UnusedColumns" xml:space="preserve">
     <value>未使用的列</value>
@@ -175,13 +175,13 @@
     <value>关于 VidCoder</value>
   </data>
   <data name="LicenseLabel" xml:space="preserve">
-    <value>授权</value>
+    <value>许可：</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>版本</value>
   </data>
   <data name="BasedOnHandBrake" xml:space="preserve">
-    <value>基于手动 ({0})</value>
+    <value>基于 HandBrake ({0})</value>
   </data>
   <data name="Copyright" xml:space="preserve">
     <value>© {0} VidCoder 开发人员</value>
@@ -205,7 +205,7 @@
     <value>应用更新？</value>
   </data>
   <data name="ApplyUpdateDialogMessage" xml:space="preserve">
-    <value>更新文件已下载完成。您想要现在应用更新吗？</value>
+    <value>更新文件已下载。您想要现在应用更新吗？</value>
   </data>
   <data name="ViewFullChangelog" xml:space="preserve">
     <value>查看完整的更新日志</value>
@@ -217,10 +217,10 @@
     <value>通知</value>
   </data>
   <data name="UnsupportedOSError" xml:space="preserve">
-    <value>VidCoder 不支持您的操作系统。Windows XP 和 2003 服务器将不再支持。请安装 VidCoder 1.4 或升级您的操作系统。</value>
+    <value>VidCoder 不支持您的操作系统。不再支持 Windows XP 和 Server 2003。请安装 VidCoder 1.4 或升级您的操作系统。</value>
   </data>
   <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
-    <value>立即休眠</value>
+    <value>立即睡眠</value>
   </data>
   <data name="EncodeCompleteWarning_LogOffTitle" xml:space="preserve">
     <value>立即注销</value>
@@ -229,10 +229,10 @@
     <value>立即关机</value>
   </data>
   <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
-    <value>该系统将在 {0} 秒后休眠</value>
+    <value>系统将在 {0} 秒后睡眠。</value>
   </data>
   <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
-    <value>您将被注销在 {0} 秒后。</value>
+    <value>您将在 {0} 秒后注销。</value>
   </data>
   <data name="EncodeCompleteWarning_ShutdownMessage" xml:space="preserve">
     <value>系统将在 {0} 秒后关闭。</value>
@@ -247,7 +247,7 @@
     <value>错误播放源。</value>
   </data>
   <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
-    <value>该系统将在 {0} 秒后休眠</value>
+    <value>系统将在 {0} 秒后休眠</value>
   </data>
   <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
     <value>立即休眠</value>

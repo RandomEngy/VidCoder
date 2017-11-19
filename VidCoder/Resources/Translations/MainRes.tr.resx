@@ -478,7 +478,9 @@
   <data name="RevertConfirmMessage" xml:space="preserve">
     <value>Tüm kaydedilmemiş değişiklikleri iptal etmek istediğinize emin misiniz?</value>
   </data>
-  
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>Eski Haline Döndür</value>
+  </data>
   
   <data name="RemoveConfirmTitle" xml:space="preserve">
     <value>Kaldır</value>
@@ -608,14 +610,29 @@
     <value>Uyumsuz veritabanı dosyası</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>Seçici</value>
+  </data>
   
   
   
   
-  
-  
-  
-  
-  
-  
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Video oynatılırken hata oluştu.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>{0} adresinde özel video oynatıcı bulunamadı.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>Uyarı: Boyutlandırma arabirimi 2,0 için elden geçirildi, bu yüzden ön ayarlarınız değişmiş olabilir. Ayarlarınızı inceleyip hala doğru ayarlanmış olduğundan emin olmak isteyebilirsiniz.</value>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Video Dosyalarının Klasörünü Kuyruğa Ekle...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Bazı dosyaları tararken hata oluştu ve kuyruğa eklenmediler:
+
+{0}</value>
+  </data>
 </root>

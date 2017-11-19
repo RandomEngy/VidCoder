@@ -43,16 +43,14 @@ namespace VidCoderCommon.Model
 		/// <param name="job">The encode job to convert.</param>
 		/// <param name="title">The source title.</param>
 		/// <param name="defaultChapterNameFormat">The format for a default chapter name.</param>
-		/// <param name="dxvaDecoding">True to enable DXVA decoding.</param>
 		/// <param name="previewNumber">The preview number to start at (0-based). Leave off for a normal encode.</param>
 		/// <param name="previewSeconds">The number of seconds long to make the preview.</param>
 		/// <param name="previewCount">The total number of previews.</param>
-		/// <returns></returns>
+		/// <returns>The JSON encode object.</returns>
 		public JsonEncodeObject CreateJsonObject(
 			VCJob job,
 			SourceTitle title,
 			string defaultChapterNameFormat,
-			bool dxvaDecoding,
 			int previewNumber = -1,
 			int previewSeconds = 0,
 			int previewCount = 0)
@@ -85,7 +83,7 @@ namespace VidCoderCommon.Model
 				PAR = outputSize.Par,
 				Source = this.CreateSource(job, title, previewNumber, previewSeconds, previewCount),
 				Subtitle = this.CreateSubtitles(job),
-				Video = this.CreateVideo(job, title, previewSeconds, dxvaDecoding)
+				Video = this.CreateVideo(job, title, previewSeconds)
 			};
 
 			return encode;
@@ -98,32 +96,13 @@ namespace VidCoderCommon.Model
 			VCProfile profile = job.EncodingProfile;
 			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job, title);
 
-			if (!string.IsNullOrEmpty(profile.AudioEncoderFallback))
+			// If using auto-passthrough, set the fallback
+			if (profile.AudioEncodings.Any(e => e.Encoder == "copy"))
 			{
-				HBAudioEncoder audioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(profile.AudioEncoderFallback);
-				if (audioEncoder == null)
-				{
-					throw new ArgumentException("Unrecognized fallback audio encoder: " + profile.AudioEncoderFallback);
-				}
-
-				audio.FallbackEncoder = audioEncoder.Id;
+			    audio.FallbackEncoder = GetFallbackAudioEncoder(profile).Id;
 			}
 
-			// If using auto-passthrough and we don't have a fallback set, pick the first compatible one
-			if (profile.AudioEncodings.Any(e => e.Encoder == "copy") && audio.FallbackEncoder == 0)
-			{
-				HBContainer container = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
-				foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
-				{
-					if ((encoder.CompatibleContainers & container.Id) > 0 && !encoder.IsPassthrough)
-					{
-						audio.FallbackEncoder = encoder.Id;
-						break;
-					}
-				}
-			}
-
-			if (profile.AudioCopyMask != null)
+			if (profile.AudioCopyMask != null && profile.AudioCopyMask.Any())
 			{
 				audio.CopyMask = HandBrakeEncoderHelpers.AudioEncoders
 					.Where(e =>
@@ -204,7 +183,34 @@ namespace VidCoderCommon.Model
 					Encoder = (int)outputCodec,
 				};
 
-				if (!isPassthrough)
+				if (!string.IsNullOrEmpty(encoding.Name))
+				{
+					audioTrack.Name = encoding.Name;
+				}
+
+			    HBAudioEncoder fallbackAudioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(audio.FallbackEncoder);
+                if (isPassthrough && fallbackAudioEncoder != null)
+			    {
+                    // If it's passthrough, find the settings for the fallback encoder and apply those, since they will be picked up if the passthrough doesn't work
+			        OutputAudioTrackInfo fallbackSettings = AudioUtilities.GetDefaultSettings(scanAudioTrack, fallbackAudioEncoder);
+
+			        audioTrack.Samplerate = fallbackSettings.SampleRate;
+			        audioTrack.Mixdown = fallbackSettings.Mixdown.Id;
+			        audioTrack.CompressionLevel = fallbackSettings.CompressionLevel;
+
+			        if (fallbackSettings.EncodeRateType == AudioEncodeRateType.Bitrate)
+			        {
+			            audioTrack.Bitrate = fallbackSettings.Bitrate;
+			        }
+			        else
+			        {
+			            audioTrack.Quality = fallbackSettings.Quality;
+			        }
+
+			        audioTrack.Gain = fallbackSettings.Gain;
+			        audioTrack.DRC = fallbackSettings.Drc;
+                }
+				else if (!isPassthrough)
 				{
 					audioTrack.Samplerate = encoding.SampleRateRaw;
 					audioTrack.Mixdown = HandBrakeEncoderHelpers.GetMixdown(encoding.Mixdown).Id;
@@ -647,12 +653,12 @@ namespace VidCoderCommon.Model
 					case VideoRangeType.Seconds:
 						range.Type = "time";
 						range.Start = (int)(job.SecondsStart * PtsPerSecond);
-						range.End = (int)((job.SecondsEnd - job.SecondsStart) * PtsPerSecond);
+						range.End = (int)(job.SecondsEnd * PtsPerSecond);
 						break;
 					case VideoRangeType.Frames:
 						range.Type = "frame";
-						range.Start = job.FramesStart;
-						range.End = job.FramesEnd;
+						range.Start = job.FramesStart + 1; // VidCoder uses 0-based frame numbering, but HB expects 1-based frame numbering
+						range.End = job.FramesEnd + 1;
 						break;
 					default:
 						throw new ArgumentOutOfRangeException();
@@ -732,7 +738,7 @@ namespace VidCoderCommon.Model
 			return subtitles;
 		}
 
-		private Video CreateVideo(VCJob job, SourceTitle title, int previewLengthSeconds, bool dxvaDecoding)
+		private Video CreateVideo(VCJob job, SourceTitle title, int previewLengthSeconds)
 		{
 			Video video = new Video();
 			VCProfile profile = job.EncodingProfile;
@@ -744,10 +750,10 @@ namespace VidCoderCommon.Model
 			}
 
 			video.Encoder = videoEncoder.Id;
-			video.HWDecode = dxvaDecoding;
+			video.HWDecode = false;
 			video.QSV = new QSV
 			{
-				Decode = profile.QsvDecode && profile.VideoEncoder == "qsv_h264"
+				Decode = profile.QsvDecode && profile.VideoEncoder.StartsWith("qsv", StringComparison.Ordinal)
 			};
 
 			if (profile.UseAdvancedTab)
@@ -843,7 +849,7 @@ namespace VidCoderCommon.Model
 			availableBytes -= containerOverheadBytes;
 
 			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job, title);
-			long audioSizeBytes = this.GetAudioSize(lengthSeconds, title, outputTrackList);
+			long audioSizeBytes = this.GetAudioSize(lengthSeconds, title, outputTrackList, GetFallbackAudioEncoder(job.EncodingProfile), job.EncodingProfile.AudioCopyMask);
 			this.logger.Log($"Calculating bitrate - Audio size: {audioSizeBytes} bytes");
 			availableBytes -= audioSizeBytes;
 
@@ -896,7 +902,7 @@ namespace VidCoderCommon.Model
 			totalBytes += frames * ContainerOverheadBytesPerFrame;
 
 			List<Tuple<AudioEncoding, int>> outputTrackList = this.GetOutputTracks(job, title);
-			totalBytes += this.GetAudioSize(lengthSeconds, title, outputTrackList);
+			totalBytes += this.GetAudioSize(lengthSeconds, title, outputTrackList, GetFallbackAudioEncoder(job.EncodingProfile), job.EncodingProfile.AudioCopyMask);
 
 			return (double)totalBytes / 1024 / 1024;
 		}
@@ -930,14 +936,16 @@ namespace VidCoderCommon.Model
 			return TimeSpan.Zero;
 		}
 
-		/// <summary>
-		/// Gets the size in bytes for the audio with the given parameters.
-		/// </summary>
-		/// <param name="lengthSeconds">The length of the encode in seconds.</param>
-		/// <param name="title">The title to encode.</param>
-		/// <param name="outputTrackList">The list of tracks to encode.</param>
-		/// <returns>The size in bytes for the audio with the given parameters.</returns>
-		private long GetAudioSize(double lengthSeconds, SourceTitle title, List<Tuple<AudioEncoding, int>> outputTrackList)
+	    /// <summary>
+	    /// Gets the size in bytes for the audio with the given parameters.
+	    /// </summary>
+	    /// <param name="lengthSeconds">The length of the encode in seconds.</param>
+	    /// <param name="title">The title to encode.</param>
+	    /// <param name="outputTrackList">The list of tracks to encode.</param>
+	    /// <param name="audioEncoderFallback">The fallback audio encoder for the job.</param>
+	    /// <param name="copyMask">The audio copy mask for the job.</param>
+	    /// <returns>The size in bytes for the audio with the given parameters.</returns>
+	    private long GetAudioSize(double lengthSeconds, SourceTitle title, List<Tuple<AudioEncoding, int>> outputTrackList, HBAudioEncoder audioEncoderFallback, List<CopyMaskChoice> copyMask)
 		{
 			long audioBytes = 0;
 			int outputTrackNumber = 1;
@@ -954,17 +962,60 @@ namespace VidCoderCommon.Model
 
 				if (audioEncoder.IsPassthrough)
 				{
-					// Input bitrate is in bits/second.
-					audioBitrate = track.BitRate / 8;
+				    if (audioEncoder.ShortName == "copy")
+				    {
+                        // Auto-passthrough
 
-					this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is passthrough. {audioBitrate} bytes/second");
+				        if (TrackIsEligibleForPassthrough(track, copyMask))
+				        {
+				            // Input bitrate is in bits/second.
+				            audioBitrate = track.BitRate / 8;
+
+				            this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is auto passthrough. {audioBitrate} bytes/second");
+				        }
+				        else
+				        {
+				            OutputAudioTrackInfo outputTrackInfo = AudioUtilities.GetDefaultSettings(track, audioEncoderFallback);
+				            if (outputTrackInfo.EncodeRateType == AudioEncodeRateType.Quality)
+				            {
+				                audioBitrate = 0;
+
+						        this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Fallback track for auto-passthrough is quality targeted. Assuming 0 byte size.");
+				            }
+                            else
+				            {
+				                audioBitrate = outputTrackInfo.Bitrate;
+
+						        this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Fallback track for auto-passthrough has {audioBitrate} bytes/second");
+				            }
+                        }
+				    }
+				    else
+				    {
+                        // Passthrough for specific codec
+
+				        if (HandBrakeEncoderHelpers.AudioEncoderIsCompatible(track.Codec, audioEncoder))
+				        {
+				            // Input bitrate is in bits/second.
+				            audioBitrate = track.BitRate / 8;
+
+				            this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is passthrough via {audioEncoder.ShortName}. {audioBitrate} bytes/second");
+				        }
+				        else
+				        {
+				            // Track will be dropped
+				            audioBitrate = 0;
+
+						    this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track will be dropped due to non compatible passthrough.");
+                        }
+                    }
 				}
 				else if (encoding.EncodeRateType == AudioEncodeRateType.Quality)
 				{
 					// Can't predict size of quality targeted audio encoding.
 					audioBitrate = 0;
 
-					this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is quality targeted. Assuming 0 byte overhead.");
+					this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Track is quality targeted. Assuming 0 byte size.");
 				}
 				else
 				{
@@ -996,7 +1047,7 @@ namespace VidCoderCommon.Model
 				audioBytes += audioTrackBytes;
 
 				// Audio overhead
-				long audioTrackOverheadBytes = encoding.SampleRateRaw * ContainerOverheadBytesPerFrame / samplesPerFrame;
+				long audioTrackOverheadBytes = (encoding.SampleRateRaw == 0 ? track.SampleRate : encoding.SampleRateRaw) * ContainerOverheadBytesPerFrame / samplesPerFrame;
 				this.logger.Log($"Calculating bitrate - Audio track {outputTrackNumber} - Overhead is {audioTrackOverheadBytes} bytes");
 				audioBytes += audioTrackOverheadBytes;
 
@@ -1005,6 +1056,52 @@ namespace VidCoderCommon.Model
 
 			return audioBytes;
 		}
+
+	    private static HBAudioEncoder GetFallbackAudioEncoder(VCProfile profile)
+	    {
+	        if (!string.IsNullOrEmpty(profile.AudioEncoderFallback))
+	        {
+	            HBAudioEncoder audioEncoder = HandBrakeEncoderHelpers.GetAudioEncoder(profile.AudioEncoderFallback);
+	            if (audioEncoder == null)
+	            {
+	                throw new ArgumentException("Unrecognized fallback audio encoder: " + profile.AudioEncoderFallback);
+	            }
+
+	            return audioEncoder;
+	        }
+
+            HBContainer container = HandBrakeEncoderHelpers.GetContainer(profile.ContainerName);
+	        foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
+	        {
+	            if ((encoder.CompatibleContainers & container.Id) > 0 && !encoder.IsPassthrough)
+	            {
+	                return encoder;
+	            }
+	        }
+
+            throw new ArgumentException("Cannot find fallback audio encoder for profile.");
+        }
+
+	    private static bool TrackIsEligibleForPassthrough(SourceAudioTrack track, List<CopyMaskChoice> copyMask)
+	    {
+		    if (copyMask == null || !copyMask.Any())
+		    {
+			    return true;
+		    }
+
+	        foreach (CopyMaskChoice maskChoice in copyMask)
+	        {
+	            if (maskChoice.Enabled)
+	            {
+	                if ((HandBrakeEncoderHelpers.GetAudioEncoder("copy:" + maskChoice.Codec).Id & track.Codec) > 0)
+	                {
+	                    return true;
+	                }
+                }
+	        }
+
+	        return false;
+	    }
 
 		/// <summary>
 		/// Gets the number of audio samples used per frame for the given audio encoder.
@@ -1159,7 +1256,8 @@ namespace VidCoderCommon.Model
 			int scaleHeight = pictureOutputHeight;
 
 			// Rotation happens before padding.
-			if (profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270)
+			bool swapDimensionsFromRotation = profile.Rotation == VCPictureRotation.Clockwise90 || profile.Rotation == VCPictureRotation.Clockwise270;
+			if (swapDimensionsFromRotation)
 			{
 				int swapDimension = pictureOutputWidth;
 				pictureOutputWidth = pictureOutputHeight;
@@ -1292,13 +1390,17 @@ namespace VidCoderCommon.Model
 			if (padding.Left == 0 && padding.Right == 0)
 			{
 				pictureOutputWidth = roundedOutputWidth;
-				scaleWidth = roundedOutputWidth;
+				
+				// The output dimensions at this point are after rotation, so we need to swap to get the pre-rotation sizing dimensions.
+				scaleWidth = swapDimensionsFromRotation ? roundedOutputHeight : roundedOutputWidth;
 			}
 
 			if (padding.Top == 0 && padding.Bottom == 0)
 			{
 				pictureOutputHeight = roundedOutputHeight;
-				scaleHeight = roundedOutputHeight;
+
+				// The output dimensions at this point are after rotation, so we need to swap to get the pre-rotation sizing dimensions.
+				scaleHeight = swapDimensionsFromRotation ? roundedOutputWidth : roundedOutputHeight;
 			}
 
 			PAR outputPar;

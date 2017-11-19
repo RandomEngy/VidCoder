@@ -349,24 +349,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable DXVA Hardware Accelerated Decoding.
-        /// </summary>
-        public static string DxvaDecodingCheckBox {
-            get {
-                return ResourceManager.GetString("DxvaDecodingCheckBox", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This option is only suitable for slower systems. Hardware decoders are currently designed for playback, not for re-encoding video so will likely bottleneck on faster systems..
-        /// </summary>
-        public static string DxvaDecodingToolTip {
-            get {
-                return ResourceManager.GetString("DxvaDecodingToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Enable LibDVDNav (change requires program restart).
         /// </summary>
         public static string EnableLibDvdNavCheckBox {

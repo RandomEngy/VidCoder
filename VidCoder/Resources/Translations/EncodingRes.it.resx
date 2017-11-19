@@ -124,7 +124,7 @@
     <value>Salva come...</value>
   </data>
   <data name="Revert" xml:space="preserve">
-    <value>Ripristinare</value>
+    <value>Ripristina</value>
   </data>
   <data name="Advanced_AdaptiveBFramesToolTip" xml:space="preserve">
     <value>x264 ha una varietà di algoritmi per decidere quando utilizzare i fotogrammi B e quanti da utilizzare.  
@@ -141,7 +141,8 @@ Spaziale, il default, è quasi sempre migliore, ma a volte è utile anche il mod
 x264 può, con un lieve rallentamento (ed un piccolo vantaggio in compressione), selezionare in maniera adattativa quale è il migliore per ogni frame.</value>
   </data>
   <data name="Advanced_AdaptiveQuantizationStrengthToolTip" xml:space="preserve">
-    <value>Quantizzazione adattiva controlla come l'encoder distribuisce i bit in tutta l'inquadratura. Valori superiori prendono più bit lontano da spigoli e aree complesse per migliorare le aree con dettagli più precisi.</value>
+    <value>La quantizzazione adattiva controlla come il codificatore distribuisce i bit in tutto il fotogramma. 
+Valori superiori richiedono più bit lontani dai bordi e aree complesse per migliorare le aree con dettagli più precisi.</value>
   </data>
   <data name="Advanced_AnalysisToolTip" xml:space="preserve">
     <value>Decisione modalità raccoglie da una varietà di opzioni per rendere la sua decisione: questa opzione sceglie quali opzioni sono.   Un minor numero di partizioni per controllare significa più veloce codifica, a costo di decisioni peggiore, dato che l'opzione migliore potrebbe essere stato quello che è stato spento.</value>
@@ -189,7 +190,8 @@ x264 può, con un lieve rallentamento (ed un piccolo vantaggio in compressione),
     <value>Esegue analisi supplementari per decidere sulla ponderazione dei parametri per ogni frame.   Ciò migliora la compressione complessiva leggermente e migliora notevolmente la qualità delle dissolvenze.  Profilo di base, come richiesto per iPod e dispositivi simili, richiede ponderata stima di P-frame va disabilitato.   Nota che alcuni dispositivi e giocatori, anche quelli che supportano il profilo principale possono avere problemi con previsione ponderata P-frame: la Apple TV è completamente incompatibile con esso, per esempio.</value>
   </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
-    <value>Compressione della gamma dinamica. I valori validi sono 0-4.  Per l'audio di origine che ha un'ampia gamma dinamica (sequenze molto forte e molto morbide), DRC consente di "comprimere" la gamma rendendo più forte forte sezioni sezioni più morbide e soffice.</value>
+    <value>Compressione dell'intervallo dinamico. Valori validi sono 0-4.
+Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto morbide), consente di "comprimere" la gamma rendendo più morbide le sezioni forti e più forti le sezioni morbide.</value>
   </data>
   <data name="Audio_GainToolTip" xml:space="preserve">
     <value>Amplificare o attenuare l'audio prima della codifica. I valori validi sono da -20 a + 20 dB.</value>
@@ -588,7 +590,7 @@ x264 può, con un lieve rallentamento (ed un piccolo vantaggio in compressione),
     <value>Stima del movimento dei subpixel:</value>
   </data>
   <data name="MotionEstimationRangeLabel" xml:space="preserve">
-    <value>Gamma di stima del movimento:</value>
+    <value>Intervallo di stima del movimento:</value>
   </data>
   <data name="AdaptiveQuantizationStrengthLabel" xml:space="preserve">
     <value>Forza di quantizzazione adattiva:</value>
@@ -942,7 +944,7 @@ x264 può, con un lieve rallentamento (ed un piccolo vantaggio in compressione),
     <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
   </data>
   <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
-    <value>Solo Downscale</value>
+    <value>Solo iposcala</value>
   </data>
   <data name="ScalingMode_Fill" xml:space="preserve">
     <value>Scala per adattarsi all'obiettivo</value>

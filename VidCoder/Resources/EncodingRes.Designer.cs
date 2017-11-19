@@ -1123,24 +1123,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Large file size.
-        /// </summary>
-        public static string LargeFileSizeCheckBox {
-            get {
-                return ResourceManager.GetString("LargeFileSizeCheckBox", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Allows files over 4GB. When enabled, uses 64-bit numbers in encoding. Some devices such as the iPod and PS3 are incompatible with this option..
-        /// </summary>
-        public static string LargeFileSizeToolTip {
-            get {
-                return ResourceManager.GetString("LargeFileSizeToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Level:.
         /// </summary>
         public static string LevelLabel {

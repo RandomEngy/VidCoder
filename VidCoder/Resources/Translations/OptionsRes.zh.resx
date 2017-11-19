@@ -166,7 +166,7 @@
     <value>可用选项：{0}</value>
   </data>
   <data name="WhenFileAlreadyExists" xml:space="preserve">
-    <value>当文件已存在时......</value>
+    <value>当文件已存在时...</value>
   </data>
   <data name="EncodingSingleFile" xml:space="preserve">
     <value>单个文件编码：</value>
@@ -199,19 +199,19 @@
     <value>预览画面扫描数量：</value>
   </data>
   <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
-    <value>记住以前使用过的文件和文件夹</value>
+    <value>记住用过的文件和文件夹</value>
   </data>
   <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
-    <value>允许音轨设定自定义名称 (非所有播放器都支持)</value>
+    <value>允许自定义音轨名称 (部分播放器都支持)</value>
   </data>
   <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
-    <value>启用 LibDVDNav （更改需重启程序）</value>
+    <value>启用 LibDVDNav (更改需重启程序)</value>
   </data>
   <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
-    <value>清除完成项目后删除来源文件 (会弹出确认对话窗口)</value>
+    <value>清除已完成项目时删除源文件 (需确认)</value>
   </data>
   <data name="LoggingVerbosityLabel" xml:space="preserve">
-    <value>日志记录的详细程信息：</value>
+    <value>日志详细度：</value>
   </data>
   <data name="MinScanLengthLabel" xml:space="preserve">
     <value>标题的最小扫描长度 (秒)：</value>
@@ -232,13 +232,13 @@
     <value>高级设置</value>
   </data>
   <data name="BetaUpdatesInBeta" xml:space="preserve">
-    <value>您正在运行的 Beta 版本。还可以运行稳定版本。</value>
+    <value>您正在运行 Beta 版本。可同时运行稳定版本。</value>
   </data>
   <data name="BetaUpdatesNonBeta" xml:space="preserve">
-    <value>加入 Beta 版获得更频繁的更新</value>
+    <value>加入 Beta 渠道以获得更多更新</value>
   </data>
   <data name="UpdateReadyStatus" xml:space="preserve">
-    <value>更新 {0} 准备好了。将在退出该程序时安装。</value>
+    <value>{0} 更新准备好了。将在退出该程序时安装。</value>
   </data>
   <data name="DownloadingStatus" xml:space="preserve">
     <value>正在下载 {0} 更新：</value>
@@ -247,7 +247,7 @@
     <value>VidCoder 已是最新版本。</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>选择编码的视频文件的默认输出目录。</value>
+    <value>选择编码视频文件的默认输出目录。</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>界面语言：</value>
@@ -331,7 +331,7 @@
     <value>指定预览文件用的视频播放器路径。</value>
   </data>
   <data name="VideoPlayerFilePickTitle" xml:space="preserve">
-    <value>选择用于预览视频文件的播放器。</value>
+    <value>选择视频播放器。</value>
   </data>
   <data name="CustomPlayerLabel" xml:space="preserve">
     <value>自定义播放器：</value>
@@ -340,28 +340,28 @@
     <value>高</value>
   </data>
   <data name="Priority_AboveNormal" xml:space="preserve">
-    <value>标准以上</value>
+    <value>高于正常</value>
   </data>
   <data name="Priority_Normal" xml:space="preserve">
-    <value>标准</value>
+    <value>正常</value>
   </data>
   <data name="Priority_BelowNormal" xml:space="preserve">
-    <value>标准以下</value>
+    <value>低于正常</value>
   </data>
   <data name="WorkerProcessPriorityLabel" xml:space="preserve">
-    <value>Worker 处理程序优先级:</value>
+    <value>工作进程优先级:</value>
   </data>
   <data name="Priority_Idle" xml:space="preserve">
     <value>低</value>
   </data>
   <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
-    <value>复制编码记录至编码文件的文件夹下</value>
+    <value>复制编码日志到编码文件目录</value>
   </data>
   <data name="OpenLogFolderButton" xml:space="preserve">
     <value>打开日志文件夹</value>
   </data>
   <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
-    <value>重新启动时自动继续编码</value>
+    <value>重启时自动继续编码</value>
   </data>
   <data name="UseWorkerProcessCheckBox" xml:space="preserve">
     <value>使用辅助进程进行编码</value>
@@ -373,10 +373,10 @@
     <value>启用 DXVA 硬件加速解码</value>
   </data>
   <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>此选项只是适合于较慢的系统。硬件解码器目前用于回放，不进行重新编码视频所以会更快。</value>
+    <value>此选项只适用于较慢的系统。硬件解码目前用于播放不用于进行二次编码，因而在较快的系统中可能遇到瓶颈。</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
-    <value>保存转换文件的创建和修改时间</value>
+    <value>转换文件时保留创建和修改时间</value>
   </data>
   <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
     <value>自定义预览目录</value>

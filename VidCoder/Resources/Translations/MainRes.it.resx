@@ -127,31 +127,31 @@
     <value>Aggiungi alla coda</value>
   </data>
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
-    <value>Aggiungere più titoli di coda...</value>
+    <value>Aggiungere più titoli all coda...</value>
   </data>
   <data name="FileMenu" xml:space="preserve">
     <value>File</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
-    <value>Aprire il File Video...</value>
+    <value>Apri file video...</value>
   </data>
   <data name="OpenDiscFolder" xml:space="preserve">
-    <value>Aprire la cartella DVD/Blu-ray...</value>
+    <value>Apri cartella DVD/Blu-ray...</value>
   </data>
   <data name="EnqueueMultipleFiles" xml:space="preserve">
-    <value>Accodare più file...</value>
+    <value>Accoda più file...</value>
   </data>
   <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Accodare più titoli...</value>
+    <value>Accoda più titoli...</value>
   </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>Strumenti</value>
   </data>
   <data name="ImportPreset" xml:space="preserve">
-    <value>Importa Preimpostazioni...</value>
+    <value>Importa preimpostazione...</value>
   </data>
   <data name="ExportPreset" xml:space="preserve">
-    <value>Esporta Preimpostazioni...</value>
+    <value>Esporta preimpostazione...</value>
   </data>
   <data name="OptionsMenuItem" xml:space="preserve">
     <value>Opzioni...</value>
@@ -166,7 +166,7 @@
     <value>Apri contenuto cartella</value>
   </data>
   <data name="ClearCompleted" xml:space="preserve">
-    <value>Cancella completate</value>
+    <value>Pulisci elenco processi completati</value>
   </data>
   <data name="ExitMenuItem" xml:space="preserve">
     <value>Esci</value>
@@ -176,7 +176,7 @@
     <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
   </data>
   <data name="EncodingSettingsMenuItem" xml:space="preserve">
-    <value>Impostazioni di codifica</value>
+    <value>Configurazione codifica</value>
   </data>
   <data name="PreviewMenuItem" xml:space="preserve">
     <value>Anteprima</value>
@@ -185,16 +185,16 @@
     <value>Registro</value>
   </data>
   <data name="HelpMenu" xml:space="preserve">
-    <value>Guida</value>
+    <value>?</value>
   </data>
   <data name="VidCoderHomepageMenuItem" xml:space="preserve">
-    <value>VidCoder Homepage</value>
+    <value>Sito WEB di VidCoder</value>
   </data>
   <data name="ReportABugMenuItem" xml:space="preserve">
-    <value>Segnala un Bug</value>
+    <value>Segnala un problema</value>
   </data>
   <data name="AboutVidCoderMenuItem" xml:space="preserve">
-    <value>Info su VidCoder...</value>
+    <value>Informazioni su VidCoder...</value>
   </data>
   <data name="ChooseVideoSourceLabel" xml:space="preserve">
     <value>Scegli una sorgente video:</value>
@@ -203,13 +203,13 @@
     <value>Origine:</value>
   </data>
   <data name="ScanningSourceLabel" xml:space="preserve">
-    <value>Scansione Origine...</value>
+    <value>Scansione sorgente...</value>
   </data>
   <data name="Recent" xml:space="preserve">
     <value>Recenti</value>
   </data>
   <data name="DragFilesHereLabel" xml:space="preserve">
-    <value>(Trascinare cartelle o file video qui)</value>
+    <value>(Trascinare QUI cartelle o file video)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>Si è verificato un errore durante la scansione.</value>
@@ -239,7 +239,7 @@
     <value>Fare clic per modificare la destinazione di codifica.</value>
   </data>
   <data name="SelectOutputPathButton" xml:space="preserve">
-    <value>Selezionare il percorso di uscita...</value>
+    <value>Selezionare il percorso di salvataggio...</value>
   </data>
   <data name="EncodingLabel" xml:space="preserve">
     <value>Codifica:</value>
@@ -263,13 +263,13 @@
     <value>FPS attuali:</value>
   </data>
   <data name="AverageFpsLabel" xml:space="preserve">
-    <value>FPS Media:</value>
+    <value>Media FPS:</value>
   </data>
   <data name="PickDiscFolderHelpText" xml:space="preserve">
     <value>Scegliere una cartella DVD o Blu-ray.</value>
   </data>
   <data name="EncodesInProgressExitWarning" xml:space="preserve">
-    <value>Ci sono codifiche in corso. Sei sicuro di che voler uscire?</value>
+    <value>Ci sono codifiche in corso. Sei sicuro di volere uscire?</value>
   </data>
   <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
     <value>Codifica in corso</value>
@@ -284,22 +284,22 @@
     <value>Tracce: {0}</value>
   </data>
   <data name="SaveChangesPresetMessage" xml:space="preserve">
-    <value>Vuoi salvare le modifiche preimpostate attualmente?</value>
+    <value>Vuoi salvare le modifiche alla preimpostazione corrente?</value>
   </data>
   <data name="SaveChangesPresetTitle" xml:space="preserve">
-    <value>Salva preimpostazione corrente?</value>
+    <value>Salva la preimpostazione corrente?</value>
   </data>
   <data name="DiscNotInDriveError" xml:space="preserve">
     <value>Impossibile caricare per la modifica. Il disco non è più nell'unità.</value>
   </data>
   <data name="PresetNameRestoredFromQueue" xml:space="preserve">
-    <value>Ripristinato dalla Coda</value>
+    <value>Ripristinato dalla coda</value>
   </data>
   <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
     <value>Ripristinato da completato</value>
   </data>
   <data name="PresetLabel" xml:space="preserve">
-    <value>Preimpostato:</value>
+    <value>Preimpostazione:</value>
   </data>
   <data name="DestinationColumnHeader" xml:space="preserve">
     <value>Destinazione</value>
@@ -377,16 +377,16 @@
     <value>Percorso non valido</value>
   </data>
   <data name="Encode" xml:space="preserve">
-    <value>Codifica</value>
+    <value>Converti</value>
   </data>
   <data name="Resume" xml:space="preserve">
     <value>Riprendi</value>
   </data>
   <data name="EtaLabel" xml:space="preserve">
-    <value>ETA:</value>
+    <value>Rimanente:</value>
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
-    <value>Quando fatto:</value>
+    <value>Quando concluso:</value>
   </data>
   <data name="Preset_AndroidTablet" xml:space="preserve">
     <value>Tablet Android</value>
@@ -419,7 +419,7 @@
     <value>Universale</value>
   </data>
   <data name="Preset_HighProfile" xml:space="preserve">
-    <value>Alto profilo</value>
+    <value>Profilo alto</value>
   </data>
   <data name="Preset_Normal" xml:space="preserve">
     <value>Normale</value>
@@ -434,13 +434,13 @@
     <value>Cartella DVD/Blu-ray...</value>
   </data>
   <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
-    <value>Versione {0} è disponibile. Download aggiornamento iniziato.</value>
+    <value>Versione {0} disponibile. Prelievo aggiornamento iniziato.</value>
   </data>
   <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
     <value>Versione {0} finita di scaricare e installare sull'uscita.</value>
   </data>
   <data name="UpdateNotAppliedError" xml:space="preserve">
-    <value>L'aggiornamento non è stato applicato. Se non l'avete fatto annullare, provare a installarlo manualmente.</value>
+    <value>L'aggiornamento non è stato applicato. Se non l'hai cancellato, prova ad installarlo manualmente.</value>
   </data>
   <data name="CouldNotLoadPresetMessage" xml:space="preserve">
     <value>Impossibile caricare la preimpostazione: </value>
@@ -455,19 +455,19 @@
     <value>Errore avvio URL: {0}</value>
   </data>
   <data name="PresetImportErrorMessage" xml:space="preserve">
-    <value>Impossibile importare il profilo. Controllare il registro per i dettagli.</value>
+    <value>Impossibile importare la preimpostazione. Controllare il registro per i dettagli.</value>
   </data>
   <data name="ImportErrorTitle" xml:space="preserve">
     <value>Errore di importazione</value>
   </data>
   <data name="PresetImportSuccessMessage" xml:space="preserve">
-    <value>Preimpostazione Importata correttamente {0}.</value>
+    <value>Preimpostazione importata correttamente {0}</value>
   </data>
   <data name="PresetExportSuccessMessage" xml:space="preserve">
-    <value>Preimpostazione esportata con successo a {0}</value>
+    <value>Preimpostazione esportata con successo in {0}</value>
   </data>
   <data name="ExportPresetFilePickerText" xml:space="preserve">
-    <value>Esporta Preimpostazioni</value>
+    <value>Esporta preimpostazione</value>
   </data>
   <data name="SaveChangesPickerMessage" xml:space="preserve">
     <value>Vuoi salvare le modifiche della tua Selezione attuale?</value>
@@ -542,7 +542,7 @@
     <value>Copia Registro</value>
   </data>
   <data name="PresetDiscardConfirmMessage" xml:space="preserve">
-    <value>Si hanno modifiche non salvate. Sei sicuro di che voler eliminare questi cambiamenti passando a un altra preimpostazione?</value>
+    <value>Hai delle modifiche non salvate. Sei sicuro di volere eliminare questi cambiamenti passando ad un altra preimpostazione?</value>
   </data>
   <data name="PresetDiscardConfirmTitle" xml:space="preserve">
     <value>Ignorare le modifiche?</value>
@@ -569,13 +569,13 @@
     <value>Impossibile importare la coda. Controllare il registro per i dettagli.</value>
   </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
-    <value>Importa file preimpostati</value>
+    <value>Importazione file di preimpostazione</value>
   </data>
   <data name="ImportQueueFilePickerTitle" xml:space="preserve">
     <value>Importa file di coda</value>
   </data>
   <data name="ImportQueue" xml:space="preserve">
-    <value>Coda di importazione...</value>
+    <value>Importa una coda...</value>
   </data>
   <data name="QueueExportSuccessMessage" xml:space="preserve">
     <value>Coda esportato correttamente a {0}</value>
@@ -593,7 +593,7 @@
     <value>Chiudere il file corrente e aprire il disco?</value>
   </data>
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
-    <value>Codifica i dettagli</value>
+    <value>Dettagli di codifica</value>
   </data>
   <data name="EncodingSettingsChangedMessage" xml:space="preserve">
     <value>Impostazioni di codifica sono cambiate da quando l'ultima aggiunto un elemento alla coda. Si desidera applicare le impostazioni di codifica corrente a tutti gli elementi nella coda?</value>
@@ -613,7 +613,7 @@
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
   <data name="PickerMenuItem" xml:space="preserve">
-    <value>Selezione</value>
+    <value>Selettore</value>
   </data>
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
     <value>Impossibile caricare il selettore: </value>
@@ -638,7 +638,7 @@
     <comment>{0} is the path to the custom video player.</comment>
   </data>
   <data name="SizingPresetUpgradeWarning" xml:space="preserve">
-    <value>Attenzione: il ridimensionamento dell'interfaccia è stato aumentato a 2.0, quindi il tuo profilo può essere stato cambiato. È possibile controllarli per essere sicuri che siano ancora impostati correttamente.</value>
+    <value>Attenzione: il ridimensionamento dell'interfaccia è stato aumentato a 2.0, quindi le tue preimpostazioni possono essere state cambiate. È possibile controllarle per essere sicuri che siano ancora impostate correttamente.</value>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
     <value>Cartella di accodamento per i file video...</value>

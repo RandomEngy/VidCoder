@@ -62,7 +62,13 @@ namespace VidCoder.Services
 				if (pickerPreset != null)
 				{
 					var presetsService = Ioc.Get<PresetsService>();
-					presetsService.SelectedPreset = presetsService.AllPresets.First(p => p.Preset.Name == pickerPreset);
+					PresetViewModel preset = presetsService.AllPresets.FirstOrDefault(p => p.Preset.Name == pickerPreset);
+					if (preset == null)
+					{
+						preset = presetsService.AllPresets.First();
+					}
+
+					presetsService.SelectedPreset = preset;
 				}
 			});
 

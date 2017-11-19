@@ -121,7 +121,7 @@
     <value>Detalhes da codificação</value>
   </data>
   <data name="QueueSectionHeader" xml:space="preserve">
-    <value>Lista</value>
+    <value>Fila</value>
   </data>
   <data name="ScanPassLabel" xml:space="preserve">
     <value>Análise nº:</value>

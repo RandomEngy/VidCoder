@@ -128,7 +128,9 @@ Dit programma is gedistribueerd in de hoop dat het nuttig zal zijn, maar zonder 
   <data name="DefaultSubtitleToolTip" xml:space="preserve">
     <value>Dit ondertitelspoor markeren als standaard. Dit spoor zal verschijnen tijdens het afspelen tenzij een ander ondertitel spoor wordt gekozen.</value>
   </data>
-  
+  <data name="ForcedSubtitleToolTip" xml:space="preserve">
+    <value>Alleen 'gedwongen ondertitels' van het gegeven spoor tonen. Gewoonlijk zijn dit kleine stukjes buitenlandse dialoog.</value>
+  </data>
   <data name="OffsetSubtitleToolTip" xml:space="preserve">
     <value>De tijdsduur waarmee het tonen van ondertitels wordt vervroegd of vertraagd.</value>
   </data>
@@ -248,13 +250,35 @@ Dit programma is gedistribueerd in de hoop dat het nuttig zal zijn, maar zonder 
   <data name="FileFailureErrorTitle" xml:space="preserve">
     <value>Bestandsbewerking niet gelukt</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="OverrideNameFormatCheckBox" xml:space="preserve">
+    <value>Overschrijf naamgevingformaat:</value>
+  </data>
+  <data name="OutputToSourceDirCheckBox" xml:space="preserve">
+    <value>Uitvoer indien mogelijk naar de bronmap</value>
+  </data>
+  <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
+    <value>Mappenstructuur behouden bij batchcoderingen</value>
+  </data>
+  <data name="PreserveFolderStructureToolTip" xml:space="preserve">
+    <value>Als u een map vol bestanden codeert zullen de gecodeerde versies in submappen komen die overeenkomen met de structuur van de bronmap.</value>
+  </data>
+  <data name="DismissMessage" xml:space="preserve">
+    <value>Bericht negeren</value>
+    <comment>Appears as a tooltip on inline, dismissable messages</comment>
+  </data>
+  <data name="PresetFileFilter" xml:space="preserve">
+    <value>VidCoder voorinstellingbestand</value>
+    <comment>File dialog description of a .vjpreset file: JSON file that stores an exported preset.</comment>
+  </data>
+  <data name="QueueFileFilter" xml:space="preserve">
+    <value>VidCoder wachtrijbestand</value>
+    <comment>File dialog description of a .vjqueue file: JSON file that stores an exported queue.</comment>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>Eerste</value>
+    <comment>Choice to pick the first item in a list, like audio or subtitle tracks.</comment>
+  </data>
+  <data name="UpdatesDisabled32BitOSMessage" xml:space="preserve">
+    <value>Updates zijn uitgeschakeld omdat nieuwe versies niet langer ondersteuning voor 32-bits besturingssystemen.</value>
+  </data>
 </root>

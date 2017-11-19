@@ -9,6 +9,8 @@ namespace VidCoder.ViewModel
 
 		void SaveQueueColumns();
 
+		void SaveCompletedColumnWidths();
+
 		void ApplyQueueColumns();
 	}
 }

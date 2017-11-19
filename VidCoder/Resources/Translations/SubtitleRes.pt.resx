@@ -175,6 +175,6 @@
     <value>Duplicar esta faixa</value>
   </data>
   <data name="SubtitleCharsetDetectionFailedMessage" xml:space="preserve">
-    <value>Não foi possível detectar a codificação do ficheiro de legenda. Para verificar se as legendas aparecerem correctamente, volte a guarda o ficheiros como UTF-8.</value>
+    <value>Não foi possível detectar a codificação do ficheiro de legenda. Para verificar se as legendas aparecem correctamente, volte a guarda o ficheiro como UTF-8.</value>
   </data>
 </root>

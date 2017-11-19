@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
+    <value>Kada je automatski odabir audia onemogućen, zadnje odabrani zapis ostaje.</value>
+  </data>
+  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
+    <value>Kada je automatski odabir podnaslova onemogućen, zadnje odabrani podnaslov ostaje.</value>
+  </data>
+  <data name="GeneralTab" xml:space="preserve">
+    <value>Opšte</value>
+  </data>
+  <data name="MinimizeToTaskBarRadioButton" xml:space="preserve">
+    <value>Minimiziraj u Programsku Traku</value>
+  </data>
+  <data name="MinimizeToSystemTrayRadioButton" xml:space="preserve">
+    <value>Minimiziraj u Sistemsku Ladicu</value>
+  </data>
+  <data name="PlaySoundOnQueueCompletionCheckBox" xml:space="preserve">
+    <value>Odsviraj zvuk kad se red završi</value>
+  </data>
+  <data name="PreferredDvdPlayerLabel" xml:space="preserve">
+    <value>Preferirani DVD player:</value>
+  </data>
+  <data name="PreferredDvdPlayerToolTip" xml:space="preserve">
+    <value>Odaberite player koji želite koristiti za DVD izvore.</value>
+  </data>
+  <data name="AutomaticUpdatesCheckBox" xml:space="preserve">
+    <value>Automatsko ažuriranje</value>
+  </data>
+  <data name="JoinBetaTrackCheckBox" xml:space="preserve">
+    <value>Pridružite se Beta ažuriranjima</value>
+  </data>
+  <data name="FileNamingTab" xml:space="preserve">
+    <value>Nazivanje fajlova</value>
+  </data>
+  <data name="DefaultFolderLabel" xml:space="preserve">
+    <value>Zadani folder:</value>
+  </data>
+  <data name="FileFormatLabel" xml:space="preserve">
+    <value>Format fajla:</value>
+  </data>
+  <data name="DefaultFormatRadioButton" xml:space="preserve">
+    <value>Zadani format</value>
+  </data>
+  <data name="CustomFormatRadioButton" xml:space="preserve">
+    <value>Vlastiti format:</value>
+  </data>
+  <data name="FileNameFormatOptions" xml:space="preserve">
+    <value>Dostupne opcije: {0}</value>
+  </data>
+  <data name="WhenFileAlreadyExists" xml:space="preserve">
+    <value>Ukoliko fajl već postoji...</value>
+  </data>
+  <data name="EncodingSingleFile" xml:space="preserve">
+    <value>Enkodiranje jednog fajla:</value>
+  </data>
+  <data name="AskOverwriteRadioButton" xml:space="preserve">
+    <value>Pitaj da li želiš pisati preko</value>
+  </data>
+  <data name="OverwriteWithoutPromptRadioButton" xml:space="preserve">
+    <value>Piši preko fajla bez upita</value>
+  </data>
+  <data name="AutomaticallySwitchNameRadioButton" xml:space="preserve">
+    <value>Automatski promijeni na drugačije ime</value>
+  </data>
+  <data name="EncodingBatchOfFiles" xml:space="preserve">
+    <value>Enkodiraj seriju fajlova:</value>
+  </data>
+  <data name="OverwriteRadioButton" xml:space="preserve">
+    <value>Napiši preko</value>
+  </data>
+  <data name="AutomaticallyRenameRadioButton" xml:space="preserve">
+    <value>Automatski preimenuj</value>
+  </data>
+  <data name="AutoPauseLabel" xml:space="preserve">
+    <value>Automatski pauziraj enkodiranje ukoliko je bilo koji od ovih procesa pokrenut:</value>
+  </data>
+  <data name="AddEllipsesButton" xml:space="preserve">
+    <value>Dodaj...</value>
+  </data>
+  <data name="PreviewCountLabel" xml:space="preserve">
+    <value>Broj prikaznih sličica za skeniranje:</value>
+  </data>
+  <data name="RememberPreviousFilesCheckBox" xml:space="preserve">
+    <value>Zapamti prethodno korištene fajlove i foldere</value>
+  </data>
+  <data name="AllowCustomAudioTrackNamesCheckBox" xml:space="preserve">
+    <value>Dopusti namještanje prilagođenog ime na audio zapis (podrška playera ograničena)</value>
+  </data>
+  <data name="EnableLibDvdNavCheckBox" xml:space="preserve">
+    <value>Omogući LibDVDNav (zahtjeva ponovo pokretanje programa)</value>
+  </data>
+  <data name="DeleteSourceAfterCompletionCheckBox" xml:space="preserve">
+    <value>Obriši izvorne fajlove nakon uspješnog uklanjanja završenih stavki (sa potvrdom)</value>
+  </data>
+  <data name="LoggingVerbosityLabel" xml:space="preserve">
+    <value>Opširnost zapisivanja:</value>
+  </data>
+  <data name="MinScanLengthLabel" xml:space="preserve">
+    <value>Minimalna dužina zapisa da bi bio skeniran (sekunde):</value>
+  </data>
+  <data name="RecognizedExtensionsLabel" xml:space="preserve">
+    <value>Prepoznati nastavci:</value>
+  </data>
+  <data name="RecognizedExtensionsToolTip" xml:space="preserve">
+    <value>Prilikom skeniranja foldera za video fajlovima, dodaj fajlove sa ovim nastavcima. (Odvojeni zarezom)</value>
+  </data>
+  <data name="OptionsDialogTitle" xml:space="preserve">
+    <value>Opcije</value>
+  </data>
+  <data name="ProcessTab" xml:space="preserve">
+    <value>Proces</value>
+  </data>
+  <data name="AdvancedTab" xml:space="preserve">
+    <value>Napredno</value>
+  </data>
+  <data name="BetaUpdatesInBeta" xml:space="preserve">
+    <value>Vi koristite beta verziju. Ona može da se koristi uporedno sa stabilnom verzijom.</value>
+  </data>
+  <data name="BetaUpdatesNonBeta" xml:space="preserve">
+    <value>Pridružite se Beta kanalu da bi dobijali češća ažuriranja</value>
+  </data>
+  <data name="UpdateReadyStatus" xml:space="preserve">
+    <value>Ažuriranje {0} je spremno. Biti će instalirano kada izađete iz programa.</value>
+  </data>
+  <data name="DownloadingStatus" xml:space="preserve">
+    <value>Preuzimam ažuriranja {0}:</value>
+  </data>
+  <data name="UpToDateStatus" xml:space="preserve">
+    <value>VidCoder je ažuran.</value>
+  </data>
+  <data name="ChooseDefaultOutputFolder" xml:space="preserve">
+    <value>Izaberite zadani odredišni direktorij za enkodirane video fajlove.</value>
+  </data>
+  <data name="InterfaceLanguageLabel" xml:space="preserve">
+    <value>Jezik sučelja:</value>
+  </data>
+  <data name="NewLanguageRestartDialogMessage" xml:space="preserve">
+    <value>Novi jezik će biti u upotrebi nakon što izađete i resetujete VidCoder.</value>
+  </data>
+  <data name="UseOSLanguage" xml:space="preserve">
+    <value>Koristi jezik OS-a</value>
+  </data>
+  <data name="UpdatesTab" xml:space="preserve">
+    <value>Ažuriranja</value>
+  </data>
+  <data name="DownloadingInfoStatus" xml:space="preserve">
+    <value>Pronađi posljednju verziju...</value>
+  </data>
+  <data name="UpdateFailedStatus" xml:space="preserve">
+    <value>Provjera ažuriranja nije uspjela.</value>
+  </data>
+  <data name="CompletionWavFilePickTitle" xml:space="preserve">
+    <value>Izaberite .wav fajl koji želite koristiti kao zvuk završetka.</value>
+  </data>
+  <data name="CurrentVersionLabel" xml:space="preserve">
+    <value>Trenutna verzija: {0}</value>
+  </data>
+  <data name="BetaUpdatesNonBetaWarning" xml:space="preserve">
+    <value>Upozorenje: ova verzija može da ima više bugova ili se može rušiti.</value>
+  </data>
+  <data name="LanguagesSection" xml:space="preserve">
+    <value>Jezici</value>
+  </data>
+  <data name="PlayersSection" xml:space="preserve">
+    <value>Playeri</value>
+  </data>
+  <data name="SoundSection" xml:space="preserve">
+    <value>Zvuk</value>
+  </data>
+  <data name="SystemTraySection" xml:space="preserve">
+    <value>Sistemska traka</value>
+  </data>
+  <data name="OutputFolderSection" xml:space="preserve">
+    <value>Izlazni folder</value>
+  </data>
+  <data name="NamingFormatSection" xml:space="preserve">
+    <value>Format nazivanja</value>
+  </data>
+  <data name="AdvancedOptionsSection" xml:space="preserve">
+    <value>Napredne opcije</value>
+  </data>
+  <data name="ScanningSection" xml:space="preserve">
+    <value>Skeniranje</value>
+  </data>
+  <data name="LoggingSection" xml:space="preserve">
+    <value>Zapisivanje</value>
+  </data>
+  <data name="DvdReadingSection" xml:space="preserve">
+    <value>Čitanje DVD-a</value>
+  </data>
+  <data name="UpdatesSection" xml:space="preserve">
+    <value>Ažuriranja</value>
+  </data>
+  <data name="UpdateStatusSection" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="BetaSection" xml:space="preserve">
+    <value>Beta</value>
+  </data>
+  <data name="UseCustomWavLabel" xml:space="preserve">
+    <value>Koristi prilagođeni .wav fajl:</value>
+  </data>
+  <data name="CheckNowButton" xml:space="preserve">
+    <value>Provjeri sada</value>
+  </data>
+  <data name="UseSystemPlayer" xml:space="preserve">
+    <value>Koristi sistemski player</value>
+  </data>
+  <data name="VideoFilesLabel" xml:space="preserve">
+    <value>Video datoteke:</value>
+  </data>
+  <data name="CustomVideoPlayerToolTip" xml:space="preserve">
+    <value>Odredite putanju do video playera koji želite koristiti za fajlove.</value>
+  </data>
+  <data name="VideoPlayerFilePickTitle" xml:space="preserve">
+    <value>Izaberite player za video fajlove.</value>
+  </data>
+  <data name="CustomPlayerLabel" xml:space="preserve">
+    <value>Prilagođeni player:</value>
+  </data>
+  <data name="Priority_High" xml:space="preserve">
+    <value>Visoko</value>
+  </data>
+  <data name="Priority_AboveNormal" xml:space="preserve">
+    <value>Iznad normalnog</value>
+  </data>
+  <data name="Priority_Normal" xml:space="preserve">
+    <value>Normalno</value>
+  </data>
+  <data name="Priority_BelowNormal" xml:space="preserve">
+    <value>Ispod Normalnog</value>
+  </data>
+  <data name="WorkerProcessPriorityLabel" xml:space="preserve">
+    <value>Prioritet radnog procesa:</value>
+  </data>
+  <data name="Priority_Idle" xml:space="preserve">
+    <value>Nisko</value>
+  </data>
+  <data name="CopyLogToOutputFolderLabel" xml:space="preserve">
+    <value>Kopiraj zapisnik enkodiranja u isti direktorij kao i enkodirani video</value>
+  </data>
+  <data name="OpenLogFolderButton" xml:space="preserve">
+    <value>Otvori folder zapisa</value>
+  </data>
+  <data name="ResumeEncodingOnRestartCheckBox" xml:space="preserve">
+    <value>Automatski nastavi enkodiranje pri restartu</value>
+  </data>
+  <data name="UseWorkerProcessCheckBox" xml:space="preserve">
+    <value>Koristi radni proces za enkodiranje</value>
+  </data>
+  <data name="VideoSection" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="DxvaDecodingCheckBox" xml:space="preserve">
+    <value>Omogući DXVA Hardverski Ubrzano dekodiranje</value>
+  </data>
+  <data name="DxvaDecodingToolTip" xml:space="preserve">
+    <value>Ovaj opcija je prilagođena sporijim sistemima. Hardverski dekoderi su trenutno dizajnirani samo za reprodukciju, a ne za reenkodiranje videa, te bi mogli zaglavljivati na bržim sistemima.</value>
+  </data>
+  <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
+    <value>Sačuvaj vrijeme Stvaranja i Izmjene prilikom konverzije fajlova</value>
+  </data>
+  <data name="CustomPreviewFolderCheckBox" xml:space="preserve">
+    <value>Prilagođeni folder za preglede:</value>
+  </data>
+  <data name="ProcessOptionsLabel" xml:space="preserve">
+    <value>Opcije procesa</value>
+  </data>
+  <data name="CpuThrottlingLabel" xml:space="preserve">
+    <value>CPU throttling:</value>
+    <comment>The label for the CPU throttling feature. This is where you limit the amount of CPU the encoder can use.</comment>
+  </data>
+  <data name="CpuThrottlingToolTip" xml:space="preserve">
+    <value>Koristi CPU throttling da bi ograničio broj procesorskih jezgri koje VidCoder može koristiti prilikom enkodiranja.</value>
+  </data>
+  <data name="UseBuiltInPlayerForPreviewsCheckBox" xml:space="preserve">
+    <value>Koristi ugrađeni player za preglede</value>
+  </data>
+</root>

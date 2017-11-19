@@ -35,9 +35,6 @@ namespace VidCoderCommon.Model
 		public bool IncludeChapterMarkers { get; set; }
 
 		[JsonProperty]
-		public bool LargeFile { get; set; }
-
-		[JsonProperty]
 		public bool Optimize { get; set; }
 
 		[JsonProperty]
@@ -231,8 +228,14 @@ namespace VidCoderCommon.Model
 		public bool ConstantFramerate { get; set; }
 
 
+		private List<AudioEncoding> audioEncodings;
+
 		[JsonProperty]
-		public List<AudioEncoding> AudioEncodings { get; set; }
+		public List<AudioEncoding> AudioEncodings
+		{
+			get { return this.audioEncodings; }
+			set { this.RaiseAndSetIfChanged(ref this.audioEncodings, value); }
+		}
 
 		private List<CopyMaskChoice> audioCopyMask = new List<CopyMaskChoice>();
 
@@ -243,7 +246,7 @@ namespace VidCoderCommon.Model
 		public List<CopyMaskChoice> AudioCopyMask
 		{
 			get { return this.audioCopyMask; }
-			set { this.audioCopyMask = value; }
+			set { this.RaiseAndSetIfChanged(ref this.audioCopyMask, value); }
 		}
 
 		[JsonProperty]

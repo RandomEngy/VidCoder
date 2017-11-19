@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>추가</value>
+  </data>
+  <data name="RefreshButton" xml:space="preserve">
+    <value>새로고침</value>
+  </data>
+  <data name="ChooseFromProcessesLabel" xml:space="preserve">
+    <value>기존 처리에서 선택하기:</value>
+  </data>
+  <data name="AddAutoPauseProcessDialogTitle" xml:space="preserve">
+    <value>자동 일시중지 처리 추가하기</value>
+  </data>
+  <data name="ProcessNameLabel" xml:space="preserve">
+    <value>처리 이름:</value>
+  </data>
+  <data name="ExceptionDialogMainText" xml:space="preserve">
+    <value>VidCoder에 예기치 않은 오류가 발생했습니다.</value>
+  </data>
+  <data name="ExceptionDialogSubText" xml:space="preserve">
+    <value>향후에 이 문제를 고칠 수 있도록 이것을 보고해 주세요.</value>
+  </data>
+  <data name="ExceptionWindowTitle" xml:space="preserve">
+    <value>예외</value>
+  </data>
+  <data name="FileConflictDialogTitle" xml:space="preserve">
+    <value>파일 충돌</value>
+  </data>
+  <data name="OverwriteButton" xml:space="preserve">
+    <value>덮어쓰기</value>
+  </data>
+  <data name="AutoRenameButton" xml:space="preserve">
+    <value>자동 이름 변경</value>
+  </data>
+  <data name="FileConflictWarning" xml:space="preserve">
+    <value>파일이 {0}에 이미 존재합니다. 파일을 덮어쓰고 해당 인코드 작업의 새 출력 경로를 자동으로 찾을까요, 아니면 이 동작을 취소할까요?</value>
+  </data>
+  <data name="QueueFileConflictWarning" xml:space="preserve">
+    <value>대기열 작업은 이미 {0}에 출력 경로가 있습니다. 파일을 덮어쓰고 해당 인코드 작업의 새 출력 경로를 자동으로 찾을까요, 아니면 이 동작을 취소할까요?</value>
+  </data>
+  <data name="QueueColumnsDialogTitle" xml:space="preserve">
+    <value>대기열 세로열</value>
+  </data>
+  <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
+    <value>세로열을 추가, 삭제 또는 재정렬하려면 드래그 앤 드롭하세요.</value>
+  </data>
+  <data name="UnusedColumns" xml:space="preserve">
+    <value>미사용 세로열</value>
+  </data>
+  <data name="UsedColumns" xml:space="preserve">
+    <value>사용된 새로열</value>
+  </data>
+  <data name="ScanMultipleWindowTitle" xml:space="preserve">
+    <value>스캔 중...</value>
+  </data>
+  <data name="AboutVidCoderDialogTitle" xml:space="preserve">
+    <value>VidCoder 정보</value>
+  </data>
+  <data name="LicenseLabel" xml:space="preserve">
+    <value>라이센스:</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>버전</value>
+  </data>
+  <data name="BasedOnHandBrake" xml:space="preserve">
+    <value>HandBrake ({0})에 기반반</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>© {0} VidCoder 개발진</value>
+  </data>
+  <data name="VersionFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
+    <comment>First is version, second is architecture. For example: 1.4.2 (x64)</comment>
+  </data>
+  <data name="BetaVersionFormat" xml:space="preserve">
+    <value>{0} 베타 ({1})</value>
+    <comment>First is version, second is architecture. For example: 1.4.2 Beta (x64)</comment>
+  </data>
+  <data name="NameDialogTitle" xml:space="preserve">
+    <value>이름</value>
+    <comment>Title for dialog when  naming a preset or  picker</comment>
+  </data>
+  <data name="ChooseNamePreset" xml:space="preserve">
+    <value>프리셋 이름 선택하기:</value>
+  </data>
+  <data name="ApplyUpdateDialogTitle" xml:space="preserve">
+    <value>업데이트를 적용할까요?</value>
+  </data>
+  <data name="ApplyUpdateDialogMessage" xml:space="preserve">
+    <value>업데이트를 다운로드했습니다. 지금 적용할까요?</value>
+  </data>
+  <data name="ViewFullChangelog" xml:space="preserve">
+    <value>전체 변경 사항 보기</value>
+  </data>
+  <data name="DisableUpdatesButton" xml:space="preserve">
+    <value>업데이트 사용 안 함</value>
+  </data>
+  <data name="NoticeMessageTitle" xml:space="preserve">
+    <value>공지</value>
+  </data>
+  <data name="UnsupportedOSError" xml:space="preserve">
+    <value>VidCoder는 사용 중인 운영 체계에서 지원되지 않습니다. 윈도우 XP와 서버 2003에서는 더 이상 동작하지 않습니다. VidCoder 1.4를 설치하거나 운영 체계를 업그레이드하세요.</value>
+  </data>
+  <data name="EncodeCompleteWarning_SleepTitle" xml:space="preserve">
+    <value>곧 절전모드로 전환합니다</value>
+  </data>
+  <data name="EncodeCompleteWarning_LogOffTitle" xml:space="preserve">
+    <value>곧 로그아웃합니다</value>
+  </data>
+  <data name="EncodeCompleteWarning_ShutdownTitle" xml:space="preserve">
+    <value>곧 시스템을 종료합니다</value>
+  </data>
+  <data name="EncodeCompleteWarning_SleepMessage" xml:space="preserve">
+    <value>{0} 초 후 절전모드로 전환할 것입니다.</value>
+  </data>
+  <data name="EncodeCompleteWarning_LogOffMessage" xml:space="preserve">
+    <value>{0} 초 후 로그아웃될 것입니다.</value>
+  </data>
+  <data name="EncodeCompleteWarning_ShutdownMessage" xml:space="preserve">
+    <value>{0} 초 후 시스템을 종료할 것입니다.</value>
+  </data>
+  <data name="EncodeCompleteWarning_Title" xml:space="preserve">
+    <value>인코딩을 완료했습니다.</value>
+  </data>
+  <data name="CouldNotFindVideoPlayerError" xml:space="preserve">
+    <value>{0}에 대한 비디오 재생기를 찾을 수 없습니다.</value>
+  </data>
+  <data name="ErrorPlayingSource" xml:space="preserve">
+    <value>소스 재생 중 오류.</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateMessage" xml:space="preserve">
+    <value>{0} 초 후 최대절전모드로 전환할 것입니다.</value>
+  </data>
+  <data name="EncodeCompleteWarning_HibernateTitle" xml:space="preserve">
+    <value>곧 최대절전모드로 전환합니다</value>
+  </data>
+  <data name="ChooseNamePicker" xml:space="preserve">
+    <value>선택기 이름 선택하기:</value>
+  </data>
+</root>

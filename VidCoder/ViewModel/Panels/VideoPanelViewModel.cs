@@ -112,7 +112,7 @@ namespace VidCoder.ViewModel
 
 				string videoEncoder = selectedEncoder.Encoder.ShortName;
 
-				return videoEncoder == "qsv_h264";
+				return videoEncoder.StartsWith("qsv_", StringComparison.OrdinalIgnoreCase);
 			}).ToProperty(this, x => x.QsvSettingsVisible, out this.qsvSettingsVisible);
 
 			// EncoderSettingsVisible
@@ -125,7 +125,11 @@ namespace VidCoder.ViewModel
 
 				string videoEncoder = selectedEncoder.Encoder.ShortName;
 
-				return videoEncoder == "x264" || videoEncoder == "x265" || videoEncoder == "qsv_h264";
+				return 
+					videoEncoder.StartsWith("x264", StringComparison.OrdinalIgnoreCase) || 
+					videoEncoder.StartsWith("x265", StringComparison.OrdinalIgnoreCase) || 
+					videoEncoder == "qsv_h264" || 
+					videoEncoder == "qsv_h265";
 			}).ToProperty(this, x => x.EncoderSettingsVisible, out this.encoderSettingsVisible);
 
 			// BasicEncoderSettingsVisible
@@ -373,6 +377,20 @@ namespace VidCoder.ViewModel
 					this.RefreshEncoderChoices(containerName, EncoderChoicesRefreshSource.ContainerChange);
 				});
 
+		    this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.AudioCopyMask)
+		        .Skip(1)
+		        .Subscribe(copyMask =>
+		        {
+                    this.NotifyAudioChanged();
+		        });
+
+			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.AudioEncodings)
+				.Skip(1)
+				.Subscribe(copyMask =>
+				{
+					this.NotifyAudioChanged();
+				});
+
 			this.WhenAnyValue(x => x.SelectedEncoder.Encoder.ShortName)
 				.Subscribe(videoEncoder =>
 				{
@@ -381,14 +399,14 @@ namespace VidCoder.ViewModel
 
 			this.main.AudioChoiceChanged += (o, e) =>
 			{
-				this.NotifyAudioInputChanged();
+				this.NotifyAudioChanged();
 			};
 
 			this.main.WhenAnyValue(x => x.SelectedTitle)
 				.Skip(1)
 				.Subscribe(_ =>
 				{
-					this.NotifyAudioInputChanged();
+					this.NotifyAudioChanged();
 				});
 
 			this.AutomaticChange = false;
@@ -1085,15 +1103,17 @@ namespace VidCoder.ViewModel
 			switch (encoderName)
 			{
 				case "x264":
+				case "x265":
 					return "medium";
 				case "qsv_h264":
+				case "qsv_h265":
 					return "balanced";
 				default:
 					return null;
 			}
 		}
 
-		private void NotifyAudioInputChanged()
+		private void NotifyAudioChanged()
 		{
 			this.UpdateVideoBitrate();
 			this.UpdateTargetSize();

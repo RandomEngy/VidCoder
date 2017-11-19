@@ -59,7 +59,6 @@ namespace VidCoder
 							job,
 							encodeTitle,
 							EncodingRes.DefaultChapterName,
-							Config.DxvaDecoding,
 							preview ? previewNumber : -1,
 							previewSeconds,
 							Config.PreviewCount);

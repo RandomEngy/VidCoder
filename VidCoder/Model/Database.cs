@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.Globalization;
@@ -74,6 +75,11 @@ namespace VidCoder.Model
 				if (databaseVersion < 33)
 				{
 					UpgradeDatabaseTo33();
+				}
+
+				if (databaseVersion < 35)
+				{
+					UpgradeDatabaseTo35();
 				}
 
 				// Update encoding profiles if we need to. Everything is at least 28 now from the JSON upgrade.
@@ -388,7 +394,7 @@ namespace VidCoder.Model
 						}
 					}
 
-					Config.EncodeJobs2 = EncodeJobStorage.SerializeJobs(convertedJobs);
+					Config.SetLegacy("EncodeJobs2", EncodeJobStorage.SerializeJobs(convertedJobs));
 				}
 			}
 
@@ -425,6 +431,19 @@ namespace VidCoder.Model
 			Ioc.Get<IMessageBoxService>().Show(message);
 		}
 
+		private static void UpgradeDatabaseTo35()
+		{
+			// Move settings into a new table with PRIMARY KEY constraint on name
+			ExecuteNonQuery("ALTER TABLE settings RENAME TO settingsOld", connection);
+			ExecuteNonQuery(
+				"CREATE TABLE settings (" +
+				"name TEXT PRIMARY KEY, " +
+				"value TEXT)", connection);
+
+			ExecuteNonQuery("INSERT INTO settings SELECT * FROM settingsOld", connection);
+			ExecuteNonQuery("DROP TABLE settingsOld", connection);
+		}
+
 		private static void UpgradeWindowPlacementConfig(string configKey, Encoding encoding, XmlSerializer serializer)
 		{
 			string oldValue = DatabaseConfig.Get(configKey, string.Empty, connection);
@@ -437,7 +456,7 @@ namespace VidCoder.Model
 					placement = (WINDOWPLACEMENT)serializer.Deserialize(memoryStream);
 				}
 
-				Config.Set(configKey, JsonConvert.SerializeObject(placement));
+				Config.SetLegacy(configKey, JsonConvert.SerializeObject(placement));
 			}
 		}
 
@@ -457,10 +476,10 @@ namespace VidCoder.Model
 
 			// Upgrade encoding profiles on old queue items.
 			Config.EnsureInitialized(Connection);
-			string jobsXml = Config.EncodeJobs2;
-			if (!string.IsNullOrEmpty(jobsXml))
+			string jobsJson = Config.EncodeJobs2;
+			if (!string.IsNullOrEmpty(jobsJson))
 			{
-				IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.ParseJobsJson(jobsXml);
+				IList<EncodeJobWithMetadata> jobs = EncodeJobStorage.ParseJobsJson(jobsJson);
 				foreach (EncodeJobWithMetadata job in jobs)
 				{
 					PresetStorage.UpgradeEncodingProfile(job.Job.EncodingProfile, databaseVersion);
@@ -663,7 +682,7 @@ namespace VidCoder.Model
 
 			ExecuteNonQuery(
 				"CREATE TABLE settings (" +
-				"name TEXT, " +
+				"name TEXT PRIMARY KEY, " +
 				"value TEXT)", connection);
 
 			ExecuteNonQuery(

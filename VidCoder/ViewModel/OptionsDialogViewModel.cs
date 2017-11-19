@@ -61,11 +61,6 @@ namespace VidCoder.ViewModel
 						return false;
 					}
 
-					if (!Environment.Is64BitOperatingSystem)
-					{
-						return true;
-					}
-
 					return updatesEnabledConfig;
 				}).ToProperty(this, x => x.ShowUpdateStatus, out this.showUpdateStatus); ;
 
@@ -172,7 +167,6 @@ namespace VidCoder.ViewModel
 			this.previewCount = Config.PreviewCount;
 			this.rememberPreviousFiles = Config.RememberPreviousFiles;
 			this.showAudioTrackNameField = Config.ShowAudioTrackNameField;
-			this.dxvaDecoding = Config.DxvaDecoding;
 			this.enableLibDvdNav = Config.EnableLibDvdNav;
 			this.deleteSourceFilesOnClearingCompleted = Config.DeleteSourceFilesOnClearingCompleted;
 			this.preserveModifyTimeFiles = Config.PreserveModifyTimeFiles;
@@ -208,6 +202,7 @@ namespace VidCoder.ViewModel
 					{
 						new InterfaceLanguage { CultureCode = string.Empty, Display = OptionsRes.UseOSLanguage },
 						new InterfaceLanguage { CultureCode = "en-US", Display = "English" },
+						new InterfaceLanguage { CultureCode = "bs-Latn-BA", Display = "bosanski (Bosna i Hercegovina) / Bosnian (Latin)" },
 						new InterfaceLanguage { CultureCode = "cs-CZ", Display = "čeština / Czech" },
 						new InterfaceLanguage { CultureCode = "de-DE", Display = "Deutsch / German" },
 						new InterfaceLanguage { CultureCode = "es-ES", Display = "Español / Spanish" },
@@ -222,6 +217,7 @@ namespace VidCoder.ViewModel
 						new InterfaceLanguage { CultureCode = "tr-TR", Display = "Türkçe / Turkish" },
 						new InterfaceLanguage { CultureCode = "ka-GE", Display = "ქართული / Georgian" },
 						new InterfaceLanguage { CultureCode = "ru-RU", Display = "русский / Russian" },
+						new InterfaceLanguage { CultureCode = "ko-KO", Display = "한국어 / Korean" },
 						new InterfaceLanguage { CultureCode = "zh-Hans", Display = "中文(简体) / Chinese (Simplified)" },
 						new InterfaceLanguage { CultureCode = "zh-Hant", Display = "中文(繁體) / Chinese (Traditional)" },
 						new InterfaceLanguage { CultureCode =  "ja-JP", Display = "日本語 / Japanese" },
@@ -289,7 +285,7 @@ namespace VidCoder.ViewModel
 			this.SelectedTabIndex = tabIndex;
 		}
 
-		public override void OnClosing()
+		public override bool OnClosing()
 		{
 			Config.OptionsDialogLastTab = this.SelectedTabIndex;
 
@@ -298,7 +294,7 @@ namespace VidCoder.ViewModel
 				Ioc.Get<OutputPathService>().NotifyDefaultOutputFolderChanged();
 			}
 
-			base.OnClosing();
+			return base.OnClosing();
 		}
 
 		public IList<string> Tabs
@@ -371,7 +367,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return !Utilities.IsPortable && Environment.Is64BitOperatingSystem;
+				return !Utilities.IsPortable;
 			}
 		}
 
@@ -579,13 +575,6 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.showAudioTrackNameField, value); }
 		}
 
-		private bool dxvaDecoding;
-		public bool DxvaDecoding
-		{
-			get { return this.dxvaDecoding; }
-			set { this.RaiseAndSetIfChanged(ref this.dxvaDecoding, value); }
-		}
-
 		private bool enableLibDvdNav;
 		public bool EnableLibDvdNav
 		{
@@ -713,7 +702,6 @@ namespace VidCoder.ViewModel
 
 				Config.ShowAudioTrackNameField = this.ShowAudioTrackNameField;
 				Config.EnableLibDvdNav = this.EnableLibDvdNav;
-				Config.DxvaDecoding = this.DxvaDecoding;
 				Config.DeleteSourceFilesOnClearingCompleted = this.DeleteSourceFilesOnClearingCompleted;
 				Config.PreserveModifyTimeFiles = this.PreserveModifyTimeFiles;
 				Config.ResumeEncodingOnRestart = this.ResumeEncodingOnRestart;

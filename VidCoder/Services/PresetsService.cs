@@ -186,6 +186,11 @@ namespace VidCoder.Services
 				{
 					this.NotifySelectedPresetChanged();
 
+					if (previouslySelectedPreset != null)
+					{
+						Config.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
+					}
+
 					// If we're switching away from a temporary queue preset, remove it.
 					if (previouslySelectedPreset != null && previouslySelectedPreset.Preset.IsQueue && previouslySelectedPreset != value)
 					{
@@ -414,8 +419,6 @@ namespace VidCoder.Services
 			this.OutputPathService.GenerateOutputFileName();
 
 			this.RaisePropertyChanged(nameof(this.SelectedPreset));
-
-			Config.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
 		}
 	}
 }

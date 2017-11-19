@@ -162,7 +162,7 @@
     <value>视频质量</value>
   </data>
   <data name="QueueEtaToolTip" xml:space="preserve">
-    <value>估计完成队列中的所有作业的剩余时间。</value>
+    <value>队列完成估计剩余时间。</value>
   </data>
   <data name="QueueColumnNameDuration" xml:space="preserve">
     <value>持续时间</value>
@@ -250,7 +250,7 @@
     <value>无法完成文件操作。</value>
   </data>
   <data name="FileFailureErrorTitle" xml:space="preserve">
-    <value>文件处理出错</value>
+    <value>文件处理错误</value>
   </data>
   <data name="OverrideNameFormatCheckBox" xml:space="preserve">
     <value>覆写命名格式：</value>
@@ -259,10 +259,10 @@
     <value>可行则输出至源目录</value>
   </data>
   <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>保留目录结构进行批处理编码</value>
+    <value>批处理编码时保留目录结构</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>若你正编码一个文件夹中的所有文件，则编码后的文件将输出至匹配源目录结构的子文件夹</value>
+    <value>若您正编码一个文件夹中的所有文件，编码后的文件将输出至具有源目录结构的子文件夹中。</value>
   </data>
   <data name="DismissMessage" xml:space="preserve">
     <value>忽略消息</value>

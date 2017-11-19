@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -101,7 +102,7 @@ namespace VidCoder
 					string processIdString = match.Groups["processId"].Captures[0].Value;
 					try
 					{
-						var process = Process.GetProcessById(int.Parse(processIdString));
+						var process = Process.GetProcessById(int.Parse(processIdString, CultureInfo.InvariantCulture));
 					}
 					catch (ArgumentException)
 					{

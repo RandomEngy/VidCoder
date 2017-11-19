@@ -416,6 +416,11 @@ namespace VidCoder.ViewModel
 
 				newAudioEncoding.Encoder = this.HBAudioEncoder.ShortName;
 
+				if (this.NameVisible)
+				{
+					newAudioEncoding.Name = this.Name;
+				}
+
 				if (!this.HBAudioEncoder.IsPassthrough)
 				{
 					newAudioEncoding.Mixdown = this.SelectedMixdown.Mixdown.ShortName;
@@ -439,7 +444,6 @@ namespace VidCoder.ViewModel
 					newAudioEncoding.Gain = this.Gain;
 					newAudioEncoding.Drc = this.Drc;
 					newAudioEncoding.PassthroughIfPossible = this.PassthroughIfPossible;
-					newAudioEncoding.Name = this.Name;
 				}
 
 				return newAudioEncoding;

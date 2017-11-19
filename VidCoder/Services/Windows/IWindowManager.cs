@@ -13,7 +13,8 @@ namespace VidCoder.Services.Windows
 		/// </summary>
 		/// <param name="viewModel">The window's viewmodel.</param>
 		/// <param name="ownerViewModel">The viewmodel of the owner window.</param>
-		void OpenWindow(object viewModel, object ownerViewModel = null);
+		/// <param name="userInitiated">True if the user explicitly opened the window.</param>
+		void OpenWindow(object viewModel, object ownerViewModel = null, bool userInitiated = true);
 
 		/// <summary>
 		/// Opens the viewmodel as a dialog.

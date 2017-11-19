@@ -33,8 +33,9 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public virtual void OnClosing()
+		public virtual bool OnClosing()
 		{
+			return true;
 		}
 
 		public bool DialogResult { get; set; }

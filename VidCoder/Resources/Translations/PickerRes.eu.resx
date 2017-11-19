@@ -246,5 +246,7 @@
   <data name="SortLanguagesLabel" xml:space="preserve">
     <value>Antolatu hizkuntza(k) gorantz:</value>
   </data>
-  
+  <data name="ForcedOnlyCheckBox" xml:space="preserve">
+    <value>Behartua bakarrik</value>
+  </data>
 </root>

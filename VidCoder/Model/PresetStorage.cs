@@ -141,7 +141,7 @@ namespace VidCoder.Model
 				}
 
 				XElement presetElement = doc.Element("UserPreset").Element("Preset");
-				int version = int.Parse(doc.Element("UserPreset").Attribute("Version").Value);
+				int version = int.Parse(doc.Element("UserPreset").Attribute("Version").Value, CultureInfo.InvariantCulture);
 
 				using (XmlReader reader = presetElement.CreateReader())
 				{

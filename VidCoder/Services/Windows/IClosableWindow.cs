@@ -2,6 +2,6 @@
 {
 	public interface IClosableWindow
 	{
-		void OnClosing();
+		bool OnClosing();
 	}
 }

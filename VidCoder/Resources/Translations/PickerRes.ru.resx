@@ -246,5 +246,7 @@
   <data name="SortLanguagesLabel" xml:space="preserve">
     <value>Язык(и) сортировки к началу:</value>
   </data>
-  
+  <data name="ForcedOnlyCheckBox" xml:space="preserve">
+    <value>Только принудительно</value>
+  </data>
 </root>

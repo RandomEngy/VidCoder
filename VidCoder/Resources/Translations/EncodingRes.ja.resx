@@ -284,12 +284,18 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
     <value>チャプター マーカーを含める</value>
   </data>
-  
+  <data name="TabHeader_Sizing" xml:space="preserve">
+    <value>サイズ変更</value>
+  </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
     <value>映像フィルター</value>
   </data>
-  
-  
+  <data name="TabHeader_VideoEncoding" xml:space="preserve">
+    <value>ビデオのエンコード</value>
+  </data>
+  <data name="TabHeader_AudioEncoding" xml:space="preserve">
+    <value>音声のエンコード</value>
+  </data>
   <data name="TabHeader_Advanced" xml:space="preserve">
     <value>高度なビデオ</value>
   </data>
@@ -961,26 +967,76 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="InterlaceDetectionLabel" xml:space="preserve">
+    <value>インターレース検出:</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>モード:</value>
+    <comment>Label for the sizing or padding mode.</comment>
+  </data>
+  <data name="AnamorphicCheckbox" xml:space="preserve">
+    <value>アナモルフィックを使用</value>
+  </data>
+  <data name="AllowUpscalingCheckbox" xml:space="preserve">
+    <value>アップスケーリングを許可</value>
+  </data>
+  <data name="SizingModeManual" xml:space="preserve">
+    <value>マニュアル</value>
+    <comment>Choice for the user to enter all sizing information manually.</comment>
+  </data>
+  <data name="UpscaleMaxFormat" xml:space="preserve">
+    <value>最大{0}x倍拡大</value>
+    <comment>Label for scaling option to allow upscaling, but only to a particular multiple of the source resolution. {0} is the multiple, e.g. 2, 3 or 4</comment>
+  </data>
+  <data name="ScalingMode_DownscaleOnly" xml:space="preserve">
+    <value>縮小のみ</value>
+  </data>
+  <data name="ScalingMode_Fill" xml:space="preserve">
+    <value>ターゲットに合わせて拡大縮小する</value>
+  </data>
+  <data name="ScalingModeLabel" xml:space="preserve">
+    <value>拡大縮小モード:</value>
+  </data>
+  <data name="PaddingMode_Fill" xml:space="preserve">
+    <value>塗りつぶし</value>
+  </data>
+  <data name="PaddingMode_Width" xml:space="preserve">
+    <value>幅</value>
+  </data>
+  <data name="PaddingMode_Height" xml:space="preserve">
+    <value>高さ</value>
+  </data>
+  <data name="TargetWidthLabel" xml:space="preserve">
+    <value>ターゲットの幅:</value>
+  </data>
+  <data name="TargetHeightLabel" xml:space="preserve">
+    <value>ターゲットの高さ:</value>
+  </data>
+  <data name="PadColorLabel" xml:space="preserve">
+    <value>色:</value>
+  </data>
+  <data name="ColorPickerAdvancedButton" xml:space="preserve">
+    <value>高度な設定</value>
+  </data>
+  <data name="ColorPickerStandardButton" xml:space="preserve">
+    <value>標準</value>
+  </data>
+  <data name="ColorPickerStandardColorsHeader" xml:space="preserve">
+    <value>標準の色</value>
+  </data>
+  <data name="AnamorphicToolTip" xml:space="preserve">
+    <value>アナモルフィックが有効の場合、長方形のピクセルが許可されます。結果としてサイズは小さくりますが、すべてのプレーヤーでサポートされません。</value>
+  </data>
+  <data name="ResolutionLabel" xml:space="preserve">
+    <value>解像度:</value>
+    <comment>Label for a video resolution in pixels.</comment>
+  </data>
+  <data name="CustomFilterToolTipFormatPart" xml:space="preserve">
+    <value>形式: key1 = value1:key2 = value2:.</value>
+    <comment>The "format" portion of the custom filter tooltip. When translating, keep the = and : the same and only replace "key1", "value2", etc.</comment>
+  </data>
+  <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
+    <value>キー:</value>
+    <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
 </root>

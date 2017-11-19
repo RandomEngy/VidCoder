@@ -130,7 +130,7 @@
     <value>Reproducir fuente</value>
   </data>
   <data name="LengthRangePre" xml:space="preserve">
-    <value>Todos los títulos de</value>
+    <value>Todos los títulos desde</value>
     <comment>Goes before the first number box in the length range specification.</comment>
   </data>
   <data name="LengthRangeMid" xml:space="preserve">
@@ -142,7 +142,7 @@
     <comment>Goes after the second number box in the length range specification.</comment>
   </data>
   <data name="OverrideTitleCheckBox" xml:space="preserve">
-    <value>Desautorizar el título #: desde</value>
+    <value>Anular el título #: desde</value>
   </data>
   <data name="QueueTitlesDialogTitle" xml:space="preserve">
     <value>Poner en cola múltiples títulos</value>

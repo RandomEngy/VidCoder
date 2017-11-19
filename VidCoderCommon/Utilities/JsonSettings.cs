@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using VidCoderCommon.JsonConverters;
 using VidCoderCommon.Model;
 
 namespace VidCoderCommon.Utilities
@@ -18,7 +19,8 @@ namespace VidCoderCommon.Utilities
 				Formatting = Formatting.Indented,
 				Converters = new List<JsonConverter>
 				{
-					new StringEnumConverter()
+					new SourceTypeConverter(),
+					new StringEnumConverter(),
 				},
 				ContractResolver = new VidCoderContractResolver()
 			};

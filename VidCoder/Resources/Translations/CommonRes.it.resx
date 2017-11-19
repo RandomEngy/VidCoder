@@ -133,7 +133,7 @@
     <value>La quantità di tempo per spingere in avanti o ritardare la comparsa dei sottotitoli.</value>
   </data>
   <data name="QueueColumnNameRange" xml:space="preserve">
-    <value>Gamma</value>
+    <value>Intervallo</value>
     <comment>The label for the queue column that specifies what portion of the video to encode. (Like 25:23 - 37:50)</comment>
   </data>
   <data name="QueueColumnNameDestination" xml:space="preserve">
@@ -225,7 +225,7 @@
     <value>Nessuno</value>
   </data>
   <data name="Succeeded" xml:space="preserve">
-    <value>È riuscito</value>
+    <value>Completato con successo</value>
   </data>
   <data name="Failed" xml:space="preserve">
     <value>Non riuscito</value>
@@ -252,13 +252,13 @@
     <value>Trascura il formato di denominazione:</value>
   </data>
   <data name="OutputToSourceDirCheckBox" xml:space="preserve">
-    <value>Manda alla directory originale se possibile</value>
+    <value>Salva nella cartella originale se possibile</value>
   </data>
   <data name="PreserveFolderStructureCheckBox" xml:space="preserve">
-    <value>Preserva la struttura delle cartelle in modalità batch</value>
+    <value>Preserva la struttura delle cartelle in modalità non-interattiva</value>
   </data>
   <data name="PreserveFolderStructureToolTip" xml:space="preserve">
-    <value>Se codifichi una cartella piena di files, le versioni ottenute verranno messi in sotto-cartelle con la medesima struttura dell'originale.</value>
+    <value>Se codifichi una cartella con molti file, le versioni ricodificate verranno messe in sotto-cartelle con la medesima struttura dell'originale.</value>
   </data>
   <data name="DismissMessage" xml:space="preserve">
     <value>Chiudi il messaggio</value>
