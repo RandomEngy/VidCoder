@@ -1103,8 +1103,10 @@ namespace VidCoder.ViewModel
 			switch (encoderName)
 			{
 				case "x264":
+				case "x265":
 					return "medium";
 				case "qsv_h264":
+				case "qsv_h265":
 					return "balanced";
 				default:
 					return null;
