@@ -17,45 +17,29 @@ function ReplaceTokens($inputFile, $outputFile, $replacements) {
     Set-Content $outputFile $fileContent
 }
 
-function CreateIssFile($version, $beta, $debugBuild, $arch) {
+function CreateIssFile($version, $beta, $debugBuild) {
     $tokens = @{}
 
-    if ($arch -eq "x86") {
-        $tokens["x64Directives"] = ""
-        $tokens["x86UninstallLine"] = ""
-        
-        if ($beta) {
-            $appId = "VidCoder-Beta-x86"
-        } else {
-            $appId = "VidCoder"
-        }
+    if ($beta) {
+        $appId = "VidCoder-Beta-x64"
     } else {
-        $tokens["x64Directives"] = "ArchitecturesAllowed=x64`r`nArchitecturesInstallIn64BitMode=x64"
-        $tokens["x86UninstallLine"] = "UninstallX86Version();"
-
-        if ($beta) {
-            $appId = "VidCoder-Beta-x64"
-        } else {
-            $appId = "VidCoder-x64"
-        }
+        $appId = "VidCoder-x64"
     }
 
-
-    $tokens["arch"] = $arch
     $tokens["version"] = $version
     $tokens["appId"] = $appId
     if ($beta) {
         $tokens["appName"] = "VidCoder Beta"
         $tokens["appNameNoSpace"] = "VidCoderBeta"
         $tokens["folderName"] = "VidCoder-Beta"
-        $tokens["outputBaseFileName"] = "VidCoder-" + $version + "-Beta-" + $arch
-        $tokens["appVerName"] = "VidCoder " + $version + " Beta (" + $arch + ")"
+        $tokens["outputBaseFileName"] = "VidCoder-" + $version + "-Beta"
+        $tokens["appVerName"] = "VidCoder " + $version + " Beta (x64)"
     } else {
         $tokens["appName"] = "VidCoder"
         $tokens["appNameNoSpace"] = "VidCoder"
         $tokens["folderName"] = "VidCoder"
-        $tokens["outputBaseFileName"] = "VidCoder-" + $version + "-" + $arch
-        $tokens["appVerName"] = "VidCoder " + $version + " (" + $arch + ")"
+        $tokens["outputBaseFileName"] = "VidCoder-" + $version
+        $tokens["appVerName"] = "VidCoder " + $version + " (x64)"
     }
 
     if ($debugBuild) {
@@ -64,7 +48,7 @@ function CreateIssFile($version, $beta, $debugBuild, $arch) {
         $tokens["outputDirectory"] = "BuiltInstallers"
     }
 
-    ReplaceTokens "Installer\VidCoder.iss.txt" ("Installer\VidCoder-" + $arch + "-gen.iss") $tokens
+    ReplaceTokens "Installer\VidCoder.iss.txt" ("Installer\VidCoder-gen.iss") $tokens
 }
 
 function UpdateAssemblyInfo($fileName, $version) {
@@ -81,55 +65,32 @@ function UpdateAssemblyInfo($fileName, $version) {
 }
 
 function CopyFromOutput($fileName, $buildFlavor) {
-    $dest86 = ".\Installer\Files\x86\"
-    $dest64 = ".\Installer\Files\x64\"
-
-    $source86 = ".\VidCoder\bin\x86\$buildFlavor\"
-    $source64 = ".\VidCoder\bin\x64\$buildFlavor\"
-
-    copy ($source86 + $fileName) ($dest86 + $fileName); ExitIfFailed
-    copy ($source64 + $fileName) ($dest64 + $fileName); ExitIfFailed
+    $dest = ".\Installer\Files\"
+    $source = ".\VidCoder\bin\$buildFlavor\"
+    copy ($source + $fileName) ($dest + $fileName); ExitIfFailed
 }
 
 function CopyFromOutputArchSpecific($fileName, $buildFlavor) {
-    $dest86 = ".\Installer\Files\x86\"
-    $dest64 = ".\Installer\Files\x64\"
-
-    $source86 = ".\VidCoder\bin\x86\$buildFlavor\x86\"
-    $source64 = ".\VidCoder\bin\x64\$buildFlavor\x64\"
-
-    copy ($source86 + $fileName) ($dest86 + $fileName); ExitIfFailed
-    copy ($source64 + $fileName) ($dest64 + $fileName); ExitIfFailed
+    $dest = ".\Installer\Files\"
+    $source64 = ".\VidCoder\bin\$buildFlavor\x64\"
+    copy ($source64 + $fileName) ($dest + $fileName); ExitIfFailed
 }
 
-function CopyLibBoth($fileName) {
-    $dest86 = ".\Installer\Files\x86\"
-    $dest64 = ".\Installer\Files\x64\"
-
-    $source86 = ".\Lib\x86\"
-    $source64 = ".\Lib\x64\"
-
-    copy ($source86 + $fileName) ($dest86 + $fileName); ExitIfFailed
-    copy ($source64 + $fileName) ($dest64 + $fileName); ExitIfFailed
+function CopyLib($fileName) {
+    $dest = ".\Installer\Files\"
+    $source = ".\Lib\"
+    copy ($source + $fileName) ($dest + $fileName); ExitIfFailed
 }
 
 function CopyGeneral($fileName) {
-    $dest86 = ".\Installer\Files\x86"
-    $dest64 = ".\Installer\Files\x64"
-
-    copy $fileName $dest86; ExitIfFailed
-    copy $fileName $dest64; ExitIfFailed
+    $dest = ".\Installer\Files"
+    copy $fileName $dest; ExitIfFailed
 }
 
 function CopyLanguage($language, $buildFlavor) {
-    $dest86 = ".\Installer\Files\x86\"
-    $dest64 = ".\Installer\Files\x64\"
-
-    $source86 = ".\VidCoder\bin\x86\$buildFlavor\"
-    $source64 = ".\VidCoder\bin\x64\$buildFlavor\"
-
-    copy ($source86 + $language) ($dest86 + $language) -recurse; ExitIfFailed
-    copy ($source64 + $language) ($dest64 + $language) -recurse; ExitIfFailed
+    $dest = ".\Installer\Files\"
+    $source = ".\VidCoder\bin\$buildFlavor\"
+    copy ($source + $language) ($dest + $language) -recurse; ExitIfFailed
 }
 
 function UpdateLatestJson($latestFile, $versionShort, $versionTag, $installerFile) {
@@ -165,23 +126,18 @@ UpdateAssemblyInfo "VidCoder\Properties\AssemblyInfo.cs" $versionLong
 UpdateAssemblyInfo "VidCoderWorker\Properties\AssemblyInfo.cs" $versionLong
 
 # Build VidCoder.sln
-& $DevEnvExe VidCoder.sln /Rebuild ($configuration + "|x86"); ExitIfFailed
 & $DevEnvExe VidCoder.sln /Rebuild ($configuration + "|x64"); ExitIfFailed
 
 # Run sgen to create *.XmlSerializers.dll
-& ($NetToolsFolder + "\sgen.exe") /f /a:"VidCoder\bin\x86\$buildFlavor\VidCoderCommon.dll"; ExitIfFailed
-& ($NetToolsFolder + "\x64\sgen.exe") /f /a:"VidCoder\bin\x64\$buildFlavor\VidCoderCommon.dll"; ExitIfFailed
+& ($NetToolsFolder + "\x64\sgen.exe") /f /a:"VidCoder\bin\$buildFlavor\VidCoderCommon.dll"; ExitIfFailed
 
 
 # Copy install files to staging folder
-$dest86 = ".\Installer\Files\x86"
-$dest64 = ".\Installer\Files\x64"
+$dest = ".\Installer\Files"
 
-ClearFolder $dest86; ExitIfFailed
-ClearFolder $dest64; ExitIfFailed
+ClearFolder $dest; ExitIfFailed
 
-$source86 = ".\VidCoder\bin\x86\$buildFlavor\"
-$source64 = ".\VidCoder\bin\x64\$buildFlavor\"
+$source = ".\VidCoder\bin\$buildFlavor\"
 
 # Files from the main output directory (some architecture-specific)
 $outputDirectoryFiles = @(
@@ -237,8 +193,8 @@ foreach ($generalFile in $generalFiles) {
     CopyGeneral $generalFile
 }
 
-# Architecture-specific files from Lib folder
-CopyLibBoth "hb.dll"
+# Files from Lib folder
+CopyLib "hb.dll"
 
 # Languages
 $languages = @(
@@ -283,18 +239,13 @@ if ($debugBuild) {
 
 New-Item -ItemType Directory -Force -Path ".\$builtInstallerFolder"
 
-$portableExeWithoutExtension86 = ".\$builtInstallerFolder\VidCoder-$versionShort$betaNameSection-x86-Portable"
-$portableExeWithoutExtension64 = ".\$builtInstallerFolder\VidCoder-$versionShort$betaNameSection-x64-Portable"
+$portableExeWithoutExtension = ".\$builtInstallerFolder\VidCoder-$versionShort$betaNameSection-Portable"
 
-DeleteFileIfExists ($portableExeWithoutExtension86 + ".exe")
-DeleteFileIfExists ($portableExeWithoutExtension64 + ".exe")
+DeleteFileIfExists ($portableExeWithoutExtension + ".exe")
 
 $winRarExe = "c:\Program Files\WinRar\WinRAR.exe"
 
-& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension86 .\Installer\Files\x86\** | Out-Null
-ExitIfFailed
-
-& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension64 .\Installer\Files\x64\** | Out-Null
+& $winRarExe a -sfx -z".\Installer\VidCoderRar.conf" -iicon".\VidCoder\VidCoder_icon.ico" -r -ep1 $portableExeWithoutExtension .\Installer\Files\** | Out-Null
 ExitIfFailed
 
 $latestFileDirectory = "Installer\"
@@ -307,33 +258,27 @@ if ($beta) {
     $latestFileBase += "-beta"
 }
 
-$latestFile86 = $latestFileBase + "-x86.json"
-$latestFile64 = $latestFileBase + ".json"
+$latestFile = $latestFileBase + ".json"
 
-# Update latest.xml files with version
+# Update latest.json file with version
 if ($beta)
 {
     $versionTag = "v$versionShort-beta"
-    $installerFile86 = "VidCoder-$versionShort-Beta-x86.exe"
-    $installerFile64 = "VidCoder-$versionShort-Beta-x64.exe"
+    $installerFile = "VidCoder-$versionShort-Beta.exe"
 }
 else
 {
     $versionTag = "v$versionShort"
-    $installerFile86 = "VidCoder-$versionShort-x86.exe"
-    $installerFile64 = "VidCoder-$versionShort-x64.exe"
+    $installerFile = "VidCoder-$versionShort.exe"
 }
 
-UpdateLatestJson $latestFile86 $versionShort $versionTag $installerFile86
-UpdateLatestJson $latestFile64 $versionShort $versionTag $installerFile64
+UpdateLatestJson $latestFile $versionShort $versionTag $installerFile
 
-# Create x86/x64 .iss files in the correct configuration
-CreateIssFile $versionShort $beta $debugBuild "x86"
-CreateIssFile $versionShort $beta $debugBuild "x64"
+# Create .iss files in the correct configuration
+CreateIssFile $versionShort $beta $debugBuild
 
 # Build the installers
-& $InnoSetupExe Installer\VidCoder-x86-gen.iss; ExitIfFailed
-& $InnoSetupExe Installer\VidCoder-x64-gen.iss; ExitIfFailed
+& $InnoSetupExe Installer\VidCoder-gen.iss; ExitIfFailed
 
 
 WriteSuccess

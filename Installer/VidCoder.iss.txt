@@ -1,0 +1,282 @@
+#include <idp.iss>
+
+[Setup]
+AppName=%appName%
+AppVerName=%appVerName%
+AppVersion=%version%
+AppPublisher=RandomEngy
+AppPublisherURL=http://vidcoder.codeplex.com/
+
+DefaultDirName={pf}\%folderName%
+DisableProgramGroupPage=yes
+UninstallDisplayIcon={app}\VidCoder.exe
+Compression=lzma
+SolidCompression=yes
+SetupIconFile=VidCoder_Setup.ico
+ChangesAssociations=yes
+
+OutputDir=%outputDirectory%
+OutputBaseFilename=%outputBaseFileName%
+
+AppId=%appId%
+UsePreviousAppDir=yes
+
+ArchitecturesAllowed=x64
+ArchitecturesInstallIn64BitMode=x64
+
+[Languages]
+Name: "en"; MessagesFile: "compiler:Default.isl"
+
+[Files]
+Source: "Files\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
+
+[Registry]
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlers\PlayBluRayOnArrival"; ValueType: string; ValueName: "%appNameNoSpace%RipDriveOnArrival"; ValueData: ""; Flags: uninsdeletevalue
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlers\PlayDVDMovieOnArrival"; ValueType: string; ValueName: "%appNameNoSpace%RipDriveOnArrival"; ValueData: ""; Flags: uninsdeletevalue
+
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\Handlers\%appNameNoSpace%RipDriveOnArrival"; Flags: uninsdeletekey
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\Handlers\%appNameNoSpace%RipDriveOnArrival"; ValueType: string; ValueName: "Action"; ValueData: "Rip"
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\Handlers\%appNameNoSpace%RipDriveOnArrival"; ValueType: string; ValueName: "DefaultIcon"; ValueData: "{app}\VidCoder.exe,0"
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\Handlers\%appNameNoSpace%RipDriveOnArrival"; ValueType: string; ValueName: "InvokeProgId"; ValueData: "%appNameNoSpace%.RipDrive"
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\Handlers\%appNameNoSpace%RipDriveOnArrival"; ValueType: string; ValueName: "InvokeVerb"; ValueData: "rip"
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\Handlers\%appNameNoSpace%RipDriveOnArrival"; ValueType: string; ValueName: "Provider"; ValueData: "%appName%"
+
+Root: HKCR; Subkey: "%appNameNoSpace%.RipDrive"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "%appNameNoSpace%.RipDrive\shell"
+Root: HKCR; Subkey: "%appNameNoSpace%.RipDrive\shell\rip"
+Root: HKCR; Subkey: "%appNameNoSpace%.RipDrive\shell\rip\command"; ValueType: string; ValueData: """{app}\VidCoderWindowlessCLI.exe"" scan -s %L"
+
+Root: HKCR; Subkey: ".vjpreset"; ValueType: string; ValueName: ""; ValueData: "VidCoderPreset"; Flags: uninsdeletevalue 
+Root: HKCR; Subkey: "VidCoderPreset"; ValueType: string; ValueName: ""; ValueData: "VidCoder preset"; Flags: uninsdeletekey 
+Root: HKCR; Subkey: "VidCoderPreset\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: """{app}\VidCoderPreset.ico""" 
+Root: HKCR; Subkey: "VidCoderPreset\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\VidCoderWindowlessCLI.exe"" importpreset ""%1""" 
+	
+Root: HKCR; Subkey: ".vjqueue"; ValueType: string; ValueName: ""; ValueData: "VidCoderQueue"; Flags: uninsdeletevalue 
+Root: HKCR; Subkey: "VidCoderQueue"; ValueType: string; ValueName: ""; ValueData: "VidCoder queue"; Flags: uninsdeletekey 
+Root: HKCR; Subkey: "VidCoderQueue\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: """{app}\VidCoderQueue.ico""" 
+Root: HKCR; Subkey: "VidCoderQueue\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\VidCoderWindowlessCLI.exe"" importqueue ""%1""" 
+
+[Messages]
+WelcomeLabel2=This will install [name/ver] on your computer.
+
+[Icons]
+Name: "{commonprograms}\%appName%"; Filename: "{app}\VidCoder.exe"; WorkingDir: "{app}"
+
+[Run]
+Filename: "{app}\VidCoder.exe"; Description: "Run VidCoder"; Flags: postinstall nowait skipifsilent
+
+[UninstallDelete]
+Type: filesandordirs; Name: "{userappdata}\%folderName%\Updates"
+Type: filesandordirs; Name: "{localappdata}\%folderName%"
+
+[CustomMessages]
+IDP_DownloadFailed=Download of .NET Framework 4.6.2 failed. .NET Framework 4.6 is required to run VidCoder.
+IDP_RetryCancel=Click 'Retry' to try downloading the files again, or click 'Cancel' to terminate setup.
+
+[Code]
+
+function Framework46IsNotInstalled(): Boolean;
+var
+  bSuccess: Boolean;
+  regVersion: Cardinal;
+begin
+  Result := True;
+
+  bSuccess := RegQueryDWordValue(HKLM, 'Software\Microsoft\NET Framework Setup\NDP\v4\Full', 'Release', regVersion);
+  if (True = bSuccess) and (regVersion >= 393295) then begin
+    Result := False;
+  end;
+end;
+
+function InitializeSetup(): Boolean;
+var
+  Version: TWindowsVersion;
+begin
+	GetWindowsVersionEx(Version);
+	
+	if (Version.Major < 5) or ((Version.Major = 5) and (Version.Minor < 1)) or ((Version.Major = 5) and (Version.Minor = 1) and (Version.ServicePackMajor < 2)) then
+	begin
+    MsgBox('VidCoder cannot install on your operating system.', mbError, MB_OK);
+    exit;
+	end;
+	
+  Result := true;
+end;
+
+procedure InitializeWizard;
+begin
+  if Framework46IsNotInstalled() then
+  begin
+    idpAddFile('http://go.microsoft.com/fwlink/?LinkId=780596', ExpandConstant('{tmp}\NetFrameworkInstaller.exe'));
+    idpDownloadAfter(wpReady);
+  end;
+end;
+
+procedure InstallFramework;
+var
+  StatusText: string;
+  ResultCode: Integer;
+begin
+  StatusText := WizardForm.StatusLabel.Caption;
+  WizardForm.StatusLabel.Caption := 'Installing .NET Framework 4.6.2. This might take a few minutes...';
+  WizardForm.ProgressGauge.Style := npbstMarquee;
+  try
+    if not Exec(ExpandConstant('{tmp}\NetFrameworkInstaller.exe'), '/passive /norestart', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
+    begin
+      MsgBox('.NET installation failed with code: ' + IntToStr(ResultCode) + '.', mbError, MB_OK);
+    end;
+  finally
+    WizardForm.StatusLabel.Caption := StatusText;
+    WizardForm.ProgressGauge.Style := npbstNormal;
+    
+    DeleteFile(ExpandConstant('{tmp}\NetFrameworkInstaller.exe'));
+  end;
+end;
+
+//util method, equivalent to C# string.StartsWith
+function StartsWith(SubStr, S: String):Boolean;
+begin
+  Result:= Pos(SubStr, S) = 1;
+end;
+
+//util method, equivalent to C# string.Replace
+function StringReplace(S, oldSubString, newSubString: String) : String;
+var
+  stringCopy : String;
+begin
+  stringCopy := S; //Prevent modification to the original string
+  StringChange(stringCopy, oldSubString, newSubString);
+  Result := stringCopy;
+end;
+
+//==================================================================
+function GetCommandlineParam (inParamName: String):String;
+var
+   paramNameAndValue: String;
+   i: Integer;
+begin
+   Result := '';
+
+   for i:= 0 to ParamCount do
+   begin
+     paramNameAndValue := ParamStr(i);
+     if (StartsWith(inParamName, paramNameAndValue)) then
+     begin
+       Result := StringReplace(paramNameAndValue, inParamName + '=', '');
+       break;
+     end;
+   end;
+end;
+
+// Delete app data
+procedure DeleteUserFiles();
+var
+  iAns: Integer;
+begin
+  if UninstallSilent() then exit;
+  
+  iAns := MsgBox('Do you want to delete your settings and presets as well?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2);
+
+  if iAns = IDYES then
+  begin
+    DelTree(ExpandConstant('{userappdata}') + '\%folderName%', True, True, True);
+  end; 
+end;
+
+// Gets the registry key path for the x86 version uninstall.
+function GetX86UninstallRegistryKey(): String;
+var
+  sUninstPath: String;
+  sUninstallString: String;
+begin
+  sUninstPath := ExpandConstant('Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\VidCoder-Beta-x86_is1');
+  sUninstallString := '';
+  if not RegQueryStringValue(HKLM, sUninstPath, 'UninstallString', sUninstallString) then
+    RegQueryStringValue(HKCU, sUninstPath, 'UninstallString', sUninstallString);
+  Result := sUninstallString;
+end;
+
+// Uninstalls the old x86 version.
+function UninstallX86Version(): Integer;
+var
+  sUninstallString: String;
+  iResultCode: Integer;
+begin
+// Return Values:
+// 1 - uninstall string is empty
+// 2 - error executing the UninstallString
+// 3 - successfully executed the UninstallString
+
+  // default return value
+  Result := 0;
+
+  // get the uninstall string of the old app
+  sUninstallString := GetX86UninstallRegistryKey();
+  if sUninstallString <> '' then begin
+    sUninstallString := RemoveQuotes(sUninstallString);
+    if Exec(sUninstallString, '/SILENT /NORESTART /SUPPRESSMSGBOXES','', SW_HIDE, ewWaitUntilTerminated, iResultCode) then
+      Result := 3
+    else
+      Result := 2;
+  end else
+    Result := 1;
+end;
+
+procedure CurStepChanged(CurStep: TSetupStep);
+var
+   showSuccessDialog: String;
+begin
+  case CurStep of
+    ssInstall:
+      begin
+        if (GetX86UninstallRegistryKey() <> '') then
+        begin
+          UninstallX86Version();
+        end;
+      end;
+    ssPostInstall:
+      begin
+        if Framework46IsNotInstalled() then
+        begin
+          InstallFramework();
+        end;
+      end;
+    ssDone:
+      begin
+        showSuccessDialog := GetCommandLineParam('/showSuccessDialog');
+        if showSuccessDialog <> '' then
+        begin
+          MsgBox('VidCoder has been successfully updated.', mbInformation, MB_OK);
+        end;
+     end;
+  end;
+end;
+
+
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+begin
+  case CurUninstallStep of
+    usUninstall:
+      begin
+        DeleteUserFiles;
+      end;
+  end;
+end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

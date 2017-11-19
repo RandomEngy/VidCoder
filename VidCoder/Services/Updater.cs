@@ -429,25 +429,19 @@ namespace VidCoder.Services
 
 		private static string GetUpdateUrl(bool beta)
 		{
-			bool is64Bit = Environment.Is64BitOperatingSystem;
-			string updateInfoFile = GetUpdateFilename(beta, is64Bit);
+			string updateInfoFile = GetUpdateFilename(beta);
 
 			string testPortion = CommonUtilities.DebugMode ? "/Test" : string.Empty;
 
 			return UpdateInfoUrlBase + testPortion + "/" + updateInfoFile;
 		}
 
-		private static string GetUpdateFilename(bool beta, bool is64Bit)
+		private static string GetUpdateFilename(bool beta)
 		{
 			var fileNameBuilder = new StringBuilder("latest");
 			if (beta)
 			{
 				fileNameBuilder.Append("-beta");
-			}
-
-			if (!is64Bit)
-			{
-				fileNameBuilder.Append("-x86");
 			}
 
 			fileNameBuilder.Append(".json");
