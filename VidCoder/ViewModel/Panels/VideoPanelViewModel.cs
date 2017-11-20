@@ -1083,7 +1083,7 @@ namespace VidCoder.ViewModel
 				return "balanced";
 			}
 
-			if (encoderName.StartsWith("x26", StringComparison.Ordinal) || encoderName.StartsWith("vp", StringComparison.Ordinal))
+			if (encoderName.StartsWith("x26", StringComparison.Ordinal) || encoderName.StartsWith("VP", StringComparison.Ordinal))
 			{
 				return "medium";
 			}
@@ -1219,11 +1219,11 @@ namespace VidCoder.ViewModel
 			{
 				quality = 12;
 			}
-			else if (encoderName == "vp8")
+			else if (encoderName == "VP8")
 			{
 				quality = 10;
 			}
-			else if (encoderName == "vp9")
+			else if (encoderName == "VP9")
 			{
 				quality = 33;
 			}
