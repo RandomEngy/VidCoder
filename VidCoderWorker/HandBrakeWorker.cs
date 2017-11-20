@@ -237,7 +237,7 @@ namespace VidCoderWorker
                 {
                     this.StopOnException(() =>
                     {
-                        this.callback.OnEncodeProgress((float)e.AverageFrameRate, (float)e.CurrentFrameRate, e.EstimatedTimeLeft, (float)e.FractionComplete, e.PassId, e.Pass, e.PassCount);
+                        this.callback.OnEncodeProgress((float)e.AverageFrameRate, (float)e.CurrentFrameRate, e.EstimatedTimeLeft, (float)e.FractionComplete, e.PassId, e.Pass, e.PassCount, e.StateCode);
                     });
                 };
 

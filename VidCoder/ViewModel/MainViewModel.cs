@@ -160,7 +160,7 @@ namespace VidCoder.ViewModel
 				{
 					foreach (SrtSubtitle srtSubtitle in currentSubtitles.SrtSubtitles)
 					{
-						trackSummaries.Add(Languages.Get(srtSubtitle.LanguageCode).EnglishName);
+						trackSummaries.Add(HandBrakeLanguagesHelper.Get(srtSubtitle.LanguageCode).EnglishName);
 					}
 				}
 

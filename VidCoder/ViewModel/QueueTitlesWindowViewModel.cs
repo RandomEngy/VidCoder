@@ -103,7 +103,7 @@ namespace VidCoder.ViewModel
 								EncodingProfile = previewProfile
 							};
 
-						this.PreviewImage = this.main.ScanInstance.GetPreview(previewProfile.CreatePreviewSettings(title), 2);
+						this.PreviewImage = BitmapUtilities.ConvertToBitmapImage(this.main.ScanInstance.GetPreview(previewProfile.CreatePreviewSettings(title), 2, deinterlace: false));
 						this.RaisePropertyChanged(nameof(this.TitleText));
 					}
 			    };

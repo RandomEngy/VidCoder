@@ -59,7 +59,7 @@ namespace VidCoder.Services.HandBrakeProxy
 	        throw new NotImplementedException();
 	    }
 
-	    public void OnEncodeProgress(float averageFrameRate, float currentFrameRate, TimeSpan estimatedTimeLeft, float fractionComplete, int passId, int pass, int passCount)
+	    public void OnEncodeProgress(float averageFrameRate, float currentFrameRate, TimeSpan estimatedTimeLeft, float fractionComplete, int passId, int pass, int passCount, string stateCode)
 	    {
 	        throw new NotImplementedException();
 	    }

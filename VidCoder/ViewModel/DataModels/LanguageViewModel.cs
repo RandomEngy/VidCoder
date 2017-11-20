@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Model;
 using ReactiveUI;
 
@@ -48,7 +49,7 @@ namespace VidCoder.ViewModel.DataModels
 		{
 			get
 			{
-				return HandBrake.ApplicationServices.Interop.Languages.AllLanguages;
+				return HandBrakeLanguagesHelper.AllLanguages;
 			}
 		}
 	}

@@ -30,7 +30,9 @@ namespace VidCoder
 		{
 			string currentLanguageCode = CultureInfo.CurrentUICulture.ThreeLetterISOLanguageName;
 
-			if (Languages.AllLanguages.Any(l => l.Code == currentLanguageCode) && (alreadyExistingCodes == null || !alreadyExistingCodes.Contains(currentLanguageCode)))
+			IList<Language> allLanguages = HandBrakeLanguagesHelper.AllLanguages;
+
+			if (allLanguages.Any(l => l.Code == currentLanguageCode) && (alreadyExistingCodes == null || !alreadyExistingCodes.Contains(currentLanguageCode)))
 			{
 				return currentLanguageCode;
 			}
@@ -48,7 +50,7 @@ namespace VidCoder
 				}
 			}
 
-			foreach (Language language in Languages.AllLanguages)
+			foreach (Language language in allLanguages)
 			{
 				if (!alreadyExistingCodes.Contains(language.Code) && language.Code != "und")
 				{

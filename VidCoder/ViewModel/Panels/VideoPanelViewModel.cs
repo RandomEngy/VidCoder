@@ -115,23 +115,6 @@ namespace VidCoder.ViewModel
 				return videoEncoder.StartsWith("qsv_", StringComparison.OrdinalIgnoreCase);
 			}).ToProperty(this, x => x.QsvSettingsVisible, out this.qsvSettingsVisible);
 
-			// EncoderSettingsVisible
-			this.WhenAnyValue(x => x.SelectedEncoder, selectedEncoder =>
-			{
-				if (selectedEncoder == null)
-				{
-					return false;
-				}
-
-				string videoEncoder = selectedEncoder.Encoder.ShortName;
-
-				return 
-					videoEncoder.StartsWith("x264", StringComparison.OrdinalIgnoreCase) || 
-					videoEncoder.StartsWith("x265", StringComparison.OrdinalIgnoreCase) || 
-					videoEncoder == "qsv_h264" || 
-					videoEncoder == "qsv_h265";
-			}).ToProperty(this, x => x.EncoderSettingsVisible, out this.encoderSettingsVisible);
-
 			// BasicEncoderSettingsVisible
 			this.WhenAnyValue(x => x.SelectedEncoder, x => x.UseAdvancedTab, (selectedEncoder, useAdvancedTab) =>
 			{
@@ -141,11 +124,6 @@ namespace VidCoder.ViewModel
 				}
 
 				string videoEncoder = selectedEncoder.Encoder.ShortName;
-
-				if (videoEncoder == "qsv_h264")
-				{
-					return true;
-				}
 
 				if (videoEncoder != "x264")
 				{
@@ -1100,17 +1078,17 @@ namespace VidCoder.ViewModel
 
 		private static string GetDefaultPreset(string encoderName)
 		{
-			switch (encoderName)
+			if (encoderName.StartsWith("qsv", StringComparison.Ordinal))
 			{
-				case "x264":
-				case "x265":
-					return "medium";
-				case "qsv_h264":
-				case "qsv_h265":
-					return "balanced";
-				default:
-					return null;
+				return "balanced";
 			}
+
+			if (encoderName.StartsWith("x26", StringComparison.Ordinal) || encoderName.StartsWith("vp", StringComparison.Ordinal))
+			{
+				return "medium";
+			}
+
+			return null;
 		}
 
 		private void NotifyAudioChanged()
@@ -1230,21 +1208,31 @@ namespace VidCoder.ViewModel
 
 		private void SetDefaultQuality()
 		{
-			switch (this.SelectedEncoder.Encoder.ShortName)
+			string encoderName = this.SelectedEncoder.Encoder.ShortName;
+
+			int quality = 22;
+			if (encoderName.StartsWith("x26", StringComparison.Ordinal) || encoderName.StartsWith("qsv_h26", StringComparison.Ordinal))
 			{
-				case "x264":
-					this.Quality = 20;
-					break;
-				case "mpeg4":
-				case "mpeg2":
-					this.Quality = 12;
-					break;
-				case "theora":
-					this.Quality = 38;
-					break;
-				default:
-					throw new InvalidOperationException("Unrecognized encoder.");
+				quality = 22;
 			}
+			else if (encoderName.StartsWith("mpeg", StringComparison.Ordinal))
+			{
+				quality = 12;
+			}
+			else if (encoderName == "vp8")
+			{
+				quality = 10;
+			}
+			else if (encoderName == "vp9")
+			{
+				quality = 33;
+			}
+			else if (encoderName == "theora")
+			{
+				quality = 38;
+			}
+
+			this.Quality = quality;
 		}
 
 		private void ReadTuneListFromProfile()

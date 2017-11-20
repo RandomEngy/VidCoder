@@ -1147,7 +1147,7 @@ namespace VidCoder.ViewModel
 				if (imageSource == null && !imageJob.ScanInstance.IsDisposed)
 				{
 					// Make a HandBrake call to get the image
-					imageSource = imageJob.ScanInstance.GetPreview(imageJob.Profile.CreatePreviewSettings(imageJob.Title), imageJob.PreviewNumber);
+					imageSource = BitmapUtilities.ConvertToBitmapImage(imageJob.ScanInstance.GetPreview(imageJob.Profile.CreatePreviewSettings(imageJob.Title), imageJob.PreviewNumber, deinterlace: false));
 
 					// Transform the image as per rotation and reflection settings
 					VCProfile profile = imageJob.Profile;
