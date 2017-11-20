@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Home
-version: 50
+version: 51
 ---
 
 VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application for Windows. It uses [HandBrake](http://handbrake.fr/) as its encoding engine.
@@ -28,8 +28,8 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 {% endif %}
 {% endfor %}
 {% assign betaVersion = betaTag | remove: "v" | remove: "-beta" %}
-{% capture betaInstallerUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ betaTag }}/VidCoder-{{ betaVersion }}-Beta-x64.exe{% endcapture %}
-{% capture betaPortableUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ betaTag }}/VidCoder-{{ betaVersion }}-Beta-x64-Portable.exe{% endcapture %}
+{% capture betaInstallerUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ betaTag }}/VidCoder-{{ betaVersion }}-Beta.exe{% endcapture %}
+{% capture betaPortableUrl %}https://github.com/RandomEngy/VidCoder/releases/download/{{ betaTag }}/VidCoder-{{ betaVersion }}-Beta-Portable.exe{% endcapture %}
 {% capture betaNotesUrl %}https://github.com/RandomEngy/VidCoder/releases/tag/{{ betaTag }}{% endcapture %}
 
 <table class="releasesTable">
@@ -38,6 +38,15 @@ VidCoder is an open-source DVD/Blu-ray ripping and video transcoding application
 </td></tr>
 <tr>
 <td><a class="button" href="{{ installerUrl }}">Download Installer</a></td><td><a href="{{ portableUrl }}" class="secondaryInstallLink">Portable (.exe)</a></td><td><a href="{{ sourceUrl }}" class="secondaryInstallLink">Source (.zip)</a></td><td><a href="{{ notesUrl }}" class="secondaryInstallLink">Release Notes</a></td>
+</tr>
+</table>
+
+<table class="releasesTable">
+<tr><td colspan="4">
+<h2 class="versionHeader betaVersionHeader">Latest Beta: {{ betaVersion }}</h2>
+</td></tr>
+<tr>
+<td><a href="{{ betaInstallerUrl }}">Installer (.exe)</a></td><td><a href="{{ betaPortableUrl }}" class="secondaryInstallLink">Portable (.exe)</a></td><td><a href="{{ betaSourceUrl }}" class="secondaryInstallLink">Source (.zip)</a></td><td><a href="{{ betaNotesUrl }}" class="secondaryInstallLink">Release Notes</a></td>
 </tr>
 </table>
 
