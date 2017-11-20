@@ -586,9 +586,6 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> qsvSettingsVisible;
 		public bool QsvSettingsVisible => this.qsvSettingsVisible.Value;
 
-		private ObservableAsPropertyHelper<bool> encoderSettingsVisible;
-		public bool EncoderSettingsVisible => this.encoderSettingsVisible.Value;
-
 		private ObservableAsPropertyHelper<bool> basicEncoderSettingsVisible;
 		public bool BasicEncoderSettingsVisible => this.basicEncoderSettingsVisible.Value;
 
