@@ -372,6 +372,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Align A/V Start.
+        /// </summary>
+        public static string AlignAVStartCheckBox {
+            get {
+                return ResourceManager.GetString("AlignAVStartCheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aligns the initial timestamps of all audio and video streams by inserting blank frames or dropping frames. May improve audio/video sync for broken players that do not honor MP4 edit lists..
+        /// </summary>
+        public static string AlignAVStartCheckBoxToolTip {
+            get {
+                return ResourceManager.GetString("AlignAVStartCheckBoxToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Allow upscaling.
         /// </summary>
         public static string AllowUpscalingCheckbox {
@@ -736,7 +754,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Container:.
+        ///   Looks up a localized string similar to Container format:.
         /// </summary>
         public static string ContainerLabel {
             get {
@@ -2249,6 +2267,15 @@ namespace VidCoder.Resources {
         public static string TabHeader_AudioEncoding {
             get {
                 return ResourceManager.GetString("TabHeader_AudioEncoding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Container.
+        /// </summary>
+        public static string TabHeader_Container {
+            get {
+                return ResourceManager.GetString("TabHeader_Container", resourceCulture);
             }
         }
         

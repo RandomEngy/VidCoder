@@ -335,6 +335,7 @@ namespace VidCoderCommon.Model
 			var destination = new Destination
 			{
 				File = job.OutputPath,
+				AlignAVStart = profile.AlignAVStart,
 				Mp4Options = new Mp4Options
 				{
 					IpodAtom = profile.IPod5GSupport,

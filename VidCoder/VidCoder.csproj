@@ -325,6 +325,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\Panels\ContainerPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Panels\SizingPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -632,6 +636,7 @@
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />
     <Compile Include="ViewModel\IMainView.cs" />
     <Compile Include="ViewModel\IPreviewView.cs" />
+    <Compile Include="ViewModel\Panels\ContainerPanelViewModel.cs" />
     <Compile Include="ViewModel\PickerWindowViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModelBase.cs" />
     <Compile Include="ViewModel\ShutdownWarningWindowViewModel.cs" />
@@ -646,6 +651,9 @@
     </Compile>
     <Compile Include="View\Panels\AudioEncodingPanel.xaml.cs">
       <DependentUpon>AudioEncodingPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Panels\ContainerPanel.xaml.cs">
+      <DependentUpon>ContainerPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PickerWindow.xaml.cs">
       <DependentUpon>PickerWindow.xaml</DependentUpon>

@@ -278,7 +278,7 @@ You should set this if you know your playback device only supports a certain pro
     <value>Tune options to further optimize them for your input content. If you specify a tuning, the changes will be applied after the Preset but before all other parameters.</value>
   </data>
   <data name="ContainerLabel" xml:space="preserve">
-    <value>Container:</value>
+    <value>Container format:</value>
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Extension:</value>
@@ -1048,5 +1048,14 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
   <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
     <value>Keys:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>Align A/V Start</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>Aligns the initial timestamps of all audio and video streams by inserting blank frames or dropping frames. May improve audio/video sync for broken players that do not honor MP4 edit lists.</value>
+  </data>
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>Container</value>
   </data>
 </root>

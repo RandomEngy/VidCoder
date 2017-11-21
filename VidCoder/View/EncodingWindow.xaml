@@ -111,7 +111,7 @@
 			Visibility="{Binding PresetPanelOpen,
 			                     Converter={StaticResource VisibilityConverter}}" />
 
-		<Grid Name="mainGrid" Grid.Column="1">
+		<Grid Name="mainGrid" Grid.Column="1" Background="#BBB">
 			<ToolBarPanel
 				Margin="-5 0 -14 0"
 				HorizontalAlignment="Stretch"
@@ -242,98 +242,13 @@
 				</ToolBar>
 			</ToolBarPanel>
 
-			<StackPanel
-				Height="32"
-				Margin="3 37 0 0"
-				HorizontalAlignment="Left"
-				VerticalAlignment="Top"
-				Orientation="Horizontal">
-				<Label
-					HorizontalAlignment="Left"
-					VerticalAlignment="Center"
-					Content="{x:Static res:EncodingRes.ContainerLabel}" />
-				<ComboBox
-					Height="23"
-					MinWidth="60"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Center"
-					VerticalContentAlignment="Center"
-					ItemsSource="{Binding ContainerChoices}"
-					SelectedValue="{Binding ContainerName}"
-					SelectedValuePath="Value" />
-				<Label
-					Height="28"
-					Margin="10 0 0 0"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Center"
-					Content="{x:Static res:EncodingRes.ExtensionLabel}"
-					Visibility="{Binding ShowMp4Choices,
-					                     Converter={StaticResource VisibilityConverter}}" />
-
-				<StackPanel Orientation="Vertical">
-					<RadioButton
-						Width="53.578"
-						Height="16"
-						HorizontalAlignment="Left"
-						VerticalAlignment="Top"
-						IsChecked="{Binding PreferredExtension,
-						                    Converter={StaticResource EnumBoolConverter},
-						                    ConverterParameter={x:Static model:VCOutputExtension.Mp4}}"
-						Visibility="{Binding ShowMp4Choices,
-						                     Converter={StaticResource VisibilityConverter}}">
-						.mp4
-					</RadioButton>
-					<RadioButton
-						Width="53.578"
-						Height="16"
-						HorizontalAlignment="Left"
-						VerticalAlignment="Top"
-						IsChecked="{Binding PreferredExtension,
-						                    Converter={StaticResource EnumBoolConverter},
-						                    ConverterParameter={x:Static model:VCOutputExtension.M4v}}"
-						Visibility="{Binding ShowMp4Choices,
-						                     Converter={StaticResource VisibilityConverter}}">
-						.m4v
-					</RadioButton>
-				</StackPanel>
-
-				<StackPanel
-					Margin="10 0 0 0"
-					VerticalAlignment="Center"
-					Orientation="Vertical">
-					<CheckBox
-						VerticalAlignment="Center"
-						Content="{x:Static res:EncodingRes.IncludeChapterMarkersCheckBox}"
-						IsChecked="{Binding IncludeChapterMarkers}"
-						ToolTip="{x:Static res:EncodingRes.IncludeChapterMarkersToolTip}" />
-					<CheckBox
-						HorizontalAlignment="Left"
-						VerticalAlignment="Top"
-						Content="{x:Static res:EncodingRes.WebOptimizedCheckBox}"
-						IsChecked="{Binding Optimize}"
-						ToolTip="{x:Static res:EncodingRes.WebOptimizedToolTip}"
-						Visibility="{Binding ShowMp4Choices,
-						                     Converter={StaticResource VisibilityConverter}}" />
-				</StackPanel>
-
-				<StackPanel
-					Margin="10 0 0 0"
-					VerticalAlignment="Center"
-					Orientation="Vertical">
-					<CheckBox
-						VerticalAlignment="Center"
-						Content="{x:Static res:EncodingRes.Ipod5GSupportCheckBox}"
-						IsChecked="{Binding IPod5GSupport}"
-						ToolTip="{x:Static res:EncodingRes.IPod5GSupportToolTip}"
-						Visibility="{Binding ShowMp4Choices,
-						                     Converter={StaticResource VisibilityConverter}}" />
-				</StackPanel>
-			</StackPanel>
-
 			<TabControl
+				Margin="0 28 0 0"
 				Name="tabControl"
-				Margin="0 73 0 0"
 				SelectedIndex="{Binding SelectedTabIndex}">
+				<TabItem Header="{x:Static res:EncodingRes.TabHeader_Container}">
+					<view:ContainerPanel DataContext="{Binding ContainerPanelViewModel}" />
+				</TabItem>
 				<TabItem Header="{x:Static res:EncodingRes.TabHeader_Sizing}">
 					<view:SizingPanel DataContext="{Binding SizingPanelViewModel}" />
 				</TabItem>

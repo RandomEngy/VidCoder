@@ -38,6 +38,9 @@ namespace VidCoderCommon.Model
 		public bool Optimize { get; set; }
 
 		[JsonProperty]
+		public bool AlignAVStart { get; set; }
+
+		[JsonProperty]
 		public bool IPod5GSupport { get; set; }
 
 		[JsonProperty]

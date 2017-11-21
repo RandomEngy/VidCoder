@@ -951,6 +951,12 @@ namespace VidCoder.ViewModel
 				this.selectedEncoder = this.EncoderChoices[0];
 			}
 
+			// If it's a container change we need to commit the new encoder change.
+			if (refreshSource == EncoderChoicesRefreshSource.ContainerChange && this.selectedEncoder.Encoder != oldEncoder)
+			{
+				this.UpdateProfileProperty(nameof(this.Profile.VideoEncoder), this.selectedEncoder.Encoder.ShortName, raisePropertyChanged: false);
+			}
+
 			this.RaisePropertyChanged(nameof(this.SelectedEncoder));
 		}
 
