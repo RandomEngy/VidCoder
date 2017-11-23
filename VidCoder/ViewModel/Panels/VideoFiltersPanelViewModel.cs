@@ -24,6 +24,8 @@ namespace VidCoder.ViewModel
 
 		private static readonly ResourceManager EnumResourceManager = new ResourceManager(typeof(EnumsRes));
 
+		private PreviewUpdateService previewUpdateService = Ioc.Get<PreviewUpdateService>();
+
 		public VideoFiltersPanelViewModel(EncodingWindowViewModel encodingWindowViewModel)
 			: base(encodingWindowViewModel)
 		{
@@ -200,6 +202,8 @@ namespace VidCoder.ViewModel
 						this.CombDetect = "off";
 					}
 				}
+
+				this.previewUpdateService.RefreshPreview();
 			});
 			this.RegisterProfileProperty(nameof(this.DeinterlacePreset), () =>
 			{
