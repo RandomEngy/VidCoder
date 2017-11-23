@@ -609,14 +609,14 @@ namespace VidCoder.Model
 						int decombMode = yadif + blend * 2 + cubic * 4 + eedi2 * 8 + bob * 16;
 
 						string combDetectCustom =
-							$"mode={detectMode}:spatial-metric={spatialMetric}:motion-thresh={motionThreshold}:spatial-thresh={spatialThreshold}:" +
-							$"filter-mode={filterMode}:block-thresh={blockThreshold}:block-width={blockWidth}:block-height={blockHeight}";
+							FormattableString.Invariant($"mode={detectMode}:spatial-metric={spatialMetric}:motion-thresh={motionThreshold}:spatial-thresh={spatialThreshold}:") +
+							FormattableString.Invariant($"filter-mode={filterMode}:block-thresh={blockThreshold}:block-width={blockWidth}:block-height={blockHeight}");
 						profile.CombDetect = "custom";
 						profile.CustomCombDetect = combDetectCustom;
 
 						string decombCustom =
-							$"mode={decombMode}:magnitude-thresh={magnitudeThreshold}:variance-thresh={varianceThreshold}:laplacian-thresh={laplacianThreshold}:dilation-thresh={dilationThreshold}:" +
-							$"erosion-thresh={erosionThreshold}:noise-thresh={noiseThreshold}:search-distance={maximumSearchDistance}:postproc={postProcessing}";
+							FormattableString.Invariant($"mode={decombMode}:magnitude-thresh={magnitudeThreshold}:variance-thresh={varianceThreshold}:laplacian-thresh={laplacianThreshold}:dilation-thresh={dilationThreshold}:") +
+							FormattableString.Invariant($"erosion-thresh={erosionThreshold}:noise-thresh={noiseThreshold}:search-distance={maximumSearchDistance}:postproc={postProcessing}");
 						if (parity >= 0)
 						{
 							decombCustom += ":parity" + parity;
@@ -764,7 +764,7 @@ namespace VidCoder.Model
 
 		private static string CreateCustomFilterStringFromDictionary(IDictionary<string, string> dictionary)
 		{
-			return string.Join(":", dictionary.Select(pair => $"{pair.Key}={pair.Value}"));
+			return string.Join(":", dictionary.Select(pair => FormattableString.Invariant($"{pair.Key}={pair.Value}")));
 		}
 
 		private static int ExtractInt(Dictionary<string, string> dictionary, string parameterName, int defaultValue)

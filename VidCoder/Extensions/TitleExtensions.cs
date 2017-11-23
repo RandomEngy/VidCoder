@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Model;
 using VidCoderCommon.Extensions;
@@ -22,7 +23,7 @@ namespace VidCoder.Extensions
 			string playlistPortion = string.Empty;
 			if (title.Type == (int)TitleType.Bluray)
 			{
-				playlistPortion = $" {title.Playlist:d5}.MPLS";
+				playlistPortion = FormattableString.Invariant($" {title.Playlist:d5}.MPLS");
 			}
 
 			int hours, minutes, seconds;
@@ -40,6 +41,7 @@ namespace VidCoder.Extensions
 			}
 
 			return string.Format(
+				CultureInfo.CurrentCulture,
 				"{0}{1} ({2:00}:{3:00}:{4:00})",
 				title.Index,
 				playlistPortion,

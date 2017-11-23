@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
@@ -20,6 +21,7 @@ using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
+using VidCoderCommon;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 
@@ -377,12 +379,20 @@ namespace VidCoder.ViewModel
 			// WindowTitle
 			this.processingService.WhenAnyValue(x => x.Encoding, x => x.OverallEncodeProgressFraction, (encoding, progressFraction) =>
 			{
-				if (!encoding)
+				double progressPercent = progressFraction * 100;
+				var titleBuilder = new StringBuilder("VidCoder");
+
+				if (CommonUtilities.Beta)
 				{
-					return "VidCoder";
+					titleBuilder.Append(" Beta");
 				}
 
-				return $"VidCoder - {progressFraction:P1}";
+				if (encoding)
+				{
+					titleBuilder.Append($" - {progressPercent:F1}%");
+				}
+
+				return titleBuilder.ToString();
 			}).ToProperty(this, x => x.WindowTitle, out this.windowTitle);
 
 			// ShowChapterMarkerUI
