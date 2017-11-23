@@ -751,10 +751,9 @@ namespace VidCoderCommon.Model
 			}
 
 			video.Encoder = videoEncoder.Id;
-			video.HWDecode = false;
 			video.QSV = new QSV
 			{
-				Decode = profile.QsvDecode && profile.VideoEncoder.StartsWith("qsv", StringComparison.Ordinal)
+				Decode = profile.QsvDecode
 			};
 
 			if (profile.UseAdvancedTab)

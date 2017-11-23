@@ -102,19 +102,6 @@ namespace VidCoder.ViewModel
 				return videoEncoder == "x264";
 			}).ToProperty(this, x => x.X264SettingsVisible, out this.x264SettingsVisible);
 
-			// QsvSettingsVisible
-			this.WhenAnyValue(x => x.SelectedEncoder, selectedEncoder =>
-			{
-				if (selectedEncoder == null)
-				{
-					return false;
-				}
-
-				string videoEncoder = selectedEncoder.Encoder.ShortName;
-
-				return videoEncoder.StartsWith("qsv_", StringComparison.OrdinalIgnoreCase);
-			}).ToProperty(this, x => x.QsvSettingsVisible, out this.qsvSettingsVisible);
-
 			// BasicEncoderSettingsVisible
 			this.WhenAnyValue(x => x.SelectedEncoder, x => x.UseAdvancedTab, (selectedEncoder, useAdvancedTab) =>
 			{
@@ -583,8 +570,7 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> x264SettingsVisible;
 		public bool X264SettingsVisible => this.x264SettingsVisible.Value;
 
-		private ObservableAsPropertyHelper<bool> qsvSettingsVisible;
-		public bool QsvSettingsVisible => this.qsvSettingsVisible.Value;
+		public bool QsvSettingsVisible => HandBrakeUtils.QsvAvailable;
 
 		private ObservableAsPropertyHelper<bool> basicEncoderSettingsVisible;
 		public bool BasicEncoderSettingsVisible => this.basicEncoderSettingsVisible.Value;
