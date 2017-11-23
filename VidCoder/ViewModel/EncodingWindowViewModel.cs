@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Windows;
 using ReactiveUI;
 using VidCoder.Model;
@@ -21,7 +23,9 @@ namespace VidCoder.ViewModel
 		{
 			this.AutomaticChange = true;
 
-			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.DisplayNameWithStar)
+			this.PresetsService
+				.WhenAnyValue(x => x.SelectedPreset.DisplayNameWithStar)
+				.Select(presetNameWithStar => string.Format(CultureInfo.CurrentCulture, EncodingRes.WindowTitle, presetNameWithStar))
 				.ToProperty(this, x => x.WindowTitle, out this.windowTitle);
 
 			this.PresetsService.WhenAnyValue(

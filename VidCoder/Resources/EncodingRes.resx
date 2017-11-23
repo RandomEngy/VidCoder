@@ -1058,4 +1058,8 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
   <data name="TabHeader_Container" xml:space="preserve">
     <value>Container</value>
   </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Encoding Preset: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
 </root>
