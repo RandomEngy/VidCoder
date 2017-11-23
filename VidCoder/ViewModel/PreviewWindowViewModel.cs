@@ -545,6 +545,15 @@ namespace VidCoder.ViewModel
 
 			this.job.OutputPath = this.previewFilePath;
 
+			if (this.job.Subtitles?.SourceSubtitles != null)
+			{
+				SourceSubtitle scanTrack = this.job.Subtitles.SourceSubtitles.FirstOrDefault(s => s.TrackNumber == 0);
+				if (scanTrack != null)
+				{
+					this.job.Subtitles.SourceSubtitles.Remove(scanTrack);
+				}
+			}
+
 			this.encodeProxy = Utilities.CreateEncodeProxy();
 			this.encodeProxy.EncodeStarted += (o, e) =>
 			{
