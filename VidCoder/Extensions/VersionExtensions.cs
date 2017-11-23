@@ -12,12 +12,12 @@ namespace VidCoder.Extensions
 		{
 			if (version.Build == 0 && version.Revision == 0)
 			{
-				return $"{version.Major}.{version.Minor}";
+				return FormattableString.Invariant($"{version.Major}.{version.Minor}");
 			}
 
 			if (version.Revision == 0)
 			{
-				return $"{version.Major}.{version.Minor}.{version.Build}";
+				return FormattableString.Invariant($"{version.Major}.{version.Minor}.{version.Build}");
 			}
 
 			return version.ToString();

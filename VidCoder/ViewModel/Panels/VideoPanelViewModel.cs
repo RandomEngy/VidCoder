@@ -21,7 +21,7 @@ namespace VidCoder.ViewModel
 		private const int DefaultVideoBitrateKbps = 900;
 		private const int DefaultTargetSizeMB = 700;
 
-		private static readonly HashSet<string> CheckBoxTunes = new HashSet<string> { "fastdecode", "zerolatency" }; 
+		private static readonly HashSet<string> CheckBoxTunes = new HashSet<string> { "fastdecode", "zerolatency" };
 
 		private ResourceManager resourceManager = new ResourceManager(typeof(EncodingRes));
 
@@ -355,12 +355,12 @@ namespace VidCoder.ViewModel
 					this.RefreshEncoderChoices(containerName, EncoderChoicesRefreshSource.ContainerChange);
 				});
 
-		    this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.AudioCopyMask)
-		        .Skip(1)
-		        .Subscribe(copyMask =>
-		        {
-                    this.NotifyAudioChanged();
-		        });
+			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.AudioCopyMask)
+				.Skip(1)
+				.Subscribe(copyMask =>
+				{
+					this.NotifyAudioChanged();
+				});
 
 			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.AudioEncodings)
 				.Skip(1)
@@ -649,7 +649,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-                if (this.VideoEncodeRateType == VCVideoEncodeRateType.AverageBitrate)
+				if (this.VideoEncodeRateType == VCVideoEncodeRateType.AverageBitrate)
 				{
 					if (this.MainViewModel.HasVideoSource && this.MainViewModel.JobCreationAvailable && this.VideoBitrate > 0)
 					{
@@ -679,12 +679,12 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-                if (this.VideoEncodeRateType == VCVideoEncodeRateType.ConstantQuality)
+				if (this.VideoEncodeRateType == VCVideoEncodeRateType.ConstantQuality)
 				{
 					return DefaultVideoBitrateKbps;
 				}
 
-                if (this.VideoEncodeRateType == VCVideoEncodeRateType.TargetSize)
+				if (this.VideoEncodeRateType == VCVideoEncodeRateType.TargetSize)
 				{
 					if (this.MainViewModel.HasVideoSource && this.MainViewModel.JobCreationAvailable && this.TargetSize > 0)
 					{
@@ -926,7 +926,7 @@ namespace VidCoder.ViewModel
 			}
 
 			this.RaisePropertyChanged(nameof(this.EncoderChoices));
-			
+
 			HBVideoEncoder targetEncoder;
 
 			switch (refreshSource)
@@ -946,6 +946,12 @@ namespace VidCoder.ViewModel
 			if (this.selectedEncoder == null)
 			{
 				this.selectedEncoder = this.EncoderChoices[0];
+			}
+
+			// If it's a container change we need to commit the new encoder change.
+			if (refreshSource == EncoderChoicesRefreshSource.ContainerChange && this.selectedEncoder.Encoder != oldEncoder)
+			{
+				this.UpdateProfileProperty(nameof(this.Profile.VideoEncoder), this.selectedEncoder.Encoder.ShortName, raisePropertyChanged: false);
 			}
 
 			this.RaisePropertyChanged(nameof(this.SelectedEncoder));

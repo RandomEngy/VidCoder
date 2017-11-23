@@ -22,7 +22,7 @@ namespace VidCoder.Extensions
 			string playlistPortion = string.Empty;
 			if (title.Type == (int)TitleType.Bluray)
 			{
-				playlistPortion = $" {title.Playlist:d5}.MPLS";
+				playlistPortion = FormattableString.Invariant($" {title.Playlist:d5}.MPLS");
 			}
 
 			int hours, minutes, seconds;

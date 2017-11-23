@@ -565,7 +565,7 @@ namespace VidCoderCommon.Model
 
 				JToken padSettings = this.GetFilterSettings(
 					hb_filter_ids.HB_FILTER_PAD,
-					$"width={outputSizeInfo.OutputWidth}:height={outputSizeInfo.OutputHeight}:x={outputSizeInfo.Padding.Left}:y={outputSizeInfo.Padding.Top}:color=0x{padColor}");
+					FormattableString.Invariant($"width={outputSizeInfo.OutputWidth}:height={outputSizeInfo.OutputHeight}:x={outputSizeInfo.Padding.Left}:y={outputSizeInfo.Padding.Top}:color=0x{padColor}"));
 				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_PAD, Settings = padSettings };
 				filters.FilterList.Add(filterItem);
 			}
