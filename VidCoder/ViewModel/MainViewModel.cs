@@ -2328,7 +2328,7 @@ namespace VidCoder.ViewModel
 						this.logger.Log("Scan completed");
 					}
 
-					this.logger.Log("");
+					this.logger.Log(string.Empty);
 				});
 			};
 

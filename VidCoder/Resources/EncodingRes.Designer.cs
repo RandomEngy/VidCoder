@@ -2658,7 +2658,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Encoding Preset: {0}.
+        ///   Looks up a localized string similar to Encoding preset: {0}.
         /// </summary>
         public static string WindowTitle {
             get {

@@ -19,9 +19,6 @@ namespace VidCoder.Services.HandBrakeProxy
 		{
 			this.Logger = logger;
 
-			//this.encodeStartEvent = new ManualResetEventSlim(false);
-			//this.encodeEndEvent = new ManualResetEventSlim(false);
-
 			this.StartOperation(channel =>
 			{
 				channel.StartScan(path);
