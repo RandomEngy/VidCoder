@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>When automatic audio selection is disabled, the last picked track is persisted.</value>
-  </data>
-  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>When automatic subtitle selection is disabled, the last picked subtitles are persisted.</value>
-  </data>
   <data name="GeneralTab" xml:space="preserve">
     <value>General</value>
   </data>

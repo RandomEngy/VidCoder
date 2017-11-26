@@ -7,6 +7,7 @@ namespace VidCoder.Model
 {
 	public enum SubtitleSelectionMode
 	{
+		// Now called "Last selected", picks last selected subtitle if a match is found, otherwise none
 		Disabled = 0,
 		None = 4,
 		First = 5,

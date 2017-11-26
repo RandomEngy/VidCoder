@@ -250,4 +250,13 @@
     <value>Forced only</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
+  <data name="AudioDefaultToolTip" xml:space="preserve">
+    <value>Picks the last selected audio track if a match is found, otherwise picks the first.</value>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>Last selected</value>
+  </data>
+  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
+    <value>Picks the last selected subtitle track if a match is found, otherwise or no tracks.</value>
+  </data>
 </root>

@@ -204,7 +204,7 @@ namespace VidCoder.ViewModel
 					}
 				}).ToProperty(this, x => x.SubtitleModChoices, out this.subtitleModChoices);
 
-				this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsNone, x => x.SelectedPicker.Picker.IsModified, (isNone, isModified) => !isNone && !isModified).ToProperty(this, x => x.DeleteButtonVisible, out this.deleteButtonVisible);
+				this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsDefault, x => x.SelectedPicker.Picker.IsModified, (isNone, isModified) => !isNone && !isModified).ToProperty(this, x => x.DeleteButtonVisible, out this.deleteButtonVisible);
 
 				this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.DisplayName, x => x.SelectedPicker.Picker.IsModified, (displayName, isModified) =>
 				{
@@ -275,7 +275,7 @@ namespace VidCoder.ViewModel
 				this.DismissMessage = ReactiveCommand.Create();
 				this.DismissMessage.Subscribe(_ => { this.ShowHelpMessage = false; });
 
-				this.Save = ReactiveCommand.Create(this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsNone).Select(isNone => !isNone));
+				this.Save = ReactiveCommand.Create(this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsDefault).Select(isNone => !isNone));
 				this.Save.Subscribe(_ => { this.pickersService.SavePicker(); });
 
 				this.SaveAs = ReactiveCommand.Create();
@@ -284,7 +284,7 @@ namespace VidCoder.ViewModel
 				this.Rename = ReactiveCommand.Create();
 				this.Rename.Subscribe(_ => this.RenameImpl());
 
-				this.Delete = ReactiveCommand.Create(this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsModified, x => x.SelectedPicker.Picker.IsNone, (isModified, isNone) => isModified || !isNone));
+				this.Delete = ReactiveCommand.Create(this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsModified, x => x.SelectedPicker.Picker.IsDefault, (isModified, isNone) => isModified || !isNone));
 				this.Delete.Subscribe(_ => this.DeleteImpl());
 
 				this.PickOutputDirectory = ReactiveCommand.Create();
@@ -822,7 +822,7 @@ namespace VidCoder.ViewModel
 
 			if (!this.autoChangeTracker.OperationInProgress)
 			{
-				bool createPicker = this.Picker.IsNone;
+				bool createPicker = this.Picker.IsDefault;
 				if (createPicker)
 				{
 					this.pickersService.AutoCreatePicker();

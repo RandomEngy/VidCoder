@@ -328,12 +328,12 @@
 						<RadioButton
 							HorizontalAlignment="Left"
 							VerticalAlignment="Top"
-							Content="{x:Static res:CommonRes.Disabled}"
+							Content="{x:Static res:CommonRes.Default}"
 							GroupName="autoAudio1"
 							IsChecked="{Binding AudioSelectionMode,
 												Converter={StaticResource EnumBoolConverter},
 												ConverterParameter={x:Static model:AudioSelectionMode.Disabled}}"
-							ToolTip="{x:Static res:OptionsRes.AutoAudioDisabledToolTip}" />
+							ToolTip="{x:Static res:PickerRes.AudioDefaultToolTip}" />
 						<RadioButton
 							Margin="0 6 0 0"
 							HorizontalAlignment="Left"
@@ -494,12 +494,12 @@
 						<RadioButton
 							HorizontalAlignment="Left"
 							VerticalAlignment="Top"
-							Content="{x:Static res:CommonRes.Disabled}"
+							Content="{x:Static res:PickerRes.LastSelectedRadioButton}"
 							GroupName="autoSubtitle1"
 							IsChecked="{Binding SubtitleSelectionMode,
 												Converter={StaticResource EnumBoolConverter},
 												ConverterParameter={x:Static model:SubtitleSelectionMode.Disabled}}"
-							ToolTip="{x:Static res:OptionsRes.AutoSubtitleDisabledToolTip}" />
+							ToolTip="{x:Static res:PickerRes.SubtitleLastSelectedToolTip}" />
 						<RadioButton
 							Margin="0 6 0 0"
 							HorizontalAlignment="Left"

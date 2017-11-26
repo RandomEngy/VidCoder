@@ -106,6 +106,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Picks the last selected audio track if a match is found, otherwise picks the first..
+        /// </summary>
+        public static string AudioDefaultToolTip {
+            get {
+                return ResourceManager.GetString("AudioDefaultToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Include only the first audio track..
         /// </summary>
         public static string AudioFirstToolTip {
@@ -228,6 +237,15 @@ namespace VidCoder.Resources {
         public static string LanguagesRadioButton {
             get {
                 return ResourceManager.GetString("LanguagesRadioButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last selected.
+        /// </summary>
+        public static string LastSelectedRadioButton {
+            get {
+                return ResourceManager.GetString("LastSelectedRadioButton", resourceCulture);
             }
         }
         
@@ -381,6 +399,15 @@ namespace VidCoder.Resources {
         public static string SubtitleFirstToolTip {
             get {
                 return ResourceManager.GetString("SubtitleFirstToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Picks the last selected subtitle track if a match is found, otherwise or no tracks..
+        /// </summary>
+        public static string SubtitleLastSelectedToolTip {
+            get {
+                return ResourceManager.GetString("SubtitleLastSelectedToolTip", resourceCulture);
             }
         }
         
