@@ -652,4 +652,7 @@
 
 {0}</value>
   </data>
+  <data name="FileSizeColumnHeader" xml:space="preserve">
+    <value>Size</value>
+  </data>
 </root>

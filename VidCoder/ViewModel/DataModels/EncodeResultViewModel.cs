@@ -113,6 +113,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public string OutputFileSize => Utilities.FormatFileSize(this.encodeResult.SizeBytes);
+
 		public ReactiveCommand<object> Play { get; }
 		private void PlayImpl()
 		{

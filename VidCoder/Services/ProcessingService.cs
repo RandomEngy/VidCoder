@@ -1535,7 +1535,8 @@ namespace VidCoder.Services
 							Destination = this.CurrentJob.Job.OutputPath,
 							Status = status,
 							EncodeTime = this.CurrentJob.EncodeTime,
-							LogPath = encodeLogger.LogPath
+							LogPath = encodeLogger.LogPath,
+							SizeBytes = outputFileInfo.Length
 						},
 						finishedJob));
 

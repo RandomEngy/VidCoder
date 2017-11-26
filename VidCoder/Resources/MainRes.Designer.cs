@@ -614,6 +614,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        public static string FileSizeColumnHeader {
+            get {
+                return ResourceManager.GetString("FileSizeColumnHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Foreign Audio Search.
         /// </summary>
         public static string ForeignAudioSearch {

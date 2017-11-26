@@ -186,21 +186,6 @@
 					Value="{Binding PercentComplete}" />
 			</Grid>
 		</DataTemplate>
-		<DataTemplate x:Key="CompletedDestinationTemplate">
-			<controls:PathTextBlock Text="{Binding EncodeResult.Destination}" />
-		</DataTemplate>
-		<DataTemplate x:Key="CompletedStatusTemplate">
-			<StackPanel Orientation="Horizontal">
-				<Image
-					Width="16"
-					Height="16"
-					Source="{Binding StatusImage}" />
-				<TextBlock Margin="4 0 0 0" Text="{Binding StatusText}" />
-			</StackPanel>
-		</DataTemplate>
-		<DataTemplate x:Key="CompletedTimeTemplate">
-			<TextBlock Text="{Binding TimeDisplay}" />
-		</DataTemplate>
 		<ContextMenu x:Key="CompletedItemContextMenu" d:DataContext="{d:DesignInstance viewmodel:EncodeResultViewModel}">
 			<MenuItem Command="{Binding Play}" Header="{x:Static res:MainRes.Play}">
 				<MenuItem.Icon>
@@ -1464,16 +1449,46 @@
 									<GridView.Columns>
 										<GridViewColumn
 											Width="300"
-											CellTemplate="{StaticResource CompletedDestinationTemplate}"
-											Header="{x:Static res:MainRes.DestinationColumnHeader}" />
+											Header="{x:Static res:MainRes.DestinationColumnHeader}">
+											<GridViewColumn.CellTemplate>
+												<DataTemplate>
+													<controls:PathTextBlock Text="{Binding EncodeResult.Destination}" />
+												</DataTemplate>
+											</GridViewColumn.CellTemplate>
+										</GridViewColumn>
 										<GridViewColumn
 											Width="120"
-											CellTemplate="{StaticResource CompletedStatusTemplate}"
-											Header="{x:Static res:MainRes.StatusColumnHeader}" />
+											Header="{x:Static res:MainRes.StatusColumnHeader}">
+											<GridViewColumn.CellTemplate>
+												<DataTemplate>
+													<StackPanel Orientation="Horizontal">
+														<Image
+															Width="16"
+															Height="16"
+															Source="{Binding StatusImage}" />
+														<TextBlock Margin="4 0 0 0" Text="{Binding StatusText}" />
+													</StackPanel>
+												</DataTemplate>
+											</GridViewColumn.CellTemplate>
+										</GridViewColumn>
 										<GridViewColumn
 											Width="90"
-											CellTemplate="{StaticResource CompletedTimeTemplate}"
-											Header="{x:Static res:MainRes.ElapsedTimeColumnHeader}" />
+											Header="{x:Static res:MainRes.ElapsedTimeColumnHeader}">
+											<GridViewColumn.CellTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding TimeDisplay}" />
+												</DataTemplate>
+											</GridViewColumn.CellTemplate>
+										</GridViewColumn>
+										<GridViewColumn
+											Width="80"
+											Header="{x:Static res:MainRes.FileSizeColumnHeader}">
+											<GridViewColumn.CellTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding OutputFileSize}" />
+												</DataTemplate>
+											</GridViewColumn.CellTemplate>
+										</GridViewColumn>
 									</GridView.Columns>
 								</GridView>
 							</ListView.View>
