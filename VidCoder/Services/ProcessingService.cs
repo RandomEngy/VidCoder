@@ -1109,18 +1109,28 @@ namespace VidCoder.Services
 			}
 		}
 
-		public void RemoveQueueJob(EncodeJobViewModel job)
+		public void RemoveQueueJobAndOthersIfSelected(EncodeJobViewModel job)
 		{
-			this.EncodeQueue.Remove(job);
-
-			if (this.Encoding)
+			if (job.IsSelected)
 			{
-				this.totalTasks--;
-				this.totalQueueCost -= job.Cost;
+				// If job is selected, remove all jobs that are selected
+				this.RemoveSelectedJobsImpl();
+			}
+			else
+			{
+				// If not, remove only this job.
 
-				if (this.totalTasks == 1)
+				this.EncodeQueue.Remove(job);
+
+				if (this.Encoding)
 				{
-					this.EncodeQueue[0].IsOnlyItem = true;
+					this.totalTasks--;
+					this.totalQueueCost -= job.Cost;
+
+					if (this.totalTasks == 1)
+					{
+						this.EncodeQueue[0].IsOnlyItem = true;
+					}
 				}
 			}
 		}
