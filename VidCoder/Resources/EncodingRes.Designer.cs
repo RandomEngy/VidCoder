@@ -2064,15 +2064,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scaling algorithm:.
-        /// </summary>
-        public static string ScalingAlgorithmLabel {
-            get {
-                return ResourceManager.GetString("ScalingAlgorithmLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Downscale only.
         /// </summary>
         public static string ScalingMode_DownscaleOnly {

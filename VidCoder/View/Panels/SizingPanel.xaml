@@ -238,32 +238,6 @@
 						SelectedValue="{Binding ScalingMode}"
 						SelectedValuePath="Value" />
 				</StackPanel>
-
-				<StackPanel
-					Margin="0 6 0 0"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top"
-					Orientation="Horizontal">
-					<TextBlock
-						VerticalAlignment="Center"
-						Style="{StaticResource LongToolTipHolder}"
-						Text="{x:Static res:EncodingRes.ScalingAlgorithmLabel}">
-						<TextBlock.ToolTip>
-							<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.ScaleMethodToolTip}" />
-						</TextBlock.ToolTip>
-					</TextBlock>
-					<ComboBox
-						MinWidth="90"
-						Margin="6 0 0 0"
-						ItemsSource="{Binding ScaleChoices}"
-						SelectedValue="{Binding ScaleMethod}"
-						SelectedValuePath="Value"
-						Style="{StaticResource LongToolTipHolder}">
-						<ComboBox.ToolTip>
-							<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.ScaleMethodToolTip}" />
-						</ComboBox.ToolTip>
-					</ComboBox>
-				</StackPanel>
 			</StackPanel>
 
 			<!--  Rotation section  -->

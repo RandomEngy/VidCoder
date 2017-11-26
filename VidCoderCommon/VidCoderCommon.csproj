@@ -137,7 +137,6 @@
     <Compile Include="Model\VCPaddingMode.cs" />
     <Compile Include="Model\VCPictureRotation.cs" />
     <Compile Include="Model\VCProfile.cs" />
-    <Compile Include="Model\VCScaleMethod.cs" />
     <Compile Include="Model\VCScalingMode.cs" />
     <Compile Include="Model\VCSizingMode.cs" />
     <Compile Include="Model\VCVideoEncodeRateType.cs" />

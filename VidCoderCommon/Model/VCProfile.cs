@@ -53,9 +53,6 @@ namespace VidCoderCommon.Model
 		public int Height { get; set; }
 
 		[JsonProperty]
-		public VCScaleMethod ScaleMethod { get; set; }
-
-		[JsonProperty]
 		public VCCroppingType CroppingType { get; set; }
 
 		[JsonProperty]
