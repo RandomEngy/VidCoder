@@ -2118,6 +2118,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Automatic will pick the size for you based on provided constraints. Manual will let you enter a specific size and pixel aspect ratio..
+        /// </summary>
+        public static string SizingModeToolTip {
+            get {
+                return ResourceManager.GetString("SizingModeToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Source.
         /// </summary>
         public static string Source {

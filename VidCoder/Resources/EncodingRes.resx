@@ -1063,4 +1063,7 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
     <value>None</value>
     <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
   </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>Automatic will pick the size for you based on provided constraints. Manual will let you enter a specific size and pixel aspect ratio.</value>
+  </data>
 </root>
