@@ -1062,4 +1062,8 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
     <value>Encoding preset: {0}</value>
     <comment>Label for the encoding settings window.</comment>
   </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>None</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
 </root>

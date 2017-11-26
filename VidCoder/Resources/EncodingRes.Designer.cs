@@ -565,6 +565,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string AudioEncoder_none {
+            get {
+                return ResourceManager.GetString("AudioEncoder_none", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Passthrough.
         /// </summary>
         public static string AudioEncoder_Passthrough {
