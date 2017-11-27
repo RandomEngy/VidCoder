@@ -817,6 +817,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deblock reduces blocky artifacts caused by low quality video compression..
+        /// </summary>
+        public static string DeblockToolTip {
+            get {
+                return ResourceManager.GetString("DeblockToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decomb:.
         /// </summary>
         public static string DecombLabel {
@@ -853,11 +862,38 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deinterlace removes comb artifacts from the picture.
+        ///
+        ///Yadif is a popular and fast deinterlacer.
+        ///
+        ///Decomb switches between multiple interpolation algorithms for speed and quality..
+        /// </summary>
+        public static string DeinterlaceToolTip {
+            get {
+                return ResourceManager.GetString("DeinterlaceToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Denoise:.
         /// </summary>
         public static string DenoiseLabel {
             get {
                 return ResourceManager.GetString("DenoiseLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Denoise reduces or removes the appearance of noise and grain. This can improve compression efficiency and create higher quality video at smaller file sizes. 
+        ///Overly strong Denoise settings may damage picture quality by discarding detail.
+        ///         
+        ///NLMeans is a high quality denoise filter with a cost to speed. Use where quality is more important than speed.
+        ///         
+        ///HQDN3D is an adaptive low-pass filter, faster than NLMeans but less effective at preserving fine detail..
+        /// </summary>
+        public static string DenoiseToolTip {
+            get {
+                return ResourceManager.GetString("DenoiseToolTip", resourceCulture);
             }
         }
         
@@ -885,6 +921,17 @@ namespace VidCoder.Resources {
         public static string DetelecineLabel {
             get {
                 return ResourceManager.GetString("DetelecineLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This filter removes &apos;combing&apos; artifacts that are the result of telecining.
+        ///
+        ///Telecining is a process that adjusts film framerates that are 24fps to NTSC video frame rates which are 30fps..
+        /// </summary>
+        public static string DetelecineToolTip {
+            get {
+                return ResourceManager.GetString("DetelecineToolTip", resourceCulture);
             }
         }
         
@@ -2087,6 +2134,28 @@ namespace VidCoder.Resources {
         public static string ScalingModeLabel {
             get {
                 return ResourceManager.GetString("ScalingModeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sharpen.
+        /// </summary>
+        public static string SharpenLabel {
+            get {
+                return ResourceManager.GetString("SharpenLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sharpening enhances the appearance of detail, especially edges. Overly strong Sharpen settings may damage picture quality by creating ringing artifacts and enhancing noise, which can reduce compression efficiency.
+        ///
+        ///Unsharp is a general purpose unsharp masking filter. It sharpens by blurring, then calculating the difference between the blurred picture and the original.
+        ///
+        ///Lapsharp sharpens using convolution kernels approximating Laplacian edge filters, sometimes producing higher quality results than unshar [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string SharpenToolTip {
+            get {
+                return ResourceManager.GetString("SharpenToolTip", resourceCulture);
             }
         }
         

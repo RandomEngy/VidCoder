@@ -154,6 +154,19 @@ namespace VidCoderCommon.Model
 
 
 		[JsonProperty]
+		public VCSharpen SharpenType { get; set; }
+
+		[JsonProperty]
+		public string SharpenPreset { get; set; }
+
+		[JsonProperty]
+		public string SharpenTune { get; set; }
+
+		[JsonProperty]
+		public string CustomSharpen { get; set; }
+
+
+		[JsonProperty]
 		public int Deblock { get; set; }
 
 

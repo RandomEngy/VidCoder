@@ -53,6 +53,13 @@ namespace VidCoder.ViewModel
 
 			this.DenoiseTuneChoices = this.GetFilterTuneChoices(hb_filter_ids.HB_FILTER_NLMEANS, "DenoiseTune_");
 
+			this.SharpenChoices = new List<ComboChoice<VCSharpen>>
+			{
+				new ComboChoice<VCSharpen>(VCSharpen.Off, CommonRes.Off),
+				new ComboChoice<VCSharpen>(VCSharpen.UnSharp, EnumsRes.Sharpen_UnSharp),
+				new ComboChoice<VCSharpen>(VCSharpen.LapSharp, EnumsRes.Sharpen_LapSharp),
+			};
+
 
 
 			// CustomDetelecineVisible
@@ -143,6 +150,61 @@ namespace VidCoder.ViewModel
 
 				return GetCustomFilterToolTip(GetDenoiseFilter(denoiseType));
 			}).ToProperty(this, x => x.CustomDenoiseToolTip, out this.customDenoiseToolTip);
+
+			// SharpenPresetChoices
+			this.WhenAnyValue(x => x.SharpenType)
+				.Select(sharpenType =>
+				{
+					if (sharpenType == VCSharpen.Off)
+					{
+						return new List<ComboChoice>();
+					}
+
+					return this.GetFilterPresetChoices(GetSharpenFilter(sharpenType));
+				}).ToProperty(this, x => x.SharpenPresetChoices, out this.sharpenPresetChoices);
+
+			// SharpenPresetVisible
+			this.WhenAnyValue(x => x.SharpenType)
+				.Select(sharpenType =>
+				{
+					return sharpenType != VCSharpen.Off;
+				}).ToProperty(this, x => x.SharpenPresetVisible, out this.sharpenPresetVisible);
+
+			// SharpenTuneChoices
+			this.WhenAnyValue(x => x.SharpenType)
+				.Select(sharpenType =>
+				{
+					if (sharpenType == VCSharpen.Off)
+					{
+						return new List<ComboChoice>();
+					}
+
+					return this.GetFilterTuneChoices(GetSharpenFilter(sharpenType));
+				}).ToProperty(this, x => x.SharpenTuneChoices, out this.sharpenTuneChoices);
+
+			// SharpenTuneVisible
+			this.WhenAnyValue(x => x.SharpenType, x => x.SharpenPreset, (sharpenType, sharpenPreset) =>
+			{
+				return sharpenType != VCSharpen.Off && sharpenPreset != "custom";
+			}).ToProperty(this, x => x.SharpenTuneVisible, out this.sharpenTuneVisible);
+
+			// CustomSharpenVisible
+			this.WhenAnyValue(x => x.SharpenType, x => x.SharpenPreset, (sharpenType, sharpenPreset) =>
+			{
+				return sharpenType != VCSharpen.Off && sharpenPreset == "custom";
+			}).ToProperty(this, x => x.CustomSharpenVisible, out this.customSharpenVisible);
+
+			// CustomSharpenToolTip
+			this.WhenAnyValue(x => x.SharpenType)
+				.Select(sharpenType =>
+				{
+					if (sharpenType == VCSharpen.Off)
+					{
+						return string.Empty;
+					}
+
+					return GetCustomFilterToolTip(GetSharpenFilter(sharpenType));
+				}).ToProperty(this, x => x.CustomSharpenToolTip, out this.customSharpenToolTip);
 
 			// DeblockText
 			this.WhenAnyValue(x => x.Deblock, deblock =>
@@ -259,6 +321,42 @@ namespace VidCoder.ViewModel
 			});
 			this.RegisterProfileProperty(nameof(this.DenoiseTune));
 			this.RegisterProfileProperty(nameof(this.CustomDenoise));
+			this.RegisterProfileProperty(nameof(this.SharpenType), () =>
+			{
+				if (this.SharpenType != VCSharpen.Off && string.IsNullOrEmpty(this.SharpenPreset))
+				{
+					this.SharpenPreset = "medium";
+				}
+
+				this.RaisePropertyChanged(nameof(this.SharpenPreset));
+
+				if (this.SharpenType != VCSharpen.Off && string.IsNullOrEmpty(this.SharpenTune))
+				{
+					this.SharpenTune = "none";
+				}
+
+				this.RaisePropertyChanged(nameof(this.SharpenTune));
+
+				if (this.SharpenType != VCSharpen.Off && this.SharpenPreset == "custom")
+				{
+					this.CustomSharpen = GetDefaultCustomFilterString(GetSharpenFilter(this.SharpenType));
+				}
+			});
+
+			this.RegisterProfileProperty(nameof(this.SharpenPreset), () =>
+			{
+				if (this.SharpenPreset == "custom")
+				{
+					if (this.SharpenType == VCSharpen.Off)
+					{
+						return;
+					}
+
+					this.CustomSharpen = GetDefaultCustomFilterString(GetSharpenFilter(this.SharpenType));
+				}
+			});
+			this.RegisterProfileProperty(nameof(this.SharpenTune));
+			this.RegisterProfileProperty(nameof(this.CustomSharpen));
 			this.RegisterProfileProperty(nameof(this.Deblock));
 			this.RegisterProfileProperty(nameof(this.Grayscale));
 		}
@@ -401,6 +499,59 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<string> customDenoiseToolTip;
 		public string CustomDenoiseToolTip => this.customDenoiseToolTip.Value;
 
+		public List<ComboChoice<VCSharpen>> SharpenChoices { get; }
+
+		public VCSharpen SharpenType
+		{
+			get { return this.Profile.SharpenType; }
+			set { this.UpdateProfileProperty(nameof(this.Profile.SharpenType), value); }
+		}
+
+		private ObservableAsPropertyHelper<List<ComboChoice>> sharpenPresetChoices;
+		public List<ComboChoice> SharpenPresetChoices => this.sharpenPresetChoices.Value;
+
+		public string SharpenPreset
+		{
+			get { return this.Profile.SharpenPreset; }
+
+			set
+			{
+				if (value == null)
+				{
+					return;
+				}
+
+				this.UpdateProfileProperty(nameof(this.Profile.SharpenPreset), value);
+			}
+		}
+
+		private ObservableAsPropertyHelper<bool> sharpenPresetVisible;
+		public bool SharpenPresetVisible => this.sharpenPresetVisible.Value;
+
+		private ObservableAsPropertyHelper<List<ComboChoice>> sharpenTuneChoices;
+		public List<ComboChoice> SharpenTuneChoices => this.sharpenTuneChoices.Value;
+
+		public string SharpenTune
+		{
+			get { return this.Profile.SharpenTune; }
+			set { this.UpdateProfileProperty(nameof(this.Profile.SharpenTune), value); }
+		}
+
+		private ObservableAsPropertyHelper<bool> sharpenTuneVisible;
+		public bool SharpenTuneVisible => this.sharpenTuneVisible.Value;
+
+		public string CustomSharpen
+		{
+			get { return this.Profile.CustomSharpen; }
+			set { this.UpdateProfileProperty(nameof(this.Profile.CustomSharpen), value); }
+		}
+
+		private ObservableAsPropertyHelper<bool> customSharpenVisible;
+		public bool CustomSharpenVisible => this.customSharpenVisible.Value;
+
+		private ObservableAsPropertyHelper<string> customSharpenToolTip;
+		public string CustomSharpenToolTip => this.customSharpenToolTip.Value;
+
 		public int Deblock
 		{
 			get { return this.Profile.Deblock; }
@@ -520,6 +671,19 @@ namespace VidCoder.ViewModel
 					return hb_filter_ids.HB_FILTER_NLMEANS;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(denoiseType), $"Could not find filter for denoise type {denoiseType}.");
+			}
+		}
+
+		private static hb_filter_ids GetSharpenFilter(VCSharpen sharpenType)
+		{
+			switch (sharpenType)
+			{
+				case VCSharpen.UnSharp:
+					return hb_filter_ids.HB_FILTER_UNSHARP;
+				case VCSharpen.LapSharp:
+					return hb_filter_ids.HB_FILTER_LAPSHARP;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(sharpenType), $"Could not find filter for sharpen type {sharpenType}.");
 			}
 		}
 

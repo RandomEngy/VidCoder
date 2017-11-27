@@ -367,6 +367,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LapSharp.
+        /// </summary>
+        public static string Sharpen_LapSharp {
+            get {
+                return ResourceManager.GetString("Sharpen_LapSharp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UnSharp.
+        /// </summary>
+        public static string Sharpen_UnSharp {
+            get {
+                return ResourceManager.GetString("Sharpen_UnSharp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Blu-ray.
         /// </summary>
         public static string TitleType_Bluray {

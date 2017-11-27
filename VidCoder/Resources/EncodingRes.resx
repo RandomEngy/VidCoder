@@ -1066,4 +1066,37 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
   <data name="SizingModeToolTip" xml:space="preserve">
     <value>Automatic will pick the size for you based on provided constraints. Manual will let you enter a specific size and pixel aspect ratio.</value>
   </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>Sharpen</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>Deblock reduces blocky artifacts caused by low quality video compression.</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Deinterlace removes comb artifacts from the picture.
+
+Yadif is a popular and fast deinterlacer.
+
+Decomb switches between multiple interpolation algorithms for speed and quality.</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>Denoise reduces or removes the appearance of noise and grain. This can improve compression efficiency and create higher quality video at smaller file sizes. 
+Overly strong Denoise settings may damage picture quality by discarding detail.
+         
+NLMeans is a high quality denoise filter with a cost to speed. Use where quality is more important than speed.
+         
+HQDN3D is an adaptive low-pass filter, faster than NLMeans but less effective at preserving fine detail.</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>This filter removes 'combing' artifacts that are the result of telecining.
+
+Telecining is a process that adjusts film framerates that are 24fps to NTSC video frame rates which are 30fps.</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>Sharpening enhances the appearance of detail, especially edges. Overly strong Sharpen settings may damage picture quality by creating ringing artifacts and enhancing noise, which can reduce compression efficiency.
+
+Unsharp is a general purpose unsharp masking filter. It sharpens by blurring, then calculating the difference between the blurred picture and the original.
+
+Lapsharp sharpens using convolution kernels approximating Laplacian edge filters, sometimes producing higher quality results than unsharp masking.</value>
+  </data>
 </root>

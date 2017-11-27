@@ -374,7 +374,7 @@ namespace VidCoderCommon.Model
 				Filter filterItem = new Filter
 				{
 					ID = (int)hb_filter_ids.HB_FILTER_DETELECINE,
-					Settings = this.GetFilterSettings(hb_filter_ids.HB_FILTER_DETELECINE, presetString, settingsString)
+					Settings = this.GetFilterSettingsPresetOnly(hb_filter_ids.HB_FILTER_DETELECINE, presetString, settingsString)
 				};
 				filters.FilterList.Add(filterItem);
 			}
@@ -389,11 +389,11 @@ namespace VidCoderCommon.Model
 				JToken settings;
 				if (profile.DeinterlacePreset == "custom")
 				{
-					settings = this.GetFilterSettings(filterId, "custom", profile.CustomDeinterlace);
+					settings = this.GetFilterSettingsPresetOnly(filterId, "custom", profile.CustomDeinterlace);
 				}
 				else
 				{
-					settings = this.GetFilterSettings(filterId, profile.DeinterlacePreset, null);
+					settings = this.GetFilterSettingsPresetOnly(filterId, profile.DeinterlacePreset, null);
 				}
 
 				if (settings != null)
@@ -409,11 +409,11 @@ namespace VidCoderCommon.Model
 				JToken settings;
 				if (profile.CombDetect == "custom")
 				{
-					settings = this.GetFilterSettings(hb_filter_ids.HB_FILTER_COMB_DETECT, "custom", profile.CustomCombDetect);
+					settings = this.GetFilterSettingsPresetOnly(hb_filter_ids.HB_FILTER_COMB_DETECT, "custom", profile.CustomCombDetect);
 				}
 				else
 				{
-					settings = this.GetFilterSettings(hb_filter_ids.HB_FILTER_COMB_DETECT, profile.CombDetect, null);
+					settings = this.GetFilterSettingsPresetOnly(hb_filter_ids.HB_FILTER_COMB_DETECT, profile.CombDetect, null);
 				}
 
 				if (settings != null)
@@ -463,7 +463,7 @@ namespace VidCoderCommon.Model
 			// Deblock
 			if (profile.Deblock >= 5)
 			{
-				JToken settings = this.GetFilterSettings(
+				JToken settings = this.GetFilterSettingsCustom(
 					hb_filter_ids.HB_FILTER_DEBLOCK,
 					string.Format(CultureInfo.InvariantCulture, "qp={0}", profile.Deblock));
 
@@ -481,11 +481,35 @@ namespace VidCoderCommon.Model
 				JToken settings;
 				if (profile.DenoisePreset == "custom")
 				{
-					settings = this.GetFilterSettings(filterId, "custom", profile.CustomDenoise);
+					settings = this.GetFilterSettingsPresetOnly(filterId, "custom", profile.CustomDenoise);
 				}
 				else
 				{
-					settings = this.GetFilterSettings(filterId, profile.DenoisePreset, profile.DenoiseTune);
+					settings = this.GetFilterSettingsPresetAndTune(filterId, profile.DenoisePreset, profile.DenoiseTune, null);
+				}
+
+				if (settings != null)
+				{
+					Filter filterItem = new Filter { ID = (int)filterId, Settings = settings };
+					filters.FilterList.Add(filterItem);
+				}
+			}
+
+			// Sharpen
+			if (profile.SharpenType != VCSharpen.Off)
+			{
+				hb_filter_ids filterId = profile.SharpenType == VCSharpen.LapSharp
+					? hb_filter_ids.HB_FILTER_LAPSHARP
+					: hb_filter_ids.HB_FILTER_UNSHARP;
+
+				JToken settings;
+				if (profile.SharpenPreset == "custom")
+				{
+					settings = this.GetFilterSettingsPresetOnly(filterId, "custom", profile.CustomSharpen);
+				}
+				else
+				{
+					settings = this.GetFilterSettingsPresetAndTune(filterId, profile.SharpenPreset, profile.SharpenTune, null);
 				}
 
 				if (settings != null)
@@ -497,7 +521,7 @@ namespace VidCoderCommon.Model
 
 			// CropScale Filter
 			VCCropping cropping = GetCropping(profile, title);
-			JToken cropFilterSettings = this.GetFilterSettings(
+			JToken cropFilterSettings = this.GetFilterSettingsCustom(
 				hb_filter_ids.HB_FILTER_CROP_SCALE,
 				string.Format(
 					CultureInfo.InvariantCulture,
@@ -536,7 +560,7 @@ namespace VidCoderCommon.Model
 					flipHorizontal = true;
 				}
 
-				JToken rotateSettings = this.GetFilterSettings(
+				JToken rotateSettings = this.GetFilterSettingsCustom(
 					hb_filter_ids.HB_FILTER_ROTATE,
 					string.Format(
 						CultureInfo.InvariantCulture,
@@ -564,7 +588,7 @@ namespace VidCoderCommon.Model
 			{
 				var padColor = !string.IsNullOrEmpty(profile.PadColor) ? profile.PadColor : "000000";
 
-				JToken padSettings = this.GetFilterSettings(
+				JToken padSettings = this.GetFilterSettingsCustom(
 					hb_filter_ids.HB_FILTER_PAD,
 					FormattableString.Invariant($"width={outputSizeInfo.OutputWidth}:height={outputSizeInfo.OutputHeight}:x={outputSizeInfo.Padding.Left}:y={outputSizeInfo.Padding.Top}:color=0x{padColor}"));
 				Filter filterItem = new Filter { ID = (int)hb_filter_ids.HB_FILTER_PAD, Settings = padSettings };
@@ -574,17 +598,17 @@ namespace VidCoderCommon.Model
 			return filters;
 		}
 
-		private JToken GetFilterSettings(hb_filter_ids filter, string custom)
+		private JToken GetFilterSettingsCustom(hb_filter_ids filter, string custom)
 		{
-			return this.GetFilterSettings(filter, null, null, custom);
+			return this.GetFilterSettingsPresetAndTune(filter, null, null, custom);
 		}
 
-		private JToken GetFilterSettings(hb_filter_ids filter, string preset, string custom)
+		private JToken GetFilterSettingsPresetOnly(hb_filter_ids filter, string preset, string custom)
 		{
-			return this.GetFilterSettings(filter, preset, null, custom);
+			return this.GetFilterSettingsPresetAndTune(filter, preset, null, custom);
 		}
 
-		private JToken GetFilterSettings(hb_filter_ids filter, string preset, string tune, string custom)
+		private JToken GetFilterSettingsPresetAndTune(hb_filter_ids filter, string preset, string tune, string custom)
 		{
 			custom = custom?.Trim();
 
@@ -602,7 +626,7 @@ namespace VidCoderCommon.Model
 
 		private JToken GetFramerateSettings(int framerateMode, int framerateNumerator, int framerateDenominator)
 		{
-			return this.GetFilterSettings(
+			return this.GetFilterSettingsCustom(
 				hb_filter_ids.HB_FILTER_VFR,
 				string.Format(
 					CultureInfo.InvariantCulture,
