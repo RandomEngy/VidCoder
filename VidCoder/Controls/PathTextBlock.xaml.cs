@@ -253,7 +253,8 @@ namespace VidCoder.Controls
 				this.textBlock.FontSize,
 				Brushes.Black,
 				new NumberSubstitution(),
-				TextFormattingMode.Display);
+				TextFormattingMode.Display,
+				1);
 
 			return new Size(formattedText.Width, formattedText.Height);
 		}
