@@ -1322,7 +1322,6 @@ namespace VidCoder.Services
 			double scanPassCost = passCost / EncodeJobViewModel.SubtitleScanCostFactor;
 			double currentJobCompletedWork = 0.0;
 
-			Debug.WriteLine("Pass id in encode progress: " + e.PassId);
 			if (this.EncodeQueue[0].SubtitleScan)
 			{
 				switch (e.PassId)
@@ -1497,6 +1496,7 @@ namespace VidCoder.Services
 					this.completedQueueWork += this.CurrentJob.Cost;
 
 					var outputFileInfo = new FileInfo(this.CurrentJob.Job.OutputPath);
+					long outputFileLength = 0;
 
 					EncodeResultStatus status = EncodeResultStatus.Succeeded;
 					if (e.Error)
@@ -1509,10 +1509,14 @@ namespace VidCoder.Services
 						status = EncodeResultStatus.Failed;
 						encodeLogger.LogError("Encode failed. HandBrake reported no error but the expected output file was not found.");
 					}
-					else if (outputFileInfo.Length == 0)
+					else
 					{
-						status = EncodeResultStatus.Failed;
-						encodeLogger.LogError("Encode failed. HandBrake reported no error but the output file was empty.");
+						outputFileLength = outputFileInfo.Length;
+						if (outputFileLength == 0)
+						{
+							status = EncodeResultStatus.Failed;
+							encodeLogger.LogError("Encode failed. HandBrake reported no error but the output file was empty.");
+						}
 					}
 
 					EncodeJobViewModel finishedJob = this.CurrentJob;
@@ -1546,7 +1550,7 @@ namespace VidCoder.Services
 							Status = status,
 							EncodeTime = this.CurrentJob.EncodeTime,
 							LogPath = encodeLogger.LogPath,
-							SizeBytes = outputFileInfo.Length
+							SizeBytes = outputFileLength
 						},
 						finishedJob));
 

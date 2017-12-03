@@ -69,6 +69,17 @@ namespace VidCoder.ViewModel
 		{
 			Ioc.Container.RegisterInstance(typeof(MainViewModel), this, new ContainerControlledLifetimeManager());
 
+			var presets = HandBrakePresetService.GetBuiltInPresets();
+
+			Debug.WriteLine("##### Preset value ######");
+			foreach (var presetCategory in presets)
+			{
+				foreach (var preset in presetCategory.ChildrenArray)
+				{
+					Debug.WriteLine(preset.PictureKeepRatio);
+				}
+			}
+
 			// HasVideoSource
 			this.WhenAnyValue(
 				x => x.VideoSourceState,
