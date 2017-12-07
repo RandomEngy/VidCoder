@@ -74,7 +74,7 @@
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Top"
 				UseLayoutRounding="True"
-				Visibility="{Binding PickersService.SelectedPicker.Picker.IsNone,
+				Visibility="{Binding PickersService.SelectedPicker.Picker.IsDefault,
 									 Converter={StaticResource InverseVisibilityConverter}}">
 				<ToolBar Loaded="ToolBar_Loaded" ToolBarTray.IsLocked="True">
 					<ToolBar.Background>

@@ -1099,4 +1099,28 @@ Unsharp is a general purpose unsharp masking filter. It sharpens by blurring, th
 
 Lapsharp sharpens using convolution kernels approximating Laplacian edge filters, sometimes producing higher quality results than unsharp masking.</value>
   </data>
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>Built-in</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Create subfolder</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Rename folder</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Remove folder</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>New Folder</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>Choose a name for the subfolder:</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>Choose a new name for the folder:</value>
+  </data>
 </root>

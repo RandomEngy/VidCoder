@@ -691,6 +691,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose a name for the subfolder:.
+        /// </summary>
+        public static string ChooseNameSubfolder {
+            get {
+                return ResourceManager.GetString("ChooseNameSubfolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a new name for the folder:.
+        /// </summary>
+        public static string ChooseNewFolderName {
+            get {
+                return ResourceManager.GetString("ChooseNewFolderName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close the presets list.
         /// </summary>
         public static string ClosePresetsListToolTip {
@@ -849,6 +867,15 @@ namespace VidCoder.Resources {
         public static string DefaultFormat {
             get {
                 return ResourceManager.GetString("DefaultFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Folder.
+        /// </summary>
+        public static string DefaultPresetFolderName {
+            get {
+                return ResourceManager.GetString("DefaultPresetFolderName", resourceCulture);
             }
         }
         
@@ -1775,6 +1802,42 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Built-in.
+        /// </summary>
+        public static string PresetFolder_BuiltIn {
+            get {
+                return ResourceManager.GetString("PresetFolder_BuiltIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom.
+        /// </summary>
+        public static string PresetFolder_Custom {
+            get {
+                return ResourceManager.GetString("PresetFolder_Custom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create subfolder.
+        /// </summary>
+        public static string PresetFolderCreateSubfolderMenuItem {
+            get {
+                return ResourceManager.GetString("PresetFolderCreateSubfolderMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove folder.
+        /// </summary>
+        public static string PresetFolderRemoveFolderMenuItem {
+            get {
+                return ResourceManager.GetString("PresetFolderRemoveFolderMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preset:.
         /// </summary>
         public static string PresetLabel {
@@ -1789,6 +1852,15 @@ namespace VidCoder.Resources {
         public static string PresetToolTip {
             get {
                 return ResourceManager.GetString("PresetToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename folder.
+        /// </summary>
+        public static string PrestFolderRenameFolderMenuItem {
+            get {
+                return ResourceManager.GetString("PrestFolderRenameFolderMenuItem", resourceCulture);
             }
         }
         

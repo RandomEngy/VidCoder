@@ -5,11 +5,13 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
+using System.Windows.Forms;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
+using VidCoder.ViewModel.DataModels;
 using VidCoderCommon.Model;
 
 namespace VidCoder.Services
@@ -24,19 +26,26 @@ namespace VidCoder.Services
 
 		private PresetViewModel selectedPreset;
 
-		private IList<Preset> builtInPresets;
-		private ObservableCollection<PresetViewModel> allPresets;
+		private PresetFolderViewModel customPresetFolder;
+		private PresetFolderViewModel builtInFolder;
+
+		/// <summary>
+		/// List of folders from the database. Only used when first building the tree.
+		/// </summary>
+		private IList<PresetFolder> presetFolders;
 
 		public event EventHandler PresetChanged;
 
 		public PresetsService()
 		{
-			this.builtInPresets = PresetStorage.BuiltInPresets;
+			IList<Preset> builtInPresets = PresetStorage.BuiltInPresets;
 			List<Preset> userPresets = PresetStorage.UserPresets;
+			this.presetFolders = PresetFolderStorage.PresetFolders;
 
-			this.allPresets = new ObservableCollection<PresetViewModel>();
 			var unmodifiedPresets = userPresets.Where(preset => !preset.IsModified);
 			Preset modifiedPreset = userPresets.FirstOrDefault(preset => preset.IsModified);
+
+			this.allPresets = new ObservableCollection<PresetViewModel>();
 			int modifiedPresetIndex = -1;
 
 			foreach (Preset userPreset in unmodifiedPresets)
@@ -56,7 +65,12 @@ namespace VidCoder.Services
 				this.allPresets.Add(presetVM);
 			}
 
-			foreach (Preset builtInPreset in this.builtInPresets)
+			// Populate the custom preset folder before built-in presets are added to AllPresets collection.
+			this.customPresetFolder = new PresetFolderViewModel(this) { Name = EncodingRes.PresetFolder_Custom, Id = 0 };
+			this.PopulateCustomFolder(this.customPresetFolder);
+
+			this.builtInFolder = new PresetFolderViewModel(this) { Name = EncodingRes.PresetFolder_BuiltIn };
+			foreach (Preset builtInPreset in builtInPresets)
 			{
 				PresetViewModel presetVM;
 				if (modifiedPreset != null && modifiedPreset.Name == builtInPreset.Name)
@@ -70,7 +84,19 @@ namespace VidCoder.Services
 				}
 
 				this.allPresets.Add(presetVM);
+				this.builtInFolder.AddItem(presetVM);
 			}
+
+			this.allPresetsTree = new ObservableCollection<PresetFolderViewModel>();
+			this.AllPresetsTree.Add(this.customPresetFolder);
+			this.AllPresetsTree.Add(this.builtInFolder);
+
+			foreach (PresetFolderViewModel folderViewModel in this.AllPresetsTree)
+			{
+				this.RegisterSelectOnExpansion(folderViewModel);
+			}
+
+
 
 			// Always select the modified preset if it exists.
 			// Otherwise, choose the last selected preset.
@@ -92,6 +118,41 @@ namespace VidCoder.Services
 			this.SelectedPreset = this.allPresets[presetIndex];
 		}
 
+		private void PopulateCustomFolder(PresetFolderViewModel folderViewModel)
+		{
+			// Add all child folders
+			var childFolders = this.presetFolders.Where(f => f.ParentId == folderViewModel.Id);
+			foreach (PresetFolder childPresetFolder in childFolders)
+			{
+				var childFolderViewModel = PresetFolderViewModel.FromPresetFolder(childPresetFolder, this);
+				this.PopulateCustomFolder(childFolderViewModel);
+				folderViewModel.AddSubfolder(childFolderViewModel);
+			}
+
+			// Add all presets directly in folder
+			var folderPresets = this.AllPresets.Where(p => p.Preset.FolderId == folderViewModel.Id);
+			foreach (PresetViewModel presetViewModel in folderPresets)
+			{
+				folderViewModel.AddItem(presetViewModel);
+			}
+		}
+
+		private void RegisterSelectOnExpansion(PresetFolderViewModel folderViewModel)
+		{
+			folderViewModel
+				.WhenAnyValue(x => x.IsExpanded)
+				.Subscribe(isExpanded =>
+			{
+				if (isExpanded)
+				{
+					if (folderViewModel.Items.Contains(this.SelectedPreset))
+					{
+						this.SelectedPreset.IsSelected = true;
+					}
+				}
+			});
+		}
+
 		private OutputPathService OutputPathService
 		{
 			get
@@ -105,13 +166,11 @@ namespace VidCoder.Services
 			}
 		}
 
-		public ObservableCollection<PresetViewModel> AllPresets
-		{
-			get
-			{
-				return this.allPresets;
-			}
-		}
+		private ObservableCollection<PresetViewModel> allPresets;
+		public ObservableCollection<PresetViewModel> AllPresets => this.allPresets;
+
+		private ObservableCollection<PresetFolderViewModel> allPresetsTree;
+		public ObservableCollection<PresetFolderViewModel> AllPresetsTree => this.allPresetsTree;
 
 		public bool AutomaticChange { get; set; }
 
@@ -181,6 +240,7 @@ namespace VidCoder.Services
 				}
 
 				this.selectedPreset = value;
+				this.selectedPreset.IsSelected = true; // For TreeView
 
 				if (changeSelectedPreset)
 				{
@@ -310,12 +370,104 @@ namespace VidCoder.Services
 		/// </summary>
 		public void DeletePreset()
 		{
-			this.AllPresets.Remove(this.SelectedPreset);
+			PresetViewModel presetToDelete = this.SelectedPreset;
+
+			this.RemovePresetFromTree(presetToDelete);
+			this.AllPresets.Remove(presetToDelete);
+
 			this.selectedPreset = null;
 			this.SelectedPreset = this.AllPresets[0];
 
 			this.main.StartAnimation("PresetGlowHighlight");
 			this.SaveUserPresets();
+		}
+		public void CreateSubFolder(PresetFolderViewModel folderViewModel)
+		{
+			var dialogVM = new ChooseNameViewModel(EncodingRes.ChooseNameSubfolder, new List<string>());
+			dialogVM.Name = EncodingRes.DefaultPresetFolderName;
+			var windowManager = Ioc.Get<IWindowManager>();
+			windowManager.OpenDialog(dialogVM, windowManager.Find<EncodingWindowViewModel>());
+
+			if (dialogVM.DialogResult)
+			{
+				string subfolderName = dialogVM.Name;
+
+				PresetFolder newFolder = PresetFolderStorage.AddFolder(subfolderName, folderViewModel.Id);
+				folderViewModel.AddSubfolder(PresetFolderViewModel.FromPresetFolder(newFolder, this));
+			}
+		}
+
+		public void RenameFolder(PresetFolderViewModel folderViewModel)
+		{
+			var dialogVM = new ChooseNameViewModel(EncodingRes.ChooseNewFolderName, new List<string>());
+			dialogVM.Name = folderViewModel.Name;
+			var windowManager = Ioc.Get<IWindowManager>();
+			windowManager.OpenDialog(dialogVM, windowManager.Find<EncodingWindowViewModel>());
+
+			if (dialogVM.DialogResult)
+			{
+				string newName = dialogVM.Name;
+				if (newName != folderViewModel.Name)
+				{
+					PresetFolderStorage.RenameFolder(folderViewModel.Id, newName);
+					folderViewModel.Name = newName;
+				}
+			}
+		}
+
+		public void RemoveFolder(PresetFolderViewModel folderViewModel)
+		{
+			PresetFolderStorage.RemoveFolder(folderViewModel.Id);
+			this.RemoveFolderFromTree(this.customPresetFolder, folderViewModel);
+		}
+
+		private bool RemoveFolderFromTree(PresetFolderViewModel folderToSearchIn, PresetFolderViewModel folderToRemove)
+		{
+			if (folderToSearchIn.SubFolders.Contains(folderToRemove))
+			{
+				folderToSearchIn.RemoveSubfolder(folderToRemove);
+				return true;
+			}
+
+			foreach (PresetFolderViewModel folder in folderToSearchIn.SubFolders)
+			{
+				if (this.RemoveFolderFromTree(folder, folderToRemove))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		private void RemovePresetFromTree(PresetViewModel presetViewModel)
+		{
+			foreach (PresetFolderViewModel folder in this.AllPresetsTree)
+			{
+				if (this.RemovePresetFromFolder(folder, presetViewModel))
+				{
+					return;
+				}
+			}
+		}
+
+		private bool RemovePresetFromFolder(PresetFolderViewModel folder, PresetViewModel presetViewModel)
+		{
+			if (folder.Items.Contains(presetViewModel))
+			{
+				folder.RemoveItem(presetViewModel);
+				return true;
+			}
+
+			foreach (var subFolder in folder.SubFolders)
+			{
+				if (this.RemovePresetFromFolder(subFolder, presetViewModel))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		/// <summary>
@@ -396,6 +548,8 @@ namespace VidCoder.Services
 
 		private void InsertNewPreset(PresetViewModel presetVM)
 		{
+			this.customPresetFolder.AddItem(presetVM);
+
 			for (int i = 0; i < this.AllPresets.Count; i++)
 			{
 				if (this.AllPresets[i].Preset.IsBuiltIn)
@@ -404,7 +558,7 @@ namespace VidCoder.Services
 					return;
 				}
 
-				if (string.CompareOrdinal(presetVM.Preset.Name, this.AllPresets[i].Preset.Name) < 0)
+				if (string.Compare(presetVM.Preset.Name, this.AllPresets[i].Preset.Name, StringComparison.CurrentCultureIgnoreCase) < 0)
 				{
 					this.AllPresets.Insert(i, presetVM);
 					return;

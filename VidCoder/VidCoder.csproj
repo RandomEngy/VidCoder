@@ -450,6 +450,8 @@
     <Compile Include="Model\EncodeResultStatus.cs" />
     <Compile Include="Model\EncodeCompleteReason.cs" />
     <Compile Include="Model\FolderType.cs" />
+    <Compile Include="Model\PresetFolder.cs" />
+    <Compile Include="Model\PresetFolderStorage.cs" />
     <Compile Include="Model\PresetWrapper.cs" />
     <Compile Include="Model\PreviewControls.cs" />
     <Compile Include="Model\PreviewEncodeState.cs" />
@@ -629,6 +631,7 @@
     <Compile Include="ViewModel\DataModels\LanguageViewModel.cs" />
     <Compile Include="ViewModel\DataModels\LevelChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\PickerViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\PresetFolderViewModel.cs" />
     <Compile Include="ViewModel\DataModels\RotationViewModel.cs" />
     <Compile Include="ViewModel\DataModels\SizingPreviewLineViewModel.cs" />
     <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
@@ -839,6 +842,8 @@
     <Compile Include="View\Panels\VideoPanel.xaml.cs">
       <DependentUpon>VideoPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Selectors\PresetTreeContainerStyleSelector.cs" />
+    <Compile Include="View\Selectors\PresetTreeTemplateSelector.cs" />
     <Compile Include="WindowPlacement.cs" />
     <Resource Include="Icons\dvd_folder.png" />
     <Resource Include="Icons\video_files_folder.png" />

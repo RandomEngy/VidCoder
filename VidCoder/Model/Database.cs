@@ -82,6 +82,11 @@ namespace VidCoder.Model
 					UpgradeDatabaseTo35();
 				}
 
+				if (databaseVersion < 36)
+				{
+					UpgradeDatabaseTo36();
+				}
+
 				// Update encoding profiles if we need to. Everything is at least 28 now from the JSON upgrade.
 				int oldDatabaseVersion = Math.Max(databaseVersion, 28);
                 if (oldDatabaseVersion < Utilities.LastUpdatedEncodingProfileDatabaseVersion)
@@ -444,6 +449,15 @@ namespace VidCoder.Model
 			ExecuteNonQuery("DROP TABLE settingsOld", connection);
 		}
 
+		private static void UpgradeDatabaseTo36()
+		{
+			ExecuteNonQuery(
+				"CREATE TABLE presetFolders (" +
+				"id INTEGER PRIMARY KEY AUTOINCREMENT," +
+				"name TEXT, " +
+				"parentId INTEGER)", connection);
+		}
+
 		private static void UpgradeWindowPlacementConfig(string configKey, Encoding encoding, XmlSerializer serializer)
 		{
 			string oldValue = DatabaseConfig.Get(configKey, string.Empty, connection);
@@ -674,10 +688,18 @@ namespace VidCoder.Model
 
 		public static void CreateTables(SQLiteConnection connection)
 		{
-			ExecuteNonQuery("CREATE TABLE presetsJson (" +
+			ExecuteNonQuery(
+				"CREATE TABLE presetsJson (" +
 				"json TEXT)", connection);
 
-			ExecuteNonQuery("CREATE TABLE pickersJson (" +
+			ExecuteNonQuery(
+				"CREATE TABLE presetFolders (" +
+				"id INTEGER PRIMARY KEY AUTOINCREMENT," +
+				"name TEXT, " +
+				"parentId INTEGER)", connection);
+
+			ExecuteNonQuery(
+				"CREATE TABLE pickersJson (" +
 				"json TEXT)", connection);
 
 			ExecuteNonQuery(

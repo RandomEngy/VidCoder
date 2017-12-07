@@ -9,6 +9,7 @@ using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
+using VidCoder.ViewModel.DataModels;
 using VidCoder.ViewModel.Panels;
 
 namespace VidCoder.ViewModel
@@ -205,6 +206,21 @@ namespace VidCoder.ViewModel
 					this.PresetsService.DeletePreset();
 				}
 			}
+		}
+
+		/// <summary>
+		/// Called when the user has clicked a new item or the control has auto selected a different item (such as when a folder is collapsed).
+		/// </summary>
+		/// <param name="selectedItem">The viewmodel for the item that was selected.</param>
+		public void OnSelectedTreeViewPresetChanged(object selectedItem)
+		{
+			if (selectedItem == null || selectedItem is PresetFolderViewModel)
+			{
+				// If it's a folder that got "selected" we ignore it and leave the previous preset selected for real
+				return;
+			}
+
+			this.PresetsService.SelectedPreset = (PresetViewModel)selectedItem;
 		}
 
 		/// <summary>

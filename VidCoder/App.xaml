@@ -40,6 +40,11 @@
 			</Style.Triggers>
 		</Style>
 
+		<Style x:Key="BorderlessButtonStyle" TargetType="Button">
+			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="BorderThickness" Value="0" />
+		</Style>
+		
 		<Style x:Key="PresetComboStyle" TargetType="ComboBox">
 			<Setter Property="Height" Value="23" />
 			<Setter Property="MinWidth" Value="140" />

@@ -40,6 +40,14 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		// Used only to help TreeViewModel. The real selected master property is on PresetsService
+		private bool isSelected;
+		public bool IsSelected
+		{
+			get { return this.isSelected; }
+			set { this.RaiseAndSetIfChanged(ref this.isSelected, value); }
+		}
+
 		public VCProfile OriginalProfile { get; set; }
 
 		private ObservableAsPropertyHelper<string> displayName;
