@@ -13,5 +13,7 @@ namespace VidCoder.Model
 		public string Name { get; set; }
 
 		public long ParentId { get; set; }
+
+		public bool IsExpanded { get; set; }
 	}
 }

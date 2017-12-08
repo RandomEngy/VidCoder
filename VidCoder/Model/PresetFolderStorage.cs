@@ -24,7 +24,8 @@ namespace VidCoder.Model
 						long id = reader.GetInt64("id");
 						string name = reader.GetString("name");
 						long parentId = reader.GetInt64("parentId");
-						result.Add(new PresetFolder { Id = id, Name = name, ParentId = parentId });
+						bool isExpanded = reader.GetBoolean("isExpanded");
+						result.Add(new PresetFolder { Id = id, Name = name, ParentId = parentId, IsExpanded = isExpanded });
 					}
 				}
 
@@ -54,7 +55,7 @@ namespace VidCoder.Model
 		{
 			SQLiteConnection connection = Database.ThreadLocalConnection;
 
-			var insertCommand = new SQLiteCommand("INSERT INTO presetFolders (name, parentId) VALUES (@name, @parentId)", connection);
+			var insertCommand = new SQLiteCommand("INSERT INTO presetFolders (name, parentId, isExpanded) VALUES (@name, @parentId, 1)", connection);
 			insertCommand.Parameters.AddWithValue("@name", name);
 			insertCommand.Parameters.AddWithValue("@parentId", parentId);
 			insertCommand.ExecuteNonQuery();
@@ -68,6 +69,15 @@ namespace VidCoder.Model
 			var deleteCommand = new SQLiteCommand("DELETE FROM presetFolders WHERE id = @id", connection);
 			deleteCommand.Parameters.AddWithValue("@id", id);
 			deleteCommand.ExecuteNonQuery();
+		}
+
+		public static void SetFolderIsExpanded(long id, bool isExpanded)
+		{
+			SQLiteConnection connection = Database.ThreadLocalConnection;
+			var updateCommand = new SQLiteCommand("UPDATE presetFolders SET isExpanded = @isExpanded WHERE id = @id", connection);
+			updateCommand.Parameters.AddWithValue("@isExpanded", isExpanded);
+			updateCommand.Parameters.AddWithValue("@id", id);
+			updateCommand.ExecuteNonQuery();
 		}
 	}
 }

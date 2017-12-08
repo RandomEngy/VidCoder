@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveUI;
@@ -16,7 +17,7 @@ namespace VidCoder.ViewModel.DataModels
 
 		public static PresetFolderViewModel FromPresetFolder(PresetFolder folder, PresetsService passedPresetsService)
 		{
-			return new PresetFolderViewModel(passedPresetsService)
+			return new PresetFolderViewModel(passedPresetsService, folder.IsExpanded)
 			{
 				Name = folder.Name,
 				Id = folder.Id,
@@ -24,9 +25,10 @@ namespace VidCoder.ViewModel.DataModels
 			};
 		}
 
-		public PresetFolderViewModel(PresetsService presetsService)
+		public PresetFolderViewModel(PresetsService presetsService, bool isExpanded)
 		{
 			this.presetsService = presetsService;
+			this.isExpanded = isExpanded;
 
 			IObservable<bool> canRemove = this.WhenAnyValue(x => x.SubFolders.Count, x => x.Items.Count, (numSubfolders, numItems) =>
 			{
@@ -41,6 +43,13 @@ namespace VidCoder.ViewModel.DataModels
 
 			this.RemoveFolder = ReactiveCommand.Create(canRemove);
 			this.RemoveFolder.Subscribe(_ => this.RemoveFolderImpl());
+
+			this.WhenAnyValue(x => x.IsExpanded)
+				.Skip(1)
+				.Subscribe(isExp =>
+				{
+					this.presetsService.SaveFolderIsExpanded(this);
+				});
 		}
 
 		private string name;

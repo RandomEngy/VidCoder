@@ -24,6 +24,8 @@ LastPickerIndex|int|0
 EncodingDialogLastTab|int|0
 OptionsDialogLastTab|int|0
 
+ExpandedBuiltInFolders|string|"custom☃builtIn"
+
 MainWindowPlacement|string|""
 SubtitlesDialogPlacement|string|""
 EncodingDialogPlacement|string|""

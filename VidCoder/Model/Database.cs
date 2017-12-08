@@ -455,7 +455,8 @@ namespace VidCoder.Model
 				"CREATE TABLE presetFolders (" +
 				"id INTEGER PRIMARY KEY AUTOINCREMENT," +
 				"name TEXT, " +
-				"parentId INTEGER)", connection);
+				"parentId INTEGER, " +
+				"isExpanded INTEGER)", connection);
 		}
 
 		private static void UpgradeWindowPlacementConfig(string configKey, Encoding encoding, XmlSerializer serializer)
@@ -696,7 +697,8 @@ namespace VidCoder.Model
 				"CREATE TABLE presetFolders (" +
 				"id INTEGER PRIMARY KEY AUTOINCREMENT," +
 				"name TEXT, " +
-				"parentId INTEGER)", connection);
+				"parentId INTEGER, " +
+				"isExpanded INTEGER)", connection);
 
 			ExecuteNonQuery(
 				"CREATE TABLE pickersJson (" +

@@ -21,6 +21,9 @@ namespace VidCoder.Services
 	/// </summary>
 	public class PresetsService : ReactiveObject
 	{
+		private const string CustomFolderKey = "custom";
+		private const string BuiltInFolderKey = "builtIn";
+
 		private MainViewModel main = Ioc.Get<MainViewModel>();
 		private OutputPathService outputPathService;
 
@@ -34,6 +37,8 @@ namespace VidCoder.Services
 		/// </summary>
 		private IList<PresetFolder> presetFolders;
 
+		private HashSet<string> expandedBuiltInFolders;
+
 		public event EventHandler PresetChanged;
 
 		public PresetsService()
@@ -41,6 +46,7 @@ namespace VidCoder.Services
 			IList<Preset> builtInPresets = PresetStorage.BuiltInPresets;
 			List<Preset> userPresets = PresetStorage.UserPresets;
 			this.presetFolders = PresetFolderStorage.PresetFolders;
+			this.expandedBuiltInFolders = CustomConfig.ExpandedBuiltInFolders;
 
 			var unmodifiedPresets = userPresets.Where(preset => !preset.IsModified);
 			Preset modifiedPreset = userPresets.FirstOrDefault(preset => preset.IsModified);
@@ -66,10 +72,10 @@ namespace VidCoder.Services
 			}
 
 			// Populate the custom preset folder before built-in presets are added to AllPresets collection.
-			this.customPresetFolder = new PresetFolderViewModel(this) { Name = EncodingRes.PresetFolder_Custom, Id = 0 };
+			this.customPresetFolder = new PresetFolderViewModel(this, this.expandedBuiltInFolders.Contains(CustomFolderKey)) { Name = EncodingRes.PresetFolder_Custom, Id = 0 };
 			this.PopulateCustomFolder(this.customPresetFolder);
 
-			this.builtInFolder = new PresetFolderViewModel(this) { Name = EncodingRes.PresetFolder_BuiltIn };
+			this.builtInFolder = new PresetFolderViewModel(this, this.expandedBuiltInFolders.Contains(BuiltInFolderKey)) { Name = EncodingRes.PresetFolder_BuiltIn };
 			foreach (Preset builtInPreset in builtInPresets)
 			{
 				PresetViewModel presetVM;
@@ -419,6 +425,49 @@ namespace VidCoder.Services
 		{
 			PresetFolderStorage.RemoveFolder(folderViewModel.Id);
 			this.RemoveFolderFromTree(this.customPresetFolder, folderViewModel);
+		}
+
+		public void SaveFolderIsExpanded(PresetFolderViewModel folderViewModel)
+		{
+			if (folderViewModel.Id > 0)
+			{
+				// If ID > 0 then this is a custom preset folder.
+				PresetFolderStorage.SetFolderIsExpanded(folderViewModel.Id, folderViewModel.IsExpanded);
+			}
+			else
+			{
+				// If not stored in preset folder table, save in config.
+				string key;
+				if (folderViewModel == this.customPresetFolder)
+				{
+					key = CustomFolderKey;
+				}
+				else if (folderViewModel == this.builtInFolder)
+				{
+					key = BuiltInFolderKey;
+				}
+				else
+				{
+					key = folderViewModel.Name;
+				}
+
+				if (folderViewModel.IsExpanded)
+				{
+					if (!this.expandedBuiltInFolders.Contains(key))
+					{
+						this.expandedBuiltInFolders.Add(key);
+					}
+				}
+				else
+				{
+					if (this.expandedBuiltInFolders.Contains(key))
+					{
+						this.expandedBuiltInFolders.Remove(key);
+					}
+				}
+
+				CustomConfig.ExpandedBuiltInFolders = this.expandedBuiltInFolders;
+			}
 		}
 
 		private bool RemoveFolderFromTree(PresetFolderViewModel folderToSearchIn, PresetFolderViewModel folderToRemove)

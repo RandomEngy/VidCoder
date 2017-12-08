@@ -50,6 +50,7 @@ namespace VidCoder
 			cache.Add("LastPickerIndex", DatabaseConfig.Get("LastPickerIndex", 0, connection));
 			cache.Add("EncodingDialogLastTab", DatabaseConfig.Get("EncodingDialogLastTab", 0, connection));
 			cache.Add("OptionsDialogLastTab", DatabaseConfig.Get("OptionsDialogLastTab", 0, connection));
+			cache.Add("ExpandedBuiltInFolders", DatabaseConfig.Get("ExpandedBuiltInFolders", "custom☃builtIn", connection));
 			cache.Add("MainWindowPlacement", DatabaseConfig.Get("MainWindowPlacement", "", connection));
 			cache.Add("SubtitlesDialogPlacement", DatabaseConfig.Get("SubtitlesDialogPlacement", "", connection));
 			cache.Add("EncodingDialogPlacement", DatabaseConfig.Get("EncodingDialogPlacement", "", connection));
@@ -269,6 +270,11 @@ namespace VidCoder
 		{
 			get { return (int)cache["OptionsDialogLastTab"]; }
 			set { Set("OptionsDialogLastTab", value); }
+		}
+		public static string ExpandedBuiltInFolders
+		{
+			get { return (string)cache["ExpandedBuiltInFolders"]; }
+			set { Set("ExpandedBuiltInFolders", value); }
 		}
 		public static string MainWindowPlacement
 		{
@@ -703,6 +709,7 @@ namespace VidCoder
 			public static IObservable<int> LastPickerIndex => GetObservable<int>("LastPickerIndex");
 			public static IObservable<int> EncodingDialogLastTab => GetObservable<int>("EncodingDialogLastTab");
 			public static IObservable<int> OptionsDialogLastTab => GetObservable<int>("OptionsDialogLastTab");
+			public static IObservable<string> ExpandedBuiltInFolders => GetObservable<string>("ExpandedBuiltInFolders");
 			public static IObservable<string> MainWindowPlacement => GetObservable<string>("MainWindowPlacement");
 			public static IObservable<string> SubtitlesDialogPlacement => GetObservable<string>("SubtitlesDialogPlacement");
 			public static IObservable<string> EncodingDialogPlacement => GetObservable<string>("EncodingDialogPlacement");
