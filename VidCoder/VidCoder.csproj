@@ -433,6 +433,7 @@
     <Compile Include="Converters\ChapterVMConverter.cs" />
     <Compile Include="Converters\TitleDisplayConverter.cs" />
     <Compile Include="DataReaderExtensions.cs" />
+    <Compile Include="DragDrop\MoveToFolderAdorner.cs" />
     <Compile Include="EnumStringConverter.cs" />
     <Compile Include="Extensions\JsonScanObjectExtensions.cs" />
     <Compile Include="Extensions\PresetExtensions.cs" />

@@ -48,5 +48,38 @@ namespace VidCoder
 				return FindVisualParent<T>(parentObject);
 			}
 		}
+
+		/// <summary>
+		/// Finds a descendant of the given item that fits the given criteria.
+		/// </summary>
+		/// <typeparam name="T">The type of the item to find.</typeparam>
+		/// <param name="element"></param>
+		/// <param name="searchFunc">A function to use to search fo the element.</param>
+		/// <returns>The element if found, or null.</returns>
+		public static T FindDescendant<T>(DependencyObject element, Func<T, bool> searchFunc = null)
+			where T : DependencyObject
+		{
+			var elementTyped = element as T;
+			if (elementTyped != null)
+			{
+				if (searchFunc == null || searchFunc(elementTyped))
+				{
+					return elementTyped;
+				}
+			}
+
+			int childCount = VisualTreeHelper.GetChildrenCount(element);
+			for (int i = 0; i < childCount; i++)
+			{
+				DependencyObject child = VisualTreeHelper.GetChild(element, i);
+				T childResult = FindDescendant<T>(child, searchFunc);
+				if (childResult != null)
+				{
+					return childResult;
+				}
+			}
+
+			return null;
+		}
 	}
 }

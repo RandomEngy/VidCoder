@@ -29,7 +29,7 @@ namespace VidCoderCommon.Model
 		/// Gets or sets the folder ID. 0 is the root "Custom" folder.
 		/// </summary>
 		[JsonProperty]
-		public int FolderId { get; set; }
+		public long FolderId { get; set; }
 
 		[JsonProperty]
 		public bool IsBuiltIn { get; set; }

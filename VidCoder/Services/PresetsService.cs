@@ -72,10 +72,10 @@ namespace VidCoder.Services
 			}
 
 			// Populate the custom preset folder before built-in presets are added to AllPresets collection.
-			this.customPresetFolder = new PresetFolderViewModel(this, this.expandedBuiltInFolders.Contains(CustomFolderKey)) { Name = EncodingRes.PresetFolder_Custom, Id = 0 };
+			this.customPresetFolder = new PresetFolderViewModel(this, this.expandedBuiltInFolders.Contains(CustomFolderKey)) { Name = EncodingRes.PresetFolder_Custom, Id = 0, IsBuiltIn = false};
 			this.PopulateCustomFolder(this.customPresetFolder);
 
-			this.builtInFolder = new PresetFolderViewModel(this, this.expandedBuiltInFolders.Contains(BuiltInFolderKey)) { Name = EncodingRes.PresetFolder_BuiltIn };
+			this.builtInFolder = new PresetFolderViewModel(this, this.expandedBuiltInFolders.Contains(BuiltInFolderKey)) { Name = EncodingRes.PresetFolder_BuiltIn, IsBuiltIn = true};
 			foreach (Preset builtInPreset in builtInPresets)
 			{
 				PresetViewModel presetVM;
@@ -387,6 +387,18 @@ namespace VidCoder.Services
 			this.main.StartAnimation("PresetGlowHighlight");
 			this.SaveUserPresets();
 		}
+
+		public void MovePresetToFolder(PresetViewModel presetViewModel, PresetFolderViewModel targetFolder)
+		{
+			PresetFolderViewModel previousFolder = this.FindFolderViewModel(presetViewModel.Preset.FolderId);
+			previousFolder.RemoveItem(presetViewModel);
+
+			targetFolder.AddItem(presetViewModel);
+			presetViewModel.Preset.FolderId = targetFolder.Id;
+
+			this.SaveUserPresets();
+		}
+
 		public void CreateSubFolder(PresetFolderViewModel folderViewModel)
 		{
 			var dialogVM = new ChooseNameViewModel(EncodingRes.ChooseNameSubfolder, new List<string>());
@@ -468,6 +480,30 @@ namespace VidCoder.Services
 
 				CustomConfig.ExpandedBuiltInFolders = this.expandedBuiltInFolders;
 			}
+		}
+
+		private PresetFolderViewModel FindFolderViewModel(long folderId)
+		{
+			return this.FindFolderRecursive(this.customPresetFolder, folderId);
+		}
+
+		private PresetFolderViewModel FindFolderRecursive(PresetFolderViewModel currentFolder, long folderId)
+		{
+			if (currentFolder.Id == folderId)
+			{
+				return currentFolder;
+			}
+
+			foreach (PresetFolderViewModel subFolder in currentFolder.SubFolders)
+			{
+				PresetFolderViewModel childResult = this.FindFolderRecursive(subFolder, folderId);
+				if (childResult != null)
+				{
+					return childResult;
+				}
+			}
+
+			return null;
 		}
 
 		private bool RemoveFolderFromTree(PresetFolderViewModel folderToSearchIn, PresetFolderViewModel folderToRemove)

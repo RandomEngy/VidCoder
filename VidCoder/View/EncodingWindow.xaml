@@ -93,6 +93,9 @@
 			</Setter>
 		</Style>
 		<Style x:Key="PresetTreeFolderItemStyle" TargetType="{x:Type TreeViewItem}">
+			<EventSetter Event="DragOver" Handler="OnPresetTreeFolderDragOver" />
+			<EventSetter Event="Drop" Handler="OnPresetTreeFolderDrop" />
+			<EventSetter Event="PreviewDragLeave" Handler="OnPresetTreeFolderPreviewDragLeave" />
 			<Setter Property="IsSelected" Value="False" />
 			<Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
 			<Setter Property="Focusable" Value="False" />
@@ -110,7 +113,7 @@
 								<RowDefinition Height="Auto" />
 								<RowDefinition />
 							</Grid.RowDefinitions>
-							<Grid Grid.Row="0">
+							<Grid Grid.Row="0" Background="Transparent">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="12" />
 									<ColumnDefinition Width="Auto" />
@@ -212,6 +215,8 @@
 			</Style.Triggers>
 		</Style>
 		<Style x:Key="PresetTreeItemStyle" TargetType="{x:Type TreeViewItem}">
+			<EventSetter Event="MouseDown" Handler="OnPresetTreeItemMouseDown" />
+			<EventSetter Event="MouseMove" Handler="OnPresetTreeItemMouseMove" />
 			<Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
 			<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 			<Setter Property="Background" Value="Transparent" />
@@ -367,49 +372,6 @@
 				</ItemsPanelTemplate>
 			</TreeView.ItemsPanel>
 		</TreeView>
-
-		<!--<ListBox
-			Grid.Column="0"
-			Margin="0 0 4 0"
-			HorizontalAlignment="Stretch"
-			Background="WhiteSmoke"
-			BorderThickness="0"
-			Canvas.ZIndex="3"
-			IsEnabled="{Binding PickersService.SelectedPicker.Picker.UseEncodingPreset,
-			                    Converter={StaticResource InverseBoolConverter}}"
-			ItemsSource="{Binding PresetsService.AllPresets}"
-			SelectedItem="{Binding PresetsService.SelectedPreset}"
-			ToolTip="{Binding PickersService.PresetDisabledToolTip}"
-			ToolTipService.ShowOnDisabled="True"
-			Visibility="{Binding PresetPanelOpen,
-			                     Converter={StaticResource VisibilityConverter}}">
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<TextBlock
-						Margin="5"
-						FontSize="12"
-						Text="{Binding DisplayNameWithStar}">
-						<TextBlock.Style>
-							<Style TargetType="TextBlock">
-								<Style.Triggers>
-									<DataTrigger Binding="{Binding Preset.IsBuiltIn}" Value="False">
-										<Setter Property="Foreground" Value="#0B4BC2" />
-										<Setter Property="FontWeight" Value="SemiBold" />
-									</DataTrigger>
-									<DataTrigger Binding="{Binding Preset.IsQueue}" Value="True">
-										<Setter Property="Foreground" Value="#222222" />
-										<Setter Property="FontWeight" Value="Normal" />
-									</DataTrigger>
-									<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
-										<Setter Property="FontWeight" Value="Bold" />
-									</DataTrigger>
-								</Style.Triggers>
-							</Style>
-						</TextBlock.Style>
-					</TextBlock>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>-->
 
 		<GridSplitter
 			Grid.Column="0"

@@ -22,6 +22,7 @@ namespace VidCoder.ViewModel.DataModels
 				Name = folder.Name,
 				Id = folder.Id,
 				ParentId = folder.ParentId,
+				IsBuiltIn = false,
 			};
 		}
 
@@ -62,6 +63,8 @@ namespace VidCoder.ViewModel.DataModels
 		public long Id { get; set; }
 
 		public long ParentId { get; set; }
+
+		public bool IsBuiltIn { get; set; }
 
 		public bool IsNotRoot => this.Id != 0;
 
@@ -114,6 +117,8 @@ namespace VidCoder.ViewModel.DataModels
 			}
 
 			this.AllItems.Insert(insertionIndex, subfolderViewModel);
+
+			this.IsExpanded = true;
 		}
 
 		public void RemoveSubfolder(PresetFolderViewModel subFolderViewModel)

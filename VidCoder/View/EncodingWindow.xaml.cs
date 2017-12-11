@@ -17,6 +17,8 @@ using VidCoder.ViewModel;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows.Controls.Primitives;
+using VidCoder.DragDropUtils;
+using VidCoder.ViewModel.DataModels;
 
 namespace VidCoder.View
 {
@@ -111,6 +113,152 @@ namespace VidCoder.View
 			folderMenu.PlacementTarget = menuButton;
 			folderMenu.Placement = PlacementMode.Bottom;
 			folderMenu.IsOpen = true;
+		}
+
+		private Point lastPresetTreeViewMouseDown;
+
+		private PresetViewModel draggedPreset;
+
+		private MoveToFolderAdorner folderMoveAdorner;
+
+		private void OnPresetTreeFolderDragOver(object sender, DragEventArgs e)
+		{
+			try
+			{
+				Point currentPosition = e.GetPosition(this.presetTreeView);
+
+				if (DragDropUtilities.IsMovementBigEnough(this.lastPresetTreeViewMouseDown, currentPosition))
+				{
+					// Verify that this is a valid drop and then store the drop target
+					TreeViewItem item = this.GetNearestContainer(e.OriginalSource as UIElement);
+					bool isValidDropTarget = this.CheckDropTarget(this.draggedPreset, item.Header);
+					e.Effects = isValidDropTarget ? DragDropEffects.Move : DragDropEffects.None;
+
+					if (isValidDropTarget)
+					{
+						this.ShowFolderMoveAdorner(item);
+					}
+					else
+					{
+						this.RemoveFolderMoveAdorner();
+					}
+				}
+
+				e.Handled = true;
+			}
+			catch (Exception)
+			{
+			}
+		}
+
+		private void OnPresetTreeFolderDrop(object sender, DragEventArgs e)
+		{
+			try
+			{
+				e.Effects = DragDropEffects.None;
+				e.Handled = true;
+
+				// Verify that this is a valid drop and then store the drop target
+				TreeViewItem targetItem = this.GetNearestContainer(e.OriginalSource as UIElement);
+				if (this.CheckDropTarget(this.draggedPreset, targetItem.Header))
+				{
+					Ioc.Get<PresetsService>().MovePresetToFolder(this.draggedPreset, (PresetFolderViewModel)targetItem.Header);
+				}
+
+				this.RemoveFolderMoveAdorner();
+			}
+			catch (Exception)
+			{
+			}
+		}
+
+		private void OnPresetTreeFolderPreviewDragLeave(object sender, DragEventArgs e)
+		{
+			//this.RemoveFolderMoveAdorner();
+		}
+
+		private void OnPresetTreeItemMouseDown(object sender, MouseButtonEventArgs e)
+		{
+			if (e.ChangedButton == MouseButton.Left)
+			{
+				this.lastPresetTreeViewMouseDown = e.GetPosition(this.presetTreeView);
+			}
+		}
+
+		private void OnPresetTreeItemMouseMove(object sender, MouseEventArgs e)
+		{
+			if (e.LeftButton == MouseButtonState.Pressed)
+			{
+				Point currentPosition = e.GetPosition(this.presetTreeView);
+
+				if (DragDropUtilities.IsMovementBigEnough(this.lastPresetTreeViewMouseDown, currentPosition))
+				{
+					this.draggedPreset = this.presetTreeView.SelectedItem as PresetViewModel;
+
+					if (this.draggedPreset != null)
+					{
+						DragDrop.DoDragDrop((DependencyObject)sender, this.presetTreeView.SelectedItem, DragDropEffects.Move);
+					}
+				}
+			}
+		}
+
+		private void ShowFolderMoveAdorner(TreeViewItem item)
+		{
+			if (this.folderMoveAdorner == null)
+			{
+				Border borderChild = UIUtilities.FindDescendant<Border>(item, border => border.Name == "Bd");
+
+				var adornerLayer = AdornerLayer.GetAdornerLayer(borderChild);
+				this.folderMoveAdorner = new MoveToFolderAdorner(borderChild, adornerLayer);
+			}
+		}
+
+		private void RemoveFolderMoveAdorner()
+		{
+			if (this.folderMoveAdorner != null)
+			{
+				this.folderMoveAdorner.Detach();
+				this.folderMoveAdorner = null;
+			}
+		}
+
+		private bool CheckDropTarget(PresetViewModel sourceItem, object targetItem)
+		{
+			if (sourceItem == null)
+			{
+				return false;
+			}
+
+			var targetFolder = targetItem as PresetFolderViewModel;
+			if (targetFolder == null)
+			{
+				return false;
+			}
+
+			if (targetFolder.IsBuiltIn)
+			{
+				return false;
+			}
+
+			if (sourceItem.Preset.FolderId == targetFolder.Id)
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		private TreeViewItem GetNearestContainer(UIElement element)
+		{
+			// Walk up the element tree to the nearest tree view item.
+			TreeViewItem container = element as TreeViewItem;
+			while (container == null && element != null)
+			{
+				element = VisualTreeHelper.GetParent(element) as UIElement;
+				container = element as TreeViewItem;
+			}
+			return container;
 		}
 	}
 }

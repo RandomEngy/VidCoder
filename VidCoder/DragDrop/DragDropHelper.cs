@@ -275,6 +275,7 @@ namespace VidCoder.DragDropUtils
 				this.ShowDraggedAdorner(e.GetPosition(this.topWindow));
 				this.CreateInsertionAdorner();
 			}
+
 			e.Handled = true;
 		}
 
@@ -289,6 +290,7 @@ namespace VidCoder.DragDropUtils
 				this.ShowDraggedAdorner(e.GetPosition(this.topWindow));
 				this.UpdateInsertionAdornerPosition();
 			}
+
 			e.Handled = true;
 		}
 
@@ -316,6 +318,7 @@ namespace VidCoder.DragDropUtils
 				this.RemoveDraggedAdorner();
 				this.RemoveInsertionAdorner();
 			}
+
 			e.Handled = true;
 		}
 
@@ -329,6 +332,7 @@ namespace VidCoder.DragDropUtils
 			{
 				this.RemoveInsertionAdorner();
 			}
+
 			e.Handled = true;
 		}
 
@@ -449,6 +453,7 @@ namespace VidCoder.DragDropUtils
 			{
 				isDropDataTypeAllowed = false;			
 			}
+
 			return isDropDataTypeAllowed;
 		}
 
@@ -484,6 +489,7 @@ namespace VidCoder.DragDropUtils
 				var adornerLayer = AdornerLayer.GetAdornerLayer(this.sourceItemsControl);
 				this.draggedAdorner = new DraggedAdorner(this.draggedData, GetDragDropTemplate(this.sourceItemsControl), this.sourceItemContainer, adornerLayer);
 			}
+
 			this.draggedAdorner.SetPosition(currentPosition.X - this.initialMousePosition.X, currentPosition.Y - this.initialMousePosition.Y);
 		}
 
