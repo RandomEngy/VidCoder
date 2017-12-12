@@ -136,18 +136,20 @@
 								</Grid.ContextMenu>
 								<Border
 									x:Name="Bd"
-									Grid.Column="1"
+									Grid.Column="0"
+									Grid.ColumnSpan="3"
+									Margin="-100 0 0 0"
 									Padding="{TemplateBinding Padding}"
 									Background="{TemplateBinding Background}"
 									BorderBrush="{TemplateBinding BorderBrush}"
-									BorderThickness="{TemplateBinding BorderThickness}">
-									<ContentPresenter
-										x:Name="PART_Header"
-										HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-										VerticalAlignment="Stretch"
-										ContentSource="Header"
-										SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-								</Border>
+									BorderThickness="{TemplateBinding BorderThickness}" />
+								<ContentPresenter
+									x:Name="PART_Header"
+									Grid.Column="1"
+									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+									VerticalAlignment="Stretch"
+									ContentSource="Header"
+									SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 								<ToggleButton
 									x:Name="Expander"
 									Grid.Column="0"
@@ -227,20 +229,23 @@
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type TreeViewItem}">
-						<Border
-							x:Name="Bd"
-							Margin="12 0 0 0"
-							Padding="{TemplateBinding Padding}"
-							Background="{TemplateBinding Background}"
-							BorderBrush="{TemplateBinding BorderBrush}"
-							BorderThickness="{TemplateBinding BorderThickness}"
-							SnapsToDevicePixels="true">
+						<Grid>
+							<Border
+								x:Name="Bd"
+								Margin="-100 0 0 0"
+								Padding="{TemplateBinding Padding}"
+								Background="{TemplateBinding Background}"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								BorderThickness="{TemplateBinding BorderThickness}"
+								SnapsToDevicePixels="true" />
 							<ContentPresenter
 								x:Name="PART_Header"
+								Margin="12 0 0 0"
 								HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
 								ContentSource="Header"
 								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-						</Border>
+						</Grid>
+
 						<ControlTemplate.Triggers>
 							<Trigger Property="IsMouseOver" Value="True">
 								<Setter TargetName="Bd" Property="Background" Value="#DCEBF2" />
@@ -320,6 +325,7 @@
 			Grid.Column="0"
 			Margin="0 0 4 0"
 			HorizontalAlignment="Stretch"
+			AllowDrop="True"
 			Background="WhiteSmoke"
 			BorderThickness="0"
 			Canvas.ZIndex="3"

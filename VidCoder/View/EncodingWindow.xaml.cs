@@ -18,6 +18,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows.Controls.Primitives;
 using VidCoder.DragDropUtils;
+using VidCoder.Services.Windows;
 using VidCoder.ViewModel.DataModels;
 
 namespace VidCoder.View
@@ -119,6 +120,8 @@ namespace VidCoder.View
 
 		private PresetViewModel draggedPreset;
 
+		private TreeViewItem dropTarget;
+
 		private MoveToFolderAdorner folderMoveAdorner;
 
 		private void OnPresetTreeFolderDragOver(object sender, DragEventArgs e)
@@ -130,13 +133,11 @@ namespace VidCoder.View
 				if (DragDropUtilities.IsMovementBigEnough(this.lastPresetTreeViewMouseDown, currentPosition))
 				{
 					// Verify that this is a valid drop and then store the drop target
-					TreeViewItem item = this.GetNearestContainer(e.OriginalSource as UIElement);
-					bool isValidDropTarget = this.CheckDropTarget(this.draggedPreset, item.Header);
-					e.Effects = isValidDropTarget ? DragDropEffects.Move : DragDropEffects.None;
+					this.DecideDropTarget(e);
 
-					if (isValidDropTarget)
+					if (this.dropTarget != null)
 					{
-						this.ShowFolderMoveAdorner(item);
+						this.ShowFolderMoveAdorner(this.dropTarget);
 					}
 					else
 					{
@@ -159,10 +160,10 @@ namespace VidCoder.View
 				e.Handled = true;
 
 				// Verify that this is a valid drop and then store the drop target
-				TreeViewItem targetItem = this.GetNearestContainer(e.OriginalSource as UIElement);
-				if (this.CheckDropTarget(this.draggedPreset, targetItem.Header))
+				this.DecideDropTarget(e);
+				if (this.dropTarget != null)
 				{
-					Ioc.Get<PresetsService>().MovePresetToFolder(this.draggedPreset, (PresetFolderViewModel)targetItem.Header);
+					Ioc.Get<PresetsService>().MovePresetToFolder(this.draggedPreset, (PresetFolderViewModel)this.dropTarget.Header);
 				}
 
 				this.RemoveFolderMoveAdorner();
@@ -174,6 +175,10 @@ namespace VidCoder.View
 
 		private void OnPresetTreeFolderPreviewDragLeave(object sender, DragEventArgs e)
 		{
+			if (this.dropTarget == null)
+			{
+				e.Effects = DragDropEffects.None;
+			}
 			//this.RemoveFolderMoveAdorner();
 		}
 
@@ -197,7 +202,11 @@ namespace VidCoder.View
 
 					if (this.draggedPreset != null)
 					{
+						var windowManager = Ioc.Get<IWindowManager>();
+
+						windowManager.SuspendDropOnWindows();
 						DragDrop.DoDragDrop((DependencyObject)sender, this.presetTreeView.SelectedItem, DragDropEffects.Move);
+						windowManager.ResumeDropOnWindows();
 					}
 				}
 			}
@@ -223,9 +232,26 @@ namespace VidCoder.View
 			}
 		}
 
-		private bool CheckDropTarget(PresetViewModel sourceItem, object targetItem)
+		private void DecideDropTarget(DragEventArgs e)
 		{
-			if (sourceItem == null)
+			TreeViewItem item = this.GetNearestContainer(e.OriginalSource as UIElement);
+			bool isValidDropTarget = this.CheckDropTarget(item.Header);
+
+			if (isValidDropTarget)
+			{
+				this.dropTarget = item;
+				e.Effects = DragDropEffects.Move;
+			}
+			else
+			{
+				this.dropTarget = null;
+				e.Effects = DragDropEffects.None;
+			}
+		}
+
+		private bool CheckDropTarget(object targetItem)
+		{
+			if (this.draggedPreset == null)
 			{
 				return false;
 			}
@@ -241,7 +267,7 @@ namespace VidCoder.View
 				return false;
 			}
 
-			if (sourceItem.Preset.FolderId == targetFolder.Id)
+			if (this.draggedPreset.Preset.FolderId == targetFolder.Id)
 			{
 				return false;
 			}
