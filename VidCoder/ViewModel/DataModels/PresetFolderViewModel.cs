@@ -51,6 +51,12 @@ namespace VidCoder.ViewModel.DataModels
 				{
 					this.presetsService.SaveFolderIsExpanded(this);
 				});
+
+			this.WhenAnyValue(x => x.IsExpanded)
+				.Subscribe(isExp =>
+				{
+					this.ReselectPresetOnExpanded(this);
+				});
 		}
 
 		private string name;
@@ -183,6 +189,30 @@ namespace VidCoder.ViewModel.DataModels
 		private void RemoveFolderImpl()
 		{
 			this.presetsService.RemoveFolder(this);
+		}
+
+		private bool ReselectPresetOnExpanded(PresetFolderViewModel presetFolderViewModel)
+		{
+			if (!presetFolderViewModel.IsExpanded)
+			{
+				return false;
+			}
+
+			if (presetFolderViewModel.Items.Contains(this.presetsService.SelectedPreset))
+			{
+				this.presetsService.SelectedPreset.IsSelected = true;
+				return true;
+			}
+
+			foreach (var subFolder in presetFolderViewModel.SubFolders)
+			{
+				if (this.ReselectPresetOnExpanded(subFolder))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 	}
 }

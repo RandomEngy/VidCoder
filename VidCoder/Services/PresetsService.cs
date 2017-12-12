@@ -97,11 +97,6 @@ namespace VidCoder.Services
 			this.AllPresetsTree.Add(this.customPresetFolder);
 			this.AllPresetsTree.Add(this.builtInFolder);
 
-			foreach (PresetFolderViewModel folderViewModel in this.AllPresetsTree)
-			{
-				this.RegisterSelectOnExpansion(folderViewModel);
-			}
-
 
 
 			// Always select the modified preset if it exists.
@@ -141,22 +136,6 @@ namespace VidCoder.Services
 			{
 				folderViewModel.AddItem(presetViewModel);
 			}
-		}
-
-		private void RegisterSelectOnExpansion(PresetFolderViewModel folderViewModel)
-		{
-			folderViewModel
-				.WhenAnyValue(x => x.IsExpanded)
-				.Subscribe(isExpanded =>
-			{
-				if (isExpanded)
-				{
-					if (folderViewModel.Items.Contains(this.SelectedPreset))
-					{
-						this.SelectedPreset.IsSelected = true;
-					}
-				}
-			});
 		}
 
 		private OutputPathService OutputPathService
@@ -325,6 +304,18 @@ namespace VidCoder.Services
 			this.SaveUserPresets();
 		}
 
+		public void RenamePreset(string newPresetName)
+		{
+			this.SelectedPreset.Preset.Name = newPresetName;
+
+			// Remove from the folder and add it back again so it goes in the right place.
+			PresetFolderViewModel currentFolder = this.FindFolderViewModel(this.SelectedPreset.Preset.FolderId);
+			currentFolder.RemoveItem(this.SelectedPreset);
+			currentFolder.AddItem(this.SelectedPreset);
+
+			this.SavePreset();
+		}
+
 		public void AddPreset(Preset newPreset)
 		{
 			var newPresetVM = new PresetViewModel(newPreset);
@@ -429,6 +420,11 @@ namespace VidCoder.Services
 				{
 					PresetFolderStorage.RenameFolder(folderViewModel.Id, newName);
 					folderViewModel.Name = newName;
+
+					// Remove and re-add the folder to get the folder in the right order.
+					PresetFolderViewModel parentFolder = this.FindFolderRecursive(this.customPresetFolder, folderViewModel.ParentId);
+					parentFolder.RemoveSubfolder(folderViewModel);
+					parentFolder.AddSubfolder(folderViewModel);
 				}
 			}
 		}

@@ -6,13 +6,11 @@ namespace VidCoder.ViewModel
 {
 	public class PresetViewModel : ReactiveObject
 	{
-		private Preset preset;
-
 		public PresetViewModel(Preset preset)
 		{
-			this.preset = preset;
+			this.Preset = preset;
 
-			this.preset.WhenAnyValue(
+			this.Preset.WhenAnyValue(
 				x => x.Name,
 				x => x.IsBuiltIn,
 				(name, isBuiltIn) =>
@@ -32,13 +30,7 @@ namespace VidCoder.ViewModel
 				.ToProperty(this, x => x.DisplayNameWithStar, out this.displayNameWithStar);
 		}
 
-		public Preset Preset
-		{
-			get
-			{
-				return this.preset;
-			}
-		}
+		public Preset Preset { get; }
 
 		// Used only to help TreeViewModel. The real selected master property is on PresetsService
 		private bool isSelected;

@@ -172,9 +172,7 @@ namespace VidCoder.ViewModel
 			if (dialogVM.DialogResult)
 			{
 				string newPresetName = dialogVM.Name;
-				this.PresetsService.SelectedPreset.Preset.Name = newPresetName;
-
-				this.PresetsService.SavePreset();
+				this.PresetsService.RenamePreset(newPresetName);
 			}
 		}
 

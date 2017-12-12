@@ -330,7 +330,9 @@
 			BorderThickness="0"
 			Canvas.ZIndex="3"
 			ItemsSource="{Binding PresetsService.AllPresetsTree}"
-			SelectedItemChanged="TreeView_OnSelectedItemChanged">
+			SelectedItemChanged="TreeView_OnSelectedItemChanged"
+			Visibility="{Binding PresetPanelOpen,
+			                     Converter={StaticResource VisibilityConverter}}">
 			<TreeView.ItemTemplateSelector>
 				<selectors:PresetTreeTemplateSelector>
 					<selectors:PresetTreeTemplateSelector.FolderTemplate>
