@@ -45,8 +45,8 @@
 					<ControlTemplate TargetType="{x:Type ToggleButton}">
 						<Grid Background="Transparent">
 							<Border
-								Width="16"
-								Height="16"
+								Width="18"
+								Height="18"
 								Padding="5 5 0 5"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Center">
@@ -115,7 +115,7 @@
 							</Grid.RowDefinitions>
 							<Grid Grid.Row="0" Background="Transparent">
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="12" />
+									<ColumnDefinition Width="14" />
 									<ColumnDefinition Width="Auto" />
 									<ColumnDefinition Width="*" />
 								</Grid.ColumnDefinitions>
@@ -340,14 +340,14 @@
 						<HierarchicalDataTemplate ItemsSource="{Binding AllItems}">
 							<TextBlock
 								Margin="5"
-								FontSize="12"
+								FontSize="14"
 								Text="{Binding Name}" />
 						</HierarchicalDataTemplate>
 					</selectors:PresetTreeTemplateSelector.FolderTemplate>
 					<selectors:PresetTreeTemplateSelector.PresetTemplate>
 						<DataTemplate>
 							<TextBlock
-								Margin="5"
+								Margin="5 7"
 								FontSize="12"
 								Text="{Binding DisplayNameWithStar}">
 								<TextBlock.Style>

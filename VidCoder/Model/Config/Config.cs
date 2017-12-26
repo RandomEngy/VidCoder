@@ -46,7 +46,7 @@ namespace VidCoder
 			cache.Add("AutoNameCustomFormatString", DatabaseConfig.Get("AutoNameCustomFormatString", "{source}-{title}", connection));
 			cache.Add("NativeLanguageCode", DatabaseConfig.Get("NativeLanguageCode", "", connection));
 			cache.Add("DubAudio", DatabaseConfig.Get("DubAudio", false, connection));
-			cache.Add("LastPresetIndex", DatabaseConfig.Get("LastPresetIndex", 0, connection));
+			cache.Add("LastPresetIndex", DatabaseConfig.Get("LastPresetIndex", -1, connection));
 			cache.Add("LastPickerIndex", DatabaseConfig.Get("LastPickerIndex", 0, connection));
 			cache.Add("EncodingDialogLastTab", DatabaseConfig.Get("EncodingDialogLastTab", 0, connection));
 			cache.Add("OptionsDialogLastTab", DatabaseConfig.Get("OptionsDialogLastTab", 0, connection));

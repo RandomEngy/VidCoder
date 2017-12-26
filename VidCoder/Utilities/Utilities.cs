@@ -26,7 +26,7 @@ namespace VidCoder
 		public const string TimeFormat = @"h\:mm\:ss";
 		public const int CurrentDatabaseVersion = 36;
 		public const int LastUpdatedEncodingProfileDatabaseVersion = 33;
-		public const int LastUpdatedPickerDatabaseVersion = 34;
+		public const int LastUpdatedPickerDatabaseVersion = 36;
 
 		private const string AppDataFolderName = "VidCoder";
 		private const string LocalAppDataFolderName = "VidCoder";

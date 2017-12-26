@@ -123,6 +123,7 @@ namespace VidCoder.View
 		private TreeViewItem dropTarget;
 
 		private MoveToFolderAdorner folderMoveAdorner;
+		private TreeViewItem adornedItem;
 
 		private void OnPresetTreeFolderDragOver(object sender, DragEventArgs e)
 		{
@@ -179,7 +180,6 @@ namespace VidCoder.View
 			{
 				e.Effects = DragDropEffects.None;
 			}
-			//this.RemoveFolderMoveAdorner();
 		}
 
 		private void OnPresetTreeItemMouseDown(object sender, MouseButtonEventArgs e)
@@ -214,12 +214,18 @@ namespace VidCoder.View
 
 		private void ShowFolderMoveAdorner(TreeViewItem item)
 		{
+			if (item != this.adornedItem)
+			{
+				this.RemoveFolderMoveAdorner();
+			}
+
 			if (this.folderMoveAdorner == null)
 			{
 				Border borderChild = UIUtilities.FindDescendant<Border>(item, border => border.Name == "Bd");
 
 				var adornerLayer = AdornerLayer.GetAdornerLayer(borderChild);
 				this.folderMoveAdorner = new MoveToFolderAdorner(borderChild, adornerLayer);
+				this.adornedItem = item;
 			}
 		}
 
@@ -229,6 +235,7 @@ namespace VidCoder.View
 			{
 				this.folderMoveAdorner.Detach();
 				this.folderMoveAdorner = null;
+				this.adornedItem = null;
 			}
 		}
 

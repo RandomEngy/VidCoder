@@ -19,7 +19,7 @@ AutoNameCustomFormatString|string|"{source}-{title}"
 NativeLanguageCode|string|""
 DubAudio|bool|false
 
-LastPresetIndex|int|0
+LastPresetIndex|int|-1
 LastPickerIndex|int|0
 EncodingDialogLastTab|int|0
 OptionsDialogLastTab|int|0

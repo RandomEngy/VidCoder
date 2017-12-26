@@ -56,6 +56,7 @@ namespace VidCoder.Services
 
 			this.allPresets = new ObservableCollection<PresetViewModel>();
 			int modifiedPresetIndex = -1;
+			int defaultPresetIndex = 0;
 
 			foreach (Preset userPreset in unmodifiedPresets)
 			{
@@ -93,6 +94,11 @@ namespace VidCoder.Services
 
 				foreach (HBPreset handbrakePreset in handbrakePresetCategory.ChildrenArray)
 				{
+					if (handbrakePreset.Default)
+					{
+						defaultPresetIndex = this.allPresets.Count;
+					}
+
 					Preset builtInPreset = PresetConverter.ConvertHandBrakePresetToVC(handbrakePreset);
 					PresetViewModel builtInPresetViewModel = new PresetViewModel(builtInPreset);
 
@@ -116,7 +122,15 @@ namespace VidCoder.Services
 			}
 			else
 			{
-				presetIndex = Config.LastPresetIndex;
+				int lastPresetIndex = Config.LastPresetIndex;
+				if (lastPresetIndex >= 0)
+				{
+					presetIndex = lastPresetIndex;
+				}
+				else
+				{
+					presetIndex = defaultPresetIndex;
+				}
 			}
 
 			if (presetIndex >= this.allPresets.Count)
