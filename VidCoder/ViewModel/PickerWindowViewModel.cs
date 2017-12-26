@@ -269,6 +269,11 @@ namespace VidCoder.ViewModel
 					this.userModifyingEncodingPreset = true;
 					string presetName = selectedPreset == null ? null : selectedPreset.Preset.Name;
 					this.UpdatePickerProperty(nameof(this.Picker.EncodingPreset), presetName, raisePropertyChanged: false);
+					if (this.UseEncodingPreset && selectedPreset != null)
+					{
+						this.PresetsService.SelectedPreset = selectedPreset;
+					}
+
 					this.userModifyingEncodingPreset = false;
 				});
 
@@ -305,13 +310,20 @@ namespace VidCoder.ViewModel
 		{
 			if (useEncodingPreset)
 			{
-				PresetViewModel preset = this.presetsService.AllPresets.FirstOrDefault(p => p.Preset.Name == this.Picker.EncodingPreset);
-				if (preset == null)
+				if (this.Picker.EncodingPreset == null)
 				{
-					preset = this.presetsService.AllPresets.First();
+					this.SelectedPreset = this.presetsService.SelectedPreset;
 				}
+				else
+				{
+					PresetViewModel preset = this.presetsService.AllPresets.FirstOrDefault(p => p.Preset.Name == this.Picker.EncodingPreset);
+					if (preset == null)
+					{
+						preset = this.presetsService.AllPresets.First();
+					}
 
-				this.SelectedPreset = preset;
+					this.SelectedPreset = preset;
+				}
 			}
 			else
 			{

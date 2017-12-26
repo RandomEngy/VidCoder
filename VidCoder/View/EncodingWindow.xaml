@@ -330,6 +330,8 @@
 			Background="WhiteSmoke"
 			BorderThickness="0"
 			Canvas.ZIndex="3"
+			IsEnabled="{Binding PickersService.SelectedPicker.Picker.UseEncodingPreset,
+			                    Converter={StaticResource InverseBoolConverter}}"
 			ItemsSource="{Binding PresetsService.AllPresetsTree}"
 			SelectedItemChanged="TreeView_OnSelectedItemChanged"
 			Visibility="{Binding PresetPanelOpen,
