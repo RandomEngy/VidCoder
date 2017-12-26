@@ -6,9 +6,13 @@ using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
+using HandBrake.ApplicationServices.Interop;
+using HandBrake.ApplicationServices.Interop.Json.Presets;
 using ReactiveUI;
+using VidCoder;
 using VidCoder.Model;
 using VidCoder.Resources;
+using VidCoder.Services;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using VidCoder.ViewModel.DataModels;
@@ -37,16 +41,15 @@ namespace VidCoder.Services
 		/// </summary>
 		private IList<PresetFolder> presetFolders;
 
-		private HashSet<string> expandedBuiltInFolders;
+		private HashSet<string> collapsedBuiltInFolders;
 
 		public event EventHandler PresetChanged;
 
 		public PresetsService()
 		{
-			IList<Preset> builtInPresets = PresetStorage.BuiltInPresets;
 			List<Preset> userPresets = PresetStorage.UserPresets;
 			this.presetFolders = PresetFolderStorage.PresetFolders;
-			this.expandedBuiltInFolders = CustomConfig.ExpandedBuiltInFolders;
+			this.collapsedBuiltInFolders = CustomConfig.CollapsedBuiltInFolders;
 
 			var unmodifiedPresets = userPresets.Where(preset => !preset.IsModified);
 			Preset modifiedPreset = userPresets.FirstOrDefault(preset => preset.IsModified);
@@ -72,25 +75,30 @@ namespace VidCoder.Services
 			}
 
 			// Populate the custom preset folder before built-in presets are added to AllPresets collection.
-			this.customPresetFolder = new PresetFolderViewModel(this, this.expandedBuiltInFolders.Contains(CustomFolderKey)) { Name = EncodingRes.PresetFolder_Custom, Id = 0, IsBuiltIn = false};
+			this.customPresetFolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(CustomFolderKey)) { Name = EncodingRes.PresetFolder_Custom, Id = 0, IsBuiltIn = false};
 			this.PopulateCustomFolder(this.customPresetFolder);
 
-			this.builtInFolder = new PresetFolderViewModel(this, this.expandedBuiltInFolders.Contains(BuiltInFolderKey)) { Name = EncodingRes.PresetFolder_BuiltIn, IsBuiltIn = true};
-			foreach (Preset builtInPreset in builtInPresets)
+			// Populate built-in folder from HandBrake presets
+			IList<PresetCategory> handBrakePresets = HandBrakePresetService.GetBuiltInPresets();
+			this.builtInFolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(BuiltInFolderKey)) { Name = EncodingRes.PresetFolder_BuiltIn, IsBuiltIn = true};
+			foreach (PresetCategory handbrakePresetCategory in handBrakePresets)
 			{
-				PresetViewModel presetVM;
-				if (modifiedPreset != null && modifiedPreset.Name == builtInPreset.Name)
+				var builtInSubfolder = new PresetFolderViewModel(this, !this.collapsedBuiltInFolders.Contains(handbrakePresetCategory.PresetName))
 				{
-					presetVM = new PresetViewModel(modifiedPreset);
-					presetVM.OriginalProfile = builtInPreset.EncodingProfile;
-				}
-				else
-				{
-					presetVM = new PresetViewModel(builtInPreset);
-				}
+					Name = handbrakePresetCategory.PresetName,
+					IsBuiltIn = true,
+				};
 
-				this.allPresets.Add(presetVM);
-				this.builtInFolder.AddItem(presetVM);
+				this.builtInFolder.AddSubfolder(builtInSubfolder);
+
+				foreach (HBPreset handbrakePreset in handbrakePresetCategory.ChildrenArray)
+				{
+					Preset builtInPreset = PresetConverter.ConvertHandBrakePresetToVC(handbrakePreset);
+					PresetViewModel builtInPresetViewModel = new PresetViewModel(builtInPreset);
+
+					this.allPresets.Add(builtInPresetViewModel);
+					builtInSubfolder.AddItem(builtInPresetViewModel);
+				}
 			}
 
 			this.allPresetsTree = new ObservableCollection<PresetFolderViewModel>();
@@ -461,20 +469,20 @@ namespace VidCoder.Services
 
 				if (folderViewModel.IsExpanded)
 				{
-					if (!this.expandedBuiltInFolders.Contains(key))
+					if (this.collapsedBuiltInFolders.Contains(key))
 					{
-						this.expandedBuiltInFolders.Add(key);
+						this.collapsedBuiltInFolders.Remove(key);
 					}
 				}
 				else
 				{
-					if (this.expandedBuiltInFolders.Contains(key))
+					if (!this.collapsedBuiltInFolders.Contains(key))
 					{
-						this.expandedBuiltInFolders.Remove(key);
+						this.collapsedBuiltInFolders.Add(key);
 					}
 				}
 
-				CustomConfig.ExpandedBuiltInFolders = this.expandedBuiltInFolders;
+				CustomConfig.CollapsedBuiltInFolders = this.collapsedBuiltInFolders;
 			}
 		}
 

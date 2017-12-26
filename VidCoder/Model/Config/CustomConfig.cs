@@ -22,16 +22,16 @@ namespace VidCoder
 			}
 		}
 
-		public static HashSet<string> ExpandedBuiltInFolders
+		public static HashSet<string> CollapsedBuiltInFolders
 		{
 			get
 			{
-				return new HashSet<string>(Config.ExpandedBuiltInFolders.Split(new char[] { '☃' }, StringSplitOptions.RemoveEmptyEntries));
+				return new HashSet<string>(Config.CollapsedBuiltInFolders.Split(new char[] { '☃' }, StringSplitOptions.RemoveEmptyEntries));
 			}
 
 			set
 			{
-				Config.ExpandedBuiltInFolders = string.Join("☃", value);
+				Config.CollapsedBuiltInFolders = string.Join("☃", value);
 			}
 		}
 

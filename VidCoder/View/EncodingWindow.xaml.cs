@@ -286,5 +286,10 @@ namespace VidCoder.View
 			}
 			return container;
 		}
+
+		private void OnRequestBringPresetIntoView(object sender, RequestBringIntoViewEventArgs e)
+		{
+			e.Handled = true;
+		}
 	}
 }

@@ -219,6 +219,7 @@
 		<Style x:Key="PresetTreeItemStyle" TargetType="{x:Type TreeViewItem}">
 			<EventSetter Event="MouseDown" Handler="OnPresetTreeItemMouseDown" />
 			<EventSetter Event="MouseMove" Handler="OnPresetTreeItemMouseMove" />
+			<EventSetter Event="RequestBringIntoView" Handler="OnRequestBringPresetIntoView" />
 			<Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
 			<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 			<Setter Property="Background" Value="Transparent" />

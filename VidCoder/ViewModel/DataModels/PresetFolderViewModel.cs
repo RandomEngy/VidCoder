@@ -114,9 +114,9 @@ namespace VidCoder.ViewModel.DataModels
 					break;
 				}
 
-				// If the name compares to less than this folder name, add here.
+				// If the name compares to less than this folder name, (and we are not built-in) add here.
 				var folder = (PresetFolderViewModel)item;
-				if (string.Compare(subfolderViewModel.Name, folder.Name, StringComparison.CurrentCultureIgnoreCase) < 0)
+				if (!this.IsBuiltIn && string.Compare(subfolderViewModel.Name, folder.Name, StringComparison.CurrentCultureIgnoreCase) < 0)
 				{
 					break;
 				}
@@ -136,6 +136,13 @@ namespace VidCoder.ViewModel.DataModels
 		public void AddItem(PresetViewModel presetViewModel)
 		{
 			this.Items.Add(presetViewModel);
+
+			// For built in folders we use the given ordering.
+			if (this.IsBuiltIn)
+			{
+				this.AllItems.Add(presetViewModel);
+				return;
+			}
 
 			// Add in the right place.
 			int insertionIndex;
