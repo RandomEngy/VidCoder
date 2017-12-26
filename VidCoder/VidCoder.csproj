@@ -916,9 +916,6 @@
     <EmbeddedResource Include="Resources\Translations\*.*.resx">
       <ManifestResourceName>$(TargetName).Resources.%(Filename)</ManifestResourceName>
     </EmbeddedResource>
-    <Content Include="BuiltInPresets.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -954,6 +951,9 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\add_folder.png" />
+    <Resource Include="Icons\delete_folder.png" />
+    <Resource Include="Icons\rename_folder.png" />
     <Resource Include="Icons\rotate_180.png" />
     <Resource Include="Icons\rotate_90_ccw.png" />
     <Resource Include="Icons\rotate_90_cw.png" />

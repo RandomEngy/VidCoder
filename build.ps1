@@ -183,7 +183,6 @@ $generalFiles = @(
     ".\Lib\HandBrake.ApplicationServices.pdb",
     ".\Lib\Ookii.Dialogs.Wpf.dll",
     ".\Lib\Ookii.Dialogs.Wpf.pdb",
-    ".\VidCoder\BuiltInPresets.json",
     ".\VidCoder\Encode_Complete.wav",
     ".\VidCoder\Icons\File\VidCoderPreset.ico",
     ".\VidCoder\Icons\File\VidCoderQueue.ico",

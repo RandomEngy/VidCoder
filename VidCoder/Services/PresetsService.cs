@@ -409,6 +409,8 @@ namespace VidCoder.Services
 			targetFolder.AddItem(presetViewModel);
 			presetViewModel.Preset.FolderId = targetFolder.Id;
 
+			targetFolder.IsExpanded = true;
+
 			this.SaveUserPresets();
 		}
 
