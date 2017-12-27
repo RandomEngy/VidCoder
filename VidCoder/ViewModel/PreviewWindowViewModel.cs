@@ -804,6 +804,22 @@ namespace VidCoder.ViewModel
 			this.PlayingPreview = false;
 		}
 
+		public void ShowPreviousPreview()
+		{
+			if (this.SelectedPreview > 0)
+			{
+				this.SelectedPreview--;
+			}
+		}
+
+		public void ShowNextPreview()
+		{
+			if (this.SelectedPreview < this.previewCount - 1)
+			{
+				this.SelectedPreview++;
+			}
+		}
+
 		private void RequestRefreshPreviews()
 		{
 			if (!this.mainViewModel.HasVideoSource || this.outputSizeService.Size == null)

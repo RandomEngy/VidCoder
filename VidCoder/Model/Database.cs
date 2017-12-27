@@ -234,9 +234,18 @@ namespace VidCoder.Model
 
 		private static string BackupDatabaseFolder => Path.Combine(Utilities.AppFolder, BackupFolderName);
 
+		/// <summary>
+		/// Returns the version number of highest version database file that is still compatible with this build of VidCoder.
+		/// </summary>
+		/// <returns>The best version match.</returns>
 		private static int FindBackupDatabaseFile()
 		{
 			DirectoryInfo backupDirectoryInfo = new DirectoryInfo(BackupDatabaseFolder);
+			if (!backupDirectoryInfo.Exists)
+			{
+				return -1;
+			}
+
 			FileInfo[] backupFiles = backupDirectoryInfo.GetFiles();
 			Regex regex = new Regex(@"^VidCoder-v(?<version>\d+)\.sqlite$");
 
