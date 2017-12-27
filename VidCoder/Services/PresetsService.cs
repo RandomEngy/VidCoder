@@ -190,7 +190,7 @@ namespace VidCoder.Services
 
 			set
 			{
-				if (value == null)
+				if (value == null || this.selectedPreset == value)
 				{
 					return;
 				}
