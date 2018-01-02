@@ -1,6 +1,10 @@
 Installer/BuiltInstallers/*
 Flags/*
 packages/*
+*/AppPackages/*
+*/BundleArtifacts/*
+VidCoderPackage_StoreKey.pfx
+_pkginfo.txt
 Import/*
 HandBrakeInterop.XmlSerializers.dll
 .vs

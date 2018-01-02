@@ -948,6 +948,14 @@
     <Resource Include="Icons\stop_shadow.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Lib\hb.dll">
+      <Link>hb.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\System.Data.SQLite.Core.1.0.105.1\build\net46\x64\SQLite.Interop.dll">
+      <Link>SQLite.Interop.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1030,7 +1038,6 @@
   <Target Name="BeforeBuild">
   </Target> -->
   <Target Name="AfterBuild" DependsOnTargets="AssignTargetPaths;Compile;ResolveKeySource" Inputs="$(MSBuildAllProjects);@(IntermediateAssembly)" Outputs="$(OutputPath)$(_SGenDllName)">
-    <Copy SourceFiles="..\Lib\hb.dll" DestinationFolder="$(OutDir)" />
     <Copy SourceFiles="..\Lib\HandBrake.ApplicationServices.pdb" DestinationFolder="$(OutDir)" />
   </Target>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.105.1\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.105.1\build\net46\System.Data.SQLite.Core.targets')" />
