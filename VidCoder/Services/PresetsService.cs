@@ -112,7 +112,12 @@ namespace VidCoder.Services
 			}
 
 			this.allPresetsTree = new ObservableCollection<PresetFolderViewModel>();
-			this.AllPresetsTree.Add(this.customPresetFolder);
+
+			if (this.customPresetFolder.Items.Count > 0 || this.customPresetFolder.SubFolders.Count > 0)
+			{
+				this.AllPresetsTree.Add(this.customPresetFolder);
+			}
+
 			this.AllPresetsTree.Add(this.builtInFolder);
 
 
@@ -450,7 +455,7 @@ namespace VidCoder.Services
 					folderViewModel.Name = newName;
 
 					// Remove and re-add the folder to get the folder in the right order.
-					PresetFolderViewModel parentFolder = this.FindFolderRecursive(this.customPresetFolder, folderViewModel.ParentId);
+					PresetFolderViewModel parentFolder = folderViewModel.Parent;
 					parentFolder.RemoveSubfolder(folderViewModel);
 					parentFolder.AddSubfolder(folderViewModel);
 				}
@@ -711,6 +716,12 @@ namespace VidCoder.Services
 		private void InsertNewPreset(PresetViewModel presetVM)
 		{
 			this.customPresetFolder.AddItem(presetVM);
+
+			// If the Custom folder hasn't been added to the tree, add it now.
+			if (!this.AllPresetsTree.Contains(this.customPresetFolder))
+			{
+				this.AllPresetsTree.Insert(0, this.customPresetFolder);
+			}
 
 			for (int i = 0; i < this.AllPresets.Count; i++)
 			{
