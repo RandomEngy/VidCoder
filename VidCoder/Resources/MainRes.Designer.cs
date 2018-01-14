@@ -776,6 +776,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open App Data Folder.
+        /// </summary>
+        public static string OpenAppDataFolder {
+            get {
+                return ResourceManager.GetString("OpenAppDataFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Containing Folder.
         /// </summary>
         public static string OpenContainingFolder {

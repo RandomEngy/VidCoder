@@ -610,4 +610,8 @@
   <data name="FileSizeColumnHeader" xml:space="preserve">
     <value>Size</value>
   </data>
+  <data name="OpenAppDataFolder" xml:space="preserve">
+    <value>Open App Data Folder</value>
+    <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
+  </data>
 </root>

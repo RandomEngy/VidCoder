@@ -364,6 +364,9 @@ namespace VidCoder.ViewModel
 			this.ReportBug = ReactiveCommand.Create();
 			this.ReportBug.Subscribe(_ => this.ReportBugImpl());
 
+			this.OpenAppData = ReactiveCommand.Create();
+			this.OpenAppData.Subscribe(_ => this.OpenAppDataImpl());
+
 			this.Exit = ReactiveCommand.Create();
 			this.Exit.Subscribe(_ => this.ExitImpl());
 			
@@ -1926,6 +1929,12 @@ namespace VidCoder.ViewModel
 		private void ReportBugImpl()
 		{
 			FileService.Instance.LaunchUrl("https://github.com/RandomEngy/VidCoder/issues/new");
+		}
+
+		public ReactiveCommand<object> OpenAppData { get; }
+		private void OpenAppDataImpl()
+		{
+			FileUtilities.OpenFolderAndSelectItem(Database.DatabaseFile);
 		}
 
 		public ReactiveCommand<object> Exit { get; }

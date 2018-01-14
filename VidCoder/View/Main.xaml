@@ -395,6 +395,7 @@
 					</MenuItem.Icon>
 				</MenuItem>
 				<MenuItem Command="{Binding ReportBug}" Header="{x:Static res:MainRes.ReportABugMenuItem}" />
+				<MenuItem Command="{Binding OpenAppData}" Header="{x:Static res:MainRes.OpenAppDataFolder}" />
 				<Separator />
 				<MenuItem Command="{Binding OpenUpdates}" Header="{x:Static res:MainRes.UpdatesMenuItem}" />
 				<Separator />
