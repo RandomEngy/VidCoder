@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using VidCoder.ViewModel;
 
 namespace VidCoder.View
 {
@@ -9,10 +11,16 @@ namespace VidCoder.View
     /// </summary>
     public partial class PickerWindow : Window
     {
+	    private PickerWindowViewModel viewModel;
+
         public PickerWindow()
         {
             this.InitializeComponent();
 			this.listColumn.Width = new GridLength(Config.PickerListPaneWidth);
+	        this.DataContextChanged += (sender, args) =>
+	        {
+		        this.viewModel = args.NewValue as PickerWindowViewModel;
+	        };
         }
 
         private void PickerWindow_OnClosing(object sender, CancelEventArgs e)
@@ -24,5 +32,10 @@ namespace VidCoder.View
         {
             UIUtilities.HideOverflowGrid(sender as ToolBar);
         }
+
+	    private void OnPresetComboPreviewKeyDown(object sender, KeyEventArgs e)
+	    {
+		    this.viewModel.HandlePresetComboKey(e);
+	    }
     }
 }

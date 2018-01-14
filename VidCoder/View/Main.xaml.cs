@@ -526,5 +526,13 @@ namespace VidCoder.View
 				clickedPoint.X >= relativePoint.X && clickedPoint.X <= relativePoint.X + element.ActualWidth &&
 				clickedPoint.Y >= relativePoint.Y && clickedPoint.Y <= relativePoint.Y + element.ActualHeight;
 		}
+
+		private void OnPresetComboPreviewKeyDown(object sender, KeyEventArgs e)
+		{
+			this.PreviewKeyDown += (sender2, args) =>
+			{
+				Ioc.Get<PresetsService>().HandleKey(args);
+			};
+		}
 	}
 }

@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
-using System.Windows.Forms;
+using System.Windows.Input;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Presets;
 using ReactiveUI;
@@ -44,6 +44,10 @@ namespace VidCoder.Services
 		private HashSet<string> collapsedBuiltInFolders;
 
 		public event EventHandler PresetChanged;
+
+		public event EventHandler<PresetFolderViewModel> PresetFolderManuallyExpanded;
+
+		private bool isAutomaticExpansion = false;
 
 		public PresetsService()
 		{
@@ -500,6 +504,59 @@ namespace VidCoder.Services
 
 				CustomConfig.CollapsedBuiltInFolders = this.collapsedBuiltInFolders;
 			}
+		}
+
+		public void ReportFolderExpanded(PresetFolderViewModel presetFolderViewModel)
+		{
+			if (!this.isAutomaticExpansion)
+			{
+				this.PresetFolderManuallyExpanded?.Invoke(this, presetFolderViewModel);
+			}
+		}
+
+		public void HandleKey(KeyEventArgs args)
+		{
+			if (args.Key == Key.Up)
+			{
+				int selectedIndex = this.AllPresets.IndexOf(this.SelectedPreset);
+				if (selectedIndex > 0)
+				{
+					this.SelectedPreset = this.AllPresets[selectedIndex - 1];
+					this.EnsurePresetVisible(this.SelectedPreset);
+
+					args.Handled = true;
+				}
+			}
+			else if (args.Key == Key.Down)
+			{
+				int selectedIndex = this.AllPresets.IndexOf(this.SelectedPreset);
+				if (selectedIndex < this.AllPresets.Count - 1)
+				{
+					this.SelectedPreset = this.AllPresets[selectedIndex + 1];
+					this.EnsurePresetVisible(this.SelectedPreset);
+
+					args.Handled = true;
+				}
+			}
+		}
+
+		private void EnsurePresetVisible(PresetViewModel presetViewModel)
+		{
+			this.EnsurePresetFolderExpanded(presetViewModel.Parent);
+		}
+
+		private void EnsurePresetFolderExpanded(PresetFolderViewModel presetFolderViewModel)
+		{
+			if (presetFolderViewModel == null)
+			{
+				return;
+			}
+
+			this.isAutomaticExpansion = true;
+			presetFolderViewModel.IsExpanded = true;
+			this.isAutomaticExpansion = false;
+
+			this.EnsurePresetFolderExpanded(presetFolderViewModel.Parent);
 		}
 
 		private PresetFolderViewModel FindFolderViewModel(long folderId)

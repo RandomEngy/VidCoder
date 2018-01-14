@@ -628,6 +628,35 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.selectedPreset, value); }
 		}
 
+		public void HandlePresetComboKey(KeyEventArgs keyEventArgs)
+		{
+			if (this.SelectedPreset == null || !this.UseEncodingPreset)
+			{
+				return;
+			}
+
+			int currentIndex = this.PresetsService.AllPresets.IndexOf(this.SelectedPreset);
+
+			if (keyEventArgs.Key == Key.Up)
+			{
+				if (currentIndex > 0)
+				{
+					this.SelectedPreset = this.PresetsService.AllPresets[currentIndex - 1];
+
+					keyEventArgs.Handled = true;
+				}
+			}
+			else if (keyEventArgs.Key == Key.Down)
+			{
+				if (currentIndex < this.PresetsService.AllPresets.Count - 1)
+				{
+					this.SelectedPreset = this.PresetsService.AllPresets[currentIndex + 1];
+
+					keyEventArgs.Handled = true;
+				}
+			}
+		}
+
 		public bool AutoQueueOnScan
 		{
 			get { return this.Picker.AutoQueueOnScan; }

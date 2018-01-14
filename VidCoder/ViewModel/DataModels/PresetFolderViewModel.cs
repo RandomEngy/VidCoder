@@ -70,6 +70,8 @@ namespace VidCoder.ViewModel.DataModels
 
 		public long ParentId { get; set; }
 
+		public PresetFolderViewModel Parent { get; set; }
+
 		public bool IsBuiltIn { get; set; }
 
 		public bool IsNotRoot => this.Id != 0;
@@ -88,12 +90,20 @@ namespace VidCoder.ViewModel.DataModels
 		public bool IsExpanded
 		{
 			get { return this.isExpanded; }
-			set { this.RaiseAndSetIfChanged(ref this.isExpanded, value); }
+			set
+			{
+				this.RaiseAndSetIfChanged(ref this.isExpanded, value);
+				if (value)
+				{
+					this.presetsService.ReportFolderExpanded(this);
+				}
+			}
 		}
 
 		public void AddSubfolder(PresetFolderViewModel subfolderViewModel)
 		{
 			this.SubFolders.Add(subfolderViewModel);
+			subfolderViewModel.Parent = this;
 
 			int insertionIndex;
 
@@ -136,6 +146,7 @@ namespace VidCoder.ViewModel.DataModels
 		public void AddItem(PresetViewModel presetViewModel)
 		{
 			this.Items.Add(presetViewModel);
+			presetViewModel.Parent = this;
 
 			// For built in folders we use the given ordering.
 			if (this.IsBuiltIn)

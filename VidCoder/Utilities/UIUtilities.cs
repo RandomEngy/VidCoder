@@ -11,6 +11,8 @@ namespace VidCoder
 
 	public static class UIUtilities
 	{
+		private const double ScrollBarThickness = 18;
+
 		public static void HideOverflowGrid(ToolBar toolBar)
 		{
 			var overflowGrid = toolBar.Template.FindName("OverflowGrid", toolBar) as FrameworkElement;
@@ -80,6 +82,60 @@ namespace VidCoder
 			}
 
 			return null;
+		}
+
+		/// <summary>
+		/// Brings the given element into view in its parent ScrollViewer.
+		/// </summary>
+		/// <param name="element">The element to scroll to.</param>
+		public static void BringIntoView(FrameworkElement element)
+		{
+			if (element == null)
+			{
+				return;
+			}
+			
+			ScrollViewer scrollViewer = UIUtilities.FindVisualParent<ScrollViewer>(element);
+
+			if (scrollViewer == null)
+			{
+				return;
+			}
+
+			double viewerHeight = scrollViewer.ActualHeight;
+			double elementHeight = element.ActualHeight;
+
+			double currentViewStart = scrollViewer.VerticalOffset;
+			double currentViewEnd = currentViewStart + viewerHeight;
+
+			var scrollViewerContent = scrollViewer.Content as FrameworkElement;
+
+			if (scrollViewerContent == null)
+			{
+				return;
+			}
+
+			var transform = element.TransformToVisual(scrollViewerContent);
+
+			var positionInScrollViewer = transform.Transform(new Point(0, 0));
+			double itemStart = positionInScrollViewer.Y;
+			double itemEnd = itemStart + elementHeight;
+
+			if (itemStart < currentViewStart)
+			{
+				scrollViewer.ScrollToVerticalOffset(itemStart);
+			}
+			else if (itemEnd > currentViewEnd - ScrollBarThickness)
+			{
+				if (element.ActualHeight > viewerHeight - ScrollBarThickness)
+				{
+					scrollViewer.ScrollToVerticalOffset(itemStart);
+				}
+				else
+				{
+					scrollViewer.ScrollToVerticalOffset(itemEnd - viewerHeight + ScrollBarThickness);
+				}
+			}
 		}
 	}
 }

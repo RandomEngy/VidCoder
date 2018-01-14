@@ -207,21 +207,6 @@ namespace VidCoder.ViewModel
 		}
 
 		/// <summary>
-		/// Called when the user has clicked a new item or the control has auto selected a different item (such as when a folder is collapsed).
-		/// </summary>
-		/// <param name="selectedItem">The viewmodel for the item that was selected.</param>
-		public void OnSelectedTreeViewPresetChanged(object selectedItem)
-		{
-			if (selectedItem == null || selectedItem is PresetFolderViewModel)
-			{
-				// If it's a folder that got "selected" we ignore it and leave the previous preset selected for real
-				return;
-			}
-
-			this.PresetsService.SelectedPreset = (PresetViewModel)selectedItem;
-		}
-
-		/// <summary>
 		/// Notify the encoding window that the length of the selected video changes.
 		/// </summary>
 		public void NotifyLengthChanged()

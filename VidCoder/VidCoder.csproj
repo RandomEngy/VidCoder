@@ -123,6 +123,7 @@
       <HintPath>..\Lib\Ookii.Dialogs.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="ReactiveUI">
       <HintPath>..\packages\reactiveui-core.6.5.0\lib\Net45\ReactiveUI.dll</HintPath>
     </Reference>
@@ -220,6 +221,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\PaddingFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PresetTreeViewContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -403,6 +408,11 @@
     <Compile Include="Automation\VidCoderAutomation.cs" />
     <Compile Include="Controls\PaddingFrame.xaml.cs">
       <DependentUpon>PaddingFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PresetComboBox.cs" />
+    <Compile Include="Controls\PresetTreeView.cs" />
+    <Compile Include="Controls\PresetTreeViewContainer.xaml.cs">
+      <DependentUpon>PresetTreeViewContainer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\RangeBar.xaml.cs">
       <DependentUpon>RangeBar.xaml</DependentUpon>

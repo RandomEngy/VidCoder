@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using VidCoder.Extensions;
+using VidCoder.ViewModel.DataModels;
 using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
@@ -39,6 +40,8 @@ namespace VidCoder.ViewModel
 			get { return this.isSelected; }
 			set { this.RaiseAndSetIfChanged(ref this.isSelected, value); }
 		}
+
+		public PresetFolderViewModel Parent { get; set; }
 
 		public VCProfile OriginalProfile { get; set; }
 

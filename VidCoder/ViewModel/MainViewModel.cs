@@ -1949,12 +1949,20 @@ namespace VidCoder.ViewModel
 				// Debugging code... annoying exception happens here.
 				if (this.SelectedSource == null)
 				{
+#if DEBUG
+					return null;
+#else
 					throw new InvalidOperationException("Source must be selected.");
+#endif
 				}
 
 				if (this.SelectedTitle == null)
 				{
+#if DEBUG
+					return null;
+#else
 					throw new InvalidOperationException("Title must be selected.");
+#endif
 				}
 
 				SourceType type = this.SelectedSource.Type;
