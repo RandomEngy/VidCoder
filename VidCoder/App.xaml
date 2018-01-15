@@ -2,7 +2,6 @@
 	x:Class="VidCoder.App"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:converters="clr-namespace:VidCoder.Converters"
 	xmlns:mwt="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
@@ -237,7 +236,7 @@
 								                 RelativeSource={RelativeSource TemplatedParent}}"
 								Placement="Bottom"
 								PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-								<Themes:SystemDropShadowChrome
+								<mwt:SystemDropShadowChrome
 									x:Name="shadow"
 									MinWidth="{Binding ActualWidth,
 									                   ElementName=templateRoot}"
@@ -269,7 +268,7 @@
 											</Grid>
 										</ScrollViewer>
 									</Border>
-								</Themes:SystemDropShadowChrome>
+								</mwt:SystemDropShadowChrome>
 							</Popup>
 							<ToggleButton
 								x:Name="toggleButton"

@@ -123,7 +123,6 @@
       <HintPath>..\Lib\Ookii.Dialogs.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
-    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="ReactiveUI">
       <HintPath>..\packages\reactiveui-core.6.5.0\lib\Net45\ReactiveUI.dll</HintPath>
     </Reference>
