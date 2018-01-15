@@ -346,7 +346,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Dimensione del bersaglio (MB)</value>
   </data>
   <data name="AverageBitrateRadioButton" xml:space="preserve">
-    <value>AVG Bitrate (kbps)</value>
+    <value>Velocità di trasferimento media (kbps)</value>
   </data>
   <data name="ConstantQualityRadioButton" xml:space="preserve">
     <value>Qualità costante</value>
@@ -361,7 +361,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Preimpostato:</value>
   </data>
   <data name="TuneLabel" xml:space="preserve">
-    <value>Melodia:</value>
+    <value>Regolazione:</value>
   </data>
   <data name="Profile_baseline" xml:space="preserve">
     <value>Linea di base</value>
@@ -722,13 +722,13 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Ulteriori opzioni avanzate x264:</value>
   </data>
   <data name="LevelToolTip" xml:space="preserve">
-    <value>Imposta e garantisce la conformità con il livello specificato di h. 264.  Esegue l'override di tutte le altre impostazioni.</value>
+    <value>Imposta e garantisce la conformità con il livello specificato di h. 264.  Sovvrascrive tutte le altre impostazioni.</value>
   </data>
   <data name="Profile_high444" xml:space="preserve">
     <value>Alta 4:4:4 predittiva</value>
   </data>
   <data name="VideoCodecLabel" xml:space="preserve">
-    <value>Codec video:</value>
+    <value>Codificatore video:</value>
   </data>
   <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
     <value>MPEG-2 (Libav)</value>
@@ -811,7 +811,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Passthrough non funziona su tutti i codec audio. Questo specifica l'encoder per ripiegare se la traccia non può essere passata attraverso.</value>
   </data>
   <data name="EncoderSettings" xml:space="preserve">
-    <value>Impostazioni encoder</value>
+    <value>Impostazioni codificatore</value>
   </data>
   <data name="QsvDecodingLabel" xml:space="preserve">
     <value>QSV decodifica</value>
@@ -832,7 +832,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Qualità</value>
   </data>
   <data name="PresetToolTip" xml:space="preserve">
-    <value>Modificare le opzioni di commercio fuori contro la velocità di codifica di compressione efficienza.</value>
+    <value>Modifica il valore per bilanciare la qualità del video compresso con la velocità di codifica.</value>
   </data>
   <data name="ScaleMethodToolTip" xml:space="preserve">
     <value>Lanczos: Questo è il ridimensionamento predefinito con la migliore qualità. Bicubica: Questo è un algoritmo di ridimensionamento accelerato OpenCL hardware.</value>

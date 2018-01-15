@@ -2146,7 +2146,7 @@ namespace VidCoder.ViewModel
 			if (isQueueItem)
 			{
 				// Since it's been sent back for editing, remove the queue item
-				this.ProcessingService.EncodeQueue.Remove(jobVM);
+				this.ProcessingService.RemoveQueueJob(jobVM);
 			}
 
 			this.PresetsService.SaveUserPresets();

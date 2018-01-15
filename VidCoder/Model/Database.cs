@@ -232,6 +232,11 @@ namespace VidCoder.Model
 		private static int FindBackupDatabaseFile()
 		{
 			DirectoryInfo backupDirectoryInfo = new DirectoryInfo(BackupDatabaseFolder);
+			if (!backupDirectoryInfo.Exists)
+			{
+				return -1;
+			}
+
 			FileInfo[] backupFiles = backupDirectoryInfo.GetFiles();
 			Regex regex = new Regex(@"^VidCoder-v(?<version>\d+)\.sqlite$");
 

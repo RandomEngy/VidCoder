@@ -490,7 +490,11 @@ namespace VidCoder
 			// If the feature title is supplied, find it in the list.
 			if (hbFeatureTitle > 0)
 			{
-				return titles.FirstOrDefault(title => title.Index == hbFeatureTitle);
+				SourceTitle featureTitle = titles.FirstOrDefault(title => title.Index == hbFeatureTitle);
+				if (featureTitle != null)
+				{
+					return featureTitle;
+				}
 			}
 
 			// Select the first title within 80% of the duration of the longest title.

@@ -593,7 +593,7 @@
     <value>Chiudere il file corrente e aprire il disco?</value>
   </data>
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
-    <value>Dettagli di codifica</value>
+    <value>Dettagli della codifica</value>
   </data>
   <data name="EncodingSettingsChangedMessage" xml:space="preserve">
     <value>Impostazioni di codifica sono cambiate da quando l'ultima aggiunto un elemento alla coda. Si desidera applicare le impostazioni di codifica corrente a tutti gli elementi nella coda?</value>
@@ -613,7 +613,7 @@
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
   <data name="PickerMenuItem" xml:space="preserve">
-    <value>Selettore</value>
+    <value>Selezione</value>
   </data>
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
     <value>Impossibile caricare il selettore: </value>

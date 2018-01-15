@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="PlaySourceButton" xml:space="preserve">
-    <value>Play Sorgente</value>
+    <value>Riproduci sorgente</value>
   </data>
   <data name="EncodePreviewClipButton" xml:space="preserve">
-    <value>Codifica Clip di anteprima</value>
+    <value>Codifica spezzone di anteprima</value>
   </data>
   <data name="EncodePreviewClipToolTip" xml:space="preserve">
     <value>Codifica e gioca una piccola anteprima clip dallo schermo selezionato. Utilizza le impostazioni di codifica corrente.</value>
@@ -157,7 +157,7 @@
     <value>secondi</value>
   </data>
   <data name="PreviewDisplay_Corners" xml:space="preserve">
-    <value>Angoli</value>
+    <value>Margini</value>
   </data>
   <data name="PreviewDisplay_FitToWindow" xml:space="preserve">
     <value>Adatta alla finestra</value>
