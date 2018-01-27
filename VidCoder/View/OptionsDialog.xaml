@@ -65,7 +65,7 @@
 				</ListBox.ItemTemplate>
 			</ListBox>
 		</Grid>
-		<Grid Grid.Column="1" Margin="0 0 0 0">
+		<Grid Grid.Row="0" Grid.Column="1" Margin="0 0 0 0">
 			<ScrollViewer Background="White" VerticalScrollBarVisibility="Auto">
 				<Grid Margin="15 8 10 5">
 					<!--  General  -->
@@ -679,15 +679,13 @@
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Content="{x:Static res:OptionsRes.AutomaticUpdatesCheckBox}"
-								IsChecked="{Binding UpdatesEnabledConfig}"
-								Visibility="{Binding BuildSupportsUpdates,
-								                     Converter={StaticResource VisibilityConverter}}" />
+								IsChecked="{Binding UpdatesEnabledConfig}" />
 							<Button
 								HorizontalAlignment="Left"
 								Command="{Binding CheckUpdate}"
 								Content="{x:Static res:OptionsRes.CheckNowButton}"
 								Padding="3"
-								Visibility="{Binding UpdatesEnabled,
+								Visibility="{Binding UpdatesEnabledConfig,
 								                     Converter={StaticResource VisibilityConverter}}" />
 						</StackPanel>
 
@@ -695,9 +693,9 @@
 						<TextBlock
 							Style="{StaticResource ConfigSectionHeader}"
 							Text="{x:Static res:OptionsRes.UpdateStatusSection}"
-							Visibility="{Binding ShowUpdateStatus,
+							Visibility="{Binding UpdatesEnabledConfig,
 							                     Converter={StaticResource VisibilityConverter}}" />
-						<StackPanel Style="{StaticResource ConfigSectionStack}" Visibility="{Binding ShowUpdateStatus, Converter={StaticResource VisibilityConverter}}">
+						<StackPanel Style="{StaticResource ConfigSectionStack}" Visibility="{Binding UpdatesEnabledConfig, Converter={StaticResource VisibilityConverter}}">
 							<TextBlock Margin="0 0 0 3" Text="{Binding UpdateStatus}" />
 							<ProgressBar
 								Grid.Column="1"

@@ -31,12 +31,12 @@ namespace VidCoder
 		private const string AppDataFolderName = "VidCoder";
 		private const string LocalAppDataFolderName = "VidCoder";
 
-		private static bool isPortable;
 		private static string settingsDirectory;
 
 		static Utilities()
 		{
-			isPortable = Directory.GetCurrentDirectory().Contains("Temp");
+			IsPortable = Directory.GetCurrentDirectory().Contains("Temp");
+			IsRunningAsAppx = new DesktopBridge.Helpers().IsRunningAsUwp();
 		    string settingsDirectorySetting = ConfigurationManager.AppSettings["SettingsDirectory"];
 		    if (settingsDirectorySetting != null)
 		    {
@@ -94,13 +94,11 @@ namespace VidCoder
 			}
 		}
 
-		public static bool IsPortable
-		{
-			get
-			{
-				return isPortable;
-			}
-		}
+		public static bool IsPortable { get; }
+
+		public static bool IsRunningAsAppx { get; }
+
+		public static bool SupportsUpdates => !IsPortable && !IsRunningAsAppx;
 
 		public static bool IsDesigner
 		{

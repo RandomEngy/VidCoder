@@ -40,29 +40,18 @@ namespace VidCoder.ViewModel
 		{
 			this.updater = updateService;
 
-			// UpdatesEnabled
-			this.WhenAnyValue(x => x.UpdatesEnabledConfig)
-				.Select(updatesEnabledConfig =>
-				{
-					if (Utilities.IsPortable)
-					{
-						return false;
-					}
+			this.Tabs = new List<string>
+			{
+				OptionsRes.GeneralTab,			// 0
+				OptionsRes.FileNamingTab,		// 1
+				OptionsRes.ProcessTab,			// 2
+				OptionsRes.AdvancedTab,			// 3
+			};
 
-					return updatesEnabledConfig;
-				}).ToProperty(this, x => x.UpdatesEnabled, out this.updatesEnabled);
-
-			// ShowUpdateStatus
-			this.WhenAnyValue(x => x.UpdatesEnabledConfig)
-				.Select(updatesEnabledConfig =>
-				{
-					if (Utilities.IsPortable)
-					{
-						return false;
-					}
-
-					return updatesEnabledConfig;
-				}).ToProperty(this, x => x.ShowUpdateStatus, out this.showUpdateStatus); ;
+			if (Utilities.SupportsUpdates)
+			{
+				this.Tabs.Add(OptionsRes.UpdatesTab); // 4
+			}
 
 			// UpdateStatus
 			this.updater
@@ -297,20 +286,7 @@ namespace VidCoder.ViewModel
 			return base.OnClosing();
 		}
 
-		public IList<string> Tabs
-		{
-			get
-			{
-				return new List<string>
-					{
-						OptionsRes.GeneralTab,			// 0
-						OptionsRes.FileNamingTab,		// 1
-						OptionsRes.ProcessTab,			// 2
-						OptionsRes.AdvancedTab,			// 3
-						OptionsRes.UpdatesTab			// 4
-					};
-			}
-		}
+		public IList<string> Tabs { get; }
 
 		private int selectedTabIndex;
 		public int SelectedTabIndex
@@ -362,14 +338,6 @@ namespace VidCoder.ViewModel
 
 		private ObservableAsPropertyHelper<bool> showUpdateStatus;
 		public bool ShowUpdateStatus => this.showUpdateStatus.Value;
-
-		public bool BuildSupportsUpdates
-		{
-			get
-			{
-				return !Utilities.IsPortable;
-			}
-		}
 
 		private ObservableAsPropertyHelper<string> updateStatus;
 		public string UpdateStatus => this.updateStatus.Value;

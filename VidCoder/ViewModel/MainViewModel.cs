@@ -952,6 +952,8 @@ namespace VidCoder.ViewModel
 		/// </summary>
 		public bool JobCreationAvailable { get; set; }
 
+		public bool ShowUpdateMenuItem => Utilities.SupportsUpdates;
+
 		private ObservableAsPropertyHelper<List<SourceTitle>> titles;
 		public List<SourceTitle> Titles => this.titles.Value;
 

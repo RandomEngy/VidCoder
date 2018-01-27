@@ -238,8 +238,7 @@
 								PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
 								<mwt:SystemDropShadowChrome
 									x:Name="shadow"
-									MinWidth="{Binding ActualWidth,
-									                   ElementName=templateRoot}"
+									MinWidth="250"
 									MaxHeight="{TemplateBinding MaxDropDownHeight}"
 									Color="Transparent">
 									<Border

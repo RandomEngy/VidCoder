@@ -162,6 +162,7 @@ $outputDirectoryFiles = @(
     "Microsoft.Practices.Unity.dll",
     "ReactiveUI.dll",
     "Splat.dll",
+    "DesktopBridge.Helpers.dll",
     "System.Data.SQLite.dll",
     "System.Reactive.Core.dll",
     "System.Reactive.Interfaces.dll",

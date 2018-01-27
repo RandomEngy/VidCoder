@@ -396,8 +396,12 @@
 				</MenuItem>
 				<MenuItem Command="{Binding ReportBug}" Header="{x:Static res:MainRes.ReportABugMenuItem}" />
 				<MenuItem Command="{Binding OpenAppData}" Header="{x:Static res:MainRes.OpenAppDataFolder}" />
-				<Separator />
-				<MenuItem Command="{Binding OpenUpdates}" Header="{x:Static res:MainRes.UpdatesMenuItem}" />
+				<Separator Visibility="{Binding ShowUpdateMenuItem, Converter={StaticResource VisibilityConverter}}" />
+				<MenuItem
+					Command="{Binding OpenUpdates}"
+					Header="{x:Static res:MainRes.UpdatesMenuItem}"
+					Visibility="{Binding ShowUpdateMenuItem,
+					                     Converter={StaticResource VisibilityConverter}}" />
 				<Separator />
 				<MenuItem Command="{Binding OpenAboutDialog}" Header="{x:Static res:MainRes.AboutVidCoderMenuItem}">
 					<MenuItem.Icon>
