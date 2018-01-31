@@ -19,7 +19,7 @@ namespace VidCoder.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class PickerRes {
@@ -268,6 +268,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available arguments: {source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}.
+        /// </summary>
+        public static string OverrideNameFormatLabel {
+            get {
+                return ResourceManager.GetString("OverrideNameFormatLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Picker: {0}.
         /// </summary>
         public static string PickerButtonFormat {
@@ -295,7 +304,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The arguments to pass to the program. Use {file} for the file output path..
+        ///   Looks up a localized string similar to The arguments to pass to the program. Use {file} for the file output path, {folder} as containing folder path or other path arguments like {title} and {date} (see Naming Format)..
         /// </summary>
         public static string PostEncodeArgumentsToolTip {
             get {

@@ -191,7 +191,7 @@
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
   <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>The arguments to pass to the program. Use {file} for the file output path.</value>
+    <value>The arguments to pass to the program. Use {file} for the file output path, {folder} as containing folder path or other path arguments like {title} and {date} (see Naming Format).</value>
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
@@ -249,5 +249,8 @@
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
     <value>Forced only</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>Available arguments: {source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}</value>
   </data>
 </root>
