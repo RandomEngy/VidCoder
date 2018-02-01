@@ -251,6 +251,6 @@
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
-    <value>Available arguments: {source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}</value>
+    <value>Available arguments: {0}</value>
   </data>
 </root>

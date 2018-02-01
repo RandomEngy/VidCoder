@@ -268,7 +268,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Available arguments: {source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}.
+        ///   Looks up a localized string similar to Available arguments: {0}.
         /// </summary>
         public static string OverrideNameFormatLabel {
             get {

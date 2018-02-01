@@ -247,7 +247,7 @@
 							Margin="22 2 0 10"
 							Visibility="{Binding NameFormatOverrideEnabled,
 								                     Converter={StaticResource VisibilityConverter}}"
-							Text="{x:Static res:PickerRes.OverrideNameFormatLabel}" 
+							Text="{Binding NameFormatArguments, StringFormat={x:Static res:PickerRes.OverrideNameFormatLabel}}"
 							TextWrapping="Wrap" />
 						<CheckBox
 							Height="16"
