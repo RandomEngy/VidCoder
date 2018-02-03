@@ -369,7 +369,7 @@ namespace VidCoder.ViewModel
 
 			this.Exit = ReactiveCommand.Create();
 			this.Exit.Subscribe(_ => this.ExitImpl());
-			
+
 			this.outputPathService = Ioc.Get<OutputPathService>();
 			this.outputSizeService = Ioc.Get<OutputSizeService>();
 			this.processingService = Ioc.Get<ProcessingService>();
@@ -2093,6 +2093,8 @@ namespace VidCoder.ViewModel
 
 			return newEncodeJobVM;
 		}
+
+		public IList<EncodeJobViewModel> SelectedJobs => this.View.SelectedJobs;
 
 		public void RemoveAudioChoice(AudioChoiceViewModel choice)
 		{

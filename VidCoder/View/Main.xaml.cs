@@ -232,6 +232,8 @@ namespace VidCoder.View
 			this.RefreshQueueColumns();
 		}
 
+		public IList<EncodeJobViewModel> SelectedJobs => this.queueView.SelectedItems.Cast<EncodeJobViewModel>().ToList();
+
 		private void RefreshQueueColumns()
 		{
 			this.queueGridView.Columns.Clear();

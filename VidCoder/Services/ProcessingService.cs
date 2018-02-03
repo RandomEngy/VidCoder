@@ -542,7 +542,7 @@ namespace VidCoder.Services
 		public ReactiveCommand<object> MoveSelectedJobsToTop { get; }
 		private void MoveSelectedJobsToTopImpl()
 		{
-			List<EncodeJobViewModel> jobsToMove = this.EncodeQueue.Where(j => j.IsSelected && !j.Encoding).ToList();
+			List<EncodeJobViewModel> jobsToMove = this.main.SelectedJobs.Where(j => !j.Encoding).ToList();
 			if (jobsToMove.Count > 0)
 			{
 				foreach (EncodeJobViewModel jobToMove in jobsToMove)
@@ -562,7 +562,7 @@ namespace VidCoder.Services
 		public ReactiveCommand<object> MoveSelectedJobsToBottom { get; }
 		private void MoveSelectedJobsToBottomImpl()
 		{
-			List<EncodeJobViewModel> jobsToMove = this.EncodeQueue.Where(j => j.IsSelected && !j.Encoding).ToList();
+			List<EncodeJobViewModel> jobsToMove = this.main.SelectedJobs.Where(j => !j.Encoding).ToList();
 			if (jobsToMove.Count > 0)
 			{
 				foreach (EncodeJobViewModel jobToMove in jobsToMove)
@@ -621,18 +621,18 @@ namespace VidCoder.Services
 		public ReactiveCommand<object> RemoveSelectedJobs { get; }
 		private void RemoveSelectedJobsImpl()
 		{
-			for (int i = this.EncodeQueue.Count - 1; i >= 0; i--)
-			{
-				EncodeJobViewModel jobVM = this.EncodeQueue[i];
+			IList<EncodeJobViewModel> selectedJobs = this.main.SelectedJobs;
 
-				if (jobVM.IsSelected && !jobVM.Encoding)
+			foreach (EncodeJobViewModel selectedJob in selectedJobs)
+			{
+				if (!selectedJob.Encoding)
 				{
-					this.EncodeQueue.RemoveAt(i);
+					this.EncodeQueue.Remove(selectedJob);
 
 					if (this.Encoding)
 					{
 						this.totalTasks--;
-						this.totalQueueCost -= jobVM.Cost;
+						this.totalQueueCost -= selectedJob.Cost;
 					}
 				}
 			}

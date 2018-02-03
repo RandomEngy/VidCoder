@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using VidCoder.Model;
 
 namespace VidCoder.ViewModel
@@ -12,5 +13,7 @@ namespace VidCoder.ViewModel
 		void SaveCompletedColumnWidths();
 
 		void ApplyQueueColumns();
+
+		IList<EncodeJobViewModel> SelectedJobs { get; }
 	}
 }
