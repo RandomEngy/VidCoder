@@ -1563,7 +1563,9 @@ namespace VidCoder.Services
 					var picker = this.pickersService.SelectedPicker.Picker;
 					if (status == EncodeResultStatus.Succeeded && picker.PostEncodeActionEnabled && !string.IsNullOrWhiteSpace(picker.PostEncodeExecutable))
 					{
-						string arguments = picker.PostEncodeArguments.Replace("{file}", outputPath);
+						string arguments = outputVM.ReplaceArguments(picker.PostEncodeArguments, picker)
+                            .Replace("{file}", outputPath)
+                            .Replace("{folder}", Path.GetDirectoryName(outputPath));
 
 						var process = new ProcessStartInfo(
 							picker.PostEncodeExecutable,

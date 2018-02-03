@@ -306,6 +306,8 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public string NameFormatArguments { get { return "{source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}"; } }
+
 		private void PopulateEncodingPreset(bool useEncodingPreset)
 		{
 			if (useEncodingPreset)
