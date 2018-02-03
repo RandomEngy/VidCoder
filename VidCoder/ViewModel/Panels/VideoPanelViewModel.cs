@@ -413,6 +413,11 @@ namespace VidCoder.ViewModel
 						{
 							this.VideoBitrate = DefaultVideoBitrateKbps;
 						}
+						else
+						{
+							// If we already have a bitrate, update the UI
+							this.RaisePropertyChanged(nameof(this.VideoBitrate));
+						}
 					}
 					else if (oldRateType == VCVideoEncodeRateType.TargetSize)
 					{
