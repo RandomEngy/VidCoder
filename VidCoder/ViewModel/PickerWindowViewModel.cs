@@ -23,6 +23,8 @@ namespace VidCoder.ViewModel
 {
 	public class PickerWindowViewModel : ReactiveObject
 	{
+		private const string NameTokenList = "{source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}";
+
 		private static TypeAccessor typeAccessor = TypeAccessor.Create(typeof(Picker));
 
 		private readonly PickersService pickersService = Ioc.Get<PickersService>();
@@ -306,7 +308,7 @@ namespace VidCoder.ViewModel
 			}
 		}
 
-		public string NameFormatArguments { get { return "{source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}"; } }
+		public string NameFormat => string.Format(CultureInfo.CurrentCulture, PickerRes.OverrideNameFormatLabel, NameTokenList);
 
 		private void PopulateEncodingPreset(bool useEncodingPreset)
 		{

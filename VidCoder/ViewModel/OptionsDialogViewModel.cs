@@ -333,12 +333,6 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.updatesEnabledConfig, value); }
 		}
 
-		private ObservableAsPropertyHelper<bool> updatesEnabled;
-		public bool UpdatesEnabled => this.updatesEnabled.Value;
-
-		private ObservableAsPropertyHelper<bool> showUpdateStatus;
-		public bool ShowUpdateStatus => this.showUpdateStatus.Value;
-
 		private ObservableAsPropertyHelper<string> updateStatus;
 		public string UpdateStatus => this.updateStatus.Value;
 
