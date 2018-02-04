@@ -176,7 +176,7 @@ namespace VidCoder.View
 
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
-			this.viewModel = this.DataContext as MainViewModel;
+			this.viewModel = (MainViewModel)this.DataContext;
 			this.viewModel.AnimationStarted += this.ViewModelAnimationStarted;
 			this.viewModel.View = this;
 			this.processingService.PropertyChanged += (sender2, e2) =>
