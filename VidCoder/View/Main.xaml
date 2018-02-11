@@ -7,6 +7,7 @@
 	xmlns:controls="clr-namespace:VidCoder.Controls"
 	xmlns:converters="clr-namespace:VidCoder.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:fluent="urn:fluent-ribbon"
 	xmlns:local="clr-namespace:VidCoder"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:model="clr-namespace:VidCoder.Model"
@@ -298,6 +299,8 @@
 		<Grid.RowDefinitions>
 			<!--  Menu bar  -->
 			<RowDefinition Height="Auto" />
+			<!--  Ribbon  -->
+			<RowDefinition Height="Auto" />
 			<!--  Source  -->
 			<RowDefinition Height="Auto" />
 			<!--  Destination  -->
@@ -414,9 +417,20 @@
 			</MenuItem>
 		</Menu>
 
+		<!--  Ribbon  -->
+		<fluent:Ribbon Grid.Row="1" IsQuickAccessToolBarVisible="False">
+			<fluent:RibbonTabItem Header="Generic tab header">
+				<fluent:RibbonGroupBox Header="First group">
+					<fluent:Button
+						x:Name="button"
+						Header="button" />
+				</fluent:RibbonGroupBox>
+			</fluent:RibbonTabItem>
+		</fluent:Ribbon>
+
 		<!--  Source area  -->
 		<Grid
-			Grid.Row="1"
+			Grid.Row="2"
 			MinHeight="138"
 			Background="{StaticResource SectionBackground}">
 			<Grid.RowDefinitions>
@@ -1057,7 +1071,7 @@
 
 		<Border
 			Name="sourceSelectionMenu"
-			Grid.Row="1"
+			Grid.Row="2"
 			Grid.RowSpan="2"
 			MinWidth="220"
 			Margin="8 30 0 0"
@@ -1108,7 +1122,7 @@
 		</Border>
 
 		<!--  Destination section  -->
-		<Grid Grid.Row="2" Background="{StaticResource SectionBackground}">
+		<Grid Grid.Row="3" Background="{StaticResource SectionBackground}">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition />
@@ -1193,7 +1207,7 @@
 
 		<!--  Encoding section  -->
 		<Grid
-			Grid.Row="3"
+			Grid.Row="4"
 			Background="{StaticResource SectionBackground}"
 			Canvas.ZIndex="3">
 			<StackPanel
@@ -1400,7 +1414,7 @@
 		</Grid>
 
 		<!--  Queue section  -->
-		<Grid Grid.Row="4" Canvas.ZIndex="2">
+		<Grid Grid.Row="5" Canvas.ZIndex="2">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="3*" />
 				<ColumnDefinition Width="14*" />
@@ -1609,7 +1623,7 @@
 
 		<!--  Encode progress section  -->
 		<Grid
-			Grid.Row="5"
+			Grid.Row="6"
 			Height="28"
 			Visibility="{Binding ProcessingService.Encoding,
 			                     Converter={StaticResource VisibilityConverter}}">
