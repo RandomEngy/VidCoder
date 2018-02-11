@@ -35,7 +35,15 @@ namespace VidCoder
 
 		static Utilities()
 		{
-			IsPortable = Directory.GetCurrentDirectory().Contains("Temp");
+			var tempFolderPath = Environment.GetEnvironmentVariable("temp");
+			if (tempFolderPath != null)
+			{
+				DirectoryInfo tempFolderInfo = new DirectoryInfo(tempFolderPath);
+				DirectoryInfo currentDirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
+
+				IsPortable = currentDirectoryInfo.FullName.StartsWith(tempFolderInfo.FullName, StringComparison.OrdinalIgnoreCase);
+			}
+
 			IsRunningAsAppx = new DesktopBridge.Helpers().IsRunningAsUwp();
 		    string settingsDirectorySetting = ConfigurationManager.AppSettings["SettingsDirectory"];
 		    if (settingsDirectorySetting != null)
