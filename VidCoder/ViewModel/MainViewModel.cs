@@ -1936,7 +1936,7 @@ namespace VidCoder.ViewModel
 		public ReactiveCommand<object> OpenAppData { get; }
 		private void OpenAppDataImpl()
 		{
-			FileUtilities.OpenFolderAndSelectItem(Database.DatabaseFile);
+			FileUtilities.OpenFolderAndSelectItem(FileUtilities.GetRealFilePath(Database.DatabaseFile));
 		}
 
 		public ReactiveCommand<object> Exit { get; }

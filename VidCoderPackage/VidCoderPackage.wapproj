@@ -4,13 +4,21 @@
     <VisualStudioVersion>15.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|x86">
-      <Configuration>Debug</Configuration>
-      <Platform>x86</Platform>
+    <ProjectConfiguration Include="Debug-Beta|AnyCPU">
+      <Configuration>Debug-Beta</Configuration>
+      <Platform>AnyCPU</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x86">
-      <Configuration>Release</Configuration>
-      <Platform>x86</Platform>
+    <ProjectConfiguration Include="Debug-Beta|x64">
+      <Configuration>Debug-Beta</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-Beta|AnyCPU">
+      <Configuration>Release-Beta</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-Beta|x64">
+      <Configuration>Release-Beta</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -45,23 +53,30 @@
     <PackageCertificateThumbprint>FFCF52A7DAC7AB77BED8C41D5674121FA3F35334</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
-    <AppxBundle>Auto</AppxBundle>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-    <AppxBundle>Auto</AppxBundle>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Beta|x64'">
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Always</AppxBundle>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Beta|x64'">
+    <AppxBundle>Always</AppxBundle>
     <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Beta|AnyCPU'">
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Beta|AnyCPU'">
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

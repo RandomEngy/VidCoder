@@ -106,6 +106,21 @@ namespace VidCoder
 
 		public static bool IsRunningAsAppx { get; }
 
+		public static string PackageFamilyName
+		{
+			get
+			{
+				if (CommonUtilities.Beta)
+				{
+					return "VidCoder-Beta_cf0dg7w8q6vfw";
+				}
+				else
+				{
+					return "VidCoder_cf0dg7w8q6vfw";
+				}
+			}
+		}
+
 		public static bool SupportsUpdates => !IsPortable && !IsRunningAsAppx;
 
 		public static bool IsDesigner
