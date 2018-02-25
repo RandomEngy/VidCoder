@@ -40,7 +40,7 @@ namespace VidCoder.ViewModel
 			this.titles = new ReactiveList<TitleSelectionViewModel>();
 			this.RefreshTitles();
 
-			this.Play = ReactiveCommand.Create(MvvmUtilities.CreateConstantObservable(Players.Installed.Count > 0));
+			this.Play = ReactiveCommand.Create(MvvmUtilities.CreateConstantObservable(!Utilities.IsRunningAsAppx && Players.Installed.Count > 0));
 			this.Play.Subscribe(_ => this.PlayImpl());
 
 			this.AddToQueue = ReactiveCommand.Create();
@@ -154,7 +154,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return Utilities.IsDvdFolder(this.main.SourcePath);
+				return !Utilities.IsRunningAsAppx && Utilities.IsDvdFolder(this.main.SourcePath);
 			}
 		}
 

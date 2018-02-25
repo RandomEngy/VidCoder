@@ -33,13 +33,13 @@ function CreateIssFile($version, $beta, $debugBuild) {
         $tokens["appNameNoSpace"] = "VidCoderBeta"
         $tokens["folderName"] = "VidCoder-Beta"
         $tokens["outputBaseFileName"] = "VidCoder-" + $version + "-Beta"
-        $tokens["appVerName"] = "VidCoder " + $version + " Beta (x64)"
+        $tokens["appVerName"] = "VidCoder " + $version + " Beta (Installer)"
     } else {
         $tokens["appName"] = "VidCoder"
         $tokens["appNameNoSpace"] = "VidCoder"
         $tokens["folderName"] = "VidCoder"
         $tokens["outputBaseFileName"] = "VidCoder-" + $version
-        $tokens["appVerName"] = "VidCoder " + $version + " (x64)"
+        $tokens["appVerName"] = "VidCoder " + $version + " (Installer)"
     }
 
     if ($debugBuild) {

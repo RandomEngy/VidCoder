@@ -613,6 +613,7 @@
     <Compile Include="Services\PresetsService.cs" />
     <Compile Include="Services\ProcessingService.cs" />
     <Compile Include="Services\WindowXamlHelper.cs" />
+    <Compile Include="Utilities\XamlStatics.cs" />
     <Compile Include="ViewModel\CustomMessageDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\DataModels\AudioTrackViewModel.cs" />
@@ -888,6 +889,7 @@
     <EmbeddedResource Include="Resources\PreviewRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PreviewRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\QueueTitlesRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

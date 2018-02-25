@@ -202,4 +202,7 @@
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>Video Error</value>
   </data>
+  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
+    <value>Windows store version cannot play DVD or Blu-ray source as it is not allowed to launch other processes.</value>
+  </data>
 </root>

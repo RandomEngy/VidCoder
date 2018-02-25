@@ -112,11 +112,11 @@ namespace VidCoder
 			{
 				if (CommonUtilities.Beta)
 				{
-					return "VidCoder-Beta_cf0dg7w8q6vfw";
+					return "19358RandomEngy.VidCoderBeta_cf0dg7w8q6vfw";
 				}
 				else
 				{
-					return "VidCoder_cf0dg7w8q6vfw";
+					return "19358RandomEngy.VidCoder_cf0dg7w8q6vfw";
 				}
 			}
 		}

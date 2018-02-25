@@ -348,8 +348,6 @@ namespace VidCoder.ViewModel
 
 		public bool BetaSectionVisible => CommonUtilities.Beta || this.betaInfoAvailable;
 
-		public bool InBeta => CommonUtilities.Beta;
-
 		public List<IVideoPlayer> PlayerChoices => this.playerChoices;
 
 		private IVideoPlayer selectedPlayer;
