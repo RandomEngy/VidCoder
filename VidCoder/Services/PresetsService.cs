@@ -199,81 +199,88 @@ namespace VidCoder.Services
 
 			set
 			{
-				if (value == null || this.selectedPreset == value)
+				this.TryUpdateSelectedPreset(value);
+			}
+		}
+
+		public bool TryUpdateSelectedPreset(PresetViewModel value)
+		{
+			if (value == null || this.selectedPreset == value)
+			{
+				return false;
+			}
+
+			PresetViewModel previouslySelectedPreset = this.selectedPreset;
+			bool changeSelectedPreset = true;
+
+			if (this.selectedPreset != null && this.selectedPreset.Preset.IsModified)
+			{
+				string dialogMessage;
+				string dialogTitle;
+				MessageBoxButton buttons;
+
+				if (this.selectedPreset.Preset.IsBuiltIn)
 				{
-					return;
+					dialogMessage = MainRes.PresetDiscardConfirmMessage;
+					dialogTitle = MainRes.PresetDiscardConfirmTitle;
+					buttons = MessageBoxButton.OKCancel;
+				}
+				else
+				{
+					dialogMessage = MainRes.SaveChangesPresetMessage;
+					dialogTitle = MainRes.SaveChangesPresetTitle;
+					buttons = MessageBoxButton.YesNoCancel;
 				}
 
-				PresetViewModel previouslySelectedPreset = this.selectedPreset;
-				bool changeSelectedPreset = true;
-
-				if (this.selectedPreset != null && this.selectedPreset.Preset.IsModified)
+				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+					this.main,
+					dialogMessage,
+					dialogTitle,
+					buttons);
+				if (dialogResult == MessageBoxResult.Yes)
 				{
-					string dialogMessage;
-					string dialogTitle;
-					MessageBoxButton buttons;
-
-					if (this.selectedPreset.Preset.IsBuiltIn)
-					{
-						dialogMessage = MainRes.PresetDiscardConfirmMessage;
-						dialogTitle = MainRes.PresetDiscardConfirmTitle;
-						buttons = MessageBoxButton.OKCancel;
-					}
-					else
-					{
-						dialogMessage = MainRes.SaveChangesPresetMessage;
-						dialogTitle = MainRes.SaveChangesPresetTitle;
-						buttons = MessageBoxButton.YesNoCancel;
-					}
-
-					MessageBoxResult dialogResult = Utilities.MessageBox.Show(
-						this.main,
-						dialogMessage,
-						dialogTitle, 
-						buttons);
-					if (dialogResult == MessageBoxResult.Yes)
-					{
-						// Yes, we wanted to save changes
-						this.SavePreset();
-					}
-					else if (dialogResult == MessageBoxResult.No || dialogResult == MessageBoxResult.OK)
-					{
-						// No, we didn't want to save changes or OK, we wanted to discard changes.
-						this.RevertPreset(userInitiated: false);
-					}
-					else if (dialogResult == MessageBoxResult.Cancel)
-					{
-						// Queue up an action to switch back to this preset.
-						int currentPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
-
-						DispatchUtilities.BeginInvoke(() =>
-						{
-							this.SelectedPreset = this.AllPresets[currentPresetIndex];
-						});
-
-						changeSelectedPreset = false;
-					}
+					// Yes, we wanted to save changes
+					this.SavePreset();
 				}
-
-				this.selectedPreset = value;
-				this.selectedPreset.IsSelected = true; // For TreeView
-
-				if (changeSelectedPreset)
+				else if (dialogResult == MessageBoxResult.No || dialogResult == MessageBoxResult.OK)
 				{
-					this.NotifySelectedPresetChanged();
+					// No, we didn't want to save changes or OK, we wanted to discard changes.
+					this.RevertPreset(userInitiated: false);
+				}
+				else if (dialogResult == MessageBoxResult.Cancel)
+				{
+					// Queue up an action to switch back to this preset.
+					int currentPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
 
-					if (previouslySelectedPreset != null)
+					DispatchUtilities.BeginInvoke(() =>
 					{
-						Config.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
-					}
+						this.SelectedPreset = this.AllPresets[currentPresetIndex];
+					});
 
-					// If we're switching away from a temporary queue preset, remove it.
-					if (previouslySelectedPreset != null && previouslySelectedPreset.Preset.IsQueue && previouslySelectedPreset != value)
-					{
-						this.AllPresets.Remove(previouslySelectedPreset);
-					}
+					changeSelectedPreset = false;
 				}
 			}
+
+			this.selectedPreset = value;
+			this.selectedPreset.IsSelected = true; // For TreeView
+
+			if (changeSelectedPreset)
+			{
+				this.NotifySelectedPresetChanged();
+
+				if (previouslySelectedPreset != null)
+				{
+					Config.LastPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
+				}
+
+				// If we're switching away from a temporary queue preset, remove it.
+				if (previouslySelectedPreset != null && previouslySelectedPreset.Preset.IsQueue && previouslySelectedPreset != value)
+				{
+					this.AllPresets.Remove(previouslySelectedPreset);
+				}
+			}
+
+			return changeSelectedPreset;
 		}
 
 		public VCProfile GetProfileByName(string presetName)

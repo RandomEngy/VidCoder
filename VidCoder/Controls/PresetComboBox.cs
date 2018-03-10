@@ -29,19 +29,28 @@ namespace VidCoder.Controls
 		    this.treeView.OnHierarchyMouseUp += this.OnTreeViewHierarchyMouseUp;
 	    }
 
+		public static bool PresetComboOpen { get; set; }
+
+	    protected override void OnDropDownOpened(EventArgs e)
+	    {
+		    base.OnDropDownOpened(e);
+		    PresetComboOpen = true;
+	    }
+
 	    protected override void OnDropDownClosed(EventArgs e)
 	    {
 		    base.OnDropDownClosed(e);
 		    this.SelectedItem = this.treeView.SelectedItem;
+		    PresetComboOpen = false;
 	    }
 
-	    /// <summary>
-	    /// Handles clicks on any item in the tree view
-	    /// </summary>
-	    private void OnTreeViewHierarchyMouseUp(object sender, MouseEventArgs e)
+		/// <summary>
+		/// Handles clicks on any item in the tree view
+		/// </summary>
+		private void OnTreeViewHierarchyMouseUp(object sender, MouseEventArgs e)
 	    {
 		    // This line isn't obligatory because it is executed in the OnDropDownClosed method, but be it so
-		    this.SelectedItem = this.treeView.SelectedItem;
+		    //this.SelectedItem = this.treeView.SelectedItem;
 
 		    this.IsDropDownOpen = false;
 	    }

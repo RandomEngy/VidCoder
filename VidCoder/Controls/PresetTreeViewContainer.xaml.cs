@@ -66,6 +66,12 @@ namespace VidCoder.Controls
 			    return;
 		    }
 
+		    if (PresetComboBox.PresetComboOpen)
+		    {
+				// If inside a combo box the combo box binding on close will handle it.
+			    return;
+		    }
+
 			this.presetsService.SelectedPreset = (PresetViewModel)selectedItem;
 	    }
 
