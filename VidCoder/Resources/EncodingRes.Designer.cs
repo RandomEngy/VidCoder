@@ -1532,6 +1532,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Padding.
+        /// </summary>
+        public static string PaddingLabel {
+            get {
+                return ResourceManager.GetString("PaddingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fill.
         /// </summary>
         public static string PaddingMode_Fill {
@@ -2092,7 +2101,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rotation:.
+        ///   Looks up a localized string similar to Rotation.
         /// </summary>
         public static string RotationLabel {
             get {
