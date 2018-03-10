@@ -329,7 +329,7 @@
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
 					Style="{StaticResource SectionHeader}"
-					Text="Padding" />
+					Text="{x:Static res:EncodingRes.PaddingLabel}" />
 
 				<ComboBox
 					Margin="0 4 0 0"
