@@ -64,6 +64,17 @@ function UpdateAssemblyInfo($fileName, $version) {
     Move-Item $tmpFile $fileName -force
 }
 
+function UpdateAppxManifest($fileName, $version)
+{
+    $newVersionText = 'Version="' + $version + '"';
+    $tmpFile = $fileName + ".tmp"
+
+    Get-Content $fileName | 
+    %{$_ -replace '(?<=<Identity[^/]+)Version="([\d\.]+)"', $newVersionText } | Out-File -Encoding utf8 $tmpFile
+
+    Move-Item $tmpFile $fileName -force
+}
+
 function CopyFromOutput($fileName, $buildFlavor) {
     $dest = ".\Installer\Files\"
     $source = ".\VidCoder\bin\$buildFlavor\"
@@ -119,14 +130,16 @@ if ($beta) {
 }
 
 # Get master version number
-$versionLong = $versionShort + ".0"
+$version4Part = $versionShort + ".0.0"
 
 # Put version numbers into AssemblyInfo.cs files
-UpdateAssemblyInfo "VidCoder\Properties\AssemblyInfo.cs" $versionLong
-UpdateAssemblyInfo "VidCoderWorker\Properties\AssemblyInfo.cs" $versionLong
+UpdateAssemblyInfo "VidCoder\Properties\AssemblyInfo.cs" $version4Part
+UpdateAssemblyInfo "VidCoderWorker\Properties\AssemblyInfo.cs" $version4Part
+
+UpdateAppxManifest "VidCoderPackage\Package.appxmanifest" $version4Part
 
 # Build VidCoder.sln
-& $DevEnvExe VidCoder.sln /Rebuild ($configuration + "|x64"); ExitIfFailed
+& $MsBuildExe VidCoder.sln /t:rebuild "/p:Configuration=$configuration;Platform=x64;UapAppxPackageBuildMode=StoreUpload"; ExitIfFailed
 
 # Run sgen to create *.XmlSerializers.dll
 & ($NetToolsFolder + "\x64\sgen.exe") /f /a:"VidCoder\bin\$buildFlavor\VidCoderCommon.dll"; ExitIfFailed

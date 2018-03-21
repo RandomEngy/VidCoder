@@ -744,13 +744,13 @@ namespace VidCoder
 		public static List<string> GetFilesOrVideoFolders(string directory, IList<string> videoExtensions)
 		{
 			var path = new List<string>();
-			var accessErrors = new List<string>();
-			GetFilesOrVideoFoldersRecursive(directory, path, accessErrors, videoExtensions);
+			var errors = new List<string>();
+			GetFilesOrVideoFoldersRecursive(directory, path, errors, videoExtensions);
 
-			if (accessErrors.Count > 0)
+			if (errors.Count > 0)
 			{
 				var messageBuilder = new StringBuilder(CommonRes.CouldNotAccessDirectoriesError + Environment.NewLine);
-				foreach (string accessError in accessErrors)
+				foreach (string accessError in errors)
 				{
 					messageBuilder.AppendLine(accessError);
 				}
@@ -761,7 +761,7 @@ namespace VidCoder
 			return path;
 		}
 
-		private static void GetFilesOrVideoFoldersRecursive(string directory, List<string> paths, List<string> accessErrors, IList<string> videoExtensions)
+		private static void GetFilesOrVideoFoldersRecursive(string directory, List<string> paths, List<string> errors, IList<string> videoExtensions)
 		{
 			try
 			{
@@ -774,13 +774,13 @@ namespace VidCoder
 					}
 					else
 					{
-						GetFilesOrVideoFoldersRecursive(subdirectory, paths, accessErrors, videoExtensions);
+						GetFilesOrVideoFoldersRecursive(subdirectory, paths, errors, videoExtensions);
 					}
 				}
 			}
-			catch (UnauthorizedAccessException)
+			catch (Exception)
 			{
-				accessErrors.Add(directory);
+				errors.Add(directory);
 			}
 
 			try
@@ -791,9 +791,9 @@ namespace VidCoder
 						f => videoExtensions.Any(
 							e => f.EndsWith(e, StringComparison.OrdinalIgnoreCase))));
 			}
-			catch (UnauthorizedAccessException)
+			catch (Exception)
 			{
-				accessErrors.Add(directory);
+				errors.Add(directory);
 			}
 		}
 	}
