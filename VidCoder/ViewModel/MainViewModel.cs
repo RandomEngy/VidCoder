@@ -593,33 +593,40 @@ namespace VidCoder.ViewModel
             var pathList = new List<SourcePath>();
             foreach (string item in itemList)
             {
-                var fileAttributes = File.GetAttributes(item);
-                if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
-                {
-                    // Path is a directory
-                    if (Utilities.IsDiscFolder(item))
-                    {
-                        // If it's a disc folder, add it
-                        pathList.Add(new SourcePath { Path = item, SourceType = SourceType.DiscVideoFolder });
-                    }
-                    else
-                    {
-                        string parentFolder = Path.GetDirectoryName(item);
-                        pathList.AddRange(
-                            Utilities.GetFilesOrVideoFolders(item, videoExtensions)
-                            .Select(p => new SourcePath
-                            {
-                                Path = p,
-                                ParentFolder = parentFolder,
-                                SourceType = SourceType.None
-                            }));
-                    }
-                }
-                else
-                {
-                    // Path is a file
-                    pathList.Add(new SourcePath { Path = item, SourceType = SourceType.File });
-                }
+	            try
+	            {
+		            var fileAttributes = File.GetAttributes(item);
+		            if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
+		            {
+			            // Path is a directory
+			            if (Utilities.IsDiscFolder(item))
+			            {
+				            // If it's a disc folder, add it
+				            pathList.Add(new SourcePath {Path = item, SourceType = SourceType.DiscVideoFolder});
+			            }
+			            else
+			            {
+				            string parentFolder = Path.GetDirectoryName(item);
+				            pathList.AddRange(
+					            Utilities.GetFilesOrVideoFolders(item, videoExtensions)
+						            .Select(p => new SourcePath
+						            {
+							            Path = p,
+							            ParentFolder = parentFolder,
+							            SourceType = SourceType.None
+						            }));
+			            }
+		            }
+		            else
+		            {
+			            // Path is a file
+			            pathList.Add(new SourcePath {Path = item, SourceType = SourceType.File});
+		            }
+	            }
+	            catch (Exception exception)
+	            {
+		            Ioc.Get<IAppLogger>().LogError($"Could not process {item} : " + Environment.NewLine + exception);
+	            }
             }
 
             return pathList;
