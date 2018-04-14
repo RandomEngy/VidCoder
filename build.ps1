@@ -200,7 +200,8 @@ $generalFiles = @(
     ".\VidCoder\Encode_Complete.wav",
     ".\VidCoder\Icons\File\VidCoderPreset.ico",
     ".\VidCoder\Icons\File\VidCoderQueue.ico",
-    ".\License.txt")
+    ".\License.txt",
+    ".\ThirdPartyLicenses.txt")
 
 foreach ($generalFile in $generalFiles) {
     CopyGeneral $generalFile
