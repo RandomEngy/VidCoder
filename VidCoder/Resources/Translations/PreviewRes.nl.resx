@@ -202,4 +202,7 @@
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>Fout in video</value>
   </data>
+  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
+    <value>De Windows store versie kan geen DVD- of Blu-ray bron afspelen omdat het is niet toegestaan om andere processen te starten.</value>
+  </data>
 </root>

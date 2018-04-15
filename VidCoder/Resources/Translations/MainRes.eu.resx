@@ -392,45 +392,6 @@
   <data name="WhenDoneLabel" xml:space="preserve">
     <value>Egindakoan:</value>
   </data>
-  <data name="Preset_AndroidTablet" xml:space="preserve">
-    <value>Android Tableta</value>
-  </data>
-  <data name="Preset_Android" xml:space="preserve">
-    <value>Android</value>
-  </data>
-  <data name="Preset_AppleiPad" xml:space="preserve">
-    <value>Apple iPad</value>
-  </data>
-  <data name="Preset_AppleiPhone4" xml:space="preserve">
-    <value>Apple iPhone 4</value>
-  </data>
-  <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
-    <value>Apple iPhone/Touch</value>
-  </data>
-  <data name="Preset_AppleiPod" xml:space="preserve">
-    <value>Apple iPod</value>
-  </data>
-  <data name="Preset_AppleTV" xml:space="preserve">
-    <value>AppleTV</value>
-  </data>
-  <data name="Preset_AppleTV2" xml:space="preserve">
-    <value>AppleTV 2</value>
-  </data>
-  <data name="Preset_AppleTV3" xml:space="preserve">
-    <value>AppleTV 3</value>
-  </data>
-  <data name="Preset_Universal" xml:space="preserve">
-    <value>Unibertsala</value>
-  </data>
-  <data name="Preset_HighProfile" xml:space="preserve">
-    <value>Goi Profila</value>
-  </data>
-  <data name="Preset_Normal" xml:space="preserve">
-    <value>Arrunta</value>
-  </data>
-  <data name="Preset_WindowsPhone7" xml:space="preserve">
-    <value>Windows Phone 7</value>
-  </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Bideo Agiria...</value>
   </data>
@@ -524,9 +485,6 @@
   <data name="RangeBarToolTip" xml:space="preserve">
     <value>Ezker-klikatu hasiera denbora ezartzeko eta eskuin-klikatu amaiera denbora ezartzeko.</value>
   </data>
-  <data name="Preset_WindowsPhone8" xml:space="preserve">
-    <value>Windows Phone 8</value>
-  </data>
   <data name="QueueFormat_Chapters" xml:space="preserve">
     <value>Bd {0}</value>
   </data>
@@ -553,9 +511,6 @@
   </data>
   <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>Kendu audio bidea</value>
-  </data>
-  <data name="Preset_Xbox360" xml:space="preserve">
-    <value>Xbox 360</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>Kendu lerrotik</value>
@@ -651,5 +606,12 @@
     <value>Akatsak egon dira zenbait agiri eskaneatzerakoan eta ezin dira lerrora gehitu:
 
 {0}</value>
+  </data>
+  <data name="FileSizeColumnHeader" xml:space="preserve">
+    <value>Neurria</value>
+  </data>
+  <data name="OpenAppDataFolder" xml:space="preserve">
+    <value>Ireki Aplikazioaren Datu Agiritegia</value>
+    <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
   </data>
 </root>

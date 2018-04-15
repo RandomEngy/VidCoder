@@ -250,9 +250,6 @@ Für Audioquellen mit einem hohen dynamischen Umfang (sehr laute und sehr leise 
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Fügt der Datei eine Markierung bei, welche ältere iPods benötigen, bevor sie erlauben, dass das H.264 Video auf das Gerät synchronisiert wird.</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Ermöglicht Dateien größer als 4 GB. Wenn aktiviert, werden 64-Bit-Zahlen zur Encodierung verwendet. Einige Geräte wie iPod und PS3 sind inkompatibel mit dieser Option.</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>Pixelseitenverhältnis manuell festlegen.</value>
   </data>
@@ -275,9 +272,6 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Erweiterung:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Große Dateigröße</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>Web optimiert</value>
@@ -928,9 +922,6 @@ Bikubisch: Dies ist ein durch OpenCL-Hardware beschleunigter Skalierungsalgorith
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Wenn der Eingangscodec diesem Codec entspricht, wird er durchgeschliffen statt encodiert.</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Skalierungsalgorithmus:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Drehung:</value>
   </data>
@@ -1046,4 +1037,27 @@ Bikubisch: Dies ist ein durch OpenCL-Hardware beschleunigter Skalierungsalgorith
     <value>Schlüssel:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>Rahmen</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

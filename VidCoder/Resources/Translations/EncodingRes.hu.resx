@@ -256,9 +256,6 @@ A széles dinamikus tartománnyal rendelkező forrásaudiók (nagyon hangos és 
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Jelző hozzáadása a fájlhoz, mely régebbi iPodoknál szükséges, mielőtt engedélyeznék az H.264 videó lejátszását.</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Fájlok engedélyezése 4GB felett. Ha engedélyezve van, 64-bites számokat használ a kódoláshoz. Néhány eszköz, mint például az iPod és a PS3 nem kompatibilisek ezzel a beállítással.</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>Pixel képarány manuális megadása.</value>
   </data>
@@ -281,9 +278,6 @@ Akkor érdemes beállítani, ha tudod, hogy a lejátszó eszköz csak egy bizony
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Kiterjesztés:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Nagy fájlméret</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>Webre optimalizált</value>
@@ -933,9 +927,6 @@ Kettős köbös: Ez egy OpenCL hardveres gyorsítású méretezési algoritmus.<
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Ha a bemeneti sáv megegyezik a kodekével, nem kerül konvertálásra.</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Méretezési algoritmus:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Elforgatás:</value>
   </data>
@@ -1051,4 +1042,25 @@ Kettős köbös: Ez egy OpenCL hardveres gyorsítású méretezési algoritmus.<
     <value>Kulcsok:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

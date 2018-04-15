@@ -136,7 +136,7 @@
     <value>სათანადო DVD რეპროდუქტორი ვერ მოიძებნა. გთხოვთ დააყენეთ VLC ან MPC-HC ამ ფუნქციის გამოსაყენებლად.</value>
   </data>
   <data name="PlaySourceToolTip" xml:space="preserve">
-    <value>ოროგინალი ფაილის რეპროდუქცია.</value>
+    <value>ორიგინალი ფაილის რეპროდუქცია.</value>
   </data>
   <data name="PreviewClipGenerationFailedMessage" xml:space="preserve">
     <value>წარმოსახვის მომზადება წარუმატებელია. დაწვრილებითი ინფორმაციისთვის იხილეთ სრული პროტოკოლი.</value>
@@ -145,13 +145,13 @@
     <value>წარმოსახვის მომზადება წარუმატებელია</value>
   </data>
   <data name="PreviewWindowTitleSimple" xml:space="preserve">
-    <value>ჩვეება: {0}x{1}</value>
+    <value>ჩვენება: {0}x{1}</value>
   </data>
   <data name="PreviewWindowTitleComplex" xml:space="preserve">
-    <value>ჩვეება: კადრი {0}x{1} - მეხსიერება {2}x{3}</value>
+    <value>ჩვენება: კადრი {0}x{1} - მეხსიერება {2}x{3}</value>
   </data>
   <data name="NoVideoSourceTitle" xml:space="preserve">
-    <value>ჩვეება: ვიდეოს გარეშე</value>
+    <value>ჩვენება: ვიდეოს გარეშე</value>
   </data>
   <data name="Seconds" xml:space="preserve">
     <value>წამი</value>
@@ -166,7 +166,7 @@
     <value>1:1</value>
   </data>
   <data name="ViewLabel" xml:space="preserve">
-    <value>ჩვეება:</value>
+    <value>ჩვენება:</value>
   </data>
   <data name="TopMargin" xml:space="preserve">
     <value>ზედა ზღვარი</value>
@@ -194,12 +194,15 @@
     <value>ხმა</value>
   </data>
   <data name="ReplayPreviewButton" xml:space="preserve">
-    <value>განმეორებითი ჩვეება</value>
+    <value>განმეორებითი ჩვენება</value>
   </data>
   <data name="VideoErrorMessage" xml:space="preserve">
     <value>ვიდეოს ჩვენება დაშენებული რეპროდუქტორით ვერ მოხერხდა. გსურთ სისტმის რეპროდუქტორის გამოყენება?</value>
   </data>
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>ვიდეოს შეცდომა</value>
+  </data>
+  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
+    <value>Windows-ის მაღაზიის ვერსიას არ შეუძლია DVD ან Blu-ray ფაილის რეპროდუქცია, რამდენადაც სხვა პროცესის დაწყება შეზღუდულია.</value>
   </data>
 </root>

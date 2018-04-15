@@ -257,9 +257,6 @@ Maila dinamiko zabala duen audio iturburu baterako (sekuentzia oso ozenak eta os
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Agiriari iPod zaharrek H.264 bideoa aldiberetzeko behar duten markatzaile bat ezartzen dio.</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>4GB baino gehiagoko agiriak ahalbidetzen ditu, 64-biteko zenbakiak erabiltzen ditu kodeaketan. iPod eta PS3 bezalako zenbait gailu bateraezinak dira aukera honekin.</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>Eskuz adierazi Pixel Ikuspegi Maila.</value>
   </data>
@@ -282,9 +279,6 @@ Hau ezarri beharra duzu zure irakurketa gailuak profil zehatz bat bakarrik soste
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Luzapena:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Agiri handi neurria</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>Web egokitzapena</value>
@@ -934,9 +928,6 @@ Bikubikoa: Hau OpenCL hardwarez bizkorturiko neurriratze algoritmo bat da.</valu
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Sarrera bidea bat badator kodekarekin igaro egingo da kodeatu ordez.</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Eskalatze Algoritmoa:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Itzulikapena:</value>
   </data>
@@ -1051,5 +1042,85 @@ Bikubikoa: Hau OpenCL hardwarez bizkorturiko neurriratze algoritmo bat da.</valu
   <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
     <value>Gakoak:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>Tartea</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>Lerrokatu A/B Hasiera</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>Audio eta bideo jario guztien denbora-irarketak lerrokatzen ditu frame hutsak txertatuz edo frameak erorraraziz. Audio/bideo aldiberetzea hobetu dezake MP4 edizio zerrendarik ez dute irakurgailu hautsietan.</value>
+  </data>
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>Edukiontzia</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Kodeaketa aurrezarpena: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>Ezer ez</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>Berezgaitasunez neurria zure ordez hautatuko du emaniko murrizketetan ohinarrituz. Eskuz-ek neurri bereizi bat eta pixel ikuspegi maila sartzea eskatuko dizu.</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>Zorrotza</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>Deblokeatzeak kalitate gutxiko bideo konpresioak eragindako blokeatzeak gutxitzen ditu.</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Deselkarloturak comb artifaktoak kentzen ditu iruditik.
+
+Yadif deselkarloturatzaile ezaguna eta azkarra da.
+
+Decomb-ek interpolazio algoritmo ugariren artean aldatzen da abiadura eta kalitatea hobetzeko.</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>Zarata-kentzeak zarataren eta bikorraren agerpenak gutxitzen edo kentzen ditu. Hau konpresio eraginkortasunez hobetu daiteke eta kalitate handiagoko bideo sortu agiri neurri txikiagoarekin.
+Zarata-kentze ezarpen gogorregiak irudiaren kalitatea kaltetu dezake xehetasunak baztertuz.
+         
+NLMeans kalitate handiko eta abiadura kostu txikia  duen zarata-kentze iragazki bat da. Erabilai hau kalitatea abiadura baino garrantzitsuagoa denean.
+         
+HQDN3D behe-igaropen iragazki egokigarri bat da, NLMeans baino azkarragoa baina eraginkortasun gutxiagokoa xehetasun finak mantentzerakoan.</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>Iragazki honek telecinek eragindako 'combing' artifaktoak kenzen ditu.
+
+Telecine 24fs-ko frameneurria duten filmak NTSC bideo frame neurrira, 30fs-koa denera zehazeko prozesu bat da.</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>Zorrozteak xehetasunen itxura hobetzen du, hertzetan bereziki. Zorrotz ezarpen gogorregiak irudiaren kalitaea kaltetu dezake burrunba artifaktoak sortuz eta zarata handituz, zeinak konpresioaren eraginkortasuna gutxitzen duen.
+
+Unsharp erabilpen orokorrenko mozorro iragazki bat da. Arretuz zorrozten du, orduan arretutako irudiaren eta jatorrizkoaren arteko aldea kalkulatzen du.
+
+Lapsharp konboluzio kernelak erabiliz zorrozten du Laplacian herz iragazkien antzera, batzuetan unsharp mozorrotzeak baino kalitate handiagoko emaitzak lortuz.</value>
+  </data>
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>Norberea</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>Barne-bilduta</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Sortu azpiagiritegia</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Berrizendau agiritegia</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Kendu agiritegia</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>Agiritegi Berria</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>Hautatu izen bat azpiagiritegiarentzat:</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>Hautatu izen berri bat azpiagiritegiarentzat:</value>
   </data>
 </root>

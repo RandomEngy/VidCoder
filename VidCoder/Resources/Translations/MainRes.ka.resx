@@ -133,7 +133,7 @@
     <value>ფაილი</value>
   </data>
   <data name="OpenVideoFile" xml:space="preserve">
-    <value>ვიდეოფაილის გახსნა...</value>
+    <value>ვიდეო ფაილის გახსნა...</value>
   </data>
   <data name="OpenDiscFolder" xml:space="preserve">
     <value>DVD/Blu-Ray ფოლდერის გახსნა...</value>
@@ -179,7 +179,7 @@
     <value>კოდირების პარამეტრები</value>
   </data>
   <data name="PreviewMenuItem" xml:space="preserve">
-    <value>ჩვეება</value>
+    <value>ჩვენება</value>
   </data>
   <data name="LogMenuItem" xml:space="preserve">
     <value>პროტოკოლი</value>
@@ -209,7 +209,7 @@
     <value>ბოლოს გახსნილი</value>
   </data>
   <data name="DragFilesHereLabel" xml:space="preserve">
-    <value>(კოდირებისთვის გადმოიტანეთ ვიდეოფაილი / ფოლდერი აქ)</value>
+    <value>(კოდირებისთვის გადმოიტანეთ ვიდეო ფაილი / ფოლდერი აქ)</value>
   </data>
   <data name="ScanErrorLabel" xml:space="preserve">
     <value>სკანირებისას შეცდომა დაფიქსირდა.</value>
@@ -346,7 +346,7 @@
 {1}</value>
   </data>
   <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
-    <value>ვიდეოფაილის(ების) სკანირების შეცდომა</value>
+    <value>ვიდეო ფაილის(ების) სკანირების შეცდომა</value>
   </data>
   <data name="StartedEncoding" xml:space="preserve">
     <value>კოდირება დაწყებულია.</value>
@@ -391,45 +391,6 @@
   </data>
   <data name="WhenDoneLabel" xml:space="preserve">
     <value>დასრულებისას:</value>
-  </data>
-  <data name="Preset_AndroidTablet" xml:space="preserve">
-    <value>Android Tablet</value>
-  </data>
-  <data name="Preset_Android" xml:space="preserve">
-    <value>Android</value>
-  </data>
-  <data name="Preset_AppleiPad" xml:space="preserve">
-    <value>Apple iPad</value>
-  </data>
-  <data name="Preset_AppleiPhone4" xml:space="preserve">
-    <value>Apple iPhone 4</value>
-  </data>
-  <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
-    <value>Apple iPhone/Touch</value>
-  </data>
-  <data name="Preset_AppleiPod" xml:space="preserve">
-    <value>Apple iPod</value>
-  </data>
-  <data name="Preset_AppleTV" xml:space="preserve">
-    <value>AppleTV</value>
-  </data>
-  <data name="Preset_AppleTV2" xml:space="preserve">
-    <value>AppleTV 2</value>
-  </data>
-  <data name="Preset_AppleTV3" xml:space="preserve">
-    <value>AppleTV 3</value>
-  </data>
-  <data name="Preset_Universal" xml:space="preserve">
-    <value>უნივერსალური</value>
-  </data>
-  <data name="Preset_HighProfile" xml:space="preserve">
-    <value>მაღალი პროპილი</value>
-  </data>
-  <data name="Preset_Normal" xml:space="preserve">
-    <value>ნორმალური</value>
-  </data>
-  <data name="Preset_WindowsPhone7" xml:space="preserve">
-    <value>Windows Phone 7</value>
   </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>ვიდეო ფაილი...</value>
@@ -495,7 +456,7 @@
     <value>დაზიანებული კონფიგურაციის გამო ჩატვირთვა ვერ მოხერხდა. ზოგი პარამეტრები სტანდარტზე აღდგება.</value>
   </data>
   <data name="OutputDirectoryPickerText" xml:space="preserve">
-    <value>კოდირებული ვიდეოფაილებისთვის აირჩეთ დასამახსოვრებელი ადგილი.</value>
+    <value>კოდირებული ვიდეო ფაილებისთვის აირჩეთ დასამახსოვრებელი ადგილი.</value>
   </data>
   <data name="LengthPreviewLabel" xml:space="preserve">
     <value>({0})</value>
@@ -524,9 +485,6 @@
   <data name="RangeBarToolTip" xml:space="preserve">
     <value>მაუსის მარცხენა ღილაკით აირჩეთ საწყისი და მარჯვენა ღილაკით კი არიჩიეთ დასასრული დრო.</value>
   </data>
-  <data name="Preset_WindowsPhone8" xml:space="preserve">
-    <value>Windows Phone 8</value>
-  </data>
   <data name="QueueFormat_Chapters" xml:space="preserve">
     <value>Ch {0}</value>
   </data>
@@ -553,9 +511,6 @@
   </data>
   <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>აუდიო წყაროს წაშლა</value>
-  </data>
-  <data name="Preset_Xbox360" xml:space="preserve">
-    <value>Xbox 360</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>დავალების სიიდან წაშლა</value>
@@ -645,11 +600,18 @@
     <value>გაფრთხილება: ინტერფეისის განზომილება შეიცვალა 2.0-ისთვის, შესაძლებელია შეიცვალა თქვენი შაბლონები და გსურთ პარამეტრების შემოწმება.</value>
   </data>
   <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
-    <value>ვიდეოფაილების ფოლდერის დავალებებში დამატება...</value>
+    <value>ვიდეო ფაილების ფოლდერის დავალებებში დამატება...</value>
   </data>
   <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
     <value>სკანირებისას დაფიქსირდა შეცდომა და ზოგი ფაილი არ დაემატა დავალებებში:
 
 {0}</value>
+  </data>
+  <data name="FileSizeColumnHeader" xml:space="preserve">
+    <value>ზომა</value>
+  </data>
+  <data name="OpenAppDataFolder" xml:space="preserve">
+    <value>მონაცემთა ფოლდერის გახსნა</value>
+    <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
   </data>
 </root>

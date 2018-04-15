@@ -392,45 +392,6 @@
   <data name="WhenDoneLabel" xml:space="preserve">
     <value>Zodra alles voltooid:</value>
   </data>
-  <data name="Preset_AndroidTablet" xml:space="preserve">
-    <value>Android Tablet</value>
-  </data>
-  <data name="Preset_Android" xml:space="preserve">
-    <value>Android</value>
-  </data>
-  <data name="Preset_AppleiPad" xml:space="preserve">
-    <value>Apple iPad</value>
-  </data>
-  <data name="Preset_AppleiPhone4" xml:space="preserve">
-    <value>Apple iPhone 4</value>
-  </data>
-  <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
-    <value>Apple iPhone/Touch</value>
-  </data>
-  <data name="Preset_AppleiPod" xml:space="preserve">
-    <value>Apple iPod</value>
-  </data>
-  <data name="Preset_AppleTV" xml:space="preserve">
-    <value>AppleTV</value>
-  </data>
-  <data name="Preset_AppleTV2" xml:space="preserve">
-    <value>AppleTV 2</value>
-  </data>
-  <data name="Preset_AppleTV3" xml:space="preserve">
-    <value>AppleTV 3</value>
-  </data>
-  <data name="Preset_Universal" xml:space="preserve">
-    <value>Universeel</value>
-  </data>
-  <data name="Preset_HighProfile" xml:space="preserve">
-    <value>Hoog profiel</value>
-  </data>
-  <data name="Preset_Normal" xml:space="preserve">
-    <value>Normaal</value>
-  </data>
-  <data name="Preset_WindowsPhone7" xml:space="preserve">
-    <value>Windows Phone 7</value>
-  </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Video bestand...</value>
   </data>
@@ -479,10 +440,18 @@
   <data name="SaveChangesPickerTitle" xml:space="preserve">
     <value>Sla momentele voorkeursinstelling op?</value>
   </data>
-  
-  
-  
-  
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Weet u zeker dat u alle niet-opgeslagen wijzigingen ongedaan wilt maken?</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>Ongedaan maken</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Weet je zeker dat je dit wilt verwijderen?</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Verwijder</value>
+  </data>
   <data name="UserConfigCorrupted" xml:space="preserve">
     <value>Configuratie was beschadigd en kon niet worden geladen. Sommige van uw instellingen kunnen verloren zijn gegaan.</value>
   </data>
@@ -516,9 +485,6 @@
   <data name="RangeBarToolTip" xml:space="preserve">
     <value>Klik met de linkermuisknop om de begintijd in te stellen en met de rechtermuisknop om de eindtijd in te stellen.</value>
   </data>
-  <data name="Preset_WindowsPhone8" xml:space="preserve">
-    <value>Windows Phone 8</value>
-  </data>
   <data name="QueueFormat_Chapters" xml:space="preserve">
     <value>Hfd {0}</value>
   </data>
@@ -546,9 +512,6 @@
   <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>Audio spoor verwijderen</value>
   </data>
-  <data name="Preset_Xbox360" xml:space="preserve">
-    <value>Xbox 360</value>
-  </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>Verwijderen uit wachtrij</value>
   </data>
@@ -561,7 +524,9 @@
   <data name="ExportQueueFilePickerText" xml:space="preserve">
     <value>Exporteren van wachtrij</value>
   </data>
-  
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Niet gelukt de wachtrij te importeren. Controleer het logboek voor details.</value>
+  </data>
   <data name="ImportPresetFilePickerTitle" xml:space="preserve">
     <value>Importeer instellingen bestand</value>
   </data>
@@ -606,14 +571,47 @@
     <value>Database bestand is niet compatibel</value>
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>Kiezer</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Kan de kiezer niet laden: </value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>Kiezer {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} andere titels hebben een afspeelduur die dicht bij deze ligt.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>U hebt een back-up versie van het {0} bestand. Wilt u deze gebruiken?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Fout bij het afspelen van video.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>Aangepaste video speler kan niet gevonden worden op {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>Let op: De formaat interface is geheel herzien voor 2.0, zodat uw voorinstellingen kunnen zijn gewijzigd. U wilt ze wellicht controleren om ervoor te zorgen dat zij nog steeds correct zijn ingesteld.</value>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Wachtrij map voor Video-bestanden...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Er waren fouten bij het scannen van sommige bestanden; deze werden niet toegevoegd aan de wachtrij:
+
+{0}</value>
+  </data>
+  <data name="FileSizeColumnHeader" xml:space="preserve">
+    <value>Grootte</value>
+  </data>
+  <data name="OpenAppDataFolder" xml:space="preserve">
+    <value>Open App Data map</value>
+    <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
+  </data>
 </root>

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="EncodeDetailsWindowTitle" xml:space="preserve">
-    <value>Dettagli di codifica</value>
+    <value>Dettagli della codifica</value>
   </data>
   <data name="QueueSectionHeader" xml:space="preserve">
     <value>Tutti i file in coda</value>

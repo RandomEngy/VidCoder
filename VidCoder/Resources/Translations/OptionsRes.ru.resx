@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>Когда автоматическая выбор аудио отключен, последний выбранный трек сохраняется.</value>
-  </data>
-  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>Когда автоматический выбор субтитров отключен, последние выбранные субтитры сохраняются.</value>
-  </data>
   <data name="GeneralTab" xml:space="preserve">
     <value>Общие</value>
   </data>
@@ -368,12 +362,6 @@
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>Видео</value>
-  </data>
-  <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>Включить DXVA декодирования с аппаратным ускорением</value>
-  </data>
-  <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>Этот вариант подходит только для медленных системах. В настоящее время аппаратные декодеры предназначены для воспроизведения, не для повторного кодирования видео так будет скорее всего узким местом на быстрее систем.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Заповедник создан и изменен время при преобразовании файлов</value>

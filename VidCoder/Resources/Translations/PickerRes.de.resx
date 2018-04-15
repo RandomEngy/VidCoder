@@ -190,10 +190,7 @@
     <value>Argumente:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Die Argumente, welche dem Programm übergeben werden. {file} steht für den Dateiausgabepfad.</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
+  
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Der Auswähler hat eine Encodierungsvoreinstellung festgelegt.</value>
   </data>
@@ -248,5 +245,10 @@
   </data>
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
     <value>Nur forcierte</value>
+    <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
+  
+  
+  
+  
 </root>

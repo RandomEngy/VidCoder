@@ -392,45 +392,6 @@
   <data name="WhenDoneLabel" xml:space="preserve">
     <value>완료시 동작:</value>
   </data>
-  <data name="Preset_AndroidTablet" xml:space="preserve">
-    <value>안드로이드 태블릿</value>
-  </data>
-  <data name="Preset_Android" xml:space="preserve">
-    <value>안드로이드</value>
-  </data>
-  <data name="Preset_AppleiPad" xml:space="preserve">
-    <value>애플 아이패드</value>
-  </data>
-  <data name="Preset_AppleiPhone4" xml:space="preserve">
-    <value>애플 아이폰 4</value>
-  </data>
-  <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
-    <value>애플 아이폰/터치</value>
-  </data>
-  <data name="Preset_AppleiPod" xml:space="preserve">
-    <value>애플 아이팟</value>
-  </data>
-  <data name="Preset_AppleTV" xml:space="preserve">
-    <value>애플TV</value>
-  </data>
-  <data name="Preset_AppleTV2" xml:space="preserve">
-    <value>애플TV 2</value>
-  </data>
-  <data name="Preset_AppleTV3" xml:space="preserve">
-    <value>애플TV 3</value>
-  </data>
-  <data name="Preset_Universal" xml:space="preserve">
-    <value>일반적인</value>
-  </data>
-  <data name="Preset_HighProfile" xml:space="preserve">
-    <value>높은 프로파일</value>
-  </data>
-  <data name="Preset_Normal" xml:space="preserve">
-    <value>보통</value>
-  </data>
-  <data name="Preset_WindowsPhone7" xml:space="preserve">
-    <value>윈도우 폰 7</value>
-  </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>비디오 파일...</value>
   </data>
@@ -524,9 +485,6 @@
   <data name="RangeBarToolTip" xml:space="preserve">
     <value>시작 시작 설정은 왼쪽 클릭, 종료 시간 설정은 오른쪽 클릭입니다.</value>
   </data>
-  <data name="Preset_WindowsPhone8" xml:space="preserve">
-    <value>윈도우 폰 8</value>
-  </data>
   <data name="QueueFormat_Chapters" xml:space="preserve">
     <value>Ch {0}</value>
   </data>
@@ -553,9 +511,6 @@
   </data>
   <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>오디오 트랙 제거하기</value>
-  </data>
-  <data name="Preset_Xbox360" xml:space="preserve">
-    <value>Xbox 360</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>대기열에서 제거하기</value>
@@ -652,4 +607,6 @@
 
 {0}</value>
   </data>
+  
+  
 </root>

@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>Kiedy automatyczny wybór dźwięku jest wyłączony, zachowywana jest ostatnia ścieżka.</value>
-  </data>
-  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>Kiedy automatyczny wybór napisów jest wyłączony, zachowywany jest ostatni wybór ścieżki.</value>
-  </data>
   <data name="GeneralTab" xml:space="preserve">
     <value>Ogólne</value>
   </data>
@@ -368,12 +362,6 @@
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>Wideo</value>
-  </data>
-  <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>Włącz DXVA Dekodowanie Przyspieszone Sprzętowo</value>
-  </data>
-  <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>Opcja ta nadaje się tylko do wolniejszych systemów. Dekodery sprzętowe są obecnie przeznaczone do odtwarzania, nie do ponownego kodowania wideo więc będzie to prawdopodobnie wąskie gardło na szybszych systemach.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Zachowaj czasy Utworzono i Zmodyfikowano podczas konwersji plików</value>

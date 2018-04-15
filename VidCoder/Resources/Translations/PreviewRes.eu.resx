@@ -202,4 +202,7 @@
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>Bideo Akatsa</value>
   </data>
+  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
+    <value>Windows dendako bertsioak ezin ditu DVD edo Blu-ray iturburuak irakurri beste prozesuak abiarazeko ahalbidetuta ez dagoenez.</value>
+  </data>
 </root>

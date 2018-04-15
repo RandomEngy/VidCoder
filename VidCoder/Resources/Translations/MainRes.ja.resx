@@ -390,45 +390,6 @@
   <data name="WhenDoneLabel" xml:space="preserve">
     <value>終了時の処理：</value>
   </data>
-  <data name="Preset_AndroidTablet" xml:space="preserve">
-    <value>Android Tablet</value>
-  </data>
-  <data name="Preset_Android" xml:space="preserve">
-    <value>Android</value>
-  </data>
-  <data name="Preset_AppleiPad" xml:space="preserve">
-    <value>Apple iPad</value>
-  </data>
-  <data name="Preset_AppleiPhone4" xml:space="preserve">
-    <value>Apple iPhone 4</value>
-  </data>
-  <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
-    <value>Apple iPhone/Touch</value>
-  </data>
-  <data name="Preset_AppleiPod" xml:space="preserve">
-    <value>Apple iPod</value>
-  </data>
-  <data name="Preset_AppleTV" xml:space="preserve">
-    <value>AppleTV</value>
-  </data>
-  <data name="Preset_AppleTV2" xml:space="preserve">
-    <value>AppleTV 2</value>
-  </data>
-  <data name="Preset_AppleTV3" xml:space="preserve">
-    <value>AppleTV 3</value>
-  </data>
-  <data name="Preset_Universal" xml:space="preserve">
-    <value>一般形式</value>
-  </data>
-  <data name="Preset_HighProfile" xml:space="preserve">
-    <value>High Profile</value>
-  </data>
-  <data name="Preset_Normal" xml:space="preserve">
-    <value>ノーマル</value>
-  </data>
-  <data name="Preset_WindowsPhone7" xml:space="preserve">
-    <value>Windows Phone 7</value>
-  </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>動画ファイル...</value>
   </data>
@@ -522,9 +483,6 @@
   <data name="RangeBarToolTip" xml:space="preserve">
     <value>左クリックで開始時間をセットし、右クリックで終了時間をセットします</value>
   </data>
-  <data name="Preset_WindowsPhone8" xml:space="preserve">
-    <value>Windows Phone 8</value>
-  </data>
   <data name="QueueFormat_Chapters" xml:space="preserve">
     <value>チャンネル {0}</value>
   </data>
@@ -551,9 +509,6 @@
   </data>
   <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>オーディオ トラックを削除</value>
-  </data>
-  <data name="Preset_Xbox360" xml:space="preserve">
-    <value>Xbox 360</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>キューから削除</value>
@@ -642,6 +597,8 @@
   <data name="SizingPresetUpgradeWarning" xml:space="preserve">
     <value>警告: Ver2.0でサイズ変更の設定画面が変更ました。そのためプリセットも変更された可能性があります。チェックし正しく設定されているか確認してください。</value>
   </data>
+  
+  
   
   
 </root>

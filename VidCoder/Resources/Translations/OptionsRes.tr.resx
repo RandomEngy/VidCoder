@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>Otomatik ses seçimi devre dışı bırakıldığında, son seçilen ses yolu geçerlidir.</value>
-  </data>
-  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>Otomatik altyazı seçimi devre dışı bırakıldığında son seçilen altyazı geçerlidir.</value>
-  </data>
   <data name="GeneralTab" xml:space="preserve">
     <value>Genel</value>
   </data>
@@ -368,12 +362,6 @@
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>Video</value>
-  </data>
-  <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>DXVA Donanım Hızlandırmalı Kod Çözücüyü Etkinleştir</value>
-  </data>
-  <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>Bu seçenek yalnızca yavaş sistemler için uygundur. Donanım kod çözücüleri şu anda video oynatma işi için geliştirilmiştir, videoyu yeniden kodlama için değil, bu nedenle daha hızlı sistemlerde büyük olasılıkla darboğaza neden olacaktır.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Dosyaları dönüştürürken Oluşturulma ve Değiştirilme zamanlarını koru</value>

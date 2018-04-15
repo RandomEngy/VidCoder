@@ -191,7 +191,7 @@
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
   <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Programari igarotzeko argumentuak. erabili {file} agiriaren irteera helbururako.</value>
+    <value>Programari igarotzeko argumentuak. Erabilai {file} agiri irteera helbururako, {folder} edukiontzi agiritegi helbururako edo beste helburu aukerak {title} eta {date} (ikusi Izendatze Heuskarria).</value>
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
@@ -248,5 +248,18 @@
   </data>
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
     <value>Behartua bakarrik</value>
+    <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
+  </data>
+  <data name="AudioDefaultToolTip" xml:space="preserve">
+    <value>Hautaturiko azken audio bidea hautatzen du bat etortzea aurkituz gero, bestela lehena hautatzen du.</value>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>Hautaturiko azkena</value>
+  </data>
+  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
+    <value>Hautaturiko azken azpidatzi bidea hautatzen du bat etortzea aurkituz gero, bestela biderik ez.</value>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>Aukera eskuragarriak: {0}</value>
   </data>
 </root>

@@ -218,9 +218,6 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
     <value>Załączenie rozdziałów z wejściowego wideo do zakodowanego wideo.</value>
   </data>
   
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Pozwala na pliki powyżej 4GB. Gdy włączone, używa 64-bitowego kodowania. Niektóre urządzenia jak iPod i PS3 są niekompatybilne z tą opcją.</value>
-  </data>
   
   
   
@@ -231,9 +228,6 @@ Wymaga ustawienia B-frames większego niż 1; optymalnie adaptacyjne ramki B-fra
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Rozszerzenie:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Duży rozmiar pliku</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>Zoptymalizowane dla sieci Web</value>
@@ -843,9 +837,6 @@ Bicubic: To OpenCL sprzętowo przyspieszony algorytm skalowania.</value>
     <value>Passthrough Jeśli możliwe</value>
   </data>
   
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Algorytm skalowania:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Obrót:</value>
   </data>
@@ -889,6 +880,27 @@ Bicubic: To OpenCL sprzętowo przyspieszony algorytm skalowania.</value>
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

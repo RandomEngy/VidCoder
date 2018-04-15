@@ -265,9 +265,6 @@ Esta opción funciona solamente con fuentes de audio de tipo AC3.</value>
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Aplica un marcador al archivo que iPods mas viejos requieren antes que permitieran sincronizacion de video H.264.</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Permite archivos mayores a 4GB. Cuando está activado, usa números de 64 bits de codificación. Algunos dispositivos como el iPod y la PS3 son incompatibles con esta opción.</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>Especificar manualmente una proporción de aspecto de pixeles.</value>
   </data>
@@ -290,9 +287,6 @@ Debes elegir esta opción solo si conoces que tú dispositivo de reproducción e
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Extensión:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Tamaño de archivo grande</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>Optimizado para web</value>
@@ -944,9 +938,6 @@ BICUBIC: Esté es un algoritmo OpenCL de escalamiento acelerado por hardware.</v
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Si la pista de entrada coincide con el codec, esta será 'pasada' directamente sin codificar.</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Algoritmo de escalado:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Rotación:</value>
   </data>
@@ -1062,4 +1053,27 @@ BICUBIC: Esté es un algoritmo OpenCL de escalamiento acelerado por hardware.</v
     <value>Claves:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>Relleno</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>
