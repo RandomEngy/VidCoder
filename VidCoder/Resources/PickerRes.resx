@@ -258,6 +258,7 @@
   </data>
   <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
     <value>Picks the last selected subtitle track if a match is found, otherwise or no tracks.</value>
+    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>Available options: {0}</value>
