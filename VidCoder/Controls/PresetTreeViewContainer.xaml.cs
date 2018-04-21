@@ -72,7 +72,11 @@ namespace VidCoder.Controls
 			    return;
 		    }
 
-			this.presetsService.SelectedPreset = (PresetViewModel)selectedItem;
+			DispatchUtilities.BeginInvoke(() =>
+			{
+				// This might be in the layout phase. Invoke on dispatcher to process cleanly.
+				this.presetsService.SelectedPreset = (PresetViewModel)selectedItem;
+			});
 	    }
 
 	    private void OnPresetFolderMenuClick(object sender, RoutedEventArgs e)

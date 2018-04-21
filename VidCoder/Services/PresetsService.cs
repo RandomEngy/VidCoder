@@ -232,36 +232,33 @@ namespace VidCoder.Services
 					buttons = MessageBoxButton.YesNoCancel;
 				}
 
-				DispatchUtilities.Invoke(() =>
+				MessageBoxResult dialogResult = Utilities.MessageBox.Show(
+					this.main,
+					dialogMessage,
+					dialogTitle,
+					buttons);
+				if (dialogResult == MessageBoxResult.Yes)
 				{
-					MessageBoxResult dialogResult = Utilities.MessageBox.Show(
-						this.main,
-						dialogMessage,
-						dialogTitle,
-						buttons);
-					if (dialogResult == MessageBoxResult.Yes)
-					{
-						// Yes, we wanted to save changes
-						this.SavePreset();
-					}
-					else if (dialogResult == MessageBoxResult.No || dialogResult == MessageBoxResult.OK)
-					{
-						// No, we didn't want to save changes or OK, we wanted to discard changes.
-						this.RevertPreset(userInitiated: false);
-					}
-					else if (dialogResult == MessageBoxResult.Cancel)
-					{
-						// Queue up an action to switch back to this preset.
-						int currentPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
+					// Yes, we wanted to save changes
+					this.SavePreset();
+				}
+				else if (dialogResult == MessageBoxResult.No || dialogResult == MessageBoxResult.OK)
+				{
+					// No, we didn't want to save changes or OK, we wanted to discard changes.
+					this.RevertPreset(userInitiated: false);
+				}
+				else if (dialogResult == MessageBoxResult.Cancel)
+				{
+					// Queue up an action to switch back to this preset.
+					int currentPresetIndex = this.AllPresets.IndexOf(this.selectedPreset);
 
-						DispatchUtilities.BeginInvoke(() =>
-						{
-							this.SelectedPreset = this.AllPresets[currentPresetIndex];
-						});
+					DispatchUtilities.BeginInvoke(() =>
+					{
+						this.SelectedPreset = this.AllPresets[currentPresetIndex];
+					});
 
-						changeSelectedPreset = false;
-					}
-				});
+					changeSelectedPreset = false;
+				}
 			}
 
 			this.selectedPreset = value;
