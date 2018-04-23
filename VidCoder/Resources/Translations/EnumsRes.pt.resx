@@ -134,6 +134,7 @@
   </data>
   <data name="CombDetect_permissive" xml:space="preserve">
     <value>Menos sensível</value>
+    <comment>This mode allows higher levels of combing before triggering.</comment>
   </data>
   <data name="Custom" xml:space="preserve">
     <value>Personalizado</value>
@@ -219,6 +220,12 @@
   </data>
   <data name="Off" xml:space="preserve">
     <value>Desligado</value>
+  </data>
+  <data name="Sharpen_LapSharp" xml:space="preserve">
+    <value>LapSharp</value>
+  </data>
+  <data name="Sharpen_UnSharp" xml:space="preserve">
+    <value>UnSharp</value>
   </data>
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-ray</value>

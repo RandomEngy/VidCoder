@@ -207,9 +207,6 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Insere um marcador no arquivo, que os iPods mais antigos requerem, antes de permitirem a sincronização de vídeo H.264.</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Permite arquivos com mais de 4GB. Quando ativado, utiliza números de 64 bits na codificação. Alguns dispositivos como o iPod e o PS3 são incompatíveis com esta opção.</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>Especifica manualmente uma relação de aspecto do Pixel.</value>
   </data>
@@ -230,9 +227,6 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Extensão:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Arquivo de tamanho grande</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>Otimizado para Web</value>
@@ -879,9 +873,6 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Se a faixa de entrada coincidir com o codec, será copiado ao invés de codificado.</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Algoritmo de escalonamento:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Rotação:</value>
   </data>
@@ -997,4 +988,25 @@ O perfil de base, necess[ario para iPods e dispositivos similares, requer que os
     <value>Chaves:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

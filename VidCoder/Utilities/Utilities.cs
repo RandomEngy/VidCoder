@@ -35,7 +35,15 @@ namespace VidCoder
 
 		static Utilities()
 		{
-			IsPortable = Directory.GetCurrentDirectory().Contains("Temp");
+			var tempFolderPath = Environment.GetEnvironmentVariable("temp");
+			if (tempFolderPath != null)
+			{
+				DirectoryInfo tempFolderInfo = new DirectoryInfo(tempFolderPath);
+				DirectoryInfo currentDirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
+
+				IsPortable = currentDirectoryInfo.FullName.StartsWith(tempFolderInfo.FullName, StringComparison.OrdinalIgnoreCase);
+			}
+
 			IsRunningAsAppx = new DesktopBridge.Helpers().IsRunningAsUwp();
 		    string settingsDirectorySetting = ConfigurationManager.AppSettings["SettingsDirectory"];
 		    if (settingsDirectorySetting != null)
@@ -97,6 +105,21 @@ namespace VidCoder
 		public static bool IsPortable { get; }
 
 		public static bool IsRunningAsAppx { get; }
+
+		public static string PackageFamilyName
+		{
+			get
+			{
+				if (CommonUtilities.Beta)
+				{
+					return "19358RandomEngy.VidCoderBeta_cf0dg7w8q6vfw";
+				}
+				else
+				{
+					return "19358RandomEngy.VidCoder_cf0dg7w8q6vfw";
+				}
+			}
+		}
 
 		public static bool SupportsUpdates => !IsPortable && !IsRunningAsAppx;
 
@@ -721,13 +744,13 @@ namespace VidCoder
 		public static List<string> GetFilesOrVideoFolders(string directory, IList<string> videoExtensions)
 		{
 			var path = new List<string>();
-			var accessErrors = new List<string>();
-			GetFilesOrVideoFoldersRecursive(directory, path, accessErrors, videoExtensions);
+			var errors = new List<string>();
+			GetFilesOrVideoFoldersRecursive(directory, path, errors, videoExtensions);
 
-			if (accessErrors.Count > 0)
+			if (errors.Count > 0)
 			{
 				var messageBuilder = new StringBuilder(CommonRes.CouldNotAccessDirectoriesError + Environment.NewLine);
-				foreach (string accessError in accessErrors)
+				foreach (string accessError in errors)
 				{
 					messageBuilder.AppendLine(accessError);
 				}
@@ -738,7 +761,7 @@ namespace VidCoder
 			return path;
 		}
 
-		private static void GetFilesOrVideoFoldersRecursive(string directory, List<string> paths, List<string> accessErrors, IList<string> videoExtensions)
+		private static void GetFilesOrVideoFoldersRecursive(string directory, List<string> paths, List<string> errors, IList<string> videoExtensions)
 		{
 			try
 			{
@@ -751,13 +774,13 @@ namespace VidCoder
 					}
 					else
 					{
-						GetFilesOrVideoFoldersRecursive(subdirectory, paths, accessErrors, videoExtensions);
+						GetFilesOrVideoFoldersRecursive(subdirectory, paths, errors, videoExtensions);
 					}
 				}
 			}
-			catch (UnauthorizedAccessException)
+			catch (Exception)
 			{
-				accessErrors.Add(directory);
+				errors.Add(directory);
 			}
 
 			try
@@ -768,9 +791,9 @@ namespace VidCoder
 						f => videoExtensions.Any(
 							e => f.EndsWith(e, StringComparison.OrdinalIgnoreCase))));
 			}
-			catch (UnauthorizedAccessException)
+			catch (Exception)
 			{
-				accessErrors.Add(directory);
+				errors.Add(directory);
 			}
 		}
 	}

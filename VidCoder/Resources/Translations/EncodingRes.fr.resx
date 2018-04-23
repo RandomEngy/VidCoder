@@ -257,9 +257,6 @@ Pour la source audio disposant d'une large plage dynamique (séquences très for
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>S'applique à un marqueur dans le fichier que les iPods plus âgés nécessitent avant qu'ils permettent la synchronisation avec une vidéo H.264.</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Permet des fichiers de plus de 4 Go. Lorsqu'il est activé, il utilise des nombres de 64 bits pendant l'encodage. Certains appareils comme l'iPod et la PS3 sont incompatibles avec cette option.</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>Spécifier manuellement un format de pixels.</value>
   </data>
@@ -282,9 +279,6 @@ Vous devez définir ceci, si vous savez que votre appareil de lecture prend uniq
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Extension :</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Fichier volumineux</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>Optimisé Web</value>
@@ -928,9 +922,6 @@ Bicubique : Algorithme de mise à l'échelle basé sur l'accéléré matériel O
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Si la piste d'entrée correspond au codec, elle sera ignorée au lieu d'encodée.</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Algorithme de mise à l'échelle :</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Rotation :</value>
   </data>
@@ -974,6 +965,27 @@ Bicubique : Algorithme de mise à l'échelle basé sur l'accéléré matériel O
   <data name="Passthrough_truehd" xml:space="preserve">
     <value>TrueHD</value>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" IgnorableNamespaces="uap mp rescap">
-  <Identity Name="19358RandomEngy.VidCoderBeta" Publisher="CN=D5C369CB-4369-49A5-B240-9717546C690D" Version="3.7.0.0" />
+  <Identity Name="19358RandomEngy.VidCoderBeta" Publisher="CN=D5C369CB-4369-49A5-B240-9717546C690D" Version="3.12.0.0" />
   <Properties>
     <DisplayName>VidCoder Beta</DisplayName>
     <PublisherDisplayName>RandomEngy</PublisherDisplayName>
@@ -11,7 +11,8 @@
     <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.14393.0" MaxVersionTested="10.0.14393.0" />
   </Dependencies>
   <Resources>
-    <Resource Language="x-generate" />
+    <Resource Language="EN-US" />
+    <Resource Language="ES-ES" />
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">

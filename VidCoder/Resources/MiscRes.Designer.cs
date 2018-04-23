@@ -295,6 +295,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The program needs to close, but the error will be automatically reported..
+        /// </summary>
+        public static string ExceptionDialogSubTextReported {
+            get {
+                return ResourceManager.GetString("ExceptionDialogSubTextReported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exception.
         /// </summary>
         public static string ExceptionWindowTitle {

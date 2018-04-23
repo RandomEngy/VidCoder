@@ -1561,7 +1561,7 @@ namespace VidCoder.Services
 					this.EncodeQueue.RemoveAt(0);
 
 					var picker = this.pickersService.SelectedPicker.Picker;
-					if (status == EncodeResultStatus.Succeeded && picker.PostEncodeActionEnabled && !string.IsNullOrWhiteSpace(picker.PostEncodeExecutable))
+					if (status == EncodeResultStatus.Succeeded && !Utilities.IsRunningAsAppx && picker.PostEncodeActionEnabled && !string.IsNullOrWhiteSpace(picker.PostEncodeExecutable))
 					{
 						string arguments = outputVM.ReplaceArguments(picker.PostEncodeArguments, picker)
                             .Replace("{file}", outputPath)

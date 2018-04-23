@@ -96,6 +96,11 @@ namespace VidCoder
 		// Usually called before exiting the program.
 		public override void StopAndWait()
 		{
+			if (this.encodeStartEvent == null)
+			{
+				return;
+			}
+
 			this.encodeStartEvent.Wait();
 			bool waitForEnd;
 

@@ -670,9 +670,15 @@ namespace VidCoder.Model
 				if (CommonUtilities.Beta && Directory.Exists(Utilities.GetAppFolder(beta: false)))
 				{
 					// In beta mode if we don't have the appdata folder copy the stable appdata folder
-					FileUtilities.CopyDirectory(
-						Utilities.GetAppFolder(beta: false),
-						Utilities.GetAppFolder(beta: true));
+					try
+					{
+						FileUtilities.CopyDirectory(
+							Utilities.GetAppFolder(beta: false),
+							Utilities.GetAppFolder(beta: true));
+					}
+					catch (Exception)
+					{
+					}
 				}
 				else
 				{

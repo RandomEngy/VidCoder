@@ -258,9 +258,6 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>套用特殊標記使檔案能支援舊型 iPod 的同步更新。</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>允許檔案超過 4GB。啟用此選項時將使用 64 位元編碼，部分裝置如 iPod 及 PS3 不相容此選項。</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>手動指定像素長寬比。</value>
   </data>
@@ -283,9 +280,6 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>副檔名:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>大容量檔案</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>網路最佳化</value>
@@ -935,9 +929,6 @@ Bicubic: OpenCL 硬體加速縮放演算法。</value>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>若輸入軌道符合指定編碼將直接複製而不進行編碼。</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>縮放演算法:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>旋轉:</value>
   </data>
@@ -1053,4 +1044,25 @@ Bicubic: OpenCL 硬體加速縮放演算法。</value>
     <value>Keys:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

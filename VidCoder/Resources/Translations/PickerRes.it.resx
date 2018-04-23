@@ -191,7 +191,7 @@
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
   <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Gli argomenti da passare al programma. Utilizzare {file} per il percorso di output del file.</value>
+    <value>Gli argomenti da passare al programma. Utilizzare {file} per il percorso del file in uscita, {folder} come percorso della cartella o altre opzioni per personalizzare il percorso, come {title} e {date} (Vedi il formato di denominazione).</value>
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
@@ -248,5 +248,18 @@
   </data>
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
     <value>Solo Forzati</value>
+    <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
+  </data>
+  <data name="AudioDefaultToolTip" xml:space="preserve">
+    <value>Utilizza l'ultima traccia audio selezionata, se viene trovata una corrispondenza, altrimenti prende la prima.</value>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>Ultima selezionata</value>
+  </data>
+  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
+    <value>Utilizza l'ultima traccia dei sottotitoli selezionata, se viene trovata una corrispondenza, altrimenti non viene utilizzato alcun sottotitolo.</value>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>Opzioni disponibili: {0}</value>
   </data>
 </root>

@@ -388,45 +388,6 @@
   <data name="WhenDoneLabel" xml:space="preserve">
     <value>Quando concluso:</value>
   </data>
-  <data name="Preset_AndroidTablet" xml:space="preserve">
-    <value>Tablet Android</value>
-  </data>
-  <data name="Preset_Android" xml:space="preserve">
-    <value>Android</value>
-  </data>
-  <data name="Preset_AppleiPad" xml:space="preserve">
-    <value>Apple iPad</value>
-  </data>
-  <data name="Preset_AppleiPhone4" xml:space="preserve">
-    <value>Apple iPhone 4</value>
-  </data>
-  <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
-    <value>Apple iPhone/iPod Touch</value>
-  </data>
-  <data name="Preset_AppleiPod" xml:space="preserve">
-    <value>Apple iPod</value>
-  </data>
-  <data name="Preset_AppleTV" xml:space="preserve">
-    <value>AppleTV</value>
-  </data>
-  <data name="Preset_AppleTV2" xml:space="preserve">
-    <value>AppleTV 2</value>
-  </data>
-  <data name="Preset_AppleTV3" xml:space="preserve">
-    <value>AppleTV 3</value>
-  </data>
-  <data name="Preset_Universal" xml:space="preserve">
-    <value>Universale</value>
-  </data>
-  <data name="Preset_HighProfile" xml:space="preserve">
-    <value>Profilo alto</value>
-  </data>
-  <data name="Preset_Normal" xml:space="preserve">
-    <value>Normale</value>
-  </data>
-  <data name="Preset_WindowsPhone7" xml:space="preserve">
-    <value>Windows Phone 7</value>
-  </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>File video...</value>
   </data>
@@ -520,9 +481,6 @@
   <data name="RangeBarToolTip" xml:space="preserve">
     <value>Sinistro del mouse per impostare il tempo di avvio e fare clic destro per impostare l'ora di fine.</value>
   </data>
-  <data name="Preset_WindowsPhone8" xml:space="preserve">
-    <value>Windows Phone 8</value>
-  </data>
   <data name="QueueFormat_Chapters" xml:space="preserve">
     <value>Ch: {0}</value>
   </data>
@@ -549,9 +507,6 @@
   </data>
   <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>Rimuovere la traccia audio</value>
-  </data>
-  <data name="Preset_Xbox360" xml:space="preserve">
-    <value>Xbox 360</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>Rimuovere dalla coda</value>
@@ -593,7 +548,7 @@
     <value>Chiudere il file corrente e aprire il disco?</value>
   </data>
   <data name="EncodeDetailsMenuItem" xml:space="preserve">
-    <value>Dettagli di codifica</value>
+    <value>Dettagli della codifica</value>
   </data>
   <data name="EncodingSettingsChangedMessage" xml:space="preserve">
     <value>Impostazioni di codifica sono cambiate da quando l'ultima aggiunto un elemento alla coda. Si desidera applicare le impostazioni di codifica corrente a tutti gli elementi nella coda?</value>
@@ -613,7 +568,7 @@
     <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
   </data>
   <data name="PickerMenuItem" xml:space="preserve">
-    <value>Selettore</value>
+    <value>Selezione</value>
   </data>
   <data name="CouldNotLoadPickerMessage" xml:space="preserve">
     <value>Impossibile caricare il selettore: </value>
@@ -647,5 +602,12 @@
     <value>Si sono presentati degli errori durante la scansione di alcuni file e non sono stati aggiunti alla coda:
 
 {0}</value>
+  </data>
+  <data name="FileSizeColumnHeader" xml:space="preserve">
+    <value>Dimensione</value>
+  </data>
+  <data name="OpenAppDataFolder" xml:space="preserve">
+    <value>Apri la cartella dati del programma</value>
+    <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
   </data>
 </root>

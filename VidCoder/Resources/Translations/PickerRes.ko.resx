@@ -190,10 +190,7 @@
     <value>인수:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>프로그램에 전달할 인수. 파일 출력 경로는 {file}을 사용하세요.</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
+  
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>선택기에서 인코딩 프리셋을 지정했습니다.</value>
   </data>
@@ -248,5 +245,10 @@
   </data>
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
     <value>강제 출력만</value>
+    <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
+  
+  
+  
+  
 </root>

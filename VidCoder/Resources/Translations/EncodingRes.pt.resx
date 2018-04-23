@@ -192,9 +192,6 @@
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Insere um marcador no ficheiro, que os iPods mais antigos requerem, antes de permitirem a sincronização de vídeo H.264.</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Permite ficheiros com mais de 4GB. Quando activado, utiliza números de 64 bits na codificação. Alguns dispositivos como o iPod e a PS3 são incompatíveis com esta opção.</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>Especifique manualmente as proporções do pixel - Aspect Ratio.</value>
   </data>
@@ -215,9 +212,6 @@
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Extensão:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Ficheiro de tamanho grande</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>Otimizado para Web</value>
@@ -865,9 +859,6 @@ Bicubic: É um algoritmo de dimensionamento acelerado para hardware OpenCL.</val
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Se a faixa de origem coincidir com o codec, será passada automaticamente em vez de codificada.</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Algoritmo de escalonamento:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Rotação:</value>
   </data>
@@ -982,5 +973,85 @@ Bicubic: É um algoritmo de dimensionamento acelerado para hardware OpenCL.</val
   <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
     <value>Chaves:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>Preenchimento</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>Alinhar Início A/V</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>Alinha os tempos inicias de todos os fluxos áudio e vídeo inserindo ou omitindo quadros. Pode melhorar a sincronização em leitores deficientes que não leiam as listas de edição MP4.</value>
+  </data>
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>Recipiente</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Padrão de codificação: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>Nenhum</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>O modo automático escolhe o tamanho baseado nas restrições fornecidas. O modo manual deixa-o introduzir um tamanho específico e a proporção em píxeis.</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>Nitidez</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>O desbloqueio reduz os artefactos de blocos causados pela compressão de vídeo de baixa qualidade.</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Desentrelaçar remove artefactos ´tipo pente' da imagem.
+
+O Yadif é um desentrelaçador popular e rápido.
+
+O Decomb alterna entre diversos algoritmos de interpolação para velocidade e qualidade.</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>O Denoise reduz ou remove o aparecimento de ruído e grão. Isso pode melhorar a eficiência da compressão e criar vídeo de maior qualidade em tamanhos de ficheiro mais pequenos. 
+Definições extremamente fortes de Denoise podem danificar a qualidade da imagem descartando o detalhe.
+         
+NLMeans é um filtro 'denoise' de alta qualidade com custos para a velocidade. Use-o onde a qualidade for mais importante que a velocidade.
+         
+HQDN3D é um filtro 'low-pass' adaptativo, mais rápido que o NLMeans mas menos eficaz na preservação dos detalhes.</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>Este filtro remove artefactos 'em pente' resultantes de 'telecining'.
+
+Telecining é um processo que faz o ajuste das taxas de quadros dos filmes de 24qps para vídeo NTSC que são de 30qps.</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>Nitidez melhora o aspecto do detalhe, especialmente os bordos. Definições demasiado fortes de Nitidez podem danificar a qualidade da imagem criando artefactos sonoros e aumentando o ruído, o que pode reduzir a eficiência da compressão.
+
+Unsharp é um filtro de máscara de desfocagem de uso geral. Actua desfocando e depois fazendo o cálculo entre a diferença entre a imagem desfocada e a original.
+
+Lapsharp actua usando núcleos de convolução próximos dos filtro de bordo Laplacian, sometimes produzindo resultados de maior qualidade que a máscara de desfocagem.</value>
+  </data>
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>Personalizado</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>Embutido</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Criar sub-pasta</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Renomear pasta</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Remover pasta</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>Nova Pasta</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>Escolha um nome para a sub-pasta:</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>Escolha um novo nome para a pasta:</value>
   </data>
 </root>

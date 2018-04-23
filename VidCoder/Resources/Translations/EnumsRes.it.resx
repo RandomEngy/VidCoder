@@ -134,6 +134,7 @@
   </data>
   <data name="CombDetect_permissive" xml:space="preserve">
     <value>Meno sensibile</value>
+    <comment>This mode allows higher levels of combing before triggering.</comment>
   </data>
   <data name="Custom" xml:space="preserve">
     <value>Personalizzato</value>
@@ -145,7 +146,7 @@
     <value>Veloce</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>Impostazione Predefinita</value>
+    <value>Impostazione predefinita</value>
   </data>
   <data name="DeinterlacePreset_bob" xml:space="preserve">
     <value>Bob</value>
@@ -219,6 +220,12 @@
   </data>
   <data name="Off" xml:space="preserve">
     <value>Spento</value>
+  </data>
+  <data name="Sharpen_LapSharp" xml:space="preserve">
+    <value>Nitidezza circolare</value>
+  </data>
+  <data name="Sharpen_UnSharp" xml:space="preserve">
+    <value>Opacizza</value>
   </data>
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-ray</value>

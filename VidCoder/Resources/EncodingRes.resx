@@ -932,7 +932,7 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
     <value>If the input track matches the codec it will be passed through instead of encoded.</value>
   </data>
   <data name="RotationLabel" xml:space="preserve">
-    <value>Rotation:</value>
+    <value>Rotation</value>
   </data>
   <data name="ClosePresetsListToolTip" xml:space="preserve">
     <value>Close the presets list</value>
@@ -1045,6 +1045,9 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
   <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
     <value>Keys:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>Padding</value>
   </data>
   <data name="AlignAVStartCheckBox" xml:space="preserve">
     <value>Align A/V Start</value>

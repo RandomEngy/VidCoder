@@ -192,9 +192,6 @@
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Маркер применяется к файлу, что старые iPod требуют, прежде чем они обеспечат H.264 видео синхронизацию.</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Позволяет работать с файлами более 4 ГБ. Когда включен, использует 64-битных чисел в кодировке. Некоторые устройства, такие как iPod и PS3 несовместимы с этой опцией.</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>Вручную укажите форматное соотношение.</value>
   </data>
@@ -217,9 +214,6 @@
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Расширение:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Большой размер файла</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>Web оптимизация</value>
@@ -868,9 +862,6 @@
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Если вводу трека соответствует кодек, который будет передаваться через него вместо кодируемого.</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Алгоритм масштабирования:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Поворот экрана:</value>
   </data>
@@ -986,4 +977,25 @@
     <value>Ключи:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

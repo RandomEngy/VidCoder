@@ -202,9 +202,6 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Applica un marcatore al file che vecchi iPod richiedono prima essi ti consentono h. 264 video di sincronizzazione.</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Permette ai file oltre 4GB. Quando attivata, utilizza numeri 64-bit di codifica. Alcuni dispositivi come l'iPod e la PS3 sono incompatibili con questa opzione.</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>Specificare manualmente un Pixel Aspect Ratio.</value>
   </data>
@@ -227,9 +224,6 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Estensione:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Dimensione di file di grandi dimensioni</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>Ottimizzato per il Web</value>
@@ -346,7 +340,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Dimensione del bersaglio (MB)</value>
   </data>
   <data name="AverageBitrateRadioButton" xml:space="preserve">
-    <value>AVG Bitrate (kbps)</value>
+    <value>Velocità di trasferimento media (kbps)</value>
   </data>
   <data name="ConstantQualityRadioButton" xml:space="preserve">
     <value>Qualità costante</value>
@@ -361,7 +355,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Preimpostato:</value>
   </data>
   <data name="TuneLabel" xml:space="preserve">
-    <value>Melodia:</value>
+    <value>Regolazione:</value>
   </data>
   <data name="Profile_baseline" xml:space="preserve">
     <value>Linea di base</value>
@@ -722,13 +716,13 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Ulteriori opzioni avanzate x264:</value>
   </data>
   <data name="LevelToolTip" xml:space="preserve">
-    <value>Imposta e garantisce la conformità con il livello specificato di h. 264.  Esegue l'override di tutte le altre impostazioni.</value>
+    <value>Imposta e garantisce la conformità con il livello specificato di h. 264.  Sovvrascrive tutte le altre impostazioni.</value>
   </data>
   <data name="Profile_high444" xml:space="preserve">
     <value>Alta 4:4:4 predittiva</value>
   </data>
   <data name="VideoCodecLabel" xml:space="preserve">
-    <value>Codec video:</value>
+    <value>Codificatore video:</value>
   </data>
   <data name="VideoEncoder_ffmpeg2" xml:space="preserve">
     <value>MPEG-2 (Libav)</value>
@@ -811,7 +805,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Passthrough non funziona su tutti i codec audio. Questo specifica l'encoder per ripiegare se la traccia non può essere passata attraverso.</value>
   </data>
   <data name="EncoderSettings" xml:space="preserve">
-    <value>Impostazioni encoder</value>
+    <value>Impostazioni codificatore</value>
   </data>
   <data name="QsvDecodingLabel" xml:space="preserve">
     <value>QSV decodifica</value>
@@ -832,7 +826,7 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
     <value>Qualità</value>
   </data>
   <data name="PresetToolTip" xml:space="preserve">
-    <value>Modificare le opzioni di commercio fuori contro la velocità di codifica di compressione efficienza.</value>
+    <value>Modifica il valore per bilanciare la qualità del video compresso con la velocità di codifica.</value>
   </data>
   <data name="ScaleMethodToolTip" xml:space="preserve">
     <value>Lanczos: Questo è il ridimensionamento predefinito con la migliore qualità. Bicubica: Questo è un algoritmo di ridimensionamento accelerato OpenCL hardware.</value>
@@ -875,9 +869,6 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
   </data>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Se all'ingresso della pista corrisponde il codec, verrà passato attraverso anziché codificato.</value>
-  </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Algoritmo di ridimensionamento:</value>
   </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Rotazione:</value>
@@ -993,5 +984,81 @@ Per sorgente audio che ha un'ampia gamma dinamica (sequenze molto forti e molto 
   <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
     <value>Chiavi:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>Spaziatura interna</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>Allinea l'inzio A/V</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>Allinea l'avvio di tutti i flussi audio con il flusso video inserendo dei fotogrammi vuoti o togliendoli, se necessario. Può migliorare il sincronismo audio/video per quegli esecutori video che non rispettano la lista di modifica MP4.</value>
+  </data>
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>Contenitore</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Profilo di codifica: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>Nessuno</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>In Automatico sceglierà per voi la dimensione basandosi sui vincoli forniti. In Manuale potete inserire manualmente la dimensione in pixel e il rapporto.</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>Nitidezza</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>Il Deblock riduce gli artefatti causati da una compressione video di bassa qualità.</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Il Deinterlacciamento rimuove dalla foto gli artefatti a "pettine".
+Yadif è un deinterlacciatore popolare e veloce. 
+Decomb utilizza più algoritmi di interpolazione per bilanciare velocità e qualità.</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>Denoise riduce o elimina l'aspetto del disturbo e granulosità. Questo può migliorare l'efficienza di compressione e creare maggiore qualità video con una dimensioni minore dei file. 
+Impostare un Denoise troppo marcato può portare ad un peggioramento della qualità dell'immagine eliminando dei dettagli.
+
+NLMeans è un filtro Denoise di alta qualità a discapito di una minor velocità. Utilizzatelo quando la qualità è più importante rispetto allavelocità.
+
+HQDN3D è un filtro passa-basso adattivo, più veloce rispetto a NLMeans ma meno efficace nel preservare i dettagli.</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>Questo filtro rimuove gli artefatti a 'pettinatura' che sono il risultato dell'algoritmo "telecine". Telecine è un processo che adatta la velocità di diaframma dei film, 24 fps, ai 30 fps dei video in formato NTSC.</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>La Nitidezza migliora l'aspetto dei dettaglio, soprattutto dei bordi. Un'eccessiva Nitidezza può danneggiare la qualità dell'immagine creando artefatti "ad anello" e può aumentare il rumore, che può ridurre l'efficienza di compressione.
+
+Offusca a maschera è un filtro generico per opacizzare. Offusca sfocando, quindi calcola la differenza tra l'immagine sfuocata e l'originale.
+
+NitidezzaCircolare rende più nitida l'immagine utilizzando il filtro con "nocciolo" a convoluzione per avvicinamento ai bordi laplaciani, talvolta producendo risultati di qualità superiore dell'Offuscamento a maschera.</value>
+  </data>
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>Personalizzato</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>Integrato</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Crea la sottocartella</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Rinomina la cartella</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Elimina la cartella</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>Nuova cartella</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>Scegli un nome per la sottocartella:</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>Scegli un nuovo nome per la sottocartella:</value>
   </data>
 </root>

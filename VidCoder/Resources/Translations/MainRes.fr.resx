@@ -390,45 +390,6 @@
   <data name="WhenDoneLabel" xml:space="preserve">
     <value>Quand terminé :</value>
   </data>
-  <data name="Preset_AndroidTablet" xml:space="preserve">
-    <value>Tablette Androïd</value>
-  </data>
-  <data name="Preset_Android" xml:space="preserve">
-    <value>Androïd</value>
-  </data>
-  <data name="Preset_AppleiPad" xml:space="preserve">
-    <value>Apple iPad</value>
-  </data>
-  <data name="Preset_AppleiPhone4" xml:space="preserve">
-    <value>Apple iPhone 4</value>
-  </data>
-  <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
-    <value>Apple iPhone/iTouch</value>
-  </data>
-  <data name="Preset_AppleiPod" xml:space="preserve">
-    <value>Apple iPod</value>
-  </data>
-  <data name="Preset_AppleTV" xml:space="preserve">
-    <value>AppleTV</value>
-  </data>
-  <data name="Preset_AppleTV2" xml:space="preserve">
-    <value>AppleTV 2</value>
-  </data>
-  <data name="Preset_AppleTV3" xml:space="preserve">
-    <value>AppleTV 3</value>
-  </data>
-  <data name="Preset_Universal" xml:space="preserve">
-    <value>Universel</value>
-  </data>
-  <data name="Preset_HighProfile" xml:space="preserve">
-    <value>Profil "haut"</value>
-  </data>
-  <data name="Preset_Normal" xml:space="preserve">
-    <value>Normal</value>
-  </data>
-  <data name="Preset_WindowsPhone7" xml:space="preserve">
-    <value>Windows Phone 7</value>
-  </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Fichier vidéo...</value>
   </data>
@@ -522,9 +483,6 @@
   <data name="RangeBarToolTip" xml:space="preserve">
     <value>Faites un clic gauche pour régler l'heure de début et clic droit pour définir l'heure de fin.</value>
   </data>
-  <data name="Preset_WindowsPhone8" xml:space="preserve">
-    <value>Windows Phone 8</value>
-  </data>
   <data name="QueueFormat_Chapters" xml:space="preserve">
     <value>Chap: {0}</value>
   </data>
@@ -551,9 +509,6 @@
   </data>
   <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>Supprimer la piste audio</value>
-  </data>
-  <data name="Preset_Xbox360" xml:space="preserve">
-    <value>Xbox 360</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>Supprimer de la file d'attente</value>
@@ -628,6 +583,8 @@
     <value>{0} autres titres ont une durée proche de celui-ci.</value>
     <comment>{0} is the number of titles that have a similar duration.</comment>
   </data>
+  
+  
   
   
   

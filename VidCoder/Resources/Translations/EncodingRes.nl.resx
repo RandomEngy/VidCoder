@@ -250,9 +250,6 @@ Dit werkt alleen als de audiobron van het type AC3 is.</value>
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Voeg een markering aan het bestand toe die voor oudere iPods nodig is om H.264 video te kunnen synchroniseren.</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Sta een bestandsgrootte van meer dan 4GB toe. Als dit aanstaat worden 64-bit getallen gebruikt bij de encodering. Sommige apparaten (zoals de iPod en PS3) kunnen hier niet mee omgaan.</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>Stel handmatig een Pixel Aspect Ratio in.</value>
   </data>
@@ -275,9 +272,6 @@ Stel dit in als je weet dat een apparaat waarvoor je dit doet niet alle profiele
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Bestandstype:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Groot bestand</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>Web geoptimaliseerd</value>
@@ -927,9 +921,6 @@ Bikubisch: Dit is een OpenCL schaalmethode die gebruik kan maken van hardware ve
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Als de invoer track ondersteunt wordt door de codec wordt deze overgenomen in plaats van geencodeerd.</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Schalingsalgorithme:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Rotatie:</value>
   </data>
@@ -1044,5 +1035,78 @@ Bikubisch: Dit is een OpenCL schaalmethode die gebruik kan maken van hardware ve
   <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
     <value>Sleutels:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>Opvulling</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>Gelijkstellen A/V Start</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>Hiermee kunt u de initiële tijdstempels van alle audio- en videostreams gelijkstellen door lege frames in te voegen of te verwijderen. Dit kan de audio/video sync verbeteren voor spelers die MP4 bewerkingslijsten niet ondersteunen.</value>
+  </data>
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>Container</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Coderingsvoorinstelling: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>Geen</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>Automatisch zal de grootte kiezen op basis van de gegeven beperkingen. Handmatig laat u een specifieke grootte en pixel breedte-hoogteverhouding invoeren.</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>Verscherpen</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>Deblock vermindert hoekig artefacten, veroorzaakt door lage kwaliteit video compressie.</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Deinterlace verwijdert 'kam' artefacten uit de afbeelding.
+Yadif is een populaire en snelle deïnterlacer.
+Decomb schakelt tussen verschillende interpolatie algoritmes voor snelheid en kwaliteit.</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>Denoise vermindert of verwijdert ruis en korreligheid. Dit kan de efficiëntie van de compressie verbeteren en hogere kwaliteit video opleveren met een kleinere bestandsgrootte.
+Een al te sterke Denoise instelling kan de beeldkwaliteit verminderen door detail te verwijderen.
+NLMeans is een hoogwaardig maar langzaam denoise filter. Kies het wanneer kwaliteit belangrijker is dan snelheid.
+HQDN3D is een adaptief low-pass filter, sneller dan NLMeans, maar minder effectief in het behouden van de fijne details.</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>Dit filter verwijdert 'kam' artefacten die het resultaat zijn van telecining.
+Telecining is een proces dat film met een framesnelheid van 24fps aanpast voor NTSC video framesnelheden van 30fps.</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>Verscherping verbetert de weergave van detail, vooral randen. Al te sterke verscherping kan de beeldkwaliteit verslechteren door het creëren van ring artefacten en versterking van ruis, waardoor de compressie efficiëntie kan verminderen.
+Onscherp is een algemene onscherp masker. Het verscherpt door vervaging, en dan het verschil te berekenen tussen het vervaagde beeld en het origineel.
+Lapsharp verscherpt middels plooikernen die Laplaciaanse rand filters benaderen, en levert soms betere resultaten dan het gebruik van het onscherp masker.</value>
+  </data>
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>Aangepast</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>Ingebouwd</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Submap maken</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Hernoem map</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Map verwijderen</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>Nieuwe map</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>Kies een naam voor de submap:</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>Kies een nieuwe naam voor de map:</value>
   </data>
 </root>

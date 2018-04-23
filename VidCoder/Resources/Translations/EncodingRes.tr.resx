@@ -258,9 +258,6 @@ Sadece AC3 kaynakları ile çalışır.</value>
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Dosyaya, eski iPod'ların H.264 videosunun eşitlemesine izin vermeden önce istediği bir işaretçiyi ekler .</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>4GB üzeri dosya boyutuna izin verir. Etkinleştirildiğinde kodlamada 64-bit sayıları kullanır. PS3 ve iPod gibi bazı aygıtlar bu seçenek ile uyumsuzdur.</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>Piksel boyut oranını kendiniz belirleyin.</value>
   </data>
@@ -283,9 +280,6 @@ Bunu yalnızca belirli bir profili desteklediğini bildiğiniz çalma aygıtın�
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Eklenti:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Büyük dosya boyutu</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>Web İçin Optimize Edilmiş</value>
@@ -935,9 +929,6 @@ Bicubic: OpenCL donanım hızlandırmalı ölçeklendirme algoritmasıdır.</val
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Eğer giriş hattı codec ile uyuşursa bu ses hattı kodlanma işlemi olmadan direk geçer.</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Ölçekleme Algoritması:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Döndürme:</value>
   </data>
@@ -1047,4 +1038,25 @@ Bicubic: OpenCL donanım hızlandırmalı ölçeklendirme algoritmasıdır.</val
     <value>Tuşlar:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

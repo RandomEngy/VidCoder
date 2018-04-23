@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>Berezgaitasunezko audio hautapena ezgaitua dagoenean, hautaturiko azken bideari heusten zaio.</value>
-  </data>
-  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>Berezgaitasunezko azpidatzi hautapen ezgaituta dagoenean, hautaturiko azken azpidatziari heusten zaio.</value>
-  </data>
   <data name="GeneralTab" xml:space="preserve">
     <value>Orokorra</value>
   </data>
@@ -368,12 +362,6 @@
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>Bideoa</value>
-  </data>
-  <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>Gaitu DXVA Hardware Bizkorpen Dekodeaketa</value>
-  </data>
-  <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>Aukera hau sistema geldoenentzat bakarrik da baliagarria. Hardware dekodeatzaileak irakurketarako diseinatuak daude, ez bideo ber-kodeaketarako hortaz botilalepoa eragin dezake sistema azkarretan.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Heutsi Sortutako eta Aldatutako denbora agiriak bihurtzerakoan</value>

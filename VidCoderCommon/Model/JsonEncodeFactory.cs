@@ -10,7 +10,6 @@ using HandBrake.ApplicationServices.Interop.Json.Encode;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Json.Shared;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
-using Microsoft.Practices.ServiceLocation;
 using Newtonsoft.Json.Linq;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Services;

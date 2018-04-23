@@ -273,7 +273,13 @@ namespace VidCoder.ViewModel
 					this.UpdatePickerProperty(nameof(this.Picker.EncodingPreset), presetName, raisePropertyChanged: false);
 					if (this.UseEncodingPreset && selectedPreset != null)
 					{
-						this.PresetsService.SelectedPreset = selectedPreset;
+						if (!this.PresetsService.TryUpdateSelectedPreset(selectedPreset))
+						{
+							DispatchUtilities.BeginInvoke(() =>
+							{
+								this.SelectedPreset = this.PresetsService.SelectedPreset;
+							});
+						}
 					}
 
 					this.userModifyingEncodingPreset = false;

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VidCoder", "VidCoder\VidCoder.csproj", "{F912FA33-DC57-4272-915A-EEDB212BB860}"
 EndProject
@@ -149,36 +149,36 @@ Global
 		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug|x64.ActiveCfg = Debug|x64
 		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug|x64.Build.0 = Debug|x64
 		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug|x64.Deploy.0 = Debug|x64
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug|x86.ActiveCfg = Debug|x86
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug|x86.Build.0 = Debug|x86
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug|x86.Deploy.0 = Debug|x86
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug|x86.Build.0 = Debug|Any CPU
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug|x86.Deploy.0 = Debug|Any CPU
 		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug-Beta|Any CPU.ActiveCfg = Debug|Any CPU
 		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug-Beta|Any CPU.Build.0 = Debug|Any CPU
 		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug-Beta|Any CPU.Deploy.0 = Debug|Any CPU
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug-Beta|x64.ActiveCfg = Debug|x64
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug-Beta|x64.Build.0 = Debug|x64
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug-Beta|x64.Deploy.0 = Debug|x64
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug-Beta|x86.ActiveCfg = Debug|x86
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug-Beta|x86.Build.0 = Debug|x86
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug-Beta|x86.Deploy.0 = Debug|x86
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug-Beta|x64.ActiveCfg = Debug-Beta|x64
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug-Beta|x64.Build.0 = Debug-Beta|x64
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug-Beta|x64.Deploy.0 = Debug-Beta|x64
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug-Beta|x86.ActiveCfg = Debug-Beta|Any CPU
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug-Beta|x86.Build.0 = Debug-Beta|Any CPU
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Debug-Beta|x86.Deploy.0 = Debug-Beta|Any CPU
 		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release|x64.ActiveCfg = Release|x64
 		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release|x64.Build.0 = Release|x64
 		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release|x64.Deploy.0 = Release|x64
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release|x86.ActiveCfg = Release|x86
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release|x86.Build.0 = Release|x86
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release|x86.Deploy.0 = Release|x86
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release|x86.ActiveCfg = Release|Any CPU
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release|x86.Build.0 = Release|Any CPU
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release|x86.Deploy.0 = Release|Any CPU
 		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release-Beta|Any CPU.ActiveCfg = Release|Any CPU
 		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release-Beta|Any CPU.Build.0 = Release|Any CPU
 		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release-Beta|Any CPU.Deploy.0 = Release|Any CPU
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release-Beta|x64.ActiveCfg = Release|x64
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release-Beta|x64.Build.0 = Release|x64
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release-Beta|x64.Deploy.0 = Release|x64
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release-Beta|x86.ActiveCfg = Release|x86
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release-Beta|x86.Build.0 = Release|x86
-		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release-Beta|x86.Deploy.0 = Release|x86
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release-Beta|x64.ActiveCfg = Release-Beta|x64
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release-Beta|x64.Build.0 = Release-Beta|x64
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release-Beta|x64.Deploy.0 = Release-Beta|x64
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release-Beta|x86.ActiveCfg = Release-Beta|Any CPU
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release-Beta|x86.Build.0 = Release-Beta|Any CPU
+		{DCF532D1-5465-4DC5-B21E-DF7722975164}.Release-Beta|x86.Deploy.0 = Release-Beta|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
