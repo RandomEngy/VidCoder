@@ -49,9 +49,6 @@ namespace VidCoder.Controls
 		/// </summary>
 		private void OnTreeViewHierarchyMouseUp(object sender, MouseEventArgs e)
 	    {
-		    // This line isn't obligatory because it is executed in the OnDropDownClosed method, but be it so
-		    //this.SelectedItem = this.treeView.SelectedItem;
-
 		    this.IsDropDownOpen = false;
 	    }
 

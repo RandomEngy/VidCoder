@@ -44,7 +44,7 @@
 					<Image
 						Height="15"
 						VerticalAlignment="Center"
-						Source="/Icons/pause2.png" />
+						Source="/Icons/Pause.png" />
 					<TextBlock
 						Margin="5 0 0 0"
 						VerticalAlignment="Center"

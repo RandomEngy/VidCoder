@@ -312,8 +312,6 @@ namespace VidCoder.Services
 			}
 
 			this.SaveUserPresets();
-
-			this.main.StartAnimation("PresetGlowHighlight");
 		}
 
 		public void SavePresetAs(string newPresetName)
@@ -338,7 +336,6 @@ namespace VidCoder.Services
 			this.selectedPreset = null;
 			this.SelectedPreset = newPresetVM;
 
-			this.main.StartAnimation("PresetGlowHighlight");
 			this.SaveUserPresets();
 		}
 
@@ -365,8 +362,6 @@ namespace VidCoder.Services
 			{
 				this.selectedPreset = null;
 				this.SelectedPreset = newPresetVM;
-
-				this.main.StartAnimation("PresetGlowHighlight");
 			}
 
 			this.SaveUserPresets();
@@ -389,11 +384,6 @@ namespace VidCoder.Services
 			this.SelectedPreset.OriginalProfile = null;
 			this.SelectedPreset.Preset.IsModified = false;
 
-			if (userInitiated)
-			{
-				this.main.StartAnimation("PresetGlowHighlight");
-			}
-
 			this.SaveUserPresets();
 
 			// Refresh file name.
@@ -413,7 +403,6 @@ namespace VidCoder.Services
 			this.selectedPreset = null;
 			this.SelectedPreset = this.AllPresets[0];
 
-			this.main.StartAnimation("PresetGlowHighlight");
 			this.SaveUserPresets();
 		}
 

@@ -20,6 +20,7 @@ using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using ReactiveUI;
+using VidCoder.Controls;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
@@ -40,7 +41,6 @@ namespace VidCoder.View
 
 		private bool tabsVisible = false;
 
-		private Storyboard presetGlowStoryboard;
 		private Storyboard pickerGlowStoryboard;
 
 		public static System.Windows.Threading.Dispatcher TheDispatcher;
@@ -90,12 +90,10 @@ namespace VidCoder.View
 			this.DataContextChanged += this.OnDataContextChanged;
 			TheDispatcher = this.Dispatcher;
 
-			this.presetGlowEffect.Opacity = 0.0;
 			this.pickerGlowEffect.Opacity = 0.0;
 			this.statusText.Opacity = 0.0;
 
 			NameScope.SetNameScope(this, new NameScope());
-			this.RegisterName("PresetGlowEffect", this.presetGlowEffect);
 			this.RegisterName("PickerGlowEffect", this.pickerGlowEffect);
 			this.RegisterName("StatusText", this.statusText);
 
@@ -104,30 +102,6 @@ namespace VidCoder.View
 				{
 					this.statusText.Visibility = Visibility.Collapsed;
 				};
-
-			var presetGlowFadeUp = new DoubleAnimation
-			{
-				From = 0.0,
-				To = 1.0,
-				Duration = new Duration(TimeSpan.FromSeconds(0.1))
-			};
-
-			var presetGlowFadeDown = new DoubleAnimation
-			{
-				From = 1.0,
-				To = 0.0,
-				BeginTime = TimeSpan.FromSeconds(0.1),
-				Duration = new Duration(TimeSpan.FromSeconds(1.6))
-			};
-
-			this.presetGlowStoryboard = new Storyboard();
-			this.presetGlowStoryboard.Children.Add(presetGlowFadeUp);
-			this.presetGlowStoryboard.Children.Add(presetGlowFadeDown);
-
-			Storyboard.SetTargetName(presetGlowFadeUp, "PresetGlowEffect");
-			Storyboard.SetTargetProperty(presetGlowFadeUp, new PropertyPath("Opacity"));
-			Storyboard.SetTargetName(presetGlowFadeDown, "PresetGlowEffect");
-			Storyboard.SetTargetProperty(presetGlowFadeDown, new PropertyPath("Opacity"));
 
 			var pickerGlowFadeUp = new DoubleAnimation
 			{
@@ -152,6 +126,24 @@ namespace VidCoder.View
 			Storyboard.SetTargetProperty(pickerGlowFadeUp, new PropertyPath("Opacity"));
 			Storyboard.SetTargetName(pickerGlowFadeDown, "PickerGlowEffect");
 			Storyboard.SetTargetProperty(pickerGlowFadeDown, new PropertyPath("Opacity"));
+
+			this.presetTreeViewContainer.PresetTreeView.OnHierarchyMouseUp += (sender, args) =>
+			{
+				this.presetButton.IsDropDownOpen = false;
+			};
+
+			this.presetButton.DropDownOpened += (sender, args) =>
+			{
+				var item = UIUtilities.FindDescendant<TreeViewItem>(this.presetTreeViewContainer.PresetTreeView, viewItem =>
+				{
+					return viewItem.Header == this.viewModel.PresetsService.SelectedPreset;
+				});
+
+				if (item != null)
+				{
+					UIUtilities.BringIntoView(item);
+				}
+			};
 
 			this.Loaded += (e, o) =>
 			{
@@ -193,11 +185,7 @@ namespace VidCoder.View
 
 		private void ViewModelAnimationStarted(object sender, EventArgs<string> e)
 		{
-			if (e.Value == "PresetGlowHighlight")
-			{
-				this.presetGlowStoryboard.Begin(this);
-			}
-			else if (e.Value == "PickerGlowHighlight")
+			if (e.Value == "PickerGlowHighlight")
 			{
 				this.pickerGlowStoryboard.Begin(this);
 			}

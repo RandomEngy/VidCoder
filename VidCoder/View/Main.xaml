@@ -418,12 +418,57 @@
 		</Menu>
 
 		<!--  Ribbon  -->
-		<fluent:Ribbon Grid.Row="1" IsQuickAccessToolBarVisible="False">
+		<fluent:Ribbon
+			Grid.Row="1"
+			CanMinimize="False"
+			IsQuickAccessToolBarVisible="False">
 			<fluent:RibbonTabItem Header="Generic tab header">
-				<fluent:RibbonGroupBox Header="First group">
+				<fluent:RibbonGroupBox Header="Encoding">
+					<fluent:SplitButton
+						Command="{Binding ProcessingService.AddToQueue}"
+						Header="{x:Static res:MainRes.AddToQueueLabel}"
+						LargeIcon="/Icons/AddToQueue.png"
+						SizeDefinition="Large"
+						Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
+						                     Converter={StaticResource VisibilityConverter}}">
+						<fluent:MenuItem Command="{Binding ProcessingService.AddToQueue}" Header="{x:Static res:MainRes.AddToQueueLabel}" />
+						<fluent:MenuItem Command="{Binding ProcessingService.QueueTitlesAction}" Header="{x:Static res:MainRes.AddMultipleTitlesToQueueLabel}" />
+					</fluent:SplitButton>
 					<fluent:Button
-						x:Name="button"
-						Header="button" />
+						Command="{Binding ProcessingService.AddToQueue}"
+						Header="{x:Static res:MainRes.AddToQueueLabel}"
+						LargeIcon="/Icons/AddToQueue.png"
+						SizeDefinition="Large"
+						Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
+						                     Converter={StaticResource InverseVisibilityConverter}}" />
+					<fluent:Button
+						Command="{Binding ProcessingService.Encode}"
+						Header="{Binding ProcessingService.EncodeButtonText}"
+						LargeIcon="/Icons/Encode.png"
+						SizeDefinition="Large"
+						Visibility="{Binding ProcessingService.PauseVisible,
+						                     Converter={StaticResource InverseVisibilityConverter}}" />
+
+					<fluent:Button
+						Command="{Binding ProcessingService.Pause}"
+						Header="{x:Static res:MainRes.Pause}"
+						LargeIcon="/Icons/Pause.png"
+						SizeDefinition="Large"
+						Visibility="{Binding ProcessingService.PauseVisible,
+						                     Converter={StaticResource VisibilityConverter}}" />
+
+					<fluent:Button
+						Command="{Binding ProcessingService.StopEncode}"
+						Header="{x:Static res:MainRes.Stop}"
+						LargeIcon="/Icons/Stop.png"
+						Visibility="{Binding ProcessingService.Encoding,
+						                     Converter={StaticResource VisibilityConverter}}" />
+				</fluent:RibbonGroupBox>
+				<fluent:RibbonGroupBox Header="Settings">
+					<fluent:Button Command="{Binding OpenOptions}" Header="{x:Static res:MainRes.SettingsLabel}" />
+					<fluent:SplitButton Command="{Binding OpenEncodingWindow}" Header="{Binding EncodingPresetButtonText}" x:Name="presetButton">
+						<controls:PresetTreeViewContainer MinWidth="250" x:Name="presetTreeViewContainer" />
+					</fluent:SplitButton>
 				</fluent:RibbonGroupBox>
 			</fluent:RibbonTabItem>
 		</fluent:Ribbon>
@@ -1210,69 +1255,6 @@
 			Grid.Row="4"
 			Background="{StaticResource SectionBackground}"
 			Canvas.ZIndex="3">
-			<StackPanel
-				Margin="9 16"
-				HorizontalAlignment="Left"
-				VerticalAlignment="Top"
-				Orientation="Horizontal">
-				<TextBlock
-					Height="21"
-					MinWidth="78"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top"
-					Style="{StaticResource SectionHeader}"
-					Text="{x:Static res:MainRes.EncodingLabel}" />
-
-				<Button
-					Height="30"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top"
-					Command="{Binding OpenEncodingWindow}">
-					<StackPanel Margin="5 0" Orientation="Horizontal">
-						<Image
-							Width="22"
-							Height="22"
-							Source="/Icons/Hammer.png" />
-						<TextBlock
-							Margin="7 0 0 0"
-							VerticalAlignment="Center"
-							Text="{x:Static res:MainRes.SettingsLabel}" />
-					</StackPanel>
-				</Button>
-			</StackPanel>
-
-			<StackPanel
-				Margin="9 49 0 0"
-				HorizontalAlignment="Left"
-				VerticalAlignment="Top"
-				Orientation="Horizontal">
-				<Label
-					Height="28"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top"
-					Content="{x:Static res:MainRes.PresetLabel}" />
-
-				<controls:PresetComboBox
-					VerticalAlignment="Center"
-					IsEnabled="{Binding PickersService.SelectedPicker.Picker.UseEncodingPreset,
-					                    Converter={StaticResource InverseBoolConverter}}"
-					PreviewKeyDown="OnPresetComboPreviewKeyDown"
-					SelectedItem="{Binding PresetsService.SelectedPreset,
-					                       Mode=TwoWay}"
-					ToolTip="{Binding PickersService.PresetDisabledToolTip}"
-					ToolTipService.ShowOnDisabled="True"
-					UseLayoutRounding="True">
-					<controls:PresetComboBox.Effect>
-						<DropShadowEffect
-							x:Name="presetGlowEffect"
-							BlurRadius="10"
-							ShadowDepth="0"
-							Color="{StaticResource PresetGlowColor}" />
-					</controls:PresetComboBox.Effect>
-				</controls:PresetComboBox>
-			</StackPanel>
-
-
 			<Grid
 				Margin="0 0 0 0"
 				HorizontalAlignment="Right"
@@ -1305,109 +1287,6 @@
 							Margin="5 0 0 0"
 							VerticalAlignment="Center"
 							Text="{x:Static res:CommonRes.PreviewLabel}" />
-					</StackPanel>
-				</Button>
-
-				<controls:SplitButton
-					Grid.Column="2"
-					Height="37"
-					Margin="0 0 5 0"
-					Padding="5 0"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Bottom"
-					Command="{Binding ProcessingService.AddToQueue}"
-					Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
-					                     Converter={StaticResource VisibilityConverter}}">
-					<controls:SplitButton.MenuItemsSource>
-						<MenuItem Command="{Binding ProcessingService.AddToQueue}" Header="{x:Static res:MainRes.AddToQueueLabel}" />
-						<MenuItem Command="{Binding ProcessingService.QueueTitlesAction}" Header="{x:Static res:MainRes.AddMultipleTitlesToQueueLabel}" />
-					</controls:SplitButton.MenuItemsSource>
-					<StackPanel Orientation="Horizontal">
-						<Image Height="26" Source="/Icons/downarrow_shadow.png" />
-						<TextBlock
-							Margin="5 0 0 0"
-							VerticalAlignment="Center"
-							Text="{x:Static res:MainRes.AddToQueueLabel}" />
-					</StackPanel>
-				</controls:SplitButton>
-
-				<Button
-					Grid.Column="2"
-					Height="37"
-					Margin="0 0 5 0"
-					Padding="5 0"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Bottom"
-					Command="{Binding ProcessingService.AddToQueue}"
-					Style="{StaticResource GrayOnDisabledControl}"
-					Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
-					                     Converter={StaticResource InverseVisibilityConverter}}">
-					<StackPanel Orientation="Horizontal">
-						<Image Height="26" Source="/Icons/downarrow_shadow.png" />
-						<TextBlock
-							Margin="5 0 0 0"
-							VerticalAlignment="Center"
-							Text="{x:Static res:MainRes.AddToQueueLabel}" />
-					</StackPanel>
-				</Button>
-
-				<Button
-					Grid.Column="3"
-					Height="37"
-					MinWidth="78"
-					Margin="0 0 5 0"
-					Padding="5 0"
-					HorizontalAlignment="Right"
-					VerticalAlignment="Bottom"
-					Command="{Binding ProcessingService.StopEncode}"
-					Visibility="{Binding ProcessingService.Encoding,
-					                     Converter={StaticResource VisibilityConverter}}">
-					<StackPanel Orientation="Horizontal">
-						<Image Source="/Icons/stop_shadow.png" />
-						<TextBlock
-							Margin="4 0 0 0"
-							VerticalAlignment="Center"
-							Text="{x:Static res:MainRes.Stop}" />
-					</StackPanel>
-				</Button>
-
-				<Button
-					Grid.Column="4"
-					Height="37"
-					MinWidth="78"
-					Margin="0 0 8 0"
-					Padding="5 0"
-					HorizontalAlignment="Right"
-					VerticalAlignment="Bottom"
-					Command="{Binding ProcessingService.Encode}"
-					Style="{StaticResource GrayOnDisabledControl}"
-					Visibility="{Binding ProcessingService.PauseVisible,
-					                     Converter={StaticResource InverseVisibilityConverter}}">
-					<StackPanel Orientation="Horizontal">
-						<Image Height="26" Source="/Icons/encode_160.png" />
-						<TextBlock
-							Margin="7 0 0 0"
-							VerticalAlignment="Center"
-							Text="{Binding ProcessingService.EncodeButtonText}" />
-					</StackPanel>
-				</Button>
-				<Button
-					Grid.Column="4"
-					Height="37"
-					MinWidth="78"
-					Margin="0 0 8 0"
-					Padding="5 0"
-					HorizontalAlignment="Right"
-					VerticalAlignment="Bottom"
-					Command="{Binding ProcessingService.Pause}"
-					Visibility="{Binding ProcessingService.PauseVisible,
-					                     Converter={StaticResource VisibilityConverter}}">
-					<StackPanel Orientation="Horizontal">
-						<Image Height="28" Source="/Icons/pause2.png" />
-						<TextBlock
-							Margin="7 0 0 0"
-							VerticalAlignment="Center"
-							Text="{x:Static res:MainRes.Pause}" />
 					</StackPanel>
 				</Button>
 			</Grid>

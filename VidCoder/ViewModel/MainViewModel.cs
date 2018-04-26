@@ -379,6 +379,12 @@ namespace VidCoder.ViewModel
 			this.previewUpdateService = Ioc.Get<PreviewUpdateService>();
 			this.taskBarProgressTracker = new TaskBarProgressTracker();
 
+			// EncodingPresetButtonText
+			this.PresetsService
+				.WhenAnyValue(x => x.SelectedPreset.DisplayNameWithStar)
+				.Select(presetNameWithStar => string.Format(CultureInfo.CurrentCulture, EncodingRes.WindowTitle, presetNameWithStar))
+				.ToProperty(this, x => x.EncodingPresetButtonText, out this.encodingPresetButtonText);
+
 			// WindowTitle
 			this.processingService.WhenAnyValue(x => x.Encoding, x => x.OverallEncodeProgressFraction, (encoding, progressFraction) =>
 			{
@@ -1219,6 +1225,9 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.titleVisible.Value; }
 		}
+
+		private ObservableAsPropertyHelper<string> encodingPresetButtonText;
+		public string EncodingPresetButtonText => this.encodingPresetButtonText.Value;
 
 		public VideoRangeType RangeType
 		{

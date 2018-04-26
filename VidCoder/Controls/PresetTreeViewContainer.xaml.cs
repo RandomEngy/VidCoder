@@ -40,9 +40,6 @@ namespace VidCoder.Controls
 		        {
 			        return viewItem.Header == model;
 		        });
-		        //var item = this.presetTreeView.ContainerFromItem(model);
-
-				// TODO: Find the TreeViewItem for the PresetFolderViewModel
 
 		        if (item != null)
 		        {

@@ -86,6 +86,9 @@
     <PackageReference Include="DesktopBridge.Helpers" Version="1.1" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="2.9" />
     <PackageReference Include="FastMember" Version="1.0.0.11" />
+    <PackageReference Include="Fluent.Ribbon">
+      <Version>6.1.0.233</Version>
+    </PackageReference>
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="reactiveui" Version="6.5.0" />
@@ -779,7 +782,6 @@
     <Resource Include="Icons\video_files_folder.png" />
     <Resource Include="Icons\Empty.png" />
     <Resource Include="Icons\redo.png" />
-    <Resource Include="Icons\Hammer.png" />
     <EmbeddedResource Include="Resources\ChapterMarkersRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ChapterMarkersRes.Designer.cs</LastGenOutput>
@@ -865,12 +867,6 @@
     <Resource Include="Icons\warning.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\downarrow_shadow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\pause2.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icons\stop_shadow.png" />
   </ItemGroup>
   <ItemGroup>
@@ -889,6 +885,10 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\Stop.png" />
+    <Resource Include="Icons\Pause.png" />
+    <Resource Include="Icons\Encode.png" />
+    <Resource Include="Icons\AddToQueue.png" />
     <Resource Include="Icons\add_folder.png" />
     <Resource Include="Icons\delete_folder.png" />
     <Resource Include="Icons\rename_folder.png" />
@@ -915,7 +915,6 @@
     <Resource Include="Icons\VidCoder_small.png" />
     <Resource Include="Icons\preview.png" />
     <Resource Include="Icons\VidCoder.png" />
-    <Resource Include="Icons\error.png" />
     <Resource Include="Icons\copy.png" />
     <Resource Include="Icons\save.png" />
     <Resource Include="VidCoder_icon.ico" />
