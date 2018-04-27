@@ -603,6 +603,7 @@
   </data>
   <data name="FileSizeColumnHeader" xml:space="preserve">
     <value>Tamanho</value>
+    <comment>Used on the "completed encodes" tab, to label the column that shows the final output file size.</comment>
   </data>
   <data name="OpenAppDataFolder" xml:space="preserve">
     <value>Abrir Pasta de Dados</value>

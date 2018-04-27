@@ -191,6 +191,7 @@ namespace VidCoder.ViewModel
 					{
 						new InterfaceLanguage { CultureCode = string.Empty, Display = OptionsRes.UseOSLanguage },
 						new InterfaceLanguage { CultureCode = "en-US", Display = "English" },
+						new InterfaceLanguage { CultureCode = "id-ID", Display = "Bahasa Indonesia / Indonesian" },
 						new InterfaceLanguage { CultureCode = "bs-Latn-BA", Display = "bosanski (Bosna i Hercegovina) / Bosnian (Latin)" },
 						new InterfaceLanguage { CultureCode = "cs-CZ", Display = "čeština / Czech" },
 						new InterfaceLanguage { CultureCode = "de-DE", Display = "Deutsch / German" },

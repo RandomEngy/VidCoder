@@ -258,6 +258,7 @@
   </data>
   <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
     <value>Escolhe a última faixa de legendas seleccionada se for encontrada uma correspondência, caso contrário não usa legendas.</value>
+    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>Opções disponíveis: {0}</value>

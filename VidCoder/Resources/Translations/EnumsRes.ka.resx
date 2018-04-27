@@ -226,6 +226,7 @@
   </data>
   <data name="Sharpen_UnSharp" xml:space="preserve">
     <value>სიბაცე</value>
+    <comment>The name for the "UnSharp" sharpen filter.</comment>
   </data>
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-ray</value>
