@@ -258,9 +258,6 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>套用特殊標記使檔案能支援舊型 iPod 的同步更新。</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>允許檔案超過 4GB。啟用此選項時將使用 64 位元編碼，部分裝置如 iPod 及 PS3 不相容此選項。</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>手動指定像素長寬比。</value>
   </data>
@@ -283,9 +280,6 @@ Baseline 規模的設定無法使用加權 P-畫格。 (通常使用在 iPod 或
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>副檔名:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>大容量檔案</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>網路最佳化</value>
@@ -935,9 +929,6 @@ Bicubic: OpenCL 硬體加速縮放演算法。</value>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>若輸入軌道符合指定編碼將直接複製而不進行編碼。</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>縮放演算法:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>旋轉:</value>
   </data>
@@ -1052,5 +1043,84 @@ Bicubic: OpenCL 硬體加速縮放演算法。</value>
   <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
     <value>Keys:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>留白</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>對齊影音起始點</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>插入空白影格或是刪除影格以對齊所有影音串流的起始時間戳記，可改善不支援 MP4 編輯清單播放器的影音同步問題。</value>
+  </data>
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>封裝格式</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>編碼設定: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>無</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>自動將選取限制條件內的大小；手動需自行輸入指定的大小及長寬比。</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>銳利化</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>去塊可減低因低品質視訊壓縮造成的塊狀人造雜訊。</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>反交錯可移除畫面的梳狀雜訊。
+
+Yadif 是個受歡迎且快速的反交錯器。
+
+反梳狀可在多種偏重速度或品質的內插演算法中切換。</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>去雜訊可降低或移除畫面的雜訊或顆粒效果，可增加壓縮效率及在同樣檔案大小下提高畫面品質，但過強的去雜訊設定可能會因抹除太多細節而傷害畫面品質。
+
+NLMeans 是個高品質的去雜訊濾波器，但運算速度較慢。
+
+HQDN3D 是個適應性的低通濾波器，速度較 NLMeans 快但保存的畫面細節較少。</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>此濾波器可移除因 Telecining 造成的梳狀人造雜訊。
+
+Telecining 為將影格率 24fps 轉換為 NTSC 影格率 30fps 的過程。</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>銳利化可加強畫面的細節，尤其是邊緣部分。過度銳利化的設定可能會因振鈴效應而傷害畫面品質及增加雜訊，並可能降低壓縮效率。
+
+UnSharp 是個一般性的反銳利濾波器，它藉由將畫面模糊化，並計算與原圖的差異以合成比原圖更銳利的畫面。
+
+Lapsharp 銳利化使用卷積核預估拉普拉斯邊緣濾波器，有時可產生比 UnSharp 濾波器更好的銳化效果。</value>
+  </data>
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>自訂</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>內建</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>建立子目錄</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>重新命名資料夾</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>移除資料夾</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>新資料夾</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>選取子目錄的名稱:</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>選取資料夾的新名稱:</value>
   </data>
 </root>

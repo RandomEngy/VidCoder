@@ -1,0 +1,99 @@
+﻿<UserControl
+	x:Class="VidCoder.View.ContainerPanel"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:VidCoder.View.Panels"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:model="clr-namespace:VidCoderCommon.Model;assembly=VidCoderCommon"
+	xmlns:res="clr-namespace:VidCoder.Resources"
+	d:DesignHeight="300"
+	d:DesignWidth="300"
+	mc:Ignorable="d">
+	<UserControl.Resources>
+		<Style x:Key="ContainerCheckBoxStyle" TargetType="CheckBox">
+			<Setter Property="Margin" Value="0 4 0 0" />
+		</Style>
+	</UserControl.Resources>
+	<StackPanel
+		Margin="10"
+		HorizontalAlignment="Left"
+		VerticalAlignment="Top"
+		Orientation="Vertical">
+		<StackPanel Orientation="Horizontal">
+			<TextBlock
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				Text="{x:Static res:EncodingRes.ContainerLabel}" />
+			<ComboBox
+				MinWidth="60"
+				Margin="8 0 0 0"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				VerticalContentAlignment="Center"
+				ItemsSource="{Binding ContainerChoices}"
+				SelectedValue="{Binding ContainerName}"
+				SelectedValuePath="Value" />
+		</StackPanel>
+
+		<StackPanel Margin="0 10 0 0" Orientation="Horizontal">
+			<TextBlock
+				HorizontalAlignment="Left"
+				VerticalAlignment="Top"
+				Text="{x:Static res:EncodingRes.ExtensionLabel}"
+				Visibility="{Binding ShowMp4Choices,
+				                     Converter={StaticResource VisibilityConverter}}" />
+
+			<StackPanel Margin="8 0 0 0" Orientation="Vertical">
+				<RadioButton
+					HorizontalAlignment="Left"
+					VerticalAlignment="Top"
+					IsChecked="{Binding PreferredExtension,
+					                    Converter={StaticResource EnumBoolConverter},
+					                    ConverterParameter={x:Static model:VCOutputExtension.Mp4}}"
+					Visibility="{Binding ShowMp4Choices,
+					                     Converter={StaticResource VisibilityConverter}}">
+					.mp4
+				</RadioButton>
+				<RadioButton
+					HorizontalAlignment="Left"
+					VerticalAlignment="Top"
+					IsChecked="{Binding PreferredExtension,
+					                    Converter={StaticResource EnumBoolConverter},
+					                    ConverterParameter={x:Static model:VCOutputExtension.M4v}}"
+					Visibility="{Binding ShowMp4Choices,
+					                     Converter={StaticResource VisibilityConverter}}">
+					.m4v
+				</RadioButton>
+			</StackPanel>
+		</StackPanel>
+
+		<CheckBox
+			Margin="0 8 0 0"
+			Content="{x:Static res:EncodingRes.IncludeChapterMarkersCheckBox}"
+			IsChecked="{Binding IncludeChapterMarkers}"
+			Style="{StaticResource ContainerCheckBoxStyle}"
+			ToolTip="{x:Static res:EncodingRes.IncludeChapterMarkersToolTip}" />
+		<CheckBox
+			Content="{x:Static res:EncodingRes.WebOptimizedCheckBox}"
+			IsChecked="{Binding Optimize}"
+			Style="{StaticResource ContainerCheckBoxStyle}"
+			ToolTip="{x:Static res:EncodingRes.WebOptimizedToolTip}"
+			Visibility="{Binding ShowMp4Choices,
+			                     Converter={StaticResource VisibilityConverter}}" />
+		<CheckBox
+			Content="{x:Static res:EncodingRes.AlignAVStartCheckBox}"
+			IsChecked="{Binding AlignAVStart}"
+			Style="{StaticResource ContainerCheckBoxStyle}"
+			ToolTip="{x:Static res:EncodingRes.AlignAVStartCheckBoxToolTip}"
+			Visibility="{Binding ShowMp4Choices,
+			                     Converter={StaticResource VisibilityConverter}}" />
+		<CheckBox
+			Content="{x:Static res:EncodingRes.Ipod5GSupportCheckBox}"
+			IsChecked="{Binding IPod5GSupport}"
+			Style="{StaticResource ContainerCheckBoxStyle}"
+			ToolTip="{x:Static res:EncodingRes.IPod5GSupportToolTip}"
+			Visibility="{Binding ShowMp4Choices,
+			                     Converter={StaticResource VisibilityConverter}}" />
+	</StackPanel>
+</UserControl>

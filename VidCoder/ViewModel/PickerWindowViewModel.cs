@@ -23,6 +23,8 @@ namespace VidCoder.ViewModel
 {
 	public class PickerWindowViewModel : ReactiveObject
 	{
+		private const string NameTokenList = "{source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}";
+
 		private static TypeAccessor typeAccessor = TypeAccessor.Create(typeof(Picker));
 
 		private readonly PickersService pickersService = Ioc.Get<PickersService>();
@@ -204,7 +206,7 @@ namespace VidCoder.ViewModel
 					}
 				}).ToProperty(this, x => x.SubtitleModChoices, out this.subtitleModChoices);
 
-				this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsNone, x => x.SelectedPicker.Picker.IsModified, (isNone, isModified) => !isNone && !isModified).ToProperty(this, x => x.DeleteButtonVisible, out this.deleteButtonVisible);
+				this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsDefault, x => x.SelectedPicker.Picker.IsModified, (isDefault, isModified) => !isDefault && !isModified).ToProperty(this, x => x.DeleteButtonVisible, out this.deleteButtonVisible);
 
 				this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.DisplayName, x => x.SelectedPicker.Picker.IsModified, (displayName, isModified) =>
 				{
@@ -269,13 +271,24 @@ namespace VidCoder.ViewModel
 					this.userModifyingEncodingPreset = true;
 					string presetName = selectedPreset == null ? null : selectedPreset.Preset.Name;
 					this.UpdatePickerProperty(nameof(this.Picker.EncodingPreset), presetName, raisePropertyChanged: false);
+					if (this.UseEncodingPreset && selectedPreset != null)
+					{
+						if (!this.PresetsService.TryUpdateSelectedPreset(selectedPreset))
+						{
+							DispatchUtilities.BeginInvoke(() =>
+							{
+								this.SelectedPreset = this.PresetsService.SelectedPreset;
+							});
+						}
+					}
+
 					this.userModifyingEncodingPreset = false;
 				});
 
 				this.DismissMessage = ReactiveCommand.Create();
 				this.DismissMessage.Subscribe(_ => { this.ShowHelpMessage = false; });
 
-				this.Save = ReactiveCommand.Create(this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsNone).Select(isNone => !isNone));
+				this.Save = ReactiveCommand.Create(this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsDefault).Select(isDefault => !isDefault));
 				this.Save.Subscribe(_ => { this.pickersService.SavePicker(); });
 
 				this.SaveAs = ReactiveCommand.Create();
@@ -284,7 +297,7 @@ namespace VidCoder.ViewModel
 				this.Rename = ReactiveCommand.Create();
 				this.Rename.Subscribe(_ => this.RenameImpl());
 
-				this.Delete = ReactiveCommand.Create(this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsModified, x => x.SelectedPicker.Picker.IsNone, (isModified, isNone) => isModified || !isNone));
+				this.Delete = ReactiveCommand.Create(this.pickersService.WhenAnyValue(x => x.SelectedPicker.Picker.IsModified, x => x.SelectedPicker.Picker.IsDefault, (isModified, isDefault) => isModified || !isDefault));
 				this.Delete.Subscribe(_ => this.DeleteImpl());
 
 				this.PickOutputDirectory = ReactiveCommand.Create();
@@ -301,17 +314,26 @@ namespace VidCoder.ViewModel
 			}
 		}
 
+		public string NameFormat => string.Format(CultureInfo.CurrentCulture, PickerRes.OverrideNameFormatLabel, NameTokenList);
+
 		private void PopulateEncodingPreset(bool useEncodingPreset)
 		{
 			if (useEncodingPreset)
 			{
-				PresetViewModel preset = this.presetsService.AllPresets.FirstOrDefault(p => p.Preset.Name == this.Picker.EncodingPreset);
-				if (preset == null)
+				if (this.Picker.EncodingPreset == null)
 				{
-					preset = this.presetsService.AllPresets.First();
+					this.SelectedPreset = this.presetsService.SelectedPreset;
 				}
+				else
+				{
+					PresetViewModel preset = this.presetsService.AllPresets.FirstOrDefault(p => p.Preset.Name == this.Picker.EncodingPreset);
+					if (preset == null)
+					{
+						preset = this.presetsService.AllPresets.First();
+					}
 
-				this.SelectedPreset = preset;
+					this.SelectedPreset = preset;
+				}
 			}
 			else
 			{
@@ -616,6 +638,35 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.selectedPreset, value); }
 		}
 
+		public void HandlePresetComboKey(KeyEventArgs keyEventArgs)
+		{
+			if (this.SelectedPreset == null || !this.UseEncodingPreset)
+			{
+				return;
+			}
+
+			int currentIndex = this.PresetsService.AllPresets.IndexOf(this.SelectedPreset);
+
+			if (keyEventArgs.Key == Key.Up)
+			{
+				if (currentIndex > 0)
+				{
+					this.SelectedPreset = this.PresetsService.AllPresets[currentIndex - 1];
+
+					keyEventArgs.Handled = true;
+				}
+			}
+			else if (keyEventArgs.Key == Key.Down)
+			{
+				if (currentIndex < this.PresetsService.AllPresets.Count - 1)
+				{
+					this.SelectedPreset = this.PresetsService.AllPresets[currentIndex + 1];
+
+					keyEventArgs.Handled = true;
+				}
+			}
+		}
+
 		public bool AutoQueueOnScan
 		{
 			get { return this.Picker.AutoQueueOnScan; }
@@ -822,7 +873,7 @@ namespace VidCoder.ViewModel
 
 			if (!this.autoChangeTracker.OperationInProgress)
 			{
-				bool createPicker = this.Picker.IsNone;
+				bool createPicker = this.Picker.IsDefault;
 				if (createPicker)
 				{
 					this.pickersService.AutoCreatePicker();

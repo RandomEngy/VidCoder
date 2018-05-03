@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Markup.Localizer;
 using System.Xml;
 using System.Xml.Linq;
@@ -71,7 +72,10 @@ namespace VidCoder.Model
 				pendingSavePresetList = clonedList;
 
 				// Do the actual save asynchronously.
-				ThreadPool.QueueUserWorkItem(SaveUserPresetsBackground, clonedList);
+				Task.Run(() =>
+				{
+					SaveUserPresetsBackground(clonedList);
+				});
 			}
 		}
 
@@ -988,14 +992,14 @@ namespace VidCoder.Model
 		/// <summary>
 		/// Saves the given preset data.
 		/// </summary>
-		/// <param name="presetJsonListObject">List&lt;Preset&gt; to save.</param>
-		private static void SaveUserPresetsBackground(object presetJsonListObject)
+		/// <param name="presetList">List&lt;Preset&gt; to save.</param>
+		private static void SaveUserPresetsBackground(List<Preset> presetList)
 		{
 			lock (userPresetSync)
 			{
 				// If the pending save list is different from the one we've been passed, we abort.
 				// This means that another background task has been scheduled with a more recent save.
-				if (presetJsonListObject != pendingSavePresetList)
+				if (presetList != pendingSavePresetList)
 				{
 					return;
 				}
@@ -1011,7 +1015,6 @@ namespace VidCoder.Model
 					Directory.Delete(UserPresetsFolder);
 				}
 
-				var presetList = (List<Preset>)presetJsonListObject;
 				var presetJsonList = presetList.Select(SerializePreset).ToList();
 
 				SQLiteConnection connection = Database.CreateConnection();

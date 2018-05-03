@@ -38,6 +38,9 @@ namespace VidCoderCommon.Model
 		public bool Optimize { get; set; }
 
 		[JsonProperty]
+		public bool AlignAVStart { get; set; }
+
+		[JsonProperty]
 		public bool IPod5GSupport { get; set; }
 
 		[JsonProperty]
@@ -48,9 +51,6 @@ namespace VidCoderCommon.Model
 
 		[JsonProperty]
 		public int Height { get; set; }
-
-		[JsonProperty]
-		public VCScaleMethod ScaleMethod { get; set; }
 
 		[JsonProperty]
 		public VCCroppingType CroppingType { get; set; }
@@ -151,6 +151,19 @@ namespace VidCoderCommon.Model
 
 		[JsonProperty]
 		public string CustomDenoise { get; set; }
+
+
+		[JsonProperty]
+		public VCSharpen SharpenType { get; set; }
+
+		[JsonProperty]
+		public string SharpenPreset { get; set; }
+
+		[JsonProperty]
+		public string SharpenTune { get; set; }
+
+		[JsonProperty]
+		public string CustomSharpen { get; set; }
 
 
 		[JsonProperty]

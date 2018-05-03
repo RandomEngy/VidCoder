@@ -237,21 +237,20 @@ Das Baseline-Profil (für iPods und ähnliche Geräte), erfordert, dass die gewi
 Beachten Sie, dass einige Wiedergabegeräte, selbst diejenigen, die das Main-Profil unterstützen, möglicherweise Probleme mit der gewichteten P-Frame-Vorhersage haben: Der Apple TV ist beispielsweise völlig inkompatibel mit dieser Einstellung.</value>
   </data>
   <data name="Audio_DrcToolTip" xml:space="preserve">
-    <value>Komprimierung des dynamischen Umfangs. Gültige Werte liegen zwischen 0 und 4.
+    <value>Dynamic Range Compression. Gültige Werte liegen zwischen 0 und 4.
 
-Für Audioquellen mit einem hohen dynamischen Umfang (sehr laute und sehr leise Sequenzen) erlaubt es DRC den Umfang zu "komprimieren", indem laute Abschnitte leiser und leise Abschnitte lauter gemacht werden.</value>
+Für Audioquellen mit einem hohen dynamischen Umfang (sehr laute und sehr leise Sequenzen) erlaubt es DRC den Umfang zu "komprimieren", indem laute Abschnitte leiser und leise Abschnitte lauter gemacht werden.
+
+Dies funktioniert nur für AC3 Quellen (Dolby Digital).</value>
   </data>
   <data name="Audio_GainToolTip" xml:space="preserve">
     <value>Verstärken oder verringern Sie die Lautstärke vor der Encodierung. Gültige Werte liegen zwischen -20 und +20 dB.</value>
   </data>
   <data name="IncludeChapterMarkersToolTip" xml:space="preserve">
-    <value>Kapitelmarkierungen aus dem Eingangsvideo in das encodierte Video übernehmen.</value>
+    <value>Kapitelmarken aus dem Eingangsvideo in das encodierte Video übernehmen.</value>
   </data>
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Fügt der Datei eine Markierung bei, welche ältere iPods benötigen, bevor sie erlauben, dass das H.264 Video auf das Gerät synchronisiert wird.</value>
-  </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Ermöglicht Dateien größer als 4 GB. Wenn aktiviert, werden 64-Bit-Zahlen zur Encodierung verwendet. Einige Geräte wie iPod und PS3 sind inkompatibel mit dieser Option.</value>
   </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>Pixelseitenverhältnis manuell festlegen.</value>
@@ -276,23 +275,20 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Erweiterung:</value>
   </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Große Dateigröße</value>
-  </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
-    <value>Web optimiert</value>
+    <value>Fürs Internet optimieren (ermöglicht progressives Herunterladen)</value>
   </data>
   <data name="Ipod5GSupportCheckBox" xml:space="preserve">
     <value>iPod 5G Unterstützung</value>
   </data>
   <data name="IncludeChapterMarkersCheckBox" xml:space="preserve">
-    <value>Kapitelmarkierungen übernehmen</value>
+    <value>Kapitelmarken übernehmen</value>
   </data>
   <data name="TabHeader_Sizing" xml:space="preserve">
-    <value>Größe</value>
+    <value>Abmessungen</value>
   </data>
   <data name="TabHeader_VideoFilters" xml:space="preserve">
-    <value>Videofilter</value>
+    <value>Video-Filter</value>
   </data>
   <data name="TabHeader_VideoEncoding" xml:space="preserve">
     <value>Video-Encodierung</value>
@@ -334,10 +330,10 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Höhe:</value>
   </data>
   <data name="MaxWidthLabel" xml:space="preserve">
-    <value>Max Breite:</value>
+    <value>Max. Breite:</value>
   </data>
   <data name="MaxHeightLabel" xml:space="preserve">
-    <value>Max Höhe:</value>
+    <value>Max. Höhe:</value>
   </data>
   <data name="ModulusLabel" xml:space="preserve">
     <value>Modulus:</value>
@@ -457,7 +453,7 @@ Sie sollten dies festlegen, wenn Sie wissen, dass Ihr Wiedergabegerät nur ein b
     <value>Zeichentrickfilm</value>
   </data>
   <data name="Tune_grain" xml:space="preserve">
-    <value>Körnung/Rauschen</value>
+    <value>Filmkorn/Rauschen</value>
   </data>
   <data name="Tune_stillimage" xml:space="preserve">
     <value>Standbild</value>
@@ -896,7 +892,7 @@ Bikubisch: Dies ist ein durch OpenCL-Hardware beschleunigter Skalierungsalgorith
     <value>Automatisch</value>
   </data>
   <data name="PassthroughScopeToolTip" xml:space="preserve">
-    <value>Legt fest, welche Eingangscodecs durchgeschliffen werden.</value>
+    <value>Legt fest, welche Eingangscodecs durchgeschliffen werden sollen.</value>
   </data>
   <data name="FlipHorizontalCheckBox" xml:space="preserve">
     <value>Horizontal spiegeln</value>
@@ -914,7 +910,7 @@ Bikubisch: Dies ist ein durch OpenCL-Hardware beschleunigter Skalierungsalgorith
     <value>180°</value>
   </data>
   <data name="RotationToolTip" xml:space="preserve">
-    <value>Das Bild drehen. Dies wird nach dem Ändern der Größe und dem Beschneiden des Bildes angewandt.</value>
+    <value>Dreht das Bild. Wird nach Beschnitt und Skalierung des Bildes angewandt.</value>
   </data>
   <data name="FlipHorizontalToolTip" xml:space="preserve">
     <value>Spiegelt das Bild horizontal. Dies wird vor jedwedem Drehen angewandt.</value>
@@ -928,11 +924,8 @@ Bikubisch: Dies ist ein durch OpenCL-Hardware beschleunigter Skalierungsalgorith
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Wenn der Eingangscodec diesem Codec entspricht, wird er durchgeschliffen statt encodiert.</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Skalierungsalgorithmus:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
-    <value>Drehung:</value>
+    <value>Drehen:</value>
   </data>
   <data name="ClosePresetsListToolTip" xml:space="preserve">
     <value>Voreinstellungsliste schließen</value>
@@ -1045,5 +1038,84 @@ Bikubisch: Dies ist ein durch OpenCL-Hardware beschleunigter Skalierungsalgorith
   <data name="CustomFilterToolTipKeysLabel" xml:space="preserve">
     <value>Schlüssel:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
+  </data>
+  <data name="PaddingLabel" xml:space="preserve">
+    <value>Schwarze Balken</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>Beginn von A/V angleichen</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>Gleicht die Zeitstempel aller Audio- und Videospuren an, damit sie gleichzeitig anfangen, indem leere Bilder eingefügt werden oder einzelne Bilder gelöscht werden. Kann die Synchronisation von Bild und Ton auf kaputten Wiedergabegeräten verbessern, die nicht wissen, wie sie mit MP4-edit-lists umzugehen haben.</value>
+  </data>
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>Container</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Encodierungsvoreinstellung: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>Keiner</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>Automatisch wählt eine passende Auflösung basierend auf den Max-Werten. Manuell erlaubt es Auflösung und Seitenverhältnis auf feste Werte zu setzen.</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>Scharfzeichnen</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>Entblocken reduziert die Sichtbarkeit von Blockartefakten, welche durch schlechte Videokomprimierung hervorgerufen werden.</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Zeilenentflechtung entfernt Kammartefakte aus dem Bild.
+
+Yadif ist ein beliebter und schnell.
+
+Decomb ("Entkämmer") wechselt sich zwischen verschiedenen Interpolationsalgorithmen, um sowohl schnelle als auch hochwertige Resultate liefern zu können.</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>Entrauschen reduziert oder entfernt das Auftreten von Rauschen und Filmkorn. Dies kann die Komprimierungseffizienz verbessern und somit qualitativ hochwertigere Videos bei geringeren Dateigrößen ermöglichen. 
+         
+NL-means ist ein hochwertiger, aber sehr langsamer Entrauschungsfilter. Sollte verwendet werden, wenn Qualität wichtiger ist als Geschwindigkeit.
+         
+HQDN3D ist ein adaptiver Tiefpassfilter. Er ist schneller als NL-Means, aber dafür weniger gut darin subtile Details zu erhalten.</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>Dieser Filter entfernt "Kamm"-Effekte, welche durch Telecine hervorgerufen werden.
+
+Telecine ist ein Prozess, der die Bildraten von 24Hz Kinofilmen auf 30Hz NTSC Video anpasst.</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>Schärfen macht Details besser sichtbar, insbesondere Kanten. Zu intensives Schärfen führt leicht zu Ringing-Artefakten und verstärktem Rauschen, was die Komprimierungseffizienz senkt und dadurch die Bildqualität unnötig verschlechtern kann.
+
+Unschärfe maskieren ist ein Allzweck-Schärfefilter. Er schärft, indem er das Bild weichzeichnet und dann den Unterschied zum Original berechnet.
+
+LapSharp verwendet Faltungsmatrizen, welche Laplace-Kanten-Filter annähern, zum Schärfen. Dies führt manchmal zu besseren Resultaten als Unschärfe maskieren.</value>
+  </data>
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>Selbsterstellt</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>Eingebaut</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Unterordner erstellen</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Ordner umbenennen</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Ordner entfernen</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>Neuer Ordner</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>Wählen Sie einen Namen für den Unterordner:</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>Wählen Sie einen Namen für den Ordner:</value>
   </data>
 </root>

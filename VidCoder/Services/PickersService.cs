@@ -39,7 +39,7 @@ namespace VidCoder.Services
 			int modifiedPickerIndex = -1;
 
 			Picker nonePicker = new Picker();
-			nonePicker.IsNone = true;
+			nonePicker.IsDefault = true;
 			this.pickers.Add(new PickerViewModel(nonePicker));
 
 			this.WhenAnyValue(x => x.SelectedPicker.DisplayNameWithStar)
@@ -355,7 +355,7 @@ namespace VidCoder.Services
 			List<Picker> storagePickers = new List<Picker>();
 			foreach (PickerViewModel pickerVM in this.pickers)
 			{
-				if (!pickerVM.Picker.IsNone)
+				if (!pickerVM.Picker.IsDefault)
 				{
 					// Add the picker
 					storagePickers.Add(pickerVM.Picker);

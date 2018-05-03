@@ -19,7 +19,7 @@ namespace VidCoder.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class OptionsRes {
@@ -106,15 +106,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When automatic audio selection is disabled, the last picked track is persisted..
-        /// </summary>
-        public static string AutoAudioDisabledToolTip {
-            get {
-                return ResourceManager.GetString("AutoAudioDisabledToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Automatically rename.
         /// </summary>
         public static string AutomaticallyRenameRadioButton {
@@ -147,15 +138,6 @@ namespace VidCoder.Resources {
         public static string AutoPauseLabel {
             get {
                 return ResourceManager.GetString("AutoPauseLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to When automatic subtitle selection is disabled, the last picked subtitles are persisted..
-        /// </summary>
-        public static string AutoSubtitleDisabledToolTip {
-            get {
-                return ResourceManager.GetString("AutoSubtitleDisabledToolTip", resourceCulture);
             }
         }
         

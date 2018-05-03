@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using System.Drawing;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
+using VidCoder.Resources;
 using VidCoder.Services;
 
 namespace VidCoder.View
@@ -29,6 +30,8 @@ namespace VidCoder.View
 			this.exception = exception;
 
 			InitializeComponent();
+
+			this.subText.Text = Utilities.IsRunningAsAppx ? MiscRes.ExceptionDialogSubTextReported : MiscRes.ExceptionDialogSubText;
 
 			this.errorIcon.Source = WpfSystemIcons.Error;
 			this.exceptionTextBox.Text = exception + Environment.NewLine;

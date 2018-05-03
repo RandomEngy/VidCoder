@@ -149,7 +149,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				return HandBrake.ApplicationServices.Interop.Languages.AllLanguages;
+				return HandBrakeLanguagesHelper.AllLanguages;
 			}
 		}
 

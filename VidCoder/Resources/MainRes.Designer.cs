@@ -19,7 +19,7 @@ namespace VidCoder.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class MainRes {
@@ -614,6 +614,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        public static string FileSizeColumnHeader {
+            get {
+                return ResourceManager.GetString("FileSizeColumnHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Foreign Audio Search.
         /// </summary>
         public static string ForeignAudioSearch {
@@ -763,6 +772,15 @@ namespace VidCoder.Resources {
         public static string NoneParen {
             get {
                 return ResourceManager.GetString("NoneParen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open App Data Folder.
+        /// </summary>
+        public static string OpenAppDataFolder {
+            get {
+                return ResourceManager.GetString("OpenAppDataFolder", resourceCulture);
             }
         }
         
@@ -925,141 +943,6 @@ namespace VidCoder.Resources {
         public static string PlayingVideoStatus {
             get {
                 return ResourceManager.GetString("PlayingVideoStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Android.
-        /// </summary>
-        public static string Preset_Android {
-            get {
-                return ResourceManager.GetString("Preset_Android", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Android Tablet.
-        /// </summary>
-        public static string Preset_AndroidTablet {
-            get {
-                return ResourceManager.GetString("Preset_AndroidTablet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Apple iPad.
-        /// </summary>
-        public static string Preset_AppleiPad {
-            get {
-                return ResourceManager.GetString("Preset_AppleiPad", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Apple iPhone 4.
-        /// </summary>
-        public static string Preset_AppleiPhone4 {
-            get {
-                return ResourceManager.GetString("Preset_AppleiPhone4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Apple iPhone/Touch.
-        /// </summary>
-        public static string Preset_AppleiPhoneTouch {
-            get {
-                return ResourceManager.GetString("Preset_AppleiPhoneTouch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Apple iPod.
-        /// </summary>
-        public static string Preset_AppleiPod {
-            get {
-                return ResourceManager.GetString("Preset_AppleiPod", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AppleTV.
-        /// </summary>
-        public static string Preset_AppleTV {
-            get {
-                return ResourceManager.GetString("Preset_AppleTV", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AppleTV 2.
-        /// </summary>
-        public static string Preset_AppleTV2 {
-            get {
-                return ResourceManager.GetString("Preset_AppleTV2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AppleTV 3.
-        /// </summary>
-        public static string Preset_AppleTV3 {
-            get {
-                return ResourceManager.GetString("Preset_AppleTV3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to High Profile.
-        /// </summary>
-        public static string Preset_HighProfile {
-            get {
-                return ResourceManager.GetString("Preset_HighProfile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Normal.
-        /// </summary>
-        public static string Preset_Normal {
-            get {
-                return ResourceManager.GetString("Preset_Normal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Universal.
-        /// </summary>
-        public static string Preset_Universal {
-            get {
-                return ResourceManager.GetString("Preset_Universal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Windows Phone 7.
-        /// </summary>
-        public static string Preset_WindowsPhone7 {
-            get {
-                return ResourceManager.GetString("Preset_WindowsPhone7", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Windows Phone 8.
-        /// </summary>
-        public static string Preset_WindowsPhone8 {
-            get {
-                return ResourceManager.GetString("Preset_WindowsPhone8", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Xbox 360.
-        /// </summary>
-        public static string Preset_Xbox360 {
-            get {
-                return ResourceManager.GetString("Preset_Xbox360", resourceCulture);
             }
         }
         

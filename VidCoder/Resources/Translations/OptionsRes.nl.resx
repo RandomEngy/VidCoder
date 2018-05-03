@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>Als automatische audio selectie is uitgeschakeld wordt het laatst gekozen spoor behouden.</value>
-  </data>
-  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>Wanneer automatische ondertitel selectie is uitgeschakeld blijven de laatst gekozen ondertitels gehandhaafd.</value>
-  </data>
   <data name="GeneralTab" xml:space="preserve">
     <value>Algemeen</value>
   </data>
@@ -368,12 +362,6 @@
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>Video</value>
-  </data>
-  <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>Inschakelen van DXVA hardwareversnelling decoderen</value>
-  </data>
-  <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>Deze optie is alleen geschikt voor langzamere systemen. Hardwaredecoders zijn momenteel ontworpen voor afspelen, niet voor het opnieuw encoderen van video dus zal waarschijnlijk knelpunt zijn op snellere systemen.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Behoud Gemaakte en Aangepaste tijd wanneer u bestanden converteert</value>

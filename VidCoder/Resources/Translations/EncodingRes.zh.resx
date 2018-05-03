@@ -259,9 +259,6 @@ iPod 等设备所使用的 Baseline 模式需禁用加权 P 帧。
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>应用特殊标记使文件能支持旧的 iPod之前需要他们允许 H.264 视频同步。</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>允许文件超过 4GB。启用此选项时将使用 64 位编码。部分设备如 iPod 和 PS3 不兼容此选项。</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>手动指定像素长宽比。</value>
   </data>
@@ -284,9 +281,6 @@ iPod 等设备所使用的 Baseline 模式需禁用加权 P 帧。
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>扩展名：</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>大容量文件</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>网络优化</value>
@@ -936,9 +930,6 @@ Bicubic： 一种 OpenCL 硬件加速缩放算法。</value>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>如果输入的音轨匹配编解码器，它将不被编码直接复制。</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>缩放算法：</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>旋转：</value>
   </data>
@@ -1054,4 +1045,25 @@ Bicubic： 一种 OpenCL 硬件加速缩放算法。</value>
     <value>关键字：</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

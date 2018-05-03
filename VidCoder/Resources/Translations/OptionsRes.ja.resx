@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>音声の自動選択を無効にすると、最後に選択したトラックが維持されます</value>
-  </data>
-  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>字幕の自動選択を無効にすると、最後に選択したも字幕が維持されます。</value>
-  </data>
   <data name="GeneralTab" xml:space="preserve">
     <value>全般</value>
   </data>
@@ -368,12 +362,6 @@
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>ビデオ</value>
-  </data>
-  <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>DXVAによるハードウェハデコードを有効にする</value>
-  </data>
-  <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>このオプションは遅いPCにのみ適しています。ハードウェアによるデコードは現在の所再生時のみ使われ、エンコード時には用いられないため高速なPCでは遅くなることがあります。</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>ファイル変換時に作成日時と更新日時を保持します。</value>

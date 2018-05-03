@@ -37,8 +37,8 @@
 					Content="{x:Static res:CommonRes.Automatic}"
 					GroupName="cropping1"
 					IsChecked="{Binding CroppingType,
-										Converter={StaticResource EnumBoolConverter},
-										ConverterParameter={x:Static commonModel:VCCroppingType.Automatic}}" />
+					                    Converter={StaticResource EnumBoolConverter},
+					                    ConverterParameter={x:Static commonModel:VCCroppingType.Automatic}}" />
 				<RadioButton
 					Margin="0 49 0 0"
 					HorizontalAlignment="Left"
@@ -46,8 +46,8 @@
 					Content="{x:Static res:CommonRes.None}"
 					GroupName="cropping2"
 					IsChecked="{Binding CroppingType,
-										Converter={StaticResource EnumBoolConverter},
-										ConverterParameter={x:Static commonModel:VCCroppingType.None}}" />
+					                    Converter={StaticResource EnumBoolConverter},
+					                    ConverterParameter={x:Static commonModel:VCCroppingType.None}}" />
 				<RadioButton
 					Margin="0 71 0 0"
 					HorizontalAlignment="Left"
@@ -55,8 +55,8 @@
 					Content="{x:Static res:CommonRes.Custom}"
 					GroupName="cropping3"
 					IsChecked="{Binding CroppingType,
-										Converter={StaticResource EnumBoolConverter},
-										ConverterParameter={x:Static commonModel:VCCroppingType.Custom}}" />
+					                    Converter={StaticResource EnumBoolConverter},
+					                    ConverterParameter={x:Static commonModel:VCCroppingType.Custom}}" />
 				<Grid
 					Width="121"
 					Margin="0 70 0 0"
@@ -73,7 +73,7 @@
 						Minimum="0"
 						Modulus="2"
 						Number="{Binding CropTop,
-										 Mode=TwoWay}" />
+						                 Mode=TwoWay}" />
 					<controls:NumberBox
 						Width="45"
 						Height="22.96"
@@ -85,7 +85,7 @@
 						Minimum="0"
 						Modulus="2"
 						Number="{Binding CropRight,
-										 Mode=TwoWay}" />
+						                 Mode=TwoWay}" />
 					<controls:NumberBox
 						Width="45"
 						Height="23"
@@ -97,7 +97,7 @@
 						Minimum="0"
 						Modulus="2"
 						Number="{Binding CropLeft,
-										 Mode=TwoWay}" />
+						                 Mode=TwoWay}" />
 					<controls:NumberBox
 						Width="45"
 						Height="23"
@@ -109,7 +109,7 @@
 						Minimum="0"
 						Modulus="2"
 						Number="{Binding CropBottom,
-										 Mode=TwoWay}" />
+						                 Mode=TwoWay}" />
 				</Grid>
 			</Grid>
 
@@ -124,7 +124,10 @@
 					Style="{StaticResource SectionHeader}"
 					Text="{x:Static res:EncodingRes.SizingLabel}" />
 
-				<StackPanel Margin="0 4 0 0" Orientation="Horizontal">
+				<StackPanel
+					Margin="0 4 0 0"
+					Orientation="Horizontal"
+					ToolTip="{x:Static res:EncodingRes.SizingModeToolTip}">
 					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.ModeLabel}" />
 
 					<ComboBox
@@ -150,7 +153,7 @@
 						Modulus="2"
 						NoneCaption="{x:Static res:EncodingRes.NoneCaption}"
 						Number="{Binding Width,
-										 Mode=TwoWay}" />
+						                 Mode=TwoWay}" />
 
 					<TextBlock
 						Margin="10 0 0 0"
@@ -169,7 +172,7 @@
 						Modulus="2"
 						NoneCaption="{x:Static res:EncodingRes.NoneCaption}"
 						Number="{Binding Height,
-										 Mode=TwoWay}" />
+						                 Mode=TwoWay}" />
 
 				</StackPanel>
 
@@ -178,8 +181,8 @@
 					Orientation="Horizontal"
 					ToolTip="{x:Static res:EncodingRes.PixelAspectRatioToolTip}"
 					Visibility="{Binding SizingMode,
-										 Converter={StaticResource EnumVisibilityConverter},
-										 ConverterParameter={x:Static commonModel:VCSizingMode.Manual}}">
+					                     Converter={StaticResource EnumVisibilityConverter},
+					                     ConverterParameter={x:Static commonModel:VCSizingMode.Manual}}">
 					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.PixelAspectRatioLabel}" />
 
 					<controls:NumberBox
@@ -190,10 +193,10 @@
 						VerticalAlignment="Center"
 						AllowEmpty="False"
 						IsEnabled="{Binding UseDisplayWidth,
-											Converter={StaticResource InverseBoolConverter}}"
+						                    Converter={StaticResource InverseBoolConverter}}"
 						Minimum="1"
 						Number="{Binding PixelAspectX,
-										 Mode=TwoWay}"
+						                 Mode=TwoWay}"
 						ToolTip="{x:Static res:EncodingRes.PixelAspectRatioToolTip}" />
 					<TextBlock
 						Margin="6 0"
@@ -207,10 +210,10 @@
 						VerticalAlignment="Center"
 						AllowEmpty="False"
 						IsEnabled="{Binding UseDisplayWidth,
-											Converter={StaticResource InverseBoolConverter}}"
+						                    Converter={StaticResource InverseBoolConverter}}"
 						Minimum="1"
 						Number="{Binding PixelAspectY,
-										 Mode=TwoWay}"
+						                 Mode=TwoWay}"
 						ToolTip="{x:Static res:EncodingRes.PixelAspectRatioToolTip}" />
 				</StackPanel>
 
@@ -220,15 +223,15 @@
 					IsChecked="{Binding UseAnamorphic}"
 					ToolTip="{x:Static res:EncodingRes.AnamorphicToolTip}"
 					Visibility="{Binding SizingMode,
-										 Converter={StaticResource EnumVisibilityConverter},
-										 ConverterParameter={x:Static commonModel:VCSizingMode.Automatic}}" />
+					                     Converter={StaticResource EnumVisibilityConverter},
+					                     ConverterParameter={x:Static commonModel:VCSizingMode.Automatic}}" />
 
 				<StackPanel
 					Margin="0 6 0 0"
 					Orientation="Horizontal"
 					Visibility="{Binding SizingMode,
-										 Converter={StaticResource EnumVisibilityConverter},
-										 ConverterParameter={x:Static commonModel:VCSizingMode.Automatic}}">
+					                     Converter={StaticResource EnumVisibilityConverter},
+					                     ConverterParameter={x:Static commonModel:VCSizingMode.Automatic}}">
 					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.ScalingModeLabel}" />
 
 					<ComboBox
@@ -237,32 +240,6 @@
 						ItemsSource="{Binding ScalingModeChoices}"
 						SelectedValue="{Binding ScalingMode}"
 						SelectedValuePath="Value" />
-				</StackPanel>
-
-				<StackPanel
-					Margin="0 6 0 0"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top"
-					Orientation="Horizontal">
-					<TextBlock
-						VerticalAlignment="Center"
-						Style="{StaticResource LongToolTipHolder}"
-						Text="{x:Static res:EncodingRes.ScalingAlgorithmLabel}">
-						<TextBlock.ToolTip>
-							<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.ScaleMethodToolTip}" />
-						</TextBlock.ToolTip>
-					</TextBlock>
-					<ComboBox
-						MinWidth="90"
-						Margin="6 0 0 0"
-						ItemsSource="{Binding ScaleChoices}"
-						SelectedValue="{Binding ScaleMethod}"
-						SelectedValuePath="Value"
-						Style="{StaticResource LongToolTipHolder}">
-						<ComboBox.ToolTip>
-							<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.ScaleMethodToolTip}" />
-						</ComboBox.ToolTip>
-					</ComboBox>
 				</StackPanel>
 			</StackPanel>
 
@@ -294,7 +271,7 @@
 									Margin="0 0 6 0"
 									Source="{Binding Image}"
 									Visibility="{Binding ShowImage,
-														 Converter={StaticResource VisibilityConverter}}" />
+									                     Converter={StaticResource VisibilityConverter}}" />
 								<TextBlock VerticalAlignment="Center" Text="{Binding Display}" />
 							</StackPanel>
 						</DataTemplate>
@@ -339,8 +316,8 @@
 					SelectedValue="{Binding PaddingMode}"
 					SelectedValuePath="Value"
 					Visibility="{Binding SizingMode,
-										 Converter={StaticResource EnumVisibilityConverter},
-										 ConverterParameter={x:Static commonModel:VCSizingMode.Automatic}}" />
+					                     Converter={StaticResource EnumVisibilityConverter},
+					                     ConverterParameter={x:Static commonModel:VCSizingMode.Automatic}}" />
 
 				<Grid
 					Width="121"
@@ -358,7 +335,7 @@
 						Minimum="0"
 						Modulus="2"
 						Number="{Binding PadTop,
-										 Mode=TwoWay}" />
+						                 Mode=TwoWay}" />
 					<controls:NumberBox
 						Width="45"
 						Height="22.96"
@@ -370,7 +347,7 @@
 						Minimum="0"
 						Modulus="2"
 						Number="{Binding PadRight,
-										 Mode=TwoWay}" />
+						                 Mode=TwoWay}" />
 					<controls:NumberBox
 						Width="45"
 						Height="23"
@@ -382,7 +359,7 @@
 						Minimum="0"
 						Modulus="2"
 						Number="{Binding PadLeft,
-										 Mode=TwoWay}" />
+						                 Mode=TwoWay}" />
 					<controls:NumberBox
 						Width="45"
 						Height="23"
@@ -394,14 +371,14 @@
 						Minimum="0"
 						Modulus="2"
 						Number="{Binding PadBottom,
-										 Mode=TwoWay}" />
+						                 Mode=TwoWay}" />
 				</Grid>
 
 				<StackPanel
 					Margin="0 10 0 0"
 					Orientation="Horizontal"
 					Visibility="{Binding PadColorEnabled,
-										 Converter={StaticResource VisibilityConverter}}">
+					                     Converter={StaticResource VisibilityConverter}}">
 					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.PadColorLabel}" />
 					<xctk:ColorPicker
 						Name="colorPicker"
@@ -421,7 +398,7 @@
 				Orientation="Vertical"
 				Style="{StaticResource SizingSectionStyle}"
 				Visibility="{Binding HasSourceData,
-									 Converter={StaticResource VisibilityConverter}}">
+				                     Converter={StaticResource VisibilityConverter}}">
 				<!--  Input Block  -->
 				<Grid>
 					<Border

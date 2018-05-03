@@ -542,7 +542,7 @@ namespace VidCoder.Services
 		public ReactiveCommand<object> MoveSelectedJobsToTop { get; }
 		private void MoveSelectedJobsToTopImpl()
 		{
-			List<EncodeJobViewModel> jobsToMove = this.EncodeQueue.Where(j => j.IsSelected && !j.Encoding).ToList();
+			List<EncodeJobViewModel> jobsToMove = this.main.SelectedJobs.Where(j => !j.Encoding).ToList();
 			if (jobsToMove.Count > 0)
 			{
 				foreach (EncodeJobViewModel jobToMove in jobsToMove)
@@ -562,7 +562,7 @@ namespace VidCoder.Services
 		public ReactiveCommand<object> MoveSelectedJobsToBottom { get; }
 		private void MoveSelectedJobsToBottomImpl()
 		{
-			List<EncodeJobViewModel> jobsToMove = this.EncodeQueue.Where(j => j.IsSelected && !j.Encoding).ToList();
+			List<EncodeJobViewModel> jobsToMove = this.main.SelectedJobs.Where(j => !j.Encoding).ToList();
 			if (jobsToMove.Count > 0)
 			{
 				foreach (EncodeJobViewModel jobToMove in jobsToMove)
@@ -621,18 +621,18 @@ namespace VidCoder.Services
 		public ReactiveCommand<object> RemoveSelectedJobs { get; }
 		private void RemoveSelectedJobsImpl()
 		{
-			for (int i = this.EncodeQueue.Count - 1; i >= 0; i--)
-			{
-				EncodeJobViewModel jobVM = this.EncodeQueue[i];
+			IList<EncodeJobViewModel> selectedJobs = this.main.SelectedJobs;
 
-				if (jobVM.IsSelected && !jobVM.Encoding)
+			foreach (EncodeJobViewModel selectedJob in selectedJobs)
+			{
+				if (!selectedJob.Encoding)
 				{
-					this.EncodeQueue.RemoveAt(i);
+					this.EncodeQueue.Remove(selectedJob);
 
 					if (this.Encoding)
 					{
 						this.totalTasks--;
-						this.totalQueueCost -= jobVM.Cost;
+						this.totalQueueCost -= selectedJob.Cost;
 					}
 				}
 			}
@@ -1109,6 +1109,20 @@ namespace VidCoder.Services
 			}
 		}
 
+		public void RemoveQueueJobAndOthersIfSelected(EncodeJobViewModel job)
+		{
+			if (job.IsSelected)
+			{
+				// If job is selected, remove all jobs that are selected
+				this.RemoveSelectedJobsImpl();
+			}
+			else
+			{
+				// If not, remove only this job.
+				this.RemoveQueueJob(job);
+			}
+		}
+
 		public void RemoveQueueJob(EncodeJobViewModel job)
 		{
 			this.EncodeQueue.Remove(job);
@@ -1312,7 +1326,6 @@ namespace VidCoder.Services
 			double scanPassCost = passCost / EncodeJobViewModel.SubtitleScanCostFactor;
 			double currentJobCompletedWork = 0.0;
 
-			Debug.WriteLine("Pass id in encode progress: " + e.PassId);
 			if (this.EncodeQueue[0].SubtitleScan)
 			{
 				switch (e.PassId)
@@ -1487,6 +1500,7 @@ namespace VidCoder.Services
 					this.completedQueueWork += this.CurrentJob.Cost;
 
 					var outputFileInfo = new FileInfo(this.CurrentJob.Job.OutputPath);
+					long outputFileLength = 0;
 
 					EncodeResultStatus status = EncodeResultStatus.Succeeded;
 					if (e.Error)
@@ -1499,10 +1513,14 @@ namespace VidCoder.Services
 						status = EncodeResultStatus.Failed;
 						encodeLogger.LogError("Encode failed. HandBrake reported no error but the expected output file was not found.");
 					}
-					else if (outputFileInfo.Length == 0)
+					else
 					{
-						status = EncodeResultStatus.Failed;
-						encodeLogger.LogError("Encode failed. HandBrake reported no error but the output file was empty.");
+						outputFileLength = outputFileInfo.Length;
+						if (outputFileLength == 0)
+						{
+							status = EncodeResultStatus.Failed;
+							encodeLogger.LogError("Encode failed. HandBrake reported no error but the output file was empty.");
+						}
 					}
 
 					EncodeJobViewModel finishedJob = this.CurrentJob;
@@ -1535,16 +1553,19 @@ namespace VidCoder.Services
 							Destination = this.CurrentJob.Job.OutputPath,
 							Status = status,
 							EncodeTime = this.CurrentJob.EncodeTime,
-							LogPath = encodeLogger.LogPath
+							LogPath = encodeLogger.LogPath,
+							SizeBytes = outputFileLength
 						},
 						finishedJob));
 
 					this.EncodeQueue.RemoveAt(0);
 
 					var picker = this.pickersService.SelectedPicker.Picker;
-					if (status == EncodeResultStatus.Succeeded && picker.PostEncodeActionEnabled && !string.IsNullOrWhiteSpace(picker.PostEncodeExecutable))
+					if (status == EncodeResultStatus.Succeeded && !Utilities.IsRunningAsAppx && picker.PostEncodeActionEnabled && !string.IsNullOrWhiteSpace(picker.PostEncodeExecutable))
 					{
-						string arguments = picker.PostEncodeArguments.Replace("{file}", outputPath);
+						string arguments = outputVM.ReplaceArguments(picker.PostEncodeArguments, picker)
+                            .Replace("{file}", outputPath)
+                            .Replace("{folder}", Path.GetDirectoryName(outputPath));
 
 						var process = new ProcessStartInfo(
 							picker.PostEncodeExecutable,

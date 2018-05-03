@@ -278,7 +278,7 @@ You should set this if you know your playback device only supports a certain pro
     <value>Tune options to further optimize them for your input content. If you specify a tuning, the changes will be applied after the Preset but before all other parameters.</value>
   </data>
   <data name="ContainerLabel" xml:space="preserve">
-    <value>Container:</value>
+    <value>Container format:</value>
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Extension:</value>
@@ -931,9 +931,6 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>If the input track matches the codec it will be passed through instead of encoded.</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Scaling algorithm:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Rotation</value>
   </data>
@@ -1051,5 +1048,82 @@ Bicubic: This is an OpenCL hardware accelerated scaling algorithm.</value>
   </data>
   <data name="PaddingLabel" xml:space="preserve">
     <value>Padding</value>
+  </data>
+  <data name="AlignAVStartCheckBox" xml:space="preserve">
+    <value>Align A/V Start</value>
+  </data>
+  <data name="AlignAVStartCheckBoxToolTip" xml:space="preserve">
+    <value>Aligns the initial timestamps of all audio and video streams by inserting blank frames or dropping frames. May improve audio/video sync for broken players that do not honor MP4 edit lists.</value>
+  </data>
+  <data name="TabHeader_Container" xml:space="preserve">
+    <value>Container</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Encoding preset: {0}</value>
+    <comment>Label for the encoding settings window.</comment>
+  </data>
+  <data name="AudioEncoder_none" xml:space="preserve">
+    <value>None</value>
+    <comment>Label for the choice to use no audio encoder. Used in fallback selection.</comment>
+  </data>
+  <data name="SizingModeToolTip" xml:space="preserve">
+    <value>Automatic will pick the size for you based on provided constraints. Manual will let you enter a specific size and pixel aspect ratio.</value>
+  </data>
+  <data name="SharpenLabel" xml:space="preserve">
+    <value>Sharpen</value>
+  </data>
+  <data name="DeblockToolTip" xml:space="preserve">
+    <value>Deblock reduces blocky artifacts caused by low quality video compression.</value>
+  </data>
+  <data name="DeinterlaceToolTip" xml:space="preserve">
+    <value>Deinterlace removes comb artifacts from the picture.
+
+Yadif is a popular and fast deinterlacer.
+
+Decomb switches between multiple interpolation algorithms for speed and quality.</value>
+  </data>
+  <data name="DenoiseToolTip" xml:space="preserve">
+    <value>Denoise reduces or removes the appearance of noise and grain. This can improve compression efficiency and create higher quality video at smaller file sizes. 
+Overly strong Denoise settings may damage picture quality by discarding detail.
+         
+NLMeans is a high quality denoise filter with a cost to speed. Use where quality is more important than speed.
+         
+HQDN3D is an adaptive low-pass filter, faster than NLMeans but less effective at preserving fine detail.</value>
+  </data>
+  <data name="DetelecineToolTip" xml:space="preserve">
+    <value>This filter removes 'combing' artifacts that are the result of telecining.
+
+Telecining is a process that adjusts film framerates that are 24fps to NTSC video frame rates which are 30fps.</value>
+  </data>
+  <data name="SharpenToolTip" xml:space="preserve">
+    <value>Sharpening enhances the appearance of detail, especially edges. Overly strong Sharpen settings may damage picture quality by creating ringing artifacts and enhancing noise, which can reduce compression efficiency.
+
+Unsharp is a general purpose unsharp masking filter. It sharpens by blurring, then calculating the difference between the blurred picture and the original.
+
+Lapsharp sharpens using convolution kernels approximating Laplacian edge filters, sometimes producing higher quality results than unsharp masking.</value>
+  </data>
+  <data name="PresetFolder_Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="PresetFolder_BuiltIn" xml:space="preserve">
+    <value>Built-in</value>
+  </data>
+  <data name="PresetFolderCreateSubfolderMenuItem" xml:space="preserve">
+    <value>Create subfolder</value>
+  </data>
+  <data name="PrestFolderRenameFolderMenuItem" xml:space="preserve">
+    <value>Rename folder</value>
+  </data>
+  <data name="PresetFolderRemoveFolderMenuItem" xml:space="preserve">
+    <value>Remove folder</value>
+  </data>
+  <data name="DefaultPresetFolderName" xml:space="preserve">
+    <value>New Folder</value>
+  </data>
+  <data name="ChooseNameSubfolder" xml:space="preserve">
+    <value>Choose a name for the subfolder:</value>
+  </data>
+  <data name="ChooseNewFolderName" xml:space="preserve">
+    <value>Choose a new name for the folder:</value>
   </data>
 </root>

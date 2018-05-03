@@ -95,7 +95,7 @@ namespace VidCoder.ViewModel
 						bool isDvd = Utilities.IsDvdFolder(sourcePath);
 						bool playerInstalled = Players.Installed.Count > 0;
 
-						return isDvd && playerInstalled;
+						return isDvd && !Utilities.IsRunningAsAppx && playerInstalled;
 					}
 					else
 					{
@@ -128,6 +128,11 @@ namespace VidCoder.ViewModel
 				{
 					if (FileUtilities.IsDirectory(sourcePath))
 					{
+						if (Utilities.IsRunningAsAppx)
+						{
+							return PreviewRes.PlaySourceDisabledAppxToolTip;
+						}
+
 						// Path is a directory. Can only preview when it's a DVD and we have a supported player installed.
 						bool isDvd = Utilities.IsDvdFolder(sourcePath);
 						if (!isDvd)
@@ -545,6 +550,15 @@ namespace VidCoder.ViewModel
 
 			this.job.OutputPath = this.previewFilePath;
 
+			if (this.job.Subtitles?.SourceSubtitles != null)
+			{
+				SourceSubtitle scanTrack = this.job.Subtitles.SourceSubtitles.FirstOrDefault(s => s.TrackNumber == 0);
+				if (scanTrack != null)
+				{
+					this.job.Subtitles.SourceSubtitles.Remove(scanTrack);
+				}
+			}
+
 			this.encodeProxy = Utilities.CreateEncodeProxy();
 			this.encodeProxy.EncodeStarted += (o, e) =>
 			{
@@ -793,6 +807,22 @@ namespace VidCoder.ViewModel
 		private void CloseVideoImpl()
 		{
 			this.PlayingPreview = false;
+		}
+
+		public void ShowPreviousPreview()
+		{
+			if (this.SelectedPreview > 0)
+			{
+				this.SelectedPreview--;
+			}
+		}
+
+		public void ShowNextPreview()
+		{
+			if (this.SelectedPreview < this.previewCount - 1)
+			{
+				this.SelectedPreview++;
+			}
 		}
 
 		private void RequestRefreshPreviews()
@@ -1147,7 +1177,7 @@ namespace VidCoder.ViewModel
 				if (imageSource == null && !imageJob.ScanInstance.IsDisposed)
 				{
 					// Make a HandBrake call to get the image
-					imageSource = imageJob.ScanInstance.GetPreview(imageJob.Profile.CreatePreviewSettings(imageJob.Title), imageJob.PreviewNumber);
+					imageSource = BitmapUtilities.ConvertToBitmapImage(imageJob.ScanInstance.GetPreview(imageJob.Profile.CreatePreviewSettings(imageJob.Title), imageJob.PreviewNumber, imageJob.Profile.DeinterlaceType != VCDeinterlace.Off));
 
 					// Transform the image as per rotation and reflection settings
 					VCProfile profile = imageJob.Profile;

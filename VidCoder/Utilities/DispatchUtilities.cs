@@ -25,11 +25,11 @@ namespace VidCoder
 		    }
 		}
 
-		public static void BeginInvoke(Action action)
+		public static void BeginInvoke(Action action, DispatcherPriority priority = DispatcherPriority.Normal)
 		{
 			Dispatcher dispatchObject = Application.Current.Dispatcher;
 
-			dispatchObject.BeginInvoke(action);
+			dispatchObject.BeginInvoke(action, priority);
 		}
 
 		public static Task InvokeAsync(Action action)

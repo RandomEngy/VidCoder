@@ -33,7 +33,11 @@
 			Command="{Binding OutputPathService.PickOutputPath}"
 			Modifiers="Control" />
 	</Window.InputBindings>
-	<Grid>
+	<Grid
+		Name="rootGrid"
+		Focusable="True"
+		KeyDown="OnKeyDown"
+		MouseWheel="OnMouseWheel">
 		<Grid.RowDefinitions>
 			<RowDefinition />
 			<RowDefinition Height="Auto" />
@@ -44,10 +48,11 @@
 			SizeChanged="PreviewArea_OnSizeChanged" />
 		<Grid
 			Grid.Row="0"
-			Cursor="Hand"
-			Visibility="{Binding PlayingPreview, Converter={StaticResource VisibilityConverter}}"
 			Background="Transparent"
-			MouseDown="OnVideoClick" />
+			Cursor="Hand"
+			MouseDown="OnVideoClick"
+			Visibility="{Binding PlayingPreview,
+			                     Converter={StaticResource VisibilityConverter}}" />
 		<Grid Name="previewControls" Grid.Row="1">
 			<preview:PreviewCreationControls />
 		</Grid>

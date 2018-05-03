@@ -10,7 +10,6 @@ using HandBrake.ApplicationServices.Interop.Json.Encode;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using HandBrake.ApplicationServices.Interop.Json.Shared;
 using HandBrake.ApplicationServices.Interop.Model.Encoding;
-using Microsoft.Practices.ServiceLocation;
 using Newtonsoft.Json.Linq;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Services;
@@ -335,6 +334,7 @@ namespace VidCoderCommon.Model
 			var destination = new Destination
 			{
 				File = job.OutputPath,
+				AlignAVStart = profile.AlignAVStart,
 				Mp4Options = new Mp4Options
 				{
 					IpodAtom = profile.IPod5GSupport,
@@ -485,6 +485,30 @@ namespace VidCoderCommon.Model
 				else
 				{
 					settings = this.GetFilterSettingsPresetAndTune(filterId, profile.DenoisePreset, profile.DenoiseTune, null);
+				}
+
+				if (settings != null)
+				{
+					Filter filterItem = new Filter { ID = (int)filterId, Settings = settings };
+					filters.FilterList.Add(filterItem);
+				}
+			}
+
+			// Sharpen
+			if (profile.SharpenType != VCSharpen.Off)
+			{
+				hb_filter_ids filterId = profile.SharpenType == VCSharpen.LapSharp
+					? hb_filter_ids.HB_FILTER_LAPSHARP
+					: hb_filter_ids.HB_FILTER_UNSHARP;
+
+				JToken settings;
+				if (profile.SharpenPreset == "custom")
+				{
+					settings = this.GetFilterSettingsPresetOnly(filterId, "custom", profile.CustomSharpen);
+				}
+				else
+				{
+					settings = this.GetFilterSettingsPresetAndTune(filterId, profile.SharpenPreset, profile.SharpenTune, null);
 				}
 
 				if (settings != null)
@@ -750,10 +774,9 @@ namespace VidCoderCommon.Model
 			}
 
 			video.Encoder = videoEncoder.Id;
-			video.HWDecode = false;
 			video.QSV = new QSV
 			{
-				Decode = profile.QsvDecode && profile.VideoEncoder.StartsWith("qsv", StringComparison.Ordinal)
+				Decode = profile.QsvDecode
 			};
 
 			if (profile.UseAdvancedTab)

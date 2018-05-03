@@ -19,9 +19,9 @@ namespace VidCoder.Model
 			this.WhenAnyValue(x => x.Name)
 				.Select(name =>
 				{
-					if (this.IsNone)
+					if (this.IsDefault)
 					{
-						return CommonRes.None;
+						return CommonRes.Default;
 					}
 
 					return name;
@@ -33,7 +33,7 @@ namespace VidCoder.Model
         /// Gets or sets a value indicating whether this preset is the special "None" preset
         /// </summary>
 		[JsonProperty]
-		public bool IsNone { get; set; }
+		public bool IsDefault { get; set; }
 
 	    private bool isModified;
 

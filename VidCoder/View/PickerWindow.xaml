@@ -74,8 +74,8 @@
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Top"
 				UseLayoutRounding="True"
-				Visibility="{Binding PickersService.SelectedPicker.Picker.IsNone,
-									 Converter={StaticResource InverseVisibilityConverter}}">
+				Visibility="{Binding PickersService.SelectedPicker.Picker.IsDefault,
+				                     Converter={StaticResource InverseVisibilityConverter}}">
 				<ToolBar Loaded="ToolBar_Loaded" ToolBarTray.IsLocked="True">
 					<ToolBar.Background>
 						<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -87,8 +87,8 @@
 						Height="24"
 						MinWidth="70"
 						Margin="4 0 0 0"
-						Command="{Binding Save}"
-						Padding="5 0">
+						Padding="5 0"
+						Command="{Binding Save}">
 						<StackPanel Orientation="Horizontal">
 							<Image
 								Width="16"
@@ -100,22 +100,22 @@
 					<Button
 						Height="24"
 						MinWidth="70"
-						Command="{Binding SaveAs}"
-						Content="{x:Static res:EncodingRes.SaveAs}"
-						Padding="5 0" />
-					<Button
-						Height="24"
-						MinWidth="70"
-						Command="{Binding Rename}"
-						Content="{x:Static res:EncodingRes.Rename}"
-						Padding="5 0" />
-					<Button
-						Height="24"
-						MinWidth="70"
-						Command="{Binding Delete}"
 						Padding="5 0"
+						Command="{Binding SaveAs}"
+						Content="{x:Static res:EncodingRes.SaveAs}" />
+					<Button
+						Height="24"
+						MinWidth="70"
+						Padding="5 0"
+						Command="{Binding Rename}"
+						Content="{x:Static res:EncodingRes.Rename}" />
+					<Button
+						Height="24"
+						MinWidth="70"
+						Padding="5 0"
+						Command="{Binding Delete}"
 						Visibility="{Binding PickersService.SelectedPicker.Picker.IsModified,
-											 Converter={StaticResource VisibilityConverter}}">
+						                     Converter={StaticResource VisibilityConverter}}">
 						<StackPanel Orientation="Horizontal">
 							<Image
 								Width="16"
@@ -127,10 +127,10 @@
 					<Button
 						Height="24"
 						MinWidth="70"
-						Command="{Binding Delete}"
 						Padding="5 0"
+						Command="{Binding Delete}"
 						Visibility="{Binding DeleteButtonVisible,
-											 Converter={StaticResource VisibilityConverter}}">
+						                     Converter={StaticResource VisibilityConverter}}">
 						<StackPanel Orientation="Horizontal">
 							<Grid Background="Transparent">
 								<Rectangle
@@ -160,7 +160,7 @@
 				Grid.Row="1"
 				Background="{StaticResource DismissableMessageBrush}"
 				Visibility="{Binding ShowHelpMessage,
-									 Converter={StaticResource VisibilityConverter}}">
+				                     Converter={StaticResource VisibilityConverter}}">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition />
 					<ColumnDefinition Width="Auto" />
@@ -168,11 +168,11 @@
 				<TextBlock Margin="10" Text="{x:Static res:PickerRes.PickerHelpText}" />
 				<Button
 					Grid.Column="1"
+					Padding="5"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Top"
 					Command="{Binding DismissMessage}"
 					Content="{x:Static res:CommonRes.DismissMessage}"
-					Padding="5"
 					Style="{StaticResource RemoveButtonStyle}" />
 			</Grid>
 
@@ -206,17 +206,17 @@
 								VerticalContentAlignment="Center"
 								IsEnabled="{Binding OutputDirectoryOverrideEnabled}"
 								Text="{Binding OutputDirectoryOverride,
-											   Mode=TwoWay,
-											   UpdateSourceTrigger=PropertyChanged}" />
+								               Mode=TwoWay,
+								               UpdateSourceTrigger=PropertyChanged}" />
 
 							<Button
 								Grid.Column="2"
 								MinWidth="80"
 								Margin="10 0 0 0"
+								Padding="10 0"
 								Command="{Binding PickOutputDirectory}"
 								Content="{x:Static res:CommonRes.Browse}"
-								IsEnabled="{Binding OutputDirectoryOverrideEnabled}"
-								Padding="10 0" />
+								IsEnabled="{Binding OutputDirectoryOverrideEnabled}" />
 						</Grid>
 						<Grid Margin="0 10 0 0">
 							<Grid.ColumnDefinitions>
@@ -239,9 +239,16 @@
 								VerticalContentAlignment="Center"
 								IsEnabled="{Binding NameFormatOverrideEnabled}"
 								Text="{Binding NameFormatOverride,
-											   Mode=TwoWay,
-											   UpdateSourceTrigger=PropertyChanged}" />
+								               Mode=TwoWay,
+								               UpdateSourceTrigger=PropertyChanged}" />
 						</Grid>
+
+						<TextBlock
+							Margin="22 2 0 10"
+							Text="{Binding NameFormat}"
+							TextWrapping="Wrap"
+							Visibility="{Binding NameFormatOverrideEnabled,
+							                     Converter={StaticResource VisibilityConverter}}" />
 						<CheckBox
 							Height="16"
 							Margin="0 6 0 0"
@@ -302,7 +309,7 @@
 									IsEnabled="{Binding TitleRangeSelectEnabled}"
 									Minimum="0"
 									Number="{Binding TitleRangeSelectStartMinutes,
-													 Mode=TwoWay}" />
+									                 Mode=TwoWay}" />
 								<TextBlock
 									Margin="4 0 4 0"
 									VerticalAlignment="Center"
@@ -313,7 +320,7 @@
 									IsEnabled="{Binding TitleRangeSelectEnabled}"
 									Minimum="0"
 									Number="{Binding TitleRangeSelectEndMinutes,
-													 Mode=TwoWay}" />
+									                 Mode=TwoWay}" />
 								<TextBlock
 									Margin="4 0 0 0"
 									VerticalAlignment="Center"
@@ -328,12 +335,12 @@
 						<RadioButton
 							HorizontalAlignment="Left"
 							VerticalAlignment="Top"
-							Content="{x:Static res:CommonRes.Disabled}"
+							Content="{x:Static res:CommonRes.Default}"
 							GroupName="autoAudio1"
 							IsChecked="{Binding AudioSelectionMode,
-												Converter={StaticResource EnumBoolConverter},
-												ConverterParameter={x:Static model:AudioSelectionMode.Disabled}}"
-							ToolTip="{x:Static res:OptionsRes.AutoAudioDisabledToolTip}" />
+							                    Converter={StaticResource EnumBoolConverter},
+							                    ConverterParameter={x:Static model:AudioSelectionMode.Disabled}}"
+							ToolTip="{x:Static res:PickerRes.AudioDefaultToolTip}" />
 						<RadioButton
 							Margin="0 6 0 0"
 							HorizontalAlignment="Left"
@@ -341,8 +348,8 @@
 							Content="{x:Static res:CommonRes.First}"
 							GroupName="autoAudio2"
 							IsChecked="{Binding AudioSelectionMode,
-												Converter={StaticResource EnumBoolConverter},
-												ConverterParameter={x:Static model:AudioSelectionMode.First}}"
+							                    Converter={StaticResource EnumBoolConverter},
+							                    ConverterParameter={x:Static model:AudioSelectionMode.First}}"
 							ToolTip="{x:Static res:PickerRes.AudioFirstToolTip}" />
 						<StackPanel
 							Margin="0 6 0 0"
@@ -355,14 +362,14 @@
 								Content="{x:Static res:PickerRes.LanguagesRadioButton}"
 								GroupName="autoAudio3"
 								IsChecked="{Binding AudioSelectionMode,
-													Converter={StaticResource EnumBoolConverter},
-													ConverterParameter={x:Static model:AudioSelectionMode.Language}}" />
+								                    Converter={StaticResource EnumBoolConverter},
+								                    ConverterParameter={x:Static model:AudioSelectionMode.Language}}" />
 							<StackPanel
 								Margin="0 -3 0 0"
 								Orientation="Horizontal"
 								Visibility="{Binding AudioSelectionMode,
-													 Converter={StaticResource EnumVisibilityConverter},
-													 ConverterParameter={x:Static model:AudioSelectionMode.Language}}">
+								                     Converter={StaticResource EnumVisibilityConverter},
+								                     ConverterParameter={x:Static model:AudioSelectionMode.Language}}">
 								<ItemsControl
 									Margin="10 0 0 0"
 									HorizontalAlignment="Left"
@@ -383,7 +390,7 @@
 													Content="{x:Static res:PickerRes.RemoveLanguageToolTip}"
 													Style="{StaticResource RemoveButtonStyle}"
 													Visibility="{Binding PickerWindowViewModel.HasMultipleAudioLanguages,
-																		 Converter={StaticResource VisibilityConverter}}" />
+													                     Converter={StaticResource VisibilityConverter}}" />
 											</StackPanel>
 										</DataTemplate>
 									</ItemsControl.ItemTemplate>
@@ -391,10 +398,10 @@
 								<Button
 									Height="23"
 									Margin="10 0 0 0"
+									Padding="5 0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Top"
 									Command="{Binding AddAudioLanguage}"
-									Padding="5 0"
 									UseLayoutRounding="True">
 									<StackPanel Orientation="Horizontal">
 										<Polygon Style="{StaticResource PlusSign}" />
@@ -410,14 +417,14 @@
 								Content="{Binding AudioFirstTrackLabel}"
 								GroupName="autoAudioLanguage1"
 								IsChecked="{Binding AudioLanguageAll,
-													Converter={StaticResource InverseBoolRadioConverter}}" />
+								                    Converter={StaticResource InverseBoolRadioConverter}}" />
 
 							<RadioButton
 								Margin="0 6 0 0"
 								Content="{Binding AudioAllTracksLabel}"
 								GroupName="autoAudioLanguage2"
 								IsChecked="{Binding AudioLanguageAll,
-													Converter={StaticResource BoolRadioConverter}}" />
+								                    Converter={StaticResource BoolRadioConverter}}" />
 						</StackPanel>
 
 						<RadioButton
@@ -427,16 +434,16 @@
 							Content="{x:Static res:CommonRes.All}"
 							GroupName="autoAudio4"
 							IsChecked="{Binding AudioSelectionMode,
-												Converter={StaticResource EnumBoolConverter},
-												ConverterParameter={x:Static model:AudioSelectionMode.All}}"
+							                    Converter={StaticResource EnumBoolConverter},
+							                    ConverterParameter={x:Static model:AudioSelectionMode.All}}"
 							ToolTip="{x:Static res:PickerRes.AudioAllToolTip}" />
 
 						<StackPanel
 							Margin="20 4 0 0"
 							Orientation="Horizontal"
 							Visibility="{Binding AudioSelectionMode,
-												 Converter={StaticResource EnumVisibilityConverter},
-												 ConverterParameter={x:Static model:AudioSelectionMode.All}}">
+							                     Converter={StaticResource EnumVisibilityConverter},
+							                     ConverterParameter={x:Static model:AudioSelectionMode.All}}">
 							<TextBlock
 								Margin="0 2 0 0"
 								VerticalAlignment="Top"
@@ -447,7 +454,7 @@
 								Style="{StaticResource DescriptiveText}"
 								Text="{x:Static res:MainRes.NoneParen}"
 								Visibility="{Binding HasNoAudioLanguages,
-													 Converter={StaticResource VisibilityConverter}}" />
+								                     Converter={StaticResource VisibilityConverter}}" />
 
 							<ItemsControl
 								Margin="10 0 0 0"
@@ -475,10 +482,10 @@
 							<Button
 								Height="23"
 								Margin="10 0 0 0"
+								Padding="5 0"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Command="{Binding AddAudioLanguage}"
-								Padding="5 0"
 								UseLayoutRounding="True">
 								<StackPanel Orientation="Horizontal">
 									<Polygon Style="{StaticResource PlusSign}" />
@@ -494,12 +501,12 @@
 						<RadioButton
 							HorizontalAlignment="Left"
 							VerticalAlignment="Top"
-							Content="{x:Static res:CommonRes.Disabled}"
+							Content="{x:Static res:PickerRes.LastSelectedRadioButton}"
 							GroupName="autoSubtitle1"
 							IsChecked="{Binding SubtitleSelectionMode,
-												Converter={StaticResource EnumBoolConverter},
-												ConverterParameter={x:Static model:SubtitleSelectionMode.Disabled}}"
-							ToolTip="{x:Static res:OptionsRes.AutoSubtitleDisabledToolTip}" />
+							                    Converter={StaticResource EnumBoolConverter},
+							                    ConverterParameter={x:Static model:SubtitleSelectionMode.Disabled}}"
+							ToolTip="{x:Static res:PickerRes.SubtitleLastSelectedToolTip}" />
 						<RadioButton
 							Margin="0 6 0 0"
 							HorizontalAlignment="Left"
@@ -507,8 +514,8 @@
 							Content="{x:Static res:CommonRes.None}"
 							GroupName="autoSubtitle2"
 							IsChecked="{Binding SubtitleSelectionMode,
-												Converter={StaticResource EnumBoolConverter},
-												ConverterParameter={x:Static model:SubtitleSelectionMode.None}}"
+							                    Converter={StaticResource EnumBoolConverter},
+							                    ConverterParameter={x:Static model:SubtitleSelectionMode.None}}"
 							ToolTip="{x:Static res:PickerRes.SubtitleNoneToolTip}" />
 						<RadioButton
 							Margin="0 6 0 0"
@@ -517,8 +524,8 @@
 							Content="{x:Static res:CommonRes.First}"
 							GroupName="autoSubtitle2"
 							IsChecked="{Binding SubtitleSelectionMode,
-												Converter={StaticResource EnumBoolConverter},
-												ConverterParameter={x:Static model:SubtitleSelectionMode.First}}"
+							                    Converter={StaticResource EnumBoolConverter},
+							                    ConverterParameter={x:Static model:SubtitleSelectionMode.First}}"
 							ToolTip="{x:Static res:PickerRes.SubtitleFirstToolTip}" />
 						<RadioButton
 							Margin="0 6 0 0"
@@ -527,8 +534,8 @@
 							Content="{x:Static res:PickerRes.ForeignAudioSearchRadioButton}"
 							GroupName="autoSubtitle3"
 							IsChecked="{Binding SubtitleSelectionMode,
-												Converter={StaticResource EnumBoolConverter},
-												ConverterParameter={x:Static model:SubtitleSelectionMode.ForeignAudioSearch}}"
+							                    Converter={StaticResource EnumBoolConverter},
+							                    ConverterParameter={x:Static model:SubtitleSelectionMode.ForeignAudioSearch}}"
 							ToolTip="{x:Static res:CommonRes.ForeignAudioSearchToolTip}" />
 
 						<StackPanel
@@ -542,14 +549,14 @@
 								Content="{x:Static res:PickerRes.LanguagesRadioButton}"
 								GroupName="autoSubtitle4"
 								IsChecked="{Binding SubtitleSelectionMode,
-													Converter={StaticResource EnumBoolConverter},
-													ConverterParameter={x:Static model:SubtitleSelectionMode.Language}}" />
+								                    Converter={StaticResource EnumBoolConverter},
+								                    ConverterParameter={x:Static model:SubtitleSelectionMode.Language}}" />
 							<StackPanel
 								Margin="0 -3 0 0"
 								Orientation="Horizontal"
 								Visibility="{Binding SubtitleSelectionMode,
-													 Converter={StaticResource EnumVisibilityConverter},
-													 ConverterParameter={x:Static model:SubtitleSelectionMode.Language}}">
+								                     Converter={StaticResource EnumVisibilityConverter},
+								                     ConverterParameter={x:Static model:SubtitleSelectionMode.Language}}">
 
 								<ItemsControl
 									Margin="10 0 0 0"
@@ -571,7 +578,7 @@
 													Content="{x:Static res:PickerRes.RemoveLanguageToolTip}"
 													Style="{StaticResource RemoveButtonStyle}"
 													Visibility="{Binding PickerWindowViewModel.HasMultipleSubtitleLanguages,
-																		 Converter={StaticResource VisibilityConverter}}" />
+													                     Converter={StaticResource VisibilityConverter}}" />
 											</StackPanel>
 										</DataTemplate>
 									</ItemsControl.ItemTemplate>
@@ -579,10 +586,10 @@
 								<Button
 									Height="23"
 									Margin="10 0 0 0"
+									Padding="5 0"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Top"
 									Command="{Binding AddSubtitleLanguage}"
-									Padding="5 0"
 									UseLayoutRounding="True">
 									<StackPanel Orientation="Horizontal">
 										<Polygon Style="{StaticResource PlusSign}" />
@@ -604,13 +611,13 @@
 								Content="{Binding SubtitleFirstTrackLabel}"
 								GroupName="autoSubtitleLanguage1"
 								IsChecked="{Binding SubtitleLanguageAll,
-													Converter={StaticResource InverseBoolRadioConverter}}" />
+								                    Converter={StaticResource InverseBoolRadioConverter}}" />
 							<RadioButton
 								Margin="0 6 0 0"
 								Content="{Binding SubtitleAllTracksLabel}"
 								GroupName="autoSubtitleLanguage2"
 								IsChecked="{Binding SubtitleLanguageAll,
-													Converter={StaticResource BoolRadioConverter}}" />
+								                    Converter={StaticResource BoolRadioConverter}}" />
 						</StackPanel>
 
 						<RadioButton
@@ -618,16 +625,16 @@
 							Content="{x:Static res:CommonRes.All}"
 							GroupName="autoSubtitle5"
 							IsChecked="{Binding SubtitleSelectionMode,
-												Converter={StaticResource EnumBoolConverter},
-												ConverterParameter={x:Static model:SubtitleSelectionMode.All}}"
+							                    Converter={StaticResource EnumBoolConverter},
+							                    ConverterParameter={x:Static model:SubtitleSelectionMode.All}}"
 							ToolTip="{x:Static res:PickerRes.AllSubtitlesToolTip}" />
 
 						<StackPanel
 							Margin="20 4 0 0"
 							Orientation="Horizontal"
 							Visibility="{Binding SubtitleSelectionMode,
-												 Converter={StaticResource EnumVisibilityConverter},
-												 ConverterParameter={x:Static model:SubtitleSelectionMode.All}}">
+							                     Converter={StaticResource EnumVisibilityConverter},
+							                     ConverterParameter={x:Static model:SubtitleSelectionMode.All}}">
 							<TextBlock
 								Margin="0 2 0 0"
 								VerticalAlignment="Top"
@@ -638,7 +645,7 @@
 								Style="{StaticResource DescriptiveText}"
 								Text="{x:Static res:MainRes.NoneParen}"
 								Visibility="{Binding HasNoSubtitleLanguages,
-													 Converter={StaticResource VisibilityConverter}}" />
+								                     Converter={StaticResource VisibilityConverter}}" />
 
 							<ItemsControl
 								Margin="10 0 0 0"
@@ -666,10 +673,10 @@
 							<Button
 								Height="23"
 								Margin="10 0 0 0"
+								Padding="5 0"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Command="{Binding AddSubtitleLanguage}"
-								Padding="5 0"
 								UseLayoutRounding="True">
 								<StackPanel Orientation="Horizontal">
 									<Polygon Style="{StaticResource PlusSign}" />
@@ -684,8 +691,8 @@
 							IsChecked="{Binding SubtitleForcedOnly}"
 							ToolTip="{x:Static res:CommonRes.ForcedSubtitleToolTip}"
 							Visibility="{Binding SubtitleModChoices,
-												 Converter={StaticResource EnumVisibilityInverseConverter},
-												 ConverterParameter={x:Static viewModel:SubtitleModifierChoices.None}}" />
+							                     Converter={StaticResource EnumVisibilityInverseConverter},
+							                     ConverterParameter={x:Static viewModel:SubtitleModifierChoices.None}}" />
 
 						<StackPanel Orientation="Vertical" Visibility="{Binding SubtitleModChoices, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter={x:Static viewModel:SubtitleModifierChoices.Single}}">
 							<CheckBox
@@ -707,8 +714,8 @@
 							IsChecked="{Binding SubtitleDefault}"
 							ToolTip="{x:Static res:PickerRes.MultipleSubtitleDefaultToolTip}"
 							Visibility="{Binding SubtitleModChoices,
-												 Converter={StaticResource EnumVisibilityConverter},
-												 ConverterParameter={x:Static viewModel:SubtitleModifierChoices.Multiple}}" />
+							                     Converter={StaticResource EnumVisibilityConverter},
+							                     ConverterParameter={x:Static viewModel:SubtitleModifierChoices.Multiple}}" />
 					</StackPanel>
 
 					<!--  Encoding  -->
@@ -720,12 +727,15 @@
 								Content="{x:Static res:PickerRes.PresetLabel}"
 								IsChecked="{Binding UseEncodingPreset}" />
 
-							<ComboBox
+							<controls:PresetComboBox
 								Margin="6 0 0 0"
 								VerticalAlignment="Center"
-								IsEnabled="{Binding UseEncodingPreset}"
-								SelectedItem="{Binding SelectedPreset}"
-								Style="{StaticResource PresetComboStyle}" />
+								PreviewKeyDown="OnPresetComboPreviewKeyDown"
+								SelectedItem="{Binding SelectedPreset,
+								                       Mode=TwoWay}"
+								UseLayoutRounding="True"
+								Visibility="{Binding UseEncodingPreset,
+								                     Converter={StaticResource VisibilityConverter}}" />
 						</StackPanel>
 
 						<CheckBox
@@ -741,54 +751,56 @@
 					</StackPanel>
 
 					<!--  Post-encoding  -->
-					<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.PostEncodingSection}" />
-					<StackPanel Style="{StaticResource ConfigSectionStack}">
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition />
-								<ColumnDefinition Width="Auto" />
-							</Grid.ColumnDefinitions>
-							<CheckBox Content="{x:Static res:PickerRes.SendFileToLabel}" IsChecked="{Binding PostEncodeActionEnabled}" />
+					<StackPanel Orientation="Vertical" Visibility="{Binding IsRunningAsAppx, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource InverseVisibilityConverter}}">
+						<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:PickerRes.PostEncodingSection}" />
+						<StackPanel Style="{StaticResource ConfigSectionStack}">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<CheckBox Content="{x:Static res:PickerRes.SendFileToLabel}" IsChecked="{Binding PostEncodeActionEnabled}" />
 
-							<TextBox
-								Grid.Column="1"
-								Height="22"
-								Margin="5 0 0 0"
-								VerticalAlignment="Center"
-								VerticalContentAlignment="Center"
-								IsEnabled="{Binding PostEncodeActionEnabled}"
-								Text="{Binding PostEncodeExecutable,
-											   Mode=TwoWay,
-											   UpdateSourceTrigger=PropertyChanged}" />
+								<TextBox
+									Grid.Column="1"
+									Height="22"
+									Margin="5 0 0 0"
+									VerticalAlignment="Center"
+									VerticalContentAlignment="Center"
+									IsEnabled="{Binding PostEncodeActionEnabled}"
+									Text="{Binding PostEncodeExecutable,
+									               Mode=TwoWay,
+									               UpdateSourceTrigger=PropertyChanged}" />
 
-							<Button
-								Grid.Column="2"
-								Margin="10 0 0 0"
-								Command="{Binding PickPostEncodeExecutable}"
-								Content="{x:Static res:CommonRes.Browse}"
-								IsEnabled="{Binding PostEncodeActionEnabled}"
-								Padding="10 0" />
-						</Grid>
-						<Grid Margin="20 6 0 0" ToolTip="{x:Static res:PickerRes.PostEncodeArgumentsToolTip}">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition />
-							</Grid.ColumnDefinitions>
+								<Button
+									Grid.Column="2"
+									Margin="10 0 0 0"
+									Padding="10 0"
+									Command="{Binding PickPostEncodeExecutable}"
+									Content="{x:Static res:CommonRes.Browse}"
+									IsEnabled="{Binding PostEncodeActionEnabled}" />
+							</Grid>
+							<Grid Margin="20 6 0 0" ToolTip="{x:Static res:PickerRes.PostEncodeArgumentsToolTip}">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition />
+								</Grid.ColumnDefinitions>
 
-							<TextBlock Text="{x:Static res:PickerRes.PostEncodeArgumentsLabel}" />
+								<TextBlock Text="{x:Static res:PickerRes.PostEncodeArgumentsLabel}" />
 
-							<TextBox
-								Grid.Column="1"
-								Height="22"
-								Margin="5 0 0 0"
-								VerticalAlignment="Center"
-								VerticalContentAlignment="Center"
-								IsEnabled="{Binding PostEncodeActionEnabled}"
-								Text="{Binding PostEncodeArguments,
-											   Mode=TwoWay,
-											   UpdateSourceTrigger=PropertyChanged}" />
-						</Grid>
+								<TextBox
+									Grid.Column="1"
+									Height="22"
+									Margin="5 0 0 0"
+									VerticalAlignment="Center"
+									VerticalContentAlignment="Center"
+									IsEnabled="{Binding PostEncodeActionEnabled}"
+									Text="{Binding PostEncodeArguments,
+									               Mode=TwoWay,
+									               UpdateSourceTrigger=PropertyChanged}" />
+							</Grid>
+						</StackPanel>
 					</StackPanel>
 				</StackPanel>
 			</ScrollViewer>

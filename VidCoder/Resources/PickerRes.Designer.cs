@@ -19,7 +19,7 @@ namespace VidCoder.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class PickerRes {
@@ -102,6 +102,15 @@ namespace VidCoder.Resources {
         public static string AudioAllToolTip {
             get {
                 return ResourceManager.GetString("AudioAllToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Picks the last selected audio track if a match is found, otherwise picks the first..
+        /// </summary>
+        public static string AudioDefaultToolTip {
+            get {
+                return ResourceManager.GetString("AudioDefaultToolTip", resourceCulture);
             }
         }
         
@@ -232,6 +241,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last selected.
+        /// </summary>
+        public static string LastSelectedRadioButton {
+            get {
+                return ResourceManager.GetString("LastSelectedRadioButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mark the first subtitle track as default, so it shows up automatically when playing the video..
         /// </summary>
         public static string MultipleSubtitleDefaultToolTip {
@@ -268,6 +286,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available options: {0}.
+        /// </summary>
+        public static string OverrideNameFormatLabel {
+            get {
+                return ResourceManager.GetString("OverrideNameFormatLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Picker: {0}.
         /// </summary>
         public static string PickerButtonFormat {
@@ -295,7 +322,7 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The arguments to pass to the program. Use {file} for the file output path..
+        ///   Looks up a localized string similar to The arguments to pass to the program. Use {file} for the file output path, {folder} as containing folder path or other path options like {title} and {date} (see Naming Format)..
         /// </summary>
         public static string PostEncodeArgumentsToolTip {
             get {
@@ -381,6 +408,15 @@ namespace VidCoder.Resources {
         public static string SubtitleFirstToolTip {
             get {
                 return ResourceManager.GetString("SubtitleFirstToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Picks the last selected subtitle track if a match is found, otherwise or no tracks..
+        /// </summary>
+        public static string SubtitleLastSelectedToolTip {
+            get {
+                return ResourceManager.GetString("SubtitleLastSelectedToolTip", resourceCulture);
             }
         }
         

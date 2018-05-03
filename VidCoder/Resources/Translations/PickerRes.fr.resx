@@ -190,10 +190,7 @@
     <value>Arguments :</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>Arguments à passer au programme. Utilisez {file} pour le chemin de sortie de fichier.</value>
-    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
-  </data>
+  
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>Sélecteur a spécifié le préréglage de codage.</value>
   </data>
@@ -246,5 +243,9 @@
   <data name="SortLanguagesLabel" xml:space="preserve">
     <value>Trier les langue (s) haut de la page :</value>
   </data>
+  
+  
+  
+  
   
 </root>

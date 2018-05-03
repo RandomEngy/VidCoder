@@ -134,6 +134,7 @@
   </data>
   <data name="CombDetect_permissive" xml:space="preserve">
     <value>弱く</value>
+    <comment>This mode allows higher levels of combing before triggering.</comment>
   </data>
   <data name="Custom" xml:space="preserve">
     <value>カスタム</value>
@@ -220,6 +221,8 @@
   <data name="Off" xml:space="preserve">
     <value>オフ</value>
   </data>
+  
+  
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>ブルーレイ</value>
     <comment>What to display when the source is a Blu-ray</comment>

@@ -96,6 +96,11 @@ namespace VidCoder
 		// Usually called before exiting the program.
 		public override void StopAndWait()
 		{
+			if (this.encodeStartEvent == null)
+			{
+				return;
+			}
+
 			this.encodeStartEvent.Wait();
 			bool waitForEnd;
 
@@ -137,7 +142,7 @@ namespace VidCoder
 			this.encodeStartEvent.Set();
 		}
 
-		public void OnEncodeProgress(float averageFrameRate, float currentFrameRate, TimeSpan estimatedTimeLeft, float fractionComplete, int passId, int pass, int passCount)
+		public void OnEncodeProgress(float averageFrameRate, float currentFrameRate, TimeSpan estimatedTimeLeft, float fractionComplete, int passId, int pass, int passCount, string stateCode)
 		{
 			// Dispatch to avoid deadlocks on callbacks
 			DispatchUtilities.BeginInvoke(() =>
@@ -150,7 +155,7 @@ namespace VidCoder
 						{
 							this.EncodeProgress(
 								this,
-								new EncodeProgressEventArgs(fractionComplete, currentFrameRate, averageFrameRate, estimatedTimeLeft, passId, pass, passCount));
+								new EncodeProgressEventArgs(fractionComplete, currentFrameRate, averageFrameRate, estimatedTimeLeft, passId, pass, passCount, stateCode));
 						}
 					}
 				});

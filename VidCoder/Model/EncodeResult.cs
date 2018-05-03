@@ -11,6 +11,7 @@ namespace VidCoder.Model
 		public EncodeResultStatus Status { get; set; }
 		public TimeSpan EncodeTime { get; set; }
 		public string LogPath { get; set; }
+		public long SizeBytes { get; set; }
 
 		public bool Succeeded
 		{

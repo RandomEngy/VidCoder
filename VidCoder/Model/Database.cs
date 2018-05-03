@@ -82,6 +82,11 @@ namespace VidCoder.Model
 					UpgradeDatabaseTo35();
 				}
 
+				if (databaseVersion < 36)
+				{
+					UpgradeDatabaseTo36();
+				}
+
 				// Update encoding profiles if we need to. Everything is at least 28 now from the JSON upgrade.
 				int oldDatabaseVersion = Math.Max(databaseVersion, 28);
                 if (oldDatabaseVersion < Utilities.LastUpdatedEncodingProfileDatabaseVersion)
@@ -229,6 +234,10 @@ namespace VidCoder.Model
 
 		private static string BackupDatabaseFolder => Path.Combine(Utilities.AppFolder, BackupFolderName);
 
+		/// <summary>
+		/// Returns the version number of highest version database file that is still compatible with this build of VidCoder.
+		/// </summary>
+		/// <returns>The best version match.</returns>
 		private static int FindBackupDatabaseFile()
 		{
 			DirectoryInfo backupDirectoryInfo = new DirectoryInfo(BackupDatabaseFolder);
@@ -449,6 +458,16 @@ namespace VidCoder.Model
 			ExecuteNonQuery("DROP TABLE settingsOld", connection);
 		}
 
+		private static void UpgradeDatabaseTo36()
+		{
+			ExecuteNonQuery(
+				"CREATE TABLE presetFolders (" +
+				"id INTEGER PRIMARY KEY AUTOINCREMENT," +
+				"name TEXT, " +
+				"parentId INTEGER, " +
+				"isExpanded INTEGER)", connection);
+		}
+
 		private static void UpgradeWindowPlacementConfig(string configKey, Encoding encoding, XmlSerializer serializer)
 		{
 			string oldValue = DatabaseConfig.Get(configKey, string.Empty, connection);
@@ -651,9 +670,15 @@ namespace VidCoder.Model
 				if (CommonUtilities.Beta && Directory.Exists(Utilities.GetAppFolder(beta: false)))
 				{
 					// In beta mode if we don't have the appdata folder copy the stable appdata folder
-					FileUtilities.CopyDirectory(
-						Utilities.GetAppFolder(beta: false),
-						Utilities.GetAppFolder(beta: true));
+					try
+					{
+						FileUtilities.CopyDirectory(
+							Utilities.GetAppFolder(beta: false),
+							Utilities.GetAppFolder(beta: true));
+					}
+					catch (Exception)
+					{
+					}
 				}
 				else
 				{
@@ -679,10 +704,19 @@ namespace VidCoder.Model
 
 		public static void CreateTables(SQLiteConnection connection)
 		{
-			ExecuteNonQuery("CREATE TABLE presetsJson (" +
+			ExecuteNonQuery(
+				"CREATE TABLE presetsJson (" +
 				"json TEXT)", connection);
 
-			ExecuteNonQuery("CREATE TABLE pickersJson (" +
+			ExecuteNonQuery(
+				"CREATE TABLE presetFolders (" +
+				"id INTEGER PRIMARY KEY AUTOINCREMENT," +
+				"name TEXT, " +
+				"parentId INTEGER, " +
+				"isExpanded INTEGER)", connection);
+
+			ExecuteNonQuery(
+				"CREATE TABLE pickersJson (" +
 				"json TEXT)", connection);
 
 			ExecuteNonQuery(

@@ -23,10 +23,17 @@ namespace VidCoderWorker
 		private HandBrakeInstance instance;
 		private object encodeLock = new object();
 
-		// These are saved when SetUpWorker is called and used when StartScan or StartEncode is called.
+
+		// Some encoders overwrite the CPU affinity of the process when they start encoding. For CPU
+		// throttling to work we need to set it back when a new pass starts.
+		// This is the pass ID we last set CPU affinity for.
+		private int lastSetAffinityPassId = -2;
+
+		// These are saved when SetUpWorker is called and used later.
 		private int passedVerbosity;
 		private int passedPreviewCount;
 		private double passedMinTitleDurationSeconds;
+		private double passedCpuThrottlingFraction;
 
 		// True if we are encoding (not scanning)
 		private EncodeState state = EncodeState.NotStarted;
@@ -46,6 +53,7 @@ namespace VidCoderWorker
 			this.passedVerbosity = verbosity;
 			this.passedPreviewCount = previewCount;
 			this.passedMinTitleDurationSeconds = minTitleDurationSeconds;
+			this.passedCpuThrottlingFraction = cpuThrottlingFraction;
 
 			CurrentWorker = this;
 			this.callback = OperationContext.Current.GetCallbackChannel<IHandBrakeWorkerCallback>();
@@ -59,34 +67,12 @@ namespace VidCoderWorker
 					Environment.SetEnvironmentVariable("TMP", tempFolder, EnvironmentVariableTarget.Process);
 				}
 
-				if (cpuThrottlingFraction < 1.0)
-				{
-					int coresToUse = (int)Math.Round(Environment.ProcessorCount * cpuThrottlingFraction);
-					if (coresToUse < 1)
-					{
-						coresToUse = 1;
-					}
-
-					if (coresToUse > Environment.ProcessorCount)
-					{
-						coresToUse = Environment.ProcessorCount;
-					}
-
-					Process process = Process.GetCurrentProcess();
-					long affinityMask = 0x0;
-					for (int i = 0; i < coresToUse; i++)
-					{
-						affinityMask |= (uint)(1 << i);
-					}
-
-					process.ProcessorAffinity = (IntPtr)affinityMask;
-				}
-
 				if (this.callback == null)
 				{
 					throw new ArgumentException("Could not get callback channel.");
 				}
 
+				this.ApplyCpuThrottling();
 
 				HandBrakeUtils.MessageLogged += (o, e) =>
 				{
@@ -237,7 +223,13 @@ namespace VidCoderWorker
                 {
                     this.StopOnException(() =>
                     {
-                        this.callback.OnEncodeProgress((float)e.AverageFrameRate, (float)e.CurrentFrameRate, e.EstimatedTimeLeft, (float)e.FractionComplete, e.PassId, e.Pass, e.PassCount);
+	                    if (e.PassId > this.lastSetAffinityPassId && e.FractionComplete > 0)
+	                    {
+							this.ApplyCpuThrottling();
+		                    this.lastSetAffinityPassId = e.PassId;
+	                    }
+
+						this.callback.OnEncodeProgress((float)e.AverageFrameRate, (float)e.CurrentFrameRate, e.EstimatedTimeLeft, (float)e.FractionComplete, e.PassId, e.Pass, e.PassCount, e.StateCode);
                     });
                 };
 
@@ -348,6 +340,32 @@ namespace VidCoderWorker
 				WorkerErrorLogger.LogError("Got exception: " + exception, isError: true);
 
 				this.StopEncodeIfPossible();
+			}
+		}
+
+		private void ApplyCpuThrottling()
+		{
+			if (this.passedCpuThrottlingFraction < 1.0)
+			{
+				int coresToUse = (int)Math.Round(Environment.ProcessorCount * this.passedCpuThrottlingFraction);
+				if (coresToUse < 1)
+				{
+					coresToUse = 1;
+				}
+
+				if (coresToUse > Environment.ProcessorCount)
+				{
+					coresToUse = Environment.ProcessorCount;
+				}
+
+				Process process = Process.GetCurrentProcess();
+				long affinityMask = 0x0;
+				for (int i = 0; i < coresToUse; i++)
+				{
+					affinityMask |= (uint)(1 << i);
+				}
+
+				process.ProcessorAffinity = (IntPtr)affinityMask;
 			}
 		}
 	}

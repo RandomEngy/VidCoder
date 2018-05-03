@@ -25,6 +25,12 @@ namespace VidCoderCommon.Model
 			set { this.RaiseAndSetIfChanged(ref this.name, value); }
 		}
 
+		/// <summary>
+		/// Gets or sets the folder ID. 0 is the root "Custom" folder.
+		/// </summary>
+		[JsonProperty]
+		public long FolderId { get; set; }
+
 		[JsonProperty]
 		public bool IsBuiltIn { get; set; }
 

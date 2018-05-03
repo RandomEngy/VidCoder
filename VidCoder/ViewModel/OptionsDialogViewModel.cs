@@ -40,29 +40,18 @@ namespace VidCoder.ViewModel
 		{
 			this.updater = updateService;
 
-			// UpdatesEnabled
-			this.WhenAnyValue(x => x.UpdatesEnabledConfig)
-				.Select(updatesEnabledConfig =>
-				{
-					if (Utilities.IsPortable)
-					{
-						return false;
-					}
+			this.Tabs = new List<string>
+			{
+				OptionsRes.GeneralTab,			// 0
+				OptionsRes.FileNamingTab,		// 1
+				OptionsRes.ProcessTab,			// 2
+				OptionsRes.AdvancedTab,			// 3
+			};
 
-					return updatesEnabledConfig;
-				}).ToProperty(this, x => x.UpdatesEnabled, out this.updatesEnabled);
-
-			// ShowUpdateStatus
-			this.WhenAnyValue(x => x.UpdatesEnabledConfig)
-				.Select(updatesEnabledConfig =>
-				{
-					if (Utilities.IsPortable)
-					{
-						return false;
-					}
-
-					return updatesEnabledConfig;
-				}).ToProperty(this, x => x.ShowUpdateStatus, out this.showUpdateStatus); ;
+			if (Utilities.SupportsUpdates)
+			{
+				this.Tabs.Add(OptionsRes.UpdatesTab); // 4
+			}
 
 			// UpdateStatus
 			this.updater
@@ -202,6 +191,7 @@ namespace VidCoder.ViewModel
 					{
 						new InterfaceLanguage { CultureCode = string.Empty, Display = OptionsRes.UseOSLanguage },
 						new InterfaceLanguage { CultureCode = "en-US", Display = "English" },
+						new InterfaceLanguage { CultureCode = "id-ID", Display = "Bahasa Indonesia / Indonesian" },
 						new InterfaceLanguage { CultureCode = "bs-Latn-BA", Display = "bosanski (Bosna i Hercegovina) / Bosnian (Latin)" },
 						new InterfaceLanguage { CultureCode = "cs-CZ", Display = "čeština / Czech" },
 						new InterfaceLanguage { CultureCode = "de-DE", Display = "Deutsch / German" },
@@ -297,20 +287,7 @@ namespace VidCoder.ViewModel
 			return base.OnClosing();
 		}
 
-		public IList<string> Tabs
-		{
-			get
-			{
-				return new List<string>
-					{
-						OptionsRes.GeneralTab,			// 0
-						OptionsRes.FileNamingTab,		// 1
-						OptionsRes.ProcessTab,			// 2
-						OptionsRes.AdvancedTab,			// 3
-						OptionsRes.UpdatesTab			// 4
-					};
-			}
-		}
+		public IList<string> Tabs { get; }
 
 		private int selectedTabIndex;
 		public int SelectedTabIndex
@@ -357,20 +334,6 @@ namespace VidCoder.ViewModel
 			set { this.RaiseAndSetIfChanged(ref this.updatesEnabledConfig, value); }
 		}
 
-		private ObservableAsPropertyHelper<bool> updatesEnabled;
-		public bool UpdatesEnabled => this.updatesEnabled.Value;
-
-		private ObservableAsPropertyHelper<bool> showUpdateStatus;
-		public bool ShowUpdateStatus => this.showUpdateStatus.Value;
-
-		public bool BuildSupportsUpdates
-		{
-			get
-			{
-				return !Utilities.IsPortable;
-			}
-		}
-
 		private ObservableAsPropertyHelper<string> updateStatus;
 		public string UpdateStatus => this.updateStatus.Value;
 
@@ -385,8 +348,6 @@ namespace VidCoder.ViewModel
 		public string BetaChangelogUrl => CommonUtilities.Beta ? string.Empty : (this.betaInfo?.ChangelogUrl ?? string.Empty);
 
 		public bool BetaSectionVisible => CommonUtilities.Beta || this.betaInfoAvailable;
-
-		public bool InBeta => CommonUtilities.Beta;
 
 		public List<IVideoPlayer> PlayerChoices => this.playerChoices;
 

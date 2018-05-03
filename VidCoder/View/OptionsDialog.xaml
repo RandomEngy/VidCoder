@@ -9,6 +9,7 @@
 	xmlns:my="clr-namespace:VidCoder.Controls"
 	xmlns:prop="clr-namespace:VidCoder.Properties"
 	xmlns:res="clr-namespace:VidCoder.Resources"
+	xmlns:vidCoder="clr-namespace:VidCoder"
 	xmlns:vm="clr-namespace:VidCoder.ViewModel"
 	Title="{x:Static res:OptionsRes.OptionsDialogTitle}"
 	Width="576"
@@ -65,7 +66,10 @@
 				</ListBox.ItemTemplate>
 			</ListBox>
 		</Grid>
-		<Grid Grid.Column="1" Margin="0 0 0 0">
+		<Grid
+			Grid.Row="0"
+			Grid.Column="1"
+			Margin="0 0 0 0">
 			<ScrollViewer Background="White" VerticalScrollBarVisibility="Auto">
 				<Grid Margin="15 8 10 5">
 					<!--  General  -->
@@ -93,62 +97,64 @@
 						<!--  Players  -->
 						<TextBlock Style="{StaticResource ConfigSectionHeader}" Text="{x:Static res:OptionsRes.PlayersSection}" />
 						<StackPanel Style="{StaticResource ConfigSectionStack}">
-							<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-								<TextBlock
-									VerticalAlignment="Center"
-									Text="{x:Static res:OptionsRes.PreferredDvdPlayerLabel}"
-									ToolTip="{x:Static res:OptionsRes.PreferredDvdPlayerToolTip}" />
-								<ComboBox
-									Height="23"
-									Margin="5 0 0 0"
-									HorizontalAlignment="Left"
-									VerticalAlignment="Top"
-									DisplayMemberPath="Display"
-									ItemsSource="{Binding PlayerChoices}"
-									SelectedItem="{Binding SelectedPlayer}"
-									ToolTip="{x:Static res:OptionsRes.PreferredDvdPlayerToolTip}" />
-							</StackPanel>
-							<TextBlock Margin="0 6 0 0" Text="{x:Static res:OptionsRes.VideoFilesLabel}" />
-							<RadioButton
-								Margin="20 6 0 0"
-								HorizontalAlignment="Left"
-								Content="{x:Static res:OptionsRes.UseSystemPlayer}"
-								GroupName="customVideo1"
-								IsChecked="{Binding UseCustomVideoPlayer,
-								                    Converter={StaticResource InverseBoolConverter}}" />
-							<Grid
-								Margin="20 6 0 0"
-								HorizontalAlignment="Stretch"
-								ToolTip="{x:Static res:OptionsRes.CustomVideoPlayerToolTip}">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition />
-									<ColumnDefinition Width="Auto" />
-								</Grid.ColumnDefinitions>
+							<StackPanel Orientation="Vertical" Visibility="{Binding IsRunningAsAppx, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource InverseVisibilityConverter}}">
+								<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+									<TextBlock
+										VerticalAlignment="Center"
+										Text="{x:Static res:OptionsRes.PreferredDvdPlayerLabel}"
+										ToolTip="{x:Static res:OptionsRes.PreferredDvdPlayerToolTip}" />
+									<ComboBox
+										Height="23"
+										Margin="5 0 0 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Top"
+										DisplayMemberPath="Display"
+										ItemsSource="{Binding PlayerChoices}"
+										SelectedItem="{Binding SelectedPlayer}"
+										ToolTip="{x:Static res:OptionsRes.PreferredDvdPlayerToolTip}" />
+								</StackPanel>
+								<TextBlock Margin="0 6 0 0" Text="{x:Static res:OptionsRes.VideoFilesLabel}" />
 								<RadioButton
-									Margin="0 0 6 0"
+									Margin="20 6 0 0"
 									HorizontalAlignment="Left"
-									VerticalAlignment="Center"
-									Content="{x:Static res:OptionsRes.CustomPlayerLabel}"
+									Content="{x:Static res:OptionsRes.UseSystemPlayer}"
 									GroupName="customVideo1"
-									IsChecked="{Binding UseCustomVideoPlayer}"
-									Style="{StaticResource GrayOnDisabledControl}" />
-								<TextBox
-									Grid.Column="1"
-									Height="22"
-									VerticalAlignment="Top"
-									VerticalContentAlignment="Center"
-									IsEnabled="{Binding UseCustomVideoPlayer}"
-									Text="{Binding CustomVideoPlayer}" />
-								<Button
-									Grid.Column="2"
-									Margin="6 0 0 0"
-									VerticalAlignment="Center"
-									Command="{Binding BrowseVideoPlayer}"
-									Content="{x:Static res:CommonRes.Browse}"
-									IsEnabled="{Binding UseCustomVideoPlayer}"
-									Padding="3 2" />
-							</Grid>
+									IsChecked="{Binding UseCustomVideoPlayer,
+								                    Converter={StaticResource InverseBoolConverter}}" />
+								<Grid
+									Margin="20 6 0 0"
+									HorizontalAlignment="Stretch"
+									ToolTip="{x:Static res:OptionsRes.CustomVideoPlayerToolTip}">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
+									<RadioButton
+										Margin="0 0 6 0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Content="{x:Static res:OptionsRes.CustomPlayerLabel}"
+										GroupName="customVideo1"
+										IsChecked="{Binding UseCustomVideoPlayer}"
+										Style="{StaticResource GrayOnDisabledControl}" />
+									<TextBox
+										Grid.Column="1"
+										Height="22"
+										VerticalAlignment="Top"
+										VerticalContentAlignment="Center"
+										IsEnabled="{Binding UseCustomVideoPlayer}"
+										Text="{Binding CustomVideoPlayer}" />
+									<Button
+										Grid.Column="2"
+										Margin="6 0 0 0"
+										Padding="3 2"
+										VerticalAlignment="Center"
+										Command="{Binding BrowseVideoPlayer}"
+										Content="{x:Static res:CommonRes.Browse}"
+										IsEnabled="{Binding UseCustomVideoPlayer}" />
+								</Grid>
+							</StackPanel>
 							<CheckBox
 								Margin="0 6 0 0"
 								HorizontalAlignment="Left"
@@ -189,11 +195,11 @@
 								<Button
 									Grid.Column="2"
 									Margin="6 0 0 0"
+									Padding="3 2"
 									VerticalAlignment="Center"
 									Command="{Binding BrowseCompletionSound}"
 									Content="{x:Static res:CommonRes.Browse}"
-									IsEnabled="{Binding UseCustomCompletionSound}"
-									Padding="3 2" />
+									IsEnabled="{Binding UseCustomCompletionSound}" />
 							</Grid>
 						</StackPanel>
 
@@ -291,11 +297,11 @@
 								<Button
 									Grid.Column="2"
 									Margin="6 0 0 0"
+									Padding="3 2"
 									VerticalAlignment="Center"
 									Command="{Binding BrowsePreviewFolder}"
 									Content="{x:Static res:CommonRes.Browse}"
-									IsEnabled="{Binding UseCustomPreviewFolder}"
-									Padding="3 2" />
+									IsEnabled="{Binding UseCustomPreviewFolder}" />
 							</Grid>
 						</StackPanel>
 
@@ -635,10 +641,10 @@
 								IsChecked="{Binding CopyLogToOutputFolder}" />
 							<Button
 								Margin="0 8 0 0"
+								Padding="3"
 								HorizontalAlignment="Left"
 								Command="{Binding OpenLogFolder}"
-								Content="{x:Static res:OptionsRes.OpenLogFolderButton}"
-								Padding="3" />
+								Content="{x:Static res:OptionsRes.OpenLogFolderButton}" />
 						</StackPanel>
 
 						<!--  Video  -->
@@ -679,15 +685,13 @@
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Content="{x:Static res:OptionsRes.AutomaticUpdatesCheckBox}"
-								IsChecked="{Binding UpdatesEnabledConfig}"
-								Visibility="{Binding BuildSupportsUpdates,
-								                     Converter={StaticResource VisibilityConverter}}" />
+								IsChecked="{Binding UpdatesEnabledConfig}" />
 							<Button
+								Padding="3"
 								HorizontalAlignment="Left"
 								Command="{Binding CheckUpdate}"
 								Content="{x:Static res:OptionsRes.CheckNowButton}"
-								Padding="3"
-								Visibility="{Binding UpdatesEnabled,
+								Visibility="{Binding UpdatesEnabledConfig,
 								                     Converter={StaticResource VisibilityConverter}}" />
 						</StackPanel>
 
@@ -695,9 +699,9 @@
 						<TextBlock
 							Style="{StaticResource ConfigSectionHeader}"
 							Text="{x:Static res:OptionsRes.UpdateStatusSection}"
-							Visibility="{Binding ShowUpdateStatus,
+							Visibility="{Binding UpdatesEnabledConfig,
 							                     Converter={StaticResource VisibilityConverter}}" />
-						<StackPanel Style="{StaticResource ConfigSectionStack}" Visibility="{Binding ShowUpdateStatus, Converter={StaticResource VisibilityConverter}}">
+						<StackPanel Style="{StaticResource ConfigSectionStack}" Visibility="{Binding UpdatesEnabledConfig, Converter={StaticResource VisibilityConverter}}">
 							<TextBlock Margin="0 0 0 3" Text="{Binding UpdateStatus}" />
 							<ProgressBar
 								Grid.Column="1"
@@ -716,7 +720,7 @@
 							Visibility="{Binding BetaSectionVisible,
 							                     Converter={StaticResource VisibilityConverter}}" />
 						<StackPanel Style="{StaticResource ConfigSectionStack}" Visibility="{Binding BetaSectionVisible, Converter={StaticResource VisibilityConverter}}">
-							<TextBlock TextWrapping="Wrap" Visibility="{Binding InBeta, Converter={StaticResource InverseVisibilityConverter}}">
+							<TextBlock TextWrapping="Wrap" Visibility="{Binding IsBeta, Source={x:Static vidCoder:XamlStatics.Instance}, Converter={StaticResource InverseVisibilityConverter}}">
 								<Hyperlink NavigateUri="{Binding BetaChangelogUrl}" RequestNavigate="Hyperlink_OnRequestNavigate">
 									<TextBlock Text="{x:Static res:OptionsRes.BetaUpdatesNonBeta}" />
 								</Hyperlink>
@@ -724,12 +728,14 @@
 							<TextBlock
 								Text="{x:Static res:OptionsRes.BetaUpdatesNonBetaWarning}"
 								TextWrapping="Wrap"
-								Visibility="{Binding InBeta,
+								Visibility="{Binding IsBeta,
+								                     Source={x:Static vidCoder:XamlStatics.Instance},
 								                     Converter={StaticResource InverseVisibilityConverter}}" />
 							<TextBlock
 								Text="{x:Static res:OptionsRes.BetaUpdatesInBeta}"
 								TextWrapping="Wrap"
-								Visibility="{Binding InBeta,
+								Visibility="{Binding IsBeta,
+								                     Source={x:Static vidCoder:XamlStatics.Instance},
 								                     Converter={StaticResource VisibilityConverter}}" />
 						</StackPanel>
 					</StackPanel>

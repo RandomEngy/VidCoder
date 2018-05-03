@@ -247,9 +247,6 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>古いiPod（第5世代）に対応した形式にします</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>4GB以上のファイルサイズに対応します。有効にするとエンコードを64bitで行います。出力されたファイルは、いくつかの機器（iPodやPS3）では再生できません。</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>ピクセル縦横比を手動設定します</value>
   </data>
@@ -271,9 +268,6 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>拡張子:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>大きなサイズのファイル</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>WEB最適化</value>
@@ -921,9 +915,6 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>入力トラックがパススルーが可能な場合エンコードしません</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>リサイズ方法：</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>回転：</value>
   </data>
@@ -1039,4 +1030,25 @@ Mainプロファイルに対応したデバイスやプレーヤーでも重み�
     <value>キー:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

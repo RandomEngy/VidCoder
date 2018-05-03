@@ -388,45 +388,6 @@
   <data name="WhenDoneLabel" xml:space="preserve">
     <value>Quando terminar:</value>
   </data>
-  <data name="Preset_AndroidTablet" xml:space="preserve">
-    <value>Tablet Android</value>
-  </data>
-  <data name="Preset_Android" xml:space="preserve">
-    <value>Android</value>
-  </data>
-  <data name="Preset_AppleiPad" xml:space="preserve">
-    <value>Apple iPad</value>
-  </data>
-  <data name="Preset_AppleiPhone4" xml:space="preserve">
-    <value>Apple iPhone 4</value>
-  </data>
-  <data name="Preset_AppleiPhoneTouch" xml:space="preserve">
-    <value>Apple iPhone/Touch</value>
-  </data>
-  <data name="Preset_AppleiPod" xml:space="preserve">
-    <value>Apple iPod</value>
-  </data>
-  <data name="Preset_AppleTV" xml:space="preserve">
-    <value>AppleTV</value>
-  </data>
-  <data name="Preset_AppleTV2" xml:space="preserve">
-    <value>AppleTV 2</value>
-  </data>
-  <data name="Preset_AppleTV3" xml:space="preserve">
-    <value>AppleTV 3</value>
-  </data>
-  <data name="Preset_Universal" xml:space="preserve">
-    <value>Universal</value>
-  </data>
-  <data name="Preset_HighProfile" xml:space="preserve">
-    <value>Perfil Alto</value>
-  </data>
-  <data name="Preset_Normal" xml:space="preserve">
-    <value>Normal</value>
-  </data>
-  <data name="Preset_WindowsPhone7" xml:space="preserve">
-    <value>Windows Phone 7</value>
-  </data>
   <data name="SourceOption_VideoFile" xml:space="preserve">
     <value>Arquivo de vídeo...</value>
   </data>
@@ -520,9 +481,6 @@
   <data name="RangeBarToolTip" xml:space="preserve">
     <value>clique com o botão esquerdo para definir o início e botão direito para definir o fim.</value>
   </data>
-  <data name="Preset_WindowsPhone8" xml:space="preserve">
-    <value>Windows Phone 8</value>
-  </data>
   <data name="QueueFormat_Chapters" xml:space="preserve">
     <value>Cap.: {0}</value>
   </data>
@@ -549,9 +507,6 @@
   </data>
   <data name="RemoveAudioTrackToolTip" xml:space="preserve">
     <value>Remover a faixa de áudio</value>
-  </data>
-  <data name="Preset_Xbox360" xml:space="preserve">
-    <value>Xbox 360</value>
   </data>
   <data name="RemoveFromQueueToolTip" xml:space="preserve">
     <value>Remover da lista de tarefas</value>
@@ -648,4 +603,6 @@
 
 {0}</value>
   </data>
+  
+  
 </root>
