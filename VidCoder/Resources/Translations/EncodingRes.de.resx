@@ -1040,7 +1040,7 @@ Bikubisch: Dies ist ein durch OpenCL-Hardware beschleunigter Skalierungsalgorith
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
   <data name="PaddingLabel" xml:space="preserve">
-    <value>Schwarze Balken</value>
+    <value>(Schwarze) Balken</value>
   </data>
   <data name="AlignAVStartCheckBox" xml:space="preserve">
     <value>Beginn von A/V angleichen</value>
