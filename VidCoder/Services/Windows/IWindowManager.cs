@@ -112,5 +112,15 @@ namespace VidCoder.Services.Windows
 		/// <typeparam name="T">The type of the viewmodel.</typeparam>
 		/// <param name="ownerViewModel">The viewmodel of the owner window.</param>
 		void OpenDialog<T>(object ownerViewModel = null);
+
+		/// <summary>
+		/// Suspends the AllowDrop property on all windows (used when a smaller drag/drop operation is starting).
+		/// </summary>
+		void SuspendDropOnWindows();
+
+		/// <summary>
+		/// Resumes the AllowDrop property on all windows (used when a smaller drag/drop operation is finished).
+		/// </summary>
+		void ResumeDropOnWindows();
 	}
 }

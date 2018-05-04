@@ -160,7 +160,7 @@
     <value>დავალების სიის მწკრივები</value>
   </data>
   <data name="QueueColumnsDialogHeaderText" xml:space="preserve">
-    <value>დასამატებლად გადმოიტანეთ, წაშალეთ ან განალეგეთ მწკრივები.</value>
+    <value>დაამატეთ, წაშალეთ ან განალეგეთ მწკრივები.</value>
   </data>
   <data name="UnusedColumns" xml:space="preserve">
     <value>გამოუყენებელი მწკრივები</value>
@@ -254,5 +254,8 @@
   </data>
   <data name="ChooseNamePicker" xml:space="preserve">
     <value>აირჩიეთ სახელი ამომრჩევისთვის:</value>
+  </data>
+  <data name="ExceptionDialogSubTextReported" xml:space="preserve">
+    <value>პროგრამას ესაჭიროება დახურვა, მაგრამ შეცდომა ავტომატურად გაიგზავნება.</value>
   </data>
 </root>

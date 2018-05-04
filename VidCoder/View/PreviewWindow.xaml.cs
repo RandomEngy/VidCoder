@@ -35,6 +35,10 @@ namespace VidCoder.View
 			this.InitializeComponent();
 
 			this.DataContextChanged += this.OnDataContextChanged;
+			this.Loaded += (sender, args) =>
+			{
+				this.rootGrid.Focus();
+			};
 		}
 
 		public void RefreshViewModelFromMediaElement()
@@ -303,6 +307,32 @@ namespace VidCoder.View
 			else
 			{
 				this.viewModel.Pause.Execute(null);
+			}
+		}
+
+		private void OnMouseWheel(object sender, MouseWheelEventArgs e)
+		{
+			if (e.Delta > 0)
+			{
+				this.viewModel.ShowPreviousPreview();
+			}
+			else
+			{
+				this.viewModel.ShowNextPreview();
+			}
+		}
+
+		private void OnKeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Left)
+			{
+				this.viewModel.ShowPreviousPreview();
+				e.Handled = true;
+			}
+			else if (e.Key == Key.Right)
+			{
+				this.viewModel.ShowNextPreview();
+				e.Handled = true;
 			}
 		}
 	}

@@ -24,19 +24,27 @@ namespace VidCoder
 	public static class Utilities
 	{
 		public const string TimeFormat = @"h\:mm\:ss";
-		public const int CurrentDatabaseVersion = 35;
+		public const int CurrentDatabaseVersion = 36;
 		public const int LastUpdatedEncodingProfileDatabaseVersion = 33;
-		public const int LastUpdatedPickerDatabaseVersion = 34;
+		public const int LastUpdatedPickerDatabaseVersion = 36;
 
 		private const string AppDataFolderName = "VidCoder";
 		private const string LocalAppDataFolderName = "VidCoder";
 
-		private static bool isPortable;
 		private static string settingsDirectory;
 
 		static Utilities()
 		{
-			isPortable = Directory.GetCurrentDirectory().Contains("Temp");
+			var tempFolderPath = Environment.GetEnvironmentVariable("temp");
+			if (tempFolderPath != null)
+			{
+				DirectoryInfo tempFolderInfo = new DirectoryInfo(tempFolderPath);
+				DirectoryInfo currentDirectoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
+
+				IsPortable = currentDirectoryInfo.FullName.StartsWith(tempFolderInfo.FullName, StringComparison.OrdinalIgnoreCase);
+			}
+
+			IsRunningAsAppx = new DesktopBridge.Helpers().IsRunningAsUwp();
 		    string settingsDirectorySetting = ConfigurationManager.AppSettings["SettingsDirectory"];
 		    if (settingsDirectorySetting != null)
 		    {
@@ -94,13 +102,26 @@ namespace VidCoder
 			}
 		}
 
-		public static bool IsPortable
+		public static bool IsPortable { get; }
+
+		public static bool IsRunningAsAppx { get; }
+
+		public static string PackageFamilyName
 		{
 			get
 			{
-				return isPortable;
+				if (CommonUtilities.Beta)
+				{
+					return "19358RandomEngy.VidCoderBeta_cf0dg7w8q6vfw";
+				}
+				else
+				{
+					return "19358RandomEngy.VidCoder_cf0dg7w8q6vfw";
+				}
 			}
 		}
+
+		public static bool SupportsUpdates => !IsPortable && !IsRunningAsAppx;
 
 		public static bool IsDesigner
 		{
@@ -723,13 +744,13 @@ namespace VidCoder
 		public static List<string> GetFilesOrVideoFolders(string directory, IList<string> videoExtensions)
 		{
 			var path = new List<string>();
-			var accessErrors = new List<string>();
-			GetFilesOrVideoFoldersRecursive(directory, path, accessErrors, videoExtensions);
+			var errors = new List<string>();
+			GetFilesOrVideoFoldersRecursive(directory, path, errors, videoExtensions);
 
-			if (accessErrors.Count > 0)
+			if (errors.Count > 0)
 			{
 				var messageBuilder = new StringBuilder(CommonRes.CouldNotAccessDirectoriesError + Environment.NewLine);
-				foreach (string accessError in accessErrors)
+				foreach (string accessError in errors)
 				{
 					messageBuilder.AppendLine(accessError);
 				}
@@ -740,7 +761,7 @@ namespace VidCoder
 			return path;
 		}
 
-		private static void GetFilesOrVideoFoldersRecursive(string directory, List<string> paths, List<string> accessErrors, IList<string> videoExtensions)
+		private static void GetFilesOrVideoFoldersRecursive(string directory, List<string> paths, List<string> errors, IList<string> videoExtensions)
 		{
 			try
 			{
@@ -753,13 +774,13 @@ namespace VidCoder
 					}
 					else
 					{
-						GetFilesOrVideoFoldersRecursive(subdirectory, paths, accessErrors, videoExtensions);
+						GetFilesOrVideoFoldersRecursive(subdirectory, paths, errors, videoExtensions);
 					}
 				}
 			}
-			catch (UnauthorizedAccessException)
+			catch (Exception)
 			{
-				accessErrors.Add(directory);
+				errors.Add(directory);
 			}
 
 			try
@@ -770,9 +791,9 @@ namespace VidCoder
 						f => videoExtensions.Any(
 							e => f.EndsWith(e, StringComparison.OrdinalIgnoreCase))));
 			}
-			catch (UnauthorizedAccessException)
+			catch (Exception)
 			{
-				accessErrors.Add(directory);
+				errors.Add(directory);
 			}
 		}
 	}

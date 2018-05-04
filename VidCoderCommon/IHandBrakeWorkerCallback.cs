@@ -17,7 +17,7 @@ namespace VidCoderCommon
 		void OnEncodeStarted();
 
 		[OperationContract(IsOneWay = true)]
-		void OnEncodeProgress(float averageFrameRate, float currentFrameRate, TimeSpan estimatedTimeLeft, float fractionComplete, int passId, int pass, int passCount);
+		void OnEncodeProgress(float averageFrameRate, float currentFrameRate, TimeSpan estimatedTimeLeft, float fractionComplete, int passId, int pass, int passCount, string stateCode);
 
 		[OperationContract(IsOneWay = true)]
 		void OnEncodeComplete(bool error);

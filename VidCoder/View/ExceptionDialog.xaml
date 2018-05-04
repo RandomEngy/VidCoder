@@ -1,73 +1,73 @@
 ﻿<Window
-    x:Class="VidCoder.View.ExceptionDialog"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:prop="clr-namespace:VidCoder.Properties"
-    xmlns:res="clr-namespace:VidCoder.Resources"
-    Title="{x:Static res:MiscRes.ExceptionWindowTitle}"
-    Width="505"
-    Height="381"
-    Style="{StaticResource NormalWindow}"
-    TextOptions.TextFormattingMode="Display"
-    WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Image
-            Name="errorIcon"
-            Width="32"
-            Height="32"
-            Margin="19 16 0 0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Stretch="Fill" />
-        <TextBlock
-            Margin="65 12 0 0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            FontSize="14"
-            Text="{x:Static res:MiscRes.ExceptionDialogMainText}"
-            TextAlignment="Left"
-            TextWrapping="Wrap" />
-        <TextBlock
-            Margin="78 41 0 0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Text="{x:Static res:MiscRes.ExceptionDialogSubText}" />
-        <TextBlock
-            Margin="19 63 0 0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Text="Details:" />
-        <TextBox
-            Name="exceptionTextBox"
-            Margin="12 84 12 42"
-            Background="#EAEAEA"
-            HorizontalScrollBarVisibility="Auto"
-            IsReadOnly="True"
-            VerticalScrollBarVisibility="Auto" />
-        <Button
-            Width="75"
-            Height="23"
-            Margin="0 0 12 8"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Content="{x:Static res:CommonRes.Ok}"
-            IsCancel="True"
-            IsDefault="True" />
-        <Button
-            Name="copyButton"
-            Height="24"
-            MinWidth="68"
-            Margin="0 0 127 8"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Click="copyButton_Click">
-            <StackPanel Margin="5 0" Orientation="Horizontal">
-                <Image
-                    Width="16"
-                    Height="16"
-                    Source="/Icons/copy.png" />
-                <TextBlock Margin="4 0 0 0" Text="{x:Static res:CommonRes.Copy}" />
-            </StackPanel>
-        </Button>
-    </Grid>
+	x:Class="VidCoder.View.ExceptionDialog"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:prop="clr-namespace:VidCoder.Properties"
+	xmlns:res="clr-namespace:VidCoder.Resources"
+	Title="{x:Static res:MiscRes.ExceptionWindowTitle}"
+	Width="505"
+	Height="381"
+	Style="{StaticResource NormalWindow}"
+	TextOptions.TextFormattingMode="Display"
+	WindowStartupLocation="CenterScreen">
+	<Grid>
+		<Image
+			Name="errorIcon"
+			Width="32"
+			Height="32"
+			Margin="19 16 0 0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Top"
+			Stretch="Fill" />
+		<TextBlock
+			Margin="65 12 0 0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Top"
+			FontSize="14"
+			Text="{x:Static res:MiscRes.ExceptionDialogMainText}"
+			TextAlignment="Left"
+			TextWrapping="Wrap" />
+		<TextBlock
+			x:Name="subText"
+			Margin="78 41 0 0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Top" />
+		<TextBlock
+			Margin="19 63 0 0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Top"
+			Text="Details:" />
+		<TextBox
+			Name="exceptionTextBox"
+			Margin="12 84 12 42"
+			Background="#EAEAEA"
+			HorizontalScrollBarVisibility="Auto"
+			IsReadOnly="True"
+			VerticalScrollBarVisibility="Auto" />
+		<Button
+			Width="75"
+			Height="23"
+			Margin="0 0 12 8"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Bottom"
+			Content="{x:Static res:CommonRes.Ok}"
+			IsCancel="True"
+			IsDefault="True" />
+		<Button
+			Name="copyButton"
+			Height="24"
+			MinWidth="68"
+			Margin="0 0 127 8"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Bottom"
+			Click="copyButton_Click">
+			<StackPanel Margin="5 0" Orientation="Horizontal">
+				<Image
+					Width="16"
+					Height="16"
+					Source="/Icons/copy.png" />
+				<TextBlock Margin="4 0 0 0" Text="{x:Static res:CommonRes.Copy}" />
+			</StackPanel>
+		</Button>
+	</Grid>
 </Window>

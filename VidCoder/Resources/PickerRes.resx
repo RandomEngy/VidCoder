@@ -191,7 +191,7 @@
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
   <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>The arguments to pass to the program. Use {file} for the file output path.</value>
+    <value>The arguments to pass to the program. Use {file} for the file output path, {folder} as containing folder path or other path options like {title} and {date} (see Naming Format).</value>
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
@@ -249,5 +249,18 @@
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
     <value>Forced only</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
+  </data>
+  <data name="AudioDefaultToolTip" xml:space="preserve">
+    <value>Picks the last selected audio track if a match is found, otherwise picks the first.</value>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>Last selected</value>
+  </data>
+  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
+    <value>Picks the last selected subtitle track if a match is found, otherwise or no tracks.</value>
+    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>Available options: {0}</value>
   </data>
 </root>

@@ -385,6 +385,28 @@ namespace VidCoder.Services.Windows
 		}
 
 		/// <summary>
+		/// Suspends the AllowDrop property on all windows (used when a smaller drag/drop operation is starting).
+		/// </summary>
+		public void SuspendDropOnWindows()
+		{
+			foreach (Window window in this.openWindows.Values)
+			{
+				window.AllowDrop = false;
+			}
+		}
+
+		/// <summary>
+		/// Resumes the AllowDrop property on all windows (used when a smaller drag/drop operation is finished).
+		/// </summary>
+		public void ResumeDropOnWindows()
+		{
+			foreach (Window window in this.openWindows.Values)
+			{
+				window.AllowDrop = true;
+			}
+		}
+
+		/// <summary>
 		/// Prepares a window for opening.
 		/// </summary>
 		/// <param name="viewModel">The window viewmodel to use.</param>

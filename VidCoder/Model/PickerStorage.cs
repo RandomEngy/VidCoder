@@ -125,6 +125,11 @@ namespace VidCoder.Model
 	        {
 	            UpgradePickerTo34(picker);
 	        }
+
+		    if (oldDatabaseVersion < 36)
+		    {
+			    UpgradePickerTo36(picker);
+		    }
 	    }
 
 	    private static void UpgradePickerTo30(Picker picker)
@@ -158,6 +163,44 @@ namespace VidCoder.Model
                 picker.SubtitleForcedOnly = true;
             }
         }
+
+	    private static void UpgradePickerTo36(Picker picker)
+	    {
+		    switch (picker.EncodingPreset)
+		    {
+				case "HighProfile":
+					picker.EncodingPreset = "High Profile";
+					break;
+				case "AndroidTablet":
+					picker.EncodingPreset = "Android Tablet";
+					break;
+				case "AppleiPod":
+					picker.EncodingPreset = "iPod";
+					break;
+				case "AppleiPhone4":
+				case "AppleiPhoneTouch":
+					picker.EncodingPreset = "iPhone & iPod touch";
+					break;
+				case "AppleiPad":
+					picker.EncodingPreset = "iPad";
+					break;
+				case "AppleTV2":
+					picker.EncodingPreset = "AppleTV 2";
+					break;
+				case "AppleTV3":
+					picker.EncodingPreset = "AppleTV 3";
+					break;
+				case "WindowsPhone7":
+				case "WindowsPhone8":
+					picker.EncodingPreset = "Windows Phone 8";
+					break;
+				case "Xbox360":
+					picker.EncodingPreset = "Xbox Legacy 1080p30 Surround";
+					break;
+				default:
+					break;
+			}
+	    }
 
         public static void SavePickers(List<string> pickerJsonList, SQLiteConnection connection)
         {

@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>თუ აუდიოენის ავტომატური ამოცნობა დეაქტივირებულია, ბოლოს არჩეული აუდიოენა შენარჩუნდება.</value>
-  </data>
-  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>თუ ტიტრის ავტომატური ამოცნობა დეაქტივირებულია, ბოლოს არჩეული ტიტრის ენის შენარჩუნდება.</value>
-  </data>
   <data name="GeneralTab" xml:space="preserve">
     <value>ძირითადი</value>
   </data>
@@ -247,7 +241,7 @@
     <value>თქვენ იყენებთ VidCoder-ის აქტუალურ ვერსიას.</value>
   </data>
   <data name="ChooseDefaultOutputFolder" xml:space="preserve">
-    <value>კოდირებული ვიდეოფაილებისთვის აირჩეთ სტანდარტი დასამახსოვრებელი ადგილი.</value>
+    <value>კოდირებული ვიდეო ფაილებისთვის აირჩეთ სტანდარტი დასამახსოვრებელი ადგილი.</value>
   </data>
   <data name="InterfaceLanguageLabel" xml:space="preserve">
     <value>პროგრამის ენა:</value>
@@ -368,12 +362,6 @@
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>ვიდეო</value>
-  </data>
-  <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>DXVA ტექნიკით დაჩქარებული კოდირება</value>
-  </data>
-  <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>ეს პარამეტრი განკუთვნილია მხოლოდ ნელი სისტემისთვის. ტექნიკით დაჩქარება მხოლოდ გამოიყენება რეპროდუქციისთვის და არა ვიდეოს კოდირებისთვის, ეს პარამეტრი სწრაფი სისტემისთვის შემაყოვნებელია.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>შექმნის და მოდიფიცირების დროის შენარჩუნება კოდირებისას</value>

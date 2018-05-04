@@ -149,16 +149,31 @@
     <value>Keuze titel</value>
   </data>
   <data name="PickerButtonFormat" xml:space="preserve">
-    <value>Kleurkiezer: {0}</value>
+    <value>Kiezer: {0}</value>
     <comment>{0} is the name of the picker. This string shows up on the picker split button.</comment>
   </data>
-  
-  
-  
-  
-  
-  
-  
+  <data name="OutputLocation" xml:space="preserve">
+    <value>Locatie van uitvoer</value>
+  </data>
+  <data name="OverrideDirectoryCheckBox" xml:space="preserve">
+    <value>Directory vervangen:</value>
+  </data>
+  <data name="PickerHelpText" xml:space="preserve">
+    <value>Automatisch kiezen van titels, audio, ondertitels en bestemming</value>
+  </data>
+  <data name="AutoQueueOnScanCheckBox" xml:space="preserve">
+    <value>Automatisch in de wachtrij plaatsen</value>
+  </data>
+  <data name="AutoEncodeOnScanCheckBox" xml:space="preserve">
+    <value>Na het scannen starten met coderen</value>
+  </data>
+  <data name="UseGlobalSettingToolTip" xml:space="preserve">
+    <value>Algemene instellingen gebruiken</value>
+    <comment>Label for the "indeterminate" checkbox state that lets the user know that this will fall back to the global setting</comment>
+  </data>
+  <data name="PresetOverrideToolTip" xml:space="preserve">
+    <value>Elke voorinstelling gekozen in het hoofdvenster worden hiermee overschreven.</value>
+  </data>
   <data name="EncodingSection" xml:space="preserve">
     <value>Codering</value>
     <comment>The header for the Encoding section in the Picker window.</comment>
@@ -175,19 +190,34 @@
     <value>Parameters:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>De argumenten om door te geven aan het programma. Gebruik {file} voor de uitvoerpad van het bestand, {folder} voor de bevattende map of andere pad opties zoals {title} en {date} (Zie Naamgeving formaat).</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
+  <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
+    <value>Kiezer heeft de coderingsvoorinstelling gezet.</value>
+  </data>
   <data name="AddLanguageButton" xml:space="preserve">
     <value>Taal toevoegen</value>
   </data>
-  
-  
-  
+  <data name="AllTracksForTheseLanguagesRadioButton" xml:space="preserve">
+    <value>Alle sporen voor deze talen</value>
+  </data>
+  <data name="AllTracksForThisLanguageRadioButton" xml:space="preserve">
+    <value>Alle sporen voor deze taal</value>
+  </data>
+  <data name="FirstTrackOfEachLanguageRadioButton" xml:space="preserve">
+    <value>Eerste spoor van elke taal</value>
+  </data>
   <data name="FirstTrackRadioButton" xml:space="preserve">
     <value>Eerste spoor</value>
   </data>
-  
-  
+  <data name="SingleSubtitleDefaultToolTip" xml:space="preserve">
+    <value>Markeer het ondertitelspoor als standaard, zodat het automatisch zal verschijnen bij het afspelen van de video.</value>
+  </data>
+  <data name="MultipleSubtitleDefaultToolTip" xml:space="preserve">
+    <value>Markeer de eerste ondertitelspoor als standaard, zodat het automatisch verschijnt tijdens het afspelen van de video.</value>
+  </data>
   <data name="FirstAsDefaultCheckBox" xml:space="preserve">
     <value>Eerst als standaard markeren</value>
     <comment>Label for checkbox to mark the first subtitle as default.</comment>
@@ -218,5 +248,19 @@
   </data>
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
     <value>Alleen 'gedwongen'</value>
+    <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
+  </data>
+  <data name="AudioDefaultToolTip" xml:space="preserve">
+    <value>Pakt de laatste geselecteerde audio track als een overeenkomst wordt gevonden, anders de eerste.</value>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>Laatst geselecteerd</value>
+  </data>
+  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
+    <value>Pakt de laatste ondertitelspoor als een overeenkomst wordt gevonden, anders of geen tracks geselecteerd.</value>
+    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>Beschikbare opties: {0}</value>
   </data>
 </root>

@@ -1,48 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Windows;
-using HandBrake.ApplicationServices.Interop;
-using HandBrake.ApplicationServices.Interop.Json.Scan;
-using HandBrake.ApplicationServices.Interop.Model.Encoding;
 using ReactiveUI;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
-using VidCoderCommon.Model;
+using VidCoder.ViewModel.DataModels;
+using VidCoder.ViewModel.Panels;
 
 namespace VidCoder.ViewModel
 {
 	public class EncodingWindowViewModel : ProfileViewModelBase
 	{
-		public const int VideoTabIndex = 2;
-		public const int AdvancedVideoTabIndex = 3;
+		public const int VideoTabIndex = 3;
+		public const int AdvancedVideoTabIndex = 4;
 
-		private List<ComboChoice> containerChoices;
 
 		public EncodingWindowViewModel()
 		{
 			this.AutomaticChange = true;
 
-			this.RegisterProfileProperties();
-
-			this.containerChoices = new List<ComboChoice>();
-			foreach (HBContainer hbContainer in HandBrakeEncoderHelpers.Containers)
-			{
-				this.containerChoices.Add(new ComboChoice(hbContainer.ShortName, hbContainer.DefaultExtension.ToUpperInvariant()));
-			}
-
-			this.WhenAnyValue(
-				x => x.ContainerName,
-				containerName =>
-				{
-					HBContainer container = HandBrakeEncoderHelpers.GetContainer(containerName);
-					return container.DefaultExtension == "mp4";
-				})
-				.ToProperty(this, x => x.ShowMp4Choices, out this.showMp4Choices);
-
-			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.DisplayNameWithStar)
+			this.PresetsService
+				.WhenAnyValue(x => x.SelectedPreset.DisplayNameWithStar)
+				.Select(presetNameWithStar => string.Format(CultureInfo.CurrentCulture, EncodingRes.WindowTitle, presetNameWithStar))
 				.ToProperty(this, x => x.WindowTitle, out this.windowTitle);
 
 			this.PresetsService.WhenAnyValue(
@@ -67,7 +51,6 @@ namespace VidCoder.ViewModel
 			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.IsBuiltIn)
 				.ToProperty(this, x => x.IsBuiltIn, out this.isBuiltIn);
 
-
 			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile)
 				.Subscribe(encodingProfile =>
 				{
@@ -76,7 +59,6 @@ namespace VidCoder.ViewModel
 						this.SelectedTabIndex = VideoTabIndex;
 					}
 				});
-
 
 			this.TogglePresetPanel = ReactiveCommand.Create();
 			this.TogglePresetPanel.Subscribe(_ => this.TogglePresetPanelImpl());
@@ -99,6 +81,7 @@ namespace VidCoder.ViewModel
 				}));
 			this.DeletePreset.Subscribe(_ => this.DeletePresetImpl());
 
+			this.ContainerPanelViewModel = new ContainerPanelViewModel(this);
 			this.SizingPanelViewModel = new SizingPanelViewModel(this);
 			this.VideoFiltersPanelViewModel = new VideoFiltersPanelViewModel(this);
 			this.VideoPanelViewModel = new VideoPanelViewModel(this);
@@ -112,30 +95,11 @@ namespace VidCoder.ViewModel
 			this.AutomaticChange = false;
 		}
 
-		private void RegisterProfileProperties()
-		{
-			// These actions fire when the user changes a property.
-
-			this.RegisterProfileProperty(nameof(this.Profile.ContainerName), () =>
-			{
-				this.OutputPathService.GenerateOutputFileName();
-			});
-
-			this.RegisterProfileProperty(nameof(this.Profile.PreferredExtension), () =>
-			{
-				this.OutputPathService.GenerateOutputFileName();
-			});
-
-			this.RegisterProfileProperty(nameof(this.Profile.Optimize));
-			this.RegisterProfileProperty(nameof(this.Profile.IPod5GSupport));
-
-			this.RegisterProfileProperty(nameof(this.IncludeChapterMarkers));
-		}
-
 		public ProcessingService ProcessingService { get; } = Ioc.Get<ProcessingService>();
 		public OutputPathService OutputPathService { get; } = Ioc.Get<OutputPathService>();
 		public PickersService PickersService { get; } = Ioc.Get<PickersService>();
 
+		public ContainerPanelViewModel ContainerPanelViewModel { get; set; }
 		public SizingPanelViewModel SizingPanelViewModel { get; set; }
 		public VideoFiltersPanelViewModel VideoFiltersPanelViewModel { get; set; }
 		public VideoPanelViewModel VideoPanelViewModel { get; set; }
@@ -166,47 +130,6 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.presetPanelOpen; }
 			set { this.RaiseAndSetIfChanged(ref this.presetPanelOpen, value); }
-		}
-
-		public string ContainerName
-		{
-			get { return this.Profile.ContainerName; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.ContainerName), value); }
-		}
-
-		public List<ComboChoice> ContainerChoices
-		{
-			get
-			{
-				return this.containerChoices;
-			}
-		}
-
-		public VCOutputExtension PreferredExtension
-		{
-			get { return this.Profile.PreferredExtension; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.PreferredExtension), value); }
-		}
-
-		public bool Optimize
-		{
-			get { return this.Profile.Optimize; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.Optimize), value); }
-		}
-
-		public bool IPod5GSupport
-		{
-			get { return this.Profile.IPod5GSupport; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.IPod5GSupport), value); }
-		}
-
-		private ObservableAsPropertyHelper<bool> showMp4Choices;
-		public bool ShowMp4Choices => this.showMp4Choices.Value;
-
-		public bool IncludeChapterMarkers
-		{
-			get { return this.Profile.IncludeChapterMarkers; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.IncludeChapterMarkers), value); }
 		}
 
 		public ReactiveCommand<object> TogglePresetPanel { get; }
@@ -249,9 +172,7 @@ namespace VidCoder.ViewModel
 			if (dialogVM.DialogResult)
 			{
 				string newPresetName = dialogVM.Name;
-				this.PresetsService.SelectedPreset.Preset.Name = newPresetName;
-
-				this.PresetsService.SavePreset();
+				this.PresetsService.RenamePreset(newPresetName);
 			}
 		}
 

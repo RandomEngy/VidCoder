@@ -1,11 +1,27 @@
+add-type @"
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
+public class TrustAllCertsPolicy : ICertificatePolicy {
+    public bool CheckValidationResult(
+        ServicePoint srvPoint, X509Certificate certificate,
+        WebRequest request, int certificateProblem) {
+        return true;
+    }
+}
+"@
+$AllProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
+[System.Net.ServicePointManager]::SecurityProtocol = $AllProtocols
+[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
+
+#$wc = New-Object System.Net.WebClient
+#$wc.Credentials = New-Object System.Net.NetworkCredential("username","password")
+#$nightlyPageContent = $wc.DownloadString("https://handbrake.fr/nightly.php")
+
 $nightlyPageResponse = Invoke-WebRequest -Uri "https://handbrake.fr/nightly.php"
 $nightlyPageContent = $nightlyPageResponse.Content
 
-$nightlyPageContent -match "http://[^""]+LibHB[^""]+i686.zip" | Out-Null
-$x86Url = $matches[0]
-
-$nightlyPageContent -match "http://[^""]+LibHB[^""]+x86_64.zip" | Out-Null
-$x64Url = $matches[0]
+$nightlyPageContent -match "https://[^""]+LibHB[^""]+x86_64.zip" | Out-Null
+$url = $matches[0]
 
 if (Test-Path .\Import\Hb) {
     Remove-Item .\Import\Hb\* -recurse
@@ -15,13 +31,8 @@ New-Item -ItemType Directory -Force -Path "Import\Hb" | Out-Null
 
 Add-Type -assembly "system.io.compression.filesystem"
 
-function DownloadHbDll($url, $arch) {
-    Invoke-WebRequest -Uri $url -OutFile ("Import\Hb\" + $arch + ".zip")
+Invoke-WebRequest -Uri $url -OutFile ("Import\hb.zip")
 
-    [io.compression.zipfile]::ExtractToDirectory("Import\Hb\" + $arch + ".zip", "Import\Hb\" + $arch)
+[io.compression.zipfile]::ExtractToDirectory("Import\hb.zip", "Import\Hb\")
 
-    Copy-Item ("Import\Hb\" + $arch + "\hb.dll") ("Lib\" + $arch + "\hb.dll")
-}
-
-DownloadHbDll $x86Url "x86"
-DownloadHbDll $x64Url "x64"
+Copy-Item "Import\Hb\hb.dll" "Lib\hb.dll"

@@ -202,4 +202,7 @@
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>Videofehler</value>
   </data>
+  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
+    <value>Die Windows-Apps-Version kann keine DVD oder Blu-ray-Quellen wiedergeben, da ihr die Erlaubnis fehlt, um Drittprozesse starten zu können.</value>
+  </data>
 </root>

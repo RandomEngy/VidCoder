@@ -21,6 +21,7 @@
 			<Setter Property="Margin" Value="0 3" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="ToolTipService.ShowDuration" Value="20000" />
 		</Style>
 		<Style x:Key="CustomFilterBox" TargetType="TextBox">
 			<Setter Property="Margin" Value="6 0 0 0" />
@@ -46,6 +47,7 @@
 		<Style x:Key="FilterLabel" TargetType="TextBlock">
 			<Setter Property="VerticalAlignment" Value="Center" />
 			<Setter Property="Margin" Value="0 0 6 0" />
+			<Setter Property="ToolTipService.ShowDuration" Value="20000" />
 		</Style>
 	</UserControl.Resources>
 	<Grid>
@@ -54,6 +56,7 @@
 			HorizontalAlignment="Stretch"
 			VerticalAlignment="Top">
 			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
@@ -71,24 +74,32 @@
 				Grid.Row="0"
 				Grid.Column="0"
 				Style="{StaticResource FilterLabel}"
-				Text="{x:Static res:EncodingRes.DetelecineLabel}" />
+				Text="{x:Static res:EncodingRes.DetelecineLabel}">
+				<TextBlock.ToolTip>
+					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.DetelecineToolTip}" />
+				</TextBlock.ToolTip>
+			</TextBlock>
 			<ComboBox
 				Grid.Row="0"
 				Grid.Column="1"
 				ItemsSource="{Binding DetelecineChoices}"
 				SelectedValue="{Binding Detelecine}"
 				SelectedValuePath="Value"
-				Style="{StaticResource NormalComboBox}" />
+				Style="{StaticResource NormalComboBox}">
+				<ComboBox.ToolTip>
+					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.DetelecineToolTip}" />
+				</ComboBox.ToolTip>
+			</ComboBox>
 			<TextBox
 				Grid.Row="0"
 				Grid.Column="2"
 				Margin="6 3 0 3"
 				Style="{StaticResource OneLineCustomFilterBox}"
 				Text="{Binding CustomDetelecine,
-							   UpdateSourceTrigger=PropertyChanged}"
+				               UpdateSourceTrigger=PropertyChanged}"
 				ToolTip="{Binding CustomDetelecineToolTip}"
 				Visibility="{Binding CustomDetelecineVisible,
-									 Converter={StaticResource VisibilityConverter}}" />
+				                     Converter={StaticResource VisibilityConverter}}" />
 
 			<!--  Deinterlace  -->
 			<TextBlock
@@ -97,16 +108,24 @@
 				Margin="0 5 6 0"
 				VerticalAlignment="Top"
 				Style="{StaticResource FilterLabel}"
-				Text="{x:Static res:EncodingRes.DeinterlaceLabel}" />
+				Text="{x:Static res:EncodingRes.DeinterlaceLabel}">
+				<TextBlock.ToolTip>
+					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.DeinterlaceToolTip}" />
+				</TextBlock.ToolTip>
+			</TextBlock>
 			<ComboBox
 				Grid.Row="1"
 				Grid.Column="1"
 				VerticalAlignment="Top"
 				ItemsSource="{Binding DisplayNames,
-									  Source={StaticResource DeinterlaceChoices}}"
+				                      Source={StaticResource DeinterlaceChoices}}"
 				SelectedValue="{Binding DeinterlaceType,
-										Converter={StaticResource DeinterlaceChoices}}"
-				Style="{StaticResource NormalComboBox}" />
+				                        Converter={StaticResource DeinterlaceChoices}}"
+				Style="{StaticResource NormalComboBox}">
+				<ComboBox.ToolTip>
+					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.DeinterlaceToolTip}" />
+				</ComboBox.ToolTip>
+			</ComboBox>
 			<StackPanel
 				Grid.Row="1"
 				Grid.Column="2"
@@ -116,7 +135,7 @@
 					Margin="12 0 0 0"
 					Orientation="Horizontal"
 					Visibility="{Binding DeinterlacePresetVisible,
-										 Converter={StaticResource VisibilityConverter}}">
+					                     Converter={StaticResource VisibilityConverter}}">
 					<Grid>
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
@@ -149,10 +168,10 @@
 							Margin="0 2 0 0"
 							Style="{StaticResource MultiLineCustomFilterBox}"
 							Text="{Binding CustomDeinterlace,
-										   UpdateSourceTrigger=PropertyChanged}"
+							               UpdateSourceTrigger=PropertyChanged}"
 							ToolTip="{Binding CustomDeinterlaceToolTip}"
 							Visibility="{Binding CustomDeinterlaceVisible,
-												 Converter={StaticResource VisibilityConverter}}" />
+							                     Converter={StaticResource VisibilityConverter}}" />
 					</Grid>
 
 					<Grid Margin="12 0 0 0">
@@ -188,37 +207,11 @@
 							Margin="0 2 0 0"
 							Style="{StaticResource MultiLineCustomFilterBox}"
 							Text="{Binding CustomCombDetect,
-										   UpdateSourceTrigger=PropertyChanged}"
+							               UpdateSourceTrigger=PropertyChanged}"
 							ToolTip="{Binding CustomCombDetectToolTip}"
 							Visibility="{Binding CustomCombDetectVisible,
-												 Converter={StaticResource VisibilityConverter}}" />
+							                     Converter={StaticResource VisibilityConverter}}" />
 					</Grid>
-
-					<!--<StackPanel Orientation="Horizontal">
-						<TextBlock
-							Margin="12 2 0 0"
-							VerticalAlignment="Top"
-							Text="{x:Static res:EncodingRes.InterlaceDetectionLabel}" />
-						<StackPanel
-							Margin="6 0 0 0"
-							VerticalAlignment="Top"
-							Orientation="Vertical">
-							<ComboBox
-								MinWidth="70"
-								VerticalAlignment="Center"
-								ItemsSource="{Binding CombDetectChoices}"
-								SelectedValue="{Binding CombDetect}"
-								SelectedValuePath="Value" />
-
-							<TextBox
-								Margin="0 2 0 0"
-								Style="{StaticResource MultiLineCustomFilterBox}"
-								Text="{Binding CustomCombDetect,
-											   UpdateSourceTrigger=PropertyChanged}"
-								Visibility="{Binding CustomCombDetectVisible,
-													 Converter={StaticResource VisibilityConverter}}" />
-						</StackPanel>
-					</StackPanel>-->
 				</StackPanel>
 			</StackPanel>
 
@@ -227,14 +220,22 @@
 				Grid.Row="2"
 				Grid.Column="0"
 				Style="{StaticResource FilterLabel}"
-				Text="{x:Static res:EncodingRes.DenoiseLabel}" />
+				Text="{x:Static res:EncodingRes.DenoiseLabel}">
+				<TextBlock.ToolTip>
+					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.DenoiseToolTip}" />
+				</TextBlock.ToolTip>
+			</TextBlock>
 			<ComboBox
 				Grid.Row="2"
 				Grid.Column="1"
 				ItemsSource="{Binding DenoiseChoices}"
 				SelectedValue="{Binding DenoiseType}"
 				SelectedValuePath="Value"
-				Style="{StaticResource NormalComboBox}" />
+				Style="{StaticResource NormalComboBox}">
+				<ComboBox.ToolTip>
+					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.DenoiseToolTip}" />
+				</ComboBox.ToolTip>
+			</ComboBox>
 
 			<Grid
 				Grid.Row="2"
@@ -251,7 +252,7 @@
 					Margin="12 0 0 0"
 					Orientation="Horizontal"
 					Visibility="{Binding DenoisePresetVisible,
-										 Converter={StaticResource VisibilityConverter}}">
+					                     Converter={StaticResource VisibilityConverter}}">
 					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.PresetLabel}" />
 
 					<ComboBox
@@ -268,7 +269,7 @@
 					Margin="12 0 0 0"
 					Orientation="Horizontal"
 					Visibility="{Binding DenoiseTuneVisible,
-										 Converter={StaticResource VisibilityConverter}}">
+					                     Converter={StaticResource VisibilityConverter}}">
 					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.TuneLabel}" />
 
 					<ComboBox
@@ -284,24 +285,108 @@
 					Grid.Column="2"
 					Style="{StaticResource OneLineCustomFilterBox}"
 					Text="{Binding CustomDenoise,
-								   UpdateSourceTrigger=PropertyChanged}"
+					               UpdateSourceTrigger=PropertyChanged}"
 					ToolTip="{Binding CustomDenoiseToolTip}"
 					Visibility="{Binding CustomDenoiseVisible,
-										 Converter={StaticResource VisibilityConverter}}" />
+					                     Converter={StaticResource VisibilityConverter}}" />
 			</Grid>
 
-			<!--  Deblock  -->
+			<!--  Sharpen  -->
 			<TextBlock
 				Grid.Row="3"
 				Grid.Column="0"
 				Style="{StaticResource FilterLabel}"
-				Text="{x:Static res:EncodingRes.DeblockLabel}" />
-			<StackPanel
+				Text="{x:Static res:EncodingRes.SharpenLabel}">
+				<TextBlock.ToolTip>
+					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.SharpenToolTip}" />
+				</TextBlock.ToolTip>
+			</TextBlock>
+			<ComboBox
 				Grid.Row="3"
+				Grid.Column="1"
+				ItemsSource="{Binding SharpenChoices}"
+				SelectedValue="{Binding SharpenType}"
+				SelectedValuePath="Value"
+				Style="{StaticResource NormalComboBox}">
+				<ComboBox.ToolTip>
+					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.SharpenToolTip}" />
+				</ComboBox.ToolTip>
+			</ComboBox>
+
+			<Grid
+				Grid.Row="3"
+				Grid.Column="2"
+				Margin="0 2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+
+				<StackPanel
+					Grid.Column="0"
+					Margin="12 0 0 0"
+					Orientation="Horizontal"
+					Visibility="{Binding SharpenPresetVisible,
+					                     Converter={StaticResource VisibilityConverter}}">
+					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.PresetLabel}" />
+
+					<ComboBox
+						MinWidth="70"
+						Margin="6 0 0 0"
+						VerticalAlignment="Center"
+						ItemsSource="{Binding SharpenPresetChoices}"
+						SelectedValue="{Binding SharpenPreset}"
+						SelectedValuePath="Value" />
+				</StackPanel>
+
+				<StackPanel
+					Grid.Column="1"
+					Margin="12 0 0 0"
+					Orientation="Horizontal"
+					Visibility="{Binding SharpenTuneVisible,
+					                     Converter={StaticResource VisibilityConverter}}">
+					<TextBlock VerticalAlignment="Center" Text="{x:Static res:EncodingRes.TuneLabel}" />
+
+					<ComboBox
+						MinWidth="70"
+						Margin="6 0 0 0"
+						VerticalAlignment="Center"
+						ItemsSource="{Binding SharpenTuneChoices}"
+						SelectedValue="{Binding SharpenTune}"
+						SelectedValuePath="Value" />
+				</StackPanel>
+
+				<TextBox
+					Grid.Column="2"
+					Style="{StaticResource OneLineCustomFilterBox}"
+					Text="{Binding CustomSharpen,
+					               UpdateSourceTrigger=PropertyChanged}"
+					ToolTip="{Binding CustomSharpenToolTip}"
+					Visibility="{Binding CustomSharpenVisible,
+					                     Converter={StaticResource VisibilityConverter}}" />
+			</Grid>
+
+			<!--  Deblock  -->
+			<TextBlock
+				Grid.Row="4"
+				Grid.Column="0"
+				Style="{StaticResource FilterLabel}"
+				Text="{x:Static res:EncodingRes.DeblockLabel}">
+				<TextBlock.ToolTip>
+					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.DeblockToolTip}" />
+				</TextBlock.ToolTip>
+			</TextBlock>
+			<StackPanel
+				Grid.Row="4"
 				Grid.Column="1"
 				Grid.ColumnSpan="2"
 				Margin="0 4"
-				Orientation="Horizontal">
+				Orientation="Horizontal"
+				ToolTipService.ShowDuration="20000">
+				<StackPanel.ToolTip>
+					<TextBlock Style="{StaticResource LongToolTip}" Text="{x:Static res:EncodingRes.DeblockToolTip}" />
+				</StackPanel.ToolTip>
 				<TextBlock
 					MinWidth="34"
 					VerticalAlignment="Center"
@@ -318,7 +403,7 @@
 			</StackPanel>
 
 			<CheckBox
-				Grid.Row="4"
+				Grid.Row="5"
 				Grid.Column="1"
 				Grid.ColumnSpan="2"
 				Margin="3 10 3 3"

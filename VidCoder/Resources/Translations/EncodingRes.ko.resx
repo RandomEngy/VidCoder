@@ -258,9 +258,6 @@ Baseline 프로파일은, 아이팟과 유사 기기에서 요구되는 것처�
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>이전의 아이팟이 H.264 비디오의 동기화를 허용하기 전에 요구하는 파일에 마커를 적용합니다.</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>4기가 이상의 파일을 허용합니다. 이 옵션 사용시, 인코딩에 64비트 수를 사용합니다. 아이팟과 PS3같은 몇몇 기기는 이 옵션과 호환되지 않습니다.</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>픽셀 종횡비를 직접 지정합니다.</value>
   </data>
@@ -283,9 +280,6 @@ Baseline 프로파일은, 아이팟과 유사 기기에서 요구되는 것처�
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>확장자:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>큰 파일 크기</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>웹 최적화</value>
@@ -935,9 +929,6 @@ Baseline 프로파일은, 아이팟과 유사 기기에서 요구되는 것처�
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>입력 트랙이 코덱과 일치하면 입력 트랙을 인코딩하지 않고 패스쓰루할 것입니다.</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>스케일링 알고리즘:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>회전:</value>
   </data>
@@ -1053,4 +1044,25 @@ Baseline 프로파일은, 아이팟과 유사 기기에서 요구되는 것처�
     <value>키:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

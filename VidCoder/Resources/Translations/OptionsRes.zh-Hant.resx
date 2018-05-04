@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>自動字幕選擇停用時，自動選取上次的選項。</value>
-  </data>
-  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>自動字幕選擇停用時，自動選取上次的選項。</value>
-  </data>
   <data name="GeneralTab" xml:space="preserve">
     <value>一般設定</value>
   </data>
@@ -368,12 +362,6 @@
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>視訊</value>
-  </data>
-  <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>啟用 DXVA 硬體加速解碼</value>
-  </data>
-  <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>此選項僅適用於較慢的系統，硬體解碼器目前僅用於播放而非重新編碼，故在較快的系統上可能會產生瓶頸。</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>轉換檔案時保留建立及修改時間</value>

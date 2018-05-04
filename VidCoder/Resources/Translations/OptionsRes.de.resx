@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>Wenn die automatische Audio-Auswahl deaktiviert ist, wird die zuletzt ausgewählte Tonspur beibehalten.</value>
-  </data>
-  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>Wenn automatische Untertitel-Auswahl deaktiviert ist, werden die zuletzt ausgewählten Untertitel beibehalten.</value>
-  </data>
   <data name="GeneralTab" xml:space="preserve">
     <value>Allgemein</value>
   </data>
@@ -368,12 +362,6 @@
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>Video</value>
-  </data>
-  <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>Hardware beschleunigte Decodierung durch DXVA aktivieren</value>
-  </data>
-  <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>Diese Option eignet sich nur für langsamere Systeme. Hardwaredecodierer sind derzeit nur für die Wiedergabe konzipiert und nicht für die Reencodierung von Videos, sodass sie auf schnelleren Systemen wahrscheinlich zum Flaschenhals werden.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Erstellungs- und Änderungsdatum beim Konvertieren von Dateien erhalten</value>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
@@ -20,6 +21,7 @@ using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.Windows;
+using VidCoderCommon;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
 
@@ -160,7 +162,7 @@ namespace VidCoder.ViewModel
 				{
 					foreach (SrtSubtitle srtSubtitle in currentSubtitles.SrtSubtitles)
 					{
-						trackSummaries.Add(Languages.Get(srtSubtitle.LanguageCode).EnglishName);
+						trackSummaries.Add(HandBrakeLanguagesHelper.Get(srtSubtitle.LanguageCode).EnglishName);
 					}
 				}
 
@@ -362,9 +364,12 @@ namespace VidCoder.ViewModel
 			this.ReportBug = ReactiveCommand.Create();
 			this.ReportBug.Subscribe(_ => this.ReportBugImpl());
 
+			this.OpenAppData = ReactiveCommand.Create();
+			this.OpenAppData.Subscribe(_ => this.OpenAppDataImpl());
+
 			this.Exit = ReactiveCommand.Create();
 			this.Exit.Subscribe(_ => this.ExitImpl());
-			
+
 			this.outputPathService = Ioc.Get<OutputPathService>();
 			this.outputSizeService = Ioc.Get<OutputSizeService>();
 			this.processingService = Ioc.Get<ProcessingService>();
@@ -377,12 +382,20 @@ namespace VidCoder.ViewModel
 			// WindowTitle
 			this.processingService.WhenAnyValue(x => x.Encoding, x => x.OverallEncodeProgressFraction, (encoding, progressFraction) =>
 			{
-				if (!encoding)
+				double progressPercent = progressFraction * 100;
+				var titleBuilder = new StringBuilder("VidCoder");
+
+				if (CommonUtilities.Beta)
 				{
-					return "VidCoder";
+					titleBuilder.Append(" Beta");
 				}
 
-				return $"VidCoder - {progressFraction:P1}";
+				if (encoding)
+				{
+					titleBuilder.Append($" - {progressPercent:F1}%");
+				}
+
+				return titleBuilder.ToString();
 			}).ToProperty(this, x => x.WindowTitle, out this.windowTitle);
 
 			// ShowChapterMarkerUI
@@ -580,33 +593,40 @@ namespace VidCoder.ViewModel
             var pathList = new List<SourcePath>();
             foreach (string item in itemList)
             {
-                var fileAttributes = File.GetAttributes(item);
-                if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
-                {
-                    // Path is a directory
-                    if (Utilities.IsDiscFolder(item))
-                    {
-                        // If it's a disc folder, add it
-                        pathList.Add(new SourcePath { Path = item, SourceType = SourceType.DiscVideoFolder });
-                    }
-                    else
-                    {
-                        string parentFolder = Path.GetDirectoryName(item);
-                        pathList.AddRange(
-                            Utilities.GetFilesOrVideoFolders(item, videoExtensions)
-                            .Select(p => new SourcePath
-                            {
-                                Path = p,
-                                ParentFolder = parentFolder,
-                                SourceType = SourceType.None
-                            }));
-                    }
-                }
-                else
-                {
-                    // Path is a file
-                    pathList.Add(new SourcePath { Path = item, SourceType = SourceType.File });
-                }
+	            try
+	            {
+		            var fileAttributes = File.GetAttributes(item);
+		            if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
+		            {
+			            // Path is a directory
+			            if (Utilities.IsDiscFolder(item))
+			            {
+				            // If it's a disc folder, add it
+				            pathList.Add(new SourcePath {Path = item, SourceType = SourceType.DiscVideoFolder});
+			            }
+			            else
+			            {
+				            string parentFolder = Path.GetDirectoryName(item);
+				            pathList.AddRange(
+					            Utilities.GetFilesOrVideoFolders(item, videoExtensions)
+						            .Select(p => new SourcePath
+						            {
+							            Path = p,
+							            ParentFolder = parentFolder,
+							            SourceType = SourceType.None
+						            }));
+			            }
+		            }
+		            else
+		            {
+			            // Path is a file
+			            pathList.Add(new SourcePath {Path = item, SourceType = SourceType.File});
+		            }
+	            }
+	            catch (Exception exception)
+	            {
+		            Ioc.Get<IAppLogger>().LogError($"Could not process {item} : " + Environment.NewLine + exception);
+	            }
             }
 
             return pathList;
@@ -938,6 +958,8 @@ namespace VidCoder.ViewModel
 		/// If true, EncodeJob objects can be safely obtained from this class.
 		/// </summary>
 		public bool JobCreationAvailable { get; set; }
+
+		public bool ShowUpdateMenuItem => Utilities.SupportsUpdates;
 
 		private ObservableAsPropertyHelper<List<SourceTitle>> titles;
 		public List<SourceTitle> Titles => this.titles.Value;
@@ -1918,6 +1940,12 @@ namespace VidCoder.ViewModel
 			FileService.Instance.LaunchUrl("https://github.com/RandomEngy/VidCoder/issues/new");
 		}
 
+		public ReactiveCommand<object> OpenAppData { get; }
+		private void OpenAppDataImpl()
+		{
+			FileUtilities.OpenFolderAndSelectItem(FileUtilities.GetRealFilePath(Database.DatabaseFile));
+		}
+
 		public ReactiveCommand<object> Exit { get; }
 		private void ExitImpl()
 		{
@@ -1939,12 +1967,20 @@ namespace VidCoder.ViewModel
 				// Debugging code... annoying exception happens here.
 				if (this.SelectedSource == null)
 				{
+#if DEBUG
+					return null;
+#else
 					throw new InvalidOperationException("Source must be selected.");
+#endif
 				}
 
 				if (this.SelectedTitle == null)
 				{
+#if DEBUG
+					return null;
+#else
 					throw new InvalidOperationException("Title must be selected.");
+#endif
 				}
 
 				SourceType type = this.SelectedSource.Type;
@@ -2064,6 +2100,8 @@ namespace VidCoder.ViewModel
 
 			return newEncodeJobVM;
 		}
+
+		public IList<EncodeJobViewModel> SelectedJobs => this.View.SelectedJobs;
 
 		public void RemoveAudioChoice(AudioChoiceViewModel choice)
 		{
@@ -2318,7 +2356,7 @@ namespace VidCoder.ViewModel
 						this.logger.Log("Scan completed");
 					}
 
-					this.logger.Log("");
+					this.logger.Log(string.Empty);
 				});
 			};
 

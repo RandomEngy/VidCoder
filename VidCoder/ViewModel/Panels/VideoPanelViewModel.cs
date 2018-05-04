@@ -21,7 +21,7 @@ namespace VidCoder.ViewModel
 		private const int DefaultVideoBitrateKbps = 900;
 		private const int DefaultTargetSizeMB = 700;
 
-		private static readonly HashSet<string> CheckBoxTunes = new HashSet<string> { "fastdecode", "zerolatency" };
+		private static readonly HashSet<string> CheckBoxTunes = new HashSet<string> { "fastdecode", "zerolatency" }; 
 
 		private ResourceManager resourceManager = new ResourceManager(typeof(EncodingRes));
 
@@ -101,19 +101,6 @@ namespace VidCoder.ViewModel
 
 				return videoEncoder == "x264";
 			}).ToProperty(this, x => x.X264SettingsVisible, out this.x264SettingsVisible);
-
-			// QsvSettingsVisible
-			this.WhenAnyValue(x => x.SelectedEncoder, selectedEncoder =>
-			{
-				if (selectedEncoder == null)
-				{
-					return false;
-				}
-
-				string videoEncoder = selectedEncoder.Encoder.ShortName;
-
-				return videoEncoder.StartsWith("qsv_", StringComparison.OrdinalIgnoreCase);
-			}).ToProperty(this, x => x.QsvSettingsVisible, out this.qsvSettingsVisible);
 
 			// BasicEncoderSettingsVisible
 			this.WhenAnyValue(x => x.SelectedEncoder, x => x.UseAdvancedTab, (selectedEncoder, useAdvancedTab) =>
@@ -355,12 +342,12 @@ namespace VidCoder.ViewModel
 					this.RefreshEncoderChoices(containerName, EncoderChoicesRefreshSource.ContainerChange);
 				});
 
-			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.AudioCopyMask)
-				.Skip(1)
-				.Subscribe(copyMask =>
-				{
-					this.NotifyAudioChanged();
-				});
+		    this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.AudioCopyMask)
+		        .Skip(1)
+		        .Subscribe(copyMask =>
+		        {
+                    this.NotifyAudioChanged();
+		        });
 
 			this.PresetsService.WhenAnyValue(x => x.SelectedPreset.Preset.EncodingProfile.AudioEncodings)
 				.Skip(1)
@@ -425,6 +412,11 @@ namespace VidCoder.ViewModel
 						if (this.Profile.VideoBitrate == 0)
 						{
 							this.VideoBitrate = DefaultVideoBitrateKbps;
+						}
+						else
+						{
+							// If we already have a bitrate, update the UI
+							this.RaisePropertyChanged(nameof(this.VideoBitrate));
 						}
 					}
 					else if (oldRateType == VCVideoEncodeRateType.TargetSize)
@@ -583,8 +575,7 @@ namespace VidCoder.ViewModel
 		private ObservableAsPropertyHelper<bool> x264SettingsVisible;
 		public bool X264SettingsVisible => this.x264SettingsVisible.Value;
 
-		private ObservableAsPropertyHelper<bool> qsvSettingsVisible;
-		public bool QsvSettingsVisible => this.qsvSettingsVisible.Value;
+		public bool QsvSettingsVisible => HandBrakeUtils.QsvAvailable;
 
 		private ObservableAsPropertyHelper<bool> basicEncoderSettingsVisible;
 		public bool BasicEncoderSettingsVisible => this.basicEncoderSettingsVisible.Value;
@@ -649,7 +640,7 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.VideoEncodeRateType == VCVideoEncodeRateType.AverageBitrate)
+                if (this.VideoEncodeRateType == VCVideoEncodeRateType.AverageBitrate)
 				{
 					if (this.MainViewModel.HasVideoSource && this.MainViewModel.JobCreationAvailable && this.VideoBitrate > 0)
 					{
@@ -679,12 +670,12 @@ namespace VidCoder.ViewModel
 		{
 			get
 			{
-				if (this.VideoEncodeRateType == VCVideoEncodeRateType.ConstantQuality)
+                if (this.VideoEncodeRateType == VCVideoEncodeRateType.ConstantQuality)
 				{
 					return DefaultVideoBitrateKbps;
 				}
 
-				if (this.VideoEncodeRateType == VCVideoEncodeRateType.TargetSize)
+                if (this.VideoEncodeRateType == VCVideoEncodeRateType.TargetSize)
 				{
 					if (this.MainViewModel.HasVideoSource && this.MainViewModel.JobCreationAvailable && this.TargetSize > 0)
 					{
@@ -926,7 +917,7 @@ namespace VidCoder.ViewModel
 			}
 
 			this.RaisePropertyChanged(nameof(this.EncoderChoices));
-
+			
 			HBVideoEncoder targetEncoder;
 
 			switch (refreshSource)

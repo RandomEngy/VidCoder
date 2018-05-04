@@ -136,7 +136,7 @@
     <value>ენა(ები)</value>
   </data>
   <data name="OnlyIfDifferentFromAudioCheckBox" xml:space="preserve">
-    <value>მხოლოდ თუ აუდიო ნაგსხვავებულ ენაზეა</value>
+    <value>მხოლოდ თუ აუდიო გაგსხვავებულ ენაზეა</value>
     <comment>Label for checkbox on subtitle picker. When checked, it will only include the subtitle if it's a different language from the chosen audio track.</comment>
   </data>
   <data name="SubtitleSelection" xml:space="preserve">
@@ -191,7 +191,7 @@
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
   <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
-    <value>პროგრამის სამოქმედო არგუმენტები. გამოიყენეთ {file} დასამახსოვრებელი ადგილისთვის.</value>
+    <value>პროგრამის სამოქმედო არგუმენტებისთვის გამოიყენეთ {file} დასამახსოვრებელი ფაილისთვის, {folder} დასამახსოვრებელი ფოლდერისთვის ან სხვა პარამეტრები, როგორიცაა {title} და {date} (იხილეთ სახელის ფორმატები).</value>
     <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
   </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
@@ -248,5 +248,19 @@
   </data>
   <data name="ForcedOnlyCheckBox" xml:space="preserve">
     <value>მხოლოდ დაძალებული</value>
+    <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
+  </data>
+  <data name="AudioDefaultToolTip" xml:space="preserve">
+    <value>დამთხვევისას ბოლოს არჩეული აუდიოს შენარჩუნდება, სხვა შემთხვევაში პირველის არჩევა.</value>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>ბოლოს გამოყენებული</value>
+  </data>
+  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
+    <value>დამთხვევისას ბოლოს არჩეული ტიტრის შენარჩუნდება, სხვა შემთხვევაში წყაროს გარეშე.</value>
+    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>დაშვებული პარამეტრებია: {0}</value>
   </data>
 </root>

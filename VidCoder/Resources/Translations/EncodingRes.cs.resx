@@ -254,9 +254,6 @@ Pro zdroj audia který má široký dynamický rozsah (velmi hlasité a velmi ti
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Na soubor je aplikována značka, kterou vyžadují starší verze iPodu před umožněním synchronizovat H.264 video.</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Umožňuje soubory větší než 4GB. Pokud je povoleno tak používá 64-bitové číselné enkódování. Některá zařízení jako iPod a PS3 s tím nejsou kompatibilní.</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>Ručně zadat poměr stran obrazových bodů.</value>
   </data>
@@ -279,9 +276,6 @@ Měli byste nastavit daný profil pokud víte že přehrávací zařízení podp
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Přípona souboru:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Velký soubor</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>Optimalizováno pro web</value>
@@ -931,9 +925,6 @@ Bicubic: Toto je metoda hardwarově urychleného algoritmu OpenCL.</value>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Odpovídá-li vstupní stopa kodeku tak dojde k přímému průchodu bez enkódování.</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Interpolační algoritmus:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Otočení:</value>
   </data>
@@ -1049,4 +1040,25 @@ Bicubic: Toto je metoda hardwarově urychleného algoritmu OpenCL.</value>
     <value>Klíče:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

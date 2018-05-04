@@ -352,14 +352,7 @@ namespace VidCoder.Services
 			{
 				return;
 			}
-
-			// Change casing on DVD titles to be a little more friendly
-			string translatedSourceName = this.main.SourceName;
-			if ((this.main.SelectedSource.Type == SourceType.Disc || this.main.SelectedSource.Type == SourceType.DiscVideoFolder) && !string.IsNullOrWhiteSpace(this.main.SourceName))
-			{
-				translatedSourceName = this.TranslateDiscSourceName(this.main.SourceName);
-			}
-
+			
 			string nameFormat = null;
 			if (this.NameFormatOverride != null)
 			{
@@ -376,7 +369,8 @@ namespace VidCoder.Services
 
 			fileName = this.BuildOutputFileName(
 				this.main.SourcePath,
-				translatedSourceName,
+				// Change casing on DVD titles to be a little more friendly
+				GetTranslatedSourceName(),
 				this.main.SelectedTitle.Index,
 				this.main.SelectedTitle.Duration.ToSpan(),
 				this.main.RangeType,
@@ -566,20 +560,52 @@ namespace VidCoder.Services
 				picker);
 		}
 
-		public string BuildOutputFileName(
-			string sourcePath, 
-			string sourceName, 
-			int title, 
-			TimeSpan titleDuration, 
-			VideoRangeType rangeType, 
-			int startChapter, 
-			int endChapter, 
-			int totalChapters, 
-			TimeSpan startTime, 
-			TimeSpan endTime, 
-			int startFrame, 
+		/// <summary>
+		///		Change casing on DVD titles to be a little more friendly
+		/// </summary>
+		private string GetTranslatedSourceName()
+		{
+			if ((main.SelectedSource.Type == SourceType.Disc || main.SelectedSource.Type == SourceType.DiscVideoFolder) && !string.IsNullOrWhiteSpace(main.SourceName))
+			{
+				return TranslateDiscSourceName(main.SourceName);
+			}
+			return main.SourceName;
+		}
+
+		public string ReplaceArguments(string nameFormat, Picker picker = null)
+		{
+			return ReplaceArguments(
+				main.SourcePath,
+				GetTranslatedSourceName(),
+				main.SelectedTitle.Index,
+				main.SelectedTitle.Duration.ToSpan(),
+				main.RangeType,
+				main.SelectedStartChapter.ChapterNumber,
+				main.SelectedEndChapter.ChapterNumber,
+				main.SelectedTitle.ChapterList.Count,
+				main.TimeRangeStart,
+				main.TimeRangeEnd,
+				main.FramesRangeStart,
+				main.FramesRangeEnd,
+				nameFormat,
+				multipleTitlesOnSource: this.main.ScanInstance.Titles.TitleList.Count > 1,
+				picker: picker);
+		}
+
+		private string ReplaceArguments(
+			string sourcePath,
+			string sourceName,
+			int title,
+			TimeSpan titleDuration,
+			VideoRangeType rangeType,
+			int startChapter,
+			int endChapter,
+			int totalChapters,
+			TimeSpan startTime,
+			TimeSpan endTime,
+			int startFrame,
 			int endFrame,
-			string nameFormatOverride, 
+			string nameFormatOverride,
 			bool multipleTitlesOnSource,
 			Picker picker)
 		{
@@ -655,13 +681,13 @@ namespace VidCoder.Services
 					double quality = 0;
 					switch (profile.VideoEncodeRateType)
 					{
-                        case VCVideoEncodeRateType.ConstantQuality:
+						case VCVideoEncodeRateType.ConstantQuality:
 							quality = profile.Quality;
 							break;
-                        case VCVideoEncodeRateType.AverageBitrate:
+						case VCVideoEncodeRateType.AverageBitrate:
 							quality = profile.VideoBitrate;
 							break;
-                        case VCVideoEncodeRateType.TargetSize:
+						case VCVideoEncodeRateType.TargetSize:
 							quality = profile.TargetSize;
 							break;
 						default:
@@ -710,8 +736,30 @@ namespace VidCoder.Services
 
 				fileName = sourceName + titleSection + rangeSection;
 			}
+			return fileName;
+		}
 
-			return FileUtilities.CleanFileName(fileName, allowBackslashes: true);
+		public string BuildOutputFileName(
+			string sourcePath, 
+			string sourceName, 
+			int title, 
+			TimeSpan titleDuration, 
+			VideoRangeType rangeType, 
+			int startChapter, 
+			int endChapter, 
+			int totalChapters, 
+			TimeSpan startTime, 
+			TimeSpan endTime, 
+			int startFrame, 
+			int endFrame,
+			string nameFormatOverride, 
+			bool multipleTitlesOnSource,
+			Picker picker)
+		{
+			
+			return FileUtilities.CleanFileName(
+				ReplaceArguments(sourcePath, sourceName, title, titleDuration, rangeType, startChapter,endChapter, totalChapters, startTime, endTime, startFrame, endFrame, nameFormatOverride, multipleTitlesOnSource, picker), 
+				allowBackslashes: true);
 		}
 
 		public bool PathIsValid()

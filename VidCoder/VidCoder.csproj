@@ -10,13 +10,15 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VidCoder</RootNamespace>
     <AssemblyName>VidCoder</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <ApplicationIcon>VidCoder_icon.ico</ApplicationIcon>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -34,11 +36,12 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -56,7 +59,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -76,34 +79,11 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject></StartupObject>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CommonServiceLocator" Version="1.3" />
+    <PackageReference Include="DesktopBridge.Helpers" Version="1.1" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="2.9" />
     <PackageReference Include="FastMember" Version="1.0.0.11" />
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.0.8" />
@@ -172,10 +152,12 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\PaddingFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PresetTreeViewContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -186,14 +168,10 @@
     <Page Include="Controls\InlineWarning.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\NumberBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\PathTextBlock.xaml">
       <SubType>Designer</SubType>
@@ -246,24 +224,16 @@
     <Page Include="View\ApplyUpdateConfirmation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\ChapterMarkersDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\ChooseName.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\EncodingWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -278,8 +248,10 @@
     <Page Include="View\Main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Panels\ContainerPanel.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Panels\SizingPanel.xaml">
       <SubType>Designer</SubType>
@@ -320,14 +292,10 @@
     <Page Include="View\OptionsDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\PreviewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\QueueColumnsDialog.xaml">
       <SubType>Designer</SubType>
@@ -344,8 +312,6 @@
     <Page Include="View\SubtitleDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -355,6 +321,11 @@
     <Compile Include="Automation\VidCoderAutomation.cs" />
     <Compile Include="Controls\PaddingFrame.xaml.cs">
       <DependentUpon>PaddingFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PresetComboBox.cs" />
+    <Compile Include="Controls\PresetTreeView.cs" />
+    <Compile Include="Controls\PresetTreeViewContainer.xaml.cs">
+      <DependentUpon>PresetTreeViewContainer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\RangeBar.xaml.cs">
       <DependentUpon>RangeBar.xaml</DependentUpon>
@@ -385,6 +356,7 @@
     <Compile Include="Converters\ChapterVMConverter.cs" />
     <Compile Include="Converters\TitleDisplayConverter.cs" />
     <Compile Include="DataReaderExtensions.cs" />
+    <Compile Include="DragDrop\MoveToFolderAdorner.cs" />
     <Compile Include="EnumStringConverter.cs" />
     <Compile Include="Extensions\JsonScanObjectExtensions.cs" />
     <Compile Include="Extensions\PresetExtensions.cs" />
@@ -402,6 +374,8 @@
     <Compile Include="Model\EncodeResultStatus.cs" />
     <Compile Include="Model\EncodeCompleteReason.cs" />
     <Compile Include="Model\FolderType.cs" />
+    <Compile Include="Model\PresetFolder.cs" />
+    <Compile Include="Model\PresetFolderStorage.cs" />
     <Compile Include="Model\PresetWrapper.cs" />
     <Compile Include="Model\PreviewControls.cs" />
     <Compile Include="Model\PreviewEncodeState.cs" />
@@ -538,6 +512,7 @@
     <Compile Include="Services\Windows\WindowMenuItemViewModel.cs" />
     <Compile Include="Services\Windows\WindowPlacer.cs" />
     <Compile Include="Utilities\AdvancedOptionsParsing.cs" />
+    <Compile Include="Utilities\BitmapUtilities.cs" />
     <Compile Include="Utilities\CodecUtilities.cs" />
     <Compile Include="Services\HandBrakeProxy\RemoteEncodeProxy.cs" />
     <Compile Include="Utilities\ColorUtilities.cs" />
@@ -557,6 +532,7 @@
     <Compile Include="Utilities\MvvmUtilities.cs" />
     <Compile Include="Utilities\NativeMethods.cs" />
     <Compile Include="Utilities\ParentProcessUtilities.cs" />
+    <Compile Include="Utilities\PresetConverter.cs" />
     <Compile Include="Utilities\PseudoLocalizer.cs" />
     <Compile Include="Utilities\RefireControl.cs" />
     <Compile Include="Model\Config\Config.cs">
@@ -570,6 +546,7 @@
     <Compile Include="Services\PresetsService.cs" />
     <Compile Include="Services\ProcessingService.cs" />
     <Compile Include="Services\WindowXamlHelper.cs" />
+    <Compile Include="Utilities\XamlStatics.cs" />
     <Compile Include="ViewModel\CustomMessageDialogViewModel.cs" />
     <Compile Include="ViewModel\DataModels\AdvancedChoices.cs" />
     <Compile Include="ViewModel\DataModels\AudioTrackViewModel.cs" />
@@ -580,6 +557,7 @@
     <Compile Include="ViewModel\DataModels\LanguageViewModel.cs" />
     <Compile Include="ViewModel\DataModels\LevelChoiceViewModel.cs" />
     <Compile Include="ViewModel\DataModels\PickerViewModel.cs" />
+    <Compile Include="ViewModel\DataModels\PresetFolderViewModel.cs" />
     <Compile Include="ViewModel\DataModels\RotationViewModel.cs" />
     <Compile Include="ViewModel\DataModels\SizingPreviewLineViewModel.cs" />
     <Compile Include="ViewModel\DataModels\VideoEncoderViewModel.cs" />
@@ -587,6 +565,7 @@
     <Compile Include="ViewModel\DataModels\InterfaceLanguage.cs" />
     <Compile Include="ViewModel\IMainView.cs" />
     <Compile Include="ViewModel\IPreviewView.cs" />
+    <Compile Include="ViewModel\Panels\ContainerPanelViewModel.cs" />
     <Compile Include="ViewModel\PickerWindowViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModelBase.cs" />
     <Compile Include="ViewModel\ShutdownWarningWindowViewModel.cs" />
@@ -601,6 +580,9 @@
     </Compile>
     <Compile Include="View\Panels\AudioEncodingPanel.xaml.cs">
       <DependentUpon>AudioEncodingPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Panels\ContainerPanel.xaml.cs">
+      <DependentUpon>ContainerPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PickerWindow.xaml.cs">
       <DependentUpon>PickerWindow.xaml</DependentUpon>
@@ -718,7 +700,7 @@
     <Compile Include="Utilities\DispatchUtilities.cs" />
     <Compile Include="Services\DriveService.cs" />
     <Compile Include="Services\Interfaces\IMessageBoxService.cs" />
-    <Compile Include="Services\Interfaces\IUpdateService.cs" />
+    <Compile Include="Services\Interfaces\IUpdater.cs" />
     <Compile Include="Services\MessageBoxService.cs" />
     <Compile Include="Services\Interfaces\IDriveService.cs" />
     <Compile Include="Services\Interfaces\IFileService.cs" />
@@ -786,6 +768,8 @@
     <Compile Include="View\Panels\VideoPanel.xaml.cs">
       <DependentUpon>VideoPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Selectors\PresetTreeContainerStyleSelector.cs" />
+    <Compile Include="View\Selectors\PresetTreeTemplateSelector.cs" />
     <Compile Include="WindowPlacement.cs" />
     <Resource Include="Icons\dvd_folder.png" />
     <Resource Include="Icons\video_files_folder.png" />
@@ -838,6 +822,7 @@
     <EmbeddedResource Include="Resources\PreviewRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PreviewRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\QueueTitlesRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -856,9 +841,6 @@
     <EmbeddedResource Include="Resources\Translations\*.*.resx">
       <ManifestResourceName>$(TargetName).Resources.%(Filename)</ManifestResourceName>
     </EmbeddedResource>
-    <Content Include="BuiltInPresets.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -888,9 +870,24 @@
     <Resource Include="Icons\stop_shadow.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Lib\hb.dll">
+      <Link>hb.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\System.Data.SQLite.Core.1.0.105.1\build\net46\x64\SQLite.Interop.dll">
+      <Link>SQLite.Interop.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ThirdPartyLicenses.txt">
+      <Link>ThirdPartyLicenses.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\add_folder.png" />
+    <Resource Include="Icons\delete_folder.png" />
+    <Resource Include="Icons\rename_folder.png" />
     <Resource Include="Icons\rotate_180.png" />
     <Resource Include="Icons\rotate_90_ccw.png" />
     <Resource Include="Icons\rotate_90_cw.png" />
@@ -958,16 +955,13 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Xaml\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target> -->
   <Target Name="AfterBuild" DependsOnTargets="AssignTargetPaths;Compile;ResolveKeySource" Inputs="$(MSBuildAllProjects);@(IntermediateAssembly)" Outputs="$(OutputPath)$(_SGenDllName)">
-    <Copy SourceFiles="..\Lib\$(Platform)\hb.dll" DestinationFolder="$(OutDir)" />
     <Copy SourceFiles="..\Lib\HandBrake.ApplicationServices.pdb" DestinationFolder="$(OutDir)" />
   </Target>
 </Project>

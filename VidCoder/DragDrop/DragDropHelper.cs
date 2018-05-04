@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using VidCoder.Services;
+using VidCoder.Services.Windows;
 
 namespace VidCoder.DragDropUtils
 {
@@ -230,14 +231,16 @@ namespace VidCoder.DragDropUtils
 						return;
 					}
 
+					var windowManager = Ioc.Get<IWindowManager>();
+					windowManager.SuspendDropOnWindows();
+
 					// Adding events to the window to make sure dragged adorner comes up when mouse is not over a drop target.
-					bool previousAllowDrop = this.topWindow.AllowDrop;
 					this.topWindow.AllowDrop = true;
 					this.topWindow.DragEnter += this.TopWindow_DragEnter;
 					this.topWindow.DragOver += this.TopWindow_DragOver;
 					this.topWindow.DragLeave += this.TopWindow_DragLeave;
 					
-					DragDropEffects effects = DragDrop.DoDragDrop((DependencyObject)sender, data, DragDropEffects.Move);
+					DragDrop.DoDragDrop((DependencyObject)sender, data, DragDropEffects.Move);
 
 					// Without this call, there would be a bug in the following scenario: Click on a data item, and drag
 					// the mouse very fast outside of the window. When doing this really fast, for some reason I don't get 
@@ -246,11 +249,12 @@ namespace VidCoder.DragDropUtils
 					// which is when the DoDragDrop synchronous method returns.
 					this.RemoveDraggedAdorner();
 
-					this.topWindow.AllowDrop = previousAllowDrop;
 					this.topWindow.DragEnter -= this.TopWindow_DragEnter;
 					this.topWindow.DragOver -= this.TopWindow_DragOver;
 					this.topWindow.DragLeave -= this.TopWindow_DragLeave;
-					
+
+					windowManager.ResumeDropOnWindows();
+
 					this.draggedData = null;
 				}
 			}
@@ -275,6 +279,7 @@ namespace VidCoder.DragDropUtils
 				this.ShowDraggedAdorner(e.GetPosition(this.topWindow));
 				this.CreateInsertionAdorner();
 			}
+
 			e.Handled = true;
 		}
 
@@ -289,6 +294,7 @@ namespace VidCoder.DragDropUtils
 				this.ShowDraggedAdorner(e.GetPosition(this.topWindow));
 				this.UpdateInsertionAdornerPosition();
 			}
+
 			e.Handled = true;
 		}
 
@@ -316,6 +322,7 @@ namespace VidCoder.DragDropUtils
 				this.RemoveDraggedAdorner();
 				this.RemoveInsertionAdorner();
 			}
+
 			e.Handled = true;
 		}
 
@@ -329,6 +336,7 @@ namespace VidCoder.DragDropUtils
 			{
 				this.RemoveInsertionAdorner();
 			}
+
 			e.Handled = true;
 		}
 
@@ -449,6 +457,7 @@ namespace VidCoder.DragDropUtils
 			{
 				isDropDataTypeAllowed = false;			
 			}
+
 			return isDropDataTypeAllowed;
 		}
 
@@ -484,6 +493,7 @@ namespace VidCoder.DragDropUtils
 				var adornerLayer = AdornerLayer.GetAdornerLayer(this.sourceItemsControl);
 				this.draggedAdorner = new DraggedAdorner(this.draggedData, GetDragDropTemplate(this.sourceItemsControl), this.sourceItemContainer, adornerLayer);
 			}
+
 			this.draggedAdorner.SetPosition(currentPosition.X - this.initialMousePosition.X, currentPosition.Y - this.initialMousePosition.Y);
 		}
 

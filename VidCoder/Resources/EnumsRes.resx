@@ -221,6 +221,13 @@
   <data name="Off" xml:space="preserve">
     <value>Off</value>
   </data>
+  <data name="Sharpen_LapSharp" xml:space="preserve">
+    <value>LapSharp</value>
+  </data>
+  <data name="Sharpen_UnSharp" xml:space="preserve">
+    <value>UnSharp</value>
+    <comment>The name for the "UnSharp" sharpen filter.</comment>
+  </data>
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-ray</value>
     <comment>What to display when the source is a Blu-ray</comment>

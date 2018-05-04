@@ -202,4 +202,7 @@
   <data name="VideoErrorTitle" xml:space="preserve">
     <value>視訊錯誤</value>
   </data>
+  <data name="PlaySourceDisabledAppxToolTip" xml:space="preserve">
+    <value>由於無法開啟其他程式，Windows 市集版本無法播放 DVD 或藍光視訊來源。</value>
+  </data>
 </root>

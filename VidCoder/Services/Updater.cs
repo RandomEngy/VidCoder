@@ -30,8 +30,6 @@ namespace VidCoder.Services
 
 		private CancellationTokenSource updateDownloadCancellationTokenSource;
 
-		private static bool UpdatesSupported => !Utilities.IsPortable;
-
 		private IAppLogger logger = Ioc.Get<IAppLogger>();
 		private bool processDownloadsUpdates = true;
 
@@ -53,7 +51,7 @@ namespace VidCoder.Services
 
 		public void PromptToApplyUpdate()
 		{
-			if (UpdatesSupported)
+			if (Utilities.SupportsUpdates)
 			{
 				// If updates are enabled, and we are the last process instance, prompt to apply the update.
 				if (Config.UpdatesEnabled && Utilities.CurrentProcessInstances == 1)
@@ -113,7 +111,7 @@ namespace VidCoder.Services
 
 		public void HandleUpdatedSettings(bool updatesEnabled)
 		{
-			if (UpdatesSupported)
+			if (Utilities.SupportsUpdates)
 			{
 				if (updatesEnabled)
 				{
@@ -206,15 +204,9 @@ namespace VidCoder.Services
 		// Starts checking for updates
 		public void CheckUpdates()
 		{
-			// Only check for updates on non-portable
-			if (!UpdatesSupported)
+			// Only check for updates when non-portable and not running under desktop bridge
+			if (!Utilities.SupportsUpdates)
 			{
-				return;
-			}
-
-			if (!Environment.Is64BitOperatingSystem)
-			{
-				this.State = UpdateState.NotSupported32BitOS;
 				return;
 			}
 
@@ -435,25 +427,19 @@ namespace VidCoder.Services
 
 		private static string GetUpdateUrl(bool beta)
 		{
-			bool is64Bit = Environment.Is64BitOperatingSystem;
-			string updateInfoFile = GetUpdateFilename(beta, is64Bit);
+			string updateInfoFile = GetUpdateFilename(beta);
 
 			string testPortion = CommonUtilities.DebugMode ? "/Test" : string.Empty;
 
 			return UpdateInfoUrlBase + testPortion + "/" + updateInfoFile;
 		}
 
-		private static string GetUpdateFilename(bool beta, bool is64Bit)
+		private static string GetUpdateFilename(bool beta)
 		{
 			var fileNameBuilder = new StringBuilder("latest");
 			if (beta)
 			{
 				fileNameBuilder.Append("-beta");
-			}
-
-			if (!is64Bit)
-			{
-				fileNameBuilder.Append("-x86");
 			}
 
 			fileNameBuilder.Append(".json");

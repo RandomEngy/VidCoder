@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>Když je automatická volba audio stopy vypnuta, je použita naposledy vybraná varianta.</value>
-  </data>
-  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>Když je automatická volba titulků vypnuta, tak je použita naposledy vybraná varianta.</value>
-  </data>
   <data name="GeneralTab" xml:space="preserve">
     <value>Obecné</value>
   </data>
@@ -368,12 +362,6 @@
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>Video</value>
-  </data>
-  <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>Povolit DXVA dekódování s hardwarovým urychlením</value>
-  </data>
-  <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>Tato možnost je vhodná pouze pro pomalejší systémy. Hardwarové dekodéry jsou v současnosti navrženy pro přehrávání a ne pro re-enkódování videa a tak na rychlejších systémech může docházet k chybám.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Při převodu souborů zachovat vytvořený a změněný čas</value>

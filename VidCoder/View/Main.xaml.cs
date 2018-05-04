@@ -176,7 +176,7 @@ namespace VidCoder.View
 
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
-			this.viewModel = this.DataContext as MainViewModel;
+			this.viewModel = (MainViewModel)this.DataContext;
 			this.viewModel.AnimationStarted += this.ViewModelAnimationStarted;
 			this.viewModel.View = this;
 			this.processingService.PropertyChanged += (sender2, e2) =>
@@ -231,6 +231,8 @@ namespace VidCoder.View
 		{
 			this.RefreshQueueColumns();
 		}
+
+		public IList<EncodeJobViewModel> SelectedJobs => this.queueView.SelectedItems.Cast<EncodeJobViewModel>().ToList();
 
 		private void RefreshQueueColumns()
 		{
@@ -525,6 +527,14 @@ namespace VidCoder.View
 			return
 				clickedPoint.X >= relativePoint.X && clickedPoint.X <= relativePoint.X + element.ActualWidth &&
 				clickedPoint.Y >= relativePoint.Y && clickedPoint.Y <= relativePoint.Y + element.ActualHeight;
+		}
+
+		private void OnPresetComboPreviewKeyDown(object sender, KeyEventArgs e)
+		{
+			this.PreviewKeyDown += (sender2, args) =>
+			{
+				Ioc.Get<PresetsService>().HandleKey(args);
+			};
 		}
 	}
 }

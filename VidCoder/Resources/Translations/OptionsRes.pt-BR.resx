@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>Quando a seleção de áudio automática é desabilitada, a última faixa escolhida persiste.</value>
-  </data>
-  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>Quando a seleção de legenda automática estiver desativada, as últimas legendas escolhidas continuam.</value>
-  </data>
   <data name="GeneralTab" xml:space="preserve">
     <value>Geral</value>
   </data>
@@ -368,12 +362,6 @@
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>Vídeo</value>
-  </data>
-  <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>Habilitar o acelerador de decodificação de hardware para DXVA</value>
-  </data>
-  <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>Esta opção só é adequada para sistemas mais lentos. Decodificadores de hardware atualmente são projetados para reprodução, não para re-codificar o vídeo. Então será provável gargalo em sistemas mais rápidos.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Preservar o tempo criado e modificado na conversão de arquivos</value>

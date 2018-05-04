@@ -1,18 +1,17 @@
 ﻿using ReactiveUI;
 using VidCoder.Extensions;
+using VidCoder.ViewModel.DataModels;
 using VidCoderCommon.Model;
 
 namespace VidCoder.ViewModel
 {
 	public class PresetViewModel : ReactiveObject
 	{
-		private Preset preset;
-
 		public PresetViewModel(Preset preset)
 		{
-			this.preset = preset;
+			this.Preset = preset;
 
-			this.preset.WhenAnyValue(
+			this.Preset.WhenAnyValue(
 				x => x.Name,
 				x => x.IsBuiltIn,
 				(name, isBuiltIn) =>
@@ -32,13 +31,17 @@ namespace VidCoder.ViewModel
 				.ToProperty(this, x => x.DisplayNameWithStar, out this.displayNameWithStar);
 		}
 
-		public Preset Preset
+		public Preset Preset { get; }
+
+		// Used only to help TreeViewModel. The real selected master property is on PresetsService
+		private bool isSelected;
+		public bool IsSelected
 		{
-			get
-			{
-				return this.preset;
-			}
+			get { return this.isSelected; }
+			set { this.RaiseAndSetIfChanged(ref this.isSelected, value); }
 		}
+
+		public PresetFolderViewModel Parent { get; set; }
 
 		public VCProfile OriginalProfile { get; set; }
 

@@ -21,13 +21,14 @@ OutputBaseFilename=%outputBaseFileName%
 AppId=%appId%
 UsePreviousAppDir=yes
 
-%x64Directives%
+ArchitecturesAllowed=x64
+ArchitecturesInstallIn64BitMode=x64
 
 [Languages]
 Name: "en"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "Files\%arch%\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
+Source: "Files\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
 
 [Registry]
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlers\PlayBluRayOnArrival"; ValueType: string; ValueName: "%appNameNoSpace%RipDriveOnArrival"; ValueData: ""; Flags: uninsdeletevalue
@@ -82,7 +83,7 @@ begin
   Result := True;
 
   bSuccess := RegQueryDWordValue(HKLM, 'Software\Microsoft\NET Framework Setup\NDP\v4\Full', 'Release', regVersion);
-  if (True = bSuccess) and (regVersion >= 393295) then begin
+  if (True = bSuccess) and (regVersion >= 394802) then begin
     Result := False;
   end;
 end;
@@ -228,11 +229,11 @@ begin
   case CurStep of
     ssInstall:
       begin
-	    if (GetX86UninstallRegistryKey() <> '') then
-		begin
-		  %x86UninstallLine%
-		end;
-	  end;
+        if (GetX86UninstallRegistryKey() <> '') then
+        begin
+          UninstallX86Version();
+        end;
+      end;
     ssPostInstall:
       begin
         if Framework46IsNotInstalled() then

@@ -16,6 +16,10 @@ using VidCoder.Services;
 using VidCoder.ViewModel;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Windows.Controls.Primitives;
+using VidCoder.DragDropUtils;
+using VidCoder.Services.Windows;
+using VidCoder.ViewModel.DataModels;
 
 namespace VidCoder.View
 {
@@ -27,6 +31,8 @@ namespace VidCoder.View
 	/// </summary>
 	public partial class EncodingWindow : Window
 	{
+		private EncodingWindowViewModel viewModel;
+
 		public EncodingWindow()
 		{
 			this.InitializeComponent();
@@ -37,22 +43,20 @@ namespace VidCoder.View
 
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
-			var viewModel = e.NewValue as EncodingWindowViewModel;
+			this.viewModel = e.NewValue as EncodingWindowViewModel;
 
-			if (viewModel != null)
+			if (this.viewModel != null)
 			{
-				this.SetPanelOpenState(viewModel.PresetPanelOpen);
-				viewModel.PropertyChanged += this.OnPropertyChanged;
+				this.SetPanelOpenState(this.viewModel.PresetPanelOpen);
+				this.viewModel.PropertyChanged += this.OnPropertyChanged;
 			}
 		}
 
 		private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			var viewModel = this.DataContext as EncodingWindowViewModel;
-
-			if (viewModel != null && e.PropertyName == nameof(viewModel.PresetPanelOpen))
+			if (this.viewModel != null && e.PropertyName == nameof(this.viewModel.PresetPanelOpen))
 			{
-				this.SetPanelOpenState(viewModel.PresetPanelOpen);
+				this.SetPanelOpenState(this.viewModel.PresetPanelOpen);
 			}
 		}
 
@@ -88,13 +92,17 @@ namespace VidCoder.View
 
 		private void Window_Closed(object sender, EventArgs e)
 		{
-			var viewModel = this.DataContext as EncodingWindowViewModel;
-			if (viewModel != null)
+			if (this.viewModel != null)
 			{
-				viewModel.PropertyChanged -= this.OnPropertyChanged;
+				this.viewModel.PropertyChanged -= this.OnPropertyChanged;
 			}
 
 			this.DataContext = null;
+		}
+
+		private void OnPresetTreeKeyDown(object sender, KeyEventArgs e)
+		{
+			Ioc.Get<PresetsService>().HandleKey(e);
 		}
 	}
 }

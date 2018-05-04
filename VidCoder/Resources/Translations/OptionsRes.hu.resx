@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>Amikor az automatikus hangkiválasztás ki van kapcsolva, az utolsó kiválasztott sáv érvényesül.</value>
-  </data>
-  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>Amikor az automatikus feliratkiválasztás ki van kapcsolva, az utolsó kiválasztott felirat érvényesül.</value>
-  </data>
   <data name="GeneralTab" xml:space="preserve">
     <value>Általános</value>
   </data>
@@ -368,12 +362,6 @@
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>Videó</value>
-  </data>
-  <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>DXVA hardveresen gyorsított dekódolás engedélyezése</value>
-  </data>
-  <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>Ez a beállítás csak a lassabb rendszerekhez alkalmas. A hardveres dekódereket lejátszásra tervezték, nem újrakódolásra, így a gyorsabb rendszerek szűk keresztmetszetét jelenthetik.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Fájlok Létrehozva és Módosítva értékeinek megőrzése a konvertálás során</value>

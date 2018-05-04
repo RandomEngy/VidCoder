@@ -283,6 +283,8 @@ namespace VidCoder.ViewModel
 
 			this.fallbackEncoderChoices = new List<AudioEncoderViewModel>();
 
+			this.FallbackEncoderChoices.Add(new AudioEncoderViewModel { Encoder = HandBrakeEncoderHelpers.GetAudioEncoder("none") });
+
 			foreach (HBAudioEncoder encoder in HandBrakeEncoderHelpers.AudioEncoders)
 			{
 				if ((encoder.CompatibleContainers & container.Id) > 0 && !encoder.IsPassthrough)
@@ -297,7 +299,7 @@ namespace VidCoder.ViewModel
 
 			if (this.audioEncoderFallback == null)
 			{
-				this.audioEncoderFallback = this.FallbackEncoderChoices[0];
+				this.audioEncoderFallback = this.FallbackEncoderChoices[1];
 			}
 
 			this.RaisePropertyChanged(nameof(this.AudioEncoderFallback));
@@ -442,6 +444,12 @@ namespace VidCoder.ViewModel
 				}
 				else
 				{
+					// The fallback is explicitly set to "None", so drop the track.
+					if (this.Profile.AudioEncoderFallback == "none")
+					{
+						return null;
+					}
+
 					encoder = HandBrakeEncoderHelpers.GetAudioEncoder(this.Profile.AudioEncoderFallback);
 				}
 

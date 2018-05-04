@@ -229,9 +229,6 @@ Ovo radi samo sa AC3 izvorima.</value>
   <data name="IPod5GSupportToolTip" xml:space="preserve">
     <value>Dodaje oznaku u fajl koju stariji iPod-i zahtjevaju prije nego dozvole H.264 videa sinkronizaciju.</value>
   </data>
-  <data name="LargeFileSizeToolTip" xml:space="preserve">
-    <value>Dozvoljava fajlove preko 4GB. Kada je uključeno, koristi 64-bitne brojeve kod enkodiranja. Neki uređaji, kad što je iPod i PS3, su nekompatibilni sa ovom opcijom.</value>
-  </data>
   <data name="PixelAspectRatioToolTip" xml:space="preserve">
     <value>Ručno navedite omjer slike.</value>
   </data>
@@ -252,9 +249,6 @@ Ovo radi samo sa AC3 izvorima.</value>
   </data>
   <data name="ExtensionLabel" xml:space="preserve">
     <value>Nastavak:</value>
-  </data>
-  <data name="LargeFileSizeCheckBox" xml:space="preserve">
-    <value>Velik fajl</value>
   </data>
   <data name="WebOptimizedCheckBox" xml:space="preserve">
     <value>Optimizirano za Web</value>
@@ -903,9 +897,6 @@ Bicubic: OpenCL hardverski ubrzani algoritam za skaliranje.</value>
   <data name="PassthroughIfPossibleToolTip" xml:space="preserve">
     <value>Ukoliko ulazni zapis odgovara kodeku, bit će samo prekopiran umjesto enkodiranja.</value>
   </data>
-  <data name="ScalingAlgorithmLabel" xml:space="preserve">
-    <value>Algoritam skaliranja:</value>
-  </data>
   <data name="RotationLabel" xml:space="preserve">
     <value>Rotacija:</value>
   </data>
@@ -1021,4 +1012,25 @@ Bicubic: OpenCL hardverski ubrzani algoritam za skaliranje.</value>
     <value>Ključevi:</value>
     <comment>The label for the "keys" portion of the custom filter tooltip.</comment>
   </data>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </root>

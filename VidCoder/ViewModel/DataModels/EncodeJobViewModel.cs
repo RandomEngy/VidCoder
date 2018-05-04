@@ -363,7 +363,7 @@ namespace VidCoder.ViewModel
 		public ReactiveCommand<object> RemoveQueueJob { get; }
 		private void RemoveQueueJobImpl()
 		{
-			this.ProcessingService.RemoveQueueJob(this);
+			this.ProcessingService.RemoveQueueJobAndOthersIfSelected(this);
 		}
 
 		public bool CanDrag

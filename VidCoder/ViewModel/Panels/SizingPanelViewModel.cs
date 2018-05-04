@@ -57,12 +57,6 @@ namespace VidCoder.ViewModel
 				new ComboChoice<VCPaddingMode>(VCPaddingMode.Custom, CommonRes.Custom),
 			};
 
-			this.ScaleChoices = new List<ComboChoice<VCScaleMethod>>
-			{
-				new ComboChoice<VCScaleMethod>(VCScaleMethod.Lanczos, EncodingRes.ScaleMethod_Lanczos),
-				new ComboChoice<VCScaleMethod>(VCScaleMethod.Bicubic, EncodingRes.ScaleMethod_BicubicOpenCL)
-			};
-
 			this.RegisterProfileProperties();
 
 			// WidthLabel
@@ -449,7 +443,6 @@ namespace VidCoder.ViewModel
 			// These actions fire when the user changes a property.
 			this.RegisterProfileProperty(nameof(this.Profile.Width), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.Height), this.RefreshOutputSize);
-			this.RegisterProfileProperty(nameof(this.Profile.ScaleMethod));
 			this.RegisterProfileProperty(nameof(this.Profile.Modulus), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.PixelAspectX), this.RefreshOutputSize);
 			this.RegisterProfileProperty(nameof(this.Profile.PixelAspectY), this.RefreshOutputSize);
@@ -545,14 +538,6 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.Profile.ScalingMode; }
 			set { this.UpdateProfileProperty(nameof(this.Profile.ScalingMode), value); }
-		}
-
-		public List<ComboChoice<VCScaleMethod>> ScaleChoices { get; }
-
-		public VCScaleMethod ScaleMethod
-		{
-			get { return this.Profile.ScaleMethod; }
-			set { this.UpdateProfileProperty(nameof(this.Profile.ScaleMethod), value); }
 		}
 
 		public List<ComboChoice<VCPaddingMode>> PaddingModeChoices { get; }

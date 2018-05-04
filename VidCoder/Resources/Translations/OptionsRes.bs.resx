@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoAudioDisabledToolTip" xml:space="preserve">
-    <value>Kada je automatski odabir audia onemogućen, zadnje odabrani zapis ostaje.</value>
-  </data>
-  <data name="AutoSubtitleDisabledToolTip" xml:space="preserve">
-    <value>Kada je automatski odabir podnaslova onemogućen, zadnje odabrani podnaslov ostaje.</value>
-  </data>
   <data name="GeneralTab" xml:space="preserve">
     <value>Opšte</value>
   </data>
@@ -368,12 +362,6 @@
   </data>
   <data name="VideoSection" xml:space="preserve">
     <value>Video</value>
-  </data>
-  <data name="DxvaDecodingCheckBox" xml:space="preserve">
-    <value>Omogući DXVA Hardverski Ubrzano dekodiranje</value>
-  </data>
-  <data name="DxvaDecodingToolTip" xml:space="preserve">
-    <value>Ovaj opcija je prilagođena sporijim sistemima. Hardverski dekoderi su trenutno dizajnirani samo za reprodukciju, a ne za reenkodiranje videa, te bi mogli zaglavljivati na bržim sistemima.</value>
   </data>
   <data name="PreserveModifyTimeFilesCheckBox" xml:space="preserve">
     <value>Sačuvaj vrijeme Stvaranja i Izmjene prilikom konverzije fajlova</value>

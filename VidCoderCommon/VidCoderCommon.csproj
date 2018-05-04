@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VidCoderCommon</RootNamespace>
     <AssemblyName>VidCoderCommon</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -50,7 +50,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CommonServiceLocator" Version="1.3" />
     <PackageReference Include="FastMember" Version="1.0.0.11" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="reactiveui" Version="6.5.0" />
@@ -110,8 +109,8 @@
     <Compile Include="Model\VCPaddingMode.cs" />
     <Compile Include="Model\VCPictureRotation.cs" />
     <Compile Include="Model\VCProfile.cs" />
-    <Compile Include="Model\VCScaleMethod.cs" />
     <Compile Include="Model\VCScalingMode.cs" />
+    <Compile Include="Model\VCSharpen.cs" />
     <Compile Include="Model\VCSizingMode.cs" />
     <Compile Include="Model\VCVideoEncodeRateType.cs" />
     <Compile Include="Model\VidCoderContractResolver.cs" />
