@@ -206,9 +206,15 @@ namespace VidCoder.Services
 		// Starts checking for updates
 		public void CheckUpdates()
 		{
-			// Only check for updates non-portable and debugger not attached
+			// Only check for updates on non-portable
 			if (!UpdatesSupported)
 			{
+				return;
+			}
+
+			if (!Environment.Is64BitOperatingSystem)
+			{
+				this.State = UpdateState.NotSupported32BitOS;
 				return;
 			}
 
