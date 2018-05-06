@@ -234,7 +234,7 @@ namespace VidCoder.Services
 
 		private async void StartBackgroundUpdate()
 		{
-			if (this.State != UpdateState.NotStarted && this.State != UpdateState.Failed && this.State != UpdateState.UpToDate && this.State != UpdateState.NotSupported32BitOS)
+			if (this.State != UpdateState.NotStarted && this.State != UpdateState.Failed && this.State != UpdateState.UpToDate)
 			{
 				// Can only start updates from certain states.
 				return;

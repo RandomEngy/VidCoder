@@ -138,7 +138,13 @@ $version4Part = $versionShort + ".0.0"
 UpdateAssemblyInfo "VidCoder\Properties\AssemblyInfo.cs" $version4Part
 UpdateAssemblyInfo "VidCoderWorker\Properties\AssemblyInfo.cs" $version4Part
 
-UpdateAppxManifest "VidCoderPackage\Package.appxmanifest" $version4Part
+if ($beta) {
+    $manifestBaseFileName = "Package-Beta"
+} else {
+    $manifestBaseFileName = "Package-Stable"
+}
+
+UpdateAppxManifest "VidCoderPackage\$manifestBaseFileName.appxmanifest" $version4Part
 
 # Build VidCoder.sln
 & $MsBuildExe VidCoder.sln /t:rebuild "/p:Configuration=$configuration;Platform=x64;UapAppxPackageBuildMode=StoreUpload"; ExitIfFailed

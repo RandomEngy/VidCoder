@@ -2,6 +2,7 @@
 <StoreAssociation xmlns="http://schemas.microsoft.com/appx/2010/storeassociation">
   <Publisher>CN=D5C369CB-4369-49A5-B240-9717546C690D</Publisher>
   <PublisherDisplayName>RandomEngy</PublisherDisplayName>
+  <DeveloperAccountType>MSA</DeveloperAccountType>
   <GeneratePackageHash>http://www.w3.org/2001/04/xmlenc#sha256</GeneratePackageHash>
   <SupportedLocales>
     <Language Code="af" InMinimumRequirementSet="true" />
@@ -358,14 +359,14 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>19358RandomEngy.VidCoderBeta</MainPackageIdentityName>
+    <MainPackageIdentityName>19358RandomEngy.VidCoder</MainPackageIdentityName>
     <ReservedNames>
-      <ReservedName>VidCoder Beta</ReservedName>
+      <ReservedName>VidCoder</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
     <MainPackageIdentityName>19358RandomEngy.SuperDiggerFree</MainPackageIdentityName>
-    <MainPackageIdentityName>19358RandomEngy.VidCoder</MainPackageIdentityName>
+    <MainPackageIdentityName>19358RandomEngy.VidCoderBeta</MainPackageIdentityName>
   </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://developer.microsoft.com/dashboard/Application?appId=9NW2FKD80BXQ" />
+  <PackageInfoList LandingUrl="https://developer.microsoft.com/dashboard/Application?appId=9N78DHWZ3DJX" />
 </StoreAssociation>

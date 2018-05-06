@@ -72,8 +72,6 @@ namespace VidCoder.ViewModel
 							return string.Format(OptionsRes.UpdateReadyStatus, this.updater.LatestVersion);
 						case UpdateState.Failed:
 							return OptionsRes.UpdateFailedStatus;
-						case UpdateState.NotSupported32BitOS:
-							return CommonRes.UpdatesDisabled32BitOSMessage;
 						default:
 							throw new ArgumentOutOfRangeException();
 					}
