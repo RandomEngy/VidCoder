@@ -382,7 +382,7 @@ namespace VidCoder.ViewModel
 			// EncodingPresetButtonText
 			this.PresetsService
 				.WhenAnyValue(x => x.SelectedPreset.DisplayNameWithStar)
-				.Select(presetNameWithStar => string.Format(CultureInfo.CurrentCulture, EncodingRes.WindowTitle, presetNameWithStar))
+				.Select(presetNameWithStar => string.Format(CultureInfo.CurrentCulture, MainRes.EncodingSettingsButton, presetNameWithStar))
 				.ToProperty(this, x => x.EncodingPresetButtonText, out this.encodingPresetButtonText);
 
 			// WindowTitle

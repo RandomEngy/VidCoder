@@ -120,9 +120,6 @@
   <data name="TitleLabel" xml:space="preserve">
     <value>Title:</value>
   </data>
-  <data name="SettingsLabel" xml:space="preserve">
-    <value>Settings</value>
-  </data>
   <data name="AddToQueueLabel" xml:space="preserve">
     <value>Add to Queue</value>
   </data>
@@ -614,5 +611,18 @@
   <data name="OpenAppDataFolder" xml:space="preserve">
     <value>Open App Data Folder</value>
     <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
+  </data>
+  <data name="RibbonEncodingGroupLabel" xml:space="preserve">
+    <value>Encoding</value>
+  </data>
+  <data name="RibbonSettingsGroupLabel" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="GlobalOptionsLabel" xml:space="preserve">
+    <value>Global options</value>
+  </data>
+  <data name="EncodingSettingsButton" xml:space="preserve">
+    <value>Encoding settings: {0}</value>
+    <comment>{0} is a placeholder for the name of the encoding preset currently selected.</comment>
   </data>
 </root>

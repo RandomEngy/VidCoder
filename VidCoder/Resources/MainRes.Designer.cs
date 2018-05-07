@@ -488,6 +488,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encoding settings: {0}.
+        /// </summary>
+        public static string EncodingSettingsButton {
+            get {
+                return ResourceManager.GetString("EncodingSettingsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encoding settings have changed since you last added an item to the queue. Do you want to apply the current encoding settings to all items in the queue?.
         /// </summary>
         public static string EncodingSettingsChangedMessage {
@@ -628,6 +637,15 @@ namespace VidCoder.Resources {
         public static string ForeignAudioSearch {
             get {
                 return ResourceManager.GetString("ForeignAudioSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global options.
+        /// </summary>
+        public static string GlobalOptionsLabel {
+            get {
+                return ResourceManager.GetString("GlobalOptionsLabel", resourceCulture);
             }
         }
         
@@ -1228,6 +1246,24 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encoding.
+        /// </summary>
+        public static string RibbonEncodingGroupLabel {
+            get {
+                return ResourceManager.GetString("RibbonEncodingGroupLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string RibbonSettingsGroupLabel {
+            get {
+                return ResourceManager.GetString("RibbonSettingsGroupLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to save changes to your current picker?.
         /// </summary>
         public static string SaveChangesPickerMessage {
@@ -1287,15 +1323,6 @@ namespace VidCoder.Resources {
         public static string SelectOutputPathButton {
             get {
                 return ResourceManager.GetString("SelectOutputPathButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings.
-        /// </summary>
-        public static string SettingsLabel {
-            get {
-                return ResourceManager.GetString("SettingsLabel", resourceCulture);
             }
         }
         

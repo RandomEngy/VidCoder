@@ -867,9 +867,6 @@
     <Resource Include="Icons\warning.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\stop_shadow.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="..\Lib\hb.dll">
       <Link>hb.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -885,6 +882,8 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\EncodingSettings.png" />
+    <Resource Include="Icons\Options.png" />
     <Resource Include="Icons\Stop.png" />
     <Resource Include="Icons\Pause.png" />
     <Resource Include="Icons\Encode.png" />
@@ -902,7 +901,6 @@
     <Resource Include="Icons\edit_16x16.png" />
     <SplashScreen Include="splash.png" />
     <Resource Include="Icons\video-file.png" />
-    <Resource Include="Icons\encode_160.png" />
     <Resource Include="Icons\bludisc.png" />
     <Resource Include="Icons\edit_2.png" />
     <Resource Include="Icons\play_clip.png" />

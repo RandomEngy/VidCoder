@@ -423,7 +423,7 @@
 			CanMinimize="False"
 			IsQuickAccessToolBarVisible="False">
 			<fluent:RibbonTabItem Header="Generic tab header">
-				<fluent:RibbonGroupBox Header="Encoding">
+				<fluent:RibbonGroupBox Header="{x:Static res:MainRes.RibbonEncodingGroupLabel}">
 					<fluent:SplitButton
 						Command="{Binding ProcessingService.AddToQueue}"
 						Header="{x:Static res:MainRes.AddToQueueLabel}"
@@ -464,10 +464,17 @@
 						Visibility="{Binding ProcessingService.Encoding,
 						                     Converter={StaticResource VisibilityConverter}}" />
 				</fluent:RibbonGroupBox>
-				<fluent:RibbonGroupBox Header="Settings">
-					<fluent:Button Command="{Binding OpenOptions}" Header="{x:Static res:MainRes.SettingsLabel}" />
-					<fluent:SplitButton Command="{Binding OpenEncodingWindow}" Header="{Binding EncodingPresetButtonText}" x:Name="presetButton">
-						<controls:PresetTreeViewContainer MinWidth="250" x:Name="presetTreeViewContainer" />
+				<fluent:RibbonGroupBox Header="{x:Static res:MainRes.RibbonSettingsGroupLabel}">
+					<fluent:Button
+						Command="{Binding OpenOptions}"
+						Header="{x:Static res:MainRes.GlobalOptionsLabel}"
+						LargeIcon="/Icons/Options.png" />
+					<fluent:SplitButton
+						x:Name="presetButton"
+						Command="{Binding OpenEncodingWindow}"
+						Header="{Binding EncodingPresetButtonText}"
+						LargeIcon="/Icons/EncodingSettings.png">
+						<controls:PresetTreeViewContainer x:Name="presetTreeViewContainer" MinWidth="250" />
 					</fluent:SplitButton>
 				</fluent:RibbonGroupBox>
 			</fluent:RibbonTabItem>
