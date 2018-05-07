@@ -258,6 +258,7 @@
   </data>
   <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
     <value>Pakt de laatste ondertitelspoor als een overeenkomst wordt gevonden, anders of geen tracks geselecteerd.</value>
+    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
   </data>
   <data name="OverrideNameFormatLabel" xml:space="preserve">
     <value>Beschikbare opties: {0}</value>

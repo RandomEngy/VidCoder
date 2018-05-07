@@ -189,7 +189,7 @@ var
   sUninstPath: String;
   sUninstallString: String;
 begin
-  sUninstPath := ExpandConstant('Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\VidCoder-Beta-x86_is1');
+  sUninstPath := ExpandConstant('Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\%x86AppId%_is1');
   sUninstallString := '';
   if not RegQueryStringValue(HKLM, sUninstPath, 'UninstallString', sUninstallString) then
     RegQueryStringValue(HKCU, sUninstPath, 'UninstallString', sUninstallString);

@@ -72,8 +72,6 @@ namespace VidCoder.ViewModel
 							return string.Format(OptionsRes.UpdateReadyStatus, this.updater.LatestVersion);
 						case UpdateState.Failed:
 							return OptionsRes.UpdateFailedStatus;
-						case UpdateState.NotSupported32BitOS:
-							return CommonRes.UpdatesDisabled32BitOSMessage;
 						default:
 							throw new ArgumentOutOfRangeException();
 					}
@@ -191,6 +189,7 @@ namespace VidCoder.ViewModel
 					{
 						new InterfaceLanguage { CultureCode = string.Empty, Display = OptionsRes.UseOSLanguage },
 						new InterfaceLanguage { CultureCode = "en-US", Display = "English" },
+						new InterfaceLanguage { CultureCode = "id-ID", Display = "Bahasa Indonesia / Indonesian" },
 						new InterfaceLanguage { CultureCode = "bs-Latn-BA", Display = "bosanski (Bosna i Hercegovina) / Bosnian (Latin)" },
 						new InterfaceLanguage { CultureCode = "cs-CZ", Display = "čeština / Czech" },
 						new InterfaceLanguage { CultureCode = "de-DE", Display = "Deutsch / German" },

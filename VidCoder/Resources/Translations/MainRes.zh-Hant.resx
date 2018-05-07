@@ -603,6 +603,12 @@
 
 {0}</value>
   </data>
-  
-  
+  <data name="FileSizeColumnHeader" xml:space="preserve">
+    <value>大小</value>
+    <comment>Used on the "completed encodes" tab, to label the column that shows the final output file size.</comment>
+  </data>
+  <data name="OpenAppDataFolder" xml:space="preserve">
+    <value>開啟程式檔案資料夾</value>
+    <comment>Menu choice for opening the application data folder (that holds the VidCoder database file, logs, etc)</comment>
+  </data>
 </root>

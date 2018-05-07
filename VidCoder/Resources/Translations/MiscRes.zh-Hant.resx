@@ -255,5 +255,7 @@
   <data name="ChooseNamePicker" xml:space="preserve">
     <value>選擇選取器的名稱:</value>
   </data>
-  
+  <data name="ExceptionDialogSubTextReported" xml:space="preserve">
+    <value>程式需要關閉，但產生的錯誤將自動提報。</value>
+  </data>
 </root>

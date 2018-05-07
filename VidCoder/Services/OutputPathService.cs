@@ -140,10 +140,16 @@ namespace VidCoder.Services
 			string extension = this.GetOutputExtension(includeDot: false);
 			string extensionLabel = extension.ToUpperInvariant();
 
+			string initialFileName = null;
+			if (!string.IsNullOrWhiteSpace(this.OutputPath) && !this.OutputPath.EndsWith("\\", StringComparison.Ordinal))
+			{
+				initialFileName = Path.GetFileName(this.OutputPath);
+			}
+
 			string newOutputPath = FileService.Instance.GetFileNameSave(
 				Config.RememberPreviousFiles ? Config.LastOutputFolder : null,
 				"Encode output location",
-				null,
+				initialFileName,
 				extension,
 				string.Format("{0} Files|*{1}", extensionLabel, extensionDot));
 			this.SetManualOutputPath(newOutputPath, this.OutputPath);

@@ -51,6 +51,9 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <PackageCertificateThumbprint>FFCF52A7DAC7AB77BED8C41D5674121FA3F35334</PackageCertificateThumbprint>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
+    <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <AppxBundle>Always</AppxBundle>
@@ -78,8 +81,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Beta|AnyCPU'">
     <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
-  <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest">
+  <ItemGroup Condition="'$(Configuration)'=='Release-Beta' OR '$(Configuration)'=='Debug-Beta'">
+    <AppxManifest Include="Package-Beta.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <None Include="VidCoderPackage_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Release' OR '$(Configuration)'=='Debug'">
+    <AppxManifest Include="Package-Stable.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="VidCoderPackage_TemporaryKey.pfx" />
@@ -148,8 +157,8 @@
     <Content Include="Assets\Wide\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide\Wide310x150Logo.scale-400.png" />
+    <None Include="Package.xml" />
     <None Include="VidCoderPackage_StoreKey.pfx" />
-    <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VidCoder\VidCoder.csproj" />

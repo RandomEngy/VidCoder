@@ -34,12 +34,14 @@ function CreateIssFile($version, $beta, $debugBuild) {
         $tokens["folderName"] = "VidCoder-Beta"
         $tokens["outputBaseFileName"] = "VidCoder-" + $version + "-Beta"
         $tokens["appVerName"] = "VidCoder " + $version + " Beta (Installer)"
+        $tokens["x86AppId"] = "VidCoder-Beta-x86"
     } else {
         $tokens["appName"] = "VidCoder"
         $tokens["appNameNoSpace"] = "VidCoder"
         $tokens["folderName"] = "VidCoder"
         $tokens["outputBaseFileName"] = "VidCoder-" + $version
         $tokens["appVerName"] = "VidCoder " + $version + " (Installer)"
+        $tokens["x86AppId"] = "VidCoder"
     }
 
     if ($debugBuild) {
@@ -136,7 +138,13 @@ $version4Part = $versionShort + ".0.0"
 UpdateAssemblyInfo "VidCoder\Properties\AssemblyInfo.cs" $version4Part
 UpdateAssemblyInfo "VidCoderWorker\Properties\AssemblyInfo.cs" $version4Part
 
-UpdateAppxManifest "VidCoderPackage\Package.appxmanifest" $version4Part
+if ($beta) {
+    $manifestBaseFileName = "Package-Beta"
+} else {
+    $manifestBaseFileName = "Package-Stable"
+}
+
+UpdateAppxManifest "VidCoderPackage\$manifestBaseFileName.appxmanifest" $version4Part
 
 # Build VidCoder.sln
 & $MsBuildExe VidCoder.sln /t:rebuild "/p:Configuration=$configuration;Platform=x64;UapAppxPackageBuildMode=StoreUpload"; ExitIfFailed
@@ -230,7 +238,8 @@ $languages = @(
     "ka",
     "tr",
     "ko",
-    "bs")
+    "bs",
+    "id")
 
 foreach ($language in $languages) {
     CopyLanguage $language $buildFlavor

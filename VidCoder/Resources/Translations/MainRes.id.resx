@@ -1,0 +1,606 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>Judul:</value>
+  </data>
+  <data name="SettingsLabel" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
+  <data name="AddToQueueLabel" xml:space="preserve">
+    <value>Tambahkan ke antrian</value>
+  </data>
+  <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
+    <value>Tambahkan judul ganda ke Antrian...</value>
+  </data>
+  <data name="FileMenu" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="OpenVideoFile" xml:space="preserve">
+    <value>Buka FIle Video...</value>
+  </data>
+  <data name="OpenDiscFolder" xml:space="preserve">
+    <value>Buka Folder DVD/Blu-ray...</value>
+  </data>
+  <data name="EnqueueMultipleFiles" xml:space="preserve">
+    <value>Enqueue beberapa file...</value>
+  </data>
+  <data name="EnqueueMultipleTitles" xml:space="preserve">
+    <value>Enqueue beberapa judul...</value>
+  </data>
+  <data name="ToolsMenu" xml:space="preserve">
+    <value>Alat-alat</value>
+  </data>
+  <data name="ImportPreset" xml:space="preserve">
+    <value>Import Preset...</value>
+  </data>
+  <data name="ExportPreset" xml:space="preserve">
+    <value>Export Preset...</value>
+  </data>
+  <data name="OptionsMenuItem" xml:space="preserve">
+    <value>Pilihan...</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Mainkan</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>Buka Folder</value>
+  </data>
+  <data name="ClearCompleted" xml:space="preserve">
+    <value>Clear Completed</value>
+  </data>
+  <data name="ExitMenuItem" xml:space="preserve">
+    <value>Keluar</value>
+  </data>
+  <data name="WindowsMenu" xml:space="preserve">
+    <value>Windows</value>
+    <comment>The label for the "Windows" menu that lists all the windows that can be opened (encoding, preview, log, etc)</comment>
+  </data>
+  <data name="EncodingSettingsMenuItem" xml:space="preserve">
+    <value>Pengaturan Encoding</value>
+  </data>
+  <data name="PreviewMenuItem" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="LogMenuItem" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>Bantuan</value>
+  </data>
+  <data name="VidCoderHomepageMenuItem" xml:space="preserve">
+    <value>Homepage VidCoder</value>
+  </data>
+  <data name="ReportABugMenuItem" xml:space="preserve">
+    <value>Laporkan Bug</value>
+  </data>
+  <data name="AboutVidCoderMenuItem" xml:space="preserve">
+    <value>Tentang VidCoder...</value>
+  </data>
+  <data name="ChooseVideoSourceLabel" xml:space="preserve">
+    <value>Pilih sumber video:</value>
+  </data>
+  <data name="SourceLabel" xml:space="preserve">
+    <value>Sumber:</value>
+  </data>
+  <data name="ScanningSourceLabel" xml:space="preserve">
+    <value>Pemindaian sumber...</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Terbaru</value>
+  </data>
+  <data name="DragFilesHereLabel" xml:space="preserve">
+    <value>(Atau seret file video atau folder di sini)</value>
+  </data>
+  <data name="ScanErrorLabel" xml:space="preserve">
+    <value>Galat terjadi saat pemindaian.</value>
+  </data>
+  <data name="AudioLabel" xml:space="preserve">
+    <value>Audio:</value>
+  </data>
+  <data name="VideoLabel" xml:space="preserve">
+    <value>Video:</value>
+  </data>
+  <data name="SubtitlesLabel" xml:space="preserve">
+    <value>Subjudul:</value>
+  </data>
+  <data name="AddTrackButton" xml:space="preserve">
+    <value>Tambah trek</value>
+  </data>
+  <data name="ChapterMarkersLabel" xml:space="preserve">
+    <value>Penanda Chapter:</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Sunting...</value>
+  </data>
+  <data name="DestinationLabel" xml:space="preserve">
+    <value>Tujuan:</value>
+  </data>
+  <data name="DestinationToolTip" xml:space="preserve">
+    <value>Klik untuk mengedit tujuan encode.</value>
+  </data>
+  <data name="SelectOutputPathButton" xml:space="preserve">
+    <value>Pilih jalur output...</value>
+  </data>
+  <data name="EncodingLabel" xml:space="preserve">
+    <value>Pengkodean:</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Hentikan</value>
+  </data>
+  <data name="MoveToTopMenuItem" xml:space="preserve">
+    <value>Pindahkan ke atas</value>
+  </data>
+  <data name="MoveToBottomMenuItem" xml:space="preserve">
+    <value>Pindahkan ke Bawah</value>
+  </data>
+  <data name="CustomizeColumnsMenuItem" xml:space="preserve">
+    <value>Sesuaikan kolom...</value>
+  </data>
+  <data name="CurrentFpsLabel" xml:space="preserve">
+    <value>FPS Saat Ini:</value>
+  </data>
+  <data name="AverageFpsLabel" xml:space="preserve">
+    <value>FPS Rata-rata:</value>
+  </data>
+  <data name="PickDiscFolderHelpText" xml:space="preserve">
+    <value>Pilih folder DVD atau Blu-ray.</value>
+  </data>
+  <data name="EncodesInProgressExitWarning" xml:space="preserve">
+    <value>Ada encode berlangsung. Apakah Anda yakin ingin berhenti?</value>
+  </data>
+  <data name="EncodesInProgressExitWarningTitle" xml:space="preserve">
+    <value>Encode berlangsung</value>
+  </data>
+  <data name="ForeignAudioSearch" xml:space="preserve">
+    <value>Cari Audio Bahasa Asing</value>
+  </data>
+  <data name="NoneParen" xml:space="preserve">
+    <value>{Tidak ada)</value>
+  </data>
+  <data name="TracksSummaryMultiple" xml:space="preserve">
+    <value>trek {0}</value>
+  </data>
+  <data name="SaveChangesPresetMessage" xml:space="preserve">
+    <value>Apakah Anda ingin menyimpan perubahan ke preset saat ini?</value>
+  </data>
+  <data name="SaveChangesPresetTitle" xml:space="preserve">
+    <value>Simpan preset yang saat ini?</value>
+  </data>
+  <data name="DiscNotInDriveError" xml:space="preserve">
+    <value>Tidak dapat memuat untuk mengedit. Disk ini tidak lagi dalam drive.</value>
+  </data>
+  <data name="PresetNameRestoredFromQueue" xml:space="preserve">
+    <value>Dipulihkan dari antrian</value>
+  </data>
+  <data name="PresetNameRestoredFromCompleted" xml:space="preserve">
+    <value>Dipulihkan dari selesai</value>
+  </data>
+  <data name="PresetLabel" xml:space="preserve">
+    <value>Preset:</value>
+  </data>
+  <data name="DestinationColumnHeader" xml:space="preserve">
+    <value>Tujuan</value>
+  </data>
+  <data name="StatusColumnHeader" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ElapsedTimeColumnHeader" xml:space="preserve">
+    <value>Waktu Berlalu</value>
+  </data>
+  <data name="PlayingVideoMessage" xml:space="preserve">
+    <value>Memutar video...</value>
+  </data>
+  <data name="FileDoesNotExist" xml:space="preserve">
+    <value>{0} tidak ada.</value>
+  </data>
+  <data name="AngleLabel" xml:space="preserve">
+    <value>Sudut:</value>
+  </data>
+  <data name="ChaptersSummary" xml:space="preserve">
+    <value>dari {0}</value>
+  </data>
+  <data name="Queued" xml:space="preserve">
+    <value>Antri</value>
+  </data>
+  <data name="QueuedWithTotal" xml:space="preserve">
+    <value>Antrian ({0})</value>
+  </data>
+  <data name="CompletedWithTotal" xml:space="preserve">
+    <value>Selesai ({0})</value>
+  </data>
+  <data name="StoppedEncoding" xml:space="preserve">
+    <value>Pengkodean dihentikan.</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationMessage" xml:space="preserve">
+    <value>Apakah Anda yakin Anda ingin menghapus {0} sumber file / folder?</value>
+  </data>
+  <data name="DeleteSourceFilesConfirmationTitle" xml:space="preserve">
+    <value>Konfirmasi Hapus</value>
+  </data>
+  <data name="CouldNotDeleteFile" xml:space="preserve">
+    <value>Tidak dapat menghapus {0}{1}</value>
+  </data>
+  <data name="QueueMultipleScanErrorTitle" xml:space="preserve">
+    <value>Kesalahan memindai file video</value>
+  </data>
+  <data name="StartedEncoding" xml:space="preserve">
+    <value>Mulai pengkodean.</value>
+  </data>
+  <data name="DirectoryCreateErrorMessage" xml:space="preserve">
+    <value>Tidak dapat membuat direktori output. Rincian kesalahan:{0}</value>
+  </data>
+  <data name="DirectoryCreateErrorTitle" xml:space="preserve">
+    <value>Kesalahan membuat direktori</value>
+  </data>
+  <data name="EncodeCompleted" xml:space="preserve">
+    <value>Mengkodekan selesai.</value>
+  </data>
+  <data name="EncodeCompleteBalloonTitle" xml:space="preserve">
+    <value>Pengkodean selesai</value>
+  </data>
+  <data name="EncodeCompleteBalloonMessage" xml:space="preserve">
+    <value>VidCoder telah selesai semua menyandikan pekerjaan dalam antrian.</value>
+  </data>
+  <data name="OutputFolderRequiredMessage" xml:space="preserve">
+    <value>Tidak dapat menambahkan menyandikan kerja tanpa default output folder. Tekan OK untuk memilih salah satu.</value>
+  </data>
+  <data name="OutputFolderRequiredTitle" xml:space="preserve">
+    <value>Default Folder Output yang diperlukan</value>
+  </data>
+  <data name="OutputPathNotValidMessage" xml:space="preserve">
+    <value>Jalur output ini tidak berlaku.</value>
+  </data>
+  <data name="OutputPathNotValidTitle" xml:space="preserve">
+    <value>Path tidak valid</value>
+  </data>
+  <data name="Encode" xml:space="preserve">
+    <value>Mengkodekan</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Lanjut</value>
+  </data>
+  <data name="EtaLabel" xml:space="preserve">
+    <value>Perkiraan Waktu Selesai:</value>
+  </data>
+  <data name="WhenDoneLabel" xml:space="preserve">
+    <value>Ketika selesai:</value>
+  </data>
+  <data name="SourceOption_VideoFile" xml:space="preserve">
+    <value>Video File...</value>
+  </data>
+  <data name="SourceOption_DiscFolder" xml:space="preserve">
+    <value>DVD/Blu-ray Folder...</value>
+  </data>
+  <data name="NewVersionDownloadStartedStatus" xml:space="preserve">
+    <value>Versi {0} tersedia. Update download telah dimulai.</value>
+  </data>
+  <data name="NewVersionDownloadFinishedStatus" xml:space="preserve">
+    <value>Versi {0} telah selesai men-download dan akan menginstal saat keluar.</value>
+  </data>
+  <data name="UpdateNotAppliedError" xml:space="preserve">
+    <value>Pembaruan tidak diterapkan. Jika Anda tidak membatalkan itu, coba instal secara manual.</value>
+  </data>
+  <data name="CouldNotLoadPresetMessage" xml:space="preserve">
+    <value>Tidak dapat memuat preset: </value>
+  </data>
+  <data name="CouldNotSavePresetMessage" xml:space="preserve">
+    <value>Tidak dapat menyimpan preset '{0}':{1}{2}</value>
+  </data>
+  <data name="CouldNotCopyTextError" xml:space="preserve">
+    <value>Tidak bisa menyalin teks.</value>
+  </data>
+  <data name="LaunchUrlError" xml:space="preserve">
+    <value>Kesalahan meluncurkan URL: {0}</value>
+  </data>
+  <data name="PresetImportErrorMessage" xml:space="preserve">
+    <value>Gagal untuk mengimpor preset. Periksa log untuk rincian.</value>
+  </data>
+  <data name="ImportErrorTitle" xml:space="preserve">
+    <value>Impor kesalahan</value>
+  </data>
+  <data name="PresetImportSuccessMessage" xml:space="preserve">
+    <value>Berhasil diimpor preset {0}</value>
+  </data>
+  <data name="PresetExportSuccessMessage" xml:space="preserve">
+    <value>Berhasil diekspor preset untuk {0}</value>
+  </data>
+  <data name="ExportPresetFilePickerText" xml:space="preserve">
+    <value>Ekspor preset</value>
+  </data>
+  <data name="SaveChangesPickerMessage" xml:space="preserve">
+    <value>Apakah Anda ingin menyimpan perubahan ke preset saat ini?</value>
+  </data>
+  <data name="SaveChangesPickerTitle" xml:space="preserve">
+    <value>Simpan picker saat ini?</value>
+  </data>
+  <data name="RevertConfirmMessage" xml:space="preserve">
+    <value>Apakah Anda yakin Anda ingin memulihkan semua perubahan yang belum disimpan?</value>
+  </data>
+  <data name="RevertConfirmTitle" xml:space="preserve">
+    <value>Balikkan</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Apakah Anda yakin Anda ingin menghapus ini?</value>
+  </data>
+  <data name="RemoveConfirmTitle" xml:space="preserve">
+    <value>Hilangkan</value>
+  </data>
+  <data name="UserConfigCorrupted" xml:space="preserve">
+    <value>Konfigurasi rusak dan tidak dapat dimuat. Beberapa pengaturan dapat dibuat ulang.</value>
+  </data>
+  <data name="OutputDirectoryPickerText" xml:space="preserve">
+    <value>Pilih direktori output file video yang disandikan.</value>
+  </data>
+  <data name="LengthPreviewLabel" xml:space="preserve">
+    <value>({0})</value>
+  </data>
+  <data name="ModifiedAffix" xml:space="preserve">
+    <value>(Dimodifikasi)</value>
+  </data>
+  <data name="PlayingVideoStatus" xml:space="preserve">
+    <value>Memutar video...</value>
+  </data>
+  <data name="OpeningFolderStatus" xml:space="preserve">
+    <value>Buka folder...</value>
+  </data>
+  <data name="CloseVideoSourceToolTip" xml:space="preserve">
+    <value>Tutup sumber video</value>
+  </data>
+  <data name="CloseVideoSourceMenuItem" xml:space="preserve">
+    <value>Tutup sumber Video</value>
+  </data>
+  <data name="UpdatesMenuItem" xml:space="preserve">
+    <value>Update...</value>
+  </data>
+  <data name="CbrAuto" xml:space="preserve">
+    <value>CBR Auto</value>
+  </data>
+  <data name="RangeBarToolTip" xml:space="preserve">
+    <value>Kiri untuk mengatur waktu mulai dan klik kanan untuk menetapkan waktu selesai.</value>
+  </data>
+  <data name="QueueFormat_Chapters" xml:space="preserve">
+    <value>Ch {0}</value>
+  </data>
+  <data name="QueueFormat_Frames" xml:space="preserve">
+    <value>Fr {0}-{1}</value>
+  </data>
+  <data name="QueueRangeAll" xml:space="preserve">
+    <value>Semua</value>
+  </data>
+  <data name="CouldNotCopyLogError" xml:space="preserve">
+    <value>Tidak bisa menyalin log:{0}{0}{1}</value>
+  </data>
+  <data name="OpenLog" xml:space="preserve">
+    <value>Buka Log</value>
+  </data>
+  <data name="CopyLog" xml:space="preserve">
+    <value>Salin Log</value>
+  </data>
+  <data name="PresetDiscardConfirmMessage" xml:space="preserve">
+    <value>Anda memiliki perubahan yang belum disimpan. Apakah Anda yakin Anda ingin membuang perubahan ini dengan beralih ke preset yang lain?</value>
+  </data>
+  <data name="PresetDiscardConfirmTitle" xml:space="preserve">
+    <value>Abaikan Perubahan?</value>
+  </data>
+  <data name="RemoveAudioTrackToolTip" xml:space="preserve">
+    <value>Hapus trek audio</value>
+  </data>
+  <data name="RemoveFromQueueToolTip" xml:space="preserve">
+    <value>Hapus dari antrian</value>
+  </data>
+  <data name="CouldNotSaveQueueMessage" xml:space="preserve">
+    <value>Tidak dapat menyimpan antrian:{0}{1}</value>
+  </data>
+  <data name="ExportQueue" xml:space="preserve">
+    <value>Ekspor antrian...</value>
+  </data>
+  <data name="ExportQueueFilePickerText" xml:space="preserve">
+    <value>Ekspor antrian</value>
+  </data>
+  <data name="QueueImportErrorMessage" xml:space="preserve">
+    <value>Gagal untuk mengimpor preset. Periksa log untuk rincian.</value>
+  </data>
+  <data name="ImportPresetFilePickerTitle" xml:space="preserve">
+    <value>File preset impor</value>
+  </data>
+  <data name="ImportQueueFilePickerTitle" xml:space="preserve">
+    <value>File antrian impor</value>
+  </data>
+  <data name="ImportQueue" xml:space="preserve">
+    <value>Mengimpor antrian...</value>
+  </data>
+  <data name="QueueExportSuccessMessage" xml:space="preserve">
+    <value>Antrian berhasil diekspor {0}</value>
+  </data>
+  <data name="QueueImportSuccessMessage" xml:space="preserve">
+    <value>Antrian berhasil diimpor.</value>
+  </data>
+  <data name="StopEncodeConfirmationTitle" xml:space="preserve">
+    <value>Hentikan Encode?</value>
+  </data>
+  <data name="StopEncodeConfirmationMessage" xml:space="preserve">
+    <value>Apakah Anda yakin ingin menghentikan encode?</value>
+  </data>
+  <data name="AutoplayDiscConfirmationMessage" xml:space="preserve">
+    <value>Tutup file saat ini dan buka disc?</value>
+  </data>
+  <data name="EncodeDetailsMenuItem" xml:space="preserve">
+    <value>Detail Encoding</value>
+  </data>
+  <data name="EncodingSettingsChangedMessage" xml:space="preserve">
+    <value>Pengaturan encoding telah berubah sejak Anda terakhir menambahkan item ke antrian. Apakah Anda ingin menerapkan pengaturan encoding saat ini semua item dalam antrian?</value>
+  </data>
+  <data name="EncodingSettingsChangedTitle" xml:space="preserve">
+    <value>Pengaturan telah berubah</value>
+  </data>
+  <data name="RenameDatabaseFileLine2" xml:space="preserve">
+    <value>Apakah Anda ingin mengubah nama file yang ada dan mulai dengan yang baru?</value>
+  </data>
+  <data name="RenameDatabaseFileLine1" xml:space="preserve">
+    <value>Tidak dapat membaca file database versi {0}. Versi tertinggi yang diakui oleh VidCoder {1} adalah {2}</value>
+    <comment>{0} is the version of the incompatible database file. {1} is the current version of VidCoder. {2} is the highest database version that is supported.</comment>
+  </data>
+  <data name="IncompatibleDatabaseFileTitle" xml:space="preserve">
+    <value>File database tidak kompatibel</value>
+    <comment>Dialog title for a message explaining that the current database file is unsupported.</comment>
+  </data>
+  <data name="PickerMenuItem" xml:space="preserve">
+    <value>Picker</value>
+  </data>
+  <data name="CouldNotLoadPickerMessage" xml:space="preserve">
+    <value>Tidak dapat memuat picker: </value>
+  </data>
+  <data name="PickerNameTemplate" xml:space="preserve">
+    <value>Picker: {0}</value>
+    <comment>The template for automatically named Pickers. For example Picker 1, Picker 2, etc.</comment>
+  </data>
+  <data name="SimilarTitlesToolTip" xml:space="preserve">
+    <value>{0} judul lain memiliki durasi dekat dengan satu ini.</value>
+    <comment>{0} is the number of titles that have a similar duration.</comment>
+  </data>
+  <data name="UseBackupDatabaseLine" xml:space="preserve">
+    <value>Anda memiliki backup versi {0} file. Apakah Anda ingin menggunakannya?</value>
+    <comment>{0} is the version of the database file you have a backup for.</comment>
+  </data>
+  <data name="VideoPlayError" xml:space="preserve">
+    <value>Kesalahan memainkan video.</value>
+  </data>
+  <data name="CustomVideoPlayerError" xml:space="preserve">
+    <value>Pemutar video kustom tidak dapat ditemukan di {0}.</value>
+    <comment>{0} is the path to the custom video player.</comment>
+  </data>
+  <data name="SizingPresetUpgradeWarning" xml:space="preserve">
+    <value>Peringatan: Interface ukuran telah dibongkar untuk 2.0, sehingga preset Anda mungkin telah berubah. Anda mungkin ingin memeriksa mereka dan memastikan bahwa mereka masih diatur dengan benar.</value>
+  </data>
+  <data name="EnqueueFolderOfVideoFiles" xml:space="preserve">
+    <value>Enqueue Folder file Video...</value>
+  </data>
+  <data name="QueueMultipleScanErrorMessage" xml:space="preserve">
+    <value>Ada kesalahan pemindaian beberapa file dan mereka tidak ditambahkan ke antrian:{0}</value>
+  </data>
+  
+  
+</root>

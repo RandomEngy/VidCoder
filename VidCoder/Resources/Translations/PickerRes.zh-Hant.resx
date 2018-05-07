@@ -190,7 +190,10 @@
     <value>參數:</value>
     <comment>The label for the arguments to pass to the post-encode executable.</comment>
   </data>
-  
+  <data name="PostEncodeArgumentsToolTip" xml:space="preserve">
+    <value>要傳遞給程式的參數，使用 {file} 作為檔輸出路徑，{folder} 作為資料夾路徑，或其他路徑選項如 {title} 及 {date} (請參見命名格式)。</value>
+    <comment>Tool tip for the post-encode arguments UI. Do not translate {file} .</comment>
+  </data>
   <data name="PresetDisabledForPickerToolTip" xml:space="preserve">
     <value>選取器已指定預設編碼。</value>
   </data>
@@ -247,8 +250,17 @@
     <value>僅強制</value>
     <comment>Label for checkbox in Picker window to choose only Forced subtitles of the chosen subtitle track.</comment>
   </data>
-  
-  
-  
-  
+  <data name="AudioDefaultToolTip" xml:space="preserve">
+    <value>若找到符合項目則選取上次選取的音軌，若否則選取第一音軌。</value>
+  </data>
+  <data name="LastSelectedRadioButton" xml:space="preserve">
+    <value>最後選取</value>
+  </data>
+  <data name="SubtitleLastSelectedToolTip" xml:space="preserve">
+    <value>若找到符合項目則選取上次選取的音軌，若否則不選取音軌。</value>
+    <comment>Tooltip for the "last selected" option for subtitle picker. This will pick the last selected subtitle track if the track index and language match. Otherwise it will select no tracks.</comment>
+  </data>
+  <data name="OverrideNameFormatLabel" xml:space="preserve">
+    <value>可用選項: {0}</value>
+  </data>
 </root>

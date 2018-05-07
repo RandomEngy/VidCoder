@@ -186,7 +186,7 @@
     <value>Film</value>
   </data>
   <data name="DenoiseTune_grain" xml:space="preserve">
-    <value>Körnung/Rauschen</value>
+    <value>Filmkorn/Rauschen</value>
   </data>
   <data name="DenoiseTune_highmotion" xml:space="preserve">
     <value>Starke Bewegung</value>
@@ -221,8 +221,13 @@
   <data name="Off" xml:space="preserve">
     <value>Aus</value>
   </data>
-  
-  
+  <data name="Sharpen_LapSharp" xml:space="preserve">
+    <value>LapSharp</value>
+  </data>
+  <data name="Sharpen_UnSharp" xml:space="preserve">
+    <value>Unschärfe maskieren</value>
+    <comment>The name for the "UnSharp" sharpen filter.</comment>
+  </data>
   <data name="TitleType_Bluray" xml:space="preserve">
     <value>Blu-ray</value>
     <comment>What to display when the source is a Blu-ray</comment>

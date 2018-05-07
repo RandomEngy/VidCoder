@@ -506,15 +506,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updates have been disabled since new versions no longer support 32-bit operating systems..
-        /// </summary>
-        public static string UpdatesDisabled32BitOSMessage {
-            get {
-                return ResourceManager.GetString("UpdatesDisabled32BitOSMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
         public static string Yes {
