@@ -117,7 +117,7 @@ function UpdateLatestJson($latestFile, $versionShort, $versionTag, $installerFil
 }
 
 # Master switch for if this branch is beta
-$beta = $false
+$beta = $true
 
 if ($debugBuild) {
     $buildFlavor = "Debug"
