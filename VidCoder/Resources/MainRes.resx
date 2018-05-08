@@ -625,4 +625,7 @@
     <value>Encoding settings: {0}</value>
     <comment>{0} is a placeholder for the name of the encoding preset currently selected.</comment>
   </data>
+  <data name="EncodingSettingsButtonToolTip" xml:space="preserve">
+    <value>Video and audio codecs, sizing, filters, container</value>
+  </data>
 </root>

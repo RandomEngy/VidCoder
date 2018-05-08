@@ -497,6 +497,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Video and audio codecs, sizing, filters, container.
+        /// </summary>
+        public static string EncodingSettingsButtonToolTip {
+            get {
+                return ResourceManager.GetString("EncodingSettingsButtonToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encoding settings have changed since you last added an item to the queue. Do you want to apply the current encoding settings to all items in the queue?.
         /// </summary>
         public static string EncodingSettingsChangedMessage {

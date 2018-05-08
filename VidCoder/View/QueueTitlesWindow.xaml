@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:VidCoder"
     xmlns:prop="clr-namespace:VidCoder.Properties"
     xmlns:res="clr-namespace:VidCoder.Resources"
+    xmlns:fluent="urn:fluent-ribbon"
     Title="{x:Static res:QueueTitlesRes.QueueTitlesDialogTitle}"
     Width="550"
     Height="464"
@@ -104,7 +105,7 @@
             Grid.Row="2"
             Margin="15 10 15 0"
             Orientation="Vertical">
-            <controls:SplitButton
+			<controls:SplitButton
                 Height="25"
                 Margin="0 10 0 0"
                 HorizontalAlignment="Left"
@@ -112,10 +113,10 @@
                 Command="{Binding OpenPickerWindow,
                                   Source={StaticResource WindowXamlHelper}}"
                 MenuItemsSource="{Binding PickersService.PickerButtonMenuItems}">
-                <TextBlock Margin="4 0" Text="{Binding PickersService.PickerButtonText}" />
-            </controls:SplitButton>
+				<TextBlock Margin="4 0" Text="{Binding PickersService.PickerButtonText}" />
+			</controls:SplitButton>
 
-            <CheckBox
+			<CheckBox
                 Margin="0 10 0 0"
                 HorizontalAlignment="Left"
                 IsChecked="{Binding TitleStartOverrideEnabled}"

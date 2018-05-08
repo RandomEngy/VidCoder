@@ -41,8 +41,6 @@ namespace VidCoder.View
 
 		private bool tabsVisible = false;
 
-		private Storyboard pickerGlowStoryboard;
-
 		public static System.Windows.Threading.Dispatcher TheDispatcher;
 
 		public event EventHandler<RangeFocusEventArgs> RangeControlGotFocus;
@@ -90,11 +88,9 @@ namespace VidCoder.View
 			this.DataContextChanged += this.OnDataContextChanged;
 			TheDispatcher = this.Dispatcher;
 
-			this.pickerGlowEffect.Opacity = 0.0;
 			this.statusText.Opacity = 0.0;
 
 			NameScope.SetNameScope(this, new NameScope());
-			this.RegisterName("PickerGlowEffect", this.pickerGlowEffect);
 			this.RegisterName("StatusText", this.statusText);
 
 			var storyboard = (Storyboard)this.FindResource("statusTextStoryboard");
@@ -102,30 +98,6 @@ namespace VidCoder.View
 				{
 					this.statusText.Visibility = Visibility.Collapsed;
 				};
-
-			var pickerGlowFadeUp = new DoubleAnimation
-			{
-				From = 0.0,
-				To = 1.0,
-				Duration = new Duration(TimeSpan.FromSeconds(0.1))
-			};
-
-			var pickerGlowFadeDown = new DoubleAnimation
-			{
-				From = 1.0,
-				To = 0.0,
-				BeginTime = TimeSpan.FromSeconds(0.1),
-				Duration = new Duration(TimeSpan.FromSeconds(1.6))
-			};
-
-			this.pickerGlowStoryboard = new Storyboard();
-			this.pickerGlowStoryboard.Children.Add(pickerGlowFadeUp);
-			this.pickerGlowStoryboard.Children.Add(pickerGlowFadeDown);
-
-			Storyboard.SetTargetName(pickerGlowFadeUp, "PickerGlowEffect");
-			Storyboard.SetTargetProperty(pickerGlowFadeUp, new PropertyPath("Opacity"));
-			Storyboard.SetTargetName(pickerGlowFadeDown, "PickerGlowEffect");
-			Storyboard.SetTargetProperty(pickerGlowFadeDown, new PropertyPath("Opacity"));
 
 			this.presetTreeViewContainer.PresetTreeView.OnHierarchyMouseUp += (sender, args) =>
 			{
@@ -169,7 +141,6 @@ namespace VidCoder.View
 		private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
 			this.viewModel = (MainViewModel)this.DataContext;
-			this.viewModel.AnimationStarted += this.ViewModelAnimationStarted;
 			this.viewModel.View = this;
 			this.processingService.PropertyChanged += (sender2, e2) =>
 			    {
@@ -181,14 +152,6 @@ namespace VidCoder.View
 
 			this.RefreshQueueTabs();
 			this.SetupWindowsMenu();
-		}
-
-		private void ViewModelAnimationStarted(object sender, EventArgs<string> e)
-		{
-			if (e.Value == "PickerGlowHighlight")
-			{
-				this.pickerGlowStoryboard.Begin(this);
-			}
 		}
 
 		void IMainView.SaveQueueColumns()
@@ -523,6 +486,11 @@ namespace VidCoder.View
 			{
 				Ioc.Get<PresetsService>().HandleKey(args);
 			};
+		}
+
+		private void OnPickerItemMouseUp(object sender, MouseEventArgs e)
+		{
+			this.pickerButton.IsDropDownOpen = false;
 		}
 	}
 }

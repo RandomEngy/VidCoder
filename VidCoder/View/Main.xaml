@@ -473,9 +473,23 @@
 						x:Name="presetButton"
 						Command="{Binding OpenEncodingWindow}"
 						Header="{Binding EncodingPresetButtonText}"
-						LargeIcon="/Icons/EncodingSettings.png">
+						LargeIcon="/Icons/EncodingSettings.png"
+						ToolTip="{x:Static res:MainRes.EncodingSettingsButtonToolTip}">
 						<controls:PresetTreeViewContainer x:Name="presetTreeViewContainer" MinWidth="250" />
 					</fluent:SplitButton>
+					<fluent:SplitButton
+						x:Name="pickerButton"
+						Command="{Binding OpenPickerWindow,
+						                  Source={StaticResource WindowXamlHelper}}"
+						Header="{Binding PickersService.PickerButtonText}"
+						LargeIcon="/Icons/Picker.png"
+						ToolTip="{x:Static res:PickerRes.PickerHelpText}">
+						<controls:PickerList MinWidth="250" ItemMouseUp="OnPickerItemMouseUp" />
+					</fluent:SplitButton>
+					<!--<fluent:SplitButton Header="Picker">
+						<fluent:MenuItem Header="Item 1" IsCheckable="True" />
+						<fluent:MenuItem Header="Item 2" IsCheckable="True" IsChecked="True" />
+					</fluent:SplitButton>-->
 				</fluent:RibbonGroupBox>
 			</fluent:RibbonTabItem>
 		</fluent:Ribbon>
@@ -585,28 +599,6 @@
 						</Grid>
 					</Grid>
 				</Grid>
-
-				<!--  Picker  -->
-				<Grid Grid.Column="1" Margin="12 0 30 0">
-					<Grid.Effect>
-						<DropShadowEffect
-							x:Name="pickerGlowEffect"
-							BlurRadius="10"
-							ShadowDepth="0"
-							Color="{StaticResource PresetGlowColor}" />
-					</Grid.Effect>
-					<controls:SplitButton
-						Height="25"
-						HorizontalAlignment="Left"
-						VerticalAlignment="Center"
-						Command="{Binding OpenPickerWindow,
-						                  Source={StaticResource WindowXamlHelper}}"
-						MenuItemsSource="{Binding PickersService.PickerButtonMenuItems}">
-
-						<TextBlock Margin="4 0" Text="{Binding PickersService.PickerButtonText}" />
-					</controls:SplitButton>
-				</Grid>
-
 
 				<!--  Close video source button  -->
 				<Button

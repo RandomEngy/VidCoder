@@ -164,6 +164,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\PickerList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\PresetTreeViewContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -328,6 +332,9 @@
     <Compile Include="Automation\VidCoderAutomation.cs" />
     <Compile Include="Controls\PaddingFrame.xaml.cs">
       <DependentUpon>PaddingFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PickerList.xaml.cs">
+      <DependentUpon>PickerList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PresetComboBox.cs" />
     <Compile Include="Controls\PresetTreeView.cs" />
@@ -882,6 +889,7 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\Picker.png" />
     <Resource Include="Icons\EncodingSettings.png" />
     <Resource Include="Icons\Options.png" />
     <Resource Include="Icons\Stop.png" />

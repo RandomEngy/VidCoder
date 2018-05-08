@@ -24,33 +24,8 @@
 				MaxWidth="250" />
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
-		<ListBox
-			Grid.Column="0"
-			HorizontalAlignment="Stretch"
-			Background="WhiteSmoke"
-			BorderThickness="0"
-			Canvas.ZIndex="3"
-			ItemsSource="{Binding PickersService.Pickers}"
-			SelectedItem="{Binding PickersService.SelectedPicker}">
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<TextBlock
-						Margin="5"
-						FontSize="12"
-						Text="{Binding DisplayNameWithStar}">
-						<TextBlock.Style>
-							<Style TargetType="TextBlock">
-								<Style.Triggers>
-									<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
-										<Setter Property="FontWeight" Value="Bold" />
-									</DataTrigger>
-								</Style.Triggers>
-							</Style>
-						</TextBlock.Style>
-					</TextBlock>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
+
+		<controls:PickerList Grid.Column="0" HorizontalAlignment="Stretch" Background="WhiteSmoke" />
 
 		<GridSplitter
 			Grid.Column="1"
