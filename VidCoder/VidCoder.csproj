@@ -889,6 +889,7 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\Disc64.png" />
     <Resource Include="Icons\Windows.png" />
     <Resource Include="Icons\Picker.png" />
     <Resource Include="Icons\EncodingSettings.png" />

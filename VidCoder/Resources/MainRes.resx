@@ -628,4 +628,7 @@
   <data name="EncodingSettingsButtonToolTip" xml:space="preserve">
     <value>Video and audio codecs, sizing, filters, container</value>
   </data>
+  <data name="OpenSourceRibbonButton" xml:space="preserve">
+    <value>Open source</value>
+  </data>
 </root>

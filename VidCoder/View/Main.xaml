@@ -423,6 +423,34 @@
 			CanMinimize="False"
 			IsQuickAccessToolBarVisible="False">
 			<fluent:RibbonTabItem Header="Generic tab header">
+				<fluent:RibbonGroupBox>
+					<fluent:DropDownButton Header="{x:Static res:MainRes.OpenSourceRibbonButton}" LargeIcon="/Icons/Disc64.png">
+						<fluent:MenuItem
+							Command="{Binding OpenFile}"
+							Header="{x:Static res:MainRes.OpenVideoFile}"
+							Icon="/Icons/video-file.png"
+							InputGestureText="Ctrl+O" />
+						<fluent:MenuItem
+							Command="{Binding OpenFolder}"
+							Header="{x:Static res:MainRes.OpenDiscFolder}"
+							Icon="/Icons/dvd_folder.png"
+							InputGestureText="Ctrl+F" />
+						<fluent:MenuItem
+							Command="{Binding OpenFolder}"
+							Header="{x:Static res:MainRes.EnqueueFolderOfVideoFiles}"
+							Icon="/Icons/video_files_folder.png" />
+						<fluent:MenuItem
+							Command="{Binding ProcessingService.QueueFiles}"
+							Header="{x:Static res:MainRes.EnqueueMultipleFiles}"
+							InputGestureText="Ctrl+Shift+O" />
+						<fluent:MenuItem
+							Command="{Binding ProcessingService.QueueTitlesAction}"
+							Header="{x:Static res:MainRes.EnqueueMultipleTitles}"
+							InputGestureText="Ctrl+T"
+							Visibility="{Binding ProcessingService.CanTryEnqueueMultipleTitles,
+							                     Converter={StaticResource VisibilityConverter}}" />
+					</fluent:DropDownButton>
+				</fluent:RibbonGroupBox>
 				<fluent:RibbonGroupBox Header="{x:Static res:MainRes.RibbonEncodingGroupLabel}">
 					<fluent:SplitButton
 						Command="{Binding ProcessingService.AddToQueue}"

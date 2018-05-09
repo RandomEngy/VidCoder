@@ -848,6 +848,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open source.
+        /// </summary>
+        public static string OpenSourceRibbonButton {
+            get {
+                return ResourceManager.GetString("OpenSourceRibbonButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Video File....
         /// </summary>
         public static string OpenVideoFile {
