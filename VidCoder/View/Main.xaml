@@ -486,10 +486,25 @@
 						ToolTip="{x:Static res:PickerRes.PickerHelpText}">
 						<controls:PickerList MinWidth="250" ItemMouseUp="OnPickerItemMouseUp" />
 					</fluent:SplitButton>
-					<!--<fluent:SplitButton Header="Picker">
-						<fluent:MenuItem Header="Item 1" IsCheckable="True" />
-						<fluent:MenuItem Header="Item 2" IsCheckable="True" IsChecked="True" />
-					</fluent:SplitButton>-->
+				</fluent:RibbonGroupBox>
+				<fluent:RibbonGroupBox>
+					<fluent:DropDownButton
+						x:Name="windowsRibbonButton"
+						Header="{x:Static res:MainRes.WindowsMenu}"
+						ItemsSource="{Binding WindowMenuItems}"
+						LargeIcon="/Icons/Windows.png"
+						Size="Large">
+						<fluent:DropDownButton.ItemContainerStyle>
+							<Style TargetType="fluent:MenuItem">
+								<Setter Property="Header" Value="{Binding Definition.MenuLabel}" />
+								<Setter Property="IsCheckable" Value="True" />
+								<Setter Property="IsChecked" Value="{Binding IsOpen}" />
+								<Setter Property="IsEnabled" Value="{Binding CanOpen}" />
+								<Setter Property="InputGestureText" Value="{Binding Definition.InputGestureText}" />
+								<Setter Property="Command" Value="{Binding Command}" />
+							</Style>
+						</fluent:DropDownButton.ItemContainerStyle>
+					</fluent:DropDownButton>
 				</fluent:RibbonGroupBox>
 			</fluent:RibbonTabItem>
 		</fluent:Ribbon>

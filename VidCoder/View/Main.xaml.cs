@@ -151,7 +151,6 @@ namespace VidCoder.View
 			    };
 
 			this.RefreshQueueTabs();
-			this.SetupWindowsMenu();
 		}
 
 		void IMainView.SaveQueueColumns()
@@ -283,27 +282,6 @@ namespace VidCoder.View
 
 				this.tabsVisible = false;
 				return;
-			}
-		}
-
-		private void SetupWindowsMenu()
-		{
-			foreach (WindowMenuItemViewModel itemViewModel in this.viewModel.WindowMenuItems)
-			{
-				MenuItem item = new MenuItem
-				{
-					IsCheckable = true,
-					Header = itemViewModel.Definition.MenuLabel,
-					InputGestureText = itemViewModel.Definition.InputGestureText,
-					Command = itemViewModel.Command
-				};
-
-				item.DataContext = itemViewModel;
-
-				item.SetBinding(MenuItem.IsCheckedProperty, nameof(itemViewModel.IsOpen));
-				item.SetBinding(UIElement.IsEnabledProperty, nameof(itemViewModel.CanOpen));
-
-				this.windowsMenu.Items.Add(item);
 			}
 		}
 
