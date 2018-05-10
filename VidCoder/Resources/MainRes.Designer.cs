@@ -560,15 +560,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exit.
-        /// </summary>
-        public static string ExitMenuItem {
-            get {
-                return ResourceManager.GetString("ExitMenuItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Export Preset....
         /// </summary>
         public static string ExportPreset {
@@ -610,15 +601,6 @@ namespace VidCoder.Resources {
         public static string FileDoesNotExist {
             get {
                 return ResourceManager.GetString("FileDoesNotExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to File.
-        /// </summary>
-        public static string FileMenu {
-            get {
-                return ResourceManager.GetString("FileMenu", resourceCulture);
             }
         }
         

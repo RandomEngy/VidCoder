@@ -480,11 +480,6 @@ namespace VidCoder.View
 			{
 				this.StopEditing();
 			}
-
-			if (this.viewModel.SourceSelectionExpanded && !this.HitElement(this.sourceSelectionMenu, hitPoint))
-			{
-				this.viewModel.SourceSelectionExpanded = false;
-			}
 		}
 
 		private void Window_StateChanged(object sender, EventArgs e)
@@ -511,14 +506,6 @@ namespace VidCoder.View
 			return
 				clickedPoint.X >= relativePoint.X && clickedPoint.X <= relativePoint.X + element.ActualWidth &&
 				clickedPoint.Y >= relativePoint.Y && clickedPoint.Y <= relativePoint.Y + element.ActualHeight;
-		}
-
-		private void OnPresetComboPreviewKeyDown(object sender, KeyEventArgs e)
-		{
-			this.PreviewKeyDown += (sender2, args) =>
-			{
-				Ioc.Get<PresetsService>().HandleKey(args);
-			};
 		}
 
 		private void OnPickerItemMouseUp(object sender, MouseEventArgs e)

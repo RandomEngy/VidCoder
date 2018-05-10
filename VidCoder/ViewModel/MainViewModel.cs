@@ -323,11 +323,6 @@ namespace VidCoder.ViewModel
 			this.OpenUpdates = ReactiveCommand.Create();
 			this.OpenUpdates.Subscribe(_ => this.OpenUpdatesImpl());
 
-			this.ToggleSourceMenu = ReactiveCommand.Create(this
-				.WhenAnyValue(x => x.VideoSourceState)
-				.Select(videoSourceState => videoSourceState != VideoSourceState.Scanning));
-			this.ToggleSourceMenu.Subscribe(_ => this.ToggleSourceMenuImpl());
-
 			this.OpenSubtitlesDialog = ReactiveCommand.Create();
 			this.OpenSubtitlesDialog.Subscribe(_ => this.OpenSubtitlesDialogImpl());
 
@@ -641,11 +636,6 @@ namespace VidCoder.ViewModel
 
         public bool SetSourceFromFile()
 		{
-			if (this.SourceSelectionExpanded)
-			{
-				this.SourceSelectionExpanded = false;
-			}
-
 			string videoFile = FileService.Instance.GetFileNameLoad(
 				Config.RememberPreviousFiles ? Config.LastInputFileFolder : null,
 				"Load video file");
@@ -675,11 +665,6 @@ namespace VidCoder.ViewModel
 
 		public bool SetSourceFromFolder()
 		{
-			if (this.SourceSelectionExpanded)
-			{
-				this.SourceSelectionExpanded = false;
-			}
-
 			string folderPath = FileService.Instance.GetFolderName(
 				Config.RememberPreviousFiles ? Config.LastVideoTSFolder : null,
 				MainRes.PickDiscFolderHelpText);
@@ -718,11 +703,6 @@ namespace VidCoder.ViewModel
 			if (driveInfo.Empty)
 			{
 				return false;
-			}
-
-			if (this.SourceSelectionExpanded)
-			{
-				this.SourceSelectionExpanded = false;
 			}
 
 			this.SourceName = driveInfo.VolumeLabel;
@@ -897,13 +877,6 @@ namespace VidCoder.ViewModel
 		{
 			get { return this.videoSourceState; }
 			set { this.RaiseAndSetIfChanged(ref this.videoSourceState, value); }
-		}
-
-		private bool sourceSelectionExpanded;
-		public bool SourceSelectionExpanded
-		{
-			get { return this.sourceSelectionExpanded; }
-			set { this.RaiseAndSetIfChanged(ref this.sourceSelectionExpanded, value); }
 		}
 
 		private ObservableAsPropertyHelper<string> sourceIcon;
@@ -1817,12 +1790,6 @@ namespace VidCoder.ViewModel
 			this.windowManager.OpenDialog<OptionsDialogViewModel>();
 		}
 
-		public ReactiveCommand<object> ToggleSourceMenu { get; }
-		private void ToggleSourceMenuImpl()
-		{
-			this.SourceSelectionExpanded = !this.SourceSelectionExpanded;
-		}
-
 		public ReactiveCommand<object> OpenSubtitlesDialog { get; }
 		private void OpenSubtitlesDialogImpl()
 		{
@@ -1882,7 +1849,6 @@ namespace VidCoder.ViewModel
 			this.VideoSourceState = VideoSourceState.Choices;
 			this.SourceData = null;
 			this.SelectedSource = null;
-			this.SourceSelectionExpanded = false;
 
 			this.RefreshRecentSourceOptions();
 
@@ -2408,7 +2374,6 @@ namespace VidCoder.ViewModel
 		private void ClearVideoSource()
 		{
 			this.SourceData = null;
-			this.SourceSelectionExpanded = false;
 		}
 
 		private void LoadVideoSourceMetadata(VCJob job, VideoSourceMetadata metadata)

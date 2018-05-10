@@ -524,43 +524,6 @@
 						Visibility="{Binding VideoSourceState,
 						                     Converter={StaticResource EnumVisibilityInverseConverter},
 						                     ConverterParameter={x:Static model:VideoSourceState.Choices}}">
-						<Grid.InputBindings>
-							<MouseBinding Command="{Binding ToggleSourceMenu}" Gesture="LeftClick" />
-							<MouseBinding Command="{Binding ToggleSourceMenu}" Gesture="LeftDoubleClick" />
-						</Grid.InputBindings>
-
-						<!--  Hover effect  -->
-						<Grid Visibility="{Binding VideoSourceState, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter={x:Static model:VideoSourceState.Scanning}}">
-							<Border
-								BorderBrush="#7DA2CE"
-								BorderThickness="1"
-								CornerRadius="3"
-								Visibility="{Binding IsMouseOver,
-								                     ElementName=sourceLabelArea,
-								                     Converter={StaticResource VisibilityConverter}}">
-								<Border.Background>
-									<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-										<GradientStop Offset="0.0" Color="#DBEAFC" />
-										<GradientStop Offset="1.0" Color="#C1DBFC" />
-									</LinearGradientBrush>
-								</Border.Background>
-							</Border>
-						</Grid>
-
-						<!--  Selected effect  -->
-						<Border
-							BorderBrush="DarkBlue"
-							BorderThickness="1"
-							CornerRadius="3"
-							Visibility="{Binding SourceSelectionExpanded,
-							                     Converter={StaticResource VisibilityConverter}}">
-							<Border.Background>
-								<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-									<GradientStop Offset="0.0" Color="#A1C8F4" />
-									<GradientStop Offset="1.0" Color="#7DB4F2" />
-								</LinearGradientBrush>
-							</Border.Background>
-						</Border>
 						<Grid Visibility="{Binding VideoSourceState, Converter={StaticResource EnumVisibilityInverseConverter}, ConverterParameter={x:Static model:VideoSourceState.Choices}}">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto" />
@@ -585,12 +548,6 @@
 								Style="{StaticResource SourceDescription}"
 								Text="{Binding SourceText,
 								               Mode=OneWay}" />
-							<Polygon
-								Grid.Column="3"
-								Margin="2 0 4 0"
-								VerticalAlignment="Center"
-								Fill="#333"
-								Points="0,0 8,0 4,4" />
 						</Grid>
 					</Grid>
 				</Grid>
@@ -1107,58 +1064,6 @@
 				</Grid>
 			</Grid>
 		</Grid>
-
-		<Border
-			Name="sourceSelectionMenu"
-			Grid.Row="2"
-			Grid.RowSpan="2"
-			MinWidth="220"
-			Margin="8 30 0 0"
-			HorizontalAlignment="Left"
-			VerticalAlignment="Top"
-			Background="White"
-			BorderBrush="Black"
-			BorderThickness="1"
-			Canvas.ZIndex="20"
-			Visibility="{Binding SourceSelectionExpanded,
-			                     Converter={StaticResource VisibilityConverter}}">
-			<Border.Effect>
-				<DropShadowEffect
-					BlurRadius="3"
-					Direction="310"
-					Opacity="0.4"
-					ShadowDepth="3" />
-			</Border.Effect>
-			<ItemsControl ItemsSource="{Binding SourceOptions}">
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<Grid Style="{StaticResource DropDownContainer}" UseLayoutRounding="True">
-							<Grid.InputBindings>
-								<MouseBinding Command="{Binding ChooseSource}" MouseAction="LeftClick" />
-							</Grid.InputBindings>
-							<StackPanel Margin="2" Orientation="Horizontal">
-								<Image
-									Width="16"
-									Height="16"
-									Margin="4 2 0 2"
-									Source="{Binding Image}"
-									Visibility="{Binding ImageVisible,
-									                     Converter={StaticResource VisibilityConverter}}" />
-								<TextBlock
-									Margin="4"
-									Style="{StaticResource DropDownText}"
-									Text="{Binding Text}" />
-							</StackPanel>
-						</Grid>
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-				<ItemsControl.Template>
-					<ControlTemplate>
-						<StackPanel IsItemsHost="True" Orientation="Vertical" />
-					</ControlTemplate>
-				</ItemsControl.Template>
-			</ItemsControl>
-		</Border>
 
 		<!--  Destination section  -->
 		<Grid Grid.Row="3" Background="{StaticResource SectionBackground}">

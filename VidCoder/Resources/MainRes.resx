@@ -126,9 +126,6 @@
   <data name="AddMultipleTitlesToQueueLabel" xml:space="preserve">
     <value>Add Multiple Titles to Queue...</value>
   </data>
-  <data name="FileMenu" xml:space="preserve">
-    <value>File</value>
-  </data>
   <data name="OpenVideoFile" xml:space="preserve">
     <value>Open Video File...</value>
   </data>
@@ -161,9 +158,6 @@
   </data>
   <data name="ClearCompleted" xml:space="preserve">
     <value>Clear Completed</value>
-  </data>
-  <data name="ExitMenuItem" xml:space="preserve">
-    <value>Exit</value>
   </data>
   <data name="WindowsMenu" xml:space="preserve">
     <value>Windows</value>
