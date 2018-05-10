@@ -551,15 +551,6 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enqueue Multiple Titles....
-        /// </summary>
-        public static string EnqueueMultipleTitles {
-            get {
-                return ResourceManager.GetString("EnqueueMultipleTitles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ETA:.
         /// </summary>
         public static string EtaLabel {

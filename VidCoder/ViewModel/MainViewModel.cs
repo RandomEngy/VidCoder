@@ -506,6 +506,7 @@ namespace VidCoder.ViewModel
 			}
 
 			this.DriveCollection = newDriveCollection;
+			this.View.RefreshDiscMenuItems();
 		}
 
         /// <summary>

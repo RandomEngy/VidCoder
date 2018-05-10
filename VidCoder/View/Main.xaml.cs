@@ -15,6 +15,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Animation;
+using System.Windows.Shapes;
+using Fluent;
 using HandBrake.ApplicationServices.Interop.Json.Encode;
 using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Practices.Unity;
@@ -29,11 +31,15 @@ using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using VidCoderCommon;
 using VidCoderCommon.Model;
+using MenuItem = System.Windows.Controls.MenuItem;
+using Path = System.IO.Path;
 
 namespace VidCoder.View
 {
 	public partial class Main : Window, IMainView
 	{
+		private const string DiscMenuItemTag = "disc";
+
 		private MainViewModel viewModel;
 		private ProcessingService processingService = Ioc.Get<ProcessingService>();
 		private OutputPathService outputVM = Ioc.Get<OutputPathService>();
@@ -142,6 +148,7 @@ namespace VidCoder.View
 		{
 			this.viewModel = (MainViewModel)this.DataContext;
 			this.viewModel.View = this;
+			this.RefreshDiscMenuItems();
 			this.processingService.PropertyChanged += (sender2, e2) =>
 			    {
 					if (e2.PropertyName == nameof(this.processingService.CompletedItemsCount))
@@ -282,6 +289,54 @@ namespace VidCoder.View
 
 				this.tabsVisible = false;
 				return;
+			}
+		}
+
+		public void RefreshDiscMenuItems()
+		{
+			// Clear previous discs
+			for (int i = this.openSourceButton.Items.Count - 1; i >= 0; i--)
+			{
+				var menuItem = this.openSourceButton.Items[i] as FrameworkElement;
+				if (menuItem != null && menuItem.Tag != null && (string)menuItem.Tag == DiscMenuItemTag)
+				{
+					this.openSourceButton.Items.RemoveAt(i);
+				}
+			}
+
+			int insertionIndex = 3;
+
+			// Add new discs
+			foreach (DriveInformation driveInfo in this.viewModel.DriveCollection)
+			{
+				var menuItem = new Fluent.MenuItem
+				{
+					Header = driveInfo.DisplayText,
+					Tag = DiscMenuItemTag
+				};
+
+				menuItem.Click += (sender, args) =>
+				{
+					this.viewModel.SetSourceFromDvd(driveInfo);
+				};
+
+				if (driveInfo.DiscType == DiscType.Dvd)
+				{
+					menuItem.Icon = "/Icons/disc.png";
+				}
+				else
+				{
+					menuItem.Icon = "/Icons/bludisc.png";
+				}
+
+				this.openSourceButton.Items.Insert(insertionIndex, menuItem);
+				insertionIndex++;
+			}
+
+			// Add group separator at
+			if (this.viewModel.DriveCollection.Count > 0)
+			{
+				this.openSourceButton.Items.Insert(insertionIndex, new Rectangle { Style = (Style)this.Resources["MenuSeparatorStyle"], Tag = DiscMenuItemTag });
 			}
 		}
 

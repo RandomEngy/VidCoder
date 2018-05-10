@@ -138,9 +138,6 @@
   <data name="EnqueueMultipleFiles" xml:space="preserve">
     <value>Enqueue Multiple Files...</value>
   </data>
-  <data name="EnqueueMultipleTitles" xml:space="preserve">
-    <value>Enqueue Multiple Titles...</value>
-  </data>
   <data name="ToolsMenu" xml:space="preserve">
     <value>Tools</value>
   </data>
