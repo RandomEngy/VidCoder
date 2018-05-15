@@ -889,6 +889,7 @@
     <Content Include="Encode_Complete.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\Preview64.png" />
     <Resource Include="Icons\Disc64.png" />
     <Resource Include="Icons\Windows.png" />
     <Resource Include="Icons\Picker.png" />
@@ -921,7 +922,6 @@
     <Resource Include="Icons\undo_16x16.png" />
     <Resource Include="Icons\help_16.png" />
     <Resource Include="Icons\VidCoder_small.png" />
-    <Resource Include="Icons\preview.png" />
     <Resource Include="Icons\VidCoder.png" />
     <Resource Include="Icons\copy.png" />
     <Resource Include="Icons\save.png" />

@@ -311,8 +311,6 @@
 			<RowDefinition Height="Auto" />
 			<!--  Destination  -->
 			<RowDefinition Height="40" />
-			<!--  Encoding  -->
-			<RowDefinition Height="Auto" />
 			<!--  Queue  -->
 			<RowDefinition Height="*" />
 			<!--  Encode progress  -->
@@ -378,7 +376,10 @@
 			IsQuickAccessToolBarVisible="False">
 			<fluent:RibbonTabItem Header="Generic tab header">
 				<fluent:RibbonGroupBox>
-					<fluent:DropDownButton Header="{x:Static res:MainRes.OpenSourceRibbonButton}" LargeIcon="/Icons/Disc64.png" x:Name="openSourceButton">
+					<fluent:DropDownButton
+						x:Name="openSourceButton"
+						Header="{x:Static res:MainRes.OpenSourceRibbonButton}"
+						LargeIcon="/Icons/Disc64.png">
 						<fluent:MenuItem
 							Command="{Binding OpenFile}"
 							Header="{x:Static res:MainRes.OpenVideoFile}"
@@ -401,6 +402,14 @@
 					</fluent:DropDownButton>
 				</fluent:RibbonGroupBox>
 				<fluent:RibbonGroupBox Header="{x:Static res:MainRes.RibbonEncodingGroupLabel}">
+					<fluent:Button
+						Command="{Binding OpenPreviewWindow,
+						                  Source={StaticResource WindowXamlHelper}}"
+						Header="{x:Static res:CommonRes.PreviewLabel}"
+						LargeIcon="/Icons/Preview64.png"
+						Visibility="{Binding PreviewWindowOpen,
+						                     Source={StaticResource WindowXamlHelper},
+						                     Converter={StaticResource InverseVisibilityConverter}}" />
 					<fluent:SplitButton
 						Command="{Binding ProcessingService.AddToQueue}"
 						Header="{x:Static res:MainRes.AddToQueueLabel}"
@@ -1149,50 +1158,8 @@
 			</Button>
 		</Grid>
 
-		<!--  Encoding section  -->
-		<Grid
-			Grid.Row="4"
-			Background="{StaticResource SectionBackground}"
-			Canvas.ZIndex="3">
-			<Grid
-				Margin="0 0 0 0"
-				HorizontalAlignment="Right"
-				VerticalAlignment="Bottom">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="Auto" />
-				</Grid.ColumnDefinitions>
-
-				<Button
-					Grid.Column="1"
-					Height="37"
-					Margin="0 0 5 0"
-					Padding="5 0"
-					HorizontalAlignment="Right"
-					VerticalAlignment="Bottom"
-					Command="{Binding OpenPreviewWindow,
-					                  Source={StaticResource WindowXamlHelper}}"
-					IsEnabled="{Binding HasVideoSource}"
-					Style="{StaticResource GrayOnDisabledControl}"
-					Visibility="{Binding PreviewWindowOpen,
-					                     Source={StaticResource WindowXamlHelper},
-					                     Converter={StaticResource InverseVisibilityConverter}}">
-					<StackPanel Orientation="Horizontal">
-						<Image Height="26" Source="/Icons/preview.png" />
-						<TextBlock
-							Margin="5 0 0 0"
-							VerticalAlignment="Center"
-							Text="{x:Static res:CommonRes.PreviewLabel}" />
-					</StackPanel>
-				</Button>
-			</Grid>
-		</Grid>
-
 		<!--  Queue section  -->
-		<Grid Grid.Row="5" Canvas.ZIndex="2">
+		<Grid Grid.Row="4" Canvas.ZIndex="2">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="3*" />
 				<ColumnDefinition Width="14*" />
@@ -1401,7 +1368,7 @@
 
 		<!--  Encode progress section  -->
 		<Grid
-			Grid.Row="6"
+			Grid.Row="5"
 			Height="28"
 			Visibility="{Binding ProcessingService.Encoding,
 			                     Converter={StaticResource VisibilityConverter}}">

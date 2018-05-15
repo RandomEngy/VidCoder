@@ -206,7 +206,7 @@
 							<Image
 								Width="16"
 								Height="16"
-								Source="/Icons/preview.png" />
+								Source="/Icons/Preview64.png" />
 							<TextBlock
 								Margin="5 0 0 0"
 								VerticalAlignment="Center"
