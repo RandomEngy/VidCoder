@@ -650,6 +650,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import/Export.
+        /// </summary>
+        public static string ImportExportRibbonButton {
+            get {
+                return ResourceManager.GetString("ImportExportRibbonButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Import Preset....
         /// </summary>
         public static string ImportPreset {
@@ -835,15 +844,6 @@ namespace VidCoder.Resources {
         public static string OpenVideoFile {
             get {
                 return ResourceManager.GetString("OpenVideoFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Options....
-        /// </summary>
-        public static string OptionsMenuItem {
-            get {
-                return ResourceManager.GetString("OptionsMenuItem", resourceCulture);
             }
         }
         

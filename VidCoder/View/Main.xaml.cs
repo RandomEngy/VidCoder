@@ -61,9 +61,17 @@ namespace VidCoder.View
 
 			if (CommonUtilities.DebugMode)
 			{
-				MenuItem queueFromJsonItem = new MenuItem {Header = "Queue job from JSON..."};
+				var debugDropDown = new DropDownButton { Header = "Debug" };
+				var queueFromJsonItem = new Fluent.MenuItem {Header = "Queue job from JSON..."};
+
 				queueFromJsonItem.Click += (sender, args) =>
 				{
+					if (!this.viewModel.HasVideoSource)
+					{
+						Ioc.Get<IMessageBoxService>().Show("Must open source before adding queue job from JSON");
+						return;
+					}
+
 					EncodeJobViewModel jobViewModel = this.viewModel.CreateEncodeJobVM();
 					DebugEncodeJsonDialog dialog = new DebugEncodeJsonDialog();
 					dialog.ShowDialog();
@@ -87,8 +95,8 @@ namespace VidCoder.View
 					}
 				};
 
-				this.toolsMenu.Items.Add(new Separator());
-				this.toolsMenu.Items.Add(queueFromJsonItem);
+				debugDropDown.Items.Add(queueFromJsonItem);
+				this.otherRibbonGroupBox.Items.Add(debugDropDown);
 			}
 
 			this.DataContextChanged += this.OnDataContextChanged;

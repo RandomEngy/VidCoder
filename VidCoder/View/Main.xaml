@@ -303,8 +303,6 @@
 
 	<Grid>
 		<Grid.RowDefinitions>
-			<!--  Menu bar  -->
-			<RowDefinition Height="Auto" />
 			<!--  Ribbon  -->
 			<RowDefinition Height="Auto" />
 			<!--  Source  -->
@@ -324,54 +322,11 @@
 			ToolTipText="{Binding TrayIconToolTip}"
 			Visibility="{Binding ShowTrayIcon,
 			                     Converter={StaticResource VisibilityConverter}}" />
-		<Menu Grid.Row="0" Height="22">
-			<MenuItem Name="toolsMenu" Header="{x:Static res:MainRes.ToolsMenu}">
-				<MenuItem Command="{Binding ImportPreset}" Header="{x:Static res:MainRes.ImportPreset}" />
-				<MenuItem Command="{Binding ExportPreset}" Header="{x:Static res:MainRes.ExportPreset}" />
-				<Separator />
-				<MenuItem Command="{Binding ProcessingService.ImportQueue}" Header="{x:Static res:MainRes.ImportQueue}" />
-				<MenuItem
-					Command="{Binding ProcessingService.ExportQueue}"
-					Header="{x:Static res:MainRes.ExportQueue}"
-					IsEnabled="{Binding ProcessingService.QueueHasItems}" />
-				<Separator />
-				<MenuItem
-					Command="{Binding OpenOptions}"
-					Header="{x:Static res:MainRes.OptionsMenuItem}"
-					InputGestureText="F4" />
-			</MenuItem>
-			<MenuItem Header="{x:Static res:MainRes.HelpMenu}">
-				<MenuItem Command="{Binding OpenHomepage}" Header="{x:Static res:MainRes.VidCoderHomepageMenuItem}">
-					<MenuItem.Icon>
-						<Image
-							Width="16"
-							Height="16"
-							Source="/Icons/help_16.png" />
-					</MenuItem.Icon>
-				</MenuItem>
-				<MenuItem Command="{Binding ReportBug}" Header="{x:Static res:MainRes.ReportABugMenuItem}" />
-				<MenuItem Command="{Binding OpenAppData}" Header="{x:Static res:MainRes.OpenAppDataFolder}" />
-				<Separator Visibility="{Binding ShowUpdateMenuItem, Converter={StaticResource VisibilityConverter}}" />
-				<MenuItem
-					Command="{Binding OpenUpdates}"
-					Header="{x:Static res:MainRes.UpdatesMenuItem}"
-					Visibility="{Binding ShowUpdateMenuItem,
-					                     Converter={StaticResource VisibilityConverter}}" />
-				<Separator />
-				<MenuItem Command="{Binding OpenAboutDialog}" Header="{x:Static res:MainRes.AboutVidCoderMenuItem}">
-					<MenuItem.Icon>
-						<Image
-							Width="16"
-							Height="16"
-							Source="/Icons/VidCoder_small.png" />
-					</MenuItem.Icon>
-				</MenuItem>
-			</MenuItem>
-		</Menu>
 
 		<!--  Ribbon  -->
 		<fluent:Ribbon
-			Grid.Row="1"
+			Grid.Row="0"
+			Margin="0 -23 0 0"
 			CanMinimize="False"
 			IsQuickAccessToolBarVisible="False">
 			<fluent:RibbonTabItem Header="Generic tab header">
@@ -476,7 +431,7 @@
 						<controls:PickerList MinWidth="250" ItemMouseUp="OnPickerItemMouseUp" />
 					</fluent:SplitButton>
 				</fluent:RibbonGroupBox>
-				<fluent:RibbonGroupBox>
+				<fluent:RibbonGroupBox x:Name="otherRibbonGroupBox">
 					<fluent:DropDownButton
 						x:Name="windowsRibbonButton"
 						Header="{x:Static res:MainRes.WindowsMenu}"
@@ -494,13 +449,42 @@
 							</Style>
 						</fluent:DropDownButton.ItemContainerStyle>
 					</fluent:DropDownButton>
+					<fluent:DropDownButton Header="{x:Static res:MainRes.ImportExportRibbonButton}" LargeIcon="/Icons/ImportExport.png">
+						<fluent:MenuItem Command="{Binding ImportPreset}" Header="{x:Static res:MainRes.ImportPreset}" />
+						<fluent:MenuItem Command="{Binding ExportPreset}" Header="{x:Static res:MainRes.ExportPreset}" />
+						<Rectangle Style="{StaticResource MenuSeparatorStyle}" />
+						<fluent:MenuItem Command="{Binding ProcessingService.ImportQueue}" Header="{x:Static res:MainRes.ImportQueue}" />
+						<fluent:MenuItem
+							Command="{Binding ProcessingService.ExportQueue}"
+							Header="{x:Static res:MainRes.ExportQueue}"
+							IsEnabled="{Binding ProcessingService.QueueHasItems}" />
+					</fluent:DropDownButton>
+					<fluent:DropDownButton
+						Header="{x:Static res:MainRes.HelpMenu}"
+						LargeIcon="/Icons/Help.png"
+						Size="Large">
+						<fluent:MenuItem Command="{Binding OpenHomepage}" Header="{x:Static res:MainRes.VidCoderHomepageMenuItem}" />
+						<fluent:MenuItem Command="{Binding ReportBug}" Header="{x:Static res:MainRes.ReportABugMenuItem}" />
+						<fluent:MenuItem Command="{Binding OpenAppData}" Header="{x:Static res:MainRes.OpenAppDataFolder}" />
+						<Rectangle Style="{StaticResource MenuSeparatorStyle}" Visibility="{Binding ShowUpdateMenuItem, Converter={StaticResource VisibilityConverter}}" />
+						<fluent:MenuItem
+							Command="{Binding OpenUpdates}"
+							Header="{x:Static res:MainRes.UpdatesMenuItem}"
+							Visibility="{Binding ShowUpdateMenuItem,
+							                     Converter={StaticResource VisibilityConverter}}" />
+						<Rectangle Style="{StaticResource MenuSeparatorStyle}" />
+						<fluent:MenuItem
+							Command="{Binding OpenAboutDialog}"
+							Header="{x:Static res:MainRes.AboutVidCoderMenuItem}"
+							Icon="/Icons/VidCoder32.png" />
+					</fluent:DropDownButton>
 				</fluent:RibbonGroupBox>
 			</fluent:RibbonTabItem>
 		</fluent:Ribbon>
 
 		<!--  Source area  -->
 		<Grid
-			Grid.Row="2"
+			Grid.Row="1"
 			MinHeight="138"
 			Background="{StaticResource SectionBackground}">
 			<Grid.RowDefinitions>
@@ -1075,7 +1059,7 @@
 		</Grid>
 
 		<!--  Destination section  -->
-		<Grid Grid.Row="3" Background="{StaticResource SectionBackground}">
+		<Grid Grid.Row="2" Background="{StaticResource SectionBackground}">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition />
@@ -1159,7 +1143,7 @@
 		</Grid>
 
 		<!--  Queue section  -->
-		<Grid Grid.Row="4" Canvas.ZIndex="2">
+		<Grid Grid.Row="3" Canvas.ZIndex="2">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="3*" />
 				<ColumnDefinition Width="14*" />
@@ -1368,7 +1352,7 @@
 
 		<!--  Encode progress section  -->
 		<Grid
-			Grid.Row="5"
+			Grid.Row="4"
 			Height="28"
 			Visibility="{Binding ProcessingService.Encoding,
 			                     Converter={StaticResource VisibilityConverter}}">
