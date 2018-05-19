@@ -548,7 +548,9 @@
 				<!--  Close video source button  -->
 				<Button
 					Grid.Column="1"
-					Margin="5"
+					Margin="0"
+					Width="27"
+					Height="27"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Top"
 					Command="{Binding CloseVideoSource}"
@@ -954,8 +956,9 @@
 											ItemsSource="{Binding MainViewModel.InputTracks}"
 											SelectedIndex="{Binding SelectedIndex}" />
 										<Button
-											Height="23"
-											Margin="2"
+											Height="25"
+											Width="25"
+											Margin="0"
 											Command="{Binding Remove}"
 											Content="{x:Static res:MainRes.RemoveAudioTrackToolTip}"
 											Style="{StaticResource RemoveButtonStyle}" />

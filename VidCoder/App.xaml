@@ -77,7 +77,7 @@
 						Foreground="Gray"
 						Text="{x:Static res:MainRes.ModifiedAffix}"
 						Visibility="{Binding Preset.IsModified,
-								                     Converter={StaticResource VisibilityConverter}}" />
+						                     Converter={StaticResource VisibilityConverter}}" />
 				</StackPanel>
 			</DataTemplate>
 
@@ -237,8 +237,8 @@
 									Margin="1"
 									AllowsTransparency="True"
 									IsOpen="{Binding IsDropDownOpen,
-								                 Mode=TwoWay,
-								                 RelativeSource={RelativeSource TemplatedParent}}"
+									                 Mode=TwoWay,
+									                 RelativeSource={RelativeSource TemplatedParent}}"
 									Placement="Bottom"
 									PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
 									<mwt:SystemDropShadowChrome
@@ -262,11 +262,11 @@
 														<Rectangle
 															x:Name="OpaqueRect"
 															Width="{Binding ActualWidth,
-														                ElementName=DropDownBorder}"
+															                ElementName=DropDownBorder}"
 															Height="{Binding ActualHeight,
-														                 ElementName=DropDownBorder}"
+															                 ElementName=DropDownBorder}"
 															Fill="{Binding Background,
-														               ElementName=DropDownBorder}" />
+															               ElementName=DropDownBorder}" />
 													</Canvas>
 													<controls:PresetTreeViewContainer x:Name="treeViewContainer" />
 												</Grid>
@@ -281,8 +281,8 @@
 									BorderBrush="{TemplateBinding BorderBrush}"
 									BorderThickness="{TemplateBinding BorderThickness}"
 									IsChecked="{Binding IsDropDownOpen,
-								                    Mode=TwoWay,
-								                    RelativeSource={RelativeSource TemplatedParent}}">
+									                    Mode=TwoWay,
+									                    RelativeSource={RelativeSource TemplatedParent}}">
 									<ToggleButton.Style>
 										<Style TargetType="{x:Type ToggleButton}">
 											<Setter Property="OverridesDefaultStyle" Value="True" />
@@ -377,9 +377,12 @@
 									Margin="{TemplateBinding Padding}"
 									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
 									VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-									Content="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ComboBox}}}"
-									IsHitTestVisible="False"
-									ContentTemplate="{StaticResource PresetTemplate}"/>
+									Content="{Binding SelectedItem,
+									                  RelativeSource={RelativeSource FindAncestor,
+									                                                 AncestorLevel=1,
+									                                                 AncestorType={x:Type ComboBox}}}"
+									ContentTemplate="{StaticResource PresetTemplate}"
+									IsHitTestVisible="False" />
 							</Grid>
 							<ControlTemplate.Triggers>
 								<Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="True">
@@ -585,23 +588,21 @@
 								<Grid.ToolTip>
 									<ContentPresenter />
 								</Grid.ToolTip>
+								<Border
+									x:Name="hoverBorder"
+									BorderThickness="0"
+									Visibility="Collapsed">
+									<Border.Background>
+										<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+											<GradientStop Offset="0.0" Color="#DBEAFC" />
+											<GradientStop Offset="1.0" Color="#C1DBFC" />
+										</LinearGradientBrush>
+									</Border.Background>
+								</Border>
 								<Grid
 									Width="15"
 									Height="15"
 									Margin="{TemplateBinding Padding}">
-									<Border
-										x:Name="hoverBorder"
-										BorderBrush="#7DA2CE"
-										BorderThickness="1"
-										CornerRadius="3"
-										Visibility="Collapsed">
-										<Border.Background>
-											<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-												<GradientStop Offset="0.0" Color="#DBEAFC" />
-												<GradientStop Offset="1.0" Color="#C1DBFC" />
-											</LinearGradientBrush>
-										</Border.Background>
-									</Border>
 									<Rectangle
 										x:Name="rect2"
 										Width="12"

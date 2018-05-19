@@ -190,8 +190,13 @@ $outputDirectoryFiles = @(
     "System.Reactive.Linq.dll",
     "System.Reactive.PlatformServices.dll",
     "System.Reactive.Windows.Threading.dll",
+    "System.Windows.Interactivity.dll",
     "Ude.dll",
-    "Xceed.Wpf.Toolkit.dll")
+    "Xceed.Wpf.Toolkit.dll",
+    "Fluent.dll",
+    "Fluent.pdb",
+    "ControlzEx.dll",
+    "ControlzEx.pdb")
 
 foreach ($outputDirectoryFile in $outputDirectoryFiles) {
     CopyFromOutput $outputDirectoryFile $buildFlavor
