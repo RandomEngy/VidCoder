@@ -345,7 +345,7 @@ namespace VidCoderCommon.Model
 		public VCProfile Clone()
 		{
 			var profile = new VCProfile();
-			profile.InjectFrom<FastDeepCloneInjection>(this);
+			profile.InjectFrom<CloneInjection>(this);
 
 			return profile;
 		}

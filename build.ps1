@@ -178,7 +178,6 @@ $outputDirectoryFiles = @(
     "VidCoderWindowlessCLI.pdb",
     "Microsoft.Practices.ServiceLocation.dll",
     "Newtonsoft.Json.dll",
-    "FastMember.dll",
     "Microsoft.Practices.Unity.dll",
     "ReactiveUI.dll",
     "Splat.dll",

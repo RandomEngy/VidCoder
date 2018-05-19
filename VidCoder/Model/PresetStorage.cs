@@ -64,7 +64,7 @@ namespace VidCoder.Model
 				var clonedList = value.Select(p =>
 				{
 					Preset newPreset = new Preset();
-					newPreset.InjectFrom<FastDeepCloneInjection>(p);
+					newPreset.InjectFrom<CloneInjection>(p);
 
 					return newPreset;
 				}).ToList();

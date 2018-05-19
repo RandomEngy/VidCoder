@@ -85,7 +85,6 @@
   <ItemGroup>
     <PackageReference Include="DesktopBridge.Helpers" Version="1.1" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="2.9" />
-    <PackageReference Include="FastMember" Version="1.0.0.11" />
     <PackageReference Include="Fluent.Ribbon">
       <Version>6.1.0.233</Version>
     </PackageReference>

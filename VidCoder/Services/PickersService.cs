@@ -232,7 +232,7 @@ namespace VidCoder.Services
 		public void SavePickerAs(string newName)
 		{
 			var newPicker = new Picker();
-			newPicker.InjectFrom<FastDeepCloneInjection>(this.SelectedPicker.Picker);
+			newPicker.InjectFrom<CloneInjection>(this.SelectedPicker.Picker);
 			newPicker.Name = newName;
 			newPicker.IsModified = false;
 
@@ -358,7 +358,7 @@ namespace VidCoder.Services
 						if (pickerVM.OriginalPicker != null)
 						{
 							var originalPicker = new Picker();
-							originalPicker.InjectFrom<FastDeepCloneInjection>(pickerVM.OriginalPicker);
+							originalPicker.InjectFrom<CloneInjection>(pickerVM.OriginalPicker);
 							originalPicker.IsModified = false;
 
 							storagePickers.Add(originalPicker);

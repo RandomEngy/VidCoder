@@ -50,7 +50,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FastMember" Version="1.0.0.11" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="reactiveui" Version="6.5.0" />
     <PackageReference Include="reactiveui-core" Version="6.5.0" />
@@ -119,11 +118,8 @@
     <Compile Include="Services\ILogger.cs" />
     <Compile Include="Utilities\AudioUtilities.cs" />
     <Compile Include="Utilities\CommonUtilities.cs" />
+    <Compile Include="Utilities\Injection\CloneInjection.cs" />
     <Compile Include="Utilities\MathUtilities.cs" />
-    <Compile Include="Utilities\Injection\FastDeepCloneInjection.cs" />
-    <Compile Include="Utilities\Injection\SmartConventionInfo.cs" />
-    <Compile Include="Utilities\Injection\SmartConventionInjection.cs" />
-    <Compile Include="Utilities\Injection\SmartMatchInfo.cs" />
     <Compile Include="Utilities\JsonSettings.cs" />
   </ItemGroup>
   <ItemGroup>

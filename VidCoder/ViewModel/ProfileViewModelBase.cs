@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using FastMember;
+using System.Reflection;
 using Omu.ValueInjecter;
 using ReactiveUI;
 using VidCoder.Services;
@@ -112,14 +112,15 @@ namespace VidCoder.ViewModel
 		protected void UpdateProfileProperty<TProperty, TModel>(Func<TModel> targetFunc, string propertyName, string raisePropertyName, TProperty value, bool raisePropertyChanged = true)
 		{
 			TModel originalTarget = targetFunc();
-			TypeAccessor typeAccessor = TypeAccessor.Create(typeof(TModel));
 
 			if (!this.profileProperties.ContainsKey(raisePropertyName))
 			{
 				throw new ArgumentException("UpdatePresetProperty called on " + raisePropertyName + " without registering.");
 			}
 
-			TProperty oldValue = (TProperty) typeAccessor[originalTarget, propertyName];
+			Type type = typeof(TModel);
+			PropertyInfo property = type.GetProperty(propertyName);
+			var oldValue = (TProperty)property.GetValue(originalTarget);
 
 			if (oldValue != null && oldValue.Equals(value))
 			{
@@ -134,7 +135,7 @@ namespace VidCoder.ViewModel
 				{
 					// Clone the profile so we modify a different copy.
 					VCProfile newProfile = new VCProfile();
-					newProfile.InjectFrom<FastDeepCloneInjection>(this.Profile);
+					newProfile.InjectFrom<CloneInjection>(this.Profile);
 
 					if (!this.Preset.IsModified)
 					{
@@ -145,7 +146,7 @@ namespace VidCoder.ViewModel
 			}
 
 			// Update the value and raise PropertyChanged
-			typeAccessor[targetFunc(), propertyName] = value;
+			property.SetValue(targetFunc(), value);
 
 			if (raisePropertyChanged)
 			{
@@ -197,7 +198,7 @@ namespace VidCoder.ViewModel
 				{
 					// Clone the profile so we modify a different copy.
 					VCProfile newProfile = new VCProfile();
-					newProfile.InjectFrom<FastDeepCloneInjection>(this.Profile);
+					newProfile.InjectFrom<CloneInjection>(this.Profile);
 
 					if (!this.Preset.IsModified)
 					{

@@ -8,7 +8,6 @@ using System.Reactive.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
-using FastMember;
 using HandBrake.ApplicationServices.Interop.Model;
 using Omu.ValueInjecter;
 using ReactiveUI;
@@ -24,8 +23,6 @@ namespace VidCoder.ViewModel
 	public class PickerWindowViewModel : ReactiveObject
 	{
 		private const string NameTokenList = "{source} {title} {range} {preset} {date} {time} {quality} {parent} {titleduration}";
-
-		private static TypeAccessor typeAccessor = TypeAccessor.Create(typeof(Picker));
 
 		private readonly PickersService pickersService = Ioc.Get<PickersService>();
 		private readonly PresetsService presetsService = Ioc.Get<PresetsService>();
@@ -882,7 +879,7 @@ namespace VidCoder.ViewModel
 				{
 					// Clone the picker so we modify a different copy.
 					Picker newPicker = new Picker();
-					newPicker.InjectFrom<FastDeepCloneInjection>(this.Picker);
+					newPicker.InjectFrom<CloneInjection>(this.Picker);
 
 					if (!newPicker.IsModified)
 					{
@@ -892,7 +889,7 @@ namespace VidCoder.ViewModel
 			}
 
 			// Update the value and raise PropertyChanged
-			typeAccessor[this.Picker, propertyName] = value;
+			typeof(Picker).GetProperty(propertyName).SetValue(this.Picker, value);
 
 			if (raisePropertyChanged)
 			{
