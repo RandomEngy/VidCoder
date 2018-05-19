@@ -347,6 +347,29 @@
 							InputGestureText="Ctrl+Shift+O" />
 					</fluent:DropDownButton>
 				</fluent:RibbonGroupBox>
+				<fluent:RibbonGroupBox Header="{x:Static res:MainRes.RibbonSettingsGroupLabel}">
+					<fluent:Button
+						Command="{Binding OpenOptions}"
+						Header="{x:Static res:MainRes.GlobalOptionsLabel}"
+						LargeIcon="/Icons/Options.png" />
+					<fluent:SplitButton
+						x:Name="presetButton"
+						Command="{Binding OpenEncodingWindow}"
+						Header="{Binding EncodingPresetButtonText}"
+						LargeIcon="/Icons/EncodingSettings.png"
+						ToolTip="{x:Static res:MainRes.EncodingSettingsButtonToolTip}">
+						<controls:PresetTreeViewContainer x:Name="presetTreeViewContainer" MinWidth="250" />
+					</fluent:SplitButton>
+					<fluent:SplitButton
+						x:Name="pickerButton"
+						Command="{Binding OpenPickerWindow,
+						                  Source={StaticResource WindowXamlHelper}}"
+						Header="{Binding PickersService.PickerButtonText}"
+						LargeIcon="/Icons/Picker.png"
+						ToolTip="{x:Static res:PickerRes.PickerHelpText}">
+						<controls:PickerList MinWidth="250" ItemMouseUp="OnPickerItemMouseUp" />
+					</fluent:SplitButton>
+				</fluent:RibbonGroupBox>
 				<fluent:RibbonGroupBox Header="{x:Static res:MainRes.RibbonEncodingGroupLabel}">
 					<fluent:Button
 						Command="{Binding OpenPreviewWindow,
@@ -399,30 +422,7 @@
 						Visibility="{Binding ProcessingService.Encoding,
 						                     Converter={StaticResource VisibilityConverter}}" />
 				</fluent:RibbonGroupBox>
-				<fluent:RibbonGroupBox Header="{x:Static res:MainRes.RibbonSettingsGroupLabel}">
-					<fluent:Button
-						Command="{Binding OpenOptions}"
-						Header="{x:Static res:MainRes.GlobalOptionsLabel}"
-						LargeIcon="/Icons/Options.png" />
-					<fluent:SplitButton
-						x:Name="presetButton"
-						Command="{Binding OpenEncodingWindow}"
-						Header="{Binding EncodingPresetButtonText}"
-						LargeIcon="/Icons/EncodingSettings.png"
-						ToolTip="{x:Static res:MainRes.EncodingSettingsButtonToolTip}">
-						<controls:PresetTreeViewContainer x:Name="presetTreeViewContainer" MinWidth="250" />
-					</fluent:SplitButton>
-					<fluent:SplitButton
-						x:Name="pickerButton"
-						Command="{Binding OpenPickerWindow,
-						                  Source={StaticResource WindowXamlHelper}}"
-						Header="{Binding PickersService.PickerButtonText}"
-						LargeIcon="/Icons/Picker.png"
-						ToolTip="{x:Static res:PickerRes.PickerHelpText}">
-						<controls:PickerList MinWidth="250" ItemMouseUp="OnPickerItemMouseUp" />
-					</fluent:SplitButton>
-				</fluent:RibbonGroupBox>
-				<fluent:RibbonGroupBox x:Name="otherRibbonGroupBox">
+				<fluent:RibbonGroupBox x:Name="toolsRibbonGroupBox" Header="{x:Static res:MainRes.ToolsMenu}">
 					<fluent:DropDownButton
 						x:Name="windowsRibbonButton"
 						Header="{x:Static res:MainRes.WindowsMenu}"
@@ -539,9 +539,9 @@
 				<!--  Close video source button  -->
 				<Button
 					Grid.Column="1"
-					Margin="0"
 					Width="27"
 					Height="27"
+					Margin="0"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Top"
 					Command="{Binding CloseVideoSource}"
@@ -947,8 +947,8 @@
 											ItemsSource="{Binding MainViewModel.InputTracks}"
 											SelectedIndex="{Binding SelectedIndex}" />
 										<Button
-											Height="25"
 											Width="25"
+											Height="25"
 											Margin="0"
 											Command="{Binding Remove}"
 											Content="{x:Static res:MainRes.RemoveAudioTrackToolTip}"

@@ -120,7 +120,7 @@ namespace VidCoder.View
 				};
 
 				debugDropDown.Items.Add(queueFromJsonItem);
-				this.otherRibbonGroupBox.Items.Add(debugDropDown);
+				this.toolsRibbonGroupBox.Items.Add(debugDropDown);
 			}
 
 			this.DataContextChanged += this.OnDataContextChanged;
