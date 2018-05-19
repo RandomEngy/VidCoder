@@ -265,7 +265,6 @@
 				To="0"
 				Duration="0:0:4" />
 		</Storyboard>
-		<local:RestoreWindowCommand x:Key="RestoreWindowCommand" />
 	</Window.Resources>
 	<Window.TaskbarItemInfo>
 		<TaskbarItemInfo ProgressState="{Binding TaskBarProgressTracker.ProgressState}" ProgressValue="{Binding TaskBarProgressTracker.ProgressFraction}" />
@@ -314,14 +313,6 @@
 			<!--  Encode progress  -->
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<tb:TaskbarIcon
-			Name="trayIcon"
-			DoubleClickCommand="{StaticResource RestoreWindowCommand}"
-			IconSource="/VidCoder_icon.ico"
-			LeftClickCommand="{StaticResource RestoreWindowCommand}"
-			ToolTipText="{Binding TrayIconToolTip}"
-			Visibility="{Binding ShowTrayIcon,
-			                     Converter={StaticResource VisibilityConverter}}" />
 
 		<!--  Ribbon  -->
 		<fluent:Ribbon

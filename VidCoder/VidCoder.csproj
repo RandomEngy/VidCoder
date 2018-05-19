@@ -89,7 +89,6 @@
     <PackageReference Include="Fluent.Ribbon">
       <Version>6.1.0.233</Version>
     </PackageReference>
-    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="reactiveui" Version="6.5.0" />
     <PackageReference Include="reactiveui-core" Version="6.5.0" />
@@ -620,7 +619,6 @@
     <Compile Include="View\Preview\PreviewPlaybackControls.xaml.cs">
       <DependentUpon>PreviewPlaybackControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\RestoreWindowCommand.cs" />
     <Compile Include="Utilities\SourceHistory.cs" />
     <Compile Include="Utilities\SystemSleepManagement.cs" />
     <Compile Include="Utilities\UIUtilities.cs" />

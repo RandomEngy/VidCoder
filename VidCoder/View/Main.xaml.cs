@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Resources;
@@ -12,13 +14,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+using System.Windows.Resources;
 using Fluent;
 using HandBrake.ApplicationServices.Interop.Json.Encode;
-using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using ReactiveUI;
@@ -31,14 +33,22 @@ using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using VidCoderCommon;
 using VidCoderCommon.Model;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using ListViewItem = System.Windows.Controls.ListViewItem;
 using MenuItem = System.Windows.Controls.MenuItem;
+using MessageBox = System.Windows.MessageBox;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Path = System.IO.Path;
+using Point = System.Windows.Point;
+using Rectangle = System.Windows.Shapes.Rectangle;
 
 namespace VidCoder.View
 {
 	public partial class Main : Window, IMainView
 	{
 		private const string DiscMenuItemTag = "disc";
+
+		private readonly NotifyIcon notifyIcon;
 
 		private MainViewModel viewModel;
 		private ProcessingService processingService = Ioc.Get<ProcessingService>();
@@ -55,6 +65,20 @@ namespace VidCoder.View
 		{
 			Ioc.Container.RegisterInstance(typeof(Main), this, new ContainerControlledLifetimeManager());
 			this.InitializeComponent();
+
+			this.notifyIcon = new NotifyIcon
+			{
+				Visible = false
+			};
+			this.notifyIcon.Click += (sender, args) => { this.RestoreWindow(); };
+			this.notifyIcon.DoubleClick += (sender, args) => { this.RestoreWindow(); };
+
+			StreamResourceInfo streamResourceInfo = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,,/VidCoder_icon.ico"));
+			if (streamResourceInfo != null)
+			{
+				Stream iconStream = streamResourceInfo.Stream;
+				this.notifyIcon.Icon = new Icon(iconStream);
+			}
 
 			this.RefreshQueueColumns();
 			this.LoadCompletedColumnWidths();
@@ -142,13 +166,19 @@ namespace VidCoder.View
 			};
 		}
 
+		private void RestoreWindow()
+		{
+			this.Show();
+			this.Dispatcher.BeginInvoke(new Action(() => { this.WindowState = this.RestoredWindowState; }));
+		}
+
 		public WindowState RestoredWindowState { get; set; }
 
 		public void ShowBalloonMessage(string title, string message)
 		{
-			if (this.trayIcon.Visibility == Visibility.Visible)
+			if (this.notifyIcon.Visible)
 			{
-				this.trayIcon.ShowBalloonTip(title, message, BalloonIcon.Info);
+				this.notifyIcon.ShowBalloonTip(5000, title, message, ToolTipIcon.Info);
 			}
 		}
 
@@ -157,6 +187,13 @@ namespace VidCoder.View
 			this.viewModel = (MainViewModel)this.DataContext;
 			this.viewModel.View = this;
 			this.RefreshDiscMenuItems();
+
+			this.notifyIcon.Text = this.viewModel.TrayIconToolTip;
+			this.viewModel.WhenAnyValue(x => x.ShowTrayIcon).Subscribe(showTrayIcon =>
+			{
+				this.notifyIcon.Visible = showTrayIcon;
+			});
+
 			this.processingService.PropertyChanged += (sender2, e2) =>
 			    {
 					if (e2.PropertyName == nameof(this.processingService.CompletedItemsCount))
