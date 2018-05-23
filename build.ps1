@@ -179,6 +179,7 @@ $outputDirectoryFiles = @(
     "Microsoft.Practices.ServiceLocation.dll",
     "Newtonsoft.Json.dll",
     "Microsoft.Practices.Unity.dll",
+    "Microsoft.Toolkit.Uwp.Notifications.dll",
     "ReactiveUI.dll",
     "Splat.dll",
     "DesktopBridge.Helpers.dll",

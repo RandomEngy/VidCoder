@@ -10,6 +10,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Resources;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -29,6 +30,7 @@ using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoder.Services.Notifications;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using VidCoderCommon;
@@ -54,6 +56,7 @@ namespace VidCoder.View
 		private ProcessingService processingService = Ioc.Get<ProcessingService>();
 		private OutputPathService outputVM = Ioc.Get<OutputPathService>();
 		private StatusService statusService = Ioc.Get<StatusService>();
+		private IToastNotificationService toastNotificationService = Ioc.Get<IToastNotificationService>();
 
 		private bool tabsVisible = false;
 
@@ -65,6 +68,16 @@ namespace VidCoder.View
 		{
 			Ioc.Container.RegisterInstance(typeof(Main), this, new ContainerControlledLifetimeManager());
 			this.InitializeComponent();
+
+			this.Activated += (sender, args) =>
+			{
+				DispatchUtilities.BeginInvoke(async () =>
+				{
+					// Need to yield here for some reason, otherwise the activation is blocked.
+					await Task.Yield();
+					this.toastNotificationService.Clear();
+				});
+			};
 
 			this.notifyIcon = new NotifyIcon
 			{
@@ -166,10 +179,13 @@ namespace VidCoder.View
 			};
 		}
 
-		private void RestoreWindow()
+		public void RestoreWindow()
 		{
-			this.Show();
-			this.Dispatcher.BeginInvoke(new Action(() => { this.WindowState = this.RestoredWindowState; }));
+			DispatchUtilities.BeginInvoke(() =>
+			{
+				this.Show();
+				this.WindowState = this.RestoredWindowState;
+			});
 		}
 
 		public WindowState RestoredWindowState { get; set; }

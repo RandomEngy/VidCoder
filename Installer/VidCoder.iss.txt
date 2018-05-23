@@ -5,7 +5,7 @@ AppName=%appName%
 AppVerName=%appVerName%
 AppVersion=%version%
 AppPublisher=RandomEngy
-AppPublisherURL=http://vidcoder.codeplex.com/
+AppPublisherURL=http://vidcoder.net/
 
 DefaultDirName={pf}\%folderName%
 DisableProgramGroupPage=yes
@@ -60,7 +60,7 @@ Root: HKCR; Subkey: "VidCoderQueue\shell\open\command"; ValueType: string; Value
 WelcomeLabel2=This will install [name/ver] on your computer.
 
 [Icons]
-Name: "{commonprograms}\%appName%"; Filename: "{app}\VidCoder.exe"; WorkingDir: "{app}"
+Name: "{commonprograms}\%appName%"; Filename: "{app}\VidCoder.exe"; WorkingDir: "{app}"; AppUserModelID: "VidCoder.VidCoder"
 
 [Run]
 Filename: "{app}\VidCoder.exe"; Description: "Run VidCoder"; Flags: postinstall nowait skipifsilent

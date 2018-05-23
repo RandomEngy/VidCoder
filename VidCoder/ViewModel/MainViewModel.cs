@@ -8,18 +8,18 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Xml.Serialization;
 using HandBrake.ApplicationServices.Interop;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using Microsoft.Practices.Unity;
-using Newtonsoft.Json;
 using ReactiveUI;
 using VidCoder.Automation;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
+using VidCoder.Services.Notifications;
 using VidCoder.Services.Windows;
 using VidCoderCommon;
 using VidCoderCommon.Extensions;
@@ -793,6 +793,8 @@ namespace VidCoder.ViewModel
 			{
 				AutomationHost.StopListening();
 			}
+
+			Ioc.Get<IToastNotificationService>().Clear();
 
 			this.updater.PromptToApplyUpdate();
 

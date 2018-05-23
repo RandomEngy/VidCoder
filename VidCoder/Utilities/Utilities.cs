@@ -9,12 +9,15 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows;
+using System.Windows.Interop;
+using Windows.Foundation.Metadata;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
 using VidCoder.Services;
 using VidCoder.Services.HandBrakeProxy;
+using VidCoder.View;
 using VidCoderCommon;
 using VidCoderCommon.Extensions;
 using VidCoderCommon.Model;
@@ -80,31 +83,60 @@ namespace VidCoder
 			{
 				if (CommonUtilities.Beta)
 				{
-					return string.Format(MiscRes.BetaVersionFormat, CurrentVersion.ToShortString(), Architecture);
+					return string.Format(MiscRes.BetaVersionFormat, CurrentVersion.ToShortString());
 				}
 				else
 				{
-					return string.Format(MiscRes.VersionFormat, CurrentVersion.ToShortString(), Architecture);
+					return CurrentVersion.ToShortString();
 				}
-			}
-		}
-
-		public static string Architecture
-		{
-			get
-			{
-				if (IntPtr.Size == 4)
-				{
-					return "x86";
-				}
-
-				return "x64";
 			}
 		}
 
 		public static bool IsPortable { get; }
 
 		public static bool IsRunningAsAppx { get; }
+
+		public static bool UwpApisAvailable
+		{
+			get
+			{
+				try
+				{
+					return IsApiContractPresent();
+				}
+				catch (Exception)
+				{
+					// The method call will throw if ApiInformation type is not found, which means we are not on Windows 10.
+					return false;
+				}
+			}
+		}
+
+		private static bool IsApiContractPresent()
+		{
+			return ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 1, 0);
+		}
+
+		[System.Runtime.InteropServices.DllImport("user32.dll")]
+		private static extern IntPtr GetForegroundWindow();
+
+		public static bool IsInForeground
+		{
+			get
+			{
+				IntPtr foregroundWindow = GetForegroundWindow();
+
+				foreach (var window in Application.Current.Windows.OfType<Window>())
+				{
+					if (foregroundWindow == new WindowInteropHelper(window).Handle)
+					{
+						return true;
+					}
+				}
+
+				return false;
+			}
+		}
 
 		public static string PackageFamilyName
 		{

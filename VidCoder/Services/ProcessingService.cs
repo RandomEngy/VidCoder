@@ -14,10 +14,12 @@ using System.Windows.Media;
 using System.Windows.Shell;
 using HandBrake.ApplicationServices.Interop.EventArgs;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
+using Microsoft.Toolkit.Uwp.Notifications;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
 using VidCoder.Resources;
+using VidCoder.Services.Notifications;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using VidCoder.ViewModel.DataModels;
@@ -46,6 +48,7 @@ namespace VidCoder.Services
 		private PresetsService presetsService = Ioc.Get<PresetsService>();
 		private PickersService pickersService = Ioc.Get<PickersService>();
 		private IWindowManager windowManager = Ioc.Get<IWindowManager>();
+		private IToastNotificationService toastNotificationService = Ioc.Get<IToastNotificationService>();
 
 		private ReactiveList<EncodeJobViewModel> encodeQueue;
 		private bool encoding;
@@ -1586,7 +1589,33 @@ namespace VidCoder.Services
 						this.logger.ShowStatus(MainRes.EncodeCompleted);
 						this.logger.Log("");
 
-						Ioc.Get<TrayService>().ShowBalloonMessage(MainRes.EncodeCompleteBalloonTitle, MainRes.EncodeCompleteBalloonMessage);
+						if (!Utilities.IsInForeground)
+						{
+							Ioc.Get<TrayService>().ShowBalloonMessage(MainRes.EncodeCompleteBalloonTitle, MainRes.EncodeCompleteBalloonMessage);
+							ToastContent toastContent = new ToastContent
+							{
+								Visual = new ToastVisual
+								{
+									BindingGeneric = new ToastBindingGeneric
+									{
+										Children =
+										{
+											new AdaptiveText
+											{
+												Text = MainRes.EncodeCompleteBalloonTitle
+											},
+											new AdaptiveText
+											{
+												Text = MainRes.EncodeCompleteBalloonMessage
+											}
+										}
+									}
+								}
+							};
+
+							this.toastNotificationService.Clear();
+							this.toastNotificationService.ShowToast(toastContent);
+						}
 
 						EncodeCompleteActionType actionType = this.EncodeCompleteAction.ActionType;
 						if (Config.PlaySoundOnCompletion &&

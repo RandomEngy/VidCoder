@@ -15,6 +15,8 @@ using VidCoder.ViewModel;
 using System.IO.Pipes;
 using System.IO;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
+using VidCoder.Services.Notifications;
 using VidCoder.View;
 using VidCoderCommon;
 using VidCoderCommon.Utilities;
@@ -49,10 +51,14 @@ namespace VidCoder
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
+			if (e.Args.Contains("-ToastActivated"))
+			{
+				return;
+			}
+
 #if !DEBUG
 			this.DispatcherUnhandledException += this.OnDispatcherUnhandledException;
 #endif
-			base.OnStartup(e);
 
 			OperatingSystem OS = Environment.OSVersion;
 			if (OS.Version.Major <= 5)
@@ -126,6 +132,8 @@ namespace VidCoder
 			{
 				AutomationHost.StartListening();
 			}
+
+			base.OnStartup(e);
 		}
 
 		protected override void OnExit(ExitEventArgs e)

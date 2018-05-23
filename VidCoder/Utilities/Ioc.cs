@@ -2,6 +2,7 @@
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using VidCoder.Services;
+using VidCoder.Services.Notifications;
 using VidCoder.Services.Windows;
 using VidCoder.ViewModel;
 using VidCoderCommon.Services;
@@ -14,6 +15,16 @@ namespace VidCoder
 		{
 			Container = new UnityContainer();
 			Container.RegisterType<IDriveService, DriveService>(Singleton);
+
+			if (Utilities.IsRunningAsAppx)
+			{
+				Container.RegisterType<IToastNotificationService, ToastNotificationService>(Singleton);
+			}
+			else
+			{
+				Container.RegisterType<IToastNotificationService, StubToastNotificationService>(Singleton);
+			}
+
 			Container.RegisterType<IUpdater, Updater>(Singleton);
 			Container.RegisterType<IMessageBoxService, MessageBoxService>(Singleton);
 			Container.RegisterType<AppLogger>(Singleton, new InjectionFactory(c => new AppLogger()));
