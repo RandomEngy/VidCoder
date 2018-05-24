@@ -10,6 +10,11 @@ namespace VidCoderCommon.Utilities
 	{
 		public static int Gcd(int a, int b)
 		{
+			if (a < 0 || b < 0)
+			{
+				return 1;
+			}
+
 			while (a != 0 && b != 0)
 			{
 				if (a > b)
