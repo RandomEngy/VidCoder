@@ -523,6 +523,7 @@
     <Compile Include="Services\PreviewUpdateService.cs" />
     <Compile Include="Services\StatusService.cs" />
     <Compile Include="Services\StubLogger.cs" />
+    <Compile Include="Services\SubtitlesService.cs" />
     <Compile Include="Services\Windows\IClosableWindow.cs" />
     <Compile Include="Services\Interfaces\IAppLogger.cs" />
     <Compile Include="Services\Interfaces\IPresetImportExport.cs" />

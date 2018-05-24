@@ -43,6 +43,7 @@ namespace VidCoder
 			Container.RegisterType<PresetsService>(Singleton);
 			Container.RegisterType<PickersService>(Singleton);
 			Container.RegisterType<ProcessingService>(Singleton);
+			Container.RegisterType<SubtitlesService>(Singleton);
 			Container.RegisterType<EncodingWindowViewModel>(Singleton);
 			Container.RegisterType<StatusService>(Singleton);
 			Container.RegisterType<PreviewUpdateService>(Singleton);

@@ -70,6 +70,15 @@ namespace VidCoder.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Successfully added subtitle from file {0}.
+        /// </summary>
+        public static string AddedSubtitleFromFile {
+            get {
+                return ResourceManager.GetString("AddedSubtitleFromFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Multiple Titles to Queue....
         /// </summary>
         public static string AddMultipleTitlesToQueueLabel {

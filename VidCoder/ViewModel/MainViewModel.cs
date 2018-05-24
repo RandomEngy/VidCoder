@@ -537,6 +537,22 @@ namespace VidCoder.ViewModel
 								Ioc.Get<IMessageBoxService>().Show(MainRes.PresetImportErrorMessage, MainRes.ImportErrorTitle, System.Windows.MessageBoxButton.OK);
 							}
 						}
+						else if (extension == ".srt")
+						{
+							if (this.HasVideoSource)
+							{
+								SrtSubtitle subtitle = Ioc.Get<SubtitlesService>().LoadSrtSubtitle(item);
+
+								if (subtitle != null)
+								{
+									this.CurrentSubtitles.SrtSubtitles.Add(subtitle);
+									Ioc.Get<IMessageBoxService>().Show(this, string.Format(MainRes.AddedSubtitleFromFile, item));
+
+									// Hack to get subtitles re-evaluated. Remove after moving subtitle picker to accordion control
+									this.CurrentSubtitles = new VCSubtitles {SourceSubtitles = this.CurrentSubtitles.SourceSubtitles, SrtSubtitles = this.CurrentSubtitles.SrtSubtitles};
+								}
+							}
+						}
 						else if (Utilities.IsDiscFolder(item))
 						{
 							// It's a disc folder or disc
