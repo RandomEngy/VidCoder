@@ -83,7 +83,7 @@ namespace VidCoder
 			{
 				if (CommonUtilities.Beta)
 				{
-					return string.Format(MiscRes.BetaVersionFormat, CurrentVersion.ToShortString());
+					return string.Format(MiscRes.BetaVersionFormat2, CurrentVersion.ToShortString());
 				}
 				else
 				{

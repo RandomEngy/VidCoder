@@ -186,7 +186,7 @@
   <data name="Copyright" xml:space="preserve">
     <value>© {0} VidCoder Developers</value>
   </data>
-  <data name="BetaVersionFormat" xml:space="preserve">
+  <data name="BetaVersionFormat2" xml:space="preserve">
     <value>{0} Beta</value>
     <comment>{0} is a placeholder for version. For example: 1.4.2 Beta</comment>
   </data>

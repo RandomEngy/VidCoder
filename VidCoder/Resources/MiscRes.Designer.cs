@@ -126,9 +126,9 @@ namespace VidCoder.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {0} Beta.
         /// </summary>
-        public static string BetaVersionFormat {
+        public static string BetaVersionFormat2 {
             get {
-                return ResourceManager.GetString("BetaVersionFormat", resourceCulture);
+                return ResourceManager.GetString("BetaVersionFormat2", resourceCulture);
             }
         }
         
