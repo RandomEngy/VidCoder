@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Notifications;
-using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace VidCoder.Services.Notifications
 {
 	public class StubToastNotificationService : IToastNotificationService
 	{
-		public void ShowToast(ToastContent toastContent)
+		public bool ToastEnabled => false;
+
+		public void ShowToast(string toastContent)
 		{
 		}
 

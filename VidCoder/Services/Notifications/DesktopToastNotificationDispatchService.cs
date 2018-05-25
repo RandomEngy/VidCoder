@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Notifications;
-using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace VidCoder.Services.Notifications
 {

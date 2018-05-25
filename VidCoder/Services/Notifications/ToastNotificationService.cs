@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
-using Microsoft.Toolkit.Uwp.Notifications;
 using VidCoderCommon;
 
 namespace VidCoder.Services.Notifications
@@ -61,14 +60,16 @@ namespace VidCoder.Services.Notifications
 				RegistrationConnectionType.MultipleUse);
 		}
 
+		public bool ToastEnabled => true;
+
 		/// <summary>
 		/// Shows the given toast content.
 		/// </summary>
-		public void ShowToast(ToastContent toastContent)
+		public void ShowToast(string toastContent)
 		{
 			// Create the XML document
 			var doc = new XmlDocument();
-			doc.LoadXml(toastContent.GetContent());
+			doc.LoadXml(toastContent);
 
 			// And create the toast notification
 			var toast = new ToastNotification(doc);

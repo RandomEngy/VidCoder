@@ -1,15 +1,19 @@
 using System.Collections.Generic;
 using Windows.UI.Notifications;
-using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace VidCoder.Services.Notifications
 {
 	public interface IToastNotificationService
 	{
 		/// <summary>
+		/// True if toasts can be shown.
+		/// </summary>
+		bool ToastEnabled { get; }
+
+		/// <summary>
 		/// Shows the given toast content.
 		/// </summary>
-		void ShowToast(ToastContent toastContent);
+		void ShowToast(string toastContent);
 
 		/// <summary>
 		/// Removes all notifications sent by this app from action center.

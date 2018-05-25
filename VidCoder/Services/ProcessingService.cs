@@ -8,13 +8,13 @@ using System.IO;
 using System.Linq;
 using System.Media;
 using System.Reactive.Linq;
+using System.Security;
 using System.Threading;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shell;
 using HandBrake.ApplicationServices.Interop.EventArgs;
 using HandBrake.ApplicationServices.Interop.Json.Scan;
-using Microsoft.Toolkit.Uwp.Notifications;
 using ReactiveUI;
 using VidCoder.Extensions;
 using VidCoder.Model;
@@ -1592,29 +1592,16 @@ namespace VidCoder.Services
 						if (!Utilities.IsInForeground)
 						{
 							Ioc.Get<TrayService>().ShowBalloonMessage(MainRes.EncodeCompleteBalloonTitle, MainRes.EncodeCompleteBalloonMessage);
-							ToastContent toastContent = new ToastContent
+							if (this.toastNotificationService.ToastEnabled)
 							{
-								Visual = new ToastVisual
-								{
-									BindingGeneric = new ToastBindingGeneric
-									{
-										Children =
-										{
-											new AdaptiveText
-											{
-												Text = MainRes.EncodeCompleteBalloonTitle
-											},
-											new AdaptiveText
-											{
-												Text = MainRes.EncodeCompleteBalloonMessage
-											}
-										}
-									}
-								}
-							};
+								const string toastFormat =
+									"<?xml version=\"1.0\" encoding=\"utf-8\"?><toast><visual><binding template=\"ToastGeneric\"><text>{0}</text><text>{1}</text></binding></visual></toast>";
 
-							this.toastNotificationService.Clear();
-							this.toastNotificationService.ShowToast(toastContent);
+								string toastString = string.Format(toastFormat, SecurityElement.Escape(MainRes.EncodeCompleteBalloonTitle), SecurityElement.Escape(MainRes.EncodeCompleteBalloonMessage));
+
+								this.toastNotificationService.Clear();
+								this.toastNotificationService.ShowToast(toastString);
+							}
 						}
 
 						EncodeCompleteActionType actionType = this.EncodeCompleteAction.ActionType;
