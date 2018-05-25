@@ -520,14 +520,14 @@
 								Grid.Column="1"
 								Width="16"
 								Height="16"
-								Margin="3.5 1 0 0"
+								Margin="3.5 2 0 0"
 								VerticalAlignment="Center"
 								Source="{Binding SourceIcon}"
 								Visibility="{Binding SourceIconVisible,
 								                     Converter={StaticResource VisibilityConverter}}" />
 							<controls:PathTextBlock
 								Grid.Column="2"
-								Margin="4 4 4 3"
+								Margin="4 5 4 3"
 								VerticalAlignment="Center"
 								Style="{StaticResource SourceDescription}"
 								Text="{Binding SourceText,
